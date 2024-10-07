@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAFEE99255B
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 09:04:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.811656.1224339 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E109925FB
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 09:22:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.811663.1224349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxhmA-0003Zl-Jc; Mon, 07 Oct 2024 07:03:26 +0000
+	id 1sxi42-0007rO-2q; Mon, 07 Oct 2024 07:21:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 811656.1224339; Mon, 07 Oct 2024 07:03:26 +0000
+Received: by outflank-mailman (output) from mailman id 811663.1224349; Mon, 07 Oct 2024 07:21:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxhmA-0003XO-GO; Mon, 07 Oct 2024 07:03:26 +0000
-Received: by outflank-mailman (input) for mailman id 811656;
- Mon, 07 Oct 2024 07:03:25 +0000
+	id 1sxi41-0007of-W0; Mon, 07 Oct 2024 07:21:53 +0000
+Received: by outflank-mailman (input) for mailman id 811663;
+ Mon, 07 Oct 2024 07:21:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mBo3=RD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sxhm9-0003XI-J2
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 07:03:25 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1sxi40-0007oZ-OY
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 07:21:52 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e10b45a-847a-11ef-a0bb-8be0dac302b0;
- Mon, 07 Oct 2024 09:03:23 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a9957588566so73924266b.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 00:03:23 -0700 (PDT)
+ id d27360ab-847c-11ef-a0bb-8be0dac302b0;
+ Mon, 07 Oct 2024 09:21:51 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a99388e3009so227587966b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 00:21:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a992e5bbda0sm341411866b.27.2024.10.07.00.03.22
+ a640c23a62f3a-a994ede6181sm154866566b.147.2024.10.07.00.21.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Oct 2024 00:03:22 -0700 (PDT)
+ Mon, 07 Oct 2024 00:21:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e10b45a-847a-11ef-a0bb-8be0dac302b0
+X-Inumbo-ID: d27360ab-847c-11ef-a0bb-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728284603; x=1728889403; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728285711; x=1728890511; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EbrTWmQGNrVuRTm0iS5Kxl5J0pmLTTgfvczD5zPth3A=;
-        b=PPGuaroY0Pcull3m6fhU9Fg/DR4lLkr4v/4zG8ktag+a4UHRgXVeEKT+FhUpa8IhqF
-         FzbuVAVj+tVgUQaMXmZXRUVdQx/gy8jgkikAS0zPbTGorG9jPkIDkd9CQTFfYg2Q/pJp
-         non+8Df0ljnLZiK9DEGB2pnzaZA5cHWhUyfm2tVul7jO16fjZp52B73uwi9YFeDhGlls
-         loLJqJnmwVqnnoNPkds4vH9PtvOGtV5Lp/98SsnbiDm21QzLjczgIjwvLouNgLv2R/CR
-         PKw26SfDsZHGhZwLKmM+ao101HLENUXyRVoI5nxlUpURooPeYlUTERxzYwETbC9NIaxg
-         xi2w==
+        bh=fqmetPXZ2QZ9p6bROm9aPqZWvjS4bFoBafKVfkVBfjA=;
+        b=JS+tCwmSUMN81dzHvVHukPSHOSit0Aa37pAZc19sgi0CvsQfisCSYk+ESJY5AhhUG1
+         Z3yjrXzrh8q+aM4+nfRnfvCMSTu7KoGL9pSUjXwtQirGKcYY9l2vFD9D+512WVLUm/32
+         0T55sZq4U8Pi3GCqx+IAiMqK3kueJOAg1kTjyfoYYCrpt6S2F55QA+d8cktVsfmJkvAe
+         f2Tvimdt01AABUAyzH5Pq1eDE2WA2V5c4/3oSjX1jD14hGouBkWSG1SOtrP/VF3iSg6e
+         b3TlT6AMrGNtND3/YaFKkN/WihSkNl9MOUCchy1i6+8m5/Y0gKgJlpRy5wJwFmOGEIt4
+         RLVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728284603; x=1728889403;
+        d=1e100.net; s=20230601; t=1728285711; x=1728890511;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EbrTWmQGNrVuRTm0iS5Kxl5J0pmLTTgfvczD5zPth3A=;
-        b=Uv8d9MCloPawaAbPUDXViebYbafChhc7fkXjw56tlnObz2f+BaEFiJ6eS9hOSW12ew
-         Cu3ChMGch3MA5PsuO0A2GIm/RAxaF51FuYWFmwxkzcOttHzAY4X5oUqj8a7nQ7Qy/UT8
-         2BsBzEfACoOu5DxsypbkYvK53X2fkJYBidAabsOSgHGK/35gJUBV+/dV+N6flXdA1z/X
-         4k83wSXIi+zlWq7jjJFPAWrRUmKrrMrQxe+pztLztXa19dV+jPP5R/0kcxCkmkQuy8C6
-         XYjjaQwAwUPglIdkmEiVAmXW/eIUdx0zDt/76nFFFdQim4W9eNemL9YVX82TlGEbFylH
-         9ajw==
-X-Forwarded-Encrypted: i=1; AJvYcCUgYTYibh3asKVpz6kVGMSbU2DNNJh2NE3AVCn09+s/eXab/+IPNQ8mOf3qG1YhPhes4UZZuhp8BpY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwDAdPFELUD+UACRrtdfVgUiSNuOM/e4tRyTyf8OHr21RR/aY5C
-	d+LOPEStVlTa5nnfTjtt2iMbtGke8r7acSJhdRmCvq/Rys3wOJZv9gHNGlVnEg==
-X-Google-Smtp-Source: AGHT+IHaLJADnJCa9h7F5hjdgGyuMNn2fNLZtpz4IF4FfvMRjb0vcuKOLgY4cBXdsHLxuQI56mjMXQ==
-X-Received: by 2002:a17:907:2d8a:b0:a99:53f5:3f33 with SMTP id a640c23a62f3a-a9953f5429cmr300316666b.33.1728284602909;
-        Mon, 07 Oct 2024 00:03:22 -0700 (PDT)
-Message-ID: <0bfcd06d-cc3a-4048-bab4-0d5cd794fa1a@suse.com>
-Date: Mon, 7 Oct 2024 09:03:23 +0200
+        bh=fqmetPXZ2QZ9p6bROm9aPqZWvjS4bFoBafKVfkVBfjA=;
+        b=nHq7nZiiJTzuHpCoTqLOjAdhSjQ4u6JjArst274YypJbWY36ToRql08LeLdBHzjc8N
+         MNxc3rqnGa8kLFUrtG5WHw+Ct9Y7jo7QKcH6u7UFBGsrDisu98iSd9fvvrXIi6QBFF+v
+         6TOKlVCept3hZ0HtvywDV3XP+DMjBeqyrR4j42skeeZFJjtI1hkLBrpsKtPMVrIeoGWJ
+         /kaVv2B5dkgGwtJfiqppWf+VVp7myOoGcctGBgVG3XD13vUgmODYB4N9BNP0lY8fXRVI
+         TK6QnU6JI0ZNdKd3fuYDFSR5TaPyEiW7O3asLIsndw3FJAIifzzRYBjZPn8i1Qb1bmIT
+         ODOQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVOxWu8bOiGEUDRCJ+g2rGBxb/qPaHEYTmf73m2Bkzb2fWhLaoZ3cGxaOm5chsEyMyacpnCXj8IE6M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1mk/JGCzjrg/ygWVCZqLZchRSBNsUSlSvr051hAJFOPZ3N1LZ
+	kNsHyBgAxUWWkQtGRD9ZhP4kQqZ4SC+8bmF+c6469BlwbVX10gOw8p7uXkHZ4tZT8fDrya+rN0Q
+	=
+X-Google-Smtp-Source: AGHT+IF/JGxnXw6HxO7rE1qL/YIQIV7biOwjaFZZOuTdfCVrgaS/+1+Rkb/zQBbHaEOzcaDF6/Fvrw==
+X-Received: by 2002:a17:907:3605:b0:a93:a664:a257 with SMTP id a640c23a62f3a-a991c022d3fmr1031188966b.61.1728285710798;
+        Mon, 07 Oct 2024 00:21:50 -0700 (PDT)
+Message-ID: <5d85907a-3c37-40ad-b1b6-833a01400423@suse.com>
+Date: Mon, 7 Oct 2024 09:21:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/boot: Reuse code to relocate trampoline
+Subject: Re: [PATCH] x86/boot: Further simplify CR4 handling in
+ dom0_construct_pv()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>, xen-devel@lists.xenproject.org
-References: <20241005080233.1248850-1-frediano.ziglio@cloud.com>
- <20241005080233.1248850-3-frediano.ziglio@cloud.com>
- <e7e5200e-4577-4f67-bb3e-6f71086fc663@citrix.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241002232008.1988682-1-andrew.cooper3@citrix.com>
+ <7dbd7fae-e2e8-4508-a012-cf9b719c68f1@suse.com>
+ <5357e6f1-6f3e-4ed4-85f9-828ffb0272e4@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,44 +115,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e7e5200e-4577-4f67-bb3e-6f71086fc663@citrix.com>
+In-Reply-To: <5357e6f1-6f3e-4ed4-85f9-828ffb0272e4@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.10.2024 15:21, Andrew Cooper wrote:
-> On 05/10/2024 9:02 am, Frediano Ziglio wrote:
->> --- a/xen/arch/x86/boot/Makefile
->> +++ b/xen/arch/x86/boot/Makefile
->> @@ -1,6 +1,6 @@
->> -obj-bin-y += head.o cbundle.o
->> +obj-bin-y += head.o cbundle.o reloc-trampoline.x64.o
+On 04.10.2024 20:49, Andrew Cooper wrote:
+> On 04/10/2024 7:52 am, Jan Beulich wrote:
+>> On 03.10.2024 01:20, Andrew Cooper wrote:
+>>> The logic would be more robust disabling SMAP based on its precense in CR4,
+>>> rather than SMAP's accociation with a synthetic feature.
+>> It's hard to tell what's more robust without knowing what future changes
+>> there might be. In particular ...
+>>
+>>> @@ -1064,19 +1065,19 @@ int __init dom0_construct_pv(struct domain *d,
+>>>       * prevents us needing to write construct_dom0() in terms of
+>>>       * copy_{to,from}_user().
+>>>       */
+>>> -    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+>>> +    if ( cr4 & X86_CR4_SMAP )
+>> ... with this adjustment ...
+>>
+>>>      {
+>>>          if ( IS_ENABLED(CONFIG_PV32) )
+>>>              cr4_pv32_mask &= ~X86_CR4_SMAP;
+>> ... this update of a global no longer occurs. Playing games with CR4
+>> elsewhere might run into issues with this lack of updating.
 > 
-> Ah.  I think the $(obj)/%.x64.o rule you had in the previous patch wants
-> introducing here.
+> We don't know the future, but I'm confused by your reasoning here. 
+> Right now there's an expectation/assumption that FEAT_XEN_SMAP == CR4.SMAP.
 > 
-> That said, x64 is the one name for 64bit that we reliably don't use. 
-> Also...
-> 
->> -head-bin-objs := cmdline.o reloc.o
->> +head-bin-objs := cmdline.o reloc.o reloc-trampoline.o
-> 
-> ... head-bin-objs isn't really correct now seeing as they're not
-> binaries in head.S.  Also ...
-> 
->>  nocov-y   += $(head-bin-objs)
->>  noubsan-y += $(head-bin-objs)
-> 
-> The no$(foo)'s needs extending to the 64bit objects too.  They're also
-> used early enough to explode.
-> 
-> In Xen, 64bit objects are the norm, and it's 32bit ones which are the
-> exception, so how about we special case *.i386.o instead.  Then
-> 
-> obj32 := cmdline.i386.o
-> obj32 += reloc.i386.o
-> obj32 += reloc-trampoline.i386.o
+> In fact, the logic in staging right now is wonky if FEAT_XEN_SMAP=1 but
+> CR4.SMAP=1.  In this case, we'll do nothing on the way in, and then
+> activate SMAP on the way out.
 
-I'd like to advocate for ix86 or i686. i386 gives a wrong impression imo.
+I assume you meant "but CR4.SMAP=0". In that case yes, the logic here would
+(kind of as a side effect) correct the wrong combination of state.
+
+> construct_dom0() will definitely crash if SMAP is active.  So looking at
+> CR4 is strictly better than accidentally falling into a FEAT_XEN_SMAP=0
+> but CR4.SMAP=1 case.
+
+It's better when taking one possible perspective, yes. Otoh CR4.SMAP=1 when
+FEAT_XEN_SMAP=0 is a bug, and hence deserves being noticed (if nothing
+else then by Xen crashing).
+
+> Needing to play with the global cr4_pv32_mask is a consequence of
+> choosing to disabling SMAP, rather than using STAC and/or rewriting
+> using copy_*_user().  If you want to avoid playing with cr4_pv32_mask,
+> we'll need to revisit this decision.
+> 
+> While the APs are active/working at this point in boot, they're not
+> running guests (32bit PV or otherwise), so alterations to cr4_pv32_mask
+> don't really matter.
+
+I didn't really think of APs, but of the BSP itself.
 
 Jan
 
