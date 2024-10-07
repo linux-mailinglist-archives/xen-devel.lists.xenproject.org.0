@@ -2,34 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70043993982
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 23:45:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812525.1225314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C005C99398E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 23:51:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812533.1225323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxvXa-0002Vb-OS; Mon, 07 Oct 2024 21:45:18 +0000
+	id 1sxvd3-0001Cp-BQ; Mon, 07 Oct 2024 21:50:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812525.1225314; Mon, 07 Oct 2024 21:45:18 +0000
+Received: by outflank-mailman (output) from mailman id 812533.1225323; Mon, 07 Oct 2024 21:50:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxvXa-0002U4-Ld; Mon, 07 Oct 2024 21:45:18 +0000
-Received: by outflank-mailman (input) for mailman id 812525;
- Mon, 07 Oct 2024 21:45:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sxvd3-00019v-8Q; Mon, 07 Oct 2024 21:50:57 +0000
+Received: by outflank-mailman (input) for mailman id 812533;
+ Mon, 07 Oct 2024 21:50:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QHG9=RD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sxvXZ-0002T9-0T
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 21:45:17 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6fbb8f03-84f5-11ef-99a2-01e77a169b0f;
- Mon, 07 Oct 2024 23:45:15 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id EFDACA4086D;
- Mon,  7 Oct 2024 21:45:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B1EC4CEC6;
- Mon,  7 Oct 2024 21:45:13 +0000 (UTC)
+ <SRS0=4SUe=RD=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1sxvd1-00019p-4g
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 21:50:55 +0000
+Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3986e886-84f6-11ef-a0bb-8be0dac302b0;
+ Mon, 07 Oct 2024 23:50:53 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id 3529DA04EB;
+ Mon,  7 Oct 2024 23:50:53 +0200 (CEST)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id aTi6RukUwb9d; Mon,  7 Oct 2024 23:50:53 +0200 (CEST)
+Received: from begin (aamiens-653-1-40-48.w83-192.abo.wanadoo.fr
+ [83.192.199.48])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id E95A2A04E8;
+ Mon,  7 Oct 2024 23:50:52 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.98)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1sxvcy-0000000A4XW-22Yd; Mon, 07 Oct 2024 23:50:52 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,70 +52,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fbb8f03-84f5-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1728337514;
-	bh=Mh4sT+IaV43reervkTF/KCNaezg5y8WO/3Q6Uoo4PZI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rNyYjOynwcMHFfFkvSy7s5d3XfeMAwSBnYwo47yaioLepDKp1exHfz4kORLM4B19s
-	 hZES1CKspw3LwdhGQuQa7/hu1HiIlkHJ1pmZOInNHGz/sSjGZQ5Rqp8q+7zfqwjsnG
-	 PWhT7Ky8k4ZgQbq1s6f0arAGLjc1pA2U9bfnQIUfyBpmNhf3LGbn0ifvY1W+cZHRiT
-	 1mnuD9jVHGb2lLdzwOeHbfKxd0vp5PXCtEhX0u8N5kzBYbs52lO5i2Q2TvnY3wza2U
-	 k0aO69tnnyokGKlqLG503ogYPDHYY9jncQIQayo46DlOzFi8It6CU+SOWpgaKP3CzL
-	 rvHup6NvLsMfQ==
-Date: Mon, 7 Oct 2024 14:45:11 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v2 4/4] xen/pci: address a violation of MISRA C Rule
- 16.3
-In-Reply-To: <c662cae0f545a4e4e3921ae13bf69dc02884d9ee.1728308312.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2410071445060.3512606@ubuntu-linux-20-04-desktop>
-References: <cover.1728308312.git.federico.serafini@bugseng.com> <c662cae0f545a4e4e3921ae13bf69dc02884d9ee.1728308312.git.federico.serafini@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 3986e886-84f6-11ef-a0bb-8be0dac302b0
+Date: Mon, 7 Oct 2024 23:50:52 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	Quan Xu <quan.xu0@gmail.com>
+Subject: Re: [PATCH 2/4] stubdom: explcitly add libc and lwip Mini-OS config
+ options
+Message-ID: <ZwRXvG4a2Jtgba2s@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	Quan Xu <quan.xu0@gmail.com>
+References: <20241005151548.29184-1-jgross@suse.com>
+ <20241005151548.29184-3-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241005151548.29184-3-jgross@suse.com>
+Organization: I am not organized
 
-On Mon, 7 Oct 2024, Federico Serafini wrote:
-> Refactor the code to avoid an implicit fallthrough and address
-> a violation of MISRA C:2012 Rule 16.3: "An unconditional `break'
-> statement shall terminate every switch-clause".
-> 
-> No functional change.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> diff --git a/stubdom/grub/minios.cfg b/stubdom/grub/minios.cfg
+> index 8df49092cd..5145b357e0 100644
+> --- a/stubdom/grub/minios.cfg
+> +++ b/stubdom/grub/minios.cfg
+> @@ -1,3 +1,4 @@
+> -CONFIG_START_NETWORK=n
+> +CONFIG_LIBC=y
+> +CONFIG_LWIP=n
+>  CONFIG_SPARSE_BSS=n
+>  CONFIG_TPMFRONT=y
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Grub does use LWIP, and just does not want mini-os to start network
+automatically, grub does so by itself from minios_probe.
 
+> diff --git a/stubdom/vtpm/minios.cfg b/stubdom/vtpm/minios.cfg
+> index 31652ee4f2..22f66f1351 100644
+> --- a/stubdom/vtpm/minios.cfg
+> +++ b/stubdom/vtpm/minios.cfg
+> @@ -1,7 +1,8 @@
+> +CONFIG_LIBC=y
+> +CONFIG_LWIP=n
+>  CONFIG_TPMFRONT=y
+>  CONFIG_TPM_TIS=n
+>  CONFIG_TPMBACK=y
+> -CONFIG_START_NETWORK=n
+>  CONFIG_TEST=n
+>  CONFIG_PCIFRONT=n
+>  CONFIG_BLKFRONT=y
+> diff --git a/stubdom/vtpmmgr/minios.cfg b/stubdom/vtpmmgr/minios.cfg
+> index 3fb383d30f..a9f13a2fd2 100644
+> --- a/stubdom/vtpmmgr/minios.cfg
+> +++ b/stubdom/vtpmmgr/minios.cfg
+> @@ -1,7 +1,8 @@
+> +CONFIG_LIBC=y
+> +CONFIG_LWIP=n
+>  CONFIG_TPMFRONT=y
+>  CONFIG_TPM_TIS=y
+>  CONFIG_TPMBACK=y
+> -CONFIG_START_NETWORK=n
+>  CONFIG_TEST=n
+>  CONFIG_PCIFRONT=n
+>  CONFIG_BLKFRONT=y
 
-> ---
-> Changes in v2:
-> - improved description.
-> ---
->  xen/drivers/passthrough/pci.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 5a446d3dce..a5705def3f 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -170,8 +170,10 @@ static int __init cf_check parse_phantom_dev(const char *str)
->      {
->      case 1: case 2: case 4:
->          if ( *s )
-> -    default:
->              return -EINVAL;
-> +        break;
-> +    default:
-> +        return -EINVAL;
->      }
->  
->      phantom_devs[nr_phantom_devs++] = phantom;
-> -- 
-> 2.43.0
-> 
+I guess vtpm indeed don't need lwip.
+
+Samuel
 
