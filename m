@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9FB9992D99
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 15:41:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.811994.1224654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06E7D992E20
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 16:01:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812012.1224664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxnz9-00084O-Nk; Mon, 07 Oct 2024 13:41:15 +0000
+	id 1sxoHT-0003s2-9j; Mon, 07 Oct 2024 14:00:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 811994.1224654; Mon, 07 Oct 2024 13:41:15 +0000
+Received: by outflank-mailman (output) from mailman id 812012.1224664; Mon, 07 Oct 2024 14:00:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxnz9-00082q-JG; Mon, 07 Oct 2024 13:41:15 +0000
-Received: by outflank-mailman (input) for mailman id 811994;
- Mon, 07 Oct 2024 13:41:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sxoHT-0003pn-5r; Mon, 07 Oct 2024 14:00:11 +0000
+Received: by outflank-mailman (input) for mailman id 812012;
+ Mon, 07 Oct 2024 14:00:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sxnz8-00082b-69; Mon, 07 Oct 2024 13:41:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sxnz8-0001Hk-3W; Mon, 07 Oct 2024 13:41:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sxnz7-00070u-Io; Mon, 07 Oct 2024 13:41:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sxnz7-0006Fs-IC; Mon, 07 Oct 2024 13:41:13 +0000
+ (envelope-from <SRS0=mBo3=RD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sxoHR-0003ph-9S
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 14:00:09 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7528be49-84b4-11ef-99a2-01e77a169b0f;
+ Mon, 07 Oct 2024 16:00:06 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a99543ab209so138256966b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 07:00:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a992e5bb23bsm383175466b.34.2024.10.07.07.00.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Oct 2024 07:00:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,321 +45,936 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7Cdej+adiCoj6cMUfxxLDRDaIOlnOphlBAbfU5f4RZg=; b=lpE6zT3bTcdfIgCn0laA0hUyQ5
-	10bPsRNQ6noSxxTeV8vmchdfFkgmA57eAcJGOxvmZ1DARic9RCYtbMgH7tSg7OkZT5xyCISEBJ1nV
-	1rNFPXT2gSMbbbpTfr3TZVe/edtIHDA3F/o+VLe1CiVxHyYP1SfIfyBT0LoidXB+0ZzM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187992-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 7528be49-84b4-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1728309606; x=1728914406; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yP7C1cRq+tVeQqg2EdeMEc2ru3gbBmgfy9ow+ZBz+i4=;
+        b=AKV++gRGneA6ZB7WbnS0QzNhEXmwh0NVZsPd0xnKMc1mxfXrLjmtt6AOzS2sDGp3dD
+         wnvTXDWx4aEj8Olp46LlEd0C/GN0WA1R/FQ6ekWNZ9p+6mFD0wfZbESOCwHHrGs4jsQN
+         YVQS9rxuHxjtwYJCy4k8xWnh65r46UVpK2H0inbSWoOMtm5Nu2krbDShGXHTxUo3xh1D
+         tvZ/d6y0eBgx8QAHnF2Fcki7H9USwHzfXZtvm8r5t2f+Rp5A4ZvvIZhDDteCSzfKr68l
+         6cRKTsjtRgmOneVsSunl7CEuCC8vk4S3VGriXU/JI6mbL7zdGvW59qfPnp28dEYQQgw5
+         U7Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728309606; x=1728914406;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yP7C1cRq+tVeQqg2EdeMEc2ru3gbBmgfy9ow+ZBz+i4=;
+        b=A7G4o3kMNJnhvGbetitMqEiF7lgG50VlDXssNa78LuHVJZLCAFcFEpxYnWyV46J0bF
+         EwC0OU+bAshFT8bV0mcKGPMslET8ZdYSuoAJdrVMh7VATuU3j75OLkbTo7v+FGR5MXBl
+         W9hNIQhGWuer+FgaVHg5FM+BtOTjSRn1Z9HKL2Vtap1vdAcwiNdfaJzJJXvg3sBaoEZv
+         op3lX+OiV2rHHFLq3Dwz5mdE3Q/9va+Annqrp9aQgitA666dix+To2YssM0B1PyGqrk7
+         dgu82nWNRsM1n5IQ03TlqeNzNZVLGOjg6lAiHtwLC4EHN7MG04CqprTi0odlQF1+G3RY
+         1eZg==
+X-Forwarded-Encrypted: i=1; AJvYcCWnDXz8BgfryEVx23VSa7YNIj9Y25syGIPlKhL+HXBUtIL4m/u7oOFf+/beorPz9gx3i9LY/VPe/04=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxA4EiEWE9hCdKHlIcon5YlqcSSD8Fxes7mUFL1vuFFE+qRk2kw
+	qM/CeVOfKJNcuiHp0BIc9YoO/GF6HSCrfzgzrzRuOG+9VO2connZH5xPrB+Gwg==
+X-Google-Smtp-Source: AGHT+IFQhxwvRQkSOEGnxBa7K6zrR8K2O4cDAKmlVefUyu+woeyaIcvtW+vt5nTijfiqgxZRKrWhQw==
+X-Received: by 2002:a17:907:3e20:b0:a8a:8915:6bf6 with SMTP id a640c23a62f3a-a991c0308famr1232772066b.52.1728309605920;
+        Mon, 07 Oct 2024 07:00:05 -0700 (PDT)
+Message-ID: <0ff2d8f4-61d2-4eca-a6ee-022624ee3bcb@suse.com>
+Date: Mon, 7 Oct 2024 16:00:03 +0200
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 187992: regressions - FAIL
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
-    qemu-mainline:test-armhf-armhf-xl-qcow2:xen-boot:fail:heisenbug
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:leak-check/check:fail:heisenbug
-    qemu-mainline:test-armhf-armhf-xl-credit1:xen-boot:fail:heisenbug
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=b5ab62b3c0050612c7f9b0b4baeb44ebab42775a
-X-Osstest-Versions-That:
-    qemuu=ea9cdbcf3a0b8d5497cddf87990f1b39d8f3bb0a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Oct 2024 13:41:13 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] tests/x86: Introduce a userspace test harness for
+ x86_decode_lite()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241002152725.1841575-1-andrew.cooper3@citrix.com>
+ <20241002152725.1841575-3-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241002152725.1841575-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 187992 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187992/
+On 02.10.2024 17:27, Andrew Cooper wrote:
+> Back to this patch, I can't find any way to get Clang happy with rex.w for
+> explicit prefixing.  I suspect we're just going to need to ignore this test
+> case for clang=y.
 
-Regressions :-(
+ISTR experimenting with that too a little while back, finding that newer
+Clang supports at least rex64.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-qemuu-nested-intel 20 debian-hvm-install/l1/l2 fail REGR. vs. 187720
+> Also, Clang and GAS disagree on needing .allow_index_reg for %riz.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-qcow2     8 xen-boot         fail in 187988 pass in 187992
- test-amd64-amd64-libvirt-vhd 22 leak-check/check fail in 187988 pass in 187992
- test-armhf-armhf-xl-credit1   8 xen-boot                   fail pass in 187988
+Disagree in which way? Does Clang accept it even without the directive?
+If so, that maybe fine for AT&T syntax code, but it definitely isn't for
+Intel syntax.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-credit1 15 migrate-support-check fail in 187988 never pass
- test-armhf-armhf-xl-credit1 16 saverestore-support-check fail in 187988 never pass
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187720
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187720
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187720
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187720
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+> --- a/tools/tests/Makefile
+> +++ b/tools/tests/Makefile
+> @@ -5,6 +5,7 @@ SUBDIRS-y :=
+>  SUBDIRS-y += resource
+>  SUBDIRS-$(CONFIG_X86) += cpu-policy
+>  SUBDIRS-$(CONFIG_X86) += tsx
+> +SUBDIRS-$(CONFIG_X86) += x86-decode-lite
 
-version targeted for testing:
- qemuu                b5ab62b3c0050612c7f9b0b4baeb44ebab42775a
-baseline version:
- qemuu                ea9cdbcf3a0b8d5497cddf87990f1b39d8f3bb0a
+Won't this be wrong when the tool stack is built 32-bit?
 
-Last test of basis   187720  2024-09-16 10:37:24 Z   21 days
-Failing since        187731  2024-09-17 13:11:20 Z   20 days   34 attempts
-Testing same since   187988  2024-10-06 17:41:20 Z    0 days    2 attempts
+> --- /dev/null
+> +++ b/tools/tests/x86-decode-lite/Makefile
+> @@ -0,0 +1,45 @@
+> +XEN_ROOT = $(CURDIR)/../../..
+> +include $(XEN_ROOT)/tools/Rules.mk
+> +
+> +TARGET := test-x86-decode-lite
+> +
+> +.PHONY: all
+> +all: $(TARGET)
+> +
+> +.PHONY: run
+> +run: $(TARGET)
+> +	./$<
+> +
+> +.PHONY: clean
+> +clean:
+> +	$(RM) -- *.o $(TARGET) $(DEPS_RM)
+> +
+> +.PHONY: distclean
+> +distclean: clean
+> +	$(RM) -- *~
+> +
+> +.PHONY: install
+> +install: all
+> +	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
+> +	$(INSTALL_PROG) $(TARGET) $(DESTDIR)$(LIBEXEC_BIN)
+> +
+> +.PHONY: uninstall
+> +uninstall:
+> +	$(RM) -- $(DESTDIR)$(LIBEXEC_BIN)/$(TARGET)
+> +
+> +.PHONY: uninstall
+> +uninstall:
+> +
+> +vpath %.c ../../../xen/arch/x86/x86_emulate
 
-------------------------------------------------------------
-People who touched revisions under test:
-    Ajeet Singh <itachis@FreeBSD.org>
-  Akihiko Odaki <akihiko.odaki@daynix.com>
-  Alan Adamson <alan.adamson@oracle.com>
-  Alex Bennée <alex.bennee@linaro.org>
-  Alexandre Ghiti <alexghiti@rivosinc.com>
-  Alistair Francis <alistair.francis@wdc.com>
-  Alistair Francis <alistair23@gmail.com>
-  Alvin Chang <alvinga@andestech.com>
-  Andrew Jeffery <andrew@codeconstruct.com.au>
-  Andrew Jones <ajones@ventanamicro.com>
-  Ani Sinha <anisinha@redhat.com>
-  Anthony PERARD <anthony.perard@vates.tech>
-  Ard Biesheuvel <ardb@kernel.org>
-  Arnd Bergmann <arnd@arndb.de>
-  Arun Kumar <arun.kka@samsung.com>
-  Bernhard Beschow <shentey@gmail.com>
-  Bibo Mao <maobibo@loongson.cn>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Corvin Köhne <corvin.koehne@gmail.com>
-  Daniel Henrique Barboza <dbarboza@ventanamicro.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  David Hildenbrand <david@redhat.com>
-  Dmitry Frolov <frolov@swemel.ru>
-  Dr. David Alan Gilbert <dave@treblig.org>
-  Edgar E. Iglesias <edgar.iglesias@amd.com>
-  Fabiano Rosas <farosas@suse.de>
-  Fea.Wang <fea.wang@sifive.com>
-  Fiona Ebner <f.ebner@proxmox.com>
-  Gavin Shan <gshan@redhat.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Greg Kurz <groug@kaod.org>
-  Haibo Xu <haibo1.xu@intel.com>
-  Ilya Leoshkevich <iii@linux.ibm.com>
-  Inès Varhol <ines.varhol@telecom-paris.fr>
-  Jacob Abrams <satur9nine@gmail.com>
-  Jamin Lin <jamin_lin@aspeedtech.com>
-  Jan Luebbe <jlu@pengutronix.de>
-  Jason Chien <jason.chien@sifive.com>
-  Julia Suvorova <jusual@redhat.com>
-  Juraj Marcin <jmarcin@redhat.com>
-  Kamil Szczęk <kamil@szczek.dev>
-  Keith Busch <kbusch@kernel.org>
-  Kinsey Moore <kinsey.moore@oarcorp.com>
-  Klaus Jensen <k.jensen@samsung.com>
-  Laurent Vivier <laurent@vivier.eu>
-  Lei Wang <lei4.wang@intel.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
-  Maria Klauchek <m.klauchek@syntacore.com>
-  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-  Mark Corbin <mark@dibsco.co.uk>
-  Markus Armbruster <armbru@redhat.com>
-  Markus Armbruster <armbru@redhat.com> (QAPI schema)
-  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
-  Mattias Nissler <mnissler@rivosinc.com>
-  Michael Tokarev <mjt@tls.msk.ru>
-  Milan P. Stanić <mps@arvanta.net>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Peter Maydell <peter.maydell@linaro.org>
-  Peter Xu <peterx@redhat.com>
-  Philippe Mathieu-Daudé <philmd@linaro.org>
-  Pierrick Bouvier <pierrick.bouvier@linaro.org>
-  Richard Henderson <richard.henderson@linaro.org>
-  Rowan Hart <rowanbhart@gmail.com>
-  Samuel Holland <samuel.holland@sifive.com>
-  Samuel Tardieu <sam@rfc1149.net>
-  Shiva sagar Myana <Shivasagar.Myana@amd.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Stefan Weil <sw@weilnetz.de>
-  Stefano Stabellini <sstabellini@kernel.org>
-  TANG Tiancheng <tangtiancheng.ttc@alibaba-inc.com>
-  Tejas Vipin <tejasvipin76@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tomasz Jeznach <tjeznach@rivosinc.com>
-  Vladimir Isaev <vladimir.isaev@syntacore.com>
-  Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-  Warner Losh <imp@bsdimp.com>
-  Xianglai Li <lixianglai@loongson.cn>
-  Xin Li (Intel) <xin@zytor.com>
-  Xin Li <xin3.li@intel.com>
-  Xingtao Yao <yaoxt.fnst@fujitsu.com>
-  Yotaro Nada <yotaro.nada@gmail.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zhang <zhenyzha@redhat.com>
+What is it that you take from there? All ...
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+> +CFLAGS += $(CFLAGS_xeninclude) -I. -I../../../xen/arch/x86/
+> +CFLAGS += $(APPEND_CFLAGS)
+> +
+> +LDFLAGS += $(APPEND_LDFLAGS)
+> +
+> +%.o: Makefile
+> +
+> +$(TARGET): main.o insns.o decode-lite.o
 
+... objects enumerated here come from local sources.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> --- /dev/null
+> +++ b/tools/tests/x86-decode-lite/insns.S
+> @@ -0,0 +1,703 @@
+> +#include "macro-magic.h"
+> +
+> +        .code64
+> +
+> +#ifndef __clang__
+> +        .allow_index_reg
+> +#endif
+> +        .text
+> +
+> +DECL(tests_rel0)
+> +modrm:
+> +        /* Mod=0, Reg=0, RM {0..f} */
+> +        _ add %al, (%rax)
+> +        _ add %al, (%rcx)
+> +        _ add %al, (%rdx)
+> +        _ add %al, (%rbx)
+> +        _ add %al, (%rsp) /* SIB */
+> +        /*add %al, (%rbp)    RIP --> tests_rel4 */
+> +        _ add %al, (%rsi)
+> +        _ add %al, (%rdi)
+> +        _ add %al, (%r8)
+> +        _ add %al, (%r9)
+> +        _ add %al, (%r10)
+> +        _ add %al, (%r11)
+> +        _ add %al, (%r12) /* SIB */
+> +        /*add %al, (%r13)    RIP --> tests_rel4 */
+> +        _ add %al, (%r14)
+> +        _ add %al, (%r15)
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+There's a lot of redundancy here and below - did you consider using .irp
+to reduce this some?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> +        /* Mod=1, Reg=0, RM {0..f} */
+> +        _ add %al, 0x01(%rax)
+> +        _ add %al, 0x01(%rcx)
+> +        _ add %al, 0x01(%rdx)
+> +        _ add %al, 0x01(%rbx)
+> +        _ add %al, 0x01(%rsp) /* SIB */
+> +        _ add %al, 0x01(%rbp)
+> +        _ add %al, 0x01(%rsi)
+> +        _ add %al, 0x01(%rdi)
+> +        _ add %al, 0x01(%r8)
+> +        _ add %al, 0x01(%r9)
+> +        _ add %al, 0x01(%r10)
+> +        _ add %al, 0x01(%r11)
+> +        _ add %al, 0x01(%r12) /* SIB */
+> +        _ add %al, 0x01(%r13)
+> +        _ add %al, 0x01(%r14)
+> +        _ add %al, 0x01(%r15)
+> +
+> +        /* Mod=2, Reg=0, RM {0..f} */
+> +        _ add %al, 0x7f000001(%rax)
+> +        _ add %al, 0x7f000001(%rcx)
+> +        _ add %al, 0x7f000001(%rdx)
+> +        _ add %al, 0x7f000001(%rbx)
+> +        _ add %al, 0x7f000001(%rsp) /* SIB */
+> +        _ add %al, 0x7f000001(%rbp)
+> +        _ add %al, 0x7f000001(%rsi)
+> +        _ add %al, 0x7f000001(%rdi)
+> +        _ add %al, 0x7f000001(%r8)
+> +        _ add %al, 0x7f000001(%r9)
+> +        _ add %al, 0x7f000001(%r10)
+> +        _ add %al, 0x7f000001(%r11)
+> +        _ add %al, 0x7f000001(%r12) /* SIB */
+> +        _ add %al, 0x7f000001(%r13)
+> +        _ add %al, 0x7f000001(%r14)
+> +        _ add %al, 0x7f000001(%r15)
+> +
+> +        /* Mod=3, Reg=0, RM {0..f} */
+> +        _ add %al, %al
+> +        _ add %al, %cl
+> +        _ add %al, %dl
+> +        _ add %al, %bl
+> +        _ add %al, %ah
+> +        _ add %al, %ch
+> +        _ add %al, %dh
+> +        _ add %al, %dl
+> +        _ add %al, %r8b
+> +        _ add %al, %r9b
+> +        _ add %al, %r10b
+> +        _ add %al, %r11b
+> +        _ add %al, %r12b
+> +        _ add %al, %r13b
+> +        _ add %al, %r14b
+> +        _ add %al, %r15b
+> +
+> +sib:
+> +        /* Mod=0, Reg=0, RM=4, SIB S=3, I=0, B {0..f} */
+> +        _ add %al, (%rax, %rax, 8)
+> +        _ add %al, (%rcx, %rax, 8)
+> +        _ add %al, (%rdx, %rax, 8)
+> +        _ add %al, (%rbx, %rax, 8)
+> +        _ add %al, (%rsp, %rax, 8)
+> +        _ add %al, (    , %rax, 8) /* "none", %rbp encoded with mod=1/2 */
+> +        _ add %al, (%rsi, %rax, 8)
+> +        _ add %al, (%rdi, %rax, 8)
+> +        _ add %al, (%r8,  %rax, 8)
+> +        _ add %al, (%r9,  %rax, 8)
+> +        _ add %al, (%r10, %rax, 8)
+> +        _ add %al, (%r11, %rax, 8)
+> +        _ add %al, (%r12, %rax, 8)
+> +        _ rex.b add %al,(,%rax, 8) /* "none", %r13 encoded with mod=1/2 */
+> +        _ add %al, (%r14, %rax, 8)
+> +        _ add %al, (%r15, %rax, 8)
+> +
+> +        /* Mod=1, Reg=0, RM=4, SIB S=3, I=0, B {0..f} */
+> +        _ add %al, 0x01(%rax, %rax, 8)
+> +        _ add %al, 0x01(%rcx, %rax, 8)
+> +        _ add %al, 0x01(%rdx, %rax, 8)
+> +        _ add %al, 0x01(%rbx, %rax, 8)
+> +        _ add %al, 0x01(%rsp, %rax, 8)
+> +        _ add %al, 0x01(%rbp, %rax, 8)
+> +        _ add %al, 0x01(%rsi, %rax, 8)
+> +        _ add %al, 0x01(%rdi, %rax, 8)
+> +        _ add %al, 0x01(%r8,  %rax, 8)
+> +        _ add %al, 0x01(%r9,  %rax, 8)
+> +        _ add %al, 0x01(%r10, %rax, 8)
+> +        _ add %al, 0x01(%r11, %rax, 8)
+> +        _ add %al, 0x01(%r12, %rax, 8)
+> +        _ add %al, 0x01(%r13, %rax, 8)
+> +        _ add %al, 0x01(%r14, %rax, 8)
+> +        _ add %al, 0x01(%r15, %rax, 8)
+> +
+> +        /* Mod=2, Reg=0, RM=4, SIB S=3, I=0, B {0..f} */
+> +        _ add %al, 0x7f000001(%rax, %rax, 8)
+> +        _ add %al, 0x7f000001(%rcx, %rax, 8)
+> +        _ add %al, 0x7f000001(%rdx, %rax, 8)
+> +        _ add %al, 0x7f000001(%rbx, %rax, 8)
+> +        _ add %al, 0x7f000001(%rsp, %rax, 8)
+> +        _ add %al, 0x7f000001(%rbp, %rax, 8)
+> +        _ add %al, 0x7f000001(%rsi, %rax, 8)
+> +        _ add %al, 0x7f000001(%rdi, %rax, 8)
+> +        _ add %al, 0x7f000001(%r8,  %rax, 8)
+> +        _ add %al, 0x7f000001(%r9,  %rax, 8)
+> +        _ add %al, 0x7f000001(%r10, %rax, 8)
+> +        _ add %al, 0x7f000001(%r11, %rax, 8)
+> +        _ add %al, 0x7f000001(%r12, %rax, 8)
+> +        _ add %al, 0x7f000001(%r13, %rax, 8)
+> +        _ add %al, 0x7f000001(%r14, %rax, 8)
+> +        _ add %al, 0x7f000001(%r15, %rax, 8)
+> +
+> +        /* Mod=0, Reg=0, RM=4, SIB S=3, I=4, B {0..f} */
+> +        _ add %al, (%rax, %riz, 8)
+> +        _ add %al, (%rcx, %riz, 8)
+> +        _ add %al, (%rdx, %riz, 8)
+> +        _ add %al, (%rbx, %riz, 8)
+> +        _ add %al, (%rsp, %riz, 8)
+> +        _ add %al, (    , %riz, 8) /* %rbp encoded with mod=1/2 */
+> +        _ add %al, (%rsi, %riz, 8)
+> +        _ add %al, (%rdi, %riz, 8)
+> +        _ add %al, (%r8,  %riz, 8)
+> +        _ add %al, (%r9,  %riz, 8)
+> +        _ add %al, (%r10, %riz, 8)
+> +        _ add %al, (%r11, %riz, 8)
+> +        _ add %al, (%r12, %riz, 8)
+> +        _ rex.b add %al,(,%riz, 8) /* %r13 encoded with mod=1/2 */
+> +        _ add %al, (%r14, %riz, 8)
+> +        _ add %al, (%r15, %riz, 8)
+> +
+> +        /* Mod=1, Reg=0, RM=4, SIB S=3, I=4, B {0..f} */
+> +        _ add %al, 0x01(%rax, %riz, 8)
+> +        _ add %al, 0x01(%rcx, %riz, 8)
+> +        _ add %al, 0x01(%rdx, %riz, 8)
+> +        _ add %al, 0x01(%rbx, %riz, 8)
+> +        _ add %al, 0x01(%rsp, %riz, 8)
+> +        _ add %al, 0x01(%rbp, %riz, 8)
+> +        _ add %al, 0x01(%rsi, %riz, 8)
+> +        _ add %al, 0x01(%rdi, %riz, 8)
+> +        _ add %al, 0x01(%r8,  %riz, 8)
+> +        _ add %al, 0x01(%r9,  %riz, 8)
+> +        _ add %al, 0x01(%r10, %riz, 8)
+> +        _ add %al, 0x01(%r11, %riz, 8)
+> +        _ add %al, 0x01(%r12, %riz, 8)
+> +        _ add %al, 0x01(%r13, %riz, 8)
+> +        _ add %al, 0x01(%r14, %riz, 8)
+> +        _ add %al, 0x01(%r15, %riz, 8)
+> +
+> +        /* Mod=2, Reg=0, RM=4, SIB S=3, I=4, B {0..f} */
+> +        _ add %al, 0x7f000001(%rax, %riz, 8)
+> +        _ add %al, 0x7f000001(%rcx, %riz, 8)
+> +        _ add %al, 0x7f000001(%rdx, %riz, 8)
+> +        _ add %al, 0x7f000001(%rbx, %riz, 8)
+> +        _ add %al, 0x7f000001(%rsp, %riz, 8)
+> +        _ add %al, 0x7f000001(%rbp, %riz, 8)
+> +        _ add %al, 0x7f000001(%rsi, %riz, 8)
+> +        _ add %al, 0x7f000001(%rdi, %riz, 8)
+> +        _ add %al, 0x7f000001(%r8,  %riz, 8)
+> +        _ add %al, 0x7f000001(%r9,  %riz, 8)
+> +        _ add %al, 0x7f000001(%r10, %riz, 8)
+> +        _ add %al, 0x7f000001(%r11, %riz, 8)
+> +        _ add %al, 0x7f000001(%r12, %riz, 8)
+> +        _ add %al, 0x7f000001(%r13, %riz, 8)
+> +        _ add %al, 0x7f000001(%r14, %riz, 8)
+> +        _ add %al, 0x7f000001(%r15, %riz, 8)
+> +
+> +        .macro alu_ops op
+> +        _ \op %al, (%rax)
+> +        _ \op %eax, (%rax)
+> +        _ \op (%rax), %al
+> +        _ \op (%rax), %eax
+> +        _ \op $1, %al
+> +        _ \op $0x7f000001, %eax
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+While immediate forms below also come in word and qword flavors, no such
+exist for the non-immediate forms above. Is that intentional?
 
+> +        /* Vary osize on imm fields */
+> +        _ data16 \op $1, %al
+> +        _ rex.w \op $1, %al
+> +        _ data16 rex.w \op $1, %al
 
-Not pushing.
+Yet for byte ops the immediate is never going to be wider than a byte.
+Wouldn't these be more interesting with word/dword/qword operand size?
 
-(No revision log; it would be 7931 lines long.)
+> +        _ \op $0x7f01, %ax
+> +        _ \op $0x7f000001, %rax
+> +        _ data16 \op $0x7f000001, %rax
+> +        .endm
+> +
+> +onebyte_row_0x:
+> +        alu_ops add
+> +        alu_ops or
+> +
+> +onebyte_row_1x:
+> +        alu_ops adc
+> +        alu_ops sbb
+> +
+> +onebyte_row_2x:
+> +        alu_ops and
+> +        .code32
+> +        _ es nop
+> +        .code64
+> +        alu_ops sub
+> +        _ cs nop
+> +
+> +onebyte_row_3x:
+> +        alu_ops xor
+> +        .code32
+> +        _ ss nop
+> +        .code64
+> +        alu_ops cmp
+> +        _ ds nop
+> +
+> +/* onebyte_row_4x --> rex prefixes */
+> +
+> +onebyte_row_5x:
+> +        _ push %rax
+> +        _ push %rcx
+> +        _ push %rdx
+> +        _ push %rbx
+> +        _ push %rsp
+> +        _ push %rbp
+> +        _ push %rsi
+> +        _ push %rdi
+> +        _ pop %rax
+> +        _ pop %rcx
+> +        _ pop %rdx
+> +        _ pop %rbx
+> +        _ pop %rsp
+> +        _ pop %rbp
+> +        _ pop %rsi
+> +        _ pop %rdi
+> +
+> +onebyte_row_6x:
+> +        /*pusha,popa,bound --> not supported */
+> +        _ movsxd (%rax), %eax
+> +        _ movslq (%rax), %rax
+> +        _ fs nop
+> +        _ gs nop
+> +        _ data16 nop
+> +        /* addr32 --> not supported */
+> +        _ pushq $0x7f000001
+> +        _ pushw $0x7f01
+> +        _ rex.w pushq $0x7f000001
+> +        _ imul $0x7f01, %ax, %ax
+> +        _ imul $0x7f000001, %eax, %eax
+> +        _ imul $0x7f000001, %rax, %rax
+> +        _ pushq $0
+> +        _ pushw $0
+> +        _ rex.w pushq $0
+> +        _ imul $0, %ax, %ax
+> +        _ imul $0, %eax, %eax
+> +        _ imul $0, %rax, %rax
+> +        _ insb
+> +        _ insw
+> +        _ insl
+> +        _ outsb
+> +        _ outsw
+> +        _ outsl
+> +
+> +/* onebyte_row_7x: --> Jcc disp8 */
+> +
+> +onebyte_row_8x:
+> +        _ add $0, %cl /* Grp1 */
+> +        _ data16 add $0, %cl
+> +        _ rex.w add $0, %cl
+> +        _ add $0x7f01, %cx
+> +        _ add $0x7f000001, %ecx
+> +        _ add $0x7f000001, %rcx
+> +        _ add $0, %cx
+> +        _ add $0, %ecx
+> +        _ add $0, %rcx
+> +        _ test %cl, %cl
+> +        _ test %ecx, %ecx
+> +        _ xchg %cl, %cl
+> +        _ xchg %ecx, %ecx
+> +        _ mov %cl, (%rax)
+> +        _ mov %ecx, (%rax)
+> +        _ mov (%rax), %cl
+> +        _ mov (%rax), %ecx
+> +        _ mov %cs, (%rax)
+> +        _ lea (%rax), %eax
+> +        _ mov (%rax), %cs
+> +        /*pop mem --> Grp1a, Not supported (XOP prefix adjacent) */
+> +
+> +onebyte_row_9x:
+> +        _ nop
+> +        _ pause
+> +        _ xchg %ax, %ax
+> +        _ xchg %eax, %eax
+> +        _ xchg %rax, %rax
+> +        _ rex.w xchg %rax, %rax
+> +        _ cltq
+> +        _ cqto
+> +        _ wait
+> +        _ pushf
+> +        _ popf
+> +        _ sahf
+> +        _ lahf
+> +
+> +onebyte_row_ax:
+> +        _ mov 0x8000000000000001, %al
+> +        _ mov 0x8000000000000001, %ax
+> +        _ mov 0x8000000000000001, %eax
+> +        _ mov 0x8000000000000001, %rax
+> +        _ mov %al,  0x8000000000000001
+> +        _ mov %ax,  0x8000000000000001
+> +        _ mov %eax, 0x8000000000000001
+> +        _ mov %rax, 0x8000000000000001
+> +        _ movsb
+> +        _ movsl
+> +        _ cmpsb
+> +        _ cmpsl
+> +        _ test $0, %al
+> +        _ test $0x80000001, %eax
+> +        _ test $0x7f000001, %rax
+> +        _ stosb
+> +        _ stosl
+> +        _ lodsb
+> +        _ lodsl
+> +        _ scasb
+> +        _ scasl
+> +
+> +onebyte_row_bx:
+> +        _ mov $0, %al
+> +        _ mov $0, %cl
+> +        _ mov $0x7f01, %ax
+> +        _ mov $0x7f01, %cx
+> +        _ mov $0x7f000001, %eax
+> +        _ mov $0x7f000001, %ecx
+> +        _ mov $0x7f00000000000001, %rax
+> +        _ mov $0x7f00000000000001, %rcx
+> +
+> +onebyte_row_cx:
+> +        _ rol $0, %al /* Grp2 */
+> +        _ rol $0, %ax
+> +        _ rol $0, %eax
+> +        _ rol $0, %rax
+> +        /*ret $0 --> not supported */
+> +        _ ret
+> +        /*les,lds --> not supported */
+
+LES and LDS don't even exist for 64-bit code.
+
+> +        _ movb $0, (%rax) /* Grp11 */
+> +        _ movw $0, (%rax)
+> +        _ movl $0, (%rax)
+> +        _ movq $0, (%rax)
+> +        /*xbegin (Grp11) --> disp32 */
+> +        /*enter,leave,lretq $0 --> not supported */
+> +        _ lretq
+> +        _ int3
+> +        _ int $0
+> +        /*into,iret --> not supported */
+> +
+> +onebyte_row_dx:
+> +        _ rol $1, %al /* Grp2 */
+> +        _ rol $1, %ax
+> +        _ rol $1, %eax
+> +        _ rol $1, %rax
+> +        _ rol %cl, %al
+> +        _ rol %cl, %ax
+> +        _ rol %cl, %eax
+> +        _ rol %cl, %rax
+> +        /*aam,aad,setalc,xlat,d8...df --> not supported */
+> +
+> +onebyte_row_ex:
+> +        /*loop{ne,e,},jrcxz --> not supported */
+> +        _ in $0, %al
+> +        _ in $0, %eax
+> +        _ out %al,  $0
+> +        _ out %eax, $0
+> +        /*call,jmp --> disp32 */
+> +        /*ljmp --> not supported */
+
+Nor does this, and you also don't have a similar comment for lcall (0x9a).
+
+> +        /*jmp --> disp8 */
+> +        _ in %dx, %al
+> +        _ in %dx, %eax
+> +        _ out %al,  %dx
+> +        _ out %eax, %dx
+> +
+> +onebyte_row_fx:
+> +        _ lock addb $0, (%rax)
+> +        n "icebp" .byte 0xf1 /* icebp */
+> +        _ repne nop
+> +        _ repe nop
+> +        _ hlt
+> +        _ cmc
+> +        _ test $0, %cl /* Grp3, /0 has extra Imm{8,} */
+> +        _ not %cl
+> +        _ test $0x7f01, %cx
+> +        _ not %cx
+> +        _ test $0x7f000001, %ecx
+> +        _ not %ecx
+> +        _ test $0x7f000001, %rcx
+> +        _ not %rcx
+> +        _ clc
+> +        _ stc
+> +        _ cli
+> +        _ sti
+> +        _ cld
+> +        _ std
+> +        _ inc %cl /* Grp4 */
+> +        _ dec %cl
+> +        _ inc %ecx /* Grp5 */
+> +        _ dec %ecx
+> +        _ call *(%rax)
+> +        _ lcall *(%rax)
+> +        _ jmp *(%rax)
+> +        _ ljmp *(%rax)
+> +        _ push (%rax)
+> +
+> +twobyte_row_0x:
+> +        _ sldt (%rax) /* Grp6 */
+> +        _ sgdt (%rax) /* Grp7 */
+> +        _ lar (%rax), %eax
+> +        _ lsl (%rax), %eax
+> +        _ clts
+> +        _ wbinvd
+> +        _ ud2a
+> +
+> +twobyte_row_1x:
+> +        _ prefetchnta (%rax) /* Grp16 (Hint Nop) */
+> +        _ nopl (%rax)
+> +
+> +twobyte_row_2x:
+> +        _ mov %cr0, %rax
+> +        _ mov %dr0, %rax
+> +        _ mov %rax, %cr0
+> +        _ mov %rax, %dr0
+> +
+> +twobyte_row_3x:
+> +        _ wrmsr
+> +        _ rdtsc
+> +        _ rdmsr
+> +        _ rdpmc
+> +
+> +twobyte_row_4x:
+> +        _ cmovo (%rax), %eax
+> +        _ cmovg (%rax), %eax
+> +
+> +/* twobyte_row_8x: --> Jcc disp32 */
+> +
+> +twobyte_row_9x:
+> +        _ seto (%rax)
+> +        _ setg (%rax)
+> +
+> +twobyte_row_ax:
+> +        _ push %fs
+> +        _ pop %fs
+> +        _ cpuid
+> +        _ bt %eax, (%rax)
+> +        _ shld $0, %ax, (%rax)
+> +        _ shld $0, %eax, (%rax)
+> +        _ shld $0, %rax, (%rax)
+> +        _ shld %cl, %ax, (%rax)
+> +        _ shld %cl, %eax, (%rax)
+> +        _ shld %cl, %rax, (%rax)
+> +        _ push %gs
+> +        _ pop %gs
+> +        /*rsm --> not supported */
+> +        _ bts %eax, (%rax)
+> +        _ shrd $0, %ax, (%rax)
+> +        _ shrd $0, %eax, (%rax)
+> +        _ shrd $0, %rax, (%rax)
+> +        _ shrd %cl, %ax, (%rax)
+> +        _ shrd %cl, %eax, (%rax)
+> +        _ shrd %cl, %rax, (%rax)
+> +        _ fxsave (%rax) /* Grp15 */
+> +        _ imul (%rax), %eax
+> +
+> +twobyte_row_bx:
+> +        _ cmpxchg %al, (%rax)
+> +        _ cmpxchg %eax, (%rax)
+> +        _ lss (%rax), %eax
+> +        _ btr %eax, (%rax)
+> +        _ lfs (%rax), %eax
+> +        _ lgs (%rax), %eax
+> +        _ movzbl (%rax), %eax
+> +        _ movzwl (%rax), %eax
+> +        _ popcnt (%rax), %eax
+> +        _ ud1 (%rax), %eax /* Grp10 */
+> +        _ bt $0, %ax /* Grp8 */
+> +        _ bt $0, %eax
+> +        _ bt $0, %rax
+> +        _ btc %eax, (%rax)
+> +        _ bsf (%rax), %eax
+> +        _ bsr (%rax), %eax
+> +        _ movsbl (%rax), %eax
+> +        _ movswl (%rax), %eax
+> +
+> +twobyte_row_cx:
+> +        _ xadd %al, (%rax)
+> +        _ xadd %eax, (%rax)
+> +        _ cmpxchg8b (%rax) /* Grp9 */
+> +        _ bswap %eax
+> +        _ bswap %edi
+> +
+> +END(tests_rel0)
+> +
+> +DECL(tests_rel1)
+> +disp8:
+> +1:
+> +        _ jo   1b
+> +        _ jno  1b
+> +        _ jb   1b
+> +        _ jae  1b
+> +        _ je   1b
+> +        _ jne  1b
+> +        _ jbe  1b
+> +        _ ja   1b
+> +        _ js   1b
+> +        _ jns  1b
+> +        _ jp   1b
+> +        _ jnp  1b
+> +        _ jl   1b
+> +        _ jge  1b
+> +        _ jle  1b
+> +        _ jg   1b
+> +        _ jmp  1b
+> +
+> +disp8_rex:
+> +        _ rex.w jo   1b
+> +        _ rex.w jno  1b
+> +        _ rex.w jb   1b
+> +        _ rex.w jae  1b
+> +        _ rex.w je   1b
+> +        _ rex.w jne  1b
+> +        _ rex.w jbe  1b
+> +        _ rex.w ja   1b
+> +        _ rex.w js   1b
+> +        _ rex.w jns  1b
+> +        _ rex.w jp   1b
+> +        _ rex.w jnp  1b
+> +        _ rex.w jl   1b
+> +        _ rex.w jge  1b
+> +        _ rex.w jle  1b
+> +        _ rex.w jg   1b
+> +        _ rex.w jmp  1b
+> +END(tests_rel1)
+> +
+> +DECL(tests_rel4)
+> +disp32:
+> +        _ call   other_section
+> +        _ jmp    other_section
+> +        _ jo     other_section
+> +        _ jno    other_section
+> +        _ jb     other_section
+> +        _ jae    other_section
+> +        _ je     other_section
+> +        _ jne    other_section
+> +        _ jbe    other_section
+> +        _ ja     other_section
+> +        _ js     other_section
+> +        _ jns    other_section
+> +        _ jp     other_section
+> +        _ jnp    other_section
+> +        _ jl     other_section
+> +        _ jge    other_section
+> +        _ jle    other_section
+> +        _ jg     other_section
+> +        _ xbegin other_section
+> +
+> +disp32_rex:
+> +        _ rex.w call   other_section
+> +        _ rex.w jmp    other_section
+> +        _ rex.w jo     other_section
+> +        _ rex.w jno    other_section
+> +        _ rex.w jb     other_section
+> +        _ rex.w jae    other_section
+> +        _ rex.w je     other_section
+> +        _ rex.w jne    other_section
+> +        _ rex.w jbe    other_section
+> +        _ rex.w ja     other_section
+> +        _ rex.w js     other_section
+> +        _ rex.w jns    other_section
+> +        _ rex.w jp     other_section
+> +        _ rex.w jnp    other_section
+> +        _ rex.w jl     other_section
+> +        _ rex.w jge    other_section
+> +        _ rex.w jle    other_section
+> +        _ rex.w jg     other_section
+> +        _ rex.w xbegin other_section
+> +
+> +riprel:
+> +        _ add %al, 0(%rip)
+> +        _ rex.b add %al, 0(%rip)
+> +
+> +        _ addb $1, 0(%rip)
+> +        _ rex.b addb $1, 0(%rip)
+> +
+> +        _ addl $0x7f000001, 0(%rip)
+> +        _ rex.b addl $0x7f000001, 0(%rip)
+> +END(tests_rel4)
+> +
+> +DECL(tests_unsup)
+> +
+> +unsup_prefix: /* Prefixes unimplemented for simplicity. */
+> +        _ vaddpd %zmm0, %zmm0, %zmm0 /* 0x62 EVEX */
+> +        _ addr32 nop                 /* 0x67 Address size override */
+> +        _ bextr $0, %eax, %eax       /* 0x8f XOP */
+> +        _ bextr %eax, %eax, %eax     /* 0xc4 VEX3 */
+> +        _ vaddpd %ymm0, %ymm0, %ymm0 /* 0xc5 VEX2 */
+> +        n "jmpabs 0" .byte 0xd5, 0x00, 0xa1, 0x01, 0, 0, 0, 0, 0, 0, 0x80 /* 0xd5 REX2 */
+> +        _ fadds (%rax)               /* 0xd8 ... 0xdf ESCAPE (x87) */
+> +        _ femms                      /* 0x0f,0x0e ... 0x0f 3DNOW */
+> +
+> +unsup_branch:
+> +1:
+> +        _ loopne 1b
+> +        _ loope  1b
+> +        _ loop   1b
+> +        _ jrcxz  1b
+> +
+> +opsize_branch: /* 66-prefixed branches are decoded differently by vendors */
+> +        _ data16 call   other_section
+> +        _ data16 jmp    other_section
+> +        _ data16 jo     other_section
+> +        _ data16 jno    other_section
+> +        _ data16 jb     other_section
+> +        _ data16 jae    other_section
+> +        _ data16 je     other_section
+> +        _ data16 jne    other_section
+> +        _ data16 jbe    other_section
+> +        _ data16 ja     other_section
+> +        _ data16 js     other_section
+> +        _ data16 jns    other_section
+> +        _ data16 jp     other_section
+> +        _ data16 jnp    other_section
+> +        _ data16 jl     other_section
+> +        _ data16 jge    other_section
+> +        _ data16 jle    other_section
+> +        _ data16 jg     other_section
+> +        _ data16 xbegin other_section
+> +
+> +not_64bit: /* Not valid/encodable in 64bit mode */
+> +        .code32
+> +        _ push %es
+> +        _ pop %es
+> +        _ push %cs
+> +        _ push %ss
+> +        _ pop %ss
+> +        _ push %ds
+> +        _ pop %ds
+> +        _ daa
+> +        _ das
+> +        _ aaa
+> +        _ aas
+> +        _ pusha
+> +        _ popa
+> +        _ bound %eax, (%eax)
+> +        /*arpl %ax, %ax --> movsxd in 64bit mode */
+> +        /* Grp1 */
+> +        _ lcall $-1, $-1
+> +        _ les (%eax), %eax
+> +        _ lds (%eax), %eax
+> +        _ into
+> +        _ aam $0
+> +        _ aad $0 /* Also REX2, also not supported */
+> +        n "salc" .byte 0xd6
+> +        _ ljmp $-1, $-1
+> +        .code64
+
+I'm not sure we want to test these. Any of them can gain meaning (like D5
+now did as REX2, and like D6 was for L1OM). Yes, for now we don't support
+e.g. REX2, but that can change.
+
+> --- /dev/null
+> +++ b/tools/tests/x86-decode-lite/macro-magic.h
+> @@ -0,0 +1,52 @@
+> +#ifndef X86_DECODE_LITE_LINKAGE_H
+> +#define X86_DECODE_LITE_LINKAGE_H
+> +
+> +/* Start a 'struct test' array */
+> +.macro start_arr aname
+> +    .pushsection .data.rel.ro.\aname, "aw", @progbits
+> +    .globl \aname
+> +    .type \aname, STT_OBJECT
+> +\aname:
+
+No .align (or alike)?
+
+> +    .popsection
+> +
+> +    /* Declare a macro wrapping \aname */
+> +    .macro pushsection_arr
+> +    .pushsection .data.rel.ro.\aname, "aw", @progbits
+> +    .endm
+> +.endm
+> +
+> +/* Macro 'n' to wrap the metadata of an instruction.  Name can be different. */
+> +.macro n name:req insn:vararg
+> +    /* Emit the instruction, with start & end markers. */
+> +.Ls\@: \insn
+> +.Le\@:
+> +
+> +    /* Emit \name as a string. */
+> +    .pushsection .rosdata.str1, "aMS", @progbits, 1
+
+.rodata.str1?
+
+> +.Ln\@: .asciz "\name"
+> +    .popsection
+> +
+> +    /* Emit an entry into the array. */
+> +    pushsection_arr
+> +    .quad .Ln\@, .Ls\@, .Le\@ - .Ls\@
+> +    .popsection
+> +.endm
+> +
+> +/* Macro '_' where the name is the instruction itself. */
+> +.macro _ insn:vararg
+> +    n "\insn" \insn
+
+As agreed upon elsewhere, perhaps better to use a comma to separate the
+arguments (and also macro parameters further up).
+
+> --- /dev/null
+> +++ b/tools/tests/x86-decode-lite/x86-emulate.h
+> @@ -0,0 +1,27 @@
+> +#ifndef X86_EMULATE_H
+> +#define X86_EMULATE_H
+> +
+> +#include <assert.h>
+> +#include <stdbool.h>
+> +#include <stdint.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +
+> +#include <xen/asm/x86-defns.h>
+> +#include <xen/asm/x86-vendors.h>
+> +
+> +#include <xen-tools/common-macros.h>
+> +
+> +#define ASSERT assert
+> +
+> +#define printk(...)
+> +
+> +#define likely
+> +#define unlikely
+> +#define cf_check
+> +#define init_or_livepatch
+> +#define init_or_livepatch_const
+> +
+> +#include "x86_emulate/x86_emulate.h"
+> +
+> +#endif /* X86_EMULATE_H */
+
+Deliberately not re-using the test harness'es x86-emulate.h?
+
+Jan
 
