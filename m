@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC706994592
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 12:37:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812985.1225747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85CE29945C7
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 12:48:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812995.1225758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy7ak-0003sI-7m; Tue, 08 Oct 2024 10:37:22 +0000
+	id 1sy7kS-0006Z0-5b; Tue, 08 Oct 2024 10:47:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812985.1225747; Tue, 08 Oct 2024 10:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 812995.1225758; Tue, 08 Oct 2024 10:47:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy7ak-0003pW-5D; Tue, 08 Oct 2024 10:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 812985;
- Tue, 08 Oct 2024 10:37:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sy7ai-0003nZ-8u
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 10:37:20 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b7f1d13-8561-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 12:37:19 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a9963e47b69so181468366b.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 03:37:19 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99431f247bsm388932466b.168.2024.10.08.03.37.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 03:37:18 -0700 (PDT)
+	id 1sy7kS-0006Vr-1S; Tue, 08 Oct 2024 10:47:24 +0000
+Received: by outflank-mailman (input) for mailman id 812995;
+ Tue, 08 Oct 2024 10:47:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/rYz=RE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sy7kP-0006Vl-MZ
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 10:47:21 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b10a8d1c-8562-11ef-99a2-01e77a169b0f;
+ Tue, 08 Oct 2024 12:47:19 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5398e3f43f3so6250916e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 03:47:19 -0700 (PDT)
+Received: from localhost ([213.195.117.215]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a992e7860cbsm489760866b.120.2024.10.08.03.47.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Oct 2024 03:47:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +44,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b7f1d13-8561-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: b10a8d1c-8562-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728383839; x=1728988639; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TmKqm9pAcI1YtH+vLzyii2UOJep+kWr4LlRGP6nAIX4=;
-        b=Y0aVfmqbgjyLa7oVKicx8RaOkX7Y+LZWLyoEX2AnMF3kC8AjeCHWYkfuOePAeBRBlW
-         87YvjCeu4AvQerdc/ANjUz0ByytGI8GcxUfouoVrQ2qDnYkXdbGhiB1uyncqo0BoJrtQ
-         Q5GtdpllBVaGO9Y9gRVtiJgQ2gYtyIqZtosBzh3QH1gvpvkJtRaDacARkgU1aZqrIKta
-         tQEd46GGjJMJVoTN/s8LFcog5jh9VJ3as/eOYayfWjNKnBsJFq6a9NbfRTYfQ33WwulD
-         muUd3etN7zpOjxgs2zdGp+MerwXUVBebMPczaRwxjsMqaS70nmRRtuBXId5xjNf7VTyd
-         u3VQ==
+        d=citrix.com; s=google; t=1728384439; x=1728989239; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Eg++UNuGwihTMeqEph3/1UZvbpjvouqeJeWvfpFRaaM=;
+        b=HQemkBrRZWXGEUq/6WYk4p1r9ean4Wzmi/mg1WUQolZqY7m1mGcpmCUgXPc42dWa2E
+         U/V33Tah0S/O5KhwOYmxJtW93Gij3+7MfiE0RyXPZX1s9a+ihFEQudd3jeYMhQbIOb+d
+         1jHsiq8gGeDyvDwW5cMf+p+NWEbdrSGyxsyMw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728383839; x=1728988639;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TmKqm9pAcI1YtH+vLzyii2UOJep+kWr4LlRGP6nAIX4=;
-        b=aFXke8UXvN8wpb/jNTE1fI+nhH+YsCxTUGQaybl+95LRiwi32tbFyNKueFgkJFzxVX
-         ccFQBeLmzSiA8FpRFNh/0fLmg8Zo3BYAk6FZ6Bl5oIzOLg2hyy4RYBBzZXaU9BE4MTrS
-         r4sdR1IWPIgmEUL37d9yR0jMIAFSTrwp6IcqUJuFqz7P99aYXWiYquzHb0+qX7U3cx9+
-         zei4as2+syCfhtZzO/J6lgiQkpL7fx8ti7blxj3K+NkBUiy7+mHEOrDP+/HMnomEN/LU
-         RrPB1ELRPk2+ONLVm4R+4vpqS/c7+iaHZzyops8xBLWDRY8TwXgdc0Jumr84qubalpzO
-         l4gA==
-X-Forwarded-Encrypted: i=1; AJvYcCV8hCsdmQNNG7fjoIr/tsGIuxxFS7jib7XvEuR83UxcjrJONXcYF7wJ7qdAc2j4t/WqmwLmTPaR/bI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvOhHcfYebruHXhsn/vfK6TAaI4EhwnwEDPhx81BK17s2yicOd
-	FgtvsN7+BLKIjqILfnzP9XGfE1C/9cyhNX/MjvQ2k2yac5ByUiAnxR3UPU/Ewg==
-X-Google-Smtp-Source: AGHT+IEz7Tofp/a6tcksSTUlkRUl2X1iUOYKAQoHwnM9XaaVFmvwLWQyrW5ntnaSJiJOEfx099kyTw==
-X-Received: by 2002:a17:907:3f86:b0:a8a:6c5d:63b2 with SMTP id a640c23a62f3a-a991bd09b0amr1570154666b.18.1728383839244;
-        Tue, 08 Oct 2024 03:37:19 -0700 (PDT)
-Message-ID: <e144d508-983d-4c88-adc7-e84efa67899b@suse.com>
-Date: Tue, 8 Oct 2024 12:37:18 +0200
+        d=1e100.net; s=20230601; t=1728384439; x=1728989239;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Eg++UNuGwihTMeqEph3/1UZvbpjvouqeJeWvfpFRaaM=;
+        b=I0h1vuyiDxF2hRj0n7EfWSyRsq4MwiLdgkzirwKtc0kuXfBhgk8zF369wqEuwwUZwE
+         vHRyHbohYM8tjt3aO91OXTzQFnZ0SUBzJ0CNSBfQwQlWaFX6EJnAFw3K/YxD1ghoNGSf
+         JYWjxlbEJCDtb06pNwBYvU5lLRQgmEuxIe85SBX7Uleoe187U4i+xFtJ+L+FgSjKrru1
+         CsOD/3mlZM7icmepVumWZLJTaKmL+cPH4Y0nWae/IspeZodV173idmnLeN+tMhVqZB32
+         3YenErm0amsIU/Waxzr6zijjRrfPEuKt35MD+QeclqgPPVVIMvrFuWfmfZwWa2KkzoEJ
+         eyGA==
+X-Gm-Message-State: AOJu0YytuGQfQwFApJAa/GD9v0OP6q4bICTHdLfTnP9czaI5gHOUWZcv
+	CFkCOQSwIQ3l6/ADR/eFkKGkWTkdkeatvinI2DvDZH8Wo1f3hJUeLGlAMAm4OsFJXnHidZvrlCG
+	8
+X-Google-Smtp-Source: AGHT+IGlsedWb3JNFYZnMZpvr0kKZ/pocJ/gYOQya5Hsh1jDsWYIZfdaQ3OJN3v/n8LnEGgFWTdUmg==
+X-Received: by 2002:a05:6512:3d93:b0:52c:e326:f4cf with SMTP id 2adb3069b0e04-539ab84e3a7mr8146475e87.3.1728384438751;
+        Tue, 08 Oct 2024 03:47:18 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Willi Junga <xenproject@ymy.be>
+Subject: [PATCH] iommu/amd-vi: do not error if device referenced in IVMD is not behind any IOMMU
+Date: Tue,  8 Oct 2024 12:47:06 +0200
+Message-ID: <20241008104706.74001-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/riscv: register Xen's load address as a boot
- module
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1728057657.git.oleksii.kurochko@gmail.com>
- <1850d637a9588a1b00bf07cf0e443486f3895938.1728057657.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1850d637a9588a1b00bf07cf0e443486f3895938.1728057657.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.10.2024 18:04, Oleksii Kurochko wrote:
-> Avoid using BOOTMOD_XEN region for other purposes or boot modules
-> which could result in memory corruption or undefined behaviour.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+IVMD table contains restrictions about memory which must be mandatory assigned
+to devices (and which permissions it should use), or memory that should be
+never accessible to devices.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Some hardware however contains ranges in IVMD that reference devices outside of
+the IVHD tables (in other words, devices not behind any IOMMU).  Such mismatch
+will cause Xen to fail in register_range_for_device(), ultimately leading to
+the IOMMU being disabled, and Xen crashing as x2APIC support might be already
+enabled and relying on the IOMMU functionality.
 
+Relax IVMD parsing: allow IVMD blocks to reference devices not assigned to any
+IOMMU.  It's impossible for Xen to fulfill the requirement in the IVMD block if
+the device is not behind any IOMMU, but it's no worse than booting without
+IOMMU support, and thus not parsing ACPI IVRS in the first place.
+
+Reported-by: Willi Junga <xenproject@ymy.be>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/drivers/passthrough/amd/iommu_acpi.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
+index 3f5508eba049..c416120326c9 100644
+--- a/xen/drivers/passthrough/amd/iommu_acpi.c
++++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+@@ -248,8 +248,9 @@ static int __init register_range_for_device(
+     iommu = find_iommu_for_device(seg, bdf);
+     if ( !iommu )
+     {
+-        AMD_IOMMU_ERROR("IVMD: no IOMMU for Dev_Id %#x\n", bdf);
+-        return -ENODEV;
++        AMD_IOMMU_WARN("IVMD: no IOMMU for device %pp - ignoring constrain\n",
++                       &PCI_SBDF(seg, bdf));
++        return 0;
+     }
+     req = ivrs_mappings[bdf].dte_requestor_id;
+ 
+-- 
+2.46.0
 
 
