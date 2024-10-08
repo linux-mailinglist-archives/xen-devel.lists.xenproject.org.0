@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24DD499422D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 10:38:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812804.1225564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50ED0994239
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 10:39:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812815.1225578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy5jP-0002Kh-Re; Tue, 08 Oct 2024 08:38:11 +0000
+	id 1sy5kK-0003Rh-6l; Tue, 08 Oct 2024 08:39:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812804.1225564; Tue, 08 Oct 2024 08:38:11 +0000
+Received: by outflank-mailman (output) from mailman id 812815.1225578; Tue, 08 Oct 2024 08:39:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy5jP-0002EK-La; Tue, 08 Oct 2024 08:38:11 +0000
-Received: by outflank-mailman (input) for mailman id 812804;
- Tue, 08 Oct 2024 08:38:10 +0000
+	id 1sy5kK-0003OZ-3b; Tue, 08 Oct 2024 08:39:08 +0000
+Received: by outflank-mailman (input) for mailman id 812815;
+ Tue, 08 Oct 2024 08:39:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/rYz=RE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sy5jO-00027a-47
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 08:38:10 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1sy5kJ-00027a-7s
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 08:39:07 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a555c321-8550-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 10:38:09 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a99415adecaso443374166b.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 01:38:09 -0700 (PDT)
+ id c7ae4b40-8550-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 10:39:06 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a93c1cc74fdso889699466b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 01:39:06 -0700 (PDT)
 Received: from localhost ([213.195.117.215]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a994f38068fsm283632966b.40.2024.10.08.01.38.07
+ a640c23a62f3a-a994d5fbef4sm301560066b.166.2024.10.08.01.39.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Oct 2024 01:38:07 -0700 (PDT)
+ Tue, 08 Oct 2024 01:39:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,45 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a555c321-8550-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: c7ae4b40-8550-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728376688; x=1728981488; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
+        d=citrix.com; s=google; t=1728376746; x=1728981546; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
         bh=XH4xpZLptCZ6C2dJ+MYc8/xilU4dhsL/mNlDZC0yzNk=;
-        b=lMmfHfK+BndP1P3ecWm4fEoD8CAlhWHblrvOP2dZ9DU4ed996j6C7gjr4bluIHTlyl
-         jnetgQGATFKT+LF9yZ4Vgo6i5QMZJBgHC5bXsmIYtPVAv/3O5X8BdYO1oxih5Lus5MCz
-         GywGkfk+tNVE86QRm2pVQh7a761wslVIiDdX0=
+        b=kSgi0ZIQqibYtdaZZlOL8sNO1DIH5psPg13h+LVk3knD59zNI0KVaO+Mjm0EV8LX46
+         QZTKPiLr1iGWRdvqW7YeNMBPmd6yfaTI0iyoZ2EXx0hSBAClOD7PGwrX6G1Q9Lw6X0VM
+         Bh3ue62A/o7d6cZnYpN3ZW5bilf/upNGPvfq0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728376688; x=1728981488;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
+        d=1e100.net; s=20230601; t=1728376746; x=1728981546;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
         bh=XH4xpZLptCZ6C2dJ+MYc8/xilU4dhsL/mNlDZC0yzNk=;
-        b=JYiM4oThjRS4sQ7SRtl60keBPJQS/YqmNQnDI4uc2tv5LXLgCSQWLMW2ii5ipN7Z82
-         K9fZHXsGLzoeMQY9/0XIz6L0HiaA5ti+xgt9GjrO+gmSV+dlzbDFTbMum4qB4iALO6J5
-         u0UpN6/KrgJFrB6kMGlXzZzv6Il04MgsB5W7FwWtaP0fO+OCZcCVroQSYWP0TrnyqsAl
-         iScideLkfHPZt8yq3pQbIVRJG9IrVKm/WI8KsjcMQ18TYX8lSasEcmt6PH4MEx+2SU3j
-         trZvubOnBWXR598cl65vZBtN3ldFRXG6pi/1UacimBsiL+AyyWs2+r6FxFhPKhVwKMr9
-         8hYg==
-X-Gm-Message-State: AOJu0Yz1D9Eut7TNeM2Mp23ehp/8Y0ElfejsywcYdVbfHjvdHN5XwqrI
-	ESSQrTXHjhgfUgVxFdKadKkEy6GTwz//qzyr2YJSbYBmzfmS/fPglsmxy0RnrTJJd5ytq9WiV2r
-	Y
-X-Google-Smtp-Source: AGHT+IEBCg4ZG9tl9DtNzsHD5BX6MV6mwIUL7ZZuM4RoMBxzjkKMMIZ4Xa9Sh+in1pgMQZ6Xq/fgpA==
-X-Received: by 2002:a17:906:6a0a:b0:a99:637c:c2e0 with SMTP id a640c23a62f3a-a99679501b7mr207715766b.31.1728376688167;
-        Tue, 08 Oct 2024 01:38:08 -0700 (PDT)
+        b=o+bf1ClzW5ROpwmRuk9iJXSrneiB/6PGd0nv8tdp4e6rgAWnbOc7jI6WA9puaMhSzd
+         v+pu06NnuKTXk+g1XsvvKW8tjC5nL4NVCKLZFoOlb98kYSE+bskSpCg0HJkDZIvbJCpS
+         e0U+qmfnLiCTlfBzMBSeUlEyc7pkbIa7ySZPnbc8+l3s+jHw3tfBNLIMvmQ9Hp+qfP3a
+         PH34rTB8JDSicANOHMHEDnFF0IJ1dXAcuxLSKhGI9nrbL9nnHFvoZKBu0XxjQsU9V5O4
+         3Pjd+kuDus1IMeri6HJPexVnpJzZ/xOydO+Rg/dqMtrQ/sU+qFXOHGjplPV+Lljs0RXr
+         0oOg==
+X-Gm-Message-State: AOJu0YzlgsMcEH2J7zd0IuRa5+hUkHjRYYYycNUEVu7OrLa/b4mTNa2w
+	Ym+KOrvDM3jR9H3UdEr3xpzzMkYmuL3qYp87oJWbckmM4pWZh7xDpgGGbSBLolY37j1VF7X0xH8
+	8
+X-Google-Smtp-Source: AGHT+IEiTqV0Z7Wc62OgQfur6LtB6ahmdwOUDQuXTFad+6bufrugr/W2oDUY0dDzNfEND/ix/rixlQ==
+X-Received: by 2002:a17:907:6095:b0:a99:46ff:f4e6 with SMTP id a640c23a62f3a-a9947000935mr927692166b.61.1728376745825;
+        Tue, 08 Oct 2024 01:39:05 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
 Subject: [PATCH v2] x86/msr: add log messages to MSR state load error paths
-Date: Tue,  8 Oct 2024 10:37:56 +0200
-Message-ID: <20241008083756.72829-2-roger.pau@citrix.com>
+Date: Tue,  8 Oct 2024 10:39:01 +0200
+Message-ID: <20241008083901.72850-1-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20241008083756.72829-1-roger.pau@citrix.com>
-References: <20241008083756.72829-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
