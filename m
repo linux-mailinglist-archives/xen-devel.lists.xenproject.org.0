@@ -2,45 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E3D994439
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 11:27:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812937.1225688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D9CD994476
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 11:39:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812948.1225698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy6VH-0005DA-3Q; Tue, 08 Oct 2024 09:27:39 +0000
+	id 1sy6g0-0008Sh-2s; Tue, 08 Oct 2024 09:38:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812937.1225688; Tue, 08 Oct 2024 09:27:39 +0000
+Received: by outflank-mailman (output) from mailman id 812948.1225698; Tue, 08 Oct 2024 09:38:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy6VG-0005BF-WF; Tue, 08 Oct 2024 09:27:39 +0000
-Received: by outflank-mailman (input) for mailman id 812937;
- Tue, 08 Oct 2024 09:27:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sy6fz-0008Pq-VI; Tue, 08 Oct 2024 09:38:43 +0000
+Received: by outflank-mailman (input) for mailman id 812948;
+ Tue, 08 Oct 2024 09:38:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=95Tx=RE=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1sy6VF-0005B9-59
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 09:27:37 +0000
-Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d160c27-8557-11ef-99a2-01e77a169b0f;
- Tue, 08 Oct 2024 11:27:35 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id 99451A0522;
- Tue,  8 Oct 2024 11:27:34 +0200 (CEST)
-Received: from sonata.ens-lyon.org ([127.0.0.1])
- by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 5CZnuJGKckHA; Tue,  8 Oct 2024 11:27:34 +0200 (CEST)
-Received: from begin (nat-inria-interne-52-gw-01-bso.bordeaux.inria.fr
- [194.199.1.52])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id 7E874A0507;
- Tue,  8 Oct 2024 11:27:34 +0200 (CEST)
-Received: from samy by begin with local (Exim 4.98)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1sy6VC-0000000CBdi-1H4u; Tue, 08 Oct 2024 11:27:34 +0200
+ <SRS0=r5fn=RE=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sy6fy-0008Pk-85
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 09:38:42 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a067124-8559-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 11:38:40 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a8d43657255so853019166b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 02:38:40 -0700 (PDT)
+Received: from localhost ([52.166.251.127]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a993ab8e75esm430768666b.222.2024.10.08.02.38.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Oct 2024 02:38:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,134 +44,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d160c27-8557-11ef-99a2-01e77a169b0f
-Date: Tue, 8 Oct 2024 11:27:34 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>
-Subject: Re: [PATCH 2/4] stubdom: explcitly add libc and lwip Mini-OS config
- options
-Message-ID: <ZwT7Bvl4OXe3e_N2@begin>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>
-References: <20241005151548.29184-1-jgross@suse.com>
- <20241005151548.29184-3-jgross@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241005151548.29184-3-jgross@suse.com>
-Organization: I am not organized
+X-Inumbo-ID: 1a067124-8559-11ef-a0bc-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1728380320; x=1728985120; darn=lists.xenproject.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=09lpA4D+P0B1cNowckUFgOKjxnycBsShODd6kGoWQpM=;
+        b=lhBEgbUgLutpGnMGUvG/ObtXAcCqG+Da5EFK5rYunCdv/DG/0ScemT3LWNwpo+nCER
+         ayZO+5rSdMYx3XpUTyXKKP3jpzAfpMKTby4KJ8j6+2ENMWVFd14fPNF/QQepVi2Pk4IR
+         Z4EeUoU5RAZXDAM95m46CeLI7/Cxzj7kA6u1c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728380320; x=1728985120;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=09lpA4D+P0B1cNowckUFgOKjxnycBsShODd6kGoWQpM=;
+        b=wC+ks0uSRjrITTMajtNcPG/K8oB3uBfrM2Lzg0DXXfWBp6BwWOj94H3Hd7g9CoY17M
+         nB4Ep2YZah3dh13gSVoxruBYlhZKwBTQzbvpN84JcN2YXGjupX1fWJLebmhLKVZXm35Q
+         oZIAvYx03oiamNUrUps/aGanJvHavlJpUaefTliqluutDHBgDNBqM5PbDpKSyFCRrYjQ
+         isbX8GrhfeLlIQCy+0Dzt/tIe+eWMKXkX0RjrlQ5gz4IPIO34mjSv+qEuMEk4amxTPNT
+         7qiNdpk9bFmKVwiuy2yynnbfM49cEZIuZkECo63vS1dw6e6nDW3rg5PaS1ZreU9CRs3E
+         rr2w==
+X-Forwarded-Encrypted: i=1; AJvYcCVIHgE6yOZDk50ky1chgUDmVtI0+f9I/a+DILhyh+BSh7QNUGcCc+7XlqyTKV9UMrKqOLCKI2iwHh0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzWZL+EBP+apDjX70Us5m3b74C3zniZrocgVtX1uaWd6p8Sw772
+	mAkeEEodi+UUrnV4yjB362i2N1UjuThlyRfSsq+6PBcY3UNT4c1D5KLKWP59rxE=
+X-Google-Smtp-Source: AGHT+IF6yvsJAQtvj5aO7KEBTEetVL2qhIA8wXkCQGXNwBvOmfrPwxROIZ+ROBLH68nJaiiQORepuQ==
+X-Received: by 2002:a17:907:3f21:b0:a99:76bc:d753 with SMTP id a640c23a62f3a-a9976bcd8c6mr145338566b.45.1728380320242;
+        Tue, 08 Oct 2024 02:38:40 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 08 Oct 2024 10:38:39 +0100
+Message-Id: <D4QBOT9OWGK2.1AOPQG6UGK35F@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Xen-devel"
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4 2/2] x86/fpu: Rework fpu_setup_fpu() uses to split it
+ in two
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+X-Mailer: aerc 0.18.2
+References: <20241007155240.17186-1-alejandro.vallejo@cloud.com>
+ <20241007155240.17186-3-alejandro.vallejo@cloud.com>
+ <260d904c-54b0-456e-b4a5-9811f2e62c2c@suse.com>
+In-Reply-To: <260d904c-54b0-456e-b4a5-9811f2e62c2c@suse.com>
 
-Juergen Gross, le sam. 05 oct. 2024 17:15:46 +0200, a ecrit:
-> Today the Mini-OS build systems derives libc and lwip config options
-> from the stubdom and LWIPDIR make variables supplied by the Xen build
-> system.
-> 
-> In order to prepare those being explicit Mini-OS config options, add
-> them to the related stubdom Mini-OS config files.
-> 
-> While at it remove the CONFIG_START_NETWORK setting from config files
-> disabling lwip, as CONFIG_START_NETWORK requires lwip for becoming
-> effective.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+On Tue Oct 8, 2024 at 7:37 AM BST, Jan Beulich wrote:
+> On 07.10.2024 17:52, Alejandro Vallejo wrote:
+> > It was trying to do too many things at once and there was no clear way =
+of
+> > defining what it was meant to do. This commit splits the function in tw=
+o.
+> >=20
+> >   1. A function to return the FPU to power-on reset values.
+> >   2. A x87/SSE state loader (equivalent to the old function when it too=
+k
+> >      a data pointer).
+> >=20
+> > The old function also had a concept of "default" values that the FPU
+> > would be configured for in some cases but not others. This patch remove=
+s
+> > that 3rd vague initial state and replaces it with power-on reset.
+> >=20
+> > While doing this make sure the abridged control tag is consistent with =
+the
+> > manuals and starts as 0xFF
+> >=20
+> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> > --
+> > @Jan: The patch changed substantially. Are you still ok with this R-by?
+>
+> I am. However in such a situation imo you'd better drop the tag, for it t=
+o
+> be re-offered (if desired). It can very well happen that the person simpl=
+y
+> doesn't notice the question pointed at them.
+>
+> Jan
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Noted for next time. Thanks for the promptness!
 
-> ---
->  stubdom/c/minios.cfg           | 2 ++
->  stubdom/grub/minios.cfg        | 3 ++-
->  stubdom/ioemu-minios.cfg       | 2 ++
->  stubdom/vtpm/minios.cfg        | 3 ++-
->  stubdom/vtpmmgr/minios.cfg     | 3 ++-
->  stubdom/xenstore-minios.cfg    | 1 +
->  stubdom/xenstorepvh-minios.cfg | 1 +
->  7 files changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/stubdom/c/minios.cfg b/stubdom/c/minios.cfg
-> index e69de29bb2..56d65510cd 100644
-> --- a/stubdom/c/minios.cfg
-> +++ b/stubdom/c/minios.cfg
-> @@ -0,0 +1,2 @@
-> +CONFIG_LIBC=y
-> +CONFIG_LWIP=y
-> diff --git a/stubdom/grub/minios.cfg b/stubdom/grub/minios.cfg
-> index 8df49092cd..5145b357e0 100644
-> --- a/stubdom/grub/minios.cfg
-> +++ b/stubdom/grub/minios.cfg
-> @@ -1,3 +1,4 @@
-> -CONFIG_START_NETWORK=n
-> +CONFIG_LIBC=y
-> +CONFIG_LWIP=n
->  CONFIG_SPARSE_BSS=n
->  CONFIG_TPMFRONT=y
-> diff --git a/stubdom/ioemu-minios.cfg b/stubdom/ioemu-minios.cfg
-> index a65baa3765..6153ae05f8 100644
-> --- a/stubdom/ioemu-minios.cfg
-> +++ b/stubdom/ioemu-minios.cfg
-> @@ -1,3 +1,5 @@
-> +CONFIG_LIBC=y
-> +CONFIG_LWIP=y
->  CONFIG_START_NETWORK=n
->  CONFIG_QEMU_XS_ARGS=y
->  CONFIG_PCIFRONT=y
-> diff --git a/stubdom/vtpm/minios.cfg b/stubdom/vtpm/minios.cfg
-> index 31652ee4f2..22f66f1351 100644
-> --- a/stubdom/vtpm/minios.cfg
-> +++ b/stubdom/vtpm/minios.cfg
-> @@ -1,7 +1,8 @@
-> +CONFIG_LIBC=y
-> +CONFIG_LWIP=n
->  CONFIG_TPMFRONT=y
->  CONFIG_TPM_TIS=n
->  CONFIG_TPMBACK=y
-> -CONFIG_START_NETWORK=n
->  CONFIG_TEST=n
->  CONFIG_PCIFRONT=n
->  CONFIG_BLKFRONT=y
-> diff --git a/stubdom/vtpmmgr/minios.cfg b/stubdom/vtpmmgr/minios.cfg
-> index 3fb383d30f..a9f13a2fd2 100644
-> --- a/stubdom/vtpmmgr/minios.cfg
-> +++ b/stubdom/vtpmmgr/minios.cfg
-> @@ -1,7 +1,8 @@
-> +CONFIG_LIBC=y
-> +CONFIG_LWIP=n
->  CONFIG_TPMFRONT=y
->  CONFIG_TPM_TIS=y
->  CONFIG_TPMBACK=y
-> -CONFIG_START_NETWORK=n
->  CONFIG_TEST=n
->  CONFIG_PCIFRONT=n
->  CONFIG_BLKFRONT=y
-> diff --git a/stubdom/xenstore-minios.cfg b/stubdom/xenstore-minios.cfg
-> index 239da519b9..0252b59432 100644
-> --- a/stubdom/xenstore-minios.cfg
-> +++ b/stubdom/xenstore-minios.cfg
-> @@ -1,3 +1,4 @@
-> +CONFIG_LIBC=y
->  CONFIG_BLKFRONT=n
->  CONFIG_NETFRONT=n
->  CONFIG_FBFRONT=n
-> diff --git a/stubdom/xenstorepvh-minios.cfg b/stubdom/xenstorepvh-minios.cfg
-> index 752b90d7d3..62a228f33d 100644
-> --- a/stubdom/xenstorepvh-minios.cfg
-> +++ b/stubdom/xenstorepvh-minios.cfg
-> @@ -1,3 +1,4 @@
-> +CONFIG_LIBC=y
->  CONFIG_PARAVIRT=n
->  CONFIG_BLKFRONT=n
->  CONFIG_NETFRONT=n
-> -- 
-> 2.43.0
-> 
-
--- 
-Samuel
-Pour un père, autant mourir que de faire plein de calculs et pas s'occuper
-de son fils
- -+- y sur #ens-mim - sombres histoires de zombies -+-
+Cheers,
+Alejandro
 
