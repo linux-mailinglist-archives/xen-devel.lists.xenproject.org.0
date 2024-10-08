@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E010A994482
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 11:42:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812955.1225708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 353BB99455C
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 12:27:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812971.1225718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy6j3-0003Lw-FR; Tue, 08 Oct 2024 09:41:53 +0000
+	id 1sy7QD-0003tI-RK; Tue, 08 Oct 2024 10:26:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812955.1225708; Tue, 08 Oct 2024 09:41:53 +0000
+Received: by outflank-mailman (output) from mailman id 812971.1225718; Tue, 08 Oct 2024 10:26:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy6j3-0003JW-CL; Tue, 08 Oct 2024 09:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 812955;
- Tue, 08 Oct 2024 09:41:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sy7QD-0003qM-OL; Tue, 08 Oct 2024 10:26:29 +0000
+Received: by outflank-mailman (input) for mailman id 812971;
+ Tue, 08 Oct 2024 10:26:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r5fn=RE=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sy6j1-0003JO-JH
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 09:41:51 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b3cce37-8559-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 11:41:50 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5c8a2579d94so6359635a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 02:41:50 -0700 (PDT)
-Received: from localhost ([52.166.251.127]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e0597824sm4100676a12.15.2024.10.08.02.41.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 02:41:49 -0700 (PDT)
+ <SRS0=J5/k=RE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sy7QC-0003qG-3M
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 10:26:28 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c5dd31c3-855f-11ef-99a2-01e77a169b0f;
+ Tue, 08 Oct 2024 12:26:26 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8ce5db8668so839042866b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 03:26:26 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a992e806adcsm490324966b.221.2024.10.08.03.26.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Oct 2024 03:26:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,115 +45,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b3cce37-8559-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: c5dd31c3-855f-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728380510; x=1728985310; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r0GvKrZlY5f5H03b8MI4AuWciNIlH5iRRgXM7eyGylA=;
-        b=B2nqKaf53vPrdC+eT3n78GKxvzip8mcSsX1ZzFB8ZYdsjpsEvdtUb6E8e4qU0jEKDy
-         7PKTIKqQjMxVccJlTryDjMsER7QDXpqiwRRAWQnjjuRhBlGbUat/o6jzWIbwzITLjSiQ
-         PYTgWTPbTM5aXch9qv0xLZO/l9PX5ssI83hCE=
+        d=gmail.com; s=20230601; t=1728383185; x=1728987985; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=M0xphy+/GSl37pA2BYPL60sCH2pffb9Gy+6HIKutHe4=;
+        b=J1LmJw3HCKChwCwQIh057zBf6nMIX6oLZg8aPB/yFisj0B4DiMrrAFkmhZhAUiravu
+         ZW0oRooE60rAGjrPnX4REPvj3WLbzODyNUwpv5PXNeLcFppDQZ8VTRGw9c6pqBYlUJQq
+         9REmw4I0PlXE7XBTCdtLxAInqV6d+94KIDUn6XdduIvJ62p+SVGMot2nrznUbeLoZsK1
+         4COAHIf8/jv4Xh3yBxQv772JBGGdYYieppVei0+a/5nOAl/LJFpihJWqpHcP8RtqeBQR
+         3qLHcgRpWfWLg9bNhfBPsN6LPPJzfhqeDO+beoTD6JHvWku0bL10NEmBBuRk5o+eK9NI
+         ARwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728380510; x=1728985310;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=r0GvKrZlY5f5H03b8MI4AuWciNIlH5iRRgXM7eyGylA=;
-        b=mr9JwgSEqKSq+IaN5zr7UZnBB0RM1Em1ldVXj0jFtmlyEZ/oGUbbNtwaF8fgVnrlbk
-         j/GP62wQsrK3anPUKfCaQ6BxB+7eMheGb8XjCH9ubxR2G6LxuPpIQjZdKQNPNcjburEM
-         41YjG4T2WJpNl/oH47UWtpMXMoN7Ai/2JvFJS6CZC+s0+zP5qpmr2VooTiYBj8dU8l6X
-         HoAOjEEgIhe43kfX9sTbs5l+Pq+XI0zrq2iMp71UlwNkk37ksjpKfOdfa/uM6SS6Uir1
-         QUCTZviA+IvX7AI3fu+Op2DiC07TYIcpyoivT3rvEeBE0wAeT9kCp2vmKO2EbVsH/0GD
-         J0qQ==
-X-Gm-Message-State: AOJu0YywD03j2JHrxSMlO4UgESIgEol/yA+fr0Io8L76dcFcGjifpK9a
-	rpu8mGr3wNJNapEvFWxog0cI7A73pBMJ929V7trnMc4AdCs3c5lofxgTGIKJ20c=
-X-Google-Smtp-Source: AGHT+IGYPm2+WwJi4qMjy1LjvdVuA8778kZtUKRf7RblPML10DTazPvGtm4ahrSoAmdfoDIv1620bQ==
-X-Received: by 2002:a05:6402:3811:b0:5c8:9f44:8145 with SMTP id 4fb4d7f45d1cf-5c8d2e8769dmr12600073a12.26.1728380510074;
-        Tue, 08 Oct 2024 02:41:50 -0700 (PDT)
-Mime-Version: 1.0
+        d=1e100.net; s=20230601; t=1728383185; x=1728987985;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M0xphy+/GSl37pA2BYPL60sCH2pffb9Gy+6HIKutHe4=;
+        b=NztMbGtQkqPZ5vsqfneOdcvZljqV0fxKd2kDd0BIh8pI6YT1lDCA52j8a3eRG6ekj+
+         jqHjW1rsnnaHdfSe8ajLVuZPHlWHK536cAlByNU1mf0G9QCwlDY1N5oTHl8dzsubnKoD
+         IRSnYUAruhMf1bFp1jZhuCeaf7q2/b4GYCAOhvrrpTv0pyfKrMosIUrj/T7aH36QtICQ
+         kyhKwhRgXIfgBqeu2yPJT5VZXKA9o4fzp1unxPI1rjp0XTuWmXwcu2vYMhaW/EN81Rbl
+         pcl1AgIm0ACjOaFioYpLMNw0wCFfP9H60PD0pJlGX4FWETz3VU71f1u9FZpZSmqpE0KV
+         AI2w==
+X-Gm-Message-State: AOJu0YyL6EZKdl5FC1xlAyPW9sZRB4HwSEYuU6l/QlV1nJsCSWpRguie
+	pzktJPImoRHFr2eFOa+Mt9AmoskAscWbzapAF8SwkJlNgKExOfCq1qylWg==
+X-Google-Smtp-Source: AGHT+IEosO9dJmIMXAtB5pmd3r9xNphTn0D6uzZWrtUouEFdlx/oh80EQZS0Zw2/qKfQaUWGS5YGNA==
+X-Received: by 2002:a17:907:3f8a:b0:a99:5240:381e with SMTP id a640c23a62f3a-a9952403a3dmr679855266b.18.1728383185033;
+        Tue, 08 Oct 2024 03:26:25 -0700 (PDT)
+Message-ID: <5771a606964dfaf7d507a5ecbc315dbbf8eac479.camel@gmail.com>
+Subject: Re: [PATCH v2 1/3] xen/riscv: implement virt_to_maddr()
+From: oleksii.kurochko@gmail.com
+To: xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Date: Tue, 08 Oct 2024 12:26:23 +0200
+In-Reply-To: <25a0fa030db90c929379a799aa5e03bed0197665.1728057657.git.oleksii.kurochko@gmail.com>
+References: <cover.1728057657.git.oleksii.kurochko@gmail.com>
+	 <25a0fa030db90c929379a799aa5e03bed0197665.1728057657.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 08 Oct 2024 10:41:49 +0100
-Message-Id: <D4QBR8J2LHN2.CY0Y57DBOKZC@cloud.com>
-Cc: "Xen-devel" <xen-devel@lists.xenproject.org>, "Jan Beulich"
- <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v4 1/2] x86/fpu: Combine fpu_ctxt and xsave_area in
- arch_vcpu
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Frediano Ziglio" <frediano.ziglio@cloud.com>
-X-Mailer: aerc 0.18.2
-References: <20241007155240.17186-1-alejandro.vallejo@cloud.com>
- <20241007155240.17186-2-alejandro.vallejo@cloud.com>
- <CACHz=ZhGt7Lw5vHY-Ykc0_ouutMnurhWg2AQTkUF1MYXyp=fRw@mail.gmail.com>
-In-Reply-To: <CACHz=ZhGt7Lw5vHY-Ykc0_ouutMnurhWg2AQTkUF1MYXyp=fRw@mail.gmail.com>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+MIME-Version: 1.0
 
-On Tue Oct 8, 2024 at 8:47 AM BST, Frediano Ziglio wrote:
-> On Mon, Oct 7, 2024 at 4:52=E2=80=AFPM Alejandro Vallejo
-> <alejandro.vallejo@cloud.com> wrote:
-> >
-> > fpu_ctxt is either a pointer to the legacy x87/SSE save area (used by F=
-XSAVE) or
-> > a pointer aliased with xsave_area that points to its fpu_sse subfield. =
-Such
-> > subfield is at the base and is identical in size and layout to the lega=
-cy
-> > buffer.
-> >
-> > This patch merges the 2 pointers in the arch_vcpu into a single XSAVE a=
-rea. In
-> > the very rare case in which the host doesn't support XSAVE all we're do=
-ing is
-> > wasting a tiny amount of memory and trading those for a lot more simpli=
-city in
-> > the code.
-> >
-> > While at it, dedup the setup logic in vcpu_init_fpu() and integrate it
-> > into xstate_alloc_save_area().
-> >
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> > --
-> > v4:
-> >   * Amend commit message with extra note about deduping vcpu_init_fpu()
-> >   * Remove comment on top of cpu_user_regs (though I really think there
-> >     ought to be a credible one, in one form or another).
-> >   * Remove cast from blk.c so FXSAVE_AREA is "void *"
-> >   * Simplify comment in xstate_alloc_save_area() for the "host has no
-> >     XSAVE" case.
-> > ---
-> >  xen/arch/x86/domctl.c             |  6 ++++-
-> >  xen/arch/x86/hvm/emulate.c        |  4 +--
-> >  xen/arch/x86/hvm/hvm.c            |  6 ++++-
-> >  xen/arch/x86/i387.c               | 45 +++++--------------------------
-> >  xen/arch/x86/include/asm/domain.h |  6 -----
-> >  xen/arch/x86/x86_emulate/blk.c    |  2 +-
-> >  xen/arch/x86/xstate.c             | 12 ++++++---
-> >  7 files changed, 28 insertions(+), 53 deletions(-)
-> >
-> > diff --git a/xen/arch/x86/x86_emulate/blk.c b/xen/arch/x86/x86_emulate/=
-blk.c
-> > index e790f4f90056..08a05f8453f7 100644
-> > --- a/xen/arch/x86/x86_emulate/blk.c
-> > +++ b/xen/arch/x86/x86_emulate/blk.c
-> > @@ -11,7 +11,7 @@
-> >      !defined(X86EMUL_NO_SIMD)
-> >  # ifdef __XEN__
-> >  #  include <asm/xstate.h>
-> > -#  define FXSAVE_AREA current->arch.fpu_ctxt
-> > +#  define FXSAVE_AREA ((void *)&current->arch.xsave_area->fpu_sse)
->
-> Could you use "struct x86_fxsr *" instead of "void*" ?
-> Maybe adding another "struct x86_fxsr fxsr" inside the anonymous
-> fpu_sse union would help here.
->
+On Fri, 2024-10-04 at 18:04 +0200, Oleksii Kurochko wrote:
+> Implement the virt_to_maddr() function to convert virtual addresses
+> to machine addresses, including checks for address ranges such as
+> the direct mapping area (DIRECTMAP_VIRT_START) and the Xen virtual
+> address space. To implement this, the phys_offset variable is made
+> accessible outside of riscv/mm.c.
+>=20
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V2:
+> =C2=A0 - Drop casts in virt_to_maddr() for ASSERT which checks that VA is
+> =C2=A0=C2=A0=C2=A0 in the range of where Xen is located.
+> =C2=A0 - Add UL suffix for or XEN_VIRT_START by using _AC(..., UL) and ad=
+d
+> inclusion
+> =C2=A0=C2=A0=C2=A0 of <xen/const.h>
+> =C2=A0 - Add the comment above return which explains why there is no need
+> =C2=A0=C2=A0=C2=A0 to do " - XEN_VIRT_START.
+> ---
+> =C2=A0xen/arch/riscv/include/asm/config.h |=C2=A0 4 ++++
+> =C2=A0xen/arch/riscv/include/asm/mm.h=C2=A0=C2=A0=C2=A0=C2=A0 | 17 ++++++=
+++++++++++-
+> =C2=A0xen/arch/riscv/mm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A03 files changed, 21 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/xen/arch/riscv/include/asm/config.h
+> b/xen/arch/riscv/include/asm/config.h
+> index 7dbb235685..8884aeab16 100644
+> --- a/xen/arch/riscv/include/asm/config.h
+> +++ b/xen/arch/riscv/include/asm/config.h
+> @@ -155,6 +155,10 @@
+> =C2=A0
+> =C2=A0#define IDENT_AREA_SIZE 64
+> =C2=A0
+> +#ifndef __ASSEMBLY__
+> +extern unsigned long phys_offset;
+> +#endif
+> +
+> =C2=A0#endif /* __RISCV_CONFIG_H__ */
+> =C2=A0/*
+> =C2=A0 * Local variables:
+> diff --git a/xen/arch/riscv/include/asm/mm.h
+> b/xen/arch/riscv/include/asm/mm.h
+> index 4b7b00b850..0f7879d685 100644
+> --- a/xen/arch/riscv/include/asm/mm.h
+> +++ b/xen/arch/riscv/include/asm/mm.h
+> @@ -5,6 +5,7 @@
+> =C2=A0
+> =C2=A0#include <public/xen.h>
+> =C2=A0#include <xen/bug.h>
+> +#include <xen/const.h>
+> =C2=A0#include <xen/mm-frame.h>
+> =C2=A0#include <xen/pdx.h>
+> =C2=A0#include <xen/types.h>
+> @@ -28,7 +29,21 @@ static inline void *maddr_to_virt(paddr_t ma)
+> =C2=A0=C2=A0=C2=A0=C2=A0 return NULL;
+> =C2=A0}
+> =C2=A0
+> -#define virt_to_maddr(va) ({ BUG_ON("unimplemented"); 0; })
+> +static inline unsigned long virt_to_maddr(unsigned long va)
+> +{
+> +=C2=A0=C2=A0=C2=A0 ASSERT(va >=3D (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE=
+));
+It should be ASSERT(va < (...)).
 
-I did in v3, and Andrew suggested to keep the (void *). See:
+Then I can't use virt_to_maddr() instead of LINK_TO_LOAD() as=20
+address from Xen's VA space ( XEN_VIRT_START ) are higher then
+(DIRECTMAP_VIRT_START + DIRECTMAP_SIZE).
 
-  https://lore.kernel.org/xen-devel/2b42323a-961a-4dd8-8cde-f4b19eac0dc5@ci=
-trix.com/
+Or as an option we could consider to drop this ASSERT() as if
+VA is from directmap range the if below will catch that; otherwise
+we have another one ASSERT() which checks that VA is from Xen VA range
+where it is sage to use (phys_offset + va).
 
-Cheers,
-Alejandro
+Could we consider just dropping "ASSERT(va < (DIRECTMAP_VIRT_START +
+DIRECTMAP_SIZE))" or I am missing something?
+
+~ Oleksii
+
+
+> +=C2=A0=C2=A0=C2=A0 if ((va >=3D DIRECTMAP_VIRT_START) &&
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (va < (DIRECTMAP_VIRT_START +=
+ DIRECTMAP_SIZE)))
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return directmapoff_to_maddr(=
+va - DIRECTMAP_VIRT_START);
+> +
+> +=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON(XEN_VIRT_SIZE !=3D MB(2));
+> +=C2=A0=C2=A0=C2=A0 ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) =3D=3D
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (_AC(XEN_VI=
+RT_START, UL) >> (PAGETABLE_ORDER +
+> PAGE_SHIFT)));
+> +
+> +=C2=A0=C2=A0=C2=A0 /* phys_offset =3D load_start - XEN_VIRT_START */
+> +=C2=A0=C2=A0=C2=A0 return phys_offset + va;
+> +}
+> +#define virt_to_maddr(va) virt_to_maddr((unsigned long)(va))
+> =C2=A0
+> =C2=A0/* Convert between Xen-heap virtual addresses and machine frame
+> numbers. */
+> =C2=A0#define __virt_to_mfn(va)=C2=A0 mfn_x(maddr_to_mfn(virt_to_maddr(va=
+)))
+> diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+> index 4a628aef83..7a1919e07e 100644
+> --- a/xen/arch/riscv/mm.c
+> +++ b/xen/arch/riscv/mm.c
+> @@ -26,7 +26,7 @@ struct mmu_desc {
+> =C2=A0=C2=A0=C2=A0=C2=A0 pte_t *pgtbl_base;
+> =C2=A0};
+> =C2=A0
+> -static unsigned long __ro_after_init phys_offset;
+> +unsigned long __ro_after_init phys_offset;
+> =C2=A0
+> =C2=A0#define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+> =C2=A0#define LINK_TO_LOAD(addr) ((unsigned long)(addr) + phys_offset)
+
 
