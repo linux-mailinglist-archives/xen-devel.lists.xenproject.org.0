@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DB1A994793
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 13:47:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813030.1225822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C341299479F
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 13:49:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813035.1225832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy8g1-0002Ln-8e; Tue, 08 Oct 2024 11:46:53 +0000
+	id 1sy8ho-0002s8-Jq; Tue, 08 Oct 2024 11:48:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813030.1225822; Tue, 08 Oct 2024 11:46:53 +0000
+Received: by outflank-mailman (output) from mailman id 813035.1225832; Tue, 08 Oct 2024 11:48:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy8g1-0002Iz-5a; Tue, 08 Oct 2024 11:46:53 +0000
-Received: by outflank-mailman (input) for mailman id 813030;
- Tue, 08 Oct 2024 11:46:51 +0000
+	id 1sy8ho-0002pi-H6; Tue, 08 Oct 2024 11:48:44 +0000
+Received: by outflank-mailman (input) for mailman id 813035;
+ Tue, 08 Oct 2024 11:48:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sy8fz-0002It-AN
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 11:46:51 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1sy8hn-0002pa-RN
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 11:48:43 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 014b1f5e-856b-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 13:46:50 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5c40aea5c40so1719485a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 04:46:50 -0700 (PDT)
+ id 44626749-856b-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 13:48:42 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5c5b954c359so6361777a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 04:48:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e05f3969sm4248175a12.87.2024.10.08.04.46.48
+ a640c23a62f3a-a993ea3b890sm436639666b.167.2024.10.08.04.48.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 04:46:49 -0700 (PDT)
+ Tue, 08 Oct 2024 04:48:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 014b1f5e-856b-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: 44626749-856b-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728388010; x=1728992810; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728388122; x=1728992922; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6xZaYswXVmoMyaE62q3+SUCu3H/UnIU8UaWHNZvQhqY=;
-        b=JJM9QW82zG2kVgjWkAe/+TDEdRkqGKqDgZ2SyDz/WpnCR/p6cQctvH0Aa0X0EGts5v
-         HzDpS157SRfrmbOAJEBNjDF97fkL8VyZpTwkLfM80kzxjVMASh+d96TwTgB8GUT53vS8
-         dMBqnlwD+c7KeAtKldmcp0ns+3OHzmX1D/OpekrATzBXySdtSdAlZJbpScja2dOnS/wX
-         3mke3bzQLYt9Z/p1Hs2QYgtwxQuUWUNVv6MpwvQcFFeCQOdytrH785oBnzYvoAbl7iBl
-         BW4Hg0Q4wneMfx7exMcLIztZ8HCOg3nk+xJFa5QOue6Bs/ZNGTWSHIXqpOm7hEqQEEgW
-         o0Fw==
+        bh=5FlZ+2220PNV0hgipAHf1HFiXKJ01L13PeHf5yRAK7c=;
+        b=B+dxREMjvqk3edXl4tYL38ZdpfaF9X4/R38+Sd5eraIGYSbxSU9KW5K/ux9jf08sVO
+         MBbcGNXySHm5ZTRe/4iufTY4XkrmcvqP83x/9gHQ/m3AiKUPf6ZsObkFhXFIU/E6aN5O
+         CI1SiZLsBUsITGNnhSzG2ghn+ArY9HbAbcpnye0xaLADUqiytZ20jgixku2V2SLZmLTA
+         zjyx9IpMJvr2GK/DtdgSf1JBCERpq5mkAxpFChLDmtDGg7SC2UljENIhzziMA/Szz/5R
+         aIlmqfxMSvEym1eAqzHw9zI1QDANhraJd7Y6S6cvvZ/jvK1RlHBB+GzacUiZVjJ2nwBw
+         JAbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728388010; x=1728992810;
+        d=1e100.net; s=20230601; t=1728388122; x=1728992922;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6xZaYswXVmoMyaE62q3+SUCu3H/UnIU8UaWHNZvQhqY=;
-        b=h58COp84Gsmny+bxPgCenG5G7C8Bda7oAIBzDma/bD61i6cZzGmmklwi/am1VjIz6c
-         N/Z2x0mZ94deRfhK7FDs4cxq/jvUTRWxtZF+h68x4jFds0/cVHo0E4M+nSp/kc4GzoBJ
-         x3nrDHIY79ikK0QGXMALVnY9UHTqCHsN1BLGHcVH0vZK6fI9S0uGIgvsMXGg8y88RheZ
-         KYahk7OKpbuRdjx6q4CL0OJsIwDg5/BLrP8FFmhHjp1Zo+3bOnBGH7V+yPc3ekV1vDQ7
-         Kz+EFXPdTZ/y8BFMsvcmATLIUUZWtBo1pwI0hOj6o7i0eFN6x725JTgqG0HQRqrUot6c
-         J7Ow==
-X-Forwarded-Encrypted: i=1; AJvYcCXNsf3SAk+WNpjSf76ta6v9bGpP/1lwOUz1Vn8TakS/SM4z/rmzagVZ7wYul92upjtpAe5OKeI816E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyojJcZpoF9znTpkgPe2d9fOWbqg8DjxwEgK7/X2x0X0sQCXDoo
-	E3VapVyA8IN7etbyeQF19i7O9Rq8ZqfWXDPO/kFkjhztpNucPnyVImptqPUnMg==
-X-Google-Smtp-Source: AGHT+IEURzfQn/D3al1SWEg+uxNFwOrALJKOs5kH4nzZOXjATjyX7EeXIOz9cEFXncQSc0bZ4YA86w==
-X-Received: by 2002:a05:6402:2185:b0:5c5:c2a7:d535 with SMTP id 4fb4d7f45d1cf-5c905d2113fmr4116309a12.16.1728388009749;
-        Tue, 08 Oct 2024 04:46:49 -0700 (PDT)
-Message-ID: <3351f1f4-406f-4081-b3ad-9d71ce4bb279@suse.com>
-Date: Tue, 8 Oct 2024 13:46:48 +0200
+        bh=5FlZ+2220PNV0hgipAHf1HFiXKJ01L13PeHf5yRAK7c=;
+        b=OL4Gro23He7ReUTkpNQ1U7/WTyfwslSYS8Gci2YRoK3bN8rL29e9gLF0rqgxQOt8sW
+         R56qjPM28nuF6MfwTy4r1xMiPAfd5PcEfnrLz0ANJMSHgybMQs/VvYiGnijrJ/c3ePui
+         Lphs+cE3VX9NqnFEvR1g6es1cJNX/uOus+8D7orQydU9BLFx8tp9PpMybPOo9637CsFw
+         0i2WAqf2twe8xsFiZQCbNCWEGwrHbs5yMITnC7bPo6bjH6r1KqU77XrFmS9WSeuHSL7A
+         iPHJ5PajHUHsN1u/LowjlIwAKs5Unv7DqOBgLsVP4gTT8sCqSZhvgr9sMOLtcDcMi0Vc
+         78xw==
+X-Forwarded-Encrypted: i=1; AJvYcCXsT48+XNYygZ8XpHBYFB2VIAwu17hqqe0qb5rk16mkMZ2IxXH3pr3pwswBbjRcvTZ6bzetO46KILE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwIjkycjy9HOz9KEo0krAeVm60LtCyr/WLouANahMrZxQ7B6AsF
+	EV612V6viwE52KZz56j8oeq5pTw3qo6+XFzqYSriR1ngs1+Oan8Li1RkeJUBQw==
+X-Google-Smtp-Source: AGHT+IF5mUqzkTJE/j109mGmy0XS3vDZ4u1qE4Me0FVp1Qdk3oWsMSV52z6rBOY8mgxySa+01H3Yvg==
+X-Received: by 2002:a17:907:94c3:b0:a7d:a680:23b5 with SMTP id a640c23a62f3a-a991bd79fc2mr1821299266b.33.1728388122188;
+        Tue, 08 Oct 2024 04:48:42 -0700 (PDT)
+Message-ID: <2a020197-e061-4d8d-9d49-df7878153d85@suse.com>
+Date: Tue, 8 Oct 2024 13:48:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] NUMA: Introduce NODE_DATA->node_present_pages(RAM
- pages)
-To: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20241002102331.437048-1-bernhardkaindl7@gmail.com>
+Subject: Re: [PATCH v2] MAINTAINERS: minor file line update
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+References: <20241004111127.897937-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,97 +112,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241002102331.437048-1-bernhardkaindl7@gmail.com>
+In-Reply-To: <20241004111127.897937-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.10.2024 12:23, Bernhard Kaindl wrote:
-> From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-> 
-> Changes in v2:
-> - Remove update of numainfo call, only calculate RAM for each node.
-> - Calculate RAM based on page boundaries, coding style fixes
+On 04.10.2024 13:11, Frediano Ziglio wrote:
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -517,7 +517,7 @@ F:	stubdom/
+>  TEE MEDIATORS
+>  M:	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>  S:	Supported
+> -F:	xen/arch/arm/include/asm/tee
+> +F:	xen/arch/arm/include/asm/tee/
+>  F:	xen/arch/arm/tee/
 
-Nit: This shouldn't be part of the description (eventual commit message);
-it belongs ...
-
-> Some admin tools like 'xl info -n' like to display the total memory
-> for each NUMA node. The Xen backend[1] of hwloc comes to mind too.
-> 
-> The total amount of RAM on a NUMA node is not needed by Xen internally:
-> Xen only uses NODE_DATA->node_spanned_pages, but that can be confusing
-> for users as it includes memory holes (can be as large as 2GB on x86).
-> 
-> Calculate the RAM per NUMA node by iterating over arch_get_ram_range()
-> which returns the e820 RAM entries on x86 and update it on memory_add().
-> 
-> Use NODE_DATA->node_present_pages (like in the Linux kernel) to hold
-> this info and in a later commit, find a way for tools to read it.
-> 
-> [1] hwloc with Xen backend: https://github.com/xenserver-next/hwloc/
-> 
-> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-> ---
-
-... below this first (or any later) such separator.
-
-> --- a/xen/common/numa.c
-> +++ b/xen/common/numa.c
-> @@ -499,15 +499,41 @@ int __init compute_hash_shift(const struct node *nodes,
->      return shift;
->  }
->  
-> -/* Initialize NODE_DATA given nodeid and start/end */
-> +/**
-> + * @brief Initialize a NUMA node's NODE_DATA given nodeid and start/end addrs.
-> + *
-> + * This function sets up the boot memory for a given NUMA node by calculating
-> + * the node's start and end page frame numbers (PFNs) and determining
-> + * the number of present RAM pages within the node's memory range.
-> + *
-> + * @param nodeid The identifier of the node to initialize.
-> + * @param start The starting physical address of the node's memory range.
-> + * @param end The ending physical address of the node's memory range.
-> + */
->  void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t end)
->  {
->      unsigned long start_pfn = paddr_to_pfn(start);
->      unsigned long end_pfn = paddr_to_pfn(end);
-> +    unsigned long ram_start_pfn, ram_end_pfn;
-
-These two variables would better live inside the loop, as it's only there
-that they're used.
-
-> +    unsigned int idx = 0;
-> +    int err;
-> +    paddr_t ram_start, ram_end;
->  
->      NODE_DATA(nodeid)->node_start_pfn = start_pfn;
->      NODE_DATA(nodeid)->node_spanned_pages = end_pfn - start_pfn;
->  
-> +    /* Calculate the numer of present RAM pages within the node: */
-
-Nit: number
-
-> +    NODE_DATA(nodeid)->node_present_pages = 0;
-> +    while ( (err = arch_get_ram_range(idx++, &ram_start, &ram_end)) != -ENOENT )
-> +    {
-> +        if ( err || ram_start >= end || ram_end <= start )
-> +            continue;  /* Not RAM (err != 0) or range is outside the node */
-> +
-> +        /* Add RAM that in the node's memory range (within start and end): */
-
-Nit: I think you either want "that's" or s/that in/from/ (or something
-substantially similar).
-
-> +        ram_end_pfn = min(ram_end, end) >> PAGE_SHIFT;
-> +        ram_start_pfn = (PAGE_ALIGN(max(ram_start, start))) >> PAGE_SHIFT;
-
-You effectively do the comparisons twice - once in the if() and then a
-second time in the min() / max(). Can't you simply check ram_start_pfn
-against ram_end_pfn, totaling to one less comparison?
-
-Also please don't open-code PFN_DOWN() / PFN_UP().
+I think this is a change which actually wants ack-ing by the maintainer
+named here, not THE REST. Cc-ing Volodymyr.
 
 Jan
 
