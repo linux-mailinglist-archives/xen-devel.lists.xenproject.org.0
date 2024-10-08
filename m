@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85F0599535D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 17:26:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813237.1226081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B107995366
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 17:28:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813244.1226090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syC5p-00023k-VB; Tue, 08 Oct 2024 15:25:45 +0000
+	id 1syC8U-0005SY-AR; Tue, 08 Oct 2024 15:28:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813237.1226081; Tue, 08 Oct 2024 15:25:45 +0000
+Received: by outflank-mailman (output) from mailman id 813244.1226090; Tue, 08 Oct 2024 15:28:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syC5p-000208-RF; Tue, 08 Oct 2024 15:25:45 +0000
-Received: by outflank-mailman (input) for mailman id 813237;
- Tue, 08 Oct 2024 15:25:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syC8U-0005Q0-71; Tue, 08 Oct 2024 15:28:30 +0000
+Received: by outflank-mailman (input) for mailman id 813244;
+ Tue, 08 Oct 2024 15:28:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J5/k=RE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1syC5o-000202-PN
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 15:25:44 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94e9ca33-8589-11ef-99a2-01e77a169b0f;
- Tue, 08 Oct 2024 17:25:42 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-539908f238fso6529781e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 08:25:42 -0700 (PDT)
+ id 1syC8T-0005Pu-1Q
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 15:28:29 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f77d0f7b-8589-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 17:28:28 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5398939d29eso7127937e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 08:28:28 -0700 (PDT)
 Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539aff2835csm1220925e87.275.2024.10.08.08.25.40
+ 2adb3069b0e04-539aff233a0sm1223916e87.199.2024.10.08.08.28.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Oct 2024 08:25:41 -0700 (PDT)
+ Tue, 08 Oct 2024 08:28:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94e9ca33-8589-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: f77d0f7b-8589-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1728401142; x=1729005942; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1728401308; x=1729006108; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=xei4YqvZnyECK4HqNJplQQsY2wiWAmO1gRPdYf7JWeI=;
-        b=VwpcRRZew9OEOe+mjuzggy/ZkU80GU1KnZd/UPViYg7Vs8pKRs8rNk2HKcNYNavTdB
-         bxj9HY0YRFZqc+lcz2G/r4WPI01LSJRNojnK0qsk30CvAtPpts7z/0VbffGgbGoJCnqU
-         cb6+MH+NMDgF1seHESYzAoKR9ACOsYUsNE81kRdlXSFTUts8W1Kb8ZCIsfhA8Y8Z29M9
-         XUjzHUkG4YSEH69NpPLSMok5fZl3Xw5eBCcp6TxuAsGm/DRAkRCJQnbwDeixP8znYOg8
-         5jbV6o/FSZih7XryLvzqKHA0+5C94oj8XV/9WbjWt18ZPD+SchWgViBrwGS2qdOIDgOv
-         vF/Q==
+        bh=C+0QgJr4CAoh+r2Aye/Kcb7f5/wbnuGkuXv0LfoUMzA=;
+        b=boXtW3sKaSRASpjhNQ0nvTg+Ql8iyY/HxqzRx21Jyox6fiSL73LjJJCypLL2J9kROb
+         raq4V4zCqAalBqHmG0P0k7wG9b0Ndw6SlYg2LOr2IbVgGFp1pehulHzGK1NftFU/4ZWo
+         H+gqr4tI2sluC0Uzo9uT0tN5Rh9TndBL3d0xLWkamyZFwJ3e3wTjr3XyGJGqgVuk5ipN
+         3MdN14Szb3Kk6L7ypKlpJENH6dqbicPfmlmV+up9zV1/wgtFgmGM8AAqFwfVtjWz8Ke6
+         XgF5wk8nNFEA2a+K0O9ZkKxt9oeTYzISbDh30+rW4Ltgvp2kTZWIt+xTJxmUcXMMTWlQ
+         KCTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728401142; x=1729005942;
+        d=1e100.net; s=20230601; t=1728401308; x=1729006108;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xei4YqvZnyECK4HqNJplQQsY2wiWAmO1gRPdYf7JWeI=;
-        b=OqJI/aPmD7zeYr4Nw3FTHYo8Bi7lVQPUHz9/6fBGCj5rUjVwkiEHT9yhCEfikBj5Ji
-         yHwTz3cIb6YQEM1lKzn3ggMVmlpy1bxRD3iP9GPlPt56M0IjGLHosJvebVm74SryJYy8
-         GkZCsE10xHPIiZkIA/IWrV2PZcKiGKOMLPr53ZWKzXs7Oim2IEYoT6mKbSxxv8dj9YIB
-         lqNABzvxWvPwr4ZlaVAkTuW6qjeiZ7DhEA33YJLd6lS5upCFG02mFn50tzjdmD0/zQgS
-         rL5I40hImlx5KO2Alr0IcUbale2MGeC3YW7rwDVULuPf36xIdA3svxjjhmH7UzLJKPB1
-         h4QA==
-X-Gm-Message-State: AOJu0YxKveLUInsmS2qy7c3mdVHkAOb59Q7vfCFuDXGZrRL9CdjOpoKM
-	DXSUmoT6lpk97Ow3M1L+0oD6gSVdazbnA/HSUsVOeVTKpHOmjaB0VTfbrw==
-X-Google-Smtp-Source: AGHT+IGB4dJp5KBsHAeoxooyJ7jWzVHuWOIfpJ1oxuz4Z9xMNsRP5DikvJOjcBQVcDt5mrQgXGBtmw==
-X-Received: by 2002:a05:6512:1382:b0:52e:9cc7:4461 with SMTP id 2adb3069b0e04-539ab86253bmr8441234e87.5.1728401141567;
-        Tue, 08 Oct 2024 08:25:41 -0700 (PDT)
-Message-ID: <a2c4278891263ee8d3431321367a32246d7498c7.camel@gmail.com>
-Subject: Re: [PATCH v5 0/6] Move {acpi_}device_init() and device_get_class()
- to common code
+        bh=C+0QgJr4CAoh+r2Aye/Kcb7f5/wbnuGkuXv0LfoUMzA=;
+        b=SyKvp1GFehJQrkRh/9YV3P7aZLFlf+0cO3vshG7MCCcQb31ZlM446o6trc9Y9p/CZy
+         S5hDUitv+/uJSGdjw3oNtpOTeQRZPlTfSWDcCUtc/sFExE2lI6+IE6PfBcdOLeWnH73l
+         LuMdAhJwI3uY9xgUlP6bov4IrkR9i5lidpJgQAI0cdkXeDbHkPxHB/Dlxtgspe6X1vkP
+         y82W3PFMdwwmzB6j6IMVOQZQgCobacYIGYNrqz6q1dtCF3euI8OmQtj8ky8EpN1WdDoX
+         jHer65Ut3x/T5t7TAo7ghDEbdydpnPzefe/XJMASZJABzoEYhPYPtAno4qhZLU6wowyB
+         kjDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWtERf2lhZmEJICYNs5Fhd/6sqiavDSVq3Xy8vqTDbQtCfPHfQIQF9XgRzo8E/cduIWiAhNOLZQeu0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxk7y4/VH0nhdMDXv1bSl77gQEe7tUqtXR490iuddZz/I1Mbc9w
+	fRI7vqWljqlgpKoRw6JwGclAmZ+CTVTcj0EIdl0zknQZOzj8Oj5h
+X-Google-Smtp-Source: AGHT+IGqrCB69/cN/2ne/yc+LB74SI1R5+qU+Jt3woNSn40sE1XtbqV4FR9+ffqk1OuzRp23kg5weA==
+X-Received: by 2002:a05:6512:239c:b0:536:5625:511a with SMTP id 2adb3069b0e04-539ab8adc1emr7175470e87.47.1728401307331;
+        Tue, 08 Oct 2024 08:28:27 -0700 (PDT)
+Message-ID: <c11cbcc557ce4a33c14f721e9a9e7305ba7c9231.camel@gmail.com>
+Subject: Re: [PATCH v3 15/19] xen: Update header guards - RISC-V
 From: oleksii.kurochko@gmail.com
-To: xen-devel@lists.xenproject.org
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
- <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Roger Pau
- =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Alistair Francis
- <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
- Davis <connojdavis@gmail.com>
-Date: Tue, 08 Oct 2024 17:25:40 +0200
-In-Reply-To: <cover.1727452451.git.oleksii.kurochko@gmail.com>
-References: <cover.1727452451.git.oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Frediano Ziglio
+ <frediano.ziglio@cloud.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Tamas K
+ Lengyel <tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+Date: Tue, 08 Oct 2024 17:28:26 +0200
+In-Reply-To: <3ba27327-a2f1-4544-8437-678ba01f7c4d@suse.com>
+References: <20241004081713.749031-1-frediano.ziglio@cloud.com>
+	 <20241004081713.749031-16-frediano.ziglio@cloud.com>
+	 <3ba27327-a2f1-4544-8437-678ba01f7c4d@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
 
-Hello everyone,
-
-Except the comments ( which Jan wrote could be adjusted while
-committing ) for patch 1 everything is properly Acked/Reviewed ( if I
-am not missing something ).
-
-I also checked if the patch series rebase/apply on top of current
-staging and I hadn't any issue.
-
-Could someone please tell me what should be my next steps? Should I
-resend this patch series in case I miss something?
-
-Thanks.
-
-~ Oleksii
-
-On Fri, 2024-09-27 at 18:32 +0200, Oleksii Kurochko wrote:
-> The {acpi_}device_init() and device_get_class() functions are
-> identical across
-> Arm and RISC-V, and they are likely to remain the same for other
-> architectures
-> like PPC.
-> Since there is no architecture-specific logic within these functions,
-> they are
-> good candidates to be moved to the common codebase.
->=20
-> This patch series refactors the code by moving these functions to the
-> common
-> directory, reducing code duplication and simplifying future
-> maintenance.
->=20
-> ---
-> Changes in V5:
-> =C2=A0- Rename SIMPLE_DECL_SECTION to DECL_SECTION_WITH_LADDR and update
-> the other
-> =C2=A0=C2=A0 patches correspondingly.
-> =C2=A0- Drop macros argument for=C2=A0 ACPI_DEV_INFO and DT_DEV_INFO.
-> ---
-> Changes in V4:
-> =C2=A0- Introduce SIMPLE_DECL_SECTION to cover the cases when an
-> architecture wants
-> =C2=A0=C2=A0 to use section declaration without specifying an load addres=
-s.
-> =C2=A0- Refactor macors ACPI_DEV_INFO and DT_DEV_INFO and update their
-> defintion.
-> ---
-> Changes in V3:
-> =C2=A0- drop _SECTIONS from the name of the macros ADEV_INFO and
-> DT_DEV_INFO
-> =C2=A0- update the definion of macros ADEV_INFO and DT_DEV_INFO
-> =C2=A0- drop DEVICE_INIT config.
-> ---
-> Changes in v2:
-> =C2=A0- Introduce macros for definition of ACPI and Device Tree sections.
-> =C2=A0- Introduce CONFIG_DEVICE_INIT to make common/device.o compilable
-> only for Arm,
-> =C2=A0=C2=A0 PPC and RISC-V.
-> ---
->=20
-> Oleksii Kurochko (6):
-> =C2=A0 xen: introduce DECL_SECTION_WITH_LADDR
-> =C2=A0 xen: define ACPI and DT device info sections macros
-> =C2=A0 xen/arm: use {DT,ACPI}_DEV_INFO for device info sections
-> =C2=A0 xen/ppc: add section for device information in linker script
-> =C2=A0 xen/riscv: add section for device information in linker script
-> =C2=A0 xen/common: move device initialization code to common code
->=20
-> =C2=A0xen/arch/arm/device.c=C2=A0=C2=A0=C2=A0=C2=A0 | 71 +---------------=
------------------
-> =C2=A0xen/arch/arm/xen.lds.S=C2=A0=C2=A0=C2=A0 | 14 +------
-> =C2=A0xen/arch/ppc/xen.lds.S=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++
-> =C2=A0xen/arch/riscv/xen.lds.S=C2=A0 |=C2=A0 2 +
-> =C2=A0xen/arch/x86/xen.lds.S=C2=A0=C2=A0=C2=A0 |=C2=A0 6 ++-
-> =C2=A0xen/common/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
-> =C2=A0xen/common/device.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 82
-> +++++++++++++++++++++++++++++++++++++++
-> =C2=A0xen/include/xen/xen.lds.h | 22 +++++++++++
-> =C2=A08 files changed, 120 insertions(+), 83 deletions(-)
-> =C2=A0create mode 100644 xen/common/device.c
->=20
+T24gVHVlLCAyMDI0LTEwLTA4IGF0IDE2OjM0ICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
+biAwNC4xMC4yMDI0IDEwOjE3LCBGcmVkaWFubyBaaWdsaW8gd3JvdGU6Cj4gPiBVcGRhdGVkIGhl
+YWRlcnMgcmVsYXRlZCB0byBSSVNDLVYuCj4gPiAKPiA+IFNpZ25lZC1vZmYtYnk6IEZyZWRpYW5v
+IFppZ2xpbyA8ZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbT4KPiAKPiBBY2tlZC1ieTogSmFuIEJl
+dWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgo+IAo+ID4gLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2
+L2luY2x1ZGUvYXNtL2FjcGkuaMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKg
+eGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vYXNtLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwg
+NiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vYXRvbWljLmjCoMKgwqDC
+oMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vYml0
+b3BzLmjCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5j
+bHVkZS9hc20vYnVnLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVu
+L2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vYnl0ZW9yZGVyLmjCoMKgwqDCoMKgIHwgNiArKystLS0K
+PiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vY2FjaGUuaMKgwqDCoMKgwqDCoMKgwqDC
+oCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL2NtcHhjaGcuaMKg
+wqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20v
+Y29uZmlnLmjCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3Yv
+aW5jbHVkZS9hc20vY3B1ZmVhdHVyZS5owqDCoMKgwqAgfCA2ICsrKy0tLQo+ID4gwqB4ZW4vYXJj
+aC9yaXNjdi9pbmNsdWRlL2FzbS9jc3IuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCA2ICsrKy0t
+LQo+ID4gwqB4ZW4vYXJjaC9yaXNjdi9pbmNsdWRlL2FzbS9jdXJyZW50LmjCoMKgwqDCoMKgwqDC
+oCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL2RvbWFpbi5owqDC
+oMKgwqDCoMKgwqDCoCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNt
+L2Vhcmx5X3ByaW50ay5owqDCoCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1
+ZGUvYXNtL2V2ZW50LmjCoMKgwqDCoMKgwqDCoMKgwqAgfCA2ICsrKy0tLQo+ID4gwqB4ZW4vYXJj
+aC9yaXNjdi9pbmNsdWRlL2FzbS9mZW5jZS5owqDCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0K
+PiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vZml4bWFwLmjCoMKgwqDCoMKgwqDCoMKg
+IHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vZmx1c2h0bGIuaMKg
+wqDCoMKgwqDCoCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL2d1
+ZXN0X2FjY2Vzcy5owqDCoCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUv
+YXNtL2d1ZXN0X2F0b21pY3MuaMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5j
+bHVkZS9hc20vaW8uaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDYgKysrLS0tCj4gPiDCoHhl
+bi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL2lycS5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDYg
+KysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL21tLmjCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgfCA2ICsrKy0tLQo+ID4gwqB4ZW4vYXJjaC9yaXNjdi9pbmNsdWRlL2FzbS9t
+b25pdG9yLmjCoMKgwqDCoMKgwqDCoCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2lu
+Y2x1ZGUvYXNtL25vc3BlYy5owqDCoMKgwqDCoMKgwqDCoCB8IDYgKysrLS0tCj4gPiDCoHhlbi9h
+cmNoL3Jpc2N2L2luY2x1ZGUvYXNtL3AybS5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDYgKysr
+LS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL3BhZ2UtYml0cy5owqDCoMKgwqDC
+oCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL3BhZ2UuaMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9h
+c20vcG1hcC5owqDCoMKgwqDCoMKgwqDCoMKgwqAgfCA2ICsrKy0tLQo+ID4gwqB4ZW4vYXJjaC9y
+aXNjdi9pbmNsdWRlL2FzbS9wcm9jZXNzb3IuaMKgwqDCoMKgwqAgfCA2ICsrKy0tLQo+ID4gwqB4
+ZW4vYXJjaC9yaXNjdi9pbmNsdWRlL2FzbS9yZWdzLmjCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDYg
+KysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL3Jpc2N2X2VuY29kaW5nLmgg
+fCA0ICsrLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vc2JpLmjCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20v
+c2V0dXAuaMKgwqDCoMKgwqDCoMKgwqDCoCB8IDYgKysrLS0tCj4gPiDCoHhlbi9hcmNoL3Jpc2N2
+L2luY2x1ZGUvYXNtL3NtcC5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDQgKystLQo+ID4gwqB4
+ZW4vYXJjaC9yaXNjdi9pbmNsdWRlL2FzbS9zcGlubG9jay5owqDCoMKgwqDCoMKgIHwgNiArKyst
+LS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vc3RyaW5nLmjCoMKgwqDCoMKgwqDC
+oMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vc3lzdGVtLmjC
+oMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9h
+c20vdGltZS5owqDCoMKgwqDCoMKgwqDCoMKgwqAgfCA2ICsrKy0tLQo+ID4gwqB4ZW4vYXJjaC9y
+aXNjdi9pbmNsdWRlL2FzbS90cmFwcy5owqDCoMKgwqDCoMKgwqDCoMKgIHwgNiArKystLS0KPiA+
+IMKgeGVuL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vdHlwZXMuaMKgwqDCoMKgwqDCoMKgwqDCoCB8
+IDYgKysrLS0tCj4gPiDCoDQxIGZpbGVzIGNoYW5nZWQsIDEyMSBpbnNlcnRpb25zKCspLCAxMjEg
+ZGVsZXRpb25zKC0pCj4gCj4gRm9yIHRoZSBidWxrIG9mIHRoZSBjaGFuZ2VzIHlvdSBkaWRuJ3Qg
+Q2MgYW55b25lIHdobyBjYW4gYWNrIHRoZW0uCj4gTm90ZSB0aGF0Cj4gdGhlIFJJU0NWIHNlY3Rp
+b24gb2YgLi9NQUlOVEFJTkVSUyBwcmVzZW50bHkgaGFzIG9ubHkgUjogZW50cmllcy4gWW91Cj4g
+bmVlZAo+IHRvIENjIFRIRSBSRVNUIGluIHN1Y2ggYSBjYXNlLgo+IAo+IEl0IGlzIHByb2JhYmx5
+IGFsc28gYSBnb29kIGlkZWEgdG8gQ2MgdGhlIHBlcnNvbihzKSBkb2luZyB0aGUgYnVsayBvZgo+
+IHRoZQo+IHdvcmsgaW4gYSBnaXZlbiBhcmVhIGF0IGEgZ2l2ZW4gcG9pbnQgaW4gdGltZS4gVGhl
+biBhZ2FpbiwgT2xla3NpaSwKPiBtYXliZQo+IHlvdSB3YW50IHRvIGNvbnNpZGVyIGFkZGluZyB5
+b3Vyc2VsZiBhcyBSOiBpbiB0aGF0IHNlY3Rpb24sIHRvbz8gVGhhdAo+IHdheQo+IHlvdSB3aWxs
+IGJlIENjLWVkIG9uIHBhdGNoZXMgKGFzIGxvbmcgYXMgcGVvcGxlIHJlc3BlY3QKPiAuL01BSU5U
+QUlORVJTKS4KU3VyZSwgSSB3aWxsIHNlbmQgYSBwYXRjaCB3aXRoIGFkZGluZyBteXNlbGYgYXMg
+UjogZm9yIFJJU0MtViBpbgpNQUlOVEFJTkVSUyBmaWxlLgoKfiBPbGVrc2lpCg==
 
 
