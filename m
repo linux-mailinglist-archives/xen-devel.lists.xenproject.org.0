@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 486FB9945FC
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 13:03:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813004.1225768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC458994719
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 13:34:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813019.1225802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy7z9-0005je-Eu; Tue, 08 Oct 2024 11:02:35 +0000
+	id 1sy8Su-0002R7-Ua; Tue, 08 Oct 2024 11:33:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813004.1225768; Tue, 08 Oct 2024 11:02:35 +0000
+Received: by outflank-mailman (output) from mailman id 813019.1225802; Tue, 08 Oct 2024 11:33:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy7z9-0005hg-Bn; Tue, 08 Oct 2024 11:02:35 +0000
-Received: by outflank-mailman (input) for mailman id 813004;
- Tue, 08 Oct 2024 11:02:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/rYz=RE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sy7z8-0005g3-51
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 11:02:34 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d13b6df6-8564-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 13:02:32 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5c40aea5c40so1641309a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 04:02:32 -0700 (PDT)
-Received: from localhost ([213.195.117.215]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a993ddeddadsm430420666b.198.2024.10.08.04.02.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Oct 2024 04:02:31 -0700 (PDT)
+	id 1sy8Su-0002PA-Qw; Tue, 08 Oct 2024 11:33:20 +0000
+Received: by outflank-mailman (input) for mailman id 813019;
+ Tue, 08 Oct 2024 11:33:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sy8St-0002P4-3N
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 11:33:19 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1c8bca68-8569-11ef-99a2-01e77a169b0f;
+ Tue, 08 Oct 2024 13:33:17 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5c5b9d2195eso7864522a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 04:33:17 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a992e619b1fsm495169666b.49.2024.10.08.04.33.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Oct 2024 04:33:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,134 +45,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d13b6df6-8564-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: 1c8bca68-8569-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728385352; x=1728990152; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KxoKyEG4kDrOJBu2MRInnkIYHJz/geXpCLu5nCBzoFk=;
-        b=aD6GWcBlpjTSuMU/BuGrL3kvrW/kuGpX9LCnrh9ylXtLZgZ4UnSu7MSfDB41sPsxry
-         2EbjhaHeSuHUXYmnCHVCSqNTt0aHLly8B+e3++bUjslTgG3z7MVEpLr5fqORbEvWHsqd
-         qRDWSsbly1j0xcgwfJ6H49vsdV8ef6seP5ym4=
+        d=suse.com; s=google; t=1728387196; x=1728991996; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YkJp9rgVOFuVqiZYGzzTwGKfg7hukVvo6fq48Ik6+hA=;
+        b=dEjp+V01H9hxk0Rmljx1iSfNugHSTlKZ5ZwCniHfDZ0/sle99mBAg4cnHidXNNgppE
+         WydYkv6JjFBQ6uF3HMJ1xrSiThRagBhmM3xtaWLXL8IvO9kojpkioKlH5qLKB7YsaxkA
+         0svtK7NpDjsILqNXK7o96c5j6F9QBvVNmwN/qvJ4bzauawmsayqV6U7IUb0rdRAS57JR
+         k9wUODxJRmJqqC6ppgujPoGLea2K2VLcXi5U/xGeoXTirHAgg2NV1bKwCZC/UqvCeaq+
+         StTwjZFrWpqMMsGyfLLJLXk6PjRsaPAYihmguQqS/5QfQT8sZfJlBNEVTZUKGVgtOYof
+         xBVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728385352; x=1728990152;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KxoKyEG4kDrOJBu2MRInnkIYHJz/geXpCLu5nCBzoFk=;
-        b=Pfaso0BIudPFS4JLKAvvQCkI1Qn5SOK4qF61wKDmu520W/RYcjA3JuNs/uiituK9lw
-         Qr1RihkcwRYa+CO1cl8fC6UqAcboyXrPE/xef/Zs2Gdfd0eT+XX8E2TuphGBpgvVrwE+
-         VND4K8M949wg3Z3/BEia80A4jjfD8jtjdHf1n8/4INE1NUStV7ZNWhJNeL2edHhgWYE7
-         aFMdC3eY7ZlMyEQD0sxUjHtf0L1rtRTOfkYFYqEhE2Z3Ji5mcqzgkcqG3dC2V77f8zk4
-         tPorgeHDHbHlZHv6kNgeogc/y1FgVgtBluZ4l6LE9H97mKT2ziAchj2RBQK777/fp1jO
-         nu6g==
-X-Gm-Message-State: AOJu0YzQeIb9ehbvhFzwWWH+Gytyiw7LiNFYKDKDWxh3hcykHFqpQqVw
-	yu/n6fM7YXQFggNuZQjnLnmEhzp5RwJ86zscdu/ozfQ0UbVNS9slLmcUk7uXT+w=
-X-Google-Smtp-Source: AGHT+IH2cRqiiz3elmPs3FoPisfIq9ty2XQqhOsxtnTHzIA4K7T13Y6MET3veuUGxbtpOQQsWz1iUw==
-X-Received: by 2002:a17:907:728b:b0:a93:bc27:de24 with SMTP id a640c23a62f3a-a9967856817mr312380766b.1.1728385351973;
-        Tue, 08 Oct 2024 04:02:31 -0700 (PDT)
-Date: Tue, 8 Oct 2024 13:02:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Matthew Barnes <matthew.barnes@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2] x86/APIC: Switch flat driver to use phys dst for ext
- ints
-Message-ID: <ZwURRqxvX0G7vRVV@macbook.local>
-References: <0db68e62ffc428f553a30397df1e79068d26bb5f.1728311378.git.matthew.barnes@cloud.com>
+        d=1e100.net; s=20230601; t=1728387196; x=1728991996;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YkJp9rgVOFuVqiZYGzzTwGKfg7hukVvo6fq48Ik6+hA=;
+        b=NEnPgKviOEse2WDjAE/RTHkh6xj+CH3YhR55WEb+WWE3zG1jxNYC4bhyE5ngf7qG1E
+         dqAI4Gw0+JAcrDhySG+3cNlTh12JdbG2yb/ERmWR39DCmthv/kIxgtcVRq1DvJVV5TmY
+         12P7R3K+GhHe6VRv82D8A0M99xW0Z6qN8dePW1Se/uJ8kjOwQIWYGLbw6hHKMUcyR8wm
+         I4GHdrG+iW3Qf6vEU54uRprQWgmWpjDMiPlczqgSGmqCy7gvVSMfB6Rm+/5l6U383jqu
+         0pGQG3iWGvEFwkADm2OuY0OCaF4LR93ofVVHh+18Pc2rciUc3RuZiLIpLR02vSs726DZ
+         NBrw==
+X-Forwarded-Encrypted: i=1; AJvYcCWOuKSAJWk984pMtZmAw6Ig1raPHGa/QtAlR2nqPQCqeoXYYJ1LVo5nCI2h1YkuKFi3Jlevey+OMmY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxNMz/3gqQuK2XiV1XhCDER9WFi+XXlOcxFP8syPhqFjoACn2C1
+	lBUoOkMsGURv2EzuiSGYtJN/3jjNZG9VwyCuLNXcDATEa9mBYhZSsTaGBloa1Q==
+X-Google-Smtp-Source: AGHT+IEc6Q/IuOV/LJV/OxHf+djuOWrN6YYuYY0/1odwrmepBZRaPFAq8ovuQ0S3Q/C+aV6A3WD+aQ==
+X-Received: by 2002:a17:906:c10e:b0:a99:76a9:a9b3 with SMTP id a640c23a62f3a-a9976a9abb7mr176888066b.14.1728387196344;
+        Tue, 08 Oct 2024 04:33:16 -0700 (PDT)
+Message-ID: <8979f6f8-8f51-4fb4-8df0-663037c1b3c1@suse.com>
+Date: Tue, 8 Oct 2024 13:33:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0db68e62ffc428f553a30397df1e79068d26bb5f.1728311378.git.matthew.barnes@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] x86/alternative: Relocate all insn-relative fields
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241002152725.1841575-1-andrew.cooper3@citrix.com>
+ <20241002152725.1841575-7-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241002152725.1841575-7-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 07, 2024 at 03:34:43PM +0100, Matthew Barnes wrote:
-> External interrupts via logical delivery mode in xAPIC do not benefit
-> from targeting multiple CPUs and instead simply bloat up the vector
-> space.
+On 02.10.2024 17:27, Andrew Cooper wrote:
+> Right now, relocation of displacements is restricted to finding 0xe8/e9 as the
+> first byte of the replacement, but this is overly restrictive.
 > 
-> However the xAPIC flat driver currently uses logical delivery for
-> external interrupts.
+> Use x86_decode_lite() to find and adjust all insn-relative fields.
 > 
-> This patch switches the xAPIC flat driver to use physical destination
-> mode for external interrupts, instead of logical destination mode.
+> As with disp8's not leaving the replacemnet block, some disp32's don't either.
+> e.g. the RSB stuffing loop.  These stay unmodified.
 > 
-> This patch also applies the following non-functional changes:
-> - Remove now unused logical flat functions
-> - Expand GENAPIC_FLAT and GENAPIC_PHYS macros, and delete them.
+> For now, leave the altcall devirtualisation alone.  These require more care to
+> transform into the new scheme.
 > 
-> Resolves: https://gitlab.com/xen-project/xen/-/issues/194
-> Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Just some nits below (and suggestions for future work).
 
-> ---
-> Changes in v2:
-> - Reword commit message
-> - Expand and delete GENAPIC_* macros
-> - Bundle patch series into one patch
-> ---
->  xen/arch/x86/genapic/bigsmp.c      |  8 +++++++-
->  xen/arch/x86/genapic/default.c     |  8 +++++++-
-
-The organization of giles herre is very bad.  bigsmp.c and default.c are
-almost empty files, and delivery.c is almost empty also.  IT should
-all be unified into a single xapic.c file, and rename the genapic folder
-to plain apic IMO.  Not for you to do here, just realized while
-looking at the changes.
-
->  xen/arch/x86/genapic/delivery.c    | 10 ----------
->  xen/arch/x86/include/asm/genapic.h | 20 +-------------------
->  4 files changed, 15 insertions(+), 31 deletions(-)
-> 
-> diff --git a/xen/arch/x86/genapic/bigsmp.c b/xen/arch/x86/genapic/bigsmp.c
-> index e97e4453a033..b2e721845275 100644
-> --- a/xen/arch/x86/genapic/bigsmp.c
-> +++ b/xen/arch/x86/genapic/bigsmp.c
-> @@ -46,5 +46,11 @@ static int __init cf_check probe_bigsmp(void)
->  
->  const struct genapic __initconst_cf_clobber apic_bigsmp = {
->  	APIC_INIT("bigsmp", probe_bigsmp),
-> -	GENAPIC_PHYS
-> +	.int_delivery_mode = dest_Fixed,
-> +	.int_dest_mode = 0, /* physical delivery */
-> +	.init_apic_ldr = init_apic_ldr_phys,
-> +	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
-> +	.cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
-> +	.send_IPI_mask = send_IPI_mask_phys,
-> +	.send_IPI_self = send_IPI_self_legacy
->  };
-> diff --git a/xen/arch/x86/genapic/default.c b/xen/arch/x86/genapic/default.c
-> index a968836a1878..59c79afdb8fa 100644
-> --- a/xen/arch/x86/genapic/default.c
-> +++ b/xen/arch/x86/genapic/default.c
-> @@ -16,5 +16,11 @@
->  /* should be called last. */
->  const struct genapic __initconst_cf_clobber apic_default = {
->  	APIC_INIT("default", NULL),
-> -	GENAPIC_FLAT
-> +	.int_delivery_mode = dest_Fixed,
-> +	.int_dest_mode = 0, /* physical delivery */
-> +	.init_apic_ldr = init_apic_ldr_flat,
-> +	.vector_allocation_cpumask = vector_allocation_cpumask_phys,
-> +	.cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
-
-After this change all APIC drivers use the same values for the
-int_delivery_mode, int_dest_mode, vector_allocation_cpumask and
-cpu_mask_to_apicid fields, at which point we can remove the hooks and
-adjust the code.  For example vector_allocation_cpumask_phys() should
-be renamed to vector_allocation_cpumask(), and the
-vector_allocation_cpumask removed.
-
-Can be done in a followup commit.
-
-As a small nit, it would be good if the remaining fields (used for IPI
-sending): init_apic_ldr, send_IPI_{mask,self} are grouped together.  I
-would move the initialization of the init_apic_ldr field just above
-send_IPI_mask.
-
-Thanks, Roger.
 
