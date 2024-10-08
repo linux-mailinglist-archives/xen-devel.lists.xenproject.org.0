@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8DAC9953FA
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 18:03:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813297.1226169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE3D9953FF
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 18:04:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813299.1226180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syCg8-0006uZ-Kj; Tue, 08 Oct 2024 16:03:16 +0000
+	id 1syCh4-0007Sf-UP; Tue, 08 Oct 2024 16:04:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813297.1226169; Tue, 08 Oct 2024 16:03:16 +0000
+Received: by outflank-mailman (output) from mailman id 813299.1226180; Tue, 08 Oct 2024 16:04:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syCg8-0006sh-Hy; Tue, 08 Oct 2024 16:03:16 +0000
-Received: by outflank-mailman (input) for mailman id 813297;
- Tue, 08 Oct 2024 16:03:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J5/k=RE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1syCg7-0006rp-TI
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 16:03:15 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d369670a-858e-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 18:03:15 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2fac275471dso56972201fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 09:03:15 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2faf9b24642sm12287761fa.82.2024.10.08.09.03.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Oct 2024 09:03:13 -0700 (PDT)
+	id 1syCh4-0007PT-RQ; Tue, 08 Oct 2024 16:04:14 +0000
+Received: by outflank-mailman (input) for mailman id 813299;
+ Tue, 08 Oct 2024 16:04:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1syCh3-0007PN-U9
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 16:04:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1syCh3-0005VB-Dd; Tue, 08 Oct 2024 16:04:13 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1syCh3-0003Hk-89; Tue, 08 Oct 2024 16:04:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,70 +39,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d369670a-858e-11ef-a0bc-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1728403394; x=1729008194; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=gr3jfdjN2IAATYfVe7H/52XJ9irHMNf7CDGnxXUGKes=;
-        b=efW4EUHB5KQM47xKqfDarQFUmyC0/ewY+3N3COv7TxI87fzfiChMm485zAPPT9t+gZ
-         EqkgZrNkItfgXdpL7zLtp3HNzudMG3/1JR1rj8vJc/V+yBlewx7H3UEYihOXuO7ReLRo
-         VuicAUlTPZr3Ht63a9ssHVhkPqp4Cr79j30oBjjZ4RtuZDS/NFxcaTsqnPd8HZ6n+Rhj
-         fFbatYe7cSdcsD5mk9AteqLaiJlfproxwuLc7yXhBPZ9prf3bQI4b9k9GiX2qLj6NUUB
-         N7WmAU3Ajaief51/F8C+ktmSGDyHDiPYk4M4Xt5HLSy3NPgZQWy3Sfx/FoVeeiukoxL+
-         Ub7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728403394; x=1729008194;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gr3jfdjN2IAATYfVe7H/52XJ9irHMNf7CDGnxXUGKes=;
-        b=BDyWl/X+0/pToq4SK8QBaJAnoVCPBfL3r2S3I836Kp2e5l6AAOTv3YYp+XNu/nF70R
-         Tj6qG7GkYmryBy3RirEsMvOk4edrdUgFNTSlviWpaMK6hIFwG2EJFvkaqDhEuQdUrXVf
-         Ip5+b63E93CaUY1PE6y0GpQKaPck91t748PbliGy4LlkzYPX649nDS9ZMvCQId8rG9dE
-         YUoM6fb7f+2Lh84CDW9OPz7XcZ5ZDMS6otrFb5GgfsmTiCajrR4bJux06P+vM8h5zjLD
-         +K3aIfqGBNmpoQs7J89GdJoaXbJGPFTAPDLuErImkLG1xggrLgcO93L3p5P0NZIcCGa4
-         IsvQ==
-X-Gm-Message-State: AOJu0YyJYk2OVRUzT58NvuF03mQjbgUWZY0R+/NYN/7eotqm8puMMJqb
-	WRp2n+W5Rju0gHzlHOFLj+0eVO5xwProbCn/vUv6EVUMzazULGnmOir+FA==
-X-Google-Smtp-Source: AGHT+IHS3PfMzfAFSOAmiLLvuEiZ63nmFUW5Ld5RzH9RCmUdAY2uTn7QoDIlcUpxEZt5UjnqNDPQ/w==
-X-Received: by 2002:a2e:6119:0:b0:2f7:5ca2:6d10 with SMTP id 38308e7fff4ca-2fb16048f13mr1819121fa.15.1728403393967;
-        Tue, 08 Oct 2024 09:03:13 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] MAINTAINERS: Add myself as a reviewer for RISC-V
-Date: Tue,  8 Oct 2024 18:03:08 +0200
-Message-ID: <20241008160309.78329-1-oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.46.2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=wcF1gjhpLs59mNcfajJ5pB7YlhEWMmrTXkmxK7u8E2Q=; b=lSwWWQCkYuVbJswN9ogvWplv7f
+	rEkFEvEFNihg3GKDHYPAzZjsS52IbYXKe0NRGNtS2msjVmkNgZsTEn/RSZVXLPwZ4JTfjzyR0+UlM
+	NiWBK9J5hpcHdSTT6gnSnO39SQun3dBeX7Q33rx+Psi4q+EU9YHeHxg6DsZdLxNIjU+A=;
+Message-ID: <f50873b5-250e-4a56-8e8b-bfc70ef733b3@xen.org>
+Date: Tue, 8 Oct 2024 17:04:11 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] types: replace remaining uses of s64
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <cfaf8df7-e78e-46be-b6d4-499dd96e0f66@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <cfaf8df7-e78e-46be-b6d4-499dd96e0f66@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-As an active contributor to Xen's RISC-V port, so add myself
-to the list of reviewers.
+Hi Jan,
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+On 08/10/2024 15:56, Jan Beulich wrote:
+> ... and move the type itself to linux-compat.h. An exception being
+> arch/arm/arm64/cpufeature.c and arch/arm/include/asm/arm64/cpufeature.h,
+> which are to use linux-compat.h instead (the former by including the
+> latter).
+> 
+> While doing so
+> - correct the type of union uu's uq field in lib/divmod.c,
+> - switch a few adjacent types as well, for (a little bit of)
+>    consistency.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fb0ebf0939..6b0b5654d6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -485,6 +485,7 @@ RISCV
- R:	Alistair Francis <alistair.francis@wdc.com>
- R:	Bob Eshleman <bobbyeshleman@gmail.com>
- R:	Connor Davis <connojdavis@gmail.com>
-+R:	Oleksii Kurochko <oleksii.kurochko@gmail.com>
- S:	Supported
- F:	config/riscv64.mk
- F:	xen/arch/riscv/
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
 -- 
-2.46.2
+Julien Grall
 
 
