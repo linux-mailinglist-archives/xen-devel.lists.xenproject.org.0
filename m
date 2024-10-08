@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 085E299536A
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 17:30:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813249.1226100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D766F995386
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 17:41:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813255.1226109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syCAf-000725-MB; Tue, 08 Oct 2024 15:30:45 +0000
+	id 1syCL1-0003Du-Ja; Tue, 08 Oct 2024 15:41:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813249.1226100; Tue, 08 Oct 2024 15:30:45 +0000
+Received: by outflank-mailman (output) from mailman id 813255.1226109; Tue, 08 Oct 2024 15:41:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syCAf-0006z3-J7; Tue, 08 Oct 2024 15:30:45 +0000
-Received: by outflank-mailman (input) for mailman id 813249;
- Tue, 08 Oct 2024 15:30:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syCL1-0003Bs-Gw; Tue, 08 Oct 2024 15:41:27 +0000
+Received: by outflank-mailman (input) for mailman id 813255;
+ Tue, 08 Oct 2024 15:41:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syCAe-0006yx-OE
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 15:30:44 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47be9f46-858a-11ef-99a2-01e77a169b0f;
- Tue, 08 Oct 2024 17:30:42 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5c8967dd2c7so7194674a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 08:30:42 -0700 (PDT)
+ id 1syCL0-0003Bm-EE
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 15:41:26 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c6615779-858b-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 17:41:25 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a993302fa02so418563866b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 08:41:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a997ee645fbsm52013966b.133.2024.10.08.08.30.41
+ a640c23a62f3a-a993ab8e75esm467927066b.222.2024.10.08.08.41.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 08:30:41 -0700 (PDT)
+ Tue, 08 Oct 2024 08:41:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47be9f46-858a-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: c6615779-858b-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728401442; x=1729006242; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728402084; x=1729006884; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XjmyVc7FFOhdqrCKIZH8v8SqquIn999SeKsAYd5ocTM=;
-        b=W4ao2MPffKtUqXkgRtg20pZqx4UdQT2D2rGvQIm1I8H1a80qVNeKpaUSITl1flK19b
-         AhzH+trQ1RhajFMUPU7l6chCWPc5D04/k7X7n/imv47JIqUquTUw9C+h6IFuziU/41wf
-         s+gENLmAd+TfY0KXe8G/LZ2lUMyz+7Zs9e/FH2kBEN8lvHOCnwh4WRsQXXvKLuenSpP4
-         Vlueww408WdRiqJz03VNqm1KiALU+BhPxMz1j2tSSpUSuwN+LNez+Rrk7InEN8hlXnVG
-         hPfZLhZXpVII9hxsEXNKGs3mmxdFyCg3C18z4ILVLnd3/7+smgn812+KfnLUh77Sih6U
-         Sq6w==
+        bh=9MnXq9VGUzWcgrfmo5odjgxM/AYFL8uVN88pkaI9Ej8=;
+        b=C2cOzH0Luct200T944ypXc5zgMcgBYIDzi1XkJ8aNhpg/r9LWBVXUnIeHHZZfOqaTw
+         S6dShf/rNaFrp3IrTMOazzsQeLAOv8hZK3OTvi/d+rizRWWie/BrSngQx+RCg0d0WJEa
+         s6IhaQIXZZKvD0+4/g4R8cfhLgre4n6OHITjW00DPbaJFE1vrqKC23BYAB2uX8u5M2DP
+         lgo3Va6ythfBv9JM/6WF0qw4BARJrH8/kQz6xkb0SJ1wSfSNWYBfZDfybo+Y2QgOe9Qx
+         +mNq3pIeC8CiWXqrBLLoDW3+56gv1OJUPZX+iat+xewRTRuBy36gOWxewGqTP8rgg/3N
+         J73A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728401442; x=1729006242;
+        d=1e100.net; s=20230601; t=1728402084; x=1729006884;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XjmyVc7FFOhdqrCKIZH8v8SqquIn999SeKsAYd5ocTM=;
-        b=qwk/ivW3wxjNyaUCgJK16+w1qmj1zy9k9GYnwLe6moJgSD5Aj117ZxTc+XjEGt7pqG
-         IQm3Z2g8VjVHdb8BiXwLbtBWGn/XS9TnYUdrQrdzK5CxeLFumuN4uRkgKEf74LF/n1TO
-         JJU1a3Z3Ll+AKOLxsIuKGBnR+1VRACzhd6LA1w/q+G8tTsfA7hmQOKKn4Ei04xj6d+Sq
-         72pXtvRU6NwhyDSn0ZK/93vB9gMM4iC9H5H7jTrzvGLG6gGGLkFmbXXGAd/+nTEb6Bnj
-         G4+Mf1yYmw2nd3z3r3mj3ioDSaOf8Geo1DbAMDD9AunVKKMOWbfBSuCn+/dRHiseqlHm
-         5bXA==
-X-Forwarded-Encrypted: i=1; AJvYcCXuBmqYaY7FTPuYMR1tZJIYH2Bgz7I9RUy8wAEMm4Pf5IPWGw2geUVJjlseseydLPjW/qC99Sx4g2M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyWrwdOa1fJHpohnE1TRiTlNm0ZEm5QqBqjzIHz26jIMrDw2U8W
-	7W8exP2kTvTEkqDrIplur5JG549scB1B0VF7ICf2NjqOXHIjOclrMVve7YnB+Q==
-X-Google-Smtp-Source: AGHT+IFQnKS9IZ+GblJWBlRCcWOnHPlmX2j477K5AB3MGTy5Yye6XxRYH+ebOZzSUN9BGA35xOZeXg==
-X-Received: by 2002:a17:907:9281:b0:a7a:97ca:3056 with SMTP id a640c23a62f3a-a991bd0a833mr1507834966b.16.1728401442243;
-        Tue, 08 Oct 2024 08:30:42 -0700 (PDT)
-Message-ID: <0c3f6b3d-7040-43e2-823f-520dcbeec31d@suse.com>
-Date: Tue, 8 Oct 2024 17:30:41 +0200
+        bh=9MnXq9VGUzWcgrfmo5odjgxM/AYFL8uVN88pkaI9Ej8=;
+        b=jUQiqGlEwK6CUytBpP9b0GbKOHtTtiD/Z42GkJcfYenZ+92PNYOYiE2g/dr4MzP95L
+         RznqPW3r28q2Dzgm1FcVHuyhNa9ER29caFKsjzPJ+p7X+dE9KHODAEKVHM+CSQM/d98B
+         2Oh0TC4RMLcD593SRVk9K+r+Uo3k7ZfNNoTq3hrVjcJuTDOTFxQUrbKVZXI3FUIL0Q7v
+         1KWQ+eiza6+nhMocrh5i0lDVg+XTWs46wazSpWYOoEMKMmstGjvdsk9+xRW5XEvaIz6O
+         z1C9i10hG8vKYOGjssRmrqYBC4S/mf8vGYZwCmgENchDS4JL51IOP7fCs1vzw8EfJ0+7
+         L6ow==
+X-Forwarded-Encrypted: i=1; AJvYcCUmrfwx++YsOAAlJlOlV5udn+y5Ya3mkzNwp64zFjaeLx99DCTuqQRbE39h5BvcTYqaZZwkIqw/01M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw6gzP938anJf5hbXoKHj7uH0jGSoXiIeZrE43hbjHhADMkmE8a
+	Q4itEHZzprifwTa7zbGfW/UtfLuldxap9+M/7WnznI1qXPcO9RZ2cwdPLcKtQA==
+X-Google-Smtp-Source: AGHT+IEaSkaMhY/wPAEcvQ0kCzpZeXfDMB4c8m9F/LMXZCzWJRum7blijYRGzUDZkLxTPwREp74bpA==
+X-Received: by 2002:a17:907:9627:b0:a99:4615:f58c with SMTP id a640c23a62f3a-a994615f65amr979285566b.2.1728402084250;
+        Tue, 08 Oct 2024 08:41:24 -0700 (PDT)
+Message-ID: <40034a00-6f1d-4a39-9f00-2daa671a13d1@suse.com>
+Date: Tue, 8 Oct 2024 17:41:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] Move {acpi_}device_init() and device_get_class()
- to common code
-To: oleksii.kurochko@gmail.com
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v6 02/11] x86/vlapic: Move lapic migration checks to the
+ check hooks
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1727452451.git.oleksii.kurochko@gmail.com>
- <a2c4278891263ee8d3431321367a32246d7498c7.camel@gmail.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241001123807.605-1-alejandro.vallejo@cloud.com>
+ <20241001123807.605-3-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,16 +114,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a2c4278891263ee8d3431321367a32246d7498c7.camel@gmail.com>
+In-Reply-To: <20241001123807.605-3-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.10.2024 17:25, oleksii.kurochko@gmail.com wrote:
-> Except the comments ( which Jan wrote could be adjusted while
-> committing ) for patch 1 everything is properly Acked/Reviewed ( if I
-> am not missing something ).
+On 01.10.2024 14:37, Alejandro Vallejo wrote:
+> While doing this, factor out checks common to architectural and hidden
+> state.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> --
+> Last reviewed in the topology series v3. Fell under the cracks.
+> 
+>   https://lore.kernel.org/xen-devel/ZlhP11Vvk6c1Ix36@macbook/
 
-I didn't spot a PPC ack so far; did I miss it?
+It's not the 1st patch in the series, and I can't spot anywhere that it is
+made clear that this one can go in ahead of patch 1. I may have overlooked
+something in the long-ish cover letter.
 
 Jan
 
