@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59A469951CD
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 16:35:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813183.1226010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A7CE9951D1
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 16:35:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813188.1226020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syBIB-0002Bg-PF; Tue, 08 Oct 2024 14:34:27 +0000
+	id 1syBJ7-000345-1t; Tue, 08 Oct 2024 14:35:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813183.1226010; Tue, 08 Oct 2024 14:34:27 +0000
+Received: by outflank-mailman (output) from mailman id 813188.1226020; Tue, 08 Oct 2024 14:35:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syBIB-00029n-Mb; Tue, 08 Oct 2024 14:34:27 +0000
-Received: by outflank-mailman (input) for mailman id 813183;
- Tue, 08 Oct 2024 14:34:25 +0000
+	id 1syBJ6-00031U-Uu; Tue, 08 Oct 2024 14:35:24 +0000
+Received: by outflank-mailman (input) for mailman id 813188;
+ Tue, 08 Oct 2024 14:35:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syBI9-00029h-SS
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 14:34:25 +0000
+ id 1syBJ5-0002oW-Ij
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 14:35:23 +0000
 Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
  [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a58a073-8582-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 16:34:24 +0200 (CEST)
+ id 8d0c0a24-8582-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 16:35:23 +0200 (CEST)
 Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c91a7141b8so161712a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 07:34:24 -0700 (PDT)
+ 4fb4d7f45d1cf-5c91756c9easo542729a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 07:35:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9950ef9f45sm306240166b.37.2024.10.08.07.34.23
+ a640c23a62f3a-a9958647caasm253928466b.213.2024.10.08.07.35.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 07:34:23 -0700 (PDT)
+ Tue, 08 Oct 2024 07:35:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a58a073-8582-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: 8d0c0a24-8582-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728398064; x=1729002864; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728398122; x=1729002922; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LA4lJFd9gjECCkUvfg3uw4f0Ym7fSn6imjWNBu9BpSw=;
-        b=We34xpTGcWVCKVjP4LWvJj03eaJkVbQFRPT74am46a+9IU4Zjlxn2FBCV7JzmHAEoN
-         Zuap8qcFWTqStDZIKyZwsoIRVCD9ciC0f002rVb9xbvdmF8qhd0J66BkRskB9Ies1TLl
-         MNaQpyTH591EXAko+5NYr7RVBXUk3CIyjOfZXmd8z+PwD5JG5Qj1wPJl6E6T/XePJKAK
-         34wh6j+AHbezuaPKiSi7a1PLdcFj+qUfy2R5vSKf4bf3+WyoHPHj8PdXYRbcgvIKgfX2
-         C815ciVJOB8bciHtkxZ73FbTlHV0lmtNFbi2hvcS8kzP7flj4JoOMwY7yQj7xeYG4sdJ
-         DYJA==
+        bh=JQ55pjdPeb3ZVFEJGCWyrPSNwYuVHUdUxj2TK1Mv+6w=;
+        b=P/sk638CPpHpb+W6VhNzj0FU7TwEP7aC0pg603PVDeHl9L5lEjtg47dKgp8JpC2yZT
+         +YuJPamaMw6Tw+zSfL8/D2/kAnOIsmkjqUyZDYwB3CzqoGihjV03nnZhuMcODNFv8Yt5
+         DkWogeBItnrjz/32NRDniqghX9ZeAWDLkgvIW+30XxIs52QvVQ4yPZ/ztKtSb7/y1Yey
+         QCrgTZo4WOMtec3MEGlSIBB66F1qx+HT/JipG8dT5Z3yGeBRC9EZkXnkVLEwObGEhz+o
+         vPxtZ2M1UDs6mMIboZXVFdbZ27uqXOUQ69y0Pv9anq1EXgIceVdxlY5/JD4z+ntATYc8
+         0z+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728398064; x=1729002864;
+        d=1e100.net; s=20230601; t=1728398122; x=1729002922;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LA4lJFd9gjECCkUvfg3uw4f0Ym7fSn6imjWNBu9BpSw=;
-        b=tfCGqf/aSdQYc7+WKCqpPxfBTnwA5whBzXzlci8bEBSqbZkGLNUXV7fDhWYElGarP9
-         semXbLZfM5xJCf22s6E9eQgoLF7d6Rz6SOVi4WsGEChS5F6EJjQArVu8Ct/RP+vzPWHx
-         EHnTTvr+/CreEnB39aeOnLy+P5gkoXgdsGGc4EI4innn+BRHenWerp6hnhcfG2lSC7aH
-         Flik+OmOVitgfcUA7qv9bgaRFQoo8GU8gJIjtq4+OLjaxEGtrbtMA4adq56Sz5Jzp1x1
-         Lyjz6YPS//Q5q5dVzQoAZ5ULEN3UYhmvOfjmih3muBzRiVyEijOMYRQQ3dZlTyTZ/BCf
-         A7GQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVZ8sHxO1bfCEF7aASAouqlqWtOfFIaOIdw20VWUxcZgubZ9TASNqodvX6AfHSGJCUBEL/mX0C8FPA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqBg0iTfEBZnNLHL3YMxJ1nVRDrFf6gKsc5lwMAnhFz2Uq4xYu
-	6qI8WFgstso6B9kSrBidv90PLwggSsL905Fi7CLKxnvoJ6l7ORHqujOX8T6E2g==
-X-Google-Smtp-Source: AGHT+IEu4psKJO5cv7B3wJ5SPMJTjnp2aPK3672HegSm8UjR3Talt+YjxAWRwVZy0LiqOjjekw3REw==
-X-Received: by 2002:a17:907:961b:b0:a86:a4b1:d2b8 with SMTP id a640c23a62f3a-a991bcf6f90mr1533956666b.4.1728398064207;
-        Tue, 08 Oct 2024 07:34:24 -0700 (PDT)
-Message-ID: <3ba27327-a2f1-4544-8437-678ba01f7c4d@suse.com>
-Date: Tue, 8 Oct 2024 16:34:23 +0200
+        bh=JQ55pjdPeb3ZVFEJGCWyrPSNwYuVHUdUxj2TK1Mv+6w=;
+        b=mVodv9Vsi0WmPC6XMBkiv4zABZJyj+YrGyWBUKpoTvVcuZP2oN1SpNJAm/r6R1Mj9P
+         yst0qiZAM7v2t+aNRInnB+cY5u/gAYHYiSvpEKVgIwLKzPH8jYJv4FDUc1Ut2x53gf/c
+         91q9xFfont22nG0/VJtcO5035zpWYTGrZrKpfxYAUl1Du8eQgI8RN8swqF96vOAhETHf
+         8b2pmQ+K0vWceAHohvmiGe2y8JgZ9gM1VAIKRaxL++6Td0dP6yY0YdCQQEwBv4bGZbeg
+         g2FKexeHtztnP0bV0T/7F3o8g+WJXomiSQoFJs9KMOYQxSsfYzraf252OYRMWObBLUEC
+         EvrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUl0IQqA2ImrHoVw9MqVdiH1xdDoMuWN22L7FWd2uqh0X5N80iGNXDelcrlfiPDC2/YgiZ/82wOrko=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyT+27scGLd80VOeXHvOflf46xQz149l9N1WXhQLpenOLOxxe0N
+	EGgtQSSFlNJWaFTD0V+ZgJKwR4K8cY0C5925NtNG3N7COk0iyA0vZ2FWtbFLJw==
+X-Google-Smtp-Source: AGHT+IHgV9NkERj755xLtJ4Zbd0uyi8yhJuZ3l95kK5DQG7WSBEjIcuu2huGI2bwsV87S0Qhwt4B1Q==
+X-Received: by 2002:a17:907:6d25:b0:a99:5c07:9f5b with SMTP id a640c23a62f3a-a996785140cmr386718866b.6.1728398122596;
+        Tue, 08 Oct 2024 07:35:22 -0700 (PDT)
+Message-ID: <54f11b9c-95cd-4694-a917-70e5904c6122@suse.com>
+Date: Tue, 8 Oct 2024 16:35:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/19] xen: Update header guards - RISC-V
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 09/19] xen: Update header guards - Intel TXT
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Lukasz Hawrylko <lukasz@hawrylko.pl>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20241004081713.749031-1-frediano.ziglio@cloud.com>
- <20241004081713.749031-16-frediano.ziglio@cloud.com>
+ <20241004081713.749031-10-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,69 +116,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241004081713.749031-16-frediano.ziglio@cloud.com>
+In-Reply-To: <20241004081713.749031-10-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04.10.2024 10:17, Frediano Ziglio wrote:
-> Updated headers related to RISC-V.
+> Updated headers related to Intel trusted execution technology.
 > 
 > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> ---
->  xen/arch/riscv/include/asm/acpi.h           | 6 +++---
->  xen/arch/riscv/include/asm/asm.h            | 6 +++---
->  xen/arch/riscv/include/asm/atomic.h         | 6 +++---
->  xen/arch/riscv/include/asm/bitops.h         | 6 +++---
->  xen/arch/riscv/include/asm/bug.h            | 6 +++---
->  xen/arch/riscv/include/asm/byteorder.h      | 6 +++---
->  xen/arch/riscv/include/asm/cache.h          | 6 +++---
->  xen/arch/riscv/include/asm/cmpxchg.h        | 6 +++---
->  xen/arch/riscv/include/asm/config.h         | 6 +++---
->  xen/arch/riscv/include/asm/cpufeature.h     | 6 +++---
->  xen/arch/riscv/include/asm/csr.h            | 6 +++---
->  xen/arch/riscv/include/asm/current.h        | 6 +++---
->  xen/arch/riscv/include/asm/domain.h         | 6 +++---
->  xen/arch/riscv/include/asm/early_printk.h   | 6 +++---
->  xen/arch/riscv/include/asm/event.h          | 6 +++---
->  xen/arch/riscv/include/asm/fence.h          | 6 +++---
->  xen/arch/riscv/include/asm/fixmap.h         | 6 +++---
->  xen/arch/riscv/include/asm/flushtlb.h       | 6 +++---
->  xen/arch/riscv/include/asm/guest_access.h   | 6 +++---
->  xen/arch/riscv/include/asm/guest_atomics.h  | 6 +++---
->  xen/arch/riscv/include/asm/io.h             | 6 +++---
->  xen/arch/riscv/include/asm/irq.h            | 6 +++---
->  xen/arch/riscv/include/asm/mm.h             | 6 +++---
->  xen/arch/riscv/include/asm/monitor.h        | 6 +++---
->  xen/arch/riscv/include/asm/nospec.h         | 6 +++---
->  xen/arch/riscv/include/asm/p2m.h            | 6 +++---
->  xen/arch/riscv/include/asm/page-bits.h      | 6 +++---
->  xen/arch/riscv/include/asm/page.h           | 6 +++---
->  xen/arch/riscv/include/asm/pmap.h           | 6 +++---
->  xen/arch/riscv/include/asm/processor.h      | 6 +++---
->  xen/arch/riscv/include/asm/regs.h           | 6 +++---
->  xen/arch/riscv/include/asm/riscv_encoding.h | 4 ++--
->  xen/arch/riscv/include/asm/sbi.h            | 6 +++---
->  xen/arch/riscv/include/asm/setup.h          | 6 +++---
->  xen/arch/riscv/include/asm/smp.h            | 4 ++--
->  xen/arch/riscv/include/asm/spinlock.h       | 6 +++---
->  xen/arch/riscv/include/asm/string.h         | 6 +++---
->  xen/arch/riscv/include/asm/system.h         | 6 +++---
->  xen/arch/riscv/include/asm/time.h           | 6 +++---
->  xen/arch/riscv/include/asm/traps.h          | 6 +++---
->  xen/arch/riscv/include/asm/types.h          | 6 +++---
->  41 files changed, 121 insertions(+), 121 deletions(-)
 
-For the bulk of the changes you didn't Cc anyone who can ack them. Note that
-the RISCV section of ./MAINTAINERS presently has only R: entries. You need
-to Cc THE REST in such a case.
-
-It is probably also a good idea to Cc the person(s) doing the bulk of the
-work in a given area at a given point in time. Then again, Oleksii, maybe
-you want to consider adding yourself as R: in that section, too? That way
-you will be Cc-ed on patches (as long as people respect ./MAINTAINERS).
-
-Jan
 
