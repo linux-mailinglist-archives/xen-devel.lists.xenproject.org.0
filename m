@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B09099546D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 18:30:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813341.1226239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E3CB99546E
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 18:30:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813346.1226249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syD5r-00069h-0H; Tue, 08 Oct 2024 16:29:51 +0000
+	id 1syD6O-0007Zu-Cc; Tue, 08 Oct 2024 16:30:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813341.1226239; Tue, 08 Oct 2024 16:29:50 +0000
+Received: by outflank-mailman (output) from mailman id 813346.1226249; Tue, 08 Oct 2024 16:30:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syD5q-00067Q-TV; Tue, 08 Oct 2024 16:29:50 +0000
-Received: by outflank-mailman (input) for mailman id 813341;
- Tue, 08 Oct 2024 16:29:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syD6O-0007XM-9p; Tue, 08 Oct 2024 16:30:24 +0000
+Received: by outflank-mailman (input) for mailman id 813346;
+ Tue, 08 Oct 2024 16:30:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LJPt=RE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1syD5p-00067K-6W
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 16:29:49 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88e8e9f6-8592-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 18:29:48 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5c91756c9easo764619a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 09:29:48 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a994d5745e2sm351330866b.23.2024.10.08.09.29.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 09:29:47 -0700 (PDT)
+ <SRS0=A1UB=RE=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1syD6M-0007Sr-CG
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 16:30:22 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20609.outbound.protection.outlook.com
+ [2a01:111:f403:2405::609])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9bad5147-8592-11ef-99a2-01e77a169b0f;
+ Tue, 08 Oct 2024 18:30:20 +0200 (CEST)
+Received: from BY1P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::16)
+ by CH2PR12MB4230.namprd12.prod.outlook.com (2603:10b6:610:aa::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.23; Tue, 8 Oct
+ 2024 16:30:14 +0000
+Received: from MWH0EPF000971E2.namprd02.prod.outlook.com
+ (2603:10b6:a03:59d:cafe::6a) by BY1P220CA0008.outlook.office365.com
+ (2603:10b6:a03:59d::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.17 via Frontend
+ Transport; Tue, 8 Oct 2024 16:30:14 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000971E2.mail.protection.outlook.com (10.167.243.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8048.13 via Frontend Transport; Tue, 8 Oct 2024 16:30:13 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Oct
+ 2024 11:30:12 -0500
+Received: from [172.21.103.178] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 8 Oct 2024 11:30:11 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +59,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88e8e9f6-8592-11ef-a0bc-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728404987; x=1729009787; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pTxcc4xj04P69n4EHuKzOnZzdFd2qrgs1WXgu87kEDI=;
-        b=XjH8kKOt05ER7ut3aqJlKfWsQbeO+z2xRZo1bgor5yAbmH6HGa8rh8/erNw0C8PaAB
-         A5qedwkzxrvp/q+zd2UvGQROlo4YNQ/PuG0euV4VMMS/6ShaO2jDBt/LUR73crnpoy0x
-         2v8D1Am8UOZ06sMahVvXdeIUWq8TAuAED5RE8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728404987; x=1729009787;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pTxcc4xj04P69n4EHuKzOnZzdFd2qrgs1WXgu87kEDI=;
-        b=CtLaWgtqySZjDtumVO8idJJ6BJClarhtiR1G6OSCpig/OJeKzDDgKe5pkpQL4wJoaY
-         v06Efl3LR8r+qK5IBAv/ZoNSw+DQR9G3VWiBeiMBdvJmpuA36WCI8B+xNijC8P+C95Fi
-         8C/L19Xuo1DAImN/yHmNApTxIWTcTpZmhkThUhEdlD9RR8X1j6w+zX7OcRQeBlFm/2l9
-         dMSWjpq04HdRDgy2+/i+dq8PM88ebyW2bdmPbi7eJhnNzEf/MNUn8ggpuNS5Mxp2nEMD
-         gddGVCFHBI5Wn5r2MYo+ZmYZlYXY/JMr71jOXs7WLJaP21NamsWfof4u9vYYkeltkGU5
-         kA0Q==
-X-Gm-Message-State: AOJu0YwdNpkWTyFkYCUw5QazHJpwajgZ/IVXPxdN0c0+LoV9QFeE2Vh/
-	wBcZQ6XoBeL54Ywka1fL774p4d/LgDkxVM98Z0sjO43c9MftIKbGHzuMuMKHSsg=
-X-Google-Smtp-Source: AGHT+IEyzAa3GDGP91rK8+qcJoZdhoPbfTS8HuTgU5v98VXh+K1or+pFD7PSXrQwmcCZOjsxIe+cfw==
-X-Received: by 2002:a17:907:3f89:b0:a8d:42ec:e65d with SMTP id a640c23a62f3a-a99678524e3mr432423566b.7.1728404987544;
-        Tue, 08 Oct 2024 09:29:47 -0700 (PDT)
-Message-ID: <056fbcc4-71f1-4ce1-aae6-bb3a7192aefb@citrix.com>
-Date: Tue, 8 Oct 2024 17:29:45 +0100
+X-Inumbo-ID: 9bad5147-8592-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cY0xgKxYkkKPtDglhENBgDQeUeH3RF90m9AJP71EehYgsTvL26YqS+zG22paDSDsfI0i8VuJdoWrfjKNvRh1bfAyEzGVC0llwjapqlbEh/JwrEltEEgfTiGjmhJ7XxbZ9TE+xDfgeHLRTGSOXzRyu9qGZdSgeXxFpxD+tkKy6YLC5ym6tMXrw4QwfD0h2djADOeaAFE93KRARprV0a80ceFSlnq4hAD3+Ec1fqazOgMdH6ETCRwk4Z2Xnx2jhQJYyl5OmEsoK21+ZQFfzCXnhwsiL92bFTcK4AsMq9z9BQZIWuokNd08txMdZTljKkZ+Uyyo4QAFPSHfhuRXY8HkHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YMUvyLVe2kMup0AIem0Loc5lmXdKnOLYU10xBVXeBcg=;
+ b=sB+Q0sA2aobpQn+fNg5E319Iyn7CNL6C1lGscDvC1PkLMKJyotLMJervNz0POzFmUG6iG8HfFepW+d6qZKXjFAKv0XbMkinlumRFTzcBE/bzSa6XG4zDABo9PrC0AdPxRyJEoTwD+DcJ2dHhazj8/Y7FQ+0pFEiTrUKSKihLyVnlZ1sWwHUDDoQPtEfjzz1ROTgSQWBEpBalwHxgzpaEmeNjyfv/0DtVF4p3+rzI46z6HnrREta/6IbW3PoxlmacDZ3OKgqasxhVC06CgOhyabTw0RnrVrZpQDYsbxSyP9kiMT6q+xxNZAvXQLV4S/LqL7nb8w08kIJbLUV8zZwdog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YMUvyLVe2kMup0AIem0Loc5lmXdKnOLYU10xBVXeBcg=;
+ b=F7g0SVaOODNmTSqB4DeNtGCr/zUiWvAJ68TP2JjM84uBICFntNwds7gngsBBaBdCngstTYCmR/cXOfSb29zO2cxfxTf3aoSEZ/vr8VqOOZ0acwCH0kSFtL91v7kWG2TQbFyuiMNcbgZdhxog3CMkSBi17rbpV+XOfkyTXAspPlE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <66738e0d-2a66-4547-8674-043b54b50ae6@amd.com>
+Date: Tue, 8 Oct 2024 12:30:09 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CI: Stop building QEMU in general
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20241008155023.2571517-1-andrew.cooper3@citrix.com>
- <ZwVddI62BTAtMUls@l14>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZwVddI62BTAtMUls@l14>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 22/44] x86/boot: remove module_map usage from microcode
+ loading
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
+ <20241006214956.24339-23-dpsmith@apertussolutions.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20241006214956.24339-23-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E2:EE_|CH2PR12MB4230:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a1d92cb-2db3-412a-6355-08dce7b67c76
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?S2piS3VidWhXKzVLRmkrUHV5amJDMHJzWWpKRmtCZ1ZTQ1NydGhXbWFtbWpj?=
+ =?utf-8?B?VXVibXBuK1kvdmdsWk5QTnBjTlUyUENHVGpWZzZydEJEaER2RjdUTDZDeExq?=
+ =?utf-8?B?ZkFPL3RqdWU4Q1ZpZlVISjlqL1VQMUNGNlYxckNnck9PVUREdWxVY3JTQ2Fv?=
+ =?utf-8?B?dldaQ1NMc1UvTmYzamFzZGU0RlZjbDAvQ2Y1RXRIWVpWWmRCZUlQcVZMdTVB?=
+ =?utf-8?B?MENUcHprVEFIRThmNDEycFVSYndQSnRJU0NlaVR1UWhJdWJBaVpYWFNyV3Y3?=
+ =?utf-8?B?OG5YRVhJK3AzYlhQbGl6WDQvWDh2d3dNUWo4ME9EUzlTSjhuRGxnNWRVN1JG?=
+ =?utf-8?B?T0RJNU43Tyt2c3B2akZJampVdjJaZDkyUERZR015S0w5Q2p1M2JNY2tGRFBG?=
+ =?utf-8?B?WXJLVUl6YUVLYytDb3FHUkwvUUhETkdzOXFnb1ZXeVI3UTB6Z0ZDQk44Y3Ft?=
+ =?utf-8?B?WkRWZGM2MXhNN3ZLbW5MVW1zZDdOMHFsOGd2eW9xRlFJbnBzcGxwYlFzTkEw?=
+ =?utf-8?B?QkNtOVk3eHQxSVF4YXdEWVFvRlBlTW82cUJuM2FUaUVSekFETUhNamY2ZlVm?=
+ =?utf-8?B?VSt0RmVTZUVKWExXM2ZFckZId1lvb2Z4eWMxZHE3YmdYcDlBS3YxOVNQZTNu?=
+ =?utf-8?B?UWlINGRYYlduTVRTakJjckdOeU5admZwLyt1RVhGckxVSU9tUUNZUldvZzk1?=
+ =?utf-8?B?bXR2RUt6THU4bjFaL0MzeXg2dGhTZk5ad3JrSlVjTThVNW1MRE1hRTlFWkxZ?=
+ =?utf-8?B?TnhjSUlCbWhobzdhVytCeGZMRElJVnpxVGpkQUZxUlFDRzJHbDdvdlZhVjJ3?=
+ =?utf-8?B?amg4NS9rYjRtVWtxaEU5RUl1dGdZVXUxQ0E1enRnZ2tDMFlud0tZWWJQVHcy?=
+ =?utf-8?B?ZXNSUlBxUkhxQVdGeEM5c2J5Ly8rdzA2dmhTeDJjUklxVEVBRTA4UXd0NTlL?=
+ =?utf-8?B?ekZKN1I3VGtHS29tMnZUbTBxb04vK2pVM2FJMDVtSk4zY2lOQzVvc2U4L08w?=
+ =?utf-8?B?akFGNCtuZkJpRWs2RWFocTM0ZTdnVHk4YS9GQWFwbzBHNHo1ZlRTWUR0ejda?=
+ =?utf-8?B?S00vQWhXWHRwVXR5ZVRHSllkVXQ1dGxLV2NiNUUvMHMxdEJ5emhoVm1nN1FD?=
+ =?utf-8?B?bEM3K09KTXhlYlZaZW9tZkVKN0NISXp0NCtvZkQ2RWQ2Q1lOUFhTdWVVS2Zw?=
+ =?utf-8?B?TjRwTmZhUy9kQlc1VWdDWVU1N0RxZmJmcXMvek14RzNBRjFpN0JoZUMrdk5l?=
+ =?utf-8?B?NFU4YUR5UDhOQXliUWRBQjVFaFNOdkplREFTZU9Pb0JoZGduTFBtdk5TY0dJ?=
+ =?utf-8?B?RGthamZ1SGxpbmxqa2ZWM1FiYkI0SkVoWWx3NmR4emVtcjhXUDFlcjBraHRM?=
+ =?utf-8?B?OW9tZllkamdzNWFxZ1FjYkxjMjhLdG1rN0hObERTUEJMTGhpaUFlQ0FjajN6?=
+ =?utf-8?B?ZEVCTXBhekN1eVdzMVQxaUxPWm1LMXI4NEtibkZpYkNUOUdaaURMR1Fwb0Nz?=
+ =?utf-8?B?L1d5WStCQkpQeXR0TnZlZ29QZ09zQVorL0piSTQxNUliUlU3Nnp4NEhtUCtu?=
+ =?utf-8?B?ejdLbU1iUE9wSmhvbXM3TUdqMjh3ZlNwSmhKcEUzVkd3c0dmZWhVN1BVSFcr?=
+ =?utf-8?B?ZVRiaEZEZ3VlYlRZV0NRSXF6Nk0wR2VqK2kzcnhJM3d2VTVFM0VBNU4wUG92?=
+ =?utf-8?B?c2hiOXVVUUtYZGoyR1pNRzBMaUUwWGlZZDhxd0orOWNzSDZWNEJlT21PZzIw?=
+ =?utf-8?B?ekE4WUg3RXpaZ3B2cUVDMXE1bVRRZ3BrZlVsRFAvR083ZHpNVFVKL2tzYTRQ?=
+ =?utf-8?B?UG1QWWozcHBiNHVpOVRWellLVWRHSlpNYllVYkUwaGJaK2tEOUFmaFNLNllu?=
+ =?utf-8?Q?EuF3hSmYm5Bcu?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 16:30:13.6871
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a1d92cb-2db3-412a-6355-08dce7b67c76
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000971E2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4230
 
-On 08/10/2024 5:27 pm, Anthony PERARD wrote:
-> On Tue, Oct 08, 2024 at 04:50:23PM +0100, Andrew Cooper wrote:
->> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
->> index c668736bdc2f..c83e0bdbe119 100644
->> --- a/automation/gitlab-ci/build.yaml
->> +++ b/automation/gitlab-ci/build.yaml
->> @@ -339,6 +339,7 @@ alpine-3.18-gcc-debug:
->>    extends: .gcc-x86-64-build-debug
->>    variables:
->>      CONTAINER: alpine:3.18
->> +    QEMU: y
-> Could you use a different name for the variable? This is exposed as an
-> environment variable, it could easily be used in a build system already,
-> like used to store a path to a QEMU to use.
->
-> We don't really have a name space for CI variable, but maybe
-> BUILD_QEMU or BUILD_QEMU_XEN would be less likely to clash with other
-> usages.
->
-> Otherwise patch looks fine.
+On 2024-10-06 17:49, Daniel P. Smith wrote:
+> With all consumers of module_map converted, remove usage of it
+> by the microcode loading logic.
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-A can switch to BUILD_QEMU, but I don't plan to repost just for that.
+> @@ -202,19 +201,18 @@ static void __init microcode_scan_module(
+>       }
+>   }
+>   
+> -static void __init microcode_grab_module(
+> -    unsigned long *module_map, struct boot_info *bi)
+> +static void __init microcode_grab_module(struct boot_info *bi)
+>   {
+>       if ( ucode_mod_idx < 0 )
+>           ucode_mod_idx += bi->nr_modules;
+>       if ( ucode_mod_idx <= 0 || ucode_mod_idx >= bi->nr_modules ||
+> -         !__test_and_clear_bit(ucode_mod_idx, module_map) )
+> +         (bi->mods[ucode_mod_idx].type != BOOTMOD_UNKNOWN) )
 
-~Andrew
+Just
+          bi->mods[ucode_mod_idx].type != BOOTMOD_UNKNOWN )
+
+With that:
+
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+
+Regards,
+Jason
 
