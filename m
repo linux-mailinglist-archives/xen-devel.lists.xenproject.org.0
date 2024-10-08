@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADA9199424F
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 10:42:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812823.1225587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA500994260
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 10:43:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812832.1225607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy5nE-00050x-K3; Tue, 08 Oct 2024 08:42:08 +0000
+	id 1sy5oQ-00060t-5I; Tue, 08 Oct 2024 08:43:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812823.1225587; Tue, 08 Oct 2024 08:42:08 +0000
+Received: by outflank-mailman (output) from mailman id 812832.1225607; Tue, 08 Oct 2024 08:43:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy5nE-0004yE-HD; Tue, 08 Oct 2024 08:42:08 +0000
-Received: by outflank-mailman (input) for mailman id 812823;
- Tue, 08 Oct 2024 08:42:07 +0000
+	id 1sy5oQ-0005zF-2g; Tue, 08 Oct 2024 08:43:22 +0000
+Received: by outflank-mailman (input) for mailman id 812832;
+ Tue, 08 Oct 2024 08:43:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sy5nD-0004xD-3P
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 08:42:07 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1sy5oO-0005z3-Pu
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 08:43:20 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32bf5ebf-8551-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 10:42:06 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5c42f406e29so7096776a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 01:42:06 -0700 (PDT)
+ id 5eaf4579-8551-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 10:43:19 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2fad6de2590so79054041fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 01:43:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9935ee4594sm453864466b.189.2024.10.08.01.42.05
+ a640c23a62f3a-a994cea5a6fsm306886766b.224.2024.10.08.01.43.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 01:42:05 -0700 (PDT)
+ Tue, 08 Oct 2024 01:43:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32bf5ebf-8551-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: 5eaf4579-8551-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728376926; x=1728981726; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728376999; x=1728981799; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xWAQuuPY3Y+UKj3p0PpqioXI6PMXZagE2PwXUZ/T8mQ=;
-        b=NsFH+kQsPbXUuOXXqmfnEB2cPz4lil/KCvrXaN4ChNeVHayyEiR3/ZZJ8uYC0pQ9ts
-         0dUFH/iKHyHyTPtIlQzZZOJt7fTKBrwTl4mZZ3LZaztEvNBsGlbdci43Yypkw8fCwY6g
-         d8gbyskD24E+wAJmDJu6wRm5YRJIzTzHf2KKioJbBT2CPZLBYSmhZeRlesXV9mn6Jpda
-         cei+jMMUY6MtYPx/HQOkZZvkGVwwcNfggAEXZGNuRC+o17X0CEz7p+5jw1sU7ClbhgKf
-         II6oDAttNooAlpfUfAxSIzUPPNmHGI2BNCVg1w7agjOFqvRLVV3PbqQb7dZ8YM1G+S8q
-         4zAA==
+        bh=iRkMXWzx8WVYIbynDLk0om8TiVsnT5FyHke2/Vuz8qE=;
+        b=Cb+fNF1NdkArYhL3Jap+DAQnRJ00DYvCNsQVLG5DaWy8xrtXVvffq+PTdT96G0wrvF
+         2GRApDiMdcHLdXZ1AFp90VhRTZ0ZKY2oa6sY6BwESdGOP0UpCjJX/RECm5S3J6FZFOVT
+         +29cmk7ftsmb0mfVGfy6TJIntXHOq/ABObNvjrhFHGPw4NbyoiQThsBV0x8NgE6FXLti
+         ZxOZWnmho8mI6pVJSc4rv3I4B91KYbMNVMMuMhwvVSiRo+w227z8jfE9WhqD+WmXDsuC
+         fLrddfjyDUCbno/vBbGyOZJKALm8Ssiwx27dd7ZFwiH1tt69Z9bHdEHEChVwNq45FYsS
+         iUjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728376926; x=1728981726;
+        d=1e100.net; s=20230601; t=1728376999; x=1728981799;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xWAQuuPY3Y+UKj3p0PpqioXI6PMXZagE2PwXUZ/T8mQ=;
-        b=Jd+r8GRgIyy+MRcR0jt6lHaHcmRoo1GQeiYZwZC1PorirRv4Y7LEpVf7BNKlorG2tT
-         T4pDLfwmHNHy2cq7b21+ZPEhqjWsQK7uh241BdVbuIoOISDA06LAjztY34WfYxpyO1sR
-         mI9i9fygMj9veDJRx4sfx30OA9GhVPBiYKhFK5PACkYBj8b4IQIxCyEdI0uBRl/jv/JN
-         Qf880zaEBcaoxl06dal3IHtzKRWJNo3G0F/VZFzcdTXGWDDd75Ajvrp4VvqAxMf5UGlQ
-         GK8M21XT1lGBPM1cDpNs1MUnGkvWC8dGE6gP6HPB54VvwyvOZ1OTp8oaR2CYKypFjeqx
-         eKZw==
-X-Forwarded-Encrypted: i=1; AJvYcCVvOGEsZHPmIfXBFphSfGp+GVKiK0SJhE6pzZRMghQYSWkvpi5D2NUZQ+g3qrsqF4c0l2/FmgPM6cQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy81OXA3kKedqujvhrL+sDYOxMsPGQWlbVKcg9HyP86bNpq8ctW
-	eG9pRJQ9Y3E+fRhLAMez0NNfwR/j8jilTk43U7UVI1dACS4KonIpgFLNfgdoJRoeJBH1xuvPusI
-	=
-X-Google-Smtp-Source: AGHT+IHfc+jN9E6FOcW4F6hb05kYzApUrmg9nbK6IAr2e+5LHC3B333zcu5WC0sABjIWSEZ+vuhT3A==
-X-Received: by 2002:a17:907:7244:b0:a99:36e8:c353 with SMTP id a640c23a62f3a-a9936e8c51bmr1145427466b.56.1728376925753;
-        Tue, 08 Oct 2024 01:42:05 -0700 (PDT)
-Message-ID: <0b34d746-cc7c-4db0-96c4-44ae3d6c6172@suse.com>
-Date: Tue, 8 Oct 2024 10:42:04 +0200
+        bh=iRkMXWzx8WVYIbynDLk0om8TiVsnT5FyHke2/Vuz8qE=;
+        b=o97qNaftqhVFGf/t0iJV+23mjdlf3dOY4jaon9IpjWsYV9GU5srq4gOsyzNyrYVcO6
+         Ys4YUDORmXU7rew+OVWJikum1HvpaTEkS3NZmus4wT+ukjE01ZtNpqNYYNw0zA25pqSz
+         YavszQPmBY5YJIGAzfeua++Zm2N6+T7adNK+jdrUeXPQjQmGpDafV4iukbaClBXaVrKP
+         CrNPPVo2oLrpd27Y4jjMMspYiZmphtNPrQeF84n1A0mLQ+Hee6cvkBhBaz/LPIRjBRRr
+         YUmgU6BE6gcIVF6auxlqpGP14VziYRyWVXcFplxicwOvf30SXlD4h1wqrk3+X7nbC5gF
+         DqKw==
+X-Forwarded-Encrypted: i=1; AJvYcCW/GuvIfzBouZhPvCO1S/BO8h6+yoVq2mvPQ0SShBwLPNT4gqfU1i2R3EnqQqKHjQL+2WYbbzp9gOw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywvl0bvPoLV9PvGJB20XD1uhv+w4tQXvuuelmTxMZ5q1UzQCvwX
+	ky6vpiMO6aBUvwFzbtS76IHkyUixKu542sn6AzWzlcHSdKfLMB2S80ZPMRfzaw==
+X-Google-Smtp-Source: AGHT+IEQAJmdaC2rPkT+9g8bVlzz84hdx5B29D1nmR2bNqvZhEdl7M5jd2yE/Pjp9bl+TVjY6jBhpg==
+X-Received: by 2002:a2e:be85:0:b0:2fa:d7ea:a219 with SMTP id 38308e7fff4ca-2faf3d79182mr96385981fa.37.1728376999382;
+        Tue, 08 Oct 2024 01:43:19 -0700 (PDT)
+Message-ID: <34143892-d278-403b-98e5-127b52f1c446@suse.com>
+Date: Tue, 8 Oct 2024 10:43:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/domctl: fix maximum number of MSRs in
- XEN_DOMCTL_{get,set}_vcpu_msrs
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241008083756.72829-1-roger.pau@citrix.com>
+Subject: Re: [PATCH] x86: Use standard C types in multiboot2.h header
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241008084157.35652-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,37 +111,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241008083756.72829-1-roger.pau@citrix.com>
+In-Reply-To: <20241008084157.35652-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.10.2024 10:37, Roger Pau Monne wrote:
-> Since the addition of the MSR_AMD64_DR{1-4}_ADDRESS_MASK MSRs to the
-> msrs_to_send array, the calculations for the maximum number of MSRs that
-> the hypercall can handle is off by 4.
+On 08.10.2024 10:41, Frediano Ziglio wrote:
+> The header already uses standard types for many fields, extend
+> their usage.
+> No functional change.
 > 
-> Remove the addition of 4 to the maximum number of MSRs that
-> XEN_DOMCTL_{set,get}_vcpu_msrs supports, as those are already part of the
-> array.
-> 
-> A further adjustment could be to subtract 4 from the maximum size if the DBEXT
-> CPUID feature is not exposed to the guest, but guest_{rd,wr}msr() will already
-> perform that check when fetching or loading the MSRs.  The maximum array is
-> used to indicate the caller of the buffer it needs to allocate in the get case,
-> and as an early input sanitation in the set case, using a buffer size slightly
-> lager than required is not an issue.
-> 
-> Fixes: 86d47adcd3c4 ('x86/msr: Handle MSR_AMD64_DR{0-3}_ADDRESS_MASK in the new MSR infrastructure')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> ---
-> I'm tempted to just get rid of nr_msrs and use ARRAY_SIZE(msrs_to_send)
-> instead, but refrained from doing it.
 
-I think the variable would indeed better go away now. Yet that doesn't
-necessarily need to happen right here.
-
-Jan
 
