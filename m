@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35BF995073
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 15:42:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813126.1225930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01C6B99509B
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 15:48:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813135.1225940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syASo-0002pk-BH; Tue, 08 Oct 2024 13:41:22 +0000
+	id 1syAZ3-0006WV-4M; Tue, 08 Oct 2024 13:47:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813126.1225930; Tue, 08 Oct 2024 13:41:22 +0000
+Received: by outflank-mailman (output) from mailman id 813135.1225940; Tue, 08 Oct 2024 13:47:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syASo-0002o3-8O; Tue, 08 Oct 2024 13:41:22 +0000
-Received: by outflank-mailman (input) for mailman id 813126;
- Tue, 08 Oct 2024 13:41:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syAZ3-0006TK-1J; Tue, 08 Oct 2024 13:47:49 +0000
+Received: by outflank-mailman (input) for mailman id 813135;
+ Tue, 08 Oct 2024 13:47:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syASn-0002nx-FC
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 13:41:21 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 000d9a16-857b-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 15:41:20 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a993302fa02so400892866b.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 06:41:20 -0700 (PDT)
+ id 1syAZ1-0006TE-SW
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 13:47:47 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e47c9506-857b-11ef-99a2-01e77a169b0f;
+ Tue, 08 Oct 2024 15:47:43 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5c91756c9easo438397a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 06:47:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a995a54ddf3sm221652866b.216.2024.10.08.06.41.18
+ a640c23a62f3a-a993ddeddadsm447922366b.198.2024.10.08.06.47.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 06:41:19 -0700 (PDT)
+ Tue, 08 Oct 2024 06:47:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 000d9a16-857b-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: e47c9506-857b-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728394879; x=1728999679; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728395263; x=1729000063; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L3sqw8HRXhg+hOWbbpSW0F4f+e9mw+hASKZAV9R8+Eo=;
-        b=CkGs6Bx5r499nrzMVDCjVlLd3Fel0CaKNRdg01E7ea3XdyfI9AUJZffN0uGKKg08y1
-         /JNC+mjQ8lvZsTrFjJMBc1QVnXUlIj+XktI/CAzpV2WRzyVnfXrWjHkdBt3Rfia6/42g
-         YK8XMyH/4XmTJSf/b8kEb+vDUMnYC5GsAwO9yLATcT/ZnOvMmZPorZWaOLKGsBrIbHCf
-         kpvEupj0vT2KmHNJ3gpHo+FjHZxRlP9JQpnKeQXjNMcjRAjO2yvYMyzcyWT5pr32fun9
-         XyW5uAKMQl7BSZB9itIcQ+nGZSGNkHN+Ht+sN3VI5JMdmgGG/2AAuOn2bX7Gu8Np0eVx
-         meVg==
+        bh=QgWOOvVdQmS4MEvAnQKe4lFMkH0ETJ4cHFM1MHN8sGs=;
+        b=Sisw4gHn5oRdPtU877taHugr7qMWB+pJQ4Lc9V9Cj/RQjBlmUIdAXd6XgjuQGXpIjp
+         p8g4JYWoSWFqu/UNp4uNBBf6gFmVjgbuFRmux1bnZHeBimplC+HNlqIznOpzG4YPu4wE
+         eCJBweA/e4dU1cpvbV+MbErYGw/DVRHEBxcVDKfV1PVQTAxvs6W0zCYUbCzuI5ctN56y
+         BQoAy0TAtD37vbetVfRuwBykSgQbDhcEMnkv+8fnOHzXEq9eCOMjm+UZpyvZHnAfkcrq
+         Kags61n2eODgZD7hYWntCoEv1mnn20RfGvXNEPbICSwLTG0KLfoFMxnPKIla4Sgs+6Cn
+         SNjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728394879; x=1728999679;
+        d=1e100.net; s=20230601; t=1728395263; x=1729000063;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L3sqw8HRXhg+hOWbbpSW0F4f+e9mw+hASKZAV9R8+Eo=;
-        b=vaqRXvG2BVaqm0zAMRqpy9O8cywMe39XjJvHqsYPEueUmFNhQikKJxQTxh4dpsbBKH
-         F7BkHI3rBIzuO/Z6qupJqhG1TxBdNXCj9dZOJQV6JgngsiiKNkNHWnijwXcImo7sDmA3
-         KAWI5tCMzABsqfB5O2xVgxD7dsuyq/IP5xOW7ea/bRthE8OPoqPuoesF9Q/KMcROC2qR
-         CRxfuMPGyHrdWP8x4zUawLzKERG7eNXODQ1/NMQvf/gw1zKXkCZ3k/PNyhG22241vqf2
-         wJex29ZNP1prap/tMiGBuVLTepyF+OTMTkwEk+S0XCXI/qxRAod1mb28DqwHb6JW1alH
-         eqMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXCji2/b7a66TvzOsOEXbFdtFjtpmdlWX8uORqmblRsZKKy84eLwv0mOs/TjUY4uiT4DLUl3U5cqUs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybwCXnfVfdwE+/Sq/NPsILIFwctw1bjjtYvdbvTxWu/2tqd/J2
-	7K38tDd1ubU91tLIjZR79UG0TzkHm00BN/lUYb41/x0GfKBgRPT6KTRjrSuH6g==
-X-Google-Smtp-Source: AGHT+IGb9LYcchxmoAAyUYZg784v5w+9W2z2QYdp2aTp7Ldw99cmOzBiLk2raquEv3TJEbiUZ8Go+w==
-X-Received: by 2002:a17:907:e9f:b0:a99:501c:b841 with SMTP id a640c23a62f3a-a99501cb8f4mr710252466b.28.1728394879364;
-        Tue, 08 Oct 2024 06:41:19 -0700 (PDT)
-Message-ID: <1a090bce-69a7-4a72-b1f4-86608fefc789@suse.com>
-Date: Tue, 8 Oct 2024 15:41:18 +0200
+        bh=QgWOOvVdQmS4MEvAnQKe4lFMkH0ETJ4cHFM1MHN8sGs=;
+        b=Dt+hkw8Gm2UmNcXbad2r2q5VwePCrnqEjm6JaD3EzVVuHeCTQhlOO/E3OBg/W0y+py
+         0kqmsCo8sxdodhScAqULIWnoRgOxvi+Uj4gq+chlRp3uKgA1bu5CwSUUHLJe0cckVm98
+         9u9yrTm+rRCdHW1EF+g+yXLu8lHp0OO2fkanC5EhxqCIIpAninNvFoNGlKLJwHrW+GKy
+         m+2Iq3WGgUNZZ5yDyooOJU8/XlgXsvON4YYTti1bq8RVrOUoZ8kbZES7qpfbWiurxzBw
+         H9yFL9JOkRjsndpU2fbGTok0LmWPbVxp8MsHcfY5NPcxXQEUkZ8O+d/ehxqlwF4jxLQ8
+         UFVg==
+X-Forwarded-Encrypted: i=1; AJvYcCXSsjwjzcbRN6edvim2tzOSi8n7k4hsR43dCzidXPPeS2v3TWS0Ngow5N+GXHgFMo8VaAGFg4Z/sLU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyHlanWLDtTeiBvnrWdWqoPIYU9Fr6R55wLqH9WHIEpUSAFokYd
+	R/3MX19cxfYXoqav3+6x4ZV60BN2pHp8n2vyOHLFEOhNkpXkKpWobmz7+gJhRg==
+X-Google-Smtp-Source: AGHT+IEtfuUDOvsPaNNLvgH0oL/IIP/2ldG9WGpDs3a9UrErsVVPhYQQweSvmkJWM/hQ7bsaB+Z+7g==
+X-Received: by 2002:a17:907:29d3:b0:a99:6109:893c with SMTP id a640c23a62f3a-a9984740004mr14702466b.27.1728395262761;
+        Tue, 08 Oct 2024 06:47:42 -0700 (PDT)
+Message-ID: <4e493976-549d-4c63-8fc6-61479ceebe9b@suse.com>
+Date: Tue, 8 Oct 2024 15:47:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/3] EFI: address a violation of MISRA C Rule 13.6
-To: Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Federico Serafini <federico.serafini@bugseng.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2] x86/APIC: Switch flat driver to use phys dst for ext
+ ints
+To: Matthew Barnes <matthew.barnes@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1727690180.git.federico.serafini@bugseng.com>
- <c447f9faf0283bc6b83bbfbf05acd7acca00762d.1727690180.git.federico.serafini@bugseng.com>
- <b4fafd2c-d71a-4336-b009-07f3474f5a04@suse.com>
- <a8dfe133-6f9b-4a26-918b-d0531d6af918@bugseng.com>
- <8d5e4761-9fc2-4e18-a6c2-9df1822dbbea@suse.com>
- <alpine.DEB.2.22.394.2410011431360.451631@ubuntu-linux-20-04-desktop>
- <02833aad-d6f1-4ffa-8d4a-d8c31e9b0524@suse.com>
- <2f51a8e7-4044-4a84-a541-100799a28012@bugseng.com>
- <1f8f6a0c-980f-43cb-9967-801641f8dbc0@suse.com>
- <9adf139f-cfa4-4e71-a02b-5b7cff898d01@bugseng.com>
+References: <0db68e62ffc428f553a30397df1e79068d26bb5f.1728311378.git.matthew.barnes@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,150 +113,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9adf139f-cfa4-4e71-a02b-5b7cff898d01@bugseng.com>
+In-Reply-To: <0db68e62ffc428f553a30397df1e79068d26bb5f.1728311378.git.matthew.barnes@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.10.2024 14:49, Roberto Bagnara wrote:
-> On 2024-10-08 07:59, Jan Beulich wrote:
->> On 02.10.2024 08:54, Roberto Bagnara wrote:
->>> On 2024-10-02 08:09, Jan Beulich wrote:
->>>> On 01.10.2024 23:36, Stefano Stabellini wrote:
->>>>> On Tue, 1 Oct 2024, Jan Beulich wrote:
->>>>>> On 01.10.2024 07:25, Roberto Bagnara wrote:
->>>>>>> On 2024-09-30 15:07, Jan Beulich wrote:
->>>>>>>> On 30.09.2024 14:49, Federico Serafini wrote:
->>>>>>>>> guest_handle_ok()'s expansion contains a sizeof() involving its
->>>>>>>>> first argument which is guest_handle_cast().
->>>>>>>>> The expansion of the latter, in turn, contains a variable
->>>>>>>>> initialization.
->>>>>>>>>
->>>>>>>>> Since MISRA considers the initialization (even of a local variable)
->>>>>>>>> a side effect, the chain of expansions mentioned above violates
->>>>>>>>> MISRA C:2012 Rule 13.6 (The operand of the `sizeof' operator shall not
->>>>>>>>> contain any expression which has potential side effect).
->>>>>>>>
->>>>>>>> I'm afraid I need to ask for clarification of terminology and alike here.
->>>>>>>> While the Misra doc has a section on Persistent Side Effects in its
->>>>>>>> Glossary appendix, what constitutes a side effect from its pov isn't
->>>>>>>> really spelled out anywhere. Which in turn raises the question whether it
->>>>>>>> is indeed Misra (and not just Eclair) which deems initialization a side
->>>>>>>> effect. This is even more so relevant as 13.6 talks of only expressions,
->>>>>>>> yet initializers fall under declarations (in turn involving an expression
->>>>>>>> on the rhs of the equal sign).
->>>>>>>>
->>>>>>>> All the same of course affects patch 2 then, too.
->>>>>>>
->>>>>>> MISRA C leaves the definition of "side effect" to the C Standard.
->>>>>>> E.g., C18 5.1.2.3p2:
->>>>>>>
->>>>>>>      Accessing a volatile object, modifying an object, modifying a file,
->>>>>>>      or calling a function that does any of those operations are all
->>>>>>>      side effects,[omitted irrelevant footnote reference] which are
->>>>>>>      changes in the state of the execution environment.
->>>>>>>
->>>>>>> The MISRA C:2012/2023 Glossary entry for "Persistent side effect"
->>>>>>> indirectly confirms that initialization is always a side effect.
->>>>>>
->>>>>> Hmm, that's interesting: There's indeed an example with an initializer
->>>>>> there. Yet to me the text you quote from the C standard does not say
->>>>>> that initialization is a side effect - it would be "modifying an
->>>>>> object" aiui, yet ahead of initialization being complete the object
->>>>>> doesn't "exist" imo, and hence can be "modified" only afterwards.
->>>>>
->>>>> I feel it's becoming a bit too philosophical. Since there's some room
->>>>> for interpretation and only two violations left to address, I believe
->>>>> it's best to stick with the stricter interpretation of the definition.
->>>>> Therefore, I'd proceed with this series in its current form.
->>>>
->>>> Proceeding with the series in its current form may be okay (as you say,
->>>> you view the changes as readability improvements anyway), but imo the
->>>> interpretation needs settling on no matter what. In fact even for these
->>>> two patches it may affect what their descriptions ought to say (would
->>>> be nice imo to avoid permanently recording potentially misleading
->>>> information by committing as is). And of course clarity would help
->>>> dealing with future instances that might appear. I take it you realize
->>>> that if someone had submitted a patch adding code similar to the
->>>> original forms of what's being altered here, it would be relatively
->>>> unlikely for a reviewer to spot the issue. IOW here we're making
->>>> ourselves heavily dependent upon Eclair spotting (supposed) issues,
->>>> adding extra work and delays for such changes to go in.
->>>
->>> You can do two things to obtain a second opinion:
->>>
->>> 1) Use the MISRA forum (here is the link to the forum
->>>      section devoted to the side-effect rules of MISRA C:2012
->>>      and MISRA C:2023 (https://forum.misra.org.uk/forumdisplay.php?fid=168).
->>>      The MISRA C Working Group will, in due course, provide
->>>      you with an official answer to your questions about what,
->>>      for the interpretation of Rule 13.6, has to be considered
->>>      a side effect.
->>>
->>> 2) Reach out to your ISO National Body and try to obtain
->>>      an official answer from ISO/IEC JTC1/SC22/WG14 (the
->>>      international standardization working group for the
->>>      programming language C) to your questions about what the
->>>      C Standard considers to be side effects.
->>
->> I took the latter route, and to my (positive) surprise I got back an answer
->> the same day. There was a request for someone to confirm, but so far I didn't
->> see further replies. Since this is a German institution I raised the question
->> in German and got back an answer in German (attached); I've tried my best to
->> translate this without falsifying anything, but I've omitted non-technical
->> parts:
->>
->> "Initialization of an object is never a side effect of the initialization
->> by itself. Of course expressions used for initialization can themselves have
->> side effects on other objects.
->>
->> @Andreas: Do you agree? C after all has a far simpler object model than C++.
->> The (potential) change in object representation (i.e. the bytes underlying
->> the object) is not a side effect of object initialization, but its primary
->> purpose."
->>
->> Further for Misra she added a reference to a Swiss person, but I think with
->> Bugseng we have sufficient expertise there.
-> 
-> Unfortunately, the (translation of the) answer you received adds
-> confusion to previous confusion: who answered has highlighted the
-> "side" part of the term, which is indeed relevant in computer science,
-> but not for the C standard.
+On 07.10.2024 16:34, Matthew Barnes wrote:
+> --- a/xen/arch/x86/include/asm/genapic.h
+> +++ b/xen/arch/x86/include/asm/genapic.h
+> @@ -44,29 +44,11 @@ extern const struct genapic apic_bigsmp;
+>  void cf_check send_IPI_self_legacy(uint8_t vector);
+>  
+>  void cf_check init_apic_ldr_flat(void);
+> -unsigned int cf_check cpu_mask_to_apicid_flat(const cpumask_t *cpumask);
+> +const cpumask_t *cf_check vector_allocation_cpumask_phys(int cpu);
 
-I can't see any highlighting in the original reply I received.
+Why does this decl move to between two flat decls, rather than ...
 
->  To the point that the same argument could
-> be used to deny that ++i has a side effect because the increment is
-> the "primary" effect...
+>  void cf_check send_IPI_mask_flat(const cpumask_t *cpumask, int vector);
+> -const cpumask_t *cf_check vector_allocation_cpumask_flat(int cpu);
+> -#define GENAPIC_FLAT \
+> -	.int_delivery_mode = dest_LowestPrio, \
+> -	.int_dest_mode = 1 /* logical delivery */, \
+> -	.init_apic_ldr = init_apic_ldr_flat, \
+> -	.vector_allocation_cpumask = vector_allocation_cpumask_flat, \
+> -	.cpu_mask_to_apicid = cpu_mask_to_apicid_flat, \
+> -	.send_IPI_mask = send_IPI_mask_flat, \
+> -	.send_IPI_self = send_IPI_self_legacy
+>  
+>  void cf_check init_apic_ldr_phys(void);
+>  unsigned int cf_check cpu_mask_to_apicid_phys(const cpumask_t *cpumask);
+>  void cf_check send_IPI_mask_phys(const cpumask_t *mask, int vector);
+> -const cpumask_t *cf_check vector_allocation_cpumask_phys(int cpu);
 
-Well, if it's just "++i;" there's no side effect, just a primary one. In
-"n = ++i + j--;" there are side effects (the increment and decrement).
+... staying where it was, next to other phys ones?
 
-> Part of the confusion is maybe in the the following paragraph Jan
-> wrote earlier:
-> 
->  > Hmm, that's interesting: There's indeed an example with an initializer
->  > there. Yet to me the text you quote from the C standard does not say
->  > that initialization is a side effect - it would be "modifying an
->  > object" aiui, yet ahead of initialization being complete the object
->  > doesn't "exist" imo, and hence can be "modified" only afterwards.
-> 
-> In C, it is not true that the object does not exist ahead of
-> initialization.
-
-I quoted "exist" for that reason. Of course the object's lifetime starts
-with its declaration. It just has indeterminate value at that point.
-
->  Try the following:
-> 
-> extern int f(int* p);
-> 
-> int main() {
->    int i = f(&i);
-> }
-
-Which to me falls under "Of course expressions used for initialization
-can themselves have side effects on other objects." Just that "other"
-isn't quite right here.
+I can certainly adjust this back while committing ...
 
 Jan
 
