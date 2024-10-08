@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A7CE9951D1
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 16:35:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813188.1226020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 420259951DB
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 16:36:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813190.1226030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syBJ7-000345-1t; Tue, 08 Oct 2024 14:35:25 +0000
+	id 1syBJz-0003ad-Bj; Tue, 08 Oct 2024 14:36:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813188.1226020; Tue, 08 Oct 2024 14:35:25 +0000
+Received: by outflank-mailman (output) from mailman id 813190.1226030; Tue, 08 Oct 2024 14:36:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syBJ6-00031U-Uu; Tue, 08 Oct 2024 14:35:24 +0000
-Received: by outflank-mailman (input) for mailman id 813188;
- Tue, 08 Oct 2024 14:35:23 +0000
+	id 1syBJz-0003Y9-71; Tue, 08 Oct 2024 14:36:19 +0000
+Received: by outflank-mailman (input) for mailman id 813190;
+ Tue, 08 Oct 2024 14:36:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syBJ5-0002oW-Ij
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 14:35:23 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ (envelope-from <SRS0=Iuf0=RE=gmail.com=brgerst@srs-se1.protection.inumbo.net>)
+ id 1syBJx-0003Xk-Gr
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 14:36:17 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d0c0a24-8582-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 16:35:23 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c91756c9easo542729a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 07:35:23 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9958647caasm253928466b.213.2024.10.08.07.35.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 07:35:22 -0700 (PDT)
+ id acf81a25-8582-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 16:36:16 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-53994aadb66so5158366e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 07:36:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +40,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d0c0a24-8582-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: acf81a25-8582-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728398122; x=1729002922; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JQ55pjdPeb3ZVFEJGCWyrPSNwYuVHUdUxj2TK1Mv+6w=;
-        b=P/sk638CPpHpb+W6VhNzj0FU7TwEP7aC0pg603PVDeHl9L5lEjtg47dKgp8JpC2yZT
-         +YuJPamaMw6Tw+zSfL8/D2/kAnOIsmkjqUyZDYwB3CzqoGihjV03nnZhuMcODNFv8Yt5
-         DkWogeBItnrjz/32NRDniqghX9ZeAWDLkgvIW+30XxIs52QvVQ4yPZ/ztKtSb7/y1Yey
-         QCrgTZo4WOMtec3MEGlSIBB66F1qx+HT/JipG8dT5Z3yGeBRC9EZkXnkVLEwObGEhz+o
-         vPxtZ2M1UDs6mMIboZXVFdbZ27uqXOUQ69y0Pv9anq1EXgIceVdxlY5/JD4z+ntATYc8
-         0z+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728398122; x=1729002922;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1728398176; x=1729002976; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JQ55pjdPeb3ZVFEJGCWyrPSNwYuVHUdUxj2TK1Mv+6w=;
-        b=mVodv9Vsi0WmPC6XMBkiv4zABZJyj+YrGyWBUKpoTvVcuZP2oN1SpNJAm/r6R1Mj9P
-         yst0qiZAM7v2t+aNRInnB+cY5u/gAYHYiSvpEKVgIwLKzPH8jYJv4FDUc1Ut2x53gf/c
-         91q9xFfont22nG0/VJtcO5035zpWYTGrZrKpfxYAUl1Du8eQgI8RN8swqF96vOAhETHf
-         8b2pmQ+K0vWceAHohvmiGe2y8JgZ9gM1VAIKRaxL++6Td0dP6yY0YdCQQEwBv4bGZbeg
-         g2FKexeHtztnP0bV0T/7F3o8g+WJXomiSQoFJs9KMOYQxSsfYzraf252OYRMWObBLUEC
-         EvrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUl0IQqA2ImrHoVw9MqVdiH1xdDoMuWN22L7FWd2uqh0X5N80iGNXDelcrlfiPDC2/YgiZ/82wOrko=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyT+27scGLd80VOeXHvOflf46xQz149l9N1WXhQLpenOLOxxe0N
-	EGgtQSSFlNJWaFTD0V+ZgJKwR4K8cY0C5925NtNG3N7COk0iyA0vZ2FWtbFLJw==
-X-Google-Smtp-Source: AGHT+IHgV9NkERj755xLtJ4Zbd0uyi8yhJuZ3l95kK5DQG7WSBEjIcuu2huGI2bwsV87S0Qhwt4B1Q==
-X-Received: by 2002:a17:907:6d25:b0:a99:5c07:9f5b with SMTP id a640c23a62f3a-a996785140cmr386718866b.6.1728398122596;
-        Tue, 08 Oct 2024 07:35:22 -0700 (PDT)
-Message-ID: <54f11b9c-95cd-4694-a917-70e5904c6122@suse.com>
-Date: Tue, 8 Oct 2024 16:35:21 +0200
+        bh=RAzASSCUQ2aUVsiLqBLU+OR2T2BBF/GKBA/6/Hrht2Y=;
+        b=OedTASEAtWBKMJ4Akhroy+D+a9A946k/M4Lef9/Ysfv16TWLfcTMHSFBsmxzkWuR4U
+         CeS6xivMHVQmvX1KmcZvUQnQJKAH0+V6ctvVAi20lCUAyT+8K+8JJSs2YKK2FOc+Cj1L
+         4bvasG/usyAhSN5s08aeA46fzwYrFRU7h5Kuk1ugPnz7SofWI0PGfe7DQhkXnmbvrO+l
+         gZNxjxS1QrGbcLB8D9kgT3VWf5qe+bW3NC2Et4oMeHSrySZrcMNbGDIuI6Q53Uyf/k2a
+         /TjEkjdQHmxTGGEh4VET60Vjdl1PZojQpjzGwVVCMLEiQCteTyT/rBDZa1PS4ip1lVmB
+         ekIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728398176; x=1729002976;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RAzASSCUQ2aUVsiLqBLU+OR2T2BBF/GKBA/6/Hrht2Y=;
+        b=cIcy4yVkzlymKiGch3gL6QteJ30YEMUTKoo7X8d3z3J5egYTGlNoiseXcFhI/GrBwl
+         0U3V9r7LUrhuaZqJ0axafibW5vuwj4imoLv9w2gSPUETp7qrDJK8zJb/Noa4r/ZU2S83
+         +2MnknRiKGwU6bjQvi451Qc/up9ipYOJ+vfp29ozTWIplZG4PvYGU14sGqzA51keWhKr
+         hvrGlvQ53SQN2IUdSXOWk1kFPPeP9eu9mcCOYwtf9RKiX16wQ50+a//rftnM1Q2RRAxJ
+         Y8dYQvyG/UpGYIl5is0SsGPqIFgAMzug/ebDOcM0hQAHk2DgtixIjaNLl4t+O53mUMgi
+         zb2g==
+X-Forwarded-Encrypted: i=1; AJvYcCXlqGhLKdt4EE8Q0tCuMMX9oIwvuEREt++juWt2qOe+anCh8MeqEXkYIrfABNrf77kuSzaTcaoCBSM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwajCa7hfI9WqMfzbv4N7YgR1OCi8ZqhfhGPWpNjPr96rbP8NFR
+	YuKPP6O0KfqAThl67wptZvrPbEVDtVSjdE2m1TU7MCxekee2l42zM7mGcyVP8QWW+zKTrS/ccaW
+	s4zW28ht0sHfzOaZ6Eoo7xn/OzQ==
+X-Google-Smtp-Source: AGHT+IFk7uSGpMKxSJMgul6omDcmQyMQl5Zy1l8C5NVTbpCgjnnjxrxdxyhpPaT355keXYtQRCu422aiN8olYIcP4XU=
+X-Received: by 2002:a05:6512:3085:b0:539:8a9a:4e56 with SMTP id
+ 2adb3069b0e04-539ab8c6fb8mr8574397e87.53.1728398175714; Tue, 08 Oct 2024
+ 07:36:15 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/19] xen: Update header guards - Intel TXT
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241004081713.749031-1-frediano.ziglio@cloud.com>
- <20241004081713.749031-10-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241004081713.749031-10-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240925150059.3955569-30-ardb+git@google.com>
+ <20240925150059.3955569-35-ardb+git@google.com> <CAFULd4ZNwfPZO-yDjrtT2ANV509HeeYgR80b9AFachaVW5zqrg@mail.gmail.com>
+ <CAMzpN2j4uj=mhdi7QHaA7y_NLtaHuRpnit38quK6RjvxdUYQew@mail.gmail.com> <CAMj1kXF3_Hj9j2f_cBtwTFWvEmB0UoEs_cGkRiWc4AErDx0ftQ@mail.gmail.com>
+In-Reply-To: <CAMj1kXF3_Hj9j2f_cBtwTFWvEmB0UoEs_cGkRiWc4AErDx0ftQ@mail.gmail.com>
+From: Brian Gerst <brgerst@gmail.com>
+Date: Tue, 8 Oct 2024 10:36:03 -0400
+Message-ID: <CAMzpN2jWRV8-JzM2FjSvSz+VoDrNVeEJPgF7N5ksLaADHpnHsA@mail.gmail.com>
+Subject: Re: [RFC PATCH 05/28] x86: Define the stack protector guard symbol explicitly
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Uros Bizjak <ubizjak@gmail.com>, Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@linux.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Keith Packard <keithp@keithp.com>, 
+	Justin Stitt <justinstitt@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Kan Liang <kan.liang@linux.intel.com>, linux-doc@vger.kernel.org, 
+	linux-pm@vger.kernel.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	linux-efi@vger.kernel.org, linux-arch@vger.kernel.org, 
+	linux-sparse@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 04.10.2024 10:17, Frediano Ziglio wrote:
-> Updated headers related to Intel trusted execution technology.
-> 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+On Fri, Oct 4, 2024 at 9:15=E2=80=AFAM Ard Biesheuvel <ardb@kernel.org> wro=
+te:
+>
+> On Sat, 28 Sept 2024 at 15:41, Brian Gerst <brgerst@gmail.com> wrote:
+> >
+> > On Wed, Sep 25, 2024 at 2:33=E2=80=AFPM Uros Bizjak <ubizjak@gmail.com>=
+ wrote:
+> > >
+> > > On Wed, Sep 25, 2024 at 5:02=E2=80=AFPM Ard Biesheuvel <ardb+git@goog=
+le.com> wrote:
+> > > >
+> > > > From: Ard Biesheuvel <ardb@kernel.org>
+> > > >
+> > > > Specify the guard symbol for the stack cookie explicitly, rather th=
+an
+> > > > positioning it exactly 40 bytes into the per-CPU area. Doing so rem=
+oves
+> > > > the need for the per-CPU region to be absolute rather than relative=
+ to
+> > > > the placement of the per-CPU template region in the kernel image, a=
+nd
+> > > > this allows the special handling for absolute per-CPU symbols to be
+> > > > removed entirely.
+> > > >
+> > > > This is a worthwhile cleanup in itself, but it is also a prerequisi=
+te
+> > > > for PIE codegen and PIE linking, which can replace our bespoke and
+> > > > rather clunky runtime relocation handling.
+> > >
+> > > I would like to point out a series that converted the stack protector
+> > > guard symbol to a normal percpu variable [1], so there was no need to
+> > > assume anything about the location of the guard symbol.
+> > >
+> > > [1] "[PATCH v4 00/16] x86-64: Stack protector and percpu improvements=
+"
+> > > https://lore.kernel.org/lkml/20240322165233.71698-1-brgerst@gmail.com=
+/
+> > >
+> > > Uros.
+> >
+> > I plan on resubmitting that series sometime after the 6.12 merge
+> > window closes.  As I recall from the last version, it was decided to
+> > wait until after the next LTS release to raise the minimum GCC version
+> > to 8.1 and avoid the need to be compatible with the old stack
+> > protector layout.
+> >
+>
+> Hi Brian,
+>
+> I'd be more than happy to compare notes on that - I wasn't aware of
+> your intentions here, or I would have reached out before sending this
+> RFC.
+>
+> There are two things that you would need to address for Clang support
+> to work correctly:
+> - the workaround I cc'ed you on the other day [0],
+> - a workaround for the module loader so it tolerates the GOTPCRELX
+> relocations that Clang emits [1]
+>
+>
+>
+> [0] https://lore.kernel.org/all/20241002092534.3163838-2-ardb+git@google.=
+com/
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/commit=
+/?id=3Da18121aabbdd
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+The first patch should be applied independently as a bug fix, since it
+already affects the 32-bit build with clang.
 
+I don't have an environment with an older clang compiler to test the
+second patch, but I'll assume it will be necessary.  I did run into an
+issue with the GOTPCRELX relocations before [1], but I thought it was
+just an objtool issue and didn't do more testing to know if modules
+were broken or not.
 
+Brian Gerst
+
+[1] https://lore.kernel.org/all/20231026160100.195099-6-brgerst@gmail.com/
 
