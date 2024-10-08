@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD32899593B
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 23:22:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813627.1226626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2FA399594B
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 23:33:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813637.1226638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syHeN-0003ZL-0a; Tue, 08 Oct 2024 21:21:47 +0000
+	id 1syHot-0008OR-WC; Tue, 08 Oct 2024 21:32:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813627.1226626; Tue, 08 Oct 2024 21:21:46 +0000
+Received: by outflank-mailman (output) from mailman id 813637.1226638; Tue, 08 Oct 2024 21:32:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syHeM-0003XE-U6; Tue, 08 Oct 2024 21:21:46 +0000
-Received: by outflank-mailman (input) for mailman id 813627;
- Tue, 08 Oct 2024 21:21:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syHot-0008LG-T4; Tue, 08 Oct 2024 21:32:39 +0000
+Received: by outflank-mailman (input) for mailman id 813637;
+ Tue, 08 Oct 2024 21:32:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LJPt=RE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1syHeM-0003X8-Aw
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 21:21:46 +0000
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [2a00:1450:4864:20::541])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50d8a4b3-85bb-11ef-99a2-01e77a169b0f;
- Tue, 08 Oct 2024 23:21:43 +0200 (CEST)
-Received: by mail-ed1-x541.google.com with SMTP id
- 4fb4d7f45d1cf-5c5cf26b95aso7909843a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 14:21:43 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e049ee6asm4753694a12.0.2024.10.08.14.21.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 14:21:42 -0700 (PDT)
+ <SRS0=7aYj=RE=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1syHos-0008LA-CT
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 21:32:38 +0000
+Received: from fout-a8-smtp.messagingengine.com
+ (fout-a8-smtp.messagingengine.com [103.168.172.151])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d569bb92-85bc-11ef-a0bd-8be0dac302b0;
+ Tue, 08 Oct 2024 23:32:36 +0200 (CEST)
+Received: from phl-compute-12.internal (phl-compute-12.phl.internal
+ [10.202.2.52])
+ by mailfout.phl.internal (Postfix) with ESMTP id B3FF813802A5;
+ Tue,  8 Oct 2024 17:32:34 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-12.internal (MEProxy); Tue, 08 Oct 2024 17:32:34 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Oct 2024 17:32:33 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50d8a4b3-85bb-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728422503; x=1729027303; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yd9WEwnsnJKheWOILYBzZ54uW/JbW+1jjW4WUdGAmIo=;
-        b=nibKVaHif34mODO3YmGQZ8unpZul12HW/ut0M49yZryHrlMKdbsb7gxuvyGWfkqGME
-         YNQKpbZDQyha2kNjWzaUUa9BDpIlumr86msYl0O5YTEfmf2Y2jMfLBpZIBm4qHSBL9Zk
-         IO/Q9h7XnxqKVhxbHzgpbxQpr8+fPjOpLJk/Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728422503; x=1729027303;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yd9WEwnsnJKheWOILYBzZ54uW/JbW+1jjW4WUdGAmIo=;
-        b=k7TJhKE7k8SmHcSIWudhhcu/6OGMKkLcpJV3KaCuWtq+BmBh4fEP7Qbk8RoSQKgXK2
-         E5+ui7Pre6u6MeopRLVtzRd9jHDRhQY3CBMecQmdqmaUZkgIbQXdHchXoMrLo7ASs23z
-         MFJf2RfzpMvXuVKmFLsGb9t4ivlLuJreyv9wNSp/VldEfP6+s6NeYs9GKyizbv4AvteS
-         mmvVLT10cs8z1DOgZebC0vlsivIwaT+a7g4waF5R0i2h1xYWxEZJKjXBXfHqIir215OD
-         LX+lTMpO/4Mp12X18lOW3tlM5jqshpUTr16dH+4aW4esS1ud/QbfjvCIjYU1iWAxkeO1
-         ss1A==
-X-Forwarded-Encrypted: i=1; AJvYcCVh+dyhxscn8c4OEyI7ri7jqFFkj81WeUHGSdmBLKmIIVb3fWr8R7Z7HZcHxHsddqD1VS9/MehAwd8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFC5L9LgGmbqLYv9BjG8gSRSHa+LDe7yZBe66WawJsJlUUvZBl
-	ZHf4sbsZqu1vDd0ueJfN9qAMGI38Kbg5MkgNB9A5eaWTdlu9dWszT2eR3SUellE=
-X-Google-Smtp-Source: AGHT+IGNpB1fRI1wsOM2nHNm39qQSFZ3UB0dvS9vwTVjLNoj2f1rOZZV6AckbpBrTvMgnGUZ9SYf2g==
-X-Received: by 2002:a05:6402:3512:b0:5c7:229a:b49d with SMTP id 4fb4d7f45d1cf-5c91d6988f4mr186771a12.30.1728422502781;
-        Tue, 08 Oct 2024 14:21:42 -0700 (PDT)
-Message-ID: <539a4947-9f2b-497b-a553-ff6ccb3adfae@citrix.com>
-Date: Tue, 8 Oct 2024 22:21:41 +0100
+X-Inumbo-ID: d569bb92-85bc-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1728423154; x=1728509554; bh=cExzukkzxkZ0MlC75VQr8KanQPwdweR+
+	oZAZw8RFEas=; b=UlR4tLt8z/VkxnD3i4vM5BIhs5S8n9bHRTt8aEogc07yTxa5
+	zp0nOXajBVbd4IHbqprXgoeX1F91QoQ2ATqftfxTJtDmI0bxW5nvrKTfEviaoLY5
+	QgqYtBnBS98z23/2yhtbx1xkytFqQL6pqhVnzBri/Gg/+XbRjkKjP6PljvxDwIDU
+	J5zbw6HbLKFr9Ur5s4TkjUTKF/30g+x3Xoa4+sZHI5P6gjholW+FE6fxrJJUJ85h
+	lLfCnnaLs7G4K4OfU41w2wIr0qhT6tRnXKPHgOgMyP6ry7u9z7LQDt35bqa6jlGN
+	gNZ4GifScRIEbeRZTmvezuJCpjlV1ph0jgUu9A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1728423154; x=1728509554; bh=cExzukkzxkZ0M
+	lC75VQr8KanQPwdweR+oZAZw8RFEas=; b=G1LV/Xd/BYKtXpOA9i5p78ODU0Uvp
+	xQMQR0H9+5bkr4Tb8vr6PGBaDKmPjgd+F/vUSI82ILoHPlz2vzzvxqrzZCWosaMD
+	2Ke3y50YB8V+Ejuts3P6iGgqw94r+gr1/fY+CU0PI/XtIJfUdYpCBQ6LhOg3FOT4
+	1DNQjTgy8D3ysBibE2JlPWiLkmgxTDFN+nVtgDBjGOaYuMO+FtNZiYbMd0yyzoIV
+	HpwvuVCJApFAj3gSCQoXovxGzTpS5P6fgEk2XW2C1PmtMzyyEBluxq5Vng1pGwL6
+	BIAROWy2v3KvocNUxllltqjFGipqVouW+uJHDl3Dmafe8y/0kDpCTK9VA==
+X-ME-Sender: <xms:8qQFZ9GH6YJiKyRpqbNT09IVxPcYXRUeiwQ1ZBBoGu7InRpm9GalaQ>
+    <xme:8qQFZyW2Fkj7FBM8oPDHecZ9JYbP6PEdtm1j8OiMqUncAFFVWKQGn-NlDlKLckjqE
+    9kSojPQTOopFQ>
+X-ME-Received: <xmr:8qQFZ_IjzRAozJ7LyjWu0yO9aSw0_5_7_rjd3BZgkJbwxtHGBvkKwpeS5feXYk_WYpZ1YR2rd1oLN_pkGsQcyKyshN13cakssWT7rasGPa9-ewXQVq8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdefuddgudeifecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffogggtgfesthekredtredtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepleekhfduleetleelleetteevfeefteffkeetteejheelgfegkeelge
+    ehhfdthedvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
+    gspghrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdq
+    uggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepmh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdprhgtphht
+    thhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpdhrtghpthhtoh
+    epjhhgrhhoshhssehsuhhsvgdrtghomh
+X-ME-Proxy: <xmx:8qQFZzEmn7kNxn4UotMR6vodQR9dbp80XfGDDzXNvAkgh5ICeCnQZg>
+    <xmx:8qQFZzUNg_Ri1CrF1uFsvy-vDD4vBEEVLSNTscnjwBBlwCK97XU-ew>
+    <xmx:8qQFZ-PZbH22GEweLIIqqRMQXlWx7zHxXlHWyoUdpeOnlBCi4COWTA>
+    <xmx:8qQFZy1J_FxbtT1pnN4N07ICIpoL7gMUv5gwSvGNzPm7ttjLpkqTXQ>
+    <xmx:8qQFZ-R40ybDwKupunxk1z7v55h1D1tAQC5FQY_URodzhY9zobUbY0Fe>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the kernel
+Date: Tue,  8 Oct 2024 23:32:23 +0200
+Message-ID: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/44] Boot modules for Hyperlaunch
-To: Jason Andryuk <jason.andryuk@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <11c20a80-65a6-4b77-b890-775ac2d72af1@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <11c20a80-65a6-4b77-b890-775ac2d72af1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 08/10/2024 9:07 pm, Jason Andryuk wrote:
-> On 2024-10-06 17:49, Daniel P. Smith wrote:
->> The Boot Modules for Hyperlaunch series is an effort to split out
->> preliminary
->> changes necessary for the introduction of the Hyperlaunch domain builder
->> logic. These preliminary changes revolve around introducing the struct
->> boot_module and struct boot_domain structures. This includes
->> converting the
->> dom0 construction path to use these structures. These abstractions
->> lay the
->> groundwork to transform and extend the dom0 construction logic into a
->> limited,
->> but general domain builder.
->>
->> The splitting of Hyperlaunch into a set of series are twofold, to
->> reduce the
->> effort in reviewing a much larger series, and to reduce the effort in
->> handling
->> the knock-on effects to the construction logic from requested review
->> changes.
->>
->> Much thanks to AMD for supporting this work.
->>
->> Documentation on Hyperlaunch:
->> https://wiki.xenproject.org/wiki/Hyperlaunch
->>
->> Original Hyperlaunch v1 patch series:
->> https://lists.xenproject.org/archives/html/xen-devel/2022-07/msg00345.html
->>
->
-> There is a lot of re-formatting of function arguments like:
->
-> -static int __init pvh_load_kernel(struct domain *d, const module_t
-> *image,
-> -                                  unsigned long image_headroom,
-> -                                  module_t *initrd, void *image_base,
-> -                                  const char *cmdline, paddr_t *entry,
-> -                                  paddr_t *start_info_addr)
-> +static int __init pvh_load_kernel(
-> +    struct domain *d, const struct boot_module *image,
-> +    struct boot_module *initrd, void *image_base,
-> +    const char *cmdline, paddr_t *entry, paddr_t *start_info_addr)
->
-> I feel like the old style is more common and I prefer it.  But I also
-> don't see it specified in CODING_STYLE.  As I am not a maintainer, I'd
-> like them to weigh in.
+Linux 6.12-rc2 fails to decompress with the current 128MiB, contrary to
+the code comment. It results in a failure like this:
 
-I already did.  :)
+    domainbuilder: detail: xc_dom_kernel_file: filename="/var/lib/qubes/vm-kernels/6.12-rc2-1.1.fc37/vmlinuz"
+    domainbuilder: detail: xc_dom_malloc_filemap    : 12104 kB
+    domainbuilder: detail: xc_dom_module_file: filename="/var/lib/qubes/vm-kernels/6.12-rc2-1.1.fc37/initramfs"
+    domainbuilder: detail: xc_dom_malloc_filemap    : 7711 kB
+    domainbuilder: detail: xc_dom_boot_xen_init: ver 4.19, caps xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64
+    domainbuilder: detail: xc_dom_parse_image: called
+    domainbuilder: detail: xc_dom_find_loader: trying multiboot-binary loader ...
+    domainbuilder: detail: loader probe failed
+    domainbuilder: detail: xc_dom_find_loader: trying HVM-generic loader ...
+    domainbuilder: detail: loader probe failed
+    domainbuilder: detail: xc_dom_find_loader: trying Linux bzImage loader ...
+    domainbuilder: detail: _xc_try_lzma_decode: XZ decompression error: Memory usage limit reached
+    xc: error: panic: xg_dom_bzimageloader.c:761: xc_dom_probe_bzimage_kernel unable to XZ decompress kernel: Invalid kernel
+    domainbuilder: detail: loader probe failed
+    domainbuilder: detail: xc_dom_find_loader: trying ELF-generic loader ...
+    domainbuilder: detail: loader probe failed
+    xc: error: panic: xg_dom_core.c:689: xc_dom_find_loader: no loader found: Invalid kernel
+    libxl: error: libxl_dom.c:566:libxl__build_dom: xc_dom_parse_image failed
 
-This isn't a terribly bad example, but there are others which are much
-worse.  Given a choice between an intractable mess of parameters
-squeezed onto the RHS, and the same mess spread out across the whole
-width, prefer the latter.
+The important part: XZ decompression error: Memory usage limit reached
 
-~Andrew
+This looks to be related to the following change in Linux:
+8653c909922743bceb4800e5cc26087208c9e0e6 ("xz: use 128 MiB dictionary and force single-threaded mode")
+
+Fix this by increasing the block size to 256MiB. And remove the
+misleading comment (from lack of better ideas).
+
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+ tools/libs/guest/xg_dom_bzimageloader.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/tools/libs/guest/xg_dom_bzimageloader.c b/tools/libs/guest/xg_dom_bzimageloader.c
+index c6ee6d83e7c6..1fb4e5a1f728 100644
+--- a/tools/libs/guest/xg_dom_bzimageloader.c
++++ b/tools/libs/guest/xg_dom_bzimageloader.c
+@@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
+     return retval;
+ }
+ 
+-/* 128 Mb is the minimum size (half-way) documented to work for all inputs. */
+-#define LZMA_BLOCK_SIZE (128*1024*1024)
++#define LZMA_BLOCK_SIZE (256*1024*1024)
+ 
+ static int xc_try_xz_decode(
+     struct xc_dom_image *dom, void **blob, size_t *size)
+-- 
+2.46.0
+
 
