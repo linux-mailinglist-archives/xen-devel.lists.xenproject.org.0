@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C341299479F
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 13:49:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813035.1225832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 613BC9947F7
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 14:03:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813058.1225842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy8ho-0002s8-Jq; Tue, 08 Oct 2024 11:48:44 +0000
+	id 1sy8vV-0000Vi-6C; Tue, 08 Oct 2024 12:02:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813035.1225832; Tue, 08 Oct 2024 11:48:44 +0000
+Received: by outflank-mailman (output) from mailman id 813058.1225842; Tue, 08 Oct 2024 12:02:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy8ho-0002pi-H6; Tue, 08 Oct 2024 11:48:44 +0000
-Received: by outflank-mailman (input) for mailman id 813035;
- Tue, 08 Oct 2024 11:48:43 +0000
+	id 1sy8vV-0000Sj-3D; Tue, 08 Oct 2024 12:02:53 +0000
+Received: by outflank-mailman (input) for mailman id 813058;
+ Tue, 08 Oct 2024 12:02:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vy9o=RE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sy8hn-0002pa-RN
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 11:48:43 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LJPt=RE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sy8vT-0000Sd-Ps
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 12:02:51 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44626749-856b-11ef-a0bc-8be0dac302b0;
- Tue, 08 Oct 2024 13:48:42 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5c5b954c359so6361777a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 04:48:42 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a993ea3b890sm436639666b.167.2024.10.08.04.48.41
+ id 3d926485-856d-11ef-a0bc-8be0dac302b0;
+ Tue, 08 Oct 2024 14:02:50 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5c5cf26b95aso7186699a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 05:02:50 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9945cdcc60sm374341066b.28.2024.10.08.05.02.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 04:48:41 -0700 (PDT)
+ Tue, 08 Oct 2024 05:02:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44626749-856b-11ef-a0bc-8be0dac302b0
+X-Inumbo-ID: 3d926485-856d-11ef-a0bc-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728388122; x=1728992922; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1728388970; x=1728993770; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5FlZ+2220PNV0hgipAHf1HFiXKJ01L13PeHf5yRAK7c=;
-        b=B+dxREMjvqk3edXl4tYL38ZdpfaF9X4/R38+Sd5eraIGYSbxSU9KW5K/ux9jf08sVO
-         MBbcGNXySHm5ZTRe/4iufTY4XkrmcvqP83x/9gHQ/m3AiKUPf6ZsObkFhXFIU/E6aN5O
-         CI1SiZLsBUsITGNnhSzG2ghn+ArY9HbAbcpnye0xaLADUqiytZ20jgixku2V2SLZmLTA
-         zjyx9IpMJvr2GK/DtdgSf1JBCERpq5mkAxpFChLDmtDGg7SC2UljENIhzziMA/Szz/5R
-         aIlmqfxMSvEym1eAqzHw9zI1QDANhraJd7Y6S6cvvZ/jvK1RlHBB+GzacUiZVjJ2nwBw
-         JAbg==
+        bh=sgDqoKbuDUm0T+uftFs7shPnZGJaEgaVaNmPYaCWirM=;
+        b=lMoBf4LJPyB0lKriSc/oJ9wmMjn0TjGtBGnr4pGoje/RO+9HmiPSIhfqR/fITglV0c
+         XyWX2fDtkt7QD71rKacnR4yqz8QDusoDC107gbdR1IzHfh7A35gdeqHi5L0hHhUsQd+K
+         p1kfZYACb8TKh4o80nHZNJWE6kYxig3c2MRIA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728388122; x=1728992922;
+        d=1e100.net; s=20230601; t=1728388970; x=1728993770;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5FlZ+2220PNV0hgipAHf1HFiXKJ01L13PeHf5yRAK7c=;
-        b=OL4Gro23He7ReUTkpNQ1U7/WTyfwslSYS8Gci2YRoK3bN8rL29e9gLF0rqgxQOt8sW
-         R56qjPM28nuF6MfwTy4r1xMiPAfd5PcEfnrLz0ANJMSHgybMQs/VvYiGnijrJ/c3ePui
-         Lphs+cE3VX9NqnFEvR1g6es1cJNX/uOus+8D7orQydU9BLFx8tp9PpMybPOo9637CsFw
-         0i2WAqf2twe8xsFiZQCbNCWEGwrHbs5yMITnC7bPo6bjH6r1KqU77XrFmS9WSeuHSL7A
-         iPHJ5PajHUHsN1u/LowjlIwAKs5Unv7DqOBgLsVP4gTT8sCqSZhvgr9sMOLtcDcMi0Vc
-         78xw==
-X-Forwarded-Encrypted: i=1; AJvYcCXsT48+XNYygZ8XpHBYFB2VIAwu17hqqe0qb5rk16mkMZ2IxXH3pr3pwswBbjRcvTZ6bzetO46KILE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwIjkycjy9HOz9KEo0krAeVm60LtCyr/WLouANahMrZxQ7B6AsF
-	EV612V6viwE52KZz56j8oeq5pTw3qo6+XFzqYSriR1ngs1+Oan8Li1RkeJUBQw==
-X-Google-Smtp-Source: AGHT+IF5mUqzkTJE/j109mGmy0XS3vDZ4u1qE4Me0FVp1Qdk3oWsMSV52z6rBOY8mgxySa+01H3Yvg==
-X-Received: by 2002:a17:907:94c3:b0:a7d:a680:23b5 with SMTP id a640c23a62f3a-a991bd79fc2mr1821299266b.33.1728388122188;
-        Tue, 08 Oct 2024 04:48:42 -0700 (PDT)
-Message-ID: <2a020197-e061-4d8d-9d49-df7878153d85@suse.com>
-Date: Tue, 8 Oct 2024 13:48:41 +0200
+        bh=sgDqoKbuDUm0T+uftFs7shPnZGJaEgaVaNmPYaCWirM=;
+        b=vWmhq5aGphXJ+f7XAhMSl8GQb/M3oHNhPMhzLcmZY5LUTAGtxVI3sK1CmUHrX6/sWS
+         dRdZO3EHs79TuLFDQtY/ZvHETZCkNBRVY5rPVdFXeOvY29RvhB8LDe099RnbDeMRAKYI
+         NFYgtO51E6JIrZQIvTfQAMZisOJ+bt/OudqgRC26Tm/iePR0LRXHO+fsLemJ3fgwaoOm
+         QxKMai9wTo8OHcTYzer3ixa1lAC2N9cznvWjyF5b5oKw2HKxnOnyxCXt8U1FiZqkUYqA
+         52m+xjAjimNwUk8lKfUoU1z4UTN6mJzmpag/9PidD1LvDlm96Tibpj9DoyebWkHtRbjI
+         4FmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU7yMqUtc92xDQktUQ1nFqhI/zpjYbogjsN4XFEILFWBg1BMdcvfGlgZxDRLDHs6Z4dt4yL2fgLijs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwjVYhoBXgBNzaSH4ha4Ila852QBd2u48e5BHFj4XKiTNhyjqIZ
+	EqJgb36FISVZUrchS2JXZRcXKpgG9uTSLACNVWo2TWKGb82FhrnHaF+BbzgK/lE=
+X-Google-Smtp-Source: AGHT+IE8FVNFCS4YiuoBW1fpcCkrQIcGTM3sE7GRBoRJCHhvUBIZ3fN42foIVxWKzr7cPN2Lvodndg==
+X-Received: by 2002:a17:906:6a0e:b0:a99:55e7:9721 with SMTP id a640c23a62f3a-a9955e79c8amr646951966b.46.1728388969645;
+        Tue, 08 Oct 2024 05:02:49 -0700 (PDT)
+Message-ID: <d0fef81e-6c71-41fb-b159-08519f078477@citrix.com>
+Date: Tue, 8 Oct 2024 13:02:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MAINTAINERS: minor file line update
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <20241004111127.897937-1-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241004111127.897937-1-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH v2 0/6] Reuse 32 bit C code more safely
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20241007141539.1899350-1-frediano.ziglio@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241007141539.1899350-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.10.2024 13:11, Frediano Ziglio wrote:
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -517,7 +517,7 @@ F:	stubdom/
->  TEE MEDIATORS
->  M:	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->  S:	Supported
-> -F:	xen/arch/arm/include/asm/tee
-> +F:	xen/arch/arm/include/asm/tee/
->  F:	xen/arch/arm/tee/
+On 07/10/2024 3:15 pm, Frediano Ziglio wrote:
+> Frediano Ziglio (6):
+>   .gitignore: Remove not generated files
+>   x86/boot: Rationalise .gitignore
 
-I think this is a change which actually wants ack-ing by the maintainer
-named here, not THE REST. Cc-ing Volodymyr.
+These two are trivial so I've taken them.
 
-Jan
+~Andrew
 
