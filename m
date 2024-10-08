@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8252C994C24
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 14:51:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813093.1225909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 213B8994D1B
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2024 15:01:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813110.1225920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy9g1-0006Hx-GY; Tue, 08 Oct 2024 12:50:57 +0000
+	id 1sy9pv-0002sY-Di; Tue, 08 Oct 2024 13:01:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813093.1225909; Tue, 08 Oct 2024 12:50:57 +0000
+Received: by outflank-mailman (output) from mailman id 813110.1225920; Tue, 08 Oct 2024 13:01:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sy9g1-0006GR-Dt; Tue, 08 Oct 2024 12:50:57 +0000
-Received: by outflank-mailman (input) for mailman id 813093;
- Tue, 08 Oct 2024 12:50:55 +0000
+	id 1sy9pv-0002pl-AY; Tue, 08 Oct 2024 13:01:11 +0000
+Received: by outflank-mailman (input) for mailman id 813110;
+ Tue, 08 Oct 2024 13:01:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A1UB=RE=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1sy9fz-0006FM-JW
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 12:50:55 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2061c.outbound.protection.outlook.com
- [2a01:111:f403:2409::61c])
+ <SRS0=7aYj=RE=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sy9pt-0002pf-Gv
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2024 13:01:09 +0000
+Received: from fhigh-a8-smtp.messagingengine.com
+ (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f351d56c-8573-11ef-99a2-01e77a169b0f;
- Tue, 08 Oct 2024 14:50:53 +0200 (CEST)
-Received: from DM6PR08CA0046.namprd08.prod.outlook.com (2603:10b6:5:1e0::20)
- by CH3PR12MB8332.namprd12.prod.outlook.com (2603:10b6:610:131::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.23; Tue, 8 Oct
- 2024 12:50:45 +0000
-Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
- (2603:10b6:5:1e0:cafe::ab) by DM6PR08CA0046.outlook.office365.com
- (2603:10b6:5:1e0::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.23 via Frontend
- Transport; Tue, 8 Oct 2024 12:50:45 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.13 via Frontend Transport; Tue, 8 Oct 2024 12:50:45 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Oct
- 2024 07:50:44 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Oct
- 2024 07:50:44 -0500
-Received: from [172.21.103.178] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 8 Oct 2024 07:50:43 -0500
+ id 60f5e540-8575-11ef-99a2-01e77a169b0f;
+ Tue, 08 Oct 2024 15:01:06 +0200 (CEST)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 21E751140227;
+ Tue,  8 Oct 2024 09:01:05 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Tue, 08 Oct 2024 09:01:05 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Oct 2024 09:01:02 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,154 +45,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f351d56c-8573-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sakpdsTion0Q/fjPI4FhF9ZqdFrexHgMV5LB8DS7B1mPQ6ylF2qViFF5KNy0OI8LIscIDD3HbQOjr18dM9aXpgHIL3W+aXGLLxS0FHkPiDAScdigp6Ud3QYBCf+qY7f54tFnQFKBs5h6VqGka4ovGQdZLUlwX6R5FldGRGueW1AodYQMGymBKBsQfDWbluujfYhzJ/dr+kDj+t37xbHbDvoo8qWnzwzZ/LPK0YiqYIRMC6yt+h5lxBduWYwKWvjBn4kL6TR5dM8gFmgBwBJ5qEeEggOSmfWZ25DCMEcTxeh6mC+vQNeTBRCJFvrs7zoYEqZVWsN+S6AYCJv27+1CNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9BxxHN748KKqosFLQm/xYgkzGxJlTZQb0cyL8d+Np04=;
- b=PanlExWs6WHxewcSsHf14JoTAinmr2Q0cajXt19KyfYPHHOSrqyfnWQB3ueh9o1Z1AvW48gwDf272IN8Jjg5dP5ryYKTK10XlgJ6Zm3D59Q0Z0WnftY+T0TFpHfHJTHOkAo33EGsw9Dg8lQnCLd5gAcbzgHRt9JQO2EHX9NA8qYp0iC0hTNNC/cP66ChaTALNtX5cLV3SjovJvmUPrT8XcwPm8jzL3r9oDFG/yiSuUCYZLauDM4FKUETv3KmWg9fWb+OlVrF62CRx13AdcRMncGCBiHIwwnLV62mFD7x1BONzMvwEtqZRhPkLZT10/IkrLgZ2Wuas9DL8THL5qDTtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9BxxHN748KKqosFLQm/xYgkzGxJlTZQb0cyL8d+Np04=;
- b=CnVuUoT2SXJB58X5I2AAtdkT+H8fINYMroibUkVwH5sq2b4IUqnoyDPbiffhPSFGkVjCQ4zog+T/e7EtKezW4z6znUj6EeQ2hrHBThXI573yxxBMj0gQgtVF9Zt2V3+0+0XD7HwKfY0P1DJjGTVUIpZUHxAxe8I/BGT60e7QHfQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <62d1b295-6c79-48d3-a340-1544ca8ed534@amd.com>
-Date: Tue, 8 Oct 2024 08:50:46 -0400
+X-Inumbo-ID: 60f5e540-8575-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1728392465;
+	 x=1728478865; bh=taQaM4mliRg41dfr8UW+UA/4bdOxFihm4Mv6IQ6cfkw=; b=
+	dG7AUr4F+A/ofYnwD9NRDHrXqTkGjpsl6FWtY7pP8XfcWkp+wbv00/0vuKPuzTN/
+	wo/D5YHQ5Q/iBRj9okslPdvBhHHSXbWoXhs420ViDP+WCREYAeD10Rh4OJOm1ooL
+	v/el3nspJuKJSRumbGNOFTWT1nz6rdmFo8v/hUDIMMz0E52O6lma/bzgQ8eUp13e
+	iY83i4av+lWcd8jvjGbEjnvsvC11fJtKWBuLBV1bJ0jiox0ErvJQ4YnzNrgKVr8Y
+	dNirywfe/fdWgGOv13hQKucXUXRfN5PmGRIXo6dQUyfb9611f2GBIwwsrcXBkOhx
+	2ZfLNKUZ1N/ztDBFtbodJQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1728392465; x=1728478865; bh=taQaM4mliRg41dfr8UW+UA/4bdOx
+	Fihm4Mv6IQ6cfkw=; b=aKiiRm3Z2OKsENYiL2R5ez5cpZJEtVrLjmYOwlGPskH0
+	mh5AQhiRESK4KvrhFGT0bQZmOYU6DJaMTZhC9m6C3eU4bU5JDIMdZjj4cjqITliw
+	39Ix/N+ZtUc6Tymy0RLDjYBICwi6iXB9ZV4Cg0//UyqCbZHVmAL17DLgEcbI1J4e
+	2v9uRvKE6q93UamxuvHScD0wCgmSXuZi0rrO833WJ1XXmVu0PpUz6uuogaZE8Fz4
+	2KVj3GIpW+/RUyuNZ9USly1JKvgBFt+y7fqqHjUYrZZoamdfjWnV/d80rx0BOyRu
+	M9qX2ZZNQguylTE1UtBWzmQbc2qRw+bCZzemph8a4Q==
+X-ME-Sender: <xms:EC0FZ1AevPefEwgqVIUqdqakbBdvSFIQh7NceqwBRy09GDWa9qyfcw>
+    <xme:EC0FZzjkChhvMUEG-HndO05S_X5NuENFix6VZLrssm9qUPaHXOWKM_5Cc9OsG73QM
+    -onRtW3lx_fmw>
+X-ME-Received: <xmr:EC0FZwnUrfAuqXsQlRwKRW7pzRfuN1Dl78W2uR9Vtw6v8lenDFuMFL4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdefuddgheelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepfeffudeludffvdegleelgeetfeffvdetudegtefhleehteffgfffhe
+    dukeeitdeknecuffhomhgrihhnpehmihhsrhgrrdhorhhgrdhukhenucevlhhushhtvghr
+    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeekpdhmohgu
+    vgepshhmthhpohhuthdprhgtphhtthhopehrohgsvghrthhordgsrghgnhgrrhgrsegsuh
+    hgshgvnhhgrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdp
+    rhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtth
+    hopehfvgguvghrihgtohdrshgvrhgrfhhinhhisegsuhhgshgvnhhgrdgtohhmpdhrtghp
+    thhtoheptghonhhsuhhlthhinhhgsegsuhhgshgvnhhgrdgtohhmpdhrtghpthhtohepug
+    hpshhmihhthhesrghpvghrthhushhsohhluhhtihhonhhsrdgtohhmpdhrtghpthhtohep
+    rghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopeigvg
+    hnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
+X-ME-Proxy: <xmx:EC0FZ_zJsjEwVsjSpx-oGeCgwLNBq1tkDyi6KDTDKBJTCa8BS2qqDg>
+    <xmx:EC0FZ6QsLMNAm7r8Ucl1VfGVouqdhp9mDlK03Znokj2vRIwpp8IbhQ>
+    <xmx:EC0FZyb2AKqWfWCNIH52uP5iu-UIGG8AAngnYn-W-yPzsn_F5Jt7eQ>
+    <xmx:EC0FZ7SDNJFfu0XaVw4KNQxVAfuDVfJxfZ7Y_6SLaici2H5KItT9RA>
+    <xmx:ES0FZ3TsVYwA7pvBoGl_T7dZvpJnXDo64LUQeMiZcs5zrlZNy9MFxl1F>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 8 Oct 2024 15:00:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roberto Bagnara <roberto.bagnara@bugseng.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	consulting@bugseng.com,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v2 1/3] EFI: address a violation of MISRA C Rule 13.6
+Message-ID: <ZwUtCytUDP4RM-Ro@mail-itl>
+References: <cover.1727690180.git.federico.serafini@bugseng.com>
+ <c447f9faf0283bc6b83bbfbf05acd7acca00762d.1727690180.git.federico.serafini@bugseng.com>
+ <b4fafd2c-d71a-4336-b009-07f3474f5a04@suse.com>
+ <a8dfe133-6f9b-4a26-918b-d0531d6af918@bugseng.com>
+ <8d5e4761-9fc2-4e18-a6c2-9df1822dbbea@suse.com>
+ <alpine.DEB.2.22.394.2410011431360.451631@ubuntu-linux-20-04-desktop>
+ <02833aad-d6f1-4ffa-8d4a-d8c31e9b0524@suse.com>
+ <2f51a8e7-4044-4a84-a541-100799a28012@bugseng.com>
+ <1f8f6a0c-980f-43cb-9967-801641f8dbc0@suse.com>
+ <9adf139f-cfa4-4e71-a02b-5b7cff898d01@bugseng.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 17/44] x86/boot: convert microcode loading to consume
- struct boot_info
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-18-dpsmith@apertussolutions.com>
- <d0d8e53d-d2a2-4441-86cd-6f50aaa36075@amd.com>
-Content-Language: en-US
-In-Reply-To: <d0d8e53d-d2a2-4441-86cd-6f50aaa36075@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|CH3PR12MB8332:EE_
-X-MS-Office365-Filtering-Correlation-Id: 865bbfd7-c492-4ffe-0c7b-08dce797d38e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VGZtTzkva2JremtZeldEd1VEUklUSGlscnJCWkFlQW1aRlBkQ21oQkVyUmdH?=
- =?utf-8?B?QmhHaTFvQ1RWM1hrbFAycGFBekg4M0JTZTg0dGRCRFBQWEliM0lvdldmSU0v?=
- =?utf-8?B?VU9LMjBuQWgrM3dlcVJkZUs2UDFQOXlyK2FoR1hpSUJtYVREWjcwTkVSVFZM?=
- =?utf-8?B?MG91VmFSaGZ1YmNCS05pL096aDUzMjUyQVVmTkw2M0s5cDNyN2FiTFJ2bFkv?=
- =?utf-8?B?WWZXV2EzZE5vc2FFRUlvektXelNMeG11bWdDUFY0bm1pZnRQTS9PUHRQdWxn?=
- =?utf-8?B?WEQzUmdCcStUVjR0OU5CQldJWDBFaW5WQjFkMzFWSDY2OGo0dERseER4a21E?=
- =?utf-8?B?SjZaS2JxNm9heGpKdzRDMS9sTFpQdlpoWVNkNmU3WHduR1BJMzNwbVV0MElF?=
- =?utf-8?B?NUV1aVF6ajVGUXRlWWdyMGNUOVgvNXZwWWNycDNjR2FLQm9QaTVVNFdoZ0Fz?=
- =?utf-8?B?ajBpZE5HMlJjSGJTSk5RRDRFR3hnc29TaHdGY0FXeEg5LzhwY1JiamlKTnZo?=
- =?utf-8?B?VUlHN1RwOFNjS0pWVnIvSExtOW5HeHg0NncvV0QvVWJpVklTNVpMNFQveW1K?=
- =?utf-8?B?UWl5blF5c280VTZkUlhXU1dERVdzbVliUmV6YVozakxkL1IxV1dDM3J1Uzgz?=
- =?utf-8?B?eTJWVVZScVdYeCsxcnFoU1F5Tk1qaFFRNzBZd1V2Y1R5SC9SdHdwVTA4MUds?=
- =?utf-8?B?UnN1dVVkU1AwbHdpSFE5VjEyRzh0UVE0MTZueGg0OHQ5VzU2WVdUZzc2SHVD?=
- =?utf-8?B?UzZMeVgxdGtwU0RERWd4S01WS3hoZnpXb09WVjFOZnBoWEhPTVJhY0Q0UEVz?=
- =?utf-8?B?aG5MSTdBOG82elUvekV1MTZxVXRNVUtHZlBrb1kvSW55YXpDMkYvVGdyanFX?=
- =?utf-8?B?eXltN2YxL3VjSXpyQm14aGhpQ21HNTZmZUpQRS9iMFh2SHpTejI0cm05UUJF?=
- =?utf-8?B?ZGYwdkhyVElJZzJhQk94NG0rc3lsZ242N3hCVnd1OG9qVHEvcm5LL1NyN1FQ?=
- =?utf-8?B?c3RrN3lWdlN4aWMyMVRUMzZEUHpiRUorUTU1WHJBRFl1R1k1ZWpySUp6NXpt?=
- =?utf-8?B?U3krSzNYTitsSVc2cjNoTVlxYzNkR2wxZzRBbVR1QVJ3V09VazVjT0V0MkJC?=
- =?utf-8?B?Zkw1VWxoMFU1eDlFdVpwT0RrQjBMMTB0S2Ivb2NjVG1MdXJWR296OTVIdzlD?=
- =?utf-8?B?d1NZTjNZeHVzaS9Vb0FtOHo1eVlja0tEY2diajd0b0lLeHRydWxRcnZXV0Zh?=
- =?utf-8?B?Z2dra0ljZGlOa1RyOXdaUCt1UG1UY0VobHB0WUpCUkYrZnZkWU1DeVRTRW5t?=
- =?utf-8?B?ZnE3MnVZbmNLR2xuVitBVjVWUUkwTUhEbHdvbnMvd3ljQ3hZb2s0QTRDbXhH?=
- =?utf-8?B?MGJRTXByNEp1OFduaHI1aEtCNFErZGVndEswNzRKcDlQYkw4N2RtdzUyWVd6?=
- =?utf-8?B?WkNCOHR3ZWpXTk13d01SeDYrWU1vdjZJQnVEUCtUUXNEeHBCQUtlbWc2VVAy?=
- =?utf-8?B?R2pOWjhUcnJZVCtrZi9hNWpIeTZCb2xEaVdKQlZuSC81T3p1WTBaVjdla2k1?=
- =?utf-8?B?MG9ONk9tRGRkeGYzZmYwQ1o5K2tuaGh1QTQrcHJOaGE5Q1hFbEZlMlNmbHZP?=
- =?utf-8?B?SEtZcXl4MjdKTE51R2RwMWcrMnNFNTNHWW5tRW5ydE5RNVIxVXRMUXU1QlFP?=
- =?utf-8?B?amdydDgxUVRyMmM0d0dBZng5aklwTWpsVlFSM1FxMzlPcDJaOUxKZmRFaDly?=
- =?utf-8?B?OEhNZDJ5YmRUdzc4ZUtzWURSNWszenJWOG1ydXlMQ0lBWXV4STZybDIwNXhv?=
- =?utf-8?B?U0wzQU1ROUsxaW9kSGZMS2VwendiWmFGT2xOWWc4YitWNkphQkJvcEF4ekxF?=
- =?utf-8?Q?AMLcjPvUl+kZG?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 12:50:45.3897
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 865bbfd7-c492-4ffe-0c7b-08dce797d38e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099E2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8332
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Exw4z9V4c1GWFuBB"
+Content-Disposition: inline
+In-Reply-To: <9adf139f-cfa4-4e71-a02b-5b7cff898d01@bugseng.com>
 
-On 2024-10-07 17:22, Jason Andryuk wrote:
-> On 2024-10-06 17:49, Daniel P. Smith wrote:
->> Convert the microcode loading functions to take struct boot_info, and 
->> then
->> using struct boot_module to map and check for microcode. To keep the 
->> changes
->> focused, continue using the struct mod to hold the reference to the 
->> microcode
->> that is used by the late microcode logic.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/cpu/microcode/core.c    | 37 +++++++++++++---------------
->>   xen/arch/x86/include/asm/bootinfo.h  |  1 +
->>   xen/arch/x86/include/asm/microcode.h | 14 ++++++-----
->>   xen/arch/x86/setup.c                 |  4 +--
->>   4 files changed, 28 insertions(+), 28 deletions(-)
->>
->> diff --git a/xen/arch/x86/cpu/microcode/core.c 
->> b/xen/arch/x86/cpu/microcode/core.c
->> index 8564e4d2c94c..22fea80bc97e 100644
->> --- a/xen/arch/x86/cpu/microcode/core.c
->> +++ b/xen/arch/x86/cpu/microcode/core.c
-> 
->> @@ -205,20 +204,18 @@ static void __init microcode_scan_module(
->>   }
->>   static void __init microcode_grab_module(
->> -    unsigned long *module_map,
->> -    const multiboot_info_t *mbi)
->> +    unsigned long *module_map, struct boot_info *bi)
->>   {
->> -    module_t *mod = (module_t *)__va(mbi->mods_addr);
->> -
->>       if ( ucode_mod_idx < 0 )
->> -        ucode_mod_idx += mbi->mods_count;
->> -    if ( ucode_mod_idx <= 0 || ucode_mod_idx >= mbi->mods_count ||
->> +        ucode_mod_idx += bi->nr_modules;
->> +    if ( ucode_mod_idx <= 0 || ucode_mod_idx >= bi->nr_modules ||
->>            !__test_and_clear_bit(ucode_mod_idx, module_map) )
->>           goto scan;
->> -    ucode_mod = mod[ucode_mod_idx];
->> +    bi->mods[ucode_mod_idx].type = BOOTMOD_MICROCODE;
->> +    ucode_mod = *bi->mods[ucode_mod_idx].mod;
-> 
-> Why the dereference: *bi->mods[ucode_mod_idx].mod; ?  I don't think it 
-> should be there.
 
-Oh, the next patch shows ucode_mod is not a pointer, so dereferencing is 
-correct.   Sorry for the noise.
+--Exw4z9V4c1GWFuBB
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 8 Oct 2024 15:00:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roberto Bagnara <roberto.bagnara@bugseng.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	consulting@bugseng.com,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v2 1/3] EFI: address a violation of MISRA C Rule 13.6
 
-Regards,
-Jason
+On Tue, Oct 08, 2024 at 02:49:52PM +0200, Roberto Bagnara wrote:
+> On 2024-10-08 07:59, Jan Beulich wrote:
+> > On 02.10.2024 08:54, Roberto Bagnara wrote:
+> > > On 2024-10-02 08:09, Jan Beulich wrote:
+> > > > On 01.10.2024 23:36, Stefano Stabellini wrote:
+> > > > > On Tue, 1 Oct 2024, Jan Beulich wrote:
+> > > > > > On 01.10.2024 07:25, Roberto Bagnara wrote:
+> > > > > > > On 2024-09-30 15:07, Jan Beulich wrote:
+> > > > > > > > On 30.09.2024 14:49, Federico Serafini wrote:
+> > > > > > > > > guest_handle_ok()'s expansion contains a sizeof() involvi=
+ng its
+> > > > > > > > > first argument which is guest_handle_cast().
+> > > > > > > > > The expansion of the latter, in turn, contains a variable
+> > > > > > > > > initialization.
+> > > > > > > > >=20
+> > > > > > > > > Since MISRA considers the initialization (even of a local=
+ variable)
+> > > > > > > > > a side effect, the chain of expansions mentioned above vi=
+olates
+> > > > > > > > > MISRA C:2012 Rule 13.6 (The operand of the `sizeof' opera=
+tor shall not
+> > > > > > > > > contain any expression which has potential side effect).
+> > > > > > > >=20
+> > > > > > > > I'm afraid I need to ask for clarification of terminology a=
+nd alike here.
+> > > > > > > > While the Misra doc has a section on Persistent Side Effect=
+s in its
+> > > > > > > > Glossary appendix, what constitutes a side effect from its =
+pov isn't
+> > > > > > > > really spelled out anywhere. Which in turn raises the quest=
+ion whether it
+> > > > > > > > is indeed Misra (and not just Eclair) which deems initializ=
+ation a side
+> > > > > > > > effect. This is even more so relevant as 13.6 talks of only=
+ expressions,
+> > > > > > > > yet initializers fall under declarations (in turn involving=
+ an expression
+> > > > > > > > on the rhs of the equal sign).
+> > > > > > > >=20
+> > > > > > > > All the same of course affects patch 2 then, too.
+> > > > > > >=20
+> > > > > > > MISRA C leaves the definition of "side effect" to the C Stand=
+ard.
+> > > > > > > E.g., C18 5.1.2.3p2:
+> > > > > > >=20
+> > > > > > >      Accessing a volatile object, modifying an object, modify=
+ing a file,
+> > > > > > >      or calling a function that does any of those operations =
+are all
+> > > > > > >      side effects,[omitted irrelevant footnote reference] whi=
+ch are
+> > > > > > >      changes in the state of the execution environment.
+> > > > > > >=20
+> > > > > > > The MISRA C:2012/2023 Glossary entry for "Persistent side eff=
+ect"
+> > > > > > > indirectly confirms that initialization is always a side effe=
+ct.
+> > > > > >=20
+> > > > > > Hmm, that's interesting: There's indeed an example with an init=
+ializer
+> > > > > > there. Yet to me the text you quote from the C standard does no=
+t say
+> > > > > > that initialization is a side effect - it would be "modifying an
+> > > > > > object" aiui, yet ahead of initialization being complete the ob=
+ject
+> > > > > > doesn't "exist" imo, and hence can be "modified" only afterward=
+s.
+> > > > >=20
+> > > > > I feel it's becoming a bit too philosophical. Since there's some =
+room
+> > > > > for interpretation and only two violations left to address, I bel=
+ieve
+> > > > > it's best to stick with the stricter interpretation of the defini=
+tion.
+> > > > > Therefore, I'd proceed with this series in its current form.
+> > > >=20
+> > > > Proceeding with the series in its current form may be okay (as you =
+say,
+> > > > you view the changes as readability improvements anyway), but imo t=
+he
+> > > > interpretation needs settling on no matter what. In fact even for t=
+hese
+> > > > two patches it may affect what their descriptions ought to say (wou=
+ld
+> > > > be nice imo to avoid permanently recording potentially misleading
+> > > > information by committing as is). And of course clarity would help
+> > > > dealing with future instances that might appear. I take it you real=
+ize
+> > > > that if someone had submitted a patch adding code similar to the
+> > > > original forms of what's being altered here, it would be relatively
+> > > > unlikely for a reviewer to spot the issue. IOW here we're making
+> > > > ourselves heavily dependent upon Eclair spotting (supposed) issues,
+> > > > adding extra work and delays for such changes to go in.
+> > >=20
+> > > You can do two things to obtain a second opinion:
+> > >=20
+> > > 1) Use the MISRA forum (here is the link to the forum
+> > >      section devoted to the side-effect rules of MISRA C:2012
+> > >      and MISRA C:2023 (https://forum.misra.org.uk/forumdisplay.php?fi=
+d=3D168).
+> > >      The MISRA C Working Group will, in due course, provide
+> > >      you with an official answer to your questions about what,
+> > >      for the interpretation of Rule 13.6, has to be considered
+> > >      a side effect.
+> > >=20
+> > > 2) Reach out to your ISO National Body and try to obtain
+> > >      an official answer from ISO/IEC JTC1/SC22/WG14 (the
+> > >      international standardization working group for the
+> > >      programming language C) to your questions about what the
+> > >      C Standard considers to be side effects.
+> >=20
+> > I took the latter route, and to my (positive) surprise I got back an an=
+swer
+> > the same day. There was a request for someone to confirm, but so far I =
+didn't
+> > see further replies. Since this is a German institution I raised the qu=
+estion
+> > in German and got back an answer in German (attached); I've tried my be=
+st to
+> > translate this without falsifying anything, but I've omitted non-techni=
+cal
+> > parts:
+> >=20
+> > "Initialization of an object is never a side effect of the initializati=
+on
+> > by itself. Of course expressions used for initialization can themselves=
+ have
+> > side effects on other objects.
+> >=20
+> > @Andreas: Do you agree? C after all has a far simpler object model than=
+ C++.
+> > The (potential) change in object representation (i.e. the bytes underly=
+ing
+> > the object) is not a side effect of object initialization, but its prim=
+ary
+> > purpose."
+> >=20
+> > Further for Misra she added a reference to a Swiss person, but I think =
+with
+> > Bugseng we have sufficient expertise there.
+>=20
+> Unfortunately, the (translation of the) answer you received adds
+> confusion to previous confusion: who answered has highlighted the
+> "side" part of the term, which is indeed relevant in computer science,
+> but not for the C standard.  To the point that the same argument could
+> be used to deny that ++i has a side effect because the increment is
+> the "primary" effect...
+>=20
+> Part of the confusion is maybe in the the following paragraph Jan
+> wrote earlier:
+>=20
+> > Hmm, that's interesting: There's indeed an example with an initializer
+> > there. Yet to me the text you quote from the C standard does not say
+> > that initialization is a side effect - it would be "modifying an
+> > object" aiui, yet ahead of initialization being complete the object
+> > doesn't "exist" imo, and hence can be "modified" only afterwards.
+>=20
+> In C, it is not true that the object does not exist ahead of
+> initialization.  Try the following:
+>=20
+> extern int f(int* p);
+>=20
+> int main() {
+>   int i =3D f(&i);
+> }
+
+This is interesting discussion, but I don't think it needs to block
+anything. The proposed change doesn't violate any other rule/code style,
+and I'd argue it's more readable. Taking more strict interpretation in
+this case doesn't really hurt. I already acked this patch.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--Exw4z9V4c1GWFuBB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmcFLQsACgkQ24/THMrX
+1yxdpQf8CnObZMn8i8a5xILyZdTvpXTjjRwGjaUskND7W/Al1e2d/NCNVAuI9CgU
+n4doJ2wIryJPKDZapjfaF2KHsvbXBPQp+Ptm/yCoNw2dLnaQmljnZa6fjOV8Zr8U
+1DI1b9XZD3hwKcwPGJNi941s8oN9hFntArIs0PNTf71K/lovTnwEW0A5zEZ4agXP
+9PhYwTffefw/HVFKv2dLGyMUJblXnlSYyet618oUTO33BZ2KV6RIHsipoNk1wc+s
+5jMCFFmDUAuhFNIMfwkodZxZns8sa4bZheMnH6DxmlrSGyloHw9URId/q+nxbytq
+8sI4Zfciy1EdIcKtOEFfSUpimvj75A==
+=1Mpf
+-----END PGP SIGNATURE-----
+
+--Exw4z9V4c1GWFuBB--
 
