@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A17D2996E4A
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:40:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814654.1228263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06E3E996E66
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:42:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814666.1228283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXqx-00055W-70; Wed, 09 Oct 2024 14:39:51 +0000
+	id 1syXtf-000771-Vd; Wed, 09 Oct 2024 14:42:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814654.1228263; Wed, 09 Oct 2024 14:39:51 +0000
+Received: by outflank-mailman (output) from mailman id 814666.1228283; Wed, 09 Oct 2024 14:42:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXqx-00053b-4U; Wed, 09 Oct 2024 14:39:51 +0000
-Received: by outflank-mailman (input) for mailman id 814654;
- Wed, 09 Oct 2024 14:39:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syXtf-000753-Sh; Wed, 09 Oct 2024 14:42:39 +0000
+Received: by outflank-mailman (input) for mailman id 814666;
+ Wed, 09 Oct 2024 14:42:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BLvJ=RF=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1syXqv-00051H-KN
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:39:49 +0000
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [2001:4860:4864:20::2b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55378417-864c-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 16:39:48 +0200 (CEST)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-2872134c806so2239799fac.3
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 07:39:48 -0700 (PDT)
+ <SRS0=6gYK=RF=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1syXte-00074J-Jl
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:42:38 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b9d9bfd9-864c-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 16:42:36 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-539908f238fso8007967e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 07:42:36 -0700 (PDT)
+Received: from [10.17.77.207] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-539afec849dsm1515317e87.101.2024.10.09.07.42.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 07:42:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,118 +45,314 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55378417-864c-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: b9d9bfd9-864c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728484787; x=1729089587; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=A5VYZzA33/X7lo1locmMNQ9zjdbZ5WoZT3Ls76hGZ8c=;
-        b=lZPw1q8U6fLJMPtu2c6eBEx5qpVWIvMggqxqKhKIuSi6TCdR5N+rBClTtgabWAUD8U
-         YUen/yK9Rx62uQG2g12tt1EeZD2Trlswbu9wL2JCqFo281EPwNRn5S6MRz9tIX6u7Y/8
-         fMjmE/9n5hIxvoAGB4KrpUJf6OTSAVgikhEK8=
+        d=gmail.com; s=20230601; t=1728484956; x=1729089756; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=18hRGmFxt3xBaAqVK/WnmVYHLpaZI0ST+KXeJf4d5oY=;
+        b=leYcVsTzRLIhSYzpHs1wqII3l46h1KLprsQy18QfeHDY2JnmZ3Q857ht/Lqkbb97rI
+         Pq/AG3e/8ClPhBVHQJOsQ3zKChULrSZKk3rnbAIcVNjSpaGxatiK9+fAR9KXxduCU77f
+         8W7ViB+L7Tm4FRn/1nbDgf2zUKKFmoaE60UbWQ/LSfaiHx7csIVhlXA51mKkpYoO+h4+
+         WPEEr5TzxJmyhpFYqh8Wrw+cMPw4dAL1xZfulU2yArGfF0YT3TqRNFw13WIGKVAPRSWu
+         JbYDv/QmyCdJYlVBS4Mdlb8WsVhgkTO76VDFAeN+aRIsTcdhznCrGf6xu15K5xGhGW5z
+         PqLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728484787; x=1729089587;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=A5VYZzA33/X7lo1locmMNQ9zjdbZ5WoZT3Ls76hGZ8c=;
-        b=G1XN7Q6Wg4JOddRQ/xdq+tMdoYncp9Qr5U0gS7sKzts6v7DzyHY6cnIkFN949WMIyP
-         Zgn1dBGdQEiQjQSa2T6zGUI+VajsjKf6I1rsSdBgRQfyoOSsJ4JF2DPq5XFc1OeQJi30
-         w5XrKeu9n9iuC+M2weVJ2H2+2I4GR7pVFo4fPl//ql7JqEvIQF6sF9GI9hR58KS+kndb
-         hL90fDMplgCz1IXKDUxElXJ7IUw1D1xpbpleukgHXhzMmk5O7nvwZ1exS5rmDZbcXGpe
-         12fT/3FThjQalxfOd7Q+eo7TyJjGO0pRMHqlZvBNdzN37nOhObxy5mmiZi2jE7//3NvO
-         9g/g==
-X-Forwarded-Encrypted: i=1; AJvYcCVqI0gFlOwy0evEWBh8WFU63+Ab5TbtRcWnrlK7VaOQvT8oaxOyIetzJJpZc7aO+5OG3MgzhHn9RN0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yya9N11asTkuqH/S7K+UAq8qTQ4Bp1QDTF0Okg20AY9Lx7ikxgj
-	yZ1S1ycP31+JGLSTYva30vdGoPfYaVtpPydmwhR23Cpjw+2MFC32YSib25luGf4t8jnFg7yIYcc
-	n3l0qet/IhOaqjEaobiAyUhvkllg4sah407efQw==
-X-Google-Smtp-Source: AGHT+IH6qejYFYzLFfLVD6k3oEhDOGZlO74HgLGZyOngpOwrm5/fMzkWfKnBiQDZb2i4WDXQH7yEcWFfcykF3xLlKzo=
-X-Received: by 2002:a05:6870:2113:b0:277:e457:6057 with SMTP id
- 586e51a60fabf-2883450e7bbmr1812527fac.44.1728484787192; Wed, 09 Oct 2024
- 07:39:47 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1728484956; x=1729089756;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=18hRGmFxt3xBaAqVK/WnmVYHLpaZI0ST+KXeJf4d5oY=;
+        b=mzVk3xqHGBgL9eRH9N83f6q2e9DMO+eNEShsyWh+R3gmX5MHVQIEG13j5Xp4oTCXow
+         Gu9sSbr/cGo/RFvxSXvwhVMywyF/r/tFDvwCP6DUd7nNSw9g61NhakdgxibgOwZO30Mu
+         5UNidbKWgEeRjueXStbtXbd/+UboxnWOX/OmufU/+LT8Wn8jlVCbVcEdXikn3T+RUbds
+         LS9wWDa4Vmb3OC76pmD+IBZGnB+WgaBe1DplodPGaVf0O8xU+JXqRkPoS/nbykgFYgD1
+         JLD4xsEjhxWJFkdiCFz85737F0so8v6FftUKtOe0tQscCyWNud+0rLZHEl1xqBj1ouF9
+         MTdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWZA+jYnyGFMf2UZrMmt4ZFigpUe2hiL8GBY6/5b9aI36jqgNY5KczEsshE4cmPgU8m/qN9/VZVme0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPLsmq7u5n9elMFaknJ9fSTJQNC7UR00XzZybsSoss7fWwGnAk
+	56XVKgrKUyQMG6SuoNBh62YfnrFW4M3VMQnFfrwizWpkTw1wbd1l
+X-Google-Smtp-Source: AGHT+IF40vr1CHz8xdQ6oCkhhNlwHbD9gTkoDh1iFQiiUNp1H/8hwpUHzcLfiZtdWo1SNTIKQjZN8g==
+X-Received: by 2002:a05:6512:3b09:b0:535:d4e9:28bf with SMTP id 2adb3069b0e04-539c494ed81mr1799643e87.46.1728484955338;
+        Wed, 09 Oct 2024 07:42:35 -0700 (PDT)
+Message-ID: <24b503c4-c9bc-407a-bd78-031f947afa65@gmail.com>
+Date: Wed, 9 Oct 2024 17:42:31 +0300
 MIME-Version: 1.0
-References: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
- <dee82fce-ffc8-493e-8d99-f5c3b321e5b3@suse.com> <a7b6fc68-a568-4b61-895d-c295ba3d3095@citrix.com>
- <b5b20a0c-7584-4885-b7b0-c4b1cba8c0bd@suse.com>
-In-Reply-To: <b5b20a0c-7584-4885-b7b0-c4b1cba8c0bd@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Wed, 9 Oct 2024 15:39:36 +0100
-Message-ID: <CACHz=ZjXdcBdPFwP4vNEgNMqaXfyJN1Ur_KVLfp4Y3zMs-J-VA@mail.gmail.com>
-Subject: Re: [PATCH 1/7] byteorder: replace __u16
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: fusa: Add requirements for Device Passthrough
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ Artem Mygaiev <artem_mygaiev@epam.com>,
+ Hisao Munakata <hisao.munakata.vt@renesas.com>
+References: <20241007185508.3044115-1-olekstysh@gmail.com>
+ <6E89CC97-C7E3-40DF-8BFA-5F3065429F54@arm.com>
+ <f8ea9ab4-190e-427a-ae77-b7c0769dffbe@gmail.com>
+ <alpine.DEB.2.22.394.2410081523292.12382@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2410081523292.12382@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 9, 2024 at 2:34=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 09.10.2024 15:20, Andrew Cooper wrote:
-> > On 09/10/2024 10:21 am, Jan Beulich wrote:
-> >> In {big,little}_endian.h the changes are entirely mechanical, except f=
-or
-> >> dealing with casting away of const from pointers-to-const on lines
-> >> touched anyway.
-> >>
-> >> In swab.h the casting of constants is done away with as well - I simpl=
-y
-> >> don't see what the respective comment is concerned about in our
-> >> environment (sizeof(int) >=3D 4, sizeof(long) >=3D {4,8} depending on
-> >> architecture, sizeof(long long) >=3D 8). The comment is certainly rele=
-vant
-> >> in more general cases. Excess parentheses are dropped as well,
-> >> ___swab16()'s local variable is renamed, and __arch__swab16()'s is
-> >> dropped as being redundant with ___swab16()'s.
-> >>
-> >> With that no uses of the type remain, so it moves to linux-compat.h.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >> I'm unconvinced of the need of the separate ___constant_swab16(). I'm
-> >> also unconvinced of the need for said constants (that even had casts o=
-n
-> >> them).
-> >
-> > There is a still-good series deleting the whole of byteorder/ and
-> > replacing it with a few-hundred line single header.
-> >
-> > It is the second thing stalled on a governance change (prohibited
-> > reasons to object to a change) which clearly no-one gives a damn about
-> > fixing.  In fact double spite because it denied a good engineer his
-> > first changes in Xen.
-> >
-> >
-> > I don't particularly feel like trying to polish byteorder.  I'm incline=
-d
-> > to rebase+repost Lin's patches, at which point the majority of this
-> > series simply disappears.
->
-> I wouldn't mind you doing so, as long as that other series then progresse=
-s.
-> What I don't want to get into is the other series being stuck rendering t=
-his
-> one stuck, too. Then it would imo be better to take this one first, rebas=
-e
-> the other on top, and work towards it becoming unstuck (whatever that tak=
-es;
-> I have no recollection of what the issue was back at the time, all I reca=
-ll
-> is that, yes, there was such work at some point).
->
-> Jan
->
 
-I usually don't like stopping a series waiting for another series too.
 
-In these mostly automated large changes instead of a manual rebase I
-extract patches with "git format-patch", do the same automated replace
-with sed/perl (like "s/\<u32\>/uint32_t/" and so on) and apply with
-"git am".
+On 09.10.24 01:46, Stefano Stabellini wrote:
 
-My 2 cents.
 
-Frediano
+Hello Stefano
+
+> On Tue, 8 Oct 2024, Oleksandr Tyshchenko wrote:
+>>>> On 7 Oct 2024, at 20:55, Oleksandr Tyshchenko <olekstysh@gmail.com> wrote:
+>>>>
+>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>
+>>>> Add common requirements for a physical device assignment to Arm64
+>>>> and AMD64 PVH domains.
+>>>>
+>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>> ---
+>>>> Based on:
+>>>> [PATCH] docs: fusa: Replace VM with domain
+>>>> https://patchew.org/Xen/20241007182603.826807-1-ayan.kumar.halder@amd.com/
+>>>> ---
+>>>> ---
+>>>> .../reqs/design-reqs/common/passthrough.rst   | 365 ++++++++++++++++++
+>>>> docs/fusa/reqs/index.rst                      |   1 +
+>>>> docs/fusa/reqs/market-reqs/reqs.rst           |  33 ++
+>>>> docs/fusa/reqs/product-reqs/common/reqs.rst   |  29 ++
+>>>> 4 files changed, 428 insertions(+)
+>>>> create mode 100644 docs/fusa/reqs/design-reqs/common/passthrough.rst
+>>>> create mode 100644 docs/fusa/reqs/product-reqs/common/reqs.rst
+>>>>
+>>>> diff --git a/docs/fusa/reqs/design-reqs/common/passthrough.rst
+>>>> b/docs/fusa/reqs/design-reqs/common/passthrough.rst
+>>>> new file mode 100644
+>>>> index 0000000000..a1d6676f65
+>>>> --- /dev/null
+>>>> +++ b/docs/fusa/reqs/design-reqs/common/passthrough.rst
+>>>> @@ -0,0 +1,365 @@
+>>>> +.. SPDX-License-Identifier: CC-BY-4.0
+>>>> +
+>>>> +Device Passthrough
+>>>> +==================
+>>>> +
+>>>> +The following are the requirements related to a physical device
+>>>> assignment
+>>>> +[1], [2] to Arm64 and AMD64 PVH domains.
+>>>> +
+>>>> +Requirements for both Arm64 and AMD64 PVH
+>>>> +=========================================
+>>>> +
+>>>> +Hide IOMMU from a domain
+>>>> +------------------------
+>>>> +
+>>>> +`XenSwdgn~passthrough_hide_iommu_from_domain~1`
+>>>> +
+>>>> +Description:
+>>>> +Xen shall not expose the IOMMU device to the domain even if I/O
+>>>> virtualization
+>>>> +is disabled. The IOMMU shall be under hypervisor control only.
+>>>> +
+>>>> +Rationale:
+>>>
+>>> I think there should be a rationale here to explain why we do not want the
+>>> IOMMU
+>>> in particular to be assigned to a domain.
+>>
+>>
+>> ok, will add. I propose the following text:
+>>
+>> Xen having the whole picture of the host resources and device assignment
+>> unlike the individual domain makes use of the IOMMU to:
+>> - perform DMA Remapping on Arm64 and AMD64 platforms, which is also known as
+>> stage-2 (or 2nd stage) address translations for DMA devices passed through to
+>> domains and Interrupt Remapping on AMD64 platforms.
+>> - provide access protection functionalities to prevent malicious or buggy DMA
+>> devices from accessing arbitrary memory ranges (e.g. memory allocated to other
+>> domains) or from generating interrupts that could affect other domains.
+>>
+>>
+>>>
+>>> Added to that, I am not completely sure that there is a clear way to test
+>>> this one
+>>> as for example one could assign registers not known by Xen.
+>>
+>> I am afraid you are right, valid point. For example, on Arm64, if there is no
+>> corresponding driver in use, we will end up exposing IOMMU dt node to Dom0.
+>>
+>>
+>>>
+>>> Shouldn't this requirement in fact be an assumption of use ?
+>>
+>> Assumption of use on Xen? From my PoV sounds reasonable, will do.
+> 
+> In my view, this does not qualify as an Assumption of Use, as it does
+> not align with the definition we have used so far. If we were to
+> categorize this as an Assumption of Use, we would need to change the
+> definition.
+
+Right, what I meant was new Assumption of use *on Xen* that would 
+require updating docs/fusa/reqs/intro.rst.
+
+
+> 
+> We have defined an Assumption of Use as something Xen expects from the
+> rest of the system for it to function correctly, such as being loaded at
+> EL2. On the other hand, 'Requirements' refer to behaviors we expect Xen
+> to exhibit.
+> 
+> Our goal is for Xen to configure the IOMMU at boot using the stage 2
+> translation, and to ensure that Xen prevents domains from altering the
+> IOMMU configuration. These are specific expectations of Xen's behavior,
+> so I believe they fall under Requirements and should be validated in
+> some way.
+> 
+> However, we could adjust the wording. For example, we might replace the
+> negative phrasing with a positive requirement, such as: 'Xen shall
+> configure the IOMMU at boot according to the stage 2 translation
+> tables.' There is no need to explicitly state that the IOMMU is not
+> exposed to guests, as nothing is exposed unless explicitly allowed or
+> mentioned. We could, however, include a brief note about it for clarity.
+
+I agree, good explanation! Just maybe "Xen shall
+configure the IOMMU *at domain creation time* according to the stage 2 
+translation tables" since the IOMMU context is created at that time. 
+Although, if we are going to deal with boot time domains only, *at boot* 
+also sounds ok, I think.
+
+
+> 
+> 
+>>>> +
+>>>> +Comments:
+>>>> +
+>>>> +Covers:
+>>>> + - `XenProd~device_passthrough~1`
+>>>> +
+>>>> +Discover PCI devices from hardware domain
+>>>> +-----------------------------------------
+>>>> +
+>>>> +`XenSwdgn~passthrough_discover_pci_devices_from_hwdom~1`
+>>>> +
+>>>> +Description:
+>>>> +The hardware domain shall enumerate and discover PCI devices and inform
+>>>> Xen
+>>>> +about their appearance and disappearance.
+>>>
+>>> Again this is a design requirement telling what should be done by a domain.
+>>> This is an interface or an assumption of use but not a Xen design req.
+>>
+>> I agree, will convert to Assumption of use on domain.
+> 
+> This example better aligns with our definition of Assumption of Use so
+> far: we expect the hardware domain to enumerate and discover PCI
+> devices, then notify Xen about their appearance or removal. This is an
+> expectation placed on the hardware domain, not on Xen itself. I agree
+> with Bertrand that, as written, it is more of an Assumption of Use than
+> a Requirement.
+> 
+> However, rather than converting it into an Assumption of Use, I think we
+> should rewrite it as a requirement focused on Xen's interfaces for
+> enumeration. For instance:
+> 
+> "Xen shall provide hypercalls to allow the hardware domain to inform Xen
+> about the presence of PCI devices."
+
+I agree, will rewrite.
+
+
+> 
+> 
+>>>> +
+>>>> +Rationale:
+>>>> +
+>>>> +Comments:
+>>>> +
+>>>> +Covers:
+>>>> + - `XenProd~device_passthrough~1`
+>>>> +
+>>>> +Discover PCI devices from Xen
+>>>> +-----------------------------
+>>>> +
+>>>> +`XenSwdgn~passthrough_discover_pci_devices_from_xen~1`
+>>>> +
+>>>> +Description:
+>>>> +Xen shall discover PCI devices (enumerated by the firmware beforehand)
+>>>> during
+>>>> +boot if the hardware domain is not present.
+>>>
+>>> I am a bit wondering here why we would not want Xen to always do it if we
+>>> have
+>>> the code to do it in Xen anyway.
+>>
+>> Makes sense, will drop "if the hardware domain is not present".
+> 
+> +1
+> 
+>   
+>>>
+>>>> +
+>>>> +Rationale:
+>>>> +
+>>>> +Comments:
+>>>> +
+>>>> +Covers:
+>>>> + - `XenProd~device_passthrough~1`
+>>>> +
+>>>> +Assign PCI device to domain (with IOMMU)
+>>>> +----------------------------------------
+>>>> +
+>>>> +`XenSwdgn~passthrough_assign_pci_device_with_iommu~1`
+>>>> +
+>>>> +Description:
+>>>> +Xen shall assign a specified PCI device (always implied as DMA-capable)
+>>>> to
+>>>> +a domain during its creation using passthrough (partial) device tree on
+>>>> Arm64
+>>>> +and Hyperlaunch device tree on AMD-x86. The physical device to be
+>>>> assigned is
+>>>> +protected by the IOMMU.
+>>>
+>>> This is a very long and complex requirement.
+>>> I would suggest to split it in 3:
+>>> - generic: Xen shall support assign PCI devices to domains.
+>>> - arm64 one: Xen shall assign PCI devices based on device tree (explain how
+>>> this is configured in dts)
+>>> - amd: xxxx based on hyperlaunch
+>>
+>> I agree, will split, but ...
+>>
+>>> - Xen shall use the IOMMU to enforce DMA operations done by a PCI device
+>>> assigned to a domain to be restricted to the memory of the given domain.
+>>
+>>
+>>   ... does this need to be a separate 4th requirement here (and for the similar
+>> requirement for the platform device down the document) or this sentence is
+>> meant to be added to all resulting generic/arm64/amd requirements?
+> 
+> This is not specific to PCI, though? The generic requirement is "Xen
+> shall use the IOMMU to enforce DMA operations done by a DMA-capable
+> device assigned to a domain to be restricted to the memory of the given
+> domain".
+
+Makes sense.
+
+
+> 
+> I think it is also OK to both have a PCI-specific and a
+> non-PCI-specific requirement for that, I just wanted to mention that it
+> doesn't look like something to PCI-specific.
+
+
+ok, let's have a single requirement with generic subject, in description 
+I can add the following:
+
+The DMA-capable device can be either PCI or platform device.
+
+
 
