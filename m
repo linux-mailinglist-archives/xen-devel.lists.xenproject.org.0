@@ -2,31 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12CA996927
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 13:47:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814415.1227977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABBEE99692A
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 13:47:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814421.1227987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syV9R-0005ub-8q; Wed, 09 Oct 2024 11:46:45 +0000
+	id 1syVA3-000760-HR; Wed, 09 Oct 2024 11:47:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814415.1227977; Wed, 09 Oct 2024 11:46:45 +0000
+Received: by outflank-mailman (output) from mailman id 814421.1227987; Wed, 09 Oct 2024 11:47:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syV9R-0005s4-5z; Wed, 09 Oct 2024 11:46:45 +0000
-Received: by outflank-mailman (input) for mailman id 814415;
- Wed, 09 Oct 2024 11:46:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syVA3-000745-EU; Wed, 09 Oct 2024 11:47:23 +0000
+Received: by outflank-mailman (input) for mailman id 814421;
+ Wed, 09 Oct 2024 11:47:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1syV9P-0005ry-Hd
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 11:46:43 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2579497a-8634-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 13:46:41 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1728474393609905.6968962697754;
- Wed, 9 Oct 2024 04:46:33 -0700 (PDT)
+ <SRS0=eQJB=RF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1syVA2-0006hU-65
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 11:47:22 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3e0b60e5-8634-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 13:47:21 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a994cd82a3bso510374266b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 04:47:21 -0700 (PDT)
+Received: from localhost ([213.195.123.53]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a993fa1b94csm572572466b.53.2024.10.09.04.47.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Oct 2024 04:47:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,152 +44,369 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2579497a-8634-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1728474395; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ey5wCdw5oIgZSdbEFRmpgF7QvgNLhn4WeHc1Hm4x8AxpGOauYr/YM1MA37maYWaocoPnDe2eZ+jZ/RU7PUBLsQ/L8vWiHFWhZfXNS2sNzwcXjbGaZ9bAXNAbF5OgZQPpbonh+CUalGyZPkQ240X72qMyqIq2hjuSpcUIFvhQ8WY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1728474395; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=bV6tpWlJ2Ojq+ybJWQdqpQ0QeU2F/LXY+2Nc3G8IRBQ=; 
-	b=esByCf2pgRVsk0waYucCe/aT3dkXieacb8Pae01BEeAfOLy/SmhuzeYEcrGnY/IzlUaTO+7q3/vJLtvH2mPu3EbATkbK6S6vU7ZsKDRsq0woiYBwoD76a/NdgCK4e9+hBv3TPwM4xtUY2IWgTdhK08xkxbUROwhHdk65OqXtzOw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728474395;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=bV6tpWlJ2Ojq+ybJWQdqpQ0QeU2F/LXY+2Nc3G8IRBQ=;
-	b=spacrm+a/w8JKW61V46yowWFzPtmESriBb3lbCrRLhJ6GY6dQrd8U9u5DYqs9/Z/
-	nm16DBOK9ypmsmonFwyi4R13jWciiS5AGVpCp19trTIMW/D9dKv+UgERJyOAQXTs32w
-	LmxwevaDEAJzZriyPzu9q3DF0dscD2gzaYNR+nIA=
-Message-ID: <612dda05-f316-49a4-a23c-d30dd4e761cf@apertussolutions.com>
-Date: Wed, 9 Oct 2024 07:46:31 -0400
+X-Inumbo-ID: 3e0b60e5-8634-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1728474440; x=1729079240; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=vNj+EoD5ZU0beT7yuQbSff10GWe3bm/uH5DRpKdWX3k=;
+        b=W07jDnVWQ+B7SKaMjL6GPx2mLr4Q1TNZ4Mmt6P7A4QyJYeEHb12sgzuFXXN1h3AEmg
+         WjfABd/FakuVsquhBb65lU02JUME7R30WKsggQh3zIYYZBjqFFB/I0qSYMs4UKzJbCy3
+         pl6eyhYBKIbAzF5FgSfSfFGXN4c/lw6V9J/B4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728474440; x=1729079240;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=vNj+EoD5ZU0beT7yuQbSff10GWe3bm/uH5DRpKdWX3k=;
+        b=F7uqbrGwXQ9nhmfqWZP5nCN91cDcZujuR2RmccN7SVIrqPEC/sJhikNZ9ZPUcd27UI
+         UfAXaIzePOC9oriBkFnkfdL9Bl4bX+c1VEk5IizbbDSJwyBcoyxCA9qV261Jauy2fHnd
+         o2/8gYg2MgduNr50qHslGkmQUpiVVP6AJG/IQenVfErXjov2njS99jFgpR1qchG37uLM
+         fxp64BsQIsXlH98NNDLl9NxVqnaIcrMRTjCK41Jtk1pSyfhWSqbuqHKJEyEla1ePkys+
+         PExGNrBalOYAe51Ds2FxnqYndV8rj7qoqJP+49PCZus4mMgQ3I6EGZbbuekcsufZ/cgO
+         4WOQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWrFyoYRhv5crn1aywzFg2Ls9W0Ungk62SmKiyK9RzZ4/wYv6ZI8KECwtTOy7CtA5Ou5EzfvTJKmxU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxr7ip25p82NZmH1UUhuXqwYWc3ezNvWR0alpFy6uFDy70M88Fp
+	sZjiWAkBZ+qGeNeoPTB9HWmfn3csXWodwpMOEsKl5tqJaqbRDXBuG6EHvvrNi3E=
+X-Google-Smtp-Source: AGHT+IGII9b0SdhhcdcjZnMfcYuuwMnSVEaseFM96Aw/kPCmUIUzLI3A3lQi9ftjzwZ7XzsLDI4/yA==
+X-Received: by 2002:a17:907:7291:b0:a99:40fc:adb0 with SMTP id a640c23a62f3a-a998d37619dmr175549266b.65.1728474440241;
+        Wed, 09 Oct 2024 04:47:20 -0700 (PDT)
+Date: Wed, 9 Oct 2024 13:47:19 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Willi Junga <xenproject@ymy.be>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] iommu/amd-vi: do not error if device referenced in IVMD
+ is not behind any IOMMU
+Message-ID: <ZwZtR6ZTl2gUWN2T@macbook.local>
+References: <20241008104706.74001-1-roger.pau@citrix.com>
+ <d6489e43-2cfe-4ad7-824e-a3212367dbca@suse.com>
+ <ZwY4ym2Gnlx4tytP@macbook.local>
+ <5a2a4ff4-a2c7-46f6-bd18-a4837fe8d4c1@suse.com>
+ <ZwZlVlU2nHkBedyo@macbook.local>
+ <703fa416-c7d5-4862-a871-5831125c2e25@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/44] x86/boot: move headroom to boot modules
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-8-dpsmith@apertussolutions.com>
- <af3c6fae-ac24-4629-b295-2dedb5824819@amd.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <af3c6fae-ac24-4629-b295-2dedb5824819@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+In-Reply-To: <703fa416-c7d5-4862-a871-5831125c2e25@suse.com>
 
-On 10/7/24 14:55, Jason Andryuk wrote:
-> On 2024-10-06 17:49, Daniel P. Smith wrote:
->> The purpose of struct boot_module is to encapsulate the state of boot 
->> module as
->> it is processed by Xen. Locating boot module state struct boot_module 
->> reduces
->> the number of global variables as well as the number of state 
->> variables that
->> must be passed around. It also lays the groundwork for hyperlaunch 
->> mult-domain
->> construction, where multiple instances of state variables like 
->> headroom will be
->> needed.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/include/asm/bootinfo.h |  5 +++++
->>   xen/arch/x86/setup.c                | 23 ++++++++++++++---------
->>   2 files changed, 19 insertions(+), 9 deletions(-)
->>
->> diff --git a/xen/arch/x86/include/asm/bootinfo.h 
->> b/xen/arch/x86/include/asm/bootinfo.h
->> index d19473d8941e..c7e6b4ebf0da 100644
->> --- a/xen/arch/x86/include/asm/bootinfo.h
->> +++ b/xen/arch/x86/include/asm/bootinfo.h
->> @@ -17,6 +17,11 @@
->>   struct boot_module {
->>       /* Transitionary only */
->>       module_t *mod;
->> +    /*
->> +     * A boot module may contain a compressed kernel that Xen will 
->> need space
->> +     * reserved, into which it will be decompressed.
+On Wed, Oct 09, 2024 at 01:28:19PM +0200, Jan Beulich wrote:
+> On 09.10.2024 13:13, Roger Pau Monné wrote:
+> > On Wed, Oct 09, 2024 at 12:52:29PM +0200, Jan Beulich wrote:
+> >> On 09.10.2024 10:03, Roger Pau Monné wrote:
+> >>> On Tue, Oct 08, 2024 at 04:01:28PM +0200, Jan Beulich wrote:
+> >>>> On 08.10.2024 12:47, Roger Pau Monne wrote:
+> >>>>> IVMD table contains restrictions about memory which must be mandatory assigned
+> >>>>> to devices (and which permissions it should use), or memory that should be
+> >>>>> never accessible to devices.
+> >>>>>
+> >>>>> Some hardware however contains ranges in IVMD that reference devices outside of
+> >>>>> the IVHD tables (in other words, devices not behind any IOMMU).  Such mismatch
+> >>>>> will cause Xen to fail in register_range_for_device(), ultimately leading to
+> >>>>> the IOMMU being disabled, and Xen crashing as x2APIC support might be already
+> >>>>> enabled and relying on the IOMMU functionality.
+> >>>>
+> >>>> I find it hard to believe that on x86 systems with IOMMUs some devices would
+> >>>> be left uncovered by any IOMMU. Is it possible that IVHD is flawed there? In
+> >>>> which case we might rightfully refuse to boot? (Can you share e.g. that
+> >>>> "iommu=debug" output that results from parsing the tables on that system?)
+> >>>
+> >>> I'm afraid I don't have any of such systems to test myself, however I
+> >>> have the contents of IVRS:
+> >>>
+> >>>   ACPI Table Header
+> >>> ------------------------------------------------------------------
+> >>> Signature          : IVRS
+> >>> Length             : 0x000001F8
+> >>> Revision           : 0x02
+> >>> Checksum           : 0x06
+> >>> OEM ID             : AMD  
+> >>> OEM Table ID       : AmdTable
+> >>> OEM Revision       : 0x00000001
+> >>> Creator ID         : AMD 
+> >>> Creator Revision   : 0x00000001
+> >>> IVinfo             : 0x00203043
+> >>> 	  IVHD
+> >>> 	----------------------------------------------------------------
+> >>> 	Type                  : 0x10
+> >>> 	Flags                 : 0xB0
+> >>> 	Length                : 0x0044
+> >>> 	IOMMU Device ID       : 0x0002
+> >>> 	Capability Offset     : 0x0040
+> >>> 	IOMMU Base Address    : 0x00000000FD200000
+> >>> 	Segment Group         : 0x0000
+> >>> 	IOMMU Info            : 0x0000
+> >>> 	IOMMU Feature Info    : 0x80048F6E
+> >>> 		  Range
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x03
+> >>> 		Start of Range        : 0x0003
+> >>> 		End of Range          : 0xFFFE
+> >>> 		DTE Setting           : 0x00
+> >>> 		  Alias Range
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x43
+> >>> 		Start of Range        : 0xFF00
+> >>> 		End of Range          : 0xFFFF
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x00A5
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x00A0
+> >>> 		Handle                : 0x00
+> >>> 		Variety               : HPET
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0xD7
+> >>> 		Source Device ID      : 0x00A0
+> >>> 		Handle                : 0x21
+> >>> 		Variety               : IOAPIC
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x0001
+> >>> 		Handle                : 0x22
+> >>> 		Variety               : IOAPIC
+> >>> 	  IVHD
+> >>> 	----------------------------------------------------------------
+> >>> 	Type                  : 0x11
+> >>> 	Flags                 : 0x30
+> >>> 	Length                : 0x0054
+> >>> 	IOMMU Device ID       : 0x0002
+> >>> 	Capability Offset     : 0x0040
+> >>> 	IOMMU Base Address    : 0x00000000FD200000
+> >>> 	Segment Group         : 0x0000
+> >>> 	IOMMU Info            : 0x0000
+> >>> 	IOMMU Feature Info    : 0x00048000
+> >>> 		  Range
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x03
+> >>> 		Start of Range        : 0x0003
+> >>> 		End of Range          : 0xFFFE
+> >>> 		DTE Setting           : 0x00
+> >>> 		  Alias Range
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x43
+> >>> 		Start of Range        : 0xFF00
+> >>> 		End of Range          : 0xFFFF
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x00A5
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x00A0
+> >>> 		Handle                : 0x00
+> >>> 		Variety               : HPET
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0xD7
+> >>> 		Source Device ID      : 0x00A0
+> >>> 		Handle                : 0x21
+> >>> 		Variety               : IOAPIC
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x0001
+> >>> 		Handle                : 0x22
+> >>> 		Variety               : IOAPIC
+> >>> 	  IVMD
+> >>> 	----------------------------------------------------------------
+> >>> 	Type                                 : 0x22
+> >>> 	Flags                                : 0x08
+> >>> 	Length                               : 0x0020
+> >>> 	DeviceID                             : 0x0000
+> >>> 	AuxiliaryData                        : 0x0FFF
+> >>> 	Reserved                             : 0x0000000000000000
+> >>> 	IVMD Start Address                   : 0x0000000096191000
+> >>> 	IVMD Memory Block Length             : 0x0000000000000022
+> >>> 	  IVMD
+> >>> 	----------------------------------------------------------------
+> >>> 	Type                                 : 0x22
+> >>> 	Flags                                : 0x08
+> >>> 	Length                               : 0x0020
+> >>> 	DeviceID                             : 0x0000
+> >>> 	AuxiliaryData                        : 0x0FFF
+> >>> 	Reserved                             : 0x0000000000000000
+> >>> 	IVMD Start Address                   : 0x0000000097D9E000
+> >>> 	IVMD Memory Block Length             : 0x0000000000000022
+> >>> 	  IVMD
+> >>> 	----------------------------------------------------------------
+> >>> 	Type                                 : 0x22
+> >>> 	Flags                                : 0x08
+> >>> 	Length                               : 0x0020
+> >>> 	DeviceID                             : 0x0000
+> >>> 	AuxiliaryData                        : 0x0FFF
+> >>> 	Reserved                             : 0x0000000000000000
+> >>> 	IVMD Start Address                   : 0x0000000097D9D000
+> >>> 	IVMD Memory Block Length             : 0x0000000000000022
+> >>> 	  IVHD
+> >>> 	----------------------------------------------------------------
+> >>> 	Type                  : 0x40
+> >>> 	Flags                 : 0x30
+> >>> 	Length                : 0x00D0
+> >>> 	IOMMU Device ID       : 0x0002
+> >>> 	Capability Offset     : 0x0040
+> >>> 	IOMMU Base Address    : 0x00000000FD200000
+> >>> 	Segment Group         : 0x0000
+> >>> 	IOMMU Info            : 0x0000
+> >>> 	IOMMU Feature Info    : 0x00048000
+> >>> 		  Range
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x03
+> >>> 		Start of Range        : 0x0003
+> >>> 		End of Range          : 0xFFFE
+> >>> 		DTE Setting           : 0x00
+> >>> 		  Alias Range
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x43
+> >>> 		Start of Range        : 0xFF00
+> >>> 		End of Range          : 0xFFFF
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x00A5
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x00A0
+> >>> 		Handle                : 0x00
+> >>> 		Variety               : HPET
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0xD7
+> >>> 		Source Device ID      : 0x00A0
+> >>> 		Handle                : 0x21
+> >>> 		Variety               : IOAPIC
+> >>> 		  Special Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0x48
+> >>> 		Device ID             : 0x0000
+> >>> 		DTE Setting           : 0x00
+> >>> 		Source Device ID      : 0x0001
+> >>> 		Handle                : 0x22
+> >>> 		Variety               : IOAPIC
+> >>> 		  Variable Length ACPI HID Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0xF0
+> >>> 		Device ID             : 0x00A5
+> >>> 		DTE Setting           : 0x40
+> >>> 		Hardware ID           : AMDI0020
+> >>> 		Extended DTE Setting  : 
+> >>> 		Unique ID Format      : 2
+> >>> 		Unique ID Length      : 9
+> >>> 		Unique ID             : \_SB.FUR0
+> >>> 		  Variable Length ACPI HID Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0xF0
+> >>> 		Device ID             : 0x00A5
+> >>> 		DTE Setting           : 0x40
+> >>> 		Hardware ID           : AMDI0020
+> >>> 		Extended DTE Setting  : 
+> >>> 		Unique ID Format      : 2
+> >>> 		Unique ID Length      : 9
+> >>> 		Unique ID             : \_SB.FUR1
+> >>> 		  Variable Length ACPI HID Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0xF0
+> >>> 		Device ID             : 0x00A5
+> >>> 		DTE Setting           : 0x40
+> >>> 		Hardware ID           : AMDI0020
+> >>> 		Extended DTE Setting  : 
+> >>> 		Unique ID Format      : 2
+> >>> 		Unique ID Length      : 9
+> >>> 		Unique ID             : \_SB.FUR2
+> >>> 		  Variable Length ACPI HID Device
+> >>> 		--------------------------------------------------
+> >>> 		Type                  : 0xF0
+> >>> 		Device ID             : 0x00A5
+> >>> 		DTE Setting           : 0x40
+> >>> 		Hardware ID           : AMDI0020
+> >>> 		Extended DTE Setting  : 
+> >>> 		Unique ID Format      : 2
+> >>> 		Unique ID Length      : 9
+> >>> 		Unique ID             : \_SB.FUR3
+> >>>
+> >>> FWIW, I've checked on one of the AMD server systems we have on the
+> >>> lab, and the IVHD entries are fairly similar to the ones here, as
+> >>> neither the PCI Host Bridge, nor the IOMMU are covered by any IVHD
+> >>> block.  That system however doesn't have any IVMD blocks.
+> >>
+> >> Mine are a little different. The Dinar (Fam15) has an IVHD entry just
+> >> for the range 0-2 (host bridge, <nothing>, IOMMU). The Rome (Fam17)
+> >> has an IVHD entry just for 0 (host bridge), but not for the IOMMU. I
+> >> think it is entirely reasonable for host bridge(s) and IOMMU(s) to not
+> >> be covered by any IVHD. They aren't devices that would require
+> >> servicing by an IOMMU.
+> >>
+> >> Looking at the code I think we want to do things a little differently
+> >> though: Pull find_iommu_for_device() out of register_range_for_device()
+> >> and have parse_ivmd_device_range() do the skipping when there's no
+> >> IOMMU for a device.
+> > 
+> > What about parse_ivmd_device_select()?  The IOMMU check would also need
+> > to be duplicated there, which is not ideal IMO.
 > 
-> Maybe "Extra space, before the module data, for compressed kernel 
-> modules to be decompressed into."
+> That's not ideal, but a reasonably small price to pay.
 
-I will rework it with your suggestions.
+Pulling the check out is only helpful if we plan to return an error if
+a IVMD block has all references to devices not assigned to an IOMMU,
+which I'm not convinced we should do.
 
-> And some ascii art could help:
+> >> Plus error when no device in the range is covered
+> >> by an IOMMU, or if any two devices are covered by different IOMMUs.
+> > 
+> > I'm not sure I understand you last comment: do you mean to return an
+> > error if a IVMD block range covers devices assigned to different
+> > IOMMUs?  If that's the case, I'm afraid I don't agree, I don't see
+> > anywhere in the spec that notes a IVMD block range can apply to
+> > devices assigned to different IOMMUs.
 > 
-> [ headroom ][ compressed data ]
->   <decompression>
-> [ decompressed data ]
+> Hmm, right, I take back that part.
 > 
-> (Not sure how to create a down arrow...)
-
-Yes, in fact I would just show the three states like this:
-
-At boot:
-   [ compressed kernel ]
-After boot module relocation:
-   [ estimated headroom + PAGE_SIZE rounding ][ compressed kernel ]
-After kernel decompression:
-   [ decompressed kernel ][ unused rounding ]
-
->> +     */
->> +    unsigned long headroom;
->>   };
->>   /*
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index ba9f110d98c6..dd82ca3d43e2 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1012,7 +1012,7 @@ void asmlinkage __init noreturn 
->> __start_xen(unsigned long mbi_p)
->>       struct boot_info *bi;
->>       multiboot_info_t *mbi;
->>       module_t *mod;
->> -    unsigned long nr_pages, raw_max_page, modules_headroom, 
->> module_map[1];
->> +    unsigned long nr_pages, raw_max_page, module_map[1];
->>       int i, j, e820_warn = 0, bytes = 0;
->>       unsigned long eb_start, eb_end;
->>       bool acpi_boot_table_init_done = false, relocated = false;
->> @@ -1371,7 +1371,10 @@ void asmlinkage __init noreturn 
->> __start_xen(unsigned long mbi_p)
->>           mod[bi->nr_modules].mod_end = __2M_rwdata_end - _stext;
->>       }
->> -    modules_headroom = bzimage_headroom(bootstrap_map(mod), 
->> mod->mod_end);
->> +    bi->mods[0].headroom =
->> +        bzimage_headroom(bootstrap_map(bi->mods[0].mod),
->> +                         bi->mods[0].mod->mod_end);
->> +
->>       bootstrap_map(NULL);
->>   #ifndef highmem_start
->> @@ -1456,8 +1459,10 @@ void asmlinkage __init noreturn 
->> __start_xen(unsigned long mbi_p)
->>                * decompressor overheads of mod[0] (the dom0 kernel).  
->> When we
->>                * move mod[0], we incorporate this as extra space at 
->> the start.
->>                */
->> -            unsigned long headroom = j ? 0 : modules_headroom;
->> -            unsigned long size = PAGE_ALIGN(headroom + mod[j].mod_end);
->> +            struct boot_module *bm = &bi->mods[j];
->> +            unsigned long size;
->> +
->> +            size = PAGE_ALIGN(bm->headroom + mod[j].mod_end);
+> > I also think returning an error when no device in the IVMD range is
+> > covered by an IOMMU is dubious.  Xen will already print warning
+> > messages about such firmware inconsistencies, but refusing to boot is
+> > too strict.
 > 
-> Just do
->              unsigned long size = PAGE_ALIGN(bm->headroom + 
-> mod[j].mod_end);
-> ?
+> I disagree. We shouldn't enable DMA remapping in such an event. Whereas
 
-yep, not sure why I even split it.
+I'm not sure I understand why you would go as far as refusing to
+enable DMA remapping.  How is a IVMD block having references to some
+devices not assigned to any IOMMU different to all devices referenced
+not assigned to any IOMMU?  We should deal with both in the same
+way.
 
-v/r,
-dps
+If all devices in the IVMD block are not covered by an IOMMU, the
+IVMD block is useless.  But there's nothing for Xen to action, due to
+the devices not having an IOMMU assigned.  IOW: it would be the same
+as booting natively without parsing the IVRS in the first place.
+
+> the "refusing to boot" is interrupt remapping related iirc, if x2APIC
+> is already enabled. We need to properly separate the two (and the
+> discussion there was started quite a long time ago, but it got stuck at
+> some point); until such time it is simply an undesirable side effect of
+> the inappropriate implementation that in certain case we fail boot when
+> we shouldn't.
+
+Yes, but that's a different topic, and not something I plan to fix as
+the scope of this patch :).
+
+Thanks, Roger.
 
