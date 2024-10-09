@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC05F9978AD
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 00:48:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815223.1228916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AF2B9978CE
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 01:03:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815230.1228927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syfSc-0002JY-3j; Wed, 09 Oct 2024 22:47:14 +0000
+	id 1syfhW-0008MZ-BV; Wed, 09 Oct 2024 23:02:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815223.1228916; Wed, 09 Oct 2024 22:47:14 +0000
+Received: by outflank-mailman (output) from mailman id 815230.1228927; Wed, 09 Oct 2024 23:02:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syfSc-0002Gj-0o; Wed, 09 Oct 2024 22:47:14 +0000
-Received: by outflank-mailman (input) for mailman id 815223;
- Wed, 09 Oct 2024 22:47:12 +0000
+	id 1syfhW-0008LE-8H; Wed, 09 Oct 2024 23:02:38 +0000
+Received: by outflank-mailman (input) for mailman id 815230;
+ Wed, 09 Oct 2024 23:02:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qR2m=RF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1syfSa-0002Gd-P5
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 22:47:12 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b2be12e-8690-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 00:47:11 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 74AA25C5E48;
- Wed,  9 Oct 2024 22:47:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12752C4CEC3;
- Wed,  9 Oct 2024 22:47:07 +0000 (UTC)
+ <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1syfhU-0008L8-K2
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 23:02:36 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 91070c84-8692-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 01:02:34 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1728514947553573.4279269426861;
+ Wed, 9 Oct 2024 16:02:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,84 +38,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b2be12e-8690-11ef-a0bd-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1728514029;
-	bh=zezz4miSiEcAUWwCNxLP4M8HbD5Q3oG1LiX06x3IoAM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=sZvkI5muk6awGGVdIHrLvoDRdzZ21X2AHklId6MA8LcOAk40rNThbq+RWFi+ZZAan
-	 fyQmQD/z8xufkSYMulX16TXR81GuzFMTjAfIkcnHsPF1mH3b0z8CpSkyp/Ww4KG5bM
-	 vdScIWAbluxij52vhCH9E+O+N338aMMd3s3A8Yk9SBNajU6GgHzMdQvm2/9YBomupa
-	 yZoKu9bqw4pzvIs5pYDrzRMkRHrUiwA0a2cA6ht2isdML/EA+iJFFxjBy37zSvlT43
-	 f5xAt5S6ETrJC+IFpVSBVEbWPcHAnZ1IOtAV4iDBpPCowxdmojpJo0YJQIqfmMLpCo
-	 V+Ec4rCGtOfsg==
-Date: Wed, 9 Oct 2024 15:46:59 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Jiqian Chen <Jiqian.Chen@amd.com>, xen-devel@lists.xenproject.org, 
-    linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Marek Marczykowski <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH] xen: Remove config dependency in XEN_PRIVCMD
- definition
-In-Reply-To: <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2410091539260.471028@ubuntu-linux-20-04-desktop>
-References: <20241009062014.407310-1-Jiqian.Chen@amd.com> <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 91070c84-8692-11ef-a0bd-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1728514949; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=c3pjqgtkatVl1PNwa8FUY7slTUJKjTfKcBthAaC0qNPoBRgLvG7mR2cLDyDk+oHQlBjlWOChoC19ccxBUcdDej0BGP7RJ6sVrDiXu0PyxJYBeVDQzHWOgL/LPlNDvO7fz/8ofPdLuLX+tlqPaYjvgWpMUxr0Qty5B0qNU+KecI4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1728514949; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=SAnC+XuwE2vPUA4p76OfETaHdgWQbbG1uggtB0/wKFY=; 
+	b=VJFWRKj+REOsLg02QAt5pQ3RQsTdto46hiBgh+keYnlbE2aZ/9C+iIIq6/j7Q6UZjvVYpzIAVxPdfubkSNWChU+Pz4Q9kOOWXlYyLWUseVNt37OorAgZT18XXMp3/DQHwnlez0eTEqIVqhI6CWUHnt92KHIp148Kde1qnBrVa28=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728514949;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=SAnC+XuwE2vPUA4p76OfETaHdgWQbbG1uggtB0/wKFY=;
+	b=gvCMIlw0oNorpJ8VQPudslQwenlth4yjWdrqCZIL3hg0SqQ/P+90AYwcm5jxIyfP
+	M5ujK9nCSQGCKeGL3fk4BjbQrLSkyCHJ7+ty1EKGnvSsA+narJQ0NWKQ/Q2cakk/e2z
+	DVBVST8b+20y26eVUdP+qR2m8mZXQPPP3+MDy24I=
+Message-ID: <70d98462-8006-4ae2-9774-f21152be2362@apertussolutions.com>
+Date: Wed, 9 Oct 2024 19:02:24 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 25/44] x86/boot: convert create_dom0 to use boot info
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
+ <20241006214956.24339-26-dpsmith@apertussolutions.com>
+ <1bc18234-2e50-467d-875a-3968165f5570@amd.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <1bc18234-2e50-467d-875a-3968165f5570@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Wed, 9 Oct 2024, Jan Beulich wrote:
-> On 09.10.2024 08:20, Jiqian Chen wrote:
-> > Commit 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
-> > adds a weak reverse dependency to the config XEN_PRIVCMD definition, its
-> > purpose is to pass the combination of compilation that CONFIG_XEN_PRIVCMD=y
-> > and CONFIG_XEN_PCIDEV_BACKEND=m, because in that combination, xen-pciback
-> > is compiled as a module but xen-privcmd is built-in, so xen-privcmd can't
-> > find the implementation of pcistub_get_gsi_from_sbdf.
-> > 
-> > But that dependency causes xen-privcmd can't be loaded on domU, because
-> > dependent xen-pciback is always not be loaded successfully on domU.
-> > 
-> > To solve above problem and cover original commit's requirement, just remove
-> > that dependency, because the code "IS_REACHABLE(CONFIG_XEN_PCIDEV_BACKEND)"
-> > of original commit is enough to meet the requirement.
-> > 
-> > Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
-> > Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+On 10/8/24 12:52, Jason Andryuk wrote:
+> On 2024-10-06 17:49, Daniel P. Smith wrote:
+>> This commit changes create_dom0 to no longer take the individual 
+>> components and
+>> take struct boot_info instead. Internally, it is changed to locate the 
+>> kernel
+>> and ramdisk details from struct boot_info.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   xen/arch/x86/setup.c | 25 ++++++++++++++++---------
+>>   1 file changed, 16 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 0d2ee19998aa..c2bcddc50990 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -946,10 +946,8 @@ static unsigned int __init copy_bios_e820(struct 
+>> e820entry *map, unsigned int li
+>>       return n;
+>>   }
+>> -static struct domain *__init create_dom0(const module_t *image,
+>> -                                         unsigned long headroom,
+>> -                                         module_t *initrd, const char 
+>> *kextra,
+>> -                                         const char *loader)
+>> +static struct domain *__init create_dom0(const struct boot_info *bi,
+>> +                                         const char *kextra)
+>>   {
+>>       static char __initdata cmdline[MAX_GUEST_CMDLINE];
+>> @@ -964,9 +962,21 @@ static struct domain *__init create_dom0(const 
+>> module_t *image,
+>>               .misc_flags = opt_dom0_msr_relaxed ? XEN_X86_MSR_RELAXED 
+>> : 0,
+>>           },
+>>       };
+>> +    int headroom, mod_idx = first_boot_module_index(bi, 
+>> BOOTMOD_RAMDISK);
 > 
-> This lacks a Reported-by:.
+> I think headroom should stay unsigned long, which matches struct 
+> boot_module.
+
+Yes, that was not intentional. Will preserve the size.
+
+> With that
 > 
-> > --- a/drivers/xen/Kconfig
-> > +++ b/drivers/xen/Kconfig
-> > @@ -261,7 +261,6 @@ config XEN_SCSI_BACKEND
-> >  config XEN_PRIVCMD
-> >  	tristate "Xen hypercall passthrough driver"
-> >  	depends on XEN
-> > -	imply XEN_PCIDEV_BACKEND
-> >  	default m
-> >  	help
-> >  	  The hypercall passthrough driver allows privileged user programs to
-> 
-> The report wasn't about a build problem, but a runtime one. Removing the
-> dependency here doesn't change anything in the dependency of xen-privcmd
-> on xen-pciback, as the use of pcistub_get_gsi_from_sbdf() continues to
-> exist.
->
-> Consider the case of XEN_PCIDEV_BACKEND=m and XEN_PRIVCMD=m, which
-> I guess is what Marek is using in his config. Both drivers are available
-> in such a configuration, yet loading of xen-privcmd then requires to
-> load xen-pciback first. And that latter load attempt will fail in a DomU.
-> The two drivers simply may not have any dependency in either direction.
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-The idea is that there should be no hard dependency on
-pcistub_get_gsi_from_sbdf(). If it is available, the service will be
-used, otherwise an error will be reported.
+Thanks!
 
-The problem is that IS_REACHABLE is a compile-time check. What we need
-is a runtime check instead. Maybe symbol_get or try_module_get ?
-
-
+v/r,
+dps
 
