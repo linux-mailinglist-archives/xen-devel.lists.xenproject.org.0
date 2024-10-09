@@ -2,37 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE7F0996C8C
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 15:46:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814532.1228130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF17F996CE5
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 15:57:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814562.1228141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syX0j-0005tU-Uc; Wed, 09 Oct 2024 13:45:53 +0000
+	id 1syXB0-0001uE-RR; Wed, 09 Oct 2024 13:56:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814532.1228130; Wed, 09 Oct 2024 13:45:53 +0000
+Received: by outflank-mailman (output) from mailman id 814562.1228141; Wed, 09 Oct 2024 13:56:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syX0j-0005qb-Qw; Wed, 09 Oct 2024 13:45:53 +0000
-Received: by outflank-mailman (input) for mailman id 814532;
- Wed, 09 Oct 2024 13:45:52 +0000
+	id 1syXB0-0001r3-OL; Wed, 09 Oct 2024 13:56:30 +0000
+Received: by outflank-mailman (input) for mailman id 814562;
+ Wed, 09 Oct 2024 13:56:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3wKy=RF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1syX0i-0005Gw-I0
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 13:45:52 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cbfea96b-8644-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 15:45:51 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-53994aadb66so6262247e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 06:45:51 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e0598947sm5435334a12.11.2024.10.09.06.45.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2024 06:45:49 -0700 (PDT)
+ <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1syXAz-0001qx-Gr
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 13:56:29 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 45f58583-8646-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 15:56:27 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1728482179976147.69608127703475;
+ Wed, 9 Oct 2024 06:56:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,98 +38,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbfea96b-8644-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1728481550; x=1729086350; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PSPaRmxzt0eAVlcbacBly/DaDiKEi9jlpaGGhdonnXU=;
-        b=nFDSlchmC6qt4Yfd40Sz2ZKbuss5LIlunBOwS/NPmUw6kFf2ACF8fDnyl1vQ/Z6Agz
-         QqqECZtdpOu09GNbp+BicS/LneTW+gkJpREzkWKqL5al61YJG/wRf8yKIt5dNABaTP+X
-         8/jkQ1fvhI7jncgH0r5EshIycaEOm6BJtvD0HJT06k0Kf66EZVElQFlGvqyWfCh5Hrg2
-         7ibqT3WJQMzC1H2SvQ3eHbKkR+fyUUSD+pe95GPTXcTqEyADpgVwzCRb0ZFEQdctRqaO
-         J7BObTDqUgIGaMtu+LbJsAIc5q3h9a6jFnydfGOFMkHQHdd5ripbrYXppnmZtK91fzj0
-         qeYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728481550; x=1729086350;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PSPaRmxzt0eAVlcbacBly/DaDiKEi9jlpaGGhdonnXU=;
-        b=ta4wzEh51Mph+0rEO7/JOa6GFN+0tglbVMk6FjWovqmUm4PpfmzcEyETAws40S0p95
-         5oWZZqRdNU8wC2QLVtU5iH9a1/5XutKq6he5gJ3uIySJhRinu6vNx4EmPSq9yBdT8e+I
-         z49Dp+zZTJCbhdXaya1dobwH8YemmqA/CQYTIYZlN38Heb1qiLe+1HQNgM80vGgkZbbM
-         UBl6tN7MqR9Upyn9+BVQQiobqA/9VIwm4TKGuCJOMj0GhXiQ4xMPhr7xiIDySHL8fi+X
-         iVUvnY1oUL2vdA+FQ2pe+dS/nEVChNVwy4feSEvNJLnBgynhGoi5svQrepMrO3QIwzSY
-         /U0g==
-X-Gm-Message-State: AOJu0Yyj7S1SDRjBXcRH7yt85n7xeVLjk4/KLiPjwFg0lemkr6APX6JC
-	akD+9oBm21FLbwqIwu23mn9RdIuHomAyqVVynl3rKm1svCvvZwBFwYz2Cg==
-X-Google-Smtp-Source: AGHT+IETkjSORs4fMVZO6b+/grQCRsc7UVKkbbOABRhAOi7uwdEmraxZ2/th2k7e3kvUZwRQbn65RA==
-X-Received: by 2002:a05:6512:3050:b0:533:46cc:a736 with SMTP id 2adb3069b0e04-539c92b1a6bmr141554e87.37.1728481550026;
-        Wed, 09 Oct 2024 06:45:50 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 3/3] xen/riscv: register Xen's load address as a boot module
-Date: Wed,  9 Oct 2024 15:45:41 +0200
-Message-ID: <cbc4249cfe7af3a8e0be0a5223933f2fbc20a957.1728472163.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.46.2
-In-Reply-To: <cover.1728472163.git.oleksii.kurochko@gmail.com>
-References: <cover.1728472163.git.oleksii.kurochko@gmail.com>
+X-Inumbo-ID: 45f58583-8646-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1728482182; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=j9Xp3zD580+pKwZEUm8J/M/hCDZNxWP1d9Yj7IGZGsVEkGGG7GcL6NlTzzFVJbOSBLrnSqVhdZ9oe9xvDZDkZMz42FUSGc2LC2uys0PSP//Wa7sQI6HIpdfSQVLhwmoxGJbGMCACqSfoUmVAY2mz5vx+z+iesxkwQwhKRkF4874=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1728482182; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
+	bh=UUAbQ1oQRKVtCusz55NtGKctsR7mDu8o0ozNoJVqYGI=; 
+	b=dQ7MlkBYCAwDOBujHaDd67PXlHP0m9CH8KpoFJhlUjpB1svWZJAn1XwZ1sPMGCf4SRyrtpA+MrGiXQeEua+P3fsWkGcRvWjnhzx3+t8pGKa5jRrFmtEs5EdFSfHnXQPDgbnEn/LztGBsaToGtR8N1jPY9S/9RkTEcOFABhEA/X0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728482182;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+	bh=UUAbQ1oQRKVtCusz55NtGKctsR7mDu8o0ozNoJVqYGI=;
+	b=D/Qru4+E3RS4NwsTQJeOORxK6yF00e5pOW7nS96H0u0XbeFQgT4m2A10URwr3PBe
+	RoyiWag40/zlplFX6F1uePcqU1T5sJUFbl1mw6JyIDWabMXpHyAXramAezNqCofzzna
+	Ebz6r/hwuKpI16GcZtro2sMSow/VzOBl24LZ5vh4=
+Message-ID: <7f51d67e-2670-4c41-8022-2604662839ba@apertussolutions.com>
+Date: Wed, 9 Oct 2024 09:56:17 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/7] Flask: replace uses of __u32
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
+ <868d803c-0a88-4080-99b1-68e6f8b92c25@suse.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <868d803c-0a88-4080-99b1-68e6f8b92c25@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Avoid using BOOTMOD_XEN region for other purposes or boot modules
-which could result in memory corruption or undefined behaviour.
+On 10/9/24 05:23, Jan Beulich wrote:
+> ... by uint32_t.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Uses of bool_val look suspicious; I looked at them because by its name
+> I would have hoped I can switch it to bool instead.
+> 
+> --- a/xen/xsm/flask/ss/conditional.h
+> +++ b/xen/xsm/flask/ss/conditional.h
+> @@ -29,8 +29,8 @@ struct cond_expr {
+>   #define COND_EQ        6 /* bool == bool */
+>   #define COND_NEQ    7 /* bool != bool */
+>   #define COND_LAST    COND_NEQ
+> -    __u32 expr_type;
+> -    __u32 bool_val;
+> +    uint32_t expr_type;
+> +    uint32_t bool_val;
+>       struct cond_expr *next;
+>   };
+>   
+> --- a/xen/xsm/flask/ss/policydb.h
+> +++ b/xen/xsm/flask/ss/policydb.h
+> @@ -131,7 +131,7 @@ struct range_trans {
+>   
+>   /* Boolean data type */
+>   struct cond_bool_datum {
+> -    __u32 value;        /* internal type value */
+> +    uint32_t value;        /* internal type value */
+>       int state;
+>   };
+>   
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in V3:
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
----
-Changes in V2:
- - Drop local variable xen_bootmodule as it won't be used after initialization.
- - Drop unnecessary cast for the 3rd argument of add_boot_module() call in
-   start_xen().
- - Change BUG_ON(!xen_bootmodule) to panic().
----
- xen/arch/riscv/setup.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 6d156c3a40..f531ca38ee 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -1,6 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
- #include <xen/bug.h>
-+#include <xen/bootfdt.h>
- #include <xen/compile.h>
- #include <xen/device_tree.h>
- #include <xen/init.h>
-@@ -44,6 +45,11 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-               "Please check your bootloader.\n",
-               dtb_addr, BOOT_FDT_VIRT_SIZE);
- 
-+    /* Register Xen's load address as a boot module. */
-+    if ( !add_boot_module(BOOTMOD_XEN, virt_to_maddr(_start),
-+                          _end - _start, false) )
-+        panic("Failed to add BOOTMOD_XEN\n");
-+
-     printk("All set up\n");
- 
-     machine_halt();
--- 
-2.46.2
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
 
