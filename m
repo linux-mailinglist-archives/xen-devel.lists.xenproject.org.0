@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C14F99680B
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 13:08:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814333.1227877 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E0E9996824
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 13:13:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814340.1227887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syUY8-00044o-27; Wed, 09 Oct 2024 11:08:12 +0000
+	id 1syUdE-00068Z-L8; Wed, 09 Oct 2024 11:13:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814333.1227877; Wed, 09 Oct 2024 11:08:12 +0000
+Received: by outflank-mailman (output) from mailman id 814340.1227887; Wed, 09 Oct 2024 11:13:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syUY7-00043C-VY; Wed, 09 Oct 2024 11:08:11 +0000
-Received: by outflank-mailman (input) for mailman id 814333;
- Wed, 09 Oct 2024 11:08:10 +0000
+	id 1syUdE-000655-IS; Wed, 09 Oct 2024 11:13:28 +0000
+Received: by outflank-mailman (input) for mailman id 814340;
+ Wed, 09 Oct 2024 11:13:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XgrK=RF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1syUY6-00042n-JK
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 11:08:10 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1syUdD-00064v-9M
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 11:13:27 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c42a8343-862e-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 13:08:09 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a9944c4d5d4so471376466b.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 04:08:09 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a994348e9ccsm539036466b.77.2024.10.09.04.08.07
+ id 814eee82-862f-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 13:13:26 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2fad5024b8dso76831041fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 04:13:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c8e05ecafbsm5392186a12.70.2024.10.09.04.13.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 04:08:07 -0700 (PDT)
+ Wed, 09 Oct 2024 04:13:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,146 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c42a8343-862e-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 814eee82-862f-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728472088; x=1729076888; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728472406; x=1729077206; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iSCvHREAjJZUrEj8MugF5gpbmiw+GIoYQWatQRF1Kjw=;
-        b=Kq5n5RXQuzPnBuORs9jjBO0Do7y6SQjirnWpu+7REg3h4j2UXgJ8+afJpJWFDPYOmJ
-         jC9GqdGpyrF0zHI5DKRLUsu3fIz8ZPLpnDakWLLnrUAyKjQBI5QFqym3Mh1WJ0FmzUcX
-         4UA824qW3bRPY6wJkLxJVI8vYBj+vkDYkPlrw=
+        bh=qaOVW6pxd/LBtFDzmIxeje2r0nwomK6w5VBfXxfg8S8=;
+        b=HASl2DqUztFh+7EKRycK796puGCEFhQNnk203bP80JzXVgjXnzO6TYVUIEqdngmMTl
+         B0zdpatT+LJinv5oCZQv7K4YJiwnuE9akB0XUhQyLbf6q4pEXhZ2DoahT9+rTyi89wRo
+         x995zAc8yHI8ZfKoJ8FWehbgVgF0brS2nS4ONvZmRX4OA7C3ly/DkEzjskyiceWLsOpF
+         8lCe+YuMhJaL88QsOn4m1Y2a1tIyXjoVTSY5orT1xyifnWzA0pfvAHDwujFDu2McrZVu
+         NowGYZMBI/I1p12e0Q8UDVFIbowZAjx7JiP2LlbRdSjKmllQI4oMaKXKCb0dmKfQ69vl
+         v07Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728472088; x=1729076888;
+        d=1e100.net; s=20230601; t=1728472406; x=1729077206;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iSCvHREAjJZUrEj8MugF5gpbmiw+GIoYQWatQRF1Kjw=;
-        b=NtH1Klwpr/oNZvEgfiIkJjET9amZZaHzTZPxe0hD/QNVWMUGbK9uGxf5LE357O63QE
-         ee3YOnmkVmY/leh6kHwL86A7z8O1J7Soq82uFlsO+Sg3kjMAHQh3XpsypRNThlmhcgn5
-         pETFEAIOC7AAqXNJP474sA2SXA6ON0gzxhDagnuwJI9c+dUFlfKWItQfgBP0Hvb0tNu+
-         /h/XZTQABy8S8xOlCERJnoYwb8cDe3qSPRbJVmTE7TTwTa7Mdb5CwlR9NTNEBxsV61a2
-         Tf3NdzZkZf03hwRqEMmBzIAM6tTQN5MUwfS/ZNkYDiWJGGUI+AKe2IhxEUiTEWkE5gqZ
-         0RYg==
-X-Forwarded-Encrypted: i=1; AJvYcCVpIXSNog4r8M/+0SfZyxA6ewUEzwAJsJMQLW5xkmYxe5b1DyB7Bh1yOpWnCXiOstUPt6xvsTAvUCE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwP2nONmO7WKZI+QSmDmzqzE800ude37rxNAaCFP/7oNHzgaID6
-	xe5ZmrBiUXkrBgbqibmQgnUuS9kInlzlSRuHhxThslNcpFaLWAIikZsiRF2iLq0=
-X-Google-Smtp-Source: AGHT+IHYfO2smKhUbRvFq1fhb3qjLMUTCNFN1XKi5P6P8IGgFa6dOnsEnQ9pu3uuU2ubPCDTakCdDw==
-X-Received: by 2002:a17:906:c10c:b0:a99:5d03:4687 with SMTP id a640c23a62f3a-a998d19959bmr172233666b.21.1728472088438;
-        Wed, 09 Oct 2024 04:08:08 -0700 (PDT)
-Message-ID: <dde4b510-5674-44d0-9493-a0717387b8d6@citrix.com>
-Date: Wed, 9 Oct 2024 12:08:06 +0100
+        bh=qaOVW6pxd/LBtFDzmIxeje2r0nwomK6w5VBfXxfg8S8=;
+        b=PPsdhNHIhm3V5eXK5hroB1dc4mxBYr/Jca066yWTPmq6PTQ6QfkqJTMUJCK1hqCKol
+         Ba7M5INq7HoY0bNJjtj8j2mg33QBoDY0mlAvd23QmUOv9Vv2LJ8PRHwd8KgzMds6RSHL
+         Q7jeL51moojltY17pDSLlHOfZjH/9IrnRDME0wS+LzAUY7iZLQZjrwzFIPoDt9nM02Vh
+         FR+PdOH3scRaL7z6zF+T54bX2fOa7cNyGPeT1qV+F7k0U/vJG8WmyZZ4eejsJQP6ApK/
+         tfBrxDnZispjts4Brsx50LSqrX1A9cSIzcGXwv8fnWe13wT7/HtWUavOa0lO8AKGRiMi
+         Dp8g==
+X-Forwarded-Encrypted: i=1; AJvYcCWw3OP0crFkRYPR5QZ4V/QVaUSoZBhAR/n302aXIGG9Gpj0FB9ibYxb1PNC2mfiEzQMGMdKDXPRef4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzlt8izKQbHezTcweSGkf9ENo9iZUhHzsCci7+ZmfgsApa5yPYS
+	pePtXAUwn3ztHHskvWUam96bFl6nRZIXZD3LsH+vaCfzJH0ghlgK8reOuwx9bQ==
+X-Google-Smtp-Source: AGHT+IFo0Caqxw3Wlyee7bxOTrVOEShDPgoFL0QgTUVocVbVWo6MSCuKZIypO6qeWRjUbF5EfrKR1Q==
+X-Received: by 2002:a2e:5152:0:b0:2fa:c0df:3d7b with SMTP id 38308e7fff4ca-2fb1873da33mr10040531fa.22.1728472405607;
+        Wed, 09 Oct 2024 04:13:25 -0700 (PDT)
+Message-ID: <49d1ff38-dff7-4db0-aec8-15ca82339e54@suse.com>
+Date: Wed, 9 Oct 2024 13:13:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
- kernel
-To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
- <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com> <ZwZScGr75xEolDnS@mail-itl>
- <00ac0665-e4ff-4a56-8537-e81573710c3c@suse.com>
- <e3917457-08d4-4f0c-9e0c-1519952ceed9@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <e3917457-08d4-4f0c-9e0c-1519952ceed9@suse.com>
+Subject: Re: [PATCH v8 1/2] x86/boot: Align mbi2.c stack to 16 bytes
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20241009080439.2411730-1-frediano.ziglio@cloud.com>
+ <20241009080439.2411730-2-frediano.ziglio@cloud.com>
+ <f54d8f4b-e088-4ebe-a72f-ec4a540f9b33@suse.com>
+ <CACHz=ZjLDv11OiMdtDmTLDOEmgDiqMoP9cppdKg3qcsXK+wpgA@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CACHz=ZjLDv11OiMdtDmTLDOEmgDiqMoP9cppdKg3qcsXK+wpgA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09/10/2024 11:26 am, Juergen Gross wrote:
-> On 09.10.24 12:19, Jan Beulich wrote:
->> On 09.10.2024 11:52, Marek Marczykowski-Górecki wrote:
->>> On Wed, Oct 09, 2024 at 09:19:57AM +0200, Jan Beulich wrote:
->>>> On 08.10.2024 23:32, Marek Marczykowski-Górecki wrote:
->>>>> --- a/tools/libs/guest/xg_dom_bzimageloader.c
->>>>> +++ b/tools/libs/guest/xg_dom_bzimageloader.c
->>>>> @@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
->>>>>       return retval;
->>>>>   }
->>>>>   -/* 128 Mb is the minimum size (half-way) documented to work for
->>>>> all inputs. */
->>>>> -#define LZMA_BLOCK_SIZE (128*1024*1024)
->>>>> +#define LZMA_BLOCK_SIZE (256*1024*1024)
->>>>
->>>> That's as arbitrary as before, now just not even with a comment at
->>>> least
->>>> hinting at it being arbitrary. Quoting from one of the LZMA API
->>>> headers:
->>>>
->>>>      * Decoder already supports dictionaries up to 4 GiB - 1 B (i.e.
->>>>      * UINT32_MAX), so increasing the maximum dictionary size of the
->>>>      * encoder won't cause problems for old decoders.
->>>>
->>>> IOW - what if the Linux folks decided to increase the dictionary size
->>>> further? I therefore wonder whether we don't need to make this more
->>>> dynamic, perhaps by peeking into the header to obtain the dictionary
->>>> size used. The one thing I'm not sure about is whether there can't be
->>>> multiple such headers throughout the file, and hence (in principle)
->>>> differing dictionary sizes.
+On 09.10.2024 12:15, Frediano Ziglio wrote:
+> On Wed, Oct 9, 2024 at 9:20 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 09.10.2024 10:04, Frediano Ziglio wrote:
+>>> --- a/xen/arch/x86/efi/Makefile
+>>> +++ b/xen/arch/x86/efi/Makefile
+>>> @@ -11,6 +11,8 @@ $(obj)/boot.init.o: $(obj)/buildid.o
+>>>  $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-boundary=4)
+>>>  $(addprefix $(obj)/,$(EFIOBJ-y)): CFLAGS_stack_boundary := $(cflags-stack-boundary)
 >>>
->>> What is the purpose of this block size limit? From the error
->>> message, it
->>> seems to be avoiding excessive memory usage during decompression (which
->>> could be DoS via OOM). If that's the case, then taking the limit from
->>> the kernel binary itself will miss this point (especially in case of
->>> pygrub or similar, but there may be other cases of not-fully-trusted
->>> kernel binaries).
+>>> +$(obj)/mbi2.o: CFLAGS_stack_boundary := $(cflags-stack-boundary)
+>>> +
+>>>  obj-y := common-stub.o stub.o
+>>>  obj-$(XEN_BUILD_EFI) := $(filter-out %.init.o,$(EFIOBJ-y))
+>>>  obj-bin-$(XEN_BUILD_EFI) := $(filter %.init.o,$(EFIOBJ-y))
 >>
->> Indeed. The question then simply is: Where do we want to draw the line
->> between what we permit and what we reject?
->
-> IMHO the most natural solution would be to use guest memory for this
-> purpose.
-> OTOH this probably would require a significant rework of libxenguest.
+>> You're duplicating code, which is better to avoid when possible. Is there
+>> a reason the earlier commit didn't simply add mbi2.o to $(EFIOBJ-y)? That
+>> way the existing logic would have covered that file as well. And really I
+>> think it should have been mbi2.init.o (or else adding it into $(obj-bin-y)
+>> is wrong), which probably wants correcting at the same time (ISTR actually
+>> having requested that during an earlier review round).
+> 
+> This was my first attempt, but it fails poorly, as EFIOBJ-y comes with
+> the addition of creating some file links that causes mbi2.c to be
+> overridden.
 
+I can't see $(EFIOBJ-y) affecting symlink creation. What I can see is that
+the variable is used in the setting of clean-files, which indeed is a problem.
+Still imo the solution then is to introduce another variable to substitute the
+uses of $(EFIOBJ-y) in arch/x86/efi/Makefile. E.g.
 
-That was XSA-25.  There are toolstack-provided limits on kernel&initrd
-sizes.
+EFIOBJ-all := $(EFIOBJ-y) mbi2.init.o
 
-~Andrew
+> If I remember, you suggested changing to obj-bin-y. Still, maybe is
+> not the best place. It was added to obj-bin-y because it should be
+> included either if XEN_BUILD_EFI is "y" or not.
+
+No, that doesn't explain the addition to obj-bin-y; this would equally be
+achieved by adding to obj-y. The difference between the two variables is
+whether objects are to be subject to LTO. And the typical case then is that
+init-only objects aren't worth that extra build overhead. Hence the common
+pattern is (besides files with assembly sources) for *.init.o to be added to
+obj-bin-*.
+
+Jan
 
