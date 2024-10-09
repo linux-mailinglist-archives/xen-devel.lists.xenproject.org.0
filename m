@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE9F0996D28
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:03:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814568.1228150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32A7F996D38
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:06:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814578.1228170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXHk-0004WN-GR; Wed, 09 Oct 2024 14:03:28 +0000
+	id 1syXKF-0005nQ-Vn; Wed, 09 Oct 2024 14:06:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814568.1228150; Wed, 09 Oct 2024 14:03:28 +0000
+Received: by outflank-mailman (output) from mailman id 814578.1228170; Wed, 09 Oct 2024 14:06:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXHk-0004Us-Di; Wed, 09 Oct 2024 14:03:28 +0000
-Received: by outflank-mailman (input) for mailman id 814568;
- Wed, 09 Oct 2024 14:03:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syXKF-0005l9-Sr; Wed, 09 Oct 2024 14:06:03 +0000
+Received: by outflank-mailman (input) for mailman id 814578;
+ Wed, 09 Oct 2024 14:06:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syXHi-0004Ul-SY
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:03:26 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3fe674ba-8647-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 16:03:24 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5c924667851so511312a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 07:03:24 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c92c985eaasm193308a12.45.2024.10.09.07.03.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 07:03:23 -0700 (PDT)
+ (envelope-from <SRS0=DqEV=RF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1syXKE-0005jJ-G5
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:06:02 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9b8b9a69-8647-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 16:06:00 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C842E1F37E;
+ Wed,  9 Oct 2024 14:05:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 98DE013A58;
+ Wed,  9 Oct 2024 14:05:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TliiI8WNBmftPAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 09 Oct 2024 14:05:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +51,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fe674ba-8647-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728482604; x=1729087404; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6PIlW1t2b/KgprALibq1bw2jyq0vz9W2l2iV16kPdvA=;
-        b=Bgf9UVWZFjADd5ApsklcXKS+qenu0etRGNp3gldyM7qkk9pQgPp5CP5xQKxUb4EqoV
-         w6o4bD+IctPZ2/CySMmtU53nzjwlYERLmoXReK2Dg0H07CtSbaCSbscTMADqAENrqBA7
-         mMCJ50jkVQMjNCYBE1WSVAj7zk5MIumLYAIDShPvWRkpBxQH69Re/fnFdU2XF9mT4wL9
-         4cF6XO+kgu2CH3tV1WwfSZGoP6k5x4Pp4fpyB9JQvQBcugZulMebCv7g0j3ImGLAWpuY
-         naKZIG1LFCGGfuhsJmRZ13NVkcjlnHOUFZxHRLNfCx+8Dr3b2t4++LwGgy6hk+w+xKZL
-         C9Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728482604; x=1729087404;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6PIlW1t2b/KgprALibq1bw2jyq0vz9W2l2iV16kPdvA=;
-        b=SZRm7GLrBotpO+gDCe7Co5F6pv42+HLhZq/eUuo2NaDj2Z+8OOVWoGYiaEgY/5jJJl
-         kwC0UtL+Fs/QD6vzAeXSQmM7kQ9v15lX4a1GiZHdzSbXa5bOS+36c+4+C06tgeXdIKL9
-         bY4R3rr7mRl6sae8WG58RmpN+RpniwZ8ZNxr+PlQNhMI3F+WHaffqmiRuAiXeWc8OO50
-         Z5aH/k39SJkE6LexoBpJuJHAQqGadmz80AiKPiugKmA8HV3OqZWChiRygdH9whn77Zfy
-         o0Covw6fq92As9X7qnDuM/p/S53go2N92AZ6mWjchhdgd7zhGQ8gdVYySMRthLHE6v+c
-         +w3A==
-X-Forwarded-Encrypted: i=1; AJvYcCWgUI4dYnfdQmXs4RlPKpS+UGt0TPv/lJ37xAZKfT6O5e374tF/8XfEA7IT1Pv2fpqssU0wp9aOCUc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwdwFns7X3y7GFDMDDCaX9FFRIpU/rF70vu8TquGnc38m5W5PH8
-	OBBnuPjEe2Uv4cLBp7GWK7j5yji4tnyGIRjZ5ttm+Mi+0gyzzk5ecrSUyQE5hQ==
-X-Google-Smtp-Source: AGHT+IGK/1Dg1jxmC4SetnMRZ29xDh0j5rBxq7ZzWlkJYSvQSKJDMeiZbRN5OgXeefQyVnYO95u1cw==
-X-Received: by 2002:a05:6402:35d1:b0:5c8:bb09:ae49 with SMTP id 4fb4d7f45d1cf-5c91d583dbemr1953595a12.8.1728482603463;
-        Wed, 09 Oct 2024 07:03:23 -0700 (PDT)
-Message-ID: <f75dde2d-9c39-4be0-8465-6496a56cc658@suse.com>
-Date: Wed, 9 Oct 2024 16:03:22 +0200
+X-Inumbo-ID: 9b8b9a69-8647-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1728482757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=yqRBCP7FgP4VCqck1HlxmjV776MIZqqvSBZq0/0yHPI=;
+	b=oJ5KmLAwWU5cwqnPcAht5hSe8Y6foCGJa73B1QB93e0Vr4n7EtakVB+nfABnUFH75sklUC
+	g9Bh9CgxP1fuaWowvQVFgLEcQ9E7Ksoy3ufJ4NhpfKCddYGHuZ9v+dFnOgulfLYvfl8Vz4
+	uF1r3fRCfC7wu3L228G03Hi2WBKsB+w=
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1728482757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=yqRBCP7FgP4VCqck1HlxmjV776MIZqqvSBZq0/0yHPI=;
+	b=oJ5KmLAwWU5cwqnPcAht5hSe8Y6foCGJa73B1QB93e0Vr4n7EtakVB+nfABnUFH75sklUC
+	g9Bh9CgxP1fuaWowvQVFgLEcQ9E7Ksoy3ufJ4NhpfKCddYGHuZ9v+dFnOgulfLYvfl8Vz4
+	uF1r3fRCfC7wu3L228G03Hi2WBKsB+w=
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org,
+	Juergen Gross <jgross@suse.com>
+Subject: [MINI-OS PATCH v2] add config support for each Xen library
+Date: Wed,  9 Oct 2024 16:05:54 +0200
+Message-ID: <20241009140554.1084-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/11] tools/hvmloader: Retrieve (x2)APIC IDs from the
- APs themselves
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241001123807.605-1-alejandro.vallejo@cloud.com>
- <20241001123807.605-6-alejandro.vallejo@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241001123807.605-6-alejandro.vallejo@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -2.80
+X-Spam-Flag: NO
 
-On 01.10.2024 14:38, Alejandro Vallejo wrote:
-> Make it so the APs expose their own APIC IDs in a LUT. We can use that
-> LUT to populate the MADT, decoupling the algorithm that relates CPU IDs
-> and APIC IDs from hvmloader.
-> 
-> While at this also remove ap_callin, as writing the APIC ID may serve
-> the same purpose.
+Instead of adding all or no Xen library (controlled by CONFIG_XC),
+support a dedicated config option for each library instead,
+defaulting to disabled.
 
-... on the assumption that no AP will have an APIC ID of zero.
+As it is no longer needed now, drop the CONFIG_XC support.
 
-> @@ -341,11 +341,11 @@ int main(void)
->  
->      printf("CPU speed is %u MHz\n", get_cpu_mhz());
->  
-> +    smp_initialise();
-> +
->      apic_setup();
->      pci_setup();
->  
-> -    smp_initialise();
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- merge patches of the V1 series (Samuel Thibault)
 
-I can see that you may want cpu_setup(0) to run ahead of apic_setup(). Yet
-is it really appropriate to run boot_cpu() ahead of apic_setup() as well?
-At the very least it feels logically wrong, even if at the moment there
-may not be any direct dependency (which might change, however, down the
-road).
+Note: do not apply to the tree until the related Xen series
+"stubdom: prepare more fine grained Xen library usage" has been
+applied.
 
-> --- a/tools/firmware/hvmloader/mp_tables.c
-> +++ b/tools/firmware/hvmloader/mp_tables.c
-> @@ -198,8 +198,10 @@ static void fill_mp_config_table(struct mp_config_table *mpct, int length)
->  /* fills in an MP processor entry for VCPU 'vcpu_id' */
->  static void fill_mp_proc_entry(struct mp_proc_entry *mppe, int vcpu_id)
->  {
-> +    ASSERT(CPU_TO_X2APICID[vcpu_id] < 0xFF );
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ Config.mk | 11 +++++++++--
+ Makefile  | 18 +++++++++++++++++-
+ 2 files changed, 26 insertions(+), 3 deletions(-)
 
-Nit: Excess blank before closing paren.
+diff --git a/Config.mk b/Config.mk
+index f2d1f0ae..f59a0cf4 100644
+--- a/Config.mk
++++ b/Config.mk
+@@ -193,6 +193,15 @@ CONFIG-n += CONFIG_9PFRONT
+ CONFIG-n += CONFIG_TPM_TIS
+ CONFIG-n += CONFIG_TPMBACK
+ CONFIG-n += CONFIG_BALLOON
++CONFIG-n += CONFIG_LIBXENCALL
++CONFIG-n += CONFIG_LIBXENCTRL
++CONFIG-n += CONFIG_LIBXENDEVICEMODEL
++CONFIG-n += CONFIG_LIBXENEVTCHN
++CONFIG-n += CONFIG_LIBXENFOREIGNMEMORY
++CONFIG-n += CONFIG_LIBXENGNTTAB
++CONFIG-n += CONFIG_LIBXENGUEST
++CONFIG-n += CONFIG_LIBXENTOOLCORE
++CONFIG-n += CONFIG_LIBXENTOOLLOG
+ # Setting CONFIG_USE_XEN_CONSOLE copies all print output to the Xen emergency
+ # console apart of standard dom0 handled console.
+ CONFIG-n += CONFIG_USE_XEN_CONSOLE
+@@ -201,8 +210,6 @@ CONFIG-y += CONFIG_PARAVIRT
+ else
+ CONFIG-n += CONFIG_PARAVIRT
+ endif
+-# Support legacy CONFIG_XC value
+-CONFIG_XC ?= $(libc)
+ 
+ CONFIG-$(lwip) += CONFIG_LWIP
+ 
+diff --git a/Makefile b/Makefile
+index 6c8df8b5..ffa8d1a8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -123,23 +123,39 @@ endif
+ OBJS := $(filter-out $(OBJ_DIR)/lwip%.o $(LWO), $(OBJS))
+ 
+ ifeq ($(libc),y)
+-ifeq ($(CONFIG_XC),y)
++ifeq ($(CONFIG_LIBXENTOOLCORE),y)
+ APP_LDLIBS += -L$(TOOLCORE_PATH) -whole-archive -lxentoolcore -no-whole-archive
+ LIBS += $(TOOLCORE_PATH)/libxentoolcore.a
++endif
++ifeq ($(CONFIG_LIBXENTOOLLOG),y)
+ APP_LDLIBS += -L$(TOOLLOG_PATH) -whole-archive -lxentoollog -no-whole-archive
+ LIBS += $(TOOLLOG_PATH)/libxentoollog.a
++endif
++ifeq ($(CONFIG_LIBXENEVTCHN),y)
+ APP_LDLIBS += -L$(EVTCHN_PATH) -whole-archive -lxenevtchn -no-whole-archive
+ LIBS += $(EVTCHN_PATH)/libxenevtchn.a
++endif
++ifeq ($(CONFIG_LIBXENGNTTAB),y)
+ APP_LDLIBS += -L$(GNTTAB_PATH) -whole-archive -lxengnttab -no-whole-archive
+ LIBS += $(GNTTAB_PATH)/libxengnttab.a
++endif
++ifeq ($(CONFIG_LIBXENCALL),y)
+ APP_LDLIBS += -L$(CALL_PATH) -whole-archive -lxencall -no-whole-archive
+ LIBS += $(CALL_PATH)/libxencall.a
++endif
++ifeq ($(CONFIG_LIBXENFOREIGNMEMORY),y)
+ APP_LDLIBS += -L$(FOREIGNMEMORY_PATH) -whole-archive -lxenforeignmemory -no-whole-archive
+ LIBS += $(FOREIGNMEMORY_PATH)/libxenforeignmemory.a
++endif
++ifeq ($(CONFIG_LIBXENDEVICEMODEL),y)
+ APP_LDLIBS += -L$(DEVICEMODEL_PATH) -whole-archive -lxendevicemodel -no-whole-archive
+ LIBS += $(DEVICEMODEL_PATH)/libxendevicemodel.a
++endif
++ifeq ($(CONFIG_LIBXENGUEST),y)
+ APP_LDLIBS += -L$(GUEST_PATH) -whole-archive -lxenguest -no-whole-archive
+ LIBS += $(GUEST_PATH)/libxenguest.a
++endif
++ifeq ($(CONFIG_LIBXENCTRL),y)
+ APP_LDLIBS += -L$(CTRL_PATH) -whole-archive -lxenctrl -no-whole-archive
+ LIBS += $(CTRL_PATH)/libxenctrl.a
+ endif
+-- 
+2.43.0
 
-And of course this will need doing differently anyway once we get to
-support for more than 128 vCPU-s.
-
-> --- a/tools/firmware/hvmloader/smp.c
-> +++ b/tools/firmware/hvmloader/smp.c
-> @@ -29,7 +29,34 @@
->  
->  #include <xen/vcpu.h>
->  
-> -static int ap_callin;
-> +/**
-> + * Lookup table of x2APIC IDs.
-> + *
-> + * Each entry is populated its respective CPU as they come online. This is required
-> + * for generating the MADT with minimal assumptions about ID relationships.
-> + */
-> +uint32_t CPU_TO_X2APICID[HVM_MAX_VCPUS];
-
-I can kind of accept keeping it simple in the name (albeit - why all caps?),
-but at least the comment should mention that it may also be an xAPIC ID
-that's stored here.
-
-> @@ -104,6 +132,12 @@ static void boot_cpu(unsigned int cpu)
->  void smp_initialise(void)
->  {
->      unsigned int i, nr_cpus = hvm_info->nr_vcpus;
-> +    uint32_t ecx;
-> +
-> +    cpuid(1, NULL, NULL, &ecx, NULL);
-> +    has_x2apic = (ecx >> 21) & 1;
-
-Would be really nice to avoid the literal 21 here by including
-xen/arch-x86/cpufeatureset.h. Can this be arranged for?
-
-Jan
 
