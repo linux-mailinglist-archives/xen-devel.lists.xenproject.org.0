@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C0A9967CE
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 12:56:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814321.1227867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C14F99680B
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 13:08:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814333.1227877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syUME-0007L6-Sy; Wed, 09 Oct 2024 10:55:54 +0000
+	id 1syUY8-00044o-27; Wed, 09 Oct 2024 11:08:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814321.1227867; Wed, 09 Oct 2024 10:55:54 +0000
+Received: by outflank-mailman (output) from mailman id 814333.1227877; Wed, 09 Oct 2024 11:08:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syUME-0007JZ-Pt; Wed, 09 Oct 2024 10:55:54 +0000
-Received: by outflank-mailman (input) for mailman id 814321;
- Wed, 09 Oct 2024 10:55:53 +0000
+	id 1syUY7-00043C-VY; Wed, 09 Oct 2024 11:08:11 +0000
+Received: by outflank-mailman (input) for mailman id 814333;
+ Wed, 09 Oct 2024 11:08:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qj4E=RF=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1syUMD-0007JT-8D
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 10:55:53 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ <SRS0=XgrK=RF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1syUY6-00042n-JK
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 11:08:10 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0bec66c8-862d-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 12:55:51 +0200 (CEST)
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-556-KwvGB6x3M_mopTKOlZf9gA-1; Wed, 09 Oct 2024 06:55:49 -0400
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-2e2a9577037so552382a91.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 03:55:48 -0700 (PDT)
-Received: from dhcp-64-16.muc.redhat.com (nat-pool-muc-t.redhat.com.
- [149.14.88.26]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2e2a365cb84sm1341556a91.0.2024.10.09.03.55.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2024 03:55:46 -0700 (PDT)
+ id c42a8343-862e-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 13:08:09 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a9944c4d5d4so471376466b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 04:08:09 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a994348e9ccsm539036466b.77.2024.10.09.04.08.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 04:08:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,237 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bec66c8-862d-11ef-a0bd-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728471350;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P6wOEJFH1gN3pSkiGKb7z2pqnwnI+EOwPE66fTmRo9I=;
-	b=UXGmAd/ueXQSn/ubVKycETMgPvnqcbMzwle74kYnWoMEhebollHM8MDV2txuKWVZCozMPX
-	kNrEnoRrZH5x1zEXDvYl+dhxxPTmnL9HVZF1xaB+J3j7k03oa3WnDVxBIUtE0mqWvhmVTG
-	blFopCum6ELHK9KO96pzznYvLq8XAg8=
-X-MC-Unique: KwvGB6x3M_mopTKOlZf9gA-1
+X-Inumbo-ID: c42a8343-862e-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1728472088; x=1729076888; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iSCvHREAjJZUrEj8MugF5gpbmiw+GIoYQWatQRF1Kjw=;
+        b=Kq5n5RXQuzPnBuORs9jjBO0Do7y6SQjirnWpu+7REg3h4j2UXgJ8+afJpJWFDPYOmJ
+         jC9GqdGpyrF0zHI5DKRLUsu3fIz8ZPLpnDakWLLnrUAyKjQBI5QFqym3Mh1WJ0FmzUcX
+         4UA824qW3bRPY6wJkLxJVI8vYBj+vkDYkPlrw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728471348; x=1729076148;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AcZlzWYyN8UAcZA3DQr50bLqr6cMtcb31GCRb120JWk=;
-        b=qEQ1/ihy5zsHNIObGohZAxVuV2vCHjRdg0bGFVrlccp2vk14VoNiHv2udRBCe5wCr5
-         bf9TDKxZLgUlH/Hi959SfXfJSXQV3WRFH5PGC+LvHH27Tt5fI7Sag7gLFgv80PgEsGOQ
-         1doSyxkMsfwlLKXSrRzSGxxvtodS49zvnQhQibivYz43wlctu5jTmp0Gh2/8gLa/Ab5m
-         hD7Z6rRb9pUCVEhJY1NVzmnt8/gRd5mTXZjBs/FZnz/dyZQ2EYSuUVU4LsT+6FT9EXDl
-         vKDuF7pYE+S5Dtu7rJIMhIw1DAnEwEP/YaqBTmRppEOS3oLaSA0UtFSsecAXV+2zLm/B
-         U/qQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX0lXYv4LzemT2OFCc/x45FPpFpIAtCqTL+FlSlzPd4IW7nvVRsGESCYKLSNzUTsgnmWW55k3vhP2g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTQOUoVj72OQm6SOMEsxXSdrm9JqBAaKxrD2zxiOuk0uagJZkN
-	3WtetSz400qRNha1qiblESJayKJN2oxNgg8Q75TcdHVvdCUla9+wnLmXaQUVRm8BdidJSZXzyzg
-	I2OKWsxdBCG+Lf9wPmJfBRnTAQuOHCZj0pKLzAROshhfVJRg7iXUdC2TNRDIKa8gI
-X-Received: by 2002:a17:90b:28c7:b0:2e2:b21b:2247 with SMTP id 98e67ed59e1d1-2e2b21b2322mr933567a91.27.1728471348023;
-        Wed, 09 Oct 2024 03:55:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEVV2txsjAP9qEDQxARdGlpHpBZTxsJXvis+5//ouL/mBT0m0DdnB1NIlYvykMWn/28LY/iUQ==
-X-Received: by 2002:a17:90b:28c7:b0:2e2:b21b:2247 with SMTP id 98e67ed59e1d1-2e2b21b2322mr933536a91.27.1728471347607;
-        Wed, 09 Oct 2024 03:55:47 -0700 (PDT)
-Message-ID: <d6a78b6a3dec3e2371cced1382cd83d7dcf37426.camel@redhat.com>
-Subject: Re: [RFC PATCH 09/13] ata: Use always-managed version of pci_intx()
-From: Philipp Stanner <pstanner@redhat.com>
-To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
- Sergey Shtylyov <s.shtylyov@omp.ru>, Basavaraj Natikar
- <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>,  Benjamin
- Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
- Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
- <manishc@marvell.com>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rasesh Mody <rmody@marvell.com>,
- GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko <imitsyanko@quantenna.com>,
- Sergey Matyukevich <geomatsi@gmail.com>, Kalle Valo <kvalo@kernel.org>,
- Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar S K
- <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
- <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, Mario Limonciello <mario.limonciello@amd.com>, Chen
- Ni <nichen@iscas.ac.cn>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
- <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>, Kevin Tian
- <kevin.tian@intel.com>, Thomas Gleixner <tglx@linutronix.de>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Mostafa Saleh
- <smostafa@google.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Hannes Reinecke <hare@suse.de>, John Garry <john.g.garry@oracle.com>,
- Soumya Negi <soumya.negi97@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, Yi
- Liu <yi.l.liu@intel.com>, "Dr. David Alan Gilbert" <linux@treblig.org>, 
- Christian Brauner <brauner@kernel.org>, Ankit Agrawal <ankita@nvidia.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Eric Auger
- <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>, Marek
- =?ISO-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Kai Vehmanen
- <kai.vehmanen@linux.intel.com>,  Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>, Rui Salvaterra <rsalvaterra@gmail.com>,
- Marc Zyngier <maz@kernel.org>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
- linux-pci@vger.kernel.org,  linux-staging@lists.linux.dev,
- kvm@vger.kernel.org,  xen-devel@lists.xenproject.org,
- linux-sound@vger.kernel.org
-Date: Wed, 09 Oct 2024 12:55:07 +0200
-In-Reply-To: <95b23ff9-eb17-4e1c-b7a3-2d3691ffc48f@kernel.org>
-References: <20241009083519.10088-1-pstanner@redhat.com>
-	 <20241009083519.10088-10-pstanner@redhat.com>
-	 <95b23ff9-eb17-4e1c-b7a3-2d3691ffc48f@kernel.org>
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
+        d=1e100.net; s=20230601; t=1728472088; x=1729076888;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iSCvHREAjJZUrEj8MugF5gpbmiw+GIoYQWatQRF1Kjw=;
+        b=NtH1Klwpr/oNZvEgfiIkJjET9amZZaHzTZPxe0hD/QNVWMUGbK9uGxf5LE357O63QE
+         ee3YOnmkVmY/leh6kHwL86A7z8O1J7Soq82uFlsO+Sg3kjMAHQh3XpsypRNThlmhcgn5
+         pETFEAIOC7AAqXNJP474sA2SXA6ON0gzxhDagnuwJI9c+dUFlfKWItQfgBP0Hvb0tNu+
+         /h/XZTQABy8S8xOlCERJnoYwb8cDe3qSPRbJVmTE7TTwTa7Mdb5CwlR9NTNEBxsV61a2
+         Tf3NdzZkZf03hwRqEMmBzIAM6tTQN5MUwfS/ZNkYDiWJGGUI+AKe2IhxEUiTEWkE5gqZ
+         0RYg==
+X-Forwarded-Encrypted: i=1; AJvYcCVpIXSNog4r8M/+0SfZyxA6ewUEzwAJsJMQLW5xkmYxe5b1DyB7Bh1yOpWnCXiOstUPt6xvsTAvUCE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwP2nONmO7WKZI+QSmDmzqzE800ude37rxNAaCFP/7oNHzgaID6
+	xe5ZmrBiUXkrBgbqibmQgnUuS9kInlzlSRuHhxThslNcpFaLWAIikZsiRF2iLq0=
+X-Google-Smtp-Source: AGHT+IHYfO2smKhUbRvFq1fhb3qjLMUTCNFN1XKi5P6P8IGgFa6dOnsEnQ9pu3uuU2ubPCDTakCdDw==
+X-Received: by 2002:a17:906:c10c:b0:a99:5d03:4687 with SMTP id a640c23a62f3a-a998d19959bmr172233666b.21.1728472088438;
+        Wed, 09 Oct 2024 04:08:08 -0700 (PDT)
+Message-ID: <dde4b510-5674-44d0-9493-a0717387b8d6@citrix.com>
+Date: Wed, 9 Oct 2024 12:08:06 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
+ kernel
+To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
+ <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com> <ZwZScGr75xEolDnS@mail-itl>
+ <00ac0665-e4ff-4a56-8537-e81573710c3c@suse.com>
+ <e3917457-08d4-4f0c-9e0c-1519952ceed9@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <e3917457-08d4-4f0c-9e0c-1519952ceed9@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2024-10-09 at 17:51 +0900, Damien Le Moal wrote:
-> On 10/9/24 17:35, Philipp Stanner wrote:
-> > pci_intx() is a hybrid function which can sometimes be managed
-> > through
-> > devres. To remove this hybrid nature from pci_intx(), it is
-> > necessary to
-> > port users to either an always-managed or a never-managed version.
-> >=20
-> > All users in ata enable their PCI-Device with pcim_enable_device().
-> > Thus,
-> > they need the always-managed version.
-> >=20
-> > Replace pci_intx() with pci_intx_unmanaged().
->=20
-> This contradicts the sentence above and the patche replaces
-> pci_intx() with
-> pcim_intx()... So s/pci_intx_unmanaged/pcim_intx in the above
-> sentence ?
+On 09/10/2024 11:26 am, Juergen Gross wrote:
+> On 09.10.24 12:19, Jan Beulich wrote:
+>> On 09.10.2024 11:52, Marek Marczykowski-Górecki wrote:
+>>> On Wed, Oct 09, 2024 at 09:19:57AM +0200, Jan Beulich wrote:
+>>>> On 08.10.2024 23:32, Marek Marczykowski-Górecki wrote:
+>>>>> --- a/tools/libs/guest/xg_dom_bzimageloader.c
+>>>>> +++ b/tools/libs/guest/xg_dom_bzimageloader.c
+>>>>> @@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
+>>>>>       return retval;
+>>>>>   }
+>>>>>   -/* 128 Mb is the minimum size (half-way) documented to work for
+>>>>> all inputs. */
+>>>>> -#define LZMA_BLOCK_SIZE (128*1024*1024)
+>>>>> +#define LZMA_BLOCK_SIZE (256*1024*1024)
+>>>>
+>>>> That's as arbitrary as before, now just not even with a comment at
+>>>> least
+>>>> hinting at it being arbitrary. Quoting from one of the LZMA API
+>>>> headers:
+>>>>
+>>>>      * Decoder already supports dictionaries up to 4 GiB - 1 B (i.e.
+>>>>      * UINT32_MAX), so increasing the maximum dictionary size of the
+>>>>      * encoder won't cause problems for old decoders.
+>>>>
+>>>> IOW - what if the Linux folks decided to increase the dictionary size
+>>>> further? I therefore wonder whether we don't need to make this more
+>>>> dynamic, perhaps by peeking into the header to obtain the dictionary
+>>>> size used. The one thing I'm not sure about is whether there can't be
+>>>> multiple such headers throughout the file, and hence (in principle)
+>>>> differing dictionary sizes.
+>>>
+>>> What is the purpose of this block size limit? From the error
+>>> message, it
+>>> seems to be avoiding excessive memory usage during decompression (which
+>>> could be DoS via OOM). If that's the case, then taking the limit from
+>>> the kernel binary itself will miss this point (especially in case of
+>>> pygrub or similar, but there may be other cases of not-fully-trusted
+>>> kernel binaries).
+>>
+>> Indeed. The question then simply is: Where do we want to draw the line
+>> between what we permit and what we reject?
+>
+> IMHO the most natural solution would be to use guest memory for this
+> purpose.
+> OTOH this probably would require a significant rework of libxenguest.
 
-Yes, absolutely correct, the commit message is broken. The code itself
-is fine, I grepped through it for pci_enable / pcim_enable
 
-P.
+That was XSA-25.  There are toolstack-provided limits on kernel&initrd
+sizes.
 
->=20
-> >=20
-> > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
-> > ---
-> > =C2=A0drivers/ata/ahci.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
-> > =C2=A0drivers/ata/ata_piix.c=C2=A0=C2=A0 | 2 +-
-> > =C2=A0drivers/ata/pata_rdc.c=C2=A0=C2=A0 | 2 +-
-> > =C2=A0drivers/ata/sata_sil24.c | 2 +-
-> > =C2=A0drivers/ata/sata_sis.c=C2=A0=C2=A0 | 2 +-
-> > =C2=A0drivers/ata/sata_uli.c=C2=A0=C2=A0 | 2 +-
-> > =C2=A0drivers/ata/sata_vsc.c=C2=A0=C2=A0 | 2 +-
-> > =C2=A07 files changed, 7 insertions(+), 7 deletions(-)
-> >=20
-> > diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
-> > index 45f63b09828a..9273ff3d4732 100644
-> > --- a/drivers/ata/ahci.c
-> > +++ b/drivers/ata/ahci.c
-> > @@ -1985,7 +1985,7 @@ static int ahci_init_one(struct pci_dev
-> > *pdev, const struct pci_device_id *ent)
-> > =C2=A0
-> > =C2=A0=09if (ahci_init_msi(pdev, n_ports, hpriv) < 0) {
-> > =C2=A0=09=09/* legacy intx interrupts */
-> > -=09=09pci_intx(pdev, 1);
-> > +=09=09pcim_intx(pdev, 1);
-> > =C2=A0=09}
-> > =C2=A0=09hpriv->irq =3D pci_irq_vector(pdev, 0);
-> > =C2=A0
-> > diff --git a/drivers/ata/ata_piix.c b/drivers/ata/ata_piix.c
-> > index 093b940bc953..d441246fa357 100644
-> > --- a/drivers/ata/ata_piix.c
-> > +++ b/drivers/ata/ata_piix.c
-> > @@ -1725,7 +1725,7 @@ static int piix_init_one(struct pci_dev
-> > *pdev, const struct pci_device_id *ent)
-> > =C2=A0=09 * message-signalled interrupts currently).
-> > =C2=A0=09 */
-> > =C2=A0=09if (port_flags & PIIX_FLAG_CHECKINTR)
-> > -=09=09pci_intx(pdev, 1);
-> > +=09=09pcim_intx(pdev, 1);
-> > =C2=A0
-> > =C2=A0=09if (piix_check_450nx_errata(pdev)) {
-> > =C2=A0=09=09/* This writes into the master table but it does
-> > not
-> > diff --git a/drivers/ata/pata_rdc.c b/drivers/ata/pata_rdc.c
-> > index 0a9689862f71..09792aac7f9d 100644
-> > --- a/drivers/ata/pata_rdc.c
-> > +++ b/drivers/ata/pata_rdc.c
-> > @@ -340,7 +340,7 @@ static int rdc_init_one(struct pci_dev *pdev,
-> > const struct pci_device_id *ent)
-> > =C2=A0=09=09return rc;
-> > =C2=A0=09host->private_data =3D hpriv;
-> > =C2=A0
-> > -=09pci_intx(pdev, 1);
-> > +=09pcim_intx(pdev, 1);
-> > =C2=A0
-> > =C2=A0=09host->flags |=3D ATA_HOST_PARALLEL_SCAN;
-> > =C2=A0
-> > diff --git a/drivers/ata/sata_sil24.c b/drivers/ata/sata_sil24.c
-> > index 72c03cbdaff4..b771ebd41252 100644
-> > --- a/drivers/ata/sata_sil24.c
-> > +++ b/drivers/ata/sata_sil24.c
-> > @@ -1317,7 +1317,7 @@ static int sil24_init_one(struct pci_dev
-> > *pdev, const struct pci_device_id *ent)
-> > =C2=A0
-> > =C2=A0=09if (sata_sil24_msi && !pci_enable_msi(pdev)) {
-> > =C2=A0=09=09dev_info(&pdev->dev, "Using MSI\n");
-> > -=09=09pci_intx(pdev, 0);
-> > +=09=09pcim_intx(pdev, 0);
-> > =C2=A0=09}
-> > =C2=A0
-> > =C2=A0=09pci_set_master(pdev);
-> > diff --git a/drivers/ata/sata_sis.c b/drivers/ata/sata_sis.c
-> > index ef8724986de3..b8b6d9eff3b8 100644
-> > --- a/drivers/ata/sata_sis.c
-> > +++ b/drivers/ata/sata_sis.c
-> > @@ -290,7 +290,7 @@ static int sis_init_one(struct pci_dev *pdev,
-> > const struct pci_device_id *ent)
-> > =C2=A0=09}
-> > =C2=A0
-> > =C2=A0=09pci_set_master(pdev);
-> > -=09pci_intx(pdev, 1);
-> > +=09pcim_intx(pdev, 1);
-> > =C2=A0=09return ata_host_activate(host, pdev->irq,
-> > ata_bmdma_interrupt,
-> > =C2=A0=09=09=09=09 IRQF_SHARED, &sis_sht);
-> > =C2=A0}
-> > diff --git a/drivers/ata/sata_uli.c b/drivers/ata/sata_uli.c
-> > index 60ea45926cd1..52894ff49dcb 100644
-> > --- a/drivers/ata/sata_uli.c
-> > +++ b/drivers/ata/sata_uli.c
-> > @@ -221,7 +221,7 @@ static int uli_init_one(struct pci_dev *pdev,
-> > const struct pci_device_id *ent)
-> > =C2=A0=09}
-> > =C2=A0
-> > =C2=A0=09pci_set_master(pdev);
-> > -=09pci_intx(pdev, 1);
-> > +=09pcim_intx(pdev, 1);
-> > =C2=A0=09return ata_host_activate(host, pdev->irq,
-> > ata_bmdma_interrupt,
-> > =C2=A0=09=09=09=09 IRQF_SHARED, &uli_sht);
-> > =C2=A0}
-> > diff --git a/drivers/ata/sata_vsc.c b/drivers/ata/sata_vsc.c
-> > index d39b87537168..a53a2dfc1e17 100644
-> > --- a/drivers/ata/sata_vsc.c
-> > +++ b/drivers/ata/sata_vsc.c
-> > @@ -384,7 +384,7 @@ static int vsc_sata_init_one(struct pci_dev
-> > *pdev,
-> > =C2=A0=09=09pci_write_config_byte(pdev, PCI_CACHE_LINE_SIZE,
-> > 0x80);
-> > =C2=A0
-> > =C2=A0=09if (pci_enable_msi(pdev) =3D=3D 0)
-> > -=09=09pci_intx(pdev, 0);
-> > +=09=09pcim_intx(pdev, 0);
-> > =C2=A0
-> > =C2=A0=09/*
-> > =C2=A0=09 * Config offset 0x98 is "Extended Control and Status
-> > Register 0"
->=20
->=20
-
+~Andrew
 
