@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25DC7996DAB
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:26:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814614.1228214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 492E3996DB8
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:28:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814624.1228224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXdf-0005WI-88; Wed, 09 Oct 2024 14:26:07 +0000
+	id 1syXfS-0007w8-Ll; Wed, 09 Oct 2024 14:27:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814614.1228214; Wed, 09 Oct 2024 14:26:07 +0000
+Received: by outflank-mailman (output) from mailman id 814624.1228224; Wed, 09 Oct 2024 14:27:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXdf-0005U1-4c; Wed, 09 Oct 2024 14:26:07 +0000
-Received: by outflank-mailman (input) for mailman id 814614;
- Wed, 09 Oct 2024 14:26:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syXfS-0007uN-IJ; Wed, 09 Oct 2024 14:27:58 +0000
+Received: by outflank-mailman (input) for mailman id 814624;
+ Wed, 09 Oct 2024 14:27:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1syXdd-0005Tn-9i
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:26:05 +0000
+ id 1syXfR-0007uE-SK
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:27:57 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 696d1252-864a-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 16:26:04 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1728483956995801.6726115135878;
- Wed, 9 Oct 2024 07:25:56 -0700 (PDT)
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id abd43475-864a-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 16:27:55 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1728484066240917.0602204986117;
+ Wed, 9 Oct 2024 07:27:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,66 +38,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 696d1252-864a-11ef-a0bd-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1728483958; cv=none; 
+X-Inumbo-ID: abd43475-864a-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1728484071; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=X8+Nfrh3EM7pm9fDrijmD824QcRzXL0Xl564qPODYM/AmQ2Z+NrVM5rw1KoFJrsxUo0Blp/FcSa9DgaqSQ+ggHGftH8YiQ4QCd38S2IlBaG3sUapywwYyD5+Ar97Gh1bI8LgeD3q7RzJTF6lkBpYmijLS+9xXHCgvaDY3iHIWzw=
+	b=i+S2D8Hcg0UOBkoDZlMgr9MXWaRKT69o3Bn6iau/KlgrbteChpw4n+uZI4LQQrWKuUY77nADpYls9swqlL5OoL2r0BnCUuuRLDm9Ho/hYphhVxk0Z9R45FrDBkaFRWn31jMbGBUl/QZAXyAYFJq8hn9rqZxe09MHBKADzAT+3ZQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1728483958; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7FC7TXmamB84eXzG7JNc/+2zDsbCnDg/Whb+n+mdk7U=; 
-	b=XyrgHVtWGX5nuX8xoIo+n84Gk34az12u4HpvXtchMDJrs1YadPRhBENCiQOHWE34JobhX3A29ZPNJnLEfPPgKjplXDAUUvwlh9Z1CEFQvRH4hqLmdC6HQm6resgMHBw7gpYeRAk+aacapIJiApY/P+fCYwRqI2yj1ZSYvrHkWR8=
+	t=1728484071; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9dnrk7Ux+QSKxifrK0fc4/U5m1lGqmw0srJnlZiqcg4=; 
+	b=Ud40njCK4jqwGygOsUaLKnISmVKVI2bH5wm9JqTKHqlz3tkUn5wM6D3yr57LT8bwTzBF2P4R9gKZreIu5nPz5uuhNJiDXWUmBVPBJnF6eZqPh6+HIFicTxRgXtVaaYZNDiOEfS5KgavEJvOnxIGnv9kSE/Bt1bqCvOq1ZpH1Mao=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728483958;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728484071;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=7FC7TXmamB84eXzG7JNc/+2zDsbCnDg/Whb+n+mdk7U=;
-	b=DrQVVK6MG6Z6NcTf8l2Q9+GKXAuviiR4JLgwxXrYaC4Wl9IhF2oJjlO6HdvFRXif
-	CSJinB8EwnZqyThGUVHNBZggyHoM6UjOfYV4g/STIeycfMa/saMGXfDUVIk+GVbYnKW
-	y8WBRR/ih3k8HwwDDwg6SLYB9UP7BXD6344/v1Yk=
-Message-ID: <2ac01c09-4a30-4544-a2b8-39c3378f557e@apertussolutions.com>
-Date: Wed, 9 Oct 2024 10:25:54 -0400
+	bh=9dnrk7Ux+QSKxifrK0fc4/U5m1lGqmw0srJnlZiqcg4=;
+	b=r/Cp4r6GVNSCEI0YmzdDENpab0yzXkdLyCb8z5kgZec+3gBYPCQLgHvkgZfYI6ix
+	wioc/hI9Gw9G/is4oLZOgAtN+NRfSiuZ9tWCLNo9/sWmcb2mtDKVgTYHK83nCPn7ZqT
+	+0+VeZoZHkPoWiRNPCTbaGrX0bwUpSrq3mnXB2wg=
+Message-ID: <580cc5e2-ef46-476a-90cc-97d78708e03a@apertussolutions.com>
+Date: Wed, 9 Oct 2024 10:27:43 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/44] x86/boot: introduce boot module types
+Subject: Re: [PATCH v5 10/44] x86/boot: introduce boot module flags
 To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
  Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-10-dpsmith@apertussolutions.com>
- <e45d1cb7-333e-47a3-8834-5cb927e42e3b@amd.com>
+ <20241006214956.24339-11-dpsmith@apertussolutions.com>
+ <9372d72c-c98d-495b-bc3c-8b81208f7cd5@amd.com>
 Content-Language: en-US
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <e45d1cb7-333e-47a3-8834-5cb927e42e3b@amd.com>
+In-Reply-To: <9372d72c-c98d-495b-bc3c-8b81208f7cd5@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 10/7/24 15:50, Jason Andryuk wrote:
+On 10/7/24 16:02, Jason Andryuk wrote:
 > On 2024-10-06 17:49, Daniel P. Smith wrote:
->> This commit introduces module types of xen, kernel, and ramdisk to 
->> allow boot
->> module detect code to tag the purpose of a boot module. This reduces 
->> the need
->> for hard coded order assumptions and global variables to be used by 
->> consumers
->> of boot modules, such as domain construction.
+>> The existing startup code employs various ad-hoc state tracking about 
+>> certain
+>> boot module types by each area of the code. A boot module flags is 
+>> added to
+>> enable tracking these different states.  The first state to be 
+>> transition by
+>> this commit is module relocation.
 >>
 >> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 >> ---
+>>   xen/arch/x86/include/asm/bootinfo.h | 4 ++++
+>>   xen/arch/x86/setup.c                | 8 ++++----
+>>   2 files changed, 8 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/include/asm/bootinfo.h 
+>> b/xen/arch/x86/include/asm/bootinfo.h
+>> index 6941a8975ea6..021ff0d93643 100644
+>> --- a/xen/arch/x86/include/asm/bootinfo.h
+>> +++ b/xen/arch/x86/include/asm/bootinfo.h
+>> @@ -31,6 +31,10 @@ struct boot_module {
+>>        */
+>>       unsigned long headroom;
+>>       enum bootmod_type type;
+>> +
+>> +    uint32_t flags;
+>> +#define BOOTMOD_FLAG_X86_RELOCATED     (1U << 0)
+>> +
 > 
->> @@ -2058,6 +2063,7 @@ void asmlinkage __init noreturn 
->> __start_xen(unsigned long mbi_p)
->>              cpu_has_nx ? "" : "not ");
->>       initrdidx = find_first_bit(module_map, bi->nr_modules);
->> +    bi->mods[initrdidx].type = BOOTMOD_RAMDISK;
-> 
-> This is incorrect if an initrd isn't present.
+> Stray newline.  Otherwise:
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Correct, will put behind guard.
+Ack and thank you.
 
 v/r,
 dps
