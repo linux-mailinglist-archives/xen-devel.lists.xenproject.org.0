@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A057D99652C
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:24:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814042.1227128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EE2996534
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:25:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814048.1227138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySv8-0005vc-Qk; Wed, 09 Oct 2024 09:23:50 +0000
+	id 1sySwD-0006WZ-4g; Wed, 09 Oct 2024 09:24:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814042.1227128; Wed, 09 Oct 2024 09:23:50 +0000
+Received: by outflank-mailman (output) from mailman id 814048.1227138; Wed, 09 Oct 2024 09:24:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySv8-0005tu-Nf; Wed, 09 Oct 2024 09:23:50 +0000
-Received: by outflank-mailman (input) for mailman id 814042;
- Wed, 09 Oct 2024 09:23:49 +0000
+	id 1sySwD-0006Tk-1G; Wed, 09 Oct 2024 09:24:57 +0000
+Received: by outflank-mailman (input) for mailman id 814048;
+ Wed, 09 Oct 2024 09:24:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sySv7-0005to-TY
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:23:49 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1sySwC-0006TZ-DF
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:24:56 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30cf13b0-8620-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 11:23:49 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a995f56ea2dso419663666b.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 02:23:49 -0700 (PDT)
+ id 588c9b09-8620-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 11:24:55 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a9943897c07so560675466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 02:24:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9943ea4936sm528286466b.174.2024.10.09.02.23.48
+ a640c23a62f3a-a992e623957sm627601766b.76.2024.10.09.02.24.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 02:23:48 -0700 (PDT)
+ Wed, 09 Oct 2024 02:24:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30cf13b0-8620-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 588c9b09-8620-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728465828; x=1729070628; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728465895; x=1729070695; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4/p9q6zzF3dEdrk0EDrk/Q8JWw7Bgak8AAujM54KwSo=;
-        b=KocezMmJwmuWu9jemXbqvK6UqY1X2oMLBqa/2JedK3zZVgmHc0wT7QkfqkzuUzJzEx
-         DoGs14IfQn/F0oxCrd1zXqLpS6M5VhyM/E3kQ9eZ55gQ4YmjfXPZgE1f1MbEbb2IYxbB
-         r7V3CL7j5rCh97wbTADBmK6FgYRiHgswNx7om2WfMBcFsY1yMpVWHSS1F8J/IznDkeBm
-         4quQ8hA1X+kvsFUf/gEg+Bp11Xq4+n8K9FwQ4+Tdf7nDiOgv1U08u9ynb237DtcXtKvP
-         XkB7w4PQ5kuWoCu+ehGhwXLPa4JEDMbuVAnLtSDwIKzDtm+/B9IHrlm0JnT18QzwcUyw
-         nqcw==
+        bh=dJN/oUOljW0y9dXzhI8yPyqKExVJQBlP+Fu4RB9uvL8=;
+        b=aOlBlPvkIX3XtsJPGZiKi1LTqBx10V9xmMiLZ1HXWj4vQkrltjNgBRipgeV6y4Beu9
+         opAMWtnvO+/agjY4FiM6Yea8I4V/QKy1mPVNkl2ed+7DJr9ymjPL/Rhy1YS7T0+e5o1+
+         acvZkz8As6l0mul7dFZRVISp9oCHKjhGzf4OuE0w9QBxSJ+2M4klwKjhPPqPIpPxfTU0
+         1fKMyrvXni4/N7gJpKBJ2+8idHDcvEhXCL3VaDNjOqNV7r2EumyiN0D9F7tJtlnOrjfL
+         CwJ90Y1NJ7bXLfACWQ9fxvIc5c/ua6JYT1awthPpaT7tcn8l8h+xXr3ITUHkIj/y1PAp
+         d7ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728465828; x=1729070628;
+        d=1e100.net; s=20230601; t=1728465895; x=1729070695;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=4/p9q6zzF3dEdrk0EDrk/Q8JWw7Bgak8AAujM54KwSo=;
-        b=D4clKHsosa8y4iASuZKqUWoMnkPhfo0jVfvAqw2QgdY8sZFg//E6QRvF/4G3Yf2oIS
-         YJaKj6mHF73p96aSoeO0srpp8jS2IzDZRIEvl1guWLEkcaJ6uXTwiMgf37isDFqK244h
-         nbxOGIpL7NISOebw3swh0NTUrKI8UUBCjnOdd5Q0Kn4UD7763/7VtogYZhdhKv/DERLJ
-         gDQ2XvkxTn4ki57R573B8aSlB1HCuifCWfoqEhEzwsgz2+PcjKnK/mCoy4imtO1SaOFS
-         pbgSOAhNkQC3K1X7g3KviCXzbC2igFPGaa6Gpg1cucH3yO/czyKAaZjEfRDatK1EdOyV
-         UKIg==
-X-Gm-Message-State: AOJu0YwsT7F4ckU0XJmr8Wh7LlyYWgopRTUXPMya5kZeolBQJ96nekjb
-	bEQtlJXTeZYSGlabVXSsYjnHnjItVsh1Qkfslb8h2o3/y2/1EFAclQ3x0vwg+DTswKrlkVEGetI
+        bh=dJN/oUOljW0y9dXzhI8yPyqKExVJQBlP+Fu4RB9uvL8=;
+        b=TibmGkb1gYMLnZAsTpfVa9nxYNr9wy4GjGKLfTrzj/+6ubejrVMttahCe2v7Z4yt/u
+         +bHIuZRyZHZ4X9VR4kXhWA2UkxSFUnbwCiffZMtm8q3Hujou1UlA99kDY5rj4y7OEsp4
+         ZYl+pBBXzPiY0vUJFUigSiplbAW9f75UbUXQnvTtKSP8E3BSjXCRZ3lyXvxJqmqtuaYY
+         cE4sh8WpF93z/h7LegMVEFOKTfRJv4ETKYtySh5Izf8EtP7bsXlxOasi13TvsBFzPJ1g
+         y9xNKtSZ0VBK2ezycDWm5Kvum1p814qPCzJM2hnxuTlBJlH4DV01x1mnVfyHTHHzPWci
+         l/Ag==
+X-Gm-Message-State: AOJu0YwRuFbk6r7VwC+y9uY/Dxduc1Z84RgqoG6XsegBVcRFBjNNE5iL
+	YyXbjUhLF92SuzlAiJFF3RxPc1k+ewtZ+2+Ww3JElKTNBLmyJX9hFEXzJg2xglJZmQmUkUBKvNQ
 	=
-X-Google-Smtp-Source: AGHT+IHYUMA03wMgqdCv4B2ttcqDQw/CpkrylMiuFbcdYfLc2ADuFOei/2xd8o7eBKuwzt3vUdxTUA==
-X-Received: by 2002:a17:907:1c1a:b0:a99:2ab0:d973 with SMTP id a640c23a62f3a-a998d341895mr132202966b.55.1728465828372;
-        Wed, 09 Oct 2024 02:23:48 -0700 (PDT)
-Message-ID: <d419d19a-ccb9-4c39-82b2-44b2bf29e5f0@suse.com>
-Date: Wed, 9 Oct 2024 11:23:47 +0200
+X-Google-Smtp-Source: AGHT+IEXt3/J4C+eyW5Yl0LniacQ1BLVl7nf5/vEeM1tXDNjGOnTPV2MdTrh6y1Z8liZKaLx5G2SEg==
+X-Received: by 2002:a17:906:7313:b0:a99:5957:b8f0 with SMTP id a640c23a62f3a-a998d31c11emr141654566b.49.1728465894981;
+        Wed, 09 Oct 2024 02:24:54 -0700 (PDT)
+Message-ID: <832f8384-71b5-4872-92eb-8a81d7e1d50a@suse.com>
+Date: Wed, 9 Oct 2024 11:24:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/7] x86: modernize swab64()
+Subject: [PATCH 5/7] types: replace remaining uses of __u32
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
 Content-Language: en-US
@@ -115,33 +116,89 @@ In-Reply-To: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-For quite a while we didn't need to be concerned of 32-bit code
-generation anymore: Simply use the 64-bit form of BSWAP here.
+... and move the type itself to linux-compat.h.
+
+While doing so drop casts (instead of modiyfing them) from x86'es
+wrmsrl().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/include/asm/byteorder.h
 +++ b/xen/arch/x86/include/asm/byteorder.h
-@@ -10,17 +10,10 @@ static inline attr_const __u32 ___arch__
+@@ -4,7 +4,7 @@
+ #include <xen/types.h>
+ #include <xen/compiler.h>
+ 
+-static inline attr_const __u32 ___arch__swab32(__u32 x)
++static inline attr_const uint32_t ___arch__swab32(uint32_t x)
+ {
+     asm("bswap %0" : "=r" (x) : "0" (x));
      return x;
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -33,9 +33,8 @@
+ 
+ static inline void wrmsrl(unsigned int msr, __u64 val)
+ {
+-        __u32 lo, hi;
+-        lo = (__u32)val;
+-        hi = (__u32)(val >> 32);
++        uint32_t lo = val, hi = val >> 32;
++
+         wrmsr(msr, lo, hi);
  }
  
--static inline attr_const __u64 ___arch__swab64(__u64 val)
-+static inline attr_const uint64_t ___arch__swab64(uint64_t x)
- { 
--    union { 
--        struct { __u32 a,b; } s;
--        __u64 u;
--    } v;
--    v.u = val;
--    asm("bswapl %0 ; bswapl %1 ; xchgl %0,%1" 
--        : "=r" (v.s.a), "=r" (v.s.b) 
--        : "0" (v.s.a), "1" (v.s.b)); 
--    return v.u;
-+    asm ( "bswap %0" : "+r" (x) );
-+    return x;
- } 
+--- a/xen/include/xen/bitops.h
++++ b/xen/include/xen/bitops.h
+@@ -413,7 +413,7 @@ static inline int get_count_order(unsign
+  * @word: value to rotate
+  * @shift: bits to roll
+  */
+-static inline __u32 rol32(__u32 word, unsigned int shift)
++static inline uint32_t rol32(uint32_t word, unsigned int shift)
+ {
+     return (word << shift) | (word >> (32 - shift));
+ }
+@@ -424,7 +424,7 @@ static inline __u32 rol32(__u32 word, un
+  * @word: value to rotate
+  * @shift: bits to roll
+  */
+-static inline __u32 ror32(__u32 word, unsigned int shift)
++static inline uint32_t ror32(uint32_t word, unsigned int shift)
+ {
+     return (word >> shift) | (word << (32 - shift));
+ }
+--- a/xen/include/xen/linux-compat.h
++++ b/xen/include/xen/linux-compat.h
+@@ -16,6 +16,7 @@ typedef uint8_t __u8;
+ typedef int16_t s16, __s16;
+ typedef uint16_t __u16;
+ typedef int32_t s32, __s32;
++typedef uint32_t __u32;
+ typedef int64_t s64, __s64;
  
- /* Do not define swab16.  Gcc is smart enough to recognize "C" version and
+ typedef paddr_t phys_addr_t;
+--- a/xen/include/xen/types.h
++++ b/xen/include/xen/types.h
+@@ -7,7 +7,7 @@
+ /* Linux inherited types which are being phased out */
+ typedef uint8_t u8;
+ typedef uint16_t u16;
+-typedef uint32_t u32, __u32;
++typedef uint32_t u32;
+ typedef uint64_t u64, __u64;
+ 
+ #include <asm/types.h>
+@@ -53,8 +53,8 @@ typedef __PTRDIFF_TYPE__ ptrdiff_t;
+ 
+ typedef uint16_t __le16;
+ typedef uint16_t __be16;
+-typedef __u32 __le32;
+-typedef __u32 __be32;
++typedef uint32_t __le32;
++typedef uint32_t __be32;
+ typedef __u64 __le64;
+ typedef __u64 __be64;
+ 
 
 
