@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DEEF996FD6
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 17:39:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814846.1228541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D334996FD8
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 17:40:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814853.1228551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syYma-0005UX-BV; Wed, 09 Oct 2024 15:39:24 +0000
+	id 1syYn4-0006Nc-NI; Wed, 09 Oct 2024 15:39:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814846.1228541; Wed, 09 Oct 2024 15:39:24 +0000
+Received: by outflank-mailman (output) from mailman id 814853.1228551; Wed, 09 Oct 2024 15:39:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syYma-0005T0-8r; Wed, 09 Oct 2024 15:39:24 +0000
-Received: by outflank-mailman (input) for mailman id 814846;
- Wed, 09 Oct 2024 15:39:23 +0000
+	id 1syYn4-0006Ky-KL; Wed, 09 Oct 2024 15:39:54 +0000
+Received: by outflank-mailman (input) for mailman id 814853;
+ Wed, 09 Oct 2024 15:39:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f2hB=RF=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
- id 1syYmZ-0005Kw-Dr
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 15:39:23 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1syYn3-0005Kw-GP
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 15:39:53 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7f5cb47-8654-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 17:39:22 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c9150f9ed4so1922290a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 08:39:22 -0700 (PDT)
-Received: from smtpclient.apple ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e05eb5ebsm5792091a12.65.2024.10.09.08.39.19
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 09 Oct 2024 08:39:20 -0700 (PDT)
+ id b9d96daa-8654-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 17:39:52 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5c876ed9c93so8529128a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 08:39:52 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c92e25805esm248674a12.33.2024.10.09.08.39.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 08:39:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7f5cb47-8654-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: b9d96daa-8654-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728488362; x=1729093162; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oct+1aXwVsVtFTgjw/Ezj7nEyzSVEMoLCGSRarY59k0=;
-        b=LWLeuO+AbPWGm5iMPiNJ2+94LW20j2Sclr6SXeAqofepWMAIXFdpULhZzqORJ1EkYG
-         yMUjbvt3EmEriQ9MVqlbMx94SOYvlO1DkZo2Nsq5nM/nwKzIVI4JjZhVnZvKFQNXqSgR
-         TaZnJ3xRVggGUql33HBvdWhQPznfC+cK6yMwg=
+        d=suse.com; s=google; t=1728488392; x=1729093192; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cy9MIla/4qsrS6uLLsbKtuMzSeXM31HqRnfz68TSW1Y=;
+        b=PMwZso+hCMfn+nrRASfcNeN+mXo+AlYdKHip/StFRF9eKpCDcZi9EdVXUmyAa9q43S
+         WC1zmmpFV09T+YFWtTpJgwcb6xpd0uEtRDb+r1PDFjA56jdhnu0laoXBtXOdAlnMB80t
+         b7pedqyI+jQunGKfKZH+OH26yUJ+FdzF6YCXIf8JqXxNlCvlRd9b1fKRJqsJ3pgfh5lz
+         doy1mgfMYTrxFQMg00uiAEnCcDTxCXEs9r6W2MLVVpcMNYxjCKqhTD3GMm4cATMIdmE2
+         FFokMkGxfW/g9czPclp2QmJLAt3UspObFUL3qETsjo17JDOTG3aHh7VOstmXBHN15qtc
+         /fTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728488362; x=1729093162;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oct+1aXwVsVtFTgjw/Ezj7nEyzSVEMoLCGSRarY59k0=;
-        b=ubMhGJd/+e6na7uiiAWH1O/l9qZ3DnDxyGirQVWCO2zg3uoMsiMLPslehzXbwhj/UN
-         D4Q4TAHfRd4VVJ4b4GykAD0QuIGc4aBP+extS9+Ocd1iYOfgeT9wK68+XaECY7REy6Yx
-         lcZLuS9FF36m2CiBLS56nhlkEvz6z4OWNwY3MKsiT2bJGbRaQF1AGDbg66v8OelO87xH
-         5BuUD1y05EnqgSReG1zGKpX1B3oG6c9KrPukirq07B8O3+IQ+MQNrXNgfd98Er/zHahU
-         l+00LvcV9AXT6IH1wMDG0+i71jmt/cUDEkBX5sOJe6e0LXxo4RxdHYGh11rH5mpV9Fdx
-         LJpA==
-X-Gm-Message-State: AOJu0YxgOhrA7VIWisfPquVFHYYdv5nGKLuJGjZXNX4TSRkVrbQK9uHE
-	QGKbkg4yGpqvXc9lkKaEId06p9JsRIRdiIaoIH91QPbgrVUSqzjJ6WRXqiStrAI=
-X-Google-Smtp-Source: AGHT+IGzR+TcLBOy0qoj7Bu6LdI45IcPzMLIEspINV6bsMa6YxvWtXfIjAcIJKr96bXo+bZEvz0glw==
-X-Received: by 2002:a05:6402:26d4:b0:5c8:79fa:2e4f with SMTP id 4fb4d7f45d1cf-5c91d69a2demr2495324a12.32.1728488362105;
-        Wed, 09 Oct 2024 08:39:22 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH v1 1/1] ocaml/libs: Remove xsd_glue_dev package, also
- install plugin_interface_v1.a
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <c9b47337615168e38fb6af2a80409f0a38ead901.1728471268.git.andrii.sultanov@cloud.com>
-Date: Wed, 9 Oct 2024 16:39:08 +0100
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- Edwin Torok <edwin.torok@cloud.com>,
- David Scott <dave@recoil.org>,
- Anthony PERARD <anthony.perard@vates.tech>
+        d=1e100.net; s=20230601; t=1728488392; x=1729093192;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cy9MIla/4qsrS6uLLsbKtuMzSeXM31HqRnfz68TSW1Y=;
+        b=INaAWbwWCli0uspsnElJ+RXlpj5xAgYlzR2cSs/2p4WmmjNvSy2Xz8GthGvU3rDQjH
+         C9iGZWUmYDUOBVgS7p2etZsZgVZc0EJ0sn3em8fvgDtP2osyrHod81dmtl9jH7kFUf6S
+         yeGYdm4BchcSUT+BZRk+8XuPcwXKg0kyWwJ0gx8+V82YfkB8wSeu8xdEQuECahGBCU+J
+         dLLDq6Vhd3Tht+8Y2ZSO2kwFnp9k/gz2oDgImseeFZV0nTrtOuvyIA02mDTRQsvNgizP
+         aZolQ0K2bU/5WYUVaxSnee5VMXqJ7Cvh9alpbVhYyTS8nR8eImynCJPkWdY6+J5AMSJO
+         Qw/g==
+X-Forwarded-Encrypted: i=1; AJvYcCV8fy/BvlrWJQxVmlvnOgSjU10OWsLBNyC19AG0wpxRdoZx+XadI/v8TEkLvvSl5lv8QgEO5s17Nzs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzNVnQA9EUkiNWVjEGV30LNJG+6V3LvvrpOd6sW/OOC8GzgxOmN
+	p3d1harILZiQzJxgCZk3310VbiPRHIOIjRVW3dVMDKsSjILf7ZEOV5VBoPqWXQ==
+X-Google-Smtp-Source: AGHT+IGsciBQ4Zgdkf3yr0jAiPZyTkg4YRiAwjyvC3RXEx+va9UY/Ax4GrSxcuBRtzrzCc3gT0hsGA==
+X-Received: by 2002:a05:6402:34cc:b0:5c4:2343:1227 with SMTP id 4fb4d7f45d1cf-5c91d5377a2mr2765107a12.5.1728488392076;
+        Wed, 09 Oct 2024 08:39:52 -0700 (PDT)
+Message-ID: <cd3279a1-6339-43d1-bc5a-977f0e9ba2b9@suse.com>
+Date: Wed, 9 Oct 2024 17:39:51 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/44] x86/boot: add start and size fields to struct
+ boot_module
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
+ <20241006214956.24339-13-dpsmith@apertussolutions.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241006214956.24339-13-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <E49C0323-4AD0-4074-ABE5-83D917D56995@cloud.com>
-References: <cover.1728471268.git.andrii.sultanov@cloud.com>
- <c9b47337615168e38fb6af2a80409f0a38ead901.1728471268.git.andrii.sultanov@cloud.com>
-To: Andrii Sultanov <andrii.sultanov@cloud.com>
-X-Mailer: Apple Mail (2.3774.600.62)
 
+On 06.10.2024 23:49, Daniel P. Smith wrote:
+> This commit introduces the start and size fields to struct boot_module and adds
+> a corresponding bootstrap mapping function, bootstrap_map_bm.
 
+Which then is left with no caller. Misra doesn't like unreachable code.
 
-> On 9 Oct 2024, at 16:15, Andrii Sultanov <andrii.sultanov@cloud.com> wrote:
-> 
-> xsd_glue_dev packaging is inconsistent with the rest of OCaml packages
-> and isn't actually necessary. .a is needed alongside compiled bytecode
-> files during linking and was missed in the initial oxenstore plugin
-> work.
-> 
-> Specify OCAMLCFLAGS along with OCAMLOPTFLAGS.
-> 
-> Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
-> ---
-> tools/ocaml/libs/xsd_glue/Makefile | 6 ++----
-> 1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
-
-
+Jan
 
