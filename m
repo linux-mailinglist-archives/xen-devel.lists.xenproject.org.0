@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9EC9962FB
+	by mail.lfdr.de (Postfix) with ESMTPS id 6319C9962FD
 	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 10:38:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813878.1226945 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.813880.1226968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySCO-0006QB-2Z; Wed, 09 Oct 2024 08:37:36 +0000
+	id 1sySCT-0007G7-F2; Wed, 09 Oct 2024 08:37:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813878.1226945; Wed, 09 Oct 2024 08:37:36 +0000
+Received: by outflank-mailman (output) from mailman id 813880.1226968; Wed, 09 Oct 2024 08:37:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySCN-0006IK-RH; Wed, 09 Oct 2024 08:37:35 +0000
-Received: by outflank-mailman (input) for mailman id 813878;
- Wed, 09 Oct 2024 08:37:19 +0000
+	id 1sySCT-0007Cq-AI; Wed, 09 Oct 2024 08:37:41 +0000
+Received: by outflank-mailman (input) for mailman id 813880;
+ Wed, 09 Oct 2024 08:37:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qj4E=RF=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1sySC7-0005FO-M4
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 08:37:19 +0000
+ id 1sySCG-0005FO-OO
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 08:37:28 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b16cfbd0-8619-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 10:37:19 +0200 (CEST)
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ id b6e9e044-8619-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 10:37:28 +0200 (CEST)
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-43-fvUCPhF3O4eJdppvdTGHWw-1; Wed, 09 Oct 2024 04:37:16 -0400
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7a9a6634b08so124380385a.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 01:37:16 -0700 (PDT)
+ us-mta-632-8rtXbGUlOcKjgMJD3isUrw-1; Wed, 09 Oct 2024 04:37:25 -0400
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7a9a71b17a3so1133166985a.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 01:37:25 -0700 (PDT)
 Received: from eisenberg.redhat.com (nat-pool-muc-t.redhat.com. [149.14.88.26])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7ae75615aa2sm439643585a.14.2024.10.09.01.37.06
+ af79cd13be357-7ae75615aa2sm439643585a.14.2024.10.09.01.37.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2024 01:37:15 -0700 (PDT)
+ Wed, 09 Oct 2024 01:37:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,39 +49,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b16cfbd0-8619-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: b6e9e044-8619-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728463037;
+	s=mimecast20190719; t=1728463047;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=x2+4tkUVcLGJF5zHhr3G6hU1vXfnQU3y0JjqPGIiXBc=;
-	b=UjcAybwaw2kqxM+UBdxnR9CoTvvYKZ4N7l4mTHfI2u34MhXIGTnbf3c+z2Mg/YO6MO5KAs
-	L0uCX+oUeUkbBZwhsAaQ0/jTNZxU6xbG+4R1BBHjXZ/9moGyVxivOkpD5yK2pyZxtf/0fU
-	0w+4ZhN+10nKwhJyz26svJnV4SRw8vA=
-X-MC-Unique: fvUCPhF3O4eJdppvdTGHWw-1
+	bh=Gnue2+gdLv6DtZCMne1e2l6o8jQm3Jw9vQelKyozb04=;
+	b=CAUa+uHMNlCN98nEBAwD4AlEckzj8yqa7PvBGyyXBpI35ngc65WStOe+4iJ6b0DqAq9Dql
+	XUGe1s3WGvL4V4cGiXDnb2sz3/84l8AVzzcPb/AcFUYSGdJmHyMF7WyIVey14aJd4p0xPk
+	yADrBN45Zsob/5mURb7evh3cZdCp/qM=
+X-MC-Unique: 8rtXbGUlOcKjgMJD3isUrw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728463036; x=1729067836;
+        d=1e100.net; s=20230601; t=1728463045; x=1729067845;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=x2+4tkUVcLGJF5zHhr3G6hU1vXfnQU3y0JjqPGIiXBc=;
-        b=jbzpxuHusxmT6j9JFDl6wwQe4PRwMGCR3I6dH4CxYbowAm++1eV8us95/ZaaV59Wvf
-         jMOFJQs5kj0WWiaLbr2j8g5BU0OsRYFs8jMNaiLG3SK5QZxcjDK9dwYD3Qw9B4UdrpEi
-         BsvEVm3PP3o2WJchBbW65otbEcrqbL+WlKmxRWzzeCMgNM8TY9Zh/IMvS7KA777X7ZlZ
-         UWhxEE+a6ICX97APdfq+G7oVwwR6LvwXROIyi7UYzXGmay85whMk3+Uy4ZURrXzLGr1v
-         FyOZXc4Ols7m7FBpNPHJB/PPS+THHyFhLmA9VlXxRP2GZmLWNI3bElOtfAsWhP/mZSBF
-         J+9A==
-X-Forwarded-Encrypted: i=1; AJvYcCXmnXXwPzMTH9ldnpCdHnjVL46e8D+EPiGgw+x4S4H4lB0w8HjZUadP7ofvvoJ+Hfm91dr0AdnlUKA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXht2t7rcZZdUd4oWl2VGhy2fBjaUkCQQtW8SsNGitz0tqpC1P
-	pAb2VvR6SMIPQW8IiB1YQY+zD1r2f5+TRGYWXC2KRmhStQwR5xmpJ87x47iI2f/FAvAZDYjdVsG
-	nv90BP24MVU91YqwmIig7NEBU8x3ARpruKN9fDMiR/SKz21aGtyZ2686DMd/XMat0
-X-Received: by 2002:a05:620a:2585:b0:7a1:e341:d543 with SMTP id af79cd13be357-7ae85f85358mr1004133085a.28.1728463035646;
-        Wed, 09 Oct 2024 01:37:15 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEO+/SwmcH6h0Vxkc+UACkKjxSzn/5VgASgM8SukkUVixA4gIuWgHYKW5iFaezTFbfMq+Vx5w==
-X-Received: by 2002:a05:620a:2585:b0:7a1:e341:d543 with SMTP id af79cd13be357-7ae85f85358mr1004126485a.28.1728463035252;
-        Wed, 09 Oct 2024 01:37:15 -0700 (PDT)
+        bh=Gnue2+gdLv6DtZCMne1e2l6o8jQm3Jw9vQelKyozb04=;
+        b=gxHciMKnLbZyfkpdpgTghEgiQHvI1BFRVgCBAKV7CemzCCwWBwPcaUVnBEDDtA4nqi
+         jgh1ftYO/P+G7lE3KE4H7+0kK+JeD50YA+o13IYGTYBOiXCLfRao/QIbggjlPS0hAtPq
+         Nx+rhBtbahQNhs8t1coTk9KdgrGux3BS/zknj8wHZXNt62sptWmdYn30OQoRJjV6ijy6
+         bwt8J3eEPadtMJyRLM3asG4FdmuiQ5WivOj5FS2RP4AEk/dFulol4X1S0QM2qGHqyL+J
+         krYI28FMxGOGHIsO5fkdmBZJf8SuhG/tMxswlVrviMud6nbH/NaU/FUYF5MyQUM+5yKs
+         Cv6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXoxwIpYh3TvpkSWgwh/5jdbwx4QN4j6Angt1+FX/Akasf1FGPJIE8ufZw71v/+JTB+GiKOEPIgNj4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwdSpVbnB3ugw6jQh/yN6RAIrvhnXCuVMkxK1t+2yrZhSjLa/s
+	ROVJq43dnJuO1517m2MQkSSaygmifu3+ctzT63fqzP6cJGfN7bViq7en3QaIpOxt8pnE5p8BprV
+	tQIjPFoWCPWZ5FcpeDIcda5P9fWRifpHLti54n5WMKTxfKOvNNOLsfSkMmdIuV+h+
+X-Received: by 2002:a05:620a:1a8e:b0:7a9:8679:993 with SMTP id af79cd13be357-7b07952776bmr283212085a.13.1728463044973;
+        Wed, 09 Oct 2024 01:37:24 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF8iMtbRuVOzUsf8z3rLAbJgY7Sw8kyfd9EYZaEc1PG6rkZnmlQM8I/F6cPMCjVwViEvjtORQ==
+X-Received: by 2002:a05:620a:1a8e:b0:7a9:8679:993 with SMTP id af79cd13be357-7b07952776bmr283201785a.13.1728463044398;
+        Wed, 09 Oct 2024 01:37:24 -0700 (PDT)
 From: Philipp Stanner <pstanner@redhat.com>
 To: Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
@@ -155,9 +155,9 @@ Cc: linux-ide@vger.kernel.org,
 	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-sound@vger.kernel.org
-Subject: [RFC PATCH 04/13] net/ethernet: Use never-managed version of pci_intx()
-Date: Wed,  9 Oct 2024 10:35:10 +0200
-Message-ID: <20241009083519.10088-5-pstanner@redhat.com>
+Subject: [RFC PATCH 05/13] net/ntb: Use never-managed version of pci_intx()
+Date: Wed,  9 Oct 2024 10:35:11 +0200
+Message-ID: <20241009083519.10088-6-pstanner@redhat.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241009083519.10088-1-pstanner@redhat.com>
 References: <20241009083519.10088-1-pstanner@redhat.com>
@@ -171,43 +171,52 @@ pci_intx() is a hybrid function which can sometimes be managed through
 devres. To remove this hybrid nature from pci_intx(), it is necessary to
 port users to either an always-managed or a never-managed version.
 
-broadcom/bnx2x and brocade/bna enable their PCI-Device with
-pci_enable_device(). Thus, they need the never-managed version.
+hw/amd and how/intel enable their PCI-Device with pci_enable_device().
+Thus, they need the never-managed version.
 
 Replace pci_intx() with pci_intx_unmanaged().
 
 Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 ---
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c | 2 +-
- drivers/net/ethernet/brocade/bna/bnad.c          | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/ntb/hw/amd/ntb_hw_amd.c    | 4 ++--
+ drivers/ntb/hw/intel/ntb_hw_gen1.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c
-index 678829646cec..2ae63d6e6792 100644
---- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c
-+++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c
-@@ -1669,7 +1669,7 @@ static void bnx2x_igu_int_enable(struct bnx2x *bp)
- 	REG_WR(bp, IGU_REG_PF_CONFIGURATION, val);
+diff --git a/drivers/ntb/hw/amd/ntb_hw_amd.c b/drivers/ntb/hw/amd/ntb_hw_amd.c
+index d687e8c2cc78..b146f170e839 100644
+--- a/drivers/ntb/hw/amd/ntb_hw_amd.c
++++ b/drivers/ntb/hw/amd/ntb_hw_amd.c
+@@ -791,7 +791,7 @@ static int ndev_init_isr(struct amd_ntb_dev *ndev,
+ err_msi_enable:
  
- 	if (val & IGU_PF_CONF_INT_LINE_EN)
--		pci_intx(bp->pdev, true);
-+		pci_intx_unmanaged(bp->pdev, true);
+ 	/* Try to set up intx irq */
+-	pci_intx(pdev, 1);
++	pci_intx_unmanaged(pdev, 1);
  
- 	barrier();
- 
-diff --git a/drivers/net/ethernet/brocade/bna/bnad.c b/drivers/net/ethernet/brocade/bna/bnad.c
-index ece6f3b48327..2b37462d406e 100644
---- a/drivers/net/ethernet/brocade/bna/bnad.c
-+++ b/drivers/net/ethernet/brocade/bna/bnad.c
-@@ -2669,7 +2669,7 @@ bnad_enable_msix(struct bnad *bnad)
- 		}
+ 	rc = request_irq(pdev->irq, ndev_irq_isr, IRQF_SHARED,
+ 			 "ndev_irq_isr", ndev);
+@@ -831,7 +831,7 @@ static void ndev_deinit_isr(struct amd_ntb_dev *ndev)
+ 		if (pci_dev_msi_enabled(pdev))
+ 			pci_disable_msi(pdev);
+ 		else
+-			pci_intx(pdev, 0);
++			pci_intx_unmanaged(pdev, 0);
  	}
+ }
  
--	pci_intx(bnad->pcidev, 0);
-+	pci_intx_unmanaged(bnad->pcidev, 0);
+diff --git a/drivers/ntb/hw/intel/ntb_hw_gen1.c b/drivers/ntb/hw/intel/ntb_hw_gen1.c
+index 079b8cd79785..9ad9d7fe227e 100644
+--- a/drivers/ntb/hw/intel/ntb_hw_gen1.c
++++ b/drivers/ntb/hw/intel/ntb_hw_gen1.c
+@@ -445,7 +445,7 @@ int ndev_init_isr(struct intel_ntb_dev *ndev,
  
- 	return;
+ 	/* Try to set up intx irq */
  
+-	pci_intx(pdev, 1);
++	pci_intx_unmanaged(pdev, 1);
+ 
+ 	rc = request_irq(pdev->irq, ndev_irq_isr, IRQF_SHARED,
+ 			 "ndev_irq_isr", ndev);
 -- 
 2.46.1
 
