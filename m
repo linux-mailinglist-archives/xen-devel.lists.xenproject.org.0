@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C68C6996F27
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 17:03:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814758.1228425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39BD3996F2D
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 17:08:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814764.1228435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syYD9-0002Fq-Vq; Wed, 09 Oct 2024 15:02:47 +0000
+	id 1syYID-0003e2-KA; Wed, 09 Oct 2024 15:08:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814758.1228425; Wed, 09 Oct 2024 15:02:47 +0000
+Received: by outflank-mailman (output) from mailman id 814764.1228435; Wed, 09 Oct 2024 15:08:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syYD9-0002D8-TB; Wed, 09 Oct 2024 15:02:47 +0000
-Received: by outflank-mailman (input) for mailman id 814758;
- Wed, 09 Oct 2024 15:02:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syYID-0003bD-Fo; Wed, 09 Oct 2024 15:08:01 +0000
+Received: by outflank-mailman (input) for mailman id 814764;
+ Wed, 09 Oct 2024 15:07:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syYD8-0002D2-IH
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 15:02:46 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89eecbbb-864f-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 17:02:44 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-53993564cb1so7801081e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 08:02:44 -0700 (PDT)
+ id 1syYIB-0003b7-TN
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 15:07:59 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4533d465-8650-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 17:07:59 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2fadc95ccfcso78123641fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 08:07:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99413ff5f0sm583710066b.205.2024.10.09.08.02.43
+ 4fb4d7f45d1cf-5c92a32bb5dsm498217a12.28.2024.10.09.08.07.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 08:02:43 -0700 (PDT)
+ Wed, 09 Oct 2024 08:07:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89eecbbb-864f-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 4533d465-8650-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728486164; x=1729090964; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728486478; x=1729091278; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xsP5QGpMw8tD9+eHmW8SuKb+r1Ej44ts391CRqX+VQc=;
-        b=QYjOD3yiIoPxC7n04XD/gfh10qLunmDxbC8ZbOY287YmrfDaf1U1VywYIzJqrviC0N
-         ++kC87NgTOgWOPCZslF9WzJzzGJ2qQKmSNfrMXRNbqphrw550bw4utAJ9G5rSJKXBHcj
-         fKKq3RGolTjpFXj1+U4ED8rYwEZuQbBJIFgyLdHQ2PGQ1oBOSn6bfxm7H3GitSp4VVHF
-         TwlDr4VL0oa9o38bA+xUZHKhTOMFBVin/3e2gvSEfmB9yDB5wVesToCdAj+///aCSfx7
-         fbySUrkVZIPcNSRnkj9iTYzeXFo7fbPKz85b+bED+3AlvgYqgjnID3vTPAHfXd1MNnvQ
-         GX1Q==
+        bh=uQkoQK4F3b3nmkXoMoo3H36UcEr1eB+7dfYstLib3zI=;
+        b=QY+EbD9Hs5n/3dQFGLqpkRinFQEXr4ZEgPR7FxjJKAMYRcoAB+ElKy14UHv7mEDqOS
+         Nb4FcxASRGnCkPcdKzdc2LJ8FNohGYD98OhOJPJ81XhB1nPdrQkFrnka/8kHH5p0PUJM
+         7uk6nXgzmwnS8wA4cNDIXmfPBxt5/bgNjuzOqM6VRwPZHUSWeuZUglm2FLsSdOk/MXIZ
+         J2GqG6uvBLgl9XuqTK93lKR/9PKC6s11Zxm/hAu7r1jmVokWqr54gOYgNOSJgF4+ffxc
+         HQtTXzoQAogTtleclI0T0Scv8rAfvgSghZtUD6GiiIp+0WmfvLoeUuzaFMMxzSiYl2C8
+         5dBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728486164; x=1729090964;
+        d=1e100.net; s=20230601; t=1728486478; x=1729091278;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xsP5QGpMw8tD9+eHmW8SuKb+r1Ej44ts391CRqX+VQc=;
-        b=lDp3GSUo+nd4zRQIUrMwJpriQ7Eb+3CKIgPpkqjRo1RKbmedWcbzrTouw0Z4quX2jG
-         swpmwMRjYcwSK7cwXcVyWEzjlDnWe66ikeLOXXdhdQuzWqeUFI4z/gg2T6YKm/Z5jxto
-         n0crLW/tOB+f+8cMskq5bOItf2P+JoSoPHwosyUnCOj9YmBEAslL+PtAcVpv1i4xnWAv
-         RlL2yPY8AxEEX+dudNlSvYuReeUrY9n/PJBJGDaOa9wpaKPZ/WSVxLbXMDnv9s/Y/mb5
-         S9ZqFtGknVAbXekSwrt/9OQDbwnI2NZX3UNTniCT38DLFKYpH26W5XzQEDAIC/ihh/21
-         kGFg==
-X-Forwarded-Encrypted: i=1; AJvYcCUOKMNffInqKXUyc3/qXLgSQwnUKdz3s31lV/IvOoyawtM3iRxIowtLt1GvZA/+nl/RFiS+draL8V0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxtCkNnB0fQhjB+toc+t7oNmNYv7Xwp/MTGIRq6zOeWs4enc5ln
-	+rxdH1sVY2unI9FjFAyfKOmmHskqsbU5CP3TPQe4qBOWR8Km3cd9Kglg00u25A==
-X-Google-Smtp-Source: AGHT+IGoroh0t/IXyG2YtKhxeV1IqY9moarDXoM07THKj5vdS5lII13w97lb25paboFkvzs4Z9YmxA==
-X-Received: by 2002:a05:6512:10ce:b0:536:561c:a0cb with SMTP id 2adb3069b0e04-539c48c39c7mr1968506e87.18.1728486164075;
-        Wed, 09 Oct 2024 08:02:44 -0700 (PDT)
-Message-ID: <aa2b9332-54ed-4447-b8f6-037fce401375@suse.com>
-Date: Wed, 9 Oct 2024 17:02:43 +0200
+        bh=uQkoQK4F3b3nmkXoMoo3H36UcEr1eB+7dfYstLib3zI=;
+        b=qm7Fb1ZlYCNJgLNqk6oujfTER3bS4CeAo+jgn5OoWUPYT6DfAwRFpNLQX4MaRWsPQd
+         msw+ZGwraa9p2IMUvdtCSAulcjEIpkkmKXA51POx/ZWxX+1hvNpqcUF4nJtHR6f8Z9hk
+         fQR2Ik1r99cc4RMg0/KQupgBtWI44J4/xVmm178Dk5WQD8+5unatdPxNK5FynT6Y7hJe
+         UFadWblsaYnk6PvFmrI/8EMKM/YYTI+Fv3q7v+oHxJ0ZlnTWccbwLQfeplHc2obbXP7j
+         Z33jdt/flSvH2eP3eLD9NJh3x2pu1rWh/DCaH1NFxDKNB8oN7hiCCufcsytSYhjrbJRl
+         wfCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWbGUvUQqrmt1W2iTcQMZiwqBtkiHxk9aFJBPYWFt4nCojpsdat2nAWyhCIZMhmRjG/OlS7GjTaVKk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6KRgeYAeY9OKDZxT9SuZ4HZ6NNxN7edVVhG4L8CdT3JB3DZ9b
+	TzymogX7LpSH0c84Vk2IV3JQLtcJvL8kFouwImELiYaR0b8xY1ED93+TXLO2sg==
+X-Google-Smtp-Source: AGHT+IGcbTGC3n7DyAFIETr3ZeA+1JgR4bdYEGCCADWy3WuCgWuLC6chmb2xcdrisBf3dPp0x0aYUA==
+X-Received: by 2002:a05:651c:b0f:b0:2fa:d58d:dcf3 with SMTP id 38308e7fff4ca-2fb187cd62fmr20865261fa.33.1728486478222;
+        Wed, 09 Oct 2024 08:07:58 -0700 (PDT)
+Message-ID: <edaf2302-ae68-4c05-b8cf-1613ae9d4e7b@suse.com>
+Date: Wed, 9 Oct 2024 17:07:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/44] x86/boot: move x86 boot module counting into a
- new boot_info struct
+Subject: Re: [PATCH v5 02/44] x86/boot: move boot loader name to boot info
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Christopher Clark <christopher.w.clark@gmail.com>,
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>
+ xen-devel@lists.xenproject.org
 References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-2-dpsmith@apertussolutions.com>
- <1e3d6e99-37df-4824-8702-3e8ae7a4923f@amd.com>
+ <20241006214956.24339-3-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,34 +114,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1e3d6e99-37df-4824-8702-3e8ae7a4923f@amd.com>
+In-Reply-To: <20241006214956.24339-3-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.10.2024 19:57, Jason Andryuk wrote:
-> On 2024-10-06 17:49, Daniel P. Smith wrote:
->> --- /dev/null
->> +++ b/xen/arch/x86/include/asm/bootinfo.h
->> @@ -0,0 +1,29 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +/*
->> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
->> + * Copyright (c) 2024 Apertus Solutions, LLC
->> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
->> + */
->> +
->> +#ifndef __XEN_X86_BOOTINFO_H__
->> +#define __XEN_X86_BOOTINFO_H__
-> 
-> I haven't been following closely, but I think if we follow Frediano's 
-> naming scheme, it would be:
-> ASM__X86__BOOTINFO_H
-> 
-> With that (or whatever it should be),
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+On 06.10.2024 23:49, Daniel P. Smith wrote:
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -285,6 +285,9 @@ static struct boot_info __init *multiboot_fill_boot_info(unsigned long mbi_p)
+>  
+>      bi->nr_modules = (mbi->flags & MBI_MODULES) ? mbi->mods_count : 0;
+>  
+> +    bi->loader = (mbi->flags & MBI_LOADERNAME) ?
+> +                            __va(mbi->boot_loader_name) : "unknown";
 
-And then also
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Either (noting that generally we exempt ?: from the operator-on-earlier-line
+rule)
+
+    bi->loader = (mbi->flags & MBI_LOADERNAME) ? __va(mbi->boot_loader_name)
+                                               : "unknown";
+
+or 
+
+    bi->loader = (mbi->flags & MBI_LOADERNAME)
+                 ? __va(mbi->boot_loader_name) : "unknown";
+
+or
+
+    bi->loader = (mbi->flags & MBI_LOADERNAME)
+        ? __va(mbi->boot_loader_name) : "unknown";
+
+(in the order of my personal preference).
 
 Jan
+
 
