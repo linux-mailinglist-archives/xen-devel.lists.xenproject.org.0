@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CEA59965C3
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:44:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814098.1227198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 029859965FF
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:53:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814108.1227207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syTEv-0008WN-OA; Wed, 09 Oct 2024 09:44:17 +0000
+	id 1syTNI-00041O-KG; Wed, 09 Oct 2024 09:52:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814098.1227198; Wed, 09 Oct 2024 09:44:17 +0000
+Received: by outflank-mailman (output) from mailman id 814108.1227207; Wed, 09 Oct 2024 09:52:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syTEv-0008Ud-LC; Wed, 09 Oct 2024 09:44:17 +0000
-Received: by outflank-mailman (input) for mailman id 814098;
- Wed, 09 Oct 2024 09:44:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syTNI-0003yv-HR; Wed, 09 Oct 2024 09:52:56 +0000
+Received: by outflank-mailman (input) for mailman id 814108;
+ Wed, 09 Oct 2024 09:52:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3wKy=RF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1syTEt-0008UX-Qy
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:44:15 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b088226-8623-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 11:44:14 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-5398cc2fcb7so7550500e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 02:44:13 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539aff1d341sm1458616e87.167.2024.10.09.02.44.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2024 02:44:12 -0700 (PDT)
+ <SRS0=3FS1=RF=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1syTNH-0003xZ-2x
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:52:55 +0000
+Received: from fhigh-a5-smtp.messagingengine.com
+ (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 40334e0c-8624-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 11:52:53 +0200 (CEST)
+Received: from phl-compute-10.internal (phl-compute-10.phl.internal
+ [10.202.2.50])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 18B9C1140193;
+ Wed,  9 Oct 2024 05:52:52 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-10.internal (MEProxy); Wed, 09 Oct 2024 05:52:52 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Oct 2024 05:52:50 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b088226-8623-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1728467053; x=1729071853; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=azvjZLZmY1Yusr59naqFI2Y/i885nbOVpal2iF9eUmw=;
-        b=iuYlEjTinnp3IkJOTJCb8po8z9KTLwM1+mtIPGVnoIy7WS1Ny6kO+CjYfVcHIJqtFD
-         ADyez+cluGa1psYNWgLjO0eZOnHjAMRb7I/7BUgpAfZxxKMPXqC5QUsbC4DJuPupkffc
-         tzSof/emTy5iH37LgDZnfafXVKUHbDUHkw8aAVYyLRTfNM2uClTO3WSorzwZwy9qnvxI
-         rUL4sb7vIGWFuTPDj+RfOLtiWPB5yGzHe8NU7VKGHm8QmPFRBDPTpQphX68mLzz4//B5
-         6Kcd1ifQWIt3eVzU8C8olmYW+ao7JnsPZNJI2s7k+gvAL2ZbUUg1/0VnzPrf62MnYsEp
-         PoYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728467053; x=1729071853;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=azvjZLZmY1Yusr59naqFI2Y/i885nbOVpal2iF9eUmw=;
-        b=RQ/SR/Q2xipRUKjV4rsGXGXUbpfcC3uB1VJ2Gmt0uGMBk5t+c7PXwvsOKwU3qIAXLv
-         YI5mjehv9DwRC/Rdnamcv1BiysjLCwfA7KwbiwDz/Co7sPxRCv6RngA3oeRED65jm+Yo
-         7r3mYUDBvgU4lwjs9iNptb/T7EXhLDMHi0nCdOGrfXy+L4Wi7WJx6ARgqUpluttHa61r
-         NvAltsDNIMv3ttjY5MamNCgC4HJox6lzSayxjMKUOeHvMoW4Nhd/7Iy4Ll8h1Tsxj00F
-         FgugTpJlfJgmmNbYFfcMRp50NmDpYTX24xW41YKuyHK40DIG7p2/1sIfvpQEot7dLip0
-         pIjQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWHIxvKSZ6I6OqQjbSqWOHdNxCBd1m+F/8OXkzZrm3eGdUZv0+ys4OrA76c3TJBIkrTuUFI2ACENQM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy659bUeIDA8TlloQKTyqELGAtxZXvxCezgrgxyjYXx/AVJUbV6
-	OZT72JrZccaKiWuh/j+CeFRuOCisepixMHgFhOEp31/CewN9jvyJ
-X-Google-Smtp-Source: AGHT+IHaVdKHY6jstBHtgfVYpkz45Ka06kz2xLHSXasvRX6ZbgNNHZREMw61jpYkkyLHQk0qb45ICA==
-X-Received: by 2002:a05:6512:3087:b0:539:94e2:a0d6 with SMTP id 2adb3069b0e04-539c48eabbbmr1064176e87.31.1728467053095;
-        Wed, 09 Oct 2024 02:44:13 -0700 (PDT)
-Message-ID: <bb3d291186e1549de52f020d9cdca2b1938e508f.camel@gmail.com>
-Subject: Re: [PATCH v2 1/3] xen/riscv: implement virt_to_maddr()
-From: oleksii.kurochko@gmail.com
+X-Inumbo-ID: 40334e0c-8624-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1728467572;
+	 x=1728553972; bh=OBh7dvA1WDHaX0NNMpBXn4Qg0apWW54k1iTKqpaG4to=; b=
+	DSXQbPdcA7tHhbRsmLF0cBuZfcMwwg9rMfl1LwNthFBjQDOGuRZjSKHBUL8ufO7g
+	oFSblSaBHuVUCD9wsfUFSddSs/IFT/kYuXcb4exJsUZ457wHeTHThWwY2nvdTLKS
+	oWR95/TzCzeuZa3ff9KLNuBCTl1SSeMXm5KQ5xL2c6YKBX2cB4gr1INekOIKZJqS
+	aQu2aRbGlCQjCBgjc1/00+krds3AvzpMwT/tU6QP0estPPSJodE7edUs1wyozfk0
+	/mOp76NdAzw2mtf9IggsrL0fj3qq3QbSg/Af+IQuXuHMoloaaO0GDF5jlumNzVlN
+	mZyIo+p/ncde2rVyL6YrhA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1728467572; x=1728553972; bh=OBh7dvA1WDHaX0NNMpBXn4Qg0apW
+	W54k1iTKqpaG4to=; b=KMO52tzmS1XSuiKrsEY+7Kq2xUnCDUOb6HOp/VEsAx5n
+	USoD/LkPSU8ps4W6tNYKEV7h8MQiTc5TgZfFptn1aZzlY6GQvgpZiNCbT02xuqNl
+	hpKLjXBN/hgGi13WZYlZ9oka5W2xD6LKvS7a6q63+Pd6MfwBZHWrTFxQZxT+T0Kk
+	ox6O30mWLQ2RSF70ti23SGbUjccTqIEDOc25qrg8sZ5awo4GIUE3RzCN6le9wZO/
+	kUSQKHdh77eHsUA3oE9IVYA6T1vwAmYeh3CEqbRiq+jxtTOXWPupF1AmhkG4tG6i
+	ilDB8cbQigH6XO0cwL6B4RcRrIlFrweTptJL1iy+Qg==
+X-ME-Sender: <xms:c1IGZ1O4SX9a4dAawGwWs86fjzpCxwFQ05Q3m3NkWy7Zv8KTY64Ryg>
+    <xme:c1IGZ38peJxnyRGQCRwO4jfzqMo7cZtci4nujRMjsEZRQPvhdn2674Xcgp_UbMzbn
+    NOIvxMT_bq33Q>
+X-ME-Received: <xmr:c1IGZ0Qd5u4LqQYyYeMGISxt80qtCAtOMRY58wCmmObD39KZ2_RiKhQHJ6USuv6bsqFll4Y3vDmVWLdHTlmMwwZ18f12NB4Ozw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdeffedgvddvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
+    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
+    gspghrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghu
+    lhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrug
+    esvhgrthgvshdrthgvtghhpdhrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdp
+    rhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdroh
+    hrgh
+X-ME-Proxy: <xmx:c1IGZxv62K1c5x1ScJvTPGlbdUGTKAOlUDrrUh1ls8oWZ5Zp7toFrg>
+    <xmx:c1IGZ9eDPi0_l-N1HgNdh2a_1fuHgbJGPbOZAiphXzn7xEAYpyHEgQ>
+    <xmx:c1IGZ93oK-vpgVUv0E6bFx5C40PPnCb2RX4Uo4X2YwFLq8aXS94A3g>
+    <xmx:c1IGZ59FQlmFpFrptaxYTwGzo1DyKOTjGSzRIlxW9W4h9X8aOS6hhw>
+    <xmx:dFIGZx6t42ahbsRPfvfbApeyS1SjcDHcWS87-Qow7VIlBg840MH0Ppz9>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 9 Oct 2024 11:52:48 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Wed, 09 Oct 2024 11:44:12 +0200
-In-Reply-To: <98fdc897-2ad7-47c6-a633-70dfa381e562@suse.com>
-References: <cover.1728057657.git.oleksii.kurochko@gmail.com>
-	 <25a0fa030db90c929379a799aa5e03bed0197665.1728057657.git.oleksii.kurochko@gmail.com>
-	 <5771a606964dfaf7d507a5ecbc315dbbf8eac479.camel@gmail.com>
-	 <98fdc897-2ad7-47c6-a633-70dfa381e562@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
+ kernel
+Message-ID: <ZwZScGr75xEolDnS@mail-itl>
+References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
+ <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="GfK0RJaHWu31FjkM"
+Content-Disposition: inline
+In-Reply-To: <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com>
 
-On Tue, 2024-10-08 at 12:34 +0200, Jan Beulich wrote:
-> On 08.10.2024 12:26, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > On Fri, 2024-10-04 at 18:04 +0200, Oleksii Kurochko wrote:
-> > > @@ -28,7 +29,21 @@ static inline void *maddr_to_virt(paddr_t ma)
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 return NULL;
-> > > =C2=A0}
-> > > =C2=A0
-> > > -#define virt_to_maddr(va) ({ BUG_ON("unimplemented"); 0; })
-> > > +static inline unsigned long virt_to_maddr(unsigned long va)
-> > > +{
-> > > +=C2=A0=C2=A0=C2=A0 ASSERT(va >=3D (DIRECTMAP_VIRT_START + DIRECTMAP_=
-SIZE));
-> > It should be ASSERT(va < (...)).
-> >=20
-> > Then I can't use virt_to_maddr() instead of LINK_TO_LOAD() as=20
-> > address from Xen's VA space ( XEN_VIRT_START ) are higher then
-> > (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE).
-> >=20
-> > Or as an option we could consider to drop this ASSERT() as if
-> > VA is from directmap range the if below will catch that; otherwise
-> > we have another one ASSERT() which checks that VA is from Xen VA
-> > range
-> > where it is sage to use (phys_offset + va).
-> >=20
-> > Could we consider just dropping "ASSERT(va < (DIRECTMAP_VIRT_START
-> > +
-> > DIRECTMAP_SIZE))" or I am missing something?
+
+--GfK0RJaHWu31FjkM
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 9 Oct 2024 11:52:48 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
+ kernel
+
+On Wed, Oct 09, 2024 at 09:19:57AM +0200, Jan Beulich wrote:
+> On 08.10.2024 23:32, Marek Marczykowski-G=C3=B3recki wrote:
+> > --- a/tools/libs/guest/xg_dom_bzimageloader.c
+> > +++ b/tools/libs/guest/xg_dom_bzimageloader.c
+> > @@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
+> >      return retval;
+> >  }
+> > =20
+> > -/* 128 Mb is the minimum size (half-way) documented to work for all in=
+puts. */
+> > -#define LZMA_BLOCK_SIZE (128*1024*1024)
+> > +#define LZMA_BLOCK_SIZE (256*1024*1024)
 >=20
-> Counter question: Why did you put the ASSERT() there when - once
-> corrected - it's actually pointless? What you want to make sure is
-> that virt_to_maddr() can't be invoked with bad argument (without
-> noticing). If that's achieved with just the other assertion (as it
-> looks to be), then leaving out this assertion ought to be fine.
-Originally, I didn=E2=80=99t include the part after 'if (...)'. The purpose=
- of
-ASSERT(va < (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE)) was to ensure that
-the virtual address fell within the expected (directmap) range. Later,
-I added the part after 'if (...)', which extended the acceptable
-virtual address range to also cover addresses from Xen=E2=80=99s linkage
-address space. At that point, I should have removed the original
-ASSERT() but overlooked it.
+> That's as arbitrary as before, now just not even with a comment at least
+> hinting at it being arbitrary. Quoting from one of the LZMA API headers:
+>=20
+> 	 * Decoder already supports dictionaries up to 4 GiB - 1 B (i.e.
+> 	 * UINT32_MAX), so increasing the maximum dictionary size of the
+> 	 * encoder won't cause problems for old decoders.
+>=20
+> IOW - what if the Linux folks decided to increase the dictionary size
+> further? I therefore wonder whether we don't need to make this more
+> dynamic, perhaps by peeking into the header to obtain the dictionary
+> size used. The one thing I'm not sure about is whether there can't be
+> multiple such headers throughout the file, and hence (in principle)
+> differing dictionary sizes.
 
-I will drop the first ASSERT() and update the commit message / comment
-above virt_to_maddr() why it is enough to have only 1 ASSERT() after if
-(...).
+What is the purpose of this block size limit? From the error message, it
+seems to be avoiding excessive memory usage during decompression (which
+could be DoS via OOM). If that's the case, then taking the limit from
+the kernel binary itself will miss this point (especially in case of
+pygrub or similar, but there may be other cases of not-fully-trusted
+kernel binaries).
 
-~ Oleksii
+I realize replacing one arbitrary number with another is not really
+future-proof, but also the last one lasted for over 10 years, so maybe
+it isn't really a big issue.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--GfK0RJaHWu31FjkM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmcGUnAACgkQ24/THMrX
+1yzDogf/UzSSpAawMIqxqVks02iu0ekNdZO85w3sVoYynfwH9I++KHV6Ri6UmO4f
+YDBDpIldHZ3sWYErh0pxlI5Ixu4vhHIWCuiHVOmbI5eAbttuSpzU78MsVDSJJFlY
+3YRQywsqfxzwTtuJ/xDnEXdbSdmUgsXP/UXjkLrVl9FvP17ZSh8L67fZIQ12iM28
+yoqq/e5at1/14ieDro4l433yCeqBJIdW6T7xIZTk6GowSdyjK2qIRyF68C3asp+M
+T0p4Z5zXucrZiq/S4ZoFe7o0kEzja+g+tLfPpOLVVUQtyKFCk3o7uQTjgJPCCYsA
+Rc5DKeI21j/x6RnK8OPKUpAvQp1DWg==
+=BbQq
+-----END PGP SIGNATURE-----
+
+--GfK0RJaHWu31FjkM--
 
