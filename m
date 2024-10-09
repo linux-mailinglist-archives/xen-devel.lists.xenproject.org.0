@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F82D9962FC
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 10:38:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813874.1226934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D68D996304
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 10:38:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813876.1226940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySCN-00065T-Fu; Wed, 09 Oct 2024 08:37:35 +0000
+	id 1sySCN-0006IO-Pt; Wed, 09 Oct 2024 08:37:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813874.1226934; Wed, 09 Oct 2024 08:37:35 +0000
+Received: by outflank-mailman (output) from mailman id 813876.1226940; Wed, 09 Oct 2024 08:37:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySCN-0005zq-3V; Wed, 09 Oct 2024 08:37:35 +0000
-Received: by outflank-mailman (input) for mailman id 813874;
- Wed, 09 Oct 2024 08:37:01 +0000
+	id 1sySCN-00063J-H3; Wed, 09 Oct 2024 08:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 813876;
+ Wed, 09 Oct 2024 08:37:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qj4E=RF=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1sySBp-0005FO-Be
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 08:37:01 +0000
+ id 1sySBy-0005FO-8Z
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 08:37:10 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a67d4ad1-8619-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 10:37:00 +0200 (CEST)
+ id abcfa615-8619-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 10:37:09 +0200 (CEST)
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
  [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-66-SP56zgMvMUybXpx4qb8Eow-1; Wed, 09 Oct 2024 04:36:58 -0400
+ us-mta-552-ezTiMZxBNFWzDhGghn2v3w-1; Wed, 09 Oct 2024 04:37:07 -0400
 Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-7afdf50bfcaso139001485a.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 01:36:58 -0700 (PDT)
+ af79cd13be357-7a9af65cf73so621438485a.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 01:37:07 -0700 (PDT)
 Received: from eisenberg.redhat.com (nat-pool-muc-t.redhat.com. [149.14.88.26])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7ae75615aa2sm439643585a.14.2024.10.09.01.36.48
+ af79cd13be357-7ae75615aa2sm439643585a.14.2024.10.09.01.36.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2024 01:36:56 -0700 (PDT)
+ Wed, 09 Oct 2024 01:37:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,39 +49,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a67d4ad1-8619-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: abcfa615-8619-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728463019;
+	s=mimecast20190719; t=1728463028;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1PPm9S1zRcO86dlq3mHzZGXnJgcIWsisXbqhvFp0Kes=;
-	b=cfQGjjcnjw+Foio7/PqFa84qZtptYKB3xcumLVdkQSxRZE7iw7TP6MxrDRS/VwNmj9CZ+7
-	Gw6ZT5u5bga40p2OD4ZoVlePPDLAMaOoVgSNSuM2Uc7L0xpWF4w5Fd6Odu/ih3PFldqo0D
-	Q+EK9B8fY6541HY42KHjLKTBaDpd5KY=
-X-MC-Unique: SP56zgMvMUybXpx4qb8Eow-1
+	bh=WNVTMVvkzsZ7hvF5EavB0JCPwkl/fF5os/K0NJtlfsw=;
+	b=CtYtZVBzjPRz2qlo5j/9U6WtImTvTaLKuzHFoHorvmMmBGMp30L8IQaPRX8x1kqRaZbVqp
+	CtbH91cfHwA30xykZq+8qsDt/Kvx78rZa0cqG5u6SQWWOsIpgp+VITPNScsVprlxbtjrgj
+	J0YJuXGt36WluLx994AED6ECztSBx0c=
+X-MC-Unique: ezTiMZxBNFWzDhGghn2v3w-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728463018; x=1729067818;
+        d=1e100.net; s=20230601; t=1728463027; x=1729067827;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1PPm9S1zRcO86dlq3mHzZGXnJgcIWsisXbqhvFp0Kes=;
-        b=U2aco2lhaciho1JgBqiadwLqbXrzYTxP1OhTXNhdllY7tPcNM2NROgar1fmk9GQHyK
-         CDfoY71o2QngMZWjv+TCAbgrzFgMUyMPsh1fenkSq4QxEEwwJmOFxLNZBWaAm2kf1VNW
-         r+16MxUTgFA7RtQLRdeqc2RRnNExtpw0Az5/pASzn9WlMwUo+qlCNsef2eRrDrDtUGeb
-         ebBduQjD6C3l9KPhF7KypWms5mq+MKxcC7hwoQspUpfNjW6o/flnUXOCm4pWk9i5knfr
-         x+Q7t7x8pkTLYaUWaeREcpD9pAik/8oy1bWcc/tQQPi41O9bwIC6+mdIwQucjTZ5Z1h5
-         yo0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUD9P4m0Z7Sen19+1krcwdamAUWBqkgaZDFyFuuHOyh7T6b0BedPD8UMP+aVTC398GNoEI4609d8/c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6eyCfh7SDaOoDl13LmyiJ256uXCIqoJ/iFWLBI1erRKaB+uQJ
-	ksc3mBZtxJYoz7gEGwCW/EI+9EKp0uXJbuKuL/cBY3OOIE2Bjb1ZMV/lYekXSWarhxT2wpQqaW0
-	KTvpntMSQFdiPXl0rJG866tc3rKffM4hH9ampMiD76fon9uePkzbq7Hl6ucbTtAfB
-X-Received: by 2002:a05:620a:40d2:b0:7af:cea1:2dd6 with SMTP id af79cd13be357-7afcea13062mr575428985a.9.1728463017661;
-        Wed, 09 Oct 2024 01:36:57 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGvN3DzIDBf5agA7u3XzrMCdDXSCcUz6hrKViBRxZsE1bbVXxxuhuZe+LfXJzoxle8rULiRWQ==
-X-Received: by 2002:a05:620a:40d2:b0:7af:cea1:2dd6 with SMTP id af79cd13be357-7afcea13062mr575422585a.9.1728463017195;
-        Wed, 09 Oct 2024 01:36:57 -0700 (PDT)
+        bh=WNVTMVvkzsZ7hvF5EavB0JCPwkl/fF5os/K0NJtlfsw=;
+        b=QlHWw6lSOIjXjPLqSHbhfp/PYZjYt5jKbmPYRaQINodjiG0C4QO6Zn2g/PCBw6bnP5
+         MnqIn2FFKN5UG0fuYi1OFid4tCzFVuyhVOOyRaP38nTztpXGsy83IIXeZ0vS9bzl2xS3
+         WsH0CxluAtOH1mCbTg0kb3No2bOJo53ySAV7U7f3aA3Fgi30ZqUCIEf/0MBebB8ynlaD
+         CWWhCVe9aFPVPp3hCVOIlVwOreo3SZjalbe3gqqlDAAmsGquhNGUHtXLqvXnZ/6obhp0
+         aCA2CMoEnHkq4oYy8Jp6l8ZuiWe4I7GwlmWHxfd54IsxTLC78OVD5OMBHcjmGU03/Hpc
+         pFvw==
+X-Forwarded-Encrypted: i=1; AJvYcCUcl2oqSe/mkIiNQA0TbMuuXjOHqde+Yjf8taOnK6dndaymRoaKMqx3bS6lgd9aixp0JF1Sk8XDnvk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8uHSQOV5VtAmdNAocWet3RH34NXyqlleZIKZRzdWGZsRx33Cd
+	c5EjatxSXXl2M+FttUGgOf6CvfSq+BP1zR6bYRDmC8PO91Lzx/p5+lVggz89buMmXd5ekLcMny4
+	/Kv9J99rM4A70s5w8aP2dNCje+cBtq0D0yDrE/fDOvIn5nPkp+CdcWYnY9z9Wp1wy
+X-Received: by 2002:a05:620a:1786:b0:7a9:b9c6:ab4d with SMTP id af79cd13be357-7b0874b2e98mr203714085a.51.1728463026703;
+        Wed, 09 Oct 2024 01:37:06 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH3E0hV0KwQQvESOvv48X2ciqeB9+Uq53IkSsAgik+9QXi7ONASinXEowAITLecuVI2IQ519Q==
+X-Received: by 2002:a05:620a:1786:b0:7a9:b9c6:ab4d with SMTP id af79cd13be357-7b0874b2e98mr203707485a.51.1728463026267;
+        Wed, 09 Oct 2024 01:37:06 -0700 (PDT)
 From: Philipp Stanner <pstanner@redhat.com>
 To: Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
@@ -155,9 +155,9 @@ Cc: linux-ide@vger.kernel.org,
 	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-sound@vger.kernel.org
-Subject: [RFC PATCH 02/13] ALSA: hda: hda_intel: Use always-managed version of pcim_intx()
-Date: Wed,  9 Oct 2024 10:35:08 +0200
-Message-ID: <20241009083519.10088-3-pstanner@redhat.com>
+Subject: [RFC PATCH 03/13] drivers/xen: Use never-managed version of pci_intx()
+Date: Wed,  9 Oct 2024 10:35:09 +0200
+Message-ID: <20241009083519.10088-4-pstanner@redhat.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241009083519.10088-1-pstanner@redhat.com>
 References: <20241009083519.10088-1-pstanner@redhat.com>
@@ -171,28 +171,28 @@ pci_intx() is a hybrid function which can sometimes be managed through
 devres. To remove this hybrid nature from pci_intx(), it is necessary to
 port users to either an always-managed or a never-managed version.
 
-hda_intel enables its PCI-Device with pcim_enable_device(). Thus, it needs
-the always-managed version.
+xen enables its PCI-Device with pci_enable_device(). Thus, it
+needs the never-managed version.
 
-Replace pci_intx() with pcim_intx().
+Replace pci_intx() with pci_intx_unmanaged().
 
 Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 ---
- sound/pci/hda/hda_intel.c | 2 +-
+ drivers/xen/xen-pciback/conf_space_header.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index b4540c5cd2a6..b44ca7b6e54f 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -786,7 +786,7 @@ static int azx_acquire_irq(struct azx *chip, int do_disconnect)
- 	}
- 	bus->irq = chip->pci->irq;
- 	chip->card->sync_irq = bus->irq;
--	pci_intx(chip->pci, !chip->msi);
-+	pcim_intx(chip->pci, !chip->msi);
- 	return 0;
- }
+diff --git a/drivers/xen/xen-pciback/conf_space_header.c b/drivers/xen/xen-pciback/conf_space_header.c
+index fc0332645966..8d26d64232e8 100644
+--- a/drivers/xen/xen-pciback/conf_space_header.c
++++ b/drivers/xen/xen-pciback/conf_space_header.c
+@@ -106,7 +106,7 @@ static int command_write(struct pci_dev *dev, int offset, u16 value, void *data)
+ 
+ 	if (dev_data && dev_data->allow_interrupt_control &&
+ 	    ((cmd->val ^ value) & PCI_COMMAND_INTX_DISABLE))
+-		pci_intx(dev, !(value & PCI_COMMAND_INTX_DISABLE));
++		pci_intx_unmanaged(dev, !(value & PCI_COMMAND_INTX_DISABLE));
+ 
+ 	cmd->val = value;
  
 -- 
 2.46.1
