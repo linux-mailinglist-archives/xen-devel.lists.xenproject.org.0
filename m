@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C0B8996FC5
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 17:32:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814834.1228521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D5F996FD4
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 17:39:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814841.1228530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syYfx-0002vB-EF; Wed, 09 Oct 2024 15:32:33 +0000
+	id 1syYlt-0004cl-31; Wed, 09 Oct 2024 15:38:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814834.1228521; Wed, 09 Oct 2024 15:32:33 +0000
+Received: by outflank-mailman (output) from mailman id 814841.1228530; Wed, 09 Oct 2024 15:38:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syYfx-0002sm-BX; Wed, 09 Oct 2024 15:32:33 +0000
-Received: by outflank-mailman (input) for mailman id 814834;
- Wed, 09 Oct 2024 15:32:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syYlt-0004Zr-0G; Wed, 09 Oct 2024 15:38:41 +0000
+Received: by outflank-mailman (input) for mailman id 814841;
+ Wed, 09 Oct 2024 15:38:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syYfv-0002se-G9
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 15:32:31 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b255b596-8653-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 17:32:30 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c8af23a4fcso8522997a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 08:32:30 -0700 (PDT)
+ id 1syYlr-0004X6-DA
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 15:38:39 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8d18198e-8654-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 17:38:37 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-5399041167cso11295916e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 08:38:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c92ff3a267sm173343a12.72.2024.10.09.08.32.29
+ a640c23a62f3a-a994c5a219bsm507197266b.152.2024.10.09.08.38.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 08:32:29 -0700 (PDT)
+ Wed, 09 Oct 2024 08:38:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b255b596-8653-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 8d18198e-8654-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728487950; x=1729092750; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728488317; x=1729093117; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IBl5PMQsVJkRgqUZiKmNB0QuqpHX2Sf9BgRLdoD7dng=;
-        b=EX/14q2XqCALw5cf+hCGQgVO0yQNUe9jgQvkm9VHAaBVbK5T8ZE2GQjL/aPiwJSqig
-         N3zQ+szAgRdf73Gc2DJRU1MzK38hB1+Y076Z0BEUWT2Zt4k8Ysh1IVZGZsLkKzuM4FUn
-         cKbPM88gck+2fhbEjxzXwHiSkrUOsfKjM1uy94fPYo+uN02X4d6UuINnF42p2PtXX2P/
-         qQ/F9cqpWNGVvobkMN7pN0MktIxxzrqQDnWQNxZP61Tv5kVBndFq86noFo9/IkZbBz54
-         o7KI+Im7tNI/iX+qsKwk8ZAFewXRE2/ed7bK+X5BybR2Xqqa0ivAfgu6t1tm5MI5KDcY
-         Y4Jg==
+        bh=wODw9eGqZU/Y4//9+2qG8H4Di9uKIKnry7vwIwp/p44=;
+        b=UfZTXO6f9VNx/xybRuuQCm6X1cOjGfgu275PHa+OZENLWquhlzp+x1FMSDaWh7Tuns
+         pRcixPtGUVADIIL77zJcN29UvmB2HthjTgozn/NPWgxevkIkrqqWWVsm3HTN1bTDz30Z
+         7ntruHVqmeznTDW7LLWj6bE/ff21P87EfgUW8RVnVvNB+naWyeNC+g1kLdw4iN33YvRv
+         VM1iTGBEN1mAx5N4teo6/L0JE+nROIODa0CtO/BL4XNjUNfvx/H1Z+j1kbHDDZyW1BJ5
+         GEh1EPkF5uN3YYQkUPfiv8G7KAAEbWyKul4N9QKKi8CbNtw55rBMSpOmuGNINz3ugEiZ
+         dbhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728487950; x=1729092750;
+        d=1e100.net; s=20230601; t=1728488317; x=1729093117;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IBl5PMQsVJkRgqUZiKmNB0QuqpHX2Sf9BgRLdoD7dng=;
-        b=a5FatU0ypuf3m5kqvd4DeFY8d0mKHcQYH5R0YT3uQG/1ysYXbP3DllpzYQENgQxmFl
-         XVVjIUXyjvJrGX7P+Rb2gXZ/YHc08SmjuMeCmcNhBEjqT53bO18D+roqQimjucwFwqvu
-         lJpLGGhWa1uBtvJJjONbRkQywd8HrjRs3x8z9pWTOkG2ZYYj7WSw8nf78xafiDnfeJQU
-         tHsn0Ibk0Q14Oes1TrXdRZaG1Uyst5hE1g0XYF6YE63bx9dXv06WgevVwTxa/WCzjO6P
-         TMk0kw9NcYUCexOxKpAbmsAKqF3bXD+P5EFV1s3sf6jmKAq7xkO0HV+e1BQs8OkwrGgR
-         EzgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXKn9DjszWGTBuVCszlB3FuKQnoVYjuEWfhx8pJZmfj8fyuI+S/yBg/bjqby2geyyT9Uk2vXBwPvqM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywt4n6fSekq45TVNoby8bDOoPDyFwqF7I+0/ovRFkYJ0EC7nf6w
-	BQsYqZFIfHGl3OC63kiIWM3hLgWHaRvqpByTpFmKvaUdu6yoAawdHtvmv89S6sF8YNNGPT+zwTE
-	=
-X-Google-Smtp-Source: AGHT+IF3/3MW28h8VTBpp+QXbP5PvaAOEwlpbai8vXhfNn9+q/KvccAVO58+GEbox0aU62VkIsKRuQ==
-X-Received: by 2002:a05:6402:5209:b0:5c5:c4b9:e68f with SMTP id 4fb4d7f45d1cf-5c93241df0fmr198701a12.5.1728487949875;
-        Wed, 09 Oct 2024 08:32:29 -0700 (PDT)
-Message-ID: <c8e3ac4f-642b-4dc2-b73e-7018e27f6c76@suse.com>
-Date: Wed, 9 Oct 2024 17:32:29 +0200
+        bh=wODw9eGqZU/Y4//9+2qG8H4Di9uKIKnry7vwIwp/p44=;
+        b=H1V/EcEBZjl9bsD8tzPbg2l1TW0hXDcu9dmbB6bsA08lICDb6IA2OyrqM1UnvlB5uM
+         VhJu/JrSGYzrbOn37cJaRTmHfa33c3J7fv5KUnj0t57aP84vUIe2ochELjPflc/1qS9G
+         HzprpTnhVA4S2kwEeXk67V47UtmLLxz2irmc5fX+GeLeyPOTCRCa977WHc98yNZl1PGm
+         rJb8enZI6xAK0RGDzc1VqeryalFVvPXzVa6TQwsyePT3omLAKPcTxk+0XBPn4akBy2j1
+         a7fzj1D6v9FNXMQVjtZy8t8HTbpU/ft9uq8EtZJIMdL8Ib36U81qRCXSYx3o9Pyjb7MB
+         9n+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWaT93fcX7dCno3xvTNHm23jVH7HxVTgUY4+GzI0q+YkbUOH/muA5R8F6wzusi+gkrnJLGFfwb8w1o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyELbPgAjh+XMb7PkBXVc4cLjLZe78esotEFPjKnIN3/6EIbt8i
+	lXyuS9QSyAgXAZdtewndJwuBvcOFbdbqwcspVgN8Fz5h3eSax2V4HLCiWE6IHw==
+X-Google-Smtp-Source: AGHT+IFzAeyqPKAUZlg1mRX7mW5teRBCw5QC/Qx5VyeLL52DygV6etZyqdupku0bqpcKq/000brTVQ==
+X-Received: by 2002:a05:6512:acb:b0:539:94f5:bf with SMTP id 2adb3069b0e04-539c496ce0fmr2937037e87.59.1728488316798;
+        Wed, 09 Oct 2024 08:38:36 -0700 (PDT)
+Message-ID: <dbd4898a-38da-47d5-8655-32f96c33575d@suse.com>
+Date: Wed, 9 Oct 2024 17:38:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/44] x86/boot: introduce boot module flags
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 11/44] x86/boot: split bootstrap_map_addr() out of
+ bootstrap_map()
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-11-dpsmith@apertussolutions.com>
- <9372d72c-c98d-495b-bc3c-8b81208f7cd5@amd.com>
+ <20241006214956.24339-12-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,40 +115,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9372d72c-c98d-495b-bc3c-8b81208f7cd5@amd.com>
+In-Reply-To: <20241006214956.24339-12-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.10.2024 22:02, Jason Andryuk wrote:
-> On 2024-10-06 17:49, Daniel P. Smith wrote:
->> The existing startup code employs various ad-hoc state tracking about certain
->> boot module types by each area of the code. A boot module flags is added to
->> enable tracking these different states.  The first state to be transition by
->> this commit is module relocation.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/include/asm/bootinfo.h | 4 ++++
->>   xen/arch/x86/setup.c                | 8 ++++----
->>   2 files changed, 8 insertions(+), 4 deletions(-)
->>
->> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
->> index 6941a8975ea6..021ff0d93643 100644
->> --- a/xen/arch/x86/include/asm/bootinfo.h
->> +++ b/xen/arch/x86/include/asm/bootinfo.h
->> @@ -31,6 +31,10 @@ struct boot_module {
->>        */
->>       unsigned long headroom;
->>       enum bootmod_type type;
->> +
->> +    uint32_t flags;
->> +#define BOOTMOD_FLAG_X86_RELOCATED     (1U << 0)
->> +
+On 06.10.2024 23:49, Daniel P. Smith wrote:
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
-> Stray newline.  Otherwise:
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> Using an interface based on addresses directly, not modules.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> ---
+>  xen/arch/x86/include/asm/setup.h |  1 +
+>  xen/arch/x86/setup.c             | 19 +++++++++++++------
+>  2 files changed, 14 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+> index 3d189521189d..213584b05fb2 100644
+> --- a/xen/arch/x86/include/asm/setup.h
+> +++ b/xen/arch/x86/include/asm/setup.h
+> @@ -36,6 +36,7 @@ extern struct boot_info xen_boot_info;
+>  
+>  unsigned long initial_images_nrpages(nodeid_t node);
+>  void discard_initial_images(void);
+> +void *bootstrap_map_addr(paddr_t start, paddr_t end);
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Nothing is being said about why this function needs a declaration here
+and ...
 
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -437,24 +437,22 @@ static void __init normalise_cpu_order(void)
+>   * Ensure a given physical memory range is present in the bootstrap mappings.
+>   * Use superpage mappings to ensure that pagetable memory needn't be allocated.
+>   */
+> -void *__init bootstrap_map(const module_t *mod)
+> +void *__init bootstrap_map_addr(paddr_t start, paddr_t end)
 
+... isn't instead static here. Bugseng folks have put in quite a bit of
+effort to remove such anomalies (which Misra doesn't like) from the code
+base; I don't think we should introduce new ones. I didn't peek ahead
+further than just the next patch, where the function gains a new use,
+but could still be static, so it's possible I'm simply missing a
+subsequent use from another CU. Yet then the function ought to become
+non-static only there.
+
+Jan
 
