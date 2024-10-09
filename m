@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6179996E33
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:36:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814646.1228254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17D2996E4A
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:40:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814654.1228263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXnk-0002Uq-RS; Wed, 09 Oct 2024 14:36:32 +0000
+	id 1syXqx-00055W-70; Wed, 09 Oct 2024 14:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814646.1228254; Wed, 09 Oct 2024 14:36:32 +0000
+Received: by outflank-mailman (output) from mailman id 814654.1228263; Wed, 09 Oct 2024 14:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXnk-0002TO-Nk; Wed, 09 Oct 2024 14:36:32 +0000
-Received: by outflank-mailman (input) for mailman id 814646;
- Wed, 09 Oct 2024 14:36:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syXqx-00053b-4U; Wed, 09 Oct 2024 14:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 814654;
+ Wed, 09 Oct 2024 14:39:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1syXnj-0002TI-77
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:36:31 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ddac0804-864b-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 16:36:28 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1728484580897303.3837773804188;
- Wed, 9 Oct 2024 07:36:20 -0700 (PDT)
+ <SRS0=BLvJ=RF=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1syXqv-00051H-KN
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:39:49 +0000
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [2001:4860:4864:20::2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55378417-864c-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 16:39:48 +0200 (CEST)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-2872134c806so2239799fac.3
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 07:39:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,78 +40,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ddac0804-864b-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1728484584; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eDDi6d56+f4O1H86Z+8XvTNS0x8JoCQveOY0zmpXiyZf5ykaHnJg+gPWblHalBZ0a3+nGMA/esjrCrjcHY+fHc3JLtoeLguL4m5BV2BqQEd1XuY8FzoKSjSztCUjYYQrPURJkUSALaEKFFTogvJBzmc/vqsbcKh/GufK95PytTo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1728484584; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=SLIPpUZ70l5GUI38EgchFjbId7y/WR0TYtmCWwB+glY=; 
-	b=EbTntArkS/6vge964VyIkq5ou1xqCRyJ8vDXT1BVP/nfDo1o3GYoWUR2cP9YMVzFkdXNYcX0skl1h61bHat0Z1HCc1rdSXWW7RTS4mhiBey9RlOPIxea9cSEbmiVrz6ZKz/QkrGzJrvy0qrfWPL5TMZfWgX+5mDodasN83bFP+I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728484584;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=SLIPpUZ70l5GUI38EgchFjbId7y/WR0TYtmCWwB+glY=;
-	b=djK0wUGbYKvUZGFKso1fFpyizg6mHOwEMQTSyf//2nkjmTPB4hqq/E9iSja4pTD2
-	C6m7YA/e0S7FKT3Fa61fTlQZJ45i3BL+fpIpC+bki/LrO3/nuKChcob4rJcaaFyuSIG
-	DCg+vcI8kUkhqUgjI48wYdyYfzxWf/wZszDj+o60=
-Message-ID: <f301b94a-c054-410d-8927-bea8abe506fd@apertussolutions.com>
-Date: Wed, 9 Oct 2024 10:36:18 -0400
+X-Inumbo-ID: 55378417-864c-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1728484787; x=1729089587; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A5VYZzA33/X7lo1locmMNQ9zjdbZ5WoZT3Ls76hGZ8c=;
+        b=lZPw1q8U6fLJMPtu2c6eBEx5qpVWIvMggqxqKhKIuSi6TCdR5N+rBClTtgabWAUD8U
+         YUen/yK9Rx62uQG2g12tt1EeZD2Trlswbu9wL2JCqFo281EPwNRn5S6MRz9tIX6u7Y/8
+         fMjmE/9n5hIxvoAGB4KrpUJf6OTSAVgikhEK8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728484787; x=1729089587;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=A5VYZzA33/X7lo1locmMNQ9zjdbZ5WoZT3Ls76hGZ8c=;
+        b=G1XN7Q6Wg4JOddRQ/xdq+tMdoYncp9Qr5U0gS7sKzts6v7DzyHY6cnIkFN949WMIyP
+         Zgn1dBGdQEiQjQSa2T6zGUI+VajsjKf6I1rsSdBgRQfyoOSsJ4JF2DPq5XFc1OeQJi30
+         w5XrKeu9n9iuC+M2weVJ2H2+2I4GR7pVFo4fPl//ql7JqEvIQF6sF9GI9hR58KS+kndb
+         hL90fDMplgCz1IXKDUxElXJ7IUw1D1xpbpleukgHXhzMmk5O7nvwZ1exS5rmDZbcXGpe
+         12fT/3FThjQalxfOd7Q+eo7TyJjGO0pRMHqlZvBNdzN37nOhObxy5mmiZi2jE7//3NvO
+         9g/g==
+X-Forwarded-Encrypted: i=1; AJvYcCVqI0gFlOwy0evEWBh8WFU63+Ab5TbtRcWnrlK7VaOQvT8oaxOyIetzJJpZc7aO+5OG3MgzhHn9RN0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yya9N11asTkuqH/S7K+UAq8qTQ4Bp1QDTF0Okg20AY9Lx7ikxgj
+	yZ1S1ycP31+JGLSTYva30vdGoPfYaVtpPydmwhR23Cpjw+2MFC32YSib25luGf4t8jnFg7yIYcc
+	n3l0qet/IhOaqjEaobiAyUhvkllg4sah407efQw==
+X-Google-Smtp-Source: AGHT+IH6qejYFYzLFfLVD6k3oEhDOGZlO74HgLGZyOngpOwrm5/fMzkWfKnBiQDZb2i4WDXQH7yEcWFfcykF3xLlKzo=
+X-Received: by 2002:a05:6870:2113:b0:277:e457:6057 with SMTP id
+ 586e51a60fabf-2883450e7bbmr1812527fac.44.1728484787192; Wed, 09 Oct 2024
+ 07:39:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/44] x86/boot: update struct boot_module on module
- relocation
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-14-dpsmith@apertussolutions.com>
- <87771eef-050a-4d2f-845f-cbb053be4f72@amd.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <87771eef-050a-4d2f-845f-cbb053be4f72@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+References: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
+ <dee82fce-ffc8-493e-8d99-f5c3b321e5b3@suse.com> <a7b6fc68-a568-4b61-895d-c295ba3d3095@citrix.com>
+ <b5b20a0c-7584-4885-b7b0-c4b1cba8c0bd@suse.com>
+In-Reply-To: <b5b20a0c-7584-4885-b7b0-c4b1cba8c0bd@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Wed, 9 Oct 2024 15:39:36 +0100
+Message-ID: <CACHz=ZjXdcBdPFwP4vNEgNMqaXfyJN1Ur_KVLfp4Y3zMs-J-VA@mail.gmail.com>
+Subject: Re: [PATCH 1/7] byteorder: replace __u16
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/7/24 16:31, Jason Andryuk wrote:
-> On 2024-10-06 17:49, Daniel P. Smith wrote:
->> When a boot module is relocated, ensure struct boot_module start and size
->> fields are updated along with early_mod.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/setup.c | 7 +++++--
->>   1 file changed, 5 insertions(+), 2 deletions(-)
->>
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index 093a4f5380d1..f968758048ed 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1392,8 +1392,11 @@ void asmlinkage __init noreturn 
->> __start_xen(unsigned long mbi_p)
->>            * respective reserve_e820_ram() invocation below. No need to
->>            * query efi_boot_mem_unused() here, though.
->>            */
->> -        bi->mods[xen].mod->mod_start = virt_to_mfn(_stext);
->> -        bi->mods[xen].mod->mod_end = __2M_rwdata_end - _stext;
->> +        bi->mods[xen].start = virt_to_mfn(_stext);
->> +        bi->mods[xen].size = __2M_rwdata_end - _stext;
-> 
-> The last patch did:
-> bi->mods[i].start = (paddr_t)mods[i].mod_start;
-> 
-> and start is a paddr_t.
-> 
-> Is virt_to_mfn() wrong?
+On Wed, Oct 9, 2024 at 2:34=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 09.10.2024 15:20, Andrew Cooper wrote:
+> > On 09/10/2024 10:21 am, Jan Beulich wrote:
+> >> In {big,little}_endian.h the changes are entirely mechanical, except f=
+or
+> >> dealing with casting away of const from pointers-to-const on lines
+> >> touched anyway.
+> >>
+> >> In swab.h the casting of constants is done away with as well - I simpl=
+y
+> >> don't see what the respective comment is concerned about in our
+> >> environment (sizeof(int) >=3D 4, sizeof(long) >=3D {4,8} depending on
+> >> architecture, sizeof(long long) >=3D 8). The comment is certainly rele=
+vant
+> >> in more general cases. Excess parentheses are dropped as well,
+> >> ___swab16()'s local variable is renamed, and __arch__swab16()'s is
+> >> dropped as being redundant with ___swab16()'s.
+> >>
+> >> With that no uses of the type remain, so it moves to linux-compat.h.
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> ---
+> >> I'm unconvinced of the need of the separate ___constant_swab16(). I'm
+> >> also unconvinced of the need for said constants (that even had casts o=
+n
+> >> them).
+> >
+> > There is a still-good series deleting the whole of byteorder/ and
+> > replacing it with a few-hundred line single header.
+> >
+> > It is the second thing stalled on a governance change (prohibited
+> > reasons to object to a change) which clearly no-one gives a damn about
+> > fixing.  In fact double spite because it denied a good engineer his
+> > first changes in Xen.
+> >
+> >
+> > I don't particularly feel like trying to polish byteorder.  I'm incline=
+d
+> > to rebase+repost Lin's patches, at which point the majority of this
+> > series simply disappears.
+>
+> I wouldn't mind you doing so, as long as that other series then progresse=
+s.
+> What I don't want to get into is the other series being stuck rendering t=
+his
+> one stuck, too. Then it would imo be better to take this one first, rebas=
+e
+> the other on top, and work towards it becoming unstuck (whatever that tak=
+es;
+> I have no recollection of what the issue was back at the time, all I reca=
+ll
+> is that, yes, there was such work at some point).
+>
+> Jan
+>
 
-Yah, that is seriously wrong. Will fix.
+I usually don't like stopping a series waiting for another series too.
 
-v/r,
-dps
+In these mostly automated large changes instead of a manual rebase I
+extract patches with "git format-patch", do the same automated replace
+with sed/perl (like "s/\<u32\>/uint32_t/" and so on) and apply with
+"git am".
+
+My 2 cents.
+
+Frediano
 
