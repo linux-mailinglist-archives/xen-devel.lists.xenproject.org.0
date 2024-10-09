@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84771997862
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 00:19:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815212.1228907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC05F9978AD
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 00:48:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815223.1228916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syf1P-0001C3-UQ; Wed, 09 Oct 2024 22:19:07 +0000
+	id 1syfSc-0002JY-3j; Wed, 09 Oct 2024 22:47:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815212.1228907; Wed, 09 Oct 2024 22:19:07 +0000
+Received: by outflank-mailman (output) from mailman id 815223.1228916; Wed, 09 Oct 2024 22:47:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syf1P-00019V-RU; Wed, 09 Oct 2024 22:19:07 +0000
-Received: by outflank-mailman (input) for mailman id 815212;
- Wed, 09 Oct 2024 22:19:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syf1O-00019L-NS; Wed, 09 Oct 2024 22:19:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syf1O-0003bn-Kt; Wed, 09 Oct 2024 22:19:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syf1O-0005d2-3M; Wed, 09 Oct 2024 22:19:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1syf1O-0008QM-2u; Wed, 09 Oct 2024 22:19:06 +0000
+	id 1syfSc-0002Gj-0o; Wed, 09 Oct 2024 22:47:14 +0000
+Received: by outflank-mailman (input) for mailman id 815223;
+ Wed, 09 Oct 2024 22:47:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qR2m=RF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1syfSa-0002Gd-P5
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 22:47:12 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6b2be12e-8690-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 00:47:11 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 74AA25C5E48;
+ Wed,  9 Oct 2024 22:47:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12752C4CEC3;
+ Wed,  9 Oct 2024 22:47:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,150 +41,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5GS4LepTpZF2bioIxf2rboBSIzvGbDXw3l8bGm4PEtA=; b=cj9Eq1ehloUpMtAf9XrhlaFRBN
-	Y8Ho7o7K2D9ttM9ntfmRtIM44YcwF0na3lgFJEBgSyD2OmNwdJB8WbARV2B5SwR9dycxRngbJ9/wc
-	+mYBM5gWtV8D+ri2qJHLI2i5G6YHsYkCqfYBOsOWtoCqwJ+DXBFZ6MJ4JKihH9lumyI0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188022-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6b2be12e-8690-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1728514029;
+	bh=zezz4miSiEcAUWwCNxLP4M8HbD5Q3oG1LiX06x3IoAM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=sZvkI5muk6awGGVdIHrLvoDRdzZ21X2AHklId6MA8LcOAk40rNThbq+RWFi+ZZAan
+	 fyQmQD/z8xufkSYMulX16TXR81GuzFMTjAfIkcnHsPF1mH3b0z8CpSkyp/Ww4KG5bM
+	 vdScIWAbluxij52vhCH9E+O+N338aMMd3s3A8Yk9SBNajU6GgHzMdQvm2/9YBomupa
+	 yZoKu9bqw4pzvIs5pYDrzRMkRHrUiwA0a2cA6ht2isdML/EA+iJFFxjBy37zSvlT43
+	 f5xAt5S6ETrJC+IFpVSBVEbWPcHAnZ1IOtAV4iDBpPCowxdmojpJo0YJQIqfmMLpCo
+	 V+Ec4rCGtOfsg==
+Date: Wed, 9 Oct 2024 15:46:59 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Jiqian Chen <Jiqian.Chen@amd.com>, xen-devel@lists.xenproject.org, 
+    linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Marek Marczykowski <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH] xen: Remove config dependency in XEN_PRIVCMD
+ definition
+In-Reply-To: <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2410091539260.471028@ubuntu-linux-20-04-desktop>
+References: <20241009062014.407310-1-Jiqian.Chen@amd.com> <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [libvirt test] 188022: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:test-arm64-arm64-libvirt-qcow2:leak-check/check:fail:regression
-    libvirt:test-amd64-amd64-libvirt-vhd:leak-check/check:fail:heisenbug
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=9c962b3902cf4b480fcdd1da7e300911c0288287
-X-Osstest-Versions-That:
-    libvirt=215cada34395b6b2caad507393e043594d6c86fc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Oct 2024 22:19:06 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 188022 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188022/
+On Wed, 9 Oct 2024, Jan Beulich wrote:
+> On 09.10.2024 08:20, Jiqian Chen wrote:
+> > Commit 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+> > adds a weak reverse dependency to the config XEN_PRIVCMD definition, its
+> > purpose is to pass the combination of compilation that CONFIG_XEN_PRIVCMD=y
+> > and CONFIG_XEN_PCIDEV_BACKEND=m, because in that combination, xen-pciback
+> > is compiled as a module but xen-privcmd is built-in, so xen-privcmd can't
+> > find the implementation of pcistub_get_gsi_from_sbdf.
+> > 
+> > But that dependency causes xen-privcmd can't be loaded on domU, because
+> > dependent xen-pciback is always not be loaded successfully on domU.
+> > 
+> > To solve above problem and cover original commit's requirement, just remove
+> > that dependency, because the code "IS_REACHABLE(CONFIG_XEN_PCIDEV_BACKEND)"
+> > of original commit is enough to meet the requirement.
+> > 
+> > Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+> > Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> 
+> This lacks a Reported-by:.
+> 
+> > --- a/drivers/xen/Kconfig
+> > +++ b/drivers/xen/Kconfig
+> > @@ -261,7 +261,6 @@ config XEN_SCSI_BACKEND
+> >  config XEN_PRIVCMD
+> >  	tristate "Xen hypercall passthrough driver"
+> >  	depends on XEN
+> > -	imply XEN_PCIDEV_BACKEND
+> >  	default m
+> >  	help
+> >  	  The hypercall passthrough driver allows privileged user programs to
+> 
+> The report wasn't about a build problem, but a runtime one. Removing the
+> dependency here doesn't change anything in the dependency of xen-privcmd
+> on xen-pciback, as the use of pcistub_get_gsi_from_sbdf() continues to
+> exist.
+>
+> Consider the case of XEN_PCIDEV_BACKEND=m and XEN_PRIVCMD=m, which
+> I guess is what Marek is using in his config. Both drivers are available
+> in such a configuration, yet loading of xen-privcmd then requires to
+> load xen-pciback first. And that latter load attempt will fail in a DomU.
+> The two drivers simply may not have any dependency in either direction.
 
-Regressions :-(
+The idea is that there should be no hard dependency on
+pcistub_get_gsi_from_sbdf(). If it is available, the service will be
+used, otherwise an error will be reported.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-libvirt-qcow2 20 leak-check/check       fail REGR. vs. 187961
-
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-libvirt-vhd 22 leak-check/check           fail pass in 188008
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187961
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- libvirt              9c962b3902cf4b480fcdd1da7e300911c0288287
-baseline version:
- libvirt              215cada34395b6b2caad507393e043594d6c86fc
-
-Last test of basis   187961  2024-10-04 04:22:33 Z    5 days
-Testing same since   188008  2024-10-08 04:20:35 Z    1 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Göran Uddeborg <goeran@uddeborg.se>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-libvirt-vhd                                 pass    
+The problem is that IS_REACHABLE is a compile-time check. What we need
+is a runtime check instead. Maybe symbol_get or try_module_get ?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 9c962b3902cf4b480fcdd1da7e300911c0288287
-Author: Göran Uddeborg <goeran@uddeborg.se>
-Date:   Sun Oct 6 08:13:05 2024 +0000
-
-    Translated using Weblate (Swedish)
-    
-    Currently translated at 90.0% (9474 of 10516 strings)
-    
-    Translation: libvirt/libvirt
-    Translate-URL: https://translate.fedoraproject.org/projects/libvirt/libvirt/sv/
-    
-    Signed-off-by: Göran Uddeborg <goeran@uddeborg.se>
 
