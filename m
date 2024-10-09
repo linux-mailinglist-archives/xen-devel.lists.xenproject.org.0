@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EDB499638B
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 10:47:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813926.1227008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97EC49963B1
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 10:50:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813948.1227038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySLy-0003cl-7N; Wed, 09 Oct 2024 08:47:30 +0000
+	id 1sySOS-0006HE-9E; Wed, 09 Oct 2024 08:50:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813926.1227008; Wed, 09 Oct 2024 08:47:30 +0000
+Received: by outflank-mailman (output) from mailman id 813948.1227038; Wed, 09 Oct 2024 08:50:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySLy-0003aV-4I; Wed, 09 Oct 2024 08:47:30 +0000
-Received: by outflank-mailman (input) for mailman id 813926;
- Wed, 09 Oct 2024 08:47:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sySOS-0006Ct-5I; Wed, 09 Oct 2024 08:50:04 +0000
+Received: by outflank-mailman (input) for mailman id 813948;
+ Wed, 09 Oct 2024 08:50:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qj4E=RF=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1sySD0-0005FO-U3
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 08:38:14 +0000
+ id 1sySDA-00075z-Bp
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 08:38:24 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2077015-8619-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 10:38:13 +0200 (CEST)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d77e6865-8619-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 10:38:22 +0200 (CEST)
 Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
  [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-616-TvXbMQwgPnWCiL0A48mcDw-1; Wed, 09 Oct 2024 04:38:11 -0400
+ us-mta-631-a05JQfFwOAmxRoW0v3wIIQ-1; Wed, 09 Oct 2024 04:38:20 -0400
 Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7ae48475234so1704795985a.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 01:38:11 -0700 (PDT)
+ af79cd13be357-7a9a71b17a3so1133298285a.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 01:38:20 -0700 (PDT)
 Received: from eisenberg.redhat.com (nat-pool-muc-t.redhat.com. [149.14.88.26])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7ae75615aa2sm439643585a.14.2024.10.09.01.38.01
+ af79cd13be357-7ae75615aa2sm439643585a.14.2024.10.09.01.38.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2024 01:38:10 -0700 (PDT)
+ Wed, 09 Oct 2024 01:38:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,39 +49,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2077015-8619-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: d77e6865-8619-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1728463092;
+	s=mimecast20190719; t=1728463101;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=whIiuNRJJmYlfQ3wiaGZ/HmATem6GNPoxo7pUmmbAqQ=;
-	b=Bz6g2jtMcXJ35p1DBRCmU+vHVfDIx21l8GhMaNcfvqZnKjJOkcqnTegv+C0dclJFjMYyt0
-	218CqExSDlE98E2qUhFYk/qY28u4iXVhj2dWchIu8lJFW4Kw0CB//DYVrEMwmcedRcsojA
-	yA+GaUSgX9KvP/DiWg9m87GIzUWhTbc=
-X-MC-Unique: TvXbMQwgPnWCiL0A48mcDw-1
+	bh=TJ4XyKRMzVRAPh09Ypw2QkYDvdqyB5dqjRwvTDPzI5M=;
+	b=DozHLYbJ3JpEc8AHBMq252GE0GfrwECVkSxQPO077ghyDBoDndKzi4gpNWeBChl0bttNed
+	3I74KRar+NT2r/9zKfc4W0SU/ENWE10leT554V/yEHABu7M1bCHZwXjpCKJTmP66tGQj4G
+	Yj0Wus8IvC2gr53J9KaGqSVlbiiUS9U=
+X-MC-Unique: a05JQfFwOAmxRoW0v3wIIQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728463091; x=1729067891;
+        d=1e100.net; s=20230601; t=1728463100; x=1729067900;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=whIiuNRJJmYlfQ3wiaGZ/HmATem6GNPoxo7pUmmbAqQ=;
-        b=Amj7/fgy4ZTtykF1EiAB9IGK1mvj9/ovEwC1GCWeG3UDwNNpdYS2YH8AbSgdv6ErKu
-         y6yj6gFLfjjNAdYP+bftwD6W23GX0vagEWrbROn1bcI05dcRKVJo4vOdwbo2DbIpmX7+
-         bXPuuckqwocMvRq/QobP+gB+X5+Y9U9lig/JBWmiQ6lVv7OThx1ufGG0P/m11TP+6reV
-         AsjlIEO0syV7zUwrj+J99yZbCza1CigDanYy6TEJ1gRUq5g/JEjG9jnM/aAFq3qxI629
-         tVvoxdZMJK6AlJY9xzm9+THWIEeEEXIa38DjABHzaMlolaml1tmB94dL5+3GK93JhVzx
-         NZgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWVfKK1YIrO9mRRDuu8fqBh1s9eJr/Gh7AJy8Gj397M1Nf3qKOg5/J7jGDetKKTSHodkIj27hObUX8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoXb5S3awtBFhuowHKC4VWIdWfsUmgG/v9W9pkg1DD2Eb+BK4O
-	TU0FGPv1KkAJebgwTzBFudTPr54Jojnejq3QhmwAgbMmLnARf193Js9zK0JjrQeEc/Vlfm3uSIq
-	HwfQpnYLq5OJQ/vRhvBZ6pwpVj7IwZJaU7/kZ9JtMli0UxOAXLOdQ498Ok5q+WuR8
-X-Received: by 2002:a05:620a:6006:b0:7a9:ab72:7374 with SMTP id af79cd13be357-7b10ed4fff8mr102281485a.35.1728463090674;
-        Wed, 09 Oct 2024 01:38:10 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE/MgCEUv0CJEAIc6rr0qvcu86NTMXEfUgLL+h2hiKBHzQb8C5W8ydxW51ghGpiTPgzdZQtmw==
-X-Received: by 2002:a05:620a:6006:b0:7a9:ab72:7374 with SMTP id af79cd13be357-7b10ed4fff8mr102275485a.35.1728463090297;
-        Wed, 09 Oct 2024 01:38:10 -0700 (PDT)
+        bh=TJ4XyKRMzVRAPh09Ypw2QkYDvdqyB5dqjRwvTDPzI5M=;
+        b=WfXFMj5owm4MBB3Jsy9nwzEkGrQ+KWZlkorvLSj+3wfdpvU6YqIY81T9T/P1Rcnw5F
+         pBVUHJ6x8hsLNRrODZBgGnGPNLl4Yfkt7Q/cWL04rciGH+KPZStVMkQWPNXbMHq+UFEx
+         lfBQO0Mih/++es9Bvdr4oEHRFyuehI8VcpgFKTWwEUlh9zARaS47tsvQOKIOVJU6OWRV
+         KnYC3JJPTeb+rq4FQ6PVluMkDfrMPhoo88xFt6zUm07voo7e1ZFXml+zANVawykU24lD
+         46E34pNUXv5mGLRf+lTAOvBQnC4GG6CN6kZsj26CN4cgtpzJFpVqnMYF7H0awpH5DcWO
+         9qHg==
+X-Forwarded-Encrypted: i=1; AJvYcCXIMV/yJvcgA1aOqSDuymAmBr5GmkIUix9/bmgFEpLUeHVx1MkPskUGZy2hrpX74noM+CmIiRExwM4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw4XKaz241qE/w9roEFNhmu76Fx4SP8Nf8fX4TzN+wKbxDNckd9
+	OKD33owPLlMNK3We0nm1HlFUDfyyLp55Y+pgQgee+eD4DwEK4E5eeY6JyN1wIrTLTwOkX8gwGqs
+	kT3v/mMeUpb2F/iM6i/7d5Fp4dR0mUy89PcDo3msvZTEGl3ayU/6n3x616g2JY54O
+X-Received: by 2002:a05:620a:191e:b0:7ae:5c5b:a3ee with SMTP id af79cd13be357-7b07954eaf1mr214935085a.30.1728463099809;
+        Wed, 09 Oct 2024 01:38:19 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEohpGdz3FQCfvuYPGv1Kgp6VmjNVq/mWsuKLRVQIwcRgXug1EQeuW78e0HsYLtO7HnORD33g==
+X-Received: by 2002:a05:620a:191e:b0:7ae:5c5b:a3ee with SMTP id af79cd13be357-7b07954eaf1mr214929685a.30.1728463099420;
+        Wed, 09 Oct 2024 01:38:19 -0700 (PDT)
 From: Philipp Stanner <pstanner@redhat.com>
 To: Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
@@ -155,9 +155,9 @@ Cc: linux-ide@vger.kernel.org,
 	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-sound@vger.kernel.org
-Subject: [RFC PATCH 10/13] staging: rts5280: Use always-managed version of pci_intx()
-Date: Wed,  9 Oct 2024 10:35:16 +0200
-Message-ID: <20241009083519.10088-11-pstanner@redhat.com>
+Subject: [RFC PATCH 11/13] wifi: qtnfmac: use always-managed version of pcim_intx()
+Date: Wed,  9 Oct 2024 10:35:17 +0200
+Message-ID: <20241009083519.10088-12-pstanner@redhat.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241009083519.10088-1-pstanner@redhat.com>
 References: <20241009083519.10088-1-pstanner@redhat.com>
@@ -171,29 +171,29 @@ pci_intx() is a hybrid function which can sometimes be managed through
 devres. To remove this hybrid nature from pci_intx(), it is necessary to
 port users to either an always-managed or a never-managed version.
 
-rts5208 enables its PCI-Device with pcim_enable_device(). Thus, it needs the
+qtnfmac enables its PCI-Device with pcim_enable_device(). Thus, it needs the
 always-managed version.
 
 Replace pci_intx() with pcim_intx().
 
 Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 ---
- drivers/staging/rts5208/rtsx.c | 2 +-
+ drivers/net/wireless/quantenna/qtnfmac/pcie/pcie.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/rts5208/rtsx.c b/drivers/staging/rts5208/rtsx.c
-index c4f54c311d05..4831eb035bf7 100644
---- a/drivers/staging/rts5208/rtsx.c
-+++ b/drivers/staging/rts5208/rtsx.c
-@@ -246,7 +246,7 @@ static int rtsx_acquire_irq(struct rtsx_dev *dev)
+diff --git a/drivers/net/wireless/quantenna/qtnfmac/pcie/pcie.c b/drivers/net/wireless/quantenna/qtnfmac/pcie/pcie.c
+index f66eb43094d4..3adcfac2886f 100644
+--- a/drivers/net/wireless/quantenna/qtnfmac/pcie/pcie.c
++++ b/drivers/net/wireless/quantenna/qtnfmac/pcie/pcie.c
+@@ -204,7 +204,7 @@ static void qtnf_pcie_init_irq(struct qtnf_pcie_bus_priv *priv, bool use_msi)
+ 
+ 	if (!priv->msi_enabled) {
+ 		pr_warn("legacy PCIE interrupts enabled\n");
+-		pci_intx(pdev, 1);
++		pcim_intx(pdev, 1);
  	}
- 
- 	dev->irq = dev->pci->irq;
--	pci_intx(dev->pci, !chip->msi_en);
-+	pcim_intx(dev->pci, !chip->msi_en);
- 
- 	return 0;
  }
+ 
 -- 
 2.46.1
 
