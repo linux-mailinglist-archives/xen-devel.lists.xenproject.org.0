@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820159960AE
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 09:20:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813765.1226785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA0D9960D0
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 09:27:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813776.1226796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syQzJ-00011F-3L; Wed, 09 Oct 2024 07:20:01 +0000
+	id 1syR5p-0002qP-TJ; Wed, 09 Oct 2024 07:26:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813765.1226785; Wed, 09 Oct 2024 07:20:01 +0000
+Received: by outflank-mailman (output) from mailman id 813776.1226796; Wed, 09 Oct 2024 07:26:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syQzJ-0000zU-0b; Wed, 09 Oct 2024 07:20:01 +0000
-Received: by outflank-mailman (input) for mailman id 813765;
- Wed, 09 Oct 2024 07:19:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syR5p-0002oS-QD; Wed, 09 Oct 2024 07:26:45 +0000
+Received: by outflank-mailman (input) for mailman id 813776;
+ Wed, 09 Oct 2024 07:26:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syQzH-0000zO-Sl
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 07:19:59 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e41d3569-860e-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 09:19:58 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5399041167cso10327577e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 00:19:58 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9950077d1asm412298366b.57.2024.10.09.00.19.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 00:19:57 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1syR5n-0002mI-KX
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 07:26:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1syR5n-0002dR-2n; Wed, 09 Oct 2024 07:26:43 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1syR5m-00078T-On; Wed, 09 Oct 2024 07:26:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,102 +39,364 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e41d3569-860e-11ef-a0bd-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728458398; x=1729063198; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f4TfDf1LtSYHxL8VZt8bsAe8a5+4+k4PvfSOpHUBGE0=;
-        b=G7Qdot2rlKaYqND9B7WRlGjUQlFrA0HSUZOuEAJJu4Vt83P7K5z5EVUg5HVkqZO4sl
-         47J32J0kzgNywjzQPeY2ln0IfhrLvSFh76ByCNdPPe6xisg+G5P6uMf6kQMadbrQKTb3
-         5WhnK9kEgs+hcs/b4UF5FHwqxCV93CqPpYdzdBE5U2XiqsZQsDsAqLLb42CyIJ+ClSO0
-         59KkRT/G15MkTziKw0pIWHHc9vjQmDb6qlRf4AhSQgbYpz18Lo8svTeV3lpxYienXjS8
-         vuxSvWQ4K/pDK39RNZ7qmVfNokz0AEajS3S4ZTHBZLYYrJqJoE0726BjBvSXs/xODoEX
-         G8Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728458398; x=1729063198;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f4TfDf1LtSYHxL8VZt8bsAe8a5+4+k4PvfSOpHUBGE0=;
-        b=vqRgkeWaMceyYR6itMBu6XRQc3ekeu94/FFN6OJ275hrvhL0N9VDLJw6gDcUqrkCZJ
-         uIwCq8iXNBNf7EdBVKGcEadkZ53KLA8NcgpFA6ouFKiLdBs+K1390AIfm8hlOgaYf6QG
-         Qpsm/P6ggcaLXaFVmdzVhX75w3KaVgfVLAEePQ8nphzD4jA+b5LEBC0fTCaldiuXKCBg
-         U+yP+an9S8YEviKfZbMsNDE9D3k2DtBuyFJUK7ERrVZRISiqomDYEZHHySRN8SYGBG2D
-         WiBhonePp7+ThkalvMewmOmemvfRK1DX4zJYoCs8eviicYNoAD7+FeyXOC1KJ+Hy/hVU
-         gW4w==
-X-Forwarded-Encrypted: i=1; AJvYcCXG18uCroVWMvlAJgkZPbTaAjl8xpEX4CdO8w3izH17wxGl5NPB4Asxw2jKMjuiucG/M6axJii188I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWf6mWDTmx0TmVlP03FBdI+KTFLtOaVfMnXbDO7uGS6SMO1aJN
-	ynzbkmGKF30s0F6vyvE1ROmn8XMQdawRdHN0exu8TaNiefqGEF66VeSO3RZDBQ==
-X-Google-Smtp-Source: AGHT+IHsE5NEgtIrgDWpWhOuVZ4p70uShd7xBHflpe2TozF1wC5G1fPFwQj3w3MLzwzmpBH6JC9bbA==
-X-Received: by 2002:ac2:4e06:0:b0:539:8f3c:4586 with SMTP id 2adb3069b0e04-539c4968324mr1086958e87.55.1728458398029;
-        Wed, 09 Oct 2024 00:19:58 -0700 (PDT)
-Message-ID: <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com>
-Date: Wed, 9 Oct 2024 09:19:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=BGpWss8onohbaIF+hLt+PrmwzMxGyxyGFruVnIGsuUI=; b=CUznHwY4+SP0DUKANKm8Ou536F
+	HusvnZVILXID4XUekLHG4I+MytaTKuDcrIZZOwJKGucmR5VVNtWP4JkvE4CTs9mqkgjALjifUcmYN
+	D2zKpE/9EUrSAQ7TzQRo9DL4N4B4k3T/ZuScvV5jYlMR6f8MsGQhrIrE77NLltU5Vo5k=;
+Message-ID: <1c27b9c0-eb2e-49c2-a94b-d1b8ac6550b1@xen.org>
+Date: Wed, 9 Oct 2024 08:26:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
- kernel
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] docs: fusa: Add requirements for Device Passthrough
+Content-Language: en-GB
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ Artem Mygaiev <artem_mygaiev@epam.com>,
+ Hisao Munakata <hisao.munakata.vt@renesas.com>
+References: <20241007185508.3044115-1-olekstysh@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20241007185508.3044115-1-olekstysh@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 08.10.2024 23:32, Marek Marczykowski-Górecki wrote:
-> --- a/tools/libs/guest/xg_dom_bzimageloader.c
-> +++ b/tools/libs/guest/xg_dom_bzimageloader.c
-> @@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
->      return retval;
->  }
->  
-> -/* 128 Mb is the minimum size (half-way) documented to work for all inputs. */
-> -#define LZMA_BLOCK_SIZE (128*1024*1024)
-> +#define LZMA_BLOCK_SIZE (256*1024*1024)
+Hi,
 
-That's as arbitrary as before, now just not even with a comment at least
-hinting at it being arbitrary. Quoting from one of the LZMA API headers:
+On 07/10/2024 19:55, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Add common requirements for a physical device assignment to Arm64
+> and AMD64 PVH domains.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> Based on:
+> [PATCH] docs: fusa: Replace VM with domain
+> https://patchew.org/Xen/20241007182603.826807-1-ayan.kumar.halder@amd.com/
+> ---
+> ---
+>   .../reqs/design-reqs/common/passthrough.rst   | 365 ++++++++++++++++++
+>   docs/fusa/reqs/index.rst                      |   1 +
+>   docs/fusa/reqs/market-reqs/reqs.rst           |  33 ++
+>   docs/fusa/reqs/product-reqs/common/reqs.rst   |  29 ++
+>   4 files changed, 428 insertions(+)
+>   create mode 100644 docs/fusa/reqs/design-reqs/common/passthrough.rst
+>   create mode 100644 docs/fusa/reqs/product-reqs/common/reqs.rst
+> 
+> diff --git a/docs/fusa/reqs/design-reqs/common/passthrough.rst b/docs/fusa/reqs/design-reqs/common/passthrough.rst
+> new file mode 100644
+> index 0000000000..a1d6676f65
+> --- /dev/null
+> +++ b/docs/fusa/reqs/design-reqs/common/passthrough.rst
+> @@ -0,0 +1,365 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +Device Passthrough
+> +==================
+> +
+> +The following are the requirements related to a physical device assignment
+> +[1], [2] to Arm64 and AMD64 PVH domains.
+> +
+> +Requirements for both Arm64 and AMD64 PVH
+> +=========================================
+> +
+> +Hide IOMMU from a domain
+> +------------------------ > +
+> +`XenSwdgn~passthrough_hide_iommu_from_domain~1`
+> +
+> +Description:
+> +Xen shall not expose the IOMMU device to the domain even if I/O virtualization
+> +is disabled. The IOMMU shall be under hypervisor control only
+This requirement would prevent us to expose a virtual SMMU to the guest. 
+I think the requirement should only be Xen configures the stage-2 IOMMU.
 
-	 * Decoder already supports dictionaries up to 4 GiB - 1 B (i.e.
-	 * UINT32_MAX), so increasing the maximum dictionary size of the
-	 * encoder won't cause problems for old decoders.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Discover PCI devices from hardware domain
+> +-----------------------------------------
+> +
+> +`XenSwdgn~passthrough_discover_pci_devices_from_hwdom~1`
+> +
+> +Description:
+> +The hardware domain shall enumerate and discover PCI devices and inform Xen
+> +about their appearance and disappearance.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Discover PCI devices from Xen
+> +-----------------------------
+> +
+> +`XenSwdgn~passthrough_discover_pci_devices_from_xen~1`
+> +
+> +Description:
+> +Xen shall discover PCI devices (enumerated by the firmware beforehand) during
+> +boot if the hardware domain is not present.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Assign PCI device to domain (with IOMMU)
+> +----------------------------------------
+> +
+> +`XenSwdgn~passthrough_assign_pci_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall assign a specified PCI device (always implied as DMA-capable) to
+> +a domain during its creation using passthrough (partial) device tree on Arm64
+> +and Hyperlaunch device tree on AMD-x86. The physical device to be assigned is
+> +protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Deassign PCI device from domain (with IOMMU)
+> +--------------------------------------------
+> +
+> +`XenSwdgn~passthrough_deassign_pci_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall deassign a specified PCI device from a domain during its destruction.
+> +The physical device to be deassigned is protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Forbid the same PCI device assignment to multiple domains
+> +---------------------------------------------------------
+> +
+> +`XenSwdgn~passthrough_forbid_same_pci_device_assignment~1`
+> +
+> +Description:
+> +Xen shall not assign the same PCI device to multiple domains by failing to
+> +create a new domain if the device to be passed through is already assigned
+> +to the existing domain. Also different PCI devices which share some resources
+> +(interrupts, IOMMU connections) can be assigned only to the same domain.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Requirements for Arm64 only
+> +===========================
+> +
+> +Assign interrupt-less platform device to domain
+> +-----------------------------------------------
 
-IOW - what if the Linux folks decided to increase the dictionary size
-further? I therefore wonder whether we don't need to make this more
-dynamic, perhaps by peeking into the header to obtain the dictionary
-size used. The one thing I'm not sure about is whether there can't be
-multiple such headers throughout the file, and hence (in principle)
-differing dictionary sizes.
+Why does it need to be "interrupt-less"?
 
-Jan
+> +
+> +`XenSwdgn~passthrough_assign_interrupt_less_platform_device~1`
+> +
+> +Description:
+> +Xen shall assign a specified platform device that has only a MMIO region
+> +(does not have any interrupts) to a domain during its creation using passthrough
+> +device tree.
+
+Is this requirement meant to be written from a dom0less point of view? 
+Asking because platform device are assigned using an xl configuration 
+for non-dom0less.
+
+
+> +The example of interrupt-less device is PWM or clock controller.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Deassign interrupt-less platform device from domain
+> +---------------------------------------------------
+> +
+> +`XenSwdgn~passthrough_deassign_interrupt_less_platform_device~1`
+> +
+> +Description:
+> +Xen shall deassign a specified platform device that has only a MMIO region
+> +(does not have any interrupts) from a domain during its destruction.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Assign non-DMA-capable platform device to domain
+> +------------------------------------------------
+> +
+> +`XenSwdgn~passthrough_assign_non_dma_platform_device~1`
+> +
+> +Description:
+> +Xen shall assign a specified non-DMA-capable platform device to a domain during
+> +its creation using passthrough device tree.
+> +The example of non-DMA-capable device is Timer.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Deassign non-DMA-capable platform device from domain
+> +----------------------------------------------------
+> +
+> +`XenSwdgn~passthrough_deassign_non_dma_platform_device~1`
+> +
+> +Description:
+> +Xen shall deassign a specified non-DMA-capable platform device from a domain
+> +during its destruction.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Assign DMA-capable platform device to domain (with IOMMU)
+> +---------------------------------------------------------
+> +
+> +`XenSwdgn~passthrough_assign_dma_platform_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall assign a specified DMA-capable platform device to a domain during
+> +its creation using passthrough device tree. The physical device to be assigned
+> +is protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Deassign DMA-capable platform device from domain (with IOMMU)
+> +-------------------------------------------------------------
+> +
+> +`XenSwdgn~passthrough_deassign_dma_platform_device_with_iommu~1`
+> +
+> +Description:
+> +Xen shall deassign a specified DMA-capable platform device from a domain during
+> +its destruction. The physical device to be deassigned is protected by the IOMMU.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Assign DMA-capable platform device to domain (without IOMMU)
+> +------------------------------------------------------------
+> +
+> +`XenSwdgn~passthrough_assign_dma_platform_device_without_iommu~1`
+> +
+> +Description:
+> +Xen shall assign a specified DMA-capable platform device to a domain during
+> +its creation using passthrough device tree. The physical device to be assigned
+> +is not protected by the IOMMU.
+> +The DMA-capable device assignment which is not behind an IOMMU is allowed for
+> +the direct mapped domains only. The direct mapped domain must be either safe or
+
+What do you mean by "safe" in the context? Did you intend to say "trusted"?
+
+> +additional security mechanisms for protecting against possible malicious or
+> +buggy DMA devices must be in place, e.g. Xilinx memory protection unit (XMPU)
+> +and Xilinx peripheral protection unit (XPPU).
+> +
+> +Rationale:
+> +The IOMMU is absent from the system or it is disabled (status = "disabled"
+> +in the host device tree).
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Deassign DMA-capable platform device from domain (without IOMMU)
+> +----------------------------------------------------------------
+
+Do we actually need a separate section for deassign assign without the 
+IOMMU? IOW, can this be combined with the deassign with IOMMU?
+
+> +
+> +`XenSwdgn~passthrough_deassign_dma_platform_device_without_iommu~1`
+> +
+> +Description:
+> +Xen shall deassign a specified DMA-capable platform device from a domain during
+> +its destruction. The physical device to be deassigned is not protected
+> +by the IOMMU.
+> +
+> +Rationale:
+> +The IOMMU is absent from the system or it is disabled (status = "disabled"
+> +in the host device tree).
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Map platform device MMIO region identity
+> +----------------------------------------
+
+Can you explain why we need to make the distinction between identity 
+mapping and ...
+
+> +
+> +`XenSwdgn~passthrough_map_platform_device_mmio_region_ident~1`
+> +
+> +Description:
+> +Xen shall map platform device memory region identity (guest address ==
+> +physical address) when assigning a specified platform device to a domain.
+> +The device can be either non-DMA-capable or DMA-capable.
+> +
+> +Rationale:
+> +
+> +Comments:
+> +
+> +Covers:
+> + - `XenProd~device_passthrough~1`
+> +
+> +Map platform device MMIO region non-identity
+> +--------------------------------------------
+
+... non-identity one?
+
+Cheers,
+
+-- 
+Julien Grall
 
