@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7067996BD8
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 15:29:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814504.1228070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6000F996C1E
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 15:34:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814513.1228080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syWkS-0007nb-Cz; Wed, 09 Oct 2024 13:29:04 +0000
+	id 1syWpN-0001LJ-Ts; Wed, 09 Oct 2024 13:34:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814504.1228070; Wed, 09 Oct 2024 13:29:04 +0000
+Received: by outflank-mailman (output) from mailman id 814513.1228080; Wed, 09 Oct 2024 13:34:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syWkS-0007lH-8m; Wed, 09 Oct 2024 13:29:04 +0000
-Received: by outflank-mailman (input) for mailman id 814504;
- Wed, 09 Oct 2024 13:29:02 +0000
+	id 1syWpN-0001Ip-QX; Wed, 09 Oct 2024 13:34:09 +0000
+Received: by outflank-mailman (input) for mailman id 814513;
+ Wed, 09 Oct 2024 13:34:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syWkQ-0007jn-IX
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 13:29:02 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1syWpM-0001Ii-Ce
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 13:34:08 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71de4b0b-8642-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 15:29:00 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5c928611371so664044a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 06:29:00 -0700 (PDT)
+ id 2883718a-8643-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 15:34:07 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a994ecf79e7so92251566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 06:34:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e05f3c8csm5699368a12.83.2024.10.09.06.28.59
+ a640c23a62f3a-a994ce357b2sm493884066b.144.2024.10.09.06.34.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 06:29:00 -0700 (PDT)
+ Wed, 09 Oct 2024 06:34:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71de4b0b-8642-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 2883718a-8643-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728480540; x=1729085340; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728480847; x=1729085647; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VJlNpygJI8V0z2uzn3ha0JActOcXYeVEpIMmyywt14c=;
-        b=MtbmFO0wjQt/HhN2SgBjkawPPUMDZI1Q70PxlAJThlphEs0dH3kbFXh6KiS87dpYVy
-         Btc9sFqrHwI4azgjI2vW4qJ1WCaDWzn5U71EHmuMpmE6d9BaclS9LMd3RO8BuuUBdATQ
-         eNGtD+FH7QIGZ7Ud/PzY483EYXWcjll9uLXOE9KeKf4pAFiv+Rz1uL9zOkIs4L1ibwEX
-         Ja3jjJejosEzQCy+F8FWDR/tii1OASl+jd3YUulq3nkyL3ZkMJQGbUp0594V59pVK92m
-         vBtXkkOEpW8OCpXHsCJ8fzdW+BDH0hgMQKlaDlUNH6nzIH7heWMTFQmtAiG5Nfm86hg3
-         vb0g==
+        bh=pO70ZWUWUT/WLY9hq9dglcxyf5Inf+MgDcSO9dJxveE=;
+        b=WhXb16EJSz971wiuWv2Ln4iFggjvv7+JI4L1pdIdM28K2T2dLvT6EciZmrCUw09/dA
+         xGN45i6G6pcPMIpnNOtzok9MzFCBQNGj2BiykSqa7BQvjHt+C8jb6fBIbCOeUwdLicGH
+         o6ApmDro9/0IEaBheCaO1lYQEtH9Zg8N0NocqPdFQduvuxky0EgWiohT3Esoot3NYvJ0
+         bGm2pQ6I95bZXfK5RjCd0wkPa2irw0po2b/z0HPgCKq9eYiutHwunZ9qFtjuwyeX44fO
+         JWe4Cr92Kcy85DvldZo04WmffujuP0iCNhGMBzbX2X4bf0AxHWOcqwOh+Rs24ZErxZzD
+         OsRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728480540; x=1729085340;
+        d=1e100.net; s=20230601; t=1728480847; x=1729085647;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VJlNpygJI8V0z2uzn3ha0JActOcXYeVEpIMmyywt14c=;
-        b=ncuseSXej6L/TyXBfbhZb0ENr/m3ehD476lo4xZSOSmZxKYWh95qeB81pQFCr7z574
-         1agD6BEl0G01LmTXOziGocp4tzRRoF8XNbSIzTLavqDtNihjPOJJOnt3T7E49js3t372
-         N6myTdCIRWitOW8STQKYYeBd4IKZ+24XpLiHOjBbtBQuOoMPTjIktlJHM/uEqH4Xi043
-         f/N+IYN2YAMbe20X07ZnV82G73DA8FKhI71fe/9dmZ7NlQjxtbG708WqpRk/FKmuiN12
-         ijUW5RdFPsAziRr4uy4hRsIK94Qf491Dp3m4GYgWplteFPNZwGqq2JKTdPLppCIJa3wZ
-         bJ6A==
-X-Forwarded-Encrypted: i=1; AJvYcCX7dv8RFnGJg8VYALpRmyuHf5mJ49V+qLbRjPwsAFx7KMg4MeHqZxBzBtDbaUXDBBvcHTeFpN8HE48=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwmRWdTmv3l1wR0gSDyAe/gyUUr4fXhrzCv/grNKZz9mFKDJ8KH
-	gXjfA5dSynxx8sKoDWeN1CncesWXO+Lp7nLKlxvok/Ggh9dYULdFcWPwOun3pQ==
-X-Google-Smtp-Source: AGHT+IE+U6UURqm1SLsdhcGh0XqtqRWzPW0o3y63D9ya4Gts8cyF5UgE44APYgS4wbtU+NL50G77Fw==
-X-Received: by 2002:a05:6402:43cb:b0:5c8:bb09:a9b3 with SMTP id 4fb4d7f45d1cf-5c91d58bf20mr2247930a12.10.1728480540267;
-        Wed, 09 Oct 2024 06:29:00 -0700 (PDT)
-Message-ID: <acb85f02-351d-4ca2-9fd2-276276ed1c8e@suse.com>
-Date: Wed, 9 Oct 2024 15:28:59 +0200
+        bh=pO70ZWUWUT/WLY9hq9dglcxyf5Inf+MgDcSO9dJxveE=;
+        b=MapzdbKnvESgz8pIaMHCDoAZrFAMEiUdDCu6ApxwrGvvGWNseigbuPOebZChmnuBOE
+         SY/V6sdvIQ73FZx2slzNw439XDAXK5AgnRivstB1t43gCmoDH1QpskVjjMsU3uNKPaYQ
+         qhHYvCUfgsiXidOMPT7595NCCoco+/F37uHzBMmS053gAstdXG2I9Vub0y4trqB944LK
+         blmcRhqfX+06aAwfm4/+DHxMqG/Aw28CR5MFiQudzHwRbsPggMVyAAzrtlkd7vGrzg5N
+         a6yE6m+CO1LP58gXl3ezfHGdulokuPebCB3pjnCyp/E9IYAg16lR+21dNUMFDUq1mNCG
+         gZ9g==
+X-Forwarded-Encrypted: i=1; AJvYcCX+rYpAT/PD3RaVz6iCPEDkzWLnBpV2yG6+c2NAfLxyu9H4FPLBzyZoyuP3UxVkBY33VdI8DfGHFjo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyPsMPJGb8g8yTXGVt0G4j8k2g/A/5g1KTfrmfYSLSYpVnrGWD
+	zJSja8v1rxRr6A24r0y+Kqt6NgwxVrtoCDhrEvm/1s0i+ny2AcWngcKPcnbRcw==
+X-Google-Smtp-Source: AGHT+IHTQRflfurRT0jF+OXwzrgxvWwxSGPwVfFxNHUbzdDdiX50TWNkQHC2kJcKtjGmA0Vp0/JMiw==
+X-Received: by 2002:a17:907:8688:b0:a99:43b2:417e with SMTP id a640c23a62f3a-a998d34dceemr213191866b.62.1728480846625;
+        Wed, 09 Oct 2024 06:34:06 -0700 (PDT)
+Message-ID: <b5b20a0c-7584-4885-b7b0-c4b1cba8c0bd@suse.com>
+Date: Wed, 9 Oct 2024 15:34:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/11] xen/x86: Add supporting code for uploading LAPIC
- contexts during domain create
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241001123807.605-1-alejandro.vallejo@cloud.com>
- <20241001123807.605-5-alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH 1/7] byteorder: replace __u16
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
+ <dee82fce-ffc8-493e-8d99-f5c3b321e5b3@suse.com>
+ <a7b6fc68-a568-4b61-895d-c295ba3d3095@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,64 +114,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241001123807.605-5-alejandro.vallejo@cloud.com>
+In-Reply-To: <a7b6fc68-a568-4b61-895d-c295ba3d3095@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01.10.2024 14:38, Alejandro Vallejo wrote:
-> If toolstack were to upload LAPIC contexts as part of domain creation it
-
-If it were to - yes. But it doesn't, an peeking ahead in the series I also
-couldn't spot this changing. Hence I don#t think I see why this change
-would be needed, and why ...
-
-> would encounter a problem were the architectural state does not reflect
-> the APIC ID in the hidden state. This patch ensures updates to the
-> hidden state trigger an update in the architectural registers so the
-> APIC ID in both is consistent.
+On 09.10.2024 15:20, Andrew Cooper wrote:
+> On 09/10/2024 10:21 am, Jan Beulich wrote:
+>> In {big,little}_endian.h the changes are entirely mechanical, except for
+>> dealing with casting away of const from pointers-to-const on lines
+>> touched anyway.
+>>
+>> In swab.h the casting of constants is done away with as well - I simply
+>> don't see what the respective comment is concerned about in our
+>> environment (sizeof(int) >= 4, sizeof(long) >= {4,8} depending on
+>> architecture, sizeof(long long) >= 8). The comment is certainly relevant
+>> in more general cases. Excess parentheses are dropped as well,
+>> ___swab16()'s local variable is renamed, and __arch__swab16()'s is
+>> dropped as being redundant with ___swab16()'s.
+>>
+>> With that no uses of the type remain, so it moves to linux-compat.h.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> I'm unconvinced of the need of the separate ___constant_swab16(). I'm
+>> also unconvinced of the need for said constants (that even had casts on
+>> them).
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
->  xen/arch/x86/hvm/vlapic.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
+> There is a still-good series deleting the whole of byteorder/ and
+> replacing it with a few-hundred line single header.
 > 
-> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-> index 02570f9dd63a..a8183c3023da 100644
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -1640,7 +1640,27 @@ static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
->  
->      s->loaded.hw = 1;
->      if ( s->loaded.regs )
-> +    {
-> +        /*
-> +         * We already processed architectural regs in lapic_load_regs(), so
-> +         * this must be a migration. Fix up inconsistencies from any older Xen.
-> +         */
->          lapic_load_fixup(s);
-> +    }
-> +    else
-> +    {
-> +        /*
-> +         * We haven't seen architectural regs so this could be a migration or a
-> +         * plain domain create. In the domain create case it's fine to modify
-> +         * the architectural state to align it to the APIC ID that was just
-> +         * uploaded and in the migrate case it doesn't matter because the
-> +         * architectural state will be replaced by the LAPIC_REGS ctx later on.
-> +         */
+> It is the second thing stalled on a governance change (prohibited
+> reasons to object to a change) which clearly no-one gives a damn about
+> fixing.  In fact double spite because it denied a good engineer his
+> first changes in Xen.
+> 
+> 
+> I don't particularly feel like trying to polish byteorder.  I'm inclined
+> to rebase+repost Lin's patches, at which point the majority of this
+> series simply disappears.
 
-... a comment would need to mention a case that never really happens, thus
-only risking to cause confusion.
+I wouldn't mind you doing so, as long as that other series then progresses.
+What I don't want to get into is the other series being stuck rendering this
+one stuck, too. Then it would imo be better to take this one first, rebase
+the other on top, and work towards it becoming unstuck (whatever that takes;
+I have no recollection of what the issue was back at the time, all I recall
+is that, yes, there was such work at some point).
 
 Jan
-
-> +        if ( vlapic_x2apic_mode(s) )
-> +            set_x2apic_id(s);
-> +        else
-> +            vlapic_set_reg(s, APIC_ID, SET_xAPIC_ID(s->hw.x2apic_id));
-> +    }
->  
->      hvm_update_vlapic_mode(v);
->  
-
 
