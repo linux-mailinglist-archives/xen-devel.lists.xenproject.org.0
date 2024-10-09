@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C73A996485
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:11:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814006.1227077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32C6C9964ED
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:21:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814013.1227088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySid-0008In-L9; Wed, 09 Oct 2024 09:10:55 +0000
+	id 1sySs6-0003la-Fe; Wed, 09 Oct 2024 09:20:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814006.1227077; Wed, 09 Oct 2024 09:10:55 +0000
+Received: by outflank-mailman (output) from mailman id 814013.1227088; Wed, 09 Oct 2024 09:20:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySid-0008G5-II; Wed, 09 Oct 2024 09:10:55 +0000
-Received: by outflank-mailman (input) for mailman id 814006;
- Wed, 09 Oct 2024 09:10:53 +0000
+	id 1sySs6-0003j8-CZ; Wed, 09 Oct 2024 09:20:42 +0000
+Received: by outflank-mailman (input) for mailman id 814013;
+ Wed, 09 Oct 2024 09:20:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ia6U=RF=kernel.org=dlemoal@srs-se1.protection.inumbo.net>)
- id 1sySib-0008Ef-E6
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:10:53 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sySs5-0003j2-8D
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:20:41 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60cc8f80-861e-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 11:10:51 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id CCDCF5C5DD8;
- Wed,  9 Oct 2024 09:10:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C87BC4CEC5;
- Wed,  9 Oct 2024 09:10:40 +0000 (UTC)
+ id bf2f14a1-861f-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 11:20:38 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a9963e47b69so345859666b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 02:20:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a99757f11f8sm204749766b.202.2024.10.09.02.20.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 02:20:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +45,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60cc8f80-861e-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1728465048;
-	bh=SeiKUnM1DO48iG3Gr3JzhpZfh6fszoAqw+yG9jEe454=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=apgg8LYblMD4qcg07qq3Mkgt0ywwQuc+3xw0JHmyyo9R1mWrfGxw8wTc4OdVdv86c
-	 9NvoStQW9y9swxeftz9Y/d+2+eWrhl8IJ+ehaoOKL5kcWGNnsVpJgR/dEBQtmS3u1T
-	 rdBzExB9GsjgYbIOJpmcB5A2VggPdQMDCHWytgB566ZNT/uK6NwYLIDILg88BAHeQz
-	 vk/SHdbAb6yjKubsySQAdtJ9+53NgxwB7giJMbQu+dDrvvT9iCnDXeZaC9YE6mq48L
-	 2OdUXj462FwW5nDBk2woP+WbDOgZfiJhnt/gsiFXjp+bfi2iB8hwnrHQlGtidEcPDH
-	 jr9p8eMo3AZKg==
-Message-ID: <5f785dda-b2d7-466f-96c3-23faf0b80975@kernel.org>
-Date: Wed, 9 Oct 2024 18:10:39 +0900
+X-Inumbo-ID: bf2f14a1-861f-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1728465638; x=1729070438; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=a29x9jHn15Yx0UDYHEFyw1DEhGv4okd9z41PWGi5mwI=;
+        b=Pu4HNWFAuz6XjfhtBrnj5YRghW2GgrMovJsNgUrV8Iz1chjCCGd66TC1I9nUQuYem7
+         ie1n3EC2fBGAhEzco8U1X3pzXvipROjhOgcVxbwlGZUDxk8q2TMRpTf4GAKWTkEQSHvB
+         jnsoc5VjUGbqd0FHBi3FGSeAFkiZWh8RKNFQ2ekDxSuSefirTF6FEXZKAaIRBvAvESnA
+         it+RXaBJGzCfdARlT/vP9jDGOSnJ79R1JQKXc8FUNGJklrPXOPxxPfR0qj9EdaJwzqCD
+         Xorj5bXuDRiM535Skw5dbeaccS6OjrB07iVmj+XPLDag+Q0HXvF7tvkPUf1GBGCdiIRs
+         ZdKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728465638; x=1729070438;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=a29x9jHn15Yx0UDYHEFyw1DEhGv4okd9z41PWGi5mwI=;
+        b=k9gCZQE6pK4YQBp0xS6gJzb1Qu63+yqQa8u4J9fgpjZ2U4k33X05EMfl7ygH4AAlrH
+         WFFVm7a+wbLUOx1IQinq5MEk3rVuBUWAWncGdzyvNyf+v/aHoih5hRoDaNnF08uKhC7r
+         PiR0BnXkbIaQrPn23Jdbs+a1zHcXKWrDB+Fp1Kx0AK9OtuxCgnnBzm2Q9UzdlN0eCOv/
+         MSwoch1tGPe1D7140podws8OY2+3t4Wl1GnZMZwDJhFH4auBI7Mb3/9jcNh1Xb7l8Y1q
+         CWbkiczwCaQ8Yb5cL+GCSy3wLrriqGn18d59gEXLV+7MYUz8EqutA29TK1vEAHkEK6+1
+         NlhQ==
+X-Gm-Message-State: AOJu0Yztf7DxPRZ4TKCvtJ5Qs2OHj4fBoM/Ghb+FTmNGID0zqp0m+etp
+	4tjM8KSdnoCW3cm+g4H/8hhwuD/D1cbRgbR9dS35SoedUrBT/hzIf/WF3KdeQF3esVSdHnY0BXE
+	=
+X-Google-Smtp-Source: AGHT+IG6eHPAmxnwcBQM9csYwYbF/yRhnBW2MuQ3GQTzl3WPLXyoKRj7RPT5Dm+Wh07qiyfUSplMyw==
+X-Received: by 2002:a17:907:944a:b0:a99:4136:895f with SMTP id a640c23a62f3a-a998d302248mr141908366b.41.1728465637675;
+        Wed, 09 Oct 2024 02:20:37 -0700 (PDT)
+Message-ID: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
+Date: Wed, 9 Oct 2024 11:20:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 01/13] PCI: Prepare removing devres from pci_intx()
-To: Philipp Stanner <pstanner@redhat.com>, Niklas Cassel <cassel@kernel.org>,
- Sergey Shtylyov <s.shtylyov@omp.ru>,
- Basavaraj Natikar <basavaraj.natikar@amd.com>, Jiri Kosina
- <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov
- <oakad@yahoo.com>, Sudarsana Kalluru <skalluru@marvell.com>,
- Manish Chopra <manishc@marvell.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rasesh Mody <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com,
- Igor Mitsyanko <imitsyanko@quantenna.com>,
- Sergey Matyukevich <geomatsi@gmail.com>, Kalle Valo <kvalo@kernel.org>,
- Sanjay R Mehta <sanju.mehta@amd.com>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>,
- Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Alex Williamson <alex.williamson@redhat.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Chen Ni <nichen@iscas.ac.cn>,
- Ricky Wu <ricky_wu@realtek.com>, Al Viro <viro@zeniv.linux.org.uk>,
- Breno Leitao <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Mostafa Saleh <smostafa@google.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Hannes Reinecke <hare@suse.de>, John Garry <john.g.garry@oracle.com>,
- Soumya Negi <soumya.negi97@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Yi Liu <yi.l.liu@intel.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
- Christian Brauner <brauner@kernel.org>, Ankit Agrawal <ankita@nvidia.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Eric Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Rui Salvaterra <rsalvaterra@gmail.com>, Marc Zyngier <maz@kernel.org>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
- linux-pci@vger.kernel.org, linux-staging@lists.linux.dev,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-sound@vger.kernel.org
-References: <20241009083519.10088-1-pstanner@redhat.com>
- <20241009083519.10088-2-pstanner@redhat.com>
-From: Damien Le Moal <dlemoal@kernel.org>
 Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20241009083519.10088-2-pstanner@redhat.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/7] types: replace remaining uses of __u{16,32,64}
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/9/24 17:35, Philipp Stanner wrote:
-> pci_intx() is a hybrid function which sometimes performs devres
-> operations, depending on whether pcim_enable_device() has been used to
-> enable the pci_dev. This sometimes-managed nature of the function is
-> problematic. Notably, it causes the function to allocate under some
-> circumstances which makes it unusable from interrupt context.
-> 
-> To, ultimately, remove the hybrid nature from pci_intx(), it is first
-> necessary to provide an always-managed and a never-managed version
-> of that function. Then, all callers of pci_intx() can be ported to the
-> version they need, depending whether they use pci_enable_device() or
-> pcim_enable_device().
-> 
-> An always-managed function exists, namely pcim_intx(), for which
-> __pcim_intx(), a never-managed version of pci_intx() had been
+1: byteorder: replace __u16
+2: byteorder: replace __u32
+3: Flask: replace uses of __u32
+4: x86: modernize swab64()
+5: types: replace remaining uses of __u32
+6: byteorder: replace __u64
+7: types: replace remaining use of __u64
 
-s/had/has ? Not sure about this, English is not my first language :)
-
-> implemented.
-> 
-> Make __pcim_intx() a public function under the name
-> pci_intx_unmanaged(). Make pcim_intx() a public function.
-> 
-> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
-
-Regardless of the above nit, looks OK to me.
-
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-
--- 
-Damien Le Moal
-Western Digital Research
+Jan
 
