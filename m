@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B5EA997B30
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 05:20:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815404.1229158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03302997C6B
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 07:31:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815131.1229166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syjiF-0003Iq-A5; Thu, 10 Oct 2024 03:19:39 +0000
+	id 1sylku-0004oa-Gm; Thu, 10 Oct 2024 05:30:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815404.1229158; Thu, 10 Oct 2024 03:19:39 +0000
+Received: by outflank-mailman (output) from mailman id 815131.1229166; Thu, 10 Oct 2024 05:30:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syjiF-0003Ff-7H; Thu, 10 Oct 2024 03:19:39 +0000
-Received: by outflank-mailman (input) for mailman id 815404;
- Thu, 10 Oct 2024 03:19:37 +0000
+	id 1sylku-0004n1-Dq; Thu, 10 Oct 2024 05:30:32 +0000
+Received: by outflank-mailman (input) for mailman id 815131;
+ Wed, 09 Oct 2024 19:41:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5QbA=RG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1syjiC-0003DE-UT
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 03:19:36 +0000
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [2607:f8b0:4864:20::234])
+ <SRS0=TFTV=RF=gmail.com=philipp.g.hortmann@srs-se1.protection.inumbo.net>)
+ id 1sycYv-0001gg-W9
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 19:41:34 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7886bd79-86b6-11ef-99a2-01e77a169b0f;
- Thu, 10 Oct 2024 05:19:34 +0200 (CEST)
-Received: by mail-oi1-x234.google.com with SMTP id
- 5614622812f47-3e3e6d83138so308504b6e.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 20:19:34 -0700 (PDT)
+ id 7c2e0b90-8676-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 21:41:32 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-5398e53ca28so118184e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 12:41:32 -0700 (PDT)
+Received: from [192.168.2.105] (p54a0712c.dip0.t-ipconnect.de. [84.160.113.44])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-430ccf5f3adsm28720915e9.22.2024.10.09.12.41.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 12:41:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,101 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7886bd79-86b6-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 7c2e0b90-8676-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728530373; x=1729135173; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6owvSIVu0EHqNm1yYzc7T8GlTeeFySz1jPIyk4PefAk=;
-        b=dViPvp4dMBb9bARP1tKYE2FxqvhAeYpdnyYIinPGFZtKVcjkq1A8A/owA6CK9lrYI7
-         vIAiVF4lFFrSz8QWl2pVDzlL0l4cPxUHj0f0bv2UAhzLdBwRdFC1CzP/J196EATT4oI2
-         r/n2g0pIrCRBGBHmAWRVFd0onXT7hI6Dw26Zg=
+        d=gmail.com; s=20230601; t=1728502891; x=1729107691; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Io1G2uneGwHsYKAwtaIvvynFX0xlOmokHD97rmisdy0=;
+        b=l1NfiOcIRcLmrbPsOsJSfNYfK/FgcsRj9atb7fS6UgvSdCQXVfCkRHMlh3tIR6EIFs
+         UVYqeJHLVQdJoTG1bxLy0QA2eZtdWSwAJtVyOGFaQSImkREu4Fk+0xfMdirnFUEKCZJM
+         6iz/yz+0vrCgocgbYfMKWzvHN5sywWCcFH72a6m/75ht3+uhcf8aJjoxDX0Ytsj/1qfC
+         a88NuSgwwWttJqStjs7J/t5M5ta9l7wUjzDxnIlIFEoB1h5IWtikTlWuaf/F2SjGwxhY
+         RsnwfwteP1DegD5Noi9pFow9oZQwvGthKlpOGjcjKWroXthaphktZDr800FQdyz/MNhB
+         SN8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728530373; x=1729135173;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6owvSIVu0EHqNm1yYzc7T8GlTeeFySz1jPIyk4PefAk=;
-        b=BIsipX+8OD5rmJPDALH5Qklvmyc3GBFQhlOjoxoG95JE14wDnoxxNIhewdvL3KuBMu
-         VCF+a7HNcqqDnSs6FscXbVWx/KasuEWvwBkHdvS3VMdqeF/tVNy3AfxuuZ5EQh2fIYVn
-         RG+H4MjI7+nMRrpve1av+Q2qERLMFvv29FlxJa0O4UPn8M80ubK2zbhhHINFxQLCOE0E
-         1udyQEirca/cF5ghB4MoHmy5cPtSr2J+tqpwpuLc6ya8Q+h9tosargldlKu5su6dxb/w
-         mgYlJKQCMqRRqEHtQJyAXoWrwdS5zupC4sm0o8CMkFlRfS5MEWLP5SpiLs6GsmrI3wO6
-         6Eow==
-X-Gm-Message-State: AOJu0Yxxce7Qa3kgklYgwlJCkBbFoAak+PmPbQ5pvXJxFT6m9QqPB1wW
-	jDmkIH2kTd2CBOc500j/gF/N8L9G0wwc0g/FjGFMHYBQjOEMttNfCD/LrZvnXqto2bqOkUDHBOv
-	9cjebYqMTlow6vLGQZVUVmuwecsKB/wMuQ8rd/A==
-X-Google-Smtp-Source: AGHT+IGK2g99VinlpXuFk+7xG5Aeig7+Zj/nrgnePEnjP+3phgIn4+HdC2oVl0w/iw41hiQTL0JBYAJRilVW1zZioWQ=
-X-Received: by 2002:a05:6870:e3d2:b0:260:f883:95f9 with SMTP id
- 586e51a60fabf-2883450c741mr3347240fac.42.1728530372966; Wed, 09 Oct 2024
- 20:19:32 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1728502891; x=1729107691;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Io1G2uneGwHsYKAwtaIvvynFX0xlOmokHD97rmisdy0=;
+        b=Umpmy/BEGOuQ+r5YEnQWUdWwzjtJfFFH8ta4mUhjAGifuqt+l0NnPc4Zwt64hPjYg1
+         +gUQLsXAePdi1fADLipw57Ab8bp2oV2DNyKQoX6uC8geuoSVLBGP8iVGGo7SB6HecUYj
+         RdtXJczcpo+cSruMTu4jv4QS+FrWi22PkkHWhmHJDYaw1gs8ZfmnQqWF2bNqc8YAkJG6
+         NBvVcTy/NHcEji9oMDMOFktwfHDfC6tHOdoyJ4S71rF3rBmws/62t0RSAnlFmf6AtHCx
+         kUR6Up3AX1GC4oSpiPYIUNn8i6mQ30CnbNY/a7mviEuHj5osaOgLce7EcpSX8ERNnzPc
+         NJzA==
+X-Forwarded-Encrypted: i=1; AJvYcCWuQjtk7WKuO+LfC3ISqEb0kPdKSgHh6QVQkqI84PV9Taf3aEdGNL2FJ+lIpZFS7i7oQFoEvEz9OCQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUrFV2rA2NIEV2/64jRqNkU+8OYzdxH8Z7B9kFJ8aSNEQbGnuu
+	hwvZV9HI7xdCiV/jObVNLfWpj0UL/+Mr5jE7EL1nuN5bEFyGR6S4
+X-Google-Smtp-Source: AGHT+IEJ7Hh7KYSEFQ7TnvOgBW+KHHTbn0YpY2aq9eVXupaQTxUm7Wi9eOrRO7yFgrSR7VO5SquDug==
+X-Received: by 2002:a05:6512:224b:b0:539:921a:44af with SMTP id 2adb3069b0e04-539c4967bbemr2532382e87.48.1728502891046;
+        Wed, 09 Oct 2024 12:41:31 -0700 (PDT)
+Message-ID: <411f3c94-58b5-471e-bc58-e23d89d2078f@gmail.com>
+Date: Wed, 9 Oct 2024 21:41:25 +0200
 MIME-Version: 1.0
-References: <cover.1728471268.git.andrii.sultanov@cloud.com> <c9b47337615168e38fb6af2a80409f0a38ead901.1728471268.git.andrii.sultanov@cloud.com>
-In-Reply-To: <c9b47337615168e38fb6af2a80409f0a38ead901.1728471268.git.andrii.sultanov@cloud.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 10 Oct 2024 04:19:21 +0100
-Message-ID: <CACHz=Zi82QfM0CBt+OVK3zDO_qYSUTKzGpy8NZWxXJX_EL+bLQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] ocaml/libs: Remove xsd_glue_dev package, also
- install plugin_interface_v1.a
-To: Andrii Sultanov <andrii.sultanov@cloud.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Christian Lindig <christian.lindig@citrix.com>, Edwin Torok <edwin.torok@cloud.com>, 
-	David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 10/13] staging: rts5280: Use always-managed version of
+ pci_intx()
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Philipp Stanner <pstanner@redhat.com>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Sergey Shtylyov <s.shtylyov@omp.ru>,
+ Basavaraj Natikar <basavaraj.natikar@amd.com>, Jiri Kosina
+ <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Alex Dubov <oakad@yahoo.com>,
+ Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+ <manishc@marvell.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rasesh Mody <rmody@marvell.com>,
+ GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko <imitsyanko@quantenna.com>,
+ Sergey Matyukevich <geomatsi@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+ Sanjay R Mehta <sanju.mehta@amd.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>,
+ Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Chen Ni <nichen@iscas.ac.cn>,
+ Ricky Wu <ricky_wu@realtek.com>, Al Viro <viro@zeniv.linux.org.uk>,
+ Breno Leitao <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Mostafa Saleh <smostafa@google.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Hannes Reinecke <hare@suse.de>, John Garry <john.g.garry@oracle.com>,
+ Soumya Negi <soumya.negi97@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Yi Liu <yi.l.liu@intel.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Christian Brauner <brauner@kernel.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Eric Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Rui Salvaterra <rsalvaterra@gmail.com>, Marc Zyngier <maz@kernel.org>,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-input@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org, linux-staging@lists.linux.dev,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-sound@vger.kernel.org
+References: <20241009083519.10088-1-pstanner@redhat.com>
+ <20241009083519.10088-11-pstanner@redhat.com>
+ <2024100936-brunette-flannels-0d82@gregkh>
+Content-Language: en-US
+From: Philipp Hortmann <philipp.g.hortmann@gmail.com>
+In-Reply-To: <2024100936-brunette-flannels-0d82@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 9, 2024 at 4:15=E2=80=AFPM Andrii Sultanov
-<andrii.sultanov@cloud.com> wrote:
->
-> xsd_glue_dev packaging is inconsistent with the rest of OCaml packages
-> and isn't actually necessary. .a is needed alongside compiled bytecode
+On 10/9/24 11:38, Greg Kroah-Hartman wrote:
+> On Wed, Oct 09, 2024 at 10:35:16AM +0200, Philipp Stanner wrote:
+>> pci_intx() is a hybrid function which can sometimes be managed through
+>> devres. To remove this hybrid nature from pci_intx(), it is necessary to
+>> port users to either an always-managed or a never-managed version.
+>>
+>> rts5208 enables its PCI-Device with pcim_enable_device(). Thus, it needs the
+>> always-managed version.
+>>
+>> Replace pci_intx() with pcim_intx().
+>>
+>> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+>> ---
+>>   drivers/staging/rts5208/rtsx.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> 
 
-Being singular, should not be "The <NAME>.a is needed "... ?
-Or are there multiple archive files?
+Hi Philipp,
 
-> files during linking and was missed in the initial oxenstore plugin
-> work.
->
-> Specify OCAMLCFLAGS along with OCAMLOPTFLAGS.
->
-> Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
-> ---
->  tools/ocaml/libs/xsd_glue/Makefile | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->
-> diff --git a/tools/ocaml/libs/xsd_glue/Makefile b/tools/ocaml/libs/xsd_gl=
-ue/Makefile
-> index f84291f7fe..be68642968 100644
-> --- a/tools/ocaml/libs/xsd_glue/Makefile
-> +++ b/tools/ocaml/libs/xsd_glue/Makefile
-> @@ -5,6 +5,7 @@ include $(OCAML_TOPLEVEL)/common.make
->  SUBDIRS=3D domain_getinfo_plugin_v1
->
->  CFLAGS +=3D $(CFLAGS_xeninclude)
-> +OCAMLCFLAGS +=3D -opaque
->  OCAMLOPTFLAGS +=3D -opaque
->
->  OBJS =3D plugin_interface_v1
-> @@ -28,14 +29,11 @@ OCAML_NOC_LIBRARY =3D plugin_interface_v1
->  install: $(LIBS) META subdirs-install
->         mkdir -p $(OCAMLDESTDIR)
->         $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue
-> -       $(OCAMLFIND) install -destdir $(OCAMLDESTDIR) -ldconf ignore xsd_=
-glue META $(INTF) $(LIBS)
-> -       $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue_dev
-> -       $(OCAMLFIND) install -destdir $(OCAMLDESTDIR) -ldconf ignore xsd_=
-glue_dev META $(INTF) $(LIBS) *.ml *.mli
-> +       $(OCAMLFIND) install -destdir $(OCAMLDESTDIR) -ldconf ignore xsd_=
-glue META $(INTF) $(LIBS) *.a
->
->  .PHONY: uninstall
->  uninstall: subdirs-uninstall
->         $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue
-> -       $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue_dev
->
->  .PHONY: clean
->  clean: subdirs-clean
+this driver (rts5208) will be removed soon - patch is send in.
 
-Frediano
+Discussion about removal:
+https://lore.kernel.org/linux-staging/2024100943-shank-washed-a765@gregkh/T/#t
+
+Thanks for your support.
+
+Bye Philipp
+
 
