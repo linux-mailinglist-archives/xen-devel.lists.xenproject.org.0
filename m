@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 977B39966C9
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 12:15:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814244.1227707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A91D9966D6
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 12:16:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814261.1227749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syTix-0000U1-M7; Wed, 09 Oct 2024 10:15:19 +0000
+	id 1syTk8-0001Od-FO; Wed, 09 Oct 2024 10:16:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814244.1227707; Wed, 09 Oct 2024 10:15:19 +0000
+Received: by outflank-mailman (output) from mailman id 814261.1227749; Wed, 09 Oct 2024 10:16:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syTix-0000SP-Im; Wed, 09 Oct 2024 10:15:19 +0000
-Received: by outflank-mailman (input) for mailman id 814244;
- Wed, 09 Oct 2024 10:15:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BLvJ=RF=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1syTiv-0000Rx-Ir
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 10:15:17 +0000
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [2001:4860:4864:20::33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60327fb8-8627-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 12:15:15 +0200 (CEST)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-28832b71ebdso195402fac.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 03:15:15 -0700 (PDT)
+	id 1syTk8-0001Ma-Bv; Wed, 09 Oct 2024 10:16:32 +0000
+Received: by outflank-mailman (input) for mailman id 814261;
+ Wed, 09 Oct 2024 10:16:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1syTk7-0001MF-6b; Wed, 09 Oct 2024 10:16:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1syTk7-0006bP-4z; Wed, 09 Oct 2024 10:16:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1syTk6-0003QF-Mt; Wed, 09 Oct 2024 10:16:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1syTk6-0001vC-MK; Wed, 09 Oct 2024 10:16:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,120 +42,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60327fb8-8627-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728468914; x=1729073714; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oRmRijDtZLtX/e6fDXBz4qs5y4AuLrRoT6IwTIzhAwY=;
-        b=IA/L+sQCpQZzuhPpcHL71Cwa7XUdTsJryKKRJ1lA5SI/h8T8jVOxegjzzLLRfJtzmh
-         qR9ALr/+9h5OuM8YzqtSgeAgiLzDXSM4hz89EGyklunfP3VHxTw52M+KZKk34crMmidd
-         URrJvc2ICzO+yIv6vRxI5fWfPjLnITmFITuxM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728468914; x=1729073714;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oRmRijDtZLtX/e6fDXBz4qs5y4AuLrRoT6IwTIzhAwY=;
-        b=gnsPqjtfbQXtAkBGUwTzgTcSBYBNCkg2SiTFcWBQPucltfhyWm2qP2SrUEXR3xGsj2
-         5bggUBjyb62Rqn/KTrRM8JvKXr5DIF5aAZpspQX9oR7tf9FEJyKhaMLLNhbU+z5YCZtl
-         S4t8YNysor43E1biamvbt8eCds0qbNNJ70k38oOkHTgEnLH6RnIJQxc2TEsO8xazsjdi
-         KfbIbGQ+a9gCn62BlvsUEdkEBLjzVoTP3rdAS205wo6xFb1zzUs4s8cSw3rWK75xcSGp
-         9l5DRGR4zqgA/1X7FIe1tJRMLEV3JSIdoY+ORIzPzK6A0RFLuSteJgS5mrWo9tvOHAXd
-         v+ZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUW6pCTy0O+dZnHkOOHp+6OK3JLE10CibxUwLLaJbYSNSP8A5V8FQspMWD1MbM9wO5avwoVhVpzooQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFs0pJ1JbhtAGQO4TXcsVMsqJyQZ+hBvICDTWR3tUnYh7m2h6E
-	fuhyVl2DL1YLyXGjLjzBx4FvBgffggSkWl1Z+qZNA6bsCNFmMt5oXxXqxEIgRRQsmiQtX9lYZv9
-	TJ55O0Ro9qV67PEPGgM603nPUlqt4zl6gBTxyww==
-X-Google-Smtp-Source: AGHT+IHFM+9XDbwI5q5WkiRdrzrUVTc+YbFwld6auK1Lp3q8SuHeTL93AIRmfLOM3nSB3HfFUv9w/jtWnlI/6xJ8Mgg=
-X-Received: by 2002:a05:6870:c1c3:b0:277:c027:1960 with SMTP id
- 586e51a60fabf-2883434b155mr1084509fac.25.1728468914119; Wed, 09 Oct 2024
- 03:15:14 -0700 (PDT)
-MIME-Version: 1.0
-References: <20241009080439.2411730-1-frediano.ziglio@cloud.com>
- <20241009080439.2411730-2-frediano.ziglio@cloud.com> <f54d8f4b-e088-4ebe-a72f-ec4a540f9b33@suse.com>
-In-Reply-To: <f54d8f4b-e088-4ebe-a72f-ec4a540f9b33@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Wed, 9 Oct 2024 11:15:03 +0100
-Message-ID: <CACHz=ZjLDv11OiMdtDmTLDOEmgDiqMoP9cppdKg3qcsXK+wpgA@mail.gmail.com>
-Subject: Re: [PATCH v8 1/2] x86/boot: Align mbi2.c stack to 16 bytes
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tfygQ89Q5/DQxTFwCf8xPtONOTtRphFIacBBYU/ONhU=; b=V06UhFSKy/jE0EqoUQfluaKcVL
+	jUy8/g5yGBbUuwdHZFObuKeoMT9kLzH3Kst48ilmoGX+4CbFKkb4oAdqetKskGk+Q/liODmRfmXx3
+	YksmG/r7Cfu8MzlEVifDsc4j9d5gjBKw564Rfef9OTjSvf/BI5KJmym5fcGUPBFW2OVo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-188024-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 188024: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=3b79d825b5719f6654e4c95cdc17d65bb204213a
+X-Osstest-Versions-That:
+    xen=c95cd5f9c5a8c1c6ab1b0b366d829fa8561958fd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 09 Oct 2024 10:16:30 +0000
 
-On Wed, Oct 9, 2024 at 9:20=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 09.10.2024 10:04, Frediano Ziglio wrote:
-> > Doing previous testing with an Adler Lake Intel machine the following
-> > patch (improving MBI structure checking) started to fail.
->
-> In patch descriptions please don't refer to "this patch" or "the followin=
-g
-> patch"; describe a commit in a self-contained way, with references to
-> what's already committed mentioning commit hash and title, whereas
-> references to what hasn't been committed using merely the title (and mayb=
-e
-> a link to its most recent posting). I'm not sure though that the other
-> patch really matters here beyond having exposed an issue that was there
-> (latently) anyway.
->
+flight 188024 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/188024/
 
-In this case it's referring to a not merged commit, so I cannot put
-the hash, but I changed to state the subject.
+Regressions :-(
 
-> > Excluding it makes the tests succeed however there was not apparent
-> > reason (looking at the code) for the failure.
-> > So I instrumented code to output the structure and tested code with
-> > this extracted data with and without the following patch and results
-> > were the same.
-> > Compiled assembly code from lab was also fine beside not keeping
-> > the 16-byte alignment for the stack.
-> > Turning on stack alignment solve the problem on Adler Lake machine.
-> >
-> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->
-> This really wants a Fixes: tag then.
->
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                   6 xen-build                fail REGR. vs. 188015
 
-Done.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-> > --- a/xen/arch/x86/efi/Makefile
-> > +++ b/xen/arch/x86/efi/Makefile
-> > @@ -11,6 +11,8 @@ $(obj)/boot.init.o: $(obj)/buildid.o
-> >  $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-bounda=
-ry=3D4)
-> >  $(addprefix $(obj)/,$(EFIOBJ-y)): CFLAGS_stack_boundary :=3D $(cflags-=
-stack-boundary)
-> >
-> > +$(obj)/mbi2.o: CFLAGS_stack_boundary :=3D $(cflags-stack-boundary)
-> > +
-> >  obj-y :=3D common-stub.o stub.o
-> >  obj-$(XEN_BUILD_EFI) :=3D $(filter-out %.init.o,$(EFIOBJ-y))
-> >  obj-bin-$(XEN_BUILD_EFI) :=3D $(filter %.init.o,$(EFIOBJ-y))
->
-> You're duplicating code, which is better to avoid when possible. Is there
-> a reason the earlier commit didn't simply add mbi2.o to $(EFIOBJ-y)? That
-> way the existing logic would have covered that file as well. And really I
-> think it should have been mbi2.init.o (or else adding it into $(obj-bin-y=
-)
-> is wrong), which probably wants correcting at the same time (ISTR actuall=
-y
-> having requested that during an earlier review round).
- >
-> Jan
+version targeted for testing:
+ xen                  3b79d825b5719f6654e4c95cdc17d65bb204213a
+baseline version:
+ xen                  c95cd5f9c5a8c1c6ab1b0b366d829fa8561958fd
 
-This was my first attempt, but it fails poorly, as EFIOBJ-y comes with
-the addition of creating some file links that causes mbi2.c to be
-overridden.
-If I remember, you suggested changing to obj-bin-y. Still, maybe is
-not the best place. It was added to obj-bin-y because it should be
-included either if XEN_BUILD_EFI is "y" or not.
+Last test of basis   188015  2024-10-08 16:00:24 Z    0 days
+Testing same since   188024  2024-10-09 08:02:21 Z    0 days    1 attempts
 
-Frediano
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Frediano Ziglio <frediano.ziglio@cloud.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Matthew Barnes <matthew.barnes@cloud.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Ross Lagerwall <ross.lagerwall@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 3b79d825b5719f6654e4c95cdc17d65bb204213a
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Wed Oct 9 09:57:37 2024 +0200
+
+    MAINTAINERS: Add myself as a reviewer for RISC-V
+    
+    As an active contributor to Xen's RISC-V port, so add myself
+    to the list of reviewers.
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6b80ec957c64fc3ca7a32adc504fefd226d7dad0
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Wed Oct 9 09:56:43 2024 +0200
+
+    types: replace remaining uses of s64
+    
+    ... and move the type itself to linux-compat.h. An exception being
+    arch/arm/arm64/cpufeature.c and arch/arm/include/asm/arm64/cpufeature.h,
+    which are to use linux-compat.h instead (the former by including the
+    latter).
+    
+    While doing so
+    - correct the type of union uu's uq field in lib/divmod.c,
+    - switch a few adjacent types as well, for (a little bit of)
+      consistency.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 9d278c8c6cd5f8375c913ed8f4d1ce2b50f0ea06
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Wed Oct 9 09:56:16 2024 +0200
+
+    MAINTAINERS: add myself as maintainer for arm tee
+    
+    With Tee mediators now containing Optee and FF-A implementations, add
+    myself as maintainers to have someone handling the FF-A side.
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+    Acked-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+
+commit 2f413e22fa5eb1c6b8ec04ef1529807a2fbf6c79
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Wed Oct 9 09:55:38 2024 +0200
+
+    x86/msr: add log messages to MSR state load error paths
+    
+    Some error paths in the MSR state loading logic don't contain error messages,
+    which makes debugging them quite hard without adding extra patches to print the
+    information.
+    
+    Add two new log messages to the MSR state load path that print information
+    about the entry that failed to load, for both PV and HVM.
+    
+    While there also adjust XEN_DOMCTL_set_vcpu_msrs to return -ENXIO in case the
+    MSR is unhandled or can't be loaded, so it matches the error code used by HVM
+    MSR loading (and it's less ambiguous than -EINVAL).
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit dcbf8210f3f3a49626341355308010eb92194b85
+Author: Matthew Barnes <matthew.barnes@cloud.com>
+Date:   Wed Oct 9 09:54:48 2024 +0200
+
+    x86/APIC: Switch flat driver to use phys dst for ext ints
+    
+    External interrupts via logical delivery mode in xAPIC do not benefit
+    from targeting multiple CPUs and instead simply bloat up the vector
+    space.
+    
+    However the xAPIC flat driver currently uses logical delivery for
+    external interrupts.
+    
+    This patch switches the xAPIC flat driver to use physical destination
+    mode for external interrupts, instead of logical destination mode.
+    
+    This patch also applies the following non-functional changes:
+    - Remove now unused logical flat functions
+    - Expand GENAPIC_FLAT and GENAPIC_PHYS macros, and delete them.
+    
+    Resolves: https://gitlab.com/xen-project/xen/-/issues/194
+    Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit b3152931302c9415eecd4f5bc4236bbfee9194a6
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Oct 9 09:53:49 2024 +0200
+
+    xen: Update header guards - RISC-V
+    
+    Update headers related to RISC-V.
+    
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6bbcb97ba45ecdcac9d7359fdecf298bc4c1be1c
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Oct 9 09:53:25 2024 +0200
+
+    xen: Update header guards - I/O MMU
+    
+    Update headers related to I/O MMU.
+    
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 964c9568eaa58f621384f58e0d275f3b060d781d
+Author: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date:   Wed Oct 9 09:53:05 2024 +0200
+
+    xen: Update header guards - Intel TXT
+    
+    Update the header related to Intel trusted execution technology.
+    
+    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
