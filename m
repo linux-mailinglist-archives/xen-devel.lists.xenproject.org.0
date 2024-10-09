@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A91D9966D6
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 12:16:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814261.1227749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4975E9966E4
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 12:19:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814285.1227825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syTk8-0001Od-FO; Wed, 09 Oct 2024 10:16:32 +0000
+	id 1syTn3-0003er-I7; Wed, 09 Oct 2024 10:19:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814261.1227749; Wed, 09 Oct 2024 10:16:32 +0000
+Received: by outflank-mailman (output) from mailman id 814285.1227825; Wed, 09 Oct 2024 10:19:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syTk8-0001Ma-Bv; Wed, 09 Oct 2024 10:16:32 +0000
-Received: by outflank-mailman (input) for mailman id 814261;
- Wed, 09 Oct 2024 10:16:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1syTn3-0003bd-Ey; Wed, 09 Oct 2024 10:19:33 +0000
+Received: by outflank-mailman (input) for mailman id 814285;
+ Wed, 09 Oct 2024 10:19:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syTk7-0001MF-6b; Wed, 09 Oct 2024 10:16:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syTk7-0006bP-4z; Wed, 09 Oct 2024 10:16:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syTk6-0003QF-Mt; Wed, 09 Oct 2024 10:16:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1syTk6-0001vC-MK; Wed, 09 Oct 2024 10:16:30 +0000
+ (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1syTn2-0003bX-9P
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 10:19:32 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f8e8283e-8627-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 12:19:31 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a9951fba3b4so479450366b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 03:19:31 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a994483e1e3sm520924766b.111.2024.10.09.03.19.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 03:19:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,218 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=tfygQ89Q5/DQxTFwCf8xPtONOTtRphFIacBBYU/ONhU=; b=V06UhFSKy/jE0EqoUQfluaKcVL
-	jUy8/g5yGBbUuwdHZFObuKeoMT9kLzH3Kst48ilmoGX+4CbFKkb4oAdqetKskGk+Q/liODmRfmXx3
-	YksmG/r7Cfu8MzlEVifDsc4j9d5gjBKw564Rfef9OTjSvf/BI5KJmym5fcGUPBFW2OVo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188024-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f8e8283e-8627-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1728469170; x=1729073970; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YWNOkMJt/qZiHUSsIWHQpYMnVYXyjbu1ne9rUwtjF38=;
+        b=SbIH1/3cbc0z2qdRVsvSo5ozlDZOjM66Sa0pIqwULH4z7jhv3GzQhOwtbO7k5Q16Ag
+         bl1BpCM8wm6wjx06IULW+O/+cvgeWr7c86kn33rwPfSL1FNGwl0qdwflA1krLiVBI+6Z
+         DFTuyNr48SpGfwkp3l1xMOmDYdlb85aijnUGsj9zb1DpZLuGrkBO2ak3h5VwxyvllPGW
+         lEH3VnCWpF4Z5qc19+SmNDRFh0brXyUQ2Wx52qUKHt5Uo3fRldrqHGUQBs0m8K7g7+HY
+         A0i8bT+br7V87qCfLgyC92poYLfh7L8jlXVdc2qp2fh9VoFpXaSDlkpFjJaiFzwn8pK2
+         XXsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728469170; x=1729073970;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YWNOkMJt/qZiHUSsIWHQpYMnVYXyjbu1ne9rUwtjF38=;
+        b=qAri6ivLOTdZ3wkbiY4UIlqWRaEKu51fjCIghGL8MF32EBVKypxTppWGiLpUHv6dh2
+         IEZlLkCvN+e7i212koUW5IrenY/S0aia5RU4xVYppLKTKDNi7TIWCHVioTcXgmG4Op0T
+         FG8gYmN1cEz2wchVy3/BBoWBYLM5HIfFdKFXgXz+rEJsX8qmJRMva6C12X+ioIBHKwys
+         PX9EjFWodDAsQNrOOuA2yYg15T364q5XbPbOwN5us6bZ/btgwi1SX1Kk36MNybTbdnGi
+         Nz6vuUbi7B0Ei/qN8Z7FESVfvsQVrsttt7PY+Ac95eCv+WwjS+dwfIV1r0ukBODmpTxt
+         WD4w==
+X-Forwarded-Encrypted: i=1; AJvYcCXU4edDMWvl2l0c/FRfo+d/LhJd9FvVmIVExsNeQw8Fqndqq9kozPoQ3OjXdOviQPUZ02Fi8BCxpBw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJ3/mXzn0gnVM9x4WIrHAow31vqcaKv3tKkp1qy++zG54EBG5x
+	+NbWltGOb7vmOo34whpwzh8SM/rXYqgDibQdp1R3qIo6FdoWLiRI1n8V3Hkr1w==
+X-Google-Smtp-Source: AGHT+IHgnMfKMSWpUDB9fN6tQbby353vUU0Y9RU7f24ZjPlvVMjwIm+vwuVzVrCNbLqr9J6lq1TVgQ==
+X-Received: by 2002:a17:907:d3cc:b0:a99:7e67:cd13 with SMTP id a640c23a62f3a-a998d208896mr171984766b.36.1728469170533;
+        Wed, 09 Oct 2024 03:19:30 -0700 (PDT)
+Message-ID: <00ac0665-e4ff-4a56-8537-e81573710c3c@suse.com>
+Date: Wed, 9 Oct 2024 12:19:29 +0200
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 188024: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=3b79d825b5719f6654e4c95cdc17d65bb204213a
-X-Osstest-Versions-That:
-    xen=c95cd5f9c5a8c1c6ab1b0b366d829fa8561958fd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Oct 2024 10:16:30 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
+ kernel
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
+ <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com> <ZwZScGr75xEolDnS@mail-itl>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZwZScGr75xEolDnS@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 188024 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188024/
+On 09.10.2024 11:52, Marek Marczykowski-Górecki wrote:
+> On Wed, Oct 09, 2024 at 09:19:57AM +0200, Jan Beulich wrote:
+>> On 08.10.2024 23:32, Marek Marczykowski-Górecki wrote:
+>>> --- a/tools/libs/guest/xg_dom_bzimageloader.c
+>>> +++ b/tools/libs/guest/xg_dom_bzimageloader.c
+>>> @@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
+>>>      return retval;
+>>>  }
+>>>  
+>>> -/* 128 Mb is the minimum size (half-way) documented to work for all inputs. */
+>>> -#define LZMA_BLOCK_SIZE (128*1024*1024)
+>>> +#define LZMA_BLOCK_SIZE (256*1024*1024)
+>>
+>> That's as arbitrary as before, now just not even with a comment at least
+>> hinting at it being arbitrary. Quoting from one of the LZMA API headers:
+>>
+>> 	 * Decoder already supports dictionaries up to 4 GiB - 1 B (i.e.
+>> 	 * UINT32_MAX), so increasing the maximum dictionary size of the
+>> 	 * encoder won't cause problems for old decoders.
+>>
+>> IOW - what if the Linux folks decided to increase the dictionary size
+>> further? I therefore wonder whether we don't need to make this more
+>> dynamic, perhaps by peeking into the header to obtain the dictionary
+>> size used. The one thing I'm not sure about is whether there can't be
+>> multiple such headers throughout the file, and hence (in principle)
+>> differing dictionary sizes.
+> 
+> What is the purpose of this block size limit? From the error message, it
+> seems to be avoiding excessive memory usage during decompression (which
+> could be DoS via OOM). If that's the case, then taking the limit from
+> the kernel binary itself will miss this point (especially in case of
+> pygrub or similar, but there may be other cases of not-fully-trusted
+> kernel binaries).
 
-Regressions :-(
+Indeed. The question then simply is: Where do we want to draw the line
+between what we permit and what we reject?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 188015
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  3b79d825b5719f6654e4c95cdc17d65bb204213a
-baseline version:
- xen                  c95cd5f9c5a8c1c6ab1b0b366d829fa8561958fd
-
-Last test of basis   188015  2024-10-08 16:00:24 Z    0 days
-Testing same since   188024  2024-10-09 08:02:21 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Frediano Ziglio <frediano.ziglio@cloud.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Matthew Barnes <matthew.barnes@cloud.com>
-  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Ross Lagerwall <ross.lagerwall@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 3b79d825b5719f6654e4c95cdc17d65bb204213a
-Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Date:   Wed Oct 9 09:57:37 2024 +0200
-
-    MAINTAINERS: Add myself as a reviewer for RISC-V
-    
-    As an active contributor to Xen's RISC-V port, so add myself
-    to the list of reviewers.
-    
-    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 6b80ec957c64fc3ca7a32adc504fefd226d7dad0
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Oct 9 09:56:43 2024 +0200
-
-    types: replace remaining uses of s64
-    
-    ... and move the type itself to linux-compat.h. An exception being
-    arch/arm/arm64/cpufeature.c and arch/arm/include/asm/arm64/cpufeature.h,
-    which are to use linux-compat.h instead (the former by including the
-    latter).
-    
-    While doing so
-    - correct the type of union uu's uq field in lib/divmod.c,
-    - switch a few adjacent types as well, for (a little bit of)
-      consistency.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 9d278c8c6cd5f8375c913ed8f4d1ce2b50f0ea06
-Author: Bertrand Marquis <bertrand.marquis@arm.com>
-Date:   Wed Oct 9 09:56:16 2024 +0200
-
-    MAINTAINERS: add myself as maintainer for arm tee
-    
-    With Tee mediators now containing Optee and FF-A implementations, add
-    myself as maintainers to have someone handling the FF-A side.
-    
-    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-    Acked-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-
-commit 2f413e22fa5eb1c6b8ec04ef1529807a2fbf6c79
-Author: Roger Pau Monné <roger.pau@citrix.com>
-Date:   Wed Oct 9 09:55:38 2024 +0200
-
-    x86/msr: add log messages to MSR state load error paths
-    
-    Some error paths in the MSR state loading logic don't contain error messages,
-    which makes debugging them quite hard without adding extra patches to print the
-    information.
-    
-    Add two new log messages to the MSR state load path that print information
-    about the entry that failed to load, for both PV and HVM.
-    
-    While there also adjust XEN_DOMCTL_set_vcpu_msrs to return -ENXIO in case the
-    MSR is unhandled or can't be loaded, so it matches the error code used by HVM
-    MSR loading (and it's less ambiguous than -EINVAL).
-    
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit dcbf8210f3f3a49626341355308010eb92194b85
-Author: Matthew Barnes <matthew.barnes@cloud.com>
-Date:   Wed Oct 9 09:54:48 2024 +0200
-
-    x86/APIC: Switch flat driver to use phys dst for ext ints
-    
-    External interrupts via logical delivery mode in xAPIC do not benefit
-    from targeting multiple CPUs and instead simply bloat up the vector
-    space.
-    
-    However the xAPIC flat driver currently uses logical delivery for
-    external interrupts.
-    
-    This patch switches the xAPIC flat driver to use physical destination
-    mode for external interrupts, instead of logical destination mode.
-    
-    This patch also applies the following non-functional changes:
-    - Remove now unused logical flat functions
-    - Expand GENAPIC_FLAT and GENAPIC_PHYS macros, and delete them.
-    
-    Resolves: https://gitlab.com/xen-project/xen/-/issues/194
-    Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit b3152931302c9415eecd4f5bc4236bbfee9194a6
-Author: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date:   Wed Oct 9 09:53:49 2024 +0200
-
-    xen: Update header guards - RISC-V
-    
-    Update headers related to RISC-V.
-    
-    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 6bbcb97ba45ecdcac9d7359fdecf298bc4c1be1c
-Author: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date:   Wed Oct 9 09:53:25 2024 +0200
-
-    xen: Update header guards - I/O MMU
-    
-    Update headers related to I/O MMU.
-    
-    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 964c9568eaa58f621384f58e0d275f3b060d781d
-Author: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date:   Wed Oct 9 09:53:05 2024 +0200
-
-    xen: Update header guards - Intel TXT
-    
-    Update the header related to Intel trusted execution technology.
-    
-    Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+Jan
 
