@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E97D996D5E
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:13:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814593.1228180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB849996D93
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:24:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814603.1228193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXQU-00012X-O0; Wed, 09 Oct 2024 14:12:30 +0000
+	id 1syXbm-0004Uu-NR; Wed, 09 Oct 2024 14:24:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814593.1228180; Wed, 09 Oct 2024 14:12:30 +0000
+Received: by outflank-mailman (output) from mailman id 814603.1228193; Wed, 09 Oct 2024 14:24:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syXQU-00010b-LI; Wed, 09 Oct 2024 14:12:30 +0000
-Received: by outflank-mailman (input) for mailman id 814593;
- Wed, 09 Oct 2024 14:12:29 +0000
+	id 1syXbm-0004SB-KL; Wed, 09 Oct 2024 14:24:10 +0000
+Received: by outflank-mailman (input) for mailman id 814603;
+ Wed, 09 Oct 2024 14:24:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XgrK=RF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1syXQT-00010V-IF
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:12:29 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8412915f-8648-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 16:12:28 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a9977360f9fso241909666b.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 07:12:28 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9957d955f8sm399053866b.74.2024.10.09.07.12.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 07:12:27 -0700 (PDT)
+ <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1syXbl-0004S5-Fb
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:24:09 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24452b72-864a-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 16:24:08 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1728483841096941.1036631949369;
+ Wed, 9 Oct 2024 07:24:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +38,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8412915f-8648-11ef-a0bd-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728483148; x=1729087948; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ivqGq4ZbsDUPBOpiZRVNGy20gXTLQG1ggg18TyuLccg=;
-        b=nRu7p6VBxPkenTfLiL+zr/hUGL5mSYT6MXxb0Wj6mYhClkxvl+YrJ5lvqRlSnf4UZ2
-         M5HOEWQ7aS8zGyp6yye3T9sN5Z0kI8EbnJ+C7bN5iw1wIpCNte9qC0MjPOetSttT0XpI
-         UfFpQan3Ouh4KXMf5d8A7C2G5RPKNm7DCLwYw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728483148; x=1729087948;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ivqGq4ZbsDUPBOpiZRVNGy20gXTLQG1ggg18TyuLccg=;
-        b=OpI8QcT+Q3/nVTht6ca0DT9sNrSdzvCIxLqmdnpoMIc9X4kJOxx9KcB2CIfhOPeUHT
-         9fFtd+HvcQ33cVdgqQ7AnAD3qnHzzpd9KE9F6O0YAh4R6LnXoCPbkDdg1sAFFJjKE3XQ
-         wFMnS35ZfTH5BYtwTnlciaSxU6QOPT7B0yrGldNOiKmSiQwa62bIHqydGZ/EG4vjTN/d
-         OWWSC5DxD7zQ4oRs/oQIFAj3lN6mcFvslLPmK6HSVRm/NU1bEMQQuCFoapyUDYVlhJT0
-         N+4LbPBnc9NtMsvOQNe3IABi3eM5bVcSYJiDYvoCJoRKJAy9kIhqXyK1JSiWEp9scE4B
-         uWuw==
-X-Forwarded-Encrypted: i=1; AJvYcCX3rLi0DMtpamxdJII7DZAXWtbgfe+pe3InYewn2wzWcsOcZf+/nWM0rPIUnIQlkX3IIQf6Kafzsd4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzr20WWJYIZ1Uz5CZoW3Cd2jItOwo+U/9D4bNui5E/HtURII/eV
-	d2C0ME+qFahlUS0df3+E38mAUaZIhS0q8iZgFBn5C5bChVCpGkzxCFAXqcESrWGpOAOnU+HvRxQ
-	9Lvo=
-X-Google-Smtp-Source: AGHT+IGe93FJOqQNUFCsHjVoG5ZisCvqFp4EVGWIPTqIIIJsXTv0KglGYG0kkf3tcxbiYv8SFAo9GA==
-X-Received: by 2002:a17:907:efe4:b0:a99:5cd5:5b9c with SMTP id a640c23a62f3a-a998d208d97mr239537666b.36.1728483147733;
-        Wed, 09 Oct 2024 07:12:27 -0700 (PDT)
-Message-ID: <2019d667-bd5f-45f5-9a1d-ed170f25fee5@citrix.com>
-Date: Wed, 9 Oct 2024 15:12:25 +0100
+X-Inumbo-ID: 24452b72-864a-11ef-a0bd-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1728483842; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=H7fNf/VgRza/UWiqcicfNJQtHQ4EVVEmNgHP7VFZk0VR/lpy35R8/VocXYI+qm56kEUHnVPQ/iqp88s3t5xfymWLQl0B0LYeaLiSpawSCnGLp+Y4ZU593czOZPw//oUXsiLZrRuHZMOCbmXNhInemUSypXqCrGmU51R3cDBnZ/0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1728483842; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=eV8lDH55z7Y7RlEHO7pHY7SnY8hRfCYAaxvkVmR4z1o=; 
+	b=QyLjHfGuMy5DcEtWpVq81oCCW4V6sIwwzwlsg4sHpDQqD8PyU4GZSwUbTXDkdqQ1bfr4LwVMbUIDyCrI0/oDFrLANIh95n/CalJ7GZ+PvUiTkViZaZ1SztGEByCwehi3dkVx+RXWt30EmDOyGMpdO1hhKVEeELRiPZUDSBvJyiY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728483842;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=eV8lDH55z7Y7RlEHO7pHY7SnY8hRfCYAaxvkVmR4z1o=;
+	b=SQOyarD++AL9szC24MjMxQ6GpkwFGskIotKz4tKCRaFkzs0N9xzWrKJtsDuRXvQE
+	Z08f07VXEoCYgE2pOmI9h9BnNRweTvARkxDWmMKKv1ZB5267/in6WFPKVc9Vy15Mf4v
+	zbF+lWA5PqK5btXiWfV0w1YqymGsY9tO7JwIC504=
+Message-ID: <f715e69c-928a-49c4-ae72-49c8444b0a9c@apertussolutions.com>
+Date: Wed, 9 Oct 2024 10:23:58 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: restore semicolon after explicit DS prefix
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cdf93d64-dcc0-4e01-88fe-71145ffff1ff@suse.com>
- <8f85c4d2-805b-43ed-926e-732382b7e6b9@citrix.com>
- <7f3229e9-43c1-48f7-9921-ce826c7c19c0@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <7f3229e9-43c1-48f7-9921-ce826c7c19c0@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 08/44] x86/boot: convert setup.c mod refs to early_mod
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
+ <20241006214956.24339-9-dpsmith@apertussolutions.com>
+ <a2346abb-e332-40a3-88bb-0159f6a359e8@amd.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <a2346abb-e332-40a3-88bb-0159f6a359e8@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 09/10/2024 7:04 am, Jan Beulich wrote:
-> On 08.10.2024 18:37, Andrew Cooper wrote:
->> On 08/10/2024 5:00 pm, Jan Beulich wrote:
->>> It's not unnecessary (as the earlier commit claimed): The integrated
->>> assembler of Clang up to 11 complains about an "invalid operand for
->>> instruction".
->>>
->>> Fixes: b42cf31d1165 ("x86: use alternative_input() in cache_flush()")
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> --- a/xen/arch/x86/flushtlb.c
->>> +++ b/xen/arch/x86/flushtlb.c
->>> @@ -286,7 +286,7 @@ void cache_flush(const void *addr, unsig
->>>           * + prefix than a clflush + nop, and hence the prefix is added instead
->>>           * of letting the alternative framework fill the gap by appending nops.
->>>           */
->>> -        alternative_input("ds clflush %[p]",
->>> +        alternative_input("ds; clflush %[p]",
->> /* Clang-IAS < 12 needs the semicolon */  which can probably fit on the
->> end of the line.
-> I've made it "Semicolon for Clang-IAS < 12" to actually fit on the line.
->
-> I wonder whether I can take the reply as "ack with that change"?
+On 10/7/24 15:34, Jason Andryuk wrote:
+> On 2024-10-06 17:49, Daniel P. Smith wrote:
+>> To allow a slow conversion of x86 over to struct boot_module, start with
+>> replacing all references to struct mod to the early_mod element of struct
+>> boot_module. These serves twofold, first to allow the incremental 
+>> transition
+>> from struct mod fields to struct boot_module fields. The second is to 
+>> allow
+>> the conversion of function definitions from taking struct mod 
+>> parameters to
+>> accepting struct boot_module as needed when a transitioned field will be
+>> accessed.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   xen/arch/x86/setup.c | 61 ++++++++++++++++++++++++--------------------
+>>   1 file changed, 34 insertions(+), 27 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index dd82ca3d43e2..ba4bee6b93af 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1341,15 +1341,15 @@ void asmlinkage __init noreturn 
+>> __start_xen(unsigned long mbi_p)
+>>       set_kexec_crash_area_size((u64)nr_pages << PAGE_SHIFT);
+>>       kexec_reserve_area();
+>> -    initial_images = mod;
+>> +    initial_images = bi->mods[0].mod;
+> 
+> Isn't this wrong?
+> mod is the array of module_t * of *all* modules, but bi->mods[0].mod is 
+> a single module_t *?
 
-Yeah, that's good enough.
+No it is not wrong:
+   bi->mods[0].mod == __va(mbi->mods_addr)[0]
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+While the modules themselves get relocated, the location of the array of 
+module_t never change.
 
->
->> Or we stop supporting such old versions of Clang/LLVM.
-> As indicated in reply to Roger's proposal, that would leave me without
-> any way to test with at least some Clang versions (unless I got into the
-> business of also building my own Clang binaries).
+The question does give me pause to double check the patch ordering, just 
+to be sure that mod_start and mod_end are correct up until we transition
+to using the boot_module fields.
 
-Or using the upstream provided builds.  (Seriously - this is something
-the LLVM community completely outshine the GCC/Binutils community.)
+>>       for ( i = 0; !efi_enabled(EFI_LOADER) && i < bi->nr_modules; i++ )
+>>       {
+>> -        if ( mod[i].mod_start & (PAGE_SIZE - 1) )
+>> +        if ( bi->mods[i].mod->mod_start & (PAGE_SIZE - 1) )
+>>               panic("Bootloader didn't honor module alignment 
+>> request\n");
+>> -        mod[i].mod_end -= mod[i].mod_start;
+>> -        mod[i].mod_start >>= PAGE_SHIFT;
+>> -        mod[i].reserved = 0;
+>> +        bi->mods[i].mod->mod_end -= bi->mods[i].mod->mod_start;
+>> +        bi->mods[i].mod->mod_start >>= PAGE_SHIFT;
+>> +        bi->mods[i].mod->reserved = 0;
+>>       }
+>>       /*
+> 
+>> @@ -1509,13 +1510,15 @@ void asmlinkage __init noreturn 
+>> __start_xen(unsigned long mbi_p)
+>>   #endif
+>>       }
+>> -    if ( bi->mods[0].headroom && !mod->reserved )
+>> +    if ( bi->mods[0].headroom && !bi->mods[0].mod->reserved )
+>>           panic("Not enough memory to relocate the dom0 kernel image\n");
+>>       for ( i = 0; i < bi->nr_modules; ++i )
+>>       {
+>> -        uint64_t s = (uint64_t)mod[i].mod_start << PAGE_SHIFT;
+>> +        uint64_t s = (uint64_t)bi->mods[i].mod->mod_start
+>> +                        << PAGE_SHIFT;
+> 
+> pfn_to_paddr() ?
 
-Or using Gitlab CI.
+Yep, missed one ( ._.)
 
-~Andrew
+>> -        reserve_e820_ram(&boot_e820, s, s + PAGE_ALIGN(mod[i].mod_end));
+>> +        reserve_e820_ram(&boot_e820, s,
+>> +                         s + PAGE_ALIGN(bi->mods[i].mod->mod_end));
+>>       }
+>>       if ( !xen_phys_start )
+>> @@ -1593,8 +1596,9 @@ void asmlinkage __init noreturn 
+>> __start_xen(unsigned long mbi_p)
+>>                   map_e = boot_e820.map[j].addr + boot_e820.map[j].size;
+>>                   for ( j = 0; j < bi->nr_modules; ++j )
+>>                   {
+>> -                    uint64_t end = pfn_to_paddr(mod[j].mod_start) +
+>> -                                   mod[j].mod_end;
+>> +                    uint64_t end = pfn_to_paddr(
+>> +                                   bi->mods[j].mod->mod_start) +
+>> +                                   bi->mods[j].mod->mod_end;
+> 
+> I think you want a different indent.  I think
+>      uint64_t end = pfn_to_paddr(bi->mods[j].mod->mod_start)
+> 
+> will all fit on one line (indented all the way).  (Thunderbird makes it 
+> difficult me to send indented.)
+
+Yes, it will fit on one line without the '+', but I believe one of the 
+many unwritten coding style rules is that the '+' stays with the LHS, so 
+I wrapped the LHS with the '+'.
+
+>>                       if ( map_e < end )
+>>                           map_e = end;
+>> @@ -1668,11 +1672,13 @@ void asmlinkage __init noreturn 
+>> __start_xen(unsigned long mbi_p)
+>>       for ( i = 0; i < bi->nr_modules; ++i )
+>>       {
+>> -        set_pdx_range(mod[i].mod_start,
+>> -                      mod[i].mod_start + PFN_UP(mod[i].mod_end));
+>> -        map_pages_to_xen((unsigned long)mfn_to_virt(mod[i].mod_start),
+>> -                         _mfn(mod[i].mod_start),
+>> -                         PFN_UP(mod[i].mod_end), PAGE_HYPERVISOR);
+>> +        set_pdx_range(bi->mods[i].mod->mod_start,
+>> +                      bi->mods[i].mod->mod_start +
+>> +                      PFN_UP(bi->mods[i].mod->mod_end));
+>> +        map_pages_to_xen(
+>> +            (unsigned long)mfn_to_virt(bi->mods[i].mod->mod_start),
+> 
+> map_pages_to_xen((unsigned long)maddr_to_virt(bi->mods[i].start),
+> 
+> All fits on one line.
+
+If it does, I will bring it back up.
+
+v/r,
+dps
 
