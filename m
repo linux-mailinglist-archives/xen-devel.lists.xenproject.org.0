@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B999996EEE
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 16:58:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814748.1228415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C68C6996F27
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 17:03:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814758.1228425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syY98-0008VX-G3; Wed, 09 Oct 2024 14:58:38 +0000
+	id 1syYD9-0002Fq-Vq; Wed, 09 Oct 2024 15:02:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814748.1228415; Wed, 09 Oct 2024 14:58:38 +0000
+Received: by outflank-mailman (output) from mailman id 814758.1228425; Wed, 09 Oct 2024 15:02:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syY98-0008Tw-DR; Wed, 09 Oct 2024 14:58:38 +0000
-Received: by outflank-mailman (input) for mailman id 814748;
- Wed, 09 Oct 2024 14:58:37 +0000
+	id 1syYD9-0002D8-TB; Wed, 09 Oct 2024 15:02:47 +0000
+Received: by outflank-mailman (input) for mailman id 814758;
+ Wed, 09 Oct 2024 15:02:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1syY97-0007K3-1n
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 14:58:37 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f43c9d7f-864e-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 16:58:35 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1728485908167145.5415097795318;
- Wed, 9 Oct 2024 07:58:28 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1syYD8-0002D2-IH
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 15:02:46 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 89eecbbb-864f-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 17:02:44 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-53993564cb1so7801081e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 08:02:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a99413ff5f0sm583710066b.205.2024.10.09.08.02.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 08:02:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,77 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f43c9d7f-864e-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1728485909; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=HiF6yrRJJh33CGIKM4KAZwRyNpbwTb7WtsuqsXQ/G7fAshWQlsimHV/c7h6foQxvxikkrmBjxHrQs3qjSGRFLT8Is3DM120LR+xF41lnYNhtNJuUoJ5hcKm3qgfTgJB5bvmRpoGrZsMJdpuuowJWqsZs7gAiCHdPJUaOcX8Zy6w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1728485909; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=2FCMbJwEqBB7OrCa98yYjw9xQ65QkCdMbgQil75MjuY=; 
-	b=gVy1Ol/zinUPaFOZrszXkZi2lIX2BsDtg8m5jFqzndd51avwgF3stbYJdkrRtscxUOZYjr8/a3+VWI3mmFQv5BfQtgOqKbjf9KnGpdDbf26f9qd8uQmJ0TLgZoV2jb4PtpR++eAv1hLl5L1Ovqj/QM2XNNPx6PXvnnna9R13fG8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728485909;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=2FCMbJwEqBB7OrCa98yYjw9xQ65QkCdMbgQil75MjuY=;
-	b=vGuOJLeXaQTYh4Su5cIqoYh7zykuOyHN232osecjNQFA/XuH56vRZ5+QyF4966hw
-	Tz8psRw0D6OQg0tdu+dwDHsBbf3nIDK2X1mTzSs79XVgT0kURJo/Z4jecYy9QEoboSb
-	+S0PrlNvUn90sS2Fz48TmwhBRptNxIzIYWnPDwxg=
-Message-ID: <5b5d8d50-ff41-44a3-8772-fe48cd7e5c80@apertussolutions.com>
-Date: Wed, 9 Oct 2024 10:58:26 -0400
+X-Inumbo-ID: 89eecbbb-864f-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1728486164; x=1729090964; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xsP5QGpMw8tD9+eHmW8SuKb+r1Ej44ts391CRqX+VQc=;
+        b=QYjOD3yiIoPxC7n04XD/gfh10qLunmDxbC8ZbOY287YmrfDaf1U1VywYIzJqrviC0N
+         ++kC87NgTOgWOPCZslF9WzJzzGJ2qQKmSNfrMXRNbqphrw550bw4utAJ9G5rSJKXBHcj
+         fKKq3RGolTjpFXj1+U4ED8rYwEZuQbBJIFgyLdHQ2PGQ1oBOSn6bfxm7H3GitSp4VVHF
+         TwlDr4VL0oa9o38bA+xUZHKhTOMFBVin/3e2gvSEfmB9yDB5wVesToCdAj+///aCSfx7
+         fbySUrkVZIPcNSRnkj9iTYzeXFo7fbPKz85b+bED+3AlvgYqgjnID3vTPAHfXd1MNnvQ
+         GX1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728486164; x=1729090964;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xsP5QGpMw8tD9+eHmW8SuKb+r1Ej44ts391CRqX+VQc=;
+        b=lDp3GSUo+nd4zRQIUrMwJpriQ7Eb+3CKIgPpkqjRo1RKbmedWcbzrTouw0Z4quX2jG
+         swpmwMRjYcwSK7cwXcVyWEzjlDnWe66ikeLOXXdhdQuzWqeUFI4z/gg2T6YKm/Z5jxto
+         n0crLW/tOB+f+8cMskq5bOItf2P+JoSoPHwosyUnCOj9YmBEAslL+PtAcVpv1i4xnWAv
+         RlL2yPY8AxEEX+dudNlSvYuReeUrY9n/PJBJGDaOa9wpaKPZ/WSVxLbXMDnv9s/Y/mb5
+         S9ZqFtGknVAbXekSwrt/9OQDbwnI2NZX3UNTniCT38DLFKYpH26W5XzQEDAIC/ihh/21
+         kGFg==
+X-Forwarded-Encrypted: i=1; AJvYcCUOKMNffInqKXUyc3/qXLgSQwnUKdz3s31lV/IvOoyawtM3iRxIowtLt1GvZA/+nl/RFiS+draL8V0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxtCkNnB0fQhjB+toc+t7oNmNYv7Xwp/MTGIRq6zOeWs4enc5ln
+	+rxdH1sVY2unI9FjFAyfKOmmHskqsbU5CP3TPQe4qBOWR8Km3cd9Kglg00u25A==
+X-Google-Smtp-Source: AGHT+IGoroh0t/IXyG2YtKhxeV1IqY9moarDXoM07THKj5vdS5lII13w97lb25paboFkvzs4Z9YmxA==
+X-Received: by 2002:a05:6512:10ce:b0:536:561c:a0cb with SMTP id 2adb3069b0e04-539c48c39c7mr1968506e87.18.1728486164075;
+        Wed, 09 Oct 2024 08:02:44 -0700 (PDT)
+Message-ID: <aa2b9332-54ed-4447-b8f6-037fce401375@suse.com>
+Date: Wed, 9 Oct 2024 17:02:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 17/44] x86/boot: convert microcode loading to consume
- struct boot_info
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v5 01/44] x86/boot: move x86 boot module counting into a
+ new boot_info struct
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Christopher Clark <christopher.w.clark@gmail.com>,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>
 References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-18-dpsmith@apertussolutions.com>
- <d0d8e53d-d2a2-4441-86cd-6f50aaa36075@amd.com>
- <62d1b295-6c79-48d3-a340-1544ca8ed534@amd.com>
+ <20241006214956.24339-2-dpsmith@apertussolutions.com>
+ <1e3d6e99-37df-4824-8702-3e8ae7a4923f@amd.com>
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <62d1b295-6c79-48d3-a340-1544ca8ed534@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1e3d6e99-37df-4824-8702-3e8ae7a4923f@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10/8/24 08:50, Jason Andryuk wrote:
-> On 2024-10-07 17:22, Jason Andryuk wrote:
->> On 2024-10-06 17:49, Daniel P. Smith wrote:
->>> @@ -205,20 +204,18 @@ static void __init microcode_scan_module(
->>>   }
->>>   static void __init microcode_grab_module(
->>> -    unsigned long *module_map,
->>> -    const multiboot_info_t *mbi)
->>> +    unsigned long *module_map, struct boot_info *bi)
->>>   {
->>> -    module_t *mod = (module_t *)__va(mbi->mods_addr);
->>> -
->>>       if ( ucode_mod_idx < 0 )
->>> -        ucode_mod_idx += mbi->mods_count;
->>> -    if ( ucode_mod_idx <= 0 || ucode_mod_idx >= mbi->mods_count ||
->>> +        ucode_mod_idx += bi->nr_modules;
->>> +    if ( ucode_mod_idx <= 0 || ucode_mod_idx >= bi->nr_modules ||
->>>            !__test_and_clear_bit(ucode_mod_idx, module_map) )
->>>           goto scan;
->>> -    ucode_mod = mod[ucode_mod_idx];
->>> +    bi->mods[ucode_mod_idx].type = BOOTMOD_MICROCODE;
->>> +    ucode_mod = *bi->mods[ucode_mod_idx].mod;
->>
->> Why the dereference: *bi->mods[ucode_mod_idx].mod; ?  I don't think it 
->> should be there.
+On 07.10.2024 19:57, Jason Andryuk wrote:
+> On 2024-10-06 17:49, Daniel P. Smith wrote:
+>> --- /dev/null
+>> +++ b/xen/arch/x86/include/asm/bootinfo.h
+>> @@ -0,0 +1,29 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +/*
+>> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
+>> + * Copyright (c) 2024 Apertus Solutions, LLC
+>> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> + */
+>> +
+>> +#ifndef __XEN_X86_BOOTINFO_H__
+>> +#define __XEN_X86_BOOTINFO_H__
 > 
-> Oh, the next patch shows ucode_mod is not a pointer, so dereferencing is 
-> correct.   Sorry for the noise.
+> I haven't been following closely, but I think if we follow Frediano's 
+> naming scheme, it would be:
+> ASM__X86__BOOTINFO_H
+> 
+> With that (or whatever it should be),
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-No worries.
+And then also
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-v/r,
-dps
+Jan
 
