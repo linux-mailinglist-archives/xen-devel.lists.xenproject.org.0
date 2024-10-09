@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7344A996515
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:22:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.814025.1227109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3D25996529
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 11:23:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.814035.1227118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySta-0004mo-6N; Wed, 09 Oct 2024 09:22:14 +0000
+	id 1sySuP-0005Ql-Ii; Wed, 09 Oct 2024 09:23:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 814025.1227109; Wed, 09 Oct 2024 09:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 814035.1227118; Wed, 09 Oct 2024 09:23:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sySta-0004jS-33; Wed, 09 Oct 2024 09:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 814025;
- Wed, 09 Oct 2024 09:22:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sySuP-0005OB-FJ; Wed, 09 Oct 2024 09:23:05 +0000
+Received: by outflank-mailman (input) for mailman id 814035;
+ Wed, 09 Oct 2024 09:23:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syStZ-0004i5-0m
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:22:13 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6768ff0-861f-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 11:22:11 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so764049466b.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 02:22:11 -0700 (PDT)
+ id 1sySuO-0004IZ-2Z
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 09:23:04 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 15ac6623-8620-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 11:23:03 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a99543ab209so410363666b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 02:23:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9944d35ae0sm516341966b.179.2024.10.09.02.22.09
+ a640c23a62f3a-a992e5bb23bsm631027366b.34.2024.10.09.02.23.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 02:22:10 -0700 (PDT)
+ Wed, 09 Oct 2024 02:23:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6768ff0-861f-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 15ac6623-8620-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728465730; x=1729070530; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728465783; x=1729070583; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V8c2SNQ211TOqrrm1XFnwxCRfjvpxqWFiyYI1q9RatQ=;
-        b=FLCL+zCS9rgtbiEcrw6aT7R+1c8za3nVuMGVvyRHBm+NPtDUJjdN8FF+qRro5QqJvm
-         OpeKVeKRsKmHivEJF2xF6pE3FtmlOTC0J2NMkNq3sZ3KLpOTEAMSN8xE0ccc3h62U0ww
-         z7H6DWr5MhmFzgSD5GN9hB8LDmD/7A+WT93nWbixviGL4C5N4PWJmkPUQAZKNgMg15GP
-         Of64NUs4lsIDn6jafacBTytJMJyQiYbJInvCNYeJShsiskVC2NBiSbXiAehrrLLiQUw8
-         96KvsDlvGrbwymkUUNKcPetU59jmCoqN9nW5CbbQqNAJrXRPK+pqYzB5cG5I+u4n/H7Y
-         kPOA==
+        bh=ztKKNRdazt+hQvk49PZFem2qqn49Q1QaFTJERIwQniE=;
+        b=JhlBX9b0+3aEHqobABZrthI3Ucq2eizf/btUWxmpR9FmwUbljjeZGY7fW0YY7OiTYR
+         dv/maqxu0nxDA0gm1CSMYjRogSa4w3gRw73jHRabtNJbwdRqaUHDyqh7viifcS2beA5Q
+         2pnF0JWpks7l4hsIHr822715ZIn2+E5PhVBY1aTn7wU7tkvRto9nd1SDs4ncrOZHw5ol
+         lZ9yL8nNyfKp6SsMmBKseqYFpURcLmB2P7/MY1LDs7J5Z6JxCfeAVSFTqOAC4SK2d+Dk
+         dGxl5J3Ho1KSseVSkyMdPp3o1nonX0UGTJ05cyeLj3QMdqRRgD0G8dpJ2+lEcwuSVDgL
+         D2qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728465730; x=1729070530;
+        d=1e100.net; s=20230601; t=1728465783; x=1729070583;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=V8c2SNQ211TOqrrm1XFnwxCRfjvpxqWFiyYI1q9RatQ=;
-        b=WytvuwgTUAu4bu/y5m3WXSJYAIKRvMTjjOPnO8V2iHNXbk5NYjnT2DAKv16pO8ku82
-         s37IIU1kLYmdPTgVWuHGdkI+LtW4/08uye/jVB3xoPrSFzjXM5FCMOr/ud/raRAwZaK2
-         yGyqypCauuW7faIpD4iTJRUdViwZf2S0cTpjWPgXIEJcTVheYkbIBX2trDVkF2nZVpoI
-         2GSEnscraIgf1MEuS5qJtYkL0DArbPwhYtO9s6kKD5+uxR+VViYpScy2xBpDR0Nypb5a
-         kQteNZPvcN8F8cio+XUOm1XNS3CgQ9zsLjpt8pM2hOvRMniZXMFLYT/7xF3/IXS0tBJv
-         d7mQ==
-X-Gm-Message-State: AOJu0YwHErNLbAldJyOOASA3cIzs6KOFJumnaFbyN5G5V0XqZAoP6vFq
-	fnqJ7evfzrFXoDxQEAEpvJIfPGCdXxnYE6pCwDOf4e2FslclgjNh0UGPqaMDFjQ40EqvA3b/QTE
+        bh=ztKKNRdazt+hQvk49PZFem2qqn49Q1QaFTJERIwQniE=;
+        b=gGPx9MVphwGN+hHhuMqtGjcD3JAZ1RSZF7WTL58AQOeXum6LOoqAdZ4IC8QIBdUkS6
+         1EiykwfbNFAhC2gr8HEhwx5Y6RdedwJMyOmjGZ3gijxKRubg9EQ/pG/KdVp5JUfG/Gvr
+         X/rxRqxcasQnnyiWBFsxfydJHPSbKZu0ESyN/7I0FKjOKzC66N2TUXGgpEkMCHlCBaPK
+         zNNsaO8P99ren44N+IxAyG+rd04rDHuCBZL1XxSLXgYYjgfRSarjLH2nM9nG/cMI1dy0
+         VZ5DjuQe70g1T2XqL8lqMzmAJSpUSBbM3sxnu0or2rX1z3QOfkD3+jS4yJU1L3XdahKL
+         rd/Q==
+X-Gm-Message-State: AOJu0YzzQvMfUZIitRuzECXrJlleHp/yj71LVf0wkjuhctzqv33+kP63
+	NdQzzPpS4R5/nBy20VQpFOqO7S0T8b379XTA7e8mHnXXx/HJz5Velruy3IncjeH9Df+jStazgg8
 	=
-X-Google-Smtp-Source: AGHT+IFxx9aAXs9K3UWLUkNoPTxnyQgFbFDiv6QuguA0fBJfC6nx4QcDbNYAPGOBVLbci3y7zpLYtg==
-X-Received: by 2002:a17:906:c105:b0:a99:403e:2578 with SMTP id a640c23a62f3a-a998d0ffcc4mr141469566b.5.1728465730378;
-        Wed, 09 Oct 2024 02:22:10 -0700 (PDT)
-Message-ID: <ec9a5268-f4fc-44f0-b8b6-803c9f935026@suse.com>
-Date: Wed, 9 Oct 2024 11:22:09 +0200
+X-Google-Smtp-Source: AGHT+IGgfaHKwCHARGavcTVjouTGH6n2acn/einTMyTMQZCrnKjp1N13YFdE8PwP+JF5pNSqJoS4Jg==
+X-Received: by 2002:a17:907:9487:b0:a99:5c0e:e3ca with SMTP id a640c23a62f3a-a998d201507mr104814866b.34.1728465782814;
+        Wed, 09 Oct 2024 02:23:02 -0700 (PDT)
+Message-ID: <868d803c-0a88-4080-99b1-68e6f8b92c25@suse.com>
+Date: Wed, 9 Oct 2024 11:23:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/7] byteorder: replace __u32
+Subject: [PATCH 3/7] Flask: replace uses of __u32
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+Cc: Daniel Smith <dpsmith@apertussolutions.com>
 References: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,256 +114,36 @@ In-Reply-To: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In {big,little}_endian.h the changes are entirely mechanical, except for
-dealing with casting away of const from pointers-to-const on lines
-touched anyway.
-
-In swab.h the casting of constants is done away with as well - I simply
-don't see what the respective comment is concerned about in our
-environment (sizeof(int) >= 4, sizeof(long) >= {4,8} depending on
-architecture, sizeof(long long) >= 8). The comment is certainly relevant
-in more general cases. Excess parentheses are dropped as well,
-___swab32()'s local variable is renamed, and __arch__swab32()'s is
-dropped as being redundant with ___swab32()'s.
-
-The masking operation is also dropped from __fswab64().
+... by uint32_t.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-I'm unconvinced of the need of the separate ___constant_swab32(). I'm
-also unconvinced of the need for some of said constants (that even had
-casts on them).
+Uses of bool_val look suspicious; I looked at them because by its name
+I would have hoped I can switch it to bool instead.
 
---- a/xen/include/xen/byteorder/big_endian.h
-+++ b/xen/include/xen/byteorder/big_endian.h
-@@ -14,25 +14,25 @@
- #define __constant_cpu_to_le64(x) ((__force __le64)___constant_swab64((x)))
- #define __constant_le64_to_cpu(x) ___constant_swab64((__force __u64)(__le64)(x))
- #define __constant_cpu_to_le32(x) ((__force __le32)___constant_swab32((x)))
--#define __constant_le32_to_cpu(x) ___constant_swab32((__force __u32)(__le32)(x))
-+#define __constant_le32_to_cpu(x) ___constant_swab32((__force uint32_t)(__le32)(x))
- #define __constant_cpu_to_le16(x) ((__force __le16)___constant_swab16((x)))
- #define __constant_le16_to_cpu(x) ___constant_swab16((__force uint16_t)(__le16)(x))
- #define __constant_cpu_to_be64(x) ((__force __be64)(__u64)(x))
- #define __constant_be64_to_cpu(x) ((__force __u64)(__be64)(x))
--#define __constant_cpu_to_be32(x) ((__force __be32)(__u32)(x))
--#define __constant_be32_to_cpu(x) ((__force __u32)(__be32)(x))
-+#define __constant_cpu_to_be32(x) ((__force __be32)(uint32_t)(x))
-+#define __constant_be32_to_cpu(x) ((__force uint32_t)(__be32)(x))
- #define __constant_cpu_to_be16(x) ((__force __be16)(uint16_t)(x))
- #define __constant_be16_to_cpu(x) ((__force uint16_t)(__be16)(x))
- #define __cpu_to_le64(x) ((__force __le64)__swab64((x)))
- #define __le64_to_cpu(x) __swab64((__force __u64)(__le64)(x))
- #define __cpu_to_le32(x) ((__force __le32)__swab32((x)))
--#define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
-+#define __le32_to_cpu(x) __swab32((__force uint32_t)(__le32)(x))
- #define __cpu_to_le16(x) ((__force __le16)__swab16((x)))
- #define __le16_to_cpu(x) __swab16((__force uint16_t)(__le16)(x))
- #define __cpu_to_be64(x) ((__force __be64)(__u64)(x))
- #define __be64_to_cpu(x) ((__force __u64)(__be64)(x))
--#define __cpu_to_be32(x) ((__force __be32)(__u32)(x))
--#define __be32_to_cpu(x) ((__force __u32)(__be32)(x))
-+#define __cpu_to_be32(x) ((__force __be32)(uint32_t)(x))
-+#define __be32_to_cpu(x) ((__force uint32_t)(__be32)(x))
- #define __cpu_to_be16(x) ((__force __be16)(uint16_t)(x))
- #define __be16_to_cpu(x) ((__force uint16_t)(__be16)(x))
+--- a/xen/xsm/flask/ss/conditional.h
++++ b/xen/xsm/flask/ss/conditional.h
+@@ -29,8 +29,8 @@ struct cond_expr {
+ #define COND_EQ        6 /* bool == bool */
+ #define COND_NEQ    7 /* bool != bool */
+ #define COND_LAST    COND_NEQ
+-    __u32 expr_type;
+-    __u32 bool_val;
++    uint32_t expr_type;
++    uint32_t bool_val;
+     struct cond_expr *next;
+ };
  
-@@ -44,13 +44,13 @@ static inline __u64 __le64_to_cpup(const
- {
-     return __swab64p((__u64 *)p);
- }
--static inline __le32 __cpu_to_le32p(const __u32 *p)
-+static inline __le32 __cpu_to_le32p(const uint32_t *p)
- {
-     return (__force __le32)__swab32p(p);
- }
--static inline __u32 __le32_to_cpup(const __le32 *p)
-+static inline uint32_t __le32_to_cpup(const __le32 *p)
- {
--    return __swab32p((__u32 *)p);
-+    return __swab32p((const uint32_t *)p);
- }
- static inline __le16 __cpu_to_le16p(const uint16_t *p)
- {
-@@ -68,13 +68,13 @@ static inline __u64 __be64_to_cpup(const
- {
-     return (__force __u64)*p;
- }
--static inline __be32 __cpu_to_be32p(const __u32 *p)
-+static inline __be32 __cpu_to_be32p(const uint32_t *p)
- {
-     return (__force __be32)*p;
- }
--static inline __u32 __be32_to_cpup(const __be32 *p)
-+static inline uint32_t __be32_to_cpup(const __be32 *p)
- {
--    return (__force __u32)*p;
-+    return (__force uint32_t)*p;
- }
- static inline __be16 __cpu_to_be16p(const uint16_t *p)
- {
---- a/xen/include/xen/byteorder/little_endian.h
-+++ b/xen/include/xen/byteorder/little_endian.h
-@@ -13,26 +13,26 @@
+--- a/xen/xsm/flask/ss/policydb.h
++++ b/xen/xsm/flask/ss/policydb.h
+@@ -131,7 +131,7 @@ struct range_trans {
  
- #define __constant_cpu_to_le64(x) ((__force __le64)(__u64)(x))
- #define __constant_le64_to_cpu(x) ((__force __u64)(__le64)(x))
--#define __constant_cpu_to_le32(x) ((__force __le32)(__u32)(x))
--#define __constant_le32_to_cpu(x) ((__force __u32)(__le32)(x))
-+#define __constant_cpu_to_le32(x) ((__force __le32)(uint32_t)(x))
-+#define __constant_le32_to_cpu(x) ((__force uint32_t)(__le32)(x))
- #define __constant_cpu_to_le16(x) ((__force __le16)(uint16_t)(x))
- #define __constant_le16_to_cpu(x) ((__force uint16_t)(__le16)(x))
- #define __constant_cpu_to_be64(x) ((__force __be64)___constant_swab64((x)))
- #define __constant_be64_to_cpu(x) ___constant_swab64((__force __u64)(__be64)(x))
- #define __constant_cpu_to_be32(x) ((__force __be32)___constant_swab32((x)))
--#define __constant_be32_to_cpu(x) ___constant_swab32((__force __u32)(__be32)(x))
-+#define __constant_be32_to_cpu(x) ___constant_swab32((__force uint32_t)(__be32)(x))
- #define __constant_cpu_to_be16(x) ((__force __be16)___constant_swab16((x)))
- #define __constant_be16_to_cpu(x) ___constant_swab16((__force uint16_t)(__be16)(x))
- #define __cpu_to_le64(x) ((__force __le64)(__u64)(x))
- #define __le64_to_cpu(x) ((__force __u64)(__le64)(x))
--#define __cpu_to_le32(x) ((__force __le32)(__u32)(x))
--#define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
-+#define __cpu_to_le32(x) ((__force __le32)(uint32_t)(x))
-+#define __le32_to_cpu(x) ((__force uint32_t)(__le32)(x))
- #define __cpu_to_le16(x) ((__force __le16)(uint16_t)(x))
- #define __le16_to_cpu(x) ((__force uint16_t)(__le16)(x))
- #define __cpu_to_be64(x) ((__force __be64)__swab64((x)))
- #define __be64_to_cpu(x) __swab64((__force __u64)(__be64)(x))
- #define __cpu_to_be32(x) ((__force __be32)__swab32((x)))
--#define __be32_to_cpu(x) __swab32((__force __u32)(__be32)(x))
-+#define __be32_to_cpu(x) __swab32((__force uint32_t)(__be32)(x))
- #define __cpu_to_be16(x) ((__force __be16)__swab16((x)))
- #define __be16_to_cpu(x) __swab16((__force uint16_t)(__be16)(x))
+ /* Boolean data type */
+ struct cond_bool_datum {
+-    __u32 value;        /* internal type value */
++    uint32_t value;        /* internal type value */
+     int state;
+ };
  
-@@ -44,13 +44,13 @@ static inline __u64 __le64_to_cpup(const
- {
-     return (__force __u64)*p;
- }
--static inline __le32 __cpu_to_le32p(const __u32 *p)
-+static inline __le32 __cpu_to_le32p(const uint32_t *p)
- {
-     return (__force __le32)*p;
- }
--static inline __u32 __le32_to_cpup(const __le32 *p)
-+static inline uint32_t __le32_to_cpup(const __le32 *p)
- {
--    return (__force __u32)*p;
-+    return (__force uint32_t)*p;
- }
- static inline __le16 __cpu_to_le16p(const uint16_t *p)
- {
-@@ -68,13 +68,13 @@ static inline __u64 __be64_to_cpup(const
- {
-     return __swab64p((__u64 *)p);
- }
--static inline __be32 __cpu_to_be32p(const __u32 *p)
-+static inline __be32 __cpu_to_be32p(const uint32_t *p)
- {
-     return (__force __be32)__swab32p(p);
- }
--static inline __u32 __be32_to_cpup(const __be32 *p)
-+static inline uint32_t __be32_to_cpup(const __be32 *p)
- {
--    return __swab32p((__u32 *)p);
-+    return __swab32p((const uint32_t *)p);
- }
- static inline __be16 __cpu_to_be16p(const uint16_t *p)
- {
---- a/xen/include/xen/byteorder/swab.h
-+++ b/xen/include/xen/byteorder/swab.h
-@@ -12,7 +12,7 @@
- 
- /*
-  * Casts are necessary for constants, because we never know for sure how
-- * U/UL/ULL map to __u32, __u64. At least not in a portable way.
-+ * UL/ULL map to __u64. At least not in a portable way.
-  */
- #define ___swab16(x)                                    \
- ({                                                      \
-@@ -24,12 +24,12 @@
- 
- #define ___swab32(x)                                            \
- ({                                                              \
--    __u32 __x = (x);                                            \
--    ((__u32)(                                                   \
--        (((__u32)(__x) & (__u32)0x000000ffUL) << 24) |          \
--        (((__u32)(__x) & (__u32)0x0000ff00UL) <<  8) |          \
--        (((__u32)(__x) & (__u32)0x00ff0000UL) >>  8) |          \
--        (((__u32)(__x) & (__u32)0xff000000UL) >> 24) ));        \
-+    uint32_t x_ = (x);                                          \
-+    (uint32_t)(                                                 \
-+        (((uint32_t)(x_) & 0x000000ffU) << 24) |                \
-+        (((uint32_t)(x_) & 0x0000ff00U) <<  8) |                \
-+        (((uint32_t)(x_) & 0x00ff0000U) >>  8) |                \
-+        (((uint32_t)(x_) & 0xff000000U) >> 24));                \
- })
- 
- #define ___swab64(x)                                                       \
-@@ -51,11 +51,11 @@
-         (((uint16_t)(x) & 0x00ffU) << 8) |      \
-         (((uint16_t)(x) & 0xff00U) >> 8)))
- #define ___constant_swab32(x)                           \
--    ((__u32)(                                           \
--        (((__u32)(x) & (__u32)0x000000ffUL) << 24) |    \
--        (((__u32)(x) & (__u32)0x0000ff00UL) <<  8) |    \
--        (((__u32)(x) & (__u32)0x00ff0000UL) >>  8) |    \
--        (((__u32)(x) & (__u32)0xff000000UL) >> 24) ))
-+    ((uint32_t)(                                        \
-+        (((uint32_t)(x) & 0x000000ffU) << 24) |         \
-+        (((uint32_t)(x) & 0x0000ff00U) <<  8) |         \
-+        (((uint32_t)(x) & 0x00ff0000U) >>  8) |         \
-+        (((uint32_t)(x) & 0xff000000U) >> 24)))
- #define ___constant_swab64(x)                                            \
-     ((__u64)(                                                            \
-         (__u64)(((__u64)(x) & (__u64)0x00000000000000ffULL) << 56) |     \
-@@ -74,7 +74,7 @@
- #  define __arch__swab16(x) ___swab16(x)
- #endif
- #ifndef __arch__swab32
--#  define __arch__swab32(x) ({ __u32 __tmp = (x) ; ___swab32(__tmp); })
-+#  define __arch__swab32(x) ___swab32(x)
- #endif
- #ifndef __arch__swab64
- #  define __arch__swab64(x) ({ __u64 __tmp = (x) ; ___swab64(__tmp); })
-@@ -110,7 +110,7 @@
-  ___swab16((x)) : \
-  __fswab16((x)))
- #  define __swab32(x) \
--(__builtin_constant_p((__u32)(x)) ? \
-+(__builtin_constant_p((uint32_t)(x)) ? \
-  ___swab32((x)) : \
-  __fswab32((x)))
- #  define __swab64(x) \
-@@ -137,15 +137,15 @@ static inline void __swab16s(uint16_t *a
-     __arch__swab16s(addr);
- }
- 
--static inline attr_const __u32 __fswab32(__u32 x)
-+static inline attr_const uint32_t __fswab32(uint32_t x)
- {
-     return __arch__swab32(x);
- }
--static inline __u32 __swab32p(const __u32 *x)
-+static inline uint32_t __swab32p(const uint32_t *x)
- {
-     return __arch__swab32p(x);
- }
--static inline void __swab32s(__u32 *addr)
-+static inline void __swab32s(uint32_t *addr)
- {
-     __arch__swab32s(addr);
- }
-@@ -154,8 +154,7 @@ static inline void __swab32s(__u32 *addr
- static inline attr_const __u64 __fswab64(__u64 x)
- {
- #  ifdef __SWAB_64_THRU_32__
--    __u32 h = x >> 32;
--        __u32 l = x & ((1ULL<<32)-1);
-+    uint32_t h = x >> 32, l = x;
-         return (((__u64)__swab32(l)) << 32) | ((__u64)(__swab32(h)));
- #  else
-     return __arch__swab64(x);
 
 
