@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C02899604F
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 09:06:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813757.1226775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 820159960AE
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 09:20:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813765.1226785 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syQlY-00067a-UM; Wed, 09 Oct 2024 07:05:48 +0000
+	id 1syQzJ-00011F-3L; Wed, 09 Oct 2024 07:20:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813757.1226775; Wed, 09 Oct 2024 07:05:48 +0000
+Received: by outflank-mailman (output) from mailman id 813765.1226785; Wed, 09 Oct 2024 07:20:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syQlY-000667-Rc; Wed, 09 Oct 2024 07:05:48 +0000
-Received: by outflank-mailman (input) for mailman id 813757;
- Wed, 09 Oct 2024 07:05:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syQzJ-0000zU-0b; Wed, 09 Oct 2024 07:20:01 +0000
+Received: by outflank-mailman (input) for mailman id 813765;
+ Wed, 09 Oct 2024 07:19:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syQlX-00065r-QG
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 07:05:47 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5a7337a-860c-11ef-99a2-01e77a169b0f;
- Wed, 09 Oct 2024 09:05:42 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c928611371so183116a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 00:05:42 -0700 (PDT)
+ id 1syQzH-0000zO-Sl
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 07:19:59 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e41d3569-860e-11ef-a0bd-8be0dac302b0;
+ Wed, 09 Oct 2024 09:19:58 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-5399041167cso10327577e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 00:19:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e05f4e93sm5047949a12.96.2024.10.09.00.05.41
+ a640c23a62f3a-a9950077d1asm412298366b.57.2024.10.09.00.19.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 00:05:41 -0700 (PDT)
+ Wed, 09 Oct 2024 00:19:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5a7337a-860c-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: e41d3569-860e-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728457542; x=1729062342; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728458398; x=1729063198; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+YP64Bzsgpvnxz/FJuxw20ht91RmIctuXvRjG0GIwvc=;
-        b=FNi1shCJ6I4S3hTV4+d3BAhW0wTFbvG3Aa9IefpghyBL3hwx9hoolAsmDWBryPkV3n
-         u3Q6nuf/65gl0HeooZWyOyQntdWuMqL08IGz4w46hZ8ckg8mSqQlqqqF0GCT3sgU7F0f
-         a46QowpqyR+XBrDZS0CjQdbs2c7DeTyTOv1L0meL4ovYOtJJcCzqAjTgtfLilqh6po3v
-         Hd3BItRo8UILQqzw43Jac13YBM91KEzGl83iKQEUoZzmuQVJ87a4349IJD/bntO8Dmx6
-         1iwujX3QIFngDoGTv59myiC+F4VvKfXHpe3XzeiKUvcI7r8qlW0Fixn9CfVMehTZ16P/
-         q+VQ==
+        bh=f4TfDf1LtSYHxL8VZt8bsAe8a5+4+k4PvfSOpHUBGE0=;
+        b=G7Qdot2rlKaYqND9B7WRlGjUQlFrA0HSUZOuEAJJu4Vt83P7K5z5EVUg5HVkqZO4sl
+         47J32J0kzgNywjzQPeY2ln0IfhrLvSFh76ByCNdPPe6xisg+G5P6uMf6kQMadbrQKTb3
+         5WhnK9kEgs+hcs/b4UF5FHwqxCV93CqPpYdzdBE5U2XiqsZQsDsAqLLb42CyIJ+ClSO0
+         59KkRT/G15MkTziKw0pIWHHc9vjQmDb6qlRf4AhSQgbYpz18Lo8svTeV3lpxYienXjS8
+         vuxSvWQ4K/pDK39RNZ7qmVfNokz0AEajS3S4ZTHBZLYYrJqJoE0726BjBvSXs/xODoEX
+         G8Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728457542; x=1729062342;
+        d=1e100.net; s=20230601; t=1728458398; x=1729063198;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+YP64Bzsgpvnxz/FJuxw20ht91RmIctuXvRjG0GIwvc=;
-        b=eDmw00R4E6OGZU3xZ9ua9+y9jF0GHcHi2JgT1XHu468b8rz7evhee+2VeNex/C57RR
-         zJqOyK1+4FejfnAoBGKBxP2p/q7GBQP4wjsq6yjuc3jdYVumadWXkmz7JYfBIKDBFWU5
-         YGFsb61ScZjGtHWaMliY8l7MhfycnoJfZEcu6W4XGmHkmStMYu3QokAiD6zLUB5LwSzX
-         Kevg55Wo7dsCHgB1Ol81gQWgRi4kxNX/30U0sapoZ9hKbIMh0BCOwpXBH+oZSsPPRE3W
-         7vYBXmD6vr1MwNWJ0aRyY5dbIYnzzZ3hIeB/iftpTVgOPcWRCaS9Xfsk8ykb6A9m8xX5
-         on9w==
-X-Gm-Message-State: AOJu0YwNJMWMCwaWJ7LDaD7S7cfCZmFBRFEIIMLwb5zYoP58vFNZSc7V
-	qPbWW2FiyRdIz2oSnA3zRXufpOvfOVBSRmgYRTYbW93xXNKoKM/gxtjAYye9jw==
-X-Google-Smtp-Source: AGHT+IHZxJwFnZHWTviJgoSX5gDunTuaGTf8PSJ1stqDgqHdqgBz/1EPV8MrJ91I5WN25SkvtWU9Wg==
-X-Received: by 2002:a05:6402:34cc:b0:5c8:958d:c902 with SMTP id 4fb4d7f45d1cf-5c91d689219mr1066677a12.30.1728457541730;
-        Wed, 09 Oct 2024 00:05:41 -0700 (PDT)
-Message-ID: <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
-Date: Wed, 9 Oct 2024 09:05:40 +0200
+        bh=f4TfDf1LtSYHxL8VZt8bsAe8a5+4+k4PvfSOpHUBGE0=;
+        b=vqRgkeWaMceyYR6itMBu6XRQc3ekeu94/FFN6OJ275hrvhL0N9VDLJw6gDcUqrkCZJ
+         uIwCq8iXNBNf7EdBVKGcEadkZ53KLA8NcgpFA6ouFKiLdBs+K1390AIfm8hlOgaYf6QG
+         Qpsm/P6ggcaLXaFVmdzVhX75w3KaVgfVLAEePQ8nphzD4jA+b5LEBC0fTCaldiuXKCBg
+         U+yP+an9S8YEviKfZbMsNDE9D3k2DtBuyFJUK7ERrVZRISiqomDYEZHHySRN8SYGBG2D
+         WiBhonePp7+ThkalvMewmOmemvfRK1DX4zJYoCs8eviicYNoAD7+FeyXOC1KJ+Hy/hVU
+         gW4w==
+X-Forwarded-Encrypted: i=1; AJvYcCXG18uCroVWMvlAJgkZPbTaAjl8xpEX4CdO8w3izH17wxGl5NPB4Asxw2jKMjuiucG/M6axJii188I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwWf6mWDTmx0TmVlP03FBdI+KTFLtOaVfMnXbDO7uGS6SMO1aJN
+	ynzbkmGKF30s0F6vyvE1ROmn8XMQdawRdHN0exu8TaNiefqGEF66VeSO3RZDBQ==
+X-Google-Smtp-Source: AGHT+IHsE5NEgtIrgDWpWhOuVZ4p70uShd7xBHflpe2TozF1wC5G1fPFwQj3w3MLzwzmpBH6JC9bbA==
+X-Received: by 2002:ac2:4e06:0:b0:539:8f3c:4586 with SMTP id 2adb3069b0e04-539c4968324mr1086958e87.55.1728458398029;
+        Wed, 09 Oct 2024 00:19:58 -0700 (PDT)
+Message-ID: <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com>
+Date: Wed, 9 Oct 2024 09:19:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Remove config dependency in XEN_PRIVCMD definition
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-References: <20241009062014.407310-1-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
+ kernel
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,49 +113,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241009062014.407310-1-Jiqian.Chen@amd.com>
+In-Reply-To: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.10.2024 08:20, Jiqian Chen wrote:
-> Commit 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
-> adds a weak reverse dependency to the config XEN_PRIVCMD definition, its
-> purpose is to pass the combination of compilation that CONFIG_XEN_PRIVCMD=y
-> and CONFIG_XEN_PCIDEV_BACKEND=m, because in that combination, xen-pciback
-> is compiled as a module but xen-privcmd is built-in, so xen-privcmd can't
-> find the implementation of pcistub_get_gsi_from_sbdf.
-> 
-> But that dependency causes xen-privcmd can't be loaded on domU, because
-> dependent xen-pciback is always not be loaded successfully on domU.
-> 
-> To solve above problem and cover original commit's requirement, just remove
-> that dependency, because the code "IS_REACHABLE(CONFIG_XEN_PCIDEV_BACKEND)"
-> of original commit is enough to meet the requirement.
-> 
-> Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+On 08.10.2024 23:32, Marek Marczykowski-Górecki wrote:
+> --- a/tools/libs/guest/xg_dom_bzimageloader.c
+> +++ b/tools/libs/guest/xg_dom_bzimageloader.c
+> @@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
+>      return retval;
+>  }
+>  
+> -/* 128 Mb is the minimum size (half-way) documented to work for all inputs. */
+> -#define LZMA_BLOCK_SIZE (128*1024*1024)
+> +#define LZMA_BLOCK_SIZE (256*1024*1024)
 
-This lacks a Reported-by:.
+That's as arbitrary as before, now just not even with a comment at least
+hinting at it being arbitrary. Quoting from one of the LZMA API headers:
 
-> --- a/drivers/xen/Kconfig
-> +++ b/drivers/xen/Kconfig
-> @@ -261,7 +261,6 @@ config XEN_SCSI_BACKEND
->  config XEN_PRIVCMD
->  	tristate "Xen hypercall passthrough driver"
->  	depends on XEN
-> -	imply XEN_PCIDEV_BACKEND
->  	default m
->  	help
->  	  The hypercall passthrough driver allows privileged user programs to
+	 * Decoder already supports dictionaries up to 4 GiB - 1 B (i.e.
+	 * UINT32_MAX), so increasing the maximum dictionary size of the
+	 * encoder won't cause problems for old decoders.
 
-The report wasn't about a build problem, but a runtime one. Removing the
-dependency here doesn't change anything in the dependency of xen-privcmd
-on xen-pciback, as the use of pcistub_get_gsi_from_sbdf() continues to
-exist. Consider the case of XEN_PCIDEV_BACKEND=m and XEN_PRIVCMD=m, which
-I guess is what Marek is using in his config. Both drivers are available
-in such a configuration, yet loading of xen-privcmd then requires to
-load xen-pciback first. And that latter load attempt will fail in a DomU.
-The two drivers simply may not have any dependency in either direction.
+IOW - what if the Linux folks decided to increase the dictionary size
+further? I therefore wonder whether we don't need to make this more
+dynamic, perhaps by peeking into the header to obtain the dictionary
+size used. The one thing I'm not sure about is whether there can't be
+multiple such headers throughout the file, and hence (in principle)
+differing dictionary sizes.
 
 Jan
 
