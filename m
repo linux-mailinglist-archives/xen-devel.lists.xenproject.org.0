@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EA4C997577
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 21:12:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815105.1228832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F21E997588
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 21:23:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815119.1228846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syc5u-0004km-LB; Wed, 09 Oct 2024 19:11:34 +0000
+	id 1sycGv-0001E5-MW; Wed, 09 Oct 2024 19:22:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815105.1228832; Wed, 09 Oct 2024 19:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 815119.1228846; Wed, 09 Oct 2024 19:22:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syc5u-0004iq-Hz; Wed, 09 Oct 2024 19:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 815105;
- Wed, 09 Oct 2024 19:11:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syc5t-0004ig-6T; Wed, 09 Oct 2024 19:11:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syc5t-0008Rw-4Z; Wed, 09 Oct 2024 19:11:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1syc5s-0006A3-OC; Wed, 09 Oct 2024 19:11:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1syc5s-0007sk-Nu; Wed, 09 Oct 2024 19:11:32 +0000
+	id 1sycGv-0001Bw-Ja; Wed, 09 Oct 2024 19:22:57 +0000
+Received: by outflank-mailman (input) for mailman id 815119;
+ Wed, 09 Oct 2024 19:22:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6gYK=RF=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1sycGu-0001Bq-Ce
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 19:22:56 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e1d9ace7-8673-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 21:22:54 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2fad8337aa4so1574671fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 12:22:54 -0700 (PDT)
+Received: from [10.17.77.207] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2faf9b3b44csm15405821fa.131.2024.10.09.12.22.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Oct 2024 12:22:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,325 +45,491 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MbK41LvWs7cX8Zx8eAE+txggxbzsDJ9Rz7dNLP0GkDc=; b=EAH1W/v7gfoG+sN0y6srv0VsVh
-	kz7KLPCiB2nDbDrNAL0DTFHFZer0rev5+gEHJEQeu+EgZKrz9AHbZj2ZuMd4qIl9sLxcLW9V2l9Hm
-	g+FQQ9Oyk89CskNCvJRaFQ0EvUcWyt8lSAEJhmh35IEZV+PcY0loeKSk8EPGriAFkelQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188019-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e1d9ace7-8673-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1728501773; x=1729106573; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GSQLceG9p3QM+OuWGP/6HoAoz3Sdm2qiOw4aD+eOnMc=;
+        b=BU1/LqQ9eyTaAdN6nTy5A6HkDCvwTmqeyEKM8Z8u3lGRaMfeGmBAWj1oc0o7uhzzwo
+         R5JN9jmVAj8BHyXTlAbzGu4GbvR1tJf+wxFNxlB08RHHZzhSCwOX/AVySVWp9ob+I9Yd
+         jqXQjcFj5sfqmdmQl7RDgNVZPz6rhYTfPkiUTKeTDGna+550YpTdyqrUr6JlrrrZKy2E
+         4RkRCCY/hODnxDCDoROJDyEcYwpaYq5lbg3Gx6PzfRecckralh5NmaMr5zXRem4TMAum
+         rN6jA9KahJ5xj3qVfhbNopCILbnX4bYYnMLWqAtc5cZhJRXXR8ic1JOgktQRq7YeguvG
+         AJnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728501773; x=1729106573;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GSQLceG9p3QM+OuWGP/6HoAoz3Sdm2qiOw4aD+eOnMc=;
+        b=bPhuX6H5iTSH1Sca1s820rzwRrHov39YMvQoXaQ0OC4nEaDXEa2VZPWjiA8k1P/ZNC
+         vWVrAbT1nw4MqD0v1SgaSAeN1Eo0w95eRKqXSoGrB5AG81PYwa/rnb9QLJop2LHfth5/
+         M3quu5eUmkFDJkcQsNSxVINdlgXh2NfPT3CWIM0oQVt01vL5ZtDdGV+Q0tQ/IkLFmwc+
+         FdkOwog+6P/JtJ7b0Xd4upEGath9KNuz9la0+jnaQNFHKlpCQ2y4WcVdIivyfwxbrkFh
+         K4gqKbZH8e+5+3cdOW9+Hl2h69N2NduDMXTSk2iG5POGA1+Vl/nH2//y/VI8Kae/nGGk
+         xcWw==
+X-Forwarded-Encrypted: i=1; AJvYcCXHG81kHGL68Q4473Un0wKzoWdcRwfO9XZyXTA1LIPPoZs4mR7716Z0S4jlXAaP2WJsxO6ThHJOCxY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyKsA/Pdxb2TNK6MGVG6eLDZY0zHxd2AsybcaFG2AZUu5Jrja6M
+	c6EVP/UtzEXmTDSMesmPIM8gp0DKV3cWnIIMxda/XWCS0pMMIgT4
+X-Google-Smtp-Source: AGHT+IEay2mED8mMcC7pTrRgQKAWjvKeGxchQ+d9aqdgFUey7WFBtqdmJuYNSmfSBM8Q10KwxkQaww==
+X-Received: by 2002:a2e:d01:0:b0:2f3:ee5a:ab8b with SMTP id 38308e7fff4ca-2fb187ce9a2mr21382371fa.43.1728501773007;
+        Wed, 09 Oct 2024 12:22:53 -0700 (PDT)
+Message-ID: <97b40251-bc72-40c7-9023-67684bd636ca@gmail.com>
+Date: Wed, 9 Oct 2024 22:22:48 +0300
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 188019: regressions - FAIL
-X-Osstest-Failures:
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:<job status>:broken:regression
-    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:host-install(5):broken:heisenbug
-    qemu-mainline:test-armhf-armhf-xl-rtds:xen-boot:fail:heisenbug
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:leak-check/check:fail:heisenbug
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=2af37e791906cfda42cb9604a16d218e56994bb1
-X-Osstest-Versions-That:
-    qemuu=ea9cdbcf3a0b8d5497cddf87990f1b39d8f3bb0a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Oct 2024 19:11:32 +0000
-
-flight 188019 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188019/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-libvirt-vhd    <job status>                 broken  in 188013
- test-amd64-amd64-qemuu-nested-intel 20 debian-hvm-install/l1/l2 fail REGR. vs. 187720
-
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-libvirt-vhd 5 host-install(5) broken in 188013 pass in 188019
- test-armhf-armhf-xl-rtds      8 xen-boot         fail in 188013 pass in 188019
- test-amd64-amd64-libvirt-vhd 22 leak-check/check           fail pass in 188013
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187720
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187720
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187720
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187720
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- qemuu                2af37e791906cfda42cb9604a16d218e56994bb1
-baseline version:
- qemuu                ea9cdbcf3a0b8d5497cddf87990f1b39d8f3bb0a
-
-Last test of basis   187720  2024-09-16 10:37:24 Z   23 days
-Failing since        187731  2024-09-17 13:11:20 Z   22 days   38 attempts
-Testing same since   188005  2024-10-08 02:05:22 Z    1 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-    Ajeet Singh <itachis@FreeBSD.org>
-  Akihiko Odaki <akihiko.odaki@daynix.com>
-  Alan Adamson <alan.adamson@oracle.com>
-  Alex Bennée <alex.bennee@linaro.org>
-  Alexandre Ghiti <alexghiti@rivosinc.com>
-  Alistair Francis <alistair.francis@wdc.com>
-  Alistair Francis <alistair23@gmail.com>
-  Alvin Chang <alvinga@andestech.com>
-  Andrew Jeffery <andrew@codeconstruct.com.au>
-  Andrew Jones <ajones@ventanamicro.com>
-  Ani Sinha <anisinha@redhat.com>
-  Anthony PERARD <anthony.perard@vates.tech>
-  Ard Biesheuvel <ardb@kernel.org>
-  Arnd Bergmann <arnd@arndb.de>
-  Arun Kumar <arun.kka@samsung.com>
-  Bernhard Beschow <shentey@gmail.com>
-  Bibo Mao <maobibo@loongson.cn>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Corvin Köhne <corvin.koehne@gmail.com>
-  Daniel Henrique Barboza <dbarboza@ventanamicro.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  David Hildenbrand <david@redhat.com>
-  Dmitry Frolov <frolov@swemel.ru>
-  Dr. David Alan Gilbert <dave@treblig.org>
-  Edgar E. Iglesias <edgar.iglesias@amd.com>
-  Fabiano Rosas <farosas@suse.de>
-  Fea.Wang <fea.wang@sifive.com>
-  Fiona Ebner <f.ebner@proxmox.com>
-  Gavin Shan <gshan@redhat.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Greg Kurz <groug@kaod.org>
-  Haibo Xu <haibo1.xu@intel.com>
-  Ilya Leoshkevich <iii@linux.ibm.com>
-  Inès Varhol <ines.varhol@telecom-paris.fr>
-  Jacob Abrams <satur9nine@gmail.com>
-  Jamin Lin <jamin_lin@aspeedtech.com>
-  Jan Luebbe <jlu@pengutronix.de>
-  Jason Chien <jason.chien@sifive.com>
-  Julia Suvorova <jusual@redhat.com>
-  Juraj Marcin <jmarcin@redhat.com>
-  Kamil Szczęk <kamil@szczek.dev>
-  Keith Busch <kbusch@kernel.org>
-  Kinsey Moore <kinsey.moore@oarcorp.com>
-  Klaus Jensen <k.jensen@samsung.com>
-  Laurent Vivier <laurent@vivier.eu>
-  Lei Wang <lei4.wang@intel.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
-  Maria Klauchek <m.klauchek@syntacore.com>
-  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-  Mark Corbin <mark@dibsco.co.uk>
-  Markus Armbruster <armbru@redhat.com>
-  Markus Armbruster <armbru@redhat.com> (QAPI schema)
-  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
-  Mattias Nissler <mnissler@rivosinc.com>
-  Michael Tokarev <mjt@tls.msk.ru>
-  Milan P. Stanić <mps@arvanta.net>
-  Niels de Vos <ndevos@redhat.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Peter Maydell <peter.maydell@linaro.org>
-  Peter Xu <peterx@redhat.com>
-  Philippe Mathieu-Daudé <philmd@linaro.org>
-  Pierrick Bouvier <pierrick.bouvier@linaro.org>
-  Richard Henderson <richard.henderson@linaro.org>
-  Rowan Hart <rowanbhart@gmail.com>
-  Samuel Holland <samuel.holland@sifive.com>
-  Samuel Tardieu <sam@rfc1149.net>
-  Shiva sagar Myana <Shivasagar.Myana@amd.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Stefan Weil <sw@weilnetz.de>
-  Stefano Stabellini <sstabellini@kernel.org>
-  TANG Tiancheng <tangtiancheng.ttc@alibaba-inc.com>
-  Tejas Vipin <tejasvipin76@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tomasz Jeznach <tjeznach@rivosinc.com>
-  Vladimir Isaev <vladimir.isaev@syntacore.com>
-  Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-  Warner Losh <imp@bsdimp.com>
-  Xianglai Li <lixianglai@loongson.cn>
-  Xin Li (Intel) <xin@zytor.com>
-  Xin Li <xin3.li@intel.com>
-  Xingtao Yao <yaoxt.fnst@fujitsu.com>
-  Yotaro Nada <yotaro.nada@gmail.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zhang <zhenyzha@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: fusa: Add requirements for Device Passthrough
+To: Julien Grall <julien@xen.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ Artem Mygaiev <artem_mygaiev@epam.com>,
+ Hisao Munakata <hisao.munakata.vt@renesas.com>,
+ xen-devel@lists.xenproject.org
+References: <20241007185508.3044115-1-olekstysh@gmail.com>
+ <1c27b9c0-eb2e-49c2-a94b-d1b8ac6550b1@xen.org>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <1c27b9c0-eb2e-49c2-a94b-d1b8ac6550b1@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 09.10.24 10:26, Julien Grall wrote:
+> Hi,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hello Julien
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-broken-job test-armhf-armhf-libvirt-vhd broken
+> 
+> On 07/10/2024 19:55, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> Add common requirements for a physical device assignment to Arm64
+>> and AMD64 PVH domains.
+>>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> ---
+>> Based on:
+>> [PATCH] docs: fusa: Replace VM with domain
+>> https://patchew.org/Xen/20241007182603.826807-1-ayan.kumar.halder@amd.com/
+>> ---
+>> ---
+>>   .../reqs/design-reqs/common/passthrough.rst   | 365 ++++++++++++++++++
+>>   docs/fusa/reqs/index.rst                      |   1 +
+>>   docs/fusa/reqs/market-reqs/reqs.rst           |  33 ++
+>>   docs/fusa/reqs/product-reqs/common/reqs.rst   |  29 ++
+>>   4 files changed, 428 insertions(+)
+>>   create mode 100644 docs/fusa/reqs/design-reqs/common/passthrough.rst
+>>   create mode 100644 docs/fusa/reqs/product-reqs/common/reqs.rst
+>>
+>> diff --git a/docs/fusa/reqs/design-reqs/common/passthrough.rst 
+>> b/docs/fusa/reqs/design-reqs/common/passthrough.rst
+>> new file mode 100644
+>> index 0000000000..a1d6676f65
+>> --- /dev/null
+>> +++ b/docs/fusa/reqs/design-reqs/common/passthrough.rst
+>> @@ -0,0 +1,365 @@
+>> +.. SPDX-License-Identifier: CC-BY-4.0
+>> +
+>> +Device Passthrough
+>> +==================
+>> +
+>> +The following are the requirements related to a physical device 
+>> assignment
+>> +[1], [2] to Arm64 and AMD64 PVH domains.
+>> +
+>> +Requirements for both Arm64 and AMD64 PVH
+>> +=========================================
+>> +
+>> +Hide IOMMU from a domain
+>> +------------------------ > +
+>> +`XenSwdgn~passthrough_hide_iommu_from_domain~1`
+>> +
+>> +Description:
+>> +Xen shall not expose the IOMMU device to the domain even if I/O 
+>> virtualization
+>> +is disabled. The IOMMU shall be under hypervisor control only
+> This requirement would prevent us to expose a virtual SMMU to the guest.
 
-Not pushing.
 
-(No revision log; it would be 8214 lines long.)
+Are you talking about assigning stage-1 SMMU to the guest? Yes, that is 
+a valid point...
+
+
+> I think the requirement should only be Xen configures the stage-2 IOMMU.
+
+
+    ... you are right, as was discussed in separate emails, the 
+requirement would be turned into "Xen shall configure the IOMMU at boot 
+according to the stage 2 translation tables."
+
+> 
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Discover PCI devices from hardware domain
+>> +-----------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_discover_pci_devices_from_hwdom~1`
+>> +
+>> +Description:
+>> +The hardware domain shall enumerate and discover PCI devices and 
+>> inform Xen
+>> +about their appearance and disappearance.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Discover PCI devices from Xen
+>> +-----------------------------
+>> +
+>> +`XenSwdgn~passthrough_discover_pci_devices_from_xen~1`
+>> +
+>> +Description:
+>> +Xen shall discover PCI devices (enumerated by the firmware 
+>> beforehand) during
+>> +boot if the hardware domain is not present.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Assign PCI device to domain (with IOMMU)
+>> +----------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_assign_pci_device_with_iommu~1`
+>> +
+>> +Description:
+>> +Xen shall assign a specified PCI device (always implied as 
+>> DMA-capable) to
+>> +a domain during its creation using passthrough (partial) device tree 
+>> on Arm64
+>> +and Hyperlaunch device tree on AMD-x86. The physical device to be 
+>> assigned is
+>> +protected by the IOMMU.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Deassign PCI device from domain (with IOMMU)
+>> +--------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_deassign_pci_device_with_iommu~1`
+>> +
+>> +Description:
+>> +Xen shall deassign a specified PCI device from a domain during its 
+>> destruction.
+>> +The physical device to be deassigned is protected by the IOMMU.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Forbid the same PCI device assignment to multiple domains
+>> +---------------------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_forbid_same_pci_device_assignment~1`
+>> +
+>> +Description:
+>> +Xen shall not assign the same PCI device to multiple domains by 
+>> failing to
+>> +create a new domain if the device to be passed through is already 
+>> assigned
+>> +to the existing domain. Also different PCI devices which share some 
+>> resources
+>> +(interrupts, IOMMU connections) can be assigned only to the same domain.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Requirements for Arm64 only
+>> +===========================
+>> +
+>> +Assign interrupt-less platform device to domain
+>> +-----------------------------------------------
+> 
+> Why does it need to be "interrupt-less"?
+
+
+This requirement describes one of the possible cases of platform device.
+
+My answer from another email:
+
+Those devices exist and can be assigned to a domain, they are configured
+slightly differently in comparison with devices with interrupts
+("xen,path" is not needed for the former), other code paths are executed
+in Xen.
+
+**********
+
+There was an intention to keep in separate requirements all relevant 
+possible cases that can be done using what the passthrough feature 
+provides (let's say all possible combinations of dom0less passthrough 
+properties).
+
+This is why the document has, for example, the following special cases:
+- Assign interrupt-less platform device to domain
+- Assign non-DMA-capable platform device to domain
+- Assign DMA-capable platform device to domain (with IOMMU)
+- Assign DMA-capable platform device to domain (without IOMMU)
+...
+
+Now, as I got from other emails, this scheme is not suited well and 
+needs to be reworked.
+
+
+> 
+>> +
+>> +`XenSwdgn~passthrough_assign_interrupt_less_platform_device~1`
+>> +
+>> +Description:
+>> +Xen shall assign a specified platform device that has only a MMIO region
+>> +(does not have any interrupts) to a domain during its creation using 
+>> passthrough
+>> +device tree.
+> 
+> Is this requirement meant to be written from a dom0less point of view? 
+> Asking because platform device are assigned using an xl configuration 
+> for non-dom0less.
+
+Yes. The more, all requirements in this document imply boot time 
+domains. Likely, it should be explicitly stated at the beginning of this 
+document.
+
+> 
+> 
+>> +The example of interrupt-less device is PWM or clock controller.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Deassign interrupt-less platform device from domain
+>> +---------------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_deassign_interrupt_less_platform_device~1`
+>> +
+>> +Description:
+>> +Xen shall deassign a specified platform device that has only a MMIO 
+>> region
+>> +(does not have any interrupts) from a domain during its destruction.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Assign non-DMA-capable platform device to domain
+>> +------------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_assign_non_dma_platform_device~1`
+>> +
+>> +Description:
+>> +Xen shall assign a specified non-DMA-capable platform device to a 
+>> domain during
+>> +its creation using passthrough device tree.
+>> +The example of non-DMA-capable device is Timer.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Deassign non-DMA-capable platform device from domain
+>> +----------------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_deassign_non_dma_platform_device~1`
+>> +
+>> +Description:
+>> +Xen shall deassign a specified non-DMA-capable platform device from a 
+>> domain
+>> +during its destruction.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Assign DMA-capable platform device to domain (with IOMMU)
+>> +---------------------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_assign_dma_platform_device_with_iommu~1`
+>> +
+>> +Description:
+>> +Xen shall assign a specified DMA-capable platform device to a domain 
+>> during
+>> +its creation using passthrough device tree. The physical device to be 
+>> assigned
+>> +is protected by the IOMMU.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Deassign DMA-capable platform device from domain (with IOMMU)
+>> +-------------------------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_deassign_dma_platform_device_with_iommu~1`
+>> +
+>> +Description:
+>> +Xen shall deassign a specified DMA-capable platform device from a 
+>> domain during
+>> +its destruction. The physical device to be deassigned is protected by 
+>> the IOMMU.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Assign DMA-capable platform device to domain (without IOMMU)
+>> +------------------------------------------------------------
+>> +
+>> +`XenSwdgn~passthrough_assign_dma_platform_device_without_iommu~1`
+>> +
+>> +Description:
+>> +Xen shall assign a specified DMA-capable platform device to a domain 
+>> during
+>> +its creation using passthrough device tree. The physical device to be 
+>> assigned
+>> +is not protected by the IOMMU.
+>> +The DMA-capable device assignment which is not behind an IOMMU is 
+>> allowed for
+>> +the direct mapped domains only. The direct mapped domain must be 
+>> either safe or
+> 
+> What do you mean by "safe" in the context? Did you intend to say "trusted"?
+
+Yes, trusted, thanks.
+
+
+> 
+>> +additional security mechanisms for protecting against possible 
+>> malicious or
+>> +buggy DMA devices must be in place, e.g. Xilinx memory protection 
+>> unit (XMPU)
+>> +and Xilinx peripheral protection unit (XPPU).
+>> +
+>> +Rationale:
+>> +The IOMMU is absent from the system or it is disabled (status = 
+>> "disabled"
+>> +in the host device tree).
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Deassign DMA-capable platform device from domain (without IOMMU)
+>> +----------------------------------------------------------------
+> 
+> Do we actually need a separate section for deassign assign without the 
+> IOMMU? IOW, can this be combined with the deassign with IOMMU?
+
+
+The point was that on deassigment, Xen additionally detaches the device 
+from the IOMMU (if the device is protected by the IOMMU) in comparison 
+with the device not protected by the IOMMU, and this needs to be covered 
+and tested somehow. Therefore, two separate requirement exist here.
+
+Or do you, perhaps, mean to combine with "Deassign non-DMA-capable 
+platform device from domain"? Which could be combined, I think.
+
+> 
+>> +
+>> +`XenSwdgn~passthrough_deassign_dma_platform_device_without_iommu~1`
+>> +
+>> +Description:
+>> +Xen shall deassign a specified DMA-capable platform device from a 
+>> domain during
+>> +its destruction. The physical device to be deassigned is not protected
+>> +by the IOMMU.
+>> +
+>> +Rationale:
+>> +The IOMMU is absent from the system or it is disabled (status = 
+>> "disabled"
+>> +in the host device tree).
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Map platform device MMIO region identity
+>> +----------------------------------------
+> 
+> Can you explain why we need to make the distinction between identity 
+> mapping and ... >
+>> +
+>> +`XenSwdgn~passthrough_map_platform_device_mmio_region_ident~1`
+>> +
+>> +Description:
+>> +Xen shall map platform device memory region identity (guest address ==
+>> +physical address) when assigning a specified platform device to a 
+>> domain.
+>> +The device can be either non-DMA-capable or DMA-capable.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~device_passthrough~1`
+>> +
+>> +Map platform device MMIO region non-identity
+>> +--------------------------------------------
+> 
+> ... non-identity one?
+
+MMIO remapping is also what user can do using passthrough feature, the 
+point again was how could we check that it worked if there was no 
+requirement covering it.
+
+
+> 
+> Cheers,
+> 
 
