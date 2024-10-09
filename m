@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE18099602D
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 08:55:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.813750.1226766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C02899604F
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Oct 2024 09:06:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.813757.1226775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syQb2-0003K2-0O; Wed, 09 Oct 2024 06:54:56 +0000
+	id 1syQlY-00067a-UM; Wed, 09 Oct 2024 07:05:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 813750.1226766; Wed, 09 Oct 2024 06:54:55 +0000
+Received: by outflank-mailman (output) from mailman id 813757.1226775; Wed, 09 Oct 2024 07:05:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syQb1-0003IX-Th; Wed, 09 Oct 2024 06:54:55 +0000
-Received: by outflank-mailman (input) for mailman id 813750;
- Wed, 09 Oct 2024 06:54:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syQlY-000667-Rc; Wed, 09 Oct 2024 07:05:48 +0000
+Received: by outflank-mailman (input) for mailman id 813757;
+ Wed, 09 Oct 2024 07:05:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5PZ=RF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syQb0-0003A6-Cy
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 06:54:54 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6303dbbb-860b-11ef-a0bd-8be0dac302b0;
- Wed, 09 Oct 2024 08:54:53 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5c91e5bf6efso682722a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Oct 2024 23:54:53 -0700 (PDT)
+ id 1syQlX-00065r-QG
+ for xen-devel@lists.xenproject.org; Wed, 09 Oct 2024 07:05:47 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e5a7337a-860c-11ef-99a2-01e77a169b0f;
+ Wed, 09 Oct 2024 09:05:42 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5c928611371so183116a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 00:05:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a994d5745e2sm437333366b.23.2024.10.08.23.54.52
+ 4fb4d7f45d1cf-5c8e05f4e93sm5047949a12.96.2024.10.09.00.05.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Oct 2024 23:54:52 -0700 (PDT)
+ Wed, 09 Oct 2024 00:05:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6303dbbb-860b-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: e5a7337a-860c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728456893; x=1729061693; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728457542; x=1729062342; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ft6UkXLQS7If4k2EgtzOTIc8mRyscossG+LRnlaN2L0=;
-        b=ZouAsIZWqbYGKNSrvzvk6mcAObk7UARC086a9esmGa5YrFbaMO3HYoev3j/wHMLCnV
-         cgF1bVxPduJb6iQ3WQLTTRNlCzSdt0dbiJ7rN2bZf8HmZHXjlAIKpOQ0JB82iL+7WfGg
-         CIytrFc85dBrGqx1XS46E6AuU6fW54xv68BPP/Qibtk7Tee5w+rgb3XT7Iquo/CPx0wW
-         xKstLb9/z61tm5yvpMOZYS9oDM+ESvotSoMZ1zIwNUsx50OkHqP7TUUSBq46vGNbNxty
-         zkedAM36f/MhLHQSgg7nJyoo/QDAuyMHRNaYSkSNVqRBSx/MoOotSxQ23vL6BXmwDmqC
-         NX0A==
+        bh=+YP64Bzsgpvnxz/FJuxw20ht91RmIctuXvRjG0GIwvc=;
+        b=FNi1shCJ6I4S3hTV4+d3BAhW0wTFbvG3Aa9IefpghyBL3hwx9hoolAsmDWBryPkV3n
+         u3Q6nuf/65gl0HeooZWyOyQntdWuMqL08IGz4w46hZ8ckg8mSqQlqqqF0GCT3sgU7F0f
+         a46QowpqyR+XBrDZS0CjQdbs2c7DeTyTOv1L0meL4ovYOtJJcCzqAjTgtfLilqh6po3v
+         Hd3BItRo8UILQqzw43Jac13YBM91KEzGl83iKQEUoZzmuQVJ87a4349IJD/bntO8Dmx6
+         1iwujX3QIFngDoGTv59myiC+F4VvKfXHpe3XzeiKUvcI7r8qlW0Fixn9CfVMehTZ16P/
+         q+VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728456893; x=1729061693;
+        d=1e100.net; s=20230601; t=1728457542; x=1729062342;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ft6UkXLQS7If4k2EgtzOTIc8mRyscossG+LRnlaN2L0=;
-        b=UXfutUNvpnQn3YsGfVtays+ExJVQkqdH73rdg7SFptzp1GJbTpnybK40ziF2ll42fL
-         Wl4Z7F95sGBWgiP8WDGk5OX0JfyjC6BiCrzh0k7K5S+wARi+/CQMljQXYeWcMROA5HCf
-         Yil6Zb8b58sIjslYpF4XQGBCsmeDvXWXMIX8xFMKdSTqPPFCkeVFLXgT2uAOqPNeVkWB
-         0Y8OrSE3DR8j0ZeBzzC8xEnM69he24MUf/xJH+z+zsrw9jvJ82KGSN5ojeMZK8lsbfw1
-         GwLtge1BVxjEZaJyVIEap9vMne1w93dtMMR0PGmM+f5+DVV0Cpbl+bXsLu2kFhSg/pGf
-         IVmg==
-X-Forwarded-Encrypted: i=1; AJvYcCXLcgFoiG+l4LVFnNhYqW7yg/hxMPeYAVs9f5+QYi3luhJxjoHhBcJGPhgW6SsV65cFcic7tMoeW0E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyMI+JimeqsCITYcUmz3abjMrJpilUtqtXoBXtZzvQdBfEAh3hO
-	XSaK2H/PiN4fgtRH+8j8ZR+JwUADT4arxw08y8ndkxbVH3GYHfz8086Lf7Sg2w==
-X-Google-Smtp-Source: AGHT+IE2sww8yUX+aoH3CcBXPvb+8ZUE0MKi09dUpHh1BLuWHCG3U6E9sPj/gTiY0cIjFov/MdWtEA==
-X-Received: by 2002:a17:907:c890:b0:a99:4e74:52aa with SMTP id a640c23a62f3a-a998b45edcamr150773066b.33.1728456893043;
-        Tue, 08 Oct 2024 23:54:53 -0700 (PDT)
-Message-ID: <ea688319-e53e-4d29-b6b7-54ec097d629d@suse.com>
-Date: Wed, 9 Oct 2024 08:54:52 +0200
+        bh=+YP64Bzsgpvnxz/FJuxw20ht91RmIctuXvRjG0GIwvc=;
+        b=eDmw00R4E6OGZU3xZ9ua9+y9jF0GHcHi2JgT1XHu468b8rz7evhee+2VeNex/C57RR
+         zJqOyK1+4FejfnAoBGKBxP2p/q7GBQP4wjsq6yjuc3jdYVumadWXkmz7JYfBIKDBFWU5
+         YGFsb61ScZjGtHWaMliY8l7MhfycnoJfZEcu6W4XGmHkmStMYu3QokAiD6zLUB5LwSzX
+         Kevg55Wo7dsCHgB1Ol81gQWgRi4kxNX/30U0sapoZ9hKbIMh0BCOwpXBH+oZSsPPRE3W
+         7vYBXmD6vr1MwNWJ0aRyY5dbIYnzzZ3hIeB/iftpTVgOPcWRCaS9Xfsk8ykb6A9m8xX5
+         on9w==
+X-Gm-Message-State: AOJu0YwNJMWMCwaWJ7LDaD7S7cfCZmFBRFEIIMLwb5zYoP58vFNZSc7V
+	qPbWW2FiyRdIz2oSnA3zRXufpOvfOVBSRmgYRTYbW93xXNKoKM/gxtjAYye9jw==
+X-Google-Smtp-Source: AGHT+IHZxJwFnZHWTviJgoSX5gDunTuaGTf8PSJ1stqDgqHdqgBz/1EPV8MrJ91I5WN25SkvtWU9Wg==
+X-Received: by 2002:a05:6402:34cc:b0:5c8:958d:c902 with SMTP id 4fb4d7f45d1cf-5c91d689219mr1066677a12.30.1728457541730;
+        Wed, 09 Oct 2024 00:05:41 -0700 (PDT)
+Message-ID: <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
+Date: Wed, 9 Oct 2024 09:05:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 39/44] x86/boot: introduce domid field to struct
- boot_domain
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-40-dpsmith@apertussolutions.com>
- <a51d0a6e-7050-44af-9a66-edbfba67bab1@amd.com>
+Subject: Re: [PATCH] xen: Remove config dependency in XEN_PRIVCMD definition
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>
+References: <20241009062014.407310-1-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,40 +113,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a51d0a6e-7050-44af-9a66-edbfba67bab1@amd.com>
+In-Reply-To: <20241009062014.407310-1-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.10.2024 21:36, Jason Andryuk wrote:
-> On 2024-10-06 17:49, Daniel P. Smith wrote:
->> Add a domid field to struct boot_domain to hold the assigned domain id for the
->> domain. During initialization, ensure all instances of struct boot_domain have
->> the invalid domid to ensure that the domid must be set either by convention or
->> configuration.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/include/asm/bootdomain.h |  2 ++
->>   xen/arch/x86/setup.c                  | 12 +++++++-----
->>   2 files changed, 9 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/x86/include/asm/bootdomain.h b/xen/arch/x86/include/asm/bootdomain.h
->> index 4285223ac5ab..d6264d554dba 100644
->> --- a/xen/arch/x86/include/asm/bootdomain.h
->> +++ b/xen/arch/x86/include/asm/bootdomain.h
->> @@ -11,6 +11,8 @@
->>   struct boot_module;
->>   
->>   struct boot_domain {
->> +    domid_t domid;
->> +
->>       struct boot_module *kernel;
->>       struct boot_module *ramdisk;
->>   };
+On 09.10.2024 08:20, Jiqian Chen wrote:
+> Commit 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+> adds a weak reverse dependency to the config XEN_PRIVCMD definition, its
+> purpose is to pass the combination of compilation that CONFIG_XEN_PRIVCMD=y
+> and CONFIG_XEN_PCIDEV_BACKEND=m, because in that combination, xen-pciback
+> is compiled as a module but xen-privcmd is built-in, so xen-privcmd can't
+> find the implementation of pcistub_get_gsi_from_sbdf.
 > 
-> Oh, you should probably move domid after the pointers to avoid a hole.
+> But that dependency causes xen-privcmd can't be loaded on domU, because
+> dependent xen-pciback is always not be loaded successfully on domU.
+> 
+> To solve above problem and cover original commit's requirement, just remove
+> that dependency, because the code "IS_REACHABLE(CONFIG_XEN_PCIDEV_BACKEND)"
+> of original commit is enough to meet the requirement.
+> 
+> Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
-That would only move the hole to the end of the struct.
+This lacks a Reported-by:.
+
+> --- a/drivers/xen/Kconfig
+> +++ b/drivers/xen/Kconfig
+> @@ -261,7 +261,6 @@ config XEN_SCSI_BACKEND
+>  config XEN_PRIVCMD
+>  	tristate "Xen hypercall passthrough driver"
+>  	depends on XEN
+> -	imply XEN_PCIDEV_BACKEND
+>  	default m
+>  	help
+>  	  The hypercall passthrough driver allows privileged user programs to
+
+The report wasn't about a build problem, but a runtime one. Removing the
+dependency here doesn't change anything in the dependency of xen-privcmd
+on xen-pciback, as the use of pcistub_get_gsi_from_sbdf() continues to
+exist. Consider the case of XEN_PCIDEV_BACKEND=m and XEN_PRIVCMD=m, which
+I guess is what Marek is using in his config. Both drivers are available
+in such a configuration, yet loading of xen-privcmd then requires to
+load xen-pciback first. And that latter load attempt will fail in a DomU.
+The two drivers simply may not have any dependency in either direction.
 
 Jan
 
