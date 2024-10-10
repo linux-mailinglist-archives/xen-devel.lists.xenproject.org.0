@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 161C8999309
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 21:48:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816465.1230675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE88199947B
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 23:32:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816481.1230685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syz9B-0002nv-TZ; Thu, 10 Oct 2024 19:48:29 +0000
+	id 1sz0lC-0005bC-2S; Thu, 10 Oct 2024 21:31:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816465.1230675; Thu, 10 Oct 2024 19:48:29 +0000
+Received: by outflank-mailman (output) from mailman id 816481.1230685; Thu, 10 Oct 2024 21:31:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syz9B-0002mM-Qp; Thu, 10 Oct 2024 19:48:29 +0000
-Received: by outflank-mailman (input) for mailman id 816465;
- Thu, 10 Oct 2024 19:48:28 +0000
+	id 1sz0lB-0005YY-VY; Thu, 10 Oct 2024 21:31:49 +0000
+Received: by outflank-mailman (input) for mailman id 816481;
+ Thu, 10 Oct 2024 21:31:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mNu3=RG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1syz9A-0002i7-ES
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 19:48:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=5QbA=RG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sz0lA-0005YS-FB
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 21:31:48 +0000
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [2607:f8b0:4864:20::c30])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ce30cf7-8740-11ef-99a2-01e77a169b0f;
- Thu, 10 Oct 2024 21:48:26 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3689F5C5B1F;
- Thu, 10 Oct 2024 19:48:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B13C4CECC;
- Thu, 10 Oct 2024 19:48:23 +0000 (UTC)
+ id 0be03bbb-874f-11ef-99a2-01e77a169b0f;
+ Thu, 10 Oct 2024 23:31:45 +0200 (CEST)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 006d021491bc7-5eb17036f27so249130eaf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 14:31:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,104 +40,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ce30cf7-8740-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1728589704;
-	bh=WAK0js+uLRaxxjzfDY/gHuN/MOfPSm4ZD9dsAYjJEuQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eMfaXiOT2IB4aLqNTcv8Zpgakv96QjNxSi0tIUVwY6QgrqAIGk5M8vI86muc51Dek
-	 2vtxDU4cANumGj8LtjkfqhHy4QWo4KM3BL+Gwc2i9ZxhD2SwkuRSjPFNa6adic7GHP
-	 3sVfnvmVIN53mt3K9w41B613oSdOAQ6sGduHXPNUDnhRJe7bZpkEZkmNuB/Gr/cmVP
-	 rh8uM3/UkC7n0ehoCd3vndKsg6jvBpVW6Yj3I7QbbiiSpSrA4oYjhkaAIZ1BJO47+V
-	 mP1YFD8v6d6AaaJOIL2pakD+D1xDBhRzoUaihoTmCpKJcjrm5bloiCn0BoNY8Lu5E+
-	 1sOE1PAa/z8Sw==
-Date: Thu, 10 Oct 2024 12:48:21 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH] device-tree: Move dt-overlay.c to common/device-tree/
-In-Reply-To: <20241010105746.140921-1-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2410101248160.471028@ubuntu-linux-20-04-desktop>
-References: <20241010105746.140921-1-michal.orzel@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 0be03bbb-874f-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1728595904; x=1729200704; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d2YGAemPX8C66CBvu+0UJCQGcrgSjaZ4rfHql3OvE5o=;
+        b=CERWJ/aKjHWX39WEF+OudF3CyTA5PGc7NsCGswzZr3tqz2j1mHmY8d/ghS13UEmyc3
+         vFNoWdtBoWAbvhyagSdJjeXo1RYYgmFy4Tyr9XqRknhhSseQTdwSvGBhBVM9SONamIn8
+         aRtvZAInUGzjXuqVQZ/1z6YCzgEX0axXe0EZM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728595904; x=1729200704;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=d2YGAemPX8C66CBvu+0UJCQGcrgSjaZ4rfHql3OvE5o=;
+        b=hW3s/VLnnraoe4gYAbztwq5MMws5fCRX+WjBZSr1ZAnPC6DnQn/AYNGmv1mG1X2lim
+         pdFf2aTxSNn7lgVPJN/LBoJyrriNvsHludjZKSLQle4CoygLReA0sFdVt4bmgT6qYLnu
+         Fxzf4q261PSZotVKthpmgXJ7GLymJpLjhW65PeJ180V1xJXuGJPWdx1gGVX1MQz2b56G
+         DHKM2q7cEIry9fDP4ErShe6RhPbm9VZU4l+vdgmbsR5NpT8XhuZRti5yvyfajhpJKvfW
+         QH2pCJIJ4OwlzAQIGc+JHiTLGo+qNVAHYuUUXCwbmHSdXwcOwizLZPTdg86zOAri6vNp
+         enbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWfQ3q/ebhwfgEUhxh5QeuWhvKzQQ9reOxQOkFW7v5N23XTJhZdAh6A9Bgtx+KBObOGqQhchq3v06c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqkwWCTpAr2/liTwcXxlnT+PFG98/sTfBfNgvAPeFu8bvnmCf1
+	0oYoKTKCF1vjpqr863MdySZFkmQnoSFCzxiVC6mi85UFoyAYlsMxxq72JM0VQbl+rFyh4/BB27z
+	x/xQu5V9cdeCWP+pOUQdptmpI64eoOWz/+/pZQw==
+X-Google-Smtp-Source: AGHT+IE0n1Eehlrh0UmQhPwjkVVWfDV6Xo0kR7eXgZdgaWqcPqCLeW30S2kINMH1w+Uu9jzGXokDl+ieqA/TA+y48Uo=
+X-Received: by 2002:a05:6870:d08:b0:288:61c6:8df7 with SMTP id
+ 586e51a60fabf-2886de50cfemr346648fac.21.1728595903741; Thu, 10 Oct 2024
+ 14:31:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
+ <20241010140351.309922-2-ayan.kumar.halder@amd.com> <CACHz=Zh402HGV-=5Lbm5auZS0qX6KXH7ZPHvT3WUZ=EjJ4JE2A@mail.gmail.com>
+ <829c8ae2-dbe7-4ae7-9f4d-1ab996e27df0@amd.com>
+In-Reply-To: <829c8ae2-dbe7-4ae7-9f4d-1ab996e27df0@amd.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 10 Oct 2024 22:31:32 +0100
+Message-ID: <CACHz=ZhGsFKkDSZuSa2VSEOR64twERxq0e-UL9mw3OXa97BVgg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/6] xen/arm: Skip initializing the BSS section when it
+ is empty
+To: Ayan Kumar Halder <ayankuma@amd.com>
+Cc: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 10 Oct 2024, Michal Orzel wrote:
-> The code is DT specific and as such should be placed under common
-> directory for DT related files. Update MAINTAINERS file accordingly
-> and drop the line with a path from a top-level comment in dt-overlay.c.
-> It serves no purpose and requires being updated on every code movement.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+On Thu, Oct 10, 2024 at 6:29=E2=80=AFPM Ayan Kumar Halder <ayankuma@amd.com=
+> wrote:
+>
+> Hi Frediano,
+>
+> Appreciate your feedback.
+>
+> On 10/10/2024 15:43, Frediano Ziglio wrote:
+> > On Thu, Oct 10, 2024 at 3:05=E2=80=AFPM Ayan Kumar Halder
+> > <ayan.kumar.halder@amd.com> wrote:
+> >> If the BSS section is empty, then the function can just return.
+> >>
+> >> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> >> ---
+> >> Changes from :-
+> >>
+> >> v1..v2 - New patch introduced in v3.
+> >>
+> >>   xen/arch/arm/arm64/head.S | 2 ++
+> >>   1 file changed, 2 insertions(+)
+> >>
+> >> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> >> index 14c3720d80..72c7b24498 100644
+> >> --- a/xen/arch/arm/arm64/head.S
+> >> +++ b/xen/arch/arm/arm64/head.S
+> >> @@ -346,6 +346,8 @@ FUNC_LOCAL(zero_bss)
+> >>           PRINT("- Zero BSS -\r\n")
+> >>           ldr   x0, =3D__bss_start       /* x0 :=3D vaddr(__bss_start)=
+ */
+> >>           ldr   x1, =3D__bss_end         /* x1 :=3D vaddr(__bss_end)  =
+ */
+> >> +        cmp   x1, x0
+> >> +        beq   skip_bss
+> >>
+> >>   1:      str   xzr, [x0], #8
+> >>           cmp   x0, x1
+> > Why not just transforming the "do while" loop into a "while" one and
+> > just jump to cmp?
+> >
+> > Something like (not tested)
+> >
+> > diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> > index 14c3720d80..987f243578 100644
+> > --- a/xen/arch/arm/arm64/head.S
+> > +++ b/xen/arch/arm/arm64/head.S
+> > @@ -346,9 +346,10 @@ FUNC_LOCAL(zero_bss)
+> >          PRINT("- Zero BSS -\r\n")
+> >          ldr   x0, =3D__bss_start       /* x0 :=3D vaddr(__bss_start) *=
+/
+> >          ldr   x1, =3D__bss_end         /* x1 :=3D vaddr(__bss_end)   *=
+/
+> > +        b     2f
+> >
+> > 1:      str   xzr, [x0], #8
+> > -        cmp   x0, x1
+> > +2:      cmp   x0, x1
+> >          b.lo  1b
+>
+> I am not really sure if this implementation is better than the previous
+> one. The drawback of my implementation is that we have an extra 'cmp'
+> instruction. The drawback of this implementation is that we need an
+> extra label and there is an un-conditional branch after ldr (readability
+> is difficult). May be I am biased. :)
+>
+> How does this look ?
+>
+> FUNC_LOCAL(zero_bss)
+>          /* Zero BSS only when requested */
+>          cbnz  x26, skip_bss
+>
+>          PRINT("- Zero BSS -\r\n")
+>          ldr   x0, =3D__bss_start       /* x0 :=3D vaddr(__bss_start) */
+>          ldr   x1, =3D__bss_end         /* x1 :=3D vaddr(__bss_end) */
+> 1:     cmp   x1, x0
+>          beq   skip_bss
+>
+>          str   xzr, [x0], #8
+>          b     1b
+>
+> skip_bss:
+>          ret
+> END(zero_bss)
+>
+> - Ayan
+>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Not strong about. Your first version was fine too. I suppose just
+personal preferences, being not a hard path if you think first version
+was more readable fine with it. Between your 2 versions, I prefer the
+first. It has fewer instructions in the loop. Probably I've seen too
+much compiler generated code (jumping to the condition at the end is
+common there) that for me, it got more readable.
 
-
-> ---
-> This patch is based on the already acked series (waiting to be committed):
-> https://lore.kernel.org/xen-devel/20241004122220.234817-1-michal.orzel@amd.com/T/
-> ---
->  MAINTAINERS                               | 1 -
->  xen/common/Makefile                       | 1 -
->  xen/common/device-tree/Makefile           | 1 +
->  xen/common/{ => device-tree}/dt-overlay.c | 2 --
->  4 files changed, 1 insertion(+), 4 deletions(-)
->  rename xen/common/{ => device-tree}/dt-overlay.c (99%)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f68ddd7f84a5..3bba2c8c31ad 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -292,7 +292,6 @@ M:	Michal Orzel <michal.orzel@amd.com>
->  S:	Supported
->  F:	xen/common/libfdt/
->  F:	xen/common/device-tree/
-> -F:	xen/common/dt-overlay.c
->  F:	xen/include/xen/libfdt/
->  F:	xen/include/xen/bootfdt.h
->  F:	xen/include/xen/device_tree.h
-> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> index f90bb00d23e5..8dec11544e35 100644
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -9,7 +9,6 @@ obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
->  obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
->  obj-$(CONFIG_IOREQ_SERVER) += dm.o
->  obj-y += domain.o
-> -obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
->  obj-y += event_2l.o
->  obj-y += event_channel.o
->  obj-y += event_fifo.o
-> diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-> index 990abd571acf..58052d074e62 100644
-> --- a/xen/common/device-tree/Makefile
-> +++ b/xen/common/device-tree/Makefile
-> @@ -1,3 +1,4 @@
->  obj-y += bootfdt.init.o
->  obj-y += bootinfo.init.o
->  obj-y += device-tree.o
-> +obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
-> diff --git a/xen/common/dt-overlay.c b/xen/common/device-tree/dt-overlay.c
-> similarity index 99%
-> rename from xen/common/dt-overlay.c
-> rename to xen/common/device-tree/dt-overlay.c
-> index 5ce00514ef14..97fb99eaaaf7 100644
-> --- a/xen/common/dt-overlay.c
-> +++ b/xen/common/device-tree/dt-overlay.c
-> @@ -1,7 +1,5 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
->  /*
-> - * xen/common/dt-overlay.c
-> - *
->   * Device tree overlay support in Xen.
->   *
->   * Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
-> -- 
-> 2.25.1
-> 
+Frediano
 
