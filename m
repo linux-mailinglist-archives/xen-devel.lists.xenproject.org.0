@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C9E9986D7
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 14:57:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816116.1230293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 927989986E8
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 14:59:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816122.1230303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sysjG-0008Dy-AZ; Thu, 10 Oct 2024 12:57:18 +0000
+	id 1syslC-0002oU-Lf; Thu, 10 Oct 2024 12:59:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816116.1230293; Thu, 10 Oct 2024 12:57:18 +0000
+Received: by outflank-mailman (output) from mailman id 816122.1230303; Thu, 10 Oct 2024 12:59:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sysjG-0008CT-7q; Thu, 10 Oct 2024 12:57:18 +0000
-Received: by outflank-mailman (input) for mailman id 816116;
- Thu, 10 Oct 2024 12:57:16 +0000
+	id 1syslC-0002mz-IL; Thu, 10 Oct 2024 12:59:18 +0000
+Received: by outflank-mailman (input) for mailman id 816122;
+ Thu, 10 Oct 2024 12:59:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T2t6=RG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sysjE-00084R-RI
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 12:57:16 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1syslB-0002mr-4Y
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 12:59:17 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c74e85d-8707-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 14:57:15 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a9950d27234so131959366b.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 05:57:15 -0700 (PDT)
+ id 748f2970-8707-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 14:59:16 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2fad0f66d49so12911931fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 05:59:16 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99a80deb5bsm85650366b.184.2024.10.10.05.57.14
+ 4fb4d7f45d1cf-5c9370d218asm750857a12.8.2024.10.10.05.59.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Oct 2024 05:57:14 -0700 (PDT)
+ Thu, 10 Oct 2024 05:59:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c74e85d-8707-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 748f2970-8707-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728565035; x=1729169835; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1728565156; x=1729169956; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RweS2iE+qgiFTmVH6l2MVyIGdgJqqWloo7IiMvnmYjU=;
-        b=UZHa5F3x57pFbdXSfyL1yXmDneu63g4dXG99rk4bnnWPVc6gSpCVqP6ZF++EHk7ylL
-         5aytGWqXpNx6j1RoQ8BwtcRDDgYOvHQ7AZUu6vBXNfo5k+zdLep/9AWA568X64UQlghU
-         8VTxseJb9Ytdo+m3IBcq8d43D2oWnbOM90jiA=
+        bh=egW82hkZYuiIa/T2pK5buacq+fdKF4ZmbJYtyRbFh+c=;
+        b=gDZuxr/nIT+rbEhNWDdacVJt0NdNiSUomt/L6MDfddFm75R8MxrB3AkQ8MRD4i3bdj
+         W9BEzzYFML7qJyUnZ8NJOqm6rHuBzXQ7fZFz8iZbn0GYztrsA2z/nQQcBIbkBuhVzyZP
+         K53ftB58ihhJlGyE+pz3kEu87rESFIAa6TXnQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728565035; x=1729169835;
+        d=1e100.net; s=20230601; t=1728565156; x=1729169956;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RweS2iE+qgiFTmVH6l2MVyIGdgJqqWloo7IiMvnmYjU=;
-        b=gd0CnCDyfyLQbU5yOPAuy7I2oGWQ/ANDjxoFOxWq3rheMVWDEa7MStty3TP2G1l1eM
-         B0+rlLjuwHKyW4YuQ7Q2oTDEVPeEe7HFpY/XhneubK1yAxBitS2gIFIMpVY9QBMHwtbx
-         vAteLKJneR7iO90QXSBfhR+oHl8bC79VvLXA8ze/itzIjmQy2cqHVsDmilkQhbVTnzis
-         TLdrC5mA2bf1ddZS1Fe9ifkkjgdDY0m8z325RugzaKHt/oKtnCNXzdSb0UvTFRRDA7Nn
-         oq+VTBsY3x2txHp9aC1S9TejCC3NYleom+aYj9uDb2GV4ElyTZq9Soq58vhCytqyPs4f
-         miGg==
-X-Forwarded-Encrypted: i=1; AJvYcCW+hUu1wZPzXaE67s/0i9ZRCBpXHqq18xGSV9M+OFPvRrFuHvQWINGrxl0oYehpFyoRpelm/Iyxet8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxHCrRTQaRv+uBzdcQxjm2SZawnaiygDAirtp4VLBKcRPW1W6h5
-	cNUtNZJSrPb3vRbAco64FUHEyFYJGRzTS5XdgpIUNYqwGCEq2bvW7Y6etKiqkM4=
-X-Google-Smtp-Source: AGHT+IFtjBSo3rZbs/LCBQPmGi0tuIjKBBKAtkYFW+7j6M3750s4gGsvUBoMsGpEfgxVQcAI4PyRWQ==
-X-Received: by 2002:a17:907:6094:b0:a99:8a0f:3c14 with SMTP id a640c23a62f3a-a998d313419mr509569266b.42.1728565034672;
-        Thu, 10 Oct 2024 05:57:14 -0700 (PDT)
-Message-ID: <c7b0092f-9e47-47ae-9a7f-fe28c49c82a3@citrix.com>
-Date: Thu, 10 Oct 2024 13:57:12 +0100
+        bh=egW82hkZYuiIa/T2pK5buacq+fdKF4ZmbJYtyRbFh+c=;
+        b=oM3DDg6KGB01asEW5PdZhWHFJG6I41rj33nkLyjCCZV9PWZvwc8ggMH4bkSGJRDDyr
+         Q6zrPSYgatrjMHSiq6RTwF0LR/L/rCL1VKhpTGL8P+gewwNv5D9uuUyfGZN907GJVNPj
+         4GLjBe1ZM73GjlzKQsuCywEalPq/ZgRrUtC4dyXBCap0v/veYHBCrQ7LVQ8jYR/PbTp7
+         wXz72mX4Na58pzmHAYsPr9RyfaJhZ/zss8XudeGycSBKfSERGtyYFSTUnuCnyVDc/q5P
+         5YKiOMeRdiNOSofLTeFP7GSq0h2x7KmqH7Pq8c5zM7KuD7n9XwO1b+eZus7dvEbEqiuE
+         nz6g==
+X-Gm-Message-State: AOJu0YzcxnksFjwCEFG9Gryow5OfyipZDlarAbDrB8xIi/gqHRcpbrS6
+	2RCWnzaxqlZaEyh16hMIjipzwbgjOBATxpac+SuJR/rk6DKD6+fg0jM/RMPwgIbznGgxowM8Q7e
+	VuM0=
+X-Google-Smtp-Source: AGHT+IEc5r6jYpR9GHybT8OzR9g2rUNssRIgxil1g4e3/7exC8Mqvng92addLMQLcXDjEhulIJzleQ==
+X-Received: by 2002:a2e:e01:0:b0:2f7:4e8c:9bfa with SMTP id 38308e7fff4ca-2fb187ce906mr30396651fa.33.1728565155485;
+        Thu, 10 Oct 2024 05:59:15 -0700 (PDT)
+Message-ID: <f1d002ff-a67e-4c63-a336-69e250e66bee@citrix.com>
+Date: Thu, 10 Oct 2024 13:59:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] x86/boot: Use trampoline_phys variable directly
- from C code
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20241007141539.1899350-1-frediano.ziglio@cloud.com>
- <20241007141539.1899350-6-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH v2] stubdom: add fine grained library config items to
+ Mini-OS configs
+To: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>
+References: <20241010111946.22173-1-jgross@suse.com> <ZwfNUKIXp44loWTD@l14>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,106 +130,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241007141539.1899350-6-frediano.ziglio@cloud.com>
+In-Reply-To: <ZwfNUKIXp44loWTD@l14>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07/10/2024 3:15 pm, Frediano Ziglio wrote:
-> No more need to pass from assembly code.
+On 10/10/2024 1:49 pm, Anthony PERARD wrote:
+> On Thu, Oct 10, 2024 at 01:19:46PM +0200, Juergen Gross wrote:
+>> Today Mini-OS can only be configured to use all or none Xen library.
+>> In order to prepare a more fine grained configuration scheme, add per
+>> library config items to the Mini-OS config files.
+>>
+>> As some libraries pull in others, the config files need to be
+>> extended at build time to reflect those indirect library uses.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> V2:
+>> - rename BUILD_config to GEN_CONFIG (Anthony PERARD)
+>> - rename generated config files to *.gen.cfg (Anthony PERARD)
+>> - don't write config data to file in make macro (Anthony PERARD)
+>> - remove no longer needed $(CURDIR)/ from prerequisites (Anthony PERARD)
+> Looks good to me.
 >
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
-> Changes since v1:
-> - split the 2 variable changes into 2 commits.
-> ---
->  xen/arch/x86/boot/head.S  | 13 ++++---------
->  xen/arch/x86/boot/reloc.c |  9 ++++++---
->  2 files changed, 10 insertions(+), 12 deletions(-)
->
-> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-> index ade2c5c43d..32b658fa2b 100644
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -510,22 +510,17 @@ trampoline_setup:
->          mov     %esi, sym_esi(xen_phys_start)
->          mov     %esi, sym_esi(trampoline_xen_phys_start)
->  
-> -        /* Get bottom-most low-memory stack address. */
-> -        mov     sym_esi(trampoline_phys), %ecx
-> -        add     $TRAMPOLINE_SPACE,%ecx
-> -
-> +        /* Boot video info to be filled from MB2. */
->  #ifdef CONFIG_VIDEO
-> -        lea     sym_esi(boot_vid_info), %edx
-> +        lea     sym_esi(boot_vid_info), %ecx
->  #else
-> -        xor     %edx, %edx
-> +        xor     %ecx, %ecx
->  #endif
->  
->          /* Save Multiboot / PVH info struct (after relocation) for later use. */
-> -        push    %edx                /* Boot video info to be filled from MB2. */
->          mov     %ebx, %edx          /* Multiboot / PVH information address. */
-> -        /*      reloc(magic/eax, info/edx, trampoline/ecx, video/stk) using fastcall. */
-> +        /*      reloc(magic/eax, info/edx, video/stk) using fastcall. */
->          call    reloc
-> -        add     $4, %esp
+> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Sorry - I was expecting you split the patches the other way around.
-
-If you drop video first, then trampoline second, there's no churn
-changing video from being on the stack to being in ecx.
-
-As it stands the "video/stk" needs to become "video/ecx".
-
->  
->  #ifdef CONFIG_PVH_GUEST
->          cmpb    $0, sym_esi(pvh_boot)
-> diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
-> index 94b078d7b1..4cca61adec 100644
-> --- a/xen/arch/x86/boot/reloc.c
-> +++ b/xen/arch/x86/boot/reloc.c
-> @@ -19,6 +19,9 @@
->  #include <xen/kconfig.h>
->  #include <xen/multiboot.h>
->  #include <xen/multiboot2.h>
-> +#include <xen/page-size.h>
-> +
-> +#include <asm/trampoline.h>
->  
->  #include <public/arch-x86/hvm/start_info.h>
->  
-> @@ -346,10 +349,10 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, uint32_t video_out, memctx
->  }
->  
->  /* SAF-1-safe */
-> -void *reloc(uint32_t magic, uint32_t in, uint32_t trampoline,
-> -            uint32_t video_info)
-> +void *reloc(uint32_t magic, uint32_t in, uint32_t video_info)
->  {
-> -    memctx ctx = { trampoline };
-> +    /* Get bottom-most low-memory stack address. */
-> +    memctx ctx = { (uint32_t)((long)trampoline_phys + TRAMPOLINE_SPACE) };
-
-You don't need any casts here.  The result can't exceed 1<<20.
-
-
-Again, I agree this is a correct transform of the code, but the comment
-you've moved is incorrect AFAICT, and conflicts with
-
-typedef struct memctx {
-    /*
-     * Simple bump allocator.
-     *
-     * It starts from the base of the trampoline and allocates downwards.
-     */
-    uint32_t ptr;
-} memctx;
-
-which is probably my fault, but needs resolving.
-
-What does the trampoline layout actually look like?  Can we see about
-correcting the comments?
+Same grammar comment as v1.  I'll tweak on commit.
 
 ~Andrew
 
