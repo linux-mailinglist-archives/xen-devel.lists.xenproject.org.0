@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F584997E91
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 09:47:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815604.1229585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA58997E93
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 09:49:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815613.1229595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1synsP-0005kQ-Bi; Thu, 10 Oct 2024 07:46:25 +0000
+	id 1synv2-00023Q-St; Thu, 10 Oct 2024 07:49:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815604.1229585; Thu, 10 Oct 2024 07:46:25 +0000
+Received: by outflank-mailman (output) from mailman id 815613.1229595; Thu, 10 Oct 2024 07:49:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1synsP-0005hV-8M; Thu, 10 Oct 2024 07:46:25 +0000
-Received: by outflank-mailman (input) for mailman id 815604;
- Thu, 10 Oct 2024 07:46:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1synv2-000212-PG; Thu, 10 Oct 2024 07:49:08 +0000
+Received: by outflank-mailman (input) for mailman id 815613;
+ Thu, 10 Oct 2024 07:49:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GYHQ=RG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1synsN-0005eJ-9x
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 07:46:23 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bde42b8c-86db-11ef-99a2-01e77a169b0f;
- Thu, 10 Oct 2024 09:46:21 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-53993564cb1so695953e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 00:46:21 -0700 (PDT)
+ id 1synv1-00020w-Nd
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 07:49:07 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 206d7926-86dc-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 09:49:06 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5c87c7d6ad4so752333a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 00:49:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99a7f24574sm48666066b.50.2024.10.10.00.46.20
+ 4fb4d7f45d1cf-5c9370d2196sm420104a12.7.2024.10.10.00.49.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Oct 2024 00:46:20 -0700 (PDT)
+ Thu, 10 Oct 2024 00:49:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bde42b8c-86db-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 206d7926-86dc-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728546381; x=1729151181; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728546546; x=1729151346; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yBFbtpsNxcKFnfYflurJWYgY7VsZT6VjBajSlF0bRFc=;
-        b=ZyCCx5V771kpD/susT4300VfWllN2X9c6X07AGvyG9hD2Jj9XkGSxCYcY1eiWGHBOh
-         TXU/56ff0ZrB7OgaL/63N7lfbbXZKugwOuwFwD4BtJIqYhapYj5pggbrPTW2h9KRJY1V
-         mGXsoVm7m0m5gZPVZnbPFy5m7MvSkYHLDjGZFnBzpiFniCXsbbkjv3Sr41jUPd1GUhEx
-         oqEZzcbyEs0YG7OqBFJXp2KwEioiyQzeHa1As0JREauU5UkV5lMufwpu+QJcERkKKtcn
-         SXsoscQwZMxNHrQsmc7vmd2uEDPojC6AbWPkcKlX6Cvi1MOu3Jz3bBaBHKR0YvXi01YB
-         I5RQ==
+        bh=7c2D3Mmu2goqbnbdSjnLzR1Xf59OTg9zIcYlxzvqdtw=;
+        b=HM73N3Q9xFpMkRVSlaRVnjt/LKcBqqAWHRgCH2IaMmRFJjACz9usLVJgW8xZi7bu9k
+         Usi/ZIJ6FkSivEsETclPHIZkp18FcT5C1wqmbG6LH9AjQez8OU2ReznArvaCEXRLruVF
+         UyAlMcuN1qToqTUNcoAC9ZF53nmVF2j7vtM3/+6wv3L+8s0CHzGOOQY4LPQiexYrdGNr
+         b/q1kyx/8L0qvNXVdiJ/h2FIsUEiks4e1JSsuLenG9zINI4LgmQKBXAu58blgS8ScZyM
+         tjvgjWw+U4H1pyIkuoiCsGPHFsa0XPXJwWgb1L9t+t6i9lom4gV4EGOBHxMtJFp08/2m
+         HDfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728546381; x=1729151181;
+        d=1e100.net; s=20230601; t=1728546546; x=1729151346;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yBFbtpsNxcKFnfYflurJWYgY7VsZT6VjBajSlF0bRFc=;
-        b=eH6RKu7YPY7wsIdhybtYY/aRA7Zuu2ngkHXc37yDYTJbBv9EB1tiISZqWnvv1YgOyJ
-         zi5KxTo88Yui6kU2YlzvWc6TYuGPNFJNQ1uYTbUk2QbA7jTtsGLz3LQjt02WR7eTleOE
-         LpXpHgwOeP/K2yL2+1uILOyJhdhtCSjsSpgz55y0LhrcBiB8YbG2T76Y4CYwT/+dSRnO
-         /I6TlKKnrPR6ON+CIdf2N7qeo2cfmTFyhz9/RBsk5si3UqYsOgovtE7uE0WvlDOVE4v/
-         tKCDN+v52ZlL392MNK+JJ1tp+7Rxtflb0nFJIY4/rx7nWbjdDakks+n5KJlMs+3izNCN
-         Hm7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVlPY8HSVVbVCsTtXMbuyQ4Fm9f/d/DK921ekgQU5qbYJl/NoT7zS7IYScdQ/FecEM20ae2PPqFa1U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxVcPx81oTiXK2TuCLO1ZqaAcdpNCzuEgOkB0kTCX5dyHbuDTeH
-	A16AZHil4Sk3/Tcmlvo+4HhBwiBYUQAQhTfTCm5175ufOeuVXIoow04YCq6Bzg==
-X-Google-Smtp-Source: AGHT+IHUkhRpNg9Czdodp7FJCafGHla0ZGWQtV3z+Rp14N+WflY8NEDuODURYp0jA9jyR/tl/y7x4w==
-X-Received: by 2002:a05:6512:10d3:b0:530:aea3:4659 with SMTP id 2adb3069b0e04-539c4892bd7mr3121372e87.9.1728546380629;
-        Thu, 10 Oct 2024 00:46:20 -0700 (PDT)
-Message-ID: <effce766-687b-4cbc-b5e3-46dd7a194370@suse.com>
-Date: Thu, 10 Oct 2024 09:46:19 +0200
+        bh=7c2D3Mmu2goqbnbdSjnLzR1Xf59OTg9zIcYlxzvqdtw=;
+        b=XnszpfipOSg2+5KSr7YRhWlVn7oxACtlYqWjP8KdOMOmwEEfNIagQUEjnretYxpui0
+         f1K0IfMDscDuZXT+DmMS6tmXOe/SEK3JC7Kb3F2x6k9vieCltqN01NQNy9T/GDIg4LFg
+         n5W7ewZxQkVxd//mwALS7bpbjFa6K48V4b52OmTv6bt7UORUbV0H4aw6PwKOsWXaAKqW
+         SV6esNkN9pODicDBnETV4jN9jN1paCo5sf5OqRZh0AnyT9voH/XHw16LvZu4/Dp+WvzG
+         VRaSejMqdHI4/9ksZ8qFLMXggF97QS46ZzuZyUJM+7Z6XRhbIL5P9uvR1uBQv8c9oAFb
+         bS+w==
+X-Forwarded-Encrypted: i=1; AJvYcCUS2x7mXfkZfxMBE6673/G37Qse/Yk0/YT+fOss4rH/p1za8HF6nfXO8Qw3Jy1V6GRthtO4jbXobHQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpCfUwcaKqxiCrWpoEtUEVYZRPT58A5TZ9yeJsoGcktMsFeSol
+	HmHg1gQWrM1UhcKmpjVnHP+4nZjgyC1yuhILalhrieMT2nLsPYvmR/i4fGT3ig==
+X-Google-Smtp-Source: AGHT+IGODX2I7293nNJRLHv6VRXnEQEiHHGnSvHrCsiY4l9FlIBoKMaXIG1OZh0NKoVsU3+1t7YV/g==
+X-Received: by 2002:a05:6402:848:b0:5c8:b154:6506 with SMTP id 4fb4d7f45d1cf-5c91d5a368fmr3786282a12.17.1728546546193;
+        Thu, 10 Oct 2024 00:49:06 -0700 (PDT)
+Message-ID: <d079c013-1ae3-4cd4-a642-bed768f5a43b@suse.com>
+Date: Thu, 10 Oct 2024 09:49:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/11] xen/x86: Add supporting code for uploading LAPIC
- contexts during domain create
+Subject: Re: [PATCH v6 05/11] tools/hvmloader: Retrieve (x2)APIC IDs from the
+ APs themselves
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241001123807.605-1-alejandro.vallejo@cloud.com>
- <20241001123807.605-5-alejandro.vallejo@cloud.com>
- <acb85f02-351d-4ca2-9fd2-276276ed1c8e@suse.com>
- <D4RFD776JP2U.373W6D66DFGC6@cloud.com>
+ <20241001123807.605-6-alejandro.vallejo@cloud.com>
+ <f75dde2d-9c39-4be0-8465-6496a56cc658@suse.com>
+ <D4RG3TTHTS1E.23ZAJIW3H4VC4@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,76 +117,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D4RFD776JP2U.373W6D66DFGC6@cloud.com>
+In-Reply-To: <D4RG3TTHTS1E.23ZAJIW3H4VC4@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.10.2024 18:44, Alejandro Vallejo wrote:
-> On Wed Oct 9, 2024 at 2:28 PM BST, Jan Beulich wrote:
+On 09.10.2024 19:19, Alejandro Vallejo wrote:
+> On Wed Oct 9, 2024 at 3:03 PM BST, Jan Beulich wrote:
 >> On 01.10.2024 14:38, Alejandro Vallejo wrote:
->>> If toolstack were to upload LAPIC contexts as part of domain creation it
+>>> Make it so the APs expose their own APIC IDs in a LUT. We can use that
+>>> LUT to populate the MADT, decoupling the algorithm that relates CPU IDs
+>>> and APIC IDs from hvmloader.
+>>>
+>>> While at this also remove ap_callin, as writing the APIC ID may serve
+>>> the same purpose.
 >>
->> If it were to - yes. But it doesn't, an peeking ahead in the series I also
->> couldn't spot this changing. Hence I don#t think I see why this change
->> would be needed, and why ...
-> 
-> Patch 10 does. It's the means by which (in a rather roundabout way)
-> toolstack overrides vlapic->hw.x2apic_id.
-
-Oh, indeed - I managed to not spot this. I think you want to either re-word
-the description here to make clear there's actually a plan to do what is
-being said as purely hypothetical, or simply fold the patches.
-
->>> would encounter a problem were the architectural state does not reflect
->>> the APIC ID in the hidden state. This patch ensures updates to the
->>> hidden state trigger an update in the architectural registers so the
->>> APIC ID in both is consistent.
->>>
->>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->>> ---
->>>  xen/arch/x86/hvm/vlapic.c | 20 ++++++++++++++++++++
->>>  1 file changed, 20 insertions(+)
->>>
->>> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
->>> index 02570f9dd63a..a8183c3023da 100644
->>> --- a/xen/arch/x86/hvm/vlapic.c
->>> +++ b/xen/arch/x86/hvm/vlapic.c
->>> @@ -1640,7 +1640,27 @@ static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
+>> ... on the assumption that no AP will have an APIC ID of zero.
+>>
+>>> @@ -341,11 +341,11 @@ int main(void)
 >>>  
->>>      s->loaded.hw = 1;
->>>      if ( s->loaded.regs )
->>> +    {
->>> +        /*
->>> +         * We already processed architectural regs in lapic_load_regs(), so
->>> +         * this must be a migration. Fix up inconsistencies from any older Xen.
->>> +         */
->>>          lapic_load_fixup(s);
->>> +    }
->>> +    else
->>> +    {
->>> +        /*
->>> +         * We haven't seen architectural regs so this could be a migration or a
->>> +         * plain domain create. In the domain create case it's fine to modify
->>> +         * the architectural state to align it to the APIC ID that was just
->>> +         * uploaded and in the migrate case it doesn't matter because the
->>> +         * architectural state will be replaced by the LAPIC_REGS ctx later on.
->>> +         */
+>>>      printf("CPU speed is %u MHz\n", get_cpu_mhz());
+>>>  
+>>> +    smp_initialise();
+>>> +
+>>>      apic_setup();
+>>>      pci_setup();
+>>>  
+>>> -    smp_initialise();
 >>
->> ... a comment would need to mention a case that never really happens, thus
->> only risking to cause confusion.
+>> I can see that you may want cpu_setup(0) to run ahead of apic_setup().
 > 
-> I assume the "never really happens" is about the same as the previous
-> paragraph? If so, the same answer applies.
-
-Yes.
-
-> About the lack of ordering in the migrate stream the code already makes no
-> assumptions as to which HVM context blob might appear first in the vLAPIC area.
+> Not only that. This hunk ensures CPU_TO_X2APICID is populated ASAP for every
+> CPU. Reading zeroes where a non-zero APIC ID should be is fatal and tricky to
+> debug later. I tripped on enough "used the LUT before being set up" bugs to
+> really prefer initialising it before anyone has a chance to misuse it.
 > 
-> I'm not sure why, but I assumed it may be different on older Xen.
+>> Yet is it really appropriate to run boot_cpu() ahead of apic_setup() as well?
+> 
+> I would've agreed before the patches that went in to replace INIT-SIPI-SIPI
+> with hypercalls, but now that hvmloader is enlightened it has no real need for
+> the APIC to be configured. If feels weird because you wouldn't use this order
+> on bare metal. But it's fine under virt.
+> 
+>> At the very least it feels logically wrong, even if at the moment there
+>> may not be any direct dependency (which might change, however, down the
+>> road).
+> 
+> I suspect it feels wrong because you can't boot CPUs ahead of configuring your
+> APIC in real hardware. But hvmloader is always virtualized so that point is
+> moot. If anything, I'd be scared of adding code ahead of smp_initialise() that
+> relies on CPU_TO_X2APICID being set when it hasn't yet.
+> 
+> If you have a strong view on the matter I can remove this hunk and call
+> read_apic_id() from apic_setup(). But it wouldn't be my preference to do so.
 
-I agree with being flexible here; I'm not aware of anything in the migration spec
-(and certainly not in the unwritten v1 one) mandating particular ordering.
+No, with the explanations above it's fine to stay as is. Just that some of
+what you say above needs to move into the patch description.
 
 Jan
 
