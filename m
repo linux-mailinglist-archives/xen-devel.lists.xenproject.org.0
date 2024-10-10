@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C8B6997A41
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 03:46:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815396.1229147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B5EA997B30
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 05:20:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815404.1229158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syiFC-0007kE-Nm; Thu, 10 Oct 2024 01:45:34 +0000
+	id 1syjiF-0003Iq-A5; Thu, 10 Oct 2024 03:19:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815396.1229147; Thu, 10 Oct 2024 01:45:34 +0000
+Received: by outflank-mailman (output) from mailman id 815404.1229158; Thu, 10 Oct 2024 03:19:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syiFC-0007ij-L1; Thu, 10 Oct 2024 01:45:34 +0000
-Received: by outflank-mailman (input) for mailman id 815396;
- Thu, 10 Oct 2024 01:45:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syjiF-0003Ff-7H; Thu, 10 Oct 2024 03:19:39 +0000
+Received: by outflank-mailman (input) for mailman id 815404;
+ Thu, 10 Oct 2024 03:19:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RAAn=RG=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1syiFB-0007id-5i
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 01:45:33 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 540998c3-86a9-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 03:45:30 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1728524721560447.262372994103;
- Wed, 9 Oct 2024 18:45:21 -0700 (PDT)
+ <SRS0=5QbA=RG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1syjiC-0003DE-UT
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 03:19:36 +0000
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [2607:f8b0:4864:20::234])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7886bd79-86b6-11ef-99a2-01e77a169b0f;
+ Thu, 10 Oct 2024 05:19:34 +0200 (CEST)
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-3e3e6d83138so308504b6e.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 20:19:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,89 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 540998c3-86a9-11ef-a0bd-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1728524723; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=gO4//fjoGCFoNFCayZSF/Lv149ErSuHK9E/hrLzPSlSr0X6TOoXn1KfHyWdhainIVwDfdQxun0wQpptOLJOdyfSvHBBXTDlUtO2JAdFRtLhEnX7mczfhhJoGKc30JfCIae/BE+3zpvRa1J/7utiePTSF4bopjsoMKkHzJmqhELQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1728524723; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kEY0/JxYBl9rMBwu2TjcMrKBBW8DfWr1jIIDxjRnGJM=; 
-	b=HYC4zRMQsq1EdnnxzRgvROqx+P2MFIcnwENbeYdpVUakREilAavmT70dxkpZAIpWaXvW7+jKuN6B5MlS1Tdh2+K/FbCBm7yyTDackY+xHe2q55KQe1lPntaQMxj48gG0HeI1FeP1nMZyHD/l8Vs7s6S7nlE2/YVENy/7Pt7ramI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1728524723;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=kEY0/JxYBl9rMBwu2TjcMrKBBW8DfWr1jIIDxjRnGJM=;
-	b=pPH+rQpmZrgpV7Jpt68l+qR38SLp4hcYni66mrrwR+hPVCTpsl+JZbJ8NX0OPCY+
-	bp/SjZco5qVa8DvWQxIZNxWuPfZIOrofriy2IjDI1O3QFk7mPNi0HnaxfNHNa2726Cf
-	4SH6iv1XMicHX9np2njKLkFB8bkkRAPKtBegUnfw=
-Message-ID: <268606a9-4d78-4389-9f52-8aebc2f72573@apertussolutions.com>
-Date: Wed, 9 Oct 2024 21:45:19 -0400
+X-Inumbo-ID: 7886bd79-86b6-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1728530373; x=1729135173; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6owvSIVu0EHqNm1yYzc7T8GlTeeFySz1jPIyk4PefAk=;
+        b=dViPvp4dMBb9bARP1tKYE2FxqvhAeYpdnyYIinPGFZtKVcjkq1A8A/owA6CK9lrYI7
+         vIAiVF4lFFrSz8QWl2pVDzlL0l4cPxUHj0f0bv2UAhzLdBwRdFC1CzP/J196EATT4oI2
+         r/n2g0pIrCRBGBHmAWRVFd0onXT7hI6Dw26Zg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728530373; x=1729135173;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6owvSIVu0EHqNm1yYzc7T8GlTeeFySz1jPIyk4PefAk=;
+        b=BIsipX+8OD5rmJPDALH5Qklvmyc3GBFQhlOjoxoG95JE14wDnoxxNIhewdvL3KuBMu
+         VCF+a7HNcqqDnSs6FscXbVWx/KasuEWvwBkHdvS3VMdqeF/tVNy3AfxuuZ5EQh2fIYVn
+         RG+H4MjI7+nMRrpve1av+Q2qERLMFvv29FlxJa0O4UPn8M80ubK2zbhhHINFxQLCOE0E
+         1udyQEirca/cF5ghB4MoHmy5cPtSr2J+tqpwpuLc6ya8Q+h9tosargldlKu5su6dxb/w
+         mgYlJKQCMqRRqEHtQJyAXoWrwdS5zupC4sm0o8CMkFlRfS5MEWLP5SpiLs6GsmrI3wO6
+         6Eow==
+X-Gm-Message-State: AOJu0Yxxce7Qa3kgklYgwlJCkBbFoAak+PmPbQ5pvXJxFT6m9QqPB1wW
+	jDmkIH2kTd2CBOc500j/gF/N8L9G0wwc0g/FjGFMHYBQjOEMttNfCD/LrZvnXqto2bqOkUDHBOv
+	9cjebYqMTlow6vLGQZVUVmuwecsKB/wMuQ8rd/A==
+X-Google-Smtp-Source: AGHT+IGK2g99VinlpXuFk+7xG5Aeig7+Zj/nrgnePEnjP+3phgIn4+HdC2oVl0w/iw41hiQTL0JBYAJRilVW1zZioWQ=
+X-Received: by 2002:a05:6870:e3d2:b0:260:f883:95f9 with SMTP id
+ 586e51a60fabf-2883450c741mr3347240fac.42.1728530372966; Wed, 09 Oct 2024
+ 20:19:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/44] x86/boot: introduce boot module interator
-To: Jan Beulich <jbeulich@suse.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-16-dpsmith@apertussolutions.com>
- <f4657c52-ac03-47cc-8182-91f210daad24@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <f4657c52-ac03-47cc-8182-91f210daad24@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+References: <cover.1728471268.git.andrii.sultanov@cloud.com> <c9b47337615168e38fb6af2a80409f0a38ead901.1728471268.git.andrii.sultanov@cloud.com>
+In-Reply-To: <c9b47337615168e38fb6af2a80409f0a38ead901.1728471268.git.andrii.sultanov@cloud.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 10 Oct 2024 04:19:21 +0100
+Message-ID: <CACHz=Zi82QfM0CBt+OVK3zDO_qYSUTKzGpy8NZWxXJX_EL+bLQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] ocaml/libs: Remove xsd_glue_dev package, also
+ install plugin_interface_v1.a
+To: Andrii Sultanov <andrii.sultanov@cloud.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Christian Lindig <christian.lindig@citrix.com>, Edwin Torok <edwin.torok@cloud.com>, 
+	David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/9/24 11:53, Jan Beulich wrote:
-> On 06.10.2024 23:49, Daniel P. Smith wrote:
->> --- a/xen/arch/x86/include/asm/bootinfo.h
->> +++ b/xen/arch/x86/include/asm/bootinfo.h
->> @@ -54,8 +54,24 @@ struct boot_info {
->>       struct boot_module mods[MAX_NR_BOOTMODS + 1];
->>   };
->>   
->> -#endif /* __XEN_X86_BOOTINFO_H__ */
->> +static inline int __init next_boot_module_index(
->> +    const struct boot_info *bi, enum bootmod_type t, int offset)
-> 
-> Instead of "offset" maybe better "start" or "from"? Further, plain int
-> (as also used ...
+On Wed, Oct 9, 2024 at 4:15=E2=80=AFPM Andrii Sultanov
+<andrii.sultanov@cloud.com> wrote:
+>
+> xsd_glue_dev packaging is inconsistent with the rest of OCaml packages
+> and isn't actually necessary. .a is needed alongside compiled bytecode
 
-Will change to start.
+Being singular, should not be "The <NAME>.a is needed "... ?
+Or are there multiple archive files?
 
->> +{
->> +    int i;
-> 
-> ... here) isn't really liked for ...
-> 
->> +    for ( i = offset; i < bi->nr_modules; i++ )
->> +    {
->> +        if ( bi->mods[i].type == t )
-> 
-> ... array indexing. Perhaps the function itself would better have
-> unsigned int return type as well, ...
-> 
->> +            return i;
->> +    }
->> +
->> +    return -1;
-> 
-> ... using UINT_MAX or some other suitable constant here instead?
+> files during linking and was missed in the initial oxenstore plugin
+> work.
+>
+> Specify OCAMLCFLAGS along with OCAMLOPTFLAGS.
+>
+> Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
+> ---
+>  tools/ocaml/libs/xsd_glue/Makefile | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/tools/ocaml/libs/xsd_glue/Makefile b/tools/ocaml/libs/xsd_gl=
+ue/Makefile
+> index f84291f7fe..be68642968 100644
+> --- a/tools/ocaml/libs/xsd_glue/Makefile
+> +++ b/tools/ocaml/libs/xsd_glue/Makefile
+> @@ -5,6 +5,7 @@ include $(OCAML_TOPLEVEL)/common.make
+>  SUBDIRS=3D domain_getinfo_plugin_v1
+>
+>  CFLAGS +=3D $(CFLAGS_xeninclude)
+> +OCAMLCFLAGS +=3D -opaque
+>  OCAMLOPTFLAGS +=3D -opaque
+>
+>  OBJS =3D plugin_interface_v1
+> @@ -28,14 +29,11 @@ OCAML_NOC_LIBRARY =3D plugin_interface_v1
+>  install: $(LIBS) META subdirs-install
+>         mkdir -p $(OCAMLDESTDIR)
+>         $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue
+> -       $(OCAMLFIND) install -destdir $(OCAMLDESTDIR) -ldconf ignore xsd_=
+glue META $(INTF) $(LIBS)
+> -       $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue_dev
+> -       $(OCAMLFIND) install -destdir $(OCAMLDESTDIR) -ldconf ignore xsd_=
+glue_dev META $(INTF) $(LIBS) *.ml *.mli
+> +       $(OCAMLFIND) install -destdir $(OCAMLDESTDIR) -ldconf ignore xsd_=
+glue META $(INTF) $(LIBS) *.a
+>
+>  .PHONY: uninstall
+>  uninstall: subdirs-uninstall
+>         $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue
+> -       $(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xsd_glue_dev
+>
+>  .PHONY: clean
+>  clean: subdirs-clean
 
-I was initially going to disagree as returning a value less than zero is 
-much more natural/reasonable than UINIT_MAX. But then thinking about it,
-another natural value to reflect an error/not found is a value larger 
-than MAX_NR_BOOTMODS.
-
-Will switch to unsigned and add code comment that larger than 
-MAX_NR_BOOTMODS is error/not found condition.
-
-v/r,
-dps
+Frediano
 
