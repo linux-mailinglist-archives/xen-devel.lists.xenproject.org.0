@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1F589989F5
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 16:41:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816235.1230431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEB4C998A18
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 16:43:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816244.1230440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syuLL-00072t-Ic; Thu, 10 Oct 2024 14:40:43 +0000
+	id 1syuOC-0007fF-3X; Thu, 10 Oct 2024 14:43:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816235.1230431; Thu, 10 Oct 2024 14:40:43 +0000
+Received: by outflank-mailman (output) from mailman id 816244.1230440; Thu, 10 Oct 2024 14:43:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syuLL-000704-Fg; Thu, 10 Oct 2024 14:40:43 +0000
-Received: by outflank-mailman (input) for mailman id 816235;
- Thu, 10 Oct 2024 14:40:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syuOC-0007d8-0j; Thu, 10 Oct 2024 14:43:40 +0000
+Received: by outflank-mailman (input) for mailman id 816244;
+ Thu, 10 Oct 2024 14:43:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M84p=RG=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1syuLJ-0006zw-V3
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 14:40:41 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d2734ea-8715-11ef-99a2-01e77a169b0f;
- Thu, 10 Oct 2024 16:40:39 +0200 (CEST)
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2024 07:40:36 -0700
-Received: from smile.fi.intel.com ([10.237.72.154])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2024 07:40:22 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1syuKv-00000001Z6U-0EM4; Thu, 10 Oct 2024 17:40:17 +0300
+ <SRS0=5QbA=RG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1syuOA-0007d2-Ni
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 14:43:38 +0000
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [2607:f8b0:4864:20::c2a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 08546042-8716-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 16:43:37 +0200 (CEST)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ 006d021491bc7-5e5a0519d00so393218eaf.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 07:43:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +40,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d2734ea-8715-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1728571239; x=1760107239;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Uq5PgKpLE7uhqRzqfCFPjNL9bUnSLqy/ztfVl9urxFg=;
-  b=k/8xy6jvLKzVyk5/ZE3tq2QzaMLj9o6oMAh4T6zqo+5T5f2eoWUUe+Eo
-   TgEnxP7h9hGS6VcRF2HvwcO5ritVhbFhzXIIQzzDkiOsyhOF/N5hdbleU
-   VGT49OwcGyAc23lLQ68Sjr9AcHQifd9yqVHXwfcwcunWuwsgEHcQnwdMg
-   aWDQnCAkznpVVqZHLTvprlQwteV/t9x6OxxZhp1sTLPhFMO3JqdbAXjU5
-   FvYbQ65v0vOxVBvwPNIz7Ip/cvjuA3Ki0MUDHXnS4feWqAXjYSwENe2Ud
-   7VikdHKYKAtC71++/iQBW0u7yL/KrhZ5MTfqw8jn9uFJbgebH26QY+oMD
-   g==;
-X-CSE-ConnectionGUID: ZX88UCyVRn2/OvirugydMg==
-X-CSE-MsgGUID: lSeo4bEvScSFcSGv9Ck1FA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11220"; a="28065608"
-X-IronPort-AV: E=Sophos;i="6.11,193,1725346800"; 
-   d="scan'208";a="28065608"
-X-CSE-ConnectionGUID: 24TFoChFQf2xX8y5S/3N6A==
-X-CSE-MsgGUID: bcd6cbeoShWJdS+S7bWq0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,193,1725346800"; 
-   d="scan'208";a="81191373"
-Date: Thu, 10 Oct 2024 17:40:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Philipp Stanner <pstanner@redhat.com>
-Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>,
-	Basavaraj Natikar <basavaraj.natikar@amd.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alex Dubov <oakad@yahoo.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Manish Chopra <manishc@marvell.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rasesh Mody <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com,
-	Igor Mitsyanko <imitsyanko@quantenna.com>,
-	Sergey Matyukevich <geomatsi@gmail.com>,
-	Kalle Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
-	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Chen Ni <nichen@iscas.ac.cn>, Ricky Wu <ricky_wu@realtek.com>,
-	Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Mostafa Saleh <smostafa@google.com>, Hannes Reinecke <hare@suse.de>,
-	John Garry <john.g.garry@oracle.com>,
-	Soumya Negi <soumya.negi97@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>,
-	"Dr. David Alan Gilbert" <linux@treblig.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Eric Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Rui Salvaterra <rsalvaterra@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	ntb@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-staging@lists.linux.dev, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
-Subject: Re: [RFC PATCH 01/13] PCI: Prepare removing devres from pci_intx()
-Message-ID: <ZwfnULv2myACxnVb@smile.fi.intel.com>
-References: <20241009083519.10088-1-pstanner@redhat.com>
- <20241009083519.10088-2-pstanner@redhat.com>
+X-Inumbo-ID: 08546042-8716-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1728571416; x=1729176216; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S0G/lY9SnA2OLILoaWPsygJS4HfGd0u87apXswA8bNo=;
+        b=fY3lGbpClg2ZEJUazeY4Ecof8wik+Qjpb8LM4LNGnwOStrjj01rTHWiviFmlBVSAAH
+         1v2UIBu3autFVqja4tPuLHYZE9cB5G4oEUIpxHRtRnqmYOVOkMcCZ4sLdysqwSZDmMz4
+         QP3SALuD+8Rd1YaUUVBS6bp6OS8azGXf1PMZQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728571416; x=1729176216;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=S0G/lY9SnA2OLILoaWPsygJS4HfGd0u87apXswA8bNo=;
+        b=fex07HHtzcMyJ77Ha7ogEGITQbCrprLXR0boBJYourGBLe+FchatHFS79nZnjQTBq6
+         hzFP9llvMOBO9Xqi7Y0Zx9CKMPvXxg6JRLffLpY1i+jG9qtkeavItlEd/FL1+f/YOw3y
+         5OG7OYQfelaruEvzcM+Y4DQ3JoMP8F/jOP6nV+RYKx9CPUfO3AUgLuaWJ3wrenZsVWAU
+         BPAfya0H87Xah5kM4/eAhmQlWyU3hcUiso+rWotnzJv04Rf7z+6hActS9oRyErAldKci
+         Cul5rg7gZ7s3GBRCoGsjGWE5Clrr6Ic+MT9e+k4OFj1aLtvEfvIEA1wJscnQ44DQy94X
+         /6UA==
+X-Gm-Message-State: AOJu0YzUEtTBp0IWxvhJcQW+ig6l4yBjNj9nAwGE559IcD0nmUUh4GGh
+	9tyltX0n7FXrDGoBhl+o+E38SqOBj9OytlDXsxIx4jyRMseLt87JUnqmaVamxmBlfxNWNYgdup8
+	r+ouQWhdtKjmUU3cdMdWoku/zPPZvxnF1HQIKCQ==
+X-Google-Smtp-Source: AGHT+IElaDQNs8+4ygfiT/fzbWhSpgVMQRsOZ3zlnOkPGGpsptcNjDD4nBpOEsPe1INJHl4FBDPoR4v8eb1jBZbnArI=
+X-Received: by 2002:a05:6870:d1c9:b0:26c:5312:a13b with SMTP id
+ 586e51a60fabf-288344bfaa7mr4440598fac.30.1728571416404; Thu, 10 Oct 2024
+ 07:43:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241009083519.10088-2-pstanner@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20241010140351.309922-1-ayan.kumar.halder@amd.com> <20241010140351.309922-2-ayan.kumar.halder@amd.com>
+In-Reply-To: <20241010140351.309922-2-ayan.kumar.halder@amd.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 10 Oct 2024 15:43:25 +0100
+Message-ID: <CACHz=Zh402HGV-=5Lbm5auZS0qX6KXH7ZPHvT3WUZ=EjJ4JE2A@mail.gmail.com>
+Subject: Re: [PATCH v3 1/6] xen/arm: Skip initializing the BSS section when it
+ is empty
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 09, 2024 at 10:35:07AM +0200, Philipp Stanner wrote:
-> pci_intx() is a hybrid function which sometimes performs devres
-> operations, depending on whether pcim_enable_device() has been used to
-> enable the pci_dev. This sometimes-managed nature of the function is
-> problematic. Notably, it causes the function to allocate under some
-> circumstances which makes it unusable from interrupt context.
-> 
-> To, ultimately, remove the hybrid nature from pci_intx(), it is first
-> necessary to provide an always-managed and a never-managed version
-> of that function. Then, all callers of pci_intx() can be ported to the
-> version they need, depending whether they use pci_enable_device() or
-> pcim_enable_device().
-> 
-> An always-managed function exists, namely pcim_intx(), for which
-> __pcim_intx(), a never-managed version of pci_intx() had been
-> implemented.
+On Thu, Oct 10, 2024 at 3:05=E2=80=AFPM Ayan Kumar Halder
+<ayan.kumar.halder@amd.com> wrote:
+>
+> If the BSS section is empty, then the function can just return.
+>
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from :-
+>
+> v1..v2 - New patch introduced in v3.
+>
+>  xen/arch/arm/arm64/head.S | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> index 14c3720d80..72c7b24498 100644
+> --- a/xen/arch/arm/arm64/head.S
+> +++ b/xen/arch/arm/arm64/head.S
+> @@ -346,6 +346,8 @@ FUNC_LOCAL(zero_bss)
+>          PRINT("- Zero BSS -\r\n")
+>          ldr   x0, =3D__bss_start       /* x0 :=3D vaddr(__bss_start) */
+>          ldr   x1, =3D__bss_end         /* x1 :=3D vaddr(__bss_end)   */
+> +        cmp   x1, x0
+> +        beq   skip_bss
+>
+>  1:      str   xzr, [x0], #8
+>          cmp   x0, x1
 
-> Make __pcim_intx() a public function under the name
-> pci_intx_unmanaged(). Make pcim_intx() a public function.
+Why not just transforming the "do while" loop into a "while" one and
+just jump to cmp?
 
-To avoid an additional churn we can make just completely new APIs, namely:
-pcim_int_x()
-pci_int_x()
+Something like (not tested)
 
-You won't need all dirty dances with double underscored function naming and
-renaming.
+diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+index 14c3720d80..987f243578 100644
+--- a/xen/arch/arm/arm64/head.S
++++ b/xen/arch/arm/arm64/head.S
+@@ -346,9 +346,10 @@ FUNC_LOCAL(zero_bss)
+        PRINT("- Zero BSS -\r\n")
+        ldr   x0, =3D__bss_start       /* x0 :=3D vaddr(__bss_start) */
+        ldr   x1, =3D__bss_end         /* x1 :=3D vaddr(__bss_end)   */
++        b     2f
 
+1:      str   xzr, [x0], #8
+-        cmp   x0, x1
++2:      cmp   x0, x1
+        b.lo  1b
 
-...
+skip_bss:
 
-> +	pci_read_config_word(pdev, PCI_COMMAND, &pci_command);
-> +
-> +	if (enable)
-> +		new = pci_command & ~PCI_COMMAND_INTX_DISABLE;
-> +	else
-> +		new = pci_command | PCI_COMMAND_INTX_DISABLE;
-> +
-> +	if (new != pci_command)
-
-I would use positive conditionals as easy to read (yes, a couple of lines
-longer, but also a win is the indentation and avoiding an additional churn in
-the future in case we need to add something in this branch.
-
-> +		pci_write_config_word(pdev, PCI_COMMAND, new);
-
-...
-
-Otherwise I'm for the idea in general.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Frediano
 
