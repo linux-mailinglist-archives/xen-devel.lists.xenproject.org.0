@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56F159990A4
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 20:36:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816439.1230655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 849179992A0
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 21:39:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816455.1230664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syy05-0004IP-Ao; Thu, 10 Oct 2024 18:35:01 +0000
+	id 1syyzb-0005wA-1U; Thu, 10 Oct 2024 19:38:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816439.1230655; Thu, 10 Oct 2024 18:35:01 +0000
+Received: by outflank-mailman (output) from mailman id 816455.1230664; Thu, 10 Oct 2024 19:38:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syy05-0004G7-7Z; Thu, 10 Oct 2024 18:35:01 +0000
-Received: by outflank-mailman (input) for mailman id 816439;
- Thu, 10 Oct 2024 18:34:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1syyza-0005ts-Uh; Thu, 10 Oct 2024 19:38:34 +0000
+Received: by outflank-mailman (input) for mailman id 816455;
+ Thu, 10 Oct 2024 19:38:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xe3N=RG=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
- id 1syy03-0004G1-Lv
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 18:34:59 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59f5f42e-8736-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 20:34:58 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4311c285bc9so2687685e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 11:34:58 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4311835696esm23005225e9.37.2024.10.10.11.34.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Oct 2024 11:34:56 -0700 (PDT)
+ <SRS0=mNu3=RG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1syyzZ-0005tT-DJ
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 19:38:33 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3937cbcf-873f-11ef-99a2-01e77a169b0f;
+ Thu, 10 Oct 2024 21:38:29 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 2B237A4020A;
+ Thu, 10 Oct 2024 19:38:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90F03C4CECC;
+ Thu, 10 Oct 2024 19:38:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,116 +41,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59f5f42e-8736-11ef-a0bd-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1728585297; x=1729190097; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ytCziD1c5I5FhCXF5EK5g0FeePvbLPZ6YQt0NDF0j9M=;
-        b=wG3SkAfdQUUicL4cofdNMQiNgSM4MgmhPpIwrAsMtOTPM/o+RqQ12jDx5+GjyScLXz
-         IPpWB5YzMW+ieTe0siau7EafmmfN7+5x8EnLu2lPg2WgiIiLZpsfNITKGXceqCRrfLx7
-         z3YoPJ6bqtZR34waesooXJzJ6aTbsal9ByoElzHN6R5NszDJUu4c8HvZ9erEe4gwW61o
-         FqE17VnBHX80Dpfy4GFrFZ5RJGaCxv+eHpRxhJltpEOdvGgxTAFAkc85lbmcB+ICC6L/
-         rDulce7uA1Krx0N67vbqWr3cga/x/BbAB9mt8W4M51bvUe7YUPMzYxQhY2bPGUDziDuA
-         XCQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728585297; x=1729190097;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ytCziD1c5I5FhCXF5EK5g0FeePvbLPZ6YQt0NDF0j9M=;
-        b=m3WrsFb85ph3a3ayWmQh7WeaPrpLlwfUSetZlABQhYrz8xdvAz0lndxquqHZsTxQMT
-         X/SoYD/SOAEMDL7aQdm35z7+S0h0dWkon+LDZ24XTB6KLHyzx6i2sQsx/uYTF4bNxoZW
-         m5RTCLoLZYj1ChuAj6IiWolZ9xIhGefT685mOeDX0MTqGLnOJHgbWrfwKSepbaJYwPTw
-         8BWKDjTM9LSlIkdsn12PB43i4hKI4i9b+fQVAoNyKbjyW3pdGNOw8b23AUVsaXZFtkZa
-         ZP3b/lliiUKCv0v/CkN6MhY7NdU5yvnK8y9twPszXLiEM6V4+E7FcJs56o+Ccode2/jq
-         xfMg==
-X-Forwarded-Encrypted: i=1; AJvYcCUj3wyL3ibzTKL67ktuRYE5ZR26UNTa9RYPWILapObBcB1T+5u4OO02T3EzoFzkUYPEr0+mqlxVnvk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yygm/u+kZRRDMVvfTaMfmvgfej/kjPt29BXlRx7WtFxtoVO88rb
-	FZCdJ9YDml/lt7nk2/0sdG4MLWKRQjAWJzH7gFgQlWLeqU/dxLDoq1TDHvV2TPo=
-X-Google-Smtp-Source: AGHT+IGrQtiU9KkPJvVdlsqZUQMKOCUeX11EZAgMHCeWVATX5aFzmtkTu4Efnh91V5tJdIM1vfefqw==
-X-Received: by 2002:a05:600c:46c9:b0:42c:c401:6d86 with SMTP id 5b1f17b1804b1-431157e56e5mr37151355e9.27.1728585297410;
-        Thu, 10 Oct 2024 11:34:57 -0700 (PDT)
-Date: Thu, 10 Oct 2024 21:34:53 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Alex Williamson <alex.williamson@redhat.com>
-Cc: Philipp Stanner <pstanner@redhat.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>,
-	Basavaraj Natikar <basavaraj.natikar@amd.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alex Dubov <oakad@yahoo.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Manish Chopra <manishc@marvell.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rasesh Mody <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com,
-	Igor Mitsyanko <imitsyanko@quantenna.com>,
-	Sergey Matyukevich <geomatsi@gmail.com>,
-	Kalle Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
-	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Chen Ni <nichen@iscas.ac.cn>, Ricky Wu <ricky_wu@realtek.com>,
-	Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Hannes Reinecke <hare@suse.de>,
-	John Garry <john.g.garry@oracle.com>,
-	Soumya Negi <soumya.negi97@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>,
-	"Dr. David Alan Gilbert" <linux@treblig.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Eric Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Rui Salvaterra <rsalvaterra@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	ntb@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-staging@lists.linux.dev, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
-Subject: Re: [RFC PATCH 13/13] Remove devres from pci_intx()
-Message-ID: <0990d9f9-cab9-44c2-b2e3-bd8fa556cc02@stanley.mountain>
-References: <20241009083519.10088-1-pstanner@redhat.com>
- <20241009083519.10088-14-pstanner@redhat.com>
- <7f624c83-115b-4045-b068-0813a18c8200@stanley.mountain>
- <f42bb5de4c9aca307a3431dd15ace4c9cade1cb9.camel@redhat.com>
- <20241010114314.296db535.alex.williamson@redhat.com>
+X-Inumbo-ID: 3937cbcf-873f-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1728589107;
+	bh=fIaFEL2432nob6KEiMmP2odt7ge8i70XjeaZTXAuU0I=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=uH4ye3CDFTPsPCrl4O32hydS+/adIaz9F1/wxOhQ/dCW3ZSDHfoiR45sBWOehUz20
+	 BXTO/COj3dxoqUxNkvN+KDiOhM91VAE0xIRVRGIcDWfRQQ6HYLJHpr1VM86CAvVB5V
+	 JEK/QO7iJcYquT4NumU8Hbf1u35EO48qQ6f9JmjI20sXzlWM5oI2DPU9UIsozrx3Ie
+	 D6TlKRiHlkYluVc1KsVXk9BNvZFxuUamjy3dGkfQxto+UUAqpCuIfKPaHQVV1+GLlm
+	 keDJI85nPt9CAXhjo3vlXfUzTchT+PYBj85JHr+IIG4OQu90bj98r1UYl2LeExivGX
+	 /ECPqcwEH9Bsg==
+Date: Thu, 10 Oct 2024 12:38:25 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+cc: Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2] xen: Remove dependency between pciback and privcmd
+In-Reply-To: <20241010075848.1002891-1-Jiqian.Chen@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2410101237430.471028@ubuntu-linux-20-04-desktop>
+References: <20241010075848.1002891-1-Jiqian.Chen@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241010114314.296db535.alex.williamson@redhat.com>
+Content-Type: multipart/mixed; boundary="8323329-35704740-1728589107=:471028"
 
-On Thu, Oct 10, 2024 at 11:43:14AM -0600, Alex Williamson wrote:
-> FWIW, I think pcim_intx() and pci_intx() align better to our naming
-> convention for devres interfaces.  Would it be sufficient if pci_intx()
-> triggered a WARN_ON if called for a pci_is_managed() device?  Thanks,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-35704740-1728589107=:471028
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 10 Oct 2024, Jiqian Chen wrote:
+> Commit 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+> adds a weak reverse dependency to the config XEN_PRIVCMD definition, that
+> dependency causes xen-privcmd can't be loaded on domU, because
+> dependent xen-pciback is always not be loaded successfully on domU.
 > 
+> To solve above problem, remove that dependency, and do not call
+> pcistub_get_gsi_from_sbdf() directly, instead add a hook in
+> drivers/xen/apci.c, xen-pciback register the real call function, then in
+> privcmd_ioctl_pcidev_get_gsi call that hook.
+> 
+> Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> v1->v2 changes:
+> Added hook xen_acpi_get_gsi_from_sbdf.
+> Changed pcistub_get_gsi_from_sbdf to static and pciback register it as the real hook function.
+> ---
+>  drivers/xen/Kconfig                |  1 -
+>  drivers/xen/acpi.c                 | 17 +++++++++++++++++
+>  drivers/xen/privcmd.c              |  6 ++----
+>  drivers/xen/xen-pciback/pci_stub.c |  4 ++--
+>  include/xen/acpi.h                 | 12 ++++--------
+>  5 files changed, 25 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+> index 72ddee4c1544..f7d6f47971fd 100644
+> --- a/drivers/xen/Kconfig
+> +++ b/drivers/xen/Kconfig
+> @@ -261,7 +261,6 @@ config XEN_SCSI_BACKEND
+>  config XEN_PRIVCMD
+>  	tristate "Xen hypercall passthrough driver"
+>  	depends on XEN
+> -	imply XEN_PCIDEV_BACKEND
+>  	default m
+>  	help
+>  	  The hypercall passthrough driver allows privileged user programs to
+> diff --git a/drivers/xen/acpi.c b/drivers/xen/acpi.c
+> index 9e2096524fbc..0bff2f3a87d2 100644
+> --- a/drivers/xen/acpi.c
+> +++ b/drivers/xen/acpi.c
+> @@ -125,3 +125,20 @@ int xen_acpi_get_gsi_info(struct pci_dev *dev,
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(xen_acpi_get_gsi_info);
+> +
+> +get_gsi_from_sbdf_t get_gsi_from_sbdf = NULL;
 
-To be honest, I also don't mind if you also just merge the patchset as-is.  I
-was mostly just throwing out ideas.
+This can be static
 
-regards,
-dan carpenter
+
+> +void xen_acpi_register_get_gsi_func(get_gsi_from_sbdf_t func)
+> +{
+> +	get_gsi_from_sbdf = func;
+> +}
+> +EXPORT_SYMBOL_GPL(xen_acpi_register_get_gsi_func);
+> +
+> +int xen_acpi_get_gsi_from_sbdf(u32 sbdf)
+> +{
+> +	if (get_gsi_from_sbdf)
+> +		return get_gsi_from_sbdf(sbdf);
+> +
+> +	return -EINVAL;
+> +}
+> +EXPORT_SYMBOL_GPL(xen_acpi_get_gsi_from_sbdf);
+> \ No newline at end of file
+> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+> index 3273cb8c2a66..4f75bc876454 100644
+> --- a/drivers/xen/privcmd.c
+> +++ b/drivers/xen/privcmd.c
+> @@ -850,15 +850,13 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
+>  static long privcmd_ioctl_pcidev_get_gsi(struct file *file, void __user *udata)
+>  {
+>  #if defined(CONFIG_XEN_ACPI)
+> -	int rc = -EINVAL;
+> +	int rc;
+>  	struct privcmd_pcidev_get_gsi kdata;
+>  
+>  	if (copy_from_user(&kdata, udata, sizeof(kdata)))
+>  		return -EFAULT;
+>  
+> -	if (IS_REACHABLE(CONFIG_XEN_PCIDEV_BACKEND))
+> -		rc = pcistub_get_gsi_from_sbdf(kdata.sbdf);
+> -
+> +	rc = xen_acpi_get_gsi_from_sbdf(kdata.sbdf);
+>  	if (rc < 0)
+>  		return rc;
+>  
+> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+> index 2f3da5ac62cd..900e6199eec7 100644
+> --- a/drivers/xen/xen-pciback/pci_stub.c
+> +++ b/drivers/xen/xen-pciback/pci_stub.c
+> @@ -227,7 +227,7 @@ static struct pci_dev *pcistub_device_get_pci_dev(struct xen_pcibk_device *pdev,
+>  }
+>  
+>  #ifdef CONFIG_XEN_ACPI
+> -int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
+> +static int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
+>  {
+>  	struct pcistub_device *psdev;
+>  	int domain = (sbdf >> 16) & 0xffff;
+> @@ -242,7 +242,6 @@ int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
+>  
+>  	return psdev->gsi;
+>  }
+> -EXPORT_SYMBOL_GPL(pcistub_get_gsi_from_sbdf);
+>  #endif
+>  
+>  struct pci_dev *pcistub_get_pci_dev_by_slot(struct xen_pcibk_device *pdev,
+> @@ -484,6 +483,7 @@ static int pcistub_init_device(struct pcistub_device *psdev)
+>  		if (err)
+>  			goto config_release;
+>  		psdev->gsi = gsi;
+> +		xen_acpi_register_get_gsi_func(pcistub_get_gsi_from_sbdf);
+>  	}
+>  #endif
+>  
+> diff --git a/include/xen/acpi.h b/include/xen/acpi.h
+> index daa96a22d257..ef4f70e4a557 100644
+> --- a/include/xen/acpi.h
+> +++ b/include/xen/acpi.h
+> @@ -91,13 +91,9 @@ static inline int xen_acpi_get_gsi_info(struct pci_dev *dev,
+>  }
+>  #endif
+>  
+> -#ifdef CONFIG_XEN_PCI_STUB
+> -int pcistub_get_gsi_from_sbdf(unsigned int sbdf);
+> -#else
+> -static inline int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
+> -{
+> -	return -1;
+> -}
+> -#endif
+> +typedef int (*get_gsi_from_sbdf_t)(u32 sbdf);
+> +
+> +void xen_acpi_register_get_gsi_func(get_gsi_from_sbdf_t func);
+> +int xen_acpi_get_gsi_from_sbdf(unsigned int sbdf);
+>  
+>  #endif	/* _XEN_ACPI_H */
+> -- 
+> 2.34.1
+> 
+--8323329-35704740-1728589107=:471028--
 
