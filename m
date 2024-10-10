@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9042B9988C0
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 16:05:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816170.1230407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B94959988BE
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 16:05:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816169.1230397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sytnE-0007Ut-S5; Thu, 10 Oct 2024 14:05:28 +0000
+	id 1sytnB-0007Bk-IZ; Thu, 10 Oct 2024 14:05:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816170.1230407; Thu, 10 Oct 2024 14:05:28 +0000
+Received: by outflank-mailman (output) from mailman id 816169.1230397; Thu, 10 Oct 2024 14:05:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sytnE-0007Rs-Nm; Thu, 10 Oct 2024 14:05:28 +0000
-Received: by outflank-mailman (input) for mailman id 816170;
- Thu, 10 Oct 2024 14:05:26 +0000
+	id 1sytnB-00079B-Es; Thu, 10 Oct 2024 14:05:25 +0000
+Received: by outflank-mailman (input) for mailman id 816169;
+ Thu, 10 Oct 2024 14:05:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rwpE=RG=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1sytnC-0006aO-Nm
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 14:05:26 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20605.outbound.protection.outlook.com
- [2a01:111:f403:2405::605])
+ id 1sytnA-0006aO-3f
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 14:05:24 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2061b.outbound.protection.outlook.com
+ [2a01:111:f403:240a::61b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b22cfc86-8710-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 16:05:26 +0200 (CEST)
-Received: from CH2PR07CA0052.namprd07.prod.outlook.com (2603:10b6:610:5b::26)
- by CH3PR12MB9028.namprd12.prod.outlook.com (2603:10b6:610:123::20)
+ id b0721540-8710-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 16:05:23 +0200 (CEST)
+Received: from SJ0PR13CA0162.namprd13.prod.outlook.com (2603:10b6:a03:2c7::17)
+ by SN7PR12MB8604.namprd12.prod.outlook.com (2603:10b6:806:273::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Thu, 10 Oct
- 2024 14:05:21 +0000
-Received: from CH1PEPF0000AD7D.namprd04.prod.outlook.com
- (2603:10b6:610:5b:cafe::88) by CH2PR07CA0052.outlook.office365.com
- (2603:10b6:610:5b::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18 via Frontend
- Transport; Thu, 10 Oct 2024 14:05:21 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH1PEPF0000AD7D.mail.protection.outlook.com (10.167.244.86) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18; Thu, 10 Oct
+ 2024 14:05:18 +0000
+Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c7:cafe::b1) by SJ0PR13CA0162.outlook.office365.com
+ (2603:10b6:a03:2c7::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16 via Frontend
+ Transport; Thu, 10 Oct 2024 14:05:18 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.13 via Frontend Transport; Thu, 10 Oct 2024 14:05:21 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8048.13 via Frontend Transport; Thu, 10 Oct 2024 14:05:17 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Oct
- 2024 09:05:14 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Oct
- 2024 09:05:14 -0500
+ 2024 09:05:16 -0500
 Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Thu, 10 Oct 2024 09:05:13 -0500
+ Frontend Transport; Thu, 10 Oct 2024 09:05:15 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,180 +59,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b22cfc86-8710-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: b0721540-8710-11ef-a0bd-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=laulD8mgEE8bgVKkDpa0ChGi3H3Xo/WWeBqUNcixR3f7sd1jCWAMGFftyi4Qvfe1RoJa6SRo2XVgdSZMJDcouahm0LZ6FjWmNp3FzNR01dLkWebLxS0NByZFJ4yeqA0qkteaFmhIs+Df+1rxBSS8V/DR2z/ejoH+fhk0LAF0OdgS6dgK5v/+6q8U/QY+goXk5mr72YQZEvL54+olTqphJpN1Sp8fwN+3Pfj1NOR39pYg4Qjv3MRsVWSp+Ro75AqFc7PTWMWEBqwL360N1RU+R395rGQ3nR82FGtB0dfXCBxf7myj9ZzF70Qj0W4LtiMvQ/wib3VbJ82ldxK6Sqbl9Q==
+ b=b7ZF6A8n0zH7nv4XvOacBErxB9pZau3XFfW+loWWfoZxWmPIJiVh5oUpmlwi6RQC0xUzzST1lWb0wWjbDjfbppnFXbLMLRgPcmmKOtZ7Y4pFFqz+w1Qdyd4/dvnkXGK1gzHnf2+QHde7y4DqMTpnql9+Sph7zNeiRjqdE4YZDxORjKEVb2ci121Bem6XxOadqUBoWm5yTfP+hobvY2dlQYUv6ynf/vKM8Legoi3OwjdrC6jbI+kKS+5IbXYcU4TaHO79rSdsY15gZvuiZxJNmwKkFBe3cgpN24aaKaOXV6cbmH/6pQ8Kv3Pi1yzXqQfeh3dUsAqpcdJF+HspHshR3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mc+2UIogysTLypyoewHZ0RzOpVjSYSg0ff0a3ZkO2SY=;
- b=LM5xEu/oAXdCkM9AC4GlfE+OlaEwZuX4RVy42rY8ihDdN2eenw1ps4yTD7XoQL4Wneof5193kINso1Gwn+U69vlDgUvS+ZStHSuqDNvZGEOIidSZ77iDVTzFm9l3B77YTmdwKPRvU1rL9ec9IF8iSApOTgmAa/KSSBg4x87Jtrwp+7dVyQelBJCH6Y79w8V34vvIF4GekSbBzJ4Wbsz7KWQFQKDR1/7u0W2H8mgPzvMR3ueri+4q8hW+QUcasbWPsvu8hpxYHg7kjuVmiVjwRecNxA+5H4cVmNcnUcW62+f/ZQXJ1bAkeJj5UxkPuSb8R3Qkals6drTPCjbUYJi7mA==
+ bh=Yym0EEggncFfOSUc233UEcJGav1crXKLZ4st43Tahts=;
+ b=r7DmcetMhpT63fMgaPTXhdRv23jSZRK/phWc8WBGdSXmkQ4czOKOegBqOkLHH97lBeJvOd4CqN2WWIg7yKbTeAs5BNH6ENqsCx9amuLWc2Wquc9W16rEli+Eh2dZKMmoYxxgZyQql1Qwg/ssHTQcj7CeR0nAuyXAxfezDXGvBaYIbiqDsh+vajDJtlYJ+qW76oauRW8syxOxcuwxSNbEyPL53KGdD1ICMyUMankJbDQs8asA5H8eesmw4yW1QnfZBmpsWpEubI7ySPKL4W7qEsNBURIYkp3E5zIRcgtoC+PXaEMUfkrL71mhy4c2b9y3x8gX89YFe/bjffX3y5517Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mc+2UIogysTLypyoewHZ0RzOpVjSYSg0ff0a3ZkO2SY=;
- b=Ymv1y0jMWsYOUBheyRj8exsQi9J9FnSnmYNZcox8seXKHC/GXjxTF1bmRKNFRz4OWgH12hLC8YgK8x2LOLB+nK/USbdlepmT3TFHQWVhpuouVzmsliLNUZNuGTZLs/5BSl9p2Y6ZOvSwg5IXlxYQrmA6hFUPagloy1RsO6MlfOI=
+ bh=Yym0EEggncFfOSUc233UEcJGav1crXKLZ4st43Tahts=;
+ b=EUddmWfA5rQfJOEd7nxDEK8J542vrIW+cDaetVPISL1dILyAolZRbHNmdRsm7cSBbhSBhejOcVT3Hmrynp8a+R1uIbHzkRAeuWXbw6lrPYSFJasRz2HFuWSIU4O9lVVjIXZ6cC2IcAhbxSs6PX9OuAvYtFJIlCM9JTsAygBlHDs=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 5/6] xen/arm: mpu: Enable MPU
-Date: Thu, 10 Oct 2024 15:03:50 +0100
-Message-ID: <20241010140351.309922-6-ayan.kumar.halder@amd.com>
+CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 6/6] xen/arm: mpu: Implement a dummy enable_secondary_cpu_mm
+Date: Thu, 10 Oct 2024 15:03:51 +0100
+Message-ID: <20241010140351.309922-7-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
 References: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: ayan.kumar.halder@amd.com does not
+Received-SPF: None (SATLEXMB04.amd.com: ayan.kumar.halder@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7D:EE_|CH3PR12MB9028:EE_
-X-MS-Office365-Filtering-Correlation-Id: cac452d3-b6cf-4be0-234f-08dce9349408
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|SN7PR12MB8604:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1de2197c-76f0-45c4-af62-08dce934922c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?cYUyyQqg9on/VleGmm0+q6Q9WTg5yozdWASHwjQU86Yd/iRHLp8oYDV+posV?=
- =?us-ascii?Q?8Af7Q6EjeVlQDK5Asv64QmM9GGlRj5FhoDZmRNT37ECTGw5+Iw9b/j5meZAZ?=
- =?us-ascii?Q?H2JMTIhD8Kfq6xZ+qJ2kn/ov3KzIKWI1KXnbeXU0kEWGYRbvNCWGVzs+bBNv?=
- =?us-ascii?Q?NktYD0xWiO/g9zmNjMNjEJXobr+1f3WCO2IRwE190YlnAnEPXGRMGatektKA?=
- =?us-ascii?Q?7ojnfuLBjKaCcBXJba+rVUGFNcrhBoQTRF3+qOfGoRTNZgQb1Bn/EiengQOS?=
- =?us-ascii?Q?1vvHs6uGk1yBlPXuK047a218RaKA0eESZ4dReucFzfBFPA/QKCQwhAEQHYWn?=
- =?us-ascii?Q?edkqjQeUd5LWG1o5GjMBjzrTtOZWZXEoTayuJOGlMybd4aFraNBFO7RvAai2?=
- =?us-ascii?Q?oWGV2oqVUJT9lgkfcy87JJgWYsbLjADC879r/mq+xHvDmLQM7FzmmXdDhejH?=
- =?us-ascii?Q?RihM99fYrLE+bgfefsE5Riu2ghVJVuy8kD0qby90GRsBlsMc8nx2uCv+hyUh?=
- =?us-ascii?Q?7AdwEsBhqIr4BN6/sXxl1k3KwgKQKrYM51OLC9CGCl8UgKLeTN1uxKhkOItS?=
- =?us-ascii?Q?W747IY5u+ANsR39C6ZT8OoaU288fU1WqOzKJ/ucb+2Veen1bgdLueAxE3q9e?=
- =?us-ascii?Q?NTnIoCc8HIDlnZMpXpl+ThCeXYs0NB9ALYNutjbm4suFLC6ukg8ho8po2Qz6?=
- =?us-ascii?Q?qrcOoj192/VsUfCaNgS9k8ZOBxEWTspcEYgOWaI5PbLKKXvH0nMCxc8ZeCox?=
- =?us-ascii?Q?3Zls2jLg3RTWh1y6Fp8myb+rbl+o4+tS6Ex9DBwk5yjAAmHePf7AqMWY7qNy?=
- =?us-ascii?Q?fFg5k3WFMRZyOM7uajFCx4qv9qi+ZjReWDxPXc5eaLz2z3p1Cmw1uIQ+4goU?=
- =?us-ascii?Q?UelsJDbIisAJYNe9smMMG5qq6DpgSDa3ZC5yGeSlcX/7UfS7cCCSXuVAJT7y?=
- =?us-ascii?Q?uUPs3B9Wx3USLz9QJar2bPjSnH0aBjokQ8+nQOSyjtd8JQy/7tzUz3oK/PVD?=
- =?us-ascii?Q?JAmE+XXBlhFzNBT+BsJSI8lANw37o+VaUMOV7NxuzNc6aPOfqHpOsw+W6yh6?=
- =?us-ascii?Q?ZbsDNTmwNIQdKxdVffWBN/BtpFOZfzlYD6dwa5G2BdUAQuUImosjPIW56UIX?=
- =?us-ascii?Q?xC5IY8sdk6ncdyFy/dDOCuXXsn7i7xNQP5cETJyXrfri8MwxxqGPqi8GKRdT?=
- =?us-ascii?Q?1FWuBUw4Mm2S6PmFrDvgu2uvN70CTsx/hlJAmSJaCsmY6aFFm4xP2INb9rgR?=
- =?us-ascii?Q?A/NJfdduM0gifKV1S5XU/pqttYg5vd5QBBgUvkX7ckN8e5YvBGvJ33ZAr5Q6?=
- =?us-ascii?Q?i+G9wEXieTMhGz1rv7UFefNppNquz1/YF3OmEa7Qcmc+azf+5N8L455TyYLI?=
- =?us-ascii?Q?lWuY/hs=3D?=
+	=?us-ascii?Q?zKmaI+0PbdyecuZ5f3AIC0+rnU0Y/yVPFmN7KjOaEdJ5wX/qRhCPPHauVhCt?=
+ =?us-ascii?Q?oUe4T6goc+9nnqxmRbT8lcx8k9NztJ2gnofaima+oOj8y9YKVOdnNtRMKTFg?=
+ =?us-ascii?Q?jZcjE7usBGqqz9WS+8NbuKa1A6/9is1ZDTqUcyAQ6UjLZuF8k7v+IuwHssDA?=
+ =?us-ascii?Q?7AlfsH+fbRXqbaE6kmy0htVzMtnn/FM9QnZjGhNstZVKJqDzfDBFkducvN9p?=
+ =?us-ascii?Q?YxmQ2wjkJfoBmO73O8FRPLJs3/7pdhWHl+DdSOpPpvAsphZAt1qY+pCQUD48?=
+ =?us-ascii?Q?JO4EmjVBQXJ3cB87snROkKN6MSAQJasB5NNtEIvMU50sZw+d/XgsK0FIy81x?=
+ =?us-ascii?Q?HzlhWqOZVluXZw+FcoWQqWOC9AaEP9omR56E/0/M0Z6wq1+jdL5uJMteVy48?=
+ =?us-ascii?Q?GyguEFHCOGFTq8VIpxhIAD8KUBmxgUCq0HHRpPSkPn+mcNrEFYMhsVFvMJ6u?=
+ =?us-ascii?Q?8c3ovakqHL04zfEQMeoAEczpX8dU33DA8KOI/DTBuOeFlFV08M5kEt4ln5cX?=
+ =?us-ascii?Q?kwPAankJOcF2kCGVc44RPg/FQLkS0KfnZJdlzNFULal44y7KswgH0mq1rUTp?=
+ =?us-ascii?Q?d5abGmU0btcHDBIkL9nj7ClTMb7elG5dEIVKRTgq/gT/EP5Z9d6dQt/akztC?=
+ =?us-ascii?Q?MFTEVLsyz4DakjHgY85eg7/w3Yqh907r9MX+kmMoSi5us38JwRz54N72/9/u?=
+ =?us-ascii?Q?+nAu9g9qa2ptIFgjZsc/yth2nUkDW9ns5po8BN94kybZiTcAhNQNGtWgI+sn?=
+ =?us-ascii?Q?CJA0LjxhLJ9fabfwuRdicpyuZVOa0cY+d8VtAgpShmPSCvi99dpYSwANu/x1?=
+ =?us-ascii?Q?Q1HBEvZyeYgzRC0SoCmB0SsH15SAPiVQ+p1vCasGtmqBhRPN8tqG2HqNtgmh?=
+ =?us-ascii?Q?G/h7rZ1EGnEWYlyeW/+RDsTZevvIzwZ/pq8Sgr2iuTkuHwUoInviWxOwQJcc?=
+ =?us-ascii?Q?EkqRVTEpI+w2K1BVMnogw2eBtIhTGAyQ4a5gGCsQM7bI5z4L/h8MJfYVv45a?=
+ =?us-ascii?Q?thMoYkgKZ8X5p3i65VlZSxppglUo8k8mDXW9YWfqiQlVqUMn+t4eZ7JM7Bwr?=
+ =?us-ascii?Q?+UTRXRFlOSFo/LDTnch+tBqoRMujCqsoFSeBeq5vW9uXvrPvAyj3WhgaWsSW?=
+ =?us-ascii?Q?+EHJnY1llOcCoVZsmV3GyzvhmRLL2O1jSLfMnuiCcwX7dDiRsy8Lyf8CQZck?=
+ =?us-ascii?Q?9XlOXt9L8cxwQiSRso0uENBpHnhNZFfSh/V6DtmwlGVvejfTmD+IpLKw07cF?=
+ =?us-ascii?Q?2/4l03P2phdM2N+k7a//Kcq9J3YexWK/PY+CrQ8nOn6tN9ZzSXq/cdrZaNI9?=
+ =?us-ascii?Q?2Xj4MMFPgeWuQgauJr5+rW2pvxzfqnTxSNXWBnKvR+wkaOiR5Fl5I2jLZry5?=
+ =?us-ascii?Q?QdmlDo0RwYNQ49MbY47h5rmA++ds?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2024 14:05:21.0119
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2024 14:05:17.8334
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cac452d3-b6cf-4be0-234f-08dce9349408
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1de2197c-76f0-45c4-af62-08dce934922c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7D.namprd04.prod.outlook.com
+	SJ1PEPF0000231B.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9028
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8604
 
-After the regions have been created, now we enable the MPU. For this we disable
-the background region so that the new memory map created for the regions take
-effect. Also, we treat all RW regions as non executable and the data cache is
-enabled.
+Secondary cpus initialization is not yet supported. Thus, we print an
+appropriate message and put the secondary cpus in WFE state.
+And we introduce to BUILD_BUG_ON to prevent users using from building Xen
+on multiprocessor based MPU systems.
+
+In Arm, there is no clean way to disable SMP. As of now, we wish to support
+MPU on UNP only. So, we have defined the default range of NR_CPUs to be 1 for
+MPU.
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 ---
 Changes from :-
 
-v2 - 1. Extracted from the previous patch into a new one.
+v1 - 1. NR_CPUS is defined as 1 for MPU
 
-2. Disabled background region.
+2. Added a message in enable_secondary_cpu_mm()
 
- xen/arch/arm/arm64/mpu/head.S                | 29 ++++++++++++++++++--
- xen/arch/arm/include/asm/arm64/mpu/sysregs.h |  3 ++
- 2 files changed, 30 insertions(+), 2 deletions(-)
+v2 - 1. Added the range
 
+2. Clarified in the commit message why/how we have disabled SMP.
+
+ xen/arch/Kconfig              |  2 ++
+ xen/arch/arm/arm64/mpu/head.S | 10 ++++++++++
+ xen/arch/arm/setup.c          |  5 +++++
+ 3 files changed, 17 insertions(+)
+
+diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
+index 308ce129a8..6053e048fa 100644
+--- a/xen/arch/Kconfig
++++ b/xen/arch/Kconfig
+@@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
+ 
+ config NR_CPUS
+ 	int "Maximum number of CPUs"
++	range 1 1 if MPU
+ 	range 1 16383
+ 	default "256" if X86
+ 	default "8" if ARM && RCAR3
+ 	default "4" if ARM && QEMU
+ 	default "4" if ARM && MPSOC
++	default "1" if ARM && MPU
+ 	default "128" if ARM
+ 	help
+ 	  Controls the build-time size of various arrays and bitmaps
 diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/mpu/head.S
-index 4a21bc815c..e354f4552b 100644
+index e354f4552b..4d36a8c9bc 100644
 --- a/xen/arch/arm/arm64/mpu/head.S
 +++ b/xen/arch/arm/arm64/mpu/head.S
-@@ -61,6 +61,30 @@
-     add \xb, \xb, x20       /* x20 - Phys offset */
- .endm
+@@ -147,6 +147,16 @@ fail:
+     b   1b
+ END(enable_boot_cpu_mm)
  
 +/*
-+ * Enable EL2 MPU and data cache
-+ * If the Background region is enabled, then the MPU uses the default memory
-+ * map as the Background region for generating the memory
-+ * attributes when MPU is disabled.
-+ * Since the default memory map of the Armv8-R AArch64 architecture is
-+ * IMPLEMENTATION DEFINED, we intend to turn off the Background region here.
-+ *
-+ * Clobbers x0
-+ *
++ * We don't yet support secondary CPUs bring-up. Implement a dummy helper to
++ * please the common code.
 + */
-+FUNC_LOCAL(enable_mpu)
-+    mrs   x0, SCTLR_EL2
-+    bic   x0, x0, #SCTLR_ELx_BR       /* Disable Background region */
-+    orr   x0, x0, #SCTLR_Axx_ELx_M    /* Enable MPU */
-+    orr   x0, x0, #SCTLR_Axx_ELx_C    /* Enable D-cache */
-+    orr   x0, x0, #SCTLR_Axx_ELx_WXN  /* Enable WXN */
-+    dsb   sy
-+    msr   SCTLR_EL2, x0
-+    isb
-+
-+    ret
-+END(enable_mpu)
++ENTRY(enable_secondary_cpu_mm)
++    PRINT("- SMP not enabled yet -\r\n")
++1:  wfe
++    b 1b
++ENDPROC(enable_secondary_cpu_mm)
 +
  /*
-  * Maps the various sections of Xen (described in xen.lds.S) as different MPU
-  * regions.
-@@ -68,10 +92,11 @@
-  * Inputs:
-  *   lr : Address to return to.
-  *
-- * Clobbers x0 - x5
-+ * Clobbers x0 - x6
-  *
-  */
- FUNC(enable_boot_cpu_mm)
-+    mov   x6, lr
+  * Local variables:
+  * mode: ASM
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 0203771164..5a0d343f5b 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -296,6 +296,11 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
+     int rc, i;
  
-     /* Check if the number of regions exceeded the count specified in MPUIR_EL2 */
-     mrs   x5, MPUIR_EL2
-@@ -113,7 +138,7 @@ FUNC(enable_boot_cpu_mm)
-     beq 5f
-     prepare_xen_region x0, x1, x2, x3, x4, x5
- 
--5:
-+5:  mov   lr, x6
-     ret
- 
- fail:
-diff --git a/xen/arch/arm/include/asm/arm64/mpu/sysregs.h b/xen/arch/arm/include/asm/arm64/mpu/sysregs.h
-index b0c31a58ec..3769d23c80 100644
---- a/xen/arch/arm/include/asm/arm64/mpu/sysregs.h
-+++ b/xen/arch/arm/include/asm/arm64/mpu/sysregs.h
-@@ -15,6 +15,9 @@
- /* MPU Protection Region Selection Register encode */
- #define PRSELR_EL2  S3_4_C6_C2_1
- 
-+/* Backgroud region enable/disable */
-+#define SCTLR_ELx_BR    BIT(17, UL)
+ #ifdef CONFIG_MPU
++    /*
++     * Currently, SMP is not enabled on MPU based systems.
++     */
++    BUILD_BUG_ON(NR_CPUS > 1);
 +
- #endif /* __ASM_ARM_ARM64_MPU_SYSREGS_H */
- 
- /*
+     /*
+      * Unlike MMU, MPU does not use pages for translation. However, we continue
+      * to use PAGE_SIZE to denote 4KB. This is so that the existing memory
 -- 
 2.25.1
 
