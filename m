@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEC459980CF
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 10:51:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815829.1230043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F1C99816A
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 11:04:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815846.1230077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syosC-0006dO-3c; Thu, 10 Oct 2024 08:50:16 +0000
+	id 1syp5C-0004gj-Dy; Thu, 10 Oct 2024 09:03:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815829.1230043; Thu, 10 Oct 2024 08:50:16 +0000
+Received: by outflank-mailman (output) from mailman id 815846.1230077; Thu, 10 Oct 2024 09:03:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syosB-0006bp-W4; Thu, 10 Oct 2024 08:50:15 +0000
-Received: by outflank-mailman (input) for mailman id 815829;
- Thu, 10 Oct 2024 08:50:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1syp5C-0004fD-BF; Thu, 10 Oct 2024 09:03:42 +0000
+Received: by outflank-mailman (input) for mailman id 815846;
+ Thu, 10 Oct 2024 09:03:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xe3N=RG=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
- id 1syos9-0006bj-Rb
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 08:50:13 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8a6e797-86e4-11ef-99a2-01e77a169b0f;
- Thu, 10 Oct 2024 10:50:11 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4311420b675so5427865e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 01:50:11 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43117ff5930sm9483515e9.0.2024.10.10.01.50.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Oct 2024 01:50:10 -0700 (PDT)
+ <SRS0=Yp/E=RG=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
+ id 1syp5A-0004f7-VR
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 09:03:41 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89d47b11-86e6-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 11:03:39 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 308DA5C5FC5;
+ Thu, 10 Oct 2024 09:03:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6CC3C4CEC5;
+ Thu, 10 Oct 2024 09:03:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +41,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8a6e797-86e4-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1728550211; x=1729155011; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=C28wmYcjpWumVpaF4ufJJPgnJaeWt/0xGrgSlXatWFI=;
-        b=vMmo50l8ZX1tPJbgXIxDobbo+PKNVfFyiOm7Db8kVihfX0h3hk4rjhjsgqTwH9jxmo
-         yZVmS423Ix6bqmZZHKF4lP2FJXdpKZYqe3M8p1AUAeH9lt8kiQr9QchuWrBGA2F+iBVm
-         Saxl/0T9/HmQXjuuQlKFWrvBSbfBxP2V7R/LYNqTS3LVG93oAQJChBxEkTGD3ulEC1KC
-         OAxPTVVBLBJhi2UY3nWwqZ4Xz/LVT2uRrj2opUIPHGEAMYd2l7umE7VItOyQqMJqvmhn
-         N/LqPSYaouYJGkJV5OivdEk0LQd1pPPEAcbI5SKKOsI9cUnfCcxoFURowyo7P/GL0aGQ
-         Zezg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728550211; x=1729155011;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C28wmYcjpWumVpaF4ufJJPgnJaeWt/0xGrgSlXatWFI=;
-        b=roHSoWf0+9HWSaunXJ6SrXrrt832AdNlQnJh1zNpw/r+PSQg1BekthF/pkqVt+0g+o
-         MmzLd4MQQZCqzZ+bmwqjIG5+kouuVu5lKTgkeoxsvD2ps0u2Se4Go/yKIHtnmXu9Fz9Q
-         1Im2vcltFGuKK0Xye05l+Dq0DunHqWm5wmZr3HQg+bL58ELAttFEZtHXY897BvXHO7ax
-         5XIM75Fg9KcV+MPBNkrrLtZfDfsLoTSjnYg8mIYEVy9NRLbFv48mhaX44OxHQNQnQPXJ
-         jjy6j3WaQfUA9J843+xBeY/6nGxr5DvRufgga8R+vRoX1Owsk413A3rRd2YLYz7SSiEX
-         xg6A==
-X-Forwarded-Encrypted: i=1; AJvYcCVHR6Qmu2QOKxl5PHrx0bu/zqr+GI1QUXUhF4UJ6o308BXMrP2rSe/VmFX3nQpdzEG0+gX1T333+2w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5bGaFtc9dO1ykoX7cYnOeVPkjh3/I/VekvhubbpjLRdeiVdHe
-	BRul/PGAhzYKDIF8JISzXbYXSFECutUPo2CKfxqDqTKzn5M99lKsCeI6AemhOEA=
-X-Google-Smtp-Source: AGHT+IFucfSES3j62KAzEm41LuUqQRM3VySAkjPe4+iZpB8R8Lb977wIeQTSTeOu3TgGseFk0hICSw==
-X-Received: by 2002:a05:600c:4b95:b0:431:1a98:cb40 with SMTP id 5b1f17b1804b1-4311a98cc3dmr1671235e9.18.1728550211283;
-        Thu, 10 Oct 2024 01:50:11 -0700 (PDT)
-Date: Thu, 10 Oct 2024 11:50:06 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
+X-Inumbo-ID: 89d47b11-86e6-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1728551016;
+	bh=qIga4ENKvNDSpomy+u9cYcJeIt2znVA3OvUMUn8Vt00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ma16Iqar46lFxN+U2JAe5vdwsOfrFSCv51iNGmJlzaeAsMcNWERh9kaZfcgmAlIsn
+	 7oz09EjJd/j2moVcv8Qezht0w8lMm2GuIu9huksqREaTjb8+PZCZvolwVMZIoA3XXU
+	 MiZzJ+yW2KdX7Yc9d7XcuMS6Gb4qyxLjxlOU9iVM=
+Date: Thu, 10 Oct 2024 11:03:33 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Philipp Stanner <pstanner@redhat.com>
-Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+Cc: Philipp Hortmann <philipp.g.hortmann@gmail.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
 	Sergey Shtylyov <s.shtylyov@omp.ru>,
 	Basavaraj Natikar <basavaraj.natikar@amd.com>,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alex Dubov <oakad@yahoo.com>,
+	Arnd Bergmann <arnd@arndb.de>, Alex Dubov <oakad@yahoo.com>,
 	Sudarsana Kalluru <skalluru@marvell.com>,
 	Manish Chopra <manishc@marvell.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -132,40 +107,65 @@ Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
 	ntb@lists.linux.dev, linux-pci@vger.kernel.org,
 	linux-staging@lists.linux.dev, kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
-Subject: Re: [RFC PATCH 13/13] Remove devres from pci_intx()
-Message-ID: <7f624c83-115b-4045-b068-0813a18c8200@stanley.mountain>
+Subject: Re: [RFC PATCH 10/13] staging: rts5280: Use always-managed version
+ of pci_intx()
+Message-ID: <2024101006-chump-image-e65c@gregkh>
 References: <20241009083519.10088-1-pstanner@redhat.com>
- <20241009083519.10088-14-pstanner@redhat.com>
+ <20241009083519.10088-11-pstanner@redhat.com>
+ <2024100936-brunette-flannels-0d82@gregkh>
+ <411f3c94-58b5-471e-bc58-e23d89d2078f@gmail.com>
+ <b57dbf0c83125d58e4e2b488b5b5f71410fd8d6a.camel@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20241009083519.10088-14-pstanner@redhat.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b57dbf0c83125d58e4e2b488b5b5f71410fd8d6a.camel@redhat.com>
 
-On Wed, Oct 09, 2024 at 10:35:19AM +0200, Philipp Stanner wrote:
-> pci_intx() is a hybrid function which can sometimes be managed through
-> devres. This hybrid nature is undesirable.
+On Thu, Oct 10, 2024 at 10:03:30AM +0200, Philipp Stanner wrote:
+> On Wed, 2024-10-09 at 21:41 +0200, Philipp Hortmann wrote:
+> > On 10/9/24 11:38, Greg Kroah-Hartman wrote:
+> > > On Wed, Oct 09, 2024 at 10:35:16AM +0200, Philipp Stanner wrote:
+> > > > pci_intx() is a hybrid function which can sometimes be managed
+> > > > through
+> > > > devres. To remove this hybrid nature from pci_intx(), it is
+> > > > necessary to
+> > > > port users to either an always-managed or a never-managed
+> > > > version.
+> > > > 
+> > > > rts5208 enables its PCI-Device with pcim_enable_device(). Thus,
+> > > > it needs the
+> > > > always-managed version.
+> > > > 
+> > > > Replace pci_intx() with pcim_intx().
+> > > > 
+> > > > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+> > > > ---
+> > > >   drivers/staging/rts5208/rtsx.c | 2 +-
+> > > >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > > 
+> > 
+> > Hi Philipp,
+> > 
+> > this driver (rts5208) will be removed soon - patch is send in.
+> > 
+> > Discussion about removal:
+> > https://lore.kernel.org/linux-staging/2024100943-shank-washed-a765@gregkh/T/#t
 > 
-> Since all users of pci_intx() have by now been ported either to
-> always-managed pcim_intx() or never-managed pci_intx_unmanaged(), the
-> devres functionality can be removed from pci_intx().
 > 
-> Consequently, pci_intx_unmanaged() is now redundant, because pci_intx()
-> itself is now unmanaged.
+> Alright, thx for the heads up.
 > 
-> Remove the devres functionality from pci_intx(). Remove pci_intx_unmanaged().
-> Have all users of pci_intx_unmanaged() call pci_intx().
+> I'm not entirely how best to deal with that, though. I could drop this
+> patch, but then the driver would end up with an unmanaged pci_intx().
 > 
-> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+> Might this be a problem for users if my series lands sooner than the
+> removal, say in v6.13 and your removal in v6.14?
 
-I don't like when we change a function like this but it still compiles fine.
-If someone is working on a driver and hasn't pushed it yet, then it's probably
-supposed to be using the new pcim_intx() but they won't discover that until they
-detect the leaks at runtime.
+The removal will happen in 6.13, I'm going to be queueing it up right
+now.
 
-Why not leave the pci_intx_unmanaged() name.  It's ugly and that will discorage
-people from introducing new uses.
+thanks,
 
-regards,
-dan carpenter
-
+greg k-h
 
