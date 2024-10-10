@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65A739984F3
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 13:27:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816024.1230201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAE46998548
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 13:45:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816035.1230211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syrJN-0004Am-1u; Thu, 10 Oct 2024 11:26:29 +0000
+	id 1syrbQ-0006am-Eh; Thu, 10 Oct 2024 11:45:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816024.1230201; Thu, 10 Oct 2024 11:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 816035.1230211; Thu, 10 Oct 2024 11:45:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syrJM-00048M-Uu; Thu, 10 Oct 2024 11:26:28 +0000
-Received: by outflank-mailman (input) for mailman id 816024;
- Thu, 10 Oct 2024 11:26:27 +0000
+	id 1syrbQ-0006Yx-Bh; Thu, 10 Oct 2024 11:45:08 +0000
+Received: by outflank-mailman (input) for mailman id 816035;
+ Thu, 10 Oct 2024 11:45:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T2t6=RG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1syrJL-00046y-E5
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 11:26:27 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GYHQ=RG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1syrbO-0006Yq-Pq
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 11:45:06 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7c192fb9-86fa-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 13:26:25 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a9944c4d5d4so118924566b.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 04:26:25 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99a7ede82esm76279066b.24.2024.10.10.04.26.23
+ id 1798c212-86fd-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 13:45:05 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c915308486so1073959a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 04:45:05 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c937267272sm657074a12.75.2024.10.10.04.45.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Oct 2024 04:26:24 -0700 (PDT)
+ Thu, 10 Oct 2024 04:45:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c192fb9-86fa-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 1798c212-86fd-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728559585; x=1729164385; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728560705; x=1729165505; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=89hd8DR26dYP4RAjHLw8+eMU9fU3Q1tvYB2HRX7gEKs=;
-        b=IhlyANFltsBOIFqhRd2jzmr2LQ814yGrRdYo0MoO9Q6NaHsPO8/AGjNeHkvf0bt0iM
-         sUsXoJ6onZWdCazYZNOzbZph7MiGq+ZNKWmIZMm7AWZ7EPD4XMjvr+C3sb0HPr28H4AX
-         JpCAV+/YNdvIbPTcZ1PwiowYvrsP1js7JpGLU=
+        bh=ppAeNhpjBNYJv1Ks4wa6MbXhaiqiZk06I7mEQhH62zk=;
+        b=LxWSane1XX8bbcHTDonxGukjrSYzIqyOIm4ZAmRQU+zKHM4jbgkTRZ687zfBD3/R0f
+         Q4T8fWQxyNEXw5GQd+V1RJYR/f97X+b8JW9/OlWZSDJHMwwjSAhbsTmMJiUJgeGpC2A0
+         h1vWewC1LoY/Ck1CopkDq6uXlEmcj11S8L2PrARKoegEAJRHH1frbMQYRm1bLByD4gRQ
+         n8+UNPyJT3Rq0MMj7lGYL+YwfXPUjNn27gczz4j1gqyBgOi8r/oU6ZftzoLBuVUkSt2d
+         tghCsdZxhwI7Nx/g8m5C1Ar41QxYTHNFjw6GbSSWE5174UkgKAitXBP1C8ikB/6ro4TQ
+         sUOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728559585; x=1729164385;
+        d=1e100.net; s=20230601; t=1728560705; x=1729165505;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=89hd8DR26dYP4RAjHLw8+eMU9fU3Q1tvYB2HRX7gEKs=;
-        b=Ei+9H0+JyebTCqOpT9YWjMUUkrejoGVY+MdHHRdDnRtVNU+jGk7hMnW+ILrr00YoQR
-         30YUYFOOrGduW+uXuWqrm0LAeglugfqGeOkFFmJCcRSdsUpSR/aWAdnjVwk/DcTNxPUS
-         +fV6Hnf9glOWl+Je25RzZs9+dWhb6v2xKEo2EeSu/Sc4Wlub/77Tk2B/PTLyDVIUPmHH
-         qfOj2HAf3i8eDabQ0cfsQdzCapiVHvqvP72lHHsb2ZXPOg21uMHUs7Yoq1S3E3XjamtJ
-         k5NOpDXtFEWEqNGVQt6olvl08H4mQTrAYVcMQeR22NR3nVngcglXBkxI064UYdIxmKGz
-         YJGw==
-X-Forwarded-Encrypted: i=1; AJvYcCWTppBkKG3INDMZjM5KVlVdoA+NcvvXxLXX0y/ag5u8gcFpTd8usVeeajUoHF2kuiY5iiKAiGcHuZQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yya3jIznC2pUVqJaRC/5MCKKenGI8Omr5A14m9N9pGF5iMXSf/L
-	CUqmv/cdvoJqUVkETIHZFwtM9dme7reW3J3U1h6xLprOHbhXOiG5RXyGHaHJgZo=
-X-Google-Smtp-Source: AGHT+IFS7doy6BPHjLtYtryGK/Jj6uIjQCFwLefcS5KZvmn9px5h1TNqjtharEDXZX7XLlbLAcSb7g==
-X-Received: by 2002:a17:906:f593:b0:a86:b85d:9470 with SMTP id a640c23a62f3a-a998d328f12mr459626566b.59.1728559584905;
-        Thu, 10 Oct 2024 04:26:24 -0700 (PDT)
-Message-ID: <cf65ab1b-c7d6-430f-a747-3fa0185881e6@citrix.com>
-Date: Thu, 10 Oct 2024 12:26:22 +0100
+        bh=ppAeNhpjBNYJv1Ks4wa6MbXhaiqiZk06I7mEQhH62zk=;
+        b=U/oSImdWi/A2dT34gVDHnPQOKHcFi/4cyygoHPsoSvF89NSfjmAJh2y7o6xW9W494g
+         F1UBHe4sMjytd3rwsmHTOodFhzU8Q+k3+uWtM3SkgPl31Vs622FWnKkyfztUcLFMYHi9
+         1hRG73doVINpdzf6wLv1u6vr+3W5+LjY0NWBoSYgti+8iGDoeQgsWRf21D6IFST3EaYL
+         oqW5HOUdhgqrREN6MAA4B/3eIdjQi+D34M9dKGgz+Qp9WMstjSIofnpif2OoYfxNnL42
+         YdhQ+0HhF1bee/cVFsAPydgi13KrKb1gy5kwfuojD+Y7DuKzp/asQuxUWTnhlmfXuWW1
+         Apyg==
+X-Forwarded-Encrypted: i=1; AJvYcCUP9tWtcA8UsWnSKs48wAqY0Tmv7ty3nGJezAYSsQ5Et3yaeAR+BMETOcGElz8Q0mpmibZ7o4mUwtg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw0befEhZxXqx006zljTYc70W1oJHN6Tb4nUFPcL8GmKn3AQn7h
+	4faGMR8Y/tbZYgKuUeBz4cOcavWcJWodCUcM3WIDkZETqKpuUFyuT23B+qf11LQUEYSx0OKQtp4
+	=
+X-Google-Smtp-Source: AGHT+IE1uZQnKWWI3g1qy8TQV6BG0uN0sb1ymQCImHXCrVtafIzSnWiOb+y9d/QQ0Bo+cMcQ6m7/lg==
+X-Received: by 2002:a05:6402:2707:b0:5c2:6343:8ddf with SMTP id 4fb4d7f45d1cf-5c91d699391mr4284098a12.33.1728560704682;
+        Thu, 10 Oct 2024 04:45:04 -0700 (PDT)
+Message-ID: <255254f9-93e9-4132-9218-dc18d78439b8@suse.com>
+Date: Thu, 10 Oct 2024 13:45:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/19] Update header guards bases on new coding style
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+Subject: Re: [MINI-OS PATCH v2] add config support for each Xen library
+To: Juergen Gross <jgross@suse.com>
+Cc: samuel.thibault@ens-lyon.org, minios-devel@lists.xenproject.org,
  xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, Tim Deegan <tim@xen.org>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Lukasz Hawrylko <lukasz@hawrylko.pl>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Dario Faggioli <dfaggioli@suse.com>,
- George Dunlap <gwd@xenproject.org>
-References: <20241004081713.749031-1-frediano.ziglio@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241004081713.749031-1-frediano.ziglio@cloud.com>
+References: <20241009140554.1084-1-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241009140554.1084-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04/10/2024 9:16 am, Frediano Ziglio wrote:
-> Frediano Ziglio (19):
->   xen: Update header guards - Generic
->   xen: Update header guards - X86
->   xen: Update header guards - ACPI
->   xen: Update header guards - ARGO
->   xen: Update header guards - ARM
->   xen: Update header guards - Device tree
->   xen: Update header guards - EFI
->   xen: Update header guards - HYPFS
->   xen: Update header guards - Intel TXT
->   xen: Update header guards - I/O MMU
->   xen: Update header guards - Kconfig
->   xen: Update header guards - KEXEC
->   xen: Update header guards - Live patch
->   xen: Update header guards - PPC 64
->   xen: Update header guards - RISC-V
->   xen: Update header guards - Scheduling
->   xen: Update header guards - VM event, mem access, monitor
->   xen: Update header guards - VPCI
->   xen: Update header guards - XSM/Flask
+On 09.10.2024 16:05, Juergen Gross wrote:
+> Instead of adding all or no Xen library (controlled by CONFIG_XC),
+> support a dedicated config option for each library instead,
+> defaulting to disabled.
+> 
+> As it is no longer needed now, drop the CONFIG_XC support.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - merge patches of the V1 series (Samuel Thibault)
+> 
+> Note: do not apply to the tree until the related Xen series
+> "stubdom: prepare more fine grained Xen library usage" has been
+> applied.
 
-This scheme is under dispute within the core maintainership.  One thing
-it has highlighted is that the MISRA identifier-length limit isn't being
-correctly enforced in Eclair right now.
+And at this point it's solely "stubdom: add fine grained library config
+items to Mini-OS configs" which is left as a dependency, isn't it?
 
-Please do not continue with this any further at this juncture.
-
-~Andrew
+Jan
 
