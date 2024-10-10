@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06E1997DFB
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 08:58:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815544.1229514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14028997E16
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 09:02:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815551.1229525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syn7b-0002rN-7j; Thu, 10 Oct 2024 06:58:03 +0000
+	id 1synBP-0006tc-OO; Thu, 10 Oct 2024 07:01:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815544.1229514; Thu, 10 Oct 2024 06:58:03 +0000
+Received: by outflank-mailman (output) from mailman id 815551.1229525; Thu, 10 Oct 2024 07:01:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syn7b-0002pk-4v; Thu, 10 Oct 2024 06:58:03 +0000
-Received: by outflank-mailman (input) for mailman id 815544;
- Thu, 10 Oct 2024 06:58:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1synBP-0006qN-L4; Thu, 10 Oct 2024 07:01:59 +0000
+Received: by outflank-mailman (input) for mailman id 815551;
+ Thu, 10 Oct 2024 07:01:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GYHQ=RG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1syn7a-0002pe-8R
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 06:58:02 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd14885b-86d4-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 08:58:01 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a9932aa108cso92421966b.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 23:58:01 -0700 (PDT)
+ id 1synBO-0006qH-38
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 07:01:58 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8935949a-86d5-11ef-99a2-01e77a169b0f;
+ Thu, 10 Oct 2024 09:01:56 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a9944c4d5d4so85988866b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 00:01:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99a80dc290sm42184466b.155.2024.10.09.23.57.59
+ a640c23a62f3a-a99a7ec549csm44046766b.27.2024.10.10.00.01.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 23:58:00 -0700 (PDT)
+ Thu, 10 Oct 2024 00:01:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd14885b-86d4-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 8935949a-86d5-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728543480; x=1729148280; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728543715; x=1729148515; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3f1cs4vRMiAIR0Tyerecg8LrYpdr8hdkQ11FEYfW0sw=;
-        b=SKfGC0q16vOfwl5dTYqPwacT4pgn2AuMp9U4G8eoAJOsnSjtnGm/odpjGZLSe4zp9y
-         FROKdDZvKwfe8vEDoof/CETYNeW60TpUm3eclT0qX8vHoEfIjQyZZKPVLvQlOhuYDbF1
-         18dPiMOMx89WzDIeNvrl+pf+dqzr/R7MDVhXM73hnietDKAmCbbRSAvvtEKdzCNB8Z8R
-         GfNQ5Fy1zpED6HJI511ERuvDMv9BR7W9G1w+q4FjsDdj2JZtZ9Ljvxbq05tbX4BBLRnE
-         NLjPIWHxCy+GxLxNyoehCjFGa3PXj8z4wm4bSKXE0rxylwVvQXfNgLknMvMJK7hRhfFi
-         NCKQ==
+        bh=sZt+XJYSdwYln561BuqB+yeUg38/33FYKTH8R/LAnPQ=;
+        b=EpPxdM7qeP9DzMY/4LRxWAqvjTMWri6umLapYNZUpfApkQou+fwDgUGzPjASVk0QOA
+         J/UMoRpFwrw88nczSO1WEEkDCFk1gf+QZcJiicl5Qm/l6lUyPMXCu7GiHbL4ksqTOakA
+         jvcn1kN1HkaNmpmJWAkJ5SIBoMinwapTrIbB+cP2m7uySmlS2dIevmIZEKgFlo66ltrT
+         AKQsLQDs+ZJzvL89FcrOIuKb20GEpKdAFZA5JZm7iStFr1ZWrbCfWFy1be2ahRjLhWGO
+         LWwfAaR1g9sZgZMpuJGWwyYfQSSZ0IRvcvKnk1NEVs9T9tEtLhIYWt3BHCbZ3Uh17ETt
+         xzSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728543480; x=1729148280;
+        d=1e100.net; s=20230601; t=1728543715; x=1729148515;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3f1cs4vRMiAIR0Tyerecg8LrYpdr8hdkQ11FEYfW0sw=;
-        b=wOP3Nb50lZraGYCWZB7wmAPdaad3UPbTizJ8xNYaSDVvTj2cwUtPBH4jn5VsX+VRLo
-         40oIxvGYI4tipONW8uscB5pt/4BxTZ1AjFFIcBiKKog58x5Ceb/binMxl8M6T0uwjQ74
-         7hkceqYoN+dFPbNzHDsdAPn58RtAJAgVBLL6JmNvqul327vRFeztYfWcRpwMB6XfLUbs
-         uUcbrD0R5vxqd+/nsy/jBq7JcORhgG6BxfSCLfcyTseHCi/yQuQIdKw3cCB6L/uWeaJt
-         bhIXwTTp7h06h3HG9Gz4S60d24/5FESJx33I898ffQYUVdnEv9vUyh2qwbXBGJR9rzcU
-         x1Kg==
-X-Forwarded-Encrypted: i=1; AJvYcCWoO+/2nne0z5XSTBI3wYeejKawN9AXxRn6yPqZXOwsvs/mKZEuJevCHpIm5GxOoVlXNlh1laSyeoM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxpaoRMe9L3u7KtRJ04rlD/o/GYygPKxuXhtkEpH4HsuzAUO8cB
-	v14vs71VTdzc6DlWsNli7kpMS+wQrRU84O4U9AmQxLVsIdVaV2Ua/4PO8RHSqg==
-X-Google-Smtp-Source: AGHT+IEFKwY2BDjwUt0kJvdbl6wMoBik8+q0V/TAGDkvOIHWQeOiCG+R1J/xS+HI1bKFiciSsCPTKw==
-X-Received: by 2002:a17:907:8688:b0:a99:76a4:7052 with SMTP id a640c23a62f3a-a998d34db43mr463200366b.65.1728543480335;
-        Wed, 09 Oct 2024 23:58:00 -0700 (PDT)
-Message-ID: <28061203-6e40-473e-a231-291e6c62fba6@suse.com>
-Date: Thu, 10 Oct 2024 08:57:59 +0200
+        bh=sZt+XJYSdwYln561BuqB+yeUg38/33FYKTH8R/LAnPQ=;
+        b=qjshJ2q4qgZgXkKgJh/LIbDFyj88n9Ekt2D+N9dskjlstJsKlvVzAI8RRZTU+MOhYN
+         eEZ5bBCrOX8Pa0rke/xuypcE9EE62+4f6JHgYO0ztUzgmIPMQpuRgb7geA0+wrSglb0t
+         N7Lnlz4THkOAQ774lV+JYtmZ6rNd0xEUPWqMaR7+e9LnXJUEVQqDbGpinrd46gbF7FuW
+         SOJx42R8U58CkeFFSPPhglkiZIKqDCojBdMZwW1nOqoYQs9FfOKQVw2bEX5Wv4hH1qa8
+         swqLGUBqguw9chkoEnjeQb+LRNDMEo4M4vKvuILhbMUP4F/sSjGP1fOFyBcXuu4LrFte
+         KIyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVyqxaTlXc5ubO8waCvl0cNkgYrVttUDa6QevmzYmy8rBIF8G2RmEs+L/K7mVIgfKUs4GFiw7hvTjQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFmv4yBjf/AOs3DnZuolW9NcWTSWmjSHnzIPDTXH2dYYg60IMa
+	MEL4o7Yevz4qQjeCZ8lhw1DFFv1/eTIF+Vg/ocWIygfiocHeQBrxWyZz7AnjZA==
+X-Google-Smtp-Source: AGHT+IFaW38MP0jnIfnVt55M9aG5wz4Bk+QoZFc2vIZ6r2o4BcPZnjYn6x2Qoefq32VwnIcR6ZTwBA==
+X-Received: by 2002:a17:907:60d6:b0:a99:4982:da46 with SMTP id a640c23a62f3a-a998d3299a8mr377605666b.63.1728543715487;
+        Thu, 10 Oct 2024 00:01:55 -0700 (PDT)
+Message-ID: <756dc3d5-48fd-429f-a5eb-6cb8e99dfe6f@suse.com>
+Date: Thu, 10 Oct 2024 09:01:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] x86/msi: fix locking for SR-IOV devices
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20240827035929.118003-1-stewart.hildebrand@amd.com>
- <0742fd21-d606-440a-a7fa-dd3bfccfa1c4@suse.com>
- <695c81b1-1cc0-40f2-ba41-8c96a461c668@amd.com>
+Subject: Re: [PATCH] xen: Remove config dependency in XEN_PRIVCMD definition
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>
+References: <20241009062014.407310-1-Jiqian.Chen@amd.com>
+ <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
+ <alpine.DEB.2.22.394.2410091539260.471028@ubuntu-linux-20-04-desktop>
+ <8bfaa6cc-2cf1-48e4-828b-e4d356f0b3fc@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,66 +117,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <695c81b1-1cc0-40f2-ba41-8c96a461c668@amd.com>
+In-Reply-To: <8bfaa6cc-2cf1-48e4-828b-e4d356f0b3fc@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.10.2024 21:44, Stewart Hildebrand wrote:
-> On 8/28/24 06:36, Jan Beulich wrote:
->> On 27.08.2024 05:59, Stewart Hildebrand wrote:
->>> --- a/xen/drivers/passthrough/pci.c
->>> +++ b/xen/drivers/passthrough/pci.c
->>> @@ -341,6 +341,8 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->>>  
->>>      list_add(&pdev->alldevs_list, &pseg->alldevs_list);
->>>  
->>> +    INIT_LIST_HEAD(&pdev->physfn.vf_list);
+On 10.10.2024 07:39, Jürgen Groß wrote:
+> On 10.10.24 00:46, Stefano Stabellini wrote:
+>> On Wed, 9 Oct 2024, Jan Beulich wrote:
+>>> On 09.10.2024 08:20, Jiqian Chen wrote:
+>>>> Commit 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+>>>> adds a weak reverse dependency to the config XEN_PRIVCMD definition, its
+>>>> purpose is to pass the combination of compilation that CONFIG_XEN_PRIVCMD=y
+>>>> and CONFIG_XEN_PCIDEV_BACKEND=m, because in that combination, xen-pciback
+>>>> is compiled as a module but xen-privcmd is built-in, so xen-privcmd can't
+>>>> find the implementation of pcistub_get_gsi_from_sbdf.
+>>>>
+>>>> But that dependency causes xen-privcmd can't be loaded on domU, because
+>>>> dependent xen-pciback is always not be loaded successfully on domU.
+>>>>
+>>>> To solve above problem and cover original commit's requirement, just remove
+>>>> that dependency, because the code "IS_REACHABLE(CONFIG_XEN_PCIDEV_BACKEND)"
+>>>> of original commit is enough to meet the requirement.
+>>>>
+>>>> Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+>>>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>>>
+>>> This lacks a Reported-by:.
+>>>
+>>>> --- a/drivers/xen/Kconfig
+>>>> +++ b/drivers/xen/Kconfig
+>>>> @@ -261,7 +261,6 @@ config XEN_SCSI_BACKEND
+>>>>   config XEN_PRIVCMD
+>>>>   	tristate "Xen hypercall passthrough driver"
+>>>>   	depends on XEN
+>>>> -	imply XEN_PCIDEV_BACKEND
+>>>>   	default m
+>>>>   	help
+>>>>   	  The hypercall passthrough driver allows privileged user programs to
+>>>
+>>> The report wasn't about a build problem, but a runtime one. Removing the
+>>> dependency here doesn't change anything in the dependency of xen-privcmd
+>>> on xen-pciback, as the use of pcistub_get_gsi_from_sbdf() continues to
+>>> exist.
+>>>
+>>> Consider the case of XEN_PCIDEV_BACKEND=m and XEN_PRIVCMD=m, which
+>>> I guess is what Marek is using in his config. Both drivers are available
+>>> in such a configuration, yet loading of xen-privcmd then requires to
+>>> load xen-pciback first. And that latter load attempt will fail in a DomU.
+>>> The two drivers simply may not have any dependency in either direction.
 >>
->> There is a certain risk with doing such uniformly when the field is part
->> of a union. Yes, little initialization has happened up to here, but I'm
->> still concerned. (One of the reasons I don't like the struct list_head
->> instances to be split, despite your legitimate point regarding naming.)
->> At the very least this wants moving yet earlier in the function, before
->> the new struct is passed anywhere else.
-> 
-> Understood. I personally have a slight preference for keeping the entry
-> and head names distinct, so I'll plan to move the initialization
-> earlier. However, I could easily be convinced to un-split the struct
-> list_head instances if that's your preference. Let me know.
-
-I indicated before that this would be my preference, without meaning to
-insist on this folding.
-
->>> +                list_for_each_entry_safe(vf_pdev, tmp, &pdev->physfn.vf_list,
->>> +                                         virtfn.entry)
->>> +                    ret = pci_remove_device(vf_pdev->sbdf.seg,
->>> +                                            vf_pdev->sbdf.bus,
->>> +                                            vf_pdev->sbdf.devfn) ?: ret;
+>> The idea is that there should be no hard dependency on
+>> pcistub_get_gsi_from_sbdf(). If it is available, the service will be
+>> used, otherwise an error will be reported.
 >>
->> And if this fails, the VF will still remain orphaned. I think in the
->> model I had suggested no such risk would exist.
->>
->> Misra also isn't going to like the recursion here.
+>> The problem is that IS_REACHABLE is a compile-time check. What we need
+>> is a runtime check instead. Maybe symbol_get or try_module_get ?
 > 
-> With the ASSERTs being addressed directly, there's no need to remove
-> the VFs right away with the PF.
+> This is a rather clumsy solution IMO.
 > 
-> BTW, I don't think refusing a removal "request" would be a good idea.
-> Dom0 isn't really requesting the device to be removed. Dom0 has already
-> removed the device (e.g. in response to hot-unplug or SR-IOV disable),
-> and is merely informing Xen of the removal.
+> I'm seeing the following solutions:
+> 
+> 1. Don't fail to to load the pciback driver in a DomU, but only disable
+>     any functionality.
+> 
+> 2. Move the drivers/xen/xen-pciback/pci_stub.c functionality in a module
+>     of its own, allowing the privcmd driver to be loaded without needing
+>     the rest of pciback.
+> 
+> 3. Add a hook to e.g. drivers/xen/pci.c instead for calling of
+>     pcistub_get_gsi_from_sbdf() directly. pciback could register the real
+>     call address. If pciback isn't loaded, the hook can return an error.
+>     This would remove the explicit dependency of privcmd on pciback.
+> 
+> I'd prefer the 3rd variant.
 
-Just to clarify: I don't mean returning an error here to indicate
-"refusal". As you say, this is merely a notification. Yet I think it's
-still legitimate to pass back an error. Whether the Dom0 kernel can
-do anything useful with that error is a separate question.
-
-> So during PF removal, I'll plan (for v5) to unlink the the VFs from the
-> PF, and continue to rely on dom0 to inform Xen of PF and VF removal
-> individually. By unlink, I mean set vf_pdev->virtfn.pf_pdev = NULL and
-> remove the VFs from the list. Probably also set vf_pdev->broken = true.
-
-As to the latter - yes. For the rest I guess I need to see the new code.
+Same here - order of preference backwards in the set presented above.
+In the meantime the original change may simply need reverting?
 
 Jan
 
