@@ -2,40 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CABE997C84
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 07:39:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.815441.1229197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64496997D1C
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 08:23:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.815452.1229206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sylte-0002DV-2u; Thu, 10 Oct 2024 05:39:34 +0000
+	id 1symZJ-0007Ir-8j; Thu, 10 Oct 2024 06:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 815441.1229197; Thu, 10 Oct 2024 05:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 815452.1229206; Thu, 10 Oct 2024 06:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sylte-0002BS-01; Thu, 10 Oct 2024 05:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 815441;
- Thu, 10 Oct 2024 05:39:32 +0000
+	id 1symZJ-0007Gb-5m; Thu, 10 Oct 2024 06:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 815452;
+ Thu, 10 Oct 2024 06:22:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rEWG=RG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1syltc-0002BM-Km
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 05:39:32 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=C3pA=RG=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1symZH-0007GV-30
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 06:22:35 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2062d.outbound.protection.outlook.com
+ [2a01:111:f403:2612::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05725658-86ca-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 07:39:31 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-37d447de11dso293724f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Oct 2024 22:39:31 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8714:8700:db3b:60ed:e8b9:cd28?
- (p200300e587148700db3b60ede8b9cd28.dip0.t-ipconnect.de.
- [2003:e5:8714:8700:db3b:60ed:e8b9:cd28])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-430ccf45e3bsm37520755e9.15.2024.10.09.22.39.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 22:39:29 -0700 (PDT)
+ id 08863b36-86d0-11ef-a0bd-8be0dac302b0;
+ Thu, 10 Oct 2024 08:22:32 +0200 (CEST)
+Received: from DB9PR02CA0004.eurprd02.prod.outlook.com (2603:10a6:10:1d9::9)
+ by DB4PR08MB9405.eurprd08.prod.outlook.com (2603:10a6:10:3f3::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.22; Thu, 10 Oct
+ 2024 06:22:26 +0000
+Received: from DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+ (2603:10a6:10:1d9:cafe::78) by DB9PR02CA0004.outlook.office365.com
+ (2603:10a6:10:1d9::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.17 via Frontend
+ Transport; Thu, 10 Oct 2024 06:22:26 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DU6PEPF0000A7DD.mail.protection.outlook.com (10.167.8.37) with
+ Microsoft SMTP
+ Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8048.13 via
+ Frontend Transport; Thu, 10 Oct 2024 06:22:25 +0000
+Received: ("Tessian outbound 0362136859cb:v473");
+ Thu, 10 Oct 2024 06:22:25 +0000
+Received: from Ld1e73cc05c03.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ E0435DC8-2019-40D0-A523-842624AA2C39.1; 
+ Thu, 10 Oct 2024 06:22:18 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
+ Ld1e73cc05c03.1 (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 10 Oct 2024 06:22:18 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by PA4PR08MB6205.eurprd08.prod.outlook.com (2603:10a6:102:e6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Thu, 10 Oct
+ 2024 06:22:16 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a%4]) with mapi id 15.20.8026.020; Thu, 10 Oct 2024
+ 06:22:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,274 +72,596 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05725658-86ca-11ef-a0bd-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728538770; x=1729143570; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=v7LdSdTfuBQVcEfnUv9Wb9m0zO/UjBPCYRw0/7NNE2c=;
-        b=IFJHA031upUDZSgObN2Y5kEc5jTvyMNsnfiFlisIOiRgBaS5U4LDucCwQIMyYZk/po
-         Z22n1NNXcDJddUkIJHOTnZqyYAMC7M+sQmViE3Z6lCatq7Rx+qqZGxtDzb6R87/KmBdE
-         NV7hv+jQduxknsp7r3QEq8kJ+O+juDgsZB1RMJ5/VjtIk08IpJ/2MwSZO/4Oy3pSG8V8
-         F1sVNd3Py42v9E1rREJgmzHT92FrkXP429dKcmS9LVNcEtQlHjLy0zbTM9F/sFjlUFLk
-         9z53wfkPy7s/x/Z7Iym+Ud6YLfv4N1CyoxFEerVCIN/kVGc77CT5h3iNZGQpT7X5a04j
-         lXHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728538770; x=1729143570;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=v7LdSdTfuBQVcEfnUv9Wb9m0zO/UjBPCYRw0/7NNE2c=;
-        b=Rs7nEow7X4SV7pa/h3TcFv0WHR83xsRsUTIP+d8quw7byaZIWkYAABEpV6G+ToV/my
-         K9vNyYuV+sqswDztmZCwVkoxeyEFG6mY1XncCsCQJgeQ9u78ze+Ol3xe5M+o2mHFA+XF
-         D+13EJbwN/e/S5FO0CbH7GJtL+u5AkOsOA39FfIxxUPQLJg34/kE7LkaFl/ZJh955b8I
-         x9T7/KDmCVUat1gUtAIcQC4XBfaD9CsT5uueaFGHlOwreYFSkmBZ12aExFYmD+HZ3/MR
-         N0ocBwLFRnnITyAyrHIaX0+yGfdRNy3H3ne5062ioXqfrisDBUr2uxlckPFY8LuFxToY
-         hqjQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUEJHaTYZbyQIf0pqNjOqjHkTAD08RDqdCGAKKYOgyQ20pLla32aq69S44xAlSiIsm7Gz+MASIsp1Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywu5QnO0xTt2KRP1Y6XfNiwHS45Y6kMZh07rREKkQI7LPVSViYW
-	pURQDV5HXBAgdODMjeDsHs7h377nOPX4hbiucsDhvP1K4VIurZXEnvqOzIPpBTE=
-X-Google-Smtp-Source: AGHT+IFZQQa5Iu7PrlyVFYMYQEPyrY4vINFpziRY58A0az7R9K6pffepPefKiCUmi53tZHqw3yVNxg==
-X-Received: by 2002:a05:6000:e81:b0:37c:c4d3:b9ba with SMTP id ffacd0b85a97d-37d3a9b8d60mr3327855f8f.12.1728538769943;
-        Wed, 09 Oct 2024 22:39:29 -0700 (PDT)
-Message-ID: <8bfaa6cc-2cf1-48e4-828b-e4d356f0b3fc@suse.com>
-Date: Thu, 10 Oct 2024 07:39:28 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Remove config dependency in XEN_PRIVCMD definition
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-References: <20241009062014.407310-1-Jiqian.Chen@amd.com>
- <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
- <alpine.DEB.2.22.394.2410091539260.471028@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 08863b36-86d0-11ef-a0bd-8be0dac302b0
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=JZo0QmdJUQIB/RaX1wM1sAHSxUb9/IRmmOAIF0C9WBZmDHkWZvGRkXKRtPs7rxgwYZLd+O5OQYxifaRybFKKZV6LSWTW8wZD9G7q6f+09r0HDdIPlnnparEiQM14ddjZ9gc1BoOiIAvpVcqR8OITeyZ5Jz+bQR7l2OINxvFrvKwHREaSW6izPWAqvwm+9jrYZUS60Bv0uvzaXSe+/gVIEAxATAyevq/Mm5wBw9pAe/FQwVF4sjjl/HV2xkRMJxQCUnhuXb7aXwNJSEo5IzS3lDaQvIriYp/uNBeKL1iZv4y1XQrkXZUxNG3kqIDiy3f3176J8Oaw/IrJjsbD9Kd2lg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VYJq2pxbeWCupnCO47J++QxriOMjYYAD5LQbD99YZbs=;
+ b=g/oT7Z9CsKu7buhS/2azjBY3eg7ViLq3DcWXya3gw57O525pRYwZwpOl4viEGf254zl3vHCbFyaPbifwFNvdIPWH4Xq88sMAvjTAupfjrtBD/eUuwAhvJnwl2hlh6/Lk91+wTtUmUYYO/noLXrEJrQaduIeABBQ5D5O51//ZPNLkuc/loGhKdUMhDJXGpk0WRMYGJtDBj6AXOUO+tJdKX1piw95tM1It2u91+U1WkY4q+CVtnrDNN1QzR6R/S0Gz5R0OQ8KwJaJt223CsvpLPg8RLow3/lbN8nH2coZF3qt54UvPXXlKxegqK/qptaTf0CTU3Hkx+M0wGXq2R1y4HA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VYJq2pxbeWCupnCO47J++QxriOMjYYAD5LQbD99YZbs=;
+ b=RR5T8WmnOWu8vou9QT/yl5D35VAi7Os5jdWyi4a+A9TkUKCbGNy3K2y+rQ5+ptW0rysiwShBFENbKmRxyNW3Itqr421azHMiqJYJk8ficewtInx3KZsH75cKaqg5h8kTqtYrc4UPnz+AKMY18Rl8hxqxGWbM7iKujAw/POSpVJ8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 3940d2705cd8153b
+X-TessianGatewayMetadata: yWsSW3aaLYvJmckNhNaxFrrpgCHiczm5IAh4yAICANSbEhggV1AD5Ekrdt+xb02uepXCBAIdWJT6D4nkqxZR3P56IuA/nXGXYUb34HDjzUp2lQmFuLuSwBezQ9+IlJuKlVy90fMn6kFtudknWdkZxjfQwn8igRE9aUkJB3cRFRE=
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hyxQwLImxWirb962U++ABwFIC0keetUSFqme+oWJGM0u1fM8c43MifiQFgfknljcW/qIlZbwcvITt8lGUFBR8BlRKp9Pw57S2fMUWUcORrZitA10JlbgN1ZyK4FvL+FTX0ghw2k1AuXPIKlHguS0tR4PvZ1tMU3bZu4D8JYTe31BuCVZhrUwqVMPvC3fpD+vTjaSQ7RjbeutshySPj3ZdSWMO7ivBiIZsEA8QxfC465mPsBfIUxVUns++hqF+rxjMWUn74RaFb+7CLeJ21ekN6+JHqhsujNFUeDqVIaunKoS45fIixWWqG9vsU3jJnuaK7fHgz0e17vHhjvXPjzfRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VYJq2pxbeWCupnCO47J++QxriOMjYYAD5LQbD99YZbs=;
+ b=qzHTcxAO+1HhlcXxlFCiSW7zbheepfO1KkIzndQPmrK10egDSKUFte5VzPOOMDe8/FC5+q08Sd0uBCT4CRNLsitS5nS8O7drB9ZMJQRlE4Kgx4AOXL+98/WNTZlhkKndomRksViU11m6hLBVDm1rWj+/UKb75prjeUfKiJOTQe8+Fai/aPi4MfTYug8z1Kmgc6X8l7HRSJUIg8d8QzypGeKN/Y9awFWOkk4j/zvCmDNdaTTHIIHGcK8nUQtIo4tLiGZh/asEvii76g440hBjferACexC+774I+STPoLX4tHo4dPx7hxAfs5IZc4Nds61zY8I+VCbBz5hFUswmcB/sA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VYJq2pxbeWCupnCO47J++QxriOMjYYAD5LQbD99YZbs=;
+ b=RR5T8WmnOWu8vou9QT/yl5D35VAi7Os5jdWyi4a+A9TkUKCbGNy3K2y+rQ5+ptW0rysiwShBFENbKmRxyNW3Itqr421azHMiqJYJk8ficewtInx3KZsH75cKaqg5h8kTqtYrc4UPnz+AKMY18Rl8hxqxGWbM7iKujAw/POSpVJ8=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>, Hisao
+ Munakata <hisao.munakata.vt@renesas.com>
+Subject: Re: [PATCH] docs: fusa: Add requirements for Device Passthrough
+Thread-Topic: [PATCH] docs: fusa: Add requirements for Device Passthrough
+Thread-Index: AQHbGOqFqldnvX8xNEmI4LnFnImSpbJ8YaSAgADTLwCAAMR5AIAAtAsAgADaR4A=
+Date: Thu, 10 Oct 2024 06:22:16 +0000
+Message-ID: <B4C08480-8240-4B35-99FB-E176CA497ED5@arm.com>
+References: <20241007185508.3044115-1-olekstysh@gmail.com>
+ <6E89CC97-C7E3-40DF-8BFA-5F3065429F54@arm.com>
+ <f8ea9ab4-190e-427a-ae77-b7c0769dffbe@gmail.com>
+ <9C3AD765-C165-4B46-AEEB-8C5F87861947@arm.com>
+ <e180d843-fe44-42fb-b3ae-c75f0f675aab@gmail.com>
+In-Reply-To: <e180d843-fe44-42fb-b3ae-c75f0f675aab@gmail.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <alpine.DEB.2.22.394.2410091539260.471028@ubuntu-linux-20-04-desktop>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------kCnudpVj5QLHGd2zxbJWtYri"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kCnudpVj5QLHGd2zxbJWtYri
-Content-Type: multipart/mixed; boundary="------------u0hfL5lBoxeauLJAZd7Xgs4x";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-Message-ID: <8bfaa6cc-2cf1-48e4-828b-e4d356f0b3fc@suse.com>
-Subject: Re: [PATCH] xen: Remove config dependency in XEN_PRIVCMD definition
-References: <20241009062014.407310-1-Jiqian.Chen@amd.com>
- <73174eb0-380d-4f95-a2c3-097b86fac8db@suse.com>
- <alpine.DEB.2.22.394.2410091539260.471028@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2410091539260.471028@ubuntu-linux-20-04-desktop>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------u0hfL5lBoxeauLJAZd7Xgs4x
-Content-Type: multipart/mixed; boundary="------------W1wbDms6j7JY06GoHtrL0XU1"
-
---------------W1wbDms6j7JY06GoHtrL0XU1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTAuMTAuMjQgMDA6NDYsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gT24gV2Vk
-LCA5IE9jdCAyMDI0LCBKYW4gQmV1bGljaCB3cm90ZToNCj4+IE9uIDA5LjEwLjIwMjQgMDg6
-MjAsIEppcWlhbiBDaGVuIHdyb3RlOg0KPj4+IENvbW1pdCAyZmFlNmJiN2JlMzIgKCJ4ZW4v
-cHJpdmNtZDogQWRkIG5ldyBzeXNjYWxsIHRvIGdldCBnc2kgZnJvbSBkZXYiKQ0KPj4+IGFk
-ZHMgYSB3ZWFrIHJldmVyc2UgZGVwZW5kZW5jeSB0byB0aGUgY29uZmlnIFhFTl9QUklWQ01E
-IGRlZmluaXRpb24sIGl0cw0KPj4+IHB1cnBvc2UgaXMgdG8gcGFzcyB0aGUgY29tYmluYXRp
-b24gb2YgY29tcGlsYXRpb24gdGhhdCBDT05GSUdfWEVOX1BSSVZDTUQ9eQ0KPj4+IGFuZCBD
-T05GSUdfWEVOX1BDSURFVl9CQUNLRU5EPW0sIGJlY2F1c2UgaW4gdGhhdCBjb21iaW5hdGlv
-biwgeGVuLXBjaWJhY2sNCj4+PiBpcyBjb21waWxlZCBhcyBhIG1vZHVsZSBidXQgeGVuLXBy
-aXZjbWQgaXMgYnVpbHQtaW4sIHNvIHhlbi1wcml2Y21kIGNhbid0DQo+Pj4gZmluZCB0aGUg
-aW1wbGVtZW50YXRpb24gb2YgcGNpc3R1Yl9nZXRfZ3NpX2Zyb21fc2JkZi4NCj4+Pg0KPj4+
-IEJ1dCB0aGF0IGRlcGVuZGVuY3kgY2F1c2VzIHhlbi1wcml2Y21kIGNhbid0IGJlIGxvYWRl
-ZCBvbiBkb21VLCBiZWNhdXNlDQo+Pj4gZGVwZW5kZW50IHhlbi1wY2liYWNrIGlzIGFsd2F5
-cyBub3QgYmUgbG9hZGVkIHN1Y2Nlc3NmdWxseSBvbiBkb21VLg0KPj4+DQo+Pj4gVG8gc29s
-dmUgYWJvdmUgcHJvYmxlbSBhbmQgY292ZXIgb3JpZ2luYWwgY29tbWl0J3MgcmVxdWlyZW1l
-bnQsIGp1c3QgcmVtb3ZlDQo+Pj4gdGhhdCBkZXBlbmRlbmN5LCBiZWNhdXNlIHRoZSBjb2Rl
-ICJJU19SRUFDSEFCTEUoQ09ORklHX1hFTl9QQ0lERVZfQkFDS0VORCkiDQo+Pj4gb2Ygb3Jp
-Z2luYWwgY29tbWl0IGlzIGVub3VnaCB0byBtZWV0IHRoZSByZXF1aXJlbWVudC4NCj4+Pg0K
-Pj4+IEZpeGVzOiAyZmFlNmJiN2JlMzIgKCJ4ZW4vcHJpdmNtZDogQWRkIG5ldyBzeXNjYWxs
-IHRvIGdldCBnc2kgZnJvbSBkZXYiKQ0KPj4+IFNpZ25lZC1vZmYtYnk6IEppcWlhbiBDaGVu
-IDxKaXFpYW4uQ2hlbkBhbWQuY29tPg0KPj4NCj4+IFRoaXMgbGFja3MgYSBSZXBvcnRlZC1i
-eTouDQo+Pg0KPj4+IC0tLSBhL2RyaXZlcnMveGVuL0tjb25maWcNCj4+PiArKysgYi9kcml2
-ZXJzL3hlbi9LY29uZmlnDQo+Pj4gQEAgLTI2MSw3ICsyNjEsNiBAQCBjb25maWcgWEVOX1ND
-U0lfQkFDS0VORA0KPj4+ICAgY29uZmlnIFhFTl9QUklWQ01EDQo+Pj4gICAJdHJpc3RhdGUg
-IlhlbiBoeXBlcmNhbGwgcGFzc3Rocm91Z2ggZHJpdmVyIg0KPj4+ICAgCWRlcGVuZHMgb24g
-WEVODQo+Pj4gLQlpbXBseSBYRU5fUENJREVWX0JBQ0tFTkQNCj4+PiAgIAlkZWZhdWx0IG0N
-Cj4+PiAgIAloZWxwDQo+Pj4gICAJICBUaGUgaHlwZXJjYWxsIHBhc3N0aHJvdWdoIGRyaXZl
-ciBhbGxvd3MgcHJpdmlsZWdlZCB1c2VyIHByb2dyYW1zIHRvDQo+Pg0KPj4gVGhlIHJlcG9y
-dCB3YXNuJ3QgYWJvdXQgYSBidWlsZCBwcm9ibGVtLCBidXQgYSBydW50aW1lIG9uZS4gUmVt
-b3ZpbmcgdGhlDQo+PiBkZXBlbmRlbmN5IGhlcmUgZG9lc24ndCBjaGFuZ2UgYW55dGhpbmcg
-aW4gdGhlIGRlcGVuZGVuY3kgb2YgeGVuLXByaXZjbWQNCj4+IG9uIHhlbi1wY2liYWNrLCBh
-cyB0aGUgdXNlIG9mIHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3NiZGYoKSBjb250aW51ZXMgdG8N
-Cj4+IGV4aXN0Lg0KPj4NCj4+IENvbnNpZGVyIHRoZSBjYXNlIG9mIFhFTl9QQ0lERVZfQkFD
-S0VORD1tIGFuZCBYRU5fUFJJVkNNRD1tLCB3aGljaA0KPj4gSSBndWVzcyBpcyB3aGF0IE1h
-cmVrIGlzIHVzaW5nIGluIGhpcyBjb25maWcuIEJvdGggZHJpdmVycyBhcmUgYXZhaWxhYmxl
-DQo+PiBpbiBzdWNoIGEgY29uZmlndXJhdGlvbiwgeWV0IGxvYWRpbmcgb2YgeGVuLXByaXZj
-bWQgdGhlbiByZXF1aXJlcyB0bw0KPj4gbG9hZCB4ZW4tcGNpYmFjayBmaXJzdC4gQW5kIHRo
-YXQgbGF0dGVyIGxvYWQgYXR0ZW1wdCB3aWxsIGZhaWwgaW4gYSBEb21VLg0KPj4gVGhlIHR3
-byBkcml2ZXJzIHNpbXBseSBtYXkgbm90IGhhdmUgYW55IGRlcGVuZGVuY3kgaW4gZWl0aGVy
-IGRpcmVjdGlvbi4NCj4gDQo+IFRoZSBpZGVhIGlzIHRoYXQgdGhlcmUgc2hvdWxkIGJlIG5v
-IGhhcmQgZGVwZW5kZW5jeSBvbg0KPiBwY2lzdHViX2dldF9nc2lfZnJvbV9zYmRmKCkuIElm
-IGl0IGlzIGF2YWlsYWJsZSwgdGhlIHNlcnZpY2Ugd2lsbCBiZQ0KPiB1c2VkLCBvdGhlcndp
-c2UgYW4gZXJyb3Igd2lsbCBiZSByZXBvcnRlZC4NCj4gDQo+IFRoZSBwcm9ibGVtIGlzIHRo
-YXQgSVNfUkVBQ0hBQkxFIGlzIGEgY29tcGlsZS10aW1lIGNoZWNrLiBXaGF0IHdlIG5lZWQN
-Cj4gaXMgYSBydW50aW1lIGNoZWNrIGluc3RlYWQuIE1heWJlIHN5bWJvbF9nZXQgb3IgdHJ5
-X21vZHVsZV9nZXQgPw0KDQpUaGlzIGlzIGEgcmF0aGVyIGNsdW1zeSBzb2x1dGlvbiBJTU8u
-DQoNCkknbSBzZWVpbmcgdGhlIGZvbGxvd2luZyBzb2x1dGlvbnM6DQoNCjEuIERvbid0IGZh
-aWwgdG8gdG8gbG9hZCB0aGUgcGNpYmFjayBkcml2ZXIgaW4gYSBEb21VLCBidXQgb25seSBk
-aXNhYmxlDQogICAgYW55IGZ1bmN0aW9uYWxpdHkuDQoNCjIuIE1vdmUgdGhlIGRyaXZlcnMv
-eGVuL3hlbi1wY2liYWNrL3BjaV9zdHViLmMgZnVuY3Rpb25hbGl0eSBpbiBhIG1vZHVsZQ0K
-ICAgIG9mIGl0cyBvd24sIGFsbG93aW5nIHRoZSBwcml2Y21kIGRyaXZlciB0byBiZSBsb2Fk
-ZWQgd2l0aG91dCBuZWVkaW5nDQogICAgdGhlIHJlc3Qgb2YgcGNpYmFjay4NCg0KMy4gQWRk
-IGEgaG9vayB0byBlLmcuIGRyaXZlcnMveGVuL3BjaS5jIGluc3RlYWQgZm9yIGNhbGxpbmcg
-b2YNCiAgICBwY2lzdHViX2dldF9nc2lfZnJvbV9zYmRmKCkgZGlyZWN0bHkuIHBjaWJhY2sg
-Y291bGQgcmVnaXN0ZXIgdGhlIHJlYWwNCiAgICBjYWxsIGFkZHJlc3MuIElmIHBjaWJhY2sg
-aXNuJ3QgbG9hZGVkLCB0aGUgaG9vayBjYW4gcmV0dXJuIGFuIGVycm9yLg0KICAgIFRoaXMg
-d291bGQgcmVtb3ZlIHRoZSBleHBsaWNpdCBkZXBlbmRlbmN5IG9mIHByaXZjbWQgb24gcGNp
-YmFjay4NCg0KSSdkIHByZWZlciB0aGUgM3JkIHZhcmlhbnQuDQoNCg0KSnVlcmdlbg0KDQo=
-
---------------W1wbDms6j7JY06GoHtrL0XU1
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3776.700.51)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|PA4PR08MB6205:EE_|DU6PEPF0000A7DD:EE_|DB4PR08MB9405:EE_
+X-MS-Office365-Filtering-Correlation-Id: ecccbebd-5cc9-4b4a-02a6-08dce8f3e854
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?FmKCKgQN5tjBaaNQZe9oo/G+3l8Ptrsopqdop1NgoWVvCwyX9Fhh8ACr6llW?=
+ =?us-ascii?Q?KsyWuD7ZLXABzvseiINBFrg5QFfD9+GmNRoRKlXoloiSpI/tL+k0/6dseU9l?=
+ =?us-ascii?Q?8BV3HaP/QNt6LLmn6GOlwEfZ1nJGJtX+N+UNwAk1RLE3sUGXN6RqQz4lo5Nl?=
+ =?us-ascii?Q?OXXrWk+aQhabjsvObgQv0eVxhdJAkmeuPCozG7IlEff3tC54jNA4PQznhjET?=
+ =?us-ascii?Q?wDV0Y14P3jF+ORHDazirwwTZ9Knt7lpjDNAaKy3W1iIYe/k2NpHGjndAbiSt?=
+ =?us-ascii?Q?omsBjlahZKmt3Q/UNmuSX3qp7vrIqf9qQTn3iccx8buKx7ElT8sbZoAbzluX?=
+ =?us-ascii?Q?BZ6QLvHHVTWnIi6fCxmak3l7OqUQTpGYBiab8d+rWHHnkzmmrgHdjYz8MuRq?=
+ =?us-ascii?Q?vIXl4gERKFbeGupqKV3qonouYodxBnyqv50OkO0/yJQbt/5b3oRKQxVuK0qI?=
+ =?us-ascii?Q?622p5kP0B115cD0uYS8UCy9qEUdHcAlDM9YMrucluWgcKo4uiNhsDiqVGsyq?=
+ =?us-ascii?Q?q2RtuagZspqy8seaYYHlYeVStPgqPnVv3Hym2VISEOuKZjhT6vdn/7AfyQ/f?=
+ =?us-ascii?Q?c4+y/eMNlVHDHsdfeUnwdh8iNEg0o3aOE5bXR0b24j7/bPyXTSQdIEmqv5OS?=
+ =?us-ascii?Q?jGGhrvLtVrw75o4On4qd9l5KMBeisia4fZbDl/YQ+iEqrzQrEUa9E/c7wRnO?=
+ =?us-ascii?Q?fpaLtWgj2D5qrWFQzCyd6ANtCHO1y/wzNiQnrcPhrfvdBz4O+GBYRvdZw+Vf?=
+ =?us-ascii?Q?p5iujnMpSAWWfOG9bZxqQWEHWvZX5FGdleXM3l3NmF7d3cV90TSr8pI1/XOY?=
+ =?us-ascii?Q?hQ+vSgArEpFmwG5p5lEzn9drpf+BNAOEXd15qcgpNkFMcmHMNreYgMcylPK+?=
+ =?us-ascii?Q?y+uG9kkr1yMN00jXB2nuc/tEfMhYI1jEmP7dIqotbl26BMuc6dU5W6RAA6f5?=
+ =?us-ascii?Q?rRvSTJHVCUG88AFOTSkYaZwcN1B+AuFLsY8kgsn/eB3OXa3guk9Pd2VB0tdZ?=
+ =?us-ascii?Q?a3pYgyNCrNUcPmlA2LqbarnTA7WNJQdjS9UKXcF+cZMy26q9xOq0dR36DW1Z?=
+ =?us-ascii?Q?Ght7DvKP9YK88YR83B/ClqHI9eD3iGlqfQqgUPwvEt7i732XFsOQ5X+TWkFo?=
+ =?us-ascii?Q?5r+YzaxKLhzxFmjZ9A7v8+E3hyFIVbBn2EBcQV8HY6Uj9CbG54Svff8LYkPY?=
+ =?us-ascii?Q?DY4rqd9zDgH4LLzRjWAi3FZ04z1uNuwRkawq8b7L2Y2fuuSZNpx1/JFFiA4N?=
+ =?us-ascii?Q?HYJobyCpUfdnZ0a3B9ZGpLm95qJv8jICe8C+kSraEQ=3D=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <25258D2ADC8CED4CACFF40FF6B2CFABE@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6205
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-SkipListedInternetSender:
+ ip=[2603:10a6:10:25a::24];domain=DB9PR08MB6588.eurprd08.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	8a866127-27ca-4f72-fdfb-08dce8f3e2ff
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|35042699022|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?saf3fnIInhxNEYcOdBFAHnz81TrTLcOpj7kvu0cbs9L26tG6ACxK6QfMVWHS?=
+ =?us-ascii?Q?MN50KmzLvMtq/Y6V4ps/7LdrMiYNtlqgyLRXhWs9xDc1BrvTvt+31eigrXE2?=
+ =?us-ascii?Q?BOioajkQneASMc2nYnd43t1/uXvCEOIEAXd1FufJ6NwB5uCJGOxnsioJdceT?=
+ =?us-ascii?Q?T/HfIANmGogkQteINj1l0YbJqyVKuw2WBcMd+whSOhNAko8zUsul8G5B841m?=
+ =?us-ascii?Q?8fZwaycNeYUMCHceXZW5foY+zJlmsRrWw0x3oZCpX5y6x44dRDHlndza2GEC?=
+ =?us-ascii?Q?mRzQ0B3aEPyTkDBAyEfSvPm0lOHI5580LVCodiP0PwirgjXLKB2349Bks8Ar?=
+ =?us-ascii?Q?a9oJv3oeaP3avvE8hbBTN780TbGbYZVBW1CaOn+wDm2V3+dnfXALxqFFXzsm?=
+ =?us-ascii?Q?Ies6c4a6OuZb9ie3ae2rb7BSqx+9H+ImsT4HuVPW/ipehzVssqRbPVvPUECg?=
+ =?us-ascii?Q?78VZ5B2ozLFFfYYC6IT7RNQclnDGM2VO3TDNYg7a83X2VHD6hzuVlV5F2IYe?=
+ =?us-ascii?Q?uEDiCjw0rJL92+vtU8iRlRG6jdIUGEAHjqODj1NU8wZazyDjWV8G4dLbS/UX?=
+ =?us-ascii?Q?9pSeSdJbgXPLOxzN+BQlnePe9oDWiZCa5a9maYMyX+8CppJR8pG/T1gZQpTi?=
+ =?us-ascii?Q?VXsiXNit+QphEcsRyaReSlXglP5CYVThc0FbinHuw1JwkqdiFI2QIhzYxhwk?=
+ =?us-ascii?Q?+9HUKd8fAX1rJoauLHOXsWzxkWbImKIyyoHds8MkeVPvksEVBI9uTox0evs2?=
+ =?us-ascii?Q?viLrzFDKlKuJ2EXfaA9juemueksf2X9eBW4uAFyvVmmuSEp2DAm5Jd0OGGxd?=
+ =?us-ascii?Q?Sj/F7eL0HKNosBY8JeAnBp2zZpVqKkXO1WgB9zpUVRXXlsTE+yt77rGxgfgY?=
+ =?us-ascii?Q?4jbnLALFkdxF+Bvhlo6ecrqyW7xNaLoIEQf5kGlzp7R+71WujMT2p6VepZaq?=
+ =?us-ascii?Q?VmSCEFM2jBdC6vpI2KE+AJjLsQ7QPJ0ey6t09PvjnpfieoNPg1eRptuW5mmY?=
+ =?us-ascii?Q?hoTDru5Nxxz+pA1+QcgNsWXHcQFqfvrTmUJiUKZ9e6FDIXDMsVw0kZpzl+gh?=
+ =?us-ascii?Q?P8ZBiVADxrKHGmI/NqK5rQjF9Pd24ndTf259rzlovQJTjE7e0vj/Zi1QnKNc?=
+ =?us-ascii?Q?5nxAXn1JWA6wcpI/N2ERkoRqiQqQvy5pNgI6OXaP8IKNhfgWVPrKRjCCYeV1?=
+ =?us-ascii?Q?Di9fVkBmhlnN8minrHCkpWJdfH5uzrZ25GklMj+6xElZO8dJKgRNGfdfT97c?=
+ =?us-ascii?Q?QTRqJ2eD4LBKSZpTXxomu3AsarieEt+v+QvFNOyayPwL9cnzqeGk8jABGy4n?=
+ =?us-ascii?Q?lAzO06UuX3j8SziilhnqrC/1?=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(35042699022)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2024 06:22:25.2284
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecccbebd-5cc9-4b4a-02a6-08dce8f3e854
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR08MB9405
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi Oleksandr,
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+> On 9 Oct 2024, at 19:20, Oleksandr Tyshchenko <olekstysh@gmail.com> wrote=
+:
+>=20
+>=20
+>=20
+> On 09.10.24 09:36, Bertrand Marquis wrote:
+>> Hi Oleksandr,
+>=20
+> Hello Bertrand
+>=20
+>=20
+>>> On 8 Oct 2024, at 20:53, Oleksandr Tyshchenko <olekstysh@gmail.com> wro=
+te:
+>>>=20
+>>>=20
+>>>=20
+>>> On 08.10.24 09:17, Bertrand Marquis wrote:
+>>>> Hi,
+>>>=20
+>>> Hello Bertrand
+>>>=20
+>>>=20
+>>>>> On 7 Oct 2024, at 20:55, Oleksandr Tyshchenko <olekstysh@gmail.com> w=
+rote:
+>>>>>=20
+>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>=20
+>>>>> Add common requirements for a physical device assignment to Arm64
+>>>>> and AMD64 PVH domains.
+>>>>>=20
+>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>> ---
+>>>>> Based on:
+>>>>> [PATCH] docs: fusa: Replace VM with domain
+>>>>> https://patchew.org/Xen/20241007182603.826807-1-ayan.kumar.halder@amd=
+.com/
+>>>>> ---
+>>>>> ---
+>>>>> .../reqs/design-reqs/common/passthrough.rst   | 365 +++++++++++++++++=
++
+>>>>> docs/fusa/reqs/index.rst                      |   1 +
+>>>>> docs/fusa/reqs/market-reqs/reqs.rst           |  33 ++
+>>>>> docs/fusa/reqs/product-reqs/common/reqs.rst   |  29 ++
+>>>>> 4 files changed, 428 insertions(+)
+>>>>> create mode 100644 docs/fusa/reqs/design-reqs/common/passthrough.rst
+>>>>> create mode 100644 docs/fusa/reqs/product-reqs/common/reqs.rst
+>>>>>=20
+>>>>> diff --git a/docs/fusa/reqs/design-reqs/common/passthrough.rst b/docs=
+/fusa/reqs/design-reqs/common/passthrough.rst
+>>>>> new file mode 100644
+>>>>> index 0000000000..a1d6676f65
+>>>>> --- /dev/null
+>>>>> +++ b/docs/fusa/reqs/design-reqs/common/passthrough.rst
+>>>>> @@ -0,0 +1,365 @@
+>>>>> +.. SPDX-License-Identifier: CC-BY-4.0
+>>>>> +
+>>>>> +Device Passthrough
+>>>>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>>>> +
+>>>>> +The following are the requirements related to a physical device assi=
+gnment
+>>>>> +[1], [2] to Arm64 and AMD64 PVH domains.
+>>>>> +
+>>>>> +Requirements for both Arm64 and AMD64 PVH
+>>>>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>>>> +
+>>>>> +Hide IOMMU from a domain
+>>>>> +------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_hide_iommu_from_domain~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +Xen shall not expose the IOMMU device to the domain even if I/O virt=
+ualization
+>>>>> +is disabled. The IOMMU shall be under hypervisor control only.
+>>>>> +
+>>>>> +Rationale:
+>>>> I think there should be a rationale here to explain why we do not want=
+ the IOMMU
+>>>> in particular to be assigned to a domain.
+>>>=20
+>>>=20
+>>> ok, will add. I propose the following text:
+>>>=20
+>>> Xen having the whole picture of the host resources and device assignmen=
+t unlike the individual domain makes use of the IOMMU to:
+>>> - perform DMA Remapping on Arm64 and AMD64 platforms, which is also kno=
+wn as stage-2 (or 2nd stage) address translations for DMA devices passed th=
+rough to domains and Interrupt Remapping on AMD64 platforms.
+>> remove arm64 or amd64, this is always true >
+>>> - provide access protection functionalities to prevent malicious or bug=
+gy DMA devices from accessing arbitrary memory ranges (e.g. memory allocate=
+d to other domains) or from generating interrupts that could affect other d=
+omains.
+>> I would turn this in positive: restrict DMA devices to only have access =
+to the memory of the Domain there are assigned to or no memory at all if no=
+t assigned (maybe 2 reqs here).
+>=20
+>=20
+> ok to both. However, I am a bit lost ...
+>=20
+>=20
+>=20
+>>>=20
+>>>=20
+>>>> Added to that, I am not completely sure that there is a clear way to t=
+est this one
+>>>> as for example one could assign registers not known by Xen.
+>>>=20
+>>> I am afraid you are right, valid point. For example, on Arm64, if there=
+ is no corresponding driver in use, we will end up exposing IOMMU dt node t=
+o Dom0.
+>>>=20
+>>>=20
+>>>> Shouldn't this requirement in fact be an assumption of use ?
+>>>=20
+>>> Assumption of use on Xen? From my PoV sounds reasonable, will do.
+>> As was suggested by stefano, i agree with him on turning it differently.=
+ Please see his answer.
+>=20
+>=20
+> ... yes, I saw his answer and completely agree with him as well, my quest=
+ion is what I should do with the rationale?
+>=20
+> The rationale I proposed above explains why we do not want the IOMMU
+> in particular to be assigned to a domain. But, it belongs to the initial =
+"Hide IOMMU from a domain" requirement. Now, with turning it into "Xen shal=
+l configure the IOMMU at boot according to the stage 2 translation
+> tables" requirement should the rationale still be present?
 
---------------W1wbDms6j7JY06GoHtrL0XU1--
+No this would now be part of integrator role or something like that but sho=
+uld not be a rationale here anymore.
 
---------------u0hfL5lBoxeauLJAZd7Xgs4x--
+>=20
+>=20
+>>>=20
+>>>>> +
+>>>>> +Comments:
+>>>>> +
+>>>>> +Covers:
+>>>>> + - `XenProd~device_passthrough~1`
+>>>>> +
+>>>>> +Discover PCI devices from hardware domain
+>>>>> +-----------------------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_discover_pci_devices_from_hwdom~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +The hardware domain shall enumerate and discover PCI devices and inf=
+orm Xen
+>>>>> +about their appearance and disappearance.
+>>>> Again this is a design requirement telling what should be done by a do=
+main.
+>>>> This is an interface or an assumption of use but not a Xen design req.
+>>>=20
+>>> I agree, will convert to Assumption of use on domain.
+>>>=20
+>>>=20
+>>>>> +
+>>>>> +Rationale:
+>>>>> +
+>>>>> +Comments:
+>>>>> +
+>>>>> +Covers:
+>>>>> + - `XenProd~device_passthrough~1`
+>>>>> +
+>>>>> +Discover PCI devices from Xen
+>>>>> +-----------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_discover_pci_devices_from_xen~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +Xen shall discover PCI devices (enumerated by the firmware beforehan=
+d) during
+>>>>> +boot if the hardware domain is not present.
+>>>> I am a bit wondering here why we would not want Xen to always do it if=
+ we have
+>>>> the code to do it in Xen anyway.
+>>>=20
+>>> Makes sense, will drop "if the hardware domain is not present".
+>>>=20
+>>>=20
+>>>>> +
+>>>>> +Rationale:
+>>>>> +
+>>>>> +Comments:
+>>>>> +
+>>>>> +Covers:
+>>>>> + - `XenProd~device_passthrough~1`
+>>>>> +
+>>>>> +Assign PCI device to domain (with IOMMU)
+>>>>> +----------------------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_assign_pci_device_with_iommu~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +Xen shall assign a specified PCI device (always implied as DMA-capab=
+le) to
+>>>>> +a domain during its creation using passthrough (partial) device tree=
+ on Arm64
+>>>>> +and Hyperlaunch device tree on AMD-x86. The physical device to be as=
+signed is
+>>>>> +protected by the IOMMU.
+>>>> This is a very long and complex requirement.
+>>>> I would suggest to split it in 3:
+>>>> - generic: Xen shall support assign PCI devices to domains.
+>>>> - arm64 one: Xen shall assign PCI devices based on device tree (explai=
+n how this is configured in dts)
+>>>> - amd: xxxx based on hyperlaunch
+>>>=20
+>>> I agree, will split, but ...
+>>>=20
+>>>> - Xen shall use the IOMMU to enforce DMA operations done by a PCI devi=
+ce assigned to a domain to be restricted to the memory of the given domain.
+>>>=20
+>>>=20
+>>> ... does this need to be a separate 4th requirement here (and for the s=
+imilar requirement for the platform device down the document) or this sente=
+nce is meant to be added to all resulting generic/arm64/amd requirements?
+>>>=20
+>>> I would like to clarify, there are two groups of requirements to cover =
+DMA-capable devices in this document:
+>>> - for devices that are behind the IOMMU and IOMMU can be used for them,=
+ those requirements description explicitly mention "device xxx is protected=
+ by the IOMMU" in addition to "(with IOMMU)" in the subject.
+>>> - for devices that are not behind the IOMMU or IOMMU cannot be used for=
+ them, those requirements description explicitly mention "device xxx is not=
+ protected by the IOMMU" in addition to "(without IOMMU)" in the subject.
+>> I think you need to be more generic and any DMA engine that is not prote=
+cted by an IOMMU shall not be assigned to a non trusted domain.
+>> This is in fact a requirement on the integrator, Xen cannot do much abou=
+t this.
+>=20
+> yes, I agree
+>=20
+>=20
+>>>=20
+>>>>> +
+>>>>> +Rationale:
+>>>>> +
+>>>>> +Comments:
+>>>>> +
+>>>>> +Covers:
+>>>>> + - `XenProd~device_passthrough~1`
+>>>>> +
+>>>>> +Deassign PCI device from domain (with IOMMU)
+>>>>> +--------------------------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_deassign_pci_device_with_iommu~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +Xen shall deassign a specified PCI device from a domain during its d=
+estruction.
+>>>>> +The physical device to be deassigned is protected by the IOMMU.
+>>>> Remove second sentence or turn it into a req to say that the PCI devic=
+e shall not be allowed to do DMA anymore somehow.
+>>>=20
+>>>=20
+>>> I would like to clarify, the second sentence here is just to indicate w=
+hat type of device (in the context of IOMMU involvement) the requirement is=
+ talking about, not about special care for denying any DMA from it after de=
+assigning.
+>>>=20
+>>> If you still think that we need a new requirement to explicitly highlig=
+ht that, I will be ok to create, in that case, I assume, the platform devic=
+e will want to gain the similar requirement. Please let me know your prefer=
+ence.
+>> As said in the mail to stefano, i think we should try to generalise more=
+.
+>> So i would say we should handle:
+>> - register assignments
+>> - DMA engine handling
+>> - interrupt handling
+>> A device is a just a logical construct which may or may not contain or u=
+se several of those elements.
+>=20
+>=20
+> I agree regarding DMA engine handling. As for register assignments and in=
+terrupt handling I am not quite sure. I am afraid we will need to different=
+iate between platform and PCI devices.
 
---------------kCnudpVj5QLHGd2zxbJWtYri
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Once a PCI device has been detected it becomes some registers and interrupt=
+s.
+There might be some PCI ways to configure some stuff but appart from that i=
+ do not see any difference with a platform device.
+Do i miss something ?
 
------BEGIN PGP SIGNATURE-----
+>=20
+>=20
+>>>=20
+>>>=20
+>>>>> +
+>>>>> +Rationale:
+>>>>> +
+>>>>> +Comments:
+>>>>> +
+>>>>> +Covers:
+>>>>> + - `XenProd~device_passthrough~1`
+>>>>> +
+>>>>> +Forbid the same PCI device assignment to multiple domains
+>>>>> +---------------------------------------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_forbid_same_pci_device_assignment~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +Xen shall not assign the same PCI device to multiple domains by fail=
+ing to
+>>>>> +create a new domain if the device to be passed through is already as=
+signed
+>>>>> +to the existing domain. Also different PCI devices which share some =
+resources
+>>>>> +(interrupts, IOMMU connections) can be assigned only to the same dom=
+ain.
+>>>> Please split and simplify
+>>>> - Xen shall assign a single device to a single domain
+>>>> - Xen shall assign PCI devices sharing resources to the same domain.
+>>>=20
+>>> Good point, will split.
+>>>=20
+>>>=20
+>>>>> +
+>>>>> +Rationale:
+>>>>> +
+>>>>> +Comments:
+>>>>> +
+>>>>> +Covers:
+>>>>> + - `XenProd~device_passthrough~1`
+>>>>> +
+>>>>> +Requirements for Arm64 only
+>>>>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+>>>>> +
+>>>>> +Assign interrupt-less platform device to domain
+>>>>> +-----------------------------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_assign_interrupt_less_platform_device~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +Xen shall assign a specified platform device that has only a MMIO re=
+gion
+>>>>> +(does not have any interrupts) to a domain during its creation using=
+ passthrough
+>>>>> +device tree.
+>>>>> +The example of interrupt-less device is PWM or clock controller.
+>>>> I am a bit puzzled by this req. Why making a specific case for interru=
+pt less ?
+>>>=20
+>>>=20
+>>> Those devices exist and can be assigned to a domain, they are configure=
+d slightly differently in comparison with devices with interrupts ("xen,pat=
+h" is not needed for the former), other code paths are executed in Xen.
+>>>=20
+>>> More technical details:
+>>> The allowance of the platform device assignment which is not behind an =
+IOMMU (for both non-DMA-capable and DMA-capable devices) is specified using=
+ device tree property ("xen,force-assign-without-iommu") in the device node=
+ described in the passthrough device tree. The said property also allows th=
+e interrupt-less platform device assignment (a device that has only a MMIO =
+region) without specifying the corresponding node in the host device via de=
+vice tree property ("xen,path").
+>> Please see upper.
+>=20
+> Yes, what I got from the text above is that we won't need a separate set =
+of requirements for interrupt-less device, I will drop them. The same goes =
+for "Assign/Deassign *non-DMA-capable* platform device to domain". Please l=
+et me know if I got this wrong.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmcHaJAFAwAAAAAACgkQsN6d1ii/Ey8o
-NQf+Jk8xKYaRguEDNlCuIjv39oEKU0REmjs0qRKASL3RuVQ1ig43umiLw8oYi7po1ukho2LkCF9y
-mVnqBnc0DrmM/eJe5fKASD0L5Y5vtawztqzS016pb1HJioQm4XyBL//d5q8VBp2iNR2ARv2c7n4m
-Jb7QItc4ggbEIBoGMC59QVtZpYRs577PeEloUhLaKxB8rPUAsFYVjiKgqKY8Su3PoM+7RwbiWOdY
-ds9zTVe+2ztVC3mClkvg2iCbmXSXdu6fJwbv7iG/a7pxEjqNqKjKgYtcZ51nDFUEXINMoahNHCnz
-MCcsZKVzncANAy0XuqjXmlNxBQv1+sUx1mOqpYy1zw==
-=SZ9F
------END PGP SIGNATURE-----
 
---------------kCnudpVj5QLHGd2zxbJWtYri--
+No sounds good.
+
+>=20
+>=20
+> [snip]
+>=20
+>=20
+>>>>> +
+>>>>> +Assign DMA-capable platform device to domain (without IOMMU)
+>>>>> +------------------------------------------------------------
+>>>>> +
+>>>>> +`XenSwdgn~passthrough_assign_dma_platform_device_without_iommu~1`
+>>>>> +
+>>>>> +Description:
+>>>>> +Xen shall assign a specified DMA-capable platform device to a domain=
+ during
+>>>>> +its creation using passthrough device tree. The physical device to b=
+e assigned
+>>>>> +is not protected by the IOMMU.
+>>>>> +The DMA-capable device assignment which is not behind an IOMMU is al=
+lowed for
+>>>>> +the direct mapped domains only. The direct mapped domain must be eit=
+her safe or
+>>>>> +additional security mechanisms for protecting against possible malic=
+ious or
+>>>>> +buggy DMA devices must be in place, e.g. Xilinx memory protection un=
+it (XMPU)
+>>>>> +and Xilinx peripheral protection unit (XPPU).
+>>>> Please split in several reqs.
+>>>=20
+>>>=20
+>>> I agree, will do. I feel it should be split into the following requirem=
+ents:
+>>> - Assign DMA-capable platform device to domain (without IOMMU)
+>>> - Create direct mapped domain
+>>> - Enable additional security mechanisms in direct mapped domain
+>>>=20
+>>> To be honest, I'm not quite sure whether it is worth creating the last =
+requirement ...
+>> I do not think the last one is needed here.
+>> It could be an integrator guidance at best.
+>=20
+> ok, thanks for the clarification.
+
+Cheers
+Bertrand
+
+>=20
+>=20
+>> Cheers
+>> Bertrand
+>>>=20
+>>>=20
+>>>> Stopping here my review for now
+>>>=20
+>>> Thanks for the review.
+>>>=20
+>>>=20
+>>>> Cheers
+>>>> Bertrand
+>>>=20
+>>> [snip]
+
+
 
