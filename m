@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 927989986E8
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 14:59:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816122.1230303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0265999870A
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2024 15:03:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816127.1230313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syslC-0002oU-Lf; Thu, 10 Oct 2024 12:59:18 +0000
+	id 1sysoK-0004Ks-2a; Thu, 10 Oct 2024 13:02:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816122.1230303; Thu, 10 Oct 2024 12:59:18 +0000
+Received: by outflank-mailman (output) from mailman id 816127.1230313; Thu, 10 Oct 2024 13:02:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1syslC-0002mz-IL; Thu, 10 Oct 2024 12:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 816122;
- Thu, 10 Oct 2024 12:59:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sysoJ-0004I9-VN; Thu, 10 Oct 2024 13:02:31 +0000
+Received: by outflank-mailman (input) for mailman id 816127;
+ Thu, 10 Oct 2024 13:02:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T2t6=RG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1syslB-0002mr-4Y
- for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 12:59:17 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 748f2970-8707-11ef-a0bd-8be0dac302b0;
- Thu, 10 Oct 2024 14:59:16 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2fad0f66d49so12911931fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 05:59:16 -0700 (PDT)
+ id 1sysoI-0004I2-2b
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2024 13:02:30 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e6f3e65f-8707-11ef-99a2-01e77a169b0f;
+ Thu, 10 Oct 2024 15:02:28 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a93c1cc74fdso152093366b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Oct 2024 06:02:28 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c9370d218asm750857a12.8.2024.10.10.05.59.14
+ a640c23a62f3a-a99a80cb013sm85628666b.131.2024.10.10.06.02.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Oct 2024 05:59:15 -0700 (PDT)
+ Thu, 10 Oct 2024 06:02:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 748f2970-8707-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: e6f3e65f-8707-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728565156; x=1729169956; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1728565348; x=1729170148; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=egW82hkZYuiIa/T2pK5buacq+fdKF4ZmbJYtyRbFh+c=;
-        b=gDZuxr/nIT+rbEhNWDdacVJt0NdNiSUomt/L6MDfddFm75R8MxrB3AkQ8MRD4i3bdj
-         W9BEzzYFML7qJyUnZ8NJOqm6rHuBzXQ7fZFz8iZbn0GYztrsA2z/nQQcBIbkBuhVzyZP
-         K53ftB58ihhJlGyE+pz3kEu87rESFIAa6TXnQ=
+        bh=jUUDwfDCTyi1r3OX/mIwueEf2G73mU1uF49QlwhrEwA=;
+        b=NBTvS8qnUtAVPAWJkatCZa9uyeaIUyLvGvfPv5Hs7+3gJhgnty2r+88bG2VyFiq8PV
+         1LEyhYh8EgPx1dWYpS1eVBHAYmYgQXU55KJn1q5cLRYgqgkOT9PDmSyXdl89Vdwo80tg
+         rhB7w2Uyu59rvEz/thD+3bhmBoIM2BruO6zWE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728565156; x=1729169956;
+        d=1e100.net; s=20230601; t=1728565348; x=1729170148;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=egW82hkZYuiIa/T2pK5buacq+fdKF4ZmbJYtyRbFh+c=;
-        b=oM3DDg6KGB01asEW5PdZhWHFJG6I41rj33nkLyjCCZV9PWZvwc8ggMH4bkSGJRDDyr
-         Q6zrPSYgatrjMHSiq6RTwF0LR/L/rCL1VKhpTGL8P+gewwNv5D9uuUyfGZN907GJVNPj
-         4GLjBe1ZM73GjlzKQsuCywEalPq/ZgRrUtC4dyXBCap0v/veYHBCrQ7LVQ8jYR/PbTp7
-         wXz72mX4Na58pzmHAYsPr9RyfaJhZ/zss8XudeGycSBKfSERGtyYFSTUnuCnyVDc/q5P
-         5YKiOMeRdiNOSofLTeFP7GSq0h2x7KmqH7Pq8c5zM7KuD7n9XwO1b+eZus7dvEbEqiuE
-         nz6g==
-X-Gm-Message-State: AOJu0YzcxnksFjwCEFG9Gryow5OfyipZDlarAbDrB8xIi/gqHRcpbrS6
-	2RCWnzaxqlZaEyh16hMIjipzwbgjOBATxpac+SuJR/rk6DKD6+fg0jM/RMPwgIbznGgxowM8Q7e
-	VuM0=
-X-Google-Smtp-Source: AGHT+IEc5r6jYpR9GHybT8OzR9g2rUNssRIgxil1g4e3/7exC8Mqvng92addLMQLcXDjEhulIJzleQ==
-X-Received: by 2002:a2e:e01:0:b0:2f7:4e8c:9bfa with SMTP id 38308e7fff4ca-2fb187ce906mr30396651fa.33.1728565155485;
-        Thu, 10 Oct 2024 05:59:15 -0700 (PDT)
-Message-ID: <f1d002ff-a67e-4c63-a336-69e250e66bee@citrix.com>
-Date: Thu, 10 Oct 2024 13:59:13 +0100
+        bh=jUUDwfDCTyi1r3OX/mIwueEf2G73mU1uF49QlwhrEwA=;
+        b=TvyKSbpmRSRvAdJz1KkOgP/iZrwhc5wKjjsvGNZLv5qiGgeOmYr1imlJgUfbuSRViA
+         xQTqUAwgizjQnmAYkZmG9uc0oXI850atfBU9CvCe3ivnbAyE2BF20QBOmascG4KRmJbi
+         z5C52OoHS9vVkx5WKv50kOZRy6eciwB6BTgyBHSNIXy4WIlUctEPNPIdJBkywvwNYAfe
+         LKzTdYcSgNP1CPcVKOgzHuQW/s85A8aK3gfA1r0vgiQegfmY8/VRVX5he4BiskEScI63
+         8qjIsgyaMpVoSCqbZKHTo8eJQ6/OyQOUfKSzOtQglWGIBYJPrZv5vDRj1SQ3GZ+2rQf+
+         JMtQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVcX3dKvTvx4oxrPv4BYwy0gsg6BrNkpVbGIB94SKUF+qp03DKMy9r1+YfKagbNcIePWUW/JJH85ms=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7FMFMQQ1+UGBx/6A5Ix7aDEgkvEZg5lJLHNHK0MavwZ91YQKE
+	g/DYU59AyIxgar/tOsHu86WqalruY1uEkEHc6oEk/2gzaWsuUNopC+teoTNRsLxuIQ00TeZsGSA
+	U/WE=
+X-Google-Smtp-Source: AGHT+IGmzTHQ+eUq9wu+59MWmJo57YxmIY8z1P8AzFksk+0wbKlfBRJUJTUuY21ZFX3ySUo52NUJ7A==
+X-Received: by 2002:a17:907:9724:b0:a8d:3338:a48c with SMTP id a640c23a62f3a-a998d11a538mr526054266b.7.1728565347289;
+        Thu, 10 Oct 2024 06:02:27 -0700 (PDT)
+Message-ID: <2c52694d-0c9a-44d5-b01b-f23d6094f93a@citrix.com>
+Date: Thu, 10 Oct 2024 14:02:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] stubdom: add fine grained library config items to
- Mini-OS configs
-To: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
-References: <20241010111946.22173-1-jgross@suse.com> <ZwfNUKIXp44loWTD@l14>
+Subject: Re: [PATCH v2 6/6] x86/boot: Use boot_vid_info variable directly from
+ C code
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20241007141539.1899350-1-frediano.ziglio@cloud.com>
+ <20241007141539.1899350-7-frediano.ziglio@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,31 +132,20 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ZwfNUKIXp44loWTD@l14>
+In-Reply-To: <20241007141539.1899350-7-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/10/2024 1:49 pm, Anthony PERARD wrote:
-> On Thu, Oct 10, 2024 at 01:19:46PM +0200, Juergen Gross wrote:
->> Today Mini-OS can only be configured to use all or none Xen library.
->> In order to prepare a more fine grained configuration scheme, add per
->> library config items to the Mini-OS config files.
->>
->> As some libraries pull in others, the config files need to be
->> extended at build time to reflect those indirect library uses.
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->> V2:
->> - rename BUILD_config to GEN_CONFIG (Anthony PERARD)
->> - rename generated config files to *.gen.cfg (Anthony PERARD)
->> - don't write config data to file in make macro (Anthony PERARD)
->> - remove no longer needed $(CURDIR)/ from prerequisites (Anthony PERARD)
-> Looks good to me.
+On 07/10/2024 3:15 pm, Frediano Ziglio wrote:
+> No more need to pass from assembly code.
 >
-> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-Same grammar comment as v1.  I'll tweak on commit.
+This patch is fine now.
+
+As noted in patch 5, there will be less net churn if the order was
+swapped.  (As it stands, there's at least one correction in this patch
+as a knock-on effect.)
 
 ~Andrew
 
