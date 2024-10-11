@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C51E99A542
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 15:39:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.817095.1231207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C67A799A56F
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 15:51:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.817107.1231217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szFrC-00025p-Gf; Fri, 11 Oct 2024 13:39:02 +0000
+	id 1szG35-0005xF-Kg; Fri, 11 Oct 2024 13:51:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 817095.1231207; Fri, 11 Oct 2024 13:39:02 +0000
+Received: by outflank-mailman (output) from mailman id 817107.1231217; Fri, 11 Oct 2024 13:51:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szFrC-00024J-Dv; Fri, 11 Oct 2024 13:39:02 +0000
-Received: by outflank-mailman (input) for mailman id 817095;
- Fri, 11 Oct 2024 13:39:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1szG35-0005uJ-HZ; Fri, 11 Oct 2024 13:51:19 +0000
+Received: by outflank-mailman (input) for mailman id 817107;
+ Fri, 11 Oct 2024 13:51:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SPWD=RH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1szFrA-00024D-Et
- for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 13:39:00 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ad78d00-87d6-11ef-99a2-01e77a169b0f;
- Fri, 11 Oct 2024 15:38:58 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a995f56ea2dso324996766b.1
- for <xen-devel@lists.xenproject.org>; Fri, 11 Oct 2024 06:38:58 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99a7ec585csm211495166b.3.2024.10.11.06.38.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Oct 2024 06:38:57 -0700 (PDT)
+ <SRS0=NLyP=RH=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
+ id 1szG33-0005uD-D8
+ for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 13:51:17 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0e9f4b9-87d7-11ef-a0bd-8be0dac302b0;
+ Fri, 11 Oct 2024 15:51:15 +0200 (CEST)
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2024 06:51:12 -0700
+Received: from smile.fi.intel.com ([10.237.72.154])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2024 06:50:58 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.98)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1szG2d-00000001uKQ-3BlX; Fri, 11 Oct 2024 16:50:51 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,156 +45,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ad78d00-87d6-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728653938; x=1729258738; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZGLdmqqGVFk3NT5J+xIf3mEKoxl6SCwkzvrLg9ZPxp4=;
-        b=JvGjvcn57BKDXED2WKNROm5kCOnbkyUcuWuBBc2twbcsRc8TeTGQPumcPPGDoU0G4/
-         P4KD3UhQM1F+tWso9l2NI5g5ssDop4DbKw1PLQmhAJAQRL4mOFo2Fi3S6eBbtqF88kwC
-         rN3/HhF0xJiKQZXM2LBbsmHIPKj1uyT+aqOeA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728653938; x=1729258738;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZGLdmqqGVFk3NT5J+xIf3mEKoxl6SCwkzvrLg9ZPxp4=;
-        b=Udo3V8sSV2Pkc0nVsR86f3ImI92Rcf90SuNbtH8L2t4my5clYVVpaQkBANGVSgJEyG
-         7RUKO6BGQzR311IjlUrA3iwD5tnbeL5SokzZafJuHS/kF3UHYqNR8Uc/1ApefvE3AmM2
-         VLvDxBoDEke3piTyebGIKyBlWJipPqAUx9H43Q8zu9mJWw8Jlyc7CRnt8K7H+J1h/lPU
-         q5685DT4z2QO7kTmhPxjV/Ly3PaIuJg1Sf3WZGYZL+4zwmL8RhhyeROUrgi3mmtQeY17
-         kLXjSjkx03d+ESMUhT14XEyEVfB5jeJfZsfU1HobNudcZg/jear3CXGxQn2R15QWJOL7
-         uMbw==
-X-Gm-Message-State: AOJu0YyQ5qYDBBrd2/C0ntX7sj54ak2aeDvUTqZjTVlPINHnmxHnaNHz
-	Sy9jNfL/0PRK0cKPF4uvUKE4dB8Mme4TF1NkgFcGttmboAt72UBy6UEcDD845lU=
-X-Google-Smtp-Source: AGHT+IFthT/Dngh5KlhF9Glf/cvPQjHSieLEWHJWZIe/ylQGtHZALIr2MwK1e6YaJd254xfDDKCVFA==
-X-Received: by 2002:a17:907:7fa1:b0:a99:8ed2:7e0a with SMTP id a640c23a62f3a-a99b9300117mr206465466b.3.1728653937765;
-        Fri, 11 Oct 2024 06:38:57 -0700 (PDT)
-Message-ID: <48f0d04a-f1e8-4c00-b71a-42fe035a3d0f@citrix.com>
-Date: Fri, 11 Oct 2024 14:38:55 +0100
+X-Inumbo-ID: e0e9f4b9-87d7-11ef-a0bd-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1728654675; x=1760190675;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=JZpTFHIOKgsBhrK+TAyqIMe3uV9e4+zAkXpEvbByrtE=;
+  b=HKqutVeZR55nptxrYTLJXL+V0HeOiPrueV6HIcWjxQWqSgkJ2ZZhGyQQ
+   GcUO5SYvmWadTUCbBR5TLD6NV0JHZci5PyFKVFVgN9sqTkrivEjVs/gTS
+   8ghtjxEh2uFF5ewH2EmtVOeeaXshfQgffO8DtJyxl3jOqddVEBZvuzHXq
+   N8lCmrBBuKtbBKwnPSS1gzaGgpW9myetFbZsh6u4mmy9EN5g/8LZ+6yGG
+   N//33Imh0t5r8Uxz95HpFaqdSD95MeDT/J445G/l9yPdRwoOkUlIqnBQO
+   3ouQ1baiDT3856u8qLuN2kz+ipkzLqRZqlK3RYlsaM11PgC9JvDjP9tnx
+   Q==;
+X-CSE-ConnectionGUID: mEzR2fJjTyCwMgHJI6KdgA==
+X-CSE-MsgGUID: Cls/6NqETleIwYLFmfpC1w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="27862193"
+X-IronPort-AV: E=Sophos;i="6.11,196,1725346800"; 
+   d="scan'208";a="27862193"
+X-CSE-ConnectionGUID: +v41otkISg+36h8OYkcGUw==
+X-CSE-MsgGUID: Wq59MZX2TDuGSzOxtLCdcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,196,1725346800"; 
+   d="scan'208";a="76834109"
+Date: Fri, 11 Oct 2024 16:50:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Philipp Stanner <pstanner@redhat.com>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+	Sergey Shtylyov <s.shtylyov@omp.ru>,
+	Basavaraj Natikar <basavaraj.natikar@amd.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alex Dubov <oakad@yahoo.com>,
+	Sudarsana Kalluru <skalluru@marvell.com>,
+	Manish Chopra <manishc@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rasesh Mody <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com,
+	Igor Mitsyanko <imitsyanko@quantenna.com>,
+	Sergey Matyukevich <geomatsi@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Chen Ni <nichen@iscas.ac.cn>, Ricky Wu <ricky_wu@realtek.com>,
+	Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Mostafa Saleh <smostafa@google.com>, Hannes Reinecke <hare@suse.de>,
+	John Garry <john.g.garry@oracle.com>,
+	Soumya Negi <soumya.negi97@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>,
+	"Dr. David Alan Gilbert" <linux@treblig.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Eric Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Rui Salvaterra <rsalvaterra@gmail.com>,
+	Marc Zyngier <maz@kernel.org>, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	ntb@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-staging@lists.linux.dev, kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
+Subject: Re: [RFC PATCH 01/13] PCI: Prepare removing devres from pci_intx()
+Message-ID: <ZwktO8AUmFEakhVP@smile.fi.intel.com>
+References: <20241009083519.10088-1-pstanner@redhat.com>
+ <20241009083519.10088-2-pstanner@redhat.com>
+ <ZwfnULv2myACxnVb@smile.fi.intel.com>
+ <f65e9fa01a1947782fc930876e5f84174408db67.camel@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] x86/boot: Clarify comment
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241011085244.432368-1-frediano.ziglio@cloud.com>
- <20241011085244.432368-6-frediano.ziglio@cloud.com>
- <uvlmtx752sl45xmsy7o2unxa7rxwwen7eu4lutszfsoprre4sj@b5wre6lirrpf>
- <CACHz=ZgUbDEJOo0f5SBzOZCVDNkaGBrbkBAPSND8Sby0bkJ8+Q@mail.gmail.com>
- <wbpdfwa3hgjqkixl7usy7ta3r4337txb5ppvj74oat2no5wk52@sisyzgauolhq>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <wbpdfwa3hgjqkixl7usy7ta3r4337txb5ppvj74oat2no5wk52@sisyzgauolhq>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <f65e9fa01a1947782fc930876e5f84174408db67.camel@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On 11/10/2024 2:28 pm, Alejandro Vallejo wrote:
-> On Fri, Oct 11, 2024 at 02:08:37PM +0100, Frediano Ziglio wrote:
->> On Fri, Oct 11, 2024 at 1:56 PM Alejandro Vallejo
->> <alejandro.vallejo@cloud.com> wrote:
->>> On Fri, Oct 11, 2024 at 09:52:44AM +0100, Frediano Ziglio wrote:
->>>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->>>> ---
->>>>  xen/arch/x86/boot/reloc.c | 2 +-
->>>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
->>>> index e50e161b27..e725cfb6eb 100644
->>>> --- a/xen/arch/x86/boot/reloc.c
->>>> +++ b/xen/arch/x86/boot/reloc.c
->>>> @@ -65,7 +65,7 @@ typedef struct memctx {
->>>>      /*
->>>>       * Simple bump allocator.
->>>>       *
->>>> -     * It starts from the base of the trampoline and allocates downwards.
->>>> +     * It starts on top of space reserved for the trampoline and allocates downwards.
->>> nit: Not sure this is much clearer. The trampoline is not a stack (and even if
->>> it was, I personally find "top" and "bottom" quite ambiguous when it grows
->>> backwards), so calling top to its lowest address seems more confusing than not.
->>>
->>> If anything clarification ought to go in the which direction it takes. Leaving
->>> "base" instead of "top" and replacing "downwards" by "backwards" to make it
->>> crystal clear that it's a pointer that starts where the trampoline starts, but
->>> moves in the opposite direction.
->>>
->> Base looks confusing to me, but surely that comment could be confusing.
->> For the trampoline 64 KB are reserved. Last 4 KB are used as a normal
->> stack (push/pop/call/whatever), first part gets a copy of the
->> trampoline code/data (about 6 Kb) the rest (so 64 - 4 - ~6 = ~54 kb)
->> is used for the copy of MBI information. That "rest" is what we are
->> talking about here.
-> Last? From what I looked at it seems to be the first 12K.
->
->    #define TRAMPOLINE_STACK_SPACE  PAGE_SIZE
->    #define TRAMPOLINE_SPACE        (KB(64) - TRAMPOLINE_STACK_SPACE)
->
-> To put it another way, with left=lo-addr and right=hi-addr. The code seems to
-> do this...
->
->  |<--------------64K-------------->|
->  |<-----12K--->|                   |
->  +-------------+-----+-------------+
->  | stack-space | mbi | trampoline  |
->  +-------------+-----+-------------+
->                ^  ^
->                |  |
->                |  +-- copied Multiboot info + modules
->                +----- initial memctx.ptr
->
-> ... with the stack growing backwards to avoid overflowing onto mbi.
->
-> Or am I missing something?
+On Fri, Oct 11, 2024 at 02:16:06PM +0200, Philipp Stanner wrote:
+> On Thu, 2024-10-10 at 17:40 +0300, Andy Shevchenko wrote:
+> > On Wed, Oct 09, 2024 at 10:35:07AM +0200, Philipp Stanner wrote:
+> > > pci_intx() is a hybrid function which sometimes performs devres
+> > > operations, depending on whether pcim_enable_device() has been used
+> > > to
+> > > enable the pci_dev. This sometimes-managed nature of the function
+> > > is
+> > > problematic. Notably, it causes the function to allocate under some
+> > > circumstances which makes it unusable from interrupt context.
+> > > 
+> > > To, ultimately, remove the hybrid nature from pci_intx(), it is
+> > > first
+> > > necessary to provide an always-managed and a never-managed version
+> > > of that function. Then, all callers of pci_intx() can be ported to
+> > > the
+> > > version they need, depending whether they use pci_enable_device()
+> > > or
+> > > pcim_enable_device().
 
-So I was hoping for some kind of diagram like this, to live in
-arch/x86/include/asm/trampoline.h with the other notes about the trampoline.
+> > > An always-managed function exists, namely pcim_intx(), for which
+> > > __pcim_intx(), a never-managed version of pci_intx() had been
+> > > implemented.
+> > 
+> > > Make __pcim_intx() a public function under the name
+> > > pci_intx_unmanaged(). Make pcim_intx() a public function.
 
-But, is that diagram accurate?  Looking at
+It seems I got confused by these two paragraphs. Why the double underscored
+function is even mentioned here?
+
+> > To avoid an additional churn we can make just completely new APIs,
+> > namely:
+> > pcim_int_x()
+> > pci_int_x()
+> > 
+> > You won't need all dirty dances with double underscored function
+> > naming and
+> > renaming.
+> 
+> �hm.. I can't follow. The new version doesn't use double underscores
+> anymore. __pcim_intx() is being removed, effectively.
+> After this series, we'd end up with a clean:
+> 
+> 	pci_intx() <-> pcim_intx()
+> 
+> just as in the other PCI APIs.
+
+...
+
+> > > +	pci_read_config_word(pdev, PCI_COMMAND, &pci_command);
+> > > +
+> > > +	if (enable)
+> > > +		new = pci_command & ~PCI_COMMAND_INTX_DISABLE;
+> > > +	else
+> > > +		new = pci_command | PCI_COMMAND_INTX_DISABLE;
+> > > +
+> > > +	if (new != pci_command)
+> > 
+> > I would use positive conditionals as easy to read (yes, a couple of
+> > lines
+> > longer, but also a win is the indentation and avoiding an additional
+> > churn in
+> > the future in case we need to add something in this branch.
+> 
+> I can't follow. You mean:
+> 
+> if (new == pci_command)
+>     return;
+> 
+> ?
+> 
+> That's exactly the same level of indentation.
+
+No, the body gets one level off.
+
+> Plus, I just copied the code.
+> 
+> > > +		pci_write_config_word(pdev, PCI_COMMAND, new);
+
+	if (new == pci_command)
+		return;
+
+	pci_write_config_word(pdev, PCI_COMMAND, new);
+
+See the difference?
+Also, imaging adding a new code in your case:
+
+	if (new != pci_command)
+		pci_write_config_word(pdev, PCI_COMMAND, new);
+
+==>
+
+	if (new != pci_command) {
+		...foo...
+		pci_write_config_word(pdev, PCI_COMMAND, new);
+		...bar...
+	}
+
+And in mine:
+
+	if (new == pci_command)
+		return;
+
+	...foo...
+	pci_write_config_word(pdev, PCI_COMMAND, new);
+	...bar...
+
+I hope it's clear now what I meant.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 
