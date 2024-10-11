@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C3599A444
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 14:57:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.817041.1231147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B751399A477
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 15:09:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.817055.1231156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szFCO-0005RK-Ax; Fri, 11 Oct 2024 12:56:52 +0000
+	id 1szFO0-0000vQ-Ah; Fri, 11 Oct 2024 13:08:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 817041.1231147; Fri, 11 Oct 2024 12:56:52 +0000
+Received: by outflank-mailman (output) from mailman id 817055.1231156; Fri, 11 Oct 2024 13:08:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szFCO-0005Op-7r; Fri, 11 Oct 2024 12:56:52 +0000
-Received: by outflank-mailman (input) for mailman id 817041;
- Fri, 11 Oct 2024 12:56:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1szFO0-0000sW-82; Fri, 11 Oct 2024 13:08:52 +0000
+Received: by outflank-mailman (input) for mailman id 817055;
+ Fri, 11 Oct 2024 13:08:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XZOt=RH=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1szFCM-00054s-Hm
- for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 12:56:50 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4727db0e-87d0-11ef-99a2-01e77a169b0f;
- Fri, 11 Oct 2024 14:56:49 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5c8af23a4fcso2594138a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 11 Oct 2024 05:56:48 -0700 (PDT)
-Received: from CSGPROD108744 ([217.156.233.154])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c93711bc1bsm1911735a12.23.2024.10.11.05.56.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Oct 2024 05:56:48 -0700 (PDT)
+ <SRS0=rkux=RH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1szFNy-0000sM-I3
+ for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 13:08:50 +0000
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [2607:f8b0:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f413fd8d-87d1-11ef-a0bd-8be0dac302b0;
+ Fri, 11 Oct 2024 15:08:49 +0200 (CEST)
+Received: by mail-oi1-x22a.google.com with SMTP id
+ 5614622812f47-3e3dfc24a80so1228436b6e.2
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Oct 2024 06:08:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4727db0e-87d0-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: f413fd8d-87d1-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728651408; x=1729256208; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=uFfl8TBLL4YoWstkWMP+nF9hc3H20+6374dsV4djux0=;
-        b=FnT7xRR64+5KExXiHB6664nVOvTICzEZYDenYdq3ZV504ILt1yaRHlHIMyCOCBYhmc
-         Red1bBIK2ib1zM9b9itDM7xsiz5arAMzfUM3QMaWvNLQCjHX67XggmRTOa2fW04/1TaM
-         GOvw2L7FI1FNw237suasbjpW/XAKbi80MGOSs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728651408; x=1729256208;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1728652128; x=1729256928; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uFfl8TBLL4YoWstkWMP+nF9hc3H20+6374dsV4djux0=;
-        b=vtdfgWbYsrzWdKpjrK9DRuf+C1baVGRSiSShlJNYM8EWG+3kldwWvbTVIUwkdnr88Q
-         FmUqN8dfIypMI42nuGzwZcFViEQrlaho784SOb82A7F1lckrF6i6IipppVR+i35BhofG
-         j5tQI0gWNmtWFHmwEZ/KM5c3UgMkHmJp7PTnUpdVLlBrUGLipf0YiHt3XN4x2aqdExsr
-         TTCSHhh/fH2xqDzSvVrfZLpfKZPZpzUG+edHsGboe/AfnvaS3EyJBW6ajKcy1h9duFjQ
-         JBKBa4tpM6Z7PjLxzo3T8DmGolfO59nx0MiYP3gBbI9HkLbRypn8GYEsFBMgvXRJRc4/
-         yk/g==
-X-Gm-Message-State: AOJu0YxNXJUSn2admy+wssTAbz423/NNAMdwytEcaL4GgbadxAXHrIc3
-	EhCH3HqPARnhSwoeIvr8ET6irV0Y5AhTabw2f50v+YexGjCqPdbBJFxzCXlqRz8=
-X-Google-Smtp-Source: AGHT+IEMXiFFhjmwoDAtt7sDJkNr2qAe62wkKXMaryNPni4dESKVsePAUEWGnK3SSNaMCA8zTIUgbA==
-X-Received: by 2002:a05:6402:280d:b0:5c8:85a1:a12f with SMTP id 4fb4d7f45d1cf-5c948d79a60mr1473416a12.33.1728651408421;
-        Fri, 11 Oct 2024 05:56:48 -0700 (PDT)
-Date: Fri, 11 Oct 2024 13:56:46 +0100
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v3 5/5] x86/boot: Clarify comment
-Message-ID: <uvlmtx752sl45xmsy7o2unxa7rxwwen7eu4lutszfsoprre4sj@b5wre6lirrpf>
-References: <20241011085244.432368-1-frediano.ziglio@cloud.com>
- <20241011085244.432368-6-frediano.ziglio@cloud.com>
+        bh=X48ueAHwz7VxKcFkVFTW2si4nTfK/LalP9YXmYZDgWg=;
+        b=OYS6713C36j0mew7JMYYoG6hPGHQxDy7bgjwiMUXgkIwX2hZ0bYZDXg0F+G5uyvmPF
+         C5gz9Vobi/emSJxFioWOjxQQjyTsMZNcujc7wX3zNgR5hoY5GBoCcA1Gg1IlOwkSxp7h
+         L5bvERutv2QYvzOlaEuF+vG9rjPRDa9nyCWQY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728652128; x=1729256928;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=X48ueAHwz7VxKcFkVFTW2si4nTfK/LalP9YXmYZDgWg=;
+        b=KM+3lQe4rcDC7xXRWNCWg5YwgH5f7v1LdaoSkhj8RbLKbIsmNMv59urOkj0XauIRR9
+         2v2h63707lWB4IORJiAZwdgW83vaQdoq/Kn/7bvVXR8zLC+E4JLtC71RRKcnz9nHjQX9
+         T3ffpOjjsYzrsayiYnCTAvyV0Bnjsg/DcuC5b7RPH4q1pqNYoYZPoiRyw7JPD7EKrGUo
+         35diAKxzUGCWVdNHwpeXIXYJiCy7nskiAQi+aFMznqFENWZn52Q5IRQvd3TA1SRfs3t7
+         /BXBP1tllu5kulpoH4djh1EeEQgd0VmlBrTlQk/tCpM/bEIhTpccN5ouyEqIWF9OyFNo
+         HxuA==
+X-Gm-Message-State: AOJu0YwBWrya0xKiDO8hECShca7qjunFrgAMpc0DCeU45dXsysn6gLfk
+	f6PpEtLdfOoWp6MfOoZp7qV3aydIyjYWMHhCWCzPL3g4ivoLuH/VKZ5uKrF3J5zmGyT0lPzFKJ+
+	3g8PEXzEY8LsFf9xtJ4rAPUk1aAJiiVCaHAsQTg==
+X-Google-Smtp-Source: AGHT+IEHpgi/eTrqQ3LIzLDIuWos/9ENsh0mYVt+AQHR1LowIWqeE+ldRSmwPQRYUfglfP3XdmrZHtJkrO8O3FarKYw=
+X-Received: by 2002:a05:6870:a54d:b0:278:222c:98c4 with SMTP id
+ 586e51a60fabf-2886ddd90a2mr2442284fac.21.1728652127871; Fri, 11 Oct 2024
+ 06:08:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241011085244.432368-6-frediano.ziglio@cloud.com>
+References: <20241011085244.432368-1-frediano.ziglio@cloud.com>
+ <20241011085244.432368-6-frediano.ziglio@cloud.com> <uvlmtx752sl45xmsy7o2unxa7rxwwen7eu4lutszfsoprre4sj@b5wre6lirrpf>
+In-Reply-To: <uvlmtx752sl45xmsy7o2unxa7rxwwen7eu4lutszfsoprre4sj@b5wre6lirrpf>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Fri, 11 Oct 2024 14:08:37 +0100
+Message-ID: <CACHz=ZgUbDEJOo0f5SBzOZCVDNkaGBrbkBAPSND8Sby0bkJ8+Q@mail.gmail.com>
+Subject: Re: [PATCH v3 5/5] x86/boot: Clarify comment
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 11, 2024 at 09:52:44AM +0100, Frediano Ziglio wrote:
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/reloc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
-> index e50e161b27..e725cfb6eb 100644
-> --- a/xen/arch/x86/boot/reloc.c
-> +++ b/xen/arch/x86/boot/reloc.c
-> @@ -65,7 +65,7 @@ typedef struct memctx {
->      /*
->       * Simple bump allocator.
->       *
-> -     * It starts from the base of the trampoline and allocates downwards.
-> +     * It starts on top of space reserved for the trampoline and allocates downwards.
+On Fri, Oct 11, 2024 at 1:56=E2=80=AFPM Alejandro Vallejo
+<alejandro.vallejo@cloud.com> wrote:
+>
+> On Fri, Oct 11, 2024 at 09:52:44AM +0100, Frediano Ziglio wrote:
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > ---
+> >  xen/arch/x86/boot/reloc.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
+> > index e50e161b27..e725cfb6eb 100644
+> > --- a/xen/arch/x86/boot/reloc.c
+> > +++ b/xen/arch/x86/boot/reloc.c
+> > @@ -65,7 +65,7 @@ typedef struct memctx {
+> >      /*
+> >       * Simple bump allocator.
+> >       *
+> > -     * It starts from the base of the trampoline and allocates downwar=
+ds.
+> > +     * It starts on top of space reserved for the trampoline and alloc=
+ates downwards.
+>
+> nit: Not sure this is much clearer. The trampoline is not a stack (and ev=
+en if
+> it was, I personally find "top" and "bottom" quite ambiguous when it grow=
+s
+> backwards), so calling top to its lowest address seems more confusing tha=
+n not.
+>
+> If anything clarification ought to go in the which direction it takes. Le=
+aving
+> "base" instead of "top" and replacing "downwards" by "backwards" to make =
+it
+> crystal clear that it's a pointer that starts where the trampoline starts=
+, but
+> moves in the opposite direction.
+>
 
-nit: Not sure this is much clearer. The trampoline is not a stack (and even if
-it was, I personally find "top" and "bottom" quite ambiguous when it grows
-backwards), so calling top to its lowest address seems more confusing than not.
+Base looks confusing to me, but surely that comment could be confusing.
+For the trampoline 64 KB are reserved. Last 4 KB are used as a normal
+stack (push/pop/call/whatever), first part gets a copy of the
+trampoline code/data (about 6 Kb) the rest (so 64 - 4 - ~6 =3D ~54 kb)
+is used for the copy of MBI information. That "rest" is what we are
+talking about here.
 
-If anything clarification ought to go in the which direction it takes. Leaving
-"base" instead of "top" and replacing "downwards" by "backwards" to make it
-crystal clear that it's a pointer that starts where the trampoline starts, but
-moves in the opposite direction.
+> My .02 anyway.
+>
+> >       */
+> >      uint32_t ptr;
+> >  } memctx;
+> > --
+> > 2.34.1
+> >
+> >
+>
+> Cheers,
+> Alejandro
 
-My .02 anyway.
-
->       */
->      uint32_t ptr;
->  } memctx;
-> -- 
-> 2.34.1
-> 
-> 
-
-Cheers,
-Alejandro
+Frediano
 
