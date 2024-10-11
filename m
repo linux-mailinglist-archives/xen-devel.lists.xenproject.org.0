@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3657A99A7A3
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A2A899A7A4
 	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 17:28:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.817224.1231310 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.817225.1231320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szHYY-0007WR-Fi; Fri, 11 Oct 2024 15:27:54 +0000
+	id 1szHYb-0007n4-Pi; Fri, 11 Oct 2024 15:27:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 817224.1231310; Fri, 11 Oct 2024 15:27:54 +0000
+Received: by outflank-mailman (output) from mailman id 817225.1231320; Fri, 11 Oct 2024 15:27:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szHYY-0007TS-Cb; Fri, 11 Oct 2024 15:27:54 +0000
-Received: by outflank-mailman (input) for mailman id 817224;
- Fri, 11 Oct 2024 15:27:52 +0000
+	id 1szHYb-0007k3-M6; Fri, 11 Oct 2024 15:27:57 +0000
+Received: by outflank-mailman (input) for mailman id 817225;
+ Fri, 11 Oct 2024 15:27:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=I9YX=RH=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1szHYW-0007SS-Er
- for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 15:27:52 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20622.outbound.protection.outlook.com
- [2a01:111:f403:2418::622])
+ id 1szHYa-0007SS-Eg
+ for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 15:27:56 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061a.outbound.protection.outlook.com
+ [2a01:111:f403:2415::61a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e9855e1-87e5-11ef-a0bd-8be0dac302b0;
- Fri, 11 Oct 2024 17:27:51 +0200 (CEST)
-Received: from BN7PR02CA0008.namprd02.prod.outlook.com (2603:10b6:408:20::21)
- by IA1PR12MB7639.namprd12.prod.outlook.com (2603:10b6:208:425::8)
+ id 626127fd-87e5-11ef-a0bd-8be0dac302b0;
+ Fri, 11 Oct 2024 17:27:55 +0200 (CEST)
+Received: from BN7PR02CA0002.namprd02.prod.outlook.com (2603:10b6:408:20::15)
+ by PH0PR12MB8125.namprd12.prod.outlook.com (2603:10b6:510:293::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Fri, 11 Oct
- 2024 15:27:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18; Fri, 11 Oct
+ 2024 15:27:50 +0000
 Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:20:cafe::3c) by BN7PR02CA0008.outlook.office365.com
- (2603:10b6:408:20::21) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:20:cafe::e6) by BN7PR02CA0002.outlook.office365.com
+ (2603:10b6:408:20::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.20 via Frontend
- Transport; Fri, 11 Oct 2024 15:27:42 +0000
+ Transport; Fri, 11 Oct 2024 15:27:50 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.13 via Frontend Transport; Fri, 11 Oct 2024 15:27:41 +0000
+ 15.20.8048.13 via Frontend Transport; Fri, 11 Oct 2024 15:27:50 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 11 Oct
- 2024 10:27:41 -0500
+ 2024 10:27:48 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 11 Oct 2024 10:27:40 -0500
+ Transport; Fri, 11 Oct 2024 10:27:47 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e9855e1-87e5-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 626127fd-87e5-11ef-a0bd-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PVuecqEyK9QUPIM/OucNgwHJLHQqk9B2HELaqoNmi/PrRqgkHLFflWRpNamcapp+o7YKCasjXPEn1FPGlO4ymN5ZPuz8zRkA8/5cdzuDWzzNKMBBZxfFE+rXAZ5QEIbsRMmD7bugkOuV3MJuMQ60/MvyzeZ3WWLwZMux4L9KiTg1uE3i9b0Q7KHus5VslEdfDlOa561d8t73iXq1zkkfFvgM23+ERobLWRwBQbVrFhGAw5trMacoZMQq1gn+d2kBpb3be8fJ9vb1UrT1uyCUvT796VDfusUIkIgnQLpSl64Ij8qF59GrYFhxiBqF2gec2DzYUCW7r2qb8Fo05tbaew==
+ b=RBGo0ONO5nhwEO3UszMfRS/bOX2NDDgS7dfJWbD3JORg6nY6wQ4V9vZUShfYU2NAT0HXdFI+TKn86q0qicctR2Bi7056i+fVb14REjkxJ9HHlO3RACLGYb0MWGxQQi4AcPaQs+gMJYi2cGPgnbKmjrMMpNHas1hL0JcLMWe9luamStVR50HaWKl4o8EQhAkz/uSU9saiaWC9hl5P/J+gUOaPLecgCu1S05smi4HIPc1nkRHjMvnyyaHNq92EtPgqch1xLckES6dplXzinATOzs/iKTm4L9jGtJpBcFYBgsNIAA+umBsWknr72WtjjL/E9dDMKXlv0IfeBrcBgOZ0ug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bae18Nq7AOaW1aZ8YIQKtu/Xs/0xVUuY6JnFn3meqtw=;
- b=PTP82t8gf/ZrirNSf48Hfa8MFV17jamp7YngmCIlwzNbcIQ4L5FavPPRIyhSNYkGIyL5mlnzEvBg/ClAM2toHAmLBR6tI4UwUDpHcQ2m4tckU31hcpOUwjJrVLP+4ESyDS0Gz0jnyC5ANZbzKirMRlWeUXo08t9513mjW/+ZhOBlQ/MkimcPLmeBH05LT59+lb0N5NbUqGJ8U3BAvaHv6q8WM/k7O3iIKzMZvTEX0VE0/PN81YyHDmSxANRjFVTJFPN8kubavth4a9lM21RjRHE/gOEcvre0oaDDa4PmypliyA7HICJvq1cb151dE40XjZcirTl0Ri/602CbIuFNcA==
+ bh=0hdJcd67VFCUntI2TnhTshHdpS7eovY/+F2haWAsl40=;
+ b=hpRh12Ja7KktDPBVh2Izavb3yg5R4N07JJNkry/C+tjs0Q5hGIbg6XMaAPw8XgzfL9aU0ToM7vRCbmMAKBVeiEPAVBV3draEpyrUm447/2rLfc2SAGdpr/owDlqnCUVftFPYUnk4Hv15EaTdA6QitTTnRko9GsN+sHsAymvpBragCSJse2cjv4AAJb3fYgptWKhqylSU1corIpOq/NUlbIfVELRFv68nljIeWSNuzElVHIq7Fx9fHe6oM8E7oHvGgKlHAepl3I88TSSxlWMyI0Wx5JnaSnL1ftUJzZoo/igAsOqbGfFypUwsfM9dwJE7J7aGHNePA9Xbhn6NMqHwrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bae18Nq7AOaW1aZ8YIQKtu/Xs/0xVUuY6JnFn3meqtw=;
- b=XqoI5GEhYbqPzhOtXcYTs401jY++u3veKjDiOnUGKXUB3o6rVB7O4jVcd0u3ZVrYCi3ev9UELyQJHFbqjJjcBKzWRwsyjjJT0yISjF41YfPvAblrt15DG4HwPnSU4kv+tSZxjOA4hLf2nSyA0MX9zcaGCvl4lBZf64xOM6Qid+U=
+ bh=0hdJcd67VFCUntI2TnhTshHdpS7eovY/+F2haWAsl40=;
+ b=R7pJYlvgCd4wxirE+pp4Ad2pWj/Z5W0fcaT42X9cbXFUGVSvbWe/xcHJwct1bu5QCelRAVOQHUd52+mJwIUVRx1ilCAcIrH0tVpVsvs3Cc/EwWqiXa6qSyHFSFoiulhRgc6YD3J0kV6euJjIGgDmdJCOJBgPfgCZezMtuZaSNwM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -84,11 +84,12 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v5 1/3] x86/msi: harden stale pdev handling
-Date: Fri, 11 Oct 2024 11:27:06 -0400
-Message-ID: <20241011152727.366770-2-stewart.hildebrand@amd.com>
+	<jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v5 2/3] xen/pci: introduce PF<->VF links
+Date: Fri, 11 Oct 2024 11:27:07 -0400
+Message-ID: <20241011152727.366770-3-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241011152727.366770-1-stewart.hildebrand@amd.com>
 References: <20241011152727.366770-1-stewart.hildebrand@amd.com>
@@ -99,200 +100,212 @@ Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|IA1PR12MB7639:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55b1eea3-583b-4af9-a953-08dcea093f56
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|PH0PR12MB8125:EE_
+X-MS-Office365-Filtering-Correlation-Id: f847a9b3-49d2-4bd9-f711-08dcea094475
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?ScdZELdIUTo+L1yeaV1r4m9phOlErMBPrkEA3RznZclUiCyJY6ukI4UIXovs?=
- =?us-ascii?Q?6QvCMCMayECi6La05VwbD5QdFtSl5NSaDWqTkQrq6IpObSosFLHzgKW6dX7e?=
- =?us-ascii?Q?6AX7wrrNxKeLcVkO7B2HddhOB2PKkXAC9izAeNlZdiUprEQJuGnbyBLjDCo3?=
- =?us-ascii?Q?c/venKIyRs/xbxffLMa8q3PDnSSNDoea8zkmUxYY6CBPzK1/+HTnyccDGZ/e?=
- =?us-ascii?Q?Kq3RPEncr9NCuVrIAoYyYqB9TDcI1rTirMHCNy9lxnUL4oi3MCzdVh7ar2fb?=
- =?us-ascii?Q?vOO8H9R1R0JnZKZj+dJo0y3TLc2Kpqu5LDIDpl8NqPPprJctJQ0eoUs3vmeW?=
- =?us-ascii?Q?tA9z1J1USeHtA4OwWtL5cn3bPpSR+M0bg32rBZ3zyVRGHCUlSzWPZD9vg7Fz?=
- =?us-ascii?Q?jzEaSo7vHWddZuRPS9cXYXjxS9F0jA86bhPKWKQw4AK4Mz0FGEwQi+a4SwWJ?=
- =?us-ascii?Q?ZLsf5g/sxE782WggHjv2B3xV+5gyNFIR7/Huz4KBBX5ARhevRjor5nMebtWr?=
- =?us-ascii?Q?grnJvCPjh92xFtYXnIJRDuZJal0peMIq833Q4TMXR6rMqxa9AWG+9ZWSQ4tA?=
- =?us-ascii?Q?cDh1n/GuqANiDaXa7PU3iDNvI45jTbxDKxc1XZSKsJrIOeNBOSSu2q1arrAo?=
- =?us-ascii?Q?+UQWeQO/RoaCUOrv3ZYvgitVwr104YRcOps9gL4ggLyC/88klss3t7uD1xPv?=
- =?us-ascii?Q?sKBYRQopfCIpMUb46Xrk9QWW4Y7sjcnn80HqKd8ponDXKOn+o7dG1i8BFA4X?=
- =?us-ascii?Q?HZAs0MRLqk7XLaIut6PMYXb5cly+zbU0tazAAvTQsDJbpEamytAhqbtXkJr0?=
- =?us-ascii?Q?P5Be3BFmZaZCUNS3asmrUIZi1QVhPMyJ0X/G38XDeadKgvHBC6mQoukAhoNn?=
- =?us-ascii?Q?8rwmrPIrPZ91od/jjwwE6MEy4jUoSl88UwdPWVL46deEobwrh88rhOjP1wG4?=
- =?us-ascii?Q?KDeIyc0JUFv8dsFMY4XANZBsr6viwUvG6zHuQITM6EihXEoaclxWwtFOvayF?=
- =?us-ascii?Q?b7VZYCw9C26KqZDfaqXE7IEWzhHYuDfx+5IUuYG786UoYWwIuaQbr5dysT+K?=
- =?us-ascii?Q?q/K3uJfdthaG9R+XVtRrkH8gng+cbOPTU7JhjK5Y8gh5MnHOdeuiDGWtQymd?=
- =?us-ascii?Q?6J1iD084uJuqoN70fPrmSbX9hWgeXBGsZs2e11A4Aq/J6e4o6tLIr/mD8dij?=
- =?us-ascii?Q?xlfAy7WQAYzsaOBxGTj9TVjqhUreK41UzW9xlNyfKrFZHbLmXueAvCG99tsF?=
- =?us-ascii?Q?7e/NyD7kz3+CCLDfSbVr7sgbW3hjAef9zhAJynaKP1+XU3AxOcPy4oNkHFr+?=
- =?us-ascii?Q?ayxwz8fA8DvgOQ+nHXGnpvcJ436Rsm/5cMA7OTWHXAAxbDZPapzUZDe1466j?=
- =?us-ascii?Q?Q0wstyJkvQyl5CDCBCSJRxx30bSc?=
+	=?us-ascii?Q?HjVEaIXfOLZtSrKpIg90qlVpiUInB6M0q0RQ9XN+vaWyi8tHamvSB60/X9fj?=
+ =?us-ascii?Q?28674g9ccg2VLI8VZJ1Q+tdi9zeZGWGcO31Q5k25z66FCSRJtOfjwLj1PgND?=
+ =?us-ascii?Q?DbqbnLZ4f5SmGNzQRrqaN1jrTIDTaDo8JcoWow5E/h46N30KFp9LLVwUx41o?=
+ =?us-ascii?Q?9Txfd2cee2oR0d61Tu18FBPeIrv4pJSUSwUW/FIO5ktiSmR2J1YD6cQGqOKX?=
+ =?us-ascii?Q?X++JXspoU/h7Wscw/BLPaYHGsL+LJSgSzHeNh3KLrujOftQhQhB74dEw4MqN?=
+ =?us-ascii?Q?WMSH3WynGHzlx3MBsU7k8dEuDfVHah3zF/t1M/NQ7Phk43IXDIuGNuc/zjud?=
+ =?us-ascii?Q?njYglJU2PAdY++qpv/IMtI9EopNIkJQU/78AwGcdqdOEueQPvLKY0YnLftAf?=
+ =?us-ascii?Q?22vcE2cfoFiCZMHFK7aZlmiGEhfTmIrYdlgg2cnBWG38YDHeO3bjRF20d5Uz?=
+ =?us-ascii?Q?aURM58Y3dhqt/N4iVc/vozqwJ+NdEMwylzuR42PKbs2znLxXIjTRCdvuXyDg?=
+ =?us-ascii?Q?2En8hWSFvmSORZcl1QBM+StC4DKi3Y8p9tVCkbnvJQeoOz2HzYOKxU6XETUi?=
+ =?us-ascii?Q?kObw52ZtFR52KCWEsOYvkyQaI04FPEhbRYz6q8o0dNtUXWSLhrZq4z7k7PT2?=
+ =?us-ascii?Q?q6/BG2pt92O/hw5ECzZoHRCOiDSO7UJoxeriKh5L5z37zeNlPOYpZWU6sQ0o?=
+ =?us-ascii?Q?ysIlCbPSLhliU8DSOsTkUu1kFt1kyfILsQlvjqr4yAcPVeckU35rOGh5ywho?=
+ =?us-ascii?Q?AYnauPhmoyMEPShQLcu9jH2FFq3HPS0cMQp4HG7syjgiCrcXIfr5QM8XciLd?=
+ =?us-ascii?Q?NL2dZyClKs4nD6Qu3n+YAFKNVkHc8aAkpNaqJt8FNoFdoGqQdXm2I/f02aqi?=
+ =?us-ascii?Q?N730DkfnAFBHfPVLSOayIrEu24nhYi3sbfVe5zS0iUgKulOC24KnbuUMOb0k?=
+ =?us-ascii?Q?zxaicWLpP9PF5AgsmZcfOTzjPKaOmyDBoGMu1wRCsY69pE9Asr0fDXLj8Abz?=
+ =?us-ascii?Q?ZTqE17EvTc+bPjH28/AHebGsIz0OmR0DwBixItgd4pFXvtqjEi1XxDR+3I4h?=
+ =?us-ascii?Q?9tFE1ESUFQFT2G88NvCldIVRZMUYHrLIY223kRixzHoYv6J6cXe7lOSrcpPh?=
+ =?us-ascii?Q?UMVcY4e8wUR+iAc/IUb077J7etbJ0DOYfVwTZOh4ih1IPKg8OQweshT/AHxn?=
+ =?us-ascii?Q?2qTLYKLEaK/kW0OfKAIVkCwkwV9VIX6aBewwdCrnTfiYeh2b6iKmsr1pfE/L?=
+ =?us-ascii?Q?o9c4dnvCnyNEqDen6LTHNRzPhkI/srXPAXUemhkZmSLxNadt03j8PtnGXyjI?=
+ =?us-ascii?Q?xAMyy4as9lfpgm0yIpuouxvbZNIzRQxW/A3A0qreEdIeVVMHRd40SVRObfOL?=
+ =?us-ascii?Q?4RgEghk=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2024 15:27:41.7392
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2024 15:27:50.3329
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55b1eea3-583b-4af9-a953-08dcea093f56
+X-MS-Exchange-CrossTenant-Network-Message-Id: f847a9b3-49d2-4bd9-f711-08dcea094475
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN2PEPF00004FBA.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7639
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8125
 
-Dom0 normally informs Xen of PCI device removal via
-PHYSDEVOP_pci_device_remove, e.g. in response to SR-IOV disable or
-hot-unplug. We might find ourselves with stale pdevs if a buggy dom0
-fails to report removal via PHYSDEVOP_pci_device_remove. In this case,
-attempts to access the config space of the stale pdevs would be invalid
-and return all 1s.
+Add links between a VF's struct pci_dev and its associated PF struct
+pci_dev. Move the calls to pci_get_pdev()/pci_add_device() down to avoid
+dropping and re-acquiring the pcidevs_lock().
 
-Some possible conditions leading to this are:
+During PF removal, unlink VF from PF and mark the VF broken. As before,
+VFs may exist without a corresponding PF, although now only with
+pdev->broken = true. If the PF is removed and re-added, dom0 is expected
+to also remove and re-add the VFs.
 
-1. Dom0 disables SR-IOV without reporting VF removal to Xen.
-
-The Linux SR-IOV subsystem normally reports VF removal when a PF driver
-disables SR-IOV. In case of a buggy dom0 SR-IOV subsystem, SR-IOV could
-become disabled with stale dangling VF pdevs in both dom0 Linux and Xen.
-
-2. Dom0 reporting PF removal without reporting VF removal.
-
-During SR-IOV PF removal (hot-unplug), a buggy PF driver may fail to
-disable SR-IOV, thus failing to remove the VFs, leaving stale dangling
-VFs behind in both Xen and Linux. At least Linux warns in this case:
-
-[  100.000000]  0000:01:00.0: driver left SR-IOV enabled after remove
-
-In either case, Xen is left with stale VF pdevs, risking invalid PCI
-config space accesses.
-
-When Xen is built with CONFIG_DEBUG=y, the following Xen crashes were
-observed when dom0 attempted to access the config space of a stale VF:
-
-(XEN) Assertion 'pos' failed at arch/x86/msi.c:1274
-(XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Tainted:   C    ]----
-...
-(XEN) Xen call trace:
-(XEN)    [<ffff82d040346834>] R pci_msi_conf_write_intercept+0xa2/0x1de
-(XEN)    [<ffff82d04035d6b4>] F pci_conf_write_intercept+0x68/0x78
-(XEN)    [<ffff82d0403264e5>] F arch/x86/pv/emul-priv-op.c#pci_cfg_ok+0xa0/0x114
-(XEN)    [<ffff82d04032660e>] F arch/x86/pv/emul-priv-op.c#guest_io_write+0xb5/0x1c8
-(XEN)    [<ffff82d0403267bb>] F arch/x86/pv/emul-priv-op.c#write_io+0x9a/0xe0
-(XEN)    [<ffff82d04037c77a>] F x86_emulate+0x100e5/0x25f1e
-(XEN)    [<ffff82d0403941a8>] F x86_emulate_wrapper+0x29/0x64
-(XEN)    [<ffff82d04032802b>] F pv_emulate_privileged_op+0x12e/0x217
-(XEN)    [<ffff82d040369f12>] F do_general_protection+0xc2/0x1b8
-(XEN)    [<ffff82d040201aa7>] F x86_64/entry.S#handle_exception_saved+0x2b/0x8c
-
-(XEN) Assertion 'pos' failed at arch/x86/msi.c:1246
-(XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Tainted:   C    ]----
-...
-(XEN) Xen call trace:
-(XEN)    [<ffff82d040346b0a>] R pci_reset_msix_state+0x47/0x50
-(XEN)    [<ffff82d040287eec>] F pdev_msix_assign+0x19/0x35
-(XEN)    [<ffff82d040286184>] F drivers/passthrough/pci.c#assign_device+0x181/0x471
-(XEN)    [<ffff82d040287c36>] F iommu_do_pci_domctl+0x248/0x2ec
-(XEN)    [<ffff82d040284e1f>] F iommu_do_domctl+0x26/0x44
-(XEN)    [<ffff82d0402483b8>] F do_domctl+0x8c1/0x1660
-(XEN)    [<ffff82d04032977e>] F pv_hypercall+0x5ce/0x6af
-(XEN)    [<ffff82d0402012d3>] F lstar_enter+0x143/0x150
-
-Replace the ASSERT(s) with an error, and mark the device broken to
-disallow passthrough to domUs.
-
-Fixes: 484d7c852e4f ("x86/MSI-X: track host and guest mask-all requests separately")
-Fixes: 575e18d54d19 ("pci: clear {host/guest}_maskall field on assign")
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 ---
+Candidate for backport to 4.19 (the next patch depends on this one)
+
 v4->v5:
-* new patch, independent of the rest of the series
-* new approach to fixing the issue: don't rely on dom0 to report any
-  sort of device removal; rather, fix the condition directly
-
+* new patch, split from ("x86/msi: fix locking for SR-IOV devices")
+* move INIT_LIST_HEAD(&pdev->vf_list); earlier
+* collapse struct list_head instances
+* retain error code from pci_add_device()
+* unlink (and mark broken) VFs instead of removing them
+* const-ify VF->PF link
 ---
-Instructions to reproduce
-Requires Xen with CONFIG_DEBUG=y
-Tested with Linux 6.11
+ xen/drivers/passthrough/pci.c | 70 ++++++++++++++++++++++++++++-------
+ xen/include/xen/pci.h         | 10 +++++
+ 2 files changed, 66 insertions(+), 14 deletions(-)
 
-1. Dom0 disables SR-IOV without reporting VF removal to Xen.
-
-* Hack the Linux SR-IOV subsystem to remove the call to
-  pci_stop_and_remove_bus_device() in
-  drivers/pci/iov.c:pci_iov_remove_virtfn().
-
-* Enable SR-IOV, then disable SR-IOV
-  echo 1 > /sys/bus/pci/devices/0000\:01\:00.0/sriov_numvfs
-  echo 0 > /sys/bus/pci/devices/0000\:01\:00.0/sriov_numvfs
-
-* Now we have a stale VF. We can trigger the ASSERT either by unbinding
-  the VF driver and issuing a reset...
-
-  echo 0000\:01\:10.0 > /sys/bus/pci/devices/0000\:01\:10.0/driver/unbind
-  echo 1 > /sys/bus/pci/devices/0000\:01\:10.0/reset
-
-  ... or by doing xl pci-assignable-add
-
-  xl pci-assignable-add 01:10.0
-
-2. Dom0 reporting PF removal without reporting VF removal.
-
-* Hack your PF driver to leave SR-IOV enabled when removing the device
-
-* Enable SR-IOV
-
-  echo 1 > /sys/bus/pci/devices/0000\:01\:00.0/sriov_numvfs
-
-* Unplug the PCI device
-
-  (qemu) device_del mydev
-
-* Now we have a stale VF. We can trigger the ASSERT either by re-adding
-  the PF device with SR-IOV disabled...
-
-  echo 0000\:01\:10.0 > /sys/bus/pci/devices/0000\:01\:10.0/driver/unbind
-  (qemu) device_add igb,id=mydev,bus=pcie.1,netdev=net1
-
-  ... or by reset / xl pci-assignable-add as above.
----
- xen/arch/x86/msi.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
-index ff2e3d86878d..fbb07fe821b5 100644
---- a/xen/arch/x86/msi.c
-+++ b/xen/arch/x86/msi.c
-@@ -1243,7 +1243,12 @@ int pci_reset_msix_state(struct pci_dev *pdev)
- {
-     unsigned int pos = pci_find_cap_offset(pdev->sbdf, PCI_CAP_ID_MSIX);
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 74d3895e1ef6..95a8ed850efd 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -333,6 +333,8 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
+     *((u8*) &pdev->devfn) = devfn;
+     pdev->domain = NULL;
  
--    ASSERT(pos);
-+    if ( !pos )
-+    {
-+        pdev->broken = true;
-+        return -EFAULT;
-+    }
++    INIT_LIST_HEAD(&pdev->vf_list);
 +
-     /*
-      * Xen expects the device state to be the after reset one, and hence
-      * host_maskall = guest_maskall = false and all entries should have the
-@@ -1271,7 +1276,12 @@ int pci_msi_conf_write_intercept(struct pci_dev *pdev, unsigned int reg,
-         entry = find_msi_entry(pdev, -1, PCI_CAP_ID_MSIX);
-         pos = entry ? entry->msi_attrib.pos
-                     : pci_find_cap_offset(pdev->sbdf, PCI_CAP_ID_MSIX);
--        ASSERT(pos);
+     arch_pci_init_pdev(pdev);
+ 
+     rc = pdev_msi_init(pdev);
+@@ -449,6 +451,10 @@ static void free_pdev(struct pci_seg *pseg, struct pci_dev *pdev)
+ 
+     list_del(&pdev->alldevs_list);
+     pdev_msi_deinit(pdev);
 +
-+        if ( !pos )
++    if ( pdev->info.is_virtfn && pdev->virtfn.pf_pdev )
++        list_del(&pdev->vf_list);
++
+     xfree(pdev);
+ }
+ 
+@@ -656,24 +662,11 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+     unsigned int slot = PCI_SLOT(devfn), func = PCI_FUNC(devfn);
+     const char *type;
+     int ret;
+-    bool pf_is_extfn = false;
+ 
+     if ( !info )
+         type = "device";
+     else if ( info->is_virtfn )
+-    {
+-        pcidevs_lock();
+-        pdev = pci_get_pdev(NULL,
+-                            PCI_SBDF(seg, info->physfn.bus,
+-                                     info->physfn.devfn));
+-        if ( pdev )
+-            pf_is_extfn = pdev->info.is_extfn;
+-        pcidevs_unlock();
+-        if ( !pdev )
+-            pci_add_device(seg, info->physfn.bus, info->physfn.devfn,
+-                           NULL, node);
+         type = "virtual function";
+-    }
+     else if ( info->is_extfn )
+         type = "extended function";
+     else
+@@ -703,7 +696,44 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+          * extended function.
+          */
+         if ( pdev->info.is_virtfn )
+-            pdev->info.is_extfn = pf_is_extfn;
 +        {
-+            pdev->broken = true;
-+            return -EFAULT;
++            struct pci_dev *pf_pdev;
++
++            pf_pdev = pci_get_pdev(NULL,
++                                   PCI_SBDF(seg, info->physfn.bus,
++                                            info->physfn.devfn));
++
++            if ( !pf_pdev )
++            {
++                ret = pci_add_device(seg, info->physfn.bus, info->physfn.devfn,
++                                     NULL, node);
++                if ( ret )
++                {
++                    printk(XENLOG_WARNING "Failed to add SR-IOV device PF %pp for VF %pp\n",
++                           &PCI_SBDF(seg, info->physfn.bus, info->physfn.devfn),
++                           &pdev->sbdf);
++                    free_pdev(pseg, pdev);
++                    goto out;
++                }
++                pf_pdev = pci_get_pdev(NULL,
++                                       PCI_SBDF(seg, info->physfn.bus,
++                                                info->physfn.devfn));
++                if ( !pf_pdev )
++                {
++                    ASSERT_UNREACHABLE();
++                    printk(XENLOG_ERR "Failed to find SR-IOV device PF %pp for VF %pp\n",
++                           &PCI_SBDF(seg, info->physfn.bus, info->physfn.devfn),
++                           &pdev->sbdf);
++                    free_pdev(pseg, pdev);
++                    ret = -EILSEQ;
++                    goto out;
++                }
++            }
++
++            pdev->info.is_extfn = pf_pdev->info.is_extfn;
++            pdev->virtfn.pf_pdev = pf_pdev;
++            list_add(&pdev->vf_list, &pf_pdev->vf_list);
 +        }
+     }
  
-         if ( reg >= pos && reg < msix_pba_offset_reg(pos) + 4 )
+     if ( !pdev->info.is_virtfn && !pdev->vf_rlen[0] )
+@@ -821,6 +851,18 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+         if ( pdev->bus == bus && pdev->devfn == devfn )
          {
++            if ( !pdev->info.is_virtfn )
++            {
++                struct pci_dev *vf_pdev, *tmp;
++
++                list_for_each_entry_safe(vf_pdev, tmp, &pdev->vf_list, vf_list)
++                {
++                    list_del(&vf_pdev->vf_list);
++                    vf_pdev->virtfn.pf_pdev = NULL;
++                    vf_pdev->broken = true;
++                }
++            }
++
+             if ( pdev->domain )
+             {
+                 write_lock(&pdev->domain->pci_lock);
+diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+index 63e49f0117e9..f9435b7f4eb9 100644
+--- a/xen/include/xen/pci.h
++++ b/xen/include/xen/pci.h
+@@ -150,7 +150,17 @@ struct pci_dev {
+         unsigned int count;
+ #define PT_FAULT_THRESHOLD 10
+     } fault;
++
++    /*
++     * List head if info.is_virtfn == false
++     * List entry if info.is_virtfn == true
++     */
++    struct list_head vf_list;
+     u64 vf_rlen[6];
++    struct {
++        /* Only populated for VFs (info.is_virtfn == true) */
++        const struct pci_dev *pf_pdev;        /* Link from VF to PF */
++    } virtfn;
+ 
+     /* Data for vPCI. */
+     struct vpci *vpci;
 -- 
 2.47.0
 
