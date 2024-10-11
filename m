@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA54699A229
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 12:58:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816923.1231016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2324B99A285
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 13:13:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816932.1231027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szDLF-0005PG-4y; Fri, 11 Oct 2024 10:57:53 +0000
+	id 1szDZm-0000dw-DY; Fri, 11 Oct 2024 11:12:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816923.1231016; Fri, 11 Oct 2024 10:57:53 +0000
+Received: by outflank-mailman (output) from mailman id 816932.1231027; Fri, 11 Oct 2024 11:12:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szDLF-0005MT-2F; Fri, 11 Oct 2024 10:57:53 +0000
-Received: by outflank-mailman (input) for mailman id 816923;
- Fri, 11 Oct 2024 10:57:51 +0000
+	id 1szDZm-0000ao-AP; Fri, 11 Oct 2024 11:12:54 +0000
+Received: by outflank-mailman (input) for mailman id 816932;
+ Fri, 11 Oct 2024 11:12:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SPWD=RH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1szDLD-0005MN-0T
- for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 10:57:51 +0000
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [2a00:1450:4864:20::643])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5FLX=RH=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1szDZk-0000ai-5l
+ for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 11:12:52 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7373c5d-87bf-11ef-99a2-01e77a169b0f;
- Fri, 11 Oct 2024 12:57:48 +0200 (CEST)
-Received: by mail-ej1-x643.google.com with SMTP id
- a640c23a62f3a-a995f56ea2dso302937666b.1
- for <xen-devel@lists.xenproject.org>; Fri, 11 Oct 2024 03:57:48 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99a7ec5800sm201797366b.19.2024.10.11.03.57.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Oct 2024 03:57:47 -0700 (PDT)
+ id c05b59e6-87c1-11ef-99a2-01e77a169b0f;
+ Fri, 11 Oct 2024 13:12:50 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4F0AA21FC0;
+ Fri, 11 Oct 2024 11:12:49 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0A5EA136E0;
+ Fri, 11 Oct 2024 11:12:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iVvjADEICWeGUQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 11 Oct 2024 11:12:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,229 +52,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7373c5d-87bf-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728644268; x=1729249068; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9VOY4HNxnSKMilqY8I1r2wq3xhRy/1SsaUOUpiFil1w=;
-        b=lXcjei+nIRh60RmDAId+mMc3tRjF92aGdbJoX9hV6n7L6OLF9Jkv7pD0Bo5qD32qI6
-         XF6UIygpIOsBk5gDZkiX3PdYx9ji8X70PVHXKtxVluoI8INjA4VBpFs+FidANG5oLK4i
-         e5FgH6u450vPHl14wjRFiuzPbQq1opr4zrB6A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728644268; x=1729249068;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9VOY4HNxnSKMilqY8I1r2wq3xhRy/1SsaUOUpiFil1w=;
-        b=MvZFUi+fny61tfTwR8K2gXshxcPD34+6IAvci7PNP3uF5/oW2YXHS0TQRMMeo/Ozs6
-         fDte4HTidKtyL3tLePfEcKthg5RwirTuIyPxyKeI0T7KEZWtBgdx/IvxU0gzUYNnGbPL
-         Tcj4Q/IJ9hex4dAglotmVN8mfsRTD3mBh7j8yQN413P0s0up5r/MxhZQYwEIs4jehpB8
-         sapZjWZ7qOpBPRLbLTcb/fh9I525AFqOkqHJ/zcWcV5mukUT3shR7NV/Gmk+ll9WCgp+
-         CNR4dlAFIA/kJ8SMKsb3U/Iz/lsCEBTzGYDBgeg7xYgRV/y2y4m/BHYn/VKd+hYH17jX
-         D2bQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVL7++/YPtKQx4muNLlwjRna9YZtEnO37rM/02RevQSUEfilJ8OoVSFG6+eTbh6Gsq5BqUcxL3M1RU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyw7+7OTXXcwP5kmYIdwnx+jEhOTZEIBHOZvWcF92Ok9P1ZEv2S
-	KUmBH3VnCOk9evNKltJPYHG51r54VpmhQFlV8xU66xaBaXa0Z4+AcOUbJTUJYPo=
-X-Google-Smtp-Source: AGHT+IEe1mAkpEN5z+LOMDS41nQOE+pVp/K/F7JvjAC97tWG5ccBzRXsD6WCLt7wjqRRf7VnmLuUDw==
-X-Received: by 2002:a17:907:e6a4:b0:a99:61d1:348f with SMTP id a640c23a62f3a-a99b95a6ebemr173449666b.52.1728644268084;
-        Fri, 11 Oct 2024 03:57:48 -0700 (PDT)
-Message-ID: <293bb092-0ea5-4a9b-805d-f23b9b5b13e5@citrix.com>
-Date: Fri, 11 Oct 2024 11:57:45 +0100
+X-Inumbo-ID: c05b59e6-87c1-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1728645169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=pwaAPCR0sw9ktHoI4XXCZhNNCuBHNpmZtr1iDobCsDo=;
+	b=DBrcU/6XaJ51iokbKbLJ/DnYcRoGLtFV1QDbaq16NHAVn8hnvyNAd/04Nuj3WLNTLPggjm
+	rsQ/FhwHrLp2S+sBWaPbwKezk6as+zEGFl6WihD1ocem8Wc156seXWsVpvBcesd2uMGJ0l
+	c3IsZz3NwXWoauM7KWPBFoEfnd+78g8=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1728645169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=pwaAPCR0sw9ktHoI4XXCZhNNCuBHNpmZtr1iDobCsDo=;
+	b=DBrcU/6XaJ51iokbKbLJ/DnYcRoGLtFV1QDbaq16NHAVn8hnvyNAd/04Nuj3WLNTLPggjm
+	rsQ/FhwHrLp2S+sBWaPbwKezk6as+zEGFl6WihD1ocem8Wc156seXWsVpvBcesd2uMGJ0l
+	c3IsZz3NwXWoauM7KWPBFoEfnd+78g8=
+Message-ID: <3b83e1ea-f630-4259-bc9e-16497329f5a3@suse.com>
+Date: Fri, 11 Oct 2024 13:12:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Makefile only] [PATCH v3 1/5] x86/boot: create a C bundle for 32
- bit boot code and use it
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241011085244.432368-1-frediano.ziglio@cloud.com>
- <20241011085244.432368-2-frediano.ziglio@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241011085244.432368-2-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3] xen: Remove dependency between pciback and privcmd
+To: Jan Beulich <jbeulich@suse.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20241011034227.1278144-1-Jiqian.Chen@amd.com>
+ <318bd8a4-a349-4e7b-8653-6995d5f9f125@suse.com>
+ <BL1PR12MB5849EFA99B7F0C55D201738AE7792@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <BL1PR12MB584931B86739702086CDFF12E7792@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <d67285fc-5106-429a-9dd1-747c435282f5@suse.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <d67285fc-5106-429a-9dd1-747c435282f5@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------COs2xWgFHhO203CTrdqeSNOK"
+X-Spam-Score: -5.15
+X-Spamd-Result: default: False [-5.15 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	NEURAL_HAM_LONG(-0.99)[-0.990];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.16)[-0.782];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_BASE64_TEXT(0.10)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,imap1.dmz-prg2.suse.org:helo];
+	TO_DN_SOME(0.00)[];
+	HAS_ATTACHMENT(0.00)[]
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-On 11/10/2024 9:52 am, Frediano Ziglio wrote:
-> <snip>
->
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------COs2xWgFHhO203CTrdqeSNOK
+Content-Type: multipart/mixed; boundary="------------21j9CXdGhgmOlRMlnUwRz7TF";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Message-ID: <3b83e1ea-f630-4259-bc9e-16497329f5a3@suse.com>
+Subject: Re: [PATCH v3] xen: Remove dependency between pciback and privcmd
+References: <20241011034227.1278144-1-Jiqian.Chen@amd.com>
+ <318bd8a4-a349-4e7b-8653-6995d5f9f125@suse.com>
+ <BL1PR12MB5849EFA99B7F0C55D201738AE7792@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <BL1PR12MB584931B86739702086CDFF12E7792@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <d67285fc-5106-429a-9dd1-747c435282f5@suse.com>
+In-Reply-To: <d67285fc-5106-429a-9dd1-747c435282f5@suse.com>
+Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
+ ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
+ Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
+ pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
+ tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
+ OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
+ v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
+ 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
+ jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
+ DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
+ Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
+ dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
+ AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
 
-The makefile changes here are not the easiest to follow, because there
-are two related things being done.
+--------------21j9CXdGhgmOlRMlnUwRz7TF
+Content-Type: multipart/mixed; boundary="------------XnQxRrZOka0Bp2XoAEgB44AZ"
 
-I experimented, and came up with the following:
+--------------XnQxRrZOka0Bp2XoAEgB44AZ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-   
-https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/fz-32b-v3.1
+T24gMTEuMTAuMjQgMTI6MTAsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxMS4xMC4yMDI0
+IDExOjMzLCBDaGVuLCBKaXFpYW4gd3JvdGU6DQo+PiBPbiAyMDI0LzEwLzExIDE3OjIwLCBD
+aGVuLCBKaXFpYW4gd3JvdGU6DQo+Pj4gT24gMjAyNC8xMC8xMSAxNjo1NCwgSmFuIEJldWxp
+Y2ggd3JvdGU6DQo+Pj4+IE9uIDExLjEwLjIwMjQgMDU6NDIsIEppcWlhbiBDaGVuIHdyb3Rl
+Og0KPj4+Pj4gQEAgLTE3NTcsMTEgKzE3NTYsMTkgQEAgc3RhdGljIGludCBfX2luaXQgeGVu
+X3BjaWJrX2luaXQodm9pZCkNCj4+Pj4+ICAgCQlidXNfcmVnaXN0ZXJfbm90aWZpZXIoJnBj
+aV9idXNfdHlwZSwgJnBjaV9zdHViX25iKTsNCj4+Pj4+ICAgI2VuZGlmDQo+Pj4+PiAgIA0K
+Pj4+Pj4gKyNpZmRlZiBDT05GSUdfWEVOX0FDUEkNCj4+Pj4+ICsJeGVuX2FjcGlfcmVnaXN0
+ZXJfZ2V0X2dzaV9mdW5jKHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3NiZGYpOw0KPj4+Pj4gKyNl
+bmRpZg0KPj4+Pj4gKw0KPj4+Pj4gICAJcmV0dXJuIGVycjsNCj4+Pj4+ICAgfQ0KPj4+Pj4g
+ICANCj4+Pj4+ICAgc3RhdGljIHZvaWQgX19leGl0IHhlbl9wY2lia19jbGVhbnVwKHZvaWQp
+DQo+Pj4+PiAgIHsNCj4+Pj4+ICsjaWZkZWYgQ09ORklHX1hFTl9BQ1BJDQo+Pj4+PiArCXhl
+bl9hY3BpX3JlZ2lzdGVyX2dldF9nc2lfZnVuYyhOVUxMKTsNCj4+Pj4+ICsjZW5kaWYNCj4+
+Pj4NCj4+Pj4gSnVzdCB3b25kZXJpbmcgLSBpbnN0ZWFkIG9mIHRoZXNlIHR3byAjaWZkZWYt
+cywgLi4uDQo+Pj4+DQo+Pj4+PiAtLS0gYS9pbmNsdWRlL3hlbi9hY3BpLmgNCj4+Pj4+ICsr
+KyBiL2luY2x1ZGUveGVuL2FjcGkuaA0KPj4+Pj4gQEAgLTkxLDEzICs5MSw5IEBAIHN0YXRp
+YyBpbmxpbmUgaW50IHhlbl9hY3BpX2dldF9nc2lfaW5mbyhzdHJ1Y3QgcGNpX2RldiAqZGV2
+LA0KPj4+Pj4gICB9DQo+Pj4+PiAgICNlbmRpZg0KPj4+Pj4gICANCj4+Pj4+IC0jaWZkZWYg
+Q09ORklHX1hFTl9QQ0lfU1RVQg0KPj4+Pj4gLWludCBwY2lzdHViX2dldF9nc2lfZnJvbV9z
+YmRmKHVuc2lnbmVkIGludCBzYmRmKTsNCj4+Pj4+IC0jZWxzZQ0KPj4+Pj4gLXN0YXRpYyBp
+bmxpbmUgaW50IHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3NiZGYodW5zaWduZWQgaW50IHNiZGYp
+DQo+Pj4+PiAtew0KPj4+Pj4gLQlyZXR1cm4gLTE7DQo+Pj4+PiAtfQ0KPj4+Pj4gLSNlbmRp
+Zg0KPj4+Pj4gK3R5cGVkZWYgaW50ICgqZ2V0X2dzaV9mcm9tX3NiZGZfdCkodTMyIHNiZGYp
+Ow0KPj4+Pj4gKw0KPj4+Pj4gK3ZvaWQgeGVuX2FjcGlfcmVnaXN0ZXJfZ2V0X2dzaV9mdW5j
+KGdldF9nc2lfZnJvbV9zYmRmX3QgZnVuYyk7DQo+Pj4+PiAraW50IHhlbl9hY3BpX2dldF9n
+c2lfZnJvbV9zYmRmKHUzMiBzYmRmKTsNCj4+Pj4NCj4+Pj4gLi4uIHdvdWxkbid0IGEgc3Rh
+dGljIGlubGluZSBzdHViIChmb3IgdGhlICFYRU5fQUNQSSBjYXNlKSBhaWQgb3ZlcmFsbCBy
+ZWFkYWJpbGl0eT8NCj4+PiBJJ20gbm90IHN1cmUgaWYgb3RoZXIgZmlsZXMgZG8gdGhpcy4g
+QnV0IGZvciBtZSwgaXQgZmVlbHMgYSBsaXR0bGUgc3RyYW5nZSB0byB1c2UgIiNpZmRlZiBD
+T05GSUdfWEVOX0FDUEkgI2Vsc2UiIGluIGFwY2kuaCwgbGlrZSBzZWxmLWNvbnRhaW5tZW50
+Lg0KPj4+IEFuZCAiI2luY2x1ZGUgYXBjaS5oIiBpbiBwaWNfc3R1Yi5jIGlzIGFsc28gd3Jh
+cGVkIHdpdGggQ09ORklHX1hFTl9BQ1BJLg0KPj4gT0ssIEkgc2F3IG90aGVyIGZpbGVzIGFs
+c28gZG8gdGhpcy4NCj4+IElmIHlvdSBpbnNpc3QsIEkgd2lsbCBtYWtlIG1vZGlmaWNhdGlv
+bnMgaW4gdGhlIG5leHQgdmVyc2lvbi4NCj4gDQo+IFdlbGwsIEknbSBub3QgYSBtYWludGFp
+bmVyIG9mIHRoaXMgY29kZSwgc28gSSBjYW4ndCB2ZXJ5IHdlbGwgaW5zaXN0Lg0KDQpJbiB0
+aGlzIGNhc2UgSSdtIGluIGZhdm9yIG9mIGhhdmluZyB0aGUgI2lmZGVmcyBhdCB0aGUgY2Fs
+bGluZyBzaXRlLg0KDQpUaGUgYW1vdW50IG9mIGNvZGUgaXNuJ3QgbGFyZ2VyIHRoaXMgd2F5
+LCB3aGlsZSBpdCBpcyBtb3JlIGNsZWFyIHdoZW4NCnJlYWRpbmcgdGhlIGNvZGUgdGhhdCB0
+aGUgY2FsbHMgYXJlIG9ubHkgZG9uZSBpbiB0aGUgQ09ORklHX1hFTl9BQ1BJDQpjYXNlLg0K
+DQoNCkp1ZXJnZW4NCg==
+--------------XnQxRrZOka0Bp2XoAEgB44AZ
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-which splits the obj32 transformation out of the "totally change how we
-link things" which is the purpose of this patch.  The end result is much
-clearer to follow IMO.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I've got some other comments, which I've included in the branch, but are
-presented here for posterity.
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-> diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-> index ff0f965876..4cf0d7e140 100644
-> --- a/xen/arch/x86/boot/Makefile
-> +++ b/xen/arch/x86/boot/Makefile
-> @@ -1,15 +1,18 @@
-> +obj32 := cmdline.o
-> +obj32 += reloc.o
-> +
->  obj-bin-y += head.o
-> +obj-bin-y += built_in_32.o
->  
-> -head-bin-objs := cmdline.o reloc.o
-> +obj32 := $(patsubst %.o,%.32.o,$(obj32))
+--------------XnQxRrZOka0Bp2XoAEgB44AZ--
 
-We're already used to writing out foo.init.o, so just have the .32.o in
-list.
+--------------21j9CXdGhgmOlRMlnUwRz7TF--
 
-This makes patch 3 slightly more obvious, where you're not listing the
-same .o in two different obj lists.
+--------------COs2xWgFHhO203CTrdqeSNOK
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
->  
-> -nocov-y   += $(head-bin-objs)
-> -noubsan-y += $(head-bin-objs)
-> -targets   += $(head-bin-objs)
-> +nocov-y   += $(obj32)
-> +noubsan-y += $(obj32)
-> +targets   += $(obj32)
->  
-> -head-bin-objs := $(addprefix $(obj)/,$(head-bin-objs))
-> +obj32 := $(addprefix $(obj)/,$(obj32))
->  
->  $(obj)/head.o: AFLAGS-y += -Wa$(comma)-I$(obj)
-> -$(obj)/head.o: $(head-bin-objs:.o=.bin)
+-----BEGIN PGP SIGNATURE-----
 
-The AFLAGS-y was only for the .incbin's, so can go away here too.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmcJCDAFAwAAAAAACgkQsN6d1ii/Ey/J
+0QgAi82LrXA0EdOXfR9jhU5w/ZxQGzLYiUt2ELnUPb50jelo7PZEDwK3dhnYLH3O7KlnXGUZYfTi
+wIJi1EalNga08XywH8G4n9jL7vjW6AfyDendNBnroFzhEtPofKSqLQtyctrDL70c/ksAqWW0N69G
+p5f6FIsoZY+tA46zZYNt/WWBv3Zlk3RM9dj0YkzLhqtXhuXG07TmLbzlf5CPdXA23+FGTRAaIVQr
+pmQK3EtLF6MJjtxXUJBALmSMEQB1LMaqkXNXF58R6XqfuuXFYatXRWKiV3L3HYoTPXqLEhKcFvrK
+pKnsa0/bolGv/O1GuioYsic37uqA4cbKbckymOwUJw==
+=BVbl
+-----END PGP SIGNATURE-----
 
->  
->  CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
->  $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> @@ -17,17 +20,46 @@ CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float -mregparm=3
->  CFLAGS_x86_32 += -nostdinc -include $(filter %/include/xen/config.h,$(XEN_CFLAGS))
->  CFLAGS_x86_32 += $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__
->  
-> +LD32 := $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
-
-Because this is :=, it needs to be after ...
-
-> +
->  # override for 32bit binaries
-> -$(head-bin-objs): CFLAGS_stack_boundary :=
-> -$(head-bin-objs): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
-> +$(obj32): CFLAGS_stack_boundary :=
-> +$(obj32): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
->  
->  LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) := --no-warn-rwx-segments
->  LDFLAGS_DIRECT += $(LDFLAGS_DIRECT-y)
-
-... this.
-
->  
-> -%.bin: %.lnk
-> -	$(OBJCOPY) -j .text -O binary $< $@
-> +$(obj)/%.32.o: $(src)/%.c FORCE
-> +	$(call if_changed_rule,cc_o_c)
-> +
-> +$(obj)/build32.final.lds: AFLAGS-y += -DFINAL
-> +$(obj)/build32.other.lds $(obj)/build32.final.lds: $(src)/build32.lds.S
-> +	$(call if_changed_dep,cpp_lds_S)
-
-FORCE needs to be a prerequisite to use $(call if_changed_dep)  (Sorry -
-I missed this one in the branch I pushed.)
-
-> +
-> +orphan-handling-$(call ld-option,--orphan-handling=error) := --orphan-handling=error
-> +
-> +# link all object files together
-
-All 32bit objects.  It isn't even all objects today (head.o isn't included).
-
-> +$(obj)/built_in_32.tmp.o: $(obj32)
-> +	$(LD32) -r -o $@ $(obj32)
-
-$^
-
-> +
-> +$(obj)/built_in_32.%.bin: $(obj)/build32.%.lds $(obj)/built_in_32.tmp.o
-> +## link bundle with a given layout
-> +	$(LD32) $(orphan-handling-y) -N -T $< -Map $(obj)/built_in_32.$(*F).map -o $(obj)/built_in_32.$(*F).o $(obj)/built_in_32.tmp.o
-> +## extract binaries from object
-> +	$(OBJCOPY) -j .text -O binary $(obj)/built_in_32.$(*F).o $@
-> +	rm -f $(obj)/built_in_32.$(*F).o
->  
-> -%.lnk: %.o $(src)/build32.lds
-> -	$(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT)) -N -T $(filter %.lds,$^) -o $@ $<
-> +# generate final object file combining and checking above binaries
-> +$(obj)/built_in_32.o: $(obj)/built_in_32.other.bin $(obj)/built_in_32.final.bin
-> +	$(PYTHON) $(srctree)/tools/combine_two_binaries \
-> +		--script $(obj)/build32.final.lds \
-> +		--bin1 $(obj)/built_in_32.other.bin --bin2 $(obj)/built_in_32.final.bin \
-> +		--map $(obj)/built_in_32.final.map \
-> +		--exports cmdline_parse_early,reloc \
-> +		--section-header '.section .init.text, "ax", @progbits' \
-> +		--output $(obj)/built_in_32.s
-> +	$(CC) -c $(obj)/built_in_32.s -o $@.tmp
-> +	rm -f $(obj)/built_in_32.s $@
-> +	mv $@.tmp $@
-
-$(obj)/built_in_32.S: and --output $@
-
-The build system already knows how to turn a .S into a .o.  This form
-removed an opencoded $(CC), and leaves built_in_32.S around as an
-intermediate to be inspected.
-
-~Andrew
+--------------COs2xWgFHhO203CTrdqeSNOK--
 
