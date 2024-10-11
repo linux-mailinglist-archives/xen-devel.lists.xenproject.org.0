@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41C16999F44
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 10:48:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.816767.1230875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D9B999F56
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2024 10:53:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.816775.1230885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szBJo-0000D9-Pb; Fri, 11 Oct 2024 08:48:16 +0000
+	id 1szBON-0001ro-BB; Fri, 11 Oct 2024 08:52:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 816767.1230875; Fri, 11 Oct 2024 08:48:16 +0000
+Received: by outflank-mailman (output) from mailman id 816775.1230885; Fri, 11 Oct 2024 08:52:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1szBJo-0000AI-MI; Fri, 11 Oct 2024 08:48:16 +0000
-Received: by outflank-mailman (input) for mailman id 816767;
- Fri, 11 Oct 2024 08:48:15 +0000
+	id 1szBON-0001pv-6Y; Fri, 11 Oct 2024 08:52:59 +0000
+Received: by outflank-mailman (input) for mailman id 816775;
+ Fri, 11 Oct 2024 08:52:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rzrJ=RH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1szBJn-0000A5-LZ
- for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 08:48:15 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rkux=RH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1szBOL-0001pc-OX
+ for xen-devel@lists.xenproject.org; Fri, 11 Oct 2024 08:52:57 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d8ecc89-87ad-11ef-a0bd-8be0dac302b0;
- Fri, 11 Oct 2024 10:48:14 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a99543ab209so251819566b.2
- for <xen-devel@lists.xenproject.org>; Fri, 11 Oct 2024 01:48:14 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99a7f25f67sm188572266b.55.2024.10.11.01.48.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Oct 2024 01:48:13 -0700 (PDT)
+ id 35500ee4-87ae-11ef-a0bd-8be0dac302b0;
+ Fri, 11 Oct 2024 10:52:56 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a99650da839so305799566b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Oct 2024 01:52:56 -0700 (PDT)
+Received: from fziglio-desktop.. ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a99a80dc290sm186131566b.155.2024.10.11.01.52.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Oct 2024 01:52:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d8ecc89-87ad-11ef-a0bd-8be0dac302b0
+X-Inumbo-ID: 35500ee4-87ae-11ef-a0bd-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728636494; x=1729241294; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ydvIiWOfO23nmG+MaFdPj/oB9aVXPJ4AYVH2d6zgCsQ=;
-        b=gO5Db8cruCII3FhKlD6uSAiLeE2U8QwSQ1fCSqi1Vo82ibgc4e3m8RaIzJ90MuqCwp
-         pdWqCSBRuIqKFHkpzI3nK7icXfZtVl1V/jJcIwCgqCiEUU7bwTDp3Gn2guLA3hz4ul0o
-         Rm70G/9QQlbrW95Qc04RDU0fx4WshsaTDL2cDdEBHxYYWaHLEZFQQ+scslEIssM+mwoP
-         ndsgaBgzd3YuqWlJwcY5LSG++NNLAwwjXlgzayFq+t2Se5OIAT2IT+diBZIkG+9LEcrm
-         3s7iHoC4wTmULzpTAJSzY5YJ1S0FO1CRhe5s+r5MHdBjn15aCB3PbUF380X72o4ooyIi
-         JvBw==
+        d=cloud.com; s=cloud; t=1728636775; x=1729241575; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HJ+Hmzgm6Lu80wn8lj9wtFnGHhFIb7PPFMsadOvdVTk=;
+        b=jJtTjvB2ob4eVCaxtmxVDuFPYETGe3Db6HL6MZPohnFmyOkXFLApeFzbMUUe7iiyRT
+         MSrjOdDIz5cjqE2aEkCU2zL8OimPRbb4psnHgu2vEcx3qRc1QXjDZd5Y3CcXMgy/A9Np
+         CVHD6oU6uVH7JRnpD54UAdjJJzh+bbasGe0xE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728636494; x=1729241294;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ydvIiWOfO23nmG+MaFdPj/oB9aVXPJ4AYVH2d6zgCsQ=;
-        b=Wa4r6QkGCgcpKTaa5Owx9dr9Fi0QpwVmnJBBEIRKF6GZGErBni2/+grtjQtmo2tpzR
-         ApXI/J52SjwyQrfXkzk4y+TZnJkzE2StQ05wpZjPe1laWYibEUoxdPDYbjxSugZL9OkJ
-         IpSeePmRuYDehAEVJyVTsWv7NSWA+BCv9MXvFnbUi2oJfm0/IXjzwy1rDA8Amg1oruBT
-         gMmOyxTxRbS9cq2MMavgcTxZAyp9Vl4X8OmX0C/UghZQWL6eGCaxlYKMgF05pNW8VP+a
-         qBq5i//YMvB+/kF6tvbWxT4jhuaSV4RzPGkxaVss4/+FJoXZlduv2IX6Cr1uIMJ/tDon
-         dP+g==
-X-Gm-Message-State: AOJu0Yzdbm/xXmKYP8pNCblQV/WP0v/Jq/mGHq0XND8rU7y+UwWfeVLX
-	zQcvLrQOHtM735i8Pf6mnZfhawUnF+w3p2Pk7xr8qBNsFOBMOvFVsere880nuQ==
-X-Google-Smtp-Source: AGHT+IFYf3GsRyCWzpQEVfvSWbi+oaPoz2S2e5KCnky+zmYsWo2D2WRt/AE/ELL79Vr8h88JaCbVew==
-X-Received: by 2002:a17:906:d554:b0:a99:43e5:ac37 with SMTP id a640c23a62f3a-a99b937a8a5mr129107766b.15.1728636494084;
-        Fri, 11 Oct 2024 01:48:14 -0700 (PDT)
-Message-ID: <5d3217c4-253c-41c1-bfb7-1e926f9f3753@suse.com>
-Date: Fri, 11 Oct 2024 10:48:13 +0200
+        d=1e100.net; s=20230601; t=1728636775; x=1729241575;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HJ+Hmzgm6Lu80wn8lj9wtFnGHhFIb7PPFMsadOvdVTk=;
+        b=VWK3hrbQ/Yl+24+51f/rZqL+mcqibdyHyUm8oANsW7+oJqUFyU1ekw+Fgr/JkDBPZL
+         yXWUTVvChU54n8DuK4pkGmxL2MKh1MYvBuxR76/phjkUkMQTbXZ2kgQ85H0NrgTygkvR
+         R7TXjf0VRaF+PlqbQ2ysXCCpOEfK5jofF8Lqcwuv5NESZ617+ai3W9DGoYreWe6qMn0x
+         1CXYs+qltxixX2vXbo25zeh3PQ/OvbjB/Rd+Z7vQ670jZFgT5nBpfhUX9bNPxI5E/K98
+         AOTE/IqCAeM/zPm7ugo24Uf0abN19bJFAgis5T5WUawPgF2Nnddy4k/wT8w9Ac1SPVGh
+         FMTg==
+X-Gm-Message-State: AOJu0Yx8fOytBnTVk50DD5r0RRJSM0YgTrRAGKxIEkgUz1yiyRebOVXq
+	Yt/+nbQdgQMAhGD5wfzxAoiS1/hIaEZoS1WfRx4td5co8p7jQVnVAQQ9l3wccQAFfrqa733b58O
+	5
+X-Google-Smtp-Source: AGHT+IGF4Bdjn9hWz8gtAdNBGAAzJvSr8/9SPH0DdES5OYVsaub5Wcy30spNuQ7iQpYu8uWlBfpwRQ==
+X-Received: by 2002:a17:907:d2d4:b0:a99:76bc:d753 with SMTP id a640c23a62f3a-a99b958318amr161187366b.45.1728636775369;
+        Fri, 11 Oct 2024 01:52:55 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v3 0/5] Reuse 32 bit C code more safely
+Date: Fri, 11 Oct 2024 09:52:39 +0100
+Message-Id: <20241011085244.432368-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 4/4] xen/pci: address a violation of MISRA C Rule
- 16.3
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Federico Serafini <federico.serafini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1728308312.git.federico.serafini@bugseng.com>
- <c662cae0f545a4e4e3921ae13bf69dc02884d9ee.1728308312.git.federico.serafini@bugseng.com>
- <ZwjlurKU7FrFvObG@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZwjlurKU7FrFvObG@macbook.local>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.10.2024 10:45, Roger Pau Monné wrote:
-> On Mon, Oct 07, 2024 at 04:16:19PM +0200, Federico Serafini wrote:
->> Refactor the code to avoid an implicit fallthrough and address
->> a violation of MISRA C:2012 Rule 16.3: "An unconditional `break'
->> statement shall terminate every switch-clause".
->>
->> No functional change.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> ---
->> Changes in v2:
->> - improved description.
->> ---
->>  xen/drivers/passthrough/pci.c | 4 +++-
->>  1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
->> index 5a446d3dce..a5705def3f 100644
->> --- a/xen/drivers/passthrough/pci.c
->> +++ b/xen/drivers/passthrough/pci.c
->> @@ -170,8 +170,10 @@ static int __init cf_check parse_phantom_dev(const char *str)
->>      {
->>      case 1: case 2: case 4:
->>          if ( *s )
->> -    default:
->>              return -EINVAL;
->> +        break;
-> 
-> Would you mind adding a newline here between the break and the default
-> case?
+This series attempt to:
+- use more C code, that is replace some assembly code with C;
+- avoid some code duplication between C and assembly;
+- prevent some issues having relocations in C code.
 
-I actually took the liberty to do so while committing (already a few days
-ago).
+The idea is extending the current C to binary code conversion
+done for 32 bit C code called from head.S making sure relocations
+are safe and allowing external symbols usage from C code.
 
-Jan
+Note that, as an addition, scripts generating code check for no
+data to allow code and data separation.
+
+More details of the implementation are in commit message 1/5,
+which is the largest patch.
+Patch 2/5 reuses code to relocate the trampoline between 32 and 64 bit.
+Patches 3/5 and 4/5 move some code from assembly to C.
+
+Other RFC commits were excluded, I didn't manage to entangle the issues
+sharing headers between 32 and 64 bits.
+Since RFC code was more tested, also with CI and some incompatibility
+were fixed. On that it's weird that we need Python 3.8 for Qemu but we
+still use Python 2 for Xen. Shouldn't we bump requirement to Python 3
+even for Xen?
+
+Code boots successfully using:
+- BIOS boot;
+- EFI boot with Grub2 and ELF file;
+- direct EFI boot without Grub.
+
+Code is currently based on "master" branch, currently commit
+2b49ef4503e2c549c166f439cf0dd331d9a8874c.
+
+Changes since v1:
+- 2 preliminary commits for adjust .gitignore;
+- last commit split (one variable at a time);
+- lot of style and names changes;
+- first commit, now 3/6 had some build changes, more details on
+  commit message.
+
+Changes since v2:
+- removed merged commits;
+- reverted order of 2 commits;
+- remove some useless casts;
+- added change to comment.
+
+Frediano Ziglio (5):
+  x86/boot: create a C bundle for 32 bit boot code and use it
+  x86/boot: Reuse code to relocate trampoline
+  x86/boot: Use boot_vid_info variable directly from C code
+  x86/boot: Use trampoline_phys variable directly from C code
+  x86/boot: Clarify comment
+
+ xen/arch/x86/boot/.gitignore                  |   5 +-
+ xen/arch/x86/boot/Makefile                    |  62 ++++--
+ .../x86/boot/{build32.lds => build32.lds.S}   |  49 ++++-
+ xen/arch/x86/boot/cmdline.c                   |  12 --
+ xen/arch/x86/boot/head.S                      |  49 +----
+ xen/arch/x86/boot/reloc-trampoline.c          |  36 ++++
+ xen/arch/x86/boot/reloc.c                     |  35 +---
+ xen/arch/x86/efi/efi-boot.h                   |  15 +-
+ xen/tools/combine_two_binaries                | 198 ++++++++++++++++++
+ 9 files changed, 344 insertions(+), 117 deletions(-)
+ rename xen/arch/x86/boot/{build32.lds => build32.lds.S} (57%)
+ create mode 100644 xen/arch/x86/boot/reloc-trampoline.c
+ create mode 100755 xen/tools/combine_two_binaries
+
+-- 
+2.34.1
+
 
