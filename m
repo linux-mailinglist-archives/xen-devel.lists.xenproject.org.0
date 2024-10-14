@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9889499D945
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 23:37:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.818913.1232200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B80899D9BC
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2024 00:22:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.818921.1232212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0Skm-0005qm-6A; Mon, 14 Oct 2024 21:37:24 +0000
+	id 1t0TRB-0003Ty-Ea; Mon, 14 Oct 2024 22:21:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 818913.1232200; Mon, 14 Oct 2024 21:37:24 +0000
+Received: by outflank-mailman (output) from mailman id 818921.1232212; Mon, 14 Oct 2024 22:21:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0Skm-0005ox-3W; Mon, 14 Oct 2024 21:37:24 +0000
-Received: by outflank-mailman (input) for mailman id 818913;
- Mon, 14 Oct 2024 21:37:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t0TRB-0003RM-9Q; Mon, 14 Oct 2024 22:21:13 +0000
+Received: by outflank-mailman (input) for mailman id 818921;
+ Mon, 14 Oct 2024 22:21:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=043R=RK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1t0Skj-0005or-Rw
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 21:37:22 +0000
-Received: from fhigh-a6-smtp.messagingengine.com
- (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7cff2360-8a74-11ef-a0be-8be0dac302b0;
- Mon, 14 Oct 2024 23:37:19 +0200 (CEST)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 87D8E114015C;
- Mon, 14 Oct 2024 17:37:18 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Mon, 14 Oct 2024 17:37:18 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Oct 2024 17:37:17 -0400 (EDT)
+ <SRS0=QJ8R=RK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t0TR9-0003RE-Ef
+ for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 22:21:11 +0000
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [2a00:1450:4864:20::441])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9984e1f2-8a7a-11ef-99a2-01e77a169b0f;
+ Tue, 15 Oct 2024 00:21:04 +0200 (CEST)
+Received: by mail-wr1-x441.google.com with SMTP id
+ ffacd0b85a97d-37d462c91a9so3015158f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 15:21:04 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4313f6b323asm343525e9.36.2024.10.14.15.21.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Oct 2024 15:21:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cff2360-8a74-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1728941838;
-	 x=1729028238; bh=E2pZ6HXZGXn6JL2Rjnw6GMA6i6M+jbDIUvaH9jTyyKA=; b=
-	Rpi6vO+ky2mADG1V0vZ/58m/FU/Fp1ee5/yo2AJGaVP+8apgYNqDH2UFkgM+x/mC
-	lOkiJIreboHzRDNvp85DNBJyo6RFq9lXrfjcApVjBzoDWeuNyfQKNqk0GIcarusd
-	wqZOkJaz7BB03MHryGZv6VVAwNgpZWsteqBoM84VE/tN8XG4AlVZ612u2M9GMGMj
-	9dS7pVk6tQq/84wxBhG5syi+xYgebycBFlen6Dq8Aks6V/kGnlmarWppXF0tPrRv
-	ydhsgDan5HnAZz38AkEC2UPrH0yEb0DeUAuwiBDJHUu8lBGwEW+HSjLRQUfysdJP
-	Ibac5CKPozQZc6g81fhOLg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1728941838; x=1729028238; bh=E2pZ6HXZGXn6JL2Rjnw6GMA6i6M+
-	jbDIUvaH9jTyyKA=; b=VyrVvP1ppm1nS9Zbi4fkwgHjxqebvWmCkCzCXBDl3eJX
-	g34DQ+beLVEHmofXhZBySjDnAINLjwuVqqbqg19GDkB7Nxa7qb1obp5eLo+Fg+z4
-	C3qlTVDbonbHiqEjWi2ixNXjtUKZ+0mbEyO1fr9fc3aoxsqmVgGEaytf39A1GUuT
-	hCA6H7U1AbB8df0KptQmAPzoK4WchIqLlqXW+hCXs0UfHiffjZAK36N4RyBIu7bb
-	OofYG5rXTjy0WVeE//H/y3QEUr6CxzRHKzqzF4go4hVU+TTCV3/NN3Enjf4hmvne
-	0T+V06aShiTRcnVCH6ADFFHhbZVb1/STBDq8cZYFaQ==
-X-ME-Sender: <xms:Do8NZ0FUx8souoJAlRSr82xO-cKVmBlAYI4mEVZYxw5Ex_8N6hRDOA>
-    <xme:Do8NZ9VhcyuLyqsg_Yx8kDFNV7k3dpCwWr1bbiUn5Z-hGX7worRSBCTXZUdGcbQux
-    QKbPjKETiqqEg>
-X-ME-Received: <xmr:Do8NZ-JdwgflLtIakjXmYP8i-PvSajfnHeIrZ0cSdYMIeMYldQ5GfZxPIUxGsesnBHLQnhu0d5waI-MwM4cj-9TG2LOLg0VrTw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdegiedgtdduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepueekteetgefggfekudehteegieeljeejieeihfejgeevhfetgffgte
-    euteetueetnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhi
-    iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedvpdhmohguvgep
-    shhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrih
-    igrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhho
-    jhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:Do8NZ2FxVrsfq0FfIjjuODMilJ3CkqYev6Hdj65bYfooYSQjqcv9zQ>
-    <xmx:Do8NZ6UwW029PYRRL4kb8cicjj6sGqMMtvuCEwi_aNU87UE3ySUwhw>
-    <xmx:Do8NZ5OQikwxDFXJH3_OOWO1W1iYmiaqTZuXHlVs5d7Y0PPWeVRbcA>
-    <xmx:Do8NZx0yBUmE1JBIqM4MYDkTb1rMmnqsWGSGAja2FI6oiynqQd8tew>
-    <xmx:Do8NZ9fn65NXZDrtT7a7MOP4it1w6S5J-3XNNSWls5R3ekRXgumA7AZP>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 14 Oct 2024 23:37:13 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Xen PAT settings vs Linux PAT settings
-Message-ID: <Zw2PCXSdxjrqP4bn@mail-itl>
-References: <Zw1iSuLD7473m07N@mail-itl>
- <dc7a4441-b082-459d-a954-78f43d7d35bd@citrix.com>
+X-Inumbo-ID: 9984e1f2-8a7a-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1728944463; x=1729549263; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=zUwKM/muKeeT3tgMjVcVzA30GDKXCgqN2T1YCVbzJzM=;
+        b=Fo1zhV9rrHVg4bbJzalLvvs1xyh1P3NlnwH4rFVXMzD6I+c5gYTdghrdPZhNvp9e0D
+         vzp9Qn+UMNq3JkhWdLVxVQJgMKzZBhchREom6m0hTxo6h67JmfS/gUuwV9pBs2TvzinR
+         iHpCTeHF6HGQjeFqxUZ0jt5ZjC2on3muMFVR8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728944463; x=1729549263;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zUwKM/muKeeT3tgMjVcVzA30GDKXCgqN2T1YCVbzJzM=;
+        b=CV/3ozaSbDz1LP3zTm/M0UZwl9Dlc1xhsKBMMyH0QUDbyRAMfJSead8GRl5jC0wbWR
+         +P12Dpi5EgjBzx3fsqYWxx1jhxiIc+Dnd5yMKzkkrJZMpqovDLEHSVbGZPezYibmPJeY
+         Kaa/ozOcdT4r5JenUKR4KwmJuoCs8rZUD5DJ/kLyL98lSRXIxy+0HznWStAXnW5vk7sS
+         KY444sGDHaUPOuNfrtMyrzUBqH6Nto42LFytJhenSAWAAZPpc5uCLxB5Xb7I15zzEmnY
+         uw0Hj4w0agSCMbQXnGr7uQ4sYKiBdp8RVUg2qv+SyJt8EWPWfkMWAiJpuocYeC7RN9GL
+         m/ug==
+X-Gm-Message-State: AOJu0YxBHTp/CRDvNkyrVSLwdbT5ZTALNQbMYT84PDXoWNDPBGIt63c0
+	GV0OrA10yGRox5u5ls8vHSbNfscAcVHrTWpJXc00a0J55PIlvHkJlQuGLiT3uxxljMp1ymuExOZ
+	8zbrJu00y
+X-Google-Smtp-Source: AGHT+IHWSNHUsDVHer2ZwKSvFG41K5qeQTw/HQT4mRLGGHLNhB7BOFKE3vvNMAxq7+iOqygCEeVFcA==
+X-Received: by 2002:a5d:40c1:0:b0:374:c614:73df with SMTP id ffacd0b85a97d-37d552a3962mr8087840f8f.57.1728944463326;
+        Mon, 14 Oct 2024 15:21:03 -0700 (PDT)
+Message-ID: <54ae31a1-12c8-446f-9dfc-58c986488e1c@citrix.com>
+Date: Mon, 14 Oct 2024 23:21:02 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="oh/fywFlm7BR8i0T"
-Content-Disposition: inline
-In-Reply-To: <dc7a4441-b082-459d-a954-78f43d7d35bd@citrix.com>
-
-
---oh/fywFlm7BR8i0T
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Oct 2024 23:37:13 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
+User-Agent: Mozilla Thunderbird
 Subject: Re: Xen PAT settings vs Linux PAT settings
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+References: <Zw1iSuLD7473m07N@mail-itl>
+ <dc7a4441-b082-459d-a954-78f43d7d35bd@citrix.com> <Zw2PCXSdxjrqP4bn@mail-itl>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <Zw2PCXSdxjrqP4bn@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 14, 2024 at 09:05:58PM +0100, Andrew Cooper wrote:
-> On 14/10/2024 7:26 pm, Marek Marczykowski-G=C3=B3recki wrote:
-> > Hi,
-> >
-> > It looks like we've identified the second buggy driver that somewhere
-> > assumes PAT is configured as Linux normally do natively - nvidia binary
-> > one this time[3]. The first one affected was i915, but it turned out to=
- be
-> > a bug in Linux mm. It was eventually fixed[1], but it was quite painful
-> > debugging. This time a proper fix is not known yet. Since the previous
-> > issue, Qubes OS carried a patch[2] that changes Xen to use same PAT as
-> > Linux. We recently dropped this patch, since the Linux fix reached all
-> > supported by us branches, but apparently it wasn't all...
-> >
-> > Anyway, would it be useful (and acceptable) for upstream Xen to have
-> > a kconfig option (behind UNSUPPORTED or so) to switch this behavior?
->=20
-> Not UNSUPPORTED - it's bogus and I still want it purged.
->=20
-> But, behind EXPERT, with a suitable description (e.g. "This breaks
-> various ABIs including migration, and is presented here for debugging PV
-> driver issues in a single system.=C2=A0 If turning it on fixes a bug, ple=
-ase
-> contact upstream Xen"), then I think we need to take it.
+On 14/10/2024 10:37 pm, Marek Marczykowski-Górecki wrote:
+> On Mon, Oct 14, 2024 at 09:05:58PM +0100, Andrew Cooper wrote:
+>> On 14/10/2024 7:26 pm, Marek Marczykowski-Górecki wrote:
+>>> Technically, it's a PV ABI violation, and it does break few things
+>>> (definitely PV domU with passthrough are affected - Xen considers them
+>>> L1TF vulnerable then; PV live migration is most likely broken too).
+>> Do you have more information on this?  The PAT bits shouldn't form any
+>> part of L1TF considerations.
+> https://github.com/QubesOS/qubes-issues/issues/8593
+>
 
-Makes sense.
+0x8010000018200066
 
-> The fact that I've had to recommend it once already this week for
-> debugging purposes, and it wasn't even this Nvidia bug, demonstrates how
-> pervasive the problems are.
->=20
-> > Technically, it's a PV ABI violation, and it does break few things
-> > (definitely PV domU with passthrough are affected - Xen considers them
-> > L1TF vulnerable then; PV live migration is most likely broken too).
->=20
-> Do you have more information on this?=C2=A0 The PAT bits shouldn't form a=
-ny
-> part of L1TF considerations.
+That's a very L1TF-unsafe PTE, but it's also got nothing to do with PAT.
+It's:
 
-https://github.com/QubesOS/qubes-issues/issues/8593
+  NX | Avail(bit 52) | addr (0x18200000) | D | A | U | W
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+and importantly not present.  PAT == 0 == WB in both the Xen and Linux
+worlds.
 
---oh/fywFlm7BR8i0T
-Content-Type: application/pgp-signature; name="signature.asc"
+But, it likely does highlight a codepath which is opencoding PTE updates.
 
------BEGIN PGP SIGNATURE-----
+We really ought to have an option to do as f61c54967f4a did with
+_PAGE_GNTTAB, and to inject #GP into the guest to get a backtrace out of
+Linux.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmcNjwkACgkQ24/THMrX
-1yzfQwgAh/956Z8NeyGlNS6LADzp9jI8gLUJ1rx8ZA+VczGrI8/KPXX47xSuqiS4
-Vlmmr32nyusZKIcRzKw4CiQrs5UZK/9IeVTqaJM5fsjCPHlnK5gpUwHV3XtaCdoN
-VRGnNhLB18gXpgGhwb5jnaCWaSa68kcvrIqJZ8z779ySmTPKQecxdY7M5pGgCXRX
-znZnjizJelzt2Dqr9Ty0FE8gcYzU8nk7ic2pTL51E+hsIbqH/x5ZJRf5PKLvCZNU
-0aWXHg/I81o0fjRt5u0BbS3YkVfqHXhU74qFjHfxnVxHzm2PbpuGcGbZxKD8F8zu
-masCUcNqzzoFQUAkykwazIItkfJ6GA==
-=YciZ
------END PGP SIGNATURE-----
+In the case that we're going to crash the domain anyway, #GP is still
+more useful, although I would quite like the #GP option instead of
+shadowing too.  Maybe hanging off pv-l1tf=fault as an option?
 
---oh/fywFlm7BR8i0T--
+~Andrew
 
