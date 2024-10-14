@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 813FE99D158
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 17:14:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.818731.1232018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1935699D2F2
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 17:32:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.818743.1232031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0Mlq-0007ep-Bc; Mon, 14 Oct 2024 15:14:06 +0000
+	id 1t0N2h-0002Bh-Q3; Mon, 14 Oct 2024 15:31:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 818731.1232018; Mon, 14 Oct 2024 15:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 818743.1232031; Mon, 14 Oct 2024 15:31:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0Mlq-0007bG-7p; Mon, 14 Oct 2024 15:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 818731;
- Mon, 14 Oct 2024 15:14:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t0N2h-00029g-Md; Mon, 14 Oct 2024 15:31:31 +0000
+Received: by outflank-mailman (input) for mailman id 818743;
+ Mon, 14 Oct 2024 15:31:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QJ8R=RK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t0Mlo-0007bA-5Z
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 15:14:04 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1c45b9c-8a3e-11ef-99a2-01e77a169b0f;
- Mon, 14 Oct 2024 17:14:02 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c42e7adbddso5838486a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 08:14:02 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a0b25226esm200650866b.59.2024.10.14.08.14.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Oct 2024 08:14:01 -0700 (PDT)
+ <SRS0=UBJe=RK=bounce.vates.tech=bounce-md_30504962.670d394f.v1-a2a95156427d4fe882ac8822c5642252@srs-se1.protection.inumbo.net>)
+ id 1t0N2g-00029H-Vm
+ for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 15:31:31 +0000
+Received: from mail136-14.atl41.mandrillapp.com
+ (mail136-14.atl41.mandrillapp.com [198.2.136.14])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6170cde0-8a41-11ef-a0be-8be0dac302b0;
+ Mon, 14 Oct 2024 17:31:29 +0200 (CEST)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-14.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4XS1RM1RwCz705jTx
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 15:31:27 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ a2a95156427d4fe882ac8822c5642252; Mon, 14 Oct 2024 15:31:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +43,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1c45b9c-8a3e-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728918842; x=1729523642; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=otp/AbDR7UioIS7zJZCnX6rhbv6c9VLsR0yLTMR+l5w=;
-        b=Zj4zK7T2D5bzcoGmMVrDiVlQ46F23cuDBqQOYGy967HJBrFtcImjQwseZwTfax9uy7
-         s0zmYNRkavjqJFFIXEpu0WbSCYU7dZlVkLGFBmast09/nxPxI5uIQO9ldUzLq56KrxMw
-         DUZRlgFxMNtML+Wk8eqyQAgttR5wyOEiB18JI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728918842; x=1729523642;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=otp/AbDR7UioIS7zJZCnX6rhbv6c9VLsR0yLTMR+l5w=;
-        b=COMbnTv3kjzbt/eIoE8c0iCj1h4sCJyUccA7f3bow+cwz79eMdmzW/IcSJOhm4QsBT
-         +zZZnjXZYJyFNs4QUTs0VacXvDpWo+Q45U+oCS/6Ye0Q1Hx8fp4mRZWiZm9SAWuRjm3T
-         OR8v4SwovhAd7DEGIkmKgJOKjmk9NFVj4EZI1umkIZlKzDWF6l52FmoMIAkxHjl9SU3A
-         hjDASQdjWTWzb+SMXakCaNp/jAROsp2wlCTDUsLxU0uy1alt6zg0d0tYC7l8maiU0418
-         YvJaeh+j0pH/AgdDgtXvoBQEmRtdgB3ePbkShbXZujA6Dx7kAuiW5jGrYgkGWAFQOKH4
-         T9Gg==
-X-Forwarded-Encrypted: i=1; AJvYcCU9nudcCTBnOn4RKoy2yfnCpUCi/ll2gl2ZCdzX1EiFRbGlL35X0DNXfv2wguDDO/xjrWQTf2LIIOw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwyN0DFV6S/WAsYN1wGSKguRMOnPEpvMevnkSgf3eln8ehR/Ao8
-	yGpIGyO6g6cm+eeSQrpS3L4Vcf9mFfuJ54RuvorhqdGC33h3FLzLLb0Y/pVUCts=
-X-Google-Smtp-Source: AGHT+IG8Qq5+e6fik3J48bqEzBQ7p7/+n3xESp+iX2NH2+HzNgtnMkLW/jIRFhiSoFF29Syt1I8pOg==
-X-Received: by 2002:a17:907:1a50:b0:a9a:a5a:1d47 with SMTP id a640c23a62f3a-a9a0a5a9419mr280287866b.2.1728918841552;
-        Mon, 14 Oct 2024 08:14:01 -0700 (PDT)
-Message-ID: <db56d29a-5ef5-4d0c-a693-307e51d769e5@citrix.com>
-Date: Mon, 14 Oct 2024 16:13:59 +0100
+X-Inumbo-ID: 6170cde0-8a41-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1728919887; x=1729180387;
+	bh=qPNWSB8Aaiwjl1oUliY/TuxzP0RaqIWeE0ZoghhhNyg=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=QjtOKgWnfy2df/9kjUqGcA+Lz1qcs0Boyesuqcyrr3gdHAzxmWmeypFrSoML0JZc4
+	 sqth6SjmTKSaVKM7Z5/Db3SOFV8z6/q+eZLCe70R0VO+aGLqyS4HAYROMM0K5ghHOv
+	 VsVaWyv3yuz7TPBjzX9/smmdxj5FSsUZFyNIgNjjujs9cauSqnB8oDrKDtunIIaezY
+	 LXkIaHVG5UX0VTUAiF320SZn6hLQMDOCrmbG5Y1MqrznYMP/I2pqvwD6hDZrHM2gpQ
+	 hjeunUOZio1/QMq87ut7iI7JAoIMTH6UUYPH61Bbn9ctQeW/qs530gW0JHPYozjI/S
+	 ECU1i0Q4SzaGw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1728919887; x=1729180387; i=anthony.perard@vates.tech;
+	bh=qPNWSB8Aaiwjl1oUliY/TuxzP0RaqIWeE0ZoghhhNyg=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=DaPXCbOJ9xviS4TZ8GsqSlg/86FF2SmYHF0vVHNdJWeZhbUv/y60c7/FXmZraDsVS
+	 mKh+J67YHWa7V635pl70pjdPNLBoOgcVb8sYu0wG0Wu/Jf8tv2sl4qy3SsPdIeWhU0
+	 Yfphnwvg25+PNU64eAZZRdjS6GlYr7CcTGRBmMxZkAry81I7RHFzSFMWTvnOukWL6p
+	 mNu+W3w2DdB9SdLuxDYtVlYCyyHk3PkSTLAnYJWkIyU2E0KM53Xitv2sQi3R3zr3uZ
+	 ZgJptUyckQjz5+iYVvUIIgvf5MyUiLdTWK/82NjIKvrFz7SU8EmY/VoCbBOm4UVwub
+	 5MeKdZOWi3ZLQ==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v4=202/6]=20x86/boot:=20create=20a=20C=20bundle=20for=2032=20bit=20boot=20code=20and=20use=20it?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1728919885576
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Message-Id: <Zw05Tb8UvCQAIo+n@l14>
+References: <20241014085332.3254546-1-frediano.ziglio@cloud.com> <20241014085332.3254546-3-frediano.ziglio@cloud.com>
+In-Reply-To: <20241014085332.3254546-3-frediano.ziglio@cloud.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a2a95156427d4fe882ac8822c5642252?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241014:md
+Date: Mon, 14 Oct 2024 15:31:27 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/spinlock: Fix UBSAN "load of address with
- insufficient space" in lock_prof_init()
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20241014145710.3295232-1-andrew.cooper3@citrix.com>
- <7dc142bb-d664-4401-9dbf-37931fe4e346@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <7dc142bb-d664-4401-9dbf-37931fe4e346@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On 14/10/2024 4:12 pm, Jürgen Groß wrote:
-> On 14.10.24 16:57, Andrew Cooper wrote:
->> UBSAN complains:
->>
->>    (XEN)
->> ================================================================================
->>    (XEN) UBSAN: Undefined behaviour in common/spinlock.c:794:10
->>    (XEN) load of address ffff82d040ae24c8 with insufficient space
->>    (XEN) for an object of type 'struct lock_profile *'
->>    (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y ubsan=y  Tainted:  
->> C    ]----
->>
->> This shows up with GCC-14, but not with GCC-12.  I have not bisected
->> further.
->>
->> Either way, the types for __lock_profile_{start,end} are incorrect.
->>
->> They are an array of struct lock_profile pointers.  Correct the extern's
->> types, and adjust the loop to match.
->>
->> No practical change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->
-> Reviewed-by: Juergen Gross <jgross@suse.com>
+On Mon, Oct 14, 2024 at 09:53:28AM +0100, Frediano Ziglio wrote:
+> diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+> index 1199291d2b..23ad274c89 100644
+> --- a/xen/arch/x86/boot/Makefile
+> +++ b/xen/arch/x86/boot/Makefile
+> @@ -1,4 +1,5 @@
+>  obj-bin-y += head.o
+> +obj-bin-y += built_in_32.o
 
-Thanks, and I've got proper Reported-by tag from the conversation on Matrix.
+I don't quite like that this new object name is "built_in_32.o",
+It's really closed to "built_in.*" which is used by Rules.mk to collect
+all objects in a subdirectory. I don't really have a better suggestion at
+the moment.
 
-~Andrew
+> @@ -9,9 +10,6 @@ targets   += $(obj32)
+>  
+>  obj32 := $(addprefix $(obj)/,$(obj32))
+>  
+> -$(obj)/head.o: AFLAGS-y += -Wa$(comma)-I$(obj)
+> -$(obj)/head.o: $(obj32:.32.o=.bin)
+> -
+>  CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
+>  $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>  CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float -mregparm=3
+> @@ -25,14 +23,34 @@ $(obj32): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
+>  $(obj)/%.32.o: $(src)/%.c FORCE
+>  	$(call if_changed_rule,cc_o_c)
+>  
+> +orphan-handling-$(call ld-option,--orphan-handling=error) := --orphan-handling=error
+>  LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) := --no-warn-rwx-segments
+>  LDFLAGS_DIRECT += $(LDFLAGS_DIRECT-y)
+>  LD32 := $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
+>  
+> -%.bin: %.lnk
+> -	$(OBJCOPY) -j .text -O binary $< $@
+> -
+> -%.lnk: %.32.o $(src)/build32.lds
+> -	$(LD32) -N -T $(filter %.lds,$^) -o $@ $<
+> -
+> -clean-files := *.lnk *.bin
+> +$(obj)/build32.final.lds: AFLAGS-y += -DFINAL
+> +$(obj)/build32.other.lds $(obj)/build32.final.lds: $(src)/build32.lds.S FORCE
+> +	$(call if_changed_dep,cpp_lds_S)
+> +
+> +# link all 32bit objects together
+> +$(obj)/built_in_32.tmp.o: $(obj32)
+> +	$(LD32) -r -o $@ $^
+> +
+> +$(obj)/built_in_32.%.bin: $(obj)/build32.%.lds $(obj)/built_in_32.tmp.o
+> +## link bundle with a given layout
+
+Could you put the comment aligned with the rest of the recipe? That way
+it won't visually separate the rule into several pieces. You can
+prefix it with @ so it doesn't show in build logs:
+
+        @# comments
+
+> +	$(LD32) $(orphan-handling-y) -N -T $< -Map $(obj)/built_in_32.$(*F).map -o $(obj)/built_in_32.$(*F).o $(obj)/built_in_32.tmp.o
+
+I think this wants to be: -T $(filter %.lds,$^) -Map $(patsubst %.bin,%.map,$@) -o $(patsubst %.bin,%.o,$@) $(filter %.o,$^)
+
+:-(, maybe that's lots of $(patsubst,), not sure which is better between
+$(patsubst,) and using the stem $*.
+
+Also, if something tries to use built_in_32.tmp.bin, we have a rule that
+remove it's prerequisite.
+
+BTW, everything is kind of temporary in a build system, beside the few
+files that we want to install on a machine, so having a target named
+with "*tmp*" isn't great. But having a rule that create "*tmp*" file but
+remove them before the end of its recipe is fine (or those *tmp* aren't
+use outside of this recipe).
+
+> +## extract binaries from object
+> +	$(OBJCOPY) -j .text -O binary $(obj)/built_in_32.$(*F).o $@
+> +	rm -f $(obj)/built_in_32.$(*F).o
+> +
+> +# generate final object file combining and checking above binaries
+> +$(obj)/built_in_32.S: $(obj)/built_in_32.other.bin $(obj)/built_in_32.final.bin
+
+So, "other" isn't part of "final", I don't really know what those two
+things contains so naming wise I can't suggest anything useful.
+
+But, is "built_in_32.S" really only depends on those two .bin? SHouldn't
+it get regenerated if the script changes, or the .lds that --script
+option seems to use? What is the "--map" option, an input or output?
+But I guess we can ignore the ".map" file because it's part of the
+".bin".
+
+Another thing that might be useful to do, is to use the "if_changed"
+make macro, that way if the command line of the script changes, make
+can remake the output. But maybe it's a bit complicated for this recipe
+because it doesn't uses $< or $^.
+
+> +	$(PYTHON) $(srctree)/tools/combine_two_binaries.py \
+> +		--script $(obj)/build32.final.lds \
+> +		--bin1 $(obj)/built_in_32.other.bin \
+> +		--bin2 $(obj)/built_in_32.final.bin \
+> +		--map $(obj)/built_in_32.final.map \
+> +		--exports cmdline_parse_early,reloc \
+> +		--output $@
+> +
+> +clean-files := built_in_32.*.bin built_in_32.*.map build32.*.lds
+> diff --git a/xen/arch/x86/boot/build32.lds b/xen/arch/x86/boot/build32.lds.S
+> similarity index 70%
+> rename from xen/arch/x86/boot/build32.lds
+> rename to xen/arch/x86/boot/build32.lds.S
+> index 56edaa727b..50c167aef0 100644
+> --- a/xen/arch/x86/boot/build32.lds
+> +++ b/xen/arch/x86/boot/build32.lds.S
+> @@ -15,22 +15,47 @@
+>   * with this program.  If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+> -ENTRY(_start)
+> +#ifdef FINAL
+> +# define GAP 0
+> +# define MULT 0
+> +# define TEXT_START
+> +#else
+> +# define GAP 0x010200
+> +# define MULT 1
+> +# define TEXT_START 0x408020
+> +#endif
+> +# define DECLARE_IMPORT(name) name = . + (__LINE__ * MULT)
+
+Is  ^ this a stray space?
+
+
+Overall, it's kind of mostly style comment that I had, so feel free to
+ignore most of them.
+
+Cheers,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
