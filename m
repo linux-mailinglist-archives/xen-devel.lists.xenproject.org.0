@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03C9999D4BA
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 18:33:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.818796.1232081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13ABF99D674
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 20:27:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.818812.1232091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0Nzu-0004hO-9S; Mon, 14 Oct 2024 16:32:42 +0000
+	id 1t0Pm0-0001JB-6l; Mon, 14 Oct 2024 18:26:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 818796.1232081; Mon, 14 Oct 2024 16:32:42 +0000
+Received: by outflank-mailman (output) from mailman id 818812.1232091; Mon, 14 Oct 2024 18:26:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0Nzu-0004eA-6f; Mon, 14 Oct 2024 16:32:42 +0000
-Received: by outflank-mailman (input) for mailman id 818796;
- Mon, 14 Oct 2024 16:32:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t0Pm0-0001Gr-3x; Mon, 14 Oct 2024 18:26:28 +0000
+Received: by outflank-mailman (input) for mailman id 818812;
+ Mon, 14 Oct 2024 18:26:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qGCd=RK=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1t0Nzt-0004e4-FW
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 16:32:41 +0000
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [2607:f8b0:4864:20::236])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ecfda495-8a49-11ef-99a2-01e77a169b0f;
- Mon, 14 Oct 2024 18:32:39 +0200 (CEST)
-Received: by mail-oi1-x236.google.com with SMTP id
- 5614622812f47-3e5c89b013aso1947985b6e.1
- for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 09:32:39 -0700 (PDT)
+ <SRS0=043R=RK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1t0Ply-0001CD-Cr
+ for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 18:26:26 +0000
+Received: from fhigh-a4-smtp.messagingengine.com
+ (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cfe570e9-8a59-11ef-a0be-8be0dac302b0;
+ Mon, 14 Oct 2024 20:26:23 +0200 (CEST)
+Received: from phl-compute-02.internal (phl-compute-02.phl.internal
+ [10.202.2.42])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 311BE114017B
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 14:26:21 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Mon, 14 Oct 2024 14:26:21 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 14:26:20 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,262 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecfda495-8a49-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728923558; x=1729528358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CzzBY1ZhFPH5/v/KiILlLgN1gmTiaKNc2dMaTmOv8CU=;
-        b=WusfwasH3232iaJRDpRPHq7zTDcExFgKY/E8qmYqQDgekUJu+LX95fdpnZKoWtBFpE
-         rjjjmYtCfc9aWCOD5GIsezo8nAiAKlQmMzVZPigRIFYjcPf0swFEu/QIiP0tXvs5iM+n
-         DIVNhcCmld3HZ8FMmQFDPygKe9I/FspTvMf1c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728923558; x=1729528358;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CzzBY1ZhFPH5/v/KiILlLgN1gmTiaKNc2dMaTmOv8CU=;
-        b=g2Ka18kRzGeGG3ub+WFGuL6JkaVji1X/02cdtIX0821ESm2Y0PfYDZwNTOltM4wzmK
-         IK3jRiO7h+oV9TAQtdZ/F9zgSgdl9tKtMQD9vS/4pCV1wDgjWTeuV6wRHTZhhjb15ocZ
-         2RMxvgbyGIP/37FBD0E27z2ImTLnPci5T3e9oIIh4Zv4ZniIljYf3/rTWruOJU5oPMg/
-         4IFlhY/mfoR4K5AGtgMY53RQ0MWLueCbRa3k3BEwlE71kF0xgJm0Tn0VDwPagoT14M9d
-         nymaKk5kQ2TzhAzc/GBiALREOyV6B8cokm34BWU36yvkeDT7G5qzOkPq2UqjEt9j3EsL
-         8nNg==
-X-Gm-Message-State: AOJu0YzOcvr38fa88KMQpUYq1kD2L/C7pMjzZ0XvskxTZPYl1nkQ99hI
-	nHgVCd5RYQKXvk9WUpbrY8rh75MQ+pyKtbxYT2lKBb8faVvRKJsvssJCQkBtcXIl7EYbdvC+hCF
-	NDdoWUZDTIG9s/G0zGak+XbNMroXv8fdG9oU2Eb7tukTfMl7cabU=
-X-Google-Smtp-Source: AGHT+IGCgPZQ5ZwwUmoSWntLgX+L53Ng2T+9p2seArTPOPdv0Xp4dITbcwKIrxgjknnzAy4gxIDLC7CgUJWl23RwSSo=
-X-Received: by 2002:a05:6808:2119:b0:3e3:a7f2:1aa4 with SMTP id
- 5614622812f47-3e5c90b9da8mr8375209b6e.8.1728923557749; Mon, 14 Oct 2024
- 09:32:37 -0700 (PDT)
+X-Inumbo-ID: cfe570e9-8a59-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1728930381; x=1729016781; bh=M7VzohHjJK
+	xRVvqGu20VrrL4HtL5ugfK54HKD2nUD3o=; b=XOgLjqcrdCojCya5ZG2M4aBeQh
+	Hke5g6NO1m2YMNVTyQG+dntMrad4vQ3ZZ4vjE4aiQq2HmkaJ4WNNcnCl/nNkX5VZ
+	RKZomB4Vfzao0i+RNYxivqKCb1fGsDMG+CuNE6rAmemCFMvxxIDHE6IVqibwhLli
+	7hmob9oqX7tVVREIqphu1UPli+N2sbB3mOg+GsqA6+VgJ1zr8KIj02lmBbYXBYH1
+	mRyE0AV5FBXa/m0VlD9Jq1R/h2EyXxEzYm+sbcRXauKp7rrdD/o27kkVDnFccj8P
+	fRjiDSlTfoMd/rydu2kLMD0lMnmWFknW5fzKxaVKv3LA2hz3HrFQiGxW1dvg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1728930381; x=1729016781; bh=M7VzohHjJKxRVvqGu20VrrL4HtL5ugfK54H
+	KD2nUD3o=; b=nIBNwuw4EeeTj+9B6t7gtG/hHLjPaWXsZ+wc7UKxEhJQfIDZGNl
+	vluUtGb0X3Q9c2ZB3fa8DMuZjjAv2m5rfAjKsfl0ptjcxqrdCuP4gid3Tk3zDjRU
+	MmO7N1P/injsM9l4PFBjgm6JooGm9ycIzlUzCeem1f/cciAaVQd/EKefi6y5QWGJ
+	faI9WwGhVbBNAI/9hQH96TqLQBXFRB3UeoPA+vu3uUm0ekWbv1JiIIVhaMt4i38W
+	YLcQSZcxidpWLWq9xg8jc8/MS6J279N2djAZ/araAFpgYZtFXQo8q2YEOnT+JisV
+	GKM7YLmAgKSyiRmJK0655KXgzGUVJvQjv/w==
+X-ME-Sender: <xms:TGINZ16KacgwLSOyQ6Hu9Ut9cKEC9NpaXcRBOO1ybioEYOIWSrkUdQ>
+    <xme:TGINZy563oH2F2uXEEqU8ZsON3L92qbwqpOsQouBMCntCFmhPsxhR5wpCHP32OIbS
+    c5ztQlAriZu8w>
+X-ME-Received: <xmr:TGINZ8exR6tWwTd4-P4OQv4L4JUNBLE9PZXyQG7BkprdqGV8W0FVi_Ilhz6XhKdNU5_KA29XEMk8stHa17diEcX9KweFmipkGw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdeghedguddvhecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvf
+    fukfggtggusehgtderredttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohif
+    shhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeegheetgeeihfekvdeiuddtjeei
+    ueegkeehteegkedthfektdegvdegvefhheeftdenucffohhmrghinhepkhgvrhhnvghlrd
+    horhhgpdhgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
+    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmpdhnsggprhgtphhtthhopedupdhmohguvgepshhmthhpohhuthdprhgt
+    phhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
+X-ME-Proxy: <xmx:TGINZ-LnlhFYVjds3TxSYZ26Hx6g-a_qQd5WMl8sUdyB9ZpcR8Aa_A>
+    <xmx:TGINZ5KLMQ4xa0oNhrbsZdOGMhVNJOLVBawTjRoEvLfF6nDKUodq9g>
+    <xmx:TGINZ3w1_FUX89ProUI2eSznLDfQXMMXiSht7hQNZyqikvnvMhugnQ>
+    <xmx:TGINZ1K_XX2ku1h2JEVJCFdZoGFGOY4U2pf0uuU-zU24e9GYCmQ9Qw>
+    <xmx:TWINZ7yguA7jbjRG7GGK8xfZGVwZAAOvZD7YSL7DrIKpQa26gZIPEhad>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 14 Oct 2024 20:26:18 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Xen PAT settings vs Linux PAT settings
+Message-ID: <Zw1iSuLD7473m07N@mail-itl>
 MIME-Version: 1.0
-References: <20241014085332.3254546-1-frediano.ziglio@cloud.com>
- <20241014085332.3254546-3-frediano.ziglio@cloud.com> <Zw05Tb8UvCQAIo+n@l14>
-In-Reply-To: <Zw05Tb8UvCQAIo+n@l14>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Mon, 14 Oct 2024 17:32:26 +0100
-Message-ID: <CACHz=ZiaSyr_6y=tniF6Kq7JcFjeoVse-dAX7TF3bsvL-r3jRg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/6] x86/boot: create a C bundle for 32 bit boot code
- and use it
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="pu0ZT9iPPfhWGJd/"
+Content-Disposition: inline
+
+
+--pu0ZT9iPPfhWGJd/
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Oct 2024 20:26:18 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Xen PAT settings vs Linux PAT settings
 
-On Mon, Oct 14, 2024 at 4:31=E2=80=AFPM Anthony PERARD
-<anthony.perard@vates.tech> wrote:
->
-> On Mon, Oct 14, 2024 at 09:53:28AM +0100, Frediano Ziglio wrote:
-> > diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-> > index 1199291d2b..23ad274c89 100644
-> > --- a/xen/arch/x86/boot/Makefile
-> > +++ b/xen/arch/x86/boot/Makefile
-> > @@ -1,4 +1,5 @@
-> >  obj-bin-y +=3D head.o
-> > +obj-bin-y +=3D built_in_32.o
->
-> I don't quite like that this new object name is "built_in_32.o",
-> It's really closed to "built_in.*" which is used by Rules.mk to collect
-> all objects in a subdirectory. I don't really have a better suggestion at
-> the moment.
->
+Hi,
 
-It was cbundle.o before, but people preferred built_in_32.o.
-It's a collection of object files like built_in.o so it does not seem
-so bad to me.
-But seen other replies, some other people prefer "bundle".
+It looks like we've identified the second buggy driver that somewhere
+assumes PAT is configured as Linux normally do natively - nvidia binary
+one this time[3]. The first one affected was i915, but it turned out to be
+a bug in Linux mm. It was eventually fixed[1], but it was quite painful
+debugging. This time a proper fix is not known yet. Since the previous
+issue, Qubes OS carried a patch[2] that changes Xen to use same PAT as
+Linux. We recently dropped this patch, since the Linux fix reached all
+supported by us branches, but apparently it wasn't all...
 
-> > @@ -9,9 +10,6 @@ targets   +=3D $(obj32)
-> >
-> >  obj32 :=3D $(addprefix $(obj)/,$(obj32))
-> >
-> > -$(obj)/head.o: AFLAGS-y +=3D -Wa$(comma)-I$(obj)
-> > -$(obj)/head.o: $(obj32:.32.o=3D.bin)
-> > -
-> >  CFLAGS_x86_32 :=3D $(subst -m64,-m32 -march=3Di686,$(XEN_TREEWIDE_CFLA=
-GS))
-> >  $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> >  CFLAGS_x86_32 +=3D -Werror -fno-builtin -g0 -msoft-float -mregparm=3D3
-> > @@ -25,14 +23,34 @@ $(obj32): XEN_CFLAGS :=3D $(CFLAGS_x86_32) -fpic
-> >  $(obj)/%.32.o: $(src)/%.c FORCE
-> >       $(call if_changed_rule,cc_o_c)
-> >
-> > +orphan-handling-$(call ld-option,--orphan-handling=3Derror) :=3D --orp=
-han-handling=3Derror
-> >  LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) :=3D --no-warn-rw=
-x-segments
-> >  LDFLAGS_DIRECT +=3D $(LDFLAGS_DIRECT-y)
-> >  LD32 :=3D $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
-> >
-> > -%.bin: %.lnk
-> > -     $(OBJCOPY) -j .text -O binary $< $@
-> > -
-> > -%.lnk: %.32.o $(src)/build32.lds
-> > -     $(LD32) -N -T $(filter %.lds,$^) -o $@ $<
-> > -
-> > -clean-files :=3D *.lnk *.bin
-> > +$(obj)/build32.final.lds: AFLAGS-y +=3D -DFINAL
-> > +$(obj)/build32.other.lds $(obj)/build32.final.lds: $(src)/build32.lds.=
-S FORCE
-> > +     $(call if_changed_dep,cpp_lds_S)
-> > +
-> > +# link all 32bit objects together
-> > +$(obj)/built_in_32.tmp.o: $(obj32)
-> > +     $(LD32) -r -o $@ $^
-> > +
-> > +$(obj)/built_in_32.%.bin: $(obj)/build32.%.lds $(obj)/built_in_32.tmp.=
-o
-> > +## link bundle with a given layout
->
-> Could you put the comment aligned with the rest of the recipe? That way
-> it won't visually separate the rule into several pieces. You can
-> prefix it with @ so it doesn't show in build logs:
->
->         @# comments
->
+Anyway, would it be useful (and acceptable) for upstream Xen to have
+a kconfig option (behind UNSUPPORTED or so) to switch this behavior?
+Technically, it's a PV ABI violation, and it does break few things
+(definitely PV domU with passthrough are affected - Xen considers them
+L1TF vulnerable then; PV live migration is most likely broken too). But
+on the other hand, if one doesn't use affected feature, it allows to
+workaround an issue that otherwise is very annoying to debug...
 
-Yes, they look more or less the same but technically pretty different.
-The "## XXX" is a comment for make command, the "\t@#comment" is a way
-to tell make to not print the command before launching it so make will
-launch a shell command "# comment".
-Yes, indentation does not make it clear. Not that launching a shell to
-execute a comment will take a long time. On the other hand, here that
-comment is more for the rule than for the shell. Maybe something like
 
-target:
-      command \
-           # do something
+[1] git.kernel.org/torvalds/c/548cb932051fb6232ac983ed6673dae7bdf3cf4c
+[2] https://github.com/QubesOS/qubes-vmm-xen/blob/44e9fd9f3b1ebf1cf43674b5a=
+1c2669f7dd253f5/1019-Use-Linux-s-PAT.patch
+[3] https://github.com/QubesOS/qubes-issues/issues/9501
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-(personally I found it even more ugly)
+--pu0ZT9iPPfhWGJd/
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> > +     $(LD32) $(orphan-handling-y) -N -T $< -Map $(obj)/built_in_32.$(*=
-F).map -o $(obj)/built_in_32.$(*F).o $(obj)/built_in_32.tmp.o
->
-> I think this wants to be: -T $(filter %.lds,$^) -Map $(patsubst %.bin,%.m=
-ap,$@) -o $(patsubst %.bin,%.o,$@) $(filter %.o,$^)
->
-> :-(, maybe that's lots of $(patsubst,), not sure which is better between
-> $(patsubst,) and using the stem $*.
->
+-----BEGIN PGP SIGNATURE-----
 
-Not strong about stem or patsubst.
-The 2 filters seem good, they suggest lds for the script and objects
-for the input, which makes sense.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmcNYkoACgkQ24/THMrX
+1yzg0AgAksa+WvRTW0vrh4Qf8T9wiHjo0psyVpYWFt5ZGCH6gYX2cHpABByg8Dj1
+KROPRo+BX4JcJ5KLU8cLFSHvU1pCMn47o9LLTBDO6NBX4fZiqdVAoBE/gxcJggKJ
+SyCVpF4uNggIjPYutkbysJKh8Me/zg6rUH59l5Z3DrX18uSbJzo+tYv0W7dQWuH5
+CIDK4ipcySo1704IUloEBsneuXtlAEypk2vELHPytGF0TFcyOhj2TpUBhDCZ59Yd
+VCRHgG84E7e/Z4heSprbuM1OjCR37a32x55TdMjzXLG7nJRZwoEr36rbbOGSSC6p
+4QTbNY8rNdmIr/Vrn+tG2UevJ6HsuA==
+=/l5S
+-----END PGP SIGNATURE-----
 
-> Also, if something tries to use built_in_32.tmp.bin, we have a rule that
-> remove it's prerequisite.
->
-> BTW, everything is kind of temporary in a build system, beside the few
-> files that we want to install on a machine, so having a target named
-> with "*tmp*" isn't great. But having a rule that create "*tmp*" file but
-> remove them before the end of its recipe is fine (or those *tmp* aren't
-> use outside of this recipe).
->
-
-Mumble... yes, I think the XX.tmp.o was a temporary internal rule file.
-So we still don't agree on one name, and now we want to find also
-another, tricky.
-More or less if it can help, one is a 32 bit object file that bundle
-together multiple 32 bits object files while the other is the
-conversion of the 32 bits bundle file to 64 bits.
-XXX_32.o and XXX_32as64.o ??
-
-> > +## extract binaries from object
-> > +     $(OBJCOPY) -j .text -O binary $(obj)/built_in_32.$(*F).o $@
-> > +     rm -f $(obj)/built_in_32.$(*F).o
-> > +
-> > +# generate final object file combining and checking above binaries
-> > +$(obj)/built_in_32.S: $(obj)/built_in_32.other.bin $(obj)/built_in_32.=
-final.bin
->
-> So, "other" isn't part of "final", I don't really know what those two
-> things contains so naming wise I can't suggest anything useful.
->
-> But, is "built_in_32.S" really only depends on those two .bin? SHouldn't
-> it get regenerated if the script changes, or the .lds that --script
-> option seems to use? What is the "--map" option, an input or output?
-
-Both map file and linker script are dependency of the bin files so no probl=
-ems.
-Yes, potentially you want to generate if the python script change.
-Potentially also if Makefile, make, ld or any other command change,
-but that possibly is kind of "we don't usually care".
-
-> But I guess we can ignore the ".map" file because it's part of the
-> ".bin".
->
-
-Yes, I suppose they are, although we can make it explicit both
-generating them and using as dependencies.
-
-> Another thing that might be useful to do, is to use the "if_changed"
-> make macro, that way if the command line of the script changes, make
-> can remake the output. But maybe it's a bit complicated for this recipe
-> because it doesn't uses $< or $^.
->
-
-I usually simply add Makefile to the dependencies. It works too.
-
-> > +     $(PYTHON) $(srctree)/tools/combine_two_binaries.py \
-> > +             --script $(obj)/build32.final.lds \
-> > +             --bin1 $(obj)/built_in_32.other.bin \
-> > +             --bin2 $(obj)/built_in_32.final.bin \
-> > +             --map $(obj)/built_in_32.final.map \
-> > +             --exports cmdline_parse_early,reloc \
-> > +             --output $@
-> > +
-> > +clean-files :=3D built_in_32.*.bin built_in_32.*.map build32.*.lds
-> > diff --git a/xen/arch/x86/boot/build32.lds b/xen/arch/x86/boot/build32.=
-lds.S
-> > similarity index 70%
-> > rename from xen/arch/x86/boot/build32.lds
-> > rename to xen/arch/x86/boot/build32.lds.S
-> > index 56edaa727b..50c167aef0 100644
-> > --- a/xen/arch/x86/boot/build32.lds
-> > +++ b/xen/arch/x86/boot/build32.lds.S
-> > @@ -15,22 +15,47 @@
-> >   * with this program.  If not, see <http://www.gnu.org/licenses/>.
-> >   */
-> >
-> > -ENTRY(_start)
-> > +#ifdef FINAL
-> > +# define GAP 0
-> > +# define MULT 0
-> > +# define TEXT_START
-> > +#else
-> > +# define GAP 0x010200
-> > +# define MULT 1
-> > +# define TEXT_START 0x408020
-> > +#endif
-> > +# define DECLARE_IMPORT(name) name =3D . + (__LINE__ * MULT)
->
-> Is  ^ this a stray space?
->
-
-Yes, a single ASCII character 32. Surely we don't want tabs. Other
-parts of the file use 2 spaces indentation, others 8 spaces. Or are
-you suggesting to not indent them?
-
->
-> Overall, it's kind of mostly style comment that I had, so feel free to
-> ignore most of them.
->
-
-Naming can be cumbersome but usually helps readability.
-
-> Cheers,
->
-> --
->
-> Anthony Perard | Vates XCP-ng Developer
->
-> XCP-ng & Xen Orchestra - Vates solutions
->
-> web: https://vates.tech
->
-
-Frediano
+--pu0ZT9iPPfhWGJd/--
 
