@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C155799D78A
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 21:35:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.818880.1232170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E97699D7E0
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 22:06:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.818889.1232181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0QqM-0006DZ-Vw; Mon, 14 Oct 2024 19:35:02 +0000
+	id 1t0RKR-0002Ee-Cn; Mon, 14 Oct 2024 20:06:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 818880.1232170; Mon, 14 Oct 2024 19:35:02 +0000
+Received: by outflank-mailman (output) from mailman id 818889.1232181; Mon, 14 Oct 2024 20:06:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0QqM-0006BL-T0; Mon, 14 Oct 2024 19:35:02 +0000
-Received: by outflank-mailman (input) for mailman id 818880;
- Mon, 14 Oct 2024 19:35:01 +0000
+	id 1t0RKR-0002Cv-9S; Mon, 14 Oct 2024 20:06:07 +0000
+Received: by outflank-mailman (input) for mailman id 818889;
+ Mon, 14 Oct 2024 20:06:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n5/l=RK=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1t0QqK-0006BF-W6
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 19:35:01 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060d.outbound.protection.outlook.com
- [2a01:111:f403:2414::60d])
+ <SRS0=QJ8R=RK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t0RKP-0002Cp-Ky
+ for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 20:06:05 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 649672ad-8a63-11ef-99a2-01e77a169b0f;
- Mon, 14 Oct 2024 21:34:57 +0200 (CEST)
-Received: from SN7PR04CA0048.namprd04.prod.outlook.com (2603:10b6:806:120::23)
- by DS7PR12MB8369.namprd12.prod.outlook.com (2603:10b6:8:eb::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.26; Mon, 14 Oct
- 2024 19:34:52 +0000
-Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
- (2603:10b6:806:120:cafe::52) by SN7PR04CA0048.outlook.office365.com
- (2603:10b6:806:120::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.27 via Frontend
- Transport; Mon, 14 Oct 2024 19:34:52 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8069.17 via Frontend Transport; Mon, 14 Oct 2024 19:34:52 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Oct
- 2024 14:34:52 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Oct
- 2024 14:34:52 -0500
-Received: from [192.168.122.223] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 14 Oct 2024 14:34:51 -0500
+ id bb7847ca-8a67-11ef-99a2-01e77a169b0f;
+ Mon, 14 Oct 2024 22:06:00 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-37d55f0cf85so2161316f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 13:06:00 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-430d70b444csm164748525e9.33.2024.10.14.13.05.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Oct 2024 13:05:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,190 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 649672ad-8a63-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=acGXjQhoTlI13Cho0+B/muvkVH4JmsPGZDFt21J01nCW8LYhta6iM9812epKB1vyhIoTMkDNMaLFAVOjdODiK+sZ01TSeLjN8F6bhLmYLAqHZmgUiKWNVBwZGyurcDcYZntvyMoaa828xNlrMwvydF+39KDAWGUlF/baOQoeeW9LZ6/HZn0WwwQ5BVS0qtCNcbMA5QH1ngvKtdrPySB9Unb2/0FuE3VCofxAiZRoyRfekr2vZjjpc5UIRo0R1raB8DFTK4U82b69+cBB7u7mKgROW63/0CenSczl84McydHbtb8+VuYoEbjatY/waSHZtOZcHmApq8vlPNi4phH47w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=So1Uuts7Om0gG4P7bfTl+P+vFuUUY52uL60n03Dy22k=;
- b=hvj2GOeVa2zhCY8k0HTQ+eOHVQ1zTzpkLRMu0Hod7W2LhzdYfOqsw0borW8+K+u8ttSYmyovNyv0o7JIs6qaH8Zxt7/3yATflAz4gd2r+IgVn/7vG7sZw/g0pGd1xA3eoIxLdyBaeWOIPRnfwz46EK9ddRNTD+kIQAfSSpJRXKh0qd8yWR/eJ3iQEwJz2BPwpO28vRj8l8MxwZKlq+AJMzDbqCTSTpXQLv+UOqYj6AdVyMm6ucIFbH6cFoB6t8dtHjXmD4jauBvb0H4aOh+S06nNYiCsnq6ZE2QRr449cJdOIjc3gy4gxQczlumH0PVuIrQHTh3iKWG/bykx06vYkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nongnu.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=So1Uuts7Om0gG4P7bfTl+P+vFuUUY52uL60n03Dy22k=;
- b=QnhUpjuz9hIHTIAPIJXp6Dl2HIO7QuHDiPkgZpHOYytGzIPpRMlNl1UllG67jxvgvhpfxlmsmTyN9atS5CtPhMhALQ2NfDAegoXoz8JaHblYTuY9AUHm7wCV/TYQDWoaU/yu79P3o5BJAlYYgtPHnRl2p5N5mwDCiam+2GgZafA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <fb14e4dc-b8ea-444b-8eee-551d05b7217f@amd.com>
-Date: Mon, 14 Oct 2024 15:34:50 -0400
+X-Inumbo-ID: bb7847ca-8a67-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1728936360; x=1729541160; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=We3nv6qTe5WU/pLKfIuGBL0H+WZavctLAtubwy4suCo=;
+        b=X1Vucseh1cJNN3akmhODWfG6GFbtv1ES4YoVxGZsCNj/NQJIuocmHP+62dgUsrAHbf
+         x8/xpYUNGfF9j9LsCindPyqZLHx/aPbeGVLUcVjF9FVDnOoao62LplBjov2zoZwrpwQG
+         gW5l8FF/pczrYGjvaDPssTMllx5wNRS7IA4iU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728936360; x=1729541160;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=We3nv6qTe5WU/pLKfIuGBL0H+WZavctLAtubwy4suCo=;
+        b=qzj8kpDVAKmFIRBorQRZQ4ErqxpEn6ohL0/HVeLxIAA7eWxgMHL5Py47Im7ne3tOjh
+         05/Axc6mkkfArY8VZRIZcKNYnq+MQ8ZUnUwFa8ZERk9CKkuSiB9rEKg48W66CRck63zf
+         07VuA4iMErVlTj1xzIWaCFIwR91oVwU8pfFg5u9eopkwwUlPkEt9iWHMVlmQjs9fhdS1
+         ptVPyrd60rjOT2gdjjwmIGj+oQEMLv8AKYZU53V/hVw1AEHfGrkAo010Fl+urhHvDO1c
+         /qGJpkBTzts/DMTDhhXKAWzlHkbaXBPVjcQqZ17LP5BC08vpmIEuzQG/dm5RYzFx6UFF
+         Ui6A==
+X-Forwarded-Encrypted: i=1; AJvYcCWSBAANqxwhMv4bw8h2OfmmmDnN8ZmZQE4L0eIQPZPXsvfHtlZEUPOZl+RLeM9omMNX6Kc2WDxtXLA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTsMv8i5xbFBkGgQQDFWMl8qeLZxbfQMTyRFdiwhiaMzwD2qxD
+	WrJSsh/3wcyQ42MqeRzS5eonDr8h/DR7JPVt+StBsK7v9ccS2ldWDylHao5wnM+VI6cC3bfqBpM
+	+HcH+Sw==
+X-Google-Smtp-Source: AGHT+IGk0iZhliZHyiTz9ABDsoGjPH/jqVhvc8Z2hNC77V10JFJmheRD94+UkDRzWwpfoIt6cro7kw==
+X-Received: by 2002:a05:6000:12cc:b0:37d:41df:136b with SMTP id ffacd0b85a97d-37d551ca167mr7292976f8f.13.1728936359799;
+        Mon, 14 Oct 2024 13:05:59 -0700 (PDT)
+Message-ID: <dc7a4441-b082-459d-a954-78f43d7d35bd@citrix.com>
+Date: Mon, 14 Oct 2024 21:05:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC QEMU PATCH v7 1/1] xen/pci: get gsi for passthrough devices
-To: Jiqian Chen <Jiqian.Chen@amd.com>, <qemu-devel@nongnu.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Anthony PERARD
-	<anthony@xenproject.org>, Paul Durrant <paul@xen.org>, "Edgar E. Iglesias"
-	<edgar.iglesias@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, Huang Rui <Ray.Huang@amd.com>
-References: <20240516101338.86763-1-Jiqian.Chen@amd.com>
- <20240516101338.86763-2-Jiqian.Chen@amd.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <20240516101338.86763-2-Jiqian.Chen@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|DS7PR12MB8369:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d0b5aa9-2a23-4e54-efc0-08dcec874681
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NG1ubTdPZ1FNVVVOTWhLbUltU0dhajh4V0JzQ25wN3hRc0J4Z1RKRVBBNGE0?=
- =?utf-8?B?c0JMbEZaRmdNdUdodmdNU0RYZ3dvVGo1a2l3bmN2THFsckRrS21zbXE0dis3?=
- =?utf-8?B?eDBaTDdOS0dtS2xqSW54MXg1T2NFUTdLaW5OTVBTL1lJSVdSZ0gwendpbXJG?=
- =?utf-8?B?YVpGQkdvL1hmVFNvQzhEYm5UVUhUNmdCSjhSVXYzUE1ic3VsenlFMitrUDJj?=
- =?utf-8?B?bGpWZ0htU2hvYTNHZmpPMkswOXRiZEd2WU1lUThHU3FLdEZtWmQzN3FEdUwx?=
- =?utf-8?B?cE50STR0OXh1a1IrUTA1M3IrNHNLRmRlUWVsT3lEckowOFZjR1dEWmkwOFE3?=
- =?utf-8?B?dDhyc0ZEQUVZTGc0ZHVqUDVWNFl2QmpBdGFxclFENHYrQlVpZS9BZzhDcmRM?=
- =?utf-8?B?RFBpMnhlbE1CZ3NwcEFmWFFKazAxR3RpWmc2MnpuUFRHNEdJWU5acU5GcXUr?=
- =?utf-8?B?YnRGYWdFeksyR3RVclNzcElRTEJSZ0pnUHh6RHZ6azBuNDc2bmtKWDlFR1VO?=
- =?utf-8?B?VW5HNGhBN3BzWk0yU1RYYWRkYk1KYmVwb2VXMmVFczNUZlVnb2F5cG44a2tL?=
- =?utf-8?B?UE83cDU0bVVlL2lSZDlVSVhuR1c5ZzYvRW1yOEl0cm4rZjhmNjJvUkpXYytP?=
- =?utf-8?B?cjJGYUJqTVc3N050K3hENUhvc3Aza0E5R0NvNGduM09XN1REcXBpQmdLZHdW?=
- =?utf-8?B?UE4rb3VEdHdrZ3VVM3pNV2wvN1JmWXRJbnEzeEUyaU1pcm02eHkrNlJ1dWdu?=
- =?utf-8?B?M0prNExTZjdsYzQxenZ5Q0VJMjIwazYxVXZEVDFFcG1DR0dTek91dCtLci9t?=
- =?utf-8?B?enNYZitZa2tnaXdNMTM3aUtkZVkwVnVMdTVUUU1lUWZiWmdNdm9EZHl4YjFE?=
- =?utf-8?B?WXhHNUIwaFN2M1FoZUgrRVZGSzdYMEwzWUdhVDdBaVJEUWdxUGc0SzhmUXJt?=
- =?utf-8?B?OGprbUxpOFNYYldhL3dmblZNOFBhcHBFUGlVWVdvcWRENXNuckR2UVh1TnZN?=
- =?utf-8?B?SFlQVTlyUmVIeHhwOWFCUUY2VVhDUmNkMTVqVW82M2IyZTAvU09xRUROa2p6?=
- =?utf-8?B?MHhyOTlNbXBwL0xjZ0dNTWRGSGhnemFsVkhRaEE3L3FjaUoxbHFUSC9Tb1k3?=
- =?utf-8?B?QU1pWUU1Uy9JbnNyQytWSFF1MzBLTy9nL0FrUEJZc1orL09Od3dLNEdldTRK?=
- =?utf-8?B?T1d3eUVDYUpCVkt0Q3N2SXRqbU41dG1xWE4yc09haG5YU2hHa3J0SVcweS8z?=
- =?utf-8?B?MU1sYlhCSk5OVERjNUo5UnBFNDQxNm1udENCOTFxbkpDSHFFM2JiSXN4S3pj?=
- =?utf-8?B?cnZaQ25KWmN4cWJ4aFVzS3FUQThtcUhsL1ZDT0JKblF0cnB3OElsWUFTVXJJ?=
- =?utf-8?B?dHNtbkE2ZFAxejY5dVZxOW9UaG5jS2d2bS9HRWYwanVnVUkzMlZ2ZnErWHlO?=
- =?utf-8?B?RElibHRCYjRxdmFEbnhWdC9tcGFoTnR2cHd1ZDlKSWZDSlVDeDNoWlFETWNy?=
- =?utf-8?B?azhqQUdWTXNnVjduNFlnVVFXMVlBWjA2VlZod2RCVDhNUTJCVm0zSU1iYzBi?=
- =?utf-8?B?aHlnN20yZ3EvR3c5RWpXTFoyT2UvVkRvQ0xzVmp6V20wR3RoLzlnejhhUUxl?=
- =?utf-8?B?aE5nTk1LQWU5RXV3OWsvdTNkd3dJNkNTSlZsdnRrTk9yTWtwOHg5aWVVMzFJ?=
- =?utf-8?B?NUZ1L1d6Y1RSV0t0akI2YUFMTlEyTUx5Zi8yWGJ3UTVITWxVbzJVM1ZmcHNq?=
- =?utf-8?B?VzZqaVBJM3lKOTcwUzVHZW5PNTVpK1BwWFMwaWo1czFpZzk0dU1hbVRJMDE5?=
- =?utf-8?Q?CF9zkBRhritVeQOuPZqqw52et+NxbttaC2UX0=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2024 19:34:52.6647
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d0b5aa9-2a23-4e54-efc0-08dcec874681
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F63.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8369
+Subject: Re: Xen PAT settings vs Linux PAT settings
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
+References: <Zw1iSuLD7473m07N@mail-itl>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <Zw1iSuLD7473m07N@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-+Edgar
+On 14/10/2024 7:26 pm, Marek Marczykowski-Górecki wrote:
+> Hi,
+>
+> It looks like we've identified the second buggy driver that somewhere
+> assumes PAT is configured as Linux normally do natively - nvidia binary
+> one this time[3]. The first one affected was i915, but it turned out to be
+> a bug in Linux mm. It was eventually fixed[1], but it was quite painful
+> debugging. This time a proper fix is not known yet. Since the previous
+> issue, Qubes OS carried a patch[2] that changes Xen to use same PAT as
+> Linux. We recently dropped this patch, since the Linux fix reached all
+> supported by us branches, but apparently it wasn't all...
+>
+> Anyway, would it be useful (and acceptable) for upstream Xen to have
+> a kconfig option (behind UNSUPPORTED or so) to switch this behavior?
 
-On 5/16/24 06:13, Jiqian Chen wrote:
-> In PVH dom0, it uses the linux local interrupt mechanism,
-> when it allocs irq for a gsi, it is dynamic, and follow
-> the principle of applying first, distributing first. And
-> the irq number is alloced from small to large, but the
-> applying gsi number is not, may gsi 38 comes before gsi
-> 28, that causes the irq number is not equal with the gsi
-> number. And when passthrough a device, qemu wants to use
-> gsi to map pirq, xen_pt_realize->xc_physdev_map_pirq, but
-> the gsi number is got from file
-> /sys/bus/pci/devices/<sbdf>/irq in current code, so it
-> will fail when mapping.
-> 
-> Get gsi by using new function supported by Xen tools.
-> 
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+Not UNSUPPORTED - it's bogus and I still want it purged.
 
-I think you can safely remove the RFC tag since the Xen bits have been
-upstreamed.
+But, behind EXPERT, with a suitable description (e.g. "This breaks
+various ABIs including migration, and is presented here for debugging PV
+driver issues in a single system.  If turning it on fixes a bug, please
+contact upstream Xen"), then I think we need to take it.
 
-> ---
->  hw/xen/xen-host-pci-device.c | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
-> 
-> diff --git a/hw/xen/xen-host-pci-device.c b/hw/xen/xen-host-pci-device.c
-> index 8c6e9a1716a2..2fe6a60434ba 100644
-> --- a/hw/xen/xen-host-pci-device.c
-> +++ b/hw/xen/xen-host-pci-device.c
-> @@ -10,6 +10,7 @@
->  #include "qapi/error.h"
->  #include "qemu/cutils.h"
->  #include "xen-host-pci-device.h"
-> +#include "hw/xen/xen_native.h"
+The fact that I've had to recommend it once already this week for
+debugging purposes, and it wasn't even this Nvidia bug, demonstrates how
+pervasive the problems are.
 
-The inclusion order unfortunately seems to be delicate.
-"hw/xen/xen_native.h" should be before all the other xen
-includes, but after "qemu/osdep.h".
+> Technically, it's a PV ABI violation, and it does break few things
+> (definitely PV domU with passthrough are affected - Xen considers them
+> L1TF vulnerable then; PV live migration is most likely broken too).
 
->  
->  #define XEN_HOST_PCI_MAX_EXT_CAP \
->      ((PCIE_CONFIG_SPACE_SIZE - PCI_CONFIG_SPACE_SIZE) / (PCI_CAP_SIZEOF + 4))
-> @@ -329,12 +330,17 @@ int xen_host_pci_find_ext_cap_offset(XenHostPCIDevice *d, uint32_t cap)
->      return -1;
->  }
->  
-> +#define PCI_SBDF(seg, bus, dev, func) \
-> +            ((((uint32_t)(seg)) << 16) | \
-> +            (PCI_BUILD_BDF(bus, PCI_DEVFN(dev, func))))
-> +
->  void xen_host_pci_device_get(XenHostPCIDevice *d, uint16_t domain,
->                               uint8_t bus, uint8_t dev, uint8_t func,
->                               Error **errp)
->  {
->      ERRP_GUARD();
->      unsigned int v;
-> +    uint32_t sdbf;
+Do you have more information on this?  The PAT bits shouldn't form any
+part of L1TF considerations.
 
-Typo: s/sdbf/sbdf/
-
->  
->      d->config_fd = -1;
->      d->domain = domain;
-> @@ -364,11 +370,16 @@ void xen_host_pci_device_get(XenHostPCIDevice *d, uint16_t domain,
->      }
->      d->device_id = v;
->  
-> -    xen_host_pci_get_dec_value(d, "irq", &v, errp);
-> -    if (*errp) {
-> -        goto error;
-> +    sdbf = PCI_SBDF(domain, bus, dev, func);
-> +    d->irq = xc_physdev_gsi_from_dev(xen_xc, sdbf);
-
-This was renamed to xc_pcidev_get_gsi.
-
-This also needs some sort of Xen interface version guard for backward
-compatibility since it's a new call introduced in Xen 4.20.
-
-> +    /* fail to get gsi, fallback to irq */
-> +    if (d->irq == -1) {
-> +        xen_host_pci_get_dec_value(d, "irq", &v, errp);
-> +        if (*errp) {
-> +            goto error;
-> +        }
-> +        d->irq = v;
->      }
-> -    d->irq = v;
->  
->      xen_host_pci_get_hex_value(d, "class", &v, errp);
->      if (*errp) {
-
+~Andrew
 
