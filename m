@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9731399D6F3
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 21:03:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.818854.1232141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 814C399D70D
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2024 21:11:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.818860.1232150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0QLt-0000Pb-4G; Mon, 14 Oct 2024 19:03:33 +0000
+	id 1t0QTT-0002ED-Qv; Mon, 14 Oct 2024 19:11:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 818854.1232141; Mon, 14 Oct 2024 19:03:33 +0000
+Received: by outflank-mailman (output) from mailman id 818860.1232150; Mon, 14 Oct 2024 19:11:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0QLt-0000MQ-0c; Mon, 14 Oct 2024 19:03:33 +0000
-Received: by outflank-mailman (input) for mailman id 818854;
- Mon, 14 Oct 2024 19:03:32 +0000
+	id 1t0QTT-0002C5-OI; Mon, 14 Oct 2024 19:11:23 +0000
+Received: by outflank-mailman (input) for mailman id 818860;
+ Mon, 14 Oct 2024 19:11:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=v7KN=RK=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1t0QLs-0000MK-G2
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 19:03:32 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on20600.outbound.protection.outlook.com
- [2a01:111:f403:2606::600])
+ id 1t0QTS-0002Bz-Ro
+ for xen-devel@lists.xenproject.org; Mon, 14 Oct 2024 19:11:22 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2061f.outbound.protection.outlook.com
+ [2a01:111:f403:2612::61f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00d4a7ed-8a5f-11ef-a0be-8be0dac302b0;
- Mon, 14 Oct 2024 21:03:31 +0200 (CEST)
-Received: from AS4P190CA0063.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:656::14)
- by AS4PR08MB7902.eurprd08.prod.outlook.com (2603:10a6:20b:51d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.25; Mon, 14 Oct
- 2024 19:03:27 +0000
-Received: from AM2PEPF0001C715.eurprd05.prod.outlook.com
- (2603:10a6:20b:656:cafe::70) by AS4P190CA0063.outlook.office365.com
- (2603:10a6:20b:656::14) with Microsoft SMTP Server (version=TLS1_2,
+ id 189de7b7-8a60-11ef-a0be-8be0dac302b0;
+ Mon, 14 Oct 2024 21:11:21 +0200 (CEST)
+Received: from AM5PR0301CA0006.eurprd03.prod.outlook.com
+ (2603:10a6:206:14::19) by DB3PR08MB8796.eurprd08.prod.outlook.com
+ (2603:10a6:10:433::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18; Mon, 14 Oct
+ 2024 19:11:16 +0000
+Received: from AM2PEPF0001C70E.eurprd05.prod.outlook.com
+ (2603:10a6:206:14:cafe::2) by AM5PR0301CA0006.outlook.office365.com
+ (2603:10a6:206:14::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.27 via Frontend
- Transport; Mon, 14 Oct 2024 19:03:27 +0000
+ Transport; Mon, 14 Oct 2024 19:11:16 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM2PEPF0001C715.mail.protection.outlook.com (10.167.16.185) with
+ AM2PEPF0001C70E.mail.protection.outlook.com (10.167.16.202) with
  Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7918.13
- via Frontend Transport; Mon, 14 Oct 2024 19:03:26 +0000
-Received: ("Tessian outbound 5c9bb61b4476:v473");
- Mon, 14 Oct 2024 19:03:26 +0000
-Received: from Lb198c0581f9f.2
+ via Frontend Transport; Mon, 14 Oct 2024 19:11:15 +0000
+Received: ("Tessian outbound cd6aa7fa963a:v473");
+ Mon, 14 Oct 2024 19:11:15 +0000
+Received: from L89532d193e08.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- B0151C4D-5477-4E96-8FF8-D3B191F23C8A.1; 
- Mon, 14 Oct 2024 19:03:20 +0000
+ B8EB5F18-E6DD-4269-AE6F-17F76FE0BBB0.1; 
+ Mon, 14 Oct 2024 19:11:08 +0000
 Received: from EUR05-DB8-obe.outbound.protection.outlook.com
  by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
- Lb198c0581f9f.2 (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 14 Oct 2024 19:03:20 +0000
+ L89532d193e08.2 (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 14 Oct 2024 19:11:08 +0000
 Received: from DBAPR08MB5798.eurprd08.prod.outlook.com (2603:10a6:10:1a6::21)
- by DB4PR08MB8078.eurprd08.prod.outlook.com (2603:10a6:10:386::7) with
- Microsoft SMTP Server (version=TLS1_2,
+ by PAVPR08MB9747.eurprd08.prod.outlook.com (2603:10a6:102:31e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.26; Mon, 14 Oct
- 2024 19:03:17 +0000
+ 2024 19:11:06 +0000
 Received: from DBAPR08MB5798.eurprd08.prod.outlook.com
  ([fe80::4a66:d3e2:570:9632]) by DBAPR08MB5798.eurprd08.prod.outlook.com
  ([fe80::4a66:d3e2:570:9632%6]) with mapi id 15.20.8048.020; Mon, 14 Oct 2024
- 19:03:17 +0000
+ 19:11:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,14 +72,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00d4a7ed-8a5f-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 189de7b7-8a60-11ef-a0be-8be0dac302b0
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=U+QbWb5T9Q9rWP89I63a6tZwc9YNQ1UJhZM5ewm7AhEvUD/4tTBMyPdsTtIxUzUMvO4E0A7pH7bs6901xzzizZXEJ75yV4SSpCByttY/cEoSGLHXHK0f3v+zHqnbhb0LXx/w8oxVYOVeUohsTaYTyjEraOXnBZI28klJBkdAF6dzz3k+oA9iR73w/Ll4LofsrcBmr52bzUX2dc1891DAYcxPHQxIgceutg4FGbt1OlFaNSuFmyIhUHVMrwOYjh7Wkn4ojCztBa4vR5p0dmLsUKUzZknriojArNvjnepwbnULlOufWm/vk+zEKWWfg4N4Sj4Ir3NptPt1dxk+sf0usw==
+ b=sqqtUn06FTla6hBJmSokkPJWKMxMrBcMWDF96Z0OTu0YbyMTqDOL/N0P0Jvo1+x/JsA+8SfqvHCC9e8i9TNq9oifh17BGqmEvAnMU0E0072LYBrFCxpcmkXJV3DIFbTsDweQFascfFprbr6nHj/GoIwsFccMsL+2W9WuAHxZdMkA61hbBwR25dJZ9A2yvNsnzPRmkSSCHQk7CbA03sC7xdnsVvYaSpCeQvXBa9h68NadfH2CB18J8wGVrqSneRaY7JgMmxrq2LNEROReaoMvUpBotBILaqrZDYivTK+BjUVLTizBbwGO1WeTFt0klfiuQ7AYI6Jv39TdTucjTIFC9g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qY6loj9QoGNXCfU/Ew1xShneuszgigDEgY8qLYPOvpk=;
- b=rt8s4ePeZjyn/fwiKyUWhwX82/KD6xooxkm7533bPVrTZvHS5uI7Y342qzMH/ED/l77Gu9szPSiE+/k51RCZX3nq6/Emk5HQhlDqx0cnymMBfR05T2PWQlyB5H5YFDzSyDju0t1dEwxRVObt+4h2U+FCscvNsS2DbYFSJkBnywedmQaV5B9bBhqga7EVeyRHF62N3djs0Yc2rCHnNNK+XJXT1a/OzV8LmZlmLLQ+Xibg7hGxNrU2y9ac8E3gvYiSWBCmIfK1CZQKWG52+dp1hSyMh6+5Albg+QTf5EsvOxceIYogqNTxTlekEVn2Bs67vxvpJ5xI9Kl8KKx4cophDg==
+ bh=fE7k2SmLLhqYbNviwomGEU/K/QmSH8pn9ExHoSq5SUY=;
+ b=SClCzA8Xc7awVhW6NT3zPZKug+NAISCXyMFP95OE/fOS3JeTD2Bj0cwiODTUfynZki3npBuOYX2jU226JtlYSP47EGTpwPcugYB9dAXCG1KM05chxZGIWktgkhhUv7XoDTdT/+xxofUXW2pyrsmJdkYsA8h5npbNLOjDhuaE6A6AKHZVpkF/DqJEF++dBCFp5dEoMs/ONOd2komkrHHE9TSeYi+igJPGa9tsw872GzGKUGqeZB/iXX+Tz+b6h0n0SMlAb/vBPnSXm7oGwKDW8AbGsfwNUfXFEqnl8RkEu6t7TniO4ropQ6PglBB9eLLMle8WubR23fsU/cDvBGpDJQ==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -88,8 +88,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qY6loj9QoGNXCfU/Ew1xShneuszgigDEgY8qLYPOvpk=;
- b=cB6s02j89BBN0ug+rTcE3ZBZIzJN3TpgJh+aHI1Fj+VOvua0qQx29m+DP843hMHVsHXzL3lEOu/vfPQeFonpJYwLSVWcqEBKYrOB2pWo9/1e/ug+g4Hp2LBNF8LgmAZfkbt6aSzlnaN70tn6gb187HnelTQamZVrRBXhEWjlnR8=
+ bh=fE7k2SmLLhqYbNviwomGEU/K/QmSH8pn9ExHoSq5SUY=;
+ b=c1Qi0SMF/gUfd798wkHWhRQJNYUouScNEGCgPCsRKIMWAMhMXmHNaJGxpG5Q1BsknUfxqpaf07EVd/ne/RLLaR7B6D4U5DKzBlC668c8VPuLWfehg3ITYrK6+GAseyis4rE6hjMeyy0IZP80VbG3sHlLJOdX67QYvMhkVfEiuJI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -98,39 +98,37 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: e6f826a6774411ac
-X-TessianGatewayMetadata: CoZP5+gxg8xI6WlXlStrwAyphlv2qDF9ae6MvAWs+vQ+QJqrRaRFqqsZe69h+YLNFmum2dh9311umdY55M71T06j0p3MGCJDKjpZbduNgrt9d0D2eg+SJs34Ko6tUd5gWp/tvO0FxtnJDIg1SEtx3+TclAEOQSRZQ9ALIJgmPgc=
+X-CR-MTA-CID: fda2988afb4874d5
+X-TessianGatewayMetadata: GU/IhCrPs8BRLIEWdFhKYbrYwDWKhPhX+JRvnG69tMECiPQZofTOXfHm8ZsczhFXKZaHkb96BAIPqdcYdFkUDRV2rFloohFtEwYNJ1MtcCTluPy0H76T2xQXqFRkVicXSrr9p08ScFnWnIoJq5QMKQ977ZHzHEcqAxLwt+mMx+U=
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IT9qjn5yAbsQN6b5Vj0nEb7VNgHALy6HjQLIzzi1lMEhjOCDvF1qtQvlT96Go38WFgTDKqM6K5IcXeEYSvwJTTspLPwZnP/QZzpy3WIo0NGR9VALuILrj57y0pzmRIKSbUtHL3D3jeK+sk9XCR0TrPJ438Rsj3NukaDxSxtkOP42jSLIE4aB06YV6CmwebFB9MixPBLjrevy8ugo5ferCdtYZxwhj4sUH5oU06o3GGRiv8bLdP4bH7WGvIDrODrfuhzDai/YnSFNKufqyIw/BkkGRGHXW7ZGesQETShbn9LbjqsptLeK7WgZQTcYHTu+WQ0qmX9mmhSK79aYLH6rxQ==
+ b=srB3TUS5JcCsOa7UjwLNXuN+n+WQ5ngOfm10/Yq+ipUYppxupI95s9MgWsbJ/wsniWM0nIRCjK/3Glpf3cbvR2YazNNR/M2rRA4+VRxSPlqtM4RxT+KLbHlxAo4HIqAdGS0+3IH9L0xSsd9WX6JtoopOReYrsEmCowkt/s5A5FMZkSOGb/W1S5Wza1wgejTU6mWA++TQ/Q49GzV7AABysu4N7Phe/1Wkk9kjucxTu1iyYuqHUFKRy4eP6LFuaYE1tnzydy4o0PzUCAzLKqODf01Fhep4E6UjHxZvypLRwLJAcawINXFLE6+RijgQcT2TcS6nTdZBW55NY4VIU9GAeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qY6loj9QoGNXCfU/Ew1xShneuszgigDEgY8qLYPOvpk=;
- b=tNSrW6eBg2FY4m07ib/EnJjp+M1TPDkaplJf9e9XgfH9DimO7djKA4UhM/jDwLQxKD/0l4BfhYcYc5nSZYsmq1BV9SMgZ4x7rie/KInP0RX8a3f42gtTf1WkZfmAy9NNp5WB2BepkaQo+kART7Vu1h3/jdhpzuI4uWT/LLTcrpi5pvWS6meuqOmEZuGrTh29OkvMkzdpzCalGuMy75n32nPX1DqDVOKz4mKPmvHLo513ADUaKXEZmQNGIBRNhN7KfjSZdWnDEdydIdAdAAj2yynvBidJUb9qP2tD9yKvoOvFGJJN8G26xo1VPFOFHjUIwpw2aqNnUZc2y/AHtIdasA==
+ bh=fE7k2SmLLhqYbNviwomGEU/K/QmSH8pn9ExHoSq5SUY=;
+ b=mPxzL/LG/MtSplUG9CTxpY56mvrBCVOYQeq3zYjof3cqX3mWHRk8W3hvR97vBqUd3hfALfFvI3brOHOhOAgu1YUgge/rEMBDE4rhENQ618p+7+TGkfbT7eJO30uowgUAWHqOu5sP8/E5ZZ3lENC0PliYPGzXpJyzC6tkqjRXDVjvoM0KbWWlbdOioF1TJ49ESL+iHDUg41ytMysBQQsdPloK+RF2IKFEk+Qqo2zj2vetrOcOJpVXS1HFhyR7Nq7GaCV2QUksh4my+s9HGvFwk1qi4gCfKov5n3nQd8aAjPj5sVPLtyHThEdvEqdlgnXpvtw6MWYqkv5yKv+Fjr855w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qY6loj9QoGNXCfU/Ew1xShneuszgigDEgY8qLYPOvpk=;
- b=cB6s02j89BBN0ug+rTcE3ZBZIzJN3TpgJh+aHI1Fj+VOvua0qQx29m+DP843hMHVsHXzL3lEOu/vfPQeFonpJYwLSVWcqEBKYrOB2pWo9/1e/ug+g4Hp2LBNF8LgmAZfkbt6aSzlnaN70tn6gb187HnelTQamZVrRBXhEWjlnR8=
+ bh=fE7k2SmLLhqYbNviwomGEU/K/QmSH8pn9ExHoSq5SUY=;
+ b=c1Qi0SMF/gUfd798wkHWhRQJNYUouScNEGCgPCsRKIMWAMhMXmHNaJGxpG5Q1BsknUfxqpaf07EVd/ne/RLLaR7B6D4U5DKzBlC668c8VPuLWfehg3ITYrK6+GAseyis4rE6hjMeyy0IZP80VbG3sHlLJOdX67QYvMhkVfEiuJI=
 From: Luca Fancellu <Luca.Fancellu@arm.com>
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
  Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 4/6] xen/arm: mpu: Create boot-time MPU protection
- regions
-Thread-Topic: [PATCH v3 4/6] xen/arm: mpu: Create boot-time MPU protection
- regions
-Thread-Index: AQHbGx1+kMX1zXLp+0awtOclj3x4RLKGoSwA
-Date: Mon, 14 Oct 2024 19:03:17 +0000
-Message-ID: <4BFB5897-2C7A-4A44-B9E9-01BB7940BFF7@arm.com>
+Subject: Re: [PATCH v3 5/6] xen/arm: mpu: Enable MPU
+Thread-Topic: [PATCH v3 5/6] xen/arm: mpu: Enable MPU
+Thread-Index: AQHbGx2Ge9N55hTx/U2iD9lYiTVQprKGo1uA
+Date: Mon, 14 Oct 2024 19:11:06 +0000
+Message-ID: <6B1407DF-6FCD-4823-959A-F516CAEAA309@arm.com>
 References: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
- <20241010140351.309922-5-ayan.kumar.halder@amd.com>
-In-Reply-To: <20241010140351.309922-5-ayan.kumar.halder@amd.com>
+ <20241010140351.309922-6-ayan.kumar.halder@amd.com>
+In-Reply-To: <20241010140351.309922-6-ayan.kumar.halder@amd.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -139,268 +137,126 @@ x-mailer: Apple Mail (2.3776.700.51.11.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	DBAPR08MB5798:EE_|DB4PR08MB8078:EE_|AM2PEPF0001C715:EE_|AS4PR08MB7902:EE_
-X-MS-Office365-Filtering-Correlation-Id: a17c4458-f725-4e1b-ab5e-08dcec82e26a
+	DBAPR08MB5798:EE_|PAVPR08MB9747:EE_|AM2PEPF0001C70E:EE_|DB3PR08MB8796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0161363c-c3de-413d-76f1-08dcec83f9c6
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
 X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?zTzr1W5jt5JSwSTnoBebJyGbWhkxz0XFMDJTe0Rr0hmRiMrbJDOJy8jEifhy?=
- =?us-ascii?Q?FVjt+mMT8hcPyicRvwJLM0kms5cLFAAMwuysx8353kG6HOmipBDfPQlGIbzq?=
- =?us-ascii?Q?zl+XzAg2pQehsmAjKGK5wBqnxqB6y2t+zTQSjze1hShJf6ODXFsYUfcZrAKU?=
- =?us-ascii?Q?SHLoZzz3BZabgHR02iRQrMyK1o79HGhL8xBFr1qzVaMXG0lzdkB4tnfjMf9v?=
- =?us-ascii?Q?IsuV8eCnbewkBCIj5+00eKZMS9Bns/dcHMhvv3m2dTIVZDLdj2rR4SBLG6dX?=
- =?us-ascii?Q?eA0wSXuXmCckkk6Kq1M2fJY6TgcVvIL/e1bxsTPpPKc41+zIJ1cVtttAdNee?=
- =?us-ascii?Q?RzWhTqLxKI/OCirR21u8Tbmh2GBxRWIgU4kXOW0l4Wm8W1FrP6bPhjoospzP?=
- =?us-ascii?Q?pnVd9UBmPum9icp1OHhuQNJJ9NN+3x8RQeE75lsCfUniUmJ0tDYc1GV5xat4?=
- =?us-ascii?Q?WWvWhw67LM4zlIpHp8vb0hdJ4EzWXpdBp3pIbvICd30J01fD51QIjKvvCAu2?=
- =?us-ascii?Q?lqp58NbuRQkqFt2KFqOC+Yts+76pqH96Wv5mIgUTSzTLtRBLEfHAp5AQtKcR?=
- =?us-ascii?Q?bPoaaqCFArvLID3ur+Ih5wdq60YCkD8BBQuKSMoLgtmPq+FIY5uUgqNLOXTq?=
- =?us-ascii?Q?H3SR/snFwuyyOwi2pe5goEVVwL0s1liwHe9E17jmnQQkHK9QD40d116M/8KE?=
- =?us-ascii?Q?f6ibTdlNjWq9z3oJ2C9R95AgrOuCNdlhb0KHjAKpyu7fuJnCqNv70G9XnXQV?=
- =?us-ascii?Q?hE7sFRWuXJvcj51ChQv76mygGbq3vLdT08xJnVF3y1yz7nXyuYcG8vUcGkOw?=
- =?us-ascii?Q?x9lIHULJgUNFg2akq3sbDiW0iBiON6pp1S04Q6sm/wqaLCpxfA4Wvum+tx89?=
- =?us-ascii?Q?JkyR5tiT9nSBTFRm1LTK0exnUdqWiOLXHsV40GYjpZfNsZxkn7uZ3JbUGELU?=
- =?us-ascii?Q?M3o+DAbuo+hH3urRdKrBH8EtHI18fkh4itTjBkrnwt9E4C2YcHgwBWvlEQ4j?=
- =?us-ascii?Q?ZBuBYr12o+4o5vs54cH/s4j7ROee2bA3ZvktN2T3RM5y3Ox+RJLLfhQrtdmE?=
- =?us-ascii?Q?UiTJnzJohrbGspMOSvlNBl6YMOjfaCrepzDYf/D96If31CxKhbsGS9aFiMyb?=
- =?us-ascii?Q?2DLQUr21zSy2fvYPP9sEVr0EVe6LHF1U65LZjG0ObrK5qoBt/8d/Az9JFq5F?=
- =?us-ascii?Q?X8mzMSAENHyVArkkH6Q+ZH8vVOOo7FvBEi0DqtouQ3Hqo8/GHCbjMrcAk31v?=
- =?us-ascii?Q?jPxlFgdKjZmalWzttqgIcNPhYqsmHrbhF1u37fbfCx96o8LKazE2relovXSs?=
- =?us-ascii?Q?lgBBsZRRw/b5qCxotutH164ONMQqNsfvQqv3E2q7UOpR7g=3D=3D?=
+ =?us-ascii?Q?PYW+2H65xbBW39VbhnN/HwR1U/mJNOz+EFwd1UWMWRfw+UVJwxCgdrzsO9Kh?=
+ =?us-ascii?Q?O2ocEZiEcyZWGEOKSjSCYHFV3HwJJjssQkZ/+aoBsXwI7drbLnPIfkpRkxnI?=
+ =?us-ascii?Q?VDkQvxzlsR2zDE1u2TGHUqTXr7uLEOs5XTcKC7rwhT9RLfOMH4rhEJyHhBis?=
+ =?us-ascii?Q?jdGGMFR09SXCvwdbau0gq5PZWAaj7sGhIYqvKOkX3C/EXCRgxzYRFR71QeFp?=
+ =?us-ascii?Q?F0jL6n43BhVnpyWZS0bm3877a7kxHnXWY+iumzzdeAW46zLWnJThM6/A3bvz?=
+ =?us-ascii?Q?QAV86pQyqeIEvwEBvqWsZ84KRTJrvLa0YBW/5zHbWBvu18Q8dRqrkliu2KII?=
+ =?us-ascii?Q?mk7YXj31Nn5ulg3JQXZCCO9DNT/s/+obo3yCRPWUL2l/e04RzVo8VYMoKAYm?=
+ =?us-ascii?Q?7L53+OBYwL/vC7BpB5jSK2ZTrlE34rOwNfGxhKkmOx9bLhd+jSaQfYfa966T?=
+ =?us-ascii?Q?1Na8rkyIWcYmc5xLR35L3LldLHbbzaLLqk56QHsfZbvViFisM87/qQuebiOx?=
+ =?us-ascii?Q?SYgZaRTrW7rMH8LLkcz5zGMFLXdQWEKd+QnQEZwOPhbe98j2auLGImH0ggxu?=
+ =?us-ascii?Q?HMGbSuaKStAekkeVzBkKVrI3B2TV9Ev9LzRIiUOi4+TIadpvXOiuVP4/mtOO?=
+ =?us-ascii?Q?w9TYP7tpkzrJBbp6uD230ATGlejX3XYhi/yZqfqVLJvkiLeMYUxqfo5ESZVv?=
+ =?us-ascii?Q?SpLBhAnNjfNIk5umF+QlI4MK7H2AjFH6vSrwLzP7JIgI88+Yhstycu/LnqXH?=
+ =?us-ascii?Q?7oc0lRXdchNDVufQ4cSGG9466aaOZSsAWtzgPIjEp2etiW85tN5ebiT16D0S?=
+ =?us-ascii?Q?ZwgvgIFj5IglWpRzpv+PcADmpFMt9L4i8SelAYu6I/BuDlJbu4/vpiEB2ssb?=
+ =?us-ascii?Q?NElX9wfnzA+tW7U5B+UckWMDEnqQFMq8/BQwNmXZe9xeP0WZPLjRgVGd4Fw/?=
+ =?us-ascii?Q?ANyxm4rFsg2QkbrmJiecgZh4NC/fsDfUlrtcyemg5ShzFkcgwY3zVVuNfJbN?=
+ =?us-ascii?Q?HPMQ9iXrSc4M9nf6SUWe1Yt3dhDVgMX5HZDWdNYfuw7fcuIuPrWNOSriDUYb?=
+ =?us-ascii?Q?QKztGfdJqHCTqjgEtJgFeqVC/R3kHf9eiHAqPAkBME4SnGEobwFqz5lN/lYy?=
+ =?us-ascii?Q?SY+hgUoLA15gC7/X9qF8JdyQj/P8B7n0H/dD0ezWs2IfQ3pp9bq8NvsmjEFw?=
+ =?us-ascii?Q?Ht2YZZjHgVykBXUCgqjAwN71vZW/bPp+DfHYpDYFPq6gDZATjYy8OZ3MaMBE?=
+ =?us-ascii?Q?2vStqcMGe9AA6UzC5zhbT9SQw/rHkafVCt3xN2gA0KEUYM3gJomaK0qDrrly?=
+ =?us-ascii?Q?8Enkmh1ivQsa0QyqKsLAOSFK2VBhafgI20z+3lwncYwO5A=3D=3D?=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBAPR08MB5798.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBAPR08MB5798.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <E57C18E0785E3246B8DB30F241A638E5@eurprd08.prod.outlook.com>
+Content-ID: <8ACFF1F1625CF141B5DC18FA2CE749D4@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR08MB8078
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9747
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-SkipListedInternetSender:
  ip=[2603:10a6:10:1a6::21];domain=DBAPR08MB5798.eurprd08.prod.outlook.com
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM2PEPF0001C715.eurprd05.prod.outlook.com
+ AM2PEPF0001C70E.eurprd05.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d67e74ba-9280-4ddf-7949-08dcec82dca8
+	4c239ca2-d3a7-4bb1-bdc0-08dcec83f44d
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|35042699022|376014|82310400026;
+	BCL:0;ARA:13230040|376014|35042699022|1800799024|82310400026|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?VnMnqyqvEJWFD9KLnEUdYEKJ/tj7Tr6f4ax1pjXMrNZ2y0TwOmGzZu3PE+hH?=
- =?us-ascii?Q?JUiPa8A+mH2k/+DLrSsbFb617obvDEqn8rPC+mMp/vhLs4cNaC7l8SFiFusR?=
- =?us-ascii?Q?dg4N5adNbyJrd+FRUg9hXtYvPub8Sdn1AhGhKJzHuT2xzkZUQzu48xd9GjXl?=
- =?us-ascii?Q?zbxp5UwUSlyV3tGImKtBPzFov71b8I8Lz34hrEiC5x3HG70FAUjBnCroX/px?=
- =?us-ascii?Q?K5Own7Wvsa1hedXwqGyIWyoOxcYP//jefkimOa+M+hfLQJknwl5YwCillgT3?=
- =?us-ascii?Q?+pXf/w61ywmM9LD5GHih3fqnqlHl9f1JPPTM5Eq06G6Rty1HkRvxILQ5WLjw?=
- =?us-ascii?Q?C/fNFeGHC9XhHsXIxI7fuRGRwWlpWE+YvpADKUrzJWEQEEyxNpgLJtZR1piv?=
- =?us-ascii?Q?9CVcIltpP2IY6hPO58JKSd/79d2MvBSnJMaP5p0r/mpAKP3ZANgT4PLKdfEF?=
- =?us-ascii?Q?Jzu8GTKWRBOSF2VF0J7xXXygVnYWDsnikAS+yTam0TjawtJmQEkyes5cPZUQ?=
- =?us-ascii?Q?WZuDj3juQnc6yEuW281lNqjXk6pC6Of6S/jL0SSastjYMAIPmUlnGt88p3Ru?=
- =?us-ascii?Q?qsJV1yt/NZme61KvfIdsPEa7yP6uad6pCt6Kbx//HCeW5+Yofsu9K1+IQyAW?=
- =?us-ascii?Q?iJ7bby1RoT+CJbNpZiqBAwDRIoayesv8Yfhoba8Gkf26e7sdx8XVcq7Vskaq?=
- =?us-ascii?Q?oUwOxXmsFXOvwoIZN9xsAuwqOQKOAXpzah6sjqiBQnOTbG2gJ6hj4UiUJeTV?=
- =?us-ascii?Q?7gl66Hq2O6tobRytveJzjuPPZ2gqC/A2WRwg5KYB8bJ3kevQKDTrbEBhKN3H?=
- =?us-ascii?Q?MibLxGJR/xNdzz6FJ2EnUQJ2hPuNQ8FAfpqG+zcjkstFxPdOIn8YbRdsrtHN?=
- =?us-ascii?Q?wabSPft5ce2yMPRn9OVT3xFY7Pt6+EBw0Hx+BlJP7NKMVsC/ZecWikI6D/PT?=
- =?us-ascii?Q?XcgViXzcit5fJbvNQT9q8GPb5oJXRAiIHaVDkf7Vu92SNqXA4LdHEf72PXyM?=
- =?us-ascii?Q?oSB9H/2XGEuWMAAmSgJOJqVUoDrcBY3kn+b0Y6xBG0pKcCvlCNPuA92pkgVi?=
- =?us-ascii?Q?TxSMH9w6MI3Kren65/RNPFD32c2CsLvi5fFPF+y93yM3d9GozEbglzNwwVz2?=
- =?us-ascii?Q?E+/RXuwVu+MZQCthU7yf1M0WW2SyWoIVKCO91i8CDkZvyY7m6/OlJ8j6mSkf?=
- =?us-ascii?Q?nJdBo8ZcWxODUoE7jZ/qHU+FidGXsRE55HSFf3pN/W135Wmy0jfgL1nhzw4j?=
- =?us-ascii?Q?9vCEtU/gor4X0SCJmxGHR7iLuomaWe3GlOollPtvbc8NjX/FlRkKUZnl2q0e?=
- =?us-ascii?Q?4rIe8JxUkh6dcoLd7yFe21zmJ/tPMLB7lIPVyRTHMMmBF3cYOcFP2lp5vE5+?=
- =?us-ascii?Q?/HSkf8nxiwblRO7FWNVc1kexf2NO?=
+	=?us-ascii?Q?6GRRKljx8hJUQcsaDZe6ew/yfqUW09nMQNCjQcrhuG8b+y0xK8n5nCgBLb/N?=
+ =?us-ascii?Q?8P9qZ3SrZslQOKn+TQt95C9Rfqez1f9fSk0rBBIzlqLYe/I16NBYtWkyoUDL?=
+ =?us-ascii?Q?Txf1qBXt5XMxIPiENDg9ssCZYf6I1XSrEI249QdMHkbDxd8efKiBF/KfIHvv?=
+ =?us-ascii?Q?lxKvGE07dqc/iNr2aIHiVXj5hAVNOX2SNiJv63cq8D8nWC0bJLinlv4hWfEQ?=
+ =?us-ascii?Q?Ou+Z7GgFFui1P/0IR6py7WKojhYgCJeoX7ZxUyPQcmRaU/FY4tvfi+ayfMFK?=
+ =?us-ascii?Q?gNnHSiXuEv6kc1Rf6II+NLMJQEMBT3iATlNYxOoPbNek0NB1n6rt5AtKEIkN?=
+ =?us-ascii?Q?w0/4WvcwbeHiK14h6wFSFVOM3kNdkasNmcYjd+pakE5ZhcezQs4AqHy3T2QR?=
+ =?us-ascii?Q?4S4kFX9mOFspgKGwlLj6sAuYHjEKhOY2xC80s95K+rInH9RXwLAOJDU+JzNJ?=
+ =?us-ascii?Q?1CgIkXjKZp8py2a4KhvAWWyaR0JCMvh/h8jzVj1WfvZwx99eMl1zz/m6RPiD?=
+ =?us-ascii?Q?d1xvjy/vg75YzzaEtdxlwoRszokSaJ5KxCkK35NjgfFQa2w+ICoKY/R7HyRy?=
+ =?us-ascii?Q?ZEKQgMGsRw2rdmvzc4hGzsY9jLUVW9yLZ6jlYX/EvLZAIOgI0wruwb4E4/cl?=
+ =?us-ascii?Q?/Po/g8k+mrUJij3qRapuF8wEMg/rQ1JLfuSqy+kaavISrQUyzXorxU7yOPBb?=
+ =?us-ascii?Q?VwcFFTWqGiG3I/un1uiZyUDhS3opuMonp0K3385HEwFaIVPakBVRy9nQx6yP?=
+ =?us-ascii?Q?MEGWLdgO5U9Q8lcrroY0DhAJtFWGxZnbU2LtIIK5Wt0KHRJnKo3MbplSPcNh?=
+ =?us-ascii?Q?1sCq9Q9z7Jlf5E7O0BXx5yFY1BAywa6LAI5GcEOLo9+/guySA1r7q6FTb5ol?=
+ =?us-ascii?Q?HLtcGJj63rwow36J8PB4P/UV/PtO7lMeY2XNF8LIK9Xq+9DjcYQOuIIZKYYD?=
+ =?us-ascii?Q?cAKcCrI7eBdbnm4ZumsX9KyolMEI3TmxoDXrfs2+wFLpumQaqWZ05YvpnMDi?=
+ =?us-ascii?Q?LPVDDfo8hYlrxs6IxZfpvyOU5fEa55EuCVqjN6Z+Tfzs/a52oP4jUmMItZ5n?=
+ =?us-ascii?Q?YFM4sYINAgDhnvioLnpCdJC5gUFdkZrSF+RpKkX2mrc4684U4TXB/XLemJJR?=
+ =?us-ascii?Q?y6jXMWsYmw7Zz5EoMTV8lP8BdbUF/Yvn9WmzVdup/z55lmIn0VZnARVxOu5w?=
+ =?us-ascii?Q?DqFLuYStxA1Y0XkDahgWNsmFNmQJj2xWEAHsSyZGAZQGYLPp9SlOh+46HOZT?=
+ =?us-ascii?Q?Hb2bqksEM+COrXVT8q9HmkVD9hoWyF7I5ZYBmxEVNslJWikDNwn9+fbXVYNw?=
+ =?us-ascii?Q?0ptHP6B5VAy8M7QSZsPwmkLjTiMev7O9RMCvq/pgLfuc3z0ccPEOv2OtoIA6?=
+ =?us-ascii?Q?qzkQXlJiOzxPa6rip1T8kKT8AzDk?=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(35042699022)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230040)(376014)(35042699022)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2024 19:03:26.7687
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2024 19:11:15.4703
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a17c4458-f725-4e1b-ab5e-08dcec82e26a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0161363c-c3de-413d-76f1-08dcec83f9c6
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM2PEPF0001C715.eurprd05.prod.outlook.com
+	AM2PEPF0001C70E.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7902
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR08MB8796
 
 Hi Ayan,
 
+> /*
+>  * Maps the various sections of Xen (described in xen.lds.S) as different=
+ MPU
+>  * regions.
+> @@ -68,10 +92,11 @@
+>  * Inputs:
+>  *   lr : Address to return to.
+>  *
+> - * Clobbers x0 - x5
+> + * Clobbers x0 - x6
+>  *
+>  */
+> FUNC(enable_boot_cpu_mm)
+> +    mov   x6, lr
+>=20
+>     /* Check if the number of regions exceeded the count specified in MPU=
+IR_EL2 */
+>     mrs   x5, MPUIR_EL2
+> @@ -113,7 +138,7 @@ FUNC(enable_boot_cpu_mm)
+>     beq 5f
+>     prepare_xen_region x0, x1, x2, x3, x4, x5
+>=20
+> -5:
+> +5:  mov   lr, x6
 
-> diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/mpu/head.=
-S
-> new file mode 100644
-> index 0000000000..4a21bc815c
-> --- /dev/null
-> +++ b/xen/arch/arm/arm64/mpu/head.S
-> @@ -0,0 +1,130 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Start-of-day code for an Armv8-R MPU system.
-> + */
-> +
-> +#include <asm/mm.h>
-> +#include <asm/arm64/mpu/sysregs.h>
-> +
-> +#define REGION_TEXT_PRBAR       0x38    /* SH=3D11 AP=3D10 XN=3D00 */
-> +#define REGION_RO_PRBAR         0x3A    /* SH=3D11 AP=3D10 XN=3D10 */
+Shall these changes to enable_boot_cpu_mm be part of the previous commit?
 
-NIT alignment
+The rest looks good to me:
+Reviewed-by: Luca Fancellu <luca.fancelllu@arm.com>
 
-> +#define REGION_DATA_PRBAR       0x32    /* SH=3D11 AP=3D00 XN=3D10 */
-> +
-> +#define REGION_NORMAL_PRLAR     0x0f    /* NS=3D0 ATTR=3D111 EN=3D1 */
-> +
-> +/*
-> + * Macro to prepare and set a EL2 MPU memory region.
-> + * We will also create an according MPU memory region entry, which
-> + * is a structure of pr_t,  in table \prmap.
-> + *
-> + * Inputs:
-> + * sel:         region selector
-> + * base:        reg storing base address (should be page-aligned)
-> + * limit:       reg storing limit address
-> + * prbar:       store computed PRBAR_EL2 value
-> + * prlar:       store computed PRLAR_EL2 value
-> + * maxcount:    maximum number of EL2 regions supported
-> + * attr_prbar:  PRBAR_EL2-related memory attributes. If not specified it=
- will be
-> + *              REGION_DATA_PRBAR
-> + * attr_prlar:  PRLAR_EL2-related memory attributes. If not specified it=
- will be
-> + *              REGION_NORMAL_PRLAR
-> + */
-> +.macro prepare_xen_region, sel, base, limit, prbar, prlar, maxcount, att=
-r_prbar=3DREGION_DATA_PRBAR, attr_prlar=3DREGION_NORMAL_PRLAR
-> +
-> +    /* Check if the number of regions exceeded the count specified in MP=
-UIR_EL2 */
-> +    add   \sel, \sel, #1
-
-I think there is an issue adding 1 here, because the very first region we a=
-re going to fill will be the 1st even if we intended the 0th.
-Probably moving this one at the end will fix the issue
-
-> +    cmp   \sel, \maxcount
-> +    bgt   fail
-> +
-> +    /* Prepare value for PRBAR_EL2 reg and preserve it in \prbar.*/
-> +    and   \base, \base, #MPU_REGION_MASK
-> +    mov   \prbar, #\attr_prbar
-> +    orr   \prbar, \prbar, \base
-> +
-> +    /* Limit address should be inclusive */
-> +    sub   \limit, \limit, #1
-> +    and   \limit, \limit, #MPU_REGION_MASK
-> +    mov   \prlar, #\attr_prlar
-> +    orr   \prlar, \prlar, \limit
-> +
-> +    msr   PRSELR_EL2, \sel
-> +    isb
-> +    msr   PRBAR_EL2, \prbar
-> +    msr   PRLAR_EL2, \prlar
-> +    dsb   sy
-> +    isb
-> +.endm
-> +
-> +/* Load the physical address of a symbol into xb */
-> +.macro load_paddr xb, sym
-> +    ldr \xb, =3D\sym
-> +    add \xb, \xb, x20       /* x20 - Phys offset */
-> +.endm
-> +
-> +/*
-> + * Maps the various sections of Xen (described in xen.lds.S) as differen=
-t MPU
-> + * regions.
-> + *
-> + * Inputs:
-> + *   lr : Address to return to.
-> + *
-> + * Clobbers x0 - x5
-> + *
-> + */
-> +FUNC(enable_boot_cpu_mm)
-> +
-> +    /* Check if the number of regions exceeded the count specified in MP=
-UIR_EL2 */
-> +    mrs   x5, MPUIR_EL2
-> +
-> +    /* x0: region sel */
-> +    mov   x0, xzr
-> +    /* Xen text section. */
-> +    load_paddr x1, _stext
-> +    load_paddr x2, _etext
-> +    cmp x1, x2
-> +    beq 1f
-> +    prepare_xen_region x0, x1, x2, x3, x4, x5, attr_prbar=3DREGION_TEXT_=
-PRBAR
-> +
-> +1:  /* Xen read-only data section. */
-> +    load_paddr x1, _srodata
-> +    load_paddr x2, _erodata
-> +    cmp x1, x2
-> +    beq 2f
-> +    prepare_xen_region x0, x1, x2, x3, x4, x5, attr_prbar=3DREGION_RO_PR=
-BAR
-> +
-> +2:  /* Xen read-only after init and data section. (RW data) */
-> +    load_paddr x1, __ro_after_init_start
-> +    load_paddr x2, __init_begin
-> +    cmp x1, x2
-> +    beq 3f
-> +    prepare_xen_region x0, x1, x2, x3, x4, x5
-> +
-> +3:  /* Xen code section. */
-> +    load_paddr x1, __init_begin
-> +    load_paddr x2, __init_data_begin
-> +    cmp x1, x2
-> +    beq 4f
-> +    prepare_xen_region x0, x1, x2, x3, x4, x5, attr_prbar=3DREGION_TEXT_=
-PRBAR
-> +
-> +4:  /* Xen data and BSS section. */
-> +    load_paddr x1, __init_data_begin
-> +    load_paddr x2, __bss_end
-> +    cmp x1, x2
-> +    beq 5f
-> +    prepare_xen_region x0, x1, x2, x3, x4, x5
-> +
-> +5:
-> +    ret
-> +
-> +fail:
-> +    PRINT("- Number of MPU regions set in MPUIR_EL2 is too less -\r\n")
-> +    wfe
-> +    b   1b
-> +END(enable_boot_cpu_mm)
-> +
-> +/*
-> + * Local variables:
-> + * mode: ASM
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/include/asm/arm64/mpu/sysregs.h b/xen/arch/arm/=
-include/asm/arm64/mpu/sysregs.h
-> new file mode 100644
-> index 0000000000..b0c31a58ec
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/arm64/mpu/sysregs.h
-> @@ -0,0 +1,27 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef __ASM_ARM_ARM64_MPU_SYSREGS_H
-> +#define __ASM_ARM_ARM64_MPU_SYSREGS_H
-
-Same comment about define name as in patch 3, here and in every
-new file of this patch
-
-Cheers,
-Luca=
 
