@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2635399DEA2
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2024 08:43:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.818992.1232284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C96399DEA6
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2024 08:44:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.818998.1232295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0bGg-00056J-PE; Tue, 15 Oct 2024 06:42:54 +0000
+	id 1t0bI7-0005dT-1c; Tue, 15 Oct 2024 06:44:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 818992.1232284; Tue, 15 Oct 2024 06:42:54 +0000
+Received: by outflank-mailman (output) from mailman id 818998.1232295; Tue, 15 Oct 2024 06:44:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0bGg-000541-M4; Tue, 15 Oct 2024 06:42:54 +0000
-Received: by outflank-mailman (input) for mailman id 818992;
- Tue, 15 Oct 2024 06:42:53 +0000
+	id 1t0bI6-0005by-V0; Tue, 15 Oct 2024 06:44:22 +0000
+Received: by outflank-mailman (input) for mailman id 818998;
+ Tue, 15 Oct 2024 06:44:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ic8h=RL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t0bGf-00053U-T2
- for xen-devel@lists.xenproject.org; Tue, 15 Oct 2024 06:42:53 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1t0bI5-0005bs-VF
+ for xen-devel@lists.xenproject.org; Tue, 15 Oct 2024 06:44:21 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b2b79064-8ac0-11ef-99a2-01e77a169b0f;
- Tue, 15 Oct 2024 08:42:51 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-431137d12a5so47114735e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 23:42:52 -0700 (PDT)
+ id e7bf62d8-8ac0-11ef-99a2-01e77a169b0f;
+ Tue, 15 Oct 2024 08:44:20 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43117917eb9so44086415e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2024 23:44:20 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b721:c8b5:94fc:ce22:8335:8123?
  (p200300cab721c8b594fcce2283358123.dip0.t-ipconnect.de.
  [2003:ca:b721:c8b5:94fc:ce22:8335:8123])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4313f6b1e92sm8161575e9.32.2024.10.14.23.42.50
+ ffacd0b85a97d-37d7fa87bd7sm736605f8f.35.2024.10.14.23.44.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Oct 2024 23:42:51 -0700 (PDT)
+ Mon, 14 Oct 2024 23:44:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,51 +47,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2b79064-8ac0-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: e7bf62d8-8ac0-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728974571; x=1729579371; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728974659; x=1729579459; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AFs9zimsfbQXsVW1yEIBFRmk4sdRB5guFAthFnTI4CU=;
-        b=FeITSmBUt6QAOwZEgX/DkWVN8TevvXtAHdoTUnnbtAdhtc5+dD2kHskE0+tgdihkP9
-         sOTFq6I0deoRBgWvfPmYtKMWeQ0djWjI0GjVZVHdrXmV10Kbfvgc6m7iPyk0RTH9Sn4d
-         dlY8kg4yswP89orTSTwzzkqz+NEb59/yuSmFXy8lC0trdU4xeczVdEAgN7KrntZYGdk5
-         /YP9imSnKVpZgkNfT9uzr2pi7h4YbxwUPLTuDQW+qj/tpfiSbxfaThjA6NrzNpXW6icZ
-         UWELPql5OQqhmZAXcCdCZE2qYxBOCDWjTXqlo+rAmytIeZ+bB0UcXsCXf3/6YdSm5Twn
-         TH/g==
+        bh=V3Sr2I1RaZiZjliKmQVjZfJeuYKBmVSJVCPnttvu8Jw=;
+        b=E4Z1iikIO0hmlj40tqGf+axboOT3ytwHkuI5VzGW7qPEbftBFafPYmLP9Imzyt1bqq
+         c+NCSPFmUWsibyCteFPRo6WIRoeXxodQPutZ3KP4mgvRxjghd3rZbGja5SfXSExVcR2q
+         pQFPZRodgpzVqOLtZMBHbxcodhz897DrJK+7qbf/W+mbrzoVirm5DTSJp6qSHck/RyB8
+         eQsKfus7rMYzgL8G426xBicTmEsB6NhWnKwHC2is/g3ua5QGCol+oSvRC+lGF5luzebj
+         6Q1LgpUdbalQsdFVBD+nZhLMOTXMjmmSFhJKLDqPvguh4lISY93mko7fKhJTyA3Lwd0G
+         A5Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728974571; x=1729579371;
+        d=1e100.net; s=20230601; t=1728974659; x=1729579459;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AFs9zimsfbQXsVW1yEIBFRmk4sdRB5guFAthFnTI4CU=;
-        b=HKhjr3hJs/9WZlwkb/tQb8fDKshVE+/LuPTkozh5/uwvgHp1iw4aZMBTxZbXwYvOoG
-         iZZ8+6H0qE9PR2yoeFaSDX4aX7rKJ2KoZuy4YlwOq1b03NbFslc88QMnsPR5wR7YIYOd
-         2cy16XsSerCqLi/TgDAJuoPuTrGULOu/9YOkUXHIajd5mObJiaJxM31uWVRormHBK3zQ
-         l9Snyng7LsINZpMtl2TiX3l4/DzfqYEFi2heKkBjZPqMP3WoBgtBaX20qlUxXEw+sTNR
-         QRen/tQot4hmLcS/1gkj8CWxf1Lvl72cNSR53Mn2BSaIVRXFiyrHmsQ4S2I5UK40RU3q
-         nu4w==
-X-Forwarded-Encrypted: i=1; AJvYcCUwzqmH2xnegglMM3cRHOP4asCHoZUw6pL8OJk1epZJiW/Bu9G/YKaQ34M9woZN7/ctSWGOU76BGsk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkncU66r3HphqstGjZaWnbxm41obhjthv0AaiNYdqD+1AsKiu3
-	ExZji+v25nCkY2hTBtTnQ9bP4WiG2gwPvJihHFCcm+zoAmrOqg2mUtDP4/7f0Q==
-X-Google-Smtp-Source: AGHT+IEU0qRYBiijOLLfQCX4GYXrdtMxoyc4vDAR6mvTMA9XQiyOaLo2F6Rz1wAksEcnpc/wyLSljw==
-X-Received: by 2002:a05:600c:1ca4:b0:42c:de34:34c1 with SMTP id 5b1f17b1804b1-4311dea3b47mr113607455e9.2.1728974571459;
-        Mon, 14 Oct 2024 23:42:51 -0700 (PDT)
-Message-ID: <c0d1f5fa-cd84-401c-9f5b-f146c64556f6@suse.com>
-Date: Tue, 15 Oct 2024 08:42:50 +0200
+        bh=V3Sr2I1RaZiZjliKmQVjZfJeuYKBmVSJVCPnttvu8Jw=;
+        b=p7Wn/EIS8qjlPzLlL3MolVTRJbvkrSKOOmOkGxNHdYV6+h5sDsCqrmfl3udyUW0uPb
+         cQ9UCmmd5kafjC7inBzYlLXgrqsIPboYqyNYulkbcQspcBwp8nMYOfaLmWi2zkDSd7Ag
+         PY/jHh70Yu11vRigJgf9i150ZVH3AefM960mBH1FWftNJvWaTPvO/6x49cvmIicMEmve
+         gc6gRszP4wKQ7J3Ri4KUgf/WBfzUn+FdHp7mQPFxdLp7a+eEJ98LXwN1WEtzg0EgyFWX
+         0LOchO1GS6iJiCodSLdDoOZW7JtuzeNsX8OugoNQZyycq+wnKpZTjCEqp0de4XSGLlzx
+         YILg==
+X-Forwarded-Encrypted: i=1; AJvYcCWqFLUhGEHGD34ZzFwUbu3uRfoqzmvVbfeDJqxJjhXnLl662u3zCj1p2AI9F6f7TtaXA1/qlGeXeWA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yygda6wIi1qtQlyGUBfbjFvKmLSRoidjJ5zBzKZRqqnGfBPPXgV
+	845EB2u7Qx70LuFMXKL2I8AMWV546Yfxeoe/Z9l86/OC5yt2p/fHBiTLaKWOQQ==
+X-Google-Smtp-Source: AGHT+IGNoLFzkC6DUFLTGD+sCjpTtQ7UbdIgjJioG2IL2atSIk1lsbCw7ZMYQ1hlHK1/Rbn++jqslA==
+X-Received: by 2002:a05:600c:225a:b0:431:40ca:ce6e with SMTP id 5b1f17b1804b1-43140cad71bmr6540325e9.31.1728974659287;
+        Mon, 14 Oct 2024 23:44:19 -0700 (PDT)
+Message-ID: <7750f224-668f-4fd6-aa7b-39264a990c42@suse.com>
+Date: Tue, 15 Oct 2024 08:44:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/2] x86/boot: Improve MBI2 structure check
+Subject: Re: [PATCH v4 1/6] x86/boot: Prep work for 32bit object changes
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241010094524.1836495-1-frediano.ziglio@cloud.com>
- <20241010094524.1836495-3-frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241014085332.3254546-1-frediano.ziglio@cloud.com>
+ <20241014085332.3254546-2-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,20 +115,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241010094524.1836495-3-frediano.ziglio@cloud.com>
+In-Reply-To: <20241014085332.3254546-2-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.10.2024 11:45, Frediano Ziglio wrote:
-> Tag structure should contain at least the tag header.
-> Entire tag structure must be contained inside MBI2 data.
+On 14.10.2024 10:53, Frediano Ziglio wrote:
+> Broken out of the subsequent patch for clarity.
 > 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>  * Rename head-bin-objs to obj32
+>  * Use a .32.o suffix to distinguish these objects
+>  * Factor out $(LD32)
+> 
+> No functional change.
+> 
 > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Nit (for the future): Tags in chronological order please (maybe
-with the exception of release acks, which personally I think best
-go last).
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
