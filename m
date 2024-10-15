@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7E0E99F624
+	by mail.lfdr.de (Postfix) with ESMTPS id BE61999F625
 	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2024 20:52:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.819325.1232686 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.819326.1232696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0meR-00007Z-Ss; Tue, 15 Oct 2024 18:52:11 +0000
+	id 1t0meU-0000Xy-Bs; Tue, 15 Oct 2024 18:52:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 819325.1232686; Tue, 15 Oct 2024 18:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 819326.1232696; Tue, 15 Oct 2024 18:52:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0meR-00004r-NY; Tue, 15 Oct 2024 18:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 819325;
- Tue, 15 Oct 2024 18:52:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t0meU-0000Su-0y; Tue, 15 Oct 2024 18:52:14 +0000
+Received: by outflank-mailman (input) for mailman id 819326;
+ Tue, 15 Oct 2024 18:52:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UOCu=RL=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1t0meP-0006Um-L9
- for xen-devel@lists.xenproject.org; Tue, 15 Oct 2024 18:52:09 +0000
+ id 1t0meR-0006G4-UW
+ for xen-devel@lists.xenproject.org; Tue, 15 Oct 2024 18:52:11 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 93606f18-8b26-11ef-99a2-01e77a169b0f;
- Tue, 15 Oct 2024 20:52:07 +0200 (CEST)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9580159f-8b26-11ef-a0be-8be0dac302b0;
+ Tue, 15 Oct 2024 20:52:11 +0200 (CEST)
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-aYi3jVLMMhqFM3EgbhOKpg-1; Tue, 15 Oct 2024 14:52:05 -0400
-Received: by mail-ed1-f69.google.com with SMTP id
- 4fb4d7f45d1cf-5c93479b1dcso4556194a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 15 Oct 2024 11:52:05 -0700 (PDT)
+ us-mta-538-btv5M8XQPdKNeYohVNzpMw-1; Tue, 15 Oct 2024 14:52:08 -0400
+Received: by mail-lj1-f200.google.com with SMTP id
+ 38308e7fff4ca-2fb45ca974bso14366691fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Oct 2024 11:52:08 -0700 (PDT)
 Received: from eisenberg.fritz.box
  (200116b82d5d5a0006e2615320d1d4db.dip.versatel-1u1.de.
  [2001:16b8:2d5d:5a00:6e2:6153:20d1:d4db])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c98d39a9a2sm974438a12.0.2024.10.15.11.52.00
+ 4fb4d7f45d1cf-5c98d39a9a2sm974438a12.0.2024.10.15.11.52.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Oct 2024 11:52:03 -0700 (PDT)
+ Tue, 15 Oct 2024 11:52:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,39 +51,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93606f18-8b26-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 9580159f-8b26-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1729018326;
+	s=mimecast20190719; t=1729018330;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=op+AvZ1YCKZsOQFtb06qEXzMr+HQn8e2wB0EdtWp+RY=;
-	b=ddpmrUXjdjLqmJe7js0QjV1g/HoJbIEbr+X8oYEuAhiBMOF9rUMdp4/Z8976ihE8aEEfpu
-	iIh+EoFPsrDWPlC0kRU/VwbQsQ6KEa0dtpHkHHK3e9gRXWRWyjGuP8Nu/lYu7cf+gZ/0P5
-	qsnKf2E2uqY9cGwx7+Dc9HTRxz5xmfE=
-X-MC-Unique: aYi3jVLMMhqFM3EgbhOKpg-1
+	bh=NsJKOkpA+QoYlzqeYDbY0Dl9xjdlxWNvzFNzd4dMwhk=;
+	b=O4EfT2H9WnO5VeuryMyn25009v9RhI/mEJxxnL8tvrr5dW4ZzWnD2nBRXx137ssvOx4kpu
+	EIbLSqOC68S5cEbTR2q+/Tq+WigVIrkV8Dv4GltWq0TZP7Ai+hE7+tzsefg5WKiIfUzhNI
+	s8sBZY0AbQ6K/DAlKUfZze+HMagsF58=
+X-MC-Unique: btv5M8XQPdKNeYohVNzpMw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729018324; x=1729623124;
+        d=1e100.net; s=20230601; t=1729018327; x=1729623127;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=op+AvZ1YCKZsOQFtb06qEXzMr+HQn8e2wB0EdtWp+RY=;
-        b=EiMn1ymxiXBi4TVebUnaAMR+cEVE7PrFO2OXc+ZjfhAR5nmkEw7SjKU2BFoMEr++T8
-         Bvb4daMhV6IpF7oSJbKQlN9UdEiEIPMy+nBUl3iTP1TFy0NuRfJHtdAjQuMofHHaseiA
-         msa2/UxKRg7c+1l05lazbeO95OJrlkjKgTJRtvsBEWZ4VaN1NJtk+8xo01dZr68hC9VC
-         g2t6DjEhp+FZ3Ngftdan+KQmmy8C7j2mms7gjqwyv8Dqc0j1XqFXTLNuLoLWIMoo5Ss+
-         BWEKTDVeq0EjwEhDgO0uyDFtBYySzYa3Wk6DSIGyA9vcbs+7rZ69VRiPmyhGt8+lrmAY
-         AKjw==
-X-Forwarded-Encrypted: i=1; AJvYcCUqWOJMMgOV6FiRVaIke2idFNORuFW+XSLk/Py4MKX49FyrTjA24mLZguA51y73GhSWLNPpwQ162T0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyC/0naRIJTSKxXG7Dg1uPBYs+LIi4XTyM4smMtLWZI8jL4qCKP
-	vI7cihrXNqbCgtMjwgeWUXi0mcoROWlWa3Qtyzc7dmfDmxbjOzvviWhKheOYXbB5wxJheGU5bWy
-	BVnaQzycEuLLdfYpxrtyivrQltX//WswEJWmKmgiMcDN+dG8v84S/g+ASCPoS+MwH
-X-Received: by 2002:a05:6402:548c:b0:5c9:3ff:2734 with SMTP id 4fb4d7f45d1cf-5c948cb2e85mr11413464a12.12.1729018324143;
-        Tue, 15 Oct 2024 11:52:04 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH9Mt+tYXeO52xhZKwKuRloVsALYEKQc2I21vAq135PHqTEanBCUagfu1NmMBeK/O6BxAgzuw==
-X-Received: by 2002:a05:6402:548c:b0:5c9:3ff:2734 with SMTP id 4fb4d7f45d1cf-5c948cb2e85mr11413425a12.12.1729018323667;
-        Tue, 15 Oct 2024 11:52:03 -0700 (PDT)
+        bh=NsJKOkpA+QoYlzqeYDbY0Dl9xjdlxWNvzFNzd4dMwhk=;
+        b=D4CJ4cZiDuNvsvIHwIDsn+/9QRUMIh9dLPpqkzLqyKMLPDLybX5lgukL2EEWcJOEBE
+         y3lI7OrjNhQqvz4icNuvMJwHUwJJ6tc5xybld3+6UH/rgOK4Mql8rwOfqBqtG9aKk5aB
+         AAlMdda/O6dFN0wDssdyVXrP2WiFvnsbva74ojZWadNixGBYMhamazuVKcSIsucL5Sd8
+         Rj9jc6iUI8cxmSvTYJhrsz96tJrapHsB/GyOhcwje781ie/kRk5mk2h1LYAKqSeK+2EY
+         7e6YCLEA6k5+YvPhPlY7zp4NWCqgYEJrlZh9qv5Fz6/Z/ioMtFse9XcJBCtBN2oPlFnp
+         mi5g==
+X-Forwarded-Encrypted: i=1; AJvYcCX3V6fJ/NQQPYsINTdXzRzlJoXHoSNziuAX9/PXEGFhb+lGi0oOIIzBJTMF2r/OGDlDaPq7dKqs2/8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyI5SWkbuwPpHy3oJHrgtXVtcUQTc/ovcf1R8TxVnJIRCuzdPJu
+	1A0cVq1Qlt24z44GmCM8Rw6FpGabm++6kZox+JBj2W5aN7mU//sm0zHVtvo+3o5e4ObBYXpO4+8
+	PPRX1rxOE0IQuOz3OR4ROKxsOLk+k2cBVM1yf+TfkgGNi8C4GZJ4ulKZ3tIosIWZE
+X-Received: by 2002:a2e:bc24:0:b0:2fb:51e0:951 with SMTP id 38308e7fff4ca-2fb51e00cd9mr38862361fa.7.1729018327261;
+        Tue, 15 Oct 2024 11:52:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEVZ1XHHUqIGJ2m/RKPcgltoOTO0Mu8nn9SAFlZXigaFQMqbloSJIQ5jr77XkDUgFazWOLC0g==
+X-Received: by 2002:a2e:bc24:0:b0:2fb:51e0:951 with SMTP id 38308e7fff4ca-2fb51e00cd9mr38861861fa.7.1729018326657;
+        Tue, 15 Oct 2024 11:52:06 -0700 (PDT)
 From: Philipp Stanner <pstanner@redhat.com>
 To: Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
@@ -151,9 +151,9 @@ Cc: linux-ide@vger.kernel.org,
 	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH 07/13] vfio/pci: Use never-managed version of pci_intx()
-Date: Tue, 15 Oct 2024 20:51:17 +0200
-Message-ID: <20241015185124.64726-8-pstanner@redhat.com>
+Subject: [PATCH 08/13] PCI: MSI: Use never-managed version of pci_intx()
+Date: Tue, 15 Oct 2024 20:51:18 +0200
+Message-ID: <20241015185124.64726-9-pstanner@redhat.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241015185124.64726-1-pstanner@redhat.com>
 References: <20241015185124.64726-1-pstanner@redhat.com>
@@ -167,79 +167,48 @@ pci_intx() is a hybrid function which can sometimes be managed through
 devres. To remove this hybrid nature from pci_intx(), it is necessary to
 port users to either an always-managed or a never-managed version.
 
-vfio enables its PCI-Device with pci_enable_device(). Thus, it
-needs the never-managed version.
+MSI sets up its own separate devres callback implicitly in
+pcim_setup_msi_release(). This callback ultimately uses pci_intx(),
+which is problematic since the callback of course runs on driver-detach.
 
-Replace pci_intx() with pci_intx_unmanaged().
+That problem has last been described here:
+https://lore.kernel.org/all/ee44ea7ac760e73edad3f20b30b4d2fff66c1a85.camel@redhat.com/
+
+Replace the call to pci_intx() with one to the never-managed version
+pci_intx_unmanaged().
 
 Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c  |  2 +-
- drivers/vfio/pci/vfio_pci_intrs.c | 10 +++++-----
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/pci/msi/api.c | 2 +-
+ drivers/pci/msi/msi.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 1ab58da9f38a..90240c8d51aa 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -498,7 +498,7 @@ int vfio_pci_core_enable(struct vfio_pci_core_device *vdev)
- 		if (vfio_pci_nointx(pdev)) {
- 			pci_info(pdev, "Masking broken INTx support\n");
- 			vdev->nointx = true;
--			pci_intx(pdev, 0);
-+			pci_intx_unmanaged(pdev, 0);
- 		} else
- 			vdev->pci_2_3 = pci_intx_mask_supported(pdev);
+diff --git a/drivers/pci/msi/api.c b/drivers/pci/msi/api.c
+index b956ce591f96..c95e2e7dc9ab 100644
+--- a/drivers/pci/msi/api.c
++++ b/drivers/pci/msi/api.c
+@@ -289,7 +289,7 @@ int pci_alloc_irq_vectors_affinity(struct pci_dev *dev, unsigned int min_vecs,
+ 			 */
+ 			if (affd)
+ 				irq_create_affinity_masks(1, affd);
+-			pci_intx(dev, 1);
++			pci_intx_unmanaged(dev, 1);
+ 			return 1;
+ 		}
  	}
-diff --git a/drivers/vfio/pci/vfio_pci_intrs.c b/drivers/vfio/pci/vfio_pci_intrs.c
-index 8382c5834335..40abb0b937a2 100644
---- a/drivers/vfio/pci/vfio_pci_intrs.c
-+++ b/drivers/vfio/pci/vfio_pci_intrs.c
-@@ -118,7 +118,7 @@ static bool __vfio_pci_intx_mask(struct vfio_pci_core_device *vdev)
- 	 */
- 	if (unlikely(!is_intx(vdev))) {
- 		if (vdev->pci_2_3)
--			pci_intx(pdev, 0);
-+			pci_intx_unmanaged(pdev, 0);
- 		goto out_unlock;
- 	}
- 
-@@ -132,7 +132,7 @@ static bool __vfio_pci_intx_mask(struct vfio_pci_core_device *vdev)
- 		 * mask, not just when something is pending.
- 		 */
- 		if (vdev->pci_2_3)
--			pci_intx(pdev, 0);
-+			pci_intx_unmanaged(pdev, 0);
- 		else
- 			disable_irq_nosync(pdev->irq);
- 
-@@ -178,7 +178,7 @@ static int vfio_pci_intx_unmask_handler(void *opaque, void *data)
- 	 */
- 	if (unlikely(!is_intx(vdev))) {
- 		if (vdev->pci_2_3)
--			pci_intx(pdev, 1);
-+			pci_intx_unmanaged(pdev, 1);
- 		goto out_unlock;
- 	}
- 
-@@ -296,7 +296,7 @@ static int vfio_intx_enable(struct vfio_pci_core_device *vdev,
- 	 */
- 	ctx->masked = vdev->virq_disabled;
- 	if (vdev->pci_2_3) {
--		pci_intx(pdev, !ctx->masked);
-+		pci_intx_unmanaged(pdev, !ctx->masked);
- 		irqflags = IRQF_SHARED;
- 	} else {
- 		irqflags = ctx->masked ? IRQF_NO_AUTOEN : 0;
-@@ -569,7 +569,7 @@ static void vfio_msi_disable(struct vfio_pci_core_device *vdev, bool msix)
- 	 * via their shutdown paths.  Restore for NoINTx devices.
- 	 */
- 	if (vdev->nointx)
--		pci_intx(pdev, 0);
-+		pci_intx_unmanaged(pdev, 0);
- 
- 	vdev->irq_type = VFIO_PCI_NUM_IRQS;
+diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
+index 3a45879d85db..53f13b09db50 100644
+--- a/drivers/pci/msi/msi.c
++++ b/drivers/pci/msi/msi.c
+@@ -268,7 +268,7 @@ EXPORT_SYMBOL_GPL(pci_write_msi_msg);
+ static void pci_intx_for_msi(struct pci_dev *dev, int enable)
+ {
+ 	if (!(dev->dev_flags & PCI_DEV_FLAGS_MSI_INTX_DISABLE_BUG))
+-		pci_intx(dev, enable);
++		pci_intx_unmanaged(dev, enable);
  }
+ 
+ static void pci_msi_set_enable(struct pci_dev *dev, int enable)
 -- 
 2.47.0
 
