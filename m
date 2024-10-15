@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE61999F625
+	by mail.lfdr.de (Postfix) with ESMTPS id 980EF99F621
 	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2024 20:52:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.819326.1232696 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.819336.1232705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0meU-0000Xy-Bs; Tue, 15 Oct 2024 18:52:14 +0000
+	id 1t0meX-00017p-Cx; Tue, 15 Oct 2024 18:52:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 819326.1232696; Tue, 15 Oct 2024 18:52:14 +0000
+Received: by outflank-mailman (output) from mailman id 819336.1232705; Tue, 15 Oct 2024 18:52:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0meU-0000Su-0y; Tue, 15 Oct 2024 18:52:14 +0000
-Received: by outflank-mailman (input) for mailman id 819326;
- Tue, 15 Oct 2024 18:52:12 +0000
+	id 1t0meX-00015I-9L; Tue, 15 Oct 2024 18:52:17 +0000
+Received: by outflank-mailman (input) for mailman id 819336;
+ Tue, 15 Oct 2024 18:52:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UOCu=RL=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1t0meR-0006G4-UW
- for xen-devel@lists.xenproject.org; Tue, 15 Oct 2024 18:52:11 +0000
+ id 1t0meW-0006G4-1i
+ for xen-devel@lists.xenproject.org; Tue, 15 Oct 2024 18:52:16 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9580159f-8b26-11ef-a0be-8be0dac302b0;
- Tue, 15 Oct 2024 20:52:11 +0200 (CEST)
-Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
- [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 97d3cbb0-8b26-11ef-a0be-8be0dac302b0;
+ Tue, 15 Oct 2024 20:52:15 +0200 (CEST)
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-538-btv5M8XQPdKNeYohVNzpMw-1; Tue, 15 Oct 2024 14:52:08 -0400
-Received: by mail-lj1-f200.google.com with SMTP id
- 38308e7fff4ca-2fb45ca974bso14366691fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 15 Oct 2024 11:52:08 -0700 (PDT)
+ us-mta-61-QsCyNvYIPm6a-UlLcWjZ0g-1; Tue, 15 Oct 2024 14:52:11 -0400
+Received: by mail-ed1-f72.google.com with SMTP id
+ 4fb4d7f45d1cf-5c930ca5d12so127179a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Oct 2024 11:52:11 -0700 (PDT)
 Received: from eisenberg.fritz.box
  (200116b82d5d5a0006e2615320d1d4db.dip.versatel-1u1.de.
  [2001:16b8:2d5d:5a00:6e2:6153:20d1:d4db])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c98d39a9a2sm974438a12.0.2024.10.15.11.52.03
+ 4fb4d7f45d1cf-5c98d39a9a2sm974438a12.0.2024.10.15.11.52.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Oct 2024 11:52:06 -0700 (PDT)
+ Tue, 15 Oct 2024 11:52:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,39 +51,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9580159f-8b26-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 97d3cbb0-8b26-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1729018330;
+	s=mimecast20190719; t=1729018334;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NsJKOkpA+QoYlzqeYDbY0Dl9xjdlxWNvzFNzd4dMwhk=;
-	b=O4EfT2H9WnO5VeuryMyn25009v9RhI/mEJxxnL8tvrr5dW4ZzWnD2nBRXx137ssvOx4kpu
-	EIbLSqOC68S5cEbTR2q+/Tq+WigVIrkV8Dv4GltWq0TZP7Ai+hE7+tzsefg5WKiIfUzhNI
-	s8sBZY0AbQ6K/DAlKUfZze+HMagsF58=
-X-MC-Unique: btv5M8XQPdKNeYohVNzpMw-1
+	bh=f2Jr5AkqxaPFEKRGVmaRlM7QFZhouz0Sldtn5ZZjCmA=;
+	b=hCOjnf86RoskrSMea6O/CrmMzMiVhilXhPCSn+dn4hx9sJrAeyyCmt9Ca42guwlvbj3YFh
+	4/L4PHMQmuel3T0GU4X4gSpJLMuCgRc17qGBxlCp/2lP6ecqSmgH07b2BxmzGgNxl3PowA
+	/t8vTa3w/OgpHYNnRdAH2nJWNmI8Cxc=
+X-MC-Unique: QsCyNvYIPm6a-UlLcWjZ0g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729018327; x=1729623127;
+        d=1e100.net; s=20230601; t=1729018330; x=1729623130;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=NsJKOkpA+QoYlzqeYDbY0Dl9xjdlxWNvzFNzd4dMwhk=;
-        b=D4CJ4cZiDuNvsvIHwIDsn+/9QRUMIh9dLPpqkzLqyKMLPDLybX5lgukL2EEWcJOEBE
-         y3lI7OrjNhQqvz4icNuvMJwHUwJJ6tc5xybld3+6UH/rgOK4Mql8rwOfqBqtG9aKk5aB
-         AAlMdda/O6dFN0wDssdyVXrP2WiFvnsbva74ojZWadNixGBYMhamazuVKcSIsucL5Sd8
-         Rj9jc6iUI8cxmSvTYJhrsz96tJrapHsB/GyOhcwje781ie/kRk5mk2h1LYAKqSeK+2EY
-         7e6YCLEA6k5+YvPhPlY7zp4NWCqgYEJrlZh9qv5Fz6/Z/ioMtFse9XcJBCtBN2oPlFnp
-         mi5g==
-X-Forwarded-Encrypted: i=1; AJvYcCX3V6fJ/NQQPYsINTdXzRzlJoXHoSNziuAX9/PXEGFhb+lGi0oOIIzBJTMF2r/OGDlDaPq7dKqs2/8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyI5SWkbuwPpHy3oJHrgtXVtcUQTc/ovcf1R8TxVnJIRCuzdPJu
-	1A0cVq1Qlt24z44GmCM8Rw6FpGabm++6kZox+JBj2W5aN7mU//sm0zHVtvo+3o5e4ObBYXpO4+8
-	PPRX1rxOE0IQuOz3OR4ROKxsOLk+k2cBVM1yf+TfkgGNi8C4GZJ4ulKZ3tIosIWZE
-X-Received: by 2002:a2e:bc24:0:b0:2fb:51e0:951 with SMTP id 38308e7fff4ca-2fb51e00cd9mr38862361fa.7.1729018327261;
-        Tue, 15 Oct 2024 11:52:07 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEVZ1XHHUqIGJ2m/RKPcgltoOTO0Mu8nn9SAFlZXigaFQMqbloSJIQ5jr77XkDUgFazWOLC0g==
-X-Received: by 2002:a2e:bc24:0:b0:2fb:51e0:951 with SMTP id 38308e7fff4ca-2fb51e00cd9mr38861861fa.7.1729018326657;
-        Tue, 15 Oct 2024 11:52:06 -0700 (PDT)
+        bh=f2Jr5AkqxaPFEKRGVmaRlM7QFZhouz0Sldtn5ZZjCmA=;
+        b=RVB+rV4Qjzvs0n5YN7t70qHcGRw0ayFRdOFHuxDu0HBfMzV0CKNq2+DiyDuuBvDT7p
+         m6iWACPXGHLQZNoJehAIrQk2ZEsYdGUQcF+P/TgxekyPcCXNsgyAFSoDc3GkA4O0fsQd
+         QkvGwpeKlHbH6mrsZ6Bq6nUHROQkNrOgmnsc4ah1ZE2IlaQR85dHIWi3V8kE8RjT4aCz
+         g3G6qgHKsmTomUp9LVwVSwdonx6c81LkZKdnXW3KHNYfPwlryqG92j02wMiBSQIX+oEE
+         CPKwcEqlUD/IKH/GtCjBuqzE4YH34lw0rlpcD+CpTrE198ymRBMbwzHc2y8yr5f1ZdGL
+         J/rA==
+X-Forwarded-Encrypted: i=1; AJvYcCVD7kIZCINBQHOBUNrbgaeDb2e6lZ84Cjyoqwjqs5wYLX+f3Dw+hBJpBThyKdJtj0OVfR3gCWcJgac=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyz4NSpzbcbQroJ+skDKn1H0ZQBw13ATn8LqvAWNXGR5FwRB5uZ
+	clrlrAvCE6VTL7bkipw/hb04fP32fkRLNIvsBJNpdqk/uAHhGMkWGOXUKUqdTogJ/OeN4R7+iGB
+	G6SJMRnZ/WC2sPVV2K+5mCUMzkYFyc75KHyu81v+6qGDA9A0dunzqf3VCb5Di6ilE
+X-Received: by 2002:a05:6402:27cf:b0:5c9:6981:9325 with SMTP id 4fb4d7f45d1cf-5c9698202e7mr8257651a12.8.1729018329916;
+        Tue, 15 Oct 2024 11:52:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFz3y1lDPzlFIAXe641ucDk32i7Rid6UZFyDapZOvfZWi7HgWp5FyR2ER9dH4XFZXo38YzXpg==
+X-Received: by 2002:a05:6402:27cf:b0:5c9:6981:9325 with SMTP id 4fb4d7f45d1cf-5c9698202e7mr8257603a12.8.1729018329468;
+        Tue, 15 Oct 2024 11:52:09 -0700 (PDT)
 From: Philipp Stanner <pstanner@redhat.com>
 To: Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
@@ -151,9 +151,9 @@ Cc: linux-ide@vger.kernel.org,
 	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH 08/13] PCI: MSI: Use never-managed version of pci_intx()
-Date: Tue, 15 Oct 2024 20:51:18 +0200
-Message-ID: <20241015185124.64726-9-pstanner@redhat.com>
+Subject: [PATCH 09/13] ata: Use always-managed version of pci_intx()
+Date: Tue, 15 Oct 2024 20:51:19 +0200
+Message-ID: <20241015185124.64726-10-pstanner@redhat.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241015185124.64726-1-pstanner@redhat.com>
 References: <20241015185124.64726-1-pstanner@redhat.com>
@@ -167,48 +167,113 @@ pci_intx() is a hybrid function which can sometimes be managed through
 devres. To remove this hybrid nature from pci_intx(), it is necessary to
 port users to either an always-managed or a never-managed version.
 
-MSI sets up its own separate devres callback implicitly in
-pcim_setup_msi_release(). This callback ultimately uses pci_intx(),
-which is problematic since the callback of course runs on driver-detach.
+All users in ata enable their PCI-Device with pcim_enable_device(). Thus,
+they need the always-managed version.
 
-That problem has last been described here:
-https://lore.kernel.org/all/ee44ea7ac760e73edad3f20b30b4d2fff66c1a85.camel@redhat.com/
-
-Replace the call to pci_intx() with one to the never-managed version
-pci_intx_unmanaged().
+Replace pci_intx() with pcim_intx().
 
 Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 ---
- drivers/pci/msi/api.c | 2 +-
- drivers/pci/msi/msi.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/ata/ahci.c       | 2 +-
+ drivers/ata/ata_piix.c   | 2 +-
+ drivers/ata/pata_rdc.c   | 2 +-
+ drivers/ata/sata_sil24.c | 2 +-
+ drivers/ata/sata_sis.c   | 2 +-
+ drivers/ata/sata_uli.c   | 2 +-
+ drivers/ata/sata_vsc.c   | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/pci/msi/api.c b/drivers/pci/msi/api.c
-index b956ce591f96..c95e2e7dc9ab 100644
---- a/drivers/pci/msi/api.c
-+++ b/drivers/pci/msi/api.c
-@@ -289,7 +289,7 @@ int pci_alloc_irq_vectors_affinity(struct pci_dev *dev, unsigned int min_vecs,
- 			 */
- 			if (affd)
- 				irq_create_affinity_masks(1, affd);
--			pci_intx(dev, 1);
-+			pci_intx_unmanaged(dev, 1);
- 			return 1;
- 		}
- 	}
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index 3a45879d85db..53f13b09db50 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -268,7 +268,7 @@ EXPORT_SYMBOL_GPL(pci_write_msi_msg);
- static void pci_intx_for_msi(struct pci_dev *dev, int enable)
- {
- 	if (!(dev->dev_flags & PCI_DEV_FLAGS_MSI_INTX_DISABLE_BUG))
--		pci_intx(dev, enable);
-+		pci_intx_unmanaged(dev, enable);
- }
+diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
+index 45f63b09828a..9273ff3d4732 100644
+--- a/drivers/ata/ahci.c
++++ b/drivers/ata/ahci.c
+@@ -1985,7 +1985,7 @@ static int ahci_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
  
- static void pci_msi_set_enable(struct pci_dev *dev, int enable)
+ 	if (ahci_init_msi(pdev, n_ports, hpriv) < 0) {
+ 		/* legacy intx interrupts */
+-		pci_intx(pdev, 1);
++		pcim_intx(pdev, 1);
+ 	}
+ 	hpriv->irq = pci_irq_vector(pdev, 0);
+ 
+diff --git a/drivers/ata/ata_piix.c b/drivers/ata/ata_piix.c
+index 093b940bc953..d441246fa357 100644
+--- a/drivers/ata/ata_piix.c
++++ b/drivers/ata/ata_piix.c
+@@ -1725,7 +1725,7 @@ static int piix_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	 * message-signalled interrupts currently).
+ 	 */
+ 	if (port_flags & PIIX_FLAG_CHECKINTR)
+-		pci_intx(pdev, 1);
++		pcim_intx(pdev, 1);
+ 
+ 	if (piix_check_450nx_errata(pdev)) {
+ 		/* This writes into the master table but it does not
+diff --git a/drivers/ata/pata_rdc.c b/drivers/ata/pata_rdc.c
+index 0a9689862f71..09792aac7f9d 100644
+--- a/drivers/ata/pata_rdc.c
++++ b/drivers/ata/pata_rdc.c
+@@ -340,7 +340,7 @@ static int rdc_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		return rc;
+ 	host->private_data = hpriv;
+ 
+-	pci_intx(pdev, 1);
++	pcim_intx(pdev, 1);
+ 
+ 	host->flags |= ATA_HOST_PARALLEL_SCAN;
+ 
+diff --git a/drivers/ata/sata_sil24.c b/drivers/ata/sata_sil24.c
+index 72c03cbdaff4..b771ebd41252 100644
+--- a/drivers/ata/sata_sil24.c
++++ b/drivers/ata/sata_sil24.c
+@@ -1317,7 +1317,7 @@ static int sil24_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	if (sata_sil24_msi && !pci_enable_msi(pdev)) {
+ 		dev_info(&pdev->dev, "Using MSI\n");
+-		pci_intx(pdev, 0);
++		pcim_intx(pdev, 0);
+ 	}
+ 
+ 	pci_set_master(pdev);
+diff --git a/drivers/ata/sata_sis.c b/drivers/ata/sata_sis.c
+index ef8724986de3..b8b6d9eff3b8 100644
+--- a/drivers/ata/sata_sis.c
++++ b/drivers/ata/sata_sis.c
+@@ -290,7 +290,7 @@ static int sis_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	}
+ 
+ 	pci_set_master(pdev);
+-	pci_intx(pdev, 1);
++	pcim_intx(pdev, 1);
+ 	return ata_host_activate(host, pdev->irq, ata_bmdma_interrupt,
+ 				 IRQF_SHARED, &sis_sht);
+ }
+diff --git a/drivers/ata/sata_uli.c b/drivers/ata/sata_uli.c
+index 60ea45926cd1..52894ff49dcb 100644
+--- a/drivers/ata/sata_uli.c
++++ b/drivers/ata/sata_uli.c
+@@ -221,7 +221,7 @@ static int uli_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	}
+ 
+ 	pci_set_master(pdev);
+-	pci_intx(pdev, 1);
++	pcim_intx(pdev, 1);
+ 	return ata_host_activate(host, pdev->irq, ata_bmdma_interrupt,
+ 				 IRQF_SHARED, &uli_sht);
+ }
+diff --git a/drivers/ata/sata_vsc.c b/drivers/ata/sata_vsc.c
+index d39b87537168..a53a2dfc1e17 100644
+--- a/drivers/ata/sata_vsc.c
++++ b/drivers/ata/sata_vsc.c
+@@ -384,7 +384,7 @@ static int vsc_sata_init_one(struct pci_dev *pdev,
+ 		pci_write_config_byte(pdev, PCI_CACHE_LINE_SIZE, 0x80);
+ 
+ 	if (pci_enable_msi(pdev) == 0)
+-		pci_intx(pdev, 0);
++		pcim_intx(pdev, 0);
+ 
+ 	/*
+ 	 * Config offset 0x98 is "Extended Control and Status Register 0"
 -- 
 2.47.0
 
