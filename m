@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B94E79A0B00
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 15:07:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.820033.1233530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0AA89A0B09
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 15:09:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.820038.1233539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t13jJ-0008BE-Gy; Wed, 16 Oct 2024 13:06:21 +0000
+	id 1t13lk-0000SK-Sh; Wed, 16 Oct 2024 13:08:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 820033.1233530; Wed, 16 Oct 2024 13:06:21 +0000
+Received: by outflank-mailman (output) from mailman id 820038.1233539; Wed, 16 Oct 2024 13:08:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t13jJ-00088C-Dc; Wed, 16 Oct 2024 13:06:21 +0000
-Received: by outflank-mailman (input) for mailman id 820033;
- Wed, 16 Oct 2024 13:06:20 +0000
+	id 1t13lk-0000QS-Q4; Wed, 16 Oct 2024 13:08:52 +0000
+Received: by outflank-mailman (input) for mailman id 820038;
+ Wed, 16 Oct 2024 13:08:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sXg9=RM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t13jI-000886-0n
- for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 13:06:20 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ id 1t13lj-0000QM-Lg
+ for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 13:08:51 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e35773c-8bbf-11ef-99a3-01e77a169b0f;
- Wed, 16 Oct 2024 15:06:17 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-539ee1acb86so4437274e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 06:06:17 -0700 (PDT)
+ id c8cfe557-8bbf-11ef-99a3-01e77a169b0f;
+ Wed, 16 Oct 2024 15:08:49 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-431195c3538so47204605e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 06:08:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37d7fc405a6sm4260024f8f.102.2024.10.16.06.06.16
+ ffacd0b85a97d-37d7fa7a04asm4290072f8f.8.2024.10.16.06.08.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Oct 2024 06:06:16 -0700 (PDT)
+ Wed, 16 Oct 2024 06:08:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e35773c-8bbf-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: c8cfe557-8bbf-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1729083977; x=1729688777; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1729084129; x=1729688929; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FzXlSearQU0mJeVz7+D9xc5bKj23728l/c1BZp58Xrg=;
-        b=euxU379g2t3DSKP4GIQRUy++8Pz3TWwJfSSwIql0dijLptiMmUi+Q0+F9VEYk3vyCI
-         IPVH4w61L7FPztra1zBYN9ibb4A/M5d46tarVdXuANwaS6suIkKDmDF5tFGrHjKPnof+
-         ZnFXmpLHWY0+ZmNI7ZZmChEMCprjXpP+QUoYw77LPYwoZTNTnaqXiYloFB83FCxrp/vg
-         L06b6CwJ0O9XB2W9E6QRMHriMzNtC3BSBrxWr+uwDL9xJHvB4gpmX50syMbayDax7Ifz
-         7euhB9kHPFA2n9PI5RxnEOdHoG48FFZ8mzDvRNVaWYtL9UDCD0qDzG1G0RD+oZeTTyHB
-         J5wg==
+        bh=YSZjA06rawFFyjY0W3eN3VrL0FdMjMV45ul5kD2Df8s=;
+        b=f5P6tEVNZMGvTIIlBh+r9S8hIpi34K4dAI4VhYcVr/qERjtEV3o3/Zzgkzg4GN3kgX
+         UUjQzmC+SySAfEP30exTnteadSJHX4ehVGwZpGib/bG4EjjiCbp6BKt9CX9wtJCw6ygr
+         EYvhbxwxun2rFeILKlForcvpDgVzYOMuvdFjZFNlrL/sYT8RJ9SfFdEYQ/rTqLoVf4E4
+         BQ19jQolAgweBXM2NAZ4y5vDdkk/kfEwpfjQoH2hloRrVDfuB8BJgB6ISthjjyL91QMQ
+         RMd0oKHTorhXIDxzbGIAqCt6bR+ZpRHuOhboRHfastfU3X/mnolAAnxgw0mZMSVSOF2V
+         6VMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729083977; x=1729688777;
+        d=1e100.net; s=20230601; t=1729084129; x=1729688929;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FzXlSearQU0mJeVz7+D9xc5bKj23728l/c1BZp58Xrg=;
-        b=C9FMnKp2EbDc6XdcDchbluX4mApoNaC2yJbO6Ni2tCCNhDXMgtCawXzMNsO4qQ1Gzg
-         79q2qEE21MrHP1cmFhelZ5e0uYydTZ/Cgrcf30XMKXfvrV7zDbFzh3DRUMPUteIfdSwc
-         VgPx6OUHDdpj0Aqfcx94ks3YQrYYF1BNKTtoyhloRmB3jklfTYhrOlWw3TOIKM5wAfAR
-         Myuj8BhmA/2iDGKpJIkvSMCytpYp4VfP699zGxrGeVvypMVLwlyzUMua8xj7c+nP26YI
-         C44hwNnRfo8VJej8Df80UcQigvVXfZdZwXcb0YOScTnNFDkGt8KyApiazQs8ZSGJzH5w
-         yzNw==
-X-Forwarded-Encrypted: i=1; AJvYcCUliJhFNijphLqoCf5cZRYmoMOtKAiWN+xVTVctSt7htQMHGjXQX9kpjYZ+NNn1BBZqNnl6oYzL1MU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz2G1V1FSLsoYyRwWhNyyWGnHGRgtEACFZGV90HG9c3Y6308mTH
-	uJ+YvX7UtBhHPgTbWNslfCsTnBDIX0lyYs/DJVVEqtKlAc+nlRtZaqP5AaXIKA==
-X-Google-Smtp-Source: AGHT+IHf+aKbdTBMaLAm2fwxTKiIlg39w/OZCaeTvpvsSqheAuD7QRhsvFBxVveYtEb1d4hxLTbj5Q==
-X-Received: by 2002:a05:6512:3ca8:b0:536:741a:6bad with SMTP id 2adb3069b0e04-539e54d816amr8309236e87.12.1729083977220;
-        Wed, 16 Oct 2024 06:06:17 -0700 (PDT)
-Message-ID: <5ab381fb-f6cc-4d0d-91db-79e11fc884ad@suse.com>
-Date: Wed, 16 Oct 2024 15:06:15 +0200
+        bh=YSZjA06rawFFyjY0W3eN3VrL0FdMjMV45ul5kD2Df8s=;
+        b=texDz/DkBFUg5ewa73WbR+kPhxJ8MJJXjIUvbbCbATAJldr4tBGh04LYvsdq7cnXzJ
+         PWe4gDzULrRJrzDH+UuEdZkxxu4XeNB1eJNu4lYMYCywVF0e5tFMX3rQDIdZmmnigBv3
+         q0POBHn505ZUN/+C4SK9q334pyGhU2BSQZCVr7ZWHdBgVbfoA8ZQSJJ+1d5QG/ZGvnko
+         l39rI34VrFkjEPmIWYuFSB2QrlxrQMR3nSnRN8Qf55uTGeLsv4sySaoWoky6MzbgKe7p
+         Eos0iaLLW7qSFp2AXtpEQi1x69DfmNzTTdWuc7IWz/HG8VlWCYTkw68sdqgjujAfGZPC
+         4V6A==
+X-Forwarded-Encrypted: i=1; AJvYcCV7TO+0T/vPI0Dh9rTUf9GMDykVqaXoKoiLoQWsWKoosNmHQRCg1rN4Vy/OMIyxBQOopjWSJpTwk2M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDiGYFYRm738RtMQVfAynSIYn5VKTmqhgL1gfgGgQPK48uWKFT
+	GdG9hU8lSP9naLfXqrOXWNLllSNAACxCf6qsKwCKxgZTuYocYJuyexHsffLput7g45B2sg5HFaU
+	=
+X-Google-Smtp-Source: AGHT+IHFS1GwwF/9VO3Hyi0Eqqq6LdeqtTD0Xsqpt0cXDt4KMnbIxoRTTXW9Em9EU/2/j2+gpf8K3Q==
+X-Received: by 2002:a05:600c:314f:b0:431:52c4:1069 with SMTP id 5b1f17b1804b1-43152c412eamr15087595e9.8.1729084129042;
+        Wed, 16 Oct 2024 06:08:49 -0700 (PDT)
+Message-ID: <7d289c5b-ea3d-4d0d-913d-d8e0b1bc24a1@suse.com>
+Date: Wed, 16 Oct 2024 15:08:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] docs: update documentation of reboot param
@@ -117,14 +118,6 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 16.10.2024 14:41, Marek Marczykowski-Górecki wrote:
-> Reflect changed default mode, and fix formatting of `efi` value.
-> 
-> Fixes: d81dd3130351 ("x86/shutdown: change default reboot method preference")
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-with ...
-
 > --- a/docs/misc/xen-command-line.pandoc
 > +++ b/docs/misc/xen-command-line.pandoc
 > @@ -2153,14 +2153,13 @@ Specify the host reboot method.
@@ -133,8 +126,24 @@ with ...
 >  
 > -`acpi` instructs Xen to reboot the host using RESET_REG in the ACPI FADT.
 > +`acpi` instructs Xen to reboot the host using RESET_REG in the ACPI FADT (this is default mode if available).
+>  
+>  `pci` instructs Xen to reboot the host using PCI reset register (port CF9).
+>  
+>  `Power` instructs Xen to power-cycle the host using PCI reset register (port CF9).
+>  
+> -'efi' instructs Xen to reboot using the EFI reboot call (in EFI mode by
+> - default it will use that method first).
+> +`efi` instructs Xen to reboot using the EFI reboot call.
+>  
+>  `xen` instructs Xen to reboot using Xen's SCHEDOP hypercall (this is the default
+>  when running nested Xen)
 
-... this line suitably wrapped (can likely be done while committing).
+Hmm, out of context there is the pretty bogus
+
+> Default: `0`
+
+I wonder if we shouldn't adjust that as well while at it, to perhaps say
+"system dependent" or some such.
 
 Jan
 
