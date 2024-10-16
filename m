@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A349A02EC
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 09:46:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.819571.1232953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9FE9A02F5
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 09:47:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.819580.1232963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0yj5-0008KV-NF; Wed, 16 Oct 2024 07:45:47 +0000
+	id 1t0ykC-0000WW-4I; Wed, 16 Oct 2024 07:46:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 819571.1232953; Wed, 16 Oct 2024 07:45:47 +0000
+Received: by outflank-mailman (output) from mailman id 819580.1232963; Wed, 16 Oct 2024 07:46:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0yj5-0008Hr-JP; Wed, 16 Oct 2024 07:45:47 +0000
-Received: by outflank-mailman (input) for mailman id 819571;
- Wed, 16 Oct 2024 07:45:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t0ykC-0000UG-1G; Wed, 16 Oct 2024 07:46:56 +0000
+Received: by outflank-mailman (input) for mailman id 819580;
+ Wed, 16 Oct 2024 07:46:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sXg9=RM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t0yj3-0008Hl-O9
- for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 07:45:45 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a630d1d0-8b92-11ef-a0be-8be0dac302b0;
- Wed, 16 Oct 2024 09:45:44 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-431286f50e1so46118275e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 00:45:44 -0700 (PDT)
+ id 1t0ykA-0000GA-BE
+ for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 07:46:54 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cf188a8d-8b92-11ef-99a2-01e77a169b0f;
+ Wed, 16 Oct 2024 09:46:52 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-431160cdbd0so3630145e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 00:46:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4314f1c3c5csm10004725e9.0.2024.10.16.00.45.43
+ 5b1f17b1804b1-4314a829abbsm25322645e9.17.2024.10.16.00.46.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Oct 2024 00:45:43 -0700 (PDT)
+ Wed, 16 Oct 2024 00:46:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a630d1d0-8b92-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: cf188a8d-8b92-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1729064744; x=1729669544; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1729064812; x=1729669612; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=kaK+FwZ5ydb+9n/3CEWaD8IkBqtAO8NGdnnZgkThlTw=;
-        b=BJ3BALUsK9m/02jZxRCvvT3NwrQ6O/MHXElnvhNYXU4fhopJ93GS0+k5Xu4dqrvpf9
-         1hPH0IHidjbYTObLsAfCr9+jXEP0Ypz5psi6Df9N8SMZebblDw5c6U4bqFHQHvFlTWI8
-         TCLkN7CwmY9ZvUY85uLyyMlZLOLdT6J5zLh4HgR5ndapU+YazTm06T8waAxieKelMBn+
-         vwW+mhI75aMk5kiV1Dym8mTyRHnq5wL3waqanOEt5ChWjMiECQaKL+PCm8cHRuhnH6Cn
-         OxAqAdg65vDkS6hU7h2xKqnmsR9biLBON5RL1iTBbElSLdMcIVQ2fWTwvOmjztnf3AA+
-         wPCQ==
+        bh=S3nmJ+NcNu9hQuQyW0+LPP0IFM+slM6BFEyH7KGQkzQ=;
+        b=TlPtK7fnvBbrL+8RnjqkN79qtu9raQK+Vk+Inf8SFjq6NaItVVzWsDXC8xR7Mjacfs
+         OahbkF2gJOs6cFH0y5f2hBoxx1sAM9yU5KMDSlcWK+IOTj+Uj+9am3HL3HPYEngIhgCa
+         1npqcbfiQG2tEpuspZvrOEcg++wWTlfO4v6vbA6tJ7PpRqOpf5PsQLfjlCwTlAH17tG6
+         KlYUUeNgzBFzAMJsB1FFuRNVKZ/e7OQ1x7AWHDK48ZW4wEaZhzrObLx7uLGjfxmPRqH4
+         oYk/Y5L/hKtZ8ArBZSleBjr0MKEvgDeS7Sh0HHoEX04pA3MdfRQfJbxmo3xhkT29ASJC
+         Y9Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729064744; x=1729669544;
+        d=1e100.net; s=20230601; t=1729064812; x=1729669612;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kaK+FwZ5ydb+9n/3CEWaD8IkBqtAO8NGdnnZgkThlTw=;
-        b=m1R+HvOaU1eINLIdnCd4PBXHTISKqEk2JKmvsb/3FQE01GB+YaJCcd4cfe36IBXeyY
-         G34oE7UvB+5f2ZcGcBQflg8GMaHvvAtDsbAAiUepOf9LhDlKsxR7amg2FGZW4ZVNMRAS
-         S3QwFEMv48zpf0CWQuOwktOXhHwajp2aJyjM/vQU9cZAXaOFj0ZEAVZz+iaVf7zklxYU
-         YB8lY54Ih4DdA0OOTTtHteUVGoioB5rjrh7IUgdsp9zE7P/95xAuY4jAZIdkA2fD7byW
-         BjKZZ41sqtJCIo9jQ1DUCL7CWM5mr7ch2PtlPF0VMoz8V73oi0QX1imMQwXETucEsBot
-         Oa5g==
-X-Gm-Message-State: AOJu0YzjOBifZT7mDibVwBZ8taNPObM3t5FDc6sfyojIpSMF4TwoZWOJ
-	kuBs0GYb7mMP6HyP703u2LOWmJI2BtVft5MtdCRaGs/P625l2fu0XirTaF1N2SJa4puhuXIfPJ8
+        bh=S3nmJ+NcNu9hQuQyW0+LPP0IFM+slM6BFEyH7KGQkzQ=;
+        b=Hb4iV9iqrfmzRo12D3p6Qo25gBn1HXagSq9vcrQOa5b385qFN8IU7rWpsPuu+qCKYf
+         +UOcC3YCEExRwOJo63kLpGVbfxBJ4Qn9syRv1Wg92eEP/4ExuHwf1AGuFxkPTSk8R/fd
+         KcSUFvIdb2S1DjDlPTiUULV4z7zTaBmIdA4TkTiDGj//SOQXlSt/awa9BeRALfN1j9ve
+         tCba5tYUHGaovwiNT04nDMDOcmMD0qt79kdSFfW9nlZuAHDnzJfExFijjpj650ohb8dK
+         72LstpdybT9jY9HKCL8Jv15s3i5dwMsM4e5uu3MjDrT2lp85PJEsA1O4sq2L7dodMirm
+         ye7w==
+X-Gm-Message-State: AOJu0YzxtOdv1zGyi24h2HRwZ8Tbb1qQoFppWoz8irEIF+i4IHpGUVvl
+	TIYw6zmuJBeHYJXkKQSyhbTl2qSr71YP0zi84yRNWrRg7N7ME+8w/vh2hJ3VCqZ3nwWgo1wAe8k
 	=
-X-Google-Smtp-Source: AGHT+IFMLQN/YXmN0Wq9Xlw64tNBbvpczcXhaqPuby7gYNChcog6NQbFoxqmJdYHzYZCEkg24DRZcA==
-X-Received: by 2002:a05:600c:4fd3:b0:431:54f3:11ab with SMTP id 5b1f17b1804b1-43154f3151amr1323275e9.33.1729064743603;
-        Wed, 16 Oct 2024 00:45:43 -0700 (PDT)
-Message-ID: <ded15010-299a-4273-9414-106579677a5f@suse.com>
-Date: Wed, 16 Oct 2024 09:45:42 +0200
+X-Google-Smtp-Source: AGHT+IGWxaQwMKonUM4oDt6/frG24bor0KnlTDoTEsB9vFJCgWmCTA/Y/YkLGAyHX4waSDKsIhXvdA==
+X-Received: by 2002:a5d:5349:0:b0:379:5c8:33fa with SMTP id ffacd0b85a97d-37d8613ebc8mr2403813f8f.0.1729064812125;
+        Wed, 16 Oct 2024 00:46:52 -0700 (PDT)
+Message-ID: <a2dae57f-d166-4c99-8edd-11784abdecab@suse.com>
+Date: Wed, 16 Oct 2024 09:46:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -85,8 +85,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul/test: correct loop body indentation in
- evex-disp8.c:test_one()
+Subject: [PATCH] x86emul/test: drop Xeon Phi S/G prefetch special case
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,61 +112,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-For some reason I entirely consistently screwed these up.
+Another leftover from the dropping of Xeon Phi support.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Note: I'm deliberately not switching to use of the conditional operator,
+as the form as is resulting now is what we'll want for APX (which is
+where I noticed this small piece of dead logic).
 
 --- a/tools/tests/x86_emulator/evex-disp8.c
 +++ b/tools/tests/x86_emulator/evex-disp8.c
-@@ -905,8 +905,8 @@ static void test_one(const struct test *
-         goto fail;
- 
-     for ( i = 0; i < (test->scale == SC_vl ? vsz : esz); ++i )
--         if ( accessed[i] )
--             goto fail;
-+        if ( accessed[i] )
-+            goto fail;
- 
+@@ -911,10 +911,8 @@ static void test_one(const struct test *
      n = test->scale == SC_vl ? vsz : esz;
      if ( !sg )
-@@ -917,13 +917,13 @@ static void test_one(const struct test *
-         ++n;
+         n += vsz;
+-    else if ( !strstr(test->mnemonic, "pf") )
+-        n += esz;
+     else
+-        ++n;
++        n += esz;
  
      for ( ; i < n; ++i )
--         if ( accessed[i] != (sg ? (vsz / esz) >> (test->opc & 1 & !evex.w)
--                                 : 1) )
--             goto fail;
-+        if ( accessed[i] != (sg ? (vsz / esz) >> (test->opc & 1 & !evex.w)
-+                                : 1) )
-+            goto fail;
- 
-     for ( ; i < ARRAY_SIZE(accessed); ++i )
--         if ( accessed[i] )
--             goto fail;
-+        if ( accessed[i] )
-+            goto fail;
- 
-     /* Also check the broadcast case, if available. */
-     if ( test->vsz >= VSZ_el || test->scale != SC_vl )
-@@ -954,14 +954,14 @@ static void test_one(const struct test *
-         goto fail;
- 
-     for ( i = 0; i < esz; ++i )
--         if ( accessed[i] )
--             goto fail;
-+        if ( accessed[i] )
-+            goto fail;
-     for ( ; i < esz * 2; ++i )
--         if ( accessed[i] != 1 )
--             goto fail;
-+        if ( accessed[i] != 1 )
-+            goto fail;
-     for ( ; i < ARRAY_SIZE(accessed); ++i )
--         if ( accessed[i] )
--             goto fail;
-+        if ( accessed[i] )
-+            goto fail;
- 
-     return;
- 
+          if ( accessed[i] != (sg ? (vsz / esz) >> (test->opc & 1 & !evex.w)
 
