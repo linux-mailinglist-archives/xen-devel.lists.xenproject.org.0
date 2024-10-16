@@ -2,49 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8279A016C
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 08:29:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.819552.1232927 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB679A01F3
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 08:59:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.819560.1232937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0xWh-0006q0-8Y; Wed, 16 Oct 2024 06:28:55 +0000
+	id 1t0xz5-0002A5-Fn; Wed, 16 Oct 2024 06:58:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 819552.1232927; Wed, 16 Oct 2024 06:28:55 +0000
+Received: by outflank-mailman (output) from mailman id 819560.1232937; Wed, 16 Oct 2024 06:58:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0xWh-0006nM-5A; Wed, 16 Oct 2024 06:28:55 +0000
-Received: by outflank-mailman (input) for mailman id 819552;
- Wed, 16 Oct 2024 06:28:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t0xz5-00027y-Cw; Wed, 16 Oct 2024 06:58:15 +0000
+Received: by outflank-mailman (input) for mailman id 819560;
+ Wed, 16 Oct 2024 06:58:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ctGc=RM=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1t0xWf-0006nG-LQ
- for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 06:28:53 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20610.outbound.protection.outlook.com
- [2a01:111:f403:2414::610])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8194e4d-8b87-11ef-99a2-01e77a169b0f;
- Wed, 16 Oct 2024 08:28:51 +0200 (CEST)
-Received: from SJ0PR03CA0090.namprd03.prod.outlook.com (2603:10b6:a03:331::35)
- by PH0PR12MB8797.namprd12.prod.outlook.com (2603:10b6:510:28d::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.19; Wed, 16 Oct
- 2024 06:28:43 +0000
-Received: from SJ5PEPF00000207.namprd05.prod.outlook.com
- (2603:10b6:a03:331:cafe::68) by SJ0PR03CA0090.outlook.office365.com
- (2603:10b6:a03:331::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18 via Frontend
- Transport; Wed, 16 Oct 2024 06:28:43 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF00000207.mail.protection.outlook.com (10.167.244.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8069.17 via Frontend Transport; Wed, 16 Oct 2024 06:28:43 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Oct
- 2024 01:28:40 -0500
+ <SRS0=k4YY=RM=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
+ id 1t0xz3-00027s-Je
+ for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 06:58:13 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 018dce70-8b8c-11ef-a0be-8be0dac302b0;
+ Wed, 16 Oct 2024 08:58:12 +0200 (CEST)
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-497-QTbjnE6aPvW1H0F5b4SexQ-1; Wed, 16 Oct 2024 02:58:08 -0400
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-7b111381632so1218010085a.3
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Oct 2024 23:58:08 -0700 (PDT)
+Received: from dhcp-64-113.muc.redhat.com (nat-pool-muc-t.redhat.com.
+ [149.14.88.26]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7b136164dfbsm149785985a.21.2024.10.15.23.57.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Oct 2024 23:58:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,238 +49,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8194e4d-8b87-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qO7E1qqV6uQ0YAsF7C5wMyvq7qyhuN7qBOL0mYExYZPSV4ZdCOT05yXiI0MgmhHwVcITACChkUeYA/kJKuM0bPHS8uOT4GFqh9q55oqM0kk/x6bKGy58ldsSyZp/yWzp2cJKz51C7vLh/gFnvUu67s1plDOsW4R7+2LftafJCqOu4A90xb5Yk9C/xeM4OWRAG8eAPwRDKTm+6TDv7QS/HHBzKA7JQCTdYhZaz28pA+N8HeoUc8SLuosZCi0gMXerrDheBu2FvYUMSDoYw31+K/B7VAFVRSxPiBW0L5csHyh69Ygw7XwlrFTlULaOwXsa9pI2NnI23xv5qyxevAktYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Qa+/Vrr5vYV8N9Hqm6E9aPfl5zi0iD1R8OkMk0hb40=;
- b=ofaIzaWoXsprLXAqBAIFrVie0Evko9XiuASyuxwzsHB9wH51A7rGXrs7dqAiXvgeABo/QjXqrYZ3pYinW56UE0CVv2k5ktUtlcgDdvBlIxzTB4j1LwXfea7QkrDSfewpUr3SLaO7eI1pvW1Y4paEUi2YzNyN2LHHpaAMjTSe5HPleEynUkRy8ycqN6Z/d196+Pns1cnngfAk0ytfnewA8I0Im9U8ig9RJ2Dbcadt6YcMI+9mrOpTOzS7jb8Gudz5fMVOmwJRFUpsZl7v9FC//9ZTHHCZvw4Wg3aYLY4c+Ywd2q4UIDfXtZjQC+xqLUR4BapbHH7sITPB2qnHyq+zYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Qa+/Vrr5vYV8N9Hqm6E9aPfl5zi0iD1R8OkMk0hb40=;
- b=XG1Ly6/2nCr09Ej5oKJcsJG3d6P2J3vq/udR0dCJL7+zYK2jl60NQ1KY89Gxq3j1dTSn77ootzmTBcLPZhYwsDfCDL23f5pt8P+lzFbYRnM+fM4Ay7ZO5Ipkc+anfjPqBB0A0g8QP45RkHKp/MnF5w6gVHeOCrOpaHRG57g7QJI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony@xenproject.org>, Paul Durrant <paul@xen.org>, "Edgar E . Iglesias"
-	<edgar.iglesias@gmail.com>
-CC: <qemu-devel@nongnu.org>, <xen-devel@lists.xenproject.org>, Huang Rui
-	<Ray.Huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui
-	<ray.huang@amd.com>
-Subject: [QEMU PATCH v8] xen/passthrough: use gsi to map pirq when dom0 is PVH
-Date: Wed, 16 Oct 2024 14:28:27 +0800
-Message-ID: <20241016062827.2301004-1-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 018dce70-8b8c-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1729061890;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nKJfP3LmeT/Qx7oKj5HM871IgPtYRSHVMsPL1c0DDh4=;
+	b=SWPbKKIqFoYNjjorH0UKxHv0jCyI1GQkI45hBGuDys0NoTikS8kmva40Eh9tMiHnnvW24E
+	tLabImLUtymRn7VXRahJDtg9yJlNp3rlNqpYkmn6VF4G1aRb8e9jhx32yCNblfR++3BoPR
+	1a1Ag03LcaEb+SQZmvfgw5XOZ7ikqEU=
+X-MC-Unique: QTbjnE6aPvW1H0F5b4SexQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729061887; x=1729666687;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nKJfP3LmeT/Qx7oKj5HM871IgPtYRSHVMsPL1c0DDh4=;
+        b=lzzbL3f5TwOn0g9Xd2DyK6/ZyHW/V+mImeduabuDM9AqOKPgkmsM/Hi7SjS0+yi3jB
+         XMNiTsyHO9O1KXhOZM5qeKseWrkxH1Qin+kaMhc7NaLkoPEm4y3adzwoJ/0nHpp4Bf8+
+         JQUX0XW1NREtA0YKOF/lrJdLSI8hTldAIf+cNcQJckptXWPEImZxZznQ0sgWIvHtl172
+         l+nSJeQj8k28TVHoOZ/FVnisRLetQzPy2xWo9u+bOaOtH2DhBbHHX38pjd4fow5sJ8lh
+         vNz1GZcxNyeVAW7OwTCL3MhdZ1rvqSTn7k/Wtj3oo+TRZ6knWvqkFOMVUmNej/wsSshM
+         gjzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU4N7WPSE/2+RnjuU/kFa5BXhkXxTsf2F3RQmFRKyILPzRbpSq3XEn9ZVUBOQ0fsMwS3OIawqHmup4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxM2Rwb5I5BPmuFZtwHU47/2VZbkZ/NI4vRQ/83014Qolzz+UCg
+	50tp+hWhd3Lh328tQhJaW85yDfSf2tG6MJJxWDJwNQaAHTCs9H8cxaHWrLoCADU74eSmfk6GDCQ
+	BpyfYKasYLXNLyysVFxOVLqkA8LXZHduH48QWsmP+Ym5LN1J56tKjLphwo1FqEs55
+X-Received: by 2002:a05:620a:400d:b0:7a1:62ad:9d89 with SMTP id af79cd13be357-7b14186f1c8mr461444285a.64.1729061887540;
+        Tue, 15 Oct 2024 23:58:07 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFcw8kz1/9R04Vwhhq2lqNVDk3gX6xFnXYOAV6a2cL/WNRAli0C59zaADhpNPO2+u1Q91URSw==
+X-Received: by 2002:a05:620a:400d:b0:7a1:62ad:9d89 with SMTP id af79cd13be357-7b14186f1c8mr461441885a.64.1729061887092;
+        Tue, 15 Oct 2024 23:58:07 -0700 (PDT)
+Message-ID: <fc7244823a5665d3db40c94aea099a2973032a0b.camel@redhat.com>
+Subject: Re: [PATCH 13/13] PCI: Deprecate pci_intx(), pcim_intx()
+From: Philipp Stanner <pstanner@redhat.com>
+To: Alex Williamson <alex.williamson@redhat.com>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
+ Sergey Shtylyov <s.shtylyov@omp.ru>, Basavaraj Natikar
+ <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>,  Benjamin
+ Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
+ Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+ <manishc@marvell.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Rasesh Mody <rmody@marvell.com>,
+ GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko <imitsyanko@quantenna.com>,
+ Sergey Matyukevich <geomatsi@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+ Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar S K
+ <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
+ <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>,  Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Chen Ni <nichen@iscas.ac.cn>,  Mario Limonciello
+ <mario.limonciello@amd.com>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
+ <viro@zeniv.linux.org.uk>,  Breno Leitao <leitao@debian.org>, Kevin Tian
+ <kevin.tian@intel.com>, Thomas Gleixner <tglx@linutronix.de>,  Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Mostafa Saleh
+ <smostafa@google.com>,  Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu
+ <yi.l.liu@intel.com>, Christian Brauner <brauner@kernel.org>, Ankit Agrawal
+ <ankita@nvidia.com>, Eric Auger <eric.auger@redhat.com>, Reinette Chatre
+ <reinette.chatre@intel.com>, Ye Bin <yebin10@huawei.com>, Marek
+ =?ISO-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>,  Rui Salvaterra <rsalvaterra@gmail.com>,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-input@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
+Date: Wed, 16 Oct 2024 08:57:58 +0200
+In-Reply-To: <20241015135336.0de9795e.alex.williamson@redhat.com>
+References: <20241015185124.64726-1-pstanner@redhat.com>
+	 <20241015185124.64726-14-pstanner@redhat.com>
+	 <20241015135336.0de9795e.alex.williamson@redhat.com>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000207:EE_|PH0PR12MB8797:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9348a513-3acd-4696-da8e-08dcedabc815
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?PE3p22gpaIpl7KxYAt6w7HoXWIp/AsCVFvkKFmHG4bXdjeQ6OMSi4ze2G0wJ?=
- =?us-ascii?Q?zCg/BNz9KrG2CIXLFWunrCo9EQza9dI/am5ctwk88WbJ/Y5kyzQpPJUNhhUB?=
- =?us-ascii?Q?eiPkoP31zW02CosRHdApmri3aS1vd/dBhH3EuEuq5SC1P8njaQiKl9rSFfXC?=
- =?us-ascii?Q?grWIo1bAzo1nYxx9ZtIPY0+uzc07jZhGzbaEQoazkUWSFY3oE1FxLc4RxLay?=
- =?us-ascii?Q?d488+JFfG4hEO098a6ccmCrGI0HacnRW7tUtLX2AI87gf0ciRM5UA+EeY+Kq?=
- =?us-ascii?Q?O6ggfG9xW+4pz61pnBHZ/08zzOVu3LEJq7qHc030e0qXaiRsieSOnHRXCOiO?=
- =?us-ascii?Q?4OztvwaaSXH7nk1E/rR/MrhKaxOtHanmNBZomAg+a4LWVVKWtxjxSZ6ONpaE?=
- =?us-ascii?Q?t5EgKhCYp2pIkUeXlYRXAUNBidBPa4DEAQPuX7FGooJz5OqfvO464ttbD6c4?=
- =?us-ascii?Q?Y23Kl9TGhuMLqAEHG7djb9YJc/USeADslyb9zK+OlPKnQh+yQIlObM/F4DPy?=
- =?us-ascii?Q?Pbw698+zzwToeyjaXHYnm0GqmBtrwxtiWLlPiaHnfSv3vl7rucz1R2cZ/5Ed?=
- =?us-ascii?Q?d+OAKovRhnFncvg0li5y/5ivkz0XT2zN5k4VUdjofo4MIEoU/Ly77JCfwQgD?=
- =?us-ascii?Q?0YKDXEz5HW5izgIYkD0rWJ3JNU8c3BNOp8xpqqKnubJQOx+YfuQoL/LBlNei?=
- =?us-ascii?Q?5roahadnt5Cdt7VyB3Ywd9U2gQZzFDNlv9p21mAn+D3F1xoxfE2e5KTpGWJE?=
- =?us-ascii?Q?uYjMKX4qv2pKubqX8jwtu0Pzd7BcCfSCLa9Ds3bZkefUnobmSkpoXocRSk0c?=
- =?us-ascii?Q?pYRQ0A5mVbLLaNNTU3lL+WK8MEGYoWOdtkqtgqswHmCuALWNBpC9tn6hpM6m?=
- =?us-ascii?Q?9oJDOflE9yMLpsKgk/les6FY67wnH8OC4HHTCSJ/gy4doruAhYTg3XXhtaFY?=
- =?us-ascii?Q?0A/SFVLNWBXyTp8YNrWZhgt4NrzNZgwNcB0m4TeSEABp4EnGFnf8LTngauix?=
- =?us-ascii?Q?0iC+dRbsYAz2Nsj1syL9ZbiHUSNjlxazuTCiaVL3z+E9QcEehQlJi/Ctjq/G?=
- =?us-ascii?Q?xFt0EH5DxbCV3YZ9587bEf0+G1X3fq8ehYmHzS6SSmGBNekVvpSdH0bGmkbx?=
- =?us-ascii?Q?AFivVhdZJdhajFYAFGu3JCuRNnfoJdoHBGKsymoej5jrTUjFaM+7wuXmtQFN?=
- =?us-ascii?Q?xm1WwK/ZHKWib+OiTJUXjm7whx+PKsKHV5Ugg28MDNMHJcx+jEj3FKTRxvgK?=
- =?us-ascii?Q?rzdhla4iMLaBXYrxqLTzcVjYijYcemT/aA7onBZwDChiiBp9ZGd/R2igp9Ex?=
- =?us-ascii?Q?7ym7FZi/p7u63iRmTEaT7YEjYhbU4eZamgro81FRSF3VSMsZnCtA3QuOE2GX?=
- =?us-ascii?Q?4LQxXRd8jJASkqs1ONk1dHJ5pnKJ?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2024 06:28:43.0427
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9348a513-3acd-4696-da8e-08dcedabc815
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000207.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8797
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In PVH dom0, when passthrough a device to domU, QEMU code
-xen_pt_realize->xc_physdev_map_pirq wants to use gsi, but in current codes
-the gsi number is got from file /sys/bus/pci/devices/<sbdf>/irq, that is
-wrong, because irq is not equal with gsi, they are in different spaces, so
-pirq mapping fails.
+On Tue, 2024-10-15 at 13:53 -0600, Alex Williamson wrote:
+> On Tue, 15 Oct 2024 20:51:23 +0200
+> Philipp Stanner <pstanner@redhat.com> wrote:
+>=20
+> > pci_intx() and its managed counterpart pcim_intx() only exist for
+> > older
+> > drivers which have not been ported yet for various reasons. Future
+> > drivers should preferably use pci_alloc_irq_vectors().
+> >=20
+> > Mark pci_intx() and pcim_intx() as deprecated and encourage usage
+> > of
+> > pci_alloc_irq_vectors() in its place.
+>=20
+> I don't really understand this.=C2=A0 As we've discussed previously
+> pci_alloc_irq_vectors() is, unsurprisingly, for allocating PCI IRQ
+> vectors while pci_intx() is for manipulating the INTx disable bit on
+> PCI devices.=C2=A0 The latter is a generic mechanism for preventing PCI
+> devices from generating INTx, regardless of whether there's a vector
+> allocated for it.=C2=A0 How does the former replace the latter and why do
+> we
+> feel the need to deprecate the latter?
+>=20
+> It feels like this fits some narrow narrative and makes all users of
+> these now deprecated functions second class citizens.=C2=A0 Why?=C2=A0 At=
+ it's
+> root these are simply providing mask and set or mask and clear
+> register
+> bit operations.=C2=A0 Thanks,
 
-To solve above problem, use new interface of Xen, xc_pcidev_get_gsi to get
-gsi and use xc_physdev_map_pirq_gsi to map pirq when dom0 is PVH.
+I got the feeling from the RFC discussion that that was basically the
+consensus: people should use pci_alloc_irq_vectors(). Or did I
+misunderstand Andy and Heiner?
 
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-Signed-off-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
-Hi All,
-This is v8 to support passthrough on Xen when dom0 is PVH.
-v7->v8 change:
-* Since xc_physdev_gsi_from_dev was renamed to xc_pcidev_get_gsi, changed it.
-* Added xen_run_qemu_on_hvm to check if Qemu run on PV dom0, if not use xc_physdev_map_pirq_gsi to map pirq.
-* Used CONFIG_XEN_CTRL_INTERFACE_VERSION to wrap the new part for compatibility.
-* Added "#define DOMID_RUN_QEMU 0" to represent the id of domain that Qemu run on.
+I'm perfectly happy with dropping this patch and continue offering
+pci{m}_intx() to users, since after removing that hybrid hazzard I
+don't see any harm in them anymore.
 
 
-Best regards,
-Jiqian Chen
+P.
 
-
-
-v6->v7 changes:
-* Because the function of obtaining gsi was changed on the kernel and Xen side. Changed to use
-  xc_physdev_gsi_from_dev, that requires passing in sbdf instead of irq.
-
-v5->v6 changes:
-* Because the function of obtaining gsi was changed on the kernel and Xen side. Changed to use
-  xc_physdev_gsi_from_irq, instead of gsi sysfs.
-* Since function changed, removed the Review-by of Stefano.
-
-v4->v5 changes:
-* Added Review-by Stefano.
-
-v3->v4 changes:
-* Added gsi into struct XenHostPCIDevice and used gsi number that read from gsi sysfs
-  if it exists, if there is no gsi sysfs, still use irq.
-
-v2->v3 changes:
-* Due to changes in the implementation of the second patch on kernel side(that adds
-  a new sysfs for gsi instead of a new syscall), so read gsi number from the sysfs of gsi.
-
-v1 and v2:
-We can record the relation between gsi and irq, then when userspace(qemu) want
-to use gsi, we can do a translation. The third patch of kernel(xen/privcmd: Add new syscall
-to get gsi from irq) records all the relations in acpi_register_gsi_xen_pvh() when dom0
-initialize pci devices, and provide a syscall for userspace to get the gsi from irq. The
-third patch of xen(tools: Add new function to get gsi from irq) add a new function
-xc_physdev_gsi_from_irq() to call the new syscall added on kernel side.
-And then userspace can use that function to get gsi. Then xc_physdev_map_pirq() will success.
-
-Issues we encountered:
-1. failed to map pirq for gsi
-Problem: qemu will call xc_physdev_map_pirq() to map a passthrough device's gsi to pirq in
-function xen_pt_realize(). But failed.
-
-Reason: According to the implement of xc_physdev_map_pirq(), it needs gsi instead of irq,
-but qemu pass irq to it and treat irq as gsi, it is got from file
-/sys/bus/pci/devices/xxxx:xx:xx.x/irq in function xen_host_pci_device_get(). But actually
-the gsi number is not equal with irq. They are in different space.
----
- hw/xen/xen_pt.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
- hw/xen/xen_pt.h |  1 +
- 2 files changed, 45 insertions(+)
-
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 3635d1b39f79..7f8139d20915 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -766,6 +766,41 @@ static void xen_pt_destroy(PCIDevice *d) {
- }
- /* init */
- 
-+#define PCI_SBDF(seg, bus, dev, func) \
-+            ((((uint32_t)(seg)) << 16) | \
-+            (PCI_BUILD_BDF(bus, PCI_DEVFN(dev, func))))
-+
-+#if CONFIG_XEN_CTRL_INTERFACE_VERSION >= 42000
-+static bool xen_run_qemu_on_hvm(void)
-+{
-+    xc_domaininfo_t info;
-+
-+    if (!xc_domain_getinfo_single(xen_xc, DOMID_RUN_QEMU, &info) &&
-+        (info.flags & XEN_DOMINF_hvm_guest)) {
-+        return true;
-+    }
-+
-+    return false;
-+}
-+
-+static int xen_map_pirq_for_gsi(PCIDevice *d, int *pirq)
-+{
-+    int gsi;
-+    XenPCIPassthroughState *s = XEN_PT_DEVICE(d);
-+
-+    gsi = xc_pcidev_get_gsi(xen_xc,
-+                            PCI_SBDF(s->real_device.domain,
-+                                     s->real_device.bus,
-+                                     s->real_device.dev,
-+                                     s->real_device.func));
-+    if (gsi >= 0) {
-+        return xc_physdev_map_pirq_gsi(xen_xc, xen_domid, gsi, pirq);
-+    }
-+
-+    return gsi;
-+}
-+#endif
-+
- static void xen_pt_realize(PCIDevice *d, Error **errp)
- {
-     ERRP_GUARD();
-@@ -847,7 +882,16 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
-         goto out;
-     }
- 
-+#if CONFIG_XEN_CTRL_INTERFACE_VERSION >= 42000
-+    if (xen_run_qemu_on_hvm()) {
-+        rc = xen_map_pirq_for_gsi(d, &pirq);
-+    } else {
-+        rc = xc_physdev_map_pirq(xen_xc, xen_domid, machine_irq, &pirq);
-+    }
-+#else
-     rc = xc_physdev_map_pirq(xen_xc, xen_domid, machine_irq, &pirq);
-+#endif
-+
-     if (rc < 0) {
-         XEN_PT_ERR(d, "Mapping machine irq %u to pirq %i failed, (err: %d)\n",
-                    machine_irq, pirq, errno);
-diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-index 095a0f0365d4..a08b45b7fbae 100644
---- a/hw/xen/xen_pt.h
-+++ b/hw/xen/xen_pt.h
-@@ -36,6 +36,7 @@ void xen_pt_log(const PCIDevice *d, const char *f, ...) G_GNUC_PRINTF(2, 3);
- #  define XEN_PT_LOG_CONFIG(d, addr, val, len)
- #endif
- 
-+#define DOMID_RUN_QEMU 0
- 
- /* Helper */
- #define XEN_PFN(x) ((x) >> XC_PAGE_SHIFT)
--- 
-2.34.1
+>=20
+> Alex
+> =C2=A0
+> > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+> > ---
+> > =C2=A0drivers/pci/devres.c | 5 ++++-
+> > =C2=A0drivers/pci/pci.c=C2=A0=C2=A0=C2=A0 | 5 ++++-
+> > =C2=A02 files changed, 8 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/pci/devres.c b/drivers/pci/devres.c
+> > index 6f8f712fe34e..4c76fc063104 100644
+> > --- a/drivers/pci/devres.c
+> > +++ b/drivers/pci/devres.c
+> > @@ -435,7 +435,7 @@ static struct pcim_intx_devres
+> > *get_or_create_intx_devres(struct device *dev)
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0/**
+> > - * pcim_intx - managed pci_intx()
+> > + * pcim_intx - managed pci_intx() (DEPRECATED)
+> > =C2=A0 * @pdev: the PCI device to operate on
+> > =C2=A0 * @enable: boolean: whether to enable or disable PCI INTx
+> > =C2=A0 *
+> > @@ -443,6 +443,9 @@ static struct pcim_intx_devres
+> > *get_or_create_intx_devres(struct device *dev)
+> > =C2=A0 *
+> > =C2=A0 * Enable/disable PCI INTx for device @pdev.
+> > =C2=A0 * Restore the original state on driver detach.
+> > + *
+> > + * This function is DEPRECATED. Do not use it in new code.
+> > + * Use pci_alloc_irq_vectors() instead (there is no managed
+> > version, currently).
+> > =C2=A0 */
+> > =C2=A0int pcim_intx(struct pci_dev *pdev, int enable)
+> > =C2=A0{
+> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> > index 7ce1d0e3a1d5..dc69e23b8982 100644
+> > --- a/drivers/pci/pci.c
+> > +++ b/drivers/pci/pci.c
+> > @@ -4477,11 +4477,14 @@ void pci_disable_parity(struct pci_dev
+> > *dev)
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0/**
+> > - * pci_intx - enables/disables PCI INTx for device dev
+> > + * pci_intx - enables/disables PCI INTx for device dev
+> > (DEPRECATED)
+> > =C2=A0 * @pdev: the PCI device to operate on
+> > =C2=A0 * @enable: boolean: whether to enable or disable PCI INTx
+> > =C2=A0 *
+> > =C2=A0 * Enables/disables PCI INTx for device @pdev
+> > + *
+> > + * This function is DEPRECATED. Do not use it in new code.
+> > + * Use pci_alloc_irq_vectors() instead.
+> > =C2=A0 */
+> > =C2=A0void pci_intx(struct pci_dev *pdev, int enable)
+> > =C2=A0{
+>=20
 
 
