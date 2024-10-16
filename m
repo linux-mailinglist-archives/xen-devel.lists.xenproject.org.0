@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B892F9A045E
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 10:34:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.819634.1233093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73E509A048B
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 10:43:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.819693.1233106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0zTX-0005pH-SQ; Wed, 16 Oct 2024 08:33:47 +0000
+	id 1t0zcy-0007si-O7; Wed, 16 Oct 2024 08:43:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 819634.1233093; Wed, 16 Oct 2024 08:33:47 +0000
+Received: by outflank-mailman (output) from mailman id 819693.1233106; Wed, 16 Oct 2024 08:43:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t0zTX-0005mq-Ol; Wed, 16 Oct 2024 08:33:47 +0000
-Received: by outflank-mailman (input) for mailman id 819634;
- Wed, 16 Oct 2024 08:33:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t0zcy-0007qj-LE; Wed, 16 Oct 2024 08:43:32 +0000
+Received: by outflank-mailman (input) for mailman id 819693;
+ Wed, 16 Oct 2024 08:43:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zOTK=RM=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1t0zTW-0005mc-MJ
- for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 08:33:46 +0000
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [2607:f8b0:4864:20::c2d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a9ad453-8b99-11ef-99a3-01e77a169b0f;
- Wed, 16 Oct 2024 10:33:44 +0200 (CEST)
-Received: by mail-oo1-xc2d.google.com with SMTP id
- 006d021491bc7-5e5b5715607so361317eaf.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 01:33:44 -0700 (PDT)
+ <SRS0=Q9FP=RM=gmail.com=hkallweit1@srs-se1.protection.inumbo.net>)
+ id 1t0zcx-0007qd-Ao
+ for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 08:43:31 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b7ec862a-8b9a-11ef-a0be-8be0dac302b0;
+ Wed, 16 Oct 2024 10:43:30 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5c99be0a4bbso380323a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 01:43:30 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:a554:2300:6c65:3e15:b0c4:185e?
+ (dynamic-2a02-3100-a554-2300-6c65-3e15-b0c4-185e.310.pool.telefonica.de.
+ [2a02:3100:a554:2300:6c65:3e15:b0c4:185e])
+ by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-a9a29750a9asm156042266b.88.2024.10.16.01.43.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Oct 2024 01:43:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,434 +47,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a9ad453-8b99-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: b7ec862a-8b9a-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1729067623; x=1729672423; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=azditVijaAgaL//+6f2JjVPbZEUHT+OesQroxv5VlzM=;
-        b=Lkgqc6O50oRWjHbHQ925A1uMslFcVGIRE976yOEWUIrNJHa2esqa60ueQneB9WSp7t
-         FA86K20QL+BRUWuA7Vj8fUzL4OYAnBGpv0XGsshz5sdowCJH+aAGbB1jaxgyHW3DHWUW
-         eIeuWgBlsJZoYUZFPbgE+ZtPP84Ja1PhJAsdY=
+        d=gmail.com; s=20230601; t=1729068209; x=1729673009; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PaNHk+1EBRyWir9RbKJJvbLwl0XroaJpy79cuY3a4Cc=;
+        b=FT/AV5cTw40dWBVeNwHgmSGQhH4KjwExd2kpGtUB0qIHhoMDRWlapJhRZPR5rN0eRG
+         crrjGNDTfi/chfMBge8qA++2fAsDFCK6O3JnBmhscu8nBqYNpqCFFvBiEuh3afBA3YYz
+         LVYYXNidDg7KVKqOxWX18PTbjmSkUFzHmD6RNrnEHkX9aAgYEBEpAtfv3vsghwutR5Fd
+         fGRUvehGnoAqmy+u4p8+I3wikCGEWOasuJr3Mu/NPMnjFiGLyOKB7/ektemXxdNLsJnZ
+         wYWKI6spW1+1MxHaeoLmtqn2dfM+HaU9d2X5fU8YGBur4OLqZLeM+5rQ7OtAFN5bUtj2
+         WPGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729067623; x=1729672423;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=azditVijaAgaL//+6f2JjVPbZEUHT+OesQroxv5VlzM=;
-        b=lTGyyYb/IeG9p7+8+VJwbDEFs8kQfBH6pxvztFIxtOKa5GiJT1jKipfTCy/DvXR4LP
-         QMBks2faMU/LTkroZhPEO1ivc2LAXoRziNksXyUgsKSBpCxyHzFx6STeOZYvIczp8M/1
-         yOAKDgvmLtBZrM5qYm+KAQl4679Jaes2kr3mFRjo+aBPc1FQH1GdW/2NSLQACrmjM6Tn
-         M0LFjFwnNi4fruIERSfoLkDVP6pdWofrQDi8mquRI46rXy9Y4IQIARxiOmYym0ceH/px
-         MuFElUO4Z35uN+OdwEbgduUbardYpsk1IhUzoe9HzRljArHHXbWkCJQwt/WzxY/JXzn1
-         PdAg==
-X-Gm-Message-State: AOJu0YwUMJJ6QFLIs5UmvQosXYZlhlP8J6Xdj2CQhjzIqj/9SUTUbjYe
-	x5yxGvM38ospSiSb17ZBBGsZ29CZLuw587iNChWrTnQ5w29g+fLnp1YfgA+ZOfnt/Op67xtVN5U
-	t0zn6bXDLvWwzMrucQtu+O7xJ7RYNxqLfFk46SA==
-X-Google-Smtp-Source: AGHT+IE0rwF/yJB13ZD52nhWRDEYzKIpGI++oh9e9MsksSMbeU5b7M4cxTlWCXVI5BxnavVDBaz/IY27R6xPOqMhdhs=
-X-Received: by 2002:a05:6820:5104:b0:5eb:61b1:a74b with SMTP id
- 006d021491bc7-5eb61b1a80fmr370382eaf.0.1729067623019; Wed, 16 Oct 2024
- 01:33:43 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1729068209; x=1729673009;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PaNHk+1EBRyWir9RbKJJvbLwl0XroaJpy79cuY3a4Cc=;
+        b=iumcLmE/CcbYt4KMToKtFL8nkSrXU6csIdYHMKywL5qmknfuXTh00lZXeLH9Alwyhe
+         dh9+Wk3MNQiCCxzgSfvHFfuhaYwNSHwTxxREo/+SqZuXM/GAow4OTh3MZEDZvbOUSwc4
+         8qxOk3oCxdg5NI5Vqz0RY411b0TqR69whPBsmWTGQWH62GK54YZmwQiTHnQ8Yw+x1Jo6
+         QMnvlRx6l+2O3vbpTSvRd8A5evgwFKFqYSWq0B0k/jW9rWX9Pv8LINtAD8qGwO98x65t
+         9hpsBKi704lwjANRzSagCzMuAeHuj7wWNVVzRlT95p0QtSHcnR8byt/gsBhTcv9nrUTf
+         B88w==
+X-Forwarded-Encrypted: i=1; AJvYcCU5tEXjp3YkuCIPsp6+UbOmtr1zgSE9jVps3agKq1vP3ZmFnfH3evDXBMNew6Jr0z4uiDWfjPRoffI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxA5Cb6zaf5JeXtNK2BGVuvv4xhs5IGAD9f82yUxWSBZ8+DWmZa
+	9/S9E1VXMao262PcWe+gFJuzOGoimzRC+upzrI2TXKT4VOLlY5pV
+X-Google-Smtp-Source: AGHT+IG7Mc74tdlZs67Lg0fXYJgdjilcvHeVlNjg83zAHOOdY3c3eJlxhWztO741FFj+cDImqCMJ7w==
+X-Received: by 2002:a17:906:4fc8:b0:a8a:6c5d:63b2 with SMTP id a640c23a62f3a-a99b937a6d4mr1476269166b.18.1729068209160;
+        Wed, 16 Oct 2024 01:43:29 -0700 (PDT)
+Message-ID: <297b5511-8f6a-4798-a2b4-d4c634969aed@gmail.com>
+Date: Wed, 16 Oct 2024 10:43:27 +0200
 MIME-Version: 1.0
-References: <20241014085332.3254546-1-frediano.ziglio@cloud.com>
- <20241014085332.3254546-3-frediano.ziglio@cloud.com> <Zw05Tb8UvCQAIo+n@l14>
- <CACHz=ZiaSyr_6y=tniF6Kq7JcFjeoVse-dAX7TF3bsvL-r3jRg@mail.gmail.com> <Zw5zSURbpInM5oBY@l14>
-In-Reply-To: <Zw5zSURbpInM5oBY@l14>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Wed, 16 Oct 2024 09:33:32 +0100
-Message-ID: <CACHz=ZgN9qNygJWuWovpiU+MCGcJu9qaxaRT1VkkiHsYwbEN4A@mail.gmail.com>
-Subject: Re: [PATCH v4 2/6] x86/boot: create a C bundle for 32 bit boot code
- and use it
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/13] PCI: Deprecate pci_intx(), pcim_intx()
+To: Philipp Stanner <pstanner@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Sergey Shtylyov <s.shtylyov@omp.ru>,
+ Basavaraj Natikar <basavaraj.natikar@amd.com>, Jiri Kosina
+ <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov
+ <oakad@yahoo.com>, Sudarsana Kalluru <skalluru@marvell.com>,
+ Manish Chopra <manishc@marvell.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rasesh Mody <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com,
+ Igor Mitsyanko <imitsyanko@quantenna.com>,
+ Sergey Matyukevich <geomatsi@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+ Sanjay R Mehta <sanju.mehta@amd.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>,
+ Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Chen Ni <nichen@iscas.ac.cn>, Mario Limonciello <mario.limonciello@amd.com>,
+ Ricky Wu <ricky_wu@realtek.com>, Al Viro <viro@zeniv.linux.org.uk>,
+ Breno Leitao <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mostafa Saleh <smostafa@google.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Yi Liu <yi.l.liu@intel.com>, Christian Brauner <brauner@kernel.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Eric Auger <eric.auger@redhat.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Ye Bin <yebin10@huawei.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Rui Salvaterra <rsalvaterra@gmail.com>, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
+References: <20241015185124.64726-1-pstanner@redhat.com>
+ <20241015185124.64726-14-pstanner@redhat.com>
+ <20241015135336.0de9795e.alex.williamson@redhat.com>
+ <fc7244823a5665d3db40c94aea099a2973032a0b.camel@redhat.com>
+Content-Language: en-US
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Autocrypt: addr=hkallweit1@gmail.com; keydata=
+ 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
+In-Reply-To: <fc7244823a5665d3db40c94aea099a2973032a0b.camel@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 15, 2024 at 2:51=E2=80=AFPM Anthony PERARD
-<anthony.perard@vates.tech> wrote:
->
-> On Mon, Oct 14, 2024 at 05:32:26PM +0100, Frediano Ziglio wrote:
-> > On Mon, Oct 14, 2024 at 4:31=E2=80=AFPM Anthony PERARD
-> > <anthony.perard@vates.tech> wrote:
-> > >
-> > > On Mon, Oct 14, 2024 at 09:53:28AM +0100, Frediano Ziglio wrote:
-> > > > diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefil=
-e
-> > > > index 1199291d2b..23ad274c89 100644
-> > > > --- a/xen/arch/x86/boot/Makefile
-> > > > +++ b/xen/arch/x86/boot/Makefile
-> > > > @@ -1,4 +1,5 @@
-> > > >  obj-bin-y +=3D head.o
-> > > > +obj-bin-y +=3D built_in_32.o
-> > >
-> > > I don't quite like that this new object name is "built_in_32.o",
-> > > It's really closed to "built_in.*" which is used by Rules.mk to colle=
-ct
-> > > all objects in a subdirectory. I don't really have a better suggestio=
-n at
-> > > the moment.
-> > >
-> >
-> > It was cbundle.o before, but people preferred built_in_32.o.
-> > It's a collection of object files like built_in.o so it does not seem
-> > so bad to me.
-> > But seen other replies, some other people prefer "bundle".
->
-> Yeah, I guess it's ok (built_in_32 that is; now that I gave a better
-> review of the rest of the Makefile changes).
->
+On 16.10.2024 08:57, Philipp Stanner wrote:
+> On Tue, 2024-10-15 at 13:53 -0600, Alex Williamson wrote:
+>> On Tue, 15 Oct 2024 20:51:23 +0200
+>> Philipp Stanner <pstanner@redhat.com> wrote:
+>>
+>>> pci_intx() and its managed counterpart pcim_intx() only exist for
+>>> older
+>>> drivers which have not been ported yet for various reasons. Future
+>>> drivers should preferably use pci_alloc_irq_vectors().
+>>>
+>>> Mark pci_intx() and pcim_intx() as deprecated and encourage usage
+>>> of
+>>> pci_alloc_irq_vectors() in its place.
+>>
+>> I don't really understand this.  As we've discussed previously
+>> pci_alloc_irq_vectors() is, unsurprisingly, for allocating PCI IRQ
+>> vectors while pci_intx() is for manipulating the INTx disable bit on
+>> PCI devices.  The latter is a generic mechanism for preventing PCI
+>> devices from generating INTx, regardless of whether there's a vector
+>> allocated for it.  How does the former replace the latter and why do
+>> we
+>> feel the need to deprecate the latter?
+>>
+>> It feels like this fits some narrow narrative and makes all users of
+>> these now deprecated functions second class citizens.  Why?  At it's
+>> root these are simply providing mask and set or mask and clear
+>> register
+>> bit operations.  Thanks,
+> 
+> I got the feeling from the RFC discussion that that was basically the
+> consensus: people should use pci_alloc_irq_vectors(). Or did I
+> misunderstand Andy and Heiner?
+> 
+I think there are two different use cases for pci_intx().
+At first there are several drivers where the direct usage of pci_intx()
+can be eliminated by switching to the pci_alloc_irq_vectors() API.
 
-Renamed to built-in-32 for CODING_STYLE
+And then there's usage of pci_intx() in
+drivers/vfio/pci/vfio_pci_intrs.c
+drivers/xen/xen-pciback/conf_space_header.c
+There we have to keep the (AFAICS unmanaged) pci_intx() calls.
 
-> > > > @@ -9,9 +10,6 @@ targets   +=3D $(obj32)
-> > > >
-> > > >  obj32 :=3D $(addprefix $(obj)/,$(obj32))
-> > > >
-> > > > -$(obj)/head.o: AFLAGS-y +=3D -Wa$(comma)-I$(obj)
-> > > > -$(obj)/head.o: $(obj32:.32.o=3D.bin)
-> > > > -
-> > > >  CFLAGS_x86_32 :=3D $(subst -m64,-m32 -march=3Di686,$(XEN_TREEWIDE_=
-CFLAGS))
-> > > >  $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> > > >  CFLAGS_x86_32 +=3D -Werror -fno-builtin -g0 -msoft-float -mregparm=
-=3D3
-> > > > @@ -25,14 +23,34 @@ $(obj32): XEN_CFLAGS :=3D $(CFLAGS_x86_32) -fpi=
-c
-> > > >  $(obj)/%.32.o: $(src)/%.c FORCE
-> > > >       $(call if_changed_rule,cc_o_c)
-> > > >
-> > > > +orphan-handling-$(call ld-option,--orphan-handling=3Derror) :=3D -=
--orphan-handling=3Derror
-> > > >  LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) :=3D --no-war=
-n-rwx-segments
-> > > >  LDFLAGS_DIRECT +=3D $(LDFLAGS_DIRECT-y)
-> > > >  LD32 :=3D $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT))
-> > > >
-> > > > -%.bin: %.lnk
-> > > > -     $(OBJCOPY) -j .text -O binary $< $@
-> > > > -
-> > > > -%.lnk: %.32.o $(src)/build32.lds
-> > > > -     $(LD32) -N -T $(filter %.lds,$^) -o $@ $<
-> > > > -
-> > > > -clean-files :=3D *.lnk *.bin
-> > > > +$(obj)/build32.final.lds: AFLAGS-y +=3D -DFINAL
-> > > > +$(obj)/build32.other.lds $(obj)/build32.final.lds: $(src)/build32.=
-lds.S FORCE
-> > > > +     $(call if_changed_dep,cpp_lds_S)
->
-> Could you add:
->
->     targets +=3D build32.final.lds build32.other.lds
->
+> I'm perfectly happy with dropping this patch and continue offering
+> pci{m}_intx() to users, since after removing that hybrid hazzard I
+> don't see any harm in them anymore.
+> 
+> 
+> P.
+> 
+>>
+>> Alex
+>>  
+>>> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+>>> ---
+>>>  drivers/pci/devres.c | 5 ++++-
+>>>  drivers/pci/pci.c    | 5 ++++-
+>>>  2 files changed, 8 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/pci/devres.c b/drivers/pci/devres.c
+>>> index 6f8f712fe34e..4c76fc063104 100644
+>>> --- a/drivers/pci/devres.c
+>>> +++ b/drivers/pci/devres.c
+>>> @@ -435,7 +435,7 @@ static struct pcim_intx_devres
+>>> *get_or_create_intx_devres(struct device *dev)
+>>>  }
+>>>  
+>>>  /**
+>>> - * pcim_intx - managed pci_intx()
+>>> + * pcim_intx - managed pci_intx() (DEPRECATED)
+>>>   * @pdev: the PCI device to operate on
+>>>   * @enable: boolean: whether to enable or disable PCI INTx
+>>>   *
+>>> @@ -443,6 +443,9 @@ static struct pcim_intx_devres
+>>> *get_or_create_intx_devres(struct device *dev)
+>>>   *
+>>>   * Enable/disable PCI INTx for device @pdev.
+>>>   * Restore the original state on driver detach.
+>>> + *
+>>> + * This function is DEPRECATED. Do not use it in new code.
+>>> + * Use pci_alloc_irq_vectors() instead (there is no managed
+>>> version, currently).
+>>>   */
+>>>  int pcim_intx(struct pci_dev *pdev, int enable)
+>>>  {
+>>> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+>>> index 7ce1d0e3a1d5..dc69e23b8982 100644
+>>> --- a/drivers/pci/pci.c
+>>> +++ b/drivers/pci/pci.c
+>>> @@ -4477,11 +4477,14 @@ void pci_disable_parity(struct pci_dev
+>>> *dev)
+>>>  }
+>>>  
+>>>  /**
+>>> - * pci_intx - enables/disables PCI INTx for device dev
+>>> + * pci_intx - enables/disables PCI INTx for device dev
+>>> (DEPRECATED)
+>>>   * @pdev: the PCI device to operate on
+>>>   * @enable: boolean: whether to enable or disable PCI INTx
+>>>   *
+>>>   * Enables/disables PCI INTx for device @pdev
+>>> + *
+>>> + * This function is DEPRECATED. Do not use it in new code.
+>>> + * Use pci_alloc_irq_vectors() instead.
+>>>   */
+>>>  void pci_intx(struct pci_dev *pdev, int enable)
+>>>  {
+>>
+> 
+> 
 
-Added
-
-> otherwise, the if_changes macro doesn't work, and the target keeps been
-> rebuilt. `make V=3D2` will tell you the same thing.
->
-> > > > +# link all 32bit objects together
-> > > > +$(obj)/built_in_32.tmp.o: $(obj32)
-> > > > +     $(LD32) -r -o $@ $^
-> > > > +
-> > > > +$(obj)/built_in_32.%.bin: $(obj)/build32.%.lds $(obj)/built_in_32.=
-tmp.o
-> > > > +## link bundle with a given layout
-> > >
-> > > Could you put the comment aligned with the rest of the recipe? That w=
-ay
-> > > it won't visually separate the rule into several pieces. You can
-> > > prefix it with @ so it doesn't show in build logs:
-> > >
-> > >         @# comments
-> > >
-> >
-> > Yes, they look more or less the same but technically pretty different.
-> > The "## XXX" is a comment for make command, the "\t@#comment" is a way
-> > to tell make to not print the command before launching it so make will
-> > launch a shell command "# comment".
-> > Yes, indentation does not make it clear. Not that launching a shell to
-> > execute a comment will take a long time. On the other hand, here that
-> > comment is more for the rule than for the shell. Maybe something like
-> >
-> > target:
-> >       command \
-> >            # do something
-> >
-> > (personally I found it even more ugly)
->
-> How about removing the comments? I mean the command line is
-> self-explanatory here. Same thing about the objcopy comment.
-> (Or a comment before the rule, when really needed)
->
-
-Moved on top of the rule (slightly changed).
-
-> > > > +     $(LD32) $(orphan-handling-y) -N -T $< -Map $(obj)/built_in_32=
-.$(*F).map -o $(obj)/built_in_32.$(*F).o $(obj)/built_in_32.tmp.o
-> > >
-> > > I think this wants to be: -T $(filter %.lds,$^) -Map $(patsubst %.bin=
-,%.map,$@) -o $(patsubst %.bin,%.o,$@) $(filter %.o,$^)
-> > >
-> > > :-(, maybe that's lots of $(patsubst,), not sure which is better betw=
-een
-> > > $(patsubst,) and using the stem $*.
-> > >
-> >
-> > Not strong about stem or patsubst.
->
-> Actually, I found a better suggestion (after reading the previous path
-> which remind me about an existing feature that I don't really use), the
-> use of Substitution References
-> (https://www.gnu.org/software/make/manual/make.html#Substitution-Refs)
->
-> This is a shorter version than patsubst, but works very well here, the
-> recipe can look like this:
->     $(LD32) $(orphan-handling-y) -N -T $< -Map $(@:bin=3Dmap) -o $(@:bin=
-=3Do) $(filter %.o,$^)
->     $(OBJCOPY) -j .text -O binary $(@:bin=3Do) $@
->     rm -f $(@:bin=3Do)
->
-> (It is likely fine to keep the reference to the lds script as $<,
-> instead of using $(filter,).)
->
-
-Done
-
-> BTW, do we need the rules that generate the input of this rules
-> (built_in_32.tmp.o that is), or can this one takes all 32bit objects as
-> input?
->
-
-Better not to do it In some conditions it can generate slightly
-different results (like different object alignments) making the
-algorithm fail.
-
-> > The 2 filters seem good, they suggest lds for the script and objects
-> > for the input, which makes sense.
->
-> > > Also, if something tries to use built_in_32.tmp.bin, we have a rule t=
-hat
-> > > remove it's prerequisite.
-> > >
-> > > BTW, everything is kind of temporary in a build system, beside the fe=
-w
-> > > files that we want to install on a machine, so having a target named
-> > > with "*tmp*" isn't great. But having a rule that create "*tmp*" file =
-but
-> > > remove them before the end of its recipe is fine (or those *tmp* aren=
-'t
-> > > use outside of this recipe).
-> > >
-> >
-> > Mumble... yes, I think the XX.tmp.o was a temporary internal rule file.
-> > So we still don't agree on one name, and now we want to find also
-> > another, tricky.
-> > More or less if it can help, one is a 32 bit object file that bundle
-> > together multiple 32 bits object files while the other is the
-> > conversion of the 32 bits bundle file to 64 bits.
-> > XXX_32.o and XXX_32as64.o ??
->
-> We may not need the rule for it :-).
->
-
-Not sure if we are asking a change and how.
-
-> > > > +## extract binaries from object
-> > > > +     $(OBJCOPY) -j .text -O binary $(obj)/built_in_32.$(*F).o $@
-> > > > +     rm -f $(obj)/built_in_32.$(*F).o
-> > > > +
-> > > > +# generate final object file combining and checking above binaries
-> > > > +$(obj)/built_in_32.S: $(obj)/built_in_32.other.bin $(obj)/built_in=
-_32.final.bin
-> > >
-> > > So, "other" isn't part of "final", I don't really know what those two
-> > > things contains so naming wise I can't suggest anything useful.
->
-> Instead of "other", is "control" (like in science experiment where you
-> have a control group), or "offseted" (which seems to be how this second
-> binary is constructed) would be better names for this *.bin? It seems
-> the script take both input and play the game of the 7 differences, to
-> find clues about the location of some symbols, right?.
->
-
-I don't know the game and I think people not familiar with it won't
-find new names more readable but less.
-Not saying that current names are good, they just need to be located
-at different addresses with some "magic" in the middle.
-
-> > > But, is "built_in_32.S" really only depends on those two .bin? SHould=
-n't
-> > > it get regenerated if the script changes, or the .lds that --script
-> > > option seems to use? What is the "--map" option, an input or output?
-> >
-> > Both map file and linker script are dependency of the bin files so no p=
-roblems.
-> > Yes, potentially you want to generate if the python script change.
-> > Potentially also if Makefile, make, ld or any other command change,
-> > but that possibly is kind of "we don't usually care".
->
-> Actually, for the hypervisor, we usually care about changes which could
-> lead to a different output. While changes of build toolchain aren't
-> really track (even if there's a patch that have a small improvement
-> toward it that was never committed), many other changes are been tracked
-> and act upon. The macros $(if_changes*,) from Linux's Kbuild are a great
-> help.
->
-> If the build system doesn't regenerate targets when a developer try to
-> debug some complex problem, it isn't going to help. We can easily have a
-> situation where the developer adds printf earlier and earlier and
-> earlier to try to find out where Xen crash, to find out later that the
-> build system was working against them by not rebuilding the file that
-> should be rebuilt. So if we can avoid some frustration and time lost,
-> it's better :-).
->
-> > > But I guess we can ignore the ".map" file because it's part of the
-> > > ".bin".
-> > >
-> >
-> > Yes, I suppose they are, although we can make it explicit both
-> > generating them and using as dependencies.
->
-> Having a rule that generate several targets is complicated to write in
-> GNU Make 3.80, the rule is more likely to be called several time in
-> parallel. So let's ignored the .map file, as it should only be used
-> along side the .bin.
->
-> > > Another thing that might be useful to do, is to use the "if_changed"
-> > > make macro, that way if the command line of the script changes, make
-> > > can remake the output. But maybe it's a bit complicated for this reci=
-pe
-> > > because it doesn't uses $< or $^.
-> > >
-> >
-> > I usually simply add Makefile to the dependencies. It works too.
->
-> Having "Makefile" as prerequisite is both too much and not enough. This
-> lead to rebuild due to unrelated changes in the Makefile and if the
-> command line change (like more command line option modified in a variable
-> in a different Makefile or the environment) the target doesn't gets
-> rebuilt.
->
-> That's where $(if_changed,) helps.
->
-> > > > +     $(PYTHON) $(srctree)/tools/combine_two_binaries.py \
-> > > > +             --script $(obj)/build32.final.lds \
-> > > > +             --bin1 $(obj)/built_in_32.other.bin \
-> > > > +             --bin2 $(obj)/built_in_32.final.bin \
-> > > > +             --map $(obj)/built_in_32.final.map \
-> > > > +             --exports cmdline_parse_early,reloc \
-> > > > +             --output $@
->
-> I can think of one example where $(if_changed,) is going to really help,
-> by looking at this command line:
->     One does update the .c file to add a function that they like to
->     export, run `make`, realize they forgot to update the makefile so
->     update it, run `make`, it's still doesn't work...
->     Maybe run `make clean; make`, or something else...
->
-> So, could you use $(if_changed,) ?
-> Probably:
-> quiet_cmd_combine =3D GEN     $@
-> cmd_combine =3D $(PYTHON) ...
-> $(obj)/built_in_32.S: $(obj)/built_in_32.other.bin $(obj)/built_in_32.fin=
-al.bin FORCE
->     $(call if_changes,combine)
-> targets +=3D built_in_32.S
->
-> GEN, for generate, or it could be PY instead, because python script can
-> be slow to compile which could explain why the build system output is
-> making a pause on this target (on slow machines that is). Or it could be
-> COMBINE, or something else, but it's not really necessary to explain,
-> the target name is often enough to figure out what's happening, when
-> needed.
->
-
-It just looks more complicated to me. It happened to me, if you don't
-use the exported symbol no reason to have it exported from the object,
-if you use it the link will fail and it won't take long to fix it.
-
-> > > > +
-> > > > +clean-files :=3D built_in_32.*.bin built_in_32.*.map build32.*.lds
-> > > > diff --git a/xen/arch/x86/boot/build32.lds b/xen/arch/x86/boot/buil=
-d32.lds.S
-> > > > similarity index 70%
-> > > > rename from xen/arch/x86/boot/build32.lds
-> > > > rename to xen/arch/x86/boot/build32.lds.S
-> > > > index 56edaa727b..50c167aef0 100644
-> > > > --- a/xen/arch/x86/boot/build32.lds
-> > > > +++ b/xen/arch/x86/boot/build32.lds.S
-> > > > @@ -15,22 +15,47 @@
-> > > >   * with this program.  If not, see <http://www.gnu.org/licenses/>.
-> > > >   */
-> > > >
-> > > > -ENTRY(_start)
-> > > > +#ifdef FINAL
-> > > > +# define GAP 0
-> > > > +# define MULT 0
-> > > > +# define TEXT_START
-> > > > +#else
-> > > > +# define GAP 0x010200
-> > > > +# define MULT 1
-> > > > +# define TEXT_START 0x408020
->
-> So I've read the python script a bit, and notice that the two values GAP
-> and TEXT_START are also written verbatim in it, without comment, so
-> looks like magic number there. Could you at least put a comment in the
-> python script? (Something thing that could be better were if the
-> Makefile itself provided those number to both the lds script and the
-> python script, but I don't know if it's possible.)
->
-
-It can be done I suppose:
-- 2 macros in Makefile
-- pass values into linker scripts using variables
-- 2 options for Python script
-- pass values to Python script
-
-> > > > +#endif
-> > > > +# define DECLARE_IMPORT(name) name =3D . + (__LINE__ * MULT)
-> > >
-> > > Is  ^ this a stray space?
-> > >
-> >
-> > Yes, a single ASCII character 32. Surely we don't want tabs. Other
-> > parts of the file use 2 spaces indentation, others 8 spaces. Or are
-> > you suggesting to not indent them?
->
-> Yes, that what "stray" imply, also I mean only the last line as imply by
-> the use singular. Sorry, I could have try to be a bit more precise.
->
-> All the indentation within the #ifdef #endif are fine, but why is
-> #define still indented after the last #endif?
->
-
-Oh.. that single space. Historic, copy&paste, there were 2 defines in
-the past one for each block. Removed.
-
-> > >
-> > > Overall, it's kind of mostly style comment that I had, so feel free t=
-o
-> > > ignore most of them.
-> > >
-> >
-> > Naming can be cumbersome but usually helps readability.
->
-> Yes, also sorry for the half-baked previous review, it could have been be=
-tter.
->
-> Cheers,
->
-> --
->
-> Anthony Perard | Vates XCP-ng Developer
->
-> XCP-ng & Xen Orchestra - Vates solutions
->
-> web: https://vates.tech
->
-
-Frediano
 
