@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE5569A077E
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 12:35:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.819939.1233425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F1E39A07CB
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Oct 2024 12:51:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.819946.1233435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t11Mf-0008JX-1E; Wed, 16 Oct 2024 10:34:49 +0000
+	id 1t11c4-0003Kq-9W; Wed, 16 Oct 2024 10:50:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 819939.1233425; Wed, 16 Oct 2024 10:34:49 +0000
+Received: by outflank-mailman (output) from mailman id 819946.1233435; Wed, 16 Oct 2024 10:50:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t11Me-0008GV-Tb; Wed, 16 Oct 2024 10:34:48 +0000
-Received: by outflank-mailman (input) for mailman id 819939;
- Wed, 16 Oct 2024 10:34:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t11c4-0003JG-6o; Wed, 16 Oct 2024 10:50:44 +0000
+Received: by outflank-mailman (input) for mailman id 819946;
+ Wed, 16 Oct 2024 10:50:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kaV7=RM=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t11Mc-0008Fd-Ki
- for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 10:34:46 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 427a011d-8baa-11ef-99a3-01e77a169b0f;
- Wed, 16 Oct 2024 12:34:44 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a9a0f198d38so508185966b.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 03:34:44 -0700 (PDT)
+ id 1t11c3-0003J9-El
+ for xen-devel@lists.xenproject.org; Wed, 16 Oct 2024 10:50:43 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7d2ff132-8bac-11ef-a0be-8be0dac302b0;
+ Wed, 16 Oct 2024 12:50:42 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5c97c7852e8so4530718a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Oct 2024 03:50:42 -0700 (PDT)
 Received: from localhost ([5.69.147.124]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a298443aesm166469066b.166.2024.10.16.03.34.43
+ a640c23a62f3a-a9a29749655sm171308366b.73.2024.10.16.03.50.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Oct 2024 03:34:43 -0700 (PDT)
+ Wed, 16 Oct 2024 03:50:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,81 +44,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 427a011d-8baa-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 7d2ff132-8bac-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1729074884; x=1729679684; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=cloud.com; s=cloud; t=1729075842; x=1729680642; darn=lists.xenproject.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rJrQquUHoWnrPRU1jmSiFO2YF7b7zMs5StMwKmSfiLU=;
-        b=efLRmuBPSilT+Zo/brSt3MTl8IOOy9w0w95H0EJR5QsPhiaKPJeQjMkGRHB/nO/m9L
-         qhVYffKFGlkbp7DVNCzivoKj/FlLTJtWSjS1FR6mMlAThjS2hrFffaqZ1BTvH3oAQX88
-         uU0F7ETPonDmhE/rgUQvD7ywxRxtQi1CFll9s=
+        bh=n/wOordqhTaHo/F3+nOz5hlXDS5A/In4gQzP651sSjY=;
+        b=LcDTHxl2xr58UoJetck49yiE14CoC72wd/kDn1BalUqlU99NW6jPyw7je6VUZ8hcEs
+         WhhP29kCLT8LlIEiVkd0JuCchS4p9oRScoEF7UBFyRehvleyHje7s7/wz2aInzqYhXA7
+         IWxKTTg2RSbW7y/o+1Vlwb2tTnZJZ+c1Ya5hw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729074884; x=1729679684;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=1e100.net; s=20230601; t=1729075842; x=1729680642;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=rJrQquUHoWnrPRU1jmSiFO2YF7b7zMs5StMwKmSfiLU=;
-        b=nYcNDpARJIPIA5y0CcFywMU/P8swjjUYDXKhSgNRHRQrNP+KqMNEgs+JWKp9b8gTY1
-         VfZEM2/NbXzneLIJny3kvDU0//tCLzuuax5VW1gIYri4AmOVDZO12avgN7hhNYJu/1vp
-         mvBX9GPZ86Xpa5lmX37ZRGzfySBMubzaQ7S7SoRMso9Di2PUdfeNSBuzs1joFJALee/z
-         d0SBzyuTz8+AmN1uo6eP7+4yCmE3WzMIC7Cai2R3Ez9twRLKETMB5VAK/Qc37aUmr8ct
-         K4HuU+A8Q3YvQQC9ouA+a3IRomqZ00GAWdoj9565/TJ/cDd2thpbhawtrA34ag5kjYVa
-         C+jg==
-X-Forwarded-Encrypted: i=1; AJvYcCXQKMydpex37XpnvcnfN5VTTqJEOa3BL7Q4MlmCs1yTGdjPg+NB5rh+w6wpSSUnOWGIdZrIfFA/mQ4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywn0h1FyOOkc2JPDm9o67IZuY46dFgdS63Id47yKC0ABB1deExO
-	0wxl85aizWSMwwGMXbbFnSkZhD8Eh6m8cB6ZQ+7J9/2Se9yfkQrVCiuR5DhaboA=
-X-Google-Smtp-Source: AGHT+IG+JuWI72bFzgC2HNRWbvQolkptpUoBt7E4u9ddPzUkkZKEedBgz/hoNf4bHzs+41vnAtFOMg==
-X-Received: by 2002:a17:907:986:b0:a99:89bd:d84a with SMTP id a640c23a62f3a-a99e3b6db69mr1461505866b.25.1729074884000;
-        Wed, 16 Oct 2024 03:34:44 -0700 (PDT)
+        bh=n/wOordqhTaHo/F3+nOz5hlXDS5A/In4gQzP651sSjY=;
+        b=nYUzq1NLQN9T62AuWeLEksRWfcqUkyYY3MV/21AHW4vSaw4yD1tLJ5xxaISpeMaK0S
+         EsdsyRIqtVueHd6MiVdHoxa29vE0kl45UqWw9A+vc1OoAlGDY3xcfeOdzdvwfarCcFM+
+         QuYensSdmwY6owSzNhAwTUJfTloj1JNG3QBl7o05UtqS4NEyCOSUpCltM/rwhEfCxv5I
+         jeNq89LgJiaMfiW66EcTOVJvfATnYJVdVkS0fKzBWRsqqalmhMBtSsMbQc1lgJYGxmKs
+         EDVDXbcGwLwZ/7lMDxRwfcYY70D5L8c2abt4SkKu3Wde9eDcg12NjtPpaphAuNHSM4ZZ
+         Mm4w==
+X-Forwarded-Encrypted: i=1; AJvYcCWo6J9GqbTsfKJlY2qqTHmbLhErQZ11U/cI6mPTgYu6RbJNw8NA6WGrLXEJ5EEMSSUEJZ2f+kN0cSY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxgb3Q/+jyQpc8WBdff8BF6fik6akXVtI7ymvTib9rZVjpvjPrA
+	sVd/1Z4Cjof9barYsHGyviqVgetIz1vpDnqK/xs8va6jup66wn3iFZPnA0QOpfMtmKmHtOU/05A
+	V
+X-Google-Smtp-Source: AGHT+IHZHt1/PaxVVnLSi05vNpSlTLWqwmiAZkxrUHBm3oIQuGm04NCIyD1gsXKfydbAuLx4zMsK+w==
+X-Received: by 2002:a17:907:3602:b0:a99:389a:63c2 with SMTP id a640c23a62f3a-a99e3ea5c6bmr1442101266b.62.1729075841804;
+        Wed, 16 Oct 2024 03:50:41 -0700 (PDT)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Oct 2024 11:34:35 +0100
-Message-Id: <D4X5VZZWZJII.271VYW2L8Y0PG@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] x86emul/test: drop Xeon Phi S/G prefetch special case
+Date: Wed, 16 Oct 2024 11:50:33 +0100
+Message-Id: <D4X687XLJI5Z.35XQ462PS6ELQ@cloud.com>
+Subject: Re: [PATCH v1 2/5] xen/riscv: implement maddr_to_virt()
 From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+To: "Oleksii Kurochko" <oleksii.kurochko@gmail.com>,
  <xen-devel@lists.xenproject.org>
+Cc: "Alistair Francis" <alistair.francis@wdc.com>, "Bob Eshleman"
+ <bobbyeshleman@gmail.com>, "Connor Davis" <connojdavis@gmail.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>,
+ "Julien Grall" <julien@xen.org>, "Stefano Stabellini"
+ <sstabellini@kernel.org>
 X-Mailer: aerc 0.18.2
-References: <a2dae57f-d166-4c99-8edd-11784abdecab@suse.com>
-In-Reply-To: <a2dae57f-d166-4c99-8edd-11784abdecab@suse.com>
+References: <cover.1729068334.git.oleksii.kurochko@gmail.com>
+ <ec04dca87144194f5b3ecb9a78d142d370c9193f.1729068334.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <ec04dca87144194f5b3ecb9a78d142d370c9193f.1729068334.git.oleksii.kurochko@gmail.com>
 
-On Wed Oct 16, 2024 at 8:46 AM BST, Jan Beulich wrote:
-> Another leftover from the dropping of Xeon Phi support.
+On Wed Oct 16, 2024 at 10:15 AM BST, Oleksii Kurochko wrote:
+> Implement the `maddr_to_virt()` function to convert a machine address
+> to a virtual address. This function is specifically designed to be used
+> only for the DIRECTMAP region, so a check has been added to ensure that
+> the address does not exceed `DIRECTMAP_SIZE`.
 >
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+nit: Worth mentioning this comes from the x86 side of things.
+
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > ---
-> Note: I'm deliberately not switching to use of the conditional operator,
-> as the form as is resulting now is what we'll want for APX (which is
-> where I noticed this small piece of dead logic).
+>  xen/arch/riscv/include/asm/mm.h | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 >
-> --- a/tools/tests/x86_emulator/evex-disp8.c
-> +++ b/tools/tests/x86_emulator/evex-disp8.c
-> @@ -911,10 +911,8 @@ static void test_one(const struct test *
->      n =3D test->scale =3D=3D SC_vl ? vsz : esz;
->      if ( !sg )
->          n +=3D vsz;
-> -    else if ( !strstr(test->mnemonic, "pf") )
-> -        n +=3D esz;
->      else
-> -        ++n;
-> +        n +=3D esz;
-
-Just making sure. This is leftover from 85191cf32180("x86: drop Xeon Phi
-support"), right? Dead code after the removal of the avx512pf group.
-
-If so, that sounds good. But (not having looking at the general logic), how
-come we go from ++n to "n +=3D esz". It's all quite cryptic.
-
+> diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm=
+/mm.h
+> index ebb142502e..0396e66f47 100644
+> --- a/xen/arch/riscv/include/asm/mm.h
+> +++ b/xen/arch/riscv/include/asm/mm.h
+> @@ -25,8 +25,12 @@
 > =20
->      for ( ; i < n; ++i )
->           if ( accessed[i] !=3D (sg ? (vsz / esz) >> (test->opc & 1 & !ev=
-ex.w)
+>  static inline void *maddr_to_virt(paddr_t ma)
+>  {
+> -    BUG_ON("unimplemented");
+> -    return NULL;
+> +    /* Offset in the direct map, accounting for pdx compression */
+> +    unsigned long va_offset =3D maddr_to_directmapoff(ma);
+> +
+> +    ASSERT(va_offset < DIRECTMAP_SIZE);
+> +
+> +    return (void *)(DIRECTMAP_VIRT_START + va_offset);
+>  }
+> =20
+>  /*
 
-Cheers,
-Alejandro
 
