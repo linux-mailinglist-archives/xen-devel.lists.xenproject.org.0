@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1659A2DBF
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 21:27:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.821267.1235018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E4E19A2E12
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 21:51:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.821278.1235028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1W8J-0000ia-U7; Thu, 17 Oct 2024 19:26:03 +0000
+	id 1t1WW2-0006Ao-TP; Thu, 17 Oct 2024 19:50:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 821267.1235018; Thu, 17 Oct 2024 19:26:03 +0000
+Received: by outflank-mailman (output) from mailman id 821278.1235028; Thu, 17 Oct 2024 19:50:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1W8J-0000gR-Qa; Thu, 17 Oct 2024 19:26:03 +0000
-Received: by outflank-mailman (input) for mailman id 821267;
- Thu, 17 Oct 2024 19:26:01 +0000
+	id 1t1WW2-000674-Qg; Thu, 17 Oct 2024 19:50:34 +0000
+Received: by outflank-mailman (input) for mailman id 821278;
+ Thu, 17 Oct 2024 19:50:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2/Py=RN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t1W8H-0000gI-GA
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 19:26:01 +0000
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [2a00:1450:4864:20::643])
+ id 1t1WW1-00066y-SJ
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 19:50:33 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3ef6361-8cbd-11ef-a0be-8be0dac302b0;
- Thu, 17 Oct 2024 21:26:00 +0200 (CEST)
-Received: by mail-ej1-x643.google.com with SMTP id
- a640c23a62f3a-a9a0ec0a94fso150384266b.1
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 12:26:00 -0700 (PDT)
+ id 11c0da09-8cc1-11ef-a0be-8be0dac302b0;
+ Thu, 17 Oct 2024 21:50:32 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a99e3b3a411so388942466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 12:50:32 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a68ae637dsm2505766b.75.2024.10.17.12.25.58
+ a640c23a62f3a-a9a68ae549bsm5117766b.77.2024.10.17.12.50.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Oct 2024 12:25:58 -0700 (PDT)
+ Thu, 17 Oct 2024 12:50:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3ef6361-8cbd-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 11c0da09-8cc1-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729193159; x=1729797959; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729194632; x=1729799432; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SuNZu5aefzSwLtRNqfGvpifiTm71LesuuR4WD6zMOrs=;
-        b=Gscz4gI64s0FSqctwxLRV0uKFqa7KJK6Mm6lNi5OHAisn4pDqzhl6Z+L03lB88ZTDU
-         8L8HOThLhGOJBtfzWjbqwrETWXgPVqP8vI9/AUtW1d+QCojieQvDP1u7BbcFfAImhW+K
-         jcZjcUWWYRkl/qJUcmPpx8XvsH92R+ZJ/w+HQ=
+        bh=vs9/oTPCF9qbA4fIhOkXAdawt4YsQJ75+QQenrjo9W8=;
+        b=g+ay58BegcRUeuiJMVyN4chcSs4NtbLoFy0u6LBBQ5et9rzJylAS7/1HGXzEEzI+ge
+         fNPreG4Bd2HGf2vJYoDAU0lv07sTdVzJnA9Gojx8GpB1QUFRN9flk53thMWUmVgim7sh
+         T4Z4PMdXIWUxfIFn4RfxMFQJI4euaSOT3pDLk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729193159; x=1729797959;
+        d=1e100.net; s=20230601; t=1729194632; x=1729799432;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SuNZu5aefzSwLtRNqfGvpifiTm71LesuuR4WD6zMOrs=;
-        b=YI6K24BLRGby4TkoZTu2tKgw+NiWf3m+QC5hRTQIoMMH/JF88PYMo2IYOUkSz5FiHV
-         YJzUyxMDzyilC5Aab6c6QVkeR8MF2wAsLR90iRmc5NKPxpzKR5G3OFvnesxOJNWR+8e1
-         KQxYCAAvEuOoXTo2SW9eWYq8hFbuqxnxL1vsfWOLWjw7st1OanJk63miIWGOqHppRbaR
-         U2Ua1Ppbo6GBq4yEHnJhZnTeRxUpQ06XekpnIS2L9pNbPg+hNpz/kPXdaS/+0eqOxOyS
-         lYf+PLcTmXvS5XFZ3SLY2ltRmzCvj26rIUzzO0TkS+lOdtdDmbtJjJFbE5dotKp79z0S
-         gcVA==
-X-Forwarded-Encrypted: i=1; AJvYcCVJU1bibrj+5iDMTu8+gZJd3vXTWdfeu6oriypjHIpvyVZjv6ubMnKkjgmb+nG1+2lWATTKjynjcZ4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPzENzcOz2Q4/miaX2LdGYPqBoQbes1X6R14PfI48p8GGZLGdR
-	A7af7IbUKkrxVBuANsdD5FaN4jsRYsQ8RQ/pMGdxib16qOHqLoPm/wQmF4WnwwY=
-X-Google-Smtp-Source: AGHT+IH6ZiS3072UZTrI+W5l6YPINDutsxTy4mu+exhBWmaiIVUJZkuFk1/+xIM1bTYWEV38Cm3utw==
-X-Received: by 2002:a17:906:6a14:b0:a99:c9a4:a4da with SMTP id a640c23a62f3a-a9a34e76bf4mr755322566b.61.1729193159361;
-        Thu, 17 Oct 2024 12:25:59 -0700 (PDT)
-Message-ID: <40f27418-08b3-4b74-889b-12720be8f9c7@citrix.com>
-Date: Thu, 17 Oct 2024 20:25:57 +0100
+        bh=vs9/oTPCF9qbA4fIhOkXAdawt4YsQJ75+QQenrjo9W8=;
+        b=oMzN9nHVRd6qZ3RCHr9opLM+WYeb286pyBc4r0PwM/n8mw/qXDC+R96nlo8uMhdDRY
+         /fg/cNHjp0v49Zp+5Ta373HNKfWHjW5ZoptzhXQA3fqvAJJ5JI5HpkUOyHxT1JIG6upt
+         G27sFSalkLQc9DruoLsvqeNLPr/5/wmTbFAsh0q4cyD/dpkEOGzQ+LBTIi6oe7vVaAcH
+         ntUJ04Gbv2A70xQFsVGM3pb/b5cxrUAmtKPysxuEyJafPobdR5qDo6rALAdZ4GmABY5z
+         /NTIovQajsVKIu9DKTsaIgNqDMDcAdPxUQ/dgJakE8YSiYh+qZepahhwRoojpfQB+Zzj
+         IxSA==
+X-Forwarded-Encrypted: i=1; AJvYcCXB7baiSlQEvi34pbwSRu7ICCEmovkOhOPrfSB22NZSWTOPZ5b4ldPEq0mFAfnkHJYTm8XcWKvEpKg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxq7Bzm5JGP5HxUBUcr2MAkb5hSyVNfjA1Q5sdjoNTuFVR5pPlF
+	bADd4KGmXS/oEGdDm/TIxg8K38/QxMuOq+8eWQ8hcuUkIga8ISqLlGU/yYp4giY=
+X-Google-Smtp-Source: AGHT+IGGm9hQThhajV8uvR7MN+R/+zyT2wMidtSx90gj6yM+gGzsQjp2CzRXI9T1N0t2OPnwdeL/lg==
+X-Received: by 2002:a17:906:c105:b0:a9a:5b84:ac81 with SMTP id a640c23a62f3a-a9a67f1c8b6mr26315866b.31.1729194632076;
+        Thu, 17 Oct 2024 12:50:32 -0700 (PDT)
+Message-ID: <66fc898a-e346-4dce-a99a-b8fdf2590511@citrix.com>
+Date: Thu, 17 Oct 2024 20:50:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 0/3] automation: add x86_64 test (linux argo)
-To: victorm.lira@amd.com, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Daniel Smith <dpsmith@apertussolutions.com>
-References: <cover.1729183051.git.victorm.lira@amd.com>
+Subject: Re: [PATCH v6 01/44] x86/boot: move x86 boot module counting into a
+ new boot_info struct
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: Christopher Clark <christopher.w.clark@gmail.com>, jason.andryuk@amd.com,
+ stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241017170325.3842-1-dpsmith@apertussolutions.com>
+ <20241017170325.3842-2-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,75 +132,65 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <cover.1729183051.git.victorm.lira@amd.com>
+In-Reply-To: <20241017170325.3842-2-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17/10/2024 6:18 pm, victorm.lira@amd.com wrote:
-> From: Victor Lira <victorm.lira@amd.com>
->
-> Add x86_64 hardware test that creates a Xen Argo communication
-> connection between two PVH domains.
->
-> To accomplish this, add new build artifacts for Linux and Argo, and
-> update the xilinx x86_64 test script.
->
-> Victor Lira (3):
->   automation: add linux 6.6.56 artifact
->   automation: add linux argo test artifacts
->   automation: add x86_64 test (linux argo)
->
->  automation/gitlab-ci/build.yaml               | 34 +++++++
->  automation/gitlab-ci/test.yaml                | 10 ++
->  .../scripts/xilinx-smoke-dom0-x86_64.sh       | 76 ++++++++++-----
->  .../tests-artifacts/argo/6.6.56.dockerfile    | 95 +++++++++++++++++++
->  .../tests-artifacts/kernel/6.6.56.dockerfile  | 54 +++++++++++
->  5 files changed, 244 insertions(+), 25 deletions(-)
->  create mode 100644 automation/tests-artifacts/argo/6.6.56.dockerfile
->  create mode 100644 automation/tests-artifacts/kernel/6.6.56.dockerfile
+On 17/10/2024 6:02 pm, Daniel P. Smith wrote:
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index a6e77c9ed9fc..6201ca0fad19 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -274,16 +275,28 @@ static int __init cf_check parse_acpi_param(const char *s)
+>  custom_param("acpi", parse_acpi_param);
+>  
+>  static const module_t *__initdata initial_images;
+> -static unsigned int __initdata nr_initial_images;
+> +
+> +struct boot_info __initdata xen_boot_info;
+> +
+> +static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
+> +{
+> +    struct boot_info *bi = &xen_boot_info;
+> +    const multiboot_info_t *mbi = __va(mbi_p);
+> +
+> +    bi->nr_modules = (mbi->flags & MBI_MODULES) ? mbi->mods_count : 0;
 
-I'm afraid that we need to stop doing this test-artefacts like this.
+Having looked to end of the series, this and a few other expressions are
+still awkward.
 
-The *-export pattern is nonsense (wasting lots of runner network&disk
-and time just to copy data back into Github's artefact store), and the
-main reason why we're at ~2T of data total for Xen-project.
+The nicer way looks like:
 
-We need a project wide expires_in: setting, which will prune all of our
-not-most-recent content, and probably make most of that 2T disappear.
+struct boot_info __initdata xen_boot_info = {
+    .loader = "unknown",
+    .cmdline = "",
+};
 
-But, the test jobs stating what artefacts they want are perfectly
-capable of pulling artefacts from somewhere other than an earlier nop
-build job, meaning that we could get away with having one artefact
-shared by everything, not one artefact copied per user per pipeline into
-the artefact store.
+static struct boot_info *__init multiboot_fill_boot_info(unsigned long
+mbi_p)
+{
+    struct boot_info *bi = &xen_boot_info;
+    const multiboot_info_t *mbi = __va(mbi_p);
+    module_t *mods = __va(mbi->mods_addr);
+    unsigned int i;
+
+    if ( mbi->flags & MBI_MODULES )
+        bi->nr_modules = mbi->mods_count;
+
+    if ( mbi->flags & MBI_LOADERNAME )
+        bi->loader = __va(mbi->boot_loader_name);
+
+    if ( mbi->flags & MBI_CMDLINE )
+        bi->cmdline = cmdline_cook(__va(mbi->cmdline), bi->loader);
+
+    if ( mbi->flags & MBI_MEMMAP )
+    {
+        bi->memmap_addr = mbi->mmap_addr;
+        bi->memmap_length = mbi->mmap_length;
+    }
 
 
-I was thinking of experimenting with a separate top-level repo that does
-nothing but has a few manual runs to populate artefacts, and having the
-Xen tests pull artefacts from here rather than from earlier build jobs.
-
-But, I've not had a chance to play yet, so I don't know for sure if this
-is a workable direction.
-
-Alternatively, if anyone has a better idea, I'm all ears.  But, it is
-very clear that the *-export pattern is a giant bodge and there are
-better ways.
-
-
-Other notes.  Your dockerfiles use syntax:1 but not heredocs, and
-they're also root containers.
-
-Please follow the pattern in
-https://lore.kernel.org/xen-devel/178560672106e37648304f5e597cc0b16c8db6db.1729170005.git.javi.merino@cloud.com/T/#u
-or one of plenty other containers I've already converted in the past few
-months.
-
-Please do not add a new build job just to get a new minor variation of
-Xen.  Just enable ARGO in general Xen build.
-
-Although, given that you are now putting in testing from an unsupported
-feature, we really need to bump the suggestion to move it to at least
-Tech Preview.  (CC Dan/Chris).
+which is easier to read and follow.  Thoughts?
 
 ~Andrew
 
