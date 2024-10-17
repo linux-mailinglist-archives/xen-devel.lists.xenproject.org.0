@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1071D9A23C4
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 15:25:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.820578.1234093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069449A23D4
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 15:31:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.820589.1234109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1QUn-0005cd-Gl; Thu, 17 Oct 2024 13:24:53 +0000
+	id 1t1QbJ-0007BE-AF; Thu, 17 Oct 2024 13:31:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 820578.1234093; Thu, 17 Oct 2024 13:24:53 +0000
+Received: by outflank-mailman (output) from mailman id 820589.1234109; Thu, 17 Oct 2024 13:31:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1QUn-0005Zv-DG; Thu, 17 Oct 2024 13:24:53 +0000
-Received: by outflank-mailman (input) for mailman id 820578;
- Thu, 17 Oct 2024 13:24:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1QUm-0005Zl-Bx; Thu, 17 Oct 2024 13:24:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1QUm-00031Q-9F; Thu, 17 Oct 2024 13:24:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1QUl-00061B-Qv; Thu, 17 Oct 2024 13:24:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1t1QUl-0000oN-QM; Thu, 17 Oct 2024 13:24:51 +0000
+	id 1t1QbJ-00079j-6O; Thu, 17 Oct 2024 13:31:37 +0000
+Received: by outflank-mailman (input) for mailman id 820589;
+ Thu, 17 Oct 2024 13:31:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZcP3=RN=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1t1QbH-00079Y-Ir
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 13:31:35 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 20be2bbc-8c8c-11ef-a0be-8be0dac302b0;
+ Thu, 17 Oct 2024 15:31:34 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a9a0ec0a94fso107849366b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 06:31:34 -0700 (PDT)
+Received: from fziglio-desktop.. ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a29817036sm299115166b.124.2024.10.17.06.31.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Oct 2024 06:31:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,134 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sEZcbh/DavdkixZadj6StEmAAu9sL8TIu2f6Ecy8m3s=; b=yAXvGlx3P11Zz6ngv7ltVvOuu8
-	ZlLhhzIL3sOwCeOkqjVqv8CEshOu+Xp7hyFpyolj8oLalvSgL69lu7luM8ZCCYCmR8nbQ19+W3E3O
-	C3RXLgx9WydnFUQF5vhZ8JwrGBL6gpO1zl+b3Ukx9WvXMkZH3Uh5Q8WhoyfgGEIL0yGE=;
+X-Inumbo-ID: 20be2bbc-8c8c-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1729171894; x=1729776694; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SP6seo58K4cH9wg+ocd7+U6wN3oOt+d1Z2RdEKLkXDs=;
+        b=SfsW/BhVcaIjubR2D4NQEfCun7weFKhg+Oc7ELPK9d0y63wkR/8Wz0p9RTXsttqhZT
+         wbbORCcoeVlHnnQASE4eyHUFR8O/OgJAnkGeoXHOS/NbJVSEZdHjQPYjbENkQ0zJE5mz
+         3LdLxyNg6duAIfXOTArioSwzZErzqhNjzhYS0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729171894; x=1729776694;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SP6seo58K4cH9wg+ocd7+U6wN3oOt+d1Z2RdEKLkXDs=;
+        b=bMicwqWzMoNYlTk/FkztXuCzt6aG3brGMRXrlJbQ/A8EeAHpjr32nhElIib23w/vvo
+         QJJO5W1AITxbIv/b36H2O5mUJ9VeiLAIn1BooajhYKqhGEi+GeVHvl9jTB5hHIfpFEmv
+         45Rcg3niIy0t7o06SKAJEC0rYDRa2D29qJorl/h6Haz2bznsBDYrumu3ZTnY0vVimtxg
+         0R4v679JxcLw85F8fgFYjerz8wF6Ta8hTh6oUdj3F/UdBi6BnPbqp17qH3Ld6eKHjTKP
+         hGps7/hHh1PSLQk2Q7q3ZyOjNiZ8QNaNdogrtka9GZemPeL5MkLFWp3BUnnqhDsNZUs3
+         sBpw==
+X-Gm-Message-State: AOJu0YygI9ITYrQGN6kCjZE1Q9HlzaIAJufhgkWinrZCol3ZF2nBUYO3
+	gNovgMWMy80+ZAI26EU10ZwWK32LvHqHnmIoFpQy79WIgAjzHZ6ns6vX4ibbN/TRMCJrtRNSkdh
+	j
+X-Google-Smtp-Source: AGHT+IF4lJImkM6oBHMVbUFsEFD3MuknR5bb55goIWcdD92rIhqDNn0MthS99UDP6IYwoJTNyOjrtw==
+X-Received: by 2002:a17:907:e2cd:b0:a9a:c0b:d21c with SMTP id a640c23a62f3a-a9a34cb7ef2mr612849066b.18.1729171893568;
+        Thu, 17 Oct 2024 06:31:33 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188148-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v6 0/5] Reuse 32 bit C code more safely
+Date: Thu, 17 Oct 2024 14:31:18 +0100
+Message-Id: <20241017133123.1946204-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [libvirt test] 188148: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-i386-xsm:xen-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt-vhd:leak-check/check:fail:regression
-    libvirt:build-arm64-pvops:kernel-build:fail:regression
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=f7c89763b1a7a189f06fb61843bf2ba69028588b
-X-Osstest-Versions-That:
-    libvirt=e996536a3b9ffefe639820baad006a3db411157c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 17 Oct 2024 13:24:51 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 188148 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188148/
+This series attempt to:
+- use more C code, that is replace some assembly code with C;
+- avoid some code duplication between C and assembly;
+- prevent some issues having relocations in C code.
 
-Regressions :-(
+The idea is extending the current C to binary code conversion
+done for 32 bit C code called from head.S making sure relocations
+are safe and allowing external symbols usage from C code.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-xsm                6 xen-build                fail REGR. vs. 188108
- test-amd64-amd64-libvirt-vhd 22 leak-check/check         fail REGR. vs. 188108
- build-arm64-pvops             6 kernel-build             fail REGR. vs. 188108
+More details of the implementation are in commit message 1/5,
+which is the largest patch.
+Patch 2/5 reuses code to relocate the trampoline between 32 and 64 bit.
+Patches 3/5 and 4/5 move some code from assembly to C.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 188108
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+Other RFC commits were excluded, I didn't manage to entangle the issues
+sharing headers between 32 and 64 bits.
+Since RFC code was more tested, also with CI and some incompatibility
+were fixed. On that it's weird that we need Python 3.8 for Qemu but we
+still use Python 2 for Xen. Shouldn't we bump requirement to Python 3
+even for Xen?
 
-version targeted for testing:
- libvirt              f7c89763b1a7a189f06fb61843bf2ba69028588b
-baseline version:
- libvirt              e996536a3b9ffefe639820baad006a3db411157c
+Code boots successfully using:
+- BIOS boot;
+- EFI boot with Grub2 and ELF file;
+- direct EFI boot without Grub.
 
-Last test of basis   188108  2024-10-16 04:18:43 Z    1 days
-Testing same since   188148  2024-10-17 04:20:25 Z    0 days    1 attempts
+Code is currently based on "master" branch, currently commit
+47990ecef286606794d607d4ca8703d71c98d659.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adam Julis <ajulis@redhat.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
+Changes since v1:
+- 2 preliminary commits for adjust .gitignore;
+- last commit split (one variable at a time);
+- lot of style and names changes;
+- first commit, now 3/6 had some build changes, more details on
+  commit message.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               fail    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            fail    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-libvirt-vhd                                 pass    
+Changes since v2:
+- removed merged commits;
+- reverted order of 2 commits;
+- remove some useless casts;
+- added change to comment.
 
+Changes since v3:
+- added a preparation commit for Makefiles (mainly written by Andrew Cooper);
+- added a comment improvement commit;
+- allows also data;
+- other minor style changes;
+- added some Reviewed-by.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Changes since v4:
+- add build32.final.lds build32.other.lds to targets macro;
+- place some comments over a rule, not inside;
+- simplified linking and producing binary rule;
+- renamed built_in_32 to built-in-32, coding style;
+- fix minor indentation;
+- put magic numbers in Makefile and propagate them;
+- minor variable clanups in Python script;
+- add dependency to Python script.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Changes since v5:
+- all Makefile changes;
+- renamed "other" and "final" phases to "base" and "offset";
+- use if_changed macro to generate built-in-32.S;
+- do not add obj64 to targets, already done adding it to obj-bin-y.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Frediano Ziglio (5):
+  x86/boot: create a C bundle for 32 bit boot code and use it
+  x86/boot: Reuse code to relocate trampoline
+  x86/boot: Use boot_vid_info variable directly from C code
+  x86/boot: Use trampoline_phys variable directly from C code
+  x86/boot: Clarify comment
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+ xen/arch/x86/boot/.gitignore                  |   5 +-
+ xen/arch/x86/boot/Makefile                    |  55 ++++-
+ .../x86/boot/{build32.lds => build32.lds.S}   |  41 +++-
+ xen/arch/x86/boot/cmdline.c                   |  12 -
+ xen/arch/x86/boot/head.S                      |  49 +---
+ xen/arch/x86/boot/reloc-trampoline.c          |  36 +++
+ xen/arch/x86/boot/reloc.c                     |  35 +--
+ xen/arch/x86/efi/efi-boot.h                   |  15 +-
+ xen/tools/combine_two_binaries.py             | 220 ++++++++++++++++++
+ 9 files changed, 355 insertions(+), 113 deletions(-)
+ rename xen/arch/x86/boot/{build32.lds => build32.lds.S} (63%)
+ create mode 100644 xen/arch/x86/boot/reloc-trampoline.c
+ create mode 100755 xen/tools/combine_two_binaries.py
 
+-- 
+2.34.1
 
-Not pushing.
-
-(No revision log; it would be 364 lines long.)
 
