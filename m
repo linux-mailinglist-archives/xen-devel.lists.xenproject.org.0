@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 920579A2A4C
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 19:08:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.820898.1234633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAF0D9A2A35
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 19:06:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.820874.1234541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1TzF-000889-Lp; Thu, 17 Oct 2024 17:08:33 +0000
+	id 1t1TxD-0002xK-7W; Thu, 17 Oct 2024 17:06:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 820898.1234633; Thu, 17 Oct 2024 17:08:33 +0000
+Received: by outflank-mailman (output) from mailman id 820874.1234541; Thu, 17 Oct 2024 17:06:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1TzF-00083w-Go; Thu, 17 Oct 2024 17:08:33 +0000
-Received: by outflank-mailman (input) for mailman id 820898;
- Thu, 17 Oct 2024 17:08:32 +0000
+	id 1t1TxD-0002v7-4r; Thu, 17 Oct 2024 17:06:27 +0000
+Received: by outflank-mailman (input) for mailman id 820874;
+ Thu, 17 Oct 2024 17:06:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KqF2=RN=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t1Tvv-0006TN-ST
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 17:05:07 +0000
+ id 1t1Tw4-0006TN-Dx
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 17:05:16 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f42e10c9-8ca9-11ef-99a3-01e77a169b0f;
- Thu, 17 Oct 2024 19:05:06 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1729184627400845.0097301540941;
- Thu, 17 Oct 2024 10:03:47 -0700 (PDT)
+ id f9430893-8ca9-11ef-99a3-01e77a169b0f;
+ Thu, 17 Oct 2024 19:05:14 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729184628693714.7111287097858;
+ Thu, 17 Oct 2024 10:03:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,37 +38,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f42e10c9-8ca9-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1729184629; cv=none; 
+X-Inumbo-ID: f9430893-8ca9-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1729184631; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=SeayuwoQT0saTqC6G096y+49K1bclg5Ivg81bteWsoDLt/adFhxnFW3tKKpe/IWKuCK2jaI8RMq4NqZ3w5Hit3zXBubjRzMX+B0N8cy4mAOfWPTcJf/wEUf4YLj12lfiJYWtazTvbLq8IoUOlC37CmR00icW70Q4sFG8mfbUbXo=
+	b=PqX/pyk6X/pI9ldvPH5cVFcVKKcRotmmkSVyyRetCm6EY+W+GXe6GedXJqODel6E9ZT8IDERd6OGwVB5khKFsmUCJdcfzHUU5J4vO0PK2f/LHOIZmn7utQmGiXHmN9DlrhxNOXViMoaIhNb8zpEYX2YsIHr5oos83ioy7rL1YD4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1729184629; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Dgh7JemAIAyELVZo1MtAbdLIy6CYiHIimrr6e9LjQD8=; 
-	b=TS19wJUP0AMUiHWHp2eIISwQGpgs2CJKJCRwnlx1rDwNRQwoqOWgZqqwCnXyLHBMQRtRuIO4V/X70VsAZvI6r8AhW49kWAwEttsFIPPDcFm4ZhOW1cd2yWnnDYQzZ5DZcOnwS3zRwDpAaJgBy/PA+ibqDTqhGQo3/0OG+L8IhTQ=
+	t=1729184631; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jMznZ4/Qnb47L6uS5Mep6oH/AOXeu1gaoH+gJ/apC6A=; 
+	b=Q7XLJYKaSTBdJ9nU9OIJaOLc3CZ3xZDIQHHUK1kfIM0nJeKEwWWJUThvg14rZ8r9j8MkwN5xPdPz+UfBZsPUV7E1xPZ2/kviJ116leNKlWNCwZ9W3kFMAKju+ssNUq3R9QeFZyY2e/p0ouTmmYFf3y+iBejLwMWVNp/9MnIAz1k=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729184629;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729184631;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=Dgh7JemAIAyELVZo1MtAbdLIy6CYiHIimrr6e9LjQD8=;
-	b=K4K1/ZiQiOWJ4pIQWR8kcK25hcKKNHMCIIV0jXCjd2149ZUXycVc3sYYaeqwrsyM
-	1sfKSVqt1NlVpU6FcdjYIInTnfaoX/QRYLCSXzdsuoMKKGXIy1JGrCnL9EoeLYbioUH
-	rRXqtzfuNVbC3KFj5rGn2C969yTTnhPCXPclm8Xg=
+	bh=jMznZ4/Qnb47L6uS5Mep6oH/AOXeu1gaoH+gJ/apC6A=;
+	b=oqszHDl5zgvb+fvQ1+Ix9i1lHgNhHIGLAdOVfg+SmLYzC9AKX6dssJ9UAeXeL2fX
+	08zzCNWIm4+p5swcAYigZJ5ZdxN2Bs+KyRKNgcA9aBnfa9LkuxcTRAuKFTk4I1X7OR4
+	9MiXrP+4fcXYknOl5YFxo2fKGJGavMpZBraj76Vw=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>,
+	xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	jason.andryuk@amd.com,
 	christopher.w.clark@gmail.com,
 	stefano.stabellini@amd.com,
-	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v6 10/44] x86/boot: introduce boot module flags
-Date: Thu, 17 Oct 2024 13:02:50 -0400
-Message-Id: <20241017170325.3842-11-dpsmith@apertussolutions.com>
+Subject: [PATCH v6 11/44] x86/boot: add start and size fields to struct boot_module
+Date: Thu, 17 Oct 2024 13:02:51 -0400
+Message-Id: <20241017170325.3842-12-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20241017170325.3842-1-dpsmith@apertussolutions.com>
 References: <20241017170325.3842-1-dpsmith@apertussolutions.com>
@@ -76,76 +77,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-The existing startup code employs various ad-hoc state tracking about certain
-boot module types by each area of the code. A boot module flags is added to
-enable tracking these different states.  The first state to be transition by
-this commit is module relocation.
+This commit introduces the start and size fields to struct boot_module and
+assigns their value during boot_info construction.
+
+The EFI entry point special cased itself, and pre-converted mod_start and
+mod_end to mfn and size respectively. This required an additional test
+in the coversion loop to not convert mod_start and mod_end when the conversion
+was done for both the multiboot and PVH boot entry points. To simplify the
+logic populating the start and size fields, the EFI module population logic
+was coverted to using start and end addresses.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes since v5:
-- removed trailing blank line.
+- switched EFI population of mod_start/mod_end to addresses
 ---
+ xen/arch/x86/efi/efi-boot.h         | 4 ++--
  xen/arch/x86/include/asm/bootinfo.h | 3 +++
- xen/arch/x86/setup.c                | 8 ++++----
- 2 files changed, 7 insertions(+), 4 deletions(-)
+ xen/arch/x86/setup.c                | 7 ++++++-
+ 3 files changed, 11 insertions(+), 3 deletions(-)
 
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 94f34433640f..779f101c3de7 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -732,8 +732,8 @@ static void __init efi_arch_handle_module(const struct file *file,
+     if ( options )
+         place_string(&mb_modules[mbi.mods_count].string, options);
+     place_string(&mb_modules[mbi.mods_count].string, local_name.s);
+-    mb_modules[mbi.mods_count].mod_start = file->addr >> PAGE_SHIFT;
+-    mb_modules[mbi.mods_count].mod_end = file->size;
++    mb_modules[mbi.mods_count].mod_start = file->addr;
++    mb_modules[mbi.mods_count].mod_end = file->addr + file->size;
+     ++mbi.mods_count;
+     efi_bs->FreePool(ptr);
+ }
 diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-index 18281d80fa97..e8ba9390a51f 100644
+index e8ba9390a51f..5862054b8cef 100644
 --- a/xen/arch/x86/include/asm/bootinfo.h
 +++ b/xen/arch/x86/include/asm/bootinfo.h
-@@ -39,6 +39,9 @@ struct boot_module {
-      */
-     unsigned long headroom;
-     enum bootmod_type type;
+@@ -42,6 +42,9 @@ struct boot_module {
+ 
+     uint32_t flags;
+ #define BOOTMOD_FLAG_X86_RELOCATED     (1U << 0)
 +
-+    uint32_t flags;
-+#define BOOTMOD_FLAG_X86_RELOCATED     (1U << 0)
++    paddr_t start;
++    size_t size;
  };
  
  /*
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index fed9bef16305..f87faa31a2cf 100644
+index f87faa31a2cf..6ee352fc0cde 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -1357,7 +1357,6 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-             panic("Bootloader didn't honor module alignment request\n");
-         bi->mods[i].mod->mod_end -= bi->mods[i].mod->mod_start;
-         bi->mods[i].mod->mod_start >>= PAGE_SHIFT;
--        bi->mods[i].mod->reserved = 0;
-     }
+@@ -309,8 +309,13 @@ static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
+      * reserved for Xen itself
+      */
+     for ( i = 0; i <= bi->nr_modules; i++ )
++    {
+         bi->mods[i].mod = &mods[i];
  
-     /*
-@@ -1471,7 +1470,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-             struct boot_module *bm = &bi->mods[j];
-             unsigned long size = PAGE_ALIGN(bm->headroom + bm->mod->mod_end);
++        bi->mods[i].start = (paddr_t)mods[i].mod_start;
++        bi->mods[i].size = mods[i].mod_end - mods[i].mod_start;
++    }
++
+     /* map the last mb module for xen entry */
+     bi->mods[bi->nr_modules].type = BOOTMOD_XEN;
  
--            if ( bi->mods[j].mod->reserved )
-+            if ( bi->mods[j].flags & BOOTMOD_FLAG_X86_RELOCATED )
-                 continue;
+@@ -1351,7 +1356,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+      */
+     initial_images = bi->mods[0].mod;
  
-             /* Don't overlap with other modules (or Xen itself). */
-@@ -1490,7 +1489,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-                             bm->mod->mod_end);
-                 bm->mod->mod_start = (end - size) >> PAGE_SHIFT;
-                 bm->mod->mod_end += bm->headroom;
--                bm->mod->reserved = 1;
-+                bm->flags |= BOOTMOD_FLAG_X86_RELOCATED;
-             }
-         }
- 
-@@ -1516,7 +1515,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
- #endif
-     }
- 
--    if ( bi->mods[0].headroom && !bi->mods[0].mod->reserved )
-+    if ( bi->mods[0].headroom &&
-+         !(bi->mods[0].flags & BOOTMOD_FLAG_X86_RELOCATED) )
-         panic("Not enough memory to relocate the dom0 kernel image\n");
-     for ( i = 0; i < bi->nr_modules; ++i )
+-    for ( i = 0; !efi_enabled(EFI_LOADER) && i < bi->nr_modules; i++ )
++    for ( i = 0; i < bi->nr_modules; i++ )
      {
+         if ( bi->mods[i].mod->mod_start & (PAGE_SIZE - 1) )
+             panic("Bootloader didn't honor module alignment request\n");
 -- 
 2.30.2
 
