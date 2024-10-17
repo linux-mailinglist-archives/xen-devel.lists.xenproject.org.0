@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A93BC9A20B5
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 13:11:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.820523.1234020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D49959A2112
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 13:37:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.820534.1234033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1OOy-0001vx-Vv; Thu, 17 Oct 2024 11:10:44 +0000
+	id 1t1OoH-0004qK-Uk; Thu, 17 Oct 2024 11:36:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 820523.1234020; Thu, 17 Oct 2024 11:10:44 +0000
+Received: by outflank-mailman (output) from mailman id 820534.1234033; Thu, 17 Oct 2024 11:36:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1OOy-0001ts-Sw; Thu, 17 Oct 2024 11:10:44 +0000
-Received: by outflank-mailman (input) for mailman id 820523;
- Thu, 17 Oct 2024 11:10:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1t1OoH-0004o5-Rd; Thu, 17 Oct 2024 11:36:53 +0000
+Received: by outflank-mailman (input) for mailman id 820534;
+ Thu, 17 Oct 2024 11:36:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1OOx-0001ti-UB; Thu, 17 Oct 2024 11:10:43 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1OOx-0000mw-T6; Thu, 17 Oct 2024 11:10:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1OOx-000603-LR; Thu, 17 Oct 2024 11:10:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1t1OOx-0005o6-Kq; Thu, 17 Oct 2024 11:10:43 +0000
+ (envelope-from <SRS0=Rwie=RN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t1OoG-0004ny-77
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 11:36:52 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 192d7aaf-8c7c-11ef-99a3-01e77a169b0f;
+ Thu, 17 Oct 2024 13:36:50 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4314311959aso7523115e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 04:36:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43158c3ef0fsm22979975e9.20.2024.10.17.04.36.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Oct 2024 04:36:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,146 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EA5/BfT8Zqth7bglvoWx6DmDonG6x/ecgA02J8LhBR8=; b=q1+FGiyiY7a1kiHdROOTeit9vs
-	5R/73/X0eUFh7BZL49e+P0B0eFdlVf1LIYH4zIhQJ+w9onTtv8w9NGji+ZLQZRwS90FqrUEyKwntX
-	IJaMdWn9gBs1vDxJmoGlPrttEStn0VaWh7kmTE5IATdUJTqGZIgY7cLt6eJrrsIZHj4c=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188156-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 192d7aaf-8c7c-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1729165009; x=1729769809; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fFochA9dGqfGgEHw9yA+tE+QIGVg+WBuCbtJZtHfWK8=;
+        b=Pdu05WvsUPWhlQYOVophxLslwALTi2Z1s1OG/2sc70wyEj2hpzYS+Bb5xEz848CDE8
+         H8BsF6qo24/PrX9Lvi1yMzWSDH9PoXNRuwC3kADrm0ouWsSA66RF4Xe56Fs4sro4P0Zf
+         1sFfLPCGUuH1/TKYo80MKrZZWagx3TWsYX8s6gnklgxRZHrqWCsqdSeuY4no9/iNvRwF
+         CZHr1NNA6ERoSK/JFR+lJW6fMU0EM4d4puloHNYMbLD3Y4ooh1zLHv459EvlQSdPGQGJ
+         MReZZoxUHb0yeiPhcOrf9VLXx1fcdkThcRrjOE7JCYYvq/EDivAArkvC1XH/MXy9UjHy
+         OjJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729165009; x=1729769809;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fFochA9dGqfGgEHw9yA+tE+QIGVg+WBuCbtJZtHfWK8=;
+        b=aAFBkw3J85KBAYp4522Gj1Jou+N19XbtOrTXKU9M3ITe0KsPuYZ5UCTOgei82vtFxu
+         b/ZX8X3NpcgCIXcrQQpy9BJr8k/HINSQe3wl7QcCC5huL040Q1xKJ6VQglPCFpWSHiGR
+         22nkOO0Nw4YbIkjKMN21hzs0qExVVVumu3Xerv8nHb4K+5LLMBj0QAoHmsOW/I93Nbgu
+         a/dWjqplmVAeNhN80SbD61WBhHhoenWVaykHhD0qta0OxWgx3cP8MIPXzBiDXDGe7Gdh
+         rZG1gyBy3F1FTd95WlccxG1H12FhqAg+xsTJ9oxdeO+3dDW4R4SiUFj5cJlERQOCjO1z
+         4sRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUvxk1rFqKNi3jTLjcIjMdO3XppqSz8JeNRmhjhJU5VJerSnSkk0zyGdUPN3WjfWNVeAa2Dh1wiXYY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YytH7eweDkgjh2zKJF9mb7FjxnlgKbMwXy5dMPDk9lQI+7MmcDt
+	HKtmRurgYiA6nZnnV1L9OTbaDy2ID9IqGTliZNkU2QiSSr5Pu5MFanfBGsvUmg==
+X-Google-Smtp-Source: AGHT+IHxvA4YiW8Lfd2XBOENvf84Re09CPhU8ix89ub2FdiArSdsjb0uXWHzEWt+T7Ick8KPaUIm7g==
+X-Received: by 2002:a05:600c:1c02:b0:431:4329:6642 with SMTP id 5b1f17b1804b1-4314329668bmr62775655e9.12.1729165009359;
+        Thu, 17 Oct 2024 04:36:49 -0700 (PDT)
+Message-ID: <b973cdcf-5807-4888-8439-892bf7b8747f@suse.com>
+Date: Thu, 17 Oct 2024 13:36:47 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 188156: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:build-i386-pvops:kernel-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=79598f34fa024ad2491b46b95c3189c5a7f159d2
-X-Osstest-Versions-That:
-    ovmf=e19cc32bce466fb1c175f7d44708c2ebb45802a7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 17 Oct 2024 11:10:43 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/3] xen/pci: introduce PF<->VF links
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241011152727.366770-1-stewart.hildebrand@amd.com>
+ <20241011152727.366770-3-stewart.hildebrand@amd.com>
+ <46e66868-6ddc-4037-8c3a-5a60b39d8b73@suse.com>
+ <881998fc-f239-4ddf-9730-eb3d151fbf16@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <881998fc-f239-4ddf-9730-eb3d151fbf16@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 188156 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188156/
+On 16.10.2024 18:50, Stewart Hildebrand wrote:
+> On 10/16/24 05:52, Jan Beulich wrote:
+>> On 11.10.2024 17:27, Stewart Hildebrand wrote:
+>>> Add links between a VF's struct pci_dev and its associated PF struct
+>>> pci_dev. Move the calls to pci_get_pdev()/pci_add_device() down to avoid
+>>> dropping and re-acquiring the pcidevs_lock().
+>>>
+>>> During PF removal, unlink VF from PF and mark the VF broken. As before,
+>>> VFs may exist without a corresponding PF, although now only with
+>>> pdev->broken = true. If the PF is removed and re-added, dom0 is expected
+>>> to also remove and re-add the VFs.
+>>
+>> Right, or else the VF struct instance would remain orphaned the way you've
+>> implemented this. Question is whether it is a reasonable assumption that a
+>> Dom0 which failed to remove the VFs during PF removal might later
+>> "remember" that it still needs to report VFs removed. I for one doubt that.
+> 
+> This matches my observations: you're right, it most likely won't. I had
+> just written it in a misleading way in the commit message. Re-adding
+> should not occur until after VFs and PF have been removed in non-buggy
+> scenarios.
+> 
+> A PF driver that fails to disable SR-IOV (i.e remove VFs) during PF
+> removal is buggy, and would lead to issues inside dom0 as well due to
+> the orphaned/stale VF left behind in Linux dom0 itself. As mentioned in
+> patch #1, Linux warns about this:
+> 
+> [  100.000000]  0000:01:00.0: driver left SR-IOV enabled after remove
+> 
+> With the PF<->VF links in place, we now also have the ability to detect
+> and warn about this potentially buggy condition in Xen. I have so far
+> only observed VF-then-PF removal order in non-buggy scenarios. My only
+> hesitation with adding such a warning in Xen is that I don't know
+> whether removing in PF-then-VF order is legitimate.
 
-Regressions :-(
+My take here is that it's not legitimate. VFs with no PF is physically
+impossible, and hence also ought to be logically invalid. It's the PF
+that surfaces (materializes) the VFs, after all.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 188152
- build-i386-pvops              6 kernel-build             fail REGR. vs. 188152
-
-version targeted for testing:
- ovmf                 79598f34fa024ad2491b46b95c3189c5a7f159d2
-baseline version:
- ovmf                 e19cc32bce466fb1c175f7d44708c2ebb45802a7
-
-Last test of basis   188152  2024-10-17 07:11:33 Z    0 days
-Testing same since   188156  2024-10-17 09:14:11 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Kun Qin <kuqin12@gmail.com>
-  Kun Qin <kuqin@microsoft.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 79598f34fa024ad2491b46b95c3189c5a7f159d2
-Author: Kun Qin <kuqin12@gmail.com>
-Date:   Wed Aug 10 22:56:34 2022 -0700
-
-    MdeModulePkg: PeiMain: Updated dispatcher for delayed dispatch
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    This change adds a check for PEI dispatcher to continue dispatching when
-    there are still pending delayed dispatch requests, to be compatible with
-    newly integrated Delayed Dispatcher PPI interface.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: John Schock <joschock@microsoft.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
-
-commit d64d1e195ceb003c824786bfd817227c7ae81f06
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:11:37 2024 -0700
-
-    MdeModulePkg: PeiMain: Introduce implementation of delayed dispatch
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    This change adds the implementation that fits the needs and description
-    of PI spec defined Delayed Dispatch PPI in Pei Core.
-    
-    The PPI would allow minimal delay for registered callbacks. As well as
-    allowing other functions to wait for GUIDed delayed dispatch callbacks.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
-
-commit b3f36e151d8b014cac5c6a833e2270c14d998739
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:09:03 2024 -0700
-
-    MdePkg: Update Delayed Dispatch PPI as per PI 1.8 A Spec
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    PI spec defined the `Register` function input argument `Delay` as output.
-    However, this parameter should be used to define the minmal time delay
-    the callback should fire. Thus it should be an input parameter.
-    
-    This change fixed the argument type.
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+Jan
 
