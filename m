@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3471E9A2A2E
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 19:05:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.820849.1234501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 029CB9A2A2F
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 19:06:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.820852.1234511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1TwW-0000j5-9q; Thu, 17 Oct 2024 17:05:44 +0000
+	id 1t1Twe-0001Bi-Gy; Thu, 17 Oct 2024 17:05:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 820849.1234501; Thu, 17 Oct 2024 17:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 820852.1234511; Thu, 17 Oct 2024 17:05:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1TwW-0000gX-6v; Thu, 17 Oct 2024 17:05:44 +0000
-Received: by outflank-mailman (input) for mailman id 820849;
- Thu, 17 Oct 2024 17:05:43 +0000
+	id 1t1Twe-00019s-Db; Thu, 17 Oct 2024 17:05:52 +0000
+Received: by outflank-mailman (input) for mailman id 820852;
+ Thu, 17 Oct 2024 17:05:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KqF2=RN=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t1TwV-0008TH-2v
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 17:05:43 +0000
-Received: from sender3-of-o58.zoho.com (sender3-of-o58.zoho.com
- [136.143.184.58]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09cb3731-8caa-11ef-a0be-8be0dac302b0;
- Thu, 17 Oct 2024 19:05:42 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1729184632344879.4637074312935;
- Thu, 17 Oct 2024 10:03:52 -0700 (PDT)
+ id 1t1Twc-0008TH-BQ
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 17:05:50 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0dfb6901-8caa-11ef-a0be-8be0dac302b0;
+ Thu, 17 Oct 2024 19:05:49 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729184633549591.1849705803486;
+ Thu, 17 Oct 2024 10:03:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,25 +38,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09cb3731-8caa-11ef-a0be-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1729184634; cv=none; 
+X-Inumbo-ID: 0dfb6901-8caa-11ef-a0be-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1729184635; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=hs0ya0EXGgdii09hB6B50gKi/B5NEM9YlQSpSJmaU5jX0HcI/s+qVQCuK1jh+/5Lp87oKIKItjCU0QEy8bIbX4oLRIHfFqdmSz6/StD7Gda1cLq+llyTEETZ++FfnUErq6a321XvNYhz9Uxx3Vj/BZ9dUakoMTMOMTdXJqZqJ60=
+	b=bRqieGlVFZ/N04xtoYCV2/nB4oT+9dzFbm7jPyI55EBmij42qn6zfrhUYqdYSKj5G+Kph8LV2DNPhq974/BktseYSjAMIjna9UAq+639P74dxcBYtBpvZpiA6Np7iAUnscBnHkKBg/P8pVBeOqH+VMXRE8pqA/6EgPARw4H1e4E=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1729184634; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3lVlOCpdm5TzR4Ue4fgJ/C+2B6QVGR3l2Wwg3ehYe0k=; 
-	b=ZaQoxosUFrBxAC0LF+Oa4INnWTJ90CLG4siiB8Lcw3C9HbKuGQNRs0SOHOyrP9FsgGoXSZNhYNpzpsYiS1QIrO/voamWl53ifnqhd0HIcBnnJzn/S17vP6TEi5/0mJRARLljMA0AjxK3jgW/52Cx+92ImyN2+K91UOi+3lgrq/0=
+	t=1729184635; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=UOSq2CQ+avjz4TDy8H9wvkgSNIMCssGHhL5g606izH0=; 
+	b=hNwIchschivOXSjMOrWOSXEpKNE9jrHA0ljfizKfslueb5CoLKnhYQ1xRuMFKosmI1SrGnI59m8QmvPnNBKKoCG5C6tcp7MAfT4peG7Dra2kLX6ptRSmqZfq54xZZ4JwuV87g1/jfuhobFivE+yn8w/UrSMaT+e3JcX3HH+04bs=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729184634;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729184635;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=3lVlOCpdm5TzR4Ue4fgJ/C+2B6QVGR3l2Wwg3ehYe0k=;
-	b=qQ+jZvZju1WjCYDEgDCHPNCvO7bJ+4EtMAfCSVkHkBCgh5t7VcN+eOL6WhxYHyS3
-	GDKzV1gffCJoqcHp3ym7MxO+O6AXOGx4rhHgvSovRUXajCMwTCumeXn4z7w0CUZXcgv
-	0GvL5harq6b90/DfPMPsss9mffo4i4SrhJfonhV0=
+	bh=UOSq2CQ+avjz4TDy8H9wvkgSNIMCssGHhL5g606izH0=;
+	b=tbfOUxOwC2qw65HyPaOR/AOqCwFrs30Hb+N6c49ws9ZGmdtizFGP1T/ykjx8UE0F
+	MeVyqtcSe8rWG7wsdF31zxBnjVGhhIqwTJ/MRARWIO5raN5kouLAdhDtLVlxXqdfe7C
+	hcxcnmRKE5xYkivyMh14JsrS56RUMMvODZoLfmFk=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -66,9 +66,9 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v6 14/44] x86/boot: introduce boot module interator
-Date: Thu, 17 Oct 2024 13:02:54 -0400
-Message-Id: <20241017170325.3842-15-dpsmith@apertussolutions.com>
+Subject: [PATCH v6 15/44] x86/boot: introduce consumed flag for struct boot_module
+Date: Thu, 17 Oct 2024 13:02:55 -0400
+Message-Id: <20241017170325.3842-16-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20241017170325.3842-1-dpsmith@apertussolutions.com>
 References: <20241017170325.3842-1-dpsmith@apertussolutions.com>
@@ -76,59 +76,64 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-Provide an iterator to go through boot module array searching based on type.
+Allow the tracking of when a boot module has been consumed by a handler in the
+hypervisor independent of when it is claimed. The instances where the
+hypervisor does nothing beyond claiming, the dom0 kernel, dom0 ramdisk, and a
+placeholder for itself, are updated as being consumed at the time of being
+claimed.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
 Changes since v5:
-- documented help next_boot_module_index
-- switch to unsigned int for next_boot_module_index
-- changes identified that BOOTMOD_XEN was not supported, so added support
+- first flag assignment can be = instead of |=
 ---
- xen/arch/x86/include/asm/bootinfo.h | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+ xen/arch/x86/include/asm/bootinfo.h | 1 +
+ xen/arch/x86/setup.c                | 5 +++++
+ 2 files changed, 6 insertions(+)
 
 diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-index 5862054b8cef..3010e6f4af9c 100644
+index 3010e6f4af9c..6903ab00ec90 100644
 --- a/xen/arch/x86/include/asm/bootinfo.h
 +++ b/xen/arch/x86/include/asm/bootinfo.h
-@@ -62,8 +62,35 @@ struct boot_info {
-     struct boot_module mods[MAX_NR_BOOTMODS + 1];
- };
+@@ -42,6 +42,7 @@ struct boot_module {
  
--#endif /* __XEN_X86_BOOTINFO_H__ */
-+/*
-+ * next_boot_module_index:
-+ *     Finds the next boot module of type t, starting at array index start.
-+ *
-+ * Returns:
-+ *      Success - index in boot_module array
-+ *      Failure - a value greater than MAX_NR_BOOTMODS
-+ */
-+static inline unsigned int __init next_boot_module_index(
-+    const struct boot_info *bi, enum bootmod_type t, unsigned int start)
-+{
-+    unsigned int i;
-+
-+    if ( t == BOOTMOD_XEN )
-+        return MAX_NR_BOOTMODS;
+     uint32_t flags;
+ #define BOOTMOD_FLAG_X86_RELOCATED     (1U << 0)
++#define BOOTMOD_FLAG_X86_CONSUMED      (1U << 1)
  
-+    for ( i = start; i < bi->nr_modules; i++ )
+     paddr_t start;
+     size_t size;
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 44cec48fc877..8261a87d9fb4 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -318,6 +318,7 @@ static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
+ 
+     /* map the last mb module for xen entry */
+     bi->mods[bi->nr_modules].type = BOOTMOD_XEN;
++    bi->mods[bi->nr_modules].flags = BOOTMOD_FLAG_X86_CONSUMED;
+ 
+     return bi;
+ }
+@@ -1180,6 +1181,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+     bitmap_fill(module_map, bi->nr_modules);
+     __clear_bit(0, module_map); /* Dom0 kernel is always first */
+     bi->mods[0].type = BOOTMOD_KERNEL;
++    bi->mods[0].flags = BOOTMOD_FLAG_X86_CONSUMED;
+ 
+     if ( pvh_boot )
+     {
+@@ -2068,7 +2070,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+ 
+     initrdidx = find_first_bit(module_map, bi->nr_modules);
+     if ( initrdidx < bi->nr_modules )
 +    {
-+        if ( bi->mods[i].type == t )
-+            return i;
+         bi->mods[initrdidx].type = BOOTMOD_RAMDISK;
++        bi->mods[initrdidx].flags |= BOOTMOD_FLAG_X86_CONSUMED;
 +    }
-+
-+    return MAX_NR_BOOTMODS + 1;
-+}
-+
-+#define first_boot_module_index(bi, t)              \
-+    next_boot_module_index(bi, t, 0)
-+
-+#endif /* __XEN_X86_BOOTINFO_H__ */
- /*
-  * Local variables:
-  * mode: C
+     if ( bitmap_weight(module_map, bi->nr_modules) > 1 )
+         printk(XENLOG_WARNING
+                "Multiple initrd candidates, picking module #%u\n",
 -- 
 2.30.2
 
