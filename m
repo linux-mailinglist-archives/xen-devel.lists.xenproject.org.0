@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65909A2871
+	by mail.lfdr.de (Postfix) with ESMTPS id B57829A2870
 	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 18:21:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.820763.1234376 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.820764.1234385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1TF4-0005U8-3i; Thu, 17 Oct 2024 16:20:50 +0000
+	id 1t1TF6-0005m8-Cy; Thu, 17 Oct 2024 16:20:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 820763.1234376; Thu, 17 Oct 2024 16:20:50 +0000
+Received: by outflank-mailman (output) from mailman id 820764.1234385; Thu, 17 Oct 2024 16:20:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1TF4-0005Re-0a; Thu, 17 Oct 2024 16:20:50 +0000
-Received: by outflank-mailman (input) for mailman id 820763;
- Thu, 17 Oct 2024 16:20:48 +0000
+	id 1t1TF6-0005iz-9O; Thu, 17 Oct 2024 16:20:52 +0000
+Received: by outflank-mailman (input) for mailman id 820764;
+ Thu, 17 Oct 2024 16:20:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZFta=RN=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1t1TF2-0004vC-3B
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 16:20:48 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1t1TF4-0004vC-VW
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 16:20:50 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c45a0a80-8ca3-11ef-a0be-8be0dac302b0;
- Thu, 17 Oct 2024 18:20:47 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a99fa009adcso58626766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 09:20:47 -0700 (PDT)
+ id c60e79b9-8ca3-11ef-a0be-8be0dac302b0;
+ Thu, 17 Oct 2024 18:20:50 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c94b0b466cso1325224a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 09:20:50 -0700 (PDT)
 Received: from localhost.localdomain ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c98d77995esm2922739a12.65.2024.10.17.09.20.46
+ 4fb4d7f45d1cf-5c98d77995esm2922739a12.65.2024.10.17.09.20.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Oct 2024 09:20:46 -0700 (PDT)
+ Thu, 17 Oct 2024 09:20:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +45,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c45a0a80-8ca3-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: c60e79b9-8ca3-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1729182047; x=1729786847; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1729182049; x=1729786849; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kgnhx5agu8oUcqb9qagvcSva4nEzimHG4s1giyUXOgs=;
-        b=DoxzSI2tFJ1jDiYPjcQ+I6PTOyZz3genmfTBvKgINuTb5soggOqQpzk1kbx6nSpR7d
-         ab33TJelsGc0T5yHxITxS5TcSPlGG9Pkx2hjrGXq1ivFvW0AYw9LElRB8yVsRZXqRzDq
-         3D1YrpSF5gL1zzwhcjOXCTIWzcetZVQCCY5zI=
+        bh=+NoEGn1hLziPO1/kdmCT0M4Dt8mYyVB2krAxxwVj8SM=;
+        b=EwkQ7dF0Ra18CstDcH3SOD439eNk2KSF3nAmejQfmPfZT6mKavd6rTw1uutKCQhgvz
+         sfFq9iUm65QoqBOtnawsfIQlsJmE5dH+C2nc7tovw0pVEBXS88qNNFRa1isKjMn+7KnG
+         MKkXfRiB29Zcef1mjigHkrph0YhCfpBc0q8D0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729182047; x=1729786847;
+        d=1e100.net; s=20230601; t=1729182049; x=1729786849;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=kgnhx5agu8oUcqb9qagvcSva4nEzimHG4s1giyUXOgs=;
-        b=f3qlJ6ruI6H5QFGqbPRkrx8EyhkOnrUGPrUmsAV5DMLMwLW1+KQDet2vIhizGTsDai
-         OH+ja73d9PNICQJpaQFu2w241zF9O41GDYGFfgmkUJdtLht5OolCOxZeV0QLzr29gPcl
-         5svFi+3i60idHAOOb6jd8YEqVz2k5s7BiTu03W1s9RmK4GTeLx6+YH0bIYpGFw/2I9oY
-         5+depgMQxuDC2ZVnJOQSfI1QfA6UEb5jVLb3Ky151NW2XEhvmzJlWr3BPx/Pe41UfMLv
-         c3gR6sA/21wiIMkpBnLWjQADTtVbjDeKxeBDCx01KxbtLsjue2SuqT/5XDc2NtURa3/U
-         DGBA==
-X-Gm-Message-State: AOJu0Yy3aFmnFdrA2duiYYB5jA9JJqCepuXvIL4fbfxQ/22YMGUaGl+6
-	zXljrM2Q0ZvcmBGVQRXOjUlCdIp8LJlxuRnpdBYN05PYeF2RJFbmHF1Yl6c6sp7plah9ERCPBJH
-	Nfwk=
-X-Google-Smtp-Source: AGHT+IGi48jW39nfLzkZ0jShufFEA0sV9ND93jydXIr0b+hTtD4pgFjW5DI8ncZwdeIP/YBXSsiSbA==
-X-Received: by 2002:a05:6402:5c9:b0:5c9:5745:de9a with SMTP id 4fb4d7f45d1cf-5c95ac15776mr22549115a12.9.1729182046684;
-        Thu, 17 Oct 2024 09:20:46 -0700 (PDT)
+        bh=+NoEGn1hLziPO1/kdmCT0M4Dt8mYyVB2krAxxwVj8SM=;
+        b=AQEBuPzR0hFxCJJrCRLx3jFwZFZ8rlgqqzFNhUQnSAUvkSw3kR0VDQQqnR4g1Y421Y
+         avlgXlktLkqn/MSPyq0zh3pavDOvF0c6UFaG3Kk0Hfa2iXeHNy7E0B11TvcLYodV1+wd
+         eBlo8qdGvdJk4XJRmCHRPReZIcI3etcfySlw7FPD/WdNV1q9UwZP2lpu6On+wyH2dAPc
+         3UeI5k5Sj3UBbK+r+Wc/WlKD3v9meXvu6Jut3uYbbZQ1qy//Dh4lyfBH02fQtvMhg9y2
+         dz9/3rCGSz7P6MouGeU8ZZplrkkz7fix+1qkxCYVDfD6toBN8He8YAMuiruM457HPSOi
+         60HA==
+X-Gm-Message-State: AOJu0YxHMp1RfEO6FjeNGHTxvsexoBgy24WCp+9Do+fX5NGyadC6qLxe
+	pKXecAVDsOdR36fEUQWFOnDO7Zc6D9uuQvQLVf541MtREigtkOf4HqMq/jKKI1yk7FbmP9WBeo7
+	wR64=
+X-Google-Smtp-Source: AGHT+IFGc7GgRD5h3sh2qNHDcYbgjl/dkczgYrtKSi/fyrZqFFzkBmjqow0LUsh8aWmasQh1ziOdFg==
+X-Received: by 2002:a05:6402:210a:b0:5c9:4d96:891 with SMTP id 4fb4d7f45d1cf-5c9950e0fd7mr5738796a12.18.1729182049619;
+        Thu, 17 Oct 2024 09:20:49 -0700 (PDT)
 From: Javi Merino <javi.merino@cloud.com>
 To: xen-devel@lists.xenproject.org
-Cc: Javi Merino <javi.merino@cloud.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Andrii Sultanov <andrii.sultanov@cloud.com>
-Subject: [XEN PATCH v1 2/3] ocaml/libs: Fill build failure due to unused variable in ocaml macro
-Date: Thu, 17 Oct 2024 17:20:20 +0100
-Message-ID: <d6b98ca75017bf4aa72a69468321705263e66f30.1729170005.git.javi.merino@cloud.com>
+	Juergen Gross <jgross@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Javi Merino <javi.merino@cloud.com>
+Subject: [XEN PATCH v1 3/3] CI: Refresh and upgrade the Fedora container
+Date: Thu, 17 Oct 2024 17:20:21 +0100
+Message-ID: <178560672106e37648304f5e597cc0b16c8db6db.1729170005.git.javi.merino@cloud.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <cover.1729170005.git.javi.merino@cloud.com>
 References: <cover.1729170005.git.javi.merino@cloud.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fedora 40, the build fails with:
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 
-    gcc -m64 -DBUILD_ID -fno-strict-aliasing -std=gnu99 -Wall -Wstrict-prototypes -Wno-unused-but-set-variable -Wno-unused-local-typedefs   -Werror -O2 -fomit-frame-pointer -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__ -MMD -MP -MF .domain_getinfo_stubs_v1.o.d -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE   -fPIC -I/usr/lib64/ocaml -I /build/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/../../../libs -I /build/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/../../../libs/xsd_glue -I/build/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/../../../../../tools/include -D__XEN_TOOLS__ -I/build/tools/ocaml/libs\/xsd_glue/domain_getinfo_plugin_v1/../../../../../tools/include  -c -o domain_getinfo_stubs_v1.o domain_getinfo_stubs_v1.c
-    In file included from domain_getinfo_stubs_v1.c:10:
-    domain_getinfo_stubs_v1.c: In function 'xsd_glue_failwith':
-    /usr/lib64/ocaml/caml/memory.h:275:29: error: unused variable 'caml__frame' [-Werror=unused-variable]
-      275 |   struct caml__roots_block *caml__frame = *caml_local_roots_ptr
-          |                             ^~~~~~~~~~~
-    domain_getinfo_stubs_v1.c:48:9: note: in expansion of macro 'CAMLparam0'
-      48 |         CAMLparam0();
-         |         ^~~~~~~~~~
-    cc1: all warnings being treated as errors
+Fedora 29 is long out of date.  Move forward 5 years to Fedora 40.
 
-The CAMLparam0 macro is defined in /usr/lib64/ocaml/caml/memory.h:255 as:
+Include all the usual improvements.  Rework the container to be non-root, use
+heredocs for legibility, and switch to the new naming scheme.
 
-    #define CAMLparam0()                                                    \
-      struct caml__roots_block** caml_local_roots_ptr =                     \
-        (DO_CHECK_CAML_STATE ? Caml_check_caml_state() : (void)0,           \
-         &CAML_LOCAL_ROOTS);                                                \
-      struct caml__roots_block *caml__frame = *caml_local_roots_ptr
-
-We can't modify the macro.  Mark the xsd_glue_failwith() function with
-ignore "-Wunused-variable" to prevent gcc from failing the build due
-to the unused variable.
-
-Fixes: a6576011a4d2 ("ocaml/libs: Implement a dynamically-loaded plugin for Xenctrl.domain_getinfo")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Javi Merino <javi.merino@cloud.com>
 ---
+ automation/build/fedora/29.dockerfile        | 46 ------------
+ automation/build/fedora/40-x86_64.dockerfile | 77 ++++++++++++++++++++
+ automation/gitlab-ci/build.yaml              |  8 +-
+ automation/scripts/containerize              |  2 +-
+ 4 files changed, 82 insertions(+), 51 deletions(-)
+ delete mode 100644 automation/build/fedora/29.dockerfile
+ create mode 100644 automation/build/fedora/40-x86_64.dockerfile
 
-While it is not ideal, this is the most effective option I have found
-that avoids treating warnings as errors.  I can add a comment above
-the pragma explaining why if we decide that this is the way forward.
-
- .../domain_getinfo_plugin_v1/domain_getinfo_stubs_v1.c         | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/domain_getinfo_stubs_v1.c b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/domain_getinfo_stubs_v1.c
-index 7be386f4d4c2..df2b3c74c727 100644
---- a/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/domain_getinfo_stubs_v1.c
-+++ b/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/domain_getinfo_stubs_v1.c
-@@ -42,6 +42,8 @@ static struct custom_operations xsd_glue_xenctrl_ops = {
- 	.compare_ext = custom_compare_ext_default, /* Can't compare     */
- };
+diff --git a/automation/build/fedora/29.dockerfile b/automation/build/fedora/29.dockerfile
+deleted file mode 100644
+index d5f017ac723d..000000000000
+--- a/automation/build/fedora/29.dockerfile
++++ /dev/null
+@@ -1,46 +0,0 @@
+-# syntax=docker/dockerfile:1
+-FROM --platform=linux/amd64 fedora:29
+-LABEL maintainer.name="The Xen Project" \
+-      maintainer.email="xen-devel@lists.xenproject.org"
+-
+-# install Xen depends
+-RUN dnf -y install \
+-        clang \
+-        gcc \
+-        gcc-c++ \
+-        ncurses-devel \
+-        zlib-devel \
+-        python-devel \
+-        python3-devel \
+-        libuuid-devel \
+-        pkgconfig \
+-        flex \
+-        bison \
+-        libaio-devel \
+-        glib2-devel \
+-        yajl-devel \
+-        pixman-devel \
+-        glibc-devel \
+-        make \
+-        binutils \
+-        git \
+-        wget \
+-        acpica-tools \
+-        python-markdown \
+-        patch \
+-        checkpolicy \
+-        dev86 \
+-        xz-devel \
+-        bzip2 \
+-        nasm \
+-        ocaml \
+-        ocaml-findlib \
+-        golang \
+-        # QEMU
+-        ninja-build \
+-    && dnf clean all && \
+-    rm -rf /var/cache/dnf
+-
+-RUN useradd --create-home user
+-USER user
+-WORKDIR /build
+diff --git a/automation/build/fedora/40-x86_64.dockerfile b/automation/build/fedora/40-x86_64.dockerfile
+new file mode 100644
+index 000000000000..7d4d4cc2ac0a
+--- /dev/null
++++ b/automation/build/fedora/40-x86_64.dockerfile
+@@ -0,0 +1,77 @@
++# syntax=docker/dockerfile:1
++FROM --platform=linux/amd64 fedora:40
++LABEL maintainer.name="The Xen Project"
++LABEL maintainer.email="xen-devel@lists.xenproject.org"
++
++RUN <<EOF
++    set -e
++
++    useradd --create-home user
++
++    dnf -y update
++
++    DEPS=(
++        # Xen
++        binutils
++        gcc
++        make
++        python3
++        # Kconfig
++        bison
++        flex
++        # Flask
++        checkpolicy
++
++        # Tools (general)
++        git-core
++        gzip
++        patch
++        perl-interpreter
++        perl-File-Find
++        pkgconfig
++        wget
++        # libxenguest dombuilder
++        bzip2-devel
++        libzstd-devel
++        lzo-devel
++        xz-devel
++        zlib-devel
++        # libacpi
++        acpica-tools
++        # libxl
++        libuuid-devel
++        yajl-devel
++        # xen-foreign
++        diffutils
++        # RomBIOS
++        dev86
++        # Header Check
++        gcc-c++
++        # xentop
++        ncurses-devel
++        # Python bindings
++        python3-devel
++        python3-setuptools
++        # Ocaml bindings/oxenstored
++        ocaml
++        ocaml-findlib
++        # Golang bindings
++        golang
++
++        # Stubdom download/extract
++        bzip2
++
++        # Qemu build
++        glib2-devel
++        pixman-devel
++        ninja-build
++    )
++
++    dnf -y --setopt=install_weak_deps=False install "${DEPS[@]}"
++
++    dnf clean all
++    rm -rf /var/cache/dnf
++EOF
++
++USER user
++WORKDIR /build
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index c2db69ecf86c..09dd9e6ccbd0 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -579,15 +579,15 @@ debian-bookworm-32-gcc-debug:
+   variables:
+     CONTAINER: debian:bookworm-i386
  
-+#pragma GCC diagnostic push
-+#pragma GCC diagnostic ignored "-Wunused-variable"
- static void Noreturn xsd_glue_failwith(
- 	xc_interface *xch, const char *func, unsigned int line)
- {
-@@ -70,6 +72,7 @@ static void Noreturn xsd_glue_failwith(
+-fedora-gcc:
++fedora-40-x86_64-gcc:
+   extends: .gcc-x86-64-build
+   variables:
+-    CONTAINER: fedora:29
++    CONTAINER: fedora:40-x86_64
  
- 	caml_raise_with_arg(*caml_named_value("xsg.error_v1"), msg);
- }
-+#pragma GCC diagnostic pop
- #define xsd_glue_failwith(xch) xsd_glue_failwith(xch, __func__, __LINE__)
+-fedora-gcc-debug:
++fedora-40-x86_64-gcc-debug:
+   extends: .gcc-x86-64-build-debug
+   variables:
+-    CONTAINER: fedora:29
++    CONTAINER: fedora:40-x86_64
  
- CAMLprim value stub_xsd_glue_xc_interface_open(value unit)
+ ubuntu-16.04-x86_64-clang:
+   extends: .clang-x86-64-build
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index 7607b78f7666..6ac02c42d124 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -28,7 +28,7 @@ case "_${CONTAINER}" in
+     _alpine-arm64v8) CONTAINER="${BASE}/alpine:3.18-arm64v8" ;;
+     _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
+     _centos7) CONTAINER="${BASE}/centos:7" ;;
+-    _fedora) CONTAINER="${BASE}/fedora:29";;
++    _fedora) CONTAINER="${BASE}/fedora:40-x86_64";;
+     _bullseye-ppc64le) CONTAINER="${BASE}/debian:11-ppc64le" ;;
+     _bookworm-ppc64le) CONTAINER="${BASE}/debian:12-ppc64le" ;;
+     _bullseye-riscv64) CONTAINER="${BASE}/debian:11-riscv64" ;;
 -- 
 2.46.1
 
