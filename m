@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E4E19A2E12
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 21:51:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.821278.1235028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA3619A2E3B
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 22:08:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.821287.1235038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1WW2-0006Ao-TP; Thu, 17 Oct 2024 19:50:34 +0000
+	id 1t1Wmm-0006LK-9J; Thu, 17 Oct 2024 20:07:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 821278.1235028; Thu, 17 Oct 2024 19:50:34 +0000
+Received: by outflank-mailman (output) from mailman id 821287.1235038; Thu, 17 Oct 2024 20:07:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1WW2-000674-Qg; Thu, 17 Oct 2024 19:50:34 +0000
-Received: by outflank-mailman (input) for mailman id 821278;
- Thu, 17 Oct 2024 19:50:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2/Py=RN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t1WW1-00066y-SJ
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 19:50:33 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11c0da09-8cc1-11ef-a0be-8be0dac302b0;
- Thu, 17 Oct 2024 21:50:32 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a99e3b3a411so388942466b.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 12:50:32 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a68ae549bsm5117766b.77.2024.10.17.12.50.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Oct 2024 12:50:31 -0700 (PDT)
+	id 1t1Wmm-0006Jd-6K; Thu, 17 Oct 2024 20:07:52 +0000
+Received: by outflank-mailman (input) for mailman id 821287;
+ Thu, 17 Oct 2024 20:07:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1Wmk-0006JR-NT; Thu, 17 Oct 2024 20:07:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1Wmk-0002i3-LH; Thu, 17 Oct 2024 20:07:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1Wmk-0001K5-C5; Thu, 17 Oct 2024 20:07:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1Wmk-0002BO-Bc; Thu, 17 Oct 2024 20:07:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +42,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11c0da09-8cc1-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729194632; x=1729799432; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vs9/oTPCF9qbA4fIhOkXAdawt4YsQJ75+QQenrjo9W8=;
-        b=g+ay58BegcRUeuiJMVyN4chcSs4NtbLoFy0u6LBBQ5et9rzJylAS7/1HGXzEEzI+ge
-         fNPreG4Bd2HGf2vJYoDAU0lv07sTdVzJnA9Gojx8GpB1QUFRN9flk53thMWUmVgim7sh
-         T4Z4PMdXIWUxfIFn4RfxMFQJI4euaSOT3pDLk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729194632; x=1729799432;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vs9/oTPCF9qbA4fIhOkXAdawt4YsQJ75+QQenrjo9W8=;
-        b=oMzN9nHVRd6qZ3RCHr9opLM+WYeb286pyBc4r0PwM/n8mw/qXDC+R96nlo8uMhdDRY
-         /fg/cNHjp0v49Zp+5Ta373HNKfWHjW5ZoptzhXQA3fqvAJJ5JI5HpkUOyHxT1JIG6upt
-         G27sFSalkLQc9DruoLsvqeNLPr/5/wmTbFAsh0q4cyD/dpkEOGzQ+LBTIi6oe7vVaAcH
-         ntUJ04Gbv2A70xQFsVGM3pb/b5cxrUAmtKPysxuEyJafPobdR5qDo6rALAdZ4GmABY5z
-         /NTIovQajsVKIu9DKTsaIgNqDMDcAdPxUQ/dgJakE8YSiYh+qZepahhwRoojpfQB+Zzj
-         IxSA==
-X-Forwarded-Encrypted: i=1; AJvYcCXB7baiSlQEvi34pbwSRu7ICCEmovkOhOPrfSB22NZSWTOPZ5b4ldPEq0mFAfnkHJYTm8XcWKvEpKg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxq7Bzm5JGP5HxUBUcr2MAkb5hSyVNfjA1Q5sdjoNTuFVR5pPlF
-	bADd4KGmXS/oEGdDm/TIxg8K38/QxMuOq+8eWQ8hcuUkIga8ISqLlGU/yYp4giY=
-X-Google-Smtp-Source: AGHT+IGGm9hQThhajV8uvR7MN+R/+zyT2wMidtSx90gj6yM+gGzsQjp2CzRXI9T1N0t2OPnwdeL/lg==
-X-Received: by 2002:a17:906:c105:b0:a9a:5b84:ac81 with SMTP id a640c23a62f3a-a9a67f1c8b6mr26315866b.31.1729194632076;
-        Thu, 17 Oct 2024 12:50:32 -0700 (PDT)
-Message-ID: <66fc898a-e346-4dce-a99a-b8fdf2590511@citrix.com>
-Date: Thu, 17 Oct 2024 20:50:29 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/44] x86/boot: move x86 boot module counting into a
- new boot_info struct
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: Christopher Clark <christopher.w.clark@gmail.com>, jason.andryuk@amd.com,
- stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241017170325.3842-1-dpsmith@apertussolutions.com>
- <20241017170325.3842-2-dpsmith@apertussolutions.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <20241017170325.3842-2-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=+HGbQyRwq7z/21Ogmgcq6VXF3/hNhjRsRlHH9FLT4r8=; b=GBYJuffZYgE1vAy1xwE86Td9N4
+	A58pXG7GZASaCca9hL16YVRu5+G3u8gOalv9EV7hpXxv7XfEClB48PmEF48zyeIMoZVye9bTNh+XP
+	YKz/yJTdYsXF2Q9edNJXLfNsJhngSw+bQ3t+nHIEaSTFMc1jaHiqB9Y8GCQ9K4Suulfs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-188188-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 188188: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=6e197a8ba5e349e511850fc52457992de88c8795
+X-Osstest-Versions-That:
+    ovmf=e19cc32bce466fb1c175f7d44708c2ebb45802a7
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 17 Oct 2024 20:07:50 +0000
 
-On 17/10/2024 6:02 pm, Daniel P. Smith wrote:
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index a6e77c9ed9fc..6201ca0fad19 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -274,16 +275,28 @@ static int __init cf_check parse_acpi_param(const char *s)
->  custom_param("acpi", parse_acpi_param);
->  
->  static const module_t *__initdata initial_images;
-> -static unsigned int __initdata nr_initial_images;
-> +
-> +struct boot_info __initdata xen_boot_info;
-> +
-> +static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
-> +{
-> +    struct boot_info *bi = &xen_boot_info;
-> +    const multiboot_info_t *mbi = __va(mbi_p);
-> +
-> +    bi->nr_modules = (mbi->flags & MBI_MODULES) ? mbi->mods_count : 0;
+flight 188188 ovmf real [real]
+flight 188194 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/188188/
+http://logs.test-lab.xenproject.org/osstest/logs/188194/
 
-Having looked to end of the series, this and a few other expressions are
-still awkward.
+Regressions :-(
 
-The nicer way looks like:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 188152
 
-struct boot_info __initdata xen_boot_info = {
-    .loader = "unknown",
-    .cmdline = "",
-};
+version targeted for testing:
+ ovmf                 6e197a8ba5e349e511850fc52457992de88c8795
+baseline version:
+ ovmf                 e19cc32bce466fb1c175f7d44708c2ebb45802a7
 
-static struct boot_info *__init multiboot_fill_boot_info(unsigned long
-mbi_p)
-{
-    struct boot_info *bi = &xen_boot_info;
-    const multiboot_info_t *mbi = __va(mbi_p);
-    module_t *mods = __va(mbi->mods_addr);
-    unsigned int i;
+Last test of basis   188152  2024-10-17 07:11:33 Z    0 days
+Failing since        188156  2024-10-17 09:14:11 Z    0 days    3 attempts
+Testing same since   188188  2024-10-17 17:12:12 Z    0 days    1 attempts
 
-    if ( mbi->flags & MBI_MODULES )
-        bi->nr_modules = mbi->mods_count;
+------------------------------------------------------------
+People who touched revisions under test:
+  jack Hsieh <v-chhsieh@microsoft.com>
+  Jeremy Compostella <jeremy.compostella@intel.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kun Qin <kuqin@microsoft.com>
+  Sienski Piotr <piotr.sienski@intel.com>
+  v-chhsieh <v-chhsieh@microsoft.com>
 
-    if ( mbi->flags & MBI_LOADERNAME )
-        bi->loader = __va(mbi->boot_loader_name);
-
-    if ( mbi->flags & MBI_CMDLINE )
-        bi->cmdline = cmdline_cook(__va(mbi->cmdline), bi->loader);
-
-    if ( mbi->flags & MBI_MEMMAP )
-    {
-        bi->memmap_addr = mbi->mmap_addr;
-        bi->memmap_length = mbi->mmap_length;
-    }
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
 
 
-which is easier to read and follow.  Thoughts?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-~Andrew
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 6e197a8ba5e349e511850fc52457992de88c8795
+Author: v-chhsieh <v-chhsieh@microsoft.com>
+Date:   Mon Sep 30 14:43:39 2024 +0800
+
+    MdePkg: Add Google Test Library and Protocol
+    
+    Mock Libraries:
+     MdePkg\Test\Mock\Library\GoogleTest\MockCpuLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockPciSegmentLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockReportStatusCodeLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockSmmServicesTableLib
+    
+    Mock Protocol:
+     MdePkg\Test\Mock\Include\GoogleTest\Protocol\MockMpService.h
+    
+    Signed-off-by: jack Hsieh <v-chhsieh@microsoft.com>
+    Cc: Maintainer Shruti Gupta <shrugupt@microsoft.com>
+    Cc: Reviewer   Shruti Gupta <shrugupt@microsoft.com>
+
+commit 866abb233817eb349fa5fe2b32283e990a8e5056
+Author: Jeremy Compostella <jeremy.compostella@intel.com>
+Date:   Wed Oct 9 15:03:13 2024 -0700
+
+    MdeModulePkg: Replace right bit shift operator with RShiftU64
+    
+    Instead of using bit shift operations, it is preferable to use BaseLib
+    bit shift functions to prevent compilers from inserting intrinsics.
+    
+    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+
+commit 996e740cc83aa499d91b3ab3ae857dab7578e05c
+Author: Jeremy Compostella <jeremy.compostella@intel.com>
+Date:   Tue Oct 8 16:55:51 2024 -0700
+
+    MdeModulePkg: Fix PeiAllocatePages() corner case
+    
+    I recently ran into an AllocatePages() hang. It turns out that
+    AllocatePages() does not account for the Memory Allocation HOB when it
+    makes the decision of allocating out of free memory.
+    
+    Here is the scenario:
+    
+      FreeMemoryTop    - 0x71C03000
+      FreeMemoryBottom - 0x71BDBFD8
+      => We have 159,784 bytes left => ~39.0098 pages left.
+    
+    We attempt to allocate 39 pages. There are enough pages left but
+    allocating those pages requires to allocate a Memory Allocation HOB
+    which needs an extra 48 bytes. But once the pages are allocated,
+    there are only 40 bytes left.
+    
+    In addition to taking into account the Memory Allocation HOB size,
+    this commit reverses the condition to keep it simple.
+    
+    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+
+commit 1b70dcd375765d293f57fe546710b98525e6a46d
+Author: Sienski Piotr <piotr.sienski@intel.com>
+Date:   Mon Oct 14 12:24:14 2024 +0200
+
+    MdePkg/Include/Guid: Add missing CXL definitions to Cper.h
+    
+    [Issue Description]
+    In MdePkg/Include/Guid/Cper.h there are missing multiple definitions
+    regarding CXL that can be found in UEFI 2.10 spec
+    chapters N.2.13 and N.2.14
+    
+    [Resolution]
+    Add these definitions to MdePkg/Include/Guid/Cper.h
+    
+    Signed-off-by: Sienski Piotr <piotr.sienski@intel.com>
+
+commit 79598f34fa024ad2491b46b95c3189c5a7f159d2
+Author: Kun Qin <kuqin12@gmail.com>
+Date:   Wed Aug 10 22:56:34 2022 -0700
+
+    MdeModulePkg: PeiMain: Updated dispatcher for delayed dispatch
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    This change adds a check for PEI dispatcher to continue dispatching when
+    there are still pending delayed dispatch requests, to be compatible with
+    newly integrated Delayed Dispatcher PPI interface.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Cc: Debkumar De <debkumar.de@intel.com>
+    Cc: Catharine West <catharine.west@intel.com>
+    
+    Co-authored-by: John Schock <joschock@microsoft.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+
+commit d64d1e195ceb003c824786bfd817227c7ae81f06
+Author: Kun Qin <kuqin@microsoft.com>
+Date:   Thu Sep 19 14:11:37 2024 -0700
+
+    MdeModulePkg: PeiMain: Introduce implementation of delayed dispatch
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    This change adds the implementation that fits the needs and description
+    of PI spec defined Delayed Dispatch PPI in Pei Core.
+    
+    The PPI would allow minimal delay for registered callbacks. As well as
+    allowing other functions to wait for GUIDed delayed dispatch callbacks.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Debkumar De <debkumar.de@intel.com>
+    Cc: Catharine West <catharine.west@intel.com>
+    
+    Co-authored-by: Mike Turner <mikeyt@pobox.com>
+    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+
+commit b3f36e151d8b014cac5c6a833e2270c14d998739
+Author: Kun Qin <kuqin@microsoft.com>
+Date:   Thu Sep 19 14:09:03 2024 -0700
+
+    MdePkg: Update Delayed Dispatch PPI as per PI 1.8 A Spec
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    PI spec defined the `Register` function input argument `Delay` as output.
+    However, this parameter should be used to define the minmal time delay
+    the callback should fire. Thus it should be an input parameter.
+    
+    This change fixed the argument type.
+    
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+    
+    Co-authored-by: Mike Turner <mikeyt@pobox.com>
+    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
 
