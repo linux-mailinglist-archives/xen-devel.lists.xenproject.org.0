@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9153D9A2A03
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 19:03:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.820819.1234432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 920579A2A4C
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2024 19:08:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.820898.1234633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1Ttn-0005pc-88; Thu, 17 Oct 2024 17:02:55 +0000
+	id 1t1TzF-000889-Lp; Thu, 17 Oct 2024 17:08:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 820819.1234432; Thu, 17 Oct 2024 17:02:55 +0000
+Received: by outflank-mailman (output) from mailman id 820898.1234633; Thu, 17 Oct 2024 17:08:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1Ttn-0005nv-4i; Thu, 17 Oct 2024 17:02:55 +0000
-Received: by outflank-mailman (input) for mailman id 820819;
- Thu, 17 Oct 2024 17:02:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t1TzF-00083w-Go; Thu, 17 Oct 2024 17:08:33 +0000
+Received: by outflank-mailman (input) for mailman id 820898;
+ Thu, 17 Oct 2024 17:08:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0C1g=RN=bounce.vates.tech=bounce-md_30504962.67114339.v1-36c0712005714e83bc891fbb4b76035d@srs-se1.protection.inumbo.net>)
- id 1t1Ttm-0005np-EE
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 17:02:54 +0000
-Received: from mail186-28.suw21.mandrillapp.com
- (mail186-28.suw21.mandrillapp.com [198.2.186.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a45b3c37-8ca9-11ef-a0be-8be0dac302b0;
- Thu, 17 Oct 2024 19:02:52 +0200 (CEST)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-28.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4XTvKP4SRGzMQxdJX
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2024 17:02:49 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 36c0712005714e83bc891fbb4b76035d; Thu, 17 Oct 2024 17:02:49 +0000
+ <SRS0=KqF2=RN=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1t1Tvv-0006TN-ST
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2024 17:05:07 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f42e10c9-8ca9-11ef-99a3-01e77a169b0f;
+ Thu, 17 Oct 2024 19:05:06 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729184627400845.0097301540941;
+ Thu, 17 Oct 2024 10:03:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,87 +38,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a45b3c37-8ca9-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1729184569; x=1729445069;
-	bh=RuKXeiTwVLED9q8JXfpU9iyhN9lwitkaLd9n5bwKn5Q=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=VdH3QFdi38fNtiDyHI0MX6NUTrezUGartAPiD2aEt/16UfQEVELiZgx8pAEoL72F5
-	 wUDqvPs8OFw3pg4UySkYbP9rlwS4pGKtf7zI3/AuGrkHhbvmX+0Tctit7QESAcybd5
-	 EJpmYmJz5xnHtHe3s4E+rONFTfcz/oUnzDldeL+diQJEHp531iDmolB3CyJE4eRpOV
-	 6uvG7q+R1PM4oEVkVPU5R2ltoVjClspmL1Ek2ZCUoGuYnx7IycivgItCVXYOMbFGzC
-	 f9bVb+YreClHaGa8WsdP3MYoV+m7ybd2T6H1jFax59pk4BPPm/dMblnVDdVTZMY2BB
-	 2R2kJsX7nYLnw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1729184569; x=1729445069; i=anthony.perard@vates.tech;
-	bh=RuKXeiTwVLED9q8JXfpU9iyhN9lwitkaLd9n5bwKn5Q=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=YSlsOHzcKPSrjvbUGRV68wA79xEVA3fham6R0PfZXwG0glLFrTurY0M1RkH2fIiid
-	 +mWZZ5pjJgsZwMtZRClHcr0qo5qbAYa/i17BcYrWknCSfV9wNZqqpKH+hrV026CtnD
-	 OOCgAXM8/sia0SZ18D2QAaGb/8TuonLwpQf80qjiiHwj/fNVqZFQkZilcXLsCgPvFr
-	 U1lYyNbWqG/jUwyQn5hwlbXodbXrbkZLj6RsqQ1KGj/aJ0fDeK48N/cctsjk2FRTBR
-	 IdUGoa3v8lq7Wol7yoQ+J38DrZXDrbQIowWieXhftzk+IGRu3myPbEeg90FHjsA0yJ
-	 lbeS1oDDvksDA==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v1=201/3]=20automation:=20Fix=20URL=20to=20the=20gitlab=20container=20registry=20documentation?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1729184568275
-To: Javi Merino <javi.merino@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>
-Message-Id: <ZxFDN0rRfsg0iNBj@l14>
-References: <cover.1729170005.git.javi.merino@cloud.com> <5ebb776792a345724b43b0843aa41c21febcc843.1729170005.git.javi.merino@cloud.com>
-In-Reply-To: <5ebb776792a345724b43b0843aa41c21febcc843.1729170005.git.javi.merino@cloud.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.36c0712005714e83bc891fbb4b76035d?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241017:md
-Date: Thu, 17 Oct 2024 17:02:49 +0000
+X-Inumbo-ID: f42e10c9-8ca9-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1729184629; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=SeayuwoQT0saTqC6G096y+49K1bclg5Ivg81bteWsoDLt/adFhxnFW3tKKpe/IWKuCK2jaI8RMq4NqZ3w5Hit3zXBubjRzMX+B0N8cy4mAOfWPTcJf/wEUf4YLj12lfiJYWtazTvbLq8IoUOlC37CmR00icW70Q4sFG8mfbUbXo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1729184629; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Dgh7JemAIAyELVZo1MtAbdLIy6CYiHIimrr6e9LjQD8=; 
+	b=TS19wJUP0AMUiHWHp2eIISwQGpgs2CJKJCRwnlx1rDwNRQwoqOWgZqqwCnXyLHBMQRtRuIO4V/X70VsAZvI6r8AhW49kWAwEttsFIPPDcFm4ZhOW1cd2yWnnDYQzZ5DZcOnwS3zRwDpAaJgBy/PA+ibqDTqhGQo3/0OG+L8IhTQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729184629;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=Dgh7JemAIAyELVZo1MtAbdLIy6CYiHIimrr6e9LjQD8=;
+	b=K4K1/ZiQiOWJ4pIQWR8kcK25hcKKNHMCIIV0jXCjd2149ZUXycVc3sYYaeqwrsyM
+	1sfKSVqt1NlVpU6FcdjYIInTnfaoX/QRYLCSXzdsuoMKKGXIy1JGrCnL9EoeLYbioUH
+	rRXqtzfuNVbC3KFj5rGn2C969yTTnhPCXPclm8Xg=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	jason.andryuk@amd.com,
+	christopher.w.clark@gmail.com,
+	stefano.stabellini@amd.com,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v6 10/44] x86/boot: introduce boot module flags
+Date: Thu, 17 Oct 2024 13:02:50 -0400
+Message-Id: <20241017170325.3842-11-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20241017170325.3842-1-dpsmith@apertussolutions.com>
+References: <20241017170325.3842-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Thu, Oct 17, 2024 at 05:20:19PM +0100, Javi Merino wrote:
-> The gitlab documentation is now at
-> https://docs.gitlab.com/ee/administration/packages/container_registry.html
+The existing startup code employs various ad-hoc state tracking about certain
+boot module types by each area of the code. A boot module flags is added to
+enable tracking these different states.  The first state to be transition by
+this commit is module relocation.
 
-This link seems to be for self-managed instance of gitlab, but the link
-in the patch looks fine.
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes since v5:
+- removed trailing blank line.
+---
+ xen/arch/x86/include/asm/bootinfo.h | 3 +++
+ xen/arch/x86/setup.c                | 8 ++++----
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-> Signed-off-by: Javi Merino <javi.merino@cloud.com>
-
-The patch description could be removed, so:
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
-
-Thanks,
-
-> ---
->  automation/build/README.md | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/automation/build/README.md b/automation/build/README.md
-> index bd0c0e041804..ecc898680c91 100644
-> --- a/automation/build/README.md
-> +++ b/automation/build/README.md
-> @@ -110,7 +110,7 @@ make -C automation/build opensuse/tumbleweed-x86_64 PUSH=1
->  
->  [BuildKit]: https://docs.docker.com/build/buildkit/
->  [registry]: https://gitlab.com/xen-project/xen/container_registry
-> -[registry help]: https://gitlab.com/help/user/project/container_registry
-> +[registry help]: https://docs.gitlab.com/ee/user/packages/container_registry/
->  
->  
->  Building/Running container for a different architecture
-
+diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+index 18281d80fa97..e8ba9390a51f 100644
+--- a/xen/arch/x86/include/asm/bootinfo.h
++++ b/xen/arch/x86/include/asm/bootinfo.h
+@@ -39,6 +39,9 @@ struct boot_module {
+      */
+     unsigned long headroom;
+     enum bootmod_type type;
++
++    uint32_t flags;
++#define BOOTMOD_FLAG_X86_RELOCATED     (1U << 0)
+ };
+ 
+ /*
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index fed9bef16305..f87faa31a2cf 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1357,7 +1357,6 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+             panic("Bootloader didn't honor module alignment request\n");
+         bi->mods[i].mod->mod_end -= bi->mods[i].mod->mod_start;
+         bi->mods[i].mod->mod_start >>= PAGE_SHIFT;
+-        bi->mods[i].mod->reserved = 0;
+     }
+ 
+     /*
+@@ -1471,7 +1470,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+             struct boot_module *bm = &bi->mods[j];
+             unsigned long size = PAGE_ALIGN(bm->headroom + bm->mod->mod_end);
+ 
+-            if ( bi->mods[j].mod->reserved )
++            if ( bi->mods[j].flags & BOOTMOD_FLAG_X86_RELOCATED )
+                 continue;
+ 
+             /* Don't overlap with other modules (or Xen itself). */
+@@ -1490,7 +1489,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+                             bm->mod->mod_end);
+                 bm->mod->mod_start = (end - size) >> PAGE_SHIFT;
+                 bm->mod->mod_end += bm->headroom;
+-                bm->mod->reserved = 1;
++                bm->flags |= BOOTMOD_FLAG_X86_RELOCATED;
+             }
+         }
+ 
+@@ -1516,7 +1515,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+ #endif
+     }
+ 
+-    if ( bi->mods[0].headroom && !bi->mods[0].mod->reserved )
++    if ( bi->mods[0].headroom &&
++         !(bi->mods[0].flags & BOOTMOD_FLAG_X86_RELOCATED) )
+         panic("Not enough memory to relocate the dom0 kernel image\n");
+     for ( i = 0; i < bi->nr_modules; ++i )
+     {
 -- 
+2.30.2
 
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
 
