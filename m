@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26AA99A391D
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 10:51:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.821686.1235606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46FCC9A3A0F
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 11:33:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.821697.1235622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1ih9-0007Uc-98; Fri, 18 Oct 2024 08:50:51 +0000
+	id 1t1jLr-00042z-3F; Fri, 18 Oct 2024 09:32:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 821686.1235606; Fri, 18 Oct 2024 08:50:51 +0000
+Received: by outflank-mailman (output) from mailman id 821697.1235622; Fri, 18 Oct 2024 09:32:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1ih9-0007Sv-5L; Fri, 18 Oct 2024 08:50:51 +0000
-Received: by outflank-mailman (input) for mailman id 821686;
- Fri, 18 Oct 2024 08:50:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hWMG=RO=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1t1ih7-0007Sp-T0
- for xen-devel@lists.xenproject.org; Fri, 18 Oct 2024 08:50:50 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11357450-8d2e-11ef-99a3-01e77a169b0f;
- Fri, 18 Oct 2024 10:50:46 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2fb57f97d75so18707121fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2024 01:50:46 -0700 (PDT)
-Received: from jmerino-thinkstation ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ca0b0807f8sm455583a12.33.2024.10.18.01.50.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Oct 2024 01:50:45 -0700 (PDT)
+	id 1t1jLr-000409-0K; Fri, 18 Oct 2024 09:32:55 +0000
+Received: by outflank-mailman (input) for mailman id 821697;
+ Fri, 18 Oct 2024 09:32:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1jLp-0003zz-Pl; Fri, 18 Oct 2024 09:32:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1jLp-0000ih-La; Fri, 18 Oct 2024 09:32:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1jLp-0000lk-B4; Fri, 18 Oct 2024 09:32:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1t1jLp-0003xu-Aa; Fri, 18 Oct 2024 09:32:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +42,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11357450-8d2e-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1729241446; x=1729846246; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fuL/P2AT5Kv+sre0CQ3J2lpLtaynLRHpaP6kVoT7GaM=;
-        b=ACj6w5duaRupLAllCbEt7sznhYauzCU0b69G9+FL1jYHpNMNW8s5Oma8tva3fIhL0M
-         8mkk+UMNpNRA78/6uKyzgzcXulXrmdav75xGaTTLPVtNkH6fN0HSfLOnUcRqvT1QiEJJ
-         q4I7AqNyICu7yo0EyFmzDs/i5bqV2emsFAiD8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729241446; x=1729846246;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fuL/P2AT5Kv+sre0CQ3J2lpLtaynLRHpaP6kVoT7GaM=;
-        b=CqLxK7HeUM5Ca/6Ob7dUpkxnEVmAd/ok74rbEZKUun2CgprNpoIAA10ugvuB4L0gPP
-         sFkFa1KdVVFr7Jolozkrq6siysAYBYNs4vr5lvcjXS7sBOvy/n85gJ4BrepjpZMwssOq
-         y/CgeyTtUZPZ69fR4uUu31zSaNOTQRJa/OT+dl6UVe+uQ+W5etzldt3AODkmaRvj83G3
-         bShfg7xCyKevcZefXjyd7Mz3LVZ1IHdqOvGsM3AtRgg+rq5waC6WehGB/JOQncZ2fz5/
-         XjkZi23JsLdjisILGT6mi1wJW9/FPSSFoGmaMuwyHKY8iEG9CaYfECGzO5BMNM7v2/ro
-         VLag==
-X-Gm-Message-State: AOJu0Yxsxp59igiV9I3Vz7Dj17+mrZqCCV+I2W0qP5JnYhEVF8t9vW95
-	igT6u192xeCU18Ul1sM4tP15CanFTkBzkOJfBXulT50csz9PqzQbdhvDOaOWT/U=
-X-Google-Smtp-Source: AGHT+IHzVbkgI4Sj6Uv/p9TfuPiMxSXSbwU3GpD6OKxqGEgFnUIFyKehwjQ6zKnGtvNxS8eCETwAiQ==
-X-Received: by 2002:a2e:e01:0:b0:2fb:45cf:5eef with SMTP id 38308e7fff4ca-2fb83260fe6mr5852401fa.30.1729241446141;
-        Fri, 18 Oct 2024 01:50:46 -0700 (PDT)
-Date: Fri, 18 Oct 2024 09:50:44 +0100
-From: Javi Merino <javi.merino@cloud.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Andrii Sultanov <andrii.sultanov@cloud.com>
-Subject: Re: [XEN PATCH v1 2/3] ocaml/libs: Fill build failure due to unused
- variable in ocaml macro
-Message-ID: <nb2iahlpzuwvmoqtlu552uteujm27ywe3gzxnfzad26pguwreh@s5kjlxonlgdc>
-References: <cover.1729170005.git.javi.merino@cloud.com>
- <d6b98ca75017bf4aa72a69468321705263e66f30.1729170005.git.javi.merino@cloud.com>
- <a2fb569d-4314-4d0e-b288-8891d8848d24@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8diJNHIIQtPiTtkmE2MI/y0G3tqLFPdu+hAoqMsBv/U=; b=inpCTtH2jP6m/QujxKOY6PZExJ
+	yI30z6Xf07iFEmZwnP+pIZNYv1CdwWHL0Yc7l717R5ZxLZ4LqQxP2tOVrf6eUwd7E0RRdBLPgYDAB
+	kWInEZIDg6uNEGKQMrfLH/TAXTt1ecbuWPsARIZH9lxF0lnOoD6UhFrDG4I31q7eAg98=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-188219-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a2fb569d-4314-4d0e-b288-8891d8848d24@citrix.com>
+MIME-Version: 1.0
+Subject: [ovmf test] 188219: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=6e197a8ba5e349e511850fc52457992de88c8795
+X-Osstest-Versions-That:
+    ovmf=e19cc32bce466fb1c175f7d44708c2ebb45802a7
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Oct 2024 09:32:53 +0000
 
-On Thu, Oct 17, 2024 at 06:47:44PM +0100, Andrew Cooper wrote:
-> On 17/10/2024 5:20 pm, Javi Merino wrote:
-> > On Fedora 40, the build fails with:
-> >
-> >     gcc -m64 -DBUILD_ID -fno-strict-aliasing -std=gnu99 -Wall -Wstrict-prototypes -Wno-unused-but-set-variable -Wno-unused-local-typedefs   -Werror -O2 -fomit-frame-pointer -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__ -MMD -MP -MF .domain_getinfo_stubs_v1.o.d -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE   -fPIC -I/usr/lib64/ocaml -I /build/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/../../../libs -I /build/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/../../../libs/xsd_glue -I/build/tools/ocaml/libs/xsd_glue/domain_getinfo_plugin_v1/../../../../../tools/include -D__XEN_TOOLS__ -I/build/tools/ocaml/libs\/xsd_glue/domain_getinfo_plugin_v1/../../../../../tools/include  -c -o domain_getinfo_stubs_v1.o domain_getinfo_stubs_v1.c
-> >     In file included from domain_getinfo_stubs_v1.c:10:
-> >     domain_getinfo_stubs_v1.c: In function 'xsd_glue_failwith':
-> >     /usr/lib64/ocaml/caml/memory.h:275:29: error: unused variable 'caml__frame' [-Werror=unused-variable]
-> >       275 |   struct caml__roots_block *caml__frame = *caml_local_roots_ptr
-> >           |                             ^~~~~~~~~~~
-> >     domain_getinfo_stubs_v1.c:48:9: note: in expansion of macro 'CAMLparam0'
-> >       48 |         CAMLparam0();
-> >          |         ^~~~~~~~~~
-> >     cc1: all warnings being treated as errors
-> >
-> > The CAMLparam0 macro is defined in /usr/lib64/ocaml/caml/memory.h:255 as:
-> >
-> >     #define CAMLparam0()                                                    \
-> >       struct caml__roots_block** caml_local_roots_ptr =                     \
-> >         (DO_CHECK_CAML_STATE ? Caml_check_caml_state() : (void)0,           \
-> >          &CAML_LOCAL_ROOTS);                                                \
-> >       struct caml__roots_block *caml__frame = *caml_local_roots_ptr
-> >
-> > We can't modify the macro.  Mark the xsd_glue_failwith() function with
-> > ignore "-Wunused-variable" to prevent gcc from failing the build due
-> > to the unused variable.
-> >
-> > Fixes: a6576011a4d2 ("ocaml/libs: Implement a dynamically-loaded plugin for Xenctrl.domain_getinfo")
-> > Signed-off-by: Javi Merino <javi.merino@cloud.com>
-> 
-> That's horrible...
-> 
-> I note the Ocaml manual even says:
-> 
-> "Some C compilers give bogus warnings about unused variables
-> caml__dummy_xxx at each use of CAMLparam and CAMLlocal. You should
-> ignore them."  which a brave claim to make...
-> 
-> 
-> The problem with pragma gcc is that we support Clang too.
-> 
-> Having had a play, this works too
-> 
-> @@ -45,7 +45,9 @@ static struct custom_operations xsd_glue_xenctrl_ops = {
->  static void Noreturn xsd_glue_failwith(
->         xc_interface *xch, const char *func, unsigned int line)
->  {
-> +#define caml__frame __attribute__((unused)) caml__frame
->         CAMLparam0();
-> +#undef caml__frame
->         CAMLlocal1(msg);
->         const xc_error *error = xch ? xc_get_last_error(xch) : NULL;
->         char *str = NULL;
-> 
-> and is rather more selective.
-> 
-> 
-> However, looking through other bits of memory.h, there's this gem:
-> 
-> #define CAMLnoreturn ((void) caml__frame)
-> 
-> which has existed since db3745919 "suppression des warnings "unused
-> variable" de gcc" in 2004.
-> 
-> So, I think this is a better fix:
-> 
-> @@ -69,6 +69,7 @@ static void Noreturn xsd_glue_failwith(
->         free(str);
->  
->         caml_raise_with_arg(*caml_named_value("xsg.error_v1"), msg);
-> +       CAMLnoreturn;
->  }
->  #define xsd_glue_failwith(xch) xsd_glue_failwith(xch, __func__, __LINE__)
->  
+flight 188219 ovmf real [real]
+flight 188236 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/188219/
+http://logs.test-lab.xenproject.org/osstest/logs/188236/
 
-Right!  I actually tried put a (void)caml__frame to silence the
-warning, but I didn't think of looking for a macro that would do
-exactly that.
+Regressions :-(
 
-Do I have to resend the series with your patch, or can you commit it
-directly?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 188152
 
-Cheers,
-Javi
+version targeted for testing:
+ ovmf                 6e197a8ba5e349e511850fc52457992de88c8795
+baseline version:
+ ovmf                 e19cc32bce466fb1c175f7d44708c2ebb45802a7
+
+Last test of basis   188152  2024-10-17 07:11:33 Z    1 days
+Failing since        188156  2024-10-17 09:14:11 Z    1 days    5 attempts
+Testing same since   188188  2024-10-17 17:12:12 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  jack Hsieh <v-chhsieh@microsoft.com>
+  Jeremy Compostella <jeremy.compostella@intel.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kun Qin <kuqin@microsoft.com>
+  Sienski Piotr <piotr.sienski@intel.com>
+  v-chhsieh <v-chhsieh@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 6e197a8ba5e349e511850fc52457992de88c8795
+Author: v-chhsieh <v-chhsieh@microsoft.com>
+Date:   Mon Sep 30 14:43:39 2024 +0800
+
+    MdePkg: Add Google Test Library and Protocol
+    
+    Mock Libraries:
+     MdePkg\Test\Mock\Library\GoogleTest\MockCpuLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockPciSegmentLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockReportStatusCodeLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockSmmServicesTableLib
+    
+    Mock Protocol:
+     MdePkg\Test\Mock\Include\GoogleTest\Protocol\MockMpService.h
+    
+    Signed-off-by: jack Hsieh <v-chhsieh@microsoft.com>
+    Cc: Maintainer Shruti Gupta <shrugupt@microsoft.com>
+    Cc: Reviewer   Shruti Gupta <shrugupt@microsoft.com>
+
+commit 866abb233817eb349fa5fe2b32283e990a8e5056
+Author: Jeremy Compostella <jeremy.compostella@intel.com>
+Date:   Wed Oct 9 15:03:13 2024 -0700
+
+    MdeModulePkg: Replace right bit shift operator with RShiftU64
+    
+    Instead of using bit shift operations, it is preferable to use BaseLib
+    bit shift functions to prevent compilers from inserting intrinsics.
+    
+    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+
+commit 996e740cc83aa499d91b3ab3ae857dab7578e05c
+Author: Jeremy Compostella <jeremy.compostella@intel.com>
+Date:   Tue Oct 8 16:55:51 2024 -0700
+
+    MdeModulePkg: Fix PeiAllocatePages() corner case
+    
+    I recently ran into an AllocatePages() hang. It turns out that
+    AllocatePages() does not account for the Memory Allocation HOB when it
+    makes the decision of allocating out of free memory.
+    
+    Here is the scenario:
+    
+      FreeMemoryTop    - 0x71C03000
+      FreeMemoryBottom - 0x71BDBFD8
+      => We have 159,784 bytes left => ~39.0098 pages left.
+    
+    We attempt to allocate 39 pages. There are enough pages left but
+    allocating those pages requires to allocate a Memory Allocation HOB
+    which needs an extra 48 bytes. But once the pages are allocated,
+    there are only 40 bytes left.
+    
+    In addition to taking into account the Memory Allocation HOB size,
+    this commit reverses the condition to keep it simple.
+    
+    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+
+commit 1b70dcd375765d293f57fe546710b98525e6a46d
+Author: Sienski Piotr <piotr.sienski@intel.com>
+Date:   Mon Oct 14 12:24:14 2024 +0200
+
+    MdePkg/Include/Guid: Add missing CXL definitions to Cper.h
+    
+    [Issue Description]
+    In MdePkg/Include/Guid/Cper.h there are missing multiple definitions
+    regarding CXL that can be found in UEFI 2.10 spec
+    chapters N.2.13 and N.2.14
+    
+    [Resolution]
+    Add these definitions to MdePkg/Include/Guid/Cper.h
+    
+    Signed-off-by: Sienski Piotr <piotr.sienski@intel.com>
+
+commit 79598f34fa024ad2491b46b95c3189c5a7f159d2
+Author: Kun Qin <kuqin12@gmail.com>
+Date:   Wed Aug 10 22:56:34 2022 -0700
+
+    MdeModulePkg: PeiMain: Updated dispatcher for delayed dispatch
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    This change adds a check for PEI dispatcher to continue dispatching when
+    there are still pending delayed dispatch requests, to be compatible with
+    newly integrated Delayed Dispatcher PPI interface.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Cc: Debkumar De <debkumar.de@intel.com>
+    Cc: Catharine West <catharine.west@intel.com>
+    
+    Co-authored-by: John Schock <joschock@microsoft.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+
+commit d64d1e195ceb003c824786bfd817227c7ae81f06
+Author: Kun Qin <kuqin@microsoft.com>
+Date:   Thu Sep 19 14:11:37 2024 -0700
+
+    MdeModulePkg: PeiMain: Introduce implementation of delayed dispatch
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    This change adds the implementation that fits the needs and description
+    of PI spec defined Delayed Dispatch PPI in Pei Core.
+    
+    The PPI would allow minimal delay for registered callbacks. As well as
+    allowing other functions to wait for GUIDed delayed dispatch callbacks.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Debkumar De <debkumar.de@intel.com>
+    Cc: Catharine West <catharine.west@intel.com>
+    
+    Co-authored-by: Mike Turner <mikeyt@pobox.com>
+    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+
+commit b3f36e151d8b014cac5c6a833e2270c14d998739
+Author: Kun Qin <kuqin@microsoft.com>
+Date:   Thu Sep 19 14:09:03 2024 -0700
+
+    MdePkg: Update Delayed Dispatch PPI as per PI 1.8 A Spec
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    PI spec defined the `Register` function input argument `Delay` as output.
+    However, this parameter should be used to define the minmal time delay
+    the callback should fire. Thus it should be an input parameter.
+    
+    This change fixed the argument type.
+    
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+    
+    Co-authored-by: Mike Turner <mikeyt@pobox.com>
+    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
 
