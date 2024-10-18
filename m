@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B0A09A380B
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 10:08:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.821658.1235573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFE439A38F0
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 10:44:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.821674.1235592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1i25-00013u-ML; Fri, 18 Oct 2024 08:08:25 +0000
+	id 1t1iZe-0001e8-Fj; Fri, 18 Oct 2024 08:43:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 821658.1235573; Fri, 18 Oct 2024 08:08:25 +0000
+Received: by outflank-mailman (output) from mailman id 821674.1235592; Fri, 18 Oct 2024 08:43:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1i25-00011k-Iy; Fri, 18 Oct 2024 08:08:25 +0000
-Received: by outflank-mailman (input) for mailman id 821658;
- Fri, 18 Oct 2024 08:08:24 +0000
+	id 1t1iZe-0001bb-Ct; Fri, 18 Oct 2024 08:43:06 +0000
+Received: by outflank-mailman (input) for mailman id 821674;
+ Fri, 18 Oct 2024 08:43:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7i1V=RO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1t1i24-00011d-GI
- for xen-devel@lists.xenproject.org; Fri, 18 Oct 2024 08:08:24 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ <SRS0=SHZo=RO=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1t1iZc-0001bO-Pb
+ for xen-devel@lists.xenproject.org; Fri, 18 Oct 2024 08:43:04 +0000
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [2607:f8b0:4864:20::c34])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 244a80c8-8d28-11ef-99a3-01e77a169b0f;
- Fri, 18 Oct 2024 10:08:22 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5c9625cfe4dso2210806a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2024 01:08:22 -0700 (PDT)
-Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a68bf7669sm61338066b.171.2024.10.18.01.08.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Oct 2024 01:08:20 -0700 (PDT)
+ id faed2d1c-8d2c-11ef-99a3-01e77a169b0f;
+ Fri, 18 Oct 2024 10:43:00 +0200 (CEST)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-5eb7f8e26f4so583529eaf.2
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2024 01:43:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,153 +40,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 244a80c8-8d28-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: faed2d1c-8d2c-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729238901; x=1729843701; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=SWO0FmBLFHJZH9jt972i/jtzdUO5iTIlLeJ7XupzTFg=;
-        b=sYwylxeXq1S/z1Xlx0uXQKN+LTUcdtm+jR7eeITAmGEC8Fe6oimTKXJ0IHLOsdJRU6
-         5rxEuKmNTmJLgt2sXOMRCjnRoVnITOj9bpbu0BcRDGb+0s4X0i1HyYwDQUORqqBb6Jta
-         WiBE58DJUv7WChzvCZpZeM38EnWM6s9eztNvE=
+        d=cloud.com; s=cloud; t=1729240979; x=1729845779; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xVua38eTNwsaYkmdKKirirqsAZkuuYqPZOoYR9T/JuM=;
+        b=JCOc3jdFKSvR/leAODcGkyuLyFoZF7j9qX62Gszj/Bqd4QnbSnFnk+WC6IfpcY5d1D
+         ti4okDP3sRX1fs9d7Pb8A8YIfhRJJhpkvPVT8Tgac3KQau9mth0zlPhbItoPQ4hlCtXU
+         qUbbFV8iOBYihpc1dUxf9YZj/kJhL731/zC2I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729238901; x=1729843701;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SWO0FmBLFHJZH9jt972i/jtzdUO5iTIlLeJ7XupzTFg=;
-        b=UE5+6OZ3BMy0osQ3Z6ud37SYB4GZQNt4kj3eOO/n7Xl3emrIXrzGt9Z1URf+FfxXhZ
-         mpnkEOL7Av7vjBDW8tpW57F9axvBfDM7ygcIT6wS11JvZY8F34Bv2cx+CaV0xo76eR4N
-         fobpv82C49p0iBv1s3L1w0nt9K9hHvjgW4CegJb6SDWbkmmW+TEZjWPr82gjUBZabz4w
-         BjH8b42AKiNe3Cb75tHcvXfeCzG5NqtA72Dr35WIz94jNohSUg2oUpQKzNiOip6FWv+l
-         UqrZiCd5mgcm64bpqF49qPJL/8rSrc4LNeBHdSYD4F2Jq4e+9AuOwKGbx5pdYrUZk2+m
-         Xt4A==
-X-Gm-Message-State: AOJu0Yy0Vg0GwDzTDbw5z6lyS367NPP2Wains01cugIymdDs9V7yutTs
-	Z97IinLfkN6S/q9utzraiKI1IVpSILJWnc6XASkIeNpjqLdCoceO5Exj6oMNYiW0M4tFTUyUIRm
-	B
-X-Google-Smtp-Source: AGHT+IF+jgDYwQM9HweZrGlbsiGa6znuoD6fPzkUgdsAhPubJQJ3h9X8ir+y0rKvW08wm/Qc3I6TIQ==
-X-Received: by 2002:a17:907:7f87:b0:a9a:41c6:1d34 with SMTP id a640c23a62f3a-a9a69a66b40mr125532466b.21.1729238900579;
-        Fri, 18 Oct 2024 01:08:20 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Willi Junga <xenproject@ymy.be>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt remapping
-Date: Fri, 18 Oct 2024 10:08:13 +0200
-Message-ID: <20241018080813.45759-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
+        d=1e100.net; s=20230601; t=1729240979; x=1729845779;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xVua38eTNwsaYkmdKKirirqsAZkuuYqPZOoYR9T/JuM=;
+        b=Xudhq+nEald2+PS8qcYa0uGGHqxDQPqqUvS2Prv8aX0G/UEjm9lNEz1AemeWsM1x2+
+         Hq25Yy+qZnhvYzELBaeOiQqSFZS1eT4ELa1sq7+kq+AIgkzpPXiLHFow/ADTAK7FkrZ2
+         BGBE9rciGT8vouuckb4qgVbPgGLSzKe44tg6sCprjx2KdI33w5wDxQHmqZt5NJjtfcZo
+         iwDGL2q+niYcAsSfrP64Yg4hINCdF6+5yX+oaSs5op0qDhc3T+IycwiDEp6Z9ys72+w4
+         KyEKbNSBiAIkcDiP/Ee5GMVLK3hJrFrtguNYXSyFI/BU2RGEUpbIH8pEnIGF6m/yeecX
+         Durw==
+X-Gm-Message-State: AOJu0YwbK2xnJYFqZmUlSq0TO8Z98DPQc/aawgmhgXgBLeuoePeE/7GD
+	3jZA4p6sJciqkpiEJM9G40X2frE8aT4IEaFUH9qWGFZafsCVBe20pLDlYIAwZwoTQpHvuLmSWMb
+	RvKn9CWQDqthsvHPrOtj/ZQNz8vpfxgxE+rXTvw==
+X-Google-Smtp-Source: AGHT+IGxKGHL0rgOsSkBBNov75N9/8afZYcuBghKn0m2YiulyXmOG2drJU+1kAwXh9c3xQIPRL4yVUjBhJFJHrqs4VM=
+X-Received: by 2002:a05:6820:f08:b0:5e1:e65d:5148 with SMTP id
+ 006d021491bc7-5eb8b6e59b0mr1031888eaf.6.1729240979319; Fri, 18 Oct 2024
+ 01:42:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20241017133123.1946204-1-frediano.ziglio@cloud.com>
+ <20241017133123.1946204-2-frediano.ziglio@cloud.com> <a5745a93-1d82-45f1-bb88-81a737ebcce3@citrix.com>
+In-Reply-To: <a5745a93-1d82-45f1-bb88-81a737ebcce3@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Fri, 18 Oct 2024 09:42:48 +0100
+Message-ID: <CACHz=ZhULqJpE8UK7kZQN0He5Poc85Cr6heTCKj1KLjxcPA6XQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/5] x86/boot: create a C bundle for 32 bit boot code
+ and use it
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
-repurposed to contain part of the offset into the remapping table.  Previous to
-2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
-table would match the vector.  Such logic was mandatory for end of interrupt to
-work, since the vector field (even when not containing a vector) is used by the
-IO-APIC to find for which pin the EOI must be performed.
+On Thu, Oct 17, 2024 at 6:13=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> On 17/10/2024 2:31 pm, Frediano Ziglio wrote:
+> > The current method to include 32 bit C boot code is:
+> > - compile each function we want to use into a separate object file;
+> > - each function is compiled with -fpic option;
+> > - convert these object files to binary files. This operation removes GO=
+P
+> >   which we don't want in the executable;
+> > - a small assembly part in each file add the entry point;
+> > - code can't have external references, all possible variables are passe=
+d
+> >   by value or pointer;
+> > - include these binary files in head.S.
+> >
+> > There are currently some limitations:
+> > - code is compiled separately, it's not possible to share a function
+> >   (like memcpy) between different functions to use;
+> > - although code is compiled with -fpic there's no certainty there are
+> >   no relocations, specifically data ones. This can lead into hard to
+> >   find bugs;
+> > - it's hard to add a simple function;
+> > - having to pass external variables makes hard to do multiple things
+> >   otherwise functions would require a lot of parameters so code would
+> >   have to be split into multiple functions which is not easy.
+> >
+> > Current change extends the current process:
+> > - all object files are linked together before getting converted making
+> >   possible to share code between the function we want to call;
+> > - a single object file is generated with all functions to use and
+> >   exported symbols to easily call;
+> > - variables to use are declared in linker script and easily used inside
+> >   C code. Declaring them manually could be annoying but makes also
+> >   easier to check them. Using external pointers can be still an issue i=
+f
+> >   they are not fixed. If an external symbol is not declared this gives =
+a
+> >   link error.
+> >
+> > Some details of the implementation:
+> > - C code is compiled with -fpic flags (as before);
+> > - object files from C code are linked together;
+> > - the single bundled object file is linked with 2 slightly different
+> >   script files to generate 2 bundled object files;
+> > - the 2 bundled object files are converted to binary removing the need
+> >   for global offset tables;
+> > - a Python script is used to generate assembly source from the 2
+> >   binaries;
+> > - the single assembly file is compiled to generate final bundled object
+> >   file;
+> > - to detect possible unwanted relocation in data/code code is generated
+> >   with different addresses. This is enforced starting .text section at
+> >   different positions and adding a fixed "gap" at the beginning.
+> >   This makes sure code and data is position independent;
+> > - to detect used symbols in data/code symbols are placed in .text
+> >   section at different offsets (based on the line in the linker script)=
+.
+> >   This is needed as potentially a reference to a symbol is converted to
+> >   a reference to the containing section so multiple symbols could be
+> >   converted to reference to same symbol (section name) and we need to
+> >   distinguish them;
+> > - --orphan-handling=3Derror option to linker is used to make sure we
+> >   account for all possible sections from C code;
+> >
+> > Current limitations:
+> > - the main one is the lack of support for 64 bit code. It would make
+> >   sure that even the code used for 64 bit (at the moment EFI code) is
+> >   code and data position independent. We cannot assume that code that
+> >   came from code compiled for 32 bit and compiled for 64 bit is code an=
+d
+> >   data position independent, different compiler options lead to
+> >   different code/data.
+> >
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+>
+> This commit message is not particularly easy to follow.  Can I recommend
+> the following:
+>
+> ---%<---
+> x86/boot: Rework how 32bit C is linked/included for early boot
+>
+> Right now, the two functions which were really too complicated to write
+> in asm are compiled as 32bit PIC, linked to a blob and included
+> directly, using global asm() to arrange for them to have function semanti=
+cs.
+>
+> This is limiting and fragile; the use of data relocations will compile
+> fine but malfunction when used, creating hard-to-debug bugs.
+>
+> Furthermore, we would like to increase the amount of C, to
+> deduplicate/unify Xen's boot logic, as well as making it easier to
+> follow.  Therefore, rework how the 32bit objects are included.
+>
+> Link all 32bit objects together first.  This allows for sharing of logic
+> between translation units.  Use differential linking and explicit
+> imports/exports to confirm that we only have the expected relocations,
+> and write the object back out as an assembly file so it can be linked
+> again as if it were 64bit, to integrate with the rest of Xen.
+>
+> This allows for the use of external references (e.g. access to global
+> variables) with reasonable assurance of doing so safely.
+>
+> No functional change.
+> ---%<---
+>
+> which I think is an accurate and more concise summary of what's changing?
+>
 
-Introduce a table to store the EOI handlers when using interrupt remapping, so
-that the IO-APIC driver can translate pins into EOI handlers without having to
-read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
-unconditionally when interrupt remapping is enabled, even if strictly it would
-only be required for AMD-Vi.
+You cut half of the explanation, replacing with nothing.
+Why is a script needed? Why 2 linking? How the new method detects
+unwanted relocations?
+Why wasn't possible to share functions?
+Why using --orphan-handling option?
 
-Reported-by: Willi Junga <xenproject@ymy.be>
-Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
-Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+The description has been there for about 2 months without many objections.
 
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index e40d2f7dbd75..8856eb29d275 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
- 
- static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
- 
-+/*
-+ * Store the EOI handle when using interrupt remapping.
-+ *
-+ * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
-+ * format repurposes the vector field to store the offset into the Interrupt
-+ * Remap table.  This causes directed EOI to longer work, as the CPU vector no
-+ * longer matches the contents of the RTE vector field.  Add a translation
-+ * table so that directed EOI uses the value in the RTE vector field when
-+ * interrupt remapping is enabled.
-+ *
-+ * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
-+ * when using the remapped format, but use the translation table uniformly in
-+ * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
-+ */
-+static unsigned int **apic_pin_eoi;
-+
- static void share_vector_maps(unsigned int src, unsigned int dst)
- {
-     unsigned int pin;
-@@ -273,6 +289,13 @@ void __ioapic_write_entry(
-     {
-         __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
-         __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
-+        /*
-+         * Might be called before apic_pin_eoi is allocated.  Entry will be
-+         * updated once the array is allocated and there's an EOI or write
-+         * against the pin.
-+         */
-+        if ( apic_pin_eoi )
-+            apic_pin_eoi[apic][pin] = e.vector;
-     }
-     else
-         iommu_update_ire_from_apic(apic, pin, e.raw);
-@@ -298,9 +321,17 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
-     /* Prefer the use of the EOI register if available */
-     if ( ioapic_has_eoi_reg(apic) )
-     {
-+        if ( apic_pin_eoi )
-+            vector = apic_pin_eoi[apic][pin];
-+
-         /* If vector is unknown, read it from the IO-APIC */
-         if ( vector == IRQ_VECTOR_UNASSIGNED )
-+        {
-             vector = __ioapic_read_entry(apic, pin, true).vector;
-+            if ( apic_pin_eoi )
-+                /* Update cached value so further EOI don't need to fetch it. */
-+                apic_pin_eoi[apic][pin] = vector;
-+        }
- 
-         *(IO_APIC_BASE(apic)+16) = vector;
-     }
-@@ -1022,7 +1053,23 @@ static void __init setup_IO_APIC_irqs(void)
- 
-     apic_printk(APIC_VERBOSE, KERN_DEBUG "init IO_APIC IRQs\n");
- 
-+    if ( iommu_intremap )
-+    {
-+        apic_pin_eoi = xzalloc_array(typeof(*apic_pin_eoi), nr_ioapics);
-+        BUG_ON(!apic_pin_eoi);
-+    }
-+
-     for (apic = 0; apic < nr_ioapics; apic++) {
-+        if ( iommu_intremap )
-+        {
-+            apic_pin_eoi[apic] = xmalloc_array(typeof(**apic_pin_eoi),
-+                                               nr_ioapic_entries[apic]);
-+            BUG_ON(!apic_pin_eoi[apic]);
-+
-+            for ( pin = 0; pin < nr_ioapic_entries[apic]; pin++ )
-+                apic_pin_eoi[apic][pin] = IRQ_VECTOR_UNASSIGNED;
-+        }
-+
-         for (pin = 0; pin < nr_ioapic_entries[apic]; pin++) {
-             /*
-              * add it to the IO-APIC irq-routing table:
--- 
-2.46.0
+> > diff --git a/xen/arch/x86/boot/.gitignore b/xen/arch/x86/boot/.gitignor=
+e
+> > index a379db7988..7e85549751 100644
+> > --- a/xen/arch/x86/boot/.gitignore
+> > +++ b/xen/arch/x86/boot/.gitignore
+> > @@ -1,3 +1,4 @@
+> >  /mkelf32
+> > -/*.bin
+> > -/*.lnk
+> > +/build32.*.lds
+> > +/built-in-32.*.bin
+> > +/built-in-32.*.map
+>
+> /built-in-32.S too
+>
 
+Sure
+
+> And from a glance at the file, this adjustment in the combine script too:
+>
+> -print('\n\t.section\t.note.GNU-stack,"",@progbits', file=3Dout)
+> +print('\n\t.section .note.GNU-stack, "", @progbits', file=3Dout)
+>
+> to have both .section's formatted in the same way.
+>
+
+Fine
+
+>
+> > diff --git a/xen/arch/x86/boot/build32.lds b/xen/arch/x86/boot/build32.=
+lds.S
+> > similarity index 70%
+> > rename from xen/arch/x86/boot/build32.lds
+> > rename to xen/arch/x86/boot/build32.lds.S
+> > index 56edaa727b..e3f5e55261 100644
+> > --- a/xen/arch/x86/boot/build32.lds
+> > +++ b/xen/arch/x86/boot/build32.lds.S
+> > <snip>
+> >          *(.text)
+> >          *(.text.*)
+> > -        *(.data)
+> > -        *(.data.*)
+> >          *(.rodata)
+> >          *(.rodata.*)
+> > +        *(.data)
+> > +        *(.data.*)
+>
+> Reordering .data and .rodata really isn't necessary.
+>
+
+Yes, I asked in some comment. No problem, can be removed.
+
+I'll write another commit. Not anyway strong, this is the general
+order of sections. Here won't make much difference, usually you want
+this order to minimize page changes (both text and rodata are
+read-only).
+
+
+> I'd just drop this part of the diff.  I have some different follow-up
+> for it anyway, which I've been holding off until after this first change
+> is sorted.
+>
+> Everything here I'm happy to fix up on commit, if you're ok with me
+> doing so.
+>
+> ~Andrew
+
+Frediano
 
