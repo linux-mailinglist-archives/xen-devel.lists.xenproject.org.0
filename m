@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901759A4560
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 20:02:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822118.1236090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E51159A4842
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 22:40:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.822148.1236111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1rHp-0007k7-R4; Fri, 18 Oct 2024 18:01:17 +0000
+	id 1t1tks-0000zb-TS; Fri, 18 Oct 2024 20:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822118.1236090; Fri, 18 Oct 2024 18:01:17 +0000
+Received: by outflank-mailman (output) from mailman id 822148.1236111; Fri, 18 Oct 2024 20:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1rHp-0007hf-Nm; Fri, 18 Oct 2024 18:01:17 +0000
-Received: by outflank-mailman (input) for mailman id 822118;
- Fri, 18 Oct 2024 18:01:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1rHo-0007hV-0Z; Fri, 18 Oct 2024 18:01:16 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1rHn-0001kW-RG; Fri, 18 Oct 2024 18:01:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t1rHn-0003Ax-JQ; Fri, 18 Oct 2024 18:01:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1t1rHn-0007Lv-Iv; Fri, 18 Oct 2024 18:01:15 +0000
+	id 1t1tks-0000xI-Ql; Fri, 18 Oct 2024 20:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 822148;
+ Fri, 18 Oct 2024 20:39:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BiWJ=RO=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1t1tkr-0000xC-Nq
+ for xen-devel@lists.xenproject.org; Fri, 18 Oct 2024 20:39:25 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20631.outbound.protection.outlook.com
+ [2a01:111:f403:2412::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0df7a2f9-8d91-11ef-a0be-8be0dac302b0;
+ Fri, 18 Oct 2024 22:39:23 +0200 (CEST)
+Received: from SJ0PR13CA0221.namprd13.prod.outlook.com (2603:10b6:a03:2c1::16)
+ by MW6PR12MB7086.namprd12.prod.outlook.com (2603:10b6:303:238::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Fri, 18 Oct
+ 2024 20:39:18 +0000
+Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::7) by SJ0PR13CA0221.outlook.office365.com
+ (2603:10b6:a03:2c1::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.21 via Frontend
+ Transport; Fri, 18 Oct 2024 20:39:18 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8069.17 via Frontend Transport; Fri, 18 Oct 2024 20:39:17 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 18 Oct
+ 2024 15:39:16 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 18 Oct
+ 2024 15:39:16 -0500
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 18 Oct 2024 15:39:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,223 +63,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0LK1uzFDL59ocoCAeRD2irfKxDX6x+zbIFO6S2OuCtY=; b=CzznvVj6ZKE3XmSXZOep/OUhM/
-	kGj2+nyvBsM2/FlHLgg7ITTf4+IFiBQ04f3RekMVw/E+ozxGSpgbMEFyhpC6u9zGbGUqYYSNJBsLf
-	UC66Prd1L8m+4JCOPftjZUhjesP40H30OSVB+qDK0WTlYMlncDMO+/jaNou8Ek/paUr8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188253-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0df7a2f9-8d91-11ef-a0be-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hSIMrjYRY0WGfBYxbArmnefYkEhgrIoqXPJs7nS3ZWe/ePFmF/6qKDaOaBTPWJbHOLnr19SrBd1Om5VfJNpzK+1ujMc8h9dyKQ6IPLvzcpAohKtpdLJZYy38TCKGJhiMhQGoJJFGw+viBU++CJDetflZdHC2ksU/99pUnodQt/oMRLDkNUrc1TI00xyN8ZtsGIJQuXBgi6tmRjwUN36Aic7422QpFPZliaO0SLDmSHm/v+H0BUwkqjqm573HW1N2z4VCse6c5zPRczXdKPfFm89IoOXf4P9wNXpwPZijgLW29sEnMrbNbpB5Aav+HkxYb5Zif8W4oIdVABBk1zWwNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=65zOba1Go4UkXf4nl4lRvSYjNqYKLo2d/nxL4CbGz60=;
+ b=GrRmBvGNrUg9C+9P5lF6fgsF1RtO5ZQnLT+DV7IHuYC5j40gbHPWPVakJBPiB4ETZTkLFCiJ2N9ywdPXq5E07gBJBp2Tg/J4ik3DNk6yKXO622ZWcYeDOJBm0NCMwOLOpQZKirEd1ncPyBObLxqFvgoC4p7iRgxwtsbHBBDBmdG2YBTqbU/j0MhJBTCkKohBXbGVyqTkJ+WJfKGvgqMsZXvH6V5ZIXueOsZS1ATmYd0l7j1wV/HZ+7W3c3JW8eDiPYRs3DrWu/1/e17g3dE7qIXzpR5VvWzxP/794THBkKI/K68hoQOVsfiOjh/k9ZWihlPCb/d24e1xqiWcOYDI8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=65zOba1Go4UkXf4nl4lRvSYjNqYKLo2d/nxL4CbGz60=;
+ b=1X3419D8MkAGNlw2MZMyNYmRzIuXQISsmwwSu0fCT13Z20LCePRW4XTwvH2zhbbdwpF89TyMgb/2hcMKKMIlgO6SbhOR2hnhSqprWr43F7QyKyGzi17uPamV0RhFSXupYy3jFgKiq7J/c0uH1uDZyE9J8s9YX0X5gKbgGlM4kKM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Teddy Astie
+	<teddy.astie@vates.tech>
+Subject: [PATCH v6 0/3] xen: SR-IOV fixes
+Date: Fri, 18 Oct 2024 16:39:07 -0400
+Message-ID: <20241018203913.1162962-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-Subject: [ovmf test] 188253: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=6e197a8ba5e349e511850fc52457992de88c8795
-X-Osstest-Versions-That:
-    ovmf=e19cc32bce466fb1c175f7d44708c2ebb45802a7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 18 Oct 2024 18:01:15 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|MW6PR12MB7086:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03acee0d-8a06-4cd0-5a66-08dcefb4efc1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?XkiNwZt9+rNfr0/LkFssOQpgWsThmuvw2UIEcqIwUKX9xfCNvqR1Q1WkEZhP?=
+ =?us-ascii?Q?PrnsAt6XlYrb5Fu4bI7AE0WVqWsxoFoeISFCIca4+By7XMbJJcC4HdKxHUOs?=
+ =?us-ascii?Q?MIVhZRITBXRHg2jQjGNsCDB9fngl8bQiZHx1VULGqVnkIlyb8IczhCHbsDI/?=
+ =?us-ascii?Q?8d9nv+rdjEGN1CR4bVCCN7gsmpt953DsRI6qiG95VsTK7XRQKc0+QB7IH5Lr?=
+ =?us-ascii?Q?wPQ2v4dTxzdhO2e1W2sw50qZ+HYauKsroaUpsqZQnvwibOoHiC3U/aUzJxWH?=
+ =?us-ascii?Q?+s05o5Fb2BvmkHREpmVst2elNZyYj72/WETxtK4LL+j6dUkKifAm2WOmGbwD?=
+ =?us-ascii?Q?5bji2vrK4+QNgCfBj8wrV7s8wwQQ8QFwjvrLLWorgMCLc/FVcmKUtiYqvslD?=
+ =?us-ascii?Q?DTSvC/2j2R1R5UENXyONYlYMNNYexbffoOVuMBqPuk/b0FUQJDG+PsTp83BQ?=
+ =?us-ascii?Q?G5SXAHjlYLZN03bGqeTMuKf7g/3ilsjTXBxyJoXc15BcNs5eeiRu+JgltCso?=
+ =?us-ascii?Q?QyshdVzOdEJuapcHmKAlPocw5BkmudQxWk1iAyE7dqH/RcusxCX3Q6aRPMhH?=
+ =?us-ascii?Q?grisIarUNld7odIbvGIZmKJr5fgeYteMOhoHVKhRsw/81f5SzIlXQqZ01Wh4?=
+ =?us-ascii?Q?IhhjcUujGNfgspa3yZ6QrwqcVqe4neh6FfvrpVBFzVzcCvUO52yPPgcoDsL7?=
+ =?us-ascii?Q?cEHCP3YaUPW+SZa6KL4ytP4ci6fXIqitYwXHPj0jg6+wFwrJuTzwSe0H/PGy?=
+ =?us-ascii?Q?YNobY5lv1SoNja031n2IN0Ie8Z0D48nqS8aqyPjyb2WR9adzYLb5Cz0NOK8Y?=
+ =?us-ascii?Q?pmncaRzRZ90kQkiAe8d98+QllP/SM0GjSfE1vFbSgHw4gfxEr62yk5x/lnMm?=
+ =?us-ascii?Q?iKE2rz9v+EvbAQHHpP/f9Jm1QbqkGrKA3ZCKcaTkRcIf09Jf2hXNxnpzjxp7?=
+ =?us-ascii?Q?BsNB+SQSQk63hO0fVqM1PWpF5FPHSlS8H9KEkiALV62UpH8EMKGlEJE88Lvp?=
+ =?us-ascii?Q?8Mzf6jblxIZHOS7p7zpDTa3qrcz+wtJAU1YVvc+L4lUbm+l2qraSBNlxTury?=
+ =?us-ascii?Q?che0U2H2cURz4+fG9LdUGnsccXojkHnwNUlmsp1qc+gMguhNrU7xp7CXXK2r?=
+ =?us-ascii?Q?G6ksBicyGGeCBsTUkZBS41nXxg9/y3w7L5g4AfhFnJYERWNU67QXGYjz+Lp7?=
+ =?us-ascii?Q?4pAff+lmC/VqtIlw6DNH9zF3p+fey3DqRrXqzWxQlUzgvnFGaADcCpLWMbUB?=
+ =?us-ascii?Q?occHbsj4YEy7LDNVVRhBV8mmYX5mHcItpgZqClDD4MU3q5ZSsLxEqWS09dyM?=
+ =?us-ascii?Q?rm4lLb7uUaQ8dk/eugMWpiVJ4TZZEcOF5h/RZthUkbANLLl8pJPSw2xfCthC?=
+ =?us-ascii?Q?amiySABthAIFzg3Y9HctdnHzgIBOXEtw4t6gmBzzik+E3QqTFg=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 20:39:17.3939
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03acee0d-8a06-4cd0-5a66-08dcefb4efc1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002316.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7086
 
-flight 188253 ovmf real [real]
-flight 188264 ovmf real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188253/
-http://logs.test-lab.xenproject.org/osstest/logs/188264/
+A fix for handling of stale pdevs, and a fix for a regressiong related
+to a locking change.
 
-Regressions :-(
+Stewart Hildebrand (3):
+  x86/msi: harden stale pdev handling
+  xen/pci: introduce PF<->VF links
+  x86/msi: fix locking for SR-IOV devices
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 188152
-
-version targeted for testing:
- ovmf                 6e197a8ba5e349e511850fc52457992de88c8795
-baseline version:
- ovmf                 e19cc32bce466fb1c175f7d44708c2ebb45802a7
-
-Last test of basis   188152  2024-10-17 07:11:33 Z    1 days
-Failing since        188156  2024-10-17 09:14:11 Z    1 days    8 attempts
-Testing same since   188188  2024-10-17 17:12:12 Z    1 days    6 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  jack Hsieh <v-chhsieh@microsoft.com>
-  Jeremy Compostella <jeremy.compostella@intel.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kun Qin <kuqin@microsoft.com>
-  Sienski Piotr <piotr.sienski@intel.com>
-  v-chhsieh <v-chhsieh@microsoft.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ xen/arch/x86/msi.c            | 56 +++++++++++++----------
+ xen/drivers/passthrough/msi.c |  3 ++
+ xen/drivers/passthrough/pci.c | 84 ++++++++++++++++++++++++++++-------
+ xen/drivers/vpci/msi.c        |  2 +-
+ xen/drivers/vpci/msix.c       |  2 +-
+ xen/include/xen/pci.h         | 20 ++++++++-
+ 6 files changed, 123 insertions(+), 44 deletions(-)
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+base-commit: 4c21b6affb4c5a3afe22cbc144362091de063366
+-- 
+2.47.0
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 6e197a8ba5e349e511850fc52457992de88c8795
-Author: v-chhsieh <v-chhsieh@microsoft.com>
-Date:   Mon Sep 30 14:43:39 2024 +0800
-
-    MdePkg: Add Google Test Library and Protocol
-    
-    Mock Libraries:
-     MdePkg\Test\Mock\Library\GoogleTest\MockCpuLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockPciSegmentLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockReportStatusCodeLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockSmmServicesTableLib
-    
-    Mock Protocol:
-     MdePkg\Test\Mock\Include\GoogleTest\Protocol\MockMpService.h
-    
-    Signed-off-by: jack Hsieh <v-chhsieh@microsoft.com>
-    Cc: Maintainer Shruti Gupta <shrugupt@microsoft.com>
-    Cc: Reviewer   Shruti Gupta <shrugupt@microsoft.com>
-
-commit 866abb233817eb349fa5fe2b32283e990a8e5056
-Author: Jeremy Compostella <jeremy.compostella@intel.com>
-Date:   Wed Oct 9 15:03:13 2024 -0700
-
-    MdeModulePkg: Replace right bit shift operator with RShiftU64
-    
-    Instead of using bit shift operations, it is preferable to use BaseLib
-    bit shift functions to prevent compilers from inserting intrinsics.
-    
-    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
-
-commit 996e740cc83aa499d91b3ab3ae857dab7578e05c
-Author: Jeremy Compostella <jeremy.compostella@intel.com>
-Date:   Tue Oct 8 16:55:51 2024 -0700
-
-    MdeModulePkg: Fix PeiAllocatePages() corner case
-    
-    I recently ran into an AllocatePages() hang. It turns out that
-    AllocatePages() does not account for the Memory Allocation HOB when it
-    makes the decision of allocating out of free memory.
-    
-    Here is the scenario:
-    
-      FreeMemoryTop    - 0x71C03000
-      FreeMemoryBottom - 0x71BDBFD8
-      => We have 159,784 bytes left => ~39.0098 pages left.
-    
-    We attempt to allocate 39 pages. There are enough pages left but
-    allocating those pages requires to allocate a Memory Allocation HOB
-    which needs an extra 48 bytes. But once the pages are allocated,
-    there are only 40 bytes left.
-    
-    In addition to taking into account the Memory Allocation HOB size,
-    this commit reverses the condition to keep it simple.
-    
-    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
-
-commit 1b70dcd375765d293f57fe546710b98525e6a46d
-Author: Sienski Piotr <piotr.sienski@intel.com>
-Date:   Mon Oct 14 12:24:14 2024 +0200
-
-    MdePkg/Include/Guid: Add missing CXL definitions to Cper.h
-    
-    [Issue Description]
-    In MdePkg/Include/Guid/Cper.h there are missing multiple definitions
-    regarding CXL that can be found in UEFI 2.10 spec
-    chapters N.2.13 and N.2.14
-    
-    [Resolution]
-    Add these definitions to MdePkg/Include/Guid/Cper.h
-    
-    Signed-off-by: Sienski Piotr <piotr.sienski@intel.com>
-
-commit 79598f34fa024ad2491b46b95c3189c5a7f159d2
-Author: Kun Qin <kuqin12@gmail.com>
-Date:   Wed Aug 10 22:56:34 2022 -0700
-
-    MdeModulePkg: PeiMain: Updated dispatcher for delayed dispatch
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    This change adds a check for PEI dispatcher to continue dispatching when
-    there are still pending delayed dispatch requests, to be compatible with
-    newly integrated Delayed Dispatcher PPI interface.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: John Schock <joschock@microsoft.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
-
-commit d64d1e195ceb003c824786bfd817227c7ae81f06
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:11:37 2024 -0700
-
-    MdeModulePkg: PeiMain: Introduce implementation of delayed dispatch
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    This change adds the implementation that fits the needs and description
-    of PI spec defined Delayed Dispatch PPI in Pei Core.
-    
-    The PPI would allow minimal delay for registered callbacks. As well as
-    allowing other functions to wait for GUIDed delayed dispatch callbacks.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
-
-commit b3f36e151d8b014cac5c6a833e2270c14d998739
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:09:03 2024 -0700
-
-    MdePkg: Update Delayed Dispatch PPI as per PI 1.8 A Spec
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    PI spec defined the `Register` function input argument `Delay` as output.
-    However, this parameter should be used to define the minmal time delay
-    the callback should fire. Thus it should be an input parameter.
-    
-    This change fixed the argument type.
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
 
