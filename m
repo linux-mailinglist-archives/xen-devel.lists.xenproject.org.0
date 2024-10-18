@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 871089A3EFA
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 14:59:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.821884.1235848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3D69A3F36
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2024 15:11:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.821892.1235862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1mZR-0007Gm-7E; Fri, 18 Oct 2024 12:59:09 +0000
+	id 1t1mkc-0006BO-7x; Fri, 18 Oct 2024 13:10:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 821884.1235848; Fri, 18 Oct 2024 12:59:09 +0000
+Received: by outflank-mailman (output) from mailman id 821892.1235862; Fri, 18 Oct 2024 13:10:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1mZR-0007Ef-4R; Fri, 18 Oct 2024 12:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 821884;
- Fri, 18 Oct 2024 12:59:07 +0000
+	id 1t1mkc-00069R-4E; Fri, 18 Oct 2024 13:10:42 +0000
+Received: by outflank-mailman (input) for mailman id 821892;
+ Fri, 18 Oct 2024 13:10:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7i1V=RO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1t1mZP-0007EV-Ah
- for xen-devel@lists.xenproject.org; Fri, 18 Oct 2024 12:59:07 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ <SRS0=Jazm=RO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1t1mka-00069H-72
+ for xen-devel@lists.xenproject.org; Fri, 18 Oct 2024 13:10:40 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1b5bff8-8d50-11ef-a0be-8be0dac302b0;
- Fri, 18 Oct 2024 14:59:06 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-431548bd1b4so18569035e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2024 05:59:06 -0700 (PDT)
-Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37ecf0496basm1871904f8f.29.2024.10.18.05.59.04
+ id 5ef5a336-8d52-11ef-a0be-8be0dac302b0;
+ Fri, 18 Oct 2024 15:10:39 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2fb4af0b6beso35027471fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2024 06:10:39 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2fb809a6a88sm2107801fa.7.2024.10.18.06.10.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Oct 2024 05:59:05 -0700 (PDT)
+ Fri, 18 Oct 2024 06:10:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1b5bff8-8d50-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 5ef5a336-8d52-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729256345; x=1729861145; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mbjOAs3DZQuMj6X6tRNO0hIiB1rCriMgG8xryc54IDY=;
-        b=OkFbH0WgHq+K0UMVysZfHSgsDXoB2v9nR5A4Uo6/sxN+7tgLPUAwaozZ4wzhOzY+so
-         f/SKii52dsfiFhdXMSV9SVONOFj/SEdS7S5WTs+XiGJW/f0LFa/e97RP6SLaPLm7m115
-         ioVRRbx8n1pGKa9kaosRcOGHpQcxt4lxosBp8=
+        d=gmail.com; s=20230601; t=1729257039; x=1729861839; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=y402AQdR4+Tqh0flzvHXrC1KErpGurEXVRL8dNJKWU4=;
+        b=Jr+WUfFQTRgiu9sK5hTuv2JHBtupiGy48QTOhUKmTL7+0v/4sHiwjZafNK3hAmr9Rv
+         6yVdnioTVHDep7bjPbRGJKCn0vHHxM0Okw3TvU41rKYHqxqvHL7gOWact/I1IkonLA2a
+         U93yr8pWTfwuDvCx9r4/WFRGHMVSpdES/8CGfwZT6O26Tr89PSenHZ80kf57KKMnD3it
+         BmXNe7q5QnYdpJPErzyRmojqHhbrYrPrSI314caukfTRfH5PaSDBUErVoxr82RfcsxXd
+         9NHr5gI2jzMz2Js6xkP9lZmpJfjisZjCeK6DE8tr0QU9RB6Gks259ipxRkP/Zddmm0gV
+         zu9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729256345; x=1729861145;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mbjOAs3DZQuMj6X6tRNO0hIiB1rCriMgG8xryc54IDY=;
-        b=cGsyeU5DlMg6FTBOAtks4m9e/49+Gt0XGkEYMJiSAIYVQMyS4SAG9gk5ScjvXLEoh2
-         3WArkxtXiBB6v+FCX40tS40tm5DnGyQh36NGwYWAAz5mbWvcfNDap5A7oK9AHrL3wjHo
-         JCJzVFOK4jT7uDxvFaONQ1xptVUDJfZU87SPY6rggE2stDQCNOZNRLtaR9fCfNN5YzgQ
-         6wx8aVCEnsvQS5F4FELpkhCxWWJLdDyk4TIwUHxSeje7a5RZYzKD9xAEaKSDFcwqIWln
-         ki1N7hv03lfzWxdMe4REZ2kJfMuB874KaUioeRi0B6vaSEmom6LZfMm6SGjZlMa/GOQk
-         LhKA==
-X-Gm-Message-State: AOJu0YzhqTaPkVLF7Z7BWe5fhRKilz+lKrNa2h0N95j/rUUg52GtFmNe
-	F/R+Xt+OKYFYcBm/vRkMpwyvZaljz9iNqsnPQT12bFYli7kPa3rzZi3yJZZg/5wH03N+JBafkO1
-	x
-X-Google-Smtp-Source: AGHT+IFQCX0x+iZTauveFvrTbmZglc8IXUMideuu+/wmPF0NZS2m0I+aDSL+uiZSz4WCvEQTuulyPA==
-X-Received: by 2002:a5d:4d89:0:b0:371:9360:c4a8 with SMTP id ffacd0b85a97d-37ea21402a2mr1992172f8f.6.1729256345336;
-        Fri, 18 Oct 2024 05:59:05 -0700 (PDT)
-Date: Fri, 18 Oct 2024 14:59:04 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v6 1/5] x86/boot: create a C bundle for 32 bit boot code
- and use it
-Message-ID: <ZxJbmIU4OUmeO3xq@macbook.local>
-References: <20241017133123.1946204-1-frediano.ziglio@cloud.com>
- <20241017133123.1946204-2-frediano.ziglio@cloud.com>
- <ZxJJZvOCQLzU_Q5s@macbook.local>
- <CACHz=Zif6tirzF3QSLYLOvDFuaE3o9=Cu+ybm4ns7vNkAKCROg@mail.gmail.com>
+        d=1e100.net; s=20230601; t=1729257039; x=1729861839;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=y402AQdR4+Tqh0flzvHXrC1KErpGurEXVRL8dNJKWU4=;
+        b=vLVF9GjiMZUTIRnlWU5o6fc0tyKfKLE0OkIBIGpiHRTbqpO9zDmbWBdOKvltTABeqa
+         7r1V6E1uXooOUCAoiisEKeWLuBVOnzFvr9WJejeT/zD/bKiiZy3yxmI4d9KO2SF62tMY
+         P41d8WbLGFk3Hu1ulYwHRKfFyQb7Wwon5uoJxWK0xFg4MFsAreeJ+iUoF4ulo/8L3Lu2
+         LkZUgBEFflteIheNH0aEOyEQEaYPYWHRTfWUyUvO2+Vk0PSh62tGbBhgv1Pik8ag/RtN
+         1izjsYj0+bqpvIEZA0QkzEgotPaVGSrWIjTR8kz7si5RzTeRc94tYnkLIeERJlz5unmS
+         K8JA==
+X-Forwarded-Encrypted: i=1; AJvYcCU6mibGHB1tKAzg0D2/w5EUZoVR0IXP+YvfIk9OJ0DXlG5aQFzUdKHHV2zQqlEsAISwQVV2fwc4noY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvNz6Qy75Du6kNdtZsR3TaA2csYweYJXqesBaaD6pa/J8UcqfW
+	tvS6b6Y9YnrU1CUH8DNywjsGFPyYcMOh+skD5fthMOa4RTitUjp5
+X-Google-Smtp-Source: AGHT+IEKbar/6M5Rg+w53rlfJ6eirljl85OyaSMYH1ABVSWkCbLOLjk12tB7TWIGqHPWvXfmHY0KUQ==
+X-Received: by 2002:a2e:851:0:b0:2f0:27da:6864 with SMTP id 38308e7fff4ca-2fb82eaae41mr15762261fa.17.1729257038174;
+        Fri, 18 Oct 2024 06:10:38 -0700 (PDT)
+Message-ID: <df635c41cf530d08898d021adf92eb141624d07d.camel@gmail.com>
+Subject: Re: [PATCH v1 1/5] xen/riscv: add stub for
+ share_xen_page_with_guest()
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Fri, 18 Oct 2024 15:10:37 +0200
+In-Reply-To: <b8de7161-5d71-4ed7-a3cf-611f4a860926@suse.com>
+References: <cover.1729068334.git.oleksii.kurochko@gmail.com>
+	 <3dfd4bdf6584e73ecdbff5a66fdbaec68e31cc3c.1729068334.git.oleksii.kurochko@gmail.com>
+	 <b8de7161-5d71-4ed7-a3cf-611f4a860926@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACHz=Zif6tirzF3QSLYLOvDFuaE3o9=Cu+ybm4ns7vNkAKCROg@mail.gmail.com>
 
-On Fri, Oct 18, 2024 at 01:48:27PM +0100, Frediano Ziglio wrote:
-> On Fri, Oct 18, 2024 at 12:41 PM Roger Pau Monné <roger.pau@citrix.com> wrote:
-> >
-> > On Thu, Oct 17, 2024 at 02:31:19PM +0100, Frediano Ziglio wrote:
-> > > +#define DECLARE_IMPORT(name) name = . + (__LINE__ * MULT)
-> > > +
-> > > +ENTRY(dummy_start)
-> > >
-> > >  SECTIONS
-> > >  {
-> > >    /* Merge code and data into one section. */
-> > > -  .text : {
-> > > +  .text TEXT_START : {
-> > > +        /* Silence linker warning, we are not going to use it */
-> > > +        dummy_start = .;
-> > > +
-> > > +        /* Declare below any symbol name needed.
-> > > +         * Each symbol should be on its own line.
-> > > +         * It looks like a tedious work but we make sure the things we use.
-> > > +         * Potentially they should be all variables. */
-> >
-> > The style is wrong for the opening and closing comment delimiters.
-> >
-> > I think it would be best if this was written in a more natural style.
-> >
-> > /*
-> >  * Any symbols used should be declared below, this ensures which
-> >  * symbols are visible to the 32bit C boot code.
-> >  */
-> >
-> 
-> But why to remove the "Potentially they should be all variables.".
-> Surely something not written is more clear than something written, but
-> on the other way it carries no information.
+On Thu, 2024-10-17 at 16:51 +0200, Jan Beulich wrote:
+> On 16.10.2024 11:15, Oleksii Kurochko wrote:
+> > To avoid the following linkage fail the stub for
+> > share_xen_page_with_guest()
+> > is introduced:
+>=20
+> What do you intend to express with "is introduced"? Is there a
+> problem now?
+> Would there be a problem with subsequent changes? I'm entirely fine
+> with
+> adding that stub, but the description should make clear why /when
+> exactly
+> it's needed.
+I mentioned that in the cover letter:
+```
+   Also, after patch 3 ("xen/riscv: introduce setup_mm()") of this
+   patch series,
+   the linkage error mentioned in patch 1 ("xen/riscv: add stub for
+   share_xen_page_with_guest()") began to occur, so patch 1 addresses
+   this issue.
+```
+I thought it would be the better then just mention in the commit
+message that.
 
-I'm not sure I understand why this is helpful: either they are
-mandated to be only variables, and hence the "potentially" is wrong, or
-they are not, in which case I don't see why spelling a desire for they
-to be only variables is helpful if it's not a strict requirement.
+Will it be fine to mention instead:
+```
+   Introduction of setup memory management function will require
+   share_xen_page_with_guest() defined, at least, as a stub otherwise
+   the following linkage error will occur...
+```
 
-Thanks, Roger.
+Perhaps it would be better just to merge these changes with patch 3 and
+add an explanation in patch 3 commit message.
+
+~ Oleksii
+> > =C2=A0 riscv64-linux-gnu-ld: prelink.o: in function `tasklet_kill':
+> > =C2=A0 /build/xen/common/tasklet.c:176: undefined reference to
+> > `share_xen_page_with_guest'
+> > =C2=A0 riscv64-linux-gnu-ld: ./.xen-syms.0: hidden symbol
+> > `share_xen_page_with_guest' isn't defined
+> > =C2=A0 riscv64-linux-gnu-ld: final link failed: bad value
+> >=20
+> > $ find . -name \*.o | while read F; do nm $F | grep
+> > share_xen_page_with_guest && echo $F; done
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 U share_xen_page_with_guest
+> > ./xen/common/built_in.o
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 U share_xen_page_with_guest
+> > ./xen/common/trace.o
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 U share_xen_page_with_guest
+> > ./xen/prelink.o
+> >=20
+> > Despite the linker fingering tasklet.c (very likely a toolchain
+> > bug),
+> > it's trace.o which has the undefined reference.
+> >=20
+> > Looking at trace.i, there is call of share_xen_page_with_guest() in
+> > share_xen_page_with_privileged_guests() from asm/mm.h.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0xen/arch/riscv/stubs.c | 10 ++++++++++
+> > =C2=A01 file changed, 10 insertions(+)
+> >=20
+> > diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+> > index 5951b0ce91..c9a590b225 100644
+> > --- a/xen/arch/riscv/stubs.c
+> > +++ b/xen/arch/riscv/stubs.c
+> > @@ -2,7 +2,9 @@
+> > =C2=A0#include <xen/cpumask.h>
+> > =C2=A0#include <xen/domain.h>
+> > =C2=A0#include <xen/irq.h>
+> > +#include <xen/mm.h>
+> > =C2=A0#include <xen/nodemask.h>
+> > +#include <xen/sched.h>
+> > =C2=A0#include <xen/sections.h>
+> > =C2=A0#include <xen/time.h>
+> > =C2=A0#include <public/domctl.h>
+> > @@ -409,3 +411,11 @@ unsigned long get_upper_mfn_bound(void)
+> > =C2=A0{
+> > =C2=A0=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> > =C2=A0}
+> > +
+> > +/* mm.c */
+> > +
+> > +void share_xen_page_with_guest(struct page_info *page, struct
+> > domain *d,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum XENSHARE_flags flags)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> > +}
+>=20
+
 
