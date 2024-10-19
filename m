@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53DB89A4B9D
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 08:51:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822359.1236360 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7B679A4D20
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 13:34:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.822454.1236422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t23Hg-0004Zs-Em; Sat, 19 Oct 2024 06:49:56 +0000
+	id 1t27hZ-0003EZ-MW; Sat, 19 Oct 2024 11:32:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822359.1236360; Sat, 19 Oct 2024 06:49:56 +0000
+Received: by outflank-mailman (output) from mailman id 822454.1236422; Sat, 19 Oct 2024 11:32:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t23Hg-0004YM-BO; Sat, 19 Oct 2024 06:49:56 +0000
-Received: by outflank-mailman (input) for mailman id 822359;
- Sat, 19 Oct 2024 06:49:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t23He-0004YC-UY; Sat, 19 Oct 2024 06:49:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t23He-0007K5-PQ; Sat, 19 Oct 2024 06:49:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1t23He-0008DM-97; Sat, 19 Oct 2024 06:49:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1t23He-0000u4-8f; Sat, 19 Oct 2024 06:49:54 +0000
+	id 1t27hZ-0003Bb-JR; Sat, 19 Oct 2024 11:32:57 +0000
+Received: by outflank-mailman (input) for mailman id 822454;
+ Sat, 19 Oct 2024 11:32:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qdF/=RP=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1t27hY-0003BV-Ld
+ for xen-devel@lists.xenproject.org; Sat, 19 Oct 2024 11:32:56 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e04fdad8-8e0d-11ef-99a3-01e77a169b0f;
+ Sat, 19 Oct 2024 13:32:53 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729337566204366.4886802052788;
+ Sat, 19 Oct 2024 04:32:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,303 +38,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=U1H++NpsVk6WYj9bQoST7NMKMmPEvw7A47uRk821c3g=; b=oJ0FHtjRF5lXRWE0hOr++FfgpJ
-	X+ki7xM4inZC3aSD/VWh0S1Rq+D77BDYBQys3HKBD5vffZ2IxSGJ2Q3prXLPuBjnMXWMMXoGtMh2q
-	qsUUpZPpI7JWV5TA+aLNYu7LE8Bi4w5nhY4wnFuDjbeYttDyyPZfCqKWSo+xIPPPHcKk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188281-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e04fdad8-8e0d-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1729337568; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=NSAfYFcjdk/xpSZifwfm29T45632m4wEKe5rqCeUlvb1z49jOpx39v5s5sdjzfM1rrtGCx3FLNV2qfBDVTRokqQXvJpn416PbQ/IvA2OkjcxfS4LAPbwgiu/7QQV0BVEUluAWbPkZ1lYiFS6l42fkJWIekoESuJIC+qZIQEJ0iQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1729337568; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=5S4ocbMRN/ZDTrHRIpLShwguvEXp7SmgKv9cGlo+DFI=; 
+	b=OiWGmtOHZzjAaDsLqO2XeeLPOPbfwb+d6s1eZZER9J009aGnVayaSHHYDd3NBi9vh6CloSJwbsu1pz2cA2xhQGvnC64e5f779bONQhlSFvmYSzLdyDJC51/2B1igCJXbp7J7QPGyJ0Nd+rlHXjEGvdw57pkjIJK2XYfAOlA+OQI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729337568;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=5S4ocbMRN/ZDTrHRIpLShwguvEXp7SmgKv9cGlo+DFI=;
+	b=h10Bp9uMBIaC0gUYn07wcCs2fyRUo6ziX9hrx1bokijlhPJtL28rA6v4aOcGvEis
+	NP2hQTc6qx28pqKNLMxPWgY0cUB8uP5KQzNKAKUUPcKAxhgK60lmJnt6YnEpydkFXg2
+	2/mbw44+yqaxsKyxAy2e5sV4wDeDHWUOAFk4SQU0=
+Message-ID: <f251c5c7-8904-4dc9-addb-5ce02d53164c@apertussolutions.com>
+Date: Sat, 19 Oct 2024 07:32:44 -0400
 MIME-Version: 1.0
-Subject: [ovmf test] 188281: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=8f84eb0e761992dc1218f63ee53a54ac0c65630f
-X-Osstest-Versions-That:
-    ovmf=e19cc32bce466fb1c175f7d44708c2ebb45802a7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 19 Oct 2024 06:49:54 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 11/44] x86/boot: add start and size fields to struct
+ boot_module
+To: Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20241017170325.3842-1-dpsmith@apertussolutions.com>
+ <20241017170325.3842-12-dpsmith@apertussolutions.com>
+ <394f8083-a6c9-4ccf-8e01-cdc1e6767214@amd.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <394f8083-a6c9-4ccf-8e01-cdc1e6767214@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-flight 188281 ovmf real [real]
-flight 188285 ovmf real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188281/
-http://logs.test-lab.xenproject.org/osstest/logs/188285/
+On 10/17/24 19:12, Jason Andryuk wrote:
+> On 2024-10-17 13:02, Daniel P. Smith wrote:
+>> This commit introduces the start and size fields to struct boot_module 
+>> and
+>> assigns their value during boot_info construction.
+>>
+>> The EFI entry point special cased itself, and pre-converted mod_start and
+>> mod_end to mfn and size respectively. This required an additional test
+>> in the coversion loop to not convert mod_start and mod_end when the 
+>> conversion
+> 
+> conversion
 
-Regressions :-(
+Ack.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 188152
+>> was done for both the multiboot and PVH boot entry points. To simplify 
+>> the
+>> logic populating the start and size fields, the EFI module population 
+>> logic
+>> was coverted to using start and end addresses.
+> 
+> converted
 
-version targeted for testing:
- ovmf                 8f84eb0e761992dc1218f63ee53a54ac0c65630f
-baseline version:
- ovmf                 e19cc32bce466fb1c175f7d44708c2ebb45802a7
+Ack.
 
-Last test of basis   188152  2024-10-17 07:11:33 Z    1 days
-Failing since        188156  2024-10-17 09:14:11 Z    1 days   11 attempts
-Testing same since   188268  2024-10-18 18:13:31 Z    0 days    3 attempts
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> 
+> with that
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  jack Hsieh <v-chhsieh@microsoft.com>
-  Jeremy Compostella <jeremy.compostella@intel.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kun Qin <kuqin@microsoft.com>
-  Mike Beaton <mjsbeaton@gmail.com>
-  Sienski Piotr <piotr.sienski@intel.com>
-  v-chhsieh <v-chhsieh@microsoft.com>
+Thank you but will hold off since Andy has asked this be split and changed.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+> EFI now gains the alignment check, but beforehand it was just silently 
+> truncating.  Seems better to check :)
 
+My thinking as well.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 8f84eb0e761992dc1218f63ee53a54ac0c65630f
-Author: Mike Beaton <mjsbeaton@gmail.com>
-Date:   Sun Sep 29 11:40:44 2024 +0100
-
-    BaseTools: Remove -Wno-unneeded-internal-declaration from CLANGDWARF
-    
-    Subsequent to updating the 'null' DEBUG macro to explicitly
-    discard its expression, it is possible to remove this warning
-    suppression from CLANGDWARF and still successfully compile
-    its RELEASE build.
-    
-    Note that CLANGPDB did and does not have this warning suppressed,
-    and so before updating the 'null' DEBUG macro, CLANGPDB RELEASE
-    was not building successfully in recent versions of clang,
-    but was stopping with the error:
-    
-    .../edk2/OvmfPkg/VirtioSerialDxe/VirtioSerial.c:28:22: error:
-    variable &apos;EventNames&apos; is not needed and will not be
-    emitted [-Werror,-Wunneeded-internal-declaration]
-    STATIC CONST CHAR8  *EventNames[] = {
-                         ^
-    
-    This change makes the two CLANG variants match with respect
-    to this warning, and leaves the warning enabled which is
-    considered a benefit as it has the potential to catch real
-    coding errors
-    
-    Signed-off-by: Mike Beaton <mjsbeaton@gmail.com>
-
-commit ae83c6b7fd83a5906e016a32027c1bcd792a624e
-Author: Mike Beaton <mjsbeaton@gmail.com>
-Date:   Sat Sep 28 02:43:15 2024 +0100
-
-    MdePkg: Fix null macros for XCODE5 and CLANG
-    
-    When building OvmfPkg in RELEASE mode in the XCODE5 toolchain, the
-    ASSERT_EFI_ERROR change prevents this error:
-    
-    .../MdePkg/Library/UefiMemoryAllocationLib/MemoryAllocationLib.c:141:15:
-    error: variable 'Status' set but not used [-Werror,-Wunused-but-set-variable]
-      EFI_STATUS  Status;
-                  ^
-    
-    which is currently stopping the build.
-    
-    When building in RELEASE mode in the CLANGPDB toolchain,the DEBUG macro
-    change prevents this error:
-    
-    .../edk2/OvmfPkg/VirtioSerialDxe/VirtioSerial.c:28:22: error:
-    variable &apos;EventNames&apos; is not needed and will not be
-    emitted [-Werror,-Wunneeded-internal-declaration]
-    STATIC CONST CHAR8  *EventNames[] = {
-                         ^
-    
-    which is currently stopping the build.
-    
-    CLANGDWARF produces the same error as CLANGPDB above, if
-    -Wno-unneeded-internal-declaration is removed from its build flags.
-    With the null DEBUG macro change, this warning suppression
-    can be removed from CLANGDWARF, which is considered a benefit
-    as it has the potential to catch real coding errors. This is
-    done in a subsequent commit.
-    
-    This commit has the desirable side effect that we no longer require
-    (and cannot use) explicit `#ifndef MDEPKG_NDEBUG` around items only
-    used in DEBUG macros. This requires the ArmPkg change made here to
-    be in the same commit as the MdePkg changes.
-    
-    Note: In common with existing macros in EDK II, including the pre-existing
-    and unchanged DEBUG/NOOPT versions of the macros which are modified here,
-    we use the standard approach of adding `do { ... } while (FALSE)` wrapping
-    to ensure that the macros behave correctly with surrounding code
-    (e.g. require a following ';' and do not combine in unexpected ways with
-    nearby conditionals).
-    
-    Continuous-integration-options: PatchCheck.ignore-multi-package
-    Co-authored-by: Mikhail Krichanov <krichanov@ispras.ru>
-    Signed-off-by: Mike Beaton <mjsbeaton@gmail.com>
-
-commit 6e197a8ba5e349e511850fc52457992de88c8795
-Author: v-chhsieh <v-chhsieh@microsoft.com>
-Date:   Mon Sep 30 14:43:39 2024 +0800
-
-    MdePkg: Add Google Test Library and Protocol
-    
-    Mock Libraries:
-     MdePkg\Test\Mock\Library\GoogleTest\MockCpuLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockPciSegmentLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockReportStatusCodeLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockSmmServicesTableLib
-    
-    Mock Protocol:
-     MdePkg\Test\Mock\Include\GoogleTest\Protocol\MockMpService.h
-    
-    Signed-off-by: jack Hsieh <v-chhsieh@microsoft.com>
-    Cc: Maintainer Shruti Gupta <shrugupt@microsoft.com>
-    Cc: Reviewer   Shruti Gupta <shrugupt@microsoft.com>
-
-commit 866abb233817eb349fa5fe2b32283e990a8e5056
-Author: Jeremy Compostella <jeremy.compostella@intel.com>
-Date:   Wed Oct 9 15:03:13 2024 -0700
-
-    MdeModulePkg: Replace right bit shift operator with RShiftU64
-    
-    Instead of using bit shift operations, it is preferable to use BaseLib
-    bit shift functions to prevent compilers from inserting intrinsics.
-    
-    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
-
-commit 996e740cc83aa499d91b3ab3ae857dab7578e05c
-Author: Jeremy Compostella <jeremy.compostella@intel.com>
-Date:   Tue Oct 8 16:55:51 2024 -0700
-
-    MdeModulePkg: Fix PeiAllocatePages() corner case
-    
-    I recently ran into an AllocatePages() hang. It turns out that
-    AllocatePages() does not account for the Memory Allocation HOB when it
-    makes the decision of allocating out of free memory.
-    
-    Here is the scenario:
-    
-      FreeMemoryTop    - 0x71C03000
-      FreeMemoryBottom - 0x71BDBFD8
-      => We have 159,784 bytes left => ~39.0098 pages left.
-    
-    We attempt to allocate 39 pages. There are enough pages left but
-    allocating those pages requires to allocate a Memory Allocation HOB
-    which needs an extra 48 bytes. But once the pages are allocated,
-    there are only 40 bytes left.
-    
-    In addition to taking into account the Memory Allocation HOB size,
-    this commit reverses the condition to keep it simple.
-    
-    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
-
-commit 1b70dcd375765d293f57fe546710b98525e6a46d
-Author: Sienski Piotr <piotr.sienski@intel.com>
-Date:   Mon Oct 14 12:24:14 2024 +0200
-
-    MdePkg/Include/Guid: Add missing CXL definitions to Cper.h
-    
-    [Issue Description]
-    In MdePkg/Include/Guid/Cper.h there are missing multiple definitions
-    regarding CXL that can be found in UEFI 2.10 spec
-    chapters N.2.13 and N.2.14
-    
-    [Resolution]
-    Add these definitions to MdePkg/Include/Guid/Cper.h
-    
-    Signed-off-by: Sienski Piotr <piotr.sienski@intel.com>
-
-commit 79598f34fa024ad2491b46b95c3189c5a7f159d2
-Author: Kun Qin <kuqin12@gmail.com>
-Date:   Wed Aug 10 22:56:34 2022 -0700
-
-    MdeModulePkg: PeiMain: Updated dispatcher for delayed dispatch
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    This change adds a check for PEI dispatcher to continue dispatching when
-    there are still pending delayed dispatch requests, to be compatible with
-    newly integrated Delayed Dispatcher PPI interface.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: John Schock <joschock@microsoft.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
-
-commit d64d1e195ceb003c824786bfd817227c7ae81f06
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:11:37 2024 -0700
-
-    MdeModulePkg: PeiMain: Introduce implementation of delayed dispatch
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    This change adds the implementation that fits the needs and description
-    of PI spec defined Delayed Dispatch PPI in Pei Core.
-    
-    The PPI would allow minimal delay for registered callbacks. As well as
-    allowing other functions to wait for GUIDed delayed dispatch callbacks.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
-
-commit b3f36e151d8b014cac5c6a833e2270c14d998739
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:09:03 2024 -0700
-
-    MdePkg: Update Delayed Dispatch PPI as per PI 1.8 A Spec
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
-    
-    PI spec defined the `Register` function input argument `Delay` as output.
-    However, this parameter should be used to define the minmal time delay
-    the callback should fire. Thus it should be an input parameter.
-    
-    This change fixed the argument type.
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+v/r,
+dps
 
