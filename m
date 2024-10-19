@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A34209A4B41
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 07:12:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822347.1236346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53DB89A4B9D
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 08:51:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.822359.1236360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t21kK-0007Y5-V5; Sat, 19 Oct 2024 05:11:24 +0000
+	id 1t23Hg-0004Zs-Em; Sat, 19 Oct 2024 06:49:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822347.1236346; Sat, 19 Oct 2024 05:11:24 +0000
+Received: by outflank-mailman (output) from mailman id 822359.1236360; Sat, 19 Oct 2024 06:49:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t21kK-0007WL-Rx; Sat, 19 Oct 2024 05:11:24 +0000
-Received: by outflank-mailman (input) for mailman id 822347;
- Sat, 19 Oct 2024 05:11:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=36bq=RP=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
- id 1t21kJ-0007WF-PK
- for xen-devel@lists.xenproject.org; Sat, 19 Oct 2024 05:11:23 +0000
-Received: from SJ2PR03CU002.outbound.protection.outlook.com
- (mail-westusazolkn190130001.outbound.protection.outlook.com
- [2a01:111:f403:d000::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93e7b601-8dd8-11ef-a0be-8be0dac302b0;
- Sat, 19 Oct 2024 07:11:22 +0200 (CEST)
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by CY8PR02MB9425.namprd02.prod.outlook.com (2603:10b6:930:73::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Sat, 19 Oct
- 2024 05:11:16 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df%3]) with mapi id 15.20.8069.016; Sat, 19 Oct 2024
- 05:11:16 +0000
+	id 1t23Hg-0004YM-BO; Sat, 19 Oct 2024 06:49:56 +0000
+Received: by outflank-mailman (input) for mailman id 822359;
+ Sat, 19 Oct 2024 06:49:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t23He-0004YC-UY; Sat, 19 Oct 2024 06:49:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t23He-0007K5-PQ; Sat, 19 Oct 2024 06:49:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t23He-0008DM-97; Sat, 19 Oct 2024 06:49:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1t23He-0000u4-8f; Sat, 19 Oct 2024 06:49:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,242 +42,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93e7b601-8dd8-11ef-a0be-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yag//04gAqOpfmxdKVj/HTqSZDrv96reG9dnjPnmbl8DlYGkZ4wNR8PaU+wmk6rTHaUwXuv97mUVEQGS5nHRIzfgr0XqeaslAoJlDq0w7FTdGDZ3m77SV8kW/BDdnpBEQrD1v0+qsPRHT6pKxa69OgoruD7XyLVvREMJ2AaiIrpplko3c9QuFjAEcMwDd9g6L4DrMCXadvLD+KX6ldvGeKWLZv1IQIjES0+HuzqZATdnX0or012Eg37XeOAbodwEL/ff8NevherWXsP+a2A0KJgPPi7TZ/CmRSxNCcDUMP0GH25+A6trd8+kTXM10GItxTxQlNEsH44tPdAWb7P0BA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=llm5civONHWGtFjuGCu8jsP/ljZTLecaUgeevi0V1eM=;
- b=wbze2gSglj1UokBZ04wrTa3y1HN6rLXPaQKaMlRFf1UkWOfUdtwcizzXia47BNZ6Q2NugzsWcnkCqBA0eiDCk1anpQfF4gf1R4a3nQCstYHi75UuzNRp1OZ10y5rAfXqvWWSd4ap4DBbFJkFz2YKAFcFVcln7AtLImzSFPmi/QuyXn4ohqj1tEj1CdQa6VPG9FfRKSivE0lvWuh6xHBFGSBowdIcTcKdITmOFvRsNAw+1JRG5skP7WVazmC8LOREyAzK5qiDTgUTy8Bz217dAbTvdPXu+6kCEHMrdhFDStonUN4rdLQYpsi5ciUAOGsleu9RgN0rJPJkGrcg8Zfevg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=llm5civONHWGtFjuGCu8jsP/ljZTLecaUgeevi0V1eM=;
- b=cNdaZ/U60VFIAuDMWFbWg0DlGvA7PCjBzM6GDiVJFd6zm5k+WiSKrQTKWIELSvz41sq73C770pwH00Xg8tYbQdtDuJ8wO0DzpxBde5nruYzUbg0VUAOPQaJRMC6m8lRvU9pDNWdrh/02NWpbcx2dlOE7aY+ZLl3WBhaus8lbiFXLpNbM85w9lCRMTcQOlm7TScr2EYF1qVNx4DZOplLVRhC0XWBp18BaVTWW3L52rsVe1K5HXTYYRuj29N7IevELvnpcKV8a784pxS980eWY917kTCsBAM6s31d7uYo+sBMJd4OOyev7Ao2CohDsZPgkN2f489b4Glw/o9hF6pnnAQ==
-From: Michael Kelley <mhklinux@outlook.com>
-To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org"
-	<x86@kernel.org>
-CC: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross
-	<jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Gaosheng Cui
-	<cuigaosheng1@huawei.com>, Michael Roth <michael.roth@amd.com>, Tom Lendacky
-	<thomas.lendacky@amd.com>, Ashish Kalra <ashish.kalra@amd.com>, Kai Huang
-	<kai.huang@intel.com>, Andi Kleen <ak@linux.intel.com>, Sean Christopherson
-	<seanjc@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Dave Hansen <dave.hansen@intel.com>
-Subject: RE: [PATCH] x86/mtrr: Rename mtrr_overwrite_state() to
- guest_force_mtrr_state()
-Thread-Topic: [PATCH] x86/mtrr: Rename mtrr_overwrite_state() to
- guest_force_mtrr_state()
-Thread-Index: AQHbH7lXKN74uyRaU0+LX19wrvgpfbKNiJAw
-Date: Sat, 19 Oct 2024 05:11:16 +0000
-Message-ID:
- <SN6PR02MB4157C91EE70F4EF4B6EDDE46D4412@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20241015095818.357915-1-kirill.shutemov@linux.intel.com>
- <20241016105048.757081-1-kirill.shutemov@linux.intel.com>
-In-Reply-To: <20241016105048.757081-1-kirill.shutemov@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|CY8PR02MB9425:EE_
-x-ms-office365-filtering-correlation-id: af00db32-885f-4cac-75fb-08dceffc7573
-x-microsoft-antispam:
- BCL:0;ARA:14566002|15080799006|8060799006|461199028|8062599003|19110799003|102099032|440099028|3412199025;
-x-microsoft-antispam-message-info:
- lB7isbQS0VOlEiWsmJuxnBKWBpsIbjc5N6hU3ZhsWX/4ObibUllBxSvWodpFVsjYsYGXXN/xKnxGwPkSyQ9ASfjrmI7qOs0VyRHtX9S5mbQ/QCOsh+GpTj1DkzbUxQEqWCAGXCCg33XqW9Bu9iOL2/jxUTmeZgNsZxJ+D8zZNQAyOfJlgcg6+q4gyOgDig6tQ7tIleXweyWIKY3xV0cViUW0QrihB4zvRj/UuQsSh7UVbAv2trxv8ZbWepkoUp5wfQVL8URkhuHAj9Cf+2NrTI0zlFg8qTJT0HjpnLWIHFxme3fEmTHpaRvzJf594nkNPJMTx9VyRmLHYOyNwENgx+OPnvm6z/j7aPYARfilKdXb3HRiw/H8yvP72Yb5hCdPPgnXbDOlV2pgV8xe6XJWxCsMoQId8ZWrTt9PZHhW4IwD4cU/qXePHYGJLaN7PBOqstzlPJTACDwSRxb7f9+oCv6fb807+gASZxwOvLxeOg5oABDnx3G5RL9AoB5AfKN1/V+9PYulS5LBrjntAzq8cNvRIEVly2BwtnBSlKIkoV7+VySScWCeyER4d1ZYsigFBdTuKtPtOMzH/HNDRCO3+xR/9zbZjUkLxw2kUel70Hh+UODLZZs2JzvxcXREJ2ix/ExAfG8FkxsEGIKrM+Ahxck+EJ+49swn+Bviw2qZBdGTQ/ov/HIT8ys1LoE84/1NaYxFRX6RheTw3ediHrjKOA==
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?WuAQ5V+pUZJdlWkPr1YxbICXRIQwjULl7wH9bxdcIieJW7V1d4L6wj86l2ub?=
- =?us-ascii?Q?sr4XDvNfvFRss7hcmbrKqw9ImTAmzXkYVW+bOUBc8ReFggHceYagWZ2szZBO?=
- =?us-ascii?Q?ryzdY0Ap1fYniDQyuXQ0WfZ2108Em3lVmr+sWxBGL1u4l18zdi4feDjQL81z?=
- =?us-ascii?Q?Cv7TEIqPIhAQbMYeO7BDkAKq1mdCv9R+H1Ym94CYpZgGXlpe5ZPXhvGnKyCX?=
- =?us-ascii?Q?HA1Vzc8kdn8Umn4txDVLsXlmxUKju5B9CNiVE1sKn+SwCWCCwnCxJnhgMRVd?=
- =?us-ascii?Q?Cebo5sZA3/ge7ou99arQAvzWFrP3fW8AmGx2Ue12xDwWXpINmNN9XxHbVC/Y?=
- =?us-ascii?Q?tq2GS5RV48plG29KkBVyImZnqGofCIOiVUIhXPZWXcg5Yk1kxOwbf6I0wFVv?=
- =?us-ascii?Q?6wDDIOmj8tdIAwMRi1opAkSoqydGbkC4CjOaK0VeBUHCYmzvKhcV+eLia3Pj?=
- =?us-ascii?Q?X8Z9l6/jIwpWYCe41zvj3mBC1xsm9Xdddg2hqKRcmsIlyrdVKDb89k/iZreC?=
- =?us-ascii?Q?ZuDL8gUBLITk/uWFJmWuJ3h7eDIhTzLWzAJbrbVRN+ef8GUx3/Skdr75uQYp?=
- =?us-ascii?Q?orqVwwrZrMftQ1WalrSI43VZqdbT+aWGfrU8Bz0BrOgihWbu3AW/lszkOUAG?=
- =?us-ascii?Q?v2mNdHtg5dZJC8yE5EerxQCRB96YbK6BO0OGwPSg0efcWcAGe+eQjJ+XbccK?=
- =?us-ascii?Q?qpvi1or5tcX0mjmIg6sYIQCSMhOwNfWLbXvnKyYs59oFpmy2lThvmJUf7DHP?=
- =?us-ascii?Q?FMJGUOVZcspwehk6/ea3Zk9oTyCZDtS5Im6lrx09+MHhIZ29UFn05k5zD+z+?=
- =?us-ascii?Q?gMqEi14QdIU/ezYVtqcXaMIReiGwUxZ9rNy3vwSuF2dIxDwpExLjgACWoD+3?=
- =?us-ascii?Q?eSjo0/Tl+kC+IOgP9Iw/nQciqdiI729EoFLDl0MhiZG9sa1HG1HteL5M62X3?=
- =?us-ascii?Q?cu1wGwzyZNYXwviB+31TgQcEtShVqAH9yENy5M2cJca3qTBMgzzJjl3v4aoK?=
- =?us-ascii?Q?c8qoUNeZJFsmJqWgnoKVSumFof2m3lTUW1SsJhNemtjp/SnwOizIvncdz6Ex?=
- =?us-ascii?Q?TxCAGJ7czrMnChnzn0af0iONNJuAgZKv2TB3GvX9VSRk67Vq2Antx3kBr5vM?=
- =?us-ascii?Q?NUcjRsN9TCSiEsXl5Rf/xn2IBP0sCVaVg+/ma9iPeqsCT5nTbXTo1iQrl4hc?=
- =?us-ascii?Q?g3FwpFOSgV25ugMqDZxSNMPLWNVs+ydACMfXSJnwq3QqfrJvQF9+JemkUEs?=
- =?us-ascii?Q?=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=U1H++NpsVk6WYj9bQoST7NMKMmPEvw7A47uRk821c3g=; b=oJ0FHtjRF5lXRWE0hOr++FfgpJ
+	X+ki7xM4inZC3aSD/VWh0S1Rq+D77BDYBQys3HKBD5vffZ2IxSGJ2Q3prXLPuBjnMXWMMXoGtMh2q
+	qsUUpZPpI7JWV5TA+aLNYu7LE8Bi4w5nhY4wnFuDjbeYttDyyPZfCqKWSo+xIPPPHcKk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-188281-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: af00db32-885f-4cac-75fb-08dceffc7573
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2024 05:11:16.0574
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR02MB9425
+Subject: [ovmf test] 188281: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=8f84eb0e761992dc1218f63ee53a54ac0c65630f
+X-Osstest-Versions-That:
+    ovmf=e19cc32bce466fb1c175f7d44708c2ebb45802a7
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 19 Oct 2024 06:49:54 +0000
 
-From: Kirill A. Shutemov <kirill.shutemov@linux.intel.com> Sent: Wednesday,=
- October 16, 2024 3:51 AM
->=20
-> Rename the helper to better reflect its function.
->=20
-> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-> Suggested-by: Dave Hansen <dave.hansen@intel.com>
-> ---
->  arch/x86/hyperv/ivm.c              |  2 +-
->  arch/x86/include/asm/mtrr.h        | 10 +++++-----
->  arch/x86/kernel/cpu/mtrr/generic.c |  6 +++---
->  arch/x86/kernel/cpu/mtrr/mtrr.c    |  2 +-
->  arch/x86/kernel/kvm.c              |  2 +-
->  arch/x86/xen/enlighten_pv.c        |  4 ++--
->  6 files changed, 13 insertions(+), 13 deletions(-)
->=20
-> diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
-> index 60fc3ed72830..90aabe1fd3b6 100644
-> --- a/arch/x86/hyperv/ivm.c
-> +++ b/arch/x86/hyperv/ivm.c
-> @@ -664,7 +664,7 @@ void __init hv_vtom_init(void)
->  	x86_platform.guest.enc_status_change_finish =3D hv_vtom_set_host_visibi=
-lity;
->=20
->  	/* Set WB as the default cache mode. */
-> -	mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
-> +	guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
->  }
->=20
->  #endif /* defined(CONFIG_AMD_MEM_ENCRYPT) ||
-> defined(CONFIG_INTEL_TDX_GUEST) */
-> diff --git a/arch/x86/include/asm/mtrr.h b/arch/x86/include/asm/mtrr.h
-> index 4218248083d9..c69e269937c5 100644
-> --- a/arch/x86/include/asm/mtrr.h
-> +++ b/arch/x86/include/asm/mtrr.h
-> @@ -58,8 +58,8 @@ struct mtrr_state_type {
->   */
->  # ifdef CONFIG_MTRR
->  void mtrr_bp_init(void);
-> -void mtrr_overwrite_state(struct mtrr_var_range *var, unsigned int num_v=
-ar,
-> -			  mtrr_type def_type);
-> +void guest_force_mtrr_state(struct mtrr_var_range *var, unsigned int num=
-_var,
-> +			    mtrr_type def_type);
->  extern u8 mtrr_type_lookup(u64 addr, u64 end, u8 *uniform);
->  extern void mtrr_save_fixed_ranges(void *);
->  extern void mtrr_save_state(void);
-> @@ -75,9 +75,9 @@ void mtrr_disable(void);
->  void mtrr_enable(void);
->  void mtrr_generic_set_state(void);
->  #  else
-> -static inline void mtrr_overwrite_state(struct mtrr_var_range *var,
-> -					unsigned int num_var,
-> -					mtrr_type def_type)
-> +static inline void guest_force_mtrr_state(struct mtrr_var_range *var,
-> +					  unsigned int num_var,
-> +					  mtrr_type def_type)
->  {
->  }
->=20
-> diff --git a/arch/x86/kernel/cpu/mtrr/generic.c b/arch/x86/kernel/cpu/mtr=
-r/generic.c
-> index 7b29ebda024f..2fdfda2b60e4 100644
-> --- a/arch/x86/kernel/cpu/mtrr/generic.c
-> +++ b/arch/x86/kernel/cpu/mtrr/generic.c
-> @@ -423,7 +423,7 @@ void __init mtrr_copy_map(void)
->  }
->=20
->  /**
-> - * mtrr_overwrite_state - set static MTRR state
-> + * guest_force_mtrr_state - set static MTRR state for a guest
->   *
->   * Used to set MTRR state via different means (e.g. with data obtained f=
-rom
->   * a hypervisor).
-> @@ -436,8 +436,8 @@ void __init mtrr_copy_map(void)
->   * @num_var: length of the @var array
->   * @def_type: default caching type
->   */
-> -void mtrr_overwrite_state(struct mtrr_var_range *var, unsigned int num_v=
-ar,
-> -			  mtrr_type def_type)
-> +void guest_force_mtrr_state(struct mtrr_var_range *var, unsigned int num=
-_var,
-> +			    mtrr_type def_type)
->  {
->  	unsigned int i;
->=20
-> diff --git a/arch/x86/kernel/cpu/mtrr/mtrr.c b/arch/x86/kernel/cpu/mtrr/m=
-trr.c
-> index 989d368be04f..ecbda0341a8a 100644
-> --- a/arch/x86/kernel/cpu/mtrr/mtrr.c
-> +++ b/arch/x86/kernel/cpu/mtrr/mtrr.c
-> @@ -625,7 +625,7 @@ void mtrr_save_state(void)
->  static int __init mtrr_init_finalize(void)
->  {
->  	/*
-> -	 * Map might exist if mtrr_overwrite_state() has been called or if
-> +	 * Map might exist if guest_force_mtrr_state() has been called or if
->  	 * mtrr_enabled() returns true.
->  	 */
->  	mtrr_copy_map();
-> diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-> index 21e9e4845354..7a422a6c5983 100644
-> --- a/arch/x86/kernel/kvm.c
-> +++ b/arch/x86/kernel/kvm.c
-> @@ -983,7 +983,7 @@ static void __init kvm_init_platform(void)
->  	x86_platform.apic_post_init =3D kvm_apic_init;
->=20
->  	/* Set WB as the default cache mode for SEV-SNP and TDX */
-> -	mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
-> +	guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
->  }
->=20
->  #if defined(CONFIG_AMD_MEM_ENCRYPT)
-> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-> index d6818c6cafda..633469fab536 100644
-> --- a/arch/x86/xen/enlighten_pv.c
-> +++ b/arch/x86/xen/enlighten_pv.c
-> @@ -171,7 +171,7 @@ static void __init xen_set_mtrr_data(void)
->=20
->  	/* Only overwrite MTRR state if any MTRR could be got from Xen. */
->  	if (reg)
-> -		mtrr_overwrite_state(var, reg, MTRR_TYPE_UNCACHABLE);
-> +		guest_force_mtrr_state(var, reg, MTRR_TYPE_UNCACHABLE);
->  #endif
->  }
->=20
-> @@ -195,7 +195,7 @@ static void __init xen_pv_init_platform(void)
->  	if (xen_initial_domain())
->  		xen_set_mtrr_data();
->  	else
-> -		mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
-> +		guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
->=20
->  	/* Adjust nr_cpu_ids before "enumeration" happens */
->  	xen_smp_count_cpus();
-> --
-> 2.45.2
->=20
+flight 188281 ovmf real [real]
+flight 188285 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/188281/
+http://logs.test-lab.xenproject.org/osstest/logs/188285/
 
-LGTM
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 188152
+
+version targeted for testing:
+ ovmf                 8f84eb0e761992dc1218f63ee53a54ac0c65630f
+baseline version:
+ ovmf                 e19cc32bce466fb1c175f7d44708c2ebb45802a7
+
+Last test of basis   188152  2024-10-17 07:11:33 Z    1 days
+Failing since        188156  2024-10-17 09:14:11 Z    1 days   11 attempts
+Testing same since   188268  2024-10-18 18:13:31 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  jack Hsieh <v-chhsieh@microsoft.com>
+  Jeremy Compostella <jeremy.compostella@intel.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kun Qin <kuqin@microsoft.com>
+  Mike Beaton <mjsbeaton@gmail.com>
+  Sienski Piotr <piotr.sienski@intel.com>
+  v-chhsieh <v-chhsieh@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 8f84eb0e761992dc1218f63ee53a54ac0c65630f
+Author: Mike Beaton <mjsbeaton@gmail.com>
+Date:   Sun Sep 29 11:40:44 2024 +0100
+
+    BaseTools: Remove -Wno-unneeded-internal-declaration from CLANGDWARF
+    
+    Subsequent to updating the 'null' DEBUG macro to explicitly
+    discard its expression, it is possible to remove this warning
+    suppression from CLANGDWARF and still successfully compile
+    its RELEASE build.
+    
+    Note that CLANGPDB did and does not have this warning suppressed,
+    and so before updating the 'null' DEBUG macro, CLANGPDB RELEASE
+    was not building successfully in recent versions of clang,
+    but was stopping with the error:
+    
+    .../edk2/OvmfPkg/VirtioSerialDxe/VirtioSerial.c:28:22: error:
+    variable &apos;EventNames&apos; is not needed and will not be
+    emitted [-Werror,-Wunneeded-internal-declaration]
+    STATIC CONST CHAR8  *EventNames[] = {
+                         ^
+    
+    This change makes the two CLANG variants match with respect
+    to this warning, and leaves the warning enabled which is
+    considered a benefit as it has the potential to catch real
+    coding errors
+    
+    Signed-off-by: Mike Beaton <mjsbeaton@gmail.com>
+
+commit ae83c6b7fd83a5906e016a32027c1bcd792a624e
+Author: Mike Beaton <mjsbeaton@gmail.com>
+Date:   Sat Sep 28 02:43:15 2024 +0100
+
+    MdePkg: Fix null macros for XCODE5 and CLANG
+    
+    When building OvmfPkg in RELEASE mode in the XCODE5 toolchain, the
+    ASSERT_EFI_ERROR change prevents this error:
+    
+    .../MdePkg/Library/UefiMemoryAllocationLib/MemoryAllocationLib.c:141:15:
+    error: variable 'Status' set but not used [-Werror,-Wunused-but-set-variable]
+      EFI_STATUS  Status;
+                  ^
+    
+    which is currently stopping the build.
+    
+    When building in RELEASE mode in the CLANGPDB toolchain,the DEBUG macro
+    change prevents this error:
+    
+    .../edk2/OvmfPkg/VirtioSerialDxe/VirtioSerial.c:28:22: error:
+    variable &apos;EventNames&apos; is not needed and will not be
+    emitted [-Werror,-Wunneeded-internal-declaration]
+    STATIC CONST CHAR8  *EventNames[] = {
+                         ^
+    
+    which is currently stopping the build.
+    
+    CLANGDWARF produces the same error as CLANGPDB above, if
+    -Wno-unneeded-internal-declaration is removed from its build flags.
+    With the null DEBUG macro change, this warning suppression
+    can be removed from CLANGDWARF, which is considered a benefit
+    as it has the potential to catch real coding errors. This is
+    done in a subsequent commit.
+    
+    This commit has the desirable side effect that we no longer require
+    (and cannot use) explicit `#ifndef MDEPKG_NDEBUG` around items only
+    used in DEBUG macros. This requires the ArmPkg change made here to
+    be in the same commit as the MdePkg changes.
+    
+    Note: In common with existing macros in EDK II, including the pre-existing
+    and unchanged DEBUG/NOOPT versions of the macros which are modified here,
+    we use the standard approach of adding `do { ... } while (FALSE)` wrapping
+    to ensure that the macros behave correctly with surrounding code
+    (e.g. require a following ';' and do not combine in unexpected ways with
+    nearby conditionals).
+    
+    Continuous-integration-options: PatchCheck.ignore-multi-package
+    Co-authored-by: Mikhail Krichanov <krichanov@ispras.ru>
+    Signed-off-by: Mike Beaton <mjsbeaton@gmail.com>
+
+commit 6e197a8ba5e349e511850fc52457992de88c8795
+Author: v-chhsieh <v-chhsieh@microsoft.com>
+Date:   Mon Sep 30 14:43:39 2024 +0800
+
+    MdePkg: Add Google Test Library and Protocol
+    
+    Mock Libraries:
+     MdePkg\Test\Mock\Library\GoogleTest\MockCpuLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockPciSegmentLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockReportStatusCodeLib
+     MdePkg\Test\Mock\Library\GoogleTest\MockSmmServicesTableLib
+    
+    Mock Protocol:
+     MdePkg\Test\Mock\Include\GoogleTest\Protocol\MockMpService.h
+    
+    Signed-off-by: jack Hsieh <v-chhsieh@microsoft.com>
+    Cc: Maintainer Shruti Gupta <shrugupt@microsoft.com>
+    Cc: Reviewer   Shruti Gupta <shrugupt@microsoft.com>
+
+commit 866abb233817eb349fa5fe2b32283e990a8e5056
+Author: Jeremy Compostella <jeremy.compostella@intel.com>
+Date:   Wed Oct 9 15:03:13 2024 -0700
+
+    MdeModulePkg: Replace right bit shift operator with RShiftU64
+    
+    Instead of using bit shift operations, it is preferable to use BaseLib
+    bit shift functions to prevent compilers from inserting intrinsics.
+    
+    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+
+commit 996e740cc83aa499d91b3ab3ae857dab7578e05c
+Author: Jeremy Compostella <jeremy.compostella@intel.com>
+Date:   Tue Oct 8 16:55:51 2024 -0700
+
+    MdeModulePkg: Fix PeiAllocatePages() corner case
+    
+    I recently ran into an AllocatePages() hang. It turns out that
+    AllocatePages() does not account for the Memory Allocation HOB when it
+    makes the decision of allocating out of free memory.
+    
+    Here is the scenario:
+    
+      FreeMemoryTop    - 0x71C03000
+      FreeMemoryBottom - 0x71BDBFD8
+      => We have 159,784 bytes left => ~39.0098 pages left.
+    
+    We attempt to allocate 39 pages. There are enough pages left but
+    allocating those pages requires to allocate a Memory Allocation HOB
+    which needs an extra 48 bytes. But once the pages are allocated,
+    there are only 40 bytes left.
+    
+    In addition to taking into account the Memory Allocation HOB size,
+    this commit reverses the condition to keep it simple.
+    
+    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+
+commit 1b70dcd375765d293f57fe546710b98525e6a46d
+Author: Sienski Piotr <piotr.sienski@intel.com>
+Date:   Mon Oct 14 12:24:14 2024 +0200
+
+    MdePkg/Include/Guid: Add missing CXL definitions to Cper.h
+    
+    [Issue Description]
+    In MdePkg/Include/Guid/Cper.h there are missing multiple definitions
+    regarding CXL that can be found in UEFI 2.10 spec
+    chapters N.2.13 and N.2.14
+    
+    [Resolution]
+    Add these definitions to MdePkg/Include/Guid/Cper.h
+    
+    Signed-off-by: Sienski Piotr <piotr.sienski@intel.com>
+
+commit 79598f34fa024ad2491b46b95c3189c5a7f159d2
+Author: Kun Qin <kuqin12@gmail.com>
+Date:   Wed Aug 10 22:56:34 2022 -0700
+
+    MdeModulePkg: PeiMain: Updated dispatcher for delayed dispatch
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    This change adds a check for PEI dispatcher to continue dispatching when
+    there are still pending delayed dispatch requests, to be compatible with
+    newly integrated Delayed Dispatcher PPI interface.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Cc: Debkumar De <debkumar.de@intel.com>
+    Cc: Catharine West <catharine.west@intel.com>
+    
+    Co-authored-by: John Schock <joschock@microsoft.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+
+commit d64d1e195ceb003c824786bfd817227c7ae81f06
+Author: Kun Qin <kuqin@microsoft.com>
+Date:   Thu Sep 19 14:11:37 2024 -0700
+
+    MdeModulePkg: PeiMain: Introduce implementation of delayed dispatch
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    This change adds the implementation that fits the needs and description
+    of PI spec defined Delayed Dispatch PPI in Pei Core.
+    
+    The PPI would allow minimal delay for registered callbacks. As well as
+    allowing other functions to wait for GUIDed delayed dispatch callbacks.
+    
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Debkumar De <debkumar.de@intel.com>
+    Cc: Catharine West <catharine.west@intel.com>
+    
+    Co-authored-by: Mike Turner <mikeyt@pobox.com>
+    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+
+commit b3f36e151d8b014cac5c6a833e2270c14d998739
+Author: Kun Qin <kuqin@microsoft.com>
+Date:   Thu Sep 19 14:09:03 2024 -0700
+
+    MdePkg: Update Delayed Dispatch PPI as per PI 1.8 A Spec
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    
+    PI spec defined the `Register` function input argument `Delay` as output.
+    However, this parameter should be used to define the minmal time delay
+    the callback should fire. Thus it should be an input parameter.
+    
+    This change fixed the argument type.
+    
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+    
+    Co-authored-by: Mike Turner <mikeyt@pobox.com>
+    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
+    Signed-off-by: Kun Qin <kuqin12@gmail.com>
 
