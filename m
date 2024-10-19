@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A259A4D9A
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 14:02:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822489.1236461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CA5A9A4DA0
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 14:05:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.822497.1236471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t28AE-0004Ij-SL; Sat, 19 Oct 2024 12:02:34 +0000
+	id 1t28CR-0004ui-7j; Sat, 19 Oct 2024 12:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822489.1236461; Sat, 19 Oct 2024 12:02:34 +0000
+Received: by outflank-mailman (output) from mailman id 822497.1236471; Sat, 19 Oct 2024 12:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t28AE-0004H8-Pb; Sat, 19 Oct 2024 12:02:34 +0000
-Received: by outflank-mailman (input) for mailman id 822489;
- Sat, 19 Oct 2024 12:02:34 +0000
+	id 1t28CR-0004s0-5C; Sat, 19 Oct 2024 12:04:51 +0000
+Received: by outflank-mailman (input) for mailman id 822497;
+ Sat, 19 Oct 2024 12:04:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qdF/=RP=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t28AE-0004Gh-7b
- for xen-devel@lists.xenproject.org; Sat, 19 Oct 2024 12:02:34 +0000
-Received: from sender3-of-o59.zoho.com (sender3-of-o59.zoho.com
- [136.143.184.59]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04fbc5fe-8e12-11ef-a0be-8be0dac302b0;
- Sat, 19 Oct 2024 14:02:33 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1729339344445472.78716576219813;
- Sat, 19 Oct 2024 05:02:24 -0700 (PDT)
+ id 1t28CQ-0004rq-A3
+ for xen-devel@lists.xenproject.org; Sat, 19 Oct 2024 12:04:50 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55be0697-8e12-11ef-a0be-8be0dac302b0;
+ Sat, 19 Oct 2024 14:04:48 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729339482088428.4743933200755;
+ Sat, 19 Oct 2024 05:04:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,79 +38,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04fbc5fe-8e12-11ef-a0be-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1729339345; cv=none; 
+X-Inumbo-ID: 55be0697-8e12-11ef-a0be-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1729339483; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=mgESEPhQeGKFaTKgVEZDHqRI4dbH7bB0TX05EcNLAYjbdEa/JtUg1uVmZpaY3AQ/vbkNYgD2ogoIKfaC8iH/w3lJXtN4QWOa1PnyLgJ6uFeG7bRzcXciLaJOy7+H7OhTmoHaJkWwTcT2EhaSamO3GVh36kX5cn9wgnvZSM8SdjM=
+	b=X62RzoancnBFF5utUmqIp2FG4K1vzb9kAgJMnIRbPR+P7BQvktlc0qJ9my5YLE5hzzG3XelQkvnJv/9U6nq2UmYJefbzSo2WE0uv4Jihea69dR8ev3DhWinpHG7DUN3L5uGTF7riCKjjfV0pS4Oq5LhjZMbgffQpoDCztlgIT7g=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1729339345; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iRk+UeqORKfqBassxklkpgtIy64S1iDTrldwYgFsmTM=; 
-	b=ZtqKtO5xeH5rFd4DFT8LMjoZNPaWgX0HZXPP3I5eYUjgkog+oXHFYnOpFMrvEkJeA0QSbZnJ4HSRiUqd6IdNi/MDVpSKPnc/DqcrYu5PuGPAPmcegPrZ4cGUgPOJlqSQmQoc69C/MbA5663xg/aqkPXQyfHqDmJA06td/KnHl80=
+	t=1729339483; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=MOwM/LbPXEACamzONVfkb7fee3UcYZJYnIGCl3yxkkY=; 
+	b=JFm1s9KxmwwFIhT4xt/lgkcGmOoILFVX//KJePtPdj1EX2+cIOB943C1Q8lyXckUp7lc+S1Zy6KqreitxsZ/sQ2ftIkRbOZpioksrLvSbKtaofl4HMdPr3qSKXkcYcf0vOIiqSeRqJDIjcyozlVUAWzwoudbqlybDLU0bP2SGWg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729339345;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729339483;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=iRk+UeqORKfqBassxklkpgtIy64S1iDTrldwYgFsmTM=;
-	b=KPiUuvqTudu+UoSzmvgqE4+s3flq1gyEicnUveinpIRDw+tPncH68K7YHd4qX8ey
-	l5EaFYqpFRkPIDT772OSi/j9vW/wwdCExB9jI23HZ4yzmMTmOTzBM6ihuMgy6DAkL9b
-	PLEb6WYHElVi4xlssgU4JcL3cwm2pLyLlC+y3lvk=
-Message-ID: <11ed10c8-3c6b-45cc-8d03-e8449ce9f7d0@apertussolutions.com>
-Date: Sat, 19 Oct 2024 08:02:23 -0400
+	bh=MOwM/LbPXEACamzONVfkb7fee3UcYZJYnIGCl3yxkkY=;
+	b=gG1lPGY8eQwGOe+HBMMUF+u6q3v1Av+VqErue9X95XhfWKTaxwjacvwqgRhIJ91v
+	hOweyBeHRQ9DghZIf80japF0sgZA8SE6E+hmV0NwE4oAv+mRQNN/x6uF/PUTjfz196j
+	MEaiWvqENG10fkgtNbki/Keu2AMTy2x0R12c+q/Y=
+Message-ID: <f81ac002-b857-4e1c-9f57-809b0c3250ef@apertussolutions.com>
+Date: Sat, 19 Oct 2024 08:04:40 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 13/44] x86/boot: transition relocation calculations to
- struct boot_module
-To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v6 14/44] x86/boot: introduce boot module interator
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20241017170325.3842-1-dpsmith@apertussolutions.com>
- <20241017170325.3842-14-dpsmith@apertussolutions.com>
- <a94f876a-5f9a-4f21-be28-f4192c991337@amd.com>
- <cd25c03d-456d-49a8-a832-e8ec02b69108@suse.com>
+ <20241017170325.3842-15-dpsmith@apertussolutions.com>
+ <acbb1045-237e-4570-b7a1-ea3283d344ef@amd.com>
 Content-Language: en-US
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <cd25c03d-456d-49a8-a832-e8ec02b69108@suse.com>
+In-Reply-To: <acbb1045-237e-4570-b7a1-ea3283d344ef@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 10/18/24 02:39, Jan Beulich wrote:
-> On 18.10.2024 02:42, Jason Andryuk wrote:
->> On 2024-10-17 13:02, Daniel P. Smith wrote:
->>> @@ -1686,12 +1682,12 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>>    
->>>        for ( i = 0; i < bi->nr_modules; ++i )
->>>        {
->>> -        set_pdx_range(bi->mods[i].mod->mod_start,
->>> -                      bi->mods[i].mod->mod_start +
->>> -                      PFN_UP(bi->mods[i].mod->mod_end));
->>> -        map_pages_to_xen((unsigned long)mfn_to_virt(bi->mods[i].mod->mod_start),
->>> -            _mfn(bi->mods[i].mod->mod_start),
->>> -            PFN_UP(bi->mods[i].mod->mod_end), PAGE_HYPERVISOR);
->>> +        set_pdx_range(paddr_to_pfn(bi->mods[i].start),
->>> +                      paddr_to_pfn(bi->mods[i].start) +
->>> +                      PFN_UP(bi->mods[i].size));
->>> +        map_pages_to_xen((unsigned long)maddr_to_virt(bi->mods[i].start),
->>> +            maddr_to_mfn(bi->mods[i].start),
->>> +            PFN_UP(bi->mods[i].size), PAGE_HYPERVISOR);
+On 10/18/24 10:09, Jason Andryuk wrote:
+> On 2024-10-17 13:02, Daniel P. Smith wrote:
+>> Provide an iterator to go through boot module array searching based on 
+>> type.
 >>
->> I would vertically align all the parameters inside the (.
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>> Changes since v5:
+>> - documented help next_boot_module_index
+>> - switch to unsigned int for next_boot_module_index
+>> - changes identified that BOOTMOD_XEN was not supported, so added support
+>> ---
+>>   xen/arch/x86/include/asm/bootinfo.h | 29 ++++++++++++++++++++++++++++-
+>>   1 file changed, 28 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/x86/include/asm/bootinfo.h 
+>> b/xen/arch/x86/include/asm/bootinfo.h
+>> index 5862054b8cef..3010e6f4af9c 100644
+>> --- a/xen/arch/x86/include/asm/bootinfo.h
+>> +++ b/xen/arch/x86/include/asm/bootinfo.h
+>> @@ -62,8 +62,35 @@ struct boot_info {
+>>       struct boot_module mods[MAX_NR_BOOTMODS + 1];
+>>   };
+>> -#endif /* __XEN_X86_BOOTINFO_H__ */
+>> +/*
+>> + * next_boot_module_index:
+>> + *     Finds the next boot module of type t, starting at array index 
+>> start.
+>> + *
+>> + * Returns:
+>> + *      Success - index in boot_module array
+>> + *      Failure - a value greater than MAX_NR_BOOTMODS
+>> + */
+>> +static inline unsigned int __init next_boot_module_index(
+>> +    const struct boot_info *bi, enum bootmod_type t, unsigned int start)
+>> +{
+>> +    unsigned int i;
+>> +
+>> +    if ( t == BOOTMOD_XEN )
+>> +        return MAX_NR_BOOTMODS;
 > 
-> At the very least the two successive calls want formatting the same way.
-> Plus imo the presented formatting of map_pages_to_xen() isn't "legal"
-> anyway, it ought to be
-> 
->          map_pages_to_xen(
->              (unsigned long)maddr_to_virt(bi->mods[i].start),
->              maddr_to_mfn(bi->mods[i].start),
->              PFN_UP(bi->mods[i].size), PAGE_HYPERVISOR);
+> Your earlier patch "x86/boot: convert mod refs to boot_module mod" put 
+> xen at bi->nr_modules.  You'll want these to match.
 
-Agreed, will change to the above.
+Yep.
 
 v/r,
 dps
