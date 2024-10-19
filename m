@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09E3C9A4B19
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 05:24:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822331.1236322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A34209A4B41
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 07:12:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.822347.1236346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t204D-0006Yl-Dt; Sat, 19 Oct 2024 03:23:49 +0000
+	id 1t21kK-0007Y5-V5; Sat, 19 Oct 2024 05:11:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822331.1236322; Sat, 19 Oct 2024 03:23:49 +0000
+Received: by outflank-mailman (output) from mailman id 822347.1236346; Sat, 19 Oct 2024 05:11:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t204D-0006X2-B9; Sat, 19 Oct 2024 03:23:49 +0000
-Received: by outflank-mailman (input) for mailman id 822331;
- Sat, 19 Oct 2024 03:23:47 +0000
+	id 1t21kK-0007WL-Rx; Sat, 19 Oct 2024 05:11:24 +0000
+Received: by outflank-mailman (input) for mailman id 822347;
+ Sat, 19 Oct 2024 05:11:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VpTG=RP=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1t204B-0006Ww-Da
- for xen-devel@lists.xenproject.org; Sat, 19 Oct 2024 03:23:47 +0000
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
+ <SRS0=36bq=RP=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
+ id 1t21kJ-0007WF-PK
+ for xen-devel@lists.xenproject.org; Sat, 19 Oct 2024 05:11:23 +0000
+Received: from SJ2PR03CU002.outbound.protection.outlook.com
+ (mail-westusazolkn190130001.outbound.protection.outlook.com
+ [2a01:111:f403:d000::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8af16639-8dc9-11ef-a0be-8be0dac302b0;
- Sat, 19 Oct 2024 05:23:45 +0200 (CEST)
-Received: from phl-compute-12.internal (phl-compute-12.phl.internal
- [10.202.2.52])
- by mailfout.phl.internal (Postfix) with ESMTP id 5EB39138025C;
- Fri, 18 Oct 2024 23:23:42 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-12.internal (MEProxy); Fri, 18 Oct 2024 23:23:42 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Oct 2024 23:23:40 -0400 (EDT)
+ id 93e7b601-8dd8-11ef-a0be-8be0dac302b0;
+ Sat, 19 Oct 2024 07:11:22 +0200 (CEST)
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by CY8PR02MB9425.namprd02.prod.outlook.com (2603:10b6:930:73::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Sat, 19 Oct
+ 2024 05:11:16 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df%3]) with mapi id 15.20.8069.016; Sat, 19 Oct 2024
+ 05:11:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,241 +47,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8af16639-8dc9-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1729308222;
-	 x=1729394622; bh=62U24OVI9ASqF2RIn6vHVkVMeUufpkaeCYq69ukBmv8=; b=
-	i/meU/GlHsLVxubQLaYIEuz8TkncgJOvgly2mIlXBRqWozw2DGoxIDEG2J8HvUk9
-	hj7mPL2Av/S/XOUYtjSB1AtqqFon5DM3IkRjm1XIZ9MjwRZYzwUpKCrPUPaypx6d
-	KxGkL/QHZEE4/VpjX6GuDysQR7v64xiLyVwye/OPM3FA5WU0VdYoHELJf/1c+/Vv
-	D23IUo45J0kGWlBbalNtHcrh89tzArHYnpnuP3+VIhv4alupfP3z/C3GaxUxZmm/
-	I+sPu1PNaMLCOc9bbZU/WynFFgpBAHr5VoKod3fCXPaSknB2/OaC11WmsLMrHx85
-	eEhmVgXokX5wI+FFW3FRMw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1729308222; x=1729394622; bh=62U24OVI9ASqF2RIn6vHVkVMeUuf
-	pkaeCYq69ukBmv8=; b=QdpYHD9Xj26PZO6HBFMyHy/qTwso8JZAVcyO2RRxmeUv
-	MLYpUMJPyL3HmqYtvD5NlkzqF54ToAkKkfs9PWVlsoRdO0d4hI2nt5anciNf5dXF
-	VELatzwipxYEl/ZOdKRSAVAyEC3eJbuhD7biBbXsKWQeorQL5DKLTmAxKYKy+vU+
-	Z826PqEIBd4pZq0LG8BWSUETOZkGVzeQpjQWKSQDDXike4zxi65ycD8fz8VrM5La
-	QbyOBn9blwwknLL3GFGnzoJPXhPa8cwwLEVo4UV70Jfq0eVWnX59Tam4FYc37jL/
-	H3vcVj/7/GDQALAbujebG1i9BoJWkNSCNU5Mo4efYQ==
-X-ME-Sender: <xms:PSYTZ8-QzfboB1SmVg8iz6w2KqXqGp3bQo1b_ba7149z6iXqZeE7SA>
-    <xme:PSYTZ0u-ag5BI-p5Alb3gL2ZsMDCT0jqBhFyhh0a0QziRoSmKfoOFvGuQIY3hAR5W
-    qep4MkZtMji3g>
-X-ME-Received: <xmr:PSYTZyDA7nhtJgGUVU4NZ1TsWOmOsraY3hIMurfy_D4FBYzUBkZas4wlOB-aO3mn3YM6eN5HWPmQgJ4QMIW8ZL8EFY4LfwDpdw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdehgedgjeduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
-    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
-    gspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprhhoghgv
-    rhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslh
-    hishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghh
-    sehsuhhsvgdrtghomhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghith
-    hrihigrdgtohhmpdhrtghpthhtohepgigvnhhprhhojhgvtghtseihmhihrdgsvgdprhgt
-    phhtthhopegufihmfiesrghmrgiiohhnrdgtohdruhhk
-X-ME-Proxy: <xmx:PSYTZ8f5pyAkbApOZ6Z4mvOvNtTsDkhmlehwjzjCuDyh0WmPl3bp8A>
-    <xmx:PSYTZxPopeP1xanPxl9WGvSmOAUgieo0L67OR6Cy7BCgFevWVyBkOQ>
-    <xmx:PSYTZ2l-j-gXUZf7uAz2Cm6tOEuZIehhmhKXe_pmB4121HuSiNVW-w>
-    <xmx:PSYTZzu6FPrzTecFJtDb21T0nVUNiXu28S3CGNKmgqlikI0acmwRZQ>
-    <xmx:PiYTZ03wN-AqzKo6l1FsFOeKj4YhxgBQE4KoftVTdxZr93lNQNKXWxSk>
-Feedback-ID: i1568416f:Fastmail
-Date: Sat, 19 Oct 2024 05:23:38 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Willi Junga <xenproject@ymy.be>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
- interrupt remapping
-Message-ID: <ZxMmOjD7oHuAE7Vb@mail-itl>
-References: <20241018080813.45759-1-roger.pau@citrix.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="+AprsNGlh2aM16SR"
-Content-Disposition: inline
-In-Reply-To: <20241018080813.45759-1-roger.pau@citrix.com>
-
-
---+AprsNGlh2aM16SR
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 93e7b601-8dd8-11ef-a0be-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yag//04gAqOpfmxdKVj/HTqSZDrv96reG9dnjPnmbl8DlYGkZ4wNR8PaU+wmk6rTHaUwXuv97mUVEQGS5nHRIzfgr0XqeaslAoJlDq0w7FTdGDZ3m77SV8kW/BDdnpBEQrD1v0+qsPRHT6pKxa69OgoruD7XyLVvREMJ2AaiIrpplko3c9QuFjAEcMwDd9g6L4DrMCXadvLD+KX6ldvGeKWLZv1IQIjES0+HuzqZATdnX0or012Eg37XeOAbodwEL/ff8NevherWXsP+a2A0KJgPPi7TZ/CmRSxNCcDUMP0GH25+A6trd8+kTXM10GItxTxQlNEsH44tPdAWb7P0BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=llm5civONHWGtFjuGCu8jsP/ljZTLecaUgeevi0V1eM=;
+ b=wbze2gSglj1UokBZ04wrTa3y1HN6rLXPaQKaMlRFf1UkWOfUdtwcizzXia47BNZ6Q2NugzsWcnkCqBA0eiDCk1anpQfF4gf1R4a3nQCstYHi75UuzNRp1OZ10y5rAfXqvWWSd4ap4DBbFJkFz2YKAFcFVcln7AtLImzSFPmi/QuyXn4ohqj1tEj1CdQa6VPG9FfRKSivE0lvWuh6xHBFGSBowdIcTcKdITmOFvRsNAw+1JRG5skP7WVazmC8LOREyAzK5qiDTgUTy8Bz217dAbTvdPXu+6kCEHMrdhFDStonUN4rdLQYpsi5ciUAOGsleu9RgN0rJPJkGrcg8Zfevg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=llm5civONHWGtFjuGCu8jsP/ljZTLecaUgeevi0V1eM=;
+ b=cNdaZ/U60VFIAuDMWFbWg0DlGvA7PCjBzM6GDiVJFd6zm5k+WiSKrQTKWIELSvz41sq73C770pwH00Xg8tYbQdtDuJ8wO0DzpxBde5nruYzUbg0VUAOPQaJRMC6m8lRvU9pDNWdrh/02NWpbcx2dlOE7aY+ZLl3WBhaus8lbiFXLpNbM85w9lCRMTcQOlm7TScr2EYF1qVNx4DZOplLVRhC0XWBp18BaVTWW3L52rsVe1K5HXTYYRuj29N7IevELvnpcKV8a784pxS980eWY917kTCsBAM6s31d7uYo+sBMJd4OOyev7Ao2CohDsZPgkN2f489b4Glw/o9hF6pnnAQ==
+From: Michael Kelley <mhklinux@outlook.com>
+To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Thomas Gleixner
+	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org"
+	<x86@kernel.org>
+CC: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
+	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+	<decui@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>, Paolo Bonzini
+	<pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross
+	<jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Gaosheng Cui
+	<cuigaosheng1@huawei.com>, Michael Roth <michael.roth@amd.com>, Tom Lendacky
+	<thomas.lendacky@amd.com>, Ashish Kalra <ashish.kalra@amd.com>, Kai Huang
+	<kai.huang@intel.com>, Andi Kleen <ak@linux.intel.com>, Sean Christopherson
+	<seanjc@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Dave Hansen <dave.hansen@intel.com>
+Subject: RE: [PATCH] x86/mtrr: Rename mtrr_overwrite_state() to
+ guest_force_mtrr_state()
+Thread-Topic: [PATCH] x86/mtrr: Rename mtrr_overwrite_state() to
+ guest_force_mtrr_state()
+Thread-Index: AQHbH7lXKN74uyRaU0+LX19wrvgpfbKNiJAw
+Date: Sat, 19 Oct 2024 05:11:16 +0000
+Message-ID:
+ <SN6PR02MB4157C91EE70F4EF4B6EDDE46D4412@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20241015095818.357915-1-kirill.shutemov@linux.intel.com>
+ <20241016105048.757081-1-kirill.shutemov@linux.intel.com>
+In-Reply-To: <20241016105048.757081-1-kirill.shutemov@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|CY8PR02MB9425:EE_
+x-ms-office365-filtering-correlation-id: af00db32-885f-4cac-75fb-08dceffc7573
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|15080799006|8060799006|461199028|8062599003|19110799003|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info:
+ lB7isbQS0VOlEiWsmJuxnBKWBpsIbjc5N6hU3ZhsWX/4ObibUllBxSvWodpFVsjYsYGXXN/xKnxGwPkSyQ9ASfjrmI7qOs0VyRHtX9S5mbQ/QCOsh+GpTj1DkzbUxQEqWCAGXCCg33XqW9Bu9iOL2/jxUTmeZgNsZxJ+D8zZNQAyOfJlgcg6+q4gyOgDig6tQ7tIleXweyWIKY3xV0cViUW0QrihB4zvRj/UuQsSh7UVbAv2trxv8ZbWepkoUp5wfQVL8URkhuHAj9Cf+2NrTI0zlFg8qTJT0HjpnLWIHFxme3fEmTHpaRvzJf594nkNPJMTx9VyRmLHYOyNwENgx+OPnvm6z/j7aPYARfilKdXb3HRiw/H8yvP72Yb5hCdPPgnXbDOlV2pgV8xe6XJWxCsMoQId8ZWrTt9PZHhW4IwD4cU/qXePHYGJLaN7PBOqstzlPJTACDwSRxb7f9+oCv6fb807+gASZxwOvLxeOg5oABDnx3G5RL9AoB5AfKN1/V+9PYulS5LBrjntAzq8cNvRIEVly2BwtnBSlKIkoV7+VySScWCeyER4d1ZYsigFBdTuKtPtOMzH/HNDRCO3+xR/9zbZjUkLxw2kUel70Hh+UODLZZs2JzvxcXREJ2ix/ExAfG8FkxsEGIKrM+Ahxck+EJ+49swn+Bviw2qZBdGTQ/ov/HIT8ys1LoE84/1NaYxFRX6RheTw3ediHrjKOA==
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?WuAQ5V+pUZJdlWkPr1YxbICXRIQwjULl7wH9bxdcIieJW7V1d4L6wj86l2ub?=
+ =?us-ascii?Q?sr4XDvNfvFRss7hcmbrKqw9ImTAmzXkYVW+bOUBc8ReFggHceYagWZ2szZBO?=
+ =?us-ascii?Q?ryzdY0Ap1fYniDQyuXQ0WfZ2108Em3lVmr+sWxBGL1u4l18zdi4feDjQL81z?=
+ =?us-ascii?Q?Cv7TEIqPIhAQbMYeO7BDkAKq1mdCv9R+H1Ym94CYpZgGXlpe5ZPXhvGnKyCX?=
+ =?us-ascii?Q?HA1Vzc8kdn8Umn4txDVLsXlmxUKju5B9CNiVE1sKn+SwCWCCwnCxJnhgMRVd?=
+ =?us-ascii?Q?Cebo5sZA3/ge7ou99arQAvzWFrP3fW8AmGx2Ue12xDwWXpINmNN9XxHbVC/Y?=
+ =?us-ascii?Q?tq2GS5RV48plG29KkBVyImZnqGofCIOiVUIhXPZWXcg5Yk1kxOwbf6I0wFVv?=
+ =?us-ascii?Q?6wDDIOmj8tdIAwMRi1opAkSoqydGbkC4CjOaK0VeBUHCYmzvKhcV+eLia3Pj?=
+ =?us-ascii?Q?X8Z9l6/jIwpWYCe41zvj3mBC1xsm9Xdddg2hqKRcmsIlyrdVKDb89k/iZreC?=
+ =?us-ascii?Q?ZuDL8gUBLITk/uWFJmWuJ3h7eDIhTzLWzAJbrbVRN+ef8GUx3/Skdr75uQYp?=
+ =?us-ascii?Q?orqVwwrZrMftQ1WalrSI43VZqdbT+aWGfrU8Bz0BrOgihWbu3AW/lszkOUAG?=
+ =?us-ascii?Q?v2mNdHtg5dZJC8yE5EerxQCRB96YbK6BO0OGwPSg0efcWcAGe+eQjJ+XbccK?=
+ =?us-ascii?Q?qpvi1or5tcX0mjmIg6sYIQCSMhOwNfWLbXvnKyYs59oFpmy2lThvmJUf7DHP?=
+ =?us-ascii?Q?FMJGUOVZcspwehk6/ea3Zk9oTyCZDtS5Im6lrx09+MHhIZ29UFn05k5zD+z+?=
+ =?us-ascii?Q?gMqEi14QdIU/ezYVtqcXaMIReiGwUxZ9rNy3vwSuF2dIxDwpExLjgACWoD+3?=
+ =?us-ascii?Q?eSjo0/Tl+kC+IOgP9Iw/nQciqdiI729EoFLDl0MhiZG9sa1HG1HteL5M62X3?=
+ =?us-ascii?Q?cu1wGwzyZNYXwviB+31TgQcEtShVqAH9yENy5M2cJca3qTBMgzzJjl3v4aoK?=
+ =?us-ascii?Q?c8qoUNeZJFsmJqWgnoKVSumFof2m3lTUW1SsJhNemtjp/SnwOizIvncdz6Ex?=
+ =?us-ascii?Q?TxCAGJ7czrMnChnzn0af0iONNJuAgZKv2TB3GvX9VSRk67Vq2Antx3kBr5vM?=
+ =?us-ascii?Q?NUcjRsN9TCSiEsXl5Rf/xn2IBP0sCVaVg+/ma9iPeqsCT5nTbXTo1iQrl4hc?=
+ =?us-ascii?Q?g3FwpFOSgV25ugMqDZxSNMPLWNVs+ydACMfXSJnwq3QqfrJvQF9+JemkUEs?=
+ =?us-ascii?Q?=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 19 Oct 2024 05:23:38 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Willi Junga <xenproject@ymy.be>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
- interrupt remapping
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: af00db32-885f-4cac-75fb-08dceffc7573
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2024 05:11:16.0574
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR02MB9425
 
-On Fri, Oct 18, 2024 at 10:08:13AM +0200, Roger Pau Monne wrote:
-> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE=
- is
-> repurposed to contain part of the offset into the remapping table.  Previ=
-ous to
-> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
-> table would match the vector.  Such logic was mandatory for end of interr=
-upt to
-> work, since the vector field (even when not containing a vector) is used =
-by the
-> IO-APIC to find for which pin the EOI must be performed.
+From: Kirill A. Shutemov <kirill.shutemov@linux.intel.com> Sent: Wednesday,=
+ October 16, 2024 3:51 AM
 >=20
-> Introduce a table to store the EOI handlers when using interrupt remappin=
-g, so
-> that the IO-APIC driver can translate pins into EOI handlers without havi=
-ng to
-> read the IO-APIC RTE entry.  Note that to simplify the logic such table i=
-s used
-> unconditionally when interrupt remapping is enabled, even if strictly it =
-would
-> only be required for AMD-Vi.
+> Rename the helper to better reflect its function.
 >=20
-> Reported-by: Willi Junga <xenproject@ymy.be>
-> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
-> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a=
- static mapping')
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-
-I can confirm it fixes touchpad issue on Framework 13 AMD,
-it works without ioapic_ack=3Dnew now, thanks!
-Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
+> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+> Suggested-by: Dave Hansen <dave.hansen@intel.com>
 > ---
->  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 47 insertions(+)
+>  arch/x86/hyperv/ivm.c              |  2 +-
+>  arch/x86/include/asm/mtrr.h        | 10 +++++-----
+>  arch/x86/kernel/cpu/mtrr/generic.c |  6 +++---
+>  arch/x86/kernel/cpu/mtrr/mtrr.c    |  2 +-
+>  arch/x86/kernel/kvm.c              |  2 +-
+>  arch/x86/xen/enlighten_pv.c        |  4 ++--
+>  6 files changed, 13 insertions(+), 13 deletions(-)
 >=20
-> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-> index e40d2f7dbd75..8856eb29d275 100644
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
-> =20
->  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
-> =20
-> +/*
-> + * Store the EOI handle when using interrupt remapping.
-> + *
-> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry rem=
-apped
-> + * format repurposes the vector field to store the offset into the Inter=
-rupt
-> + * Remap table.  This causes directed EOI to longer work, as the CPU vec=
-tor no
-> + * longer matches the contents of the RTE vector field.  Add a translati=
-on
-> + * table so that directed EOI uses the value in the RTE vector field when
-> + * interrupt remapping is enabled.
-> + *
-> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vecto=
-r field
-> + * when using the remapped format, but use the translation table uniform=
-ly in
-> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
-> + */
-> +static unsigned int **apic_pin_eoi;
-> +
->  static void share_vector_maps(unsigned int src, unsigned int dst)
+> diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
+> index 60fc3ed72830..90aabe1fd3b6 100644
+> --- a/arch/x86/hyperv/ivm.c
+> +++ b/arch/x86/hyperv/ivm.c
+> @@ -664,7 +664,7 @@ void __init hv_vtom_init(void)
+>  	x86_platform.guest.enc_status_change_finish =3D hv_vtom_set_host_visibi=
+lity;
+>=20
+>  	/* Set WB as the default cache mode. */
+> -	mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
+> +	guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
+>  }
+>=20
+>  #endif /* defined(CONFIG_AMD_MEM_ENCRYPT) ||
+> defined(CONFIG_INTEL_TDX_GUEST) */
+> diff --git a/arch/x86/include/asm/mtrr.h b/arch/x86/include/asm/mtrr.h
+> index 4218248083d9..c69e269937c5 100644
+> --- a/arch/x86/include/asm/mtrr.h
+> +++ b/arch/x86/include/asm/mtrr.h
+> @@ -58,8 +58,8 @@ struct mtrr_state_type {
+>   */
+>  # ifdef CONFIG_MTRR
+>  void mtrr_bp_init(void);
+> -void mtrr_overwrite_state(struct mtrr_var_range *var, unsigned int num_v=
+ar,
+> -			  mtrr_type def_type);
+> +void guest_force_mtrr_state(struct mtrr_var_range *var, unsigned int num=
+_var,
+> +			    mtrr_type def_type);
+>  extern u8 mtrr_type_lookup(u64 addr, u64 end, u8 *uniform);
+>  extern void mtrr_save_fixed_ranges(void *);
+>  extern void mtrr_save_state(void);
+> @@ -75,9 +75,9 @@ void mtrr_disable(void);
+>  void mtrr_enable(void);
+>  void mtrr_generic_set_state(void);
+>  #  else
+> -static inline void mtrr_overwrite_state(struct mtrr_var_range *var,
+> -					unsigned int num_var,
+> -					mtrr_type def_type)
+> +static inline void guest_force_mtrr_state(struct mtrr_var_range *var,
+> +					  unsigned int num_var,
+> +					  mtrr_type def_type)
 >  {
->      unsigned int pin;
-> @@ -273,6 +289,13 @@ void __ioapic_write_entry(
->      {
->          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
->          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
-> +        /*
-> +         * Might be called before apic_pin_eoi is allocated.  Entry will=
- be
-> +         * updated once the array is allocated and there's an EOI or wri=
-te
-> +         * against the pin.
-> +         */
-> +        if ( apic_pin_eoi )
-> +            apic_pin_eoi[apic][pin] =3D e.vector;
->      }
->      else
->          iommu_update_ire_from_apic(apic, pin, e.raw);
-> @@ -298,9 +321,17 @@ static void __io_apic_eoi(unsigned int apic, unsigne=
-d int vector, unsigned int p
->      /* Prefer the use of the EOI register if available */
->      if ( ioapic_has_eoi_reg(apic) )
->      {
-> +        if ( apic_pin_eoi )
-> +            vector =3D apic_pin_eoi[apic][pin];
-> +
->          /* If vector is unknown, read it from the IO-APIC */
->          if ( vector =3D=3D IRQ_VECTOR_UNASSIGNED )
-> +        {
->              vector =3D __ioapic_read_entry(apic, pin, true).vector;
-> +            if ( apic_pin_eoi )
-> +                /* Update cached value so further EOI don't need to fetc=
-h it. */
-> +                apic_pin_eoi[apic][pin] =3D vector;
-> +        }
-> =20
->          *(IO_APIC_BASE(apic)+16) =3D vector;
->      }
-> @@ -1022,7 +1053,23 @@ static void __init setup_IO_APIC_irqs(void)
-> =20
->      apic_printk(APIC_VERBOSE, KERN_DEBUG "init IO_APIC IRQs\n");
-> =20
-> +    if ( iommu_intremap )
-> +    {
-> +        apic_pin_eoi =3D xzalloc_array(typeof(*apic_pin_eoi), nr_ioapics=
-);
-> +        BUG_ON(!apic_pin_eoi);
-> +    }
-> +
->      for (apic =3D 0; apic < nr_ioapics; apic++) {
-> +        if ( iommu_intremap )
-> +        {
-> +            apic_pin_eoi[apic] =3D xmalloc_array(typeof(**apic_pin_eoi),
-> +                                               nr_ioapic_entries[apic]);
-> +            BUG_ON(!apic_pin_eoi[apic]);
-> +
-> +            for ( pin =3D 0; pin < nr_ioapic_entries[apic]; pin++ )
-> +                apic_pin_eoi[apic][pin] =3D IRQ_VECTOR_UNASSIGNED;
-> +        }
-> +
->          for (pin =3D 0; pin < nr_ioapic_entries[apic]; pin++) {
->              /*
->               * add it to the IO-APIC irq-routing table:
-> --=20
-> 2.46.0
+>  }
 >=20
+> diff --git a/arch/x86/kernel/cpu/mtrr/generic.c b/arch/x86/kernel/cpu/mtr=
+r/generic.c
+> index 7b29ebda024f..2fdfda2b60e4 100644
+> --- a/arch/x86/kernel/cpu/mtrr/generic.c
+> +++ b/arch/x86/kernel/cpu/mtrr/generic.c
+> @@ -423,7 +423,7 @@ void __init mtrr_copy_map(void)
+>  }
+>=20
+>  /**
+> - * mtrr_overwrite_state - set static MTRR state
+> + * guest_force_mtrr_state - set static MTRR state for a guest
+>   *
+>   * Used to set MTRR state via different means (e.g. with data obtained f=
+rom
+>   * a hypervisor).
+> @@ -436,8 +436,8 @@ void __init mtrr_copy_map(void)
+>   * @num_var: length of the @var array
+>   * @def_type: default caching type
+>   */
+> -void mtrr_overwrite_state(struct mtrr_var_range *var, unsigned int num_v=
+ar,
+> -			  mtrr_type def_type)
+> +void guest_force_mtrr_state(struct mtrr_var_range *var, unsigned int num=
+_var,
+> +			    mtrr_type def_type)
+>  {
+>  	unsigned int i;
+>=20
+> diff --git a/arch/x86/kernel/cpu/mtrr/mtrr.c b/arch/x86/kernel/cpu/mtrr/m=
+trr.c
+> index 989d368be04f..ecbda0341a8a 100644
+> --- a/arch/x86/kernel/cpu/mtrr/mtrr.c
+> +++ b/arch/x86/kernel/cpu/mtrr/mtrr.c
+> @@ -625,7 +625,7 @@ void mtrr_save_state(void)
+>  static int __init mtrr_init_finalize(void)
+>  {
+>  	/*
+> -	 * Map might exist if mtrr_overwrite_state() has been called or if
+> +	 * Map might exist if guest_force_mtrr_state() has been called or if
+>  	 * mtrr_enabled() returns true.
+>  	 */
+>  	mtrr_copy_map();
+> diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+> index 21e9e4845354..7a422a6c5983 100644
+> --- a/arch/x86/kernel/kvm.c
+> +++ b/arch/x86/kernel/kvm.c
+> @@ -983,7 +983,7 @@ static void __init kvm_init_platform(void)
+>  	x86_platform.apic_post_init =3D kvm_apic_init;
+>=20
+>  	/* Set WB as the default cache mode for SEV-SNP and TDX */
+> -	mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
+> +	guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
+>  }
+>=20
+>  #if defined(CONFIG_AMD_MEM_ENCRYPT)
+> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+> index d6818c6cafda..633469fab536 100644
+> --- a/arch/x86/xen/enlighten_pv.c
+> +++ b/arch/x86/xen/enlighten_pv.c
+> @@ -171,7 +171,7 @@ static void __init xen_set_mtrr_data(void)
+>=20
+>  	/* Only overwrite MTRR state if any MTRR could be got from Xen. */
+>  	if (reg)
+> -		mtrr_overwrite_state(var, reg, MTRR_TYPE_UNCACHABLE);
+> +		guest_force_mtrr_state(var, reg, MTRR_TYPE_UNCACHABLE);
+>  #endif
+>  }
+>=20
+> @@ -195,7 +195,7 @@ static void __init xen_pv_init_platform(void)
+>  	if (xen_initial_domain())
+>  		xen_set_mtrr_data();
+>  	else
+> -		mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
+> +		guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
+>=20
+>  	/* Adjust nr_cpu_ids before "enumeration" happens */
+>  	xen_smp_count_cpus();
+> --
+> 2.45.2
 >=20
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---+AprsNGlh2aM16SR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmcTJjoACgkQ24/THMrX
-1yzaFwf8C+J4vgJ4lEOMFFSgir20FGRMxKH616PLIqdhzrMsDs+21pd9A+YbAyuL
-0zf3OipSRjZhdl73klQuEuQGvrl81r5jrk0Pr6WcM29rAdufEs1zcjQVgYneRExH
-2jcnGEyGih9JThhxSgq69lGir/q4MCCZdujYULKQ5QaYgKA9EVrGX4SBf0o39JM0
-eFbIXObt7OeZs8CHD2ihfiPsLOF9oUd/2U6WTGIRAnAjUrzLqajNty/6TzyPtxHS
-SM9pjWBQIa72Z56a87Ry0vuN4OPSF5tjUAqHzxqzS9xfCLk010ZATyl7yUsiNOb3
-oZrkQhNh3XjJO3ZwJXXnjqasw/52fA==
-=dFRW
------END PGP SIGNATURE-----
-
---+AprsNGlh2aM16SR--
+LGTM
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
 
