@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B9529A4B09
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 04:58:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822309.1236302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC879A4B18
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Oct 2024 05:19:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.822320.1236312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1zfS-0008BR-3P; Sat, 19 Oct 2024 02:58:14 +0000
+	id 1t1zzF-00050n-NX; Sat, 19 Oct 2024 03:18:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822309.1236302; Sat, 19 Oct 2024 02:58:14 +0000
+Received: by outflank-mailman (output) from mailman id 822320.1236312; Sat, 19 Oct 2024 03:18:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t1zfS-00089d-0B; Sat, 19 Oct 2024 02:58:14 +0000
-Received: by outflank-mailman (input) for mailman id 822309;
- Sat, 19 Oct 2024 02:58:12 +0000
+	id 1t1zzF-0004y6-KA; Sat, 19 Oct 2024 03:18:41 +0000
+Received: by outflank-mailman (input) for mailman id 822320;
+ Sat, 19 Oct 2024 03:18:40 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1t1zfQ-00089T-Md; Sat, 19 Oct 2024 02:58:12 +0000
+ id 1t1zzE-0004xv-LR; Sat, 19 Oct 2024 03:18:40 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1t1zfQ-0002yM-Hx; Sat, 19 Oct 2024 02:58:12 +0000
+ id 1t1zzE-0003LH-H7; Sat, 19 Oct 2024 03:18:40 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1t1zfQ-000738-28; Sat, 19 Oct 2024 02:58:12 +0000
+ id 1t1zzE-0007ys-0o; Sat, 19 Oct 2024 03:18:40 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1t1zfQ-00013n-1V; Sat, 19 Oct 2024 02:58:12 +0000
+ id 1t1zzE-0007mC-0O; Sat, 19 Oct 2024 03:18:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,240 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pElW0avrhJDuCd3+endJg1x6M5o4DIvkMf1gkKDrdec=; b=uRz6kdwho4e42rCxpYo1FQAsxK
-	txWWbCEQewCvVSEf45FyqL5KSBLjslWp9GROfYouE2vc/Jewz2WyoSoUzuDl6vsqVYwySlBslZwsu
-	DjUpFdF2ervTotiFzubTJrvdcGQ3nHjk9JGcp6ci5edErMSiecrsYY4BKfJx9BqyzJ/Q=;
+	bh=Im+ej3U68LsSeaR8d+n8Kz0z5iJGCS2mHh+w7gVndws=; b=vpSveZbaDCLdQb3ktMX/ZdGWZo
+	ZBH2DoCynzHdnAf9mf1pslUXKzkQV2ZIMhGNBtOfxqclYE/OZstGg74yaoGSkqmnJFDDVYtodX3G+
+	jsUKDYclWlP5v19292azbq1MalgRU4YuSH8BonDcCwyNQkzGocyNYE6QzbMetsR4IGTU=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-188275-mainreport@xen.org>
+Message-ID: <osstest-188248-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 188275: regressions - FAIL
+Subject: [xen-unstable test] 188248: regressions - FAIL
 X-Osstest-Failures:
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    xen-unstable:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    ovmf=8f84eb0e761992dc1218f63ee53a54ac0c65630f
+    xen=a285d2ac2e524c808091062c67142cf5924b56f6
 X-Osstest-Versions-That:
-    ovmf=e19cc32bce466fb1c175f7d44708c2ebb45802a7
+    xen=47990ecef286606794d607d4ca8703d71c98d659
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 19 Oct 2024 02:58:12 +0000
+Date: Sat, 19 Oct 2024 03:18:40 +0000
 
-flight 188275 ovmf real [real]
-flight 188278 ovmf real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/188275/
-http://logs.test-lab.xenproject.org/osstest/logs/188278/
+flight 188248 xen-unstable real [real]
+flight 188280 xen-unstable real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/188248/
+http://logs.test-lab.xenproject.org/osstest/logs/188280/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 188152
+ test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 188153
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt   16 saverestore-support-check fail blocked in 188153
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 188153
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 188153
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 188153
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 188153
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 188153
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
 
 version targeted for testing:
- ovmf                 8f84eb0e761992dc1218f63ee53a54ac0c65630f
+ xen                  a285d2ac2e524c808091062c67142cf5924b56f6
 baseline version:
- ovmf                 e19cc32bce466fb1c175f7d44708c2ebb45802a7
+ xen                  47990ecef286606794d607d4ca8703d71c98d659
 
-Last test of basis   188152  2024-10-17 07:11:33 Z    1 days
-Failing since        188156  2024-10-17 09:14:11 Z    1 days   10 attempts
-Testing same since   188268  2024-10-18 18:13:31 Z    0 days    2 attempts
+Last test of basis   188153  2024-10-17 07:28:21 Z    1 days
+Failing since        188193  2024-10-17 18:11:18 Z    1 days    2 attempts
+Testing same since   188248  2024-10-18 11:35:04 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  jack Hsieh <v-chhsieh@microsoft.com>
-  Jeremy Compostella <jeremy.compostella@intel.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kun Qin <kuqin@microsoft.com>
-  Mike Beaton <mjsbeaton@gmail.com>
-  Sienski Piotr <piotr.sienski@intel.com>
-  v-chhsieh <v-chhsieh@microsoft.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Christopher Clark <christopher.w.clark@gmail.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  Jan Beulich <jbeulich@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Stewart Hildebrand <stewart.hildebrand@amd.com>
 
 jobs:
  build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
  build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
  build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
  build-i386                                                   pass    
  build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
  build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
  build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
  build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
 
 ------------------------------------------------------------
@@ -124,221 +300,128 @@ Test harness code can be found at
 Not pushing.
 
 ------------------------------------------------------------
-commit 8f84eb0e761992dc1218f63ee53a54ac0c65630f
-Author: Mike Beaton <mjsbeaton@gmail.com>
-Date:   Sun Sep 29 11:40:44 2024 +0100
+commit a285d2ac2e524c808091062c67142cf5924b56f6
+Author: Daniel P. Smith <dpsmith@apertussolutions.com>
+Date:   Thu Oct 17 13:02:44 2024 -0400
 
-    BaseTools: Remove -Wno-unneeded-internal-declaration from CLANGDWARF
+    x86/boot: move mmap info to boot info
     
-    Subsequent to updating the 'null' DEBUG macro to explicitly
-    discard its expression, it is possible to remove this warning
-    suppression from CLANGDWARF and still successfully compile
-    its RELEASE build.
+    Transition the memory map info to be held in struct boot_info.
     
-    Note that CLANGPDB did and does not have this warning suppressed,
-    and so before updating the 'null' DEBUG macro, CLANGPDB RELEASE
-    was not building successfully in recent versions of clang,
-    but was stopping with the error:
+    No functional change intended.
     
-    .../edk2/OvmfPkg/VirtioSerialDxe/VirtioSerial.c:28:22: error:
-    variable &apos;EventNames&apos; is not needed and will not be
-    emitted [-Werror,-Wunneeded-internal-declaration]
-    STATIC CONST CHAR8  *EventNames[] = {
-                         ^
-    
-    This change makes the two CLANG variants match with respect
-    to this warning, and leaves the warning enabled which is
-    considered a benefit as it has the potential to catch real
-    coding errors
-    
-    Signed-off-by: Mike Beaton <mjsbeaton@gmail.com>
+    Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-commit ae83c6b7fd83a5906e016a32027c1bcd792a624e
-Author: Mike Beaton <mjsbeaton@gmail.com>
-Date:   Sat Sep 28 02:43:15 2024 +0100
+commit 29aaded97dacd3120842aeeafa91a4a8e6d45180
+Author: Daniel P. Smith <dpsmith@apertussolutions.com>
+Date:   Thu Oct 17 13:02:43 2024 -0400
 
-    MdePkg: Fix null macros for XCODE5 and CLANG
+    x86/boot: move cmdline to boot info
     
-    When building OvmfPkg in RELEASE mode in the XCODE5 toolchain, the
-    ASSERT_EFI_ERROR change prevents this error:
+    Transition Xen's command line to being held in struct boot_info.
     
-    .../MdePkg/Library/UefiMemoryAllocationLib/MemoryAllocationLib.c:141:15:
-    error: variable 'Status' set but not used [-Werror,-Wunused-but-set-variable]
-      EFI_STATUS  Status;
-                  ^
+    No functional change intended.
     
-    which is currently stopping the build.
-    
-    When building in RELEASE mode in the CLANGPDB toolchain,the DEBUG macro
-    change prevents this error:
-    
-    .../edk2/OvmfPkg/VirtioSerialDxe/VirtioSerial.c:28:22: error:
-    variable &apos;EventNames&apos; is not needed and will not be
-    emitted [-Werror,-Wunneeded-internal-declaration]
-    STATIC CONST CHAR8  *EventNames[] = {
-                         ^
-    
-    which is currently stopping the build.
-    
-    CLANGDWARF produces the same error as CLANGPDB above, if
-    -Wno-unneeded-internal-declaration is removed from its build flags.
-    With the null DEBUG macro change, this warning suppression
-    can be removed from CLANGDWARF, which is considered a benefit
-    as it has the potential to catch real coding errors. This is
-    done in a subsequent commit.
-    
-    This commit has the desirable side effect that we no longer require
-    (and cannot use) explicit `#ifndef MDEPKG_NDEBUG` around items only
-    used in DEBUG macros. This requires the ArmPkg change made here to
-    be in the same commit as the MdePkg changes.
-    
-    Note: In common with existing macros in EDK II, including the pre-existing
-    and unchanged DEBUG/NOOPT versions of the macros which are modified here,
-    we use the standard approach of adding `do { ... } while (FALSE)` wrapping
-    to ensure that the macros behave correctly with surrounding code
-    (e.g. require a following ';' and do not combine in unexpected ways with
-    nearby conditionals).
-    
-    Continuous-integration-options: PatchCheck.ignore-multi-package
-    Co-authored-by: Mikhail Krichanov <krichanov@ispras.ru>
-    Signed-off-by: Mike Beaton <mjsbeaton@gmail.com>
+    Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-commit 6e197a8ba5e349e511850fc52457992de88c8795
-Author: v-chhsieh <v-chhsieh@microsoft.com>
-Date:   Mon Sep 30 14:43:39 2024 +0800
+commit b438c5fbf4c02145f6ecc8642290d46bf1957388
+Author: Daniel P. Smith <dpsmith@apertussolutions.com>
+Date:   Thu Oct 17 13:02:42 2024 -0400
 
-    MdePkg: Add Google Test Library and Protocol
+    x86/boot: move boot loader name to boot info
     
-    Mock Libraries:
-     MdePkg\Test\Mock\Library\GoogleTest\MockCpuLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockPciSegmentLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockReportStatusCodeLib
-     MdePkg\Test\Mock\Library\GoogleTest\MockSmmServicesTableLib
+    Transition the incoming boot loader name to be held in struct boot_info.
     
-    Mock Protocol:
-     MdePkg\Test\Mock\Include\GoogleTest\Protocol\MockMpService.h
+    No functional change intended.
     
-    Signed-off-by: jack Hsieh <v-chhsieh@microsoft.com>
-    Cc: Maintainer Shruti Gupta <shrugupt@microsoft.com>
-    Cc: Reviewer   Shruti Gupta <shrugupt@microsoft.com>
+    Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-commit 866abb233817eb349fa5fe2b32283e990a8e5056
-Author: Jeremy Compostella <jeremy.compostella@intel.com>
-Date:   Wed Oct 9 15:03:13 2024 -0700
+commit 038826b61e852469b1a54690dba6d142aceb1f20
+Author: Christopher Clark <christopher.w.clark@gmail.com>
+Date:   Thu Oct 17 13:02:41 2024 -0400
 
-    MdeModulePkg: Replace right bit shift operator with RShiftU64
+    x86/boot: move x86 boot module counting into a new boot_info struct
     
-    Instead of using bit shift operations, it is preferable to use BaseLib
-    bit shift functions to prevent compilers from inserting intrinsics.
+    An initial step towards a non-multiboot internal representation of boot
+    modules for common code, starting with x86 setup and converting the fields
+    that are accessed for the startup calculations.
     
-    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+    Introduce a new header, <asm/bootinfo.h>, and populate it with a new boot_info
+    structure initially containing a count of the number of boot modules.
+    
+    No functional change intended.
+    
+    Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
+    Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-commit 996e740cc83aa499d91b3ab3ae857dab7578e05c
-Author: Jeremy Compostella <jeremy.compostella@intel.com>
-Date:   Tue Oct 8 16:55:51 2024 -0700
+commit 081683ea578da56dd20b9dc22a64d03c893b47ba
+Author: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Date:   Fri Oct 11 17:19:56 2024 -0400
 
-    MdeModulePkg: Fix PeiAllocatePages() corner case
+    xen/arm: dom0less: cope with missing /gic phandle
     
-    I recently ran into an AllocatePages() hang. It turns out that
-    AllocatePages() does not account for the Memory Allocation HOB when it
-    makes the decision of allocating out of free memory.
+    If a partial DT has a /gic node, but no references to it, dtc may omit
+    the phandle property. With the phandle property missing,
+    fdt_get_phandle() returns 0, leading Xen to generate a malformed domU
+    dtb due to invalid interrupt-parent phandle references. 0 is an invalid
+    phandle value. Add a zero check, and fall back to GUEST_PHANDLE_GIC.
     
-    Here is the scenario:
-    
-      FreeMemoryTop    - 0x71C03000
-      FreeMemoryBottom - 0x71BDBFD8
-      => We have 159,784 bytes left => ~39.0098 pages left.
-    
-    We attempt to allocate 39 pages. There are enough pages left but
-    allocating those pages requires to allocate a Memory Allocation HOB
-    which needs an extra 48 bytes. But once the pages are allocated,
-    there are only 40 bytes left.
-    
-    In addition to taking into account the Memory Allocation HOB size,
-    this commit reverses the condition to keep it simple.
-    
-    Signed-off-by: Jeremy Compostella <jeremy.compostella@intel.com>
+    Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-commit 1b70dcd375765d293f57fe546710b98525e6a46d
-Author: Sienski Piotr <piotr.sienski@intel.com>
-Date:   Mon Oct 14 12:24:14 2024 +0200
+commit 1e81d2df4f48f37d2086bc75199c75ca93cace92
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Thu Oct 10 12:57:46 2024 +0200
 
-    MdePkg/Include/Guid: Add missing CXL definitions to Cper.h
+    device-tree: Move dt-overlay.c to common/device-tree/
     
-    [Issue Description]
-    In MdePkg/Include/Guid/Cper.h there are missing multiple definitions
-    regarding CXL that can be found in UEFI 2.10 spec
-    chapters N.2.13 and N.2.14
+    The code is DT specific and as such should be placed under common
+    directory for DT related files. Update MAINTAINERS file accordingly
+    and drop the line with a path from a top-level comment in dt-overlay.c.
+    It serves no purpose and requires being updated on every code movement.
     
-    [Resolution]
-    Add these definitions to MdePkg/Include/Guid/Cper.h
-    
-    Signed-off-by: Sienski Piotr <piotr.sienski@intel.com>
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-commit 79598f34fa024ad2491b46b95c3189c5a7f159d2
-Author: Kun Qin <kuqin12@gmail.com>
-Date:   Wed Aug 10 22:56:34 2022 -0700
+commit b3ca3caaf36efa3eaea0cce909f75e12b0fb6a1d
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Oct 17 14:14:51 2024 +0200
 
-    MdeModulePkg: PeiMain: Updated dispatcher for delayed dispatch
+    x86emul/test: drop Xeon Phi S/G prefetch special case
     
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    Another leftover from the dropping of Xeon Phi support.
     
-    This change adds a check for PEI dispatcher to continue dispatching when
-    there are still pending delayed dispatch requests, to be compatible with
-    newly integrated Delayed Dispatcher PPI interface.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: John Schock <joschock@microsoft.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-commit d64d1e195ceb003c824786bfd817227c7ae81f06
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:11:37 2024 -0700
+commit 09d22fe15cb11254d06413d15fd578093d7fe062
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Oct 17 14:14:31 2024 +0200
 
-    MdeModulePkg: PeiMain: Introduce implementation of delayed dispatch
+    x86emul/test: correct loop body indentation in evex-disp8.c:test_one()
     
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    For some reason I entirely consistently screwed these up.
     
-    This change adds the implementation that fits the needs and description
-    of PI spec defined Delayed Dispatch PPI in Pei Core.
-    
-    The PPI would allow minimal delay for registered callbacks. As well as
-    allowing other functions to wait for GUIDed delayed dispatch callbacks.
-    
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Debkumar De <debkumar.de@intel.com>
-    Cc: Catharine West <catharine.west@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-commit b3f36e151d8b014cac5c6a833e2270c14d998739
-Author: Kun Qin <kuqin@microsoft.com>
-Date:   Thu Sep 19 14:09:03 2024 -0700
+commit 330d4e62508defa708b55f1b612f42b6a2e2842b
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Thu Oct 17 14:13:50 2024 +0200
 
-    MdePkg: Update Delayed Dispatch PPI as per PI 1.8 A Spec
+    docs: update documentation of reboot param
     
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4496
+    Reflect changed default mode, and fix formatting of `efi` value.
     
-    PI spec defined the `Register` function input argument `Delay` as output.
-    However, this parameter should be used to define the minmal time delay
-    the callback should fire. Thus it should be an input parameter.
-    
-    This change fixed the argument type.
-    
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-    
-    Co-authored-by: Mike Turner <mikeyt@pobox.com>
-    Co-authored-by: Sachin Ganesh <sachinganesh@ami.com>
-    Signed-off-by: Kun Qin <kuqin12@gmail.com>
+    Fixes: d81dd3130351 ("x86/shutdown: change default reboot method preference")
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
