@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024A19A65FB
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:10:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823354.1237334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C92619A6615
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:13:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823362.1237345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qIp-0003xt-DG; Mon, 21 Oct 2024 11:10:23 +0000
+	id 1t2qLY-0004YX-Px; Mon, 21 Oct 2024 11:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823354.1237334; Mon, 21 Oct 2024 11:10:23 +0000
+Received: by outflank-mailman (output) from mailman id 823362.1237345; Mon, 21 Oct 2024 11:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qIp-0003vo-AW; Mon, 21 Oct 2024 11:10:23 +0000
-Received: by outflank-mailman (input) for mailman id 823354;
- Mon, 21 Oct 2024 11:10:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t2qLY-0004WE-N8; Mon, 21 Oct 2024 11:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 823362;
+ Mon, 21 Oct 2024 11:13:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t2qIo-0003vi-73
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:10:22 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fd1a5b4-8f9d-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 13:10:21 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a99eb8b607aso448643566b.2
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 04:10:21 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a91571ea5sm188718066b.160.2024.10.21.04.10.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 04:10:19 -0700 (PDT)
+ <SRS0=uLLp=RR=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1t2qLX-0004W7-3c
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:13:11 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20608.outbound.protection.outlook.com
+ [2a01:111:f403:2413::608])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7358cce8-8f9d-11ef-99a3-01e77a169b0f;
+ Mon, 21 Oct 2024 13:13:09 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by PH7PR12MB6466.namprd12.prod.outlook.com (2603:10b6:510:1f6::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.27; Mon, 21 Oct
+ 2024 11:13:04 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8069.027; Mon, 21 Oct 2024
+ 11:13:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,232 +47,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fd1a5b4-8f9d-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729509020; x=1730113820; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RdQr/WUPUYdYFMMdvsLv83oQ5FLo3thV2YYeKX+s5k8=;
-        b=E4K5t3xv/Qh08jiIuakGnBdu/51BohKwaI8na95Dpa3otwA4id7Ku6ohtvfKcIxdYv
-         bU7w3vhQAE/z/0eyyPKbJ1SRuAiuom9EqV45HhiD5zO5lAE5b6jmVOLw7ECfF5h0DUGf
-         78aG56qOJAc1XcVGMCqp8bijDXMgQ6Ul2SLdw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729509020; x=1730113820;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RdQr/WUPUYdYFMMdvsLv83oQ5FLo3thV2YYeKX+s5k8=;
-        b=A+iymG6EknwZbIAh8sdyL+DhPQ4OtgiZrzz7uvOX2MbSdYRWgvYfydddxi2yJi+7gt
-         /A/DDd3UHsR9919W+AD35Ubsrw+tnFo2w7khl+oYQFrqCck11jNDmGVg1C/z0udmllHk
-         8c42SlkQ9c6YnjMJEFyky0GyIsZbEC+XoerbdXW1hNXdMUcw8RsYulxLdC4IKa0inzD3
-         BJdcNN/O+Vsu3ryFQIBFeTKdFqokLApgX1W9K2K1djlMg60jMwGa7yL6LhgNtD6eBbKq
-         NB/JGvMrrfciefTdVBWHuP0ff6x0vt24vsY3vCvb2ueBJrZseUlB1oY9LGv7ns3rMKHo
-         DU0g==
-X-Forwarded-Encrypted: i=1; AJvYcCXWSq8HEw0/gjH93XhTd0Vs/qHzJbtyjMr+lOf6ZpL+eOBk2DTdivNp5tOjDEjW96RYtiiPmzuSvkA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yze6byMJgxJxUPSP80vGqUo3aR5ReMbkz5gRlYsM6gTOK/G4ySx
-	w5iG/XD5wWvQDn5p+QuAcqlgn2DQTYFPXo+cf0NQwU9Xr/jbn8CUrSYhW0AcSpI=
-X-Google-Smtp-Source: AGHT+IFkeCsmjf55MisGwN/cfMHmCRnZuCle/ahoV4SwGgN2hmeD9dwnWLVKzb9z5asYFSFOPbM3XQ==
-X-Received: by 2002:a17:907:1b81:b0:a9a:835b:fc8e with SMTP id a640c23a62f3a-a9a835bffd1mr540871066b.54.1729509020453;
-        Mon, 21 Oct 2024 04:10:20 -0700 (PDT)
-Message-ID: <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
-Date: Mon, 21 Oct 2024 12:10:14 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 7358cce8-8f9d-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MFAK4Q8jh0lexQ7oiLkRzvQTeV9qdzAf/3Bqc7eQ5mOTnAyAAKokf/RkHrPEs+nH1gxHb0j2cM7BeYECofpWQ+8t3rcAlA7329B5ZZI8BfUvItltfvvGSmkqGX0y6pfmevKjh2LwGe3CdzNreTe0xqpOg3P867wN/C3UVpUXA7r6h1Q495NnECq2vImlNVSOe4kBzoQRBoArVMqPAklB1JR3St/kT5hbP01G96146tyEfjDPsBBeFCNn2qkN8wTc1Xu0d2oOzP7F5b6zy99GAZbPHPL+KAL1tmiQ7ec/nm4Ibgmo8wo8BL20VnWrHtJRsQM2hyj/3Iiwoeltz7h4UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G/hq6ogFFoePwgmFZF9miXV3OIKmYM6Dzdrg5I2d4RQ=;
+ b=hnjzUJbxKElX1HJtyRbkblqQi87rE8FeIdtbExHEukkGWfakPQhJfA/dzhG2ZXi/35JvIA+vyCu+RC0N1e/ywYUmRiUT+9bJM6nXp26oTADVlilzQL1WuehxyZmjM3dXV/EIr2AX51eYRmxkYQwrC/02u5XpMgIOag4beP5ezWuk6Hw7D4hyckMRjiA0EQrlWlKGhl7j7wTjbL1UwHFpCPpUbDUZsenjuBLRfn73DtIjoZrvs6cOTeVzfWGszXd31ei8EJRzSxeFWfteQHnqz4NnjIJMReoWHtQA2ZjgI8oz5yZY2GG5pLqCYB0HEKih4FiEx/faynxpF8uGWfK1Mg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G/hq6ogFFoePwgmFZF9miXV3OIKmYM6Dzdrg5I2d4RQ=;
+ b=hpKeJRHDk6yW/PHjSreH6XWG6pCPnRv2QF/UnNNt72azONORp+4D88qc8qyi/jtlv49gmnKFi0OKABkgM9QVOnvBpwadkr7RSm511p52nmMpfWjV29LEL88EMEbmbqtqXCy9ZKi6X+tWgDlK0XXNVNtrTRKwacJmT9rnTrM4txs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <f5b875e0-56e6-451d-a736-f2cc33cabae0@amd.com>
+Date: Mon, 21 Oct 2024 12:12:58 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
- remapping
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Willi Junga <xenproject@ymy.be>,
- David Woodhouse <dwmw@amazon.co.uk>
-References: <20241018080813.45759-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v3 1/6] xen/arm: Skip initializing the BSS section when it
+ is empty
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241018080813.45759-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
+ <20241010140351.309922-2-ayan.kumar.halder@amd.com>
+ <7ee1579b-f1e8-4dd4-8540-e6c0858c6999@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <7ee1579b-f1e8-4dd4-8540-e6c0858c6999@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0097.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::12) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|PH7PR12MB6466:EE_
+X-MS-Office365-Filtering-Correlation-Id: 060cf19f-5bce-4f01-2e3b-08dcf1c15537
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?S1pDZEpVNkl3N0VDWXhRZUZMeHA5dzdNSzE3ZU1neTc1d2hKdWxuWUduZ0Vp?=
+ =?utf-8?B?V05jK1U4WkFxdFp0b2hYOU5uVElwcWxkaGlQR0pvNnYrbzlQWWF2eGhUWWF1?=
+ =?utf-8?B?blBZQmhWdjZkSThJTm13S0JSN1ZSRUdMeXM1cG14ZWsxY0xPbUx3ZlkyUU5U?=
+ =?utf-8?B?NmJzbnJMa0hESzlUZmxQUE1pdFdTTDJMVUtaVXBpZktLM3p3QTFJNmRkLzVi?=
+ =?utf-8?B?d0F1bFFrUUd4MVEwSmxDb1JiUDc5dVFOUUh0cnhxdCtSQzhJeEsyTkhsZlhI?=
+ =?utf-8?B?WUtBd2ZCVmdTd3lhSS81ZG9JMWo5TFdyUUoxWFhSQ0xqNnlJcVVucGgvQUs0?=
+ =?utf-8?B?ZUhXR2tyb0JpTHpTa3N5QWplNWdmMmcyYmlqOXlmN05iYXZydWt6cUhvbEF3?=
+ =?utf-8?B?R3p6dFZ2VjRvNCtCazkySW5Id2owOU9jelQzaHJZd1RDYldnSWlsYUtOcHVI?=
+ =?utf-8?B?Wkh6YzF4blpOT1g4L0xLd0hqOU01Y3J1eG5xRU5BQjZPZW5ZMEU0Qkc2cTA0?=
+ =?utf-8?B?M1J4bU8yOHhUcTlYNlJBT0pYamh1RG1qSm4ySnBERTZPRkt1U3ZwZWhBQXZt?=
+ =?utf-8?B?SDBucHl6dU5uRXA5QVhZY2pXazNXVFVnWU1zREQrNmlLS1BKUVprUXhlZEg5?=
+ =?utf-8?B?Vk01Y0owTlU1K3d6d1JyeHpkV2d0RmcyRXpXY0hyWlZyd3FWbUJjTUczaktB?=
+ =?utf-8?B?aTZXb1l4NnFSQnNlS0U5TnpaelphWkN3WUZJUW9PVXNyekpYMWNIMmY4Um4y?=
+ =?utf-8?B?VmhRckx3UmlwcmJTWi8zeFI2ZnFGU0FmUHRRY0ptVUZXeVNRSEQzOVNERXJ2?=
+ =?utf-8?B?MUhMalNoME1ISUQ5OEZDamV2MENVVnl3K3Z6RkEySXJWV1NpUnliY2RPbWsy?=
+ =?utf-8?B?K3pMbzdqUmxqZCtkOGtlQlFTQ2Y2K05hWU1XZHhwS2xxZjl0WVh6VkVIK0FM?=
+ =?utf-8?B?UDVmditVOGFQTlVybXluTktoQzdBV3FLVVpqWDZNN3Fxd0pZSlgrYWRIcnlU?=
+ =?utf-8?B?TFRHQXh6TTBpb1M3Y3VyQ29XUloxR21sZTdIZHFiUjNDSU5BM0RlU1ZYNzBN?=
+ =?utf-8?B?QUJlTndxQ0VBTzFYUGk1ZElZdVNyK3VValUyWStKTlNYMFpobmx5U0FUaUFl?=
+ =?utf-8?B?Sk9LNk95SE9TR2kycU9JbktnMWZ4cks5SHZValMySXNQZE1YUklSckVTaGZB?=
+ =?utf-8?B?VFdJL3ZPREZ0UFd5UnYvNXpoUG1uRzEvU09FTk9YYTNvSFcrR0E0Z0NKelVi?=
+ =?utf-8?B?TnlabEpBb05iWG1HQmdxY3QySzVuWi83ZmVyRU9UenFuQThkUTQ4MURoR1B5?=
+ =?utf-8?B?L05kcGdCdGdZNUt5WXBOTDJvSTdPSlBMR0wrOU5GZmdIOEF4YldsRlk4bGV5?=
+ =?utf-8?B?VkVONHNtTmZUdXFKSnFQbVc0bXB6L2Vrb2xDQUFxczFaQ0ZwcnU5UkZ3bG9Z?=
+ =?utf-8?B?SFVKZC9SbzA1Y1M3bk54MEtSRzRFdEJ2NFEwdVo1UWRiR0QrNDltZjlnYVhT?=
+ =?utf-8?B?cE8zaGlIZlk1dC94bjU5NWZPZS82OUVuRUFrYjhZUkN2UTFaM3pCY2FKZXpH?=
+ =?utf-8?B?K24xUHo2UjRCa2VrdkJSajQ1L1NPMW90V3h1Y1VWVUZOZWJ2ejdRZm00cnkv?=
+ =?utf-8?B?VW04ajZjWVJlMlIzQkpVZUEyUXBFOENCbFhrd2UzQkIzeGJWNWVjaTFWcDkz?=
+ =?utf-8?B?cW9PVC9HVkpyckJuUEV4eThXS0Zwd2xDU1N4QnZaNklsdXlSWDNabUNQeDh6?=
+ =?utf-8?Q?WOogdCovoIC0+ZhfUb4//oeaDfzOJiCmgms9RUw?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VS9LUmdKaHphM2E1NnNlUmdwZTR2Vk1GajV0Z2owUE9BbjlrTVFlMER5VFRZ?=
+ =?utf-8?B?L0hycWxBRkF3dmtWSGVKVGxSdUlnVVk4U2hLdm5wMk1WNEJtQ2QyWnRjN0xp?=
+ =?utf-8?B?T0NOTjJEK2VqVW1HeUFrTjZxS0s5N2JUbUpUL2Q3UHZZUXJoV0Q0OUVObE5K?=
+ =?utf-8?B?b01icjBsMVBVTDMvdkNCcC9QdjI3b09KYnMvb3hKaXZFdmVpMjdMZi9mVHpa?=
+ =?utf-8?B?RG9QeXlSSkxMSUVXNlErTDRpb2N0Y3NwaDlkN0ltdTRENG9DY0wwTDV1L2FZ?=
+ =?utf-8?B?SlV6anpWYURiMWhmRSs5K1VqU3RPU3F5NFBCTVlkQ1VBcEZtV2l4dHJWME9x?=
+ =?utf-8?B?S3NCbFZBaXkzcFl0Y3ZlTG8xeUVINkdqTzlDOC9UK1RDT3M3eXowcGdsNTNP?=
+ =?utf-8?B?am5pb3M1S1IwOExXYlMyUW9maUhnSGd3UGY5Y3VhdkJOZ3RWNS9sUWIwQWo1?=
+ =?utf-8?B?ajNNS1M2WC80QjNmN2dMZDJ2bDNla3Z2dS9Zbk02S2VvM3NORjQrMndRcDVv?=
+ =?utf-8?B?dE93VUJzbG1La000V29HaCtvY1ZYM1Fwa2paSi9NRzNQbjRsOENCQzlmeGtL?=
+ =?utf-8?B?UTRYaHNZZ0Q4TEs1TU5MVWE0L2ZWS1c0YUFlS1VhSjdMdTI1Y0lzMUV1cW5N?=
+ =?utf-8?B?S2FCVmM3T3VVR29jZzEvMkNNUnZ6bHdidTd0by8rY3NTS3NMb3psRERqckFo?=
+ =?utf-8?B?d2Q4ZUpDd2dROUtrT3IvVUp0bnpjalYvMGlHcVBhMWhTYTdkclhuQTlob2M5?=
+ =?utf-8?B?K1FNeEcxaVhPVXo1UGh4aGg5ZmxVcXZIdWhTSjU0UHpwbytrdVdPM1NTRmEy?=
+ =?utf-8?B?RFRBQ012YlI3bVdWRmg3cUxQb3Y4TE5iNzFMZ1dLK2J3ZTNYcHM4UkkzQ25P?=
+ =?utf-8?B?Qnc3d3lzL29BSmQvUy9NYUdPTTJjUUVlQitLRzhDRUZ1cHdUeEVwcGFlWjNw?=
+ =?utf-8?B?SGpRUWV1RjZVQUt0c3hhUUIvUktPcC9LTFloQ09CZUQxKzVaZkRSRzFaV3JY?=
+ =?utf-8?B?aFd6SGhwNDRHVkJmbExiYmd1eHRSMkRsRDVZRS9HZlIzZ3luWEFqcDMrSU1k?=
+ =?utf-8?B?Q2VLUFE5bi9CeGhzTDBYQ05udGVPckF1UE9sTGhOaUFSU3cvM2VXWlQ2U1Fv?=
+ =?utf-8?B?OU8reTB3bi9TRjBIQ2J1dzcxZjZybHFSckUrOWFFKzhYd1NZbHh5VE9TZGlt?=
+ =?utf-8?B?cVV5cytsK29EZXRHbmgxNG1ZQ2ozQWdGamlIeTJKcUx3WGFkUXdnUUNPSGNl?=
+ =?utf-8?B?TkhpcmhPcUlMQUh2R3o5UFNJbm80cERRa3IyQUhHSWRYbWVCNXltYVEwWXZE?=
+ =?utf-8?B?ZXhpUVpTNmpPVDZnb0xsR2VML2hXZUd6eHlJRVZ6KzRyY3Vpb0puSm5KSmdT?=
+ =?utf-8?B?azRkUW5TUDdEcmlyUmpENklOa2oyNENMODlQZ0IzalNqZHpLYmR3OWo1c1pu?=
+ =?utf-8?B?TEVBRDhIbFBaL3p4SVR6ZmZ4SDY4T0V4ZG95WE5ITnQwNTc5UXdUODJHQ2RD?=
+ =?utf-8?B?WGJDWGczdUorcnBpb0lNQ3pRYUJvaTY1VTJaNUsvS3hublB1bm9OY2VrbTRO?=
+ =?utf-8?B?b0FYMURhVmFLT0N5RGNDVVRob204MHo4c2RnNUdpd3ZxejV0cy8rYlhTY2NT?=
+ =?utf-8?B?clRtVk5adG9qTW5MTWFET011a1N5SlRLanZtU1dSZ1YrNHZvRDNOYjZMblZI?=
+ =?utf-8?B?S1I4RGJFc0ZiV3hLcGRmaDBLWUJUQlpjYkRkb2p6NmlEOCswRVZMeFpkcEVh?=
+ =?utf-8?B?R0FrVVdLK29UTWFacFZVTlpTKzlRNDlhN1FjTHpnQ0tmc3BUVUh4RGNlOWcw?=
+ =?utf-8?B?aWRuSjUwMDNmbUpwQy9IVDZCS0tOR3poL0dkZWJsbVJRUzNtR3YyT2phdkN2?=
+ =?utf-8?B?VW9hVzNCZmJKVE9GMUdHUzVHc3UydS9BSVVTUzZwWG8weXFZRExxU1lXTW13?=
+ =?utf-8?B?MVFqQ2FVbkN1amRxR0hDMWlkTDJvdHkrZnMwRUkyTTFlcTY4aEdxTE41NGxN?=
+ =?utf-8?B?dmM0WFlBajE3d2J6UEVWV2tXeWNDWW5wMHJNUHB5blVpSGNOTnhGbTcxMmxB?=
+ =?utf-8?B?MEhyamREdU8vMkZ2UEFvbUh6Q2JFOWpWUXIwdXBBOVp3eFVRZkJ4d2l3eGRw?=
+ =?utf-8?Q?xvxLGRnAotSGN01F9Vk/peHSC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 060cf19f-5bce-4f01-2e3b-08dcf1c15537
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 11:13:04.2868
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DwV1kp5WHTpFEVkDteGiQ7tUQVm8QoHU057teEjW8r4/O2T9MGR0svdqY2h/j7qKq1OaYXHET09DRT9k9xrSZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6466
 
-On 18/10/2024 9:08 am, Roger Pau Monne wrote:
-> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
-> repurposed to contain part of the offset into the remapping table.  Previous to
-> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
-> table would match the vector.  Such logic was mandatory for end of interrupt to
-> work, since the vector field (even when not containing a vector) is used by the
-> IO-APIC to find for which pin the EOI must be performed.
+
+On 18/10/2024 14:41, Julien Grall wrote:
+> Hi Ayan,
+Hi Julien,
 >
-> Introduce a table to store the EOI handlers when using interrupt remapping, so
-> that the IO-APIC driver can translate pins into EOI handlers without having to
-> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
-> unconditionally when interrupt remapping is enabled, even if strictly it would
-> only be required for AMD-Vi.
+> On 10/10/2024 15:03, Ayan Kumar Halder wrote:
+>> If the BSS section is empty, then the function can just return.
 >
-> Reported-by: Willi Junga <xenproject@ymy.be>
-> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
-> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Yet more fallout from the multi-MSI work.  That really has been a giant
-source of bugs.
-
-> ---
->  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 47 insertions(+)
+> This is more than "can", right? If we don't do it, we will end up to 
+> zero outside of BSS. This could be critical data...
+s/can just/should
 >
-> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-> index e40d2f7dbd75..8856eb29d275 100644
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
->  
->  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
->  
-> +/*
-> + * Store the EOI handle when using interrupt remapping.
-> + *
-> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
-> + * format repurposes the vector field to store the offset into the Interrupt
-> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
-> + * longer matches the contents of the RTE vector field.  Add a translation
-> + * table so that directed EOI uses the value in the RTE vector field when
-> + * interrupt remapping is enabled.
-> + *
-> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
-> + * when using the remapped format, but use the translation table uniformly in
-> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
-> + */
-> +static unsigned int **apic_pin_eoi;
+> Also, I am tempted to suggest to add a Fixes tag because even if it is 
+> unlikely BSS will be zero in the current Xen, it is also not unlikely.
+>
+> The tag would be:
+>
+> Fixes: dac84b66cc9a ("xen: arm64: initial build + config changes, 
+> start of day code")
+Ack.
+>
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>
+> I saw the discussion. I don't have a strong opinion on the exact 
+> approach choosen for zeroing. With the commit message updated:
+>
+> Acked-by: Julien Grall <jgrall@amazon.com>
 
-I think we can get away with this being uint8_t rather than unsigned
-int, especially as we're allocating memory when not strictly necessary.
+I propose that this patch to be committed. The changes to the commit 
+message can be done on commit.
 
-The only sentinel value we use is IRQ_VECTOR_UNASSIGNED which is -1.
+>
+>> ---
+>> Changes from :-
+>>
+>> v1..v2 - New patch introduced in v3.
+>>
+>>   xen/arch/arm/arm64/head.S | 2 ++
+>
+> Don't we need a similar change on the arm32 code?
 
-Vector 0xff is strictly SPIV and not allocated for anything else, so can
-be reused as a suitable sentinel here.
+I haven't looked at the arm32 code. My idea is to get the earlyboot (ie 
+the asm part) of Xen working on R82 and then do the similar changes for 
+R52 (ie arm32).
 
-> +
->  static void share_vector_maps(unsigned int src, unsigned int dst)
->  {
->      unsigned int pin;
-> @@ -273,6 +289,13 @@ void __ioapic_write_entry(
->      {
->          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
->          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
-> +        /*
-> +         * Might be called before apic_pin_eoi is allocated.  Entry will be
-> +         * updated once the array is allocated and there's an EOI or write
-> +         * against the pin.
-> +         */
+So that when we start plumbing the lateboot (ie start_xen() onwards), we 
+can test it for both R82 + R52 as a significant part of the code will be 
+common.
 
-Is this for the xAPIC path where we turn on interrupts before the IOMMU ?
+Let me know if this sounds ok.
 
-> +        if ( apic_pin_eoi )
-> +            apic_pin_eoi[apic][pin] = e.vector;
->      }
->      else
->          iommu_update_ire_from_apic(apic, pin, e.raw);
-> @@ -298,9 +321,17 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
->      /* Prefer the use of the EOI register if available */
->      if ( ioapic_has_eoi_reg(apic) )
->      {
-> +        if ( apic_pin_eoi )
-> +            vector = apic_pin_eoi[apic][pin];
-> +
->          /* If vector is unknown, read it from the IO-APIC */
->          if ( vector == IRQ_VECTOR_UNASSIGNED )
-> +        {
->              vector = __ioapic_read_entry(apic, pin, true).vector;
-> +            if ( apic_pin_eoi )
-> +                /* Update cached value so further EOI don't need to fetch it. */
-> +                apic_pin_eoi[apic][pin] = vector;
-> +        }
->  
->          *(IO_APIC_BASE(apic)+16) = vector;
->      }
-> @@ -1022,7 +1053,23 @@ static void __init setup_IO_APIC_irqs(void)
->  
->      apic_printk(APIC_VERBOSE, KERN_DEBUG "init IO_APIC IRQs\n");
->  
-> +    if ( iommu_intremap )
+- Ayan
 
-MISRA requires this to be iommu_intremap != iommu_intremap_off.
-
-But, if this safe on older hardware?  iommu_intremap defaults to on
-(full), and is then turned off later on boot for various reasons.
-
-We do all memory allocations in setup_IO_APIC_irqs() so at least we get
-to see a consistent view of iommu_intremap.
-
-I suppose there's nothing wrong with having an extra cache of the vector
-in the way when not using interrupt remapping, so maybe it's fine?
-
-> +    {
-> +        apic_pin_eoi = xzalloc_array(typeof(*apic_pin_eoi), nr_ioapics);
-> +        BUG_ON(!apic_pin_eoi);
-> +    }
-> +
->      for (apic = 0; apic < nr_ioapics; apic++) {
-> +        if ( iommu_intremap )
-> +        {
-> +            apic_pin_eoi[apic] = xmalloc_array(typeof(**apic_pin_eoi),
-> +                                               nr_ioapic_entries[apic]);
-> +            BUG_ON(!apic_pin_eoi[apic]);
-> +
-> +            for ( pin = 0; pin < nr_ioapic_entries[apic]; pin++ )
-> +                apic_pin_eoi[apic][pin] = IRQ_VECTOR_UNASSIGNED;
-> +        }
-
-This logic will be better if you pull nr_ioapic_entries[apic] out into a
-loop-local variable.
-
-It should also allow the optimiser to turn the for loop into a memset(),
-which it can't now because of possible pointer aliasing with the
-induction variable.
-
-But overall, the patch looks broadly ok to me.
-
-~Andrew
+>
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+>> index 14c3720d80..72c7b24498 100644
+>> --- a/xen/arch/arm/arm64/head.S
+>> +++ b/xen/arch/arm/arm64/head.S
+>> @@ -346,6 +346,8 @@ FUNC_LOCAL(zero_bss)
+>>           PRINT("- Zero BSS -\r\n")
+>>           ldr   x0, =__bss_start       /* x0 := vaddr(__bss_start) */
+>>           ldr   x1, =__bss_end         /* x1 := vaddr(__bss_end)   */
+>> +        cmp   x1, x0
+>> +        beq   skip_bss
+>>     1:      str   xzr, [x0], #8
+>>           cmp   x0, x1
+>
+> Cheers,
+>
 
