@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D73179A70CB
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 19:16:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823866.1237946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C69299A70F0
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 19:21:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823876.1237957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2w0Z-0007tX-Gq; Mon, 21 Oct 2024 17:15:55 +0000
+	id 1t2w5n-0003Kr-7O; Mon, 21 Oct 2024 17:21:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823866.1237946; Mon, 21 Oct 2024 17:15:55 +0000
+Received: by outflank-mailman (output) from mailman id 823876.1237957; Mon, 21 Oct 2024 17:21:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2w0Z-0007rX-EB; Mon, 21 Oct 2024 17:15:55 +0000
-Received: by outflank-mailman (input) for mailman id 823866;
- Mon, 21 Oct 2024 17:15:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t2w5n-0003I3-48; Mon, 21 Oct 2024 17:21:19 +0000
+Received: by outflank-mailman (input) for mailman id 823876;
+ Mon, 21 Oct 2024 17:21:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t2w0Y-0007rR-8Z
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 17:15:54 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e18811c-8fd0-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 19:15:49 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-539f4d8ef84so4833034e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 10:15:51 -0700 (PDT)
+ id 1t2w5m-0003Hx-32
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 17:21:18 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e1503996-8fd0-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 19:21:16 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c9150f9ed4so5839551a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 10:21:17 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a91370e91sm225973366b.123.2024.10.21.10.15.50
+ a640c23a62f3a-a9a91578129sm231220166b.186.2024.10.21.10.21.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 10:15:50 -0700 (PDT)
+ Mon, 21 Oct 2024 10:21:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e18811c-8fd0-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: e1503996-8fd0-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729530951; x=1730135751; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729531276; x=1730136076; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c0cXqLRwe3iym/6jLCN0Oy99JZZMOf7h4GoFd86Hcbo=;
-        b=OHZdzuRewp+0a/nbWleZJAwlZcA7vPB3EhfY7AQYKQVaDa3+wW71Y3rqUSWe2PNBAn
-         yDv430Tn+tsjvrS4GBAHl7qswyaTmEnHPWtKsXdqt2nMKn8l4t/i1yeC4uJXi0lSXho/
-         mQtpjEEBQ8cvwTKxK1PcPgJvYYj/CywaYLIp8=
+        bh=ttHRPKCEufgYnbrjF1RktWen+MRJjtRBCUpJjtMLEsg=;
+        b=j66rJFLhZG3ttmO1AbokxmaaKiy0S2R0/18RVA6RtRUviko3pko43cArtR2zG1KU3a
+         pf/XIDB0Tunnf94S2BM8M5kdBa8EIoy38x1JatH96BnWIkQLsGRcSgDGmrH9QiKrho0I
+         ljxQWZHyYkOcHLLQ6udi8VHNdZ0if4JKk3Olc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729530951; x=1730135751;
+        d=1e100.net; s=20230601; t=1729531276; x=1730136076;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c0cXqLRwe3iym/6jLCN0Oy99JZZMOf7h4GoFd86Hcbo=;
-        b=KZ2Xc6Pq73v86XsOJNN6sIcf7QSFyUYkBp5f2wvD0y+m2MPHTyqvU+tSTd0OPFGk5z
-         UAPXozBcXDeBvVPEcPGG0cL7zZFWUd2Jkee4gCmVQpH0+yyteXc2nJBX/MDslRmjpv7b
-         0rhnIMbj20F3SmU14IDp0iiVUMKDIau5ZeeavRtnlwkuRSt1E2YV4ONsuABuhUlVZVRF
-         kzSovP8KsuoesPLP1HbB08DKC1oNOiXGO8PeQBKnumD33O/mzzsevs+Jx9wfwe0T+S0P
-         QIga0OWB5ljsyM9CbisyadDFWMitQ6U1M6yZHaTuEdFjhxR+hXcduODexh5uvThErh0L
-         b9Lg==
-X-Forwarded-Encrypted: i=1; AJvYcCUpdBNi7L0LA9oUzhaIhdPkvGG/Yfg8o/Z97PEtzYlqMxhvyLZxslFu30RZW2Ibd5okFf2V8ixHIyE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8gWq2CqP3Qcqxe/AscoZWGX7jUk2/kGb8xJFTxg+Yy2Ly3s48
-	lSSzDhrKU4KsZVJv6M1+qyyn1mAz1WwC9kWF+q8Cn0yCTVp523tTFFXK4vKsWoE=
-X-Google-Smtp-Source: AGHT+IGpJk3m6yOKHHmrgbNGEx4tr6J99WQbuYOtItfqz5hbojFDmfC8M+J1wgIuHLkcSX6uaVpF2A==
-X-Received: by 2002:a05:6512:3d29:b0:539:e94d:2d3d with SMTP id 2adb3069b0e04-53a1544140bmr6307934e87.7.1729530951174;
-        Mon, 21 Oct 2024 10:15:51 -0700 (PDT)
-Message-ID: <208d469c-d86d-417b-a2cc-2e06337d15ba@citrix.com>
-Date: Mon, 21 Oct 2024 18:15:48 +0100
+        bh=ttHRPKCEufgYnbrjF1RktWen+MRJjtRBCUpJjtMLEsg=;
+        b=juvdq1hkEcdHQJkLjrbOdYUdXqcL7LhG8SOzfn6XXZ1BQdT1fHu906TleYdzBRBYnE
+         vWvF/cyL7wjZOXc2omu+m0TjTBUHowCpfrPrqIxzWXxtOYCP0K51f83cEhgbsQnBzZuA
+         SpF9ctrvPx8hdK+mkJK/oC7gf5nxTlll2ojcsjjB0eg0GFiM+D62gAStJeuzIxO6gn29
+         O1gc9VafmLUOxY40abwyboDHIVX/a4/tQYosdNc4uEl13r3Bd7vuuKz5L6mUgjnuTtpe
+         dg/DF0elhsRBwuZNIhlT6JCRKWT3as+zoPvOwJ5IakN83cwgW9GsxbZLI66g53b1KeGT
+         PJWA==
+X-Gm-Message-State: AOJu0Yzvq1Mb4BDk/d9TflX36KADNj8+AJGSwH4ByvVX8wh5h2JwIjts
+	+f0zHltCe/+GGIi0JuulcuJb50nPcGaJEVmkSjwWNIRylHxoKCVVK0QLKDKDdG8=
+X-Google-Smtp-Source: AGHT+IEZ1M6TSUb+PuEjO1tRaP6rIBN9qobuuOfBXeepQl3qh8uSzYfZXl2iN+zmWEqccWLnkia2qw==
+X-Received: by 2002:a17:907:94d4:b0:a99:f56e:ce40 with SMTP id a640c23a62f3a-a9a69c9e9c1mr1482575466b.47.1729531276568;
+        Mon, 21 Oct 2024 10:21:16 -0700 (PDT)
+Message-ID: <eddf8637-ebbf-46b0-b2f9-8592464acf76@citrix.com>
+Date: Mon, 21 Oct 2024 18:21:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/38] x86/boot: move headroom to boot modules
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241021004613.18793-1-dpsmith@apertussolutions.com>
- <20241021004613.18793-4-dpsmith@apertussolutions.com>
+Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
+ remapping
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Willi Junga <xenproject@ymy.be>, David Woodhouse <dwmw@amazon.co.uk>
+References: <20241018080813.45759-1-roger.pau@citrix.com>
+ <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
+ <0f3a9c97-3903-414c-b076-5012e6bc9350@citrix.com>
+ <ZxaImxbGOg2uxR3x@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,84 +131,85 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241021004613.18793-4-dpsmith@apertussolutions.com>
+In-Reply-To: <ZxaImxbGOg2uxR3x@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/10/2024 1:45 am, Daniel P. Smith wrote:
-> The purpose of struct boot_module is to encapsulate the state of boot module as
-> it is processed by Xen. Locating boot module state struct boot_module reduces
-> the number of global variables as well as the number of state variables that
-> must be passed around. It also lays the groundwork for hyperlaunch mult-domain
-> construction, where multiple instances of state variables like headroom will be
-> needed.
->
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
-> Changes since v6:
-> - add blank line to separate comment from line above it
->
-> Changes since v5:
-> - reword and expand comment on headroom
-> - consolidated declaration and assignment
-> ---
->  xen/arch/x86/include/asm/bootinfo.h | 14 ++++++++++++++
->  xen/arch/x86/setup.c                | 21 ++++++++++++---------
->  2 files changed, 26 insertions(+), 9 deletions(-)
->
-> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-> index ffa443406747..59e6696f9671 100644
-> --- a/xen/arch/x86/include/asm/bootinfo.h
-> +++ b/xen/arch/x86/include/asm/bootinfo.h
-> @@ -17,6 +17,20 @@
->  struct boot_module {
->      /* Transitionary only */
->      module_t *mod;
-> +
-> +    /*
-> +     * A boot module may contain a compressed kernel that will require
-> +     * additional space, before the module data, into which the kernel will be
-> +     * decompressed.
+On 21/10/2024 6:00 pm, Roger Pau Monné wrote:
+> On Mon, Oct 21, 2024 at 12:38:13PM +0100, Andrew Cooper wrote:
+>> On 21/10/2024 12:10 pm, Andrew Cooper wrote:
+>>> On 18/10/2024 9:08 am, Roger Pau Monne wrote:
+>>>> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
+>>>> repurposed to contain part of the offset into the remapping table.  Previous to
+>>>> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
+>>>> table would match the vector.  Such logic was mandatory for end of interrupt to
+>>>> work, since the vector field (even when not containing a vector) is used by the
+>>>> IO-APIC to find for which pin the EOI must be performed.
+>>>>
+>>>> Introduce a table to store the EOI handlers when using interrupt remapping, so
+>>>> that the IO-APIC driver can translate pins into EOI handlers without having to
+>>>> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
+>>>> unconditionally when interrupt remapping is enabled, even if strictly it would
+>>>> only be required for AMD-Vi.
+>>>>
+>>>> Reported-by: Willi Junga <xenproject@ymy.be>
+>>>> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+>>>> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
+>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> Yet more fallout from the multi-MSI work.  That really has been a giant
+>>> source of bugs.
+>>>
+>>>> ---
+>>>>  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
+>>>>  1 file changed, 47 insertions(+)
+>>>>
+>>>> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+>>>> index e40d2f7dbd75..8856eb29d275 100644
+>>>> --- a/xen/arch/x86/io_apic.c
+>>>> +++ b/xen/arch/x86/io_apic.c
+>>>> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
+>>>>  
+>>>>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
+>>>>  
+>>>> +/*
+>>>> + * Store the EOI handle when using interrupt remapping.
+>>>> + *
+>>>> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
+>>>> + * format repurposes the vector field to store the offset into the Interrupt
+>>>> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
+>>>> + * longer matches the contents of the RTE vector field.  Add a translation
+>>>> + * table so that directed EOI uses the value in the RTE vector field when
+>>>> + * interrupt remapping is enabled.
+>>>> + *
+>>>> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
+>>>> + * when using the remapped format, but use the translation table uniformly in
+>>>> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
+>>>> + */
+>>>> +static unsigned int **apic_pin_eoi;
+>>> I think we can get away with this being uint8_t rather than unsigned
+>>> int, especially as we're allocating memory when not strictly necessary.
+>>>
+>>> The only sentinel value we use is IRQ_VECTOR_UNASSIGNED which is -1.
+>>>
+>>> Vector 0xff is strictly SPIV and not allocated for anything else, so can
+>>> be reused as a suitable sentinel here.
+>> Actually, vectors 0 thru 0x0f are also strictly invalid, and could be
+>> used as sentinels.  That's probably better than trying to play integer
+>> promotion games between IRQ_VECTOR_UNASSIGNED and uint8_t.
+> I've been giving some thought about this further, and I don't think
+> the above is accurate.  While vectors 0 thru 0x0f are strictly
+> invalid, the EOI handle in AMD-Vi is not a vector, but an offset into
+> the IR table.  Hence the range of valid handles is 0 to 0xff.
 
-The grammar is a bit awkward.  Space beforehand is an implementation
-choice of Xen, not a requirement.
+Yeah, that occurred to me after sending.  With IR active, it's no longer
+an architectural vector, and can have any 8-bit value.
 
-Can I suggest:
+> So the type of apic_pin_eoi needs to account for 0 to 0xff plus one
+> sentinel.  We could use uint16_t or int16_t, but at that point it
+> might be better to just use unsigned int?
 
----%<---
-A boot module may need decompressing by Xen.  Headroom is an estimate of
-the additional space required to decompress the module.
-
-Headroom is accounted for at the start of the module.  Decompressing is
-done in-place with input=start, output=start-headroom, expecting the
-pointers to become equal (give or take some rounding) when decompression
-is complete.
----%<---
-
-
-> +     *
-> +     * Memory layout at boot:
-> +     *     [ compressed kernel ]
-> +     * After boot module relocation:
-> +     *     [ estimated headroom + PAGE_SIZE rounding ][ compressed kernel ]
-> +     * After kernel decompression:
-> +     *     [ decompressed kernel ][ unused rounding ]
-> +     */
-
-I'm not sure how helpful this is.  If anything, I'd say it ought to be:
-
-                       start + size --+
-          start --+                   |
-                  v                   v
-                  +-------------------+
-                  | Compressed Module |
- +----------------+-------------------+
- |         Decompressed Module        |
- +----------------+-------------------+
- ^
- +-- start - headroom
-
+Either of those are still half the allocated memory vs unsigned int, so
+worth it IMO.
 
 ~Andrew
 
