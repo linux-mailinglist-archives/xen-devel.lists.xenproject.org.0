@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 483EE9A66BC
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:38:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823392.1237384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A13A79A66F5
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:48:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823410.1237404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qjs-00087T-DP; Mon, 21 Oct 2024 11:38:20 +0000
+	id 1t2qtT-0003bB-HE; Mon, 21 Oct 2024 11:48:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823392.1237384; Mon, 21 Oct 2024 11:38:20 +0000
+Received: by outflank-mailman (output) from mailman id 823410.1237404; Mon, 21 Oct 2024 11:48:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qjs-00084e-AC; Mon, 21 Oct 2024 11:38:20 +0000
-Received: by outflank-mailman (input) for mailman id 823392;
- Mon, 21 Oct 2024 11:38:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t2qtT-0003Y1-DC; Mon, 21 Oct 2024 11:48:15 +0000
+Received: by outflank-mailman (input) for mailman id 823410;
+ Mon, 21 Oct 2024 11:48:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t2qjq-00084Y-Oz
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:38:18 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f72124fe-8fa0-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 13:38:17 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-37d58377339so4794198f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 04:38:17 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a915a2df1sm192872366b.225.2024.10.21.04.38.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 04:38:15 -0700 (PDT)
+ <SRS0=9gOu=RR=amazon.co.uk=prvs=017fe8541=dwmw@srs-se1.protection.inumbo.net>)
+ id 1t2qtR-0002fZ-B7
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:48:13 +0000
+Received: from smtp-fw-52003.amazon.com (smtp-fw-52003.amazon.com
+ [52.119.213.152]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5886d7fa-8fa2-11ef-99a3-01e77a169b0f;
+ Mon, 21 Oct 2024 13:48:11 +0200 (CEST)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO 169.254.80.37)
+ ([10.43.8.6]) by smtp-border-fw-52003.iad7.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2024 11:48:10 +0000
+Received: from smtp-fw-80009.amazon.com (smtp-fw-80009.amazon.com
+ [99.78.197.220]) by inbound-smtp.us-west-2.amazonaws.com with SMTP id
+ t2h73osf72gp28frdr4lj61kq4o9tfsnruoi4701
+ for ingestion@secure-attach.perimeter.email.amazon.dev;
+ Mon, 21 Oct 2024 11:43:07 +0000 (UTC)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.210])
+ by smtp-border-fw-80009.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2024 11:43:05 +0000
+Received: from EX19MTAUEC002.ant.amazon.com [10.0.0.204:18408]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.95.25:2525]
+ with esmtp (Farcaster)
+ id 201fbedc-2036-4ed9-91d8-4c54fa45f86c; Mon, 21 Oct 2024 11:43:04 +0000 (UTC)
+Received: from EX19D008UEC001.ant.amazon.com (10.252.135.232) by
+ EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.34;
+ Mon, 21 Oct 2024 11:43:04 +0000
+Received: from EX19D008UEC001.ant.amazon.com (10.252.135.232) by
+ EX19D008UEC001.ant.amazon.com (10.252.135.232) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.34;
+ Mon, 21 Oct 2024 11:43:04 +0000
+Received: from EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797]) by
+ EX19D008UEC001.ant.amazon.com ([fe80::4702:5d1a:c556:797%3]) with mapi id
+ 15.02.1258.034; Mon, 21 Oct 2024 11:43:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,155 +63,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f72124fe-8fa0-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 5886d7fa-8fa2-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729510697; x=1730115497; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yvUdusz1h2YQeWtwQ/ZRTPbFevemmJzPasRPm9EkN4c=;
-        b=LoFicQMDSLKj7BlM/HPa58AdbURTcz/NqVZkYaSnE/6ra05ScR4pgEYKjRWnq5ZA/3
-         wDK8vBaDQoZTwM8wugymc4XJRYfqUExdRjpMcnKrFqd+uo4wsrKo2/4kkp3AHQTKRiPg
-         cM+vWMAbxGj64NZeeMMX28cacM1MNBhU9ltyo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729510697; x=1730115497;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yvUdusz1h2YQeWtwQ/ZRTPbFevemmJzPasRPm9EkN4c=;
-        b=Xc2ks78LdnJsmIdTv2dypefDqL/dFtmtjW/eCLiwIcecac2ePUNtxlVf8D7Yrh7wh5
-         /a9b4W4wRjOFVf9SbVO/UcYnq217HUFAtxIsCIerh8ioT1liyUwTJusgkeJpoEdmrKq/
-         7DfY8McmvNibV2jdnrSWShu3Dxp/l3KMudHrSKf70MVLPQlHvRrq3PgYNTI9miIPkn/+
-         7p/GesNr3EQPLeM2slzFj6O4vfyWkuVFftpFtU9SEQxguCdW5ZhcY5o0N45+P5DJQ863
-         GGCOEPx76i5EboXEUrbqZphS71FtbzHPZvsay9BL5CXiGYRHO2/YDUIixfGKEHnOHFwk
-         MZZA==
-X-Forwarded-Encrypted: i=1; AJvYcCWU+4r+aNoP1/pMUtHdJea2+StNwdo1Dm/dnMZsPPYSy20qSIAivK5ACQTL2b8OKoO40+6eNoHGlmI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/YNGWoHhgwhNcwVYb/GZ6kuNkIuI1z6FVIXKTruRF6Jewn2f4
-	wCkceHneOV5I94/qdYV2807QzYdTttJpdxKalzs3kRw/y5Ls88xc3+5B2CAa3OY=
-X-Google-Smtp-Source: AGHT+IE3yZo/bVXu3hz9Hjlj0tqX7bmP21ZBBILv73KA7a1bTrACKDxmWGJb8qxrAnWwp6TWn5j8YA==
-X-Received: by 2002:adf:f708:0:b0:37d:7e71:67a0 with SMTP id ffacd0b85a97d-37ea21c3026mr9896440f8f.9.1729510695572;
-        Mon, 21 Oct 2024 04:38:15 -0700 (PDT)
-Message-ID: <0f3a9c97-3903-414c-b076-5012e6bc9350@citrix.com>
-Date: Mon, 21 Oct 2024 12:38:13 +0100
+  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
+  s=amazon201209; t=1729511292; x=1761047292;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to;
+  bh=HGomAy27EiOqevmUp9aqgQ2x4mJxiI4PWKTFvPqjMJs=;
+  b=X5SQnsfKCU34ZtLycXHpeg58eHOxoYR//WIlL3c/vwhpT2EYxks/pdYp
+   9q23Y4lR8mcDWnnaC1Yg26WBK2PW2+C6lunhesmGu1Iu+GBSGYY+Jmonn
+   plQ9+gFrFx8ArOZWIzPsFP80vHV5q26O1punvYfNPvX2UGTdoAOwxfhdj
+   w=;
+X-Amazon-filename: smime.p7s
+X-IronPort-AV: E=Sophos;i="6.11,220,1725321600";
+   d="p7s'346?scan'346,208,346";a="140132990"
+Content-Type: multipart/mixed; boundary="===============4692130862257726593=="
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
- remapping
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Willi Junga <xenproject@ymy.be>,
- David Woodhouse <dwmw@amazon.co.uk>
+X-Farcaster-Flow-ID: 201fbedc-2036-4ed9-91d8-4c54fa45f86c
+From: "Woodhouse, David" <dwmw@amazon.co.uk>
+To: "roger.pau@citrix.com" <roger.pau@citrix.com>,
+	"marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>,
+	"bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>
+CC: "jbeulich@suse.com" <jbeulich@suse.com>, "xenproject@ymy.be"
+	<xenproject@ymy.be>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "andrew.cooper3@citrix.com"
+	<andrew.cooper3@citrix.com>
+Subject: Re:  [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
+ interrupt remapping
+Thread-Topic: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
+ interrupt remapping
+Thread-Index: AQHbI65j/ode2i+6jkmTOdAwVhWC+Q==
+Date: Mon, 21 Oct 2024 11:43:04 +0000
+Message-ID: <3663ba26192a78de2090512c912bff8afc852e5c.camel@amazon.co.uk>
 References: <20241018080813.45759-1-roger.pau@citrix.com>
- <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
-Content-Language: en-GB
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	 <ZxMmOjD7oHuAE7Vb@mail-itl>
+In-Reply-To: <ZxMmOjD7oHuAE7Vb@mail-itl>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.106.82.51]
+MIME-Version: 1.0
 
-On 21/10/2024 12:10 pm, Andrew Cooper wrote:
-> On 18/10/2024 9:08 am, Roger Pau Monne wrote:
->> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
->> repurposed to contain part of the offset into the remapping table.  Previous to
->> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
->> table would match the vector.  Such logic was mandatory for end of interrupt to
->> work, since the vector field (even when not containing a vector) is used by the
->> IO-APIC to find for which pin the EOI must be performed.
->>
->> Introduce a table to store the EOI handlers when using interrupt remapping, so
->> that the IO-APIC driver can translate pins into EOI handlers without having to
->> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
->> unconditionally when interrupt remapping is enabled, even if strictly it would
->> only be required for AMD-Vi.
->>
->> Reported-by: Willi Junga <xenproject@ymy.be>
->> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
->> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Yet more fallout from the multi-MSI work.  That really has been a giant
-> source of bugs.
->
->> ---
->>  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 47 insertions(+)
->>
->> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
->> index e40d2f7dbd75..8856eb29d275 100644
->> --- a/xen/arch/x86/io_apic.c
->> +++ b/xen/arch/x86/io_apic.c
->> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
->>  
->>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
->>  
->> +/*
->> + * Store the EOI handle when using interrupt remapping.
->> + *
->> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
->> + * format repurposes the vector field to store the offset into the Interrupt
->> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
->> + * longer matches the contents of the RTE vector field.  Add a translation
->> + * table so that directed EOI uses the value in the RTE vector field when
->> + * interrupt remapping is enabled.
->> + *
->> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
->> + * when using the remapped format, but use the translation table uniformly in
->> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
->> + */
->> +static unsigned int **apic_pin_eoi;
-> I think we can get away with this being uint8_t rather than unsigned
-> int, especially as we're allocating memory when not strictly necessary.
->
-> The only sentinel value we use is IRQ_VECTOR_UNASSIGNED which is -1.
->
-> Vector 0xff is strictly SPIV and not allocated for anything else, so can
-> be reused as a suitable sentinel here.
+--===============4692130862257726593==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=sha-256;
+	protocol="application/pkcs7-signature"; boundary="=-XPmOImkDXv8tlkxUWb9S"
 
-Actually, vectors 0 thru 0x0f are also strictly invalid, and could be
-used as sentinels.  That's probably better than trying to play integer
-promotion games between IRQ_VECTOR_UNASSIGNED and uint8_t.
+--=-XPmOImkDXv8tlkxUWb9S
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-~Andrew
+On Sat, 2024-10-19 at 05:23 +0200, Marek Marczykowski-G=C3=B3recki wrote:
+> On Fri, Oct 18, 2024 at 10:08:13AM +0200, Roger Pau Monne wrote:
+> > When using AMD-VI interrupt remapping the vector field in the IO-APIC R=
+TE is
+> > repurposed to contain part of the offset into the remapping table.=C2=
+=A0 Previous to
+> > 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapp=
+ing
+> > table would match the vector.=C2=A0 Such logic was mandatory for end of=
+ interrupt to
+> > work, since the vector field (even when not containing a vector) is use=
+d by the
+> > IO-APIC to find for which pin the EOI must be performed.
+> >=20
+> > Introduce a table to store the EOI handlers when using interrupt remapp=
+ing, so
+> > that the IO-APIC driver can translate pins into EOI handlers without ha=
+ving to
+> > read the IO-APIC RTE entry.=C2=A0 Note that to simplify the logic such =
+table is used
+> > unconditionally when interrupt remapping is enabled, even if strictly i=
+t would
+> > only be required for AMD-Vi.
+> >=20
+> > Reported-by: Willi Junga <xenproject@ymy.be>
+> > Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+> > Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using=
+ a static mapping')
+> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>=20
+> I can confirm it fixes touchpad issue on Framework 13 AMD,
+> it works without ioapic_ack=3Dnew now, thanks!
+> Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
+
+Thanks for testing. But... why did this work with the auto-EOI? That
+*should* have had exactly the same problem, surely?=20
+
+The problem fixed by this patch is that the directed EOI used the
+actual vector# and *not* the bits that the I/O APIC *thinks* are the
+vector#, which are actually the IRTE index#.
+
+But if you let the CPU do its broadcast EOI then surely *that* is going
+to use the actual vector# too, and have precisely the same problem?
+
+If you use the code prior to this patch, *without* ioapic_ack=3Dnew (i.e.
+the mode that was failing), what happens if you do this:
+
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -595,7 +595,7 @@ void setup_local_APIC(void)
+     /*
+      * Enable directed EOI
+      */
+-    if ( directed_eoi_enabled )
++    if ( 0 && directed_eoi_enabled )
+     {
+         value |=3D APIC_SPIV_DIRECTED_EOI;
+         apic_printk(APIC_VERBOSE, "Suppress EOI broadcast on CPU#%d\n",
+
+
+I'm guessing that 'fixes' it too? In which case, it looks like AMD has
+some undocumented hack in between its APIC and I/O APIC to let it
+magically auto-EOI the correct pin somehow?
+
+Adding Boris and x86@kernel.org to Cc... do we know anything about such
+an AMD hack?
+
+--=-XPmOImkDXv8tlkxUWb9S
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEjww
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhAwggT4oAMCAQICEQC/QgfpbUT3q2fHshU/ReqfMA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowIjEgMB4GCSqGSIb3DQEJARYRZHdtd0BhbWF6b24uY28udWsw
+ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCZgnzd4h6STv/MQcUPixvDN/dNtp4yVSdc
+xz9mB1OcA7HXd4WdPyYagmkcH0WguDYaQnOszkSdElI+2XRFSlGXhY7U9tktvdWuY1zAY1UWES8e
+3BUHqSKbIKx4SX6GuctCcPnyagVZ9Hk21YUElx9cdmrqt0bGoydgxAspEx56J9Q5a48WfvFYjLBF
+NL1dw+P1eUeAljco30+Xggf5faawKfPArUX0cmU4VIh5DMUyv4d0xxfNN6cK1GMj/HGUg2T9OTHW
+nbTdq+OHJwHGi/37mCWx1O3uV0hbZzA1fNklaqlsr1Acg0elPeCFXLb8dSkMgQZHNJVjn+mBvG4d
+MG4FS3ntipApytA+a5IaMP3LNAo0EoBd5/xVy0M6TXbiYesYLq9rhnrLgO1qcw7+if0jH9YoEJ6a
+Je1m7omfEXh2XpospSLaohmAqaBKlyhXDXbTnUVnIf79zU5ohHZof0cP2amnnvYUVD72iuf9qe7X
+4L1Rj589qEWYROKiMil5X7l/smE1dAmxhKxx6YWvWkXH9u7JOcmLGdKST0voaY7j3Wk0lxK3NKsk
+q0G3BpqbPz3P8BYtn38BvbkFnwVW7F7Qzus3KZJgP62eN25QHxoFj44x3sppx4I5WlYG4lxdFZsY
+smQdj64c7MaJ7cp8RJN+eO32RKrkndEkihzxevl11wIDAQABo4IByjCCAcYwHwYDVR0jBBgwFoAU
+CcDy/AvalNtf/ivfqJlCz8ngrQAwHQYDVR0OBBYEFJ418HpIgZaPnwpWdCNSvm4XgH/lMA4GA1Ud
+DwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUFBwMEBggrBgEFBQcDAjBA
+BgNVHSAEOTA3MDUGDCsGAQQBsjEBAgEBATAlMCMGCCsGAQUFBwIBFhdodHRwczovL3NlY3RpZ28u
+Y29tL0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3JsLnNlY3RpZ28uY29tL1NlY3RpZ29S
+U0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3JsMIGKBggrBgEFBQcBAQR+
+MHwwVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1
+dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3Nw
+LnNlY3RpZ28uY29tMBwGA1UdEQQVMBOBEWR3bXdAYW1hem9uLmNvLnVrMA0GCSqGSIb3DQEBCwUA
+A4IBAQCSez7gtf1wlWJr568crX21nm6QFWRdJ/YxMOReeqYtGs8QZf2zm2vIEFab61MrgJFJcFJL
+sRhVHwnH/hvax3ZldDpUhM0ODpA9soUjYsvKJ0boFAHPtI1BL0yrZNCBdsUGxMv0t64Acj2ovxQ+
+OxPd5ngHu0MzYIKLDvTSehxkh/qW23X7Ey/fPR0sgnAK4IV7clidmuWBbrqX+WKEyEP2kaEvLsRg
+8plzYbVVFJl37rX2waKnGaWYnJ3BrvcMMgDSQCuoxMThWAOr7wxOh0ni0K3rW7CwDIAjUSk+fFmS
+2EacUvIv/0xUW1nXzGJ12/Qyi+Mw65m0qE776qfcftg3MIIGEDCCBPigAwIBAgIRAL9CB+ltRPer
+Z8eyFT9F6p8wDQYJKoZIhvcNAQELBQAwgZYxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVy
+IE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE+
+MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
+aWwgQ0EwHhcNMjIwMTA3MDAwMDAwWhcNMjUwMTA2MjM1OTU5WjAiMSAwHgYJKoZIhvcNAQkBFhFk
+d213QGFtYXpvbi5jby51azCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAJmCfN3iHpJO
+/8xBxQ+LG8M39022njJVJ1zHP2YHU5wDsdd3hZ0/JhqCaRwfRaC4NhpCc6zORJ0SUj7ZdEVKUZeF
+jtT22S291a5jXMBjVRYRLx7cFQepIpsgrHhJfoa5y0Jw+fJqBVn0eTbVhQSXH1x2auq3RsajJ2DE
+CykTHnon1DlrjxZ+8ViMsEU0vV3D4/V5R4CWNyjfT5eCB/l9prAp88CtRfRyZThUiHkMxTK/h3TH
+F803pwrUYyP8cZSDZP05MdadtN2r44cnAcaL/fuYJbHU7e5XSFtnMDV82SVqqWyvUByDR6U94IVc
+tvx1KQyBBkc0lWOf6YG8bh0wbgVLee2KkCnK0D5rkhow/cs0CjQSgF3n/FXLQzpNduJh6xgur2uG
+esuA7WpzDv6J/SMf1igQnpol7WbuiZ8ReHZemiylItqiGYCpoEqXKFcNdtOdRWch/v3NTmiEdmh/
+Rw/Zqaee9hRUPvaK5/2p7tfgvVGPnz2oRZhE4qIyKXlfuX+yYTV0CbGErHHpha9aRcf27sk5yYsZ
+0pJPS+hpjuPdaTSXErc0qySrQbcGmps/Pc/wFi2ffwG9uQWfBVbsXtDO6zcpkmA/rZ43blAfGgWP
+jjHeymnHgjlaVgbiXF0VmxiyZB2PrhzsxontynxEk3547fZEquSd0SSKHPF6+XXXAgMBAAGjggHK
+MIIBxjAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUnjXwekiBlo+f
+ClZ0I1K+bheAf+UwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEW
+F2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2Vj
+dGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5j
+cmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9T
+ZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEF
+BQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHAYDVR0RBBUwE4ERZHdtd0BhbWF6b24uY28u
+dWswDQYJKoZIhvcNAQELBQADggEBAJJ7PuC1/XCVYmvnrxytfbWebpAVZF0n9jEw5F56pi0azxBl
+/bOba8gQVpvrUyuAkUlwUkuxGFUfCcf+G9rHdmV0OlSEzQ4OkD2yhSNiy8onRugUAc+0jUEvTKtk
+0IF2xQbEy/S3rgByPai/FD47E93meAe7QzNggosO9NJ6HGSH+pbbdfsTL989HSyCcArghXtyWJ2a
+5YFuupf5YoTIQ/aRoS8uxGDymXNhtVUUmXfutfbBoqcZpZicncGu9wwyANJAK6jExOFYA6vvDE6H
+SeLQretbsLAMgCNRKT58WZLYRpxS8i//TFRbWdfMYnXb9DKL4zDrmbSoTvvqp9x+2DcxggTHMIIE
+wwIBATCBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
+A1UEBxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdv
+IFJTQSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPer
+Z8eyFT9F6p8wDQYJYIZIAWUDBAIBBQCgggHrMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJ
+KoZIhvcNAQkFMQ8XDTI0MTAyMTExNDMwM1owLwYJKoZIhvcNAQkEMSIEIGSTJqxf3YRzSYK9BtMB
+1yeDesaxEPO4jzwfdj8va2MUMIG9BgkrBgEEAYI3EAQxga8wgawwgZYxCzAJBgNVBAYTAkdCMRsw
+GQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1Nl
+Y3RpZ28gTGltaXRlZDE+MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9u
+IGFuZCBTZWN1cmUgRW1haWwgQ0ECEQC/QgfpbUT3q2fHshU/ReqfMIG/BgsqhkiG9w0BCRACCzGB
+r6CBrDCBljELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UE
+BxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJT
+QSBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAL9CB+ltRPerZ8ey
+FT9F6p8wDQYJKoZIhvcNAQEBBQAEggIAghDcnN2nV57OY+R3kvhquPjIfGr11LNZrXG4s3dbV9EU
+BkO7wCHSU8+Ocd738PN/fugdO9fqGmCB2dQRAJlBMwXhboR1+IlyV7lPWRyLoNAZFk+5H/t2mAoh
+ElkPgh9xBKph4Z+O05VuiLfgMhHaYyFEUUpVpf6KAkPnOvKjHLxaaCohjO2v6Ki1yTilA5Cc13dV
+8BMwXhcnjkUNwlrRCnQWo59fcSkxhVWa8QA24+OKjEtJ7YkaTqc7ABcYploBUDVyKgZn1ICs2sWg
+hXI6U7ilrXEWOZMniTM1yJAFbHKVkprgFX0KyltLuTXx/SRrairllf4K1aM8xG6pAukw51ty3FOx
+9DjjPUoFjm2dykKL+trrCq//I5OO2WBN/0DGZlL3SsTHuwad2BoPHa3oJKlbsVbvd/d8+U+vcvYC
+nwXjgQ9lmcCH5Ut3qLF7m5zvUNNGYNF/JgxjdxuGeYIK5/KPeA4OhAnDCpgCNhClpZIRThjlNR1l
+qz3Wz9eqknUPSj9rVqEisrf1ezVgcPWSWIFv5R+oAkGC6CySgp0KOm/eOhvpVnJqxU54mYrWMEDc
+j3oF3vc9ZJ5RNNTFIt1G3S/ADuVBP5REiQyJHsUMt35rq0KRrosGrlHxznz+JVhuYy9r7/vZTtpl
+hEUneZK7fFbWdNQ0j83NJRSb/ef5otMAAAAAAAA=
+
+
+--=-XPmOImkDXv8tlkxUWb9S--
+
+--===============4692130862257726593==
+Content-Type: multipart/alternative; boundary="===============4441431936227863102=="
+MIME-Version: 1.0
+Content-Disposition: inline
+
+--===============4441431936227863102==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+
+
+
+Amazon Development Centre (London) Ltd. Registered in England and Wales wit=
+h registration number 04543232 with its registered office at 1 Principal Pl=
+ace, Worship Street, London EC2A 2FA, United Kingdom.
+
+
+
+--===============4441431936227863102==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<br><br><br>Amazon Development Centre (London) Ltd.Registered in England an=
+d Wales with registration number 04543232 with its registered office at 1 P=
+rincipal Place, Worship Street, London EC2A 2FA, United Kingdom.<br><br><br>
+
+--===============4441431936227863102==--
+
+--===============4692130862257726593==--
 
