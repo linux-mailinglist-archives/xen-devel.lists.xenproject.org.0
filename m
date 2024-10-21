@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67F569A6C4C
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 16:36:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823579.1237611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C45009A6C4D
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 16:36:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823580.1237621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2tVc-0004MV-T5; Mon, 21 Oct 2024 14:35:48 +0000
+	id 1t2tVe-0004bX-40; Mon, 21 Oct 2024 14:35:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823579.1237611; Mon, 21 Oct 2024 14:35:48 +0000
+Received: by outflank-mailman (output) from mailman id 823580.1237621; Mon, 21 Oct 2024 14:35:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2tVc-0004KG-PJ; Mon, 21 Oct 2024 14:35:48 +0000
-Received: by outflank-mailman (input) for mailman id 823579;
- Mon, 21 Oct 2024 14:35:47 +0000
+	id 1t2tVd-0004Zg-VZ; Mon, 21 Oct 2024 14:35:49 +0000
+Received: by outflank-mailman (input) for mailman id 823580;
+ Mon, 21 Oct 2024 14:35:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t2tVb-0003qm-Lj
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 14:35:47 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1t2tVc-0003qm-Gz
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 14:35:48 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c228474e-8fb9-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 16:35:46 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2fb58980711so46566931fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 07:35:46 -0700 (PDT)
+ id c2b49f58-8fb9-11ef-99a3-01e77a169b0f;
+ Mon, 21 Oct 2024 16:35:47 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a99ea294480so302582966b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 07:35:47 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cb66c6b1d8sm1999394a12.72.2024.10.21.07.35.43
+ 4fb4d7f45d1cf-5cb66c6b1d8sm1999394a12.72.2024.10.21.07.35.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2024 07:35:43 -0700 (PDT)
+ Mon, 21 Oct 2024 07:35:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c228474e-8fb9-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: c2b49f58-8fb9-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1729521345; x=1730126145; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wx4DxoEGK87IzCRHyCD3oOn3pSGeacIwAEqwfo4eKqM=;
-        b=Pk4ebvSvOIdMK5KNDulYR8mHvWz41vFAxe9t78E7bkqOhdLDFDLICTTsR6Reek3BCO
-         begwut4Oi94hSAXy4lvivMSeWKGNvN3SnC+I8p39w8Fb8ZXommYzcLN0BciKY9SwJ7Ls
-         TVQgkcYGnaan0sGRBcsUB9QJDWTYigR53htYM=
+        bh=ffY1VjEznp41YMioLn3WaQGjvM4SloKJ+MSKOS4FI5c=;
+        b=XQoey2hS5D7JsRE/DAJwkmqoZyqM7q7Ol/ryp8QBV0sFXXx2cXwQJNCQYHMFx+Cql0
+         XjlUiy5Lu/G+E2RDZrnFu1yt2YCYOhau4Cl48eOLnu9LweWE+smtMeaKwfzPyrRqkEEi
+         T41iRsyatKz84mNVYgLzs50BQCqqE8muALggs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1729521345; x=1730126145;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wx4DxoEGK87IzCRHyCD3oOn3pSGeacIwAEqwfo4eKqM=;
-        b=LgBRfmAyuF2ufpe5kM8CbevUv/lfR3oea0uYO35BHSwnN9P46VdIbswG6kAinSalc1
-         8NiH462espZoCZwFFe8InP5sajL8V0ky3pItp5eZJ5cCStC9bIZdmwm2zrnxzWZK9vuY
-         zTiAphgBVSSDp++W0VSsxA5ABDzAnYUHKRY1lSJ5yU/5AlJAiPlmaY00i7+M487iEd7s
-         AqU+C604Yr5dcJOW6YVRD4ZssAAHBElG1NN2GlEiaHfE872Rz1g+a32XTjqQoltrRYa5
-         lVp0ikpRjuk+k8Bp3ckKt7YNTDWOEDt8x8J69+TBz0bPrLEGlv0A9yd2lPxff7jhDa6w
-         wz0Q==
-X-Gm-Message-State: AOJu0YziErSzl4930pMEGQOnRnOmZiAUBBQVNmqBJSNXcO1j3aSWjtSU
-	CJ3rU64LFynfOWdUBfInLEFkk5JpCvrFwYpLkoiOhL/QQvxQsSoQECKy5rmlXkpXezSdrQ2Dluk
-	i
-X-Google-Smtp-Source: AGHT+IGse2dyV0E/absSWns3VWnI+Id9CbrtOfQF+0l232rU5Hw81dKAt8o1eL90madGy4MeeaNP/w==
-X-Received: by 2002:a2e:4e02:0:b0:2fa:ded3:f6aa with SMTP id 38308e7fff4ca-2fb831df580mr42160181fa.20.1729521344684;
-        Mon, 21 Oct 2024 07:35:44 -0700 (PDT)
+        bh=ffY1VjEznp41YMioLn3WaQGjvM4SloKJ+MSKOS4FI5c=;
+        b=JiyYtZWrctu5PpUpUvCR6A/katfIxk8P3RidYfXogrhqSJgWQkREYD19xadfQANcoj
+         aiBCNgg84kIeTLbwlM1pssKI0URny1kwhrupZQK6eEzla0sZtE9R91uJZ24BjO/6MA+/
+         k8wROZQAAmaN6G7ee44JmtpD3huZDRqhrX7mHqbbjxSx9s2mvLJN+cD7OTfNIDmaD12E
+         8E/GVn7IOZ/jm8lm5WMYWd7J2wqB62IOnAG+kzAUuFTl2qRikNIUijFoA7pQcQhW1zUN
+         LObgEWc8+mjWKc1Ge+iul+II/2qe0y0nPCYlJlxlKcKhYbdU4R4CapjBW4ujCoI/8y2x
+         stYw==
+X-Gm-Message-State: AOJu0YzX0IH2QUqxk4MtSfVS2WDWiWcz3h/XcAQ5iiknBVURud3xVhY+
+	dWGA9RR3UPtyj2xnLSmJdCTQ4fYNBwS6S1H3rsnRqBWc3tfQQ22aNCSk2Otr9klWqE8w/g7yAVL
+	V
+X-Google-Smtp-Source: AGHT+IF1gehkVz+JmHowBFH/HTU2wVxXLlX6vyPnlnAgzAPNv8+U9MrIWNbFyrjfCj5LBrOMmDqQEA==
+X-Received: by 2002:a05:6402:1d52:b0:5cb:65f4:7d91 with SMTP id 4fb4d7f45d1cf-5cb65f47da5mr6763403a12.29.1729521345457;
+        Mon, 21 Oct 2024 07:35:45 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -82,9 +82,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH 2/3] CI: Rework domU_config generation in qubes-x86-64.sh
-Date: Mon, 21 Oct 2024 15:35:38 +0100
-Message-Id: <20241021143539.3898995-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/3] CI: Add {adl,zen3p}-pvshim-* tests
+Date: Mon, 21 Oct 2024 15:35:39 +0100
+Message-Id: <20241021143539.3898995-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241021143539.3898995-1-andrew.cooper3@citrix.com>
 References: <20241021143539.3898995-1-andrew.cooper3@citrix.com>
@@ -92,21 +92,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Right now, various blocks rewrite domU_config= as a whole, even though it is
-largely the same.
-
- * dom0pvh-hvm does nothing but change the domain type to hvm
- * *-pci sets the domain type, clears vif=[], appends earlyprintk=xen to the
-   cmdline, and adds some PCI config.
-
-Refactor this to be domU_type (defaults to pvh), domU_vif (defaults to
-xenbr0), and domU_extra_cfg (defaults to empty) and use these variables to
-build domU_config= once.
-
-Of note, the default domU_config= now sets cmdline=, and extra= is intended
-for inclusion via domU_extra_cfg as necessary.
-
-No practical change.
+GitlabCI has no testing of Xen's PVH entrypoint.  Fix this.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -116,92 +102,86 @@ CC: Anthony PERARD <anthony.perard@vates.tech>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Michal Orzel <michal.orzel@amd.com>
 CC: Doug Goldstein <cardoe@cardoe.com>
----
- automation/scripts/qubes-x86-64.sh | 50 +++++++++++++-----------------
- 1 file changed, 21 insertions(+), 29 deletions(-)
 
+OSSTest (which is disappearing imminently) found a pvshim bug in the
+hyperlaunch series, and I found a second shortly after while trying to take
+more of the series.
+
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1505518838
+---
+ automation/gitlab-ci/test.yaml     | 16 ++++++++++++++++
+ automation/scripts/qubes-x86-64.sh | 10 ++++++++--
+ 2 files changed, 24 insertions(+), 2 deletions(-)
+
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index b27c2be17487..e76a37bef32d 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -240,6 +240,14 @@ adl-pci-hvm-x86-64-gcc-debug:
+     - *x86-64-test-needs
+     - alpine-3.18-gcc-debug
+ 
++adl-pvshim-x86-64-gcc-debug:
++  extends: .adl-x86-64
++  script:
++    - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
++  needs:
++    - *x86-64-test-needs
++    - alpine-3.18-gcc-debug
++
+ zen3p-smoke-x86-64-gcc-debug:
+   extends: .zen3p-x86-64
+   script:
+@@ -272,6 +280,14 @@ zen3p-pci-hvm-x86-64-gcc-debug:
+     - *x86-64-test-needs
+     - alpine-3.18-gcc-debug
+ 
++zen3p-pvshim-x86-64-gcc-debug:
++  extends: .zen3p-x86-64
++  script:
++    - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
++  needs:
++    - *x86-64-test-needs
++    - alpine-3.18-gcc-debug
++
+ qemu-smoke-dom0-arm64-gcc:
+   extends: .qemu-arm64
+   script:
 diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-index 306304e9219f..4b6311efffa8 100755
+index 4b6311efffa8..ace494b938d8 100755
 --- a/automation/scripts/qubes-x86-64.sh
 +++ b/automation/scripts/qubes-x86-64.sh
-@@ -15,16 +15,9 @@ test_variant=$1
- extra_xen_opts=
- wait_and_wakeup=
- timeout=120
--domU_config='
--type = "pvh"
--name = "domU"
--kernel = "/boot/vmlinuz"
--ramdisk = "/boot/initrd-domU"
--extra = "root=/dev/ram0 console=hvc0"
--memory = 512
--vif = [ "bridge=xenbr0", ]
--disk = [ ]
--'
-+domU_type="pvh"
-+domU_vif="'bridge=xenbr0',"
-+domU_extra_cfg=
+@@ -8,6 +8,7 @@ set -ex
+ #  - dom0pvh-hvm    PVH dom0, HVM domU
+ #  - pci-hvm        PV dom0,  HVM domU + PCI Passthrough
+ #  - pci-pv         PV dom0,  PV domU + PCI Passthrough
++#  - pvshim         PV dom0,  PVSHIM domU
+ #  - s3             PV dom0,  S3 suspend/resume
+ test_variant=$1
+ 
+@@ -20,8 +21,8 @@ domU_vif="'bridge=xenbr0',"
+ domU_extra_cfg=
  
  case "${test_variant}" in
-     ### test: smoke test & smoke test PVH & smoke test HVM
-@@ -50,16 +43,7 @@ echo \"${passed}\"
-         fi
+-    ### test: smoke test & smoke test PVH & smoke test HVM
+-    ""|"dom0pvh"|"dom0pvh-hvm")
++    ### test: smoke test & smoke test PVH & smoke test HVM & smoke test PVSHIM
++    ""|"dom0pvh"|"dom0pvh-hvm"|"pvshim")
+         passed="ping test passed"
+         domU_check="
+ ifconfig eth0 192.168.0.2
+@@ -44,6 +45,11 @@ echo \"${passed}\"
  
          if [ "${test_variant}" = "dom0pvh-hvm" ]; then
--            domU_config='
--type = "hvm"
--name = "domU"
--kernel = "/boot/vmlinuz"
--ramdisk = "/boot/initrd-domU"
--extra = "root=/dev/ram0 console=hvc0"
--memory = 512
--vif = [ "bridge=xenbr0", ]
--disk = [ ]
--'
-+            domU_type="hvm"
+             domU_type="hvm"
++        elif [ "${test_variant}" = "pvshim" ]; then
++            domU_type="pv"
++            domU_extra_cfg='
++pvshim = 1
++'
          fi
          ;;
  
-@@ -101,15 +85,11 @@ echo \"${passed}\"
- 
-         passed="pci test passed"
- 
--        domU_config='
--type = "'${test_variant#pci-}'"
--name = "domU"
--kernel = "/boot/vmlinuz"
--ramdisk = "/boot/initrd-domU"
--extra = "root=/dev/ram0 console=hvc0 earlyprintk=xen"
--memory = 512
--vif = [ ]
--disk = [ ]
-+        domU_type="${test_variant#pci-}"
-+        domU_vif=""
-+
-+        domU_extra_config='
-+extra = "earlyprintk=xen"
- pci = [ "'$PCIDEV',seize=1" ]
- on_reboot = "destroy"
- '
-@@ -148,6 +128,18 @@ done
-         ;;
- esac
- 
-+domU_config="
-+type = '${domU_type}'
-+name = 'domU'
-+kernel = '/boot/vmlinuz'
-+ramdisk = '/boot/initrd-domU'
-+cmdline = 'root=/dev/ram0 console=hvc0'
-+memory = 512
-+vif = [ ${domU_vif} ]
-+disk = [ ]
-+$domU_extra_config
-+"
-+
- # DomU
- mkdir -p rootfs
- cd rootfs
 -- 
 2.39.5
 
