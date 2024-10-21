@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77D119A6B28
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 15:55:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823536.1237541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C139A6B2B
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 15:56:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823545.1237551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2sri-00042D-EQ; Mon, 21 Oct 2024 13:54:34 +0000
+	id 1t2stC-0004ax-RS; Mon, 21 Oct 2024 13:56:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823536.1237541; Mon, 21 Oct 2024 13:54:34 +0000
+Received: by outflank-mailman (output) from mailman id 823545.1237551; Mon, 21 Oct 2024 13:56:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2sri-0003z2-BD; Mon, 21 Oct 2024 13:54:34 +0000
-Received: by outflank-mailman (input) for mailman id 823536;
- Mon, 21 Oct 2024 13:54:32 +0000
+	id 1t2stC-0004YO-OX; Mon, 21 Oct 2024 13:56:06 +0000
+Received: by outflank-mailman (input) for mailman id 823545;
+ Mon, 21 Oct 2024 13:56:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kyLN=RR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1t2srg-0003yt-F7
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 13:54:32 +0000
-Received: from fout-a4-smtp.messagingengine.com
- (fout-a4-smtp.messagingengine.com [103.168.172.147])
+ <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t2stB-0004YG-P7
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 13:56:05 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd0b81b8-8fb3-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 15:54:28 +0200 (CEST)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id 52CE913806CA;
- Mon, 21 Oct 2024 09:54:27 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Mon, 21 Oct 2024 09:54:27 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 21 Oct 2024 09:54:25 -0400 (EDT)
+ id 3575ffe2-8fb4-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 15:56:02 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a99f629a7aaso811008566b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 06:56:02 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a913706e9sm206970266b.114.2024.10.21.06.56.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Oct 2024 06:56:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd0b81b8-8fb3-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1729518867;
-	 x=1729605267; bh=OVvohps445LY4Ocyxh36b8xLuT44vmvyNSU/Hs8Em14=; b=
-	W2BL4VaFqzY1jPg43V6mlfO+9HAx9/obBgwHECrt0Jjjn1b9nIXceIuDPSjEJbe0
-	4m2TqD55lr/bGAtipUDxGXMG4BtW90818gi9UbHKn8hAsTqu0OWvLMwMGNclr0ve
-	/AkB/QDzNFUvK1ckq9VDvFtjThtJKVFzjZeV3VRRexCqIPS/V0C3I10DbMSQf8JT
-	BXzdFvnBhVpT7aGbPz46fjB/Elw213uOjcDnSysIQm7HM8j4+0uqQ4f/dYIf5Jl7
-	yJGEgBCXA9aYSENriayHE0PXDMvrUpQzpR6yNfZhkzgl07M5A9zWRGIsQQORYdiL
-	PDrLzJnppThTsIdXJrh+Tg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1729518867; x=1729605267; bh=OVvohps445LY4Ocyxh36b8xLuT44
-	vmvyNSU/Hs8Em14=; b=E3kSlB3qb9v/k3hNmVfFwoIrERpmqSWAflyBZ3Thy0K5
-	BuQ4SC8uAZBdx9r0fneAzZDjC4FT0BCqswUShq//QSYfCMhkIK6ZXpAgzwCsxww4
-	4mlu+xexuVpdA/ikWzFb8h7t2t6Dh6N381wubcPyo4k6taDr1HPUEC7qBKCcm+66
-	ToSQYsv3zT7JQ+Hd/ZSujKaHLaNbTL6k8Ovkbdf4YEEGwtEonBaJza0osT5dLrQC
-	ORP9impNZQG0+M+HCX0sr6q9HYurDD+s9QbE+3D/4VhOKC1yiPN9y+rqIUxT90gy
-	1oWwlDRDOFiq9HAaUFXHaCoU+XY96zaW5iHvMhZGUA==
-X-ME-Sender: <xms:El0WZ4zF-4c7Y5DoRi6hpFZCUJclT2uKQVilUvI5_qbgr3vZ5OEsHg>
-    <xme:El0WZ8QAtebSMyXk4j8Y8svkJb0WQzkoO9DEZ7PbMWGYfgZhnf8AWj-G016hzIucg
-    Yohvl5wT2I13Q>
-X-ME-Received: <xmr:El0WZ6XD0X1UpMGiutbSk8uSaCNmJyMbI0DQzb045cybWkuj7cnTZPwcFmdmm8mdtWrLtA3L0DOeSTj-ASilzQZEGuqRxrMhCg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdehledgjedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
-    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
-    gspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughr
-    vgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqdguvg
-    hvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehjsggv
-    uhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghith
-    hrihigrdgtohhmpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhsohhluhht
-    ihhonhhsrdgtohhm
-X-ME-Proxy: <xmx:El0WZ2j3Fb8aJbvx84NcHZuF-JJKOEgzmkubumNgjRIliHOxssEISg>
-    <xmx:El0WZ6CLxZjkbsN0GbjJBilRzlm8TgDWSDriU69l-3kDirsL32OXvQ>
-    <xmx:El0WZ3LP9H_EBT-ItuOoucpquKGSVCubSUqc62S76LrpilebmQIBhg>
-    <xmx:El0WZxBRUvmeewkKNxW6A5b3DMz55aF3zxNPo7DBbg8DuX1lL9UGZw>
-    <xmx:E10WZ9_xNkBhw5wqsvz58QG9QuE9cd2NwNFJ4MgF-zRo4fsZoJ_BonxZ>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 21 Oct 2024 15:54:23 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <JBeulich@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH] x86/boot: Fix PVH boot following the start of the
- MBI->BI conversion
-Message-ID: <ZxZdD-LtTZo4qTzk@mail-itl>
-References: <20241019182054.3842879-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 3575ffe2-8fb4-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1729518962; x=1730123762; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xclxHqId2pCgnBHyQ0wK3pypOg4q79YkSoGaeK6nFEs=;
+        b=R2fJRPDDHqlg8gK+uNqLlWTCuNoWlDOpznXYWS/ICrUFZWzxCHmjPKJ0J2s5W1FOCR
+         OCzI6tipDVqLcr24steO3Zev9xyMyUktAxvyNKKvzf83DGZNq55iZZ70v0tvLyvCeNFS
+         vtn+kwHMdsVnZse0EkamNArw+hZKvlU2eyiUo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729518962; x=1730123762;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xclxHqId2pCgnBHyQ0wK3pypOg4q79YkSoGaeK6nFEs=;
+        b=FYNkuS/YGChmd2tTSwNSLAAlnotg5sE2IhwhZx5cxrNrEqQ/wJlxrBDjts5ZGCEbnO
+         SZlDBxfsQkSkrX9ZJr1HUbcm9TN21xRYB/dWJ1A2RP13iy8j5WtTbET4xgntvQpV0Sgl
+         x4qrQYPBVWkW3yD4AIVWKOpEM7MDhZ4g4CXfPx6OJF3HUUspew7je9haJ5Ak7TchbNkZ
+         P8MlZdc2SvmnlDXYWNbvFxHh1Z9rzpd+LQH9aKwUdIYNvmhAkK9o2oK4WFuBDAWqy1SN
+         WcwtfpCWPLC5gdauU12qSnO409pyJX5Hg/p/nsNfTLI3AWbDvSAlyR+zmfnOKA0QgXLz
+         +xZw==
+X-Gm-Message-State: AOJu0Yx39QOYLKELnheB0mF/UbK3MvmsdYDgaFPoTM2ZaiS2/GjkYeAX
+	UAjbaPmt5NbXuHe7qDRbreR1rT5V42ayyMIn4BT1EviKD18M+ZL/q9WmnRlKDMg=
+X-Google-Smtp-Source: AGHT+IF8esEKLtxtvzWW2xQCYLFzFQhgGhoJk8AF9H5uxPyjueQHCXa4V+gDnj0KuuF7Yl6kf4tSyA==
+X-Received: by 2002:a17:907:ea6:b0:a99:5f45:cb69 with SMTP id a640c23a62f3a-a9a6a3eb505mr1074952666b.4.1729518961909;
+        Mon, 21 Oct 2024 06:56:01 -0700 (PDT)
+Message-ID: <e32cf45f-bf0d-4ebe-b872-599d0c4ce979@citrix.com>
+Date: Mon, 21 Oct 2024 14:55:59 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="RVHBqWdD+4k30F0s"
-Content-Disposition: inline
-In-Reply-To: <20241019182054.3842879-1-andrew.cooper3@citrix.com>
-
-
---RVHBqWdD+4k30F0s
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Oct 2024 15:54:23 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Fix PVH boot following the start of the MBI->BI
+ conversion
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <JBeulich@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH] x86/boot: Fix PVH boot following the start of the
- MBI->BI conversion
+ Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>
+References: <20241019182054.3842879-1-andrew.cooper3@citrix.com>
+ <ZxZdD-LtTZo4qTzk@mail-itl>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZxZdD-LtTZo4qTzk@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 19, 2024 at 07:20:54PM +0100, Andrew Cooper wrote:
-> pvh_init() sets up the mbi pointer, but leaves mbi_p at 0.  This isn't
-> compatbile with multiboot_fill_boot_info() starting from the physical add=
-ress,
-> in order to remove the use of the mbi pointer.
->=20
-> Fixes: 038826b61e85 ("x86/boot: move x86 boot module counting into a new =
-boot_info struct")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
->=20
-> This is a testiment to how tangled the boot code really is.
+On 21/10/2024 2:54 pm, Marek Marczykowski-Górecki wrote:
+> On Sat, Oct 19, 2024 at 07:20:54PM +0100, Andrew Cooper wrote:
+>> pvh_init() sets up the mbi pointer, but leaves mbi_p at 0.  This isn't
+>> compatbile with multiboot_fill_boot_info() starting from the physical address,
+>> in order to remove the use of the mbi pointer.
+>>
+>> Fixes: 038826b61e85 ("x86/boot: move x86 boot module counting into a new boot_info struct")
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>
+>> This is a testiment to how tangled the boot code really is.
+> Did it causes crash in some boot configuration? If so, did some test
+> tripped on this (from what I see, not a gitlab one)?
 
-Did it causes crash in some boot configuration? If so, did some test
-tripped on this (from what I see, not a gitlab one)?
+OSSTest found it.
 
-> ---
->  xen/arch/x86/setup.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 6746ed8cced6..bfede5064e8c 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1048,6 +1048,7 @@ void asmlinkage __init noreturn __start_xen(unsigne=
-d long mbi_p)
->      {
->          ASSERT(mbi_p =3D=3D 0);
->          pvh_init(&mbi, &mod);
-> +        mbi_p =3D __pa(mbi);
->      }
->      else
->      {
->=20
-> base-commit: e9f227685e7204cb2293576ee5b745b828cb3cd7
-> --=20
-> 2.39.5
->=20
->=20
+E1t2D0w-0005rF-45@osstest.test-lab.xenproject.org
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+I'm writing a PVSHIM test for Gitlab CI right now, seeing as OSSTest is
+going away imminently.
 
---RVHBqWdD+4k30F0s
-Content-Type: application/pgp-signature; name="signature.asc"
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1505384944
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmcWXQ8ACgkQ24/THMrX
-1yzMogf9FH69iDN/aInhRMer0ef0mpKLmGPw4JJgDFygBPHeIyvQ/uJ/5CunKbVu
-nBG58wcG6WyJ1LTsMQ95kH+2OxVyXr2RB5UAvDPw0XqE5Ox4SivsTsDIJ96tyB8d
-B6LYn0sp+ODdsvnDDJ+NYH4WUNklQC2Sex3iK38RrpAs51BeS7nJjyXBaLR1jalK
-d1zH8QX0Z2MIivwQqbhLw9mGwIjsB8mq7aDR+nPv+nmy/A5cKI6V3sf0S3tdxRLn
-xDFlxSrsLLxvlRBBiQ+80LGHfp9mlJBfw8YLJXmnyUHxPTASwqa+cgmRrOT59nCB
-Q0/mNNdyfKfHLWVrPCpevZ6VO16LlQ==
-=LX1G
------END PGP SIGNATURE-----
-
---RVHBqWdD+4k30F0s--
+~Andrew
 
