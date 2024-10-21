@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC1129A65D3
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:05:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823343.1237324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 024A19A65FB
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:10:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823354.1237334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qDe-0008IC-OJ; Mon, 21 Oct 2024 11:05:02 +0000
+	id 1t2qIp-0003xt-DG; Mon, 21 Oct 2024 11:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823343.1237324; Mon, 21 Oct 2024 11:05:02 +0000
+Received: by outflank-mailman (output) from mailman id 823354.1237334; Mon, 21 Oct 2024 11:10:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qDe-0008FD-LY; Mon, 21 Oct 2024 11:05:02 +0000
-Received: by outflank-mailman (input) for mailman id 823343;
- Mon, 21 Oct 2024 11:05:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t2qIp-0003vo-AW; Mon, 21 Oct 2024 11:10:23 +0000
+Received: by outflank-mailman (input) for mailman id 823354;
+ Mon, 21 Oct 2024 11:10:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xEjj=RR=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1t2qDd-0008F3-0P
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:05:01 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062c.outbound.protection.outlook.com
- [2a01:111:f403:200a::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ecf4de6-8f9c-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 13:04:58 +0200 (CEST)
-Received: from SN4PR0501CA0118.namprd05.prod.outlook.com
- (2603:10b6:803:42::35) by SJ0PR12MB5662.namprd12.prod.outlook.com
- (2603:10b6:a03:429::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.23; Mon, 21 Oct
- 2024 11:04:52 +0000
-Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
- (2603:10b6:803:42:cafe::f3) by SN4PR0501CA0118.outlook.office365.com
- (2603:10b6:803:42::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.8 via Frontend
- Transport; Mon, 21 Oct 2024 11:04:52 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8093.14 via Frontend Transport; Mon, 21 Oct 2024 11:04:52 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 21 Oct
- 2024 06:04:51 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 21 Oct
- 2024 06:04:50 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Mon, 21 Oct 2024 06:04:49 -0500
+ <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t2qIo-0003vi-73
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:10:22 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0fd1a5b4-8f9d-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 13:10:21 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a99eb8b607aso448643566b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 04:10:21 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a91571ea5sm188718066b.160.2024.10.21.04.10.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Oct 2024 04:10:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,182 +45,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ecf4de6-8f9c-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=slqEaA8m9bFlzq4ia3DLzvWvqPoVykdu5wAHTzabC8EhDxLK462NJSX2sa7vki24SB+XoOuK8EU27GiiN9DC5Jj2g0sPXz0quZMXBuLx1VvZngwTOVYe98s1nRl13Ek8H2Qo9Nplew0XG/xau0X+ObuZSyriiwCU/F3+c8Bb413j/xK3PUAYAOPV/n/udPPfrY5d0mfd2YVUIXEa1dMM0w7zpHYY9OV2Ra+kurx8sDQOpa4q5QrY8U/EEzX8R7pWPVz3hPDS0UlHEDT4t+1GIonZLLIjxyZgFG4YQpdWIq1pfrEob/6zTW9bWutp087YI2UrpMDkqiu3Q5YqCkKETQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/y+1fO09HSxr0gr6oFKsCoLLbaVbP4p7XDQyh3mR+Bw=;
- b=pDww5FuAkyhGHQFDFzPOsGWaYsP3A3muQ2DZiV0hlB9DYkQ0yyfNlLSw7hX9Ggr/Y0dx8JgrVlWJrsmrEDpQJsOtbf/uGFTfefFyzll/Uei+CrtORsYNOXPbTUV+XX9QiWFvc4eZbY7KfHeEFXkcmTmby5K9pIeNm2W5NS8drpn3MyF1Cpqz58i2QfUeohKdsuDQ16C14isuR3rIJ5MqmT3CeJAVjlNRbKGQ3bZMGb+pUkbJ/sNw5E673Rg4q4o2iOp1fceMymDGw8TcqT4ZRuCRQAH7G1rp7gttWB7WCeiFa5uvEpi4I3XyGUkoS82ctieoyfGKQ3CEu6kr+TBgfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/y+1fO09HSxr0gr6oFKsCoLLbaVbP4p7XDQyh3mR+Bw=;
- b=oyOqlr0i5WxAYMCSGLVHhWT9ZfJsWBEHQ2jzmicL4QjajH6DI8bgrJ73QxNu6Eka1qdZbU+FYpODUOFDPrkDJbddg0yZTtrM01ccSd92v1eZ6zzBaHwuUA49ophUhJJsjGRH0y3Ta8w2SSRSp2d6M4c/eGEdu0CYKt7GGEKntqs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
-Subject: [ImageBuilder] Fix device tree node naming
-Date: Mon, 21 Oct 2024 13:04:46 +0200
-Message-ID: <20241021110446.8633-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 0fd1a5b4-8f9d-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1729509020; x=1730113820; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RdQr/WUPUYdYFMMdvsLv83oQ5FLo3thV2YYeKX+s5k8=;
+        b=E4K5t3xv/Qh08jiIuakGnBdu/51BohKwaI8na95Dpa3otwA4id7Ku6ohtvfKcIxdYv
+         bU7w3vhQAE/z/0eyyPKbJ1SRuAiuom9EqV45HhiD5zO5lAE5b6jmVOLw7ECfF5h0DUGf
+         78aG56qOJAc1XcVGMCqp8bijDXMgQ6Ul2SLdw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729509020; x=1730113820;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RdQr/WUPUYdYFMMdvsLv83oQ5FLo3thV2YYeKX+s5k8=;
+        b=A+iymG6EknwZbIAh8sdyL+DhPQ4OtgiZrzz7uvOX2MbSdYRWgvYfydddxi2yJi+7gt
+         /A/DDd3UHsR9919W+AD35Ubsrw+tnFo2w7khl+oYQFrqCck11jNDmGVg1C/z0udmllHk
+         8c42SlkQ9c6YnjMJEFyky0GyIsZbEC+XoerbdXW1hNXdMUcw8RsYulxLdC4IKa0inzD3
+         BJdcNN/O+Vsu3ryFQIBFeTKdFqokLApgX1W9K2K1djlMg60jMwGa7yL6LhgNtD6eBbKq
+         NB/JGvMrrfciefTdVBWHuP0ff6x0vt24vsY3vCvb2ueBJrZseUlB1oY9LGv7ns3rMKHo
+         DU0g==
+X-Forwarded-Encrypted: i=1; AJvYcCXWSq8HEw0/gjH93XhTd0Vs/qHzJbtyjMr+lOf6ZpL+eOBk2DTdivNp5tOjDEjW96RYtiiPmzuSvkA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yze6byMJgxJxUPSP80vGqUo3aR5ReMbkz5gRlYsM6gTOK/G4ySx
+	w5iG/XD5wWvQDn5p+QuAcqlgn2DQTYFPXo+cf0NQwU9Xr/jbn8CUrSYhW0AcSpI=
+X-Google-Smtp-Source: AGHT+IFkeCsmjf55MisGwN/cfMHmCRnZuCle/ahoV4SwGgN2hmeD9dwnWLVKzb9z5asYFSFOPbM3XQ==
+X-Received: by 2002:a17:907:1b81:b0:a9a:835b:fc8e with SMTP id a640c23a62f3a-a9a835bffd1mr540871066b.54.1729509020453;
+        Mon, 21 Oct 2024 04:10:20 -0700 (PDT)
+Message-ID: <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
+Date: Mon, 21 Oct 2024 12:10:14 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
+ remapping
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Willi Junga <xenproject@ymy.be>,
+ David Woodhouse <dwmw@amazon.co.uk>
+References: <20241018080813.45759-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241018080813.45759-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|SJ0PR12MB5662:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0c6cb4e-68e9-457b-d11a-08dcf1c03013
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?36wJ3dMmZJdKwgYWCxpgIcAASs5M1HwBSQS4DV8unz7xlL5RKAOYrb492rMk?=
- =?us-ascii?Q?htDP8iFSE1FboDGnKqUOTFMVH1+V+gKDS7Hqb/8DbI+Z+Tqn3pf9F3+lO+9B?=
- =?us-ascii?Q?EtJx3sGdae/0ff/CRMZxl2ZS8GCQ7xjLeMZV3JDf9qHYL82ovMZ7If22+YXE?=
- =?us-ascii?Q?zzfIQ+lmSlwY0/AhLIj0MguZrJYBUrDm9Rh6GsW+V4rSpPoz2sBQawe1yTbn?=
- =?us-ascii?Q?J/JqDIlTDtgly61fZ1flOmBcGtEg3R45jbtT7NNCHcdupOmAsc4sx9ozQQKt?=
- =?us-ascii?Q?ac1lXOKc5Dp/Gzd8KnxUEHPx7jSrnJIcuZB0HDyjGvlOqtCRbgv1JRZ0b0Fz?=
- =?us-ascii?Q?/9SU3uRf+Aw/N83vZ615m3pnoBQS4cpX/MtwRDzg/jhGNTOkJC9x0o3L16PW?=
- =?us-ascii?Q?yLcr9k9MPckpMIDJLKETDHpc0hG/w4uBURdajlTSGTLcERgaepHCvAVAAcqp?=
- =?us-ascii?Q?XvXig+MVfsODPkmeGllJKc1bQL1OU693dmnZCFt2yCDN2SfXPcsEpnH+C5Ha?=
- =?us-ascii?Q?vt4zQQNCNpGfblFQPS+ftaSm5jupZKVy3E33AizRCShrQbn/85uixuyKkbWf?=
- =?us-ascii?Q?ve3TG0l5HZ1JurnPfu93DSSRbZxtZob+Lym/jE0O87QetXr2m6NUzCKhcwAT?=
- =?us-ascii?Q?EggXZ09C4BSwhFO/b33wUob1igzl5nGOJD1vV7+ECgODXibJmlkTtDCL7chS?=
- =?us-ascii?Q?VmCbedgUjJ5eINJIRpKB0njU6UVLGoXbyjiYST4nZg9gyzZ1DxWIVJP9y9CC?=
- =?us-ascii?Q?ay1/zJ1iKn6ysF6YUQzDmm1w8DQPrv266gm9g0aRWc7UghPyqjnU8rkN/WlV?=
- =?us-ascii?Q?Z5Fob9riVjD62OHf5iPTu/i48k9f+Y1f6qPFjk9SDFlLkIBH4TwvTVt5b/P/?=
- =?us-ascii?Q?OaSsOYqOKumZX1+JlQDZTymNNzdEspbgWmHNQlAtg2tnCeYPrbZ56kFUl8+I?=
- =?us-ascii?Q?aReb0mtZ8UBiLwonVd/TwG19O1dcIb+bbWLmCmGUfeX6RzBNapOWK1GjEyrs?=
- =?us-ascii?Q?KwfdSZY9I31NMIRn/Ul8ZDZ/+T7RA+bIOH8q++Cbf2PCeefZ0NZy4poKsLqq?=
- =?us-ascii?Q?Hs25lqwG7pHEnIiocC7LsubhtWSCRo002+9IV8XfzbCE+IRDKrCNwgTMW2gM?=
- =?us-ascii?Q?421FoDyQTu8h/auKlevvEerUSGNAgh0QcQO3hhHdVeUcbwpqv9V9LJ6hEgrU?=
- =?us-ascii?Q?lAn5TlVoVCP9DFDGMPnZi6eV1Te+o2mvHzm3btMqmrJHd9fbovj5LjG7W/IJ?=
- =?us-ascii?Q?+Axi5VM94r6CAWB6cWuw60+5aFvnKSMLPCejqu0WIKjGEpUlIuRhhlIFzvY2?=
- =?us-ascii?Q?Dso26ohqzKcYfItVsVESXjncUmXaDVhQZd/Z6DvL/xFPRGHf3BIhPxIeVPR7?=
- =?us-ascii?Q?31wZnikmiSeCFdX1cYg/QgBwQCL9GVUS5u3jOpTcSdWV9GO53g=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 11:04:52.1606
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0c6cb4e-68e9-457b-d11a-08dcf1c03013
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002636A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5662
 
-A device tree node is named as follows: node-name@unit-address. The
-unit-address must match the first address specified in the reg property
-or be omitted if there's no reg property.
+On 18/10/2024 9:08 am, Roger Pau Monne wrote:
+> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
+> repurposed to contain part of the offset into the remapping table.  Previous to
+> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
+> table would match the vector.  Such logic was mandatory for end of interrupt to
+> work, since the vector field (even when not containing a vector) is used by the
+> IO-APIC to find for which pin the EOI must be performed.
+>
+> Introduce a table to store the EOI handlers when using interrupt remapping, so
+> that the IO-APIC driver can translate pins into EOI handlers without having to
+> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
+> unconditionally when interrupt remapping is enabled, even if strictly it would
+> only be required for AMD-Vi.
+>
+> Reported-by: Willi Junga <xenproject@ymy.be>
+> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Fix the following issues:
-1) domU modules are named as: node-name0xunit-address. Fix the naming to
-   follow the device tree spec.
-2) dom0 kernel and ramdisk, despite having the reg property do not have
-   unit addresses specified. Fix it.
+Yet more fallout from the multi-MSI work.  That really has been a giant
+source of bugs.
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
- scripts/uboot-script-gen | 39 +++++++++++++++++++++++----------------
- 1 file changed, 23 insertions(+), 16 deletions(-)
+> ---
+>  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 47 insertions(+)
+>
+> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+> index e40d2f7dbd75..8856eb29d275 100644
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
+>  
+>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
+>  
+> +/*
+> + * Store the EOI handle when using interrupt remapping.
+> + *
+> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
+> + * format repurposes the vector field to store the offset into the Interrupt
+> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
+> + * longer matches the contents of the RTE vector field.  Add a translation
+> + * table so that directed EOI uses the value in the RTE vector field when
+> + * interrupt remapping is enabled.
+> + *
+> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
+> + * when using the remapped format, but use the translation table uniformly in
+> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
+> + */
+> +static unsigned int **apic_pin_eoi;
 
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index f8a087b881ce..f10e5f4a49bf 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -106,11 +106,12 @@ function add_device_tree_kernel()
-     local addr=$2
-     local size=$3
-     local bootargs=$4
-+    local node_name="module@${addr#0x}"
- 
--    dt_mknode "$path" "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,kernel multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "$(split_addr_size $addr $size)"
--    dt_set "$path/module$addr" "bootargs" "str" "$bootargs"
-+    dt_mknode "$path" "$node_name"
-+    dt_set "$path/$node_name" "compatible" "str_a" "multiboot,kernel multiboot,module"
-+    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
-+    dt_set "$path/$node_name" "bootargs" "str" "$bootargs"
- }
- 
- 
-@@ -119,10 +120,11 @@ function add_device_tree_ramdisk()
-     local path=$1
-     local addr=$2
-     local size=$3
-+    local node_name="module@${addr#0x}"
- 
--    dt_mknode "$path"  "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "$(split_addr_size $addr $size)"
-+    dt_mknode "$path"  "$node_name"
-+    dt_set "$path/$node_name" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
-+    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
- }
- 
- 
-@@ -131,10 +133,11 @@ function add_device_tree_passthrough()
-     local path=$1
-     local addr=$2
-     local size=$3
-+    local node_name="module@${addr#0x}"
- 
--    dt_mknode "$path"  "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,device-tree multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "$(split_addr_size $addr $size)"
-+    dt_mknode "$path"  "$node_name"
-+    dt_set "$path/$node_name" "compatible" "str_a" "multiboot,device-tree multiboot,module"
-+    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
- }
- 
- function add_device_tree_mem()
-@@ -314,17 +317,21 @@ function xen_device_tree_editing()
- 
-     if test "$DOM0_KERNEL"
-     then
--        dt_mknode "/chosen" "dom0"
--        dt_set "/chosen/dom0" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
--        dt_set "/chosen/dom0" "reg" "hex" "$(split_addr_size $dom0_kernel_addr $dom0_kernel_size)"
-+        local node_name="dom0@${dom0_kernel_addr#0x}"
-+
-+        dt_mknode "/chosen" "$node_name"
-+        dt_set "/chosen/$node_name" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
-+        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $dom0_kernel_addr $dom0_kernel_size)"
-         dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
-     fi
- 
-     if test "$DOM0_RAMDISK" && test $ramdisk_addr != "-"
-     then
--        dt_mknode "/chosen" "dom0-ramdisk"
--        dt_set "/chosen/dom0-ramdisk" "compatible" "str_a" "xen,linux-initrd xen,multiboot-module multiboot,module"
--        dt_set "/chosen/dom0-ramdisk" "reg" "hex" "$(split_addr_size $ramdisk_addr $ramdisk_size)"
-+        local node_name="dom0-ramdisk@${ramdisk_addr#0x}"
-+
-+        dt_mknode "/chosen" "$node_name"
-+        dt_set "/chosen/$node_name" "compatible" "str_a" "xen,linux-initrd xen,multiboot-module multiboot,module"
-+        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $ramdisk_addr $ramdisk_size)"
-     fi
- 
-     i=0
--- 
-2.25.1
+I think we can get away with this being uint8_t rather than unsigned
+int, especially as we're allocating memory when not strictly necessary.
 
+The only sentinel value we use is IRQ_VECTOR_UNASSIGNED which is -1.
+
+Vector 0xff is strictly SPIV and not allocated for anything else, so can
+be reused as a suitable sentinel here.
+
+> +
+>  static void share_vector_maps(unsigned int src, unsigned int dst)
+>  {
+>      unsigned int pin;
+> @@ -273,6 +289,13 @@ void __ioapic_write_entry(
+>      {
+>          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+>          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+> +        /*
+> +         * Might be called before apic_pin_eoi is allocated.  Entry will be
+> +         * updated once the array is allocated and there's an EOI or write
+> +         * against the pin.
+> +         */
+
+Is this for the xAPIC path where we turn on interrupts before the IOMMU ?
+
+> +        if ( apic_pin_eoi )
+> +            apic_pin_eoi[apic][pin] = e.vector;
+>      }
+>      else
+>          iommu_update_ire_from_apic(apic, pin, e.raw);
+> @@ -298,9 +321,17 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
+>      /* Prefer the use of the EOI register if available */
+>      if ( ioapic_has_eoi_reg(apic) )
+>      {
+> +        if ( apic_pin_eoi )
+> +            vector = apic_pin_eoi[apic][pin];
+> +
+>          /* If vector is unknown, read it from the IO-APIC */
+>          if ( vector == IRQ_VECTOR_UNASSIGNED )
+> +        {
+>              vector = __ioapic_read_entry(apic, pin, true).vector;
+> +            if ( apic_pin_eoi )
+> +                /* Update cached value so further EOI don't need to fetch it. */
+> +                apic_pin_eoi[apic][pin] = vector;
+> +        }
+>  
+>          *(IO_APIC_BASE(apic)+16) = vector;
+>      }
+> @@ -1022,7 +1053,23 @@ static void __init setup_IO_APIC_irqs(void)
+>  
+>      apic_printk(APIC_VERBOSE, KERN_DEBUG "init IO_APIC IRQs\n");
+>  
+> +    if ( iommu_intremap )
+
+MISRA requires this to be iommu_intremap != iommu_intremap_off.
+
+But, if this safe on older hardware?  iommu_intremap defaults to on
+(full), and is then turned off later on boot for various reasons.
+
+We do all memory allocations in setup_IO_APIC_irqs() so at least we get
+to see a consistent view of iommu_intremap.
+
+I suppose there's nothing wrong with having an extra cache of the vector
+in the way when not using interrupt remapping, so maybe it's fine?
+
+> +    {
+> +        apic_pin_eoi = xzalloc_array(typeof(*apic_pin_eoi), nr_ioapics);
+> +        BUG_ON(!apic_pin_eoi);
+> +    }
+> +
+>      for (apic = 0; apic < nr_ioapics; apic++) {
+> +        if ( iommu_intremap )
+> +        {
+> +            apic_pin_eoi[apic] = xmalloc_array(typeof(**apic_pin_eoi),
+> +                                               nr_ioapic_entries[apic]);
+> +            BUG_ON(!apic_pin_eoi[apic]);
+> +
+> +            for ( pin = 0; pin < nr_ioapic_entries[apic]; pin++ )
+> +                apic_pin_eoi[apic][pin] = IRQ_VECTOR_UNASSIGNED;
+> +        }
+
+This logic will be better if you pull nr_ioapic_entries[apic] out into a
+loop-local variable.
+
+It should also allow the optimiser to turn the for loop into a memset(),
+which it can't now because of possible pointer aliasing with the
+induction variable.
+
+But overall, the patch looks broadly ok to me.
+
+~Andrew
 
