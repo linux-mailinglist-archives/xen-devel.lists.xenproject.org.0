@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF4A49A66A7
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:34:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823385.1237375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 483EE9A66BC
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:38:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823392.1237384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qgL-000525-VN; Mon, 21 Oct 2024 11:34:41 +0000
+	id 1t2qjs-00087T-DP; Mon, 21 Oct 2024 11:38:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823385.1237375; Mon, 21 Oct 2024 11:34:41 +0000
+Received: by outflank-mailman (output) from mailman id 823392.1237384; Mon, 21 Oct 2024 11:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qgL-0004zR-SA; Mon, 21 Oct 2024 11:34:41 +0000
-Received: by outflank-mailman (input) for mailman id 823385;
- Mon, 21 Oct 2024 11:34:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t2qjs-00084e-AC; Mon, 21 Oct 2024 11:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 823392;
+ Mon, 21 Oct 2024 11:38:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TLRE=RR=casper.srs.infradead.org=BATV+0b6dd01573de8e3a2a7a+7729+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1t2qgK-0004zL-MC
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:34:40 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74681e04-8fa0-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 13:34:38 +0200 (CEST)
-Received: from [2001:8b0:10b:5:9789:3d79:3bbb:1070]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1t2qgH-0000000GEaK-0viO; Mon, 21 Oct 2024 11:34:37 +0000
+ <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t2qjq-00084Y-Oz
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:38:18 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f72124fe-8fa0-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 13:38:17 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-37d58377339so4794198f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 04:38:17 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a915a2df1sm192872366b.225.2024.10.21.04.38.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Oct 2024 04:38:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,185 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74681e04-8fa0-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=WaBRpxVnzpwkdNewkPOt4QzZaZYI6prQ8WM5M8t/T+4=; b=MohPj0zFApJ32pGuqrGo1Mr6ZW
-	APLH8hVABIUNt6lZMew1XqkqPzUCa9vOr2S9QjVRS0o6Mpox07EqHSA5p7iO+VthwiGZ6ypPR/U0C
-	7O3hww9Pv+kboEkEk2CK1yUtffHu8o+VduHPMNfQOGOdfWE4SeJlO589Zj81+haR1T4upZEMKSMud
-	TZqZ1sW2auonTCLuz6NfBl0F0cTdpPmK+8Y3N5uFhO0KkWUh6xb086seaXBDv/rAkdhnKEAYIdZIC
-	JnpeFGENObVMxt8cY8e4Snci8LkysFfmIYHSP75myxkN11L626XikRCv14W2gUDerZ0wGJ9q47nn0
-	fVAP4N+g==;
-Message-ID: <10e0f567ab3be0eae4c6473326da3a6d369ba8ff.camel@infradead.org>
-Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
- interrupt remapping
-From: David Woodhouse <dwmw2@infradead.org>
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Willi Junga <xenproject@ymy.be>
-Date: Mon, 21 Oct 2024 12:34:37 +0100
-In-Reply-To: <20241018080813.45759-1-roger.pau@citrix.com>
-References: <20241018080813.45759-1-roger.pau@citrix.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-FewaL+l0YfQmVl6hg6xN"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+X-Inumbo-ID: f72124fe-8fa0-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1729510697; x=1730115497; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yvUdusz1h2YQeWtwQ/ZRTPbFevemmJzPasRPm9EkN4c=;
+        b=LoFicQMDSLKj7BlM/HPa58AdbURTcz/NqVZkYaSnE/6ra05ScR4pgEYKjRWnq5ZA/3
+         wDK8vBaDQoZTwM8wugymc4XJRYfqUExdRjpMcnKrFqd+uo4wsrKo2/4kkp3AHQTKRiPg
+         cM+vWMAbxGj64NZeeMMX28cacM1MNBhU9ltyo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729510697; x=1730115497;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yvUdusz1h2YQeWtwQ/ZRTPbFevemmJzPasRPm9EkN4c=;
+        b=Xc2ks78LdnJsmIdTv2dypefDqL/dFtmtjW/eCLiwIcecac2ePUNtxlVf8D7Yrh7wh5
+         /a9b4W4wRjOFVf9SbVO/UcYnq217HUFAtxIsCIerh8ioT1liyUwTJusgkeJpoEdmrKq/
+         7DfY8McmvNibV2jdnrSWShu3Dxp/l3KMudHrSKf70MVLPQlHvRrq3PgYNTI9miIPkn/+
+         7p/GesNr3EQPLeM2slzFj6O4vfyWkuVFftpFtU9SEQxguCdW5ZhcY5o0N45+P5DJQ863
+         GGCOEPx76i5EboXEUrbqZphS71FtbzHPZvsay9BL5CXiGYRHO2/YDUIixfGKEHnOHFwk
+         MZZA==
+X-Forwarded-Encrypted: i=1; AJvYcCWU+4r+aNoP1/pMUtHdJea2+StNwdo1Dm/dnMZsPPYSy20qSIAivK5ACQTL2b8OKoO40+6eNoHGlmI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy/YNGWoHhgwhNcwVYb/GZ6kuNkIuI1z6FVIXKTruRF6Jewn2f4
+	wCkceHneOV5I94/qdYV2807QzYdTttJpdxKalzs3kRw/y5Ls88xc3+5B2CAa3OY=
+X-Google-Smtp-Source: AGHT+IE3yZo/bVXu3hz9Hjlj0tqX7bmP21ZBBILv73KA7a1bTrACKDxmWGJb8qxrAnWwp6TWn5j8YA==
+X-Received: by 2002:adf:f708:0:b0:37d:7e71:67a0 with SMTP id ffacd0b85a97d-37ea21c3026mr9896440f8f.9.1729510695572;
+        Mon, 21 Oct 2024 04:38:15 -0700 (PDT)
+Message-ID: <0f3a9c97-3903-414c-b076-5012e6bc9350@citrix.com>
+Date: Mon, 21 Oct 2024 12:38:13 +0100
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
+ remapping
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Willi Junga <xenproject@ymy.be>,
+ David Woodhouse <dwmw@amazon.co.uk>
+References: <20241018080813.45759-1-roger.pau@citrix.com>
+ <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 21/10/2024 12:10 pm, Andrew Cooper wrote:
+> On 18/10/2024 9:08 am, Roger Pau Monne wrote:
+>> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
+>> repurposed to contain part of the offset into the remapping table.  Previous to
+>> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
+>> table would match the vector.  Such logic was mandatory for end of interrupt to
+>> work, since the vector field (even when not containing a vector) is used by the
+>> IO-APIC to find for which pin the EOI must be performed.
+>>
+>> Introduce a table to store the EOI handlers when using interrupt remapping, so
+>> that the IO-APIC driver can translate pins into EOI handlers without having to
+>> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
+>> unconditionally when interrupt remapping is enabled, even if strictly it would
+>> only be required for AMD-Vi.
+>>
+>> Reported-by: Willi Junga <xenproject@ymy.be>
+>> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+>> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Yet more fallout from the multi-MSI work.  That really has been a giant
+> source of bugs.
+>
+>> ---
+>>  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 47 insertions(+)
+>>
+>> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+>> index e40d2f7dbd75..8856eb29d275 100644
+>> --- a/xen/arch/x86/io_apic.c
+>> +++ b/xen/arch/x86/io_apic.c
+>> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
+>>  
+>>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
+>>  
+>> +/*
+>> + * Store the EOI handle when using interrupt remapping.
+>> + *
+>> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
+>> + * format repurposes the vector field to store the offset into the Interrupt
+>> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
+>> + * longer matches the contents of the RTE vector field.  Add a translation
+>> + * table so that directed EOI uses the value in the RTE vector field when
+>> + * interrupt remapping is enabled.
+>> + *
+>> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
+>> + * when using the remapped format, but use the translation table uniformly in
+>> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
+>> + */
+>> +static unsigned int **apic_pin_eoi;
+> I think we can get away with this being uint8_t rather than unsigned
+> int, especially as we're allocating memory when not strictly necessary.
+>
+> The only sentinel value we use is IRQ_VECTOR_UNASSIGNED which is -1.
+>
+> Vector 0xff is strictly SPIV and not allocated for anything else, so can
+> be reused as a suitable sentinel here.
 
---=-FewaL+l0YfQmVl6hg6xN
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Actually, vectors 0 thru 0x0f are also strictly invalid, and could be
+used as sentinels.  That's probably better than trying to play integer
+promotion games between IRQ_VECTOR_UNASSIGNED and uint8_t.
 
-On Fri, 2024-10-18 at 10:08 +0200, Roger Pau Monne wrote:
-> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE=
- is
-> repurposed to contain part of the offset into the remapping table.=C2=A0 =
-Previous to
-> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remappin=
-g
-> table would match the vector.=C2=A0 Such logic was mandatory for end of i=
-nterrupt to
-> work, since the vector field (even when not containing a vector) is used =
-by the
-> IO-APIC to find for which pin the EOI must be performed.
->=20
-> Introduce a table to store the EOI handlers when using interrupt remappin=
-g, so
-> that the IO-APIC driver can translate pins into EOI handlers without havi=
-ng to
-> read the IO-APIC RTE entry.=C2=A0 Note that to simplify the logic such ta=
-ble is used
-> unconditionally when interrupt remapping is enabled, even if strictly it =
-would
-> only be required for AMD-Vi.
->=20
-> Reported-by: Willi Junga <xenproject@ymy.be>
-> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
-> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a=
- static mapping')
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-
-Hm, couldn't we just have used the pin#?
-
-The AMD IOMMU has per-device IRTE, so you *know* you can just use IRTE
-indices 0-23 for the I/O APIC pins.
-
-
-
---=-FewaL+l0YfQmVl6hg6xN
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQxMDIxMTEzNDM3WjAvBgkqhkiG9w0BCQQxIgQgJVv1WthT
-XKSXuz8N5CUCzPoLdovzwL+7a6Yy+kOQTVUwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAROPzyqCNEpBn43jv/NGRps6S38R8/hTWp
-Q7+cNbXtw9kXkl4UhJQms9KpWUn5B5uFTWEEJXWe7P+NuoY2KQCWaUDtHYoxKSerRlf1k8ZSx2Xl
-yUxzdZRzYHc1hok7zHj7lIwFnwwvd2ZTXb4cNmh6SHzuob3NC+zuXSvqwXDhpHrr3ypDdUe3foyp
-T7TrGYCVbmK/eHRZRXKGYQC2yecuO6YE8dghARb1f5s8h6TPuEZnqeHSw3M9rjH6Pld0FZXYm8hp
-ILab3rw4zJfZeuZBIcoAIiblqpvactxFSixaEz2Mt4ysuxTqHFvMrGru6o62tKLFQsLE3qY1kU5x
-0I6HkYh02BeF7TNSJ21xWyleoXo01Ll/x0I5+OQq4zgc3s+tk6j39xLkCdYDdDo8PD9IP872joUg
-n9HWdeemdfcLN8nM++rN6RM9LdAANR6ZF2yjB/9XluW9gNqhQ8Nq3f9ZpssB9eLTMVaHEKM56qv5
-8Oz6jKg4c1LPh8BmnalmboixYRs/ay8IUSigrHFEl9toNLdiIg6hHbgHlCtfFidP8SEwqsBDFCru
-0aFLRYSnp+kGZpvHnV24XA2rW3hxPV1f+BcZ/zRhE/XTvdy4icx2DWVhhjSvqlyug88TIyu3VgkF
-NG9U/vFmBa/pndTT4sOiP9jXDL//3DP5A0QizyDjcgAAAAAAAA==
-
-
---=-FewaL+l0YfQmVl6hg6xN--
+~Andrew
 
