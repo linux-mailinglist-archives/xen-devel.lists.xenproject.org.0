@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF58E9A6770
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 14:02:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823455.1237453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 359E59A6774
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 14:02:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823457.1237463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2r6s-0002v5-Ql; Mon, 21 Oct 2024 12:02:06 +0000
+	id 1t2r7L-0003Mu-3B; Mon, 21 Oct 2024 12:02:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823455.1237453; Mon, 21 Oct 2024 12:02:06 +0000
+Received: by outflank-mailman (output) from mailman id 823457.1237463; Mon, 21 Oct 2024 12:02:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2r6s-0002s3-O0; Mon, 21 Oct 2024 12:02:06 +0000
-Received: by outflank-mailman (input) for mailman id 823455;
- Mon, 21 Oct 2024 12:02:06 +0000
+	id 1t2r7L-0003Jq-0F; Mon, 21 Oct 2024 12:02:35 +0000
+Received: by outflank-mailman (input) for mailman id 823457;
+ Mon, 21 Oct 2024 12:02:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2ab4=RR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1t2r6r-0002rx-T0
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 12:02:05 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ <SRS0=TLRE=RR=casper.srs.infradead.org=BATV+0b6dd01573de8e3a2a7a+7729+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1t2r7J-0002rx-SI
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 12:02:33 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49f43c37-8fa4-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 14:02:05 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a9a850270e2so327329266b.0
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 05:02:05 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a912edfc5sm195792266b.70.2024.10.21.05.02.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2024 05:02:03 -0700 (PDT)
+ id 5aa62038-8fa4-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 14:02:33 +0200 (CEST)
+Received: from [2001:8b0:10b:5:9789:3d79:3bbb:1070]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
+ id 1t2r7H-0000000GGK1-3EFU; Mon, 21 Oct 2024 12:02:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +41,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49f43c37-8fa4-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1729512124; x=1730116924; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
-         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dPDau3OKwow0esCaNfoSaE/koAvkLGgfbnB1Y+yw2VU=;
-        b=lrshU85WsBtj4cnUlr6s98niN8TU/0/PAub63V02fDjrwtvRtpOWxTznXIDetsWk09
-         NrrQHIFFPtmS3HUGc0/fbKFToYsqTpBzplU/FuCHpN9ce0qHVBRmBslxf81fQdXpIXFC
-         miaOCG+/vD06VuA1MYb41Xc4OecM30AQUt6rLyiWFVcPdEHXMbG+eRbsrk4a/5DtXyO5
-         cFkLH0R84HoSBttjLUcQR0/oomhVGNN0fJMNttaG64gyCbpByvafl2U9N7FOT2WJxwh6
-         az1n8NfTImYQ1/ovdjtMFtooYfzkc1o2uJq5V4yPYCkPbjcTK/hQPiMJvbap7zUqqNyf
-         J3Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729512124; x=1730116924;
-        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
-         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dPDau3OKwow0esCaNfoSaE/koAvkLGgfbnB1Y+yw2VU=;
-        b=xN2aNC2bM/raiSS9r++eOlSYsGvBtYTrcYuU3g0mQvVJOxfWjmiUKZchpJ7IS6gEWm
-         dfwzxyzrOLBbXwydQZo+oTiF12C/xIW/oql/cmFAQ8CXBtWMyQCPmJAOcWc2tNsxdrMd
-         jN6zNjfrt9VL7XPsie2oJwvSgz4BEFOuVFACCa9HoU8jLWxttIKo6VcBSWeex6dx40jc
-         gMb60o/b+0+3pn1avW9V+XEJFmvdsZal5a0ZuGdlERkUdZMOT+HsM8iIR+mCjkkU30vv
-         QJ2BWTDqyGMuwesxUSCGY8FEdfep9Cx6ZF7TmYr6SdPOVCaJW3CAm+NyyaqwFMMRSdsD
-         trEQ==
-X-Gm-Message-State: AOJu0Yz7PKUVPGHc5Kl3rDzb4cOHc1U0KYC4PXZ4nKYfWK9QqdgzzYK2
-	xoNG1Q00HfSXhJRh9ZUbyVqjPX2Ru9eXaujnD2BsApw+58MemUEfHEMm2g==
-X-Google-Smtp-Source: AGHT+IFVj1usi2lt0jJV5vBbv5Uxmj0nfnglzfgqHDHmFtSurKtjOCuVinbxzdDiqTI9Dur/jI08tw==
-X-Received: by 2002:a17:906:f594:b0:a86:94e2:2a47 with SMTP id a640c23a62f3a-a9a69a79c72mr1304356366b.15.1729512123442;
-        Mon, 21 Oct 2024 05:02:03 -0700 (PDT)
-Message-ID: <e470822f190a41b2f1600821b81d7ad158ed33db.camel@gmail.com>
-Subject: Xen 4.20 release schedule
-From: oleksii.kurochko@gmail.com
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Community Manager <community.manager@xenproject.org>, "committers @
- xenproject . org" <committers@xenproject.org>
-Date: Mon, 21 Oct 2024 14:02:02 +0200
+X-Inumbo-ID: 5aa62038-8fa4-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=yLf+zz/5tkP4VMQsRsnmRWhQ/5mNy0rcjE5fFDyVbzQ=; b=RIFB+PL7fCg39tFyzo66fwwGU2
+	8718jBUCYe5an4bmwdICxO9XvgMe1zzTX5VSi2rEs1Epvxmek0fJ2rv+Pce6AlcLXAW2SREIXPtOT
+	BvYYkftTizLk/j/RyF763DLZLdT4utuIV/sL6d5TkcihetHwdEQolkKlU+ZglggN1af5aQgc3zIya
+	LLCD43DjUhl3ly2Qdk4SprNv54YFczUQLsXxgsjEgdezkSvnB5uwZp6jc5PaCthRiL/jf64cIP0g5
+	VoKh2wsDudM8f5aswm2TyPDyhwrFkd+OygmBHsb+sQyC7+CTQb1LcB6ZALf1wv+yoc2O6Cqqr3S1C
+	M+GCAnqQ==;
+Message-ID: <9d988ea013f294356bda62253ad43cd24c2048e9.camel@infradead.org>
+Subject: Re: [EXTERNAL] [PATCH] x86/io-apic: fix directed EOI when using
+ AMd-Vi interrupt remapping
+From: David Woodhouse <dwmw2@infradead.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau Monne
+	 <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Willi Junga <xenproject@ymy.be>
+Date: Mon, 21 Oct 2024 13:02:31 +0100
+In-Reply-To: <3a92bbe3-d58f-4a33-82db-ead6214ecc00@citrix.com>
+References: <20241018080813.45759-1-roger.pau@citrix.com>
+	 <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
+	 <0f3a9c97-3903-414c-b076-5012e6bc9350@citrix.com>
+	 <f64650fb455c1d33d7ec3898eb5423a930624998.camel@infradead.org>
+	 <3a92bbe3-d58f-4a33-82db-ead6214ecc00@citrix.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-WcYDAzLcF2TVisnoHJDw"
+User-Agent: Evolution 3.44.4-0ubuntu2 
+MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-WcYDAzLcF2TVisnoHJDw
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
-MIME-Version: 1.0
 
-Hello everyone,
+On Mon, 2024-10-21 at 12:53 +0100, Andrew Cooper wrote:
+>=20
+> > I don't quite follow how you need a sentinel value. How could you ever
+> > *not* know it, given that you have to write it to the RTE?
+> >=20
+> > (And you should *also* just use the pin# like Linux does, as I said).
+>=20
+> Because Xen is insane and, for non-x2APIC cases, sets the system up
+> normally and the turns the IOMMU on late.
+>=20
+> This really does need deleting, and everything merging into the early pat=
+h.
 
-As there were no objections to the proposed release schedule
-(https://lore.kernel.org/xen-devel/CAMacjJxEi6PThwH2=3DNwG3He8eQn39aiaxZCw3=
-bQF7i4YcmjuNw@mail.gmail.com/
-), I've updated the wiki with the schedule for Xen 4.20 release
-(https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes), and
-it is now accessible from
-https://xenbits.xen.org/docs/unstable-staging/support-matrix.html.
+Don't you still have to mask the interrupts when enabling the IOMMU and
+then re-enable them by writing the new values to the RTE once remapping
+is turned on? So at any given moment, surely it's still the case that
+you know what was written to the RTE?
 
-Have a good week!
+But OK, i don't really want to know... :)
 
-Best regards,
- Oleksii
+--=-WcYDAzLcF2TVisnoHJDw
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQxMDIxMTIwMjMxWjAvBgkqhkiG9w0BCQQxIgQgSPpX5moE
+5sAetV2JRzkSBvSSxF4B8R2+jJgj9Ens0e0wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCZtUWVMYoC/pnucGgcafRlyV1CLR9ivtq5
+AtOiAyGLFt4Ed+4G+EmO0aB4vfVv3H7AEM/B81oIvX38JQ+qRmG2GtpEMU8Rx3LrHSONlcH+zYmW
+sIQHfgfGaJwCDKTryOWj2UiPgglit8p2+VYwqvXM/xEVOmnnMawkdrMTP8b8YUv5gbt/F02PTDn+
+/eWdhQhIzu5g9aGfbTXKaD5fYeOw00snyJ0QKO1hXqYzQUkRhFHRStp4DsXC+1zUhXZeuBHyPF95
+IFAlMlT+9QTmLa4WDPOF5oVb/nHtDgyrnNrslNCxCewX232B6lVlC1ghkppnEjnYXlN9+a04iID9
+O9P08zY2hB78Xbn8Ry5JA4MOs2Vy6zQa6yHrRIUHaJ2CBcrjEYpdcO0HmYfxLhWBicE7M+A7s+xe
+tWasgVeBWe+Z+vDLM/s7xGPOSy9OREFnGLcM0iZquvXCbSzp2zRhUrZo1SrTCWx19TlLK83Tjy1g
+bs8U1hbwHXruwnlJ4LEn6xN9FC9KXlIc3xMvii+fQlpQWdqchMy2h7umPmJOeXmaPvWWA/oZSwQD
+rnvVwzC87ASStRMJbutqEVtoLEhte/EYuzFda3pZmxU1BB3xXs2tZSUnUg76hCX7jxEdu8WTXue1
+1wPQgCnI1Y9ImXh3WQZIsXotQgZZ/KXHRewuWUU2wAAAAAAAAA==
+
+
+--=-WcYDAzLcF2TVisnoHJDw--
 
