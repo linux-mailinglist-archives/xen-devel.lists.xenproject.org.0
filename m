@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE54D9A5D4D
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 09:40:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823206.1237175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 848559A5DC5
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 09:57:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823222.1237185 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2n1K-0005Cz-5J; Mon, 21 Oct 2024 07:40:06 +0000
+	id 1t2nHk-0003F2-JS; Mon, 21 Oct 2024 07:57:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823206.1237175; Mon, 21 Oct 2024 07:40:06 +0000
+Received: by outflank-mailman (output) from mailman id 823222.1237185; Mon, 21 Oct 2024 07:57:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2n1K-00059K-2R; Mon, 21 Oct 2024 07:40:06 +0000
-Received: by outflank-mailman (input) for mailman id 823206;
- Mon, 21 Oct 2024 07:40:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t2nHk-0003Bw-G8; Mon, 21 Oct 2024 07:57:04 +0000
+Received: by outflank-mailman (input) for mailman id 823222;
+ Mon, 21 Oct 2024 07:57:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Cz9x=RR=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1t2n1I-0004Lr-6a
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 07:40:04 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aeb65ee2-8f7f-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 09:40:02 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-539e8607c2aso4324268e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 00:40:02 -0700 (PDT)
-Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
+ <SRS0=FlK+=RR=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1t2nHi-00032O-SE
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 07:57:02 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0df2d04f-8f82-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 09:57:01 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4316a44d1bbso14205755e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 00:57:01 -0700 (PDT)
+Received: from localhost (0545937c.skybroadband.com. [5.69.147.124])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53a22456503sm411931e87.306.2024.10.21.00.40.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2024 00:40:00 -0700 (PDT)
+ ffacd0b85a97d-37ee0ba7480sm3607062f8f.113.2024.10.21.00.57.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Oct 2024 00:57:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aeb65ee2-8f7f-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 0df2d04f-8f82-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1729496402; x=1730101202; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1729497421; x=1730102221; darn=lists.xenproject.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ut6tdXFoieCwDzjCk3rSVYe/V5H9QVhV/RCoAHnEImI=;
-        b=kqtVQRRdAzhgsHApEHHYKH5rzjJhYlsNObz6UV60JnkdTENQDOjc73KQVF9ryCqx/a
-         YOzcRABaj8dc9jejZ5uSHS4QzyDZdjxW0RtLJhtFZ9ygdbZ1ZtHTUNvfC96PwlhWYSt5
-         S0iZ4BPtjyruceYIsnhs50iZtHmKMJTEy5lbQupwWvR+28IL4lFyIFoBPO2vrGH128Yr
-         KZekiTbmCuZo6QDrA6VtbHav1l/HJv9+Kv0MH6g4PMRjPDVUfE/1WhJEzT98eIeRkSkO
-         4ai1+O0bxH1CiEyABZkroLb02M6yA+EiyvFQZoYR+4h6LD1oJv9aSw5in0iFDeKgpRD8
-         Gsow==
+        bh=SoSl7kvBeNHYgqJAPlrDaIhKUnzvMFR29dB37Ux8+8g=;
+        b=OQSzRwPSvLc3NOmmIxtUl/ItOGC/uc5fo9AcfR5JvFfHy6Dax3QpvYRvnhO9Ejs4PU
+         mnjy85EyQux38OPB/zE6AwoPvmjW9rUdldvGhPUKJXRJVciqV+1JxgoXJHrgtgArc215
+         E7/wV6N8MqgKCFvw8Qseyg9PPG+cw5CiyKgdA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729496402; x=1730101202;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ut6tdXFoieCwDzjCk3rSVYe/V5H9QVhV/RCoAHnEImI=;
-        b=gJ/vW8a5c6J5dicWMgw2N1fKIkieBjYTq/mJkSkgesXfxDcpnwvwmLk+7Ko5nT1dmN
-         V2CKBP07vqkdJrFRAEgj0Ts4KaqXlm+ZFtduCSlJmPfGWmDZn4ydHJ+cIXPVU2iM1nTn
-         MgDg3adDxUMwoT07nNSoK+zT+89SvKvhNo32GG+kja9cfUNL+LiNnuWtNWdKZ/cFZdJy
-         A3r8IMDmNVDIgNVjjT/GNolt8zIniZLQzSn63FkfSFm4ucMqr/TzcW6L3bH6rsKCAZTt
-         bAf+bgDpA9jbKd+Lw7dZoV8S82NbtOZJ9HBRcY1Mcuc7pY0zAd3Km60c0+yJbm3YSrTZ
-         H6qQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUgDl6m10LuwbeyJnI6XhKovNsh099rsdWA0KEai11LnXxPldbdxDJa8A1AdNx25d5ZWQQSUo5Ed/8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxi1/Z+MZO7n4YebJLTihO/1SuP7k9ZHmjHHBXU7/6wmaRXS0cb
-	hZ+jPkQVurfiV3QWN90dNimnj3jARwmAT/1hDWceKZlMjuXdahRe
-X-Google-Smtp-Source: AGHT+IHQciL+iTlfAU599XwSCdWoMZD5RsI/tADgn8OXsviefzQLziznjymiXZ5JCWF6gR0gAzu4Hg==
-X-Received: by 2002:a05:6512:3a95:b0:539:ee0d:2bb4 with SMTP id 2adb3069b0e04-53a154b2cb6mr5122358e87.45.1729496402045;
-        Mon, 21 Oct 2024 00:40:02 -0700 (PDT)
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org,
-	anthony@xenproject.org,
-	paul@xen.org,
-	peter.maydell@linaro.org,
-	edgar.iglesias@amd.com,
-	xen-devel@lists.xenproject.org,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Subject: [PULL v1 1/1] hw/xen: Avoid use of uninitialized bufioreq_evtchn
-Date: Mon, 21 Oct 2024 09:39:57 +0200
-Message-ID: <20241021073957.1851500-2-edgar.iglesias@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241021073957.1851500-1-edgar.iglesias@gmail.com>
-References: <20241021073957.1851500-1-edgar.iglesias@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1729497421; x=1730102221;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=SoSl7kvBeNHYgqJAPlrDaIhKUnzvMFR29dB37Ux8+8g=;
+        b=n1c0zi00R3pcgaI/O6GHZVR4GEa5lC51M1Fkq6TTn6s7xl6mpYlP5AbuwInbK535Jt
+         fZL86lYQkG+/4zODc9ayHGAOmiHFX/jKVLYFt4bNWTvG5z+i7tq+cXmiEq0a+SRWE/la
+         QyRwceOAtlmORXDJRSZTJJHZfcOrOTf1TcLC3l2lMmGm2p04Ua1Tez3aQ33jF5P5RyHY
+         QvqT4iaWWQCwpBA+kUvVy/fli60qsO/FLNHXQ4trM5Cn5Zf24qE0w8CD6Fbu04MRLXj1
+         uIO428W9bDiYWNFCaoutJlrwGyRZakSR36JqZe54L9KzvolbUDu543V8fVgNMf/Jw8cg
+         DaXw==
+X-Forwarded-Encrypted: i=1; AJvYcCVZrhB9rrW92CEHC4QDBTUt5FxHQktBMxa8U+P4OQ+6iXNPgp43yRlkpYUK162S4TT2U4MiASzcbA4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YywAreZ9fncWv7e648k9CTK82aPXYSc5nqGbBgWqb4YZe4+vvhQ
+	AxqGwCgtThPA473nErYteXlFbIUiIepNuoxWmyfXQFIkpg2x9/x0jnPUMYouQsQ=
+X-Google-Smtp-Source: AGHT+IHW1+7cVnpi8HuXJ1ynA+XGEnpIVTAH2NfUBQFh4DWHBRKGTWE1zGRDlQTvvLmdwVjTNrMTbA==
+X-Received: by 2002:a05:600c:3b9b:b0:42c:b037:5f9d with SMTP id 5b1f17b1804b1-43161636f67mr80340725e9.3.1729497421008;
+        Mon, 21 Oct 2024 00:57:01 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Oct 2024 08:56:55 +0100
+Message-Id: <D51BO0DX4047.IXQS05RISYW0@cloud.com>
+Subject: Re: [PATCH v1 2/5] xen/riscv: implement maddr_to_virt()
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: <oleksii.kurochko@gmail.com>, "Jan Beulich" <jbeulich@suse.com>
+Cc: "Alistair Francis" <alistair.francis@wdc.com>, "Bob Eshleman"
+ <bobbyeshleman@gmail.com>, "Connor Davis" <connojdavis@gmail.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, "Julien Grall" <julien@xen.org>,
+ "Stefano Stabellini" <sstabellini@kernel.org>,
+ <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.18.2
+References: <cover.1729068334.git.oleksii.kurochko@gmail.com>
+ <ec04dca87144194f5b3ecb9a78d142d370c9193f.1729068334.git.oleksii.kurochko@gmail.com> <2565f369-96e3-4c28-b752-53b1b6a0d968@suse.com> <aebdb0df0ad9fb13db9929f131737bf5479cdf29.camel@gmail.com>
+In-Reply-To: <aebdb0df0ad9fb13db9929f131737bf5479cdf29.camel@gmail.com>
 
-From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On Fri Oct 18, 2024 at 2:17 PM BST, oleksii.kurochko wrote:
+> On Thu, 2024-10-17 at 16:55 +0200, Jan Beulich wrote:
+> > On 16.10.2024 11:15, Oleksii Kurochko wrote:
+> > > --- a/xen/arch/riscv/include/asm/mm.h
+> > > +++ b/xen/arch/riscv/include/asm/mm.h
+> > > @@ -25,8 +25,12 @@
+> > > =C2=A0
+> > > =C2=A0static inline void *maddr_to_virt(paddr_t ma)
+> > > =C2=A0{
+> > > -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> > > -=C2=A0=C2=A0=C2=A0 return NULL;
+> > > +=C2=A0=C2=A0=C2=A0 /* Offset in the direct map, accounting for pdx c=
+ompression */
+> > > +=C2=A0=C2=A0=C2=A0 unsigned long va_offset =3D maddr_to_directmapoff=
+(ma);
+> >=20
+> > Why the mentioning of PDX compression?
+> It was mentioned because if PDX will be enabled maddr_to_directmapoff()
+> will take into account PDX stuff.
+>
+> >  At least right now it's unavailable
+> > for RISC-V afaics. Are there plans to change that any time soon?
+> At the moment, I don't have such plans, looking at available platform
+> there are no a lot of benefits of having PDX compression now.
+>
+> Perhaps it would be good to add
+> BUILD_BUG_ON(IS_ENABLED(PDX_COMPRESSION)) for the places which should
+> be updated when CONFIG_PDX will be enabled.
+>
+> ~ Oleksii
 
-Avoid use of uninitialized bufioreq_evtchn. It should only
-be used if buffered IOREQs are enabled.
+I'd just forget about it unless you ever notice you're wasting a lot of ent=
+ries
+in the frame table due to empty space in the memory map. Julien measured th=
+e
+effect on Amazon's Live Migration as a 10% improvement in downtime with PDX
+off.
 
-Resolves: Coverity CID 1563383
-Reported-by: Peter Maydell <peter.maydell@linaro.org>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
----
- hw/xen/xen-hvm-common.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+PDX compression shines when you have separate RAM banks at very, very
+disparately far addresses (specifics in pdx.h). Unfortunately the flip side=
+ of
+this compression is that you get several memory accesses for each single
+pdx-(to/from)-mfn conversion. And we do a lot of those. One possible soluti=
+on
+would be to alt-patch the values in the code-stream and avoid the perf-hit,=
+ but
+that's not merged. Jan had some patches but that didn't make it to staging,
+IIRC.
 
-diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
-index 7d2b72853b..7ffbbfea23 100644
---- a/hw/xen/xen-hvm-common.c
-+++ b/hw/xen/xen-hvm-common.c
-@@ -752,9 +752,10 @@ static int xen_map_ioreq_server(XenIOState *state)
-         return -1;
-     }
- 
--    trace_xen_map_ioreq_server_buffered_io_evtchn(bufioreq_evtchn);
--
--    state->bufioreq_remote_port = bufioreq_evtchn;
-+    if (state->has_bufioreq) {
-+        trace_xen_map_ioreq_server_buffered_io_evtchn(bufioreq_evtchn);
-+        state->bufioreq_remote_port = bufioreq_evtchn;
-+    }
- 
-     return 0;
- }
--- 
-2.43.0
-
+Cheers,
+Alejandro
 
