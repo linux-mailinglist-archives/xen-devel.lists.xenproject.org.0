@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE2759A6C6E
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 16:42:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823607.1237630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C4F9A6CE4
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 16:51:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823622.1237641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2tbc-0008Ca-Lf; Mon, 21 Oct 2024 14:42:00 +0000
+	id 1t2tkn-0005ij-KA; Mon, 21 Oct 2024 14:51:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823607.1237630; Mon, 21 Oct 2024 14:42:00 +0000
+Received: by outflank-mailman (output) from mailman id 823622.1237641; Mon, 21 Oct 2024 14:51:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2tbc-00087s-Iy; Mon, 21 Oct 2024 14:42:00 +0000
-Received: by outflank-mailman (input) for mailman id 823607;
- Mon, 21 Oct 2024 14:41:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t2tkn-0005h5-Gv; Mon, 21 Oct 2024 14:51:29 +0000
+Received: by outflank-mailman (input) for mailman id 823622;
+ Mon, 21 Oct 2024 14:51:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t2tbb-00087k-Fs
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 14:41:59 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f52ea66-8fba-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 16:41:57 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2fb518014b9so38792251fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 07:41:57 -0700 (PDT)
+ id 1t2tkm-0005gz-46
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 14:51:28 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f2eae451-8fbb-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 16:51:27 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5c903f5bd0eso470946a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 07:51:27 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cb66c6b535sm1976858a12.68.2024.10.21.07.41.55
+ 4fb4d7f45d1cf-5cb66c6b7d5sm2031801a12.75.2024.10.21.07.51.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 07:41:55 -0700 (PDT)
+ Mon, 21 Oct 2024 07:51:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f52ea66-8fba-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: f2eae451-8fbb-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729521716; x=1730126516; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729522286; x=1730127086; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mDqF20tp3+oy1a1lJpVgUW6qTWwEfxQHY1oxgdv7794=;
-        b=fVqUMnnWKGvYJLc8AdgCmuz8kE70flowOC1Cq8F6meIfqLqwlu+ejX3eNpkGkUJjqC
-         QHkupquPdLno+Sw8eshYZK0vD8MKlWPi2NRGONAi/BEAwLcL02nDT6bXkewIKWPgUddj
-         b+5t3JURnb7KoOdtkS8XTTCMZnC66CMiaw8fg=
+        bh=b9qW0fa8xJC8nQtELc0+zoCH5xJqyCANSk0j8fzTp3w=;
+        b=mMA+Q4h7RBr8i2lbW7Yj88uhgq+m8EIkqLxaQY8Dwl0sRCe/if215oKZlq1eFJmbou
+         gufXd3cqGCtBHvGA8wvLvRT6Ri2oKSKAw8smMrpo2SWxve93ZslmIvYK0IhoXA6jcwhi
+         KdVTeKhONzllIcdPxnr6hWDq770iSmXvGUb2A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729521716; x=1730126516;
+        d=1e100.net; s=20230601; t=1729522286; x=1730127086;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mDqF20tp3+oy1a1lJpVgUW6qTWwEfxQHY1oxgdv7794=;
-        b=gJz45TW5cYphW/YKv72KYigrIvrJGJGXUWlkqNZnqym2cIwsUy2u39/tZXn8i/VbOw
-         /mDo6IMezhHxc9u1/jNF7MtRFTTbU2XtK/+a6tBbe9Eeq/H2dcUNC7lm4vEoaZB2gOkf
-         m/L1ESvMv5vYSy8586ClelWCtPfpKsJsmCMg8q4JEzNzcXvIAr558E2rOmpxCZ8//IXh
-         1FTrOH0dgRm6DHRIelHuqTSWzVIP9F14ckSx+C7Y8ZEr3iUJFV3+IZcOzDmfgB56YCq8
-         TtajTPdkdyOcpVsr6hOXO0S1/FBz5tqCMK9wiKzIvG66jq7UNc/nJdsnuiEni37MBGE3
-         285w==
-X-Gm-Message-State: AOJu0YzK+gpAqUyfRwsiZZJcTKfG/I023rKKXM6WvYZs38uYCUYumbwl
-	AWgircj0lj6SIwN4IeTGn2Y/Os9z7uW6XaATvOGx55wQDgEa9bCfsg+m3Rh9mP44X7zoVSZaTJU
-	F
-X-Google-Smtp-Source: AGHT+IHDr4PmfBehgIc0d9EbWj6rgnqsfYur1t+XMefmUWHdxB9Yf3mRz8mR5h2vslaQLmsi95iNOg==
-X-Received: by 2002:a05:651c:b07:b0:2fb:4b1f:973f with SMTP id 38308e7fff4ca-2fb82eb7027mr54475221fa.7.1729521715866;
-        Mon, 21 Oct 2024 07:41:55 -0700 (PDT)
-Message-ID: <78116f34-2448-4b08-9eb3-50d70a18074e@citrix.com>
-Date: Mon, 21 Oct 2024 15:41:53 +0100
+        bh=b9qW0fa8xJC8nQtELc0+zoCH5xJqyCANSk0j8fzTp3w=;
+        b=D9M9AoKzebpbpPVyfiqk2EmlBCZsbVMstjUw+bH6CIliQCymZykpqwLE6dkTrH8Zp8
+         eHrxTUyosDEizycUsmeN0lKEsxG0Ff7Djr7ZYYB0gW/NW0kywz4YTLso/3rFUBji9sAt
+         GnMHddd0PcJpiK2eKd1UsbbxYAKSmu2BEQfknp77E4AnbVMEYLPIYwcuC41fIKjac68D
+         5BkDxVmWRoW2dar7no3q2t3K5jvWEDvPi+5nIdd44b4x93IzBIdRviamNN96lZNqZuJJ
+         3rpfRTR5hwyAX9ZPId/sBMQASxSV+v9eAtDo6M2Akz7mUeT25sM7RVCUgpu/TZ6qtJ1/
+         yLdg==
+X-Gm-Message-State: AOJu0YwT5Td6XpuHsClo8qHkeU+Kb6OMRaUvKRWJK9H7zVDO0WBSWv/i
+	YSTpFRDCUuEFyJe7rzh+TdOB/d8WayBYhtONAnh06789JDtG8GMkkNsKiGBQehc=
+X-Google-Smtp-Source: AGHT+IGjh11KyGqEExxH5H8zKnXh3vJR190BND/LkoF9MkpkfmxbjcGVinuP/K3YUGPWNV2M+Swiig==
+X-Received: by 2002:a05:6402:1e95:b0:5cb:674f:b0a2 with SMTP id 4fb4d7f45d1cf-5cb674fb0admr5334931a12.36.1729522286428;
+        Mon, 21 Oct 2024 07:51:26 -0700 (PDT)
+Message-ID: <5970c852-8800-414a-83f9-66392bdbe016@citrix.com>
+Date: Mon, 21 Oct 2024 15:51:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] CI: Add {adl,zen3p}-pvshim-* tests
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>
-References: <20241021143539.3898995-1-andrew.cooper3@citrix.com>
- <20241021143539.3898995-4-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
+ remapping
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ David Woodhouse <dwmw2@infradead.org>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Willi Junga <xenproject@ymy.be>
+References: <20241018080813.45759-1-roger.pau@citrix.com>
+ <10e0f567ab3be0eae4c6473326da3a6d369ba8ff.camel@infradead.org>
+ <ZxZf4nHFhhfyMF12@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,107 +131,43 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241021143539.3898995-4-andrew.cooper3@citrix.com>
+In-Reply-To: <ZxZf4nHFhhfyMF12@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/10/2024 3:35 pm, Andrew Cooper wrote:
-> GitlabCI has no testing of Xen's PVH entrypoint.  Fix this.
+On 21/10/2024 3:06 pm, Roger Pau Monné wrote:
+> On Mon, Oct 21, 2024 at 12:34:37PM +0100, David Woodhouse wrote:
+>> On Fri, 2024-10-18 at 10:08 +0200, Roger Pau Monne wrote:
+>>> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
+>>> repurposed to contain part of the offset into the remapping table.  Previous to
+>>> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
+>>> table would match the vector.  Such logic was mandatory for end of interrupt to
+>>> work, since the vector field (even when not containing a vector) is used by the
+>>> IO-APIC to find for which pin the EOI must be performed.
+>>>
+>>> Introduce a table to store the EOI handlers when using interrupt remapping, so
+>>> that the IO-APIC driver can translate pins into EOI handlers without having to
+>>> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
+>>> unconditionally when interrupt remapping is enabled, even if strictly it would
+>>> only be required for AMD-Vi.
+>>>
+>>> Reported-by: Willi Junga <xenproject@ymy.be>
+>>> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+>>> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Hm, couldn't we just have used the pin#?
+> Yes, but that would require a much bigger change that what's currently
+> presented here, and for backport purposes I think it's better done
+> this way for fixing this specific bug.
 >
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Doug Goldstein <cardoe@cardoe.com>
+> Changing to use pin# as the IR offset is worthwhile, but IMO needs to
+> be done separated from the bugfix here.
 >
-> OSSTest (which is disappearing imminently) found a pvshim bug in the
-> hyperlaunch series, and I found a second shortly after while trying to take
-> more of the series.
->
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1505518838
-> ---
->  automation/gitlab-ci/test.yaml     | 16 ++++++++++++++++
->  automation/scripts/qubes-x86-64.sh | 10 ++++++++--
->  2 files changed, 24 insertions(+), 2 deletions(-)
->
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index b27c2be17487..e76a37bef32d 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -240,6 +240,14 @@ adl-pci-hvm-x86-64-gcc-debug:
->      - *x86-64-test-needs
->      - alpine-3.18-gcc-debug
->  
-> +adl-pvshim-x86-64-gcc-debug:
-> +  extends: .adl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
->  zen3p-smoke-x86-64-gcc-debug:
->    extends: .zen3p-x86-64
->    script:
-> @@ -272,6 +280,14 @@ zen3p-pci-hvm-x86-64-gcc-debug:
->      - *x86-64-test-needs
->      - alpine-3.18-gcc-debug
->  
-> +zen3p-pvshim-x86-64-gcc-debug:
-> +  extends: .zen3p-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
->  qemu-smoke-dom0-arm64-gcc:
->    extends: .qemu-arm64
->    script:
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-> index 4b6311efffa8..ace494b938d8 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -8,6 +8,7 @@ set -ex
->  #  - dom0pvh-hvm    PVH dom0, HVM domU
->  #  - pci-hvm        PV dom0,  HVM domU + PCI Passthrough
->  #  - pci-pv         PV dom0,  PV domU + PCI Passthrough
-> +#  - pvshim         PV dom0,  PVSHIM domU
->  #  - s3             PV dom0,  S3 suspend/resume
->  test_variant=$1
->  
-> @@ -20,8 +21,8 @@ domU_vif="'bridge=xenbr0',"
->  domU_extra_cfg=
->  
->  case "${test_variant}" in
-> -    ### test: smoke test & smoke test PVH & smoke test HVM
-> -    ""|"dom0pvh"|"dom0pvh-hvm")
-> +    ### test: smoke test & smoke test PVH & smoke test HVM & smoke test PVSHIM
-> +    ""|"dom0pvh"|"dom0pvh-hvm"|"pvshim")
->          passed="ping test passed"
->          domU_check="
->  ifconfig eth0 192.168.0.2
-> @@ -44,6 +45,11 @@ echo \"${passed}\"
->  
->          if [ "${test_variant}" = "dom0pvh-hvm" ]; then
->              domU_type="hvm"
-> +        elif [ "${test_variant}" = "pvshim" ]; then
-> +            domU_type="pv"
-> +            domU_extra_cfg='
-> +pvshim = 1
-> +'
->          fi
->          ;;
->  
+>> The AMD IOMMU has per-device IRTE, so you *know* you can just use IRTE
+>> indices 0-23 for the I/O APIC pins.
+> Aren't there IO-APICs with more than 24 pins?
 
-Bah - serves me right for some last minute refactoring.  The domain type
-should be pvh for pvshim=1 to work.
-
-New pipeline:
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1505540810
+Recent Intel SoCs have a single IO-APIC with 120 pins.
 
 ~Andrew
 
