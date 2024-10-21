@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 848559A5DC5
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 09:57:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823222.1237185 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 291649A5DE3
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 10:02:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823232.1237195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2nHk-0003F2-JS; Mon, 21 Oct 2024 07:57:04 +0000
+	id 1t2nMQ-0005mm-6O; Mon, 21 Oct 2024 08:01:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823222.1237185; Mon, 21 Oct 2024 07:57:04 +0000
+Received: by outflank-mailman (output) from mailman id 823232.1237195; Mon, 21 Oct 2024 08:01:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2nHk-0003Bw-G8; Mon, 21 Oct 2024 07:57:04 +0000
-Received: by outflank-mailman (input) for mailman id 823222;
- Mon, 21 Oct 2024 07:57:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t2nMQ-0005kq-2j; Mon, 21 Oct 2024 08:01:54 +0000
+Received: by outflank-mailman (input) for mailman id 823232;
+ Mon, 21 Oct 2024 08:01:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FlK+=RR=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t2nHi-00032O-SE
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 07:57:02 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0df2d04f-8f82-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 09:57:01 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4316a44d1bbso14205755e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 00:57:01 -0700 (PDT)
-Received: from localhost (0545937c.skybroadband.com. [5.69.147.124])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37ee0ba7480sm3607062f8f.113.2024.10.21.00.57.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 00:57:00 -0700 (PDT)
+ <SRS0=IAaI=RR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t2nMO-0005kk-OA
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 08:01:52 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ba3a2219-8f82-11ef-99a3-01e77a169b0f;
+ Mon, 21 Oct 2024 10:01:50 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-431481433bdso43865935e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 01:01:50 -0700 (PDT)
+Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4316f57e66asm47939415e9.13.2024.10.21.01.01.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Oct 2024 01:01:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +44,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0df2d04f-8f82-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: ba3a2219-8f82-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1729497421; x=1730102221; darn=lists.xenproject.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SoSl7kvBeNHYgqJAPlrDaIhKUnzvMFR29dB37Ux8+8g=;
-        b=OQSzRwPSvLc3NOmmIxtUl/ItOGC/uc5fo9AcfR5JvFfHy6Dax3QpvYRvnhO9Ejs4PU
-         mnjy85EyQux38OPB/zE6AwoPvmjW9rUdldvGhPUKJXRJVciqV+1JxgoXJHrgtgArc215
-         E7/wV6N8MqgKCFvw8Qseyg9PPG+cw5CiyKgdA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729497421; x=1730102221;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+        d=citrix.com; s=google; t=1729497710; x=1730102510; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=SoSl7kvBeNHYgqJAPlrDaIhKUnzvMFR29dB37Ux8+8g=;
-        b=n1c0zi00R3pcgaI/O6GHZVR4GEa5lC51M1Fkq6TTn6s7xl6mpYlP5AbuwInbK535Jt
-         fZL86lYQkG+/4zODc9ayHGAOmiHFX/jKVLYFt4bNWTvG5z+i7tq+cXmiEq0a+SRWE/la
-         QyRwceOAtlmORXDJRSZTJJHZfcOrOTf1TcLC3l2lMmGm2p04Ua1Tez3aQ33jF5P5RyHY
-         QvqT4iaWWQCwpBA+kUvVy/fli60qsO/FLNHXQ4trM5Cn5Zf24qE0w8CD6Fbu04MRLXj1
-         uIO428W9bDiYWNFCaoutJlrwGyRZakSR36JqZe54L9KzvolbUDu543V8fVgNMf/Jw8cg
-         DaXw==
-X-Forwarded-Encrypted: i=1; AJvYcCVZrhB9rrW92CEHC4QDBTUt5FxHQktBMxa8U+P4OQ+6iXNPgp43yRlkpYUK162S4TT2U4MiASzcbA4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YywAreZ9fncWv7e648k9CTK82aPXYSc5nqGbBgWqb4YZe4+vvhQ
-	AxqGwCgtThPA473nErYteXlFbIUiIepNuoxWmyfXQFIkpg2x9/x0jnPUMYouQsQ=
-X-Google-Smtp-Source: AGHT+IHW1+7cVnpi8HuXJ1ynA+XGEnpIVTAH2NfUBQFh4DWHBRKGTWE1zGRDlQTvvLmdwVjTNrMTbA==
-X-Received: by 2002:a05:600c:3b9b:b0:42c:b037:5f9d with SMTP id 5b1f17b1804b1-43161636f67mr80340725e9.3.1729497421008;
-        Mon, 21 Oct 2024 00:57:01 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Oct 2024 08:56:55 +0100
-Message-Id: <D51BO0DX4047.IXQS05RISYW0@cloud.com>
-Subject: Re: [PATCH v1 2/5] xen/riscv: implement maddr_to_virt()
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: <oleksii.kurochko@gmail.com>, "Jan Beulich" <jbeulich@suse.com>
-Cc: "Alistair Francis" <alistair.francis@wdc.com>, "Bob Eshleman"
- <bobbyeshleman@gmail.com>, "Connor Davis" <connojdavis@gmail.com>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, "Julien Grall" <julien@xen.org>,
- "Stefano Stabellini" <sstabellini@kernel.org>,
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <cover.1729068334.git.oleksii.kurochko@gmail.com>
- <ec04dca87144194f5b3ecb9a78d142d370c9193f.1729068334.git.oleksii.kurochko@gmail.com> <2565f369-96e3-4c28-b752-53b1b6a0d968@suse.com> <aebdb0df0ad9fb13db9929f131737bf5479cdf29.camel@gmail.com>
-In-Reply-To: <aebdb0df0ad9fb13db9929f131737bf5479cdf29.camel@gmail.com>
+        bh=b5CztZD253iwPne0j5dpy1DVfOcw8GxwGQPFHqNnCTQ=;
+        b=pm47wQwj/D6wgSa85/1gBy15nclUHvwYAFVUt8Y/7hWTXhOp+h6c1wmdAJ535VXO8a
+         bNehK30982Ljnmz2p7j43AEZwN9CrbFVim6piqK0qVQig9Et8/NJDUj0Lf0rnpjZrkSp
+         4QwrHtaDKpGrGa6J4Cw1QRPirJUTn9W4xvrfM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729497710; x=1730102510;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=b5CztZD253iwPne0j5dpy1DVfOcw8GxwGQPFHqNnCTQ=;
+        b=W0m1SLyK5N8URhqGnMgR3zERw/79j+u+yW+YegOTIKGpAYIJLOQSV2LHUD4+v3YhZR
+         Z+B032UuyXw6mUnsrgJ6Qt1hR/zlLZjLA+sUZHXWFTs1kN2V+dFXlmW6eam+ExSAOgBZ
+         i80/NVnMbM4NdNFEn+IKbo1RipBPZURfWsi3kbZEbFhqVbBQLW8oeGyXZhFoIR8CL93p
+         ig+Algb7r6KAiQ/1fOttGhQQXbXgQzGHV+4ODH1RNkIyypKL5ngAX+WmocVxOCpx6hfN
+         cqsM2O6rv5+hBVCkvcO6x1ohv8c3dGcwRh997gXV/5JoGlg/gsLz2Cfn/zxHoA1wo5SX
+         2AuQ==
+X-Gm-Message-State: AOJu0YxnwuYQU4Jv1mTlg/9sd+YfTyXfUp3ZWnzwpzF6J7MzWWcdyN2p
+	tlRSM9qDVwA+EfStLTMyRr9q7xOVrhQJdpoMCmi6VihsHB7cacXgCYU70nRRWgA=
+X-Google-Smtp-Source: AGHT+IGyZcU3xWApCGtJ7eHgJq8TR0dl3Zs2cELwEwn4QQUtGojLfNmGD9cLUlGBXydg05H+xhFnNw==
+X-Received: by 2002:a05:600c:474e:b0:42c:b52b:4335 with SMTP id 5b1f17b1804b1-4316162875bmr83229645e9.10.1729497710059;
+        Mon, 21 Oct 2024 01:01:50 -0700 (PDT)
+Date: Mon, 21 Oct 2024 10:01:48 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v6 1/5] x86/boot: create a C bundle for 32 bit boot code
+ and use it
+Message-ID: <ZxYKbMzsjtcKlTdR@macbook.local>
+References: <20241017133123.1946204-1-frediano.ziglio@cloud.com>
+ <20241017133123.1946204-2-frediano.ziglio@cloud.com>
+ <ZxJJZvOCQLzU_Q5s@macbook.local>
+ <CACHz=Zif6tirzF3QSLYLOvDFuaE3o9=Cu+ybm4ns7vNkAKCROg@mail.gmail.com>
+ <ZxJbmIU4OUmeO3xq@macbook.local>
+ <CACHz=ZiHp40-MkkbfnnNi2yQaB89_PA9VU_cLrTX4LHY6o7j6w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACHz=ZiHp40-MkkbfnnNi2yQaB89_PA9VU_cLrTX4LHY6o7j6w@mail.gmail.com>
 
-On Fri Oct 18, 2024 at 2:17 PM BST, oleksii.kurochko wrote:
-> On Thu, 2024-10-17 at 16:55 +0200, Jan Beulich wrote:
-> > On 16.10.2024 11:15, Oleksii Kurochko wrote:
-> > > --- a/xen/arch/riscv/include/asm/mm.h
-> > > +++ b/xen/arch/riscv/include/asm/mm.h
-> > > @@ -25,8 +25,12 @@
-> > > =C2=A0
-> > > =C2=A0static inline void *maddr_to_virt(paddr_t ma)
-> > > =C2=A0{
-> > > -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
-> > > -=C2=A0=C2=A0=C2=A0 return NULL;
-> > > +=C2=A0=C2=A0=C2=A0 /* Offset in the direct map, accounting for pdx c=
-ompression */
-> > > +=C2=A0=C2=A0=C2=A0 unsigned long va_offset =3D maddr_to_directmapoff=
-(ma);
-> >=20
-> > Why the mentioning of PDX compression?
-> It was mentioned because if PDX will be enabled maddr_to_directmapoff()
-> will take into account PDX stuff.
->
-> >  At least right now it's unavailable
-> > for RISC-V afaics. Are there plans to change that any time soon?
-> At the moment, I don't have such plans, looking at available platform
-> there are no a lot of benefits of having PDX compression now.
->
-> Perhaps it would be good to add
-> BUILD_BUG_ON(IS_ENABLED(PDX_COMPRESSION)) for the places which should
-> be updated when CONFIG_PDX will be enabled.
->
-> ~ Oleksii
+On Fri, Oct 18, 2024 at 02:45:59PM +0100, Frediano Ziglio wrote:
+> On Fri, Oct 18, 2024 at 1:59 PM Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >
+> > On Fri, Oct 18, 2024 at 01:48:27PM +0100, Frediano Ziglio wrote:
+> > > On Fri, Oct 18, 2024 at 12:41 PM Roger Pau Monné <roger.pau@citrix.com> wrote:
+> > > >
+> > > > On Thu, Oct 17, 2024 at 02:31:19PM +0100, Frediano Ziglio wrote:
+> > > > > +#define DECLARE_IMPORT(name) name = . + (__LINE__ * MULT)
+> > > > > +
+> > > > > +ENTRY(dummy_start)
+> > > > >
+> > > > >  SECTIONS
+> > > > >  {
+> > > > >    /* Merge code and data into one section. */
+> > > > > -  .text : {
+> > > > > +  .text TEXT_START : {
+> > > > > +        /* Silence linker warning, we are not going to use it */
+> > > > > +        dummy_start = .;
+> > > > > +
+> > > > > +        /* Declare below any symbol name needed.
+> > > > > +         * Each symbol should be on its own line.
+> > > > > +         * It looks like a tedious work but we make sure the things we use.
+> > > > > +         * Potentially they should be all variables. */
+> > > >
+> > > > The style is wrong for the opening and closing comment delimiters.
+> > > >
+> > > > I think it would be best if this was written in a more natural style.
+> > > >
+> > > > /*
+> > > >  * Any symbols used should be declared below, this ensures which
+> > > >  * symbols are visible to the 32bit C boot code.
+> > > >  */
+> > > >
+> > >
+> > > But why to remove the "Potentially they should be all variables.".
+> > > Surely something not written is more clear than something written, but
+> > > on the other way it carries no information.
+> >
+> > I'm not sure I understand why this is helpful: either they are
+> > mandated to be only variables, and hence the "potentially" is wrong, or
+> > they are not, in which case I don't see why spelling a desire for they
+> > to be only variables is helpful if it's not a strict requirement.
+> >
+> 
+> As normal, rules often have exceptions. Most of the functions (so
+> code) in Xen is 64 bit, so you don't want to use them. However, saying
+> you have a function in head.S written in assembly for 32 bit (or any
+> other functions written for 32 bit), you want the possibility to call
+> it. For instance you could export from head.S the function to output
+> to serial in the future.
+> 
+> About variables... are all variables fine to be accessed from these
+> functions? Probably yes if they have no pointers in them. If they have
+> pointers... that's another matter. Does the pointer have relocation?
+> Is it going to be used at the final defined program location or only
+> during initialization? To make an example, you could override a NULL
+> pointer (that is, without relocation) to a current symbol, if this
+> pointer is used after Xen is moved into its final position it will
+> become invalid. If, on the other hand, the pointer had relocation
+> potentially it will be automatically be relocated.
 
-I'd just forget about it unless you ever notice you're wasting a lot of ent=
-ries
-in the frame table due to empty space in the memory map. Julien measured th=
-e
-effect on Amazon's Live Migration as a 10% improvement in downtime with PDX
-off.
+IMO comments are meant to clarify parts of the code.  A comment that
+uses a conditional like "Potentially" introduces more ambiguity than
+it removes, unless the restriction is stated in the comment itself.
 
-PDX compression shines when you have separate RAM banks at very, very
-disparately far addresses (specifics in pdx.h). Unfortunately the flip side=
- of
-this compression is that you get several memory accesses for each single
-pdx-(to/from)-mfn conversion. And we do a lot of those. One possible soluti=
-on
-would be to alt-patch the values in the code-stream and avoid the perf-hit,=
- but
-that's not merged. Jan had some patches but that didn't make it to staging,
-IIRC.
+I think you either you expand the comment to mention exactly which
+kind of symbols can be declared, or you make the comment a more
+restrictive one to avoid the ambiguity: "Symbols declared below should
+all be variables."
 
-Cheers,
-Alejandro
+Thanks, Roger.
 
