@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C3FF9A584F
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 02:56:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822970.1236957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEEA09A585F
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 02:57:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823032.1237113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2giq-00013k-PG; Mon, 21 Oct 2024 00:56:36 +0000
+	id 1t2gja-0000TR-OS; Mon, 21 Oct 2024 00:57:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822970.1236957; Mon, 21 Oct 2024 00:56:36 +0000
+Received: by outflank-mailman (output) from mailman id 823032.1237113; Mon, 21 Oct 2024 00:57:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2giq-0000wW-Kx; Mon, 21 Oct 2024 00:56:36 +0000
-Received: by outflank-mailman (input) for mailman id 822970;
- Mon, 21 Oct 2024 00:56:34 +0000
+	id 1t2gja-0000PI-I5; Mon, 21 Oct 2024 00:57:22 +0000
+Received: by outflank-mailman (input) for mailman id 823032;
+ Mon, 21 Oct 2024 00:57:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Q0x4=RR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t2gbl-0003Iq-2H
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 00:49:17 +0000
-Received: from sender3-of-o57.zoho.com (sender3-of-o57.zoho.com
- [136.143.184.57]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ab63ad6-8f46-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 02:49:15 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1729471609370815.6656070423512;
- Sun, 20 Oct 2024 17:46:49 -0700 (PDT)
+ id 1t2gbt-0003Iq-Cz
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 00:49:25 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f617d7b-8f46-11ef-99a3-01e77a169b0f;
+ Mon, 21 Oct 2024 02:49:22 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729471610646436.30794011322234;
+ Sun, 20 Oct 2024 17:46:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,25 +38,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ab63ad6-8f46-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1729471611; cv=none; 
+X-Inumbo-ID: 4f617d7b-8f46-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1729471612; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=VOOV58aeXXstEaea5PEYY5hCNM5Cf2DbWfz2W9JspozDw/+uuMHZvc84UM+6/zOQJngg17ateZEawbZzi8ThwznVn0yhXIpVL3hoif0xQSgA5EZbnRUKg4cdalq2h+4CQMI6Poi9ZUeGjHXMYeRSU3CWB0AR6QGFuY8fYIBTllU=
+	b=i+Fo7mE2l6lnDvHSkdzMXcIc0cXnGZAOArVr2J9rW9rvUEMLkdwRQBqObaK9lHCNNOtaJ9raWFdMjyxPOM6par5wpYQg8fB7WnH06ov6lo4fXOwDP7OeVFij+/zcE7bO7kEGjl9+rtDUhAmFlCe3oxRGJa495acNoLm9hZ1k4p8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1729471611; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=StSbCrB+Dkpm/0KxKKmbp9r7lXihj1wwfuzXw0D2zII=; 
-	b=DzdLNigp2vxkFU15ypRPfOMbmQkmJKfIrGQQQOqOX7BC6HcCkDG81j3sQVFeSixvbaKEK0yO5T9cwCC0ltJ4q0m+xleIOt0C9nnmkpwSJJgb0X1ary9aZiSQ9up0vNpwcJfzUPpVYulqrA3GhUo3cK4SXmkwWAMowI7i/mCyzCA=
+	t=1729471612; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6EFYFOIpJeJaM58GR4EodZUTDNutkt83UE7kPDWs5iU=; 
+	b=Hr+zKuiK73+LfVVlD2yDJZZlbQY1vLy1x66B8tC3/pE1k5dsLyC6/RA1HWeJ155h6fbbrZO/7SQW7iihIMCjWQNaOoZz4h6cwfcnwkXO3TnjHmYS+AKL4954mhNmAmsy1JFFhRElQWaq6wDZKCJwTjkMJcMx2aVDoz2p02ISIt8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729471611;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729471612;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=StSbCrB+Dkpm/0KxKKmbp9r7lXihj1wwfuzXw0D2zII=;
-	b=dXJQ+gs63Q0A8BdYYVq/jGFJDNiM0vKokc2EhktgXDOQvCoAaYHdsS5ZZJj++YUF
-	6mWDgRdSzh+tsmMKCryvQRCm1qbyuzI0aSgEtAu9msVEq4zRKcCZNztegQAbqz6Iycg
-	tVLwP8p+VKalsQDZqo0aScT54knUo9z9eldrG9Mo=
+	bh=6EFYFOIpJeJaM58GR4EodZUTDNutkt83UE7kPDWs5iU=;
+	b=ebI5JlVoik3O/my+I8RYupFUUSvnlk9k8w8a3pcPdmlAdnvY5vTng6VOfc/6dCfB
+	fdAsny2LWWRRCOswBs5/oN4Pcgmtm9NgbGzElq9DRR6BWsebL9Lro68vwrINBeLoSAo
+	W32Rzrvo8NrIE2RuEEsBSZXgS2EvZcY/LbG/uWS8=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -66,9 +66,9 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v7 22/38] x86/boot: add cmdline to struct boot_module
-Date: Sun, 20 Oct 2024 20:45:57 -0400
-Message-Id: <20241021004613.18793-23-dpsmith@apertussolutions.com>
+Subject: [PATCH v7 23/38] x86/boot: convert dom0_construct_pv image param to struct boot_module
+Date: Sun, 20 Oct 2024 20:45:58 -0400
+Message-Id: <20241021004613.18793-24-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20241021004613.18793-1-dpsmith@apertussolutions.com>
 References: <20241021004613.18793-1-dpsmith@apertussolutions.com>
@@ -76,60 +76,106 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-Add a char pointer field, cmdline, to struct boot_module to hold the address
-pointed to by the string field of struct mod. This removes the need to use the
-early_mod field to get to the dom0 kernel command line.
+This changes the type for the image parameter of dom0_construct_pv to be struct
+boot_module. Removing the usage of early_mod field for kernel module.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
-Changes since v5:
-- changed boot_module element cmdline to paddr_t
----
- xen/arch/x86/include/asm/bootinfo.h | 2 ++
- xen/arch/x86/setup.c                | 9 ++++++---
- 2 files changed, 8 insertions(+), 3 deletions(-)
+Changes since v6:
+- removed unnecessary indentation changes
 
-diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-index 9bd0e6336b4a..941363601db7 100644
---- a/xen/arch/x86/include/asm/bootinfo.h
-+++ b/xen/arch/x86/include/asm/bootinfo.h
-@@ -52,6 +52,8 @@ struct boot_module {
-     bool relocated:1;
-     bool consumed:1;
+Changes since v5:
+- replaced bootstrap_map(NULL) with bootstrap_map_bm
+---
+ xen/arch/x86/dom0_build.c             |  3 +--
+ xen/arch/x86/include/asm/dom0_build.h |  3 +--
+ xen/arch/x86/pv/dom0_build.c          | 16 +++++++---------
+ 3 files changed, 9 insertions(+), 13 deletions(-)
+
+diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+index 1eff3192f72d..54db578dd29f 100644
+--- a/xen/arch/x86/dom0_build.c
++++ b/xen/arch/x86/dom0_build.c
+@@ -613,8 +613,7 @@ int __init construct_dom0(struct domain *d, const struct boot_module *image,
+         rc = dom0_construct_pvh(d, image->mod, image->headroom, initrd->mod,
+                                 cmdline);
+     else if ( is_pv_domain(d) )
+-        rc = dom0_construct_pv(d, image->mod, image->headroom, initrd->mod,
+-                               cmdline);
++        rc = dom0_construct_pv(d, image, initrd->mod, cmdline);
+     else
+         panic("Cannot construct Dom0. No guest interface available\n");
  
-+    paddr_t cmdline;
-+
-     paddr_t start;
-     size_t size;
- };
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 6f953edd7521..254aeb0c5e1b 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -318,6 +318,8 @@ static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
+diff --git a/xen/arch/x86/include/asm/dom0_build.h b/xen/arch/x86/include/asm/dom0_build.h
+index 107c1ff98367..66ea70869c49 100644
+--- a/xen/arch/x86/include/asm/dom0_build.h
++++ b/xen/arch/x86/include/asm/dom0_build.h
+@@ -13,8 +13,7 @@ unsigned long dom0_compute_nr_pages(struct domain *d,
+                                     unsigned long initrd_len);
+ int dom0_setup_permissions(struct domain *d);
+ 
+-int dom0_construct_pv(struct domain *d, const module_t *image,
+-                      unsigned long image_headroom,
++int dom0_construct_pv(struct domain *d, const struct boot_module *image,
+                       module_t *initrd,
+                       const char *cmdline);
+ 
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index ee9ecdc2abbf..db4c066e626b 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -355,8 +355,7 @@ static struct page_info * __init alloc_chunk(struct domain *d,
+ }
+ 
+ static int __init dom0_construct(struct domain *d,
+-                                 const module_t *image,
+-                                 unsigned long image_headroom,
++                                 const struct boot_module *image,
+                                  module_t *initrd,
+                                  const char *cmdline)
+ {
+@@ -374,9 +373,9 @@ static int __init dom0_construct(struct domain *d,
+     unsigned int flush_flags = 0;
+     start_info_t *si;
+     struct vcpu *v = d->vcpu[0];
+-    void *image_base = bootstrap_map(image);
+-    unsigned long image_len = image->mod_end;
+-    void *image_start = image_base + image_headroom;
++    void *image_base = bootstrap_map_bm(image);
++    unsigned long image_len = image->size;
++    void *image_start = image_base + image->headroom;
+     unsigned long initrd_len = initrd ? initrd->mod_end : 0;
+     l4_pgentry_t *l4tab = NULL, *l4start = NULL;
+     l3_pgentry_t *l3tab = NULL, *l3start = NULL;
+@@ -830,7 +829,7 @@ static int __init dom0_construct(struct domain *d,
+         printk("Failed to load the kernel binary\n");
+         goto out;
+     }
+-    bootstrap_map(NULL);
++    bootstrap_map_bm(NULL);
+ 
+     if ( UNSET_ADDR != parms.virt_hypercall )
      {
-         bi->mods[i].mod = &mods[i];
+@@ -1052,8 +1051,7 @@ out:
+ }
  
-+        bi->mods[i].cmdline = (paddr_t)mods[i].string;
-+
-         if ( !efi_enabled(EFI_LOADER) )
-         {
-             bi->mods[i].start = mods[i].mod_start;
-@@ -1016,10 +1018,11 @@ static struct domain *__init create_dom0(struct boot_info *bi)
-         panic("Error creating d%uv0\n", domid);
+ int __init dom0_construct_pv(struct domain *d,
+-                             const module_t *image,
+-                             unsigned long image_headroom,
++                             const struct boot_module *image,
+                              module_t *initrd,
+                              const char *cmdline)
+ {
+@@ -1073,7 +1071,7 @@ int __init dom0_construct_pv(struct domain *d,
+         write_cr4(cr4 & ~X86_CR4_SMAP);
+     }
  
-     /* Grab the DOM0 command line. */
--    if ( image->mod->string || bi->kextra )
-+    if ( image->cmdline || bi->kextra )
+-    rc = dom0_construct(d, image, image_headroom, initrd, cmdline);
++    rc = dom0_construct(d, image, initrd, cmdline);
+ 
+     if ( cr4 & X86_CR4_SMAP )
      {
--        if ( image->mod->string )
--            safe_strcpy(cmdline, cmdline_cook(__va(image->mod->string),
-+        if ( image->cmdline )
-+            safe_strcpy(cmdline,
-+                        cmdline_cook(__va(image->cmdline),
-                         bi->loader));
- 
-         if ( bi->kextra )
 -- 
 2.30.2
 
