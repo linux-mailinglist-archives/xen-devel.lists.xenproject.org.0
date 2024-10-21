@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 417A39A6E5B
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 17:38:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823715.1237761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC5F79A6E7F
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 17:44:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823725.1237771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2uUB-0004vV-Kc; Mon, 21 Oct 2024 15:38:23 +0000
+	id 1t2uZT-0006PI-6Z; Mon, 21 Oct 2024 15:43:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823715.1237761; Mon, 21 Oct 2024 15:38:23 +0000
+Received: by outflank-mailman (output) from mailman id 823725.1237771; Mon, 21 Oct 2024 15:43:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2uUB-0004sU-HD; Mon, 21 Oct 2024 15:38:23 +0000
-Received: by outflank-mailman (input) for mailman id 823715;
- Mon, 21 Oct 2024 15:38:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t2uZT-0006No-3R; Mon, 21 Oct 2024 15:43:51 +0000
+Received: by outflank-mailman (input) for mailman id 823725;
+ Mon, 21 Oct 2024 15:43:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uLLp=RR=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1t2uU9-0004sM-T2
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 15:38:21 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060b.outbound.protection.outlook.com
- [2a01:111:f403:2009::60b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ecfe2b9-8fc2-11ef-99a3-01e77a169b0f;
- Mon, 21 Oct 2024 17:38:19 +0200 (CEST)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by DM4PR12MB8452.namprd12.prod.outlook.com (2603:10b6:8:184::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29; Mon, 21 Oct
- 2024 15:38:16 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8069.027; Mon, 21 Oct 2024
- 15:38:16 +0000
+ <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t2uZR-0006Ni-IC
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 15:43:49 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 435a0f23-8fc3-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 17:43:48 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-37d4ac91d97so4586960f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 08:43:48 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a91571ebdsm219979866b.148.2024.10.21.08.43.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Oct 2024 08:43:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,199 +45,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ecfe2b9-8fc2-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dacL7WIEPgpJFuY2Jhncd2kL4IPw7yoEWPT080Poh3SIZ+UqwpGrNq55QdZeFHMiwOiR0FK7nvzUJd7+muQ2kKxu6QrrHph/klCMwe0eG8QzX6JagTTc6SMqpCqw+JTlkDtLqbIr4mpHLvbJAg0wCMja5sNstjr4jN/TMOcWG6hDVM3zC/wsqubQokTTdye5NqKKo7kOii9y7sRi/Ehh65X3j/ctnWmjjto0uB6lnGX5TmYSnEoElZOk1Yr9mn0dXo7+dd0Zk8Grtur5p3Ysgju3ZDRJT8OBIhbbrWmqk8821OH6QvwLA/9VMLDfoJbMMs7KOoKrZ+OD2LCckDSzRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FX6YhEdY+0Axj5TvJVj3Q7SUU4UyfU0JGkiPPwqbbM8=;
- b=RK+IgUX2ulhsZ4Pe6xEMFFVPbRTh0NdBw0vSIyvNLTeD+XnBb+rBpoSDHfA9NiNmFD66BkOy5Yn+kZnLgg4XUts9qVercmXp8yTrSTBk+096xn4hurSq2B0ENInDLBdDPqHp1BajC1iVmKl+5qrZvxT4SeZpvAKH112SCDsPFl85E93WP8Xt1efp8FvTrnMCOhqHcSQSd2A9cVu3CSffKj+VjlNJo+VuC6QuiaMQHfsKLnvMAXCNeU4G1vSBRJjjc/Of0gRBl1fv9xJQfrpxezfdALAwc7RS5MyHBAmsQhuDKzENEbny2X+MRTF2spFI6FpIcOObqjyCU4NKdwIDRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FX6YhEdY+0Axj5TvJVj3Q7SUU4UyfU0JGkiPPwqbbM8=;
- b=zrBrE+19qoJrerJsdiIrnqfWEN926YVsYjUzjkmJ55FfTCANR4ublAupV7cGq5VXmFlEkvTGnfjkXbwQSjk+tqeW2CiT23wBfKBIzCvKWrGe0bfmDA+e2u+a2+MW2UGAQJf/vekc3TXk2xvuiTQg/15ZDJNyG80gbUQrsLc1hac=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <810ef39a-8af8-416d-bf42-e6b0eebd1f00@amd.com>
-Date: Mon, 21 Oct 2024 16:38:11 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] xen/arm: Skip initializing the BSS section when it
- is empty
-Content-Language: en-GB
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
- <20241010140351.309922-2-ayan.kumar.halder@amd.com>
- <7ee1579b-f1e8-4dd4-8540-e6c0858c6999@xen.org>
- <f5b875e0-56e6-451d-a736-f2cc33cabae0@amd.com>
- <3ea2fdeb-faac-4766-800f-917ea8af1063@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <3ea2fdeb-faac-4766-800f-917ea8af1063@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0249.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::14) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: 435a0f23-8fc3-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1729525427; x=1730130227; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=v8yngkW2UikPso3VZPtXlF+DG/JIY0munR4mEBLbNHk=;
+        b=HZoFxTlaGfFLS5thXYTNTqMrK9mj9NXxQjRF9pZhsO6cNLS/y9isyLIXhcNJyvqyiV
+         ClYquvNrdNx0I1BnvoXYaNoHFTNjAwde7lJ+vNP8aFDQ/2Mtx0NoFFFS7asy6FgWE8Wt
+         JwB3i0BW5jwe8r0w/oBT1ORs3neVcN8uRxZU4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729525427; x=1730130227;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=v8yngkW2UikPso3VZPtXlF+DG/JIY0munR4mEBLbNHk=;
+        b=L776ReoGBm6Rku+ja5dPgTumrLlOTdztYUDXWQzl9YhFkxmoql9S7qsujLVuiH5l7H
+         F+RExWIqV0z3mIVlufmUZiXgFxIGfzbCJWE38r9Bp6gsZJfcmcfGwsIyTzejXPpLaMNU
+         MUAbE4Ddb4+/q7qPhVnNXnOoM2LpMCGVHU6LfxVsczz3jUBQ7qFFv/xsH1GuhGmRMty9
+         ZyVi87ttBt5lH1YOCsBQR3BsN64R0IM8eTm6whGoWDkAw0pemDVkTmEKjOYlqwGRdT0h
+         HUPcZfjanJtg5tYkB3ArGp+9aVPbY6LWB5myFjpdijUQtrbw6G/FAoN7tWKpm02OGVeV
+         TInA==
+X-Gm-Message-State: AOJu0YzT9ovN0j05N9yVnJrN5gWUthIzC5CXLf0WbSmhmK8OoYPEwD0P
+	sltJd4kXCw3vDB5qjPdjr1QXJijJd/xyIoXfn7oKUg19Xp8Vtl4RK9XC844H3UL6OFvtVs9cpFI
+	8
+X-Google-Smtp-Source: AGHT+IGN45fuQwADc5I6mpYGr9hYT4MjvXsxqM37Ym9s50L1iq+pVdqI12hXeXl/+grmXTD4YzQsmg==
+X-Received: by 2002:a5d:468d:0:b0:37d:4cf9:e08b with SMTP id ffacd0b85a97d-37eab4d1253mr11007736f8f.31.1729525427091;
+        Mon, 21 Oct 2024 08:43:47 -0700 (PDT)
+Message-ID: <5d02722a-eccd-43f9-9d6e-2e845d9757d9@citrix.com>
+Date: Mon, 21 Oct 2024 16:43:45 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|DM4PR12MB8452:EE_
-X-MS-Office365-Filtering-Correlation-Id: 320a935e-a07f-4cab-19d6-08dcf1e661a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RzltTWloYmhKNVRzUHVIWWgyWXBJZUlmTzdmQzNoQmJkNWJVUiszWGFydFdG?=
- =?utf-8?B?TUVuamZRWG84emZzUUNoM3RzK2dVRGFMdmRRNnowYVIyRnF2aGVSUzRCWE80?=
- =?utf-8?B?bmN3a3Y1Vjhrei94Q3ZYWHphNzAwdG9hd0Zad2creGVMKzRvZDR4MG9xTGIw?=
- =?utf-8?B?UDhCaVlBMSs4WDZzbjVyenlDbWlZN0kxR2E3NDg3UUtFMHpJdzkvRXl4K2FN?=
- =?utf-8?B?M200QmFVdVVFQWZJTzVUSGFKN2M4MmdDNUxTVldvakFNQmgwZUYyZjdPbjBZ?=
- =?utf-8?B?S0sxSUFFZW94ZVJ3OGw5ZDRQbEtBZlFneldvVzFhb090dnZnNDBYeG8zR09Q?=
- =?utf-8?B?dzhzcmM3eDYvMG0xT2REUTJyTUVnclVydnFlQUZDS3BxWUtMSEVXWmpiK24x?=
- =?utf-8?B?dUFaZkhCdmk3WkF6VWRtSXQvMmxtc0RCSFo1RlpKTmk0SXpLUHhIYk1penRk?=
- =?utf-8?B?ZkJ6QThMQmQzN3c5REFHQjVaYjhnMm5Ob1hPNzVOMjYwWEgxdEZYcVlsZTdH?=
- =?utf-8?B?Z2lsYUhMOXNzdFR6b3J4dDBwUVRaSjA1UzdYT1hCd1ZFdXFKM0dvMzBVcEs5?=
- =?utf-8?B?Mi9tQ1B0djRFTlNLeDcwaC84bzB5SnVXNGNHMS9Rc0hHNnlhbmRvK0VrTGtN?=
- =?utf-8?B?QndKbjBiK2I1TytudXE3TzArUGRrU0QwVWxhZE40WlNFbXhwYjUyRlhlUmFy?=
- =?utf-8?B?UE5PeG56c3lTaW8wNXQzMnRtK2pyeDY0QmtIOER6USsxWXQ2ZkJxZGYzdGhi?=
- =?utf-8?B?RE01S3M1dEpyWjBvb2RsVXoyRzJnK3l1TXUySHpROEVYTWdKcU5RbEhqL3Bm?=
- =?utf-8?B?MitSdHJ6dnNnUXFZd2UxQzNSVXFhS0FvWTk5MHVhVzdYdWQ2K1A4OTNmS1J5?=
- =?utf-8?B?cGY3dFFFcytYMm1EVjZZcncyZWNKZkhhdFcwb2x1OVJlblkzbU1PNHVrSk1E?=
- =?utf-8?B?THlaODZwaE9FTWVEWHR1MXlDU3pJcFB1RGJFM1JFSzdyS09TYVBra1YzVmxl?=
- =?utf-8?B?TnFjK1o2NCtnOVNveWg0cGpCbGRGWWtxbmxEUCtKUy9OVkE0YWIyNEtWcVZN?=
- =?utf-8?B?VHY1cG84Zm5VQVRzYXFaMUpqWFRnMkw2RE1GdGxlYUhkcTBiVW4zajJXbTlK?=
- =?utf-8?B?d0ZoSEN5SERlb2Jud21va2FEOC80dzVtaTQxekJKcGlxaWxwOXd6czdKNXFv?=
- =?utf-8?B?eXRybVh1Q0k3ZkNSR0NLOUQ1dEVZZnpFajdDSERoMWl1eTROaTR4dXE1VVRU?=
- =?utf-8?B?YTk2bHZqOXdaR0tVOWpxMWxTMC9Pdy92bEFPSDRwbTJLZCt4ZVVuR2haZGRx?=
- =?utf-8?B?WTRhNGpLKzkyR3N3a2VkQXVkVEV6VG5ySVJWNEpPVUJWYVkrRStCaEsyUDVs?=
- =?utf-8?B?bC80VWk1d1JKaVBnaEl3VmU1cHhlNVExTUNWZTF3N1JqdVpuRk9XTEdmdC9F?=
- =?utf-8?B?MkhMN05HZ0ZZZDVtZDJ3Vk5KR28vclNKN1RUVDU3OFhHTnYrQU9tVE52YWZN?=
- =?utf-8?B?KzEyaEdqdXBwTld2OUZuc1BYRnVjMUJmZW9OQ1d0cWc3VWtrdzRvd3A5SWJy?=
- =?utf-8?B?cjdlenYxQndOczRjT1ovL0R0UDN0MG9uKzZyYko1Q28zRHlvc2NhWjREZkZ0?=
- =?utf-8?B?RDliV2JWajlUdTNiNjBWend1VUZndlNOQkJlUzVpaWNsOEF3bUt3Y1gwWW1W?=
- =?utf-8?B?clhQWVBYZG9UTEJKVitsYkFpL2w1MGM3Rm1MVXdBSjdhTWs0bUJMRHlmZ0Fi?=
- =?utf-8?Q?NdjXO1RyF5cWDDmfYIa0or9eVk1m7ngW6bBATh6?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cHlMOEdMWkdjaFE0cVVtZWNxeUVDckRmdlhVbjJ3ZjBONkN1M0Rrd2g4Z0F0?=
- =?utf-8?B?WEZDL0tEWStCNnltemdLV0RyTHI0SURCV1ZaMnJkUjdoRnhNQ1kwMmhJSVc2?=
- =?utf-8?B?bGQvczBJYWM5Qndjamg4Vmtsb2RFdWtYUnlHM3RiT2FGeHh5QVY3Ni9RdFR3?=
- =?utf-8?B?OWF1VEdKazhhTXBFKzh3TjZtTFlaVXB0NGVRSlczalA2NjdJTXViQmUzY2tk?=
- =?utf-8?B?V0dHcUlBYnFGRUhqSEhYZGt2Q0VzMEdBdUtGVDl2ODJhMFZWUCtlUy9YWkk1?=
- =?utf-8?B?ZDVBS3IvaHVmUWhlb3RSbEZwR2R0MFcyd2lIT0xLT3oycUhLNTFpazZRM1dO?=
- =?utf-8?B?VW5IVVRYVG5nWWFaekpXZkJYV1pTYlZwalZZVHozNUtjWDBlQjl2V3Y5Ulds?=
- =?utf-8?B?NE5yMUVxVC9YQmRvU0VBenBQZ2ZtdkJCc3ExVmlDVFFDeStJWUhidkFJMHhK?=
- =?utf-8?B?RXFUb09kUGZWV2lNVUhkVkw5RTkzMHZoR3M4YmZ5b1FhZU1rK3JsdHk5ME4y?=
- =?utf-8?B?MnA4T3VkMFBGZUg4QUkxMC8rRFI3Qm93VnpqalFWQ3RkWEVDbE8rVEZ6OG12?=
- =?utf-8?B?YlpXZXMzR28yVXBRZGcxZ1BIcEgreEFheVp3ZHdhQWprOVhwZlVLR3dsWXM0?=
- =?utf-8?B?NnhSbHM5V0t4S1dXTUVwRjh5L09vZHBML2U2QUdiRU9uK20xS09PVlJXbDlN?=
- =?utf-8?B?YUQ2UHV0NmU0cVJ0T09NSGZwd1hvc3RJelN0NTFubFoyY1lSUExxSTlXbFlP?=
- =?utf-8?B?NFpEUUd4a2NzSFpEbnk1dlBVcU9uM0FqNmlScXNvV0s4eVMrc29VNzBSSDI0?=
- =?utf-8?B?NTNDMmo0SWNmS2hkQkJ3UXdzcnE0TnRRdDN2ZzUxRUcvYmdjZ3pLN0Z0L1ZX?=
- =?utf-8?B?ektBTjFOMHZGcHh1UUR2dTg0RUk4RUlIVVl6YTZObEx5anpVeTBxNVJUb3U4?=
- =?utf-8?B?QUdZR3pKNVZWRzFNYzI3cjhXdDhQR0pnN0ZnNEdjRjFhTGZDL2cxK1cySk5L?=
- =?utf-8?B?VXIrblhEdG9iL3FnNThGR3d0UGo2MHdPQndieUJBL0ozVVB6QnVlMWR1VFE0?=
- =?utf-8?B?dTlxOGZsbGx3bHQwU0JFRmNQSUZiV3pnUmpPTjJ0N1N4Mk4zWGN1b08zR1FF?=
- =?utf-8?B?bmVyUnlSK3R3UUJkZnZBVjBZdG4wdGE0RkNzcWkrS25nQ2lLM1NQOC9SM1di?=
- =?utf-8?B?b3lCYURJUUxrZ0FaSXlYSkUxSDc3NmViM1pMYXR0dUE1dmF4ZkhMbkY0UFlU?=
- =?utf-8?B?VGNJNE9Zak1EcVpDZFlxMVJEUmo5anM3VTFUbWxuVTJieXhnVXBnS3VCQmx5?=
- =?utf-8?B?TUNKdlc1bVdnelgvbmNiSjN0QnlLMVVJR003bk1YWS9BMTZRNlFNVmh4UDZG?=
- =?utf-8?B?eEs2VnlwSHJBRDBzcXVZTVNNYVJjZUVYRHNOeFdRZWR6MkE0RWc4Z3FqSEJY?=
- =?utf-8?B?a3NYM1R4SVBDSkxsTHNnRWIzN2IxQ0lENEw0a09nZEFhN2JGTXBRbnhmMjZs?=
- =?utf-8?B?cy9yUEVacXQ1U2NqdG50VFVCUUhTK1NLaWhwZEJmTjArSG5YLytIek1MWU9j?=
- =?utf-8?B?cGkxcWpnUGFsQ1FxcG5LbnZjd3kvZDdteGZnSUpoWjA0RkNPOXBhNkgvYXNl?=
- =?utf-8?B?SjcxaUdwN2tYdnZNTnpyeHJ4bDloclMyaTlTZUc1Y1dpOWRFanQrcmN5dCtu?=
- =?utf-8?B?R2xZM3hwMHM4Nk8xWnRGVG9EaGM1ZWV2UTJRWVVIUE1HL3lNNUJ5akpXT0pH?=
- =?utf-8?B?TmoyaFNkcmhreS9IUm9CNUFFVUFYdDhRd2swVEhBakRaZUlCYzZoWEFzaDNC?=
- =?utf-8?B?a2JabE4vdzJsRk9ySjIyNjRXUzMvZkgvMXJHS0h5ejZBT0ZOeWJnT1l2RVpY?=
- =?utf-8?B?cnptakEydGUwTUtBaCt5WlN5QTJiUURBV0czM0dpVE5HUUxnYnY1UWdveUZQ?=
- =?utf-8?B?aVVlVVVzb2RoWThEZFF4T2wxWE5DQVRDUnQwNHRxTS9XL3pBZm40RkdxN2JI?=
- =?utf-8?B?cFNYREQ3MlRMMUxKZWgzdTRtQmtvWllJVXY2MVVVbVB0WTc1N2xIdFN3RXBa?=
- =?utf-8?B?V1RENit0R3piUUtaMWN5TklmcEdZb1pMME5GNzloWUJEd2FRV1FCOUY0ZndD?=
- =?utf-8?Q?OVsZr1/LVXukeF3K20VeOk9+P?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 320a935e-a07f-4cab-19d6-08dcf1e661a5
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 15:38:16.5228
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4uGWuKCwnzkLArVJpcOEsOfj310m881fqhhhVurODmktj/KCgf6rutAbnwY3T8O4xAGJi2/DwbEn+h/MY55bew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8452
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] CI: Add {adl,zen3p}-pvshim-* tests
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>
+References: <20241021143539.3898995-1-andrew.cooper3@citrix.com>
+ <20241021143539.3898995-4-andrew.cooper3@citrix.com>
+ <78116f34-2448-4b08-9eb3-50d70a18074e@citrix.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <78116f34-2448-4b08-9eb3-50d70a18074e@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-On 21/10/2024 16:24, Julien Grall wrote:
-> Hi Ayan,
-Hi Julien,
+On 21/10/2024 3:41 pm, Andrew Cooper wrote:
+> On 21/10/2024 3:35 pm, Andrew Cooper wrote:
+>> GitlabCI has no testing of Xen's PVH entrypoint.  Fix this.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Michal Orzel <michal.orzel@amd.com>
+>> CC: Doug Goldstein <cardoe@cardoe.com>
+>>
+>> OSSTest (which is disappearing imminently) found a pvshim bug in the
+>> hyperlaunch series, and I found a second shortly after while trying to take
+>> more of the series.
+>>
+>> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1505518838
+>> ---
+>>  automation/gitlab-ci/test.yaml     | 16 ++++++++++++++++
+>>  automation/scripts/qubes-x86-64.sh | 10 ++++++++--
+>>  2 files changed, 24 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+>> index b27c2be17487..e76a37bef32d 100644
+>> --- a/automation/gitlab-ci/test.yaml
+>> +++ b/automation/gitlab-ci/test.yaml
+>> @@ -240,6 +240,14 @@ adl-pci-hvm-x86-64-gcc-debug:
+>>      - *x86-64-test-needs
+>>      - alpine-3.18-gcc-debug
+>>  
+>> +adl-pvshim-x86-64-gcc-debug:
+>> +  extends: .adl-x86-64
+>> +  script:
+>> +    - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
+>> +  needs:
+>> +    - *x86-64-test-needs
+>> +    - alpine-3.18-gcc-debug
+>> +
+>>  zen3p-smoke-x86-64-gcc-debug:
+>>    extends: .zen3p-x86-64
+>>    script:
+>> @@ -272,6 +280,14 @@ zen3p-pci-hvm-x86-64-gcc-debug:
+>>      - *x86-64-test-needs
+>>      - alpine-3.18-gcc-debug
+>>  
+>> +zen3p-pvshim-x86-64-gcc-debug:
+>> +  extends: .zen3p-x86-64
+>> +  script:
+>> +    - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
+>> +  needs:
+>> +    - *x86-64-test-needs
+>> +    - alpine-3.18-gcc-debug
+>> +
+>>  qemu-smoke-dom0-arm64-gcc:
+>>    extends: .qemu-arm64
+>>    script:
+>> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+>> index 4b6311efffa8..ace494b938d8 100755
+>> --- a/automation/scripts/qubes-x86-64.sh
+>> +++ b/automation/scripts/qubes-x86-64.sh
+>> @@ -8,6 +8,7 @@ set -ex
+>>  #  - dom0pvh-hvm    PVH dom0, HVM domU
+>>  #  - pci-hvm        PV dom0,  HVM domU + PCI Passthrough
+>>  #  - pci-pv         PV dom0,  PV domU + PCI Passthrough
+>> +#  - pvshim         PV dom0,  PVSHIM domU
+>>  #  - s3             PV dom0,  S3 suspend/resume
+>>  test_variant=$1
+>>  
+>> @@ -20,8 +21,8 @@ domU_vif="'bridge=xenbr0',"
+>>  domU_extra_cfg=
+>>  
+>>  case "${test_variant}" in
+>> -    ### test: smoke test & smoke test PVH & smoke test HVM
+>> -    ""|"dom0pvh"|"dom0pvh-hvm")
+>> +    ### test: smoke test & smoke test PVH & smoke test HVM & smoke test PVSHIM
+>> +    ""|"dom0pvh"|"dom0pvh-hvm"|"pvshim")
+>>          passed="ping test passed"
+>>          domU_check="
+>>  ifconfig eth0 192.168.0.2
+>> @@ -44,6 +45,11 @@ echo \"${passed}\"
+>>  
+>>          if [ "${test_variant}" = "dom0pvh-hvm" ]; then
+>>              domU_type="hvm"
+>> +        elif [ "${test_variant}" = "pvshim" ]; then
+>> +            domU_type="pv"
+>> +            domU_extra_cfg='
+>> +pvshim = 1
+>> +'
+>>          fi
+>>          ;;
+>>  
+> Bah - serves me right for some last minute refactoring.  The domain type
+> should be pvh for pvshim=1 to work.
 >
-> On 21/10/2024 12:12, Ayan Kumar Halder wrote:
->>
->> On 18/10/2024 14:41, Julien Grall wrote:
->>> Hi Ayan,
->> Hi Julien,
->>>
->>> On 10/10/2024 15:03, Ayan Kumar Halder wrote:
->>>> If the BSS section is empty, then the function can just return.
->>>
->>> This is more than "can", right? If we don't do it, we will end up to 
->>> zero outside of BSS. This could be critical data...
->> s/can just/should
->>>
->>> Also, I am tempted to suggest to add a Fixes tag because even if it 
->>> is unlikely BSS will be zero in the current Xen, it is also not 
->>> unlikely.
->>>
->>> The tag would be:
->>>
->>> Fixes: dac84b66cc9a ("xen: arm64: initial build + config changes, 
->>> start of day code")
->> Ack.
->>>
->>>>
->>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>
->>> I saw the discussion. I don't have a strong opinion on the exact 
->>> approach choosen for zeroing. With the commit message updated:
->>>
->>> Acked-by: Julien Grall <jgrall@amazon.com>
->>
->> I propose that this patch to be committed. The changes to the commit 
->> message can be done on commit.
->>
->>>
->>>> ---
->>>> Changes from :-
->>>>
->>>> v1..v2 - New patch introduced in v3.
->>>>
->>>>   xen/arch/arm/arm64/head.S | 2 ++
->>>
->>> Don't we need a similar change on the arm32 code?
->>
->> I haven't looked at the arm32 code. My idea is to get the earlyboot 
->> (ie the asm part) of Xen working on R82 and then do the similar 
->> changes for R52 (ie arm32).
->
-> AFAIU, this change is not related to the MPU. So I would rather prefer 
-> if we keep this change in sync. I am happy to send a patch for it if 
-> you don't have time.
+> New pipeline:
+> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1505540810
 
-No worries, I can do it.
+And from the same bit of refactoring, a mismatch between
+domU_extra_{cfg,config}.  Consolidated on the latter.
 
-I will include the arm32 changes in this patch. So that we have a single 
-patch covering the issue for both arm64 and arm32.
+https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/8143613752
 
-- Ayan
-
+~Andrew
 
