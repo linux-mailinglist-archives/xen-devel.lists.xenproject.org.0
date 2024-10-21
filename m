@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69299A70F0
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 19:21:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823876.1237957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F7209A71B0
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 20:01:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823885.1237966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2w5n-0003Kr-7O; Mon, 21 Oct 2024 17:21:19 +0000
+	id 1t2whp-0000Mg-3E; Mon, 21 Oct 2024 18:00:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823876.1237957; Mon, 21 Oct 2024 17:21:19 +0000
+Received: by outflank-mailman (output) from mailman id 823885.1237966; Mon, 21 Oct 2024 18:00:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2w5n-0003I3-48; Mon, 21 Oct 2024 17:21:19 +0000
-Received: by outflank-mailman (input) for mailman id 823876;
- Mon, 21 Oct 2024 17:21:18 +0000
+	id 1t2whp-0000KT-0V; Mon, 21 Oct 2024 18:00:37 +0000
+Received: by outflank-mailman (input) for mailman id 823885;
+ Mon, 21 Oct 2024 18:00:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=euus=RR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t2w5m-0003Hx-32
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 17:21:18 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1t2whn-0000KN-PY
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 18:00:35 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1503996-8fd0-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 19:21:16 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5c9150f9ed4so5839551a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 10:21:17 -0700 (PDT)
+ id 5e3e2efd-8fd6-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 20:00:34 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a9aa8895facso48526666b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2024 11:00:34 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a91578129sm231220166b.186.2024.10.21.10.21.15
+ a640c23a62f3a-a9a912ed80fsm235783666b.46.2024.10.21.11.00.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Oct 2024 10:21:16 -0700 (PDT)
+ Mon, 21 Oct 2024 11:00:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1503996-8fd0-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 5e3e2efd-8fd6-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729531276; x=1730136076; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729533633; x=1730138433; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ttHRPKCEufgYnbrjF1RktWen+MRJjtRBCUpJjtMLEsg=;
-        b=j66rJFLhZG3ttmO1AbokxmaaKiy0S2R0/18RVA6RtRUviko3pko43cArtR2zG1KU3a
-         pf/XIDB0Tunnf94S2BM8M5kdBa8EIoy38x1JatH96BnWIkQLsGRcSgDGmrH9QiKrho0I
-         ljxQWZHyYkOcHLLQ6udi8VHNdZ0if4JKk3Olc=
+        bh=lhAUSEoXCuCRIGV3DTbLXgmsJN9hgsLll/uq1npoaYw=;
+        b=VT/NMuDhAc5fQDYcJ7UVhlLAonUWQRMyBzJ8K+Lu4EjlglDSU09nmYoB3btfuUmdp6
+         AvkboG+s3EMOZHGxOp3T//lr4UXRmire28JPDnlxCsYD7SajUY6bUVjCpNC1Rdm7/mAs
+         +ijZPxEK5/fVWARN7Nhox80JXrXalLDr/EYOU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729531276; x=1730136076;
+        d=1e100.net; s=20230601; t=1729533633; x=1730138433;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ttHRPKCEufgYnbrjF1RktWen+MRJjtRBCUpJjtMLEsg=;
-        b=juvdq1hkEcdHQJkLjrbOdYUdXqcL7LhG8SOzfn6XXZ1BQdT1fHu906TleYdzBRBYnE
-         vWvF/cyL7wjZOXc2omu+m0TjTBUHowCpfrPrqIxzWXxtOYCP0K51f83cEhgbsQnBzZuA
-         SpF9ctrvPx8hdK+mkJK/oC7gf5nxTlll2ojcsjjB0eg0GFiM+D62gAStJeuzIxO6gn29
-         O1gc9VafmLUOxY40abwyboDHIVX/a4/tQYosdNc4uEl13r3Bd7vuuKz5L6mUgjnuTtpe
-         dg/DF0elhsRBwuZNIhlT6JCRKWT3as+zoPvOwJ5IakN83cwgW9GsxbZLI66g53b1KeGT
-         PJWA==
-X-Gm-Message-State: AOJu0Yzvq1Mb4BDk/d9TflX36KADNj8+AJGSwH4ByvVX8wh5h2JwIjts
-	+f0zHltCe/+GGIi0JuulcuJb50nPcGaJEVmkSjwWNIRylHxoKCVVK0QLKDKDdG8=
-X-Google-Smtp-Source: AGHT+IEZ1M6TSUb+PuEjO1tRaP6rIBN9qobuuOfBXeepQl3qh8uSzYfZXl2iN+zmWEqccWLnkia2qw==
-X-Received: by 2002:a17:907:94d4:b0:a99:f56e:ce40 with SMTP id a640c23a62f3a-a9a69c9e9c1mr1482575466b.47.1729531276568;
-        Mon, 21 Oct 2024 10:21:16 -0700 (PDT)
-Message-ID: <eddf8637-ebbf-46b0-b2f9-8592464acf76@citrix.com>
-Date: Mon, 21 Oct 2024 18:21:14 +0100
+        bh=lhAUSEoXCuCRIGV3DTbLXgmsJN9hgsLll/uq1npoaYw=;
+        b=Nsi2Id7eOrIQUYxOj15Ij0hQ4w3MuiT/gLidy4o2/vbvZZureYMFUMl12rhZob8jgN
+         48RCcjouM3WePSqzwrKeS3rEpBw0nFs3Bpk6+ntC1hib+U0Zbmjl2iNdhzOTThUQz8Xm
+         iA+nJ4DRNr1C6G8Ff5bDriHgGATtKC54GMXdwKukSupPbJZ4tSWjm4oUX/31GNBGbhlo
+         8GeQh2J7QrJel7StC/mDlARLyrw/m52mH5pXOpT8epdZlvROZ5ta+x1jO8KJ35lVLXOe
+         sf2rt9RLrzhDndB79lbqs7NT+QXmKHA7Pcif0jhBt+7fa18WLtzW2Ts3N1Oj31dPPlx1
+         O0CA==
+X-Forwarded-Encrypted: i=1; AJvYcCUL2EEnGW5MGrEX9d6Mt6LrKYJn4hjBzpw3+E214HwdDbcE0CGYKDEXmekprRb9wgg5UW7vZWRwK5M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWd8XTSQ8PU/4ddTjkwGZY2yvG3b2abpvOqve+YKxD/XAIs/7f
+	fA2PkrUbfQq93iPsTxDvIbqGiBHOwAc9L/uj3wbC4V9cTa/kvBBMG/VCjOsbPxs=
+X-Google-Smtp-Source: AGHT+IEyvYfbGX/aHLK/vMiJzR14WOKq0MsTjaSjePusBiVnKX8OnyeG6rW63ZXnT3jhKL2lwjN0Mw==
+X-Received: by 2002:a17:907:3f09:b0:a9a:8a4:e090 with SMTP id a640c23a62f3a-a9a69c8fcf9mr1224017766b.50.1729533633383;
+        Mon, 21 Oct 2024 11:00:33 -0700 (PDT)
+Message-ID: <7834aee9-db1d-4b1c-a71a-0434c5c590d1@citrix.com>
+Date: Mon, 21 Oct 2024 19:00:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
- remapping
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- Willi Junga <xenproject@ymy.be>, David Woodhouse <dwmw@amazon.co.uk>
-References: <20241018080813.45759-1-roger.pau@citrix.com>
- <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
- <0f3a9c97-3903-414c-b076-5012e6bc9350@citrix.com>
- <ZxaImxbGOg2uxR3x@macbook.local>
+Subject: Re: [PATCH v7 04/38] x86/boot: convert mod refs to boot_module mod
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241021004613.18793-1-dpsmith@apertussolutions.com>
+ <20241021004613.18793-5-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,85 +131,60 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ZxaImxbGOg2uxR3x@macbook.local>
+In-Reply-To: <20241021004613.18793-5-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/10/2024 6:00 pm, Roger Pau Monné wrote:
-> On Mon, Oct 21, 2024 at 12:38:13PM +0100, Andrew Cooper wrote:
->> On 21/10/2024 12:10 pm, Andrew Cooper wrote:
->>> On 18/10/2024 9:08 am, Roger Pau Monne wrote:
->>>> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
->>>> repurposed to contain part of the offset into the remapping table.  Previous to
->>>> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
->>>> table would match the vector.  Such logic was mandatory for end of interrupt to
->>>> work, since the vector field (even when not containing a vector) is used by the
->>>> IO-APIC to find for which pin the EOI must be performed.
->>>>
->>>> Introduce a table to store the EOI handlers when using interrupt remapping, so
->>>> that the IO-APIC driver can translate pins into EOI handlers without having to
->>>> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
->>>> unconditionally when interrupt remapping is enabled, even if strictly it would
->>>> only be required for AMD-Vi.
->>>>
->>>> Reported-by: Willi Junga <xenproject@ymy.be>
->>>> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
->>>> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
->>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> Yet more fallout from the multi-MSI work.  That really has been a giant
->>> source of bugs.
->>>
->>>> ---
->>>>  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
->>>>  1 file changed, 47 insertions(+)
->>>>
->>>> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
->>>> index e40d2f7dbd75..8856eb29d275 100644
->>>> --- a/xen/arch/x86/io_apic.c
->>>> +++ b/xen/arch/x86/io_apic.c
->>>> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
->>>>  
->>>>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
->>>>  
->>>> +/*
->>>> + * Store the EOI handle when using interrupt remapping.
->>>> + *
->>>> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
->>>> + * format repurposes the vector field to store the offset into the Interrupt
->>>> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
->>>> + * longer matches the contents of the RTE vector field.  Add a translation
->>>> + * table so that directed EOI uses the value in the RTE vector field when
->>>> + * interrupt remapping is enabled.
->>>> + *
->>>> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
->>>> + * when using the remapped format, but use the translation table uniformly in
->>>> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
->>>> + */
->>>> +static unsigned int **apic_pin_eoi;
->>> I think we can get away with this being uint8_t rather than unsigned
->>> int, especially as we're allocating memory when not strictly necessary.
->>>
->>> The only sentinel value we use is IRQ_VECTOR_UNASSIGNED which is -1.
->>>
->>> Vector 0xff is strictly SPIV and not allocated for anything else, so can
->>> be reused as a suitable sentinel here.
->> Actually, vectors 0 thru 0x0f are also strictly invalid, and could be
->> used as sentinels.  That's probably better than trying to play integer
->> promotion games between IRQ_VECTOR_UNASSIGNED and uint8_t.
-> I've been giving some thought about this further, and I don't think
-> the above is accurate.  While vectors 0 thru 0x0f are strictly
-> invalid, the EOI handle in AMD-Vi is not a vector, but an offset into
-> the IR table.  Hence the range of valid handles is 0 to 0xff.
+On 21/10/2024 1:45 am, Daniel P. Smith wrote:
+> To allow a slow conversion of x86 over to struct boot_module, start with
+> replacing all references to module_t mod, only in setup.c, to the mod element
+> of struct boot_module. These serves twofold, first to allow the incremental
+> transition from module_t fields to struct boot_module fields. The second is to
+> allow the conversion of function definitions from taking module_t parameters to
+> accepting struct boot_module as needed when a transitioned field will be
+> accessed.
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> ---
+> Changes since v6:
+> - code style
+> - switched to a local ref
+>
+> Changes since v5:
+> - rewrote commit message
+> - coding style changes
+> - added comment for initial_images assignment
+> ---
+>  xen/arch/x86/setup.c | 62 +++++++++++++++++++++++++-------------------
+>  1 file changed, 35 insertions(+), 27 deletions(-)
+>
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 48809aa94451..b6d688f8fe5e 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1364,15 +1364,19 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>      set_kexec_crash_area_size((u64)nr_pages << PAGE_SHIFT);
+>      kexec_reserve_area();
+>  
+> -    initial_images = mod;
+> +    /*
+> +     * The field bi->mods[0].mod points to the first element of the module_t
+> +     * array.
+> +     */
+> +    initial_images = bi->mods[0].mod;
 
-Yeah, that occurred to me after sending.  With IR active, it's no longer
-an architectural vector, and can have any 8-bit value.
+This looks actively-dodgy.  It might be correct, but its also not necessary.
 
-> So the type of apic_pin_eoi needs to account for 0 to 0xff plus one
-> sentinel.  We could use uint16_t or int16_t, but at that point it
-> might be better to just use unsigned int?
+bi->mods[] is populated and both initial_images_nrpages() and
+discard_initial_images() have a local bi-> pointer which they already
+consume nr_module from, so you really can drop initial_images here in
+the series.
 
-Either of those are still half the allocated memory vs unsigned int, so
-worth it IMO.
+i.e. you want to pull patch 28 forward to ahead of of this one, and it
+will reduce the churn through the series.
+
+But mostly, it removes a transient-WTF construct from the series, making
+it easier to review.
 
 ~Andrew
 
