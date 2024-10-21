@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 747EE9A5839
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E129A583B
 	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 02:47:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.822874.1236764 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.822875.1236774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2gZ9-00075m-Ij; Mon, 21 Oct 2024 00:46:35 +0000
+	id 1t2gZC-0007KQ-Td; Mon, 21 Oct 2024 00:46:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 822874.1236764; Mon, 21 Oct 2024 00:46:35 +0000
+Received: by outflank-mailman (output) from mailman id 822875.1236774; Mon, 21 Oct 2024 00:46:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2gZ9-00073E-FC; Mon, 21 Oct 2024 00:46:35 +0000
-Received: by outflank-mailman (input) for mailman id 822874;
- Mon, 21 Oct 2024 00:46:34 +0000
+	id 1t2gZC-0007Hk-Qd; Mon, 21 Oct 2024 00:46:38 +0000
+Received: by outflank-mailman (input) for mailman id 822875;
+ Mon, 21 Oct 2024 00:46:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Q0x4=RR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t2gZ7-000738-V9
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 00:46:34 +0000
+ id 1t2gZB-000738-Vl
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 00:46:37 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8b7dc3a-8f45-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 02:46:30 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1729471583597702.4571296580966;
- Sun, 20 Oct 2024 17:46:23 -0700 (PDT)
+ id ec7b1db2-8f45-11ef-a0be-8be0dac302b0;
+ Mon, 21 Oct 2024 02:46:37 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729471584878605.8210982846448;
+ Sun, 20 Oct 2024 17:46:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,175 +38,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8b7dc3a-8f45-11ef-a0be-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1729471586; cv=none; 
+X-Inumbo-ID: ec7b1db2-8f45-11ef-a0be-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1729471587; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Pt/pMRLNqxz9OQWUyhscFHFkNhO+OLokPYwk6W77YIvK/be4S98COrBnv7DxU/HNp5quW55OPL9Wy0jIIF4zdcwDqXuAT9StoTehOAXnNUjGVrpfgB7+m1DtaKXBQa4w17wlQCTIp2esYfNlttGAtk6rsYhPntK7iVdsBhJ0qsM=
+	b=mtYfdajC466EsrRkIugo5XkE5Sbcn0nEWOwxgeFNWIBOjJwjv5YKUtENqGzroxTEp7n0y3SS/DcIDfeK3pHrVJ8a7znXwSCwqmsDYi+D/V12euOLBrNKEHdJRSCtnP5y1qY83yAps35G8TtYPCMy+ImWnviaQj5Tp6NLJzCQZ3w=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1729471586; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=IXGQnwVFs2+KINA9++STIo8SbSGKr1Zxrx/G0Z6oXIg=; 
-	b=b89YqUcjOjByfLKp0tn2WKdzf7K/b+pcrfnCuEkt4/ehMjj6RVrwlEO4MR5q3kLZEu+IwRiSzybyVNsx516tQG39M6UyoBFfsbuw/2P6yk5sJaCqk9qN2Dg1qYqTeZhW4mL0/U855YumQ9GOWATUZ3exEpCpsVtF6jQFYtfVNrY=
+	t=1729471587; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VV/xki6IWbJcCiOta+71vA6COU5u0Y4wCmksjgvwz50=; 
+	b=De0yF6l4trKCbWupE0SIWHu4Pa0XxVuLY0whkTnpQjM1RpuYpdFvY/Wimrwb69IdtFDm6XEWHE/BK29GxGTjdclDenAfZDXhIBkJSBDLJYTJafzhZ0bq3jgDzR7WeAxNL3yyoLJJfqZWx+GsT0TKMixlml6tOgEFDel6j2OZXo8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729471586;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729471587;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=IXGQnwVFs2+KINA9++STIo8SbSGKr1Zxrx/G0Z6oXIg=;
-	b=GZrB+XF9VPrWwCrZjUWTSyIDgADm8DL8UTZf+EA50wquD4wwKAG9tHI6DVGneHhX
-	aKHbvqf8QZ7WNFAhgtWQujkR5HFOtRO6Vqo0dAMYuiYWaIZ+STcqf/EUmoKkEzmgbDC
-	KK37P8TB9VCCnrr0x902tRTgCsMz7NnKRhaWGMUA=
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=VV/xki6IWbJcCiOta+71vA6COU5u0Y4wCmksjgvwz50=;
+	b=kmbCr/1XhspE9MpwHoFLyV7m5ulNl43qmvPk2PI3NZ7EmjjLW9g2pMB5hqgUv+4D
+	qwdZ9lJ/HETKhBD62lyjSBxFX4Y/m4wharIuY6H4wuY8+roqpLjLCuYxaxOAsnb8UOI
+	fRga7vrvDWpmmwdH2I4aIgHPxuN5pc0tV+jzk4fM=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	jason.andryuk@amd.com,
 	christopher.w.clark@gmail.com,
-	stefano.stabellini@amd.com
-Subject: [PATCH v7 00/38] Boot modules for Hyperlaunch
-Date: Sun, 20 Oct 2024 20:45:35 -0400
-Message-Id: <20241021004613.18793-1-dpsmith@apertussolutions.com>
+	stefano.stabellini@amd.com,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v7 01/38] x86/boot: introduce struct boot_module
+Date: Sun, 20 Oct 2024 20:45:36 -0400
+Message-Id: <20241021004613.18793-2-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20241021004613.18793-1-dpsmith@apertussolutions.com>
+References: <20241021004613.18793-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-The Boot Modules for Hyperlaunch series is an effort to split out preliminary
-changes necessary for the introduction of the Hyperlaunch domain builder
-logic. These preliminary changes revolve around introducing the struct
-boot_module and struct boot_domain structures. This includes converting the
-dom0 construction path to use these structures. These abstractions lay the
-groundwork to transform and extend the dom0 construction logic into a limited,
-but general domain builder.
+This will introduce a new struct boot_module to provide a rich state
+representation around modules provided by the boot loader. Support is for 64
+boot modules, one held in reserve for Xen, and up to 63 can be provided by the
+boot loader. The array of struct boot_modules will be accessible via a
+reference held in struct boot_info.
 
-The splitting of Hyperlaunch into a set of series are twofold, to reduce the
-effort in reviewing a much larger series, and to reduce the effort in handling
-the knock-on effects to the construction logic from requested review changes.
+A temporary `mod` parameter is included in struct boot_module to ease the
+transition from using Multiboot v1 structures over to struct boot_module. Once
+the transition is complete, the parameter will be dropped from the structure.
 
-Much thanks to AMD for supporting this work.
-
-Documentation on Hyperlaunch:
-https://wiki.xenproject.org/wiki/Hyperlaunch
-
-Original Hyperlaunch v1 patch series:
-https://lists.xenproject.org/archives/html/xen-devel/2022-07/msg00345.html
-
-V/r,
-Daniel P. Smith
-
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+---
 Changes since v6:
-- Dropped patches that were merged from v5
-- patch 8 title and commit message rewritten
-- boot module interator patch merged with xsm patch, its first use
-- incorporated review requests
-- made additional style optimizations as a result of review requests
+- add guard to prevent OOB access of the boot module array
+- pulled the setting of the Xen entry back out as independently set
+- updated comment to understand why Xen entry has to be explicitly set
 
 Changes since v5:
-- switched to per patch change logs
-- incorporated review requests
+- reword comment
+---
+ xen/arch/x86/include/asm/bootinfo.h | 10 ++++++++++
+ xen/arch/x86/setup.c                | 26 ++++++++++++++++++++++++--
+ 2 files changed, 34 insertions(+), 2 deletions(-)
 
-Changes since v4:
-- added requested inline code comments
-- moved instance of struct boot_info to unit level and extern'ed
-- array of struct boot_module moved into struct boot_info
-- renamed function to multiboot_fill_bootinfo, now returns *struct boot_info
-- multiboot_fill_bootinfo changed to take multiboot_info_t addr as param
-- added missing guard that checked there were multiboot1/2 modules passed
-- renmaed struct elements per the review
-- fixed errant commit messages per the review
-- corrected coding style per review
-- attempted to repalce all open codings of page/addr translations touched 
-- unified use of `bi` as var name for pointer ref to struct boot_info
-- when appropriate, ensure variables where typed, eg size_t, paddr_t, etc.
-- dropped all uses of "a = b = c"
-
-Changes since v3:
-- reduced scope to x86 only
-- broke changes into a smaller chunks with a linear progression
-- concerns about deconflicting with Arm deferred
-- conversion from mb1 to boot modules no longer attempted at entry points
-- the temporary conversion function is now the permenant means to convert
-- incorporated suggestion from Andy Cooper for handling bootstrap_map
-
-Changes since v2:
-- combined v2 patches 7 and 8 for common review
-- rebased the v2 series onto the current tip of staging (sorry)
-- fixed the placement of the patch changelogs
-- provided the changes description in the cover letter
-
-Changes since v1:
-- the v2 and v3 series implement functionality from v1 patches 2-4
-    - v2 series objective is to enable efficient patch review in support
-      of merging the functionality into the hypervisor. It implements a
-      subset of the v1 series, incorporating changes from community
-      feedback.
-- the bootstrap map is made accessible early in the v2 series via both
-  multiboot and boot module arguments until later in the series where
-  multiboot use is retired. This allows for incremental conversion across
-  several patches from multiboot to boot modules.
-- the 32-bit x86 boot environment header is removed, and changes are
-  made to allow the new common bootinfo headers to be used instead.
-- Arm and RISC-V architecture bootinfo headers are added to ensure that
-  builds on those architectures can complete correctly.
-- The KConfig patch to set the maximum number of boot modules allowed
-  is not included in this series, replaced with a static maximum define.
-
-Daniel P. Smith (38):
-  x86/boot: introduce struct boot_module
-  x86/boot: convert consider_modules to struct boot_module
-  x86/boot: move headroom to boot modules
-  x86/boot: convert mod refs to boot_module mod
-  x86/boot: introduce boot module types
-  x86/boot: introduce boot module flags
-  x86/boot: add start and size fields to struct boot_module
-  x86/boot: populate boot module for xen entry
-  x86/boot: transition relocation calculations to struct boot_module
-  x86/boot: introduce consumed flag for struct boot_module
-  x86/boot: convert microcode loading to consume struct boot_info
-  x86/boot: convert late microcode loading to struct boot_module
-  x86/boot: use consumed boot module flag for microcode
-  x86/boot: convert xsm policy loading to struct boot_module
-  x86/boot: convert ramdisk locating to struct boot_module
-  x86/boot: remove module_map usage from microcode loading
-  x86/boot: remove module_map usage from xsm policy loading
-  x86/boot: remove module_map usage by ramdisk loading
-  x86/boot: convert create_dom0 to use boot info
-  x86/boot: convert construct_dom0 to use struct boot_module
-  x86/boot: relocate kextra into boot info
-  x86/boot: add cmdline to struct boot_module
-  x86/boot: convert dom0_construct_pv image param to struct boot_module
-  x86/boot: convert dom0_construct_pv initrd param to struct boot_module
-  x86/boot: convert dom0_construct_pvh to struct boot_module
-  x86/boot: convert pvh_load_kernel to struct boot_module
-  x86/boot: convert initial_images to struct boot_module
-  x86/boot: drop the use of initial_images unit global
-  x86/boot: remove usage of mod_end by discard_initial_images
-  x86/boot: remove remaining module_t references
-  x86/boot: remove mod from struct boot_module
-  x86/boot: introduce boot domain
-  x86/boot: introduce domid field to struct boot_domain
-  x86/boot: add cmdline to struct boot_domain
-  x86/boot: add struct domain to struct boot_domain
-  x86/boot: convert construct_dom0 to struct boot_domain
-  x86/boot: convert dom0_construct_pv to struct boot_domain
-  x86/boot: convert dom0_construct_pvh to struct boot_domain
-
- xen/arch/x86/cpu/microcode/core.c     |  83 ++++------
- xen/arch/x86/dom0_build.c             |  10 +-
- xen/arch/x86/hvm/dom0_build.c         |  32 ++--
- xen/arch/x86/include/asm/bootdomain.h |  37 +++++
- xen/arch/x86/include/asm/bootinfo.h   | 104 +++++++++++-
- xen/arch/x86/include/asm/dom0_build.h |  11 +-
- xen/arch/x86/include/asm/microcode.h  |  12 +-
- xen/arch/x86/include/asm/setup.h      |   9 +-
- xen/arch/x86/pv/dom0_build.c          |  54 +++---
- xen/arch/x86/setup.c                  | 226 ++++++++++++++++----------
- xen/include/xsm/xsm.h                 |  14 +-
- xen/xsm/xsm_core.c                    |  19 ++-
- xen/xsm/xsm_policy.c                  |  20 +--
- 13 files changed, 398 insertions(+), 233 deletions(-)
- create mode 100644 xen/arch/x86/include/asm/bootdomain.h
-
+diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+index e7821e0603f8..ffa443406747 100644
+--- a/xen/arch/x86/include/asm/bootinfo.h
++++ b/xen/arch/x86/include/asm/bootinfo.h
+@@ -8,8 +8,17 @@
+ #ifndef X86_BOOTINFO_H
+ #define X86_BOOTINFO_H
+ 
++#include <xen/multiboot.h>
+ #include <xen/types.h>
+ 
++/* Max number of boot modules a bootloader can provide in addition to Xen */
++#define MAX_NR_BOOTMODS 63
++
++struct boot_module {
++    /* Transitionary only */
++    module_t *mod;
++};
++
+ /*
+  * Xen internal representation of information provided by the
+  * bootloader/environment, or derived from the information.
+@@ -22,6 +31,7 @@ struct boot_info {
+     size_t memmap_length;
+ 
+     unsigned int nr_modules;
++    struct boot_module mods[MAX_NR_BOOTMODS + 1];
+ };
+ 
+ #endif /* X86_BOOTINFO_H */
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index bfede5064e8c..db670258d650 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -287,6 +287,8 @@ static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
+ {
+     struct boot_info *bi = &xen_boot_info;
+     const multiboot_info_t *mbi = __va(mbi_p);
++    module_t *mods = __va(mbi->mods_addr);
++    unsigned int i;
+ 
+     if ( mbi->flags & MBI_MODULES )
+         bi->nr_modules = mbi->mods_count;
+@@ -303,6 +305,21 @@ static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
+         bi->memmap_length = mbi->mmap_length;
+     }
+ 
++    /*
++     * The multiboot entry point will reserve mods_count + 1 instances of
++     * module_t, with the last one being for Xen. First iterate over nr_modules
++     * module_t entries, or MAX_NR_BOOTMODS if more than the max was passed.
++     *
++     * As the Xen entry may be beyond MAX_NR_BOOTMODS, explicitly set the last
++     * entry in mods to point at the last module_t entry which the entry point
++     * reserved for Xen.
++     */
++    for ( i = 0; i < MAX_NR_BOOTMODS && i < bi->nr_modules; i++ )
++        bi->mods[i].mod = &mods[i];
++
++    /* Variable 'i' should be one entry past the last module. */
++    bi->mods[i].mod = &mods[bi->nr_modules];
++
+     return bi;
+ }
+ 
+@@ -1163,9 +1180,14 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+         panic("dom0 kernel not specified. Check bootloader configuration\n");
+ 
+     /* Check that we don't have a silly number of modules. */
+-    if ( bi->nr_modules > sizeof(module_map) * 8 )
++    if ( bi->nr_modules > MAX_NR_BOOTMODS )
+     {
+-        bi->nr_modules = sizeof(module_map) * 8;
++        /*
++         * Only MAX_NR_BOOTMODS were populated in bootinfo, truncate nr_modules
++         * now that it can be report that an excess number of modules were
++         * passed.
++         */
++        bi->nr_modules = MAX_NR_BOOTMODS;
+         printk("Excessive boot modules - using the first %u only\n",
+                bi->nr_modules);
+     }
 -- 
 2.30.2
 
