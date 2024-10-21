@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7FE19A66A1
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:32:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.823380.1237366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF4A49A66A7
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2024 13:34:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.823385.1237375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qeG-0004VO-Jt; Mon, 21 Oct 2024 11:32:32 +0000
+	id 1t2qgL-000525-VN; Mon, 21 Oct 2024 11:34:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 823380.1237366; Mon, 21 Oct 2024 11:32:32 +0000
+Received: by outflank-mailman (output) from mailman id 823385.1237375; Mon, 21 Oct 2024 11:34:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t2qeG-0004SE-GT; Mon, 21 Oct 2024 11:32:32 +0000
-Received: by outflank-mailman (input) for mailman id 823380;
- Mon, 21 Oct 2024 11:32:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t2qgL-0004zR-SA; Mon, 21 Oct 2024 11:34:41 +0000
+Received: by outflank-mailman (input) for mailman id 823385;
+ Mon, 21 Oct 2024 11:34:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TLRE=RR=casper.srs.infradead.org=BATV+0b6dd01573de8e3a2a7a+7729+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1t2qeE-0004S7-7X
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:32:31 +0000
+ id 1t2qgK-0004zL-MC
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2024 11:34:40 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26e72a34-8fa0-11ef-a0be-8be0dac302b0;
- Mon, 21 Oct 2024 13:32:29 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 74681e04-8fa0-11ef-99a3-01e77a169b0f;
+ Mon, 21 Oct 2024 13:34:38 +0200 (CEST)
 Received: from [2001:8b0:10b:5:9789:3d79:3bbb:1070]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1t2qeA-0000000GERK-3oQ4; Mon, 21 Oct 2024 11:32:27 +0000
+ id 1t2qgH-0000000GEaK-0viO; Mon, 21 Oct 2024 11:34:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,55 +41,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26e72a34-8fa0-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 74681e04-8fa0-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ZOLHuioJiShYKKKkpErplkqkgXnNiPsyBY9e+8JJ/38=; b=umt04pu9+Fm66lP9X3GFIdW456
-	4uz4abLp+AGkPGEWJHy6IC1FSu8DaB2IiCMDVfvhlxCYCmG6ZkS1QEixYUHZe0DVwbtz1ci2C3N0h
-	bo+PE+9VEP0yrnpMaokZAnv1huLGq7AP6wScboesLhfBE7C8GGwvbHkeOoz4Dl2Jj6/f/c766A03B
-	cipHkkmeQOvBH5yY2vhxJhPAYGUSpCd+R7B7ekmwh9okO69ya3/djd0CB2G55WPBuFQbutNWkvbVh
-	xqua/uQej1/wsMHrAn9a8Ag9oPoHh3MDTvbfnUaaar3SZeaY4Oq+lEEgmSGZLXg/6mL3D4iKoGuUW
-	JF8/suzw==;
-Message-ID: <52c88b22daeb3740402f478ca393e07d84c87731.camel@infradead.org>
-Subject: Re:  [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
+	bh=WaBRpxVnzpwkdNewkPOt4QzZaZYI6prQ8WM5M8t/T+4=; b=MohPj0zFApJ32pGuqrGo1Mr6ZW
+	APLH8hVABIUNt6lZMew1XqkqPzUCa9vOr2S9QjVRS0o6Mpox07EqHSA5p7iO+VthwiGZ6ypPR/U0C
+	7O3hww9Pv+kboEkEk2CK1yUtffHu8o+VduHPMNfQOGOdfWE4SeJlO589Zj81+haR1T4upZEMKSMud
+	TZqZ1sW2auonTCLuz6NfBl0F0cTdpPmK+8Y3N5uFhO0KkWUh6xb086seaXBDv/rAkdhnKEAYIdZIC
+	JnpeFGENObVMxt8cY8e4Snci8LkysFfmIYHSP75myxkN11L626XikRCv14W2gUDerZ0wGJ9q47nn0
+	fVAP4N+g==;
+Message-ID: <10e0f567ab3be0eae4c6473326da3a6d369ba8ff.camel@infradead.org>
+Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
  interrupt remapping
 From: David Woodhouse <dwmw2@infradead.org>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>, Roger Pau Monne
-	 <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
  <andrew.cooper3@citrix.com>,  Willi Junga <xenproject@ymy.be>
-Date: Mon, 21 Oct 2024 12:32:23 +0100
-In-Reply-To: <D51E73OWU4LY.3GIECD0KR4UW@cloud.com>
+Date: Mon, 21 Oct 2024 12:34:37 +0100
+In-Reply-To: <20241018080813.45759-1-roger.pau@citrix.com>
 References: <20241018080813.45759-1-roger.pau@citrix.com>
-	 <D51E73OWU4LY.3GIECD0KR4UW@cloud.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-d7lu6K/rzuX3Xb065Rno"
+	boundary="=-FewaL+l0YfQmVl6hg6xN"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-d7lu6K/rzuX3Xb065Rno
+--=-FewaL+l0YfQmVl6hg6xN
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2024-10-21 at 10:55 +0100, Alejandro Vallejo wrote:
-> On Fri Oct 18, 2024 at 9:08 AM BST, Roger Pau Monne wrote:
-> > When using AMD-VI interrupt remapping the vector field in the IO-APIC R=
-TE is
-> > repurposed to contain part of the offset into the remapping table.=C2=
-=A0 Previous to
+On Fri, 2024-10-18 at 10:08 +0200, Roger Pau Monne wrote:
+> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE=
+ is
+> repurposed to contain part of the offset into the remapping table.=C2=A0 =
+Previous to
+> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remappin=
+g
+> table would match the vector.=C2=A0 Such logic was mandatory for end of i=
+nterrupt to
+> work, since the vector field (even when not containing a vector) is used =
+by the
+> IO-APIC to find for which pin the EOI must be performed.
 >=20
-> For my own education....
+> Introduce a table to store the EOI handlers when using interrupt remappin=
+g, so
+> that the IO-APIC driver can translate pins into EOI handlers without havi=
+ng to
+> read the IO-APIC RTE entry.=C2=A0 Note that to simplify the logic such ta=
+ble is used
+> unconditionally when interrupt remapping is enabled, even if strictly it =
+would
+> only be required for AMD-Vi.
+>=20
+> Reported-by: Willi Junga <xenproject@ymy.be>
+> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a=
+ static mapping')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Careful what you wish for.
+Hm, couldn't we just have used the pin#?
 
-http://david.woodhou.se/more-than-you-ever-wanted-to-know-about-x86-msis.tx=
-t
+The AMD IOMMU has per-device IRTE, so you *know* you can just use IRTE
+indices 0-23 for the I/O APIC pins.
 
---=-d7lu6K/rzuX3Xb065Rno
+
+
+--=-FewaL+l0YfQmVl6hg6xN
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -181,25 +201,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQxMDIxMTEzMjIzWjAvBgkqhkiG9w0BCQQxIgQgUMDfZFBY
-hxukD7VwgJtZNXlhdSjJAACQtfKf3wUz72Uwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQxMDIxMTEzNDM3WjAvBgkqhkiG9w0BCQQxIgQgJVv1WthT
+XKSXuz8N5CUCzPoLdovzwL+7a6Yy+kOQTVUwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAIcGPtTBhYtKG4zqo8+DSFVBdGZtgByZXT
-rrpdkjjCUYnpaxfw6hZ/oPrerBKsfCNJbxsPE+NeBVKGWO2BtD03SLl+X86yUGAsBucD1lJCRRiG
-mSErRZK++NN82onrtbOysfMXOjrqnB9/LHchc4G+Sd6tF851aXxOiMoKqH9lzN1Plu0k1Y/+ZU6Q
-D82gjF5hmoO5m9ggyoa7urKVgG5fvbV36XzBPHTP1begphV7GtLIelff/h4+Ux/2DTNde2XUvZ+F
-aJd2GitN8RT39bh+0qmh6YYehiuGjv8rnw9w7P9q3NRb9Lp6xd3lfgV8aCfruzQRlB5UYyKukw4P
-hudQxGhTX4mBJzzGRzpYc3OxLEkDey7cxfZmOqrLD9PwBcuHT2UNTRz2cFRacn+bcBg/Z6V4gipM
-kOUW2lWTUPGcxKYRzxsY194zJq2zm4WEP+1T3FXsIvdCy35aDyKuIfLXOk22GtHmwHPtRigYF2LO
-ROfIUffKP3jy30N8wLFkK6wJGO9WG6fD6kXPTEUKI1C37jYBLYLScCDjz4uiTiUxSTvreKiqqxsN
-ZiVPgU0GdzT+tcxf//TtyvX64W4asT3ghzC4Gb42WCv62QNMxf7Z8eadhz5CDf6t1pkMn8EVNCX4
-qylk3/1Q4uqa7gdiLpRWbHXQASrXHAY26sfn2kIXTQAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAROPzyqCNEpBn43jv/NGRps6S38R8/hTWp
+Q7+cNbXtw9kXkl4UhJQms9KpWUn5B5uFTWEEJXWe7P+NuoY2KQCWaUDtHYoxKSerRlf1k8ZSx2Xl
+yUxzdZRzYHc1hok7zHj7lIwFnwwvd2ZTXb4cNmh6SHzuob3NC+zuXSvqwXDhpHrr3ypDdUe3foyp
+T7TrGYCVbmK/eHRZRXKGYQC2yecuO6YE8dghARb1f5s8h6TPuEZnqeHSw3M9rjH6Pld0FZXYm8hp
+ILab3rw4zJfZeuZBIcoAIiblqpvactxFSixaEz2Mt4ysuxTqHFvMrGru6o62tKLFQsLE3qY1kU5x
+0I6HkYh02BeF7TNSJ21xWyleoXo01Ll/x0I5+OQq4zgc3s+tk6j39xLkCdYDdDo8PD9IP872joUg
+n9HWdeemdfcLN8nM++rN6RM9LdAANR6ZF2yjB/9XluW9gNqhQ8Nq3f9ZpssB9eLTMVaHEKM56qv5
+8Oz6jKg4c1LPh8BmnalmboixYRs/ay8IUSigrHFEl9toNLdiIg6hHbgHlCtfFidP8SEwqsBDFCru
+0aFLRYSnp+kGZpvHnV24XA2rW3hxPV1f+BcZ/zRhE/XTvdy4icx2DWVhhjSvqlyug88TIyu3VgkF
+NG9U/vFmBa/pndTT4sOiP9jXDL//3DP5A0QizyDjcgAAAAAAAA==
 
 
---=-d7lu6K/rzuX3Xb065Rno--
+--=-FewaL+l0YfQmVl6hg6xN--
 
