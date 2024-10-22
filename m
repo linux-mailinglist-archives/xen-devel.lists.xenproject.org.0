@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824739AA24E
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 14:41:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824153.1238231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0897F9AA2D0
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 15:14:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824161.1238242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3ECR-00039G-3x; Tue, 22 Oct 2024 12:41:23 +0000
+	id 1t3Ehs-0007Es-HS; Tue, 22 Oct 2024 13:13:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824153.1238231; Tue, 22 Oct 2024 12:41:23 +0000
+Received: by outflank-mailman (output) from mailman id 824161.1238242; Tue, 22 Oct 2024 13:13:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3ECR-00036d-1P; Tue, 22 Oct 2024 12:41:23 +0000
-Received: by outflank-mailman (input) for mailman id 824153;
- Tue, 22 Oct 2024 12:41:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fjUh=RS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3ECP-00036X-9Y
- for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 12:41:21 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id efc51183-9072-11ef-a0be-8be0dac302b0;
- Tue, 22 Oct 2024 14:41:19 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a9a0ef5179dso823498966b.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2024 05:41:19 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a9159a32esm334147266b.214.2024.10.22.05.41.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Oct 2024 05:41:17 -0700 (PDT)
+	id 1t3Ehs-0007Cp-ET; Tue, 22 Oct 2024 13:13:52 +0000
+Received: by outflank-mailman (input) for mailman id 824161;
+ Tue, 22 Oct 2024 13:13:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1t3Ehr-0007Cj-47
+ for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 13:13:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1t3Ehq-0003hL-SF; Tue, 22 Oct 2024 13:13:50 +0000
+Received: from [15.248.2.30] (helo=[10.24.67.22])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1t3Ehq-0001FD-Gy; Tue, 22 Oct 2024 13:13:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,159 +39,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efc51183-9072-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729600878; x=1730205678; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JCY/tvSeKu0JrSPKb1ZpoawrJHGWY+r+mQ7PZh73VRI=;
-        b=fmxt+UIhtzNs/CGmH0t/V0YxWihx+Aq/xLUKm0kQLDx+uZZD5fK53WPuD3unf/OY/q
-         FFmxrLbG7rEg/j+kKTADbWXPp4hmYRtrz7LrlpyA4Qy+h4NaVHpCW6B0IdkeSHRqLBrR
-         J9HogfIWsXBgVANFxFKZiAYWKNzBV72LsOGxo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729600878; x=1730205678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JCY/tvSeKu0JrSPKb1ZpoawrJHGWY+r+mQ7PZh73VRI=;
-        b=r6cChlZd7mt0kkz7HFmaBF3PbRpJvRVwnKlpPQxThGs3YEoRmGtogJ3EJzf+2le5SZ
-         yL3iQexJ2SWidUqqMQVFGh69tJYxGjV8Z4PZ0kszKiUwxjvxO/T0JzaCug2jLPdoVBLl
-         KIjtSwRKUtKlhV4rkplY60IYhHTalz+pvpcdH5pjxGuXYoxxJlYvtQfkps59h5O/3LJ/
-         rIkQvVNsODqe4ZqmysnqZZ6FXBCB9Ps19XPpwsHY3aOCi4ajGlplN//V29yGQnjrus04
-         1q0AiNhVB1kvNGdHk/8/QO9tmUN1r7QJjUMkzv3UOfwPK+mc/mSG59ZopfxtRJI/kaHI
-         OyBw==
-X-Gm-Message-State: AOJu0Yzbyz9QILO9Odz870Hgi/h+o17UUD683jM5Jcsp9x7QrBgC9Z+Z
-	6XxeWlQB8yPt+4V4KHh2p8eAu5vFAjzJJHJLFP75wTIYllswJQitJjCWmVhgTvj9BkA/fuls7qm
-	y
-X-Google-Smtp-Source: AGHT+IE6XkZ0MZ72BN3ZdYOLHRe+hvRyaILz9bLgWMzcnXOZSqVqOt8GjI+ZVvDGcHxPDTYlXn8Srw==
-X-Received: by 2002:a17:906:c113:b0:a9a:1092:b10d with SMTP id a640c23a62f3a-a9a69b7af5dmr1473603566b.33.1729600877953;
-        Tue, 22 Oct 2024 05:41:17 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH] x86/boot: Fix PVH boot during boot_info transition period
-Date: Tue, 22 Oct 2024 13:41:14 +0100
-Message-Id: <20241022124114.84498-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=9Yui1Qzv9Jxy1memHOnnDaMKzPMThV6ntmpVrrYPXg8=; b=tqZI7/pzeWabxqcjuduyLbQQoC
+	/XI+X34a/8qqfFSSuhwv06vNkPLKCmLC2epRLsl9eialdKG5v12svCsUgmsN7dxp1PATKgsWEykdY
+	ALu/qRIpVAv9c1zBSqyWZVrWirJf2Mr+GU6oCBq7JaNQjPEoOayf3EItYN8s17RfFCyM=;
+Message-ID: <5b8d5c3e-3c52-4b3b-b63f-c89a58f40f10@xen.org>
+Date: Tue, 22 Oct 2024 14:13:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/6] xen/arm: mpu: Enable MPU
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
+ <20241010140351.309922-6-ayan.kumar.halder@amd.com>
+ <a6a66bd1-45dc-46d2-9e45-8fef8b45e003@xen.org>
+ <23b86010-d467-42fd-bba0-65b58e05beaf@amd.com>
+ <DEE00B97-ADA5-4229-9B41-571C38F7A6C5@arm.com>
+ <f444f549-6f4e-494b-af85-aeec127722c4@xen.org>
+ <A302D615-E25E-46DE-A4CA-4FF911293D83@arm.com>
+ <d1e8decf-3c63-41fe-a6e3-f880b984dda4@xen.org>
+ <61C13F4F-24D2-4B6D-9216-813EDEED4865@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <61C13F4F-24D2-4B6D-9216-813EDEED4865@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-multiboot_fill_boot_info() taking the physical address of the multiboot_info
-structure leads to a subtle use-after-free on the PVH path, with rather less
-subtle fallout.
 
-The pointers used by __start_xen(), mbi and mod, are either:
 
- - MB:  Directmap pointers into the trampoline, or
- - PVH: Xen pointers into .initdata, or
- - EFI: Directmap pointers into Xen.
+On 22/10/2024 10:56, Luca Fancellu wrote:
+> 
+> 
+>> On 22 Oct 2024, at 10:47, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Luca,
+>>
+>> On 22/10/2024 10:41, Luca Fancellu wrote:
+>>>> On 21 Oct 2024, at 17:27, Julien Grall <julien@xen.org> wrote:
+>>> 2) dsb+isb barrier after enabling the MPU, since we are enabling the MPU but also because we are disabling the background region
+>>
+>> TBH, I don't understand this one. Why would disabling the background region requires a dsb + isb? Do you have any pointer in the Armv8-R specification?
+> 
+> I’m afraid this is only my deduction, Section C1.4 of the Arm® Architecture Reference Manual Supplement Armv8, for R-profile AArch64 architecture,
+> (DDI 0600B.a) explains what is the background region, it says it implements physical address range(s), so when we disable it, we would like any data
+> access to complete before changing this implementation defined range with the ranges defined by us tweaking PRBAR/PRLAR, am I right?
 
-Critically, these either remain valid across move_xen() (MB, PVH), or rely on
-move_xen() being inhibited (EFI).
+My mental model for the ordering is similar to a TLB flush which is:
+    1/ dsb nsh
+    2/ tlbi
+    3/ dsb nsh
+    4/ isb
 
-The conversion to multiboot_fill_boot_info(), taking only mbi_p, makes the PVH
-path use directmap pointers into Xen, as well as move_xen() which invalidates
-said pointers.
+Enabling the MPU is effectively 2. AFAIK, 1 is only necessary to ensure 
+the update to the page-tables. But it is not a requirement to ensure any 
+data access are completed (otherwise, we would have needed a dsb sy 
+because we don't know how far the access are going...).
 
-Switch multiboot_fill_boot_info() to consume the same virtual addresses that
-__start_xen() currently uses.  This keeps all the pointers valid for the
-duration of __start_xen(), for all boot protocols.
+Cheers,
 
-It can be safely untangled once multiboot_fill_boot_info() takes a full copy
-the multiboot info data, and __start_xen() has been moved over to using the
-new boot_info consistently.
-
-Right now, bi->{loader,cmdline,mods} are problematic.  Nothing uses
-bi->mods[], and nothing uses bi->cmdline after move_xen().
-
-bi->loader is used after move_xen(), although only for cmdline_cook() of
-dom0's cmdline, where it happens to be benign because PVH boot skips the
-inspection of the bootloader name.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-
-This is more proof that Xen only boots by accident.  It certainly isn't by any
-kind of design.
-
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1506947472
-including the pending work to add a PVShim test
-
-This is the least-invasive fix given the rest of the Hyperlaunch series.
-
-A different option would to introduce EFI and PVH forms of
-multiboot_fill_boot_info(), but that would involve juggling even more moving
-parts during the transition period.
----
- xen/arch/x86/setup.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index db670258d650..e43b56d4e80f 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -283,11 +283,10 @@ struct boot_info __initdata xen_boot_info = {
-     .cmdline = "",
- };
- 
--static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
-+static struct boot_info *__init multiboot_fill_boot_info(
-+    multiboot_info_t *mbi, module_t *mods)
- {
-     struct boot_info *bi = &xen_boot_info;
--    const multiboot_info_t *mbi = __va(mbi_p);
--    module_t *mods = __va(mbi->mods_addr);
-     unsigned int i;
- 
-     if ( mbi->flags & MBI_MODULES )
-@@ -1065,15 +1064,31 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     {
-         ASSERT(mbi_p == 0);
-         pvh_init(&mbi, &mod);
--        mbi_p = __pa(mbi);
-+        /*
-+         * mbi and mod are regular pointers to .initdata.  These remain valid
-+         * across move_xen().
-+         */
-     }
-     else
-     {
-         mbi = __va(mbi_p);
-         mod = __va(mbi->mods_addr);
-+
-+        /*
-+         * For MB1/2, mbi and mod are directmap pointers into the trampoline.
-+         * These remain valid across move_xen().
-+         *
-+         * For EFI, these are directmap pointers into the Xen image.  They do
-+         * not remain valid across move_xen().  EFI boot only functions
-+         * because a non-zero xen_phys_start inhibits move_xen().
-+         *
-+         * Don't be fooled by efi_arch_post_exit_boot() passing "D" (&mbi).
-+         * This is a EFI physical-mode (i.e. identity map) pointer.
-+         */
-+        ASSERT(mbi_p < MB(1) || xen_phys_start);
-     }
- 
--    bi = multiboot_fill_boot_info(mbi_p);
-+    bi = multiboot_fill_boot_info(mbi, mod);
- 
-     /* Parse the command-line options. */
-     if ( (kextra = strstr(bi->cmdline, " -- ")) != NULL )
-
-base-commit: 49a068471d77820af5dac5ad062cde7129e3faae
-prerequisite-patch-id: 4ada23fb7ca505d30d9c41e23583d5db5ed95bec
-prerequisite-patch-id: 2427c5681fce868938a85f8d70de7adb31f731a7
-prerequisite-patch-id: 99b7107cd0d8a7675ebd30cf788e550fda4e9cfb
-prerequisite-patch-id: 795f6e9425cc6a953166b530ae68df466a7a3c2b
 -- 
-2.39.5
+Julien Grall
 
 
