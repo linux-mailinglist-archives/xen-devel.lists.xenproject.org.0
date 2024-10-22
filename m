@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEBE69AB0B1
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 16:21:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824225.1238322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34E659AB297
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 17:50:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824252.1238354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3Fkn-0003PA-W1; Tue, 22 Oct 2024 14:20:57 +0000
+	id 1t3H8Y-0005yf-8q; Tue, 22 Oct 2024 15:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824225.1238322; Tue, 22 Oct 2024 14:20:57 +0000
+Received: by outflank-mailman (output) from mailman id 824252.1238354; Tue, 22 Oct 2024 15:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3Fkn-0003MB-Sc; Tue, 22 Oct 2024 14:20:57 +0000
-Received: by outflank-mailman (input) for mailman id 824225;
- Tue, 22 Oct 2024 14:20:55 +0000
+	id 1t3H8Y-0005vx-5v; Tue, 22 Oct 2024 15:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 824252;
+ Tue, 22 Oct 2024 15:49:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fjUh=RS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3Fkl-0003Ly-Th
- for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 14:20:55 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ id 1t3H8W-0005vJ-T1
+ for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 15:49:32 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8f86901-9080-11ef-a0be-8be0dac302b0;
- Tue, 22 Oct 2024 16:20:54 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2fb561f273eso56793961fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2024 07:20:54 -0700 (PDT)
+ id 3a08cb69-908d-11ef-a0be-8be0dac302b0;
+ Tue, 22 Oct 2024 17:49:31 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2fb3da341c9so57694231fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2024 08:49:31 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cb66c726besm3203491a12.93.2024.10.22.07.20.52
+ 4fb4d7f45d1cf-5cb66c6b9d1sm3429967a12.70.2024.10.22.08.49.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Oct 2024 07:20:53 -0700 (PDT)
+ Tue, 22 Oct 2024 08:49:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8f86901-9080-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 3a08cb69-908d-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729606854; x=1730211654; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729612170; x=1730216970; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3f3pXqNyI+bwOtKt5dUl7KO7hRUU1R9j1/G49d53U6A=;
-        b=vvKdhj//oqzVgvxLSe2sfriMMQ6G3WIXBvgQVpijpHyeZGNN18TN1iDiER1fwpQR+Q
-         2zNbgEPy0HWg3/83hQ5+aShsFd4q5fcGD40RiIVGxLDTgXFhfnPoTWzrGu61P4f+qPFc
-         1b6kx5A4Y3Y3lSzPmXnQ80Y/nEI3t/jvyK0Z8=
+        bh=Q8xwV/lCQyVvY1eX3W7OpM/Z2U4rcNq/T/m5KTdj6Ns=;
+        b=W5QvZoK1G4Zns/XsSSvbHQUmM/YGrTjB86yPMq22XwU+4qeEEib+LsHRyVFTg2SBvj
+         H/XM1e5al3klpX8E1IpbN3YMA3iB+pJtSV4qPgWWD9q0elFFch9iwhz3SPfeMlR6vXi0
+         fDvRBBhcbZZQHw6TEt3wUlplATmJRoSgWxaBM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729606854; x=1730211654;
+        d=1e100.net; s=20230601; t=1729612170; x=1730216970;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3f3pXqNyI+bwOtKt5dUl7KO7hRUU1R9j1/G49d53U6A=;
-        b=dl7K2Fa/l0Vj7vhIf57T4eeEQ7RCZqMo+UNSlfRN2nojByYGL7NCjHrbbgT1pOUGqX
-         JOMMWsNKewj/0/hA4BNGpmxO9ml44T72Nain7EYPBybLWF3QdBZVrF31hj6hCqbqhpax
-         lVJAhpP1d51RqwF6uTCzW3OsTef++0cwHx98QdeUEAo5V6C5xgnTGBtEzCgUi7cjLsM7
-         gxwOAEmzfhCYEi+73reuynwG4glR+M3zNoYAckBErgvAjrrNjFEMNJp5rcx9AVcHOv+A
-         xrHAxRZhpkEnNCOemV8COX7YjxLtenDnotH+qzNkY60+P82EDyUr/FxZJUfqbaTSZt7I
-         mSRg==
-X-Gm-Message-State: AOJu0YyxWv/oHIkgesH6728ufcSF9r0rP3QGOv2+9Z2DGFy3JVaA3f3J
-	S5ylEZPF1+3aU022Uq+5jy0daQEWu2WLfbRxNV/vhRK58xnX8Cu40HOhxag5vRg=
-X-Google-Smtp-Source: AGHT+IEvOl91P9RM15RtFys8ueGxh/rArnfJRHUdg0YzGtzn3WMYarRUG4gApY2nf2z8vC4Av45GJQ==
-X-Received: by 2002:a2e:1309:0:b0:2f3:b71a:1e91 with SMTP id 38308e7fff4ca-2fc90541af3mr17989571fa.17.1729606853595;
-        Tue, 22 Oct 2024 07:20:53 -0700 (PDT)
-Message-ID: <0273bc68-855d-4833-8c2f-ad9ff845c92b@citrix.com>
-Date: Tue, 22 Oct 2024 15:20:51 +0100
+        bh=Q8xwV/lCQyVvY1eX3W7OpM/Z2U4rcNq/T/m5KTdj6Ns=;
+        b=nZ56yLDfLREzMk82OpFGc61M/ULJDticxNJIE6B3rd/9ErTvVtvhtXKkg9KIsNKnPi
+         FlTppAAczOPJyeeULhZOvj3zriKru176boDG3wVDduYvYiivYbD7Tac19do3AqzUqhKN
+         cfFJs3N0N5z9Iuvlp1FA/q9WOgHZwoxyDNZIjKRwhPtaImM2E8AirQBH98+IAzMm9B5A
+         GN5b1Sc+zKxxLZ+l8KWpYBLczjYyZl9B2hRKyM2EFPrk41XE+v22wKaFOD+/pBRgG3j1
+         OxlyUuOIQlrxNPe3RvW83T26XgvSjvAqgehtW97RKBnGCd1GWnCu3x9DgS3lEm3nYaUQ
+         O/tw==
+X-Forwarded-Encrypted: i=1; AJvYcCUWVzuCZdkar0y9ydW9FQeuWRsMrX7hVl6aAAviYxCl0Dt5u2RN1kIeJPPGhh02rvRFZECgzG+8jrw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywr92ZSJFaTTFzaybcaQVWTYbVh87psIP0vOlvCHEeSfVNK6q6U
+	APxEz1cMqB32C0KcOYZq49Fk796lvKNhu0O++qZHSCoygJaR2Z6vJN5T/6NxGulByZDB7sB9m9Q
+	T
+X-Google-Smtp-Source: AGHT+IF876j4I0qfBvE4Fw8sc7CKnmO0qce6usOPkHPu+lIpUt53f62Q09CRwEfB3GbX3MLMBk6UAg==
+X-Received: by 2002:a2e:4611:0:b0:2f7:5f6e:d894 with SMTP id 38308e7fff4ca-2fb82eb0744mr62372241fa.25.1729612170499;
+        Tue, 22 Oct 2024 08:49:30 -0700 (PDT)
+Message-ID: <283a0dec-bda9-4668-a11c-0480cc75c390@citrix.com>
+Date: Tue, 22 Oct 2024 16:49:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix PVH boot during boot_info transition period
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-References: <20241022124114.84498-1-andrew.cooper3@citrix.com>
- <Zxey5Gap8p8SiH9w@macbook.local>
+Subject: Re: [XEN PATCH v3] x86/emul: address violations of MISRA C Rule 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <63d51d39995c8dbab6f02d74982287a238ee5353.1729500464.git.federico.serafini@bugseng.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,92 +131,21 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Zxey5Gap8p8SiH9w@macbook.local>
+In-Reply-To: <63d51d39995c8dbab6f02d74982287a238ee5353.1729500464.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22/10/2024 3:12 pm, Roger Pau Monné wrote:
-> On Tue, Oct 22, 2024 at 01:41:14PM +0100, Andrew Cooper wrote:
->> multiboot_fill_boot_info() taking the physical address of the multiboot_info
->> structure leads to a subtle use-after-free on the PVH path, with rather less
->> subtle fallout.
->>
->> The pointers used by __start_xen(), mbi and mod, are either:
->>
->>  - MB:  Directmap pointers into the trampoline, or
->>  - PVH: Xen pointers into .initdata, or
->>  - EFI: Directmap pointers into Xen.
->>
->> Critically, these either remain valid across move_xen() (MB, PVH), or rely on
->> move_xen() being inhibited (EFI).
->>
->> The conversion to multiboot_fill_boot_info(), taking only mbi_p, makes the PVH
->> path use directmap pointers into Xen, as well as move_xen() which invalidates
->> said pointers.
->>
->> Switch multiboot_fill_boot_info() to consume the same virtual addresses that
->> __start_xen() currently uses.  This keeps all the pointers valid for the
->> duration of __start_xen(), for all boot protocols.
->>
->> It can be safely untangled once multiboot_fill_boot_info() takes a full copy
->> the multiboot info data, and __start_xen() has been moved over to using the
->> new boot_info consistently.
->>
->> Right now, bi->{loader,cmdline,mods} are problematic.  Nothing uses
->> bi->mods[], and nothing uses bi->cmdline after move_xen().
->>
->> bi->loader is used after move_xen(), although only for cmdline_cook() of
->> dom0's cmdline, where it happens to be benign because PVH boot skips the
->> inspection of the bootloader name.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
+On 21/10/2024 10:55 am, Federico Serafini wrote:
+> Add missing break statements to address violations of MISRA C:2012
+> Rule 16.3 (An unconditional `break' statement shall terminate
+> every switch-clause).
 >
-> One nit below about dropping a const keyword.
+> Make explicit unreachability of a program point with
+> ASSERT_UNREACHABLE() and add defensive code.
 >
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
->>
->> This is more proof that Xen only boots by accident.  It certainly isn't by any
->> kind of design.
->>
->> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1506947472
->> including the pending work to add a PVShim test
->>
->> This is the least-invasive fix given the rest of the Hyperlaunch series.
->>
->> A different option would to introduce EFI and PVH forms of
->> multiboot_fill_boot_info(), but that would involve juggling even more moving
->> parts during the transition period.
->> ---
->>  xen/arch/x86/setup.c | 25 ++++++++++++++++++++-----
->>  1 file changed, 20 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index db670258d650..e43b56d4e80f 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -283,11 +283,10 @@ struct boot_info __initdata xen_boot_info = {
->>      .cmdline = "",
->>  };
->>  
->> -static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
->> +static struct boot_info *__init multiboot_fill_boot_info(
->> +    multiboot_info_t *mbi, module_t *mods)
-> Shouldn't mbi keep the const keyword?  Given there are no changes on
-> how it's used in multiboot_fill_boot_info().
+> No functional change.
+>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Fine.
-
-FWIW,
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1507153249
-is previously-crashing consider_modules() change, with this fix in
-place, shown now to be functioning.
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
