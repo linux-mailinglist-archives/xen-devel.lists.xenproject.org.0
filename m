@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34E659AB297
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 17:50:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824252.1238354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58EC19AB3E8
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 18:25:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824263.1238370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3H8Y-0005yf-8q; Tue, 22 Oct 2024 15:49:34 +0000
+	id 1t3Hgz-00030g-4O; Tue, 22 Oct 2024 16:25:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824252.1238354; Tue, 22 Oct 2024 15:49:34 +0000
+Received: by outflank-mailman (output) from mailman id 824263.1238370; Tue, 22 Oct 2024 16:25:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3H8Y-0005vx-5v; Tue, 22 Oct 2024 15:49:34 +0000
-Received: by outflank-mailman (input) for mailman id 824252;
- Tue, 22 Oct 2024 15:49:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t3Hgz-0002xW-1V; Tue, 22 Oct 2024 16:25:09 +0000
+Received: by outflank-mailman (input) for mailman id 824263;
+ Tue, 22 Oct 2024 16:25:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fjUh=RS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3H8W-0005vJ-T1
- for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 15:49:32 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3a08cb69-908d-11ef-a0be-8be0dac302b0;
- Tue, 22 Oct 2024 17:49:31 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2fb3da341c9so57694231fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2024 08:49:31 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ id 1t3Hgx-0002xQ-56
+ for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 16:25:07 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 31ada791-9092-11ef-99a3-01e77a169b0f;
+ Tue, 22 Oct 2024 18:25:04 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a9932aa108cso867056566b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2024 09:25:04 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cb66c6b9d1sm3429967a12.70.2024.10.22.08.49.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Oct 2024 08:49:29 -0700 (PDT)
+ a640c23a62f3a-a9a912f6520sm361919966b.73.2024.10.22.09.25.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Oct 2024 09:25:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a08cb69-908d-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 31ada791-9092-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729612170; x=1730216970; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q8xwV/lCQyVvY1eX3W7OpM/Z2U4rcNq/T/m5KTdj6Ns=;
-        b=W5QvZoK1G4Zns/XsSSvbHQUmM/YGrTjB86yPMq22XwU+4qeEEib+LsHRyVFTg2SBvj
-         H/XM1e5al3klpX8E1IpbN3YMA3iB+pJtSV4qPgWWD9q0elFFch9iwhz3SPfeMlR6vXi0
-         fDvRBBhcbZZQHw6TEt3wUlplATmJRoSgWxaBM=
+        d=citrix.com; s=google; t=1729614303; x=1730219103; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=c2GqfTiYEITsKI2G8oNRKcJ3hgTFn5qErcVqjd9xvQU=;
+        b=flGwP1EwYypKwcQwRSyNgDey+HM9DK03BKkW7lD3GpbMoeSTXnW2wD4gh9ZffbuaoF
+         u0pA/FdmikAEf+eXUG+laMjo0sLwWWV2CISQ1JBAaS3XSORybS9PVlItBiJp7pKBpVO/
+         SsB/d93MqmuUVDFo3IgAHg4mEY5a2C6VpQ/rM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729612170; x=1730216970;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q8xwV/lCQyVvY1eX3W7OpM/Z2U4rcNq/T/m5KTdj6Ns=;
-        b=nZ56yLDfLREzMk82OpFGc61M/ULJDticxNJIE6B3rd/9ErTvVtvhtXKkg9KIsNKnPi
-         FlTppAAczOPJyeeULhZOvj3zriKru176boDG3wVDduYvYiivYbD7Tac19do3AqzUqhKN
-         cfFJs3N0N5z9Iuvlp1FA/q9WOgHZwoxyDNZIjKRwhPtaImM2E8AirQBH98+IAzMm9B5A
-         GN5b1Sc+zKxxLZ+l8KWpYBLczjYyZl9B2hRKyM2EFPrk41XE+v22wKaFOD+/pBRgG3j1
-         OxlyUuOIQlrxNPe3RvW83T26XgvSjvAqgehtW97RKBnGCd1GWnCu3x9DgS3lEm3nYaUQ
-         O/tw==
-X-Forwarded-Encrypted: i=1; AJvYcCUWVzuCZdkar0y9ydW9FQeuWRsMrX7hVl6aAAviYxCl0Dt5u2RN1kIeJPPGhh02rvRFZECgzG+8jrw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywr92ZSJFaTTFzaybcaQVWTYbVh87psIP0vOlvCHEeSfVNK6q6U
-	APxEz1cMqB32C0KcOYZq49Fk796lvKNhu0O++qZHSCoygJaR2Z6vJN5T/6NxGulByZDB7sB9m9Q
-	T
-X-Google-Smtp-Source: AGHT+IF876j4I0qfBvE4Fw8sc7CKnmO0qce6usOPkHPu+lIpUt53f62Q09CRwEfB3GbX3MLMBk6UAg==
-X-Received: by 2002:a2e:4611:0:b0:2f7:5f6e:d894 with SMTP id 38308e7fff4ca-2fb82eb0744mr62372241fa.25.1729612170499;
-        Tue, 22 Oct 2024 08:49:30 -0700 (PDT)
-Message-ID: <283a0dec-bda9-4668-a11c-0480cc75c390@citrix.com>
-Date: Tue, 22 Oct 2024 16:49:28 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3] x86/emul: address violations of MISRA C Rule 16.3
-To: Federico Serafini <federico.serafini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <63d51d39995c8dbab6f02d74982287a238ee5353.1729500464.git.federico.serafini@bugseng.com>
-Content-Language: en-GB
+        d=1e100.net; s=20230601; t=1729614303; x=1730219103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=c2GqfTiYEITsKI2G8oNRKcJ3hgTFn5qErcVqjd9xvQU=;
+        b=FJmJhD4YSE/UtoGp+niZqp/DqAVfxe3lbKyxKH0/ToL04XuktKlqyVoxX+1t3q8q6E
+         nnobjBjSl1r6JTTw33SwyWqd/3aeRuA/yEp9FiYJWzre//HioSarxjIBw3fh8sBhl4IV
+         VZuA67Bv58Ly5vwDgwiBkAZvW4NLc1vWcxkjy9KEnbogsNduH3WCMHRYRQMt5r4VKDCF
+         zZA8m6yAxSGY0KoERVRAyIXxK6p9UcvfbtiR2Qp7BSo/W7PJfKbjQtgjRZTGrt0E5SGA
+         W51nglS3OrHbkAgMgqOrMYBWcplO6g1Nv0uo8Nf1LtZfkZ8Fs1u2K7MRCCoQIuClnBRI
+         Ihcw==
+X-Gm-Message-State: AOJu0YwuFyEKUAQa96W3JGz57KaUyqVj07UTsPxssCyminF3v/Hhhs9Z
+	nKTQPz5ZMTUcirrol911MS7LD41xM7lqG4B9+hZmvRO5Rn78DsCgxP2jA3XlHBeSBAsYEnuyxGm
+	H
+X-Google-Smtp-Source: AGHT+IHksscOUJc5PefEfajL9dLUsn1H1OiC7NmneMuYfRFsy/NQCBLMFTCiHfF4aY/m7e1HoVnc1A==
+X-Received: by 2002:a17:907:6092:b0:a9a:3e33:8d9e with SMTP id a640c23a62f3a-a9aace72be3mr316261966b.28.1729614303488;
+        Tue, 22 Oct 2024 09:25:03 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <63d51d39995c8dbab6f02d74982287a238ee5353.1729500464.git.federico.serafini@bugseng.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH] tools/pvhsim: Inherit the tools debug= setting
+Date: Tue, 22 Oct 2024 17:25:00 +0100
+Message-Id: <20241022162500.121276-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/10/2024 10:55 am, Federico Serafini wrote:
-> Add missing break statements to address violations of MISRA C:2012
-> Rule 16.3 (An unconditional `break' statement shall terminate
-> every switch-clause).
->
-> Make explicit unreachability of a program point with
-> ASSERT_UNREACHABLE() and add defensive code.
->
-> No functional change.
->
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+Right now, builds of pvshim are non-debug, because of pvshim_defconfig.
+However, this means that Gitlab CI testing is less effective than it wants to
+be.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Include Rules.mk, and feed the tools-wide debug= setting.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+I don't particualrly like this, because while it ends up getting the
+appropriate choice of CONFIG_DEBUG, all other symbols with a default dependent
+on CONFIG_DEBUG get their non-debug form.
+---
+ tools/firmware/xen-dir/Makefile | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tools/firmware/xen-dir/Makefile b/tools/firmware/xen-dir/Makefile
+index 6f5e208ab413..e19916f76722 100644
+--- a/tools/firmware/xen-dir/Makefile
++++ b/tools/firmware/xen-dir/Makefile
+@@ -1,4 +1,5 @@
+ XEN_ROOT = $(CURDIR)/../../..
++include $(XEN_ROOT)/tools/Rules.mk
+ 
+ all: xen-shim
+ 
+@@ -75,6 +76,8 @@ $(D): linkfarm.stamp
+ 
+ $(D)/xen/.config: $(D)
+ 	$(MAKE) -C $(@D) KBUILD_DEFCONFIG=pvshim_defconfig defconfig
++	echo "CONFIG_DEBUG=$(if $(debug),y,n)" >> $@
++	$(MAKE) -C $(@D) olddefconfig
+ 
+ xen-shim: $(D)/xen/.config
+ 	$(MAKE) -C $(<D) build
+-- 
+2.39.5
+
 
