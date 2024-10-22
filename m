@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63A3A9AA225
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 14:33:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824147.1238222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824739AA24E
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2024 14:41:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824153.1238231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3E3W-0001Sd-98; Tue, 22 Oct 2024 12:32:10 +0000
+	id 1t3ECR-00039G-3x; Tue, 22 Oct 2024 12:41:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824147.1238222; Tue, 22 Oct 2024 12:32:10 +0000
+Received: by outflank-mailman (output) from mailman id 824153.1238231; Tue, 22 Oct 2024 12:41:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3E3W-0001Qk-6a; Tue, 22 Oct 2024 12:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 824147;
- Tue, 22 Oct 2024 12:32:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t3ECR-00036d-1P; Tue, 22 Oct 2024 12:41:23 +0000
+Received: by outflank-mailman (input) for mailman id 824153;
+ Tue, 22 Oct 2024 12:41:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fjUh=RS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3E3U-0001Qe-J1
- for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 12:32:08 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5df22fb-9071-11ef-99a3-01e77a169b0f;
- Tue, 22 Oct 2024 14:32:06 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a9932aa108cso826497466b.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2024 05:32:06 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ id 1t3ECP-00036X-9Y
+ for xen-devel@lists.xenproject.org; Tue, 22 Oct 2024 12:41:21 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id efc51183-9072-11ef-a0be-8be0dac302b0;
+ Tue, 22 Oct 2024 14:41:19 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a9a0ef5179dso823498966b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2024 05:41:19 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a912f67e6sm331745066b.82.2024.10.22.05.32.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Oct 2024 05:32:04 -0700 (PDT)
+ a640c23a62f3a-a9a9159a32esm334147266b.214.2024.10.22.05.41.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Oct 2024 05:41:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5df22fb-9071-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: efc51183-9072-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729600325; x=1730205125; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AWA+HbRBOcytwjikkEQvlsMbz2ZBLtWBVjxpVK+izwY=;
-        b=h0STXGMQDU5ZqEqVjPAH5izARYpncz/H92TiA2jnYMhZT0hJXywaOyo4PAY8nvRRhW
-         kTXd+IwJDGcYyvYq84qfZceqc6WgmUJ3xIxkVqWXrJhSxDL6ox29IBwlt0xWKVOMmygU
-         tPfGr9kotB7eXHbwgXpGNFsdyUHX8rklYAZpY=
+        d=citrix.com; s=google; t=1729600878; x=1730205678; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JCY/tvSeKu0JrSPKb1ZpoawrJHGWY+r+mQ7PZh73VRI=;
+        b=fmxt+UIhtzNs/CGmH0t/V0YxWihx+Aq/xLUKm0kQLDx+uZZD5fK53WPuD3unf/OY/q
+         FFmxrLbG7rEg/j+kKTADbWXPp4hmYRtrz7LrlpyA4Qy+h4NaVHpCW6B0IdkeSHRqLBrR
+         J9HogfIWsXBgVANFxFKZiAYWKNzBV72LsOGxo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729600325; x=1730205125;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AWA+HbRBOcytwjikkEQvlsMbz2ZBLtWBVjxpVK+izwY=;
-        b=LW3gOmDZ8sxwEa4X50MYWP75CRgjCMGw7jfJhtH4+IFdFlGiRyoi/IcR6FvEFfZjvQ
-         McGSqpXXOos5IpAZ+VVwjwgYXsAfgk149oUlS41Hu6Ooafhmh0gDEH3jkIpkQCEHZdAF
-         HPg6dj59eJJ/anDoaxCg0eTlfx/qxWNhfZ/1okpv5cqUMfFAwxT4V+NLbPpEq3pyC8bJ
-         t8ZyKFEdPZ9brNsgHkRf9ro5ZY3vLOpOX1nzCkpTA7gLE96gu+hMg3UdPdl7/1vkMaHy
-         lFPcQPHEUG+V5zGR+dejKcyC1H3FwPwIi8r6/KZc2rW/9opZ0VDhnuNQKNKAxxlOOZs5
-         5vlA==
-X-Forwarded-Encrypted: i=1; AJvYcCUuNSRIZm+ewthCOrlW5r3j0m7QO9cQbsRqDtIzMxb0YeRcKUIuY+6qMb4B5Z1uS2Jwh6+KCuK+VKw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxLQeHn0TwCl6pwHSPrSHX+epRsWWg2A0hl1+YPTEIpeDD/+Vlq
-	BU8LfG5prWK1zdknBdPbCdQBUGMuqE5PWqAfo73C+ye3IVp7r+dJ3ZZ7fVXLZmk=
-X-Google-Smtp-Source: AGHT+IEGT9Y69yZtMW1/+3cRlwlGgXEaD4VP3Z12o6bwikyX7BEfLxsCIi5clEgCBGMYiFhvV2OwBQ==
-X-Received: by 2002:a17:907:3f94:b0:a9a:eeb:b263 with SMTP id a640c23a62f3a-a9aad37174dmr235671566b.58.1729600325489;
-        Tue, 22 Oct 2024 05:32:05 -0700 (PDT)
-Message-ID: <0e62a978-4cd9-4571-a639-f042a614f25e@citrix.com>
-Date: Tue, 22 Oct 2024 13:32:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/pv: remove unlikely() from BUG_ON() condition in
- pv_map_ldt_shadow_page()
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20241022114607.2908-1-roger.pau@citrix.com>
-Content-Language: en-GB
+        d=1e100.net; s=20230601; t=1729600878; x=1730205678;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JCY/tvSeKu0JrSPKb1ZpoawrJHGWY+r+mQ7PZh73VRI=;
+        b=r6cChlZd7mt0kkz7HFmaBF3PbRpJvRVwnKlpPQxThGs3YEoRmGtogJ3EJzf+2le5SZ
+         yL3iQexJ2SWidUqqMQVFGh69tJYxGjV8Z4PZ0kszKiUwxjvxO/T0JzaCug2jLPdoVBLl
+         KIjtSwRKUtKlhV4rkplY60IYhHTalz+pvpcdH5pjxGuXYoxxJlYvtQfkps59h5O/3LJ/
+         rIkQvVNsODqe4ZqmysnqZZ6FXBCB9Ps19XPpwsHY3aOCi4ajGlplN//V29yGQnjrus04
+         1q0AiNhVB1kvNGdHk/8/QO9tmUN1r7QJjUMkzv3UOfwPK+mc/mSG59ZopfxtRJI/kaHI
+         OyBw==
+X-Gm-Message-State: AOJu0Yzbyz9QILO9Odz870Hgi/h+o17UUD683jM5Jcsp9x7QrBgC9Z+Z
+	6XxeWlQB8yPt+4V4KHh2p8eAu5vFAjzJJHJLFP75wTIYllswJQitJjCWmVhgTvj9BkA/fuls7qm
+	y
+X-Google-Smtp-Source: AGHT+IE6XkZ0MZ72BN3ZdYOLHRe+hvRyaILz9bLgWMzcnXOZSqVqOt8GjI+ZVvDGcHxPDTYlXn8Srw==
+X-Received: by 2002:a17:906:c113:b0:a9a:1092:b10d with SMTP id a640c23a62f3a-a9a69b7af5dmr1473603566b.33.1729600877953;
+        Tue, 22 Oct 2024 05:41:17 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241022114607.2908-1-roger.pau@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH] x86/boot: Fix PVH boot during boot_info transition period
+Date: Tue, 22 Oct 2024 13:41:14 +0100
+Message-Id: <20241022124114.84498-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22/10/2024 12:46 pm, Roger Pau Monne wrote:
-> BUG_ON() itself already contains an unlikely() wrapping the bug condition.
->
-> No functional change.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+multiboot_fill_boot_info() taking the physical address of the multiboot_info
+structure leads to a subtle use-after-free on the PVH path, with rather less
+subtle fallout.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+The pointers used by __start_xen(), mbi and mod, are either:
 
-likely()/unlikely() annotations are notoriously difficult for humans to
-reason about, and I think we have many wrong examples in Xen.
+ - MB:  Directmap pointers into the trampoline, or
+ - PVH: Xen pointers into .initdata, or
+ - EFI: Directmap pointers into Xen.
 
-In some copious free time, I was thinking of borrowing Linux's ftrace
-mechanism for identifying broken annotations.  All it involves is
-turning if() into a macro...
+Critically, these either remain valid across move_xen() (MB, PVH), or rely on
+move_xen() being inhibited (EFI).
+
+The conversion to multiboot_fill_boot_info(), taking only mbi_p, makes the PVH
+path use directmap pointers into Xen, as well as move_xen() which invalidates
+said pointers.
+
+Switch multiboot_fill_boot_info() to consume the same virtual addresses that
+__start_xen() currently uses.  This keeps all the pointers valid for the
+duration of __start_xen(), for all boot protocols.
+
+It can be safely untangled once multiboot_fill_boot_info() takes a full copy
+the multiboot info data, and __start_xen() has been moved over to using the
+new boot_info consistently.
+
+Right now, bi->{loader,cmdline,mods} are problematic.  Nothing uses
+bi->mods[], and nothing uses bi->cmdline after move_xen().
+
+bi->loader is used after move_xen(), although only for cmdline_cook() of
+dom0's cmdline, where it happens to be benign because PVH boot skips the
+inspection of the bootloader name.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+
+This is more proof that Xen only boots by accident.  It certainly isn't by any
+kind of design.
+
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1506947472
+including the pending work to add a PVShim test
+
+This is the least-invasive fix given the rest of the Hyperlaunch series.
+
+A different option would to introduce EFI and PVH forms of
+multiboot_fill_boot_info(), but that would involve juggling even more moving
+parts during the transition period.
+---
+ xen/arch/x86/setup.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index db670258d650..e43b56d4e80f 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -283,11 +283,10 @@ struct boot_info __initdata xen_boot_info = {
+     .cmdline = "",
+ };
+ 
+-static struct boot_info *__init multiboot_fill_boot_info(unsigned long mbi_p)
++static struct boot_info *__init multiboot_fill_boot_info(
++    multiboot_info_t *mbi, module_t *mods)
+ {
+     struct boot_info *bi = &xen_boot_info;
+-    const multiboot_info_t *mbi = __va(mbi_p);
+-    module_t *mods = __va(mbi->mods_addr);
+     unsigned int i;
+ 
+     if ( mbi->flags & MBI_MODULES )
+@@ -1065,15 +1064,31 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+     {
+         ASSERT(mbi_p == 0);
+         pvh_init(&mbi, &mod);
+-        mbi_p = __pa(mbi);
++        /*
++         * mbi and mod are regular pointers to .initdata.  These remain valid
++         * across move_xen().
++         */
+     }
+     else
+     {
+         mbi = __va(mbi_p);
+         mod = __va(mbi->mods_addr);
++
++        /*
++         * For MB1/2, mbi and mod are directmap pointers into the trampoline.
++         * These remain valid across move_xen().
++         *
++         * For EFI, these are directmap pointers into the Xen image.  They do
++         * not remain valid across move_xen().  EFI boot only functions
++         * because a non-zero xen_phys_start inhibits move_xen().
++         *
++         * Don't be fooled by efi_arch_post_exit_boot() passing "D" (&mbi).
++         * This is a EFI physical-mode (i.e. identity map) pointer.
++         */
++        ASSERT(mbi_p < MB(1) || xen_phys_start);
+     }
+ 
+-    bi = multiboot_fill_boot_info(mbi_p);
++    bi = multiboot_fill_boot_info(mbi, mod);
+ 
+     /* Parse the command-line options. */
+     if ( (kextra = strstr(bi->cmdline, " -- ")) != NULL )
+
+base-commit: 49a068471d77820af5dac5ad062cde7129e3faae
+prerequisite-patch-id: 4ada23fb7ca505d30d9c41e23583d5db5ed95bec
+prerequisite-patch-id: 2427c5681fce868938a85f8d70de7adb31f731a7
+prerequisite-patch-id: 99b7107cd0d8a7675ebd30cf788e550fda4e9cfb
+prerequisite-patch-id: 795f6e9425cc6a953166b530ae68df466a7a3c2b
+-- 
+2.39.5
+
 
