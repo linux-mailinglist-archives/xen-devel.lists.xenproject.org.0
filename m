@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD2029ACDE3
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 17:02:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824742.1238925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 016559ACEFA
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 17:38:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824758.1238935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3csB-0005tp-Mg; Wed, 23 Oct 2024 15:02:07 +0000
+	id 1t3dQ5-0002nh-GF; Wed, 23 Oct 2024 15:37:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824742.1238925; Wed, 23 Oct 2024 15:02:07 +0000
+Received: by outflank-mailman (output) from mailman id 824758.1238935; Wed, 23 Oct 2024 15:37:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3csB-0005rt-Jo; Wed, 23 Oct 2024 15:02:07 +0000
-Received: by outflank-mailman (input) for mailman id 824742;
- Wed, 23 Oct 2024 15:02:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2CNu=RT=suse.de=tiwai@srs-se1.protection.inumbo.net>)
- id 1t3cs9-0005rf-9b
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 15:02:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2c31074-914f-11ef-99a3-01e77a169b0f;
- Wed, 23 Oct 2024 17:02:03 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DF78A1FDB3;
- Wed, 23 Oct 2024 15:02:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 68CEE13A63;
- Wed, 23 Oct 2024 15:01:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NCtrGOcPGWeBIAAAD6G6ig
- (envelope-from <tiwai@suse.de>); Wed, 23 Oct 2024 15:01:59 +0000
+	id 1t3dQ5-0002l4-D6; Wed, 23 Oct 2024 15:37:09 +0000
+Received: by outflank-mailman (input) for mailman id 824758;
+ Wed, 23 Oct 2024 15:37:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jJ8W=RT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t3dQ4-0002kx-5n
+ for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 15:37:08 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8a3a1d0-9154-11ef-a0be-8be0dac302b0;
+ Wed, 23 Oct 2024 17:37:06 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a9a0472306cso935783766b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Oct 2024 08:37:06 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9a9155a1c9sm491160966b.129.2024.10.23.08.37.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Oct 2024 08:37:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,252 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2c31074-914f-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1729695722; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=45xK/8+G8mZGVAAi4hFp9PxMXe5ylZqkKcyee7y5QO0=;
-	b=2ItZ1jDFGk8fncyzUjOD6XP1yUrNx0clEVu6vx5PlWgY0pzhWkTG+ZtGuTuCRk8o3opkVR
-	dfMKygDgm3Jq5vAgizfUaf8cKtsAeQ4XF/G6TOOvoC1PCvT0gXtIJ6o1YtCFBpqgxn1lRp
-	fSH3oUU/jApkJIS3ff7Z5Hf6ZDSyVCA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1729695722;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=45xK/8+G8mZGVAAi4hFp9PxMXe5ylZqkKcyee7y5QO0=;
-	b=yBKR04wgmFIDNWBjE5QW+Hnw1mB3+YpLhbGyrDlSE5v42/Wn0oqwJTXtDYuSVV5bI/aQHq
-	NeWZpYvZRGkV4xCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fWmPOTyF;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=YuZHxXn8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1729695720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=45xK/8+G8mZGVAAi4hFp9PxMXe5ylZqkKcyee7y5QO0=;
-	b=fWmPOTyFFK+VxPBZQ27E8g8Odi0gvPqUHrkqQ2QKeK3e96V7dTVsrUlTrX8fBfFIRYP2SR
-	9X8KyTWE0pPVrtX25EqinQG9f1t/MMtZPc4BYI42RYSDXTHUEdo2fpuxgIh4wXKOC6E8vP
-	AtQwg7XXJKV2vlZYgc+r1cxzrlGkyFE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1729695720;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=45xK/8+G8mZGVAAi4hFp9PxMXe5ylZqkKcyee7y5QO0=;
-	b=YuZHxXn8vf1q/VffvvFlmQV8HJADESPXQVyITePngDv64EqgM+RiZEQG2jZ271+0TbFBkM
-	esX+WixusA/YvVCA==
-Date: Wed, 23 Oct 2024 17:03:00 +0200
-Message-ID: <87ttd2276j.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Philipp Stanner <pstanner@redhat.com>
-Cc: Takashi Iwai <tiwai@suse.de>,	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,	Sergey Shtylyov <s.shtylyov@omp.ru>,
-	Basavaraj Natikar <basavaraj.natikar@amd.com>,	Jiri Kosina
- <jikos@kernel.org>,	Benjamin Tissoires <bentiss@kernel.org>,	Arnd Bergmann
- <arnd@arndb.de>,	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,	Alex
- Dubov <oakad@yahoo.com>,	Sudarsana Kalluru <skalluru@marvell.com>,	Manish
- Chopra <manishc@marvell.com>,	"David S. Miller" <davem@davemloft.net>,	Eric
- Dumazet <edumazet@google.com>,	Jakub Kicinski <kuba@kernel.org>,	Paolo
- Abeni <pabeni@redhat.com>,	Rasesh Mody <rmody@marvell.com>,
-	GR-Linux-NIC-Dev@marvell.com,	Igor Mitsyanko <imitsyanko@quantenna.com>,
-	Sergey Matyukevich <geomatsi@gmail.com>,	Kalle Valo <kvalo@kernel.org>,
-	Sanjay R Mehta <sanju.mehta@amd.com>,	Shyam Sundar S K
- <Shyam-sundar.S-k@amd.com>,	Jon Mason <jdmason@kudzu.us>,	Dave Jiang
- <dave.jiang@intel.com>,	Allen Hubbe <allenbh@gmail.com>,	Bjorn Helgaas
- <bhelgaas@google.com>,	Alex Williamson <alex.williamson@redhat.com>,
-	Juergen Gross <jgross@suse.com>,	Stefano Stabellini
- <sstabellini@kernel.org>,	Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>,	Jaroslav Kysela <perex@perex.cz>,	Takashi
- Iwai <tiwai@suse.com>,	Chen Ni <nichen@iscas.ac.cn>,	Mario Limonciello
- <mario.limonciello@amd.com>,	Ricky Wu <ricky_wu@realtek.com>,	Al Viro
- <viro@zeniv.linux.org.uk>,	Breno Leitao <leitao@debian.org>,	Kevin Tian
- <kevin.tian@intel.com>,	Thomas Gleixner <tglx@linutronix.de>,	Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,	Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>,	Mostafa Saleh
- <smostafa@google.com>,	Jason Gunthorpe <jgg@ziepe.ca>,	Yi Liu
- <yi.l.liu@intel.com>,	Christian Brauner <brauner@kernel.org>,	Ankit Agrawal
- <ankita@nvidia.com>,	Eric Auger <eric.auger@redhat.com>,	Reinette Chatre
- <reinette.chatre@intel.com>,	Ye Bin <yebin10@huawei.com>,	Marek
- =?ISO-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,	Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>,	Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,	Kai Vehmanen
- <kai.vehmanen@linux.intel.com>,	Rui Salvaterra <rsalvaterra@gmail.com>,
-	linux-ide@vger.kernel.org,	linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,	ntb@lists.linux.dev,
-	linux-pci@vger.kernel.org,	kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 02/13] ALSA: hda_intel: Use always-managed version of pcim_intx()
-In-Reply-To: <6f3db65fe9a5dcd1a7a8d9bd5352ecb248ef57b1.camel@redhat.com>
-References: <20241015185124.64726-1-pstanner@redhat.com>
-	<20241015185124.64726-3-pstanner@redhat.com>
-	<87v7xk2ps5.wl-tiwai@suse.de>
-	<6f3db65fe9a5dcd1a7a8d9bd5352ecb248ef57b1.camel@redhat.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
+X-Inumbo-ID: a8a3a1d0-9154-11ef-a0be-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1729697826; x=1730302626; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/LLGF7zfAQ7nHYxoXky2IwZp9CiOwRFLNQ/OJ6fgNcE=;
+        b=JF1vo3PMqUaJJwzpxODfyG+2lPAmoy1pBM0Sx9SrgRXrYbPOj7VAstmWImtkqQ8XxA
+         uabubgNNH/qDaNMF3NeRpVsCw2I4nVOuk2ZIMEc943IlHjyzRe5ymdcXwGzVvPRehamK
+         7D5TQYLE5ovNT9sdFtJXj94QVFfs/uCBuD51Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729697826; x=1730302626;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/LLGF7zfAQ7nHYxoXky2IwZp9CiOwRFLNQ/OJ6fgNcE=;
+        b=cUp7bIcjyLaehcvQHaAg80JY1k0hDI7kUNu5cbNnuZGwiu71iTma9Nge9YLwaibemb
+         owVuFwoSCl2Jb98zW435bzOawRAqeQ8Ue4WEkNekKKXzKxnb+IHyFXGIoHpzcym1fCOC
+         3PM0BZBM2PweczgYB0y7neKOfwLdCk2vtvETg2K383stMrd+hl1z79/Qnlavyk2zrfF7
+         R56aYUrqoGe31dHfjP36f2R1ty846ha/08E3t0kA6jK9ZIdKIdg4x46BOiaqIhAecpzB
+         f53W53wnSd9/lQGzMvFt2SQUarVaYOOFbgWAPT8GqkUkdxbVS6PDTyyFKMp1RcJKqPxt
+         Mtpw==
+X-Forwarded-Encrypted: i=1; AJvYcCUwSy/BfCpOMDgkjVXYalKow32OhxCVKbBOjnxLXV2GfcLlc37LDWYoawJVIHZHaP0vONw1AcO0r0w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyyf/+7gMWNhrdxPILKNS2GoF54F2jXvc1XqK3yTJQ8L7yhU3Ei
+	A6n4vhvaOC56rlBOZwMHusbCoE0Q765PvXHGvRUMOjqc3b4gbGdQvh9Io1VfFQw=
+X-Google-Smtp-Source: AGHT+IHav3rBzqupp9YxgctInmEKUthWRSihOlGG1vNMRluZY6IO6TE8vJt2bZkUV5LNBRMJJK7CuQ==
+X-Received: by 2002:a17:907:72cf:b0:a99:cedd:4612 with SMTP id a640c23a62f3a-a9abf8938ffmr255687966b.22.1729697825969;
+        Wed, 23 Oct 2024 08:37:05 -0700 (PDT)
+Message-ID: <e604a851-b5a1-4288-8f6e-3f4216bd132f@citrix.com>
+Date: Wed, 23 Oct 2024 16:37:03 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/3] x86/boot: Remove the mbi_p parameter from
+ __start_xen()
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20241023105756.641695-1-andrew.cooper3@citrix.com>
+ <20241023144448.731688-1-andrew.cooper3@citrix.com>
+ <21218409-5506-4321-be8c-d044ba758b7c@apertussolutions.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <21218409-5506-4321-be8c-d044ba758b7c@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: DF78A1FDB3
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[suse.de,kernel.org,omp.ru,amd.com,arndb.de,linuxfoundation.org,yahoo.com,marvell.com,davemloft.net,google.com,redhat.com,quantenna.com,gmail.com,kudzu.us,intel.com,suse.com,epam.com,perex.cz,iscas.ac.cn,realtek.com,zeniv.linux.org.uk,debian.org,linutronix.de,linux.intel.com,ziepe.ca,nvidia.com,huawei.com,invisiblethingslab.com,linux.dev,vger.kernel.org,lists.linux.dev,lists.xenproject.org];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_GT_50(0.00)[67];
-	R_RATELIMIT(0.00)[to_ip_from(RLrrkwc4rnabsqsjbq9gcqj97h)];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Flag: NO
 
-On Wed, 23 Oct 2024 15:50:09 +0200,
-Philipp Stanner wrote:
-> 
-> On Tue, 2024-10-22 at 16:08 +0200, Takashi Iwai wrote:
-> > On Tue, 15 Oct 2024 20:51:12 +0200,
-> > Philipp Stanner wrote:
-> > > 
-> > > pci_intx() is a hybrid function which can sometimes be managed
-> > > through
-> > > devres. To remove this hybrid nature from pci_intx(), it is
-> > > necessary to
-> > > port users to either an always-managed or a never-managed version.
-> > > 
-> > > hda_intel enables its PCI-Device with pcim_enable_device(). Thus,
-> > > it needs
-> > > the always-managed version.
-> > > 
-> > > Replace pci_intx() with pcim_intx().
-> > > 
-> > > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
-> > > ---
-> > >  sound/pci/hda/hda_intel.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> > > index b4540c5cd2a6..b44ca7b6e54f 100644
-> > > --- a/sound/pci/hda/hda_intel.c
-> > > +++ b/sound/pci/hda/hda_intel.c
-> > > @@ -786,7 +786,7 @@ static int azx_acquire_irq(struct azx *chip,
-> > > int do_disconnect)
-> > >  	}
-> > >  	bus->irq = chip->pci->irq;
-> > >  	chip->card->sync_irq = bus->irq;
-> > > -	pci_intx(chip->pci, !chip->msi);
-> > > +	pcim_intx(chip->pci, !chip->msi);
-> > >  	return 0;
-> > >  }
-> > >  
-> > 
-> > Hm, it's OK-ish to do this as it's practically same as what
-> > pci_intx()
-> > currently does.  But, the current code can be a bit inconsistent
-> > about
-> > the original intx value.  pcim_intx() always stores !enable to
-> > res->orig_intx unconditionally, and it means that the orig_intx value
-> > gets overridden at each time pcim_intx() gets called.
-> 
-> Yes.
-> 
-> > 
-> > Meanwhile, HD-audio driver does release and re-acquire the interrupt
-> > after disabling MSI when something goes wrong, and pci_intx() call
-> > above is a part of that procedure.  So, it can rewrite the
-> > res->orig_intx to another value by retry without MSI.  And after the
-> > driver removal, it'll lead to another state.
-> 
-> I'm not sure that I understand this paragraph completely. Still, could
-> a solution for the driver on the long-term just be to use pci_intx()?
+On 23/10/2024 3:58 pm, Daniel P. Smith wrote:
+> On 10/23/24 10:44, Andrew Cooper wrote:
+>> The use of physical addresses in __start_xen() has proved to be
+>> fertile soure
+>> of bugs.
+>>
+>> The MB1/2 path stashes the MBI pointer in multiboot_ptr (a setup.c
+>> variable
+>> even), then re-loads it immediately before calling __start_xen().Â 
+>> For this,
+>> we can just drop the function parameter and read multiboot_ptr in the
+>> one
+>> place it's used.
+>>
+>> The EFI path also passes this parameter into __start_xen().Â  Have the
+>> EFI path
+>> set up multiboot_ptr too, and move the explanation of phyiscal-mode
+>> pointers.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau MonnÃ© <roger.pau@citrix.com>
+>> CC: Marek Marczykowski-GÃ³recki <marmarek@invisiblethingslab.com>
+>> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+>
+> For EFI:
+> Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>
+> For remainder:
+> Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-pci_intx() misses the restore of the original value, so it's no
-long-term solution, either.
+Thanks.Â  That's usually just R-by then.
 
-What I meant is that pcim_intx() blindly assumes the negative of the
-passed argument as the original state, which isn't always true.  e.g.
-when the driver calls it twice with different values, a wrong value
-may be remembered.
+In Xen, we take A-by to mean "sure, whatever", and R-by to mean "I've
+looked at this in detail and think it's good".
 
-That said, I thought of something like below.
+R-by implies A-by, and either are fine from a maintainership point of view.
 
-
-thanks,
-
-Takashi
-
--- 8< --
---- a/drivers/pci/devres.c
-+++ b/drivers/pci/devres.c
-@@ -438,8 +438,17 @@ static void pcim_intx_restore(struct device *dev, void *data)
- 	__pcim_intx(pdev, res->orig_intx);
- }
- 
--static struct pcim_intx_devres *get_or_create_intx_devres(struct device *dev)
-+static void save_orig_intx(struct pci_dev *pdev)
- {
-+	u16 pci_command;
-+
-+	pci_read_config_word(pdev, PCI_COMMAND, &pci_command);
-+	res->orig_intx = !(pci_command & PCI_COMMAND_INTX_DISABLE);
-+}
-+
-+static struct pcim_intx_devres *get_or_create_intx_devres(struct pci_dev *pdev)
-+{
-+	struct device *dev = &pdev->dev;
- 	struct pcim_intx_devres *res;
- 
- 	res = devres_find(dev, pcim_intx_restore, NULL, NULL);
-@@ -447,8 +456,10 @@ static struct pcim_intx_devres *get_or_create_intx_devres(struct device *dev)
- 		return res;
- 
- 	res = devres_alloc(pcim_intx_restore, sizeof(*res), GFP_KERNEL);
--	if (res)
-+	if (res) {
-+		save_orig_intx(pdev);
- 		devres_add(dev, res);
-+	}
- 
- 	return res;
- }
-@@ -467,11 +478,10 @@ int pcim_intx(struct pci_dev *pdev, int enable)
- {
- 	struct pcim_intx_devres *res;
- 
--	res = get_or_create_intx_devres(&pdev->dev);
-+	res = get_or_create_intx_devres(pdev);
- 	if (!res)
- 		return -ENOMEM;
- 
--	res->orig_intx = !enable;
- 	__pcim_intx(pdev, enable);
- 
- 	return 0;
+~Andrew
 
