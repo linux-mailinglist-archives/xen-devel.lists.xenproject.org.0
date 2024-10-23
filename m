@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C30989ACAC4
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 15:10:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824606.1238761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E979ACAC3
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 15:10:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824607.1238771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3b7y-0006j9-10; Wed, 23 Oct 2024 13:10:18 +0000
+	id 1t3b84-00071Y-9t; Wed, 23 Oct 2024 13:10:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824606.1238761; Wed, 23 Oct 2024 13:10:17 +0000
+Received: by outflank-mailman (output) from mailman id 824607.1238771; Wed, 23 Oct 2024 13:10:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3b7x-0006gR-UK; Wed, 23 Oct 2024 13:10:17 +0000
-Received: by outflank-mailman (input) for mailman id 824606;
- Wed, 23 Oct 2024 13:10:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t3b84-0006yS-6r; Wed, 23 Oct 2024 13:10:24 +0000
+Received: by outflank-mailman (input) for mailman id 824607;
+ Wed, 23 Oct 2024 13:10:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=W0hE=RT=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1t3b7w-0006ft-4v
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 13:10:16 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24630b65-9140-11ef-a0be-8be0dac302b0;
- Wed, 23 Oct 2024 15:10:14 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id 1t3b82-0006Ra-2K
+ for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 13:10:22 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2779cc7c-9140-11ef-99a3-01e77a169b0f;
+ Wed, 23 Oct 2024 15:10:20 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0E0F91FDA2;
- Wed, 23 Oct 2024 13:10:14 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A1E6D1FDA3;
+ Wed, 23 Oct 2024 13:10:19 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C0DA013A63;
- Wed, 23 Oct 2024 13:10:13 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6BC0613A63;
+ Wed, 23 Oct 2024 13:10:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 7ep2LbX1GGe+dwAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 23 Oct 2024 13:10:13 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HKDkGLv1GGfGdwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 23 Oct 2024 13:10:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,27 +52,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24630b65-9140-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: 2779cc7c-9140-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1729689014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1729689019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=R/jCtUub5rdGQ3ibE045xPBxKzrjJrpwGC8ELjHDU+0=;
-	b=hvrpHxok67YrGN7ETYvPX5Zde5uMbuVhY1TdYwk8wWkpWdkPS49o5F4gGX3QFtxU1x3Tf9
-	ogp14Jhdz/tsljAUDoX6eKJt3pJ40XQsnySdG0F2BU7FDRfxgtFtxUCQxp9MmO+fMMt5tI
-	YNYv1yrH3nSb/KRm+Ocv18ZUkP745iM=
+	bh=i3xMtPXgKn6GG8oVuMqyejq+21hcqPaJBGgXHENl+cw=;
+	b=PaOzNzSZcG26XL9qxihvCawE2U283fnLlqlhDp0dF1PsI/69+igiohrJUAXLahinNr43hC
+	YbnnVwBxmuClh1LiFklCmovZLDe6IfTgv5r29F1ShW+ZF6cL800yYg+wA/fADwV+xwokbC
+	D2+eJB+unAz2x4HiLr1jk8Z9pBuY5QE=
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=hvrpHxok
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1729689014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1729689019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=R/jCtUub5rdGQ3ibE045xPBxKzrjJrpwGC8ELjHDU+0=;
-	b=hvrpHxok67YrGN7ETYvPX5Zde5uMbuVhY1TdYwk8wWkpWdkPS49o5F4gGX3QFtxU1x3Tf9
-	ogp14Jhdz/tsljAUDoX6eKJt3pJ40XQsnySdG0F2BU7FDRfxgtFtxUCQxp9MmO+fMMt5tI
-	YNYv1yrH3nSb/KRm+Ocv18ZUkP745iM=
+	bh=i3xMtPXgKn6GG8oVuMqyejq+21hcqPaJBGgXHENl+cw=;
+	b=PaOzNzSZcG26XL9qxihvCawE2U283fnLlqlhDp0dF1PsI/69+igiohrJUAXLahinNr43hC
+	YbnnVwBxmuClh1LiFklCmovZLDe6IfTgv5r29F1ShW+ZF6cL800yYg+wA/fADwV+xwokbC
+	D2+eJB+unAz2x4HiLr1jk8Z9pBuY5QE=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -80,122 +80,142 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 1/6] xen: add a domain unique id to each domain
-Date: Wed, 23 Oct 2024 15:10:00 +0200
-Message-ID: <20241023131005.32144-2-jgross@suse.com>
+Subject: [PATCH 2/6] xen: add bitmap to indicate per-domain state changes
+Date: Wed, 23 Oct 2024 15:10:01 +0200
+Message-ID: <20241023131005.32144-3-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241023131005.32144-1-jgross@suse.com>
 References: <20241023131005.32144-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 0E0F91FDA2
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+	RCVD_TLS_ALL(0.00)[]
 X-Spam-Flag: NO
+X-Spam-Level: 
 
-Xenstore is referencing domains by their domid, but reuse of a domid
-can lead to the situation that Xenstore can't tell whether a domain
-with that domid has been deleted and created again without Xenstore
-noticing the domain is a new one now.
+Add a bitmap with one bit per possible domid indicating the respective
+domain has changed its state (created, deleted, dying, crashed,
+shutdown).
 
-Add a global domain creation unique id which is updated when creating
-a new domain, and store that value in struct domain of the new domain.
-The global unique id is initialized with the system time and updates
-are done via the xorshift algorithm which is used for pseudo random
-number generation, too (see https://en.wikipedia.org/wiki/Xorshift).
+Registering the VIRQ_DOM_EXC event will result in setting the bits for
+all existing domains and resetting all other bits.
+
+Resetting a bit will be done in a future patch.
+
+This information is needed for Xenstore to keep track of all domains.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-V1:
-- make unique_id local to function (Jan Beulich)
-- add lock (Julien Grall)
-- add comment (Julien Grall)
----
- xen/common/domain.c     | 20 ++++++++++++++++++++
- xen/include/xen/sched.h |  3 +++
- 2 files changed, 23 insertions(+)
+ xen/common/domain.c        | 21 +++++++++++++++++++++
+ xen/common/event_channel.c |  2 ++
+ xen/include/xen/sched.h    |  2 ++
+ 3 files changed, 25 insertions(+)
 
 diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 92263a4fbd..3948640fb0 100644
+index 3948640fb0..61b7899cb8 100644
 --- a/xen/common/domain.c
 +++ b/xen/common/domain.c
-@@ -562,6 +562,25 @@ static void _domain_destroy(struct domain *d)
-     free_domain_struct(d);
- }
+@@ -138,6 +138,22 @@ bool __read_mostly vmtrace_available;
  
-+static uint64_t get_unique_id(void)
+ bool __read_mostly vpmu_is_available;
+ 
++static DECLARE_BITMAP(dom_state_changed, DOMID_MASK + 1);
++
++void domain_reset_states(void)
 +{
-+    static uint64_t unique_id;
-+    static DEFINE_SPINLOCK(lock);
-+    uint64_t x = unique_id ? : NOW();
++    struct domain *d;
 +
-+    spin_lock(&lock);
++    bitmap_zero(dom_state_changed, DOMID_MASK + 1);
 +
-+    /* Pseudo-randomize id in order to avoid consumers relying on sequence. */
-+    x ^= x << 13;
-+    x ^= x >> 7;
-+    x ^= x << 17;
-+    unique_id = x;
++    rcu_read_lock(&domlist_read_lock);
 +
-+    spin_unlock(&lock);
++    for_each_domain ( d )
++        set_bit(d->domain_id, dom_state_changed);
 +
-+    return x;
++    rcu_read_unlock(&domlist_read_lock);
 +}
 +
- static int sanitise_domain_config(struct xen_domctl_createdomain *config)
+ static void __domain_finalise_shutdown(struct domain *d)
  {
-     bool hvm = config->flags & XEN_DOMCTL_CDF_hvm;
-@@ -654,6 +673,7 @@ struct domain *domain_create(domid_t domid,
+     struct vcpu *v;
+@@ -152,6 +168,7 @@ static void __domain_finalise_shutdown(struct domain *d)
+             return;
  
-     /* Sort out our idea of is_system_domain(). */
-     d->domain_id = domid;
-+    d->unique_id = get_unique_id();
+     d->is_shut_down = 1;
++    set_bit(d->domain_id, dom_state_changed);
+     if ( (d->shutdown_code == SHUTDOWN_suspend) && d->suspend_evtchn )
+         evtchn_send(d, d->suspend_evtchn);
+     else
+@@ -832,6 +849,7 @@ struct domain *domain_create(domid_t domid,
+      */
+     domlist_insert(d);
  
-     /* Holding CDF_* internal flags. */
-     d->cdf = flags;
++    set_bit(d->domain_id, dom_state_changed);
+     memcpy(d->handle, config->handle, sizeof(d->handle));
+ 
+     return d;
+@@ -1097,6 +1115,7 @@ int domain_kill(struct domain *d)
+         /* Mem event cleanup has to go here because the rings 
+          * have to be put before we call put_domain. */
+         vm_event_cleanup(d);
++        set_bit(d->domain_id, dom_state_changed);
+         put_domain(d);
+         send_global_virq(VIRQ_DOM_EXC);
+         /* fallthrough */
+@@ -1286,6 +1305,8 @@ static void cf_check complete_domain_destroy(struct rcu_head *head)
+ 
+     xfree(d->vcpu);
+ 
++    set_bit(d->domain_id, dom_state_changed);
++
+     _domain_destroy(d);
+ 
+     send_global_virq(VIRQ_DOM_EXC);
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index 8db2ca4ba2..9b87d29968 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -1296,6 +1296,8 @@ long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         rc = evtchn_bind_virq(&bind_virq, 0);
+         if ( !rc && __copy_to_guest(arg, &bind_virq, 1) )
+             rc = -EFAULT; /* Cleaning up here would be a mess! */
++        if ( !rc && bind_virq.virq == VIRQ_DOM_EXC )
++            domain_reset_states();
+         break;
+     }
+ 
 diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 90666576c2..1dd8a425f9 100644
+index 1dd8a425f9..667863263d 100644
 --- a/xen/include/xen/sched.h
 +++ b/xen/include/xen/sched.h
-@@ -370,6 +370,9 @@ struct domain
-     domid_t          domain_id;
+@@ -800,6 +800,8 @@ void domain_resume(struct domain *d);
  
-     unsigned int     max_vcpus;
-+
-+    uint64_t         unique_id;       /* Unique domain identifier */
-+
-     struct vcpu    **vcpu;
+ int domain_soft_reset(struct domain *d, bool resuming);
  
-     shared_info_t   *shared_info;     /* shared data area */
++void domain_reset_states(void);
++
+ int vcpu_start_shutdown_deferral(struct vcpu *v);
+ void vcpu_end_shutdown_deferral(struct vcpu *v);
+ 
 -- 
 2.43.0
 
