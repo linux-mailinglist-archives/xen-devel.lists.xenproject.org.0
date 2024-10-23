@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 546059AD0F1
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 18:31:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824838.1239041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4576C9AD14C
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 18:48:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824848.1239057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3eFX-0008HV-G4; Wed, 23 Oct 2024 16:30:19 +0000
+	id 1t3eWd-0002HX-68; Wed, 23 Oct 2024 16:47:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824838.1239041; Wed, 23 Oct 2024 16:30:19 +0000
+Received: by outflank-mailman (output) from mailman id 824848.1239057; Wed, 23 Oct 2024 16:47:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3eFX-0008El-CC; Wed, 23 Oct 2024 16:30:19 +0000
-Received: by outflank-mailman (input) for mailman id 824838;
- Wed, 23 Oct 2024 16:30:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1t3eFV-0008Ee-Gk
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 16:30:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1t3eFV-000C6l-0c;
- Wed, 23 Oct 2024 16:30:17 +0000
-Received: from [15.248.2.28] (helo=[10.24.67.32])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1t3eFV-0000uS-0N; Wed, 23 Oct 2024 16:30:17 +0000
+	id 1t3eWd-0002EB-12; Wed, 23 Oct 2024 16:47:59 +0000
+Received: by outflank-mailman (input) for mailman id 824848;
+ Wed, 23 Oct 2024 16:47:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nlqr=RT=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1t3eWb-0002AO-Ip
+ for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 16:47:57 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8d159768-915e-11ef-99a3-01e77a169b0f;
+ Wed, 23 Oct 2024 18:47:55 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5cb15b84544so5155458a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Oct 2024 09:47:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,136 +40,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=X1pHitE9EC0LfQyTFlEO4y8rlv6p9tsnJCBJfzDUhzE=; b=zOmQ8PRz/maB9e1dEDuBSkK4t4
-	qGWMP1V862V3MljT60qECW/11dq5F5PYP7/4u7u4yhtEXcy/cYWPB477wcO/GC+G7Nyix6B74L6S0
-	7Hu3UQhdTtYSxEe6+KBs2Uzg5anG0mjC4tDUItbShzgoldIomLR502+dUrYjgxkibavk=;
-Message-ID: <d70dae8e-5197-48db-859b-a3cae67e4ca7@xen.org>
-Date: Wed, 23 Oct 2024 17:30:14 +0100
+X-Inumbo-ID: 8d159768-915e-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1729702074; x=1730306874; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ovZvirNUrPHAZVWGClhiwXigYSywURKiIu8D/t9Xd9A=;
+        b=XRSJWS8KhkJGKwCU7iPMenBgcj7K0uAmSS4xjkUyjSY7/scni+/VQ2Qb0qXymT1pa3
+         +5Q6DMR0ftQ1FpOsfGYQDRX05U6L77kUA2xkW1Ea0YZlL/c8frO5SbZwcCH/x4Pur07T
+         jKV2fqdm1NCkMrK3W2bkcuhu0qG00ghe4blIc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729702074; x=1730306874;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ovZvirNUrPHAZVWGClhiwXigYSywURKiIu8D/t9Xd9A=;
+        b=VtM+lL+9UOLhWMowTedU4VvrWQZufGtswglruXGlqWFcciSA+z09Iqde7JT6lzvaIx
+         DlWzAICSDgcsSemWOl5GtV+GHhh62WjVGuRdEjB6Ek961rc2m8PT9kJoFDLkNUI1xRgt
+         gZtWcGqoUXPpPC/cRe4nEPWc/P8QQQEYbZnBvZdHQnlGV/c6Mu4951PlU802YRd5mE6w
+         /C+c8MjyHjW0FDlNT/ynU3YOpwyLzZodxy7EIoH/ZH+ll/YgnkKML7BmWD+0unDC7HEn
+         xH8sFX4EOSFQtcb0cp8kaLbquFdPk2nGCnSXAYruzcTDfewyL4r/2EJVw6rGxZE2ewJQ
+         tXHg==
+X-Gm-Message-State: AOJu0YyjGahgf4XfU95Q36jdtKazuyH/2XmOLMSkq/p/TjNHPIb+7Onc
+	H84LeGfNawnhG0zmiPpQz8cif2nq4vdyRr/XYLcsv6k5mKbtDKBQm8OeinlkhsTrkw2ycXbRxWr
+	rGTjDGLlgvP73TIp3y4Yo5T4e3WKWypo/YjZdkJiQAx5vRsUq6SU=
+X-Google-Smtp-Source: AGHT+IEEqLtEHDSSRj3ay93GeSWaMKSmfTGoX/ksMdojlNcK6PhE9unfCCYBCUK6i4f45WB3mpbE4jenoBjmXyWcV/o=
+X-Received: by 2002:a17:907:9411:b0:a99:762f:b298 with SMTP id
+ a640c23a62f3a-a9abf94de80mr329006666b.41.1729702073963; Wed, 23 Oct 2024
+ 09:47:53 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] xen/arm: mpu: Enable MPU
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20241010140351.309922-1-ayan.kumar.halder@amd.com>
- <20241010140351.309922-6-ayan.kumar.halder@amd.com>
- <a6a66bd1-45dc-46d2-9e45-8fef8b45e003@xen.org>
- <23b86010-d467-42fd-bba0-65b58e05beaf@amd.com>
- <DEE00B97-ADA5-4229-9B41-571C38F7A6C5@arm.com>
- <f444f549-6f4e-494b-af85-aeec127722c4@xen.org>
- <A302D615-E25E-46DE-A4CA-4FF911293D83@arm.com>
- <d1e8decf-3c63-41fe-a6e3-f880b984dda4@xen.org>
- <61C13F4F-24D2-4B6D-9216-813EDEED4865@arm.com>
- <5b8d5c3e-3c52-4b3b-b63f-c89a58f40f10@xen.org>
- <4E7C8350-D6DE-43D3-B269-185FFEE62B96@arm.com>
- <8991e9da-5abd-4fd7-919b-fbe87d747838@amd.com>
- <251fb5a2-a8d7-451b-9714-5cc984645354@xen.org>
- <acd45c52-7675-4dee-b8f8-46429cadf9ac@xen.org>
-In-Reply-To: <acd45c52-7675-4dee-b8f8-46429cadf9ac@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Wed, 23 Oct 2024 17:47:17 +0100
+Message-ID: <CAO-mL=zEqsMPE85XMVF=xJagTYLdU16Uo5NPDMf5zowLOqKCjA@mail.gmail.com>
+Subject: Goodbye to our Xen Project Colo
+To: xen-devel <xen-devel@lists.xenproject.org>, xen-announce@lists.xenproject.org
+Cc: committers@xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000afb588062527a5ca"
 
+--000000000000afb588062527a5ca
+Content-Type: text/plain; charset="UTF-8"
 
+Hi all,
 
-On 23/10/2024 17:18, Julien Grall wrote:
-> 
-> 
-> On 23/10/2024 17:13, Julien Grall wrote:
->>
->>
->> On 23/10/2024 17:06, Ayan Kumar Halder wrote:
->>> Hi Luca/Julien,
->>>
->>> On 22/10/2024 17:31, Luca Fancellu wrote:
->>>> Hi Julien,
->>>>
->>>>> On 22 Oct 2024, at 14:13, Julien Grall <julien@xen.org> wrote:
->>>>>
->>>>>
->>>>>
->>>>> On 22/10/2024 10:56, Luca Fancellu wrote:
->>>>>>> On 22 Oct 2024, at 10:47, Julien Grall <julien@xen.org> wrote:
->>>>>>>
->>>>>>> Hi Luca,
->>>>>>>
->>>>>>> On 22/10/2024 10:41, Luca Fancellu wrote:
->>>>>>>>> On 21 Oct 2024, at 17:27, Julien Grall <julien@xen.org> wrote:
->>>>>>>> 2) dsb+isb barrier after enabling the MPU, since we are enabling 
->>>>>>>> the MPU but also because we are disabling the background region
->>>>>>> TBH, I don't understand this one. Why would disabling the 
->>>>>>> background region requires a dsb + isb? Do you have any pointer 
->>>>>>> in the Armv8-R specification?
->>>>>> I’m afraid this is only my deduction, Section C1.4 of the Arm® 
->>>>>> Architecture Reference Manual Supplement Armv8, for R-profile 
->>>>>> AArch64 architecture,
->>>>>> (DDI 0600B.a) explains what is the background region, it says it 
->>>>>> implements physical address range(s), so when we disable it, we 
->>>>>> would like any data
->>>>>> access to complete before changing this implementation defined 
->>>>>> range with the ranges defined by us tweaking PRBAR/PRLAR, am I right?
->>>>> My mental model for the ordering is similar to a TLB flush which is:
->>>>>    1/ dsb nsh
->>>>>    2/ tlbi
->>>>>    3/ dsb nsh
->>>>>    4/ isb
->>>>>
->>>>> Enabling the MPU is effectively 2. AFAIK, 1 is only necessary to 
->>>>> ensure the update to the page-tables. But it is not a requirement 
->>>>> to ensure any data access are completed (otherwise, we would have 
->>>>> needed a dsb sy because we don't know how far the access are 
->>>>> going...).
->>>> Uhm… I’m not sure we are on the same page, probably I explained that 
->>>> wrongly, so my point is that:
->>>>
->>>> FUNC_LOCAL(enable_mpu)
->>>>      mrs   x0, SCTLR_EL2
->>>>      bic   x0, x0, #SCTLR_ELx_BR       /* Disable Background region */
->>>>      orr   x0, x0, #SCTLR_Axx_ELx_M    /* Enable MPU */
->>>>      orr   x0, x0, #SCTLR_Axx_ELx_C    /* Enable D-cache */
->>>>      orr   x0, x0, #SCTLR_Axx_ELx_WXN  /* Enable WXN */
->>>>      dsb   sy
->>>>      ^— This data barrier is needed in order to complete any data 
->>>> access, which guarantees that all explicit memory accesses before
->>>>             this instruction complete, so we can safely turn ON the 
->>>> MPU and disable the background region.
->>
->> I think
-> 
-> Sorry I fat fingered and pressed send too early. I think this is the 
-> part I disagree with. All explicit accesses don't need to be complete 
-> (in the sense observed by everyone in the system). They only need to 
-> have gone through the permissions check.
+A while back, the Xen Project was notified by the data centre facility
+hosting the physical hardware for OSSTest and some of the GitLab runners,
+were due to be shut down.
 
-I think I managed to find again the wording that would justify why a 
-"dsb" is not necessary for the permission checks. From ARM DDI 0487K.a 
-D23-7349:
+Since then we have had extensive discussions and explored multiple options
+to mitigate the impact of this on our project.
 
-```
-Direct writes using the instructions in Table D22-2 require 
-synchronization before software can rely on the effects
-of changes to the System registers to affect instructions appearing in 
-program order after the direct write to the
-System register. Direct writes to these registers are not allowed to 
-affect any instructions appearing in program order
-before the direct write.
-```
+At the end of July, we sent out a communication explaining our decision to
+best focus our efforts on GitLab, which offers a more modern and
+sustainable infrastructure.  As we prepare to leave the colo by the end of
+the month, the remainder servers we are saving will be shipped to AMD
+to help host our future Xen Project operations.
 
-I understand the paragraph as enabling the MPU via SCTLR_EL2 will not 
-affect any instruction before hand.
+These are listed below:
 
-Cheers,
+   - 1x Zen3: verdesse 1U AMD EPYC 7543P 32-Core Milan (Zen 3) 2021
+   - 1x ThunderX: rochester 1U Cavium ThunderX-88XX ARMv8.1 2014
+   - 1x Zen3: verdesse 1U AMD EPYC 7543P 32-Core Milan (Zen 3) 2021
+   - 1x ThunderX: rochester 1U Cavium ThunderX-88XX ARMv8.1 2014
+   - 1x serial port concentrator
+   - 1x PDU
+   - 2x Zen2 espadeiro: espadeiro 1U AMD EPYC 7502P 32-Core Rome (Zen 2)
+   2019
+   - 2x Zen2 rubintos: rubintos 2U AMD Ryzen 9 3900X 12-Core Matisse (Zen
+   2) 2019
 
--- 
-Julien Grall
+As we say goodbye to our colo, I'd like to reiterate that OSSTest has been
+instrumental to the Xen Project for many years, and we'd like to extend our
+gratitude to everyone who has contributed.
 
+Thank you again to our community for your continued support
+
+Kelly Choi
+Community Manager
+Xen Project
+<https://xenproject.org/>
+
+--000000000000afb588062527a5ca
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all,<div><br></div><div>A while back, the Xen Project w=
+as notified by the data centre facility hosting the physical hardware for O=
+SSTest and some of the GitLab runners, were due to be shut down.=C2=A0</div=
+><div><br></div><div>Since then we have had extensive discussions and explo=
+red multiple options to mitigate the impact of this on our project.=C2=A0</=
+div><div><br></div><div>At the end of July, we sent out a communication exp=
+laining our decision to best focus our efforts on GitLab, which offers a mo=
+re modern and sustainable infrastructure.=C2=A0 As we prepare to leave the =
+colo by the end of the month, the remainder servers we are saving will be s=
+hipped to AMD to=C2=A0help host our future Xen Project operations.</div><di=
+v><br></div><div>These are listed below:</div><ul><li>1x Zen3: verdesse 1U =
+AMD EPYC 7543P 32-Core Milan (Zen 3) 2021</li><li>1x ThunderX: rochester 1U=
+ Cavium ThunderX-88XX ARMv8.1 2014</li><li>1x Zen3: verdesse 1U AMD EPYC 75=
+43P 32-Core Milan (Zen 3) 2021</li><li>1x ThunderX: rochester 1U Cavium Thu=
+nderX-88XX ARMv8.1 2014</li><li>1x serial port concentrator=C2=A0</li><li>1=
+x PDU=C2=A0</li><li>2x Zen2 espadeiro: espadeiro 1U AMD EPYC 7502P 32-Core =
+Rome (Zen 2) 2019</li><li>2x Zen2 rubintos: rubintos 2U AMD Ryzen 9 3900X 1=
+2-Core Matisse (Zen 2) 2019</li></ul><div>As we say goodbye to our colo, I&=
+#39;d like to reiterate that OSSTest has been instrumental to the Xen Proje=
+ct for many years, and we&#39;d like to extend our gratitude to everyone wh=
+o has contributed.</div><div><br></div><div>Thank you again to our communit=
+y for your continued support</div><div><div dir=3D"ltr" class=3D"gmail_sign=
+ature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div style=3D"te=
+xt-align:left"><br></div><div>Kelly Choi<br></div><div><div style=3D"color:=
+rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(136,136,13=
+6)"><a href=3D"https://xenproject.org/" target=3D"_blank">Xen Project<br></=
+a><br></div></div></div></div></div></div>
+
+--000000000000afb588062527a5ca--
 
