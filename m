@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4576C9AD14C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 18:48:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824848.1239057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD429AD210
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 19:02:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824885.1239073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3eWd-0002HX-68; Wed, 23 Oct 2024 16:47:59 +0000
+	id 1t3ek0-0005xD-It; Wed, 23 Oct 2024 17:01:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824848.1239057; Wed, 23 Oct 2024 16:47:59 +0000
+Received: by outflank-mailman (output) from mailman id 824885.1239073; Wed, 23 Oct 2024 17:01:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3eWd-0002EB-12; Wed, 23 Oct 2024 16:47:59 +0000
-Received: by outflank-mailman (input) for mailman id 824848;
- Wed, 23 Oct 2024 16:47:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t3ek0-0005vi-Fe; Wed, 23 Oct 2024 17:01:48 +0000
+Received: by outflank-mailman (input) for mailman id 824885;
+ Wed, 23 Oct 2024 17:01:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nlqr=RT=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1t3eWb-0002AO-Ip
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 16:47:57 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d159768-915e-11ef-99a3-01e77a169b0f;
- Wed, 23 Oct 2024 18:47:55 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5cb15b84544so5155458a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Oct 2024 09:47:55 -0700 (PDT)
+ <SRS0=bQ5M=RT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t3ejy-0005vb-S7
+ for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 17:01:46 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7bbe8e31-9160-11ef-a0be-8be0dac302b0;
+ Wed, 23 Oct 2024 19:01:45 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2fb6110c8faso71621241fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Oct 2024 10:01:45 -0700 (PDT)
+Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cb66c6b535sm4593289a12.68.2024.10.23.10.01.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Oct 2024 10:01:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,115 +44,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d159768-915e-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 7bbe8e31-9160-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1729702074; x=1730306874; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ovZvirNUrPHAZVWGClhiwXigYSywURKiIu8D/t9Xd9A=;
-        b=XRSJWS8KhkJGKwCU7iPMenBgcj7K0uAmSS4xjkUyjSY7/scni+/VQ2Qb0qXymT1pa3
-         +5Q6DMR0ftQ1FpOsfGYQDRX05U6L77kUA2xkW1Ea0YZlL/c8frO5SbZwcCH/x4Pur07T
-         jKV2fqdm1NCkMrK3W2bkcuhu0qG00ghe4blIc=
+        d=citrix.com; s=google; t=1729702904; x=1730307704; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=oxpaVRCQxGt2WsbSTmzTFH95eCwt6zyG1YD0NUX3Jyk=;
+        b=SEdWIF4z+QqZ8+mmBPsNFCg+tbvEo4xF5TFBx0ukSdHhyLdsHr40YUkJ69WVLglIeE
+         GoR4k+/bapS4Bg281PsSthY2RQcRrh4XVID9V5MIyWB1id7o/87VLN9f43qT+N6qhmK7
+         ciLleUVmTPXqUHLZmuZ4uGRuNhCZlmFh+y6aM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729702074; x=1730306874;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ovZvirNUrPHAZVWGClhiwXigYSywURKiIu8D/t9Xd9A=;
-        b=VtM+lL+9UOLhWMowTedU4VvrWQZufGtswglruXGlqWFcciSA+z09Iqde7JT6lzvaIx
-         DlWzAICSDgcsSemWOl5GtV+GHhh62WjVGuRdEjB6Ek961rc2m8PT9kJoFDLkNUI1xRgt
-         gZtWcGqoUXPpPC/cRe4nEPWc/P8QQQEYbZnBvZdHQnlGV/c6Mu4951PlU802YRd5mE6w
-         /C+c8MjyHjW0FDlNT/ynU3YOpwyLzZodxy7EIoH/ZH+ll/YgnkKML7BmWD+0unDC7HEn
-         xH8sFX4EOSFQtcb0cp8kaLbquFdPk2nGCnSXAYruzcTDfewyL4r/2EJVw6rGxZE2ewJQ
-         tXHg==
-X-Gm-Message-State: AOJu0YyjGahgf4XfU95Q36jdtKazuyH/2XmOLMSkq/p/TjNHPIb+7Onc
-	H84LeGfNawnhG0zmiPpQz8cif2nq4vdyRr/XYLcsv6k5mKbtDKBQm8OeinlkhsTrkw2ycXbRxWr
-	rGTjDGLlgvP73TIp3y4Yo5T4e3WKWypo/YjZdkJiQAx5vRsUq6SU=
-X-Google-Smtp-Source: AGHT+IEEqLtEHDSSRj3ay93GeSWaMKSmfTGoX/ksMdojlNcK6PhE9unfCCYBCUK6i4f45WB3mpbE4jenoBjmXyWcV/o=
-X-Received: by 2002:a17:907:9411:b0:a99:762f:b298 with SMTP id
- a640c23a62f3a-a9abf94de80mr329006666b.41.1729702073963; Wed, 23 Oct 2024
- 09:47:53 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1729702904; x=1730307704;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=oxpaVRCQxGt2WsbSTmzTFH95eCwt6zyG1YD0NUX3Jyk=;
+        b=Id8r9RtuO2VWCNx69UQdACHcwz/gK/wBh/EYtVa5TeQGq630v/KVJicUXk4VM1BYQw
+         VP4uBx5xnintAqBNcaU1KdHj+PRrBJx9OfDnW8DrLXfRoQjut45oPGzHzhvmU670D4Y4
+         26babAQGUvUyAs+y/emQaC5SUxMG0HL7KUL31u5/nwEuTUs0OqlYOdnjWi0CZ1n8lmDZ
+         UyOsc8uxvXKNF0TW+vhY2+e+s+dea3z62J2YQHPszEbWtk51BjjwEMwNjukJxC8ApcW1
+         bJx43XMIPvXLg94NOoYbhUp2lcCQhtO0IYC5omrQVE9DK0cdttsXNEcJwRpaFDCbmHSe
+         JBnA==
+X-Gm-Message-State: AOJu0YzcTrSSCc1F2EkuwmXDBzE2mSLWBVcnTNIo2OaBJibJs1n6BsMX
+	u0/8qat+xS+uISZD15Bj3g47t53xtH9G+J0eN9wgmCRnFTjzAD7HQGMeidh2E3U=
+X-Google-Smtp-Source: AGHT+IEeN/OlsMozfgz0yy1/TK3Uxg5D2ahdPyoong2nWX69MamTGAD6faTnnNsxdU748kZYGRvsZg==
+X-Received: by 2002:a05:651c:2123:b0:2fb:55b2:b199 with SMTP id 38308e7fff4ca-2fc9d5e0ebcmr18911231fa.37.1729702903416;
+        Wed, 23 Oct 2024 10:01:43 -0700 (PDT)
+Date: Wed, 23 Oct 2024 18:01:42 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <JBeulich@suse.com>
+Subject: Re: [PATCH 2/3] x86/boot: Fix microcode module handling during PVH
+ boot
+Message-ID: <Zxkr9il-X0hK2GFv@macbook.local>
+References: <20241023105756.641695-1-andrew.cooper3@citrix.com>
+ <20241023105756.641695-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Wed, 23 Oct 2024 17:47:17 +0100
-Message-ID: <CAO-mL=zEqsMPE85XMVF=xJagTYLdU16Uo5NPDMf5zowLOqKCjA@mail.gmail.com>
-Subject: Goodbye to our Xen Project Colo
-To: xen-devel <xen-devel@lists.xenproject.org>, xen-announce@lists.xenproject.org
-Cc: committers@xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000afb588062527a5ca"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241023105756.641695-3-andrew.cooper3@citrix.com>
 
---000000000000afb588062527a5ca
-Content-Type: text/plain; charset="UTF-8"
+On Wed, Oct 23, 2024 at 11:57:55AM +0100, Andrew Cooper wrote:
+> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+> 
+> As detailed in commit 0fe607b2a144 ("x86/boot: Fix PVH boot during boot_info
+> transition period"), the use of __va(mbi->mods_addr) constitutes a
+> use-after-free on the PVH boot path.
+> 
+> This pattern has been in use since before PVH support was added.  Inside a PVH
+> VM, it will go unnoticed as long as the microcode container parser doesn't
+> choke on the random data it finds.
+> 
+> The use within early_microcode_init() happens to be safe because it's prior to
+> move_xen().  microcode_init_cache() is after move_xen(), and therefore unsafe.
+> 
+> Plumb the boot_info pointer down, replacing module_map and mbi.  Importantly,
+> bi->mods[].mod is a safe way to access the module list during PVH boot.
+> 
+> Note: microcode_scan_module() is still bogusly stashing a bootstrap_map()'d
+>       pointer in ucode_blob.data, which constitutes a different
+>       use-after-free, and only works in general because of a second bug.  This
+>       is unrelated to PVH, and needs untangling differently.
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> 
+> Refectored/extracted from the hyperlaunch series.
+> 
+> There's no good Fixes tag for this, because it can't reasonably be "introduce
+> PVH", nor can the fix as-is reasonably be backported.  If we want to fix the
+> bug in older trees, we need to plumb the mod pointer down alongside mbi.
+> ---
+>  xen/arch/x86/cpu/microcode/core.c    | 40 +++++++++++-----------------
+>  xen/arch/x86/include/asm/microcode.h |  8 +++---
+>  xen/arch/x86/setup.c                 |  4 +--
+>  3 files changed, 22 insertions(+), 30 deletions(-)
+> 
+> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+> index 8564e4d2c94c..1d58cb0f3bc1 100644
+> --- a/xen/arch/x86/cpu/microcode/core.c
+> +++ b/xen/arch/x86/cpu/microcode/core.c
+> @@ -35,6 +35,7 @@
+>  #include <xen/watchdog.h>
+>  
+>  #include <asm/apic.h>
+> +#include <asm/bootinfo.h>
+>  #include <asm/cpu-policy.h>
+>  #include <asm/nmi.h>
+>  #include <asm/processor.h>
+> @@ -152,11 +153,8 @@ static int __init cf_check parse_ucode(const char *s)
+>  }
+>  custom_param("ucode", parse_ucode);
+>  
+> -static void __init microcode_scan_module(
+> -    unsigned long *module_map,
+> -    const multiboot_info_t *mbi)
+> +static void __init microcode_scan_module(struct boot_info *bi)
 
-Hi all,
+Sorry to be pedantic, can't you keep bi as const?
 
-A while back, the Xen Project was notified by the data centre facility
-hosting the physical hardware for OSSTest and some of the GitLab runners,
-were due to be shut down.
+>  {
+> -    module_t *mod = (module_t *)__va(mbi->mods_addr);
+>      uint64_t *_blob_start;
+>      unsigned long _blob_size;
+>      struct cpio_data cd;
+> @@ -178,13 +176,13 @@ static void __init microcode_scan_module(
+>      /*
+>       * Try all modules and see whichever could be the microcode blob.
+>       */
+> -    for ( i = 1 /* Ignore dom0 kernel */; i < mbi->mods_count; i++ )
+> +    for ( i = 1 /* Ignore dom0 kernel */; i < bi->nr_modules; i++ )
+>      {
+> -        if ( !test_bit(i, module_map) )
+> +        if ( !test_bit(i, bi->module_map) )
+>              continue;
+>  
+> -        _blob_start = bootstrap_map(&mod[i]);
+> -        _blob_size = mod[i].mod_end;
+> +        _blob_start = bootstrap_map(bi->mods[i].mod);
+> +        _blob_size = bi->mods[i].mod->mod_end;
+>          if ( !_blob_start )
+>          {
+>              printk("Could not map multiboot module #%d (size: %ld)\n",
+> @@ -204,21 +202,17 @@ static void __init microcode_scan_module(
+>      }
+>  }
+>  
+> -static void __init microcode_grab_module(
+> -    unsigned long *module_map,
+> -    const multiboot_info_t *mbi)
+> +static void __init microcode_grab_module(struct boot_info *bi)
 
-Since then we have had extensive discussions and explored multiple options
-to mitigate the impact of this on our project.
+Same here re bi being const?
 
-At the end of July, we sent out a communication explaining our decision to
-best focus our efforts on GitLab, which offers a more modern and
-sustainable infrastructure.  As we prepare to leave the colo by the end of
-the month, the remainder servers we are saving will be shipped to AMD
-to help host our future Xen Project operations.
+There are some further below, that I think all should keep the const
+keywoard?
 
-These are listed below:
+Otherwise looks good:
 
-   - 1x Zen3: verdesse 1U AMD EPYC 7543P 32-Core Milan (Zen 3) 2021
-   - 1x ThunderX: rochester 1U Cavium ThunderX-88XX ARMv8.1 2014
-   - 1x Zen3: verdesse 1U AMD EPYC 7543P 32-Core Milan (Zen 3) 2021
-   - 1x ThunderX: rochester 1U Cavium ThunderX-88XX ARMv8.1 2014
-   - 1x serial port concentrator
-   - 1x PDU
-   - 2x Zen2 espadeiro: espadeiro 1U AMD EPYC 7502P 32-Core Rome (Zen 2)
-   2019
-   - 2x Zen2 rubintos: rubintos 2U AMD Ryzen 9 3900X 12-Core Matisse (Zen
-   2) 2019
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-As we say goodbye to our colo, I'd like to reiterate that OSSTest has been
-instrumental to the Xen Project for many years, and we'd like to extend our
-gratitude to everyone who has contributed.
-
-Thank you again to our community for your continued support
-
-Kelly Choi
-Community Manager
-Xen Project
-<https://xenproject.org/>
-
---000000000000afb588062527a5ca
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<div><br></div><div>A while back, the Xen Project w=
-as notified by the data centre facility hosting the physical hardware for O=
-SSTest and some of the GitLab runners, were due to be shut down.=C2=A0</div=
-><div><br></div><div>Since then we have had extensive discussions and explo=
-red multiple options to mitigate the impact of this on our project.=C2=A0</=
-div><div><br></div><div>At the end of July, we sent out a communication exp=
-laining our decision to best focus our efforts on GitLab, which offers a mo=
-re modern and sustainable infrastructure.=C2=A0 As we prepare to leave the =
-colo by the end of the month, the remainder servers we are saving will be s=
-hipped to AMD to=C2=A0help host our future Xen Project operations.</div><di=
-v><br></div><div>These are listed below:</div><ul><li>1x Zen3: verdesse 1U =
-AMD EPYC 7543P 32-Core Milan (Zen 3) 2021</li><li>1x ThunderX: rochester 1U=
- Cavium ThunderX-88XX ARMv8.1 2014</li><li>1x Zen3: verdesse 1U AMD EPYC 75=
-43P 32-Core Milan (Zen 3) 2021</li><li>1x ThunderX: rochester 1U Cavium Thu=
-nderX-88XX ARMv8.1 2014</li><li>1x serial port concentrator=C2=A0</li><li>1=
-x PDU=C2=A0</li><li>2x Zen2 espadeiro: espadeiro 1U AMD EPYC 7502P 32-Core =
-Rome (Zen 2) 2019</li><li>2x Zen2 rubintos: rubintos 2U AMD Ryzen 9 3900X 1=
-2-Core Matisse (Zen 2) 2019</li></ul><div>As we say goodbye to our colo, I&=
-#39;d like to reiterate that OSSTest has been instrumental to the Xen Proje=
-ct for many years, and we&#39;d like to extend our gratitude to everyone wh=
-o has contributed.</div><div><br></div><div>Thank you again to our communit=
-y for your continued support</div><div><div dir=3D"ltr" class=3D"gmail_sign=
-ature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div style=3D"te=
-xt-align:left"><br></div><div>Kelly Choi<br></div><div><div style=3D"color:=
-rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(136,136,13=
-6)"><a href=3D"https://xenproject.org/" target=3D"_blank">Xen Project<br></=
-a><br></div></div></div></div></div></div>
-
---000000000000afb588062527a5ca--
+Thanks, Roger.
 
