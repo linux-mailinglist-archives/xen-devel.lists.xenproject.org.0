@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90ED19ABAF8
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 03:25:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824359.1238479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B589ABBA3
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 04:38:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824371.1238489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3Q6K-00018L-9c; Wed, 23 Oct 2024 01:23:52 +0000
+	id 1t3RFS-0001nR-8a; Wed, 23 Oct 2024 02:37:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824359.1238479; Wed, 23 Oct 2024 01:23:52 +0000
+Received: by outflank-mailman (output) from mailman id 824371.1238489; Wed, 23 Oct 2024 02:37:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3Q6K-00015E-40; Wed, 23 Oct 2024 01:23:52 +0000
-Received: by outflank-mailman (input) for mailman id 824359;
- Wed, 23 Oct 2024 01:23:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S7t1=RT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1t3Q6I-000158-UN
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 01:23:51 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73f86c44-90dd-11ef-a0be-8be0dac302b0;
- Wed, 23 Oct 2024 03:23:48 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B0C2B5C5C10;
- Wed, 23 Oct 2024 01:23:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAC3C4CEC3;
- Wed, 23 Oct 2024 01:23:44 +0000 (UTC)
+	id 1t3RFS-0001kF-4w; Wed, 23 Oct 2024 02:37:22 +0000
+Received: by outflank-mailman (input) for mailman id 824371;
+ Wed, 23 Oct 2024 02:37:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t3RFR-0001k5-0Y; Wed, 23 Oct 2024 02:37:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t3RFQ-0001ck-Qf; Wed, 23 Oct 2024 02:37:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1t3RFQ-0000uh-71; Wed, 23 Oct 2024 02:37:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1t3RFQ-0000pU-6D; Wed, 23 Oct 2024 02:37:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,222 +42,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73f86c44-90dd-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1729646627;
-	bh=uz1jW+5+Ofi9FJaMXj4JSfMBRXP2E1lFAcoWjioSfg8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=A3cY+EIz3qSx+Fyzyo0FIaKQYLpmUQZNafKqqLlnAra/uKRudTI+wocv8iWHRb7HN
-	 eSKfproxm/eVjOwAJXtfyxqD70imuoMnD/ZZyrkc93fZWisUJ9O4MxOafzBw9YE2QH
-	 P+QQ1+1uim1Zt3YoBwSmI4jrcChnB54omc/TMSznH+uUlqpTTvWMVdRe/VTif08ilp
-	 DtI5rpaTldK+8okOsy2Q9wzuk+d1m8I7XAXybINzK4Ih31jIVWpCCtaAEaYvrf5aEm
-	 a6mTKp5n29/oi0UHkvy6md4TFkCdpkHmNwG+KUHAYW41rjOs53ZbFrndqAkCX2eYHh
-	 DEVRaFvG4TO8g==
-Date: Tue, 22 Oct 2024 18:23:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ryan Roberts <ryan.roberts@arm.com>
-cc: Andrew Morton <akpm@linux-foundation.org>, 
-    Anshuman Khandual <anshuman.khandual@arm.com>, 
-    Ard Biesheuvel <ardb@kernel.org>, 
-    Catalin Marinas <catalin.marinas@arm.com>, 
-    David Hildenbrand <david@redhat.com>, 
-    Greg Marsden <greg.marsden@oracle.com>, Ivan Ivanov <ivan.ivanov@suse.com>, 
-    Kalesh Singh <kaleshsingh@google.com>, Marc Zyngier <maz@kernel.org>, 
-    Mark Rutland <mark.rutland@arm.com>, Matthias Brugger <mbrugger@suse.com>, 
-    Miroslav Benes <mbenes@suse.cz>, Will Deacon <will@kernel.org>, 
-    Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-    linux-mm@kvack.org, xen-devel@lists.xenproject.org, julien@xen.org
-Subject: Re: [RFC PATCH v1 36/57] xen: Remove PAGE_SIZE compile-time constant
- assumption
-In-Reply-To: <829b5662-13c0-4728-894c-b2d578681b11@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2410221808160.3833@ubuntu-linux-20-04-desktop>
-References: <20241014105514.3206191-1-ryan.roberts@arm.com> <20241014105912.3207374-1-ryan.roberts@arm.com> <20241014105912.3207374-36-ryan.roberts@arm.com> <829b5662-13c0-4728-894c-b2d578681b11@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=aE4sRH1rasB0YEBXdQhNr7ixw8O+woTSC6uNQJKc/kU=; b=AshKIoYmbFa9XGFNw0LgBhtjGh
+	JfAWmyHegM0DIofoVlLyOrns10Vcx3jz4C7OkTTLXe5QGv1pQu3h4aaZ4ZZx3k2lS9p2cXe3vyBto
+	Nvw6lylYsWDdVGG0Bx9/fZyeEJckkQMs2nJzzqLgA0nuBQDV3E7HvD0w5svmybhFh+4w=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-188319-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable test] 188319: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=70262d59403b5cc94f076addee187f03e30a9687
+X-Osstest-Versions-That:
+    xen=49a068471d77820af5dac5ad062cde7129e3faae
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Oct 2024 02:37:20 +0000
 
-+Julien
+flight 188319 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/188319/
 
-On Wed, 16 Oct 2024, Ryan Roberts wrote:
-> + Juergen Gross, Stefano Stabellini
-> 
-> This was a rather tricky series to get the recipients correct for and my script
-> did not realize that "supporter" was a pseudonym for "maintainer" so you were
-> missed off the original post. Appologies!
-> 
-> More context in cover letter:
-> https://lore.kernel.org/all/20241014105514.3206191-1-ryan.roberts@arm.com/
-> 
-> 
-> On 14/10/2024 11:58, Ryan Roberts wrote:
-> > To prepare for supporting boot-time page size selection, refactor code
-> > to remove assumptions about PAGE_SIZE being compile-time constant. Code
-> > intended to be equivalent when compile-time page size is active.
-> > 
-> > Allocate enough "frame_list" static storage in the balloon driver for
-> > the maximum supported page size. Although continue to use only the first
-> > PAGE_SIZE of the buffer at run-time to maintain existing behaviour.
-> > 
-> > Refactor xen_biovec_phys_mergeable() to convert ifdeffery to c if/else.
-> > For compile-time page size, the compiler will choose one branch and
-> > strip the dead one. For boot-time, it can be evaluated at run time.
-> > 
-> > Refactor a BUILD_BUG_ON to evaluate the limit (when the minimum
-> > supported page size is selected at boot-time).
-> > 
-> > Reserve enough storage for max page size in "struct remap_data" and
-> > "struct xenbus_map_node".
-> > 
-> > Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
-> > ---
-> > 
-> > ***NOTE***
-> > Any confused maintainers may want to read the cover note here for context:
-> > https://lore.kernel.org/all/20241014105514.3206191-1-ryan.roberts@arm.com/
-> > 
-> >  drivers/xen/balloon.c              | 11 ++++++-----
-> >  drivers/xen/biomerge.c             | 12 ++++++------
-> >  drivers/xen/privcmd.c              |  2 +-
-> >  drivers/xen/xenbus/xenbus_client.c |  5 +++--
-> >  drivers/xen/xlate_mmu.c            |  6 +++---
-> >  include/xen/page.h                 |  2 ++
-> >  6 files changed, 21 insertions(+), 17 deletions(-)
-> > 
-> > diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-> > index 528395133b4f8..0ed5f6453af0e 100644
-> > --- a/drivers/xen/balloon.c
-> > +++ b/drivers/xen/balloon.c
-> > @@ -131,7 +131,8 @@ struct balloon_stats balloon_stats;
-> >  EXPORT_SYMBOL_GPL(balloon_stats);
-> >  
-> >  /* We increase/decrease in batches which fit in a page */
-> > -static xen_pfn_t frame_list[PAGE_SIZE / sizeof(xen_pfn_t)];
-> > +static xen_pfn_t frame_list[PAGE_SIZE_MAX / sizeof(xen_pfn_t)];
-> > +#define FRAME_LIST_NR_ENTRIES (PAGE_SIZE / sizeof(xen_pfn_t))
-> >  
-> >  
-> >  /* List of ballooned pages, threaded through the mem_map array. */
-> > @@ -389,8 +390,8 @@ static enum bp_state increase_reservation(unsigned long nr_pages)
-> >  	unsigned long i;
-> >  	struct page   *page;
-> >  
-> > -	if (nr_pages > ARRAY_SIZE(frame_list))
-> > -		nr_pages = ARRAY_SIZE(frame_list);
-> > +	if (nr_pages > FRAME_LIST_NR_ENTRIES)
-> > +		nr_pages = FRAME_LIST_NR_ENTRIES;
-> >  
-> >  	page = list_first_entry_or_null(&ballooned_pages, struct page, lru);
-> >  	for (i = 0; i < nr_pages; i++) {
-> > @@ -434,8 +435,8 @@ static enum bp_state decrease_reservation(unsigned long nr_pages, gfp_t gfp)
-> >  	int ret;
-> >  	LIST_HEAD(pages);
-> >  
-> > -	if (nr_pages > ARRAY_SIZE(frame_list))
-> > -		nr_pages = ARRAY_SIZE(frame_list);
-> > +	if (nr_pages > FRAME_LIST_NR_ENTRIES)
-> > +		nr_pages = FRAME_LIST_NR_ENTRIES;
-> >  
-> >  	for (i = 0; i < nr_pages; i++) {
-> >  		page = alloc_page(gfp);
-> > diff --git a/drivers/xen/biomerge.c b/drivers/xen/biomerge.c
-> > index 05a286d24f148..28f0887e40026 100644
-> > --- a/drivers/xen/biomerge.c
-> > +++ b/drivers/xen/biomerge.c
-> > @@ -8,16 +8,16 @@
-> >  bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
-> >  			       const struct page *page)
-> >  {
-> > -#if XEN_PAGE_SIZE == PAGE_SIZE
-> > -	unsigned long bfn1 = pfn_to_bfn(page_to_pfn(vec1->bv_page));
-> > -	unsigned long bfn2 = pfn_to_bfn(page_to_pfn(page));
-> > +	if (XEN_PAGE_SIZE == PAGE_SIZE) {
-> > +		unsigned long bfn1 = pfn_to_bfn(page_to_pfn(vec1->bv_page));
-> > +		unsigned long bfn2 = pfn_to_bfn(page_to_pfn(page));
-> > +
-> > +		return bfn1 + PFN_DOWN(vec1->bv_offset + vec1->bv_len) == bfn2;
-> > +	}
-> >  
-> > -	return bfn1 + PFN_DOWN(vec1->bv_offset + vec1->bv_len) == bfn2;
-> > -#else
-> >  	/*
-> >  	 * XXX: Add support for merging bio_vec when using different page
-> >  	 * size in Xen and Linux.
-> >  	 */
-> >  	return false;
-> > -#endif
-> >  }
-> > diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-> > index 9563650dfbafc..847f7b806caf7 100644
-> > --- a/drivers/xen/privcmd.c
-> > +++ b/drivers/xen/privcmd.c
-> > @@ -557,7 +557,7 @@ static long privcmd_ioctl_mmap_batch(
-> >  	state.global_error  = 0;
-> >  	state.version       = version;
-> >  
-> > -	BUILD_BUG_ON(((PAGE_SIZE / sizeof(xen_pfn_t)) % XEN_PFN_PER_PAGE) != 0);
-> > +	BUILD_BUG_ON(((PAGE_SIZE_MIN / sizeof(xen_pfn_t)) % XEN_PFN_PER_PAGE_MAX) != 0);
+Failures :-/ but no regressions.
 
-Is there any value in keep this test? And if so, what should it look
-like? I think we should turn it into a WARN_ON:
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 188317
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 188317
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 188317
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 188317
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 188317
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 188317
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
 
-WARN_ON(((PAGE_SIZE / sizeof(xen_pfn_t)) % XEN_PFN_PER_PAGE) != 0);
+version targeted for testing:
+ xen                  70262d59403b5cc94f076addee187f03e30a9687
+baseline version:
+ xen                  49a068471d77820af5dac5ad062cde7129e3faae
 
-It doesn't make much sense having a BUILD_BUG_ON on a variable that can
-change?
+Last test of basis   188317  2024-10-22 07:05:24 Z    0 days
+Testing same since   188319  2024-10-22 20:07:07 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Federico Serafini <federico.serafini@bugseng.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
 
-> >  	/* mmap_batch_fn guarantees ret == 0 */
-> >  	BUG_ON(traverse_pages_block(m.num, sizeof(xen_pfn_t),
-> >  				    &pagelist, mmap_batch_fn, &state));
-> > diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-> > index 51b3124b0d56c..99bde836c10c4 100644
-> > --- a/drivers/xen/xenbus/xenbus_client.c
-> > +++ b/drivers/xen/xenbus/xenbus_client.c
-> > @@ -49,9 +49,10 @@
-> >  
-> >  #include "xenbus.h"
-> >  
-> > -#define XENBUS_PAGES(_grants)	(DIV_ROUND_UP(_grants, XEN_PFN_PER_PAGE))
-> > +#define XENBUS_PAGES(_grants)		(DIV_ROUND_UP(_grants, XEN_PFN_PER_PAGE))
-> > +#define XENBUS_PAGES_MAX(_grants)	(DIV_ROUND_UP(_grants, XEN_PFN_PER_PAGE_MIN))
-> >  
-> > -#define XENBUS_MAX_RING_PAGES	(XENBUS_PAGES(XENBUS_MAX_RING_GRANTS))
-> > +#define XENBUS_MAX_RING_PAGES		(XENBUS_PAGES_MAX(XENBUS_MAX_RING_GRANTS))
-> >  
-> >  struct xenbus_map_node {
-> >  	struct list_head next;
-> > diff --git a/drivers/xen/xlate_mmu.c b/drivers/xen/xlate_mmu.c
-> > index f17c4c03db30c..a757c801a7542 100644
-> > --- a/drivers/xen/xlate_mmu.c
-> > +++ b/drivers/xen/xlate_mmu.c
-> > @@ -74,9 +74,9 @@ struct remap_data {
-> >  	int mapped;
-> >  
-> >  	/* Hypercall parameters */
-> > -	int h_errs[XEN_PFN_PER_PAGE];
-> > -	xen_ulong_t h_idxs[XEN_PFN_PER_PAGE];
-> > -	xen_pfn_t h_gpfns[XEN_PFN_PER_PAGE];
-> > +	int h_errs[XEN_PFN_PER_PAGE_MAX];
-> > +	xen_ulong_t h_idxs[XEN_PFN_PER_PAGE_MAX];
-> > +	xen_pfn_t h_gpfns[XEN_PFN_PER_PAGE_MAX];
-> >  
-> >  	int h_iter;	/* Iterator */
-> >  };
-> > diff --git a/include/xen/page.h b/include/xen/page.h
-> > index 285677b42943a..86683a30038a3 100644
-> > --- a/include/xen/page.h
-> > +++ b/include/xen/page.h
-> > @@ -21,6 +21,8 @@
-> >  	((page_to_pfn(page)) << (PAGE_SHIFT - XEN_PAGE_SHIFT))
-> >  
-> >  #define XEN_PFN_PER_PAGE	(PAGE_SIZE / XEN_PAGE_SIZE)
-> > +#define XEN_PFN_PER_PAGE_MIN	(PAGE_SIZE_MIN / XEN_PAGE_SIZE)
-> > +#define XEN_PFN_PER_PAGE_MAX	(PAGE_SIZE_MAX / XEN_PAGE_SIZE)
-> >  
-> >  #define XEN_PFN_DOWN(x)	((x) >> XEN_PAGE_SHIFT)
-> >  #define XEN_PFN_UP(x)	(((x) + XEN_PAGE_SIZE-1) >> XEN_PAGE_SHIFT)
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   49a068471d..70262d5940  70262d59403b5cc94f076addee187f03e30a9687 -> master
 
