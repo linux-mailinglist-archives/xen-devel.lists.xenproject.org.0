@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A7B39ABD95
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 06:58:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824417.1238553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822239ABD99
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 07:03:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824423.1238563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3TQr-0003jW-1G; Wed, 23 Oct 2024 04:57:17 +0000
+	id 1t3TWa-0005YT-JZ; Wed, 23 Oct 2024 05:03:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824417.1238553; Wed, 23 Oct 2024 04:57:17 +0000
+Received: by outflank-mailman (output) from mailman id 824423.1238563; Wed, 23 Oct 2024 05:03:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3TQq-0003hX-U8; Wed, 23 Oct 2024 04:57:16 +0000
-Received: by outflank-mailman (input) for mailman id 824417;
- Wed, 23 Oct 2024 04:57:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t3TWa-0005WH-Gt; Wed, 23 Oct 2024 05:03:12 +0000
+Received: by outflank-mailman (input) for mailman id 824423;
+ Wed, 23 Oct 2024 05:03:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S7t1=RT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1t3TQq-0003hR-Cr
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 04:57:16 +0000
+ id 1t3TWZ-0005WB-IW
+ for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 05:03:11 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44302353-90fb-11ef-99a3-01e77a169b0f;
- Wed, 23 Oct 2024 06:57:13 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 16afb532-90fc-11ef-a0be-8be0dac302b0;
+ Wed, 23 Oct 2024 07:03:09 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 744FD5C56FA;
- Wed, 23 Oct 2024 04:57:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0062C4CEC6;
- Wed, 23 Oct 2024 04:57:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7E0B25C5A9B;
+ Wed, 23 Oct 2024 05:03:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB138C4CEC6;
+ Wed, 23 Oct 2024 05:03:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,54 +41,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44302353-90fb-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 16afb532-90fc-11ef-a0be-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1729659431;
-	bh=+vuwRm6fl1Z40OFBw/Am53xkGUJOvzhYzdc3p6n7XU8=;
+	s=k20201202; t=1729659784;
+	bh=taAod9pduJeb4mUVl2SwKXCGjdnNQ76NhvTXaYUhAz8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gmE7628FH4BpHzJs57gq/51Ktbc8EdH7p5JE+sfiaoC1fJruIx4rmf22ZgYt29sqI
-	 vk05olThx1vFyVk8tojiAMWbKJkhKaNv0F3ONHe2UHIjLI1PEren5PCOkL9xyZIr6B
-	 4gepExYwxB4Wh7lKOD83egWpAPGjycO7hRdwseW0GaBIRTzs2I0B3E6vn6HB83ptNX
-	 k/y7aSBk7/7dNHqiQfgSjDLBz8TjKjbXtA8WNjEIsOf4o1U6eJ5GalLmmJNVUaMyz3
-	 xbe5QhJDwR8vA6KHbI8i3zfFPrE7EmXsA9tn/oo36SyoS4V0fOB/Npvory+dmawitt
-	 K7GvMFN2A/4sA==
-Date: Tue, 22 Oct 2024 21:57:09 -0700 (PDT)
+	b=XJ/tklTb/TPes9koVkcieUB7rNUFOh0P1ysEL7Gw1vKmGZViRrt4nmAdyJgzufVTz
+	 iYWzusU7JeYA+0Gx/F9rCcQiNNsKP9lBdtBg6u5TtV2PJbRYRrSmDnp6YQM/LwLXTw
+	 ay9zA/uJMpmI6nryfUgBAIJMnGHXgR71k5UaKUCcG+dnXXHw8unFL5ZgQ7VV1gC55+
+	 qAWDRLQD/eMAtnc5ne5bMxNfk+D5dnah+rWkyO9YQfrnXwu0hDa+vjfE+PMI3NSwHy
+	 /bxj9R+8um5aeiuNwED5eN9ti+2+0aRuP6WW4F3tfHbsZILvpsEk/lxC6e+IG0AGKb
+	 Typu2VgQByq3A==
+Date: Tue, 22 Oct 2024 22:03:02 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Victor Lira <victorm.lira@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [RFC TEST_ARTIFACTS PATCH 1/2] artifacts: Initial commit
-In-Reply-To: <21a6030f352282d822c30de4a1e7ecab9a8c0a99.1729649255.git.victorm.lira@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2410222154400.3833@ubuntu-linux-20-04-desktop>
-References: <cover.1729649255.git.victorm.lira@amd.com> <21a6030f352282d822c30de4a1e7ecab9a8c0a99.1729649255.git.victorm.lira@amd.com>
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [RFC XEN PATCH 2/2] automation: add xilinx test (linux argo)
+In-Reply-To: <17124c911858ccb2842598cd9b9b3c88c4d4dd28.1729649076.git.victorm.lira@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2410222155240.3833@ubuntu-linux-20-04-desktop>
+References: <cover.1729649255.git.victorm.lira@amd.com> <17124c911858ccb2842598cd9b9b3c88c4d4dd28.1729649076.git.victorm.lira@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1240544370-1729659133=:3833"
-Content-ID: <alpine.DEB.2.22.394.2410222152191.3833@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; BOUNDARY="8323329-1484776461-1729659390=:3833"
+Content-ID: <alpine.DEB.2.22.394.2410222157140.3833@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1240544370-1729659133=:3833
+--8323329-1484776461-1729659390=:3833
 Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2410222152192.3833@ubuntu-linux-20-04-desktop>
+Content-ID: <alpine.DEB.2.22.394.2410222157141.3833@ubuntu-linux-20-04-desktop>
 
 On Tue, 22 Oct 2024, victorm.lira@amd.com wrote:
-> From: Stefano Stabellini <sstabellini@kernel.org>
-
-Hi Victor, I think this was a mistake, maybe due to the fact that I
-created the repository for you. The From field represent the vauthor and
-in this case it should be you.
-
-
-> Create new repository to produce common artifacts for Xen tests
+> From: Victor Lira <victorm.lira@amd.com>
 > 
-> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Add x86_64 hardware test that creates a Xen Argo communication
+> connection between two PVH domains. In the test, dom0 creates a domU and
+> listens for messages sent by the domU through Argo.
+> 
+> To accomplish this, build Xen with CONFIG_ARGO=y.
+> 
+> Update the xilinx x86_64 test script to support the new test, and add
+> "sync_console" to command line to avoid an issue with console messages
+> being lost.
+> 
 > Signed-off-by: Victor Lira <victorm.lira@amd.com>
 > ---
 > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
@@ -97,358 +98,222 @@ in this case it should be you.
 > Cc: Stefano Stabellini <sstabellini@kernel.org>
 > Cc: xen-devel@lists.xenproject.org
 > ---
->  .gitlab-ci.yml                         | 48 ++++++++++++++++++++
->  README.md                              | 10 ++++
->  binaries/.gitignore                    |  3 ++
->  images/Makefile                        | 20 ++++++++
->  images/alpine/x86_64-build.dockerfile  | 25 ++++++++++
->  images/alpine/x86_64-rootfs.dockerfile |  4 ++
->  scripts/x86_64-argo-linux.sh           | 63 ++++++++++++++++++++++++++
->  scripts/x86_64-kernel-linux.sh         | 31 +++++++++++++
->  scripts/x86_64-rootfs-alpine.sh        | 58 ++++++++++++++++++++++++
->  9 files changed, 262 insertions(+)
->  create mode 100644 .gitlab-ci.yml
->  create mode 100644 README.md
->  create mode 100644 binaries/.gitignore
->  create mode 100644 images/Makefile
->  create mode 100644 images/alpine/x86_64-build.dockerfile
->  create mode 100644 images/alpine/x86_64-rootfs.dockerfile
->  create mode 100755 scripts/x86_64-argo-linux.sh
->  create mode 100755 scripts/x86_64-kernel-linux.sh
->  create mode 100755 scripts/x86_64-rootfs-alpine.sh
+>  automation/gitlab-ci/build.yaml               |  6 ++
+>  automation/gitlab-ci/test.yaml                | 16 ++++
+>  .../scripts/xilinx-smoke-dom0-x86_64.sh       | 76 +++++++++++++------
+>  3 files changed, 73 insertions(+), 25 deletions(-)
 > 
-> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-> new file mode 100644
-> index 0000000..f2f7738
-> --- /dev/null
-> +++ b/.gitlab-ci.yml
-> @@ -0,0 +1,48 @@
-> +workflow:
-> +  name: "xen test artifacts"
-> +
-> +.artifacts:
-> +  stage: build
-> +  image:
-> +    name: registry.gitlab.com/xen-project/people/victormlira/test-artifacts/${CONTAINER}
-
-This of course needs to be changed before the series is committed
-
-
-> +  artifacts:
-> +    name: "${CI_JOB_NAME_SLUG}"
-> +    paths:
-> +      - binaries/
-> +
-> +.x86_64-artifacts:
-> +  extends: .artifacts
-> +  image:
-> +    docker:
-> +      platform: linux/amd64
-> +      user: xenproject
-> +  variables:
-> +    CONTAINER: alpine:x86_64-build
-> +  tags:
-> +    - x86_64
-> +
-> +x86_64-kernel-linux-6.6.56:
-> +  extends: .x86_64-artifacts
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index c2db69ecf8..f425744f8b 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -340,6 +340,12 @@ alpine-3.18-gcc-debug:
+>    variables:
+>      CONTAINER: alpine:3.18
+>      BUILD_QEMU_XEN: y
+> +    EXTRA_XEN_CONFIG: |
+> +      CONFIG_EXPERT=y
+> +      CONFIG_UNSUPPORTED=y
+> +      CONFIG_ARGO=y
+> 
+>  debian-bookworm-gcc-debug:
+>    extends: .gcc-x86-64-build-debug
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index b27c2be174..2d4709d393 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -192,6 +192,22 @@ xilinx-smoke-dom0-x86_64-gcc-debug:
+>      - *x86-64-test-needs
+>      - alpine-3.18-gcc-debug
+> 
+> +xilinx-smoke-dom0-x86_64-gcc-debug-argo:
+> +  extends: .xilinx-x86_64
 > +  script:
-> +    - . scripts/x86_64-kernel-linux.sh
-> +  variables:
-> +    LINUX_VERSION: 6.6.56
-> +
-> +x86_64-rootfs-alpine-3.18:
-> +  extends: .x86_64-artifacts
-> +  variables:
-> +    CONTAINER: alpine:x86_64-rootfs
-> +  image:
-> +    docker:
-> +      user: root
-> +  script:
-> +    - . scripts/x86_64-rootfs-alpine.sh
-> +
-> +x86_64-argo-linux-6.6.56:
-> +  extends: .x86_64-artifacts
-> +  script:
-> +    - . scripts/x86_64-argo-linux.sh
-> +  variables:
-> +    LINUX_VERSION: 6.6.56
-> +    ARGO_SHA: "705a7a8a624b42e13e655d3042059b8a85cdf6a3"
-> +    ARGOEXEC_SHA: "d900429f6640acc6f68a3d3a4c945d7da60625d8"
-> diff --git a/README.md b/README.md
-> new file mode 100644
-> index 0000000..0d72519
-> --- /dev/null
-> +++ b/README.md
-> @@ -0,0 +1,10 @@
-> +# Xen Project Test Artifacts
-> +
-> +## Overview
-> +
-> +This repository is used to produce common artifacts for Xen tests.
-> +
-> +##
-> +
-> +
-> +##
-> diff --git a/binaries/.gitignore b/binaries/.gitignore
-> new file mode 100644
-> index 0000000..95e2a2e
-> --- /dev/null
-> +++ b/binaries/.gitignore
-> @@ -0,0 +1,3 @@
-> +# Keep this directory around to be available in CI/CD jobs.
-> +*
-> +!.gitignore
-> diff --git a/images/Makefile b/images/Makefile
-> new file mode 100644
-> index 0000000..41638d7
-> --- /dev/null
-> +++ b/images/Makefile
-> @@ -0,0 +1,20 @@
-> +
-> +# The base of where these containers will appear
-> +REGISTRY := registry.gitlab.com/xen-project/people/victormlira/test-artifacts
+> +    - ./automation/scripts/xilinx-smoke-dom0-x86_64.sh argo 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - alpine-3.18-gcc-debug
+> +    - project: xen-project/people/victormlira/test-artifacts
 
-also this
+This needs to be changed before commit
+
+Overall this looks great, thank you for exploring this option! Much
+better than before.
+
+This patch does some nice refactoring and also add the argo test. I
+would ask that you split it into two patches, the first one does the
+refactoring, the second one add the argo test
 
 
-> +CONTAINERS = $(subst .dockerfile,,$(wildcard */*.dockerfile))
-> +
-> +help:
-> +	@echo "Containers to build test artifacts."
-> +	@echo "To build one run 'make DISTRO/TAG'."
-> +	@echo "Available containers:"
-> +	@$(foreach file,$(sort $(CONTAINERS)),echo ${file};)
-> +	@echo "To push container builds, set the environment variable PUSH"
-> +
-> +%: %.dockerfile ## Builds containers
-> +	docker build --pull -t $(REGISTRY)/$(@D):$(@F) -f $< $(<D)
-> +	@if [ ! -z $${PUSH+x} ]; then \
-> +		docker push $(REGISTRY)/$(@D):$(@F); \
-> +	fi
-> +
-> +.PHONY: all
-> +all: $(CONTAINERS)
-> diff --git a/images/alpine/x86_64-build.dockerfile b/images/alpine/x86_64-build.dockerfile
-> new file mode 100644
-> index 0000000..374952f
-> --- /dev/null
-> +++ b/images/alpine/x86_64-build.dockerfile
-> @@ -0,0 +1,25 @@
-> +# syntax=docker/dockerfile:1
-> +FROM --platform=linux/amd64 alpine:3.18
-> +LABEL maintainer.name="The Xen Project" \
-> +      maintainer.email="xen-devel@lists.xenproject.org"
-> +
-> +WORKDIR /build/
-> +
-> +RUN <<EOF
-> +adduser -D xenproject
-> +apk --no-cache add \
-> +      musl-dev  \
-> +      build-base \
-> +      libc6-compat \
-> +      linux-headers \
-> +      bash \
-> +      git \
-> +      curl \
-> +      flex \
-> +      bison \
-> +      elfutils-dev \
-> +      autoconf \
-> +      automake \
-> +      libtool \
-> +      openssl-dev
 
-
-Use the DEPS variable like here to make it a bit more readable:
-automation/build/fedora/40-x86_64.dockerfile
-
-
-> +EOF
-> diff --git a/images/alpine/x86_64-rootfs.dockerfile b/images/alpine/x86_64-rootfs.dockerfile
-> new file mode 100644
-> index 0000000..b912e9c
-> --- /dev/null
-> +++ b/images/alpine/x86_64-rootfs.dockerfile
-> @@ -0,0 +1,4 @@
-> +# syntax=docker/dockerfile:1
-> +FROM --platform=linux/amd64 alpine:3.18
-> +LABEL maintainer.name="The Xen Project" \
-> +      maintainer.email="xen-devel@lists.xenproject.org"
-> diff --git a/scripts/x86_64-argo-linux.sh b/scripts/x86_64-argo-linux.sh
-> new file mode 100755
-> index 0000000..a110a33
-> --- /dev/null
-> +++ b/scripts/x86_64-argo-linux.sh
-> @@ -0,0 +1,63 @@
-> +#!/usr/bin/env bash
+> +      job: x86_64-kernel-linux-6.6.56
+> +      ref: vml-tests-separate-artifacts
+> +    - project: xen-project/people/victormlira/test-artifacts
+> +      job: x86_64-rootfs-alpine-3.18
+> +      ref: vml-tests-separate-artifacts
+> +    - project: xen-project/people/victormlira/test-artifacts
+> +      job: x86_64-argo-linux-6.6.56
+> +      ref: vml-tests-separate-artifacts
 > +
-> +if test -z "${LINUX_VERSION}"
-> +then
-> +    >&2 echo "LINUX_VERSION must be set"; exit 1
-> +fi
-> +
-> +set -ex -o pipefail
-> +
-> +BUILDDIR="${PWD}"
-> +COPYDIR="${BUILDDIR}/binaries/"
-> +
-> +# Prepare Linux sources
-> +curl -fsSLO \
-> +    https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-"${LINUX_VERSION}".tar.xz
-> +tar xJf linux-"${LINUX_VERSION}".tar.xz
-> +cd linux-"${LINUX_VERSION}"
-> +make ARCH=x86 defconfig
-> +make ARCH=x86 xen.config
-> +./scripts/config --enable BRIDGE
-> +./scripts/config --enable IGC
-> +./scripts/config --enable TUN
-> +cp .config .config.orig
-> +cat .config.orig \
-> +    | grep 'XEN' \
-> +    | grep '=m' \
-> +    | sed 's/=m/=y/g' \
-> +    >> .config
-> +make ARCH=x86 olddefconfig
-> +make ARCH=x86 modules_prepare
-> +
-> +# Build Linux kernel module for Xen Argo
-> +cd "${BUILDDIR}"
-> +git clone \
-> +    --depth=1 --branch=master \
-> +    https://github.com/OpenXT/linux-xen-argo.git
-> +git -C "${BUILDDIR}/linux-xen-argo" switch --detach "${ARGO_SHA}"
-> +make -C "linux-${LINUX_VERSION}" M="${BUILDDIR}/linux-xen-argo/argo-linux" \
-> +    CFLAGS_MODULE="-Wno-error" KBUILD_MODPOST_WARN=1
-> +cp "linux-xen-argo/argo-linux/xen-argo.ko" "${COPYDIR}/xen-argo.ko"
-> +
-> +# Build Linux libargo shared library, applying fixes to build in Alpine Linux
-> +cd "${BUILDDIR}/linux-xen-argo/libargo"
-> +sed -i "s|AM_INIT_AUTOMAKE|AC_CONFIG_AUX_DIR(.)\nAM_INIT_AUTOMAKE|" configure.ac
-> +sed -i "s/__SOCKADDR_COMMON (sxenargo_)/sa_family_t sxenargo_family/" src/libargo.h
-> +sed -i "s/__SOCKADDR_COMMON_SIZE/(sizeof (unsigned short int))/" src/libargo.h
-> +autoreconf --install
-> +./configure --prefix="${COPYDIR}" CPPFLAGS="-I${PWD}/../argo-linux/include"
-> +make
-> +make install
-> +
-> +# Build Linux user program, modifying for xilinx argo test
-> +cd "${BUILDDIR}"
-> +wget "https://raw.githubusercontent.com/OpenXT/xenclient-oe/${ARGOEXEC_SHA}/\
-> +recipes-openxt/argo-exec/argo-exec/argo-exec.c"
-> +sed -i "s|#include <xen/xen.h>||" argo-exec.c
-> +sed -i "s|ret = shuffle(s, fds\[0\], fds\[1\]);|ret = shuffle(s, 0, 1);|" \
-> +    argo-exec.c
-> +gcc -I"${BUILDDIR}/linux-xen-argo/libargo/src" \
-> +    -I"${BUILDDIR}/linux-xen-argo/argo-linux/include" \
-> +    -L"${COPYDIR}/lib/" \
-> +    -o argo-exec argo-exec.c -largo
-> +cp argo-exec "${COPYDIR}"
-> diff --git a/scripts/x86_64-kernel-linux.sh b/scripts/x86_64-kernel-linux.sh
-> new file mode 100755
-> index 0000000..17be36b
-> --- /dev/null
-> +++ b/scripts/x86_64-kernel-linux.sh
-> @@ -0,0 +1,31 @@
-> +#!/usr/bin/env bash
-> +
-> +if test -z "${LINUX_VERSION}"
-> +then
-> +    >&2 echo "LINUX_VERSION must be set"; exit 1
-> +fi
-> +
-> +set -ex -o pipefail
-> +
-> +WORKDIR="${PWD}"
-> +COPYDIR="${WORKDIR}/binaries/"
-> +
-> +# Build Linux
-> +curl -fsSLO \
-> +    https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-"${LINUX_VERSION}".tar.xz
-> +tar xJf linux-"${LINUX_VERSION}".tar.xz
-> +cd linux-"${LINUX_VERSION}"
-> +make ARCH=x86 defconfig
-> +make ARCH=x86 xen.config
-> +./scripts/config --enable BRIDGE
-> +./scripts/config --enable IGC
-> +./scripts/config --enable TUN
-> +cp .config .config.orig
-> +cat .config.orig \
-> +    | grep 'XEN' \
-> +    | grep '=m' \
-> +    | sed 's/=m/=y/g' \
-> +    >> .config
-> +make ARCH=x86 olddefconfig
-> +make ARCH=x86 "-j$(nproc)" --quiet
-> +cp arch/x86/boot/bzImage "${COPYDIR}"
-> diff --git a/scripts/x86_64-rootfs-alpine.sh b/scripts/x86_64-rootfs-alpine.sh
-> new file mode 100755
-> index 0000000..28d8e30
-> --- /dev/null
-> +++ b/scripts/x86_64-rootfs-alpine.sh
-> @@ -0,0 +1,58 @@
+>  adl-smoke-x86-64-gcc-debug:
+>    extends: .adl-x86-64
+>    script:
+> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> index 7027f083ba..f70cfdc155 100755
+> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> @@ -9,6 +9,8 @@ fatal() {
+>      exit 1
+>  }
+> 
 > +WORKDIR="${PWD}"
 > +
-> +apk update
-> +
-> +# xen runtime deps
-> +apk add musl
-> +apk add libgcc
-> +apk add openrc
-> +apk add busybox
-> +apk add sudo
-> +apk add dbus
-> +apk add bash
-> +apk add python3
-> +apk add zlib
-> +apk add ncurses
-> +apk add yajl
-> +apk add libaio
-> +apk add xz
-> +apk add util-linux
-> +apk add argp-standalone
-> +apk add libfdt
-> +apk add glib
-> +apk add pixman
-> +apk add curl
-> +apk add udev
-> +apk add pciutils
-> +apk add libelf
-> +
-> +# Xen
-> +cd /
-> +# Minimal ramdisk environment in case of cpio output
-> +rc-update add udev
-> +rc-update add udev-trigger
-> +rc-update add udev-settle
-> +rc-update add loopback sysinit
-> +rc-update add bootmisc boot
-> +rc-update add devfs sysinit
-> +rc-update add dmesg sysinit
-> +rc-update add hostname boot
-> +rc-update add hwclock boot
-> +rc-update add hwdrivers sysinit
-> +rc-update add modules boot
-> +rc-update add killprocs shutdown
-> +rc-update add mount-ro shutdown
-> +rc-update add savecache shutdown
-> +rc-update add local default
-> +cp -a /sbin/init /init
-> +echo "ttyS0" >> /etc/securetty
-> +echo "hvc0" >> /etc/securetty
-> +echo "ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100" >> /etc/inittab
-> +echo "hvc0::respawn:/sbin/getty -L hvc0 115200 vt100" >> /etc/inittab
-> +echo > /etc/modules
-> +passwd -d "root" root
-> +
-> +# Create rootfs
-> +cd /
-> +tar cvzf "${WORKDIR}/binaries/initrd.tar.gz" \
-> +    bin dev etc home init lib mnt opt root sbin usr var
+>  # Test parameter defaults.
+>  TEST="$1"
+>  PASS_MSG="Test passed: ${TEST}"
+> @@ -24,9 +26,10 @@ kernel = "/boot/vmlinuz"
+>  ramdisk = "/boot/initrd-domU"
+>  extra = "root=/dev/ram0 console=hvc0"
+>  memory = 512
+> -vif = [ "bridge=xenbr0", ]
+> -disk = [ ]
+>  '
+> +DOMU_CFG_EXTRA=""
+> +copy_domU_files () { :; }
+> +copy_dom0_files () { :; }
+> 
+>  # Select test variant.
+>  if [ "${TEST}" = "ping" ]; then
+> @@ -39,6 +42,14 @@ done
+>  echo \"${DOMU_MSG}\"
+>  "
+>      DOM0_CMD="
+> +brctl addbr xenbr0
+> +brctl addif xenbr0 eth0
+> +ifconfig eth0 up
+> +ifconfig xenbr0 up
+> +ifconfig xenbr0 192.168.0.1
+> +# get domU console content into test log
+> +tail -F /var/log/xen/console/guest-domU.log 2>/dev/null | sed -e \"s/^/(domU) /\" &
+> +xl create /etc/xen/domU.cfg
+
+This is something that should go in the refactoring patch
+
+
+>  set +x
+>  until grep -q \"${DOMU_MSG}\" /var/log/xen/console/guest-domU.log; do
+>      sleep 1
+> @@ -46,6 +57,34 @@ done
+>  set -x
+>  echo \"${PASS_MSG}\"
+>  "
+> +    DOMU_CFG_EXTRA='
+> +vif = [ "bridge=xenbr0", ]
+> +disk = [ ]
+> +'
+> +elif [ "${TEST}" = "argo" ]
+> +then
+> +    PASS_MSG="TEST: Message from DOMU"
+> +    XEN_CMD_EXTRA="argo=1,mac-permissive=1"
+> +    DOMU_CMD="
+> +insmod /root/xen-argo.ko
+> +until false
+> +do
+> +  echo \"${PASS_MSG}\"
+> +  sleep 1
+> +done | argo-exec -p 28333 -d 0 -- /bin/echo
+> +"
+> +    DOM0_CMD="
+> +insmod /root/xen-argo.ko
+> +xl create /etc/xen/domU.cfg
+> +argo-exec -l -p 28333 -- /bin/echo
+> +"
+> +copy_dom0_files ()
+> +{
+> +    cp "${WORKDIR}/binaries/xen-argo.ko" "root/"
+> +    cp -ar "${WORKDIR}/binaries/lib/"* "usr/local/lib/"
+> +    cp "${WORKDIR}/binaries/argo-exec" "usr/local/bin/"
+> +}
+> +copy_domU_files () { copy_dom0_files; }
+>  else
+>      fatal "Unknown test: ${TEST}"
+>  fi
+> @@ -54,18 +93,18 @@ fi
+>  mkdir -p rootfs
+>  cd rootfs
+>  tar xzf ../binaries/initrd.tar.gz
+> -mkdir proc
+> -mkdir run
+> -mkdir srv
+> -mkdir sys
+> +mkdir proc run srv sys
+>  rm var/run
+>  echo "#!/bin/sh
+> -
+> +set -x
+> +export LD_LIBRARY_PATH=/usr/local/lib
+> +PATH=/usr/local/bin:/usr/local/sbin:\$PATH
+>  ${DOMU_CMD}
+>  " > etc/local.d/xen.start
+>  chmod +x etc/local.d/xen.start
+>  echo "rc_verbose=yes" >> etc/rc.conf
+>  sed -i -e 's/^Welcome/domU \0/' etc/issue
+> +copy_domU_files
+>  find . | cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
+>  cd ..
+>  rm -rf rootfs
+> @@ -74,37 +113,24 @@ rm -rf rootfs
+>  mkdir -p rootfs
+>  cd rootfs
+>  tar xzf ../binaries/initrd.tar.gz
+> -mkdir boot
+> -mkdir proc
+> -mkdir run
+> -mkdir srv
+> -mkdir sys
+> +mkdir boot proc run srv sys
+>  rm var/run
+>  cp -ar ../binaries/dist/install/* .
+>  echo "#!/bin/bash
+> -
+> +set -x
+>  export LD_LIBRARY_PATH=/usr/local/lib
+>  bash /etc/init.d/xencommons start
+> -
+> -brctl addbr xenbr0
+> -brctl addif xenbr0 eth0
+> -ifconfig eth0 up
+> -ifconfig xenbr0 up
+> -ifconfig xenbr0 192.168.0.1
+> -
+> -# get domU console content into test log
+> -tail -F /var/log/xen/console/guest-domU.log 2>/dev/null | sed -e \"s/^/(domU) /\" &
+> -xl create /etc/xen/domU.cfg
+>  ${DOM0_CMD}
+>  " > etc/local.d/xen.start
+>  chmod +x etc/local.d/xen.start
+> -echo "${DOMU_CFG}" > etc/xen/domU.cfg
+> +echo "${DOMU_CFG}${DOMU_CFG_EXTRA}" > etc/xen/domU.cfg
+>  echo "rc_verbose=yes" >> etc/rc.conf
+>  echo "XENCONSOLED_TRACE=all" >> etc/default/xencommons
+>  echo "QEMU_XEN=/bin/false" >> etc/default/xencommons
+>  mkdir -p var/log/xen/console
+>  cp ../binaries/bzImage boot/vmlinuz
+>  cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
+> +copy_dom0_files
+>  find . | cpio -H newc -o | gzip > ../binaries/dom0-rootfs.cpio.gz
+>  cd ..
+> 
+> @@ -116,7 +142,7 @@ cp -f binaries/bzImage ${TFTP}/${TEST_BOARD}/vmlinuz
+>  cp -f binaries/dom0-rootfs.cpio.gz ${TFTP}/${TEST_BOARD}/initrd-dom0
+>  echo "
+>  net_default_server=10.0.6.1
+> -multiboot2 (tftp)/${TEST_BOARD}/xen ${XEN_CMDLINE}
+> +multiboot2 (tftp)/${TEST_BOARD}/xen ${XEN_CMDLINE} sync_console
+>  module2 (tftp)/${TEST_BOARD}/vmlinuz console=hvc0 root=/dev/ram0 earlyprintk=xen
+>  module2 (tftp)/${TEST_BOARD}/initrd-dom0
+>  boot
 > --
 > 2.25.1
 > 
---8323329-1240544370-1729659133=:3833--
+--8323329-1484776461-1729659390=:3833--
 
