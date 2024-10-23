@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE2609AC85D
+	by mail.lfdr.de (Postfix) with ESMTPS id BF9EE9AC85E
 	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 12:58:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824523.1238661 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.824524.1238668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3Z43-0000Rs-NE; Wed, 23 Oct 2024 10:58:07 +0000
+	id 1t3Z43-0000Ut-V7; Wed, 23 Oct 2024 10:58:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824523.1238661; Wed, 23 Oct 2024 10:58:07 +0000
+Received: by outflank-mailman (output) from mailman id 824524.1238668; Wed, 23 Oct 2024 10:58:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3Z43-0000P2-JZ; Wed, 23 Oct 2024 10:58:07 +0000
-Received: by outflank-mailman (input) for mailman id 824523;
+	id 1t3Z43-0000RQ-QE; Wed, 23 Oct 2024 10:58:07 +0000
+Received: by outflank-mailman (input) for mailman id 824524;
  Wed, 23 Oct 2024 10:58:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jJ8W=RT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3Z42-0000Oq-04
+ id 1t3Z42-0000Ow-Np
  for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 10:58:06 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad5886f6-912d-11ef-a0be-8be0dac302b0;
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ada6390a-912d-11ef-99a3-01e77a169b0f;
  Wed, 23 Oct 2024 12:58:04 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a9abe139088so110184266b.1
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5c9552d02e6so8441646a12.2
  for <xen-devel@lists.xenproject.org>; Wed, 23 Oct 2024 03:58:04 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a91571e3asm462067266b.147.2024.10.23.03.58.01
+ a640c23a62f3a-a9a91571e3asm462067266b.147.2024.10.23.03.58.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Oct 2024 03:58:01 -0700 (PDT)
+ Wed, 23 Oct 2024 03:58:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad5886f6-912d-11ef-a0be-8be0dac302b0
+X-Inumbo-ID: ada6390a-912d-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729681082; x=1730285882; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WQPh81xtFENULW7Sdg6zMAc0S3AL4e1v95IRrppl4HM=;
-        b=JkxUAWBxu2hsyvt75MsOiLfWP97KhX1oJdIcKF73gPRjn4DdeYewuBG3ebh3x8uxdq
-         VKvSJ6X1qh2yvEwrdPNZA7h9p2bAT3QPVomEyVtsmJAlyU+0yrpRJ8g/JehMBWuK2Pdi
-         7faWl/qbECeHDYral2kSlu2hAIe3pcdNUonDk=
+        d=citrix.com; s=google; t=1729681083; x=1730285883; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PiZxguWTJ+3SGGRPO/U42i+dgE2giroEnnA16gZDT+E=;
+        b=s4OgVZ/jlkzgse03D5AIgVo0muFxwE5V9Bm/sWLzl8UW5er4HgVbaJdPBkwj+B8meS
+         y77qFkzbP6GEMpISWzzZT5yi7EtCWouPdXhvLIjVeoSs+zTu8a0w0tOVzD2Df8Igaz4p
+         OGxr50OpH0Fr+qSz+6HWN7bkIX+TiwVGB51RI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729681082; x=1730285882;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WQPh81xtFENULW7Sdg6zMAc0S3AL4e1v95IRrppl4HM=;
-        b=AXBU48W3sGAmhgabESi2+J0AWiK2XXe0eMRolxbRjBYUx6yKJF2diS4UgF9uKiWEjm
-         iU3l4/z6rJP7fqplQmTxziRx/uLofisom+gcTnF000GTHH1UaXaT6LP8sSp52jACNGzI
-         7tjE4hrwaX4w8VXbOG+p9UDUzRPMcM/SnAgvPJbpKWCMSeZkPB9lSDxUYwSVKbyldNeQ
-         aQa4ElQGbxsFhPMH5dXojbL5k//X5GSidOYlo1ujKJtMhUWW5jAAKFcfQYZIHPyp78AE
-         Gj6AHipT/Z66k1HN+Aee1R8UlRx48K2QAbpk33sFK/qvz2VgdzQHCC6L+mJ6AeGduICz
-         AVww==
-X-Gm-Message-State: AOJu0YwJ5d5+xje4HKb66LbUPDxXnMM9Xu5c6KDxgPKFz3ab2sWX9CtT
-	0WFeoZNmtUMSAeAYZlKyzG3G5Ey0AHBESI2fW1L4kvEYi7+ul1CCPG0qnGV3evJQFuN4nq0T5c0
-	h
-X-Google-Smtp-Source: AGHT+IH9UbSKHDQ9RVjImqa6qbXpoZhnVDX+40rh+9cycN7R/md5b3FIPux7uuJDwtgfj+oMO76KIg==
-X-Received: by 2002:a17:907:72cb:b0:a99:f466:a87a with SMTP id a640c23a62f3a-a9abf84b5f2mr218160066b.3.1729681082331;
-        Wed, 23 Oct 2024 03:58:02 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1729681083; x=1730285883;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PiZxguWTJ+3SGGRPO/U42i+dgE2giroEnnA16gZDT+E=;
+        b=pT0x9BQPEFlFLmgm1X426/GexA5yCG9GOr8HQgiL89RSajQ6AY0eBdgoPA3aJRBV6C
+         A+VETYmmBwEtHbdGVl+AWPTu8DtJPxbFVVekjZAhakNXyqhA/X37nIZY5ZUL/QlG7Eor
+         AIbsyWewa0Fz/0I9KJOhPKYB86w7TEaAnmxBNd7jfXhU1DnY6CRSAU+YO6yGlHpdjiEA
+         OfLQ97Ag9tloRQam3mzS1TgcCDzR3qcygSCkb8RVDwXEm41VkuLdQaIpqvDvFYD1w+lj
+         vjF9ZWVugu7WERHm1dzzpMKOaxC85aDN3d0I4/Hd7IwJPteDcUdZREezpMfEGsstUkMs
+         IopQ==
+X-Gm-Message-State: AOJu0YzYIRSuiFuNw/pB9ZZMaS0xenti2mOtcBtJeZm0t352HjNGGLyZ
+	4MOa/hFKA3Nnk3DCLhYLvoJJShxODM+GcLdIOl1YNRpzoHHLM7uL3Z0vceBwzuI+riO7buLMIPV
+	n
+X-Google-Smtp-Source: AGHT+IFIsPAa9xnQjyqUO5z1QLm+iAT23rgeuuNu8jOjdEAWIoFppgJ0o4PiStlDqAVfIkqcIX3EZA==
+X-Received: by 2002:a17:907:9811:b0:a99:eb94:3e37 with SMTP id a640c23a62f3a-a9abf964492mr168095366b.58.1729681083050;
+        Wed, 23 Oct 2024 03:58:03 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH 0/3] x86/boot: Yet more PVH module handling fixes
-Date: Wed, 23 Oct 2024 11:57:53 +0100
-Message-Id: <20241023105756.641695-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 1/3] x86/boot: Add a temporary module_map pointer to boot_image
+Date: Wed, 23 Oct 2024 11:57:54 +0100
+Message-Id: <20241023105756.641695-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20241023105756.641695-1-andrew.cooper3@citrix.com>
+References: <20241023105756.641695-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It turns out microcode and XSM module handling has been broken ever since PVH
-boot was introduced.  Both appear to have have gone unnoticed because their
-functionality isn't typically used in PVH guests.
+... in order to untangle parameter handling independently from other other
+logic changes.
 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1508716668
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+ xen/arch/x86/include/asm/bootinfo.h | 1 +
+ xen/arch/x86/setup.c                | 1 +
+ 2 files changed, 2 insertions(+)
 
-Andrew Cooper (1):
-  x86/boot: Add a temporary module_map pointer to boot_image
-
-Daniel P. Smith (2):
-  x86/boot: Fix microcode module handling during PVH boot
-  x86/boot: Fix XSM module handling during PVH boot
-
- xen/arch/x86/cpu/microcode/core.c    | 40 +++++++++++-----------------
- xen/arch/x86/include/asm/bootinfo.h  |  1 +
- xen/arch/x86/include/asm/microcode.h |  8 +++---
- xen/arch/x86/setup.c                 | 10 ++++---
- xen/include/xsm/xsm.h                | 12 ++++-----
- xen/xsm/xsm_core.c                   |  7 +++--
- xen/xsm/xsm_policy.c                 | 16 +++++------
- 7 files changed, 43 insertions(+), 51 deletions(-)
-
+diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+index ffa443406747..6237da7e4d86 100644
+--- a/xen/arch/x86/include/asm/bootinfo.h
++++ b/xen/arch/x86/include/asm/bootinfo.h
+@@ -31,6 +31,7 @@ struct boot_info {
+     size_t memmap_length;
+ 
+     unsigned int nr_modules;
++    unsigned long *module_map; /* Temporary */
+     struct boot_module mods[MAX_NR_BOOTMODS + 1];
+ };
+ 
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index c5b37bd2112e..d8001867c925 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1086,6 +1086,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+     }
+ 
+     bi = multiboot_fill_boot_info(mbi, mod);
++    bi->module_map = module_map; /* Temporary */
+ 
+     /* Parse the command-line options. */
+     if ( (kextra = strstr(bi->cmdline, " -- ")) != NULL )
 -- 
 2.39.5
 
