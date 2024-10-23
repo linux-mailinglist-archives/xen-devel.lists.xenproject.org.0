@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416139ACA08
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 14:28:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824591.1238743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0BB79ACAC6
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2024 15:10:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824605.1238751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3aTD-0008Nu-Jj; Wed, 23 Oct 2024 12:28:11 +0000
+	id 1t3b7s-0006U3-Op; Wed, 23 Oct 2024 13:10:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824591.1238743; Wed, 23 Oct 2024 12:28:11 +0000
+Received: by outflank-mailman (output) from mailman id 824605.1238751; Wed, 23 Oct 2024 13:10:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3aTD-0008Kk-G0; Wed, 23 Oct 2024 12:28:11 +0000
-Received: by outflank-mailman (input) for mailman id 824591;
- Wed, 23 Oct 2024 12:28:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jJ8W=RT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3aTB-0008KR-NI
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 12:28:09 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42c09a9b-913a-11ef-a0be-8be0dac302b0;
- Wed, 23 Oct 2024 14:28:08 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-53b13ea6b78so3183739e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Oct 2024 05:28:08 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a91572475sm470923866b.154.2024.10.23.05.28.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Oct 2024 05:28:06 -0700 (PDT)
+	id 1t3b7s-0006Rg-M7; Wed, 23 Oct 2024 13:10:12 +0000
+Received: by outflank-mailman (input) for mailman id 824605;
+ Wed, 23 Oct 2024 13:10:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=W0hE=RT=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1t3b7r-0006Ra-EE
+ for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 13:10:11 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 20f24c40-9140-11ef-99a3-01e77a169b0f;
+ Wed, 23 Oct 2024 15:10:09 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5D73321FAB;
+ Wed, 23 Oct 2024 13:10:08 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 14DB113A63;
+ Wed, 23 Oct 2024 13:10:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id i8SwA7D1GGe2dwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 23 Oct 2024 13:10:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,78 +52,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42c09a9b-913a-11ef-a0be-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729686487; x=1730291287; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=enwoEkHrB4PVkQyUNobQYIVu5lajkhVSiVikEltYAlI=;
-        b=n5gAfo0peHssfhOOhPnV81mg6sxjCcP2yVacFIOZenyRInRXFatIYdWAjl0j4sFbkQ
-         o3Eqo6bVdpX0BGVrOBvpQilie+mkgJHK13rKsx/VM9iRrJQES2yoyKNejRLifhwfDKav
-         vy84Sd9Keuso3vx/Ux0ScFdkFjlPUzf3PIeeg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729686487; x=1730291287;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=enwoEkHrB4PVkQyUNobQYIVu5lajkhVSiVikEltYAlI=;
-        b=FQkjNFwirpX/zLpNI9uDMvQYJNpLFEwbta6iF6MX5MgCHiVaS79BGq1AxG5AiDrP0k
-         4XyUuYlB8FWNC8J3kqXpfqdrsICs8wO05hTIFfymujRu5Ctg+/gL81EP5oLQF5oCR8wp
-         8bUctSM5CCDv57So8RMsI9VGu9tESlmZ64BdQGH1hia+8KulqUThEEpeEVb06FbhoNoj
-         rVftwh/GJrCRrXexxc5VtWD7Is3CuuGoFuGOHBIWmG5OoXwMm020D3DZbr+TcFPfk6Ui
-         lT5JnIiGuSTz+bm8FjynyNOWkNrjfXjFKhJBpH4AMfjb27kr8QuvM1lpzHeSclNejyY1
-         cCQQ==
-X-Gm-Message-State: AOJu0YzwUQ0eAhPmFTAgJLCmjl2L5s7CbbB3S+OaCvv20UbjANg+t2P1
-	9dPziKDsJK21JukD/n91WPpF1RteSX3MTy8AthBq8xrqr1hAVKxrhpqNLh/HkW/mn0kISc59eTF
-	l
-X-Google-Smtp-Source: AGHT+IH6VStbYMME9i+lTuj6kH2ADIr0Y1tOOU6dod5lSJYRODU8UOipoqRRed20R2DSAoumAMOWgw==
-X-Received: by 2002:a05:6512:23aa:b0:539:8cd1:848 with SMTP id 2adb3069b0e04-53b1a3bae89mr1802699e87.61.1729686487518;
-        Wed, 23 Oct 2024 05:28:07 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/ucode: Explain what microcode_set_module() does
-Date: Wed, 23 Oct 2024 13:28:03 +0100
-Message-Id: <20241023122803.670943-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 20f24c40-9140-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1729689008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=ONHU4wsU1jK2R7fCbxvNJAdPA+MIG+vJ/cB84F1Y9cw=;
+	b=uv1jYQvmRbe3SFB6YtNvc6l9/g8v+lRXXwcVx6GGeTjJEyUL1EeFpWqFIj8Ar+ZNBGqWLT
+	ptIgePm2UlQyXxDSL/tjzYpIwMckX2LwugpVUhmYqw2rusBKcEiYrvvZh2P6VsW0qSbDMY
+	wmUqmWE5QPNXSf+Xd7SYyGtXmfbL7bk=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=uv1jYQvm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1729689008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=ONHU4wsU1jK2R7fCbxvNJAdPA+MIG+vJ/cB84F1Y9cw=;
+	b=uv1jYQvmRbe3SFB6YtNvc6l9/g8v+lRXXwcVx6GGeTjJEyUL1EeFpWqFIj8Ar+ZNBGqWLT
+	ptIgePm2UlQyXxDSL/tjzYpIwMckX2LwugpVUhmYqw2rusBKcEiYrvvZh2P6VsW0qSbDMY
+	wmUqmWE5QPNXSf+Xd7SYyGtXmfbL7bk=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>
+Subject: [PATCH 0/6] remove libxenctrl usage from xenstored
+Date: Wed, 23 Oct 2024 15:09:59 +0200
+Message-ID: <20241023131005.32144-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 5D73321FAB
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+Xenstored is using libxenctrl for only one purpose: to get information
+about state of domains.
 
-I found this hiding in other microcode changes, and decided it was high time
-it got included.
----
- xen/arch/x86/cpu/microcode/core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This patch series is removing that dependency by introducing a new
+stable interface which can be used by xenstored instead.
 
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 8564e4d2c94c..dc2c064cf176 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -108,6 +108,10 @@ static bool ucode_in_nmi = true;
- /* Protected by microcode_mutex */
- static const struct microcode_patch *microcode_cache;
- 
-+/*
-+ * Used by the EFI path only, when xen.cfg identifies an explicit microcode
-+ * file.  Overrides ucode=<int>|scan on the regular command line.
-+ */
- void __init microcode_set_module(unsigned int idx)
- {
-     ucode_mod_idx = idx;
+There was a RFC series sent out 3 years ago, which I have taken as a
+base and by addressing all comments from back then.
 
-base-commit: be84e7fe58b51f6b6dd907a038f0ef998a1e281e
-prerequisite-patch-id: ef20898eb25a7ca1ea2d7b1d676f00b91b46d5f6
-prerequisite-patch-id: e0d0c0acbe4864a00451187ef7232dcaf10b2477
-prerequisite-patch-id: f6010b4a6e0b43ac837aea470b3b5e5f390ee3b2
+The main differences since that RFC series are:
+
+- Instead of introducing an new main hypercall for a stable management
+  interface I have just added a new domctl sub-op, as requested in 2021.
+
+- I have added a new library libxenmanage for easy use of the new
+  stable hypervisor interface. Main motivation for adding the library
+  was the recent attempt to decouple oxenstored from the Xen git tree.
+  By using the new library, oxenstored could benefit in the same way as
+  xenstored from the new interface: it would be possible to rely on
+  stable libraries only.
+
+- Mini-OS has gained some more config options recently, so it was rather
+  easy to make xenstore[pvh]-stubdom independent from libxenctrl, too.
+
+- By moving the CPU barrier definitions out of xenctrl.h into a new
+  dedicated header xenstored code no longer needs to #include xenctrl.h,
+  thus removing any xenctrl reference from xenstored code.
+
+Please note that the last patch can be committed only after the related
+Mini-OS patch "config: add support for libxenmanage" has gone in AND
+the Mini-OS commit-id has been updated in Config.mk accordingly!
+
+Juergen Gross (6):
+  xen: add a domain unique id to each domain
+  xen: add bitmap to indicate per-domain state changes
+  xen: add new domctl get_changed_domain
+  tools/libs: add a new libxenmanage library
+  tools: add a dedicated header file for barrier definitions
+  tools/xenstored: use new stable interface instead of libxenctrl
+
+ stubdom/Makefile                    |   8 +-
+ stubdom/mini-os.mk                  |   1 +
+ tools/9pfsd/io.c                    |   5 +-
+ tools/flask/policy/modules/dom0.te  |   2 +-
+ tools/include/xen-barrier.h         |  51 +++++++++
+ tools/include/xenctrl.h             |  28 +----
+ tools/include/xenmanage.h           |  98 ++++++++++++++++
+ tools/libs/Makefile                 |   1 +
+ tools/libs/ctrl/Makefile            |   2 +-
+ tools/libs/manage/Makefile          |  10 ++
+ tools/libs/manage/Makefile.common   |   1 +
+ tools/libs/manage/core.c            | 170 ++++++++++++++++++++++++++++
+ tools/libs/manage/libxenmanage.map  |   8 ++
+ tools/libs/uselibs.mk               |   2 +
+ tools/xenstored/Makefile            |   2 +-
+ tools/xenstored/Makefile.common     |   2 +-
+ tools/xenstored/core.h              |   1 -
+ tools/xenstored/domain.c            |  52 ++++-----
+ tools/xenstored/lu.c                |   1 +
+ tools/xenstored/lu_daemon.c         |   1 +
+ xen/common/domain.c                 |  92 +++++++++++++++
+ xen/common/domctl.c                 |  19 +++-
+ xen/common/event_channel.c          |  11 +-
+ xen/include/public/domctl.h         |  33 ++++++
+ xen/include/xen/event.h             |   6 +
+ xen/include/xen/sched.h             |   7 ++
+ xen/include/xsm/dummy.h             |   8 ++
+ xen/include/xsm/xsm.h               |   6 +
+ xen/xsm/dummy.c                     |   1 +
+ xen/xsm/flask/hooks.c               |   7 ++
+ xen/xsm/flask/policy/access_vectors |   2 +
+ 31 files changed, 566 insertions(+), 72 deletions(-)
+ create mode 100644 tools/include/xen-barrier.h
+ create mode 100644 tools/include/xenmanage.h
+ create mode 100644 tools/libs/manage/Makefile
+ create mode 100644 tools/libs/manage/Makefile.common
+ create mode 100644 tools/libs/manage/core.c
+ create mode 100644 tools/libs/manage/libxenmanage.map
+
 -- 
-2.39.5
+2.43.0
 
 
