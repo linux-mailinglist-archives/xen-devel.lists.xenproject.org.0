@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8506F9AE8A0
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 16:27:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825351.1239599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A88399AE89E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 16:27:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825350.1239589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3ynt-0005SG-4B; Thu, 24 Oct 2024 14:27:09 +0000
+	id 1t3ynr-0005B9-S5; Thu, 24 Oct 2024 14:27:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825351.1239599; Thu, 24 Oct 2024 14:27:09 +0000
+Received: by outflank-mailman (output) from mailman id 825350.1239589; Thu, 24 Oct 2024 14:27:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3ynt-0005O8-0U; Thu, 24 Oct 2024 14:27:09 +0000
-Received: by outflank-mailman (input) for mailman id 825351;
- Thu, 24 Oct 2024 14:27:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t3ynr-00057H-Ly; Thu, 24 Oct 2024 14:27:07 +0000
+Received: by outflank-mailman (input) for mailman id 825350;
+ Thu, 24 Oct 2024 14:27:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jd6X=RU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3ynr-00048O-4m
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 14:27:07 +0000
+ id 1t3ynq-00048L-FE
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 14:27:06 +0000
 Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
  [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0afba90a-9214-11ef-99a3-01e77a169b0f;
- Thu, 24 Oct 2024 16:27:05 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0b4e705e-9214-11ef-a0bf-8be0dac302b0;
+ Thu, 24 Oct 2024 16:27:06 +0200 (CEST)
 Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c957d8bce2so510635a12.2
+ 4fb4d7f45d1cf-5cb72918bddso1308115a12.3
  for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 07:27:05 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cb66c6b4e4sm5707409a12.61.2024.10.24.07.27.02
+ 4fb4d7f45d1cf-5cb66c6b4e4sm5707409a12.61.2024.10.24.07.27.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Oct 2024 07:27:02 -0700 (PDT)
+ Thu, 24 Oct 2024 07:27:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0afba90a-9214-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 0b4e705e-9214-11ef-a0bf-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729780024; x=1730384824; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729780025; x=1730384825; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hkGTFmIsU8uVl1vUxZAmxH9TN/jWgRT2CVKi7nypqKo=;
-        b=kgCXbykcUw0gGRmGf6wSTmo6C8NZE0lXcwCsNn152Yv73OQOZPXePPzrhWNZ+VwzSu
-         NPaM8x9oZeJj8Y5CPul11qgxwuEXzn3SKMq9POt8PD6ZhoRGN+OPRqakBw1iIxlGdiID
-         jtM1jHs28nZv8Wu5AzLqgCsqTSlnxc9IX61fE=
+        bh=26Kd1CZ5EW/rvd6sicVOHZnpVwSK6DqF92g9LkP2sKY=;
+        b=LN+agBkzDbFDIvYPJbL2oCjm+JIKTvqpG7orGYGYkm67zySfejSgGW632EavNqqYkt
+         Ytk9NBc8n6/aFFwBFlcOa3n8GFcQW9JfzkAPDnWpDkmc8xFcXzyKd0xs+50+1p5CQXaQ
+         Cj5jOhqRIbo4izFyf2QTm1f4AuA3sCRI7mD8U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729780024; x=1730384824;
+        d=1e100.net; s=20230601; t=1729780025; x=1730384825;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=hkGTFmIsU8uVl1vUxZAmxH9TN/jWgRT2CVKi7nypqKo=;
-        b=xVZD//rXhOc5H6Cu2Rfe+fujad2e2VGSjGe9hhpUct9RTytClrOOYhY1gOmgCjM8tP
-         1WW/ai3nUQcHHsBPMyQMeNMIJD+3K3i7pl4KZsip8KNBAUJfsEEvqnP+vh5qe5AJbQ9q
-         fBpGdZu7kuNmRKqGbioIn/MDrDMe2B/l6B2GPxczKxNaIhkyPoB1RUy84TUBtH3JB9Iq
-         VGfRLpkGbECV0hYwUWVOhFsRw1bcm603ynZf9OtV8bPmZS5Aj07BFecl0U/59SPCWn1c
-         ebncySXJBxmA2b/Z4wW8BAzWSxGbnhICmMwI47bxCQXWJILHoJ+kAtl+Ua0FaSrcFh0o
-         D10A==
-X-Gm-Message-State: AOJu0YyEeSaPXcSnBIqAlnOiUiIjqJsLnqv6Ggn2CcJRPO+IkgQvuXrY
-	HXh+tI7roz+ch8srdJ3M8BXaIKXEH435ZVTEbhgoablU/0JIz/3qQ/6PMfnHX8w8LIAHRnHAePq
-	a
-X-Google-Smtp-Source: AGHT+IGFmhwnmNKSrxMQ2nLtOFpPT2TfElRIUQMDZRSNandfpDYCYSVT9qRaApu/eTcVnyxk677kEQ==
-X-Received: by 2002:a05:6402:3489:b0:5c9:48df:713c with SMTP id 4fb4d7f45d1cf-5cb8af7defbmr6676395a12.2.1729780023866;
-        Thu, 24 Oct 2024 07:27:03 -0700 (PDT)
+        bh=26Kd1CZ5EW/rvd6sicVOHZnpVwSK6DqF92g9LkP2sKY=;
+        b=EaPW3NBA7lrBk80fh2Tt/ywLThLahF0ip5ue1a2f0NSb2kXMIZwbqO35gEw9bZBAlv
+         +eXexfpMEfaeK5o9JuBFndlvWfXbH9cBor3BFJCR2JxTbfFAfT0zmeoakp4lqebnb7hc
+         Ue9y5Z0t4OXkuYuvQ4uwcKMSsvL2rSr79iUH2enOfBFpkj2k1UF3fCJ8OPDuQrf8Cin8
+         cYDkNgdQvv85jxzh4YkuKKvGvlzuuf6EJhhDz6WK8ZGbSO2hd8pOAkhGmsILfTQYePfu
+         IcRa91VuEGwUHphGjvQbthSVovrDOLvHiOQejPto+/fI0NaoREtWaYsr19MwmwNRX5P9
+         mdDg==
+X-Gm-Message-State: AOJu0YxKGDBx8GKnn9EPVcfdbbR0LfPLDVoqo4B0MyGogqPiWdTo/rRj
+	NSHmmBFXKct/ogG4hJxGhbfRdyke+eyZCHR8lCLQuxFdXw2BiWeVjeP+DodhzUn+s1KmL8VBBMR
+	J
+X-Google-Smtp-Source: AGHT+IHeJl50mZDISF1NQ6MLFe8fQzTOtXWRCvcbgTukvJ7hfs09TarAKjqp3QVYBzCgBU1kJbcCyw==
+X-Received: by 2002:a05:6402:254d:b0:5c9:4281:4515 with SMTP id 4fb4d7f45d1cf-5cb8acb7b0amr5833462a12.17.1729780024768;
+        Thu, 24 Oct 2024 07:27:04 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 4/5] x86/boot: Convert mod[] to bi->mods[] in __start_xen()
-Date: Thu, 24 Oct 2024 15:26:53 +0100
-Message-Id: <20241024142654.989980-5-andrew.cooper3@citrix.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH 5/5] x86/boot: Drop the mbi and mod pointers in __start_xen()
+Date: Thu, 24 Oct 2024 15:26:54 +0100
+Message-Id: <20241024142654.989980-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241024142654.989980-1-andrew.cooper3@citrix.com>
 References: <20241024142654.989980-1-andrew.cooper3@citrix.com>
@@ -89,17 +89,14 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+We can't drop them fully yet, but we can limit their scope to almost nothing,
+which serves the same purpose.
 
-The former is about to disappear.
-
-In some cases, introduce a local struct boot_module pointer.  Judgement on
-where to do this, and on constness, is based on what creates least churn
-overall.
+This removes the ability to accidentally reintroduce buggy uses of
+__va(mbi->mods_addr).
 
 No functional change.
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
@@ -107,151 +104,62 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Daniel P. Smith <dpsmith@apertussolutions.com>
 
 v7.5:
- * Rearranged from several later patches
+ * New
 ---
- xen/arch/x86/setup.c | 59 +++++++++++++++++++++++++-------------------
- 1 file changed, 33 insertions(+), 26 deletions(-)
+ xen/arch/x86/setup.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index ee03725af380..5413e1c71be6 100644
+index 5413e1c71be6..511cf5b97909 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -1382,11 +1382,11 @@ void asmlinkage __init noreturn __start_xen(void)
+@@ -1026,8 +1026,6 @@ void asmlinkage __init noreturn __start_xen(void)
+     struct cpu_info *info = get_cpu_info(), *bsp_info;
+     unsigned int initrdidx, num_parked = 0;
+     struct boot_info *bi;
+-    multiboot_info_t *mbi;
+-    module_t *mod;
+     unsigned long nr_pages, raw_max_page, modules_headroom, module_map[1];
+     int i, j, e820_warn = 0, bytes = 0;
+     unsigned long eb_start, eb_end;
+@@ -1063,16 +1061,22 @@ void asmlinkage __init noreturn __start_xen(void)
  
-     for ( i = 0; !efi_enabled(EFI_LOADER) && i < bi->nr_modules; i++ )
+     if ( pvh_boot )
      {
--        if ( mod[i].mod_start & (PAGE_SIZE - 1) )
-+        if ( bi->mods[i].mod->mod_start & (PAGE_SIZE - 1) )
-             panic("Bootloader didn't honor module alignment request\n");
--        mod[i].mod_end -= mod[i].mod_start;
--        mod[i].mod_start >>= PAGE_SHIFT;
--        mod[i].reserved = 0;
-+        bi->mods[i].mod->mod_end -= bi->mods[i].mod->mod_start;
-+        bi->mods[i].mod->mod_start >>= PAGE_SHIFT;
-+        bi->mods[i].mod->reserved = 0;
-     }
- 
-     /*
-@@ -1397,6 +1397,8 @@ void asmlinkage __init noreturn __start_xen(void)
- 
-     if ( xen_phys_start )
-     {
-+        struct boot_module *xen = &bi->mods[bi->nr_modules];
++        multiboot_info_t *mbi;
++        module_t *mod;
 +
-         relocated = true;
+         pvh_init(&mbi, &mod);
+         /*
+          * mbi and mod are regular pointers to .initdata.  These remain valid
+          * across move_xen().
+          */
++
++        bi = multiboot_fill_boot_info(mbi, mod);
+     }
+     else
+     {
+-        mbi = __va(multiboot_ptr);
+-        mod = __va(mbi->mods_addr);
++        multiboot_info_t *mbi = __va(multiboot_ptr);
++
++        bi = multiboot_fill_boot_info(mbi, __va(mbi->mods_addr));
  
          /*
-@@ -1404,8 +1406,8 @@ void asmlinkage __init noreturn __start_xen(void)
-          * respective reserve_e820_ram() invocation below. No need to
-          * query efi_boot_mem_unused() here, though.
-          */
--        mod[bi->nr_modules].mod_start = virt_to_mfn(_stext);
--        mod[bi->nr_modules].mod_end = __2M_rwdata_end - _stext;
-+        xen->mod->mod_start = virt_to_mfn(_stext);
-+        xen->mod->mod_end   = __2M_rwdata_end - _stext;
+          * For MB1/2, mbi and mod are directmap pointers into the trampoline.
+@@ -1085,12 +1089,8 @@ void asmlinkage __init noreturn __start_xen(void)
+         ASSERT(multiboot_ptr < MB(1) || xen_phys_start);
      }
  
-     modules_headroom =
-@@ -1490,15 +1492,17 @@ void asmlinkage __init noreturn __start_xen(void)
-         /* Is the region suitable for relocating the multiboot modules? */
-         for ( j = bi->nr_modules - 1; j >= 0; j-- )
-         {
-+            struct boot_module *bm = &bi->mods[j];
-+
-             /*
-              * 'headroom' is a guess for the decompressed size and
-              * decompressor overheads of mod[0] (the dom0 kernel).  When we
-              * move mod[0], we incorporate this as extra space at the start.
-              */
-             unsigned long headroom = j ? 0 : modules_headroom;
--            unsigned long size = PAGE_ALIGN(headroom + mod[j].mod_end);
-+            unsigned long size = PAGE_ALIGN(headroom + bm->mod->mod_end);
+-    bi = multiboot_fill_boot_info(mbi, mod);
+     bi->module_map = module_map; /* Temporary */
  
--            if ( mod[j].reserved )
-+            if ( bm->mod->reserved )
-                 continue;
- 
-             /* Don't overlap with other modules (or Xen itself). */
-@@ -1510,14 +1514,13 @@ void asmlinkage __init noreturn __start_xen(void)
- 
-             if ( s < end &&
-                  (headroom ||
--                  ((end - size) >> PAGE_SHIFT) > mod[j].mod_start) )
-+                  ((end - size) >> PAGE_SHIFT) > bm->mod->mod_start) )
-             {
-                 move_memory(end - size + headroom,
--                            (uint64_t)mod[j].mod_start << PAGE_SHIFT,
--                            mod[j].mod_end);
--                mod[j].mod_start = (end - size) >> PAGE_SHIFT;
--                mod[j].mod_end += headroom;
--                mod[j].reserved = 1;
-+                            pfn_to_paddr(bm->mod->mod_start), bm->mod->mod_end);
-+                bm->mod->mod_start = (end - size) >> PAGE_SHIFT;
-+                bm->mod->mod_end += headroom;
-+                bm->mod->reserved = 1;
-             }
-         }
- 
-@@ -1543,13 +1546,14 @@ void asmlinkage __init noreturn __start_xen(void)
- #endif
-     }
- 
--    if ( modules_headroom && !mod->reserved )
-+    if ( modules_headroom && !bi->mods[0].mod->reserved )
-         panic("Not enough memory to relocate the dom0 kernel image\n");
-     for ( i = 0; i < bi->nr_modules; ++i )
+-    /* Use bi-> instead */
+-#define mbi DO_NOT_USE
+-
+     /* Parse the command-line options. */
+     if ( (kextra = strstr(bi->cmdline, " -- ")) != NULL )
      {
--        uint64_t s = (uint64_t)mod[i].mod_start << PAGE_SHIFT;
-+        const struct boot_module *bm = &bi->mods[i];
-+        uint64_t s = pfn_to_paddr(bm->mod->mod_start);
- 
--        reserve_e820_ram(&boot_e820, s, s + PAGE_ALIGN(mod[i].mod_end));
-+        reserve_e820_ram(&boot_e820, s, s + PAGE_ALIGN(bm->mod->mod_end));
-     }
- 
-     if ( !xen_phys_start )
-@@ -1627,8 +1631,8 @@ void asmlinkage __init noreturn __start_xen(void)
-                 map_e = boot_e820.map[j].addr + boot_e820.map[j].size;
-                 for ( j = 0; j < bi->nr_modules; ++j )
-                 {
--                    uint64_t end = pfn_to_paddr(mod[j].mod_start) +
--                                   mod[j].mod_end;
-+                    uint64_t end = pfn_to_paddr(bi->mods[j].mod->mod_start) +
-+                                   bi->mods[j].mod->mod_end;
- 
-                     if ( map_e < end )
-                         map_e = end;
-@@ -1702,11 +1706,13 @@ void asmlinkage __init noreturn __start_xen(void)
- 
-     for ( i = 0; i < bi->nr_modules; ++i )
-     {
--        set_pdx_range(mod[i].mod_start,
--                      mod[i].mod_start + PFN_UP(mod[i].mod_end));
--        map_pages_to_xen((unsigned long)mfn_to_virt(mod[i].mod_start),
--                         _mfn(mod[i].mod_start),
--                         PFN_UP(mod[i].mod_end), PAGE_HYPERVISOR);
-+        const struct boot_module *bm = &bi->mods[i];
-+
-+        set_pdx_range(bm->mod->mod_start,
-+                      bm->mod->mod_start + PFN_UP(bm->mod->mod_end));
-+        map_pages_to_xen((unsigned long)mfn_to_virt(bm->mod->mod_start),
-+                         _mfn(bm->mod->mod_start),
-+                         PFN_UP(bm->mod->mod_end), PAGE_HYPERVISOR);
-     }
- 
- #ifdef CONFIG_KEXEC
-@@ -2095,8 +2101,9 @@ void asmlinkage __init noreturn __start_xen(void)
-      * We're going to setup domain0 using the module(s) that we stashed safely
-      * above our heap. The second module, if present, is an initrd ramdisk.
-      */
--    dom0 = create_dom0(mod, modules_headroom,
--                       initrdidx < bi->nr_modules ? mod + initrdidx : NULL,
-+    dom0 = create_dom0(bi->mods[0].mod, modules_headroom,
-+                       initrdidx < bi->nr_modules ? bi->mods[initrdidx].mod
-+                                                  : NULL,
-                        kextra, bi->loader);
-     if ( !dom0 )
-         panic("Could not set up DOM0 guest OS\n");
 -- 
 2.39.5
 
