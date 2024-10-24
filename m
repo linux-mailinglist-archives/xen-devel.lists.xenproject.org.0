@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DAAD9AE5FA
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:22:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825235.1239419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C409AE5F6
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:22:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825238.1239444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3xn6-0004NP-3p; Thu, 24 Oct 2024 13:22:16 +0000
+	id 1t3xn7-0004rV-Pi; Thu, 24 Oct 2024 13:22:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825235.1239419; Thu, 24 Oct 2024 13:22:16 +0000
+Received: by outflank-mailman (output) from mailman id 825238.1239444; Thu, 24 Oct 2024 13:22:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3xn5-0004KH-Vp; Thu, 24 Oct 2024 13:22:15 +0000
-Received: by outflank-mailman (input) for mailman id 825235;
- Thu, 24 Oct 2024 13:22:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t3xn7-0004p4-Lr; Thu, 24 Oct 2024 13:22:17 +0000
+Received: by outflank-mailman (input) for mailman id 825238;
+ Thu, 24 Oct 2024 13:22:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jd6X=RU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t3xn4-0004K5-9X
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:22:14 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fad52a42-920a-11ef-a0bf-8be0dac302b0;
- Thu, 24 Oct 2024 15:22:12 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-539eb97f26aso905363e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 06:22:12 -0700 (PDT)
+ id 1t3xn6-0004KA-Gz
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:22:16 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fc07d42f-920a-11ef-99a3-01e77a169b0f;
+ Thu, 24 Oct 2024 15:22:14 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a86e9db75b9so118895566b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 06:22:14 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a912ee592sm618574766b.79.2024.10.24.06.22.10
+ a640c23a62f3a-a9a912ee592sm618574766b.79.2024.10.24.06.22.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Oct 2024 06:22:10 -0700 (PDT)
+ Thu, 24 Oct 2024 06:22:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fad52a42-920a-11ef-a0bf-8be0dac302b0
+X-Inumbo-ID: fc07d42f-920a-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729776131; x=1730380931; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729776133; x=1730380933; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xI3YWCuDWA5ZJYhHfqCN+eAld5aMRSkjdw5nOvKgkSM=;
-        b=CSsiSgPx6hp3rFeqxVWW3bepQruJrVa2TIhNJo+GMDh98eovRg9dFs63O/yh2Cgv+m
-         DZgiBxXyZdO1E+0cLujA+jUl+1G98bFdNTsYzjPOEF1gKEtQwppCDwTCQetJEBIuDrOa
-         hh8EslyCpsSC2nI1wHyb1mSSu26aiwKnIWBj0=
+        bh=vje9cjl7S3MEL0v41NICuEDrNpFT2GOVFHe2wP6D174=;
+        b=MXhSz/AgaUTb1+YOyikG/qnyiGBComM/0+9LBZy/bdTjMPfQxNtnFMCpaU0nErfP1f
+         YzAL+afDDYjz4BGriFJzxfwUYgkicL3g+6gpjzEkOxoacP0dWlFlWhm/r4+cJkXUNLuR
+         /mQdldKTrIqExclRjxWKwhBQC9BjS/tEdHlrY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729776131; x=1730380931;
+        d=1e100.net; s=20230601; t=1729776133; x=1730380933;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xI3YWCuDWA5ZJYhHfqCN+eAld5aMRSkjdw5nOvKgkSM=;
-        b=upr1ylu1NHsSyVakFoaYzfk+0Ywzs0J0ce3IIuKlfkh3BYI0pJU4kl443yZYUitBJe
-         jJOcx3WOMwomju4rvoIYnTt4j0O+OEHcaHbh5Op1i6VdlkkDxxc1+VchzFF9PcIOhP0e
-         npF7vKssOk6t5snM6Zu1+Y2sRuyuraR0hM5CvRmyE7FOT/MSX+lUbx1X184YfXMS92fr
-         ZWu4qjqG0duFZxb6IctsEOr/XsusPWoLQVPvgRAopwUBl6KZUQ3Y9sVG/fvihnWpjhzc
-         UutgmqpAMBvSgvQz2XyOt+906KTCcpBH7wawd9LRWqbLt0P4If4SCpEm3/jyfGP+WShY
-         7dKg==
-X-Gm-Message-State: AOJu0Yw2Lj8nAXa0XB+2s+K3pkFokZdrqGAu12h/m/pQmbZmMHN7OVHK
-	QJxlN7bDmMAHz8Fd+fMWJlKN8+WS02+de4+8mNXHlG1CkeBzdppLMJALKyvUtgL1gXA4MnyCMwG
-	q
-X-Google-Smtp-Source: AGHT+IGMqcL+fx6Snhrn5yxbpjO1LwkkVZDl2+dmTre9UqLBmLZFLFZuDvVKXxiaFY5tSmBazckizw==
-X-Received: by 2002:a05:6512:b02:b0:539:e3d8:fa33 with SMTP id 2adb3069b0e04-53b1a38d08cmr3893206e87.54.1729776131251;
-        Thu, 24 Oct 2024 06:22:11 -0700 (PDT)
+        bh=vje9cjl7S3MEL0v41NICuEDrNpFT2GOVFHe2wP6D174=;
+        b=tSH+PBaulgyhXJ8p2IfeW11ctEgspbr7gz/TAVI2F+Qk+3Vs7WGsGCdRkd69sMdSTY
+         VqGCz+8dByBTFnke0jiXaBoe3R/z5XULebS594XfaVOdVdEzZ8Ffc9DNNioZWmFR68ZY
+         yA4dKiVK4iWvbGj4X5MrFlYZqVMF8BpDIXEShr5VKJmpQrmg26+/pf/xhZ3aHk9Vhk6y
+         bckHQ4T6NbDgUbd76fBcGQ1ECBojCM84lFrFlHZlyrL2/+WItUX+jNiRE4iig2YdrXcb
+         KpPK/qYgZLOPnkriFlgGIhaa0vZcfc6ABOqLHB8sDf+Q7qX8km8rTSyT0rfH1dpVQNTy
+         SSkA==
+X-Gm-Message-State: AOJu0YzLwEuEd9pX8FzmdzzOREOGwlr7bM9bAq6HVBDV3Icf3/g1T/Nd
+	xWO3VROug9bgykYARHIInkbrliRv67Dc/S616AaemgumFco0KQ5hE4LL5JtTzKkgNQErHw462pY
+	U
+X-Google-Smtp-Source: AGHT+IHOOtGnTEQAVB2sdCQ4P24Dc8w6u4STtsxpipSi9dy2lm9XP0oMoJtBQDdXW4FOf+OM7Hg54A==
+X-Received: by 2002:a17:907:6e8c:b0:a9a:46f5:d6d7 with SMTP id a640c23a62f3a-a9abf8459d0mr589610666b.5.1729776133455;
+        Thu, 24 Oct 2024 06:22:13 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 1/5] x86/ucode: Rename hypercall-context functions
-Date: Thu, 24 Oct 2024 14:22:01 +0100
-Message-Id: <20241024132205.987042-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/5] x86/ucode: Drop the parse_blob() wrapper
+Date: Thu, 24 Oct 2024 14:22:02 +0100
+Message-Id: <20241024132205.987042-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241024132205.987042-1-andrew.cooper3@citrix.com>
 References: <20241024132205.987042-1-andrew.cooper3@citrix.com>
@@ -88,12 +88,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-microcode_update{,_helper}() are overly generic names in a file that has
-multiple update routines and helper functions contexts.
-
-Rename microcode_update() to ucode_update_hcall() so it explicitly identifies
-itself as hypercall context, and rename microcode_update_helper() to
-ucode_update_hcall_cont() to make it clear it is in continuation context.
+This separates the collect_cpu_info() and cpu_request_microcode() calls for
+later cleanup, and frees up the name to be reused a little differently.
 
 No functional change.
 
@@ -102,88 +98,55 @@ Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/cpu/microcode/core.c    | 10 +++++-----
- xen/arch/x86/include/asm/microcode.h |  4 ++--
- xen/arch/x86/platform_hypercall.c    |  6 +++---
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ xen/arch/x86/cpu/microcode/core.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
 
 diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 1d58cb0f3bc1..21077b449c38 100644
+index 21077b449c38..cad38d859eee 100644
 --- a/xen/arch/x86/cpu/microcode/core.c
 +++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -586,7 +586,7 @@ struct ucode_buf {
-     char buffer[];
+@@ -237,19 +237,6 @@ static struct patch_with_flags nmi_patch =
+     .patch  = ZERO_BLOCK_PTR,
  };
  
--static long cf_check microcode_update_helper(void *data)
-+static long cf_check ucode_update_hcall_cont(void *data)
+-/*
+- * Return a patch that covers current CPU. If there are multiple patches,
+- * return the one with the highest revision number. Return error If no
+- * patch is found and an error occurs during the parsing process. Otherwise
+- * return NULL.
+- */
+-static struct microcode_patch *parse_blob(const char *buf, size_t len)
+-{
+-    alternative_vcall(ucode_ops.collect_cpu_info);
+-
+-    return alternative_call(ucode_ops.cpu_request_microcode, buf, len, true);
+-}
+-
+ static void microcode_free_patch(const struct microcode_patch *patch)
  {
-     int ret;
-     struct ucode_buf *buffer = data;
-@@ -722,8 +722,8 @@ static long cf_check microcode_update_helper(void *data)
-     return ret;
- }
- 
--int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
--                     unsigned long len, unsigned int flags)
-+int ucode_update_hcall(XEN_GUEST_HANDLE(const_void) buf,
-+                       unsigned long len, unsigned int flags)
- {
-     int ret;
-     struct ucode_buf *buffer;
-@@ -748,11 +748,11 @@ int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
-     buffer->flags = flags;
- 
-     /*
--     * Always queue microcode_update_helper() on CPU0.  Most of the logic
-+     * Always queue ucode_update_hcall_cont() on CPU0.  Most of the logic
-      * won't care, but the update of the Raw CPU policy wants to (re)run on
-      * the BSP.
-      */
--    return continue_hypercall_on_cpu(0, microcode_update_helper, buffer);
-+    return continue_hypercall_on_cpu(0, ucode_update_hcall_cont, buffer);
- }
- 
- static int __init cf_check microcode_init(void)
-diff --git a/xen/arch/x86/include/asm/microcode.h b/xen/arch/x86/include/asm/microcode.h
-index a278773f8b5d..dd20cdb9ebb6 100644
---- a/xen/arch/x86/include/asm/microcode.h
-+++ b/xen/arch/x86/include/asm/microcode.h
-@@ -22,8 +22,8 @@ struct cpu_signature {
- DECLARE_PER_CPU(struct cpu_signature, cpu_sig);
- 
- void microcode_set_module(unsigned int idx);
--int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
--                     unsigned long len, unsigned int flags);
-+int ucode_update_hcall(XEN_GUEST_HANDLE(const_void) buf,
-+                       unsigned long len, unsigned int flags);
- int microcode_update_one(void);
- 
- struct boot_info;
-diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
-index 67f851237def..90abd3197fc9 100644
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -313,7 +313,7 @@ ret_t do_platform_op(
- 
-         guest_from_compat_handle(data, op->u.microcode.data);
- 
--        ret = microcode_update(data, op->u.microcode.length, 0);
-+        ret = ucode_update_hcall(data, op->u.microcode.length, 0);
-         break;
+     xfree((struct microcode_patch *)patch);
+@@ -616,7 +603,10 @@ static long cf_check ucode_update_hcall_cont(void *data)
+         goto put;
      }
  
-@@ -323,8 +323,8 @@ ret_t do_platform_op(
+-    patch_with_flags.patch = parse_blob(buffer->buffer, buffer->len);
++    alternative_vcall(ucode_ops.collect_cpu_info);
++    patch_with_flags.patch = alternative_call(ucode_ops.cpu_request_microcode,
++                                              (const void *)buffer->buffer,
++                                              buffer->len, true);
+     patch_with_flags.flags = buffer->flags;
+     xfree(buffer);
+     if ( IS_ERR(patch_with_flags.patch) )
+@@ -797,7 +787,8 @@ static int __init early_update_cache(const void *data, size_t len)
+     if ( !data )
+         return -ENOMEM;
  
-         guest_from_compat_handle(data, op->u.microcode2.data);
- 
--        ret = microcode_update(data, op->u.microcode2.length,
--                               op->u.microcode2.flags);
-+        ret = ucode_update_hcall(data, op->u.microcode2.length,
-+                                 op->u.microcode2.flags);
-         break;
-     }
- 
+-    patch = parse_blob(data, len);
++    alternative_vcall(ucode_ops.collect_cpu_info);
++    patch = alternative_call(ucode_ops.cpu_request_microcode, data, len, true);
+     if ( IS_ERR(patch) )
+     {
+         printk(XENLOG_WARNING "Parsing microcode blob error %ld\n",
 -- 
 2.39.5
 
