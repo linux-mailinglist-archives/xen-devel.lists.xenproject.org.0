@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DA1E9AD81B
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 00:55:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.824933.1239138 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AEFF9ADD7D
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 09:21:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.824962.1239148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3kEg-0006rS-J9; Wed, 23 Oct 2024 22:53:50 +0000
+	id 1t3s8Y-0001d8-PW; Thu, 24 Oct 2024 07:20:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 824933.1239138; Wed, 23 Oct 2024 22:53:50 +0000
+Received: by outflank-mailman (output) from mailman id 824962.1239148; Thu, 24 Oct 2024 07:20:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3kEg-0006py-GD; Wed, 23 Oct 2024 22:53:50 +0000
-Received: by outflank-mailman (input) for mailman id 824933;
- Wed, 23 Oct 2024 22:53:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t3s8Y-0001ZF-M1; Thu, 24 Oct 2024 07:20:02 +0000
+Received: by outflank-mailman (input) for mailman id 824962;
+ Thu, 24 Oct 2024 07:20:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ECK7=RT=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1t3kEf-0006o8-EW
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2024 22:53:49 +0000
-Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a83890bd-9191-11ef-99a3-01e77a169b0f;
- Thu, 24 Oct 2024 00:53:45 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id BD36FA1A52;
- Thu, 24 Oct 2024 00:53:44 +0200 (CEST)
-Received: from sonata.ens-lyon.org ([127.0.0.1])
- by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id B_3LSfr9Atij; Thu, 24 Oct 2024 00:53:44 +0200 (CEST)
-Received: from begin (aamiens-653-1-40-48.w83-192.abo.wanadoo.fr
- [83.192.199.48])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id 859B2A1A51;
- Thu, 24 Oct 2024 00:53:44 +0200 (CEST)
-Received: from samy by begin with local (Exim 4.98)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1t3kEa-00000006Phr-0E4H; Thu, 24 Oct 2024 00:53:44 +0200
+ <SRS0=fqEU=RU=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1t3s8X-0001R0-TV
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 07:20:01 +0000
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [2001:4860:4864:20::36])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 60ccddbc-91d8-11ef-a0bf-8be0dac302b0;
+ Thu, 24 Oct 2024 09:20:00 +0200 (CEST)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-288dfdaf833so378417fac.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 00:20:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,86 +40,288 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a83890bd-9191-11ef-99a3-01e77a169b0f
-Date: Thu, 24 Oct 2024 00:53:44 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-Subject: Re: [MINI-OS PATCH] config: add support for libxenmanage
-Message-ID: <Zxl-eAecD0tMvqCn@begin>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-References: <20241023131048.32240-1-jgross@suse.com>
+X-Inumbo-ID: 60ccddbc-91d8-11ef-a0bf-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1729754399; x=1730359199; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fnNNvsuppKcrMhRZk0Kb4Fps3uqPJtWHaa/AeNk8XTk=;
+        b=FucSqbdJeooFyNrkPD8eNbUU3DcuJ4cDS5IwQJxs0f78IaF8VFF6pYKZmVpd0pKf/V
+         +SctxCFDOOp7UHFK9L8lYTshs8l/PXHJWOpT1bBn+MDgMYCxY5gSTOdW1RMxIjMFK79c
+         Z8LMiJiIr29ym/agxX+DbxvdsUruOK1RGIu5z6M1pmqGmGKR6RiOK4x0sPlp8E6p8fPz
+         vsRphBkVc9ZM9D2mvRwgz+x7rG8KhSnQ3h53J/cefbZ6gspCvvzbmJ6mtX101WVRilvh
+         cp7uYuuQxlcFfCeE6drGysLXQ+4SeUy69e1QVoNC+SljqGq9xHJ8sypyofAjjBUn6AGJ
+         FzjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729754399; x=1730359199;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fnNNvsuppKcrMhRZk0Kb4Fps3uqPJtWHaa/AeNk8XTk=;
+        b=xJu1pJwb+5WmTjDTCn32K2aybCT0xeqeY9m1bG5vXFXvq9S/cNo3SdPOBV3mQncLTt
+         2hgLrfYLBHnkshvLxQWeURftKVMxQXpsTpkO82B9AF9mA393h9iS9osz9JdV7iu91kO4
+         h8Wefrs1sgoqO/lFwpUkwUkFMlFCm4J1nkFKVZqBVO/RfKcYoDtxH1TUDkdU5U6VJ1mF
+         ITQco/fwOc2dtCDgLJbDFT8vpppxXyiF/HEcMUAkMnY0qWk7ar3mYLAeqiSXkw+qKm2r
+         WFxzsKgcfab4cuuQjWi8byL8qryyNWHQc9Kj2h8vlUQX89D0vLhxmawUT8K9EnoDaK83
+         yh1w==
+X-Gm-Message-State: AOJu0YwOnDssQrPTsbmhFeNs/aeEndIiVSeh7Wfqk6UNhQAm+RdG0vo1
+	uTwsFMQLCwEEX/ctk95Th3/moU8Eg4hiAd02SCAQ/GP8CPYJp9TFcpxuBpdtsl2T4OVoXU1UIKV
+	I5mbkh9S+kKe4nm6aXIdPGpPt8ZJNOtis8sOFrA==
+X-Google-Smtp-Source: AGHT+IEHU+wApZCOzY9rLjf+aXX4Dm0JrXCwL2ve4XknIwLyf6CZl5lA8Z/qkWvWXVlf9NAvqpYwNTfyWr+pNhAQyRY=
+X-Received: by 2002:a05:6870:c154:b0:270:205a:4070 with SMTP id
+ 586e51a60fabf-28ced2988f8mr991967fac.14.1729754398877; Thu, 24 Oct 2024
+ 00:19:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241023131048.32240-1-jgross@suse.com>
-Organization: I am not organized
+References: <cover.1729066788.git.bertrand.marquis@arm.com> <480245789e126e5ee0d6d21b5946cdf2efb873ea.1729066788.git.bertrand.marquis@arm.com>
+In-Reply-To: <480245789e126e5ee0d6d21b5946cdf2efb873ea.1729066788.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Thu, 24 Oct 2024 09:19:47 +0200
+Message-ID: <CAHUa44HRA+1e8nZQ-Xq3kP9qhTh1Ytk_nLtRqNDUnkvrVcuWnQ@mail.gmail.com>
+Subject: Re: [PATCH v2 08/10] xen/arm: ffa: move message function into ffa_msg.c
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Juergen Gross, le mer. 23 oct. 2024 15:10:48 +0200, a ecrit:
-> Add CONFIG_LIBXENMANAGE support.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Hi Bertrand,
+
+On Wed, Oct 16, 2024 at 10:32=E2=80=AFAM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Move the direct message handling function in its own source file and
+> rename it to have a ffa_ prefix.
+> This is a preparation to add support for indirect messages which will
+> go into this newly created source file.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
-> Please note that this patch should be committed only after the related
-> Xen patch "tools/libs: add a new libxenmanage library" has been Acked,
-> as otherwise it should either be dropped (in case the approach of
-> adding a new library is being rejected) or changed (in case the name
-> of the new library needs to be modified)!
+> Changes in v2:
+> - rebase
+> ---
+>  xen/arch/arm/tee/Makefile      |  1 +
+>  xen/arch/arm/tee/ffa.c         | 69 +----------------------------
+>  xen/arch/arm/tee/ffa_msg.c     | 80 ++++++++++++++++++++++++++++++++++
+>  xen/arch/arm/tee/ffa_private.h |  2 +
+>  4 files changed, 84 insertions(+), 68 deletions(-)
+>  create mode 100644 xen/arch/arm/tee/ffa_msg.c
 
-For the positive case,
+Looks good.
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cheers,
+Jens
 
-> 
->  Config.mk | 2 ++
->  Makefile  | 4 ++++
->  2 files changed, 6 insertions(+)
-> 
-> diff --git a/Config.mk b/Config.mk
-> index f59a0cf4..e493533a 100644
-> --- a/Config.mk
-> +++ b/Config.mk
-> @@ -46,6 +46,7 @@ GNTTAB_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
->  CALL_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
->  FOREIGNMEMORY_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
->  DEVICEMODEL_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
-> +MANAGE_PATH ?= $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/manage
->  CTRL_PATH ?= $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
->  GUEST_PATH ?= $(XEN_ROOT)/stubdom/libxc-$(MINIOS_TARGET_ARCH)
->  else
-> @@ -202,6 +203,7 @@ CONFIG-n += CONFIG_LIBXENGNTTAB
->  CONFIG-n += CONFIG_LIBXENGUEST
->  CONFIG-n += CONFIG_LIBXENTOOLCORE
->  CONFIG-n += CONFIG_LIBXENTOOLLOG
-> +CONFIG-n += CONFIG_LIBXENMANAGE
->  # Setting CONFIG_USE_XEN_CONSOLE copies all print output to the Xen emergency
->  # console apart of standard dom0 handled console.
->  CONFIG-n += CONFIG_USE_XEN_CONSOLE
-> diff --git a/Makefile b/Makefile
-> index ffa8d1a8..d094858a 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -159,6 +159,10 @@ ifeq ($(CONFIG_LIBXENCTRL),y)
->  APP_LDLIBS += -L$(CTRL_PATH) -whole-archive -lxenctrl -no-whole-archive
->  LIBS += $(CTRL_PATH)/libxenctrl.a
->  endif
-> +ifeq ($(CONFIG_LIBXENMANAGE),y)
-> +APP_LDLIBS += -L$(MANAGE_PATH) -whole-archive -lxenmanage -no-whole-archive
-> +LIBS += $(MANAGE_PATH)/libxenmanage.a
-> +endif
->  APP_LDLIBS += -lpci
->  APP_LDLIBS += -lz
->  APP_LDLIBS += -lm
-> -- 
-> 2.43.0
-> 
-
--- 
-Samuel
- tohi.cybercable.fr (212.198.0.3) si une personne se reconnait derriere
- cette adresse que ce soit un pirate ou une victime qu'il se manifeste,
- cette personne pourrait bien etre un petit malin
- -+- Fred in NPC : Mamaaaaan, y a le routeur qui veut me hacker -+-
+>
+> diff --git a/xen/arch/arm/tee/Makefile b/xen/arch/arm/tee/Makefile
+> index 7c0f46f7f446..0848c833fec3 100644
+> --- a/xen/arch/arm/tee/Makefile
+> +++ b/xen/arch/arm/tee/Makefile
+> @@ -3,5 +3,6 @@ obj-$(CONFIG_FFA) +=3D ffa_shm.o
+>  obj-$(CONFIG_FFA) +=3D ffa_partinfo.o
+>  obj-$(CONFIG_FFA) +=3D ffa_rxtx.o
+>  obj-$(CONFIG_FFA) +=3D ffa_notif.o
+> +obj-$(CONFIG_FFA) +=3D ffa_msg.o
+>  obj-y +=3D tee.o
+>  obj-$(CONFIG_OPTEE) +=3D optee.o
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 40ea5398fa21..72826b49d2aa 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -167,73 +167,6 @@ static void handle_version(struct cpu_user_regs *reg=
+s)
+>      ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+>  }
+>
+> -static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint3=
+2_t fid)
+> -{
+> -    struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
+> -    struct arm_smccc_1_2_regs resp =3D { };
+> -    struct domain *d =3D current->domain;
+> -    uint32_t src_dst;
+> -    uint64_t mask;
+> -
+> -    if ( smccc_is_conv_64(fid) )
+> -        mask =3D GENMASK_ULL(63, 0);
+> -    else
+> -        mask =3D GENMASK_ULL(31, 0);
+> -
+> -    if ( !ffa_fw_supports_fid(fid) )
+> -    {
+> -        resp.a0 =3D FFA_ERROR;
+> -        resp.a2 =3D FFA_RET_NOT_SUPPORTED;
+> -        goto out;
+> -    }
+> -
+> -    src_dst =3D get_user_reg(regs, 1);
+> -    if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
+> -    {
+> -        resp.a0 =3D FFA_ERROR;
+> -        resp.a2 =3D FFA_RET_INVALID_PARAMETERS;
+> -        goto out;
+> -    }
+> -
+> -    /* we do not support direct messages to VMs */
+> -    if ( !FFA_ID_IS_SECURE(src_dst & GENMASK(15,0)) )
+> -    {
+> -        resp.a0 =3D FFA_ERROR;
+> -        resp.a2 =3D FFA_RET_NOT_SUPPORTED;
+> -        goto out;
+> -    }
+> -
+> -    arg.a1 =3D src_dst;
+> -    arg.a2 =3D get_user_reg(regs, 2) & mask;
+> -    arg.a3 =3D get_user_reg(regs, 3) & mask;
+> -    arg.a4 =3D get_user_reg(regs, 4) & mask;
+> -    arg.a5 =3D get_user_reg(regs, 5) & mask;
+> -    arg.a6 =3D get_user_reg(regs, 6) & mask;
+> -    arg.a7 =3D get_user_reg(regs, 7) & mask;
+> -
+> -    arm_smccc_1_2_smc(&arg, &resp);
+> -    switch ( resp.a0 )
+> -    {
+> -    case FFA_ERROR:
+> -    case FFA_SUCCESS_32:
+> -    case FFA_SUCCESS_64:
+> -    case FFA_MSG_SEND_DIRECT_RESP_32:
+> -    case FFA_MSG_SEND_DIRECT_RESP_64:
+> -        break;
+> -    default:
+> -        /* Bad fid, report back to the caller. */
+> -        memset(&resp, 0, sizeof(resp));
+> -        resp.a0 =3D FFA_ERROR;
+> -        resp.a1 =3D src_dst;
+> -        resp.a2 =3D FFA_RET_ABORTED;
+> -    }
+> -
+> -out:
+> -    ffa_set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 =
+& mask,
+> -                 resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
+> -                 resp.a7 & mask);
+> -}
+> -
+>  static void handle_features(struct cpu_user_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+> @@ -351,7 +284,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
+s)
+>          break;
+>      case FFA_MSG_SEND_DIRECT_REQ_32:
+>      case FFA_MSG_SEND_DIRECT_REQ_64:
+> -        handle_msg_send_direct_req(regs, fid);
+> +        ffa_handle_msg_send_direct_req(regs, fid);
+>          return true;
+>      case FFA_MEM_SHARE_32:
+>      case FFA_MEM_SHARE_64:
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> new file mode 100644
+> index 000000000000..ae263e54890e
+> --- /dev/null
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -0,0 +1,80 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2024  Linaro Limited
+> + */
+> +
+> +#include <xen/const.h>
+> +#include <xen/sizes.h>
+> +#include <xen/types.h>
+> +
+> +#include <asm/smccc.h>
+> +#include <asm/regs.h>
+> +
+> +#include "ffa_private.h"
+> +
+> +void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t=
+ fid)
+> +{
+> +    struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
+> +    struct arm_smccc_1_2_regs resp =3D { };
+> +    struct domain *d =3D current->domain;
+> +    uint32_t src_dst;
+> +    uint64_t mask;
+> +
+> +    if ( smccc_is_conv_64(fid) )
+> +        mask =3D GENMASK_ULL(63, 0);
+> +    else
+> +        mask =3D GENMASK_ULL(31, 0);
+> +
+> +    if ( !ffa_fw_supports_fid(fid) )
+> +    {
+> +        resp.a0 =3D FFA_ERROR;
+> +        resp.a2 =3D FFA_RET_NOT_SUPPORTED;
+> +        goto out;
+> +    }
+> +
+> +    src_dst =3D get_user_reg(regs, 1);
+> +    if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
+> +    {
+> +        resp.a0 =3D FFA_ERROR;
+> +        resp.a2 =3D FFA_RET_INVALID_PARAMETERS;
+> +        goto out;
+> +    }
+> +
+> +    /* we do not support direct messages to VMs */
+> +    if ( !FFA_ID_IS_SECURE(src_dst & GENMASK(15,0)) )
+> +    {
+> +        resp.a0 =3D FFA_ERROR;
+> +        resp.a2 =3D FFA_RET_NOT_SUPPORTED;
+> +        goto out;
+> +    }
+> +
+> +    arg.a1 =3D src_dst;
+> +    arg.a2 =3D get_user_reg(regs, 2) & mask;
+> +    arg.a3 =3D get_user_reg(regs, 3) & mask;
+> +    arg.a4 =3D get_user_reg(regs, 4) & mask;
+> +    arg.a5 =3D get_user_reg(regs, 5) & mask;
+> +    arg.a6 =3D get_user_reg(regs, 6) & mask;
+> +    arg.a7 =3D get_user_reg(regs, 7) & mask;
+> +
+> +    arm_smccc_1_2_smc(&arg, &resp);
+> +    switch ( resp.a0 )
+> +    {
+> +    case FFA_ERROR:
+> +    case FFA_SUCCESS_32:
+> +    case FFA_SUCCESS_64:
+> +    case FFA_MSG_SEND_DIRECT_RESP_32:
+> +    case FFA_MSG_SEND_DIRECT_RESP_64:
+> +        break;
+> +    default:
+> +        /* Bad fid, report back to the caller. */
+> +        memset(&resp, 0, sizeof(resp));
+> +        resp.a0 =3D FFA_ERROR;
+> +        resp.a1 =3D src_dst;
+> +        resp.a2 =3D FFA_RET_ABORTED;
+> +    }
+> +
+> +out:
+> +    ffa_set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 =
+& mask,
+> +                 resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
+> +                 resp.a7 & mask);
+> +}
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 9adfe687c3c9..02162e0ee4c7 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -360,6 +360,8 @@ void ffa_handle_notification_info_get(struct cpu_user=
+_regs *regs);
+>  void ffa_handle_notification_get(struct cpu_user_regs *regs);
+>  int ffa_handle_notification_set(struct cpu_user_regs *regs);
+>
+> +void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t=
+ fid);
+> +
+>  static inline uint16_t ffa_get_vm_id(const struct domain *d)
+>  {
+>      /* +1 since 0 is reserved for the hypervisor in FF-A */
+> --
+> 2.47.0
+>
 
