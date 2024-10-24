@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8C8B9AE6B6
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:36:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825302.1239509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13DE99AE6EC
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:44:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825315.1239518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3y0R-0002G4-En; Thu, 24 Oct 2024 13:36:03 +0000
+	id 1t3y87-0004Ym-4U; Thu, 24 Oct 2024 13:43:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825302.1239509; Thu, 24 Oct 2024 13:36:03 +0000
+Received: by outflank-mailman (output) from mailman id 825315.1239518; Thu, 24 Oct 2024 13:43:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3y0R-0002EP-AK; Thu, 24 Oct 2024 13:36:03 +0000
-Received: by outflank-mailman (input) for mailman id 825302;
- Thu, 24 Oct 2024 13:36:02 +0000
+	id 1t3y87-0004Wf-1q; Thu, 24 Oct 2024 13:43:59 +0000
+Received: by outflank-mailman (input) for mailman id 825315;
+ Thu, 24 Oct 2024 13:43:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sQmA=RU=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t3y0Q-00026Y-0H
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:36:02 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6ce4549-920c-11ef-99a3-01e77a169b0f;
- Thu, 24 Oct 2024 15:35:59 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1729776952321838.7940254939241;
- Thu, 24 Oct 2024 06:35:52 -0700 (PDT)
+ <SRS0=fqEU=RU=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1t3y84-0004WX-W6
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:43:57 +0000
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [2001:4860:4864:20::35])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 01aaab59-920e-11ef-99a3-01e77a169b0f;
+ Thu, 24 Oct 2024 15:43:53 +0200 (CEST)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-2890f273296so444202fac.2
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 06:43:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,188 +40,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6ce4549-920c-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1729776953; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UaXSxpwC1k26BOTtQJSWUq9axliSvZLB0/HQKTd1nUI+55lteEim473p7FbG5veahiQhy+JsdYZdOgvoRQsd2FhWosqYmh/NmppJyXUyFKIfyaLIRH0S223uzfBnws8owrWIyy2c9z2nZy77H/RkkXUVYQoc6K7Q6N2LspLb7X4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1729776953; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qGiioBmR5484I0N5GeYQgR4+MzUnJP6y3FYcSCS+ulo=; 
-	b=oIZwmB2SkCdSgKRNbJQex0YGJczsX55iuuYqlimhnzWJg2HbgSeNOs4149zbw5NRXps4Z6kFEWj/j97Z/9rqJj5BbYQ5mQAkm16HClDqAjFFkmno2SILaXs4d5pYd97u+o7R6bS23dqN3AC3xQXNc60F0LTrL+cbs6fCf5KE948=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729776953;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=qGiioBmR5484I0N5GeYQgR4+MzUnJP6y3FYcSCS+ulo=;
-	b=moSZxhMSOyBZ6KsKEdyDpAvTL7f1OlCCw0xeD6lYlZFXuLREY2ONe6wabrYNCea4
-	b0R1K2H3sywSiV4MzRvOnZYdHLMI0Ccw/QRS61SHo7BK+XPjuMk0BWlg5qANGDXyLDB
-	OJIRQyzjUvpKxw65JxjFjMSDBDzZMVRrakOLtEUg=
-Message-ID: <fa78a4f7-4b2e-46e2-8110-868735892fae@apertussolutions.com>
-Date: Thu, 24 Oct 2024 09:35:13 -0400
+X-Inumbo-ID: 01aaab59-920e-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1729777432; x=1730382232; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E9fy8r7KYr8yxhD2HttBnWpxy8mdNYxFzDinnO6yq6c=;
+        b=LQGmgBl9gmwYjrtSYCHEMTRi6mE/HbDpTH7VaXfp5u7W51jh1ceeOJ3IIgAVW+ZxEW
+         D1pbtZIcTzjfwS9Y7qPWyVqraxK3XvUI845qtrzqvVpzdDrrjEaxCrDIContqVnwfwwC
+         X/aN2Sv+EChQoUOxfVCo54+HuYypOlH7xoN5+dxuCQj/vQOshOdntyf0o+GPA94yF9V/
+         3FBv3IidhvnmjlgcXQZ9WNQJa/Or67Fw/w/96TLlxKPyPMK4dGdxXkm69xQJZAKKNMMl
+         y6f4X50XBVwEs2JnE2ouMbwJzplJQ0u03BzpIA7qwSaVWk5U0mydDoZ2nzrqi0lrsWiH
+         tMIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729777432; x=1730382232;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=E9fy8r7KYr8yxhD2HttBnWpxy8mdNYxFzDinnO6yq6c=;
+        b=PSMUNdDubriIDtd634/KkQmgY/h4W9d7NmFu0BUaj40S4gSPPzFtGGGz/Qz0Q06kKk
+         bGtfAyDGzpdje5+Ai0Y0VrUDnOkTM2L2jr4XaLuWtH29z/bY0tTmIii9iMObHxvCPhdL
+         UOepVyIlvCYXnPOC4DBzsDKa/bsrLynMsaz7IaBsc5H/mhg5+P5Fu12ffrrgnFYtCAmV
+         IsMYUcxczupqeRCprGB9OcRDDTvUahDKkG3um2YKLf1PzxUhUL2+EBVnWvOItGeAMNaN
+         TBlRa1dm07mNMGCCmcMzo/9Rq7tCWAC7xS4F3cDhuMTKWV3gdpGgTO0pMhYBUyvf5zGw
+         zrFw==
+X-Gm-Message-State: AOJu0YzAmBWcBFol/Xe7Oy/l0R9/QD32CXdUe1He5IpFjXK/0zBu1GS1
+	vF0r7HOspRWXi4DWvZokJAcE5Ev7QcB5fPwi0tvSgbv9XzsgMTWU5iXBWT6tagu11posUv33uFL
+	IP3KDBz/cv/Z0vN+M/1SQA948EWjl2tTHXNWwJA==
+X-Google-Smtp-Source: AGHT+IG7qlGjdLzXUKnCLzuVQWtRJL5EIcswOHGfQeb/QSL96xyWeXOlEP5Xhl/GsPYyUoENUjHbqgExyhCLoM6FrRA=
+X-Received: by 2002:a05:6870:5686:b0:260:ee13:e665 with SMTP id
+ 586e51a60fabf-28ced44b3fdmr1894595fac.37.1729777432069; Thu, 24 Oct 2024
+ 06:43:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] xen: add new domctl get_changed_domain
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20241023131005.32144-1-jgross@suse.com>
- <20241023131005.32144-4-jgross@suse.com>
- <ea2aeed1-91b7-47db-9354-d0634d0db9e8@apertussolutions.com>
- <9a049e23-471f-4987-9993-e5f2db60ac1f@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <9a049e23-471f-4987-9993-e5f2db60ac1f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+References: <cover.1729066788.git.bertrand.marquis@arm.com>
+ <9464941b06e82763ebe79e3f2adb4ca2497cf298.1729066788.git.bertrand.marquis@arm.com>
+ <CAHUa44H+EipP-F_12tWidOxfFPf-jVcSs4XjLjBv5t05-Kw59g@mail.gmail.com> <5497A12A-B077-44B4-AB66-1D22D62681D0@arm.com>
+In-Reply-To: <5497A12A-B077-44B4-AB66-1D22D62681D0@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Thu, 24 Oct 2024 15:43:40 +0200
+Message-ID: <CAHUa44Fca04p-L7K_OkZm2CVMFgWZxAmryOrU=GwwCHL+N4-3g@mail.gmail.com>
+Subject: Re: [PATCH v2 10/10] xen/arm: ffa: Add indirect message support
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/24/24 05:13, Jürgen Groß wrote:
-> On 23.10.24 17:55, Daniel P. Smith wrote:
->> On 10/23/24 09:10, Juergen Gross wrote:
->>> Add a new domctl sub-function to get data of a domain having changed
->>> state (this is needed by Xenstore).
->>>
->>> The returned state just contains the domid, the domain unique id,
->>> and some flags (existing, shutdown, dying).
->>>
->>> In order to enable Xenstore stubdom being built for multiple Xen
->>> versions, make this domctl stable.  For stable domctls the
->>> interface_version is specific to the respective domctl op and it is an
->>> in/out parameter: On input the caller is specifying the desired version
->>> of the op, while on output the hypervisor will return the used version
->>> (this will be at max the caller supplied version, but might be lower in
->>> case the hypervisor doesn't support this version).
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>> V1:
->>> - use a domctl subop for the new interface (Jan Beulich)
->>> ---
->>>   tools/flask/policy/modules/dom0.te  |  2 +-
->>>   xen/common/domain.c                 | 51 +++++++++++++++++++++++++++++
->>>   xen/common/domctl.c                 | 19 ++++++++++-
->>>   xen/common/event_channel.c          |  9 ++++-
->>>   xen/include/public/domctl.h         | 33 +++++++++++++++++++
->>>   xen/include/xen/event.h             |  6 ++++
->>>   xen/include/xen/sched.h             |  2 ++
->>>   xen/include/xsm/dummy.h             |  8 +++++
->>>   xen/include/xsm/xsm.h               |  6 ++++
->>>   xen/xsm/dummy.c                     |  1 +
->>>   xen/xsm/flask/hooks.c               |  7 ++++
->>>   xen/xsm/flask/policy/access_vectors |  2 ++
->>>   12 files changed, 143 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/tools/flask/policy/modules/dom0.te 
->>> b/tools/flask/policy/modules/dom0.te
->>> index 16b8c9646d..6043c01b12 100644
->>> --- a/tools/flask/policy/modules/dom0.te
->>> +++ b/tools/flask/policy/modules/dom0.te
->>> @@ -40,7 +40,7 @@ allow dom0_t dom0_t:domain {
->>>   };
->>>   allow dom0_t dom0_t:domain2 {
->>>       set_cpu_policy gettsc settsc setscheduler set_vnumainfo
->>> -    get_vnumainfo psr_cmt_op psr_alloc get_cpu_policy
->>> +    get_vnumainfo psr_cmt_op psr_alloc get_cpu_policy get_domain_state
->>
->> I don't think that is where you want it, as that restricts dom0 to 
->> only being able to make that call against dom0. The question I have 
->> is, are you looking for this permission to be explicitly assigned to 
->> dom0 or to the domain type that was allowed to create the domain. 
->> IMHO, I think you would want the latter, so not only should the 
->> permission go here, but also added to xen.if:create_domain_common.
->>
->> Additionally, I would also recommend adding the following to xenstore.te:
->>
->> allow xenstore_t domain_type:domain get_domain_state
-> 
-> Okay, but shouldn't this be:
-> 
-> allow xenstore_t domain_type:domain2 get_domain_state;
+Hi Bertrand,
 
-Apologies, yes that was a typo on my part.
+On Thu, Oct 24, 2024 at 12:05=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 24 Oct 2024, at 10:50, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Hi Bertrand,
+> >
+> > On Wed, Oct 16, 2024 at 10:32=E2=80=AFAM Bertrand Marquis
+> > <bertrand.marquis@arm.com> wrote:
+> >>
+> >> Add support for FFA_MSG_SEND2 to send indirect messages from a VM to a
+> >> secure partition.
+> >>
+> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >> ---
+> >> Changes in v2:
+> >> - rebase
+> >> ---
+> >> xen/arch/arm/tee/ffa.c         |  5 ++++
+> >> xen/arch/arm/tee/ffa_msg.c     | 49 ++++++++++++++++++++++++++++++++++
+> >> xen/arch/arm/tee/ffa_private.h |  1 +
+> >> 3 files changed, 55 insertions(+)
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >> index 3a9525aa4598..21d41b452dc9 100644
+> >> --- a/xen/arch/arm/tee/ffa.c
+> >> +++ b/xen/arch/arm/tee/ffa.c
+> >> @@ -101,6 +101,7 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[]=
+ =3D {
+> >>     FW_ABI(FFA_MEM_RECLAIM),
+> >>     FW_ABI(FFA_MSG_SEND_DIRECT_REQ_32),
+> >>     FW_ABI(FFA_MSG_SEND_DIRECT_REQ_64),
+> >> +    FW_ABI(FFA_MSG_SEND2),
+> >> };
+> >>
+> >> /*
+> >> @@ -195,6 +196,7 @@ static void handle_features(struct cpu_user_regs *=
+regs)
+> >>     case FFA_PARTITION_INFO_GET:
+> >>     case FFA_MSG_SEND_DIRECT_REQ_32:
+> >>     case FFA_MSG_SEND_DIRECT_REQ_64:
+> >> +    case FFA_MSG_SEND2:
+> >>         ffa_set_regs_success(regs, 0, 0);
+> >>         break;
+> >>     case FFA_MEM_SHARE_64:
+> >> @@ -275,6 +277,9 @@ static bool ffa_handle_call(struct cpu_user_regs *=
+regs)
+> >>     case FFA_MSG_SEND_DIRECT_REQ_64:
+> >>         ffa_handle_msg_send_direct_req(regs, fid);
+> >>         return true;
+> >> +    case FFA_MSG_SEND2:
+> >> +        e =3D ffa_handle_msg_send2(regs);
+> >> +        break;
+> >>     case FFA_MEM_SHARE_32:
+> >>     case FFA_MEM_SHARE_64:
+> >>         ffa_handle_mem_share(regs);
+> >> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> >> index ae263e54890e..335f246ba657 100644
+> >> --- a/xen/arch/arm/tee/ffa_msg.c
+> >> +++ b/xen/arch/arm/tee/ffa_msg.c
+> >> @@ -12,6 +12,15 @@
+> >>
+> >> #include "ffa_private.h"
+> >>
+> >> +/* Encoding of partition message in RX/TX buffer */
+> >> +struct ffa_part_msg_rxtx {
+> >> +    uint32_t flags;
+> >> +    uint32_t reserved;
+> >> +    uint32_t msg_offset;
+> >> +    uint32_t send_recv_id;
+> >> +    uint32_t msg_size;
+> >> +};
+> >> +
+> >> void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32=
+_t fid)
+> >> {
+> >>     struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
+> >> @@ -78,3 +87,43 @@ out:
+> >>                  resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
+> >>                  resp.a7 & mask);
+> >> }
+> >> +
+> >> +int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
+> >> +{
+> >> +    struct domain *src_d =3D current->domain;
+> >> +    struct ffa_ctx *src_ctx =3D src_d->arch.tee;
+> >> +    const struct ffa_part_msg_rxtx *src_msg;
+> >> +    uint16_t dst_id, src_id;
+> >> +    int32_t ret;
+> >> +
+> >> +    if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
+> >> +        return FFA_RET_NOT_SUPPORTED;
+> >> +
+> >> +    if ( !spin_trylock(&src_ctx->tx_lock) )
+> >> +        return FFA_RET_BUSY;
+> >> +
+> >> +    src_msg =3D src_ctx->tx;
+> >> +    src_id =3D src_msg->send_recv_id >> 16;
+> >> +    dst_id =3D src_msg->send_recv_id & GENMASK(15,0);
+> >> +
+> >> +    if ( src_id !=3D ffa_get_vm_id(src_d) || !FFA_ID_IS_SECURE(dst_id=
+) )
+> >> +    {
+> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >> +        goto out_unlock_tx;
+> >> +    }
+> >> +
+> >> +    /* check source message fits in buffer */
+> >> +    if ( src_ctx->page_count * FFA_PAGE_SIZE <
+> >> +         src_msg->msg_offset + src_msg->msg_size ||
+> >> +         src_msg->msg_offset < sizeof(struct ffa_part_msg_rxtx) )
+> >> +    {
+> >> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >> +        goto out_unlock_tx;
+> >> +    }
+> >
+> > The guest can change src_mst at any moment with another CPU so these
+> > tests are only sanity checks. The SPMC will also have to lock and do
+> > the same tests again. So the tests here will only in the best case (in
+> > case the guest is misbehaving) save us from entering the SPMC only to
+> > get an error back. The lock makes sense since we could have concurrent
+> > calls to FFA_MEM_SHARE. How about removing the tests?
+>
+> I think we should still prevent to forward invalid requests to the SPMC a=
+s
+> much as we can to prevent a malicious guest from stilling CPU cycles by
+> doing invalid calls to the secure world.
+>
+> I could put a comment in there saying that this is just protection but to=
+ be
+> fare the SPMC in secure will have the same issues: this can be changed
+> at any time by the caller on another core.
 
->>
->>>   allow dom0_t dom0_t:resource { add remove };
->>
->> ...
->>
->>> @@ -866,6 +873,16 @@ long 
->>> do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->>>                   __HYPERVISOR_domctl, "h", u_domctl);
->>>           break;
->>> +    case XEN_DOMCTL_get_domain_state:
->>> +        ret = xsm_get_domain_state(XSM_HOOK, d);
->>
->> XSM_HOOK will allow any domain to make this call on any domain. What I 
->> think you want here is XSM_XS_PRIV. That will allow either a domain 
->> flagged as the xenstore domain or dom0 to make the call.
-> 
-> I thought so, too, but looking at the "getdomaininfo" example it seems
-> to be okay this way, too. Especially with the addition to xsm_domctl()
-> checking for XSM_XS_PRIV.
+Fair enough.
 
-I know this has been done in the past, but imho it is not a very good 
-practice. Access checks really should always restrict equal or down. 
-There should be a strong reason, which probably would deserves a code 
-comment, to allow a check to relax up. Restricting equal should not 
-reduce access, and if it does, then it means there is an unintended 
-access path which is now exposed.
+>
+> >
+> >> +
+> >> +    ret =3D ffa_simple_call(FFA_MSG_SEND2, ((uint32_t)src_id) << 16, =
+0, 0, 0);
+> >
+> > I'd rather use ffa_get_vm_id(src_d) instead of src_id.
+>
+> src_id is a local variable and was checked to be equal to  ffa_get_vm_id(=
+src_d)
+> upper so those 2 values are the same.
+> Why would you rather recall ffa_get_vm_id here ?
 
->>
->>> +        if ( ret )
->>> +            break;
->>> +
->>> +        copyback = 1;
->>> +        op->interface_version = XEN_DOMCTL_GETDOMSTATE_VERS_MAX;
->>> +        ret = get_domain_state(&op->u.get_domain_state, d);
->>> +        break;
->>> +
->>>       default:
->>>           ret = arch_do_domctl(op, d, u_domctl);
->>>           break;
->>
->> ...
->>
->>> @@ -815,6 +816,13 @@ static XSM_INLINE int cf_check xsm_argo_send(
->>>   #endif /* CONFIG_ARGO */
->>> +static XSM_INLINE int cf_check xsm_get_domain_state(
->>> +    XSM_DEFAULT_ARG struct domain *d)
->>> +{
->>> +    XSM_ASSERT_ACTION(XSM_HOOK);
->>
->> Per the above, this would need changed to XSM_XS_PRIV.
->>
->>> +    return xsm_default_action(action, current->domain, d);
->>> +}
->>> +
->>>   #include <public/version.h>
->>>   static XSM_INLINE int cf_check xsm_xen_version(XSM_DEFAULT_ARG 
->>> uint32_t op)
->>>   {
->>
->> ...
->>
->>> @@ -1853,6 +1854,11 @@ static int cf_check flask_argo_send(
->>>   #endif
->>> +static int cf_check flask_get_domain_state(struct domain *d)
->>> +{
->>> +    return current_has_perm(d, SECCLASS_DOMAIN, 
->>> DOMAIN__GET_DOMAIN_STATE);
->>
->> I believe you want SECCLASS_DOMAIN2 here.
-> 
-> Oh, indeed. And probably DOMAIN2__GET_DOMAIN_STATE
-> 
-> 
-> Thanks,
+I don't think that check is enough to prevent the compiler from
+loading that value from memory again, potentially opening a
+time-of-check to time-of-use window. Using ACCESS_ONCE() when reading
+send_recv_id above should also take care of that, but it seems more
+direct to use ffa_get_vm_id().
 
-No problem.
+Cheers,
+Jens
 
-v/r,
-dps
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Cheers,
+> > Jens
+> >
+> >> +
+> >> +out_unlock_tx:
+> >> +    spin_unlock(&src_ctx->tx_lock);
+> >> +    return ret;
+> >> +}
+> >> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pri=
+vate.h
+> >> index 973ee55be09b..d441c0ca5598 100644
+> >> --- a/xen/arch/arm/tee/ffa_private.h
+> >> +++ b/xen/arch/arm/tee/ffa_private.h
+> >> @@ -359,6 +359,7 @@ void ffa_handle_notification_get(struct cpu_user_r=
+egs *regs);
+> >> int ffa_handle_notification_set(struct cpu_user_regs *regs);
+> >>
+> >> void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32=
+_t fid);
+> >> +int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs);
+> >>
+> >> static inline uint16_t ffa_get_vm_id(const struct domain *d)
+> >> {
+> >> --
+> >> 2.47.0
+>
+>
 
