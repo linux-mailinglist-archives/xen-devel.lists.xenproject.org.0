@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D2769AE62D
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:26:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825274.1239479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 121569AE69E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:34:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825290.1239488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3xrO-0007pN-2q; Thu, 24 Oct 2024 13:26:42 +0000
+	id 1t3xyJ-0001E9-Qt; Thu, 24 Oct 2024 13:33:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825274.1239479; Thu, 24 Oct 2024 13:26:42 +0000
+Received: by outflank-mailman (output) from mailman id 825290.1239488; Thu, 24 Oct 2024 13:33:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3xrN-0007nW-UW; Thu, 24 Oct 2024 13:26:41 +0000
-Received: by outflank-mailman (input) for mailman id 825274;
- Thu, 24 Oct 2024 13:26:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t3xyJ-0001CC-Np; Thu, 24 Oct 2024 13:33:51 +0000
+Received: by outflank-mailman (input) for mailman id 825290;
+ Thu, 24 Oct 2024 13:33:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fqEU=RU=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1t3xrM-0007Zn-M7
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:26:40 +0000
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [2607:f8b0:4864:20::c29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9973f986-920b-11ef-a0bf-8be0dac302b0;
- Thu, 24 Oct 2024 15:26:39 +0200 (CEST)
-Received: by mail-oo1-xc29.google.com with SMTP id
- 006d021491bc7-5eba450531eso979613eaf.1
- for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 06:26:39 -0700 (PDT)
+ id 1t3xyH-0001C6-TJ
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:33:50 +0000
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [2001:4860:4864:20::2a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9824e9b7-920c-11ef-99a3-01e77a169b0f;
+ Thu, 24 Oct 2024 15:33:47 +0200 (CEST)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-288642376bcso535220fac.1
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 06:33:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,48 +40,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9973f986-920b-11ef-a0bf-8be0dac302b0
+X-Inumbo-ID: 9824e9b7-920c-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1729776398; x=1730381198; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1729776825; x=1730381625; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zDK1Kthmkq11fZLtTYuTWFAp0QcFOp3jEPfJ6MKxJw4=;
-        b=pUz8TS1ZIJSp3DsNcUTXqy7GOhTnCJ6uGk9JvQH5dHpQa6hlR2ed5n5157UdFH9wRt
-         X4LEix3kjMSzmkpUj+sEEQsYZqLqigrqTxoW/tk9s+vjAbFeMJ8BGBHOuG6W4jZTOcre
-         kh8RT6tkKjMUhfyGDRRn/PLIYwGHVgTbHh+yVPzuwFomcC8JGpPtGVH/fD7jByYSL3HK
-         s7tsVO1MRpbiZSCZE/T3ylaNC19w6pgJ1uq+f7LPbLAP1nll8Ysxg6kHBa3uvkDmdkNV
-         WAFcCtIbVtXnAr+7jIQ82DAkIU0zficM2M3kQChQ2O5pbXGKYSjavI1GZNMqhQ78cLwY
-         MX/g==
+        bh=Rf2tjYYfu3xXp401bkdojDqHVKOHtRtGUAa4VDrVDUI=;
+        b=eZMxEzgLx4Ud0cIKSa8rXA767+gNLlDlQX8BKV/t3TUR/4fbXIM2ojLoIDKfOkaVKO
+         GasFK3EJdIJeWp7LfteQSz45svFBY1/5xDxwxB0T4Ii3QjoWwNzpQbQxJbzefE9r2KSa
+         nGgCIdRkswwUUYv4PLlsOk0LmEqJAVTj1bxNwL1zXlkA/lB5RFKGVAR3Yqnlb0g677yN
+         t2V5CuGAZunD4dmIMSVYuJnmK2M47+dir7MJ2o26Ag0rZ0B3Bei+IK7OlLRfl28gX3x4
+         MxCJjD6Eu+EPULabC7rn8UKzcpMax6u5lOCt0UE70bBgj2W+df6Z+ISoS2wshOhlHQYF
+         Bdow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729776398; x=1730381198;
+        d=1e100.net; s=20230601; t=1729776825; x=1730381625;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=zDK1Kthmkq11fZLtTYuTWFAp0QcFOp3jEPfJ6MKxJw4=;
-        b=NSyE+E62zrEYRvVtq+Vm1tCObf+LN2JLVWcN0beTLHO4ucKn5B/44EGt1H21qnCZUb
-         pZ8b+WjCWd8ASD8u5w8uKBeLkVgDEL8aMovDeVz4Sird7CEU37NVnz44vy6r+DS3+Vvt
-         UZKGZu/j5fX81EY3EpXj90R7Phv6LW+WuzQuHLZSDbLwpPrSF8Muuh4SIKTT+jfrJhFD
-         s3y6gZ6SgHZFGSvAZLNvD4zc5FJUCSWJUHY+7Tsaqv8g4QJe6S0UNqtEIc5XdGWS9Dch
-         bUwS4j329WWioCj+6ejWpALi/bD0Z+V5MJQkLj0SeapHrJxFmLfEknlGU7uOY76UI37k
-         wYNA==
-X-Gm-Message-State: AOJu0YzZKQ0XX1O5KlYV9s0w255K+ttCHLggrB6+JmDUS+h3mfqakaZE
-	OTem23yzEM4IE8HtW/EAck/k9ieWYr8hh9B6Z4BISsEPgSq+Tt3C91SyS+PANwwh3OpgTHEb5Sk
-	Gr0nYCoSOpog4Rq8DTn7dZ3qumYwS63xiSS5WzphcmSPYW6RPtqI=
-X-Google-Smtp-Source: AGHT+IH8xeg5Af5e53X3ZhkOZzJKpDa9Yj1w79p8sOzPxHV22/WeZ/vMMI7UsaNvYsOkrcwfuFxlDuZ1LdHkvACKfo0=
-X-Received: by 2002:a05:6870:2194:b0:286:ee46:f194 with SMTP id
- 586e51a60fabf-28cebb3b41fmr981646fac.17.1729776398120; Thu, 24 Oct 2024
- 06:26:38 -0700 (PDT)
+        bh=Rf2tjYYfu3xXp401bkdojDqHVKOHtRtGUAa4VDrVDUI=;
+        b=rp0gdiGXnqFY56c2atjNHj8hN6LOa2n6XT5xE2+bxWAYOW0AKo+ywkze9T4QO2Hhal
+         giJ47A8Zdne3K8EdfWwN7S+PtCfwP08kxIjBObijRLPQ2bUTXoBwsr87qrthQVeDocDF
+         IOVQ9pG09Pl7swNGV9CMrIv7RUbtH2LwAVqEeY69Tjm3WvtE7D1gidEX15QgiOlkuAVB
+         wUpVJhqPLYsbn2MJN425dGygbI05JZdkWUkt20zsT629JOBuZ1NS6NObdKA6y+a4Q+BE
+         VyEODZuKGngREL5hklbBtswQbeL52h/DMUwByMfJDcbjY1/W/JmY+9Lb1zCpPDZ0ygdz
+         XknQ==
+X-Gm-Message-State: AOJu0Yxhbb5kkzXL2IlV53xFWF93/KZheu9c5eXZ8tAMhGYh9e+IT3i6
+	N7nwBSVhErT5/DOveJs/vKEhZAtvkhsSty5GFyGHcjW821CINXXBRHJMWsMtQQ62r0ifWCNTNqb
+	SaQyuYdoyFTdqvy0K0D85hx8J28UyAQsKUSSRQQ==
+X-Google-Smtp-Source: AGHT+IFaIhY8HOteS9yCNprlOB+pSJcx/hDiSbyxoG7L6yprxhGK6Hr4pjO6iE6eZIaSwLnff5qdKy2LepxZ370VTy8=
+X-Received: by 2002:a05:6870:2045:b0:261:f8e:a37a with SMTP id
+ 586e51a60fabf-28ccb7f3a34mr6463366fac.14.1729776825478; Thu, 24 Oct 2024
+ 06:33:45 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1729066788.git.bertrand.marquis@arm.com>
- <84a39fbb681c1fdc2708d385e79bef1bbc9c6ae0.1729066788.git.bertrand.marquis@arm.com>
- <CAHUa44F1ZDuVQkHTEmHC-x+u4kuLqphcjaK5c7wDnnenWuQi1Q@mail.gmail.com>
- <CAHUa44EtL_hLqCD15jcvMEUxxt-289yXDaMDEs=h7EXUQxj8og@mail.gmail.com> <E9F7F794-8E9B-4997-9461-19B3145D7A09@arm.com>
-In-Reply-To: <E9F7F794-8E9B-4997-9461-19B3145D7A09@arm.com>
+ <f6037d0d077d793864ec10875dccf9e82a19e100.1729066788.git.bertrand.marquis@arm.com>
+ <CAHUa44F5yXW5yb_+RgBrof7c3yRoMp3Jh2n3OkAVV2mND7c6QA@mail.gmail.com> <CDDAEF0D-92C4-45A4-95C1-E775A26DB03A@arm.com>
+In-Reply-To: <CDDAEF0D-92C4-45A4-95C1-E775A26DB03A@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Thu, 24 Oct 2024 15:26:25 +0200
-Message-ID: <CAHUa44Hkc4fWH4-HVFEyia_dcrpP1sQTaH4KxOv0v+1DjF4Dmw@mail.gmail.com>
-Subject: Re: [PATCH v2 04/10] xen/arm: ffa: Fine granular call support
+Date: Thu, 24 Oct 2024 15:33:34 +0200
+Message-ID: <CAHUa44Fa_ajsvPwPrzH9G1DTkpA-G5zD0RzJJ5-ZnD7oqHJ76Q@mail.gmail.com>
+Subject: Re: [PATCH v2 07/10] xen/arm: ffa: Transmit RXTX buffers to the SPMC
 To: Bertrand Marquis <Bertrand.Marquis@arm.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
@@ -91,115 +90,334 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Bertrand,
 
-On Thu, Oct 24, 2024 at 12:01=E2=80=AFPM Bertrand Marquis
+On Thu, Oct 24, 2024 at 11:46=E2=80=AFAM Bertrand Marquis
 <Bertrand.Marquis@arm.com> wrote:
 >
 > Hi Jens,
 >
-> > On 24 Oct 2024, at 10:15, Jens Wiklander <jens.wiklander@linaro.org> wr=
+> > On 23 Oct 2024, at 16:51, Jens Wiklander <jens.wiklander@linaro.org> wr=
 ote:
 > >
-> > On Wed, Oct 23, 2024 at 11:58=E2=80=AFAM Jens Wiklander
-> > <jens.wiklander@linaro.org> wrote:
-> >>
-> >> Hi Bertrand,
-> >>
-> >> On Wed, Oct 16, 2024 at 10:32=E2=80=AFAM Bertrand Marquis
-> >> <bertrand.marquis@arm.com> wrote:
-> >>>
-> >>> Create a bitmap to store which feature is supported or not by the
-> >>> firmware and use it to filter which calls are done to the firmware.
-> >>>
-> >>> While there reoder ABI definition by numbers to easily find the min a=
-nd
-> >>> max ones.
-> >>>
-> >>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >>> ---
-> >>> Changes in v2:
-> >>> - rename fw_feat to abi and macros to FFA_ABI to be coherent with the
-> >>>  abi needed change done before
-> >>> - rework the macros to be simpler by directly defining MIN and MAX us=
-ing
-> >>>  only Function ids
-> >>> - check that requested function ids do not go over the bitmap size in
-> >>>  ffa_fw_supports_fid
-> >>> - add an ASSERT to make sure that we do not try to set bits outside o=
-f
-> >>>  the bitmap
-> >>> - turn off FF-A if there is not firmware support and adapt the commit
-> >>>  message to reflect this
-> >>> - add a compile time check that FFA_ABI_MIN < FFA_ABI_MAX
-> >>> - remove spurious line removal
-> >>> - restore proper cleanup of rxtx init in case of error
-> >>> - reorder ABI by numbers
-> >>> ---
-> >>> xen/arch/arm/tee/ffa.c          | 28 +++++++++++++++---------
-> >>> xen/arch/arm/tee/ffa_notif.c    |  7 ++++++
-> >>> xen/arch/arm/tee/ffa_partinfo.c | 30 +++++++++++++++++++++++++-
-> >>> xen/arch/arm/tee/ffa_private.h  | 38 ++++++++++++++++++++++++++++----=
--
-> >>> xen/arch/arm/tee/ffa_rxtx.c     |  4 ++++
-> >>> xen/arch/arm/tee/ffa_shm.c      | 12 +++++++++++
-> >>> 6 files changed, 103 insertions(+), 16 deletions(-)
-> >>
-> >> Looks good.
-> >> Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+> > Hi Bertrand,
 > >
-> > I'm sorry, I'm having second thoughts about this patch. I have two conc=
-erns:
-> > 1. Xen will complain at boot with XENLOG_INFO if an ABI function
-> > listed in ffa_fw_abi_needed is missing. With the current list of ABI
-> > functions that's somewhat OK since it was a cause of disabling FF-A
-> > support before. But as the list grows it may become annoying or even
-> > confusing since when Xen supports more features it may complain more
-> > even if there is no regression compared to previous versions. If we
-> > need to print anything perhaps XENLOG_DEBUG is better.
+> > On Wed, Oct 16, 2024 at 10:32=E2=80=AFAM Bertrand Marquis
+> > <bertrand.marquis@arm.com> wrote:
+> >>
+> >> When an RXTX buffer is mapped by a VM transmit it to the SPMC when it
+> >> supports RX_ACQUIRE.
+> >> As a consequence of that, we must acquire the RX buffer of a VM from t=
+he
+> >> SPMC when we want to use it:
+> >> - create a generic acquire and release function to get the rx buffer o=
+f
+> >>  a VM which gets it from the SPMC when supported
+> >> - rename the rx_acquire to hyp_rx_acquire to remove confusion
+> >> - rework the rx_lock to only lock access to rx_is_free and only allow
+> >>  usage of the rx buffer to one who managed to acquire it, thus removin=
+g
+> >>  the trylock and returning busy if rx_is_free is false
+> >>
+> >> As part of this change move some structure definition to ffa_private
+> >> from ffa_shm as those are need for the MAP call with the SPMC.
+> >>
+> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >> ---
+> >> Changes in v2:
+> >> - unmap VM rxtx buffer in SPMC on unmap call or on VM destroy
+> >> - rework the unmap call to the SPMC to properly pass the VM ID
+> >> ---
+> >> xen/arch/arm/tee/ffa.c          |   2 +-
+> >> xen/arch/arm/tee/ffa_partinfo.c |  29 ++----
+> >> xen/arch/arm/tee/ffa_private.h  |  22 ++++-
+> >> xen/arch/arm/tee/ffa_rxtx.c     | 158 ++++++++++++++++++++++++++------
+> >> xen/arch/arm/tee/ffa_shm.c      |  15 ---
+> >> 5 files changed, 161 insertions(+), 65 deletions(-)
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >> index a292003ca9fe..40ea5398fa21 100644
+> >> --- a/xen/arch/arm/tee/ffa.c
+> >> +++ b/xen/arch/arm/tee/ffa.c
+> >> @@ -347,7 +347,7 @@ static bool ffa_handle_call(struct cpu_user_regs *=
+regs)
+> >>         ffa_handle_partition_info_get(regs);
+> >>         return true;
+> >>     case FFA_RX_RELEASE:
+> >> -        e =3D ffa_handle_rx_release();
+> >> +        e =3D ffa_rx_release(d);
+> >>         break;
+> >>     case FFA_MSG_SEND_DIRECT_REQ_32:
+> >>     case FFA_MSG_SEND_DIRECT_REQ_64:
+> >> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_pa=
+rtinfo.c
+> >> index 3cf801523296..fde187dba4e5 100644
+> >> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> >> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> >> @@ -121,11 +121,9 @@ void ffa_handle_partition_info_get(struct cpu_use=
+r_regs *regs)
+> >>         goto out;
+> >>     }
+> >>
+> >> -    if ( !spin_trylock(&ctx->rx_lock) )
+> >> -    {
+> >> -        ret =3D FFA_RET_BUSY;
+> >> +    ret =3D ffa_rx_acquire(d);
+> >> +    if ( ret !=3D FFA_RET_OK )
+> >>         goto out;
+> >> -    }
+> >>
+> >>     dst_buf =3D ctx->rx;
+> >>
+> >> @@ -135,22 +133,16 @@ void ffa_handle_partition_info_get(struct cpu_us=
+er_regs *regs)
+> >>         goto out_rx_release;
+> >>     }
+> >>
+> >> -    if ( !ctx->page_count || !ctx->rx_is_free )
+> >> -    {
+> >> -        ret =3D FFA_RET_DENIED;
+> >> -        goto out_rx_release;
+> >> -    }
+> >> -
+> >>     spin_lock(&ffa_rx_buffer_lock);
+> >>
+> >>     ret =3D ffa_partition_info_get(uuid, 0, &ffa_sp_count, &src_size);
+> >>
+> >>     if ( ret )
+> >> -        goto out_rx_buf_unlock;
+> >> +        goto out_rx_hyp_unlock;
+> >>
+> >>     /*
+> >>      * ffa_partition_info_get() succeeded so we now own the RX buffer =
+we
+> >> -     * share with the SPMC. We must give it back using ffa_rx_release=
+()
+> >> +     * share with the SPMC. We must give it back using ffa_hyp_rx_rel=
+ease()
+> >>      * once we've copied the content.
+> >>      */
+> >>
+> >> @@ -193,15 +185,13 @@ void ffa_handle_partition_info_get(struct cpu_us=
+er_regs *regs)
+> >>         }
+> >>     }
+> >>
+> >> -    ctx->rx_is_free =3D false;
+> >> -
+> >> out_rx_hyp_release:
+> >> -    ffa_rx_release();
+> >> -out_rx_buf_unlock:
+> >> +    ffa_hyp_rx_release();
+> >> +out_rx_hyp_unlock:
+> >>     spin_unlock(&ffa_rx_buffer_lock);
+> >> out_rx_release:
+> >> -    spin_unlock(&ctx->rx_lock);
+> >> -
+> >> +    if ( ret !=3D FFA_RET_OK )
+> >> +        ffa_rx_release(d);
+> >
+> > Please comment on why ffa_rx_release() must only be called on failure.
 >
-> This is only printed at boot and in the worst case it would list all need=
-ed ABI.
-> If the list printed becomes big, it probably means that almost nothing is
-> possible to do which might be interesting for the user.
-> Only seeing this information with debug prints might lead into normal use=
-rs
-> not understanding why communication with secure world are not working
-> without having a reason.
-> I would expect that the most common case will be for the list of printed
-> entries to be limited (right now it only prints something for 64bit shari=
-ng which
-> should be solved in Hafnium).
-> As Xen is already quite verbose in INFO mode during boot and this is not
-> a runtime print, I think it is ok.
+> It is because the buffer contains data for the caller in case of success =
+so
+> it must be released by the caller.
 
-With added support for FFA_MSG_SEND2 xen will start to complain that
-OP-TEE doesn't support that function, even if it's not needed. It
-should be harmless as long as it's not interpreted as an error.
+Please mention the transfer of buffer ownership since that might be
+easy to miss if only skimming the spec.
 
 >
-> > 2. FFA_FEATURES may return success for features not supported by the
-> > SPMC. How about only returning success for features in the
-> > ffa_fw_abi_needed bitmap?
->
-> This would be a reinterpretation of the specification and could create
-> issues in some cases (some ABIs might be supported by Xen but not
-> by the SPMC and still work correctly this way) and even more when
-> we will have VM to VM.
-> The specification is saying that we should return what we support and
-> not what is supported by the SPMC. Filtering based on what is supported
-> by the SPMC and what will still work if not supported by the SPMC and
-> what we do not support even if it is supported by the SPMC might become
-> quickly very complex.
->
-> What do you think we would gain from doing what you suggest instead of
-> what we have right now ?
+> Do i get it right that you want me to add a comment saying that in the co=
+de
+> and not only tell you here ?
 
-Yes, you're right I mistook FFA_FEATURE to cover the Framework, but
-it's only the interface. So returning success for all functions xen
-might be able to support is within specification.
+Yes. :-)
 
 Cheers,
 Jens
 
+>
+> >
+> >> out:
+> >>     if ( ret )
+> >>         ffa_set_regs_error(regs, ret);
+> >> @@ -368,8 +358,7 @@ bool ffa_partinfo_init(void)
+> >>     ret =3D init_subscribers(count, fpi_size);
+> >>
+> >> out:
+> >> -    ffa_rx_release();
+> >> -
+> >> +    ffa_hyp_rx_release();
+> >>     return ret;
+> >> }
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pri=
+vate.h
+> >> index afe69b43dbef..9adfe687c3c9 100644
+> >> --- a/xen/arch/arm/tee/ffa_private.h
+> >> +++ b/xen/arch/arm/tee/ffa_private.h
+> >> @@ -265,6 +265,21 @@
+> >> #define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_ABI_MIN) << 1 | \
+> >>                                FFA_ABI_CONV(id))
+> >>
+> >> +/* Constituent memory region descriptor */
+> >> +struct ffa_address_range {
+> >> +    uint64_t address;
+> >> +    uint32_t page_count;
+> >> +    uint32_t reserved;
+> >> +};
+> >> +
+> >> +/* Composite memory region descriptor */
+> >> +struct ffa_mem_region {
+> >> +    uint32_t total_page_count;
+> >> +    uint32_t address_range_count;
+> >> +    uint64_t reserved;
+> >> +    struct ffa_address_range address_range_array[];
+> >> +};
+> >> +
+> >> struct ffa_ctx_notif {
+> >>     bool enabled;
+> >>
+> >> @@ -292,7 +307,7 @@ struct ffa_ctx {
+> >>     struct ffa_ctx_notif notif;
+> >>     /*
+> >>      * tx_lock is used to serialize access to tx
+> >> -     * rx_lock is used to serialize access to rx
+> >> +     * rx_lock is used to serialize access to rx_is_free
+> >>      * lock is used for the rest in this struct
+> >>      */
+> >>     spinlock_t tx_lock;
+> >> @@ -331,7 +346,8 @@ void ffa_rxtx_domain_destroy(struct domain *d);
+> >> uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+> >>                             register_t rx_addr, uint32_t page_count);
+> >> uint32_t ffa_handle_rxtx_unmap(void);
+> >> -int32_t ffa_handle_rx_release(void);
+> >> +int32_t ffa_rx_acquire(struct domain *d);
+> >> +int32_t ffa_rx_release(struct domain *d);
+> >>
+> >> void ffa_notif_init(void);
+> >> void ffa_notif_init_interrupt(void);
+> >> @@ -420,7 +436,7 @@ static inline int32_t ffa_simple_call(uint32_t fid=
+, register_t a1,
+> >>     return ffa_get_ret_code(&resp);
+> >> }
+> >>
+> >> -static inline int32_t ffa_rx_release(void)
+> >> +static inline int32_t ffa_hyp_rx_release(void)
+> >> {
+> >>     return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+> >> }
+> >> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> >> index b6931c855779..a5d43e51f843 100644
+> >> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> >> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> >> @@ -30,6 +30,17 @@ struct ffa_endpoint_rxtx_descriptor_1_1 {
+> >>     uint32_t tx_region_offs;
+> >> };
+> >>
+> >> +static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
+> >> +                            uint32_t page_count)
+> >> +{
+> >> +    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_co=
+unt, 0);
+> >> +}
+> >> +
+> >> +static int32_t ffa_rxtx_unmap(uint16_t id)
+> >> +{
+> >> +    return ffa_simple_call(FFA_RXTX_UNMAP, ((uint64_t)id)<<16, 0, 0, =
+0);
+> >> +}
+> >> +
+> >> uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+> >>                             register_t rx_addr, uint32_t page_count)
+> >> {
+> >> @@ -42,6 +53,9 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_=
+t tx_addr,
+> >>     void *rx;
+> >>     void *tx;
+> >>
+> >> +    /* The code is considering that we only get one page for now */
+> >> +    BUILD_BUG_ON(FFA_MAX_RXTX_PAGE_COUNT !=3D 1);
+> >> +
+> >>     if ( !smccc_is_conv_64(fid) )
+> >>     {
+> >>         /*
+> >> @@ -87,6 +101,65 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, registe=
+r_t tx_addr,
+> >>     if ( !rx )
+> >>         goto err_unmap_tx;
+> >>
+> >> +    /*
+> >> +     * Transmit the RX/TX buffer information to the SPM if acquire is=
+ supported
+> >> +     * as the spec says that if not there is not need to acquire/rele=
+ase/map
+> >> +     * rxtx buffers from the SPMC
+> >> +     */
+> >> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> >> +    {
+> >> +        struct ffa_endpoint_rxtx_descriptor_1_1 *rxtx_desc;
+> >> +        struct ffa_mem_region *mem_reg;
+> >> +
+> >> +        /* All must fit in our TX buffer */
+> >> +        BUILD_BUG_ON((sizeof(*rxtx_desc) + sizeof(*mem_reg)*2 +
+> >> +                      sizeof(struct ffa_address_range)*2) > FFA_PAGE_=
+SIZE);
+> >
+> > Please add space before and after the binary operator "*".
+> Ack
+>
+> > The size of the TX buffer is FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE.
+> Very right, I will fix that in v3.
+>
+> > Nit: the outer parenthesis around the left expression aren't needed.
+> Ack
+>
+> >
+> >> +
+> >> +        spin_lock(&ffa_tx_buffer_lock);
+> >> +        rxtx_desc =3D ffa_tx;
+> >> +
+> >> +        /*
+> >> +         * We have only one page for each so we pack everything:
+> >> +         * - rx region descriptor
+> >> +         * - rx region range
+> >> +         * - tx region descriptor
+> >> +         * - tx region range
+> >> +         */
+> >> +        rxtx_desc->sender_id =3D ffa_get_vm_id(d);
+> >> +        rxtx_desc->reserved =3D 0;
+> >> +        rxtx_desc->rx_region_offs =3D sizeof(*rxtx_desc);
+> >> +        rxtx_desc->tx_region_offs =3D sizeof(*rxtx_desc) +
+> >> +                                    offsetof(struct ffa_mem_region,
+> >> +                                             address_range_array[1]);
+> >> +
+> >> +        /* rx buffer */
+> >> +        mem_reg =3D ffa_tx + sizeof(*rxtx_desc);
+> >> +        mem_reg->total_page_count =3D 1;
+> >> +        mem_reg->address_range_count =3D 1;
+> >> +        mem_reg->reserved =3D 0;
+> >> +
+> >> +        mem_reg->address_range_array[0].address =3D page_to_maddr(rx_=
+pg);
+> >> +        mem_reg->address_range_array[0].page_count =3D 1;
+> >> +        mem_reg->address_range_array[0].reserved =3D 0;
+> >> +
+> >> +        /* tx buffer */
+> >> +        mem_reg =3D ffa_tx + rxtx_desc->tx_region_offs;
+> >> +        mem_reg->total_page_count =3D 1;
+> >> +        mem_reg->address_range_count =3D 1;
+> >> +        mem_reg->reserved =3D 0;
+> >> +
+> >> +        mem_reg->address_range_array[0].address =3D page_to_maddr(tx_=
+pg);
+> >> +        mem_reg->address_range_array[0].page_count =3D 1;
+> >> +        mem_reg->address_range_array[0].reserved =3D 0;
+> >> +
+> >> +        ret =3D ffa_rxtx_map(0, 0, 1);
+> >
+> > The last parameter is also MBZ when forwarding on behalf of an endpoint=
+.
+>
+> Ack, will fix in v3.
 >
 > Cheers
 > Bertrand
@@ -208,324 +426,188 @@ Jens
 > > Cheers,
 > > Jens
 > >
+> >> +
+> >> +        spin_unlock(&ffa_tx_buffer_lock);
+> >> +
+> >> +        if ( ret !=3D FFA_RET_OK )
+> >> +            goto err_unmap_rx;
+> >> +    }
+> >> +
+> >>     ctx->rx =3D rx;
+> >>     ctx->tx =3D tx;
+> >>     ctx->rx_pg =3D rx_pg;
+> >> @@ -95,6 +168,8 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register=
+_t tx_addr,
+> >>     ctx->rx_is_free =3D true;
+> >>     return FFA_RET_OK;
 > >>
-> >> Cheers,
-> >> Jens
+> >> +err_unmap_rx:
+> >> +    unmap_domain_page_global(rx);
+> >> err_unmap_tx:
+> >>     unmap_domain_page_global(tx);
+> >> err_put_rx_pg:
+> >> @@ -105,8 +180,22 @@ err_put_tx_pg:
+> >>     return ret;
+> >> }
 > >>
-> >>>
-> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >>> index 1ee6b2895e92..267d4435ac08 100644
-> >>> --- a/xen/arch/arm/tee/ffa.c
-> >>> +++ b/xen/arch/arm/tee/ffa.c
-> >>> @@ -72,7 +72,10 @@
-> >>> #include "ffa_private.h"
-> >>>
-> >>> /* Negotiated FF-A version to use with the SPMC, 0 if not there or su=
-pported */
-> >>> -static uint32_t __ro_after_init ffa_fw_version;
-> >>> +uint32_t __ro_after_init ffa_fw_version;
-> >>> +
-> >>> +/* Features supported by the SPMC or secure world when present */
-> >>> +DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
-> >>>
-> >>> struct ffa_fw_abi {
-> >>>     const uint32_t id;
-> >>> @@ -177,6 +180,13 @@ static void handle_msg_send_direct_req(struct cp=
-u_user_regs *regs, uint32_t fid)
-> >>>     else
-> >>>         mask =3D GENMASK_ULL(31, 0);
-> >>>
-> >>> +    if ( !ffa_fw_supports_fid(fid) )
-> >>> +    {
-> >>> +        resp.a0 =3D FFA_ERROR;
-> >>> +        resp.a2 =3D FFA_RET_NOT_SUPPORTED;
-> >>> +        goto out;
-> >>> +    }
-> >>> +
-> >>>     src_dst =3D get_user_reg(regs, 1);
-> >>>     if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
-> >>>     {
-> >>> @@ -577,19 +587,16 @@ static bool ffa_probe(void)
-> >>>     else
-> >>>         ffa_fw_version =3D vers;
-> >>>
-> >>> -    /*
-> >>> -     * At the moment domains must support the same features used by =
-Xen.
-> >>> -     * TODO: Rework the code to allow domain to use a subset of the
-> >>> -     * features supported.
-> >>> -     */
-> >>>     for ( unsigned int i =3D 0; i < ARRAY_SIZE(ffa_fw_abi_needed); i+=
-+ )
-> >>>     {
-> >>> -        if ( !ffa_abi_supported(ffa_fw_abi_needed[i].id) )
-> >>> -        {
-> >>> +        ASSERT(FFA_ABI_BITNUM(ffa_fw_abi_needed[i].id) < FFA_ABI_BIT=
-MAP_SIZE);
-> >>> +
-> >>> +        if ( ffa_abi_supported(ffa_fw_abi_needed[i].id) )
-> >>> +            set_bit(FFA_ABI_BITNUM(ffa_fw_abi_needed[i].id),
-> >>> +                    ffa_fw_abi_supported);
-> >>> +        else
-> >>>             printk(XENLOG_INFO "ARM FF-A Firmware does not support %s=
-\n",
-> >>>                    ffa_fw_abi_needed[i].name);
-> >>> -            goto err_no_fw;
-> >>> -        }
-> >>>     }
-> >>>
-> >>>     if ( !ffa_rxtx_init() )
-> >>> @@ -611,6 +618,7 @@ err_rxtx_destroy:
-> >>>     ffa_rxtx_destroy();
-> >>> err_no_fw:
-> >>>     ffa_fw_version =3D 0;
-> >>> +    bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
-> >>>     printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
-> >>>
-> >>>     return false;
-> >>> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_noti=
-f.c
-> >>> index 541e61d2f606..4b3e46318f4b 100644
-> >>> --- a/xen/arch/arm/tee/ffa_notif.c
-> >>> +++ b/xen/arch/arm/tee/ffa_notif.c
-> >>> @@ -377,6 +377,13 @@ void ffa_notif_init(void)
-> >>>     unsigned int irq;
-> >>>     int ret;
-> >>>
-> >>> +    /* Only enable fw notification if all ABIs we need are supported=
- */
-> >>> +    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-> >>> +           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-> >>> +           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-> >>> +           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
-> >>> +        return;
-> >>> +
-> >>>     arm_smccc_1_2_smc(&arg, &resp);
-> >>>     if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> >>>         return;
-> >>> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_p=
-artinfo.c
-> >>> index 93a03c6bc672..99c48f0e5c05 100644
-> >>> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> >>> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> >>> @@ -77,7 +77,15 @@ int32_t ffa_handle_partition_info_get(uint32_t w1,=
- uint32_t w2, uint32_t w3,
-> >>>      */
-> >>>     if ( w5 =3D=3D FFA_PARTITION_INFO_GET_COUNT_FLAG &&
-> >>>          ctx->guest_vers =3D=3D FFA_VERSION_1_1 )
-> >>> -        return ffa_partition_info_get(w1, w2, w3, w4, w5, count, fpi=
-_size);
-> >>> +    {
-> >>> +        if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-> >>> +            return ffa_partition_info_get(w1, w2, w3, w4, w5, count,=
- fpi_size);
-> >>> +        else
-> >>> +        {
-> >>> +            *count =3D 0;
-> >>> +            return FFA_RET_OK;
-> >>> +        }
-> >>> +    }
-> >>>     if ( w5 )
-> >>>         return FFA_RET_INVALID_PARAMETERS;
-> >>>
-> >>> @@ -87,6 +95,18 @@ int32_t ffa_handle_partition_info_get(uint32_t w1,=
- uint32_t w2, uint32_t w3,
-> >>>     if ( !spin_trylock(&ctx->rx_lock) )
-> >>>         return FFA_RET_BUSY;
-> >>>
-> >>> +    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-> >>> +    {
-> >>> +        if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 )
-> >>> +            *fpi_size =3D sizeof(struct ffa_partition_info_1_0);
-> >>> +        else
-> >>> +            *fpi_size =3D sizeof(struct ffa_partition_info_1_1);
-> >>> +
-> >>> +        *count =3D 0;
-> >>> +        ret =3D FFA_RET_OK;
-> >>> +        goto out;
-> >>> +    }
-> >>> +
-> >>>     if ( !ctx->page_count || !ctx->rx_is_free )
-> >>>         goto out;
-> >>>     spin_lock(&ffa_rx_buffer_lock);
-> >>> @@ -250,6 +270,11 @@ bool ffa_partinfo_init(void)
-> >>>     uint32_t count;
-> >>>     int e;
-> >>>
-> >>> +    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
-> >>> +         !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) ||
-> >>> +         !ffa_rx || !ffa_tx )
-> >>> +        return false;
-> >>> +
-> >>>     e =3D ffa_partition_info_get(0, 0, 0, 0, 0, &count, &fpi_size);
-> >>>     if ( e )
-> >>>     {
-> >>> @@ -313,6 +338,9 @@ int ffa_partinfo_domain_init(struct domain *d)
-> >>>     unsigned int n;
-> >>>     int32_t res;
-> >>>
-> >>> +    if ( !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) )
-> >>> +        return 0;
-> >>> +
-> >>>     ctx->vm_destroy_bitmap =3D xzalloc_array(unsigned long, count);
-> >>>     if ( !ctx->vm_destroy_bitmap )
-> >>>         return -ENOMEM;
-> >>> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pr=
-ivate.h
-> >>> index 045d9c4a0b56..85eb61c13464 100644
-> >>> --- a/xen/arch/arm/tee/ffa_private.h
-> >>> +++ b/xen/arch/arm/tee/ffa_private.h
-> >>> @@ -14,6 +14,7 @@
-> >>> #include <xen/spinlock.h>
-> >>> #include <xen/sched.h>
-> >>> #include <xen/time.h>
-> >>> +#include <xen/bitmap.h>
-> >>>
-> >>> /* Error codes */
-> >>> #define FFA_RET_OK                      0
-> >>> @@ -201,18 +202,17 @@
-> >>> #define FFA_INTERRUPT                   0x84000062U
-> >>> #define FFA_VERSION                     0x84000063U
-> >>> #define FFA_FEATURES                    0x84000064U
-> >>> -#define FFA_RX_ACQUIRE                  0x84000084U
-> >>> #define FFA_RX_RELEASE                  0x84000065U
-> >>> #define FFA_RXTX_MAP_32                 0x84000066U
-> >>> #define FFA_RXTX_MAP_64                 0xC4000066U
-> >>> #define FFA_RXTX_UNMAP                  0x84000067U
-> >>> #define FFA_PARTITION_INFO_GET          0x84000068U
-> >>> #define FFA_ID_GET                      0x84000069U
-> >>> -#define FFA_SPM_ID_GET                  0x84000085U
-> >>> +#define FFA_MSG_POLL                    0x8400006AU
-> >>> #define FFA_MSG_WAIT                    0x8400006BU
-> >>> #define FFA_MSG_YIELD                   0x8400006CU
-> >>> #define FFA_RUN                         0x8400006DU
-> >>> -#define FFA_MSG_SEND2                   0x84000086U
-> >>> +#define FFA_MSG_SEND                    0x8400006EU
-> >>> #define FFA_MSG_SEND_DIRECT_REQ_32      0x8400006FU
-> >>> #define FFA_MSG_SEND_DIRECT_REQ_64      0xC400006FU
-> >>> #define FFA_MSG_SEND_DIRECT_RESP_32     0x84000070U
-> >>> @@ -230,8 +230,6 @@
-> >>> #define FFA_MEM_RECLAIM                 0x84000077U
-> >>> #define FFA_MEM_FRAG_RX                 0x8400007AU
-> >>> #define FFA_MEM_FRAG_TX                 0x8400007BU
-> >>> -#define FFA_MSG_SEND                    0x8400006EU
-> >>> -#define FFA_MSG_POLL                    0x8400006AU
-> >>> #define FFA_NOTIFICATION_BITMAP_CREATE  0x8400007DU
-> >>> #define FFA_NOTIFICATION_BITMAP_DESTROY 0x8400007EU
-> >>> #define FFA_NOTIFICATION_BIND           0x8400007FU
-> >>> @@ -240,6 +238,25 @@
-> >>> #define FFA_NOTIFICATION_GET            0x84000082U
-> >>> #define FFA_NOTIFICATION_INFO_GET_32    0x84000083U
-> >>> #define FFA_NOTIFICATION_INFO_GET_64    0xC4000083U
-> >>> +#define FFA_RX_ACQUIRE                  0x84000084U
-> >>> +#define FFA_SPM_ID_GET                  0x84000085U
-> >>> +#define FFA_MSG_SEND2                   0x84000086U
-> >>> +
-> >>> +/**
-> >>> + * Encoding of features supported or not by the fw in a bitmap:
-> >>> + * - Function IDs are going from 0x60 to 0xFF
-> >>> + * - A function can be supported in 32 and/or 64bit
-> >>> + * The bitmap has one bit for each function in 32 and 64 bit.
-> >>> + */
-> >>> +#define FFA_ABI_ID(id)        ((id) & ARM_SMCCC_FUNC_MASK)
-> >>> +#define FFA_ABI_CONV(id)      (((id) >> ARM_SMCCC_CONV_SHIFT) & BIT(=
-0,U))
-> >>> +
-> >>> +#define FFA_ABI_MIN           FFA_ABI_ID(FFA_ERROR)
-> >>> +#define FFA_ABI_MAX           FFA_ABI_ID(FFA_MSG_SEND2)
-> >>> +
-> >>> +#define FFA_ABI_BITMAP_SIZE   (2 * (FFA_ABI_MAX - FFA_ABI_MIN + 1))
-> >>> +#define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_ABI_MIN) << 1 |=
- \
-> >>> +                               FFA_ABI_CONV(id))
-> >>>
-> >>> struct ffa_ctx_notif {
-> >>>     bool enabled;
-> >>> @@ -289,6 +306,8 @@ extern void *ffa_rx;
-> >>> extern void *ffa_tx;
-> >>> extern spinlock_t ffa_rx_buffer_lock;
-> >>> extern spinlock_t ffa_tx_buffer_lock;
-> >>> +extern uint32_t __ro_after_init ffa_fw_version;
-> >>> +extern DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
-> >>>
-> >>> bool ffa_shm_domain_destroy(struct domain *d);
-> >>> void ffa_handle_mem_share(struct cpu_user_regs *regs);
-> >>> @@ -401,4 +420,13 @@ static inline int32_t ffa_rx_release(void)
-> >>>     return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
-> >>> }
-> >>>
-> >>> +static inline bool ffa_fw_supports_fid(uint32_t fid)
-> >>> +{
-> >>> +    BUILD_BUG_ON(FFA_ABI_MIN > FFA_ABI_MAX);
-> >>> +
-> >>> +    if ( FFA_ABI_BITNUM(fid) > FFA_ABI_BITMAP_SIZE)
-> >>> +        return false;
-> >>> +    return test_bit(FFA_ABI_BITNUM(fid), ffa_fw_abi_supported);
-> >>> +}
-> >>> +
-> >>> #endif /*__FFA_PRIVATE_H__*/
-> >>> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.=
-c
-> >>> index 661764052e67..b6931c855779 100644
-> >>> --- a/xen/arch/arm/tee/ffa_rxtx.c
-> >>> +++ b/xen/arch/arm/tee/ffa_rxtx.c
-> >>> @@ -193,6 +193,10 @@ bool ffa_rxtx_init(void)
-> >>> {
-> >>>     int e;
-> >>>
-> >>> +    /* Firmware not there or not supporting */
-> >>> +    if ( !ffa_fw_supports_fid(FFA_RXTX_MAP_64) )
-> >>> +        return false;
-> >>> +
-> >>>     ffa_rx =3D alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE=
-_COUNT), 0);
-> >>>     if ( !ffa_rx )
-> >>>         return false;
-> >>> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-> >>> index 370d83ec5cf8..efa5b67db8e1 100644
-> >>> --- a/xen/arch/arm/tee/ffa_shm.c
-> >>> +++ b/xen/arch/arm/tee/ffa_shm.c
-> >>> @@ -149,6 +149,9 @@ static int32_t ffa_mem_share(uint32_t tot_len, ui=
-nt32_t frag_len,
-> >>> static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi=
-,
-> >>>                                uint32_t flags)
-> >>> {
-> >>> +    if ( !ffa_fw_supports_fid(FFA_MEM_RECLAIM) )
-> >>> +        return FFA_RET_NOT_SUPPORTED;
-> >>> +
-> >>>     return ffa_simple_call(FFA_MEM_RECLAIM, handle_lo, handle_hi, fla=
-gs, 0);
-> >>> }
-> >>>
-> >>> @@ -467,6 +470,12 @@ void ffa_handle_mem_share(struct cpu_user_regs *=
-regs)
-> >>>     uint32_t range_count;
-> >>>     uint32_t region_offs;
-> >>>
-> >>> +    if ( !ffa_fw_supports_fid(FFA_MEM_SHARE_64) )
-> >>> +    {
-> >>> +        ret =3D FFA_RET_NOT_SUPPORTED;
-> >>> +        goto out_set_ret;
-> >>> +    }
-> >>> +
-> >>>     /*
-> >>>      * We're only accepting memory transaction descriptors via the rx=
-/tx
-> >>>      * buffer.
-> >>> @@ -621,6 +630,9 @@ int ffa_handle_mem_reclaim(uint64_t handle, uint3=
-2_t flags)
-> >>>     register_t handle_lo;
-> >>>     int ret;
-> >>>
-> >>> +    if ( !ffa_fw_supports_fid(FFA_MEM_RECLAIM) )
-> >>> +        return FFA_RET_NOT_SUPPORTED;
-> >>> +
-> >>>     spin_lock(&ctx->lock);
-> >>>     shm =3D find_shm_mem(ctx, handle);
-> >>>     if ( shm )
-> >>> --
-> >>> 2.47.0
+> >> -static void rxtx_unmap(struct ffa_ctx *ctx)
+> >> +static uint32_t  rxtx_unmap(struct domain *d)
+> >> {
+> >> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> >> +
+> >> +    if ( !ctx->page_count )
+> >> +        return FFA_RET_INVALID_PARAMETERS;
+> >> +
+> >> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> >> +    {
+> >> +        uint32_t ret;
+> >> +
+> >> +        ret =3D ffa_rxtx_unmap(ffa_get_vm_id(d));
+> >> +        if ( ret !=3D FFA_RET_OK )
+> >> +            return ret;
+> >> +    }
+> >> +
+> >>     unmap_domain_page_global(ctx->rx);
+> >>     unmap_domain_page_global(ctx->tx);
+> >>     put_page(ctx->rx_pg);
+> >> @@ -117,32 +206,63 @@ static void rxtx_unmap(struct ffa_ctx *ctx)
+> >>     ctx->tx_pg =3D NULL;
+> >>     ctx->page_count =3D 0;
+> >>     ctx->rx_is_free =3D false;
+> >> +
+> >> +    return FFA_RET_OK;
+> >> }
+> >>
+> >> uint32_t ffa_handle_rxtx_unmap(void)
+> >> {
+> >> -    struct domain *d =3D current->domain;
+> >> +    return rxtx_unmap(current->domain);
+> >> +}
+> >> +
+> >> +int32_t ffa_rx_acquire(struct domain *d)
+> >> +{
+> >> +    int32_t ret =3D FFA_RET_OK;
+> >>     struct ffa_ctx *ctx =3D d->arch.tee;
+> >>
+> >> -    if ( !ctx->rx )
+> >> -        return FFA_RET_INVALID_PARAMETERS;
+> >> +    spin_lock(&ctx->rx_lock);
+> >>
+> >> -    rxtx_unmap(ctx);
+> >> +    if ( !ctx->page_count )
+> >> +    {
+> >> +        ret =3D FFA_RET_DENIED;
+> >> +        goto out;
+> >> +    }
+> >>
+> >> -    return FFA_RET_OK;
+> >> +    if ( !ctx->rx_is_free )
+> >> +    {
+> >> +        ret =3D FFA_RET_BUSY;
+> >> +        goto out;
+> >> +    }
+> >> +
+> >> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> >> +    {
+> >> +        ret =3D ffa_simple_call(FFA_RX_ACQUIRE, ffa_get_vm_id(d), 0, =
+0, 0);
+> >> +        if ( ret !=3D FFA_RET_OK )
+> >> +            goto out;
+> >> +    }
+> >> +    ctx->rx_is_free =3D false;
+> >> +out:
+> >> +    spin_unlock(&ctx->rx_lock);
+> >> +
+> >> +    return ret;
+> >> }
+> >>
+> >> -int32_t ffa_handle_rx_release(void)
+> >> +int32_t ffa_rx_release(struct domain *d)
+> >> {
+> >>     int32_t ret =3D FFA_RET_DENIED;
+> >> -    struct domain *d =3D current->domain;
+> >>     struct ffa_ctx *ctx =3D d->arch.tee;
+> >>
+> >> -    if ( !spin_trylock(&ctx->rx_lock) )
+> >> -        return FFA_RET_BUSY;
+> >> +    spin_lock(&ctx->rx_lock);
+> >>
+> >>     if ( !ctx->page_count || ctx->rx_is_free )
+> >>         goto out;
+> >> +
+> >> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> >> +    {
+> >> +        ret =3D ffa_simple_call(FFA_RX_RELEASE, ffa_get_vm_id(d), 0, =
+0, 0);
+> >> +        if ( ret !=3D FFA_RET_OK )
+> >> +            goto out;
+> >> +    }
+> >>     ret =3D FFA_RET_OK;
+> >>     ctx->rx_is_free =3D true;
+> >> out:
+> >> @@ -151,23 +271,9 @@ out:
+> >>     return ret;
+> >> }
+> >>
+> >> -static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
+> >> -                            uint32_t page_count)
+> >> -{
+> >> -    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_co=
+unt, 0);
+> >> -}
+> >> -
+> >> -static int32_t ffa_rxtx_unmap(void)
+> >> -{
+> >> -    return ffa_simple_call(FFA_RXTX_UNMAP, 0, 0, 0, 0);
+> >> -}
+> >> -
+> >> void ffa_rxtx_domain_destroy(struct domain *d)
+> >> {
+> >> -    struct ffa_ctx *ctx =3D d->arch.tee;
+> >> -
+> >> -    if ( ctx->rx )
+> >> -        rxtx_unmap(ctx);
+> >> +    rxtx_unmap(d);
+> >> }
+> >>
+> >> void ffa_rxtx_destroy(void)
+> >> @@ -186,7 +292,7 @@ void ffa_rxtx_destroy(void)
+> >>     }
+> >>
+> >>     if ( need_unmap )
+> >> -        ffa_rxtx_unmap();
+> >> +        ffa_rxtx_unmap(0);
+> >> }
+> >>
+> >> bool ffa_rxtx_init(void)
+> >> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+> >> index 29675f9ba3f7..d628c1b70609 100644
+> >> --- a/xen/arch/arm/tee/ffa_shm.c
+> >> +++ b/xen/arch/arm/tee/ffa_shm.c
+> >> @@ -16,21 +16,6 @@
+> >>
+> >> #include "ffa_private.h"
+> >>
+> >> -/* Constituent memory region descriptor */
+> >> -struct ffa_address_range {
+> >> -    uint64_t address;
+> >> -    uint32_t page_count;
+> >> -    uint32_t reserved;
+> >> -};
+> >> -
+> >> -/* Composite memory region descriptor */
+> >> -struct ffa_mem_region {
+> >> -    uint32_t total_page_count;
+> >> -    uint32_t address_range_count;
+> >> -    uint64_t reserved;
+> >> -    struct ffa_address_range address_range_array[];
+> >> -};
+> >> -
+> >> /* Memory access permissions descriptor */
+> >> struct ffa_mem_access_perm {
+> >>     uint16_t endpoint_id;
+> >> --
+> >> 2.47.0
 >
 >
 
