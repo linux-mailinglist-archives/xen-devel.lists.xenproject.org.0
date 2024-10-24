@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C04F9AEB05
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 17:49:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825460.1239689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E319AEB5F
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 18:04:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825473.1239699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4055-0007KP-LQ; Thu, 24 Oct 2024 15:48:59 +0000
+	id 1t40JR-0002Ij-Rf; Thu, 24 Oct 2024 16:03:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825460.1239689; Thu, 24 Oct 2024 15:48:59 +0000
+Received: by outflank-mailman (output) from mailman id 825473.1239699; Thu, 24 Oct 2024 16:03:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4055-0007I7-IH; Thu, 24 Oct 2024 15:48:59 +0000
-Received: by outflank-mailman (input) for mailman id 825460;
- Thu, 24 Oct 2024 15:48:58 +0000
+	id 1t40JR-0002H7-Og; Thu, 24 Oct 2024 16:03:49 +0000
+Received: by outflank-mailman (input) for mailman id 825473;
+ Thu, 24 Oct 2024 16:03:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LAxk=RU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1t4054-0007Hz-2m
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 15:48:58 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ <SRS0=jd6X=RU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t40JQ-0002H1-I9
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 16:03:48 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79cdbc6b-921f-11ef-99a3-01e77a169b0f;
- Thu, 24 Oct 2024 17:48:56 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a9a2209bd7fso131438766b.2
- for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 08:48:56 -0700 (PDT)
-Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9a91598f11sm632275766b.193.2024.10.24.08.48.54
+ id 8ca395d4-9221-11ef-99a3-01e77a169b0f;
+ Thu, 24 Oct 2024 18:03:46 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5c948c41edeso1262634a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 09:03:46 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cb66c6b556sm5798272a12.63.2024.10.24.09.03.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Oct 2024 08:48:54 -0700 (PDT)
+ Thu, 24 Oct 2024 09:03:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,150 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79cdbc6b-921f-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 8ca395d4-9221-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729784935; x=1730389735; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1729785825; x=1730390625; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=zlP7lw2ONsl7bRLNlv3YWePSjv/4K3vFG/1/1cHtx+s=;
-        b=fZTdUC9CQ1WVklXGb4NqGvQLVcKl3dU0vdH0pExS2UjyCL0bcD6VsnGLVTjyKhRuHU
-         ujbsVBwng4/A6urNzyHcWeX5PetuM3dWoyixk6c0CNE/dOP03sfinZKaRoqq2lllybkU
-         amy8SXqxL5yGGiN5emzQ+c+CLLLoqZm5FR388=
+        bh=zuxl7jxCk5QM8CKCwRksMZpOaH7+YC5gUlRNgdUxg10=;
+        b=goiecl08eEjVOCCWMQpPXfLAXN88RagxW8JDTRdUGisvZHi3qu6Lq38y3JrZyOJQbN
+         cKObCGsMNrSmdAdasaZFhjjObcMBGZU4iA+NtckvLXsp04lr2yE+sdixryAFX712EKrI
+         KymOmNtPotYacQ5x2AIgc/PIjJ83Ix18T7Mws=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729784935; x=1730389735;
+        d=1e100.net; s=20230601; t=1729785825; x=1730390625;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zlP7lw2ONsl7bRLNlv3YWePSjv/4K3vFG/1/1cHtx+s=;
-        b=BOBSnktFwYZsgTQnrBPFCAThhLpl4/tCtaZk7aRTTqdlG4fr1azBB1zUOUl6EKc8CT
-         oObeFiYAZZsDOo5MgP61S6iHOERGp7vWjBEjyPTiSSmoW3pHssRThukY8QKPW1PQ1NWf
-         jJ9pdW0INsbCmRzkO01ySjVuB0zo+KyuPdjwGohH45iRecvOJli9dYTPgwBVeK/ctZa6
-         gIbrz3Ch/uUyJnSHQwZnaPs8XdlPx/NU5sgcuPAwDkekkRf3Y6cTrPX9UtVKXmJPYPUh
-         xZ6z0LpyTPEZJH5euKw2Ny+D5/RINRmYuBiMuKBjwIaCcYcuesEy5gJ3X/0uRvtuSwgY
-         f/KQ==
-X-Gm-Message-State: AOJu0YwbL2/a7eIaL7X4BK3Pqx67wuJS5h9T+iGGlbE4sCUC6nT5/J+K
-	NVYUnZRlyRV0N5wiZDGPwBDPKsZ3FqHYosJSgb4ZfoUeIrOKCFoc253v2sSAQzUyGH1RCwaduWy
-	J
-X-Google-Smtp-Source: AGHT+IHID7dLKQqhXr2eMpBAMzkmGLcY1ZYpk9S1NupJKVozmgu04MsJiLxgAuJ4E9PhYYc+8zdH0Q==
-X-Received: by 2002:a17:906:f592:b0:a9a:a891:b43e with SMTP id a640c23a62f3a-a9ad28158e1mr243753466b.50.1729784934884;
-        Thu, 24 Oct 2024 08:48:54 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Willi Junga <xenproject@ymy.be>,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v2] x86/io-apic: fix directed EOI when using AMD-Vi interrupt remapping
-Date: Thu, 24 Oct 2024 16:48:44 +0100
-Message-ID: <20241024154844.8652-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
+        bh=zuxl7jxCk5QM8CKCwRksMZpOaH7+YC5gUlRNgdUxg10=;
+        b=I+tyA+Eu66Xt2QWypHarDkWTXu5XdnFG+PcB3CDKyLr/D25vL18vKPbH111CNfIH2j
+         3OPppLytYLY4ii9BwiExexrob5cvQ4hj5R2eorB0HGXGBQvjzpljl2Ur4hglsFWUHXVp
+         1WirMRF/jK6l1+WTv+uci2rSyfCJRlJhHtbQdY7ZWEGmrBKLKJPrVbBQ6ygFOBi+kU0S
+         h39uTKTHFVVycl3E+X19qsuoMaSgseG0LAuT9MSieyIzc9hH8+SlGTfdiD0BUH6J4l5/
+         peiwUBOd3PpHGQMlxwxPifRESDItsWxz/NVweJQUHj4fXwHTNc1Gx2N2JZDVGGePdT+c
+         aUOg==
+X-Gm-Message-State: AOJu0YxzcQCqOIPCCkvIgOMmtETCklnylgJrleBeUjdeUbfnW5GVqgNh
+	VMqkQ1XRJq7iAo5gMyk8NKYS6my1eo+JDoiiVw4yDhUBIkLRFNQ+TipaV57pBA+FAUDA5UP2ZR8
+	c
+X-Google-Smtp-Source: AGHT+IHCgF/nPE9D7yDs0f7pz8AQrQVLrHgM/Yne//sILKSy2RO44NSGqrrG19IS9W49sS9ETwqyNA==
+X-Received: by 2002:a05:6402:5191:b0:5c9:5584:ddb8 with SMTP id 4fb4d7f45d1cf-5cb8ac6e363mr5620883a12.12.1729785823836;
+        Thu, 24 Oct 2024 09:03:43 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Daniel Smith <dpsmith@apertussolutions.com>
+Subject: [PATCH v2] x86/boot: Explain how discard_initial_images() works
+Date: Thu, 24 Oct 2024 17:03:40 +0100
+Message-Id: <20241024160340.1012474-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
-repurposed to contain part of the offset into the remapping table.  Previous to
-2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
-table would match the vector.  Such logic was mandatory for end of interrupt to
-work, since the vector field (even when not containing a vector) is used by the
-IO-APIC to find for which pin the EOI must be performed.
+discard_initial_images() only works because init_domheap_pages() with ps==pe
+is a no-op.
 
-Introduce a table to store the EOI handlers when using interrupt remapping, so
-that the IO-APIC driver can translate pins into EOI handlers without having to
-read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
-unconditionally when interrupt remapping is enabled, even if strictly it would
-only be required for AMD-Vi.
+In dom0_construct(), explaining the significance of setting the initrd length
+to 0, and put an explicit check in discard_initial_images().
 
-Reported-by: Willi Junga <xenproject@ymy.be>
-Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
-Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+No functional change.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-Changes since v1:
- - s/apic_pin_eoi/io_apic_pin_eoi/.
- - Expand comment about io_apic_pin_eoi usage and layout.
- - Use uint8_t instead of unsigned int as array type.
- - Do not use a sentinel value.
----
- xen/arch/x86/io_apic.c | 41 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Daniel Smith <dpsmith@apertussolutions.com>
 
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index e40d2f7dbd75..e3cdfab6359a 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -71,6 +71,24 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
- 
- static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
- 
-+/*
-+ * Store the EOI handle when using interrupt remapping.
-+ *
-+ * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
-+ * format repurposes the vector field to store the offset into the Interrupt
-+ * Remap table.  This causes directed EOI to longer work, as the CPU vector no
-+ * longer matches the contents of the RTE vector field.  Add a translation
-+ * table so that directed EOI uses the value in the RTE vector field when
-+ * interrupt remapping is enabled.
-+ *
-+ * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
-+ * when using the remapped format, but use the translation table uniformly in
-+ * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
-+ *
-+ * The matrix is accessed as [#io-apic][#pin].
-+ */
-+static uint8_t **io_apic_pin_eoi;
+v2:
+ * Strip down to just the explanation, and merge into HL series.
+---
+ xen/arch/x86/pv/dom0_build.c |  9 +++++++++
+ xen/arch/x86/setup.c         | 13 ++++++++++---
+ 2 files changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index cdae17b27654..cc882bee61c3 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -641,6 +641,15 @@ static int __init dom0_construct(struct domain *d,
+                 if ( assign_pages(mfn_to_page(_mfn(mfn++)), 1, d, 0) )
+                     BUG();
+         }
 +
- static void share_vector_maps(unsigned int src, unsigned int dst)
- {
-     unsigned int pin;
-@@ -273,6 +291,13 @@ void __ioapic_write_entry(
-     {
-         __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
-         __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
 +        /*
-+         * Called in clear_IO_APIC_pin() before io_apic_pin_eoi is allocated.
-+         * Entry will be updated once the array is allocated and there's a
-+         * write against the pin.
++         * We have either:
++         * - Mapped the initrd directly into dom0, or
++         * - Copied it and freed the module.
++         *
++         * Either way, tell discard_initial_images() to not free it a second
++         * time.
 +         */
-+        if ( io_apic_pin_eoi )
-+            io_apic_pin_eoi[apic][pin] = e.vector;
-     }
-     else
-         iommu_update_ire_from_apic(apic, pin, e.raw);
-@@ -298,6 +323,9 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
-     /* Prefer the use of the EOI register if available */
-     if ( ioapic_has_eoi_reg(apic) )
+         initrd->mod_end = 0;
+ 
+         iommu_memory_setup(d, "initrd", mfn_to_page(_mfn(initrd_mfn)),
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 511cf5b97909..177f4024abca 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -340,7 +340,7 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
+     return nr;
+ }
+ 
+-void __init discard_initial_images(void)
++void __init discard_initial_images(void) /* a.k.a. Free boot modules */
+ {
+     struct boot_info *bi = &xen_boot_info;
+     unsigned int i;
+@@ -348,9 +348,16 @@ void __init discard_initial_images(void)
+     for ( i = 0; i < bi->nr_modules; ++i )
      {
-+        if ( io_apic_pin_eoi )
-+            vector = io_apic_pin_eoi[apic][pin];
-+
-         /* If vector is unknown, read it from the IO-APIC */
-         if ( vector == IRQ_VECTOR_UNASSIGNED )
-             vector = __ioapic_read_entry(apic, pin, true).vector;
-@@ -1022,7 +1050,20 @@ static void __init setup_IO_APIC_irqs(void)
+         uint64_t start = pfn_to_paddr(bi->mods[i].mod->mod_start);
++        uint64_t size  = bi->mods[i].mod->mod_end;
  
-     apic_printk(APIC_VERBOSE, KERN_DEBUG "init IO_APIC IRQs\n");
+-        init_domheap_pages(start,
+-                           start + PAGE_ALIGN(bi->mods[i].mod->mod_end));
++        /*
++         * Sometimes the initrd is mapped, rather than copied, into dom0.
++         * Size being 0 is how we're instructed to leave the module alone.
++         */
++        if ( size == 0 )
++            continue;
++
++        init_domheap_pages(start, start + PAGE_ALIGN(size));
+     }
  
-+    if ( iommu_intremap )
-+    {
-+        io_apic_pin_eoi = xzalloc_array(typeof(*io_apic_pin_eoi), nr_ioapics);
-+        BUG_ON(!io_apic_pin_eoi);
-+    }
-+
-     for (apic = 0; apic < nr_ioapics; apic++) {
-+        if ( iommu_intremap )
-+        {
-+            io_apic_pin_eoi[apic] = xzalloc_array(typeof(**io_apic_pin_eoi),
-+                                                  nr_ioapic_entries[apic]);
-+            BUG_ON(!io_apic_pin_eoi[apic]);
-+        }
-+
-         for (pin = 0; pin < nr_ioapic_entries[apic]; pin++) {
-             /*
-              * add it to the IO-APIC irq-routing table:
+     bi->nr_modules = 0;
 -- 
-2.46.0
+2.39.5
 
 
