@@ -2,33 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F71F9AE6A7
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:35:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825296.1239498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C8B9AE6B6
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2024 15:36:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825302.1239509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3xzW-0001mI-4i; Thu, 24 Oct 2024 13:35:06 +0000
+	id 1t3y0R-0002G4-En; Thu, 24 Oct 2024 13:36:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825296.1239498; Thu, 24 Oct 2024 13:35:06 +0000
+Received: by outflank-mailman (output) from mailman id 825302.1239509; Thu, 24 Oct 2024 13:36:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t3xzW-0001jA-25; Thu, 24 Oct 2024 13:35:06 +0000
-Received: by outflank-mailman (input) for mailman id 825296;
- Thu, 24 Oct 2024 13:35:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t3y0R-0002EP-AK; Thu, 24 Oct 2024 13:36:03 +0000
+Received: by outflank-mailman (input) for mailman id 825302;
+ Thu, 24 Oct 2024 13:36:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fqEU=RU=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1t3xzV-0001j2-09
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:35:05 +0000
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [2001:4860:4864:20::2b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c615ac5f-920c-11ef-a0bf-8be0dac302b0;
- Thu, 24 Oct 2024 15:35:04 +0200 (CEST)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-2884e6ed0daso421416fac.0
- for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2024 06:35:03 -0700 (PDT)
+ <SRS0=sQmA=RU=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1t3y0Q-00026Y-0H
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2024 13:36:02 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e6ce4549-920c-11ef-99a3-01e77a169b0f;
+ Thu, 24 Oct 2024 15:35:59 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1729776952321838.7940254939241;
+ Thu, 24 Oct 2024 06:35:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,215 +38,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c615ac5f-920c-11ef-a0bf-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1729776903; x=1730381703; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vDtXTfbOZVyjo3+y1ruFHvhtZYsO4iWO/DfOD9Ju6q4=;
-        b=phXd0TV4ImiKe3n4to4hjztOR+nMTRfgLdHfcqI4Xgk+rPfsW1qp5gBkDW3fnz0n50
-         0p2PJnrkJKLr4vHH8Z9I9DVQ5hy9GO28MVFdtWpnQXON0rUU8zaEuIusEnSdR5xG7gPA
-         AWKh1dtjR6mOGR5zpmG/0DwmYC8lOBlgtYXzW7pfd7Ia1Os+u3xWbjEsgh5ksPLZtcUR
-         4bl61Rw1qP69z031kTL+5MoEOVUT1prn7cqZWUVMBKgIW+AdU0o7xBangyPi6istZzZP
-         hFbm0KC5QGGfjf7zk2ub8i27Lp6FQtrl79lix9kmEbGY3nhlj2UHwo2CboTdPBNHUW1R
-         KB+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729776903; x=1730381703;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vDtXTfbOZVyjo3+y1ruFHvhtZYsO4iWO/DfOD9Ju6q4=;
-        b=JepUKRtLOT34FTHTNG/UndQfct84497Nt+3y3BW6rvUxTlEzgJawy2PvIrbvR3Piua
-         ebEaP3AXozMWNtRsWXopGAUy4/7FcnifvEYvnOr36ZaaahntYGa9TMe+z93YTqPzhS8n
-         Ou0Wtfl4j+x0MNryfnAcozv4COWixufU5L1VC3NTyoE8tM0YcPc9stpnsAJk/i3LYp0k
-         SyJSGDoNaSl+xlUn3jpqDYjyZTyX3i5u09JcMHsobw9pf+/nhieTxQmJydj6dB6D2i+T
-         EDIQxZI2jHfk5NBgCWqLcwVGk6MFqGKwuIXA6p06Cj1xTRQdrBh6MFd5Xu+aeyJUJeWR
-         AtPg==
-X-Gm-Message-State: AOJu0Yy/nKPNwvNVU2NsbY/xpHvRXz3mgY1euifUE1+Ly7xVbJXXUvUy
-	/i91rggRM1qsdYWRUs+7CkRRsqku/A5JDJ9efUUXSWCcBI4NUc6Q1pX7G+Ixf/W89K5b4UqFimA
-	2Xl4gHrlX2SUW1YzR9Kuz29GO+PuChqFcpUDNtw==
-X-Google-Smtp-Source: AGHT+IHY5vN02x66hzNYZXtpjGzPrzbvTGJZVvc8GjJZKmC1WsYri0Rfr3xeYd+zjwT/dmXN2x3s7IyGmXgaRjLJtHk=
-X-Received: by 2002:a05:6870:f10f:b0:288:6a16:fe1 with SMTP id
- 586e51a60fabf-28ced294ac0mr1986474fac.18.1729776902671; Thu, 24 Oct 2024
- 06:35:02 -0700 (PDT)
+X-Inumbo-ID: e6ce4549-920c-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1729776953; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UaXSxpwC1k26BOTtQJSWUq9axliSvZLB0/HQKTd1nUI+55lteEim473p7FbG5veahiQhy+JsdYZdOgvoRQsd2FhWosqYmh/NmppJyXUyFKIfyaLIRH0S223uzfBnws8owrWIyy2c9z2nZy77H/RkkXUVYQoc6K7Q6N2LspLb7X4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1729776953; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qGiioBmR5484I0N5GeYQgR4+MzUnJP6y3FYcSCS+ulo=; 
+	b=oIZwmB2SkCdSgKRNbJQex0YGJczsX55iuuYqlimhnzWJg2HbgSeNOs4149zbw5NRXps4Z6kFEWj/j97Z/9rqJj5BbYQ5mQAkm16HClDqAjFFkmno2SILaXs4d5pYd97u+o7R6bS23dqN3AC3xQXNc60F0LTrL+cbs6fCf5KE948=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1729776953;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=qGiioBmR5484I0N5GeYQgR4+MzUnJP6y3FYcSCS+ulo=;
+	b=moSZxhMSOyBZ6KsKEdyDpAvTL7f1OlCCw0xeD6lYlZFXuLREY2ONe6wabrYNCea4
+	b0R1K2H3sywSiV4MzRvOnZYdHLMI0Ccw/QRS61SHo7BK+XPjuMk0BWlg5qANGDXyLDB
+	OJIRQyzjUvpKxw65JxjFjMSDBDzZMVRrakOLtEUg=
+Message-ID: <fa78a4f7-4b2e-46e2-8110-868735892fae@apertussolutions.com>
+Date: Thu, 24 Oct 2024 09:35:13 -0400
 MIME-Version: 1.0
-References: <cover.1729066788.git.bertrand.marquis@arm.com>
- <b23ad93b876267fb48a5a398e394e60fdf52d33d.1729066788.git.bertrand.marquis@arm.com>
- <CAHUa44ESfSimrf6coDmurQSfuCQyytsi2gJh_kePer2p3zotug@mail.gmail.com> <678C4205-89C3-48D6-B5EF-9A16624B9E9D@arm.com>
-In-Reply-To: <678C4205-89C3-48D6-B5EF-9A16624B9E9D@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Thu, 24 Oct 2024 15:34:51 +0200
-Message-ID: <CAHUa44FJXrnfJUiLtBK2ZFp9L9908Nt74LiE8TRCzqJ8i=yRTg@mail.gmail.com>
-Subject: Re: [PATCH v2 09/10] xen/arm: ffa: Remove per VM notif_enabled
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] xen: add new domctl get_changed_domain
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20241023131005.32144-1-jgross@suse.com>
+ <20241023131005.32144-4-jgross@suse.com>
+ <ea2aeed1-91b7-47db-9354-d0634d0db9e8@apertussolutions.com>
+ <9a049e23-471f-4987-9993-e5f2db60ac1f@suse.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <9a049e23-471f-4987-9993-e5f2db60ac1f@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hi Bertrand,
+On 10/24/24 05:13, Jürgen Groß wrote:
+> On 23.10.24 17:55, Daniel P. Smith wrote:
+>> On 10/23/24 09:10, Juergen Gross wrote:
+>>> Add a new domctl sub-function to get data of a domain having changed
+>>> state (this is needed by Xenstore).
+>>>
+>>> The returned state just contains the domid, the domain unique id,
+>>> and some flags (existing, shutdown, dying).
+>>>
+>>> In order to enable Xenstore stubdom being built for multiple Xen
+>>> versions, make this domctl stable.  For stable domctls the
+>>> interface_version is specific to the respective domctl op and it is an
+>>> in/out parameter: On input the caller is specifying the desired version
+>>> of the op, while on output the hypervisor will return the used version
+>>> (this will be at max the caller supplied version, but might be lower in
+>>> case the hypervisor doesn't support this version).
+>>>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> ---
+>>> V1:
+>>> - use a domctl subop for the new interface (Jan Beulich)
+>>> ---
+>>>   tools/flask/policy/modules/dom0.te  |  2 +-
+>>>   xen/common/domain.c                 | 51 +++++++++++++++++++++++++++++
+>>>   xen/common/domctl.c                 | 19 ++++++++++-
+>>>   xen/common/event_channel.c          |  9 ++++-
+>>>   xen/include/public/domctl.h         | 33 +++++++++++++++++++
+>>>   xen/include/xen/event.h             |  6 ++++
+>>>   xen/include/xen/sched.h             |  2 ++
+>>>   xen/include/xsm/dummy.h             |  8 +++++
+>>>   xen/include/xsm/xsm.h               |  6 ++++
+>>>   xen/xsm/dummy.c                     |  1 +
+>>>   xen/xsm/flask/hooks.c               |  7 ++++
+>>>   xen/xsm/flask/policy/access_vectors |  2 ++
+>>>   12 files changed, 143 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/tools/flask/policy/modules/dom0.te 
+>>> b/tools/flask/policy/modules/dom0.te
+>>> index 16b8c9646d..6043c01b12 100644
+>>> --- a/tools/flask/policy/modules/dom0.te
+>>> +++ b/tools/flask/policy/modules/dom0.te
+>>> @@ -40,7 +40,7 @@ allow dom0_t dom0_t:domain {
+>>>   };
+>>>   allow dom0_t dom0_t:domain2 {
+>>>       set_cpu_policy gettsc settsc setscheduler set_vnumainfo
+>>> -    get_vnumainfo psr_cmt_op psr_alloc get_cpu_policy
+>>> +    get_vnumainfo psr_cmt_op psr_alloc get_cpu_policy get_domain_state
+>>
+>> I don't think that is where you want it, as that restricts dom0 to 
+>> only being able to make that call against dom0. The question I have 
+>> is, are you looking for this permission to be explicitly assigned to 
+>> dom0 or to the domain type that was allowed to create the domain. 
+>> IMHO, I think you would want the latter, so not only should the 
+>> permission go here, but also added to xen.if:create_domain_common.
+>>
+>> Additionally, I would also recommend adding the following to xenstore.te:
+>>
+>> allow xenstore_t domain_type:domain get_domain_state
+> 
+> Okay, but shouldn't this be:
+> 
+> allow xenstore_t domain_type:domain2 get_domain_state;
 
-On Thu, Oct 24, 2024 at 11:50=E2=80=AFAM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 24 Oct 2024, at 09:41, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >
-> > Hi Bertrand,
-> >
-> > On Wed, Oct 16, 2024 at 10:32=E2=80=AFAM Bertrand Marquis
-> > <bertrand.marquis@arm.com> wrote:
-> >>
-> >> Remove the per VM flag to store if notifications are enabled or not as
-> >> the only case where they are not, if notifications are enabled globall=
-y,
-> >> will make the VM creation fail.
-> >> Also use the opportunity to always give the notifications interrupts I=
-Ds
-> >> to VM. If the firmware does not support notifications, there won't be
-> >> any generated and setting one will give back a NOT_SUPPORTED.
-> >>
-> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >> ---
-> >> Changes in v2:
-> >> - rebase
-> >> ---
-> >> xen/arch/arm/tee/ffa.c         | 17 +++--------------
-> >> xen/arch/arm/tee/ffa_notif.c   | 10 +---------
-> >> xen/arch/arm/tee/ffa_private.h |  2 --
-> >> 3 files changed, 4 insertions(+), 25 deletions(-)
-> >>
-> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >> index 72826b49d2aa..3a9525aa4598 100644
-> >> --- a/xen/arch/arm/tee/ffa.c
-> >> +++ b/xen/arch/arm/tee/ffa.c
-> >> @@ -169,8 +169,6 @@ static void handle_version(struct cpu_user_regs *r=
-egs)
-> >>
-> >> static void handle_features(struct cpu_user_regs *regs)
-> >> {
-> >> -    struct domain *d =3D current->domain;
-> >> -    struct ffa_ctx *ctx =3D d->arch.tee;
-> >>     uint32_t a1 =3D get_user_reg(regs, 1);
-> >>     unsigned int n;
-> >>
-> >> @@ -218,16 +216,10 @@ static void handle_features(struct cpu_user_regs=
- *regs)
-> >>         ffa_set_regs_success(regs, 0, 0);
-> >>         break;
-> >>     case FFA_FEATURE_NOTIF_PEND_INTR:
-> >> -        if ( ctx->notif.enabled )
-> >> -            ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, =
-0);
-> >> -        else
-> >> -            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >> +        ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0);
-> >>         break;
-> >>     case FFA_FEATURE_SCHEDULE_RECV_INTR:
-> >> -        if ( ctx->notif.enabled )
-> >> -            ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_I=
-D, 0);
-> >> -        else
-> >> -            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >> +        ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID, 0=
-);
-> >>         break;
-> >>
-> >>     case FFA_NOTIFICATION_BIND:
-> >> @@ -236,10 +228,7 @@ static void handle_features(struct cpu_user_regs =
-*regs)
-> >>     case FFA_NOTIFICATION_SET:
-> >>     case FFA_NOTIFICATION_INFO_GET_32:
-> >>     case FFA_NOTIFICATION_INFO_GET_64:
-> >> -        if ( ctx->notif.enabled )
-> >> -            ffa_set_regs_success(regs, 0, 0);
-> >> -        else
-> >> -            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >> +        ffa_set_regs_success(regs, 0, 0);
-> >>         break;
-> >>     default:
-> >>         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif=
-.c
-> >> index 4b3e46318f4b..3c6418e62e2b 100644
-> >> --- a/xen/arch/arm/tee/ffa_notif.c
-> >> +++ b/xen/arch/arm/tee/ffa_notif.c
-> >> @@ -405,7 +405,6 @@ void ffa_notif_init(void)
-> >>
-> >> int ffa_notif_domain_init(struct domain *d)
-> >> {
-> >> -    struct ffa_ctx *ctx =3D d->arch.tee;
-> >>     int32_t res;
-> >>
-> >>     if ( !notif_enabled )
-> >> @@ -415,18 +414,11 @@ int ffa_notif_domain_init(struct domain *d)
-> >>     if ( res )
-> >>         return -ENOMEM;
-> >>
-> >> -    ctx->notif.enabled =3D true;
-> >> -
-> >>     return 0;
-> >> }
-> >>
-> >> void ffa_notif_domain_destroy(struct domain *d)
-> >> {
-> >> -    struct ffa_ctx *ctx =3D d->arch.tee;
-> >> -
-> >> -    if ( ctx->notif.enabled )
-> >> -    {
-> >> +    if ( notif_enabled )
-> >>         ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
-> >
-> > This call may now be done even if there hasn't been a successful call
-> > to ffa_notification_bitmap_create().
-> > A comment mentioning this and that it's harmless (if we can be sure it
-> > is) would be nice.
-> >
->
-> You mean in the case where it failed during domain_init ?
->
-> I can add the following comment:
->  Call bitmap_destroy even if bitmap create failed as the SPMC should retu=
-rn an error that we will ignore
->
-> Would that be ok ?
+Apologies, yes that was a typo on my part.
 
-Yes, that's fine.
+>>
+>>>   allow dom0_t dom0_t:resource { add remove };
+>>
+>> ...
+>>
+>>> @@ -866,6 +873,16 @@ long 
+>>> do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>>>                   __HYPERVISOR_domctl, "h", u_domctl);
+>>>           break;
+>>> +    case XEN_DOMCTL_get_domain_state:
+>>> +        ret = xsm_get_domain_state(XSM_HOOK, d);
+>>
+>> XSM_HOOK will allow any domain to make this call on any domain. What I 
+>> think you want here is XSM_XS_PRIV. That will allow either a domain 
+>> flagged as the xenstore domain or dom0 to make the call.
+> 
+> I thought so, too, but looking at the "getdomaininfo" example it seems
+> to be okay this way, too. Especially with the addition to xsm_domctl()
+> checking for XSM_XS_PRIV.
 
-Cheers,
-Jens
+I know this has been done in the past, but imho it is not a very good 
+practice. Access checks really should always restrict equal or down. 
+There should be a strong reason, which probably would deserves a code 
+comment, to allow a check to relax up. Restricting equal should not 
+reduce access, and if it does, then it means there is an unintended 
+access path which is now exposed.
 
->
-> Cheers
-> Bertrand
->
->
-> > Cheers,
-> > Jens
-> >
-> >> -        ctx->notif.enabled =3D false;
-> >> -    }
-> >> }
-> >> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pri=
-vate.h
-> >> index 02162e0ee4c7..973ee55be09b 100644
-> >> --- a/xen/arch/arm/tee/ffa_private.h
-> >> +++ b/xen/arch/arm/tee/ffa_private.h
-> >> @@ -281,8 +281,6 @@ struct ffa_mem_region {
-> >> };
-> >>
-> >> struct ffa_ctx_notif {
-> >> -    bool enabled;
-> >> -
-> >>     /*
-> >>      * True if domain is reported by FFA_NOTIFICATION_INFO_GET to have
-> >>      * pending global notifications.
-> >> --
-> >> 2.47.0
->
->
+>>
+>>> +        if ( ret )
+>>> +            break;
+>>> +
+>>> +        copyback = 1;
+>>> +        op->interface_version = XEN_DOMCTL_GETDOMSTATE_VERS_MAX;
+>>> +        ret = get_domain_state(&op->u.get_domain_state, d);
+>>> +        break;
+>>> +
+>>>       default:
+>>>           ret = arch_do_domctl(op, d, u_domctl);
+>>>           break;
+>>
+>> ...
+>>
+>>> @@ -815,6 +816,13 @@ static XSM_INLINE int cf_check xsm_argo_send(
+>>>   #endif /* CONFIG_ARGO */
+>>> +static XSM_INLINE int cf_check xsm_get_domain_state(
+>>> +    XSM_DEFAULT_ARG struct domain *d)
+>>> +{
+>>> +    XSM_ASSERT_ACTION(XSM_HOOK);
+>>
+>> Per the above, this would need changed to XSM_XS_PRIV.
+>>
+>>> +    return xsm_default_action(action, current->domain, d);
+>>> +}
+>>> +
+>>>   #include <public/version.h>
+>>>   static XSM_INLINE int cf_check xsm_xen_version(XSM_DEFAULT_ARG 
+>>> uint32_t op)
+>>>   {
+>>
+>> ...
+>>
+>>> @@ -1853,6 +1854,11 @@ static int cf_check flask_argo_send(
+>>>   #endif
+>>> +static int cf_check flask_get_domain_state(struct domain *d)
+>>> +{
+>>> +    return current_has_perm(d, SECCLASS_DOMAIN, 
+>>> DOMAIN__GET_DOMAIN_STATE);
+>>
+>> I believe you want SECCLASS_DOMAIN2 here.
+> 
+> Oh, indeed. And probably DOMAIN2__GET_DOMAIN_STATE
+> 
+> 
+> Thanks,
+
+No problem.
+
+v/r,
+dps
 
