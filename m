@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E5C89AFB5F
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 09:47:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825663.1239942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1A869AFCC8
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 10:39:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825675.1239953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4F1t-0003Te-Co; Fri, 25 Oct 2024 07:46:41 +0000
+	id 1t4Fpk-0002Fs-5i; Fri, 25 Oct 2024 08:38:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825663.1239942; Fri, 25 Oct 2024 07:46:41 +0000
+Received: by outflank-mailman (output) from mailman id 825675.1239953; Fri, 25 Oct 2024 08:38:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4F1t-0003Rc-A1; Fri, 25 Oct 2024 07:46:41 +0000
-Received: by outflank-mailman (input) for mailman id 825663;
- Fri, 25 Oct 2024 07:46:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t4Fpk-0002Dz-2v; Fri, 25 Oct 2024 08:38:12 +0000
+Received: by outflank-mailman (input) for mailman id 825675;
+ Fri, 25 Oct 2024 08:38:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=woHg=RV=linux.intel.com=ville.syrjala@srs-se1.protection.inumbo.net>)
- id 1t4F1s-0003RW-3K
- for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 07:46:40 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 42524174-92a5-11ef-99a3-01e77a169b0f;
- Fri, 25 Oct 2024 09:46:36 +0200 (CEST)
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 00:46:34 -0700
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by fmviesa008.fm.intel.com with SMTP; 25 Oct 2024 00:46:24 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 25 Oct 2024 10:46:23 +0300
+ <SRS0=/DtA=RV=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
+ id 1t4Fpi-0002Dr-F5
+ for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 08:38:10 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 75009ec8-92ac-11ef-a0bf-8be0dac302b0;
+ Fri, 25 Oct 2024 10:38:07 +0200 (CEST)
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-114-M_eoI-kMNI2jFpS_NdFO3A-1; Fri, 25 Oct 2024 04:38:02 -0400
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-37d5a3afa84so1054149f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Oct 2024 01:38:02 -0700 (PDT)
+Received: from ?IPv6:2001:16b8:2de5:ba00:738a:c8da:daac:7543?
+ (200116b82de5ba00738ac8dadaac7543.dip.versatel-1u1.de.
+ [2001:16b8:2de5:ba00:738a:c8da:daac:7543])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38058b70c44sm932452f8f.80.2024.10.25.01.37.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Oct 2024 01:38:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,246 +51,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42524174-92a5-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1729842397; x=1761378397;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Mzm/p9vp/1SxZYyxLUIAr3dK4m/QwRpy+mAy/vi+65A=;
-  b=LYivEDIEWQiqAnUHNrZ9TFEZ34ZEfufYxRzKeBkINNV0Obu+vR7m7psb
-   9Mh5hVbbsuSRaU2fZLeBGSHCs6BZ01yvdwJkbzYGdNTaIyZOhlbRMCUCf
-   MczcTKAocY6zMCA32VyzVA8+AAoeElp242BrYU5RK5uWIy8Jo/ojz4Jeg
-   6f6SU7ViUqHkfTRbz/dcsLc1a40BmETd1Cc98BuwPwmEB9YX8W6hRJDwQ
-   /CypW4u/M90IP4dxo+3f0Yw8qXnOOkz+KrGqCcSURdhF2MWp5vYxRcFOa
-   oJa+2faga/ZblpeGGQfAeJfI7077dgbBOL7FZlIHTZc9VmmON2BQja+gh
-   Q==;
-X-CSE-ConnectionGUID: StwnbtfiT8KTl7s+Md3p2A==
-X-CSE-MsgGUID: +V6MyHwFRjSkPTy+Gbejrw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="29446877"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; 
-   d="scan'208";a="29446877"
-X-CSE-ConnectionGUID: 4NLKVHg9T6yFez9/u+3hfQ==
-X-CSE-MsgGUID: 8E8OB6zhRpuvXvELpRP+eg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; 
-   d="scan'208";a="80948136"
-Date: Fri, 25 Oct 2024 10:46:23 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Alexey Brodkin <abrodkin@synopsys.com>,
-	amd-gfx@lists.freedesktop.org, Andy Yan <andy.yan@rock-chips.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Danilo Krummrich <dakr@redhat.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	freedreno@lists.freedesktop.org,
-	Hans de Goede <hdegoede@redhat.com>,
-	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
-	Inki Dae <inki.dae@samsung.com>, Jyri Sarha <jyri.sarha@iki.fi>,
-	Karol Herbst <kherbst@redhat.com>,
-	linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.orga, linux-mediatek@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org,
-	Liviu Dudau <liviu.dudau@arm.com>, Lyude Paul <lyude@redhat.com>,
-	=?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	nouveau@lists.freedesktop.org, nouveau@lists.freedesktop.orga,
-	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
-	Rob Clark <robdclark@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Sandy Huang <hjc@rock-chips.com>, Sean Paul <sean@poorly.run>,
-	spice-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
-	xen-devel@lists.xenproject.org, Xinhui Pan <Xinhui.Pan@amd.com>,
-	Zack Rusin <zack.rusin@broadcom.com>
-Subject: Re: [PATCH 0/2] drm: Treewide plane/crtc legacy state sweeping
-Message-ID: <ZxtMz8JP3DbzpMew@intel.com>
-References: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
+X-Inumbo-ID: 75009ec8-92ac-11ef-a0bf-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1729845486;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+CU0p5rXSrPP3uBwt5801R3G6t7PRg+8+rdxS6Av4Qw=;
+	b=ItN5n2bvmMWT3zaOVF1BxaKMzv6b1yx6hUH3iAc4Ce/zU+C+N/O2FO/yFOnr1UxDg8Y5g2
+	X63PWexd5bizFkToP+mfjPXCN50xycUaB2y25h4xIm+FOjsU3dcJokU6WkYrsfm3q9B9rk
+	5nsw1Si7iUEIoJwTFHHJsEF3E1N1sJM=
+X-MC-Unique: M_eoI-kMNI2jFpS_NdFO3A-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729845481; x=1730450281;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=t5SfsCaa6OQtbrocW2yvj8So2+UMhrgJURtFbTDl4+U=;
+        b=OHBzUGGWM1ALK9eOihNsID9JH//B05vmBrZK+LWka2hew4iA+fzvj8DbgF+oHxKLbU
+         raeUzW6WUU42OWMox5zaqms2wMDAgp5dBQlSoUAiL5qeyRlPi4DTBikABgqg7k17qoYc
+         CQARB0Im71W0QYjgdwj4Y3YXtkkW5ZaGUoNuHOyh2BacG6Ar51S8b3M+xL22lJuEXZPc
+         pc0KGsacjDFpcZ0iCT/TjBzT6snMZm7KFr49OAnhHP0CKFVINSSITvP727RLt61gEaY7
+         TOTXWE13mk4Bf7xlVTEHHwv4XpnYFY5NcwIRqow7YzWdxvNFnJuqv1eUvwDJ/v2/cSsq
+         XV6w==
+X-Forwarded-Encrypted: i=1; AJvYcCULunVcsPv7Ch9+PdkVFU9b/4V+DW55/hyb8L+PmVBN/TusU03BjZcRANLCL81eLFw7V/pIuL3DboE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxkvlULB6Pfke7uCIixZhRLn4YiICHx9wfxje55RwJnz9LqY6TM
+	+PpW1FzE3DgFbzvabMpxrFvmQCLtB1VBA+8YK0K7NYVLcdaRH5vwZxupuoBDuZAlgD5WBmiv8ij
+	eSdA5pc8ZpELqcXSQXHGptqPABZeOZhVM4aKDQTAz/FD+YH0fT1d34SX2qHFcizd2
+X-Received: by 2002:a5d:45d2:0:b0:37d:5103:8894 with SMTP id ffacd0b85a97d-37efcf78dadmr5976824f8f.42.1729845481104;
+        Fri, 25 Oct 2024 01:38:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGcYWpz+kQZdr3vU0ccyDv2e4lUiNEwepdTyBtEeS9wkTJkf/x/0hfBIa/kJv59+/PzqJJV1A==
+X-Received: by 2002:a5d:45d2:0:b0:37d:5103:8894 with SMTP id ffacd0b85a97d-37efcf78dadmr5976745f8f.42.1729845480512;
+        Fri, 25 Oct 2024 01:38:00 -0700 (PDT)
+Message-ID: <ae081c36c49733b007a8946dceeec0af94fc449a.camel@redhat.com>
+Subject: Re: [PATCH 02/13] ALSA: hda_intel: Use always-managed version of
+ pcim_intx()
+From: Philipp Stanner <pstanner@redhat.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
+ Sergey Shtylyov <s.shtylyov@omp.ru>, Basavaraj Natikar
+ <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>,  Benjamin
+ Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
+ Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+ <manishc@marvell.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Rasesh Mody <rmody@marvell.com>,
+ GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko <imitsyanko@quantenna.com>,
+ Sergey Matyukevich <geomatsi@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+ Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar S K
+ <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
+ <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Chen Ni <nichen@iscas.ac.cn>, Mario Limonciello
+ <mario.limonciello@amd.com>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
+ <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>, Kevin Tian
+ <kevin.tian@intel.com>, Thomas Gleixner <tglx@linutronix.de>, Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Mostafa Saleh
+ <smostafa@google.com>, Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu
+ <yi.l.liu@intel.com>,  Christian Brauner <brauner@kernel.org>, Ankit
+ Agrawal <ankita@nvidia.com>, Eric Auger <eric.auger@redhat.com>, Reinette
+ Chatre <reinette.chatre@intel.com>, Ye Bin <yebin10@huawei.com>, Marek
+ =?ISO-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>,  Rui Salvaterra <rsalvaterra@gmail.com>,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-input@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
+Date: Fri, 25 Oct 2024 10:37:57 +0200
+In-Reply-To: <875xphzeun.wl-tiwai@suse.de>
+References: <20241015185124.64726-1-pstanner@redhat.com>
+	 <20241015185124.64726-3-pstanner@redhat.com> <87v7xk2ps5.wl-tiwai@suse.de>
+	 <6f3db65fe9a5dcd1a7a8d9bd5352ecb248ef57b1.camel@redhat.com>
+	 <87ttd2276j.wl-tiwai@suse.de>
+	 <aec23bb79b9ff7dd7f13eb67460e0605eac22912.camel@redhat.com>
+	 <875xphzeun.wl-tiwai@suse.de>
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
-X-Patchwork-Hint: comment
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 02, 2024 at 09:21:58PM +0300, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> An attempt to hide the drm_plane/crtc legacy state better.
-> 
-> This also highlights the fact that a lot of supposedly
-> atomic drivers are poking around in the legacy crtc state,
-> which is rather questionable. For planes we did force the
-> legacy state to NULL already to force drivers to behave.
-> But even then it seems capable of confusing people with
-> its high profile location directly under drm_plane.
-> 
-> This might end up as some kind of conflict
-> galore, but the alternative would involve trying
-> to wean the atomic drivers off one by one,
-> which would probably take forever. At least with
-> this the issue becomes visible and shouldn't be
-> forgotten as easily.
+On Thu, 2024-10-24 at 17:43 +0200, Takashi Iwai wrote:
+> On Thu, 24 Oct 2024 10:02:59 +0200,
+> Philipp Stanner wrote:
+> >=20
+> > On Wed, 2024-10-23 at 17:03 +0200, Takashi Iwai wrote:
+> > > On Wed, 23 Oct 2024 15:50:09 +0200,
+> > > Philipp Stanner wrote:
+> > > >=20
+> > > > On Tue, 2024-10-22 at 16:08 +0200, Takashi Iwai wrote:
+> > > > > On Tue, 15 Oct 2024 20:51:12 +0200,
+> > > > > Philipp Stanner wrote:
+> > > > > >=20
+> > > > > > pci_intx() is a hybrid function which can sometimes be
+> > > > > > managed
+> > > > > > through
+> > > > > > devres. To remove this hybrid nature from pci_intx(), it is
+> > > > > > necessary to
+> > > > > > port users to either an always-managed or a never-managed
+> > > > > > version.
+> > > > > >=20
+> > > > > > hda_intel enables its PCI-Device with pcim_enable_device().
+> > > > > > Thus,
+> > > > > > it needs
+> > > > > > the always-managed version.
+> > > > > >=20
+> > > > > > Replace pci_intx() with pcim_intx().
+> > > > > >=20
+> > > > > > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+> > > > > > ---
+> > > > > > =C2=A0sound/pci/hda/hda_intel.c | 2 +-
+> > > > > > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> > > > > >=20
+> > > > > > diff --git a/sound/pci/hda/hda_intel.c
+> > > > > > b/sound/pci/hda/hda_intel.c
+> > > > > > index b4540c5cd2a6..b44ca7b6e54f 100644
+> > > > > > --- a/sound/pci/hda/hda_intel.c
+> > > > > > +++ b/sound/pci/hda/hda_intel.c
+> > > > > > @@ -786,7 +786,7 @@ static int azx_acquire_irq(struct azx
+> > > > > > *chip,
+> > > > > > int do_disconnect)
+> > > > > > =C2=A0=09}
+> > > > > > =C2=A0=09bus->irq =3D chip->pci->irq;
+> > > > > > =C2=A0=09chip->card->sync_irq =3D bus->irq;
+> > > > > > -=09pci_intx(chip->pci, !chip->msi);
+> > > > > > +=09pcim_intx(chip->pci, !chip->msi);
+> > > > > > =C2=A0=09return 0;
+> > > > > > =C2=A0}
+> > > > > > =C2=A0
+> > > > >=20
+> > > > > Hm, it's OK-ish to do this as it's practically same as what
+> > > > > pci_intx()
+> > > > > currently does.=C2=A0 But, the current code can be a bit
+> > > > > inconsistent
+> > > > > about
+> > > > > the original intx value.=C2=A0 pcim_intx() always stores !enable
+> > > > > to
+> > > > > res->orig_intx unconditionally, and it means that the
+> > > > > orig_intx
+> > > > > value
+> > > > > gets overridden at each time pcim_intx() gets called.
+> > > >=20
+> > > > Yes.
+> > > >=20
+> > > > >=20
+> > > > > Meanwhile, HD-audio driver does release and re-acquire the
+> > > > > interrupt
+> > > > > after disabling MSI when something goes wrong, and pci_intx()
+> > > > > call
+> > > > > above is a part of that procedure.=C2=A0 So, it can rewrite the
+> > > > > res->orig_intx to another value by retry without MSI.=C2=A0 And
+> > > > > after
+> > > > > the
+> > > > > driver removal, it'll lead to another state.
+> > > >=20
+> > > > I'm not sure that I understand this paragraph completely.
+> > > > Still,
+> > > > could
+> > > > a solution for the driver on the long-term just be to use
+> > > > pci_intx()?
+> > >=20
+> > > pci_intx() misses the restore of the original value, so it's no
+> > > long-term solution, either.
+> >=20
+> > Sure that is missing =E2=80=93 I was basically asking whether the drive=
+r
+> > could
+> > live without that feature.
+> >=20
+> > Consider that point obsolete, see below
+> >=20
+> > >=20
+> > > What I meant is that pcim_intx() blindly assumes the negative of
+> > > the
+> > > passed argument as the original state, which isn't always true.=C2=A0
+> > > e.g.
+> > > when the driver calls it twice with different values, a wrong
+> > > value
+> > > may be remembered.
+> >=20
+> > Ah, I see =E2=80=93 thoguh the issue is when it's called several times =
+with
+> > the
+> > *same* value, isn't it?
+> >=20
+> > E.g.
+> >=20
+> > pcim_intx(pdev, 1); // 0 is remembered as the old value
+> > pcim_intx(pdev, 1); // 0 is falsely remembered as the old value
+> >=20
+> > Also, it would seem that calling the function for the first time
+> > like
+> > that:
+> >=20
+> > pcim_intx(pdev, 0); // old value: 1
+> >=20
+> > is at least incorrect, because INTx should be 0 per default,
+> > shouldn't
+> > it? Could then even be a 1st class bug, because INTx would end up
+> > being
+> > enabled despite having been disabled all the time.
+>=20
+> Yeah, and the unexpected restore can happen even with a single call
+> of
+> pcim_intx(), if the driver calls it unnecessarily.
+>=20
+> > > That said, I thought of something like below.
+> >=20
+> > At first glance that looks like a good idea to me, thanks for
+> > working
+> > this out!
+> >=20
+> > IMO you can submit that as a patch so we can discuss it separately.
+>=20
+> Sure, I'm going to submit later.
 
-Ping, anyone have thoughts on this? I'd like to get something
-like this in at some point to make the legacy state (ab)users
-easily visible...
+I just took a look into the old implementation of pci_intx() (there was
+no pcim_intx() back then), before I started cleaning up PCI's devres.
+This what it looked like before
+25216afc9db53d85dc648aba8fb7f6d31f2c8731:
 
-> 
-> The cc list was getting way out of hand, so I had
-> to trim it a bit. Hopefully I didn't chop off too
-> many names...
-> 
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Alain Volmat <alain.volmat@foss.st.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Alexey Brodkin <abrodkin@synopsys.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: Andy Yan <andy.yan@rock-chips.com>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@redhat.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: freedreno@lists.freedesktop.org
-> Cc: Hans de Goede <hdegoede@redhat.com>
-> Cc: "Heiko Stübner" <heiko@sntech.de>
-> Cc: Inki Dae <inki.dae@samsung.com>
-> Cc: Jyri Sarha <jyri.sarha@iki.fi>
-> Cc: Karol Herbst <kherbst@redhat.com>
-> Cc: linux-amlogic@lists.infradead.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-arm-msm@vger.kernel.orga
-> Cc: linux-mediatek@lists.infradead.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: "Maíra Canal" <mairacanal@riseup.net>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: nouveau@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.orga
-> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: Sandy Huang <hjc@rock-chips.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: spice-devel@lists.freedesktop.org
-> Cc: virtualization@lists.linux.dev
-> Cc: xen-devel@lists.xenproject.org
-> Cc: Xinhui Pan <Xinhui.Pan@amd.com>
-> Cc: Zack Rusin <zack.rusin@broadcom.com>
-> 
-> Ville Syrjälä (2):
->   drm: Move plane->{fb,old_fb,crtc} to legacy sub-structure
->   drm: Move crtc->{x,y,mode,enabled} to legacy sub-structure
-> 
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |  7 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 20 ++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c       |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        | 35 ++++----
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        | 35 ++++----
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 37 ++++-----
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 35 ++++----
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++--
->  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  2 +-
->  drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  |  4 +-
->  drivers/gpu/drm/arm/hdlcd_drv.c               |  2 +-
->  drivers/gpu/drm/arm/malidp_hw.c               |  2 +-
->  drivers/gpu/drm/armada/armada_crtc.c          | 12 ++-
->  drivers/gpu/drm/ast/ast_dp.c                  |  8 +-
->  drivers/gpu/drm/drm_atomic.c                  |  6 +-
->  drivers/gpu/drm/drm_atomic_helper.c           |  8 +-
->  drivers/gpu/drm/drm_client_modeset.c          | 10 +--
->  drivers/gpu/drm/drm_crtc.c                    | 31 +++----
->  drivers/gpu/drm/drm_crtc_helper.c             | 80 ++++++++++---------
->  drivers/gpu/drm/drm_fb_helper.c               | 12 +--
->  drivers/gpu/drm/drm_framebuffer.c             |  4 +-
->  drivers/gpu/drm/drm_plane.c                   | 69 ++++++++--------
->  drivers/gpu/drm/drm_plane_helper.c            |  6 +-
->  drivers/gpu/drm/drm_vblank.c                  |  2 +-
->  drivers/gpu/drm/exynos/exynos5433_drm_decon.c |  4 +-
->  drivers/gpu/drm/gma500/cdv_intel_display.c    |  2 +-
->  drivers/gpu/drm/gma500/cdv_intel_dp.c         |  6 +-
->  drivers/gpu/drm/gma500/cdv_intel_hdmi.c       |  3 +-
->  drivers/gpu/drm/gma500/cdv_intel_lvds.c       |  6 +-
->  drivers/gpu/drm/gma500/gma_display.c          | 22 ++---
->  drivers/gpu/drm/gma500/oaktrail_crtc.c        |  2 +-
->  drivers/gpu/drm/gma500/psb_intel_display.c    |  2 +-
->  drivers/gpu/drm/gma500/psb_intel_lvds.c       |  6 +-
->  drivers/gpu/drm/gma500/psb_intel_sdvo.c       |  8 +-
->  drivers/gpu/drm/i2c/ch7006_drv.c              |  7 +-
->  drivers/gpu/drm/i2c/sil164_drv.c              |  2 +-
->  .../drm/i915/display/intel_modeset_setup.c    |  4 +-
->  drivers/gpu/drm/imx/lcdc/imx-lcdc.c           | 31 ++++---
->  drivers/gpu/drm/mediatek/mtk_crtc.c           |  6 +-
->  drivers/gpu/drm/meson/meson_overlay.c         |  2 +-
->  drivers/gpu/drm/meson/meson_plane.c           |  8 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 18 +++--
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  6 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 16 ++--
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |  4 +-
->  drivers/gpu/drm/nouveau/dispnv04/crtc.c       | 25 +++---
->  drivers/gpu/drm/nouveau/dispnv04/cursor.c     |  2 +-
->  drivers/gpu/drm/nouveau/dispnv04/dfp.c        |  2 +-
->  drivers/gpu/drm/nouveau/dispnv04/disp.c       |  4 +-
->  .../gpu/drm/nouveau/dispnv04/tvmodesnv17.c    |  4 +-
->  drivers/gpu/drm/nouveau/dispnv04/tvnv17.c     |  7 +-
->  drivers/gpu/drm/nouveau/nouveau_connector.c   |  6 +-
->  drivers/gpu/drm/qxl/qxl_display.c             |  6 +-
->  drivers/gpu/drm/radeon/atombios_crtc.c        | 28 +++----
->  drivers/gpu/drm/radeon/cik.c                  | 12 +--
->  drivers/gpu/drm/radeon/evergreen.c            | 16 ++--
->  drivers/gpu/drm/radeon/r100.c                 | 16 ++--
->  drivers/gpu/drm/radeon/r600_cs.c              |  2 +-
->  drivers/gpu/drm/radeon/r600_dpm.c             |  4 +-
->  drivers/gpu/drm/radeon/radeon_connectors.c    |  7 +-
->  drivers/gpu/drm/radeon/radeon_cursor.c        | 29 +++----
->  drivers/gpu/drm/radeon/radeon_device.c        |  2 +-
->  drivers/gpu/drm/radeon/radeon_display.c       | 26 +++---
->  drivers/gpu/drm/radeon/radeon_drv.c           |  2 +-
->  drivers/gpu/drm/radeon/radeon_legacy_crtc.c   | 16 ++--
->  .../gpu/drm/radeon/radeon_legacy_encoders.c   |  2 +-
->  drivers/gpu/drm/radeon/radeon_pm.c            |  2 +-
->  drivers/gpu/drm/radeon/rs600.c                | 10 +--
->  drivers/gpu/drm/radeon/rs690.c                | 22 ++---
->  drivers/gpu/drm/radeon/rs780_dpm.c            |  6 +-
->  drivers/gpu/drm/radeon/rv515.c                | 30 +++----
->  drivers/gpu/drm/radeon/rv770.c                |  2 +-
->  drivers/gpu/drm/radeon/si.c                   | 14 ++--
->  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.c    |  2 +-
->  .../gpu/drm/renesas/shmobile/shmob_drm_crtc.c |  2 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |  6 +-
->  drivers/gpu/drm/sti/sti_crtc.c                |  4 +-
->  drivers/gpu/drm/sti/sti_cursor.c              |  2 +-
->  drivers/gpu/drm/sti/sti_gdp.c                 |  2 +-
->  drivers/gpu/drm/sti/sti_hqvdp.c               |  2 +-
->  drivers/gpu/drm/sti/sti_tvout.c               |  6 +-
->  drivers/gpu/drm/sti/sti_vid.c                 |  2 +-
->  drivers/gpu/drm/tilcdc/tilcdc_crtc.c          | 10 +--
->  drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
->  drivers/gpu/drm/vboxvideo/vbox_mode.c         |  2 +-
->  drivers/gpu/drm/vc4/vc4_dpi.c                 |  2 +-
->  drivers/gpu/drm/vc4/vc4_plane.c               |  4 +-
->  drivers/gpu/drm/virtio/virtgpu_display.c      |  4 +-
->  drivers/gpu/drm/vkms/vkms_composer.c          |  4 +-
->  drivers/gpu/drm/vkms/vkms_crtc.c              |  2 +-
->  drivers/gpu/drm/vkms/vkms_writeback.c         |  4 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |  8 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c           | 18 +++--
->  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  9 ++-
->  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |  4 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c          |  2 +-
->  drivers/gpu/drm/xen/xen_drm_front_kms.c       |  2 +-
->  include/drm/drm_crtc.h                        | 75 ++++++++---------
->  include/drm/drm_plane.h                       | 52 ++++++------
->  100 files changed, 599 insertions(+), 547 deletions(-)
-> 
-> -- 
-> 2.45.2
+void pci_intx(struct pci_dev *pdev, int enable)
+{
+=09u16 pci_command, new;
 
--- 
-Ville Syrjälä
-Intel
+=09pci_read_config_word(pdev, PCI_COMMAND, &pci_command);
+
+=09if (enable)
+=09=09new =3D pci_command & ~PCI_COMMAND_INTX_DISABLE;
+=09else
+=09=09new =3D pci_command | PCI_COMMAND_INTX_DISABLE;
+
+=09if (new !=3D pci_command) {
+=09=09struct pci_devres *dr;
+
+=09=09pci_write_config_word(pdev, PCI_COMMAND, new);
+
+=09=09dr =3D find_pci_dr(pdev);
+=09=09if (dr && !dr->restore_intx) {
+=09=09=09dr->restore_intx =3D 1;
+=09=09=09dr->orig_intx =3D !enable;
+=09=09}
+=09}
+}
+EXPORT_SYMBOL_GPL(pci_intx);
+
+If I'm not mistaken the old version did not have the problem because
+the value to be restored only changed if new !=3D pci_command.
+
+That should always be correct, what do you think?
+
+If so, only my commit 25216afc9db53d85dc648aba8fb7f6d31f2c8731 needs to
+be fixed.
+
+Thanks,
+P.
+
+
+>=20
+>=20
+> thanks,
+>=20
+> Takashi
+>=20
+
 
