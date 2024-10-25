@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D32B9B0621
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 16:48:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.826057.1240397 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 667759B0680
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 16:58:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.826064.1240408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4LaN-0002ya-0O; Fri, 25 Oct 2024 14:46:43 +0000
+	id 1t4Ll5-0005Jl-Vm; Fri, 25 Oct 2024 14:57:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826057.1240397; Fri, 25 Oct 2024 14:46:42 +0000
+Received: by outflank-mailman (output) from mailman id 826064.1240408; Fri, 25 Oct 2024 14:57:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4LaM-0002wc-U2; Fri, 25 Oct 2024 14:46:42 +0000
-Received: by outflank-mailman (input) for mailman id 826057;
- Fri, 25 Oct 2024 14:46:40 +0000
+	id 1t4Ll5-0005Hj-SP; Fri, 25 Oct 2024 14:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 826064;
+ Fri, 25 Oct 2024 14:57:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hagD=RV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t4LaK-0002vA-OF
- for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 14:46:40 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ <SRS0=4jrJ=RV=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1t4Ll4-0005Hd-O9
+ for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 14:57:46 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20616.outbound.protection.outlook.com
+ [2a01:111:f403:2415::616])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f02020ca-92df-11ef-99a3-01e77a169b0f;
- Fri, 25 Oct 2024 16:46:37 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c9428152c0so2439854a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 25 Oct 2024 07:46:37 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b30d6fdc5sm77872466b.163.2024.10.25.07.46.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Oct 2024 07:46:36 -0700 (PDT)
+ id 7ca60bfb-92e1-11ef-99a3-01e77a169b0f;
+ Fri, 25 Oct 2024 16:57:44 +0200 (CEST)
+Received: from BL1PR13CA0174.namprd13.prod.outlook.com (2603:10b6:208:2bd::29)
+ by PH7PR12MB9076.namprd12.prod.outlook.com (2603:10b6:510:2f6::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.16; Fri, 25 Oct
+ 2024 14:57:40 +0000
+Received: from MN1PEPF0000ECD7.namprd02.prod.outlook.com
+ (2603:10b6:208:2bd:cafe::aa) by BL1PR13CA0174.outlook.office365.com
+ (2603:10b6:208:2bd::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.9 via Frontend
+ Transport; Fri, 25 Oct 2024 14:57:39 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD7.mail.protection.outlook.com (10.167.242.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8093.14 via Frontend Transport; Fri, 25 Oct 2024 14:57:39 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Oct
+ 2024 09:57:39 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Oct
+ 2024 09:57:38 -0500
+Received: from [172.26.85.121] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 25 Oct 2024 09:57:38 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,190 +63,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f02020ca-92df-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1729867597; x=1730472397; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RsNLLDRKWTaCJ4d93PmSSMU/g7hkzJ7gZdeFBBZV5I4=;
-        b=YpEAflZnzDhsdWCB0pkOFLsVGOEvhnlgS23eKL7lQp3qYdBvnXZew7hbh69R7TXkmn
-         hE7nZ95QzsxSFrtcnszu84isKWhDswZjq5jd4nKBhxxXTK9PonUZ0ULEw+SSy91/+8Hi
-         U8eUYeqwRJmMwNFRJZyaQJD+cADROIbuO30ss=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729867597; x=1730472397;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RsNLLDRKWTaCJ4d93PmSSMU/g7hkzJ7gZdeFBBZV5I4=;
-        b=f618qTUFN57KDYDtmiLqPZcdrzSDLU70wx4Wr1us+bs55xpSjh0QgeuXja15GbZKI9
-         i4ClCJF5ji+l3S6294flfLDFtXkZttxSP4TsRiFY58x/YC8ft3FQUbCN53e8HBAw5C5t
-         wxZ34owb46ZgEw1ZV/yu8cqak0ABcLBrRgvv/yAwxCwSI+vNyzsTfiv9Z483zf/h4bkq
-         UWCorI13M8V6p4TIKF/Cqsfe4sLIwxXqmyKitDhTBLuxrpKK3Ix/8k1pxQJbt3KJsfOF
-         VKqGr90OZmBPILReq/1OeQUP7MZbDs5lxDA/5+ttExiHSIJmXs7qq5JkI/KRjSQBb/nF
-         Lofg==
-X-Gm-Message-State: AOJu0YwgBfzlUPA19/Dv6NJj8LEJE4+QezHbi+3v4K81Qtqus3+RvTU2
-	sjg//due5z6SiLdLK3XRS+5efn+KT4UiSZmslutDrJRwiiy05ejP+RDRetVOfNE=
-X-Google-Smtp-Source: AGHT+IFMoW4HjIgIHYWftdnQ1RBMFu44iiHF3aP3ZjorsYxoRzWT9pd9u7vfxB02ObkUirt4pVGDnA==
-X-Received: by 2002:a17:906:dac2:b0:a99:5f2a:444d with SMTP id a640c23a62f3a-a9ad285ff6emr606667966b.56.1729867597009;
-        Fri, 25 Oct 2024 07:46:37 -0700 (PDT)
-Message-ID: <9cbbfe4c-ca22-42e4-94fc-873e177aa291@citrix.com>
-Date: Fri, 25 Oct 2024 15:46:35 +0100
+X-Inumbo-ID: 7ca60bfb-92e1-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ahuwk3ZieauClX9fR5aOupq5BmFz/rySETv/nwHI2sna2pNcLWIB+Q6YOP/2p5sn/jc5mcrxbqZdbbc4kUYFw8eFgKuKv9TgkJRjIAu52YyVUrKlvlZt/N/HrGfnN3JqnkJBGf+QI9ebg8tqyxaxC6b5DkarspHR4BswNOSn33u0QS67c9IQ8z93NaQPUNhzqKX3JSvgk1GQ6iRtDymAaAKr90NjfD12HsXMI3h649Xw7DkXL/72u4tQPKK6Tk9VZKO2r2Ar9bjVT77t5ZEitzjaQUMCR5aGoeLayrW6YGWZ7Xl5mphXDQIXg0h2cLzJsLXxUp9T1pillQo7c0mIIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eLyMYn52sPfZNm0Dj4m+aGP4ZfMxUsqGK4QAWI0VqxI=;
+ b=pdxvvz6ao2NUYLbEtmcjVAFSMi+OYGIQCJsLu6IFJjzDvh4Jvz4OYAYlcnO4zZIba+9gJUt7XgJPwAQJd5OVRv4rJOdxnQdKSt3gbh2WsvfYWlysNjdrB41hnerBR97RYiFHgJ1f9UIKQ6kPToebWNNeRCRWxEpePhQIR9gSBEPf26qus9OAH813cpRnTIs/cPwgFgX0J2oQc519nJ7rgFkiMsbwDUa4PVq8E6YyII9unCm5bXASR3KJ/lvnQsQPim7iZ9YOwrLIwGCqUSHLS0NePz2mDkZd3eMn/sZFMRBUZcrfb94bl2IETXuCO1tg9RL7xT6LkJUdGI9laJBt+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eLyMYn52sPfZNm0Dj4m+aGP4ZfMxUsqGK4QAWI0VqxI=;
+ b=p5tH2Jv37a3MtRGandrPsEKIfIyZ0zRGLwIMasDQCk9aa/RnDUj0v1kkq0buSrmlX6o8M1WUceauO9Q/XZ65nS6B2vgmMsFmupqGuC4cHfxgN3BI/fhHvQjhBlB/FxtJZw0Aqj2dKQups/E4/Af4DGOxmzQ1kYCyLKDR2WIebT8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <9c38195b-400c-47f9-862d-a98be814cb9e@amd.com>
+Date: Fri, 25 Oct 2024 10:57:33 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 1/6] CI: Refresh the Debian 12 x86_64 container
-To: Javi Merino <javi.merino@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1729760501.git.javi.merino@cloud.com>
- <288fcc10dbcbdab1c33ebfb95bedf2366ba64122.1729760501.git.javi.merino@cloud.com>
- <f8452748-067d-48d3-8ed3-3adc98566aa3@citrix.com>
- <opwqn4ewu3pvrmhoikglwzfzu7pwkiht7en4vtnmc755nxphvr@ilgcrk3bo2sa>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <opwqn4ewu3pvrmhoikglwzfzu7pwkiht7en4vtnmc755nxphvr@ilgcrk3bo2sa>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 1/5] x86/ucode: Rename hypercall-context functions
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+References: <20241024132205.987042-1-andrew.cooper3@citrix.com>
+ <20241024132205.987042-2-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20241024132205.987042-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD7:EE_|PH7PR12MB9076:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01aee780-b02c-48b3-c942-08dcf5055ee1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?TzFsdXRhSEhYN0JLT21FOGZURVBhV2dhSjdLMitqU1orMituL0RiaEJiczdF?=
+ =?utf-8?B?S3E1c0xoTUFYN2tLUVhsVmtxYnlESno3WmI4UnFlYUlnM29tN1NNdXdiajRh?=
+ =?utf-8?B?RnlQMnBKd1k0ZDFmc0VXTS9CbXpCRmRvcjJTelN1THRJN2pTZ3hGSE92bUdE?=
+ =?utf-8?B?ODFxdzBTRXpNSllWSlR0NDlVZThSbjRRd2Fnbm5ldTQ2V045K3VGY0JVV3hJ?=
+ =?utf-8?B?Tm8zdGxHR1d0aUNmaWIvS0MvSXFDWUdRam14TGNLU1hUZ1JzZmJxYVp4bi9G?=
+ =?utf-8?B?b2w2T2NZdW1oTFduUUZqQXF0eXFsVXlPZnJYakJpcVIrTDhNSk8vcTY5bXhN?=
+ =?utf-8?B?R1hYMzVlK25LcjAvNjNNU1JkNXMvWStFbWMrM2dlb2hweHljZDJEVmd5NjBv?=
+ =?utf-8?B?SEtaWmU0OUY5WXVIRlJXZTZRQ2hmMU1Ea3hWaVh4YkZzczI0N29aeitWM0Zl?=
+ =?utf-8?B?ZTYvOVlYNmpSUm01Rlpyd05OYkh2cUFNRVREOTNzY1g2QlBuM3lZY2JIek5S?=
+ =?utf-8?B?UmdlWjZuZnhoQ0hWRDFTNkkyajAxRi8yczQwNnhkeU1hTjEzc0NJdHJONmpJ?=
+ =?utf-8?B?NzJ4ZHFjR29LNmF6OVJFSytOQVQvaHMrYXc3R0d1MHJEZWJMcXZuZDBPTEFW?=
+ =?utf-8?B?amVucHNDQXdVTWNwclhMSWt2NGxEZG5NQ2VySUNUMzNFUUxpMm4zQ243c3lx?=
+ =?utf-8?B?MDJDd295U1VjS3o0N3ByMUU5dXVuYnB1N0VTZUliTTVLcVRZemp3VUFhM3hV?=
+ =?utf-8?B?SnZHWWZyTVVDMTFJYVF0VFY4azkzQTF5N0dlOGUvUzhiU0hTak9YeDdjN3pE?=
+ =?utf-8?B?RXdEdzloYzZlNUgyMjZnb2UxSXpPU0JSdTcydDhsMW1iWEpmZzRTaEhZZmhk?=
+ =?utf-8?B?UzdxNXZFN2ZPSVZqdjkvM1g1ZEFrUFdFamFteVoyRVRXTk5QRGs2Tm5mWjhW?=
+ =?utf-8?B?aHBDNy83TVZzem5WQVNmdWhxL0tjbHpkOGdjWE52eXZMSXc0Z0JkUEtFRUtE?=
+ =?utf-8?B?ZGpITEIyQVE2N2FQemxmNFpqckhUcGphcFVpYnlmU0IvQVJUbTZZRGRCdkpC?=
+ =?utf-8?B?NllmbERNYWhDSTl2dnBWblRDRi9ZM3k0N2FvWE5ldEhTWHdJZVZqdUlKSTlP?=
+ =?utf-8?B?cHdzT255a1hiUnpLeXFHejJMWGNHWE1wTm5rWE1yeVVZSExGWjlpWkR3dTEx?=
+ =?utf-8?B?aVd5TWdnNGZtbmZ2cVgybTM3K2x1VlpJNDhuQ2wvTU9LamhwY0pjYkJQNGJj?=
+ =?utf-8?B?NHBhOWJkbElocGVyUEhRTDEvU0x4c1ZIbjVDcjNBSDRsWmUvd2VkZWo0K0JO?=
+ =?utf-8?B?ZmNjUldiSzlDdDhoTE96QXRhcGo5dXVSRFpNWVhCallLWnFlMmloYXVRQTZv?=
+ =?utf-8?B?NTd3TXVyN1I4ZTIzVitnUmpuVzYxWWlYaGhQQUtqM1NMZjBybjRMaWNmT05m?=
+ =?utf-8?B?UHo5L1poWUNsa2Iyb0FZN3JxR08ybnc0L04rUUhLcWdnZUhUd1ZMQ2F4bHNu?=
+ =?utf-8?B?Z2RMRThiN0VLcmNLcGd2c3o4dG13NEhpbFh5QTkrdUN5RENYNmZFZHdFQ0Ns?=
+ =?utf-8?B?bDBKazl6QXoxVk05aC9GMUpmdmtURkJOUy9FTnlMNGNiR0lPY3o1S0xOZGg0?=
+ =?utf-8?B?aTBkMVlrWGZObDlRZGVNSW51cXBlUEN3UmtsUVFUdzBNWWFhVzlWRWh2N2RE?=
+ =?utf-8?B?d2JmY2hsa01rWXNpTnR5emlGTTBxaS90OVhYbm4xUGRFbGxPb05UNXh2eUVQ?=
+ =?utf-8?B?Y0xEdHMra0tWY2kybEFqdmhLMks2UGc5ZFFTdEQyeG9ZVkZDdklZWHErYWxi?=
+ =?utf-8?B?Mld0WWg1WnBLOW5BNVZGRm5sckZMNzI4aXNVeks3cDhpSTU2b3V6elU3N0VC?=
+ =?utf-8?B?K2lJclBGYjRjeTVMZzRqVmVJMng5d1FJS0dGRVNsZHJHcVE9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2024 14:57:39.4639
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01aee780-b02c-48b3-c942-08dcf5055ee1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECD7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9076
 
-On 24/10/2024 4:10 pm, Javi Merino wrote:
-> On Thu, Oct 24, 2024 at 03:04:10PM +0100, Andrew Cooper wrote:
->> On 24/10/2024 11:04 am, Javi Merino wrote:
->>> +
->>> +    apt-get update
->> apt-get -y
-> apt-get update refreshes the package lists.  -y doesn't do anything
-> here.  It is needed for "apt-get install" below but not for
-> apt-get update.  It would be needed for "apt-get upgrade", but
-> we don't.
+On 2024-10-24 09:22, Andrew Cooper wrote:
+> microcode_update{,_helper}() are overly generic names in a file that has
+> multiple update routines and helper functions contexts.
+> 
+> Rename microcode_update() to ucode_update_hcall() so it explicitly identifies
+> itself as hypercall context, and rename microcode_update_helper() to
+> ucode_update_hcall_cont() to make it clear it is in continuation context.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Hmm ok.  We might want to adjust the others to match then.
-
->
->>> +    DEPS=(
->>> +        # Xen
->>> +        bison
->>> +        build-essential
->>> +        checkpolicy
->>> +        clang
->>> +        flex
->>> +
->>> +        # Tools (general)
->>> +        ca-certificates
->> Interestingly, we've gained ca-certificates and dropped apt-transport-https.
-> ca-certificates is needed for curl, wget or anything that tries to
-> validate tls certificates.  It is a Recommends of libcurl, as
-> curl by default validates the ca certificate of https servers.
->
->> ca-certificates is a side effect of --no-install-recommends, so is
->> fine.  I recall there being a specific reason why we needed
->> apt-transport-https, but I can't recall why exactly.  Something about
->> the LetsEncrypt Cert used by xenbits IIRC.
-> I dropped apt-transport-https because it doesn't make sense to have
-> it.  apt-transport-https allows apt to access package repositories over https,
-> but we were installing alongside all the other packages.  apt is never
-> used again, so giving it the ability to install packages over https is
-> pointless.
-
-That is, as they say, an assumption.
-
-fe746c26c0d2 ("automation/gitlab: add https transport support to Debian
-images")
-
-Although, subsequently the use of apt.llvm.org was removed:
-
-a6b1e2b80fe2 ("automation: Remove clang-8 from Debian unstable container")
-7a2983757216 ("CI: Remove llvm-8 from the Debian Stretch container")
-
-So I guess we're back to being ok without it.
->>> +        expect
->> Expect is only for the test phase, so should move later.
-> I put it here because ./configure checks for it.
-
-It does?
-
-That's not necessary/expected.
-
->> Any decompressor which we don't find a suitable devel package gets the
->> hypervisor form instead.
->>
->>> +        # To build the documentation
->>> +        pandoc
->> I know we had pandoc before, but I'd like to drop it.
->>
->> I'm intending to turn off docs generally, and do them separately in a
->> single job that has *all* the docs build dependencies, not a misc subset
->> that the build system happens not to complain at.
-> I had the "build the docs as its own job" in my TODO list and was
-> going to drop pandoc from this dockerfile then.  I can remove pandoc
-> in this commit if you prefer.
-
-Dropping packages from existing containers is complicated, because the
-container (name) is shared with prior branches.  You have to wait until
-the oldest version of Xen which still uses the package leaves testing
-(== leaves security support, == 3y), or we've backported changes to all
-branches to drop the dependency.
-
-The rename here gives us leeway because this change won't clobber any
-older branches in Xen, but I don't want to set the precedent.
-
->
->> I'm on the fence about the Qemu build things.  It's off by default now,
->> but the container never previously had meson/ninja so it wouldn't have
->> built either.  Perhaps leave them out until someone complains.
-> I thought I had removed them.  Is there anything else that needs to
-> go?
-
-These containers are both for CI and human use, so "what happens in CI"
-isn't the only consideration.
-
-But, given that Qemu didn't build in the old container anyway, I'm not
-overly fussed about keeping it working in the new container.
-
-So yes, please keep the deps removed.  We can always add them back in later.
-
-~Andrew
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
