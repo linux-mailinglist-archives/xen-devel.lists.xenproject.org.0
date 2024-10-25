@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1CE79AFF9A
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 12:09:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825848.1240248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20B3B9AFF98
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 12:09:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825847.1240242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4HFZ-0003Pm-Rl; Fri, 25 Oct 2024 10:08:57 +0000
+	id 1t4HFZ-0003KQ-7q; Fri, 25 Oct 2024 10:08:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825848.1240248; Fri, 25 Oct 2024 10:08:57 +0000
+Received: by outflank-mailman (output) from mailman id 825847.1240242; Fri, 25 Oct 2024 10:08:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4HFZ-0003KH-I3; Fri, 25 Oct 2024 10:08:57 +0000
-Received: by outflank-mailman (input) for mailman id 825848;
+	id 1t4HFZ-0003Eb-1R; Fri, 25 Oct 2024 10:08:57 +0000
+Received: by outflank-mailman (input) for mailman id 825847;
  Fri, 25 Oct 2024 10:08:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=h5hx=RV=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
- id 1t4HFX-0000tn-Hr
- for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 10:08:55 +0000
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ id 1t4HFW-0000tn-VE
+ for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 10:08:54 +0000
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f83c448-92b9-11ef-99a3-01e77a169b0f;
+ id 218dac39-92b9-11ef-99a3-01e77a169b0f;
  Fri, 25 Oct 2024 12:08:52 +0200 (CEST)
-Received: from mail.maildlp.com (unknown [172.19.88.105])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4XZdjh6T3TzpX51;
- Fri, 25 Oct 2024 18:06:48 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.163.17])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4XZdfx13mZz1HLR8;
+ Fri, 25 Oct 2024 18:04:25 +0800 (CST)
 Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
- by mail.maildlp.com (Postfix) with ESMTPS id 74D8E14011B;
- Fri, 25 Oct 2024 18:08:45 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 357351A0188;
+ Fri, 25 Oct 2024 18:08:48 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemg200008.china.huawei.com
  (7.202.181.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 25 Oct
- 2024 18:08:43 +0800
+ 2024 18:08:46 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,7 +46,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f83c448-92b9-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 218dac39-92b9-11ef-99a3-01e77a169b0f
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <oleg@redhat.com>, <linux@armlinux.org.uk>, <will@kernel.org>,
 	<mark.rutland@arm.com>, <catalin.marinas@arm.com>, <sstabellini@kernel.org>,
@@ -68,9 +68,9 @@ To: <oleg@redhat.com>, <linux@armlinux.org.uk>, <will@kernel.org>,
 	<liuyuntao12@huawei.com>, <leobras@redhat.com>,
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<xen-devel@lists.xenproject.org>
-Subject: [PATCH -next v4 09/19] arm64: entry: Use preempt_count() and need_resched() helper
-Date: Fri, 25 Oct 2024 18:06:50 +0800
-Message-ID: <20241025100700.3714552-10-ruanjinjie@huawei.com>
+Subject: [PATCH -next v4 11/19] arm64: entry: Extract raw_irqentry_exit_cond_resched() function
+Date: Fri, 25 Oct 2024 18:06:52 +0800
+Message-ID: <20241025100700.3714552-12-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241025100700.3714552-1-ruanjinjie@huawei.com>
 References: <20241025100700.3714552-1-ruanjinjie@huawei.com>
@@ -81,46 +81,62 @@ X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
  kwepemg200008.china.huawei.com (7.202.181.35)
 
-The "READ_ONCE(current_thread_info()->preempt_count = 0" is equivalent
-to "preempt_count() == 0 && need_resched()", so use these helpers to
-replace it, which will make it more clear when switch to generic entry.
+Extract the arm64 resched logic code to
+raw_irqentry_exit_cond_resched() function, which makes the
+code more clear when switch to generic entry.
 
 No functional changes.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/entry-common.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ arch/arm64/include/asm/preempt.h |  1 +
+ arch/arm64/kernel/entry-common.c | 17 ++++++++++-------
+ 2 files changed, 11 insertions(+), 7 deletions(-)
 
+diff --git a/arch/arm64/include/asm/preempt.h b/arch/arm64/include/asm/preempt.h
+index 0159b625cc7f..d0f93385bd85 100644
+--- a/arch/arm64/include/asm/preempt.h
++++ b/arch/arm64/include/asm/preempt.h
+@@ -85,6 +85,7 @@ static inline bool should_resched(int preempt_offset)
+ void preempt_schedule(void);
+ void preempt_schedule_notrace(void);
+ 
++void raw_irqentry_exit_cond_resched(void);
+ #ifdef CONFIG_PREEMPT_DYNAMIC
+ 
+ DECLARE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
 diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index a3414fb599fa..3ea3ab32d232 100644
+index 58d660878c09..5b7df53cfcf6 100644
 --- a/arch/arm64/kernel/entry-common.c
 +++ b/arch/arm64/kernel/entry-common.c
-@@ -74,14 +74,6 @@ static inline bool arm64_irqentry_exit_need_resched(void)
- 	if (!need_irq_preemption())
- 		return false;
+@@ -95,6 +95,14 @@ static inline bool arm64_irqentry_exit_need_resched(void)
+ 	return true;
+ }
  
--	/*
--	 * Note: thread_info::preempt_count includes both thread_info::count
--	 * and thread_info::need_resched, and is not equivalent to
--	 * preempt_count().
--	 */
--	if (READ_ONCE(current_thread_info()->preempt_count) != 0)
--		return false;
--
- 	/*
- 	 * DAIF.DA are cleared at the start of IRQ/FIQ handling, and when GIC
- 	 * priority masking is used the GIC irqchip driver will clear DAIF.IF
-@@ -129,8 +121,10 @@ static void noinstr exit_to_kernel_mode(struct pt_regs *regs,
++void raw_irqentry_exit_cond_resched(void)
++{
++	if (!preempt_count()) {
++		if (need_resched() && arm64_irqentry_exit_need_resched())
++			preempt_schedule_irq();
++	}
++}
++
+ /*
+  * Handle IRQ/context state management when exiting to kernel mode.
+  * After this function returns it is not safe to call regular kernel code,
+@@ -119,13 +127,8 @@ static void noinstr exit_to_kernel_mode(struct pt_regs *regs,
  			return;
  		}
  
--		if (arm64_irqentry_exit_need_resched())
--			preempt_schedule_irq();
-+		if (!preempt_count()) {
-+			if (need_resched() && arm64_irqentry_exit_need_resched())
-+				preempt_schedule_irq();
-+		}
+-		if (IS_ENABLED(CONFIG_PREEMPTION)) {
+-			if (!preempt_count()) {
+-				if (need_resched() &&
+-				    arm64_irqentry_exit_need_resched())
+-					preempt_schedule_irq();
+-			}
+-		}
++		if (IS_ENABLED(CONFIG_PREEMPTION))
++			raw_irqentry_exit_cond_resched();
  
  		trace_hardirqs_on();
  	} else {
