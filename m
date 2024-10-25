@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DFCD9AFF97
+	by mail.lfdr.de (Postfix) with ESMTPS id 415959AFF95
 	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 12:09:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825838.1240153 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.825843.1240196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4HFP-0000vx-Rk; Fri, 25 Oct 2024 10:08:47 +0000
+	id 1t4HFT-0001po-J0; Fri, 25 Oct 2024 10:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825838.1240153; Fri, 25 Oct 2024 10:08:47 +0000
+Received: by outflank-mailman (output) from mailman id 825843.1240196; Fri, 25 Oct 2024 10:08:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4HFP-0000u2-MT; Fri, 25 Oct 2024 10:08:47 +0000
-Received: by outflank-mailman (input) for mailman id 825838;
- Fri, 25 Oct 2024 10:08:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t4HFT-0001kX-8L; Fri, 25 Oct 2024 10:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 825843;
+ Fri, 25 Oct 2024 10:08:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=h5hx=RV=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
- id 1t4HFN-0000tn-Pi
- for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 10:08:45 +0000
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1a81b42d-92b9-11ef-99a3-01e77a169b0f;
- Fri, 25 Oct 2024 12:08:42 +0200 (CEST)
-Received: from mail.maildlp.com (unknown [172.19.163.44])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4XZdlw6k9cz1yng3;
- Fri, 25 Oct 2024 18:08:44 +0800 (CST)
+ id 1t4HFR-00014t-4N
+ for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 10:08:49 +0000
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1bd04400-92b9-11ef-a0bf-8be0dac302b0;
+ Fri, 25 Oct 2024 12:08:47 +0200 (CEST)
+Received: from mail.maildlp.com (unknown [172.19.88.234])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4XZdk82QfKz1SDBV;
+ Fri, 25 Oct 2024 18:07:12 +0800 (CST)
 Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
- by mail.maildlp.com (Postfix) with ESMTPS id 41002140360;
- Fri, 25 Oct 2024 18:08:37 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 94CA51401F1;
+ Fri, 25 Oct 2024 18:08:38 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemg200008.china.huawei.com
  (7.202.181.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 25 Oct
- 2024 18:08:35 +0800
+ 2024 18:08:37 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,7 +46,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a81b42d-92b9-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 1bd04400-92b9-11ef-a0bf-8be0dac302b0
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <oleg@redhat.com>, <linux@armlinux.org.uk>, <will@kernel.org>,
 	<mark.rutland@arm.com>, <catalin.marinas@arm.com>, <sstabellini@kernel.org>,
@@ -68,9 +68,9 @@ To: <oleg@redhat.com>, <linux@armlinux.org.uk>, <will@kernel.org>,
 	<liuyuntao12@huawei.com>, <leobras@redhat.com>,
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<xen-devel@lists.xenproject.org>
-Subject: [PATCH -next v4 03/19] arm64: entry: Remove __enter_from_user_mode()
-Date: Fri, 25 Oct 2024 18:06:44 +0800
-Message-ID: <20241025100700.3714552-4-ruanjinjie@huawei.com>
+Subject: [PATCH -next v4 04/19] arm64: entry: Remove __enter_from_kernel_mode()
+Date: Fri, 25 Oct 2024 18:06:45 +0800
+Message-ID: <20241025100700.3714552-5-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241025100700.3714552-1-ruanjinjie@huawei.com>
 References: <20241025100700.3714552-1-ruanjinjie@huawei.com>
@@ -81,41 +81,43 @@ X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
  kwepemg200008.china.huawei.com (7.202.181.35)
 
-The __enter_from_user_mode() is only called by enter_from_user_mode(),
-so replaced it with enter_from_user_mode().
+The __enter_from_kernel_mode() is only called by enter_from_kernel_mode(),
+remove it.
 
 No functional changes.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/entry-common.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ arch/arm64/kernel/entry-common.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
 diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 68a9aecacdb9..ccf59b44464d 100644
+index ccf59b44464d..a7fd4d6c7650 100644
 --- a/arch/arm64/kernel/entry-common.c
 +++ b/arch/arm64/kernel/entry-common.c
-@@ -109,7 +109,7 @@ static void noinstr exit_to_kernel_mode(struct pt_regs *regs,
-  * Before this function is called it is not safe to call regular kernel code,
-  * instrumentable code, or any code which may trigger an exception.
+@@ -36,7 +36,7 @@
+  * This is intended to match the logic in irqentry_enter(), handling the kernel
+  * mode transitions only.
   */
--static __always_inline void __enter_from_user_mode(void)
-+static __always_inline void enter_from_user_mode(struct pt_regs *regs)
+-static __always_inline irqentry_state_t __enter_from_kernel_mode(struct pt_regs *regs)
++static noinstr irqentry_state_t enter_from_kernel_mode(struct pt_regs *regs)
  {
- 	lockdep_hardirqs_off(CALLER_ADDR0);
- 	CT_WARN_ON(ct_state() != CT_STATE_USER);
-@@ -118,11 +118,6 @@ static __always_inline void __enter_from_user_mode(void)
- 	mte_disable_tco_entry(current);
- }
+ 	irqentry_state_t ret = {
+ 		.exit_rcu = false,
+@@ -55,13 +55,6 @@ static __always_inline irqentry_state_t __enter_from_kernel_mode(struct pt_regs
+ 	rcu_irq_enter_check_tick();
+ 	trace_hardirqs_off_finish();
  
--static __always_inline void enter_from_user_mode(struct pt_regs *regs)
--{
--	__enter_from_user_mode();
+-	return ret;
 -}
 -
- /*
-  * Handle IRQ/context state management when exiting to user mode.
-  * After this function returns it is not safe to call regular kernel code,
+-static noinstr irqentry_state_t enter_from_kernel_mode(struct pt_regs *regs)
+-{
+-	irqentry_state_t ret = __enter_from_kernel_mode(regs);
+-
+ 	mte_check_tfsr_entry();
+ 	mte_disable_tco_entry(current);
+ 
 -- 
 2.34.1
 
