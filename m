@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5609B9AFF20
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 11:57:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.825744.1240133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F1F9AFF3C
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2024 11:59:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.825826.1240142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4H4C-0005Un-KO; Fri, 25 Oct 2024 09:57:12 +0000
+	id 1t4H6O-0007Kg-VT; Fri, 25 Oct 2024 09:59:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 825744.1240133; Fri, 25 Oct 2024 09:57:12 +0000
+Received: by outflank-mailman (output) from mailman id 825826.1240142; Fri, 25 Oct 2024 09:59:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t4H4C-0005Qv-HM; Fri, 25 Oct 2024 09:57:12 +0000
-Received: by outflank-mailman (input) for mailman id 825744;
- Fri, 25 Oct 2024 09:54:56 +0000
+	id 1t4H6O-0007IP-SU; Fri, 25 Oct 2024 09:59:28 +0000
+Received: by outflank-mailman (input) for mailman id 825826;
+ Fri, 25 Oct 2024 09:59:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oVQX=RV=linaro.org=dmitry.baryshkov@srs-se1.protection.inumbo.net>)
- id 1t4H20-0004iH-2M
- for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 09:54:56 +0000
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [2607:f8b0:4864:20::1129])
+ <SRS0=YVVt=RV=intel.com=jani.nikula@srs-se1.protection.inumbo.net>)
+ id 1t4H6N-0007IF-09
+ for xen-devel@lists.xenproject.org; Fri, 25 Oct 2024 09:59:27 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ed85774-92b7-11ef-99a3-01e77a169b0f;
- Fri, 25 Oct 2024 11:54:54 +0200 (CEST)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-6e35f08e23eso18031147b3.2
- for <xen-devel@lists.xenproject.org>; Fri, 25 Oct 2024 02:54:54 -0700 (PDT)
+ id cf2c9e5f-92b7-11ef-99a3-01e77a169b0f;
+ Fri, 25 Oct 2024 11:59:24 +0200 (CEST)
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2024 02:59:21 -0700
+Received: from zzombora-mobl1.ti.intel.com (HELO localhost) ([10.245.246.193])
+ by fmviesa008-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2024 02:59:09 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,108 +42,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ed85774-92b7-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1729850093; x=1730454893; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ovzUCbOnf8ad3/AG/s6edyQx3Y96JvN5zzmYGNZvn88=;
-        b=kzm7FWGFCr5xszHTwyrl3hngXTVg1+wS8+78itGhYATKT47/IoAGIH+mOfHQ4bcnUw
-         0qcT9u/6L6EM69LUHOuQeEBeIgRl0I7Qn+RRzmkv8DoCak1+mubH1FjN01ey2hWWZfdv
-         +mrNmrdqePVzqqNXW2Yg2A+VDAIoPxd8NOFYG6+agBO1xlC+jvbpG9xO6vPWFMhO5ZQS
-         Pe5/H7k5KMIDNZdiVFirzcmrxt0Bo2IGHqZXwRg5u0hsNCC8Z9iBjoKIpylaWnnPRdCG
-         gaGcG8ukoi9nRvrXqOgWie/VIVweMtAVng3rsFkCwWsjO0Y/vL5kIZjhaqT0Qyox07xH
-         uE1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729850093; x=1730454893;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ovzUCbOnf8ad3/AG/s6edyQx3Y96JvN5zzmYGNZvn88=;
-        b=FNMpmw0ZcwUl9UXhsG+X9c0FPbOY8Iast99/emGxjK0m6cnmbjPFjy72Sx7Lhnvi6b
-         5vcX5MjVYWdq7uWxmjNE+DkpvM2IVwPBrbpoJsANvJVsVICcl2CzSB5dY2ufxDtfYVng
-         upHLsxjDVVuCQJ+DUjNb36yOA0TuoULkH3ue4IcmWJKKrANRXJi4lih7uqkc1aD0r3ui
-         XFuXj+4ze6F005sw6pDnqr/kDCMb9SkGEHXg0qS5+cUnaC1J2VfpLLJanN+JlAD4i5Vr
-         0PYbOCgMG6RkMg9kDuTLvAfcE6bt/xVEC7GAPtMxuLdS5nSjMXK+Jd72Fad+5Yrzy0gw
-         x12w==
-X-Forwarded-Encrypted: i=1; AJvYcCU9W+rJdFxJvjJgTFB4vUtTZUNPsZA6h7DRWf4BqJFpzCW/F8eKCMAJHcrjn96CGKJuZWmzEjA2Q38=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxsmatVnn22zP19yNbdTqLwasPqFpUkzvklbqjoDSPktHzzTiDZ
-	SA+PdqppbWEeK5UmZjQH655WZ8WtDHjD7PbjulbALMkwSh0rRqVNd7JqlTBj8xNcqCgOcADyHc9
-	JrpSMBoKrLe5RGW0bonIWjti00Nv4POHck6BhVA==
-X-Google-Smtp-Source: AGHT+IFZu/LyAjfpwX5MrN+JVkr0x0xSzSrKk0A5Mdi5tj38z9PJE4G47Yh4NVVkEqgziX0kL7VNUYJrsxipC6JS6p4=
-X-Received: by 2002:a05:690c:fc7:b0:6e7:fb87:7094 with SMTP id
- 00721157ae682-6e85814d77fmr57343097b3.6.1729850092872; Fri, 25 Oct 2024
- 02:54:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20241002182200.15363-1-ville.syrjala@linux.intel.com> <ZxtMz8JP3DbzpMew@intel.com>
-In-Reply-To: <ZxtMz8JP3DbzpMew@intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 25 Oct 2024 12:54:42 +0300
-Message-ID: <CAA8EJprT=BGyMnvkjS4BkRqar1hHn_hpXFaz9gstPL_9u1rAsQ@mail.gmail.com>
+X-Inumbo-ID: cf2c9e5f-92b7-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1729850364; x=1761386364;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=A0tbIubMUPu1KmNaFfOkWkedtaj9BPGHl5YSsFJzW4A=;
+  b=fEWAHoUr3txqCT6u4+1VfPa7pW75PouEo/X1qUMkeJiTHFIqEpO20Att
+   xNyNMt4yfpXXQCoODH7b9MOfJdyVr5sP6A6pFfsu44zw6fcHu+Pa1Ev7/
+   UFN6ogPIhgI7IEW9eCAMtqEj3BysRkKqQ1gfzcRO0ar7xgxjYCKtge7eV
+   Sm2zXg/nLKJRdVYjC9+Mf8B7aOsqwRl6q/Vk9SElX70LaQCpAha9TSv3u
+   Jcdd2FSVjx7hbDbpIBd5LSDLaDYGeQuOCn2e06EpGsgjhIeCW8xetkWtO
+   2DxW4EKA+xXTnzBnW7T/O1svOEyif8RX6xEnlWvrEPriCPJftniakzMq0
+   A==;
+X-CSE-ConnectionGUID: UH9/7uU9S52VG/oDRyX0jQ==
+X-CSE-MsgGUID: 0YKTgCNiQRiGfAY05B/z1g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="17145366"
+X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; 
+   d="scan'208";a="17145366"
+X-CSE-ConnectionGUID: J/nzwOZxRuCCiipRaURsrA==
+X-CSE-MsgGUID: 0oumuCcWRtKOGTxyvWihhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; 
+   d="scan'208";a="80980898"
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Alain Volmat <alain.volmat@foss.st.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Alexey Brodkin
+ <abrodkin@synopsys.com>, amd-gfx@lists.freedesktop.org, Andy Yan
+ <andy.yan@rock-chips.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@redhat.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, freedreno@lists.freedesktop.org, Hans de
+ Goede <hdegoede@redhat.com>, Heiko =?utf-8?Q?St=C3=BCbner?=
+ <heiko@sntech.de>, Inki Dae
+ <inki.dae@samsung.com>, Jyri Sarha <jyri.sarha@iki.fi>, Karol Herbst
+ <kherbst@redhat.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-arm-msm@vger.kernel.orga,
+ linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ Liviu Dudau <liviu.dudau@arm.com>, Lyude Paul <lyude@redhat.com>,
+ =?utf-8?Q?Ma=C3=ADra?=
+ Canal <mairacanal@riseup.net>, Marijn Suijten
+ <marijn.suijten@somainline.org>, nouveau@lists.freedesktop.org,
+ nouveau@lists.freedesktop.orga, Patrik Jakobsson
+ <patrik.r.jakobsson@gmail.com>, Rob Clark <robdclark@gmail.com>, Russell
+ King <linux@armlinux.org.uk>, Sandy Huang <hjc@rock-chips.com>, Sean Paul
+ <sean@poorly.run>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, xen-devel@lists.xenproject.org, Xinhui Pan
+ <Xinhui.Pan@amd.com>, Zack Rusin <zack.rusin@broadcom.com>
 Subject: Re: [PATCH 0/2] drm: Treewide plane/crtc legacy state sweeping
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	Abhinav Kumar <quic_abhinavk@quicinc.com>, Alain Volmat <alain.volmat@foss.st.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, Alexey Brodkin <abrodkin@synopsys.com>, 
-	amd-gfx@lists.freedesktop.org, Andy Yan <andy.yan@rock-chips.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Danilo Krummrich <dakr@redhat.com>, freedreno@lists.freedesktop.org, 
-	Hans de Goede <hdegoede@redhat.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Inki Dae <inki.dae@samsung.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
-	Karol Herbst <kherbst@redhat.com>, linux-amlogic@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-arm-msm@vger.kernel.orga, 
-	linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
-	Liviu Dudau <liviu.dudau@arm.com>, Lyude Paul <lyude@redhat.com>, 
-	=?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, nouveau@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.orga, 
-	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Rob Clark <robdclark@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Sandy Huang <hjc@rock-chips.com>, Sean Paul <sean@poorly.run>, 
-	spice-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, Xinhui Pan <Xinhui.Pan@amd.com>, 
-	Zack Rusin <zack.rusin@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <ZxtMz8JP3DbzpMew@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
+ <ZxtMz8JP3DbzpMew@intel.com>
+Date: Fri, 25 Oct 2024 12:59:05 +0300
+Message-ID: <8734kkqz9y.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 25 Oct 2024 at 10:46, Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
+On Fri, 25 Oct 2024, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
 > On Wed, Oct 02, 2024 at 09:21:58PM +0300, Ville Syrjala wrote:
-> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> >
-> > An attempt to hide the drm_plane/crtc legacy state better.
-> >
-> > This also highlights the fact that a lot of supposedly
-> > atomic drivers are poking around in the legacy crtc state,
-> > which is rather questionable. For planes we did force the
-> > legacy state to NULL already to force drivers to behave.
-> > But even then it seems capable of confusing people with
-> > its high profile location directly under drm_plane.
-> >
-> > This might end up as some kind of conflict
-> > galore, but the alternative would involve trying
-> > to wean the atomic drivers off one by one,
-> > which would probably take forever. At least with
-> > this the issue becomes visible and shouldn't be
-> > forgotten as easily.
+>> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>>=20
+>> An attempt to hide the drm_plane/crtc legacy state better.
+>>=20
+>> This also highlights the fact that a lot of supposedly
+>> atomic drivers are poking around in the legacy crtc state,
+>> which is rather questionable. For planes we did force the
+>> legacy state to NULL already to force drivers to behave.
+>> But even then it seems capable of confusing people with
+>> its high profile location directly under drm_plane.
+>>=20
+>> This might end up as some kind of conflict
+>> galore, but the alternative would involve trying
+>> to wean the atomic drivers off one by one,
+>> which would probably take forever. At least with
+>> this the issue becomes visible and shouldn't be
+>> forgotten as easily.
 >
 > Ping, anyone have thoughts on this? I'd like to get something
 > like this in at some point to make the legacy state (ab)users
 > easily visible...
 
-I think that's a good idea. I hope to find a time slot and check the
-(ab)using of legacy state in drm/msm driver.
+On the approach,
+
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+with or without converting legacy into a pointer, up to you.
 
 >
-> >
-> > The cc list was getting way out of hand, so I had
-> > to trim it a bit. Hopefully I didn't chop off too
-> > many names...
-
-
+>>=20
+>> The cc list was getting way out of hand, so I had
+>> to trim it a bit. Hopefully I didn't chop off too
+>> many names...
+>>=20
+>> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Cc: Alain Volmat <alain.volmat@foss.st.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Alexey Brodkin <abrodkin@synopsys.com>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Cc: Andy Yan <andy.yan@rock-chips.com>
+>> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@redhat.com>
+>> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Cc: freedreno@lists.freedesktop.org
+>> Cc: Hans de Goede <hdegoede@redhat.com>
+>> Cc: "Heiko St=C3=BCbner" <heiko@sntech.de>
+>> Cc: Inki Dae <inki.dae@samsung.com>
+>> Cc: Jyri Sarha <jyri.sarha@iki.fi>
+>> Cc: Karol Herbst <kherbst@redhat.com>
+>> Cc: linux-amlogic@lists.infradead.org
+>> Cc: linux-arm-msm@vger.kernel.org
+>> Cc: linux-arm-msm@vger.kernel.orga
+>> Cc: linux-mediatek@lists.infradead.org
+>> Cc: linux-renesas-soc@vger.kernel.org
+>> Cc: Liviu Dudau <liviu.dudau@arm.com>
+>> Cc: Lyude Paul <lyude@redhat.com>
+>> Cc: "Ma=C3=ADra Canal" <mairacanal@riseup.net>
+>> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+>> Cc: nouveau@lists.freedesktop.org
+>> Cc: nouveau@lists.freedesktop.orga
+>> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+>> Cc: Rob Clark <robdclark@gmail.com>
+>> Cc: Russell King <linux@armlinux.org.uk>
+>> Cc: Sandy Huang <hjc@rock-chips.com>
+>> Cc: Sean Paul <sean@poorly.run>
+>> Cc: spice-devel@lists.freedesktop.org
+>> Cc: virtualization@lists.linux.dev
+>> Cc: xen-devel@lists.xenproject.org
+>> Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+>> Cc: Zack Rusin <zack.rusin@broadcom.com>
+>>=20
+>> Ville Syrj=C3=A4l=C3=A4 (2):
+>>   drm: Move plane->{fb,old_fb,crtc} to legacy sub-structure
+>>   drm: Move crtc->{x,y,mode,enabled} to legacy sub-structure
+>>=20
+>>  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |  7 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 20 ++---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c       |  2 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  2 +-
+>>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        | 35 ++++----
+>>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        | 35 ++++----
+>>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 37 ++++-----
+>>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 35 ++++----
+>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++--
+>>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  2 +-
+>>  drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  |  4 +-
+>>  drivers/gpu/drm/arm/hdlcd_drv.c               |  2 +-
+>>  drivers/gpu/drm/arm/malidp_hw.c               |  2 +-
+>>  drivers/gpu/drm/armada/armada_crtc.c          | 12 ++-
+>>  drivers/gpu/drm/ast/ast_dp.c                  |  8 +-
+>>  drivers/gpu/drm/drm_atomic.c                  |  6 +-
+>>  drivers/gpu/drm/drm_atomic_helper.c           |  8 +-
+>>  drivers/gpu/drm/drm_client_modeset.c          | 10 +--
+>>  drivers/gpu/drm/drm_crtc.c                    | 31 +++----
+>>  drivers/gpu/drm/drm_crtc_helper.c             | 80 ++++++++++---------
+>>  drivers/gpu/drm/drm_fb_helper.c               | 12 +--
+>>  drivers/gpu/drm/drm_framebuffer.c             |  4 +-
+>>  drivers/gpu/drm/drm_plane.c                   | 69 ++++++++--------
+>>  drivers/gpu/drm/drm_plane_helper.c            |  6 +-
+>>  drivers/gpu/drm/drm_vblank.c                  |  2 +-
+>>  drivers/gpu/drm/exynos/exynos5433_drm_decon.c |  4 +-
+>>  drivers/gpu/drm/gma500/cdv_intel_display.c    |  2 +-
+>>  drivers/gpu/drm/gma500/cdv_intel_dp.c         |  6 +-
+>>  drivers/gpu/drm/gma500/cdv_intel_hdmi.c       |  3 +-
+>>  drivers/gpu/drm/gma500/cdv_intel_lvds.c       |  6 +-
+>>  drivers/gpu/drm/gma500/gma_display.c          | 22 ++---
+>>  drivers/gpu/drm/gma500/oaktrail_crtc.c        |  2 +-
+>>  drivers/gpu/drm/gma500/psb_intel_display.c    |  2 +-
+>>  drivers/gpu/drm/gma500/psb_intel_lvds.c       |  6 +-
+>>  drivers/gpu/drm/gma500/psb_intel_sdvo.c       |  8 +-
+>>  drivers/gpu/drm/i2c/ch7006_drv.c              |  7 +-
+>>  drivers/gpu/drm/i2c/sil164_drv.c              |  2 +-
+>>  .../drm/i915/display/intel_modeset_setup.c    |  4 +-
+>>  drivers/gpu/drm/imx/lcdc/imx-lcdc.c           | 31 ++++---
+>>  drivers/gpu/drm/mediatek/mtk_crtc.c           |  6 +-
+>>  drivers/gpu/drm/meson/meson_overlay.c         |  2 +-
+>>  drivers/gpu/drm/meson/meson_plane.c           |  8 +-
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 18 +++--
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  6 +-
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 16 ++--
+>>  drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |  4 +-
+>>  drivers/gpu/drm/nouveau/dispnv04/crtc.c       | 25 +++---
+>>  drivers/gpu/drm/nouveau/dispnv04/cursor.c     |  2 +-
+>>  drivers/gpu/drm/nouveau/dispnv04/dfp.c        |  2 +-
+>>  drivers/gpu/drm/nouveau/dispnv04/disp.c       |  4 +-
+>>  .../gpu/drm/nouveau/dispnv04/tvmodesnv17.c    |  4 +-
+>>  drivers/gpu/drm/nouveau/dispnv04/tvnv17.c     |  7 +-
+>>  drivers/gpu/drm/nouveau/nouveau_connector.c   |  6 +-
+>>  drivers/gpu/drm/qxl/qxl_display.c             |  6 +-
+>>  drivers/gpu/drm/radeon/atombios_crtc.c        | 28 +++----
+>>  drivers/gpu/drm/radeon/cik.c                  | 12 +--
+>>  drivers/gpu/drm/radeon/evergreen.c            | 16 ++--
+>>  drivers/gpu/drm/radeon/r100.c                 | 16 ++--
+>>  drivers/gpu/drm/radeon/r600_cs.c              |  2 +-
+>>  drivers/gpu/drm/radeon/r600_dpm.c             |  4 +-
+>>  drivers/gpu/drm/radeon/radeon_connectors.c    |  7 +-
+>>  drivers/gpu/drm/radeon/radeon_cursor.c        | 29 +++----
+>>  drivers/gpu/drm/radeon/radeon_device.c        |  2 +-
+>>  drivers/gpu/drm/radeon/radeon_display.c       | 26 +++---
+>>  drivers/gpu/drm/radeon/radeon_drv.c           |  2 +-
+>>  drivers/gpu/drm/radeon/radeon_legacy_crtc.c   | 16 ++--
+>>  .../gpu/drm/radeon/radeon_legacy_encoders.c   |  2 +-
+>>  drivers/gpu/drm/radeon/radeon_pm.c            |  2 +-
+>>  drivers/gpu/drm/radeon/rs600.c                | 10 +--
+>>  drivers/gpu/drm/radeon/rs690.c                | 22 ++---
+>>  drivers/gpu/drm/radeon/rs780_dpm.c            |  6 +-
+>>  drivers/gpu/drm/radeon/rv515.c                | 30 +++----
+>>  drivers/gpu/drm/radeon/rv770.c                |  2 +-
+>>  drivers/gpu/drm/radeon/si.c                   | 14 ++--
+>>  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.c    |  2 +-
+>>  .../gpu/drm/renesas/shmobile/shmob_drm_crtc.c |  2 +-
+>>  drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |  6 +-
+>>  drivers/gpu/drm/sti/sti_crtc.c                |  4 +-
+>>  drivers/gpu/drm/sti/sti_cursor.c              |  2 +-
+>>  drivers/gpu/drm/sti/sti_gdp.c                 |  2 +-
+>>  drivers/gpu/drm/sti/sti_hqvdp.c               |  2 +-
+>>  drivers/gpu/drm/sti/sti_tvout.c               |  6 +-
+>>  drivers/gpu/drm/sti/sti_vid.c                 |  2 +-
+>>  drivers/gpu/drm/tilcdc/tilcdc_crtc.c          | 10 +--
+>>  drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
+>>  drivers/gpu/drm/vboxvideo/vbox_mode.c         |  2 +-
+>>  drivers/gpu/drm/vc4/vc4_dpi.c                 |  2 +-
+>>  drivers/gpu/drm/vc4/vc4_plane.c               |  4 +-
+>>  drivers/gpu/drm/virtio/virtgpu_display.c      |  4 +-
+>>  drivers/gpu/drm/vkms/vkms_composer.c          |  4 +-
+>>  drivers/gpu/drm/vkms/vkms_crtc.c              |  2 +-
+>>  drivers/gpu/drm/vkms/vkms_writeback.c         |  4 +-
+>>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |  8 +-
+>>  drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c           | 18 +++--
+>>  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  9 ++-
+>>  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |  4 +-
+>>  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c          |  2 +-
+>>  drivers/gpu/drm/xen/xen_drm_front_kms.c       |  2 +-
+>>  include/drm/drm_crtc.h                        | 75 ++++++++---------
+>>  include/drm/drm_plane.h                       | 52 ++++++------
+>>  100 files changed, 599 insertions(+), 547 deletions(-)
+>>=20
+>> --=20
+>> 2.45.2
 
 --=20
-With best wishes
-Dmitry
+Jani Nikula, Intel
 
