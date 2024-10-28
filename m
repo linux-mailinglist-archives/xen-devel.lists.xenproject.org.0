@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D536E9B29B8
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 09:05:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826273.1240467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12FBB9B2A11
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 09:19:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826280.1240478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5KjP-00047J-SK; Mon, 28 Oct 2024 08:04:07 +0000
+	id 1t5Ky4-0005vG-36; Mon, 28 Oct 2024 08:19:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826273.1240467; Mon, 28 Oct 2024 08:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 826280.1240478; Mon, 28 Oct 2024 08:19:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5KjP-00045Q-PX; Mon, 28 Oct 2024 08:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 826273;
- Mon, 28 Oct 2024 08:04:06 +0000
+	id 1t5Ky3-0005sO-VQ; Mon, 28 Oct 2024 08:19:15 +0000
+Received: by outflank-mailman (input) for mailman id 826280;
+ Mon, 28 Oct 2024 08:19:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5KjO-000454-E5
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 08:04:06 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1t5Ky2-0005sG-Vq
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 08:19:14 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3215ecd8-9503-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 09:04:03 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a9aa8895facso648090166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 01:04:03 -0700 (PDT)
+ id 4f981f05-9505-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 09:19:12 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5cbb6166c06so3281998a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 01:19:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b1f02952asm354253566b.73.2024.10.28.01.04.01
+ a640c23a62f3a-a9b302f03b5sm352050466b.166.2024.10.28.01.19.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 01:04:01 -0700 (PDT)
+ Mon, 28 Oct 2024 01:19:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3215ecd8-9503-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 4f981f05-9505-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730102642; x=1730707442; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730103551; x=1730708351; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rqd3GbJqohcxdEZNl0IJuqhBX8PPwVkgpzaGyglYHzk=;
-        b=gJOQNriOeYxgpa1jmXp9Ygd2GtO4SZG7rLoGVkWnqRWzSf9xZ6NCav+iR1tP8keNYy
-         g1MnV2Le3dh6pzsQbJzubQX7V4Imt2NPWa2E/oqFRRUiRFrPto50u02zN+5FXmmudE5V
-         eCMi6Yt/S6HvixbTPbJ8oWcl6a5Dd+L5d2gjY9M4NguOaa6vmQuGjtyCjZQk14PCw8Aj
-         1A7e/q4kXXvrJHGllA9KP1Cr/+VnmptH6cbDrTUOiU0RNfRJsFiWiNT/XlmdRovnSP33
-         SUL05n77Kc7G/9034Fwveio/SedqYUk2fS19BwfFfHtmxigusLhERTWWYpO/Hhfs/ALu
-         37Cg==
+        bh=2lYoNHPqNc7F4/2LKfFO/lqz5PKZtAbIOno/fDugc98=;
+        b=e5FhoO9DhWjI7NQ9Hn/+sm7akqKzrRtYyjMFKjLv5YCBLmlU3Pn4jbYNCpMVLFk6Pw
+         kZILMWfmyzT5Z1ktcIj/33zi3bRAA9rfznyTNxQt38jtJok8sYr+2Gy0wCIB7oQTsZkP
+         oFNownnYAVGN4FK69os8fi9cZBVj0GJBgyveUBhAkKKDkRBBUXUqMMgdwN/P0Text3Ut
+         HVRcoOspNmHEoxHlytcqzXgnnfVZ4o7lkxbCHrjqR8MX1u9YSFCmHjjJHoY8UyjowdeX
+         qeA3LfJpjSwOz8q5+uInbZa/bnvvihf9tUJGoPYtnlMV/hH7qsIhHs0sbWxfU/WUbyMF
+         QDsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730102642; x=1730707442;
+        d=1e100.net; s=20230601; t=1730103551; x=1730708351;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Rqd3GbJqohcxdEZNl0IJuqhBX8PPwVkgpzaGyglYHzk=;
-        b=jPTBOSu1OSk6L7RXigtjbUPDoee8MimFugamOA3DCwAGH5HGgQt4D+IoyB2OVA8k8a
-         rS63kHEljvf71b/9ZYePhyL+9fq7gMo3f+xkhQslrF69f1jME4h5XuVr9uSmnr4wBXqt
-         MJNOc9ZWiJ04O8t4lLK1T+9idyJaaxBCdYiIqTYv8FfTm8CbDeWPQ0BBspq75fzaE8nF
-         t3jxRFVZQ9GclOf2zJGCJUWe8TOp30vpvzCM3rgQBB9hhTplPZvUpJCMUUd15yJr+jGP
-         VVXvG1GotGj/qLKDFjfhQGSFTjJwdr8zlFqXyiahmi8CbSD7Ev1+LetnZbNT07zpc/5X
-         9u5w==
-X-Forwarded-Encrypted: i=1; AJvYcCUwN6kyAEh/8E2MGje2FnMl0kakf98xC6/GAOykPWx2ganndWJlLQs1LDgxYEDUCCEYGZeK+cfaipw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw/QuDRGx5Yo9PCiaG9Heb6YC2R+vTSZU/4ZC4BPXiOFWq6NgYC
-	7ZOkY8Wnxm7/7jlt1sVo6LVs2+7s+QtUZ12SO+5xEPJ3Cha3U40f721beJM2hw==
-X-Google-Smtp-Source: AGHT+IEk4iTokJOXG7Dp+jW8e8Oqt1/zuiGZ3/SAqLrLK1M9rsYvCwskG1dIry3S8nXo+S51Psx5iA==
-X-Received: by 2002:a17:907:7215:b0:a9a:8028:45d8 with SMTP id a640c23a62f3a-a9de5d6f953mr736272166b.7.1730102642472;
-        Mon, 28 Oct 2024 01:04:02 -0700 (PDT)
-Message-ID: <78b2b0e0-880a-410c-91fc-777299417383@suse.com>
-Date: Mon, 28 Oct 2024 09:04:08 +0100
+        bh=2lYoNHPqNc7F4/2LKfFO/lqz5PKZtAbIOno/fDugc98=;
+        b=Spu7PxNf1EF79XT/b9xnhTHypDTy8tWKvA1q/2yOk9d8X+zZfJcHMu39LShsTQR7Xt
+         PR6qZfj8pmVUQKcfP6JLWgVZOaooqKju9qAOQa698k5Gbql2tboUVrkt+qhp0iLCTvFO
+         0u2sd2wiqlZFywR4lGhR+9oVr7XW1qnxm5NulpPOXnW9Wk0Qusum689Dwxsb0KxRReET
+         k+bQAlPev+o6lCXDJ7hnR9YVdzSrRRygLfrqdGNTRXangLybXijJr02X4R80CHns9zIK
+         YAIC6xqeWZIkVnizFgrWdsga9UQzCV+eFDwBnfxXeVLfDjuox2TDTHgpcmTQ52NzA5Cq
+         XY0g==
+X-Forwarded-Encrypted: i=1; AJvYcCVn4S7wpZZ5vXKb9fgbuOfBSz99sIi8jPBN/BwrnLGoT4+45vH1kZ+CwpwethHfQxg2aYQduSJol80=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YztmICwpehFfP0YwFs5900cYyvbtYgmvMyJJa0EAtVX/WhqCKUk
+	gGiTmjWpAGPBaInWIV4BiqJ34NyFmrSgWddrl/IxlIqASlahD0SDBXOL98ryZA==
+X-Google-Smtp-Source: AGHT+IGCt3DImz3TrlW5MpQ5kiIqaNS6P+9Yi1TM57vNc8UFNCvRZ3Ci/lVdnlqDD9WHW5y9HLI81A==
+X-Received: by 2002:a17:907:6d0e:b0:a99:f0d0:4ce3 with SMTP id a640c23a62f3a-a9de5d97f44mr642472866b.17.1730103550873;
+        Mon, 28 Oct 2024 01:19:10 -0700 (PDT)
+Message-ID: <18bcb41c-bbbc-4f9c-b34d-1a9887025159@suse.com>
+Date: Mon, 28 Oct 2024 09:19:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/5] xen/riscv: add stub for
- share_xen_page_with_guest()
+Subject: Re: [PATCH v1 3/5] xen/riscv: introduce setup_mm()
 To: oleksii.kurochko@gmail.com
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -90,11 +89,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1729068334.git.oleksii.kurochko@gmail.com>
- <3dfd4bdf6584e73ecdbff5a66fdbaec68e31cc3c.1729068334.git.oleksii.kurochko@gmail.com>
- <b8de7161-5d71-4ed7-a3cf-611f4a860926@suse.com>
- <df635c41cf530d08898d021adf92eb141624d07d.camel@gmail.com>
- <3f87a19f-c249-438a-ac1d-be9b8fd80c8e@suse.com>
- <6f1d21c3eb10edf9206f45b6c0c6afaa7bb58ef3.camel@gmail.com>
+ <300a4a5911766d42ec01c3fcaee664d72b484296.1729068334.git.oleksii.kurochko@gmail.com>
+ <37929e86-0394-499e-ada1-4686ff77d3f7@suse.com>
+ <abc1c95497372f3a46b34c6694b75b4e1647d4b9.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,120 +117,107 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6f1d21c3eb10edf9206f45b6c0c6afaa7bb58ef3.camel@gmail.com>
+In-Reply-To: <abc1c95497372f3a46b34c6694b75b4e1647d4b9.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18.10.2024 17:57, oleksii.kurochko@gmail.com wrote:
-> On Fri, 2024-10-18 at 15:27 +0200, Jan Beulich wrote:
->> On 18.10.2024 15:10, oleksii.kurochko@gmail.com wrote:
->>> On Thu, 2024-10-17 at 16:51 +0200, Jan Beulich wrote:
->>>> On 16.10.2024 11:15, Oleksii Kurochko wrote:
->>>>> To avoid the following linkage fail the stub for
->>>>> share_xen_page_with_guest()
->>>>> is introduced:
->>>>
->>>> What do you intend to express with "is introduced"? Is there a
->>>> problem now?
->>>> Would there be a problem with subsequent changes? I'm entirely
->>>> fine
->>>> with
->>>> adding that stub, but the description should make clear why /when
->>>> exactly
->>>> it's needed.
->>> I mentioned that in the cover letter:
->>> ```
->>>    Also, after patch 3 ("xen/riscv: introduce setup_mm()") of this
->>>    patch series,
->>>    the linkage error mentioned in patch 1 ("xen/riscv: add stub for
->>>    share_xen_page_with_guest()") began to occur, so patch 1
->>> addresses
->>>    this issue.
->>> ```
->>> I thought it would be the better then just mention in the commit
->>> message that.
+On 18.10.2024 16:27, oleksii.kurochko@gmail.com wrote:
+> On Thu, 2024-10-17 at 17:15 +0200, Jan Beulich wrote:
+>> On 16.10.2024 11:15, Oleksii Kurochko wrote:
+>>> +vaddr_t directmap_virt_end __read_mostly;
 >>
->> Mentioning in the cover letter is fine, but each patch needs to also
->> be self-contained.
+>> __ro_after_init? And moved ahead of the identifier, just like ...
 >>
->>> Will it be fine to mention instead:
->>> ```
->>>    Introduction of setup memory management function will require
->>>    share_xen_page_with_guest() defined, at least, as a stub
->>> otherwise
->>>    the following linkage error will occur...
->>> ```
+>>> +/*
+>>> + * Setup memory management
+>>> + *
+>>> + * RISC-V 64 has a large virtual address space (the minimum
+>>> supported
+>>> + * MMU mode is Sv39, which provides TBs of VA space).
+>>> + * In the case of RISC-V 64, the directmap and frametable are
+>>> mapped
+>>> + * starting from physical address 0 to simplify the page_to_mfn(),
+>>> + * mfn_to_page(), and maddr_to_virt() calculations, as there is no
+>>> need
+>>> + * to account for {directmap, frametable}_base_pdx in this setup.
+>>> + */
+>>> +void __init setup_mm(void)
 >>
->> Quoting the linker error is imo of limited use. What such an
->> explanation
->> wants to say is why, all of the sudden, such an error occurs. After
->> all
->> you don't change anything directly related to common/trace.c.
-> if maddr_to_virt() is defined as:
->     static inline void *maddr_to_virt(paddr_t ma)
->    {
->        BUG_ON("unimplemented");
->        return NULL;
->        // /* Offset in the direct map, accounting for pdx compression */
->        // unsigned long va_offset = maddr_to_directmapoff(ma);
->    
->        // ASSERT(va_offset < DIRECTMAP_SIZE);
->    
->        // return (void *)(DIRECTMAP_VIRT_START + va_offset);
->    }
-> Then no stub for share_xen_page_with_privileged_guests() is needed but
-> it isn't clear at all why the definition of maddr_to_virt() affects
-> linkage of share_xen_page_with_privileged_guests().
-> 
-> I tried to look what is the difference after preprocessing stage for
-> common/trace.o and the only difference is in how maddr_to_virt() is
-> implemented:
->    7574a7575,7577
->    >     do { if (__builtin_expect(!!("unimplemented"),0)) do { do { ({
->    _Static_assert(!((30) >> ((31 - 24) + (31 - 24))), "!(" "(30) >>
->    (BUG_LINE_LO_WIDTH + BUG_LINE_HI_WIDTH)" ")"); }); ({
->    _Static_assert(!((2) >= 4), "!(" "(2) >= BUGFRAME_NR" ")"); }); asm
->    volatile ( ".Lbug%=:""unimp""\n" "   .pushsection
->    .bug_frames.%""""[bf_type], \"a\", %%progbits\n" "   .p2align 2\n"
->    ".Lfrm%=:\n" "   .long (.Lbug%= - .Lfrm%=) + %""""[bf_line_hi]\n" "
->    .long (%""""[bf_ptr] - .Lfrm%=) + %""""[bf_line_lo]\n" "   .if " "0"
->    "\n" "   .long 0, %""""[bf_msg] - .Lfrm%=\n" "   .endif\n" "  
->    .popsection\n" :: [bf_type] "i" (2), [bf_ptr] "i"
->    ("./arch/riscv/include/asm/mm.h"), [bf_msg] "i" (((void*)0)),
->    [bf_line_lo] "i" (((30) & ((1 << (31 - 24)) - 1)) << 24),
->    [bf_line_hi] "i" (((30) >> (31 - 24)) << 24) ); } while ( 0 );
->    __builtin_unreachable(); } while ( 0 ); } while (0);
->    >     return ((void*)0);
->    > 
->    7578d7580
->    <     unsigned long va_offset = (ma);
->    7580d7581
->    <     do { if ( __builtin_expect(!!(!(va_offset < ((((vaddr_t)(509))
->    << ((3 - 1) * (9) + 12)) - (((vaddr_t)(200)) << ((3 - 1) * (9) +
->    12))))),0) ) do { do { ({ _Static_assert(!((35) >> ((31 - 24) + (31
->    - 24))), "!(" "(35) >> (BUG_LINE_LO_WIDTH + BUG_LINE_HI_WIDTH)"
->    ")"); }); ({ _Static_assert(!((3) >= 4), "!(" "(3) >= BUGFRAME_NR"
->    ")"); }); asm volatile ( ".Lbug%=:""unimp""\n" "   .pushsection
->    .bug_frames.%""""[bf_type], \"a\", %%progbits\n" "   .p2align 2\n"
->    ".Lfrm%=:\n" "   .long (.Lbug%= - .Lfrm%=) + %""""[bf_line_hi]\n" "
->    .long (%""""[bf_ptr] - .Lfrm%=) + %""""[bf_line_lo]\n" "   .if " "1"
->    "\n" "   .long 0, %""""[bf_msg] - .Lfrm%=\n" "   .endif\n" "  
->    .popsection\n" :: [bf_type] "i" (3), [bf_ptr] "i"
->    ("./arch/riscv/include/asm/mm.h"), [bf_msg] "i" ("va_offset <
->    DIRECTMAP_SIZE"), [bf_line_lo] "i" (((35) & ((1 << (31 - 24)) - 1))
->    << 24), [bf_line_hi] "i" (((35) >> (31 - 24)) << 24) ); } while ( 0
->    ); __builtin_unreachable(); } while ( 0 ); } while (0);
->    7582d7582
->    <     return (void *)((((vaddr_t)(200)) << ((3 - 1) * (9) + 12)) +
->    va_offset);
-> 
-> Could it be that DCE likely happen when maddr_to_virt() is defined as
-> stub and so code which call share_xen_page_with_privileged_guests() is
-> just eliminated? ( but I am not sure that I know fast way to check that
-> , do you have any pointers? )
+>> ... __init is placed e.g. here.
+>>
+>> It's also unclear why the variable needs to be non-static.
+> As it could be use then for some ASSERT(), for example, in
+> virt_to_page() as Arm or x86 do.
 
-Yes, I think DCE is the explanation here. And that's what (imo) wants saying
-in the description.
+"Could be" is too little here. Misra dislikes identifiers which could
+be static, but aren't. If it's not used right now (nor any time soon),
+it should imo be static until a use appears requiring it to be globally
+visible.
+
+>>> +{
+>>> +    const struct membanks *banks = bootinfo_get_mem();
+>>> +    paddr_t ram_end = 0;
+>>> +    paddr_t ram_size = 0;
+>>> +    unsigned int i;
+>>> +
+>>> +    /*
+>>> +     * We need some memory to allocate the page-tables used for
+>>> the directmap
+>>> +     * mappings. But some regions may contain memory already
+>>> allocated
+>>> +     * for other uses (e.g. modules, reserved-memory...).
+>>> +     *
+>>> +     * For simplicity, add all the free regions in the boot
+>>> allocator.
+>>> +     */
+>>> +    populate_boot_allocator();
+>>> +
+>>> +    total_pages = 0;
+>>> +
+>>> +    for ( i = 0; i < banks->nr_banks; i++ )
+>>> +    {
+>>> +        const struct membank *bank = &banks->bank[i];
+>>> +        paddr_t bank_end = bank->start + bank->size;
+>>> +
+>>> +        ram_size = ram_size + bank->size;
+>>> +        ram_end = max(ram_end, bank_end);
+>>> +    }
+>>> +
+>>> +    setup_directmap_mappings(PFN_DOWN(ram_end));
+>>
+>> While you may want to use non-offset-ed mappings, I can't see how you
+>> can
+>> validly map just a single huge chunk, no matter whether there are
+>> holes
+>> in there. Such holes could hold MMIO regions, which I'm sure would
+>> require
+>> more careful mapping (to avoid cacheable accesses, or even
+>> speculative
+>> ones).
+> My intention was to avoid subraction of directmap_start ( = ram_start )
+> in maddr_to_virt() to have less  operations during maddr to virt
+> calculation:
+>    static inline void *maddr_to_virt(paddr_t ma)
+>    {
+>        /* Offset in the direct map, accounting for pdx compression */
+>        unsigned long va_offset = maddr_to_directmapoff(ma);
+>    
+>        ASSERT(va_offset < DIRECTMAP_SIZE);
+>    
+>        return (void *)(DIRECTMAP_VIRT_START /* - directmap_start */ +
+>    va_offset);
+>    }
+> But it seems I don't have any chance to avoid that because of mentioned
+> by you reasons... Except probably to have a config which will hard code
+> RAM_START for each platform ( what on other hand will make Xen less
+> flexible in some point ).
+> Does it make sense to have a config instead of identifying ram_start in
+> runtime?
+
+I don't think building Xen for just one (kind of) platform is going to be
+overly useful (except maybe for development purposes, yet the goal ought
+to be to be flexible, and hence it may be a bad idea even while developing
+new code).
 
 Jan
 
