@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3073D9B311A
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:56:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826484.1240778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6B79B3123
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:58:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826511.1240787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PHm-0002CL-Iz; Mon, 28 Oct 2024 12:55:54 +0000
+	id 1t5PJY-0003Sv-V0; Mon, 28 Oct 2024 12:57:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826484.1240778; Mon, 28 Oct 2024 12:55:54 +0000
+Received: by outflank-mailman (output) from mailman id 826511.1240787; Mon, 28 Oct 2024 12:57:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PHm-00029a-EJ; Mon, 28 Oct 2024 12:55:54 +0000
-Received: by outflank-mailman (input) for mailman id 826484;
- Mon, 28 Oct 2024 12:55:53 +0000
+	id 1t5PJY-0003RK-SP; Mon, 28 Oct 2024 12:57:44 +0000
+Received: by outflank-mailman (input) for mailman id 826511;
+ Mon, 28 Oct 2024 12:57:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5PHl-00029U-0f
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:55:53 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WnZV=RY=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1t5PJX-0003RC-Fe
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:57:43 +0000
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [2607:f8b0:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f64b3a39-952b-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 13:55:52 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-37ed7eb07a4so3428177f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:55:52 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b70c73sm9545968f8f.72.2024.10.28.05.55.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 05:55:51 -0700 (PDT)
+ id 37b343c0-952c-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 13:57:42 +0100 (CET)
+Received: by mail-oi1-x22c.google.com with SMTP id
+ 5614622812f47-3e6104701ffso2597825b6e.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:57:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +40,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f64b3a39-952b-11ef-a0c2-8be0dac302b0
+X-Inumbo-ID: 37b343c0-952c-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730120151; x=1730724951; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CRxFDXz4hybOPBRrMmB+OKN4mFWiVQfGxG6AfJxA1AA=;
-        b=eOcFIcsWgSOAdNoL87ujbrUwhOw36PmNk8ZvWy4B+CnAJ9zwXVgu7scI43nw/9EpPm
-         w37WoQdd2sBIRAoM6aHxzq8sYjlzhIbAYr+crylfSpepQmB0ytl3H6/eACh8XR81DwuJ
-         6lPtLa/8zyQLUB3nFQFiWp7/X+hzUHmJc2C/+W0bPJHLCHPkIVonxBfDdaYphtFmj8ZD
-         oYsxrceZSEsaa/xJKenZtmAbc6be+iNkTmGSDwu9lVUyzddnaSbQJI/T6gjXFnhwKR1t
-         I89V7SXuiBwo159NSftW69Vx+JtpkwLZAYgkNuUzfIVKUbEZcRRzJQgscdr8WoAPOs9P
-         aBGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730120151; x=1730724951;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1730120261; x=1730725061; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CRxFDXz4hybOPBRrMmB+OKN4mFWiVQfGxG6AfJxA1AA=;
-        b=L0O7jQJGGxREIhtTlzXATH6nsJob5EgJurEQIneDJTpAVOX3o4EeJjhekIgrFDRxp3
-         +dIi7Q7Dj6vtUUnjY2vGzHPv0F/0AaA0fCuEMP5pr9COph00U1GMbombTDQ9wWtHuqnx
-         A5a57U9B6mVjHm/lDkZb0J+p6yOVZa5di2B6y7TL7164Fr5Nuu0IBj7h1DjuI1OvnQD3
-         jRjeXiC+vsgF0GWuMobROhHJnmioluTbzUH7hUzhsS7WxgHs+7L26fZ4cIJXejC8EufH
-         OQdD7wFqD44NDF26Bm2wo2DY4RjAjpMLrBX68ifFNGXHxfbWJSUJmn/rYu8HBECeS6Qo
-         34AQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVXZffuA6i6dikKG2MdhGSo2zcui+quDZpDlvypACeJcxM+vj6z3abnJQ7t2MgEIfoi+qmNuBq26a8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw90ad7sCMqqXZoTqQI2uZGHcUg5wRHYil7ETMdfT9p7HYyETGu
-	r65LgkAOe5rX2FlyhyPLrXoj/fOnwwau739NKq19JMAG6kCf/ImRhdD7raWNHg==
-X-Google-Smtp-Source: AGHT+IGQ+sB0o8IA/aR4ASVys67Ou/63xqdsgOxn42gLr7pNJwzb485FSt7ZPQhvt0vDHPSMi7kP5w==
-X-Received: by 2002:a05:6000:502:b0:37d:4e74:67c with SMTP id ffacd0b85a97d-3806120091fmr5555834f8f.39.1730120151515;
-        Mon, 28 Oct 2024 05:55:51 -0700 (PDT)
-Message-ID: <27be8d00-8260-460e-948d-81418b93662a@suse.com>
-Date: Mon, 28 Oct 2024 13:55:50 +0100
+        bh=a3Hn8Bw3foJ3vhKRRsxCTUCp91ONJNwhsUh1oAIAUt4=;
+        b=MuNRpfvUC6rq0RS2huQoliCANkQrRBxiIv+TKlgtM5InUKG6SoQ6RtWLoiyEd6rIVp
+         NGx1I9z7flIOkvT+FeYTiZYi+e6f33BwjgcqLcaAcfE3S4lZo8EXYGkSupAGlUesAvg2
+         9qTKdfDtxbigHdsIthJANpIRCNpZW9Eoj3U8g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730120261; x=1730725061;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=a3Hn8Bw3foJ3vhKRRsxCTUCp91ONJNwhsUh1oAIAUt4=;
+        b=NE9O4JXzi5BgxdWirsdVkBmBoiWLEbPTSklEuP95/Cb0rtpsLJ8T5iCcEGijc0ZTO4
+         ZQXR8RoFVBMAHpyFYchZ6xgaO94tClhMFWkrUGfluFm9ETNyhhMxJ6oUj5h5UAVNK/yW
+         gmUvkM7Ex+MBoCUb1xhiHj79xpIu5JpNdpTW5j6tFB7M7jbrGDTPKPSmMZb5x/daDPOK
+         qLDB8XU/QHMEXUdhytF+OZ9gW16prHtnuus5kpPm3VZJJTTRlY0PhEX6QE7eogpec4Hl
+         c1y3dDgs3Bn0IytdW0cMTDkFvcHf7w6NrUSzV21btHaceA2O58hHOA8CbgpfzEF38JdM
+         QGxw==
+X-Forwarded-Encrypted: i=1; AJvYcCU8P32fNUcP3XB8FtGvhICdcabDMbsW6qdHgZT0Gfjs18JME0KVI5XUVIosEfjhr8I+fzbd3beUUqs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbnGTrc0XV2WtMxRI1/uOQsteMTPmsQ9MOBT4o97tzKYI4KrAt
+	UpduwIjwVDMITAIgZvWiqA2ZEUsCDY1W1exZ8gM141nD+XekT8WF4+4QKch+U0BGqbSQ6J+XWJu
+	OR8pXkLCDJ8S9Ibw+5awKu978D6Usp581C3o+kA==
+X-Google-Smtp-Source: AGHT+IFPFWAIN9gROzrdrIoC6jV9+4fmVwI6IcrIK8RJAsV6HVYJb9GzsOz9FBCLmYw6wd6yfhpj946cdIF+B3SJkSQ=
+X-Received: by 2002:a05:6808:6492:b0:3e6:3cf7:dc7e with SMTP id
+ 5614622812f47-3e63cf7dc98mr4816811b6e.3.1730120261200; Mon, 28 Oct 2024
+ 05:57:41 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy
- enable_secondary_cpu_mm
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
- <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20241028114831.27487-1-roger.pau@citrix.com> <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
+ <51632c96-9a12-4656-b8f8-1631c11a3a19@suse.com>
+In-Reply-To: <51632c96-9a12-4656-b8f8-1631c11a3a19@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 28 Oct 2024 12:57:30 +0000
+Message-ID: <CACHz=Zg4mFn5zn42f9dDFao0r7ePj=Owhc04OSW5LfW6cJoUaw@mail.gmail.com>
+Subject: Re: [PATCH] tools/libxl: remove usage of VLA arrays
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Juergen Gross <jgross@suse.com>, Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28.10.2024 13:45, Ayan Kumar Halder wrote:
-> --- a/xen/arch/Kconfig
-> +++ b/xen/arch/Kconfig
-> @@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
->  
->  config NR_CPUS
->  	int "Maximum number of CPUs"
-> +	range 1 1 if ARM && MPU
->  	range 1 16383
->  	default "256" if X86
->  	default "8" if ARM && RCAR3
->  	default "4" if ARM && QEMU
->  	default "4" if ARM && MPSOC
-> +	default "1" if ARM && MPU
->  	default "128" if ARM
->  	help
->  	  Controls the build-time size of various arrays and bitmaps
+On Mon, Oct 28, 2024 at 12:48=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 28.10.2024 13:03, Andrew Cooper wrote:
+> > On 28/10/2024 11:48 am, Roger Pau Monne wrote:
+> >> Clang 19 complains with the following error when building libxl:
+> >>
+> >> libxl_utils.c:48:15: error: variable length array folded to constant a=
+rray as an extension [-Werror,-Wgnu-folding-constant]
+> >>    48 |     char path[strlen("/local/domain") + 12];
+> >>       |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >>
+> >> Replace the usage of strlen() with ARRAY_SIZE(), which allows the lite=
+ral
+> >> string length to be known at build time.  Note ARRAY_SIZE() accounts f=
+or the
+> >> NUL terminator while strlen() didn't, hence subtract 1 from the total =
+size
+> >> calculation.
+> >>
+> >> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >> ---
+> >>  tools/libs/light/libxl_utils.c | 4 ++--
+> >>  1 file changed, 2 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_u=
+tils.c
+> >> index 10398a6c8611..b3f5e751cc3f 100644
+> >> --- a/tools/libs/light/libxl_utils.c
+> >> +++ b/tools/libs/light/libxl_utils.c
+> >> @@ -45,7 +45,7 @@ unsigned long libxl_get_required_shadow_memory(unsig=
+ned long maxmem_kb, unsigned
+> >>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
+> >>  {
+> >>      unsigned int len;
+> >> -    char path[strlen("/local/domain") + 12];
+> >> +    char path[ARRAY_SIZE("/local/domain") + 11];
+> >>      char *s;
+> >>
+> >>      snprintf(path, sizeof(path), "/local/domain/%d/name", domid);
+> >> @@ -141,7 +141,7 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx=
+ *ctx, const char *p,
+> >>  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
+> >>  {
+> >>      unsigned int len;
+> >> -    char path[strlen("/local/pool") + 12];
+> >> +    char path[ARRAY_SIZE("/local/pool") + 11];
+> >>      char *s;
+> >>
+> >>      snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
+> >
+> > Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >
+> > Although I have a minor preference for sizeof() as suggested by Fredian=
+o.
+> >
+> > Can fix on commit, if you're happy?
+>
+> Please can we stick to ARRAY_SIZE() when it comes to strings? It's the
+> same as sizeof() when the base type is char, but the difference becomes
+> relevant if the base type was e.g. wchar_t.
+>
+> Jan
+>
 
-I'm afraid I can't easily tell whether MPU can be used together with any of
-RCAR3, QEMU, or MPSOC. If it can, the new default line would need to move
-up, as it's the first one that has a match on its condition which is being
-used.
+But "literal" is not a wide string, and the type is "char" which is
+not wide too.
 
-Jan
+BTW, both me and Andrew are not strong about.
+
+Frediano
 
