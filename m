@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 105949B3206
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 14:45:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826582.1240891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B849B3249
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 14:56:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826593.1240902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5Q3V-0007cZ-IV; Mon, 28 Oct 2024 13:45:13 +0000
+	id 1t5QEL-0001O4-Hi; Mon, 28 Oct 2024 13:56:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826582.1240891; Mon, 28 Oct 2024 13:45:13 +0000
+Received: by outflank-mailman (output) from mailman id 826593.1240902; Mon, 28 Oct 2024 13:56:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5Q3V-0007aC-Ft; Mon, 28 Oct 2024 13:45:13 +0000
-Received: by outflank-mailman (input) for mailman id 826582;
- Mon, 28 Oct 2024 13:45:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t5QEL-0001Lp-Ef; Mon, 28 Oct 2024 13:56:25 +0000
+Received: by outflank-mailman (input) for mailman id 826593;
+ Mon, 28 Oct 2024 13:56:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5Q3T-0007UB-TT
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 13:45:11 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d985bc61-9532-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 14:45:10 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43159c9f617so42516285e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 06:45:10 -0700 (PDT)
+ id 1t5QEK-0001Lj-2T
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 13:56:24 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6a0b685b-9534-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 14:56:22 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-37d5689eea8so2932257f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 06:56:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43193573cedsm114165805e9.4.2024.10.28.06.45.09
+ ffacd0b85a97d-38058b3b57bsm9607178f8f.26.2024.10.28.06.56.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 06:45:09 -0700 (PDT)
+ Mon, 28 Oct 2024 06:56:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d985bc61-9532-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 6a0b685b-9534-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730123110; x=1730727910; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730123782; x=1730728582; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rOoN1FCp83K/7/KLfuIT+AbAC3zr9r6tRvG0GzQ9BIo=;
-        b=dIQwxg3zKfU1BTJrleRVUBu2ahMmdKnICSbxN7EF56v6TezBhvrFdElRo1sy6tWQZV
-         iiJ90Q94FZ9LMC5kz+Itzt8KrxI2jkN3OrseemmJ0iRVA8Lb8MBrnhGVlTjjrA9Iwzsi
-         cgFBB8nIAYTFCKSb4O7smFr9tuvNbdtG36XUKqDmJFJXkr4MMtZJvFt4tV+clnZA3xQ0
-         s2zbJeR/UDi4iHtDMkjQGb0csL6wZBI5eHNHhJ152v9dI+9tlCo7CO1nu+5X5aF/erMg
-         6j4fu/0BQbjK8cty7n+bIwaaXK9d/w4RowOHURpouPBBA9vjnCSsHPtzhz0acd25AV4G
-         djPg==
+        bh=yzc0EUUWaggXx9/0f4DprCAboeZLjPTMGpgoQczsnpw=;
+        b=GfNFqrJ8FmLBki7e7hpLGzGlGtdaPvMw4J7flijpBdFNXhe52i+UeXONDJ2PXrbIOh
+         MTqPEx5l2gcdaHZvgrZ3zZZcgg9aqVNn8dzcvhAD3NkjP9u3eSohf7T4daa8JgUWoa00
+         yieoVLbbXG1NjAwfQInLm2s6gwfFWHefQA5JAkwhPde2iogJxgHghjwCUu3DSx0LQCIn
+         5pTA9kDsWpPzkw+Cxv3+W04lBTlMW3eH7n1IllJ/HC/2D1lJKNrK/Kg/WMzfF/upHMTL
+         D1yBASuRP1iN08pekGOcM8zopdtDpZdYDhcMDpU8ZCAkPnwFeg2ECkWokKeKCEGsH5WP
+         XuqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730123110; x=1730727910;
+        d=1e100.net; s=20230601; t=1730123782; x=1730728582;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rOoN1FCp83K/7/KLfuIT+AbAC3zr9r6tRvG0GzQ9BIo=;
-        b=GBqXkT9JFTClMRcSdMhkJ/D98yvnfrqsxSzFA5TprIdcHMdoGgBKcDzUBE+OMT0WZS
-         4l5f2Dq5VMcESYXSdtDdrwotlcYzWTE45X6cke7C1lS+FXWL2lklNft7yEmKywKad8HB
-         qYdj/niWvQe0JdBtWY4rs8n+ruC1HYe8drOkPjs8u02c1cKy2DrBzDIOtlP+rmgd4NZv
-         4C5ksfPz56o6fAb9YOmNfO5AeColGgnTDrDeGa6uk8D/z/sNO2RR5pF/I+Zh3Ib3K34R
-         MVBgCVHIblfnupjzsuUOI4nVn/IyJxovj1OMvPBGfB9pKshVC1KAAz9bzK5mpS012sKi
-         Pmdw==
-X-Forwarded-Encrypted: i=1; AJvYcCUQhty12e9p9aSMPjqak2xIfbvOAqyHtzTCjCNdDxuCo0LKSc0dff47G3k4NebW9yZ0CP760hymR4w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWAJ3E7mA6gaq0zf7ruKO6GTVF6wTfxjefYVTDRsJ3Kz+RSC3+
-	1xEzP0EBO19jOr8H4jdjrQ5NBE7hLnRqWlFcjy8QUPwHW0yAWJQq2QKUmraseFnZHQk1uMb7vRc
-	=
-X-Google-Smtp-Source: AGHT+IFejH0epO0ENIWEuiNMcQt6ba1at5pj9k5ow3Xy9dwu1MxIPP+x5Ciwk62aRShp+y4WVH3HUw==
-X-Received: by 2002:a05:600c:3b9c:b0:42f:7c9e:1f96 with SMTP id 5b1f17b1804b1-4319ac6fc1cmr81825755e9.1.1730123109752;
-        Mon, 28 Oct 2024 06:45:09 -0700 (PDT)
-Message-ID: <6545adae-53e7-4f8d-b7fa-79cda4c3325e@suse.com>
-Date: Mon, 28 Oct 2024 14:45:08 +0100
+        bh=yzc0EUUWaggXx9/0f4DprCAboeZLjPTMGpgoQczsnpw=;
+        b=j7PMLWzDiheqou3a/UOSIdhr7UWILbjs61fWpMj3pzzzt6eTZxmOp3LaVSVdWVLWX0
+         3/R90tJuAHY4a2TPl1eb/5M41Vsi9EI5eiNHoJ0eHn7f5eC1NUzgmo9Nec/q/RglRT2E
+         SRAKjFy8ydhbnajFYUg1yGlwfJypu8Lum8Sjj55rvDD2nWlXBzw2qg5sJdqeDLmaYa/e
+         /v80SLnCu5ajziTXMkXiQKVDVjqvB/1ixlgaiWQNhVuqY5sBXgea5pSzsS4Iux9lgfxC
+         IPmUnHiUiBnWm3gOufw8BNLPbBIPIqyJOjr6+EM4mOKi1dI2z6z8ABn7amLzE0D3Fyv+
+         7L5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUvByk8npSH4eyNoKJcwG7/EUuZWQ1Kn10ZdSA4b1Zxx5Nr4eUcWCQwxXlsxU47pzOAmsp00WuLgyY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyQRvg5xsKgeF/Zx8Hfi3PTewrZehXHmc0BdFaGLdFBga+0dmCB
+	K5H93uyJRNAXChVZ0jYtFuK6Z5Rb6I5h9NYx+nc5DdczTcWa4qaCjyKMhjK7Rw==
+X-Google-Smtp-Source: AGHT+IE53DHADXU4ZZvm1b0bPAodnD+yQs5rFT7XKbctAZDnGC0hCF3OUxj3f0m8XMlv8xk6Xq2SpQ==
+X-Received: by 2002:adf:ebd2:0:b0:37d:3f42:9b59 with SMTP id ffacd0b85a97d-380610f7ea7mr6028208f8f.11.1730123781641;
+        Mon, 28 Oct 2024 06:56:21 -0700 (PDT)
+Message-ID: <901cfadc-c58e-4154-a5d3-ecf65c2a6336@suse.com>
+Date: Mon, 28 Oct 2024 14:56:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/10] x86/ucode: Fold microcode_grab_module() into its
- single caller
+Subject: Re: [PATCH 06/10] x86/ucode: Enforce invariant about module selection
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "Daniel P . Smith" <dpsmith@apertussolutions.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241028091856.2151603-1-andrew.cooper3@citrix.com>
- <20241028091856.2151603-6-andrew.cooper3@citrix.com>
+ <20241028091856.2151603-7-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,54 +113,84 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241028091856.2151603-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20241028091856.2151603-7-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.10.2024 10:18, Andrew Cooper wrote:
-> --- a/xen/arch/x86/cpu/microcode/core.c
-> +++ b/xen/arch/x86/cpu/microcode/core.c
-> @@ -205,19 +205,6 @@ static void __init microcode_scan_module(struct boot_info *bi)
->      }
->  }
+> The work to add the `ucode=nmi` cmdline option left a subtle corner case.
+> Both scan and an explicit index could be selected, and we could really find a
+> CPIO archive and explicit microcode file.
+> 
+> Worse, because the if/else chains for processing ucode_{blob,mod} are opposite
+> ways around in early_microcode_load() and microcode_init_cache(), we can
+> genuinely perform early microcode loading from the CPIO archive, then cache
+> from the explicit file.
+> 
+> Therefore, enforce that only one selection method can be active.
+
+Question is - is this really the best of all possible behaviors? One may want
+to use one approach as the fallback for the other, e.g. preferably use what
+the CPIO has, but fall back to something pre-installed on the boot or EFI
+partition.
+
+> @@ -139,12 +148,16 @@ static int __init cf_check parse_ucode(const char *s)
+>          else if ( !ucode_mod_forced ) /* Not forced by EFI */
+>          {
+>              if ( (val = parse_boolean("scan", s, ss)) >= 0 )
+> -                ucode_scan = val;
+> +            {
+> +                opt_scan = val;
+> +                opt_mod_idx = 0;
+> +            }
+>              else
+>              {
+>                  const char *q;
 >  
-> -static void __init microcode_grab_module(struct boot_info *bi)
-> -{
+> -                ucode_mod_idx = simple_strtol(s, &q, 0);
+> +                opt_scan = false;
+> +                opt_mod_idx = simple_strtol(s, &q, 0);
+>                  if ( q != ss )
+>                      rc = -EINVAL;
+>              }
+
+I think this latter part rather wants to be
+
+                opt_mod_idx = simple_strtol(s, &q, 0);
+                if ( q != ss )
+                {
+                    opt_mod_idx = 0;
+                    rc = -EINVAL;
+                }
+                else
+                    opt_scan = false;
+
+to prevent a malformed ucode= to clobber an earlier wellformed ucode=scan.
+(There are limits to this of course, as an out-of-range value would still
+invalidate the "scan" request.)
+
+> @@ -817,17 +830,42 @@ static int __init early_microcode_load(struct boot_info *bi)
+>      const void *data = NULL;
+>      size_t size;
+>      struct microcode_patch *patch;
+> +    int idx = opt_mod_idx;
+> +
+> +    /*
+> +     * Cmdline parsing ensures this invariant holds, so that we don't end up
+> +     * trying to mix multiple ways of finding the microcode.
+> +     */
+> +    ASSERT(idx == 0 || !opt_scan);
+>  
 > -    if ( ucode_mod_idx < 0 )
 > -        ucode_mod_idx += bi->nr_modules;
 > -    if ( ucode_mod_idx <= 0 || ucode_mod_idx >= bi->nr_modules ||
 > -         !__test_and_clear_bit(ucode_mod_idx, bi->module_map) )
 > -        goto scan;
 > -    ucode_mod = *bi->mods[ucode_mod_idx].mod;
-> -scan:
-> -    if ( ucode_scan )
-> -        microcode_scan_module(bi);
-> -}
-> -
->  static struct microcode_ops __ro_after_init ucode_ops;
->  
->  static DEFINE_SPINLOCK(microcode_mutex);
-> @@ -831,7 +818,15 @@ static int __init early_microcode_load(struct boot_info *bi)
->      size_t size;
->      struct microcode_patch *patch;
->  
-> -    microcode_grab_module(bi);
-> +    if ( ucode_mod_idx < 0 )
-> +        ucode_mod_idx += bi->nr_modules;
-> +    if ( ucode_mod_idx <= 0 || ucode_mod_idx >= bi->nr_modules ||
-> +         !__test_and_clear_bit(ucode_mod_idx, bi->module_map) )
-> +        goto scan;
-> +    ucode_mod = *bi->mods[ucode_mod_idx].mod;
-> + scan:
-> +    if ( ucode_scan )
-> +        microcode_scan_module(bi);
->  
->      if ( !ucode_mod.mod_end && !ucode_blob.size )
->          return 0;
+> - scan:
 
-Could I talk you into doing away with the goto at the same time, by inverting
-the if()'s condition? Preferably with that:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Oh, the goto and label are going away here anyway. Never mind the comment on
+the earlier patch then.
 
 Jan
 
