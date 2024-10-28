@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 345E09B2DE0
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 12:03:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826383.1240617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDFF69B2DF9
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 12:05:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826395.1240627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5NWZ-0003PW-OJ; Mon, 28 Oct 2024 11:03:03 +0000
+	id 1t5NYk-0004HV-3D; Mon, 28 Oct 2024 11:05:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826383.1240617; Mon, 28 Oct 2024 11:03:03 +0000
+Received: by outflank-mailman (output) from mailman id 826395.1240627; Mon, 28 Oct 2024 11:05:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5NWZ-0003MJ-Kt; Mon, 28 Oct 2024 11:03:03 +0000
-Received: by outflank-mailman (input) for mailman id 826383;
- Mon, 28 Oct 2024 11:03:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t5NYk-0004Fn-0O; Mon, 28 Oct 2024 11:05:18 +0000
+Received: by outflank-mailman (input) for mailman id 826395;
+ Mon, 28 Oct 2024 11:05:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5NWY-0003Lr-HM
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 11:03:02 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3249564e-951c-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 12:03:00 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a9a0472306cso569762366b.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 04:03:00 -0700 (PDT)
+ id 1t5NYi-0004Fh-Gf
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 11:05:16 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8211d2b0-951c-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 12:05:14 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5c9362c26d8so9231520a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 04:05:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b3a08477bsm363585266b.201.2024.10.28.04.02.59
+ a640c23a62f3a-a9b1dec7d16sm363645966b.21.2024.10.28.04.05.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 04:02:59 -0700 (PDT)
+ Mon, 28 Oct 2024 04:05:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3249564e-951c-11ef-a0c2-8be0dac302b0
+X-Inumbo-ID: 8211d2b0-951c-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730113380; x=1730718180; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730113514; x=1730718314; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WAByFXb3f7Hl3lkdanUntb4yVXIKNls1xWl2QUuTnTc=;
-        b=WVxxtGh5sIBeb71bJAWxKSFXLOsvDPwMcgRJibs7uBvhQx0GBOjcIXQt/wMup37BOG
-         2iI9RJbmXmaiW3r0DxBtyi0QikDH4R6iR56bwi97FOMM2m76cRLuvkJxeOIHPcAhRmsu
-         2x6P7jW28qzDm/hsPUuNwlxv2rQhzBa//uXbbkKJZE8trq4BANiPBv5iY86r0CTvT49n
-         wuXeFdQkUHU6HJCQVDxnRT0v1Z34p2+JULFusVxPe18hFJBMP6+F1OtY7J6ei0k79f+a
-         Qj9h4/EBBZLYD+m0GvVRWlpLFUWXUpqD8NymHIl+y4M8FkRUM6YkTjTMBSbz5Ov8432m
-         jCag==
+        bh=06UglZcYj/tNi3yetEg36gQPxzYF1Rvk9OXvCK1uw9c=;
+        b=SjS8c7XUs2G6tvr9+p7GqDWvqksh3499RqkeovPC8pmBzqddFYB0QQ72x5ZxTuSMNb
+         HbXGfdTbqmgKyyVFSJHvk0TWfY7OVzeVjJLOOtsHDm6vnfms8r3t1HdidWD7vGWQ9yzl
+         uemoZA26G6BhxUw7bDTG5r+KXtJGbK767vX1+zSMNEmvj7mdjPC5+LBxNy/SO+DSKr91
+         oRhyM7aEcMTxm+NOYfq/WOG6cjLoTRDfyGm9rZpQ1YiEXFaPPjKDfnCCJr8oEh7LEjdu
+         +Xe6sj1lbqU9M1vT2/2lOT6Vm/58ojASBskA7KRtDsdUH20Ne4/IZzPloyeTcL7BJkqa
+         rqdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730113380; x=1730718180;
+        d=1e100.net; s=20230601; t=1730113514; x=1730718314;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WAByFXb3f7Hl3lkdanUntb4yVXIKNls1xWl2QUuTnTc=;
-        b=CrP46h+bzGjTqSSPtvWjyvq3W6tBFU9pjfTgqIP6GrqzxoSR+4vWlgtiVesLhGB4Dc
-         LwnJV+9gpAOXwZ+QSqzYJUqxWZrKYdZMkJ887/PngPJzYZRUzz36ZKQPA9e77qzJo7re
-         niUitgMGpNU9G/dLJybmLvX1islQNVdIlPklEKrKc4/3+1r+tRGkGsjjTemRklEqf4Dn
-         Lh/TazA8cNClCg/tb3hk1bHFFhnOwN+OWFqWoO4asmRJnj4TJJB9rzYjGIhRxpR6eEqn
-         bhT3vaGXi9RLdNak0DfbXkI0RmkiIYoJKxzf6zThqYtJRgW+gXt9FJs8RiuDfm6aBGtr
-         NS2A==
-X-Gm-Message-State: AOJu0Yyyy/jMhgRXU5Oq/mijzD8oXkuUgXq+NObOejst+Fto+IpKFvRG
-	CO9NLgUPvtZdwoAqSYgYZKlmvx7ISb6U6/vE5300kAc5twPn6F2HVNeEXTl0cA==
-X-Google-Smtp-Source: AGHT+IG48sEgbqHIeDPZxMM014Qi/e5HgJ0fVwUzOQ5MGW5bsi/gglRFehYa6zpGOUj2Jm7N+yj5Zw==
-X-Received: by 2002:a17:906:dc8f:b0:a9a:6dc:b39d with SMTP id a640c23a62f3a-a9de619e644mr660807666b.41.1730113380168;
-        Mon, 28 Oct 2024 04:03:00 -0700 (PDT)
-Message-ID: <b4f64b33-0ab9-4713-a722-687d393ed34f@suse.com>
-Date: Mon, 28 Oct 2024 12:02:59 +0100
+        bh=06UglZcYj/tNi3yetEg36gQPxzYF1Rvk9OXvCK1uw9c=;
+        b=d6mQXgaCoq3UDBWnESUlsSZay3eerxxCAH+to9nUZ236j+Zjy9J4yus0F5VlyL2An9
+         XmAE2kxbuAaGtLwhp3RvjRBc33WkhdZ+9ybwyH2PewHxxGNf9VuGy77zRK4uwsfrlGmZ
+         1rIArXj+7T77erK6dwc/q0tWHSe+92HnzgRo9VTV3BWzZuZheQf4qAEsQ3uGjdLflZJ+
+         oWeNLctLspzT0L4R9sAGslu5kcogyXuJEz/tHkaMoPViJKRB3Qg0S2HMYNhIZHSzSOVl
+         ea+jbRUldmPArzGRiuiDLe8rWvXPsBvMRXq59ps3Qwekkpi2+Ieq8Phh1U+r/eB0+V/t
+         IlDA==
+X-Forwarded-Encrypted: i=1; AJvYcCUadXlJqLFJ6Gd0S7RhPYA5+65nYWeC7kiu4Ej8y+EnOU6gqb35b3iOPYD4EznLbhpE0V+Bjc5cVEE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwVUlI5l7UvM3u1flTPYvBfqGpExybbwI/aDeUsZbtGZsKD+H/g
+	yeVoE22oM6eCwTPMx3lYC7S4BAf32bJFxu7fQNT3cZQ4xsrPuGtvd9xK58+D/A==
+X-Google-Smtp-Source: AGHT+IHcJw72yYV3eZtN6Svlvt+TYVnBkDfgoDG30tDAGTSAHtEPT2HrD2bk5j0vQ0WCEoZzr3vD6w==
+X-Received: by 2002:a17:907:1c92:b0:a99:f9fa:5c01 with SMTP id a640c23a62f3a-a9de391b292mr705852366b.32.1730113514137;
+        Mon, 28 Oct 2024 04:05:14 -0700 (PDT)
+Message-ID: <8f3dfb01-504d-4652-837b-f0a045d28ef9@suse.com>
+Date: Mon, 28 Oct 2024 12:05:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi interrupt
  remapping
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Willi Junga <xenproject@ymy.be>,
- David Woodhouse <dwmw@amazon.co.uk>
+ Roger Pau Monne <roger.pau@citrix.com>
+Cc: Willi Junga <xenproject@ymy.be>, David Woodhouse <dwmw@amazon.co.uk>,
+ xen-devel@lists.xenproject.org
 References: <20241018080813.45759-1-roger.pau@citrix.com>
  <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
- <ZxZBocLV7eJUxK50@macbook.local>
- <f60d6bde-d694-4f26-8405-9d8cefcebd80@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,95 +114,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f60d6bde-d694-4f26-8405-9d8cefcebd80@citrix.com>
+In-Reply-To: <9270ef0c-9dfa-4fbf-8060-3c507c0c6684@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.10.2024 14:33, Andrew Cooper wrote:
-> On 21/10/2024 12:57 pm, Roger Pau Monné wrote:
->> On Mon, Oct 21, 2024 at 12:10:14PM +0100, Andrew Cooper wrote:
->>> On 18/10/2024 9:08 am, Roger Pau Monne wrote:
->>>> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
->>>> repurposed to contain part of the offset into the remapping table.  Previous to
->>>> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
->>>> table would match the vector.  Such logic was mandatory for end of interrupt to
->>>> work, since the vector field (even when not containing a vector) is used by the
->>>> IO-APIC to find for which pin the EOI must be performed.
->>>>
->>>> Introduce a table to store the EOI handlers when using interrupt remapping, so
->>>> that the IO-APIC driver can translate pins into EOI handlers without having to
->>>> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
->>>> unconditionally when interrupt remapping is enabled, even if strictly it would
->>>> only be required for AMD-Vi.
->>>>
->>>> Reported-by: Willi Junga <xenproject@ymy.be>
->>>> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
->>>> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
->>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> Yet more fallout from the multi-MSI work.  That really has been a giant
->>> source of bugs.
->>>
->>>> ---
->>>>  xen/arch/x86/io_apic.c | 47 ++++++++++++++++++++++++++++++++++++++++++
->>>>  1 file changed, 47 insertions(+)
->>>>
->>>> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
->>>> index e40d2f7dbd75..8856eb29d275 100644
->>>> --- a/xen/arch/x86/io_apic.c
->>>> +++ b/xen/arch/x86/io_apic.c
->>>> @@ -71,6 +71,22 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
->>>>  
->>>>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
->>>>  
->>>> +/*
->>>> + * Store the EOI handle when using interrupt remapping.
->>>> + *
->>>> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
->>>> + * format repurposes the vector field to store the offset into the Interrupt
->>>> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
->>>> + * longer matches the contents of the RTE vector field.  Add a translation
->>>> + * table so that directed EOI uses the value in the RTE vector field when
->>>> + * interrupt remapping is enabled.
->>>> + *
->>>> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
->>>> + * when using the remapped format, but use the translation table uniformly in
->>>> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
->>>> + */
->>>> +static unsigned int **apic_pin_eoi;
->>> I think we can get away with this being uint8_t rather than unsigned
->>> int, especially as we're allocating memory when not strictly necessary.
->>>
->>> The only sentinel value we use is IRQ_VECTOR_UNASSIGNED which is -1.
->>>
->>> Vector 0xff is strictly SPIV and not allocated for anything else, so can
->>> be reused as a suitable sentinel here.
->> The coding style explicitly discourages using fixed width types unless
->> it's strictly necessary, I assume the usage here would be covered by
->> Xen caching a value of a hardware register field that has a
->> fixed-width size.
-
-Use "short" then?
-
-> I'm >< this close to reverting that too.  It's not even self-consistent
-> as written, nonsense in some cases, and is being used as a whipping
-> stick to reject otherwise-ok patches, which is pure toxicity in the
-> community.
-
-I don't really mind reverting that part, if only ...
-
-> Not to mention that this rule is in contradiction to MISRA, and there's
-> no progress being made in that direction.
+On 21.10.2024 13:10, Andrew Cooper wrote:
+> On 18/10/2024 9:08 am, Roger Pau Monne wrote:
+>> When using AMD-VI interrupt remapping the vector field in the IO-APIC RTE is
+>> repurposed to contain part of the offset into the remapping table.  Previous to
+>> 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
+>> table would match the vector.  Such logic was mandatory for end of interrupt to
+>> work, since the vector field (even when not containing a vector) is used by the
+>> IO-APIC to find for which pin the EOI must be performed.
+>>
+>> Introduce a table to store the EOI handlers when using interrupt remapping, so
+>> that the IO-APIC driver can translate pins into EOI handlers without having to
+>> read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
+>> unconditionally when interrupt remapping is enabled, even if strictly it would
+>> only be required for AMD-Vi.
+>>
+>> Reported-by: Willi Junga <xenproject@ymy.be>
+>> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+>> Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of using a static mapping')
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> 
-> All variables should be of an appropriate type.
-> 
-> Sometimes that's a fixed width type, and sometimes it's not.  (And this
-> is what is impossible to dictate in CODING_STYLE.)
+> Yet more fallout from the multi-MSI work.  That really has been a giant
+> source of bugs.
 
-... "appropriate" was definable in some way. Prior to this addition to
-the style it was easily possible (and happening increasingly often, iirc)
-for two people to disagree about what's appropriate, blocking progress.
-I'm therefore also not really happy with you describing this as "dictate".
+If there's a connection to the multi-MSI work (which I don't see), the Fixes:
+tag would likely need adjusting.
 
 Jan
 
