@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F0539B3C67
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 21:57:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826984.1241453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED2C79B3D95
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 23:16:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826993.1241461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5WmU-0004Vr-Kl; Mon, 28 Oct 2024 20:56:06 +0000
+	id 1t5Y1X-0005nk-1W; Mon, 28 Oct 2024 22:15:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826984.1241453; Mon, 28 Oct 2024 20:56:06 +0000
+Received: by outflank-mailman (output) from mailman id 826993.1241461; Mon, 28 Oct 2024 22:15:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5WmU-0004Sl-Hp; Mon, 28 Oct 2024 20:56:06 +0000
-Received: by outflank-mailman (input) for mailman id 826984;
- Mon, 28 Oct 2024 20:56:05 +0000
+	id 1t5Y1W-0005kh-V5; Mon, 28 Oct 2024 22:15:42 +0000
+Received: by outflank-mailman (input) for mailman id 826993;
+ Mon, 28 Oct 2024 22:15:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SUXZ=RY=gmail.com=alexdeucher@srs-se1.protection.inumbo.net>)
- id 1t5WmT-0004Sf-BZ
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 20:56:05 +0000
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [2607:f8b0:4864:20::434])
+ <SRS0=uAPk=RY=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1t5Y1W-0005kZ-49
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 22:15:42 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 091d20fc-956f-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 21:56:00 +0100 (CET)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-71e4c2e36d5so162610b3a.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 13:56:00 -0700 (PDT)
+ id 299bf50b-957a-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 23:15:39 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,102 +36,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 091d20fc-956f-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730148959; x=1730753759; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=D1Co9AOGY8fdKgoryciwma41R5B9YqOzlnHWDbIZnus=;
-        b=GGbmpmL2PwmmHrjfUbPLs4NG3ATwYD5JYz4PT9OKVkT2ofioEX1GxJnnr9Tb+sDHF3
-         FtSnvmIs7fQgaa2iaIwczVlyk2ecH1Aw6SgbSbK0eUWR46X+J5FeUgHAST5UM21VxBs3
-         u26EBwWmJ21ktlUS3U+0lf3acPcDThsgCpbLyS3zWPjbgDTQ1eMVpNFSqXqwTYxZpult
-         G9X89TYU8LPNe6iXVpjYxL/JgZkHtpmf0JsbjMhp+JFVMgFMHRAKyiN5trdIpt9JCu88
-         q+ecOzkO0QDMvl4OkZm2tTgaEtD+scAZmtojbEjVHcTUcFTMPHMPQH8yOs8hpaRTvg0L
-         7nKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730148959; x=1730753759;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=D1Co9AOGY8fdKgoryciwma41R5B9YqOzlnHWDbIZnus=;
-        b=g9pHu4qgUgVPnZHlCAQ1mMSvBYxpexLDTmhuQQ4vCEILSqtwLzirTE4ODT4kLWWQUR
-         ZONJ3ezVGQ9U6YKqtuzfHnTnccOtFbTG6H90fbT5vAZpgj9yCby3opE8GeVICNLtFswM
-         ylbDzgTU5CjccOpLB+utYj/b9LAAyJbzCMnMHKBdYn4hNxN2NBTI/B00fzr7euLzGFN0
-         U/RiyzxMN5YM1PVnTfA92HXBiDT1cDecPNoCpQGx8VHH4zKIyYiuXWEjIiOZrg5LhVcB
-         lu/7hojFhfPpHbElEfkADFi140enGDeqDc2gMmKYQnQAFwmndJ4AB4tUqTxObELLuMce
-         sw1w==
-X-Forwarded-Encrypted: i=1; AJvYcCXErXv/ED14NWTiQZDt9npRoHQzQzUca3f56WL2AqWeMS9kydGuJXu4jHa9NxF8MXmKmEdGxGd2D9U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyuNeVPSMoErzb1j1y/twepx7Dyp/Uz5zI8V0kmsFexwVr6i7zD
-	EXjpsvEiEEca8fJc8cIQu1Ecq0dp+1yb9FdNGNJN4wlbJuR7BDOaozgyFmkD8j28VX2GcMlVqPA
-	+at/uvHFMfXT6s/6vdeoEx4Zg+p4=
-X-Google-Smtp-Source: AGHT+IFlSc2ciu0Xc58PIbp/OChRFrcPGgyTFkp7k6KlRk4Dh7Ar54n7Twps83jufbkvBW1uqmboDam/hWDyvH/TVKQ=
-X-Received: by 2002:a05:6a00:4f91:b0:71e:5e9a:2db with SMTP id
- d2e1a72fcca58-72063060a1emr5883473b3a.6.1730148959173; Mon, 28 Oct 2024
- 13:55:59 -0700 (PDT)
+X-Inumbo-ID: 299bf50b-957a-11ef-99a3-01e77a169b0f
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1730153737;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CID8ZNB+XW4905MFNNwwhdwsOvxIuKrRJow3yEUZR2M=;
+	b=QY4vNt4iAGCUZRzWovAdCiui7vsoPYwi/xZKv7PXv4v0XCP8Qnx4vxs7KJ3HFoecIxn1CW
+	NUKDA5eSAmqBAR0o8vLKp2+2tWJgZKjJkTulj1cYCkfZ6hRNsc/q8PLM14lRs34A4FgJ6o
+	OBCP63Vnd3kIazzewtdGd3C7ujM2Jsewo4JBu26qiCNUjbvkPnWTFRvtI7aYgnkboto8oN
+	wO0NYpPGQF4YYSvKp5R7iJD8kTsyKahmx+NPQyHMlKJBAismayUFBKPvS6bk4GJbpkgzGO
+	3+PsGddte9PQh2d3m4tuuAZ+D2IbCraEdMith0qbujFqEy3EHrjDu54yp1XEvg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1730153737;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CID8ZNB+XW4905MFNNwwhdwsOvxIuKrRJow3yEUZR2M=;
+	b=qQQ6M7hLkM2YLw5YbR1J9vnrJIbphOprh2UrWttSDz0CQ2QvICqD7YtI6DbSvB7utjHNDt
+	B/aXNiWb5CLThFDg==
+To: Jinjie Ruan <ruanjinjie@huawei.com>, oleg@redhat.com,
+ linux@armlinux.org.uk, will@kernel.org, mark.rutland@arm.com,
+ catalin.marinas@arm.com, sstabellini@kernel.org, maz@kernel.org,
+ peterz@infradead.org, luto@kernel.org, kees@kernel.org, wad@chromium.org,
+ akpm@linux-foundation.org, samitolvanen@google.com, arnd@arndb.de,
+ ojeda@kernel.org, rppt@kernel.org, hca@linux.ibm.com,
+ aliceryhl@google.com, samuel.holland@sifive.com, paulmck@kernel.org,
+ aquini@redhat.com, petr.pavlu@suse.com, ruanjinjie@huawei.com,
+ viro@zeniv.linux.org.uk, rmk+kernel@armlinux.org.uk, ardb@kernel.org,
+ wangkefeng.wang@huawei.com, surenb@google.com, linus.walleij@linaro.org,
+ yangyj.ee@gmail.com, broonie@kernel.org, mbenes@suse.cz,
+ puranjay@kernel.org, pcc@google.com, guohanjun@huawei.com,
+ sudeep.holla@arm.com, Jonathan.Cameron@huawei.com, prarit@redhat.com,
+ liuwei09@cestc.cn, dwmw@amazon.co.uk, oliver.upton@linux.dev,
+ kristina.martsenko@arm.com, ptosi@google.com, frederic@kernel.org,
+ vschneid@redhat.com, thiago.bauermann@linaro.org, joey.gouly@arm.com,
+ liuyuntao12@huawei.com, leobras@redhat.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH -next v4 15/19] entry: Add arch
+ irqentry_exit_need_resched() for arm64
+In-Reply-To: <878qu82je2.ffs@tglx>
+References: <20241025100700.3714552-1-ruanjinjie@huawei.com>
+ <20241025100700.3714552-16-ruanjinjie@huawei.com> <878qu82je2.ffs@tglx>
+Date: Mon, 28 Oct 2024 23:15:37 +0100
+Message-ID: <87ldy727sm.ffs@tglx>
 MIME-Version: 1.0
-References: <20241028185141.3756176-1-jani.nikula@intel.com>
-In-Reply-To: <20241028185141.3756176-1-jani.nikula@intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Oct 2024 16:55:47 -0400
-Message-ID: <CADnq5_Mfp+EfSToGVr8A+xXA4X_g6qz+1fgE6uTxMG2rEK=ngg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] drm/xen: remove redundant initialization info print
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Mon, Oct 28, 2024 at 3:04=E2=80=AFPM Jani Nikula <jani.nikula@intel.com>=
- wrote:
->
-> drm_dev_register() already prints the same information on successful
-> init. Remove the redundant prints.
->
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On Mon, Oct 28 2024 at 19:05, Thomas Gleixner wrote:
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> On Fri, Oct 25 2024 at 18:06, Jinjie Ruan wrote:
+>
+>> As the front patch 6 ~ 13 did, the arm64_preempt_schedule_irq() is
+>
+> Once this series is applied nobody knows what 'front patch 6 ~ 13' did.
+>
+>> same with the irq preempt schedule code of generic entry besides those
+>> architecture-related logic called arm64_irqentry_exit_need_resched().
+>>
+>> So add arch irqentry_exit_need_resched() to support architecture-related
+>> need_resched() check logic, which do not affect existing architectures
+>> that use generic entry, but support arm64 to use generic irq entry.
+>
+> Simply say:
+>
+>  ARM64 requires an additional whether to reschedule on return from
 
+  ARM64 requires an additional check whether to reschedule on return from
+
+obviously...
+
+>  interrupt.
 >
-> ---
+>  Add arch_irqentry_exit_need_resched() as the default NOOP
+>  implementation and hook it up into the need_resched() condition in
+>  raw_irqentry_exit_cond_resched().
 >
-> Note: I prefer to merge this together with the next patch via
-> drm-misc-next.
+>  This allows ARM64 to implement the architecture specific version for
+>  switchting over to the generic entry code.
 >
-> Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: xen-devel@lists.xenproject.org
-> ---
->  drivers/gpu/drm/xen/xen_drm_front.c | 5 -----
->  1 file changed, 5 deletions(-)
+> That explains things completely independently. Hmm?
 >
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/xe=
-n_drm_front.c
-> index aab79c5e34c2..931d855bfbe8 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front.c
-> @@ -525,11 +525,6 @@ static int xen_drm_drv_init(struct xen_drm_front_inf=
-o *front_info)
->         if (ret)
->                 goto fail_register;
+> Thanks,
 >
-> -       DRM_INFO("Initialized %s %d.%d.%d %s on minor %d\n",
-> -                xen_drm_driver.name, xen_drm_driver.major,
-> -                xen_drm_driver.minor, xen_drm_driver.patchlevel,
-> -                xen_drm_driver.date, drm_dev->primary->index);
-> -
->         return 0;
->
->  fail_register:
-> --
-> 2.39.5
->
+>         tglx
 
