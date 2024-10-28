@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA0969B30C9
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:46:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826452.1240738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70F389B30E2
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:48:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826474.1240758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5P8m-00069X-St; Mon, 28 Oct 2024 12:46:36 +0000
+	id 1t5PAe-0008Ux-Jd; Mon, 28 Oct 2024 12:48:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826452.1240738; Mon, 28 Oct 2024 12:46:36 +0000
+Received: by outflank-mailman (output) from mailman id 826474.1240758; Mon, 28 Oct 2024 12:48:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5P8m-00065Q-OB; Mon, 28 Oct 2024 12:46:36 +0000
-Received: by outflank-mailman (input) for mailman id 826452;
- Mon, 28 Oct 2024 12:46:35 +0000
+	id 1t5PAe-0008S9-Gt; Mon, 28 Oct 2024 12:48:32 +0000
+Received: by outflank-mailman (input) for mailman id 826474;
+ Mon, 28 Oct 2024 12:48:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TXyF=RY=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1t5P8l-00050g-12
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:46:35 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061a.outbound.protection.outlook.com
- [2a01:111:f403:2406::61a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t5PAc-0008Ra-6G
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:48:30 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a965d574-952a-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 13:46:34 +0100 (CET)
-Received: from MW4PR04CA0245.namprd04.prod.outlook.com (2603:10b6:303:88::10)
- by DS0PR12MB7802.namprd12.prod.outlook.com (2603:10b6:8:145::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.23; Mon, 28 Oct
- 2024 12:46:31 +0000
-Received: from BL6PEPF00022574.namprd02.prod.outlook.com
- (2603:10b6:303:88:cafe::9a) by MW4PR04CA0245.outlook.office365.com
- (2603:10b6:303:88::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.23 via Frontend
- Transport; Mon, 28 Oct 2024 12:46:30 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8114.16 via Frontend Transport; Mon, 28 Oct 2024 12:46:30 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Oct
- 2024 07:46:30 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Oct
- 2024 07:46:29 -0500
-Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Mon, 28 Oct 2024 07:46:28 -0500
+ id ee4af18a-952a-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 13:48:29 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-37d49ffaba6so2999714f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:48:29 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38058b3bdafsm9410148f8f.30.2024.10.28.05.48.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Oct 2024 05:48:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,186 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a965d574-952a-11ef-a0c2-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=utYT/0/qj3Y5kKAeBTKBkaobdm9di9wZ6AL4r1e98rLqo8jMasPm39+cv0A7gcq72dxJY2HHL+Qs26W0Figbgn3EMhcI3/CqOJX2PBPiBxp4qEat17jTJxmyfsmCDPVkTfN9Ebf/lSgAaZ9CT8D5qNzIFFOPGF1tm41vuoO0inwrxmduGPxbn8Fbyxj8Ry92PvUycwnshopdK3iBT+SJzer+3hiNSS5na+3NwauNQe4CxsDU6rd34bIjFGVmq8jmj+t1QdsrR8LHwK6IZU290jeDa+fcDUfXiBEkuDnH8s636+qDDy+ClP3pn1ZrDv3oFiPQSnCC3+3vklJfhHRJlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E4ilOMJ0iLFTChx6I4m08V3KKvqq6Suvoj0IUas/+dk=;
- b=JYsAo6pMSsfH6oKIT+t8oa6d/CiV9K6hO0R5jgx7Bq17pA70QNunhRsBR80Csn9Hejy1tnTSBglQvlV7dBsSjUXZY9HtTDCbhxwtpCpi+xTfmDxPPS3PBv4mi7vAHCTatkDWc7nDrIKAU8wIJeDR8HnWumwtOcyZXBJmABpu9KdHg6CUqqmUaKAi2TXYIThI+A2qd0I9TkaBNLFg1wzMoh3plOLeds9JpR4i98w6qmzcbtMZqL/gkiyF38O8mPeFDM4o1XfD4RUGBHOKKTZTr1XpZUTTP/aksb7BAViC92QGG82T9lk91ccVM2ZhiBjqPKVvD8lidVbEtfE9M7riPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E4ilOMJ0iLFTChx6I4m08V3KKvqq6Suvoj0IUas/+dk=;
- b=lZhITCuqQZOJ5XeQFfP6q0oPYrMLis3i+TYjv0lf0zCsZT5Mogry6bamTkcrhDicwu7tD2ky/VprbZJjjUQi4XqngWch+LwmiQ5ZlkbHRLn+Bs31S2HoHarEIHwTtI66DsiDddk/UsMWHUiMoGv0vfn/GSecfXV2uZN2Itv96+g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy enable_secondary_cpu_mm
-Date: Mon, 28 Oct 2024 12:45:47 +0000
-Message-ID: <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
-References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
+X-Inumbo-ID: ee4af18a-952a-11ef-a0c2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1730119708; x=1730724508; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HVV0i1f9aQh1KEK0+Ek6PfNU2orVxs3qS14p3Ydb8pA=;
+        b=SeI2IW57ZMagBFef38ed1/gO4x+S03uN8KyPXeQ5A6xN6VjMGozRXPZ6EAsd1V18zD
+         Vt7QSPklMbqRDPna1uh2H7hgGgyVuNjRSnZtaURtckYN2Y5JiTL941SlVX1YRrG438af
+         prunrwan1CPTuQajM2xbbJkbg2WDA7a51LmZ/1OwHQm41uzuUhxMcaJ0rCCrN3EwlFAC
+         ypAmQez208jV3Kfpa7PTGcy37mzn4SQEBK/KYXUqsHA6qOWVUyOCWwoagEgli6pOA782
+         DCjkIqB4JerIkR28YGEcqSfwesc/wJpp+glbnET+UaDoSnc+IDJ0FPryhygrLH0FaQtN
+         Y02A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730119708; x=1730724508;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HVV0i1f9aQh1KEK0+Ek6PfNU2orVxs3qS14p3Ydb8pA=;
+        b=gd77lSBAMmXMWVpsL5iiz76b1zR8ngPNdMk9GjjxTknRDoPra8vT2iZbo17KG8EQ09
+         UYSCtQKvmRwZIMMdSyDNGrQs/nBAfmO0BJMlEf9p3rVKVx1YiYcB9j6CrpBY8OSoM9fn
+         O14w7Q9cwIMdygULo3SSAJ4izN2ztPukqNTKn1lorP4MxOc5ZwwLr2ZG0E7FW7bnMHVn
+         FOI6GQMvmljZC6n4wullPyZs3mKf2lYQ08Qr5aycS/L4EuEEJUN6HHyj77C6ONWu+8NR
+         diOs83OjSmrGv0le1WHO6zebXkyMheBQnP7TjzxRjHVAcaAABU27jusGun3OBH9K43gk
+         oOQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWQkCtTS+OB3kR87p5puZTTX+7nG1Uc97f8BeD2HERSZ8tDjpYk0hIo0TWwwApXHePO+FCTfVfspTk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9nQ0GNHc/0Yvu2owmsR98Jb6RKctNXjuXS0e/623mOcmkr1ti
+	8c90ZnsFFbcrRjQrf75kLwS0AIXaAZyLFnh0YRcuEsJ2FC82dYfk49us+P/88w==
+X-Google-Smtp-Source: AGHT+IGYa4BEUHV65d+VfslMNcHWdxTibRMLZvBxVP/NmH+EjVgeB3HZ4RnYQuaN8L+9Bg2iukjYvQ==
+X-Received: by 2002:adf:e851:0:b0:37d:45f0:b33 with SMTP id ffacd0b85a97d-380610e6444mr5752486f8f.9.1730119708604;
+        Mon, 28 Oct 2024 05:48:28 -0700 (PDT)
+Message-ID: <51632c96-9a12-4656-b8f8-1631c11a3a19@suse.com>
+Date: Mon, 28 Oct 2024 13:48:27 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/libxl: remove usage of VLA arrays
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241028114831.27487-1-roger.pau@citrix.com>
+ <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|DS0PR12MB7802:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2d27b14-c259-4f8a-90b5-08dcf74e8be0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?RmhAJoKWcSepcARtEC+MOLVdyHdtUItooXLteO87lYEHMUEhnh6M7tZHZr95?=
- =?us-ascii?Q?aOHZ70QEG9RaBEx+OghUXygN6eMp6HNt+dZ1fEA86eUfvhaf9az6RnZb8hBd?=
- =?us-ascii?Q?RnAvpssN32DN9xQq30KneQAxDP3aAGPRbCAqi3bih23sXAbxFOLyO7iSYcco?=
- =?us-ascii?Q?nYUwSatgr9kMt/yWChajte49pfxGQ6QShuZidf96RtJDXW6NFACZuNNzPHDg?=
- =?us-ascii?Q?sFgXNEvAxEEPW1b1gAG1kXxKlmhGM1e+fEtvOVhGVkKNmIU0ggqVKRDf2zbY?=
- =?us-ascii?Q?FS1Zb5P8Ub8qlGyqpf+mgo//tlUYpEnsNg/mfjSkkSm1i9Kg1lJhOcuT6pqH?=
- =?us-ascii?Q?vRRGPL6ck2YAF6MDYOt7cjIUuxrSA0J0M27V9lC8XzQCEHWVoHtLi3s2bgEr?=
- =?us-ascii?Q?rOkffekFCV4OASBgiBEii/0gzxhrQRbLsywq6e2eQetxZh07X7SQ0Ubu5Q44?=
- =?us-ascii?Q?WsgJtCSv7tfqz7HcXpTeODEVCu5SmO+XZYoecgHIWwYh/gpeodjwZdz6a/Z2?=
- =?us-ascii?Q?YPyuipZz1iUr+5weWzRFM0UJJMZBTBm7LcOeNWpoh5MS8LyYJ4nYeDilbZEX?=
- =?us-ascii?Q?KSHCopIAHqQ9YtsMZLXgPw2ZqqJ3Yu5f8oUkyjHKAsXKfBldw5UEa30skOw/?=
- =?us-ascii?Q?2apmpYS6AuNRvcEF20yeoZBfh+D4ao49p57osxVAHAjlIuh2/Y1ysgxFv75c?=
- =?us-ascii?Q?IwQvAPoPdDNy/StH9kOM4+XIGQlfYf4yBy4u4k5aCtNtlCS/+m0gnyM7kNAv?=
- =?us-ascii?Q?B8GFhQOCZDOLpKilZHI3baVB9Hx8LGF7yakWERYL/jAila0h6RKtKSaz0HX0?=
- =?us-ascii?Q?1zw5X+522EsUQV2f3oHctuVMHhFxv6UQDOX+RIp+7XUu/oMWYC/Vxn1ctdmn?=
- =?us-ascii?Q?ULaE76OHD9RTOogTnwqfVzjP8auOkDevaFXicIwtnazkRhmkI3Tcq7A+YHl0?=
- =?us-ascii?Q?2RoGhdoe1xd7Smvz3OpVv91WtC63dGiPfLily4w13R3yIlH2vDW3nUiF6suk?=
- =?us-ascii?Q?ImybKOJscc7MaLtAOx+B/iTIsCMPvqKkY9slIoP7tpmIqcN4xdQG7FhWMBco?=
- =?us-ascii?Q?AjUey9DCcGwX46M9GlMAXcaB0Lz3k7armUmX/BXZC4T2mbwgXny8urivTF+/?=
- =?us-ascii?Q?9vdOqLhfT/yZP7IfiLMmjiA1yOblqeJjGGDEri9uNJGzDqbviFMoDWYAoVrb?=
- =?us-ascii?Q?XxCQm0/8dd26+A3yeTxdbFrDjYuCdCYeFCYIoKt6qaXIfm5PnRfriCHibHIV?=
- =?us-ascii?Q?/t1BMvYXb/9HWRye/Ue06T/nKiec4WgZrUViqiNZCoIodjvOktuvXri7Falf?=
- =?us-ascii?Q?NBPWfZUarAdfXroZEHOq1BkcHqFvZ0n52LJgb18kFiEXOvWsj+OnGbXswS8k?=
- =?us-ascii?Q?8+gR3B6QSQqKyqO2Lix49bRG/dlSIWlwE/Kr/oZMJVabLGIfHw=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2024 12:46:30.5246
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2d27b14-c259-4f8a-90b5-08dcf74e8be0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022574.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7802
 
-Secondary cpus initialization is not yet supported. Thus, we print an
-appropriate message and put the secondary cpus in WFE state.
-And we introduce to BUILD_BUG_ON to prevent users using from building Xen
-on multiprocessor based MPU systems.
+On 28.10.2024 13:03, Andrew Cooper wrote:
+> On 28/10/2024 11:48 am, Roger Pau Monne wrote:
+>> Clang 19 complains with the following error when building libxl:
+>>
+>> libxl_utils.c:48:15: error: variable length array folded to constant array as an extension [-Werror,-Wgnu-folding-constant]
+>>    48 |     char path[strlen("/local/domain") + 12];
+>>       |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>
+>> Replace the usage of strlen() with ARRAY_SIZE(), which allows the literal
+>> string length to be known at build time.  Note ARRAY_SIZE() accounts for the
+>> NUL terminator while strlen() didn't, hence subtract 1 from the total size
+>> calculation.
+>>
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>>  tools/libs/light/libxl_utils.c | 4 ++--
+>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_utils.c
+>> index 10398a6c8611..b3f5e751cc3f 100644
+>> --- a/tools/libs/light/libxl_utils.c
+>> +++ b/tools/libs/light/libxl_utils.c
+>> @@ -45,7 +45,7 @@ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned
+>>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
+>>  {
+>>      unsigned int len;
+>> -    char path[strlen("/local/domain") + 12];
+>> +    char path[ARRAY_SIZE("/local/domain") + 11];
+>>      char *s;
+>>  
+>>      snprintf(path, sizeof(path), "/local/domain/%d/name", domid);
+>> @@ -141,7 +141,7 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx *ctx, const char *p,
+>>  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
+>>  {
+>>      unsigned int len;
+>> -    char path[strlen("/local/pool") + 12];
+>> +    char path[ARRAY_SIZE("/local/pool") + 11];
+>>      char *s;
+>>  
+>>      snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
+> 
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> Although I have a minor preference for sizeof() as suggested by Frediano.
+> 
+> Can fix on commit, if you're happy?
 
-In Arm, there is no clean way to disable SMP. As of now, we wish to support
-MPU on UNP only. So, we have defined the default range of NR_CPUs to be 1 for
-MPU.
+Please can we stick to ARRAY_SIZE() when it comes to strings? It's the
+same as sizeof() when the base type is char, but the difference becomes
+relevant if the base type was e.g. wchar_t.
 
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
----
-Changes from :-
-
-v1 - 1. NR_CPUS is defined as 1 for MPU
-
-2. Added a message in enable_secondary_cpu_mm()
-
-v2 - 1. Added the range
-
-2. Clarified in the commit message why/how we have disabled SMP.
-
-v3 - 1. BUILD_BUG_ON() is moved to smp.c.
-
- xen/arch/Kconfig              |  2 ++
- xen/arch/arm/arm64/mpu/head.S | 10 ++++++++++
- xen/arch/arm/smp.c            | 11 +++++++++++
- 3 files changed, 23 insertions(+)
-
-diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
-index 308ce129a8..aa383577a4 100644
---- a/xen/arch/Kconfig
-+++ b/xen/arch/Kconfig
-@@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
- 
- config NR_CPUS
- 	int "Maximum number of CPUs"
-+	range 1 1 if ARM && MPU
- 	range 1 16383
- 	default "256" if X86
- 	default "8" if ARM && RCAR3
- 	default "4" if ARM && QEMU
- 	default "4" if ARM && MPSOC
-+	default "1" if ARM && MPU
- 	default "128" if ARM
- 	help
- 	  Controls the build-time size of various arrays and bitmaps
-diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/mpu/head.S
-index 0edadb009c..5a6aaf47cd 100644
---- a/xen/arch/arm/arm64/mpu/head.S
-+++ b/xen/arch/arm/arm64/mpu/head.S
-@@ -140,6 +140,16 @@ FUNC(enable_boot_cpu_mm)
-     ret
- END(enable_boot_cpu_mm)
- 
-+/*
-+ * We don't yet support secondary CPUs bring-up. Implement a dummy helper to
-+ * please the common code.
-+ */
-+ENTRY(enable_secondary_cpu_mm)
-+    PRINT("- SMP not enabled yet -\r\n")
-+1:  wfe
-+    b 1b
-+ENDPROC(enable_secondary_cpu_mm)
-+
- /*
-  * Local variables:
-  * mode: ASM
-diff --git a/xen/arch/arm/smp.c b/xen/arch/arm/smp.c
-index c11bba93ad..b372472188 100644
---- a/xen/arch/arm/smp.c
-+++ b/xen/arch/arm/smp.c
-@@ -1,4 +1,5 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
-+#include <xen/init.h>
- #include <xen/mm.h>
- #include <asm/system.h>
- #include <asm/smp.h>
-@@ -6,6 +7,16 @@
- #include <asm/gic.h>
- #include <asm/flushtlb.h>
- 
-+static void __init __maybe_unused build_assertions(void)
-+{
-+#ifdef CONFIG_MPU
-+    /*
-+     * Currently, SMP is not enabled on MPU based systems.
-+     */
-+    BUILD_BUG_ON(NR_CPUS > 1);
-+#endif
-+}
-+
- void arch_flush_tlb_mask(const cpumask_t *mask)
- {
-     /* No need to IPI other processors on ARM, the processor takes care of it. */
--- 
-2.25.1
-
+Jan
 
