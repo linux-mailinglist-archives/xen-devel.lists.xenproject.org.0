@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70F389B30E2
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:48:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826474.1240758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25ED99B3114
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:53:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826479.1240768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PAe-0008Ux-Jd; Mon, 28 Oct 2024 12:48:32 +0000
+	id 1t5PF3-0001bP-4g; Mon, 28 Oct 2024 12:53:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826474.1240758; Mon, 28 Oct 2024 12:48:32 +0000
+Received: by outflank-mailman (output) from mailman id 826479.1240768; Mon, 28 Oct 2024 12:53:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PAe-0008S9-Gt; Mon, 28 Oct 2024 12:48:32 +0000
-Received: by outflank-mailman (input) for mailman id 826474;
- Mon, 28 Oct 2024 12:48:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t5PF3-0001Z8-25; Mon, 28 Oct 2024 12:53:05 +0000
+Received: by outflank-mailman (input) for mailman id 826479;
+ Mon, 28 Oct 2024 12:53:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5PAc-0008Ra-6G
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:48:30 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee4af18a-952a-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 13:48:29 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-37d49ffaba6so2999714f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:48:29 -0700 (PDT)
+ id 1t5PF2-0001Z2-Ai
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:53:04 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 910ce7f6-952b-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 13:53:02 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-539fe76e802so5008884e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:53:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b3bdafsm9410148f8f.30.2024.10.28.05.48.28
+ 5b1f17b1804b1-4319360d233sm107125945e9.45.2024.10.28.05.53.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 05:48:28 -0700 (PDT)
+ Mon, 28 Oct 2024 05:53:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee4af18a-952a-11ef-a0c2-8be0dac302b0
+X-Inumbo-ID: 910ce7f6-952b-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730119708; x=1730724508; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730119982; x=1730724782; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HVV0i1f9aQh1KEK0+Ek6PfNU2orVxs3qS14p3Ydb8pA=;
-        b=SeI2IW57ZMagBFef38ed1/gO4x+S03uN8KyPXeQ5A6xN6VjMGozRXPZ6EAsd1V18zD
-         Vt7QSPklMbqRDPna1uh2H7hgGgyVuNjRSnZtaURtckYN2Y5JiTL941SlVX1YRrG438af
-         prunrwan1CPTuQajM2xbbJkbg2WDA7a51LmZ/1OwHQm41uzuUhxMcaJ0rCCrN3EwlFAC
-         ypAmQez208jV3Kfpa7PTGcy37mzn4SQEBK/KYXUqsHA6qOWVUyOCWwoagEgli6pOA782
-         DCjkIqB4JerIkR28YGEcqSfwesc/wJpp+glbnET+UaDoSnc+IDJ0FPryhygrLH0FaQtN
-         Y02A==
+        bh=hNvgeAnNnZLtnVTZBry7xRCUX2q+4a22RR4Gn5/MM70=;
+        b=P0hOILfiJs9ut9BLWR0DDVpui9l0AHVXLIcWpjPKpO7P7y7vUIWAJRUslx6R2tcJzR
+         NAE1wydjRR6S7QNw/LEoZB26LjZG8TJdjAT/z13g4nkurJeqwiCWEyM7UXhISgrylE9p
+         LUXptGWhIoZ8XG/NlZZ75dfTqMxRJ7ofBh+GP4tsSJNVxciid2uj5VSEuxvIuEIvs1zu
+         /rIX27jdd1cNT1q+YYiJu6LXxXkSAiC1IoCE5V/tGZ/XCYJt43li8jLVfjlsNVOubb4z
+         GMAafyOqIgzXzEpb+k1RbFT93TbACzSUgMdACE5iwijI/PceZn8I0FoghBlCXivDCQZ6
+         JLbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730119708; x=1730724508;
+        d=1e100.net; s=20230601; t=1730119982; x=1730724782;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HVV0i1f9aQh1KEK0+Ek6PfNU2orVxs3qS14p3Ydb8pA=;
-        b=gd77lSBAMmXMWVpsL5iiz76b1zR8ngPNdMk9GjjxTknRDoPra8vT2iZbo17KG8EQ09
-         UYSCtQKvmRwZIMMdSyDNGrQs/nBAfmO0BJMlEf9p3rVKVx1YiYcB9j6CrpBY8OSoM9fn
-         O14w7Q9cwIMdygULo3SSAJ4izN2ztPukqNTKn1lorP4MxOc5ZwwLr2ZG0E7FW7bnMHVn
-         FOI6GQMvmljZC6n4wullPyZs3mKf2lYQ08Qr5aycS/L4EuEEJUN6HHyj77C6ONWu+8NR
-         diOs83OjSmrGv0le1WHO6zebXkyMheBQnP7TjzxRjHVAcaAABU27jusGun3OBH9K43gk
-         oOQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWQkCtTS+OB3kR87p5puZTTX+7nG1Uc97f8BeD2HERSZ8tDjpYk0hIo0TWwwApXHePO+FCTfVfspTk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9nQ0GNHc/0Yvu2owmsR98Jb6RKctNXjuXS0e/623mOcmkr1ti
-	8c90ZnsFFbcrRjQrf75kLwS0AIXaAZyLFnh0YRcuEsJ2FC82dYfk49us+P/88w==
-X-Google-Smtp-Source: AGHT+IGYa4BEUHV65d+VfslMNcHWdxTibRMLZvBxVP/NmH+EjVgeB3HZ4RnYQuaN8L+9Bg2iukjYvQ==
-X-Received: by 2002:adf:e851:0:b0:37d:45f0:b33 with SMTP id ffacd0b85a97d-380610e6444mr5752486f8f.9.1730119708604;
-        Mon, 28 Oct 2024 05:48:28 -0700 (PDT)
-Message-ID: <51632c96-9a12-4656-b8f8-1631c11a3a19@suse.com>
-Date: Mon, 28 Oct 2024 13:48:27 +0100
+        bh=hNvgeAnNnZLtnVTZBry7xRCUX2q+4a22RR4Gn5/MM70=;
+        b=WviLHanZFTWmJn9Q7iyGAuNfqtyNodv662kN/rCHDBbJ87DSXgeJX2MGhtJveoO9oR
+         K6nHAk9cWXFzJU57+hnJHrHOL9G5M9DWIoq9qC2mo/B2rlFJGnL3/aqwd77I3++FvWSZ
+         Hlp9J3m/laTCXm3m0QIVuH5RnFctDXtcYIkDhay+GFHu9seK6pDxJ0wxz9TcNVUZ+n9X
+         IDe2KAqaQhalDq5p38JY56zPDNeSdVVawo6Ppi9YTySzJw8MHpVx68+Y02FlIu9D8lxc
+         DrceecBbdoMhAv4JTVeir5iotlFqv0iLUnsMezpW4A7xFZT9r1Ej7VQ2CTHc7xuP1fGJ
+         0Mdw==
+X-Forwarded-Encrypted: i=1; AJvYcCVIgi05PtEB3vvb1Li0256/SR2cunxlBv/UYfiiJlSj53uZg2+8S3oJtQFXbfsEgcyPmA7CC2ejl0A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGHr3MUNKeqvt8cOPrDMYOhn47pIRLCYJ4Lok5PFUBLVFxpXSG
+	UIB8bLw+2/ZgsoZPsgWA/gP5TnBPbVmxxik9pJhv/2m0O5i+mu2XD3yY7j5jcg==
+X-Google-Smtp-Source: AGHT+IFO8G0XnpmD7Sbj9qtEUhD3rhnB31jVG+xFMP9JLoFCIo9vKFQY5WWolwfaDL1kCSc1vqZb/g==
+X-Received: by 2002:a05:6512:3045:b0:533:d3e:16fe with SMTP id 2adb3069b0e04-53b3491e270mr3358384e87.38.1730119981563;
+        Mon, 28 Oct 2024 05:53:01 -0700 (PDT)
+Message-ID: <dd07d7b4-4d0d-4c51-a1e5-70e39223732e@suse.com>
+Date: Mon, 28 Oct 2024 13:53:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/libxl: remove usage of VLA arrays
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Roger Pau Monne <roger.pau@citrix.com>,
+Subject: Re: [PATCH v4] NUMA: Introduce NODE_DATA->node_present_pages(RAM
+ pages)
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Bernhard Kaindl <bernhard.kaindl@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <20241028114831.27487-1-roger.pau@citrix.com>
- <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
+References: <20241027144305.1839348-1-bernhardkaindl7@gmail.com>
+ <D57FBXUKL8PH.1FQRR4NJ139AX@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,60 +116,89 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
+In-Reply-To: <D57FBXUKL8PH.1FQRR4NJ139AX@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28.10.2024 13:03, Andrew Cooper wrote:
-> On 28/10/2024 11:48 am, Roger Pau Monne wrote:
->> Clang 19 complains with the following error when building libxl:
->>
->> libxl_utils.c:48:15: error: variable length array folded to constant array as an extension [-Werror,-Wgnu-folding-constant]
->>    48 |     char path[strlen("/local/domain") + 12];
->>       |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>
->> Replace the usage of strlen() with ARRAY_SIZE(), which allows the literal
->> string length to be known at build time.  Note ARRAY_SIZE() accounts for the
->> NUL terminator while strlen() didn't, hence subtract 1 from the total size
->> calculation.
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->>  tools/libs/light/libxl_utils.c | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_utils.c
->> index 10398a6c8611..b3f5e751cc3f 100644
->> --- a/tools/libs/light/libxl_utils.c
->> +++ b/tools/libs/light/libxl_utils.c
->> @@ -45,7 +45,7 @@ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned
->>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
->>  {
->>      unsigned int len;
->> -    char path[strlen("/local/domain") + 12];
->> +    char path[ARRAY_SIZE("/local/domain") + 11];
->>      char *s;
+On 28.10.2024 13:05, Alejandro Vallejo wrote:
+> On Sun Oct 27, 2024 at 2:43 PM GMT, Bernhard Kaindl wrote:
+>> @@ -499,15 +500,44 @@ int __init compute_hash_shift(const struct node *nodes,
+>>      return shift;
+>>  }
 >>  
->>      snprintf(path, sizeof(path), "/local/domain/%d/name", domid);
->> @@ -141,7 +141,7 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx *ctx, const char *p,
->>  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
+>> -/* Initialize NODE_DATA given nodeid and start/end */
+>> +/**
+>> + * @brief Initialize a NUMA node's node_data structure at boot.
+>> + *
+>> + * It is given the NUMA node's index in the node_data array as well
+>> + * as the start and exclusive end address of the node's memory span
+>> + * as arguments and initializes the node_data entry with this information.
+>> + *
+>> + * It then initializes the total number of usable memory pages within
+>> + * the NUMA node's memory span using the arch_get_ram_range() function.
+>> + *
+>> + * @param nodeid The index into the node_data array for the node.
+>> + * @param start The starting physical address of the node's memory range.
+>> + * @param end The exclusive ending physical address of the node's memory range.
+>> + */
+>>  void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t end)
 >>  {
->>      unsigned int len;
->> -    char path[strlen("/local/pool") + 12];
->> +    char path[ARRAY_SIZE("/local/pool") + 11];
->>      char *s;
+>>      unsigned long start_pfn = paddr_to_pfn(start);
+>>      unsigned long end_pfn = paddr_to_pfn(end);
+>> +    struct node_data *numa_node = NODE_DATA(nodeid);
+>> +    paddr_t start_ram, end_ram;
+> 
+> With the loop in place and arch_get_ram_range() being called inside, these two
+> can further reduce scope by being moved inside as well.
+> 
+>> +    unsigned int idx = 0;
+>> +    unsigned long *pages = &numa_node->node_present_pages;
 >>  
->>      snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
+>> -    NODE_DATA(nodeid)->node_start_pfn = start_pfn;
+>> -    NODE_DATA(nodeid)->node_spanned_pages = end_pfn - start_pfn;
+>> +    numa_node->node_start_pfn = start_pfn;
+>> +    numa_node->node_spanned_pages = end_pfn - start_pfn;
+>> +
+>> +    /* Calculate the number of present RAM pages within the node: */
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> nit: that last ":" feels a bit out of place
 > 
-> Although I have a minor preference for sizeof() as suggested by Frediano.
+>> +    *pages = 0;
+>> +    do {
+>> +        int err = arch_get_ram_range(idx++, &start_ram, &end_ram);
+>> +
+>> +        if (err == -ENOENT)
 > 
-> Can fix on commit, if you're happy?
+> Missing spaces between condition and the parenthesis of the conditional. But...
+> 
+>> +            break;
+>> +        if ( err || start_ram >= end || end_ram <= start )
+>> +            continue;  /* range is outside of the node, or not usable RAM */
+>>  
+>> +        *pages += PFN_DOWN(min(end_ram, end)) - PFN_UP(max(start_ram, start));
+>> +    } while (1);
+> 
+> ... testing for validity rather than invalidity would allow the loop to be
+> checked for termination on the termination condition rather than the ad-hoc
+> check inside. That is...
+> 
+>     (untested)
+> 
+>     do {
+>         paddr_t start_ram, end_ram;
+>         int err = arch_get_ram_range(idx++, &start_ram, &end_ram);
+> 
+>         if ( !err && start_ram < end && end_ram > start )
+>             *pages += PFN_DOWN(min(end_ram, end)) -
+>                       PFN_UP(max(start_ram, start));
+>     } while (err != ENOENT);
 
-Please can we stick to ARRAY_SIZE() when it comes to strings? It's the
-same as sizeof() when the base type is char, but the difference becomes
-relevant if the base type was e.g. wchar_t.
+     } while ( err != -ENOENT );
+
+> That said, take all of this with a pinch of salt. I'm not a maintainer here,
+> after all, and you might want to wait for Andrew, Jan or Roger to chip in.
+
+Apart from the small remark above I agree with the comments made, fwiw.
 
 Jan
 
