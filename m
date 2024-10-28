@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 201F29B3745
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:02:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826873.1241302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683D19B3759
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:08:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826877.1241311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5T8Z-00064R-Hy; Mon, 28 Oct 2024 17:02:39 +0000
+	id 1t5TDH-00070e-3C; Mon, 28 Oct 2024 17:07:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826873.1241302; Mon, 28 Oct 2024 17:02:39 +0000
+Received: by outflank-mailman (output) from mailman id 826877.1241311; Mon, 28 Oct 2024 17:07:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5T8Z-000629-Ev; Mon, 28 Oct 2024 17:02:39 +0000
-Received: by outflank-mailman (input) for mailman id 826873;
- Mon, 28 Oct 2024 17:02:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5T8X-000623-Ir
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:02:37 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e935402-954e-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 18:02:36 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-539f72c8fc1so5566722e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 10:02:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4319360833asm115350245e9.39.2024.10.28.10.02.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 10:02:35 -0700 (PDT)
+	id 1t5TDH-0006xq-0P; Mon, 28 Oct 2024 17:07:31 +0000
+Received: by outflank-mailman (input) for mailman id 826877;
+ Mon, 28 Oct 2024 17:07:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WnZV=RY=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1t5TDG-0006xk-5s
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:07:30 +0000
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [2607:f8b0:4864:20::c33])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1bab759e-954f-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 18:07:27 +0100 (CET)
+Received: by mail-oo1-xc33.google.com with SMTP id
+ 006d021491bc7-5ebc04d495aso2606118eaf.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 10:07:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +40,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e935402-954e-11ef-a0c2-8be0dac302b0
+X-Inumbo-ID: 1bab759e-954f-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730134956; x=1730739756; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hNXB7UX5VMF6EzQiJRksc2zuH0s+s4PPYjssGts0qCo=;
-        b=Kte2O9cWx0PPvNItqZCw8WvZhfhpqjNNfr/X6Zn+y3ilxO2+sKgqnlV/B2g6yh15+c
-         QQJnNr0o4VcxQUgny3EUo8NZJ+E6Cu6iNL+yGHDutaGhlRvwRurpZx95RyGEgKbydFY9
-         ev4tmBcBqN9EygSu77xjHxU+3wCWqlAlBLeAVV+KS6SeYNAyNKMAOinOyf+3rKaCZ6dH
-         g3O1Zl6uR+Pu5hohwmg2lHwvQRk/9pBCtYXPqbyb44ebZ0QKWklOzyH2tpl1p3sgnHHz
-         7C1bei9mvQRNCpOQWXuEsrY6mWu3nLpcZeBAOf5ZwzMebvcvhWYbGV06IMB4wBAuiEkp
-         f8sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730134956; x=1730739756;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1730135246; x=1730740046; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hNXB7UX5VMF6EzQiJRksc2zuH0s+s4PPYjssGts0qCo=;
-        b=MCouSbYQUOo4WSUaXieR19nhfVlKH03irZdPPgmulbFXzElIo9DUITamquayCFKQ57
-         n2uuAYwuXR6CMNAfQtx6rMUGMkRpJGoc8aFW+eGwc/obxyFPEaBhmj8x6odTF3/TVr55
-         8TtttMAfdmF4k2e2QmSAv9lxAE9E0n0KMRrGmyzbGmZrEsoXZ/EgggUy5BlOw1BxyC8o
-         U6nDaYjMg5+yc2hxyz28d8etoGn0tUdRFt5oHcczVuMsSs/RKDC1MV1xMDwdrpdnuvMt
-         tIizWLPNOfJr+qfDlhcn0taSEfCv7cdHlaRbLE+adV5xteYI0HamwlL2sFOTC0ocY+D7
-         DP+g==
-X-Forwarded-Encrypted: i=1; AJvYcCVJI2iZHgP1lLkpNth305txEGF26WVqTMvr0tsVe3VHC1djiAN2GRLAPd+RO0yhHM9ZLpVex07VtP4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzuSjTfJlNB+cNSGB1ucDNaP9o3eWnp7Z1ZRQZFdhBMb5B2ItmA
-	v+ewwTxUYz4YggMWYJjJ5+pn7/F1viGpXLYt3SbrmANSh7CmrKDJ0m4hqm/+Tw==
-X-Google-Smtp-Source: AGHT+IGvgbTOuBN827f1y3ftk1RYbiDHGuvk3mu0LcV+CuwcxT0nC81QDcjX0A4NzTD10qHlU5lQtg==
-X-Received: by 2002:a05:6512:691:b0:53a:44c:615a with SMTP id 2adb3069b0e04-53b3491ce7fmr4075174e87.43.1730134956114;
-        Mon, 28 Oct 2024 10:02:36 -0700 (PDT)
-Message-ID: <56b5a45b-871d-41a4-8e1d-74d72020054f@suse.com>
-Date: Mon, 28 Oct 2024 18:02:35 +0100
+        bh=b8gsRkgHtnhlFLoiFdA//3m3mbNeQBSnuTTdr/hYpPc=;
+        b=HCh5zqaTCdqEXu4ZQAqB6sneHhL14Gr/K+GcDlxmYVns0brIE9fKfo+0aOMO3oW7Mh
+         jQ85/Qivj3fkd6x3dcKr2HWfMoPa3rfee8XZfUmXgYzpEzZGpEPbrz3zsr9FHp7Ci1Ij
+         9326hrMtkYLD/ggQFDwcL1nL9ciGcsEFIQXA0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730135246; x=1730740046;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=b8gsRkgHtnhlFLoiFdA//3m3mbNeQBSnuTTdr/hYpPc=;
+        b=FiaHJHTk/DJDq1WuPoe85r6HxI4KXxH4Q8/tQfJnQab7oIWEVq3JdhYrpw0DukgzsP
+         AMwsyAIlRzU5cxmAPNJXdG0fReBYvKk6q3s0xww7L2naYRh3CBZecoXY0v+cGlfExSb4
+         47Q8wb8ZLhhcTxsbkgM6B5W0x+0izsCaoM+/q4Oxg748F7UF4VCH3eTacLaZaAMAVVde
+         rw/ImEMID/g/xNrUlf8t7T2i+9q+8fdLFJ79FEndsSuUBpYYcQfFRVwkDTXRUlG0nUQE
+         dPg7sAN5+xsvtaCevnq4HOXoGmLmuJzfJuEvBXEA39onIn51EIACMRTmRkfrJNKCPuKR
+         AVeg==
+X-Forwarded-Encrypted: i=1; AJvYcCUiJE2oDQlmVU85kRc6wk4UyCG8+kOI61YalhjPZB51QeaoCOdnatPyLX1uKfi1VhmiMG0F/xgFq2Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZyLgAgubO0QtqYfJNix8sNpf/4jdMRYfPv/2MShGERhBQoy6Z
+	rM/jBKOyhlZm/blGanb2wgHWmzwfEnT1c2KBxb2Gu/o9bTPrVt3wB85PTrr1vwXsulHn1pfwokp
+	ZXaissQfuFvXpx/fQ+0JbAPx88vlqIBD7+cCz6g==
+X-Google-Smtp-Source: AGHT+IGKlf7QZqiLyrwjx0m87hPy7ricMF3gP3tzyYYH6KJVW0l1M3p/N0DUbFNyFS9ota8nIppL59fi7qXE7JPiS6A=
+X-Received: by 2002:a05:6820:2218:b0:5eb:7e7c:5303 with SMTP id
+ 006d021491bc7-5ec237d1a4cmr5888437eaf.2.1730135246513; Mon, 28 Oct 2024
+ 10:07:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] xen/pci: introduce PF<->VF links
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241018203913.1162962-1-stewart.hildebrand@amd.com>
- <20241018203913.1162962-3-stewart.hildebrand@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241018203913.1162962-3-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <b2fdb048-cfc5-4f61-8507-bf8020e02132@suse.com>
+ <764c0116-88ed-48af-8e53-f2a0f6e850a3@citrix.com> <c618e09f-b88c-45c8-8cbd-8aae82891c6e@suse.com>
+ <ecd11958-2ce8-41fc-87f8-7b6b090c74b5@citrix.com> <aab91022-5115-4af0-8f9d-569c63a296bb@suse.com>
+ <f8f4e221-fbf1-4e0b-98d0-bc19e0c604a9@citrix.com> <fee34f7d-6d2e-44c6-aa76-e1d6d4856ddf@suse.com>
+In-Reply-To: <fee34f7d-6d2e-44c6-aa76-e1d6d4856ddf@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 28 Oct 2024 17:07:15 +0000
+Message-ID: <CACHz=Zgn06KXoqo0rct=-AL4_utBdsdhmGgRakO_86x7WgTvXg@mail.gmail.com>
+Subject: Re: [PATCH] earlycpio: constify find_cpio_data()'s "data" parameter
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 18.10.2024 22:39, Stewart Hildebrand wrote:
-> Add links between a VF's struct pci_dev and its associated PF struct
-> pci_dev. Move the calls to pci_get_pdev()/pci_add_device() down to avoid
-> dropping and re-acquiring the pcidevs_lock().
-> 
-> During PF removal, unlink VF from PF and mark the VF broken. As before,
-> VFs may exist without a corresponding PF, although now only with
-> pdev->broken = true.
-> 
-> The hardware domain is expected to remove the associated VFs before
-> removing the PF. Print a warning in case a PF is removed with associated
-> VFs still present.
-> 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> ---
-> Candidate for backport to 4.19 (the next patch depends on this one)
-> 
-> v5->v6:
-> * move printk() before ASSERT_UNREACHABLE()
-> * warn about PF removal with VFs still present
+On Mon, Oct 28, 2024 at 4:51=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 28.10.2024 17:45, Andrew Cooper wrote:
+> > On 28/10/2024 4:25 pm, Jan Beulich wrote:
+> >> On 28.10.2024 17:18, Andrew Cooper wrote:
+> >>> On 28/10/2024 4:12 pm, Jan Beulich wrote:
+> >>>> On 28.10.2024 17:07, Andrew Cooper wrote:
+> >>>>> On 28/10/2024 4:03 pm, Jan Beulich wrote:
+> >>>>>> As with 9cbf61445cda ("xen/earlycpio: Drop nextoff parameter"): Wh=
+ile
+> >>>>>> this is imported from Linux, the parameter not being pointer-to-co=
+nst is
+> >>>>>> dubious in the first place and we're not plausibly going to gain a=
+ write
+> >>>>>> through it.
+> >>>>>>
+> >>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>>>> You haven't tried compiling this, have you?
+> >>>> Of course I have. Is there any subtlety with compiler versions? Or w=
+hat
+> >>>> else am I missing?
+> >>> struct cpio_data's copy of this field is non-const (which you keep on
+> >>> noting that new compilers will object to),
+> >> New compilers? I'm afraid I'm missing context. With gcc14 the patch bu=
+ilds
+> >> fine. I didn't try _older_ ones (but I see no reason why they might ob=
+ject;
+> >> see below).
+> >>
+> >>> and you can't change that
+> >>> without breaking the build in microcode.
+> >> I don't need to change that, "thanks" to
+> >>
+> >>                      cd.data =3D (void *)dptr;
+> >>
+> >> casting away const-ness. That is - compilers ought to be fine with the
+> >> change; Misra won't like it.
+> >
+> > You have literally complained about patches of mine on the grounds of
+> > "GCC is about to start caring about casting away const on a void pointe=
+r".
+>
+> I still don't remember what context this was in, I'm sorry.
+>
+> > So which is it.
+>
+> I'm not adding any such casts; the (potentially problematic) cast is
+> there already. I therefore still don't see what's wrong with the patch.
+>
 
-Hmm, maybe I didn't make this clear enough when commenting on v5: I wasn't
-just after an adjustment to the commit message. I'm instead actively
-concerned of the resulting behavior. Question is whether we can reasonably
-do something about that.
+You usually don't want some const data to be silently transformed to
+no-const data. In this case the "find_cpio_data" is getting a no-const
+pointer "data" and returning it into "cpio_data.data". As
+"cpio_data.data" is no-const for the previously stated rule the
+initial data (that is "data" pointer) should not be const.
 
-Jan
+Internally you change from no-const to const with the assignment to
+"p" and than "dptr". However the "find_cpio_data" function has
+knowledge of the original no-const so it uses that knowledge for the
+no-const conversion done by "cd.data =3D (void *)dptr". That makes that
+conversion less "silent".
+
+> >>> Nothing of this form can be taken until the constness is consistent i=
+n
+> >>> microcode, after which yes it can mostly become const.
+> >> We can move there in steps, can't we?
+> >
+> > Or you can stop trying to insist that I rebase around an
+> > incorrect/incomplete patch, just for the sake of the const of one void
+> > pointer, which can still be laundered by this function.
+>
+> Okay, I won't insist; take my ack as unconditional one. I still consider
+> it a bad precedent though that we'd set, when elsewhere we ask for const-
+> correctness wherever possible.
+>
+> > Especially when you could wait the ~day it will take to get an
+> > otherwise-good series in, and then change cpio and get all of the const
+> > problems in one go.
+>
+> If that turns out to be true, all will indeed be fine in the end. Questio=
+n
+> is whether we really want to diverge earlycpio.c by more than minimal
+> changes.
+>
+> Jan
+>
+
+Frediano
 
