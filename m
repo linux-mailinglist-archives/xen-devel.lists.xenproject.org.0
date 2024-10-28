@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 652EF9B2F9A
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:04:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826426.1240668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4DEB9B2FA2
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:05:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826431.1240677 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5OTe-0006DR-4d; Mon, 28 Oct 2024 12:04:06 +0000
+	id 1t5OUp-0006lE-DU; Mon, 28 Oct 2024 12:05:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826426.1240668; Mon, 28 Oct 2024 12:04:06 +0000
+Received: by outflank-mailman (output) from mailman id 826431.1240677; Mon, 28 Oct 2024 12:05:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5OTe-0006Bi-1W; Mon, 28 Oct 2024 12:04:06 +0000
-Received: by outflank-mailman (input) for mailman id 826426;
- Mon, 28 Oct 2024 12:04:04 +0000
+	id 1t5OUp-0006jk-AR; Mon, 28 Oct 2024 12:05:19 +0000
+Received: by outflank-mailman (input) for mailman id 826431;
+ Mon, 28 Oct 2024 12:05:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/lrK=RY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t5OTc-0006Bc-C8
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:04:04 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ <SRS0=7IZ5=RY=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1t5OUn-0006jc-8j
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:05:17 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b95355c9-9524-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 13:04:03 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5c9454f3bfaso4966380a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:04:03 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cbb62c14c4sm3116471a12.44.2024.10.28.05.04.02
+ id e4be23d5-9524-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 13:05:16 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5c94861ee25so2410996a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:05:16 -0700 (PDT)
+Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cbb62c42c7sm3113579a12.51.2024.10.28.05.05.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 05:04:02 -0700 (PDT)
+ Mon, 28 Oct 2024 05:05:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +44,298 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b95355c9-9524-11ef-a0c2-8be0dac302b0
+X-Inumbo-ID: e4be23d5-9524-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730117043; x=1730721843; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BYGJQQKJW3V1Myv3BMAi7AnEWVSCsWC1Vq4yZjb50UM=;
-        b=IapitQek4xw5j1Hj+JhZ51vTkEpBdk7rxiFUBtbWCPZgJR/tcKoAC8vIJPQDF/mvJ8
-         fPzLOzl+3wsrgQK/fkL1YhAx53iffD/4OYjK+TtZySKXM24kYfLqv76EzJOR2w3H8Mh/
-         iayzuM5kngPYHwZrhJyNp/Ee+SJ716zwllmk0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730117043; x=1730721843;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1730117116; x=1730721916; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BYGJQQKJW3V1Myv3BMAi7AnEWVSCsWC1Vq4yZjb50UM=;
-        b=U8Yopn29eg4B1m8RB4VkviKumNTM2kDlt/c7zwe7WCprSkBTEpvo6fMKGMAw2lM5fI
-         HUHEjvlRJA8i5vgf4NJDVlpneWkLSFeFxBuWH34Xl7/XPoBKdibOFavu5fLpK4A5tQsf
-         OuzvIAjrFGoT9irnpDTLicgdbPkm4jnV7Aiux+oardK3SshU99jz87i0PDnEfoIjinbe
-         8uVQ+gLFPYuJ/9JRj3GEVJksvI11M/VwvtjrXCWlU6dMxavsY+5L1lEQ9xVU9YVv2oZ8
-         WjmVwNy9ca6qpFJ5X6lzAIhbBjqrazHJNW8gfOzynfnS09afRn+gRBSj6y8nhvdG64h9
-         EH6A==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ/vlS3HyindJVSPz9pgox1nQiw27MNErPzYemN+wCK/tkHC1/F7n/ItHYjeqYW2w+e8h8cmACy90=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyjY3qQCk75JfBekHx6Q7QvGgumwHaIj7vgiJend7aHcp7TXawf
-	cyGYqQwkqItiX83sddXUkY6J0gGBEqjN0zQDdaemjcNN/Lwaf3wpUfqDxyy1t84=
-X-Google-Smtp-Source: AGHT+IHCh01kmogZbd2xD0zcSRfc887nNpmdozP1Ufh4F/boo5CAPeWXf0zebEWZiHyhRFfTi9NdVA==
-X-Received: by 2002:a05:6402:5203:b0:5c2:6d16:ad5e with SMTP id 4fb4d7f45d1cf-5cbbf8c616fmr5711578a12.19.1730117042690;
-        Mon, 28 Oct 2024 05:04:02 -0700 (PDT)
-Message-ID: <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
-Date: Mon, 28 Oct 2024 12:03:59 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/libxl: remove usage of VLA arrays
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>
-References: <20241028114831.27487-1-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241028114831.27487-1-roger.pau@citrix.com>
+        bh=aZpevYCcbbF/l6J/XaEuwR4BPCJEXWWyXhTQ3y0eSLk=;
+        b=GWjYOdC7fHHw0dsScSxm3y/WOvZzACmFm+l48gJvzd2o56x7xxSo1BOtxAASSqntVk
+         X7Tgz5HrDg6uudd043fKZeQvytaUXGARDN0FOHPGS4iBcSEq8Tk2VhcJD3MPd+I+lNHA
+         wym3SWn271QRdWarw7lIgWNxK0/8cek5SEvOU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730117116; x=1730721916;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=aZpevYCcbbF/l6J/XaEuwR4BPCJEXWWyXhTQ3y0eSLk=;
+        b=LqU4xGISLcnrnfowqut0SOrH5uVTQ7ErNd61bm2kv2qAIPa+9MuMV4TuxcOfoWcjPL
+         PA693fRXs02G1paBxUboNXshVEmlylRgPwoQPMLvazPa25Gh3Dc6hgAE2mcgWrGXIvvk
+         nzeWMbLSypiNx/hHi2gFX12zufN5YS9idFV3metkWT1zruRG00P808m/sBFNmiuFlQZH
+         mc9kHmUiiLlf/saqmZuvnRnNSpSSQgN3qLvWmmZfTl4MTEyVN6viLVovOHXA1Cbv5Qgl
+         whpZOkQmrYUsp0W4naFRQoAgZw+wJvOPjdMUvkipSQ05KrUqtamKs09wUUuOJTvqo9S2
+         vRng==
+X-Forwarded-Encrypted: i=1; AJvYcCWsRidsxeffcgF1S7uOqlhB2jB+ybFWMFIRVIPQlS5VtZcQN5RRCIcrAu3219XpNiRqQ7oMkRr8IwM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywqy67CVrV5fbG1n0KEd7XYOMFYXiM4xehExA0oD2LlOwJ9q/KJ
+	UIPSos9HPlU62hkbS2hsRPMwToP7dmmaBn+JX0cNHqRjS1UueNx9vI4HQMfLMUpocMVipTYmzbv
+	g
+X-Google-Smtp-Source: AGHT+IFjFBfmdxAX+cMaeN9D4wZTjSOeZkB/achZAfE3otZ1vnp7LRu3tZZANC1WUqF8JTJ7gttb8g==
+X-Received: by 2002:a05:6402:1f4b:b0:5c8:9529:1b59 with SMTP id 4fb4d7f45d1cf-5cbbf8dec0bmr9571584a12.20.1730117115419;
+        Mon, 28 Oct 2024 05:05:15 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 28 Oct 2024 12:05:14 +0000
+Message-Id: <D57FBXUKL8PH.1FQRR4NJ139AX@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Bernhard Kaindl" <bernhard.kaindl@cloud.com>,
+ <xen-devel@lists.xenproject.org>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Julien Grall" <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Subject: Re: [PATCH v4] NUMA: Introduce NODE_DATA->node_present_pages(RAM
+ pages)
+X-Mailer: aerc 0.18.2
+References: <20241027144305.1839348-1-bernhardkaindl7@gmail.com>
+In-Reply-To: <20241027144305.1839348-1-bernhardkaindl7@gmail.com>
 
-On 28/10/2024 11:48 am, Roger Pau Monne wrote:
-> Clang 19 complains with the following error when building libxl:
+Hi,
+
+On Sun Oct 27, 2024 at 2:43 PM GMT, Bernhard Kaindl wrote:
+> From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
 >
-> libxl_utils.c:48:15: error: variable length array folded to constant array as an extension [-Werror,-Wgnu-folding-constant]
->    48 |     char path[strlen("/local/domain") + 12];
->       |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> At the moment, Xen keeps track of the spans of PFNs of the NUMA nodes.
+> But the PFN span sometimes includes large MMIO holes, so these values
+> might not be an exact representation of the total usable RAM of nodes.
 >
-> Replace the usage of strlen() with ARRAY_SIZE(), which allows the literal
-> string length to be known at build time.  Note ARRAY_SIZE() accounts for the
-> NUL terminator while strlen() didn't, hence subtract 1 from the total size
-> calculation.
+> Xen does not need it, but the size of the NUMA node's memory can be
+> helpful for management tools and HW information tools like hwloc/lstopo
+> with its Xen backend for Dom0: https://github.com/xenserver-next/hwloc/
 >
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> First, introduce NODE_DATA(nodeid)->node_present_pages to node_data[],
+> determine the sum of usable PFNs at boot and update them on memory_add().
+>
+> (The Linux kernel handles NODE_DATA->node_present_pages likewise)
+>
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
 > ---
->  tools/libs/light/libxl_utils.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> Changes in v3:
+> - Use PFN_UP/DOWN, refactored further to simplify the code while leaving
+>   compiler-level optimisations to the compiler's optimisation passes.
+> Changes in v4:
+> - Refactored code and doxygen documentation according to the review.
+> ---
+>  xen/arch/x86/numa.c      | 13 +++++++++++++
+>  xen/arch/x86/x86_64/mm.c |  3 +++
+>  xen/common/numa.c        | 36 +++++++++++++++++++++++++++++++++---
+>  xen/include/xen/numa.h   | 21 +++++++++++++++++++++
+>  4 files changed, 70 insertions(+), 3 deletions(-)
 >
-> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_utils.c
-> index 10398a6c8611..b3f5e751cc3f 100644
-> --- a/tools/libs/light/libxl_utils.c
-> +++ b/tools/libs/light/libxl_utils.c
-> @@ -45,7 +45,7 @@ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned
->  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
+> diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
+> index 4b0b297c7e..3c0574f773 100644
+> --- a/xen/arch/x86/numa.c
+> +++ b/xen/arch/x86/numa.c
+> @@ -100,6 +100,19 @@ unsigned int __init arch_get_dma_bitsize(void)
+>                   + PAGE_SHIFT, 32);
+>  }
+> =20
+> +/**
+> + * @brief Retrieves the RAM range for a given index from the e820 memory=
+ map.
+> + *
+> + * This function fetches the start and end address (exclusive) of a RAM =
+range
+> + * specified by the given index idx from the e820 memory map.
+> + *
+> + * @param idx The index of the RAM range in the e820 memory map to retri=
+eve.
+> + * @param start Pointer to store the start address of the RAM range.
+> + * @param end Pointer to store the end address of the RAM range.
+
+Same as setup_node_bootmem(), we probably want this to explicitly state
+"exclusive" to indicate it's not the last address, but the address after.
+
+> + *
+> + * @return 0 on success, -ENOENT if the index is out of bounds,
+> + *         or -ENODATA if the memory map at index idx is not of type E82=
+0_RAM.
+> + */
+>  int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t =
+*end)
 >  {
->      unsigned int len;
-> -    char path[strlen("/local/domain") + 12];
-> +    char path[ARRAY_SIZE("/local/domain") + 11];
->      char *s;
->  
->      snprintf(path, sizeof(path), "/local/domain/%d/name", domid);
-> @@ -141,7 +141,7 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx *ctx, const char *p,
->  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
+>      if ( idx >=3D e820.nr_map )
+> diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+> index b2a280fba3..66b9bed057 100644
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -1334,6 +1334,9 @@ int memory_add(unsigned long spfn, unsigned long ep=
+fn, unsigned int pxm)
+>      share_hotadd_m2p_table(&info);
+>      transfer_pages_to_heap(&info);
+> =20
+> +    /* Update the node's present pages (like the total_pages of the syst=
+em) */
+> +    NODE_DATA(node)->node_present_pages +=3D epfn - spfn;
+> +
+>      return 0;
+> =20
+>  destroy_m2p:
+> diff --git a/xen/common/numa.c b/xen/common/numa.c
+> index 209c546a3b..9a8b805dd7 100644
+> --- a/xen/common/numa.c
+> +++ b/xen/common/numa.c
+> @@ -4,6 +4,7 @@
+>   * Adapted for Xen: Ryan Harper <ryanh@us.ibm.com>
+>   */
+> =20
+> +#include "xen/pfn.h"
+>  #include <xen/init.h>
+>  #include <xen/keyhandler.h>
+>  #include <xen/mm.h>
+> @@ -499,15 +500,44 @@ int __init compute_hash_shift(const struct node *no=
+des,
+>      return shift;
+>  }
+> =20
+> -/* Initialize NODE_DATA given nodeid and start/end */
+> +/**
+> + * @brief Initialize a NUMA node's node_data structure at boot.
+> + *
+> + * It is given the NUMA node's index in the node_data array as well
+> + * as the start and exclusive end address of the node's memory span
+> + * as arguments and initializes the node_data entry with this informatio=
+n.
+> + *
+> + * It then initializes the total number of usable memory pages within
+> + * the NUMA node's memory span using the arch_get_ram_range() function.
+> + *
+> + * @param nodeid The index into the node_data array for the node.
+> + * @param start The starting physical address of the node's memory range=
+.
+> + * @param end The exclusive ending physical address of the node's memory=
+ range.
+> + */
+>  void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t e=
+nd)
 >  {
->      unsigned int len;
-> -    char path[strlen("/local/pool") + 12];
-> +    char path[ARRAY_SIZE("/local/pool") + 11];
->      char *s;
->  
->      snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
+>      unsigned long start_pfn =3D paddr_to_pfn(start);
+>      unsigned long end_pfn =3D paddr_to_pfn(end);
+> +    struct node_data *numa_node =3D NODE_DATA(nodeid);
+> +    paddr_t start_ram, end_ram;
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+With the loop in place and arch_get_ram_range() being called inside, these =
+two
+can further reduce scope by being moved inside as well.
 
-Although I have a minor preference for sizeof() as suggested by Frediano.
+> +    unsigned int idx =3D 0;
+> +    unsigned long *pages =3D &numa_node->node_present_pages;
+> =20
+> -    NODE_DATA(nodeid)->node_start_pfn =3D start_pfn;
+> -    NODE_DATA(nodeid)->node_spanned_pages =3D end_pfn - start_pfn;
+> +    numa_node->node_start_pfn =3D start_pfn;
+> +    numa_node->node_spanned_pages =3D end_pfn - start_pfn;
+> +
+> +    /* Calculate the number of present RAM pages within the node: */
 
-Can fix on commit, if you're happy?
+nit: that last ":" feels a bit out of place
 
-~Andrew
+> +    *pages =3D 0;
+> +    do {
+> +        int err =3D arch_get_ram_range(idx++, &start_ram, &end_ram);
+> +
+> +        if (err =3D=3D -ENOENT)
+
+Missing spaces between condition and the parenthesis of the conditional. Bu=
+t...
+
+> +            break;
+> +        if ( err || start_ram >=3D end || end_ram <=3D start )
+> +            continue;  /* range is outside of the node, or not usable RA=
+M */
+> =20
+> +        *pages +=3D PFN_DOWN(min(end_ram, end)) - PFN_UP(max(start_ram, =
+start));
+> +    } while (1);
+
+... testing for validity rather than invalidity would allow the loop to be
+checked for termination on the termination condition rather than the ad-hoc
+check inside. That is...
+
+    (untested)
+
+    do {
+        paddr_t start_ram, end_ram;
+        int err =3D arch_get_ram_range(idx++, &start_ram, &end_ram);
+
+        if ( !err && start_ram < end && end_ram > start )
+            *pages +=3D PFN_DOWN(min(end_ram, end)) -
+                      PFN_UP(max(start_ram, start));
+    } while (err !=3D ENOENT);
+
+>      node_set_online(nodeid);
+>  }
+> =20
+> diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
+> index fd1511a6fb..6e82dfd2a8 100644
+> --- a/xen/include/xen/numa.h
+> +++ b/xen/include/xen/numa.h
+> @@ -68,9 +68,28 @@ extern unsigned int memnode_shift;
+>  extern unsigned long memnodemapsize;
+>  extern nodeid_t *memnodemap;
+> =20
+> +/**
+> + * @struct numa_node
+> + * @brief Represents the memory information of a NUMA node.
+> + *
+> + * @var numa_node::node_start_pfn
+> + * The starting page frame number (lowest pfn) of the NUMA node.
+> + *
+> + * @var numa_node::node_spanned_pages
+> + * The number of pages spanned by the NUMA node, including memory holes.
+> + * Used to get the end of the node memory when scrubbing unallocated mem=
+ory.
+> + *
+> + * @var numa_node::node_present_pages
+> + * The total number of usable memory pages that are available in this NU=
+MA node.
+> + * The value of total_pages would be the sum of all node's node_present_=
+pages.
+> + *
+> + * The Xen Hypervisor does not use this field internally, but it is usef=
+ul
+> + * for reporting the memory information of NUMA nodes to management tool=
+s.
+> + */
+
+I like the content, but we don't actually use Doxygen in that fashion (or a=
+ny
+fashion for that matter, AFAIK). In Xen style, the comments for each field =
+tend
+to be written on top of each respective field rather than stashed on top of=
+ the
+containing struct.
+
+>  struct node_data {
+>      unsigned long node_start_pfn;
+>      unsigned long node_spanned_pages;
+> +    unsigned long node_present_pages;
+>  };
+> =20
+>  extern struct node_data node_data[];
+> @@ -91,6 +110,7 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
+> =20
+>  #define node_start_pfn(nid)     (NODE_DATA(nid)->node_start_pfn)
+>  #define node_spanned_pages(nid) (NODE_DATA(nid)->node_spanned_pages)
+> +#define node_present_pages(nid) (NODE_DATA(nid)->node_present_pages)
+>  #define node_end_pfn(nid)       (NODE_DATA(nid)->node_start_pfn + \
+>                                   NODE_DATA(nid)->node_spanned_pages)
+> =20
+> @@ -123,6 +143,7 @@ extern void numa_set_processor_nodes_parsed(nodeid_t =
+node);
+>  extern mfn_t first_valid_mfn;
+> =20
+>  #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+> +#define node_present_pages(nid) total_pages
+>  #define node_start_pfn(nid) mfn_x(first_valid_mfn)
+>  #define __node_distance(a, b) 20
+> =20
+
+That said, take all of this with a pinch of salt. I'm not a maintainer here=
+,
+after all, and you might want to wait for Andrew, Jan or Roger to chip in.
+
+Cheers,
+Alejandro
 
