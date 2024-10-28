@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4DEB9B2FA2
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:05:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826431.1240677 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AB3D9B30C4
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:46:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826442.1240687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5OUp-0006lE-DU; Mon, 28 Oct 2024 12:05:19 +0000
+	id 1t5P8N-0004TM-9p; Mon, 28 Oct 2024 12:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826431.1240677; Mon, 28 Oct 2024 12:05:19 +0000
+Received: by outflank-mailman (output) from mailman id 826442.1240687; Mon, 28 Oct 2024 12:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5OUp-0006jk-AR; Mon, 28 Oct 2024 12:05:19 +0000
-Received: by outflank-mailman (input) for mailman id 826431;
- Mon, 28 Oct 2024 12:05:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t5P8N-0004Qz-76; Mon, 28 Oct 2024 12:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 826442;
+ Mon, 28 Oct 2024 12:46:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7IZ5=RY=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t5OUn-0006jc-8j
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:05:17 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e4be23d5-9524-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 13:05:16 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5c94861ee25so2410996a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:05:16 -0700 (PDT)
-Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cbb62c42c7sm3113579a12.51.2024.10.28.05.05.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 05:05:15 -0700 (PDT)
+ <SRS0=TXyF=RY=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1t5P8M-0004Qp-0i
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:46:10 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2413::60b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 992e300c-952a-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 13:46:07 +0100 (CET)
+Received: from PH7P220CA0175.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:33b::16)
+ by SA1PR12MB5669.namprd12.prod.outlook.com (2603:10b6:806:237::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.22; Mon, 28 Oct
+ 2024 12:46:02 +0000
+Received: from CY4PEPF0000E9D4.namprd03.prod.outlook.com
+ (2603:10b6:510:33b:cafe::49) by PH7P220CA0175.outlook.office365.com
+ (2603:10b6:510:33b::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.26 via Frontend
+ Transport; Mon, 28 Oct 2024 12:46:00 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D4.mail.protection.outlook.com (10.167.241.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8114.16 via Frontend Transport; Mon, 28 Oct 2024 12:46:00 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Oct
+ 2024 07:45:59 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Mon, 28 Oct 2024 07:45:57 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,298 +59,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4be23d5-9524-11ef-a0c2-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730117116; x=1730721916; darn=lists.xenproject.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aZpevYCcbbF/l6J/XaEuwR4BPCJEXWWyXhTQ3y0eSLk=;
-        b=GWjYOdC7fHHw0dsScSxm3y/WOvZzACmFm+l48gJvzd2o56x7xxSo1BOtxAASSqntVk
-         X7Tgz5HrDg6uudd043fKZeQvytaUXGARDN0FOHPGS4iBcSEq8Tk2VhcJD3MPd+I+lNHA
-         wym3SWn271QRdWarw7lIgWNxK0/8cek5SEvOU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730117116; x=1730721916;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=aZpevYCcbbF/l6J/XaEuwR4BPCJEXWWyXhTQ3y0eSLk=;
-        b=LqU4xGISLcnrnfowqut0SOrH5uVTQ7ErNd61bm2kv2qAIPa+9MuMV4TuxcOfoWcjPL
-         PA693fRXs02G1paBxUboNXshVEmlylRgPwoQPMLvazPa25Gh3Dc6hgAE2mcgWrGXIvvk
-         nzeWMbLSypiNx/hHi2gFX12zufN5YS9idFV3metkWT1zruRG00P808m/sBFNmiuFlQZH
-         mc9kHmUiiLlf/saqmZuvnRnNSpSSQgN3qLvWmmZfTl4MTEyVN6viLVovOHXA1Cbv5Qgl
-         whpZOkQmrYUsp0W4naFRQoAgZw+wJvOPjdMUvkipSQ05KrUqtamKs09wUUuOJTvqo9S2
-         vRng==
-X-Forwarded-Encrypted: i=1; AJvYcCWsRidsxeffcgF1S7uOqlhB2jB+ybFWMFIRVIPQlS5VtZcQN5RRCIcrAu3219XpNiRqQ7oMkRr8IwM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywqy67CVrV5fbG1n0KEd7XYOMFYXiM4xehExA0oD2LlOwJ9q/KJ
-	UIPSos9HPlU62hkbS2hsRPMwToP7dmmaBn+JX0cNHqRjS1UueNx9vI4HQMfLMUpocMVipTYmzbv
-	g
-X-Google-Smtp-Source: AGHT+IFjFBfmdxAX+cMaeN9D4wZTjSOeZkB/achZAfE3otZ1vnp7LRu3tZZANC1WUqF8JTJ7gttb8g==
-X-Received: by 2002:a05:6402:1f4b:b0:5c8:9529:1b59 with SMTP id 4fb4d7f45d1cf-5cbbf8dec0bmr9571584a12.20.1730117115419;
-        Mon, 28 Oct 2024 05:05:15 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 28 Oct 2024 12:05:14 +0000
-Message-Id: <D57FBXUKL8PH.1FQRR4NJ139AX@cloud.com>
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Bernhard Kaindl" <bernhard.kaindl@cloud.com>,
- <xen-devel@lists.xenproject.org>
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Julien Grall" <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: Re: [PATCH v4] NUMA: Introduce NODE_DATA->node_present_pages(RAM
- pages)
-X-Mailer: aerc 0.18.2
-References: <20241027144305.1839348-1-bernhardkaindl7@gmail.com>
-In-Reply-To: <20241027144305.1839348-1-bernhardkaindl7@gmail.com>
+X-Inumbo-ID: 992e300c-952a-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bxmf8cdrjZuDf9cD9uwJlFWBHXOl6wHk807iDEkH56iQK/e701+Ez9HNjFhBZGioWgJUQIXwuMeKFmBvs8LSXCGxExE3m2whwUTQGZXslmQVKqh4OhJ6v7J8Ze+ZxmlHbAY97Iy5nNioy0gzZGNBeWbSFI3tBiS4X5s4tw7AX5la3dPBokTR9KBq/ZdvxaG8XqvM2fpTu0UWPAEROu0IoU0M58rntlDYWcBj33/C6c0/OseBXsE4sgBZyxcpFyvEUP8Txal5FCOKs17p6WEBD5FuJHJsLTueUEwtCAXF46TLwQZhjjlZUnaIIxiw2wKX7ddKzTa5YtwtBr+tdSYWkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XydBGRHojGZoJqdkteJihbP8bo8mktcYFJ5/jPzGf9A=;
+ b=TzaHGUCtiOl1EoQGRfQzFBATqYBmqaBqTsoQAQ18qdFAjairnO/GRzoMY7++/Tq7i/PL5Xn9IG8XqVKbpi5jixZTiYy81Rv7MnLP1EIQobZfjMrN1pkRT463LhdwTXrNb9SmlmRLXGWwsRHOttFlc37cO9v+yswatWb0VHauX49LPhQLmrp472WbEYN/168nPBSgsXIlYFjy+ZZU3qI+INryQBMSmCi9uk/nmoDSHg0IZLU2pt5h8Axyxn98iZInxRWUeTwRsPozzmO7XwaDbaBhStFT3GHQAfvnSoN8tjAabBJ65X6ROQUabIX7KeheuRWFfeSRWHaSuDftBio9Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XydBGRHojGZoJqdkteJihbP8bo8mktcYFJ5/jPzGf9A=;
+ b=qAyODYtVMY1UzBxfN7yDD4lrw1sTqMUsZXyNWoFYVK9puMwG0FZyTBx5FspwlKcVym9I/NrX0jHBsLZeMU/P61pca1pfg+FEHbKoAYwIUaiBvfhxVMjBfLcnxFTaldL5D7u2UXz6L001CSp8S8Y+dvN1Usnasyn7U/6Iq2FDYww=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, Community Manager
+	<community.manager@xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v4 0/6] Enable early bootup of AArch64 MPU systems
+Date: Mon, 28 Oct 2024 12:45:41 +0000
+Message-ID: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D4:EE_|SA1PR12MB5669:EE_
+X-MS-Office365-Filtering-Correlation-Id: 326036df-6dea-4e3e-1956-08dcf74e79cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?55XcKl0lElHQ4AP/urgSLK0X/AERYlaHiVkzX+kZrYhdGnWU+K7CADsFmXoB?=
+ =?us-ascii?Q?OKUQ10ZxOpUDPyX/kebAqFbrynpTUgadFdu6IP3hqYAraOpZcf6aX3Nu3tMq?=
+ =?us-ascii?Q?h0NkFspuNEpU567MHlE15JCc5+8iyjiXe02eOO4rsBxI0szKpQRaVY5EUR3f?=
+ =?us-ascii?Q?p2fRInPj3UJpe7cpdYlrvu8x6FCkqcB3t4N0G4TPGTAPN+Nb3eseP/6aEfBN?=
+ =?us-ascii?Q?4Qtl3ksFmzB1UHSbCJw5st1MSesl53W42AaNBSNqM7osbgkWendLtqrTG+Za?=
+ =?us-ascii?Q?M1K7ZTixAiWTEXCrWnHfXO3xjamFCLhBGBrJUAlREwK2tD1fBBJEMdyUVPh7?=
+ =?us-ascii?Q?og8H+8SNmXKi4GIU+D5fEVbNrcld6ERjfCQLQ0xgQj+BbV+upYgaG2CF3V0n?=
+ =?us-ascii?Q?upJ8vg7xbB3rmlnyeOqXDCnOCpyTa9pqg+0k4z6/p7zX6Afa/uMrswDolB1+?=
+ =?us-ascii?Q?kzOxQCbcDTdG+KNiDHWNxJ0bbomTl4c3Tuf0evOcJDh3Z962C8hqhdsVtXfy?=
+ =?us-ascii?Q?ZAMf9NJ3QlnwyR+eMmqIhcfpmIICj+SKM4siaMWRH3Cw5NJzw78Wbd2ibu88?=
+ =?us-ascii?Q?B+xUlnoX3/niZegF/2LxcTA9oZIdmLOF8I2Oll22WkiNQTLkDR53qwnsebey?=
+ =?us-ascii?Q?YSOjeN3Pvo7gHPEzUOpWnR6FSxsCUtKCfGIkKRtULrPVgHRT6pchSPj2JuWC?=
+ =?us-ascii?Q?AYct9m5NFsb7QkJvebBYqPdqLoYfsi8kx8L7eIaZqYYDVeUf0nZV6ORsu5Kf?=
+ =?us-ascii?Q?8PGxqDOxHpI9UEyzUXkZmxhQ7MeqPQfKGwKhEkLxYlfuczpFQvQq1k4db2z0?=
+ =?us-ascii?Q?J25n9AMCjT34DflNshnp18gY1468qYNI2S0FMzO0qWN/j71+DbYjq5SOe8rs?=
+ =?us-ascii?Q?6fTZuQzqpz1KQ5A3hZej/eJ/fJmoaA1FztFPWMhaKlQkOqv03ypVaL3Z3WvR?=
+ =?us-ascii?Q?6klqCPV1gI7OFjULs3fctgdIWZGY5+JjNIBC6UagvCjP3lBS5ydTPlLKfX6d?=
+ =?us-ascii?Q?vKtQXXxMQpJsLSesv8bZv0qdiGVebls7D17PBzqQGWKFhT6P3TolOIOOKgN7?=
+ =?us-ascii?Q?WXSZz1kw+swMyDYP/UMusPRQzDPGFVquZR2LGTDtJ7vLX54wlG7K1pOcC9K/?=
+ =?us-ascii?Q?lTzxDmyRJ//7NT7MT9H/o3cVMIqG5dwUfLPzYbyJC0VEDAuYkeoocox8ny/J?=
+ =?us-ascii?Q?1yXBHmXDKunHVG/FsavfZy1nsaJVOF8fEmb/RxaoFkvMUG957YmjfORkSTsc?=
+ =?us-ascii?Q?lmdUytWfuSu86rjaROt2BXUbDpkAilNAm9bcvfK4qpcahFGvd5Itpzp1JQ9x?=
+ =?us-ascii?Q?3QGC7Hs+l0nBNnp5pf6Jnk1e7zJL3guZxA5MnAtyqm4o411pQaRxRrUeg49T?=
+ =?us-ascii?Q?AqbVPn0tDYPAKaVJ9q9JaYi4nX3Bcn56ISdAq7QPMyXNXH39yg=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2024 12:46:00.0912
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 326036df-6dea-4e3e-1956-08dcf74e79cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5669
 
-Hi,
+We have enabled early booting of R82.
 
-On Sun Oct 27, 2024 at 2:43 PM GMT, Bernhard Kaindl wrote:
-> From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
->
-> At the moment, Xen keeps track of the spans of PFNs of the NUMA nodes.
-> But the PFN span sometimes includes large MMIO holes, so these values
-> might not be an exact representation of the total usable RAM of nodes.
->
-> Xen does not need it, but the size of the NUMA node's memory can be
-> helpful for management tools and HW information tools like hwloc/lstopo
-> with its Xen backend for Dom0: https://github.com/xenserver-next/hwloc/
->
-> First, introduce NODE_DATA(nodeid)->node_present_pages to node_data[],
-> determine the sum of usable PFNs at boot and update them on memory_add().
->
-> (The Linux kernel handles NODE_DATA->node_present_pages likewise)
->
-> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-> ---
-> Changes in v3:
-> - Use PFN_UP/DOWN, refactored further to simplify the code while leaving
->   compiler-level optimisations to the compiler's optimisation passes.
-> Changes in v4:
-> - Refactored code and doxygen documentation according to the review.
-> ---
->  xen/arch/x86/numa.c      | 13 +++++++++++++
->  xen/arch/x86/x86_64/mm.c |  3 +++
->  xen/common/numa.c        | 36 +++++++++++++++++++++++++++++++++---
->  xen/include/xen/numa.h   | 21 +++++++++++++++++++++
->  4 files changed, 70 insertions(+), 3 deletions(-)
->
-> diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
-> index 4b0b297c7e..3c0574f773 100644
-> --- a/xen/arch/x86/numa.c
-> +++ b/xen/arch/x86/numa.c
-> @@ -100,6 +100,19 @@ unsigned int __init arch_get_dma_bitsize(void)
->                   + PAGE_SHIFT, 32);
->  }
-> =20
-> +/**
-> + * @brief Retrieves the RAM range for a given index from the e820 memory=
- map.
-> + *
-> + * This function fetches the start and end address (exclusive) of a RAM =
-range
-> + * specified by the given index idx from the e820 memory map.
-> + *
-> + * @param idx The index of the RAM range in the e820 memory map to retri=
-eve.
-> + * @param start Pointer to store the start address of the RAM range.
-> + * @param end Pointer to store the end address of the RAM range.
+Changes from v2 :-
+1. Added a new patch "xen/arm: Skip initializing the BSS section when it is empty".
+2. Split "xen/arm: mpu: Create boot-time MPU protection regions" into 2 patches.
 
-Same as setup_node_bootmem(), we probably want this to explicitly state
-"exclusive" to indicate it's not the last address, but the address after.
+Changes from v3 :-
+1. Removed some of the R-b as the patches have been modified.
 
-> + *
-> + * @return 0 on success, -ENOENT if the index is out of bounds,
-> + *         or -ENODATA if the memory map at index idx is not of type E82=
-0_RAM.
-> + */
->  int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t =
-*end)
->  {
->      if ( idx >=3D e820.nr_map )
-> diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-> index b2a280fba3..66b9bed057 100644
-> --- a/xen/arch/x86/x86_64/mm.c
-> +++ b/xen/arch/x86/x86_64/mm.c
-> @@ -1334,6 +1334,9 @@ int memory_add(unsigned long spfn, unsigned long ep=
-fn, unsigned int pxm)
->      share_hotadd_m2p_table(&info);
->      transfer_pages_to_heap(&info);
-> =20
-> +    /* Update the node's present pages (like the total_pages of the syst=
-em) */
-> +    NODE_DATA(node)->node_present_pages +=3D epfn - spfn;
-> +
->      return 0;
-> =20
->  destroy_m2p:
-> diff --git a/xen/common/numa.c b/xen/common/numa.c
-> index 209c546a3b..9a8b805dd7 100644
-> --- a/xen/common/numa.c
-> +++ b/xen/common/numa.c
-> @@ -4,6 +4,7 @@
->   * Adapted for Xen: Ryan Harper <ryanh@us.ibm.com>
->   */
-> =20
-> +#include "xen/pfn.h"
->  #include <xen/init.h>
->  #include <xen/keyhandler.h>
->  #include <xen/mm.h>
-> @@ -499,15 +500,44 @@ int __init compute_hash_shift(const struct node *no=
-des,
->      return shift;
->  }
-> =20
-> -/* Initialize NODE_DATA given nodeid and start/end */
-> +/**
-> + * @brief Initialize a NUMA node's node_data structure at boot.
-> + *
-> + * It is given the NUMA node's index in the node_data array as well
-> + * as the start and exclusive end address of the node's memory span
-> + * as arguments and initializes the node_data entry with this informatio=
-n.
-> + *
-> + * It then initializes the total number of usable memory pages within
-> + * the NUMA node's memory span using the arch_get_ram_range() function.
-> + *
-> + * @param nodeid The index into the node_data array for the node.
-> + * @param start The starting physical address of the node's memory range=
-.
-> + * @param end The exclusive ending physical address of the node's memory=
- range.
-> + */
->  void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t e=
-nd)
->  {
->      unsigned long start_pfn =3D paddr_to_pfn(start);
->      unsigned long end_pfn =3D paddr_to_pfn(end);
-> +    struct node_data *numa_node =3D NODE_DATA(nodeid);
-> +    paddr_t start_ram, end_ram;
+Ayan Kumar Halder (6):
+  xen/arm: Skip initializing the BSS section when it is empty
+  xen/arm: mpu: Introduce choice between MMU and MPU
+  xen/arm: mpu: Define Xen start address for MPU systems
+  xen/arm: mpu: Create boot-time MPU protection regions
+  xen/arm: mpu: Enable MPU
+  xen/arm: mpu: Implement a dummy enable_secondary_cpu_mm
 
-With the loop in place and arch_get_ram_range() being called inside, these =
-two
-can further reduce scope by being moved inside as well.
+ CHANGELOG.md                                 |   2 +
+ SUPPORT.md                                   |   1 +
+ xen/arch/Kconfig                             |   2 +
+ xen/arch/arm/Kconfig                         |  27 +++-
+ xen/arch/arm/arm32/head.S                    |   3 +
+ xen/arch/arm/arm64/Makefile                  |   1 +
+ xen/arch/arm/arm64/head.S                    |   2 +
+ xen/arch/arm/arm64/mpu/Makefile              |   2 +
+ xen/arch/arm/arm64/mpu/head.S                | 158 +++++++++++++++++++
+ xen/arch/arm/arm64/mpu/mm.c                  |  15 ++
+ xen/arch/arm/include/asm/arm64/mpu/sysregs.h |  30 ++++
+ xen/arch/arm/include/asm/config.h            |   4 +-
+ xen/arch/arm/include/asm/mm.h                |   2 +
+ xen/arch/arm/include/asm/mpu/arm64/mm.h      |  22 +++
+ xen/arch/arm/include/asm/mpu/layout.h        |  33 ++++
+ xen/arch/arm/include/asm/mpu/mm.h            |  20 +++
+ xen/arch/arm/platforms/Kconfig               |   2 +-
+ xen/arch/arm/smp.c                           |  11 ++
+ xen/arch/arm/xen.lds.S                       |   8 +
+ 19 files changed, 342 insertions(+), 3 deletions(-)
+ create mode 100644 xen/arch/arm/arm64/mpu/Makefile
+ create mode 100644 xen/arch/arm/arm64/mpu/head.S
+ create mode 100644 xen/arch/arm/arm64/mpu/mm.c
+ create mode 100644 xen/arch/arm/include/asm/arm64/mpu/sysregs.h
+ create mode 100644 xen/arch/arm/include/asm/mpu/arm64/mm.h
+ create mode 100644 xen/arch/arm/include/asm/mpu/layout.h
+ create mode 100644 xen/arch/arm/include/asm/mpu/mm.h
 
-> +    unsigned int idx =3D 0;
-> +    unsigned long *pages =3D &numa_node->node_present_pages;
-> =20
-> -    NODE_DATA(nodeid)->node_start_pfn =3D start_pfn;
-> -    NODE_DATA(nodeid)->node_spanned_pages =3D end_pfn - start_pfn;
-> +    numa_node->node_start_pfn =3D start_pfn;
-> +    numa_node->node_spanned_pages =3D end_pfn - start_pfn;
-> +
-> +    /* Calculate the number of present RAM pages within the node: */
+-- 
+2.25.1
 
-nit: that last ":" feels a bit out of place
-
-> +    *pages =3D 0;
-> +    do {
-> +        int err =3D arch_get_ram_range(idx++, &start_ram, &end_ram);
-> +
-> +        if (err =3D=3D -ENOENT)
-
-Missing spaces between condition and the parenthesis of the conditional. Bu=
-t...
-
-> +            break;
-> +        if ( err || start_ram >=3D end || end_ram <=3D start )
-> +            continue;  /* range is outside of the node, or not usable RA=
-M */
-> =20
-> +        *pages +=3D PFN_DOWN(min(end_ram, end)) - PFN_UP(max(start_ram, =
-start));
-> +    } while (1);
-
-... testing for validity rather than invalidity would allow the loop to be
-checked for termination on the termination condition rather than the ad-hoc
-check inside. That is...
-
-    (untested)
-
-    do {
-        paddr_t start_ram, end_ram;
-        int err =3D arch_get_ram_range(idx++, &start_ram, &end_ram);
-
-        if ( !err && start_ram < end && end_ram > start )
-            *pages +=3D PFN_DOWN(min(end_ram, end)) -
-                      PFN_UP(max(start_ram, start));
-    } while (err !=3D ENOENT);
-
->      node_set_online(nodeid);
->  }
-> =20
-> diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-> index fd1511a6fb..6e82dfd2a8 100644
-> --- a/xen/include/xen/numa.h
-> +++ b/xen/include/xen/numa.h
-> @@ -68,9 +68,28 @@ extern unsigned int memnode_shift;
->  extern unsigned long memnodemapsize;
->  extern nodeid_t *memnodemap;
-> =20
-> +/**
-> + * @struct numa_node
-> + * @brief Represents the memory information of a NUMA node.
-> + *
-> + * @var numa_node::node_start_pfn
-> + * The starting page frame number (lowest pfn) of the NUMA node.
-> + *
-> + * @var numa_node::node_spanned_pages
-> + * The number of pages spanned by the NUMA node, including memory holes.
-> + * Used to get the end of the node memory when scrubbing unallocated mem=
-ory.
-> + *
-> + * @var numa_node::node_present_pages
-> + * The total number of usable memory pages that are available in this NU=
-MA node.
-> + * The value of total_pages would be the sum of all node's node_present_=
-pages.
-> + *
-> + * The Xen Hypervisor does not use this field internally, but it is usef=
-ul
-> + * for reporting the memory information of NUMA nodes to management tool=
-s.
-> + */
-
-I like the content, but we don't actually use Doxygen in that fashion (or a=
-ny
-fashion for that matter, AFAIK). In Xen style, the comments for each field =
-tend
-to be written on top of each respective field rather than stashed on top of=
- the
-containing struct.
-
->  struct node_data {
->      unsigned long node_start_pfn;
->      unsigned long node_spanned_pages;
-> +    unsigned long node_present_pages;
->  };
-> =20
->  extern struct node_data node_data[];
-> @@ -91,6 +110,7 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
-> =20
->  #define node_start_pfn(nid)     (NODE_DATA(nid)->node_start_pfn)
->  #define node_spanned_pages(nid) (NODE_DATA(nid)->node_spanned_pages)
-> +#define node_present_pages(nid) (NODE_DATA(nid)->node_present_pages)
->  #define node_end_pfn(nid)       (NODE_DATA(nid)->node_start_pfn + \
->                                   NODE_DATA(nid)->node_spanned_pages)
-> =20
-> @@ -123,6 +143,7 @@ extern void numa_set_processor_nodes_parsed(nodeid_t =
-node);
->  extern mfn_t first_valid_mfn;
-> =20
->  #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
-> +#define node_present_pages(nid) total_pages
->  #define node_start_pfn(nid) mfn_x(first_valid_mfn)
->  #define __node_distance(a, b) 20
-> =20
-
-That said, take all of this with a pinch of salt. I'm not a maintainer here=
-,
-after all, and you might want to wait for Andrew, Jan or Roger to chip in.
-
-Cheers,
-Alejandro
 
