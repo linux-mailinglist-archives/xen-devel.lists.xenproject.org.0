@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 562289B3156
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 14:09:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826528.1240801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F23509B316D
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 14:14:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826534.1240812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PU5-0005XD-U7; Mon, 28 Oct 2024 13:08:37 +0000
+	id 1t5PZZ-0007HS-HE; Mon, 28 Oct 2024 13:14:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826528.1240801; Mon, 28 Oct 2024 13:08:37 +0000
+Received: by outflank-mailman (output) from mailman id 826534.1240812; Mon, 28 Oct 2024 13:14:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PU5-0005VI-RV; Mon, 28 Oct 2024 13:08:37 +0000
-Received: by outflank-mailman (input) for mailman id 826528;
- Mon, 28 Oct 2024 13:08:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t5PZZ-0007FC-EG; Mon, 28 Oct 2024 13:14:17 +0000
+Received: by outflank-mailman (input) for mailman id 826534;
+ Mon, 28 Oct 2024 13:14:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5PU3-0005Th-Sd
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 13:08:35 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bc302cbb-952d-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 14:08:33 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4315839a7c9so45017445e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 06:08:33 -0700 (PDT)
+ id 1t5PZY-0007F6-NS
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 13:14:16 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8812d0a5-952e-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 14:14:15 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4316a44d1bbso40089195e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 06:14:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4318b5430edsm139930265e9.2.2024.10.28.06.08.32
+ ffacd0b85a97d-38058b92963sm9473621f8f.98.2024.10.28.06.14.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 06:08:32 -0700 (PDT)
+ Mon, 28 Oct 2024 06:14:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc302cbb-952d-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 8812d0a5-952e-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730120913; x=1730725713; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kd+iEulUNOHz0pUyhU3vFXJihIalqNLkEKBzUTeO7/M=;
-        b=UtYGHTvE4WQ7NpPF/HSQ3BJuAScPBX0oZBqgXb6IxUiaa3txp53VxcFNLTptvllCKK
-         TUkx/yELCs23PfeEI44GaXrb4AUpJ+7R+AmB7deaC9qFYkENUHEeZqqSzgBWXTBPl4dh
-         a8ernibbD8IoxO1Ye/n314gM0HKPNn+7/LBA68FMjmZlNR9GIGg+zgFmHESsYDWxmwHz
-         95+3cWuUlAy3H2m5asAOmOe/BAnfvINb9i0WtD5jjG8YdENnKQ0IezEDnjDoyWYo+o8U
-         ftK4GSdTUv2Uuf366Czq1CNxNX9Z1BRToHShE+U5+/SVuslA7szfugVVA5pSGc9G+dxQ
-         onPA==
+        d=suse.com; s=google; t=1730121255; x=1730726055; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=H1vSwM+CFgKinKrL3bSwpA1sOZKzkRd931BucJZ1snA=;
+        b=dLXXQ7o49Fp+Go6tCR/1hwDd6I7d4x8cexfcoC8htnxQC/RbxG/mJLWQKakIRmV4ZN
+         GGoQ2fHOnhTbGFK8pFBp3mX+eY7tmZe42Y4ehAnMNRembfpjeSD+jMQ+QmCiHk6mlkZw
+         DlXFK6Pqa+yt66+ByOk9u4n4wP0qveya4TSpFKodaYbZ1aBkcadXzCMMi7f80IlncvFG
+         aqHJANzjLqZrcmQS/vaaKQgiHU5/3Ns2EkeiyHMhRGeP5Z2HjXjzly86Duqa3PJNS5UP
+         AqlMSOMvTa9rTDVKe7o0Z8U045FXM0ARxa+O0u10ezkHrrrqgwADjdj1uw6wjbIV9KSA
+         xFow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730120913; x=1730725713;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kd+iEulUNOHz0pUyhU3vFXJihIalqNLkEKBzUTeO7/M=;
-        b=QXZQOTd0gSqI2vAUPkfnd9UwYCXuINoFhgnB7Mr2/V6HV5Qi8moNONBy1D0cVpZ8hC
-         RXETQwazn1Ph+CoXfkkk1mpvpADziWaXs4Mu4F5O2vVtZl7jNh5EHD2c7kvxJ3jpkoPc
-         kR5rMUFh3hiUlfv8cvZJmU2OyF9E+wJkGF1x0hOWWcCF+n7gsAVizmcOiYi1G/LjwvOy
-         bV2RZ+M9sEHB+d7nbvt/cwxr70PTss0VXJn0Gvo81Obb201XnKsNpI/sAWyVCrkdiyZz
-         aj4H6DcxQRJnKpM9obTqiQPJeXKcB8jNTYcXpaWwyxtvAjYIV6WYGo0aA9KsaNjiSF+n
-         N+Tg==
-X-Forwarded-Encrypted: i=1; AJvYcCWppZApgja1FTE7jirOfroaMms4NpC8kT+tgsa6AhCDD9zcyFoHli2YcdP1jDzRo5nF/C9WJWrFHaQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwwwkRH/wc9X9QvB6CSuIElnjwlf6cwBSriHL8At20asiSAGHfE
-	win+4rIOskGq/LchXK+1a+KcHIAedJEG4tuL1S06r+IlL6H/lRaYXTSPsTgbHg==
-X-Google-Smtp-Source: AGHT+IGNJjdcp+dIeU+DjBNbcBsu3AHLaBdBJCEWzmbKBq2x+YWUSnzpPaIKVlcouwgnGEW89vjZXg==
-X-Received: by 2002:a05:600c:a085:b0:431:7ca6:57b1 with SMTP id 5b1f17b1804b1-4319ad2d1b4mr73802515e9.32.1730120913064;
-        Mon, 28 Oct 2024 06:08:33 -0700 (PDT)
-Message-ID: <d74e9a31-a004-4fd4-9cd0-3f890b1e91e0@suse.com>
-Date: Mon, 28 Oct 2024 14:08:31 +0100
+        d=1e100.net; s=20230601; t=1730121255; x=1730726055;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=H1vSwM+CFgKinKrL3bSwpA1sOZKzkRd931BucJZ1snA=;
+        b=jIbeE67BmSTFg4TMhG1TxkzbZZNRAf2qHYnWWQ8NjGwo9+OpAiuCngQ4rN+U8oby9P
+         3/mhDhOYRHjPrL2iUNSWXCDO/NPMHOfEoCAczM5IAbF565xhzI+9GUi3ApjRymfHLBJE
+         Ih+yJj+fxV6PxpthOeKXr71lsS79dkbE7m2TILIwsqHhkTAQbt1N214ghgP7hBqkSB2i
+         qEiSdyFDLvwDhc0W0UfuM+uoL7BPchSygkBvTMT8NkTITRSfFzX3xLFbKzoT+aS5oYDN
+         MAhUTGmP8vCb/pGXIuA9D6XsZQ0E1XuQtmQZUMZdTDnfc6fT9QmRFZPN1wnk5bFkWOka
+         VNMA==
+X-Gm-Message-State: AOJu0YwvR5TrXG+zsyCuKMjSXdTUTYrf5OH/sGFP4+mSsM3t9qaRbmKz
+	5wjLZddJT9Jd7Vwfdt6LQSeca8XS5t6QB6853Qkhf+OMqHgRgrnMknj8ggyd5A==
+X-Google-Smtp-Source: AGHT+IGvvb3VksGD2TtKlOma1YZp+yL4bQjiohUfSRIHazFJfgb4CSPYXJIOS0taFyxhX5mDy22DBA==
+X-Received: by 2002:a05:600c:1c1a:b0:431:55af:a22f with SMTP id 5b1f17b1804b1-4319aca400bmr72288555e9.13.1730121255108;
+        Mon, 28 Oct 2024 06:14:15 -0700 (PDT)
+Message-ID: <6fe9d8c9-536b-482b-af66-bddee42e94e2@suse.com>
+Date: Mon, 28 Oct 2024 14:14:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/boot: Explain how discard_initial_images() works
+Subject: Re: [PATCH 4/5] x86/ucode: Rename the apply_microcode() hook to
+ load()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241024160340.1012474-1-andrew.cooper3@citrix.com>
+References: <20241024132205.987042-1-andrew.cooper3@citrix.com>
+ <20241024132205.987042-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,21 +111,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241024160340.1012474-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20241024132205.987042-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.10.2024 18:03, Andrew Cooper wrote:
-> discard_initial_images() only works because init_domheap_pages() with ps==pe
-> is a no-op.
+On 24.10.2024 15:22, Andrew Cooper wrote:
+> The microcode suffix is redundant, and "microcode loading" is the more common
+> term
 
-And intentionally so. Hence why I don't mind ...
+Just to mention it - much like the microcode suffix is redundant, ...
 
-> In dom0_construct(), explaining the significance of setting the initrd length
-> to 0, and put an explicit check in discard_initial_images().
+> --- a/xen/arch/x86/cpu/microcode/amd.c
+> +++ b/xen/arch/x86/cpu/microcode/amd.c
+> @@ -214,8 +214,8 @@ static enum microcode_match_result cf_check compare_patch(
+>      return compare_header(new, old);
+>  }
+>  
+> -static int cf_check apply_microcode(const struct microcode_patch *patch,
+> -                                    unsigned int flags)
+> +static int cf_check amd_ucode_load(const struct microcode_patch *patch,
+> +                                   unsigned int flags)
+>  {
 
-... the extra conditional, I also don't really see why we would strictly need
-it.
+... the ucode infix is as well. Arguably even the amd prefix is redundant
+(with the file name). I won't insist on either adjustment, though.
 
 Jan
 
