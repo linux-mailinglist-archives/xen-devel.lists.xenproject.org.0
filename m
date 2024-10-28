@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4A49B364D
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 17:19:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826824.1241242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5F8D9B365D
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 17:23:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826830.1241252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5SSB-0001WG-34; Mon, 28 Oct 2024 16:18:51 +0000
+	id 1t5SVw-0003P9-KM; Mon, 28 Oct 2024 16:22:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826824.1241242; Mon, 28 Oct 2024 16:18:51 +0000
+Received: by outflank-mailman (output) from mailman id 826830.1241252; Mon, 28 Oct 2024 16:22:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5SSB-0001UP-08; Mon, 28 Oct 2024 16:18:51 +0000
-Received: by outflank-mailman (input) for mailman id 826824;
- Mon, 28 Oct 2024 16:18:49 +0000
+	id 1t5SVw-0003MX-HI; Mon, 28 Oct 2024 16:22:44 +0000
+Received: by outflank-mailman (input) for mailman id 826830;
+ Mon, 28 Oct 2024 16:22:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/lrK=RY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t5SS9-0001UJ-Pp
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 16:18:49 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1t5SVv-0003MR-2L
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 16:22:43 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4fa00fc3-9548-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 17:18:47 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5cbb719839eso4204227a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 09:18:47 -0700 (PDT)
+ id daa3571f-9548-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 17:22:41 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a99f1fd20c4so649888966b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 09:22:41 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b1f030c40sm389941966b.84.2024.10.28.09.18.46
+ a640c23a62f3a-a9b331b0d44sm387376266b.187.2024.10.28.09.22.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 09:18:46 -0700 (PDT)
+ Mon, 28 Oct 2024 09:22:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fa00fc3-9548-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: daa3571f-9548-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730132327; x=1730737127; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730132560; x=1730737360; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3AZ1TCtzJA0Vf8xLhq2vwsno1Q5afCdh69Svku7uVlU=;
-        b=m96kfcTzDtqAjTk4u/nMbLtMlwtrW6UPvwnePd7yicuSPpfFp/iVJRpqOF+mQholar
-         5fe0FvYvRs4GX0Q2sIQLFWn/nJkkYG39G3OYz5BAPGngZ9YMEXNsI4BWxrK90fdMdOn3
-         86t6ZgdSVFzg1jTJpCdL1elsZs7LwwdTMJcjg=
+        bh=S9r1AOXX79dMDitDZP8094KbsR0t3/bmLUeSgYO5vjw=;
+        b=ZniQOPW/4kwQDl5A/pyeK6Jy/bTt4e2kAxVZeb4txpGOYJOjY6+jWMRSc7xJF5f7cS
+         +i9Uwhzktz9DWnH8BwgEYml8JuuI1FlIUbCXC3fIl6KEvr//kGrVNHnIaE62X4ZRw8+4
+         /V0VwaDO0MpLlaha/91YbLxJGBPaKvw1pPCcY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730132327; x=1730737127;
+        d=1e100.net; s=20230601; t=1730132560; x=1730737360;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3AZ1TCtzJA0Vf8xLhq2vwsno1Q5afCdh69Svku7uVlU=;
-        b=njRtDqn5shDaQ1vh9X0HDCH7EO1OvlzxXVa71c6z0FkjefBbHdeC6UE/9ht9EhfM2S
-         9B0prY9N1VY77Af0xEZRJJ5S2kIJVvep/0HK6+/2DOKdGPKjZkSSYD5KXEm8Qc+pR1DN
-         fKpFMFHpVSQyq1Hq/KA5d8EUXjI5NbW0x+Cbgd1OfEqRAUIEkFUZtoXk7TKvngkACwaa
-         4DaJbze4z2VBljOcghFCtwMC5Rzwd85utK1DJ+6b/85Chi985wiUm6xr60+b2PU3cclg
-         q5NFHkJPjJ/UkMbrUDDW4ReB+f1s9nDyiDxqFEZyKWeG59hY9yua5cIk9CH3UhAQZLlo
-         3bzQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV1qR5hfsZy/PkkFuI7KkwvAjJHBFX/yhFy2OpYsX8pO/2wtXtfy2oiecapgK5M6TLYgatKBA7syPo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTRU8AFqKeLyykEektX7fKpjQAykj5OHg+ibPIjY7jw7xdtQOi
-	4FSRyIL0FZD58/LpAFuUPnGssYwaf+EeCMqpiZoXZxSmE0BeD9qHsxyNdj+0l3Q=
-X-Google-Smtp-Source: AGHT+IHGiLn42Qks4zVeV7ehp6j6INYqF8Lmo0ar8bwsgj3wxi1gqxckHaAPXPLraNq4ihDcWQCgnQ==
-X-Received: by 2002:a17:907:9719:b0:a9a:67a9:dc45 with SMTP id a640c23a62f3a-a9de5d6eb93mr836213966b.3.1730132327333;
-        Mon, 28 Oct 2024 09:18:47 -0700 (PDT)
-Message-ID: <ecd11958-2ce8-41fc-87f8-7b6b090c74b5@citrix.com>
-Date: Mon, 28 Oct 2024 16:18:45 +0000
+        bh=S9r1AOXX79dMDitDZP8094KbsR0t3/bmLUeSgYO5vjw=;
+        b=qTacfdDI+bpuL/t2xq/G7a0bbxvkSURafeXy5mo2X8Y5KlCWp1C3s+ygS5sgeMOJtJ
+         pSYOaLZJlJFBuLsMRAzrUJ/Kj9YhlnaIITCYQqYUVutM1B72rp+0pH0XZxSC/2edk7Hj
+         yiF913xa1CpEeg+6LspEfG7QVt6gNygwAhS7JvyWbuKYFRad363hfGmkpte/tn+UH/V6
+         zwdDTB/kzdzrjQVczlemBDhquBtSjd35kmBEKfAT6yWN6SuumcKgYp43BO/I3n4scrHY
+         1NMERiAnj8Qj0uKZsT9ISZ3jrd4xJf4Y13yFjoR3NkfimhYeoh7BoBeXoYXjicqJkGok
+         0S4g==
+X-Forwarded-Encrypted: i=1; AJvYcCUV5HZHocHutjkDfz3A5JcSwN/jBIwSSinmuWrmdMXKtivU8v9TCqtp8LAfI9eAlZ3aqp8eTcm9heQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAGAUjaQHDow25Om74P5MY8DH3Yr5D2EjVeS4aSChovr6BUrzz
+	VmJP/2axRfhVwzCOpAeFjFw45LdHigbrFW+w9BFRlTTdAt5l1z+4XUpQD2TYqzakSbvGzgmir2O
+	x
+X-Google-Smtp-Source: AGHT+IErECNCNwgmzkqhwkuGcEdhNeEw7Bg+N5Fsg2t+J+elnKyNVEiIJL74uix6FHJd9su9lK+k4g==
+X-Received: by 2002:a17:907:7d87:b0:a9a:f0e:cd4 with SMTP id a640c23a62f3a-a9de619a63bmr918745566b.55.1730132560530;
+        Mon, 28 Oct 2024 09:22:40 -0700 (PDT)
+Message-ID: <1b3b07f9-f949-4b4b-ab33-4282929db220@citrix.com>
+Date: Mon, 28 Oct 2024 16:22:38 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] earlycpio: constify find_cpio_data()'s "data" parameter
+Subject: Re: [PATCH 09/10] x86/ucode: Drop ucode_mod and ucode_blob
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b2fdb048-cfc5-4f61-8507-bf8020e02132@suse.com>
- <764c0116-88ed-48af-8e53-f2a0f6e850a3@citrix.com>
- <c618e09f-b88c-45c8-8cbd-8aae82891c6e@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241028091856.2151603-1-andrew.cooper3@citrix.com>
+ <20241028091856.2151603-10-andrew.cooper3@citrix.com>
+ <f4a7cb7a-2b76-4d97-adbb-430bfcd0d054@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,29 +132,54 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c618e09f-b88c-45c8-8cbd-8aae82891c6e@suse.com>
+In-Reply-To: <f4a7cb7a-2b76-4d97-adbb-430bfcd0d054@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/10/2024 4:12 pm, Jan Beulich wrote:
-> On 28.10.2024 17:07, Andrew Cooper wrote:
->> On 28/10/2024 4:03 pm, Jan Beulich wrote:
->>> As with 9cbf61445cda ("xen/earlycpio: Drop nextoff parameter"): While
->>> this is imported from Linux, the parameter not being pointer-to-const is
->>> dubious in the first place and we're not plausibly going to gain a write
->>> through it.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> You haven't tried compiling this, have you?
-> Of course I have. Is there any subtlety with compiler versions? Or what
-> else am I missing?
+On 28/10/2024 4:04 pm, Jan Beulich wrote:
+> On 28.10.2024 10:18, Andrew Cooper wrote:
+>> @@ -789,23 +734,47 @@ static int __init early_update_cache(const void *data, size_t len)
+>>      return rc;
+>>  }
+>>  
+>> +/*
+>> + * Set by early_microcode_load() to indicate where it found microcode, so
+>> + * microcode_init_cache() can find it again and initalise the cache.  opt_scan
+>> + * tells us whether we're looking for a raw container or CPIO archive.
+>> + */
+>> +static int __initdata early_mod_idx = -1;
+>> +
+>>  static int __init cf_check microcode_init_cache(void)
+>>  {
+>>      struct boot_info *bi = &xen_boot_info;
+>> +    void *data;
+> Afaics the sole reason this isn't const void * and ...
+>
+>> @@ -819,7 +788,7 @@ presmp_initcall(microcode_init_cache);
+>>   */
+>>  static int __init early_microcode_load(struct boot_info *bi)
+>>  {
+>> -    const void *data = NULL;
+>> +    void *data = NULL;
+> ... you're actively dropping const here (which I consider bad) is
+> find_cpio_data() wrongly taking void * as 2nd parameter.
 
-struct cpio_data's copy of this field is non-const (which you keep on
-noting that new compilers will object to), and you can't change that
-without breaking the build in microcode.
+No; it's only one of 2 reasons.
 
-Nothing of this form can be taken until the constness is consistent in
-microcode, after which yes it can mostly become const.
+>  Internally it
+> copies the parameter to a const char * variable, so the non-const param
+> is bogus.
+
+... and then back into a non-const variable, hence why such a change
+doesn't work.
+
+>  With the const here retained and const added further up (on
+> top of a trivial prereq patch adjusting find_cpio_data(), which I've
+> just sent out):
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Only after this series has make const-ness consistent through this
+logic, can you go about changing CPIO.
 
 ~Andrew
 
