@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E08AE9B336F
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 15:26:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826605.1240922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 587039B33C3
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 15:38:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826614.1240932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5QgN-000711-TH; Mon, 28 Oct 2024 14:25:23 +0000
+	id 1t5Qsr-0000gF-12; Mon, 28 Oct 2024 14:38:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826605.1240922; Mon, 28 Oct 2024 14:25:23 +0000
+Received: by outflank-mailman (output) from mailman id 826614.1240932; Mon, 28 Oct 2024 14:38:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5QgN-0006zL-Qd; Mon, 28 Oct 2024 14:25:23 +0000
-Received: by outflank-mailman (input) for mailman id 826605;
- Mon, 28 Oct 2024 14:25:22 +0000
+	id 1t5Qsq-0000el-UQ; Mon, 28 Oct 2024 14:38:16 +0000
+Received: by outflank-mailman (input) for mailman id 826614;
+ Mon, 28 Oct 2024 14:38:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5QgM-0006zF-5n
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 14:25:22 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/lrK=RY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t5Qsp-0000ef-AX
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 14:38:15 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75b79eca-9538-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 15:25:19 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43169902057so42722565e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 07:25:19 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4318b567977sm141456675e9.27.2024.10.28.07.25.18
+ id 42980083-953a-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 15:38:13 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a86e9db75b9so657351566b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 07:38:13 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9b1f2982e1sm386366466b.99.2024.10.28.07.38.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 07:25:19 -0700 (PDT)
+ Mon, 28 Oct 2024 07:38:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75b79eca-9538-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 42980083-953a-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730125519; x=1730730319; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730126292; x=1730731092; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hRk3zhoQ1tugjUj705YDbrxqHJjVDY/zLW7g4vcr1to=;
-        b=NYuJk8mkBAp9bG4tc6SnEAJPPXxZCpn7zVBhrNJ1ZCTG2YRxTSpo3rJ28+ddrgxBez
-         DYUso4Gr8tjliYmQ0u/z0ozAvKAqDFkr59/0YS5NSbKOeEQyTQLfHJgnWcJZuyLAzBGh
-         3ALLM2Zfx5LZsdTrk1t9E6knILv/KLRvhvd6jzU+pWk3N5/ww+2afW/0t2CBy+CWvOec
-         pSI3scDAFXYUa1LGng/1hxNl/w1RVq4QzH2+3HbV83hXABvyHdk8CxuHtvvTar37kBV7
-         5ogu4kDnWWmYC/Rfr1XiyxvZabDuG4D89J3AhDZAM60d6n4ZRvuZURf8TfOjVMFCyiuj
-         Umaw==
+        bh=+MecUKJiR5cXcEL9kXdb3EAYSjLxZtq8PeDrtzJXvSw=;
+        b=JQQ/Bzih/q3Jz4zPq/RhL1edM6vMmK2no5rdVbPsefBDlx+6QCOSSoPXCoCDtB51FQ
+         p2UUUkl4Hmp1o/3tkFy1XdEW3DwXjeOhPq8Z3ADfexmaq5DmCZGlDMzLlBOG3HjZZjO6
+         rzTxn1VB4VqtwBIv+Go3ARV5nVkLN8HpYp5i8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730125519; x=1730730319;
+        d=1e100.net; s=20230601; t=1730126292; x=1730731092;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hRk3zhoQ1tugjUj705YDbrxqHJjVDY/zLW7g4vcr1to=;
-        b=Mu9zxNpmGT5DCHTvNqJS7DHdWMuCNczEhnWHqcUoCh3TFaqp/Hb3PlhBCQTyNom3AG
-         c4KLGORCQ1t5VUV9W15eCfxRJpkOHdL0tUg8QOVaEaibxEcStGTlqBlFNFoSQjpTsFCp
-         9epRs1bD6AVqbJBzzkc94IxMDIJewmeRs0lzunG5HVcgGwLW8ifsYJuhcSx6aLnaWSy3
-         Hv9uN75lwD1jNTIr3JyZuGuDX4oUIizqU/vGA5ZaxWR+9EZWZpAXaW6efkeMBXKcXyya
-         AFsAPLsdWiSz8JOrVhsQnyrT3pDE9CxCFm5+0lSdCXMKDVnuqgOGpnhm7N0FmAUemQSL
-         G7+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUPXC4h9iBFTr47h0S1RhF282ZkXbaEvvziHmy6/QY26KzRPEJHsUIsAw+JuN4/TffKMugco28dS1s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyY87OLTVkO1AaTjcClK54Jy4COcYEbkH8XvhFboiYJdvr5Phjk
-	/YN7VaMkCuamfih4X07c55w1fmoJ+SrBm1QZhTbwTEHyPolwucHLqgoP57n78Q==
-X-Google-Smtp-Source: AGHT+IHdTiw4F3+8QlcZL6LIhuQYnXiBejtIg7AcjrXl3tRCYTUFc44oevSSQdmvZHUAnkGjDT4xQQ==
-X-Received: by 2002:a05:600c:4455:b0:42c:b16e:7a22 with SMTP id 5b1f17b1804b1-4319ac9acadmr68465875e9.12.1730125519298;
-        Mon, 28 Oct 2024 07:25:19 -0700 (PDT)
-Message-ID: <2e3dfea1-8277-4d4e-b594-87b3cac3052b@suse.com>
-Date: Mon, 28 Oct 2024 15:25:18 +0100
+        bh=+MecUKJiR5cXcEL9kXdb3EAYSjLxZtq8PeDrtzJXvSw=;
+        b=APbrXlkO/TgcMJXoI2zPbqs75c/eDqBC4CT7k8hj95edqYRXtKOiC71ojxlW9x3kz2
+         oSydmdpYH2u3OtBdDlz+/xXoUPnlV7RxMrCC4EGiuW+QJxB+b8v7quCOrM11EhTQAA/p
+         zIobuXQU0k+2rHcEJ5fVOasXJNywPoWr90OQ0q93vskBGxgLpZALyOuUZB99h4UPjCsF
+         JAq9J5Mljw/es1ACje5mN5u2mkOVuSEqFNrqzlcViBsjiKMTaKbFSEkgr34KP2OQsvgG
+         MZS3sXMPRJIr7gspAXPDJSaCH02g+7s2vNCTaQKCJkTSXLPaDNWnIph6a7L1wzjE+9CJ
+         yNbw==
+X-Forwarded-Encrypted: i=1; AJvYcCXOnvhZSdct7wmsokkzWg8euEGGU4aeUU9Oln+f25T2Yu5pzsVaYYEN8J75ZFYxg1qO3o5BPJ0t2cc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwdxWEjTTb3bEyVIcVTIrufbJoNd8AagOBysT4iwy77i0cua7S+
+	cdjyEO4DiuhkjHYDR0uK4crrka27kATsxzTk731dm7L1Mky93/ZdbdV6ivn9BqE=
+X-Google-Smtp-Source: AGHT+IEqisa0UcsacRN36IYBdQeSn/UH4dbEHoC/gE+00RPMwsh7WxRCtDjNpqSH7A1oCwcCahoJVg==
+X-Received: by 2002:a17:907:3f20:b0:a9a:375e:c167 with SMTP id a640c23a62f3a-a9de5c91a19mr805275166b.1.1730126292449;
+        Mon, 28 Oct 2024 07:38:12 -0700 (PDT)
+Message-ID: <d54ed169-fd41-41b3-9222-50e858c0b622@citrix.com>
+Date: Mon, 28 Oct 2024 14:38:10 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 07/10] x86/ucode: Move the CPIO path string into
  microcode_ops
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "Daniel P . Smith" <dpsmith@apertussolutions.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241028091856.2151603-1-andrew.cooper3@citrix.com>
  <20241028091856.2151603-8-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241028091856.2151603-8-andrew.cooper3@citrix.com>
+ <2e3dfea1-8277-4d4e-b594-87b3cac3052b@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <2e3dfea1-8277-4d4e-b594-87b3cac3052b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.10.2024 10:18, Andrew Cooper wrote:
-> We've got a perfectly good vendor abstraction already for microcode.  No need
-> for a second ad-hoc one in microcode_scan_module().
-> 
-> This is in preparation to use ucode_ops.cpio_path in multiple places.
-> 
-> These paths are only used during __init, so take the opportunity to move them
-> into __initconst.
+On 28/10/2024 2:25 pm, Jan Beulich wrote:
+> On 28.10.2024 10:18, Andrew Cooper wrote:
+>> We've got a perfectly good vendor abstraction already for microcode.  No need
+>> for a second ad-hoc one in microcode_scan_module().
+>>
+>> This is in preparation to use ucode_ops.cpio_path in multiple places.
+>>
+>> These paths are only used during __init, so take the opportunity to move them
+>> into __initconst.
+> As an alternative to this, how about ...
+>
+>> --- a/xen/arch/x86/cpu/microcode/private.h
+>> +++ b/xen/arch/x86/cpu/microcode/private.h
+>> @@ -59,6 +59,13 @@ struct microcode_ops {
+>>       */
+>>      enum microcode_match_result (*compare_patch)(
+>>          const struct microcode_patch *new, const struct microcode_patch *old);
+>> +
+>> +    /*
+>> +     * For Linux inird microcode compatibliity.
+>> +     *
+>> +     * The path where this vendor's microcode can be found in CPIO.
+>> +     */
+>> +    const char *cpio_path;
+>     const char cpio_path[];
+>
+> inheriting the __initconst from the struct instances?
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> with a slight preference to the form without the extra pointer.
 
-As an alternative to this, how about ...
+I'm slightly surprised at this request, given that the form with the
+pointer results in less data held at runtime.
 
-> --- a/xen/arch/x86/cpu/microcode/private.h
-> +++ b/xen/arch/x86/cpu/microcode/private.h
-> @@ -59,6 +59,13 @@ struct microcode_ops {
->       */
->      enum microcode_match_result (*compare_patch)(
->          const struct microcode_patch *new, const struct microcode_patch *old);
-> +
-> +    /*
-> +     * For Linux inird microcode compatibliity.
-> +     *
-> +     * The path where this vendor's microcode can be found in CPIO.
-> +     */
-> +    const char *cpio_path;
 
-    const char cpio_path[];
+>  Except that:
+> gcc14 looks to be buggy when it comes to the copying of such a struct. The
+> example below yields an internal compiler error. And the direct structure
+> assignment also doesn't quite do what I would expect it to do (visible when
+> commenting out the "else" branch. Bottom line - leave the code as is.
 
-inheriting the __initconst from the struct instances?
-Acked-by: Jan Beulich <jbeulich@suse.com>
-with a slight preference to the form without the extra pointer. Except that:
-gcc14 looks to be buggy when it comes to the copying of such a struct. The
-example below yields an internal compiler error. And the direct structure
-assignment also doesn't quite do what I would expect it to do (visible when
-commenting out the "else" branch. Bottom line - leave the code as is.
+It's unfortunate to hit an ICE, but the copy cannot possibly work in the
+first place.
 
-Jan
+ucode_ops is in a separate translation unit and has no space allocated
+after the flexible member.   Any copy into it is memory corruption of
+whatever object happens to be sequentially after ucode_ops.
 
-struct s {
-	unsigned long ul;
-	int i;
-	char ac[];
-};
+The only way it would work is having `const char cpio_path[40];` which
+is long enough for anything we'd expect to find.
 
-const struct s gs = { 3, -4, "abcdef" };
+But again, that involves holding init-only data post init.
 
-void copy_s(struct s*d, const struct s*s) {
-	*d = *s;
-}
-
-unsigned test(struct s*ps, _Bool direct) {
-	if(direct)
-		*ps = gs;
-	else
-		copy_s(ps, &gs);
-	return sizeof(*ps);
-}
-
-unsigned size(void) {
-	return sizeof(gs);
-}
-
+~Andrew
 
