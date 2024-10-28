@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AB9B9B355D
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 16:50:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826696.1241156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C109B35AD
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 17:03:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826778.1241182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5S0X-0003nZ-R4; Mon, 28 Oct 2024 15:50:17 +0000
+	id 1t5SDE-0003Cf-4G; Mon, 28 Oct 2024 16:03:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826696.1241156; Mon, 28 Oct 2024 15:50:17 +0000
+Received: by outflank-mailman (output) from mailman id 826778.1241182; Mon, 28 Oct 2024 16:03:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5S0X-0003hF-E2; Mon, 28 Oct 2024 15:50:17 +0000
-Received: by outflank-mailman (input) for mailman id 826696;
- Mon, 28 Oct 2024 15:50:15 +0000
+	id 1t5SDE-0003At-1A; Mon, 28 Oct 2024 16:03:24 +0000
+Received: by outflank-mailman (input) for mailman id 826778;
+ Mon, 28 Oct 2024 16:03:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7IZ5=RY=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t5S0V-0008FV-44
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 15:50:15 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t5SDD-0003An-C9
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 16:03:23 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5144c1cb-9544-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 16:50:12 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a9a2cdc6f0cso603068166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 08:50:12 -0700 (PDT)
-Received: from localhost.localdomain ([217.156.233.154])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b3a0834a6sm387674066b.191.2024.10.28.08.50.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Oct 2024 08:50:11 -0700 (PDT)
+ id 272ca9d4-9546-11ef-99a3-01e77a169b0f;
+ Mon, 28 Oct 2024 17:03:21 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-539f72c913aso5744813e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 09:03:21 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-431935f744esm114660985e9.34.2024.10.28.09.03.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Oct 2024 09:03:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5144c1cb-9544-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 272ca9d4-9546-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730130612; x=1730735412; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HwNJgVlmgOrKpINGfBXiXo/pOeaz7GckymMD2iqzF3A=;
-        b=Duuih0KxloKm6sWNfEyA3X8M8+QqdQBFfStVqYKNepZMoDGZ4GgrU/L3nbIDlpkcIR
-         Myv9lnFxGJi9oPLOGO9zcTQPANVGlnKp0GyPFPDqIgQlRmmf9twubJSexKwhr7pkb6Lh
-         nJFfBKpdDvM8xntw5V1pnJgPDVORJsZHx7X/o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730130612; x=1730735412;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=suse.com; s=google; t=1730131400; x=1730736200; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=HwNJgVlmgOrKpINGfBXiXo/pOeaz7GckymMD2iqzF3A=;
-        b=kVluQsc3kD8D/uZAppkHV2Mi/L2VntPoBw/b3jT9Fc8LdPM4PoQHenK65uCq07PG3F
-         gsRKRBubQDAqrc/TwbodAFb76kpaDqHUVkmW6zFJkQz2KTpM43+N8fLJUPXS1Lo0d07Y
-         a6RKFCXNUVBJ2vuQd5jbzl11v+O6WOtc+HAWfqzrgYwHL5Uza5aRQrEBqr+LazgfS3B0
-         Ri+djPBzavRK0SwMbdqtZcEDvHITXGUqSfqbbAsRB0KFHMBWAVY9ovAn9uPaGbzeNCS0
-         cFHgCY5tcK/j0dwgG3962U0QegvwdUll2ENbkCJfVeIOhKGOnMC8ofZhPxambsEbfmhW
-         bVug==
-X-Gm-Message-State: AOJu0Yx3BjKFw4X6/WGQZjLabr0QIimiUYkTow3VXtpYXBnqZWV+zgTb
-	PEQyIV3weq75Yv2u4VK4d/1IotKKuSys/6eMD1norR9pDIlTo8Krh5HuQ5ehXoTH61qdTWnwrHV
-	E
-X-Google-Smtp-Source: AGHT+IHEY1nVRqaVDFBcRPDXXekAHbeOYazAPOBV9yuB9+xZ37aBGYXnmRkAxgllujT4PRIvJffbng==
-X-Received: by 2002:a17:906:c14a:b0:a9a:80bd:2920 with SMTP id a640c23a62f3a-a9de61990b1mr811601166b.53.1730130611929;
-        Mon, 28 Oct 2024 08:50:11 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 14/14] x86/xstate: Make xstate_all() and vcpu_xsave_mask() take explicit xstate
-Date: Mon, 28 Oct 2024 15:49:32 +0000
-Message-ID: <20241028154932.6797-15-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241028154932.6797-1-alejandro.vallejo@cloud.com>
-References: <20241028154932.6797-1-alejandro.vallejo@cloud.com>
+        bh=Qgj69Cd/dAiOQr4jsPsRsdPGZRl2lr4O7CpY+NdIcKg=;
+        b=HBb2ZgzjKV9v8Y2NKC5du9d1k2l61sWYVaBYH42NQ1hCVl3HtrIuv0QTLBxlTAe2Cb
+         0ERrEZ6AIpEM2SYFvyLVRaZ8Wi4uzYEQliHfVKnGCGTGYMZpLEvHPaVl0cqzF1CYU407
+         jRXyveH7WTME/gSbhrVksese6LXKb0L8zbWwG7+qB+VOYjL/tSutm7v3AhiXW+cUOOLh
+         XqtyknG9K3uc4WC1/8LTKOsrLccdTq5Jy/0X6k69OSTsN2tLoyTeWpcxZWSzOf+PnOlN
+         0p9/2WoDsqB7aiX2YhfzifJn2xI94NKcTAbxq4rAcnPoS7S9DQFanAowecVz6yD6ZbjN
+         x66g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730131400; x=1730736200;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qgj69Cd/dAiOQr4jsPsRsdPGZRl2lr4O7CpY+NdIcKg=;
+        b=Z/HTi2kd9xGDzAe53UKVMc1T9olGG19ovz6l7URWiVz4uIwsayO+FXGi3LgG9XW9xL
+         n8tITsvmZ8grY4YMH/LXFTGN3JTiMx33QxmGf7X/qzw/wbNXvNzRQPE6NutzeK/8E8Zu
+         EXDQwqcgPae23mQgnYk3kMKH02WJSNOCjGEMZUBE15RCGK4k3h56E7yXLYTjoZyaOiE+
+         gA0WH6P+4bWljldqy3u35uDE9fN6+juUv1s8ipjaqQ4UTROeD5s8JhSfc29Ng3D67mto
+         2vj+RfAcFgUBrOGH20DBZpX2h/jiu83tzujvgJ4NuOI9YHshIW08SfYDyPq5UFact5oI
+         DWiA==
+X-Gm-Message-State: AOJu0Yw020MK/HxHvY5mWV0IRai+htwzcsgf1IUvcpSRm6dl7IW2nQ13
+	UmiN/Pc/3dQCO14A+v3rJwQgdRnDmhOXogyS/IUEpCpxoKdWL8LVf5L7Jp+F/XO9NZXMkpJgcGM
+	=
+X-Google-Smtp-Source: AGHT+IHMEj5uN+E77renAJ9qLvrG8/erYlbeK1PEi2oVzi9SyyFi0TsupUvfAgk7kZfoFXL0wl+ieg==
+X-Received: by 2002:a05:6512:401f:b0:539:e317:b05f with SMTP id 2adb3069b0e04-53b348e2e0fmr4082587e87.28.1730131398870;
+        Mon, 28 Oct 2024 09:03:18 -0700 (PDT)
+Message-ID: <b2fdb048-cfc5-4f61-8507-bf8020e02132@suse.com>
+Date: Mon, 28 Oct 2024 17:03:17 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] earlycpio: constify find_cpio_data()'s "data" parameter
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-No functional change.
+As with 9cbf61445cda ("xen/earlycpio: Drop nextoff parameter"): While
+this is imported from Linux, the parameter not being pointer-to-const is
+dubious in the first place and we're not plausibly going to gain a write
+through it.
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
- xen/arch/x86/i387.c               | 9 +++++----
- xen/arch/x86/include/asm/xstate.h | 5 +++--
- xen/arch/x86/xstate.c             | 2 +-
- 3 files changed, 9 insertions(+), 7 deletions(-)
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
-index 7e1fb8ad8779..87b44dc11b55 100644
---- a/xen/arch/x86/i387.c
-+++ b/xen/arch/x86/i387.c
-@@ -108,7 +108,8 @@ static inline void fpu_fxrstor(struct vcpu *v, const fpusse_t *fpu_ctxt)
- /*      FPU Save Functions     */
- /*******************************/
+--- a/xen/common/earlycpio.c
++++ b/xen/common/earlycpio.c
+@@ -64,7 +64,8 @@ enum cpio_fields {
+  *              the match returned an empty filename string.
+  */
  
--static inline uint64_t vcpu_xsave_mask(const struct vcpu *v)
-+static inline uint64_t vcpu_xsave_mask(const struct vcpu *v,
-+                                       const struct xsave_struct *xsave_area)
+-struct cpio_data __init find_cpio_data(const char *path, void *data, size_t len)
++struct cpio_data __init find_cpio_data(
++	const char *path, const void *data, size_t len)
  {
-     if ( v->fpu_dirtied )
-         return v->arch.nonlazy_xstate_used ? XSTATE_ALL : XSTATE_LAZY;
-@@ -125,14 +126,14 @@ static inline uint64_t vcpu_xsave_mask(const struct vcpu *v)
-      * XSTATE_FP_SSE), vcpu_xsave_mask will return XSTATE_ALL. Otherwise
-      * return XSTATE_NONLAZY.
-      */
--    return xstate_all(v) ? XSTATE_ALL : XSTATE_NONLAZY;
-+    return xstate_all(v, xsave_area) ? XSTATE_ALL : XSTATE_NONLAZY;
- }
+ 	const size_t cpio_header_len = 8*C_NFIELDS - 2;
+ 	struct cpio_data cd = { NULL, 0, "" };
+--- a/xen/include/xen/earlycpio.h
++++ b/xen/include/xen/earlycpio.h
+@@ -9,6 +9,6 @@ struct cpio_data {
+ 	char name[MAX_CPIO_FILE_NAME];
+ };
  
- /* Save x87 extended state */
- static inline void fpu_xsave(struct vcpu *v, struct xsave_struct *xsave_area)
- {
-     bool ok;
--    uint64_t mask = vcpu_xsave_mask(v);
-+    uint64_t mask = vcpu_xsave_mask(v, xsave_area);
+-struct cpio_data find_cpio_data(const char *path, void *data, size_t len);
++struct cpio_data find_cpio_data(const char *path, const void *data, size_t len);
  
-     ASSERT(mask);
-     ASSERT(cpu_has_xsave);
-@@ -213,7 +214,7 @@ void vcpu_restore_fpu_nonlazy(struct vcpu *v, bool need_stts)
-      * saving state belonging to another vCPU.
-      */
-     xsave_area = vcpu_map_xsave_area(v);
--    if ( v->arch.fully_eager_fpu || xstate_all(v) )
-+    if ( v->arch.fully_eager_fpu || xstate_all(v, xsave_area) )
-     {
-         if ( cpu_has_xsave )
-             fpu_xrstor(v, xsave_area, XSTATE_ALL);
-diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include/asm/xstate.h
-index 43f7731c2b17..81350d0105bb 100644
---- a/xen/arch/x86/include/asm/xstate.h
-+++ b/xen/arch/x86/include/asm/xstate.h
-@@ -132,14 +132,15 @@ xsave_area_compressed(const struct xsave_struct *xsave_area)
-     return xsave_area->xsave_hdr.xcomp_bv & XSTATE_COMPACTION_ENABLED;
- }
- 
--static inline bool xstate_all(const struct vcpu *v)
-+static inline bool xstate_all(const struct vcpu *v,
-+                              const struct xsave_struct *xsave_area)
- {
-     /*
-      * XSTATE_FP_SSE may be excluded, because the offsets of XSTATE_FP_SSE
-      * (in the legacy region of xsave area) are fixed, so saving
-      * XSTATE_FP_SSE will not cause overwriting problem with XSAVES/XSAVEC.
-      */
--    return xsave_area_compressed(v->arch.xsave_area) &&
-+    return xsave_area_compressed(xsave_area) &&
-            (v->arch.xcr0_accum & XSTATE_LAZY & ~XSTATE_FP_SSE);
- }
- 
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index aa5c062f7e51..cbe56eba89eb 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -1002,7 +1002,7 @@ int handle_xsetbv(u32 index, u64 new_bv)
-             asm ( "stmxcsr %0" : "=m" (xsave_area->fpu_sse.mxcsr) );
-             vcpu_unmap_xsave_area(curr, xsave_area);
-         }
--        else if ( xstate_all(curr) )
-+        else if ( xstate_all(curr, xsave_area) )
-         {
-             /* See the comment in i387.c:vcpu_restore_fpu_eager(). */
-             mask |= XSTATE_LAZY;
--- 
-2.47.0
-
+ #endif /* _EARLYCPIO_H */
 
