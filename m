@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D10F29B377E
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:17:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826889.1241332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C23929B378A
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:20:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826896.1241342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5TMK-0001P4-4J; Mon, 28 Oct 2024 17:16:52 +0000
+	id 1t5TPj-0003U3-Kk; Mon, 28 Oct 2024 17:20:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826889.1241332; Mon, 28 Oct 2024 17:16:52 +0000
+Received: by outflank-mailman (output) from mailman id 826896.1241342; Mon, 28 Oct 2024 17:20:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5TMK-0001NZ-0O; Mon, 28 Oct 2024 17:16:52 +0000
-Received: by outflank-mailman (input) for mailman id 826889;
- Mon, 28 Oct 2024 17:16:51 +0000
+	id 1t5TPj-0003R7-Hs; Mon, 28 Oct 2024 17:20:23 +0000
+Received: by outflank-mailman (input) for mailman id 826896;
+ Mon, 28 Oct 2024 17:20:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/lrK=RY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t5TMJ-0001NT-0B
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:16:51 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1t5TPh-0003R1-Kc
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:20:21 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b2f8933-9550-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 18:16:50 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5c9428152c0so5288971a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 10:16:50 -0700 (PDT)
+ id e8b81ba2-9550-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 18:20:20 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a9a2209bd7fso680857766b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 10:20:20 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cbb62c9e60sm3505453a12.57.2024.10.28.10.16.47
+ a640c23a62f3a-a9b1dec8169sm393895666b.34.2024.10.28.10.20.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 10:16:47 -0700 (PDT)
+ Mon, 28 Oct 2024 10:20:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b2f8933-9550-11ef-a0c2-8be0dac302b0
+X-Inumbo-ID: e8b81ba2-9550-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730135809; x=1730740609; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730136020; x=1730740820; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=he1xDpJNSWo24LOGoxUn+wHNiZL9sJlBn2Xu+OzyMPg=;
-        b=j+SDvD81QxY6+I3diz2gh3NNBPrw1Cu0o7c0MdgtIYaNoTF6WCBU7EKwNAHOOkX8vS
-         Xx2eF6BOmuYacFRLLo7kkIxfcbrEIOABP6b3RrXL0/9ceRVZ+VuDHiM5+LvK1rHUDANn
-         3ejdnM0c+0nNKK0UklfIcgRw5CqIwYaFdD550=
+        bh=wLHV839vVLTXRRhKD2tZguxdsN+9yysZwUdPDCClAW8=;
+        b=pZ0qN41YxNgvXZGxU2Ouae1/8rsRrqR+/KU9cHFEz0GDF01FFfUxFF9R2GxILZ2tMp
+         GSAR3erarlYGl+Si/GWUdS9oz88RXpF4COsRXo+YZnyVybLdR8Mv1L3ju/ex+428UiXi
+         Z1oQ3Rs+PZrfUvMFAa/GJesaNb1/ahZGYn/ug=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730135809; x=1730740609;
+        d=1e100.net; s=20230601; t=1730136020; x=1730740820;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=he1xDpJNSWo24LOGoxUn+wHNiZL9sJlBn2Xu+OzyMPg=;
-        b=H32JTJ2wPbpJtoIw+VEfcfU563wSvkGgVq9MN8WM7LLOVqcUS36JwhSOTAToSzWlS/
-         agDt6Ggg4QbccOhb8ti8r0Dczh3UjWbYIB3uYw9ARarZJtdbdoON6AQonUM0gKs275aQ
-         d9DRnvFOIxi+YCfzmPiq1kHuoiMCtRbu4sX6Hf9K+SgjL2kIBgEjyLc/1LfihThSrh8J
-         zBmQ6PNC4ZNOEg86/qCWSMr0T+yi/WDSgEIK32g/aBIwBuDBKzXFSkaksASX5QEnqrvm
-         WUsYu9EH+4+zGMxg1uO+DcrOPyQkU2G2NOXAecL4a0ALmKwE4o+z0beSgVJHu0WHNe9K
-         N58A==
-X-Forwarded-Encrypted: i=1; AJvYcCVrpmLUjsgoOtrmns/10U141fGgxHev1F0RC8c/+MqHjlhf1A7hhb1P64Iy9896g40HUQCLoosTcuo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz2w+ExSMqEp1vkW2rBzCHabIBDSLP4uny/Vz+qomA/yovWxGS/
-	mFBdXayhKnF5OIwLT7IZLrowE8EE3rSHVU6OCEmLhgl/x4aj6Y5PprtrACl0sFk=
-X-Google-Smtp-Source: AGHT+IEw6ErSJJdCacCVgF7HXMfpvLiVptQod+5BieK+bG3ax/IRMjnRP+2tG1CJ3UAo8Iwxa4WHvA==
-X-Received: by 2002:a05:6402:278b:b0:5c9:85de:db8a with SMTP id 4fb4d7f45d1cf-5cbbf8a4d1cmr8483617a12.11.1730135808076;
-        Mon, 28 Oct 2024 10:16:48 -0700 (PDT)
-Message-ID: <fdc89027-d33c-40f5-93f9-b8d7e880e732@citrix.com>
-Date: Mon, 28 Oct 2024 17:16:46 +0000
+        bh=wLHV839vVLTXRRhKD2tZguxdsN+9yysZwUdPDCClAW8=;
+        b=fAAdMrm/ry4PCLgC8Il/kTdF082giwCvNGRluWiyWIKJwXu19jVtQkLVxlI9bZxaL8
+         80/xbyRsvmuCHCEzYx+AcJmNVnLoyvrleH9j5p3xCK1Kmwlrrd7bFRcg2XoLuJshD9Gq
+         3efqjHobMTGvbqb6B62vvB8iaq8sFJN/5Bxatrm95artdb0pfEZgYoDSxKrEgquwgKZF
+         qPMjmB4CcZDBC18Ye04jlvIML3vwCbtOpzqTHXGMQ1aK3PnoAGcd25+rsybAd2PCwEN7
+         l/V2SsMHXqiSqCXkdTi8wPsaOw2rOoDvDltD2VYG+zAtRncVtqRA9Doj8Orfz1/FMQuj
+         MIqA==
+X-Forwarded-Encrypted: i=1; AJvYcCUgtx4U3crEfCMiUUiohrmTVWfHf8uCjdqpCJF4te45Xo5Aim+hBaJ37GcBG5DBjEIk71U7QYlkgxk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyb5ahc1GyoCU/9zq7uJ4q+pwIUkP1D5/mZ26Q0MhmshoAi1ISC
+	N3jYhsmDtajVPPfyI4JZniHB5RXG09hBO72wDGXEuCBhyLhmmc7EP0AHTa6UPhQ=
+X-Google-Smtp-Source: AGHT+IGV+S1CEX32VTrHnM1WaJUXrhETl1VyagLcGKLGVmfcEunV5fGnSLbb17dBGo4C3dUbRTGGNQ==
+X-Received: by 2002:a17:907:7245:b0:a99:f8e2:edec with SMTP id a640c23a62f3a-a9de5d6f21cmr969172266b.21.1730136020187;
+        Mon, 28 Oct 2024 10:20:20 -0700 (PDT)
+Message-ID: <0a644e0d-b7dc-49b5-b4ba-943f809286a8@citrix.com>
+Date: Mon, 28 Oct 2024 17:20:18 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/14] x86/xstate: Update stale assertions in
- fpu_x{rstor,save}()
+Subject: Re: [PATCH 02/14] x86/xstate: Create map/unmap primitives for xsave
+ areas
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20241028154932.6797-1-alejandro.vallejo@cloud.com>
- <20241028154932.6797-2-alejandro.vallejo@cloud.com>
+ <20241028154932.6797-3-alejandro.vallejo@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,25 +131,47 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241028154932.6797-2-alejandro.vallejo@cloud.com>
+In-Reply-To: <20241028154932.6797-3-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 28/10/2024 3:49 pm, Alejandro Vallejo wrote:
-> The asserts' intent was to establish whether the xsave instruction was
-> usable or not, which at the time was strictly given by the presence of
-> the xsave area. After edb48e76458b("x86/fpu: Combine fpu_ctxt and
-> xsave_area in arch_vcpu"), that area is always present a more relevant
-> assert is that the host supports XSAVE.
->
-> Fixes: edb48e76458b("x86/fpu: Combine fpu_ctxt and xsave_area in arch_vcpu")
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
-> I'd also be ok with removing the assertions altogether. They serve very
-> little purpose there after the merge of xsave and fpu_ctxt.
+> diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include/asm/xstate.h
+> index 07017cc4edfd..36260459667c 100644
+> --- a/xen/arch/x86/include/asm/xstate.h
+> +++ b/xen/arch/x86/include/asm/xstate.h
+> @@ -143,4 +143,24 @@ static inline bool xstate_all(const struct vcpu *v)
+>             (v->arch.xcr0_accum & XSTATE_LAZY & ~XSTATE_FP_SSE);
+>  }
+>  
+> +/*
+> + * Fetch a pointer to the XSAVE area of a vCPU
+> + *
+> + * If ASI is enabled for the domain, this mapping is pCPU-local.
+> + *
+> + * @param v Owner of the XSAVE area
+> + */
+> +#define vcpu_map_xsave_area(v) ((v)->arch.xsave_area)
+> +
+> +/*
+> + * Drops the XSAVE area of a vCPU and nullifies its pointer on exit.
+> + *
+> + * If ASI is enabled and v is not the currently scheduled vCPU then the
+> + * per-pCPU mapping is removed from the address space.
+> + *
+> + * @param v           vCPU logically owning xsave_area
+> + * @param xsave_area  XSAVE blob of v
+> + */
+> +#define vcpu_unmap_xsave_area(v, x) ({ (x) = NULL; })
+> +
 
-I'd be fine with dropping them.  If they're violated, the use of
-XSAVE/XRSTOR immediately afterwards will be fatal too.
+Is there a preview of how these will end up looking with the real ASI
+bits in place?
+
+Having a macro-that-reads-like-a-function mutating x by name, rather
+than by pointer, is somewhat rude.  This is why we capitalise
+XFREE()/etc which have a similar pattern; to make it clear it's a macro
+and potentially doing weird things with scopes.
 
 ~Andrew
 
