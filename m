@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 695989B3434
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 16:01:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826640.1240972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F9C9B3467
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 16:07:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826646.1240981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5RF8-0006mY-Jn; Mon, 28 Oct 2024 15:01:18 +0000
+	id 1t5RKS-0007Ui-5g; Mon, 28 Oct 2024 15:06:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826640.1240972; Mon, 28 Oct 2024 15:01:18 +0000
+Received: by outflank-mailman (output) from mailman id 826646.1240981; Mon, 28 Oct 2024 15:06:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5RF8-0006jt-GS; Mon, 28 Oct 2024 15:01:18 +0000
-Received: by outflank-mailman (input) for mailman id 826640;
- Mon, 28 Oct 2024 15:01:17 +0000
+	id 1t5RKS-0007SO-36; Mon, 28 Oct 2024 15:06:48 +0000
+Received: by outflank-mailman (input) for mailman id 826646;
+ Mon, 28 Oct 2024 15:06:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5RF7-0006jl-AC
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 15:01:17 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1t5RKQ-0007Oz-Tv
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 15:06:46 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7af50e58-953d-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 16:01:16 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43168d9c6c9so45696215e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 08:01:16 -0700 (PDT)
+ id 3fa4af64-953e-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 16:06:46 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-539e63c8678so4417447e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 08:06:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4318b55f779sm141292715e9.18.2024.10.28.08.01.14
+ 5b1f17b1804b1-4318b57b5d9sm141504405e9.44.2024.10.28.08.06.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 08:01:15 -0700 (PDT)
+ Mon, 28 Oct 2024 08:06:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7af50e58-953d-11ef-a0c2-8be0dac302b0
+X-Inumbo-ID: 3fa4af64-953e-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730127675; x=1730732475; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730128005; x=1730732805; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Waws4sxMxmsg+1KCPdMNmG6diNbqVaHnZOWjCmR+lsU=;
-        b=aKKKibKYwYMZf5m6H6UrWXY77zB8JIU8OAxDFLaQHSK4hv/hNux/XGOsHYBK0EAOwf
-         irbjZud+2lUR0JsCyUAH2lMWqoDdcGpNJsW0uR3bf8MaFe+byb+UzzzsgLLL2kJczcMB
-         DGpGj74EaY8mPM4IKhR7pYzTENKxponUg+AiE1XmcHV9znsPAZNRAWFzP3YdfjSqusuB
-         B1PPYy+nwyRzVh8NqT/FmWNbuDuqkCW4P/+/JlqY73SV1j+GPLxazxAMJNyidm2LZh9z
-         /+v6s+8ATTQNFnYWN9GB3Q8eI0xT3YIiRNIEnooYMnMHTwXNLxpk+GI5RIpjq8xMZhKK
-         M1og==
+        bh=gqflbiWmtpOO6U9/BwdFS9BlUbLmiRF9EkK1xJKr7vk=;
+        b=WoMVZqiozXe2aIK1lSIiec6GBSaB2cSs+wql+wrUTDhy42MvfGAsqp8BU5FiYMpRSU
+         zhcFSi1Ye9HomvhiaE6Vj4BjnFkG6jT0eoF1aK40f32Xo+q8jsZ4LGWGQyJ+/4KJDriv
+         92T5Q7r7eRuLHsGduiNO4rdf07GzVmoJxA+NFAPhocLX2hLn/aVGPKqZzvV0zMYL+92Z
+         UEsQ3tdtq1RUP5Vr5pFA/9JOv8vxNXzDPTUE3maq/VsyJeuk95HMJtRd7Jhd9jNk/eNy
+         n4VwAP34Aq67bqrV+iE83Ve/ASLTe/wCPxP7zzrlHR6TSJcF/hn/UQVHIdOxg+w63YV9
+         4iVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730127675; x=1730732475;
+        d=1e100.net; s=20230601; t=1730128005; x=1730732805;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Waws4sxMxmsg+1KCPdMNmG6diNbqVaHnZOWjCmR+lsU=;
-        b=GXdEeB4W6vt624GFZHVkpC0buf6vB6KUg2UKFpCcNFeKqhjQPxoKqMPdcVMem03Ezs
-         IpOpZkb+tM+BCHaObehwgNJJUvjweiYCc460CwbkeUs8qj7ypAFdUiO5JP6nrsSzaDhb
-         uVfmxci8ZOMJI3Yeajqo7rRSfd1b/z+03enlkS3i0QERWRL2SmvFj+GjeJtppPjD6XIh
-         Jh6uwADR/xnvLTorBsaw4GJX0GfL1K5EGZ03rvi4+teHfBApsuW/xunqerNRrC+5gbPT
-         VPtZ3QSIwUF8qxjQWbQx+T30iighfP3AyLdDScUQv/ANVuAe4GE7Ga3a+/PVKiOoX6P6
-         Wyzg==
-X-Forwarded-Encrypted: i=1; AJvYcCWg5L4PQoVl/47BCrDbSucJS4k3g7uPHQrNLKFu8Zg+haL+u2ss8e0FF3yRvTZrlzNoZunf0CpkDJY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0pPI4zBtOiajkhdAgJLBgxWj/y2Gl2Vs1jf4/rfy4tN1xp4YP
-	ryQTc4VP03k1jsAOwJ9rTVQZzCI/56AbbyyJsj/nF5mjvWS+0PoJUYCqsolWHw==
-X-Google-Smtp-Source: AGHT+IHBVcrJKTMV00grUn/XxpDz85RClD5QrNc4A+xacdsFyKDceA3tNpTNjMTNTcx5GeSFIIbkLA==
-X-Received: by 2002:a05:600c:5253:b0:431:46fe:4cc1 with SMTP id 5b1f17b1804b1-4319aca42bemr77948265e9.10.1730127675505;
-        Mon, 28 Oct 2024 08:01:15 -0700 (PDT)
-Message-ID: <55728fdc-6247-4810-8696-a999713f4a7c@suse.com>
-Date: Mon, 28 Oct 2024 16:01:14 +0100
+        bh=gqflbiWmtpOO6U9/BwdFS9BlUbLmiRF9EkK1xJKr7vk=;
+        b=p6SP++BcjYmk+I4EQ2vsdvLW00Smi22toFSuF22PjLX7wJ8YsjAlsrIeh/ywvclOYE
+         mFx7kPrVdjDBQR6j1Fl/Tuy7qAAupcqqritiQbAW8qqQMREhsCMouzTbBHfNhkkuHq68
+         8I4k3ExS/fqgl0oWQns2CCqUQjuzSJ1a6OGObI513ekBvcNzFPebcWwxW4xdsd3K1YHa
+         wY/LzjOuNzxwo5sBsWZOfYVljLnBKKmdaJ91eI7T0r8aPy8yUA8LhRqgSd/Il21IOGQX
+         f0zeg7m8Y9Gsq/JEaq9sm97ktOnC+FdNOIDz/9j4lN23YNO+QQFKvNum0DF4GTeEqubu
+         KJrg==
+X-Forwarded-Encrypted: i=1; AJvYcCVkGiEBBDq3SIxeHrcIAPwBbqXhlV5l9Y2xBg7akkFBbyDs+h9fEJRCCyBnUHzGz7VQzALG9ToV/V4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUwTS97TptwTgyk9HzyT/AlNR1TaysnKqRzNWChgfuqEXdnL/5
+	1+vKw+u8Kszbe965Ru8v7YSGOqA1586RIaQVynN+o4dvkL7rJkGMRCKRV6WX3A==
+X-Google-Smtp-Source: AGHT+IH1CqghehB/hLtpuc5KC04MSTui9lOqHvdrlub2y/Jjr6NaEUUz44Vz8pPTccD8KncdcvGJgg==
+X-Received: by 2002:a05:6512:401f:b0:539:9155:e8d4 with SMTP id 2adb3069b0e04-53b348c1e25mr3307100e87.8.1730128005428;
+        Mon, 28 Oct 2024 08:06:45 -0700 (PDT)
+Message-ID: <b1b428bf-9842-4b07-9438-c64b286d236d@suse.com>
+Date: Mon, 28 Oct 2024 16:06:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy
- enable_secondary_cpu_mm
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
- <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
- <27be8d00-8260-460e-948d-81418b93662a@suse.com>
- <8fa530cb-4d70-4300-8d4e-1e7208f7c045@amd.com>
+Subject: Re: [PATCH 07/10] x86/ucode: Move the CPIO path string into
+ microcode_ops
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241028091856.2151603-1-andrew.cooper3@citrix.com>
+ <20241028091856.2151603-8-andrew.cooper3@citrix.com>
+ <2e3dfea1-8277-4d4e-b594-87b3cac3052b@suse.com>
+ <d54ed169-fd41-41b3-9222-50e858c0b622@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,38 +116,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8fa530cb-4d70-4300-8d4e-1e7208f7c045@amd.com>
+In-Reply-To: <d54ed169-fd41-41b3-9222-50e858c0b622@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.10.2024 15:39, Ayan Kumar Halder wrote:
-> On 28/10/2024 12:55, Jan Beulich wrote:
->> On 28.10.2024 13:45, Ayan Kumar Halder wrote:
->>> --- a/xen/arch/Kconfig
->>> +++ b/xen/arch/Kconfig
->>> @@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
->>>   
->>>   config NR_CPUS
->>>   	int "Maximum number of CPUs"
->>> +	range 1 1 if ARM && MPU
->>>   	range 1 16383
->>>   	default "256" if X86
->>>   	default "8" if ARM && RCAR3
->>>   	default "4" if ARM && QEMU
->>>   	default "4" if ARM && MPSOC
->>> +	default "1" if ARM && MPU
->>>   	default "128" if ARM
->>>   	help
->>>   	  Controls the build-time size of various arrays and bitmaps
->> I'm afraid I can't easily tell whether MPU can be used together with any of
->> RCAR3, QEMU, or MPSOC. If it can, the new default line would need to move
->> up, as it's the first one that has a match on its condition which is being
->> used.
+On 28.10.2024 15:38, Andrew Cooper wrote:
+> On 28/10/2024 2:25 pm, Jan Beulich wrote:
+>> On 28.10.2024 10:18, Andrew Cooper wrote:
+>>> We've got a perfectly good vendor abstraction already for microcode.  No need
+>>> for a second ad-hoc one in microcode_scan_module().
+>>>
+>>> This is in preparation to use ucode_ops.cpio_path in multiple places.
+>>>
+>>> These paths are only used during __init, so take the opportunity to move them
+>>> into __initconst.
+>> As an alternative to this, how about ...
+>>
+>>> --- a/xen/arch/x86/cpu/microcode/private.h
+>>> +++ b/xen/arch/x86/cpu/microcode/private.h
+>>> @@ -59,6 +59,13 @@ struct microcode_ops {
+>>>       */
+>>>      enum microcode_match_result (*compare_patch)(
+>>>          const struct microcode_patch *new, const struct microcode_patch *old);
+>>> +
+>>> +    /*
+>>> +     * For Linux inird microcode compatibliity.
+>>> +     *
+>>> +     * The path where this vendor's microcode can be found in CPIO.
+>>> +     */
+>>> +    const char *cpio_path;
+>>     const char cpio_path[];
+>>
+>> inheriting the __initconst from the struct instances?
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> with a slight preference to the form without the extra pointer.
 > 
-> MPU cannot be used with any of the existing platforms.
+> I'm slightly surprised at this request, given that the form with the
+> pointer results in less data held at runtime.
 
-That is - qemu can't emulate such an environment, i.e. even QEMU and MPU
-don't go together?
+No, it doesn't. Yet I only now realize that ...
+
+>>  Except that:
+>> gcc14 looks to be buggy when it comes to the copying of such a struct. The
+>> example below yields an internal compiler error. And the direct structure
+>> assignment also doesn't quite do what I would expect it to do (visible when
+>> commenting out the "else" branch. Bottom line - leave the code as is.
+> 
+> It's unfortunate to hit an ICE, but the copy cannot possibly work in the
+> first place.
+> 
+> ucode_ops is in a separate translation unit and has no space allocated
+> after the flexible member.   Any copy into it is memory corruption of
+> whatever object happens to be sequentially after ucode_ops.
+
+... my expectation of how the copy ought to work (and how the C standard,
+at least in close enough an example, specifies it) would specifically _not_
+suit our needs. The copy ought to only cover sizeof(struct ...), i.e. not
+the string. Yet we'd need that string to be copied to be usable for our
+purposes.
+
+> The only way it would work is having `const char cpio_path[40];` which
+> is long enough for anything we'd expect to find.
+> 
+> But again, that involves holding init-only data post init.
+
+This, indeed, would increase post-init size. Yet with the compiler issue
+no question arises anyway as to how this needs doing.
 
 Jan
 
