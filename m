@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20F939B37CB
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:39:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826917.1241372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B3539B384A
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:54:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826927.1241382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5ThW-0007SX-J7; Mon, 28 Oct 2024 17:38:46 +0000
+	id 1t5Tw9-00028o-Rx; Mon, 28 Oct 2024 17:53:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826917.1241372; Mon, 28 Oct 2024 17:38:46 +0000
+Received: by outflank-mailman (output) from mailman id 826927.1241382; Mon, 28 Oct 2024 17:53:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5ThW-0007Py-FZ; Mon, 28 Oct 2024 17:38:46 +0000
-Received: by outflank-mailman (input) for mailman id 826917;
- Mon, 28 Oct 2024 17:38:45 +0000
+	id 1t5Tw9-00025g-P7; Mon, 28 Oct 2024 17:53:53 +0000
+Received: by outflank-mailman (input) for mailman id 826927;
+ Mon, 28 Oct 2024 17:53:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TXyF=RY=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1t5ThV-0007Ps-9e
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:38:45 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20607.outbound.protection.outlook.com
- [2a01:111:f403:2415::607])
+ <SRS0=owpo=RY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t5Tw8-00025a-1f
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:53:52 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79763b08-9553-11ef-a0c2-8be0dac302b0;
- Mon, 28 Oct 2024 18:38:43 +0100 (CET)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by LV8PR12MB9269.namprd12.prod.outlook.com (2603:10b6:408:1fe::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.24; Mon, 28 Oct
- 2024 17:38:38 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8093.024; Mon, 28 Oct 2024
- 17:38:38 +0000
+ id 96b403f9-9555-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 18:53:50 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5c984352742so5080179a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 10:53:50 -0700 (PDT)
+Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9b1f298dfcsm395051366b.127.2024.10.28.10.53.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Oct 2024 10:53:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,180 +44,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79763b08-9553-11ef-a0c2-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HhBQlLpEuKmKrPRrLpjzS30uO090r9wNMUxf6SVVpPwawrqXMiOkCXxcyTy4A87lDTqIDKU0W7o8GKBD0FRSxNqdsCSFvojyeaiWiG0YXm+hj1+Ob1BjHjg5IZ2pe3jrpTZAG04l5Fy4nTZSBnEbpsI/sgIDRtDqfaP5SQoF3ZUdbZfArkIEw6pzEuIHoWV3vUzalkeCuJgnOk0v8sRSAR/rNezckIj47CSLj7kbch/ecO2/TvQjMv/U4Nk54ePjSockHh6JpHOQirPb1xmOcttKzWjGVa+cETJ3w6i8ZXecY9WNsAssQjwIkDI+Y7E0YHc6IW723qXcboTd4bHI/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nopL8+k3o/tabKBR/yVcNwir6xe8rKnJIOrq3/WBXaY=;
- b=Z/iZLtyHzzCnx0SyB2be8AbBP0wIomYS6HNe0wuW+v9HIsA22awiUHnPf9vifak9E6jTA47bEPjCj5SkmMz06lk1GZ0zlcer3N/3lzkP5bvVt0LORmmUVFFoSagIEni0oJ+RyNOV/V2JvhMBCYIBVHs7sjhDrRWQerRXza5MdBS8WkxtfDKs7YgbGGLqUjZffCd0dtERGAmoY3fWRAcBHpamFy58fM+J9irexmBD1b3A0mu8dtQu/IQVPHH5rWDyQUl0ip44qeHp4pHly/evjNkRxWr8lxjC99WgxtmSFvylazTzOr1oUon4QhrzpDTbeIHkWBAyni42il6rtQoodw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nopL8+k3o/tabKBR/yVcNwir6xe8rKnJIOrq3/WBXaY=;
- b=H91n5p+LWLOCU4DStb627soIi+uHa+UH24d7wTklUPWGMHmozyKSAYx4fLLd/vNeAXEveOhqPaoJcqBiiQrV7m9J1AGUBDqq7lbhxd1aIbXgwGexb4axtKDvQmdpRjS5q+YhmqVTYYxHeg3GfrQ8LKDQbvOUtgbKtEmH4mAKCxc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <3231cc7b-4c2e-4939-a623-a7b9960d1641@amd.com>
-Date: Mon, 28 Oct 2024 17:38:32 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy
- enable_secondary_cpu_mm
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
- <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
- <27be8d00-8260-460e-948d-81418b93662a@suse.com>
- <8fa530cb-4d70-4300-8d4e-1e7208f7c045@amd.com>
- <55728fdc-6247-4810-8696-a999713f4a7c@suse.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <55728fdc-6247-4810-8696-a999713f4a7c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0314.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:197::13) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: 96b403f9-9555-11ef-a0c2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1730138030; x=1730742830; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=DS70Cmtp5Y1Fg8qeoAQYkAxwuzEI7WvkRwuV3OTMcZU=;
+        b=jYBMR+65K5swD2VhmbiX7fXqqn2Ww+8Da3oURNfpyln26Wk6uA0OcTjXaXWT6C09fb
+         jAR3HwOJOv55FkWGBPfc9MhUK+uYmfh5F2E+dfnkfs9w34KuSqz0l9fVm9CWMSAeLYwX
+         k0xcggumNhckkQxjpGxPCXS62YKspTc4qQ7gI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730138030; x=1730742830;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DS70Cmtp5Y1Fg8qeoAQYkAxwuzEI7WvkRwuV3OTMcZU=;
+        b=HSPNQgqx/XRb9upG+v/D/lTHs4SogUfaeoKKnhOmlt5HAhDLvfGo98GR2MGPERuY7/
+         Ig3XrbPQL9dmX0/YXXhumuOur1oU4ZIh3Sb6QA+OVpvxHv3LnpmHk0mTL4JCYjPUHVeJ
+         cbkJg2px03shsY34gPYcK4pxC6jLj8+uSuES9o4TOGibvTfP/jd7rDS1mNgrbkpeNICP
+         yRifWPNJ5EtOCnl80yEb5lsnCuJWeW61XFH/L3QCNMpw1dRe/ERXe3f9LHJfPWeMiEuF
+         hDUMbG/9RwCK3iADS+19m5OTANdkt/T9nxXpVWwOwkNKuWDnCdD2mtxNc+lmcxLr/+CV
+         i9gQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVy2Q/MW6WZ/MblbtEHxEifXdaUtrNpwRJO0nvkjoKUyHX5gKuuRMlvkCOB6BRBb3GHJchiQ1Jd7K4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz4Wfw9ZGVJepkk/bZCd5dD8mbJmCZi2fDRiRRZMpsehEAXwopU
+	1829mH85lYF4dx6sJdjvJnYlupnDgjznhd42NUFozG4VXdzD/GK7PJ/KZBNHGgU=
+X-Google-Smtp-Source: AGHT+IG4lYDu8qpraI80iUxnH3EVxo26+Dr8s62Rp39aGf57QQ6Ox1kx1P6hl/qUF5YZsqODdqFOSg==
+X-Received: by 2002:a17:907:96a9:b0:a9a:a88a:466c with SMTP id a640c23a62f3a-a9de632e59emr859556966b.61.1730138029897;
+        Mon, 28 Oct 2024 10:53:49 -0700 (PDT)
+Date: Mon, 28 Oct 2024 18:53:48 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 1/3] x86/msi: harden stale pdev handling
+Message-ID: <Zx_PrF9_ITzfcCcI@macbook>
+References: <20241018203913.1162962-1-stewart.hildebrand@amd.com>
+ <20241018203913.1162962-2-stewart.hildebrand@amd.com>
+ <fdb156eb-ea82-4afa-afa6-105e605eba6d@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|LV8PR12MB9269:EE_
-X-MS-Office365-Filtering-Correlation-Id: d948fc5f-61e1-47de-89c4-08dcf7775b17
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UkJmVXh2cUJrdmdaenI3ZDJmS3pBbkYxNytUMENWdjRDK2JwUVRHd08zT1Qw?=
- =?utf-8?B?bXhlODNQWWIyU05Uek9iSHlJbWlLSnNqR3IxQjBkbGN0UFcyYmptNno4UWRT?=
- =?utf-8?B?MFZvRHg3R3NHZFgzZFBmc05NN3c5RHFCUEduR1JPYVVBNHNQWWhnM3IxM3Vh?=
- =?utf-8?B?V1hmUHRhWWU0OUI5T25DMEIzYUVNejBueVdrRXZzTkx4NkpFcHhoOUoxSjhu?=
- =?utf-8?B?OWppc1VWWldOeEhVUU9FS3RFN01HSC9VWEhTTWR0MEs5cEliMlJadC82UlBQ?=
- =?utf-8?B?MUJDRFZkblNPYXp0QmVQWVNPL1gxdHRUeXhmbjI4c3BRNUhUS0g0NEdLOXQ3?=
- =?utf-8?B?dUU4b0dmaFhqUUZ2M0RaT0xndFZsRnNqWS9PLzNCOGxuUFRHTURwQndzakJE?=
- =?utf-8?B?ZEo2cytVZGVzTlp0bHVqNmFUakt4NDNrYnZIVGRFUzlKZGVvd3JtcGJOMkQv?=
- =?utf-8?B?bGVXS1BudXpzVGZGc3ltdDNvS05iWGs4TjVhZEdOSWtITWg3bTVLUitLTVdV?=
- =?utf-8?B?NTREUVVuR2pNZTdtU2dWV25BTGJxbE1Ddi8rZjY0UzEyZ1AyU3JidzNFRlp0?=
- =?utf-8?B?VXFQcFVoczRLc2NyVHVDZDJkQ21GaW9kVXJTZFprMzljOWpJTkVDeE45NUZt?=
- =?utf-8?B?TXNBKytnSUhNUXpTOFQ1OUV4RHNsQk9QK0VxS2ExSVFoMkk1U0w3Nm1QMzUx?=
- =?utf-8?B?dzlOc3pGQWh1bDY3ZnRSTFB3SkF3WEY5Nk5QemN0N1Z5VDJTcUtKZXQ2RFpk?=
- =?utf-8?B?VEwwQ1pXYXlXL0VkcmM2ZkdWalVqajdoWjg0SlFadHQ4U2xhZTZyb3ozWWs3?=
- =?utf-8?B?anRoT0h4N3dPQWMvdGFsai9LcFJ3cDFMeTRlc3NUVEFQejE5RFV6ekJoMGgv?=
- =?utf-8?B?MDlVMG5qMlJpV2gwQzJFK2VoTzVEK0dtMlc2aVFyWGpkSWQ4czNSTUhQSWVL?=
- =?utf-8?B?YmJZTWE3aFVmTkFuL3lLWEg1R3VOTVJoZEZQTFBQb3JNZ3kzN3JRMkF0U1Br?=
- =?utf-8?B?Rkd6NUhRTzlUYkh1NzJyMWoyRXBOSlJjZlFjMDVPRi9IOUk4b3ZKbDhjNmdy?=
- =?utf-8?B?N2NCQk5OMjl1KzVZMWVpR2REQ2txOXd3SkJzelFNY1lmamtnQWhkWVVocnhB?=
- =?utf-8?B?UzlWUG9GREVmOFBSVlBXMmRYWkhCSVM1VDYxVnc1RjlqakdQT2NYV3p5TWc3?=
- =?utf-8?B?YWc4R0tOcWpkYk8vNkxMcGQzMWpybmdrYXNvZmdxY0J4aFFZKzE5SUhqV1Rv?=
- =?utf-8?B?Y0tzS2pERVhpeGcreVRRbElLNCtkRE9KWVE2NVpZOElFZzlrMUhpSlZhbnhE?=
- =?utf-8?B?b09WVDg0VlhRMEpQOGRYTDZVOEpqb2UrMEhxclJ5c1J5eEgweFR5WUF2MXor?=
- =?utf-8?B?a2RNZVdQYjlYaFpycWkxSUY3N0hpdmdsNi9Tek5KRXB1N0hsRWQ1ejFrN0Np?=
- =?utf-8?B?SUxYM2twblF5em9DdzN1WUFraWFBRGtneER2M3pzVmZ5YU1MYnBaaFR4bDhY?=
- =?utf-8?B?cWZ0UHRuSEdNM0wwQWtFakVNamI5MlRjVjd1TTZMR1pjOE9Ub3JWT3Nza2V6?=
- =?utf-8?B?RWl0TWMzaWhweEd5a3dXVjJFZlpCaStwS3JHQWVpOER1WWxLRjJkVEc1ZnhP?=
- =?utf-8?B?d2w2aDNUekRiNmJ3NVpza1FSdlhTYlRWc01mSTBkQk4rcGp4QXBMNjZTR2J6?=
- =?utf-8?Q?RGGAWgn3h1vl9bR6uIkz?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UldTbVduck1VR3JWam5RQTJCZzRVU1d3L0ZrdU43eUE3ZnAveEp0NlphbFZ2?=
- =?utf-8?B?VU14ZUlpV3JoS01RU1lnTmVnMTB2WmI5NnBjNGhPb0RkUWFuWTRWbmdReU54?=
- =?utf-8?B?SU5MY3p4c2RNaFlPTFBqUkJWcjFjZ2dPeUJUbHpxaWlpT1hwNXd5ZHZqWi9U?=
- =?utf-8?B?eXY4cDd5WGNERUFXS1BOTEw3dFBsTmZQR3VqMHNMbkxsUGtKWnlaMlB2R3Ft?=
- =?utf-8?B?ZjV6VlpxTVBZcUdLWSsrclhPTFRJU2xoZ2lYYWRIajFYSVVuNFlEQWhKWGNB?=
- =?utf-8?B?L2tzd0lWNnJ4U0Y1K284bStkSFNIcTNkT0hROW5OUEVKTTl6WTV1NERxZXV4?=
- =?utf-8?B?bUFuMUNPb3JHeU8rSVZUTHJKazd3OHREWVd1SVltb2tQVFFDajRna3dpT1h0?=
- =?utf-8?B?MktFeFY2TEJmaFk1YitOVFNGMEo5dTNTbmRQWnE2U2JBWGRjcUZETTdqTmdH?=
- =?utf-8?B?NDlNMTFkMURSMVduY2xnTkJsSG1oWE9xUWo0MnJsdFFlcVdqbS8zc0VmSEQx?=
- =?utf-8?B?REdJYTYvZ2c0UVdhL2F0eEZ0ejdXR2E0YTRVR2JWZmVRVVhRekxHd1dNQ1Ru?=
- =?utf-8?B?VjJtQ0d6TXYxZmhxaExOSEdJVkp0NVkxWVpnTmF4L1BiOXlhdlpYck9KMWZH?=
- =?utf-8?B?N1BzdHViR1FISlZhQkZxelBTeXlxbzVsYVYydDh2Qm5ZRy9nRDNuVVhHV1FO?=
- =?utf-8?B?Ny9uRTBuQktMWE5id1RYVjdEOUphaG8rME1mN0F6Wm1pampYeURpYVhXbFZ2?=
- =?utf-8?B?d2cyNEpaMXFBc0x4cEg5Z3NVeW1tOGw2NFVvOHRWTWlvSGFBS3dsUzcvYmJF?=
- =?utf-8?B?STR4VENVR29pNnhPWW0zU2Yxbm1VcEF6aUVMcEsrOWx5Q2ZvRmptc3Z1b3FW?=
- =?utf-8?B?ZWtMZmE4ZWsveFByNHlmUk5CRjJpcTBKQmRsKzV6aDVGa2VMUlQvcTJUR0JQ?=
- =?utf-8?B?Zkh5STFWNUJRVU1aY0VIYTJEZXQyN2kvUXp2NlJmc1ZjVENQODIxQS9HdTY1?=
- =?utf-8?B?MmVxdFNFM2hsNGdDZVpURjU3NGtQdHRrTW9nZEkrb2VtUGwwcmtRLzFTVGR4?=
- =?utf-8?B?SzV5UlQwRTI2cVExU3Vxc1NzUEZSRzZMVXVkb1hDdnluRXZQY1Aza1NNRjBH?=
- =?utf-8?B?cmxRQlIrajFnVElTZE5INVNpTXY4SFBxRE5ndTU1d2tYQUYxdEsya0w2Q0Ft?=
- =?utf-8?B?NWtQNW9lWU9QNUpOaTJ0V1dwSUxNT2QxdXY2ckhOd0VIcGRDZlkwQUhaT3Jk?=
- =?utf-8?B?ZjFtRTMraDU1YzRoaTBQRXVBZC9XSzVJL0JpLzZsUzRmdzFDQXd6WWkwTU5J?=
- =?utf-8?B?UnpRemYvL1l6bjR3MzB3akw1aTNaU2hHWmx1ZTE2ZEtuQ3o2UG1qak1NS3pF?=
- =?utf-8?B?MTNIYWo3Y25oZHNaYXZIcGFwaDAxa1RFeGtZbVU3emtkTjNQdHJWMU91cEw4?=
- =?utf-8?B?OEhoeTNRQ1FvRklQdlNEeFUveWkzUXhZYWVQeTdVV1NFOVZqSE9kcjgrRmE1?=
- =?utf-8?B?UE5KVFdXR1cxZ3MyUm5NTktPK3UxZEpSMUZQNExYOWlyK2pzU2p2UXdQMkl0?=
- =?utf-8?B?QWtwbzlZU1lNUTk2b29CcmdCZEgyakhWSmtyOEVkcld6Z1M5VCtablZtVTBF?=
- =?utf-8?B?SHZ0MklqVlA5dUo2R0ROSFJrbEFjenJXTER1SHlteVhURXBYQjJLZE5WdXJC?=
- =?utf-8?B?WllQeE41NzljdmVYRjN4b28xbGdwZG5yWnMycUUwOWl1WmxBN1oyTHlpL1lO?=
- =?utf-8?B?L3dOZHZrVGNMOVF2bWl1QkRwdlAzcUpEZVhqUE8wWk1UUmdtMnRaeGtNbUhX?=
- =?utf-8?B?WlFwcDV1eDlzc1dPSVRYMkpKeUZGYmFSOHd0MTl1WUprTnFFY3cveEhxcVRq?=
- =?utf-8?B?VDA5NjFhWDJlK2tobjlPUHE0WHBNVjhadndqVHBteDZqVzV0Y0tldDI4T3Nr?=
- =?utf-8?B?VzJjOFlpVTh0eHlLOWtGdmtZcldNVVlVa28zL3ZDYThkbG1ycXNib2dGMUJ0?=
- =?utf-8?B?RmQxT0hDS0hnQlFjRlVISWlJMVVJQjgvR2hzT0FuYWlqK1JxT2lVZHhVcFZR?=
- =?utf-8?B?aWlzVkVNc0crQ0hOaTgyNURraktXcVdtd2JzK1J2MDlHd1dnWFZkZko5eFlz?=
- =?utf-8?Q?W/vPAyP9FvdS5GciLLYNIMxpA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d948fc5f-61e1-47de-89c4-08dcf7775b17
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2024 17:38:38.2631
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eaNe7+UALlyiaRCveUZR33bj2NZdq+oWOb47RhJshg3e5lSlplW55+tDojR6VGQ1hx/y7aEQVjVJQ1azJi65zg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9269
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fdb156eb-ea82-4afa-afa6-105e605eba6d@suse.com>
 
-Hi Jan,
+On Mon, Oct 28, 2024 at 05:58:28PM +0100, Jan Beulich wrote:
+> On 18.10.2024 22:39, Stewart Hildebrand wrote:
+> > Dom0 normally informs Xen of PCI device removal via
+> > PHYSDEVOP_pci_device_remove, e.g. in response to SR-IOV disable or
+> > hot-unplug. We might find ourselves with stale pdevs if a buggy dom0
+> > fails to report removal via PHYSDEVOP_pci_device_remove. In this case,
+> > attempts to access the config space of the stale pdevs would be invalid
+> > and return all 1s.
+> > 
+> > Some possible conditions leading to this are:
+> > 
+> > 1. Dom0 disables SR-IOV without reporting VF removal to Xen.
+> > 
+> > The Linux SR-IOV subsystem normally reports VF removal when a PF driver
+> > disables SR-IOV. In case of a buggy dom0 SR-IOV subsystem, SR-IOV could
+> > become disabled with stale dangling VF pdevs in both dom0 Linux and Xen.
+> > 
+> > 2. Dom0 reporting PF removal without reporting VF removal.
+> > 
+> > During SR-IOV PF removal (hot-unplug), a buggy PF driver may fail to
+> > disable SR-IOV, thus failing to remove the VFs, leaving stale dangling
+> > VFs behind in both Xen and Linux. At least Linux warns in this case:
+> > 
+> > [  100.000000]  0000:01:00.0: driver left SR-IOV enabled after remove
+> > 
+> > In either case, Xen is left with stale VF pdevs, risking invalid PCI
+> > config space accesses.
+> > 
+> > When Xen is built with CONFIG_DEBUG=y, the following Xen crashes were
+> > observed when dom0 attempted to access the config space of a stale VF:
+> > 
+> > (XEN) Assertion 'pos' failed at arch/x86/msi.c:1274
+> > (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Tainted:   C    ]----
+> > ...
+> > (XEN) Xen call trace:
+> > (XEN)    [<ffff82d040346834>] R pci_msi_conf_write_intercept+0xa2/0x1de
+> > (XEN)    [<ffff82d04035d6b4>] F pci_conf_write_intercept+0x68/0x78
+> > (XEN)    [<ffff82d0403264e5>] F arch/x86/pv/emul-priv-op.c#pci_cfg_ok+0xa0/0x114
+> > (XEN)    [<ffff82d04032660e>] F arch/x86/pv/emul-priv-op.c#guest_io_write+0xb5/0x1c8
+> > (XEN)    [<ffff82d0403267bb>] F arch/x86/pv/emul-priv-op.c#write_io+0x9a/0xe0
+> > (XEN)    [<ffff82d04037c77a>] F x86_emulate+0x100e5/0x25f1e
+> > (XEN)    [<ffff82d0403941a8>] F x86_emulate_wrapper+0x29/0x64
+> > (XEN)    [<ffff82d04032802b>] F pv_emulate_privileged_op+0x12e/0x217
+> > (XEN)    [<ffff82d040369f12>] F do_general_protection+0xc2/0x1b8
+> > (XEN)    [<ffff82d040201aa7>] F x86_64/entry.S#handle_exception_saved+0x2b/0x8c
+> > 
+> > (XEN) Assertion 'pos' failed at arch/x86/msi.c:1246
+> > (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Tainted:   C    ]----
+> > ...
+> > (XEN) Xen call trace:
+> > (XEN)    [<ffff82d040346b0a>] R pci_reset_msix_state+0x47/0x50
+> > (XEN)    [<ffff82d040287eec>] F pdev_msix_assign+0x19/0x35
+> > (XEN)    [<ffff82d040286184>] F drivers/passthrough/pci.c#assign_device+0x181/0x471
+> > (XEN)    [<ffff82d040287c36>] F iommu_do_pci_domctl+0x248/0x2ec
+> > (XEN)    [<ffff82d040284e1f>] F iommu_do_domctl+0x26/0x44
+> > (XEN)    [<ffff82d0402483b8>] F do_domctl+0x8c1/0x1660
+> > (XEN)    [<ffff82d04032977e>] F pv_hypercall+0x5ce/0x6af
+> > (XEN)    [<ffff82d0402012d3>] F lstar_enter+0x143/0x150
+> > 
+> > These ASSERTs triggered because the MSI-X capability position can't be
+> > found for a stale pdev.
+> > 
+> > Latch the capability positions of MSI and MSI-X during device init, and
+> > replace instances of pci_find_cap_offset(..., PCI_CAP_ID_MSI{,X}) with
+> > the stored value. Introduce one additional ASSERT, while the two
+> > existing ASSERTs in question continue to work as intended, even with a
+> > stale pdev.
+> > 
+> > Fixes: 484d7c852e4f ("x86/MSI-X: track host and guest mask-all requests separately")
+> > Fixes: 575e18d54d19 ("pci: clear {host/guest}_maskall field on assign")
+> > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> 
+> Looks largely okay to me now, just two type selection aspects:
+> 
+> > --- a/xen/arch/x86/msi.c
+> > +++ b/xen/arch/x86/msi.c
+> > @@ -278,23 +278,21 @@ void __msi_set_enable(u16 seg, u8 bus, u8 slot, u8 func, int pos, int enable)
+> >  
+> >  static void msi_set_enable(struct pci_dev *dev, int enable)
+> >  {
+> > -    int pos;
+> > +    int pos = dev->msi_pos;
+> 
+> This and ...
+> 
+> >      u16 seg = dev->seg;
+> >      u8 bus = dev->bus;
+> >      u8 slot = PCI_SLOT(dev->devfn);
+> >      u8 func = PCI_FUNC(dev->devfn);
+> >  
+> > -    pos = pci_find_cap_offset(dev->sbdf, PCI_CAP_ID_MSI);
+> >      if ( pos )
+> >          __msi_set_enable(seg, bus, slot, func, pos, enable);
+> >  }
+> >  
+> >  static void msix_set_enable(struct pci_dev *dev, int enable)
+> >  {
+> > -    int pos;
+> > +    int pos = dev->msix_pos;
+> 
+> ... this want to become unsigned int at this occasion, imo. Like we have ...
+> 
+> > @@ -764,7 +762,7 @@ static int msix_capability_init(struct pci_dev *dev,
+> >      u8 slot = PCI_SLOT(dev->devfn);
+> >      u8 func = PCI_FUNC(dev->devfn);
+> >      bool maskall = msix->host_maskall, zap_on_error = false;
+> > -    unsigned int pos = pci_find_cap_offset(dev->sbdf, PCI_CAP_ID_MSIX);
+> > +    unsigned int pos = dev->msix_pos;
+> 
+> ... e.g. here already.
+> 
+> > --- a/xen/include/xen/pci.h
+> > +++ b/xen/include/xen/pci.h
+> > @@ -113,6 +113,9 @@ struct pci_dev {
+> >          pci_sbdf_t sbdf;
+> >      };
+> >  
+> > +    unsigned int msi_pos;
+> > +    unsigned int msix_pos;
+> > +
+> >      uint8_t msi_maxvec;
+> >      uint8_t phantom_stride;
+> 
+> As can be seen from the subsequent members, we're trying to be space
+> conserving here. Both fields won't require more than 8 bits, so uint8_t
+> or unsigned char would be the better type to use. Again imo. Preferably
+> with those adjustments (which could likely be done while committing)
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On 28/10/2024 15:01, Jan Beulich wrote:
-> On 28.10.2024 15:39, Ayan Kumar Halder wrote:
->> On 28/10/2024 12:55, Jan Beulich wrote:
->>> On 28.10.2024 13:45, Ayan Kumar Halder wrote:
->>>> --- a/xen/arch/Kconfig
->>>> +++ b/xen/arch/Kconfig
->>>> @@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
->>>>    
->>>>    config NR_CPUS
->>>>    	int "Maximum number of CPUs"
->>>> +	range 1 1 if ARM && MPU
->>>>    	range 1 16383
->>>>    	default "256" if X86
->>>>    	default "8" if ARM && RCAR3
->>>>    	default "4" if ARM && QEMU
->>>>    	default "4" if ARM && MPSOC
->>>> +	default "1" if ARM && MPU
->>>>    	default "128" if ARM
->>>>    	help
->>>>    	  Controls the build-time size of various arrays and bitmaps
->>> I'm afraid I can't easily tell whether MPU can be used together with any of
->>> RCAR3, QEMU, or MPSOC. If it can, the new default line would need to move
->>> up, as it's the first one that has a match on its condition which is being
->>> used.
->> MPU cannot be used with any of the existing platforms.
-> That is - qemu can't emulate such an environment, i.e. even QEMU and MPU
-> don't go together?
+uint8_t would seem preferable here, as it's fixed-size width clearly
+related to the offset into the PCI configuration space for a device.
 
-Qemu has support for Aarch32 MPU at EL2 and EL1 (ie R52). As far as I am 
-aware, there is no support for Aarch64 MPU in Qemu (ie R82).
+It might also be worth noting in the commit message that having the
+position cached should be a small perf improvement, by not having to
+walk the capability list each time.
 
-Even for R52, I could not get the upstream Qemu working (emulating some 
-Arm reference platform).
+Anyway, no strong opinion about the commit message adjustment, so with
+the type changed:
 
-I could get the Xilinx fork of Qemu (https://github.com/Xilinx/qemu) 
-working which emulates AMD's SoC using R52.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-However, this should not impact the current patch. There is no Qemu in 
-xen/arch/arm/platforms/*.
-
-- Ayan
-
+Thanks, Roger.
 
