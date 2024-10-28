@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144939B371B
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 17:51:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826857.1241282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDF629B3732
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 17:59:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826863.1241292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5Sxm-0002vK-8F; Mon, 28 Oct 2024 16:51:30 +0000
+	id 1t5T4b-0004DY-0u; Mon, 28 Oct 2024 16:58:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826857.1241282; Mon, 28 Oct 2024 16:51:30 +0000
+Received: by outflank-mailman (output) from mailman id 826863.1241292; Mon, 28 Oct 2024 16:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5Sxm-0002t9-5e; Mon, 28 Oct 2024 16:51:30 +0000
-Received: by outflank-mailman (input) for mailman id 826857;
- Mon, 28 Oct 2024 16:51:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t5T4a-0004BK-St; Mon, 28 Oct 2024 16:58:32 +0000
+Received: by outflank-mailman (input) for mailman id 826863;
+ Mon, 28 Oct 2024 16:58:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5Sxk-0002t3-Td
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 16:51:28 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df2ac2ec-954c-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 17:51:26 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-37d4ba20075so3140089f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 09:51:26 -0700 (PDT)
+ id 1t5T4Z-0004BE-Mt
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 16:58:31 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dba61aa6-954d-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 17:58:30 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-37d43a9bc03so3210217f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 09:58:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b1c65dsm10081049f8f.8.2024.10.28.09.51.25
+ ffacd0b85a97d-38058b47a41sm10020651f8f.52.2024.10.28.09.58.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 09:51:25 -0700 (PDT)
+ Mon, 28 Oct 2024 09:58:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df2ac2ec-954c-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: dba61aa6-954d-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730134286; x=1730739086; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730134710; x=1730739510; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0rz/59PHBpXoBsl7vxH3GezQoa7axSB1Thsr4A7l8zg=;
-        b=ReiXRgq0zYzbmjsvRuJFh9iAfm0jIDzM+WA91L57lmmK2RTtDIAFPtJxzBKgcyc54d
-         v0sh6/Wz12EOciC2kCcZqbHklD6smlK/iftwKCI7ICoB0ow6zCgJqR3aNx/6sx9SI73g
-         rH2yWyn2v6EXeEWSkFU6OKLrvDkUTPqsZFnBNVtP59s7zGVLGnvurfZC7C5zLMupyYuW
-         tC2mu6ovjW4j6/MqI+qCkfDobAJKFPPiTv/KFX0GX5D/v+9fabFZkCZ4mCa8Wyxo1s+S
-         cRTTWpqhZ3W/3T7PxIIlVcJG7prBZ4KHGd1IfCo4BY9IC8M6OhW/4xtQJssg+bRdmvmn
-         U4bQ==
+        bh=EQFmdnsTxtmh3WwX2n9GalSRp2I3mYORI+1Zu+WZe1M=;
+        b=XAPHWjzQp7XrJwg1fsCQbiFAPTm5SQrL39YSFlW6qRw5xohPSoInuLv5Pxl01zqgpG
+         KjplxmGW1OR7i+0bla4ioTxsUTy6nsZFIBH1oJeYsOJAYp+Qvu3QhUU3m/pvOSYhyLWP
+         uv/q1OjIb8QVH1KqDfYx9pxPgkhlgXB+zNUg1VXlnotzv5XW61t2Nk4+HGKrBgRClBbD
+         SBrwmc85DAWSifbkVS/95i3OydQqVuVzidXhLzg8MlSQEpM+QLHVOwfDd2H/d3mxXrVN
+         PgI/2MZjeugYSUYO6Tz+pihjge6KP8ski+Iz0Eb9ODC9uuew99JP2MXpAncYpWYM/uHO
+         6nVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730134286; x=1730739086;
+        d=1e100.net; s=20230601; t=1730134710; x=1730739510;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0rz/59PHBpXoBsl7vxH3GezQoa7axSB1Thsr4A7l8zg=;
-        b=IrKiEP2Q+O7a3ubWnqfutQojlqJZDzvkzw+/PDJRuWrkuZw1P5hT7EH85xkJCZRS5L
-         2//YHkiKnaetY8hbb2RwZJ89zsKQewtOiziRJgqkINOr5MviwYNl58dZ5wGRLLfU8nrc
-         //Bq6OjkQIxWMMnx6bL9giI/kKmgNtLuAzAJ4tfKYW66Sm94AGeQLVIRvdZp6dESayWo
-         YC/MM0fHRU8wtYCGQUkSnLj0C/cGVn2lAdSXeznFfVoelilaj6OaIlFLi/PuyYQIu8fQ
-         /UiPvrisPJHutRAVSVLzfphezM2m0myaWCwaU7lo36oSvgnY4i+V/SFOF2IFOryHlFw6
-         yYtA==
-X-Forwarded-Encrypted: i=1; AJvYcCXSAxtdxSsSgwy6MbljdzYMgzUEZm2+1MJjikBt5h95yE7s8ZXcYtjkUuF5xvDSy4VIXLpMoaMZsY8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzl6AJS4q2ieHH6+ovVJlYC7YzHBG2WOFijkStOcUWb1wVT2qpQ
-	1EQuW4PfGo0iLPvk0biUnQ9piR1PQRw7v+AqkdHdUIEWvwRRPnVBE1SCUPYiRw==
-X-Google-Smtp-Source: AGHT+IF/jZbQb4EcN0DPhjPajQ01OwFaSAigUZDaNdR0zlPm9ag7cEGvIO8GePTHEuT2/pBfI/u0Og==
-X-Received: by 2002:a5d:5346:0:b0:37e:c4e3:f130 with SMTP id ffacd0b85a97d-380612007c6mr7104004f8f.41.1730134286005;
-        Mon, 28 Oct 2024 09:51:26 -0700 (PDT)
-Message-ID: <fee34f7d-6d2e-44c6-aa76-e1d6d4856ddf@suse.com>
-Date: Mon, 28 Oct 2024 17:51:24 +0100
+        bh=EQFmdnsTxtmh3WwX2n9GalSRp2I3mYORI+1Zu+WZe1M=;
+        b=jyxJH4QEUry/ui0jNPxMoVRABTmgKgmVodJDj+a5RlI9QsS56Da0CJMXchFsmAlfKJ
+         R3R1Ipv6m0DDgK8OdU+68t5mFwwUs5sbpH+RW5ISeKhByBr3s/NEI6cj2lvyIwrKdb+U
+         ElCrDJEi8ZvObmJq1rmlEgHbtb1GRdnKbuJXIM3ZKT2Nomx2/OZKmxS0/QrTUs0zVOK5
+         /f0TSYGnilszlzU6n9DUqzXiWTUo88f3d2ybagFwhiEccr71ENqal6otpMxVB0X8gAhB
+         jLeLFVfcyIICb7G4qXzoop7Txm+xFzjmNAgsr0urCpfvMjUKy8OfxnNciwFu9HCh+Jic
+         JguQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXmiexTrF6PwTAMHRbY4Q7MY1wf+kDWLbomeJDDFTM9zOCvzTLaS+QGAPUvF0qc+gtukCuOpROsLik=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQ0kcoUBNpsiZ6ZBZ5mn1l4h3HmJkKIZWmDH85FVa7/xhw+poh
+	3zHI0cYdkiziLOw8mnfY5iWTfjUYd/lxc0UNX2ZqC5oXPGxXZqFd7N+msw6SBw==
+X-Google-Smtp-Source: AGHT+IFQbMMx14nhQK9TBIkXfsd26ZWT1pV5V5/hdfOZforK+R1TuHFnWiJF3OKdfxkBxCBRPpk7iw==
+X-Received: by 2002:adf:f4cf:0:b0:371:9360:c4a8 with SMTP id ffacd0b85a97d-380610f81e7mr6802655f8f.6.1730134709651;
+        Mon, 28 Oct 2024 09:58:29 -0700 (PDT)
+Message-ID: <fdb156eb-ea82-4afa-afa6-105e605eba6d@suse.com>
+Date: Mon, 28 Oct 2024 17:58:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] earlycpio: constify find_cpio_data()'s "data" parameter
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b2fdb048-cfc5-4f61-8507-bf8020e02132@suse.com>
- <764c0116-88ed-48af-8e53-f2a0f6e850a3@citrix.com>
- <c618e09f-b88c-45c8-8cbd-8aae82891c6e@suse.com>
- <ecd11958-2ce8-41fc-87f8-7b6b090c74b5@citrix.com>
- <aab91022-5115-4af0-8f9d-569c63a296bb@suse.com>
- <f8f4e221-fbf1-4e0b-98d0-bc19e0c604a9@citrix.com>
+Subject: Re: [PATCH v6 1/3] x86/msi: harden stale pdev handling
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20241018203913.1162962-1-stewart.hildebrand@amd.com>
+ <20241018203913.1162962-2-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,69 +114,137 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f8f4e221-fbf1-4e0b-98d0-bc19e0c604a9@citrix.com>
+In-Reply-To: <20241018203913.1162962-2-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.10.2024 17:45, Andrew Cooper wrote:
-> On 28/10/2024 4:25 pm, Jan Beulich wrote:
->> On 28.10.2024 17:18, Andrew Cooper wrote:
->>> On 28/10/2024 4:12 pm, Jan Beulich wrote:
->>>> On 28.10.2024 17:07, Andrew Cooper wrote:
->>>>> On 28/10/2024 4:03 pm, Jan Beulich wrote:
->>>>>> As with 9cbf61445cda ("xen/earlycpio: Drop nextoff parameter"): While
->>>>>> this is imported from Linux, the parameter not being pointer-to-const is
->>>>>> dubious in the first place and we're not plausibly going to gain a write
->>>>>> through it.
->>>>>>
->>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>> You haven't tried compiling this, have you?
->>>> Of course I have. Is there any subtlety with compiler versions? Or what
->>>> else am I missing?
->>> struct cpio_data's copy of this field is non-const (which you keep on
->>> noting that new compilers will object to),
->> New compilers? I'm afraid I'm missing context. With gcc14 the patch builds
->> fine. I didn't try _older_ ones (but I see no reason why they might object;
->> see below).
->>
->>> and you can't change that
->>> without breaking the build in microcode.
->> I don't need to change that, "thanks" to
->>
->> 			cd.data = (void *)dptr;
->>
->> casting away const-ness. That is - compilers ought to be fine with the
->> change; Misra won't like it.
+On 18.10.2024 22:39, Stewart Hildebrand wrote:
+> Dom0 normally informs Xen of PCI device removal via
+> PHYSDEVOP_pci_device_remove, e.g. in response to SR-IOV disable or
+> hot-unplug. We might find ourselves with stale pdevs if a buggy dom0
+> fails to report removal via PHYSDEVOP_pci_device_remove. In this case,
+> attempts to access the config space of the stale pdevs would be invalid
+> and return all 1s.
 > 
-> You have literally complained about patches of mine on the grounds of
-> "GCC is about to start caring about casting away const on a void pointer".
-
-I still don't remember what context this was in, I'm sorry.
-
-> So which is it.
-
-I'm not adding any such casts; the (potentially problematic) cast is
-there already. I therefore still don't see what's wrong with the patch.
-
->>> Nothing of this form can be taken until the constness is consistent in
->>> microcode, after which yes it can mostly become const.
->> We can move there in steps, can't we?
+> Some possible conditions leading to this are:
 > 
-> Or you can stop trying to insist that I rebase around an
-> incorrect/incomplete patch, just for the sake of the const of one void
-> pointer, which can still be laundered by this function.
+> 1. Dom0 disables SR-IOV without reporting VF removal to Xen.
+> 
+> The Linux SR-IOV subsystem normally reports VF removal when a PF driver
+> disables SR-IOV. In case of a buggy dom0 SR-IOV subsystem, SR-IOV could
+> become disabled with stale dangling VF pdevs in both dom0 Linux and Xen.
+> 
+> 2. Dom0 reporting PF removal without reporting VF removal.
+> 
+> During SR-IOV PF removal (hot-unplug), a buggy PF driver may fail to
+> disable SR-IOV, thus failing to remove the VFs, leaving stale dangling
+> VFs behind in both Xen and Linux. At least Linux warns in this case:
+> 
+> [  100.000000]  0000:01:00.0: driver left SR-IOV enabled after remove
+> 
+> In either case, Xen is left with stale VF pdevs, risking invalid PCI
+> config space accesses.
+> 
+> When Xen is built with CONFIG_DEBUG=y, the following Xen crashes were
+> observed when dom0 attempted to access the config space of a stale VF:
+> 
+> (XEN) Assertion 'pos' failed at arch/x86/msi.c:1274
+> (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Tainted:   C    ]----
+> ...
+> (XEN) Xen call trace:
+> (XEN)    [<ffff82d040346834>] R pci_msi_conf_write_intercept+0xa2/0x1de
+> (XEN)    [<ffff82d04035d6b4>] F pci_conf_write_intercept+0x68/0x78
+> (XEN)    [<ffff82d0403264e5>] F arch/x86/pv/emul-priv-op.c#pci_cfg_ok+0xa0/0x114
+> (XEN)    [<ffff82d04032660e>] F arch/x86/pv/emul-priv-op.c#guest_io_write+0xb5/0x1c8
+> (XEN)    [<ffff82d0403267bb>] F arch/x86/pv/emul-priv-op.c#write_io+0x9a/0xe0
+> (XEN)    [<ffff82d04037c77a>] F x86_emulate+0x100e5/0x25f1e
+> (XEN)    [<ffff82d0403941a8>] F x86_emulate_wrapper+0x29/0x64
+> (XEN)    [<ffff82d04032802b>] F pv_emulate_privileged_op+0x12e/0x217
+> (XEN)    [<ffff82d040369f12>] F do_general_protection+0xc2/0x1b8
+> (XEN)    [<ffff82d040201aa7>] F x86_64/entry.S#handle_exception_saved+0x2b/0x8c
+> 
+> (XEN) Assertion 'pos' failed at arch/x86/msi.c:1246
+> (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Tainted:   C    ]----
+> ...
+> (XEN) Xen call trace:
+> (XEN)    [<ffff82d040346b0a>] R pci_reset_msix_state+0x47/0x50
+> (XEN)    [<ffff82d040287eec>] F pdev_msix_assign+0x19/0x35
+> (XEN)    [<ffff82d040286184>] F drivers/passthrough/pci.c#assign_device+0x181/0x471
+> (XEN)    [<ffff82d040287c36>] F iommu_do_pci_domctl+0x248/0x2ec
+> (XEN)    [<ffff82d040284e1f>] F iommu_do_domctl+0x26/0x44
+> (XEN)    [<ffff82d0402483b8>] F do_domctl+0x8c1/0x1660
+> (XEN)    [<ffff82d04032977e>] F pv_hypercall+0x5ce/0x6af
+> (XEN)    [<ffff82d0402012d3>] F lstar_enter+0x143/0x150
+> 
+> These ASSERTs triggered because the MSI-X capability position can't be
+> found for a stale pdev.
+> 
+> Latch the capability positions of MSI and MSI-X during device init, and
+> replace instances of pci_find_cap_offset(..., PCI_CAP_ID_MSI{,X}) with
+> the stored value. Introduce one additional ASSERT, while the two
+> existing ASSERTs in question continue to work as intended, even with a
+> stale pdev.
+> 
+> Fixes: 484d7c852e4f ("x86/MSI-X: track host and guest mask-all requests separately")
+> Fixes: 575e18d54d19 ("pci: clear {host/guest}_maskall field on assign")
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-Okay, I won't insist; take my ack as unconditional one. I still consider
-it a bad precedent though that we'd set, when elsewhere we ask for const-
-correctness wherever possible.
+Looks largely okay to me now, just two type selection aspects:
 
-> Especially when you could wait the ~day it will take to get an
-> otherwise-good series in, and then change cpio and get all of the const
-> problems in one go.
+> --- a/xen/arch/x86/msi.c
+> +++ b/xen/arch/x86/msi.c
+> @@ -278,23 +278,21 @@ void __msi_set_enable(u16 seg, u8 bus, u8 slot, u8 func, int pos, int enable)
+>  
+>  static void msi_set_enable(struct pci_dev *dev, int enable)
+>  {
+> -    int pos;
+> +    int pos = dev->msi_pos;
 
-If that turns out to be true, all will indeed be fine in the end. Question
-is whether we really want to diverge earlycpio.c by more than minimal
-changes.
+This and ...
+
+>      u16 seg = dev->seg;
+>      u8 bus = dev->bus;
+>      u8 slot = PCI_SLOT(dev->devfn);
+>      u8 func = PCI_FUNC(dev->devfn);
+>  
+> -    pos = pci_find_cap_offset(dev->sbdf, PCI_CAP_ID_MSI);
+>      if ( pos )
+>          __msi_set_enable(seg, bus, slot, func, pos, enable);
+>  }
+>  
+>  static void msix_set_enable(struct pci_dev *dev, int enable)
+>  {
+> -    int pos;
+> +    int pos = dev->msix_pos;
+
+... this want to become unsigned int at this occasion, imo. Like we have ...
+
+> @@ -764,7 +762,7 @@ static int msix_capability_init(struct pci_dev *dev,
+>      u8 slot = PCI_SLOT(dev->devfn);
+>      u8 func = PCI_FUNC(dev->devfn);
+>      bool maskall = msix->host_maskall, zap_on_error = false;
+> -    unsigned int pos = pci_find_cap_offset(dev->sbdf, PCI_CAP_ID_MSIX);
+> +    unsigned int pos = dev->msix_pos;
+
+... e.g. here already.
+
+> --- a/xen/include/xen/pci.h
+> +++ b/xen/include/xen/pci.h
+> @@ -113,6 +113,9 @@ struct pci_dev {
+>          pci_sbdf_t sbdf;
+>      };
+>  
+> +    unsigned int msi_pos;
+> +    unsigned int msix_pos;
+> +
+>      uint8_t msi_maxvec;
+>      uint8_t phantom_stride;
+
+As can be seen from the subsequent members, we're trying to be space
+conserving here. Both fields won't require more than 8 bits, so uint8_t
+or unsigned char would be the better type to use. Again imo. Preferably
+with those adjustments (which could likely be done while committing)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
