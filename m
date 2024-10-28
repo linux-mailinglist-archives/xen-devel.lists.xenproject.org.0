@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744639B3799
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:26:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826909.1241361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F939B37CB
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 18:39:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826917.1241372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5TVi-0004eu-Fr; Mon, 28 Oct 2024 17:26:34 +0000
+	id 1t5ThW-0007SX-J7; Mon, 28 Oct 2024 17:38:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826909.1241361; Mon, 28 Oct 2024 17:26:34 +0000
+Received: by outflank-mailman (output) from mailman id 826917.1241372; Mon, 28 Oct 2024 17:38:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5TVi-0004cU-DC; Mon, 28 Oct 2024 17:26:34 +0000
-Received: by outflank-mailman (input) for mailman id 826909;
- Mon, 28 Oct 2024 17:26:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t5ThW-0007Py-FZ; Mon, 28 Oct 2024 17:38:46 +0000
+Received: by outflank-mailman (input) for mailman id 826917;
+ Mon, 28 Oct 2024 17:38:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=owpo=RY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1t5TVh-0004cO-TM
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:26:33 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5ed0e36-9551-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 18:26:31 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a99cc265e0aso708322966b.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 10:26:31 -0700 (PDT)
-Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b30d6fdc5sm394889566b.163.2024.10.28.10.26.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Oct 2024 10:26:30 -0700 (PDT)
+ <SRS0=TXyF=RY=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1t5ThV-0007Ps-9e
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 17:38:45 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20607.outbound.protection.outlook.com
+ [2a01:111:f403:2415::607])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 79763b08-9553-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 18:38:43 +0100 (CET)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by LV8PR12MB9269.namprd12.prod.outlook.com (2603:10b6:408:1fe::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.24; Mon, 28 Oct
+ 2024 17:38:38 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8093.024; Mon, 28 Oct 2024
+ 17:38:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,120 +47,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5ed0e36-9551-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730136391; x=1730741191; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=AsqMoxtXULfn2iiQA+6XYVvRZeNzl30o7ByaG+8mNJc=;
-        b=FWBQUGE5KbRFzm6k2OcGJTnnpu2pTQl7+sXP5B1j5PZmP5iBTRj4M74uF8FaAYU4n5
-         JNe/1t8R6o2kARCIKbiape/1V9wag1t7k7os2ZL+3qgCKk0CqId9bebmpp5BT5Rp5O6Z
-         kTNX02jT9ACfHISwEVm3zi099yvU5sZ0jhEjM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730136391; x=1730741191;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AsqMoxtXULfn2iiQA+6XYVvRZeNzl30o7ByaG+8mNJc=;
-        b=T8gZAPSgo8naGy1LecyIBaUGBf6ZtLyS3J53senw8Y/vLsOyf9CtHrRlsroAEbimJK
-         3/MD+D/C8mhxmWTlzIJ4CDMDeZg1a2qrguWvqRC3DssIjodQwyENuxxUQTVkHOGqtZQC
-         Zvuk3NqeNHd+vQk1V2dWzrBOFb8iZ+ZDXwGXw4uFYujEPVX62PrwNbzQAf3b3NDrY6GU
-         rqCblQZrs9a/+CxLC0olGc2rDJuzQ+y6a2xxpbnnl+aYw/XlH4LXvqXinMMlOM23KRHN
-         QZFYle7mnhJ1AG8uj4fz/foMkKSBdzAa6g1LJVeMtdeEtOOrDNMAlydvJBgfhkHiz2Yo
-         cEuA==
-X-Forwarded-Encrypted: i=1; AJvYcCWgebhv0IQ0yHYZP+lHhwFPuvUjG3lF35aDPDqsvKhCt8u5UhiMIPUxoXEJY+5HfydCg3Y32Zld7Rs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrGQ4KxzQVuP49l+WlW/YC0fHGMqriIEdFI241tMuJT6FBlhTf
-	Eb9xYOr7yp4XX9KUz1X/WDItnevrRhCudMpEnlrLQnxoDH6BIn7SfE3uk5YwfBw=
-X-Google-Smtp-Source: AGHT+IG77GekEcE+1P2ekSiQLucfNcRsDpTr399Lar8agdq9FphHiDCWAZxtcy8ODrZU63IcPnHKaQ==
-X-Received: by 2002:a17:907:72ce:b0:a99:7539:2458 with SMTP id a640c23a62f3a-a9de6455bf8mr722374066b.65.1730136391117;
-        Mon, 28 Oct 2024 10:26:31 -0700 (PDT)
-Date: Mon, 28 Oct 2024 18:26:29 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] tools/libxl: remove usage of VLA arrays
-Message-ID: <Zx_JRaViUiEF2IrH@macbook>
-References: <20241028114831.27487-1-roger.pau@citrix.com>
- <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
- <51632c96-9a12-4656-b8f8-1631c11a3a19@suse.com>
- <CACHz=Zg4mFn5zn42f9dDFao0r7ePj=Owhc04OSW5LfW6cJoUaw@mail.gmail.com>
+X-Inumbo-ID: 79763b08-9553-11ef-a0c2-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HhBQlLpEuKmKrPRrLpjzS30uO090r9wNMUxf6SVVpPwawrqXMiOkCXxcyTy4A87lDTqIDKU0W7o8GKBD0FRSxNqdsCSFvojyeaiWiG0YXm+hj1+Ob1BjHjg5IZ2pe3jrpTZAG04l5Fy4nTZSBnEbpsI/sgIDRtDqfaP5SQoF3ZUdbZfArkIEw6pzEuIHoWV3vUzalkeCuJgnOk0v8sRSAR/rNezckIj47CSLj7kbch/ecO2/TvQjMv/U4Nk54ePjSockHh6JpHOQirPb1xmOcttKzWjGVa+cETJ3w6i8ZXecY9WNsAssQjwIkDI+Y7E0YHc6IW723qXcboTd4bHI/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nopL8+k3o/tabKBR/yVcNwir6xe8rKnJIOrq3/WBXaY=;
+ b=Z/iZLtyHzzCnx0SyB2be8AbBP0wIomYS6HNe0wuW+v9HIsA22awiUHnPf9vifak9E6jTA47bEPjCj5SkmMz06lk1GZ0zlcer3N/3lzkP5bvVt0LORmmUVFFoSagIEni0oJ+RyNOV/V2JvhMBCYIBVHs7sjhDrRWQerRXza5MdBS8WkxtfDKs7YgbGGLqUjZffCd0dtERGAmoY3fWRAcBHpamFy58fM+J9irexmBD1b3A0mu8dtQu/IQVPHH5rWDyQUl0ip44qeHp4pHly/evjNkRxWr8lxjC99WgxtmSFvylazTzOr1oUon4QhrzpDTbeIHkWBAyni42il6rtQoodw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nopL8+k3o/tabKBR/yVcNwir6xe8rKnJIOrq3/WBXaY=;
+ b=H91n5p+LWLOCU4DStb627soIi+uHa+UH24d7wTklUPWGMHmozyKSAYx4fLLd/vNeAXEveOhqPaoJcqBiiQrV7m9J1AGUBDqq7lbhxd1aIbXgwGexb4axtKDvQmdpRjS5q+YhmqVTYYxHeg3GfrQ8LKDQbvOUtgbKtEmH4mAKCxc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <3231cc7b-4c2e-4939-a623-a7b9960d1641@amd.com>
+Date: Mon, 28 Oct 2024 17:38:32 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy
+ enable_secondary_cpu_mm
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
+ <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
+ <27be8d00-8260-460e-948d-81418b93662a@suse.com>
+ <8fa530cb-4d70-4300-8d4e-1e7208f7c045@amd.com>
+ <55728fdc-6247-4810-8696-a999713f4a7c@suse.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <55728fdc-6247-4810-8696-a999713f4a7c@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0314.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:197::13) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACHz=Zg4mFn5zn42f9dDFao0r7ePj=Owhc04OSW5LfW6cJoUaw@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|LV8PR12MB9269:EE_
+X-MS-Office365-Filtering-Correlation-Id: d948fc5f-61e1-47de-89c4-08dcf7775b17
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UkJmVXh2cUJrdmdaenI3ZDJmS3pBbkYxNytUMENWdjRDK2JwUVRHd08zT1Qw?=
+ =?utf-8?B?bXhlODNQWWIyU05Uek9iSHlJbWlLSnNqR3IxQjBkbGN0UFcyYmptNno4UWRT?=
+ =?utf-8?B?MFZvRHg3R3NHZFgzZFBmc05NN3c5RHFCUEduR1JPYVVBNHNQWWhnM3IxM3Vh?=
+ =?utf-8?B?V1hmUHRhWWU0OUI5T25DMEIzYUVNejBueVdrRXZzTkx4NkpFcHhoOUoxSjhu?=
+ =?utf-8?B?OWppc1VWWldOeEhVUU9FS3RFN01HSC9VWEhTTWR0MEs5cEliMlJadC82UlBQ?=
+ =?utf-8?B?MUJDRFZkblNPYXp0QmVQWVNPL1gxdHRUeXhmbjI4c3BRNUhUS0g0NEdLOXQ3?=
+ =?utf-8?B?dUU4b0dmaFhqUUZ2M0RaT0xndFZsRnNqWS9PLzNCOGxuUFRHTURwQndzakJE?=
+ =?utf-8?B?ZEo2cytVZGVzTlp0bHVqNmFUakt4NDNrYnZIVGRFUzlKZGVvd3JtcGJOMkQv?=
+ =?utf-8?B?bGVXS1BudXpzVGZGc3ltdDNvS05iWGs4TjVhZEdOSWtITWg3bTVLUitLTVdV?=
+ =?utf-8?B?NTREUVVuR2pNZTdtU2dWV25BTGJxbE1Ddi8rZjY0UzEyZ1AyU3JidzNFRlp0?=
+ =?utf-8?B?VXFQcFVoczRLc2NyVHVDZDJkQ21GaW9kVXJTZFprMzljOWpJTkVDeE45NUZt?=
+ =?utf-8?B?TXNBKytnSUhNUXpTOFQ1OUV4RHNsQk9QK0VxS2ExSVFoMkk1U0w3Nm1QMzUx?=
+ =?utf-8?B?dzlOc3pGQWh1bDY3ZnRSTFB3SkF3WEY5Nk5QemN0N1Z5VDJTcUtKZXQ2RFpk?=
+ =?utf-8?B?VEwwQ1pXYXlXL0VkcmM2ZkdWalVqajdoWjg0SlFadHQ4U2xhZTZyb3ozWWs3?=
+ =?utf-8?B?anRoT0h4N3dPQWMvdGFsai9LcFJ3cDFMeTRlc3NUVEFQejE5RFV6ekJoMGgv?=
+ =?utf-8?B?MDlVMG5qMlJpV2gwQzJFK2VoTzVEK0dtMlc2aVFyWGpkSWQ4czNSTUhQSWVL?=
+ =?utf-8?B?YmJZTWE3aFVmTkFuL3lLWEg1R3VOTVJoZEZQTFBQb3JNZ3kzN3JRMkF0U1Br?=
+ =?utf-8?B?Rkd6NUhRTzlUYkh1NzJyMWoyRXBOSlJjZlFjMDVPRi9IOUk4b3ZKbDhjNmdy?=
+ =?utf-8?B?N2NCQk5OMjl1KzVZMWVpR2REQ2txOXd3SkJzelFNY1lmamtnQWhkWVVocnhB?=
+ =?utf-8?B?UzlWUG9GREVmOFBSVlBXMmRYWkhCSVM1VDYxVnc1RjlqakdQT2NYV3p5TWc3?=
+ =?utf-8?B?YWc4R0tOcWpkYk8vNkxMcGQzMWpybmdrYXNvZmdxY0J4aFFZKzE5SUhqV1Rv?=
+ =?utf-8?B?Y0tzS2pERVhpeGcreVRRbElLNCtkRE9KWVE2NVpZOElFZzlrMUhpSlZhbnhE?=
+ =?utf-8?B?b09WVDg0VlhRMEpQOGRYTDZVOEpqb2UrMEhxclJ5c1J5eEgweFR5WUF2MXor?=
+ =?utf-8?B?a2RNZVdQYjlYaFpycWkxSUY3N0hpdmdsNi9Tek5KRXB1N0hsRWQ1ejFrN0Np?=
+ =?utf-8?B?SUxYM2twblF5em9DdzN1WUFraWFBRGtneER2M3pzVmZ5YU1MYnBaaFR4bDhY?=
+ =?utf-8?B?cWZ0UHRuSEdNM0wwQWtFakVNamI5MlRjVjd1TTZMR1pjOE9Ub3JWT3Nza2V6?=
+ =?utf-8?B?RWl0TWMzaWhweEd5a3dXVjJFZlpCaStwS3JHQWVpOER1WWxLRjJkVEc1ZnhP?=
+ =?utf-8?B?d2w2aDNUekRiNmJ3NVpza1FSdlhTYlRWc01mSTBkQk4rcGp4QXBMNjZTR2J6?=
+ =?utf-8?Q?RGGAWgn3h1vl9bR6uIkz?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UldTbVduck1VR3JWam5RQTJCZzRVU1d3L0ZrdU43eUE3ZnAveEp0NlphbFZ2?=
+ =?utf-8?B?VU14ZUlpV3JoS01RU1lnTmVnMTB2WmI5NnBjNGhPb0RkUWFuWTRWbmdReU54?=
+ =?utf-8?B?SU5MY3p4c2RNaFlPTFBqUkJWcjFjZ2dPeUJUbHpxaWlpT1hwNXd5ZHZqWi9U?=
+ =?utf-8?B?eXY4cDd5WGNERUFXS1BOTEw3dFBsTmZQR3VqMHNMbkxsUGtKWnlaMlB2R3Ft?=
+ =?utf-8?B?ZjV6VlpxTVBZcUdLWSsrclhPTFRJU2xoZ2lYYWRIajFYSVVuNFlEQWhKWGNB?=
+ =?utf-8?B?L2tzd0lWNnJ4U0Y1K284bStkSFNIcTNkT0hROW5OUEVKTTl6WTV1NERxZXV4?=
+ =?utf-8?B?bUFuMUNPb3JHeU8rSVZUTHJKazd3OHREWVd1SVltb2tQVFFDajRna3dpT1h0?=
+ =?utf-8?B?MktFeFY2TEJmaFk1YitOVFNGMEo5dTNTbmRQWnE2U2JBWGRjcUZETTdqTmdH?=
+ =?utf-8?B?NDlNMTFkMURSMVduY2xnTkJsSG1oWE9xUWo0MnJsdFFlcVdqbS8zc0VmSEQx?=
+ =?utf-8?B?REdJYTYvZ2c0UVdhL2F0eEZ0ejdXR2E0YTRVR2JWZmVRVVhRekxHd1dNQ1Ru?=
+ =?utf-8?B?VjJtQ0d6TXYxZmhxaExOSEdJVkp0NVkxWVpnTmF4L1BiOXlhdlpYck9KMWZH?=
+ =?utf-8?B?N1BzdHViR1FISlZhQkZxelBTeXlxbzVsYVYydDh2Qm5ZRy9nRDNuVVhHV1FO?=
+ =?utf-8?B?Ny9uRTBuQktMWE5id1RYVjdEOUphaG8rME1mN0F6Wm1pampYeURpYVhXbFZ2?=
+ =?utf-8?B?d2cyNEpaMXFBc0x4cEg5Z3NVeW1tOGw2NFVvOHRWTWlvSGFBS3dsUzcvYmJF?=
+ =?utf-8?B?STR4VENVR29pNnhPWW0zU2Yxbm1VcEF6aUVMcEsrOWx5Q2ZvRmptc3Z1b3FW?=
+ =?utf-8?B?ZWtMZmE4ZWsveFByNHlmUk5CRjJpcTBKQmRsKzV6aDVGa2VMUlQvcTJUR0JQ?=
+ =?utf-8?B?Zkh5STFWNUJRVU1aY0VIYTJEZXQyN2kvUXp2NlJmc1ZjVENQODIxQS9HdTY1?=
+ =?utf-8?B?MmVxdFNFM2hsNGdDZVpURjU3NGtQdHRrTW9nZEkrb2VtUGwwcmtRLzFTVGR4?=
+ =?utf-8?B?SzV5UlQwRTI2cVExU3Vxc1NzUEZSRzZMVXVkb1hDdnluRXZQY1Aza1NNRjBH?=
+ =?utf-8?B?cmxRQlIrajFnVElTZE5INVNpTXY4SFBxRE5ndTU1d2tYQUYxdEsya0w2Q0Ft?=
+ =?utf-8?B?NWtQNW9lWU9QNUpOaTJ0V1dwSUxNT2QxdXY2ckhOd0VIcGRDZlkwQUhaT3Jk?=
+ =?utf-8?B?ZjFtRTMraDU1YzRoaTBQRXVBZC9XSzVJL0JpLzZsUzRmdzFDQXd6WWkwTU5J?=
+ =?utf-8?B?UnpRemYvL1l6bjR3MzB3akw1aTNaU2hHWmx1ZTE2ZEtuQ3o2UG1qak1NS3pF?=
+ =?utf-8?B?MTNIYWo3Y25oZHNaYXZIcGFwaDAxa1RFeGtZbVU3emtkTjNQdHJWMU91cEw4?=
+ =?utf-8?B?OEhoeTNRQ1FvRklQdlNEeFUveWkzUXhZYWVQeTdVV1NFOVZqSE9kcjgrRmE1?=
+ =?utf-8?B?UE5KVFdXR1cxZ3MyUm5NTktPK3UxZEpSMUZQNExYOWlyK2pzU2p2UXdQMkl0?=
+ =?utf-8?B?QWtwbzlZU1lNUTk2b29CcmdCZEgyakhWSmtyOEVkcld6Z1M5VCtablZtVTBF?=
+ =?utf-8?B?SHZ0MklqVlA5dUo2R0ROSFJrbEFjenJXTER1SHlteVhURXBYQjJLZE5WdXJC?=
+ =?utf-8?B?WllQeE41NzljdmVYRjN4b28xbGdwZG5yWnMycUUwOWl1WmxBN1oyTHlpL1lO?=
+ =?utf-8?B?L3dOZHZrVGNMOVF2bWl1QkRwdlAzcUpEZVhqUE8wWk1UUmdtMnRaeGtNbUhX?=
+ =?utf-8?B?WlFwcDV1eDlzc1dPSVRYMkpKeUZGYmFSOHd0MTl1WUprTnFFY3cveEhxcVRq?=
+ =?utf-8?B?VDA5NjFhWDJlK2tobjlPUHE0WHBNVjhadndqVHBteDZqVzV0Y0tldDI4T3Nr?=
+ =?utf-8?B?VzJjOFlpVTh0eHlLOWtGdmtZcldNVVlVa28zL3ZDYThkbG1ycXNib2dGMUJ0?=
+ =?utf-8?B?RmQxT0hDS0hnQlFjRlVISWlJMVVJQjgvR2hzT0FuYWlqK1JxT2lVZHhVcFZR?=
+ =?utf-8?B?aWlzVkVNc0crQ0hOaTgyNURraktXcVdtd2JzK1J2MDlHd1dnWFZkZko5eFlz?=
+ =?utf-8?Q?W/vPAyP9FvdS5GciLLYNIMxpA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d948fc5f-61e1-47de-89c4-08dcf7775b17
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2024 17:38:38.2631
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eaNe7+UALlyiaRCveUZR33bj2NZdq+oWOb47RhJshg3e5lSlplW55+tDojR6VGQ1hx/y7aEQVjVJQ1azJi65zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9269
 
-On Mon, Oct 28, 2024 at 12:57:30PM +0000, Frediano Ziglio wrote:
-> On Mon, Oct 28, 2024 at 12:48 PM Jan Beulich <jbeulich@suse.com> wrote:
-> >
-> > On 28.10.2024 13:03, Andrew Cooper wrote:
-> > > On 28/10/2024 11:48 am, Roger Pau Monne wrote:
-> > >> Clang 19 complains with the following error when building libxl:
-> > >>
-> > >> libxl_utils.c:48:15: error: variable length array folded to constant array as an extension [-Werror,-Wgnu-folding-constant]
-> > >>    48 |     char path[strlen("/local/domain") + 12];
-> > >>       |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > >>
-> > >> Replace the usage of strlen() with ARRAY_SIZE(), which allows the literal
-> > >> string length to be known at build time.  Note ARRAY_SIZE() accounts for the
-> > >> NUL terminator while strlen() didn't, hence subtract 1 from the total size
-> > >> calculation.
-> > >>
-> > >> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > >> ---
-> > >>  tools/libs/light/libxl_utils.c | 4 ++--
-> > >>  1 file changed, 2 insertions(+), 2 deletions(-)
-> > >>
-> > >> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_utils.c
-> > >> index 10398a6c8611..b3f5e751cc3f 100644
-> > >> --- a/tools/libs/light/libxl_utils.c
-> > >> +++ b/tools/libs/light/libxl_utils.c
-> > >> @@ -45,7 +45,7 @@ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned
-> > >>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
-> > >>  {
-> > >>      unsigned int len;
-> > >> -    char path[strlen("/local/domain") + 12];
-> > >> +    char path[ARRAY_SIZE("/local/domain") + 11];
-> > >>      char *s;
-> > >>
-> > >>      snprintf(path, sizeof(path), "/local/domain/%d/name", domid);
-> > >> @@ -141,7 +141,7 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx *ctx, const char *p,
-> > >>  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
-> > >>  {
-> > >>      unsigned int len;
-> > >> -    char path[strlen("/local/pool") + 12];
-> > >> +    char path[ARRAY_SIZE("/local/pool") + 11];
-> > >>      char *s;
-> > >>
-> > >>      snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
-> > >
-> > > Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > >
-> > > Although I have a minor preference for sizeof() as suggested by Frediano.
-> > >
-> > > Can fix on commit, if you're happy?
-> >
-> > Please can we stick to ARRAY_SIZE() when it comes to strings? It's the
-> > same as sizeof() when the base type is char, but the difference becomes
-> > relevant if the base type was e.g. wchar_t.
-> >
-> > Jan
-> >
-> 
-> But "literal" is not a wide string, and the type is "char" which is
-> not wide too.
-> 
-> BTW, both me and Andrew are not strong about.
+Hi Jan,
 
-No strong opinion either, I've assumed it was clearer to not make
-implicit assumptions about the size of the string literal array
-elements.  I would rather like to get this committed, and Jan seems to
-prefer to use ARRAY_SIZE(), so I suggest we get the patch committed
-as-is.
+On 28/10/2024 15:01, Jan Beulich wrote:
+> On 28.10.2024 15:39, Ayan Kumar Halder wrote:
+>> On 28/10/2024 12:55, Jan Beulich wrote:
+>>> On 28.10.2024 13:45, Ayan Kumar Halder wrote:
+>>>> --- a/xen/arch/Kconfig
+>>>> +++ b/xen/arch/Kconfig
+>>>> @@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
+>>>>    
+>>>>    config NR_CPUS
+>>>>    	int "Maximum number of CPUs"
+>>>> +	range 1 1 if ARM && MPU
+>>>>    	range 1 16383
+>>>>    	default "256" if X86
+>>>>    	default "8" if ARM && RCAR3
+>>>>    	default "4" if ARM && QEMU
+>>>>    	default "4" if ARM && MPSOC
+>>>> +	default "1" if ARM && MPU
+>>>>    	default "128" if ARM
+>>>>    	help
+>>>>    	  Controls the build-time size of various arrays and bitmaps
+>>> I'm afraid I can't easily tell whether MPU can be used together with any of
+>>> RCAR3, QEMU, or MPSOC. If it can, the new default line would need to move
+>>> up, as it's the first one that has a match on its condition which is being
+>>> used.
+>> MPU cannot be used with any of the existing platforms.
+> That is - qemu can't emulate such an environment, i.e. even QEMU and MPU
+> don't go together?
 
-Thanks, Roger.
+Qemu has support for Aarch32 MPU at EL2 and EL1 (ie R52). As far as I am 
+aware, there is no support for Aarch64 MPU in Qemu (ie R82).
+
+Even for R52, I could not get the upstream Qemu working (emulating some 
+Arm reference platform).
+
+I could get the Xilinx fork of Qemu (https://github.com/Xilinx/qemu) 
+working which emulates AMD's SoC using R52.
+
+However, this should not impact the current patch. There is no Qemu in 
+xen/arch/arm/platforms/*.
+
+- Ayan
+
 
