@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25ED99B3114
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:53:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.826479.1240768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3073D9B311A
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2024 13:56:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.826484.1240778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PF3-0001bP-4g; Mon, 28 Oct 2024 12:53:05 +0000
+	id 1t5PHm-0002CL-Iz; Mon, 28 Oct 2024 12:55:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 826479.1240768; Mon, 28 Oct 2024 12:53:05 +0000
+Received: by outflank-mailman (output) from mailman id 826484.1240778; Mon, 28 Oct 2024 12:55:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5PF3-0001Z8-25; Mon, 28 Oct 2024 12:53:05 +0000
-Received: by outflank-mailman (input) for mailman id 826479;
- Mon, 28 Oct 2024 12:53:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t5PHm-00029a-EJ; Mon, 28 Oct 2024 12:55:54 +0000
+Received: by outflank-mailman (input) for mailman id 826484;
+ Mon, 28 Oct 2024 12:55:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xGmR=RY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5PF2-0001Z2-Ai
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:53:04 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 910ce7f6-952b-11ef-99a3-01e77a169b0f;
- Mon, 28 Oct 2024 13:53:02 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-539fe76e802so5008884e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:53:02 -0700 (PDT)
+ id 1t5PHl-00029U-0f
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2024 12:55:53 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f64b3a39-952b-11ef-a0c2-8be0dac302b0;
+ Mon, 28 Oct 2024 13:55:52 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-37ed7eb07a4so3428177f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Oct 2024 05:55:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4319360d233sm107125945e9.45.2024.10.28.05.53.00
+ ffacd0b85a97d-38058b70c73sm9545968f8f.72.2024.10.28.05.55.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2024 05:53:01 -0700 (PDT)
+ Mon, 28 Oct 2024 05:55:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 910ce7f6-952b-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: f64b3a39-952b-11ef-a0c2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730119982; x=1730724782; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730120151; x=1730724951; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hNvgeAnNnZLtnVTZBry7xRCUX2q+4a22RR4Gn5/MM70=;
-        b=P0hOILfiJs9ut9BLWR0DDVpui9l0AHVXLIcWpjPKpO7P7y7vUIWAJRUslx6R2tcJzR
-         NAE1wydjRR6S7QNw/LEoZB26LjZG8TJdjAT/z13g4nkurJeqwiCWEyM7UXhISgrylE9p
-         LUXptGWhIoZ8XG/NlZZ75dfTqMxRJ7ofBh+GP4tsSJNVxciid2uj5VSEuxvIuEIvs1zu
-         /rIX27jdd1cNT1q+YYiJu6LXxXkSAiC1IoCE5V/tGZ/XCYJt43li8jLVfjlsNVOubb4z
-         GMAafyOqIgzXzEpb+k1RbFT93TbACzSUgMdACE5iwijI/PceZn8I0FoghBlCXivDCQZ6
-         JLbA==
+        bh=CRxFDXz4hybOPBRrMmB+OKN4mFWiVQfGxG6AfJxA1AA=;
+        b=eOcFIcsWgSOAdNoL87ujbrUwhOw36PmNk8ZvWy4B+CnAJ9zwXVgu7scI43nw/9EpPm
+         w37WoQdd2sBIRAoM6aHxzq8sYjlzhIbAYr+crylfSpepQmB0ytl3H6/eACh8XR81DwuJ
+         6lPtLa/8zyQLUB3nFQFiWp7/X+hzUHmJc2C/+W0bPJHLCHPkIVonxBfDdaYphtFmj8ZD
+         oYsxrceZSEsaa/xJKenZtmAbc6be+iNkTmGSDwu9lVUyzddnaSbQJI/T6gjXFnhwKR1t
+         I89V7SXuiBwo159NSftW69Vx+JtpkwLZAYgkNuUzfIVKUbEZcRRzJQgscdr8WoAPOs9P
+         aBGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730119982; x=1730724782;
+        d=1e100.net; s=20230601; t=1730120151; x=1730724951;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hNvgeAnNnZLtnVTZBry7xRCUX2q+4a22RR4Gn5/MM70=;
-        b=WviLHanZFTWmJn9Q7iyGAuNfqtyNodv662kN/rCHDBbJ87DSXgeJX2MGhtJveoO9oR
-         K6nHAk9cWXFzJU57+hnJHrHOL9G5M9DWIoq9qC2mo/B2rlFJGnL3/aqwd77I3++FvWSZ
-         Hlp9J3m/laTCXm3m0QIVuH5RnFctDXtcYIkDhay+GFHu9seK6pDxJ0wxz9TcNVUZ+n9X
-         IDe2KAqaQhalDq5p38JY56zPDNeSdVVawo6Ppi9YTySzJw8MHpVx68+Y02FlIu9D8lxc
-         DrceecBbdoMhAv4JTVeir5iotlFqv0iLUnsMezpW4A7xFZT9r1Ej7VQ2CTHc7xuP1fGJ
-         0Mdw==
-X-Forwarded-Encrypted: i=1; AJvYcCVIgi05PtEB3vvb1Li0256/SR2cunxlBv/UYfiiJlSj53uZg2+8S3oJtQFXbfsEgcyPmA7CC2ejl0A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGHr3MUNKeqvt8cOPrDMYOhn47pIRLCYJ4Lok5PFUBLVFxpXSG
-	UIB8bLw+2/ZgsoZPsgWA/gP5TnBPbVmxxik9pJhv/2m0O5i+mu2XD3yY7j5jcg==
-X-Google-Smtp-Source: AGHT+IFO8G0XnpmD7Sbj9qtEUhD3rhnB31jVG+xFMP9JLoFCIo9vKFQY5WWolwfaDL1kCSc1vqZb/g==
-X-Received: by 2002:a05:6512:3045:b0:533:d3e:16fe with SMTP id 2adb3069b0e04-53b3491e270mr3358384e87.38.1730119981563;
-        Mon, 28 Oct 2024 05:53:01 -0700 (PDT)
-Message-ID: <dd07d7b4-4d0d-4c51-a1e5-70e39223732e@suse.com>
-Date: Mon, 28 Oct 2024 13:53:00 +0100
+        bh=CRxFDXz4hybOPBRrMmB+OKN4mFWiVQfGxG6AfJxA1AA=;
+        b=L0O7jQJGGxREIhtTlzXATH6nsJob5EgJurEQIneDJTpAVOX3o4EeJjhekIgrFDRxp3
+         +dIi7Q7Dj6vtUUnjY2vGzHPv0F/0AaA0fCuEMP5pr9COph00U1GMbombTDQ9wWtHuqnx
+         A5a57U9B6mVjHm/lDkZb0J+p6yOVZa5di2B6y7TL7164Fr5Nuu0IBj7h1DjuI1OvnQD3
+         jRjeXiC+vsgF0GWuMobROhHJnmioluTbzUH7hUzhsS7WxgHs+7L26fZ4cIJXejC8EufH
+         OQdD7wFqD44NDF26Bm2wo2DY4RjAjpMLrBX68ifFNGXHxfbWJSUJmn/rYu8HBECeS6Qo
+         34AQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVXZffuA6i6dikKG2MdhGSo2zcui+quDZpDlvypACeJcxM+vj6z3abnJQ7t2MgEIfoi+qmNuBq26a8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw90ad7sCMqqXZoTqQI2uZGHcUg5wRHYil7ETMdfT9p7HYyETGu
+	r65LgkAOe5rX2FlyhyPLrXoj/fOnwwau739NKq19JMAG6kCf/ImRhdD7raWNHg==
+X-Google-Smtp-Source: AGHT+IGQ+sB0o8IA/aR4ASVys67Ou/63xqdsgOxn42gLr7pNJwzb485FSt7ZPQhvt0vDHPSMi7kP5w==
+X-Received: by 2002:a05:6000:502:b0:37d:4e74:67c with SMTP id ffacd0b85a97d-3806120091fmr5555834f8f.39.1730120151515;
+        Mon, 28 Oct 2024 05:55:51 -0700 (PDT)
+Message-ID: <27be8d00-8260-460e-948d-81418b93662a@suse.com>
+Date: Mon, 28 Oct 2024 13:55:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] NUMA: Introduce NODE_DATA->node_present_pages(RAM
- pages)
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Bernhard Kaindl <bernhard.kaindl@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy
+ enable_secondary_cpu_mm
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  xen-devel@lists.xenproject.org
-References: <20241027144305.1839348-1-bernhardkaindl7@gmail.com>
- <D57FBXUKL8PH.1FQRR4NJ139AX@cloud.com>
+References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
+ <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,89 +117,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D57FBXUKL8PH.1FQRR4NJ139AX@cloud.com>
+In-Reply-To: <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.10.2024 13:05, Alejandro Vallejo wrote:
-> On Sun Oct 27, 2024 at 2:43 PM GMT, Bernhard Kaindl wrote:
->> @@ -499,15 +500,44 @@ int __init compute_hash_shift(const struct node *nodes,
->>      return shift;
->>  }
->>  
->> -/* Initialize NODE_DATA given nodeid and start/end */
->> +/**
->> + * @brief Initialize a NUMA node's node_data structure at boot.
->> + *
->> + * It is given the NUMA node's index in the node_data array as well
->> + * as the start and exclusive end address of the node's memory span
->> + * as arguments and initializes the node_data entry with this information.
->> + *
->> + * It then initializes the total number of usable memory pages within
->> + * the NUMA node's memory span using the arch_get_ram_range() function.
->> + *
->> + * @param nodeid The index into the node_data array for the node.
->> + * @param start The starting physical address of the node's memory range.
->> + * @param end The exclusive ending physical address of the node's memory range.
->> + */
->>  void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t end)
->>  {
->>      unsigned long start_pfn = paddr_to_pfn(start);
->>      unsigned long end_pfn = paddr_to_pfn(end);
->> +    struct node_data *numa_node = NODE_DATA(nodeid);
->> +    paddr_t start_ram, end_ram;
-> 
-> With the loop in place and arch_get_ram_range() being called inside, these two
-> can further reduce scope by being moved inside as well.
-> 
->> +    unsigned int idx = 0;
->> +    unsigned long *pages = &numa_node->node_present_pages;
->>  
->> -    NODE_DATA(nodeid)->node_start_pfn = start_pfn;
->> -    NODE_DATA(nodeid)->node_spanned_pages = end_pfn - start_pfn;
->> +    numa_node->node_start_pfn = start_pfn;
->> +    numa_node->node_spanned_pages = end_pfn - start_pfn;
->> +
->> +    /* Calculate the number of present RAM pages within the node: */
-> 
-> nit: that last ":" feels a bit out of place
-> 
->> +    *pages = 0;
->> +    do {
->> +        int err = arch_get_ram_range(idx++, &start_ram, &end_ram);
->> +
->> +        if (err == -ENOENT)
-> 
-> Missing spaces between condition and the parenthesis of the conditional. But...
-> 
->> +            break;
->> +        if ( err || start_ram >= end || end_ram <= start )
->> +            continue;  /* range is outside of the node, or not usable RAM */
->>  
->> +        *pages += PFN_DOWN(min(end_ram, end)) - PFN_UP(max(start_ram, start));
->> +    } while (1);
-> 
-> ... testing for validity rather than invalidity would allow the loop to be
-> checked for termination on the termination condition rather than the ad-hoc
-> check inside. That is...
-> 
->     (untested)
-> 
->     do {
->         paddr_t start_ram, end_ram;
->         int err = arch_get_ram_range(idx++, &start_ram, &end_ram);
-> 
->         if ( !err && start_ram < end && end_ram > start )
->             *pages += PFN_DOWN(min(end_ram, end)) -
->                       PFN_UP(max(start_ram, start));
->     } while (err != ENOENT);
+On 28.10.2024 13:45, Ayan Kumar Halder wrote:
+> --- a/xen/arch/Kconfig
+> +++ b/xen/arch/Kconfig
+> @@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
+>  
+>  config NR_CPUS
+>  	int "Maximum number of CPUs"
+> +	range 1 1 if ARM && MPU
+>  	range 1 16383
+>  	default "256" if X86
+>  	default "8" if ARM && RCAR3
+>  	default "4" if ARM && QEMU
+>  	default "4" if ARM && MPSOC
+> +	default "1" if ARM && MPU
+>  	default "128" if ARM
+>  	help
+>  	  Controls the build-time size of various arrays and bitmaps
 
-     } while ( err != -ENOENT );
-
-> That said, take all of this with a pinch of salt. I'm not a maintainer here,
-> after all, and you might want to wait for Andrew, Jan or Roger to chip in.
-
-Apart from the small remark above I agree with the comments made, fwiw.
+I'm afraid I can't easily tell whether MPU can be used together with any of
+RCAR3, QEMU, or MPSOC. If it can, the new default line would need to move
+up, as it's the first one that has a match on its condition which is being
+used.
 
 Jan
 
