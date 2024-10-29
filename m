@@ -2,46 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03F189B4C8C
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 15:50:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827484.1242103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59EF49B4CA2
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 15:52:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827488.1242114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5nXS-0005BK-MP; Tue, 29 Oct 2024 14:49:42 +0000
+	id 1t5naI-0006hE-4I; Tue, 29 Oct 2024 14:52:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827484.1242103; Tue, 29 Oct 2024 14:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 827488.1242114; Tue, 29 Oct 2024 14:52:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5nXS-00058O-JZ; Tue, 29 Oct 2024 14:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 827484;
- Tue, 29 Oct 2024 14:49:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t5naI-0006eJ-1C; Tue, 29 Oct 2024 14:52:38 +0000
+Received: by outflank-mailman (input) for mailman id 827488;
+ Tue, 29 Oct 2024 14:52:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y6yv=RZ=quicinc.com=quic_jhugo@srs-se1.protection.inumbo.net>)
- id 1t5nXR-00058I-RK
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 14:49:41 +0000
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0393011f-9605-11ef-99a3-01e77a169b0f;
- Tue, 29 Oct 2024 15:49:36 +0100 (CET)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49T91Ow1025858;
- Tue, 29 Oct 2024 14:47:56 GMT
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42gsq8gr78-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Oct 2024 14:47:56 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49TEltNx020912
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Oct 2024 14:47:55 GMT
-Received: from [10.226.59.182] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 29 Oct
- 2024 07:47:54 -0700
+ <SRS0=M7fT=RZ=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
+ id 1t5naG-0006eD-QF
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 14:52:36 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 6d774089-9605-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 15:52:33 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0CD17113E;
+ Tue, 29 Oct 2024 07:53:02 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0BB213F73B;
+ Tue, 29 Oct 2024 07:52:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,84 +43,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0393011f-9605-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjIwNS4yMjAuMTY4LjEzMSIsImhlbG8iOiJteDBhLTAwMzFkZjAxLnBwaG9zdGVkLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjAzOTMwMTFmLTk2MDUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjEzMzc2Ljc2MjA1NSwic2VuZGVyIjoicXVpY19qaHVnb0BxdWljaW5jLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+wv4O0Y5GVDH3vUrfYUR55hgvLmKzOGrUOAzL5LkrYY=; b=QS0t9JAUBHqWH02u
-	dNtVrgHN86w5CLnNDffItzpLyqgQwNrWLXukh7717iCujg+qac7U0LQNgx8UjmfO
-	pNppyLoV0BiCWiWYeQfbQSkEueNjqhpwe3ymQ/5JtmI+7D7lNEAuLZkjWYt7Bad3
-	FIWANrEtgFCEbNhs18Z88h7B0VJOTTZcagFhIXvQ7W0zo2pKEUeoAojfMPClCC3w
-	++dX6DXZS2K0/yun7AKEtrTTvl9CbZw4Czd+v0b3ypA1OiaF5hQ72P40HQv1u1dm
-	mFSANVwhc7kKC3bU9wQWN7RlliJHoMkvZAvlxYf4h1W0oqtV7QsYssccuvYBrg1q
-	QDJmNA==
-Message-ID: <5dd216a0-0c99-6dd5-f06d-60c7c6da1b31@quicinc.com>
-Date: Tue, 29 Oct 2024 08:47:54 -0600
+X-Inumbo-ID: 6d774089-9605-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxNy4xNDAuMTEwLjE3MiIsImhlbG8iOiJmb3NzLmFybS5jb20ifQ==
+X-Custom-Transaction: eyJpZCI6IjZkNzc0MDg5LTk2MDUtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjEzNTUzLjI5ODg1NSwic2VuZGVyIjoibWFyay5ydXRsYW5kQGFybS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+Date: Tue, 29 Oct 2024 14:52:22 +0000
+From: Mark Rutland <mark.rutland@arm.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: oleg@redhat.com, linux@armlinux.org.uk, will@kernel.org,
+	catalin.marinas@arm.com, sstabellini@kernel.org, maz@kernel.org,
+	tglx@linutronix.de, peterz@infradead.org, luto@kernel.org,
+	kees@kernel.org, wad@chromium.org, akpm@linux-foundation.org,
+	samitolvanen@google.com, arnd@arndb.de, ojeda@kernel.org,
+	rppt@kernel.org, hca@linux.ibm.com, aliceryhl@google.com,
+	samuel.holland@sifive.com, paulmck@kernel.org, aquini@redhat.com,
+	petr.pavlu@suse.com, viro@zeniv.linux.org.uk,
+	rmk+kernel@armlinux.org.uk, ardb@kernel.org,
+	wangkefeng.wang@huawei.com, surenb@google.com,
+	linus.walleij@linaro.org, yangyj.ee@gmail.com, broonie@kernel.org,
+	mbenes@suse.cz, puranjay@kernel.org, pcc@google.com,
+	guohanjun@huawei.com, sudeep.holla@arm.com,
+	Jonathan.Cameron@huawei.com, prarit@redhat.com, liuwei09@cestc.cn,
+	dwmw@amazon.co.uk, oliver.upton@linux.dev,
+	kristina.martsenko@arm.com, ptosi@google.com, frederic@kernel.org,
+	vschneid@redhat.com, thiago.bauermann@linaro.org,
+	joey.gouly@arm.com, liuyuntao12@huawei.com, leobras@redhat.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH -next v4 06/19] arm64: entry: Move
+ arm64_preempt_schedule_irq() into exit_to_kernel_mode()
+Message-ID: <ZyD2pk285YeVmZTm@J2N7QTR9R3.cambridge.arm.com>
+References: <20241025100700.3714552-1-ruanjinjie@huawei.com>
+ <20241025100700.3714552-7-ruanjinjie@huawei.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [PATCH v2 3/3] drm: remove driver date from struct drm_driver and
- all drivers
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@intel.com>, <dri-devel@lists.freedesktop.org>,
-        <intel-gfx@lists.freedesktop.org>
-CC: Javier Martinez Canillas <javierm@redhat.com>,
-        Alex Deucher
-	<alexander.deucher@amd.com>,
-        Simon Ser <contact@emersion.fr>, David Airlie
-	<airlied@gmail.com>,
-        Hamza Mahfooz <hamza.mahfooz@amd.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-        Simona Vetter
-	<simona@ffwll.ch>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
-        <amd-gfx@lists.freedesktop.org>,
-        <linux-arm-kernel@lists.infradead.org>,
-        <nouveau@lists.freedesktop.org>, <xen-devel@lists.xenproject.org>
-References: <20241028185141.3756176-1-jani.nikula@intel.com>
- <20241028185141.3756176-3-jani.nikula@intel.com>
-From: Jeffrey Hugo <quic_jhugo@quicinc.com>
-In-Reply-To: <20241028185141.3756176-3-jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-GUID: 1zozjE_Cu_2BsSxN4CNnC4fCdn0_-mvH
-X-Proofpoint-ORIG-GUID: 1zozjE_Cu_2BsSxN4CNnC4fCdn0_-mvH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 bulkscore=0
- adultscore=0 mlxscore=0 priorityscore=1501 mlxlogscore=982 impostorscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1011 spamscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
- definitions=main-2410290113
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241025100700.3714552-7-ruanjinjie@huawei.com>
 
-On 10/28/2024 12:51 PM, Jani Nikula wrote:
-> We stopped using the driver initialized date in commit 7fb8af6798e8
-> ("drm: deprecate driver date") and (eventually) started returning "0"
-> for drm_version ioctl instead.
-> 
-> Finish the job, and remove the unused date member from struct
-> drm_driver, its initialization from drivers, along with the common
-> DRIVER_DATE macros.
-> 
-> v2: Also update drivers/accel (kernel test robot)
-> 
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Acked-by: Simon Ser <contact@emersion.fr>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On Fri, Oct 25, 2024 at 06:06:47PM +0800, Jinjie Ruan wrote:
+> Move arm64_preempt_schedule_irq() into exit_to_kernel_mode(), so not
+> only __el1_irq() but also every time when kernel mode irq return,
+> there is a chance to reschedule.
 
-For QAIC -
-Acked-by: Jeffrey Hugo <quic_jhugo@quicinc.com>
+We use exit_to_kernel_mode() for every non-NMI exception return to the
+kernel, not just IRQ returns.
+
+> As Mark pointed out, this change will have the following key impact:
+> 
+>     "We'll preempt even without taking a "real" interrupt. That
+>     shouldn't result in preemption that wasn't possible before,
+>     but it does change the probability of preempting at certain points,
+>     and might have a performance impact, so probably warrants a
+>     benchmark."
+
+For anyone following along at home, I said that at:
+
+  https://lore.kernel.org/linux-arm-kernel/ZxejvAmccYMTa4P1@J2N7QTR9R3/
+
+... and there I specifically said:
+
+> I's suggest you first write a patch to align arm64's entry code with the
+> generic code, by removing the call to arm64_preempt_schedule_irq() from
+> __el1_irq(), and adding a call to arm64_preempt_schedule_irq() in
+> __exit_to_kernel_mode(), e.g.
+> 
+> | static __always_inline void __exit_to_kernel_mode(struct pt_regs *regs)
+> | {
+> | 	...
+> | 	if (interrupts_enabled(regs)) {
+> | 		...
+> | 		if (regs->exit_rcu) {
+> | 			...
+> | 		}
+> | 		...
+> | 		arm64_preempt_schedule_irq();
+> | 		...
+> | 	} else {
+> | 		...
+> | 	}
+> | }
+
+[...]
+
+> +#ifdef CONFIG_PREEMPT_DYNAMIC
+> +DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
+> +#define need_irq_preemption() \
+> +	(static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
+> +#else
+> +#define need_irq_preemption()	(IS_ENABLED(CONFIG_PREEMPTION))
+> +#endif
+> +
+> +static void __sched arm64_preempt_schedule_irq(void)
+> +{
+> +	if (!need_irq_preemption())
+> +		return;
+> +
+> +	/*
+> +	 * Note: thread_info::preempt_count includes both thread_info::count
+> +	 * and thread_info::need_resched, and is not equivalent to
+> +	 * preempt_count().
+> +	 */
+> +	if (READ_ONCE(current_thread_info()->preempt_count) != 0)
+> +		return;
+> +
+> +	/*
+> +	 * DAIF.DA are cleared at the start of IRQ/FIQ handling, and when GIC
+> +	 * priority masking is used the GIC irqchip driver will clear DAIF.IF
+> +	 * using gic_arch_enable_irqs() for normal IRQs. If anything is set in
+> +	 * DAIF we must have handled an NMI, so skip preemption.
+> +	 */
+> +	if (system_uses_irq_prio_masking() && read_sysreg(daif))
+> +		return;
+> +
+> +	/*
+> +	 * Preempting a task from an IRQ means we leave copies of PSTATE
+> +	 * on the stack. cpufeature's enable calls may modify PSTATE, but
+> +	 * resuming one of these preempted tasks would undo those changes.
+> +	 *
+> +	 * Only allow a task to be preempted once cpufeatures have been
+> +	 * enabled.
+> +	 */
+> +	if (system_capabilities_finalized())
+> +		preempt_schedule_irq();
+> +}
+> +
+>  /*
+>   * Handle IRQ/context state management when exiting to kernel mode.
+>   * After this function returns it is not safe to call regular kernel code,
+> @@ -72,6 +114,8 @@ static noinstr irqentry_state_t enter_from_kernel_mode(struct pt_regs *regs)
+>  static void noinstr exit_to_kernel_mode(struct pt_regs *regs,
+>  					irqentry_state_t state)
+>  {
+> +	arm64_preempt_schedule_irq();
+
+This is broken; exit_to_kernel_mode() is called for any non-NMI return
+excpetion return to the kernel, and this doesn't check that interrupts
+were enabled in the context the exception was taken from.
+
+This will preempt in cases where we should not, e.g. if we WARN() in a section with
+IRQs disabled.
+
+Mark.
 
