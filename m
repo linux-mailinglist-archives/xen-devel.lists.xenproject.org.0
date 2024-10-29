@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7B79B4356
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 08:41:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827060.1241531 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0898F9B4358
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 08:42:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827065.1241541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5gq7-0002ra-BQ; Tue, 29 Oct 2024 07:40:31 +0000
+	id 1t5grr-0003PM-Mr; Tue, 29 Oct 2024 07:42:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827060.1241531; Tue, 29 Oct 2024 07:40:31 +0000
+Received: by outflank-mailman (output) from mailman id 827065.1241541; Tue, 29 Oct 2024 07:42:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5gq7-0002ok-8R; Tue, 29 Oct 2024 07:40:31 +0000
-Received: by outflank-mailman (input) for mailman id 827060;
- Tue, 29 Oct 2024 07:40:30 +0000
+	id 1t5grr-0003N6-Jn; Tue, 29 Oct 2024 07:42:19 +0000
+Received: by outflank-mailman (input) for mailman id 827065;
+ Tue, 29 Oct 2024 07:42:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E68c=RZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5gq6-0002oe-0T
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 07:40:30 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1t5grq-0003My-Fh
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 07:42:18 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 114efc5d-95c9-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 08:40:28 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-37d495d217bso4787054f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 00:40:28 -0700 (PDT)
+ id 525e5f14-95c9-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 08:42:17 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4315c1c7392so51821485e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 00:42:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-431935a3ea8sm134858035e9.21.2024.10.29.00.40.27
+ ffacd0b85a97d-38058b13251sm11706344f8f.6.2024.10.29.00.42.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 00:40:27 -0700 (PDT)
+ Tue, 29 Oct 2024 00:42:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 114efc5d-95c9-11ef-a0c3-8be0dac302b0
+X-Inumbo-ID: 525e5f14-95c9-11ef-a0c3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730187628; x=1730792428; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730187737; x=1730792537; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=83pxI7VAgkNdo64Bbtcq7tDlhElHsp6UR5uYDnLi49I=;
-        b=G0rDBBNd5d61RKnfAkNh3cF+kju/TheIFO2Iu3Igw2wRNMp0GPTWGiYeVTsMNzQ8sJ
-         wGXaftc0ifU+cTWggKHIB7N4hlvqDBLRxs09bOCTLJ62t+iR3oUqCZ3UVAshqMz7175F
-         P00mKS4Rs+ze6C1Gj7BQ5QXnjVp3nnuvQ0/3Y2gcuSrdFfQAUfAMYGtX3u90cMzirkb5
-         d2Y/WNu/XPAIvvSB2W3tY1YkVYxfS1j4bXaXAC9m/D9I++lRBhng3rrA+kbdbqrPkjas
-         8ITlKPK/2ailUH/yWY/35jG7v3uSrW0vHMu+pw4KweLCJ/bkdZ+5vOWyj3xFOkRBK4Yi
-         eiww==
+        bh=fBiCz3ZmYUs/otOFYLQ60oYUDGMNY69KCpjs7FzJ2IY=;
+        b=YXhWky4B8tEPQJijGPrcs6xQNO2zIIj7jxU+STfQQl939uwfj9iFRFN4PcDwSZRoGQ
+         5nJkx1t9FmY8Q9+Fqm5yS99UalKkMsNi/GF0k+298Fo3TnMozOgiHjtuzBZ4sCKP14/0
+         0g1J2CRBcRaMMYs0UXSxjEKFF0yWEqyiALodwQulT9F8ikbTdkaX4svFNdncbCFMhFBR
+         lvQHLRigLRszA/Np7aIYCpQe0gaiXrO96JEurm6pYCsMSDnvxcrzPiY0bdhjgswmS2uZ
+         AJrQD+QnvjBj5TzDV3vglUn4jo95BkO8p38DWakEoovAjZhTo3gnjUzc8kCCHZQ9/1QQ
+         x8fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730187628; x=1730792428;
+        d=1e100.net; s=20230601; t=1730187737; x=1730792537;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=83pxI7VAgkNdo64Bbtcq7tDlhElHsp6UR5uYDnLi49I=;
-        b=RV4FnV40iefGSxIJ4vfvQSKn2KOZas4ZFLpeEkXeJ2DzDaInA9rVXEJb9KtSTOVblR
-         JBnUvd4hUW1BPvqYs/LGs4XogukL+JUrz7UelkDdJPvqQMyozA5dYQMhGuosTpss49xb
-         haIx4+6BI+tU4djTrgTMpB82FRgtaAa5BvRRazbAUgp43TUpF4AzhlQA6X0dStVo+5Pl
-         dEaFg03KBmbr3waz09PauHbnEFN+NZwaT4fyjRxh6S3yuJq3bTJR1MkGFY0aEKKIXxjI
-         5YQWIsD9OKBvkIvz0v3OZmhh+FwbhgfajIcH34jvQIcVfKZttLaoxFwq88kCBlXBB2WX
-         S7sA==
-X-Forwarded-Encrypted: i=1; AJvYcCUR1wqNEeoLqBjzveFnr8EpjdW26CbU9tQl2qTkmkqNziC9nxAkyiOwZ/MszA+MesDuE8KZP9aEj8s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrcoxhXVwbjKE/4L6NYZdmldlvp3R2Ek7WGy9SR/zLWM+zve+C
-	kfbb5LcQ+5avSf6ppTO4ANs7s68OIboTkRB/kMtL4uq34s8rbVj0TD66Rnw/Tg==
-X-Google-Smtp-Source: AGHT+IHvOF8OwuGkcxVT7dMPB+KaYZ2P9v22LKTPWLAf5ilz0BKtA0y49OEUvljoosYk7xznAdEXMg==
-X-Received: by 2002:adf:a79a:0:b0:37d:47e0:45fb with SMTP id ffacd0b85a97d-3806117327cmr9757644f8f.21.1730187627769;
-        Tue, 29 Oct 2024 00:40:27 -0700 (PDT)
-Message-ID: <51cce7e9-97c5-4c7d-957b-bc17b616fba1@suse.com>
-Date: Tue, 29 Oct 2024 08:40:26 +0100
+        bh=fBiCz3ZmYUs/otOFYLQ60oYUDGMNY69KCpjs7FzJ2IY=;
+        b=hudAFkFrdsjr47Furx42dhZdjOfFesUQgfAlITWM4bLZbe4Po0LSIpkYS/m2fpxwqa
+         h+R1JxWBsYD7ZXS6t3QdwOlr87IY4/EmnyGyhXEH00411jEMJj3xJ+xmazRTHXccihaV
+         iVSAD8WknN2lT7U3nxRpCDs74iEtG5KT7J16OB++5Z1hBi9Tx4l3RnWRTeT2LKCP9EvD
+         QFYAoLzId1VfZ2E+ByMdM2kNNfafd4/zJ1O8QuKkHxh6Ivv8prfP6gUwfHYboxxpXG6u
+         j1OPOLgK5p+PnShC6v16aLavxEhPG2mbCXR1uHueDsBoArUpOQX8L+Sr6AflP+zr3A1b
+         MZzA==
+X-Forwarded-Encrypted: i=1; AJvYcCVz9d65aucYO4RxSFnKME/yY/MQhDE3uwBcVxCeWgqaSZcrntqN2K2VL13a7VyAfHCYAkeos8hP+gI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGZNJH6Nv3sduwRixlWlTkpQCpCqQnuCU1XOSnx/shBNt2Ti6e
+	pu8Lh9XDtYeplKnF2QGwWSHRabdfDT72NdZc6wT1CRJageq6nGlV2RLvyvs9fA==
+X-Google-Smtp-Source: AGHT+IHCtC+5itZK481vBEf8XF71+7bd+4HPg2SJUKCNC5ktqut6qSpsT24Fz+N5ryqteHG6kktG5g==
+X-Received: by 2002:a05:600c:5126:b0:426:616e:db8d with SMTP id 5b1f17b1804b1-4319acabb3fmr73765015e9.15.1730187736916;
+        Tue, 29 Oct 2024 00:42:16 -0700 (PDT)
+Message-ID: <4aa81797-9479-46e8-93c4-46b760b734fc@suse.com>
+Date: Tue, 29 Oct 2024 08:42:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/io-apic: fix directed EOI when using AMD-Vi
- interrupt remapping
+Subject: Re: [PATCH] tools/libxl: remove usage of VLA arrays
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Willi Junga
- <xenproject@ymy.be>, David Woodhouse <dwmw@amazon.co.uk>,
- xen-devel@lists.xenproject.org
-References: <20241024154844.8652-1-roger.pau@citrix.com>
- <abadac24-0392-4051-b6a2-08967272f1a1@suse.com> <Zx_IZUyNL-Iw-nrL@macbook>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org, Frediano Ziglio <frediano.ziglio@cloud.com>
+References: <20241028114831.27487-1-roger.pau@citrix.com>
+ <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
+ <51632c96-9a12-4656-b8f8-1631c11a3a19@suse.com>
+ <CACHz=Zg4mFn5zn42f9dDFao0r7ePj=Owhc04OSW5LfW6cJoUaw@mail.gmail.com>
+ <Zx_JRaViUiEF2IrH@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,105 +116,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zx_IZUyNL-Iw-nrL@macbook>
+In-Reply-To: <Zx_JRaViUiEF2IrH@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.10.2024 18:22, Roger Pau Monné wrote:
-> On Mon, Oct 28, 2024 at 12:33:42PM +0100, Jan Beulich wrote:
->> On 24.10.2024 17:48, Roger Pau Monne wrote:
->>> --- a/xen/arch/x86/io_apic.c
->>> +++ b/xen/arch/x86/io_apic.c
->>> @@ -71,6 +71,24 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
->>>  
->>>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
->>>  
->>> +/*
->>> + * Store the EOI handle when using interrupt remapping.
->>> + *
->>> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
->>> + * format repurposes the vector field to store the offset into the Interrupt
->>> + * Remap table.  This causes directed EOI to longer work, as the CPU vector no
->>> + * longer matches the contents of the RTE vector field.  Add a translation
->>> + * table so that directed EOI uses the value in the RTE vector field when
->>> + * interrupt remapping is enabled.
->>> + *
->>> + * Note Intel VT-d Xen code still stores the CPU vector in the RTE vector field
->>> + * when using the remapped format, but use the translation table uniformly in
->>> + * order to avoid extra logic to differentiate between VT-d and AMD-Vi.
->>> + *
->>> + * The matrix is accessed as [#io-apic][#pin].
->>> + */
->>> +static uint8_t **io_apic_pin_eoi;
+On 28.10.2024 18:26, Roger Pau Monné wrote:
+> On Mon, Oct 28, 2024 at 12:57:30PM +0000, Frediano Ziglio wrote:
+>> On Mon, Oct 28, 2024 at 12:48 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>
+>>> On 28.10.2024 13:03, Andrew Cooper wrote:
+>>>> On 28/10/2024 11:48 am, Roger Pau Monne wrote:
+>>>>> Clang 19 complains with the following error when building libxl:
+>>>>>
+>>>>> libxl_utils.c:48:15: error: variable length array folded to constant array as an extension [-Werror,-Wgnu-folding-constant]
+>>>>>    48 |     char path[strlen("/local/domain") + 12];
+>>>>>       |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>>>
+>>>>> Replace the usage of strlen() with ARRAY_SIZE(), which allows the literal
+>>>>> string length to be known at build time.  Note ARRAY_SIZE() accounts for the
+>>>>> NUL terminator while strlen() didn't, hence subtract 1 from the total size
+>>>>> calculation.
+>>>>>
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>> ---
+>>>>>  tools/libs/light/libxl_utils.c | 4 ++--
+>>>>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_utils.c
+>>>>> index 10398a6c8611..b3f5e751cc3f 100644
+>>>>> --- a/tools/libs/light/libxl_utils.c
+>>>>> +++ b/tools/libs/light/libxl_utils.c
+>>>>> @@ -45,7 +45,7 @@ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned
+>>>>>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
+>>>>>  {
+>>>>>      unsigned int len;
+>>>>> -    char path[strlen("/local/domain") + 12];
+>>>>> +    char path[ARRAY_SIZE("/local/domain") + 11];
+>>>>>      char *s;
+>>>>>
+>>>>>      snprintf(path, sizeof(path), "/local/domain/%d/name", domid);
+>>>>> @@ -141,7 +141,7 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx *ctx, const char *p,
+>>>>>  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
+>>>>>  {
+>>>>>      unsigned int len;
+>>>>> -    char path[strlen("/local/pool") + 12];
+>>>>> +    char path[ARRAY_SIZE("/local/pool") + 11];
+>>>>>      char *s;
+>>>>>
+>>>>>      snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
+>>>>
+>>>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>
+>>>> Although I have a minor preference for sizeof() as suggested by Frediano.
+>>>>
+>>>> Can fix on commit, if you're happy?
+>>>
+>>> Please can we stick to ARRAY_SIZE() when it comes to strings? It's the
+>>> same as sizeof() when the base type is char, but the difference becomes
+>>> relevant if the base type was e.g. wchar_t.
+>>>
+>>> Jan
+>>>
 >>
->> Wasn't the conclusion from the v1 discussion that this needs to be a signed
->> type wider than 8 bits?
+>> But "literal" is not a wide string, and the type is "char" which is
+>> not wide too.
 >>
->>> @@ -298,6 +323,9 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
->>>      /* Prefer the use of the EOI register if available */
->>>      if ( ioapic_has_eoi_reg(apic) )
->>>      {
->>> +        if ( io_apic_pin_eoi )
->>> +            vector = io_apic_pin_eoi[apic][pin];
->>> +
->>>          /* If vector is unknown, read it from the IO-APIC */
->>>          if ( vector == IRQ_VECTOR_UNASSIGNED )
->>>              vector = __ioapic_read_entry(apic, pin, true).vector;
->>
->> In addition to what Andrew said here, for this comparison the make sense
->> ...
->>
->>> @@ -1022,7 +1050,20 @@ static void __init setup_IO_APIC_irqs(void)
->>>  
->>>      apic_printk(APIC_VERBOSE, KERN_DEBUG "init IO_APIC IRQs\n");
->>>  
->>> +    if ( iommu_intremap )
->>> +    {
->>> +        io_apic_pin_eoi = xzalloc_array(typeof(*io_apic_pin_eoi), nr_ioapics);
->>> +        BUG_ON(!io_apic_pin_eoi);
->>> +    }
->>> +
->>>      for (apic = 0; apic < nr_ioapics; apic++) {
->>> +        if ( iommu_intremap )
->>> +        {
->>> +            io_apic_pin_eoi[apic] = xzalloc_array(typeof(**io_apic_pin_eoi),
->>> +                                                  nr_ioapic_entries[apic]);
->>> +            BUG_ON(!io_apic_pin_eoi[apic]);
->>> +        }
->>
->> ... doesn't the array also need -1 (== IRQ_VECTOR_UNASSIGNED) filling,
->> rather than zero-filling?
+>> BTW, both me and Andrew are not strong about.
 > 
-> Replying here to both you and Andrews question.  My analysis is that
-> a sentinel is not needed.  clear_IO_APIC_pin() is the only function
-> that calls the EOI routine outside of the irq_desc handlers logic.
-> 
-> It's used either by clear_IO_APIC(), which gets called before
-> io_apic_pin_eoi is allocated,
+> No strong opinion either, I've assumed it was clearer to not make
+> implicit assumptions about the size of the string literal array
+> elements.  I would rather like to get this committed, and Jan seems to
+> prefer to use ARRAY_SIZE(), so I suggest we get the patch committed
+> as-is.
 
-Or long after, from disable_IO_APIC().
-
-> or by check_timer() and/or
-> unlock_ExtINT_logic() both of which will perform an
-> ioapic_write_entry() before the clear_IO_APIC_pin() call.
-
-In unlock_ExtINT_logic() I see a call to ioapic_read_entry(), whereas the
-call to ioapic_write_entry() happens only later. In check_timer() I'm also
-uncertain a write would occur in _all_ cases. It certainly should occur,
-or else chances are low that the timer interrupt would actually work. Yet
-we surely want to avoid making hard to debug corner cases yet more subtle.
-
-> I've done some XenRT testing with a modified patch that kept the
-> io_apic_pin_eoi as unsigned int, used the sentinel as init value and
-> added an assert in __io_apic_eoi() that the value in the array was
-> never IRQ_VECTOR_UNASSIGNED when the io_apic_pin_eoi was allocated.
-> This never triggered on any hardware XenRT tested on.
-> 
-> Maybe this seems to fragile, and you both prefer to keep the sentinel
-> just in case?
-
-Well, how certain are you that this testing in particular covered e.g. all
-the quirk cases that check_timer() tries to deal with?
+Well, ultimately it's Anthony's call, for still being the sole maintainer.
 
 Jan
 
