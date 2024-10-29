@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 088469B4787
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 11:57:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827255.1241822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9663B9B47A0
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 12:00:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827259.1241832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5ju4-0006py-SD; Tue, 29 Oct 2024 10:56:48 +0000
+	id 1t5jxG-000083-8y; Tue, 29 Oct 2024 11:00:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827255.1241822; Tue, 29 Oct 2024 10:56:48 +0000
+Received: by outflank-mailman (output) from mailman id 827259.1241832; Tue, 29 Oct 2024 11:00:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5ju4-0006nH-OZ; Tue, 29 Oct 2024 10:56:48 +0000
-Received: by outflank-mailman (input) for mailman id 827255;
- Tue, 29 Oct 2024 10:56:47 +0000
+	id 1t5jxG-0008W6-6A; Tue, 29 Oct 2024 11:00:06 +0000
+Received: by outflank-mailman (input) for mailman id 827259;
+ Tue, 29 Oct 2024 11:00:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Mpqm=RZ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t5ju3-0006br-9H
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 10:56:47 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1t5jxE-0008Dk-FG
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 11:00:04 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7c218932-95e4-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 11:56:44 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a99f646ff1bso673007566b.2
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 03:56:44 -0700 (PDT)
+ id f0c57a31-95e4-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 11:59:59 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a9a0ef5179dso781347566b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 03:59:59 -0700 (PDT)
 Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cbb629f83fsm3898965a12.38.2024.10.29.03.56.42
+ 4fb4d7f45d1cf-5cbb631a24dsm3831291a12.74.2024.10.29.03.59.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 03:56:42 -0700 (PDT)
+ Tue, 29 Oct 2024 03:59:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c218932-95e4-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjdjMjE4OTMyLTk1ZTQtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMTk5NDA0LjY3Njk2NCwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: f0c57a31-95e4-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzEiLCJoZWxvIjoibWFpbC1lajEteDYzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImYwYzU3YTMxLTk1ZTQtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMTk5NTk5Ljg5MzQzNywic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730199403; x=1730804203; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1730199599; x=1730804399; darn=lists.xenproject.org;
         h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kLbxQHiyK4T/N8pomFvkppNUPghYLKCRHF4kNAlmNyo=;
-        b=Lc8GVj2AcDbG7BiUrDrSQXW0A3EU3raMBQHiEbv3VUrK+/GLFlpNrXxv6KTHiyLSa2
-         lPuXkE3aYqty/UF4GpmhvBV/x4gj0tPX343VhHM7d5ZaDoDTmxqdykVJyFXpS5Rip0bT
-         E0mZvhSoovsw9VPy+OutA1Hgjc8f6CsydTwH4=
+        bh=ZTsghFy1Ayh32UBlFMRlzPpNBumM3S1QCcBT04TmHak=;
+        b=cDSw9dxWVikNzOU+qLmDF7LTj9SlEPYSXswW9pxJl1/+obqpOyZEZA/6mbLvmQsjWh
+         ftmWx54rqQpGjjEINJpPhiSq8nZkPctRemyBhIOjJsmZDxxrGr8N5ekf00rH52pIwaWf
+         kJbaOSwjpt7XmbRtc0jQyiKZ8gWLsXjFI5gI4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730199403; x=1730804203;
+        d=1e100.net; s=20230601; t=1730199599; x=1730804399;
         h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kLbxQHiyK4T/N8pomFvkppNUPghYLKCRHF4kNAlmNyo=;
-        b=O0/JcW8xvg2RD/p/w8MQyqTOTcJvjTmwqnVWrza0lyzIJRp/oXzcSNKUm59b7eNsPM
-         rrwH4p4+c6a+yQQjvu7Gv7TzzCjGGfmGsKFKaH6lH3R48pF/54I+z2CGjXDwvNNHM7Zl
-         +kQyhm9bNBdRWgraxqP8cp8By0rhm91TzdxHCaIDPN7ssFmEzeL4hK4naGKQ4DhE3N3u
-         wM/6EuBDOEqfZsB8uVRpvyvNOhE/GejQbkrbmCiJdSYDJJ+OU6Bh5ISiQ69IFFbtWJFY
-         S9Eou0dU+w5EgJO/cG74DlgcRFba5bQHAo2l+w5iBG7RF9peI5RqbSaO6i1lsZzQ+3Wh
-         7d8w==
-X-Forwarded-Encrypted: i=1; AJvYcCWXj1RVVAA5kgDealkya6KT9Mo3aGC7dzG4MEwcWSeZek9m1fANl4ITH6dvhyqSeV6Lg++e3mMZqgY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqtG9yKAkwSY8X9f5uIcEs1O0KRgSlpNxr8ORnRAanPmR/kkEb
-	9EhZrHiOy7pUaMnFj9OgSUKqHPCQ05FBajVZzD747LHys6exH+vutMOYzdYRoRlcrT9kuR0bTYg
-	d
-X-Google-Smtp-Source: AGHT+IEo9qJiHFfE/luMD6g7Lwn0CW/FLdbHii5PYvwogOe3yTh+Z5KFJnPxfuU3jTnbBSDB412ncg==
-X-Received: by 2002:a17:907:3f02:b0:a99:f746:385 with SMTP id a640c23a62f3a-a9de5c92befmr1042101566b.1.1730199403404;
-        Tue, 29 Oct 2024 03:56:43 -0700 (PDT)
+        bh=ZTsghFy1Ayh32UBlFMRlzPpNBumM3S1QCcBT04TmHak=;
+        b=iKgfPd+C5R7a9W07As8utAOLevr3ACA5jHJ10+hbJa5/2Wi0P0dmDFcUASxiosEj0s
+         Kl4wpqif1qxlhMmEhWdKD8JRk3dLXAZb1ZP3dWn4wKI/WJs4xaHpkOUY7kk0Tj7lYmRK
+         ZHk9XSuft1iUvEaf4ZJsJw4qqRr4X3UVm7++Ms0wDlh3MXFGRzWB5ippgNVvGMD4XxnO
+         3ZJINBhlmhTk3e4UR2gPD0T8exD86lzcildBldbst3uO/8Dfr5rrsNh+8h6HXNCpE7nG
+         Ix8siWXrtzSK4z4qtL3DhdsznnA2iQ3eqvt1grmtlstG/4+AKsSAWcI3mQZ2KIDOS2Aa
+         cKEA==
+X-Forwarded-Encrypted: i=1; AJvYcCW0fWjRI5Yg/vXJgfxFMikrwnZdCGQ3OSWOmo65G3bztcSWUJHsIUONGSPO57Vh41+yCHnLf/LFEqc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyL9uJ2o1IPJgl1vbQgGyE5eyeqnV7sgtWNm8XxYDGhx0J7fT8A
+	UFjgFKGffygE5aPvLn3i1BDsrHRordstWy55yJk3jd3dgAIY8n4kZwyE+AM9y1edD+iNjEQHluO
+	N
+X-Google-Smtp-Source: AGHT+IF+lo/2cLctftdBr3o34xeA0aYShztjINgB9F0zQrM+U6lwX7r3FyBix5u2slyC6NNVxY6DAw==
+X-Received: by 2002:a17:907:948c:b0:a99:f8db:68b2 with SMTP id a640c23a62f3a-a9de5ecca55mr1192183266b.18.1730199599191;
+        Tue, 29 Oct 2024 03:59:59 -0700 (PDT)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 29 Oct 2024 10:56:41 +0000
-Message-Id: <D588I0A48MB1.1T96PWTSBSEY1@cloud.com>
-Cc: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Date: Tue, 29 Oct 2024 10:59:58 +0000
+Message-Id: <D588KIJCBFQQ.2AC6KE08Z8YWK@cloud.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 01/14] x86/xstate: Update stale assertions in
- fpu_x{rstor,save}()
+Subject: Re: [PATCH 12/14] x86/fpu: Pass explicit xsave areas to
+ fpu_(f)xsave()
 From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>
+To: "Jan Beulich" <jbeulich@suse.com>
 X-Mailer: aerc 0.18.2
 References: <20241028154932.6797-1-alejandro.vallejo@cloud.com>
- <20241028154932.6797-2-alejandro.vallejo@cloud.com>
- <fdc89027-d33c-40f5-93f9-b8d7e880e732@citrix.com>
- <7027a24e-3213-48c5-8027-24dcf1df55ac@suse.com>
-In-Reply-To: <7027a24e-3213-48c5-8027-24dcf1df55ac@suse.com>
+ <20241028154932.6797-13-alejandro.vallejo@cloud.com>
+ <85e7334b-b878-4896-8f7a-462ba73ea9e2@suse.com>
+In-Reply-To: <85e7334b-b878-4896-8f7a-462ba73ea9e2@suse.com>
 
-On Tue Oct 29, 2024 at 8:13 AM GMT, Jan Beulich wrote:
-> On 28.10.2024 18:16, Andrew Cooper wrote:
-> > On 28/10/2024 3:49 pm, Alejandro Vallejo wrote:
-> >> The asserts' intent was to establish whether the xsave instruction was
-> >> usable or not, which at the time was strictly given by the presence of
-> >> the xsave area. After edb48e76458b("x86/fpu: Combine fpu_ctxt and
-> >> xsave_area in arch_vcpu"), that area is always present a more relevant
-> >> assert is that the host supports XSAVE.
-> >>
-> >> Fixes: edb48e76458b("x86/fpu: Combine fpu_ctxt and xsave_area in arch_=
-vcpu")
-> >> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> >> ---
-> >> I'd also be ok with removing the assertions altogether. They serve ver=
-y
-> >> little purpose there after the merge of xsave and fpu_ctxt.
-> >=20
-> > I'd be fine with dropping them.
+On Tue Oct 29, 2024 at 8:37 AM GMT, Jan Beulich wrote:
+> On 28.10.2024 16:49, Alejandro Vallejo wrote:
+> > --- a/xen/arch/x86/xstate.c
+> > +++ b/xen/arch/x86/xstate.c
+> > @@ -300,9 +300,8 @@ void compress_xsave_states(struct vcpu *v, const vo=
+id *src, unsigned int size)
+> >      vcpu_unmap_xsave_area(v, xstate);
+> >  }
+> > =20
+> > -void xsave(struct vcpu *v, uint64_t mask)
+> > +void xsave(struct vcpu *v, struct xsave_struct *ptr, uint64_t mask)
+> >  {
+> > -    struct xsave_struct *ptr =3D v->arch.xsave_area;
+> >      uint32_t hmask =3D mask >> 32;
+> >      uint32_t lmask =3D mask;
+> >      unsigned int fip_width =3D v->domain->arch.x87_fip_width;
 >
-> +1
+> Imo this change wants to constify v at the same time, to demonstrate that
+> nothing is changed through v anymore. The comment may extend to other fun=
+ctions
+> as well that are being altered here; I only closely looks at this one.
 >
 > Jan
->
-> >=C2=A0 If they're violated, the use of
-> > XSAVE/XRSTOR immediately afterwards will be fatal too.
-> >=20
-> > ~Andrew
 
-Ok then, I'll re-send this one as a removal.
+I didn't think of that angle... I'll have a look and take it into account f=
+or
+v2.
 
 Cheers,
 Alejandro
