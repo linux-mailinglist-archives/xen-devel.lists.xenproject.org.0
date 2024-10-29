@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E34769B4976
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 13:17:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827356.1241950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15E5B9B4A27
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 13:51:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827374.1241960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5l9s-0008WI-RY; Tue, 29 Oct 2024 12:17:12 +0000
+	id 1t5lg6-000673-FN; Tue, 29 Oct 2024 12:50:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827356.1241950; Tue, 29 Oct 2024 12:17:12 +0000
+Received: by outflank-mailman (output) from mailman id 827374.1241960; Tue, 29 Oct 2024 12:50:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5l9s-0008Sp-NR; Tue, 29 Oct 2024 12:17:12 +0000
-Received: by outflank-mailman (input) for mailman id 827356;
- Tue, 29 Oct 2024 12:17:11 +0000
+	id 1t5lg6-000642-CZ; Tue, 29 Oct 2024 12:50:30 +0000
+Received: by outflank-mailman (input) for mailman id 827374;
+ Tue, 29 Oct 2024 12:50:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uXRL=RZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1t5l9r-0008SQ-90
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 12:17:11 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ (envelope-from <SRS0=Cc3+=RZ=kernel.org=ardb@srs-se1.protection.inumbo.net>)
+ id 1t5lg5-00063w-2s
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 12:50:29 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5db8cc8-95ef-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 13:17:05 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6CC5B1FE6C;
- Tue, 29 Oct 2024 12:17:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E246136A5;
- Tue, 29 Oct 2024 12:17:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WgItDD/SIGf2VAAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 29 Oct 2024 12:17:03 +0000
+ id 5da4ce5e-95f4-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 13:50:25 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 46EC1A42DA0
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 12:48:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F58C4CEE6
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 12:50:23 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-2fb3110b964so42680531fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 05:50:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,229 +44,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5db8cc8-95ef-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5NS4xMzUuMjIzLjEzMSIsImhlbG8iOiJzbXRwLW91dDIuc3VzZS5kZSJ9
-X-Custom-Transaction: eyJpZCI6ImI1ZGI4Y2M4LTk1ZWYtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjA0MjI4LjQ3ODQ2OSwic2VuZGVyIjoiamdyb3NzQHN1c2UuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1730204224; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=4vFi6pAHciU773ywiaskr/mBUMx5VR/SZi+XZE16DNc=;
-	b=nrauY2MU3zUyxP90uoxX6CmMJDVSwmb9KUksY9vSw13GBen1DICcf9SyK04GBGEJSrAcMK
-	cfPOIna0jwWlCdJUnDUQk5d1nlhgo87Knk0NZwQ8CyTf+VH8zS6MzS4P2YRI2jgDTWVUVK
-	7nLE8f/gP93DEkyZosjIDZ7y/S0qhtk=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1730204223; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=4vFi6pAHciU773ywiaskr/mBUMx5VR/SZi+XZE16DNc=;
-	b=PxD0gRYivi9DXN/8WaYVRf+RkgU3bcw4Vxfd1m+QWPOFnxGb4VISTR2b6y5ZxKWsF5n1Or
-	l8yRJkAbJIDOExSDEsTmO2HXWXoqir7CgjtiHzi4TJqecBsfQYxQ7JLm58jNNr8W8JVSt8
-	q8g3UlBbO/091IqkVT8gqxDe6UdZhT8=
-Message-ID: <2894832c-a7c8-4f60-8484-c2eca7927e7e@suse.com>
-Date: Tue, 29 Oct 2024 13:17:02 +0100
+X-Inumbo-ID: 5da4ce5e-95f4-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE0Ny43NS4xOTMuOTEiLCJoZWxvIjoibnljLnNvdXJjZS5rZXJuZWwub3JnIn0=
+X-Custom-Transaction: eyJpZCI6IjVkYTRjZTVlLTk1ZjQtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjA2MjI1LjU3MzQxOSwic2VuZGVyIjoiYXJkYkBrZXJuZWwub3JnIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730206223;
+	bh=qpqKiCVwGj7SngGYaK80lZw41JwmB+AhSP70a/Xdq1E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=CNogKg6tqY6sYLa0yTfsV5VM6EVLVTHwA1XFvDsJBdjbefzq6skxJ2WRC8h5F/ZPN
+	 wgnZnZQ+atgQhNinzsM/BjTs64o5NG9aYccpy2M/gVvSPGWys7inlm3bQjtkNIF8Rv
+	 f28N24sPOhuixaI4XoricXRxRM+Ry4NHkSCcJ9W4W277irpfVL7H76HqAdvdorKQTy
+	 L0XV8KPLxvoqaIlo0lmAAqHwdl7MQ9HwIdZNnkzqcElJkRuDHPtZFY8qt9lBVPxjBd
+	 CkgtcqqdCO8j00EDtB0yTB5SMmjnoBj+nwQjZ5nKOm/UmV8yx8ETrcDGXIvPXtHkCt
+	 OBa+cUmjZWkNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNTv/vn4e0XAVVslcU/eVDCFQty7AGuPEx0KBRxLd1eG/ifp772zygWQT1F8xGzfxMlpHGQG4GFC0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywt5HOeSQFDTZOZwDthOw45f1AZbQyPe/5zGLsLlAffmTawAIsa
+	vatzqKiFFw2M2/a1rNOhaUCeuTgya449hSjTZP4ebzcsPY4OYhG6WblPirBaark25aqED4lD9f0
+	C/jf1liyCMAMHWO+vvw1cx1BzD2Q=
+X-Google-Smtp-Source: AGHT+IE13vCSXiGikajW15oEuXQauuOovUNSx/7h82mtO6lP6mJ0KIW1b6Z6Cr+GGo7IZepi0dmFbUBD16EkW4eCRpY=
+X-Received: by 2002:a05:651c:2204:b0:2fb:6057:e67e with SMTP id
+ 38308e7fff4ca-2fcbe08cdc1mr50995891fa.32.1730206222187; Tue, 29 Oct 2024
+ 05:50:22 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Mini-OS PATCH] Add missing symbol exports for grub-pv
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Natanael Copa <ncopa@alpinelinux.org>
-References: <20241029114158.17231-1-jgross@suse.com> <ZyDL9fGtcouw9bar@begin>
- <2181e8fc-1066-4749-abca-e4f0de084770@citrix.com>
- <b13cc450-f032-44e2-bbbe-bdc98d4b7050@suse.com>
- <2846b6dc-4209-4f1e-8713-cb8e66ca789c@citrix.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <2846b6dc-4209-4f1e-8713-cb8e66ca789c@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------kUjErIsUfEojt0vB488yZWXI"
-X-Spam-Level: 
-X-Spamd-Result: default: False [-6.20 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid]
-X-Spam-Score: -6.20
-X-Spam-Flag: NO
+References: <20241009160438.3884381-7-ardb+git@google.com>
+In-Reply-To: <20241009160438.3884381-7-ardb+git@google.com>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Tue, 29 Oct 2024 13:50:09 +0100
+X-Gmail-Original-Message-ID: <CAMj1kXHzahaLRH_0nSQaS7L+so0WRwh4R6SLdb1R+Hm3s-o1dA@mail.gmail.com>
+Message-ID: <CAMj1kXHzahaLRH_0nSQaS7L+so0WRwh4R6SLdb1R+Hm3s-o1dA@mail.gmail.com>
+Subject: Re: [PATCH v3 0/5] x86/xen: Drop absolute references from startup code
+To: Ard Biesheuvel <ardb+git@google.com>
+Cc: linux-kernel@vger.kernel.org, Jason Andryuk <jason.andryuk@amd.com>, 
+	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kUjErIsUfEojt0vB488yZWXI
-Content-Type: multipart/mixed; boundary="------------d2WiQPzGoK84nuXTNLV4Uil1";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Natanael Copa <ncopa@alpinelinux.org>
-Message-ID: <2894832c-a7c8-4f60-8484-c2eca7927e7e@suse.com>
-Subject: Re: [Mini-OS PATCH] Add missing symbol exports for grub-pv
-References: <20241029114158.17231-1-jgross@suse.com> <ZyDL9fGtcouw9bar@begin>
- <2181e8fc-1066-4749-abca-e4f0de084770@citrix.com>
- <b13cc450-f032-44e2-bbbe-bdc98d4b7050@suse.com>
- <2846b6dc-4209-4f1e-8713-cb8e66ca789c@citrix.com>
-In-Reply-To: <2846b6dc-4209-4f1e-8713-cb8e66ca789c@citrix.com>
+On Wed, 9 Oct 2024 at 18:09, Ard Biesheuvel <ardb+git@google.com> wrote:
+>
+> From: Ard Biesheuvel <ardb@kernel.org>
+>
+> This series was broken out of the series I sent recently [0], after
+> Jason pointed out that my Xen startup code changes conflict with his
+> changes to make the PVH startup code position independent.
+>
+> Jason's work reduces the delta of my changes, and given that my other
+> series will likely advance at a much slower pace, the Xen changes are
+> presented here so they can be merged independently.
+>
+> The end result after applying this series (see below) is that there are
+> no longer any Xen-related absolute relocations that need to be applied
+> to .head.text, a section which carries code that may be invoked from the
+> 1:1 mapping of memory before the kernel virtual mapping is up.  The use
+> of absolute references in this code section has resulted in a few boot
+> issues that were very hard to track down (Clang built kernels running
+> under SEV-SNP in particular, which does not provide the best debug
+> experience).
+>
+> Even though the occurrences in the Xen startup code were fine, there is
+> now a lot of C code emitted into .head.text as well, and so it would be
+> helpful to teach objtool to reject absolute references entirely in this
+> section (or rely on the linker for that). Therefore, not relying on them
+> in the first place is a step towards that goal.
+>
+> Changes since v2 [2]:
+> - add Jason's Tested-by to patch #4
+> - use a better name for the linker defined symbols used in the ELF notes
+>   (patch #4)
+> - add a comment in the linker script explaining why the symbol values
+>   are constructed in the way they are
+> - rebase onto v6.12-rc2
+>
+> Changes since v1 [1]:
+> - add Jason's Rb to patches #2, #3 and #5
+> - drop the use of a 32-bit field for the ELF note- QEMU reads a u64 and
+>   so the top word needs to remain 0x0
+> - tweak #ifdefs in patch #4 so the hypercall_page linker symbol does not
+>   depend on CONFIG_XEN_PV
+> - rebase onto v6.12-rc1
+>
+> Changes wrt [0]:
+> - add Jason's Rb to patch #1
+> - rebase onto xen/tip's linux-next branch
+> - split out fix for GDT descriptor size field
+> - add patch to remove the zeroing of phys_base, which is no longer
+>   needed
+> - use a 32-bit field for XEN_ELFNOTE_PHYS32_ENTRY, and use its contents
+>   to obtain the build time physical address of pvh_startup_xen()
+>
+> [0] https://lore.kernel.org/all/20240925150059.3955569-30-ardb+git@google.com
+> [1] https://lore.kernel.org/all/20240926104113.80146-7-ardb+git@google.com/
+> [2] https://lore.kernel.org/all/20240930071513.909462-7-ardb+git@google.com/
+>
+> Relocation section '.rela.head.text' at offset 0xb428 contains 15 entries:
+>   Offset          Info           Type           Sym. Value    Sym. Name + Addend
+> 000000000018  000800000002 R_X86_64_PC32     0000000000000000 .init.data + 18
+> 00000000002f  000e00000002 R_X86_64_PC32     0000000000000000 pvh_start_info + 2f
+> 000000000037  000f00000002 R_X86_64_PC32     0000000000000000 pvh_start_info_sz + 37
+> 000000000042  000800000002 R_X86_64_PC32     0000000000000000 .init.data + 4092
+> 000000000060  001000000002 R_X86_64_PC32     000000000000002c xen_elfnote_phys3[...] + 60
+> 000000000068  001100000002 R_X86_64_PC32     0000000000000000 phys_base + 68
+> 00000000006e  001200000002 R_X86_64_PC32     0000000000005000 pvh_init_top_pgt + 6e
+> 000000000089  001300000002 R_X86_64_PC32     0000000000006000 pvh_level3_ident_pgt + 89
+> 000000000091  001400000002 R_X86_64_PC32     0000000000008000 pvh_level3_kernel_pgt + 91
+> 0000000000a3  001500000002 R_X86_64_PC32     0000000000009000 pvh_level2_kernel_pgt + a3
+> 0000000000be  001200000002 R_X86_64_PC32     0000000000005000 pvh_init_top_pgt + be
+> 0000000000de  000800000002 R_X86_64_PC32     0000000000000000 .init.data + 1c
+> 0000000000e9  001600000002 R_X86_64_PC32     0000000000000000 xen_prepare_pvh - 4
+> 0000000000f8  001700000002 R_X86_64_PC32     0000000000000000 pvh_bootparams - 4
+> 0000000000fd  001800000004 R_X86_64_PLT32    0000000000000000 startup_64 - 4
+>
+> Relocation section '.rela.note.Xen' at offset 0xb668 contains 1 entry:
+>   Offset          Info           Type           Sym. Value    Sym. Name + Addend
+> 00000000002c  001a00000002 R_X86_64_PC32     0000000000000000 xen_elfnote_phys3[...] + 0
+>
+> Cc: Jason Andryuk <jason.andryuk@amd.com>
+> Cc: Juergen Gross <jgross@suse.com>
+> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> Cc: x86@kernel.org
+> Cc: xen-devel@lists.xenproject.org
+>
 
---------------d2WiQPzGoK84nuXTNLV4Uil1
-Content-Type: multipart/mixed; boundary="------------lYFRJhB9r2lOxYzYGRBqovef"
-
---------------lYFRJhB9r2lOxYzYGRBqovef
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjkuMTAuMjQgMTM6MTMsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDI5LzEwLzIw
-MjQgMTI6MDIgcG0sIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+PiBPbiAyOS4xMC4yNCAxMzow
-MSwgQW5kcmV3IENvb3BlciB3cm90ZToNCj4+PiBPbiAyOS8xMC8yMDI0IDExOjUwIGFtLCBT
-YW11ZWwgVGhpYmF1bHQgd3JvdGU6DQo+Pj4+IEp1ZXJnZW4gR3Jvc3MsIGxlIG1hci4gMjkg
-b2N0LiAyMDI0IDEyOjQxOjU4ICswMTAwLCBhIGVjcml0Og0KPj4+Pj4gR3J1Yi1wdiBuZWVk
-cyBzdGFydF9pbmZvX3VuaW9uIGFuZCBwaHlzX3RvX21hY2hpbmVfbWFwcGluZyB0byBiZQ0K
-Pj4+Pj4gYWNjZXNzaWJsZS4gRXhwb3J0IGJvdGggc3ltYm9scy4NCj4+Pj4+DQo+Pj4+PiBG
-aXhlczogMzM0MTFhMTFmODQ4ICgiTWluaS1PUzogaGlkZSBhbGwgc3ltYm9scyBub3QgZXhw
-b3J0ZWQgdmlhDQo+Pj4+PiBFWFBPUlRfU1lNQk9MUygpIikNCj4+Pj4+IFJlcG9ydGVkLWJ5
-OiBOYXRhbmFlbCBDb3BhIDxuY29wYUBhbHBpbmVsaW51eC5vcmc+DQo+Pj4+PiBTaWduZWQt
-b2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+Pj4+IFJldmlld2Vk
-LWJ5OiBTYW11ZWwgVGhpYmF1bHQgPHNhbXVlbC50aGliYXVsdEBlbnMtbHlvbi5vcmc+DQo+
-Pj4NCj4+PiBDb21taXR0ZWQuDQo+Pj4NCj4+PiBKdXJnZW4sIHdoYXQgZG8geW91IHdhbnQg
-dG8gZG8gd2l0aCB1cGRhdGluZyA0LjE5P8KgIERvbid0IHdlIG5lZWQgdG8NCj4+PiBmb3Jr
-IGEgNC4xOSBicmFuY2ggdG8gYXZvaWQgdGhlIENPTkZJR19YQyBjaGFuZ2UgPw0KPj4NCj4+
-IFllcywgSSB0aGluayB0aGlzIGlzIHRoZSB3YXkgdG8gZ28uDQo+IA0KPiBPay7CoCBodHRw
-czovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9bWluaS1vcy5naXQ7YT1zdW1tYXJ5DQo+
-IA0KPiBtYXN0ZXIgaGFzIHRoaXMgZml4LCBhbmQgdGhlcmUncyBhIG5ldyBicmFuY2gsIHhl
-bi1zdGFibGUtNC4xOSwgc3RhcnRpbmcNCj4gZnJvbSB0aGUgeGVuLVJFTEVBU0UtNC4xOS4w
-IHRhZyB3aXRoIHRoaXMgY2hhbmdlIGJhY2twb3J0ZWQuDQo+IA0KPiBYZW4gNC4xOCBhbmQg
-ZWFybGllciBkb24ndCBoYXZlIHRoZSBzeW1ib2wgcmVzdHJpY3Rpb25zLg0KDQpZb3Ugd2Fu
-dCBhIHJlbGF0ZWQgcGF0Y2ggb24gdGhlIFhlbiA0LjE5IGJyYW5jaCB0byB1cGRhdGUgdGhl
-IE1pbmktT1MNCmNvbW1pdCBpbiBDb25maWcubWsuDQoNCg0KSnVlcmdlbg0K
---------------lYFRJhB9r2lOxYzYGRBqovef
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------lYFRJhB9r2lOxYzYGRBqovef--
-
---------------d2WiQPzGoK84nuXTNLV4Uil1--
-
---------------kUjErIsUfEojt0vB488yZWXI
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmcg0j4FAwAAAAAACgkQsN6d1ii/Ey+4
-TAf/b5QOI7PGUaOifNWpo97GJgg89n6PyRhUDwlnsU2qgtvlctW5TxGMWpcDZKnQbdIQMSrhVeRo
-/lxnwO69Hx+ysOkv666Rv5CMIIwkq80/jwlJyuifvX1j/tZmv7qXxDIVMRwZ8jjyIz1Aslw/WdlY
-PfiS1fIAu0XPfKnM38vCvfDQK2f7+QIV7BPmDgb958kwAnQ4KNoz/4nhpN/MGvWTB9FXwRjMDfBT
-Sfl/HRUt6pjFkBkqkpsNu2KJxy6PElNVJQZT6aPufO8ojPmlwECZn1rBFIJLfqzLWnmpDkg6XkoC
-GXs/N/qRvQsK7j0q3DwXW4VvQdc4+exGmjAOdgu2ow==
-=g6yh
------END PGP SIGNATURE-----
-
---------------kUjErIsUfEojt0vB488yZWXI--
+Ping?
 
