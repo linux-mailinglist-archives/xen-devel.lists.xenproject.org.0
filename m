@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F115B9B43CF
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 09:09:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827082.1241562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA98E9B43EC
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 09:14:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827090.1241572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5hHQ-0008BC-2l; Tue, 29 Oct 2024 08:08:44 +0000
+	id 1t5hMX-0001PE-OP; Tue, 29 Oct 2024 08:14:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827082.1241562; Tue, 29 Oct 2024 08:08:44 +0000
+Received: by outflank-mailman (output) from mailman id 827090.1241572; Tue, 29 Oct 2024 08:14:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5hHP-00088g-Uf; Tue, 29 Oct 2024 08:08:43 +0000
-Received: by outflank-mailman (input) for mailman id 827082;
- Tue, 29 Oct 2024 08:08:42 +0000
+	id 1t5hMX-0001N8-LK; Tue, 29 Oct 2024 08:14:01 +0000
+Received: by outflank-mailman (input) for mailman id 827090;
+ Tue, 29 Oct 2024 08:13:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E68c=RZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5hHO-00088X-El
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 08:08:42 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1t5hMV-0001N1-Ew
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 08:13:59 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01ba922d-95cd-11ef-99a3-01e77a169b0f;
- Tue, 29 Oct 2024 09:08:40 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4315f24a6bbso50139755e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 01:08:40 -0700 (PDT)
+ id bebd64b8-95cd-11ef-99a3-01e77a169b0f;
+ Tue, 29 Oct 2024 09:13:57 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4315839a7c9so53489045e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 01:13:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b8c394sm11729981f8f.90.2024.10.29.01.08.39
+ ffacd0b85a97d-38058b3c7b9sm11740510f8f.32.2024.10.29.01.13.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 01:08:39 -0700 (PDT)
+ Tue, 29 Oct 2024 01:13:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01ba922d-95cd-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: bebd64b8-95cd-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730189320; x=1730794120; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730189637; x=1730794437; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E27NsgBAY436u66YFzB03YW2X8wdN0AZFfZvlkF14UA=;
-        b=e8//Mn/mt2zWwpRCx3io39R+Kd3hozkpqqqHAHP8lUZfFIEUw+80yYXmC7muqAR3Z9
-         leZdbjOYvqripQjucnAcCpWUdvwVf1er53hOzOQRkor09epAsg0EqsVRZI9jySxAz7vO
-         BfAz7xtdR14LbnZeVnqFJl5DN2IaC0PjIvZUHHcsTubP7rpuLBax+4yVF0d0BtZkOECa
-         2Jxjzbi3dpRfR22i9mfYcWUzYyQubyIYL/yXG9S97ZPUa6P9+Mb+pmE/rk+DJIB6slEs
-         GlRLaz23Lg/PHsVqSLqiq2UbSSvfc7I+wmXCwVxMtUVNvCLiieb4ftvRJuEcyCLywcB1
-         JH0g==
+        bh=IEogidPCVBegSFGjR8C0CerxrkTSHig/HI9uV5sNcGo=;
+        b=QQzOjbrhd/i3/LzpCWGb+VR85mKGq0WYZ1TguNDSr6bIFxuhLGFNwElscQfGoHvDiD
+         BR702DwMDHzPzyNDJz3yhZmk7/PPn9YocXlChyG483seevTTxe4Zq3eSfFKwozvLd00E
+         8B0T8oeJ/yFhF7wfGecNlPtLQyRNVXGY04p1IUD4THwxFnutpTP1/V39weBuiXr39dVc
+         aCYWOH+oRF58VUo6pRChjeFpiu/9vY25Pcp46weAULjenZMeag3Yy8TOUhBgUcPf6Vib
+         wNse6rrfhgmZmoo2lbAsBwg7Dw7FBUctPVom7P+fDjN8wFHd8fr3n+qbcVCajhqtKJa1
+         UWww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730189320; x=1730794120;
+        d=1e100.net; s=20230601; t=1730189637; x=1730794437;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E27NsgBAY436u66YFzB03YW2X8wdN0AZFfZvlkF14UA=;
-        b=Ekrr82pVba8SBdJ0qGOmxA1ruFaGHZRnDpW11vLuDKUJ29d45w0PFQHLJMVY4iuRuJ
-         phT3hbK/wcNEjf0gIaDnEbSDIgYwEZaC66cvy3d5+4SxqPcreD2TYHIRisSw43+eKHNC
-         CFCnqUdD8kEAGnjRX/cyUTM69a3AhrtJ+I3Fcv89ZSCAwCTghuHdpazfJG7zE7OmYQaa
-         aS1rBk8hFNWn1UTpYDEOUY6PG+GaUViIKsoebkBvRFJrUNx/g8v7DM8PbnyCq3E2C2Cg
-         6jYdsVoy0IWpeyclxlJwU/wQiB1CpyD5v2bHdbC0DrHwZHUsxslrDHYbhxy6OK47iT+l
-         RsAg==
-X-Forwarded-Encrypted: i=1; AJvYcCUaPkbuQbdqO2RPAsHtLBGEOIDlfVkgiRp+bZodOI/dMjIacqlvDhmURaC6pGY13QpGNxf5ODAX0gA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyCzGE9661Cgv219HXA7SMsqoQSCvdgFhfDJharU8irqBx55SUM
-	DpxRRrhkbo5TAQHlAxo3rl7AN5xDZUXRQLkfQZdZYPvIq3M1YdMsEc6IZ1V6Qg==
-X-Google-Smtp-Source: AGHT+IGfta+Jvx33HyvdweAEJwMYBXtq/eJe27y/vgXE0SzAFay2qwAEyLddvrFN78BITYFjruqZnQ==
-X-Received: by 2002:a05:600c:3b14:b0:426:8884:2c58 with SMTP id 5b1f17b1804b1-4319ac6fb0amr86621375e9.4.1730189319727;
-        Tue, 29 Oct 2024 01:08:39 -0700 (PDT)
-Message-ID: <5fb1ac28-395c-4065-8a70-4bac809c7f50@suse.com>
-Date: Tue, 29 Oct 2024 09:08:38 +0100
+        bh=IEogidPCVBegSFGjR8C0CerxrkTSHig/HI9uV5sNcGo=;
+        b=bD3Wz/Wjy0OBTEHiTlf93KBrkex4qAppek57PO+KfKDGEqxetgh7t3qJBbHb+XN3on
+         gUTLTuXjBiFVqLbfAZrI//NVg1LZH2YUEL6fBg2sqwel9jdhdcUQsMOSqO0XmIZ5EhVe
+         QJTnT5e59xRpdv8EymBFDEuU3SJvutWPdiXoX2nI+eM1cD78yRvAHw+mxCgMqkwCOrUF
+         OOu7nSNeHyhQSgu9MfAbV5SvYy3WUUofczMqOKrW+60ehx55erfrMh6TaSiEkBzYw4L6
+         yitd8gwX2u8OYcwEOLL/H+R8eoOPMX/POHoRrpW/caPo6I4GMBGyQXhLfP9zOnqz3O7R
+         /exw==
+X-Forwarded-Encrypted: i=1; AJvYcCVmVLwDtXN/6mXlTc2NNX1V+mJ11aVgW5aU4VVZXxRqSDqIfpbg4WsbqMbOhkzuCbDN5uWYcIr5wTE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw0eYY/2e/7C/vimRbDBROaHyph0udpC68dEBjTVgLxU0rNwlk9
+	Rpu5ABrfrauspvG+3W8ZkSp6FyMeWPTQOP+0xgP0VP0G6t/NPKmx0e4VskApXg==
+X-Google-Smtp-Source: AGHT+IGJkQXuS9Z8WCQOmkjSqnQCgIGGH8np8FYl9Im/x9AgtCVR9OGEqZj5oeVEMuPK1tetvkVVEg==
+X-Received: by 2002:a05:600c:4fcb:b0:426:5269:1a50 with SMTP id 5b1f17b1804b1-4319ac9c15fmr82013185e9.11.1730189636783;
+        Tue, 29 Oct 2024 01:13:56 -0700 (PDT)
+Message-ID: <7027a24e-3213-48c5-8027-24dcf1df55ac@suse.com>
+Date: Tue, 29 Oct 2024 09:13:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy
- enable_secondary_cpu_mm
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH 01/14] x86/xstate: Update stale assertions in
+ fpu_x{rstor,save}()
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
- <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
- <27be8d00-8260-460e-948d-81418b93662a@suse.com>
- <8fa530cb-4d70-4300-8d4e-1e7208f7c045@amd.com>
- <55728fdc-6247-4810-8696-a999713f4a7c@suse.com>
- <3231cc7b-4c2e-4939-a623-a7b9960d1641@amd.com>
+References: <20241028154932.6797-1-alejandro.vallejo@cloud.com>
+ <20241028154932.6797-2-alejandro.vallejo@cloud.com>
+ <fdc89027-d33c-40f5-93f9-b8d7e880e732@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,58 +115,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3231cc7b-4c2e-4939-a623-a7b9960d1641@amd.com>
+In-Reply-To: <fdc89027-d33c-40f5-93f9-b8d7e880e732@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.10.2024 18:38, Ayan Kumar Halder wrote:
-> On 28/10/2024 15:01, Jan Beulich wrote:
->> On 28.10.2024 15:39, Ayan Kumar Halder wrote:
->>> On 28/10/2024 12:55, Jan Beulich wrote:
->>>> On 28.10.2024 13:45, Ayan Kumar Halder wrote:
->>>>> --- a/xen/arch/Kconfig
->>>>> +++ b/xen/arch/Kconfig
->>>>> @@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
->>>>>    
->>>>>    config NR_CPUS
->>>>>    	int "Maximum number of CPUs"
->>>>> +	range 1 1 if ARM && MPU
->>>>>    	range 1 16383
->>>>>    	default "256" if X86
->>>>>    	default "8" if ARM && RCAR3
->>>>>    	default "4" if ARM && QEMU
->>>>>    	default "4" if ARM && MPSOC
->>>>> +	default "1" if ARM && MPU
->>>>>    	default "128" if ARM
->>>>>    	help
->>>>>    	  Controls the build-time size of various arrays and bitmaps
->>>> I'm afraid I can't easily tell whether MPU can be used together with any of
->>>> RCAR3, QEMU, or MPSOC. If it can, the new default line would need to move
->>>> up, as it's the first one that has a match on its condition which is being
->>>> used.
->>> MPU cannot be used with any of the existing platforms.
->> That is - qemu can't emulate such an environment, i.e. even QEMU and MPU
->> don't go together?
+On 28.10.2024 18:16, Andrew Cooper wrote:
+> On 28/10/2024 3:49 pm, Alejandro Vallejo wrote:
+>> The asserts' intent was to establish whether the xsave instruction was
+>> usable or not, which at the time was strictly given by the presence of
+>> the xsave area. After edb48e76458b("x86/fpu: Combine fpu_ctxt and
+>> xsave_area in arch_vcpu"), that area is always present a more relevant
+>> assert is that the host supports XSAVE.
+>>
+>> Fixes: edb48e76458b("x86/fpu: Combine fpu_ctxt and xsave_area in arch_vcpu")
+>> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> ---
+>> I'd also be ok with removing the assertions altogether. They serve very
+>> little purpose there after the merge of xsave and fpu_ctxt.
 > 
-> Qemu has support for Aarch32 MPU at EL2 and EL1 (ie R52). As far as I am 
-> aware, there is no support for Aarch64 MPU in Qemu (ie R82).
-> 
-> Even for R52, I could not get the upstream Qemu working (emulating some 
-> Arm reference platform).
-> 
-> I could get the Xilinx fork of Qemu (https://github.com/Xilinx/qemu) 
-> working which emulates AMD's SoC using R52.
-> 
-> However, this should not impact the current patch. There is no Qemu in 
-> xen/arch/arm/platforms/*.
+> I'd be fine with dropping them.
 
-Aiui that's not relevant. There is a QEMU item in xen/arch/arm/platforms/Kconfig.
-I continue to fail to see why that couldn't be selected together with MPU. Yet if
-it can be, you'd end up with a default of 4, not 1, if it actually _is_ selected.
-Alternatively QEMU (and maybe also RCAR3 and MPSOC) need to be mutually exclusive
-with MPU. Hmm, looks like that's already the case, by patch 2 suppressing the
-"Platform Support" prompt. While that looks fragile to me, I'm sorry for the
-noise then.
++1
 
 Jan
+
+>  If they're violated, the use of
+> XSAVE/XRSTOR immediately afterwards will be fatal too.
+> 
+> ~Andrew
+
 
