@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0898F9B4358
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 08:42:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827065.1241541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDCD9B437B
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 08:48:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827072.1241551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5grr-0003PM-Mr; Tue, 29 Oct 2024 07:42:19 +0000
+	id 1t5gxe-0004FU-A0; Tue, 29 Oct 2024 07:48:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827065.1241541; Tue, 29 Oct 2024 07:42:19 +0000
+Received: by outflank-mailman (output) from mailman id 827072.1241551; Tue, 29 Oct 2024 07:48:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5grr-0003N6-Jn; Tue, 29 Oct 2024 07:42:19 +0000
-Received: by outflank-mailman (input) for mailman id 827065;
- Tue, 29 Oct 2024 07:42:18 +0000
+	id 1t5gxe-0004Dd-7G; Tue, 29 Oct 2024 07:48:18 +0000
+Received: by outflank-mailman (input) for mailman id 827072;
+ Tue, 29 Oct 2024 07:48:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E68c=RZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5grq-0003My-Fh
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 07:42:18 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1t5gxd-0004DV-5Z
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 07:48:17 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 525e5f14-95c9-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 08:42:17 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4315c1c7392so51821485e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 00:42:17 -0700 (PDT)
+ id 2809d8cb-95ca-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 08:48:16 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-431548bd1b4so49120055e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 00:48:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b13251sm11706344f8f.6.2024.10.29.00.42.16
+ 5b1f17b1804b1-4318b5797c3sm165654605e9.40.2024.10.29.00.48.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 00:42:16 -0700 (PDT)
+ Tue, 29 Oct 2024 00:48:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 525e5f14-95c9-11ef-a0c3-8be0dac302b0
+X-Inumbo-ID: 2809d8cb-95ca-11ef-a0c3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730187737; x=1730792537; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730188095; x=1730792895; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fBiCz3ZmYUs/otOFYLQ60oYUDGMNY69KCpjs7FzJ2IY=;
-        b=YXhWky4B8tEPQJijGPrcs6xQNO2zIIj7jxU+STfQQl939uwfj9iFRFN4PcDwSZRoGQ
-         5nJkx1t9FmY8Q9+Fqm5yS99UalKkMsNi/GF0k+298Fo3TnMozOgiHjtuzBZ4sCKP14/0
-         0g1J2CRBcRaMMYs0UXSxjEKFF0yWEqyiALodwQulT9F8ikbTdkaX4svFNdncbCFMhFBR
-         lvQHLRigLRszA/Np7aIYCpQe0gaiXrO96JEurm6pYCsMSDnvxcrzPiY0bdhjgswmS2uZ
-         AJrQD+QnvjBj5TzDV3vglUn4jo95BkO8p38DWakEoovAjZhTo3gnjUzc8kCCHZQ9/1QQ
-         x8fg==
+        bh=qiMKiYdv51H9b+5bAVFCuo4a2BlQNaJkXJKKn8zH6Zk=;
+        b=cI+0C5vkun/u/ResIMvUQRiHuodcSNkY2DGnTIMlZjywSIo1rx+CL6jFzL5eRUri3x
+         qd1+1/Xg5CmMxRsGtWmXSHkoFz+ppxkL6/Qr0uwnK+bjetj9XVgyzmUawDVQ9yAoNjYd
+         2XHMJqnTba359tyMgyBej97IE2Z1Fr8kT0t3jvg8xA5aw1dDbTDkJpz1VzksOpm34o/r
+         CEdbBFytP+fahLzKdH2jrKyfqhPGr60HsRHYjc7PRJ8l7JyHCnmWkXRDMgpok8oPS1Cs
+         VcQLIHidCTMzWKVgDytmrTlwdUsM4lXEg7ihinlbqK8ep65yd9JCW4aZuEX1QWQ3MAcM
+         Cmnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730187737; x=1730792537;
+        d=1e100.net; s=20230601; t=1730188095; x=1730792895;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fBiCz3ZmYUs/otOFYLQ60oYUDGMNY69KCpjs7FzJ2IY=;
-        b=hudAFkFrdsjr47Furx42dhZdjOfFesUQgfAlITWM4bLZbe4Po0LSIpkYS/m2fpxwqa
-         h+R1JxWBsYD7ZXS6t3QdwOlr87IY4/EmnyGyhXEH00411jEMJj3xJ+xmazRTHXccihaV
-         iVSAD8WknN2lT7U3nxRpCDs74iEtG5KT7J16OB++5Z1hBi9Tx4l3RnWRTeT2LKCP9EvD
-         QFYAoLzId1VfZ2E+ByMdM2kNNfafd4/zJ1O8QuKkHxh6Ivv8prfP6gUwfHYboxxpXG6u
-         j1OPOLgK5p+PnShC6v16aLavxEhPG2mbCXR1uHueDsBoArUpOQX8L+Sr6AflP+zr3A1b
-         MZzA==
-X-Forwarded-Encrypted: i=1; AJvYcCVz9d65aucYO4RxSFnKME/yY/MQhDE3uwBcVxCeWgqaSZcrntqN2K2VL13a7VyAfHCYAkeos8hP+gI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxGZNJH6Nv3sduwRixlWlTkpQCpCqQnuCU1XOSnx/shBNt2Ti6e
-	pu8Lh9XDtYeplKnF2QGwWSHRabdfDT72NdZc6wT1CRJageq6nGlV2RLvyvs9fA==
-X-Google-Smtp-Source: AGHT+IHCtC+5itZK481vBEf8XF71+7bd+4HPg2SJUKCNC5ktqut6qSpsT24Fz+N5ryqteHG6kktG5g==
-X-Received: by 2002:a05:600c:5126:b0:426:616e:db8d with SMTP id 5b1f17b1804b1-4319acabb3fmr73765015e9.15.1730187736916;
-        Tue, 29 Oct 2024 00:42:16 -0700 (PDT)
-Message-ID: <4aa81797-9479-46e8-93c4-46b760b734fc@suse.com>
-Date: Tue, 29 Oct 2024 08:42:15 +0100
+        bh=qiMKiYdv51H9b+5bAVFCuo4a2BlQNaJkXJKKn8zH6Zk=;
+        b=I+4Fh9ippuj6ZOeOWOqzJ8iQJPymtyLW5F/i46ylgDD2Sh/9PaGWgT8xfEvbOO8Jd3
+         Pfur7Nw0qTJOF9CeBOeQUDTi630aLD/2vxR4B6jwUceNe4m3Eeum3/E29s/lD9ml3DSD
+         zxuhdaEWrfW3GoKvr2y3sCaIlZlpzgovvZj9j1tv3Wktsa4Y6TiiNMrLdA5Vgd3+sNFj
+         VO9+Q7jwHsAqs7GvXov+wiH//IrSapgwWt2Kw5BCJ+/rgsFB3LqR9EfLyaHc4flZ4h49
+         iAf08pf5xDYHlaPERHdZqAaNWYIna+fSMZ/7EzTIHQgd8mn3OqXys4Z54UHPiYuGwYiE
+         Vkwg==
+X-Forwarded-Encrypted: i=1; AJvYcCXw+jVy1kTxE09l0nI3/7duKHSMDZ0NrGUAfZj5Vn4/+voxe/5opba18WKlCPxaffIYQhz+vYkdykY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykEWTAU05kSPudEvqghCDbFXoqRRb0iMoQO4K63WzAN681R9Ox
+	e/zVBefUDeYNvYrqxYJKxPSbY/xXC1JsMQZg4PbJVyXO2QUZelGpTMMmbl3utsHDPLTLFCYyaHE
+	=
+X-Google-Smtp-Source: AGHT+IHIhKGkhQLzzJ85hnL8dRsOnWvB2ivKQnY5iXLdmMUUh5MUAVXxFeGhUvaxTDg+81PxilFqQA==
+X-Received: by 2002:a05:600c:3550:b0:431:4a5a:f09a with SMTP id 5b1f17b1804b1-4319ad16150mr91220465e9.24.1730188095495;
+        Tue, 29 Oct 2024 00:48:15 -0700 (PDT)
+Message-ID: <b529c3a2-d628-4b16-a296-bd44e5c84c0f@suse.com>
+Date: Tue, 29 Oct 2024 08:48:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/libxl: remove usage of VLA arrays
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org, Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20241028114831.27487-1-roger.pau@citrix.com>
- <3828ba9f-9bc8-4b65-a42f-b67ef061be52@citrix.com>
- <51632c96-9a12-4656-b8f8-1631c11a3a19@suse.com>
- <CACHz=Zg4mFn5zn42f9dDFao0r7ePj=Owhc04OSW5LfW6cJoUaw@mail.gmail.com>
- <Zx_JRaViUiEF2IrH@macbook>
+Subject: Re: [PATCH 02/10] x86/ucode: Delete the microcode_init() initcall
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241028091856.2151603-1-andrew.cooper3@citrix.com>
+ <20241028091856.2151603-3-andrew.cooper3@citrix.com>
+ <99ba9bcf-f356-416a-b355-f32e622d1406@suse.com>
+ <d7f9489d-8031-493b-bf36-b009d5536b0c@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,80 +116,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zx_JRaViUiEF2IrH@macbook>
+In-Reply-To: <d7f9489d-8031-493b-bf36-b009d5536b0c@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.10.2024 18:26, Roger Pau Monné wrote:
-> On Mon, Oct 28, 2024 at 12:57:30PM +0000, Frediano Ziglio wrote:
->> On Mon, Oct 28, 2024 at 12:48 PM Jan Beulich <jbeulich@suse.com> wrote:
->>>
->>> On 28.10.2024 13:03, Andrew Cooper wrote:
->>>> On 28/10/2024 11:48 am, Roger Pau Monne wrote:
->>>>> Clang 19 complains with the following error when building libxl:
->>>>>
->>>>> libxl_utils.c:48:15: error: variable length array folded to constant array as an extension [-Werror,-Wgnu-folding-constant]
->>>>>    48 |     char path[strlen("/local/domain") + 12];
->>>>>       |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>>>
->>>>> Replace the usage of strlen() with ARRAY_SIZE(), which allows the literal
->>>>> string length to be known at build time.  Note ARRAY_SIZE() accounts for the
->>>>> NUL terminator while strlen() didn't, hence subtract 1 from the total size
->>>>> calculation.
->>>>>
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>> ---
->>>>>  tools/libs/light/libxl_utils.c | 4 ++--
->>>>>  1 file changed, 2 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_utils.c
->>>>> index 10398a6c8611..b3f5e751cc3f 100644
->>>>> --- a/tools/libs/light/libxl_utils.c
->>>>> +++ b/tools/libs/light/libxl_utils.c
->>>>> @@ -45,7 +45,7 @@ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned
->>>>>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
->>>>>  {
->>>>>      unsigned int len;
->>>>> -    char path[strlen("/local/domain") + 12];
->>>>> +    char path[ARRAY_SIZE("/local/domain") + 11];
->>>>>      char *s;
->>>>>
->>>>>      snprintf(path, sizeof(path), "/local/domain/%d/name", domid);
->>>>> @@ -141,7 +141,7 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx *ctx, const char *p,
->>>>>  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
->>>>>  {
->>>>>      unsigned int len;
->>>>> -    char path[strlen("/local/pool") + 12];
->>>>> +    char path[ARRAY_SIZE("/local/pool") + 11];
->>>>>      char *s;
->>>>>
->>>>>      snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
->>>>
->>>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>
->>>> Although I have a minor preference for sizeof() as suggested by Frediano.
->>>>
->>>> Can fix on commit, if you're happy?
->>>
->>> Please can we stick to ARRAY_SIZE() when it comes to strings? It's the
->>> same as sizeof() when the base type is char, but the difference becomes
->>> relevant if the base type was e.g. wchar_t.
->>>
->>> Jan
->>>
+On 28.10.2024 18:12, Andrew Cooper wrote:
+> On 28/10/2024 1:38 pm, Jan Beulich wrote:
+>> On 28.10.2024 10:18, Andrew Cooper wrote:
+>>> The comment highlights just how bogus this really is.  Being an initcall, the
+>>> boot allocator is long gone, and bootstrap_unmap() is a no-op.
+>> How's the boot allocator coming into the picture here? This is all about
+>> (un)mapping, not allocating.
 >>
->> But "literal" is not a wide string, and the type is "char" which is
->> not wide too.
+>>> The fact there is nothing to do should be a giant red flag about the validity
+>>> of the mappings "being freed".  Indeed, they both constitute use-after-frees.
+>> I can't spot any use-after-free; the pointers in question ...
 >>
->> BTW, both me and Andrew are not strong about.
+>>> --- a/xen/arch/x86/cpu/microcode/core.c
+>>> +++ b/xen/arch/x86/cpu/microcode/core.c
+>>> @@ -758,28 +758,6 @@ int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
+>>>      return continue_hypercall_on_cpu(0, microcode_update_helper, buffer);
+>>>  }
+>>>  
+>>> -static int __init cf_check microcode_init(void)
+>>> -{
+>>> -    /*
+>>> -     * At this point, all CPUs should have updated their microcode
+>>> -     * via the early_microcode_* paths so free the microcode blob.
+>>> -     */
+>>> -    if ( ucode_blob.size )
+>>> -    {
+>>> -        bootstrap_unmap();
+>>> -        ucode_blob.size = 0;
+>>> -        ucode_blob.data = NULL;
+>>> -    }
+>>> -    else if ( ucode_mod.mod_end )
+>>> -    {
+>>> -        bootstrap_unmap();
+>>> -        ucode_mod.mod_end = 0;
+>>> -    }
+>>> -
+>>> -    return 0;
+>>> -}
+>>> -__initcall(microcode_init);
+>> ... aren't used anywhere. bootstrap_unmap() is "just in case" (perhaps indeed
+>> a no-op at least nowadays), and the rest is field clobbering. I'm okay with the
+>> code change, so
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> yet I'd like to ask for the description to be "softened" some.
 > 
-> No strong opinion either, I've assumed it was clearer to not make
-> implicit assumptions about the size of the string literal array
-> elements.  I would rather like to get this committed, and Jan seems to
-> prefer to use ARRAY_SIZE(), so I suggest we get the patch committed
-> as-is.
+> As I said, this could be folded into patch 9, given this particular
+> arrangement of the series.
 
-Well, ultimately it's Anthony's call, for still being the sole maintainer.
+I certainly don't mind the folding, but then I'd still like to see the
+description of the resulting patch before giving a (hopefully) unconditional
+ack.
+
+> The UAFs are apparent *because* the comment demonstrates a false line of
+> reasoning.
+> 
+> ucode_mod literally is used after free.  ucode=$n is genuinely buggy
+> today, because its a stash of a physical pointer across move_xen().
+
+Maybe my problem is that the UAF is elsewhere, not in the code you delete?
+If so, it might help to simply point out where the actual bad use is. As it
+stands, microcode_init() doesn't have any uses (reads), only writes. What I
+agree with is that the comment there is at best misleading.
 
 Jan
+
+> ucode_blob stashes a virtual pointer.  This was even noticed in
+> dc380df12acf ("x86/ucode: load microcode earlier on boot CPU")
+> 
+> ---
+> It needs to rescan the modules in order to find the new virtual address
+> of the ucode blob because it changes during the boot process, e.g.
+> from 0x00000000010802fc to 0xffff83204dac52fc.
+> ---
+> 
+> which highlighted the problem but duct-taped over it.
+> 
+> ~Andrew
+
 
