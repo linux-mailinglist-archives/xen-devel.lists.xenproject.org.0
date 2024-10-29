@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D7BC9B4ADC
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 14:25:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827397.1241990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74C739B4ADF
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 14:27:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827403.1242000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5mDa-0003mQ-FA; Tue, 29 Oct 2024 13:25:06 +0000
+	id 1t5mFR-0004bh-Qq; Tue, 29 Oct 2024 13:27:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827397.1241990; Tue, 29 Oct 2024 13:25:06 +0000
+Received: by outflank-mailman (output) from mailman id 827403.1242000; Tue, 29 Oct 2024 13:27:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5mDa-0003jq-Bv; Tue, 29 Oct 2024 13:25:06 +0000
-Received: by outflank-mailman (input) for mailman id 827397;
- Tue, 29 Oct 2024 13:25:05 +0000
+	id 1t5mFR-0004ay-Mf; Tue, 29 Oct 2024 13:27:01 +0000
+Received: by outflank-mailman (input) for mailman id 827403;
+ Tue, 29 Oct 2024 13:27:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/WX/=RZ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1t5mDY-0003jk-V0
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 13:25:05 +0000
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [2607:f8b0:4864:20::22c])
+ <SRS0=YGhd=RZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t5mFQ-0004af-EH
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 13:27:00 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32bdf91b-95f9-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 14:25:01 +0100 (CET)
-Received: by mail-oi1-x22c.google.com with SMTP id
- 5614622812f47-3e6359ab118so1762433b6e.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 06:25:00 -0700 (PDT)
+ id 752c85a6-95f9-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 14:26:51 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a9a6b4ca29bso670489566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 06:26:51 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9b1dec8100sm472725166b.6.2024.10.29.06.26.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 29 Oct 2024 06:26:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,185 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32bdf91b-95f9-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjoyMmMiLCJoZWxvIjoibWFpbC1vaTEteDIyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjMyYmRmOTFiLTk1ZjktMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjA4MzAxLjExNzUxMiwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 752c85a6-95f9-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc1MmM4NWE2LTk1ZjktMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjA4NDExLjg2MjY4Nywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730208300; x=1730813100; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oZ8b6OUpuMdFA2NZvqdbg6qA4P6P0vagI2On9U05ssg=;
-        b=OWGMZ18wBSeY1SnSBAi/s0/lKMKVxz8GdPkbM5+FGh9VlJdJGDcJCm+wrxUkeoE/sC
-         YciC8TxOGsfmP7mlutX3zp3suD80ojME/ql07Rf4J3WCze5ew6B8A6ExJjWaLm0aAv84
-         qHj/n3zOACxQpLgjgn8mAFRNwFBxHPDqXFn2U=
+        d=citrix.com; s=google; t=1730208411; x=1730813211; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PCHqacQDxtegQ/fjgk1BzYimksEOKsxhUDwZVq7UxHo=;
+        b=sAdGL5KGvbiRDsibulkp++ooHYOydPChseqEa1dHbyaCVnrvTruYz1XfkgMC0+zscv
+         gMdTfSmSqXKUV1wXasKmETs1HI1noUTEeuIAxZieqlu2xZYCkp06zcU4ASSucnjya5k4
+         LcsMhu92bEOZenl3pGzYUI+8NyuD3HkMJ6R3U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730208300; x=1730813100;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oZ8b6OUpuMdFA2NZvqdbg6qA4P6P0vagI2On9U05ssg=;
-        b=mMzYKtv0QmqDGSkQocqqW90Xh7N3dmtYahhO1slg8Vj5aNdGjzTwBFXgojIplUrwrx
-         +HQaY9J+ZoUzpFRRKW80p0V5YOnyL9LXhIC9cYsZMiEA4evcFtpVWpMyj7XvJBDdF2C1
-         gih3si5lg2X3iP43y1qcDhkjSg+GkuZZlJkUmg3H1rEgVq1VbyjbYoC72MuR6nMvpRIh
-         F0a9mFufRkbTEBFUIXYRSpzyd0QnOY2Hr7CtZANZioIPp3sDXIWhvwsR/nYQKn8zEp5E
-         FK4enKAB4VdSFTz7MAntDOw1ZMuK48WLFU2rNCRzLv3e2SuuPk2lSTanIYa1P79IGxHv
-         coyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVNyVOxk6KbxG0JcKSp17wt7GLDzCYDc2hmjghHFh/u2UlGPj3kf5dRousCCbh9Kb+GpNha5BAPe7E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YznAWIAQaSJS1a7xEYXshuE5LZM4aOLLVWmXnVVCZoRb9IUmsCo
-	iTUyLCdmc3fHwgTBxe2YABianGbPC38E23RaimU1xzRPA/brkyMXhJ/baDddUa7fp9OyX6VyV1q
-	YfILHzea2X3TRbUT+9Yt9KMa1yU7I5U/ySdqRAQ==
-X-Google-Smtp-Source: AGHT+IGDGsLI84UTcRtXFxhNeTC/RIyN5j6gmFLyytYHcqCJRGCk5+ub99J6bZNfZczgWecPVKyHHD0xwW9X+Owc0+E=
-X-Received: by 2002:a05:6808:1b98:b0:3e2:9468:49db with SMTP id
- 5614622812f47-3e65294ea06mr1084209b6e.21.1730208299664; Tue, 29 Oct 2024
- 06:24:59 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1730208411; x=1730813211;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PCHqacQDxtegQ/fjgk1BzYimksEOKsxhUDwZVq7UxHo=;
+        b=g7K4SyX/7L+jJkw6fs5wPlAhOfsPjayMo1XhY8nOZGhgzgnJA54e+AM74WPHNv6Mm0
+         3So49VwjmOp8Dd+CthAzxVXZ5YKFmqQC/XK++BC/t/A8LCX8UK5N97313u9urHLasfTw
+         BqeXb1VStSg9fd/2ebykW2D/mbNDdER42ImmP4Ukb+I2zLDtOK6ZTO2FSYePTBhW+WAs
+         eGaC8bTcX0TMnHUS0i7SEZpHVQxtKvI7bTabfdkwuWYJVMs5AOmktM9B4zSy4UHllaYb
+         C4lRXcJ8kJ5uenF4P5rAi/KAFhqpmrLgkXA/Fwhhs8elIUVQgo7frUHG6rs3CdPdQ9DA
+         fnJA==
+X-Forwarded-Encrypted: i=1; AJvYcCVPF5sqtEIKQYPxuqYRrtYD65Z5BoHubcK2npawNw1Er0ZE2ChhxGl9LE8NdcL58siAJJqiY5Xc7i0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymGjSAwQ4R/KVQ+9mpfhaNtIsJiIeS5vcC6c887cEB75OiKxO4
+	wmCSk7QIbB7mA/xFz3DmHdFtnpJC9GwAApG4QgVGaoxqSo+Vj/Y1BT7cWwKfjj7UlXWLB8/0nMJ
+	o
+X-Google-Smtp-Source: AGHT+IHe7F7gZCkoHHgXXadzO3DJIj+uwcKbTrKPX2/MOtRm/q18BwcUOtz1deFewHq2+RIj7RG/ow==
+X-Received: by 2002:a17:907:7f8b:b0:a99:499f:4cb7 with SMTP id a640c23a62f3a-a9de5ce4e4amr1109516466b.23.1730208411207;
+        Tue, 29 Oct 2024 06:26:51 -0700 (PDT)
+Message-ID: <bb7b62d2-e7ce-4b2d-977b-79b6c1b35840@citrix.com>
+Date: Tue, 29 Oct 2024 13:26:49 +0000
 MIME-Version: 1.0
-References: <20241028154932.6797-1-alejandro.vallejo@cloud.com>
- <20241028154932.6797-3-alejandro.vallejo@cloud.com> <0a644e0d-b7dc-49b5-b4ba-943f809286a8@citrix.com>
- <D589SQ8Y0WGU.2MM4HPFUKJYGT@cloud.com>
-In-Reply-To: <D589SQ8Y0WGU.2MM4HPFUKJYGT@cloud.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 29 Oct 2024 13:24:48 +0000
-Message-ID: <CACHz=ZgDVFMo-if54oivyjK-hr5nnN8PKDp1YT_KL3e3R84HNQ@mail.gmail.com>
-Subject: Re: [PATCH 02/14] x86/xstate: Create map/unmap primitives for xsave areas
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Mini-OS PATCH] Add missing symbol exports for grub-pv
+To: Juergen Gross <jgross@suse.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+ Natanael Copa <ncopa@alpinelinux.org>
+References: <20241029114158.17231-1-jgross@suse.com> <ZyDL9fGtcouw9bar@begin>
+ <2181e8fc-1066-4749-abca-e4f0de084770@citrix.com>
+ <b13cc450-f032-44e2-bbbe-bdc98d4b7050@suse.com>
+ <2846b6dc-4209-4f1e-8713-cb8e66ca789c@citrix.com>
+ <2894832c-a7c8-4f60-8484-c2eca7927e7e@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <2894832c-a7c8-4f60-8484-c2eca7927e7e@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 29, 2024 at 11:58=E2=80=AFAM Alejandro Vallejo
-<alejandro.vallejo@cloud.com> wrote:
+On 29/10/2024 12:17 pm, Juergen Gross wrote:
+> On 29.10.24 13:13, Andrew Cooper wrote:
+>> On 29/10/2024 12:02 pm, Jürgen Groß wrote:
+>>> On 29.10.24 13:01, Andrew Cooper wrote:
+>>>> On 29/10/2024 11:50 am, Samuel Thibault wrote:
+>>>>> Juergen Gross, le mar. 29 oct. 2024 12:41:58 +0100, a ecrit:
+>>>>>> Grub-pv needs start_info_union and phys_to_machine_mapping to be
+>>>>>> accessible. Export both symbols.
+>>>>>>
+>>>>>> Fixes: 33411a11f848 ("Mini-OS: hide all symbols not exported via
+>>>>>> EXPORT_SYMBOLS()")
+>>>>>> Reported-by: Natanael Copa <ncopa@alpinelinux.org>
+>>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>>> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+>>>>
+>>>> Committed.
+>>>>
+>>>> Jurgen, what do you want to do with updating 4.19?  Don't we need to
+>>>> fork a 4.19 branch to avoid the CONFIG_XC change ?
+>>>
+>>> Yes, I think this is the way to go.
+>>
+>> Ok.  https://xenbits.xen.org/gitweb/?p=mini-os.git;a=summary
+>>
+>> master has this fix, and there's a new branch, xen-stable-4.19, starting
+>> from the xen-RELEASE-4.19.0 tag with this change backported.
+>>
+>> Xen 4.18 and earlier don't have the symbol restrictions.
 >
-> Hi,
->
-> On Mon Oct 28, 2024 at 5:20 PM GMT, Andrew Cooper wrote:
-> > On 28/10/2024 3:49 pm, Alejandro Vallejo wrote:
-> > > diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include=
-/asm/xstate.h
-> > > index 07017cc4edfd..36260459667c 100644
-> > > --- a/xen/arch/x86/include/asm/xstate.h
-> > > +++ b/xen/arch/x86/include/asm/xstate.h
-> > > @@ -143,4 +143,24 @@ static inline bool xstate_all(const struct vcpu =
-*v)
-> > >             (v->arch.xcr0_accum & XSTATE_LAZY & ~XSTATE_FP_SSE);
-> > >  }
-> > >
-> > > +/*
-> > > + * Fetch a pointer to the XSAVE area of a vCPU
-> > > + *
-> > > + * If ASI is enabled for the domain, this mapping is pCPU-local.
-> > > + *
-> > > + * @param v Owner of the XSAVE area
-> > > + */
-> > > +#define vcpu_map_xsave_area(v) ((v)->arch.xsave_area)
-> > > +
-> > > +/*
-> > > + * Drops the XSAVE area of a vCPU and nullifies its pointer on exit.
-> > > + *
-> > > + * If ASI is enabled and v is not the currently scheduled vCPU then =
-the
-> > > + * per-pCPU mapping is removed from the address space.
-> > > + *
-> > > + * @param v           vCPU logically owning xsave_area
-> > > + * @param xsave_area  XSAVE blob of v
-> > > + */
-> > > +#define vcpu_unmap_xsave_area(v, x) ({ (x) =3D NULL; })
-> > > +
-> >
-> > Is there a preview of how these will end up looking with the real ASI
-> > bits in place?
->
-> I expect the contents to be something along these lines (in function form=
- for
-> clarity):
->
->   struct xsave_struct *vcpu_map_xsave_area(struct vcpu *v)
->   {
->       if ( !v->domain->asi )
->           return v->arch.xsave_area;
->
->       if ( likely(v =3D=3D current) )
->           return percpu_fixmap(v, PCPU_FIX_XSAVE_AREA);
->
->       /* Likely some new vmap-like abstraction after AMX */
->       return map_domain_page(v->arch.xsave_area_pg);
->   }
->
-> Where:
->   1. v->arch.xsave_area is a pointer to the XSAVE area on non-ASI domains=
-.
->   2. v->arch.xsave_area_pg an mfn (or a pointer to a page_info, converted=
-)
->   3. percpu_fixmap(v, PCPU_FIX_XSAVE_AREA) is a slot in a per-vCPU fixmap=
-, that
->      changes as we context switch from vCPU to vCPU.
->
->   /*
->    * NOTE: Being a function this doesn't nullify the xsave_area pointer, =
-but
->    * it would in a macro. It's unimportant for the overall logic though.
->    */
->   void vcpu_unmap_xsave_area(struct vcpu *v, struct xsave_struct *xsave_a=
-rea)
->   {
->       /* Catch mismatched areas when ASI is disabled */
->       ASSERT(v->domain->asi || xsave_area =3D=3D v->arch.xsave_area);
->
->       /* Likely some new vunmap-like abstraction after AMX */
->       if ( v->domain->asi && v !=3D current )
->           unmap_domain_page(xsave_area);
->   }
->
-> Of course, many of these details hang in the balance of what happens to t=
-he ASI
-> series from Roger. In any case, the takeaway is that map/unmap must have
-> fastpaths for "current" that don't involve mapping. The assumption is tha=
-t
-> non-current vCPUs are cold paths. In particular, context switches will un=
-dergo
-> some refactoring in order to make save/restore not require additional
-> map/unmaps besides the page table switch and yet another change to furthe=
-r
-> align "current" with the currently running page tables. Paths like the
-> instruction emulator go through these wrappers later on for ease of
-> auditability, but are early-returns that cause no major overhead.
->
-> My expectation is that these macros are general enough to be tweakable in
-> whatever way is most suitable, thus allowing the refactor of the codebase=
- at
-> large to make it ASI-friendly before the details of the ASI infra are mer=
-ged,
-> or even finalised.
->
-> >
-> > Having a macro-that-reads-like-a-function mutating x by name, rather
-> > than by pointer, is somewhat rude.  This is why we capitalise
-> > XFREE()/etc which have a similar pattern; to make it clear it's a macro
-> > and potentially doing weird things with scopes.
-> >
-> > ~Andrew
->
-> That magic trick on unmap warrants uppercase, agreed. Initially it was al=
-l
-> function calls and after macrofying them I was lazy to change their users=
-.
->
-> Cheers,
-> Alejandro
+> You want a related patch on the Xen 4.19 branch to update the Mini-OS
+> commit in Config.mk.
 >
 
-Why not using static inline functions?
+I've only made change to minios.git.  None to Xen.
 
-On the documentation, I found weird that "v" is described quite
-differently for the 2 macros:
-1) @param v Owner of the XSAVE area;
-2) @param v           vCPU logically owning xsave_area
+They'll need separate patches.
 
-For "x" the documentation is "@param xsave_area  XSAVE blob of v", but
-there's no "xsave_area" parameter.
-
-(very minors, you can ignore)
-
-Frediano
+~Andrew
 
