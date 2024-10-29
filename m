@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE229B510A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 18:38:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827759.1242460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962D99B5149
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 18:49:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827768.1242469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5q9l-0006qe-NY; Tue, 29 Oct 2024 17:37:25 +0000
+	id 1t5qKe-0000zV-Oc; Tue, 29 Oct 2024 17:48:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827759.1242460; Tue, 29 Oct 2024 17:37:25 +0000
+Received: by outflank-mailman (output) from mailman id 827768.1242469; Tue, 29 Oct 2024 17:48:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5q9l-0006o1-Jb; Tue, 29 Oct 2024 17:37:25 +0000
-Received: by outflank-mailman (input) for mailman id 827759;
- Tue, 29 Oct 2024 17:37:24 +0000
+	id 1t5qKe-0000xq-M0; Tue, 29 Oct 2024 17:48:40 +0000
+Received: by outflank-mailman (input) for mailman id 827768;
+ Tue, 29 Oct 2024 17:48:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jjvs=RZ=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
- id 1t5q9j-0006nv-TZ
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 17:37:24 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ <SRS0=rNzX=RZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t5qKd-0000xi-TI
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 17:48:39 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70c7ed91-961c-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 18:37:18 +0100 (CET)
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2024 10:37:10 -0700
-Received: from ccbilbre-mobl3.amr.corp.intel.com (HELO [10.124.223.38])
- ([10.124.223.38])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2024 10:37:09 -0700
+ id 05cd747c-961e-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 18:48:36 +0100 (CET)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2fb5fa911aaso79713421fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 10:48:36 -0700 (PDT)
+Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9b1f029890sm492684566b.56.2024.10.29.10.48.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Oct 2024 10:48:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,120 +44,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70c7ed91-961c-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4xNzUuNjUuMTQiLCJoZWxvIjoibWdhbWFpbC5pbnRlbC5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6IjcwYzdlZDkxLTk2MWMtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjIzNDM5LjA5MTg5OCwic2VuZGVyIjoiZGF2ZS5oYW5zZW5AaW50ZWwuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1730223439; x=1761759439;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=11sghmVqAck0hLQpJ32ZcRyZ2dfw2CD170aRaVdXWy8=;
-  b=d8knvJTGsct7z+3zLWL204aJnnHx5wG92p3+QAGAjt76yudGJsdogRfZ
-   ovHjNgtXiOPpupI6HdiTSUMPyeecgoBgc67WeaWRCPiNNfQCws9bcBBAn
-   WZ25+cRf4pc9K3iFFhgo6EN0gwZc6jpKtJY2ZsX7LgaMOH9lRiD/20X0/
-   kpNwBzDLi2FjbTn8W/AW7nTi0/Ihg8pXGAdI74hFevC06fAraKNAeosAG
-   3RDTOXuSkLV9mBQ8Jit7IpsXiblkw00CMy8b0vj07bgAwbSEb0tsm6SVn
-   aSbFwxrrAnvkXpMY94QutidbbBxLYAbHYLmXWVe3PvqIY7IMHf/MrDPOd
-   Q==;
-X-CSE-ConnectionGUID: WbmuCDRYRH6ckF0BBqp0mw==
-X-CSE-MsgGUID: cv0xWqNCTdOjk7iD12msUg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11240"; a="33678584"
-X-IronPort-AV: E=Sophos;i="6.11,241,1725346800"; 
-   d="scan'208";a="33678584"
-X-CSE-ConnectionGUID: mxavBGIvRr+lbi6krs4oaA==
-X-CSE-MsgGUID: +oHChIklSteyHFt1spYqnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,241,1725346800"; 
-   d="scan'208";a="82141735"
-Message-ID: <4d39b188-0642-495c-8638-67ae08c070b7@intel.com>
-Date: Tue, 29 Oct 2024 10:37:07 -0700
+X-Inumbo-ID: 05cd747c-961e-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmQiLCJoZWxvIjoibWFpbC1sajEteDIyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjA1Y2Q3NDdjLTk2MWUtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjI0MTE2LjM4MTc1OSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1730224116; x=1730828916; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=J/9EEMmuM7jmIzvSl6mBVAvVIEw6XiW1XI1NLq8ReTo=;
+        b=pNbyI0qkve0DMFIXta2tbdAz13uTVYAyhRNKDD6TlhJ/A9FTGLtXhn1HjjQHuZlanO
+         L6wl70ahqJAmhN01w5s1L9zy9ybRRdq069ENdRWXPI5qPGpQ5MiObUFjWLis3KQgL5Yu
+         cKH9VrpOEOuW4ZYF8wtsoEtIVrn+7fCuUF5AA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730224116; x=1730828916;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=J/9EEMmuM7jmIzvSl6mBVAvVIEw6XiW1XI1NLq8ReTo=;
+        b=eMyvkn0aOROICkpJYrmDwTi2BnhiPfnQ/b/QNa7oRStdLHSwr6dqab02/ATRf7nLjA
+         3lH7xJuJgKsWc3/dvv9pXcWa4Suob6s7+PGVrtTAMaXEXVYOavC8sIBFjTUleDO+98xY
+         ycAM0L4Y/FiTSXkBEZeeiBmTu9YZoPgprBzSt9Y1eZ7hehCTU5ZLaK3jqA8nWnN75Xob
+         Rw/pJTPsXkyfN/1sfH0WJ25UcE/Gpy2mIMnVqhmMZRAc5FpQa5mLZOeOBpRN5k67aT0x
+         clPm3OA7VtKPxQ2k0jQ4KYvXrUsvCtsKzy0aaPdzQCsRC4Mdkmh2keEuthxTCWei0ebc
+         u8Tw==
+X-Forwarded-Encrypted: i=1; AJvYcCX1608eiPqyr9jgQdaFSeT5/CQzZytF5l+gZElzfNjjEltnKG73RiPc1hRWISX0hmMdMDnz84nD9T4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1FqcRVCKaXnbVii42lVEUSlTkXR1tCYIgo7xfN3gsgjZ9b73v
+	cMeRTZNLcE4t/+GLEq62llD+TeBVhd+PVH+xqYxrfFVcSbhDVi8XqSx7QDNUZa4=
+X-Google-Smtp-Source: AGHT+IHVWoJXNQUlezkyEYR4zMAOpvDDKxRetsSlRQjhzIPYOrTo4MIRJhSEPNcIMKmN37GKcdNdrQ==
+X-Received: by 2002:a05:651c:507:b0:2f7:6653:8053 with SMTP id 38308e7fff4ca-2fcbdfc5394mr96712041fa.18.1730224115664;
+        Tue, 29 Oct 2024 10:48:35 -0700 (PDT)
+Date: Tue, 29 Oct 2024 18:48:34 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Willi Junga <xenproject@ymy.be>,
+	David Woodhouse <dwmw@amazon.co.uk>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3] x86/io-apic: fix directed EOI when using AMD-Vi
+ interrupt remapping
+Message-ID: <ZyEf8hK-XyGn6Kp8@macbook>
+References: <20241029110351.40531-1-roger.pau@citrix.com>
+ <53034f16-682e-4081-ab7e-81338c700f85@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mtrr: Rename mtrr_overwrite_state() to
- guest_force_mtrr_state()
-To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org
-Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Gaosheng Cui <cuigaosheng1@huawei.com>,
- Michael Roth <michael.roth@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>,
- Ashish Kalra <ashish.kalra@amd.com>, Kai Huang <kai.huang@intel.com>,
- Andi Kleen <ak@linux.intel.com>, Sean Christopherson <seanjc@google.com>,
- Xiaoyao Li <xiaoyao.li@intel.com>, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org
-References: <20241015095818.357915-1-kirill.shutemov@linux.intel.com>
- <20241016105048.757081-1-kirill.shutemov@linux.intel.com>
- <l7l6ufyjbrfr4ms6quil5myf5bzmvu33sq3phfvpbwldhzn6m2@rzfdrvbe2glf>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <l7l6ufyjbrfr4ms6quil5myf5bzmvu33sq3phfvpbwldhzn6m2@rzfdrvbe2glf>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <53034f16-682e-4081-ab7e-81338c700f85@suse.com>
 
-On 10/29/24 08:13, Kirill A. Shutemov wrote:
-> On Wed, Oct 16, 2024 at 01:50:48PM +0300, Kirill A. Shutemov wrote:
->> Rename the helper to better reflect its function.
->>
->> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
->> Suggested-by: Dave Hansen <dave.hansen@intel.com>
+On Tue, Oct 29, 2024 at 05:43:24PM +0100, Jan Beulich wrote:
+> On 29.10.2024 12:03, Roger Pau Monne wrote:
+> > When using AMD-Vi interrupt remapping the vector field in the IO-APIC RTE is
+> > repurposed to contain part of the offset into the remapping table.  Previous to
+> > 2ca9fbd739b8 Xen had logic so that the offset into the interrupt remapping
+> > table would match the vector.  Such logic was mandatory for end of interrupt to
+> > work, since the vector field (even when not containing a vector) is used by the
+> > IO-APIC to find for which pin the EOI must be performed.
+> > 
+> > Introduce a table to store the EOI handlers when using interrupt remapping, so
+> > that the IO-APIC driver can translate pins into EOI handlers without having to
+> > read the IO-APIC RTE entry.  Note that to simplify the logic such table is used
+> > unconditionally when interrupt remapping is enabled, even if strictly it would
+> > only be required for AMD-Vi.
 > 
-> KVM patch is Linus' tree.
+> In here I think you mean "handle" when you use "handler"?
+
+Indeed.
+
+> Plus with what you said
+> earlier about vector vs EOI handle, and with the code using "vector" all over the
+> place, their (non-)relationship could also do with clarifying (perhaps better in
+> a code comment in __io_apic_eoi()).
+
+I've attempted to clarify the relation between vector vs EOI handle in
+the first paragraph, and how that applies to AMD-Vi.  I can move
+(part?) of that into the comment in __ioapic_write_entry(), maybe:
+
+/*
+ * Might be called before io_apic_pin_eoi is allocated.  Entry will be
+ * updated once the array is allocated and there's a write against the
+ * pin.
+ *
+ * Note that the vector field is only cached for raw RTE writes when
+ * using IR.  In that case the vector field might have been repurposed
+ * to store something different than the target vector, and hence need
+ * to be cached for performing EOI.
+ */
+
+> > @@ -273,6 +293,13 @@ void __ioapic_write_entry(
+> >      {
+> >          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+> >          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+> > +        /*
+> > +         * Called in clear_IO_APIC_pin() before io_apic_pin_eoi is allocated.
+> > +         * Entry will be updated once the array is allocated and there's a
+> > +         * write against the pin.
+> > +         */
+> > +        if ( io_apic_pin_eoi )
+> > +            io_apic_pin_eoi[apic][pin] = e.vector;
 > 
-> Dave, can you take this one?
+> The comment here looks a little misleading to me. clear_IO_APIC_pin() calls
+> here to, in particular, set the mask bit. With the mask bit the vector isn't
+> meaningful anyway (and indeed clear_IO_APIC_pin() sets it to zero, at which
+> point recording IRQ_VECTOR_UNASSIGNED might be better than the bogus vector
+> 0x00).
 
-Not easily without a merge of Paolo's KVM bits.  The confusion that
-might cause isn't quite worth it for a rename.  I can either stash this
-somewhere or I'm also fine if Paolo takes it on top of your other patch:
+Note that clear_IO_APIC_pin() performs the call to
+__ioapic_write_entry() with raw == false, at which point
+__ioapic_write_entry() will call iommu_update_ire_from_apic() if IOMMU
+IR is enabled.  The cached 'vector' value will be the IOMMU entry
+offset for the AMD-Vi case, as the IOMMU code will perform the call to
+__ioapic_write_entry() with raw == true.
 
-Acked-by: Dave Hansen <dave.hansen@intel.com>
+What matters is that the cached value matches what's written in the
+IO-APIC RTE, and the current logic ensures this.
+
+What's the benefit of using IRQ_VECTOR_UNASSIGNED if the result is
+reading the RTE and finding that vector == 0?
+
+Looking at clear_IO_APIC_pin() - I think the function is slightly
+bogus.  If entry.trigger is not set, the logic to switch the entry to
+level triggered  will fetch the entry contents without requesting a
+raw RTE, at which point the entry.vector field can not be used as
+the EOI handle since it will contain the vector, not the IR table
+offset.  I will need to make a further patch to fix this corner
+case.
+
+> > @@ -298,9 +325,17 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
+> >      /* Prefer the use of the EOI register if available */
+> >      if ( ioapic_has_eoi_reg(apic) )
+> >      {
+> > +        if ( io_apic_pin_eoi )
+> > +            vector = io_apic_pin_eoi[apic][pin];
+> > +
+> >          /* If vector is unknown, read it from the IO-APIC */
+> >          if ( vector == IRQ_VECTOR_UNASSIGNED )
+> > +        {
+> >              vector = __ioapic_read_entry(apic, pin, true).vector;
+> 
+> Related to my comment higher up regarding vector vs EOI handle: Here we're
+> doing a raw read, i.e. we don't really fetch the vector but the EOI handle
+> in the AMD case. Why is it that this isn't sufficient for directed EOI to
+> work (perhaps with the conditional adjusted)?
+
+It is enough, but we don't want to be doing such read for each EOI,
+hence why we cache it in io_apic_pin_eoi.
+
+> Then again - are we ever taking this path? Certainly not when coming from
+> clear_IO_APIC_pin(), hence ...
+> 
+> > +            if ( io_apic_pin_eoi )
+> 
+> ... I'm unconvinced this conditional is needed.
+
+Hm, maybe.  I can adjust but seems more fragile to trigger a
+dereference for the extra cost of a conditional in what should be a
+non-common path anyway.
+
+> > +                /* Update cached value so further EOI don't need to fetch it. */
+> > +                io_apic_pin_eoi[apic][pin] = vector;
+> > +        }
+> >  
+> >          *(IO_APIC_BASE(apic)+16) = vector;
+> >      }
+> > @@ -1022,8 +1057,27 @@ static void __init setup_IO_APIC_irqs(void)
+> >  
+> >      apic_printk(APIC_VERBOSE, KERN_DEBUG "init IO_APIC IRQs\n");
+> >  
+> > +    if ( iommu_intremap )
+> > +    {
+> > +        io_apic_pin_eoi = xmalloc_array(typeof(*io_apic_pin_eoi), nr_ioapics);
+> 
+> Nit: Strictly speaking this and ...
+> 
+> > +        BUG_ON(!io_apic_pin_eoi);
+> > +    }
+> > +
+> >      for (apic = 0; apic < nr_ioapics; apic++) {
+> > -        for (pin = 0; pin < nr_ioapic_entries[apic]; pin++) {
+> > +        const unsigned int nr_entries = nr_ioapic_entries[apic];
+> > +
+> > +        if ( iommu_intremap )
+> > +        {
+> > +            io_apic_pin_eoi[apic] = xmalloc_array(typeof(**io_apic_pin_eoi),
+> > +                                                  nr_entries);
+> 
+> ... and this should be xvmalloc_array() in new code.
+
+Sorry, didn't notice we have that now.
+
+> Also this 2nd conditional may better use io_apic_pin_eoi, such that the two
+> conditionals don't need keeping in sync. Note also how Andrew previously
+> pointed out that both conditionals aren't Misra-compliant right now.
+
+Oh, yes, completely forgot to adjust the MISRA comment from Andrew,
+sorry.
+
+Thanks, Roger.
 
