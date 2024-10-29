@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D49F79B4446
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 09:32:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827124.1241632 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07BAA9B445C
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 09:38:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827134.1241642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5heY-0007Pr-GE; Tue, 29 Oct 2024 08:32:38 +0000
+	id 1t5hjg-0000Cs-1s; Tue, 29 Oct 2024 08:37:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827124.1241632; Tue, 29 Oct 2024 08:32:38 +0000
+Received: by outflank-mailman (output) from mailman id 827134.1241642; Tue, 29 Oct 2024 08:37:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5heY-0007O9-CW; Tue, 29 Oct 2024 08:32:38 +0000
-Received: by outflank-mailman (input) for mailman id 827124;
- Tue, 29 Oct 2024 08:32:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t5hjf-0000AZ-VK; Tue, 29 Oct 2024 08:37:55 +0000
+Received: by outflank-mailman (input) for mailman id 827134;
+ Tue, 29 Oct 2024 08:37:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E68c=RZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5heX-0007O3-HA
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 08:32:37 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59e1181a-95d0-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 09:32:36 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4314f38d274so68381855e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 01:32:36 -0700 (PDT)
+ id 1t5hjf-0000AT-62
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 08:37:55 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 169d3fca-95d1-11ef-99a3-01e77a169b0f;
+ Tue, 29 Oct 2024 09:37:53 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2fb584a8f81so47367271fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 01:37:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4318b55f50csm166292855e9.17.2024.10.29.01.32.35
+ 5b1f17b1804b1-43193573551sm136694935e9.6.2024.10.29.01.37.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 01:32:35 -0700 (PDT)
+ Tue, 29 Oct 2024 01:37:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59e1181a-95d0-11ef-a0c3-8be0dac302b0
+X-Inumbo-ID: 169d3fca-95d1-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730190756; x=1730795556; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730191073; x=1730795873; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K/qOK6tCJPY12sV6UaSGMBHPTcaI/MeIurGvWv4Eyxk=;
-        b=DRoTCZU6VkXoQZ4yrlejHmQzOLDmz7tFASCnFK0jOgO7A2KVqQvM3ikucwm8azmZ27
-         ImobJszRG9Sp1jhmOXxgi6sqkk6iNHMm/tTGslA3rr//uypH0b905saWoysOU/KczecD
-         O4grVX9zp9U5PxPEmKPRDOb7c04rVLx0dzNJU4pyx8Og09q5dRFtIV61AAIoPpzpvg7d
-         2wCx2jLyWYyGUCbYRscpM5PBU4sF6+SvZ55RnOt/+5r+jiO/8yE9Bp4aZnIhwgZYHQgV
-         SK9CUVrKxkbaSzm02q8OmNOGEDIa0qfmgjZd+jmJLIsRtaZTm1F8wTBmhyj75t6xewk0
-         M2qw==
+        bh=uTGuSycCXg9UQnZ4r21/xl3RN6DXXnawLG16iaDgOtU=;
+        b=XL/9PXGzRFIiyjtk2EmgXG+PsUu2DdvUQDK8C9LjXe7xWur/hgqpQFbjY/p2gQ278o
+         oFkKIASZsHhqYlTwkzYGyUGTfnt1lb1K+a0lwaqafF5kWs4BoxIYYRkN96VrjfFMHhui
+         Iv4huFcwFnRHEf8OKEGxujQB5NWMVDe/pLtSPy022ZN4QPf9qb/DGUnHXCByn0y86v13
+         /JwrKerBfkQEg/fA2Fs6jHL/kbCW6OElLlgnYW8bNH/qUNU/RUBSRMTqsutAEljHhoEf
+         kXbX+MPm3nKgLpc6REFNSpxxokDpJBSyFjWSQc/DLo7c4Ok2MW7olxckuvi3q+VuP7Gy
+         +BAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730190756; x=1730795556;
+        d=1e100.net; s=20230601; t=1730191073; x=1730795873;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K/qOK6tCJPY12sV6UaSGMBHPTcaI/MeIurGvWv4Eyxk=;
-        b=APrxbJaa8xgCLtyKKhZ1rgpAqp0S8orIuwxBWiXuWcJqfxhOOrIhfXoe/qm6PzbKw9
-         NY76PmDRNFc7fXOvbXHhEtqhjmqXQ9EC52kH/KEapXK19gSbXmjYphzQ9I5Rno7LD9N4
-         PIjDXYy8rUN0qXlcEAxId9OFw8zs7nBiASHEGK3+339e+A8xPhtBggffYHUrDZCBHxao
-         uHQEOFiUZvRddAA8C5FGtMLon6EVkcQ6L06XxVJGipWTudO2YNQE5HhjgZkmbR0sjGup
-         9z9lD59QHG9iRTXwM6z6imIzPUPU8YM3jMgCi9a4fqXt7mH1+uTUiKpPN9Bfax9PP+uy
-         5cWw==
-X-Forwarded-Encrypted: i=1; AJvYcCWaiJBoqomU7NSLfpOLpqxgLBD2FWGBuym1ur+pRdtUChv7QS9HYD0BoQkRqZrPYp2SxN7kSWeBrgU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy9qcCsDnfgV6kRxYXMbJMiUKNYw0cJ+GpO3pMkGKvWmPoAeVr2
-	Oo3WQqr4ljd7YnWxPsWBEowVFvLq1qYAjiSjI3fHRmKIrwF/DGjqt/77Yh+z0Q==
-X-Google-Smtp-Source: AGHT+IFVxAhRD8e0BHuVJpRT9ogdnRnrV0ltpe17bKM11AvbxhlyUzfHea30qa22T/LWdKXjE3+rKw==
-X-Received: by 2002:a05:600c:4f56:b0:431:562a:54be with SMTP id 5b1f17b1804b1-4319ac98af1mr112198785e9.9.1730190756146;
-        Tue, 29 Oct 2024 01:32:36 -0700 (PDT)
-Message-ID: <dd81f45a-bb3f-4c65-a517-3ec2c56a9912@suse.com>
-Date: Tue, 29 Oct 2024 09:32:35 +0100
+        bh=uTGuSycCXg9UQnZ4r21/xl3RN6DXXnawLG16iaDgOtU=;
+        b=QJHscRc7xyuBldM87mmaFHoEiBcLtpg4VcWio6l4KrCZr46V8LJdXsrLYXi1HZweVV
+         PfCF/Zeun79BIayzM9pLcKz3I3HmtW4ljJ0LT4LpfMfN4QauTElzBP7T+YOdIb/AqGiy
+         R15T9m8M8L5Yq0gnyL4a28cdDE7JpRpX1eCu6S9gHruqcP/2dXrpYqYOne1RNQ6oisy/
+         l8Iz6r5PzYfdch5chxzyaESq/keKZBVqXKGjf6NYYCGIIBcjkW6CZbDOrBfIg5q5GuK/
+         cv4rZFwxetsjDHhcr+SqSfY91Z+2twtP2+yEDkAOMIXC6YYEYfCJ/kELKzYr/0btyI66
+         0/eA==
+X-Forwarded-Encrypted: i=1; AJvYcCVUy78H1Tmym9qyEHzQvxxVX/t1eIrFmT5kPQNlZ/Gy4VZkMBxhjd/KK05VvJb8biurQ1t1F6rESNg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBkQahFhiXJ1w0qaNgytGnxyw9dLhS6FdugIQ2sWVEUwFeuQ30
+	vCsIzfD5xu+z1DaknWLoeg1aGuHgMOKzU/KSbHE8KjJHfNoHSNUtWaokhIIA6w==
+X-Google-Smtp-Source: AGHT+IFRtszaLh2+yvTCg9TIf60ZZzdH5fsCB2ufi1MfoFqL2cANZ293zEY5uzD6nk3YF2/kuGx5Uw==
+X-Received: by 2002:a05:651c:505:b0:2f5:abe:b6bd with SMTP id 38308e7fff4ca-2fcbe099636mr45603761fa.42.1730191072559;
+        Tue, 29 Oct 2024 01:37:52 -0700 (PDT)
+Message-ID: <85e7334b-b878-4896-8f7a-462ba73ea9e2@suse.com>
+Date: Tue, 29 Oct 2024 09:37:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/14] x86/mpx: Adjust read_bndcfgu() to clean after
- itself
+Subject: Re: [PATCH 12/14] x86/fpu: Pass explicit xsave areas to
+ fpu_(f)xsave()
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241028154932.6797-1-alejandro.vallejo@cloud.com>
- <20241028154932.6797-12-alejandro.vallejo@cloud.com>
+ <20241028154932.6797-13-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,23 +114,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241028154932.6797-12-alejandro.vallejo@cloud.com>
+In-Reply-To: <20241028154932.6797-13-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.10.2024 16:49, Alejandro Vallejo wrote:
-> Overwrite the MPX data dumped in the idle XSAVE area to avoid leaking
-> it. While it's not very sensitive, better to err on the side of caution.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
-> Depending on whether the idle domain is considered ASI or non-ASI this
-> might or might not be enough. If the idle domain is not ASI the XSAVE
-> area would be in the directmap, which would render the zap ineffective
-> because it would still be transiently readable from another pCPU.
+> --- a/xen/arch/x86/xstate.c
+> +++ b/xen/arch/x86/xstate.c
+> @@ -300,9 +300,8 @@ void compress_xsave_states(struct vcpu *v, const void *src, unsigned int size)
+>      vcpu_unmap_xsave_area(v, xstate);
+>  }
+>  
+> -void xsave(struct vcpu *v, uint64_t mask)
+> +void xsave(struct vcpu *v, struct xsave_struct *ptr, uint64_t mask)
+>  {
+> -    struct xsave_struct *ptr = v->arch.xsave_area;
+>      uint32_t hmask = mask >> 32;
+>      uint32_t lmask = mask;
+>      unsigned int fip_width = v->domain->arch.x87_fip_width;
 
-Yet that needs to be known / decided before this change can sensibly be
-acked.
+Imo this change wants to constify v at the same time, to demonstrate that
+nothing is changed through v anymore. The comment may extend to other functions
+as well that are being altered here; I only closely looks at this one.
 
 Jan
 
