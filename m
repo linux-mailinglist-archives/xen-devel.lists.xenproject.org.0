@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80A529B503A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 18:18:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827750.1242450 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE229B510A
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 18:38:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827759.1242460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5prC-0003H0-64; Tue, 29 Oct 2024 17:18:14 +0000
+	id 1t5q9l-0006qe-NY; Tue, 29 Oct 2024 17:37:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827750.1242450; Tue, 29 Oct 2024 17:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 827759.1242460; Tue, 29 Oct 2024 17:37:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5prC-0003Dq-2n; Tue, 29 Oct 2024 17:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 827750;
- Tue, 29 Oct 2024 17:18:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t5q9l-0006o1-Jb; Tue, 29 Oct 2024 17:37:25 +0000
+Received: by outflank-mailman (input) for mailman id 827759;
+ Tue, 29 Oct 2024 17:37:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Hvw=RZ=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1t5prA-0003Dk-II
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 17:18:12 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2ec71a7-9619-11ef-99a3-01e77a169b0f;
- Tue, 29 Oct 2024 18:18:06 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a9a3dc089d8so841037366b.3
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 10:18:06 -0700 (PDT)
-Received: from jmerino-thinkstation ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b2fe2af87sm498943366b.143.2024.10.29.10.18.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2024 10:18:05 -0700 (PDT)
+ <SRS0=jjvs=RZ=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
+ id 1t5q9j-0006nv-TZ
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 17:37:24 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 70c7ed91-961c-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 18:37:18 +0100 (CET)
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2024 10:37:10 -0700
+Received: from ccbilbre-mobl3.amr.corp.intel.com (HELO [10.124.223.38])
+ ([10.124.223.38])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2024 10:37:09 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,237 +43,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2ec71a7-9619-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmUiLCJoZWxvIjoibWFpbC1lajEteDYyZS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImMyZWM3MWE3LTk2MTktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjIyMjg2LjIwNjIxMSwic2VuZGVyIjoiamF2aS5tZXJpbm9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730222285; x=1730827085; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=SVdOokFSetT7oKRAM0gON4dunH/xhPNCxe/un+Db+uI=;
-        b=BNOdc6dU7Gt7naA+MEcUQ6DSVQLhBXuI921yL+/ZSl6JVuv8vy674+upiI7igs9oA+
-         p5zBUqLjmCVaRiJ5rtfqZoCb0I9A5oTMWEfA076SIn30D4+Kpgqin/1yMHg1jnM42tUJ
-         E6T1aoKw02F9RB3dJ2KUqAcj8w/u8EjajL1Ns=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730222285; x=1730827085;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SVdOokFSetT7oKRAM0gON4dunH/xhPNCxe/un+Db+uI=;
-        b=Slzqpi5Z4KNFGInbHQXK4jydNwXIcY/gELQ4lCG8ornoclpKtKnduw224B4Jr1v4D7
-         MblH0BRBuTQ3tLSmtFQG89z+Q6vjzovxwy6uz4XDYnXMpGUa1ixptORjN4tLTpSkC9lW
-         F78F4OqKCONibOz4+UJF5RA0eTqSOYTH0ZBozF900+blA6rOSPd/ZuJ+UiU9OPHQm6ZI
-         3haodnu1zd2iZaNQRSM3o5NsA5oOHyjaZOv9myCGJcCaXduZgHfsaTS7WhxoBZw2IZZq
-         Hw98yflITnJx/sIHWiUbRba39OfCwGkhdBJ6TrHLGSjnKoDkP78sDoqrRcmzSA6a1Ilm
-         +SNg==
-X-Gm-Message-State: AOJu0YwQgWQv5brUxj85QkQYZEiihwYFBeK0QbhQl9wc8HLUVcx6P4BE
-	SiL7YXEuVZYHC/lL7aBAr6eiAHxDbICMvIswevror/8PukQym8A+wq8Ae4zRLIg=
-X-Google-Smtp-Source: AGHT+IFNHG+5W/NrdiQJz1jDgAQpZJtKe+wGSd1jAyvFDb9AkW4EsMwexpjjg2vl68QUfC+zfR0olQ==
-X-Received: by 2002:a17:907:97d4:b0:a9a:a7fd:d840 with SMTP id a640c23a62f3a-a9de5cfea5emr1074065666b.1.1730222285507;
-        Tue, 29 Oct 2024 10:18:05 -0700 (PDT)
-Date: Tue, 29 Oct 2024 17:18:03 +0000
-From: Javi Merino <javi.merino@cloud.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH v1 6/6] CI: Run the builds and tests that use the
- Debian 12 containers as a normal user
-Message-ID: <dbqfp4kywi6uuykycdake67ek6q6wjnwygnkhrvvxgfd4gokff@ybjta54ae4a5>
-References: <cover.1729760501.git.javi.merino@cloud.com>
- <c6d8547d500ac419ee4590decb9392f32f1f0d02.1729760501.git.javi.merino@cloud.com>
- <alpine.DEB.2.22.394.2410241631250.3833@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 70c7ed91-961c-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4xNzUuNjUuMTQiLCJoZWxvIjoibWdhbWFpbC5pbnRlbC5jb20ifQ==
+X-Custom-Transaction: eyJpZCI6IjcwYzdlZDkxLTk2MWMtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjIzNDM5LjA5MTg5OCwic2VuZGVyIjoiZGF2ZS5oYW5zZW5AaW50ZWwuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1730223439; x=1761759439;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=11sghmVqAck0hLQpJ32ZcRyZ2dfw2CD170aRaVdXWy8=;
+  b=d8knvJTGsct7z+3zLWL204aJnnHx5wG92p3+QAGAjt76yudGJsdogRfZ
+   ovHjNgtXiOPpupI6HdiTSUMPyeecgoBgc67WeaWRCPiNNfQCws9bcBBAn
+   WZ25+cRf4pc9K3iFFhgo6EN0gwZc6jpKtJY2ZsX7LgaMOH9lRiD/20X0/
+   kpNwBzDLi2FjbTn8W/AW7nTi0/Ihg8pXGAdI74hFevC06fAraKNAeosAG
+   3RDTOXuSkLV9mBQ8Jit7IpsXiblkw00CMy8b0vj07bgAwbSEb0tsm6SVn
+   aSbFwxrrAnvkXpMY94QutidbbBxLYAbHYLmXWVe3PvqIY7IMHf/MrDPOd
+   Q==;
+X-CSE-ConnectionGUID: WbmuCDRYRH6ckF0BBqp0mw==
+X-CSE-MsgGUID: cv0xWqNCTdOjk7iD12msUg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11240"; a="33678584"
+X-IronPort-AV: E=Sophos;i="6.11,241,1725346800"; 
+   d="scan'208";a="33678584"
+X-CSE-ConnectionGUID: mxavBGIvRr+lbi6krs4oaA==
+X-CSE-MsgGUID: +oHChIklSteyHFt1spYqnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,241,1725346800"; 
+   d="scan'208";a="82141735"
+Message-ID: <4d39b188-0642-495c-8638-67ae08c070b7@intel.com>
+Date: Tue, 29 Oct 2024 10:37:07 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2410241631250.3833@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mtrr: Rename mtrr_overwrite_state() to
+ guest_force_mtrr_state()
+To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Gaosheng Cui <cuigaosheng1@huawei.com>,
+ Michael Roth <michael.roth@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>,
+ Ashish Kalra <ashish.kalra@amd.com>, Kai Huang <kai.huang@intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Sean Christopherson <seanjc@google.com>,
+ Xiaoyao Li <xiaoyao.li@intel.com>, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20241015095818.357915-1-kirill.shutemov@linux.intel.com>
+ <20241016105048.757081-1-kirill.shutemov@linux.intel.com>
+ <l7l6ufyjbrfr4ms6quil5myf5bzmvu33sq3phfvpbwldhzn6m2@rzfdrvbe2glf>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <l7l6ufyjbrfr4ms6quil5myf5bzmvu33sq3phfvpbwldhzn6m2@rzfdrvbe2glf>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
-
-On Thu, Oct 24, 2024 at 04:47:28PM -0700, Stefano Stabellini wrote:
-> On Thu, 24 Oct 2024, Javi Merino wrote:
-> > Use FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR so that GitLab CI clones xen
-> > using the user in the image, instead of as root[0].
-> > 
-> > In qemu-smoke-dom0*.sh and qemu-alpine-x86_64.sh, use fakeroot to
-> > create the rootfs images that untar a tarball that create character
-> > devices.  cpio replicates the block and character devices, as well as
-> > preserving the uid and gid it sees in the current directory.  fakeroot
-> > lets tar think that it is creating block and character devices, and
-> > all files are owned by root, but it is all smokes and mirrors for
-> > cpio.
-> > 
-> > [0] https://gitlab.com/gitlab-org/gitlab-runner/-/issues/1736
-> > 
-> > Signed-off-by: Javi Merino <javi.merino@cloud.com>
-> > ---
-> > 
-> > Regarding building the rootfs, I have chosen to use a fakeroot
-> > subshell for the entire process.  automation/scripts/qubes-x86-64.sh
-> > takes a different approach, it just uses fakeroot for the tar/cpio
-> > commands.  I prefer to do it this way but I am happy to be overridden
-> > if `fakeroot -s ../save tar` and `fakeroot -i ../save cpio` are
-> > preferred.
-> > 
-> >  automation/build/debian/12-arm64v8.dockerfile   | 5 ++++-
-> >  automation/build/debian/12-x86_64.dockerfile    | 5 ++++-
-> >  automation/gitlab-ci/test.yaml                  | 4 ++++
-> >  automation/scripts/qemu-alpine-x86_64.sh        | 4 +++-
-> >  automation/scripts/qemu-smoke-dom0-arm64.sh     | 7 +++++--
-> >  automation/scripts/qemu-smoke-dom0less-arm64.sh | 5 +++--
-> >  6 files changed, 23 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/automation/build/debian/12-arm64v8.dockerfile b/automation/build/debian/12-arm64v8.dockerfile
-> > index 4da1b074aedb..c2617956ed77 100644
-> > --- a/automation/build/debian/12-arm64v8.dockerfile
-> > +++ b/automation/build/debian/12-arm64v8.dockerfile
-> > @@ -10,6 +10,8 @@ RUN <<EOF
-> >  #!/bin/bash
-> >      set -eu
-> >  
-> > +    useradd --create-home user
-> > +
-> >      apt-get update
-> >      DEPS=(
-> >          # Xen
-> > @@ -53,6 +55,7 @@ RUN <<EOF
-> >          curl
-> >          device-tree-compiler
-> >          expect
-> > +        fakeroot
-> >          u-boot-qemu
-> >          # for imagebuilder
-> >          file
-> > @@ -64,5 +67,5 @@ RUN <<EOF
-> >      rm -rf /var/lib/apt/lists*
-> >  EOF
-> >  
-> > -USER root
-> > +USER user
-> >  WORKDIR /build
-> > diff --git a/automation/build/debian/12-x86_64.dockerfile b/automation/build/debian/12-x86_64.dockerfile
-> > index e0ca8b7e9c91..98b23ea3eaa4 100644
-> > --- a/automation/build/debian/12-x86_64.dockerfile
-> > +++ b/automation/build/debian/12-x86_64.dockerfile
-> > @@ -10,6 +10,8 @@ RUN <<EOF
-> >  #!/bin/bash
-> >      set -eu
-> >  
-> > +    useradd --create-home user
-> > +
-> >      apt-get update
-> >      DEPS=(
-> >          # Xen
-> > @@ -54,6 +56,7 @@ RUN <<EOF
-> >          # for qemu-alpine-x86_64-gcc
-> >          busybox-static
-> >          cpio
-> > +        fakeroot
-> >  
-> >          # For *-efi jobs
-> >          ovmf
-> > @@ -64,5 +67,5 @@ RUN <<EOF
-> >      rm -rf /var/lib/apt/lists*
-> >  EOF
-> >  
-> > -USER root
-> > +USER user
-> >  WORKDIR /build
+On 10/29/24 08:13, Kirill A. Shutemov wrote:
+> On Wed, Oct 16, 2024 at 01:50:48PM +0300, Kirill A. Shutemov wrote:
+>> Rename the helper to better reflect its function.
+>>
+>> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+>> Suggested-by: Dave Hansen <dave.hansen@intel.com>
 > 
-> This breaks the xilinx hardware jobs both arm and x86 as they
-> require root inside the container at the moment
+> KVM patch is Linus' tree.
 > 
-> 
-> > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> > index 42baa82fe36f..71f2beb68c4f 100644
-> > --- a/automation/gitlab-ci/test.yaml
-> > +++ b/automation/gitlab-ci/test.yaml
-> > @@ -1,6 +1,10 @@
-> >  .test-jobs-common:
-> >    stage: test
-> >    image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> > +  variables:
-> > +    # Clone xen as the user in the docker images, not root
-> > +    # See https://gitlab.com/gitlab-org/gitlab-runner/-/issues/1736
-> > +    FF_DISABLE_UMASK_FOR_DOCKER_EXECUTOR: true
-> >  
-> >  .arm64-test-needs: &arm64-test-needs
-> >    - alpine-3.18-arm64-rootfs-export
-> > diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
-> > index 1ff689b577e3..2660403ab2b8 100755
-> > --- a/automation/scripts/qemu-alpine-x86_64.sh
-> > +++ b/automation/scripts/qemu-alpine-x86_64.sh
-> > @@ -29,6 +29,7 @@ find . | cpio --create --format='newc' | gzip > ../initrd.cpio.gz
-> >  cd ..
-> >  
-> >  # initrd.tar.gz is Dom0 rootfs
-> > +fakeroot <<EOF
-> >  mkdir -p rootfs
-> >  cd rootfs
-> >  tar xvzf ../initrd.tar.gz
-> > @@ -63,7 +64,8 @@ chmod +x etc/local.d/xen.start
-> >  echo "rc_verbose=yes" >> etc/rc.conf
-> >  # rebuild Dom0 rootfs
-> >  find . |cpio -H newc -o|gzip > ../xen-rootfs.cpio.gz
-> > -cd ../..
-> > +EOF
-> > +cd ..
-> 
-> I admit I am not a fan of this as it makes the script harder to read.
-> Given that almost everything on this script and similar scripts is
-> better run as root because it is all about repackaging cpio archivies,
-> instead I would do this:
-> 
-> diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
-> index 2660403ab2..7c0ec01e05 100755
-> --- a/automation/scripts/qemu-alpine-x86_64.sh
-> +++ b/automation/scripts/qemu-alpine-x86_64.sh
-> @@ -1,4 +1,4 @@
-> -#!/bin/bash
-> +#!/usr/bin/fakeroot
->  
->  set -ex -o pipefail
+> Dave, can you take this one?
 
-Running the entire script as a fakeroot subshell is ugly and not
-necessary.
+Not easily without a merge of Paolo's KVM bits.  The confusion that
+might cause isn't quite worth it for a rename.  I can either stash this
+somewhere or I'm also fine if Paolo takes it on top of your other patch:
 
-A better fix is what I suggested under the commit message, which is
-also what the qubes containers do:
-
---- a/automation/scripts/qemu-alpine-x86_64.sh
-+++ b/automation/scripts/qemu-alpine-x86_64.sh
-@@ -31,7 +31,7 @@ cd ..
- # initrd.tar.gz is Dom0 rootfs
- mkdir -p rootfs
- cd rootfs
--tar xvzf ../initrd.tar.gz
-+fakeroot -s ../fakeroot-save tar xvzf ../initrd.tar.gz
- mkdir proc
- mkdir run
- mkdir srv
-@@ -62,7 +62,7 @@ xl create -c /root/test.cfg
- chmod +x etc/local.d/xen.start
- echo "rc_verbose=yes" >> etc/rc.conf
- # rebuild Dom0 rootfs
--find . |cpio -H newc -o|gzip > ../xen-rootfs.cpio.gz
-+find . | fakeroot -i ../fakeroot-save cpio -H newc -o|gzip > ../xen-rootfs.cpio.gz
- cd ../..
-
- cat >> binaries/pxelinux.0 << EOF
-
-
-Similar for the dom0 and dom0less scripts and for the xilinx scripts.
-
-> Keeping in mind that anyone could push a branch without fakeroot to
-> their personal tree triggering a gitlab-ci pipeline, the advantage of
-> using fakeroot would be if we force the container execution envinronment
-> (gitlab runner) to run containers as user. This is not currently the
-> configuration we have. As of now, it doesn't bring an advantage.
-> 
-> Given that the gitlab runners are in flux at the moment, and that this
-> patch cannot work with the xilinx runners, I would ask you to please
-> hold on on this patch until the gitlab runners are settled (~1 month).
-
-Ok, I will hold the patch.  I will also fix the xilinx scripts.
-
-Cheers,
-Javi
+Acked-by: Dave Hansen <dave.hansen@intel.com>
 
