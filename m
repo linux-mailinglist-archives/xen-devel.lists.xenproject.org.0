@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EDCD9B437B
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 08:48:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827072.1241551 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F115B9B43CF
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 09:09:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827082.1241562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5gxe-0004FU-A0; Tue, 29 Oct 2024 07:48:18 +0000
+	id 1t5hHQ-0008BC-2l; Tue, 29 Oct 2024 08:08:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827072.1241551; Tue, 29 Oct 2024 07:48:18 +0000
+Received: by outflank-mailman (output) from mailman id 827082.1241562; Tue, 29 Oct 2024 08:08:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5gxe-0004Dd-7G; Tue, 29 Oct 2024 07:48:18 +0000
-Received: by outflank-mailman (input) for mailman id 827072;
- Tue, 29 Oct 2024 07:48:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t5hHP-00088g-Uf; Tue, 29 Oct 2024 08:08:43 +0000
+Received: by outflank-mailman (input) for mailman id 827082;
+ Tue, 29 Oct 2024 08:08:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E68c=RZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t5gxd-0004DV-5Z
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 07:48:17 +0000
+ id 1t5hHO-00088X-El
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 08:08:42 +0000
 Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
  [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2809d8cb-95ca-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 08:48:16 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 01ba922d-95cd-11ef-99a3-01e77a169b0f;
+ Tue, 29 Oct 2024 09:08:40 +0100 (CET)
 Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-431548bd1b4so49120055e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 00:48:16 -0700 (PDT)
+ 5b1f17b1804b1-4315f24a6bbso50139755e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 01:08:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4318b5797c3sm165654605e9.40.2024.10.29.00.48.15
+ ffacd0b85a97d-38058b8c394sm11729981f8f.90.2024.10.29.01.08.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 00:48:15 -0700 (PDT)
+ Tue, 29 Oct 2024 01:08:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2809d8cb-95ca-11ef-a0c3-8be0dac302b0
+X-Inumbo-ID: 01ba922d-95cd-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730188095; x=1730792895; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730189320; x=1730794120; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qiMKiYdv51H9b+5bAVFCuo4a2BlQNaJkXJKKn8zH6Zk=;
-        b=cI+0C5vkun/u/ResIMvUQRiHuodcSNkY2DGnTIMlZjywSIo1rx+CL6jFzL5eRUri3x
-         qd1+1/Xg5CmMxRsGtWmXSHkoFz+ppxkL6/Qr0uwnK+bjetj9XVgyzmUawDVQ9yAoNjYd
-         2XHMJqnTba359tyMgyBej97IE2Z1Fr8kT0t3jvg8xA5aw1dDbTDkJpz1VzksOpm34o/r
-         CEdbBFytP+fahLzKdH2jrKyfqhPGr60HsRHYjc7PRJ8l7JyHCnmWkXRDMgpok8oPS1Cs
-         VcQLIHidCTMzWKVgDytmrTlwdUsM4lXEg7ihinlbqK8ep65yd9JCW4aZuEX1QWQ3MAcM
-         Cmnw==
+        bh=E27NsgBAY436u66YFzB03YW2X8wdN0AZFfZvlkF14UA=;
+        b=e8//Mn/mt2zWwpRCx3io39R+Kd3hozkpqqqHAHP8lUZfFIEUw+80yYXmC7muqAR3Z9
+         leZdbjOYvqripQjucnAcCpWUdvwVf1er53hOzOQRkor09epAsg0EqsVRZI9jySxAz7vO
+         BfAz7xtdR14LbnZeVnqFJl5DN2IaC0PjIvZUHHcsTubP7rpuLBax+4yVF0d0BtZkOECa
+         2Jxjzbi3dpRfR22i9mfYcWUzYyQubyIYL/yXG9S97ZPUa6P9+Mb+pmE/rk+DJIB6slEs
+         GlRLaz23Lg/PHsVqSLqiq2UbSSvfc7I+wmXCwVxMtUVNvCLiieb4ftvRJuEcyCLywcB1
+         JH0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730188095; x=1730792895;
+        d=1e100.net; s=20230601; t=1730189320; x=1730794120;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qiMKiYdv51H9b+5bAVFCuo4a2BlQNaJkXJKKn8zH6Zk=;
-        b=I+4Fh9ippuj6ZOeOWOqzJ8iQJPymtyLW5F/i46ylgDD2Sh/9PaGWgT8xfEvbOO8Jd3
-         Pfur7Nw0qTJOF9CeBOeQUDTi630aLD/2vxR4B6jwUceNe4m3Eeum3/E29s/lD9ml3DSD
-         zxuhdaEWrfW3GoKvr2y3sCaIlZlpzgovvZj9j1tv3Wktsa4Y6TiiNMrLdA5Vgd3+sNFj
-         VO9+Q7jwHsAqs7GvXov+wiH//IrSapgwWt2Kw5BCJ+/rgsFB3LqR9EfLyaHc4flZ4h49
-         iAf08pf5xDYHlaPERHdZqAaNWYIna+fSMZ/7EzTIHQgd8mn3OqXys4Z54UHPiYuGwYiE
-         Vkwg==
-X-Forwarded-Encrypted: i=1; AJvYcCXw+jVy1kTxE09l0nI3/7duKHSMDZ0NrGUAfZj5Vn4/+voxe/5opba18WKlCPxaffIYQhz+vYkdykY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YykEWTAU05kSPudEvqghCDbFXoqRRb0iMoQO4K63WzAN681R9Ox
-	e/zVBefUDeYNvYrqxYJKxPSbY/xXC1JsMQZg4PbJVyXO2QUZelGpTMMmbl3utsHDPLTLFCYyaHE
-	=
-X-Google-Smtp-Source: AGHT+IHIhKGkhQLzzJ85hnL8dRsOnWvB2ivKQnY5iXLdmMUUh5MUAVXxFeGhUvaxTDg+81PxilFqQA==
-X-Received: by 2002:a05:600c:3550:b0:431:4a5a:f09a with SMTP id 5b1f17b1804b1-4319ad16150mr91220465e9.24.1730188095495;
-        Tue, 29 Oct 2024 00:48:15 -0700 (PDT)
-Message-ID: <b529c3a2-d628-4b16-a296-bd44e5c84c0f@suse.com>
-Date: Tue, 29 Oct 2024 08:48:14 +0100
+        bh=E27NsgBAY436u66YFzB03YW2X8wdN0AZFfZvlkF14UA=;
+        b=Ekrr82pVba8SBdJ0qGOmxA1ruFaGHZRnDpW11vLuDKUJ29d45w0PFQHLJMVY4iuRuJ
+         phT3hbK/wcNEjf0gIaDnEbSDIgYwEZaC66cvy3d5+4SxqPcreD2TYHIRisSw43+eKHNC
+         CFCnqUdD8kEAGnjRX/cyUTM69a3AhrtJ+I3Fcv89ZSCAwCTghuHdpazfJG7zE7OmYQaa
+         aS1rBk8hFNWn1UTpYDEOUY6PG+GaUViIKsoebkBvRFJrUNx/g8v7DM8PbnyCq3E2C2Cg
+         6jYdsVoy0IWpeyclxlJwU/wQiB1CpyD5v2bHdbC0DrHwZHUsxslrDHYbhxy6OK47iT+l
+         RsAg==
+X-Forwarded-Encrypted: i=1; AJvYcCUaPkbuQbdqO2RPAsHtLBGEOIDlfVkgiRp+bZodOI/dMjIacqlvDhmURaC6pGY13QpGNxf5ODAX0gA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyCzGE9661Cgv219HXA7SMsqoQSCvdgFhfDJharU8irqBx55SUM
+	DpxRRrhkbo5TAQHlAxo3rl7AN5xDZUXRQLkfQZdZYPvIq3M1YdMsEc6IZ1V6Qg==
+X-Google-Smtp-Source: AGHT+IGfta+Jvx33HyvdweAEJwMYBXtq/eJe27y/vgXE0SzAFay2qwAEyLddvrFN78BITYFjruqZnQ==
+X-Received: by 2002:a05:600c:3b14:b0:426:8884:2c58 with SMTP id 5b1f17b1804b1-4319ac6fb0amr86621375e9.4.1730189319727;
+        Tue, 29 Oct 2024 01:08:39 -0700 (PDT)
+Message-ID: <5fb1ac28-395c-4065-8a70-4bac809c7f50@suse.com>
+Date: Tue, 29 Oct 2024 09:08:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/10] x86/ucode: Delete the microcode_init() initcall
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241028091856.2151603-1-andrew.cooper3@citrix.com>
- <20241028091856.2151603-3-andrew.cooper3@citrix.com>
- <99ba9bcf-f356-416a-b355-f32e622d1406@suse.com>
- <d7f9489d-8031-493b-bf36-b009d5536b0c@citrix.com>
+Subject: Re: [PATCH v4 6/6] xen/arm: mpu: Implement a dummy
+ enable_secondary_cpu_mm
+To: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
+ <20241028124547.1371867-7-ayan.kumar.halder@amd.com>
+ <27be8d00-8260-460e-948d-81418b93662a@suse.com>
+ <8fa530cb-4d70-4300-8d4e-1e7208f7c045@amd.com>
+ <55728fdc-6247-4810-8696-a999713f4a7c@suse.com>
+ <3231cc7b-4c2e-4939-a623-a7b9960d1641@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,86 +122,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d7f9489d-8031-493b-bf36-b009d5536b0c@citrix.com>
+In-Reply-To: <3231cc7b-4c2e-4939-a623-a7b9960d1641@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28.10.2024 18:12, Andrew Cooper wrote:
-> On 28/10/2024 1:38 pm, Jan Beulich wrote:
->> On 28.10.2024 10:18, Andrew Cooper wrote:
->>> The comment highlights just how bogus this really is.  Being an initcall, the
->>> boot allocator is long gone, and bootstrap_unmap() is a no-op.
->> How's the boot allocator coming into the picture here? This is all about
->> (un)mapping, not allocating.
->>
->>> The fact there is nothing to do should be a giant red flag about the validity
->>> of the mappings "being freed".  Indeed, they both constitute use-after-frees.
->> I can't spot any use-after-free; the pointers in question ...
->>
->>> --- a/xen/arch/x86/cpu/microcode/core.c
->>> +++ b/xen/arch/x86/cpu/microcode/core.c
->>> @@ -758,28 +758,6 @@ int microcode_update(XEN_GUEST_HANDLE(const_void) buf,
->>>      return continue_hypercall_on_cpu(0, microcode_update_helper, buffer);
->>>  }
->>>  
->>> -static int __init cf_check microcode_init(void)
->>> -{
->>> -    /*
->>> -     * At this point, all CPUs should have updated their microcode
->>> -     * via the early_microcode_* paths so free the microcode blob.
->>> -     */
->>> -    if ( ucode_blob.size )
->>> -    {
->>> -        bootstrap_unmap();
->>> -        ucode_blob.size = 0;
->>> -        ucode_blob.data = NULL;
->>> -    }
->>> -    else if ( ucode_mod.mod_end )
->>> -    {
->>> -        bootstrap_unmap();
->>> -        ucode_mod.mod_end = 0;
->>> -    }
->>> -
->>> -    return 0;
->>> -}
->>> -__initcall(microcode_init);
->> ... aren't used anywhere. bootstrap_unmap() is "just in case" (perhaps indeed
->> a no-op at least nowadays), and the rest is field clobbering. I'm okay with the
->> code change, so
->> Acked-by: Jan Beulich <jbeulich@suse.com>
->> yet I'd like to ask for the description to be "softened" some.
+On 28.10.2024 18:38, Ayan Kumar Halder wrote:
+> On 28/10/2024 15:01, Jan Beulich wrote:
+>> On 28.10.2024 15:39, Ayan Kumar Halder wrote:
+>>> On 28/10/2024 12:55, Jan Beulich wrote:
+>>>> On 28.10.2024 13:45, Ayan Kumar Halder wrote:
+>>>>> --- a/xen/arch/Kconfig
+>>>>> +++ b/xen/arch/Kconfig
+>>>>> @@ -6,11 +6,13 @@ config PHYS_ADDR_T_32
+>>>>>    
+>>>>>    config NR_CPUS
+>>>>>    	int "Maximum number of CPUs"
+>>>>> +	range 1 1 if ARM && MPU
+>>>>>    	range 1 16383
+>>>>>    	default "256" if X86
+>>>>>    	default "8" if ARM && RCAR3
+>>>>>    	default "4" if ARM && QEMU
+>>>>>    	default "4" if ARM && MPSOC
+>>>>> +	default "1" if ARM && MPU
+>>>>>    	default "128" if ARM
+>>>>>    	help
+>>>>>    	  Controls the build-time size of various arrays and bitmaps
+>>>> I'm afraid I can't easily tell whether MPU can be used together with any of
+>>>> RCAR3, QEMU, or MPSOC. If it can, the new default line would need to move
+>>>> up, as it's the first one that has a match on its condition which is being
+>>>> used.
+>>> MPU cannot be used with any of the existing platforms.
+>> That is - qemu can't emulate such an environment, i.e. even QEMU and MPU
+>> don't go together?
 > 
-> As I said, this could be folded into patch 9, given this particular
-> arrangement of the series.
-
-I certainly don't mind the folding, but then I'd still like to see the
-description of the resulting patch before giving a (hopefully) unconditional
-ack.
-
-> The UAFs are apparent *because* the comment demonstrates a false line of
-> reasoning.
+> Qemu has support for Aarch32 MPU at EL2 and EL1 (ie R52). As far as I am 
+> aware, there is no support for Aarch64 MPU in Qemu (ie R82).
 > 
-> ucode_mod literally is used after free.  ucode=$n is genuinely buggy
-> today, because its a stash of a physical pointer across move_xen().
+> Even for R52, I could not get the upstream Qemu working (emulating some 
+> Arm reference platform).
+> 
+> I could get the Xilinx fork of Qemu (https://github.com/Xilinx/qemu) 
+> working which emulates AMD's SoC using R52.
+> 
+> However, this should not impact the current patch. There is no Qemu in 
+> xen/arch/arm/platforms/*.
 
-Maybe my problem is that the UAF is elsewhere, not in the code you delete?
-If so, it might help to simply point out where the actual bad use is. As it
-stands, microcode_init() doesn't have any uses (reads), only writes. What I
-agree with is that the comment there is at best misleading.
+Aiui that's not relevant. There is a QEMU item in xen/arch/arm/platforms/Kconfig.
+I continue to fail to see why that couldn't be selected together with MPU. Yet if
+it can be, you'd end up with a default of 4, not 1, if it actually _is_ selected.
+Alternatively QEMU (and maybe also RCAR3 and MPSOC) need to be mutually exclusive
+with MPU. Hmm, looks like that's already the case, by patch 2 suppressing the
+"Platform Support" prompt. While that looks fragile to me, I'm sorry for the
+noise then.
 
 Jan
-
-> ucode_blob stashes a virtual pointer.  This was even noticed in
-> dc380df12acf ("x86/ucode: load microcode earlier on boot CPU")
-> 
-> ---
-> It needs to rescan the modules in order to find the new virtual address
-> of the ucode blob because it changes during the boot process, e.g.
-> from 0x00000000010802fc to 0xffff83204dac52fc.
-> ---
-> 
-> which highlighted the problem but duct-taped over it.
-> 
-> ~Andrew
-
 
