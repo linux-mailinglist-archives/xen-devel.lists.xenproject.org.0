@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59EF49B4CA2
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 15:52:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827488.1242114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 608AA9B4CA6
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Oct 2024 15:54:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827493.1242124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5naI-0006hE-4I; Tue, 29 Oct 2024 14:52:38 +0000
+	id 1t5nbP-0007DD-Cn; Tue, 29 Oct 2024 14:53:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827488.1242114; Tue, 29 Oct 2024 14:52:38 +0000
+Received: by outflank-mailman (output) from mailman id 827493.1242124; Tue, 29 Oct 2024 14:53:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t5naI-0006eJ-1C; Tue, 29 Oct 2024 14:52:38 +0000
-Received: by outflank-mailman (input) for mailman id 827488;
- Tue, 29 Oct 2024 14:52:36 +0000
+	id 1t5nbP-0007Ae-AE; Tue, 29 Oct 2024 14:53:47 +0000
+Received: by outflank-mailman (input) for mailman id 827493;
+ Tue, 29 Oct 2024 14:53:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M7fT=RZ=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
- id 1t5naG-0006eD-QF
- for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 14:52:36 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 6d774089-9605-11ef-a0c3-8be0dac302b0;
- Tue, 29 Oct 2024 15:52:33 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0CD17113E;
- Tue, 29 Oct 2024 07:53:02 -0700 (PDT)
-Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0BB213F73B;
- Tue, 29 Oct 2024 07:52:24 -0700 (PDT)
+ <SRS0=rNzX=RZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t5nbO-0007AY-B2
+ for xen-devel@lists.xenproject.org; Tue, 29 Oct 2024 14:53:46 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97831ce9-9605-11ef-a0c3-8be0dac302b0;
+ Tue, 29 Oct 2024 15:53:43 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5c96936065dso6495868a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 07:53:43 -0700 (PDT)
+Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9b1f297a57sm483954266b.133.2024.10.29.07.53.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Oct 2024 07:53:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,144 +44,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d774089-9605-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxNy4xNDAuMTEwLjE3MiIsImhlbG8iOiJmb3NzLmFybS5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6IjZkNzc0MDg5LTk2MDUtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjEzNTUzLjI5ODg1NSwic2VuZGVyIjoibWFyay5ydXRsYW5kQGFybS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-Date: Tue, 29 Oct 2024 14:52:22 +0000
-From: Mark Rutland <mark.rutland@arm.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: oleg@redhat.com, linux@armlinux.org.uk, will@kernel.org,
-	catalin.marinas@arm.com, sstabellini@kernel.org, maz@kernel.org,
-	tglx@linutronix.de, peterz@infradead.org, luto@kernel.org,
-	kees@kernel.org, wad@chromium.org, akpm@linux-foundation.org,
-	samitolvanen@google.com, arnd@arndb.de, ojeda@kernel.org,
-	rppt@kernel.org, hca@linux.ibm.com, aliceryhl@google.com,
-	samuel.holland@sifive.com, paulmck@kernel.org, aquini@redhat.com,
-	petr.pavlu@suse.com, viro@zeniv.linux.org.uk,
-	rmk+kernel@armlinux.org.uk, ardb@kernel.org,
-	wangkefeng.wang@huawei.com, surenb@google.com,
-	linus.walleij@linaro.org, yangyj.ee@gmail.com, broonie@kernel.org,
-	mbenes@suse.cz, puranjay@kernel.org, pcc@google.com,
-	guohanjun@huawei.com, sudeep.holla@arm.com,
-	Jonathan.Cameron@huawei.com, prarit@redhat.com, liuwei09@cestc.cn,
-	dwmw@amazon.co.uk, oliver.upton@linux.dev,
-	kristina.martsenko@arm.com, ptosi@google.com, frederic@kernel.org,
-	vschneid@redhat.com, thiago.bauermann@linaro.org,
-	joey.gouly@arm.com, liuyuntao12@huawei.com, leobras@redhat.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH -next v4 06/19] arm64: entry: Move
- arm64_preempt_schedule_irq() into exit_to_kernel_mode()
-Message-ID: <ZyD2pk285YeVmZTm@J2N7QTR9R3.cambridge.arm.com>
-References: <20241025100700.3714552-1-ruanjinjie@huawei.com>
- <20241025100700.3714552-7-ruanjinjie@huawei.com>
+X-Inumbo-ID: 97831ce9-9605-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmUiLCJoZWxvIjoibWFpbC1lZDEteDUyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijk3ODMxY2U5LTk2MDUtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjEzNjIzLjQzODY5NCwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1730213623; x=1730818423; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=8CW5WdJP3MA0EauCh12BA3osj2WKys67ACbayf73a/Q=;
+        b=I5/KpoI26XIHGFCnjcDqYPzz1yMiZoMu6+JDrlYmTxyWD1RU+3DMzq/NpQP+DyB97I
+         49BGIxMf0KvKJIqftZ+O9fwqNQLALBPV/I6X1d+ChbAqPevHnI+xnoWfrxJCrhw7FDgA
+         nYR/l+/0OiykZ3HDFZ7XOT6wGDPZy0aI/G9UQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730213623; x=1730818423;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8CW5WdJP3MA0EauCh12BA3osj2WKys67ACbayf73a/Q=;
+        b=JgY2Ug3t5MIOsaaoAzWFP6Ngt4dNqJmjD7sbLNTgWU6DlaCZKSJQaZzsSaabUAfErd
+         jXbcOjgCr8Ke3+6i3+T5Eu+7pGrPCpQDzR23mUQ5dHhUGammDgc1GgmqbHo2Dhy1z3fF
+         b5BKKF5qDKhtUx+ZQie+aL0s0bXMHXJyXMce3/0N9sVs+8Urs6/TxegBqvUsKSaUZokc
+         Ytz6tGXFItpLJMH/Bo28ah0eYqlCWpq3VdfXXaAw7DGJ/vDq4b8ozbkiiWVapl6IjeEw
+         8MMAggaixmYdOLoILdi6meDTv1rONEBZGl3fK2FoNduVUriOK9mFPpsTmNOwq4ZxDbZh
+         BGQA==
+X-Gm-Message-State: AOJu0YyobfC7y3WfatHAjsF89XATu3Lz+ajhQR/7MaN0epElCXhyEZ5o
+	gssk30ChgN2yHTPmySz/oTHlOusnktNQrAI5FbrQ4uLnAZkV7PVgoVMrltKuiAU=
+X-Google-Smtp-Source: AGHT+IG/i3pExaX6mwkYj5Isewii3lV5775hPvATqb/wdxdwZwZYKDi3YbXRG5nSMssccEPTxIx/Zg==
+X-Received: by 2002:a17:907:1c1d:b0:a9a:f53:a5c6 with SMTP id a640c23a62f3a-a9e3a7f468fmr1621066b.65.1730213622815;
+        Tue, 29 Oct 2024 07:53:42 -0700 (PDT)
+Date: Tue, 29 Oct 2024 15:53:41 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v7 5/5] x86/boot: Clarify comment
+Message-ID: <ZyD29aZqLRydMUCp@macbook>
+References: <20241029102942.162912-1-frediano.ziglio@cloud.com>
+ <20241029102942.162912-6-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20241025100700.3714552-7-ruanjinjie@huawei.com>
+In-Reply-To: <20241029102942.162912-6-frediano.ziglio@cloud.com>
 
-On Fri, Oct 25, 2024 at 06:06:47PM +0800, Jinjie Ruan wrote:
-> Move arm64_preempt_schedule_irq() into exit_to_kernel_mode(), so not
-> only __el1_irq() but also every time when kernel mode irq return,
-> there is a chance to reschedule.
-
-We use exit_to_kernel_mode() for every non-NMI exception return to the
-kernel, not just IRQ returns.
-
-> As Mark pointed out, this change will have the following key impact:
+On Tue, Oct 29, 2024 at 10:29:42AM +0000, Frediano Ziglio wrote:
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> ---
+>  xen/arch/x86/boot/reloc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->     "We'll preempt even without taking a "real" interrupt. That
->     shouldn't result in preemption that wasn't possible before,
->     but it does change the probability of preempting at certain points,
->     and might have a performance impact, so probably warrants a
->     benchmark."
+> diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
+> index e50e161b27..e725cfb6eb 100644
+> --- a/xen/arch/x86/boot/reloc.c
+> +++ b/xen/arch/x86/boot/reloc.c
+> @@ -65,7 +65,7 @@ typedef struct memctx {
+>      /*
+>       * Simple bump allocator.
+>       *
+> -     * It starts from the base of the trampoline and allocates downwards.
+> +     * It starts on top of space reserved for the trampoline and allocates downwards.
 
-For anyone following along at home, I said that at:
+I'm afraid this line is over 80 characters long, will need to be
+adjusted.  Maybe:
 
-  https://lore.kernel.org/linux-arm-kernel/ZxejvAmccYMTa4P1@J2N7QTR9R3/
+    * Starts at top of the relocated trampoline space and allocates downwards.
 
-... and there I specifically said:
-
-> I's suggest you first write a patch to align arm64's entry code with the
-> generic code, by removing the call to arm64_preempt_schedule_irq() from
-> __el1_irq(), and adding a call to arm64_preempt_schedule_irq() in
-> __exit_to_kernel_mode(), e.g.
-> 
-> | static __always_inline void __exit_to_kernel_mode(struct pt_regs *regs)
-> | {
-> | 	...
-> | 	if (interrupts_enabled(regs)) {
-> | 		...
-> | 		if (regs->exit_rcu) {
-> | 			...
-> | 		}
-> | 		...
-> | 		arm64_preempt_schedule_irq();
-> | 		...
-> | 	} else {
-> | 		...
-> | 	}
-> | }
-
-[...]
-
-> +#ifdef CONFIG_PREEMPT_DYNAMIC
-> +DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
-> +#define need_irq_preemption() \
-> +	(static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
-> +#else
-> +#define need_irq_preemption()	(IS_ENABLED(CONFIG_PREEMPTION))
-> +#endif
-> +
-> +static void __sched arm64_preempt_schedule_irq(void)
-> +{
-> +	if (!need_irq_preemption())
-> +		return;
-> +
-> +	/*
-> +	 * Note: thread_info::preempt_count includes both thread_info::count
-> +	 * and thread_info::need_resched, and is not equivalent to
-> +	 * preempt_count().
-> +	 */
-> +	if (READ_ONCE(current_thread_info()->preempt_count) != 0)
-> +		return;
-> +
-> +	/*
-> +	 * DAIF.DA are cleared at the start of IRQ/FIQ handling, and when GIC
-> +	 * priority masking is used the GIC irqchip driver will clear DAIF.IF
-> +	 * using gic_arch_enable_irqs() for normal IRQs. If anything is set in
-> +	 * DAIF we must have handled an NMI, so skip preemption.
-> +	 */
-> +	if (system_uses_irq_prio_masking() && read_sysreg(daif))
-> +		return;
-> +
-> +	/*
-> +	 * Preempting a task from an IRQ means we leave copies of PSTATE
-> +	 * on the stack. cpufeature's enable calls may modify PSTATE, but
-> +	 * resuming one of these preempted tasks would undo those changes.
-> +	 *
-> +	 * Only allow a task to be preempted once cpufeatures have been
-> +	 * enabled.
-> +	 */
-> +	if (system_capabilities_finalized())
-> +		preempt_schedule_irq();
-> +}
-> +
->  /*
->   * Handle IRQ/context state management when exiting to kernel mode.
->   * After this function returns it is not safe to call regular kernel code,
-> @@ -72,6 +114,8 @@ static noinstr irqentry_state_t enter_from_kernel_mode(struct pt_regs *regs)
->  static void noinstr exit_to_kernel_mode(struct pt_regs *regs,
->  					irqentry_state_t state)
->  {
-> +	arm64_preempt_schedule_irq();
-
-This is broken; exit_to_kernel_mode() is called for any non-NMI return
-excpetion return to the kernel, and this doesn't check that interrupts
-were enabled in the context the exception was taken from.
-
-This will preempt in cases where we should not, e.g. if we WARN() in a section with
-IRQs disabled.
-
-Mark.
+Thanks.
 
