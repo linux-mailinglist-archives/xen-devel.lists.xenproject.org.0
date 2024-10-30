@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 911999B5BD3
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 07:39:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.827898.1242661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00DC39B5C0B
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 07:51:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.827904.1242672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t62L3-0000XA-O2; Wed, 30 Oct 2024 06:37:53 +0000
+	id 1t62Xz-0003NF-PE; Wed, 30 Oct 2024 06:51:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 827898.1242661; Wed, 30 Oct 2024 06:37:53 +0000
+Received: by outflank-mailman (output) from mailman id 827904.1242672; Wed, 30 Oct 2024 06:51:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t62L3-0000US-IN; Wed, 30 Oct 2024 06:37:53 +0000
-Received: by outflank-mailman (input) for mailman id 827898;
- Wed, 30 Oct 2024 06:37:52 +0000
+	id 1t62Xz-0003Ko-Lo; Wed, 30 Oct 2024 06:51:15 +0000
+Received: by outflank-mailman (input) for mailman id 827904;
+ Wed, 30 Oct 2024 06:51:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/GSA=R2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t62L2-0000UM-PU
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 06:37:52 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1t62Xy-0003Ki-1L
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 06:51:14 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 794110ea-9689-11ef-99a3-01e77a169b0f;
- Wed, 30 Oct 2024 07:37:46 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a9a850270e2so987916266b.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 23:37:46 -0700 (PDT)
+ id 5858017a-968b-11ef-99a3-01e77a169b0f;
+ Wed, 30 Oct 2024 07:51:10 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a9acafdb745so102157666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Oct 2024 23:51:10 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b721:c816:25ef:94da:68a4:e7f?
  (p200300cab721c81625ef94da68a40e7f.dip0.t-ipconnect.de.
  [2003:ca:b721:c816:25ef:94da:68a4:e7f])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b1f298ddbsm545229366b.142.2024.10.29.23.37.44
+ a640c23a62f3a-a9b1f029874sm539342666b.79.2024.10.29.23.51.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 23:37:45 -0700 (PDT)
+ Tue, 29 Oct 2024 23:51:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,53 +47,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 794110ea-9689-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzIiLCJoZWxvIjoibWFpbC1lajEteDYzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijc5NDExMGVhLTk2ODktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjcwMjY2LjI0MzMyNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 5858017a-968b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmQiLCJoZWxvIjoibWFpbC1lajEteDYyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjU4NTgwMTdhLTk2OGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjcxMDcwLjA0NDEsInNlbmRlciI6ImpiZXVsaWNoQHN1c2UuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730270266; x=1730875066; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730271069; x=1730875869; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EiMr7waJ8Y2vD1jForMjqRGAE5NffveGXuOE/1vAqLE=;
-        b=Alpe/kUyl+pJO4PGd9sks2C2ViPH2Q4AaEf+mLmSy2or62wNvnxOrptYyteyEzJoLW
-         UWKQlvUURWfw+ge2A8k4kts0Qw08gp6gHonbmcWHm1hY2NwSs+HFtoVA3z7xiiXq9SYT
-         tys2q2lwONQJojZloPnIZaphwzUo7qQHCRYQQTpqJB4fsQn854c9NGxuzMzhbpYZdblQ
-         TQlNiTQvPCC3TiJ1I/xC7H2Ev+xdEChFVpKqILq3Qgey1sRjyPkJlzgrtes8+PyHWdak
-         lSAtU/KAFz0N5sJmyfTCwZwpfynmjGrlaxThZ+i6aukz1olkDeZrMjdDmnpMt/6+a462
-         i2FA==
+        bh=rxchYHo5knL+Vkt/o1xf5OpDVn+3AH3aOdOv6HwX8Ag=;
+        b=geYLFHeMIOWb8VjOlChV//PmOVk0vWrj7sJMqlkmq7AIHLfPfUwBUzRKBWhhosmPa2
+         i19kmjMDGAYOD0BY1v/sYKEi6bKNc7xLfa2nxdVFCh2enlujKm42Z1OoLeRh3TjQL4XD
+         EZkTr+v0k6PTKNJ82aSzxOR1z7+V27idJ8K3CrOYq0ZIfkVFgGfmbVs8X/TPX2qoF2bR
+         4SMwBUCAjXt0DlH679Gb4cZQ/kpAW1w5V7684G94LYkG8rgVHwmIlaveEbgqi+vEXtJz
+         4Qzbol+6CIW0HvpED3sSXxONZw/SeX/bWH35kGMarBvb82kad6+Xy+SqWGa7NOLEEfZV
+         0ntA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730270266; x=1730875066;
+        d=1e100.net; s=20230601; t=1730271069; x=1730875869;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EiMr7waJ8Y2vD1jForMjqRGAE5NffveGXuOE/1vAqLE=;
-        b=V9J9EFIVZkX502bs5gZS+h6Z/6F2Sz8rhqXuAL7XFlGGqX+0yyIFYL3gW6aRAUARe/
-         d6yYm4TLQdKAeRq1tLhiRxKXxfLN7OOqcEzEpFq8usDGZHD4SpFjikpc6ek87LCQA8j9
-         LqKheJSItgC/b/C4PuC7kLGWulG0jH/EwkZZiYdvhmGI+I/579VqGRYxgO8v5nswos4I
-         pBr4ZwZ4Rs+KNuIpJN7Yd2w8yHwYOxSOcLsGUpBt+O2iUs3lRL0ArMlcTqtzy3WnkOeJ
-         bw8SKYQoiq5vgmkBQNWJFD/Qf/4hEiHCMZ8V+pB0lEGjTAT1BK4kbAcTarbdlZvnz0q3
-         dTAA==
-X-Forwarded-Encrypted: i=1; AJvYcCUeELWRAHgDcTgbuZgUnILJPpJFPdpJvrQgqOcPcBtMjJ6Gixz+9l3tNWjUdeImAFrG0iIwrLdv7Sk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxloBB+sINCeIQJwUXXnQoe18Ce3cgOzXcgEIqeG09hjlJStJDL
-	BQE7iUUAxieCBnF2lyvnk56weq5bDtEz8Hx+bJhnF1FuMqoaeIZL2g2ol+5SmQ==
-X-Google-Smtp-Source: AGHT+IHqa3LEgIMK+9ylqqqpjk+N7I91lnnQwH5dZeGmPgmbAXUSjGvxnIZxBf8gbEZY+HTvO8MgWg==
-X-Received: by 2002:a17:907:a07:b0:a99:4ebc:82d4 with SMTP id a640c23a62f3a-a9de6192c15mr1566193566b.55.1730270265565;
-        Tue, 29 Oct 2024 23:37:45 -0700 (PDT)
-Message-ID: <b143ada2-9719-4701-9a03-36ee8607958f@suse.com>
-Date: Wed, 30 Oct 2024 07:37:43 +0100
+        bh=rxchYHo5knL+Vkt/o1xf5OpDVn+3AH3aOdOv6HwX8Ag=;
+        b=gfcS2fTv8JNGEktWX24HaAJ3Gm5q9HR3s1PVkVSQxm1y7vDFEQ8F7bI+E+yV62DSKn
+         5gXIHFmDBH/zECSPBapE7ETvaIQfoFVSy9PFTmi1eRdIJY0l9UhvnSVCaduQPTQWVr7I
+         7OxfY7dcR28dtcjxthPOSvzrBfnsp0khx/UKfVSL/Ta3qPr8luNyIe8s/lF06MHMp+bR
+         JM0r/3MlW+hF/fyt9EQ13ih3yN2QwDofwo8M+2CwIQ9VmtpkUBXc7GWoeTROOu2aLbe5
+         H24ZEOSbUvkESG6BCdDX9jaKErBGS1qVR//mQCov1F7+if7mCuZaN3qXKRq0KJYbG1tr
+         /Oag==
+X-Forwarded-Encrypted: i=1; AJvYcCXxuHAVZohcW6EYAoz2hLxYsIPAZqRBn0rlebnBGG2A+a6hOr9nWFrvGPbBeBsq94Po8s99qpD2gPA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1tgKirRV5YnisVB365bzBRyZv/9+5ecRdW/oyv8QhBYHl7f/s
+	BBiBblULvYG4MG10DbZOXd54XdAAQDhc8eqPSBJUL8AeUrzCaPB8KKOOhP+z3w==
+X-Google-Smtp-Source: AGHT+IE95yimQ66gwnbKjNW7UTbSk2zlDHDbnJPw0vLYIxLqieqHGE27DGFyY6BIUJi3J6D52175pg==
+X-Received: by 2002:a17:907:72cd:b0:a9a:ca:4436 with SMTP id a640c23a62f3a-a9e40bd0b7fmr116195766b.13.1730271069339;
+        Tue, 29 Oct 2024 23:51:09 -0700 (PDT)
+Message-ID: <14173e8a-ec20-455a-87bf-ae6d3d9a9051@suse.com>
+Date: Wed, 30 Oct 2024 07:51:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 02/10] xen/x86: Add initial x2APIC ID to the per-vLAPIC
- save area
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH] x86/cpu-policy: Extend the guest max policy max
+ leaf/subleaves
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241021154600.11745-1-alejandro.vallejo@cloud.com>
- <20241021154600.11745-3-alejandro.vallejo@cloud.com>
- <974538f8-10b5-4fa3-9069-df6655a5d86d@citrix.com>
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241029175505.2698661-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,56 +117,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <974538f8-10b5-4fa3-9069-df6655a5d86d@citrix.com>
+In-Reply-To: <20241029175505.2698661-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.10.2024 21:30, Andrew Cooper wrote:
-> On 21/10/2024 4:45 pm, Alejandro Vallejo wrote:
->> @@ -310,19 +309,16 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
->>          break;
->>  
->>      case 0xb:
->> -        /*
->> -         * In principle, this leaf is Intel-only.  In practice, it is tightly
->> -         * coupled with x2apic, and we offer an x2apic-capable APIC emulation
->> -         * to guests on AMD hardware as well.
->> -         *
->> -         * TODO: Rework topology logic.
->> -         */
->>          if ( p->basic.x2apic )
->>          {
->>              *(uint8_t *)&res->c = subleaf;
->>  
->> -            /* Fix the x2APIC identifier. */
->> -            res->d = v->vcpu_id * 2;
->> +            /*
->> +             * Fix the x2APIC identifier. The PV side is nonsensical, but
->> +             * we've always shown it like this so it's kept for compat.
->> +             */
+On 29.10.2024 18:55, Andrew Cooper wrote:
+> We already have one migration case opencoded (feat.max_subleaf).  A more
+> recent discovery is that we advertise x2APIC to guests without ensuring that
+> we provide max_leaf >= 0xb.
 > 
-> In hindsight I should changed "Fix the x2APIC identifier." when I
-> reworked this logic, but oh well - better late than never.
+> In general, any leaf known to Xen can be safely configured by the toolstack if
+> it doesn't violate other constraints.
 > 
-> /* The x2APIC_ID is per-vCPU, and fixed irrespective of the requested
-> subleaf. */
-
-Can we perhaps avoid "fix" in this comment? "Adjusted", "overwritten", or
-some such ought to do, without carrying a hint towards some bug somewhere.
-
->> --- a/xen/include/public/arch-x86/hvm/save.h
->> +++ b/xen/include/public/arch-x86/hvm/save.h
->> @@ -394,6 +394,8 @@ struct hvm_hw_lapic {
->>      uint32_t             disabled; /* VLAPIC_xx_DISABLED */
->>      uint32_t             timer_divisor;
->>      uint64_t             tdt_msr;
->> +    uint32_t             x2apic_id;
->> +    uint32_t             rsvd_zero;
+> Therefore, introduce guest_common_{max,default}_leaves() to generalise the
+> special case we currently have for feat.max_subleaf, in preparation to be able
+> to provide x2APIC topology in leaf 0xb even on older hardware.
 > 
-> ... we do normally spell it _rsvd; to make it extra extra clear that
-> people shouldn't be doing anything with it.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Alternatively, to carry the "zero" in the name, how about _mbz?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+I'll have to update the AMX logic accordingly (maybe also the AVX10 one).
+
+I'd like to point out that this highlights a naming anomaly in
+x86_cpu_policies_are_compatible(): update_domain_cpu_policy() passes in
+the respective max policy as first argument. Imo the first parameter of
+the function would better be named "max" there.
+
+> --- a/xen/arch/x86/cpu-policy.c
+> +++ b/xen/arch/x86/cpu-policy.c
+> @@ -391,6 +391,27 @@ static void __init calculate_host_policy(void)
+>      p->platform_info.cpuid_faulting = cpu_has_cpuid_faulting;
+>  }
+>  
+> +/*
+> + * Guest max policies can have any max leaf/subleaf within bounds.
+> + *
+> + * - Some incoming VMs have a larger-than-necessary feat max_subleaf.
+> + * - Some VMs we'd like to synthesise leaves not present on the host.
+> + */
+> +static void __init guest_common_max_leaves(struct cpu_policy *p)
+> +{
+> +    p->basic.max_leaf       = ARRAY_SIZE(p->basic.raw) - 1;
+> +    p->feat.max_subleaf     = ARRAY_SIZE(p->feat.raw) - 1;
+> +    p->extd.max_leaf        = 0x80000000U + ARRAY_SIZE(p->extd.raw) - 1;
+> +}
+> +
+> +/* Guest default policies inherit the host max leaf/subleaf settings. */
+> +static void __init guest_common_default_leaves(struct cpu_policy *p)
+> +{
+> +    p->basic.max_leaf       = host_cpu_policy.basic.max_leaf;
+> +    p->feat.max_subleaf     = host_cpu_policy.feat.max_subleaf;
+> +    p->extd.max_leaf        = host_cpu_policy.extd.max_leaf;
+> +}
+
+Which sadly still leaves open how to suitably shrink the max values,
+when they're larger than necessary (for the guest).
 
 Jan
 
