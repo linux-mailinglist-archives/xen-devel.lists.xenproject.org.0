@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3858E9B605B
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 11:39:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828036.1242827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E5619B6066
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 11:44:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828041.1242838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t666m-0007md-Tn; Wed, 30 Oct 2024 10:39:24 +0000
+	id 1t66Bm-0000uD-Hk; Wed, 30 Oct 2024 10:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828036.1242827; Wed, 30 Oct 2024 10:39:24 +0000
+Received: by outflank-mailman (output) from mailman id 828041.1242838; Wed, 30 Oct 2024 10:44:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t666m-0007kK-R1; Wed, 30 Oct 2024 10:39:24 +0000
-Received: by outflank-mailman (input) for mailman id 828036;
- Wed, 30 Oct 2024 10:39:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t66Bm-0000rx-DY; Wed, 30 Oct 2024 10:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 828041;
+ Wed, 30 Oct 2024 10:44:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LV2z=R2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t666l-0007kE-CV
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 10:39:23 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3583c8b9-96ab-11ef-99a3-01e77a169b0f;
- Wed, 30 Oct 2024 11:39:15 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a99f3a5a44cso790683666b.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 03:39:15 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ <SRS0=PXHf=R2=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1t66Bl-0000rj-3e
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 10:44:33 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f0120920-96ab-11ef-a0c3-8be0dac302b0;
+ Wed, 30 Oct 2024 11:44:28 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5cbb6166c06so6231675a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 03:44:28 -0700 (PDT)
+Received: from fziglio-desktop.. ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b1f29a430sm561386166b.139.2024.10.30.03.39.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Oct 2024 03:39:14 -0700 (PDT)
+ 4fb4d7f45d1cf-5cbb629f3c8sm4674107a12.37.2024.10.30.03.44.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Oct 2024 03:44:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3583c8b9-96ab-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmUiLCJoZWxvIjoibWFpbC1lajEteDYyZS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjM1ODNjOGI5LTk2YWItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjg0NzU1LjUzOTQ0Nywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: f0120920-96ab-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzQiLCJoZWxvIjoibWFpbC1lZDEteDUzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImYwMTIwOTIwLTk2YWItMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjg1MDY4LjQ3NDc3OCwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730284755; x=1730889555; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ux4G/wWBIypqhbwYzb16HUEr9cFByYtihO4URxFZkvA=;
-        b=EhDh6Ll89BVjWlzMp3xlc3WxiuOIjxO/m89h/Yv9t4tscj84ta2JPBKqiB+2/j9mZg
-         j/mka/0RFXX19YXen4eqh75X86apMcyNAh09gsmhbDYy//gbw3kb0R0GcuKTv1+d1eD6
-         1LfmOYtrpb91w3IF5wXesNUr7YHZnD3r0QDfo=
+        d=cloud.com; s=cloud; t=1730285068; x=1730889868; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KsbfI1/ckGtkeMcdcR9rQRj5pZNXNSVLvvG6C1Ohs1U=;
+        b=OetU9WwIBtMjwt6Z/G6bLzNzZYJzUBbV0s+yjq6DXKOq1TMG5M7DQKwBzufq/Z4E4I
+         6rJCuVGvcTHDkAwoD/7IsFtPncEN4pW39nLAakBJI6nEQsX/vwucKKTocxLNMtPhcFDY
+         N6Z6wqaFZj6t46vE47YFWZcel6R27sI6wbtAg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730284755; x=1730889555;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ux4G/wWBIypqhbwYzb16HUEr9cFByYtihO4URxFZkvA=;
-        b=A/6vmLuvGUPw31lPox5gAhyX5sy/4186lEe0cgMwQb57e02mF7hSWH/nKUbpsM2hKW
-         T06f6xwV0VTbY4CXyA4ZSU0oDfQRW6f4Er3vCYPSRARe7Q5sIE3qjISRbk8sJLb7xhUD
-         iLKrYC2nj/HXhfYUnrSxLmE8PM5gBlTJ2r/jME8EyRMj3NeCg6Rtfz0E6f7dzXJeIUXr
-         vWC9KLKT6F7Gtfc/dmL631GFA4nyy8b+2qq6J1pdcU2NnBNZTpLyOBPZfW+isRtITwAq
-         hlLuRCjjss46ANV9YUhyLGBvvtM7XjH9/C6ePya+HMUJMr23ceHiwJUGvVf2iQ+RieE1
-         Uzog==
-X-Gm-Message-State: AOJu0YyaycT2bLXKKNjfGRqNCJGcyenxX4UvZuCjNa222yz8itd+/xi0
-	+grTIZLnL18Jiclxw+GtunDEYSerOUMBhd62Qy2UXscQT9tSPze1H3LvNWAm84k=
-X-Google-Smtp-Source: AGHT+IG7gwS0IEJc8r6EO2IP6Th2XI6GpaD7XgF9VYZ68ktNAjN5uP15CwiT8hDmK7o+2/nJq7ps4g==
-X-Received: by 2002:a17:907:3ea6:b0:a9a:d52:9e79 with SMTP id a640c23a62f3a-a9de632e87cmr1467906166b.60.1730284754815;
-        Wed, 30 Oct 2024 03:39:14 -0700 (PDT)
-Message-ID: <f6494fa2-6de0-4ded-864a-9c011d9ad5f2@citrix.com>
-Date: Wed, 30 Oct 2024 10:39:12 +0000
+        d=1e100.net; s=20230601; t=1730285068; x=1730889868;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KsbfI1/ckGtkeMcdcR9rQRj5pZNXNSVLvvG6C1Ohs1U=;
+        b=PCgK+XRK6tiiImkc0pbD8sv64GZWYJ4SuFryTzGw0u7kAc0djV9vg3Y6v54fD2Ia7H
+         S7fUfFAcl8tRjGG5RILIcvAhHyNL5Gt49HJQocWlqWtiNAsRmVvi6+N27GJMz4dr2pGw
+         payc3C30blEAD9mOtUf94L5PzBgY5kttxohdBfta0PFDX+8RECdQhecj9Oic/DRV+brA
+         dv3TuPrT9AbE4Y7qMDXTvK7dTwUN0ZAHmQFnra0BxeyzraCHEig0TfdgcbDUjuEF5zRH
+         RZvRHDjxr3cLTBHf8eM4ieiky3m4GXlpgQVKDE/FhW1n/2V9lNkRFDIAcca6H2S3msGH
+         biZQ==
+X-Gm-Message-State: AOJu0YxAy/Pw+bvSusrRP+U+MaJRUfI1mo+SScNRNqDx9JnrqimpRUzy
+	3+Sny6Pmz58ulltHOeyJLtS8TBzmI+CpemaWR/HgLHh3MvNOyVgOyRRA2AGYbQ0vBRwrz2Y6nG+
+	l
+X-Google-Smtp-Source: AGHT+IFu/i5m/dxLXhDcCGrhE0vLX8905Cqul3JnecwbrOAuqtCDdHGwicomn1OQ38afXAWnGcSprQ==
+X-Received: by 2002:a05:6402:4407:b0:5c9:74e3:acbb with SMTP id 4fb4d7f45d1cf-5cbbf8a2109mr13108106a12.10.1730285067454;
+        Wed, 30 Oct 2024 03:44:27 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/setup: Make setup.h header self contained
+Date: Wed, 30 Oct 2024 10:44:05 +0000
+Message-Id: <20241030104406.2173357-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu-policy: Extend the guest max policy max
- leaf/subleaves
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
-References: <20241029175505.2698661-1-andrew.cooper3@citrix.com>
- <ZyH1az6sb2wnVxgu@macbook>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZyH1az6sb2wnVxgu@macbook>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/10/2024 8:59 am, Roger Pau Monné wrote:
-> On Tue, Oct 29, 2024 at 05:55:05PM +0000, Andrew Cooper wrote:
->> diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
->> index b6d9fad56773..78bc9872b09a 100644
->> --- a/xen/arch/x86/cpu-policy.c
->> +++ b/xen/arch/x86/cpu-policy.c
->> @@ -391,6 +391,27 @@ static void __init calculate_host_policy(void)
->>      p->platform_info.cpuid_faulting = cpu_has_cpuid_faulting;
->>  }
->>  
->> +/*
->> + * Guest max policies can have any max leaf/subleaf within bounds.
->> + *
->> + * - Some incoming VMs have a larger-than-necessary feat max_subleaf.
->> + * - Some VMs we'd like to synthesise leaves not present on the host.
->> + */
->> +static void __init guest_common_max_leaves(struct cpu_policy *p)
->> +{
->> +    p->basic.max_leaf       = ARRAY_SIZE(p->basic.raw) - 1;
->> +    p->feat.max_subleaf     = ARRAY_SIZE(p->feat.raw) - 1;
->> +    p->extd.max_leaf        = 0x80000000U + ARRAY_SIZE(p->extd.raw) - 1;
->> +}
->> +
->> +/* Guest default policies inherit the host max leaf/subleaf settings. */
->> +static void __init guest_common_default_leaves(struct cpu_policy *p)
->> +{
->> +    p->basic.max_leaf       = host_cpu_policy.basic.max_leaf;
->> +    p->feat.max_subleaf     = host_cpu_policy.feat.max_subleaf;
->> +    p->extd.max_leaf        = host_cpu_policy.extd.max_leaf;
->> +}
-> I think this what I'm going to ask is future work.  After the
-> modifications done to the host policy by max functions
-> (calculate_{hvm,pv}_max_policy()) won't the max {sub,}leaf adjustments
-> better be done taking into account the contents of the policy, rather
-> than capping to the host values?
->
-> (note this comment is strictly for guest_common_default_leaves(), the
-> max version is fine using ARRAY_SIZE).
+The header uses rangeset structure typedef which definition
+is not included.
 
-I'm afraid I don't follow.
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/arch/x86/include/asm/setup.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-calculate_{pv,hvm}_max_policy() don't modify the host policy.
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index 4874ee8936..e4e96b36bd 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -2,6 +2,7 @@
+ #define __X86_SETUP_H_
+ 
+ #include <xen/multiboot.h>
++#include <xen/rangeset.h>
+ #include <asm/numa.h>
+ 
+ extern const char __2M_text_start[], __2M_text_end[];
+-- 
+2.34.1
 
-~Andrew
 
