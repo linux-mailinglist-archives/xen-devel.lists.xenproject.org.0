@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DCA09B61CD
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 12:32:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828115.1242950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CAF49B61F5
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 12:36:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828123.1242960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t66vg-0006ry-GD; Wed, 30 Oct 2024 11:32:00 +0000
+	id 1t66zI-0007z5-2q; Wed, 30 Oct 2024 11:35:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828115.1242950; Wed, 30 Oct 2024 11:32:00 +0000
+Received: by outflank-mailman (output) from mailman id 828123.1242960; Wed, 30 Oct 2024 11:35:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t66vg-0006pf-De; Wed, 30 Oct 2024 11:32:00 +0000
-Received: by outflank-mailman (input) for mailman id 828115;
- Wed, 30 Oct 2024 11:31:58 +0000
+	id 1t66zI-0007wS-03; Wed, 30 Oct 2024 11:35:44 +0000
+Received: by outflank-mailman (input) for mailman id 828123;
+ Wed, 30 Oct 2024 11:35:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LV2z=R2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t66ve-0006pZ-Qw
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 11:31:58 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1t66zG-0007wK-Gi
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 11:35:42 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8f770393-96b2-11ef-99a3-01e77a169b0f;
- Wed, 30 Oct 2024 12:31:52 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a99cc265e0aso1024467366b.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 04:31:52 -0700 (PDT)
+ id 1514a2a6-96b3-11ef-99a3-01e77a169b0f;
+ Wed, 30 Oct 2024 12:35:37 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c9634c9160so7440345a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 04:35:37 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b3a081d59sm565995566b.189.2024.10.30.04.31.51
+ a640c23a62f3a-a9b2fe2af5dsm570178566b.172.2024.10.30.04.35.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Oct 2024 04:31:51 -0700 (PDT)
+ Wed, 30 Oct 2024 04:35:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f770393-96b2-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjhmNzcwMzkzLTk2YjItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjg3OTEyLjg3NDgzNywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 1514a2a6-96b3-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmIiLCJoZWxvIjoibWFpbC1lZDEteDUyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjE1MTRhMmE2LTk2YjMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjg4MTM3LjA2NDI5LCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730287912; x=1730892712; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730288136; x=1730892936; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=thZ8ODbHtD1ftXSlRaVuX2Lz0Pd7oA1SaG4YQ9rAJpU=;
-        b=YpKtPyloL5Xg6CLs7Klnisgk0iRI105q27uvtF1pwJ1Bxidt+v3AxrsfXPmMsFkexQ
-         Vrcm+bymQgwP3inN1OZCQZYevxqyOIqoHu0jyAUMVxcli4pOnBbuacNCiSO1lgrwHwfz
-         HQlwISvBw4BZWOGnhSIhIvpRKNdEcAQ+4QBt0=
+        bh=kkiMXBmwyQDKmvHfS1H+wZ4E1eR2+OZ2gEwbQceyg1Q=;
+        b=Kxpn2IH/dmeJG4SGwM4KtIpRCWjozcTC5eosB8OaBihIYXtjofZYa2Xo/xaOdGYPDv
+         pWTkFCcHvDviD4r2xLiNlM5vvUskOlY1b+PJOw44rSg1VprjDNd8fTsiBqo2/CUWIpw4
+         gzfl6F6m6JIt1pulVmjcZCK8Pr67hkeGH+c90=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730287912; x=1730892712;
+        d=1e100.net; s=20230601; t=1730288136; x=1730892936;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=thZ8ODbHtD1ftXSlRaVuX2Lz0Pd7oA1SaG4YQ9rAJpU=;
-        b=gfhEj0KanUlNd+UeMLU5tnu3VAQvum0J5YObOtIIv3qnbnoEQMOFgRwU6obllKwMC3
-         P91gA/z4MoeSisV0QhS99HFIk08HeJublOG0r8hK1r28vg3yp/QKd/B1+DplgsU/gwNv
-         wUqdE8mcJY1J7VJZ7MKrq3K4N3tEn0bwvFN01ECsc0jcVkZS1I4ihaBpC0aXF0xlxauY
-         +5vl0aaErEa0ZMqRVng8mU3pMIkVj5760kmwvvs+yZLmGh6XpUIJ9dvx+MoQUqPBdKeu
-         cV5+gmzZNeh+GViRffoKNeuktE7r+PMNap5C1QmbSBQ3Qilu9pG1cpHGLAbZFUvE/1f+
-         2b6A==
-X-Forwarded-Encrypted: i=1; AJvYcCWvgom2NFvkP6eay/nSMpyeUdWb+RUQ3mmzv70uw55t9WCq3TXA3R2uyWWvmdu5PlxTj1vrLzYxBl8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywp0GjTzjBdL3pmeNo7zHbGJgj6eoQ0e2lIO9CFBOfiU8GL4INC
-	eyJVvEZZpcgbyUTylmjC95dmdkxyPrNja2XxlgaOsp/T74AkNsvFRbmdi30fNZ8=
-X-Google-Smtp-Source: AGHT+IH1iuFIGGBAcZQfm6STlnGCEHSSchu2wkaF+PBlO/ETIH3FFBRa3PH1bMPrHFx6i6uG3j6ppQ==
-X-Received: by 2002:a17:907:cca3:b0:a9e:4b88:e03b with SMTP id a640c23a62f3a-a9e4b88e2famr15651366b.0.1730287912224;
-        Wed, 30 Oct 2024 04:31:52 -0700 (PDT)
-Message-ID: <e8e2385d-b575-4483-ba54-f80c669af9c3@citrix.com>
-Date: Wed, 30 Oct 2024 11:31:50 +0000
+        bh=kkiMXBmwyQDKmvHfS1H+wZ4E1eR2+OZ2gEwbQceyg1Q=;
+        b=MErsQKHRHbThlV3e/sI8rmgT/qyoefXXSlq0nsEtIOBs1a+OkaYIZav6YkDYQpwQYn
+         FL1hU8MUJjoLmOaZx1HhxXx70xeDqXtxaDleZcSvpxehXji3zMcUAfUILCc106pXGVYH
+         4yhsFjn3aa4S6NX+ixNKng0uDTqXMjYqjyg5Pc9SB8I/6b4VbmFr4J4F2vVViJEj9SNA
+         lXu8KgRBbJVKcBLGGvnd66uMdbZwDN4jJ4izNz1KPmA3dVqXO1DHaP9VeV7Mywc7QNIq
+         ddSeqRXHnJVFTGKWJYWfuV3IzAesZA2HSig8ldNvFTcFbNqms8WPyrGaNzQ99/xd/6bR
+         v5+g==
+X-Forwarded-Encrypted: i=1; AJvYcCWR9ZGOLKxCfYFbY5mPCHauvG/IDVdbwdiOevRI+7Lpqt1dO32ElpaO3+BRNBpbzSjHl8uoQUiagrs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyB+V5w7hNqqRRDtqG5ws4FDnEobduDS5hIaIa1s5LCi201RdjD
+	c9mxxSjZgdCJB399Ql5KNvtHhEZsb4HHxw6ynlAoo6FjoD3yp3RDee3GtdklLiM=
+X-Google-Smtp-Source: AGHT+IFPKET+H8JIv1p712RWXpYSeYKWdfMbNOVNd+b6NBcpUO65wnHwjIViaLdNDVJUo3Ue9CM/kg==
+X-Received: by 2002:a17:906:6a28:b0:a9a:e9c:1d8d with SMTP id a640c23a62f3a-a9de5ed2633mr1407932866b.17.1730288136381;
+        Wed, 30 Oct 2024 04:35:36 -0700 (PDT)
+Message-ID: <89b2d609-f298-4dc8-b893-dc52468694ae@citrix.com>
+Date: Wed, 30 Oct 2024 11:35:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/10] tools/hvmloader: Retrieve (x2)APIC IDs from the
- APs themselves
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+Subject: Re: [PATCH] x86/setup: Make setup.h header self contained
+To: Jan Beulich <jbeulich@suse.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>
-References: <20241021154600.11745-1-alejandro.vallejo@cloud.com>
- <20241021154600.11745-5-alejandro.vallejo@cloud.com>
+References: <20241030104406.2173357-1-frediano.ziglio@cloud.com>
+ <1fa03cb0-ded1-4904-8830-f3feefecc404@suse.com>
+ <CACHz=Zh04AhAwdhYY=i4DecvJbPMF770PE6SkLG+LzQLxueOMQ@mail.gmail.com>
+ <8984f1da-d4bb-4ab7-b1dc-bcc23c180abc@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,103 +134,48 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241021154600.11745-5-alejandro.vallejo@cloud.com>
+In-Reply-To: <8984f1da-d4bb-4ab7-b1dc-bcc23c180abc@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/10/2024 4:45 pm, Alejandro Vallejo wrote:
-> diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
-> index cd716bf39245..04cab1e59f08 100644
-> --- a/tools/firmware/hvmloader/config.h
-> +++ b/tools/firmware/hvmloader/config.h
-> @@ -4,6 +4,8 @@
->  #include <stdint.h>
->  #include <stdbool.h>
->  
-> +#include <xen/hvm/hvm_info_table.h>
-> +
->  enum virtual_vga { VGA_none, VGA_std, VGA_cirrus, VGA_pt };
->  extern enum virtual_vga virtual_vga;
->  
-> @@ -48,8 +50,9 @@ extern uint8_t ioapic_version;
->  
->  #define IOAPIC_ID           0x01
->  
-> +extern uint32_t cpu_to_x2apicid[HVM_MAX_VCPUS];
+On 30/10/2024 11:17 am, Jan Beulich wrote:
+> On 30.10.2024 12:15, Frediano Ziglio wrote:
+>> On Wed, Oct 30, 2024 at 10:59 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>> On 30.10.2024 11:44, Frediano Ziglio wrote:
+>>>> The header uses rangeset structure typedef which definition
+>>>> is not included.
+>>> And it doesn't need to be. For
+>>>
+>>> int remove_xen_ranges(struct rangeset *r);
+>>>
+>>> we don't need ...
+>>>
+>>>> --- a/xen/arch/x86/include/asm/setup.h
+>>>> +++ b/xen/arch/x86/include/asm/setup.h
+>>>> @@ -2,6 +2,7 @@
+>>>>  #define __X86_SETUP_H_
+>>>>
+>>>>  #include <xen/multiboot.h>
+>>>> +#include <xen/rangeset.h>
+>>>>  #include <asm/numa.h>
+>>>>
+>>>>  extern const char __2M_text_start[], __2M_text_end[];
+>>> ... this, a mere
+>>>
+>>> struct rangeset;
+>>>
+>>> forward decl will suffice.
+>>>
+>>> Jan
+>>>
+>> It's true, but for the same reason, we could avoid including
+>> "xen/multiboot.h" and use "struct module" instead of "module_t".
+> Indeed. I'd even question the need for that typedef.
 
-Just cpu_to_apic_id[] please.   The distinction between x or x2 isn't
-interesting here.
+Please don't got playing with includes of multiboot.h.  All you'll do is
+interfere with Daniel's in-progress series.
 
-HVM_MAX_VCPUS is a constant that should never have existed in the first
-place, *and* its the limit we're looking to finally break when this
-series is accepted.
-
-This array needs to be hvm_info->nr_vcpus entries long, and will want to
-be more than 128 entries very soon.  Just scratch_alloc() the array. 
-Then you can avoid the include.
-
-> diff --git a/tools/firmware/hvmloader/mp_tables.c b/tools/firmware/hvmloader/mp_tables.c
-> index 77d3010406d0..539260365e1e 100644
-> --- a/tools/firmware/hvmloader/mp_tables.c
-> +++ b/tools/firmware/hvmloader/mp_tables.c
-> @@ -198,8 +198,10 @@ static void fill_mp_config_table(struct mp_config_table *mpct, int length)
->  /* fills in an MP processor entry for VCPU 'vcpu_id' */
->  static void fill_mp_proc_entry(struct mp_proc_entry *mppe, int vcpu_id)
->  {
-> +    ASSERT(cpu_to_x2apicid[vcpu_id] < 0xFF );
-
-This is just going to break when we hit 256 vCPUs in a VM.
-
-What do real systems do?
-
-They'll either wrap around 255 like the CPUID xAPIC_ID does, or they'll
-not write out MP tables at all.
-
-> diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/smp.c
-> index 1b940cefd071..d63536f14f00 100644
-> --- a/tools/firmware/hvmloader/smp.c
-> +++ b/tools/firmware/hvmloader/smp.c
-> @@ -90,10 +120,11 @@ static void boot_cpu(unsigned int cpu)
->          BUG();
->  
->      /*
-> -     * Wait for the secondary processor to complete initialisation.
-> +     * Wait for the secondary processor to complete initialisation,
-> +     * which is signaled by its x2APIC ID being written to the LUT.
-
-Technically all arrays are a lookup table, but I'm not sure LUT is a
-common enough term to be used unqualified like this.
-
-Just say "... signalled by writing its APIC_ID out."  The where is very
-apparent by the code.
-
-> @@ -104,6 +135,12 @@ static void boot_cpu(unsigned int cpu)
->  void smp_initialise(void)
->  {
->      unsigned int i, nr_cpus = hvm_info->nr_vcpus;
-> +    uint32_t ecx;
-> +
-> +    cpuid(1, NULL, NULL, &ecx, NULL);
-> +    has_x2apic = (ecx >> 21) & 1;
-> +    if ( has_x2apic )
-> +        printf("x2APIC supported\n");
-
-You need to check max_leaf >= 0xb too.  Remember Xen might not give you
-leave 0xb yet, and then you'll hit the assert for finding 0.
-
-And has_x2apic wants to be a simple boolean.  Nothing good can come from
-confusing -1 with "x2apic available".
-
-
-I recommend splitting this patch into three.  Several aspects are quite
-subtle.
-
-1) Collect the APIC_IDs on APs
-2) Change how callin is signalled.
-3) Replace LAPIC_ID() with the collected apic_id.
-
-but AFAICT, it can be done as a standalone series, independently of the
-other Xen/toolstack work.
+Most includes are getting removed.
 
 ~Andrew
 
