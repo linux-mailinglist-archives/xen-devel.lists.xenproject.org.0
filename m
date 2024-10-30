@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A829B6654
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 15:47:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828273.1243140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33AB59B66A3
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 15:57:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828279.1243149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t69ys-0002th-J9; Wed, 30 Oct 2024 14:47:30 +0000
+	id 1t6A7k-0004ap-Ck; Wed, 30 Oct 2024 14:56:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828273.1243140; Wed, 30 Oct 2024 14:47:30 +0000
+Received: by outflank-mailman (output) from mailman id 828279.1243149; Wed, 30 Oct 2024 14:56:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t69ys-0002ry-Fs; Wed, 30 Oct 2024 14:47:30 +0000
-Received: by outflank-mailman (input) for mailman id 828273;
- Wed, 30 Oct 2024 14:47:28 +0000
+	id 1t6A7k-0004YO-A7; Wed, 30 Oct 2024 14:56:40 +0000
+Received: by outflank-mailman (input) for mailman id 828279;
+ Wed, 30 Oct 2024 14:56:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LV2z=R2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t69yq-0002ro-Kg
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 14:47:28 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ id 1t6A7i-0004YI-Tt
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 14:56:38 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfdd6f10-96cd-11ef-a0c3-8be0dac302b0;
- Wed, 30 Oct 2024 15:47:24 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-539f58c68c5so11220324e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 07:47:24 -0700 (PDT)
+ id 277a54a6-96cf-11ef-a0c3-8be0dac302b0;
+ Wed, 30 Oct 2024 15:56:33 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5c94c4ad9d8so8411587a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 07:56:33 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9afcef10efsm576528266b.0.2024.10.30.07.47.22
+ a640c23a62f3a-a9b1f029651sm578961666b.60.2024.10.30.07.56.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Oct 2024 07:47:22 -0700 (PDT)
+ Wed, 30 Oct 2024 07:56:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfdd6f10-96cd-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmEiLCJoZWxvIjoibWFpbC1sZjEteDEyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImRmZGQ2ZjEwLTk2Y2QtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjk5NjQ0LjA5MDAyOCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 277a54a6-96cf-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MjkiLCJoZWxvIjoibWFpbC1lZDEteDUyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjI3N2E1NGE2LTk2Y2YtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzAwMTkzLjkwODYwOCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730299643; x=1730904443; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730300193; x=1730904993; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pACih1qPM96gRm7S3gt1IA2s2FVUebtztqc1WeDLzkc=;
-        b=NYDmxOL2bxfkkECSrEBj5aBnyWtzpwyryo9l4PdL0aTMq+KAADNLtA8MvA5HcyoBGN
-         3E3WliQpnf8ZGUujHtkdyA3Qd4JOUzi+/Fv4IYZXSzDadbIdhdy588CIzeJqUwG5T/rE
-         oasMDL9IvXWH+gilqfxYx1/6Lh6FT5P/bB5PM=
+        bh=m7LaiAJfCAPHCGuzpQNlaRL/ijtMUi8ILqF8Cr0IakM=;
+        b=Zg3bUWyTvui8mBlfpWaYVKNlCphUDv5R9auiB2RmiO11LZsbyIUPjSuKLAk0lN7AaC
+         iT6CZb7IECr6O/wC786yKj/8Q5QL4/Mj2t+lceQr/ef5L61NXlt8Z7Sp4P+hhDoAmV3X
+         VJGAOYi0J15RomD9VOeEsdU2t6a1LfIR5qEmU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730299643; x=1730904443;
+        d=1e100.net; s=20230601; t=1730300193; x=1730904993;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pACih1qPM96gRm7S3gt1IA2s2FVUebtztqc1WeDLzkc=;
-        b=jbJTf6SUINHOJLwIgfL171HmHI4t9uHn4OxqOUFxZ6wIcuo6noAr5p2irx7Z3diJC8
-         SqPstFGd+IdIy6CmTEipQ015MQU0wMGHZcbxztgnV8mpExCrTmyxq2qwZhPbIIhyabll
-         ADyQxB6cnfUg5g1gBah5aLUZwAvi1bC3wjBTh575NO0lS/Ma4ywQhBVpkYY1lEiznoh6
-         L2zwQIqKKFvc4OvLtYrSAVKyJVrPAFNaZHlrMOfU0T02viCYBZ5UshI0/PGTTxCvIC/g
-         V0ue1Kd5Svt9JjR+W/lsCBlY764cOEKHNjHcNzMDtIcrmNvBxgzTU3bKEXIijLE5ieWY
-         jxxA==
-X-Forwarded-Encrypted: i=1; AJvYcCV/E+CukcZrvZd4smqZoVbDE19+TjRjh3mlZMOwFmBmJKa5TW4S26cf3kMEwIjHMK71uR7tMsALn5M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzI+UVy+Z7hZTnX0svtwsmPqW3Kwm7+W1eRzBE3A/2JBKuYvmmh
-	yihxHEYJhJH/O8QLWxKyEX4H3gHpMY3o1SlYQNwvRLjMeaYjrgm3QMCx9HhoopY=
-X-Google-Smtp-Source: AGHT+IEThMGvMeiMO6AlB6wMn8GoITiB5/rLvfHoh8YIGHSMi9uU9McryaSe1L3i8Xbd5uwiOi/syQ==
-X-Received: by 2002:a05:6512:e99:b0:53b:1e9b:b073 with SMTP id 2adb3069b0e04-53b348b9b96mr13725857e87.3.1730299643452;
-        Wed, 30 Oct 2024 07:47:23 -0700 (PDT)
-Message-ID: <34650431-195b-4096-b520-d48d62e1e3aa@citrix.com>
-Date: Wed, 30 Oct 2024 14:47:21 +0000
+        bh=m7LaiAJfCAPHCGuzpQNlaRL/ijtMUi8ILqF8Cr0IakM=;
+        b=GNT8WG9fTmP+AIWyQPrewN3Y72frg5JF7Ae+2PCtLpSXyeZfDWWh4FSVopzdsycE6U
+         AEbGN+9UODPXiod9N0nasRy2QaqWl/0fZU1bxJKhPX7bJdGgW3SVHumKKSpidfO3e9mB
+         5PaWuER8RQ+gQUnXLWeE4OfVs1EB32QaaW+tArQYaFgMwV9YjEm234c/QeQln46R6j0c
+         GLozqYv+983OgtiprRHwCDi9dl8EY9TYpyUvyoFWU1lkOLRbWGYLdIT9AxIH4hg3BidD
+         HIhNxaSRzfB/TT56/QeozBebGnEZ7skJSqv67RTI3zk+PpZtsg1mOwsH+WxBx6CF9jKE
+         NyMw==
+X-Forwarded-Encrypted: i=1; AJvYcCVNMocLdMYo3ILg8HrJMkx+UxMoSBlvOTjb0NgrgOqaPx3cwteBCAceF/K9mMCy8BDBq/TmTW3+p3k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxzGNEQDxuMkpxEI/sen6+f7yzOdKfiEpg+ToLGBNOmkO9meFc9
+	I2LIWUJv+ROu+Q1WpOhhysqn1jTdNbWsM/7/NzsvUOhXkZkKnyq+OYNMyNGTpqA=
+X-Google-Smtp-Source: AGHT+IEsKujy50hODe26Ru2vuhA0WDoBw8aALkWZ0C3qugeLql219HZV7cGMCxGKowtsscPF7JMtsA==
+X-Received: by 2002:a17:907:6d15:b0:a9a:dc3:c86e with SMTP id a640c23a62f3a-a9de5d029b1mr1591187666b.11.1730300193222;
+        Wed, 30 Oct 2024 07:56:33 -0700 (PDT)
+Message-ID: <8d53eeb3-700c-4190-8ad5-1a9682f185bf@citrix.com>
+Date: Wed, 30 Oct 2024 14:56:31 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/setup: Make setup.h header self contained
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+Subject: Re: [PATCH v7 05/10] tools/libacpi: Use LUT of APIC IDs rather than
+ function pointer
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20241030141341.2236343-1-frediano.ziglio@cloud.com>
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>
+References: <20241021154600.11745-1-alejandro.vallejo@cloud.com>
+ <20241021154600.11745-6-alejandro.vallejo@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,15 +134,36 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241030141341.2236343-1-frediano.ziglio@cloud.com>
+In-Reply-To: <20241021154600.11745-6-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30/10/2024 2:13 pm, Frediano Ziglio wrote:
-> The header uses rangeset structure pointer.
-> Forward declare the structure.
->
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+On 21/10/2024 4:45 pm, Alejandro Vallejo wrote:
+> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+> index e01f494b772a..aa50b78dfb89 100644
+> --- a/tools/include/xenguest.h
+> +++ b/tools/include/xenguest.h
+> @@ -22,6 +22,8 @@
+>  #ifndef XENGUEST_H
+>  #define XENGUEST_H
+>  
+> +#include "xen/hvm/hvm_info_table.h"
+> +
+>  #define XC_NUMA_NO_NODE   (~0U)
+>  
+>  #define XCFLAGS_LIVE      (1 << 0)
+> @@ -236,6 +238,9 @@ struct xc_dom_image {
+>  #if defined(__i386__) || defined(__x86_64__)
+>      struct e820entry *e820;
+>      unsigned int e820_entries;
+> +
+> +    /* LUT mapping cpu id to (x2)APIC ID */
+> +    uint32_t cpu_to_apicid[HVM_MAX_VCPUS];
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Same note as the previous patch.
+
+This needs to be a plain dynamically allocated array, because it mustn't
+use HVM_MAX_VCPUS.
+
+~Andrew
 
