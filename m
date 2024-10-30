@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33AB59B66A3
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 15:57:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828279.1243149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 114AB9B6706
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 16:09:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828288.1243160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6A7k-0004ap-Ck; Wed, 30 Oct 2024 14:56:40 +0000
+	id 1t6AJT-0006jv-E2; Wed, 30 Oct 2024 15:08:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828279.1243149; Wed, 30 Oct 2024 14:56:40 +0000
+Received: by outflank-mailman (output) from mailman id 828288.1243160; Wed, 30 Oct 2024 15:08:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6A7k-0004YO-A7; Wed, 30 Oct 2024 14:56:40 +0000
-Received: by outflank-mailman (input) for mailman id 828279;
- Wed, 30 Oct 2024 14:56:38 +0000
+	id 1t6AJT-0006iD-BC; Wed, 30 Oct 2024 15:08:47 +0000
+Received: by outflank-mailman (input) for mailman id 828288;
+ Wed, 30 Oct 2024 15:08:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LV2z=R2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t6A7i-0004YI-Tt
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 14:56:38 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ <SRS0=wQZl=R2=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1t6AJS-0006i7-Hu
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 15:08:46 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 277a54a6-96cf-11ef-a0c3-8be0dac302b0;
- Wed, 30 Oct 2024 15:56:33 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5c94c4ad9d8so8411587a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 07:56:33 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b1f029651sm578961666b.60.2024.10.30.07.56.32
+ id d927501f-96d0-11ef-a0c3-8be0dac302b0;
+ Wed, 30 Oct 2024 16:08:41 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so859674766b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 08:08:41 -0700 (PDT)
+Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9b30f58991sm573811366b.159.2024.10.30.08.08.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Oct 2024 07:56:32 -0700 (PDT)
+ Wed, 30 Oct 2024 08:08:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +44,287 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 277a54a6-96cf-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MjkiLCJoZWxvIjoibWFpbC1lZDEteDUyOS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjI3N2E1NGE2LTk2Y2YtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzAwMTkzLjkwODYwOCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: d927501f-96d0-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmIiLCJoZWxvIjoibWFpbC1lajEteDYyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImQ5Mjc1MDFmLTk2ZDAtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzAwOTIxLjM5OTE5Niwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730300193; x=1730904993; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=m7LaiAJfCAPHCGuzpQNlaRL/ijtMUi8ILqF8Cr0IakM=;
-        b=Zg3bUWyTvui8mBlfpWaYVKNlCphUDv5R9auiB2RmiO11LZsbyIUPjSuKLAk0lN7AaC
-         iT6CZb7IECr6O/wC786yKj/8Q5QL4/Mj2t+lceQr/ef5L61NXlt8Z7Sp4P+hhDoAmV3X
-         VJGAOYi0J15RomD9VOeEsdU2t6a1LfIR5qEmU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730300193; x=1730904993;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1730300921; x=1730905721; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=m7LaiAJfCAPHCGuzpQNlaRL/ijtMUi8ILqF8Cr0IakM=;
-        b=GNT8WG9fTmP+AIWyQPrewN3Y72frg5JF7Ae+2PCtLpSXyeZfDWWh4FSVopzdsycE6U
-         AEbGN+9UODPXiod9N0nasRy2QaqWl/0fZU1bxJKhPX7bJdGgW3SVHumKKSpidfO3e9mB
-         5PaWuER8RQ+gQUnXLWeE4OfVs1EB32QaaW+tArQYaFgMwV9YjEm234c/QeQln46R6j0c
-         GLozqYv+983OgtiprRHwCDi9dl8EY9TYpyUvyoFWU1lkOLRbWGYLdIT9AxIH4hg3BidD
-         HIhNxaSRzfB/TT56/QeozBebGnEZ7skJSqv67RTI3zk+PpZtsg1mOwsH+WxBx6CF9jKE
-         NyMw==
-X-Forwarded-Encrypted: i=1; AJvYcCVNMocLdMYo3ILg8HrJMkx+UxMoSBlvOTjb0NgrgOqaPx3cwteBCAceF/K9mMCy8BDBq/TmTW3+p3k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzGNEQDxuMkpxEI/sen6+f7yzOdKfiEpg+ToLGBNOmkO9meFc9
-	I2LIWUJv+ROu+Q1WpOhhysqn1jTdNbWsM/7/NzsvUOhXkZkKnyq+OYNMyNGTpqA=
-X-Google-Smtp-Source: AGHT+IEsKujy50hODe26Ru2vuhA0WDoBw8aALkWZ0C3qugeLql219HZV7cGMCxGKowtsscPF7JMtsA==
-X-Received: by 2002:a17:907:6d15:b0:a9a:dc3:c86e with SMTP id a640c23a62f3a-a9de5d029b1mr1591187666b.11.1730300193222;
-        Wed, 30 Oct 2024 07:56:33 -0700 (PDT)
-Message-ID: <8d53eeb3-700c-4190-8ad5-1a9682f185bf@citrix.com>
-Date: Wed, 30 Oct 2024 14:56:31 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 05/10] tools/libacpi: Use LUT of APIC IDs rather than
- function pointer
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>
-References: <20241021154600.11745-1-alejandro.vallejo@cloud.com>
- <20241021154600.11745-6-alejandro.vallejo@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241021154600.11745-6-alejandro.vallejo@cloud.com>
+        bh=6fCPrXdzKU9A5ktmalVD/c3ZJOVao6JDehvFDz9nCs8=;
+        b=W+RKsC+ur3ttlhTBFVasdndlJstog2kEhm5CTvUKcvBFB24sK+8rQMFpxUZUsiU8AG
+         p9NP2q6hZ21QZ3w9Cu+Uaaw9ueLs5w4VRhYbvNdnkViq0rdIi1VJcXQ/XkAEAWf4bMqy
+         fb0ZX0Ptwb1UeBTAvld+5SmI3BEzwt3N6RhxU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730300921; x=1730905721;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=6fCPrXdzKU9A5ktmalVD/c3ZJOVao6JDehvFDz9nCs8=;
+        b=jvo/EjCz9iNz1lgf1Pn2Qk3M/V/uv4TVLN5i4EcevZDJ98MIRlkc3dfTh9sOl0Rn6V
+         9MkPGYbfRsLTAOvxpJToGwvzejiVJKMdxtpqoiXW82UJlGCxiO64x/I/vaa8aDuuA54H
+         zrrW9nRRQgK5zkTzD+SOW8JwFn4kugcq5HBENzoridjWM+LxL4Im/h3XlIFhtpXuj4oC
+         pMPa6/0msVEXzakvswAkBNPsQHTsgLsfMVQTQcn6OHZ9s0riFAvo+SXixLaS5A/LXTmo
+         //gvfYpahfl7XCQGUIvzvV00mb2KL0+O3Dax5r8eiBPXgnPSjgFCv1oAZsv5D/X+YhVU
+         406w==
+X-Forwarded-Encrypted: i=1; AJvYcCXSdyZMfWPeKf/xWA6P6xUzb3HMrlQ5MSUqauSL7DyJPy224JA2Kw4eRWBRLiqnhzdwSUVaWt9+AeQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxPygjWaCjE1MspvRI4AOed1SEzIaJsihlPhtGRPT4dWAD8MbUe
+	Wiw7D2EdY8y4xmnsP24fvcprppazdHfw2Uv8cEEotxckaiMrGs8XatPg96K8d/A=
+X-Google-Smtp-Source: AGHT+IFH0TZyn0X38HyeYobQOJwhcvzogUsAQ52dx7vON1fs7W4gvMkMiwVOk0Hr4yObMBW63rzT3A==
+X-Received: by 2002:a17:907:6093:b0:a9a:26a5:d508 with SMTP id a640c23a62f3a-a9e3a5757c8mr323086966b.9.1730300920642;
+        Wed, 30 Oct 2024 08:08:40 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Wed, 30 Oct 2024 15:08:38 +0000
+Message-Id: <D598HGJY330K.3NA7GQLUSJJ9K@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Julien Grall"
+ <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen
+ Gross" <jgross@suse.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
+ =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, "Christian Lindig"
+ <christian.lindig@citrix.com>, "David Scott" <dave@recoil.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, "Michal Orzel" <michal.orzel@amd.com>,
+ "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [RFC PATCH 0/6] xen/abi: On wide bitfields inside primitive
+ types
+X-Mailer: aerc 0.18.2
+References: <20241029181632.69600-1-alejandro.vallejo@cloud.com>
+ <3bf067c7-617c-42c0-bf6d-4387d97658ae@suse.com>
+In-Reply-To: <3bf067c7-617c-42c0-bf6d-4387d97658ae@suse.com>
 
-On 21/10/2024 4:45 pm, Alejandro Vallejo wrote:
-> diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
-> index e01f494b772a..aa50b78dfb89 100644
-> --- a/tools/include/xenguest.h
-> +++ b/tools/include/xenguest.h
-> @@ -22,6 +22,8 @@
->  #ifndef XENGUEST_H
->  #define XENGUEST_H
->  
-> +#include "xen/hvm/hvm_info_table.h"
-> +
->  #define XC_NUMA_NO_NODE   (~0U)
->  
->  #define XCFLAGS_LIVE      (1 << 0)
-> @@ -236,6 +238,9 @@ struct xc_dom_image {
->  #if defined(__i386__) || defined(__x86_64__)
->      struct e820entry *e820;
->      unsigned int e820_entries;
-> +
-> +    /* LUT mapping cpu id to (x2)APIC ID */
-> +    uint32_t cpu_to_apicid[HVM_MAX_VCPUS];
 
-Same note as the previous patch.
+In the course of preparing this answer I just noticed that altp2m_opts suff=
+ers
+from the exact same annoyance, with the exact same fix. I just noticed whil=
+e
+rebasing my Rust branch.
 
-This needs to be a plain dynamically allocated array, because it mustn't
-use HVM_MAX_VCPUS.
+On Wed Oct 30, 2024 at 9:14 AM GMT, Jan Beulich wrote:
+> On 29.10.2024 19:16, Alejandro Vallejo wrote:
+> > Non-boolean bitfields in the hypercall ABI make it fairly inconvenient =
+to
+> > create bindings for any language because (a) they are always ad-hoc and=
+ are
+> > subject to restrictions regular fields are not (b) require boilerplate =
+that
+> > regular fields do not and (c) might not even be part of the core langua=
+ge,
+> > forcing avoidable external libraries into any sort of generic library.
+> >=20
+> > This patch (it's a series merely to split roughly by maintainer) is one=
+ such
+> > case that I happened to spot while playing around. It's the grant_versi=
+on
+> > field, buried under an otherwise empty grant_opts.
+> >=20
+> > The invariant I'd like to (slowly) introduce and discuss is that fields=
+ may
+> > have bitflags (e.g: a packed array of booleans indexed by some enumerat=
+ed
+> > type), but not be mixed with wider fields in the same primitive type. T=
+his
+> > ensures any field containing an integer of any kind can be referred by =
+pointer
+> > and treated the same way as any other with regards to sizeof() and the =
+like.
+>
+> While I don't strictly mind, I'm also not really seeing why taking addres=
+ses
+> or applying sizeof() would be commonly necessary. Can you perhaps provide=
+ a
+> concrete example of where the present way of dealing with grant max versi=
+on
+> is getting in the way? After all your use of the term "bitfield" doesn't
+> really mean C's understanding of it, so especially (c) above escapes me t=
+o a
+> fair degree.
 
-~Andrew
+Wall of text ahead, but I'll try to stay on point. The rationale should bec=
+ome
+a lot clearer after I send an RFC series with initial code to autogenerate =
+some
+hypercall payloads from markup. The biggest question is: Can I create a
+definition language such that (a) it precisely represents the Xen ABI and (=
+b)
+is fully type-safe under modern strongly-typed languages?
+
+I already have a backbone I can define the ABI in, so my options when I hit
+some impedance mismatch are:
+
+  1. Change the ABI so it matches better my means of defining it.
+  2. Change the means to define so it captures the existing ABI better.
+
+Most of the work I've done has moved in the (2) direction so far, but I fou=
+nd a
+number of pain points when mapping the existing ABI to Rust that, while not
+impossible to work around, are quite annoying for no clear benefit. If
+possible, I'd like to simplify the cognitive load involved in defining, usi=
+ng
+and updating hypercalls rather than bending over backwards to support a
+construct that provides no real benefit. IOW: If I can define an ABI that i=
+s
+_simpler_, it follows that it's also easier to not make mistakes and it's
+easier to generate code for it.
+
+The use of packed fields is one such case. Even in C, we create extra macro=
+s
+for creating a field, modifying it, fetching it, etc. Patches 2-6 are stric=
+t
+code removals. And even in the most extreme cases the space savings are lar=
+gely
+irrelevant because the hypercall has a fixed size. We do want to pack _flag=
+s_
+as otherwise the payload size would explode pretty quickly on hypercalls wi=
+th
+tons of boolean options, but I'm not aware of that being problematic for wi=
+der
+subfields (like the grant max version).
+
+Now, being more concrete...
+
+##################################################################
+# IDL is simpler if the size is a property of the type
+##################################################################
+
+Consider the definition of the (new) max_grant_version type under the IDL I=
+'m
+working on (it's TOML, but I don't particularly care about which markup we =
+end
+up using).
+
+  [[enums]]
+  name =3D "xen_domaincreate_max_grant_version"
+  description =3D "Content of the `max_grant_version` field of the domain c=
+reation hypercall."
+  typ =3D { tag =3D "u8" }
+
+  [[enums.variants]]
+  name =3D "off"
+  description =3D "Must be used with gnttab support compiled out"
+  value =3D 0
+
+  [[enums.variants]]
+  name =3D "v1"
+  description =3D "Allow the domain to use up to gnttab_v1"
+  value =3D 1
+
+  [[enums.variants]]
+  name =3D "v2"
+  description =3D "Allow the domain to use up to gnttab_v2"
+  value =3D 2
+
+Note that I can define a type being enumerated, can choose its specific
+variants and its width is a property of the type itself. With bitfields you=
+'re
+always in a weird position of the width not being part of the type that goe=
+s
+into it.
+
+Should I need it as a field somewhere, then...
+
+  [[structs.fields]]
+  name =3D "max_grant_version"
+  description =3D "Maximum grant table version the domain may be bumped to"
+  typ =3D { tag =3D "enum", args =3D "xen_domaincreate_max_grant_version" }
+
+... at which point the size of the field is given by an intrinsic property =
+of
+the type (the typ property on the enums table) I previously defined. It's
+extensible, composable and allows me to generate readable code in both C an=
+d
+Rust.
+
+Should I need to support full bitfields I would require a means of stating =
+the
+start and end bits of every field, which is very bad for the sanity of whoe=
+ver
+wants to maintain coherency in the ABI.
+
+##################################################################
+# Rust and Go don't like bitfields...
+##################################################################
+
+... and neither does C, even if for historic reasons they do exist in the
+standard. On a slight tangent, neither Rust nor Go support bitfields in the
+core language. This was a deliberate design decision of their respective
+designers. I can't speak for Go as I'm not a Go developer, but Rust does ha=
+ve a
+very well-known, well-supported and very common external crate ("bitflags")
+that allows very ergonomic semantics for definition of packed booleans. As =
+an
+example here's the flags for domain create, as spitted out by the generator=
+ I
+have.
+
+(comments removed for brevity). This defines a bitmap indexed by the flags
+type, represented by a 32bit primitive. It's type-safe from the PoV that I
+can't just write 1 << 15 to a variable of this type and expect anything but
+screams from the compiler.
+
+  bitflags! {
+      #[repr(C)]
+      #[derive(Copy, Clone, Debug, Default, PartialEq, Eq)]
+      pub struct XenDomaincreateFlags: u32 {
+          const Hvm =3D 1 << 0;
+          const Hap =3D 1 << 1;
+          const S3Integrity =3D 1 << 2;
+          const OosOff =3D 1 << 3;
+          const XsDomain =3D 1 << 4;
+          const Iommu =3D 1 << 5;
+          const NestedVirt =3D 1 << 6;
+          const Vpmu =3D 1 << 7;
+      }
+  }
+
+This enables callers to have type-safe variables in a pretty ergonomic fash=
+ion:
+
+  let flags =3D XenDomainCreateFlags::Hvm |
+              XenDomainCreateFlags::Hap |
+              XenDomainCreateFlags::Iommu;
+
+and assignments to its related struct would follow regular assignment rules=
+.
+
+##################################################################
+# IOW
+##################################################################
+
+Supporting general bitfields is annoying, even in C. Adding support in IDL =
+for
+them is a headache if we want the descriptions to help us catch mistakes an=
+d
+language support is poor using this constructs (at best).
+
+Can we please get rid of them?
+
+>
+> > I'd like to have a certain consensus about this general point before go=
+ing
+> > establishing this restriction in the IDL system I'm working on.
+> >=20
+> > My preference would be to fold everything into a single patch if we dec=
+ide to
+> > follow through with this particular case. As I said before, the split i=
+s
+> > artificial for review.
+>
+> That's not just a preference, but a requirement, or else the build will b=
+reak
+> in the middle of the series (harming bisection at the very least).
+>
+> Jan
+
+Yes, indeed. As I said, I'm more interested in the discussion now rather th=
+an
+the details of committing it.
+
+Cheers,
+Alejandro
 
