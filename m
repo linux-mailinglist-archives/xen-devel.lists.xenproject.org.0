@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 520B59B6EB7
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 22:21:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828415.1243281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826BA9B6FCC
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 23:18:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828423.1243291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6G6q-00016K-57; Wed, 30 Oct 2024 21:20:08 +0000
+	id 1t6H0d-00081g-5W; Wed, 30 Oct 2024 22:17:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828415.1243281; Wed, 30 Oct 2024 21:20:08 +0000
+Received: by outflank-mailman (output) from mailman id 828423.1243291; Wed, 30 Oct 2024 22:17:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6G6q-00012w-1h; Wed, 30 Oct 2024 21:20:08 +0000
-Received: by outflank-mailman (input) for mailman id 828415;
- Wed, 30 Oct 2024 21:20:06 +0000
+	id 1t6H0d-0007zA-2o; Wed, 30 Oct 2024 22:17:47 +0000
+Received: by outflank-mailman (input) for mailman id 828423;
+ Wed, 30 Oct 2024 22:17:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O59d=R2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1t6G6o-0000uR-MX
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 21:20:06 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=8sgq=R2=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1t6H0b-0007yl-FD
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 22:17:45 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8e59803-9704-11ef-a0c3-8be0dac302b0;
- Wed, 30 Oct 2024 22:20:02 +0100 (CET)
+ id c73ae9c3-970c-11ef-a0c3-8be0dac302b0;
+ Wed, 30 Oct 2024 23:17:41 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 690455C4BA8;
- Wed, 30 Oct 2024 21:19:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E764C4CECE;
- Wed, 30 Oct 2024 21:19:59 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1B8A0A4362E;
+ Wed, 30 Oct 2024 22:15:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3913FC4CECE;
+ Wed, 30 Oct 2024 22:17:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,85 +42,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8e59803-9704-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6ImI4ZTU5ODAzLTk3MDQtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzIzMjAyLjE1OTI3NCwic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: c73ae9c3-970c-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDQ6MTM4MDo0NWQxOmVjMDA6OjMiLCJoZWxvIjoibnljLnNvdXJjZS5rZXJuZWwub3JnIn0=
+X-Custom-Transaction: eyJpZCI6ImM3M2FlOWMzLTk3MGMtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzI2NjYyLjAwNjA4Miwic2VuZGVyIjoiaGVsZ2Fhc0BrZXJuZWwub3JnIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730323200;
-	bh=lgopff5Pnfe2wUBMG2Knn2kGc7pasLUhz65Afmuch3k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=XdEH+GQ0kog3xTlWNlIbnnKMHy4sx02LE2/cLff1sSJ7qkAwmREME0MEh1Q0Zhewx
-	 1Jt1axPMX6p75uEI4gSXTzHer8RnQzGBwC2pdWgDuBROjPEFarXZ+1sGwPUntbtlxJ
-	 P2NLhBxDGEgXYXZhHL95rvHBz+PqKOODkp3Gep6N9kOnCjHFqW1wR1GsJ7stTvqIkB
-	 0WX8MeMPSAhM8lpnTbRxtX7kTM5u13Ltkt1gwWwhbwQaIgFhJ+60FHAb+VKYiS20ul
-	 Wpz/zuGXF0y2w7rL3l3VvIIapZfUNfaUFWA/Chtksu0A2WWNQ3QLto42h4ww7tPMnW
-	 3LSFGSUL4v0fg==
-Date: Wed, 30 Oct 2024 14:19:57 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Juergen Gross <jgross@suse.com>, Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] scripts: Fix git-checkout.sh to work with branches other
- than master
-In-Reply-To: <20241030194438.2733973-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2410301419430.2525410@ubuntu-linux-20-04-desktop>
-References: <20241030194438.2733973-1-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+	s=k20201202; t=1730326659;
+	bh=hmCcTNJwyZk0ee56ytBk9i4eOtptK5uTArpnChQPbzk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=oGnfP7ArKKdfSdgdnkKr7SkEnhwI4nY+JGypMiyscKrSh2koWdUM4bEIYHcoVRtmA
+	 HuGtZd7+EhsSZKGsSElcy0Ekf1Ww0XJz+CC/k+Lyv93Pjy1sctZPVHq2ye34KwR2cM
+	 BK6k4mDq37WcoKSeIdS6Dykd1seb3K6MaOqwt7pucQeiJF9BIdqo96G1NTsjD7AK/F
+	 RSMAKuBU3/553ttm2CAep19cPgSP8wuqNrGnio71malobZI2XoVqqJ3i5mKV/tHQzD
+	 b+pchDCDpw/vI+Q3mqbdXkWdGIm9PhoPKYSd9frqB8SQkOwkBxe7BOOJjjYvM4WuEB
+	 3GNefMYxm1CyQ==
+Date: Wed, 30 Oct 2024 17:17:37 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Philipp Stanner <pstanner@redhat.com>
+Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+	Sergey Shtylyov <s.shtylyov@omp.ru>,
+	Basavaraj Natikar <basavaraj.natikar@amd.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alex Dubov <oakad@yahoo.com>,
+	Sudarsana Kalluru <skalluru@marvell.com>,
+	Manish Chopra <manishc@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rasesh Mody <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com,
+	Igor Mitsyanko <imitsyanko@quantenna.com>,
+	Sergey Matyukevich <geomatsi@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Chen Ni <nichen@iscas.ac.cn>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Ricky Wu <ricky_wu@realtek.com>, Al Viro <viro@zeniv.linux.org.uk>,
+	Breno Leitao <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mostafa Saleh <smostafa@google.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Yi Liu <yi.l.liu@intel.com>, Christian Brauner <brauner@kernel.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Ye Bin <yebin10@huawei.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Rui Salvaterra <rsalvaterra@gmail.com>, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	ntb@lists.linux.dev, linux-pci@vger.kernel.org, kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH 00/13] Remove implicit devres from pci_intx()
+Message-ID: <20241030221737.GA1223682@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241015185124.64726-1-pstanner@redhat.com>
 
-On Wed, 30 Oct 2024, Andrew Cooper wrote:
-> Xen uses master for QEMU_UPSTREAM_REVISION, and has done for other trees too
-> in the path.  Apparently we've never specified a different branch, because the
-> git-clone rune only pulls in the master branch; it does not pull in diverging
-> branches.  Fix this by stating which branch/tag is wanted.
+On Tue, Oct 15, 2024 at 08:51:10PM +0200, Philipp Stanner wrote:
+> @Driver-Maintainers: Your driver might be touched by patch "Remove
+> devres from pci_intx()". You might want to take a look.
 > 
-> $TAG is really a committish, and git-clone's -b/--branch takes a committish
-> too.
+> Changes since the RFC [1]:
+>   - Add a patch deprecating pci{m}_intx(). (Heiner, Andy, Me)
+>   - Add Acked-by's already given.
+>   - Export pcim_intx() as a GPL function. (Alex)
+>   - Drop patch for rts5280, since this driver will be removed quite
+>     soon. (Philipp Hortmann, Greg)
+>   - Use early-return in pci_intx_unmanaged() and pci_intx(). (Andy)
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Hi all,
+> 
+> this series removes a problematic feature from pci_intx(). That function
+> sometimes implicitly uses devres for automatic cleanup. We should get
+> rid of this implicit behavior.
+> 
+> To do so, a pci_intx() version that is always-managed, and one that is
+> never-managed are provided. Then, all pci_intx() users are ported to the
+> version they need. Afterwards, pci_intx() can be cleaned up and the
+> users of the never-managed version be ported back to pci_intx().
+> 
+> This way we'd get this PCI API consistent again.
+> 
+> Patch "Remove devres from pci_intx()" obviously reverts the previous
+> patches that made drivers use pci_intx_unmanaged(). But this way it's
+> easier to review and approve. It also makes sure that each checked out
+> commit should provide correct behavior, not just the entire series as a
+> whole.
+> 
+> Merge plan for this is to enter through the PCI tree.
+> 
+> [1] https://lore.kernel.org/all/20241009083519.10088-1-pstanner@redhat.com/
 
-Well spotted!
+I *think* this series depends on resolution of Takashi's "Restore the
+original INTX_DISABLE bit by pcim_intx()" patch [2], right?
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+For now I'm postponing this series, but let me know if that's not the
+right thing.
 
+[2] https://lore.kernel.org/r/20241024155539.19416-1-tiwai@suse.de
 
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
+> Philipp Stanner (13):
+>   PCI: Prepare removing devres from pci_intx()
+>   ALSA: hda_intel: Use always-managed version of pcim_intx()
+>   drivers/xen: Use never-managed version of pci_intx()
+>   net/ethernet: Use never-managed version of pci_intx()
+>   net/ntb: Use never-managed version of pci_intx()
+>   misc: Use never-managed version of pci_intx()
+>   vfio/pci: Use never-managed version of pci_intx()
+>   PCI: MSI: Use never-managed version of pci_intx()
+>   ata: Use always-managed version of pci_intx()
+>   wifi: qtnfmac: use always-managed version of pcim_intx()
+>   HID: amd_sfh: Use always-managed version of pcim_intx()
+>   Remove devres from pci_intx()
+>   PCI: Deprecate pci_intx(), pcim_intx()
 > 
-> Found while trying to test the MiniOS fixes in Gitlab.  This is a example run
-> with most stubdom builds passing:
+>  drivers/ata/ahci.c                            |  2 +-
+>  drivers/ata/ata_piix.c                        |  2 +-
+>  drivers/ata/pata_rdc.c                        |  2 +-
+>  drivers/ata/sata_sil24.c                      |  2 +-
+>  drivers/ata/sata_sis.c                        |  2 +-
+>  drivers/ata/sata_uli.c                        |  2 +-
+>  drivers/ata/sata_vsc.c                        |  2 +-
+>  drivers/hid/amd-sfh-hid/amd_sfh_pcie.c        |  4 +--
+>  drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |  2 +-
+>  .../wireless/quantenna/qtnfmac/pcie/pcie.c    |  2 +-
+>  drivers/pci/devres.c                          | 29 +++++--------------
+>  drivers/pci/pci.c                             | 19 ++++--------
+>  include/linux/pci.h                           |  1 +
+>  sound/pci/hda/hda_intel.c                     |  2 +-
+>  14 files changed, 26 insertions(+), 47 deletions(-)
 > 
->   https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1520611847
-> 
-> and all of them successfully cloned.
-> ---
->  scripts/git-checkout.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/scripts/git-checkout.sh b/scripts/git-checkout.sh
-> index fd4425ac4ee8..3796cbfe39a7 100755
-> --- a/scripts/git-checkout.sh
-> +++ b/scripts/git-checkout.sh
-> @@ -14,7 +14,7 @@ set -e
->  if test \! -d $DIR-remote; then
->  	rm -rf $DIR-remote $DIR-remote.tmp
->  	mkdir -p $DIR-remote.tmp; rmdir $DIR-remote.tmp
-> -	$GIT clone $TREE $DIR-remote.tmp
-> +	$GIT clone -b $TAG $TREE $DIR-remote.tmp
->  	if test "$TAG" ; then
->  		cd $DIR-remote.tmp
->  		$GIT branch -D dummy >/dev/null 2>&1 ||:
-> 
-> base-commit: bb7296d77f171c7bfbafab30ed51e9be29660e39
 > -- 
-> 2.39.5
+> 2.47.0
 > 
 
