@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DED59B60AC
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 11:58:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828062.1242868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2EB9B60B9
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 12:00:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828068.1242878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t66Oa-0004kF-7l; Wed, 30 Oct 2024 10:57:48 +0000
+	id 1t66Qi-0005MC-Ij; Wed, 30 Oct 2024 11:00:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828062.1242868; Wed, 30 Oct 2024 10:57:48 +0000
+Received: by outflank-mailman (output) from mailman id 828068.1242878; Wed, 30 Oct 2024 11:00:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t66Oa-0004hk-4q; Wed, 30 Oct 2024 10:57:48 +0000
-Received: by outflank-mailman (input) for mailman id 828062;
- Wed, 30 Oct 2024 10:57:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t66Qi-0005JW-FR; Wed, 30 Oct 2024 11:00:00 +0000
+Received: by outflank-mailman (input) for mailman id 828068;
+ Wed, 30 Oct 2024 10:59:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/GSA=R2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t66OY-0004hb-Ht
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 10:57:46 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8bfffe4-96ad-11ef-99a3-01e77a169b0f;
- Wed, 30 Oct 2024 11:57:42 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4314fa33a35so60289605e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 03:57:42 -0700 (PDT)
+ id 1t66Qh-0005FP-Fu
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 10:59:59 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18e305f2-96ae-11ef-a0c3-8be0dac302b0;
+ Wed, 30 Oct 2024 11:59:57 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-37d495d217bso5791257f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 03:59:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-431bd9aa09fsm17751605e9.37.2024.10.30.03.57.40
+ ffacd0b85a97d-38058b132fbsm15114317f8f.4.2024.10.30.03.59.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Oct 2024 03:57:40 -0700 (PDT)
+ Wed, 30 Oct 2024 03:59:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8bfffe4-96ad-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImM4YmZmZmU0LTk2YWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjg1ODYyLjA1MDYzNCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 18e305f2-96ae-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmQiLCJoZWxvIjoibWFpbC13cjEteDQyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjE4ZTMwNWYyLTk2YWUtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjg1OTk3LjAwMTc4Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730285861; x=1730890661; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730285995; x=1730890795; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZZKBVmyf2aIBR2VBNDaMsxn5lv8b+rbWNkUaD4g3FNM=;
-        b=BzmA19gxaHYoVwsYkQuDobNF+ahFco/guvWkhSHtUhHK/RLn51NrW6kfoTBWXOdU+M
-         HDXbchw2ovA0Xwr9ELcoYjgCvcOKo3+Q+jjOTRMPsxg2nw2wAztTJKgPi7GcVDOcAkxk
-         vX8LChTd2Aqf8G89mYVjyzw0vgWI2na1Hk7uMknnw//2nxPu5SyKX4GQPnLLhlooqAaE
-         /sSIAIQxkGgkkXgeumBtJue5gQwAl8A+2FP37vHfoG71DmYKYiaC0TCNa2n22AR7IXok
-         ILAzJn8CX1K2+OygS0Vm6JIPk2l046j04pC0+Nbw2SJ2P4eyM8l0/TNwxvRVxxEM4dTw
-         uOMw==
+        bh=B2QoleF1EN3+NxuNwheEM2xs+vG9hzrY1cF3vkFeQZo=;
+        b=fhi9RE6yr6KB/ZxPeTVlZlem0ChFLGBn+dsLuloD0l4SB1VvNFum+m4lCtBK/17S4j
+         vMETi35YFne0Vyn5MtcZF15bVxbV7aDsfZ+sWm2h++4kFkC1cCUeSxhp3mj7TzPD03PI
+         lbbM5aAOu32fIiqEHtQ8Wo+U/6EH53ohusJ0B7QZeOF4Z11pDuR3FEUYFzcAF4oMzq9/
+         Woqz6cbf85MKYKYYD7Bi+4PA9Jo7WmA1QpfbhuvjGaJFsmBg1rxngkqQnBd+K2zqfi7q
+         y439ABaW9xOiV0bpAygoZ3N3YZf+r2QDQ/i8eXAexrdlPWFot+2iFThdlUWHdD2d31L8
+         8+Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730285861; x=1730890661;
+        d=1e100.net; s=20230601; t=1730285995; x=1730890795;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZZKBVmyf2aIBR2VBNDaMsxn5lv8b+rbWNkUaD4g3FNM=;
-        b=v1tKCNS/E89TIWMs0ua+6HXZnN2Hr13AI24DmUEF7PcTbqWmHa5KqaQIFRj8oCBqaF
-         B1S+ukGvPj+zrnHJ0/VXBFmqozok3nNZsZYY8W405moAXAjAPNKEwlrSvt+RXsiP8WWv
-         yYkVBmCHPld9kB7aMBjIM7hkV6TsYAfeDHyKBh7GgymPsSW4EzcWww0MobG5NadB/ut8
-         uX2kiRNx/k3ikVU5NgZ4Mqgxre9RFftNRLa5O32P8j9Oy/QZZeg8Tuhq5Lg2b0cQ54Pg
-         iJVnkeezuwX1RwXCLUPrKeeYmchrDwBNrdMYUx/d147s8DjS+ZM69GwEE3c92J2EFoHH
-         CZuQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVVHHasYe5rDrlQ+cpfgRgybcKzU1hOWJjR5Ae7CHIB5479Hukdn8OwylRADWxpkpb7yz9qhUSt9Og=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz20gNU7HOD+YVxVCKWHAry6FnaVg8r33Za7Xf31/PCd7l5ZtPe
-	WWo+ykM++CcvPUu2jRSB7tgKIu3JOYVvZh88J0AuTdo7zrXyoRBx1waeX3sh9g==
-X-Google-Smtp-Source: AGHT+IGocwZOAj0J1v/6n0fzuIqevT8l7bxxfrT8Q6AygxK29MHvYIO1jRlPiXgkTaZf+mm413mYBQ==
-X-Received: by 2002:a05:600c:1c94:b0:431:59b2:f0d1 with SMTP id 5b1f17b1804b1-431bb976dd4mr24076505e9.4.1730285860849;
-        Wed, 30 Oct 2024 03:57:40 -0700 (PDT)
-Message-ID: <62f917f4-ff63-46b3-9b7f-f8d467bfa2f3@suse.com>
-Date: Wed, 30 Oct 2024 11:57:39 +0100
+        bh=B2QoleF1EN3+NxuNwheEM2xs+vG9hzrY1cF3vkFeQZo=;
+        b=ntf5H+VoC2+9d7Q5KPoIgeOfWCo1RFKtXkFiMZaNsbu3BUUqbC4aS0g7biA2wcWzB1
+         FF3iato8s5Tf1mImEngIuOkgjjG+GeRc455reSzkqsMn39+oOiFP4eYqLMKQWR22lVhb
+         M64/9fgDrg8LQSmA/hOZVixX7GOS8x8/RHGYMXuU7BvgDM4zeclDYLRcLah0SYFPI1/o
+         zrMuMxANllrXPCAoyuK99n1+za+7+9yuvgL+WBBMbuYsgFi2HMaizgCbD29eKBGYrFmW
+         GnmBzuSvcvi0kTt3diEmtL67gR78jK/kLbCQOVqJkQOXiIq+Nc6E1Np+o7LoeQq9I7r8
+         //zg==
+X-Forwarded-Encrypted: i=1; AJvYcCWMaP91q6PCRmYx98DDqqid5RdtLD/vucZOK6LNiEYu2CAKC8HyvMMuV75f2yBHPoqKMpv/YxHj9g4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwbV6MtxgfV7NzCfW+60xJblksjdXla+5b/SDoBeZ6+gnqH/TD
+	1Fi0LKr6ylC3OJC0PyIwfxcbDYhR0eRAFQ+NtQ8n0klRMwC5Ute2NBPCZc2hTg==
+X-Google-Smtp-Source: AGHT+IGqZy4zDEv+PY+voOtTEuG5sHKH5SMP/GJbGSekZo11/UlbB35p1/xQ8klJjC+OG7Qb5sUmKQ==
+X-Received: by 2002:adf:e34e:0:b0:37d:5042:c8de with SMTP id ffacd0b85a97d-38061172d7dmr12856372f8f.22.1730285995344;
+        Wed, 30 Oct 2024 03:59:55 -0700 (PDT)
+Message-ID: <1fa03cb0-ded1-4904-8830-f3feefecc404@suse.com>
+Date: Wed, 30 Oct 2024 11:59:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/io-apic: fix directed EOI when using AMD-Vi
- interrupt remapping
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Willi Junga
- <xenproject@ymy.be>, David Woodhouse <dwmw@amazon.co.uk>,
+Subject: Re: [PATCH] x86/setup: Make setup.h header self contained
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20241029110351.40531-1-roger.pau@citrix.com>
- <53034f16-682e-4081-ab7e-81338c700f85@suse.com> <ZyEf8hK-XyGn6Kp8@macbook>
- <d03f58f0-5b93-4b23-85cb-dc2c18a4eb41@suse.com> <ZyIF5qYU8dC-yYNW@macbook>
+References: <20241030104406.2173357-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,87 +114,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZyIF5qYU8dC-yYNW@macbook>
+In-Reply-To: <20241030104406.2173357-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 30.10.2024 11:09, Roger Pau Monné wrote:
-> On Wed, Oct 30, 2024 at 10:41:40AM +0100, Jan Beulich wrote:
->> On 29.10.2024 18:48, Roger Pau Monné wrote:
->>> On Tue, Oct 29, 2024 at 05:43:24PM +0100, Jan Beulich wrote:
->>>> On 29.10.2024 12:03, Roger Pau Monne wrote:
->>>>> @@ -273,6 +293,13 @@ void __ioapic_write_entry(
->>>>>      {
->>>>>          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
->>>>>          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
->>>>> +        /*
->>>>> +         * Called in clear_IO_APIC_pin() before io_apic_pin_eoi is allocated.
->>>>> +         * Entry will be updated once the array is allocated and there's a
->>>>> +         * write against the pin.
->>>>> +         */
->>>>> +        if ( io_apic_pin_eoi )
->>>>> +            io_apic_pin_eoi[apic][pin] = e.vector;
->>>>
->>>> The comment here looks a little misleading to me. clear_IO_APIC_pin() calls
->>>> here to, in particular, set the mask bit. With the mask bit the vector isn't
->>>> meaningful anyway (and indeed clear_IO_APIC_pin() sets it to zero, at which
->>>> point recording IRQ_VECTOR_UNASSIGNED might be better than the bogus vector
->>>> 0x00).
->>>
->>> Note that clear_IO_APIC_pin() performs the call to
->>> __ioapic_write_entry() with raw == false, at which point
->>> __ioapic_write_entry() will call iommu_update_ire_from_apic() if IOMMU
->>> IR is enabled.  The cached 'vector' value will be the IOMMU entry
->>> offset for the AMD-Vi case, as the IOMMU code will perform the call to
->>> __ioapic_write_entry() with raw == true.
->>>
->>> What matters is that the cached value matches what's written in the
->>> IO-APIC RTE, and the current logic ensures this.
->>>
->>> What's the benefit of using IRQ_VECTOR_UNASSIGNED if the result is
->>> reading the RTE and finding that vector == 0?
->>
->> It's not specifically the vector == 0 case alone. Shouldn't we leave
->> the latched vector alone when writing an RTE with the mask bit set?
-> 
-> I'm not sure what's the benefit of the extra logic to detect such
-> cases, just to avoid a write to the io_apic_pin_eoi matrix.
+On 30.10.2024 11:44, Frediano Ziglio wrote:
+> The header uses rangeset structure typedef which definition
+> is not included.
 
-Perhaps the largely theoretical concern towards having stale data
-somewhere. Yet ...
+And it doesn't need to be. For
 
->> Any still pending EOI (there should be none aiui) can't possibly
->> target the meaningless vector / index in such an RTE. Perhaps it was
->> wrong to suggest to overwrite (with IRQ_VECTOR_UNASSIGNED) what we
->> have on record.
->>
->> Yet at the same time there ought to be a case where the recorded
->> indeed moves back to IRQ_VECTOR_UNASSIGNED.
-> 
-> The only purpose of the io_apic_pin_eoi matrix is to cache what's
-> currently in the RTE entry 'vector' field.  I don't think we should
-> attempt to add extra logic as to whether the entry is valid, or
-> masked.  Higher level layers should already take care of that.  The
-> only purpose of the logic added in this patch is to ensure the EOI is
-> performed using what's in the RTE vector field for the requested pin.
-> Anything else is out of scope IMO.
-> 
-> Another option, which would allow to make the matrix store uint8_t
-> elements would be to initialize it at allocation with the RTE vector
-> fields currently present, IOW: do a raw read of every RTE and set the
-> fetched vector field in io_apic_pin_eoi.  Would that be better to you,
-> as also removing the need to ever store IRQ_VECTOR_UNASSIGNED?
+int remove_xen_ranges(struct rangeset *r);
 
-... yes, that may make sense (and eliminate my concern there).
+we don't need ...
 
-I wonder whether the allocation of the array then wouldn't better be
-moved earlier, to enable_IO_APIC(), such that clear_IO_APIC_pin()
-already can suitably update it. In fact, since that function writes
-zero[1], no extra reads would then be needed at all, and the array could
-simply start out all zeroed.
+> --- a/xen/arch/x86/include/asm/setup.h
+> +++ b/xen/arch/x86/include/asm/setup.h
+> @@ -2,6 +2,7 @@
+>  #define __X86_SETUP_H_
+>  
+>  #include <xen/multiboot.h>
+> +#include <xen/rangeset.h>
+>  #include <asm/numa.h>
+>  
+>  extern const char __2M_text_start[], __2M_text_end[];
+
+... this, a mere
+
+struct rangeset;
+
+forward decl will suffice.
 
 Jan
 
-[1] With the exception of RTEs saying SMI, where - for having fully
-correct data on record - we may then need to update the array slot.
 
