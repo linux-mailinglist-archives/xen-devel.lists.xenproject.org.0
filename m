@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 098EC9B6133
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 12:16:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828100.1242930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58AA09B6139
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 12:17:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828107.1242941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t66gh-0002ZG-0i; Wed, 30 Oct 2024 11:16:31 +0000
+	id 1t66hY-0003Mb-9V; Wed, 30 Oct 2024 11:17:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828100.1242930; Wed, 30 Oct 2024 11:16:30 +0000
+Received: by outflank-mailman (output) from mailman id 828107.1242941; Wed, 30 Oct 2024 11:17:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t66gg-0002W9-UG; Wed, 30 Oct 2024 11:16:30 +0000
-Received: by outflank-mailman (input) for mailman id 828100;
- Wed, 30 Oct 2024 11:16:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t66hY-0003K6-6S; Wed, 30 Oct 2024 11:17:24 +0000
+Received: by outflank-mailman (input) for mailman id 828107;
+ Wed, 30 Oct 2024 11:17:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/GSA=R2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t66gf-00026s-Ve
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 11:16:29 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6735a976-96b0-11ef-99a3-01e77a169b0f;
- Wed, 30 Oct 2024 12:16:26 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-37d518f9abcso4600115f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 04:16:26 -0700 (PDT)
+ id 1t66hW-0003Jo-Nv
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 11:17:22 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86db87c9-96b0-11ef-a0c3-8be0dac302b0;
+ Wed, 30 Oct 2024 12:17:19 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4315eeb2601so82659405e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 04:17:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38058b3c236sm15061806f8f.35.2024.10.30.04.16.25
+ ffacd0b85a97d-38058b13223sm15121917f8f.1.2024.10.30.04.17.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Oct 2024 04:16:25 -0700 (PDT)
+ Wed, 30 Oct 2024 04:17:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6735a976-96b0-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzQiLCJoZWxvIjoibWFpbC13cjEteDQzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjY3MzVhOTc2LTk2YjAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMjg2OTg2LjM3NDI0MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 86db87c9-96b0-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijg2ZGI4N2M5LTk2YjAtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMjg3MDM5LjYyOTc2NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730286986; x=1730891786; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730287039; x=1730891839; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MXqPuPi199o/qEWEhYg7YxRf9gL98Q+KOVTsqPBOLeY=;
-        b=VJt++yDtzaBUMI2hl3aJ7+rvicO40zyz/SCecB0tqW1UoVIQAcd27itfcPkvUDXHC1
-         44cAU2+A/K4gc8dOWSKwq5Ry950CMH9PXovqsGH0hABNh0mzzLY47a+IoYRrnWlgppZo
-         MeC/puNleCs9URQdUijsdaUKwO3LXz9ddTLakpmouCMo92BdY+oQbC11OwvKig1nxnzm
-         V3l+f2l3DMW+qcGlOUV10AQlLHLZkVn9yQvtAEvGvg7yakkqTkyeJy97RTC5Cd4vfZBX
-         eChIefKwzO4r25UvpE8QoehzWK4pxG3daebzXw0D43QN8avSu1sv39By9fnxmGEHeDEz
-         SwkQ==
+        bh=No1FlRIfpjF/Tg6hjlLc/4nEivohUEu7B25eL3XjwMI=;
+        b=XrfAy9Zn9fvgQOFVwHD7fDYj/2Q1UuYSJCAHJ4OsZZhow7HnYXpL/Cn3YoTg0Npa4A
+         VksLYIn1MGqkb4QgbFnQ+UDliiLrBpKQ0FMxcpC4hmq9MHy2AjOf57WXygYwmPpgRgQu
+         W7yGigMAyAm5Q2FdBs8ZFGR/DnSwqGAqQWwBriHNzB/O5Ufr+q+fYTPajJMOTuZmPmcP
+         9faNlq/aFMQ4mTkS3o1yCtfHMuEsw7kgO0xyS3ivORv+vLCLczUSc2tF5s98yWwDrUua
+         RoE8qw1wTi+sTo32ioGG4iev2Ce7G+feIvHJDByWy9K8k2bVkvpqXBSSS+5Ja9JCR0XQ
+         HNvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730286986; x=1730891786;
+        d=1e100.net; s=20230601; t=1730287039; x=1730891839;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MXqPuPi199o/qEWEhYg7YxRf9gL98Q+KOVTsqPBOLeY=;
-        b=D3PUp0MvnlP+3WZGYdiJxJtr8D5AXux36sCoxPESPyKNOU28YeTDuTIdi1G6knecGE
-         Z64z/c0NRdqp9TjydZnACbkSvT/PD+WkaX9GR8osWT/+VtkNmFr98lzYGzicdIw5d+ZO
-         OxNaDuYuCkpwYg++UnI7OcxDEgKcdr+DjgVCUVRQcEyJirzb+CNPC+ccw+Epbz2kXbUx
-         jvE45hgbRtViB3clwmi2O7zd8o/W5EC9jOZBniwyWz7cH/MuhaZdy1WR1URb4Et5Q5Y6
-         mcR/wagnhojXZypHEIuT6oKhbcgtIufRbViIEdBwyIIGNBIFdcPj4yAljkJwxbVkJnyb
-         njdQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUJzfODo2emVMXod26V9TSSDW+rzJPqIls4mZj2VHAvFRod+OOvTAm8TwchCl/zn3qvKHJvG1hsJn4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwiPUPoDRlqx5Np3RWITbHKRb/7Z7UMCd8HpVRcjFsZQQltn2ix
-	Z3r5vEOiU5lBbUuEZj45UGI232Mg9syObirO83vHTDZiHb42c9n10KPqyC7Low==
-X-Google-Smtp-Source: AGHT+IFzPkLspuHDkdv+hfYXvu0qQDWJpie8E0owVWh0gXnFq6KIEBrIIcO5byL4vlYU+58vrsEgrQ==
-X-Received: by 2002:adf:f18c:0:b0:374:c621:3d67 with SMTP id ffacd0b85a97d-38061137930mr11556275f8f.24.1730286985690;
-        Wed, 30 Oct 2024 04:16:25 -0700 (PDT)
-Message-ID: <848bfd79-66c8-43a2-9f6a-44b87f130516@suse.com>
-Date: Wed, 30 Oct 2024 12:16:24 +0100
+        bh=No1FlRIfpjF/Tg6hjlLc/4nEivohUEu7B25eL3XjwMI=;
+        b=c4XBigTsZI9gO59VeQ35XumRrpDCyZhoTNdIP0jZLEt43aZGv6j5NmYTzOBrBgz2ra
+         E8l2IMV6Y4Is/Ua/VqDPJwiA9z1yNEWrsvZguilzqcbGLDaCK5aD+Q7f+EBEBroBC8pH
+         Wbss1YJmmzPK0RTYKn7E+VR+bT82/NdzEhXnu/aTQZ5aHm2FK5H/De8CL4jD33dWA7Kz
+         xrFruPQ3PWkMMA67XKoJK6/dNVwIbNU8BE9fHscUVZ4A+eJZlT7lJWKbjohAcRfkY/dy
+         tLXUKPZuTl4LlQJX+HGhJu4FNwG66OsjuzfJhivtFEh6pGAEhHn4R7UQnIwb9LI6grSi
+         h0sw==
+X-Forwarded-Encrypted: i=1; AJvYcCXWk1ZUpKi6iKseo2bCwvt7yC8iGmSS5o+95If9+tN68dMseh1ldHVbysBf+83yJsZZ7XXkGunoPaE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyrkFbcWiaiHnuHjseNsX8uBOobuVPVw2apuBp37hPRsopcyGRn
+	BB0BUIZvW/ymingDMxgEWf9kwVS/5eHM9qhSHULoKbrEPGDY8MZcN6sXyO8b1g==
+X-Google-Smtp-Source: AGHT+IEPJKhxhxZkwkNtRT6v0X8zCRzvUBFajGfw7ykNlemdI7Gytdf6WA8vmLUVhVStiMBXi1avTA==
+X-Received: by 2002:a05:6000:b88:b0:37d:397a:5a05 with SMTP id ffacd0b85a97d-38061248a2dmr12360122f8f.54.1730287038807;
+        Wed, 30 Oct 2024 04:17:18 -0700 (PDT)
+Message-ID: <8984f1da-d4bb-4ab7-b1dc-bcc23c180abc@suse.com>
+Date: Wed, 30 Oct 2024 12:17:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: Use standard C types for sized integers
+Subject: Re: [PATCH] x86/setup: Make setup.h header self contained
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20241030104406.2173357-2-frediano.ziglio@cloud.com>
- <6a7bd508-99af-4602-86aa-f46d718e36c2@suse.com>
- <CACHz=ZixwA4aW3RAsusb=NjR6funSTXDCyViSJRSqjM5N_114Q@mail.gmail.com>
+References: <20241030104406.2173357-1-frediano.ziglio@cloud.com>
+ <1fa03cb0-ded1-4904-8830-f3feefecc404@suse.com>
+ <CACHz=Zh04AhAwdhYY=i4DecvJbPMF770PE6SkLG+LzQLxueOMQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,19 +116,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZixwA4aW3RAsusb=NjR6funSTXDCyViSJRSqjM5N_114Q@mail.gmail.com>
+In-Reply-To: <CACHz=Zh04AhAwdhYY=i4DecvJbPMF770PE6SkLG+LzQLxueOMQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30.10.2024 12:10, Frediano Ziglio wrote:
-> On Wed, Oct 30, 2024 at 11:02 AM Jan Beulich <jbeulich@suse.com> wrote:
->> It's only here where the fixed width type is largely needed (or alternatively
+On 30.10.2024 12:15, Frediano Ziglio wrote:
+> On Wed, Oct 30, 2024 at 10:59 AM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->>             signed int linear_pt_count:16;
+>> On 30.10.2024 11:44, Frediano Ziglio wrote:
+>>> The header uses rangeset structure typedef which definition
+>>> is not included.
+>>
+>> And it doesn't need to be. For
+>>
+>> int remove_xen_ranges(struct rangeset *r);
+>>
+>> we don't need ...
+>>
+>>> --- a/xen/arch/x86/include/asm/setup.h
+>>> +++ b/xen/arch/x86/include/asm/setup.h
+>>> @@ -2,6 +2,7 @@
+>>>  #define __X86_SETUP_H_
+>>>
+>>>  #include <xen/multiboot.h>
+>>> +#include <xen/rangeset.h>
+>>>  #include <asm/numa.h>
+>>>
+>>>  extern const char __2M_text_start[], __2M_text_end[];
+>>
+>> ... this, a mere
+>>
+>> struct rangeset;
+>>
+>> forward decl will suffice.
+>>
+>> Jan
+>>
 > 
-> That would be different. Compilers do not allow to take addresses of bit-fields.
+> It's true, but for the same reason, we could avoid including
+> "xen/multiboot.h" and use "struct module" instead of "module_t".
 
-Oh, right, I forgot we take the address of this field in a few places.
+Indeed. I'd even question the need for that typedef.
 
 Jan
 
