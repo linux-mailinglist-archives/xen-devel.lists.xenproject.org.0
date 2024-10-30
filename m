@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114AB9B6706
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 16:09:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828288.1243160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 491409B6710
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2024 16:13:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828295.1243170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6AJT-0006jv-E2; Wed, 30 Oct 2024 15:08:47 +0000
+	id 1t6ANg-0008Dt-Uo; Wed, 30 Oct 2024 15:13:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828288.1243160; Wed, 30 Oct 2024 15:08:47 +0000
+Received: by outflank-mailman (output) from mailman id 828295.1243170; Wed, 30 Oct 2024 15:13:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6AJT-0006iD-BC; Wed, 30 Oct 2024 15:08:47 +0000
-Received: by outflank-mailman (input) for mailman id 828288;
- Wed, 30 Oct 2024 15:08:46 +0000
+	id 1t6ANg-0008As-RV; Wed, 30 Oct 2024 15:13:08 +0000
+Received: by outflank-mailman (input) for mailman id 828295;
+ Wed, 30 Oct 2024 15:13:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wQZl=R2=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t6AJS-0006i7-Hu
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 15:08:46 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ <SRS0=rOPv=R2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t6ANf-0008Am-IN
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2024 15:13:07 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d927501f-96d0-11ef-a0c3-8be0dac302b0;
- Wed, 30 Oct 2024 16:08:41 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so859674766b.0
- for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 08:08:41 -0700 (PDT)
-Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9b30f58991sm573811366b.159.2024.10.30.08.08.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Oct 2024 08:08:40 -0700 (PDT)
+ id 75756673-96d1-11ef-a0c3-8be0dac302b0;
+ Wed, 30 Oct 2024 16:13:03 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5c9428152c0so7895624a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Oct 2024 08:13:03 -0700 (PDT)
+Received: from localhost ([213.195.115.182]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cbb62c9e60sm5097824a12.57.2024.10.30.08.13.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Oct 2024 08:13:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,287 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d927501f-96d0-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmIiLCJoZWxvIjoibWFpbC1lajEteDYyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQ5Mjc1MDFmLTk2ZDAtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzAwOTIxLjM5OTE5Niwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 75756673-96d1-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzYiLCJoZWxvIjoibWFpbC1lZDEteDUzNi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc1NzU2NjczLTk2ZDEtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzAxMTgzLjY2NzgwMSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730300921; x=1730905721; darn=lists.xenproject.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6fCPrXdzKU9A5ktmalVD/c3ZJOVao6JDehvFDz9nCs8=;
-        b=W+RKsC+ur3ttlhTBFVasdndlJstog2kEhm5CTvUKcvBFB24sK+8rQMFpxUZUsiU8AG
-         p9NP2q6hZ21QZ3w9Cu+Uaaw9ueLs5w4VRhYbvNdnkViq0rdIi1VJcXQ/XkAEAWf4bMqy
-         fb0ZX0Ptwb1UeBTAvld+5SmI3BEzwt3N6RhxU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730300921; x=1730905721;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+        d=citrix.com; s=google; t=1730301183; x=1730905983; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=6fCPrXdzKU9A5ktmalVD/c3ZJOVao6JDehvFDz9nCs8=;
-        b=jvo/EjCz9iNz1lgf1Pn2Qk3M/V/uv4TVLN5i4EcevZDJ98MIRlkc3dfTh9sOl0Rn6V
-         9MkPGYbfRsLTAOvxpJToGwvzejiVJKMdxtpqoiXW82UJlGCxiO64x/I/vaa8aDuuA54H
-         zrrW9nRRQgK5zkTzD+SOW8JwFn4kugcq5HBENzoridjWM+LxL4Im/h3XlIFhtpXuj4oC
-         pMPa6/0msVEXzakvswAkBNPsQHTsgLsfMVQTQcn6OHZ9s0riFAvo+SXixLaS5A/LXTmo
-         //gvfYpahfl7XCQGUIvzvV00mb2KL0+O3Dax5r8eiBPXgnPSjgFCv1oAZsv5D/X+YhVU
-         406w==
-X-Forwarded-Encrypted: i=1; AJvYcCXSdyZMfWPeKf/xWA6P6xUzb3HMrlQ5MSUqauSL7DyJPy224JA2Kw4eRWBRLiqnhzdwSUVaWt9+AeQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPygjWaCjE1MspvRI4AOed1SEzIaJsihlPhtGRPT4dWAD8MbUe
-	Wiw7D2EdY8y4xmnsP24fvcprppazdHfw2Uv8cEEotxckaiMrGs8XatPg96K8d/A=
-X-Google-Smtp-Source: AGHT+IFH0TZyn0X38HyeYobQOJwhcvzogUsAQ52dx7vON1fs7W4gvMkMiwVOk0Hr4yObMBW63rzT3A==
-X-Received: by 2002:a17:907:6093:b0:a9a:26a5:d508 with SMTP id a640c23a62f3a-a9e3a5757c8mr323086966b.9.1730300920642;
-        Wed, 30 Oct 2024 08:08:40 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 30 Oct 2024 15:08:38 +0000
-Message-Id: <D598HGJY330K.3NA7GQLUSJJ9K@cloud.com>
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Julien Grall"
- <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen
- Gross" <jgross@suse.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
- =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, "Christian Lindig"
- <christian.lindig@citrix.com>, "David Scott" <dave@recoil.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, "Michal Orzel" <michal.orzel@amd.com>,
- "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [RFC PATCH 0/6] xen/abi: On wide bitfields inside primitive
- types
-X-Mailer: aerc 0.18.2
-References: <20241029181632.69600-1-alejandro.vallejo@cloud.com>
- <3bf067c7-617c-42c0-bf6d-4387d97658ae@suse.com>
-In-Reply-To: <3bf067c7-617c-42c0-bf6d-4387d97658ae@suse.com>
+        bh=VV5Hqfa2BU8MV42PML0suguD/3iV++TqZvLhao7mF9M=;
+        b=CAdqs0ijiYnQRGMQGnkkZZ003IfmWdlUzSfBJ2olhTe8W0bnGV3uKa3DG2F6wzz+RN
+         p7vdJKFR3aeqvTUvZI/bW7pDoPAIV/5qKHsvG6PcE36+D7Ptf0GCh3A7KH6rKb/lxPYm
+         0/waFRv/kgWqXgEOa9wb+doEEUrYI0WLxPs/w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730301183; x=1730905983;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VV5Hqfa2BU8MV42PML0suguD/3iV++TqZvLhao7mF9M=;
+        b=puPHf3FLMj+W9xgUamx62AlrO4kEhfLMP0Sd6spMwJ8JOpGpTOufbVNkIWiVRj4j0P
+         I3EBGteghscplHbS0VNWqtEdIlkAbG4zA9jMwmO0LvM2WDdUhXiOHsUcNYIug107Df7h
+         lmE/LB69R4qksXjFqMSzIGOGgsQaP4c+Zwd2KpNc7DDr++lFVz4cPTA73512Shg0n0hz
+         oIwXl3A1IFJsruUfWUrZMcJVQffGQO1R7yCkK7yz34h5NhqnrBbiWsIAquomOMroRWKK
+         pGqS/oNuqusTbG13adqBArZg8E2UUdTITIb5PlPsJi/FOB0LOh8kRc7Zd/ZzRO3DZM0r
+         5wpA==
+X-Gm-Message-State: AOJu0Yz1MmBJb+AJHgsF+oEneEekqYV7j5zOO/4yhnVdzR36WbnbXDqK
+	dn2Dmzdqc9yfkL9r9YL68gfwC2g0wPy9bqVu1p7f5C8m/vQKvhnSm02LLIumgQk=
+X-Google-Smtp-Source: AGHT+IFT+mdONLG87tyd1oYijy2z4n5YLMt34KgcINFPM6hNVxh6d43TgxLfzY37CztkuElpwtKc6g==
+X-Received: by 2002:a05:6402:26ca:b0:5cb:b80a:2283 with SMTP id 4fb4d7f45d1cf-5cbbf949eadmr13152774a12.26.1730301182869;
+        Wed, 30 Oct 2024 08:13:02 -0700 (PDT)
+Date: Wed, 30 Oct 2024 16:13:00 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH] x86/cpu-policy: Extend the guest max policy max
+ leaf/subleaves
+Message-ID: <ZyJM_DLUkqolD7mD@macbook>
+References: <20241029175505.2698661-1-andrew.cooper3@citrix.com>
+ <ZyH1az6sb2wnVxgu@macbook>
+ <f6494fa2-6de0-4ded-864a-9c011d9ad5f2@citrix.com>
+ <ZyISitvz_K_XtvL5@macbook>
+ <3effac8c-b4cf-4d96-a5f6-99def9f7ec1c@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3effac8c-b4cf-4d96-a5f6-99def9f7ec1c@citrix.com>
 
+On Wed, Oct 30, 2024 at 02:45:19PM +0000, Andrew Cooper wrote:
+> On 30/10/2024 11:03 am, Roger Pau Monné wrote:
+> > On Wed, Oct 30, 2024 at 10:39:12AM +0000, Andrew Cooper wrote:
+> >> On 30/10/2024 8:59 am, Roger Pau Monné wrote:
+> >>> On Tue, Oct 29, 2024 at 05:55:05PM +0000, Andrew Cooper wrote:
+> >>>> diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+> >>>> index b6d9fad56773..78bc9872b09a 100644
+> >>>> --- a/xen/arch/x86/cpu-policy.c
+> >>>> +++ b/xen/arch/x86/cpu-policy.c
+> >>>> @@ -391,6 +391,27 @@ static void __init calculate_host_policy(void)
+> >>>>      p->platform_info.cpuid_faulting = cpu_has_cpuid_faulting;
+> >>>>  }
+> >>>>  
+> >>>> +/*
+> >>>> + * Guest max policies can have any max leaf/subleaf within bounds.
+> >>>> + *
+> >>>> + * - Some incoming VMs have a larger-than-necessary feat max_subleaf.
+> >>>> + * - Some VMs we'd like to synthesise leaves not present on the host.
+> >>>> + */
+> >>>> +static void __init guest_common_max_leaves(struct cpu_policy *p)
+> >>>> +{
+> >>>> +    p->basic.max_leaf       = ARRAY_SIZE(p->basic.raw) - 1;
+> >>>> +    p->feat.max_subleaf     = ARRAY_SIZE(p->feat.raw) - 1;
+> >>>> +    p->extd.max_leaf        = 0x80000000U + ARRAY_SIZE(p->extd.raw) - 1;
+> >>>> +}
+> >>>> +
+> >>>> +/* Guest default policies inherit the host max leaf/subleaf settings. */
+> >>>> +static void __init guest_common_default_leaves(struct cpu_policy *p)
+> >>>> +{
+> >>>> +    p->basic.max_leaf       = host_cpu_policy.basic.max_leaf;
+> >>>> +    p->feat.max_subleaf     = host_cpu_policy.feat.max_subleaf;
+> >>>> +    p->extd.max_leaf        = host_cpu_policy.extd.max_leaf;
+> >>>> +}
+> >>> I think this what I'm going to ask is future work.  After the
+> >>> modifications done to the host policy by max functions
+> >>> (calculate_{hvm,pv}_max_policy()) won't the max {sub,}leaf adjustments
+> >>> better be done taking into account the contents of the policy, rather
+> >>> than capping to the host values?
+> >>>
+> >>> (note this comment is strictly for guest_common_default_leaves(), the
+> >>> max version is fine using ARRAY_SIZE).
+> >> I'm afraid I don't follow.
+> >>
+> >> calculate_{pv,hvm}_max_policy() don't modify the host policy.
+> > Hm, I don't think I've expressed myself clearly, sorry.  Let me try
+> > again.
+> >
+> > calculate_{hvm,pv}_max_policy() extends the host policy by possibly
+> > setting new features, and such extended policy is then used as the
+> > base for the PV/HVM default policies.
+> >
+> > Won't the resulting policy in calculate_{hvm,pv}_def_policy() risks
+> > having bits set past the max {sub,}leaf in the host policy, as it's
+> > based in {hvm,pv}_def_cpu_policy that might have such bits set?
+> 
+> Oh, right.
+> 
+> This patch doesn't change anything WRT that.
 
-In the course of preparing this answer I just noticed that altp2m_opts suff=
-ers
-from the exact same annoyance, with the exact same fix. I just noticed whil=
-e
-rebasing my Rust branch.
+Indeed, didn't intend my comment to block it, just that I think at
+some point the logic in guest_common_default_leaves() will need to be
+expanded.
 
-On Wed Oct 30, 2024 at 9:14 AM GMT, Jan Beulich wrote:
-> On 29.10.2024 19:16, Alejandro Vallejo wrote:
-> > Non-boolean bitfields in the hypercall ABI make it fairly inconvenient =
-to
-> > create bindings for any language because (a) they are always ad-hoc and=
- are
-> > subject to restrictions regular fields are not (b) require boilerplate =
-that
-> > regular fields do not and (c) might not even be part of the core langua=
-ge,
-> > forcing avoidable external libraries into any sort of generic library.
-> >=20
-> > This patch (it's a series merely to split roughly by maintainer) is one=
- such
-> > case that I happened to spot while playing around. It's the grant_versi=
-on
-> > field, buried under an otherwise empty grant_opts.
-> >=20
-> > The invariant I'd like to (slowly) introduce and discuss is that fields=
- may
-> > have bitflags (e.g: a packed array of booleans indexed by some enumerat=
-ed
-> > type), but not be mixed with wider fields in the same primitive type. T=
-his
-> > ensures any field containing an integer of any kind can be referred by =
-pointer
-> > and treated the same way as any other with regards to sizeof() and the =
-like.
->
-> While I don't strictly mind, I'm also not really seeing why taking addres=
-ses
-> or applying sizeof() would be commonly necessary. Can you perhaps provide=
- a
-> concrete example of where the present way of dealing with grant max versi=
-on
-> is getting in the way? After all your use of the term "bitfield" doesn't
-> really mean C's understanding of it, so especially (c) above escapes me t=
-o a
-> fair degree.
+> But I think you're right that we do risk getting into that case (in
+> principle at least) because of how guest_common_*_feature_adjustment() work.
+> 
+> Furthermore, the bug will typically get hidden because we serialise
+> based on the max_leaf/subleaf, and will discard feature words outside of
+> the max_leaf/subleaf bounds.
 
-Wall of text ahead, but I'll try to stay on point. The rationale should bec=
-ome
-a lot clearer after I send an RFC series with initial code to autogenerate =
-some
-hypercall payloads from markup. The biggest question is: Can I create a
-definition language such that (a) it precisely represents the Xen ABI and (=
-b)
-is fully type-safe under modern strongly-typed languages?
+Yes, once we serialize it for toolstack consumption the leafs will be
+implicitly zeroed.
 
-I already have a backbone I can define the ABI in, so my options when I hit
-some impedance mismatch are:
+> I suppose we probably want a variation of x86_cpu_featureset_to_policy()
+> which extends the max_leaf/subleaf based on non-zero values in leaves. 
+> (This already feels like it's going to be an ugly algorithm.)
 
-  1. Change the ABI so it matches better my means of defining it.
-  2. Change the means to define so it captures the existing ABI better.
+Hm, I was thinking that we would need to adjust
+guest_common_default_leaves() to properly shrink the max {sub,}leaf
+fields from the max policies.
 
-Most of the work I've done has moved in the (2) direction so far, but I fou=
-nd a
-number of pain points when mapping the existing ABI to Rust that, while not
-impossible to work around, are quite annoying for no clear benefit. If
-possible, I'd like to simplify the cognitive load involved in defining, usi=
-ng
-and updating hypercalls rather than bending over backwards to support a
-construct that provides no real benefit. IOW: If I can define an ABI that i=
-s
-_simpler_, it follows that it's also easier to not make mistakes and it's
-easier to generate code for it.
-
-The use of packed fields is one such case. Even in C, we create extra macro=
-s
-for creating a field, modifying it, fetching it, etc. Patches 2-6 are stric=
-t
-code removals. And even in the most extreme cases the space savings are lar=
-gely
-irrelevant because the hypercall has a fixed size. We do want to pack _flag=
-s_
-as otherwise the payload size would explode pretty quickly on hypercalls wi=
-th
-tons of boolean options, but I'm not aware of that being problematic for wi=
-der
-subfields (like the grant max version).
-
-Now, being more concrete...
-
-##################################################################
-# IDL is simpler if the size is a property of the type
-##################################################################
-
-Consider the definition of the (new) max_grant_version type under the IDL I=
-'m
-working on (it's TOML, but I don't particularly care about which markup we =
-end
-up using).
-
-  [[enums]]
-  name =3D "xen_domaincreate_max_grant_version"
-  description =3D "Content of the `max_grant_version` field of the domain c=
-reation hypercall."
-  typ =3D { tag =3D "u8" }
-
-  [[enums.variants]]
-  name =3D "off"
-  description =3D "Must be used with gnttab support compiled out"
-  value =3D 0
-
-  [[enums.variants]]
-  name =3D "v1"
-  description =3D "Allow the domain to use up to gnttab_v1"
-  value =3D 1
-
-  [[enums.variants]]
-  name =3D "v2"
-  description =3D "Allow the domain to use up to gnttab_v2"
-  value =3D 2
-
-Note that I can define a type being enumerated, can choose its specific
-variants and its width is a property of the type itself. With bitfields you=
-'re
-always in a weird position of the width not being part of the type that goe=
-s
-into it.
-
-Should I need it as a field somewhere, then...
-
-  [[structs.fields]]
-  name =3D "max_grant_version"
-  description =3D "Maximum grant table version the domain may be bumped to"
-  typ =3D { tag =3D "enum", args =3D "xen_domaincreate_max_grant_version" }
-
-... at which point the size of the field is given by an intrinsic property =
-of
-the type (the typ property on the enums table) I previously defined. It's
-extensible, composable and allows me to generate readable code in both C an=
-d
-Rust.
-
-Should I need to support full bitfields I would require a means of stating =
-the
-start and end bits of every field, which is very bad for the sanity of whoe=
-ver
-wants to maintain coherency in the ABI.
-
-##################################################################
-# Rust and Go don't like bitfields...
-##################################################################
-
-... and neither does C, even if for historic reasons they do exist in the
-standard. On a slight tangent, neither Rust nor Go support bitfields in the
-core language. This was a deliberate design decision of their respective
-designers. I can't speak for Go as I'm not a Go developer, but Rust does ha=
-ve a
-very well-known, well-supported and very common external crate ("bitflags")
-that allows very ergonomic semantics for definition of packed booleans. As =
-an
-example here's the flags for domain create, as spitted out by the generator=
- I
-have.
-
-(comments removed for brevity). This defines a bitmap indexed by the flags
-type, represented by a 32bit primitive. It's type-safe from the PoV that I
-can't just write 1 << 15 to a variable of this type and expect anything but
-screams from the compiler.
-
-  bitflags! {
-      #[repr(C)]
-      #[derive(Copy, Clone, Debug, Default, PartialEq, Eq)]
-      pub struct XenDomaincreateFlags: u32 {
-          const Hvm =3D 1 << 0;
-          const Hap =3D 1 << 1;
-          const S3Integrity =3D 1 << 2;
-          const OosOff =3D 1 << 3;
-          const XsDomain =3D 1 << 4;
-          const Iommu =3D 1 << 5;
-          const NestedVirt =3D 1 << 6;
-          const Vpmu =3D 1 << 7;
-      }
-  }
-
-This enables callers to have type-safe variables in a pretty ergonomic fash=
-ion:
-
-  let flags =3D XenDomainCreateFlags::Hvm |
-              XenDomainCreateFlags::Hap |
-              XenDomainCreateFlags::Iommu;
-
-and assignments to its related struct would follow regular assignment rules=
-.
-
-##################################################################
-# IOW
-##################################################################
-
-Supporting general bitfields is annoying, even in C. Adding support in IDL =
-for
-them is a headache if we want the descriptions to help us catch mistakes an=
-d
-language support is poor using this constructs (at best).
-
-Can we please get rid of them?
-
->
-> > I'd like to have a certain consensus about this general point before go=
-ing
-> > establishing this restriction in the IDL system I'm working on.
-> >=20
-> > My preference would be to fold everything into a single patch if we dec=
-ide to
-> > follow through with this particular case. As I said before, the split i=
-s
-> > artificial for review.
->
-> That's not just a preference, but a requirement, or else the build will b=
-reak
-> in the middle of the series (harming bisection at the very least).
->
-> Jan
-
-Yes, indeed. As I said, I'm more interested in the discussion now rather th=
-an
-the details of committing it.
-
-Cheers,
-Alejandro
+Thanks, Roger.
 
