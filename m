@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 912EA9B782A
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 11:00:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828559.1243483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 077579B784B
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 11:02:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828564.1243493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Rxu-0002iH-Mm; Thu, 31 Oct 2024 09:59:42 +0000
+	id 1t6S0g-0004Hi-2t; Thu, 31 Oct 2024 10:02:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828559.1243483; Thu, 31 Oct 2024 09:59:42 +0000
+Received: by outflank-mailman (output) from mailman id 828564.1243493; Thu, 31 Oct 2024 10:02:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Rxu-0002gF-K7; Thu, 31 Oct 2024 09:59:42 +0000
-Received: by outflank-mailman (input) for mailman id 828559;
- Thu, 31 Oct 2024 09:59:41 +0000
+	id 1t6S0g-0004Fo-0N; Thu, 31 Oct 2024 10:02:34 +0000
+Received: by outflank-mailman (input) for mailman id 828564;
+ Thu, 31 Oct 2024 10:02:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zW4/=R3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t6Rxt-0002g9-Bs
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 09:59:41 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1t6S0e-0004FG-HJ
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 10:02:32 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d6d5b8f4-976e-11ef-a0c3-8be0dac302b0;
- Thu, 31 Oct 2024 10:59:38 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-37d538fe5f2so551239f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 02:59:38 -0700 (PDT)
+ id 3cfe3116-976f-11ef-a0c3-8be0dac302b0;
+ Thu, 31 Oct 2024 11:02:29 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43163667f0eso6158255e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 03:02:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-431bd947c26sm50700845e9.26.2024.10.31.02.59.36
+ ffacd0b85a97d-381c10e734csm1622111f8f.60.2024.10.31.03.02.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 02:59:37 -0700 (PDT)
+ Thu, 31 Oct 2024 03:02:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6d5b8f4-976e-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzAiLCJoZWxvIjoibWFpbC13cjEteDQzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQ2ZDViOGY0LTk3NmUtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzY4Nzc4LjExOTY2Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 3cfe3116-976f-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmQiLCJoZWxvIjoibWFpbC13bTEteDMyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjNjZmUzMTE2LTk3NmYtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzY4OTQ5LjQxODQxOCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730368777; x=1730973577; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730368949; x=1730973749; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3gOw0xV3V6YPYlSOEqd0FZorfzusHbr/CPQhBKNW5Q8=;
-        b=edJzMaLGGqfEBmSjlsJIjy7bPUzH402KpwbeBSt9yCtzh3bC6hcPYZ64KrIWA1NK1m
-         jLCO+uvHC0hg9DJ+uzmorf9Vb2gzsj/onQiBkwUrP7ph64UWzWFQWMHHJDi3mgug0oHr
-         bM2WCyS/ceNF15rYRvguaBhTjlXSL3udFlTbfhLB9VFkvE5Ipw85h5PG2AIEfi4Ly+uT
-         KpHx/TcR2cx3NrJ34qVyXMFRtFgoNA0ACPPi+c6vPfw46ZBiQkmZu56Y1yM0djq4tZkF
-         /BqsJxH+gjMGJjY8syS+cvL6DdHPstjSp+3BLo/0d2Jl9azUGElal/KKJULCUI3O8qBv
-         vKUA==
+        bh=0SWslnV9luPAdTz71bVyVI7Tj1sZxXCCqRyOQgNEpD4=;
+        b=aewqf/y1P5etVAOOt9LFKYsigpu8WBC2AxGHuMl+QvEWinGPGaPikDoEZoApikNqLK
+         j1x7JV65JyB6BFcnFoX+n4mfTl3b3eguq+1qPqq1IiqVl8s+R5cFa3f797cOP86K2IHj
+         /+h74jJUFXa4e8KmFUn7P1LcpBx9alu9dHiJa8BbYzSK89lSRSB1mk1pnwqRm7SPu1OJ
+         iURK2Qy+b86uEH2I3feWeNQGPj0AGQCvXeew4KlbBRuSsK+rQqfwdL3B+rOxLoueUfGj
+         3Mk3lmfZ+XOzlaXKhegvDRsoegX1rZWSrNKFJZjjW/19DX7x7KDvFWf1QRp+dPyWhzz3
+         yYzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730368777; x=1730973577;
+        d=1e100.net; s=20230601; t=1730368949; x=1730973749;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3gOw0xV3V6YPYlSOEqd0FZorfzusHbr/CPQhBKNW5Q8=;
-        b=ZIrFB7GIucaQ483RPdvtqXti8LXVVAa+Tz2szi+xjzsG/G4XdpY7IISotDqV0MKkiz
-         33/a4pUYAVdjKTb1CImRHZpKz4dYVBymVouwAGMR2aJ6G1wIKjnKPsS87xAerkFTgQqR
-         W/PLFtEToVxtmfdhVwcJ4rDUzKGRXYANGUKU5Weo4ufREhshs76zxw5jyl80KHeDEm/z
-         sS4s2uNXHrZhSGKO5N7AofOUoP84UPgIGbrHByV/fb4U39W+ERwVmQx3NSPYkuLqELMn
-         3B3LlvQau9633583S7OA5izcFVMBMhvR76QRFcOX7IPTIPz6fNNKp7JxaX23QSC4dYHU
-         /70g==
-X-Forwarded-Encrypted: i=1; AJvYcCVpGOczo9dnCwqER2rzjrU7JGw2cJz1TrANHZqWbEMYPHysVu4n0DhL34yITyd3cgU/A286TImTBs4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTCBCCouyDbnMPGYV+mj6ylynJ0/C6f2hbSQ1cQzS06QzY7snk
-	SgpmpeoscQzYzW6xjrkKr9tTr0IiVn+Th0q+UoFxajPXWKt6GrjBfMTPkibO4g==
-X-Google-Smtp-Source: AGHT+IH3upsQUHAohRvoNQuI6AVtnT2e0+6KIyOOYU2mUTxTr+/QLZsXpAUqzIPxZluzyM6Ggvz6xw==
-X-Received: by 2002:a05:6000:1a8e:b0:368:37ac:3f95 with SMTP id ffacd0b85a97d-381be7d8f8bmr2133782f8f.31.1730368777392;
-        Thu, 31 Oct 2024 02:59:37 -0700 (PDT)
-Message-ID: <90996cfa-1c41-4113-846c-eade5c849104@suse.com>
-Date: Thu, 31 Oct 2024 10:59:36 +0100
+        bh=0SWslnV9luPAdTz71bVyVI7Tj1sZxXCCqRyOQgNEpD4=;
+        b=mBgNMbPozI66RVwkKHHdxGLRZvPoduMAfFXVwhwMalydEShcI4lQUBiUjNijGDq0+T
+         6Ie3dOUp9QaxiG1cOJwtWUg0gLijppYkwqZ4nKvioaSKdMAjaxpGJeZlYX0RHzFG7TMD
+         AVOHq5NR+Fglr3lXUW6XXnw+0nAi6Y/Il2sxlw0qXOArQo4r/ilzGhcC4cpoCaXQPucQ
+         dl6SyFOddZzCp42FjONH1DJ98t8eKrjdd6VoNK2uQmrCPF2+TLqAp1MlUmtykT7Tli4J
+         cGZa5yTwGAP1d22hvbtYwbxH0Yb+okXDW2fPnd28TwlYYvZ6CyivixIbzhKzpDgwyRjK
+         W2hg==
+X-Forwarded-Encrypted: i=1; AJvYcCWOwWkzJbqgGM5l+NpWiMIg0m7ut4MnqWpZVCSaPtoVgV+1lEPisspCN05Zj9T4+Ne0mzjP4IAfOKo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzX49FWjEbjGJJJNhqfGPbYbu5Cye3RIF4OeNjjb2eI4SJySiaM
+	oB1LOjPr7fd1mnlnXiFUZt4Ym3Stai+3VFjQkIPUdowU9+W3QpxLj9DWHfzYXw==
+X-Google-Smtp-Source: AGHT+IEuVytajJr/S/oOcEqAToZ6eKdRU5tuO7rNZuaU6t0xJeHUeZg4cF0UILJzkokz4L/65ez3kw==
+X-Received: by 2002:a05:600c:3488:b0:431:5ce5:4864 with SMTP id 5b1f17b1804b1-4319ad36982mr136371965e9.35.1730368948859;
+        Thu, 31 Oct 2024 03:02:28 -0700 (PDT)
+Message-ID: <701da657-a709-4c2b-908f-2bfe193948ca@suse.com>
+Date: Thu, 31 Oct 2024 11:02:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: ensure L2 is always freed if empty
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241030114852.55530-1-roger.pau@citrix.com>
+Subject: Re: [PATCH for-4.19] Config: Update MiniOS revision
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
+ <jgross@suse.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241030180332.2726909-1-andrew.cooper3@citrix.com>
+ <a76d84a3-d150-4836-8ad2-ee0eeabe557b@suse.com>
+ <c84ef564-98de-451d-af4e-04e824231ea6@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,34 +116,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241030114852.55530-1-roger.pau@citrix.com>
+In-Reply-To: <c84ef564-98de-451d-af4e-04e824231ea6@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30.10.2024 12:48, Roger Pau Monne wrote:
-> The current logic in modify_xen_mappings() allows for fully empty L2 tables to
-> not be freed and unhooked from the parent L3 if the last L2 slot is not
-> populated.
+On 31.10.2024 10:46, Andrew Cooper wrote:
+> On 31/10/2024 9:25 am, Jan Beulich wrote:
+>> On 30.10.2024 19:03, Andrew Cooper wrote:
+>>> A new branch from xen-RELEASE-4.19.0, for now containing commit
+>>> a400dd517068 ("Add missing symbol exports for grub-pv").
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Juergen Gross <jgross@suse.com>
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: Julien Grall <julien@xen.org>
+>>> ---
+>>>  Config.mk | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/Config.mk b/Config.mk
+>>> index 03a89624c77f..aa3d5843f1ed 100644
+>>> --- a/Config.mk
+>>> +++ b/Config.mk
+>>> @@ -224,7 +224,7 @@ QEMU_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/qemu-xen.git
+>>>  QEMU_UPSTREAM_REVISION ?= qemu-xen-4.19.0
+>>>  
+>>>  MINIOS_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/mini-os.git
+>>> -MINIOS_UPSTREAM_REVISION ?= xen-RELEASE-4.19.0
+>>> +MINIOS_UPSTREAM_REVISION ?= xen-stable-4.19
+>> Wouldn't we better use a hash here, like we do on staging? There had been
+>> cases where it wasn't safe for the used commit to move "automatically", and
+>> the same could occur on a stable branch. The hash would then be replaced by
+>> a release tag when a release is being prepared (again like on staging).
 > 
-> Ensure that even when an L2 slot is empty the logic to check whether the whole
-> L2 can be removed is not skipped.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> It will only be getting build fixes, not new content.  So it will be
+> stable-enough in that regard.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-> ---
-> I've attempted to find a Fixes tag for this one, but I'm afraid there have been
-> many changes in the function, and it's possibly the code that introduced the L2
-> freeing (4376c05c31132) the one that failed to originally adjust this case.
-
-Yes, that looks to be the one. It has been a long while, but I think it was
-(wrong) similarity considerations with the corresponding L3E handling (near
-the top of the main loop) that resulted in me not touching that "continue".
-We certainly don't want to ever free L3 tables (vacating L4 entries); since
-the 32-bit case still mattered back then, the "continue" also couldn't have
-been simply replaced (as there that same consideration applied to L2 tables
-and L3 entries, for further extended reasons imposed by PAE).
+Hmm, can we really expect it to only ever be build fixes, not fixes of any
+other kind (which then may have dependencies)? Jürgen, Samuel, what's your
+take?
 
 Jan
+
+> Otherwise, its hedging my bets as to whether other changes will be
+> needed before we cut releases.  All of this comes from the fact that
+> we've got a couple of rolling distros which end up up-to-date even on
+> the oldest trees.
+> 
+> ~Andrew
+
 
