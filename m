@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D39769B779A
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 10:34:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828543.1243464 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A796B9B77D7
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 10:47:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828553.1243473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6RZW-0006DD-Hj; Thu, 31 Oct 2024 09:34:30 +0000
+	id 1t6RlW-00009O-Ln; Thu, 31 Oct 2024 09:46:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828543.1243464; Thu, 31 Oct 2024 09:34:30 +0000
+Received: by outflank-mailman (output) from mailman id 828553.1243473; Thu, 31 Oct 2024 09:46:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6RZW-0006Ao-EU; Thu, 31 Oct 2024 09:34:30 +0000
-Received: by outflank-mailman (input) for mailman id 828543;
- Thu, 31 Oct 2024 09:34:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zW4/=R3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t6RZV-0006Ai-Pd
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 09:34:29 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50ef035a-976b-11ef-99a3-01e77a169b0f;
- Thu, 31 Oct 2024 10:34:24 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-539f84907caso774650e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 02:34:24 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c10e734csm1554683f8f.60.2024.10.31.02.34.23
+	id 1t6RlW-00006n-JC; Thu, 31 Oct 2024 09:46:54 +0000
+Received: by outflank-mailman (input) for mailman id 828553;
+ Thu, 31 Oct 2024 09:46:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7hTS=R3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t6RlV-00006R-EG
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 09:46:53 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0c682d29-976d-11ef-a0c3-8be0dac302b0;
+ Thu, 31 Oct 2024 10:46:50 +0100 (CET)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-53b34ed38easo615571e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 02:46:50 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-431bd947bf4sm50473595e9.27.2024.10.31.02.46.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 02:34:23 -0700 (PDT)
+ Thu, 31 Oct 2024 02:46:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50ef035a-976b-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzIiLCJoZWxvIjoibWFpbC1sZjEteDEzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjUwZWYwMzVhLTk3NmItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzY3MjY0LjgxNDIzLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 0c682d29-976d-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzMiLCJoZWxvIjoibWFpbC1sZjEteDEzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjBjNjgyZDI5LTk3NmQtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzY4MDEwLjA5ODk0LCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730367264; x=1730972064; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730368008; x=1730972808; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=typLIZP/MMzWQHxa3dozJ8ah4urFEFoF37pwxUrpcoA=;
-        b=ahx1y60ioLeE4c5KF5tI6iXszzrmT+GN25xlOvLG4IxxsWk96V7QMYOcWM8ZrtqLyc
-         C2acGtcvYabnttLeygfd63tI8TcogApySvEEMyc4h7lWsqeHiu6OwFbWn+SLDEhnNuDy
-         PKZXlMX4oRn1/NZLyvO6mPeJr1jbC2CRzwyMJYPslOA8KycRdpcg5PBTZsiqEFtmDGWb
-         5JRn53QCBsSxdci5PI/XNtzaIvAKtGaUz8OICM9Fg7NQ3BzLM4IBPak9g/UhJTbf9Fsp
-         Dj/a9oaQ8hie33mJS/jCEaIjZdpvKOlI7WT+xXsBd5doD+FGJcyAmCiN7FP7ogYixI35
-         QRqg==
+        bh=d083J0Qsv4GOhbNwD3J4VxLjKt7VnKAN8bclVp8ujXE=;
+        b=GtF9LK4Hou5a8KPw9YRu2loL2K4MFoCAzYrUGgt+QJTy1OpHRGiAmbvmOO0mDvBrK7
+         aP1Fm37gy1u9/AQYj4AgP2hsQL4T4cnv0QywPKr7WfPzj6tzyd4rkcvaOY4Ux7K+CUwx
+         egbFSE+TiXyw9dJZNVB9spMWqLiKmwloyzGHo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730367264; x=1730972064;
+        d=1e100.net; s=20230601; t=1730368008; x=1730972808;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=typLIZP/MMzWQHxa3dozJ8ah4urFEFoF37pwxUrpcoA=;
-        b=WGzUhrHAZCCZ1B4TOawjRXNR4xi4QoeMIlGUP/Bgd+Fvq308XxPfmWHJe754Sc4kAi
-         6I12k8eH2YYWl8gIP03d2Nt59EQTPzSmrz5efJFGdoBtnTfzJxAs2wlwP4uf3swE/Neo
-         vK5EL4FUuh391qEPiWaSBxrBro711jdf5XQbJamVxj34nB4nn/IOjk6Cxb3XYQPqsJNn
-         78KaBmUWoVRaGhuuR44sPV+rwtMh6dWSdptlyd9u5q/FNV6+Lk4elAfYFrJ2xN/TtM52
-         W1BV8sEomrDuslNafHUTafylGrqX1n1uvHfwYSMi+ivj/q/9MQk6V4bVp32FuIAafDt0
-         s/vQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWCO4wZwM0+PMen3PAP/I6iJ1xmpoO2lIr5ewvxffE9stxTFGd9FoX/QeLNYsCPpP7dHccEj/0w5Gg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyMNDMUITjf/G0UxS/Q5DNMsrmiDO0mOE8OpO6IQ2TyF99vSBYU
-	fFKtEWunXGr5Y1zXoXlPn/qgM+ATKU17vzN45T+Tl1uvqPbIx+gf6fNx4uWreA==
-X-Google-Smtp-Source: AGHT+IEgayhKxHFJmNN6Ovp5H1MhTchYfR1FplToSOh7uzRgnNYn07QfVv8gUBESsjJ6nr7onJsvgA==
-X-Received: by 2002:a05:6512:3b98:b0:539:fb56:7790 with SMTP id 2adb3069b0e04-53b348ec010mr10540758e87.6.1730367264068;
-        Thu, 31 Oct 2024 02:34:24 -0700 (PDT)
-Message-ID: <6461a47f-759a-4138-970c-4e5f68b07bae@suse.com>
-Date: Thu, 31 Oct 2024 10:34:22 +0100
+        bh=d083J0Qsv4GOhbNwD3J4VxLjKt7VnKAN8bclVp8ujXE=;
+        b=cTVmJTpjkPRuQ9RqtsEo6DBBxe0kzS5jbfqrssco7ozNfCy7wBxRP5SFY37tbCPaMy
+         Rpa6rvbg/8dcD4EguKPXJLr6PA+QnOSqDIa90oAaFLmlT+64KGeRIiLI6maZP8AE/sah
+         rWGU/tgxf5tiOJ+K2aikMovGIUlpFxZtOYw6cUYB8n2gdOzD1UC95G4NGVM1nYT5muNe
+         9jGaMjinyPo7T9jKKFQFDgVj5vkcmRtTXykXutS4+Mf9q0c5l3ySOIrsMGpoKtB0dlrj
+         6YmYBKQZfNuMYSj4iw3Gf1KTWym5Ll8wjs2dloIOBi4blFVFyOXW2paoc8MB6DtKLd9V
+         8Alg==
+X-Forwarded-Encrypted: i=1; AJvYcCVcx4JPcvu5qsFs3RpRhC2Trb7JRW2u8H0W7wO3bOi/fgLABbAswQFe4u3C9IlIi2Oen6yBQbhHNcM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzPaBH6tx1v3E3lvErOvJiHU7WMLAzTkh/VFx79GVXjIdNIY77Y
+	oFKufHjLhAJnYCXe1yvi6gQ6i2KG6OnDBevHHt1kj9lBAaXE5IkjyaeIgIUxAgc=
+X-Google-Smtp-Source: AGHT+IEYTiqYXVWZfySnkP3dtE7Tmc/ORAHSK5eOnvSYSYUKKQfoMsO4cx94DSSFwJmCaFCJZ6h9yQ==
+X-Received: by 2002:a05:6512:4022:b0:539:e333:1822 with SMTP id 2adb3069b0e04-53b348b7dc7mr9700016e87.4.1730368008098;
+        Thu, 31 Oct 2024 02:46:48 -0700 (PDT)
+Message-ID: <c84ef564-98de-451d-af4e-04e824231ea6@citrix.com>
+Date: Thu, 31 Oct 2024 09:46:46 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/common: Move gic_preinit() to common code
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+Subject: Re: [PATCH for-4.19] Config: Update MiniOS revision
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <e906b538aba684ab108cc70e8c60ed35ddfad74e.1730292286.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e906b538aba684ab108cc70e8c60ed35ddfad74e.1730292286.git.oleksii.kurochko@gmail.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241030180332.2726909-1-andrew.cooper3@citrix.com>
+ <a76d84a3-d150-4836-8ad2-ee0eeabe557b@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <a76d84a3-d150-4836-8ad2-ee0eeabe557b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30.10.2024 14:14, Oleksii Kurochko wrote:
-> Introduce ic_preinit() in the common codebase, as it is not
-> architecture-specific and can be reused by both PPC and RISC-V.
-> This function identifies the node with the interrupt-controller property
-> in the device tree and calls device_init() to handle architecture-specific
-> initialization of the interrupt controller.
-> 
-> Additionally, rename gic_acpi_preinit() to ic_acpi_preinit() as it is used
-> by ic_preinit(), while keeping it defined in architecture-specific as this
-> part is architecture-specific. In case if CONFIG_ACPI=n a stub for
-> ic_acpi_preinit() is provided. To declaration/defintion of ic_acpi_preint()
-> is added `inline` to deal with the compilation issue:
->   error: 'ic_acpi_preinit' defined but not used [-Werror=unused-function]
-> 
-> Make minor adjustments compared to the original ARM implementation of
-> gic_dt_preinit():
->  - Remove the local rc variable in gic_dt_preinit() since it is only used once.
->  - Change the prefix from gic to ic to clarify that the function is not
->    specific to ARM’s GIC, making it suitable for other architectures as well.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v2:
->  - Revert changes connected to moving of gic_acpi_preinit() to common code as
->    it isn't really architecture indepent part.
->  - Update the commit message.
->  - Move stub of ic_acpi_preinit() to <asm-generic/device.h> for the case when
->    CONFIG_ACPI=n.
-> ---
->  xen/arch/arm/gic.c               | 45 +------------------------------
->  xen/arch/arm/setup.c             |  3 ++-
->  xen/common/device.c              | 46 ++++++++++++++++++++++++++++++++
->  xen/include/asm-generic/device.h | 10 +++++++
->  4 files changed, 59 insertions(+), 45 deletions(-)
+On 31/10/2024 9:25 am, Jan Beulich wrote:
+> On 30.10.2024 19:03, Andrew Cooper wrote:
+>> A new branch from xen-RELEASE-4.19.0, for now containing commit
+>> a400dd517068 ("Add missing symbol exports for grub-pv").
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Juergen Gross <jgross@suse.com>
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>> ---
+>>  Config.mk | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/Config.mk b/Config.mk
+>> index 03a89624c77f..aa3d5843f1ed 100644
+>> --- a/Config.mk
+>> +++ b/Config.mk
+>> @@ -224,7 +224,7 @@ QEMU_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/qemu-xen.git
+>>  QEMU_UPSTREAM_REVISION ?= qemu-xen-4.19.0
+>>  
+>>  MINIOS_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/mini-os.git
+>> -MINIOS_UPSTREAM_REVISION ?= xen-RELEASE-4.19.0
+>> +MINIOS_UPSTREAM_REVISION ?= xen-stable-4.19
+> Wouldn't we better use a hash here, like we do on staging? There had been
+> cases where it wasn't safe for the used commit to move "automatically", and
+> the same could occur on a stable branch. The hash would then be replaced by
+> a release tag when a release is being prepared (again like on staging).
 
-Looks largely okay to me now, with a question and a nit at the bottom. The
-question is mainly to Arm folks, where the code is coming from, and DT
-maintainers: Is a file named device.c really an appropriate "home" for
-IC-related code? If IC is a common thing in the DT world, would such code
-maybe better live under common/device-tree/?
+It will only be getting build fixes, not new content.  So it will be
+stable-enough in that regard.
 
-> --- a/xen/include/asm-generic/device.h
-> +++ b/xen/include/asm-generic/device.h
-> @@ -127,6 +127,16 @@ __section(".adev.info") = {                                         \
->  
->  #endif /* CONFIG_ACPI */
->  
-> +void ic_preinit(void);
-> +
-> +#ifdef CONFIG_ACPI
-> +void ic_acpi_preinit(void);
-> +#else
-> +#include <xen/init.h>
-> +
-> +static inline void __init ic_acpi_preinit(void) { }
-> +#endif
+Otherwise, its hedging my bets as to whether other changes will be
+needed before we cut releases.  All of this comes from the fact that
+we've got a couple of rolling distros which end up up-to-date even on
+the oldest trees.
 
-I don't think there's a need to have __init on an empty inline stub. That'll
-then also eliminate the need for the extra #include.
-
-Jan
+~Andrew
 
