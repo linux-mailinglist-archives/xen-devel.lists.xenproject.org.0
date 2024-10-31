@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 500DD9B8107
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 18:18:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828855.1243884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C448C9B8123
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 18:25:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828860.1243894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Yo9-0006uk-UW; Thu, 31 Oct 2024 17:18:05 +0000
+	id 1t6Yuo-0008T7-KA; Thu, 31 Oct 2024 17:24:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828855.1243884; Thu, 31 Oct 2024 17:18:05 +0000
+Received: by outflank-mailman (output) from mailman id 828860.1243894; Thu, 31 Oct 2024 17:24:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Yo9-0006sd-Ru; Thu, 31 Oct 2024 17:18:05 +0000
-Received: by outflank-mailman (input) for mailman id 828855;
- Thu, 31 Oct 2024 17:18:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t6Yuo-0008R1-H4; Thu, 31 Oct 2024 17:24:58 +0000
+Received: by outflank-mailman (input) for mailman id 828860;
+ Thu, 31 Oct 2024 17:24:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7hTS=R3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t6Yo8-0006sX-9m
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 17:18:04 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 131ccc76-97ac-11ef-99a3-01e77a169b0f;
- Thu, 31 Oct 2024 18:17:58 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c9693dc739so1595266a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 10:17:58 -0700 (PDT)
+ id 1t6Yun-0008Qv-0z
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 17:24:57 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09b6f107-97ad-11ef-a0c3-8be0dac302b0;
+ Thu, 31 Oct 2024 18:24:52 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a9a68480164so158515166b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 10:24:52 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ceac76ff0fsm759765a12.27.2024.10.31.10.17.56
+ a640c23a62f3a-a9e56684374sm86982966b.209.2024.10.31.10.24.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 10:17:57 -0700 (PDT)
+ Thu, 31 Oct 2024 10:24:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 131ccc76-97ac-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmYiLCJoZWxvIjoibWFpbC1lZDEteDUyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjEzMWNjYzc2LTk3YWMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzk1MDc4LjQ3NTY5NSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 09b6f107-97ad-11ef-a0c3-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmUiLCJoZWxvIjoibWFpbC1lajEteDYyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjA5YjZmMTA3LTk3YWQtMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzk1NDkyLjEzNzQ3Nywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730395078; x=1730999878; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730395492; x=1731000292; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uzRJu1sXEDeQJEF7/mCzuJgulFnuSBdDoLCl+bYEHuY=;
-        b=fzVbixAViIRk82cyWeM45EjEVZJXJ78pf4VT3nE7RgaBTf2dKVllfUixuJJi8FJTWH
-         A4TUVJs2MZQjcH1sL5lI1pdSmctvhE/GDEf8OLCwkoxGylDbaqBi5iRbWOjCL8WtWd10
-         0p08hFQA/oV8wq6N7WJVvPNDgUIj1V4u09AWE=
+        bh=cXE1d9PP0AYAvCI+10bUqLyytpIjhrWXmekLrQ60Am8=;
+        b=emxYRe+e3XlHy1pWvxgiTxhMNz5knjkLkQ6SSiQT55wrBa1b6a74PJqCcB1sSiXXrf
+         QzuxRlPrY2JGP9hlQKIOaxuIdr4QjRF4VGP3QvNDfIo/B9UD3FJNSUOPv8w/X7UBK8iA
+         2NP+nn1mGDw8TsfQHkjFw4T+Ps49GVtnSj/78=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730395078; x=1730999878;
+        d=1e100.net; s=20230601; t=1730395492; x=1731000292;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uzRJu1sXEDeQJEF7/mCzuJgulFnuSBdDoLCl+bYEHuY=;
-        b=j5Hm1LK8NfF8BrEE1uUDgpw2C7ee1olOrGXZnc53huaeqHdjGhL3OkQ6bnIiKAyxWX
-         bck2dY+Nrub7crRK4JrALwr8z0BdqpzMH2swNLPK8qp7WzU1++2a5OtgwTr3Q+lBYIjh
-         p+LxMlLnjh+RQM6xjxe+tfmdCnvGTTIKNArIEcS9+KrCuLJxBv/3Z34rK9826udj0mS2
-         nLKZK/wuYe1i3wyX1XmWicALoieR7E5eNDDSJKOhbWKSGBr/nTpYrDeZs7gfk94W5REO
-         XEtw0fotYPjG3nMtmWCzUnd9zNXMagVcLUzM9ojChx/lSNPGw7kAxAE3/2sjn/g7mgZP
-         eTiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXRQoePIsCz1tffVK3VhGZ8vsx8z5OoLyA9MT+X+2D6+WTKywZRlJazxueQYj7EjDxAVc1kQs5Wgtc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4TrxD9lNn9WwgZxPgEKsF7ugxXMzC2KgHK/QZTpX6qXzVMHPP
-	4AD4/bynezyeCTjudIi37BlO8VYLSxqJWPXk8uiskOi7oQjJMVEl6bEfojqPflLKUG44kJ/DbZJ
-	J
-X-Google-Smtp-Source: AGHT+IHZX06NFgcBX6G648tacbpfWhzBgix2ljoVffnzG5deVBE5CD7J8Rc6Xk1lMh5AJMl1R4LjcQ==
-X-Received: by 2002:a05:6402:348c:b0:5c9:5c8a:99e5 with SMTP id 4fb4d7f45d1cf-5ceb936a3d1mr364885a12.30.1730395077724;
-        Thu, 31 Oct 2024 10:17:57 -0700 (PDT)
-Message-ID: <6877d26c-144f-4b4e-968c-28b535cb3db1@citrix.com>
-Date: Thu, 31 Oct 2024 17:17:55 +0000
+        bh=cXE1d9PP0AYAvCI+10bUqLyytpIjhrWXmekLrQ60Am8=;
+        b=weMKmBADDeEiAHlRurfnvsoPvgSUWCky2QwHchSg7T8nKdur50a6zw0uHq2UrdkZtL
+         gpKSH7gAyVdc/RoTEbBv2pd/oJ4d+gVfauG7luXCB0b4RYqDEzHoWeCWRX5ZaMsh1ywO
+         Qo4SFO9wDWlTZNBaYS5jorH6Kk06VoL94DYLd81z0Dymv9wfAbxOaAkSnGP9ozL1jSZj
+         3TuU6gT6gbURn6hAbYuGWwHzhh5yHKgy4X72lf5P3WZepQQ1ETPJH3Ts1LjirLburDw7
+         DL7+Wd0TCCHkcRY6N5IVZwFLhvi//eRoJPkG2SZxad4+WlmdhaN9lBxD9rLCE3s3/ElT
+         bdqw==
+X-Gm-Message-State: AOJu0Yy/Ze/Uvfb5SpOSZwyzMFu4rmMDTnur6Tapr5PyRqYJX5U77yfI
+	3+2HXAwor96khvUilqTlUlWaVyb/ONHLR6pNed0jtqo5pQGisMtq2osQ9HsyGrQ=
+X-Google-Smtp-Source: AGHT+IGcxeRtcidIzkUcA7yIPO6c+Jz3bItngEHalJwBNR35TFHNKRNTULFmQ0WegtJbilY6RewSLA==
+X-Received: by 2002:a17:907:1b84:b0:a9a:bbcc:508c with SMTP id a640c23a62f3a-a9de5c91a6emr1334942566b.2.1730395491812;
+        Thu, 31 Oct 2024 10:24:51 -0700 (PDT)
+Message-ID: <52ddb738-7cff-4929-8ffd-3f288f87e373@citrix.com>
+Date: Thu, 31 Oct 2024 17:24:48 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: ensure L2 is always freed if empty
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20241030114852.55530-1-roger.pau@citrix.com>
+Subject: Re: [PATCH] CI: Fix cppcheck parallel build more
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+References: <20241031165505.3007713-1-andrew.cooper3@citrix.com>
+ <D33A8FE6-B6D7-4E6A-82C2-1DB3E24FE97F@arm.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,56 +131,49 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241030114852.55530-1-roger.pau@citrix.com>
+In-Reply-To: <D33A8FE6-B6D7-4E6A-82C2-1DB3E24FE97F@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/10/2024 11:48 am, Roger Pau Monne wrote:
-> The current logic in modify_xen_mappings() allows for fully empty L2 tables to
-> not be freed and unhooked from the parent L3 if the last L2 slot is not
-> populated.
+On 31/10/2024 5:11 pm, Luca Fancellu wrote:
+> Hi Andrew,
 >
-> Ensure that even when an L2 slot is empty the logic to check whether the whole
-> L2 can be removed is not skipped.
+>> On 31 Oct 2024, at 16:55, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>
+>> A recent cppcheck run was found to fail:
+>>
+>>  https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/8237167472
+>>
+>> with:
+>>
+>>  "type mismatch! call is<type>() before get<type>()" && is<std::string>()
+>>  make[3]: *** [arch/x86/boot/Makefile:28: arch/x86/boot/reloc-trampoline.32.o] Error 1
+>>
+>> This turns out to be a parallel build issue, combined with a recent change to
+>> x86.  Notably, we now have a case where we build both:
+>>
+>>  CC      arch/x86/boot/reloc-trampoline.32.o
+>>  CC      arch/x86/boot/reloc-trampoline.o
+>>
+>> from the same original C file, and cppcheck uses the source C file as the key
+>> for generating it's intermediate files.
+>>
+>> Switch cppcheck to use the object file as the unique key instead.
+>>
+>> Fixes: 45bfff651173 ("xen/misra: xen-analysis.py: fix parallel analysis Cppcheck errors")
+>> Fixes: db8acf31f96b ("x86/boot: Reuse code to relocate trampoline")
+>> Suggested-by: Luca Fancellu <luca.fancellu@arm.com>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> —
+> Looks good to me!
+> I’ve also checked with and without the patch and I can’t see any regression in terms of cppcheck
+> issues report.
 >
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> I've attempted to find a Fixes tag for this one, but I'm afraid there have been
-> many changes in the function, and it's possibly the code that introduced the L2
-> freeing (4376c05c31132) the one that failed to originally adjust this case.
-> ---
->  xen/arch/x86/mm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
 >
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index d537a799bced..0f53dcebad95 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -5717,7 +5717,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
->  
->              v += 1UL << L2_PAGETABLE_SHIFT;
->              v &= ~((1UL << L2_PAGETABLE_SHIFT) - 1);
-> -            continue;
-> +            goto check_l3;
->          }
->  
->          if ( l2e_get_flags(*pl2e) & _PAGE_PSE )
 
-https://gitlab.com/xen-project/hardware/xen/-/jobs/8240163332
-
-That's hitting the BUG_ON(!nr_bootmem_regions); in alloc_boot_pages().
-
-  [<ffff82d04060407a>] R alloc_boot_pages+0x46/0xbc
-  [<ffff82d04033a76f>] S alloc_xen_pagetable+0x5e/0x60
-  [<ffff82d04033a7af>] F alloc_mapped_pagetable+0xd/0x3e
-  [<ffff82d04033a948>] F arch/x86/mm.c#virt_to_xen_l2e+0x78/0xec
-  [<ffff82d04033ba71>] F map_pages_to_xen+0xefb/0x1079
-  [<ffff82d04063d55c>] F arch/x86/setup#bootstrap_map_addr+0x95/0xff
-
-I think what's happened is you've "freed" l2_bootmap[], causing
-bootstrap_map_addr() to now need to allocate memory.
-
-I've reverted for now, per Roger's request on Matrix.
+Thanks.  I'll get this committed right away.
 
 ~Andrew
 
