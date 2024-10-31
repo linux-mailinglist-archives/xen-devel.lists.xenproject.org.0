@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 209649B777B
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 10:29:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828532.1243442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D39769B779A
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 10:34:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828543.1243464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6RTx-0004Jb-Rr; Thu, 31 Oct 2024 09:28:45 +0000
+	id 1t6RZW-0006DD-Hj; Thu, 31 Oct 2024 09:34:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828532.1243442; Thu, 31 Oct 2024 09:28:45 +0000
+Received: by outflank-mailman (output) from mailman id 828543.1243464; Thu, 31 Oct 2024 09:34:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6RTx-0004HS-Oa; Thu, 31 Oct 2024 09:28:45 +0000
-Received: by outflank-mailman (input) for mailman id 828532;
- Thu, 31 Oct 2024 09:28:44 +0000
+	id 1t6RZW-0006Ao-EU; Thu, 31 Oct 2024 09:34:30 +0000
+Received: by outflank-mailman (input) for mailman id 828543;
+ Thu, 31 Oct 2024 09:34:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sKGZ=R3=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1t6RTv-0004HM-TW
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 09:28:43 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zW4/=R3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t6RZV-0006Ai-Pd
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 09:34:29 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8238b9a4-976a-11ef-99a3-01e77a169b0f;
- Thu, 31 Oct 2024 10:28:39 +0100 (CET)
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-554-QN7-STtIOQWMNkok5CaQMA-1; Thu, 31 Oct 2024 05:28:35 -0400
-Received: by mail-lj1-f199.google.com with SMTP id
- 38308e7fff4ca-2fb58980614so4514231fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 02:28:35 -0700 (PDT)
-Received: from dhcp-64-16.muc.redhat.com (nat-pool-muc-t.redhat.com.
- [149.14.88.26]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4327d5e94cdsm18626575e9.28.2024.10.31.02.28.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Oct 2024 02:28:32 -0700 (PDT)
+ id 50ef035a-976b-11ef-99a3-01e77a169b0f;
+ Thu, 31 Oct 2024 10:34:24 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-539f84907caso774650e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 02:34:24 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381c10e734csm1554683f8f.60.2024.10.31.02.34.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 31 Oct 2024 02:34:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,242 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8238b9a4-976a-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMzMuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjgyMzhiOWE0LTk3NmEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzY2OTE5LjEzNDc4MSwic2VuZGVyIjoicHN0YW5uZXJAcmVkaGF0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1730366917;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d6wn1lKONgblnZ++1qSDC4UeXUH/h7Owd02AbOfZVIQ=;
-	b=O1Hgo5JC6FUyTNgc9e8DRsrVBH3XjpdkBRq56cQs26Z96zCNPjyrQonIkEUaWvXo6OfysK
-	/r8s5Mn6pOHx86PYvyn0rblxTG+sBJuGXwpseiwGBm8a+0+mGJ2hfoUDzBWcYsRJHcbbDs
-	A3vEQ1E4S9QZgLYCWrViN3YKnD6hEKo=
-X-MC-Unique: QN7-STtIOQWMNkok5CaQMA-1
+X-Inumbo-ID: 50ef035a-976b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzIiLCJoZWxvIjoibWFpbC1sZjEteDEzMi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjUwZWYwMzVhLTk3NmItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzY3MjY0LjgxNDIzLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1730367264; x=1730972064; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=typLIZP/MMzWQHxa3dozJ8ah4urFEFoF37pwxUrpcoA=;
+        b=ahx1y60ioLeE4c5KF5tI6iXszzrmT+GN25xlOvLG4IxxsWk96V7QMYOcWM8ZrtqLyc
+         C2acGtcvYabnttLeygfd63tI8TcogApySvEEMyc4h7lWsqeHiu6OwFbWn+SLDEhnNuDy
+         PKZXlMX4oRn1/NZLyvO6mPeJr1jbC2CRzwyMJYPslOA8KycRdpcg5PBTZsiqEFtmDGWb
+         5JRn53QCBsSxdci5PI/XNtzaIvAKtGaUz8OICM9Fg7NQ3BzLM4IBPak9g/UhJTbf9Fsp
+         Dj/a9oaQ8hie33mJS/jCEaIjZdpvKOlI7WT+xXsBd5doD+FGJcyAmCiN7FP7ogYixI35
+         QRqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730366914; x=1730971714;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=d6wn1lKONgblnZ++1qSDC4UeXUH/h7Owd02AbOfZVIQ=;
-        b=CCi9DymkUOimLlw2bzVd8XufAPCKXaNyMIr/QaLTAFLbcDTrgPSRSQzcA/rW4ZJqew
-         N+jnRk19JpubIel/SG/z29ZeWoTSHuqR0UlOkMZ42Z5XJQfqX0xMc0xZcvkxAFtkiSiq
-         Or8WbxKkcMKFXOKfyUldmc1moUrrtwgxAgLm3gjhsAdJF3r4DQBHVPH1/pUBjjyS209o
-         J8Cqfsz1EfBBqnHuHko5OmlKRPpdJ1hV4PWsRXQFuQ9kJgal5f37kzGIuTmtk/zZD9YN
-         CgpOrRG8fDWdhxWCLMrl1FptZPKui8qcPlfDpMeW6fbxt/4dOC+m4+l8az5giES9rlic
-         7ICA==
-X-Forwarded-Encrypted: i=1; AJvYcCWuBCdH5k0DZcZLfY30kQww1rSVjZ8UEcsDvi/CgfpjAK28eReyy/oSuUDToDBExKpepprWHYxeZxQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YygHSfWfqmtD4QvQms011AGUZpvHpRzPjs+n0A5gbFNKJkltasF
-	9wa/QbAVcW7SWcNT7Tq9a6/vBB6ni9Xm3delgOUA9+iTHVUf2EMddpm3FLIEBsu0zd3fmjA6zEA
-	7PgHpimXDiYOtmekwMkIX+fIKVEc9udM2kAaLCy3k5ngrqZWiFr8iyCzw1A8kDWCv
-X-Received: by 2002:a2e:b8cf:0:b0:2fb:58b1:3731 with SMTP id 38308e7fff4ca-2fd058fbda2mr43394621fa.6.1730366913672;
-        Thu, 31 Oct 2024 02:28:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEinR4wm9boDAsEkZ9V3ivoUKK9VQmKYoIEQNVXO7Y2sjsmX4v4AmQcNIDCbC3ckt5R0LeFLA==
-X-Received: by 2002:a2e:b8cf:0:b0:2fb:58b1:3731 with SMTP id 38308e7fff4ca-2fd058fbda2mr43394381fa.6.1730366913125;
-        Thu, 31 Oct 2024 02:28:33 -0700 (PDT)
-Message-ID: <f13c91f2d1e7672e1d9983425117eeb6347c0ea1.camel@redhat.com>
-Subject: Re: [PATCH 00/13] Remove implicit devres from pci_intx()
-From: Philipp Stanner <pstanner@redhat.com>
-To: Takashi Iwai <tiwai@suse.de>, Bjorn Helgaas <helgaas@kernel.org>
-Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
- Sergey Shtylyov <s.shtylyov@omp.ru>, Basavaraj Natikar
- <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>,  Benjamin
- Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
- Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
- <manishc@marvell.com>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rasesh Mody <rmody@marvell.com>,
- GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko <imitsyanko@quantenna.com>,
- Sergey Matyukevich <geomatsi@gmail.com>, Kalle Valo <kvalo@kernel.org>,
- Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar S K
- <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
- <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, Chen Ni <nichen@iscas.ac.cn>, Mario Limonciello
- <mario.limonciello@amd.com>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
- <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>, Kevin Tian
- <kevin.tian@intel.com>, Thomas Gleixner <tglx@linutronix.de>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, Mostafa Saleh
- <smostafa@google.com>, Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu
- <yi.l.liu@intel.com>,  Christian Brauner <brauner@kernel.org>, Ankit
- Agrawal <ankita@nvidia.com>, Eric Auger <eric.auger@redhat.com>, Reinette
- Chatre <reinette.chatre@intel.com>, Ye Bin <yebin10@huawei.com>, Marek
- =?ISO-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Kai Vehmanen
- <kai.vehmanen@linux.intel.com>,  Rui Salvaterra <rsalvaterra@gmail.com>,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
- linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
-Date: Thu, 31 Oct 2024 10:28:29 +0100
-In-Reply-To: <87plngwrws.wl-tiwai@suse.de>
-References: <20241015185124.64726-1-pstanner@redhat.com>
-	 <20241030221737.GA1223682@bhelgaas> <87plngwrws.wl-tiwai@suse.de>
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40)
+        d=1e100.net; s=20230601; t=1730367264; x=1730972064;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=typLIZP/MMzWQHxa3dozJ8ah4urFEFoF37pwxUrpcoA=;
+        b=WGzUhrHAZCCZ1B4TOawjRXNR4xi4QoeMIlGUP/Bgd+Fvq308XxPfmWHJe754Sc4kAi
+         6I12k8eH2YYWl8gIP03d2Nt59EQTPzSmrz5efJFGdoBtnTfzJxAs2wlwP4uf3swE/Neo
+         vK5EL4FUuh391qEPiWaSBxrBro711jdf5XQbJamVxj34nB4nn/IOjk6Cxb3XYQPqsJNn
+         78KaBmUWoVRaGhuuR44sPV+rwtMh6dWSdptlyd9u5q/FNV6+Lk4elAfYFrJ2xN/TtM52
+         W1BV8sEomrDuslNafHUTafylGrqX1n1uvHfwYSMi+ivj/q/9MQk6V4bVp32FuIAafDt0
+         s/vQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWCO4wZwM0+PMen3PAP/I6iJ1xmpoO2lIr5ewvxffE9stxTFGd9FoX/QeLNYsCPpP7dHccEj/0w5Gg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyMNDMUITjf/G0UxS/Q5DNMsrmiDO0mOE8OpO6IQ2TyF99vSBYU
+	fFKtEWunXGr5Y1zXoXlPn/qgM+ATKU17vzN45T+Tl1uvqPbIx+gf6fNx4uWreA==
+X-Google-Smtp-Source: AGHT+IEgayhKxHFJmNN6Ovp5H1MhTchYfR1FplToSOh7uzRgnNYn07QfVv8gUBESsjJ6nr7onJsvgA==
+X-Received: by 2002:a05:6512:3b98:b0:539:fb56:7790 with SMTP id 2adb3069b0e04-53b348ec010mr10540758e87.6.1730367264068;
+        Thu, 31 Oct 2024 02:34:24 -0700 (PDT)
+Message-ID: <6461a47f-759a-4138-970c-4e5f68b07bae@suse.com>
+Date: Thu, 31 Oct 2024 10:34:22 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/common: Move gic_preinit() to common code
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <e906b538aba684ab108cc70e8c60ed35ddfad74e.1730292286.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e906b538aba684ab108cc70e8c60ed35ddfad74e.1730292286.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2024-10-31 at 10:19 +0100, Takashi Iwai wrote:
-> On Wed, 30 Oct 2024 23:17:37 +0100,
-> Bjorn Helgaas wrote:
-> >=20
-> > On Tue, Oct 15, 2024 at 08:51:10PM +0200, Philipp Stanner wrote:
-> > > @Driver-Maintainers: Your driver might be touched by patch
-> > > "Remove
-> > > devres from pci_intx()". You might want to take a look.
-> > >=20
-> > > Changes since the RFC [1]:
-> > > =C2=A0 - Add a patch deprecating pci{m}_intx(). (Heiner, Andy, Me)
-> > > =C2=A0 - Add Acked-by's already given.
-> > > =C2=A0 - Export pcim_intx() as a GPL function. (Alex)
-> > > =C2=A0 - Drop patch for rts5280, since this driver will be removed
-> > > quite
-> > > =C2=A0=C2=A0=C2=A0 soon. (Philipp Hortmann, Greg)
-> > > =C2=A0 - Use early-return in pci_intx_unmanaged() and pci_intx().
-> > > (Andy)
-> > >=20
-> > > Hi all,
-> > >=20
-> > > this series removes a problematic feature from pci_intx(). That
-> > > function
-> > > sometimes implicitly uses devres for automatic cleanup. We should
-> > > get
-> > > rid of this implicit behavior.
-> > >=20
-> > > To do so, a pci_intx() version that is always-managed, and one
-> > > that is
-> > > never-managed are provided. Then, all pci_intx() users are ported
-> > > to the
-> > > version they need. Afterwards, pci_intx() can be cleaned up and
-> > > the
-> > > users of the never-managed version be ported back to pci_intx().
-> > >=20
-> > > This way we'd get this PCI API consistent again.
-> > >=20
-> > > Patch "Remove devres from pci_intx()" obviously reverts the
-> > > previous
-> > > patches that made drivers use pci_intx_unmanaged(). But this way
-> > > it's
-> > > easier to review and approve. It also makes sure that each
-> > > checked out
-> > > commit should provide correct behavior, not just the entire
-> > > series as a
-> > > whole.
-> > >=20
-> > > Merge plan for this is to enter through the PCI tree.
-> > >=20
-> > > [1]
-> > > https://lore.kernel.org/all/20241009083519.10088-1-pstanner@redhat.co=
-m/
-> >=20
-> > I *think* this series depends on resolution of Takashi's "Restore
-> > the
-> > original INTX_DISABLE bit by pcim_intx()" patch [2], right?
->=20
-> IIUC, it's not really dependent, as pcim_intx() has been used in
-> pci_intx() internally when the PCI device is already managed.
-> My patch is to correct the already existing behavior.
+On 30.10.2024 14:14, Oleksii Kurochko wrote:
+> Introduce ic_preinit() in the common codebase, as it is not
+> architecture-specific and can be reused by both PPC and RISC-V.
+> This function identifies the node with the interrupt-controller property
+> in the device tree and calls device_init() to handle architecture-specific
+> initialization of the interrupt controller.
+> 
+> Additionally, rename gic_acpi_preinit() to ic_acpi_preinit() as it is used
+> by ic_preinit(), while keeping it defined in architecture-specific as this
+> part is architecture-specific. In case if CONFIG_ACPI=n a stub for
+> ic_acpi_preinit() is provided. To declaration/defintion of ic_acpi_preint()
+> is added `inline` to deal with the compilation issue:
+>   error: 'ic_acpi_preinit' defined but not used [-Werror=unused-function]
+> 
+> Make minor adjustments compared to the original ARM implementation of
+> gic_dt_preinit():
+>  - Remove the local rc variable in gic_dt_preinit() since it is only used once.
+>  - Change the prefix from gic to ic to clarify that the function is not
+>    specific to ARM’s GIC, making it suitable for other architectures as well.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in v2:
+>  - Revert changes connected to moving of gic_acpi_preinit() to common code as
+>    it isn't really architecture indepent part.
+>  - Update the commit message.
+>  - Move stub of ic_acpi_preinit() to <asm-generic/device.h> for the case when
+>    CONFIG_ACPI=n.
+> ---
+>  xen/arch/arm/gic.c               | 45 +------------------------------
+>  xen/arch/arm/setup.c             |  3 ++-
+>  xen/common/device.c              | 46 ++++++++++++++++++++++++++++++++
+>  xen/include/asm-generic/device.h | 10 +++++++
+>  4 files changed, 59 insertions(+), 45 deletions(-)
 
-IOW, pcim_intx() does not behave correctly, independently from removing
-the call to it in pci_intx().
+Looks largely okay to me now, with a question and a nit at the bottom. The
+question is mainly to Arm folks, where the code is coming from, and DT
+maintainers: Is a file named device.c really an appropriate "home" for
+IC-related code? If IC is a common thing in the DT world, would such code
+maybe better live under common/device-tree/?
 
-> =C2=A0 So I guess you
-> can take this series, and I'll post the revised patch later (sorry, I
-> was too busy for other tasks).
->=20
->=20
-> thanks,
->=20
-> Takashi
->=20
-> >=20
-> > For now I'm postponing this series, but let me know if that's not
-> > the
-> > right thing.
+> --- a/xen/include/asm-generic/device.h
+> +++ b/xen/include/asm-generic/device.h
+> @@ -127,6 +127,16 @@ __section(".adev.info") = {                                         \
+>  
+>  #endif /* CONFIG_ACPI */
+>  
+> +void ic_preinit(void);
+> +
+> +#ifdef CONFIG_ACPI
+> +void ic_acpi_preinit(void);
+> +#else
+> +#include <xen/init.h>
+> +
+> +static inline void __init ic_acpi_preinit(void) { }
+> +#endif
 
-There are still several reviews / acks missing from the respective
-driver maintainers, so there's no hurry with this series regarding your
-side ;)
+I don't think there's a need to have __init on an empty inline stub. That'll
+then also eliminate the need for the extra #include.
 
-Regards
-P.
-
-
-> >=20
-> > [2] https://lore.kernel.org/r/20241024155539.19416-1-tiwai@suse.de
-> >=20
-> > > Philipp Stanner (13):
-> > > =C2=A0 PCI: Prepare removing devres from pci_intx()
-> > > =C2=A0 ALSA: hda_intel: Use always-managed version of pcim_intx()
-> > > =C2=A0 drivers/xen: Use never-managed version of pci_intx()
-> > > =C2=A0 net/ethernet: Use never-managed version of pci_intx()
-> > > =C2=A0 net/ntb: Use never-managed version of pci_intx()
-> > > =C2=A0 misc: Use never-managed version of pci_intx()
-> > > =C2=A0 vfio/pci: Use never-managed version of pci_intx()
-> > > =C2=A0 PCI: MSI: Use never-managed version of pci_intx()
-> > > =C2=A0 ata: Use always-managed version of pci_intx()
-> > > =C2=A0 wifi: qtnfmac: use always-managed version of pcim_intx()
-> > > =C2=A0 HID: amd_sfh: Use always-managed version of pcim_intx()
-> > > =C2=A0 Remove devres from pci_intx()
-> > > =C2=A0 PCI: Deprecate pci_intx(), pcim_intx()
-> > >=20
-> > > =C2=A0drivers/ata/ahci.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/ata/ata_piix.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/ata/pata_rdc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/ata/sata_sil24.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/ata/sata_sis.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/ata/sata_uli.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/ata/sata_vsc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/hid/amd-sfh-hid/amd_sfh_pcie.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +--
-> > > =C2=A0drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |=C2=A0 2 +-
-> > > =C2=A0.../wireless/quantenna/qtnfmac/pcie/pcie.c=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 2 +-
-> > > =C2=A0drivers/pci/devres.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 29 +++++--------
-> > > ------
-> > > =C2=A0drivers/pci/pci.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 19 ++++--------
-> > > =C2=A0include/linux/pci.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> > > =C2=A0sound/pci/hda/hda_intel.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A014 files changed, 26 insertions(+), 47 deletions(-)
-> > >=20
-> > > --=20
-> > > 2.47.0
-> > >=20
->=20
-
+Jan
 
