@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 232919B7C34
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 14:55:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828714.1243701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F31C9B7C83
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 15:13:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828722.1243711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Vdw-0006nc-04; Thu, 31 Oct 2024 13:55:20 +0000
+	id 1t6VvQ-00025F-Dd; Thu, 31 Oct 2024 14:13:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828714.1243701; Thu, 31 Oct 2024 13:55:19 +0000
+Received: by outflank-mailman (output) from mailman id 828722.1243711; Thu, 31 Oct 2024 14:13:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Vdv-0006lA-T9; Thu, 31 Oct 2024 13:55:19 +0000
-Received: by outflank-mailman (input) for mailman id 828714;
- Thu, 31 Oct 2024 13:55:18 +0000
+	id 1t6VvQ-00022N-Ah; Thu, 31 Oct 2024 14:13:24 +0000
+Received: by outflank-mailman (input) for mailman id 828722;
+ Thu, 31 Oct 2024 14:13:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=35SK=R3=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t6Vdu-0006kc-KW
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 13:55:18 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ <SRS0=7hTS=R3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t6VvP-00022H-4P
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 14:13:23 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0a37e3b-978f-11ef-99a3-01e77a169b0f;
- Thu, 31 Oct 2024 14:55:14 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5c935d99dc5so1246426a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 06:55:14 -0700 (PDT)
-Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9e5649405dsm73003866b.10.2024.10.31.06.55.12
+ id 4660f39d-9792-11ef-99a3-01e77a169b0f;
+ Thu, 31 Oct 2024 15:13:17 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a9a0f198d38so146836466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 07:13:17 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9e565df8d8sm73108466b.131.2024.10.31.07.13.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 06:55:12 -0700 (PDT)
+ Thu, 31 Oct 2024 07:13:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,390 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0a37e3b-978f-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmUiLCJoZWxvIjoibWFpbC1lZDEteDUyZS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImMwYTM3ZTNiLTk3OGYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzgyOTE0LjE1NjcyOCwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 4660f39d-9792-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmEiLCJoZWxvIjoibWFpbC1lajEteDYyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjQ2NjBmMzlkLTk3OTItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzgzOTk3LjUxNzUzNiwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730382913; x=1730987713; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YiCRnpXsSiY6bncEVllpoxXx/3NG00oLxBsTZ3Gkekw=;
-        b=fAcc0cO5oLiW2CKg9raFgLLf1dlrAhet3X15wzt4Lpt4TclDAZQh2TXlDFCivdF91M
-         D3pgtjKBeJTvC3xUfVFEMoK4QoflB8CbRSbVTSjaf1ifl93mO//RUexKaxD3KWTJetxZ
-         SZcIEd5eXxrg7jP+e9KUBSM/1zdLepiYoMf5g=
+        d=citrix.com; s=google; t=1730383997; x=1730988797; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=8mOnPmxDxbKmJU/WxTohbDYJBWCkpxZOLE78JOwgCW0=;
+        b=G6ibcnneiBgVq24XlCWh9H/Q0fXDQk8isQaZaDO/n1NLIFfLUylXQIdLfvw2vpH1fB
+         gioJzGQ95LkJEBCFO8r4N3VvDSQblIrdDkBqs/uHDRssCUaNrOVCVvEr4mcKw8nNZdKm
+         Qo7gepWsQ2QhYGIKAVFxHjSbQZlg86LPKDsQQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730382913; x=1730987713;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=YiCRnpXsSiY6bncEVllpoxXx/3NG00oLxBsTZ3Gkekw=;
-        b=ookeDfKk4di4WxacywzkMLfAO5bQBq9nQH9IbfTl0HOVo9Gwxi6LgWiFKLtTAvFipG
-         ajZx0R6TUxUF8hN2JyVaGWiKGUyQSYMtO8U24IqyN8Gwg8qMGH9xT63Ko3sl29+eLFCe
-         jFEKioImo5U0H/S4E5i/1+X3HLld9ntVrSB9ZFha2f039BzP8da/+q7f7DIbJ5P1bSay
-         qVDiEfvxt0JGKMiaer2LMLANlL0wdyKs9NFP5tX2+wuxj8kESMlWdUqo1jqSumOU2md1
-         GjID1xttGZEgWHm11CpahsehfbvZsY17UTpnqkvW8buhx1PzeNXW87b3HkIRLDXyG5B+
-         6PRA==
-X-Forwarded-Encrypted: i=1; AJvYcCUI67xsHyC8MFfltBHVKjGyKqVyMnhije57OKSSPWqL8uWh5jl4sGL+nonlDupYAVUqJzwlTWqKIs4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+KHW2aHQyChik1cEAmGBcoyV+NUacyKzOOgIvrPTflnrAcI7j
-	mvEhWu5ZaWXNry/YvUVih+SQgaKjvOf72X8jTi/HDmI7R5Tu1TVRlU+lCwsYRKk=
-X-Google-Smtp-Source: AGHT+IGyJ654FLwZob/s13RukOu0q09Ahoz34ujpCPTeT1dTKazZUq1igw/Nkzcqf/66c6dcB7Keug==
-X-Received: by 2002:a17:907:ea0:b0:a99:f9d6:5590 with SMTP id a640c23a62f3a-a9de6331185mr1861225066b.60.1730382913361;
-        Thu, 31 Oct 2024 06:55:13 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1730383997; x=1730988797;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8mOnPmxDxbKmJU/WxTohbDYJBWCkpxZOLE78JOwgCW0=;
+        b=QZ2eGXlRYTs/kSc9MQG+YWEN0zpKwm49GZ0fJo36Zv0rm+kpFe7Lmb8DE9k/4QRV4L
+         tt+vJ96BUXk98+W/jkN2JjlYv3vy/ZB1NxqbwmJicDsKz3sbm3aRvngPPQVCIR3Txy53
+         SxAivuC607v3dowGy7UnRo1FDH65tfFS9dP8fP2bSCpJ9dWLeLzT0JHrWSo9jyrcJIUh
+         +rf23a6eYtRqdjwohhOP3PlS0qOboQVXHuPMAsrIYyBtVOHmLwTgCOOyR2jmcu4Dwd0D
+         6/OoPYI8fjHXGUJ/o5FmJzWGdOoWtMt44EIVYNVvUlNtvv1vI8wqZGxiTmsoUCkmzhp7
+         H9ug==
+X-Forwarded-Encrypted: i=1; AJvYcCV+46BL1ESDkJ5pDJB3PBJxFfBI3LkFmDXi1Yl3LrKtEa+PHHjhgHL7Ny7txBufwGgwBk3Q+QC8N+Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxfQ3JinZkVBh5wuKl75XiI0od6sjD2d1B0NxcxvuZESfL2rVv+
+	JNcN/slfO7/xq0K8pROgW71vVCrK67vDgMc0BPEleWe6J9z9TckEN9itY8P832s=
+X-Google-Smtp-Source: AGHT+IE0SoWM2L8pPOc+BN55vKSizyE7OKwI5nqXhkLk41cQcrrIfsSYOLn3GPcOi5fVX0zfovO1Jw==
+X-Received: by 2002:a17:906:f596:b0:a99:5773:3612 with SMTP id a640c23a62f3a-a9e65507131mr10408666b.36.1730383996883;
+        Thu, 31 Oct 2024 07:13:16 -0700 (PDT)
+Message-ID: <0f41efad-8eac-4b77-a974-e5a2798dbf8a@citrix.com>
+Date: Thu, 31 Oct 2024 14:13:14 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] x86/hvm: Use constants for x86 modes
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>
+References: <0ffcb0031eaa095b5864735d2f9edbe1d374e009.1730380434.git.teddy.astie@vates.tech>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <0ffcb0031eaa095b5864735d2f9edbe1d374e009.1730380434.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 31 Oct 2024 13:55:10 +0000
-Message-Id: <D5A1JR5UB8PT.HIR8RAR7ZJBS@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Julien Grall"
- <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen
- Gross" <jgross@suse.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
- =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, "Christian Lindig"
- <christian.lindig@citrix.com>, "David Scott" <dave@recoil.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, "Michal Orzel" <michal.orzel@amd.com>,
- "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [RFC PATCH 0/6] xen/abi: On wide bitfields inside primitive
- types
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-X-Mailer: aerc 0.18.2
-References: <20241029181632.69600-1-alejandro.vallejo@cloud.com>
- <3bf067c7-617c-42c0-bf6d-4387d97658ae@suse.com>
- <D598HGJY330K.3NA7GQLUSJJ9K@cloud.com>
- <dbc778eb-0c5f-4b99-ab04-020f8b69738b@suse.com>
-In-Reply-To: <dbc778eb-0c5f-4b99-ab04-020f8b69738b@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 31, 2024 at 7:57 AM GMT, Jan Beulich wrote:
-> On 30.10.2024 16:08, Alejandro Vallejo wrote:
-> >=20
-> > In the course of preparing this answer I just noticed that altp2m_opts =
-suffers
-> > from the exact same annoyance, with the exact same fix. I just noticed =
-while
-> > rebasing my Rust branch.
+On 31/10/2024 1:27 pm, Teddy Astie wrote:
+> In many places of x86 HVM code, constants integer are used to indicate in what mode is
+> running the CPU (real, v86, 16-bits, 32-bits, 64-bits). However, these constants are
+> are written directly as integer which hides the actual meaning of these modes.
 >
-> Hardly the only other one. See GTF_type_mask or XEN_DOMCTL_PFINFO_LTAB_MA=
-SK.
+> This patch introduces X86_MODE_* macros and replace those occurences with it.
 >
-> > On Wed Oct 30, 2024 at 9:14 AM GMT, Jan Beulich wrote:
-> >> On 29.10.2024 19:16, Alejandro Vallejo wrote:
-> >>> Non-boolean bitfields in the hypercall ABI make it fairly inconvenien=
-t to
-> >>> create bindings for any language because (a) they are always ad-hoc a=
-nd are
-> >>> subject to restrictions regular fields are not (b) require boilerplat=
-e that
-> >>> regular fields do not and (c) might not even be part of the core lang=
-uage,
-> >>> forcing avoidable external libraries into any sort of generic library=
-.
-> >>>
-> >>> This patch (it's a series merely to split roughly by maintainer) is o=
-ne such
-> >>> case that I happened to spot while playing around. It's the grant_ver=
-sion
-> >>> field, buried under an otherwise empty grant_opts.
-> >>>
-> >>> The invariant I'd like to (slowly) introduce and discuss is that fiel=
-ds may
-> >>> have bitflags (e.g: a packed array of booleans indexed by some enumer=
-ated
-> >>> type), but not be mixed with wider fields in the same primitive type.=
- This
-> >>> ensures any field containing an integer of any kind can be referred b=
-y pointer
-> >>> and treated the same way as any other with regards to sizeof() and th=
-e like.
-> >>
-> >> While I don't strictly mind, I'm also not really seeing why taking add=
-resses
-> >> or applying sizeof() would be commonly necessary. Can you perhaps prov=
-ide a
-> >> concrete example of where the present way of dealing with grant max ve=
-rsion
-> >> is getting in the way? After all your use of the term "bitfield" doesn=
-'t
-> >> really mean C's understanding of it, so especially (c) above escapes m=
-e to a
-> >> fair degree.
-> >=20
-> > Wall of text ahead, but I'll try to stay on point. The rationale should=
- become
-> > a lot clearer after I send an RFC series with initial code to autogener=
-ate some
-> > hypercall payloads from markup. The biggest question is: Can I create a
-> > definition language such that (a) it precisely represents the Xen ABI a=
-nd (b)
-> > is fully type-safe under modern strongly-typed languages?
-> >=20
-> > I already have a backbone I can define the ABI in, so my options when I=
- hit
-> > some impedance mismatch are:
-> >=20
-> >   1. Change the ABI so it matches better my means of defining it.
-> >   2. Change the means to define so it captures the existing ABI better.
-> >=20
-> > Most of the work I've done has moved in the (2) direction so far, but I=
- found a
-> > number of pain points when mapping the existing ABI to Rust that, while=
- not
-> > impossible to work around, are quite annoying for no clear benefit. If
-> > possible, I'd like to simplify the cognitive load involved in defining,=
- using
-> > and updating hypercalls rather than bending over backwards to support a
-> > construct that provides no real benefit. IOW: If I can define an ABI th=
-at is
-> > _simpler_, it follows that it's also easier to not make mistakes and it=
-'s
-> > easier to generate code for it.
-> >=20
-> > The use of packed fields is one such case. Even in C, we create extra m=
-acros
-> > for creating a field, modifying it, fetching it, etc. Patches 2-6 are s=
-trict
-> > code removals. And even in the most extreme cases the space savings are=
- largely
-> > irrelevant because the hypercall has a fixed size. We do want to pack _=
-flags_
-> > as otherwise the payload size would explode pretty quickly on hypercall=
-s with
-> > tons of boolean options, but I'm not aware of that being problematic fo=
-r wider
-> > subfields (like the grant max version).
-> >=20
-> > Now, being more concrete...
-> >=20
-> > ##################################################################
-> > # IDL is simpler if the size is a property of the type
-> > ##################################################################
-> >=20
-> > Consider the definition of the (new) max_grant_version type under the I=
-DL I'm
-> > working on (it's TOML, but I don't particularly care about which markup=
- we end
-> > up using).
-> >=20
-> >   [[enums]]
-> >   name =3D "xen_domaincreate_max_grant_version"
-> >   description =3D "Content of the `max_grant_version` field of the doma=
-in creation hypercall."
-> >   typ =3D { tag =3D "u8" }
-> >=20
-> >   [[enums.variants]]
-> >   name =3D "off"
-> >   description =3D "Must be used with gnttab support compiled out"
-> >   value =3D 0
-> >=20
-> >   [[enums.variants]]
-> >   name =3D "v1"
-> >   description =3D "Allow the domain to use up to gnttab_v1"
-> >   value =3D 1
-> >=20
-> >   [[enums.variants]]
-> >   name =3D "v2"
-> >   description =3D "Allow the domain to use up to gnttab_v2"
-> >   value =3D 2
-> >=20
-> > Note that I can define a type being enumerated, can choose its specific
-> > variants and its width is a property of the type itself. With bitfields=
- you're
-> > always in a weird position of the width not being part of the type that=
- goes
-> > into it.
-> >=20
-> > Should I need it as a field somewhere, then...
-> >=20
-> >   [[structs.fields]]
-> >   name =3D "max_grant_version"
-> >   description =3D "Maximum grant table version the domain may be bumped=
- to"
-> >   typ =3D { tag =3D "enum", args =3D "xen_domaincreate_max_grant_versio=
-n" }
-> >=20
-> > ... at which point the size of the field is given by an intrinsic prope=
-rty of
-> > the type (the typ property on the enums table) I previously defined. It=
-'s
-> > extensible, composable and allows me to generate readable code in both =
-C and
-> > Rust.
-> >=20
-> > Should I need to support full bitfields I would require a means of stat=
-ing the
-> > start and end bits of every field, which is very bad for the sanity of =
-whoever
-> > wants to maintain coherency in the ABI.
-> >=20
-> > ##################################################################
-> > # Rust and Go don't like bitfields...
-> > ##################################################################
-> >=20
-> > ... and neither does C, even if for historic reasons they do exist in t=
-he
-> > standard.
->
-> I don't think that's just for historic reasons. To interface with hardwar=
-e,
-> alternative approaches are often more cumbersome. See how we're (slowly)
-> moving to using bitfields more in Xen, in favor of tons of #define-s and
-> more or less open-coded masking operations.
->
-> > On a slight tangent, neither Rust nor Go support bitfields in the
-> > core language. This was a deliberate design decision of their respectiv=
-e
-> > designers. I can't speak for Go as I'm not a Go developer, but Rust doe=
-s have a
-> > very well-known, well-supported and very common external crate ("bitfla=
-gs")
-> > that allows very ergonomic semantics for definition of packed booleans.=
- As an
-> > example here's the flags for domain create, as spitted out by the gener=
-ator I
-> > have.
-> >=20
-> > (comments removed for brevity). This defines a bitmap indexed by the fl=
-ags
-> > type, represented by a 32bit primitive. It's type-safe from the PoV tha=
-t I
-> > can't just write 1 << 15 to a variable of this type and expect anything=
- but
-> > screams from the compiler.
-> >=20
-> >   bitflags! {
-> >       #[repr(C)]
-> >       #[derive(Copy, Clone, Debug, Default, PartialEq, Eq)]
-> >       pub struct XenDomaincreateFlags: u32 {
-> >           const Hvm =3D 1 << 0;
-> >           const Hap =3D 1 << 1;
-> >           const S3Integrity =3D 1 << 2;
-> >           const OosOff =3D 1 << 3;
-> >           const XsDomain =3D 1 << 4;
-> >           const Iommu =3D 1 << 5;
-> >           const NestedVirt =3D 1 << 6;
-> >           const Vpmu =3D 1 << 7;
-> >       }
-> >   }
-> >=20
-> > This enables callers to have type-safe variables in a pretty ergonomic =
-fashion:
-> >=20
-> >   let flags =3D XenDomainCreateFlags::Hvm |
-> >               XenDomainCreateFlags::Hap |
-> >               XenDomainCreateFlags::Iommu;
-> >=20
-> > and assignments to its related struct would follow regular assignment r=
-ules.
-> >=20
-> > ##################################################################
-> > # IOW
-> > ##################################################################
-> >=20
-> > Supporting general bitfields is annoying, even in C. Adding support in =
-IDL for
-> > them is a headache if we want the descriptions to help us catch mistake=
-s and
-> > language support is poor using this constructs (at best).
-> >=20
-> > Can we please get rid of them?
->
-> I remain undecided. If we set forth as a goal to avoid such in the new AB=
-I
-> that has been mentioned for many years, that would be a more clear cut.
+> Signed-off-by Teddy Astie <teddy.astie@vates.tech>
+> ---
+> I am not sure of other places that uses these integer constants.
 
-That's the direction I want to move on, but there's a chicken-and-egg
-situation. I want to avoid the effort I'm putting in adding cross-language
-support to the hypercall boundary to be necessarily gated on introducing a
-whole new ABI that hasn't yet been openly discussed. And at the same time, =
-I'd
-like the IDL to provide comfortable means to statically validate the invari=
-ants
-we impose on the new ABI. Simpler semantics make for simpler validation.
+I think you've got most of them.
 
-IOW, it's not modifying EVERYTHING so it fits in my little hole that I'm af=
-ter,
-but a general nod that for future changes this would be taken into account =
-to
-avoid taking one forward and two back every other fortnight
+The problem (and it's preexisting, not something with your change), is
+that these aren't actually modes.  They're all a combination of certain
+aspects of various modes settings.
 
->
-> Just taking the example of the gnttab max version: By switching to
->
->     uint8_t max_grant_version;
->     uint8_t rsvd0[3];
->
-> you actively make it more cumbersome to re-use the rest of the 32-bit fie=
-ld
-> as (boolean) flags.
+https://sandpile.org/x86/mode.htm has a pretty complete breakdown of modes.
 
-Only the following 8 bits. The last 16 can become a uint16_t worth of flags
-without issues. Note that this minor annoyance is becasuse of the redefinit=
-ion
-of a uint32_t as a composite, not because of having unpacked fields.
+The problem is that here, we mostly want a shorthand for "code segment
+size", but including some aspects of how segmentation works.
 
-> It may reasonably work for the first 8, with early
-> provisions it may also work for 16, yet it'll be harder / uglier for more
-> than that.
-
-But at that point you're discussing the effects of a binary-compatible
-re-definition of an existing field, not the effects of new fields on any
-hypercall. While stylistically desirable, nothing forces grant-related fiel=
-ds
-to be adjacent in the struct.
-
-You are right that should we need 20 new bits this reserved array wouldn't =
-be
-very adequate to hold them. But it doesn't have to. We're free to allocate =
-a
-new field, just as we would if we needed 31 new bits rather than 20. In
-practice when we need a few bits in the future I'd expect to just allocate
-the last 16bits out of the array, turn them into a uint16_t, and use that a=
-s a
-flags field.
-
-Or I can redefine the whole 32bits to be the max_grant_version/altp2m_mode.
-
-Both options are binary compatible, and I went for this one in order to giv=
-e
-back some unused space.
-
-> Allowing such is, after all, the idea behind the present
-> "packing". (The issue would similarly exist in the new ABI, yet we could
-> simply decide up front that we're willing to pay that price, perhaps even
-> outlining up front how to best limit undesirable effects when doing so.)
-
-Just a note that adding fields need not break the ABI. It happens to do so =
-in
-this hypercall because "arch" can itself change, but that wouldn't be an AB=
-I
-breakage if it was passed as a pointer instead (which we ought to do if we
-happen to break the ABI again before new ABI lands).
-
->
-> Just to mention it - you didn't really answer the sizeof() / address-taki=
-ng
-> question I raised. You provided a lot of other _useful_ background though=
-.
->
-> Jan
-
-There's nothing major in those two. It's an existing restriction on packed
-fields we could lift by unpacking them. The real meat is in the rest of the
-background rationale.
-
-Things are slightly more annoying in Rust because I might be forced to give=
- a
-mutable reference to the whole packed field (and hope the callee only mutat=
-es
-what I want it to) in cases where I would rather give a single mutable
-reference to one of its constituents instead. Not major, but annoying.
-
-By far the biggest sigh would be having to describe hypercalls by bit offse=
-ts
-rather than simpler primitive types.
-
-Cheers,
-Alejandro
+~Andrew
 
