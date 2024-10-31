@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09B39B75EB
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 08:59:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828465.1243351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB8C59B769E
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 09:38:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828476.1243361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Q47-0003WR-DW; Thu, 31 Oct 2024 07:57:59 +0000
+	id 1t6QgR-0001BI-HB; Thu, 31 Oct 2024 08:37:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828465.1243351; Thu, 31 Oct 2024 07:57:59 +0000
+Received: by outflank-mailman (output) from mailman id 828476.1243361; Thu, 31 Oct 2024 08:37:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Q47-0003TR-Ac; Thu, 31 Oct 2024 07:57:59 +0000
-Received: by outflank-mailman (input) for mailman id 828465;
- Thu, 31 Oct 2024 07:57:58 +0000
+	id 1t6QgR-00018u-Ec; Thu, 31 Oct 2024 08:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 828476;
+ Thu, 31 Oct 2024 08:37:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zW4/=R3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t6Q45-0003TL-Pv
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 07:57:57 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1t6QgQ-00018o-DA
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 08:37:34 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d3d67fc3-975d-11ef-99a3-01e77a169b0f;
- Thu, 31 Oct 2024 08:57:51 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-37d447de11dso567457f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 00:57:51 -0700 (PDT)
+ id 5da68267-9763-11ef-99a3-01e77a169b0f;
+ Thu, 31 Oct 2024 09:37:30 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-539d9fffea1so636445e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 01:37:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c10d414csm1310391f8f.26.2024.10.31.00.57.49
+ 5b1f17b1804b1-4327d6852c3sm17071585e9.38.2024.10.31.01.37.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 00:57:50 -0700 (PDT)
+ Thu, 31 Oct 2024 01:37:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3d67fc3-975d-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzIiLCJoZWxvIjoibWFpbC13cjEteDQzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQzZDY3ZmMzLTk3NWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzYxNDcxLjU5MjkzLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 5da68267-9763-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzQiLCJoZWxvIjoibWFpbC1sZjEteDEzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjVkYTY4MjY3LTk3NjMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzYzODUwLjIyODg4NCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730361471; x=1730966271; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730363849; x=1730968649; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=g8LurPKQp5zGBpHmwHjAhja8F8uIzUPnbeGeIdUEaTI=;
-        b=PDOZDWbis1V2a6dOK4cQf25R7cLoxfaKMVIvK/Ezmd7+4puOXd6O7FyxTPSegQM4ed
-         ibs/JqI5bGQO9WKNvrG2LdrygqAIMj4COqHkoxcnxuF0EZoLYYBmzoHlBIHiiC3rsVFQ
-         K+70A4Fc7xqjTkyk8zO7JFwPC+wAtcyg/yb1wNZxEdQ/T2y9dJ2PD+BR0bxvQtffA/Xo
-         hvs6b67cyZkCve9KXqwC2NU993YaVljOcX/l+nk/CBBz8QMBK4LL4nkhAl3IzLvxqUuy
-         cp4TuBlYeyImE6k82v4KGyji9Eh3fT4NfIZLhwpmo2hgZ8LykwxpWAh1VEsUbc3TkwWR
-         y+pw==
+        bh=DweqSoc2+xeO9frtw7UMPvB3jd1GLOMseumyZSAPWrw=;
+        b=QB1d5gK1lQOP/aWmQ1zH+AobbY2BPWLGe9cZ0xpQEj/r8PkRJYt7Y5irPRxlQaTvRV
+         yVTys3rpcBRXRzvtcuswZG8L/CPo1B/zeqQEJT3T241OigcnT+nS/ttI5BRlNYAyk9Jg
+         dz1B8BUjzOfxWNgvklnqBALXLb8vVMkykw6du3ELBRgpNakMoT44Vf71367Q/SluSuzY
+         9hj+z6nue8iU8iyDDYyew843Xv0PaPyb5OZfrStF5vc9EWB2NOmrvyn284H6wkXHAV6W
+         875BgO/Jg0+elUSyAcqp5bbHvyYIciArrzd8/kFXqm9eJzlSHp66lW9IH5oDYOZtkeei
+         JScg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730361471; x=1730966271;
+        d=1e100.net; s=20230601; t=1730363849; x=1730968649;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=g8LurPKQp5zGBpHmwHjAhja8F8uIzUPnbeGeIdUEaTI=;
-        b=cjRdH44reAoZOvEnkS2fI4HB0U72BcezNtfB3gZekrGfWx0lnj6SVuYRios/jLIwW6
-         ga6i31NSkp+uaRtXtaqBI1WoJ9r7UtkgnGimxhbZuKxoOJE3BvI95hxjNFm0fPUUlBdD
-         gorRG/3NYurVX7Ql3zRBXUsIoxCT5AwkhFC7fFnYqp8dQw1Z3pXMC/4R2mNgBsMdGsP9
-         rk+dT0wZsMmrCjYW7YXBEQzDOvZ1+0n5QvYmLrhgs/GNe0bo70AuRD5Bnef5iNp2td5x
-         qaOUhsUorkTjWmxdb2kTMe/ZVlXUJ/cHIJfQnS3RX1tLhO95xEe5cDL5fX+rY9s7s77j
-         YBhA==
-X-Forwarded-Encrypted: i=1; AJvYcCWClkJ/2U6VceusY3FiPL/gSu+nJZGedaf/UkdVn1fiW8DhujrVEPWvqXdLHWzEHFcHWHd62GPX+KM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzI6Bv/475xzxj5eg5R91R3mFo8urBN/o6T8hRzklgtAzjYCPD+
-	SrXj0izaY+P4tD5ouIIZwP/2giHIoY7uMVJ3syX4MLfZCU2B/N/lUhGCptbtnw==
-X-Google-Smtp-Source: AGHT+IEXb74iUv83Sx2QCFIUFKu/OTG9k9HPuj36tYd8R3BIVWhBlUMGvuwxPUntU6YJUTKhg/+XmQ==
-X-Received: by 2002:a05:6000:2805:b0:37d:4657:ea7d with SMTP id ffacd0b85a97d-381bea26687mr1303924f8f.49.1730361470757;
-        Thu, 31 Oct 2024 00:57:50 -0700 (PDT)
-Message-ID: <dbc778eb-0c5f-4b99-ab04-020f8b69738b@suse.com>
-Date: Thu, 31 Oct 2024 08:57:49 +0100
+        bh=DweqSoc2+xeO9frtw7UMPvB3jd1GLOMseumyZSAPWrw=;
+        b=SJA5oIHiQB9EECDO3AaMUHUjkXafI5ImoBO5kSWD3nEl2C4gjlUnYbpn1ps2MPcUBd
+         HoWD2xjI+Jpx3qb9poRGRUfbIV6tmeuoNGkX24qb5sUFAcUQruXqrhe121vpG2nd0myu
+         LaphTN/5VQhcoTxK4rkaznsCmFUDm/XOrkunG67GXn7j3IWTUycCBHtZpFYSMp3lC87r
+         AcAJRvQy/GlyGJKGV8g0bq3Y7P17zUBDSfvf9Ouj1xhllwvknt3W3keczqcgZC+/X/Rp
+         kxnWsGmQejHYVBlxmvcJJZTuyf30K3Hm8GX5CzIj7EL8KjTq+6TTb0kRd58B4TYppf9B
+         4kRw==
+X-Forwarded-Encrypted: i=1; AJvYcCXOePuKajhln80mHFJW2cit4ROWRSc2tvDtPYElr0iQpMfMEQoa02GytzflVv45F5D6qPUW/hATPmw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyU0XaX/PVtl/yC+Gob4NxYJgqBkgdiIA+zISVm9LBmvX9XIqpG
+	DyxXJLajMzWtMyAhuAYm/pTuzQmSejEy2bvdzauomGsMKjeCHLr+5QbjJ0AzAw==
+X-Google-Smtp-Source: AGHT+IFTXjSUWO/dQB0f65M6SLyPAWnTWlIG0fXf0drDNkJqFr02wvIxAX4WVWYi3CIZCPYeetEBSQ==
+X-Received: by 2002:a05:6512:1188:b0:539:fc26:74bd with SMTP id 2adb3069b0e04-53b3490ee7dmr8646968e87.27.1730363849428;
+        Thu, 31 Oct 2024 01:37:29 -0700 (PDT)
+Message-ID: <e385c60d-b1ab-4b85-9908-e88345b4bb20@suse.com>
+Date: Thu, 31 Oct 2024 09:37:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/6] xen/abi: On wide bitfields inside primitive types
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v3] x86/io-apic: fix directed EOI when using AMD-Vi
+ interrupt remapping
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Willi Junga
+ <xenproject@ymy.be>, David Woodhouse <dwmw@amazon.co.uk>,
  xen-devel@lists.xenproject.org
-References: <20241029181632.69600-1-alejandro.vallejo@cloud.com>
- <3bf067c7-617c-42c0-bf6d-4387d97658ae@suse.com>
- <D598HGJY330K.3NA7GQLUSJJ9K@cloud.com>
+References: <20241029110351.40531-1-roger.pau@citrix.com>
+ <53034f16-682e-4081-ab7e-81338c700f85@suse.com> <ZyEf8hK-XyGn6Kp8@macbook>
+ <d03f58f0-5b93-4b23-85cb-dc2c18a4eb41@suse.com> <ZyIF5qYU8dC-yYNW@macbook>
+ <62f917f4-ff63-46b3-9b7f-f8d467bfa2f3@suse.com> <ZyIl4azXy3ySD2SS@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,199 +118,101 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D598HGJY330K.3NA7GQLUSJJ9K@cloud.com>
+In-Reply-To: <ZyIl4azXy3ySD2SS@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.10.2024 16:08, Alejandro Vallejo wrote:
-> 
-> In the course of preparing this answer I just noticed that altp2m_opts suffers
-> from the exact same annoyance, with the exact same fix. I just noticed while
-> rebasing my Rust branch.
-
-Hardly the only other one. See GTF_type_mask or XEN_DOMCTL_PFINFO_LTAB_MASK.
-
-> On Wed Oct 30, 2024 at 9:14 AM GMT, Jan Beulich wrote:
->> On 29.10.2024 19:16, Alejandro Vallejo wrote:
->>> Non-boolean bitfields in the hypercall ABI make it fairly inconvenient to
->>> create bindings for any language because (a) they are always ad-hoc and are
->>> subject to restrictions regular fields are not (b) require boilerplate that
->>> regular fields do not and (c) might not even be part of the core language,
->>> forcing avoidable external libraries into any sort of generic library.
+On 30.10.2024 13:26, Roger Pau Monné wrote:
+> On Wed, Oct 30, 2024 at 11:57:39AM +0100, Jan Beulich wrote:
+>> On 30.10.2024 11:09, Roger Pau Monné wrote:
+>>> On Wed, Oct 30, 2024 at 10:41:40AM +0100, Jan Beulich wrote:
+>>>> On 29.10.2024 18:48, Roger Pau Monné wrote:
+>>>>> On Tue, Oct 29, 2024 at 05:43:24PM +0100, Jan Beulich wrote:
+>>>>>> On 29.10.2024 12:03, Roger Pau Monne wrote:
+>>>>>>> @@ -273,6 +293,13 @@ void __ioapic_write_entry(
+>>>>>>>      {
+>>>>>>>          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+>>>>>>>          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+>>>>>>> +        /*
+>>>>>>> +         * Called in clear_IO_APIC_pin() before io_apic_pin_eoi is allocated.
+>>>>>>> +         * Entry will be updated once the array is allocated and there's a
+>>>>>>> +         * write against the pin.
+>>>>>>> +         */
+>>>>>>> +        if ( io_apic_pin_eoi )
+>>>>>>> +            io_apic_pin_eoi[apic][pin] = e.vector;
+>>>>>>
+>>>>>> The comment here looks a little misleading to me. clear_IO_APIC_pin() calls
+>>>>>> here to, in particular, set the mask bit. With the mask bit the vector isn't
+>>>>>> meaningful anyway (and indeed clear_IO_APIC_pin() sets it to zero, at which
+>>>>>> point recording IRQ_VECTOR_UNASSIGNED might be better than the bogus vector
+>>>>>> 0x00).
+>>>>>
+>>>>> Note that clear_IO_APIC_pin() performs the call to
+>>>>> __ioapic_write_entry() with raw == false, at which point
+>>>>> __ioapic_write_entry() will call iommu_update_ire_from_apic() if IOMMU
+>>>>> IR is enabled.  The cached 'vector' value will be the IOMMU entry
+>>>>> offset for the AMD-Vi case, as the IOMMU code will perform the call to
+>>>>> __ioapic_write_entry() with raw == true.
+>>>>>
+>>>>> What matters is that the cached value matches what's written in the
+>>>>> IO-APIC RTE, and the current logic ensures this.
+>>>>>
+>>>>> What's the benefit of using IRQ_VECTOR_UNASSIGNED if the result is
+>>>>> reading the RTE and finding that vector == 0?
+>>>>
+>>>> It's not specifically the vector == 0 case alone. Shouldn't we leave
+>>>> the latched vector alone when writing an RTE with the mask bit set?
 >>>
->>> This patch (it's a series merely to split roughly by maintainer) is one such
->>> case that I happened to spot while playing around. It's the grant_version
->>> field, buried under an otherwise empty grant_opts.
->>>
->>> The invariant I'd like to (slowly) introduce and discuss is that fields may
->>> have bitflags (e.g: a packed array of booleans indexed by some enumerated
->>> type), but not be mixed with wider fields in the same primitive type. This
->>> ensures any field containing an integer of any kind can be referred by pointer
->>> and treated the same way as any other with regards to sizeof() and the like.
+>>> I'm not sure what's the benefit of the extra logic to detect such
+>>> cases, just to avoid a write to the io_apic_pin_eoi matrix.
 >>
->> While I don't strictly mind, I'm also not really seeing why taking addresses
->> or applying sizeof() would be commonly necessary. Can you perhaps provide a
->> concrete example of where the present way of dealing with grant max version
->> is getting in the way? After all your use of the term "bitfield" doesn't
->> really mean C's understanding of it, so especially (c) above escapes me to a
->> fair degree.
+>> Perhaps the largely theoretical concern towards having stale data
+>> somewhere. Yet ...
+>>
+>>>> Any still pending EOI (there should be none aiui) can't possibly
+>>>> target the meaningless vector / index in such an RTE. Perhaps it was
+>>>> wrong to suggest to overwrite (with IRQ_VECTOR_UNASSIGNED) what we
+>>>> have on record.
+>>>>
+>>>> Yet at the same time there ought to be a case where the recorded
+>>>> indeed moves back to IRQ_VECTOR_UNASSIGNED.
+>>>
+>>> The only purpose of the io_apic_pin_eoi matrix is to cache what's
+>>> currently in the RTE entry 'vector' field.  I don't think we should
+>>> attempt to add extra logic as to whether the entry is valid, or
+>>> masked.  Higher level layers should already take care of that.  The
+>>> only purpose of the logic added in this patch is to ensure the EOI is
+>>> performed using what's in the RTE vector field for the requested pin.
+>>> Anything else is out of scope IMO.
+>>>
+>>> Another option, which would allow to make the matrix store uint8_t
+>>> elements would be to initialize it at allocation with the RTE vector
+>>> fields currently present, IOW: do a raw read of every RTE and set the
+>>> fetched vector field in io_apic_pin_eoi.  Would that be better to you,
+>>> as also removing the need to ever store IRQ_VECTOR_UNASSIGNED?
+>>
+>> ... yes, that may make sense (and eliminate my concern there).
+>>
+>> I wonder whether the allocation of the array then wouldn't better be
+>> moved earlier, to enable_IO_APIC(), such that clear_IO_APIC_pin()
+>> already can suitably update it. In fact, since that function writes
+>> zero[1], no extra reads would then be needed at all, and the array could
+>> simply start out all zeroed.
 > 
-> Wall of text ahead, but I'll try to stay on point. The rationale should become
-> a lot clearer after I send an RFC series with initial code to autogenerate some
-> hypercall payloads from markup. The biggest question is: Can I create a
-> definition language such that (a) it precisely represents the Xen ABI and (b)
-> is fully type-safe under modern strongly-typed languages?
+> I agree with the suggestion to allocate and setup the io_apic_pin_eoi
+> matrix in enable_IO_APIC().  However, I'm not sure I follow your
+> suggestion about the matrix starting as all zeroes being a sane state.
 > 
-> I already have a backbone I can define the ABI in, so my options when I hit
-> some impedance mismatch are:
-> 
->   1. Change the ABI so it matches better my means of defining it.
->   2. Change the means to define so it captures the existing ABI better.
-> 
-> Most of the work I've done has moved in the (2) direction so far, but I found a
-> number of pain points when mapping the existing ABI to Rust that, while not
-> impossible to work around, are quite annoying for no clear benefit. If
-> possible, I'd like to simplify the cognitive load involved in defining, using
-> and updating hypercalls rather than bending over backwards to support a
-> construct that provides no real benefit. IOW: If I can define an ABI that is
-> _simpler_, it follows that it's also easier to not make mistakes and it's
-> easier to generate code for it.
-> 
-> The use of packed fields is one such case. Even in C, we create extra macros
-> for creating a field, modifying it, fetching it, etc. Patches 2-6 are strict
-> code removals. And even in the most extreme cases the space savings are largely
-> irrelevant because the hypercall has a fixed size. We do want to pack _flags_
-> as otherwise the payload size would explode pretty quickly on hypercalls with
-> tons of boolean options, but I'm not aware of that being problematic for wider
-> subfields (like the grant max version).
-> 
-> Now, being more concrete...
-> 
-> ##################################################################
-> # IDL is simpler if the size is a property of the type
-> ##################################################################
-> 
-> Consider the definition of the (new) max_grant_version type under the IDL I'm
-> working on (it's TOML, but I don't particularly care about which markup we end
-> up using).
-> 
->   [[enums]]
->   name = "xen_domaincreate_max_grant_version"
->   description = "Content of the `max_grant_version` field of the domain creation hypercall."
->   typ = { tag = "u8" }
-> 
->   [[enums.variants]]
->   name = "off"
->   description = "Must be used with gnttab support compiled out"
->   value = 0
-> 
->   [[enums.variants]]
->   name = "v1"
->   description = "Allow the domain to use up to gnttab_v1"
->   value = 1
-> 
->   [[enums.variants]]
->   name = "v2"
->   description = "Allow the domain to use up to gnttab_v2"
->   value = 2
-> 
-> Note that I can define a type being enumerated, can choose its specific
-> variants and its width is a property of the type itself. With bitfields you're
-> always in a weird position of the width not being part of the type that goes
-> into it.
-> 
-> Should I need it as a field somewhere, then...
-> 
->   [[structs.fields]]
->   name = "max_grant_version"
->   description = "Maximum grant table version the domain may be bumped to"
->   typ = { tag = "enum", args = "xen_domaincreate_max_grant_version" }
-> 
-> ... at which point the size of the field is given by an intrinsic property of
-> the type (the typ property on the enums table) I previously defined. It's
-> extensible, composable and allows me to generate readable code in both C and
-> Rust.
-> 
-> Should I need to support full bitfields I would require a means of stating the
-> start and end bits of every field, which is very bad for the sanity of whoever
-> wants to maintain coherency in the ABI.
-> 
-> ##################################################################
-> # Rust and Go don't like bitfields...
-> ##################################################################
-> 
-> ... and neither does C, even if for historic reasons they do exist in the
-> standard.
+> I think we need to do the raw RTE reads in enable_IO_APIC() before
+> calling clear_IO_APIC(), otherwise clear_IO_APIC_pin() can call
+> __io_apic_eoi() before any __ioapic_write_entry() has been performed,
+> and hence the state of the RTE.vector field could possibly be out of
+> sync with the initial value in io_apic_pin_eoi, and the EOI not take
+> effect.
 
-I don't think that's just for historic reasons. To interface with hardware,
-alternative approaches are often more cumbersome. See how we're (slowly)
-moving to using bitfields more in Xen, in favor of tons of #define-s and
-more or less open-coded masking operations.
-
-> On a slight tangent, neither Rust nor Go support bitfields in the
-> core language. This was a deliberate design decision of their respective
-> designers. I can't speak for Go as I'm not a Go developer, but Rust does have a
-> very well-known, well-supported and very common external crate ("bitflags")
-> that allows very ergonomic semantics for definition of packed booleans. As an
-> example here's the flags for domain create, as spitted out by the generator I
-> have.
-> 
-> (comments removed for brevity). This defines a bitmap indexed by the flags
-> type, represented by a 32bit primitive. It's type-safe from the PoV that I
-> can't just write 1 << 15 to a variable of this type and expect anything but
-> screams from the compiler.
-> 
->   bitflags! {
->       #[repr(C)]
->       #[derive(Copy, Clone, Debug, Default, PartialEq, Eq)]
->       pub struct XenDomaincreateFlags: u32 {
->           const Hvm = 1 << 0;
->           const Hap = 1 << 1;
->           const S3Integrity = 1 << 2;
->           const OosOff = 1 << 3;
->           const XsDomain = 1 << 4;
->           const Iommu = 1 << 5;
->           const NestedVirt = 1 << 6;
->           const Vpmu = 1 << 7;
->       }
->   }
-> 
-> This enables callers to have type-safe variables in a pretty ergonomic fashion:
-> 
->   let flags = XenDomainCreateFlags::Hvm |
->               XenDomainCreateFlags::Hap |
->               XenDomainCreateFlags::Iommu;
-> 
-> and assignments to its related struct would follow regular assignment rules.
-> 
-> ##################################################################
-> # IOW
-> ##################################################################
-> 
-> Supporting general bitfields is annoying, even in C. Adding support in IDL for
-> them is a headache if we want the descriptions to help us catch mistakes and
-> language support is poor using this constructs (at best).
-> 
-> Can we please get rid of them?
-
-I remain undecided. If we set forth as a goal to avoid such in the new ABI
-that has been mentioned for many years, that would be a more clear cut.
-
-Just taking the example of the gnttab max version: By switching to
-
-    uint8_t max_grant_version;
-    uint8_t rsvd0[3];
-
-you actively make it more cumbersome to re-use the rest of the 32-bit field
-as (boolean) flags. It may reasonably work for the first 8, with early
-provisions it may also work for 16, yet it'll be harder / uglier for more
-than that. Allowing such is, after all, the idea behind the present
-"packing". (The issue would similarly exist in the new ABI, yet we could
-simply decide up front that we're willing to pay that price, perhaps even
-outlining up front how to best limit undesirable effects when doing so.)
-
-Just to mention it - you didn't really answer the sizeof() / address-taking
-question I raised. You provided a lot of other _useful_ background though.
+Oh, you're right of course. That's a (side) effect of wanting to always
+use the cached value in __io_apic_eoi(), and hence never reading the RTE
+there.
 
 Jan
 
