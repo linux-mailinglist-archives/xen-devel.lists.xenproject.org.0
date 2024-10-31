@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D3A9B7938
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 12:00:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828602.1243542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C34379B797C
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 12:16:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828609.1243551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Stt-0006ay-3J; Thu, 31 Oct 2024 10:59:37 +0000
+	id 1t6TAC-0001Lp-EN; Thu, 31 Oct 2024 11:16:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828602.1243542; Thu, 31 Oct 2024 10:59:37 +0000
+Received: by outflank-mailman (output) from mailman id 828609.1243551; Thu, 31 Oct 2024 11:16:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6Stt-0006YO-0N; Thu, 31 Oct 2024 10:59:37 +0000
-Received: by outflank-mailman (input) for mailman id 828602;
- Thu, 31 Oct 2024 10:59:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t6TAC-0001Ib-BB; Thu, 31 Oct 2024 11:16:28 +0000
+Received: by outflank-mailman (input) for mailman id 828609;
+ Thu, 31 Oct 2024 11:16:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zW4/=R3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t6Stq-0006Xh-VZ
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 10:59:34 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3533f127-9777-11ef-a0c3-8be0dac302b0;
- Thu, 31 Oct 2024 11:59:32 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4316cce103dso8323425e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 03:59:32 -0700 (PDT)
+ id 1t6TAA-0001HC-3A
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 11:16:26 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8ee285b3-9779-11ef-99a3-01e77a169b0f;
+ Thu, 31 Oct 2024 12:16:21 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4316cce103dso8492965e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 04:16:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-431bd9ca8eesm52336995e9.43.2024.10.31.03.59.31
+ 5b1f17b1804b1-4327d5ab297sm22619415e9.8.2024.10.31.04.16.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 03:59:31 -0700 (PDT)
+ Thu, 31 Oct 2024 04:16:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3533f127-9777-11ef-a0c3-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzAiLCJoZWxvIjoibWFpbC13bTEteDMzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjM1MzNmMTI3LTk3NzctMTFlZi1hMGMzLThiZTBkYWMzMDJiMCIsInRzIjoxNzMwMzcyMzcyLjM3MDU5Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 8ee285b3-9779-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjhlZTI4NWIzLTk3NzktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzczMzgxLjc4OTQwNiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730372372; x=1730977172; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730373381; x=1730978181; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=87y4U5te/Z8O4jq7dLR7SHK9bZ6w4rkat3T91hrF7Yc=;
-        b=SLhusn4ZLisehV2fO1hD3llSq3wr0pvU8JiwIICin2EsfGV0Fm4wIlEVZvZDcYI37u
-         JtJUWHOQXTNEaqDaV9O2gXCgp0hp5YF6worazmMpvRomi5B6eDBY/hMJBBfx7FFFUflC
-         puSTG0nWs+klRVSciO6HS+eMJkhGuqFq5d7q4EcknnpJ/Qj/jPyNEliClCpgao+TXpPh
-         7loNsSVU9Ioygnz0EtOz0AwYnNTjBv3uyU4zfrRMz7zByX5j+iGMueOmX/KqWUgVwzxr
-         WXEN+ly1pTNhiQDQUXyK92HWZQdtkQcH0ZNZ+0w/GHXNA31Quc1TE02VnFh2Zxl94ZbW
-         d2Kg==
+        bh=g3odNZV4CogQF3+Zos5AOhrfJMGrmNPdP21SWJ1C5ZQ=;
+        b=MYhbEIIPLpsOV8pWJTAr44Q42VQW0DTj/QOOxjYWhA50Orj8r/1VlMtrs6WEknZcNP
+         asGt7FoceJ6Yim4XrcBp595UzPwwb5cZyJt9XBOoq0QKo46F9QxiT0KsB2gQ7RIPiBrn
+         EDJBWysAf/OmsmcQnkiR3WBCBf5PtN57bjfMkMVyCyhay7rWDvOaFvZBsnp99ZeuoKD0
+         xQfCCWPlMn8MTi7+7mY0pVbAqS3YLWtt4GWk0btiKIS+Xa+8tAKstYUPgIZtT13WW3fC
+         6r0o2RfIHrew69d9HUrnAe+GgNs+fKQOJ5exJA/fB4teuBv1rfQ/ehfuWYe4TIuTF9Jr
+         uwuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730372372; x=1730977172;
+        d=1e100.net; s=20230601; t=1730373381; x=1730978181;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=87y4U5te/Z8O4jq7dLR7SHK9bZ6w4rkat3T91hrF7Yc=;
-        b=wxqWWjZPgN91NoJifFN1ei9alwL3tNoHvLvOdwNdgjO2cFUnbw8ftazmMbopdTeSbu
-         XyKYHXlNqE+HZ94ZqqjAMGIYQuSPg8j5lXfkrVMFJ569WBuO3Dm0vIotKBp71FIgRMyb
-         HXVgVJupDoXaiA35Jovc69pKUUp9Qfmsl+kTC30fAjzrQNKQA0nqV2YJv+Avxp48t5q/
-         GrY0H8VgKEGCy6snCt9Y6M2DzXRoo6Xfb44rhTvjO/mIT1bn+wZETz9UuwH4qKZ5DMm7
-         2mV38snakQg/3oor4DRrMOghguyHuuL0MYksQyXMUgsbzNsD0WEuT9PHJgsHSKq9nEQq
-         xrug==
-X-Forwarded-Encrypted: i=1; AJvYcCVqg4BukDuwb2ZZxDtp50kkjMASeDgyuIvvfJ8awqz4IUQH+jNqeAdy0/JSl+a2D4Q8s549CRCIlCo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxp/LUhdrWkzL1CgIsLrVqHsxcFxmDf7Ojw+PQRWLHufS2g3eMo
-	bzI71/J+uqH331oXzUAyx1sRpN2UHwrv0yuz04sEwX9MZYHtTth+BF/XOSq2kQ==
-X-Google-Smtp-Source: AGHT+IH3UqaKYwxsxjy3PVic2JOCLPwVMkztnBPulXBeXYUUEbzD1RQI5FxwPHj05t3zWbN6pSud4A==
-X-Received: by 2002:a05:600c:3c8c:b0:42b:ac3d:3abc with SMTP id 5b1f17b1804b1-4319ad068f6mr203762995e9.24.1730372371688;
-        Thu, 31 Oct 2024 03:59:31 -0700 (PDT)
-Message-ID: <6823a222-63ad-4a5a-83d2-70c6f39f38c0@suse.com>
-Date: Thu, 31 Oct 2024 11:59:30 +0100
+        bh=g3odNZV4CogQF3+Zos5AOhrfJMGrmNPdP21SWJ1C5ZQ=;
+        b=LK7eyC/3BvZlz/+iZGu4KU8ALtNeH+AFZOejeDWD9yCKDASdFDGLOjIMFmMRGLzKWD
+         nTHVwiuhdASBQWcPLPyXK6TNiMLfThPoCTV6FKzZk1OSdA8NB9FX0ys006AUcRvGGRD7
+         vosZjY1CLxDzZkl/uQzWpN/7CkkBblhibhxZoYXvmsjH9iojKmPoMb89M8xj4Gh0rztU
+         C79U8PD5L572+A2LlpVMlMZs+tR0D26C2FDKZlV8SaZa6v1L/KH7PwFlFEdp+QR3+XK0
+         PSPzfbHgq/fe6S4sBdPuLdgI/IwlYgJcfTAwVO0FS8H3g9i0aGt771ZosM0iaIDpFH+c
+         BbSg==
+X-Forwarded-Encrypted: i=1; AJvYcCXtjQobdcoz+Yr6JIKjVCsHJCg6PqZmzo0Yp0blD7fsSkKNlCM/bHuDyKzbC7neV4Zf0qboyBozCi8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMrj9kn+HUEG/FLEeMIf3xrHsQUQGtir3vqKHwtpPV05Hp4TT3
+	jOJBrr1UrpJlyQLilMbzVO8mP7LA3bFArE3VTtpgccHHxYAesOT2Do6Li1WdvtTO/KN0xaSwqpM
+	=
+X-Google-Smtp-Source: AGHT+IFmqsY38XzEmBBMpJBk9xl/sTzz+97kh2j6A/8BOFZRdiHbJdWF0c7nth/NylU/zFxGXa44Yg==
+X-Received: by 2002:a05:600c:4fce:b0:431:4f29:9539 with SMTP id 5b1f17b1804b1-4319ad29f7cmr210715865e9.32.1730373381075;
+        Thu, 31 Oct 2024 04:16:21 -0700 (PDT)
+Message-ID: <f4791b83-67ce-4530-8ea3-581ee8c90631@suse.com>
+Date: Thu, 31 Oct 2024 12:16:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] xen: add bitmap to indicate per-domain state changes
+Subject: Re: [PATCH 3/6] xen: add new domctl get_changed_domain
 To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20241023131005.32144-1-jgross@suse.com>
- <20241023131005.32144-3-jgross@suse.com>
+ <20241023131005.32144-4-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,68 +117,137 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241023131005.32144-3-jgross@suse.com>
+In-Reply-To: <20241023131005.32144-4-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.10.2024 15:10, Juergen Gross wrote:
-> Add a bitmap with one bit per possible domid indicating the respective
-> domain has changed its state (created, deleted, dying, crashed,
-> shutdown).
-> 
-> Registering the VIRQ_DOM_EXC event will result in setting the bits for
-> all existing domains and resetting all other bits.
-
-That's furthering the "there can be only one consumer" model that also
-is used for VIRQ_DOM_EXC itself. I consider the existing model flawed
-(nothing keeps a 2nd party with sufficient privilege from invoking
-XEN_DOMCTL_set_virq_handler a 2nd time, taking away the notification
-from whoever had first requested it), and hence I dislike this being
-extended. Conceivably multiple parties may indeed be interested in
-this kind of information. At which point resetting state when the vIRQ
-is bound is questionable (or the data would need to become per-domain
-rather than global, or even yet more fine-grained, albeit
-->virq_to_evtchn[] is also per-domain, when considering global vIRQ-s).
-
 > --- a/xen/common/domain.c
 > +++ b/xen/common/domain.c
-> @@ -138,6 +138,22 @@ bool __read_mostly vmtrace_available;
+> @@ -154,6 +154,57 @@ void domain_reset_states(void)
+>      rcu_read_unlock(&domlist_read_lock);
+>  }
 >  
->  bool __read_mostly vpmu_is_available;
->  
-> +static DECLARE_BITMAP(dom_state_changed, DOMID_MASK + 1);
-
-While it won't alter the size of the array, I think DOMID_FIRST_RESERVED
-would be more logical to use here and ...
-
-> +void domain_reset_states(void)
+> +static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+> +                                  const struct domain *d)
 > +{
-> +    struct domain *d;
+> +    info->state = XEN_DOMCTL_GETDOMSTATE_STATE_EXIST;
+> +    if ( d->is_shut_down )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN;
+> +    if ( d->is_dying == DOMDYING_dead )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DYING;
+> +    info->unique_id = d->unique_id;
+> +}
 > +
-> +    bitmap_zero(dom_state_changed, DOMID_MASK + 1);
-
-... here.
-
-> +    rcu_read_lock(&domlist_read_lock);
+> +int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d)
+> +{
+> +    unsigned int dom;
 > +
-> +    for_each_domain ( d )
-> +        set_bit(d->domain_id, dom_state_changed);
+> +    memset(info, 0, sizeof(*info));
 
-d is used only here, so could be pointer-to-const?
+Would this better go into set_domain_state_info()? Ah, no, you ...
+
+> +    if ( d )
+> +    {
+> +        set_domain_state_info(info, d);
+> +
+> +        return 0;
+> +    }
+> +
+> +    while ( (dom = find_first_bit(dom_state_changed, DOMID_MASK + 1)) <
+> +            DOMID_FIRST_RESERVED )
+> +    {
+> +        d = rcu_lock_domain_by_id(dom);
+
+... acquiring the lock early and then ...
+
+> +        if ( test_and_clear_bit(dom, dom_state_changed) )
+> +        {
+> +            info->domid = dom;
+> +            if ( d )
+> +            {
+> +                set_domain_state_info(info, d);
+
+... potentially bypassing the call (with just the domid set) requires it
+that way.
+
+As to the point in time when the lock is acquired: Why is that, seeing that
+it complicates the unlocking a little, by requiring a 2nd unlock a few
+lines down?
+
+> +                rcu_unlock_domain(d);
+> +            }
+> +
+> +            return 0;
+> +        }
+> +
+> +        if ( d )
+> +        {
+> +            rcu_unlock_domain(d);
+> +        }
+
+Nit: No need for the braces.
 
 > --- a/xen/common/event_channel.c
 > +++ b/xen/common/event_channel.c
-> @@ -1296,6 +1296,8 @@ long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          rc = evtchn_bind_virq(&bind_virq, 0);
->          if ( !rc && __copy_to_guest(arg, &bind_virq, 1) )
->              rc = -EFAULT; /* Cleaning up here would be a mess! */
-> +        if ( !rc && bind_virq.virq == VIRQ_DOM_EXC )
-> +            domain_reset_states();
+> @@ -969,11 +969,18 @@ static struct domain *global_virq_handlers[NR_VIRQS] __read_mostly;
+>  
+>  static DEFINE_SPINLOCK(global_virq_handlers_lock);
+>  
+> +struct domain *get_global_virq_handler(uint32_t virq)
+> +{
+> +    ASSERT(virq_is_global(virq));
+> +
+> +    return global_virq_handlers[virq] ?: hardware_domain;
+> +}
+> +
+>  void send_global_virq(uint32_t virq)
+>  {
+>      ASSERT(virq_is_global(virq));
+>  
+> -    send_guest_global_virq(global_virq_handlers[virq] ?: hardware_domain, virq);
+> +    send_guest_global_virq(get_global_virq_handler(virq), virq);
+>  }
 
-evtchn_bind_virq() isn't static, so callers beyond the present ones could
-appear without noticing the need for this special casing. Is there a reason
-the check can't move into the function? Doing the check in spite of the
-copy-out failing is imo still reasonable behavior.
+Is this a stale leftover from an earlier version? There's no other caller of
+get_global_virq_handler() here, hence the change looks unmotivated here.
+
+> @@ -1236,7 +1237,37 @@ struct xen_domctl_dt_overlay {
+>  };
+>  #endif
+>  
+> +/*
+> + * XEN_DOMCTL_get_domain_state (stable interface)
+> + *
+> + * Get state information of a domain.
+> + *
+> + * In case domain is DOMID_INVALID, return information about a domain having
+> + * changed state and reset the state change indicator for that domain. This
+> + * function is usable only by a domain having registered the VIRQ_DOM_EXC
+> + * event (normally Xenstore).
+> + *
+> + * Supported interface versions: 0x00000000
+> + */
+> +#define XEN_DOMCTL_GETDOMSTATE_VERS_MAX    0
+> +struct xen_domctl_get_domain_state {
+> +    domid_t domid;
+
+Despite the DOMID_INVALID special case the redundant domid here is odd.
+You actually add the new sub-op to the special casing of op->domain at the
+top of do_domctl(), so the sole difference to most other sub-ops would be
+that this then is an IN/OUT (rather than the field here being an output
+only when DOMID_INVALID was passed in via the common domid field).
+
+> +    uint16_t state;
+> +#define XEN_DOMCTL_GETDOMSTATE_STATE_EXIST     0x0001  /* Domain is existing. */
+> +#define XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN  0x0002  /* Shutdown finished. */
+> +#define XEN_DOMCTL_GETDOMSTATE_STATE_DYING     0x0004  /* Domain dying. */
+> +    uint32_t pad1;           /* Returned as 0. */
+> +    uint64_t unique_id;      /* Unique domain identifier. */
+> +    uint64_t pad2[6];        /* Returned as 0. */
+> +};
+
+What are the intentions with this padding array?
 
 Jan
 
