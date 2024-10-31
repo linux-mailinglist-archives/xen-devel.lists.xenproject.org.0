@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C2F9B8648
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 23:53:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828918.1244020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B21669B8667
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 23:56:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828926.1244029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6e2O-0007nL-Bp; Thu, 31 Oct 2024 22:53:08 +0000
+	id 1t6e4z-00005J-R1; Thu, 31 Oct 2024 22:55:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828918.1244020; Thu, 31 Oct 2024 22:53:08 +0000
+Received: by outflank-mailman (output) from mailman id 828926.1244029; Thu, 31 Oct 2024 22:55:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6e2O-0007kg-8f; Thu, 31 Oct 2024 22:53:08 +0000
-Received: by outflank-mailman (input) for mailman id 828918;
- Thu, 31 Oct 2024 22:53:06 +0000
+	id 1t6e4z-0008VP-OM; Thu, 31 Oct 2024 22:55:49 +0000
+Received: by outflank-mailman (input) for mailman id 828926;
+ Thu, 31 Oct 2024 22:55:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7hTS=R3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t6e2M-0007kZ-Km
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 22:53:06 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1t6e4y-0008VJ-Ed
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 22:55:48 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e167e2b0-97da-11ef-a0c5-8be0dac302b0;
- Thu, 31 Oct 2024 23:53:01 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4315baa51d8so12973145e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 15:53:01 -0700 (PDT)
+ id 4352e3c9-97db-11ef-a0c5-8be0dac302b0;
+ Thu, 31 Oct 2024 23:55:45 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a99f646ff1bso175398266b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 15:55:45 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4327d5e7c8bsm41910345e9.26.2024.10.31.15.53.00
+ a640c23a62f3a-a9e564c56e2sm112228766b.64.2024.10.31.15.55.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 15:53:00 -0700 (PDT)
+ Thu, 31 Oct 2024 15:55:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e167e2b0-97da-11ef-a0c5-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmYiLCJoZWxvIjoibWFpbC13bTEteDMyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImUxNjdlMmIwLTk3ZGEtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwNDE1MTgxLjQwODE1MSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 4352e3c9-97db-11ef-a0c5-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmYiLCJoZWxvIjoibWFpbC1lajEteDYyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjQzNTJlM2M5LTk3ZGItMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwNDE1MzQ1LjY3ODAyLCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730415181; x=1731019981; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730415345; x=1731020145; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nU0ddsqSD7jM58inbL6QlbEbRm+nqHttQg+xn/YS3HY=;
-        b=kc8mXnlR5XrN9E966gw+KXTisANPYlxgOu0KNRcdqVWlFs5WmMVqRJZ4bvJ8p3uec0
-         +sB+FsLeGCUnRtDcgZ/fKbBwZtbLDA9a6H9V36hP46vwgAcWzf7JZuFCQ9Bxxd6hnLF8
-         O5aOg3JJQ31Q1gJeAjPEiNezqvPv4LmEZvxCM=
+        bh=Q/7Qz+/MR47a3Vufo7EB8bZvTHFEvxP1tnYkpba4pq8=;
+        b=kvylfm62EfLhvXcAMhrcfSwZbX/6IFCAR6lJg0vJ+l85Qd0TWI/3G/NoN9lo0O8SXs
+         uYsXp7n1S4E+C7Tjha94Gq1TcoVe0UG2XLA7G6R06h0L48nPitRFT9iwFQGSwfaH8qh6
+         pmFgYP/kwKbKPQNE/+5G81NAR4Vyx7a2ibTMg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730415181; x=1731019981;
+        d=1e100.net; s=20230601; t=1730415345; x=1731020145;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nU0ddsqSD7jM58inbL6QlbEbRm+nqHttQg+xn/YS3HY=;
-        b=eRQd3OK+Ph1DoyT+cctjb9XNfgIAjhth9IZvwCifuv+ND2dpez0SaqOunIOkQV37Yp
-         8APNd65Br3GrLEEioTFZAOrN3N99VLwlQbtLTdnL9++HFiRo+PVmMErgCUCWNG6t8P4Y
-         /c6AY3Znkk6a9DnaIeio1lg1fUeb+W4EtJW5BXKkhvvOkto5tAAZpPXnJxgzHUipSXkX
-         prxDvb8z4bPO+Nl9u+HuGgcEN0S2mkoSQbId3wratWUm7sI7TEkSFszKG/hSWl2TIk2G
-         7PhjVW+u8/RFy+WJXWsx7Vpzfnmx4PrOKefj/xQLKOXhojGVwbj+6nwojPNOJzpyGgUl
-         oBmA==
-X-Gm-Message-State: AOJu0YwOe+XTOwiP4oTJVwCghEtvXgsdzP0vUDUpUvGm3MXdyHtu9+Xj
-	iZGWd16aAIgAh/Se916nYr3tzzqdv9C1MBi/jFm2UwECpvhSMSirXcNqWi8A2Z70KNs/vUeJF0K
-	G
-X-Google-Smtp-Source: AGHT+IHZPQAN5FEtrXs6R/hULqQQvquls7ef03DO2pfA5i/ErmgBjKLgSFwdaqsPRtxFbqFuPmyoKg==
-X-Received: by 2002:a05:600c:4f85:b0:430:5887:c238 with SMTP id 5b1f17b1804b1-4327b6fd60dmr42943455e9.11.1730415180668;
-        Thu, 31 Oct 2024 15:53:00 -0700 (PDT)
-Message-ID: <79c9b208-05f2-4520-80c8-930ef5cc4b5a@citrix.com>
-Date: Thu, 31 Oct 2024 22:52:59 +0000
+        bh=Q/7Qz+/MR47a3Vufo7EB8bZvTHFEvxP1tnYkpba4pq8=;
+        b=iDjPD1axR7drAPSS6PUBtbQhkjZDQNLhVSTjXhD6ju2kLEDGA+O0bQlGEim8TN4TCe
+         hBGVjGBqG7JgizvdxnG9/ZPOQ/gvf8mV+mgv6PVo3NmsFeYBa8dSgZ2eu7IwY4b+eQWZ
+         vGFT54eZZwqHcNTsDO2tFr+BzePatE2Gvgy0RLgC4DuYgyGadzhSJEVEEcazDQfPDc02
+         ccK8AgDFenquQHLZyyrfQUJQT8PP2BlyEut54nyKkwnVamsQtZp2qnJAC8qgge7FK207
+         lS86sRgkIJHoMYkEcQLsXZZCV1fPw2Ov9M62pidKHkQzOTMbS8k+yLEwWdIN0FMkxmXE
+         CmQQ==
+X-Gm-Message-State: AOJu0Yy9zT1idBsL/+i0BurOKAy+4kRmuCtcLP4Y4cpCC/dBcx381oDr
+	3CO6ZqX5THUbdb2cWOBisE9B5ozQSrSfcXB97CNRqJ8KGIBx8Xugu8Xlh2+v2gM=
+X-Google-Smtp-Source: AGHT+IHdDAR+gN/rf5cqX6byr10yEals8nu1MPrfkvJ1oE1govnNcuJJZHk9QGb34yqSnsklokroKw==
+X-Received: by 2002:a17:907:2d88:b0:a9a:c691:dcbc with SMTP id a640c23a62f3a-a9e3a57a2e5mr946068766b.12.1730415345112;
+        Thu, 31 Oct 2024 15:55:45 -0700 (PDT)
+Message-ID: <86a60aec-f259-41be-92a0-ce66ce24f4ae@citrix.com>
+Date: Thu, 31 Oct 2024 22:55:44 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scripts: Refine git-checkout.sh change for different
- branches
+Subject: Re: [PATCH] CI: Drop alpine-3.18-rootfs-export and use test-artefacts
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, Julien Grall <julien@xen.org>
-References: <20241031134702.2913536-1-andrew.cooper3@citrix.com>
- <5d8f492d-6fa0-434d-8d01-f28376ed20be@citrix.com>
- <alpine.DEB.2.22.394.2410311543430.2525410@ubuntu-linux-20-04-desktop>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+ Victor Lira <victorm.lira@amd.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20241031190043.3011299-1-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2410311546170.2525410@ubuntu-linux-20-04-desktop>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,58 +133,24 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2410311543430.2525410@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2410311546170.2525410@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 31/10/2024 10:44 pm, Stefano Stabellini wrote:
->
+On 31/10/2024 10:46 pm, Stefano Stabellini wrote:
 > On Thu, 31 Oct 2024, Andrew Cooper wrote:
->
->> On 31/10/2024 1:47 pm, Andrew Cooper wrote:
->>> The change works for divergent branches, but doesn't work for explicit SHAs.
->>>
->>> Instead of passing `-b $TAG` to clone, explicitly fetch the $TAG we want after
->>> cloning.
->>>
->>> Fixes: c554ec124b12 ("scripts: Fix git-checkout.sh to work with branches other than master")
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> CC: Julien Grall <julien@xen.org>
->>>
->>> Speculative fix, pending CI:
->>>   https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1521847529
->> Nope.  While this works on staging, it breaks on 4.17
+>> The Argo work already moved this artefact into the new form.  Reuse that, and
+>> drop one test job.
 >>
->> Back to the drawing board.
->  
-> I am not certain about this but maybe we need:
->
->   $GIT fetch origin
->
-> without the $TAG
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> This is good but should we also remove
+> automation/tests-artifacts/alpine/3.18.dockerfile since we are at it?
 
-You need the $TAG to guide what to pull when it's not a parent of master.
+Well, that's another thing that needs careful consideration.
 
-For real tags (which live in a global namespace), and real SHAs (don't
-need any further reference), creating a branch called `dummy` from them
-works fine.
-
-The problem for branches is that $GIT fetch origin $TAG only updates
-FETCH_HEAD and doesn't create a remote branch of the same name.  You can
-do that with $GIT fetch origin $TAG:$TAG but only if you know that $TAG
-is really a branch in the first place.
-
-Which circles back around to the original problem of not being able to
-disambiguate what $TAG is until you've got the whole repository.
-
-I'm not aware of any way to ask the remote "do you know what type of
-object $TAG actually is?" and that's probably because it would be a
-reverse lookup through refs/ to figure out if it was a branch or not.
-
-I'm sure there must be a way of doing this...
+That dockerfile needs updating in tandem with the build container (or
+lib$FOO.so's don't work when running the test), and it's hard enough to
+keep track of things when they're all in one repo.
 
 ~Andrew
 
