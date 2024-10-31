@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE21B9B7A6A
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 13:21:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828664.1243648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BE799B7B91
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 14:20:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828683.1243658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6UA1-0007ST-Q1; Thu, 31 Oct 2024 12:20:21 +0000
+	id 1t6V50-0007Ki-Pf; Thu, 31 Oct 2024 13:19:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828664.1243648; Thu, 31 Oct 2024 12:20:21 +0000
+Received: by outflank-mailman (output) from mailman id 828683.1243658; Thu, 31 Oct 2024 13:19:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6UA1-0007QL-MM; Thu, 31 Oct 2024 12:20:21 +0000
-Received: by outflank-mailman (input) for mailman id 828664;
- Thu, 31 Oct 2024 12:20:19 +0000
+	id 1t6V50-0007IO-Lp; Thu, 31 Oct 2024 13:19:14 +0000
+Received: by outflank-mailman (input) for mailman id 828683;
+ Thu, 31 Oct 2024 13:19:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7hTS=R3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t6U9z-0007Pn-RJ
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 12:20:19 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ <SRS0=khX/=R3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1t6V4z-0007Hq-H3
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 13:19:13 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a4c96d9-9782-11ef-99a3-01e77a169b0f;
- Thu, 31 Oct 2024 13:20:12 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a99ebb390a5so353282266b.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 05:20:12 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ id b6553012-978a-11ef-99a3-01e77a169b0f;
+ Thu, 31 Oct 2024 14:19:09 +0100 (CET)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-539fe02c386so1834536e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 06:19:09 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9e56643823sm63106466b.167.2024.10.31.05.20.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 05:20:11 -0700 (PDT)
+ 2adb3069b0e04-53c7bde3376sm196039e87.292.2024.10.31.06.19.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Oct 2024 06:19:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +45,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a4c96d9-9782-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzMiLCJoZWxvIjoibWFpbC1lajEteDYzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjdhNGM5NmQ5LTk3ODItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzc3MjEyLjY4MjMzNCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: b6553012-978a-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmUiLCJoZWxvIjoibWFpbC1sZjEteDEyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImI2NTUzMDEyLTk3OGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzgwNzQ5LjM1NzQ1Nywic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730377212; x=1730982012; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bVB9tHkGO39zqh9mVC6LawxLpz+l3TbDyTfpeZ5bylU=;
-        b=p0GIWVzfcSHgMX+i0IUIhZNhP0TaqMd2rrSkret4Zryb1sSetU2ojxw7Au7yJJ6nbK
-         m9Qm/fTQqX+ZyTbn7fzATCmD8YfVVDaBSymm+YKGjfGstq1FUILIl8KYjCzUrqppNSOd
-         EE03jZSzzmPoKTMYnLkGoSr0Q4gLweuXL7WAM=
+        d=gmail.com; s=20230601; t=1730380749; x=1730985549; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=h1jKEF9vIzFBNQxbeI9MOUWtJY7wHKKC0+/cA9iQv5c=;
+        b=al55euI17IFF5pVnrBmmj2Q2BQeTMf4pyn3XedJRzq70qGKrBRrKSUk+ebJxi3O0Ao
+         QOfa20M96oVkLD/3X8XoEhL+dwOCNJcj6/uZPiKwL7lCaB1ZpuIlkgX0D5DYo6otwrh1
+         JxgUIEwkTjacCAK7wkowRfJbvJfyrJPt6aIG2dr1R11LokyyMcbFYau50FNtolk5TvNa
+         fq72sKgZ77pJB+A1rQNKr1+Isvh3Ru9+n/SZca3rLoANdgGYdghSDm+e3HGa2gPwVyvS
+         tZ/ttDA09Z8QO19pGeTkRW1yoMecjlwFdDJPz2viZudyjvQ4ky65oZ9Ie4ek9qTYMeqs
+         iNkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730377212; x=1730982012;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bVB9tHkGO39zqh9mVC6LawxLpz+l3TbDyTfpeZ5bylU=;
-        b=pqAq6Y7c1J2nKW3jGbmIt4GLndE3U4GI+6OOcmbSSRVOWjqt8lYoMMRm/t6OZ4s9sm
-         I5K0weJ3dcx+IMGsklfKtTfZMLc0ho6QOI/jvbrFjV1E4Z8+QQseh5yZRW0Q1WwvfFr6
-         u8uW3hfV4uYU/dSUo4o64OKx/IEC2HWaS2BP5hkaueMZpL48OKv15AOSdWd8MbxjMsBZ
-         UKk2OoRKEdRQGVu494Ao8XY3B3DtY/DCmiy7H0fPEBdrHZyXg3IVyb8RgOBUuoY0+GlU
-         WznDLy8xUF8Vmrtyu9qngWmidlJ1Bz5zhnj/AQtdgPh3lfUV3yopVki1ahg/3Ymk+snY
-         qTwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUEQZ0PnDmyvF6UgVDTT2Lo5n7LFXQtMhD7ii2KM6pzrb1mPxOXSCYj1XtEVT2bGP7YTzR8V9amDrM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzA8dPFuYy/g88E/1z+hI2GZnt+rlTmwHN14A14YRd7z2075YZb
-	0Ajr8MjS02OnW6R+yiz0cJWs/fBUiAP9O4A78NQEHL1anIxGltQPjgoAZM9C2S8=
-X-Google-Smtp-Source: AGHT+IEw5uFC02NQaozJAwONi4yVgOvYxi3XluBI9PAQ5g1vVd5vvkT/1LYObi0isfYq7JaxYypNCQ==
-X-Received: by 2002:a17:907:cca3:b0:a9a:eeb:b26a with SMTP id a640c23a62f3a-a9e559e0da2mr170253366b.1.1730377212049;
-        Thu, 31 Oct 2024 05:20:12 -0700 (PDT)
-Message-ID: <f105fe2f-1b76-4f0d-889b-ec12e95a0ac8@citrix.com>
-Date: Thu, 31 Oct 2024 12:20:10 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] byteorder: replace __u16
+        d=1e100.net; s=20230601; t=1730380749; x=1730985549;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=h1jKEF9vIzFBNQxbeI9MOUWtJY7wHKKC0+/cA9iQv5c=;
+        b=MNEqZfFQ1r5XWbikXPLRwQjRZp26FencG/Q0YEwftn408MlaFCvnPMeAFtzopUVmpo
+         cziamL9HRewBQjtG9uLRydOeXsIYZutFnHryIQSUPM4flD7/Ok9EvdrM18Vd1ADty3uY
+         wTgxdcXoeBx7v1GKVcSJRpN3qvYMKVtkUGrX4bc3heeYemSiEk/MVXMO/fZWxZsmwzMH
+         uz3fEFd53Cgmx6n75HbierFhV058uh5qnikM5ho0RrF2q4GK5tfKsD32PkCZHdTylBsj
+         tllL2GZ7Q01x8PVZlKSF0ucP65wMA1kO9VBXyLdbP3L07e+PpDylOSfpB66Gl0HfivNN
+         wC8A==
+X-Forwarded-Encrypted: i=1; AJvYcCVCPrWa7uVm0ik7hRjJDTLxXKi7m5SAbYc8NEO9a5LCGCwj4Jbqj3waVkUeneYu0bdoDP+A7p0qPIk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEtNz0d6Ki7HiuNwIwnrp+pbYO/D0PluGsn9pK+s49px91dzAY
+	/2zoMnguVdIb3p+RSFp5B7EE2ZQpxE1yClv8IbZtvwvd+G11MRju
+X-Google-Smtp-Source: AGHT+IFQmxTSyAkCvMFHPC8uUAzkW6gY3mZAfEQfLGdsQl4bxjUylZJW3EgOY7Pps+TfZYiOSM485g==
+X-Received: by 2002:a05:6512:ea8:b0:539:f6b1:2d05 with SMTP id 2adb3069b0e04-53c7bbd0882mr908551e87.9.1730380748187;
+        Thu, 31 Oct 2024 06:19:08 -0700 (PDT)
+Message-ID: <878409fe69f7af07120f53ec7d2a58bf348b179c.camel@gmail.com>
+Subject: Re: [PATCH v2 1/3] xen/riscv: introduce setup_mm()
+From: oleksii.kurochko@gmail.com
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <17b6b894-9b41-4e8c-a3a9-ce837797eac3@suse.com>
- <dee82fce-ffc8-493e-8d99-f5c3b321e5b3@suse.com>
- <a7b6fc68-a568-4b61-895d-c295ba3d3095@citrix.com>
- <b5b20a0c-7584-4885-b7b0-c4b1cba8c0bd@suse.com>
- <f5572afc-7c9e-4c2e-ba3f-6ce4f3b71d59@suse.com>
- <56b2b751-74bc-4b47-a966-2c8a6ef2b35d@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <56b2b751-74bc-4b47-a966-2c8a6ef2b35d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman	
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper	 <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini	 <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 31 Oct 2024 14:19:07 +0100
+In-Reply-To: <e067e169-3e63-4d01-963f-9dde3bb8e3b7@suse.com>
+References: <cover.1729697111.git.oleksii.kurochko@gmail.com>
+	 <28240dcfc04a11237db553c4e0ecb372aa0fe9ac.1729697111.git.oleksii.kurochko@gmail.com>
+	 <8ec6463e-40a8-4d60-b4c2-ea964a06c572@suse.com>
+	 <76fc4999eded2ce74fe73bc81998e92147cf802a.camel@gmail.com>
+	 <e067e169-3e63-4d01-963f-9dde3bb8e3b7@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.1 (3.54.1-1.fc41app1) 
+MIME-Version: 1.0
 
-On 31/10/2024 11:23 am, Jan Beulich wrote:
-> On 16.10.2024 11:37, Jan Beulich wrote:
->> On 09.10.2024 15:34, Jan Beulich wrote:
->>> On 09.10.2024 15:20, Andrew Cooper wrote:
->>>> On 09/10/2024 10:21 am, Jan Beulich wrote:
->>>>> In {big,little}_endian.h the changes are entirely mechanical, except for
->>>>> dealing with casting away of const from pointers-to-const on lines
->>>>> touched anyway.
->>>>>
->>>>> In swab.h the casting of constants is done away with as well - I simply
->>>>> don't see what the respective comment is concerned about in our
->>>>> environment (sizeof(int) >= 4, sizeof(long) >= {4,8} depending on
->>>>> architecture, sizeof(long long) >= 8). The comment is certainly relevant
->>>>> in more general cases. Excess parentheses are dropped as well,
->>>>> ___swab16()'s local variable is renamed, and __arch__swab16()'s is
->>>>> dropped as being redundant with ___swab16()'s.
->>>>>
->>>>> With that no uses of the type remain, so it moves to linux-compat.h.
->>>>>
->>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>> ---
->>>>> I'm unconvinced of the need of the separate ___constant_swab16(). I'm
->>>>> also unconvinced of the need for said constants (that even had casts on
->>>>> them).
->>>> There is a still-good series deleting the whole of byteorder/ and
->>>> replacing it with a few-hundred line single header.
->>>>
->>>> It is the second thing stalled on a governance change (prohibited
->>>> reasons to object to a change) which clearly no-one gives a damn about
->>>> fixing.  In fact double spite because it denied a good engineer his
->>>> first changes in Xen.
->>>>
->>>>
->>>> I don't particularly feel like trying to polish byteorder.  I'm inclined
->>>> to rebase+repost Lin's patches, at which point the majority of this
->>>> series simply disappears.
->>> I wouldn't mind you doing so, as long as that other series then progresses.
->>> What I don't want to get into is the other series being stuck rendering this
->>> one stuck, too. Then it would imo be better to take this one first, rebase
->>> the other on top, and work towards it becoming unstuck (whatever that takes;
->>> I have no recollection of what the issue was back at the time, all I recall
->>> is that, yes, there was such work at some point).
->> Just to have a clear picture: Was your reply an objection, with you indeed
->> meaning me to hold back this tidying work? If so, can you please indicate
->> when, at least roughly, you mean to re-post what you think wants re-posting?
->> If not, can you please indicate so, for me to commit stuff that's otherwise
->> ready to go in (and which that other work should be easy to re-base over)?
-> Just to mention here - short of an answer I'm going to commit this with the
-> R-b from Frediano that I've got.
+> > >=20
+> > > >=20
+>=20
+> > Finally, regarding masking off the top bits of mfn, I'm not
+> > entirely
+> > clear on how this should work. If I understand correctly, if I mask
+> > off
+> > certain top bits in mfn, then I would need to unmask those same top
+> > bits in maddr_to_virt() and virt_to_maddr(). Is that correct?
+> >=20
+> > Another point I=E2=80=99m unclear on is which specific part of the top =
+bits
+> > should be masked.
+>=20
+> You want to "move" the directmap such that the first legitimate RAM
+> page is within the first (large/huge) page mapping of the directmap.
+> IOW the "virtual" start of the directmap would move down in VA space.
+> That still leaves things at a simple offset calculation when
+> translating VA <-> PA.
+>=20
+> To give an example: Let's assume RAM starts at 61.5 Gb, and you want
+> to
+> use 1Gb mappings for the bulk of the directmap. Then the "virtual"
+> start
+> of the directmap would shift down to DIRECTMAP_VIRT_START - 60Gb,
+> such that the first RAM page would be mapped at
+> DIRECTMAP_VIRT_START + 1.5Gb. IOW it would be the low 30 address bits
+> of
+> the start address that you use (30 - PAGE_SHIFT for the MFN), with
+> the
+> higher bits contributing to the offset involved in the VA <-> PA
+> translation. Values used depend on the (largest) page size you mean
+> to
+> use for the direct map: On systems with terabytes of memory
+> (demanding
+> Sv48 or even Sv57 mode) you may want to use 512Gb mappings, and hence
+> you'd then need to mask the low 39 bits (or 48 for 256Tb mappings).
+Thanks a lot for clarification. IIUC then not to many things should be
+changed, only directmap mapping virtual address and calculation of
+proper virtual address start of directmap:
+   --- a/xen/arch/riscv/mm.c
+   +++ b/xen/arch/riscv/mm.c
+   @@ -457,6 +457,7 @@ vaddr_t __ro_after_init directmap_virt_start;
+    static void __init setup_directmap_mappings(unsigned long base_mfn,
+                                                unsigned long nr_mfns)
+    {
+   +    unsigned long base_addr =3D mfn_to_maddr(_mfn(base_mfn));
+        int rc;
+   =20
+        /* First call sets the directmap physical and virtual offset. */
+   @@ -473,14 +474,14 @@ static void __init
+   setup_directmap_mappings(unsigned long base_mfn,
+             * Prevent that by offsetting the start of the directmap
+   virtual
+             * address.
+             */
+   -        directmap_virt_start =3D DIRECTMAP_VIRT_START +
+   pfn_to_paddr(base_mfn);
+   +        directmap_virt_start =3D DIRECTMAP_VIRT_START - (base_addr &
+   ~XEN_PT_LEVEL_SIZE(HYP_PT_ROOT_LEVEL));
+        }
+   =20
+        if ( base_mfn < mfn_x(directmap_mfn_start) )
+            panic("cannot add directmap mapping at %#lx below heap start
+   %#lx\n",
+                  base_mfn, mfn_x(directmap_mfn_start));
+   =20
+   -    rc =3D map_pages_to_xen((vaddr_t)mfn_to_virt(base_mfn),
+   +    rc =3D map_pages_to_xen(DIRECTMAP_VIRT_START + (base_addr &
+   XEN_PT_LEVEL_SIZE(HYP_PT_ROOT_LEVEL)),
+                              _mfn(base_mfn), nr_mfns,
+                              PAGE_HYPERVISOR_RW);
+  =20
 
-nack.
+And of course then use directmap_virt_start in maddr_to_virt() and
+virt_to_maddr():
+   @@ -31,7 +31,7 @@ static inline void *maddr_to_virt(paddr_t ma)
+   =20
+        ASSERT(va_offset < DIRECTMAP_SIZE);
+   =20
+   -    return (void *)(XENHEAP_VIRT_START + va_offset);
+   +    return (void *)(directmap_virt_start + va_offset);
+    }
+   =20
+    /*
+   @@ -44,7 +44,7 @@ static inline unsigned long virt_to_maddr(unsigned
+   long va)
+    {
+        if ((va >=3D XENHEAP_VIRT_START) &&
+            (va < (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE)))
+   -        return directmapoff_to_maddr(va - XENHEAP_VIRT_START);
+   +        return directmapoff_to_maddr(va - directmap_virt_start);
 
-The reason there's even anything to do here is, in part, because you
-were obstructive to Lin's series.
+>=20
+> > > > +void __init setup_mm(void)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 const struct membanks *banks =3D bootinfo_get_m=
+em();
+> > > > +=C2=A0=C2=A0=C2=A0 paddr_t ram_start =3D INVALID_PADDR;
+> > > > +=C2=A0=C2=A0=C2=A0 paddr_t ram_end =3D 0;
+> > > > +=C2=A0=C2=A0=C2=A0 paddr_t ram_size =3D 0;
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned int i;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 /*
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * We need some memory to allocate the pag=
+e-tables used
+> > > > for
+> > > > the directmap
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * mappings. But some regions may contain =
+memory already
+> > > > allocated
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * for other uses (e.g. modules, reserved-=
+memory...).
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * For simplicity, add all the free region=
+s in the boot
+> > > > allocator.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > +=C2=A0=C2=A0=C2=A0 populate_boot_allocator();
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 total_pages =3D 0;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 for ( i =3D 0; i < banks->nr_banks; i++ )
+> > > > +=C2=A0=C2=A0=C2=A0 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct membank *b=
+ank =3D &banks->bank[i];
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t bank_end =3D ba=
+nk->start + bank->size;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_size +=3D ROUNDDOWN=
+(bank->size, PAGE_SIZE);
+> > >=20
+> > > As before - if a bank doesn't cover full pages, this may give the
+> > > impression
+> > > of there being more "total pages" than there are.
+> > Since it rounds down to PAGE_SIZE, if ram_start is 2K and the total
+> > size of a bank is 11K, ram_size will end up being 8K, so the "total
+> > pages" will cover less RAM than the actual size of the RAM bank.
+>=20
+> ram_start at 2k but bank size being 13k would yield 2 usable pages
+> (first partial page of 2k unusable and last partial page of 3k
+> unusable), yet ram_size of 12k (3 pages). You need to consider the
+> common case; checking things work for a randomly chosen example isn't
+> enough.
+Then I have to check separately the start and end of bank and check if
+ram_size should be reduced in case if the start or end isn't properly
+aligned.
 
-It wasn't only you, but the maintainers (plural) behaviour on that
-series was so outrageous that it started the effort to governance to
-prohibit certain classes of feedback, to make Xen a less toxic place to
-contribute to.
+>=20
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_start =3D min(ram_s=
+tart, bank->start);
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_end =3D max(ram_end=
+, bank_end);
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 setup_directmap_mapping=
+s(PFN_DOWN(bank->start),
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PFN_DOWN(bank->size));
+> > >=20
+> > > Similarly I don't think this is right when both start and size
+> > > aren't
+> > > multiple of PAGE_SIZE. You may map an unsuable partial page at
+> > > the
+> > > start,
+> > > and then fail to map a fully usable page at the end.
+> > ram_size should be a multiple of PAGE_SIZE because we have:
+> > =C2=A0=C2=A0=C2=A0 ram_size +=3D ROUNDDOWN(bank->size, PAGE_SIZE);
+> >=20
+> > Do you know of any examples where bank->start isn't aligned to
+> > PAGE_SIZE?
+>=20
+> Question is the other way around: Is it specified anywhere that start
+> (and
+> size) _need_ to be aligned? And if it is - do all firmware makers
+> play by
+> that (on x86 at least specifications often mean pretty little to
+> firmware
+> people, apparently)?
+Yes, I understand that, I tried to find that somewhere in priv/unpriv
+spec and wasn't able to find that. And that is why I asked if it should
+be mentioned somewhere. Anyway, I think that it will be better just to
+update the code and make it working in any case.
 
-I will get to it when I get to it.   You can use the time to reflect on
-how you could have been more helpful in the past, and avoided this whole
-issue.
+Thanks.
 
-~Andrew
+~ Oleksii
+
 
