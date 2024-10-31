@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 405639B7733
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 10:16:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.828502.1243392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83B559B7742
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Oct 2024 10:19:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.828507.1243403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6RHs-000839-T7; Thu, 31 Oct 2024 09:16:16 +0000
+	id 1t6RKO-0000Td-AM; Thu, 31 Oct 2024 09:18:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 828502.1243392; Thu, 31 Oct 2024 09:16:16 +0000
+Received: by outflank-mailman (output) from mailman id 828507.1243403; Thu, 31 Oct 2024 09:18:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6RHs-00080S-QJ; Thu, 31 Oct 2024 09:16:16 +0000
-Received: by outflank-mailman (input) for mailman id 828502;
- Thu, 31 Oct 2024 09:16:15 +0000
+	id 1t6RKO-0000Rv-68; Thu, 31 Oct 2024 09:18:52 +0000
+Received: by outflank-mailman (input) for mailman id 828507;
+ Thu, 31 Oct 2024 09:18:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zW4/=R3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t6RHr-00080M-74
- for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 09:16:15 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ (envelope-from <SRS0=Uh3x=R3=suse.de=tiwai@srs-se1.protection.inumbo.net>)
+ id 1t6RKN-0000Rp-GC
+ for xen-devel@lists.xenproject.org; Thu, 31 Oct 2024 09:18:51 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4f70f94-9768-11ef-99a3-01e77a169b0f;
- Thu, 31 Oct 2024 10:16:11 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-37d4b0943c7so428577f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Oct 2024 02:16:11 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c113e67csm1504893f8f.75.2024.10.31.02.16.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 02:16:10 -0700 (PDT)
+ id 21c63721-9769-11ef-99a3-01e77a169b0f;
+ Thu, 31 Oct 2024 10:18:46 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 316DC1F835;
+ Thu, 31 Oct 2024 09:18:45 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AB49F136A5;
+ Thu, 31 Oct 2024 09:18:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id uBqmKHNLI2f+JgAAD6G6ig
+ (envelope-from <tiwai@suse.de>); Thu, 31 Oct 2024 09:18:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +52,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4f70f94-9768-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmYiLCJoZWxvIjoibWFpbC13cjEteDQyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImM0ZjcwZjk0LTk3NjgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzY2MTcxLjA3MTczNywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730366170; x=1730970970; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rvtwV5MEtl3Wpwsvg9gUoJDgTgrZsbjGx9k5Vq15b5g=;
-        b=JnMvEF/3MuzgfH7AyMsokyd5lHl26iJvS+5zZSMLbzYeMYJBE5raoCEat+aRezAfrb
-         ceo+Ea5r0vnmjNZUktYjpj9Pmq0fzXZTC25Qscs5J7SaTWBfyCxkKtQ8sCc/m9SsUNS7
-         CqVBWpCNPRWWsyP5pCmBnIuvDR2Cu/yoL45aMJ9V1+Ds95IX+JHPqpqOSLmfxk0fEoRl
-         KV6JiPxGPiNhhaUYYsjXVZ+SgxgO9RLCTGs2zjJtdHl3bBg48mZcF0vSCRsnCFQHE1gs
-         UjHc2dJ+XN6LPAqk3leB+smFAG90lcw4X2aVPUcOgrBH9Haki07Rn0u2PJrqcC6zIH8q
-         dd+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730366170; x=1730970970;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rvtwV5MEtl3Wpwsvg9gUoJDgTgrZsbjGx9k5Vq15b5g=;
-        b=sY+jp2X4qcJqPwrjwH04noisinEhFhdcJRlAIkkeWYcgp49D4qBSaMHJNitBTr07UO
-         Wl+DI+7BzJCjymvk+4PEmEAL1QqA6JTGgQZp9Bn+3FiORB5dn182eGBWAGoyptEvR7Z4
-         ZIU7m4BYEKFGST7oFe6j0Rx4s/dkXdAn1XTYcGuhpNR8/NMAgbqkLaq063vqT5BE1HqT
-         QUb2wcTYu9l4S50PgVQAunEeIk0HvNKH31ZcaPzbL0pM/IJ8sri8D/euM890f6HFozLm
-         nsqRGTx+UEOfSC0xWDS6NGXyn9FqRDBELMGAcFzhGmNDGLtljzDURM3b2X8j97X7uTFQ
-         Xj0A==
-X-Gm-Message-State: AOJu0YxuDGg/eiMnq3Xxd2YU9XkuJTN3lFQcfmaCpPvDr9QI22cmoHUn
-	BSw0rpd/qa4Llmap6vOsgIqv/qHzw1Eb09Z5e5Iqf/MCAqjgGy46jnnnmrDesg==
-X-Google-Smtp-Source: AGHT+IFedjwCO4XZM57pkpII234KEYhbW9XY8yCGBY+O15rgN5GUZcmL4+3voO59uttIzvrPqlBUZA==
-X-Received: by 2002:a05:6000:188c:b0:381:c5ee:9c00 with SMTP id ffacd0b85a97d-381c5ee9c52mr216352f8f.47.1730366170348;
-        Thu, 31 Oct 2024 02:16:10 -0700 (PDT)
-Message-ID: <cb97f3b1-2fad-47f7-9d9f-386914623518@suse.com>
-Date: Thu, 31 Oct 2024 10:16:09 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu-policy: Extend the guest max policy max
- leaf/subleaves
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
-References: <20241029175505.2698661-1-andrew.cooper3@citrix.com>
- <ZyH1az6sb2wnVxgu@macbook> <f6494fa2-6de0-4ded-864a-9c011d9ad5f2@citrix.com>
- <ZyISitvz_K_XtvL5@macbook> <3effac8c-b4cf-4d96-a5f6-99def9f7ec1c@citrix.com>
- <ZyJM_DLUkqolD7mD@macbook> <e4d75dee-3cf6-4fc1-9277-ea16ed9e0319@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e4d75dee-3cf6-4fc1-9277-ea16ed9e0319@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 21c63721-9769-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5NS4xMzUuMjIzLjEzMSIsImhlbG8iOiJzbXRwLW91dDIuc3VzZS5kZSJ9
+X-Custom-Transaction: eyJpZCI6IjIxYzYzNzIxLTk3NjktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwMzY2MzI2Ljk3NjU5MSwic2VuZGVyIjoidGl3YWlAc3VzZS5kZSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1730366325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8flyOdsN1Wv/gVQcgw6n18uLkNhAqVdP/ybYJ4cMEt4=;
+	b=Ea95kNviZxvF/MWH1YNektTuRzffklUHTKPVt+MLD8KNcUuk+RAFwME8rOfLDmUgeoNZCY
+	uHKrZVrKtjwKmHCfcdY6P5Xf2yD0jxjFQO3JjxZEAJHe6L/4OpVl2MN++X5CKYP5BBRjwP
+	GYrY0rVxH2Fcy1Msv0+vT1N9t5TR4LA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1730366325;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8flyOdsN1Wv/gVQcgw6n18uLkNhAqVdP/ybYJ4cMEt4=;
+	b=+lYYZtpATJvtnnHjt9JH6YqR8hovRj92QK7IQ/MlTx3aBUOCUlkgzMYDVjUJg00CqGIqAq
+	nLXkrGkIXGcGRXDg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ea95kNvi;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+lYYZtpA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1730366325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8flyOdsN1Wv/gVQcgw6n18uLkNhAqVdP/ybYJ4cMEt4=;
+	b=Ea95kNviZxvF/MWH1YNektTuRzffklUHTKPVt+MLD8KNcUuk+RAFwME8rOfLDmUgeoNZCY
+	uHKrZVrKtjwKmHCfcdY6P5Xf2yD0jxjFQO3JjxZEAJHe6L/4OpVl2MN++X5CKYP5BBRjwP
+	GYrY0rVxH2Fcy1Msv0+vT1N9t5TR4LA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1730366325;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8flyOdsN1Wv/gVQcgw6n18uLkNhAqVdP/ybYJ4cMEt4=;
+	b=+lYYZtpATJvtnnHjt9JH6YqR8hovRj92QK7IQ/MlTx3aBUOCUlkgzMYDVjUJg00CqGIqAq
+	nLXkrGkIXGcGRXDg==
+Date: Thu, 31 Oct 2024 10:19:47 +0100
+Message-ID: <87plngwrws.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Philipp Stanner <pstanner@redhat.com>,	Damien Le Moal
+ <dlemoal@kernel.org>,	Niklas Cassel <cassel@kernel.org>,	Sergey Shtylyov
+ <s.shtylyov@omp.ru>,	Basavaraj Natikar <basavaraj.natikar@amd.com>,	Jiri
+ Kosina <jikos@kernel.org>,	Benjamin Tissoires <bentiss@kernel.org>,	Arnd
+ Bergmann <arnd@arndb.de>,	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alex Dubov <oakad@yahoo.com>,	Sudarsana Kalluru <skalluru@marvell.com>,
+	Manish Chopra <manishc@marvell.com>,	"David S. Miller"
+ <davem@davemloft.net>,	Eric Dumazet <edumazet@google.com>,	Jakub Kicinski
+ <kuba@kernel.org>,	Paolo Abeni <pabeni@redhat.com>,	Rasesh Mody
+ <rmody@marvell.com>,	GR-Linux-NIC-Dev@marvell.com,	Igor Mitsyanko
+ <imitsyanko@quantenna.com>,	Sergey Matyukevich <geomatsi@gmail.com>,	Kalle
+ Valo <kvalo@kernel.org>,	Sanjay R Mehta <sanju.mehta@amd.com>,	Shyam Sundar
+ S K <Shyam-sundar.S-k@amd.com>,	Jon Mason <jdmason@kudzu.us>,	Dave Jiang
+ <dave.jiang@intel.com>,	Allen Hubbe <allenbh@gmail.com>,	Bjorn Helgaas
+ <bhelgaas@google.com>,	Alex Williamson <alex.williamson@redhat.com>,
+	Juergen Gross <jgross@suse.com>,	Stefano Stabellini
+ <sstabellini@kernel.org>,	Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>,	Jaroslav Kysela <perex@perex.cz>,	Takashi
+ Iwai <tiwai@suse.com>,	Chen Ni <nichen@iscas.ac.cn>,	Mario Limonciello
+ <mario.limonciello@amd.com>,	Ricky Wu <ricky_wu@realtek.com>,	Al Viro
+ <viro@zeniv.linux.org.uk>,	Breno Leitao <leitao@debian.org>,	Kevin Tian
+ <kevin.tian@intel.com>,	Thomas Gleixner <tglx@linutronix.de>,	Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,	Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>,	Mostafa Saleh
+ <smostafa@google.com>,	Jason Gunthorpe <jgg@ziepe.ca>,	Yi Liu
+ <yi.l.liu@intel.com>,	Christian Brauner <brauner@kernel.org>,	Ankit Agrawal
+ <ankita@nvidia.com>,	Eric Auger <eric.auger@redhat.com>,	Reinette Chatre
+ <reinette.chatre@intel.com>,	Ye Bin <yebin10@huawei.com>,	Marek
+ =?ISO-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,	Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>,	Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,	Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>,	Rui Salvaterra <rsalvaterra@gmail.com>,
+	linux-ide@vger.kernel.org,	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,	ntb@lists.linux.dev,
+	linux-pci@vger.kernel.org,	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org,	linux-sound@vger.kernel.org
+Subject: Re: [PATCH 00/13] Remove implicit devres from pci_intx()
+In-Reply-To: <20241030221737.GA1223682@bhelgaas>
+References: <20241015185124.64726-1-pstanner@redhat.com>
+	<20241030221737.GA1223682@bhelgaas>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 316DC1F835
+X-Spam-Score: -3.51
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[redhat.com,kernel.org,omp.ru,amd.com,arndb.de,linuxfoundation.org,yahoo.com,marvell.com,davemloft.net,google.com,quantenna.com,gmail.com,kudzu.us,intel.com,suse.com,epam.com,perex.cz,iscas.ac.cn,realtek.com,zeniv.linux.org.uk,debian.org,linutronix.de,linux.intel.com,ziepe.ca,nvidia.com,huawei.com,invisiblethingslab.com,linux.dev,vger.kernel.org,lists.linux.dev,lists.xenproject.org];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_GT_50(0.00)[67];
+	R_RATELIMIT(0.00)[to_ip_from(RLrrkwc4rnabsqsjbq9gcqj97h)];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-On 30.10.2024 17:51, Andrew Cooper wrote:
-> On 30/10/2024 3:13 pm, Roger Pau Monné wrote:
->> On Wed, Oct 30, 2024 at 02:45:19PM +0000, Andrew Cooper wrote:
->>> On 30/10/2024 11:03 am, Roger Pau Monné wrote:
->>>> On Wed, Oct 30, 2024 at 10:39:12AM +0000, Andrew Cooper wrote:
->>>>> On 30/10/2024 8:59 am, Roger Pau Monné wrote:
->>>>>> On Tue, Oct 29, 2024 at 05:55:05PM +0000, Andrew Cooper wrote:
->>>>>>> diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
->>>>>>> index b6d9fad56773..78bc9872b09a 100644
->>>>>>> --- a/xen/arch/x86/cpu-policy.c
->>>>>>> +++ b/xen/arch/x86/cpu-policy.c
->>>>>>> @@ -391,6 +391,27 @@ static void __init calculate_host_policy(void)
->>>>>>>      p->platform_info.cpuid_faulting = cpu_has_cpuid_faulting;
->>>>>>>  }
->>>>>>>  
->>>>>>> +/*
->>>>>>> + * Guest max policies can have any max leaf/subleaf within bounds.
->>>>>>> + *
->>>>>>> + * - Some incoming VMs have a larger-than-necessary feat max_subleaf.
->>>>>>> + * - Some VMs we'd like to synthesise leaves not present on the host.
->>>>>>> + */
->>>>>>> +static void __init guest_common_max_leaves(struct cpu_policy *p)
->>>>>>> +{
->>>>>>> +    p->basic.max_leaf       = ARRAY_SIZE(p->basic.raw) - 1;
->>>>>>> +    p->feat.max_subleaf     = ARRAY_SIZE(p->feat.raw) - 1;
->>>>>>> +    p->extd.max_leaf        = 0x80000000U + ARRAY_SIZE(p->extd.raw) - 1;
->>>>>>> +}
->>>>>>> +
->>>>>>> +/* Guest default policies inherit the host max leaf/subleaf settings. */
->>>>>>> +static void __init guest_common_default_leaves(struct cpu_policy *p)
->>>>>>> +{
->>>>>>> +    p->basic.max_leaf       = host_cpu_policy.basic.max_leaf;
->>>>>>> +    p->feat.max_subleaf     = host_cpu_policy.feat.max_subleaf;
->>>>>>> +    p->extd.max_leaf        = host_cpu_policy.extd.max_leaf;
->>>>>>> +}
->>>>>> I think this what I'm going to ask is future work.  After the
->>>>>> modifications done to the host policy by max functions
->>>>>> (calculate_{hvm,pv}_max_policy()) won't the max {sub,}leaf adjustments
->>>>>> better be done taking into account the contents of the policy, rather
->>>>>> than capping to the host values?
->>>>>>
->>>>>> (note this comment is strictly for guest_common_default_leaves(), the
->>>>>> max version is fine using ARRAY_SIZE).
->>>>> I'm afraid I don't follow.
->>>>>
->>>>> calculate_{pv,hvm}_max_policy() don't modify the host policy.
->>>> Hm, I don't think I've expressed myself clearly, sorry.  Let me try
->>>> again.
->>>>
->>>> calculate_{hvm,pv}_max_policy() extends the host policy by possibly
->>>> setting new features, and such extended policy is then used as the
->>>> base for the PV/HVM default policies.
->>>>
->>>> Won't the resulting policy in calculate_{hvm,pv}_def_policy() risks
->>>> having bits set past the max {sub,}leaf in the host policy, as it's
->>>> based in {hvm,pv}_def_cpu_policy that might have such bits set?
->>> Oh, right.
->>>
->>> This patch doesn't change anything WRT that.
->> Indeed, didn't intend my comment to block it, just that I think at
->> some point the logic in guest_common_default_leaves() will need to be
->> expanded.
->>
->>> But I think you're right that we do risk getting into that case (in
->>> principle at least) because of how guest_common_*_feature_adjustment() work.
->>>
->>> Furthermore, the bug will typically get hidden because we serialise
->>> based on the max_leaf/subleaf, and will discard feature words outside of
->>> the max_leaf/subleaf bounds.
->> Yes, once we serialize it for toolstack consumption the leafs will be
->> implicitly zeroed.
->>
->>> I suppose we probably want a variation of x86_cpu_featureset_to_policy()
->>> which extends the max_leaf/subleaf based on non-zero values in leaves. 
->>> (This already feels like it's going to be an ugly algorithm.)
->> Hm, I was thinking that we would need to adjust
->> guest_common_default_leaves() to properly shrink the max {sub,}leaf
->> fields from the max policies.
+On Wed, 30 Oct 2024 23:17:37 +0100,
+Bjorn Helgaas wrote:
 > 
-> Hmm.  What we'd do is have default inherit max's ARRAY_SIZES(), then do
-> all the existing logic, then as the final step, shrink the default
-> policies, vaguely per Jan's plan.
+> On Tue, Oct 15, 2024 at 08:51:10PM +0200, Philipp Stanner wrote:
+> > @Driver-Maintainers: Your driver might be touched by patch "Remove
+> > devres from pci_intx()". You might want to take a look.
+> > 
+> > Changes since the RFC [1]:
+> >   - Add a patch deprecating pci{m}_intx(). (Heiner, Andy, Me)
+> >   - Add Acked-by's already given.
+> >   - Export pcim_intx() as a GPL function. (Alex)
+> >   - Drop patch for rts5280, since this driver will be removed quite
+> >     soon. (Philipp Hortmann, Greg)
+> >   - Use early-return in pci_intx_unmanaged() and pci_intx(). (Andy)
+> > 
+> > Hi all,
+> > 
+> > this series removes a problematic feature from pci_intx(). That function
+> > sometimes implicitly uses devres for automatic cleanup. We should get
+> > rid of this implicit behavior.
+> > 
+> > To do so, a pci_intx() version that is always-managed, and one that is
+> > never-managed are provided. Then, all pci_intx() users are ported to the
+> > version they need. Afterwards, pci_intx() can be cleaned up and the
+> > users of the never-managed version be ported back to pci_intx().
+> > 
+> > This way we'd get this PCI API consistent again.
+> > 
+> > Patch "Remove devres from pci_intx()" obviously reverts the previous
+> > patches that made drivers use pci_intx_unmanaged(). But this way it's
+> > easier to review and approve. It also makes sure that each checked out
+> > commit should provide correct behavior, not just the entire series as a
+> > whole.
+> > 
+> > Merge plan for this is to enter through the PCI tree.
+> > 
+> > [1] https://lore.kernel.org/all/20241009083519.10088-1-pstanner@redhat.com/
+> 
+> I *think* this series depends on resolution of Takashi's "Restore the
+> original INTX_DISABLE bit by pcim_intx()" patch [2], right?
 
-Yet, beyond what my present patch has, not below anything the tool stack
-has asked for explicitly.
+IIUC, it's not really dependent, as pcim_intx() has been used in
+pci_intx() internally when the PCI device is already managed.
+My patch is to correct the already existing behavior.  So I guess you
+can take this series, and I'll post the revised patch later (sorry, I
+was too busy for other tasks).
 
-Jan
+
+thanks,
+
+Takashi
+
+> 
+> For now I'm postponing this series, but let me know if that's not the
+> right thing.
+> 
+> [2] https://lore.kernel.org/r/20241024155539.19416-1-tiwai@suse.de
+> 
+> > Philipp Stanner (13):
+> >   PCI: Prepare removing devres from pci_intx()
+> >   ALSA: hda_intel: Use always-managed version of pcim_intx()
+> >   drivers/xen: Use never-managed version of pci_intx()
+> >   net/ethernet: Use never-managed version of pci_intx()
+> >   net/ntb: Use never-managed version of pci_intx()
+> >   misc: Use never-managed version of pci_intx()
+> >   vfio/pci: Use never-managed version of pci_intx()
+> >   PCI: MSI: Use never-managed version of pci_intx()
+> >   ata: Use always-managed version of pci_intx()
+> >   wifi: qtnfmac: use always-managed version of pcim_intx()
+> >   HID: amd_sfh: Use always-managed version of pcim_intx()
+> >   Remove devres from pci_intx()
+> >   PCI: Deprecate pci_intx(), pcim_intx()
+> > 
+> >  drivers/ata/ahci.c                            |  2 +-
+> >  drivers/ata/ata_piix.c                        |  2 +-
+> >  drivers/ata/pata_rdc.c                        |  2 +-
+> >  drivers/ata/sata_sil24.c                      |  2 +-
+> >  drivers/ata/sata_sis.c                        |  2 +-
+> >  drivers/ata/sata_uli.c                        |  2 +-
+> >  drivers/ata/sata_vsc.c                        |  2 +-
+> >  drivers/hid/amd-sfh-hid/amd_sfh_pcie.c        |  4 +--
+> >  drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |  2 +-
+> >  .../wireless/quantenna/qtnfmac/pcie/pcie.c    |  2 +-
+> >  drivers/pci/devres.c                          | 29 +++++--------------
+> >  drivers/pci/pci.c                             | 19 ++++--------
+> >  include/linux/pci.h                           |  1 +
+> >  sound/pci/hda/hda_intel.c                     |  2 +-
+> >  14 files changed, 26 insertions(+), 47 deletions(-)
+> > 
+> > -- 
+> > 2.47.0
+> > 
 
