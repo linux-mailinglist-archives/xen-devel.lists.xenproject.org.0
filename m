@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 803B99B8F9D
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 11:45:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829023.1244106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EC669B8FF4
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 12:06:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829035.1244116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6p8i-0006C4-9g; Fri, 01 Nov 2024 10:44:24 +0000
+	id 1t6pTc-0001sM-0l; Fri, 01 Nov 2024 11:06:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829023.1244106; Fri, 01 Nov 2024 10:44:24 +0000
+Received: by outflank-mailman (output) from mailman id 829035.1244116; Fri, 01 Nov 2024 11:05:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6p8i-00069Z-6h; Fri, 01 Nov 2024 10:44:24 +0000
-Received: by outflank-mailman (input) for mailman id 829023;
- Fri, 01 Nov 2024 10:44:22 +0000
+	id 1t6pTb-0001pd-Tw; Fri, 01 Nov 2024 11:05:59 +0000
+Received: by outflank-mailman (input) for mailman id 829035;
+ Fri, 01 Nov 2024 11:05:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PD0T=R4=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1t6p8g-000691-93
- for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 10:44:22 +0000
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [2607:f8b0:4864:20::335])
+ <SRS0=76Nm=R4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t6pTZ-0001p3-S2
+ for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 11:05:57 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e171eaf-983e-11ef-99a3-01e77a169b0f;
- Fri, 01 Nov 2024 11:44:17 +0100 (CET)
-Received: by mail-ot1-x335.google.com with SMTP id
- 46e09a7af769-7187e0041d5so1042193a34.2
- for <xen-devel@lists.xenproject.org>; Fri, 01 Nov 2024 03:44:17 -0700 (PDT)
+ id 420e1f2e-9841-11ef-99a3-01e77a169b0f;
+ Fri, 01 Nov 2024 12:05:52 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a9a2cdc6f0cso251909266b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Nov 2024 04:05:52 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9e56493f15sm168350666b.44.2024.11.01.04.05.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Nov 2024 04:05:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,401 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e171eaf-983e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC1vdDEteDMzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjNlMTcxZWFmLTk4M2UtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNDU3ODU3LjczMzg4NCwic2VuZGVyIjoiamVucy53aWtsYW5kZXJAbGluYXJvLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 420e1f2e-9841-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzMiLCJoZWxvIjoibWFpbC1lajEteDYzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjQyMGUxZjJlLTk4NDEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNDU5MTUyLjE5MzI2MSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1730457856; x=1731062656; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nz+WxhaAL6zQ3LolyiKyPpRCYy2XL2Y0dCOuQsKzxGc=;
-        b=g62vEaSYG/YsqbDOz0xzT3RETRHTxlhTZaiplmX/4RQeLRorzwoqBr3+cWs80fCMgo
-         kR3oFLJwNff6j5eJTgO3npz2MzPyVsrIiPs6quT8qObYL6B/j6B90SvJVPOBO3MQgjb9
-         ykIkUOHWZNy0LBDlwCqhHSIkWJI3mUrvsXt0axDrMnP6KwZeZYfal8hwvJ8D6w7Xonjw
-         N1F8lZW65gsH4y01xz4DLK5K4Q78tUVaNpENOtEAfg5qz97PK7fwhYSms7/H4aeo9XTv
-         Qt4PjDyWfTYgoLo0jt2qxkmAzrPgTojAN5bki9aF2rlA2gTb5Rl47xkS5EWO7LAAvGc0
-         BcQA==
+        d=citrix.com; s=google; t=1730459151; x=1731063951; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=eQjPaE1mTfWP+OjpRP6bHQcoFDkWnpjhgBhuEvN2NXc=;
+        b=o1VIx9PoyY+dr5qVaedLytfGFgytzTkJvdSzcM7DGXYODm5zitlKiBAT106pzqPyWP
+         c8jLmX8G8uZEopSOw9R2kyEBD+0zf0n6x2dmIjYH81I6AaA9J+Lw/9w+/InK2NcqZWLS
+         FbwcXJOGOEWqQk7kmIf07Fd3zJy0a01EEiE98=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730457856; x=1731062656;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=nz+WxhaAL6zQ3LolyiKyPpRCYy2XL2Y0dCOuQsKzxGc=;
-        b=KbOnDIn6X2hEfNFu63WIjL5FHSR3vPdIoiWgmf4x0Hr5rgkXRV4/ZBQuSeiAGw1FVz
-         08C8C8TvVJXvWmQGHLS05QhP5VMxlkXZKZ9mBBzhCZHLzdkquMNzQWRjYsStGvXcLKq/
-         bAyQWJdYGn7IWtz6to67cEbI6Z2jUjVqKqmsfd6v9p9QQzh1qbzObvU1dEgnUcAXoXpF
-         T7vXnXxtFq4XRfcI/fOcW9zXSnqeujAmaqdZB2cDnlQzP1Z34+nPEcSH/87GTjqfLlyN
-         WmobXTSradzL3aMFhAdjG+gW7mFw4kdfegjcg5URgjY38RHyA3YHwxJBNcIlQkVItHEj
-         w/2w==
-X-Gm-Message-State: AOJu0YzkUkML4p6bPcF0QnvgXBv1iXWJ/MPimXNUFV0keju5Y7lg31hC
-	+ta2FCz9wxh5XVav3XljZEbli+LZm3x/sLM++zj9fInL3la7JrJxzjqFCbzHeW8hE4FySN/IFY8
-	OrYCX5a1rWR4QLmLZ2MWmqpPvjJ7W8aONVm9pZTAg8qGxrZb1J18=
-X-Google-Smtp-Source: AGHT+IFpe9WJaZSQ8oHSycktJoKLh25e6q9zQi7F2xOobxOEmHaRrP5IR3nS0cg/g72gmUuOhhyZs2DE9MGUxEPfgOw=
-X-Received: by 2002:a05:6870:7247:b0:287:20ea:2db2 with SMTP id
- 586e51a60fabf-2948450b9e1mr5591534fac.25.1730457856220; Fri, 01 Nov 2024
- 03:44:16 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1730459151; x=1731063951;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eQjPaE1mTfWP+OjpRP6bHQcoFDkWnpjhgBhuEvN2NXc=;
+        b=J2nVdyyDHmBR/yORIOS6sdR4KoalY41qiGj/nQ1ysztSDkJNJ6yUdzUGIq8t6UlGs9
+         orTGn54UiMT4gyb1DXODWB6muR9L1vS3UMhSvtDpbvn9J2Ag9hRD8S4f7Wc4YlM61xB1
+         MIFcIIZvhJ5dczz5cClGraRS++rGid2Mxc193JPIAm/aY+1nafQ4u0/lxp5eEnPdgxJm
+         4QFxusT1fJkzjtjJpg6SyU68ecwBw7X7L2UPfHmL/+vYp4QLPXAyUBf5u6w/THkKOHqo
+         tmVBLy7r7C2OfS6RcxRziDhcsTBLZ/AAHD58lATIulrIbfipUKg1wi7jEomDnuUzRQER
+         RD+g==
+X-Forwarded-Encrypted: i=1; AJvYcCWenv7EGXHK6MgEn3GmRgaqmSRL9baD6VqJvPXgTS/b5KuuW9vY0qpdnSCcRTkWh6UpAbl/OQa55nY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxaKbgscwcmgk48XJwXxK17AJH6KH1nBfCBh9u/he6EDfV2Zw/v
+	n9GMBrw02k+KRNe+x6OEftfkjzIIgaHjydqIlfe11sy+apugM90yXeDf0FMIQOM=
+X-Google-Smtp-Source: AGHT+IEo30U6mCw4rhMQMZSt2+5xgdex8tUlvm2rqoAK+kscbA6Wi57FUCrbJ4bpBLV67o5p/QPHhA==
+X-Received: by 2002:a17:907:a088:b0:a99:499f:4cb7 with SMTP id a640c23a62f3a-a9e508e002dmr548658166b.23.1730459151532;
+        Fri, 01 Nov 2024 04:05:51 -0700 (PDT)
+Message-ID: <93715b7e-d968-4526-96c5-497a7a1f9dfa@citrix.com>
+Date: Fri, 1 Nov 2024 11:05:49 +0000
 MIME-Version: 1.0
-References: <cover.1729069025.git.bertrand.marquis@arm.com> <57c59cae4141dd9601d7b4e9260030a16809b764.1729069025.git.bertrand.marquis@arm.com>
-In-Reply-To: <57c59cae4141dd9601d7b4e9260030a16809b764.1729069025.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 1 Nov 2024 11:44:04 +0100
-Message-ID: <CAHUa44FPihAeGEZsj023tj22+a_xLj08gu+AsF_0E5v3PNs=jQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 4/4] xen/arm: ffa: Enable VM to VM without firmware
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/4] xen/arm: ffa: Introduce VM to VM support
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+Cc: jens.wiklander@linaro.org, Volodymyr Babchuk
+ <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+References: <cover.1729069025.git.bertrand.marquis@arm.com>
+ <0475e48ace0acd862224e7ff628d11db94392871.1729069025.git.bertrand.marquis@arm.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <0475e48ace0acd862224e7ff628d11db94392871.1729069025.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
-
-On Wed, Oct 16, 2024 at 11:22=E2=80=AFAM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> When VM to VM support is activated and there is no suitable FF-A support
-> in the firmware, enable FF-A support for VMs to allow using it for VM to
-> VM communications.
-> If there is Optee running in the secure world and using the non FF-A
-> communication system, having CONFIG_FFA_VM_TO_VM could be non functional
-> (if optee is probed first) or Optee could be non functional (if FF-A is
-> probed first) so it is not recommended to activate the configuration
-> option for such systems.
->
-> To make buffer full notification work between VMs when there is not
-> firmware, rework the notification handling and modify the global flag to
-> only be used as check for firmware notification support instead.
->
-> Modify part_info_get to return the list of VMs when there is no firmware
-> support.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/arm/tee/ffa.c          |  11 +++
->  xen/arch/arm/tee/ffa_notif.c    | 118 ++++++++++++++++----------------
->  xen/arch/arm/tee/ffa_partinfo.c |   2 +
->  3 files changed, 73 insertions(+), 58 deletions(-)
-
-I think it is desirable or at least a good goal to be able to have all
-TEE configurations enabled at compile time.
-
-For optee_probe() to succeed, a DT node with compatible
-"linaro,optee-tz" must be present, and a trusted OS responding with
-the UUID used by OP-TEE. False positives can be ruled out unless the
-system is grossly misconfigured and shouldn't be used.
-
-If we could make the probe order deterministic with OP-TEE before
-FF-A, we should be OK. If there is an odd system with OP-TEE SMC ABI
-in the secure world that wants to use FF-A VM to VM, removing the
-"linaro,optee-tz" compatible node from DT is enough to disable
-optee_probe() without recompiling Xen.
-
-Cheers,
-Jens
-
->
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 21d41b452dc9..6d427864f3da 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -324,8 +324,11 @@ static int ffa_domain_init(struct domain *d)
->      struct ffa_ctx *ctx;
->      int ret;
->
-> +#ifndef CONFIG_FFA_VM_TO_VM
->      if ( !ffa_fw_version )
->          return -ENODEV;
-> +#endif
-> +
->      /*
->       * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A ID =
-0 is
->       * reserved for the hypervisor and we only support secure endpoints =
-using
-> @@ -549,7 +552,15 @@ err_no_fw:
->      bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
->      printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
->
-> +#ifdef CONFIG_FFA_VM_TO_VM
-> +    INIT_LIST_HEAD(&ffa_teardown_head);
-> +    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0=
-);
-> +
-> +    printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
-> +    return true;
-> +#else
->      return false;
-> +#endif
->  }
->
->  static const struct tee_mediator_ops ffa_ops =3D
-> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-> index 052b3e364a70..f2c87d1320de 100644
-> --- a/xen/arch/arm/tee/ffa_notif.c
-> +++ b/xen/arch/arm/tee/ffa_notif.c
-> @@ -16,7 +16,7 @@
->
->  #include "ffa_private.h"
->
-> -static bool __ro_after_init notif_enabled;
-> +static bool __ro_after_init fw_notif_enabled;
->  static unsigned int __ro_after_init notif_sri_irq;
->
->  int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-> @@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user_regs=
- *regs)
->      uint32_t bitmap_lo =3D get_user_reg(regs, 3);
->      uint32_t bitmap_hi =3D get_user_reg(regs, 4);
->
-> -    if ( !notif_enabled )
-> -        return FFA_RET_NOT_SUPPORTED;
-> -
->      if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
->          return FFA_RET_INVALID_PARAMETERS;
->
->      if ( flags )    /* Only global notifications are supported */
->          return FFA_RET_DENIED;
->
-> -    /*
-> -     * We only support notifications from SP so no need to check the sen=
-der
-> -     * endpoint ID, the SPMC will take care of that for us.
-> -     */
-> -    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bitmap=
-_hi,
-> -                           bitmap_lo);
-> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
-> +        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
-> +                               bitmap_hi, bitmap_lo);
-> +
-> +    return FFA_RET_NOT_SUPPORTED;
->  }
->
->  int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-> @@ -51,32 +47,36 @@ int ffa_handle_notification_unbind(struct cpu_user_re=
-gs *regs)
->      uint32_t bitmap_lo =3D get_user_reg(regs, 3);
->      uint32_t bitmap_hi =3D get_user_reg(regs, 4);
->
-> -    if ( !notif_enabled )
-> -        return FFA_RET_NOT_SUPPORTED;
-> -
->      if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
->          return FFA_RET_INVALID_PARAMETERS;
->
-> -    /*
-> -     * We only support notifications from SP so no need to check the
-> -     * destination endpoint ID, the SPMC will take care of that for us.
-> -     */
-> -    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_=
-hi,
-> -                            bitmap_lo);
-> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
-> +        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bit=
-map_hi,
-> +                                bitmap_lo);
-> +
-> +    return FFA_RET_NOT_SUPPORTED;
->  }
->
->  void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
->  {
->      struct domain *d =3D current->domain;
->      struct ffa_ctx *ctx =3D d->arch.tee;
-> +    bool notif_pending =3D false;
->
-> -    if ( !notif_enabled )
-> +#ifndef CONFIG_FFA_VM_TO_VM
-> +    if ( !fw_notif_enabled )
->      {
->          ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->          return;
->      }
-> +#endif
->
-> -    if ( test_and_clear_bool(ctx->notif.secure_pending) )
-> +    notif_pending =3D ctx->notif.secure_pending;
-> +#ifdef CONFIG_FFA_VM_TO_VM
-> +    notif_pending |=3D ctx->notif.buff_full_pending;
-> +#endif
-> +
-> +    if ( notif_pending )
->      {
->          /* A pending global notification for the guest */
->          ffa_set_regs(regs, FFA_SUCCESS_64, 0,
-> @@ -103,11 +103,13 @@ void ffa_handle_notification_get(struct cpu_user_re=
-gs *regs)
->      uint32_t w6 =3D 0;
->      uint32_t w7 =3D 0;
->
-> -    if ( !notif_enabled )
-> +#ifndef CONFIG_FFA_VM_TO_VM
-> +    if ( !fw_notif_enabled )
->      {
->          ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->          return;
->      }
-> +#endif
->
->      if ( (recv & 0xFFFFU) !=3D ffa_get_vm_id(d) )
->      {
-> @@ -115,7 +117,8 @@ void ffa_handle_notification_get(struct cpu_user_regs=
- *regs)
->          return;
->      }
->
-> -    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP_SPM =
-) )
-> +    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP
-> +                                        | FFA_NOTIF_FLAG_BITMAP_SPM )) )
->      {
->          struct arm_smccc_1_2_regs arg =3D {
->              .a0 =3D FFA_NOTIFICATION_GET,
-> @@ -170,15 +173,14 @@ int ffa_handle_notification_set(struct cpu_user_reg=
-s *regs)
->      uint32_t bitmap_lo =3D get_user_reg(regs, 3);
->      uint32_t bitmap_hi =3D get_user_reg(regs, 4);
->
-> -    if ( !notif_enabled )
-> -        return FFA_RET_NOT_SUPPORTED;
-> -
->      if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
->          return FFA_RET_INVALID_PARAMETERS;
->
-> -    /* Let the SPMC check the destination of the notification */
-> -    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_=
-lo,
-> -                           bitmap_hi);
-> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
-> +        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bit=
-map_lo,
-> +                               bitmap_hi);
-> +
-> +    return FFA_RET_NOT_SUPPORTED;
->  }
->
->  #ifdef CONFIG_FFA_VM_TO_VM
-> @@ -190,7 +192,7 @@ void ffa_raise_rx_buffer_full(struct domain *d)
->          return;
->
->      if ( !test_and_set_bool(ctx->notif.buff_full_pending) )
-> -        vgic_inject_irq(d, d->vcpu[0], notif_sri_irq, true);
-> +        vgic_inject_irq(d, d->vcpu[0], GUEST_FFA_NOTIF_PEND_INTR_ID, tru=
-e);
->  }
->  #endif
->
-> @@ -363,7 +365,7 @@ void ffa_notif_init_interrupt(void)
->  {
->      int ret;
->
-> -    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
-> +    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
->      {
->          /*
->           * An error here is unlikely since the primary CPU has already
-> @@ -394,47 +396,47 @@ void ffa_notif_init(void)
->      int ret;
->
->      /* Only enable fw notification if all ABIs we need are supported */
-> -    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-> -           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-> -           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-> -           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
-> -        return;
-> -
-> -    arm_smccc_1_2_smc(&arg, &resp);
-> -    if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> -        return;
-> -
-> -    irq =3D resp.a2;
-> -    notif_sri_irq =3D irq;
-> -    if ( irq >=3D NR_GIC_SGI )
-> -        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-> -    ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
-> -    if ( ret )
-> +    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-> +         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-> +         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-> +         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
->      {
-> -        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
-> -               irq, ret);
-> -        return;
-> -    }
-> +        arm_smccc_1_2_smc(&arg, &resp);
-> +        if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> +            return;
->
-> -    notif_enabled =3D true;
-> +        irq =3D resp.a2;
-> +        notif_sri_irq =3D irq;
-> +        if ( irq >=3D NR_GIC_SGI )
-> +            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-> +        ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", NUL=
-L);
-> +        if ( ret )
-> +        {
-> +            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\=
-n",
-> +                   irq, ret);
-> +            return;
-> +        }
-> +        fw_notif_enabled =3D true;
-> +    }
->  }
->
->  int ffa_notif_domain_init(struct domain *d)
->  {
->      int32_t res;
->
-> -    if ( !notif_enabled )
-> -        return 0;
-> +    if ( fw_notif_enabled )
-> +    {
->
-> -    res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpu=
-s);
-> -    if ( res )
-> -        return -ENOMEM;
-> +        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_=
-vcpus);
-> +        if ( res )
-> +            return -ENOMEM;
-> +    }
->
->      return 0;
->  }
->
->  void ffa_notif_domain_destroy(struct domain *d)
->  {
-> -    if ( notif_enabled )
-> +    if ( fw_notif_enabled )
->          ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
->  }
-> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
-nfo.c
-> index d699a267cc76..2e09440fe6c2 100644
+On 16/10/2024 10:21 am, Bertrand Marquis wrote:
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
+> index fde187dba4e5..d699a267cc76 100644
 > --- a/xen/arch/arm/tee/ffa_partinfo.c
 > +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> @@ -128,12 +128,14 @@ void ffa_handle_partition_info_get(struct cpu_user_=
-regs *regs)
->          goto out;
->      }
->
-> +#ifndef CONFIG_FFA_VM_TO_VM
->      if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
->      {
->          /* Just give an empty partition list to the caller */
->          ret =3D FFA_RET_OK;
->          goto out;
->      }
+> @@ -77,7 +77,21 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
+>      };
+>      uint32_t src_size, dst_size;
+>      void *dst_buf;
+> -    uint32_t ffa_sp_count = 0;
+> +    uint32_t ffa_vm_count = 0, ffa_sp_count = 0;
+> +#ifdef CONFIG_FFA_VM_TO_VM
+> +    struct domain *dom;
+> +
+> +    /* Count the number of VM with FF-A support */
+> +    rcu_read_lock(&domlist_read_lock);
+> +    for_each_domain( dom )
+> +    {
+> +        struct ffa_ctx *vm = dom->arch.tee;
+> +
+> +        if (dom != d && vm != NULL && vm->guest_vers != 0)
+> +            ffa_vm_count++;
+> +    }
+> +    rcu_read_unlock(&domlist_read_lock);
 > +#endif
->
->      ret =3D ffa_rx_acquire(d);
->      if ( ret !=3D FFA_RET_OK )
-> --
-> 2.47.0
->
+
+...
+struct domain *dom;
+
+if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+{
+    /* Count the number of VM with FF-A support */
+    rcu_read_lock(&domlist_read_lock);
+    ...
+    rcu_read_unlock(&domlist_read_lock);
+}
+
+drops the explicit ifdef.  Hiding function-level variable declarations
+behind an ifdef like that works exactly once, and it doesn't make
+pleasant code.
+
+~Andrew
 
