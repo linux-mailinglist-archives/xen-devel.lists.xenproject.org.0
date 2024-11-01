@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE0D9B91C5
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 14:17:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829113.1244212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6922B9B92B0
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 14:56:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829144.1244226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6rWN-00017B-Iw; Fri, 01 Nov 2024 13:16:59 +0000
+	id 1t6s7z-0000lJ-EC; Fri, 01 Nov 2024 13:55:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829113.1244212; Fri, 01 Nov 2024 13:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 829144.1244226; Fri, 01 Nov 2024 13:55:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6rWN-00013J-Ch; Fri, 01 Nov 2024 13:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 829113;
- Fri, 01 Nov 2024 13:16:57 +0000
+	id 1t6s7z-0000jN-BK; Fri, 01 Nov 2024 13:55:51 +0000
+Received: by outflank-mailman (input) for mailman id 829144;
+ Fri, 01 Nov 2024 13:55:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1ZeD=R4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1t6rWL-0000WD-FN
- for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 13:16:57 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8f57c2a7-9853-11ef-99a3-01e77a169b0f;
- Fri, 01 Nov 2024 14:16:52 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-539f58c68c5so3755774e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 01 Nov 2024 06:16:52 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53c7bdcbcf6sm549745e87.194.2024.11.01.06.16.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Nov 2024 06:16:50 -0700 (PDT)
+ <SRS0=Nn37=R4=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
+ id 1t6s7y-0000jH-AY
+ for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 13:55:50 +0000
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fe7aff45-9858-11ef-99a3-01e77a169b0f;
+ Fri, 01 Nov 2024 14:55:46 +0100 (CET)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-43161e7bb25so15610115e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Nov 2024 06:55:46 -0700 (PDT)
+Received: from ?IPV6:2a02:8012:3a1:0:4ddd:1dd:c52d:25b6?
+ ([2a02:8012:3a1:0:4ddd:1dd:c52d:25b6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-431bd947c26sm95136475e9.26.2024.11.01.06.55.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Nov 2024 06:55:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f57c2a7-9853-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmQiLCJoZWxvIjoibWFpbC1sZjEteDEyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjhmNTdjMmE3LTk4NTMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNDY3MDEyLjc1ODg1Miwic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730467012; x=1731071812; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H0tCjI4kCmIi/dimFkccnAhbpz2v4MkjIHvRt5/LZKc=;
-        b=bS/TOcc9eOY6e/oP3zOhDFIK4LC6RNGRKpeTas2rkMEI/UphktQwARA6OP42KxBYL9
-         kTo+VQX4hlmSkxI3CiV0tcPQJ9/Z+rridX1LWhGIAIpg9KOKGf/Fqr06/kyPe//xzURF
-         4vBa1JdrbHGNOX6u56Js0FN7jGI8ie2cI5eRyhNq0AYS/gxhcZfk7VbmhUg5Prf/sj5i
-         1TBOFfdvoziyRbszAMevSImcg/4bhzkYMBsnbTn00LdaGwAXNnSOW0PtOUt0QdGcHMM5
-         Dd7w0kzpRblRSd+UdcNeSXM2/nHMPcJxop4BycRKCnJEkWo1+5Q+Oh1JMDZs9oYnPhF+
-         Msnw==
+X-Inumbo-ID: fe7aff45-9858-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjIwOS44NS4xMjguNDciLCJoZWxvIjoibWFpbC13bTEtZjQ3Lmdvb2dsZS5jb20ifQ==
+X-Custom-Transaction: eyJpZCI6ImZlN2FmZjQ1LTk4NTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNDY5MzQ2LjgwODcwOSwic2VuZGVyIjoianVsaWVuLmdyYWxsLm9zc0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730467012; x=1731071812;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=H0tCjI4kCmIi/dimFkccnAhbpz2v4MkjIHvRt5/LZKc=;
-        b=rekl324VztLNMgYWjOwEF5mkvFdpJns/Q9sYxmdaEGzUmR2trLuyrl3S8lbMGfP5I0
-         eLtetZcqpmAVsj87FT2bxMXo9XS/NfmQvGNFI5jV8xvki9d76GI93m9cXinuesdPHqRy
-         NUZwRc9JUL8Ye+js2BYWWZQBSDAQiempEvvlTZoZAxVqEA0KtRWY8Upj7sfne7/ARD+M
-         NBXnkMk45+nKIoARgnvXpeXpPl1YYIqX43o3k1gIacbGdTvpX8UYQPZPXf28pzcX3RRs
-         PtruFLa+8dsNx9mHZqeNHqtDqW5q0PkhENx/b9dyEZi2G3IrP1xNfyb6IewUFXWmtB1K
-         i9xQ==
-X-Gm-Message-State: AOJu0YwxQG6Be2DuUjcOzIUUllQVVTOVPzQb786VegNCZR6TXVi+Bs8S
-	MOtnTwQ0/FhizRwJ/U4FFWGmrGdupktGNjnrkydD+DK3Jy8zJ2M2gsKYdw==
-X-Google-Smtp-Source: AGHT+IFQx18uTeC/Snv59cGLNLIp1Lxw6/5eIE0h/7dXmAj1Y1L+LsPcMbcCgYlU6b4OezBlGLEr5g==
-X-Received: by 2002:a05:6512:3d10:b0:539:94f5:bf with SMTP id 2adb3069b0e04-53d65e16d9dmr3248992e87.59.1730467011519;
-        Fri, 01 Nov 2024 06:16:51 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 3/3] xen/riscv: finalize boot allocator and transition to boot state
-Date: Fri,  1 Nov 2024 14:16:42 +0100
-Message-ID: <85a6e3165f4952882b5c430842ccf724650d78d5.1730465154.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <cover.1730465154.git.oleksii.kurochko@gmail.com>
-References: <cover.1730465154.git.oleksii.kurochko@gmail.com>
+        d=1e100.net; s=20230601; t=1730469346; x=1731074146;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DQCRFSxv5Y2IplxAHG0o5lc6I02Qv0u03rbfYv++cL0=;
+        b=ugy2/amxsRK5J9RbU+1JmJAhCAg1HMSZZXqmxgo/rehuh4NaMbmURUthyuHib89r+1
+         nO5yLgmguUb3krGIc7PwuTphBEQml83UOtH7CgdTkjutK5C8wXnM5qn/BP3PDKo+IulM
+         uDWrPjzlWtmzRtOVSn33dlfqEq8ixcYt7JrtFpSJSLHHEhznR1zE2MvmXs7CVErxDl0s
+         t6PQVxkbzpnQhBIaJww9MNQUDe0yIjuBdraKRIZ8CFi2iSzGuQkEFf0X5deI7t+yqXoj
+         zwXQ4h2SOebyi05LaMK2DmUjV1yYWeaNmnHxpqaV8+tyxc+2l9HtxFdrG/5XqdLbTS66
+         IF6w==
+X-Forwarded-Encrypted: i=1; AJvYcCV9uenEFYzFoAPivgawbNI1qfCDWKwDOe6SvnEFiCq3cdxBX1mogPPUwhGZSz3qx5zWQwChZl6dQB0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzVQfoukwoegQ9ZpdkdXjQFrHG66b3Gz3/hywbZg2RJ6ZIFv6dS
+	zIzZXVD8tjVRq03TtTNlNO75Nb6r1Smvn8Zrt0zC8ePB732hPIsb
+X-Google-Smtp-Source: AGHT+IGeWKkyyADBHcgCbEgWOJdYpOmkB/Kw6RzgzGvGqicU7E4TZuw9h/jHc1KaZCxpqjqiBzaukQ==
+X-Received: by 2002:a05:600c:198a:b0:431:6153:a258 with SMTP id 5b1f17b1804b1-431bb9855f6mr100841555e9.13.1730469345904;
+        Fri, 01 Nov 2024 06:55:45 -0700 (PDT)
+Message-ID: <3d8c7aa6-500d-4bab-9804-0c41ffb4fd52@xen.org>
+Date: Fri, 1 Nov 2024 13:55:44 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/6] xen/arm: Skip initializing the BSS section when it
+ is empty
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
+ <20241028124547.1371867-2-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20241028124547.1371867-2-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add a call to end_boot_allocator() in start_xen() to finalize the
-boot memory allocator, moving free pages to the domain sub-allocator.
+Hi Ayan,
 
-After initializing the memory subsystem, update `system_state` from
-`SYS_STATE_early_boot` to `SYS_STATE_boot`, signifying the end of the
-early boot phase.
+On 28/10/2024 12:45, Ayan Kumar Halder wrote:
+> If the BSS section is empty, then the function should return.
+> If one does not check whether the BSS section is empty or not, then there is a
+> risk of writing 0s outside of BSS section (which may contain critical data).
+> 
+> Fixes: dac84b66cc9a ("xen: arm64: initial build + config changes, start of day code")
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Change in V2-V3:
- - Acked-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/riscv/setup.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 3652cb056d..9680332fee 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -65,6 +65,14 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     vm_init();
- 
-+    end_boot_allocator();
-+
-+    /*
-+     * The memory subsystem has been initialized, we can now switch from
-+     * early_boot -> boot.
-+     */
-+    system_state = SYS_STATE_boot;
-+
-     printk("All set up\n");
- 
-     machine_halt();
+Cheers,
+
 -- 
-2.47.0
+Julien Grall
 
 
