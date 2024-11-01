@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 472219B9163
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 13:55:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829084.1244156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E18AB9B9187
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 14:08:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829093.1244166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6rBN-0003tm-Hl; Fri, 01 Nov 2024 12:55:17 +0000
+	id 1t6rNj-00066b-LP; Fri, 01 Nov 2024 13:08:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829084.1244156; Fri, 01 Nov 2024 12:55:17 +0000
+Received: by outflank-mailman (output) from mailman id 829093.1244166; Fri, 01 Nov 2024 13:08:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6rBN-0003s6-F4; Fri, 01 Nov 2024 12:55:17 +0000
-Received: by outflank-mailman (input) for mailman id 829084;
- Fri, 01 Nov 2024 12:55:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t6rNj-00063V-If; Fri, 01 Nov 2024 13:08:03 +0000
+Received: by outflank-mailman (input) for mailman id 829093;
+ Fri, 01 Nov 2024 13:08:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1ZeD=R4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1t6rBL-0003s0-Ak
- for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 12:55:15 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87fb179b-9850-11ef-a0c5-8be0dac302b0;
- Fri, 01 Nov 2024 13:55:11 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-53b34ed38easo1869311e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 01 Nov 2024 05:55:11 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53c7bdcc305sm548664e87.227.2024.11.01.05.55.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Nov 2024 05:55:09 -0700 (PDT)
+ <SRS0=76Nm=R4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t6rNi-00063P-MU
+ for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 13:08:02 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f1e75cc-9852-11ef-99a3-01e77a169b0f;
+ Fri, 01 Nov 2024 14:07:55 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c99be0a4bbso2752226a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Nov 2024 06:07:55 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9e56498413sm177364766b.32.2024.11.01.06.07.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Nov 2024 06:07:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,208 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87fb179b-9850-11ef-a0c5-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmIiLCJoZWxvIjoibWFpbC1sZjEteDEyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijg3ZmIxNzliLTk4NTAtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwNDY1NzExLjg2NDAxMiwic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 4f1e75cc-9852-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmIiLCJoZWxvIjoibWFpbC1lZDEteDUyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjRmMWU3NWNjLTk4NTItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNDY2NDc1LjY2ODQyMSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730465711; x=1731070511; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hCWGgZp5QdiE9RYwzoLYqxAHUh5bRQe2YL0LSwj2aNo=;
-        b=jor2xzSIW8VX9/ghZxvzZYUvCJImrAysbGl+OSaRFiFDE5ezzt1ZONyncqOIxc87Q9
-         4HBrsZN9p3pBNbesol/8GdzhkCVX0hhk7IJakk2rx7DRq0Yfs0xJ0gQ5b97Ewam+mqUX
-         nwQW+uw2RSEeEP/zCBjx4+d/ZCQk3PA1+EPz7LBBsemW7h9bD0/ssvFbF3778BFKVbxk
-         ni4GCG7fvDDJZKRGfkQPwUzq1EQ8ehx2XgMM0NrL34lURNFjYaQpDLHgm09/O/skqr+f
-         mQY+/ANZEwln/eN4OwcF2/ExmSUoLmNNOaYz9jPlDH3Q8uq/2TqIbNlUhNCCU/cONDpB
-         ydsQ==
+        d=citrix.com; s=google; t=1730466475; x=1731071275; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WnFrf5qTHi0bq4qyG+/0K6pn4GTvB5MrDbXD0Tx4V7U=;
+        b=YRni+j80wijzx9LxFPmdXpYwE2RZk4VRwOWUhyoewVLB1tvEO115OLHW5zjkKK8Sau
+         1bI8aTZgexiHvkH4UM8uqev4InaNbHdNQKnNoAoRAWF3LQtToyZiL87zFnFNZmENw/+8
+         dOq8c5R8QoLlOfUukD1z25Jy83XfX5uB3katI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730465711; x=1731070511;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hCWGgZp5QdiE9RYwzoLYqxAHUh5bRQe2YL0LSwj2aNo=;
-        b=JSwMC9jPWgO5qsxCTTnFCDgJefegdYvQUN2+6T1toTAaLbJiJUYuKKVw8AWeWYf2wS
-         HvP1Fu6B4VvEH38mX4ocaY1BlXEh3gXskhUUnl/NShE6J0RpbBjbhHUtJPWVILdpuwrI
-         zjpfhykW8khANLdoXLTH+CIU9Qocy3IGbindPO6W2yUJW94uGoQD47CiN0q4e6PTbrRD
-         45I12TV1dc0dzdvFPeUS4C5Q3pYv3LWBU+40n7LzndOtI5ltVhiXdqSiBUGuSwg+9eBF
-         x8PMy4xmYcVJyzqSGU+GLxeAq/whH1X0B9exYXCyyK3HNhNJce8GzqYJtGaqgt7UvIM3
-         OeeQ==
-X-Gm-Message-State: AOJu0YxtYnvNn/lovLVVWK4HvWEU/p/+cVryOONfJEwJaYpAsYv+rZ92
-	UE+hTQm684UezVWPZcCFynFBz3QZAAu/9xGckB42QfLC2ysAuVPPXpRtmQ==
-X-Google-Smtp-Source: AGHT+IFJooEwX/gurLTtzbytSGsYL+jRUHDmaWeCGU6cJkbm3U03B2BG23JpM++didU+aqk4H5K8sA==
-X-Received: by 2002:a05:6512:1255:b0:539:dca9:19a2 with SMTP id 2adb3069b0e04-53b3491c152mr10884832e87.39.1730465709822;
-        Fri, 01 Nov 2024 05:55:09 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3] xen/common: Move gic_dt_preinit() to common code
-Date: Fri,  1 Nov 2024 13:55:07 +0100
-Message-ID: <0fa60e73eccb620ad37037e2128deea7a97f726b.1730457699.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.47.0
+        d=1e100.net; s=20230601; t=1730466475; x=1731071275;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WnFrf5qTHi0bq4qyG+/0K6pn4GTvB5MrDbXD0Tx4V7U=;
+        b=ZwSHXjBpaTSHVKYumd37e2dNls56FsumJlgJsdn4bgKl78Zpa59miaDkXAT58OGAaq
+         Yl8dYbCPRnPFH0oRncMy70TutX9MWv/yiqYAl75YsmRmPcU2Ia1xGlpf9TSk0iSFxVjd
+         vSf0zXAzpj01jCPxuVM335nZfWYducAwhE631sCOoAjDA1Nou9/DF98y4HQIRgaDQdtR
+         3jGVuhDu7Kge+TN5V9xn9VbWerO42/TunU17XrOSKP6NJ8MiLf+WdSn64CCX+CFpDYKy
+         IMzHBZPKYxEB1OmFOoqCbHLxpt5HORGCV03XdvyJpt1KvZFSc/UkfLayiJFvOYbphlA4
+         /MRA==
+X-Gm-Message-State: AOJu0YwTlEAOl48cN4kqXW37ZSGU0cq1Ils0F0uEp2+wNzzOn3WpqGl5
+	OCoTr4ok7A7vZUR0QGXBMJoILwP6vgi5WTf1jIf//QcaymPM9+gIAfhdo0aalxo=
+X-Google-Smtp-Source: AGHT+IHDzupd+f/MkKVsoLZwEptd5+PzisNQzRioaexD0FzknJcpfaIvcMRTMhNDgKXikuAAciEGqg==
+X-Received: by 2002:a17:907:3e83:b0:a9a:7f87:904b with SMTP id a640c23a62f3a-a9e3a61eab8mr1124666466b.29.1730466474979;
+        Fri, 01 Nov 2024 06:07:54 -0700 (PDT)
+Message-ID: <2dd0b4b1-5ed6-4de0-bd0b-465f733a74e8@citrix.com>
+Date: Fri, 1 Nov 2024 13:07:53 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scripts: Refine git-checkout.sh change for different
+ branches
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, Julien Grall <julien@xen.org>
+References: <20241031134702.2913536-1-andrew.cooper3@citrix.com>
+ <5d8f492d-6fa0-434d-8d01-f28376ed20be@citrix.com>
+ <alpine.DEB.2.22.394.2410311543430.2525410@ubuntu-linux-20-04-desktop>
+ <79c9b208-05f2-4520-80c8-930ef5cc4b5a@citrix.com>
+ <33fa377c-2e23-45e3-a2a1-fda3097c4801@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <33fa377c-2e23-45e3-a2a1-fda3097c4801@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Introduce intc_dt_preinit() in the common codebase, as it is not
-architecture-specific and can be reused by both PPC and RISC-V.
-This function identifies the node with the interrupt-controller property
-in the device tree and calls device_init() to handle architecture-specific
-initialization of the interrupt controller.
+On 01/11/2024 12:26 pm, Jason Andryuk wrote:
+> On 2024-10-31 18:52, Andrew Cooper wrote:
+>> On 31/10/2024 10:44 pm, Stefano Stabellini wrote:
+>>>
+>>> On Thu, 31 Oct 2024, Andrew Cooper wrote:
+>>>
+>>>> On 31/10/2024 1:47 pm, Andrew Cooper wrote:
+>>>>> The change works for divergent branches, but doesn't work for
+>>>>> explicit SHAs.
+>>>>>
+>>>>> Instead of passing `-b $TAG` to clone, explicitly fetch the $TAG
+>>>>> we want after
+>>>>> cloning.
+>>>>>
+>>>>> Fixes: c554ec124b12 ("scripts: Fix git-checkout.sh to work with
+>>>>> branches other than master")
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>> ---
+>>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>>>> CC: Julien Grall <julien@xen.org>
+>>>>>
+>>>>> Speculative fix, pending CI:
+>>>>>   
+>>>>> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1521847529
+>>>>>
+>>>> Nope.  While this works on staging, it breaks on 4.17
+>>>>
+>>>> Back to the drawing board.
+>>>   I am not certain about this but maybe we need:
+>>>
+>>>    $GIT fetch origin
+>>>
+>>> without the $TAG
+>>
+>> You need the $TAG to guide what to pull when it's not a parent of
+>> master.
+>>
+>> For real tags (which live in a global namespace), and real SHAs (don't
+>> need any further reference), creating a branch called `dummy` from them
+>> works fine.
+>>
+>> The problem for branches is that $GIT fetch origin $TAG only updates
+>> FETCH_HEAD and doesn't create a remote branch of the same name.  You can
+>> do that with $GIT fetch origin $TAG:$TAG but only if you know that $TAG
+>> is really a branch in the first place.
+>>
+>> Which circles back around to the original problem of not being able to
+>> disambiguate what $TAG is until you've got the whole repository.
+>>
+>> I'm not aware of any way to ask the remote "do you know what type of
+>> object $TAG actually is?" and that's probably because it would be a
+>> reverse lookup through refs/ to figure out if it was a branch or not.
+>>
+>> I'm sure there must be a way of doing this...
+>
+> I'm not clear on the exact problem
 
-Make minor adjustments compared to the original ARM implementation of
-gic_dt_preinit():
- - Remove the local rc variable in gic_dt_preinit() since it is only used once.
- - Change the prefix from gic to intc to clarify that the function is not
-   specific to ARM’s GIC, making it suitable for other architectures as well.
+These were the failure following the original patch, which lead to this
+patch.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in v3:
- - s/ic/intc.
- - Update the commit message.
- - Move intc_dt_preinit() to common/device-tree/intc.c.
- - Add declaration of intc_dt_preinit() in xen/device_tree.h.
- - Revert intc_preinit()-related changes and just back gic_preinit() in
-   Arm's gic.c.
- - Revert ACPI-related changes.
----
-Changes in v2:
- - Revert changes connected to moving of gic_acpi_preinit() to common code as
-   it isn't really architecture indepent part.
- - Update the commit message.
- - Move stub of ic_acpi_preinit() to <asm-generic/device.h> for the case when
-   CONFIG_ACPI=n.
----
- xen/arch/arm/gic.c              | 32 +------------------------------
- xen/common/device-tree/Makefile |  1 +
- xen/common/device-tree/intc.c   | 34 +++++++++++++++++++++++++++++++++
- xen/include/xen/device_tree.h   |  6 ++++++
- 4 files changed, 42 insertions(+), 31 deletions(-)
- create mode 100644 xen/common/device-tree/intc.c
+https://gitlab.com/xen-project/hardware/xen/-/pipelines/1521590040
 
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index 3eaf670fd7..acf61a4de3 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -214,36 +214,6 @@ int gic_map_hwdom_extra_mappings(struct domain *d)
-     return 0;
- }
- 
--static void __init gic_dt_preinit(void)
--{
--    int rc;
--    struct dt_device_node *node;
--    uint8_t num_gics = 0;
--
--    dt_for_each_device_node( dt_host, node )
--    {
--        if ( !dt_get_property(node, "interrupt-controller", NULL) )
--            continue;
--
--        if ( !dt_get_parent(node) )
--            continue;
--
--        rc = device_init(node, DEVICE_INTERRUPT_CONTROLLER, NULL);
--        if ( !rc )
--        {
--            /* NOTE: Only one GIC is supported */
--            num_gics = 1;
--            break;
--        }
--    }
--    if ( !num_gics )
--        panic("Unable to find compatible GIC in the device tree\n");
--
--    /* Set the GIC as the primary interrupt controller */
--    dt_interrupt_controller = node;
--    dt_device_set_used_by(node, DOMID_XEN);
--}
--
- #ifdef CONFIG_ACPI
- static void __init gic_acpi_preinit(void)
- {
-@@ -269,7 +239,7 @@ static void __init gic_acpi_preinit(void) { }
- void __init gic_preinit(void)
- {
-     if ( acpi_disabled )
--        gic_dt_preinit();
-+        intc_dt_preinit();
-     else
-         gic_acpi_preinit();
- }
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index 58052d074e..7c549be38a 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -2,3 +2,4 @@ obj-y += bootfdt.init.o
- obj-y += bootinfo.init.o
- obj-y += device-tree.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
-+obj-y += intc.o
-diff --git a/xen/common/device-tree/intc.c b/xen/common/device-tree/intc.c
-new file mode 100644
-index 0000000000..e726daeb26
---- /dev/null
-+++ b/xen/common/device-tree/intc.c
-@@ -0,0 +1,34 @@
-+
-+#include <xen/device_tree.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+
-+void __init intc_dt_preinit(void)
-+{
-+    struct dt_device_node *node;
-+    uint8_t num_gics = 0;
-+
-+    dt_for_each_device_node( dt_host, node )
-+    {
-+        if ( !dt_get_property(node, "interrupt-controller", NULL) )
-+            continue;
-+
-+        if ( !dt_get_parent(node) )
-+            continue;
-+
-+        if ( !device_init(node, DEVICE_INTERRUPT_CONTROLLER, NULL) )
-+        {
-+            /* NOTE: Only one GIC is supported */
-+            num_gics = 1;
-+            break;
-+        }
-+    }
-+
-+    if ( !num_gics )
-+        panic("Unable to find compatible interrupt contoller"
-+              "in the device tree\n");
-+
-+    /* Set the interrupt controller as the primary interrupt controller */
-+    dt_interrupt_controller = node;
-+    dt_device_set_used_by(node, DOMID_XEN);
-+}
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index e6287305a7..33d70b9594 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -238,6 +238,12 @@ extern rwlock_t dt_host_lock;
- struct dt_device_node *
- dt_find_interrupt_controller(const struct dt_device_match *matches);
- 
-+#ifdef CONFIG_HAS_DEVICE_TREE
-+void intc_dt_preinit(void);
-+#else
-+static inline void intc_dt_preinit(void) { }
-+#endif
-+
- #define dt_prop_cmp(s1, s2) strcmp((s1), (s2))
- #define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
- #define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
--- 
-2.47.0
+and https://gitlab.com/xen-project/hardware/xen/-/jobs/8237236030#L267
+is one specific instance
 
+> , but can you just checkout the FETCH_HEAD:
+>
+> $GIT fetch origin $TAG
+> $GIT branch -D dummy >/dev/null 2>&1 ||:
+> $GIT checkout -b dummy FETCH_HEAD
+
+Hmm yeah, that looks like it might work.  Thanks.  I'll have a play.
+
+~Andrew
 
