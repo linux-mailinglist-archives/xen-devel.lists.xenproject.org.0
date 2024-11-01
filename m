@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146009B9457
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 16:24:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829201.1244313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80AFD9B9646
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 18:10:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829232.1244323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6tUE-0001Vj-1B; Fri, 01 Nov 2024 15:22:54 +0000
+	id 1t6v95-0008A4-Eq; Fri, 01 Nov 2024 17:09:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829201.1244313; Fri, 01 Nov 2024 15:22:54 +0000
+Received: by outflank-mailman (output) from mailman id 829232.1244323; Fri, 01 Nov 2024 17:09:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6tUD-0001TL-Uk; Fri, 01 Nov 2024 15:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 829201;
- Fri, 01 Nov 2024 15:22:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t6v95-00087V-Bl; Fri, 01 Nov 2024 17:09:11 +0000
+Received: by outflank-mailman (input) for mailman id 829232;
+ Fri, 01 Nov 2024 17:09:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JHQo=R4=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1t6tUC-0001TF-Lq
- for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 15:22:52 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20607.outbound.protection.outlook.com
- [2a01:111:f403:2612::607])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2769214c-9865-11ef-a0c5-8be0dac302b0;
- Fri, 01 Nov 2024 16:22:49 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
+ <SRS0=1/Ab=R4=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1t6v93-00087O-OQ
+ for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 17:09:09 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2415::60b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fddcf35a-9873-11ef-99a3-01e77a169b0f;
+ Fri, 01 Nov 2024 18:09:03 +0100 (CET)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by SA1PR12MB6773.namprd12.prod.outlook.com (2603:10b6:806:258::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.32; Fri, 1 Nov
- 2024 15:22:47 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8093.027; Fri, 1 Nov 2024
- 15:22:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20; Fri, 1 Nov
+ 2024 17:08:58 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8114.023; Fri, 1 Nov 2024
+ 17:08:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,353 +47,431 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2769214c-9865-11ef-a0c5-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjYxMjo6NjA3IiwiaGVsbyI6IkVVUjA1LUFNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjI3NjkyMTRjLTk4NjUtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwNDc0NTY5LjMxNjYzOCwic2VuZGVyIjoiZ3J5Z29yaWlfc3RyYXNoa29AZXBhbS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: fddcf35a-9873-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxNTo6NjBiIiwiaGVsbyI6Ik5BTTExLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImZkZGNmMzVhLTk4NzMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNDgwOTQzLjQ3NTI0Niwic2VuZGVyIjoiYXlhbi5rdW1hci5oYWxkZXJAYW1kLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iLse6L7FF3PMJeW6a5y6GFWMNUN3rXnEAu+OP3CwRj+UtPi/T0mGWg7mop3KUBcTRARXvt+ZEV+KuNjgo2FhNml7L/mPFCa4Mv+mQUKsBPsabKnVWohhltsrBoW5mhgTBWTTKssuP0r4yEZFcGrT5t1IfONkJqp8hYFCQ5F7IN1cDUNJe+rvh5/gP+f4S+xXcPI9IZxiE6PaPMAdsVdwQv0U/6rdKbaeRuCT2EOu0f00XKB68Umf0ks5B5DaKsskWEFr1Fp/EL3i+DY3sy64dPV7FUS0ToK/ORKb3ydXDbRCLlvDonCp+zcR8nuSZ+URZufeP31vp4NWT6QvYHwM+Q==
+ b=UkUJf3QyrAcmKHwQ0+CSDjFI1U6T5vorJCjCIdNJYib4qqs850NeMoubEwRTcv8rY+VLGmFBRUhjMcTH6CCnDGF+x3YdM9npwM/HFEn3FD5rc5y5QZKGE6xNOTVml8Exmalj851IZmP3Skz2H1H/1Zj7TbFN0pNy0KyK1q0hp2vWMuj9eaCQwJnPIHV4C5qpPitrb/9B193SlmQd1xb7JhiRcCv16+1GMqQZNZ78sE8SWxvNHXjKIYG2YfYd+w2LVJRB4Wo+YS66nNR+JWzustWr4JO/bCZMH2HzLLNzEEiicPJg2CTilgM9UOXdDFKO8EX7lMqzqZ3KiHyGKafErg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p747qis4hv3q8JtC+6KR77RM2orOOAuQW8MBO9tg8Cc=;
- b=E6viOkfEKNG4kl0xyG1Ai65X7VA8H3TiuzY/fK078Yh9daR9iWn9lF4JS51dgxCc7k7TO2Rai2c3SnZHufN6ntwqT2AjZ3QwN+kcQ7Jb3CgzP6I9RBmE5pF4AUKx2ZLzrvPw5CHhX018KWxN4oC1jLBhCQTzXvfqr9kgYS8v5ijRh2dd0u8JFuIe51LHVH6FghydD3ThreY7kl7zRBqqG1FDz3n2FplpcQTzm8+SP/OElshxlfXj/pzPWJKOk6zUDJKTukV2GovFb4ztK3XagHa1UETm+81hkydWcnkd2HNt8un9Xf/72j5lnUZ3K9FEHWb7ocnr2RNfaD+QS8T5lA==
+ bh=jfAlsY6zQeyYagziqZI6lT4iBOtmU0SYNyJ+YvD4dpA=;
+ b=EQh5mzBBLP/GI9IqD91f0+qPf6JIzqHuha6g8K7RERQUau7+SPlJZaj6c6/m0ClrIN5lUAF/A7f/Z+caJAlNefWKOcx4WO6zNVYRg0XyoxqTfXFMGCDL27oVHFxeUsJPB/iFyi/wTVagAimqK0EYPIunze1HRPcVttG9Z3kqQPoEwSyxihuUt5Kf6hIosi7IpxEkYNiQuxjrv/BbRf0sr10ZTz5iyn2Gh3cRZmhEtF5iC73cpHClr64Fxz1ZrE5giIg9wSDQr7iPlDHwLZY5HXXh82sfXsAV47Awh3AjAmHgaiUd+Ypg88BkJw7s721T2WqbMkUyM8vzXNLM80Vxcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p747qis4hv3q8JtC+6KR77RM2orOOAuQW8MBO9tg8Cc=;
- b=R5fc0fgksUL+DxxY4W4ldZO/yFbiuRtVYRiMHxRFmt2N7PF20oS5fgniPsrfYvduO6yCyVOIvgoVXYU3b+nAuUdE04yEn+/nCWSr4z6ql2bKSoCrpo0ftGEq5BnPgYzE/9ibvo5pLP8Fy0UK+IAcFicOrKbXaT+FC0BzqM7WYqR73w4RyskcsGaPPBGNoQlTHE/KtO/QDImdYLVD6Opp7TQqdRJi7AKbKYmebddC+KH9g+3ApLC02k1VSsFTMkti9uJo9MEWsv3ZEv7OpUwqNhQnGvdzxcYbPs+A9yqIioT4A4JjlvUigEWBjzsMFBfqikY/o7w6dINmxVoqTfrNQQ==
+ bh=jfAlsY6zQeyYagziqZI6lT4iBOtmU0SYNyJ+YvD4dpA=;
+ b=DDER2pToGmFd3aRFKmSbHR1qzmbMFWIbXskiE1JuYNAByBlLkFEkdcPd0G+TCO4CQE3xGkXKDwjpkzvDwxKeMqzYGLbNa3QLx3IwVNm4zDWAFTSXioT1n8YcYaNmTVimQ+3p28gP6+nRbKcljbx94dNCzhiHa/1l6Ai9crHruCw=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <59b54859-d893-4bf4-8118-7e4a00e7d87e@epam.com>
-Date: Fri, 1 Nov 2024 17:22:44 +0200
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <cb90cbaa-2b1b-4f9c-b475-39214e471d18@amd.com>
+Date: Fri, 1 Nov 2024 17:08:53 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] xen/arm: Add SCMI over SMC calls handling layer
-To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>,
- xen-devel@lists.xenproject.org
-Cc: S32@nxp.com, Andrei Cherechesu <andrei.cherechesu@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v4 4/6] xen/arm: mpu: Create boot-time MPU protection
+ regions
+Content-Language: en-GB
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com>
- <20240930114715.642978-4-andrei.cherechesu@oss.nxp.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <20240930114715.642978-4-andrei.cherechesu@oss.nxp.com>
+References: <20241028124547.1371867-1-ayan.kumar.halder@amd.com>
+ <20241028124547.1371867-5-ayan.kumar.halder@amd.com>
+ <dcfb8c04-78c6-46b4-868b-96bf24d1493d@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <dcfb8c04-78c6-46b4-868b-96bf24d1493d@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0039.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::22) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0049.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::12) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PA4PR03MB7136:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba008048-e563-4d58-0ac2-08dcfa890a13
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|SA1PR12MB6773:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca163622-47fa-42d1-da6d-08dcfa97dfaa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MzlFby9CRVl0YUFhZHpJSHZLS2hzeDVqb3BLdmFJT2tDMy9oU2lTK0FaTDVK?=
- =?utf-8?B?QnRYQlRodDdXSEMvSjB4OFF4VGpvZzBLenpQMkJ1b3AxejhneE4rWHNyemQ0?=
- =?utf-8?B?Nk91bWhxcHlqMkxLcEFqa3RjcjdYaU1HWGhEd0VMZHVHTW1LWVdrOGUwM2xz?=
- =?utf-8?B?aU43OE9abjlDbEE5NmZIcHhBVk5FcUlna09yV3B5aVBwSjN3Q0h5Q0l4UEZR?=
- =?utf-8?B?QjUrTE1jMVQrTFVoS1hqWW0vMVhkU0FDVEVxbStxbjlpNTk3aitHUERrRnhl?=
- =?utf-8?B?NDVUTit5ZlRsSGZ2QWg5eWt4NTJtZ3UyRmxQek5nL2hISkI0NjhzUjh3aVlG?=
- =?utf-8?B?cVE1eHcrRHdld2pDK0twajV4eVkveXBXTXN1TWdyMjQrOHBBcUlvdGZNT0tu?=
- =?utf-8?B?Umpuazdhck43SzR2ZUxiY1VKR1BEeDJBMjU2aHFsQmxTUVdFWEdXbWhpeW0y?=
- =?utf-8?B?a0xWdHJlM1FPcWgweFl6ZGdsd2J4YU5uNDloYU9uZzJtcmRkWkhHOEZiZmhP?=
- =?utf-8?B?RSszQjRXRSt3VWpLNDZyTm9OUWk5ajgrZnhzSHRHL1REdHVxQXVvSnBESDgw?=
- =?utf-8?B?U2paWWtSRjYvanFqejg0alhZM05sSTlQbCtoQVpkRHJUdTFJcnE1TjVxU1B4?=
- =?utf-8?B?aDZnU0tuTFF3M043VERxaUpoa29MNXJpQWEyc1lDVFJYL3ZkUTh1a2dwS0xT?=
- =?utf-8?B?dHZRekNYMnJoN3BoZTJtam9HOU9XN2wwVHIrdHdTVUNyNXd3b21MczlQdVN1?=
- =?utf-8?B?QmUzUmhNeHYrSlJDUWUwMTdDU2xwWkwwdnk2NmNLUVNFT2szYnIwQk9PU3VE?=
- =?utf-8?B?LzlJTHpZSDVyOEdtbU95UjByWk1VckdrVVB0M3hhNWN6ZjlmT05zZUdrYmpi?=
- =?utf-8?B?SzZnc1dOS1VNSlFLeHZIQzNkMmNXK29xU1B6SDQ5SFBGTFhFTHB0T2tFWm9D?=
- =?utf-8?B?U1lrWFNVQThPdjFJNldqalNMc0JMdzdrNTJJck8vUHc3QURLKy9lUTFCMmlL?=
- =?utf-8?B?S2ZXSEZ5ejMwZVhGa2d3eDVUcWozN1N0ZjFkYzk2OEJUZ1pCc0xsRTd5dW5m?=
- =?utf-8?B?N1ZCVkRvVi9qNW50U0V0RzNXRXhDTjg5eUVNNUlPT2VmUXhzVnJ0WXMxdXFq?=
- =?utf-8?B?ZC9yUGtjZTdDdUVoSHhCc2k0bkRuUHFHaWVJTTdJOEdwdWc2cFJlNnh3QTV5?=
- =?utf-8?B?eERRUTlmamdFSEJKY1Y2S1NxMW1SK3BSbkhONjU5Zk1UT1RoYUZoVDhoZEt4?=
- =?utf-8?B?a25qZWpmSkNSOFpxaDBKQUZVVmxtdXh0Q3JkVU5BZ05NZ1JyMkp6cXIwSXQy?=
- =?utf-8?B?NWNlTmFJTFpiL0J0NUMyNzZGR1NsL0p1YXV0SkZ0aFZ3MmpYWXF0VGJKQ2tu?=
- =?utf-8?B?WG5ZNDM4UHQ4cTB4dGZLOElKVWpZbFJ1MFNMTU5VVDkvOEwrNGdGRkNROHVX?=
- =?utf-8?B?MXB4WklOc1pkc0N6ZHZoTUNLZVY0TFpvSW1NSjZNWXNCRG9KK0JlbFIxajJr?=
- =?utf-8?B?TkxFL2tIazFqNmZ1UnN5TEo0WEZWVXprNjRVNlpzK3UrT2RVNUpPVjZFRVZz?=
- =?utf-8?B?aTdTT1lMSWJQeFE0bHAvVjU4MWxkRU01bnFlajd4Z1lGQmlKV0JEd3Nqd3d2?=
- =?utf-8?B?b1ZoQkFCc1BjV25jclUwZXI3MTByV0J6YmNMdFBudmVycW11UklUSEZVbkNk?=
- =?utf-8?B?bldmYmlWcjlEdlc1bVdoelYrL1U5dEJHVnpZTGZ0RDhVbW1aUGIvdzhsK0Rt?=
- =?utf-8?Q?Uk+GglHoX8NyC6ihUpeOHOOAy6+cmumsb6sqrwu?=
+	=?utf-8?B?QXp3UXFQODVNOWJuQ0pqV3JEUktLSDRaT2dXK1ROaFk1amV1TTV2ODVEM0k3?=
+ =?utf-8?B?Wk5wKytVcnpOOGZYckJINWJGZ0ErMWU5c2w2UGtXZ0tEcnc5TkJvb2tXdktY?=
+ =?utf-8?B?NEFjbDR4VHhRRjV5SjFHNWNRRUhLRXNmRlV1R3ZSZG94R1grMnFCQld1Y2pV?=
+ =?utf-8?B?Sk80ZlVvWDRlU1FEaTRRQkFrd1U5T3RqL2U0eEtjNGRmYmZHODZHTHJJdnAv?=
+ =?utf-8?B?Z0lhckZFMW0rRVlSaHJuTHJEQkNSWXVrc0M2YzhBUFhiV3h5a00wV2lCWjFD?=
+ =?utf-8?B?OFEveitxR0VQOGxDZ2ErT1RRTjR1UUVmNlpvK0VueG1iZWdXTndvTDhidFpQ?=
+ =?utf-8?B?Z2d3RFh1OEdnUGVvRlZiZmxKMjAwYit3WllOUEIyZzJFUkhvZzZmaWxQYW1F?=
+ =?utf-8?B?dVpmWjB4ZFRCV0M3aWlCU3hUMSszS2svaVVuNi9DNk9xUU1SKzI1UkxWUkZ1?=
+ =?utf-8?B?Zkw3cnVVc1VUaUczQ2tGZUhQZEV0bGQxd290NTNaRjU2NE1BN1dETGZXeVBu?=
+ =?utf-8?B?SFRtdTlWcU9IaW9CRksxY0lDTUIycGtFMFZDSjVIMG1EanZSck1HaDQwUTNS?=
+ =?utf-8?B?RjF0OFljMk9tSUJoQngxd0RmRGlEaURrNGZGK3pwak14RlVDMUduMEQ1TzVU?=
+ =?utf-8?B?S3V4blRIbzk0QVIzellMM1hsYWkwa29GOHplWXdFemJMMlg1ZGp3akF5Q0JL?=
+ =?utf-8?B?QnBxb211dFdYcThKd3EvZHQxUmdsWSs2ZmgyWXd3RmZpMnRDakR3UTV4QVpB?=
+ =?utf-8?B?bmRyY05VRlYycFZMWXhPdDFKbDgzZmNta1R2QWVZRW1XRTBjZFhrZ2hYMFFu?=
+ =?utf-8?B?am9ZUVpGU3VEUHpLV21neGVUTFlnSkxkMVRQZWk4OC9lODF5TGR1QTFqMG52?=
+ =?utf-8?B?c2VxZGRhQmZkZ1FyWW1KeW1NcVl2QWovb1RtQklvY29tUjR3MmR5OVNCemJN?=
+ =?utf-8?B?eHY4TUt2c0YyS0gxWlFwWjVNOG1PakozOTF0MVNTSEVjSzI3RVMxZXJvam1r?=
+ =?utf-8?B?aERVYnBwaGppUU9MWlpaMlNuUnQ2Mnd6MGRla3R5KzVHRDl0bXR6aUpWQ1pX?=
+ =?utf-8?B?cWZWczFiZW00YndjUy9aWnlQUkwzTFJOaGZHUkUrT1k1dWVINWxBUW9iWm5U?=
+ =?utf-8?B?cGxIa3hTVGd2RzFNOWwvQ3FBNG1pTkRKeFpBYVR6QkRtUk1yT21xZldRMm53?=
+ =?utf-8?B?UjM4K0VESXc5Q0hMTW92V3VYZ21tczJVcmZsQzlKMVlOaTUzVGRES1d5emtw?=
+ =?utf-8?B?cmp6RFdhT2ZLZXFDOWtGYk9LZEJjSG93RVVwdnlwWHZreGZza2p4SlptbHNv?=
+ =?utf-8?B?L1pEUjcxcDdFLzZMYjFjL0c3THpVaG1oL2RKOUM2T1JwVjVqRDNsNEMvQVhv?=
+ =?utf-8?B?UEVFRGZpSUtVV2FXTXN3bnZEWis3VENzSHVzbFU4QTRkQjZBNlc1SlM0YWI5?=
+ =?utf-8?B?eHdqNWhhOXd1cHFDZGVOTk81MnFLZVlPWHd0dXdtNDlmOXFBQnRKK3ZwOFQx?=
+ =?utf-8?B?S3ZXa3FMQkhKZUtLcXMzdHQ2c2cxYkZNTDhsNkY4VVV6M1NEWTh3MktPVjF0?=
+ =?utf-8?B?YVNHRzU4NzlRVVBkT3k4dUpCZk4vMWNUbWhXcE85YnE5Y1dzYkxmSGllc2hw?=
+ =?utf-8?B?L0dIRXpaSDBPVEFMMkoyUGx1T25wdVhKWnh2MnpqbUh4QTMrR2x5N0MvS2tk?=
+ =?utf-8?B?T0FZQ3pwNVRFN0hzRWVUcFRtS0lqNEdSYWl2K0d5Z2NBMS94NlFSR1AxQ2FR?=
+ =?utf-8?Q?NsXLclAVM0E4ue0nPlFStbqQPVsShpBWwFjY5+U?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b0NiVXBPSGIrRndDbkJ0NnZ5VmV4RjJvdXovVURyeGFHdVk4eWoyWW5QZmdu?=
- =?utf-8?B?UjR4UDBHNTZRVW1ZM1laY0pwbmFPWUJxdW40Tit3ZWRIaUlYR1dpeitLZHFv?=
- =?utf-8?B?dWpEK1h3ak04ejNhSGIwK1JLNnJ4Y1JibGJldmg3TGs0WU8zYzZKcE15M3hX?=
- =?utf-8?B?YXJ6TXRJWVcxd0h0YnBvazN4VWxlNG1DUEdiSmFObEZGV2RqVCtVNHdsREZY?=
- =?utf-8?B?MzdVQ3FqbnlXU3FTY3ptbzBtOWE4dXF2bkVKVHhiMWFTUlUvU25xQ0k2YXlY?=
- =?utf-8?B?WmFwaG1ZbzJ1WWk1clI2cFBsSmU3b3VNeEZwYWpZa0U4NkVhMjR2dFVWOEp3?=
- =?utf-8?B?UHBCaXhmL2d6eUhVcmpHY2dtSHk5eS81MDVRMkRHL1B0M25yYUdrQ05FRGZW?=
- =?utf-8?B?Ry9mb3ZNdytadHZvOVpaQ1lwMTdBQmFZNmlSQ3BPOGlQQ3dOTGRvQTI5cHdK?=
- =?utf-8?B?d0tMeGxjU01hK0c3c055L3NiL01HQm5rVC9tZXRhRnoxcHNUb0lpUkF4Vy85?=
- =?utf-8?B?TVh3QjBSUk45L3VKbnV1L1ZMRU9LOC9xR282SldTZ2c4cDl5UkNqN0lFeXNW?=
- =?utf-8?B?eUpwNVJYTVpHd2Z2d1hVbUkwREJNQmtSUEwxbUJRYlVDQXdNVWVuSkp0SHcx?=
- =?utf-8?B?Y1FEWmtkQU96S2dXMmNQbmFuTlI4bldiTURVTFpNdnBxQjRoOUt5LzJvbGE5?=
- =?utf-8?B?MU0wZDBpQjlrOUREUDJGTUZXZHpwQzdlQ3RLa1ByRlZZemh3ZndLaGVqRmdY?=
- =?utf-8?B?c2M0TFFwMzhvZnJMbEJoK2x6VDRYcmorMHpzcGFoM01lYVl5RnZHc2l1UzQ2?=
- =?utf-8?B?VmlobUdpeEtBL3BnUkZ0ZW1wd280UGFySXFNc1QxaGJ1RFVONEpJNHc1OEpC?=
- =?utf-8?B?aTRCS3JYcVRkS202RTFERk5mR3NrSEhpMTBKTkE3NUhsOTdxcldWWDhoMjVK?=
- =?utf-8?B?NUlLREc3OE1vZjNRVEExanYyU2lDNkQxTndlaHRGcHBaWFZpcjVLTXdhdHBP?=
- =?utf-8?B?dWROM20rN0FLVzlhajJHbmxmdkFhYlVESjQ1UTV6Zk9PWmxVZ2lqTGFXNms3?=
- =?utf-8?B?Q3pFS2tzVEVSQm9BTHVnQXNxZTc2U3JrRTNnS20yWk43ckpsMTJTNExEQ2lv?=
- =?utf-8?B?OTgxMGhYTXNkNnM0bEtVTVZPbWxRTVlUbTdxZzFBT241YzRQb3l4V2FYWUtQ?=
- =?utf-8?B?MkFZeTFaVUlpSmdvZ3ZYWm5tVGhCblVwa1hud3E4QXF1Ui9ueFg1YzBENG1p?=
- =?utf-8?B?WmRBZTJJdzBTY2xMdWVVNVhxdURUbkgwZFJEaUZZdG9GQWlUTnVlZjV5S3ZI?=
- =?utf-8?B?RkIrOGx3d21CenZiRDJyR2s4UmdmTUU0a0M4OHdmeVZIdm5McG9xMzJtek55?=
- =?utf-8?B?WldZVE13ODd5WVpVeVNzOEo5ZVhJYlFvQmFTdVVRMFRKN1hOb0Vpb0NDRHdj?=
- =?utf-8?B?ZGdybWUwUjVyaVQvOVRaNEoxTmJiWkwyaUZkU05QdmZpR0JuRnBqbHlPUlRI?=
- =?utf-8?B?citZWEtRZXQvUk5OeUVJOHF1QXRrT3NVMFBQQ1ErRjF4TVRTYlE1NlRYbGRj?=
- =?utf-8?B?Z25VUGNNdGtaeU0vT2VncEVqOTZGcDB4RlBOQlZMQVJYbVg1d1BpWkljM1pU?=
- =?utf-8?B?ZVd0U1JwbHgvSXIyclFJU3hJdXFBT3VLTitBRk9tU09wVDd2aDkxQ2htOHI4?=
- =?utf-8?B?MFdDSEUxbXMrTjVzaHR5YU4yZ2Z1by9JNk1wV2czVkx4eEszNlY5V1hZMitY?=
- =?utf-8?B?dk9ML0JkSk9kU2owUTAzSUs4cnNKQ0pQbktITGxjbWduZzlldzBySVB2Sk5Z?=
- =?utf-8?B?YkRBMjkzL3hYakdYWHl5Z3JNaGF6MW13VjJBTVRsSU5xSjlldHdIMHNNMDJX?=
- =?utf-8?B?MGsvT0VybzNHZ1FKa2NDUUJwZmMyalpDbE1peld6Mmh6eWxEaW5BNzJNeDZr?=
- =?utf-8?B?ODM3L1g1Q21ibG9KOER5ajZCRWNsWlRKeTdLNzZQekUreVdDd0tkWllkM0t3?=
- =?utf-8?B?NW9WN0N0LzZnYjVKMnUrWnUvR05HZGR6a0w3enRVUkgzRlYraEtmMWg3eits?=
- =?utf-8?B?QUpyREQ3QWhxY2NhMmcrcXpiQm9YMDN5RkpEZ0x3dWMxTUNFd21EeUVWeUtl?=
- =?utf-8?B?eHRlaWZERHk0Z1Y0andGNkpPWWdreU9aYnZHVlVNWXBFUkhHYW5YZFRacDFT?=
- =?utf-8?B?YUE9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba008048-e563-4d58-0ac2-08dcfa890a13
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+	=?utf-8?B?dEpxcVlWUlFwV1Nnc2Y2SWQ1TWdVci8vaC81dEFLOGxOa3c4cFpsZkNUeEg1?=
+ =?utf-8?B?bGI0Zm5WV2g5VjdPLzZoSGdjNzZtSFRzQXBHbndjcmJ6WFAwWTZoTTlTWlpV?=
+ =?utf-8?B?MjY0TGRLSU51bXBHNmRhTW9hdXJYZitRa25zMTdLaDJ6QWJpQUxMeFBqOVBP?=
+ =?utf-8?B?QXJvMldvb0todXlLcStkWnFEb2pGcDV6K2g5MzZUUVRzWmRSejJHanJ3YThr?=
+ =?utf-8?B?VnIrc05vS2hNNThmUHY1T3AvZmNVUFBvZHFhWkJnT1gydkdKbitvaXo0TVJI?=
+ =?utf-8?B?R0dzUzBrZkhDczJ3NTFqb3JvNXVoa09ycEFublA1OWZNUWdtRGpHUWtYSlZx?=
+ =?utf-8?B?bEoxSk1vbDUzN3V3QnZ3QXcveG12MDkwcGdpQ25hY1diaWJXZE05aTNrSkVX?=
+ =?utf-8?B?U2YzMERhYjczNDJoNVEvTkRyVzdLV0NZYkRpWllETTkxbUNQdFl2eTBIdXYr?=
+ =?utf-8?B?MFpPbm1hMldzbE00bXJOOFB6SWJNVWFJUWJPRzF4Tkw2VEVzbGswbUszdDd5?=
+ =?utf-8?B?Lyt5d29UbFUvaDNTTlo5R3RjdUVySUJITHlrUzdyNUc0bUppQlRkWWNEMVdo?=
+ =?utf-8?B?VkJUNFdVcHpJUEJJeWhxZTJrMlV0RDRaZHVnSDZWNFozUUVWekF4OVBlQ2U4?=
+ =?utf-8?B?VWptY0dtaWNlTGxzd2ZiUkxPa1FRU2tVSUhOcjVaMFg5dXRvT1ZwcnJUZnRu?=
+ =?utf-8?B?OWN1eXBiZ0lZZGFuOEFrNWtpTklGUUF1ajMxZENnc2dUaXlIWU5aRGNIQ1Bw?=
+ =?utf-8?B?MXFCVTdOSk5aczBmZmI0ZWJvaUp6dTZnS1VoUjNkVXlRZFZEZWJJdE9GSG15?=
+ =?utf-8?B?cHFyVUE0bUh3OHRGa05nVEd6RFdoOFdPZFV1N2g0TTVMZnZsWHB3em9VdlE3?=
+ =?utf-8?B?TjNDUkZPcGpRNlJBZW1WNjAvTjlBNTVCWEdvcnJqeDh6TWhUUGNHVVQxYlA5?=
+ =?utf-8?B?UlAwZHFHMTNiTUtVN0kyT0VqYnNjUWxLemJjK1JaQ0V2Q25FY000M2prcGJO?=
+ =?utf-8?B?QjhkOXQzZDNVNVl2UTJQRnQyNUNUbWhPREhiNWY5eWFzSmNhSmFldnIxOWtT?=
+ =?utf-8?B?a1M4bGkwOG1mUXVCUEJydytCL3RhRFdGV3A4Vm05VXMvOUpaS0x1YnFPL3R0?=
+ =?utf-8?B?RXNBUHIxSHhJMjB5MWZicGYycEErZVNqYm1odStMci9JQ1N2YzhwcGd3d041?=
+ =?utf-8?B?SHAva3dKcmVaTEJUakJkMWJ2akhleGJkLzliOW9tZTFZRDBucXUrSUNCSS9G?=
+ =?utf-8?B?VVVBdVQ3QmZXNTJ4Q2JGaXRJSnhUK1VsbmpsMGsvcllINWtrUE9mcFRlTTNm?=
+ =?utf-8?B?STV0RlQvK0tYZGc1QytvUzJJVzBienRKRUNKOFVIQisrb0MwWFNXdi8ydTcz?=
+ =?utf-8?B?U243aSs5cUhIdUpGaWdhZHBvMU1LOE5YU2JyVDVmQzAyZ296WngweXhOcjJD?=
+ =?utf-8?B?bGNrTnI5OXh4Y00wc3hGaFVhNnJHaXcyL1owbGxWSVpDakpWTmhRUUEyVkhl?=
+ =?utf-8?B?Tyt1bzdSS3lUSys1cURVTTU3RHRPZXQ5eWNSajAwSkI0Nm5iVVdzbWVLVEgz?=
+ =?utf-8?B?NnBERkpFQkNnTGpWRzhlS3lRVEpnZVhnV0tuLzI0emhTWEpVcldldzNNZmN3?=
+ =?utf-8?B?VWxZYnRhcGJwbHlneVJQNkZFTHc5VWxCblM2Yi9lYlJ4dml3MmxDWGpBakl5?=
+ =?utf-8?B?bDhQVDQ0R0ltSGI1dmk4cy9JRGhsclRYZ05Ha1FrRkdRWjNjVnNVZnRpZ0pC?=
+ =?utf-8?B?c1VML25SV1JiS2VTOGVBUW1ROHdrL0Q1YWZQMXdOVjFzeHlqaE4zY1UyRFVV?=
+ =?utf-8?B?aEVVNHJoNFNQbUF5cHZIaldoSU1nWHUxK2dsdklKR0ZGVzY4SG4rWVdhVCtq?=
+ =?utf-8?B?b1VqajdqTHVKNzhZSVR0anVIbzVucTU4ZnloT2VMeW03WDRlSS94OWJGUmhH?=
+ =?utf-8?B?RGk2b1lrQnRqTjdQYlB0Rk1Zbi9Sa0xTaGJuRTlRUHZiSHMxS3ZlcGlFNndR?=
+ =?utf-8?B?M3l5MTlJdHdwMTN1UUlESThCSm9NNlhoZjBuNEVoUDc5cEtLWE1hYkRlRUJD?=
+ =?utf-8?B?ZnYyNFJjdS93eHhScFJLVVIzc01wdFpHcXJrcG5acFBYWW4wZWI1QklTTk1W?=
+ =?utf-8?Q?FF0oySFzMo1CNVC3d2wNNo+/A?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca163622-47fa-42d1-da6d-08dcfa97dfaa
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 15:22:46.7440
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 17:08:58.1019
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SYK8Mq3rQkLeA1MDWJbzk74RqMYf4Ls4iIKwfk4Zv9rQo7yBvCvP3BlFnVBdfhbsPpCVKdKrgwmymQ04bed9ycHrTTYJHkOY0leX9BGv77g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB7136
-
-Hi
-
-I'd be apprcieated if could consider my comments below.
-
-On 30.09.24 14:47, Andrei Cherechesu (OSS) wrote:
-> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> 
-> Introduce the SCMI layer to have some basic degree of awareness
-> about SMC calls that are based on the ARM System Control and
-> Management Interface (SCMI) specification (DEN0056E).
-> 
-> The SCMI specification includes various protocols for managing
-> system-level resources, such as: clocks, pins, reset, system power,
-> power domains, performance domains, etc. The clients are named
-> "SCMI agents" and the server is named "SCMI platform".
-> 
-> Only support the shared-memory based transport with SMCs as
-> the doorbell mechanism for notifying the platform. Also, this
-> implementation only handles the "arm,scmi-smc" compatible,
-> requiring the following properties:
-> 	- "arm,smc-id" (unique SMC ID)
-> 	- "shmem" (one or more phandles pointing to shmem zones
-> 	for each channel)
-> 
-> The initialization is done as 'presmp_initcall', since we need
-> SMCs and PSCI should already probe EL3 FW for supporting SMCCC.
-> If no "arm,scmi-smc" compatible node is found in Dom0's
-> DT, the initialization fails silently, as it's not mandatory.
-> Otherwise, we get the 'arm,smc-id' DT property from the node,
-> to know the SCMI SMC ID we handle. The 'shmem' memory ranges
-> are not validated, as the SMC calls are only passed through
-> to EL3 FW if coming from Dom0 and as if Dom0 would be natively
-> running.
-> 
-> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->   xen/arch/arm/Kconfig                |  10 ++
->   xen/arch/arm/Makefile               |   1 +
->   xen/arch/arm/include/asm/scmi-smc.h |  52 +++++++++
->   xen/arch/arm/scmi-smc.c             | 163 ++++++++++++++++++++++++++++
-
-Could it be moved in separate folder - for example "sci" or "firmware"?
-There are definitely more SCMI specific code will be added in the future
-as this solution is little bit too simplified.
-
->   4 files changed, 226 insertions(+)
->   create mode 100644 xen/arch/arm/include/asm/scmi-smc.h
->   create mode 100644 xen/arch/arm/scmi-smc.c
-> 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 323c967361..adf53e2de1 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -245,6 +245,16 @@ config PARTIAL_EMULATION
->   	  not been emulated to their complete functionality. Enabling this might
->   	  result in unwanted/non-spec compliant behavior.
->   
-> +config SCMI_SMC
-
-Could you please rename it to clearly specify that it is only dom0/hwdom
-specific? Like SCMI_SMC_DOM0 or SCMI_SMC_HW_DOM.
-
-> +	bool "Enable forwarding SCMI over SMC calls from Dom0 to EL3 firmware"
-> +	default y
-> +	help
-> +	  This option enables basic awareness for SCMI calls using SMC as
-> +	  doorbell mechanism and Shared Memory for transport ("arm,scmi-smc"
-> +	  compatible only). The value of "arm,smc-id" DT property from SCMI
-> +	  firmware node is used to trap and forward corresponding SCMI SMCs
-> +	  to firmware running at EL3, if the call comes from Dom0.
-> +
->   endmenu
->   
->   menu "ARM errata workaround via the alternative framework"
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 7792bff597..b85ad9c13f 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -45,6 +45,7 @@ obj-y += platform_hypercall.o
->   obj-y += physdev.o
->   obj-y += processor.o
->   obj-y += psci.o
-> +obj-$(CONFIG_SCMI_SMC) += scmi-smc.o
->   obj-y += setup.o
->   obj-y += shutdown.o
->   obj-y += smp.o
-> diff --git a/xen/arch/arm/include/asm/scmi-smc.h b/xen/arch/arm/include/asm/scmi-smc.h
-> new file mode 100644
-> index 0000000000..c6c0079e86
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/scmi-smc.h
-> @@ -0,0 +1,52 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * xen/arch/arm/include/asm/scmi-smc.h
-> + *
-> + * ARM System Control and Management Interface (SCMI) over SMC
-> + * Generic handling layer
-> + *
-> + * Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> + * Copyright 2024 NXP
-> + */
-> +
-> +#ifndef __ASM_SCMI_SMC_H__
-> +#define __ASM_SCMI_SMC_H__
-> +
-> +#include <xen/types.h>
-> +#include <asm/regs.h>
-> +
-> +#ifdef CONFIG_SCMI_SMC
-> +
-> +bool scmi_is_enabled(void);
-> +bool scmi_is_valid_smc_id(uint32_t fid);
-> +bool scmi_handle_smc(struct cpu_user_regs *regs);
-> +
-> +#else
-> +
-> +static inline bool scmi_is_enabled(void)
-> +{
-> +    return false;
-> +}
-> +
-> +static inline bool scmi_is_valid_smc_id(uint32_t fid)
-> +{
-> +    return false;
-> +}
-> +
-> +static inline bool scmi_handle_smc(struct cpu_user_regs *regs)
-
-I propose to add "struct domain *d" as the first parameter to make it
-more abstract from Xen internals.
-
-> +{
-> +    return false;
-> +}
-> +
-> +#endif /* CONFIG_SCMI_SMC */
-> +
-> +#endif /* __ASM_SCMI_H__ */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/scmi-smc.c b/xen/arch/arm/scmi-smc.c
-> new file mode 100644
-> index 0000000000..373ca7ba5f
-> --- /dev/null
-> +++ b/xen/arch/arm/scmi-smc.c
-> @@ -0,0 +1,163 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * xen/arch/arm/scmi-smc.c
-> + *
-> + * ARM System Control and Management Interface (SCMI) over SMC
-> + * Generic handling layer
-> + *
-> + * Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> + * Copyright 2024 NXP
-> + */
-> +
-> +#include <xen/acpi.h>
-> +#include <xen/device_tree.h>
-> +#include <xen/errno.h>
-> +#include <xen/init.h>
-> +#include <xen/sched.h>
-> +#include <xen/types.h>
-> +
-> +#include <asm/scmi-smc.h>
-> +#include <asm/smccc.h>
-> +
-> +#define SCMI_SMC_ID_PROP   "arm,smc-id"
-> +
-> +static bool scmi_support;
-> +static uint32_t scmi_smc_id;
-> +
-> +/* Check if SCMI layer correctly initialized and can be used. */
-> +bool scmi_is_enabled(void)
-> +{
-> +    return scmi_support;
-> +}
-> +
-> +/*
-> + * Check if provided SMC Function Identifier matches the one known by the SCMI
-> + * layer, as read from DT prop 'arm,smc-id' during initialiation.
-> + */
-> +bool scmi_is_valid_smc_id(uint32_t fid)
-
-I do not think this API is required at all as it's driver's internals.
-
-> +{
-> +    return (fid == scmi_smc_id);
-> +}
-> +
-> +/*
-> + * Generic handler for SCMI-SMC requests, currently only forwarding the
-> + * request to FW running at EL3 if it came from Dom0. Is called from the vSMC
-> + * layer for SiP SMCs, since SCMI calls are usually provided this way.
-> + * Can also be called from `platform_smc()` plat-specific callback.
-> + *
-> + * Returns true if SMC was handled (regardless of response), false otherwise.
-> + */
-> +bool scmi_handle_smc(struct cpu_user_regs *regs)
-
-[...]
-
-I'd propose to squash patch "[v2,4/8] xen/arm: vsmc: Enable handling
-SiP-owned SCMI SMC calls" to clearly show how API interface is going to
-be used.
+X-MS-Exchange-CrossTenant-UserPrincipalName: lNgv99KZDildAQy5aCCeyddety78RRDD2XJhmI/37Fp+Mdo0GfnX75Eh59yLZsByEipZw1/xgDAu+fxgA5s/MA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6773
 
 
-BR,
--Grygorii
+On 01/11/2024 14:11, Julien Grall wrote:
+> Hi Ayan,
+Hi Julien,
+>
+> On 28/10/2024 12:45, Ayan Kumar Halder wrote:
+>> Define enable_boot_cpu_mm() for the AArch64-V8R system.
+>>
+>> Like boot-time page table in MMU system, we need a boot-time MPU 
+>> protection
+>> region configuration in MPU system so Xen can fetch code and data 
+>> from normal
+>> memory.
+>>
+>> To do this, Xen maps the following sections of the binary as separate 
+>> regions
+>> (with permissions) :-
+>> 1. Text (Read only at EL2, execution is permitted)
+>> 2. RO data (Read only at EL2)
+>> 3. RO after init data and RW data (Read/Write at EL2)
+>> 4. Init Text (Read only at EL2, execution is permitted)
+>> 5. Init data and BSS (Read/Write at EL2)
+>>
+>> Before creating a region, we check if the count exceeds the number 
+>> defined in
+>> MPUIR_EL2. If so, then the boot fails.
+>>
+>> Also we check if the region is empty or not. IOW, if the start and 
+>> end address
+>> are same, we skip mapping the region.
+>>
+>> To map a region, Xen uses the PRBAR_EL2, PRLAR_EL2 and PRSELR_EL2 
+>> registers.
+>> One can refer to ARM DDI 0600B.a ID062922 G1.3  "General System Control
+>> Registers", to get the definitions of these registers. Also, refer to 
+>> G1.2
+>> "Accessing MPU memory region registers", the following
+>>
+>> ```
+>> The MPU provides two register interfaces to program the MPU regions:
+>> - Access to any of the MPU regions via PRSELR_ELx, PRBAR<n>_ELx, and
+>> PRLAR<n>_ELx.
+>> ```
+>>
+>> We use the above mechanism to create the MPU memory regions.
+>>
+>> MPU specific registers are defined in
+>> xen/arch/arm/include/asm/arm64/mpu/sysregs.h.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>> Changes from :-
+>>
+>> v1 - 1. Instead of mapping a (XEN_START_ADDRESS + 2MB) as a single 
+>> MPU region,
+>> we have separate MPU regions for different parts of the Xen binary. 
+>> The reason
+>> being different regions will nned different permissions (as mentioned 
+>> in the
+>> linker script).
+>>
+>> 2. Introduced a label (__init_data_begin) to mark the beginning of 
+>> the init data
+>> section.
+>>
+>> 3. Moved MPU specific register definitions to mpu/sysregs.h.
+>>
+>> 4. Fixed coding style issues.
+>>
+>> 5. Included page.h in mpu/head.S as page.h includes sysregs.h.
+>> I haven't seen sysregs.h included directly from head.S or mmu/head.S.
+>> (Outstanding comment not addressed).
+>>
+>> v2 - 1. Extracted "enable_mpu()" in a separate patch.
+>>
+>> 2. Removed alignment for limit address.
+>>
+>> 3. Merged some of the sections for preparing the early boot regions.
+>>
+>> 4. Checked for the max limit of MPU regions before creating a new 
+>> region.
+>>
+>> 5. Checked for empty regions.
+>>
+>> v3 :- 1. Modified prepare_xen_region() so that we check for empty 
+>> region within
+>> this. Also, index of regions (to be programmed in PRSELR_EL2) should 
+>> start from
+>> 0.
+>>
+>> 2. Removed load_paddr() as the offset is 0.
+>>
+>> 3. Introduced fail_insufficient_regions() to handle failure caused 
+>> when the
+>> number of regions to be allocated is not sufficient.
+>>
+>>   xen/arch/arm/arm64/mpu/Makefile              |   1 +
+>>   xen/arch/arm/arm64/mpu/head.S                | 122 +++++++++++++++++++
+>>   xen/arch/arm/include/asm/arm64/mpu/sysregs.h |  27 ++++
+>>   xen/arch/arm/include/asm/mm.h                |   2 +
+>>   xen/arch/arm/include/asm/mpu/arm64/mm.h      |  22 ++++
+>>   xen/arch/arm/include/asm/mpu/mm.h            |  20 +++
+>>   xen/arch/arm/xen.lds.S                       |   1 +
+>>   7 files changed, 195 insertions(+)
+>>   create mode 100644 xen/arch/arm/arm64/mpu/head.S
+>>   create mode 100644 xen/arch/arm/include/asm/arm64/mpu/sysregs.h
+>>   create mode 100644 xen/arch/arm/include/asm/mpu/arm64/mm.h
+>>   create mode 100644 xen/arch/arm/include/asm/mpu/mm.h
+>>
+>> diff --git a/xen/arch/arm/arm64/mpu/Makefile 
+>> b/xen/arch/arm/arm64/mpu/Makefile
+>> index b18cec4836..a8a750a3d0 100644
+>> --- a/xen/arch/arm/arm64/mpu/Makefile
+>> +++ b/xen/arch/arm/arm64/mpu/Makefile
+>> @@ -1 +1,2 @@
+>> +obj-y += head.o
+>>   obj-y += mm.o
+>> diff --git a/xen/arch/arm/arm64/mpu/head.S 
+>> b/xen/arch/arm/arm64/mpu/head.S
+>> new file mode 100644
+>> index 0000000000..9377ae778c
+>> --- /dev/null
+>> +++ b/xen/arch/arm/arm64/mpu/head.S
+>> @@ -0,0 +1,122 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Start-of-day code for an Armv8-R MPU system.
+>> + */
+>> +
+>> +#include <asm/mm.h>
+>> +#include <asm/arm64/mpu/sysregs.h>
+>> +
+>> +#define REGION_TEXT_PRBAR       0x38    /* SH=11 AP=10 XN=00 */
+>> +#define REGION_RO_PRBAR         0x3A    /* SH=11 AP=10 XN=10 */
+>> +#define REGION_DATA_PRBAR       0x32    /* SH=11 AP=00 XN=10 */
+>> +
+>> +#define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1 */
+>> +
+>> +/*
+>> + * Macro to prepare and set a EL2 MPU memory region.
+>> + * We will also create an according MPU memory region entry, which
+>> + * is a structure of pr_t,  in table \prmap.
+>> + *
+>> + * Inputs:
+>> + * sel:         region selector
+>> + * base:        reg storing base address (should be page-aligned)
+>> + * limit:       reg storing limit address
+>> + * prbar:       store computed PRBAR_EL2 value
+>> + * prlar:       store computed PRLAR_EL2 value
+>> + * maxcount:    maximum number of EL2 regions supported
+>> + * attr_prbar:  PRBAR_EL2-related memory attributes. If not 
+>> specified it will be
+>> + *              REGION_DATA_PRBAR
+>> + * attr_prlar:  PRLAR_EL2-related memory attributes. If not 
+>> specified it will be
+>> + *              REGION_NORMAL_PRLAR
+>> + */
+>> +.macro prepare_xen_region, sel, base, limit, prbar, prlar, maxcount, 
+>> attr_prbar=REGION_DATA_PRBAR, attr_prlar=REGION_NORMAL_PRLAR
+>> +    /* Check if the region is empty */
+>> +    cmp   \base, \limit
+>> +    beq   1f
+>> +
+>> +    /* Check if the number of regions exceeded the count specified 
+>> in MPUIR_EL2 */
+>> +    cmp   \sel, \maxcount
+>> +    bge   fail_insufficient_regions
+>> +
+>> +    /* Prepare value for PRBAR_EL2 reg and preserve it in \prbar.*/
+>> +    and   \base, \base, #MPU_REGION_MASK
+>> +    mov   \prbar, #\attr_prbar
+>> +    orr   \prbar, \prbar, \base
+>> +
+>> +    /* Limit address should be inclusive */
+>> +    sub   \limit, \limit, #1
+>> +    and   \limit, \limit, #MPU_REGION_MASK
+>> +    mov   \prlar, #\attr_prlar
+>> +    orr   \prlar, \prlar, \limit
+>> +
+>> +    msr   PRSELR_EL2, \sel
+>> +    isb
+>> +    msr   PRBAR_EL2, \prbar
+>> +    msr   PRLAR_EL2, \prlar
+>> +    dsb   sy
+>> +    isb
+>> +
+>> +1:
+>> +.endm
+>> +
+>> +/*
+>> + * Failure caused due to insufficient MPU regions.
+>> + */
+>> +FUNC_LOCAL(fail_insufficient_regions)
+>> +    PRINT("- Number of MPU regions set in MPUIR_EL2 is too less -\r\n")
+>> +1:  wfe
+>> +    b   1b
+>> +END(fail_insufficient_regions)
+>> +
+>> +/*
+>> + * Maps the various sections of Xen (described in xen.lds.S) as 
+>> different MPU
+>> + * regions.
+>> + *
+>> + * Inputs:
+>> + *   lr : Address to return to.
+>> + *
+>> + * Clobbers x0 - x5
+>> + *
+>> + */
+>> +FUNC(enable_boot_cpu_mm)
+>> +
+>
+> NIT: I would remove this empty line.
+Ack
+>
+>> +    /* Get the number of regions specified in MPUIR_EL2 */
+>> +    mrs   x5, MPUIR_EL2
+>
+> Looking at the spec, the number of regions are only in the first 
+> 8-bits. So you want to mask before using it.
+yes, I will do it.
+>
+>> +
+>> +    /* x0: region sel */
+>> +    mov   x0, xzr
+>> +    /* Xen text section. */
+>> +    ldr   x1, =_stext
+>> +    ldr   x2, =_etext
+>> +    prepare_xen_region x0, x1, x2, x3, x4, x5, 
+>> attr_prbar=REGION_TEXT_PRBAR
+>> +
+>> +    /* Xen read-only data section. */
+>> +    ldr   x1, =_srodata
+>> +    ldr   x2, =_erodata
+>> +    prepare_xen_region x0, x1, x2, x3, x4, x5, 
+>> attr_prbar=REGION_RO_PRBAR
+>> +
+>> +    /* Xen read-only after init and data section. (RW data) */
+>> +    ldr   x1, =__ro_after_init_start
+>> +    ldr   x2, =__init_begin
+>> +    prepare_xen_region x0, x1, x2, x3, x4, x5
+>> +
+>> +    /* Xen code section. */
+>> +    ldr   x1, =__init_begin
+>> +    ldr   x2, =__init_data_begin
+>> +    prepare_xen_region x0, x1, x2, x3, x4, x5, 
+>> attr_prbar=REGION_TEXT_PRBAR
+>> +
+>> +    /* Xen data and BSS section. */
+>> +    ldr   x1, =__init_data_begin
+>> +    ldr   x2, =__bss_end
+>> +    prepare_xen_region x0, x1, x2, x3, x4, x5
+>> +
+>> +    ret
+>> +
+>
+> NIT: I would remove this empty line.
+ack.
+>
+>> +END(enable_boot_cpu_mm)
+>> +
+>> +/*
+>> + * Local variables:
+>> + * mode: ASM
+>> + * indent-tabs-mode: nil
+>> + * End:
+>> + */
+>> diff --git a/xen/arch/arm/include/asm/arm64/mpu/sysregs.h 
+>> b/xen/arch/arm/include/asm/arm64/mpu/sysregs.h
+>> new file mode 100644
+>> index 0000000000..b0c31a58ec
+>> --- /dev/null
+>> +++ b/xen/arch/arm/include/asm/arm64/mpu/sysregs.h
+>> @@ -0,0 +1,27 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +
+>> +#ifndef __ASM_ARM_ARM64_MPU_SYSREGS_H
+>> +#define __ASM_ARM_ARM64_MPU_SYSREGS_H
+>> +
+>> +/* Number of EL2 MPU regions */
+>> +#define MPUIR_EL2   S3_4_C0_C0_4
+>
+> Do you know why the compiler doesn't support MPUIR_EL2 & co natively? 
+> Any chance this is because we may build Xen with the wrong flags for 
+> the MPU port?
+
+Yes, you are correct. We need the following change.
+
+|--- a/xen/arch/arm/arch.mk +++ b/xen/arch/arm/arch.mk @@ -9,7 +9,11 @@ 
+CFLAGS-$(CONFIG_ARM_32) += -msoft-float CFLAGS-$(CONFIG_ARM_32) += 
+-mcpu=cortex-a15 CFLAGS-$(CONFIG_ARM_32) += -mno-unaligned-access +ifeq 
+($(CONFIG_MPU),y) +CFLAGS-$(CONFIG_ARM_64) += -march=armv8-r +else 
+CFLAGS-$(CONFIG_ARM_64) += -mcpu=generic +endif CFLAGS-$(CONFIG_ARM_64) 
++= -mgeneral-regs-only # No fp registers etc $(call 
+cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics) - Ayan |
+
 
