@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA2F09B994B
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Nov 2024 21:17:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829264.1244343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD2C9B9C9C
+	for <lists+xen-devel@lfdr.de>; Sat,  2 Nov 2024 04:55:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829280.1244352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6y4I-0000vx-Hz; Fri, 01 Nov 2024 20:16:26 +0000
+	id 1t75Dl-00062b-Nx; Sat, 02 Nov 2024 03:54:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829264.1244343; Fri, 01 Nov 2024 20:16:26 +0000
+Received: by outflank-mailman (output) from mailman id 829280.1244352; Sat, 02 Nov 2024 03:54:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t6y4I-0000uT-Dx; Fri, 01 Nov 2024 20:16:26 +0000
-Received: by outflank-mailman (input) for mailman id 829264;
- Fri, 01 Nov 2024 20:16:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t75Dl-000615-Is; Sat, 02 Nov 2024 03:54:41 +0000
+Received: by outflank-mailman (input) for mailman id 829280;
+ Sat, 02 Nov 2024 03:54:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H3cE=R4=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1t6y4H-0000uJ-1a
- for xen-devel@lists.xenproject.org; Fri, 01 Nov 2024 20:16:25 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20605.outbound.protection.outlook.com
- [2a01:111:f403:2413::605])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25ded9e8-988e-11ef-a0c5-8be0dac302b0;
- Fri, 01 Nov 2024 21:16:17 +0100 (CET)
-Received: from BL1PR13CA0346.namprd13.prod.outlook.com (2603:10b6:208:2c6::21)
- by MN2PR12MB4189.namprd12.prod.outlook.com (2603:10b6:208:1d8::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.28; Fri, 1 Nov
- 2024 20:16:13 +0000
-Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
- (2603:10b6:208:2c6:cafe::ed) by BL1PR13CA0346.outlook.office365.com
- (2603:10b6:208:2c6::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.12 via Frontend
- Transport; Fri, 1 Nov 2024 20:16:13 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8158.0 via Frontend Transport; Fri, 1 Nov 2024 20:16:13 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 1 Nov
- 2024 15:16:12 -0500
-Received: from [172.25.174.226] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 1 Nov 2024 15:16:11 -0500
+ <SRS0=8EOZ=R5=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1t75Dj-00060z-SH
+ for xen-devel@lists.xenproject.org; Sat, 02 Nov 2024 03:54:40 +0000
+Received: from fout-b4-smtp.messagingengine.com
+ (fout-b4-smtp.messagingengine.com [202.12.124.147])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2b312107-98ce-11ef-99a3-01e77a169b0f;
+ Sat, 02 Nov 2024 04:54:33 +0100 (CET)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfout.stl.internal (Postfix) with ESMTP id F29F41140118;
+ Fri,  1 Nov 2024 23:54:31 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Fri, 01 Nov 2024 23:54:32 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 1 Nov 2024 23:54:29 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,164 +45,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25ded9e8-988e-11ef-a0c5-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMzo6NjA1IiwiaGVsbyI6Ik5BTTEwLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjI1ZGVkOWU4LTk4OGUtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwNDkyMTc3LjI4OTExNiwic2VuZGVyIjoic3Rld2FydC5oaWxkZWJyYW5kQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aiaU1SD+U415NrSHz9GTEhYqzCsqMcW5W0+2EW82A1JI3xtNKcZaSmMVyKzX1dKa+PWIdUSECll6xW6LGICxTMLZaLaOdm8BIzzOvPcm+INUkcwZ8ojMWtvFKtkaI3bJAs/GMNobL5DP5vulGinzydw6w5u1fg1aGl1hGlPbvy6k0b6rQk2URwdwh9zVyI+7i9grh7kfY1bYrxY3dOnavMazxGOjyhpQSoQnloDd8hclCf8Dd22R4MAFcOEaeZIS/xoTU5Lql1bjCEBGAacA42p4efpGe30AZs8IM020y7MaXpQrV1cIPbw3KjMGX7uhr2gE48Z2RTDw647EUArHwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ykschep8H+RQ6a0c4ZtUcLYesFV/xENGwfmukt2woXM=;
- b=sUzoLH/V3kWmhGJ1ZEsLhacAByQ/cV6l9owrxZoLTbNoxkYUPKuZDA9+/WfuBNcOn7jFB+VCkz7SsPHLwiDScMLzsqD/QH3ELH19TL0jtbKI4isvqhpMy0naOv4t4yARzzArMmTpI3ksRx5zd3dvNgeeYdc+HV/iG1q1oX8ixHoQMz8ao8lvjnKqhVpkK7YdDUygYQLrIi47nKRkuMYUuDWcp+RPcozbb33oJSDKZorWg4FJ8TospmArg46AdrcFYwS4BT9e6R4B0Av7gg6683Jx+OzPS00Lz5uenr3MVHloUDqLqcTdMZqvfQYacKCnQzIMqoqRx4YF1ZIknd6OMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ykschep8H+RQ6a0c4ZtUcLYesFV/xENGwfmukt2woXM=;
- b=eNEOwFto0CtoXTY+17OsBLc2y7yCc88MyKBkA1A1vh6B8T5nKr1qy0LTL5guAhuE95Jx9/clfz8y0qT2/bj6kzTFq5J87e110eKF/HWEUGdNakohXzgzJ+zFOh6R4g3NInx+C7TTOkvjGrMOZ3MLAm48N9ZiDsa/I8vVxrjnAMY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <9ab19f1b-0dee-490e-b4f6-b07e6ae6223b@amd.com>
-Date: Fri, 1 Nov 2024 16:16:10 -0400
+X-Inumbo-ID: 2b312107-98ce-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjIwMi4xMi4xMjQuMTQ3IiwiaGVsbyI6ImZvdXQtYjQtc210cC5tZXNzYWdpbmdlbmdpbmUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjJiMzEyMTA3LTk4Y2UtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNTE5NjczLjk5MTI2Miwic2VuZGVyIjoibWFybWFyZWtAaW52aXNpYmxldGhpbmdzbGFiLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1730519671;
+	 x=1730606071; bh=++AHLVmJ6BsNb184+4dgPKxrWbOGf+cQlEP8x6mGi1M=; b=
+	pggwgTAhmV9geZ5f1PirtCC39LHJadALowajk3MIiKMty2SgKjw96UwfYcthojXx
+	ISidPRWG0rhpe5dujaVChKg/GcylSnylvmcAa1EW2uzUupe1e81R7MjzNKENEJae
+	eFSJMapt5sS1YKzaI5r0TWD3vHBPmCAb9G2mCAYk0iXTnXJAzxOS8jLUQz1ADlRo
+	38ZnktVBgK5B05Wx97HfVfYURfoZ0K4fbIP0wcs1VaPUMjQBn4ttH4yqkvzWvbWV
+	uF96D+atsRFlv70mKVCjwLpHiIQO+1cW+ujtxxcHj4ATPtAPqZsvrKHWHOoXUWPn
+	qhJTXfdm0T7hS3h7Ga/2gQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1730519671; x=1730606071; bh=++AHLVmJ6BsNb184+4dgPKxrWbOGf+cQlEP
+	8x6mGi1M=; b=Yc+mrWpMGwhK0xJWQI+VvfC+p31NVbvtClD8Re984B8Avb9ll0J
+	18GsbKUHdG/7fn3aUCM4sK1t1pXOXt6LxjWXc6skH5T1yv+l+ShaaEw6iy42bJ4i
+	UhXkCq+4S6lGtyzIS1aY2rG0EGBTZIKNvqdSzT7QLZ0vkTsJ7gmoqk3UhRUu0swE
+	jGFSJBBeYYDyCYJojIB7DtDctoE8X5QL0vJWebpziIhSSiwiu1Esg/XBQhRHUGUy
+	DW7UYgCB7zVc7GOzVh2cX9KKabu2FzBpOXCvr8qJSW7G0ghjjW/lOAmibkzsZhxe
+	gj5xVWnQDW9VFildui4acDzaY/aJVjOG+sA==
+X-ME-Sender: <xms:d6IlZy6enDCctfdZN5djBmryyeqCjRRhpLCAY0NiLHmfA67hBUwThA>
+    <xme:d6IlZ77JKmfqRtQZd0p85liL7TthrqPCb0d_4jn_AXJIvSMoPEl7uLGn5g9YGTpdw
+    bmYEIRsnQpZTA>
+X-ME-Received: <xmr:d6IlZxfyABUKb77OB1NCBBPP0Tlbx-V_hhMwolJKTPmeboaZ3BWAj9Kv8vCOeurTY3zdz27g1JN4ErYFtgi8EbPVrBwKJHr2tw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdeltddgieefucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvve
+    fukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpedfmhgrrhhmrghrvghksehinhhv
+    ihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdfuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepkeekveei
+    veekhfeiteevheeukeehudeflefgvedujeekhfffhedutdejgeethedtnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepkedpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtohepugifmhifsegrmhgriihonhdrtghordhu
+    khdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtth
+    hopegsphesrghlihgvnhekrdguvgdprhgtphhtthhopeigkeeisehkvghrnhgvlhdrohhr
+    ghdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtohepgi
+    gvnhhprhhojhgvtghtseihmhihrdgsvgdprhgtphhtthhopeigvghnqdguvghvvghlsehl
+    ihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtg
+    hoohhpvghrfeestghithhrihigrdgtohhm
+X-ME-Proxy: <xmx:d6IlZ_Ip_y5ehUJeJS55sF1C9o2w0AOt6B7mCpB15ilx6g3VuGehVg>
+    <xmx:d6IlZ2IMsAUmR_y4XO3rX434khFHGQOhCijxlVQ7CLdZgltVuBYfUg>
+    <xmx:d6IlZwzuU35WArKQuOJo9_j8DuO4eNkHrIYvjeOC9CKVEtNqKiXcpw>
+    <xmx:d6IlZ6K0SH__SabEbni3bvQbqOs1ZS3NvYWoDk0rrJGpEhSub_Ep9Q>
+    <xmx:d6IlZ3o_8iOf4zvkOKxxihkC9yk_PJIZAr3_TRuLjhmAKbMudL8VEexC>
+Feedback-ID: i1568416f:Fastmail
+Date: Sat, 2 Nov 2024 04:54:27 +0100
+From: "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>
+To: "Woodhouse, David" <dwmw@amazon.co.uk>
+Cc: "roger.pau@citrix.com" <roger.pau@citrix.com>,
+	"bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+	"jbeulich@suse.com" <jbeulich@suse.com>,
+	"xenproject@ymy.be" <xenproject@ymy.be>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
+ interrupt remapping
+Message-ID: <ZyWicz8YHqFb3hMz@mail-itl>
+References: <20241018080813.45759-1-roger.pau@citrix.com>
+ <ZxMmOjD7oHuAE7Vb@mail-itl>
+ <3663ba26192a78de2090512c912bff8afc852e5c.camel@amazon.co.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] xen/pci: introduce PF<->VF links
-To: Jan Beulich <jbeulich@suse.com>
-CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20241018203913.1162962-1-stewart.hildebrand@amd.com>
- <20241018203913.1162962-3-stewart.hildebrand@amd.com>
- <56b5a45b-871d-41a4-8e1d-74d72020054f@suse.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <56b5a45b-871d-41a4-8e1d-74d72020054f@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|MN2PR12MB4189:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e4b2a11-0f24-4d95-1b27-08dcfab2087d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?V2NJakNkZTR0dHgvQ2FmMXNqc28vQmFGbWNyeUFtRnVCck1UUjMzOGZLOXNm?=
- =?utf-8?B?YVR2cHpUUzA4SVlwaEE0d2hCZjJVbUViSGVWb09qZEFUdWJKdEQxL3p3QzY3?=
- =?utf-8?B?NFcyWUJPb2ZiZVgwTzl3Nk95YUpZZWgyY3FVb3g2NkJabVRxQi8zamNvdTh6?=
- =?utf-8?B?aEc5cXJIS0FRWDZudHJZM04wNUYrVkkrOFo5QnRDRmZieHh4bCtMQjhKeVNw?=
- =?utf-8?B?SjRIbGZ2SjB0WXZTT2U1OHZHaDBUVy9QM3BtdEhqTEl3eUFiWmhkbFdUdFlr?=
- =?utf-8?B?c0Jab2NhM094RmtXaFRnUlIwRGJmRW9IZDBiZXJFUjZQQUxwcmxSU3o0NWJP?=
- =?utf-8?B?a0xVTzBta2JzM0RHT0hpWkp0VkVnRU9WWWwxZGlZRWg4Wnd5Lzd6Q1RMR3RB?=
- =?utf-8?B?SlhYcWkxa1pkMkxveFlrQnhwNlhETUcra01MZVRqVTFNc2wxUHpibXRLdkti?=
- =?utf-8?B?bFdMZW9VQzVFajhYMjVGblMwWkMrNVlLTTR5czJ6NnRIaDB2eFUzbUxQc1pS?=
- =?utf-8?B?L0Nrb3JTdTVHbUFrWEs0TjhLcW5RQ0VXby93S1VFUTJOclVEOGxUZUpmalNl?=
- =?utf-8?B?bThuSHZDaENzZGdNUUtqVUZZTFR0WWlibzI1K0RhSmE0MTBCNHRoamh2UFZG?=
- =?utf-8?B?cklZTUFYdmNuM2cvTE43OW9iQ0g4MVc2dE5odFJmZDVwU2VKVnpYQWlyOThU?=
- =?utf-8?B?NUlleDJ1aG5nVkljVGFnMjltZ2FkWUhNcmdoNjhwR2krcG8vV2NYRk9QNHRl?=
- =?utf-8?B?eVE0UWNLME53TWFWK3JkSkRJM0ZTOGlPZ3FKOE1FY3FnUXRZMUN2L3QvN3M1?=
- =?utf-8?B?Zk5DNlZOM0tVSjJNVGNRdllrQmI1REluR0RmTC9aWlI3VUgrN2tXQXNmUGJG?=
- =?utf-8?B?SkgxcUJ1bFNuU3JaR05sNTNtY2hiU0phSk9HcEJPUWtjamIrV2R0SkR3Z1Av?=
- =?utf-8?B?S0dkNHFCR0h4dW9QOGJCN2crQWE1WmNKVkg5MjhpMlZyWmNvQllTRFVhZlVT?=
- =?utf-8?B?NVZpZ0ZHVDI0bGFtK1o0cjhoalhjbVgzWUtkVVJ2OENucUtwLy91NnNMR2E0?=
- =?utf-8?B?KzJ5dkNvTzZnY01FOGhvUDlNTmE0QkxaRmxPdGRDaW1PaTVGQ0YyRkZlSEtz?=
- =?utf-8?B?TlAwQVZrSFg3RnJDQkUxYS80TjZaS3R1aUF0cnFNelM3eXRDTlN6L3E1N1F1?=
- =?utf-8?B?UXRaY1hXQTNwLytZdDJIZUQ2SC9QVEpjcFIvZGtDc2dFRlIyUjByUTJyWEFB?=
- =?utf-8?B?VXJ1enhndWE5MHNxNE5Xdy8ydkd0L0pMQTlhY3VLdU5iSDEwUG9kb2ZNdURF?=
- =?utf-8?B?WU4yNjNWeHVwN1huOFovMkFYSStLQ0xUNHlzTENXaXRtQ01Xdk1hMFZrdUdC?=
- =?utf-8?B?QnpnRDcvNXlQaDZjWWxjL2RVZjFSUkk0TWVSZDlXTlJoVWdHREh6OFM0a0F5?=
- =?utf-8?B?eko0QVY4SzlKbDZkc2wzeDMrOG90UTZoLzBNS1o4Qk1HNUM2R0dyZTZHdytI?=
- =?utf-8?B?ODY2OWs2NS9LbmZQeUw0ZzRpWlZQUVUyTTIrY2R0cHRHdjU3TVhIa0kxMW1a?=
- =?utf-8?B?SVJzZ3ZuQUJvN0VUMzhFSFoxdXRFVW00UTNYQnFTMUErdXhGdkhNN2lMYU1O?=
- =?utf-8?B?WmRXWldtM0dpNisxRnlKM00rVnkyWnFXeXVJVjhITU5xZ3hnbjZBNzhleE4v?=
- =?utf-8?B?UmVGMFl5TGp3dnRSN3pURFNJL05DZWNBV2Y3eUdIcHdUM0gvY3oxb2h5SnJU?=
- =?utf-8?B?bjg3bWJDUzkyaENQSXpObnY3L3pRUkVRdWtFVW5DN3BNTDBPNk9xUVFqb3Nw?=
- =?utf-8?B?SGxHa0R0T0RVSU41bVY4N2NVSU5vNUxnK2lLRjFyNUFCcDZlaFBSZzhXa2RF?=
- =?utf-8?B?cGpvd0RpdXprakJESFg2M0w1bE5tcGFtajg0WGlsZi96ZjRaak1NekQ0MThQ?=
- =?utf-8?Q?OQ1lUmIqa1o=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 20:16:13.2682
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e4b2a11-0f24-4d95-1b27-08dcfab2087d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B374.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4189
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="o/IffRyF+aHcQMa3"
+Content-Disposition: inline
+In-Reply-To: <3663ba26192a78de2090512c912bff8afc852e5c.camel@amazon.co.uk>
 
-+Daniel (XSM mention)
 
-On 10/28/24 13:02, Jan Beulich wrote:
-> On 18.10.2024 22:39, Stewart Hildebrand wrote:
->> Add links between a VF's struct pci_dev and its associated PF struct
->> pci_dev. Move the calls to pci_get_pdev()/pci_add_device() down to avoid
->> dropping and re-acquiring the pcidevs_lock().
->>
->> During PF removal, unlink VF from PF and mark the VF broken. As before,
->> VFs may exist without a corresponding PF, although now only with
->> pdev->broken = true.
->>
->> The hardware domain is expected to remove the associated VFs before
->> removing the PF. Print a warning in case a PF is removed with associated
->> VFs still present.
->>
->> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->> ---
->> Candidate for backport to 4.19 (the next patch depends on this one)
->>
->> v5->v6:
->> * move printk() before ASSERT_UNREACHABLE()
->> * warn about PF removal with VFs still present
-> 
-> Hmm, maybe I didn't make this clear enough when commenting on v5: I wasn't
-> just after an adjustment to the commit message. I'm instead actively
-> concerned of the resulting behavior. Question is whether we can reasonably
-> do something about that.
-> 
-> Jan
+--o/IffRyF+aHcQMa3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 2 Nov 2024 04:54:27 +0100
+From: "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>
+To: "Woodhouse, David" <dwmw@amazon.co.uk>
+Cc: "roger.pau@citrix.com" <roger.pau@citrix.com>,
+	"bp@alien8.de" <bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>,
+	"jbeulich@suse.com" <jbeulich@suse.com>,
+	"xenproject@ymy.be" <xenproject@ymy.be>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/io-apic: fix directed EOI when using AMd-Vi
+ interrupt remapping
 
-Right. My suggestion then is to go back to roughly how it was done in
-v4 [0]:
+On Mon, Oct 21, 2024 at 11:43:04AM +0000, Woodhouse, David wrote:
+> On Sat, 2024-10-19 at 05:23 +0200, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Fri, Oct 18, 2024 at 10:08:13AM +0200, Roger Pau Monne wrote:
+> > > When using AMD-VI interrupt remapping the vector field in the IO-APIC=
+ RTE is
+> > > repurposed to contain part of the offset into the remapping table.=C2=
+=A0 Previous to
+> > > 2ca9fbd739b8 Xen had logic so that the offset into the interrupt rema=
+pping
+> > > table would match the vector.=C2=A0 Such logic was mandatory for end =
+of interrupt to
+> > > work, since the vector field (even when not containing a vector) is u=
+sed by the
+> > > IO-APIC to find for which pin the EOI must be performed.
+> > >=20
+> > > Introduce a table to store the EOI handlers when using interrupt rema=
+pping, so
+> > > that the IO-APIC driver can translate pins into EOI handlers without =
+having to
+> > > read the IO-APIC RTE entry.=C2=A0 Note that to simplify the logic suc=
+h table is used
+> > > unconditionally when interrupt remapping is enabled, even if strictly=
+ it would
+> > > only be required for AMD-Vi.
+> > >=20
+> > > Reported-by: Willi Junga <xenproject@ymy.be>
+> > > Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+> > > Fixes: 2ca9fbd739b8 ('AMD IOMMU: allocate IRTE entries instead of usi=
+ng a static mapping')
+> > > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >=20
+> > I can confirm it fixes touchpad issue on Framework 13 AMD,
+> > it works without ioapic_ack=3Dnew now, thanks!
+> > Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+>=20
+> Thanks for testing. But... why did this work with the auto-EOI? That
+> *should* have had exactly the same problem, surely?=20
+>=20
+> The problem fixed by this patch is that the directed EOI used the
+> actual vector# and *not* the bits that the I/O APIC *thinks* are the
+> vector#, which are actually the IRTE index#.
+>=20
+> But if you let the CPU do its broadcast EOI then surely *that* is going
+> to use the actual vector# too, and have precisely the same problem?
+>=20
+> If you use the code prior to this patch, *without* ioapic_ack=3Dnew (i.e.
+> the mode that was failing), what happens if you do this:
+>=20
+> --- a/xen/arch/x86/apic.c
+> +++ b/xen/arch/x86/apic.c
+> @@ -595,7 +595,7 @@ void setup_local_APIC(void)
+>      /*
+>       * Enable directed EOI
+>       */
+> -    if ( directed_eoi_enabled )
+> +    if ( 0 && directed_eoi_enabled )
+>      {
+>          value |=3D APIC_SPIV_DIRECTED_EOI;
+>          apic_printk(APIC_VERBOSE, "Suppress EOI broadcast on CPU#%d\n",
+>=20
+>=20
+> I'm guessing that 'fixes' it too? In which case, it looks like AMD has
+> some undocumented hack in between its APIC and I/O APIC to let it
+> magically auto-EOI the correct pin somehow?
 
-* Remove the VFs right away during PF removal, so that we don't end up
-with stale VFs. Regarding XSM, assume that a domain with permission to
-remove the PF is also allowed to remove the VFs. We should probably also
-return an error from pci_remove_device in the case of removing the PF
-with VFs still present (and still perform the removals despite returning
-an error). Subsequent attempts by a domain to remove the VFs would
-return an error (as they have already been removed), but that's expected
-since we've taken a stance that PF-then-VF removal order is invalid
-anyway.
+So, this does _not_ fix the touchpad issue.
 
-While the above is what I prefer, I just want to mention other options I
-considered for the scenario of PF removal with VFs still present:
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-* Increase the "scariness" of the warning message added in v6.
+--o/IffRyF+aHcQMa3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-* Return an error from pci_remove_device (while still removing only the
-PF). We would be left with stale VFs in Xen. At least this would
-concretely inform dom0 that Xen takes issue with the PF-then-VF removal
-order. Subsequent attempts by a domain to remove VFs, however
-(un)likely, would succeed.
+-----BEGIN PGP SIGNATURE-----
 
-* Return an error from pci_remove_device and keep the PF and VFs. This
-is IMO the worst option because then we would have a stale PF in
-addition to stale VFs.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmclonMACgkQ24/THMrX
+1ywUHAf/RZD8T7jOEZVE73t71cOtriKLLTvdVfRFC4tigM61MZiO7+Dc75k0QgVw
+yiVuNeA8no2+u2or7CSXvpATNO3sYugL1H9y46xKKwX2x7knhi7/F3dX4elZgJpV
+7z7meePIrH8ezOWuZ0kKzgroir+fhA/m8zzmftmaQBIAyKhquCDxFpF509++yJZg
+fpVEFy3qYh0iojOG7QOUtmmKqWpY2oBKhEeHIleV6kQOEb1N4e3hr6ZZJgERPJ7r
+HGHthw6kM5IPb8Alndv2EXI/R1zxnTHBSB3rzp5rmVrkcQw5lMouKStNFCKP3Vz9
+c+8+dmT6FCutZEisGAuZvuaU5LtptQ==
+=MFYp
+-----END PGP SIGNATURE-----
 
-[0] https://lore.kernel.org/xen-devel/20240827035929.118003-1-stewart.hildebrand@amd.com/T/#t
+--o/IffRyF+aHcQMa3--
 
