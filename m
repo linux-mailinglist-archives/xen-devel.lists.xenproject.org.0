@@ -2,33 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC1CB9BB077
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 11:01:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829922.1244853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B436B9BB18B
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 11:51:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829934.1244862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7ttQ-0003BY-2H; Mon, 04 Nov 2024 10:01:04 +0000
+	id 1t7uen-0000rb-OJ; Mon, 04 Nov 2024 10:50:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829922.1244853; Mon, 04 Nov 2024 10:01:04 +0000
+Received: by outflank-mailman (output) from mailman id 829934.1244862; Mon, 04 Nov 2024 10:50:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7ttP-00038U-Ui; Mon, 04 Nov 2024 10:01:03 +0000
-Received: by outflank-mailman (input) for mailman id 829922;
- Mon, 04 Nov 2024 10:01:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t7uen-0000nl-KL; Mon, 04 Nov 2024 10:50:01 +0000
+Received: by outflank-mailman (input) for mailman id 829934;
+ Mon, 04 Nov 2024 10:50:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xqlq=R7=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1t7ttO-00038O-Cg
- for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 10:01:02 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b05880e3-9a93-11ef-99a3-01e77a169b0f;
- Mon, 04 Nov 2024 11:00:58 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5c9634c9160so4547228a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 02:00:58 -0800 (PST)
+ <SRS0=SSQ4=R7=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1t7uen-0000ld-0d
+ for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 10:50:01 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2412::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 84d66f75-9a9a-11ef-a0c5-8be0dac302b0;
+ Mon, 04 Nov 2024 11:49:53 +0100 (CET)
+Received: from PH8PR22CA0013.namprd22.prod.outlook.com (2603:10b6:510:2d1::11)
+ by IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.24; Mon, 4 Nov
+ 2024 10:49:48 +0000
+Received: from SN1PEPF0002BA4F.namprd03.prod.outlook.com
+ (2603:10b6:510:2d1:cafe::82) by PH8PR22CA0013.outlook.office365.com
+ (2603:10b6:510:2d1::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30 via Frontend
+ Transport; Mon, 4 Nov 2024 10:49:47 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4F.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8137.17 via Frontend Transport; Mon, 4 Nov 2024 10:49:47 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 4 Nov
+ 2024 04:49:46 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 4 Nov 2024 04:49:45 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,133 +59,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b05880e3-9a93-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmIiLCJoZWxvIjoibWFpbC1lZDEteDUyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImIwNTg4MGUzLTlhOTMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzE0NDU4LjMxMTIwNCwic2VuZGVyIjoia2VsbHkuY2hvaUBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730714457; x=1731319257; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=0guM7jzGLdgcLzVb+KuTWePpuFIwY6+vEyhrkAz6tPM=;
-        b=CYh/3pBINRQgKNYhM3WKAof+I6p4fF5W1ytuLqO0MoUGGgzs0Kceqbi5u5rKZNwfsH
-         Ln7O7bVQiszPj9iB/2nk9V/Z+irVbc9N1uQ6zPHLt0mjCq88Cy1C9oHIGRKBsoyzGgHA
-         fLJd0lSJ8FkaKN5DQ73dEqeCeSQkPZKHdYGUw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730714457; x=1731319257;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0guM7jzGLdgcLzVb+KuTWePpuFIwY6+vEyhrkAz6tPM=;
-        b=hocRYJxORDy6h+DdFgyC5UoMjJSCSmi+Csiu/Ei3TJvF9nxkPZD7g0DYIqZYpiKnnt
-         jML2qxnrPBaRm50/VJJJiWk1SxJcwhrve+3gx9nmNtYaUFSa/7TCeIUx1F17r73uSS2W
-         hrXfQbi1RkDpFCjZM+wKm4ELjbDa5Mh3SMOFoDZ7CIpt+nArI8rrE9X55zTSDBZjhwti
-         aLqErCQysCQ4ahJud/xh1Pwx2D4Ll80qXqfAHG2o7kaNvEziB3R8AJhKjAOsOrR6go5K
-         16XPDpCLWH4DbPN6xmpeBPWVdvfMqfdy3l1vZAi3mO2BSlYIFJ1MtaOiRuTPGnbcFzbM
-         SsOw==
-X-Gm-Message-State: AOJu0YwMwL+XocNINFgcipYTeNBEqqHPqeE1ARh4NTmgho3XAklfLci6
-	DukJf64mww+8gwnfTmnuNaTxcAzkCIzzOKMpiE+FzW/xwdo4vH/ey8w465eJ7MfAOHpbL4F8TZy
-	7yakxeQTvmmyNyfoZYTn1Jy1GbxY9iUyR3DKI5cwsrkig5pb8ok7WwA==
-X-Google-Smtp-Source: AGHT+IE7XPmfjRyXw3bwjIk9OlvoqFmAxHf+mD719do6OedOIe5omS29Xl5ABXtpORNjAOUiOOGtXiiNrP+4xFaseXw=
-X-Received: by 2002:a05:6402:3508:b0:5ce:ce43:32f with SMTP id
- 4fb4d7f45d1cf-5cece4305a3mr5030924a12.35.1730714457214; Mon, 04 Nov 2024
- 02:00:57 -0800 (PST)
+X-Inumbo-ID: 84d66f75-9a9a-11ef-a0c5-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMjo6NjJiIiwiaGVsbyI6Ik5BTTEwLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6Ijg0ZDY2Zjc1LTlhOWEtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwNzE3MzkzLjMyNzE3Mywic2VuZGVyIjoibWljaGFsLm9yemVsQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=snx5Hi9HEr6Ytosaefn73PK1/KxY2wCV2mtUR8qm2wKrG6v+R8QLfDLstd2Uu7nTr+lugZuNB2d8ZEgJATgnbDUNmBYBH4O6mi8lNbL0JXYccdkwrSX0Kj7iwt7yCyGTVgKTS6Jy4yiU1ai+Rvhn8+bSCcBA2y97JRbwwGKhtIgaztDY14mnL2wP9T3h6X5P2dpGnc4b6dV157N+P3xQStcPlC+diYodmrJ/WLa4RQr12UzjZsrLvS9oSW4Jx3dxo8+Zm+qjtIt1/runnCav6hn/ZB7d4y0uRqoFNmZyLTPtaL4FGukjy6a6ZEjw4OiARf12nqHebL3qHr3i4qD2mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vIfRaUY5EJyTddYIo+WOIA4bm03Ox6iDG39+dv3ABew=;
+ b=qOeT+JYGJvMybVT5p33WIMKeQPdjWKG1n/kQxCkRGTXisjyYlmoOMg0MstKDS6pwhHnPJ+FCU3wdNnf0+vw6jXJ/SUL9x0flOgjf+lVf9NcnniL988cQ48kOh9G7aiJPhxOc6M26APGYhT+/8bZ46TGf4ysJmjva1tRVR50RoKayTV1niHIYum2Duz9vKCSReCbaTg0aByTp/XlBYrs7Q88LT/3IIv3IiSiI/BXltXsG6l1peKA2tYW1v0hc4pl2bL2Ga6MkRFJCj1bGEd7Pwf9OuGARRs9QtBbit9o2lzk+O7W+FXf9e1hr1SOF2+Gia42DrhR6XWKn4PCWnNR/nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=raptorengineering.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vIfRaUY5EJyTddYIo+WOIA4bm03Ox6iDG39+dv3ABew=;
+ b=HmjZGan1SGfI92wypAvCSBxTwYP8/8mSb/rPYTrTksZVZR2tzCFYl1zKYRKb885+3MCxR2NtJ2FJviJ9147LscQfroObLpUoRdiq2GWA51lsc26qYXzC8g30UkxaGWP00YuCGtHnaz0T9qcPCC5aSshGJXeDhk5jOcFi0kGAyLc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <1ae100b3-17f0-4ac5-beb3-fdd2f12adee7@amd.com>
+Date: Mon, 4 Nov 2024 11:49:44 +0100
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Mon, 4 Nov 2024 10:00:00 +0000
-Message-ID: <CAO-mL=zF6fQZVzV+B0rQtH4aDsusU23juj0O-PhFjDF_-eF6PA@mail.gmail.com>
-Subject: [ANNOUNCE] Call for agenda items - Community Call 7th Nov 2024
-To: xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="0000000000006e38b80626135ce5"
-
---0000000000006e38b80626135ce5
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] xen/device-tree: Let DT reserve map entries
+ overlap reserved-memory
+To: Shawn Anastasio <sanastasio@raptorengineering.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <tpearson@raptorengineering.com>, Jan Beulich <jbeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>
+References: <cover.1727388925.git.sanastasio@raptorengineering.com>
+ <302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4F:EE_|IA1PR12MB8517:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b141383-6c25-47aa-b4dd-08dcfcbe6681
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?eTY4WkRGTyt3UFR1ZzdKVHE0Q21jNXhSaGhCdnc3cWpScW1Rd0hJOEpBMGpU?=
+ =?utf-8?B?THNTUVlIYVNTMTB5UTR1RDI4Z0hLOVhrRWZycGU3czdlSERHY2xNZVRnMG1V?=
+ =?utf-8?B?eEdNU1ZSbUhhM0RybkgzYlovRDRPQjk2MTNUUkQ5b3hSejcrNnVDelZSN09W?=
+ =?utf-8?B?czMxU01NRy9VQ3ZKQnhTOFZEa0dYcHcyS3NNNFpoRHF2TlFway9HTkZoclNE?=
+ =?utf-8?B?UmJCTTFZZEpaazNpYXlNblVJK2tBSWFEYnZGdWhPMy9NaG41eS9TYkFlOHFS?=
+ =?utf-8?B?dUkxZFFJUEFEQUZheUk3OXdqK2E2cXBqNXRwSnlWN2VhUEx6T1N4MGY5ZXJr?=
+ =?utf-8?B?MDczMk1TS2lYVHBrYjV0ODg3eTVadWRpUTJUNkM4bW5tSk1pT0RuVk0zR25O?=
+ =?utf-8?B?dDUyc2JCdGl3eHc5NkZGZHR6TTdESk90S2pLTUpYTHZ1VklnK0RNUlo2Z1NS?=
+ =?utf-8?B?Y0JsWEF0QnFnNkRaOFRXeXErNnZFWUo3U0VMZ2VkQkIyTXBhaExjbzYralhP?=
+ =?utf-8?B?RzZxVEV5bnFyUFZWTzRqRktSZTByM0FPQWY0TzNCTFE5U2R6Mk9iWjM1V2p1?=
+ =?utf-8?B?YXd4Z0ptYWtycG9KNU92cEhsbDlGOWdoOUR6Z21YLy9YN1RUczF1ZUZrR0pT?=
+ =?utf-8?B?VmFEMVA3aDk4MTIzV1plOWE4MEh0djF6dFhWSDhERyt0UnNVZkhWZWNYbWpF?=
+ =?utf-8?B?NUJEMHJGZE5nUE45RGhZQWNVQmJORDgrcHdOWDlUdDJkV1Q1Q1pKK0FqTE8x?=
+ =?utf-8?B?ZTFTZWNIbzRyYzRwcTlpTXBzWThnT1dsVUk2Q2dET09xQzNhR29PYjZObDQx?=
+ =?utf-8?B?ZDZ2V2QvaU8xa21XemkyZzhqU25PellvczRONXF3QUZINEloYTg0WWNlVFFB?=
+ =?utf-8?B?aVpvN3QwSGt5OWRDMXYrZXl1cDBUU3VsdHJqYVBCUG8zUHhKM1V3cVFLUG9G?=
+ =?utf-8?B?dW5TZVlDZFAvR25HbmxBdFdnVFVJQTkzZU80dkZMR05hQ05uSWRMRFhwZ2Ja?=
+ =?utf-8?B?UGlEaTErRGx0UFZUWlpGYWExVjhwSzVnR3JnWUQ0cHdVS3QxRGhmQVo1TUZJ?=
+ =?utf-8?B?WEJjUEtwMDJnbVhnSTRVa3hsSytqQ1YzUlRia3ZSR21RWWNBcDlGRzBCSDky?=
+ =?utf-8?B?UTBENHNZL0ROUVdjUTAzVWtxT2FFZldMeXptOXZ4Nm5QU1FZSlJzSHdNUjZu?=
+ =?utf-8?B?T2RxVndlQ3BVVHpSMHhkdEw1Y0hWYWhjUjhubW1leWU1WEQzd1d6UnFtaE5x?=
+ =?utf-8?B?aUpXSVJacWY4ZHpxd1FOMnZVLy9YRXcwNzhQVlJiNVV2TWJISVdNaU5obzF5?=
+ =?utf-8?B?UzczUHBIYUczZzNnUlJWWU9Uejh5ek43STNKRjc3U2thL1JnZytma2xncUdH?=
+ =?utf-8?B?bnlNZVVacldEWHFVd3hEOW5KelNpYlJFWGtlcE12TEpVdUxqd1FBWEpFamdV?=
+ =?utf-8?B?eGxBVlY5bXgwNkdPa3A4OTkyaG5xZXVzbFVrd0ZabTFMRXRaNTRIY3hicUVU?=
+ =?utf-8?B?eVlwL3FFTDhLd3VONzdXSVVFNnRHb3NnVERVVCtxNnZHLzJwdjMvMEVEL0kw?=
+ =?utf-8?B?aklyeDE2OXRwaWZpVGxaNm8xbXhVQUp1TE40ekxnZldLZnllSnJrNkhCbzZC?=
+ =?utf-8?B?V1luNnRnNWE4Z2l1N3V4OWVpejlZV1p1NGg2N3RscXhOMmJIOW9iUldYd2ZV?=
+ =?utf-8?B?VWVicVo3ZEVQS3hLMlV6aWFJWmJxQ2M4N1JUSEpwUDBaNEhQQUxrVisyOEdJ?=
+ =?utf-8?B?K0pXV3VOOFpNYTI3RlIvakZxSTBiWWhET2dDNFEyMDFKMmZrUGhKbkpMWmNv?=
+ =?utf-8?B?SklSZ2trUmwwbFdRSXRyRjhod1h2aUVweENYOHIyd2hzWE5GWFpLYjh6WDRH?=
+ =?utf-8?B?MlU5Rm9XZ05lWkp1TitVbDlRL3ZjUG1Wa29aK0hNNUwwL1E9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2024 10:49:47.2748
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b141383-6c25-47aa-b4dd-08dcfcbe6681
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8517
 
-Hi all,
-
-Please add your proposed agenda items below.
-
-https://cryptpad.fr/pad/#/2/pad/edit/6eu2rGXaB1e5M2nDrv190JcR/
-
-If any action items are missing or have been resolved, please add/remove
-them from the sheet.
-
-*CALL LINK:* https://meet.jit.si/XenProjectCommunityCall
-<https://www.google.com/url?q=https://meet.jit.si/XenProjectCommunityCall&sa=D&source=calendar&ust=1699196661201312&usg=AOvVaw1FcogEsMjFSd1Pmi7V0cBc>
-
-*DATE: *Thursday 7th November 2024
-
-*TIME: *1600 UTC (4 pm UK time)
-*Note the following administrative conventions for the call:*
 
 
-** To allow time to switch between meetings, we plan on starting theagenda
-at 16:05 UTC sharp.  Aim to join by 16:03 UTC if possible to allocatetime
-to sort out technical difficulties.*
+On 27/09/2024 00:24, Shawn Anastasio wrote:
+> 
+> 
+> Commit 53dc37829c31 ("xen/arm: Add DT reserve map regions to
+> bootinfo.reserved_mem") changes the way reserve map regions are tracked,
+> and as a result broke bootfdt's ability to handle device trees in which
+> the reserve map and the `reserved-memory` node contain the same entries
+> as each other, as is the case on PPC when booted by skiboot.
+> 
+> Fix this behavior by moving the reserve map check to after the DT has
+> been parsed and by explicitly allowing overlap with entries created by
+> `reserved-memory` nodes.
+> 
+> Fixes: 53dc37829c31 ("xen/arm: Add DT reserve map regions to bootinfo.reserved_mem")
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> ---
+>  xen/common/device-tree/bootfdt.c  | 28 +++++++++++++++++++++++-----
+>  xen/common/device-tree/bootinfo.c | 11 +++++++++--
+>  xen/include/xen/bootfdt.h         |  3 ++-
+>  3 files changed, 34 insertions(+), 8 deletions(-)
+> 
+> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
+> index 911a630e7d..2a51ee44a3 100644
+> --- a/xen/common/device-tree/bootfdt.c
+> +++ b/xen/common/device-tree/bootfdt.c
+> @@ -177,7 +177,7 @@ static int __init device_tree_get_meminfo(const void *fdt, int node,
+>      {
+>          device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
+>          if ( mem == bootinfo_get_reserved_mem() &&
+> -             check_reserved_regions_overlap(start, size) )
+> +             check_reserved_regions_overlap(start, size, NULL) )
+>              return -EINVAL;
+>          /* Some DT may describe empty bank, ignore them */
+>          if ( !size )
+> @@ -590,14 +590,36 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
+>      if ( nr_rsvd < 0 )
+>          panic("Parsing FDT memory reserve map failed (%d)\n", nr_rsvd);
+> 
+> +    ret = device_tree_for_each_node(fdt, 0, early_scan_node, NULL);
+This should be moved before fdt_num_mem_rsv so that the program flow makes sense. In your case nr_rsvd is
+not used immediately after.
 
+> +    if ( ret )
+> +        panic("Early FDT parsing failed (%d)\n", ret);
+> +
+>      for ( i = 0; i < nr_rsvd; i++ )
+>      {
+> +        const struct membanks *overlap = NULL;
+>          struct membank *bank;
+>          paddr_t s, sz;
+> 
+>          if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &s, &sz) < 0 )
+>              continue;
+> 
+> +        if ( check_reserved_regions_overlap(s, sz, &overlap) )
+> +        {
+> +            if ( overlap == bootinfo_get_reserved_mem() )
+> +            {
+> +                /*
+> +                 * Some valid device trees, such as those generated by OpenPOWER
+> +                 * skiboot firmware, expose all reserved memory regions in the
+> +                 * FDT memory reservation block (here) AND in the
+> +                 * reserved-memory node which has already been parsed. Thus, any
+> +                 * overlaps in the mem_reserved banks should be ignored.
+> +                 */
+> +                 continue;
+I think this is incorrect. Imagine this scenario:
+/memreserve/ 0x40000000 0x40000000;
+and /reserved-memory/foo with:
+reg = <0x0 0x7FFFF000 0x0 0x1000>;
 
+You would ignore the entire region described with /memreserve/ even though it overlaps just the last page.
 
+The problem you're describing is about regions that match 1:1 in /memreserve/ and /reserved-memory/.
+Therefore I think you should check that the overlapped regions match exactly.
 
-
-
-
-
-** If you want to be CC'ed please add or remove yourself from
-thesign-up-sheet
-at https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
-<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>== Dial-in
-Information ==## Meeting time16:00 - 17:00 British timeFurther
-International meeting times:*
-https://www.timeanddate.com/worldclock/meetingdetails.html?year=2024&month=11&day=7&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
-
-
-## Dial in details
-https://meet.jit.si/static/dialInInfo.html?room=XenProjectCommunityCall
-
-Thanks,
-Kelly Choi
-Community Manager
-Xen Project <https://xenproject.org/>
-
---0000000000006e38b80626135ce5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div>Hi all,<br><p>Please add your proposed agenda it=
-ems below.=C2=A0</p><p><a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/6eu2=
-rGXaB1e5M2nDrv190JcR/">https://cryptpad.fr/pad/#/2/pad/edit/6eu2rGXaB1e5M2n=
-Drv190JcR/</a>=C2=A0</p><p>If any action items are missing or have been res=
-olved, please add/remove them from the sheet.=C2=A0</p><p><b><span class=3D=
-"gmail-il">CALL</span>=C2=A0LINK:</b>=C2=A0<a href=3D"https://www.google.co=
-m/url?q=3Dhttps://meet.jit.si/XenProjectCommunityCall&amp;sa=3DD&amp;source=
-=3Dcalendar&amp;ust=3D1699196661201312&amp;usg=3DAOvVaw1FcogEsMjFSd1Pmi7V0c=
-Bc" target=3D"_blank" style=3D"">https://meet.jit.si/XenProjectCommunityCal=
-l</a></p><p><b>DATE: </b>Thursday 7th November 2024</p><p><b>TIME: </b>1600=
- UTC (4 pm UK time)</p><i>Note the following administrative conventions for=
- the=C2=A0<span class=3D"gmail-il">call</span>:</i></div><div><div><i>* To =
-allow time to switch between meetings, we plan on starting the<br>agenda at=
- 16:05 UTC sharp.=C2=A0 Aim to join by 16:03 UTC if possible to allocate<br=
->time to sort out technical difficulties.</i></div><div><i><br>* If you wan=
-t to be CC&#39;ed please add or remove yourself from the<br>sign-up-sheet a=
-t=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0s=
-RCf+/" rel=3D"noreferrer" target=3D"_blank">https://cryptpad.fr/pad/#/2/pad=
-/edit/D9vGzihPxxAOe6RFPz0sRCf+/</a><br><br>=3D=3D=C2=A0<span class=3D"gmail=
--il">Dial</span>-in Information =3D=3D<br>## Meeting time<br>16:00 - 17:00 =
-British time<br>Further International meeting times:<br></i><a href=3D"http=
-s://www.timeanddate.com/worldclock/meetingdetails.html?year=3D2024&amp;mont=
-h=3D11&amp;day=3D7&amp;hour=3D16&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;=
-p2=3D37&amp;p3=3D224&amp;p4=3D179">https://www.timeanddate.com/worldclock/m=
-eetingdetails.html?year=3D2024&amp;month=3D11&amp;day=3D7&amp;hour=3D16&amp=
-;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=3D179</a=
->=C2=A0<br><br>##=C2=A0<span class=3D"gmail-il">Dial</span>=C2=A0in details=
-<br><a href=3D"https://meet.jit.si/static/dialInInfo.html?room=3DXenProject=
-CommunityCall" rel=3D"noreferrer" target=3D"_blank">https://meet.jit.si/sta=
-tic/dialInInfo.html?room=3DXenProjectCommunityCall</a></div></div><div><div=
- dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div><br></div></di=
-v></div></div></div><div><div dir=3D"ltr" class=3D"gmail_signature" data-sm=
-artmail=3D"gmail_signature"><div dir=3D"ltr"><div>Thanks,</div><div>Kelly C=
-hoi<br></div><div><div style=3D"color:rgb(136,136,136)">Community Manager</=
-div><div style=3D"color:rgb(136,136,136)"><a href=3D"https://xenproject.org=
-/" target=3D"_blank">Xen Project</a><br></div></div></div></div></div></div=
->
-
---0000000000006e38b80626135ce5--
+~Michal
 
