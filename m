@@ -2,65 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4974A9BADC2
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 09:12:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829857.1244761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2939BADD5
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 09:16:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829864.1244772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7sBC-0000oS-CA; Mon, 04 Nov 2024 08:11:18 +0000
+	id 1t7sGA-0001QD-Uq; Mon, 04 Nov 2024 08:16:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829857.1244761; Mon, 04 Nov 2024 08:11:18 +0000
+Received: by outflank-mailman (output) from mailman id 829864.1244772; Mon, 04 Nov 2024 08:16:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7sBC-0000mA-9H; Mon, 04 Nov 2024 08:11:18 +0000
-Received: by outflank-mailman (input) for mailman id 829857;
- Mon, 04 Nov 2024 08:11:16 +0000
+	id 1t7sGA-0001NC-Rz; Mon, 04 Nov 2024 08:16:26 +0000
+Received: by outflank-mailman (input) for mailman id 829864;
+ Mon, 04 Nov 2024 08:16:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gxyb=R7=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1t7sBA-0000m4-CN
- for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 08:11:16 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2060b.outbound.protection.outlook.com
- [2a01:111:f403:2612::60b])
+ <SRS0=qZKN=R7=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1t7sG9-0001N3-0w
+ for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 08:16:25 +0000
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [2607:f8b0:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59a7a3ef-9a84-11ef-99a3-01e77a169b0f;
- Mon, 04 Nov 2024 09:11:10 +0100 (CET)
-Received: from AS9PR04CA0105.eurprd04.prod.outlook.com (2603:10a6:20b:50e::27)
- by DU0PR08MB8400.eurprd08.prod.outlook.com (2603:10a6:10:404::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Mon, 4 Nov
- 2024 08:11:05 +0000
-Received: from AMS0EPF0000019D.eurprd05.prod.outlook.com
- (2603:10a6:20b:50e:cafe::db) by AS9PR04CA0105.outlook.office365.com
- (2603:10a6:20b:50e::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30 via Frontend
- Transport; Mon, 4 Nov 2024 08:11:05 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AMS0EPF0000019D.mail.protection.outlook.com (10.167.16.249) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8137.17
- via Frontend Transport; Mon, 4 Nov 2024 08:11:05 +0000
-Received: ("Tessian outbound 0fe1877cedb7:v490");
- Mon, 04 Nov 2024 08:11:04 +0000
-Received: from Le6445e6b6737.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 30B8B3FF-9F84-4AD8-873D-435BB06572C6.1; 
- Mon, 04 Nov 2024 08:06:40 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
- Le6445e6b6737.1 (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 04 Nov 2024 08:06:40 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- by AS8PR08MB9741.eurprd08.prod.outlook.com (2603:10a6:20b:617::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20; Mon, 4 Nov
- 2024 08:06:37 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a%5]) with mapi id 15.20.8114.028; Mon, 4 Nov 2024
- 08:06:37 +0000
+ id 1237ddfa-9a85-11ef-99a3-01e77a169b0f;
+ Mon, 04 Nov 2024 09:16:20 +0100 (CET)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3e6075cba82so1758775b6e.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 00:16:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,233 +40,453 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59a7a3ef-9a84-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjYxMjo6NjBiIiwiaGVsbyI6IkVVUjA1LUFNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjU5YTdhM2VmLTlhODQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzA3ODcwLjU0NzMxLCJzZW5kZXIiOiJiZXJ0cmFuZC5tYXJxdWlzQGFybS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=fT+foLyNSMVazAT9umpyet3ws9pUqMCLYpJyHDqPgQ/CwZzFX2SVL9YCSb7y+N8J/eliZ7Y8FvA2MRRVuJfAnYXXwhmzisjUvHlflSt7zKrxO/FV8+5M3+TXDxWxzzTllc9dRIqrpeTkj/XELm8v7IDndXrOXCkMpFwtmjmJId0ORWZxQspTXvdpNfxTKbQ6mEiiyAa5FF0NU4GlvSEeWhAxxDEmMJ8aqdCQNIMUMobWSQEdu6dSNxU/QDrUxNcf5+lW1RwwsB3ACrBtwR7/U+IBmGZUEYnV2cmhls4JSujGM2QoR4Rw0mJpEf5UZd+TKGU+qRZnb/aQ6uOgNuZuCw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Z1hpBIDy2slJcSESPQiMzH7oHSvsq0gGPgg4e9XOm0=;
- b=jgds4KQMl3pGv9C39RoMRXDb08eOSJelWxcLMPd5tOrp2Vp4tQkf79FpqsMu3RF5MqSYPCf+zplLh776vAO/vM+3CMkIyxKOZ6T60zxngU/Rlre0k7m0karUKeClF36N9lcxmYfQ1q6guC8UmcS3+zC7TA3l3FRrAsLuDx/wV5XM/QOr4l2ut+DuSS3S89FyzGc1c7a3e57TOepjP72wm00EBFpBAQ17daVv5dw37hF8LWH3W9lpCM9GU9xnp8w1qDIE65UPOha7fj7PMmlUasK8OfOeq387MaJpMNo7dH/xRicO6lcrCo7Jx3hQLdkSdSzGhK4e6/sJxU1uugQ2Kw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Z1hpBIDy2slJcSESPQiMzH7oHSvsq0gGPgg4e9XOm0=;
- b=A5YbJrYMYawVA2Q5hFROjbwgxbJVrNlbOKXoInh/DjY5SwWOQk4a+yRJJ9Bh+NqZgOxEJBq6/aVqjv46LwZ3ojmF6rTVHV/mXzsQdGTT8HoHOF7FDMuTOjYSpjMFrcqdwJF+9979ILHoteKG9Tu2UWGqyQrYpkKjycxhjl2VMSw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 54ee78ab3aa381ed
-X-TessianGatewayMetadata: g9zYzbc9HJGRmEYY0R6JS7QPb613S32CH0KybfJyX9h0HZsNyYPM3iPu3V4viwqBSTdGYV2rfaSMMrAzKDqtzrVV91DooKCwk9D11MqfRTTcAsB3x82kAiGnv3XO6XJzcv3bS7D38E+kpOgj9z2YrItxbAS/ZT/qehjZqpK5pGA=
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WBoFWe01DC2OfNu3/pwxeP4Nf9G6ts0Y+KtpJ2WR76qBf/y9HDvE3CRdt1WIR11ECZnFMaTAiKEXBWtCf6yPos7h6VVk+YakQ6PUVPgTzUmg9vTruyS+XmCX6xPApuGGfBX1Gi1gJXIWHK1RrQVxx+dyoNxsHExNApI822eY/wMp6NGT+cwkYDekVAnlSWMIdNCz7WRzPxKcg4dGOamcH8z1pb3wkgfWimLgCCeDP/ROdsogUPLM/peOMAk6ywWPOTJnGQRoVXzfLtF2JMpDLOoQaQOO+XTkcdfcf3CBlw8KLvcZTPjjLhWb0DpyBlFWzN88KHnfyPwmf5O9BfCe8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Z1hpBIDy2slJcSESPQiMzH7oHSvsq0gGPgg4e9XOm0=;
- b=VT5TZv2kOizUE19lLskVxNZaqPyzpDxWCZnzpsx9h526uUjPodk/COh/ARKjjLHQ8rm4QTTHGqNni7FMJ0P9Kj08TTkI4AKHPooxplQgkXA0L2k1jyS05vxTYlGVUu/xxmzxrHs9Lmfxq2tcEgK750LC4hS+vY/X7wW9gT2bbNCiVbvlvIDfQUOWhayG7ww9tw6x8abLiuFaWmEoJQAkWTEYAxXwGHiZvh/JU8cmvQUhy8wOjcDvi7bHw2oNVDdUMXaFw3QQoyKEyL9c+NbUokD7r3nB+DVwfX+7OVRFrL4x/bdQ8t3nbwbZcxgHVZLPfCHqiRNto0nWaNMwRQB8/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Z1hpBIDy2slJcSESPQiMzH7oHSvsq0gGPgg4e9XOm0=;
- b=A5YbJrYMYawVA2Q5hFROjbwgxbJVrNlbOKXoInh/DjY5SwWOQk4a+yRJJ9Bh+NqZgOxEJBq6/aVqjv46LwZ3ojmF6rTVHV/mXzsQdGTT8HoHOF7FDMuTOjYSpjMFrcqdwJF+9979ILHoteKG9Tu2UWGqyQrYpkKjycxhjl2VMSw=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Jens Wiklander <jens.wiklander@linaro.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel
-	<michal.orzel@amd.com>
-Subject: Re: [RFC PATCH 1/4] xen/arm: ffa: Introduce VM to VM support
-Thread-Topic: [RFC PATCH 1/4] xen/arm: ffa: Introduce VM to VM support
-Thread-Index: AQHbH6z3/b07Z+H2iEKVEGebQub3/bKiXKqAgAR3wYCAAAejgIAABXwA
-Date: Mon, 4 Nov 2024 08:06:37 +0000
-Message-ID: <8A562771-39B3-49CB-85FF-F3A047BACA4F@arm.com>
-References: <cover.1729069025.git.bertrand.marquis@arm.com>
- <0475e48ace0acd862224e7ff628d11db94392871.1729069025.git.bertrand.marquis@arm.com>
- <93715b7e-d968-4526-96c5-497a7a1f9dfa@citrix.com>
- <765C7E37-0ECB-4BFC-B98C-57FCE303828B@arm.com>
- <8d5b6935-183f-460d-8107-4ed3119c4d8c@suse.com>
-In-Reply-To: <8d5b6935-183f-460d-8107-4ed3119c4d8c@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3776.700.51)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DB9PR08MB6588:EE_|AS8PR08MB9741:EE_|AMS0EPF0000019D:EE_|DU0PR08MB8400:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcfd9f31-2c24-4b1d-4ba1-08dcfca83ad9
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?7vQR0C1L8SIiPQalpS6hoPu8xEShlwyUB7PwXQ0m6W7Gf7a0b1LaQb2Ih0Ui?=
- =?us-ascii?Q?ZEBs5j8tq3qBqTGATr+7pliiUg0Uxe1eekVDGlBXE5k9sCGMFgMYBLs4LwfA?=
- =?us-ascii?Q?wEQQ9JHcN4t0xgmSgMskxnttrBGziDid0UY5JAVkCRK2uF/WcIpZbsHwTOq3?=
- =?us-ascii?Q?IuBHSsZegyXrC9c8slI5eInzULrJhvyCmDp5Jel1ipDS+v/4LqPldWYba6MY?=
- =?us-ascii?Q?jN+5GHOUP5nCnvuOPHCeW/NqloYiXsLDDE7gRNg7ae1uNTD98OytQvPa8vVA?=
- =?us-ascii?Q?XxtVaIlqpxam8X3UdasAodRNqCVyyaF/jh/vXa/WzIHrOaeQH1CP1eJYNT3X?=
- =?us-ascii?Q?2AMHtCjlzZPMbeF5inXA2+ltTfVZGyQXlsC6n2ZdLEfUDSZSL+XXxLErnMNh?=
- =?us-ascii?Q?qEFiKKxOaPr+Kahqlg+1AIcp+Mg/jqLflplBW1cL+Jvxg8kuFZnRbgilQYnR?=
- =?us-ascii?Q?vd+v1AMotfz5ys7NYJ8hzsdow6VtEnaRJHRvun7Jm/pxO79aLjDtyL03Xis2?=
- =?us-ascii?Q?VNaQXiBmkf6gWuaHEEunphcD4AkT1iSbfE1GcBRnnVWmZOY8T2rhf3fr9aTh?=
- =?us-ascii?Q?Yl3JUs5hlsmCY8d+/yiPJRmemq6fb88BykZSnKtVenEQd9UOJbOBa/ogz3Bh?=
- =?us-ascii?Q?fbzDUA1bbYYPDcSo5HmhVQQCAj/gg3cD7rFst05AoaPUWpPyHCVXygxevBBs?=
- =?us-ascii?Q?Hq52wXjTf4eodo69xw0yTTCQ5dzPUzh51sC1q3k9m7v/CNUEubN9vnF0whJP?=
- =?us-ascii?Q?GWxCQMrfXpHgSGbeblbheUpzepjxvzEC9GKXFOFccIsooo5BqzgzLmqj4zg7?=
- =?us-ascii?Q?mdPk++1eBYuTSdVljT7ZNnY9Q956MWrMPsqp3o1zXpeXJtGLBjK76YXdjX6p?=
- =?us-ascii?Q?CqS+roDKJwBG1rs/wzwScHNt2PeEB2lqG1KJ7FXvmNvkINhwBfYzUzz4o+Hz?=
- =?us-ascii?Q?jbgHf/Y88TEQMg0DQuSyvFL48ipHGPgB//eOpiayedAzNn3oqdO8p3eZQtHm?=
- =?us-ascii?Q?sZpjoXCQXsKegoS2yJ3bqbH6RV9ow+RJ/RIJQgmHKg12vSNGdcYp2j+QrIUv?=
- =?us-ascii?Q?XP09BQt/l65oxPVaulJvZyNAWUs5hvueSMp/3DL8kRuPs+5deHd+FXEKZFd1?=
- =?us-ascii?Q?QlRJvDpRD1+vTmghwL/4OZGg/Tdw6aXfZQH9Rybexnfa9HFgjyh8RIWXOF22?=
- =?us-ascii?Q?SFtQzyzdTkSaw1JYKh+BLzrBYL/P7G24CrX+BpBdAmlLPDMYdIspGHM4VNW0?=
- =?us-ascii?Q?0MwVzLZVRLchRSs5xCMM0UCi2zWVJEI0DBZXeOOaMZe+X46ZAVCRif39E8mg?=
- =?us-ascii?Q?4+5oyjEr3AVxXeUOgKQWjscq0fzEAAcdxBpOgI2pW6rwFFkqIeobAWjw+0WL?=
- =?us-ascii?Q?Bcn/ahg=3D?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <875D7375641CA74C8945881E3C9C473C@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 1237ddfa-9a85-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjoyMzYiLCJoZWxvIjoibWFpbC1vaTEteDIzNi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjEyMzdkZGZhLTlhODUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzA4MTgwLjc2MjUyLCJzZW5kZXIiOiJqZW5zLndpa2xhbmRlckBsaW5hcm8ub3JnIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1730708179; x=1731312979; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Xwen7feZ0JhMVHZuXwshQEly9lgKGsE+v0KeHJEql98=;
+        b=kLBt9qqmECj/Y46x/GSyldrHetYCqhlBjVE8fl6DRxHPzdwza+ENTJIlv9+Lz4myRw
+         2+b99GabTfeO+he/WYk3QL7CdQ33FQT5Q5tx3c2DhVcd+0EuM0fabSXTwEBQ9ke/eSFN
+         BsNxV8gSW8G010ejE4YMEP+4ev7iMGiX2/VafJHtG2ItbJ2hiBaJStjZ1cGU9v7mohnr
+         h+Bnh2hGankftzFy2CJOLAid5BvLrXjzPk1Von8FzlkiXECcY21iv4hs3ccQxhs4SMzf
+         XS2Y5QIOKCyMJPvjADIJyxjYaUIGYpHuyT48FIeRLGTKpIt9SfRgENOpC+/o5ISlFShm
+         6h6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730708179; x=1731312979;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Xwen7feZ0JhMVHZuXwshQEly9lgKGsE+v0KeHJEql98=;
+        b=Uy3WuGnR5ZonwmcC1gFKHDv0ark62ji4GoliRbvoZdmJFadOogvzqfLREadb+J+aXw
+         QEtrvGcvzLljnyOU+PaaWNL+KYtxGa7FI97j27vREtbaEZIOupXkxjEpAv+gO5W8YIoo
+         E2pqfs2QyO1/7KQM8EgJq0gS65c0PyHvZvMOzjGgeTi1IybLUB5PbZvLUVDrxbUjmX9Z
+         Wwy1bbYnH8ILv2iYVzg3WA2RqBagXzcsDZHVYUgofq9/1qdAM5pGfSlOcGXQJodIlM7I
+         rrVEi0jv6Vk/dboMgf5igN6Fkg6dhC+kD4Kq1dm5DuBPPuZVaNvf0TZaa/M+xDp0il6q
+         zPIg==
+X-Gm-Message-State: AOJu0Yz/aiYddtnkitkff9CJultXs3zDhSIkDLVf+NYFRTjuutoc0Igw
+	2ZwV84B8mt3rdAnThVov/Fkp84X6qcmGPSKm0UWwqG5+2qpqIMUxiAt7fHpi9+GsIXLRqisDAS2
+	Uy0mmf4KerIkCAXd/sYe+K6RcCaa2LiSP5yBmTg==
+X-Google-Smtp-Source: AGHT+IEvSQ60cz3k7GDIxyHRWRupua8G3i8YcIUJF22usYdpwYHIdU5VexS6v2X4Kg5hltX3IFNWzBtmFWGG9ABwxGc=
+X-Received: by 2002:a05:6870:179d:b0:259:8cb3:db2e with SMTP id
+ 586e51a60fabf-2949f03ad8amr7518289fac.39.1730708179061; Mon, 04 Nov 2024
+ 00:16:19 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9741
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-SkipListedInternetSender:
- ip=[2603:10a6:10:25a::24];domain=DB9PR08MB6588.eurprd08.prod.outlook.com
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF0000019D.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	a22ee6b4-c7de-413c-0311-08dcfca79b27
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|35042699022|376014|82310400026|14060799003;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?/bBycQB8MF2U0w8kfhvCFYmvsP5LypoFeCPVWMARPEzaueAoS4XOqlVRXGUx?=
- =?us-ascii?Q?sbPDVFlkPTnVAGjxUQvLvL+ziyo9ZE+GBdl12vJG/EaRtc3/e8vYZJXvpPc0?=
- =?us-ascii?Q?jQeurPjq1okJq87FWuC3AoXhvCU6meNhPjVBa1959bZQgY8TN38zvXcxUwuN?=
- =?us-ascii?Q?wIPyGKQGmYf9DsSiW6ZrpVXtbLc2/34ayBAgSATBxMQ0qPNzgj3nUe+fmgiZ?=
- =?us-ascii?Q?boF70rQfAYv2YzqQ0V10gDOpFM/hJadvuIoxumW9FzUqpagopSSRvhhR5mDf?=
- =?us-ascii?Q?GWPDTpnp/YpRxWP3iR9tV6cYdJsKRvwEaQSG03eQTin+VX2nvOD09CSdFny8?=
- =?us-ascii?Q?whtYao+licYgzMxNiiiv49IZyytis0YBjF7WtE+OEpA3aJRvL7rsK6VRYxiV?=
- =?us-ascii?Q?gN1de8mZRE90WcK1lObdm4hSpMu+2HzddqsMd3mijHqLTeC7fOQ65DvPwO7y?=
- =?us-ascii?Q?eYgfsO8NhbBtem+BXydgLClEcj3DqeI417DQ+EH8ikVnwh5k4NQvmx6Ayw2d?=
- =?us-ascii?Q?nytbvG+FED1xhxU1IzKCEybV4l5dmdzbCH+dFVibO4Yq+nyCEFtDlIKyS5G0?=
- =?us-ascii?Q?wPSMkaq7Bf8aiWSQYKyWbYadMmlkq4d5hk7o/VJkmV7yhQiYKQGkrjVqiujt?=
- =?us-ascii?Q?DpbjzKJ6ULnGnABfJcED5GY80/Vu+kxoeQkj6G6EA+AT6VMnbQT+M8WM7AzD?=
- =?us-ascii?Q?4DTM7xYC8OYvTK895anUr2oaqt7z1G/kviRxlrrm/Ez6QlWYTbZowNAFgWam?=
- =?us-ascii?Q?beeGmYxQvhM6PvDkgyANgxHRcZjEeS0aMMUYJMJFEUllfCCa/7vmRjZwo1+S?=
- =?us-ascii?Q?aP8NtoSAvyKmZEWWoNYU9dN+JYkbqEpohxoF9gjReYBDxZbxtvQrdw+SPl6x?=
- =?us-ascii?Q?FHwpXcNJIxTdriwguenq9E7ytQP2R/5C4udqFlHGyz39CZ5bIddg7wTtQ+3M?=
- =?us-ascii?Q?j2kwJRU3p4v2lMt82Xu4rKfCA55T3AnFJ5wSLQBPjVStClwU0cszBwQYtO4c?=
- =?us-ascii?Q?p56Yu65M319SsId5eKv8hzV1E8OkAk9zOXYGoqtI6rl+ESdtdXGJ/+fwbUrm?=
- =?us-ascii?Q?P3fCZSgr5u4/XA7bj8AVEovP6fr0lHRS47n87xlMe18KppSTRaFgH5NvR4JN?=
- =?us-ascii?Q?YOEb86Ml4TmKHu/D29Afd9IIhKPyVa86m+wXfmbcsBsbqw/DV3zKWEjkxqWD?=
- =?us-ascii?Q?01Ljw4LNr1NMfzHey2J80WKJ3A32NincsD4fRL1E3sdVIPqOps+pO4Wm9Bp7?=
- =?us-ascii?Q?DsMY/HNLpnTIF31WhB36nuIcETqaDeO9JFXPiZJMUJPcG1c7BFHaym+Xk4s3?=
- =?us-ascii?Q?B1NoUafGZzrZFCK2UJHM+y7Kk/P9teNIubfNeA30zU2PfTorhsjzK3lpp9n3?=
- =?us-ascii?Q?9LHGFdIRTZVCwIwqWrfdN/v66Rao11HMX8wvCz2gHXOALwf5Lg=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(35042699022)(376014)(82310400026)(14060799003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2024 08:11:05.1167
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcfd9f31-2c24-4b1d-4ba1-08dcfca83ad9
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF0000019D.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8400
+References: <cover.1729069025.git.bertrand.marquis@arm.com>
+ <57c59cae4141dd9601d7b4e9260030a16809b764.1729069025.git.bertrand.marquis@arm.com>
+ <CAHUa44FPihAeGEZsj023tj22+a_xLj08gu+AsF_0E5v3PNs=jQ@mail.gmail.com> <9A0A125D-04ED-4454-8E94-1E9D4F6EFE09@arm.com>
+In-Reply-To: <9A0A125D-04ED-4454-8E94-1E9D4F6EFE09@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Mon, 4 Nov 2024 09:16:07 +0100
+Message-ID: <CAHUa44HQPHrnqAMwh=yjqvZJZ74A94ZZubAJhxqXTYEs17BfOA@mail.gmail.com>
+Subject: Re: [RFC PATCH 4/4] xen/arm: ffa: Enable VM to VM without firmware
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
+Hi Bertrand,
 
-> On 4 Nov 2024, at 08:46, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 04.11.2024 08:19, Bertrand Marquis wrote:
->> Hi Andrew,
->>=20
->>> On 1 Nov 2024, at 12:05, Andrew Cooper <andrew.cooper3@citrix.com> wrot=
-e:
->>>=20
->>> On 16/10/2024 10:21 am, Bertrand Marquis wrote:
->>>> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_pa=
-rtinfo.c
->>>> index fde187dba4e5..d699a267cc76 100644
->>>> --- a/xen/arch/arm/tee/ffa_partinfo.c
->>>> +++ b/xen/arch/arm/tee/ffa_partinfo.c
->>>> @@ -77,7 +77,21 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+On Mon, Nov 4, 2024 at 8:27=E2=80=AFAM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 1 Nov 2024, at 11:44, Jens Wiklander <jens.wiklander@linaro.org> wro=
+te:
+> >
+> > Hi Bertrand,
+> >
+> > On Wed, Oct 16, 2024 at 11:22=E2=80=AFAM Bertrand Marquis
+> > <bertrand.marquis@arm.com> wrote:
+> >>
+> >> When VM to VM support is activated and there is no suitable FF-A suppo=
+rt
+> >> in the firmware, enable FF-A support for VMs to allow using it for VM =
+to
+> >> VM communications.
+> >> If there is Optee running in the secure world and using the non FF-A
+> >> communication system, having CONFIG_FFA_VM_TO_VM could be non function=
+al
+> >> (if optee is probed first) or Optee could be non functional (if FF-A i=
+s
+> >> probed first) so it is not recommended to activate the configuration
+> >> option for such systems.
+> >>
+> >> To make buffer full notification work between VMs when there is not
+> >> firmware, rework the notification handling and modify the global flag =
+to
+> >> only be used as check for firmware notification support instead.
+> >>
+> >> Modify part_info_get to return the list of VMs when there is no firmwa=
+re
+> >> support.
+> >>
+> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >> ---
+> >> xen/arch/arm/tee/ffa.c          |  11 +++
+> >> xen/arch/arm/tee/ffa_notif.c    | 118 ++++++++++++++++----------------
+> >> xen/arch/arm/tee/ffa_partinfo.c |   2 +
+> >> 3 files changed, 73 insertions(+), 58 deletions(-)
+> >
+> > I think it is desirable or at least a good goal to be able to have all
+> > TEE configurations enabled at compile time.
+> >
+> > For optee_probe() to succeed, a DT node with compatible
+> > "linaro,optee-tz" must be present, and a trusted OS responding with
+> > the UUID used by OP-TEE. False positives can be ruled out unless the
+> > system is grossly misconfigured and shouldn't be used.
+> >
+> > If we could make the probe order deterministic with OP-TEE before
+> > FF-A, we should be OK. If there is an odd system with OP-TEE SMC ABI
+> > in the secure world that wants to use FF-A VM to VM, removing the
+> > "linaro,optee-tz" compatible node from DT is enough to disable
+> > optee_probe() without recompiling Xen.
+>
+> I do agree with the deterministic argument but I am not sure having
+> the order forced is the right solution.
+
+CONFIG_FFA_VM_TO_VM ensures that FF-A probing always succeeds and
+claims the TEE configuration. Logically, this should be last after all
+other probing has been tried since it disables further probing.
+
+>
+> Maybe we could use a command line argument so that one could
+> select explicitly the tee:
+> tee=3Dffa / tee=3Doptee
+>
+> If we could prevent to modify the device tree that will probably make
+> things easier.
+>
+> What do you think ?
+
+That works for me.
+
+Cheers,
+Jens
+
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Cheers,
+> > Jens
+> >
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >> index 21d41b452dc9..6d427864f3da 100644
+> >> --- a/xen/arch/arm/tee/ffa.c
+> >> +++ b/xen/arch/arm/tee/ffa.c
+> >> @@ -324,8 +324,11 @@ static int ffa_domain_init(struct domain *d)
+> >>     struct ffa_ctx *ctx;
+> >>     int ret;
+> >>
+> >> +#ifndef CONFIG_FFA_VM_TO_VM
+> >>     if ( !ffa_fw_version )
+> >>         return -ENODEV;
+> >> +#endif
+> >> +
+> >>     /*
+> >>      * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A I=
+D 0 is
+> >>      * reserved for the hypervisor and we only support secure endpoint=
+s using
+> >> @@ -549,7 +552,15 @@ err_no_fw:
+> >>     bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+> >>     printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
+> >>
+> >> +#ifdef CONFIG_FFA_VM_TO_VM
+> >> +    INIT_LIST_HEAD(&ffa_teardown_head);
+> >> +    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL=
+, 0);
+> >> +
+> >> +    printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
+> >> +    return true;
+> >> +#else
+> >>     return false;
+> >> +#endif
+> >> }
+> >>
+> >> static const struct tee_mediator_ops ffa_ops =3D
+> >> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif=
+.c
+> >> index 052b3e364a70..f2c87d1320de 100644
+> >> --- a/xen/arch/arm/tee/ffa_notif.c
+> >> +++ b/xen/arch/arm/tee/ffa_notif.c
+> >> @@ -16,7 +16,7 @@
+> >>
+> >> #include "ffa_private.h"
+> >>
+> >> -static bool __ro_after_init notif_enabled;
+> >> +static bool __ro_after_init fw_notif_enabled;
+> >> static unsigned int __ro_after_init notif_sri_irq;
+> >>
+> >> int ffa_handle_notification_bind(struct cpu_user_regs *regs)
+> >> @@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user_r=
+egs *regs)
+> >>     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+> >>     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> >>
+> >> -    if ( !notif_enabled )
+> >> -        return FFA_RET_NOT_SUPPORTED;
+> >> -
+> >>     if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
+> >>         return FFA_RET_INVALID_PARAMETERS;
+> >>
+> >>     if ( flags )    /* Only global notifications are supported */
+> >>         return FFA_RET_DENIED;
+> >>
+> >> -    /*
+> >> -     * We only support notifications from SP so no need to check the =
+sender
+> >> -     * endpoint ID, the SPMC will take care of that for us.
+> >> -     */
+> >> -    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bit=
+map_hi,
+> >> -                           bitmap_lo);
+> >> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
+> >> +        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
+> >> +                               bitmap_hi, bitmap_lo);
+> >> +
+> >> +    return FFA_RET_NOT_SUPPORTED;
+> >> }
+> >>
+> >> int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
+> >> @@ -51,32 +47,36 @@ int ffa_handle_notification_unbind(struct cpu_user=
+_regs *regs)
+> >>     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+> >>     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> >>
+> >> -    if ( !notif_enabled )
+> >> -        return FFA_RET_NOT_SUPPORTED;
+> >> -
+> >>     if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
+> >>         return FFA_RET_INVALID_PARAMETERS;
+> >>
+> >> -    /*
+> >> -     * We only support notifications from SP so no need to check the
+> >> -     * destination endpoint ID, the SPMC will take care of that for u=
+s.
+> >> -     */
+> >> -    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitm=
+ap_hi,
+> >> -                            bitmap_lo);
+> >> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
+> >> +        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, =
+bitmap_hi,
+> >> +                                bitmap_lo);
+> >> +
+> >> +    return FFA_RET_NOT_SUPPORTED;
+> >> }
+> >>
+> >> void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
+> >> {
+> >>     struct domain *d =3D current->domain;
+> >>     struct ffa_ctx *ctx =3D d->arch.tee;
+> >> +    bool notif_pending =3D false;
+> >>
+> >> -    if ( !notif_enabled )
+> >> +#ifndef CONFIG_FFA_VM_TO_VM
+> >> +    if ( !fw_notif_enabled )
+> >>     {
+> >>         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> >>         return;
+> >>     }
+> >> +#endif
+> >>
+> >> -    if ( test_and_clear_bool(ctx->notif.secure_pending) )
+> >> +    notif_pending =3D ctx->notif.secure_pending;
+> >> +#ifdef CONFIG_FFA_VM_TO_VM
+> >> +    notif_pending |=3D ctx->notif.buff_full_pending;
+> >> +#endif
+> >> +
+> >> +    if ( notif_pending )
+> >>     {
+> >>         /* A pending global notification for the guest */
+> >>         ffa_set_regs(regs, FFA_SUCCESS_64, 0,
+> >> @@ -103,11 +103,13 @@ void ffa_handle_notification_get(struct cpu_user=
+_regs *regs)
+> >>     uint32_t w6 =3D 0;
+> >>     uint32_t w7 =3D 0;
+> >>
+> >> -    if ( !notif_enabled )
+> >> +#ifndef CONFIG_FFA_VM_TO_VM
+> >> +    if ( !fw_notif_enabled )
+> >>     {
+> >>         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> >>         return;
+> >>     }
+> >> +#endif
+> >>
+> >>     if ( (recv & 0xFFFFU) !=3D ffa_get_vm_id(d) )
+> >>     {
+> >> @@ -115,7 +117,8 @@ void ffa_handle_notification_get(struct cpu_user_r=
+egs *regs)
+> >>         return;
+> >>     }
+> >>
+> >> -    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP_S=
+PM ) )
+> >> +    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP
+> >> +                                        | FFA_NOTIF_FLAG_BITMAP_SPM )=
+) )
+> >>     {
+> >>         struct arm_smccc_1_2_regs arg =3D {
+> >>             .a0 =3D FFA_NOTIFICATION_GET,
+> >> @@ -170,15 +173,14 @@ int ffa_handle_notification_set(struct cpu_user_=
 regs *regs)
->>>>    };
->>>>    uint32_t src_size, dst_size;
->>>>    void *dst_buf;
->>>> -    uint32_t ffa_sp_count =3D 0;
->>>> +    uint32_t ffa_vm_count =3D 0, ffa_sp_count =3D 0;
->>>> +#ifdef CONFIG_FFA_VM_TO_VM
->>>> +    struct domain *dom;
->>>> +
->>>> +    /* Count the number of VM with FF-A support */
->>>> +    rcu_read_lock(&domlist_read_lock);
->>>> +    for_each_domain( dom )
->>>> +    {
->>>> +        struct ffa_ctx *vm =3D dom->arch.tee;
->>>> +
->>>> +        if (dom !=3D d && vm !=3D NULL && vm->guest_vers !=3D 0)
->>>> +            ffa_vm_count++;
->>>> +    }
->>>> +    rcu_read_unlock(&domlist_read_lock);
->>>> +#endif
->>>=20
->>> ...
->>> struct domain *dom;
->>>=20
->>> if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
->>> {
->>>    /* Count the number of VM with FF-A support */
->>>    rcu_read_lock(&domlist_read_lock);
->>>    ...
->>>    rcu_read_unlock(&domlist_read_lock);
->>> }
->>>=20
->>> drops the explicit ifdef.  Hiding function-level variable declarations
->>> behind an ifdef like that works exactly once, and it doesn't make
->>> pleasant code.
->>=20
->> Ack I will fix that.
->=20
-> While at that, please also name struct domain * type variables "d", not
-> "dom". For consistency with (almost) all other code we have.
-
-Sure, I will fix that.
-
-Cheers
-Bertrand
-
->=20
-> Jan
-
-
+> >>     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+> >>     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> >>
+> >> -    if ( !notif_enabled )
+> >> -        return FFA_RET_NOT_SUPPORTED;
+> >> -
+> >>     if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
+> >>         return FFA_RET_INVALID_PARAMETERS;
+> >>
+> >> -    /* Let the SPMC check the destination of the notification */
+> >> -    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitm=
+ap_lo,
+> >> -                           bitmap_hi);
+> >> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
+> >> +        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, =
+bitmap_lo,
+> >> +                               bitmap_hi);
+> >> +
+> >> +    return FFA_RET_NOT_SUPPORTED;
+> >> }
+> >>
+> >> #ifdef CONFIG_FFA_VM_TO_VM
+> >> @@ -190,7 +192,7 @@ void ffa_raise_rx_buffer_full(struct domain *d)
+> >>         return;
+> >>
+> >>     if ( !test_and_set_bool(ctx->notif.buff_full_pending) )
+> >> -        vgic_inject_irq(d, d->vcpu[0], notif_sri_irq, true);
+> >> +        vgic_inject_irq(d, d->vcpu[0], GUEST_FFA_NOTIF_PEND_INTR_ID, =
+true);
+> >> }
+> >> #endif
+> >>
+> >> @@ -363,7 +365,7 @@ void ffa_notif_init_interrupt(void)
+> >> {
+> >>     int ret;
+> >>
+> >> -    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
+> >> +    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
+> >>     {
+> >>         /*
+> >>          * An error here is unlikely since the primary CPU has already
+> >> @@ -394,47 +396,47 @@ void ffa_notif_init(void)
+> >>     int ret;
+> >>
+> >>     /* Only enable fw notification if all ABIs we need are supported *=
+/
+> >> -    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
+> >> -           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
+> >> -           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
+> >> -           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
+> >> -        return;
+> >> -
+> >> -    arm_smccc_1_2_smc(&arg, &resp);
+> >> -    if ( resp.a0 !=3D FFA_SUCCESS_32 )
+> >> -        return;
+> >> -
+> >> -    irq =3D resp.a2;
+> >> -    notif_sri_irq =3D irq;
+> >> -    if ( irq >=3D NR_GIC_SGI )
+> >> -        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
+> >> -    ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL=
+);
+> >> -    if ( ret )
+> >> +    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
+> >> +         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
+> >> +         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
+> >> +         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
+> >>     {
+> >> -        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n=
+",
+> >> -               irq, ret);
+> >> -        return;
+> >> -    }
+> >> +        arm_smccc_1_2_smc(&arg, &resp);
+> >> +        if ( resp.a0 !=3D FFA_SUCCESS_32 )
+> >> +            return;
+> >>
+> >> -    notif_enabled =3D true;
+> >> +        irq =3D resp.a2;
+> >> +        notif_sri_irq =3D irq;
+> >> +        if ( irq >=3D NR_GIC_SGI )
+> >> +            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
+> >> +        ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", =
+NULL);
+> >> +        if ( ret )
+> >> +        {
+> >> +            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error =
+%d\n",
+> >> +                   irq, ret);
+> >> +            return;
+> >> +        }
+> >> +        fw_notif_enabled =3D true;
+> >> +    }
+> >> }
+> >>
+> >> int ffa_notif_domain_init(struct domain *d)
+> >> {
+> >>     int32_t res;
+> >>
+> >> -    if ( !notif_enabled )
+> >> -        return 0;
+> >> +    if ( fw_notif_enabled )
+> >> +    {
+> >>
+> >> -    res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_v=
+cpus);
+> >> -    if ( res )
+> >> -        return -ENOMEM;
+> >> +        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->m=
+ax_vcpus);
+> >> +        if ( res )
+> >> +            return -ENOMEM;
+> >> +    }
+> >>
+> >>     return 0;
+> >> }
+> >>
+> >> void ffa_notif_domain_destroy(struct domain *d)
+> >> {
+> >> -    if ( notif_enabled )
+> >> +    if ( fw_notif_enabled )
+> >>         ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
+> >> }
+> >> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_pa=
+rtinfo.c
+> >> index d699a267cc76..2e09440fe6c2 100644
+> >> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> >> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> >> @@ -128,12 +128,14 @@ void ffa_handle_partition_info_get(struct cpu_us=
+er_regs *regs)
+> >>         goto out;
+> >>     }
+> >>
+> >> +#ifndef CONFIG_FFA_VM_TO_VM
+> >>     if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
+> >>     {
+> >>         /* Just give an empty partition list to the caller */
+> >>         ret =3D FFA_RET_OK;
+> >>         goto out;
+> >>     }
+> >> +#endif
+> >>
+> >>     ret =3D ffa_rx_acquire(d);
+> >>     if ( ret !=3D FFA_RET_OK )
+> >> --
+> >> 2.47.0
+>
+>
 
