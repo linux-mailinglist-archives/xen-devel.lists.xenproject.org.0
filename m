@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E31D9BAF93
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:25:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829881.1244791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 770B59BAF9B
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:27:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829887.1244802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tKe-0002xt-5E; Mon, 04 Nov 2024 09:25:08 +0000
+	id 1t7tMa-0003j6-Fy; Mon, 04 Nov 2024 09:27:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829881.1244791; Mon, 04 Nov 2024 09:25:08 +0000
+Received: by outflank-mailman (output) from mailman id 829887.1244802; Mon, 04 Nov 2024 09:27:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tKe-0002vi-2i; Mon, 04 Nov 2024 09:25:08 +0000
-Received: by outflank-mailman (input) for mailman id 829881;
- Mon, 04 Nov 2024 09:25:06 +0000
+	id 1t7tMa-0003gv-DI; Mon, 04 Nov 2024 09:27:08 +0000
+Received: by outflank-mailman (input) for mailman id 829887;
+ Mon, 04 Nov 2024 09:27:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zgNs=R7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1t7tKc-0002vc-JC
- for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:25:06 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UQGP=R7=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
+ id 1t7tMY-0003gn-K2
+ for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:27:06 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab57aac2-9a8e-11ef-99a3-01e77a169b0f;
- Mon, 04 Nov 2024 10:25:02 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4315c1c7392so34157785e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:25:02 -0800 (PST)
-Received: from ?IPV6:2003:e5:8706:5100:ddd3:fe18:d0ae:c30d?
- (p200300e587065100ddd3fe18d0aec30d.dip0.t-ipconnect.de.
- [2003:e5:8706:5100:ddd3:fe18:d0ae:c30d])
+ id f015ee9a-9a8e-11ef-99a3-01e77a169b0f;
+ Mon, 04 Nov 2024 10:26:58 +0100 (CET)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-444-MVDSc3zqOpq0R_bRrpQZaw-1; Mon, 04 Nov 2024 04:26:56 -0500
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-37d5a3afa84so1946243f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:26:55 -0800 (PST)
+Received: from ?IPv6:2001:16b8:2d7f:e400:7f8:722c:bb2e:bb7f?
+ (200116b82d7fe40007f8722cbb2ebb7f.dip.versatel-1u1.de.
+ [2001:16b8:2d7f:e400:7f8:722c:bb2e:bb7f])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4327d685308sm145817825e9.33.2024.11.04.01.25.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Nov 2024 01:25:01 -0800 (PST)
+ ffacd0b85a97d-381c10b7d20sm12817150f8f.7.2024.11.04.01.26.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Nov 2024 01:26:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,194 +51,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab57aac2-9a8e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImFiNTdhYWMyLTlhOGUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzEyMzAyLjQ4MjUxMywic2VuZGVyIjoiamdyb3NzQHN1c2UuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730712302; x=1731317102; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=X3j6yw9G9MmSxTglPbSEmSMcnh+26FY7U9BWD66ivgE=;
-        b=MZOXR6BopE3OVH9bfJXLIoSpLjgsHt0qbADjS0+g9Y5a6Z5E9bBcfGJYkbOCNe0noB
-         KPsONAJC3/P+4tFnXoQgQfIPdUq8gCwHJjkfcyJsSEO3QJI7JqLhcgZUq/R3k70DAnbc
-         rbnkvH9rlHYr7VSjRuffvhtLc1C8emSj3/NYhUYbvQ/p4AkzHn7R/AmmOFKMNnYjbCdR
-         jouGrXf/jBh38w38L+BDcOJ6/+ZMi/8YOp0M73PQwcGHntKt1qKxpWMpt1WkEFmveUcZ
-         Ub9U3S9LPfUHUAJatFeGxjbxgYgEfafNlavfB18rvQwktRXGWrHrlBlJq8nYKEz89a8T
-         N98A==
+X-Inumbo-ID: f015ee9a-9a8e-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMzMuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImYwMTVlZTlhLTlhOGUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzEyNDE4Ljc4MjE1Mywic2VuZGVyIjoicHN0YW5uZXJAcmVkaGF0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1730712417;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M7ueN/LQ529FLGouL/3BXVgrjx8tY87847WIrlhrom4=;
+	b=hs7Ppm7wXaEwXylZk3WlnuRhOBVi9EZFeFaHA5C2kpvSH/VjkVm6K0TiNsnRe0z8Kj9ISO
+	QeHbTMdAtNM8OMz7ZsX56g97CaQyWzdOZ7ETkNzghr2NW+8F20RyIMZTCqi56KBYvwZI4U
+	2b2TxZfnuV5aUNIoqBdGJ9P5nVrVU+4=
+X-MC-Unique: MVDSc3zqOpq0R_bRrpQZaw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730712302; x=1731317102;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=X3j6yw9G9MmSxTglPbSEmSMcnh+26FY7U9BWD66ivgE=;
-        b=DkvMTcEW/MrWifFd9cI75RHI/Kk3rSyLjUpy6oWzkdqKoeecfrTku6YrgGTj11vLRM
-         YHrC4dk6ifJ2SN8P/wGKuM3ohhNu8vcqukXGFydp5OLfizZmQg5BNrthiXUwysmgMleS
-         9z2AZaDX9aw3JMuBqAA7tOpI2xsaL6bmy9f9wiKb20x96YZjVLf1urYZDpGtf60hCEtw
-         hqCCUGI6I9+lcZ1EcuML5Pme30CPvC2zYzTbPquXLXH4sjT+kNC6HNoMNbKm6H6TKi8O
-         nzk40nb3JxETu+Js2B5HRcYcd10lVD2GMZa0lgUr8w9ou+nSqypIlzHl3OQjMVgIKhEE
-         L0zA==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ17Kge1cbZr/NjYYR+cGXcQysc9reukMTdO10X/El1KpI4dVReuc3eBCxZQc/g0uob4G61sdAjZQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzwHSrSXfyTp1jABgltYDE8b5rCxBL0a1SfECQrJQtzUoSUUcuy
-	TmXRfdYk3+s7EiqLHsxuM2vsM2yYS6md/R1MD7TJqf2UEl7KyoGdCuJYMij1Yv1dVc3JACeC+GC
-	hriA=
-X-Google-Smtp-Source: AGHT+IHI2kOYywT8q/plqqpqvShcJU7MytTNDmcUOu/Gxym10z/sE/f3c32CxiDcoJTxZHTeau8VHQ==
-X-Received: by 2002:a05:600c:22d3:b0:432:7c08:d121 with SMTP id 5b1f17b1804b1-432849fa03amr100113175e9.12.1730712301759;
-        Mon, 04 Nov 2024 01:25:01 -0800 (PST)
-Message-ID: <5767653a-9b8c-4919-89b1-d487574ba212@suse.com>
-Date: Mon, 4 Nov 2024 10:25:00 +0100
+        d=1e100.net; s=20230601; t=1730712415; x=1731317215;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M7ueN/LQ529FLGouL/3BXVgrjx8tY87847WIrlhrom4=;
+        b=GWEyNvVf5qo0bX5ejSohPS02CrH86TUY1BX0AK5VdEjPVIBMz/P9JOg+LTBMVQFiMm
+         2hjHoaCEgMbbr8iJqgzsgUPJmLSaJcUe2bGc8j08ktdH9fOh8lJAv7vwwoIh7K3F1yf+
+         Fie7LqwlvPf7PaZNtJNwP2z0zOGoF9WoDEubDvewfuoST+4BSFBXWZ2WEerq/PtdnQ26
+         tmIHusl3o6dcVuF+/9Rxjn0it/ggecaCHJ7j17JAtjl/w7X/BJowstlIE/jC5q7LuIyQ
+         oKuHx+Przzj481HgZOnG6QA4V9J2Tr8vt7usT3maAdi6HoOCfdilv3JxOisLGTYAjVay
+         l0jA==
+X-Forwarded-Encrypted: i=1; AJvYcCXXgk3r5wA04tTYWBpWoor60x015OM0YGtOxFCIbnquxB4He8UODrBWlnNWcd742GIarbY9/gii0zA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/icDEQaHSU3f1sq6w019jb+nfhx0kiyb5lBpkkjd/9kPPEJyi
+	W9wD4SZn2ekXb0CAHjVDT+mgXF5i8ImCZ1+uQGmK5fAf5Ca5TRvL5YCD8W10JwW2uWOQG63mfGf
+	uoKjZ5133VXltfB09VwhhNMLD4ZoC3l4YwwnQduAtZYQwyXYz74Dr5ogsRerS3bWV
+X-Received: by 2002:a5d:5f54:0:b0:37d:373c:ed24 with SMTP id ffacd0b85a97d-381c7a3a49cmr8192656f8f.4.1730712414699;
+        Mon, 04 Nov 2024 01:26:54 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHUG4i3r4RT/0mDz+U1cY7m40dZcu2ijC6eEouX1uNQBldOHTZd5hoduIq2TUsnjYO3wLrnew==
+X-Received: by 2002:a5d:5f54:0:b0:37d:373c:ed24 with SMTP id ffacd0b85a97d-381c7a3a49cmr8192628f8f.4.1730712414212;
+        Mon, 04 Nov 2024 01:26:54 -0800 (PST)
+Message-ID: <a8d9f32f60f55c58d79943c4409b8b94535ff853.camel@redhat.com>
+Subject: Re: [PATCH 01/13] PCI: Prepare removing devres from pci_intx()
+From: Philipp Stanner <pstanner@redhat.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Damien Le Moal
+ <dlemoal@kernel.org>,  Niklas Cassel <cassel@kernel.org>, Sergey Shtylyov
+ <s.shtylyov@omp.ru>, Basavaraj Natikar <basavaraj.natikar@amd.com>, Jiri
+ Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, Arnd
+ Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alex Dubov <oakad@yahoo.com>, Sudarsana Kalluru <skalluru@marvell.com>,
+ Manish Chopra <manishc@marvell.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
+ <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
+ <imitsyanko@quantenna.com>, Sergey Matyukevich <geomatsi@gmail.com>, Kalle
+ Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar
+ S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
+ <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Chen Ni <nichen@iscas.ac.cn>, Mario Limonciello
+ <mario.limonciello@amd.com>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
+ <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>, Kevin Tian
+ <kevin.tian@intel.com>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Mostafa Saleh <smostafa@google.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>, Christian
+ Brauner <brauner@kernel.org>, Ankit Agrawal <ankita@nvidia.com>, Eric Auger
+ <eric.auger@redhat.com>, Reinette Chatre <reinette.chatre@intel.com>, Ye
+ Bin <yebin10@huawei.com>, Marek =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.dev>, Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>,  Rui Salvaterra <rsalvaterra@gmail.com>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-input@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
+Date: Mon, 04 Nov 2024 10:26:51 +0100
+In-Reply-To: <87cyjgwfmo.ffs@tglx>
+References: <20241015185124.64726-1-pstanner@redhat.com>
+	 <20241015185124.64726-2-pstanner@redhat.com> <87cyjgwfmo.ffs@tglx>
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Dom0 crash (BUG_ON(old_mode != XEN_LAZY_NONE) in enter_lazy())
- with Linux 6.11.2
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
-References: <ZyTFfG9i87hQXmwZ@mail-itl>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <ZyTFfG9i87hQXmwZ@mail-itl>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------N93Bib0Tf8ImduKtcdy2IM0U"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------N93Bib0Tf8ImduKtcdy2IM0U
-Content-Type: multipart/mixed; boundary="------------x0kmOHbzvtYtkXGh2lYeC2Zt";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <5767653a-9b8c-4919-89b1-d487574ba212@suse.com>
-Subject: Re: Dom0 crash (BUG_ON(old_mode != XEN_LAZY_NONE) in enter_lazy())
- with Linux 6.11.2
-References: <ZyTFfG9i87hQXmwZ@mail-itl>
-In-Reply-To: <ZyTFfG9i87hQXmwZ@mail-itl>
-
---------------x0kmOHbzvtYtkXGh2lYeC2Zt
-Content-Type: multipart/mixed; boundary="------------9CAPdwntkE0lFDhD3V2F00le"
-
---------------9CAPdwntkE0lFDhD3V2F00le
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMDEuMTEuMjQgMTM6MTEsIE1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSB3cm90ZToN
-Cj4gSGksDQo+IA0KPiBJJ3ZlIGdvdCBhIHJlcG9ydCB0aGF0IHN0YXJ0aW5nIHdpdGggNi4x
-MSAoc3BlY2lmaWNhbGx5IDYuMTEuMikgZG9tMA0KPiBvZnRlbiBjcmFzaGVzIG9uIGEgQlVH
-X09OKCkgbGlrZSBpbiB0aGUgc3ViamVjdC4gSSdtIG5vdCBzdXJlIHdoZXJlIHRoZQ0KPiBp
-c3N1ZSBpcyAtIHRoZXJlIGlzIGk5MTUgYWxsIG92ZXIgdGhlIHN0YWNrIHRyYWNlLCBidXQg
-aW4gdGhlIGVuZCBpdA0KPiBjcmFzaGVzIGluIGEgWGVuLXNwZWNpZmljIGNvZGUuDQoNClRo
-aXMgaXMgcHJvYmFibHkgcmVsYXRlZCB0byB0aGUgc2NoZWR1bGluZyBjaGFuZ2VzIGRvbmUg
-aW4gNi4xMS4gQ2FuIHlvdSBwbGVhc2UNCnNoYXJlIHRoZSBrZXJuZWwgY29uZmlnIHlvdSBh
-cmUgdXNpbmc/DQoNCg0KSnVlcmdlbg0K
---------------9CAPdwntkE0lFDhD3V2F00le
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Thu, 2024-10-31 at 14:45 +0100, Thomas Gleixner wrote:
+> On Tue, Oct 15 2024 at 20:51, Philipp Stanner wrote:
+> > +/**
+> > + * pci_intx - enables/disables PCI INTx for device dev, unmanaged
+> > version
+>=20
+> mismatch vs. actual function name.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+ACK, will fix
 
---------------9CAPdwntkE0lFDhD3V2F00le--
+>=20
+> > + * @pdev: the PCI device to operate on
+> > + * @enable: boolean: whether to enable or disable PCI INTx
+> > + *
+> > + * Enables/disables PCI INTx for device @pdev
+> > + *
+> > + * This function behavios identically to pci_intx(), but is never
+> > managed with
+> > + * devres.
+> > + */
+> > +void pci_intx_unmanaged(struct pci_dev *pdev, int enable)
+>=20
+> This is a misnomer. The function controls the INTX_DISABLE bit of a
+> PCI device. Something like this:
+>=20
+> void __pci_intx_control()
+> {
+> }
+>=20
+> static inline void pci_intx_enable(d)
+> {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __pci_intx_control(d, true);
+> }
+>=20
+> .....
+>=20
+> makes it entirely clear what this is about.
 
---------------x0kmOHbzvtYtkXGh2lYeC2Zt--
+Well, I would agree if it were about writing a 'real' new function. But
+this is actually about creating a _temporary_ function which is added
+here and removed again in patch 12 of this same series.
 
---------------N93Bib0Tf8ImduKtcdy2IM0U
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+It wouldn't even be needed; the only reason why it exists is to make it
+easy for the driver maintainers concerned by patches 2-11 to review the
+change and understand what's going on. Hence it is
+"pci_intx_unmanaged()" =3D=3D "Attention, we take automatic management away
+from your driver"
 
------BEGIN PGP SIGNATURE-----
+pci_intx() is then fully restored after patch 12 and it keeps its old
+name.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmcokuwFAwAAAAAACgkQsN6d1ii/Ey87
-Jwf/VqRc/laNwKCMet3IQF7TuiZnmzIAFlObLT4q/+EqM+wvVOMY2q+x52hNePZAmkBN7bZ+1CTo
-bdFh/AIm3lwu+pPgkFFtwwJNOkSkqSQfxErJnXBAMrUl9jNeyTQHCxoWXqVPFWndlYH4QHyLsi1V
-BAv/hXddCDH3ARmsxhCN66zLiV/4YTf+OprPLu4bvjjZvy7RfSU+Z1y/gAKOPM1CAI9JsCt4gaSa
-OidA9b2oXN/QARB58BgKPJQgVo0q1/3lkt2c+R0fiVbReXhBRIqnvdkgoc71pGckZxQijCuemGDJ
-5+CRAZkrURBGoyxBRQF/EGxRySe0vHuNrJflQrXaMw==
-=/xEu
------END PGP SIGNATURE-----
+Gr=C3=BC=C3=9Fe,
+Philipp
 
---------------N93Bib0Tf8ImduKtcdy2IM0U--
+
+>=20
+> Hmm?
+>=20
+> Thanks,
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tglx
+>=20
+
 
