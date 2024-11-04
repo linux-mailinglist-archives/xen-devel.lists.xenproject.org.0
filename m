@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BB419BB025
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:46:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829908.1244832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C59E79BB061
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:57:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829916.1244842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tes-0007lJ-J3; Mon, 04 Nov 2024 09:46:02 +0000
+	id 1t7tpE-0001QU-HU; Mon, 04 Nov 2024 09:56:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829908.1244832; Mon, 04 Nov 2024 09:46:02 +0000
+Received: by outflank-mailman (output) from mailman id 829916.1244842; Mon, 04 Nov 2024 09:56:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tes-0007iL-Fx; Mon, 04 Nov 2024 09:46:02 +0000
-Received: by outflank-mailman (input) for mailman id 829908;
- Mon, 04 Nov 2024 09:46:01 +0000
+	id 1t7tpE-0001Nx-Dj; Mon, 04 Nov 2024 09:56:44 +0000
+Received: by outflank-mailman (input) for mailman id 829916;
+ Mon, 04 Nov 2024 09:56:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=r6Gf=R7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t7ter-0007iF-Bz
- for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:46:01 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1t7tpC-0001Nr-Ju
+ for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:56:42 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9798e172-9a91-11ef-99a3-01e77a169b0f;
- Mon, 04 Nov 2024 10:45:57 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-37d4d1b48f3so2341338f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:45:57 -0800 (PST)
+ id 156c5a44-9a93-11ef-99a3-01e77a169b0f;
+ Mon, 04 Nov 2024 10:56:38 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4319399a411so34617455e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:56:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c10b7b65sm12950798f8f.4.2024.11.04.01.45.56
+ 5b1f17b1804b1-431bd9aa83asm178576685e9.31.2024.11.04.01.56.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Nov 2024 01:45:56 -0800 (PST)
+ Mon, 04 Nov 2024 01:56:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9798e172-9a91-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmEiLCJoZWxvIjoibWFpbC13cjEteDQyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk3OThlMTcyLTlhOTEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzEzNTU3LjgyMzc5Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 156c5a44-9a93-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMjkiLCJoZWxvIjoibWFpbC13bTEteDMyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjE1NmM1YTQ0LTlhOTMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzE0MTk4LjQzOTI5Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730713557; x=1731318357; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:cc:content-language
-         :references:to:from:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yHjpiI+hsQFCfWSmo5YO072DGevyxIxowQYYAL4a8rc=;
-        b=BIbE95GoA7LkxM6ZC5bMoE+IRi0CB+WmO20acHWEu0W3ejp7B1hz4mE9+gAt9AgWGY
-         zA8FI785errus+UAD77iJH4Mab86SxKZbBRTNwW54as65FoY+if+sLATJDQUeu/5w9n7
-         gu6l9yjpgIXknHjV6DyHphTgqmq4jO9bIYL+xH8NNjlxIi90/pzAq6wqGaqujyWjctXa
-         ofjT+EtGEWmJvtAdOcv3TBea88FXZ2ekIDqWYxvws6eL2quB9cWPFL9mXbdYwGk533FA
-         GoIlfByib7me9FmIVo0y8M8OYR5vIucvmVwVEoK7vM386hfpSLqZDZ+hyBYeQqG17EaA
-         JtWg==
+        d=suse.com; s=google; t=1730714198; x=1731318998; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bcqT19pfZiiw5qYOmvKN9z8fJypk9wQLp0IGwqczJoQ=;
+        b=gtX0xrjvmHb9eNO4ix3uo5YG/uCDK7b4X5nr5qPbA424pVH2gNfxw7IuoDWBFM9nrw
+         kh9ZoDz9GIugamDDlB8aSYIWE8IqXK/1RxrrriH/oAdhN/8O31WG+JPWPUbRDhITTaO7
+         7mLN1ZJhyN21ud87d5+98j3/z7xS+ighb2uBQwlKKPCzO3JqtY/vh+eXXscTA/HeTd+V
+         gDRcgmfcITqoYNG5H97vPWrM/qsoh4UJ5Z+cp5l+BjWM6+81mSjZUCsZpA9NLQ3YthYV
+         m9ZaRL+4smHls0EPL4y/Vu5HJxbiNss8LaFTihcBjThK0jqzY+zudMvH47uQuq0/vLFm
+         basQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730713557; x=1731318357;
-        h=content-transfer-encoding:in-reply-to:autocrypt:cc:content-language
-         :references:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yHjpiI+hsQFCfWSmo5YO072DGevyxIxowQYYAL4a8rc=;
-        b=rc0k7X5t5VObzQqEV1ttEa3u5E8i4cDn0RJgDOIdMNrEdWAg/4l8Z1Yy0d1SnsSy5S
-         SnMWyDPcfEknNO259ljGdoEQeY44skJvbd+YFavT9f5xnvm2d4p63XRh2MvYeVqNMF6a
-         Qgd1dgk4ibrn+VIX5e6gktP+sORyichbcfrIb/yt2WNLGE7egWDLTG07Gxn8aexTs9Ix
-         nlCgyxUIGUDeo18IFJ1bG/I+7YLQlxqQW3nbv+o5C/2XMx/CJfmEStTDpfa+8P0vSUuU
-         /F6hm+ib2doYtI+wpcvzBBn7VDnS1rRXBRjfBEOel51qG3LMaY7jzJ50kvdiL/K2BgxT
-         8Vxw==
-X-Gm-Message-State: AOJu0YzI7FoScN6mFcZOld130UIyC07OkEHPv6MtuRdTKUsF3m2Wt5/Z
-	Ydhy6QgT+ICxSgZGtrjhPVT4JR4rY2bWgF3jh5pCJPjWavMvp+05BLs9k2I/Ew==
-X-Google-Smtp-Source: AGHT+IHucd91DePuOx9qDbyjZ8vRFv8X3jFWKqaMXQrrzGuwVhoInslZuqRZp8NiA5q6kRDCEappWg==
-X-Received: by 2002:adf:e686:0:b0:37d:3964:e0f1 with SMTP id ffacd0b85a97d-381b70578b3mr14785028f8f.4.1730713557165;
-        Mon, 04 Nov 2024 01:45:57 -0800 (PST)
-Message-ID: <43d270c6-a237-4b6d-ba25-5b3ecce03147@suse.com>
-Date: Mon, 4 Nov 2024 10:45:56 +0100
+        d=1e100.net; s=20230601; t=1730714198; x=1731318998;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bcqT19pfZiiw5qYOmvKN9z8fJypk9wQLp0IGwqczJoQ=;
+        b=KvT8DVmfBQuTV7GiYwKbTAJXHBk/LRnCh7+8z/RdC6YjKC4tlrS8jp93dPrDrPoKxv
+         Wc90nNRFr330QpKIoccNxV7Wvl9EIaHLsRXnWTvoRIqbzSDfJRQttwPaHuRQue7kASfK
+         +DZi5YgtqYR/bYIFoEInI7qUth2io/nlP7f/2fp1vPwrhKk41gFRtBKPfTqUwZE57az/
+         UHm2bD+bhig+p66wyXgCCfaL5ejf9LDz4wqKWLgBRqUAZVTY1Uc/Cs6UNVE7ioApTfgY
+         Gb9K7lflVaCUJPxpMUi/Tq1pZk7uexRgitvQrZzenwqmTMgOVP1hFfOHoff4w7xv1QbG
+         anQg==
+X-Forwarded-Encrypted: i=1; AJvYcCXTWkQtGkx6B8lEQegKaLuRV/rT2GQxE+o990r78cAItyvizSdKf5NZSkBEWjSWIA2e3w648iYwu0g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLD75dbp+R5iO29f9Alhw1N33nU1swx71UMvXDNddSoAxL/UxF
+	XLy7fojw+VtIs1eIVnGEbQ9H/B2j1Jzfg92ARzCctENX0wc3aAeht0vwGbS64Q==
+X-Google-Smtp-Source: AGHT+IGj1p0jkMoJaRZ0BcA5SQs9GrcHQQ/LnHNmZfZd7D0s+dEtt5nvDLO3oh4rHrtrvCffKsqkDQ==
+X-Received: by 2002:a05:600c:3b9c:b0:42c:bb10:7292 with SMTP id 5b1f17b1804b1-4319ac70754mr290361625e9.1.1730714197779;
+        Mon, 04 Nov 2024 01:56:37 -0800 (PST)
+Message-ID: <64059351-dd82-4393-8852-ff60d6d8d5bb@suse.com>
+Date: Mon, 4 Nov 2024 10:56:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH v7 00/11] (mostly) x86+Arm32: add/convert entry point
- annotations
-From: Jan Beulich <jbeulich@suse.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <98590a41-cee7-4ba3-a723-4e3ee3b55357@suse.com>
+Subject: Re: [PATCH v4] x86/io-apic: fix directed EOI when using AMD-Vi
+ interrupt remapping
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Willi Junga
+ <xenproject@ymy.be>, David Woodhouse <dwmw@amazon.co.uk>,
+ xen-devel@lists.xenproject.org
+References: <20241031085713.6156-1-roger.pau@citrix.com>
 Content-Language: en-US
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,24 +115,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <98590a41-cee7-4ba3-a723-4e3ee3b55357@suse.com>
+In-Reply-To: <20241031085713.6156-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.10.2024 17:11, Jan Beulich wrote:
-> 01: common: honor CONFIG_CC_SPLIT_SECTIONS also for assembly functions
-> 02: VMX: convert entry point annotations
-> 03: x86/ACPI: annotate assembly functions with type and size
-> 04: x86/kexec: convert entry point annotations
-> 05: x86: convert dom_crash_sync_extable() annotation
-> 06: x86: move ENTRY(), GLOBAL(), and ALIGN
-> 07: Arm32: use new-style entry annotations for library code
-> 08: Arm32: use new-style entry annotations for MMU code
-> 09: Arm32: use new-style entry annotations for entry code
-> 10: Arm32: use new-style entry annotations in head.S
-> 11: Arm: purge ENTRY(), ENDPROC(), and ALIGN
+On 31.10.2024 09:57, Roger Pau Monne wrote:
+> @@ -71,6 +72,24 @@ static int apic_pin_2_gsi_irq(int apic, int pin);
+>  
+>  static vmask_t *__read_mostly vector_map[MAX_IO_APICS];
+>  
+> +/*
+> + * Store the EOI handle when using interrupt remapping.
+> + *
+> + * If using AMD-Vi interrupt remapping the IO-APIC redirection entry remapped
+> + * format repurposes the vector field to store the offset into the Interrupt
+> + * Remap table.  This breaks directed EOI, as the CPU vector no longer matches
+> + * the contents of the RTE vector field.  Add a translation cache so that
+> + * directed EOI uses the value in the RTE vector field when interrupt remapping
+> + * is enabled.
+> + *
+> + * Intel VT-d Xen code still stores the CPU vector in the RTE vector field when
+> + * using the remapped format, but use the translation cache uniformly in order
+> + * to avoid extra logic to differentiate between VT-d and AMD-Vi.
+> + *
+> + * The matrix is accessed as [#io-apic][#pin].
+> + */
+> +static uint8_t **io_apic_pin_eoi;
 
-Patches 2-6 went in. Arm maintainers - what about 7-11?
+__ro_after_init?
+
+> @@ -273,6 +292,17 @@ void __ioapic_write_entry(
+>      {
+>          __io_apic_write(apic, 0x11 + 2 * pin, eu.w2);
+>          __io_apic_write(apic, 0x10 + 2 * pin, eu.w1);
+> +        /*
+> +         * Might be called before io_apic_pin_eoi is allocated.  Entry will be
+> +         * initialized to the RTE value once the cache is allocated.
+
+With the movement of the allocation to enable_IO_APIC(), isn't this part of
+the comment stale now?
+
+> +         * The vector field is only cached for raw RTE writes when using IR.
+> +         * In that case the vector field might have been repurposed to store
+> +         * something different than the CPU vector, and hence need to be cached
+> +         * for performing EOI.
+> +         */
+> +        if ( io_apic_pin_eoi )
+> +            io_apic_pin_eoi[apic][pin] = e.vector;
+
+The conditional here is necessary anyway, isn't it (for the allocation
+being conditional itself)?
+
+With the adjustments (or clarification of why they cannot be made)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+If the adjustments can be confirmed I'd also be happy to make them while
+committing, to save another round-trip.
 
 Jan
 
