@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 770B59BAF9B
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:27:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829887.1244802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2B399BAFCB
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:36:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829893.1244812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tMa-0003j6-Fy; Mon, 04 Nov 2024 09:27:08 +0000
+	id 1t7tVQ-0005Hw-B5; Mon, 04 Nov 2024 09:36:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829887.1244802; Mon, 04 Nov 2024 09:27:08 +0000
+Received: by outflank-mailman (output) from mailman id 829893.1244812; Mon, 04 Nov 2024 09:36:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tMa-0003gv-DI; Mon, 04 Nov 2024 09:27:08 +0000
-Received: by outflank-mailman (input) for mailman id 829887;
- Mon, 04 Nov 2024 09:27:06 +0000
+	id 1t7tVQ-0005FV-8J; Mon, 04 Nov 2024 09:36:16 +0000
+Received: by outflank-mailman (input) for mailman id 829893;
+ Mon, 04 Nov 2024 09:36:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UQGP=R7=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1t7tMY-0003gn-K2
- for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:27:06 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=r6Gf=R7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t7tVO-0005FN-4K
+ for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:36:14 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f015ee9a-9a8e-11ef-99a3-01e77a169b0f;
- Mon, 04 Nov 2024 10:26:58 +0100 (CET)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-444-MVDSc3zqOpq0R_bRrpQZaw-1; Mon, 04 Nov 2024 04:26:56 -0500
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-37d5a3afa84so1946243f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:26:55 -0800 (PST)
-Received: from ?IPv6:2001:16b8:2d7f:e400:7f8:722c:bb2e:bb7f?
- (200116b82d7fe40007f8722cbb2ebb7f.dip.versatel-1u1.de.
- [2001:16b8:2d7f:e400:7f8:722c:bb2e:bb7f])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c10b7d20sm12817150f8f.7.2024.11.04.01.26.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Nov 2024 01:26:53 -0800 (PST)
+ id 39730870-9a90-11ef-99a3-01e77a169b0f;
+ Mon, 04 Nov 2024 10:36:10 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a9a68480164so629183466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:36:10 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381c1185b4bsm12615033f8f.112.2024.11.04.01.35.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Nov 2024 01:35:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,154 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f015ee9a-9a8e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMzMuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImYwMTVlZTlhLTlhOGUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzEyNDE4Ljc4MjE1Mywic2VuZGVyIjoicHN0YW5uZXJAcmVkaGF0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1730712417;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M7ueN/LQ529FLGouL/3BXVgrjx8tY87847WIrlhrom4=;
-	b=hs7Ppm7wXaEwXylZk3WlnuRhOBVi9EZFeFaHA5C2kpvSH/VjkVm6K0TiNsnRe0z8Kj9ISO
-	QeHbTMdAtNM8OMz7ZsX56g97CaQyWzdOZ7ETkNzghr2NW+8F20RyIMZTCqi56KBYvwZI4U
-	2b2TxZfnuV5aUNIoqBdGJ9P5nVrVU+4=
-X-MC-Unique: MVDSc3zqOpq0R_bRrpQZaw-1
+X-Inumbo-ID: 39730870-9a90-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjM5NzMwODcwLTlhOTAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzEyOTcwLjMzNjY0NCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1730712970; x=1731317770; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=DvnLglFM1tuDsFW4OVsCzZpsadjdbj0baeGOeNTrx9w=;
+        b=DtV6L+bak5oRDjXKFXnkNuCYWLuaHUTZc+SlszyOao7F1hU87VGkzgwsHXbGZRlTWK
+         Fsa6k50OrB3lfr51FUr0LKPcbeSUroD4fgWG+ASYfGblkFtvY+N3LQexEC9DjjUm7Gs5
+         FQZwUVes/8GuIpsBlP+WYQ73RtejFF7Nmf+2/o/CJ8Bcz9er2TolhkU8JirO50xL13Op
+         W8elpJpuAun97qPkDtD1q1me8SeJkcIuCeh7aDBHO6irQKpbzw7V1Ypemmj58ECDSUTz
+         I45HW55JpaTrRIU1wSBeFHEOr/x8ON5zsd/k7c17RBUWjQPlaBGQhOHNhpRlzPspPxpv
+         4Z5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730712415; x=1731317215;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=M7ueN/LQ529FLGouL/3BXVgrjx8tY87847WIrlhrom4=;
-        b=GWEyNvVf5qo0bX5ejSohPS02CrH86TUY1BX0AK5VdEjPVIBMz/P9JOg+LTBMVQFiMm
-         2hjHoaCEgMbbr8iJqgzsgUPJmLSaJcUe2bGc8j08ktdH9fOh8lJAv7vwwoIh7K3F1yf+
-         Fie7LqwlvPf7PaZNtJNwP2z0zOGoF9WoDEubDvewfuoST+4BSFBXWZ2WEerq/PtdnQ26
-         tmIHusl3o6dcVuF+/9Rxjn0it/ggecaCHJ7j17JAtjl/w7X/BJowstlIE/jC5q7LuIyQ
-         oKuHx+Przzj481HgZOnG6QA4V9J2Tr8vt7usT3maAdi6HoOCfdilv3JxOisLGTYAjVay
-         l0jA==
-X-Forwarded-Encrypted: i=1; AJvYcCXXgk3r5wA04tTYWBpWoor60x015OM0YGtOxFCIbnquxB4He8UODrBWlnNWcd742GIarbY9/gii0zA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz/icDEQaHSU3f1sq6w019jb+nfhx0kiyb5lBpkkjd/9kPPEJyi
-	W9wD4SZn2ekXb0CAHjVDT+mgXF5i8ImCZ1+uQGmK5fAf5Ca5TRvL5YCD8W10JwW2uWOQG63mfGf
-	uoKjZ5133VXltfB09VwhhNMLD4ZoC3l4YwwnQduAtZYQwyXYz74Dr5ogsRerS3bWV
-X-Received: by 2002:a5d:5f54:0:b0:37d:373c:ed24 with SMTP id ffacd0b85a97d-381c7a3a49cmr8192656f8f.4.1730712414699;
-        Mon, 04 Nov 2024 01:26:54 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHUG4i3r4RT/0mDz+U1cY7m40dZcu2ijC6eEouX1uNQBldOHTZd5hoduIq2TUsnjYO3wLrnew==
-X-Received: by 2002:a5d:5f54:0:b0:37d:373c:ed24 with SMTP id ffacd0b85a97d-381c7a3a49cmr8192628f8f.4.1730712414212;
-        Mon, 04 Nov 2024 01:26:54 -0800 (PST)
-Message-ID: <a8d9f32f60f55c58d79943c4409b8b94535ff853.camel@redhat.com>
-Subject: Re: [PATCH 01/13] PCI: Prepare removing devres from pci_intx()
-From: Philipp Stanner <pstanner@redhat.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Damien Le Moal
- <dlemoal@kernel.org>,  Niklas Cassel <cassel@kernel.org>, Sergey Shtylyov
- <s.shtylyov@omp.ru>, Basavaraj Natikar <basavaraj.natikar@amd.com>, Jiri
- Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, Arnd
- Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Dubov <oakad@yahoo.com>, Sudarsana Kalluru <skalluru@marvell.com>,
- Manish Chopra <manishc@marvell.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
- <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
- <imitsyanko@quantenna.com>, Sergey Matyukevich <geomatsi@gmail.com>, Kalle
- Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar
- S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
- <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, Chen Ni <nichen@iscas.ac.cn>, Mario Limonciello
- <mario.limonciello@amd.com>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
- <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>, Kevin Tian
- <kevin.tian@intel.com>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Mostafa Saleh <smostafa@google.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>, Christian
- Brauner <brauner@kernel.org>, Ankit Agrawal <ankita@nvidia.com>, Eric Auger
- <eric.auger@redhat.com>, Reinette Chatre <reinette.chatre@intel.com>, Ye
- Bin <yebin10@huawei.com>, Marek =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.dev>, Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Kai Vehmanen
- <kai.vehmanen@linux.intel.com>,  Rui Salvaterra <rsalvaterra@gmail.com>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
- linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-sound@vger.kernel.org
-Date: Mon, 04 Nov 2024 10:26:51 +0100
-In-Reply-To: <87cyjgwfmo.ffs@tglx>
-References: <20241015185124.64726-1-pstanner@redhat.com>
-	 <20241015185124.64726-2-pstanner@redhat.com> <87cyjgwfmo.ffs@tglx>
-User-Agent: Evolution 3.52.4 (3.52.4-2.fc40)
+        d=1e100.net; s=20230601; t=1730712970; x=1731317770;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DvnLglFM1tuDsFW4OVsCzZpsadjdbj0baeGOeNTrx9w=;
+        b=E8KkFr6fjX5yBHFpCFNkEOiFTir7+1lVdP89pc9jM84odpNDev42w332gf+Fu6jlOa
+         MUMZlBnalwmsdlrzVAVO3fGDuaIqY9HPFNXDVwBkX+cdjj733s0qzbr/RM2RXhbq0VQK
+         1Ln9r6PP4weZfrZAolbPynb37k5HUSIQyJ9Rkkr6rPkrS1bsFtt+v26VqVuW8KaAV7Rg
+         kpGfb7iWgVlOpHLYVXz5gueyO2F+qwZWE/aACE8geDo6ulBdlHMAnL4Z6nYHisPY4SHE
+         pzIaYAW5BvpuMNTl9dWoNLefABEW+cj17PiAndLdAZEQJYl/PPoHR5SyP3yKQ5yBb5wd
+         6G3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW4cTCaFBQgseK2alaeb1YDo+bs6mbTnebdaVVk7v6p6abG/nd36PyODpx45DWMPVX6w5egkDcgx9M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykL72W7VAqnyJuQI0iaZtamXqlTq8HQymcRHNTCHNaL+ts3sDU
+	AfK6an5E4cgAo8M9GmMpehx5YuIzsK76u1ERL8HCMhfNHX5R31FugEOhiyF6z2R2UWNntl3rltA
+	=
+X-Google-Smtp-Source: AGHT+IHZ7BrWYcUt2Uw2nWsW6Ms380kvbhoRwkrwwcd62jENrG27uR94gEELpuHEx1TB1jPI8C5jkg==
+X-Received: by 2002:a05:600c:3ca3:b0:42f:823d:dde9 with SMTP id 5b1f17b1804b1-4319acbba20mr298609145e9.21.1730712958947;
+        Mon, 04 Nov 2024 01:35:58 -0800 (PST)
+Message-ID: <7b4015a0-9d02-40a9-9919-10e7bdd73291@suse.com>
+Date: Mon, 4 Nov 2024 10:35:57 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] xen: add bitmap to indicate per-domain state changes
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241023131005.32144-1-jgross@suse.com>
+ <20241023131005.32144-3-jgross@suse.com>
+ <6823a222-63ad-4a5a-83d2-70c6f39f38c0@suse.com>
+ <fadbb6da-a314-4f1b-8a59-92c1c201dd09@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <fadbb6da-a314-4f1b-8a59-92c1c201dd09@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2024-10-31 at 14:45 +0100, Thomas Gleixner wrote:
-> On Tue, Oct 15 2024 at 20:51, Philipp Stanner wrote:
-> > +/**
-> > + * pci_intx - enables/disables PCI INTx for device dev, unmanaged
-> > version
->=20
-> mismatch vs. actual function name.
+On 01.11.2024 07:48, Jürgen Groß wrote:
+> On 31.10.24 11:59, Jan Beulich wrote:
+>> On 23.10.2024 15:10, Juergen Gross wrote:
+>>> Add a bitmap with one bit per possible domid indicating the respective
+>>> domain has changed its state (created, deleted, dying, crashed,
+>>> shutdown).
+>>>
+>>> Registering the VIRQ_DOM_EXC event will result in setting the bits for
+>>> all existing domains and resetting all other bits.
+>>
+>> That's furthering the "there can be only one consumer" model that also
+>> is used for VIRQ_DOM_EXC itself. I consider the existing model flawed
+>> (nothing keeps a 2nd party with sufficient privilege from invoking
+>> XEN_DOMCTL_set_virq_handler a 2nd time, taking away the notification
+>> from whoever had first requested it), and hence I dislike this being
+>> extended. Conceivably multiple parties may indeed be interested in
+>> this kind of information. At which point resetting state when the vIRQ
+>> is bound is questionable (or the data would need to become per-domain
+>> rather than global, or even yet more fine-grained, albeit
+>> ->virq_to_evtchn[] is also per-domain, when considering global vIRQ-s).
+> 
+> The bitmap is directly tied to the VIRQ_DOM_EXC anyway, as it is that
+> event which makes the consumer look into the bitmap via the new hypercall.
+> 
+> If we decide to allow multiple consumers of VIRQ_DOM_EXC, we'll need to
+> have one bitmap per consumer of the event. This is not very hard to
+> modify.
+> 
+> If you'd like that better, I can dynamically allocate the bitmap on
+> binding VIRQ_DOM_EXC and freeing it again when unbinding is done.
 
-ACK, will fix
+I'd prefer that indeed, yet I'm also curious what other maintainers think.
 
->=20
-> > + * @pdev: the PCI device to operate on
-> > + * @enable: boolean: whether to enable or disable PCI INTx
-> > + *
-> > + * Enables/disables PCI INTx for device @pdev
-> > + *
-> > + * This function behavios identically to pci_intx(), but is never
-> > managed with
-> > + * devres.
-> > + */
-> > +void pci_intx_unmanaged(struct pci_dev *pdev, int enable)
->=20
-> This is a misnomer. The function controls the INTX_DISABLE bit of a
-> PCI device. Something like this:
->=20
-> void __pci_intx_control()
-> {
-> }
->=20
-> static inline void pci_intx_enable(d)
-> {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __pci_intx_control(d, true);
-> }
->=20
-> .....
->=20
-> makes it entirely clear what this is about.
-
-Well, I would agree if it were about writing a 'real' new function. But
-this is actually about creating a _temporary_ function which is added
-here and removed again in patch 12 of this same series.
-
-It wouldn't even be needed; the only reason why it exists is to make it
-easy for the driver maintainers concerned by patches 2-11 to review the
-change and understand what's going on. Hence it is
-"pci_intx_unmanaged()" =3D=3D "Attention, we take automatic management away
-from your driver"
-
-pci_intx() is then fully restored after patch 12 and it keeps its old
-name.
-
-Gr=C3=BC=C3=9Fe,
-Philipp
-
-
->=20
-> Hmm?
->=20
-> Thanks,
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tglx
->=20
-
+Jan
 
