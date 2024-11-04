@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2B399BAFCB
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:36:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.829893.1244812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 269999BB00B
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2024 10:44:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.829902.1244823 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tVQ-0005Hw-B5; Mon, 04 Nov 2024 09:36:16 +0000
+	id 1t7tc6-0007C6-5l; Mon, 04 Nov 2024 09:43:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 829893.1244812; Mon, 04 Nov 2024 09:36:16 +0000
+Received: by outflank-mailman (output) from mailman id 829902.1244823; Mon, 04 Nov 2024 09:43:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t7tVQ-0005FV-8J; Mon, 04 Nov 2024 09:36:16 +0000
-Received: by outflank-mailman (input) for mailman id 829893;
- Mon, 04 Nov 2024 09:36:14 +0000
+	id 1t7tc6-00078w-2z; Mon, 04 Nov 2024 09:43:10 +0000
+Received: by outflank-mailman (input) for mailman id 829902;
+ Mon, 04 Nov 2024 09:43:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=r6Gf=R7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t7tVO-0005FN-4K
- for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:36:14 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1t7tc4-00078q-T1
+ for xen-devel@lists.xenproject.org; Mon, 04 Nov 2024 09:43:08 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 39730870-9a90-11ef-99a3-01e77a169b0f;
- Mon, 04 Nov 2024 10:36:10 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a9a68480164so629183466b.3
- for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:36:10 -0800 (PST)
+ id 2fb2a2f5-9a91-11ef-99a3-01e77a169b0f;
+ Mon, 04 Nov 2024 10:43:03 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4316f3d3c21so30860835e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Nov 2024 01:43:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c1185b4bsm12615033f8f.112.2024.11.04.01.35.58
+ ffacd0b85a97d-381c1182732sm12710742f8f.111.2024.11.04.01.43.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Nov 2024 01:35:58 -0800 (PST)
+ Mon, 04 Nov 2024 01:43:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39730870-9a90-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjM5NzMwODcwLTlhOTAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzEyOTcwLjMzNjY0NCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 2fb2a2f5-9a91-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmQiLCJoZWxvIjoibWFpbC13bTEteDMyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjJmYjJhMmY1LTlhOTEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzEzMzgzLjUxMTY2OCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730712970; x=1731317770; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730713383; x=1731318183; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DvnLglFM1tuDsFW4OVsCzZpsadjdbj0baeGOeNTrx9w=;
-        b=DtV6L+bak5oRDjXKFXnkNuCYWLuaHUTZc+SlszyOao7F1hU87VGkzgwsHXbGZRlTWK
-         Fsa6k50OrB3lfr51FUr0LKPcbeSUroD4fgWG+ASYfGblkFtvY+N3LQexEC9DjjUm7Gs5
-         FQZwUVes/8GuIpsBlP+WYQ73RtejFF7Nmf+2/o/CJ8Bcz9er2TolhkU8JirO50xL13Op
-         W8elpJpuAun97qPkDtD1q1me8SeJkcIuCeh7aDBHO6irQKpbzw7V1Ypemmj58ECDSUTz
-         I45HW55JpaTrRIU1wSBeFHEOr/x8ON5zsd/k7c17RBUWjQPlaBGQhOHNhpRlzPspPxpv
-         4Z5w==
+        bh=Mcpvzx3K5y6+iHArK8api36uDX7D0tLmWWdm6TTd6k0=;
+        b=fU9dKNQ7msGllLVIbDXWSGo0UnTe68e0mCloxtsmw/AG9VmXNSTZOvbnSAvy0fEvbq
+         cgx6ViZ+mYx2w5dIKuXWywAtMMVzWNM0iN+H7zXiF26bf0wNS8jIbHiwjLO2bAHcKE/R
+         E6MOL0Ni/+2HHRb+jzTmejH/NPl/eU78j5vB00LxlLd0KjNcmzlVpXiXU8o7AiC2fa2X
+         H7OC3OrdQPfJ3AJ6hboLAkhu3xGOIn555L3R61Bfk0CHsZnrLId7T96nEgjAwZCUwitn
+         BhPn1pYBPTGx3F5HgPF3Rzchpr5fLNY2LG9t7CplPgHIxJwA+DYovr1oO+CnMEpkjrgO
+         Vkmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730712970; x=1731317770;
+        d=1e100.net; s=20230601; t=1730713383; x=1731318183;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DvnLglFM1tuDsFW4OVsCzZpsadjdbj0baeGOeNTrx9w=;
-        b=E8KkFr6fjX5yBHFpCFNkEOiFTir7+1lVdP89pc9jM84odpNDev42w332gf+Fu6jlOa
-         MUMZlBnalwmsdlrzVAVO3fGDuaIqY9HPFNXDVwBkX+cdjj733s0qzbr/RM2RXhbq0VQK
-         1Ln9r6PP4weZfrZAolbPynb37k5HUSIQyJ9Rkkr6rPkrS1bsFtt+v26VqVuW8KaAV7Rg
-         kpGfb7iWgVlOpHLYVXz5gueyO2F+qwZWE/aACE8geDo6ulBdlHMAnL4Z6nYHisPY4SHE
-         pzIaYAW5BvpuMNTl9dWoNLefABEW+cj17PiAndLdAZEQJYl/PPoHR5SyP3yKQ5yBb5wd
-         6G3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW4cTCaFBQgseK2alaeb1YDo+bs6mbTnebdaVVk7v6p6abG/nd36PyODpx45DWMPVX6w5egkDcgx9M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YykL72W7VAqnyJuQI0iaZtamXqlTq8HQymcRHNTCHNaL+ts3sDU
-	AfK6an5E4cgAo8M9GmMpehx5YuIzsK76u1ERL8HCMhfNHX5R31FugEOhiyF6z2R2UWNntl3rltA
-	=
-X-Google-Smtp-Source: AGHT+IHZ7BrWYcUt2Uw2nWsW6Ms380kvbhoRwkrwwcd62jENrG27uR94gEELpuHEx1TB1jPI8C5jkg==
-X-Received: by 2002:a05:600c:3ca3:b0:42f:823d:dde9 with SMTP id 5b1f17b1804b1-4319acbba20mr298609145e9.21.1730712958947;
-        Mon, 04 Nov 2024 01:35:58 -0800 (PST)
-Message-ID: <7b4015a0-9d02-40a9-9919-10e7bdd73291@suse.com>
-Date: Mon, 4 Nov 2024 10:35:57 +0100
+        bh=Mcpvzx3K5y6+iHArK8api36uDX7D0tLmWWdm6TTd6k0=;
+        b=Tnu+74Pw1yNPC+Giwqc+c99B8VONM89T1RST/EMiO80U6Hx12AX+l2dX/BrLwVlGSf
+         dQ3u7xNg4nFBobq1G7eNx7CBuGMhg9NejKFvu8ka6wi4b326jh0C6sppuEU1FAd70JZd
+         orr7a3Dl5x7NX9PulED5YY172WKgC3xOF382hnLcfbe4JToEdQQjqiK3H/fvhMZU/OIn
+         r8d6EOopohrosfw6+/Agqkz+RGgG99kZm5wRKfbcKTsAu3Ocswqf2+z7j8F+BDx1ILdK
+         pmcw3BKB4jrtmWT+VDIaEZCWNEODVRSGD3LHAXE53vECCG/3mtfwdnQNnvd8mntymXte
+         QXLw==
+X-Forwarded-Encrypted: i=1; AJvYcCUwmm3Qer71cyIFdkQ/wyj0bXaPTWP+LCcP0+CF8SbHEGj1lRqUaM2kLZbZdpPTYuDXmlMkPdyuMkY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2fZAwgnllqHmWp/ar9Jvy3XA8dZeroW/bQeNlxTegdMXNZife
+	ArCFR9J+A3HU8vWNEa83p2S7scUrvxpM5T6iewHK3q41sabr8mW89ypNvqieIQ==
+X-Google-Smtp-Source: AGHT+IFDCHxSPc5BBWtwyX83TRu8MCmm6HeWGpnptfOei6lnARcpnRvdJaghV/3JkWHKj8yo2HctSw==
+X-Received: by 2002:a05:600c:1d97:b0:431:5459:33c2 with SMTP id 5b1f17b1804b1-431bb99053bmr193047195e9.17.1730713382783;
+        Mon, 04 Nov 2024 01:43:02 -0800 (PST)
+Message-ID: <d4ba8ef9-b84f-4c9b-9b3c-2322b04d179d@suse.com>
+Date: Mon, 4 Nov 2024 10:43:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] xen: add bitmap to indicate per-domain state changes
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241023131005.32144-1-jgross@suse.com>
- <20241023131005.32144-3-jgross@suse.com>
- <6823a222-63ad-4a5a-83d2-70c6f39f38c0@suse.com>
- <fadbb6da-a314-4f1b-8a59-92c1c201dd09@suse.com>
+Subject: Re: [PATCH v5 1/3] xen/device-tree: Let DT reserve map entries
+ overlap reserved-memory
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+Cc: tpearson@raptorengineering.com, xen-devel@lists.xenproject.org,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
+References: <cover.1727388925.git.sanastasio@raptorengineering.com>
+ <302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,42 +117,145 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fadbb6da-a314-4f1b-8a59-92c1c201dd09@suse.com>
+In-Reply-To: <302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.11.2024 07:48, Jürgen Groß wrote:
-> On 31.10.24 11:59, Jan Beulich wrote:
->> On 23.10.2024 15:10, Juergen Gross wrote:
->>> Add a bitmap with one bit per possible domid indicating the respective
->>> domain has changed its state (created, deleted, dying, crashed,
->>> shutdown).
->>>
->>> Registering the VIRQ_DOM_EXC event will result in setting the bits for
->>> all existing domains and resetting all other bits.
->>
->> That's furthering the "there can be only one consumer" model that also
->> is used for VIRQ_DOM_EXC itself. I consider the existing model flawed
->> (nothing keeps a 2nd party with sufficient privilege from invoking
->> XEN_DOMCTL_set_virq_handler a 2nd time, taking away the notification
->> from whoever had first requested it), and hence I dislike this being
->> extended. Conceivably multiple parties may indeed be interested in
->> this kind of information. At which point resetting state when the vIRQ
->> is bound is questionable (or the data would need to become per-domain
->> rather than global, or even yet more fine-grained, albeit
->> ->virq_to_evtchn[] is also per-domain, when considering global vIRQ-s).
+On 27.09.2024 00:24, Shawn Anastasio wrote:
+> Commit 53dc37829c31 ("xen/arm: Add DT reserve map regions to
+> bootinfo.reserved_mem") changes the way reserve map regions are tracked,
+> and as a result broke bootfdt's ability to handle device trees in which
+> the reserve map and the `reserved-memory` node contain the same entries
+> as each other, as is the case on PPC when booted by skiboot.
 > 
-> The bitmap is directly tied to the VIRQ_DOM_EXC anyway, as it is that
-> event which makes the consumer look into the bitmap via the new hypercall.
+> Fix this behavior by moving the reserve map check to after the DT has
+> been parsed and by explicitly allowing overlap with entries created by
+> `reserved-memory` nodes.
 > 
-> If we decide to allow multiple consumers of VIRQ_DOM_EXC, we'll need to
-> have one bitmap per consumer of the event. This is not very hard to
-> modify.
-> 
-> If you'd like that better, I can dynamically allocate the bitmap on
-> binding VIRQ_DOM_EXC and freeing it again when unbinding is done.
+> Fixes: 53dc37829c31 ("xen/arm: Add DT reserve map regions to bootinfo.reserved_mem")
+> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> ---
+>  xen/common/device-tree/bootfdt.c  | 28 +++++++++++++++++++++++-----
+>  xen/common/device-tree/bootinfo.c | 11 +++++++++--
+>  xen/include/xen/bootfdt.h         |  3 ++-
+>  3 files changed, 34 insertions(+), 8 deletions(-)
 
-I'd prefer that indeed, yet I'm also curious what other maintainers think.
+DT maintainers?
 
 Jan
+
+> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
+> index 911a630e7d..2a51ee44a3 100644
+> --- a/xen/common/device-tree/bootfdt.c
+> +++ b/xen/common/device-tree/bootfdt.c
+> @@ -177,7 +177,7 @@ static int __init device_tree_get_meminfo(const void *fdt, int node,
+>      {
+>          device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
+>          if ( mem == bootinfo_get_reserved_mem() &&
+> -             check_reserved_regions_overlap(start, size) )
+> +             check_reserved_regions_overlap(start, size, NULL) )
+>              return -EINVAL;
+>          /* Some DT may describe empty bank, ignore them */
+>          if ( !size )
+> @@ -590,14 +590,36 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
+>      if ( nr_rsvd < 0 )
+>          panic("Parsing FDT memory reserve map failed (%d)\n", nr_rsvd);
+>  
+> +    ret = device_tree_for_each_node(fdt, 0, early_scan_node, NULL);
+> +    if ( ret )
+> +        panic("Early FDT parsing failed (%d)\n", ret);
+> +
+>      for ( i = 0; i < nr_rsvd; i++ )
+>      {
+> +        const struct membanks *overlap = NULL;
+>          struct membank *bank;
+>          paddr_t s, sz;
+>  
+>          if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &s, &sz) < 0 )
+>              continue;
+>  
+> +        if ( check_reserved_regions_overlap(s, sz, &overlap) )
+> +        {
+> +            if ( overlap == bootinfo_get_reserved_mem() )
+> +            {
+> +                /*
+> +                 * Some valid device trees, such as those generated by OpenPOWER
+> +                 * skiboot firmware, expose all reserved memory regions in the
+> +                 * FDT memory reservation block (here) AND in the
+> +                 * reserved-memory node which has already been parsed. Thus, any
+> +                 * overlaps in the mem_reserved banks should be ignored.
+> +                 */
+> +                 continue;
+> +            }
+> +            else
+> +                panic("FDT reserve map overlapped with membanks/modules\n");
+> +        }
+> +
+>          if ( reserved_mem->nr_banks < reserved_mem->max_banks )
+>          {
+>              bank = &reserved_mem->bank[reserved_mem->nr_banks];
+> @@ -610,10 +632,6 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
+>              panic("Cannot allocate reserved memory bank\n");
+>      }
+>  
+> -    ret = device_tree_for_each_node(fdt, 0, early_scan_node, NULL);
+> -    if ( ret )
+> -        panic("Early FDT parsing failed (%d)\n", ret);
+> -
+>      /*
+>       * On Arm64 setup_directmap_mappings() expects to be called with the lowest
+>       * bank in memory first. There is no requirement that the DT will provide
+> diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
+> index f2e6a1145b..c1752bfdc8 100644
+> --- a/xen/common/device-tree/bootinfo.c
+> +++ b/xen/common/device-tree/bootinfo.c
+> @@ -171,7 +171,8 @@ void __init fw_unreserved_regions(paddr_t s, paddr_t e,
+>   * existing reserved memory regions, otherwise false.
+>   */
+>  bool __init check_reserved_regions_overlap(paddr_t region_start,
+> -                                           paddr_t region_size)
+> +                                           paddr_t region_size,
+> +                                           const struct membanks **out_overlapping_membanks)
+>  {
+>      const struct membanks *mem_banks[] = {
+>          bootinfo_get_reserved_mem(),
+> @@ -190,8 +191,14 @@ bool __init check_reserved_regions_overlap(paddr_t region_start,
+>       * shared memory banks (when static shared memory feature is enabled)
+>       */
+>      for ( i = 0; i < ARRAY_SIZE(mem_banks); i++ )
+> +    {
+>          if ( meminfo_overlap_check(mem_banks[i], region_start, region_size) )
+> +        {
+> +            if ( out_overlapping_membanks )
+> +                *out_overlapping_membanks = mem_banks[i];
+>              return true;
+> +        }
+> +    }
+>  
+>      /* Check if input region is overlapping with bootmodules */
+>      if ( bootmodules_overlap_check(&bootinfo.modules,
+> @@ -216,7 +223,7 @@ struct bootmodule __init *add_boot_module(bootmodule_kind kind,
+>          return NULL;
+>      }
+>  
+> -    if ( check_reserved_regions_overlap(start, size) )
+> +    if ( check_reserved_regions_overlap(start, size, NULL) )
+>          return NULL;
+>  
+>      for ( i = 0 ; i < mods->nr_mods ; i++ )
+> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+> index 16fa05f38f..03e1d5fde8 100644
+> --- a/xen/include/xen/bootfdt.h
+> +++ b/xen/include/xen/bootfdt.h
+> @@ -158,7 +158,8 @@ struct bootinfo {
+>  extern struct bootinfo bootinfo;
+>  
+>  bool check_reserved_regions_overlap(paddr_t region_start,
+> -                                    paddr_t region_size);
+> +                                    paddr_t region_size,
+> +                                    const struct membanks **out_overlapping_membanks);
+>  
+>  struct bootmodule *add_boot_module(bootmodule_kind kind,
+>                                     paddr_t start, paddr_t size, bool domU);
+
 
