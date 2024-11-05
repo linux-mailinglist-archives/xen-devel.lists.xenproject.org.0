@@ -2,47 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 067B69BCDBD
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 14:26:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830225.1245157 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7729BCE55
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 14:54:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830233.1245168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8JZJ-000702-SQ; Tue, 05 Nov 2024 13:26:01 +0000
+	id 1t8K0I-0003DU-W1; Tue, 05 Nov 2024 13:53:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830225.1245157; Tue, 05 Nov 2024 13:26:01 +0000
+Received: by outflank-mailman (output) from mailman id 830233.1245168; Tue, 05 Nov 2024 13:53:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8JZJ-0006yK-Pk; Tue, 05 Nov 2024 13:26:01 +0000
-Received: by outflank-mailman (input) for mailman id 830225;
- Tue, 05 Nov 2024 13:26:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I3dk=SA=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
- id 1t8JZI-0006yC-1E
- for xen-devel@lists.xen.org; Tue, 05 Nov 2024 13:26:00 +0000
-Received: from smarthost01c.ixn.mail.zen.net.uk
- (smarthost01c.ixn.mail.zen.net.uk [212.23.1.22])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7c3b9d57-9b79-11ef-99a3-01e77a169b0f;
- Tue, 05 Nov 2024 14:25:55 +0100 (CET)
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
- by smarthost01c.ixn.mail.zen.net.uk with esmtpsa (TLS1.0) tls
- TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (Exim 4.95)
- (envelope-from <james@dingwall.me.uk>) id 1t8JZA-006bDC-QU;
- Tue, 05 Nov 2024 13:25:54 +0000
-Received: from localhost (localhost [IPv6:::1])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 3C3B5B18FA9;
- Tue,  5 Nov 2024 13:25:54 +0000 (GMT)
-Received: from mail0.xen.dingwall.me.uk ([127.0.0.1])
- by localhost (mail0.xen.dingwall.me.uk [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id qd_Oa4LXPPnl; Tue,  5 Nov 2024 13:25:54 +0000 (GMT)
-Received: from ghoul.dingwall.me.uk (ghoul.dingwall.me.uk
- [IPv6:2a02:8010:698e:302::c0a8:1c8])
- by dingwall.me.uk (Postfix) with ESMTP id 0C736B18FA4;
- Tue,  5 Nov 2024 13:25:54 +0000 (GMT)
-Received: by ghoul.dingwall.me.uk (Postfix, from userid 1000)
- id 482955F8; Tue,  5 Nov 2024 13:25:54 +0000 (GMT)
+	id 1t8K0I-0003Be-Rn; Tue, 05 Nov 2024 13:53:54 +0000
+Received: by outflank-mailman (input) for mailman id 830233;
+ Tue, 05 Nov 2024 13:53:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NqUC=SA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t8K0H-0003BW-HV
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 13:53:53 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 626cf26c-9b7d-11ef-a0c5-8be0dac302b0;
+ Tue, 05 Nov 2024 14:53:50 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4315eac969aso34196295e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 05:53:50 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-431bd947b2bsm226238665e9.25.2024.11.05.05.53.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Nov 2024 05:53:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,130 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c3b9d57-9b79-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxMi4yMy4xLjIyIiwiaGVsbyI6InNtYXJ0aG9zdDAxYy5peG4ubWFpbC56ZW4ubmV0LnVrIn0=
-X-Custom-Transaction: eyJpZCI6IjdjM2I5ZDU3LTliNzktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODEzMTU1LjIwNzc4MSwic2VuZGVyIjoiamFtZXNAZGluZ3dhbGwubWUudWsiLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVuLm9yZyJ9
-X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
-Date: Tue, 5 Nov 2024 13:25:54 +0000
-From: James Dingwall <james-xen@dingwall.me.uk>
-To: xen-devel@lists.xen.org
-Cc: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] drop setting XEN_QEMU_CONSOLE_LIMIT in the environment
-Message-ID: <Zyoc4t3RAS7sbVOv@dingwall.me.uk>
-References: <ZyoTBgbGGYTyphH6@dingwall.me.uk>
- <a111a4d4-66cf-4270-ac53-0e18288ad9ee@suse.com>
+X-Inumbo-ID: 626cf26c-9b7d-11ef-a0c5-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjYyNmNmMjZjLTliN2QtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODE0ODMwLjU3NzA1Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1730814829; x=1731419629; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+s5Oyk6glvdzfHQG54DyWol8OjSSU1tTw/PKtjSzTSE=;
+        b=NsQ8sAlmfS+KyQ5S1aH/CscENUIUsIdjsZCmtQcm1NSgNdWVXsGms3cgL+mscRdES7
+         jra8KmJ2MS+FU0OKXL8KCGYzOm6rgmN/qfnAEhZYAR6nHe/ZCGtnl31DscoQ11yY0CGq
+         4l0aI29Er1EdEQ2zTROZquna46ZTMjHjkQn+P7UMKeaGK5Oxe/QCRc8o+GrglKtMAXhE
+         jt7R5ldZtBX8JsCLCPYCHnm8DS4tNmt+tFBbrX3UPvI7fP/Cb0a/T10GvD3AzDddVcmy
+         6WUg+G6C6ACAhusYFTLn66SR5bWL91RKc4BnIfqlQyCDmORiDptHDzuXwxrTKkCHX94Y
+         cGIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730814829; x=1731419629;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+s5Oyk6glvdzfHQG54DyWol8OjSSU1tTw/PKtjSzTSE=;
+        b=XQJfOJz6jRdTDpAudYPLimuzoEhP6PjIftjmSr0EIFE/GSekUaFEqQriblgPNoBHMt
+         2XPo6fJwWIbq3qDUnm1wdHtjUk8DSjEhJFK9PSER06zkwHtPr9auWPQo8rGY3rfPwNd9
+         QMmCvJNARiKjRw4NJoRMuvSW6WLY5M+7RaxumMeJ/STWXGNfBgYDuZajpyjSsvljxTAX
+         H88vrD3Cp0LHBeN3fd7WUzsIrKuA5L6HAWPadYFono8dPxALaExEpgwMYIlp8EFpPNiN
+         IiQN6RY+l+MDX2zoPnLxF69/tOgyBDs3f1v3qbVhuwWqkIUZa4rn1Jv7YjxtVZVUfe1M
+         QdJA==
+X-Gm-Message-State: AOJu0YwXeDrvozrBFIF3QazOW4uKDZ1aX3okkbs1/HuI5xZm0dP+oGJt
+	vQS5iyax/6/S2zqGIWLk7H9nRxv8P2/rU20KmDCBe2nz+YTFeoNpr9vGapaH3G5goryHkRbJEx4
+	=
+X-Google-Smtp-Source: AGHT+IF6Tgcy2Z61oJhqMLroXYwmAHtT6llsqslYeomrwim/wrx7KOZ5+wVMNLuW8a4pseUpIcAm9w==
+X-Received: by 2002:a05:600c:1382:b0:431:5475:3cd1 with SMTP id 5b1f17b1804b1-4327dacc373mr141077425e9.17.1730814829497;
+        Tue, 05 Nov 2024 05:53:49 -0800 (PST)
+Message-ID: <f1fc4064-a2dd-4287-81ba-a90ce5205e0e@suse.com>
+Date: Tue, 5 Nov 2024 14:53:48 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="JN7Y+jsZuWx4FjqQ"
-Content-Disposition: inline
-In-Reply-To: <a111a4d4-66cf-4270-ac53-0e18288ad9ee@suse.com>
-X-Originating-smarthost01c-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86emul/test: drop an undue conditional
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Gating the main part of what do_test() does is wrong: As it stands, the
+"memory" forms of BNDC{L,N,U} weren't tested because of this mistake.
 
---JN7Y+jsZuWx4FjqQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On Tue, Nov 05, 2024 at 01:57:41PM +0100, Jan Beulich wrote:
-> On 05.11.2024 13:43, James Dingwall wrote:
-> > Since qemu-xen-4.18.0 the corresponding code which responds to this
-> > environment variable was not applied to the qemu tree.  It doesn't make
-> > sense to me that it continues to be set in libxl so here's a patch
-> > which removes it.
-> > 
-> > These are the relevant commits for various qemu tags:
-> > 
-> > qemu-xen-4.10.0: c349189772cec43498b0bec8a84146f10b8937af
-> > qemu-xen-4.11.0: 2b033e396f4fa0981bae1213cdacd15775655a97
-> > qemu-xen-4.12.0: 4f080070a9809bde857851e68a3aeff0c4b9b6a6
-> > qemu-xen-4.13.0: c81d7597747f29432a0e197bf2c2109e77f2b6cf
-> > qemu-xen-4.14.0: 410cc30fdc590417ae730d635bbc70257adf6750
-> > qemu-xen-4.15.0: 677cbe1324c29294bb1d1b8454b3f214725e40fd
-> > qemu-xen-4.16.0: b6e539830bf45e2d7a6bd86ddfdf003088b173b0
-> > qemu-xen-4.17.0: 9a5e4bc76058766962ab3ff13f42c1d39a8e08d3
-> > qemu-xen-4.18.0: not present
-> > qemu-xen-4.19.0: not present
-> > 
-> > If this is approved is someone able to apply it to the tree?
-> 
-> Once approved, any committer will be able to. First, however, like any patch
-> this one also needs a (your?) Signed-off-by:.
-
-v2 with Signed-off-by: (and a promise I've read 'CONTRIBUTING').
-
-Thanks,
-James
-
-(This wiki link referenced in CONTRIBUTING currently errors though:
-https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches)
-
---JN7Y+jsZuWx4FjqQ
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="remove-XEN_QEMU_CONSOLE_LIMIT-v2.diff"
-
-commit 7b89ea44dbcb965b6b67c8de5092ea2b95d4c6f9
-Author: James Dingwall <james@dingwall.me.uk>
-Date:   Tue Nov 5 11:16:20 2024 +0000
-
-    libxl: drop setting XEN_QEMU_CONSOLE_LIMIT in the environment (XSA-180 / CVE-2014-3672)
-    
-    The corresponding code in the Xen qemu repository was not applied from
-    qemu-xen-4.18.0.
-    
-    Signed-off-by: James Dingwall <james@dingwall.me.uk>
-
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index 1f2f5bd97a..b193a5dc37 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -638,20 +638,6 @@ int libxl__domain_device_construct_rdm(libxl__gc *gc,
-     return ERROR_FAIL;
- }
- 
--/* XSA-180 / CVE-2014-3672
-- *
-- * The QEMU shipped with Xen has a bodge. It checks for
-- * XEN_QEMU_CONSOLE_LIMIT to see how much data QEMU is allowed
-- * to write to stderr. We set that to 1MB if it is not set by
-- * system administrator.
-- */
--static void libxl__set_qemu_env_for_xsa_180(libxl__gc *gc,
--                                            flexarray_t *dm_envs)
--{
--    if (getenv("XEN_QEMU_CONSOLE_LIMIT")) return;
--    flexarray_append_pair(dm_envs, "XEN_QEMU_CONSOLE_LIMIT", "1048576");
--}
--
- const libxl_vnc_info *libxl__dm_vnc(const libxl_domain_config *guest_config)
+--- a/tools/tests/x86_emulator/predicates.c
++++ b/tools/tests/x86_emulator/predicates.c
+@@ -2213,42 +2213,37 @@ void do_test(uint8_t *instr, unsigned in
+                           unsigned int bytes,
+                           struct x86_emulate_ctxt *ctxt))
  {
-     const libxl_vnc_info *vnc = NULL;
-@@ -704,8 +690,6 @@ static int libxl__build_device_model_args_old(libxl__gc *gc,
+-    struct x86_emulate_state *s;
++    struct x86_emulate_state *s = x86_decode_insn(ctxt, fetch);
  
-     assert(state->dm_monitor_fd == -1);
+-    if ( !modrm || mem != mem_none )
++    if ( !s )
+     {
+-        s = x86_decode_insn(ctxt, fetch);
++        print_insn(instr, len);
++        printf(" failed to decode\n");
++        return;
++    }
++
++    if ( x86_insn_length(s, ctxt) != len )
++    {
++        print_insn(instr, len);
++        printf(" length %u (expected %u)\n", x86_insn_length(s, ctxt), len);
++    }
  
--    libxl__set_qemu_env_for_xsa_180(gc, dm_envs);
+-        if ( !s )
+-        {
+-            print_insn(instr, len);
+-            printf(" failed to decode\n");
+-            return;
+-        }
 -
-     flexarray_vappend(dm_args, dm,
-                       "-d", GCSPRINTF("%d", domid), NULL);
- 
-@@ -1210,8 +1194,6 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
-     dm_args = flexarray_make(gc, 16, 1);
-     dm_envs = flexarray_make(gc, 16, 1);
- 
--    libxl__set_qemu_env_for_xsa_180(gc, dm_envs);
+-        if ( x86_insn_length(s, ctxt) != len )
+-        {
+-            print_insn(instr, len);
+-            printf(" length %u (expected %u)\n", x86_insn_length(s, ctxt), len);
+-        }
 -
-     flexarray_vappend(dm_args, dm,
-                       "-xen-domid",
-                       GCSPRINTF("%d", guest_domid), NULL);
-@@ -3656,7 +3638,6 @@ void libxl__spawn_qemu_xenpv_backend(libxl__egc *egc,
-     flexarray_append(dm_args, NULL);
-     args = (char **) flexarray_contents(dm_args);
+-        if ( x86_insn_is_mem_access(s, ctxt) != (mem != mem_none) )
+-        {
+-            print_insn(instr, len);
+-            printf(" mem access %d (expected %d)\n",
+-                   x86_insn_is_mem_access(s, ctxt), mem != mem_none);
+-        }
+-
+-        if ( x86_insn_is_mem_write(s, ctxt) != (mem == mem_write) )
+-        {
+-            print_insn(instr, len);
+-            printf(" mem write %d (expected %d)\n",
+-                   x86_insn_is_mem_write(s, ctxt), mem == mem_write);
+-        }
++    if ( x86_insn_is_mem_access(s, ctxt) != (mem != mem_none) )
++    {
++        print_insn(instr, len);
++        printf(" mem access %d (expected %d)\n",
++               x86_insn_is_mem_access(s, ctxt), mem != mem_none);
++    }
  
--    libxl__set_qemu_env_for_xsa_180(gc, dm_envs);
-     envs = (char **) flexarray_contents(dm_envs);
+-        x86_emulate_free_state(s);
++    if ( x86_insn_is_mem_write(s, ctxt) != (mem == mem_write) )
++    {
++        print_insn(instr, len);
++        printf(" mem write %d (expected %d)\n",
++               x86_insn_is_mem_write(s, ctxt), mem == mem_write);
+     }
  
-     logfile_w = libxl__create_qemu_logfile(gc, GCSPRINTF("qdisk-%u", domid));
-
---JN7Y+jsZuWx4FjqQ--
++    x86_emulate_free_state(s);
++
+     if ( modrm )
+     {
+         instr[modrm] |= 0xc0;
 
