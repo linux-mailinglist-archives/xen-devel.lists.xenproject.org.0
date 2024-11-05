@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8D3E9BD160
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 17:00:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830445.1245447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E172B9BD1D6
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 17:12:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830453.1245458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8LyI-0007zG-Fj; Tue, 05 Nov 2024 15:59:58 +0000
+	id 1t8M9K-0003Op-Fq; Tue, 05 Nov 2024 16:11:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830445.1245447; Tue, 05 Nov 2024 15:59:58 +0000
+Received: by outflank-mailman (output) from mailman id 830453.1245458; Tue, 05 Nov 2024 16:11:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8LyI-0007wm-D7; Tue, 05 Nov 2024 15:59:58 +0000
-Received: by outflank-mailman (input) for mailman id 830445;
- Tue, 05 Nov 2024 15:59:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t8M9K-0003Lz-Ch; Tue, 05 Nov 2024 16:11:22 +0000
+Received: by outflank-mailman (input) for mailman id 830453;
+ Tue, 05 Nov 2024 16:11:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NqUC=SA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8LyG-0007wg-Ni
- for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 15:59:56 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fe82cfea-9b8e-11ef-99a3-01e77a169b0f;
- Tue, 05 Nov 2024 16:59:53 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-37d6ff1cbe1so4096256f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 07:59:53 -0800 (PST)
+ id 1t8M9J-0003Lt-Oc
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 16:11:21 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 969d6e2b-9b90-11ef-a0c5-8be0dac302b0;
+ Tue, 05 Nov 2024 17:11:18 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3807dd08cfcso4764125f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 08:11:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c10b7b80sm16759965f8f.10.2024.11.05.07.59.51
+ ffacd0b85a97d-381c10b7d2bsm16562852f8f.16.2024.11.05.08.11.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Nov 2024 07:59:52 -0800 (PST)
+ Tue, 05 Nov 2024 08:11:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe82cfea-9b8e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzIiLCJoZWxvIjoibWFpbC13cjEteDQzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImZlODJjZmVhLTliOGUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODIyMzkzLjE0OTgwMSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 969d6e2b-9b90-11ef-a0c5-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzEiLCJoZWxvIjoibWFpbC13cjEteDQzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijk2OWQ2ZTJiLTliOTAtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODIzMDc4LjMzOTY2MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730822392; x=1731427192; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730823077; x=1731427877; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/mbXfj13cF1EdqRtTfG9qdItJsDNSq8nsgZp6yXJmME=;
-        b=TjAp6xzEN8vYmmvGIZmQfcysbq4QyHWPrp4FFqyZhSiPBV/xwPqIaOUxGtHmP+8CTu
-         JyIFEmA+J9D0J+QE9H/dXt+YQkIwaWaKv/HwebybC7QMUD1DYGCvrX9A5KQc4Q/jSmnO
-         BhMtMGFGliidcDMM7M+f6wwQdRTlcHGODww1BHXZGDisG1rPo89TeDGpmwLoMzQTLwCm
-         BA4iyajIxMISeXL9yMuBffby1rMFhvWJtcc1WkwrdIKOnhmkq0vx7zyida3pv81w/Ucy
-         mV5ztYn2cIqU15cY/0nyhTfWloXbrHeB3/Cun1TiodeIiAd6HW3gr6dg4ayi4xDAkF9e
-         mTuw==
+        bh=7dDsZTdwLNXN9sK7w64+EFMk90/IQssB/kItDBouGE8=;
+        b=Ybr7hhBGWWPSe6GjwYy5D71LKTKdKYF17iVLWPAdd5IEhvSWxoM5ef6p9GOnaxLjQd
+         8iakog5UKY22y5qKmbYjydJc6tSDwaWOB7kDcUkFWoC5S19i5dctO2Y475nTccR/rzV4
+         jN6v8KO5njAxrF1177elSzaOM06t3ibJ9Qm1Duie9XGYHRZjVw5CwwlXRF5fF1MJFVvx
+         Ejtfx8/vWarjwjAdmp3peBsOd9k82SKnpWLwW1VU36WqCOvYccQ93ZjNTlB9SFh268UP
+         wfnAF+AXXjhOxtOg5cxSc2n6rjicD6qoSQpPBs10zDJIAKduSnZdyrjCPLUpjUxBno5Z
+         YULA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730822392; x=1731427192;
+        d=1e100.net; s=20230601; t=1730823077; x=1731427877;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/mbXfj13cF1EdqRtTfG9qdItJsDNSq8nsgZp6yXJmME=;
-        b=KcRxfY6QaBlBAq40NB3YibHrC9EHyQ06Rsr0sZ/jodvtVkW8vxDLFF2DRNmpm5Wvkt
-         CMpH6Txt5QeWuFe1i07UsKvFh0ZaPQPJhKwI5pslfXTcEwb0Ha0J6CJiQQa/qEb//oKk
-         TviMkuFC/zafh4pBHMEV0FT2mc/lJH3sfhxG6KnjVi7RNEuL2udnX1fXXQuEmgIshpBh
-         NYsM0K7NHzTx/G0kLPwK+WqrpipTu+eyj4nhPhEcO1vZBVYCrwTgQhEqJrWMe8zLYLky
-         WVsZGMpxugweQ3WCQMezgrtxHuMhvYshEujBiMU9JklX/zM6UYcRCceEDu4cQE4bIcoA
-         UTew==
-X-Forwarded-Encrypted: i=1; AJvYcCVYuAL01/wMrOZlKFTQMQpE/wSLIGwsBnF8rk5nEEsFYTYsdLb/dPxRuzbqW1tldbtiezVUkz3n9n0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwSBFg5fuJ4haQMdWojuC7wZSEo5JKws8ptkKu2f/iNkg4v4a0Q
-	TmHHHdnNrUx7ruuZDvYFin+BQkcoA1CP9MiH9ew4I4YD8fmgHPkUhfPEZJIzqA==
-X-Google-Smtp-Source: AGHT+IGVZ2UJqrCTAmb+vM4uv0yJVjtycthEJ4b81KIGawOayfX5nKUm32Sr0txuTeCyzCVq1vfOUQ==
-X-Received: by 2002:a05:6000:18a5:b0:369:9358:4634 with SMTP id ffacd0b85a97d-381be7c80a7mr19221837f8f.19.1730822392427;
-        Tue, 05 Nov 2024 07:59:52 -0800 (PST)
-Message-ID: <f86f611a-4f18-4847-8f21-c6ef20cd6b6c@suse.com>
-Date: Tue, 5 Nov 2024 16:59:51 +0100
+        bh=7dDsZTdwLNXN9sK7w64+EFMk90/IQssB/kItDBouGE8=;
+        b=Stw7gNJgSw0q80hQIx+yEVcY5TvDe85SppMbYMpxpwv7l8L3QlFksuvi1b9RDXm4iq
+         Ax79+Fo+bxPfxsUaBfRLv1CXLwKjXRwAwY8SCFmlBk2Kx2WwxFejUpNBWvL+CIif/YOi
+         NNtzsYwTZJzhhViHFqRxgk66gRKahWajNZelGVYij8/kpQ0WNi0iGc7ROKNAoFhlNLSP
+         XdCrTgP80Z4mSyaLbXdlvfZjjJqFaO7v7JK6HHo1ZYhB6qsazeGlAvM+d+mc3yRYPjdn
+         uPc3Go6ixxf991h0dozJlm0NOC6SOi4I359OPdGSyARIrgVrPKSnwKGqN8akC7SV62tK
+         2SUg==
+X-Forwarded-Encrypted: i=1; AJvYcCU0pTTDq2WB7IwsEryjyGQuqH4WCoK3FWP+MPUvyJvwQugFBCw/Gc9ekB0F4bFE0G9vmP/gF8jrryw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1eejHZdBC6itVEnpVVGoRKAuiUPKBrpqwDfKbSSjgkCNxH0Kd
+	8qV2MeuJVhDDmwItWf/iIlp0WZiQSXLy51gazgY4b12nXRogFAcyfdUqRnK/Iw==
+X-Google-Smtp-Source: AGHT+IE0XplQRd+P4IfMFg/eN9Rek4zC/Ie6f3dkRtddD7kPbZnaQ9LZihiUgpw6j+y46jNPKxulFg==
+X-Received: by 2002:a5d:64cb:0:b0:37d:51b7:5e08 with SMTP id ffacd0b85a97d-381c7a5ce0bmr15081500f8f.18.1730823077089;
+        Tue, 05 Nov 2024 08:11:17 -0800 (PST)
+Message-ID: <f14094fb-1312-42aa-b903-06f140c485b5@suse.com>
+Date: Tue, 5 Nov 2024 17:11:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 08/13] xen/page_alloc: introduce preserved page flags
- macro
+Subject: Re: [PATCH v9 09/13] xen: add cache coloring allocator for domains
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
 Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
  <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 References: <20241025095014.42376-1-carlo.nonato@minervasys.tech>
- <20241025095014.42376-9-carlo.nonato@minervasys.tech>
+ <20241025095014.42376-10-carlo.nonato@minervasys.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,53 +119,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241025095014.42376-9-carlo.nonato@minervasys.tech>
+In-Reply-To: <20241025095014.42376-10-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.10.2024 11:50, Carlo Nonato wrote:
-> PGC_static and PGC_extra needs to be preserved when assigning a page.
-> Define a new macro that groups those flags and use it instead of or'ing
-> every time.
-> 
-> To make preserved flags even more meaningful, they are kept also when
-> switching state in mark_page_free().
-> Enforce the removal of PGC_extra before freeing new pages as this is
-> considered an error and can cause ASSERT violations.
-
-What does "new" here mean?
-
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> ---
-> v9:
-> - add PGC_broken to PGC_preserved
-
-Which then also wants reflecting in the description.
-
-> @@ -2485,6 +2485,14 @@ struct page_info *alloc_domheap_pages(
->          }
->          if ( assign_page(pg, order, d, memflags) )
->          {
-> +            if ( memflags & MEMF_no_refcount )
-> +            {
-> +                unsigned long i;
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -270,6 +270,20 @@ and not running softirqs. Reduce this if softirqs are not being run frequently
+>  enough. Setting this to a high value may cause boot failure, particularly if
+>  the NMI watchdog is also enabled.
+>  
+> +### buddy-alloc-size (arm64)
+> +> `= <size>`
 > +
-> +                for ( i = 0; i < (1UL << order); i++ )
-> +                    pg[i].count_info &= ~PGC_extra;
-> +            }
+> +> Default: `64M`
+> +
+> +Amount of memory reserved for the buddy allocator when colored allocator is
+> +active. This options is available only when LLC coloring support is enabled.
+> +The colored allocator is meant as an alternative to the buddy allocator,
+> +because its allocation policy is by definition incompatible with the generic
+> +one. Since the Xen heap systems is not colored yet, we need to support the
+> +coexistence of the two allocators for now. This parameter, which is optional
+> +and for expert only, it's used to set the amount of memory reserved to the
+> +buddy allocator.
 
-The description doesn't cover this, only ...
+Like for the options in patch 1, here I think you also want to make explicit
+the dependency on CONFIG_LLC_COLORING.
 
-> @@ -2539,6 +2547,7 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
->                  {
->                      ASSERT(d->extra_pages);
->                      d->extra_pages--;
-> +                    pg[i].count_info &= ~PGC_extra;
->                  }
->              }
+> @@ -1945,6 +1960,155 @@ static unsigned long avail_heap_pages(
+>      return free_pages;
+>  }
+>  
+> +/*************************
+> + * COLORED SIDE-ALLOCATOR
+> + *
+> + * Pages are grouped by LLC color in lists which are globally referred to as the
+> + * color heap. Lists are populated in end_boot_allocator().
+> + * After initialization there will be N lists where N is the number of
+> + * available colors on the platform.
+> + */
+> +static struct page_list_head *__ro_after_init _color_heap;
+> +#define color_heap(color) (&_color_heap[color])
+> +
+> +static unsigned long *__ro_after_init free_colored_pages;
+> +
+> +static unsigned long __initdata buddy_alloc_size =
+> +    MB(CONFIG_BUDDY_ALLOCATOR_SIZE);
+> +size_param("buddy-alloc-size", buddy_alloc_size);
+> +
+> +/* Memory required for buddy allocator to work with colored one */
+> +#ifdef CONFIG_LLC_COLORING
+> +#define domain_num_llc_colors(d) (d)->num_llc_colors
+> +#define domain_llc_color(d, i)   (d)->llc_colors[i]
 
-... this is mentioned there. And it's not clear to me why it would need doing
-in both places.
+I'm uncertain whether Misra would insist on an outer pair of parentheses for
+both of these.
 
 Jan
 
