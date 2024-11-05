@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E670C9BCFCB
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 15:54:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830374.1245358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C617B9BCFCF
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 15:55:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830380.1245367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8Kx2-0006td-3I; Tue, 05 Nov 2024 14:54:36 +0000
+	id 1t8Kxn-0007TW-EK; Tue, 05 Nov 2024 14:55:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830374.1245358; Tue, 05 Nov 2024 14:54:36 +0000
+Received: by outflank-mailman (output) from mailman id 830380.1245367; Tue, 05 Nov 2024 14:55:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8Kx2-0006qh-0H; Tue, 05 Nov 2024 14:54:36 +0000
-Received: by outflank-mailman (input) for mailman id 830374;
- Tue, 05 Nov 2024 14:54:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NqUC=SA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8Kx0-0006q7-PF
- for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 14:54:34 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd7ceaf6-9b85-11ef-a0c5-8be0dac302b0;
- Tue, 05 Nov 2024 15:54:32 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43159c9f617so43929695e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 06:54:32 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432a267da36sm16448615e9.0.2024.11.05.06.54.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Nov 2024 06:54:31 -0800 (PST)
+	id 1t8Kxn-0007RL-BC; Tue, 05 Nov 2024 14:55:23 +0000
+Received: by outflank-mailman (input) for mailman id 830380;
+ Tue, 05 Nov 2024 14:55:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Yqe/=SA=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1t8Kxl-0007K3-VY
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 14:55:22 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f935b9f3-9b85-11ef-99a3-01e77a169b0f;
+ Tue, 05 Nov 2024 15:55:18 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4315eeb2601so65741235e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 06:55:18 -0800 (PST)
+Received: from fziglio-desktop.lan (99.149.115.87.dyn.plus.net.
+ [87.115.149.99]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-431bd917fefsm217655855e9.16.2024.11.05.06.55.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Nov 2024 06:55:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd7ceaf6-9b85-11ef-a0c5-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImRkN2NlYWY2LTliODUtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODE4NDcyLjI3MjU3NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: f935b9f3-9b85-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMjkiLCJoZWxvIjoibWFpbC13bTEteDMyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImY5MzViOWYzLTliODUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODE4NTE4Ljc3NDMwNCwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730818472; x=1731423272; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lHqJ4nh73hkxYu0mSp5FOQJTbdpxiptHvPV866EToyA=;
-        b=GQNdxYCdq5UiS1zfB4qy85P+9eAYNuwGJbNu4mmZ1+Q61QfrHpmm0ltXUqGz+X++fa
-         r+ogIjAltrEmC11KFNT00qE8K/FiY594s3wjwEsrI+jPuqGIU+l/4bjNTn+fK6uShbQg
-         j3BxNifIpt3gmxjdk7j6abaMXwS6rAhKhNVKutoBJm1O4+lUmqJQCLBoPZuoJHKHJuhc
-         KHKvlLtrSzFhzyNlW/2+BBEZtCtnKZv2+vILgtmljWWxurbEXZSm4aB5/eToWgQHaao3
-         afprtREZoZgyxGM5/bN3D7V0U0qHHMrO/D1xei5LJbQboDVL1fQP6FKAP748/UL/iyC5
-         98GQ==
+        d=cloud.com; s=cloud; t=1730818518; x=1731423318; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AA+yf6mA3UaqtqgegBX9AbB2F7eAE7dWMPKa4nk3rUI=;
+        b=gBoXWZON9nUTgSgQ9bGzHDehVZygPzDPkyg24bpnJpGrnmSFpPaPa46y6662OYgftL
+         IVi5cTYGzD+6Ce/RoQFPGce/804Mxj8ySM6+RKnj44B0NpSJM4G7LD6L2issNueukj0I
+         gkIRPy4Xy1lHdj1CNDETiwnP76CmUV2ZeODtk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730818472; x=1731423272;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lHqJ4nh73hkxYu0mSp5FOQJTbdpxiptHvPV866EToyA=;
-        b=Qg46UD7e3GbbYA5ZuWJuEyZgOLWG4zqohP8Y5K5T8LNFn/+BHV1xXr7AczIUIzLbdC
-         mRKLM6+/UdHOPz+3okm9JAEjPH1O0TWud0Z4K2mnQIP/30JRUyDNidXErRfmScdx2mv+
-         m9gp2ZZ35Bgp+O+C3rseadohYDoLJm0dncazsgkv05e19Elnk3Loc3FOl5RsguNzA6LV
-         TvUGwEeeylNngyVzqjUeJK+mX4a35i9rIYA6fLf7rkM3WN4N9LXtnEdYMqGNjtuoWcmS
-         RhquBeenXZWpmvvJYK9mgFqhSqObFhv52TjXg8uuMpcO/YQVrMnlMqPrDI9DEwNZ+vcN
-         fYvw==
-X-Forwarded-Encrypted: i=1; AJvYcCUM0TZusgKRbI9f2UPYag/pxFBL2ZVbsBG2j4j/wPjukP51ZZcZzvQvDWvkmbqT/k/AyUquSjoS0U8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxBj67pWks835un3GiiFuZ/cfvqsYmOgdb03bq+wIo6ESU/GXRB
-	+7O3IQneEOutdPupdJ8UE2WBbLGC7F35HUoPMciX/4ZSLCLpW3QtDzo6cLSjdg==
-X-Google-Smtp-Source: AGHT+IETAGyNn8ytPqUUmXGpNbQRsnYUaUbynUud4khtJHlVJSux0ldFLnDxraKc8scyatafNLFgEw==
-X-Received: by 2002:a05:600c:524c:b0:426:5e91:3920 with SMTP id 5b1f17b1804b1-4319ad24a7fmr345576085e9.29.1730818471664;
-        Tue, 05 Nov 2024 06:54:31 -0800 (PST)
-Message-ID: <6295972d-bdc8-4d13-bba8-fa9bcb8cdbec@suse.com>
-Date: Tue, 5 Nov 2024 15:54:30 +0100
+        d=1e100.net; s=20230601; t=1730818518; x=1731423318;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AA+yf6mA3UaqtqgegBX9AbB2F7eAE7dWMPKa4nk3rUI=;
+        b=O2/sc707QCehZPggPz3T4BgM9g1nomqB6VZrULQpnLcEwH9ttHHO/hsZAs2+/juSlq
+         gukAU3BDoT8sZRepP9Fiq/BgM0wUPQvhVpM+5R4ZQITHC4caAP11vSy2oc0jk7C14+zp
+         l/gC7P2GHfUYzhE9bAGoYJe2B6MFyrW5KOcm+B+ZYBsNHSSvHY+j9jDPIOZ/YF7Ev3GR
+         Mp4NqidatJyQn1ZZalOjubb0Ae3eK0RIjQ8V9ZVE/wYNePWUU/FKqrhHftlYvBYnvFpT
+         RXM5fF+2SB/Seo8xdSVKDweW9CIpwaX1pzUjw499oyxJDi4GxISCBvIrNfgwLPs4RM1g
+         D/Wg==
+X-Gm-Message-State: AOJu0YztrzXLRFTF+JuWz+bfE1GfdEUsgAVPWysLZwwhtORhBQSTaDXO
+	oYzk+I7X3eNK5FuWsl9JBr4+akjrOnE3Hxl8G9nLTTDq6lvPj24CzKkOW5az3O7P0Bes7yfpClu
+	6sxk=
+X-Google-Smtp-Source: AGHT+IFvz2u+n9ZttcoxNUWJKA4cbObvSacG2uE5RJGfK/Wa8/ORoBU2jXSg2Sxt9Sl6m7P+yg+aGA==
+X-Received: by 2002:a05:600c:3b04:b0:431:6083:cd30 with SMTP id 5b1f17b1804b1-43283242a2bmr164724875e9.6.1730818517876;
+        Tue, 05 Nov 2024 06:55:17 -0800 (PST)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] x86/boot: Fix build with LLVM toolchain
+Date: Tue,  5 Nov 2024 14:55:07 +0000
+Message-Id: <20241105145507.613981-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CHANGELOG: Add note about xAPIC destination mode change
-To: Matthew Barnes <matthew.barnes@cloud.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <aa0ea8c5cf8ebe74f2b28dc41cb13cd8bdcdf38f.1730816930.git.matthew.barnes@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aa0ea8c5cf8ebe74f2b28dc41cb13cd8bdcdf38f.1730816930.git.matthew.barnes@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.11.2024 15:33, Matthew Barnes wrote:
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -21,6 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->     - Removed the `ucode=allow-same` command line option.
->     - Removed x2APIC Cluster Mode for external interrupts.  x2APIC Physical and
->       Mixed Modes are still available.
-> +   - Switched the xAPIC flat driver to use physical destination mode for external
-> +     interrupts instead of logical destination mode.
+This toolchain generates different object and map files.
+Account for these changes.
+Added sections need to have special type so we put them in
+separate sections as linker will copy type from input sections.
 
-Imo this wants to go into the "Changed" section, not the "Removed" one.
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/arch/x86/boot/build32.lds.S   |  9 +++++++++
+ xen/tools/combine_two_binaries.py | 17 +++++++++++++----
+ 2 files changed, 22 insertions(+), 4 deletions(-)
 
-Jan
+diff --git a/xen/arch/x86/boot/build32.lds.S b/xen/arch/x86/boot/build32.lds.S
+index f20fc18977..2e565180d5 100644
+--- a/xen/arch/x86/boot/build32.lds.S
++++ b/xen/arch/x86/boot/build32.lds.S
+@@ -66,6 +66,15 @@ SECTIONS
+        *(.comment.*)
+        *(.note.*)
+   }
++  .shstrtab : {
++       *(.shstrtab)
++  }
++  .strtab : {
++       *(.strtab)
++  }
++  .symtab : {
++       *(.symtab)
++  }
+   /* Dynamic linkage sections.  Collected simply so we can check they're empty. */
+   .got : {
+         *(.got)
+diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_binaries.py
+index 447c0d3bdb..79ae8900b1 100755
+--- a/xen/tools/combine_two_binaries.py
++++ b/xen/tools/combine_two_binaries.py
+@@ -67,13 +67,22 @@ if args.exports is not None:
+ 
+ # Parse mapfile, look for ther symbols we want to export.
+ if args.mapfile is not None:
+-    symbol_re = re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
++    symbol_re_clang = \
++        re.compile(r'\s+([0-9a-f]+)\s+([0-9a-f]+)\s+([0-9a-f]+)\s+([0-9a-f]+)\s{15,}(\S+)\n')
++    symbol_re_gnu = re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
+     for line in open(args.mapfile):
+-        m = symbol_re.match(line)
+-        if not m or m.group(2) not in exports:
++        name = None
++        m = symbol_re_clang.match(line)
++        if m:
++            name = m.group(5)
++        else:
++            m = symbol_re_gnu.match(line)
++            if m:
++                name = m.group(2)
++        if name is None or name not in exports:
+             continue
+         addr = int(m.group(1), 16)
+-        exports[m.group(2)] = addr
++        exports[name] = addr
+ for (name, addr) in exports.items():
+     if addr is None:
+         raise Exception("Required export symbols %s not found" % name)
+-- 
+2.34.1
+
 
