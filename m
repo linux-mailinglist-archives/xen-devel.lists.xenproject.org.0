@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 348B19BD310
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 18:07:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830471.1245478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD1F9BD5D2
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 20:25:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830487.1245488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8N0i-00041g-O6; Tue, 05 Nov 2024 17:06:32 +0000
+	id 1t8P9w-0006cP-VW; Tue, 05 Nov 2024 19:24:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830471.1245478; Tue, 05 Nov 2024 17:06:32 +0000
+Received: by outflank-mailman (output) from mailman id 830487.1245488; Tue, 05 Nov 2024 19:24:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8N0i-0003zD-KL; Tue, 05 Nov 2024 17:06:32 +0000
-Received: by outflank-mailman (input) for mailman id 830471;
- Tue, 05 Nov 2024 17:06:31 +0000
+	id 1t8P9w-0006a1-ST; Tue, 05 Nov 2024 19:24:12 +0000
+Received: by outflank-mailman (input) for mailman id 830487;
+ Tue, 05 Nov 2024 19:24:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NqUC=SA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8N0h-0003z7-9M
- for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 17:06:31 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lM+p=SA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t8P9v-0006Zu-73
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 19:24:11 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b3321a0-9b98-11ef-99a3-01e77a169b0f;
- Tue, 05 Nov 2024 18:06:27 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-539f4d8ef66so7137373e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 09:06:27 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c116abdasm16896232f8f.97.2024.11.05.09.06.25
+ id 74a8a838-9bab-11ef-99a3-01e77a169b0f;
+ Tue, 05 Nov 2024 20:23:37 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5ceb75f9631so6113087a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 11:23:37 -0800 (PST)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cee6ac2995sm1673422a12.50.2024.11.05.11.23.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Nov 2024 09:06:26 -0800 (PST)
+ Tue, 05 Nov 2024 11:23:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b3321a0-9b98-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmYiLCJoZWxvIjoibWFpbC1sZjEteDEyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjRiMzMyMWEwLTliOTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODI2Mzg3LjIzMzE2LCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 74a8a838-9bab-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MjkiLCJoZWxvIjoibWFpbC1lZDEteDUyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc0YThhODM4LTliYWItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODM0NjE3LjI4Mzk0Nywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730826386; x=1731431186; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730834617; x=1731439417; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kIqsCuObXplFO/YegFmzAI7Mt4dx/tAI9qcu+Dkzj6Y=;
-        b=LjVext//FBvAlYORUjQ5F9oVQBF3OKkp5yHLl9uLpZhso0z8Vfh1PigDx6fnC2IYeC
-         9Qq1X7THhmJKtVLjFp4Yj37FLKgcMKh7q8Z79pZMRT3SUwYIZ5YKT6BTigXvEAAI5h3b
-         nLgxW3EinOxYvj0EWWH3yCKNaNwNHCIAIJ9x2XtNfwrfcWWxk09vfJUDK8AlUtWV2LEm
-         qL2Krnl8nZMiFY04W9/oCFC6+bHIc2BlXJkwqbsXJ6n14eLT74vSbvcPtdSCmi6NKRqr
-         jUjGJpguR+a0qTfz0Mn3XatdtR4EIJCiGxAxPFRrJm/+Oey/cwEu2Oc9SPWT/Xngf5Ln
-         t8Xw==
+        bh=96F0JaD9VZMbzS013WBIHevjhSrZ/GfnGru7KzUez3U=;
+        b=OOpP1jyz/wE7jSVeKHylMOp/VwVf7r4TPXepawcUlckD1Y9j5MfEpkBrla/oPmk21M
+         PdNf7IMR2XyHRcOHWQVzqfdoTcLaWTU8kU4M/7n/pKTGjhWpKWD1k6uEn0w9/qivmc3F
+         xL+oKSSD6xS+WXvCq8NxEMxmslo8xvW4EcMsI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730826386; x=1731431186;
+        d=1e100.net; s=20230601; t=1730834617; x=1731439417;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kIqsCuObXplFO/YegFmzAI7Mt4dx/tAI9qcu+Dkzj6Y=;
-        b=d+VCo5GbTbtTb1XoOAoXkXuRtwxdRfjzxJ6sgyVi3yML0+mIAh5mM359aj3R0wufOL
-         iYoAu5itUcWH9HNy2/pMYXjhlLFR/rPczbe4BibyRps3k1HsKzWAxfYj15WmbFm3Cdva
-         C5VFms19ROzhivFyA59gJ99P4/1ZDl/ZScPD9x2HzwpzAlXjRJ9MOhI2nSMV/S8e5VMA
-         +pvbghmxkplk9nggSZHBXZ0mRR+Ti/jX0asiBJrcnvvB91bKwORI+XqrtLZ2R65ZKCpD
-         3L9N5iAX6J7odf0BZZxZrRt6Lw7kZCzrIUi3N0bvnD7QUI75DFpKfQ/KrsyhRB2j3tTJ
-         VM2g==
-X-Forwarded-Encrypted: i=1; AJvYcCUXf9IgjCfRAsMEiONJXUQIFEPI87Y/NXIvShB+LmHWIaE+X/6qEAvbW+03ER2gkU2KQW1/EqowTNc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzyFDF+GCUDCfBP5b/ILQxzAzVynS1ddd4hMw6hqtaQZYZsrux
-	N9RTBp7JE/PIiKf1uYFJurVxMlqtdFv+wYGLcWnT+7qdak+g/MaMWi1bvJryMg==
-X-Google-Smtp-Source: AGHT+IGY5R667mk7y5zv27mFFjLJg6XksT1fYo23iGH7Xk+WPmE/NnbvMglcDCiVG0XgqPmZPVl9dA==
-X-Received: by 2002:a05:6512:3b27:b0:539:de9c:c890 with SMTP id 2adb3069b0e04-53b34c5f9b5mr17421837e87.42.1730826386433;
-        Tue, 05 Nov 2024 09:06:26 -0800 (PST)
-Message-ID: <816ae079-378b-4bfd-93f2-83c5a281eb01@suse.com>
-Date: Tue, 5 Nov 2024 18:06:25 +0100
+        bh=96F0JaD9VZMbzS013WBIHevjhSrZ/GfnGru7KzUez3U=;
+        b=YRD5GWRRoEAcNPV4BFvy+mPnyc2ftSGfbUHKS9xRLbquLGg8MSDFeiOJTaymxA813V
+         voBvmhOV5T9ls1zE/g+koZugcbfwt7DS8QqnjuObTqP08abnyzHS2eS5NKVfAF+DXeFH
+         AOyEJHd9hFjtnW46CxBtN9HWjB1EvmDVEnDkHEH52X2VUvF1Ymohql5wFIvbFZKepCtX
+         S0ioBomcDBjbVI3cMjMjAynCPLw/U6N7k+LnzSgcIh9Pufikxt7Un+WZkD9MWSijX2TN
+         7O1QER2e1qB7iDEWGslQO3bqom4g8ALwg5Nh9yu0OGg0eXX8A6U7MkkMWGSEs1p4cz4X
+         SEMg==
+X-Forwarded-Encrypted: i=1; AJvYcCXwpm9wSGpcdwERDALvwvELqNzyvCqTHEr7kZ7PcBZ8d28TG3b4QJKKhIz4cyMWgxwXE/fIcijPm/w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKam6WxM/qB73pBPom5HSTHxEqbbPcsqIhLyIXEDzotcAc/85c
+	2aZL4VEEF4WLRPXqHQJ43vi9YtXZg9E+BZCkzA6c7lSz69/bURFigTRO2dt4rUELzHUgNia/0wq
+	k
+X-Google-Smtp-Source: AGHT+IGe7tVfgVepUhmCPXAiHRyCFH6OAlm2Gemw2/3cQtHeK6RJoNg9Fi2sAAzFySyGHJQ9DnmHUQ==
+X-Received: by 2002:a05:6402:1d38:b0:5ce:df0c:9a5 with SMTP id 4fb4d7f45d1cf-5cedf0c0a26mr4250414a12.15.1730834616604;
+        Tue, 05 Nov 2024 11:23:36 -0800 (PST)
+Message-ID: <89022703-f814-4d81-87ec-5651f5e950c4@citrix.com>
+Date: Tue, 5 Nov 2024 19:23:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/boot: Fix build with LLVM toolchain
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
  xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20241105145507.613981-1-frediano.ziglio@cloud.com>
- <48a22295-f3ac-496b-bdfb-ee17b0ada994@suse.com>
- <CACHz=ZhrxTSYGyWMQSE0Xi6sW2BZiLDuKkP2508CBRELD-USgQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZhrxTSYGyWMQSE0Xi6sW2BZiLDuKkP2508CBRELD-USgQ@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241105145507.613981-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.11.2024 17:35, Frediano Ziglio wrote:
-> On Tue, Nov 5, 2024 at 3:32 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 05.11.2024 15:55, Frediano Ziglio wrote:
->>> This toolchain generates different object and map files.
->>> Account for these changes.
->>
->> At least briefly mentioning what exactly the differences are would be
->> quite nice, imo.
->>
-> 
-> What about.
-> 
-> Object have 3 additional sections which must be handled by the linker script.
+On 05/11/2024 2:55 pm, Frediano Ziglio wrote:
+> diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_binaries.py
+> index 447c0d3bdb..79ae8900b1 100755
+> --- a/xen/tools/combine_two_binaries.py
+> +++ b/xen/tools/combine_two_binaries.py
+> @@ -67,13 +67,22 @@ if args.exports is not None:
+>  
+>  # Parse mapfile, look for ther symbols we want to export.
+>  if args.mapfile is not None:
+> -    symbol_re = re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
+> +    symbol_re_clang = \
+> +        re.compile(r'\s+([0-9a-f]+)\s+([0-9a-f]+)\s+([0-9a-f]+)\s+([0-9a-f]+)\s{15,}(\S+)\n')
+> +    symbol_re_gnu = re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
 
-I expect these sections are there in both cases. The difference, I assume,
-is that for the GNU linker they don't need mentioning in the linker script.
-Maybe that's what you mean to say, but to me at least the sentence can also
-be interpreted differently.
+These are specific to the linker, not the compiler, so really should be
+_ld and _lld rather than _gnu and _clang.
 
->>> +    symbol_re_gnu = re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
->>>      for line in open(args.mapfile):
->>> -        m = symbol_re.match(line)
->>> -        if not m or m.group(2) not in exports:
->>> +        name = None
->>> +        m = symbol_re_clang.match(line)
->>> +        if m:
->>> +            name = m.group(5)
->>> +        else:
->>> +            m = symbol_re_gnu.match(line)
->>> +            if m:
->>> +                name = m.group(2)
->>
->> ... uniformly use m.group(2) here (outside of the conditional)?
->>
-> 
-> It could be done. The initial idea was testing that VMA and LMA fields
-> should be identical, which gives a bit more certainty about the format
-> used.
-> About map file format, both formats have some headers. Would it be
-> sensible to detect such headers? BTW, probably a mis-detection would
-> cause symbols not to be detected.
+The build environment does have CONFIG_LD_IS_GNU which is used for one
+LD vs LLD distinction.  It seems reasonable to re-use it here (so you're
+not trying both regexes in the hope that one works), although you'll
+need to plumb it into the script somehow because it's not exported into
+the environment currently.
 
-Not sure either way, to be honest.
 
-Jan
+But, regexes are utterly opaque, and given that neither Binutils nor
+LLVM document their map format, you really need to provide at least one
+example of what a relevant mapfile looks like in a comment.
+
+Looking at built-in-32.offset.map in it's gnu form, it's presumably
+looking for the lines that are just a hex address and a name with no
+other punctuation.
+
+But the lld form is clearly different.
+
+~Andrew
 
