@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBF709BC8A8
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 10:08:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830154.1245071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCC259BCAAF
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 11:42:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830166.1245082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8FXx-0003Wj-Np; Tue, 05 Nov 2024 09:08:21 +0000
+	id 1t8Gzf-0008Ed-5x; Tue, 05 Nov 2024 10:41:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830154.1245071; Tue, 05 Nov 2024 09:08:21 +0000
+Received: by outflank-mailman (output) from mailman id 830166.1245082; Tue, 05 Nov 2024 10:41:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8FXx-0003Tu-L8; Tue, 05 Nov 2024 09:08:21 +0000
-Received: by outflank-mailman (input) for mailman id 830154;
- Tue, 05 Nov 2024 09:08:20 +0000
+	id 1t8Gzf-0008CI-2Y; Tue, 05 Nov 2024 10:41:03 +0000
+Received: by outflank-mailman (input) for mailman id 830166;
+ Tue, 05 Nov 2024 10:41:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vo3s=SA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1t8FXw-0003Tk-M2
- for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 09:08:20 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ <SRS0=gPTM=SA=bounce.vates.tech=bounce-md_30504962.6729f632.v1-308a478c9a7c4ac4b6883b7b32c33973@srs-se1.protection.inumbo.net>)
+ id 1t8Gzd-0008CC-3h
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 10:41:01 +0000
+Received: from mail133-1.atl131.mandrillapp.com
+ (mail133-1.atl131.mandrillapp.com [198.2.133.1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e6950cb-9b55-11ef-99a3-01e77a169b0f;
- Tue, 05 Nov 2024 10:08:16 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5cb15b84544so6163071a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 01:08:16 -0800 (PST)
-Received: from localhost ([213.195.124.162]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9eb17f935asm102563566b.147.2024.11.05.01.08.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Nov 2024 01:08:15 -0800 (PST)
+ id 6d886a49-9b62-11ef-99a3-01e77a169b0f;
+ Tue, 05 Nov 2024 11:40:52 +0100 (CET)
+Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail133-1.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4XjPxt61JtzBsVJrw
+ for <xen-devel@lists.xenproject.org>; Tue,  5 Nov 2024 10:40:50 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 308a478c9a7c4ac4b6883b7b32c33973; Tue, 05 Nov 2024 10:40:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,136 +43,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e6950cb-9b55-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmEiLCJoZWxvIjoibWFpbC1lZDEteDUyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjdlNjk1MGNiLTliNTUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwNzk3Njk2Ljg4NTQ4MSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730797696; x=1731402496; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=JwpW+iRQWjNgI65FHTkIYrD4gYGn/tZp9iRpuJWLAoM=;
-        b=GvAMs/d/PJkwxosJBsny+355mD+TUE5wCFLAJ8wzpFecTtdGwdeGJIu2HCUcYd2zYt
-         METtqmaOwzo2MOO7+ekIMd9wWNrpT1usywMxssDMQGegaycBIU25/3JU2mLy5f0L/TVH
-         mBmbCoDQRstEkValg9hJgWMSsmmRJGJb9ABr8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730797696; x=1731402496;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JwpW+iRQWjNgI65FHTkIYrD4gYGn/tZp9iRpuJWLAoM=;
-        b=lBLwCyshQx8P2imkFVONtaew4/XDL1s7LUmMeGQxQRhEdTgyU1zZZ7xh7LthGaJ77a
-         3uZDHu+UzBCxKPhW5JL4jd5ym2LlVWT9Jw2YCAY4Mw01DE8xcwZk+OJXTBj/cB9wkKL9
-         N0yYZX+kLLzmfsAOFKaUp44tx8z1Y8aj+ePbh/XuwPZc/8s8zchr8ZiC+h2F6LFN7nV9
-         hjD5aHgTAyxoxO2Rd+tRYIkF+oxfdKGGDb1YYStbgugjHhxLpwLtlB8sit97r9zraqTS
-         /lhdk0Y4JXoiOp8Rk9zf4vsToN81X+mXHXbFIOZe6f2TbqCKUmsV5mVwiqgE6X4HwhPX
-         8VTA==
-X-Forwarded-Encrypted: i=1; AJvYcCVeaTPoangPphdb2mIBTuR4FG7pkvFtbhqtrHG40CPF5HL5T/qwItuI0oI2SoLgNHE13trcwO6at/A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxae74hlb4hSo0xLf2WPk47djTdzqZh3YGpiaPKFZdvNqHRblH2
-	N9UM0rlYgn+r11J6/Eee25Ew6AqN5etEIc3hBQGc7E1frn1C17aI9AaxYqbPKx0=
-X-Google-Smtp-Source: AGHT+IEvsIaK2380MYXWDlun3KD6bLI6ck3TkJzsAF71h/zGGohvqcOer8SZfRvYhfLuFQZKS6DP3A==
-X-Received: by 2002:a17:907:6ea6:b0:a87:31c:c6c4 with SMTP id a640c23a62f3a-a9e654d1c56mr1388288666b.24.1730797696253;
-        Tue, 05 Nov 2024 01:08:16 -0800 (PST)
-Date: Tue, 5 Nov 2024 10:08:15 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 2/3] xen/pci: introduce PF<->VF links
-Message-ID: <ZyngfwQYZTFfwqlp@macbook>
-References: <20241018203913.1162962-1-stewart.hildebrand@amd.com>
- <20241018203913.1162962-3-stewart.hildebrand@amd.com>
- <56b5a45b-871d-41a4-8e1d-74d72020054f@suse.com>
- <9ab19f1b-0dee-490e-b4f6-b07e6ae6223b@amd.com>
- <a40185b1-7c1b-4a57-91fb-e439a4c896f0@apertussolutions.com>
- <D5DDABNKHN42.1HD2T6NV99J51@cloud.com>
+X-Inumbo-ID: 6d886a49-9b62-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjEzMy4xIiwiaGVsbyI6Im1haWwxMzMtMS5hdGwxMzEubWFuZHJpbGxhcHAuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjZkODg2YTQ5LTliNjItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODAzMjUyLjc3MjY1OCwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3MjlmNjMyLnYxLTMwOGE0NzhjOWE3YzRhYzRiNjg4M2I3YjMyYzMzOTczQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1730803250; x=1731063750;
+	bh=icZhyJOk5ogtSZem3K1zdmOebqBx3hH/dP3pIqE+WLA=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=t/C7M5nkm5C+PoRTQAzyt2eSBhbhbBg0Sl4sMx4UHpdFk8JyqZJZ1Hqzbq3ktI0iB
+	 YSCl9+aPWjPbgBzF4AJF1ktQslLy/Ffii3HpaXXkraTrvPTip3/ATq0Yo91A5bY+Hs
+	 ZJm/nbQeYhHUuLZj363hENrgJKabQGK5zOJIefoFckqB/Wns6LGGBWQXOENEaXdwBQ
+	 oDx995hBODEuw5yjPj0ThNslh1kTzFWNJtLJ25dQBCd0LYT6s04HdGVNvvXWZ9rcNh
+	 9XAumqkIBvaU6m5aZz5uTNBTYlxDiX4hl97gK5NBZCY+13swgQ1T+QEW/ch7wYZ6qt
+	 tOeSDBKo+OwTA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1730803250; x=1731063750; i=teddy.astie@vates.tech;
+	bh=icZhyJOk5ogtSZem3K1zdmOebqBx3hH/dP3pIqE+WLA=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=WflOhLLAc3fAYfvOuPZJBn0eVvBqWBVTX+Ls4jexOLRXEOUurLCWT1cxpytjbBtra
+	 8TNOXcvu6up8dd1yjKawPI93Lq6QDRTpgmN2IAjavPiPh6sl4Q9T8kO8zKCNSPmKmn
+	 LwfQJj5X9nvno9Nz5YxHD5NAvFExtHcq88KJEyMlKrd3EKNdVoZFxCJVex4l4J19Zq
+	 EGTHT9T6X/fODWkgag34xDh84MqTNk1BvWn2Q35dmUiiUE2H9tmNsXPPSkg1ZPORgI
+	 RYiYDanuzp0yq79ezm36bcciWeH4ubSwpEyS3zmgGIsvXaykXEMwvR9KWQrE0ykevp
+	 Ut+xmNUT7+60g==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[XEN=20RFC=20PATCH=20v4=200/5]=20IOMMU=20subsystem=20redesign=20and=20PV-IOMMU=20interface?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1730803249020
+Message-Id: <554f2ff3-e0b4-49a2-86c8-1c7457f99ac1@vates.tech>
+To: =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Lukasz Hawrylko" <lukasz@hawrylko.pl>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, =?utf-8?Q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>
+References: <cover.1730718102.git.teddy.astie@vates.tech> <ZylwdZjIeQ9qRdc_@mail-itl>
+In-Reply-To: <ZylwdZjIeQ9qRdc_@mail-itl>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.308a478c9a7c4ac4b6883b7b32c33973?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241105:md
+Date: Tue, 05 Nov 2024 10:40:50 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <D5DDABNKHN42.1HD2T6NV99J51@cloud.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 04, 2024 at 11:45:05AM +0000, Alejandro Vallejo wrote:
-> On Sat Nov 2, 2024 at 3:18 PM GMT, Daniel P. Smith wrote:
-> > On 11/1/24 16:16, Stewart Hildebrand wrote:
-> > > +Daniel (XSM mention)
-> > > 
-> > > On 10/28/24 13:02, Jan Beulich wrote:
-> > >> On 18.10.2024 22:39, Stewart Hildebrand wrote:
-> > >>> Add links between a VF's struct pci_dev and its associated PF struct
-> > >>> pci_dev. Move the calls to pci_get_pdev()/pci_add_device() down to avoid
-> > >>> dropping and re-acquiring the pcidevs_lock().
-> > >>>
-> > >>> During PF removal, unlink VF from PF and mark the VF broken. As before,
-> > >>> VFs may exist without a corresponding PF, although now only with
-> > >>> pdev->broken = true.
-> > >>>
-> > >>> The hardware domain is expected to remove the associated VFs before
-> > >>> removing the PF. Print a warning in case a PF is removed with associated
-> > >>> VFs still present.
-> > >>>
-> > >>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> > >>> ---
-> > >>> Candidate for backport to 4.19 (the next patch depends on this one)
-> > >>>
-> > >>> v5->v6:
-> > >>> * move printk() before ASSERT_UNREACHABLE()
-> > >>> * warn about PF removal with VFs still present
-> > >>
-> > >> Hmm, maybe I didn't make this clear enough when commenting on v5: I wasn't
-> > >> just after an adjustment to the commit message. I'm instead actively
-> > >> concerned of the resulting behavior. Question is whether we can reasonably
-> > >> do something about that.
-> > >>
-> > >> Jan
-> > > 
-> > > Right. My suggestion then is to go back to roughly how it was done in
-> > > v4 [0]:
-> > > 
-> > > * Remove the VFs right away during PF removal, so that we don't end up
-> > > with stale VFs. Regarding XSM, assume that a domain with permission to
-> > > remove the PF is also allowed to remove the VFs. We should probably also
-> > > return an error from pci_remove_device in the case of removing the PF
-> > > with VFs still present (and still perform the removals despite returning
-> > > an error). Subsequent attempts by a domain to remove the VFs would
-> > > return an error (as they have already been removed), but that's expected
-> > > since we've taken a stance that PF-then-VF removal order is invalid
-> > > anyway.
-> >
-> > I am not confident this is a safe assumption. It will likely be safe for 
-> > probably 99% of the implementations. Apologies for not following 
-> > closely, and correct me if I am wrong here, but from a resource 
-> > perspective each VF can appear to the system as its own unique BDF and 
-> > so I am fairly certain it would be possible to uniquely label each VF. 
-> > For instance in the SVP architecture, the VF may be labeled to restrict 
-> > control to a hardware domain within a Guest Virtual Platform while the 
-> > PF may be restricted to the Supervisor Virtual Platform. In this 
-> > scenario, the Guest would be torn down before the Supervisor so the VF 
-> > should get released before the PF. But it's all theoretical, so I have 
-> > no real implementation to point at that this could be checked/confirmed.
-> >
-> > I am only raising this for awareness and not as an objection. If people 
-> > want to punt that theoretical use case down the road until someone 
-> > actually attempts it, I would not be opposed.
+Hello,
+
+Le 05/11/2024 =C3=A0 02:10, Marek Marczykowski-G=C3=B3recki a =C3=A9crit=C2=
+=A0:
+> On Mon, Nov 04, 2024 at 02:28:38PM +0000, Teddy Astie wrote:
+>> * introduce "dom0-iommu=3Dno-dma" to make default context block all DMA
+>>    (disables HAP and sync-pt), enforcing usage of PV-IOMMU for DMA
+>>    Can be used to expose properly "Pre-boot DMA protection"
 > 
-> Wouldn't it stand to reason then to act conditionally on the authority of the
-> caller?
+> This sounds like it disables HAP completely, but actually it looks like
+> disabling sharing HAP page tables with IOMMU ones, right? That (HAP
+> sharing) is relevant for PVH dom0 only, correct?
 > 
-> i.e: If the caller has the (XSM-checked) authority to remove _BOTH_ PF and
-> VFs, remove all. If it doesn't have authority to remove the VFs then early exit
-> with an error, leaving the PF behind as well.
 
-I'm unsure if it makes sense to have an entity that's allowed to issue
-a pci_remove_device() against a PF, but not against the VFs of the
-device.
+Yes that's it
 
-The owner of the PF should be capable of disabling SR-IOV, at which
-point all the VFs disappear from the PCI config space.  If such entity
-is capable of controlling the SR-IOV capability, it should also be
-able to issue pci_remove_device() calls against the VFs.
+Teddy
 
-Thanks, Roger.
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
