@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E172B9BD1D6
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 17:12:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830453.1245458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2B699BD271
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 17:36:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830464.1245468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8M9K-0003Op-Fq; Tue, 05 Nov 2024 16:11:22 +0000
+	id 1t8MWn-0007Jq-EM; Tue, 05 Nov 2024 16:35:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830453.1245458; Tue, 05 Nov 2024 16:11:22 +0000
+Received: by outflank-mailman (output) from mailman id 830464.1245468; Tue, 05 Nov 2024 16:35:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8M9K-0003Lz-Ch; Tue, 05 Nov 2024 16:11:22 +0000
-Received: by outflank-mailman (input) for mailman id 830453;
- Tue, 05 Nov 2024 16:11:21 +0000
+	id 1t8MWn-0007IG-BY; Tue, 05 Nov 2024 16:35:37 +0000
+Received: by outflank-mailman (input) for mailman id 830464;
+ Tue, 05 Nov 2024 16:35:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NqUC=SA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8M9J-0003Lt-Oc
- for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 16:11:21 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Yqe/=SA=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1t8MWl-0007IA-W4
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 16:35:36 +0000
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [2607:f8b0:4864:20::c2a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 969d6e2b-9b90-11ef-a0c5-8be0dac302b0;
- Tue, 05 Nov 2024 17:11:18 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3807dd08cfcso4764125f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 08:11:18 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381c10b7d2bsm16562852f8f.16.2024.11.05.08.11.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Nov 2024 08:11:16 -0800 (PST)
+ id f97b7378-9b93-11ef-a0c5-8be0dac302b0;
+ Tue, 05 Nov 2024 17:35:32 +0100 (CET)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ 006d021491bc7-5ebc52deca0so2815225eaf.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 08:35:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +40,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 969d6e2b-9b90-11ef-a0c5-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzEiLCJoZWxvIjoibWFpbC13cjEteDQzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk2OWQ2ZTJiLTliOTAtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODIzMDc4LjMzOTY2MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: f97b7378-9b93-11ef-a0c5-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjpjMmEiLCJoZWxvIjoibWFpbC1vbzEteGMyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImY5N2I3Mzc4LTliOTMtMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODI0NTMyLjgwMzAxMiwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730823077; x=1731427877; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7dDsZTdwLNXN9sK7w64+EFMk90/IQssB/kItDBouGE8=;
-        b=Ybr7hhBGWWPSe6GjwYy5D71LKTKdKYF17iVLWPAdd5IEhvSWxoM5ef6p9GOnaxLjQd
-         8iakog5UKY22y5qKmbYjydJc6tSDwaWOB7kDcUkFWoC5S19i5dctO2Y475nTccR/rzV4
-         jN6v8KO5njAxrF1177elSzaOM06t3ibJ9Qm1Duie9XGYHRZjVw5CwwlXRF5fF1MJFVvx
-         Ejtfx8/vWarjwjAdmp3peBsOd9k82SKnpWLwW1VU36WqCOvYccQ93ZjNTlB9SFh268UP
-         wfnAF+AXXjhOxtOg5cxSc2n6rjicD6qoSQpPBs10zDJIAKduSnZdyrjCPLUpjUxBno5Z
-         YULA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730823077; x=1731427877;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1730824531; x=1731429331; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7dDsZTdwLNXN9sK7w64+EFMk90/IQssB/kItDBouGE8=;
-        b=Stw7gNJgSw0q80hQIx+yEVcY5TvDe85SppMbYMpxpwv7l8L3QlFksuvi1b9RDXm4iq
-         Ax79+Fo+bxPfxsUaBfRLv1CXLwKjXRwAwY8SCFmlBk2Kx2WwxFejUpNBWvL+CIif/YOi
-         NNtzsYwTZJzhhViHFqRxgk66gRKahWajNZelGVYij8/kpQ0WNi0iGc7ROKNAoFhlNLSP
-         XdCrTgP80Z4mSyaLbXdlvfZjjJqFaO7v7JK6HHo1ZYhB6qsazeGlAvM+d+mc3yRYPjdn
-         uPc3Go6ixxf991h0dozJlm0NOC6SOi4I359OPdGSyARIrgVrPKSnwKGqN8akC7SV62tK
-         2SUg==
-X-Forwarded-Encrypted: i=1; AJvYcCU0pTTDq2WB7IwsEryjyGQuqH4WCoK3FWP+MPUvyJvwQugFBCw/Gc9ekB0F4bFE0G9vmP/gF8jrryw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1eejHZdBC6itVEnpVVGoRKAuiUPKBrpqwDfKbSSjgkCNxH0Kd
-	8qV2MeuJVhDDmwItWf/iIlp0WZiQSXLy51gazgY4b12nXRogFAcyfdUqRnK/Iw==
-X-Google-Smtp-Source: AGHT+IE0XplQRd+P4IfMFg/eN9Rek4zC/Ie6f3dkRtddD7kPbZnaQ9LZihiUgpw6j+y46jNPKxulFg==
-X-Received: by 2002:a5d:64cb:0:b0:37d:51b7:5e08 with SMTP id ffacd0b85a97d-381c7a5ce0bmr15081500f8f.18.1730823077089;
-        Tue, 05 Nov 2024 08:11:17 -0800 (PST)
-Message-ID: <f14094fb-1312-42aa-b903-06f140c485b5@suse.com>
-Date: Tue, 5 Nov 2024 17:11:15 +0100
+        bh=DHSNsItkeMc9V33qT9vmmS+NKC98iXsj1rhTVxg4nyU=;
+        b=BqDk2+sgNn6ZtLNu8qrsZgbvJWGue0DNm3NqCBwNEVoOcBuRs7dmLF+blSXz0GLs4m
+         V/r1IOYxUfcbJkiR0fK73nPD7PN5LaCOnhmmfy2c+ud7+kn0tMWIIryZjgtG6W12KhoT
+         NaqZYEIfhu+A681OTF0NVqivwZSDyYB+XdNMs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730824531; x=1731429331;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DHSNsItkeMc9V33qT9vmmS+NKC98iXsj1rhTVxg4nyU=;
+        b=LwrUBLB5YV3MFuzgWDryNUG1TU7/UI3IwVmeSrxmGYcQCZr8F/NPVQDa/8567P6HU8
+         gIkzphUiLh/Dwy4GBlwlD9nie2fNBfDZNkqJPt9RkPYxqvSeIewcZ2q26wLPT+S5MHLc
+         6yStl4vp3YgZ1niWlbxWYaYJtFVyq6jTrsGTQ9xjUH0BfSLixGZ/lmytdRa0uze6vqWo
+         OIQ9em1+hQ9HWLrNSRLQprPMazYPwvEDQAfuYT1Pfl3P/SkSyIy21M3OqSAxKCvEEqlG
+         FP6/oKYHm5fhDoKDzyHdwZnneTCmaTdrjV8/lCn3LWb9PjyNpX9BrDHqTiTbt5ZGG+O7
+         IxIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWu9ndGtT4VVuO3bButLkl+Ng8YBDcBunzHNFAYBKCv0V1NY6D9PJCgAZqoSANUZ0SSeuPo081zUNQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2HldKdaNnBIqAiJc/ve7xotEiXjOcEcDpBmIs50jYKiI0WFLH
+	03dAMw8O0fofMYQCiaOMAoo/36SBmDK6dPFUrP6bKULbUrnbphc1uZJKozoLqjj6ujfKSYyXnJ+
+	G16pTnK/ghyFrlXDIpJE69004DkSl1TWR4GoYFA==
+X-Google-Smtp-Source: AGHT+IFzj1yK6Fr2cdeTmtxrvPoJA7VJgDkOW/Co3LOMTxBvY7w2hcel8FF69xRDeP3sQ6CDQdxaV8qnbLjGbKBDKPo=
+X-Received: by 2002:a05:6820:1b81:b0:5e5:c517:4d88 with SMTP id
+ 006d021491bc7-5ede61a15dcmr9755086eaf.0.1730824531427; Tue, 05 Nov 2024
+ 08:35:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 09/13] xen: add cache coloring allocator for domains
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
-References: <20241025095014.42376-1-carlo.nonato@minervasys.tech>
- <20241025095014.42376-10-carlo.nonato@minervasys.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241025095014.42376-10-carlo.nonato@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20241105145507.613981-1-frediano.ziglio@cloud.com> <48a22295-f3ac-496b-bdfb-ee17b0ada994@suse.com>
+In-Reply-To: <48a22295-f3ac-496b-bdfb-ee17b0ada994@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Tue, 5 Nov 2024 16:35:20 +0000
+Message-ID: <CACHz=ZhrxTSYGyWMQSE0Xi6sW2BZiLDuKkP2508CBRELD-USgQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/boot: Fix build with LLVM toolchain
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25.10.2024 11:50, Carlo Nonato wrote:
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -270,6 +270,20 @@ and not running softirqs. Reduce this if softirqs are not being run frequently
->  enough. Setting this to a high value may cause boot failure, particularly if
->  the NMI watchdog is also enabled.
->  
-> +### buddy-alloc-size (arm64)
-> +> `= <size>`
-> +
-> +> Default: `64M`
-> +
-> +Amount of memory reserved for the buddy allocator when colored allocator is
-> +active. This options is available only when LLC coloring support is enabled.
-> +The colored allocator is meant as an alternative to the buddy allocator,
-> +because its allocation policy is by definition incompatible with the generic
-> +one. Since the Xen heap systems is not colored yet, we need to support the
-> +coexistence of the two allocators for now. This parameter, which is optional
-> +and for expert only, it's used to set the amount of memory reserved to the
-> +buddy allocator.
+On Tue, Nov 5, 2024 at 3:32=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 05.11.2024 15:55, Frediano Ziglio wrote:
+> > This toolchain generates different object and map files.
+> > Account for these changes.
+>
+> At least briefly mentioning what exactly the differences are would be
+> quite nice, imo.
+>
 
-Like for the options in patch 1, here I think you also want to make explicit
-the dependency on CONFIG_LLC_COLORING.
+What about.
 
-> @@ -1945,6 +1960,155 @@ static unsigned long avail_heap_pages(
->      return free_pages;
->  }
->  
-> +/*************************
-> + * COLORED SIDE-ALLOCATOR
-> + *
-> + * Pages are grouped by LLC color in lists which are globally referred to as the
-> + * color heap. Lists are populated in end_boot_allocator().
-> + * After initialization there will be N lists where N is the number of
-> + * available colors on the platform.
-> + */
-> +static struct page_list_head *__ro_after_init _color_heap;
-> +#define color_heap(color) (&_color_heap[color])
-> +
-> +static unsigned long *__ro_after_init free_colored_pages;
-> +
-> +static unsigned long __initdata buddy_alloc_size =
-> +    MB(CONFIG_BUDDY_ALLOCATOR_SIZE);
-> +size_param("buddy-alloc-size", buddy_alloc_size);
-> +
-> +/* Memory required for buddy allocator to work with colored one */
-> +#ifdef CONFIG_LLC_COLORING
-> +#define domain_num_llc_colors(d) (d)->num_llc_colors
-> +#define domain_llc_color(d, i)   (d)->llc_colors[i]
+Object have 3 additional sections which must be handled by the linker scrip=
+t.
+Map file has 7 columns: VMA, LMA, size, alignment, output section,
+definition, symbols, for our symbols output section and definition are
+empty.
 
-I'm uncertain whether Misra would insist on an outer pair of parentheses for
-both of these.
+> > --- a/xen/tools/combine_two_binaries.py
+> > +++ b/xen/tools/combine_two_binaries.py
+> > @@ -67,13 +67,22 @@ if args.exports is not None:
+> >
+> >  # Parse mapfile, look for ther symbols we want to export.
+> >  if args.mapfile is not None:
+> > -    symbol_re =3D re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
+> > +    symbol_re_clang =3D \
+>
+> Is "clang" really appropriate to use here? Even without the alternative
+> being named "gnu", I'd expect "llvm" to be more to the point, as at
+> the linking stage the original language (encoded in "clang") shouldn't
+> matter much anymore.
+>
 
-Jan
+I'll change to "llvm".
+
+> > +        re.compile(r'\s+([0-9a-f]+)\s+([0-9a-f]+)\s+([0-9a-f]+)\s+([0-=
+9a-f]+)\s{15,}(\S+)\n')
+>
+> Just wondering:
+> - How stable is their map file format?
+
+No idea, unfortunately, map files are not really standard.
+
+> - Do they not have an option to write GNU-compatible map files?
+
+I try to search, but I could not find such an option.
+
+> - Why do you declare 5 groups, when you're only after the 1st and last,
+> which would then allow to ...
+>
+> > +    symbol_re_gnu =3D re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
+> >      for line in open(args.mapfile):
+> > -        m =3D symbol_re.match(line)
+> > -        if not m or m.group(2) not in exports:
+> > +        name =3D None
+> > +        m =3D symbol_re_clang.match(line)
+> > +        if m:
+> > +            name =3D m.group(5)
+> > +        else:
+> > +            m =3D symbol_re_gnu.match(line)
+> > +            if m:
+> > +                name =3D m.group(2)
+>
+> ... uniformly use m.group(2) here (outside of the conditional)?
+>
+
+It could be done. The initial idea was testing that VMA and LMA fields
+should be identical, which gives a bit more certainty about the format
+used.
+About map file format, both formats have some headers. Would it be
+sensible to detect such headers? BTW, probably a mis-detection would
+cause symbols not to be detected.
+
+> Jan
+>
+> > +        if name is None or name not in exports:
+> >              continue
+> >          addr =3D int(m.group(1), 16)
+> > -        exports[m.group(2)] =3D addr
+> > +        exports[name] =3D addr
+> >  for (name, addr) in exports.items():
+> >      if addr is None:
+> >          raise Exception("Required export symbols %s not found" % name)
+>
+
+Frediano
 
