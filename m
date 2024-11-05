@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 595E59BCF75
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 15:34:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830256.1245198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2EE9BCF7F
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2024 15:34:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830258.1245214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8Kcz-0002My-DI; Tue, 05 Nov 2024 14:33:53 +0000
+	id 1t8Kd1-0002iS-14; Tue, 05 Nov 2024 14:33:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830256.1245198; Tue, 05 Nov 2024 14:33:53 +0000
+Received: by outflank-mailman (output) from mailman id 830258.1245214; Tue, 05 Nov 2024 14:33:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8Kcz-0002KB-9w; Tue, 05 Nov 2024 14:33:53 +0000
-Received: by outflank-mailman (input) for mailman id 830256;
- Tue, 05 Nov 2024 14:33:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t8Kd0-0002eV-To; Tue, 05 Nov 2024 14:33:54 +0000
+Received: by outflank-mailman (input) for mailman id 830258;
+ Tue, 05 Nov 2024 14:33:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SSsw=SA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1t8Kcy-0002K5-0Y
- for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 14:33:52 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f81c082d-9b82-11ef-a0c5-8be0dac302b0;
- Tue, 05 Nov 2024 15:33:48 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5cec93719ccso4195304a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 06:33:48 -0800 (PST)
+ id 1t8Kcz-0002Lm-KR
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2024 14:33:53 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8fc86c5-9b82-11ef-99a3-01e77a169b0f;
+ Tue, 05 Nov 2024 15:33:49 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5c937b5169cso600769a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Nov 2024 06:33:49 -0800 (PST)
 Received: from localhost.localdomain ([217.156.233.154])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cee6a99ff2sm1395047a12.4.2024.11.05.06.33.46
+ 4fb4d7f45d1cf-5cee6a99ff2sm1395047a12.4.2024.11.05.06.33.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Nov 2024 06:33:47 -0800 (PST)
+ Tue, 05 Nov 2024 06:33:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +45,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f81c082d-9b82-11ef-a0c5-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzIiLCJoZWxvIjoibWFpbC1lZDEteDUzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImY4MWMwODJkLTliODItMTFlZi1hMGM1LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODE3MjI4LjUxMDQzNiwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: f8fc86c5-9b82-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MjkiLCJoZWxvIjoibWFpbC1lZDEteDUyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImY4ZmM4NmM1LTliODItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODE3MjI5LjkxNDQ3MSwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730817227; x=1731422027; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7UehNmm+XdMyNc78IVmVaRzHkpGfHOcJ6pojHJUSgnA=;
-        b=PGcRZXijf/q58e+OMP0ktAIGFmpCrFqhhHnhFFo6VrgH2DZ1N4zRGZt4z3uH4aub4O
-         HEq3QxXiamLF5f5+LhJWskLTBaKOLIewVU3eae8DuXgSjdhdVGnlovv3F0HbRPinVq7G
-         nOBIqVNNND0HkAEKNOlaI18pxBjGQmS1cjQ2Q=
+        d=cloud.com; s=cloud; t=1730817229; x=1731422029; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lm70mwHIeRKoNhCCFejzjDU9gu+VjbCXPS3BQfLbce0=;
+        b=Jbq9NOlxXEKCEAVMutHvn3NY6gBcL3xu8E0LACqzgbFFn7NJ6XQJwmmS/Wc2UEG5Q2
+         XqoNUPVGHZ8LNnwA39RKjnXJheVvKMmpy3WZBHoR6W0juYBWV2HHMIRI0FRmK4Ld1jIu
+         kuDd87x620yko9ktevApdRkVk2S9y18QyHzew=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730817227; x=1731422027;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7UehNmm+XdMyNc78IVmVaRzHkpGfHOcJ6pojHJUSgnA=;
-        b=mFqIsmlajXb8RnNX0XuCFjAdGXAgCXIKl+ZpPTnapLnavUZdDw+3aJDTbreNIbthCE
-         Scr9Zon7V+JpAYFd0bBHgmkawEKY4y6KgQrcpYEnFl+38uBYGwZrdwFH1zpGvR6p8v0H
-         1kZG5ky0VOAK12Wb29u4PX3R55bzkZIANBI42orCq2+yZlk9wzAy06SNqumjoLS+eXDE
-         nTMFZdu+vlhh0KuC//K+dNk7QMLWA3Ke2VGmUjt8VsbliN0CS8Vbv3P9MPRAChGUIKK0
-         SX7sEDsgV2WFyPN//ni2NxCreoJi+JsvykDjAImVG2OVzT1T2I10tbyknz4tajbvJDyz
-         aUCQ==
-X-Gm-Message-State: AOJu0Yzbn0heEN49sA3DEfH18tR2Pv5JxFRz1bTGZRPok6yYlpJNtwsi
-	sPGEluTELtJd7V7upZbPm8BCpc2xTFTgwZ0zxmNZZ70W0cyEOIGS59J2yQVk/RplCwJbi86Lzcn
-	M
-X-Google-Smtp-Source: AGHT+IHRAXhExBAO/U3fsvaErEEcsSJeIZdCTocSxGxbccyQTKSg4S40Tvkucw4KZC9SbAfPGXPUkg==
-X-Received: by 2002:a05:6402:524c:b0:5ce:d6db:23fa with SMTP id 4fb4d7f45d1cf-5ced6db245dmr6042455a12.20.1730817227479;
-        Tue, 05 Nov 2024 06:33:47 -0800 (PST)
+        d=1e100.net; s=20230601; t=1730817229; x=1731422029;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lm70mwHIeRKoNhCCFejzjDU9gu+VjbCXPS3BQfLbce0=;
+        b=OZcdzPBYWWNblG8dBSaBhSnMbR8qBqD9UklS1N/sZoAJ22qyK3vpzOjB+fiSMQ4d+l
+         DBvvfm0z5QWtRJtQLHnO6tCZ6Nn4IjsW9LgQClMu0wUbnijQBlFcXorYN/4suo1Xeh/J
+         p64rv9ekxPU5f4T16aar+8DdpQyCU8f7xh6x7KkupzwdmK/qDlKDxFm2xq/+2mKgXnOq
+         mMIe7EQMUMu/cveQx1faV33Rfc4O4I2pS55tZYF7xrrgatPuLbiS0vWm6f38hRX3rXUW
+         tZDSRz5PrTqPiQr5BlBr+RR+FsDC5aAnFobQ6043/FBEbG6y4cYLWYDfOtIXutI+O39b
+         sudQ==
+X-Gm-Message-State: AOJu0Yx4cWR4QdHhqN7eJ5nYIj5rPWDPfGQwpyOCv7YmfxFW73b/3GrX
+	PWcZ/ffbkEwjt68MN9iIe/UhIfKDGpGG8MDI+TYId/a26vPVhz/6LPuc6zQMqOSs1/BzSq+IMKu
+	6
+X-Google-Smtp-Source: AGHT+IEhWx2RuS/BYIBWDBc6maT4rwV0tb/DwlYlZRoeFkV4ZYnjAKsX+HD1obBYMGsMYslSbg1VMw==
+X-Received: by 2002:a05:6402:2748:b0:5ce:c7ce:145e with SMTP id 4fb4d7f45d1cf-5cec7ce17ccmr12100578a12.14.1730817228923;
+        Tue, 05 Nov 2024 06:33:48 -0800 (PST)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 00/13] x86: Address Space Isolation FPU preparations
-Date: Tue,  5 Nov 2024 14:32:57 +0000
-Message-ID: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
+Subject: [PATCH v2 01/13] x86/xstate: Remove stale assertions in fpu_x{rstor,save}()
+Date: Tue,  5 Nov 2024 14:32:58 +0000
+Message-ID: <20241105143310.28301-2-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
+References: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-See original cover letter in v1
+After edb48e76458b("x86/fpu: Combine fpu_ctxt and xsave_area in arch_vcpu"),
+v->arch.xsave_area is always present and we can just remove these asserts.
 
-v1: https://lore.kernel.org/xen-devel/20241028154932.6797-1-alejandro.vallejo@cloud.com/
-v1->v2:
-  * Turned v1/patch1 into an assert removal
-  * Dropped v1/patch11: "x86/mpx: Adjust read_bndcfgu() to clean after itself"
-  * Other minor changes out of feedback. Explained in each patch.
+Fixes: edb48e76458b("x86/fpu: Combine fpu_ctxt and xsave_area in arch_vcpu")
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+---
+v2:
+  * Remove asserts rather than refactor them.
+  * Trimmed and adjusted commit message
+---
+ xen/arch/x86/i387.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Alejandro Vallejo (13):
-  x86/xstate: Remove stale assertions in fpu_x{rstor,save}()
-  x86/xstate: Create map/unmap primitives for xsave areas
-  x86/hvm: Map/unmap xsave area in hvm_save_cpu_ctxt()
-  x86/fpu: Map/umap xsave area in vcpu_{reset,setup}_fpu()
-  x86/xstate: Map/unmap xsave area in xstate_set_init() and
-    handle_setbv()
-  x86/hvm: Map/unmap xsave area in hvmemul_{get,put}_fpu()
-  x86/domctl: Map/unmap xsave area in arch_get_info_guest()
-  x86/xstate: Map/unmap xsave area in {compress,expand}_xsave_states()
-  x86/emulator: Refactor FXSAVE_AREA to use wrappers
-  x86/mpx: Map/unmap xsave area in in read_bndcfgu()
-  x86/fpu: Pass explicit xsave areas to fpu_(f)xsave()
-  x86/fpu: Pass explicit xsave areas to fpu_(f)xrstor()
-  x86/xstate: Make xstate_all() and vcpu_xsave_mask() take explicit
-    xstate
-
- xen/arch/x86/domctl.c             |  9 +++--
- xen/arch/x86/hvm/emulate.c        | 12 +++++-
- xen/arch/x86/hvm/hvm.c            |  8 ++--
- xen/arch/x86/i387.c               | 65 +++++++++++++++++++------------
- xen/arch/x86/include/asm/xstate.h | 51 ++++++++++++++++++++++--
- xen/arch/x86/x86_emulate/blk.c    | 11 +++++-
- xen/arch/x86/xstate.c             | 47 +++++++++++++++-------
- 7 files changed, 150 insertions(+), 53 deletions(-)
-
+diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
+index 83f9b2502bff..3add0025e495 100644
+--- a/xen/arch/x86/i387.c
++++ b/xen/arch/x86/i387.c
+@@ -24,7 +24,6 @@ static inline void fpu_xrstor(struct vcpu *v, uint64_t mask)
+ {
+     bool ok;
+ 
+-    ASSERT(v->arch.xsave_area);
+     /*
+      * XCR0 normally represents what guest OS set. In case of Xen itself,
+      * we set the accumulated feature mask before doing save/restore.
+@@ -136,7 +135,6 @@ static inline void fpu_xsave(struct vcpu *v)
+     uint64_t mask = vcpu_xsave_mask(v);
+ 
+     ASSERT(mask);
+-    ASSERT(v->arch.xsave_area);
+     /*
+      * XCR0 normally represents what guest OS set. In case of Xen itself,
+      * we set the accumulated feature mask before doing save/restore.
 -- 
 2.47.0
 
