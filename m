@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 751C09BE1CD
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 10:08:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830645.1245716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 398249BE3EC
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 11:14:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830662.1245726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8c10-0004YU-Rx; Wed, 06 Nov 2024 09:07:50 +0000
+	id 1t8d24-00064x-Go; Wed, 06 Nov 2024 10:13:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830645.1245716; Wed, 06 Nov 2024 09:07:50 +0000
+Received: by outflank-mailman (output) from mailman id 830662.1245726; Wed, 06 Nov 2024 10:13:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8c10-0004WG-Of; Wed, 06 Nov 2024 09:07:50 +0000
-Received: by outflank-mailman (input) for mailman id 830645;
- Wed, 06 Nov 2024 09:07:49 +0000
+	id 1t8d24-00062r-Ct; Wed, 06 Nov 2024 10:13:00 +0000
+Received: by outflank-mailman (input) for mailman id 830662;
+ Wed, 06 Nov 2024 10:12:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NlMZ=SB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1t8c0z-0004W8-JE
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 09:07:49 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ <SRS0=6dQ8=SB=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1t8d22-00062l-8z
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 10:12:58 +0000
+Received: from fforwardh-a1-smtp.messagingengine.com
+ (fforwardh-a1-smtp.messagingengine.com [103.168.172.196])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 970207c1-9c1e-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 10:07:47 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5cef772621eso476018a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 01:07:47 -0800 (PST)
-Received: from localhost ([213.195.124.162]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9eb16d667fsm253574766b.61.2024.11.06.01.07.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Nov 2024 01:07:45 -0800 (PST)
+ id ad6b39c3-9c27-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 11:12:51 +0100 (CET)
+Received: from phl-compute-12.internal (phl-compute-12.phl.internal
+ [10.202.2.52])
+ by mailfforwardh.phl.internal (Postfix) with ESMTP id 5CAD52920393;
+ Wed,  6 Nov 2024 05:12:49 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+ by phl-compute-12.internal (MEProxy); Wed, 06 Nov 2024 05:12:49 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 6 Nov 2024 05:12:48 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,66 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 970207c1-9c1e-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzYiLCJoZWxvIjoibWFpbC1lZDEteDUzNi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk3MDIwN2MxLTljMWUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODg0MDY3LjA3ODU5NCwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730884066; x=1731488866; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=sNzyDLcyEHBNChmvncanPiVECOHrQoSFZh4RbJy4Wbo=;
-        b=DaLre/KTvl7bNNZAo8v18IdvCI+6FJWTOCdqU5CgU3hWQX8F52f53i7rdZkFZqZnBx
-         G47Tlsl/UFnj7G4OAzm38n4xxvLOYsI85I9zK2f7xH3Off6ACGDm3PcqMAvPGY/37ftx
-         16pWsycUZLbUueuRo8ux2MY9augLJA9r7OS1k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730884066; x=1731488866;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sNzyDLcyEHBNChmvncanPiVECOHrQoSFZh4RbJy4Wbo=;
-        b=Yz+9JmdjgozQI1E9rQZeFoWeFwZfvtyRvLeN/lV/dJS5FmfYh9UiLbKQWFgL69lh/3
-         29KaA3Iynh7mStxpTtAkm2Zoc5ZxQ+0znF8r1VkzcfX5WiTois9p8un+QXKYXGt9sDUg
-         KXNKOb4uxwKRK52CxYnuM+O7+JMuhPyrZDy6HNfFybIMa8dAFCJDJpKdSMtcmtK2zRfp
-         ayOdxbU4uWCWTx9X++CssaJz+XbuUZ1xdv+r/MqdSErgFSHs+TR/vm+FXrk6wYXl3TSY
-         XMI5Fz89KUOPR9a5j31p/bqZjxzs6uQmtP9NPZHPfsssSgKEt/d+HWSx3H0Um155k20P
-         jxSQ==
-X-Gm-Message-State: AOJu0YyqrkwZRpegGpeDHjzgYetj+NuYcGr/c98CU/fFphpA0a2xuvaD
-	iwj4by25BIsujvNpHDeCbtrQNUfok2m4nF15+rN30BNDgZc4StQsbWxxZY4Rbv4ehpKmdILWH4k
-	Q
-X-Google-Smtp-Source: AGHT+IFgD5taObDYJjmtUVV43dTGbIXCupC9FMeMLYEZMGm6uokV/U8/4ORkyGu0LoJOzJjlR/22IQ==
-X-Received: by 2002:a17:907:318e:b0:a9a:478:2ee3 with SMTP id a640c23a62f3a-a9e50b57ba0mr2239065866b.40.1730884066377;
-        Wed, 06 Nov 2024 01:07:46 -0800 (PST)
-Date: Wed, 6 Nov 2024 10:07:45 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH] xen/vpci: Fix UB in mask_write
-Message-ID: <Zysx4ZwCUv62uTBw@macbook>
-References: <559dfac91b8f097bc59c4de194fd2ae2b5b4144c.1730880005.git.mykyta_poturai@epam.com>
- <ZyswF4grJSNcVqY_@macbook>
+X-Inumbo-ID: ad6b39c3-9c27-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjEwMy4xNjguMTcyLjE5NiIsImhlbG8iOiJmZm9yd2FyZGgtYTEtc210cC5tZXNzYWdpbmdlbmdpbmUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImFkNmIzOWMzLTljMjctMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODg3OTcxLjI0MjYxNSwic2VuZGVyIjoic2FraWJAZGFya3N0YXIuc2l0ZSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1730887969; x=1730974369; bh=m/
+	jG6tGsHQwK9nng1wt6YeGprrQD02NB9JV8gioyKA4=; b=Q5FEBSWWLEPEfkCcUI
+	e7kZl2L97VrMZVlejIgLTo2G2l8WnhndN2btZitGwumctl9Z6JxdeajC9X7tx485
+	PmlwObfVB9y5eEPm2rvpnafcM6Ou5XpeZRupcsOfTEQnb0Xt48BzEDqehUK3HXEa
+	VvOYR2QcwIcDBtta8o2fWdkrMPV1KDmbdjU5cMgkgayqNuNXozQCo8mUPcH+kfrg
+	WMvKF0QjM6uaXepMNqMXb+ZsMJCvm4o+D4VWb92JQZ+ktemDRTbzLaotCgzTpILq
+	Zd60N6B3P6RpqphQxJLhMAyqJ+XqrnU/lyaoHEuZxriT8+9++63W+WljpaiVwojG
+	dvYg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1730887969; x=1730974369; bh=m/jG6tGsHQwK9nng1wt6YeGprrQD
+	02NB9JV8gioyKA4=; b=l08bbImjmzsKhJeXkCRcu8PjzXl8worUqH4cGUDrlmh2
+	T3BXWpEFXT0OE5QYJjqHO6I3UiOJKn0yH4aQIXjCA8YMHSDs/v31ZoLGRbGWpr5u
+	xqxrhUbtIGE4dFYE1cf4dva5rzi2NR4OmP80UA8ypmfrZRKXMqz05sUFFojml/SU
+	3h6eqN6bnffqbKdWQOYIFhqAnqIbhL8lW+fMSnwB3oS2oP7e6+6IW616aD0DDteT
+	/R3L+vfdFiEQE40hin7QYfptIcuOMamsMJdW6QwJw/UhHRZJGe5gNrYsvc/auxFC
+	gclIu6lD7XUKs+V2zcSQdkZ04NCeK3t2tac4cwLhaQ==
+X-ME-Sender: <xms:IEErZ5iV-IkZT4NpHWO3HkxnBEuT0Y5PoT_uE4VDq315s5MR16SLLg>
+    <xme:IEErZ-BdVBWf3IpbIiLqSlWQSHJANfHFf1H7HK7dKMyxDu-WUItCWZqvYCsX1PcK3
+    edyIJlI4O6sGnn0gAA>
+X-ME-Received: <xmr:IEErZ5GQI6ME0A_wlgtEudrM2xrqkVSvIaCkJeV7ZGCLzYit31nr6KGWEEzCWZrf-H8VC2JwbKn-CBMA6674NGBzLE_27UHyTBG76ahHRCERxzAd>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrtddvgdduudcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
+    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
+    hsucdlqddutddtmdenucfjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfh
+    rhhomhepufgvrhhgihihucfmihgsrhhikhcuoefuvghrghhihigpmfhisghrihhksegvph
+    grmhdrtghomheqnecuggftrfgrthhtvghrnhepffdvledvvefgvdejuedvvdevfedvueeg
+    tefhtdevgeeggeeljeevjeetgeevtedtnecuffhomhgrihhnpehkvghrnhgvlhdrohhrgh
+    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghk
+    ihgssegurghrkhhsthgrrhdrshhithgvpdhnsggprhgtphhtthhopeeipdhmohguvgepsh
+    hmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhr
+    ohhjvggtthdrohhrghdprhgtphhtthhopehsvghrghhihigpkhhisghrihhksegvphgrmh
+    drtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthht
+    oheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhope
+    hrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehsshhtrggsvghl
+    lhhinhhisehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:IEErZ-Q_lrLJsuLWFEG69MceU4oFU9zYFp1cjcnN8O0Y8s5l1CixQQ>
+    <xmx:IEErZ2zQ0-HBur9H2jdFLEYs-AXsfcxTmoKp7AeHvfF4mkJMJ6vprQ>
+    <xmx:IEErZ05i58B4ot7rhxcNk6rGFlPDfJ40nah2mjSxG9DZNhg5v5kGCA>
+    <xmx:IEErZ7yAXLvohfbjTSM0W4LnKSCZJIK8Dr41C3a9GE8ixaVonUsmTg>
+    <xmx:IUErZwvr_k5WbwZ_tGdEK-AXAUGPd8wgd0GDyKIUsK0CfO2dnKctHkPWRkZ0>
+Feedback-ID: i7ff1f533:Fastmail
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v2 0/2] configurable stdvga & pmtimer emulation
+Date: Wed,  6 Nov 2024 12:12:43 +0200
+Message-Id: <cover.1730887415.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZyswF4grJSNcVqY_@macbook>
 
-On Wed, Nov 06, 2024 at 10:00:07AM +0100, Roger Pau Monné wrote:
-> On Wed, Nov 06, 2024 at 08:05:19AM +0000, Mykyta Poturai wrote:
-> > During the construction of dmask value, it gets shifted by
-> > (32 - msi->vectors) bits. If msi->vectors is 0, the result of the shift
-> > becomes undefined due to shifting by a size of the type. While this
-> > works fine on x86, on ARM the resulting mask becomes 0xFFFFFFFF, which
-> > is incorrect.
-> > 
-> > Fix this by adding an explicit check for msi->vectors == 0.
+Introduce build options for stdvga and ACPI PM timer emulation drivers to make
+them configurable with possibility to be disabled for finer-tuned setups that
+don't need this code.
 
-Wait - how can msi->vectors ever be 0?  AFAICT there's no way in the
-MSI logic to configure 0 vectors, there will always be at least 1 vector
-enabled.
+New config options reside in separate sub-menu, checks of emulation flags are
+added so that domain can't be created if it requires devices that had been
+disabled.
+Since previous series one patch merged into 2 others and review comments have
+been addressed (details are in per-patch changelogs).
 
-Maybe what you want, if this fix is for compliance reasons, is an
-assert unreachable that msi->vectors > 0?
+v1 series here:
+https://lore.kernel.org/xen-devel/cover.1728032664.git.Sergiy_Kibrik@epam.com/
 
-Thanks, Roger.
+
+  -Sergiy
+
+
+Sergiy Kibrik (2):
+  x86/hvm: introduce config option for ACPI PM timer
+  x86/hvm: introduce config option for stdvga emulation
+
+ xen/arch/x86/Kconfig                  | 23 +++++++++++++++++++++++
+ xen/arch/x86/domain.c                 |  7 ++++++-
+ xen/arch/x86/hvm/Makefile             |  4 ++--
+ xen/arch/x86/include/asm/acpi.h       |  5 +++++
+ xen/arch/x86/include/asm/domain.h     | 16 ++++++++++++----
+ xen/arch/x86/include/asm/hvm/domain.h |  2 ++
+ xen/arch/x86/include/asm/hvm/io.h     |  4 ++++
+ xen/arch/x86/include/asm/hvm/vpt.h    | 10 ++++++++++
+ 8 files changed, 64 insertions(+), 7 deletions(-)
+
+-- 
+2.25.1
+
 
