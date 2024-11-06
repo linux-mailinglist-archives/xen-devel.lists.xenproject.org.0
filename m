@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BCF59BE718
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 13:10:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830853.1245941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DD609BE85B
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 13:24:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830863.1245952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8erS-0000BL-GA; Wed, 06 Nov 2024 12:10:10 +0000
+	id 1t8f44-0002q4-MZ; Wed, 06 Nov 2024 12:23:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830853.1245941; Wed, 06 Nov 2024 12:10:10 +0000
+Received: by outflank-mailman (output) from mailman id 830863.1245952; Wed, 06 Nov 2024 12:23:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8erS-00008B-DU; Wed, 06 Nov 2024 12:10:10 +0000
-Received: by outflank-mailman (input) for mailman id 830853;
- Wed, 06 Nov 2024 12:10:09 +0000
+	id 1t8f44-0002nj-J9; Wed, 06 Nov 2024 12:23:12 +0000
+Received: by outflank-mailman (input) for mailman id 830863;
+ Wed, 06 Nov 2024 12:23:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wNbQ=SB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t8erR-000082-1r
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 12:10:09 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1t8f43-0002nc-7V
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 12:23:11 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e231b40-9c38-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 13:10:04 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5cebcf96fabso6488966a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 04:10:04 -0800 (PST)
+ id df70d5e3-9c39-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 13:23:04 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a9ec86a67feso112928366b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 04:23:04 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cee6ac1b38sm2638351a12.47.2024.11.06.04.10.02
+ a640c23a62f3a-a9eb17f9765sm270940266b.168.2024.11.06.04.23.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 04:10:02 -0800 (PST)
+ Wed, 06 Nov 2024 04:23:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e231b40-9c38-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzAiLCJoZWxvIjoibWFpbC1lZDEteDUzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjBlMjMxYjQwLTljMzgtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk1MDA0LjI2NzE5Miwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: df70d5e3-9c39-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImRmNzBkNWUzLTljMzktMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk1Nzg0LjkyNjAxNiwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730895004; x=1731499804; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730895784; x=1731500584; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5sMEMOVjbd1VoD3JYF8f3GkO6OZBBpK8UdgsHcRLSPY=;
-        b=E+X1QfYOsBvUylwJnKg+ZI7xHlPfadXZPzEdZ24rAq2cC/TZ0aUInZVb0BPfiIPKKv
-         4pZ5WupOdJfD518pk4EcZxn28Sn1eE/XLeCi/B0K3vV4Tl87KTsWdH9Xx/X5WxyBqDl3
-         3re7JWgMlsH7ndXmC+zxoHIg9vkvLJ4Fz2Qi4=
+        bh=eDS24SRiUsnGsNOFS5ATl5qhFwt8KC2C8cK4+9PJLu4=;
+        b=U7JVBoitL54PEhVHuAwDER2RoCyxwX6xm2HDiwbt/aCq7PUZXwqKBHsM82npUbBtEL
+         ZKFZb/GDc963nj8tHxmCeKLswpya7mJW5V1u2Bxg89aU+JBv4l/ehKpfzw7mTT9BSkXH
+         Sje7kjdfaXR2i9O1vO98MlD4ahv/844dRa86A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730895004; x=1731499804;
+        d=1e100.net; s=20230601; t=1730895784; x=1731500584;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5sMEMOVjbd1VoD3JYF8f3GkO6OZBBpK8UdgsHcRLSPY=;
-        b=WGWjDWOZ3kRRCK7AEpJSQbl/UOaLp+QZ0jNGqAz6JjLDU6jb5c7NXnNYhQi7F+dMki
-         PGb43T8RR0mkg9rOTQilfYUTXWIieOf7hxmmZeizvdUOYSRihy7ZpN6FPioks/Ln4mB6
-         y7PXYIZEqpqWagQzzqWlV+9r74oV9z9jG/Ux/l8mhh7Hwhf54Q1H0aZWVb8nS2CFaUG9
-         Rj1OR4/v6EwN6xkNOvKOCUkIsZZr5m6jvWAbJ348aMNC0I7ukscoP6jXioq80RjB9n7h
-         n/+z7fXslVTq2bpiiu8//DrNTFEfHdLWB+/EHMMO3vz5qXJ+w7q5XXi86GQRGM32S4U2
-         nBzw==
-X-Forwarded-Encrypted: i=1; AJvYcCXOrICwvlSNZQn2mCSRT4awv0eZw2oZq4Ct7UqtZgUt1IGOQTZMiVYRGPOB/zzHeQMUnX/rIVAlkT4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfD2MIAkAvcJLQWUWJqS5mFQx8uzeaiY4XEoWCi4FzToOnCD91
-	aJo0E+VQC1aafOxaorWoTiK1iSRynVv7PHBUpMg4ug4rWueJZj6pQMkTsZh6BNw=
-X-Google-Smtp-Source: AGHT+IEmNKBCe71WpvQTYvlekg3l5NddgdV4iBaKRVaMAF+mt/cY6/XOsQKb3E4keVWBe7/8HvuumQ==
-X-Received: by 2002:a05:6402:3182:b0:5ce:d491:c0b2 with SMTP id 4fb4d7f45d1cf-5ced491c977mr6799547a12.12.1730895003487;
-        Wed, 06 Nov 2024 04:10:03 -0800 (PST)
-Message-ID: <d00985af-f692-4f83-9ab0-18183a4a0747@citrix.com>
-Date: Wed, 6 Nov 2024 12:10:01 +0000
+        bh=eDS24SRiUsnGsNOFS5ATl5qhFwt8KC2C8cK4+9PJLu4=;
+        b=oXL2mOL8B6VjdAq3pJZjID7K4dB62wGTUjIGG4W//7BoI2oMyL0m/CoQaED4a9ajTE
+         cRYEhA2uftDVzDMV37zQX/dhmLm8za+O0DHjoujBSludUIL41iJ9bDs2l5TIKVVS8+k6
+         NY5raQEmRaoiO4EpoNSv0PDTc8KElQRtLGEXmWGcd5AUfY8AHlkBxAhi7KI3n0xtZXJ+
+         z9/uN3egFM2jtiiWuNvtNhDTVIfAncALDgI73EpZ1GqToCprhXzklDJsyxK9IV6cXD1U
+         E1fbApbOJMOhBsHNDorutWfbZ1Yb5yBXQKHxd1lb0YJESipjMKCuuYLZs645Wz2m4Nzu
+         vyuA==
+X-Forwarded-Encrypted: i=1; AJvYcCU9zId0XT+LHfqWx3ZkKLDkOcRujWJ6HRJ2O9OH62NwSUq3p3lpSpfFl072mn+apmPrUUWN3I600p8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDdsKNDK71tHAzlbq7NAEqZNCg/VUCexMfqCX/4PRXrHA+RzDb
+	XR7Vsx4toWs7TL8YELFe47gU4/oomKW6A7zX60ZlPTdgGpGVrWHnWSfkB6+GtQg=
+X-Google-Smtp-Source: AGHT+IE6lVWhsCvgsdrtDXMb8bYrOUsSlVD3sJnoccB3AObGVJ7Ezn3FJvsDX7EX5554xuwREJAOww==
+X-Received: by 2002:a17:907:86a2:b0:a9a:134:9887 with SMTP id a640c23a62f3a-a9de6167ad2mr3641416266b.41.1730895784398;
+        Wed, 06 Nov 2024 04:23:04 -0800 (PST)
+Message-ID: <8f87849c-916f-4532-a150-3205795c9e43@citrix.com>
+Date: Wed, 6 Nov 2024 12:23:02 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] x86/boot: Uses nm command instead of map file to
- get symbols
+Subject: Re: [PATCH v2 3/3] x86/boot: Fix build with LLVM toolchain
 To: Frediano Ziglio <frediano.ziglio@cloud.com>,
  xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+ <roger.pau@citrix.com>
 References: <20241106114150.1432512-1-frediano.ziglio@cloud.com>
- <20241106114150.1432512-3-frediano.ziglio@cloud.com>
+ <20241106114150.1432512-4-frediano.ziglio@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,144 +132,45 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241106114150.1432512-3-frediano.ziglio@cloud.com>
+In-Reply-To: <20241106114150.1432512-4-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 06/11/2024 11:41 am, Frediano Ziglio wrote:
-> Map file format is not standard making it code readind it
-> not portable and potentially hard to maintain.
-
-I think you want to include a sentence along the lines of
-"combine_two_binaries.py only understands GNU LD's format, and does not
-work with LLVM's LLD."
-
-That makes it more clear why this this gets a Fixes tag.
-
-I'd also suggest having the following sentence in separate paragraph for
-clarity.
-
-> Use nm command instead to get list of symbols; specifically
-> BSD format as it does not truncate symbols names like sysv one.
+> This toolchain generates different object files.
+> Object have 3 additional sections which must be handled by the
+> linker script.
+> Added sections need to have special type so we put them in
+> separate sections as linker will copy type from input sections.
 >
 > Fixes: aa9045e77130 ('x86/boot: Rework how 32bit C is linked/included for early boot')
 >
 > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/Makefile        |  5 +++--
->  xen/tools/combine_two_binaries.py | 28 ++++++++++++++++++----------
->  2 files changed, 21 insertions(+), 12 deletions(-)
->
-> diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-> index 777b4befeb..01100a4b72 100644
-> --- a/xen/arch/x86/boot/Makefile
-> +++ b/xen/arch/x86/boot/Makefile
-> @@ -67,7 +67,8 @@ $(obj)/built-in-32.tmp.o: $(obj32)
->  # If possible we use --orphan-handling=error option to make sure we account
->  # for all possible sections from C code.
->  $(obj)/built-in-32.%.bin: $(obj)/build32.%.lds $(obj)/built-in-32.tmp.o
-> -	$(LD32) $(orphan-handling-y) -N -T $< -Map $(@:bin=map) -o $(@:bin=o) $(filter %.o,$^)
-> +	$(LD32) $(orphan-handling-y) -N -T $< -o $(@:bin=o) $(filter %.o,$^)
-> +	$(NM) -p --format=bsd $(@:bin=o) > $(@:bin=nm)
->  	$(OBJCOPY) -j .text -O binary $(@:bin=o) $@
->  	rm -f $(@:bin=o)
->  
-> @@ -79,7 +80,7 @@ cmd_combine = \
->                --script    $(obj)/build32.base.lds \
->                --bin1      $(obj)/built-in-32.base.bin \
->                --bin2      $(obj)/built-in-32.offset.bin \
-> -              --map       $(obj)/built-in-32.base.map \
-> +              --symbols   $(obj)/built-in-32.base.nm \
->                --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
->                --output    $@
->  
-> diff --git a/xen/tools/combine_two_binaries.py b/xen/tools/combine_two_binaries.py
-> index 447c0d3bdb..db02494b28 100755
-> --- a/xen/tools/combine_two_binaries.py
-> +++ b/xen/tools/combine_two_binaries.py
-> @@ -28,8 +28,8 @@ parser.add_argument('--text-diff', dest='text_diff',
->                      help='Difference between code section start')
->  parser.add_argument('--output', dest='output',
->                      help='Output file')
-> -parser.add_argument('--map', dest='mapfile',
-> -                    help='Map file to read for symbols to export')
-> +parser.add_argument('--symbols', dest='symbols_file',
-> +                    help='Nm command output to read for symbols to export')
 
-We call the output of $(NM) uniformly .map elsewhere in Xen, even the
-top level System.map
+The patch itself is fine, but the commit message is quite stale now
+you've split the fix into 3 bits.  I'd recommend:
 
-I'd suggest retaining the .map extension, and --map argument, and you
-can probably just say help='Map file (NM) to ...' for the help text to
-make it explicit.
+---%<---
+x86/boot: Explicitly list .{sym,shstr,str}tab in build32.lds.S
 
-That in turn reduces the churn ...
+Currently, building with LLVM's LLD fails:
 
+    ld -melf_i386_fbsd  --orphan-handling=error -N -T ...
+    ld: error: <internal>:(.symtab) is being placed in '.symtab'
+    ld: error: <internal>:(.shstrtab) is being placed in '.shstrtab'
+    ld: error: <internal>:(.strtab) is being placed in '.strtab'
+    gmake[11]: *** [arch/x86/boot/Makefile:69:
+arch/x86/boot/built-in-32.base.bin] Error 1
 
->  parser.add_argument('--exports', dest='exports',
->                      help='Symbols to export')
->  parser.add_argument('--section-header', dest='section_header',
-> @@ -65,15 +65,23 @@ exports = []
->  if args.exports is not None:
->      exports = dict([(name, None) for name in args.exports.split(',')])
->  
-> -# Parse mapfile, look for ther symbols we want to export.
-> -if args.mapfile is not None:
-> -    symbol_re = re.compile(r'\s{15,}0x([0-9a-f]+)\s+(\S+)\n')
-> -    for line in open(args.mapfile):
-> -        m = symbol_re.match(line)
-> -        if not m or m.group(2) not in exports:
-> +# Parse symbols file, look for symbols we want to export.
-> +if args.symbols_file is not None:
+This is a consequence of --orphan-handling, and it appears that Binutils
+doesn't diagnose some orphaned sections even explicitly asked to do so.
 
-... here.
+List the sections explicitly.
 
-> +    dummy_start = -1
-> +    for line in open(args.symbols_file):
-> +        v = line.split()
-> +        if len(v) != 3 or v[1].upper() != 'T':
->              continue
+Fixes ...
+---%<---
 
-A slightly nicer way of doing this is:
-
-    parts = line.split()
-
-    if len(parts) != 3:
-        continue
-
-    addr, type, sym = parts
-
-which means you have more legible code blow.
-
-
-> -        addr = int(m.group(1), 16)
-> -        exports[m.group(2)] = addr
-> +        addr = int(v[0], 16)
-> +        if v[2] == 'dummy_start':
-> +            dummy_start = addr
-> +            continue
-> +        if v[2] not in exports:
-> +            continue
-> +        exports[v[2]] = addr
-> +    if dummy_start != 0:
-> +        raise Exception("dummy_start symbol expected to be present and 0")
-> +
->  for (name, addr) in exports.items():
->      if addr is None:
->          raise Exception("Required export symbols %s not found" % name)
-
-Something to consider.  Instead of special casing dummy_start in several
-ways, you could, insert it into exports to begin with, then check
-
-    if exports["dummy_start"] != 0:
-        raise Exception("dummy_start symbol expected to be present and 0")
-    del exports["dummy_start"]
-
-after which you're back to just the real --exports in exports[].
-
-
-All of this said, it definitely looks like a much more robust solution
-to the problem.
+Happy to fix on commit.
 
 ~Andrew
 
