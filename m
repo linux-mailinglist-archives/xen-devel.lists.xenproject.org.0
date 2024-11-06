@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C232D9BE400
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 11:15:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830667.1245736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9E939BE408
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 11:17:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830672.1245746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8d3x-0006fC-Uh; Wed, 06 Nov 2024 10:14:57 +0000
+	id 1t8d5y-0007No-9p; Wed, 06 Nov 2024 10:17:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830667.1245736; Wed, 06 Nov 2024 10:14:57 +0000
+Received: by outflank-mailman (output) from mailman id 830672.1245746; Wed, 06 Nov 2024 10:17:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8d3x-0006cS-Ri; Wed, 06 Nov 2024 10:14:57 +0000
-Received: by outflank-mailman (input) for mailman id 830667;
- Wed, 06 Nov 2024 10:14:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t8d5y-0007LH-79; Wed, 06 Nov 2024 10:17:02 +0000
+Received: by outflank-mailman (input) for mailman id 830672;
+ Wed, 06 Nov 2024 10:17:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6dQ8=SB=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1t8d3w-0006cJ-PD
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 10:14:56 +0000
+ id 1t8d5w-0007L5-TB
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 10:17:00 +0000
 Received: from fforwardh-a1-smtp.messagingengine.com
  (fforwardh-a1-smtp.messagingengine.com [103.168.172.196])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f6fa4a50-9c27-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 11:14:54 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfforwardh.phl.internal (Postfix) with ESMTP id 295DA292039A;
- Wed,  6 Nov 2024 05:14:53 -0500 (EST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 40612a64-9c28-11ef-99a3-01e77a169b0f;
+ Wed, 06 Nov 2024 11:16:57 +0100 (CET)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfforwardh.phl.internal (Postfix) with ESMTP id 49CEF292037B;
+ Wed,  6 Nov 2024 05:16:56 -0500 (EST)
 Received: from phl-frontend-01 ([10.202.2.160])
- by phl-compute-06.internal (MEProxy); Wed, 06 Nov 2024 05:14:53 -0500
+ by phl-compute-01.internal (MEProxy); Wed, 06 Nov 2024 05:16:56 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 6 Nov 2024 05:14:52 -0500 (EST)
+ 6 Nov 2024 05:16:55 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6fa4a50-9c27-11ef-a0c6-8be0dac302b0
+X-Inumbo-ID: 40612a64-9c28-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEwMy4xNjguMTcyLjE5NiIsImhlbG8iOiJmZm9yd2FyZGgtYTEtc210cC5tZXNzYWdpbmdlbmdpbmUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImY2ZmE0YTUwLTljMjctMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODg4MDk0LjEyOTUwMSwic2VuZGVyIjoic2FraWJAZGFya3N0YXIuc2l0ZSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Custom-Transaction: eyJpZCI6IjQwNjEyYTY0LTljMjgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODg4MjE3LjMzNDA2Mywic2VuZGVyIjoic2FraWJAZGFya3N0YXIuc2l0ZSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1730888093;
-	 x=1730974493; bh=43u5uEEEtjTdbNJ0LorbS7FyqexOX0eR01rg8PmjltQ=; b=
-	JVnNRTjISyDXKmBNUa1A0o4yonYg6V64UGCiZFObdM2LOKYcycEfoOpmo+6/0by/
-	/StWM7PS6+xkqHbWliJIcipBpAJ7LHw/a08GzAFa4lYoDw7eX7FNosk4506Wo61y
-	Dqy20ZITW1KZYDjfLkQlgqLRHgu4HaYUY8TOdZcKPIkOmKFckpjawHx9E3JdHh0a
-	NuhZJImgskNFnZuIVJ0hlL9wsd38xxiObjmAWdhio3zYkrX/4pB4MpdB9SoKeDIa
-	eBW6VFB0p9jcicwrkWWswwxAZzewCW9n4CEVW03pTa15FlgPcmTNR+u2m/fNzysM
-	qsjwDqGeMIeeW2ak7WNc8Q==
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1730888216;
+	 x=1730974616; bh=p2u5ACnZhknNqMHNI6CsAH2zzZ1pewvirnqiawXzLcQ=; b=
+	Lxe4JJT3FL7R3h43Gm6KzKdNS4LCKiYfug73eK4RYTfP8a1kAxTYOaXECApQZCvF
+	i14a/UCokJftNZGEGTKXB1WGqO9dF/G6ZvITCKixL5hoYYPAlI/80PA8G6m/k3Xt
+	KDHW+TNjIqg+n8JeVQa53e5Sa4L988hLsWuW2wv5Y42MdMRm68zIem37km94ip0G
+	FTBfm3xMwm/1xa04IaohO2O4W/a1Euo0ObUOqXP+Qdf/kZYOXXUMmfEzLbCH6L/d
+	4WUpujbav5yVcWvaHCgsw3KyKkTdmjyqnpyrRthjrqRYAJoDHDnna5Ql/cnwFubC
+	1g4HcNcuXT76Wq72v/6L/A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1730888093; x=
-	1730974493; bh=43u5uEEEtjTdbNJ0LorbS7FyqexOX0eR01rg8PmjltQ=; b=Y
-	1nm6q0xrzx3h+XIKf5wF96tIgLbyMq9/wmv22o0MZ8zKkiNcypNbeHTP77MIEItM
-	jPgRagp3Is/y0DgvrAaC0ADMZIdx+EypVvz6vkTYuAOe3Tj5sPdkP3uUFNnopeTw
-	Mz3v3xhyIzQG4s7dNNOJFKZ8naODFZ8D7klG+Cat1AMedhc/D2Krw0FXwMPxmETc
-	qy2x4V+uOqYfmlWlp/SndIlSjvyEUFe5xF8TevWzMmwTSdX19b55QcYjgdIHlSka
-	B8jPTmwKaiHch97btzxDVJ2gq1gDHGR9BIZlWOngfCGpkQ3ayyodVY5FSf3NXzZo
-	Cp4Y5+Czu+qaRcYSwbHNw==
-X-ME-Sender: <xms:nEErZ4GlkuAUxG0BcMmS5S0WhNHpoQSZJ21x6XXG4viI8zLJ0XpWuQ>
-    <xme:nEErZxV6BBj6byz7quu_twFOmEooTTvmSgCzFdJUA_EqursLjctA1eHVlPU-ZQbDa
-    aNwQTvRHfPGhWzVI2Q>
-X-ME-Received: <xmr:nEErZyIxU_iBn12WX1-r2wG1Dp2aQM7cKw-mrUzE1J6L3fIPpTO_7YhZYqy92JOhPiISQwkGMz74aeOSCz-SeBawePvqCz3AfY8P9Lb_CR0f59as>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrtddvgdduudcutefuodetggdotefrodftvf
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1730888216; x=
+	1730974616; bh=p2u5ACnZhknNqMHNI6CsAH2zzZ1pewvirnqiawXzLcQ=; b=S
+	lILH3+1l8k+WGC94l5C1jbxg6/OwxZb16rvaP9ucY83M1TTFv9XFP0/ZaKF+ANcq
+	Y6FAluJDxv/oh9w0l+MHQaz5N2ocxv7IH70AJUdR6+GJVSkt4PM+xoiYfxuVwz3W
+	FJbhhRVHYYoTqetK5DGtLuKP1T4haEv+jYMxi+GFggj9E4pcrSYRLHV0C26HNOMV
+	vX6V89HhuNTmndaK5GT4Q2k5VDpiPtVNE/TDZr+uEiOlGrcRUZtWmvXOZMvMyWU2
+	+DvBj3jI7KfSwmvxWEP7lkR5QskeuSjSW3xhaiWSUE1cgGm1zBSxUX8Q8W65B1xx
+	FB3Xjq/yjZFcNU/0baLMw==
+X-ME-Sender: <xms:GEIrZ5ff2wcwF5hbd0BJNj7i9YRNZ6nCQ-hjQfVIJJsk3n9vgzqNSg>
+    <xme:GEIrZ3P5qTzqEOr7tiECJGA7o7c54N3YRMua1QCBzSYiHbt9SEB_WiqO0OMOzYIM-
+    qqJf9LBlPmmh1IZ8BE>
+X-ME-Received: <xmr:GEIrZyjg4DGLIs5JgSdMhRsf6V2bfHAT6DDav4fEsTUC-fHk_MTQ50x8MNT0NYagYaz1oHni2vzlyS5YuhgqyManvQ8ehpPSchPfIGKa8Ri-ZXbb>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrtddvgdduvdcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
     tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
     hsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeen
@@ -90,12 +90,12 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrtddvgdduudcutefuodetggdote
     ifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopehrohhgvghrrdhp
     rghusegtihhtrhhigidrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvg
     hrnhgvlhdrohhrghdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhm
-X-ME-Proxy: <xmx:nEErZ6Hjy4V7pHqyNXjIYLEHOYsD8Gk6VPYyXaVPhuI2pAbKGUFPJQ>
-    <xmx:nEErZ-VVAtknI3rhvd7TZfCIhnxcFd1-q5Fm3VKOHZGjlnE5eqc29A>
-    <xmx:nEErZ9PsLMXFbUNxE_vKaogv7EBCEQBmnCnle1S4oym1cgRjHy89yQ>
-    <xmx:nEErZ135BxDtTnTT4dc2gdLPn-nxWzUZON3mC5YnvupjGhjTAGvKjw>
-    <xmx:nUErZ8x2SieYXbw1BOVfE9F9mRsfl4O3DgP5mE2S9wW7aE6jHaFOIhgDibm8>
-Feedback-ID: idf7b619e:Fastmail
+X-ME-Proxy: <xmx:GEIrZy_N5t_y00Z7j8qJDx6bYnzX7B-medV28k-WNFiYdTL0uo6ZXA>
+    <xmx:GEIrZ1tbNdcaVGwaC5mdsu1YTBNGqjG3em6lyZ9h285NMcI6RIDWhA>
+    <xmx:GEIrZxFEljRg2tYpEADCwUotWl8RAiZcvCQpPHC6pM2HU2Gq0ep4Ag>
+    <xmx:GEIrZ8PSa1XXX0wqqUKpXKLQgKmq0EGdoaTWfzqMFqrYgb6zoaiOLg>
+    <xmx:GEIrZ_LW7eLuO-phOrI3jEx0Vzig8xYWfxB60mTH_6FZLJRY56Vk4kWpZ1bl>
+Feedback-ID: i5db7bdcf:Fastmail
 From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
 Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
@@ -103,9 +103,9 @@ Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH v2 1/2] x86/hvm: introduce config option for ACPI PM timer
-Date: Wed,  6 Nov 2024 12:14:49 +0200
-Message-Id: <da2758bba96e247027106e13129c87ae31193e97.1730887415.git.Sergiy_Kibrik@epam.com>
+Subject: [XEN PATCH v2 2/2] x86/hvm: introduce config option for stdvga emulation
+Date: Wed,  6 Nov 2024 12:16:53 +0200
+Message-Id: <53b0d5552c128630e476c77b54b8983fe02e0e1c.1730887415.git.Sergiy_Kibrik@epam.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1730887415.git.Sergiy_Kibrik@epam.com>
 References: <cover.1730887415.git.Sergiy_Kibrik@epam.com>
@@ -113,16 +113,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Introduce config option X86_HVM_PMTIMER and make pmtimer emulation driver
-configurable and possible to disable on systems that don't need it.
-Option X86_X86_HVM_PMTIMER depends on HVM option, because this driver is part
-of HVM support code.
-
-Introduced additional check of domain's emulation flags, to cover the case
-when user explicitly states the requirement of emulated devices that are
-disabled in the build. HVM always require these devices to be present so domains
-of this type can't be created when pmtimer or any other emulated device are
-disabled.
+Introduce config option X86_HVM_STDVGA and make stdvga emulation driver
+configurable so it can be disabled on systems that don't need it.
 
 Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
@@ -130,172 +122,117 @@ CC: Jan Beulich <jbeulich@suse.com>
 ---
 changes in v2:
  - updated description
- - renamed config option X86_PMTIMER -> X86_HVM_PMTIMER & moved related
+ - renamed config option X86_STDVGA -> X86_HVM_STDVGA & moved related
    Kconfig changes to this patch
- - define X86_EMU_PM to 0 when !X86_HVM_PMTIMER
- - reverted changes to has_vpm() macro
+ - reverted changes to has_vvga() macro
  - moved emulation_flags_ok() checks to this patch
- - guard struct hvm_hw_acpi acpi attribute of struct domain
 ---
- xen/arch/x86/Kconfig                  | 13 +++++++++++++
- xen/arch/x86/domain.c                 |  7 ++++++-
- xen/arch/x86/hvm/Makefile             |  2 +-
- xen/arch/x86/include/asm/acpi.h       |  5 +++++
- xen/arch/x86/include/asm/domain.h     |  8 ++++++--
- xen/arch/x86/include/asm/hvm/domain.h |  2 ++
- xen/arch/x86/include/asm/hvm/vpt.h    | 10 ++++++++++
- 7 files changed, 43 insertions(+), 4 deletions(-)
+ xen/arch/x86/Kconfig              | 10 ++++++++++
+ xen/arch/x86/domain.c             |  4 ++--
+ xen/arch/x86/hvm/Makefile         |  2 +-
+ xen/arch/x86/include/asm/domain.h |  8 ++++++--
+ xen/arch/x86/include/asm/hvm/io.h |  4 ++++
+ 5 files changed, 23 insertions(+), 5 deletions(-)
 
 diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 9cdd04721a..ed0ece85c7 100644
+index ed0ece85c7..35c8ace8ef 100644
 --- a/xen/arch/x86/Kconfig
 +++ b/xen/arch/x86/Kconfig
-@@ -144,6 +144,19 @@ config INTEL_VMX
- 	  If your system includes a processor with Intel VT-x support, say Y.
- 	  If in doubt, say Y.
+@@ -155,6 +155,16 @@ config X86_HVM_PMTIMER
+ 	  Build pmtimer driver that emulates ACPI PM timer for HVM/PVH guests.
  
-+menu "Emulated HVM devices support"
-+       visible if EXPERT
-+       depends on HVM
+ 	  If unsure, say Y.
 +
-+config X86_HVM_PMTIMER
-+	bool "ACPI PM timer emulation support"
++config X86_HVM_STDVGA
++	bool "Standard VGA card emulation support"
 +	default y
 +	help
-+	  Build pmtimer driver that emulates ACPI PM timer for HVM/PVH guests.
++	  Build stdvga driver that emulates standard VGA card with VESA BIOS
++	  Extensions for HVM/PVH guests.
 +
 +	  If unsure, say Y.
-+endmenu
 +
+ endmenu
+ 
  config XEN_SHSTK
- 	bool "Supervisor Shadow Stacks"
- 	depends on HAS_AS_CET_SS
 diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 78a13e6812..b340818ee2 100644
+index b340818ee2..aefa1fc136 100644
 --- a/xen/arch/x86/domain.c
 +++ b/xen/arch/x86/domain.c
-@@ -742,11 +742,16 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+@@ -742,9 +742,9 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
  
  static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
  {
--#ifdef CONFIG_HVM
-+    const uint32_t disabled_emu_mask = X86_EMU_PM;
-+
-+#if defined(CONFIG_X86_HVM_PMTIMER)
+-    const uint32_t disabled_emu_mask = X86_EMU_PM;
++    const uint32_t disabled_emu_mask = X86_EMU_PM | X86_EMU_VGA;
+ 
+-#if defined(CONFIG_X86_HVM_PMTIMER)
++#if defined(CONFIG_X86_HVM_PMTIMER) && defined(CONFIG_X86_HVM_STDVGA)
      /* This doesn't catch !CONFIG_HVM case but it is better than nothing */
      BUILD_BUG_ON(X86_EMU_ALL != XEN_X86_EMU_ALL);
  #endif
- 
-+    if ( emflags & disabled_emu_mask )
-+        return false;
-+
-     if ( is_hvm_domain(d) )
-     {
-         if ( is_hardware_domain(d) &&
 diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
-index 4c1fa5c6c2..3af8963218 100644
+index 3af8963218..80ec425aa8 100644
 --- a/xen/arch/x86/hvm/Makefile
 +++ b/xen/arch/x86/hvm/Makefile
-@@ -18,7 +18,7 @@ obj-y += irq.o
- obj-y += monitor.o
- obj-y += mtrr.o
- obj-y += nestedhvm.o
--obj-y += pmtimer.o
-+obj-$(CONFIG_X86_HVM_PMTIMER) += pmtimer.o
+@@ -22,7 +22,7 @@ obj-$(CONFIG_X86_HVM_PMTIMER) += pmtimer.o
  obj-y += quirks.o
  obj-y += rtc.o
  obj-y += save.o
-diff --git a/xen/arch/x86/include/asm/acpi.h b/xen/arch/x86/include/asm/acpi.h
-index 217819dd61..eb2e4a1ede 100644
---- a/xen/arch/x86/include/asm/acpi.h
-+++ b/xen/arch/x86/include/asm/acpi.h
-@@ -150,8 +150,13 @@ void acpi_mmcfg_init(void);
- /* Incremented whenever we transition through S3. Value is 1 during boot. */
- extern uint32_t system_reset_counter;
- 
-+#ifdef CONFIG_X86_HVM_PMTIMER
- void hvm_acpi_power_button(struct domain *d);
- void hvm_acpi_sleep_button(struct domain *d);
-+#else
-+static inline void hvm_acpi_power_button(struct domain *d) {}
-+static inline void hvm_acpi_sleep_button(struct domain *d) {}
-+#endif
- 
- /* suspend/resume */
- void save_rest_processor_state(void);
+-obj-y += stdvga.o
++obj-$(CONFIG_X86_HVM_STDVGA) += stdvga.o
+ obj-y += vioapic.o
+ obj-y += vlapic.o
+ obj-y += vm_event.o
 diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index b79d6badd7..8550473997 100644
+index 8550473997..106b438779 100644
 --- a/xen/arch/x86/include/asm/domain.h
 +++ b/xen/arch/x86/include/asm/domain.h
-@@ -463,7 +463,6 @@ struct arch_domain
- #ifdef CONFIG_HVM
- #define X86_EMU_LAPIC    XEN_X86_EMU_LAPIC
- #define X86_EMU_HPET     XEN_X86_EMU_HPET
--#define X86_EMU_PM       XEN_X86_EMU_PM
+@@ -466,7 +466,6 @@ struct arch_domain
  #define X86_EMU_RTC      XEN_X86_EMU_RTC
  #define X86_EMU_IOAPIC   XEN_X86_EMU_IOAPIC
  #define X86_EMU_PIC      XEN_X86_EMU_PIC
-@@ -474,7 +473,6 @@ struct arch_domain
- #else
- #define X86_EMU_LAPIC    0
- #define X86_EMU_HPET     0
--#define X86_EMU_PM       0
+-#define X86_EMU_VGA      XEN_X86_EMU_VGA
+ #define X86_EMU_IOMMU    XEN_X86_EMU_IOMMU
+ #define X86_EMU_USE_PIRQ XEN_X86_EMU_USE_PIRQ
+ #define X86_EMU_VPCI     XEN_X86_EMU_VPCI
+@@ -476,7 +475,6 @@ struct arch_domain
  #define X86_EMU_RTC      0
  #define X86_EMU_IOAPIC   0
  #define X86_EMU_PIC      0
-@@ -484,6 +482,12 @@ struct arch_domain
+-#define X86_EMU_VGA      0
+ #define X86_EMU_IOMMU    0
+ #define X86_EMU_USE_PIRQ 0
  #define X86_EMU_VPCI     0
+@@ -488,6 +486,12 @@ struct arch_domain
+ #define X86_EMU_PM       0
  #endif
  
-+#ifdef CONFIG_X86_HVM_PMTIMER
-+#define X86_EMU_PM       XEN_X86_EMU_PM
++#ifdef CONFIG_X86_HVM_STDVGA
++#define X86_EMU_VGA      XEN_X86_EMU_VGA
 +#else
-+#define X86_EMU_PM       0
++#define X86_EMU_VGA      0
 +#endif
 +
  #define X86_EMU_PIT     XEN_X86_EMU_PIT
  
  /* This must match XEN_X86_EMU_ALL in xen.h */
-diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-index 333501d5f2..a4fddf7754 100644
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -80,8 +80,10 @@ struct hvm_domain {
-      * in public header files.
-      * Internally, however, we will be using hvm_hw_acpi.
-      */
-+#ifdef CONFIG_X86_HVM_PMTIMER
- #define hvm_hw_acpi hvm_hw_pmtimer
-     struct hvm_hw_acpi     acpi;
-+#endif
+diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
+index f2b8431fac..c02fad876c 100644
+--- a/xen/arch/x86/include/asm/hvm/io.h
++++ b/xen/arch/x86/include/asm/hvm/io.h
+@@ -108,7 +108,11 @@ struct vpci_arch_msix_entry {
+     int pirq;
+ };
  
-     /* VCPU which is current target for 8259 interrupts. */
-     struct vcpu           *i8259_target;
-diff --git a/xen/arch/x86/include/asm/hvm/vpt.h b/xen/arch/x86/include/asm/hvm/vpt.h
-index 0b92b28625..f24ef08925 100644
---- a/xen/arch/x86/include/asm/hvm/vpt.h
-+++ b/xen/arch/x86/include/asm/hvm/vpt.h
-@@ -187,10 +187,20 @@ void rtc_deinit(struct domain *d);
- void rtc_reset(struct domain *d);
- void rtc_update_clock(struct domain *d);
- 
-+#ifdef CONFIG_X86_HVM_PMTIMER
- void pmtimer_init(struct vcpu *v);
- void pmtimer_deinit(struct domain *d);
- void pmtimer_reset(struct domain *d);
- int pmtimer_change_ioport(struct domain *d, uint64_t version);
++#ifdef CONFIG_X86_HVM_STDVGA
+ void stdvga_init(struct domain *d);
 +#else
-+static inline void pmtimer_init(struct vcpu *v) {}
-+static inline void pmtimer_deinit(struct domain *d) {}
-+static inline void pmtimer_reset(struct domain *d) {}
-+static inline int pmtimer_change_ioport(struct domain *d, uint64_t version)
-+{
-+    return -ENODEV;
-+}
++static inline void stdvga_init(struct domain *d) {}
 +#endif
  
- void hpet_init(struct domain *d);
- void hpet_deinit(struct domain *d);
+ extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
+ 
 -- 
 2.25.1
 
