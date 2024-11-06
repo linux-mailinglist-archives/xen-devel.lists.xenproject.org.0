@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73F9E9BEF05
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 14:28:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830979.1246142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 955BE9BEDDF
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 14:14:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830940.1246053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8g5T-0006hC-34; Wed, 06 Nov 2024 13:28:43 +0000
+	id 1t8fqf-0008U9-KS; Wed, 06 Nov 2024 13:13:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830979.1246142; Wed, 06 Nov 2024 13:28:43 +0000
+Received: by outflank-mailman (output) from mailman id 830940.1246053; Wed, 06 Nov 2024 13:13:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8g5S-0006dv-VT; Wed, 06 Nov 2024 13:28:42 +0000
-Received: by outflank-mailman (input) for mailman id 830979;
- Wed, 06 Nov 2024 13:28:41 +0000
+	id 1t8fqf-0008RM-Gm; Wed, 06 Nov 2024 13:13:25 +0000
+Received: by outflank-mailman (input) for mailman id 830940;
+ Wed, 06 Nov 2024 13:13:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DrBW=SB=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1t8g5R-0004n0-IY
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 13:28:41 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2084.outbound.protection.outlook.com [40.107.96.84])
+ id 1t8fqe-0008R4-3g
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 13:13:24 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061d.outbound.protection.outlook.com
+ [2a01:111:f403:2413::61d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b15995f6-9c42-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 14:28:11 +0100 (CET)
+ id 6f15a0c3-9c3f-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 14:05:46 +0100 (CET)
 Received: from SJ0PR03CA0360.namprd03.prod.outlook.com (2603:10b6:a03:39c::35)
  by SA1PR12MB7443.namprd12.prod.outlook.com (2603:10b6:806:2b7::21)
  with Microsoft SMTP Server (version=TLS1_2,
@@ -63,9 +64,9 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b15995f6-9c42-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjQwLjEwNy45Ni44NCIsImhlbG8iOiJOQU0wMi1TTjEtb2JlLm91dGJvdW5kLnByb3RlY3Rpb24ub3V0bG9vay5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6ImIxNTk5NWY2LTljNDItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk5NzExLjIyMTYzOSwic2VuZGVyIjoic3RlZmFuby5zdGFiZWxsaW5pQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 6f15a0c3-9c3f-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMzo6NjFkIiwiaGVsbyI6Ik5BTTEwLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjZmMTVhMGMzLTljM2YtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk4NDY0LjE1NTIyNywic2VuZGVyIjoic3RlZmFuby5zdGFiZWxsaW5pQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
  b=DOkX/dGQ1d+xLr8P8IMY3/UMydE58Jvq9rUFKEQ1TCKxMfvzjuJXLC+D9UuFND6sgmyQjRWaaBnmG63DjqEOMV59EBNoAnKZCo5UH4SMn5ye3BBz7oUm9kxy3GgB9+aOm5aTXeMJ4vNXitYcejo75y/s3mAv8aVa+SmgovkAd+4+uo/yc5xnNRskenk4kREUf5Npzc3ve1DoClZOLxU2PBmCBf03QzjFAXmQfeO82ECAbx4piOevTlUeCqkG50bhXISZy2we39ui7GGGSBWXpazPxJcQAjVEwISxfNUV7yXVvVcaF1xU4G6ErMPEE/oYk+XVbedl+wwsnAlBzTZEew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
