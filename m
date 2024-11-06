@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6145D9BF972
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 23:47:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831391.1246683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B439BF988
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 23:57:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831398.1246694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8onL-0003AY-0k; Wed, 06 Nov 2024 22:46:35 +0000
+	id 1t8oxH-0004x4-Tt; Wed, 06 Nov 2024 22:56:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831391.1246683; Wed, 06 Nov 2024 22:46:34 +0000
+Received: by outflank-mailman (output) from mailman id 831398.1246694; Wed, 06 Nov 2024 22:56:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8onK-00038b-UP; Wed, 06 Nov 2024 22:46:34 +0000
-Received: by outflank-mailman (input) for mailman id 831391;
- Wed, 06 Nov 2024 22:46:32 +0000
+	id 1t8oxH-0004vD-QV; Wed, 06 Nov 2024 22:56:51 +0000
+Received: by outflank-mailman (input) for mailman id 831398;
+ Wed, 06 Nov 2024 22:56:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wNbQ=SB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t8onI-00038V-PL
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 22:46:32 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=4He5=SB=ilande.co.uk=mark.cave-ayland@srs-se1.protection.inumbo.net>)
+ id 1t8oxF-0004v7-Ul
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 22:56:50 +0000
+Received: from mail.ilande.co.uk (mail.ilande.co.uk [2001:41c9:1:41f::167])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f4bd067a-9c90-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 23:46:27 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4316a44d1bbso2956315e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 14:46:27 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa6b2d13sm37631225e9.12.2024.11.06.14.46.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 14:46:25 -0800 (PST)
+ id 62dc95e7-9c92-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 23:56:42 +0100 (CET)
+Received: from [2a00:23c4:8bb8:f600:5c84:8fbb:e5d9:991a]
+ by mail.ilande.co.uk with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.92) (envelope-from <mark.cave-ayland@ilande.co.uk>)
+ id 1t8owe-0005r0-2z; Wed, 06 Nov 2024 22:56:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +40,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4bd067a-9c90-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzIiLCJoZWxvIjoibWFpbC13bTEteDMzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImY0YmQwNjdhLTljOTAtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTMzMTg3LjE0ODg4Miwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730933186; x=1731537986; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5WjcH9LsZd4f+cNUlGoEXrtphxMziOEhEaYMGYoVdBk=;
-        b=OXtBGypGcp5f0CZUJCjcIiQH0piejnRxHru9sfS0HX58nr7Us+NhITqL8wgmwsg3zJ
-         ykBV6UbRBJFgx/N2NSU+BMIz2KkIYWjieH+TYtQh8Wy4WjTuSWzvcUNT0qRg7zaLgcOE
-         AJ1riaaFY2XXL5xsUAEJB/CZm7/u92OUZAjHU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730933186; x=1731537986;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5WjcH9LsZd4f+cNUlGoEXrtphxMziOEhEaYMGYoVdBk=;
-        b=JUCrADFVxioohX6e5xpLQsDuAywmr1I1yYMn5w2u24J7RRkfvot6bzkcUsWCEDfkZC
-         7wUjpHSmlV2ZQQdImc0SPvcUotq8UQkl5M5ahMwvLUV4OFw+T53BvvXYG6G82Gi6MBNT
-         tcOrCHPqf4Q6wqk1DWzsE54dvUIYIR7nSW9bF/AbQZZD+QhsKTwhncnMPyYadyt8OeGC
-         ig+JytjZ8ZdH68SMmJeWroZiw2tYceGrBuJSB8mJj6uYAMeGcbl9q6gM0o3V0kPjDLbd
-         C0aRl6p7G08jTC8CFq9jjVe5a4d1ncGzz5wi73vWKlSrVYQHv0NEVCFOdacd9f64uZKO
-         zzxw==
-X-Forwarded-Encrypted: i=1; AJvYcCXzqARl/vcp8HbOlYmvX8yEA9Kjshb15R1ZUgr51tyb3dfn79ZJDGGcKTOzcgID/huq5eaSF4TnIwg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxe09E0bvbhl+Aya0KUE/lauGNADd2dI07JoaQuRuzSWabtXZ9j
-	LizJ5Ffbh+tMWh9qyZeFZPEZrBPOBJLIfExrioVuNAgHiI6NsefwRDB5U9RhE/o=
-X-Google-Smtp-Source: AGHT+IHuq5hH2Jv9TtJrACc44EDHadDm5b3UFEojs1S3B3DgcF6ML4hehyGZ5Q0jWV2u9mFrMnZWiQ==
-X-Received: by 2002:a05:600c:511f:b0:42c:b037:5f9d with SMTP id 5b1f17b1804b1-4327b6f466amr231576485e9.3.1730933186290;
-        Wed, 06 Nov 2024 14:46:26 -0800 (PST)
-Message-ID: <f592170a-6cb3-4bfc-9486-2253a6443e33@citrix.com>
-Date: Wed, 6 Nov 2024 22:46:24 +0000
+X-Inumbo-ID: 62dc95e7-9c92-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjIwMDE6NDFjOToxOjQxZjo6MTY3IiwiaGVsbyI6Im1haWwuaWxhbmRlLmNvLnVrIn0=
+X-Custom-Transaction: eyJpZCI6IjYyZGM5NWU3LTljOTItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTMzODAyLjI1NjQzOSwic2VuZGVyIjoibWFyay5jYXZlLWF5bGFuZEBpbGFuZGUuY28udWsiLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ilande.co.uk; s=20220518; h=Subject:Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:MIME-Version:Date:Message-ID:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=vPYua6EHEWEq/K0JkQ0LEICGjtmS8znNO+vD/x/Hz6M=; b=yi3a4QFJbaHjJMAE1MMOtblf/B
+	jBBQW5JztSPJo8FiHX2FETYDSdv11VTzfszZoHFXbwuZZRROlVbdFnLZ685oW3kS0fjy1G/6I3KDl
+	Mn3Br/PA51aCDXvbk3ys1SUKG9/bL332iOKhgI2RNbQPuvxeEIcFdggDUur96WcWkNlEzj31a+/2I
+	S76L5YDZPRXhtYe8+fWlXdeaPcF6NQryMrk+eDmgg/zj4dKUb3aDA5zYp93ugcZk7W+qrFVZWZWHd
+	Lh6JvfDbz1zVCtVdajaMNXuUF+rzGkbu+cSNjQMvhrOcQeS3DMdhA8U6p42MX+FbedI5z8AcwVmO0
+	98Iq27ZhwmE9jJ7A3uWHTpT59cffbshRY9r6TOfoNL+pkADvb9MuU8NuPx9Ki+5HGkGTbjoUZqDML
+	DZ/27gAVeUgRbUJBsZBzGFZKOZPUkWA3IoI4/GBfh6g1M12gNLo6Z2WlJUxBK2tKv2OynVFeItbon
+	Ek5Dy52QdURAhixRShSQbYFK1rISHm2tXNyi9waAvsWkYx5P0OyvI0PSunMxIzF75/MJcMfUBqZWj
+	tXPK7qYlV2l1yPMmsILBEgHJoNXrdzuXWAojEJSL2Wyht/SVgJ7bzA16YAWy4USrldY6C5p0wdmI3
+	mWTS5vGl63k5/Yj/SvY2FSBHxGGgcgRtjrbfyXxQI=;
+Message-ID: <3b172279-ee99-4a04-bf6e-fdf6511215d4@ilande.co.uk>
+Date: Wed, 6 Nov 2024 22:56:30 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/12] x86/boot: introduce module release
-To: Jason Andryuk <jason.andryuk@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
- <20241102172551.17233-5-dpsmith@apertussolutions.com>
- <773dbe75-d1d3-41ea-8ff7-c031e0e9a920@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <773dbe75-d1d3-41ea-8ff7-c031e0e9a920@amd.com>
-Content-Type: text/plain; charset=UTF-8
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: Artyom Tarasenko <atar4qemu@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ xen-devel@lists.xenproject.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+ Anthony PERARD <anthony@xenproject.org>,
+ Eduardo Habkost <eduardo@habkost.net>, Thomas Huth <huth@tuxfamily.org>,
+ Jia Liu <proljc@gmail.com>, Stafford Horne <shorne@gmail.com>,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>
+References: <20241106184612.71897-1-philmd@linaro.org>
+ <20241106184612.71897-6-philmd@linaro.org>
+Content-Language: en-US
+From: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+Autocrypt: addr=mark.cave-ayland@ilande.co.uk; keydata=
+ xsBNBFQJuzwBCADAYvxrwUh1p/PvUlNFwKosVtVHHplgWi5p29t58QlOUkceZG0DBYSNqk93
+ 3JzBTbtd4JfFcSupo6MNNOrCzdCbCjZ64ik8ycaUOSzK2tKbeQLEXzXoaDL1Y7vuVO7nL9bG
+ E5Ru3wkhCFc7SkoypIoAUqz8EtiB6T89/D9TDEyjdXUacc53R5gu8wEWiMg5MQQuGwzbQy9n
+ PFI+mXC7AaEUqBVc2lBQVpAYXkN0EyqNNT12UfDLdxaxaFpUAE2pCa2LTyo5vn5hEW+i3VdN
+ PkmjyPvL6DdY03fvC01PyY8zaw+UI94QqjlrDisHpUH40IUPpC/NB0LwzL2aQOMkzT2NABEB
+ AAHNME1hcmsgQ2F2ZS1BeWxhbmQgPG1hcmsuY2F2ZS1heWxhbmRAaWxhbmRlLmNvLnVrPsLA
+ eAQTAQIAIgUCVAm7PAIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQW8LFb64PMh9f
+ NAgAuc3ObOEY8NbZko72AGrg2tWKdybcMVITxmcor4hb9155o/OWcA4IDbeATR6cfiDL/oxU
+ mcmtXVgPqOwtW3NYAKr5g/FrZZ3uluQ2mtNYAyTFeALy8YF7N3yhs7LOcpbFP7tEbkSzoXNG
+ z8iYMiYtKwttt40WaheWuRs0ZOLbs6yoczZBDhna3Nj0LA3GpeJKlaV03O4umjKJgACP1c/q
+ T2Pkg+FCBHHFP454+waqojHp4OCBo6HyK+8I4wJRa9Z0EFqXIu8lTDYoggeX0Xd6bWeCFHK3
+ DhD0/Xi/kegSW33unsp8oVcM4kcFxTkpBgj39dB4KwAUznhTJR0zUHf63M7ATQRUCbs8AQgA
+ y7kyevA4bpetM/EjtuqQX4U05MBhEz/2SFkX6IaGtTG2NNw5wbcAfhOIuNNBYbw6ExuaJ3um
+ 2uLseHnudmvN4VSJ5Hfbd8rhqoMmmO71szgT/ZD9MEe2KHzBdmhmhxJdp+zQNivy215j6H27
+ 14mbC2dia7ktwP1rxPIX1OOfQwPuqlkmYPuVwZP19S4EYnCELOrnJ0m56tZLn5Zj+1jZX9Co
+ YbNLMa28qsktYJ4oU4jtn6V79H+/zpERZAHmH40IRXdR3hA+Ye7iC/ZpWzT2VSDlPbGY9Yja
+ Sp7w2347L5G+LLbAfaVoejHlfy/msPeehUcuKjAdBLoEhSPYzzdvEQARAQABwsBfBBgBAgAJ
+ BQJUCbs8AhsMAAoJEFvCxW+uDzIfabYIAJXmBepHJpvCPiMNEQJNJ2ZSzSjhic84LTMWMbJ+
+ opQgr5cb8SPQyyb508fc8b4uD8ejlF/cdbbBNktp3BXsHlO5BrmcABgxSP8HYYNsX0n9kERv
+ NMToU0oiBuAaX7O/0K9+BW+3+PGMwiu5ml0cwDqljxfVN0dUBZnQ8kZpLsY+WDrIHmQWjtH+
+ Ir6VauZs5Gp25XLrL6bh/SL8aK0BX6y79m5nhfKI1/6qtzHAjtMAjqy8ChPvOqVVVqmGUzFg
+ KPsrrIoklWcYHXPyMLj9afispPVR8e0tMKvxzFBWzrWX1mzljbBlnV2n8BIwVXWNbgwpHSsj
+ imgcU9TTGC5qd9g=
+In-Reply-To: <20241106184612.71897-6-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a00:23c4:8bb8:f600:5c84:8fbb:e5d9:991a
+X-SA-Exim-Mail-From: mark.cave-ayland@ilande.co.uk
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+	mail.default.ilande.bv.iomart.io
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.8 required=5.0 tests=ALL_TRUSTED,BAYES_00,
+	URIBL_SBL_A autolearn=no autolearn_force=no version=3.4.2
+Subject: Re: [PATCH 5/5] hw/sparc: Mark devices as big-endian
+X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
+X-SA-Exim-Scanned: Yes (on mail.ilande.co.uk)
 
-On 06/11/2024 10:16 pm, Jason Andryuk wrote:
-> On 2024-11-02 13:25, Daniel P. Smith wrote:
->> @@ -2122,6 +2152,11 @@ void asmlinkage __init noreturn __start_xen(void)
->>       if ( !dom0 )
->>           panic("Could not set up DOM0 guest OS\n");
->>   +    /* Check and warn if any modules did not get released */
->> +    for ( i = 0; i < bi->nr_modules; i++ )
->> +        if ( !bi->mods[i].released )
->> +            printk(XENLOG_ERR "Boot module %d not released, memory
->> leaked", i);
->> +
->
-> Why not release the memory here instead of leaking it?
->
-> I feel like the corner case of mapping the dom0 initrd is leading to
-> this manual approach or releasing modules individually.  That logic
-> then has to be spread around.  discard_initial_images() kept the logic
-> centralized.  Maybe just replace the mod_end == 0 special case with a
-> "don't release me" flag that is checked in discard_initial_images()?
+On 06/11/2024 18:46, Philippe Mathieu-Daudé wrote:
 
-I've been conflicted on this for ages, but I agree.
+> These devices are only used by the SPARC targets, which are
+> only built as big-endian. Therefore the DEVICE_NATIVE_ENDIAN
+> definition expand to DEVICE_BIG_ENDIAN (besides, the
+> DEVICE_LITTLE_ENDIAN case isn't tested). Simplify directly
+> using DEVICE_BIG_ENDIAN.
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>   hw/sparc/sun4m_iommu.c | 2 +-
+>   hw/sparc64/sun4u.c     | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/hw/sparc/sun4m_iommu.c b/hw/sparc/sun4m_iommu.c
+> index 6f765e97e4..4486508e3b 100644
+> --- a/hw/sparc/sun4m_iommu.c
+> +++ b/hw/sparc/sun4m_iommu.c
+> @@ -238,7 +238,7 @@ static void iommu_mem_write(void *opaque, hwaddr addr,
+>   static const MemoryRegionOps iommu_mem_ops = {
+>       .read = iommu_mem_read,
+>       .write = iommu_mem_write,
+> -    .endianness = DEVICE_NATIVE_ENDIAN,
+> +    .endianness = DEVICE_BIG_ENDIAN,
+>       .valid = {
+>           .min_access_size = 4,
+>           .max_access_size = 4,
+> diff --git a/hw/sparc64/sun4u.c b/hw/sparc64/sun4u.c
+> index 541c7f74fa..9d7aebf632 100644
+> --- a/hw/sparc64/sun4u.c
+> +++ b/hw/sparc64/sun4u.c
+> @@ -254,7 +254,7 @@ static void power_mem_write(void *opaque, hwaddr addr,
+>   static const MemoryRegionOps power_mem_ops = {
+>       .read = power_mem_read,
+>       .write = power_mem_write,
+> -    .endianness = DEVICE_NATIVE_ENDIAN,
+> +    .endianness = DEVICE_BIG_ENDIAN,
+>       .valid = {
+>           .min_access_size = 4,
+>           .max_access_size = 4,
 
-There are many wonky things with the current arrangement.
+Reviewed-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
 
-First(ish), discard_initial_images() should be named
-discard_boot_modules() (if it's saying a separate function).
 
-Second, the individual dom0_build.c's should not be calling this
-directly.  They're both right at the end of construction, so it would
-make far more sense for __start_xen() to do this after create_dom0(). 
-That also avoids needing to export the function.
+ATB,
 
-And yes, as Jason says, the "initrd mapped instead of copied" is a weird
-corner case, and the other path manually releasing and also saying
-"don't free" is just pointless complexity.  I do like the idea of a
-"dont_free" flag.
+Mark.
 
-Thoughts?
-
-I know this would be moving back to a more v7-like approach, but I think
-the end approach is cleaner.
-
-~Andrew
 
