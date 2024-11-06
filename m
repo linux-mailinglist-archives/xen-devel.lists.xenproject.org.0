@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0619E9BE504
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 11:59:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830700.1245775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D359BE571
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 12:23:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830725.1245795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8dkw-00064y-RV; Wed, 06 Nov 2024 10:59:22 +0000
+	id 1t8e7Q-0001hp-N4; Wed, 06 Nov 2024 11:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830700.1245775; Wed, 06 Nov 2024 10:59:22 +0000
+Received: by outflank-mailman (output) from mailman id 830725.1245795; Wed, 06 Nov 2024 11:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8dkw-00062d-Ow; Wed, 06 Nov 2024 10:59:22 +0000
-Received: by outflank-mailman (input) for mailman id 830700;
- Wed, 06 Nov 2024 10:59:20 +0000
+	id 1t8e7Q-0001ef-Jm; Wed, 06 Nov 2024 11:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 830725;
+ Wed, 06 Nov 2024 11:22:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZUQe=SB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8dku-00062X-M6
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 10:59:20 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1t8e7P-0001eZ-Q6
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 11:22:35 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b1fe1c2-9c2e-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 11:59:17 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4315eac969aso4276775e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 02:59:17 -0800 (PST)
+ id 6a075abf-9c31-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 12:22:32 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-37d808ae924so3690717f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 03:22:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa6b2c32sm18049555e9.10.2024.11.06.02.59.16
+ ffacd0b85a97d-381c10b7b50sm19116422f8f.6.2024.11.06.03.22.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 02:59:17 -0800 (PST)
+ Wed, 06 Nov 2024 03:22:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b1fe1c2-9c2e-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjJiMWZlMWMyLTljMmUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODkwNzU3Ljk1NTk4NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 6a075abf-9c31-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzQiLCJoZWxvIjoibWFpbC13cjEteDQzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjZhMDc1YWJmLTljMzEtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODkyMTUyLjA4ODAxLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730890757; x=1731495557; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730892151; x=1731496951; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/z6SlINwyqQ5QiC3LmSnNQrXNZnyHD+gYX3vajlbphc=;
-        b=TSVVoslf6JEcQUeZ+AWIezjE5Sv5mii3v5mQ7UF4gIgt1jld7f/oSLp1Iw2ObGYKGu
-         qX+OOC9+PEadv8S7bBF9/F/ZYIT7WjJSxTt2+bVab+91RUtxmFqY25A/qGIGXUrPy6pN
-         raPw0pIkeS40m3mtDoh9C9BhXPf64Nb269ZuAT86NxpFGP+YUezFkc5d7yySl3iQzY/K
-         0um6YOMGJK0Ccse4GiSZ37sGdm+Y8lHRvXH8PgcyF7aeT/FEaQ/X1vd9p8h3t582nlJT
-         wdeZgEdlWgVlJFCVPdV24kcDzM6Jq929YeROL2GHkwXgHmOvjrRiw6GU4Kjka4RKzjvA
-         3nhQ==
+        bh=499VpUdxJcvds9v0jzsCqADRq/dDHmDNGNQLnL2XRLc=;
+        b=gEu/c8na5V87WqFUaNqknZy9/fRdI0ODOAHvzGJXj+GnAJY3qA37/SXcRJrx2svkJe
+         S2OR2w6pcngWwgFUvsbtsmmwmBVvnsrGaZ8tbqa+XzFu04wHpmbeeFqu3T7R2HdInBTi
+         eBTp1PZ3lR3szgcX+iU8U+N27E1K4+/GaBqw2j67e3WlzTBFY/Dimn1lMrAvLcdpRWIc
+         PrvpbDFpJ2wO1pXXIjrQ4ZiY6vLskX3cBrNQQa7tmQQhstuHx1upNfLNUpAoFbxAyHRG
+         yRTdX8Q62PfkACO740prH+bRJgeUAe6o0fCBUoGKURkh8nvGzc98ArrtOdfZ/ewEiKJO
+         qBsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730890757; x=1731495557;
+        d=1e100.net; s=20230601; t=1730892151; x=1731496951;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/z6SlINwyqQ5QiC3LmSnNQrXNZnyHD+gYX3vajlbphc=;
-        b=G6AEwhJI6StupvYWlawL4n6n9kW4K1RS2BplRvp3YLARlzFBbdw0vnRko2FDVnHRX6
-         i2eXpaUb12ulM/iCyRwKzgoT9B5y8FqdXSt0nM7EPktP7Y1W+Gd1HfoG3SlPkFlmTX0R
-         YWSxBICMCbvzKUgKNzkC5wVH2wK58FK4DnqHEJOP5NN1tNaOwY0crcztYbDMj+nfxnIJ
-         hkjgpq86vrczANwpmjW+MSUrOqmFTBuAVB+gqo736lIiJt689fke2zQgfiqmmk/6bzgT
-         OE8gs+eZilraZGWbOJdiPwsaTCdIRTxSmrWj1cdU3Rx3+VGvM/JjChvUczIXgp2RtbW3
-         nUkg==
-X-Forwarded-Encrypted: i=1; AJvYcCVeFjNeLZmie3eiLqEXbNNPkLGGOv5TR7PaWQcFNPx1++XkBcjX3Bk+vAi692Wzj1eOaOffde2K3AI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYcunlNVaHyX96zytar7v1ZSR6AB62WYCvXO8a55MR866VYBNy
-	awAScXkq16+VwZEvosuxR4uLQ/tcXqg0cJ3jDNphDNDWPbsX5PSW/tiXZb/j0Q==
-X-Google-Smtp-Source: AGHT+IF8wGzDOU8OUDrbYS9HLq5a/LP27cuun0ftWJxtklltnthLFQG+4WniBZXW86Ild/G8NCBvPA==
-X-Received: by 2002:a05:600c:468f:b0:431:47e7:9f45 with SMTP id 5b1f17b1804b1-432a9abb8ebmr17595405e9.11.1730890757402;
-        Wed, 06 Nov 2024 02:59:17 -0800 (PST)
-Message-ID: <80296824-760a-48c4-9dce-4875fca0ed31@suse.com>
-Date: Wed, 6 Nov 2024 11:59:16 +0100
+        bh=499VpUdxJcvds9v0jzsCqADRq/dDHmDNGNQLnL2XRLc=;
+        b=P5qh45RAnFI53DPNe6tBhRWblBOSiFWCZiw42v0uyIm7FJmT+R9eKLBCmQqe6+57h5
+         h5y0iPCgtcxACBAYGANkxcuE1s13NJyXV5KKJZseE6VGrypkiRcyKHshxsBk/UDjF7sB
+         qlOSMaHAeoQ4Woyv3eSg+MfWdVY5SctepJy6zH6PZavfH3muW5dmNiASQW7p/hAXYZ95
+         IvIMzRoCwGCU6CbuNa1yXq12cIkLjYjaBDMzNuh9ViO8smITx9OD4gnvMUYVwjaiDVmy
+         CR6jalrPD/yBYgjpnxYP/EcTC37URbT8u0UwjcXLH9q1Ni0LVMs4uPcd9CzR/q2H64Zp
+         B8wQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW0DBBcWAqw7EOt57M6ULtwPNh8qXtSf9IV2XPxMz2toAexy9b+6dCyimcdAQwgfn9woIo54MT0Qlg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOL8hTzkUQ9+kc9p93tYkdNvZ+6RBtGjyUO+tVOknC7RHe0VwL
+	x0SxVNaSf3NVVg5gCuKWh5BF+SA0USg421W1FrQx4jKQOsuBc5iVqzo21E8/Gg==
+X-Google-Smtp-Source: AGHT+IHZPUd63HBMWCG6dftQ76kUx87ySeJH4RM+wvnMi8UfvuK08F2FLJzlffMx9i7LUt4KBP/qOA==
+X-Received: by 2002:adf:f68b:0:b0:37d:50e1:b3e1 with SMTP id ffacd0b85a97d-3806113d082mr29102295f8f.16.1730892151362;
+        Wed, 06 Nov 2024 03:22:31 -0800 (PST)
+Message-ID: <be21f3cf-e7a8-469a-99a6-4098032a4df4@suse.com>
+Date: Wed, 6 Nov 2024 12:22:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix build with LLVM toolchain
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [XEN PATCH 1/3] x86/emul: define pseudo keyword fallthrough
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20241105145507.613981-1-frediano.ziglio@cloud.com>
- <48a22295-f3ac-496b-bdfb-ee17b0ada994@suse.com>
- <CACHz=ZhrxTSYGyWMQSE0Xi6sW2BZiLDuKkP2508CBRELD-USgQ@mail.gmail.com>
- <816ae079-378b-4bfd-93f2-83c5a281eb01@suse.com>
- <CACHz=ZhzrZO5o8EarXewC6BzrX4acSyAFsAO2hHBvm9xYRecqg@mail.gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1730880832.git.federico.serafini@bugseng.com>
+ <a0341b50ece1ba1b5b346b54db7d2abdc150cb95.1730880832.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,42 +115,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZhzrZO5o8EarXewC6BzrX4acSyAFsAO2hHBvm9xYRecqg@mail.gmail.com>
+In-Reply-To: <a0341b50ece1ba1b5b346b54db7d2abdc150cb95.1730880832.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.11.2024 07:56, Frediano Ziglio wrote:
-> On Tue, Nov 5, 2024 at 5:06 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 05.11.2024 17:35, Frediano Ziglio wrote:
->>> On Tue, Nov 5, 2024 at 3:32 PM Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 05.11.2024 15:55, Frediano Ziglio wrote:
->>>>> This toolchain generates different object and map files.
->>>>> Account for these changes.
->>>>
->>>> At least briefly mentioning what exactly the differences are would be
->>>> quite nice, imo.
->>>>
->>>
->>> What about.
->>>
->>> Object have 3 additional sections which must be handled by the linker script.
->>
->> I expect these sections are there in both cases. The difference, I assume,
->> is that for the GNU linker they don't need mentioning in the linker script.
->> Maybe that's what you mean to say, but to me at least the sentence can also
->> be interpreted differently.
+On 06.11.2024 10:04, Federico Serafini wrote:
+> The pseudo keyword fallthrough shall be used to make explicit the
+> fallthrough intention at the end of a case statement (doing this
+> through comments is deprecated).
 > 
-> Why do you expect such sections? They are used for dynamic symbols in
-> shared objects, we don't use shared objects here. Normal object
-> symbols are not handled by these sections. GNU compiler+linker (we
-> link multiple objects together) do not generate these sections. So the
-> comment looks correct to me.
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> ---
+>  xen/arch/x86/x86_emulate/x86_emulate.h | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
-About every ELF object will have .symtab and .strtab, and many also a
-separate .shstrtab. There's nothing "dynamic" about them. IOW - I'm
-confused by your reply.
+When you had asked my privately on Matrix, I specifically said: "Adding
+the pseudo-keyword to x86-emulate.h (not x86_emulate.h) is probably best,
+unless problems with that approach turn up." Even if identical re-
+definitions are deemed fine, I for one consider such bad practice. Yet
+by playing with this file (and outside of any relevant #ifdef) means
+there will be such a re-definition when building Xen itself.
+
+In fact the patch subject should also already clarify that the auxiliary
+definition is only needed for the test and fuzzing harnesses.
+
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+> @@ -23,6 +23,16 @@
+>  # error Unknown compilation width
+>  #endif
+>  
+> +/*
+> + * Pseudo keyword 'fallthrough' to make explicit the fallthrough intention at
+> + * the end of a case statement.
+> + */
+> +#if (!defined(__clang__) && (__GNUC__ >= 7))
+
+I realize xen/compiler.h has it like that, but may I ask that you omit
+the meaningless outer pair of parentheses?
 
 Jan
 
