@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819F89BEEDF
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 14:21:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830953.1246092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C852E9BEF3B
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 14:40:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831045.1246202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8fyP-0003rh-A5; Wed, 06 Nov 2024 13:21:25 +0000
+	id 1t8gGL-0003cG-Fa; Wed, 06 Nov 2024 13:39:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830953.1246092; Wed, 06 Nov 2024 13:21:25 +0000
+Received: by outflank-mailman (output) from mailman id 831045.1246202; Wed, 06 Nov 2024 13:39:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8fyP-0003qB-67; Wed, 06 Nov 2024 13:21:25 +0000
-Received: by outflank-mailman (input) for mailman id 830953;
- Wed, 06 Nov 2024 13:21:23 +0000
+	id 1t8gGL-0003ZV-C3; Wed, 06 Nov 2024 13:39:57 +0000
+Received: by outflank-mailman (input) for mailman id 831045;
+ Wed, 06 Nov 2024 13:39:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wNbQ=SB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t8fyN-0003pd-Jl
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 13:21:23 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1t8gGK-0003Z3-K1
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 13:39:56 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e6d0da9-9c40-11ef-99a3-01e77a169b0f;
- Wed, 06 Nov 2024 14:13:55 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5cef772621eso793349a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 05:13:55 -0800 (PST)
+ id 9949d733-9c44-11ef-99a3-01e77a169b0f;
+ Wed, 06 Nov 2024 14:39:51 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2fb6110c8faso63121301fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 05:39:51 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9eb17fa28fsm273957966b.171.2024.11.06.05.09.33
+ a640c23a62f3a-a9eb16a3bf6sm282781366b.24.2024.11.06.05.11.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 05:09:33 -0800 (PST)
+ Wed, 06 Nov 2024 05:11:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e6d0da9-9c40-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzYiLCJoZWxvIjoibWFpbC1lZDEteDUzNi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjVlNmQwZGE5LTljNDAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwODk4OTQ2LjgwNzkwNywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 9949d733-9c44-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzYiLCJoZWxvIjoibWFpbC1sajEteDIzNi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijk5NDlkNzMzLTljNDQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTAwMzkxLjY1OTI3Niwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730898574; x=1731503374; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730900391; x=1731505191; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZiJEoy4S4zfP9l8hKKq7xUt2X81zeaOKe3onGjZ2fFQ=;
-        b=d1uH4pbr3PXicDAE20eWXnOjHc3DbXuKXVS64KDtx7S3xA0iuy6iuzeEQc7kO2jwhY
-         ghZmbBkIXavU5rR4kSyYKQhGjZViihih0vjqSEBeBfjptQ3QNO5owdA0lSXf9fwWc9wH
-         fCjWiD2VJSt2BG3d3omNxA3EpsUCI5++7IajU=
+        bh=Eb4ZlEBdrUesJRtFoLJxjTO3FH3+xQ2X7hbwEozANNM=;
+        b=ioHtOeycM92691QIG99AAoKC767OCniA19T//ApEnuBsBAMkYvr1SHfwh2BD1Jr/7F
+         zzKI9qBYS8JSKXqBAUT/1crQQ6RTZstJrX257wGe5fRYbvaJljrMVoOYPBC+wfSqDuJ3
+         wugfIr7NpKC6//quO9cdhJXJQx/L7L3mL67yc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730898574; x=1731503374;
+        d=1e100.net; s=20230601; t=1730900391; x=1731505191;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZiJEoy4S4zfP9l8hKKq7xUt2X81zeaOKe3onGjZ2fFQ=;
-        b=q3zci3HxfF655zvH1oP9Jn5a4I8R0Ct6f8ZNSeJlSYVUdbFYTxWhxmuQrkjXGKaZLb
-         oNl4WzzKz8dckPbqRP305ne4NhkDc1W4I6nki+QNQUQ1x8h96VkF+K5zFDFGsi/j+eO4
-         uSV+YSGEMrpkPxqfoxgPofcTDAYo1dykolJzvUe7N56Ni1o7OrJhLQmSdolJ7CE1m5yi
-         nhVVegoMz0jVtUEDp+mU4hWAAkDW1jN1Ppq/A2l1teNQJcMHHOnBB0ig8ihutsFRiqsg
-         Y1fN3Iq+oYJuL6nuTLxmL1Yev6R+PeidvjfiweJTcsXNPdd0oymxuYRf5NmlewgeF3nV
-         WDQg==
-X-Forwarded-Encrypted: i=1; AJvYcCXnfUCzIR4XM1dypzGB9ZrQ8x7OCR9KalE63ffq2d5UKwysK7Da0hGY6RwTNQBFRbdEXaKH0upKjjI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPwJzw7SFI4plfu/gPXsB3lrxMJGkUO+4Hzmav6cym4KsuYbZT
-	XzpLtAP/CQJmlfShqDs7hS85HhD3khdnBC8345lp1SEt8PhVS+PNxVVWwxByL+yNmzohy4xpu+P
-	X
-X-Google-Smtp-Source: AGHT+IHuNVZLhuAGYmICAETFUALPV5YaVRscdMg2hw7MaUrRTje5P8go+3xYtGi0PTBOYLuSL7gEeg==
-X-Received: by 2002:a17:907:9813:b0:a9a:1253:4d81 with SMTP id a640c23a62f3a-a9e50b56a34mr1846669066b.47.1730898574364;
-        Wed, 06 Nov 2024 05:09:34 -0800 (PST)
-Message-ID: <82e5c2e3-9875-42d6-88e7-9127d89412d2@citrix.com>
-Date: Wed, 6 Nov 2024 13:09:32 +0000
+        bh=Eb4ZlEBdrUesJRtFoLJxjTO3FH3+xQ2X7hbwEozANNM=;
+        b=ZUfPtMSfhSHxbV+ZbxEZJmYSckUJ0/9aBn6DPiS8kCb98QkBEm929v850PRTJMz7Vi
+         xJmYrOcsSmU35ThmIUKZ+ttdisnZDaMgtHDdm5xz3o1Aymuj5EYuxAQBYByMVQhCoxM4
+         zyA2RKb1VY71mefuAmbYz+Xffok28NlRd4NwrMl6GnNglRfhu9dfNlg0Mwtx9ZR4+vQ+
+         GdJ0Xetm/QEXCUvB/pf8lpD63thPRYuc+EAbj9qkRKUQdwxclKdoMi13VkrGMzIxEz++
+         guNm0ZIQ9tBrgVS3AzzK62ECXnamJaSiKjB42O9TFrC6b1+c3972BI1ZnRbs/QsI84Cf
+         uF6g==
+X-Gm-Message-State: AOJu0YyR+sPRjmrtiaSDJKd+2kad2c4P1mhqHAMb2T51c4RPQgu8Sz4D
+	mNAiTNEvMJbkigEsfG25vBXa3qc+w+aMNN/JS6CiR2pAj9fDopZolsbVJwcg+aw7CHlIBA8eYeV
+	V
+X-Google-Smtp-Source: AGHT+IGItccYorqO9/YYseq3f3D437tjeNzdTGEK/ifqtfhwdvNkV1Dr3Fi4OxHB439Ckg5b5clTlw==
+X-Received: by 2002:a17:907:971d:b0:a9a:13f8:60b9 with SMTP id a640c23a62f3a-a9de5fc7847mr3923686466b.36.1730898704211;
+        Wed, 06 Nov 2024 05:11:44 -0800 (PST)
+Message-ID: <7ab2705e-02ba-4e5f-8dd9-ac00a93ba39a@citrix.com>
+Date: Wed, 6 Nov 2024 13:11:42 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] x86/boot: Uses nm command instead of map file to
- get symbols
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241106130620.1928109-1-frediano.ziglio@cloud.com>
- <20241106130620.1928109-3-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH] CI: Fix package installation for Coverity run
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>
+References: <20241105204603.3412857-1-andrew.cooper3@citrix.com>
+ <ZytVxKOtQfR7DWeX@macbook>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,27 +133,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241106130620.1928109-3-frediano.ziglio@cloud.com>
+In-Reply-To: <ZytVxKOtQfR7DWeX@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/11/2024 1:06 pm, Frediano Ziglio wrote:
-> combine_two_binaries.py only understands GNU LD's format, and does
-> not work with LLVM's LLD.
+On 06/11/2024 11:40 am, Roger Pau Monné wrote:
+> On Tue, Nov 05, 2024 at 08:46:03PM +0000, Andrew Cooper wrote:
+>> Something has changed recently in the Github Actions environment and the
+>> golang metapacakge resolves to something that no longer exists:
+>>
+>>   https://github.com/xen-project/xen/actions/runs/11539340171/job/32120834909
+>>
+>> Update metadata before installing, which fixes things.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 >
-> Use nm command instead to get list of symbols; specifically
-> BSD format as it does not truncate symbols names like sysv one.
->
-> Fixes: aa9045e77130 ('x86/boot: Rework how 32bit C is linked/included for early boot')
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> Seems like the current Ubuntu image has a stale apt cache?  It's good
+> practice to update before we install anyway.
 
-Much nicer.
+Thanks, and yeah.   As chance would have it, the problem resolved itself
+in this mornings run, but we should take the patch anyway.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-
-Looks like the series is ready to go in now, so I'll take it right away
-to unblock FreeBSD testing.
+A couple of weeks ago, they did strip out one of the versions of Go, but
+it wasn't the version of Go we were trying to use.  But in hindsight,
+that doesn't mean that the metadata was kept properly up to date.
 
 ~Andrew
 
