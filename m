@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17E5F9BF923
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 23:19:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831383.1246673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6145D9BF972
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 23:47:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831391.1246683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8oNF-0007aN-VK; Wed, 06 Nov 2024 22:19:37 +0000
+	id 1t8onL-0003AY-0k; Wed, 06 Nov 2024 22:46:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831383.1246673; Wed, 06 Nov 2024 22:19:37 +0000
+Received: by outflank-mailman (output) from mailman id 831391.1246683; Wed, 06 Nov 2024 22:46:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8oNF-0007YN-S7; Wed, 06 Nov 2024 22:19:37 +0000
-Received: by outflank-mailman (input) for mailman id 831383;
- Wed, 06 Nov 2024 22:19:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t8onK-00038b-UP; Wed, 06 Nov 2024 22:46:34 +0000
+Received: by outflank-mailman (input) for mailman id 831391;
+ Wed, 06 Nov 2024 22:46:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SEZf=SB=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1t8oNE-0007YF-3q
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 22:19:36 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20618.outbound.protection.outlook.com
- [2a01:111:f403:2406::618])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31c7ade0-9c8d-11ef-99a3-01e77a169b0f;
- Wed, 06 Nov 2024 23:19:32 +0100 (CET)
-Received: from SA1P222CA0054.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2d0::29)
- by MW4PR12MB7359.namprd12.prod.outlook.com (2603:10b6:303:222::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Wed, 6 Nov
- 2024 22:19:25 +0000
-Received: from SA2PEPF00003AE5.namprd02.prod.outlook.com
- (2603:10b6:806:2d0:cafe::7b) by SA1P222CA0054.outlook.office365.com
- (2603:10b6:806:2d0::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19 via Frontend
- Transport; Wed, 6 Nov 2024 22:19:25 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00003AE5.mail.protection.outlook.com (10.167.248.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Wed, 6 Nov 2024 22:19:25 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 Nov
- 2024 16:19:25 -0600
-Received: from [172.31.40.161] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 6 Nov 2024 16:19:24 -0600
+ <SRS0=wNbQ=SB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t8onI-00038V-PL
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 22:46:32 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f4bd067a-9c90-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 23:46:27 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4316a44d1bbso2956315e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 14:46:27 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432aa6b2d13sm37631225e9.12.2024.11.06.14.46.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Nov 2024 14:46:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,109 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31c7ade0-9c8d-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQwNjo6NjE4IiwiaGVsbyI6Ik5BTTAyLVNOMS1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjMxYzdhZGUwLTljOGQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTMxNTcyLjI5NzcxNCwic2VuZGVyIjoiamFzb24uYW5kcnl1a0BhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r9wJVTs0hNsTHlxO891MiuztQDQshJ/djKY4yGaBCEMZJErw7lxS8sIpwt3szpymhfvUB8j1rd1stnNtHhoClgA7X5+AYLZ2KppRrzyFqcHjL5+xXH0G8Rw11ZWsWCyJ2GAfGnE3F4F3oGzLPAx1rz45cDCWnVHslUA11zqEaHVbcJoQulGxuZy19VG4nWg8gM+JxQvS3E/Zt96J3hC59qPG52Oi0daLnlI+E44bEOXHWQrzHf3OCG0NF6giIMfQMyShiNjI7TI+xWPSXNpGbmzU1ZN6DgdjNJ223yOCa+mTcnl7FG65/W2HpyFxxXfs1n+ytdJc6fgompGGnmHBrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NVL/XZ/2Jxc2pMkp+egjwkW+G6EnxLlH0GSd0uYX6fI=;
- b=yv43rptnvXqdDpK1oXnkADQ4zQQQ3bR3IL1hXC3tubOIzRqRdGDIEr6QL4FRSCDEsBzpdQ37IQv8UUX6L2wpF8Re8EfP4DEEmNBZy2Hr3osfTqHEA3JKLWMOWVTpEyKKijF9SGM3KE2VPFgc19ZtwCMBMpOPiyCepVIN8eoYT61ylvw/AaBpUtAWliJfBnXtqhkm+cqhAe/Gc0MW1ewzeJeQzL9bp41lo0sErBzRTDyiy3mTGr967moy7RF5RIeA5LE9JnOx5n5kdWYKfocZ2ANvTMdicPZ3Nl5uqU+gbD24ytUg0xZs8YSu7mwArzhQZFELVVX0rJIE01VHM/H+BQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NVL/XZ/2Jxc2pMkp+egjwkW+G6EnxLlH0GSd0uYX6fI=;
- b=tamIVEkpMQwcArw9WjASDU/WfkL3S/sMp+7CvlSYL81yHtPSgOUWMr2V7/QbZZTbNXVPmXH2avgqGkDXSZhr7f9DcxxDCm8ES/ozOh3kaPFe59F2WGWj7nO2IMbESgT9HcwnERidyL712RBxRTo/kqXbNxIXbIxN75ToDcKw9qM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <95af4f8e-585c-4bd6-a3fc-c7234e9cce83@amd.com>
-Date: Wed, 6 Nov 2024 17:19:24 -0500
+X-Inumbo-ID: f4bd067a-9c90-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzIiLCJoZWxvIjoibWFpbC13bTEteDMzMi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImY0YmQwNjdhLTljOTAtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTMzMTg3LjE0ODg4Miwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1730933186; x=1731537986; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5WjcH9LsZd4f+cNUlGoEXrtphxMziOEhEaYMGYoVdBk=;
+        b=OXtBGypGcp5f0CZUJCjcIiQH0piejnRxHru9sfS0HX58nr7Us+NhITqL8wgmwsg3zJ
+         ykBV6UbRBJFgx/N2NSU+BMIz2KkIYWjieH+TYtQh8Wy4WjTuSWzvcUNT0qRg7zaLgcOE
+         AJ1riaaFY2XXL5xsUAEJB/CZm7/u92OUZAjHU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730933186; x=1731537986;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5WjcH9LsZd4f+cNUlGoEXrtphxMziOEhEaYMGYoVdBk=;
+        b=JUCrADFVxioohX6e5xpLQsDuAywmr1I1yYMn5w2u24J7RRkfvot6bzkcUsWCEDfkZC
+         7wUjpHSmlV2ZQQdImc0SPvcUotq8UQkl5M5ahMwvLUV4OFw+T53BvvXYG6G82Gi6MBNT
+         tcOrCHPqf4Q6wqk1DWzsE54dvUIYIR7nSW9bF/AbQZZD+QhsKTwhncnMPyYadyt8OeGC
+         ig+JytjZ8ZdH68SMmJeWroZiw2tYceGrBuJSB8mJj6uYAMeGcbl9q6gM0o3V0kPjDLbd
+         C0aRl6p7G08jTC8CFq9jjVe5a4d1ncGzz5wi73vWKlSrVYQHv0NEVCFOdacd9f64uZKO
+         zzxw==
+X-Forwarded-Encrypted: i=1; AJvYcCXzqARl/vcp8HbOlYmvX8yEA9Kjshb15R1ZUgr51tyb3dfn79ZJDGGcKTOzcgID/huq5eaSF4TnIwg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxe09E0bvbhl+Aya0KUE/lauGNADd2dI07JoaQuRuzSWabtXZ9j
+	LizJ5Ffbh+tMWh9qyZeFZPEZrBPOBJLIfExrioVuNAgHiI6NsefwRDB5U9RhE/o=
+X-Google-Smtp-Source: AGHT+IHuq5hH2Jv9TtJrACc44EDHadDm5b3UFEojs1S3B3DgcF6ML4hehyGZ5Q0jWV2u9mFrMnZWiQ==
+X-Received: by 2002:a05:600c:511f:b0:42c:b037:5f9d with SMTP id 5b1f17b1804b1-4327b6f466amr231576485e9.3.1730933186290;
+        Wed, 06 Nov 2024 14:46:26 -0800 (PST)
+Message-ID: <f592170a-6cb3-4bfc-9486-2253a6443e33@citrix.com>
+Date: Wed, 6 Nov 2024 22:46:24 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/12] x86/boot: add cmdline_pa to struct boot_module
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v8 04/12] x86/boot: introduce module release
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
- <20241102172551.17233-8-dpsmith@apertussolutions.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20241102172551.17233-8-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE5:EE_|MW4PR12MB7359:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cb19493-eb34-47ad-a7be-08dcfeb112aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dmxBL3ROTDFaMytpUGhkYllZNlZxOStLbFNqbUJPQmJxZWlnTEpVYkpWdFNN?=
- =?utf-8?B?UHdZYmJZWm0zeE5LUFNwZEd0WHV0c3R6VzdEQnMvd2p6QmUyZDVtWXZNZXNE?=
- =?utf-8?B?NDA5bEtnekU2YVRGb2p6V3NXR1Z2Uzh0ZVRxM01tOTkzY09BOS9nc3ZiWWxo?=
- =?utf-8?B?K0RyamVBdjQxVWxxNDM4UlRhVUpDSDdjTzRtYzlzbDVyTTh1M3huOGlUb0Yr?=
- =?utf-8?B?Z3RXcnhLcnNjTUZnSVA4RHhXTGlxcTd6UkoxeE5Yd0Y4Z1JJME5BQkswZkkx?=
- =?utf-8?B?ekFtb0djRXdITWIwRzl6MTlhQ1dOd0FGTFc0YXUzMmdSY0JYRzJTaWxXUmp3?=
- =?utf-8?B?U21zMStSWTNLbE5Dc2F2Z0RWaXVINDVFcE5aajZ4RXBCZ3VEZzlTV0owRjV5?=
- =?utf-8?B?STBwZGFHbFNMdlhSL1l0WEl3Mk9QZGlxbW1tam5tbUFmZFBQZlRqOHRITDVL?=
- =?utf-8?B?TVpSREozVVZWSHdjTDNGOEJuTHhJbzlvOGFMcmk5bEVQRGFCMlBjak1hL0FK?=
- =?utf-8?B?L0VhQXFBU1ZScnAwanFQVlVyZGs4aldsRDBXVTB4ejFQdlVJQW1OUnUzWmJs?=
- =?utf-8?B?R0NHZVJKeU5PcktHbkd1aTlGanBxRlhXdTJ0cDRFU2RkbjVDRS9mNjk2VjRY?=
- =?utf-8?B?RmJXYS9ueTU5SWhHZGxFdndmaGRIL1lsWENvcDIxakpZUTVudmRGOVBUQ1B0?=
- =?utf-8?B?dG5YQ3JkWngvTGNqVzFTcFRiQXJSVEl2ZC9jOHdKTy9ncFZ5emNVdzNzNmow?=
- =?utf-8?B?M244THNIaTQydmVzYjVPaEduR1BYVkttTzBmTDB0QllHWHVheklIQjhtR1hP?=
- =?utf-8?B?RjRUWi9NdXNVN3RmZkh4TW92cTRWamQwVlZBcm5iUmZ6dGdVVVhLd3JwbEFk?=
- =?utf-8?B?MmNCYUlYcVdzMldENXVYZ2REVWtVQjdjS0NUNXBTTmVGNVNtTCt4c2xtN3A2?=
- =?utf-8?B?emV5Ymp6RWEvTVhrQWdVckN2V09SUForSGZUZ2hnUGZ2TGQ3T0ZtWWp1NThJ?=
- =?utf-8?B?eGl6Q3JRTmFBbmtVM1IvK2pUekhzTGcweWQyNzE2NjdIVnlmRlBmQm5zQWNJ?=
- =?utf-8?B?R050TXBBcUtUZ0dGYUhUTnNOSmNid2lUV3hJVUJjTTc0YzJrZ1dXUVp1MzVE?=
- =?utf-8?B?enZiTHdYVUl6elRjYVNrQ1pxMTVnTy9IdDV2YTJWdXUwOG9jUEZIdllycGZo?=
- =?utf-8?B?bFdzZ1MzaVZPS2dpZ3ZoazhUNlAvQXVhYXRJWEd2RVI0dFBVZWNBZkw2Z09n?=
- =?utf-8?B?dlhjV1VyS2daMEtYd0ZLcjBGM2lvbm5UQXdwMk1Ya0pMQUxzM1B3STllTlJE?=
- =?utf-8?B?d0FXcVpPdS84L2hKeXNmS2pqY3NEcGM0M3Q2blBCcEY3bGh2R3ZVVjF5Q2th?=
- =?utf-8?B?SmRGaDFFaTl5amZ0UzlmMjMwVytNVEhBOXpRNExKa2tzVDhWT0RsRjBzblpG?=
- =?utf-8?B?bjdXVjV6NXBtRTJoenkxNWdHNVdwS0R4YjhWaS9maVN2dmdaQzBLWlN5Nnpp?=
- =?utf-8?B?K0ZsaUh2RXBsTC9ldldhM25aNkxjVkwvNzEzeFhIempWbTlISjIrcm1rRzgx?=
- =?utf-8?B?ZlNEOHZnOWt4YldjTkNLOGZUU2preG5RSjd5Rkp3U2Q1Vjc1NjV1dGNsSjQv?=
- =?utf-8?B?Z1hkM3dwZUtCbGlUTGJ0STVZaGJENlVBUHRpWm56TXJ1T1dYSFJUWlU5MDFW?=
- =?utf-8?B?QXFIbnFNZVhTMElnc2xWVlBOU1dGbWZycmNOaXlKY2NCZU1ibk9aN2lPVVBj?=
- =?utf-8?B?a3hkWjRHbk5iU28rZWN3YkJoVklvU204V2UzV2lnL2lya2dNR29iMWs4bjB0?=
- =?utf-8?B?akEzSDhhcTAvQUhHRVFRYlZTWm1icXZ1MVpVSXlaSVh3UzZiaEFoWmxUQ2lB?=
- =?utf-8?B?anVtWFJjemI0TXdKakhJQkZIM3BnRHB0NHg1M3VDc0dHNkE9PQ==?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 22:19:25.4826
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cb19493-eb34-47ad-a7be-08dcfeb112aa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7359
+ <20241102172551.17233-5-dpsmith@apertussolutions.com>
+ <773dbe75-d1d3-41ea-8ff7-c031e0e9a920@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <773dbe75-d1d3-41ea-8ff7-c031e0e9a920@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2024-11-02 13:25, Daniel P. Smith wrote:
-> Add an address field, cmdline_pa, to struct boot_module to hold the address of
-> the string field from struct mod.
-> 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+On 06/11/2024 10:16 pm, Jason Andryuk wrote:
+> On 2024-11-02 13:25, Daniel P. Smith wrote:
+>> @@ -2122,6 +2152,11 @@ void asmlinkage __init noreturn __start_xen(void)
+>>       if ( !dom0 )
+>>           panic("Could not set up DOM0 guest OS\n");
+>>   +    /* Check and warn if any modules did not get released */
+>> +    for ( i = 0; i < bi->nr_modules; i++ )
+>> +        if ( !bi->mods[i].released )
+>> +            printk(XENLOG_ERR "Boot module %d not released, memory
+>> leaked", i);
+>> +
+>
+> Why not release the memory here instead of leaking it?
+>
+> I feel like the corner case of mapping the dom0 initrd is leading to
+> this manual approach or releasing modules individually.  That logic
+> then has to be spread around.  discard_initial_images() kept the logic
+> centralized.  Maybe just replace the mod_end == 0 special case with a
+> "don't release me" flag that is checked in discard_initial_images()?
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+I've been conflicted on this for ages, but I agree.
+
+There are many wonky things with the current arrangement.
+
+First(ish), discard_initial_images() should be named
+discard_boot_modules() (if it's saying a separate function).
+
+Second, the individual dom0_build.c's should not be calling this
+directly.  They're both right at the end of construction, so it would
+make far more sense for __start_xen() to do this after create_dom0(). 
+That also avoids needing to export the function.
+
+And yes, as Jason says, the "initrd mapped instead of copied" is a weird
+corner case, and the other path manually releasing and also saying
+"don't free" is just pointless complexity.  I do like the idea of a
+"dont_free" flag.
+
+Thoughts?
+
+I know this would be moving back to a more v7-like approach, but I think
+the end approach is cleaner.
+
+~Andrew
 
