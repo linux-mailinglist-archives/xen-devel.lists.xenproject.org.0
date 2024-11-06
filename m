@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63CD9BEA5D
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 13:44:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830927.1246042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73F9E9BEF05
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 14:28:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.830979.1246142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8fOT-0002mB-GS; Wed, 06 Nov 2024 12:44:17 +0000
+	id 1t8g5T-0006hC-34; Wed, 06 Nov 2024 13:28:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830927.1246042; Wed, 06 Nov 2024 12:44:17 +0000
+Received: by outflank-mailman (output) from mailman id 830979.1246142; Wed, 06 Nov 2024 13:28:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8fOT-0002kS-Dk; Wed, 06 Nov 2024 12:44:17 +0000
-Received: by outflank-mailman (input) for mailman id 830927;
- Wed, 06 Nov 2024 12:44:16 +0000
+	id 1t8g5S-0006dv-VT; Wed, 06 Nov 2024 13:28:42 +0000
+Received: by outflank-mailman (input) for mailman id 830979;
+ Wed, 06 Nov 2024 13:28:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yuz5=SB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1t8fOS-0002jr-3o
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 12:44:16 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ <SRS0=DrBW=SB=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1t8g5R-0004n0-IY
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 13:28:41 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2084.outbound.protection.outlook.com [40.107.96.84])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3a5768c-9c3c-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 13:44:13 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-539f2b95775so7752774e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 04:44:13 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53c7bccced1sm2482483e87.123.2024.11.06.04.44.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Nov 2024 04:44:12 -0800 (PST)
+ id b15995f6-9c42-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 14:28:11 +0100 (CET)
+Received: from SJ0PR03CA0360.namprd03.prod.outlook.com (2603:10b6:a03:39c::35)
+ by SA1PR12MB7443.namprd12.prod.outlook.com (2603:10b6:806:2b7::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Wed, 6 Nov
+ 2024 13:01:50 +0000
+Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::6b) by SJ0PR03CA0360.outlook.office365.com
+ (2603:10b6:a03:39c::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.18 via Frontend
+ Transport; Wed, 6 Nov 2024 13:01:49 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8137.17 via Frontend Transport; Wed, 6 Nov 2024 13:01:49 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 Nov
+ 2024 07:01:48 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 Nov
+ 2024 07:01:48 -0600
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Wed, 6 Nov 2024 07:01:37 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,306 +63,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3a5768c-9c3c-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzQiLCJoZWxvIjoibWFpbC1sZjEteDEzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQzYTU3NjhjLTljM2MtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk3MDUzLjU0MzQxOCwic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730897053; x=1731501853; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=7qTUQjBhI9yWwF+wV7C9d94TaRmYhd28hDx20TNDDk4=;
-        b=Zxjg/+79tBgW6DKuUl5n/iZAVDKsLz9SfntHLiO8GZMpicDYEQbCF4Rdg03gvqlvTk
-         92EIYEw7AlhQrfXyBioOKx9tU45Qwc1ecDulQKIB8jeVU+KqKo5H/Dcu4OKSk62nvBMu
-         FLw/G9ghg0tX/6Fwe4cNz2CpV0IkiTWd/prxz02zdVBJTleVxnA4czv5hxTzjGf7n9jn
-         p753DKt0CsEOt3Lz09dB4PsYJUI2DsB/qvM79YH2ZAC/iTzQb34SEc1oaHjvrvFzNw7h
-         rX56bxgSHX3RSrMT6vDqCdoB3IhU2DkbH4lrdzQGSgduxru2az9JkgWaPJC4h/tn7SVT
-         DfvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730897053; x=1731501853;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7qTUQjBhI9yWwF+wV7C9d94TaRmYhd28hDx20TNDDk4=;
-        b=bqZYxHoLKP8we79f00Ubt0bi37DojmPGPQtFiemhXrO+EJnTkjrlbZq5xXWmlle6Bi
-         q5rT5Bn1wI3vuZrqnG/71y2C8JhneHw0EO5lPKjTviJnyZLxnv9YMrEe5GKGn/Q1n+3y
-         71PGCvSB9k3uYwhuY/Hr5KxIdgSm2PRQev4HDMljZvk2BjE2qndXpCZ7403d9+giFVqW
-         f/+QT2mnI5V4sQnxWhICiscyV3dIW4ICEUdeGuXjK/ErKVG4felSyHumqnaxEJP3U+K4
-         WkiBp2rmVpsg+ByB8NIvVGrXvobSeH54BTQwTw0T1QU5+n95fo5QNlRu6uAMN98ccof4
-         5Lgw==
-X-Forwarded-Encrypted: i=1; AJvYcCXPxVRlmstLJT9cx6jUmzOeZ6DkiEgqd50k81gz3NvLC9GZ/7WW8Xn2saKRP2yo+nwBPVNN5kJdgJ4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyXo2DrWr0I2nalR4sQZyhXxlxS5P7eRD3ysv/s+hx0uQ2Moki8
-	uwLqrXxWGKn68xnt7WLpV99wkFyPtuhyEblWxT+LDjh8Rr56CJA9
-X-Google-Smtp-Source: AGHT+IHS3RPOBJYY7bxbqnwbUgxFO/woX/PnmYAdWli6f0NWg7PgHf1g0qhuFFaylMVxxuEsoqxz+w==
-X-Received: by 2002:a05:6512:1150:b0:536:741a:6bc5 with SMTP id 2adb3069b0e04-53d65dca64cmr15362293e87.12.1730897052664;
-        Wed, 06 Nov 2024 04:44:12 -0800 (PST)
-Message-ID: <8380261d24388e453e74514dad8216c97e3bebee.camel@gmail.com>
-Subject: Re: [PATCH v3 1/3] xen/riscv: introduce setup_mm()
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman	
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper	 <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini	 <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Wed, 06 Nov 2024 13:44:11 +0100
-In-Reply-To: <9e22b5ad-634f-48b7-b64c-fc44319a1d4d@suse.com>
-References: <cover.1730465154.git.oleksii.kurochko@gmail.com>
-	 <0f7cd809e848607408ff4615e55b847f5a524559.1730465154.git.oleksii.kurochko@gmail.com>
-	 <9e22b5ad-634f-48b7-b64c-fc44319a1d4d@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.1 (3.54.1-1.fc41app1) 
+X-Inumbo-ID: b15995f6-9c42-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjQwLjEwNy45Ni44NCIsImhlbG8iOiJOQU0wMi1TTjEtb2JlLm91dGJvdW5kLnByb3RlY3Rpb24ub3V0bG9vay5jb20ifQ==
+X-Custom-Transaction: eyJpZCI6ImIxNTk5NWY2LTljNDItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk5NzExLjIyMTYzOSwic2VuZGVyIjoic3RlZmFuby5zdGFiZWxsaW5pQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DOkX/dGQ1d+xLr8P8IMY3/UMydE58Jvq9rUFKEQ1TCKxMfvzjuJXLC+D9UuFND6sgmyQjRWaaBnmG63DjqEOMV59EBNoAnKZCo5UH4SMn5ye3BBz7oUm9kxy3GgB9+aOm5aTXeMJ4vNXitYcejo75y/s3mAv8aVa+SmgovkAd+4+uo/yc5xnNRskenk4kREUf5Npzc3ve1DoClZOLxU2PBmCBf03QzjFAXmQfeO82ECAbx4piOevTlUeCqkG50bhXISZy2we39ui7GGGSBWXpazPxJcQAjVEwISxfNUV7yXVvVcaF1xU4G6ErMPEE/oYk+XVbedl+wwsnAlBzTZEew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XT11z8kAJY3Xk8WK3qUJgge4WxIHZoc7gqKAeAzEMX0=;
+ b=e49fZlIOBrS2zOMAnq76/5zv12v0YziDP0CAtbiYGEkoyz/63zAwmqbXqrUaUfR/RaOQa+e5ZI35/kFuMGK7W9BBElIbEdrbQwwoOf8AYw1XRZrvkTbpaqyLyR1cMZiMAeYR2eDky4l8DXIUPF38D8HD0sHho1iffVLGzXd6ASUDtmUR84S2+1lVbAt6vnOE14CgCrCJeMkA4aXni6gWd7ggCImYQeRUO/aeAuMqR2m91Gyx/MDLdaYLfr6+fPxoZhuPxTnEN1Bw06cNZKByC5WVQYLSJTG8vy1D7clf+hicvozschTQDOyu9vNTXjNHAe/UaeL5HIxU/rQH7jYAUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XT11z8kAJY3Xk8WK3qUJgge4WxIHZoc7gqKAeAzEMX0=;
+ b=xfc5haTJLPnzJLulq2yAQfY4lRsO/NHqDSAw4DnPbTK+djxE9OAQtlwImB3t4ZAJJBPPVLlYT2R91fUEjo4Ml3y6RhW4cYjoQPKXaKkFGC6mUsWsku4YsK8Mh/QHNN7fROWbl25RIM+x67FACmf+UZ9vc4/6H6mLgE/Bb51SwmY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Date: Wed, 6 Nov 2024 13:01:27 +0000
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Anthony PERARD
+	<anthony.perard@vates.tech>, Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] CI: Fix package installation for Coverity run
+In-Reply-To: <20241105204603.3412857-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2411061301140.89051@ubuntu-linux-20-04-desktop>
+References: <20241105204603.3412857-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="8323329-540673888-1730898107=:89051"
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|SA1PR12MB7443:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5af805f0-100b-416c-1fce-08dcfe632d8a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VHlHcUhhYlJPSE45VHZJT2ZLcUhFd2xPSTltV0g3RkFIbVh1L0ZEMStxZUFh?=
+ =?utf-8?B?TW1xNm1IMWRiWHRvaFJLZ25MZmNyZ3JDT2orM0pvRFBDbVQzSWk3ZnpzSGRU?=
+ =?utf-8?B?OEZsYVpWQ0R2R0hFYzZkU1pnTW4zY2J0M3V2WmozdUFQWHU1SXNWeWJ1ZkhY?=
+ =?utf-8?B?dkN5NzdyU0hycE8wR3NIYWRFVVc1ZW9Ca2ZUM25VMHNRMUVOay9EeUhyUTFs?=
+ =?utf-8?B?S2NvVmZTZXhVWjZ5SkRNQ1BqRm81ZVV3dnVvcEFBNjNxY2RoNHVZbEU3bWEw?=
+ =?utf-8?B?R0t0T2UxTWh5TTR1WVBLQ0tvb0Y2UHBReCs1bitTcU1TUjI5bFIrMjlac1hy?=
+ =?utf-8?B?d1IyR0s0ZFdBbVBBcE0vc0tmaCtHUkFuQ3VFKzQzS1lpdGw3NTZkaEhxY0Vq?=
+ =?utf-8?B?VmJJcHV4Q2lOS2hhK2NzMVFrMGhsK1g2c2N5Y2FyNEtxaDUrLzkwd20yU2Ir?=
+ =?utf-8?B?TjVseERTb202bUVmOU9DK0J1emFIZFM2YnFSMWg2dVlWdnRCbmVzSVF0eVU1?=
+ =?utf-8?B?YWNVRkJ1N1JyaUJPU1A0U0hiR1N2M3pPV0xhcnB3aHpUdlNmeDRyWklkOW1r?=
+ =?utf-8?B?SGpCZ3FqQUVzOTZWUGR5YVpRUFlQMmJoS3FxNWliQTlyaG05UDNUSk1ydmZs?=
+ =?utf-8?B?RHd0eHBLTVlLY01ycWtWdnkrYkozYjdEMUduM0U3MEpFREtsaTdoK1M4UWFG?=
+ =?utf-8?B?Skd5UmlPa1NKeVdkejIvcDZPVXlZWFhDMTFsdlNnYU9lcEIrbWVKblRQaHBK?=
+ =?utf-8?B?VDVMamZGOVJUQjZKSVdNKzd5YmZWcDcrVWZFZ1JTWCtMRkQycElZWU5hNldy?=
+ =?utf-8?B?N2lUemNvNjNyS0V6NWYvYUFJTTVXWmZ2YTBpaGI4Z3MweWplcWhVdkdEU0dV?=
+ =?utf-8?B?YUdtZE9NTjZuMHZ0M015WHJjdS9oY2dJSllHTlhFb05oc3RUclNaeEN3c3dK?=
+ =?utf-8?B?c1crSW9oY3Z0MWd2Q29SSWVoRnpZZ0NyZUZyTG1FeWlNY0JmT1VtaC83Y2N5?=
+ =?utf-8?B?UU5ZSGRZOHNubEhjT2VoZWZZR21ZN2h3S0pZeGdxRTF1eHM4b1RCRlZ2Rm41?=
+ =?utf-8?B?bDR0WlpKRXhPQVBuSVhlMGoydElmcmhNNmwxR09rSGhROGlhbEg1bUxlTldR?=
+ =?utf-8?B?NHp5YWNWVFoxV3ZsSG1CdUFLaWl4SWRlbTgwczdWcUUrdnE3cVhCcTZmcU9X?=
+ =?utf-8?B?ZTBZRy9vVjdYaDlFTFkvaEg5bjgyRTUvUmJuNjFuL0tHNndxNmdvVkRRTHFQ?=
+ =?utf-8?B?RjVaUkpKUnFJdU1zRnVCTS9XQzIyRWpRUk8xUk5tL2pDNGh1d2R6dDJhdGN5?=
+ =?utf-8?B?eWtFMG9BSXJLY1RPZ2lzSis2VW42SVQ3SXUvZGtYZzFVeEpuVS9KNHZ6eVZO?=
+ =?utf-8?B?M1NWMFFuc1J0SEZTQXBzVEJ3Zkx0NjdjWFRUbXc3UjJFbFVyTW9mRFRWMEF2?=
+ =?utf-8?B?ZXZaaXRSM0hRaU0wYThYWllkd0Z6SWE2VWhMYWZBYVNTKzBMSHFQdVVhcSs0?=
+ =?utf-8?B?Yzk5SVdzdFc1S3NhZUJDRFNzYVllSVBES1ZZRnFkV3phY1dTQ2lzcHE3eGJy?=
+ =?utf-8?B?UjBEaUdYNDVQaU1QVVpUUE1mSmRXWElXM0ZINlU3SVUzRXpJblU0SzZtdUt5?=
+ =?utf-8?B?bFhYTmlqZXRGblFJajYyUnRRb21WaHhIRmRSRzd3VkdwK1piSUNsaEFUSS9p?=
+ =?utf-8?B?L0RJRHl2K1ZUMlpvbU9pdVcxWEM5YnZKcFB2ejQ4ZjgrTjZQb3JvZnhDUm9B?=
+ =?utf-8?B?WXpGbW5oMEJXWXZlT0tmL2ptTEdxcWNnOEE1blE0WTZWSTJwRlI4STVDcU9j?=
+ =?utf-8?Q?8rDx19Ebw+uafOeLqFnep61VRP3sqMMlqn4UU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 13:01:49.7293
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5af805f0-100b-416c-1fce-08dcfe632d8a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000971E6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7443
 
-On Tue, 2024-11-05 at 16:20 +0100, Jan Beulich wrote:
-> On 01.11.2024 14:16, Oleksii Kurochko wrote:> @@ -423,3 +429,138 @@
-> void * __init early_fdt_map(paddr_t fdt_paddr)
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 return fdt_virt;
-> > =C2=A0}
-> > +
-> > +vaddr_t __ro_after_init directmap_virt_start =3D
-> > DIRECTMAP_VIRT_START;
-> > +
-> > +#ifndef CONFIG_RISCV_32
-> > +
-> > +/* Map a frame table to cover physical addresses ps through pe */
-> > +static void __init setup_frametable_mappings(paddr_t ps, paddr_t
-> > pe)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 paddr_t aligned_ps =3D ROUNDUP(ps, PAGE_SIZE);
-> > +=C2=A0=C2=A0=C2=A0 paddr_t aligned_pe =3D ROUNDDOWN(pe, PAGE_SIZE);
-> > +=C2=A0=C2=A0=C2=A0 unsigned long nr_mfns =3D PFN_DOWN(aligned_pe - ali=
-gned_ps);
-> > +=C2=A0=C2=A0=C2=A0 unsigned long frametable_size =3D nr_mfns *
-> > sizeof(*frame_table);
-> > +=C2=A0=C2=A0=C2=A0 mfn_t base_mfn;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 if ( frametable_size > FRAMETABLE_SIZE )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 panic("The frametable canno=
-t cover [%#"PRIpaddr",
-> > %#"PRIpaddr")\n",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 ps, pe);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * align base_mfn and frametable_size to MB(2)=
- to have
-> > superpage mapping
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * in map_pages_to_xen()
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0 frametable_size =3D ROUNDUP(frametable_size, MB(2))=
-;
-> > +=C2=A0=C2=A0=C2=A0 base_mfn =3D alloc_boot_pages(frametable_size >> PA=
-GE_SHIFT,
-> > PFN_DOWN(MB(2)));
-> > +
-> > +=C2=A0=C2=A0=C2=A0 if ( map_pages_to_xen(FRAMETABLE_VIRT_START, base_m=
-fn,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 PFN_DOWN(frametable_size),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 PAGE_HYPERVISOR_RW) )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 panic("frametable mappings =
-failed: %#lx -> %#lx\n",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 FRAMETABLE_VIRT_START, mfn_x(base_mfn));
-> > +
-> > +=C2=A0=C2=A0=C2=A0 memset(&frame_table[0], -1, frametable_size);
-> > +=C2=A0=C2=A0=C2=A0 memset(&frame_table[PFN_DOWN(aligned_ps)],
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0, nr_mfn=
-s * sizeof(*frame_table));
->=20
-> Interesting - now you write out a huge amount of -1s, just to then
-> overwrite
-> most of them with zeroes. I'm not going to insist that you change
-> this yet
-> another time, but the performance hit from this is going to bite
-> you/us as
-> soon as Xen is run on bigger-memory systems.
-I agree that validating or invalidating frames in a single pass would
-be preferable to nearly two passes. I=E2=80=99m considering whether there=
-=E2=80=99s a
-way to ensure that frame_table is set to -1 at compile time. It seems
-the best approach (and only one?) might be to initialize frame_table in
-one pass as follows:
-1) [0, aligned_ps) =3D -1
-2) [aligned_ps, nr_mfns * sizeof(*frame_table)) =3D 0
-3) [nr_mfns * sizeof(*frame_table), frame_table_size) =3D -1
-Does this approach seem optimal?
+--8323329-540673888-1730898107=:89051
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
 
->=20
-> Plus, unless I'm mistaken, the function continues to rely on ps =3D=3D 0
-> as
-> input. Just that the dependency is now better hidden. Specifically if
-> you
-> calculate nr_mfns from the difference, and then use that for
-> allocation,
-> then you need to offset the start of the mapping you create
-> accordingly.
-I'm not quite understanding why the method of calculating nr_mfns
-affects how the frame_table is mapped. Isn=E2=80=99t it only necessary to
-calculate the correct size of the frame_table that needs to be
-allocated?
+On Tue, 5 Nov 2024, Andrew Cooper wrote:
+> Something has changed recently in the Github Actions environment and the
+> golang metapacakge resolves to something that no longer exists:
+> 
+>   https://github.com/xen-project/xen/actions/runs/11539340171/job/32120834909
+> 
+> Update metadata before installing, which fixes things.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I assume by the offset you mean something similar to what was done for
-directmap mapping?
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
->  At
-> which point you may need to apply extra care to cover the case where
-> sizeof(*frame_table) is not a power of two, and hence e.g. the first
-> valid
-> page might have a struct instance straddling a page boundary.
-The first valid page is aligned_ps ( which is aligned on a page
-boundary ) so assuming that sizeof(*frame_table) < PAGE_SIZE we can't
-straddle a page boundary, can we?
-
->=20
-> > +=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * The base address may not be aligned to the =
-second level
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * size in case of Sv39 (e.g. 1GB when using 4=
-KB pages).
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * This would prevent superpage mappings for a=
-ll the regions
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * because the virtual address and machine add=
-ress should
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * both be suitably aligned.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * Prevent that by offsetting the start of the=
- directmap
-> > virtual
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * address.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0 if ( map_pages_to_xen(DIRECTMAP_VIRT_START + (base_=
-addr &
-> > ~high_bits_mask),
->=20
-> I'm afraid this is correct only for the first invocation of the
-> function.
-> For any further invocation you'd likely (attempt to) replace
-> previously
-> established mappings. I think that here you need to use
-> directmap_virt_start
-> instead.
-Banks are sorted by bank start address ( common/device-
-tree/bootfdt.c:623 ):
-       /*
-        * On Arm64 setup_directmap_mappings() expects to be called with
-   the lowest
-        * bank in memory first. There is no requirement that the DT will
-   provide
-        * the banks sorted in ascending order. So sort them through.
-        */
-       sort(mem->bank, mem->nr_banks, sizeof(struct membank),
-            cmp_memory_node, swap_memory_node);
-( btw, comment is needed to be updated ... )
-
-Thereby no replacement should happen if I don't miss something.
-
-I am thinking wouldn't it be more correct to use mfn_to_virt(base_mfn):
-       if ( map_pages_to_xen(__mfn_to_virt(base_mfn) + (base_addr &
-   ~high_bits_mask),
-                             _mfn(base_mfn), nr_mfns,
-                             PAGE_HYPERVISOR_RW) )
-
->=20
-> > +/*
-> > + * Setup memory management
-> > + *
-> > + * RISC-V 64 has a large virtual address space (the minimum
-> > supported
-> > + * MMU mode is Sv39, which provides GBs of VA space).
-> > + *
-> > + * The directmap_virt_start is shifted lower in the VA space to
-> > + * (DIRECTMAP_VIRT_START - masked_low_bits_of_ram_start_address)
-> > to avoid
-> > + * wasting a large portion of the directmap space, this also
-> > allows for simple
-> > + * VA <-> PA translations. Also aligns DIRECTMAP_VIRT_START to a
-> > GB boundary
-> > + * (for Sv39; for other MMU mode boundaries will be bigger ) by
-> > masking the
-> > + * higher bits of the RAM start address to enable the use of
-> > superpages in
-> > + * map_pages_to_xen().
-> > + *
-> > + * The frametable is mapped starting from physical address 0,
-> > minimizing
-> > + * wasted VA space and simplifying page_to_mfn() and mfn_to_page()
-> > + * translations.
-> > + */
-> > +void __init setup_mm(void)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 const struct membanks *banks =3D bootinfo_get_mem()=
-;
-> > +=C2=A0=C2=A0=C2=A0 paddr_t ram_start =3D INVALID_PADDR;
-> > +=C2=A0=C2=A0=C2=A0 paddr_t ram_end =3D 0;
-> > +=C2=A0=C2=A0=C2=A0 paddr_t ram_size =3D 0;
-> > +=C2=A0=C2=A0=C2=A0 unsigned int i;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * We need some memory to allocate the page-ta=
-bles used for
-> > the directmap
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * mappings. But some regions may contain memo=
-ry already
-> > allocated
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * for other uses (e.g. modules, reserved-memo=
-ry...).
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * For simplicity, add all the free regions in=
- the boot
-> > allocator.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0 populate_boot_allocator();
-> > +
-> > +=C2=A0=C2=A0=C2=A0 total_pages =3D 0;
->=20
-> Nit: Is this actually necessary?
-Agree, there is no need for total_pages. It should be dropped.
-
->=20
-> > +=C2=A0=C2=A0=C2=A0 for ( i =3D 0; i < banks->nr_banks; i++ )
-> > +=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct membank *bank =
-=3D &banks->bank[i];
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t bank_start =3D ROUN=
-DUP(bank->start, PAGE_SIZE);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t bank_end =3D ROUNDD=
-OWN(bank->start + bank->size,
-> > PAGE_SIZE);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long bank_size =3D=
- bank_end - bank_start;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_size +=3D bank_size;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_start =3D min(ram_start=
-, bank_start);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_end =3D max(ram_end, ba=
-nk_end);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 setup_directmap_mappings(PF=
-N_DOWN(bank_start),
-> > PFN_DOWN(bank_size));
-> > +=C2=A0=C2=A0=C2=A0 }
->=20
-> You maintain ram_start in the loop, just to then ...
->=20
-> > +=C2=A0=C2=A0=C2=A0 total_pages =3D PFN_DOWN(ram_size);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 setup_frametable_mappings(0, ram_end);
-> > +=C2=A0=C2=A0=C2=A0 max_page =3D PFN_DOWN(ram_end);
-> > +}
->=20
-> ... not use it at all - why?
-ram_start was needed for the case when setup_frametable_mappings() used
-it as the first argument. Now it isn't true anymore so should be
-dropped.
-
-Thanks.
-
-~ Oleksii
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Doug Goldstein <cardoe@cardoe.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Example dry run with this fix:
+> 
+>   https://github.com/andyhhp/xen/actions/runs/11692180675/job/32560954258
+> ---
+>  .github/workflows/coverity.yml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/.github/workflows/coverity.yml b/.github/workflows/coverity.yml
+> index 984636eb4635..a6c2819b0a24 100644
+> --- a/.github/workflows/coverity.yml
+> +++ b/.github/workflows/coverity.yml
+> @@ -12,6 +12,7 @@ jobs:
+>      steps:
+>      - name: Install build dependencies
+>        run: |
+> +        sudo apt-get update
+>          sudo apt-get install -y \
+>            build-essential \
+>            git-core \
+> -- 
+> 2.39.5
+> 
+--8323329-540673888-1730898107=:89051--
 
