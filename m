@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD7EC9BF24C
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 16:57:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831234.1246434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B93D9BF264
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 17:00:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831239.1246444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8iOy-0008Ui-1m; Wed, 06 Nov 2024 15:57:00 +0000
+	id 1t8iRa-0000iq-Dt; Wed, 06 Nov 2024 15:59:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831234.1246434; Wed, 06 Nov 2024 15:57:00 +0000
+Received: by outflank-mailman (output) from mailman id 831239.1246444; Wed, 06 Nov 2024 15:59:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8iOx-0008Sa-U2; Wed, 06 Nov 2024 15:56:59 +0000
-Received: by outflank-mailman (input) for mailman id 831234;
- Wed, 06 Nov 2024 15:56:58 +0000
+	id 1t8iRa-0000gQ-Aj; Wed, 06 Nov 2024 15:59:42 +0000
+Received: by outflank-mailman (input) for mailman id 831239;
+ Wed, 06 Nov 2024 15:59:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wNbQ=SB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t8iOw-0008RG-Gd
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 15:56:58 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1t8iRY-0000gK-Vz
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 15:59:40 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bddc291b-9c57-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 16:56:53 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a99e3b3a411so186567866b.0
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 07:56:53 -0800 (PST)
+ id 1f388223-9c58-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 16:59:36 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5c9388a00cfso7930516a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 07:59:36 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9eb17ced03sm303162266b.104.2024.11.06.07.56.52
+ a640c23a62f3a-a9eb16a0771sm302716166b.27.2024.11.06.07.59.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 07:56:52 -0800 (PST)
+ Wed, 06 Nov 2024 07:59:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bddc291b-9c57-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImJkZGMyOTFiLTljNTctMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTA4NjEzLjQ3ODg3NCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 1f388223-9c58-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmMiLCJoZWxvIjoibWFpbC1lZDEteDUyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjFmMzg4MjIzLTljNTgtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTA4Nzc2LjgyNTg1OCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730908613; x=1731513413; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730908776; x=1731513576; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=28gQ1hYY7abQh9NSjEig4Q+GbvE8lmNYJgG2nLQs48I=;
-        b=gf9CXSgW7MRVWA58OWEBupRRIufteV3wDOCJQLByhf4kDmnTYac+PCwXoz7yImHB7I
-         pXREgo2v7Y/wTFX5P9E7BX4a+eSJEOkTr9ftS8lz/v82u4v8hlKAQKT2S/Zod+4YN3RI
-         wmgUbflOmAwsHUvSgFrgKLqrkMMh/rS0U2qNM=
+        bh=NDX4IVqEcD/CzxLfFCWCKo4EOE2guwQKedesdcxnGlk=;
+        b=qMTJhFX1JjtfZAzXboZCwt88vOYcO+rnh+Fx+T3IfyYS9R9tbw/sAZMJbXnEKumkIC
+         w2yPFxQ/b8YhBw/MKnmsflAqO0JHSb6f2oB3KqGVMb44LczXcOQyVmeuxj+wt3CFxo2R
+         VnBoGEPTatT5X462aeVkmJLjCJRJI1a71rJxc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730908613; x=1731513413;
+        d=1e100.net; s=20230601; t=1730908776; x=1731513576;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=28gQ1hYY7abQh9NSjEig4Q+GbvE8lmNYJgG2nLQs48I=;
-        b=np2b0UQknFs6am8E/2IfeE/wIswxffxZERok2vlx2prssNtp0ljovmkMpkvKc7SvWU
-         LL1yyIpa9gBsnYWodvddEEXlIk6Rk6pokECCrEF5DZx0Qr3bpRJsYEok8Wazp3kLxCoH
-         5YZurUKLX3q6ec1pM32U2CL6jMmFhsNHRH0wIjTTmMuleLkHT5CK+IhW1tqknMFkMxm+
-         chQ3zqucOD36alPHDUO+J3DAcSKlvI/7Hhj/y1wfYcGg/i4zn8g7Sl2FlQwqMFP9vEHU
-         xbSkBBehcvti0eq7bJaaJI5jDiv/BwPOFVqtM2q13TZwc8z4nwabimECTdwTFmWDxgCa
-         4yPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+7lfSX741weQCPXB0Jx/M7Gg1+WrZNwI43TcwJCHZuBqS5ai5006wTSQH0rP7cVcBl2KeZBT3kWs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzWnIok6oktW2tQuV06RYeXGdz3oSRkEAbsJLe2d0fjTvE37Slc
-	d+gvRE0fzPVWNlThqWrr6jpzXyFm8OdLzDtusN+fZ3CG75LXmI5Se2dO0uUvqWfskMyFAUvSEuK
-	d
-X-Google-Smtp-Source: AGHT+IEXWx0VTz5dD4VqLOaOjHn4nS72HGo6D0/GXLmasjckAmEcUzRIDKccgPTDXAofGijCXqdtbA==
-X-Received: by 2002:a17:907:1c95:b0:a9e:82f3:d4ab with SMTP id a640c23a62f3a-a9ec66047e8mr279288766b.9.1730908612912;
-        Wed, 06 Nov 2024 07:56:52 -0800 (PST)
-Message-ID: <21d4af14-23ba-4783-bf9e-d670f72d1745@citrix.com>
-Date: Wed, 6 Nov 2024 15:56:50 +0000
+        bh=NDX4IVqEcD/CzxLfFCWCKo4EOE2guwQKedesdcxnGlk=;
+        b=h58V60dnjJlF/fWSyqAgVk2APzXgKfYXRlduW65l/2rPI+KYEtdMLXqRizWrHYwnZB
+         N037FAuQjakKT/EoknqKgN91F66m1QMDYEKKv3YZ3cWD951VporMRJ4QA5ry27IYg5xb
+         iWfBYCjF6GNEJdQy9XpO6W8KcdxsI+Q+3LJ0rhkmgH0gPXKRyuGW6kk96cXHQhvKB89T
+         Qory92ACoSFhBkK39W5uXGW7gAOaLSeccS4+TGEjc9sK3dDGbBN0cQRXtUqZ60+prius
+         MRfyvQqlQFZjLNNdTwIuNkFDvyejjtI1wtiiaQTihJPRpfM8bfEOlqrUTxKHapg6u5V4
+         vMYA==
+X-Forwarded-Encrypted: i=1; AJvYcCVwMxZlbQ18eXzzHL3Ze3LUFNeiJYCzTKlWHUjQh806cYzCCMz0ErZHQeQ7e5sBCBBa15N181BkGEg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxlZ+hfb6eNSyI4Wy00KvDpLP9yzX1/ODGXi9ZKKQb5MMGqCn3n
+	7sBiQONeCkuN0Dkel+nIT/GXwlh5sFmho/xWPEo/5gblbIkUqp4PjeVEA34bW2c=
+X-Google-Smtp-Source: AGHT+IGBCHFetBSc2rU5pVn5U74vCpVDOrT0wj1ZqpSi5T//CyfAjDkAecRopHKe93T3T7VW+DlyuA==
+X-Received: by 2002:a17:907:3f9d:b0:a9a:1160:993 with SMTP id a640c23a62f3a-a9de5c91c9dmr4293510866b.8.1730908776245;
+        Wed, 06 Nov 2024 07:59:36 -0800 (PST)
+Message-ID: <fcbd6e5d-8f6c-416a-a7bf-83893a95e9b4@citrix.com>
+Date: Wed, 6 Nov 2024 15:59:34 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 6/6] CI: Don't use -y with apt-get update
+Subject: Re: [XEN PATCH v2 1/6] CI: Refresh the Debian 12 x86_64 container
 To: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
 Cc: Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1730743077.git.javi.merino@cloud.com>
- <67fbec9dd324802e1a1c5e3c38ae7853ede35e86.1730743077.git.javi.merino@cloud.com>
+ <083c6bb0194fdd082425185f9d153b355a47c614.1730743077.git.javi.merino@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,33 +131,21 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <67fbec9dd324802e1a1c5e3c38ae7853ede35e86.1730743077.git.javi.merino@cloud.com>
+In-Reply-To: <083c6bb0194fdd082425185f9d153b355a47c614.1730743077.git.javi.merino@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06/11/2024 1:05 pm, Javi Merino wrote:
-> apt-get update refreshes the package lists.  -y doesn't do anything
-> here.  It is needed for "apt-get install" or "apt-get upgrade" but not
-> for apt-get update.  Drop it.
+> Rework the container to use heredocs for readability, and use
+> apt-get --no-install-recommends to keep the size down.
+>
+> This reduces the size of the (uncompressed) container from 3.44GB to
+> 1.97GB.
+>
+> The container is left running the builds and tests as root to avoid
+> breaking the xilinx runners.
 >
 > Signed-off-by: Javi Merino <javi.merino@cloud.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-> ---
->  automation/build/debian/11-ppc64le.dockerfile        | 2 +-
->  automation/build/debian/11-riscv64.dockerfile        | 2 +-
->  automation/build/debian/12-ppc64le.dockerfile        | 2 +-
->  automation/build/debian/12-riscv64.dockerfile        | 2 +-
->  automation/build/debian/12-x86_64-gcc-ibt.dockerfile | 4 ++--
->  automation/build/ubuntu/16.04-x86_64.dockerfile      | 2 +-
->  automation/build/ubuntu/18.04-x86_64.dockerfile      | 2 +-
->  automation/build/ubuntu/20.04-x86_64.dockerfile      | 2 +-
->  automation/build/ubuntu/22.04-x86_64.dockerfile      | 2 +-
->  automation/build/ubuntu/24.04-x86_64.dockerfile      | 2 +-
-
-Judging by this file list, the change is independent of patches 1-5, so
-can go in straight away.
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
