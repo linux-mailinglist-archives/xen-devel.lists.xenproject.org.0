@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 535E29BF998
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 00:01:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831404.1246703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 062A49BF9AC
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 00:04:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831415.1246714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8p1A-0006T0-Co; Wed, 06 Nov 2024 23:00:52 +0000
+	id 1t8p4J-00074R-St; Wed, 06 Nov 2024 23:04:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831404.1246703; Wed, 06 Nov 2024 23:00:52 +0000
+Received: by outflank-mailman (output) from mailman id 831415.1246714; Wed, 06 Nov 2024 23:04:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8p1A-0006Qb-9t; Wed, 06 Nov 2024 23:00:52 +0000
-Received: by outflank-mailman (input) for mailman id 831404;
- Wed, 06 Nov 2024 23:00:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t8p4J-00072u-Q5; Wed, 06 Nov 2024 23:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 831415;
+ Wed, 06 Nov 2024 23:04:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wNbQ=SB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t8p19-0006QV-Iz
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 23:00:51 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f65f1865-9c92-11ef-a0c6-8be0dac302b0;
- Thu, 07 Nov 2024 00:00:48 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-37d70df0b1aso161061f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 15:00:48 -0800 (PST)
+ id 1t8p4I-00072m-Bp
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 23:04:06 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a1ae6ea-9c93-11ef-99a3-01e77a169b0f;
+ Thu, 07 Nov 2024 00:04:02 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-539f84907caso266899e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 15:04:02 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432b0562642sm2404865e9.21.2024.11.06.15.00.46
+ ffacd0b85a97d-381ed97fe6csm34716f8f.31.2024.11.06.15.04.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 15:00:47 -0800 (PST)
+ Wed, 06 Nov 2024 15:04:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f65f1865-9c92-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmUiLCJoZWxvIjoibWFpbC13cjEteDQyZS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImY2NWYxODY1LTljOTItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTM0MDQ4Ljc2MTA0MSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 6a1ae6ea-9c93-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzUiLCJoZWxvIjoibWFpbC1sZjEteDEzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjZhMWFlNmVhLTljOTMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTM0MjQyLjc2NjA0NCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730934048; x=1731538848; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730934242; x=1731539042; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WOGjgEIaCJQ1bsU3lAnO9w75gPJTKSbLZ5ekoN35fg0=;
-        b=SvPWEkM7LTP1eYN6uBBl7wQ/aQfX3klpFIdR8LniuSN8MLfDVha5LRAfVQ8ycyd4AS
-         eLrDpbQuwzXmLRrKkOhgpXJUC/xwEJ08+Sw0He5XGwAM4S5vOwBW6VrVh8+rG+yeqA1H
-         nhPZny2o0VOy9YQnR5fuPEMmRe/cuZo7DgA6Y=
+        bh=aE3WDdVyWqbnaNEgU1H5qvfSbMs21cXNuTF3st29ZjE=;
+        b=FF5+8J0+3Vu7PqIUAih8kbURSYxztbdlGPmuw0u84ko2+WjXd2MvwfsTITCqDJVnOx
+         YdT603X4VlSV1H9pwUl2CIIpwLXjtuPfi75T7Km44vA1r62QOFokWsCy/zX1sIRwW9Np
+         L7oRL2LpZ9m1OdD2dbyAN1tOzMuBvCDyDQF88=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730934048; x=1731538848;
+        d=1e100.net; s=20230601; t=1730934242; x=1731539042;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WOGjgEIaCJQ1bsU3lAnO9w75gPJTKSbLZ5ekoN35fg0=;
-        b=l+0kF+OB+SeaALGFtque3YmSx1zjPZ1iPUCgHv2wCF7r6ZIRlHUpJNA73wi81fRj/o
-         AfrDHzZ8Z/8nnMtuyI/D4uSwT3wbPusmWzgrsTz7QKxQ2e1SMp871RYFavfUvwo3MOlt
-         mo0ys2n9c+Zq3Lww5kmZV4q8Qd++VKE/1h5NTMG69Rn2OsTvlL6OIFvSOAhqbHzs0CBl
-         AL6fPF9Vy3eouXIVtU8aR+UUSVn1x4RIYwW2Km2y64Wo/mg+d7Ac9JRD+mkVMEpcxXsu
-         PUF0jZWPoeCnGuMVUL4f9QI7TJ3Yw8XPrxW5IILAICdbvayeWaJgTrbLvK+Cui+S/leC
-         UItA==
-X-Forwarded-Encrypted: i=1; AJvYcCX46vNAlMXhK7kNWLLJ82pSQxAZ6l3rasMYbDClrW6eJtq5QUYwQPLNqvCpaAwnGo4qQbpV94Fn9Ko=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJbkLnPU0eP9hnt4YK8iR0SFpez2fynsKAva3w6w8ezT0NW3M7
-	qKxiiqKRR3AyG9sgeaTofVrBvMpoeCFdaiKwg71Yt7YZlT8LwSqkLhkx4c6PnsA=
-X-Google-Smtp-Source: AGHT+IE1PJE2AuToes+ZR4LQh8WruIEyhhYRlDC+qUmsPj9vyjpaB/0rQZ6h62LoVA/CrUs91o6WQQ==
-X-Received: by 2002:a5d:4106:0:b0:37c:d558:a931 with SMTP id ffacd0b85a97d-3806115902emr28159744f8f.31.1730934047972;
-        Wed, 06 Nov 2024 15:00:47 -0800 (PST)
-Message-ID: <113c48b9-7cbf-43e0-b351-ab7f14f06e63@citrix.com>
-Date: Wed, 6 Nov 2024 23:00:46 +0000
+        bh=aE3WDdVyWqbnaNEgU1H5qvfSbMs21cXNuTF3st29ZjE=;
+        b=qoNAMyzpFBn15ZvLsJp2UTrLz+Y75XflnSBLhCgHT6EMkroe/wz7vcS42qOdbdQUET
+         oD5BVvzrQvtUpT3QengWy7ezg5QZztWXuNg0L0CLRsnJypqdogwUQxNlMYjZ5qwi6HAW
+         biptczNaA3gYcE+1m3jtYbfkn7QTvatuQT9zU0MnEgy8UhY8xITPqLhU9ns59xEWR8XX
+         lt7BeL0xpvvPGLx7eZZ8H/nPsIrDuu1h2CTmouaOu1jNP+gK7kl59Tb04hmdeVGoB2Se
+         bVVeIDO4nz0fCy8gpQFdfrTK79nkHbJEBsED2Kgovuwa9S+9ALv5Zv/DewPkxQ5jyKCL
+         oMXg==
+X-Forwarded-Encrypted: i=1; AJvYcCXwS4N/uKldP4NGrKMfyis0xzM7Wgyg/EjPP+5N8Q8bet6qe5poIwU+rL1FpyHWrxCNtw5UGAM7HPE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyyjHgZNrOX0JT7fGTa5zoBgr5B+M/qgvxg9eNJW+rImfD7R4LS
+	xnCendbjDQV/kpkzbyMEY92FP09h2pu8g1gpopfr4sHDrYN2XoLGzIQ/NzWTGPk=
+X-Google-Smtp-Source: AGHT+IF51jiQwVN+VSQwsOC7R4VspcGP04O2tLzLOx1Nz10uaBeah/gAeqTKfiQXs063mj15CqgKng==
+X-Received: by 2002:a05:6512:3ca7:b0:539:e873:6e2 with SMTP id 2adb3069b0e04-53b348ec22cmr17477190e87.8.1730934242071;
+        Wed, 06 Nov 2024 15:04:02 -0800 (PST)
+Message-ID: <a924211f-4a2e-44c1-9e06-efde05c189c8@citrix.com>
+Date: Wed, 6 Nov 2024 23:04:00 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/12] x86/boot: move headroom to boot modules
+Subject: Re: [PATCH 06/12] x86/boot: relocate kextra into boot info
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
- <20241102172551.17233-6-dpsmith@apertussolutions.com>
+ <20241102172551.17233-7-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,49 +133,19 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241102172551.17233-6-dpsmith@apertussolutions.com>
+In-Reply-To: <20241102172551.17233-7-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 02/11/2024 5:25 pm, Daniel P. Smith wrote:
-> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-> index b1549d8c8f93..e337baa905f0 100644
-> --- a/xen/arch/x86/include/asm/bootinfo.h
-> +++ b/xen/arch/x86/include/asm/bootinfo.h
-> @@ -30,6 +30,28 @@ struct boot_module {
->  
->      enum bootmod_type type;
->  
-> +    /*
-> +     * A boot module may need decompressing by Xen.  Headroom is an estimate of
-> +     * the additional space required to decompress the module.
-> +     *
-> +     * Headroom is accounted for at the start of the module.  Decompressing is
-> +     * done in-place with input=start, output=start-headroom, expecting the
-> +     * pointers to become equal (give or take some rounding) when decompression
-> +     * is complete.
-> +     *
-> +     * Memory layout at boot:
-> +     *
-> +     *               start ----+
-> +     *                         v
-> +     *   |<-----headroom------>|<------size------->|
-> +     *                         +-------------------+
-> +     *                         | Compressed Module |
-> +     *   +---------------------+-------------------+
-> +     *   |           Decompressed Module           |
-> +     *   +-----------------------------------------+
-> +     */
-> +    unsigned long headroom;
-> +
->      /*
->       * Module State Flags:
->       *   relocated: indicates module has been relocated in memory.
+> Move kextra into struct boot_info, thus no longer needed to be passed as a
+> parameter to create_dom0.
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-By the end of the series, this ends very poorly laid out.
-
-It works a whole lot better when putting the bitfields between type and
-headroom.
+Technically "..., so it can be removed as a distinct parameter to
+create_dom0()".
 
 Otherwise, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
