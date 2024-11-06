@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A46A9BEF02
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6329BEF03
 	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 14:28:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.830968.1246118 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.830962.1246102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8g56-0005DP-K0; Wed, 06 Nov 2024 13:28:20 +0000
+	id 1t8g4t-0004ob-Uv; Wed, 06 Nov 2024 13:28:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 830968.1246118; Wed, 06 Nov 2024 13:28:20 +0000
+Received: by outflank-mailman (output) from mailman id 830962.1246102; Wed, 06 Nov 2024 13:28:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8g56-00059E-FH; Wed, 06 Nov 2024 13:28:20 +0000
-Received: by outflank-mailman (input) for mailman id 830968;
- Wed, 06 Nov 2024 13:28:19 +0000
+	id 1t8g4t-0004n6-Rh; Wed, 06 Nov 2024 13:28:07 +0000
+Received: by outflank-mailman (input) for mailman id 830962;
+ Wed, 06 Nov 2024 13:28:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nSNS=SB=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1t8g55-0004n0-8I
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 13:28:19 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ id 1t8g4s-0004n0-Ox
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 13:28:06 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2411518e-9c42-11ef-a0c6-8be0dac302b0;
- Wed, 06 Nov 2024 14:28:05 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-539fb49c64aso9394617e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 05:27:25 -0800 (PST)
+ id 1521756b-9c42-11ef-a0c6-8be0dac302b0;
+ Wed, 06 Nov 2024 14:26:52 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a9a4031f69fso1062501566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 05:24:25 -0800 (PST)
 Received: from localhost.localdomain ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
  4fb4d7f45d1cf-5cee6a9a3e3sm2708939a12.12.2024.11.06.05.05.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Nov 2024 05:05:23 -0800 (PST)
+ Wed, 06 Nov 2024 05:05:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +45,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2411518e-9c42-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzQiLCJoZWxvIjoibWFpbC1sZjEteDEzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjI0MTE1MThlLTljNDItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk5Njg2LjA2Mywic2VuZGVyIjoiamF2aS5tZXJpbm9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 1521756b-9c42-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzIiLCJoZWxvIjoibWFpbC1lajEteDYzMi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjE1MjE3NTZiLTljNDItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwODk5NjE3LjYxODE3NCwic2VuZGVyIjoiamF2aS5tZXJpbm9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730899335; x=1731504135; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1730899310; x=1731504110; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xApgKSTK5wMGuq0ugpp4Wf2jL7mq6KYsKPKyawXSsjg=;
-        b=W2DonOCCjVI2fXhSAk98znyTWVQHWnuj+d7IKo8DoDIlP85QHa9fqOYVowKp8Leoft
-         fqxOVp9mq/+44By+/NyfOslvKE1/4pa6aIU3LhuuyzLSM8SrkQgGZr19hHWWS4aKjAtw
-         L8K1Ms4faEkstuqGGmYH7VS/KMAPxnk2pwPnE=
+        bh=45oT54b/H6Gj3avxI/jIkIoWZCdO/tkO5E9TuzQK8WA=;
+        b=baN70awTY8HtKCcUi2j937ez9nkWPnYU2E0WeVLQC2NBZDBGH6ClmQqsjCYDay9K/b
+         uP1TeWvRIOy8qlb5CfSqftI5/QzndzS5xqu3v1BGQ5aqU/WtlQRv4ikKn8J7PDaIn3Cw
+         jYmL5V0eCSe9Om4sVsGMXO6WaaKTPn37nzdP8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730899335; x=1731504135;
+        d=1e100.net; s=20230601; t=1730899310; x=1731504110;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xApgKSTK5wMGuq0ugpp4Wf2jL7mq6KYsKPKyawXSsjg=;
-        b=R5GtYSBcIXRkO9ljx7HZEQwhnFP9N70ajiM0+NRRl9O/Mm1IZvwvkQhN4K2JVopMtR
-         o21CSUKVJzEdfpiX7dKqr6GMu3etpCszHGtvozSy+FGAKun5aopuv7wPlT10Au1xAoJz
-         GVO5/z3ilL6JAa46zKydNO/at3hJTBvIC9jXrkA9Rt5Xg7DahIOZaEOzYOquxJ1QPo3j
-         9xNHJDAgN4tK193DUZ575u41ZXO2YvEAykF/5G/LiDPgNIVyYfgZYQPK68uFoiAWzE1Z
-         W2/5LxYFYAGrswGj56o4/au34uenotyTgUlDHDWEMI0hSlSqnN7Nm0qEbT8aLcJVNvLh
-         F6ow==
-X-Gm-Message-State: AOJu0YypalNiirDkAGb2beygMBf2EV9L4/CUZ70OCiPqkOt14qOUc6o0
-	EmU+n2sKQRMPoB9w/XHQSAQUr9o3GlnB3FSu0av6BKHCl2G/9Xai4vs0Bj4ApLhgIan1DiA4Om0
-	M2Is=
-X-Google-Smtp-Source: AGHT+IGwqfbuEDxDxzQYcIO3SNDIjB5+YEi1B2xdbeRSCXdCh7ZM/aARZRROlbUc9hICKNlDxIN88A==
-X-Received: by 2002:a05:6402:2547:b0:5c8:8290:47bf with SMTP id 4fb4d7f45d1cf-5ceb92aad89mr20048288a12.21.1730898323761;
-        Wed, 06 Nov 2024 05:05:23 -0800 (PST)
+        bh=45oT54b/H6Gj3avxI/jIkIoWZCdO/tkO5E9TuzQK8WA=;
+        b=nreV8ndLUu4tfgWfYPCnnHfy0t0Vx9aHJdM9wW7P+J4mBlj1pnRG0/26BgBWZ+GWWL
+         cj/I6gZ3+F6gtXMnan0hoOoqeoEwNk8ppZnYazsBwM1C5ahlDC4SGNNyL0NDJ59nqQsM
+         0lVkffBkq+Xxqqk7ljZ87fBJe/8SQhcOOOP0R6ZCGQWyU90/JqSb9gWS9cZmn1XkdhhN
+         vcB6VPWAGPzFYXWYYCo+tTuN1RDdpkX2f4VyZGtutUA2pQztwQqTfGNigQ/uoQwzIE0p
+         JtSxmQvuTWzYmT4Sk35JPt7N2wxhYVAcG45APrS8OJ5tqlrt+FVLdWJERVWLqmVGwlFq
+         FTjw==
+X-Gm-Message-State: AOJu0Yw94UnDrre/Ai0gfkzfKSe7WznjKQSUznJe5ycGEyKJFlO0Jocj
+	R0sZuPxfpfIMbsli1eMc1d9VZE5HSq6kx9HHvtLs0R2m3P4aeCkYsw0RSUkUHMGlVXI2wh2T64l
+	mmTk=
+X-Google-Smtp-Source: AGHT+IGaj5tsjSQdTpTziZ4I4VRkmICS/rKn3GSGax+Rv5p9Rgm1e9BDeOKl0uwbR2ReE9mJNcIl9A==
+X-Received: by 2002:a05:6402:5203:b0:5ca:14e5:b685 with SMTP id 4fb4d7f45d1cf-5cbbf888bcemr29942500a12.3.1730898324303;
+        Wed, 06 Nov 2024 05:05:24 -0800 (PST)
 From: Javi Merino <javi.merino@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Javi Merino <javi.merino@cloud.com>,
 	Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v2 2/6] CI: Refresh the Debian 12 x86_32 container
-Date: Wed,  6 Nov 2024 13:05:03 +0000
-Message-ID: <6ca245790b8bd2469e82dd54ff3cedd12096369c.1730743077.git.javi.merino@cloud.com>
+Subject: [XEN PATCH v2 3/6] CI: Refresh the Debian 12 arm64 container
+Date: Wed,  6 Nov 2024 13:05:04 +0000
+Message-ID: <ad9bcd46c85e738eccb2c51b42ae7d9d0d02fc5d.1730743077.git.javi.merino@cloud.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <cover.1730743077.git.javi.merino@cloud.com>
 References: <cover.1730743077.git.javi.merino@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rework the container to be non-root, use heredocs for readability, and
-use apt-get --no-install-recommends to keep the size down.  Rename the
-job to x86_32, to be consistent with XEN_TARGET_ARCH and the
-naming scheme of all the other CI jobs:
-${VERSION}-${ARCH}-${BUILD_NAME}
+Rework the container to use heredocs for readability and use
+apt-get --no-install-recommends to keep the size down.  Rename the job
+to debian-12-arm64-* to follow the naming scheme of all the other CI
+jobs.
 
-Remove build dependencies for building QEMU, as we don't do it since
-e305256e69b1 ("CI: Stop building QEMU in general").
+This reduces the size of the debian:12-arm64v8 from 2.25GB down to 1.62GB.
 
-Remove build dependencies for the documentation as we don't have to
-build it for every single arch.
-
-This reduces the size of the container from 2.22GB to 1.32Gb.
+The container is left running the builds and tests as root to avoid
+breaking the xilinx runners.
 
 Signed-off-by: Javi Merino <javi.merino@cloud.com>
 ---
- automation/build/debian/12-x86_32.dockerfile  | 50 +++++++++++++++++++
- .../build/debian/bookworm-i386.dockerfile     | 50 -------------------
+ automation/build/debian/12-arm64v8.dockerfile | 68 +++++++++++++++++++
+ .../build/debian/bookworm-arm64v8.dockerfile  | 55 ---------------
  automation/gitlab-ci/build.yaml               |  8 +--
+ automation/gitlab-ci/test.yaml                |  4 +-
  automation/scripts/containerize               |  2 +-
- 4 files changed, 55 insertions(+), 55 deletions(-)
- create mode 100644 automation/build/debian/12-x86_32.dockerfile
- delete mode 100644 automation/build/debian/bookworm-i386.dockerfile
+ 5 files changed, 75 insertions(+), 62 deletions(-)
+ create mode 100644 automation/build/debian/12-arm64v8.dockerfile
+ delete mode 100644 automation/build/debian/bookworm-arm64v8.dockerfile
 
-diff --git a/automation/build/debian/12-x86_32.dockerfile b/automation/build/debian/12-x86_32.dockerfile
+diff --git a/automation/build/debian/12-arm64v8.dockerfile b/automation/build/debian/12-arm64v8.dockerfile
 new file mode 100644
-index 000000000000..b1cabf8d2f6d
+index 000000000000..fa53eb174862
 --- /dev/null
-+++ b/automation/build/debian/12-x86_32.dockerfile
-@@ -0,0 +1,50 @@
++++ b/automation/build/debian/12-arm64v8.dockerfile
+@@ -0,0 +1,68 @@
 +# syntax=docker/dockerfile:1
-+FROM --platform=linux/i386 debian:bookworm
++FROM --platform=linux/arm64/v8 debian:bookworm
 +LABEL maintainer.name="The Xen Project"
 +LABEL maintainer.email="xen-devel@lists.xenproject.org"
 +
@@ -131,52 +128,70 @@ index 000000000000..b1cabf8d2f6d
 +#!/bin/bash
 +    set -eu
 +
-+    useradd --create-home user
-+
 +    apt-get update
 +    DEPS=(
 +        # Xen
 +        bison
 +        build-essential
-+        checkpolicy
-+        clang
 +        flex
++        # Flask
++        checkpolicy
 +
 +        # Tools (general)
-+        ca-certificates
 +        git-core
++        libext2fs-dev
++        libfdt-dev
++        libglib2.0-dev
++        libpixman-1-dev
 +        pkg-config
 +        wget
++        # libxenguest dombuilder
++        libbz2-dev
++        liblzma-dev
++        liblzo2-dev
++        libzstd-dev
 +        # libacpi
 +        acpica-tools
 +        # libxl
 +        uuid-dev
 +        libyajl-dev
-+        # xentop
-+        libncurses5-dev
 +        # Python bindings
 +        python3-dev
 +        python3-setuptools
++        # Golang bindings
++        golang-go
 +        # Ocaml bindings/oxenstored
 +        ocaml-nox
 +        ocaml-findlib
++
++        # for test phase, qemu-smoke-* jobs
++        busybox-static
++        ca-certificates
++        cpio
++        curl
++        device-tree-compiler
++        expect
++        u-boot-qemu
++        # for imagebuilder
++        file
++        u-boot-tools
 +    )
++
 +    apt-get -y --no-install-recommends install "${DEPS[@]}"
 +
 +    rm -rf /var/lib/apt/lists*
 +EOF
 +
-+USER user
++USER root
 +WORKDIR /build
-+ENTRYPOINT ["linux32"]
-diff --git a/automation/build/debian/bookworm-i386.dockerfile b/automation/build/debian/bookworm-i386.dockerfile
+diff --git a/automation/build/debian/bookworm-arm64v8.dockerfile b/automation/build/debian/bookworm-arm64v8.dockerfile
 deleted file mode 100644
-index 66fa3121c54e..000000000000
---- a/automation/build/debian/bookworm-i386.dockerfile
+index da8ae7512589..000000000000
+--- a/automation/build/debian/bookworm-arm64v8.dockerfile
 +++ /dev/null
-@@ -1,50 +0,0 @@
+@@ -1,55 +0,0 @@
 -# syntax=docker/dockerfile:1
--FROM --platform=linux/i386 debian:bookworm
+-FROM --platform=linux/arm64/v8 debian:bookworm
 -LABEL maintainer.name="The Xen Project" \
 -      maintainer.email="xen-devel@lists.xenproject.org"
 -
@@ -185,8 +200,6 @@ index 66fa3121c54e..000000000000
 -
 -RUN mkdir /build
 -WORKDIR /build
--
--ENTRYPOINT ["linux32"]
 -
 -# build depends
 -RUN apt-get update && \
@@ -206,10 +219,10 @@ index 66fa3121c54e..000000000000
 -        flex \
 -        bison \
 -        acpica-tools \
+-        libfdt-dev \
 -        bin86 \
 -        bcc \
 -        liblzma-dev \
--        libc6-dev \
 -        libnl-3-dev \
 -        ocaml-nox \
 -        libfindlib-ocaml-dev \
@@ -220,48 +233,77 @@ index 66fa3121c54e..000000000000
 -        wget \
 -        git \
 -        nasm \
--        apt-transport-https \
+-        # for test phase, qemu-smoke-* jobs
+-        u-boot-qemu \
+-        u-boot-tools \
+-        device-tree-compiler \
+-        curl \
+-        cpio \
+-        busybox-static \
+-        expect \
 -        && \
 -        apt-get autoremove -y && \
 -        apt-get clean && \
 -        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
 diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index d64a7e40f3f1..871beb70e157 100644
+index 871beb70e157..8ee1049d857c 100644
 --- a/automation/gitlab-ci/build.yaml
 +++ b/automation/gitlab-ci/build.yaml
-@@ -573,15 +573,15 @@ debian-12-x86_64-gcc-randconfig:
-     CONTAINER: debian:12-x86_64
-     RANDCONFIG: y
+@@ -411,15 +411,15 @@ debian-bookworm-gcc-arm32-debug-earlyprintk:
  
--debian-bookworm-32-clang-debug:
-+debian-12-x86_32-clang-debug:
-   extends: .clang-x86-32-build-debug
+ # Arm builds
+ 
+-debian-bookworm-gcc-arm64:
++debian-12-arm64-gcc:
+   extends: .gcc-arm64-build
    variables:
--    CONTAINER: debian:bookworm-i386
-+    CONTAINER: debian:12-x86_32
+-    CONTAINER: debian:bookworm-arm64v8
++    CONTAINER: debian:12-arm64v8
  
--debian-bookworm-32-gcc-debug:
-+debian-12-x86_32-gcc-debug:
-   extends: .gcc-x86-32-build-debug
+-debian-bookworm-gcc-debug-arm64:
++debian-12-arm64-gcc-debug:
+   extends: .gcc-arm64-build-debug
    variables:
--    CONTAINER: debian:bookworm-i386
-+    CONTAINER: debian:12-x86_32
+-    CONTAINER: debian:bookworm-arm64v8
++    CONTAINER: debian:12-arm64v8
  
- fedora-40-x86_64-gcc:
-   extends: .gcc-x86-64-build
+ alpine-3.18-gcc-arm64:
+   extends: .gcc-arm64-build
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 5b89cfa33cf8..3a4d0eb7e15d 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -17,7 +17,7 @@
+ .qemu-arm64:
+   extends: .test-jobs-common
+   variables:
+-    CONTAINER: debian:bookworm-arm64v8
++    CONTAINER: debian:12-arm64v8
+     LOGFILE: qemu-smoke-arm64.log
+   artifacts:
+     paths:
+@@ -30,7 +30,7 @@
+ .qemu-arm32:
+   extends: .test-jobs-common
+   variables:
+-    CONTAINER: debian:bookworm-arm64v8
++    CONTAINER: debian:12-arm64v8
+     LOGFILE: qemu-smoke-arm32.log
+   artifacts:
+     paths:
 diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index ea6e1a9b18f4..d72c22c103ff 100755
+index d72c22c103ff..1b75c8d93724 100755
 --- a/automation/scripts/containerize
 +++ b/automation/scripts/containerize
-@@ -35,7 +35,7 @@ case "_${CONTAINER}" in
-     _bookworm-riscv64) CONTAINER="${BASE}/debian:12-riscv64" ;;
-     _bookworm-x86_64-gcc-ibt) CONTAINER="${BASE}/debian:12-x86_64-gcc-ibt" ;;
+@@ -37,7 +37,7 @@ case "_${CONTAINER}" in
      _bookworm|_bookworm-x86_64|_) CONTAINER="${BASE}/debian:12-x86_64" ;;
--    _bookworm-i386) CONTAINER="${BASE}/debian:bookworm-i386" ;;
-+    _bookworm-i386|_bookworm-x86_32) CONTAINER="${BASE}/debian:12-x86_32" ;;
+     _bookworm-i386|_bookworm-x86_32) CONTAINER="${BASE}/debian:12-x86_32" ;;
      _bookworm-arm64v8-arm32-gcc) CONTAINER="${BASE}/debian:bookworm-arm64v8-arm32-gcc" ;;
-     _bookworm-arm64v8) CONTAINER="${BASE}/debian:bookworm-arm64v8" ;;
+-    _bookworm-arm64v8) CONTAINER="${BASE}/debian:bookworm-arm64v8" ;;
++    _bookworm-arm64v8) CONTAINER="${BASE}/debian:12-arm64v8" ;;
      _bookworm-cppcheck) CONTAINER="${BASE}/debian:bookworm-cppcheck" ;;
+     _opensuse-leap|_leap) CONTAINER="${BASE}/opensuse:leap-15.6-x86_64" ;;
+     _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/opensuse:tumbleweed-x86_64" ;;
 -- 
 2.45.2
 
