@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 185B29BEFCC
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 15:06:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831105.1246267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFC269BEFFB
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Nov 2024 15:19:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831113.1246278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8gfS-0004Rr-I1; Wed, 06 Nov 2024 14:05:54 +0000
+	id 1t8gsW-0008Hw-MH; Wed, 06 Nov 2024 14:19:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831105.1246267; Wed, 06 Nov 2024 14:05:54 +0000
+Received: by outflank-mailman (output) from mailman id 831113.1246278; Wed, 06 Nov 2024 14:19:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8gfS-0004Pv-FE; Wed, 06 Nov 2024 14:05:54 +0000
-Received: by outflank-mailman (input) for mailman id 831105;
- Wed, 06 Nov 2024 14:05:53 +0000
+	id 1t8gsW-0008FP-Ir; Wed, 06 Nov 2024 14:19:24 +0000
+Received: by outflank-mailman (input) for mailman id 831113;
+ Wed, 06 Nov 2024 14:19:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wNbQ=SB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t8gfR-0004Pp-2S
- for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 14:05:53 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ <SRS0=VMU+=SB=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1t8gsV-0008FJ-LK
+ for xen-devel@lists.xenproject.org; Wed, 06 Nov 2024 14:19:23 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170130004.outbound.protection.outlook.com
+ [2a01:111:f403:c200::4])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38aef28a-9c48-11ef-99a3-01e77a169b0f;
- Wed, 06 Nov 2024 15:05:47 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a9a2209bd7fso1155096966b.2
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 06:05:47 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9eb16d5478sm281681466b.45.2024.11.06.06.05.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 06:05:45 -0800 (PST)
+ id 1cb677cc-9c4a-11ef-99a3-01e77a169b0f;
+ Wed, 06 Nov 2024 15:19:19 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by PA4PR03MB6944.eurprd03.prod.outlook.com (2603:10a6:102:e0::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Wed, 6 Nov
+ 2024 14:19:17 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8137.018; Wed, 6 Nov 2024
+ 14:19:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,153 +47,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38aef28a-9c48-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzAiLCJoZWxvIjoibWFpbC1lajEteDYzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjM4YWVmMjhhLTljNDgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTAxOTQ3LjYwMDQ2Mywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730901947; x=1731506747; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=m586iYu2T2POowcEzTDes3+efSuPLVwbfm08jEBgtSc=;
-        b=F/sHhOxezOBASE+EyzjPuk9ER5VrOM76jK4FBMnO64NqLwvYi4JqYE9uDjSLFRol0W
-         ifaReE0YarLJ43KByveQ1v8R02z63xCc0Tk/dDb5CfCyNEXLNDLokNC2r2NH7XJQRDow
-         RZaKofZhuKrpEiokOadEiiIWomcFIMNTsBWSI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730901947; x=1731506747;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m586iYu2T2POowcEzTDes3+efSuPLVwbfm08jEBgtSc=;
-        b=cnfjXt/0fl06a+nFRELkEw7mMNbeuTXa50xjRvkNbhfHZrRH1cKXR7yhDIjWT56+b4
-         HcjUFFH3BdDl5pvMMD5TYiAxxVpfS5aMleY5pO/RV0KqvVazQxqrxUuqVyD8f9kPCQSg
-         iXW0UUZrYRDg5Udk4B/qD6L1p3Xqd7TtA5TQ5WTxzfgJgRF0FIkdJpZRryCh2+I0oDQo
-         t1rntIImC2B+h8BO2WKst92EKBI9zuMIB3ioRrcJsZjI6P6iYNd6VrU1FO5LjeOVIqt7
-         oCKUbFb3XxC6S1KDGVzxtjnlT2ObKhlA/71Apiqe0gGSL2TGyZ9AMtT/mXbpqeoi7uEQ
-         q6fw==
-X-Forwarded-Encrypted: i=1; AJvYcCVe/3VxyhNXTmN9bKLD4+TWE/9LGgTmR8jwOBWq1kMmE7cZaThOgUE6Sf7SN80NMAYPXgDEfey10t0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxeX3djjr3uENE7+isrGEQoF1LC47+oK+/f4Rxqog/ai2moS4wa
-	t6ewpN2WDB3lg5lONL5Qo+ulV9nCykUlJ17YBFn2LLkklgS2mJhwfz+tpzbfC9+CvOLJ1aROUpj
-	v
-X-Google-Smtp-Source: AGHT+IG8iLh+he1pVBpFaWMhwnlTLFGvvPpLAFSJeQNVs9Vrnd+MQf9d2dPOkob//Jyk+PJQKJjc2g==
-X-Received: by 2002:a17:906:478f:b0:a99:f56e:ce40 with SMTP id a640c23a62f3a-a9de6166952mr3866070366b.47.1730901946737;
-        Wed, 06 Nov 2024 06:05:46 -0800 (PST)
-Message-ID: <9dcc4580-bb3e-4722-a623-0776a91c1764@citrix.com>
-Date: Wed, 6 Nov 2024 14:05:44 +0000
-MIME-Version: 1.0
+X-Inumbo-ID: 1cb677cc-9c4a-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6YzIwMDo6NCIsImhlbG8iOiJEVVpQUjgzQ1UwMDEub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjFjYjY3N2NjLTljNGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTAyNzU5Ljg4ODgyOCwic2VuZGVyIjoiZ3J5Z29yaWlfc3RyYXNoa29AZXBhbS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NvtisC0etbqMc0SzSafOdUqEECau8i0jo1KxUEnf0NaD2Us40y7Uh6JzmpzK0aAQi60RsPM99EPQETR5tc0nGwYGOtTYfT2Ekr42TEfi1uPkJ5Tots4IqiYAuw38jIVH55bRGsQhrVM4Zk2HUVh4PvHn/3Qd2ZXAnKV5wj10JasNwqk9LXeakGntC57lUkCMn2NR9SrIPBc8Z0z0Q5D74E/Ong4leGbQcc+H3l9wRKY0Z5llf9MiO+T7m/8NlKM6LDmbiQFQ8/xmyM+xUHAygpOEZpJ/KGl35MLDGPvlR0hKN0AYDvTtGR4Uqmc3POtZ+WzB04V0sUG8ezN7LtZYcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z1dAccebykuxnKhJ6CqD4TxswwzD4ENLzUsm4zKB5B8=;
+ b=pZ/tPlTV7zohdvIqbilo276mYk+4bQQ5iRhMA+gbzr8Efv0UNpxyGT7qf4gEgKHpe8dA7tLVPlEFGl2BiuLUYX6amzc/BTL7Do9xoWrNamkdnbRQc5QxXbfFWoYD0467KqgM8s2GCGeIVgOM9GgwMmONTKoakWfgPozpZyG0m/28seVewG5fGnYkjIDSJep7SGJllOXK4FdJUl8zVOFNE3d5X5IMfuY7kMXFssFRJifpKfck3MWYVlMHohwVzrE3b/kFEhWWooUtWiSD55aClrT9N5jn1HV5PlV/YydYMERX/YF2chX7PTPgxpcAOVvtkrzMEz4FxUBTaVZU4tUYng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z1dAccebykuxnKhJ6CqD4TxswwzD4ENLzUsm4zKB5B8=;
+ b=e/nQ1T855/SVPAiK6jRMYXz9bnXfqZuz9QTdrt5Dte7KySHgL+jyRDmz3Blh4h3gnTv3QTe9skhlJ+HvHIxQe6tDkaqZd34xwAieVoA3R9YO0cDSSM82taGpz65y62cv2xjBw1clJqfQRhJdjUWpOJtbXLQJjf8leDiltzRPG1gNJdu7hPZTIV9ZP8caVu2QnNUA46Lj2C8yxwzUnDQtBXRuO3N6sDKVvxRRWNcioRbWD09rEO0JyJ2rLIarVkkEcOoZxAG5MG4jLvgJUY25uPz/WDn9kFMLJ/iunGGH+3OaT0BODX7SqirpKlbw4BCPo/z5VSK6n1qY9VLu2nmAVQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <1175a6a0-9eef-4029-a7c0-e07d15b0aa76@epam.com>
+Date: Wed, 6 Nov 2024 16:19:14 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/12] x86/boot: introduce boot module types
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
- <20241102172551.17233-2-dpsmith@apertussolutions.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241102172551.17233-2-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] xen/device-tree: Allow exact match for overlapping
+ regions
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
+References: <20241106134132.2185492-1-luca.fancellu@arm.com>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <20241106134132.2185492-1-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0276.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e6::6) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PA4PR03MB6944:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57905e91-3c8a-442d-1449-08dcfe6dff41
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dlFNY01DblFQNFdTQ3QrMVFpT3NkdCt0M09iQlZMQW9PKzVZY1liOVV5RmNz?=
+ =?utf-8?B?THdDRnZWSjlpTGhWWjJ4bHpHdDRsbDFBbE15bmZSWkJnRkZxbEJIUitCM2Vo?=
+ =?utf-8?B?MEtuMXNvN05kMU9samxLSmdtWWdyQ25xS0NwVkFhbEc5K3ZqckZmcW1IYldl?=
+ =?utf-8?B?MWJhSmpHTXpOOE0vYUVoUkFxeGZCVndsMVBzdmQ4UDhDREFRajZPTThTQzhU?=
+ =?utf-8?B?R2pBd1VnK3FkVjA3eTY2RTJzdWhqWGY1cWxSem1ReUVpNHdMbFhMbG94ckVL?=
+ =?utf-8?B?WUNJYVlxSHhoNDA1Snl3b0hqNG8zN3JMMk9MeWg2VFFqS2lPSVZTOFIwU1p4?=
+ =?utf-8?B?RzFxL2tYVEthK2hIOVFZYXJzdFZoL2g4QjlZcjZrWXNnUGhudUdCY3VLQUJC?=
+ =?utf-8?B?NmlNU0FrNllidG9YSERRdGxvaXA5TjRoMEtyQjAzZmIzWlNoQ29OM0VJOUdp?=
+ =?utf-8?B?bmpXZGxaaFlrdDVLUE1SNWU4UzhoSlN3OWs2dXlXSVgyNVJWWU5iUlZQTitJ?=
+ =?utf-8?B?dVQxRUhYYzcxSitLbW9MZHNydzM1bmdxdjBWQStBeHYxRXVucVl5bFF5bEUr?=
+ =?utf-8?B?eTc3L29zZ1JzWUxVZWRGaFBMOXBpVUdrSklsSGpzdHhZWW1DNmVXWEQ4c1Vx?=
+ =?utf-8?B?ZENEUDZhZ3kwUHd3Nk9NRnhzQTVEWkcxdmlGdE9rY1NaT2xYY0tpcUpsUU1r?=
+ =?utf-8?B?eWszUzRLaE5tT3dwZlBUWkJtM2ZUQUlxczdiWjE3ZFh2dUR3aytzQ3h6TW85?=
+ =?utf-8?B?RVR4T21wNWcwOWlsbEN2YWJUcmcyeTVvT2pkWEpWb2ZaY0xZZHRKcUVyQlNX?=
+ =?utf-8?B?QUZYMERZUTZRZ1FTaWRWRjV0T01KREdjU2xDZWpRZ2htZVd4eGlkVUVJOS84?=
+ =?utf-8?B?aHd6TjJHaFE3dC9pQWRrYzBEZXhFQTMzYnNaY0NWaEsvcldkM2I3eXJRaDBW?=
+ =?utf-8?B?bUNTcmFmTXQ4UlRmSmlOZ2pCTGlBZ1hVRDc2dkdCZk52dGt6bHh5V2ptRGxW?=
+ =?utf-8?B?QTk5SDYzRVNWNWRxU0E2dnlWcGFVZ3Z0d3pLSnZvaTJOMkpVS1VKeTlXV0J0?=
+ =?utf-8?B?ejRFT2RWNFM3cnllckQzUnk3Vk1raGM4dVk3Sm9lNm5UVDhxOWZSNlREWHlZ?=
+ =?utf-8?B?b2tISWRwWEoxVkpsaFZJbUlEbW90R0RrRGRZelJLWGFhbE5PelZhQTVtd0dj?=
+ =?utf-8?B?OVVxM2xvRDd2TTgxZXBoYk1XQ093cnh3L0MxQjYzSk1sL2FjbXJ5ZTVRbE9P?=
+ =?utf-8?B?b3Y3ZjRJQUVleUI4dVJWT0lvRGZTNXR1T2xnM0VqOWp4OC9vcmorcDgvcHJh?=
+ =?utf-8?B?TzFXS0p5amIxTHcyV3czVWFIcnlEemFZZk91bVZKS2pySHhMMndaYmh2R1B3?=
+ =?utf-8?B?ZFMrREN1NGhEOG5yYTlqWWRXOEVrcy9IR2hlMGxQamZzUnZnaDFSUW10TmZu?=
+ =?utf-8?B?MlNlY0tWc2NaY2hXSUJkRGVkZm5HWWNIUkR5clhFL0JSZ2dzSG9ndjhkNGhI?=
+ =?utf-8?B?ZjZHYktXNk56RU40eHloS1BqQy9QZ0lMaE9hdDVBNTNuYkhWSUVkc0htMDdz?=
+ =?utf-8?B?Mk9lQmNRMDZUSksyQ0t3MTdqZklpSkVQVDVPMXRqL1grMk9SK055UFdQMXZU?=
+ =?utf-8?B?TDd2WE9XdS9ucCsybWswRmZ3bXp1cUpzcGYrU1Z4YWxiR3E4emhQb3pSY0g0?=
+ =?utf-8?B?U1oyc09ZN2pxQ1RPKzE2T0orUHk4N29QeUMrRlc5MHZjWVZ4WFRuZGRzV01v?=
+ =?utf-8?Q?mQjwq8OQn1vOaE7oiQE9b58Jm6y/CB2r3b0DXFi?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b2c0K0dnczdib3BtMmpwWE5ub1NlUjNsVytLdXQzbDZJQWZ1c0Z6ZGtkdCty?=
+ =?utf-8?B?Y3JHeC9Jb0MvSU5GSllEOWdLWGQ2QTBMc3JMRjdXdHRhR25mNnQ3bTBsSm40?=
+ =?utf-8?B?dVFTeVZjelNtclFtZ1JwQTF3cXY5U2FWYUZyQ29LM3A1NjVHb3paL05nUCtQ?=
+ =?utf-8?B?VzJTWGZvcHhEeXlzZVB2Y29Eb0NSYmdUVjVTanZzVkJMSzdVR1cvNlRuL3Zp?=
+ =?utf-8?B?NkJDRGZoMTlOeXB6SUVBa2lLQTFmUmg0UnYycnp4V0pGdm4wME90T3I3SElj?=
+ =?utf-8?B?YUZ6d3FNKzdnZDBScFM0ajM0KzVYT2N5U2lzTXVCK3BiNGk3Q2xseVJwVG50?=
+ =?utf-8?B?WHJWa0VPSy9DMzlOS1RSbXptdXA4RjlzRTlyaTFLVkU3eGo5N0NUWjFTVXVG?=
+ =?utf-8?B?a3NkVGhRaXlVNjdNdXEvbEd0bVhUVnNvT01oSGNidzZmUitNTDdyRWFrR3NU?=
+ =?utf-8?B?aE9zNnBDVCtLdm8xU21DSjlDeHc3bjZ5WW80V3l0cFhXdTVRWHhKdUM5RjFx?=
+ =?utf-8?B?aG9BZ1lEK0VMNlpxSk5oNjBaTnJKRG9aWi9xUHhSdkxZSE44dXdUQ1JDSVNW?=
+ =?utf-8?B?SU1lS1JYa1kzbFBVeHhQc09zRjd0UDkrTG5ZQk1oN1kycGcra0xSYmdRa3Fx?=
+ =?utf-8?B?QmJLU3MwYjhoQ1QzYml4ZGFMRitSeStxMkg2ODd2TTJ6VW42eWpCbkJ4a1Vq?=
+ =?utf-8?B?a2xVR0FKSGZWdys4L0VPU0ZOeHJvZEdSOHo2bFk5N3hMcTZjYzZTQmJOMEpm?=
+ =?utf-8?B?VVBzaDlqaHB0YVRyc1hEekt3bENRUVVMbGFxLzFjb21jWG1PVW1Gam5yeElo?=
+ =?utf-8?B?cjc0WlB0SEZvc0RCbjdtVzkzSkR0ZDQ5OUkrZlViOEkwT1Q4U2Q4ancwNlBO?=
+ =?utf-8?B?dktPS3dLR3dnNjNlb3VHb2hlU1p3SmhINFdZZkpBVHBxMWFHSTByV0JoTHdz?=
+ =?utf-8?B?a3hMbUpHdFU2K2hPYXFJVUtaRnpuOVVDaE9UUUdwRk5aMjY0Tm1oZjg3Nk9O?=
+ =?utf-8?B?RW42bWEydjVoMDgzYktOVWRSRVN2NjFWWkFRT1VDR0sxNE5GSDB1M2FFRitD?=
+ =?utf-8?B?ZUZjN1ZwaUNaRFkrU1ZSRmRhb2IrSWJBeVh3OTh0WlJpQm5hL1dJL21aUjE2?=
+ =?utf-8?B?ZWhheWpTVi9oR0NhZVhGVlF0VGJYVzFrZC8vTmVUVVVQaGVlTFZuK3d3Uk83?=
+ =?utf-8?B?M1dBOXdaejdUZkhic1BOR21vOEN1ZnR1VWp5bmlWRDBaOWNlVG9tSExaSSsy?=
+ =?utf-8?B?cEVKMHJpZjZVOHdGdWhnbWRBY3ZVeEdETnQvRkdtektSb1V1VEQ5bjVwSjg1?=
+ =?utf-8?B?eFFFRzQrZHlUNjJiTy9YWFBMMUtTa0RMQjhqTUI1TWlnaG5hdWxYMSsxR2Ir?=
+ =?utf-8?B?NUphdlJ2MXVvTXFmOVRxc00wdTRNRXJXTXBZeTdTQmxXL3FIcE5nVTl6ZDI0?=
+ =?utf-8?B?SnZ5c29RVFFucWlMdmNwSWJZbG9NMlJvM1N1TVZOTmIxeE80eTBJTUdlbjQx?=
+ =?utf-8?B?QW45WmZpRUpkVmtwTE0raTBiQjRLWGc4b1d3MWpteW9GRmNRdThuVWlRWWdo?=
+ =?utf-8?B?WUt0OG9CUXhuMit2RU16aVROSHFvUzBFeDlaMUU4eDhCNEdNTUVsUEZidElF?=
+ =?utf-8?B?TWJCYW1pTUdKVkpoWEUrYk95cHJCWmxJMlNaQng1VmJlR1ZCejVIYWxZcTNo?=
+ =?utf-8?B?a1ZmemZjV0s5VkZtQWZWMEtHSUdxa2tLZUNlRmp0VHp2RmZBdm10M1FjY1R2?=
+ =?utf-8?B?MExaaUJjNW1WazlVVmovS2p3Y0ZFSlNGVWUzZzVqVCt4aHNlTWlNZFV2a0p2?=
+ =?utf-8?B?YkgvclRLdkNtLzIwYXFUalRSN3dzWnJ1cm52d2huVUt1QU84eFRQV1VRWFlX?=
+ =?utf-8?B?d01tWkRnK0R4bExtUVRIV1Byd0xQUEdXOFFVVFJYMkozQ2wxRTB6NXVaT1Nl?=
+ =?utf-8?B?Y3dZU3k2VUVBQTNUZmNIa3BwZ2JnWFJIaXVUcjhyVFlndUxqbW12TkVGREJl?=
+ =?utf-8?B?V2VlTDBUVmFsUlNKQUpaTUNhTXJrT2VMZTFhWC9jaXB6Q1IrbUczWTFGbWhm?=
+ =?utf-8?B?bUhBSkcyaEdKVis1SVlQeHFNVXY2aVI2MVB1VGlLUjd2STErMHZUbUZKdGZ4?=
+ =?utf-8?B?NjlMOTkyOTBpcjF5VnlobERBVXNvWnJKa2JsaGhlSzNCeDhmZzRnZk15NzZv?=
+ =?utf-8?B?Wmc9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57905e91-3c8a-442d-1449-08dcfe6dff41
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 14:19:16.8581
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ivvbBzoLabZEHaoNbMz+eLRBq6+q8I4pbH899ayTqPP487VFFCrUYjRrg7oRCDfM1AitYRXCUYSuof4llucfOvEFpG85JT4Mus8UqjPxHw8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB6944
 
-On 02/11/2024 5:25 pm, Daniel P. Smith wrote:
-> This commit introduces module types for the types of boot modules that may be
-> passed to Xen. These include xen, kernel, ramdisk, microcode, and xsm policy.
-> This reduces the need for hard coded order assumptions and global variables to
-> be used by consumers of boot modules, such as domain construction.
->
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, albeit it with
-one extra suggestion.
 
+On 06.11.24 15:41, Luca Fancellu wrote:
+> There are some cases where the device tree exposes a memory range
+> in both /memreserve/ and reserved-memory node, in this case the
+> current code will stop Xen to boot since it will find that the
+> latter range is clashing with the already recorded /memreserve/
+> ranges.
+> 
+> Furthermore, u-boot lists boot modules ranges, such as ramdisk,
+> in the /memreserve/ part and even in this case this will prevent
+> Xen to boot since it will see that the module memory range that
+> it is going to add in 'add_boot_module' clashes with a /memreserve/
+> range.
+> 
+> When Xen populate the data structure that tracks the memory ranges,
+> it also adds a memory type described in 'enum membank_type', so
+> in order to fix this behavior, allow the 'check_reserved_regions_overlap'
+> function to check for exact memory range match given a specific memory
+> type; allowing reserved-memory node ranges and boot modules to have an
+> exact match with ranges from /memreserve/.
+> 
+> While there, set a type for the memory recorded during ACPI boot.
+> 
+> Fixes: 53dc37829c31 ("xen/arm: Add DT reserve map regions to bootinfo.reserved_mem")
+> Reported-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+> Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 > ---
-> Changes since v7:
-> - merged the addition of microcode and xsm boot mod types
->
-> Changes since v5:
-> - added guard around initrd type assignment
-> - removed a missed rebase artifact
-> ---
->  xen/arch/x86/cpu/microcode/core.c   |  1 +
->  xen/arch/x86/include/asm/bootinfo.h | 12 ++++++++++++
->  xen/arch/x86/setup.c                |  4 ++++
->  xen/xsm/xsm_policy.c                |  1 +
->  4 files changed, 18 insertions(+)
->
-> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-> index 1fa6cbf3d364..f46464241557 100644
-> --- a/xen/arch/x86/cpu/microcode/core.c
-> +++ b/xen/arch/x86/cpu/microcode/core.c
+> I tested this patch adding the same range in a /memreserve/ entry and
+> /reserved-memory node, and by letting u-boot pass a ramdisk.
+> I've also tested that a configuration running static shared memory still works
+> fine.
 
-@@ -831,6 +831,10 @@ static int __init early_microcode_load(struct
-boot_info *bi)
-                 continue;
-             }
- 
-+            /*
-+             * Do not alter this boot module's type.  We're most likely
-+             * peeking at dom0's initrd.
-+             */
-             data = cd.data;
-             size = cd.size;
-             goto found;
+[...]
+
+Thank you, Dom0 started successfully with Initrd.
+
+Tested-by: Grygorii Strashko <grygorii_strashko@epam.com>
+
+Meminfo from boot log is below:
+
+(XEN) Checking for initrd in /chosen
+(XEN) Initrd 0000000084000040-00000000860864fd
+(XEN) RAM: 0000000048000000 - 00000000bfffffff
+(XEN) RAM: 0000000480000000 - 00000004ffffffff
+(XEN) RAM: 0000000600000000 - 00000006ffffffff
+(XEN)
+(XEN) MODULE[0]: 0000000048080000 - 00000000481ec000 Xen
+(XEN) MODULE[1]: 0000000048000000 - 000000004801e080 Device Tree
+(XEN) MODULE[2]: 0000000084000040 - 00000000860864fd Ramdisk
+(XEN) MODULE[3]: 0000000048300000 - 000000004a300000 Kernel
+(XEN) MODULE[4]: 0000000048070000 - 0000000048080000 XSM
+(XEN)  RESVD[0]: 0000000084000040 - 00000000860864fc
+(XEN)  RESVD[1]: 0000000060000000 - 000000007fffffff
+(XEN)  RESVD[2]: 00000000b0000000 - 00000000bfffffff
+(XEN)  RESVD[3]: 00000000a0000000 - 00000000afffffff
+...
+
+BR,
+-grygorii
 
 
-To make it absolutely crystal clear that ...
-
-
-> @@ -845,6 +845,7 @@ static int __init early_microcode_load(struct boot_info *bi)
->              printk(XENLOG_WARNING "Microcode: Chosen module %d already used\n", idx);
->              return -ENODEV;
->          }
-> +        bi->mods[idx].type = BOOTMOD_MICROCODE;
-
-... this is deliberately not done on the scan path.
-
-~Andrew
 
