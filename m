@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 848E59C073E
+	by mail.lfdr.de (Postfix) with ESMTPS id 866329C073F
 	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 14:26:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831814.1247207 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.831813.1247199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t92Vr-0006Zj-L3; Thu, 07 Nov 2024 13:25:27 +0000
+	id 1t92Vo-0006N7-F8; Thu, 07 Nov 2024 13:25:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831814.1247207; Thu, 07 Nov 2024 13:25:27 +0000
+Received: by outflank-mailman (output) from mailman id 831813.1247199; Thu, 07 Nov 2024 13:25:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t92Vr-0006YC-IA; Thu, 07 Nov 2024 13:25:27 +0000
-Received: by outflank-mailman (input) for mailman id 831814;
- Thu, 07 Nov 2024 13:25:26 +0000
+	id 1t92Vo-0006Jz-BQ; Thu, 07 Nov 2024 13:25:24 +0000
+Received: by outflank-mailman (input) for mailman id 831813;
+ Thu, 07 Nov 2024 13:25:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tRHX=SC=gmail.com=gragst.linux@srs-se1.protection.inumbo.net>)
- id 1t92Vq-0006Jr-Ri
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 13:25:26 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t92Vm-0006Jr-7R
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 13:25:22 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be6d0503-9d0b-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 14:25:23 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-539f6e1f756so975874e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 05:25:23 -0800 (PST)
-Received: from epuakyiw0a98.kyiv.epam.com (ll-22.209.223.85.sovam.net.ua.
- [85.223.209.22]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53d826af003sm214286e87.265.2024.11.07.05.25.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Nov 2024 05:25:20 -0800 (PST)
+ id bb299c4e-9d0b-11ef-99a3-01e77a169b0f;
+ Thu, 07 Nov 2024 14:25:18 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-431695fa98bso7482955e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 05:25:18 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381ed970d4fsm1772255f8f.5.2024.11.07.05.25.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Nov 2024 05:25:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be6d0503-9d0b-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzIiLCJoZWxvIjoibWFpbC1sZjEteDEzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImJlNmQwNTAzLTlkMGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTg1OTIzLjc5ODI4Mywic2VuZGVyIjoiZ3JhZ3N0LmxpbnV4QGdtYWlsLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: bb299c4e-9d0b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmQiLCJoZWxvIjoibWFpbC13bTEteDMyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImJiMjk5YzRlLTlkMGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTg1OTE4LjQxOTM4NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730985923; x=1731590723; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bpKqtiiah/MyPzTQHICukxAGpceAk/bMRNOsccrstIk=;
-        b=Ck6rGt5hjBYKuDZcW8jySoolSPFzJX+hmjoAW9TPyPh5CgegNG+5t5wEsuhozJRxsT
-         BxyPH1fo5ubyLIbsHoeX2yFHns8htgXr5EbJOop3F00ZIdSrDqxSqj6ehVYRiLrbYYTM
-         aeTYQr0pPmuw4yEkkqul1E+R6DOP0Ci3yaA99Ygd4aHd1tCoejt3hTvVzyXW5+3/GzAt
-         IHHhIxU0ILP9ghl9hTTBbx7GeRtliOjyUfxyrqZAqhQFSHJLsPZitxEvRMbJ+QO1EYmX
-         IAJzge/npxpXVRJNcLyNDQt7d+al0HREJaLwRxXqMGtl1ICg4uGGRWoooIjrQFWj28/y
-         IE3A==
+        d=suse.com; s=google; t=1730985918; x=1731590718; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rmOpsxmaw+yexmtAZ6yYDZzEdgsmWXdBhsdga8bmoRU=;
+        b=SP93hAdTkYS9Z9MNujBo4g47OGa3MI0Lp8uWF1pLcvykXJBohhRoeXH6dAA+NXC5Yw
+         KyTUdPxEynKX9Sqgq8w/Urb3FLuGItl+0RV5BZoP2vEhUYfysWMPlRMN2b3DI2UVtbKJ
+         yUB+QMuQTSP+NYkzt8ShWBAh9XefGpsBV9GPgpFnCxWd+9fBdyJ9IrQcl2Y7O5GdBldS
+         TEDVmCvRnTbiY2wNF1j7Uo8WRUnYsjhzoZ8ktQJJQ923HG7CO4CV/Y+hxlrnj8jynWL3
+         s4IvU4vUGmujypTAXwh9MDBjp0lNipYvE2yrMZDZa8mscul9LRNo6b74jmQpoEWSg1Ux
+         W9OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730985923; x=1731590723;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bpKqtiiah/MyPzTQHICukxAGpceAk/bMRNOsccrstIk=;
-        b=TK1Is6sKvgYlajvTVmFhpupORRdWX3qD45Tg+p5BJ4kE6DyfdUndUUpFmeSb+cBMAl
-         m2abEQNVh2DdRgGCQU0RnuqrmzdMkunEe7Vi6BKCFpMQH4rtZ6qRFhNt9zx3IiS/T2sU
-         8NmAuf6ZwK5OqHvEGvFHPcE4EQtoSRrZaBA+R/T7ZEkQT39aymTSCu3As+TEHLIdkwVb
-         v3LWEm9YdKXVvm/JX7WmbJIG0fWA66SE/yFVQbjWuRasEFJhCsGniwrKh+dRIHwAc1Ju
-         tVXDiwMJ6ibAKZDk/iD4Zrx+1TKNd0Wr5iXNrg06JF7ZImA2rzecinZr2v9au23MyU6J
-         Vw1g==
-X-Gm-Message-State: AOJu0Yzqza4g1oyKLFbXcjNbqW/7J6DROrDXOBQpoPMdYkZnXwNjFQRv
-	4l6/hqZvedJzsow4nWUlp3rNrFFNAhItFWP8hpXEO32xODLQ/YCYqYz74Ha8
-X-Google-Smtp-Source: AGHT+IFWhmelZY20geYJLdWJ1tRmBFGsoNiLCmj2ZIb8PPqeoNJJsJzX90s+FodxvE+6DeAjEFC2IQ==
-X-Received: by 2002:a05:6512:ad6:b0:539:fb6f:cb8d with SMTP id 2adb3069b0e04-53b348e1452mr23410418e87.27.1730985922468;
-        Thu, 07 Nov 2024 05:25:22 -0800 (PST)
-From: gragst.linux@gmail.com
-X-Google-Original-From: grygorii_strashko@epam.com
-To: xen-devel@lists.xenproject.org
-Cc: Grygorii Strashko <grygorii_strashko@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Mykyta Poturai <Mykyta_Poturai@epam.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH] iommu/ipmmu-vmsa: Add Renesas R8A779G0 (R-Car V4H) support
-Date: Thu,  7 Nov 2024 15:25:01 +0200
-Message-Id: <20241107132501.724836-1-grygorii_strashko@epam.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1730985918; x=1731590718;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rmOpsxmaw+yexmtAZ6yYDZzEdgsmWXdBhsdga8bmoRU=;
+        b=wnSnSBQcduwbKvqOFovPGQjlwcixUuZQ0vJBzImzlFX87mkGpRDqc9yjEfYK04RCwJ
+         UOJodCTR4NIRy/Q5zuE3trS3yiuzZv+G11sbNoV+Y3KAL7kS1sTjYhQjGGkkX+jlzJVv
+         PQalToBjjz0YuP7/OhVFreFzN+nBapAJdfx9VzeqdusukzOD8W1V7r0Yjtf3V19vWbiQ
+         k3xM4vzoPouVfgsbn2iNzBaBp7/sEIZl/dQanYFJnbCPHHOP45+5wSBrxxCsvE8nZLyl
+         d896AjzZvuQAXtrH+fH0/JUt1ERtzj30dkRMCMX6hHBHn/Jzss4A3HdEO6jOIqEPz3EB
+         /vSg==
+X-Gm-Message-State: AOJu0YxHVqZ3uKAoabu6c9CI5lUisRpPmPUXj5Glbes/RC5QGqI5g5pz
+	64/WlZNL+ygximKgIcnL2vINMrZVN65gYN4aPImjVMlkiwCbMkDqM/KWS+8efA==
+X-Google-Smtp-Source: AGHT+IEDLGlq7p+T8eIon8wikcW7xfGiAXP+9n1PzYIhxyDvC2yQnvy4sp+RowzPadDYkbGNq0xerw==
+X-Received: by 2002:a05:600c:1d1d:b0:42f:4f6:f8f3 with SMTP id 5b1f17b1804b1-4319ac6fbf7mr387567455e9.7.1730985917796;
+        Thu, 07 Nov 2024 05:25:17 -0800 (PST)
+Message-ID: <c5c95c48-94ad-47bd-9fe8-74cc048d3312@suse.com>
+Date: Thu, 7 Nov 2024 14:25:16 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/Kconfig: livepatch-build-tools requires debug
+ information
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241107084927.37748-1-roger.pau@citrix.com>
+ <66fd7b53-25f5-459b-8563-e33fccba90ef@citrix.com> <ZyyLAj6MZ3fvOFBC@macbook>
+ <22c59035-67e3-4e43-bfe0-26675a93e9ae@suse.com>
+ <e81ae2da-383f-4cc7-8213-66f8ccc9b6e7@citrix.com>
+ <b1ef3ffa-2021-45df-af46-098eb4cb3a46@suse.com>
+ <ce901e5e-2872-48c0-b3a0-52478d642706@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ce901e5e-2872-48c0-b3a0-52478d642706@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 07.11.2024 13:17, Andrew Cooper wrote:
+> On 07/11/2024 11:57 am, Jan Beulich wrote:
+>> On 07.11.2024 12:30, Andrew Cooper wrote:
+>>> On 07/11/2024 9:48 am, Jan Beulich wrote:
+>>>> On 07.11.2024 10:40, Roger Pau Monné wrote:
+>>>>> On Thu, Nov 07, 2024 at 09:21:26AM +0000, Andrew Cooper wrote:
+>>>>>> On 07/11/2024 8:49 am, Roger Pau Monne wrote:
+>>>>>>> The tools infrastructure used to build livepatches for Xen
+>>>>>>> (livepatch-build-tools) consumes some DWARF debug information present in
+>>>>>>> xen-syms to generate a livepatch (see livepatch-build script usage of readelf
+>>>>>>> -wi).
+>>>>>>>
+>>>>>>> The current Kconfig defaults however will enable LIVEPATCH without DEBUG_INFO
+>>>>>>> on release builds, thus providing a default Kconfig selection that's not
+>>>>>>> suitable for livepatch-build-tools even when LIVEPATCH support is enabled,
+>>>>>>> because it's missing the DWARF debug section.
+>>>>>>>
+>>>>>>> Fix by forcing the selection of DEBUG_INFO from LIVEPATCH.
+>>>>>>>
+>>>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>> Oops, yes.
+>>>>>>
+>>>>>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>>>
+>>>>>> Fixes tag ?
+>>>>> Was borderline on adding one, but wasn't sure since it's strictly
+>>>>> livepatch-build-tools that requires the DWARF data, but custom made
+>>>>> livepatches (like the examples in tests) do not require such
+>>>>> information.
+>>> Ok.  I guess it doesn't matter too much.
+>>>
+>>>> At which point: Is "select" really appropriate then? Wouldn't it be more
+>>>> logical then to change DEBUG_INFO's default to take LIVEPATCH into account
+>>>> (still permitting people to turn debug info off if they know they won't
+>>>> need it)?
+>>> I am very disinterested in letting people who think they can do
+>>> livepatching without debug symbols shoot themselves in the foot like that.
+>>>
+>>> It's only debugging symbols.   If people *really* think they know
+>>> better, they can strip them themselves.
+>> Besides my abstract concern, let me also add a concrete practical one. I'm
+>> sure you've noticed that xen.efi is _much_ slower to link with debug info
+>> than without, or than xen-syms. That's a consequence of how GNU ld (really:
+>> libbfd) works internally. By not allowing DEBUG_INFO to stay off you're
+>> forcing me to either wait longer for every single one of my post-commit
+>> pre-push build tests, or to turn off LIVEPATCH there. The latter not really
+>> being a good idea.
+>>
+>> Nevertheless, as said in reply to Roger: Go ahead if you absolutely think
+>> that's the only sensible way.
+> 
+> I had noticed that link was taking a long time.  I hadn't realised it
+> was this specifically.
+> 
+> But to put this another way, you're arguing to intentionally avoid
+> fixing a sharp corner, because there's a perf issue in Binutils.
 
-Add Renesas R8A779G0 (R-Car V4H) IPMMU support.
+I understand there is a sharp corner, yet recall I had suggested an
+alternative. People changing defaults are responsible for what they're
+doing, after all.
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
- xen/drivers/passthrough/arm/ipmmu-vmsa.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+> I will note that it was you who forced the generation of xen.efi on
+> everyone, even those who didn't want it, without any knob to turn it off.
 
-diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-index da011413c5c0..d828d9cf6afd 100644
---- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-+++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -788,6 +788,7 @@ static void ipmmu_device_reset(struct ipmmu_vmsa_device *mmu)
- #define RCAR_PRODUCT_M3W     0x00005200
- #define RCAR_PRODUCT_M3N     0x00005500
- #define RCAR_PRODUCT_S4      0x00005A00
-+#define RCAR_PRODUCT_V4H     0x00005C00
- #define RCAR_CUT_MASK        0x000000FF
- #define RCAR_CUT_VER30       0x00000020
- 
-@@ -836,6 +837,7 @@ static __init bool ipmmu_stage2_supported(void)
-         break;
- 
-     case RCAR_PRODUCT_S4:
-+    case RCAR_PRODUCT_V4H:
-         stage2_supported = true;
-         break;
- 
-@@ -871,6 +873,10 @@ static const struct dt_device_match ipmmu_dt_match[] __initconst =
-         .compatible = "renesas,ipmmu-r8a779f0",
-         .data = &ipmmu_features_rcar_gen4,
-     },
-+    {
-+        .compatible = "renesas,ipmmu-r8a779g0",
-+        .data = &ipmmu_features_rcar_gen4,
-+    },
-     { /* sentinel */ },
- };
- 
--- 
-2.34.1
+True, but if there's desire to turn it off, a knob can always be added.
+EFI support pre-dates the introduction of Kconfig by several years, iirc.
 
+Jan
 
