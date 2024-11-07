@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1F6B9C0157
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:42:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831587.1246915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E45F9C015E
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:46:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831596.1246924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8z21-0001Z2-Qs; Thu, 07 Nov 2024 09:42:25 +0000
+	id 1t8z5f-0002BU-Bk; Thu, 07 Nov 2024 09:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831587.1246915; Thu, 07 Nov 2024 09:42:25 +0000
+Received: by outflank-mailman (output) from mailman id 831596.1246924; Thu, 07 Nov 2024 09:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8z21-0001Vt-NV; Thu, 07 Nov 2024 09:42:25 +0000
-Received: by outflank-mailman (input) for mailman id 831587;
- Thu, 07 Nov 2024 09:42:24 +0000
+	id 1t8z5f-00029L-8b; Thu, 07 Nov 2024 09:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 831596;
+ Thu, 07 Nov 2024 09:46:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YWgB=SC=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1t8z20-0001Vn-Ei
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:42:24 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170130004.outbound.protection.outlook.com
- [2a01:111:f403:c200::4])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t8z5e-00029F-74
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:46:10 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 957ead5d-9cec-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 10:42:21 +0100 (CET)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by PAWPR03MB9860.eurprd03.prod.outlook.com (2603:10a6:102:2ec::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31; Thu, 7 Nov
- 2024 09:42:18 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8137.018; Thu, 7 Nov 2024
- 09:42:18 +0000
+ id 1c024fc7-9ced-11ef-99a3-01e77a169b0f;
+ Thu, 07 Nov 2024 10:46:06 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-37d3ecad390so1067485f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:46:06 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381ed9978afsm1213396f8f.52.2024.11.07.01.46.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Nov 2024 01:46:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,184 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 957ead5d-9cec-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6YzIwMDo6NCIsImhlbG8iOiJEVVpQUjgzQ1UwMDEub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6Ijk1N2VhZDVkLTljZWMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTcyNTQxLjAxODg1Niwic2VuZGVyIjoiZ3J5Z29yaWlfc3RyYXNoa29AZXBhbS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JM7M/jZ4xo1bf+kazui9cGGZ6hmQ09CvRlkGyeQNf+nX11UwnKFqrZ73oEjXt7ldNK5AF8udwide8AvJsyPH29mqtHfoKfh+Ykmv5IE7l7o1qLsEztq/+3J0sYF+khlHD5SiOHBQ4T6i7mbxtVLlvS9eI7t/Wqh8GjVPFHbFcMBiacYQ7W5LRZRDHWbGSSWLCufAbPgVb6c4Xp8Z3lG0eOA6kJSrJBcauJAX0d2biOAMf00a9Rj1XjTFBfZaZm4eQGU7g/sFC3QCB1YMaOxaBCcdYL/V4ZxNdA18n/p8GXt0A1cFDdb4FApK2WmxiVV3XpLrejfzPO1edWV8mp7dxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LFiayGjTBRcI7cQ0abKObLDf+rLXE69e44c4qw3gLHU=;
- b=JO3Nl23BCXMJKTehje+UCT69j4YQMpFt9tyKx7bTb6qbWjWmSxEhNLynrKm05/ui1V7gNMxMxQ84arY3dESYwZemislK4lfU6RSjntZyP/97kgq7BkFNfMxekmQvuoC2yqjK1vL4f2xfPFeDbRktAcGGIeos7tNAGL7E/UuBBkN8/ki/cJnEdDp6Z5E1IBHWrqvPQBCOQmEU8YNd2IDbUngaPamNnM/eE6Pja2H6Dox+6zWH0/NI7y0qO7RxJ3gboLXvBMG7Z/rtNprzVlJ+YoIxhzNKMEctG6Dg+Lq58hzCNHAJPRWznpyyGmVqABAOCGSmL6M4ENS0KNv+nZb53Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LFiayGjTBRcI7cQ0abKObLDf+rLXE69e44c4qw3gLHU=;
- b=ICkdR24ZJSZSJ0IMMPbaTSteFze2jszyC2xt44lhKShtfdI1Yc3WR87Ghb7/nwLx7+o1FhDb4u0XN3aO2XI86Vjmz8twCpXJWB/JVZV9TAHoMeslqUJGziU25DRNpOUo0n05lgLDCQuBdBhDlRGGUWPqQGRoW2+/DEoylQBiaEG38BROlF7hHKjfSauW8wH13NIe3DUysGsXdlW3phQ5sCVJC4jsHrSP/GUTbqQpmIuyRWw2FmcBEX2Ip3JEJmM3Olcyta0wc70Yq2sPSSz42zs9BlAXlTV4e8FzUcEDNgCgh/NKEHIRMsCm/EM48RDkLBbLo2SR+M609XTI/vP3DQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <e6bfae0a-4d8d-4d41-9046-30400da45cc0@epam.com>
-Date: Thu, 7 Nov 2024 11:42:16 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/device-tree: Allow exact match for overlapping
- regions
-To: Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <20241106134132.2185492-1-luca.fancellu@arm.com>
- <d9ad0972-2fd1-40ef-a11c-d56e102fef38@amd.com>
- <FA4FF581-69EA-46C0-A0D4-D327B167A4D6@arm.com>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <FA4FF581-69EA-46C0-A0D4-D327B167A4D6@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0110.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::6) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+X-Inumbo-ID: 1c024fc7-9ced-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzQiLCJoZWxvIjoibWFpbC13cjEteDQzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjFjMDI0ZmM3LTljZWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTcyNzY2LjUzMzQzMSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1730972766; x=1731577566; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4icKvh7bQaT/mFZnzgWTco3Ya5kHOgRa2Lo28+KbHXA=;
+        b=cZWv4IVGUn6N4aYxvMyowmwCuJ/wd6Lfef+hyVbLi0M9BKdsp1+K9rdlFTaHoL0mqQ
+         M7yrwJRkv8FjMB3OKaEMlpngFig8sJLt0ZbX/VAW7i8ar0amQr09k+BMLkJyQ/Vu+iud
+         XDUK18cLu5i20swwSSZyJhtZ2MWl3Grn8klTKZKv7hWdmaHh6SIU2xE0GXh0FsuSqpoL
+         aKwwyGZBoGFyPokNA2cAbqDDsjzGxlnRMNtSUl9YDEm/QZb6VUDQUir+pP/WkcddRdes
+         IFH3hPDUg0Rwe/Y1pB3I1AkM4pjbeL8ddaJzmdYYgRaNoE7PvDmWBpHvwCL8zdnJQi/P
+         ppKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730972766; x=1731577566;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4icKvh7bQaT/mFZnzgWTco3Ya5kHOgRa2Lo28+KbHXA=;
+        b=csotWhF7YnrlEVqZJtrCaPmAzmOLIG8vog7VG3lGNG1VufW87bUjW5tEU/bK7/7ZW6
+         SLJNB7CLjyGeuwa+i3l17Ty/1qMMCipG9QXsBv7VtTRyAvF/I873HQVAJRBBytFtBVPQ
+         mYHJIoxhhjNIdpeClAYwTLyHTYXBvwrkAJTfc7pvueUYeewf8h5oa04eAhHrZi0tgdlA
+         qYolgfHhO4uBtLkAB6stnAQhW1hD7XBq46YsEGDnQ8w/BZwnZLXLvrkcTXTqbl/8UaVk
+         h9Uc5PaTEd7yeE2M07p3e7WeiUwYFo/15YSUfMFdtRXOFQVkHt7LPFrQREFfsEhO6W9Q
+         5F6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWFK9F9/DfO4X+YHCa4m5pAHTB9sbAZQGy31IPT+DqiAns778Ecp4O4DfT21DOWmfaef6pJDFi+xgI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBvfaQVtUwpYO+2b5gHqREz2eTZDTRfdv97pcBHjdiP5ONxKsl
+	Est95QZKECIsS6akuhippgSQJ5O48pTQX8Rc40wlYlxoEPBz61ldLSnHjn4Euw==
+X-Google-Smtp-Source: AGHT+IG5XOAjpF6L7fiwvCOy1tU9PxqhI1qqmQ3+rOeE+iH+Q2iWe7mnqgZ4ailHXNn3U1Nr9enmRQ==
+X-Received: by 2002:a5d:59ae:0:b0:37d:2d6f:3284 with SMTP id ffacd0b85a97d-381ef6d3584mr540981f8f.9.1730972765657;
+        Thu, 07 Nov 2024 01:46:05 -0800 (PST)
+Message-ID: <9947c21d-b5f7-4197-b6d9-dd4d491a30c2@suse.com>
+Date: Thu, 7 Nov 2024 10:46:04 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PAWPR03MB9860:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae1728dc-c972-4139-5956-08dcff10784f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RzJNNi9ZWmVCYXY2N0RZMUpoQWdlcjZZQmIvY3lUVzlhKzR0RUMzS2RPdldl?=
- =?utf-8?B?dTM5MExlQWM5RjJTc1pETFFCbllSbDhnSFdkVnBMMEZxY09hREtpV29VaFFX?=
- =?utf-8?B?eHNLWGZzcC8vanN4ankxTU4wcTVhRzJmd09jRXB6SGp6QlJmdXFlL2pwbTJU?=
- =?utf-8?B?dHlsajBHODYzUEhmTFpNdk5SbDZYMFVoSU9kUFJmdlpORjZYaCt1QWJjaU15?=
- =?utf-8?B?YjY2UGdhQmdxMTROZTNMK3ZuYWJzR1dLYnRYSnluUjN2dWJFd1YxdXNiU2Zr?=
- =?utf-8?B?MTIrZlBrWEEzVzMxNzc1dTRNSTcrekJLN3F6RHd6OVNIZUNkUGEwUDlFdDE1?=
- =?utf-8?B?bVdLM2lUWDZHaDFPSjFNQzBnc2tialZ5UFN1T0FWd1FOUWhtVmxXS1l3RzI2?=
- =?utf-8?B?OFR1bXhhNER4REF1UU1HaGZCaUZNN1J1R212WFdSVHYwQ09CMVN6MnFMRlli?=
- =?utf-8?B?NHptTlFreU9yZDY5OW9PZHVUc2RCdjVIZ0RjVUJudEZ2d3dQU1MxclhEbnVH?=
- =?utf-8?B?QmtDTWYrSVpLWHZBV1JPWTFURnA5VEthVy85UWNuMzNxakNnNU1sNFRFSGRr?=
- =?utf-8?B?VzYweHZPM2NKK0lRL3E3RG81TmhVVFZtcXF5SWU2ME95b0pFblNhRVZLUFNo?=
- =?utf-8?B?RnorTXRyQ0xYQTV0aDdTZGtnbm9GQU8xNkdwdFF3YXRnRTdFaVdvNFFnYXhu?=
- =?utf-8?B?VmwrcFV3eEZoaDlHalJodzNVQVlwaElhZmRjdytkWmJ2LzE0QUwwRitFdDhC?=
- =?utf-8?B?SlA3cFY4TGVwRnBtQytEMXRLclVKS09uTDhXSnl4YnNXamZMOG12Y0IwRDFT?=
- =?utf-8?B?VnVxMnN1V0ZEYkhiV0J6MVdPTERNd3BtVEVvcnN5aVZwV1ZTZmdWRUtkdnpm?=
- =?utf-8?B?TlozTEptcTEzbG1GN2JJc2txdU8xQmRLYi96Zkc1SHFrOGFqbStLaFpKbyt6?=
- =?utf-8?B?YlQ1UmZaYmhyUTF3MlFLclQ5ak14akhTVHRRWXByejlrMXhKRCt3YUY4dnFj?=
- =?utf-8?B?TWExbUkrNVNqeUQ1YXowZ0pudnhUSDlXZkJydUpoYWd0MVVORWsyakQ1VTh4?=
- =?utf-8?B?RWkyQ3ByYktQMjlFZE5HRW1WTEo5ZkNEajJqSkpGbnVqU0lYWDV0a2hmRGxT?=
- =?utf-8?B?YVBkdWhLNTRWK1VqVDBVN2I4bjNhbEZvdTMwK3Fad2N6ZWM2T0lxWDNVNitR?=
- =?utf-8?B?aytrbkJ1MkRVZnplVitNd3gvQ293SVNnM0VtbERJYkg4a0RBQ2dFU0ZnNkRD?=
- =?utf-8?B?VkpzOEh0bFh2TzdQYzliZ1lMZXMwWEtqU2Foc1p3NjB5ckpRdXY4bUdnOTNN?=
- =?utf-8?B?WTFxMkxKanZMeDA3dEJQRHBaR21RYWZGQlVrNnRVeUxZUTM5ZkZQM1prdjlt?=
- =?utf-8?B?R2VuNk5VRUpqN3VDWHhNVk5aQ0ZCMTJlbzRscjBCcnRGdTh6KytOcXlEUzJy?=
- =?utf-8?B?S1RDTmFuZU14VWhnQTlxb2lMS2JueE1MbVRWS2RIb1lBYWh0U21SU2xKeWtW?=
- =?utf-8?B?TEFCeVJBYVZNMysxTVNCbEY0cEJORVVpaUQ3OWNqZEFFKzJaWkdRcjUwMnh6?=
- =?utf-8?B?bkY1SHJSNjlVQmxtS2M2MXV6TkhmK3ZoanlDK0NHZHZOZDRDWHIzQVh5ZitM?=
- =?utf-8?B?M0R2MVVIUE1uMlUwdUQ4cjBWUkVzQnJUS3Fub2pnZ3phdThrTE9iTXdsVGNG?=
- =?utf-8?B?TllwOHlFSTdSVVM4NE8zQlZBd0V3R3M4bHpGeFNzN2p0MWYwVFVSMHhrQm4v?=
- =?utf-8?Q?U4FUmrLYjBpZyZQlgrFaEukLs8P3BPwLIYeg5Vw?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dXpieEhtcWNGeEtOeXFXaXJ0cTZlR1VIZEpyZFdvdmxMY25TdDBRR09ZRUJx?=
- =?utf-8?B?MjZlTk15cHFMMlNJd2Vvc3dRcTUwbGVrUkZWdEJOalVhZGpHRk8zWFZ0R2lY?=
- =?utf-8?B?VGl6OGM2L2FwWWZSQlZORHAxSzB3UmhnNGlQYmUvQyt1SThJcDkwUmFIZGEw?=
- =?utf-8?B?M1dYRmEvbSt5RlNzcFhxWmF1OVFzbFo1YU9SREhCSytSR1hhQjNJaEpSNWZE?=
- =?utf-8?B?MXJ4bWFUVk1jNmtnNk5iMVJHMHZmQnR5ZUNhOHZDRWFOUTB4V0Qzd0lTODlJ?=
- =?utf-8?B?R3dyT3F4YkhIelp3TEFjRVhyZ0NKaUJHYm9Kb1BRdlV6NjhHWENyRmpGQzMx?=
- =?utf-8?B?SHl1dWFQd0VkR21jSW02YW05MkFTUGMvUHBCbWpSMzVndDdaS3VmL0wrQk5D?=
- =?utf-8?B?NWJEOUdmOEZpMEswNmJuQzJkOWwwZnNaRTNZL01qZk9SRTVubjZBSzVHdlA1?=
- =?utf-8?B?bnJvVXpBM29KTmlWdXhSKzEvWG9oNVN2RFhCSjAzUTdPQlRuWGNXTHNJbWVs?=
- =?utf-8?B?dGszS2x5OXI4Uk0rc3RLd1ZLZS9ZajVZZisyWXFveWNLcktXalNZTkRoT2hy?=
- =?utf-8?B?K0pNdkFhODRiSlFvMzFtUTB0Z1djK29XU2hydHRqWTV1b0ZjcXV0dUNqWUJV?=
- =?utf-8?B?OG8vYVhQSU1zOFlONW84ekxSRWNFUEh1WjVlLzR0bWRVVk1xQmJjMVhVNXhW?=
- =?utf-8?B?TG8vNEl3WUFrOHk5ZGt2V09EUGxvdXpyMEtFK0dvTXNoT01YcVV5U0lwTDNl?=
- =?utf-8?B?RmRKVlArU0pPZWpWd2ZSa084RzlhUHBsTW5nbGFvL0VHc0hBSGhEYUczYnhW?=
- =?utf-8?B?NzRZN3RDVjRpcEpINVY3a2JkVjhlNk1PMkpkTTdGVUJqYmV6VU5xblI1QVNT?=
- =?utf-8?B?bUtzeXVYcXo0ZnpCMmNyV3YrMlUrcTQrRjhVWG8yZmRsc0d5bUxKL1VFY2Uw?=
- =?utf-8?B?NWU3UEk4a010UFpZTTdBazFnRWdlcUdZUjU1Z3ZCdCt1dEdUaldBMmVaY2Qz?=
- =?utf-8?B?TE0rYVBRTTZiaXFTc3locVpZc0M4OGZXcGRqT2hJMGtJOWlGKzVneWh5VG1W?=
- =?utf-8?B?R0R5RDVYNmY4N01jN01Tai9WUllWZkJKTDlydHdIY0VnVDVnTHlOL054Z2U3?=
- =?utf-8?B?MHJEcHl1cWg3eXdnT3ltZVRHdS9HaGUyUm8yYkdmR0tRRjAyc2l3VlloTXAw?=
- =?utf-8?B?QkMwSGtLbmk4YXRrNE1YaTVXVEYvdCtUdXNGdzhrb0VXMXZXcGlWZ1BOVjAv?=
- =?utf-8?B?bGhJVmJ1YzEzWGM2WDRUUjN0RDdaYlJhZE5pUnBUOXMvS0tmbnZrdlliaTNZ?=
- =?utf-8?B?QngrejQzZDdXRXBNNm5tZ1VQL3hnanhic1M3ODUrOEZVY2lMOWFhUVJjRW9q?=
- =?utf-8?B?V2FsVC9FZEZiZUNKb3FaR2NvbW1wbjVCS0drRWErVE5rQkdGWlZLK3N1Mi9l?=
- =?utf-8?B?blFmaUQ1QVpkemlrZi9yaEt5SmdrTUs5VkxNSmNGT0lJZVhqZTcxaUhXdVBX?=
- =?utf-8?B?Q2UxYUN4K1cyQlI1NnIxRUE3SEdwV1poTlY1emdEVFROblRSaGtockZiMFpY?=
- =?utf-8?B?NmJ5OCthYUd6M3M5NkNDN3F0NS94cXNLc3FKYkFLNWMxekZnSm1aSS94VUpL?=
- =?utf-8?B?NExsa1lhSWVNUzRIRmVRVytuREtaeHh0WFV6OFNoZjZJZnJ0RlYzYVBDTG5T?=
- =?utf-8?B?amlRRnZMMHNJOXdrRzhqaEJrUHVYTUN2aEJRSTBJc3dWN2cwWXE4Q2xqeWdy?=
- =?utf-8?B?Y2UwZVBubU9weEFHeks3WGl6ZDFXRVh4eXhYa3VDQk41amo5V2JWMk43Tmhn?=
- =?utf-8?B?Mks3S2JpbGxQUUdnQ3M3R2RHNTBRUWdyT3BvNFA4OU1KMmNFc0ZZM1p1U2tj?=
- =?utf-8?B?NnFLMmNCZENCVjFrTGZDVG9nR1I2d0c2UktOaDdCTSswM2lIcGFRcStTUDlr?=
- =?utf-8?B?S3VKTnBWNHZ5ekdpQlo2dHNxc2dOVnRHSWE5ai9jK3FBMi9hTFh1aXVCbEM5?=
- =?utf-8?B?U2VlZ3RRVlhOTkJkQ1Axamp2R0VLTFJqU3VTeTM0OFI4N1E5S1kxTGZneStr?=
- =?utf-8?B?Sk9ydWdLdWtiV0pnejVhY3JTdnpSWFhWS2VDMlJHYzEwQVNKeU50WkdpUlZQ?=
- =?utf-8?B?dndkS09tcnVUenJEc0xmeThOSGdjTGpSbExETGxUakpPNG0yUnE0a3ZXWElT?=
- =?utf-8?B?blE9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae1728dc-c972-4139-5956-08dcff10784f
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2024 09:42:18.4253
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: phT5XIM8OaneUQrNkf1laEjXpVEuhy0/7mEC5sBLgqs488e9gpWhu6kYcLUKBxicC02VBZoklMyqSXxuy5pGLWharznCgmNXbW+ifPuaLl8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB9860
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Fix build with LLVM toolchain
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20241105145507.613981-1-frediano.ziglio@cloud.com>
+ <48a22295-f3ac-496b-bdfb-ee17b0ada994@suse.com>
+ <CACHz=ZhrxTSYGyWMQSE0Xi6sW2BZiLDuKkP2508CBRELD-USgQ@mail.gmail.com>
+ <816ae079-378b-4bfd-93f2-83c5a281eb01@suse.com>
+ <CACHz=ZhzrZO5o8EarXewC6BzrX4acSyAFsAO2hHBvm9xYRecqg@mail.gmail.com>
+ <80296824-760a-48c4-9dce-4875fca0ed31@suse.com>
+ <CACHz=ZgY_O7siQUQZjxGe=gfiB-C9jw1UQqwK9ffuHUUQmRgiQ@mail.gmail.com>
+ <cc7802cc-8591-4356-bf7e-3daa912c751c@suse.com>
+ <CACHz=ZjZVPSueWjxfWBjbjg8_UhZc7hMwM49BFT0bipqeBOsSA@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CACHz=ZjZVPSueWjxfWBjbjg8_UhZc7hMwM49BFT0bipqeBOsSA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 06.11.24 17:16, Luca Fancellu wrote:
-> Hi Michal,
+On 06.11.2024 12:58, Frediano Ziglio wrote:
+> On Wed, Nov 6, 2024 at 11:45 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 06.11.2024 12:34, Frediano Ziglio wrote:
+>>> On Wed, Nov 6, 2024 at 10:59 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>
+>>>> On 06.11.2024 07:56, Frediano Ziglio wrote:
+>>>>> On Tue, Nov 5, 2024 at 5:06 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>
+>>>>>> On 05.11.2024 17:35, Frediano Ziglio wrote:
+>>>>>>> On Tue, Nov 5, 2024 at 3:32 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>>>
+>>>>>>>> On 05.11.2024 15:55, Frediano Ziglio wrote:
+>>>>>>>>> This toolchain generates different object and map files.
+>>>>>>>>> Account for these changes.
+>>>>>>>>
+>>>>>>>> At least briefly mentioning what exactly the differences are would be
+>>>>>>>> quite nice, imo.
+>>>>>>>>
+>>>>>>>
+>>>>>>> What about.
+>>>>>>>
+>>>>>>> Object have 3 additional sections which must be handled by the linker script.
+>>>>>>
+>>>>>> I expect these sections are there in both cases. The difference, I assume,
+>>>>>> is that for the GNU linker they don't need mentioning in the linker script.
+>>>>>> Maybe that's what you mean to say, but to me at least the sentence can also
+>>>>>> be interpreted differently.
+>>>>>
+>>>>> Why do you expect such sections? They are used for dynamic symbols in
+>>>>> shared objects, we don't use shared objects here. Normal object
+>>>>> symbols are not handled by these sections. GNU compiler+linker (we
+>>>>> link multiple objects together) do not generate these sections. So the
+>>>>> comment looks correct to me.
+>>>>
+>>>> About every ELF object will have .symtab and .strtab, and many also a
+>>>> separate .shstrtab. There's nothing "dynamic" about them. IOW - I'm
+>>>> confused by your reply.
+>>>
+>>> I checked the object files and there are no such sections using GNU toolchain.
+>>
+>> I think I checked every *.o that's under boot/, and they all have these three
+>> sections. Can you clarify which one(s) specifically you checked?
 > 
->> So we have 2 separate issues. I don't particularly like the concept of introducing MEMBANK_NONE
->> and the changes below look a bit too much for me, given that for boot modules we can only have
->> /memreserve/ matching initrd.
->>
->> Shawn patch fixes the first issue. AFAICT the second issue can be fixed by below simple patch:
->> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
->> index 927f59c64b0d..d8bd8c44bd35 100644
->> --- a/xen/common/device-tree/bootfdt.c
->> +++ b/xen/common/device-tree/bootfdt.c
->> @@ -586,6 +586,10 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
->>
->>      add_boot_module(BOOTMOD_FDT, paddr, fdt_totalsize(fdt), false);
->>
->> +    ret = device_tree_for_each_node(fdt, 0, early_scan_node, NULL);
->> +    if ( ret )
->> +        panic("Early FDT parsing failed (%d)\n", ret);
->> +
->>      nr_rsvd = fdt_num_mem_rsv(fdt);
->>      if ( nr_rsvd < 0 )
->>          panic("Parsing FDT memory reserve map failed (%d)\n", nr_rsvd);
->> @@ -594,10 +598,14 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
->>      {
->>          struct membank *bank;
->>          paddr_t s, sz;
->> +        const struct bootmodule *mod = boot_module_find_by_kind(BOOTMOD_RAMDISK);
->>
->>          if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &s, &sz) < 0 )
->>              continue;
->>
->> +        if ( mod && (mod->start == s) && (mod->size == sz) )
->> +            continue;
+> $ gcc --version
+> gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+> Copyright (C) 2021 Free Software Foundation, Inc.
+> This is free software; see the source for copying conditions.  There is NO
+> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 > 
-> Ok I see, we skip the /memreserve/ entry if it matches the ramdisk, fair enough, I don’t have
-> a strong opinion on how we do that, the important thing is just to unblock the users experiencing
-> this issue.
+> $ ld --version
+> GNU ld (GNU Binutils for Ubuntu) 2.38
+> Copyright (C) 2022 Free Software Foundation, Inc.
+> This program is free software; you may redistribute it under the terms of
+> the GNU General Public Licence version 3 or (at your option) a later version.
+> This program has absolutely no warranty.
+> 
+> $ find xen/normal/ xen/pvh/ -name \*.o | xargs -ifilename sh -c
+> 'objdump -x filename' | grep -e \\.
+> shstrtab -e \\.strtab -e \\.symtab
+> 
+> (xen/normal and xen/pvh are the build directory, with different configurations)
+> 
+> I'm saying that's possibly why the linker scripts didn't need to
+> specify these sections.
 
-Don't know if my opinion would matter here, but Luca's patch looks more generic and logically solid for me.
-While handling only "ramdisk" somewhere in the middle  - looks more like a hack.
+Just to mention it here as well - objdump's -x option doesn't include "control"
+sections. Considering the help text for -x this feels like a bug. However, as
+documentation has it:
 
-Any way, it's up to you.
+"Display all available header information, including the symbol table and
+ relocation entries."
 
-BR,
--grygorii
+the symbol table and possible relocations _are_ being displayed, just not as
+part of "Sections:".
+
+Jan
 
