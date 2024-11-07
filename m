@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3970D9C100C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 21:48:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832170.1247590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2687F9C102B
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 21:59:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832185.1247600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t99Pq-0000rb-FE; Thu, 07 Nov 2024 20:47:42 +0000
+	id 1t99aa-0002fX-Gx; Thu, 07 Nov 2024 20:58:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832170.1247590; Thu, 07 Nov 2024 20:47:42 +0000
+Received: by outflank-mailman (output) from mailman id 832185.1247600; Thu, 07 Nov 2024 20:58:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t99Pq-0000pr-Bo; Thu, 07 Nov 2024 20:47:42 +0000
-Received: by outflank-mailman (input) for mailman id 832170;
- Thu, 07 Nov 2024 20:47:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t99aa-0002ds-E0; Thu, 07 Nov 2024 20:58:48 +0000
+Received: by outflank-mailman (input) for mailman id 832185;
+ Thu, 07 Nov 2024 20:58:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2I65=SC=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1t99Pp-0000pl-MF
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 20:47:41 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20622.outbound.protection.outlook.com
- [2a01:111:f403:2408::622])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82ea36fe-9d49-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 21:47:33 +0100 (CET)
-Received: from MN2PR18CA0003.namprd18.prod.outlook.com (2603:10b6:208:23c::8)
- by SA3PR12MB9179.namprd12.prod.outlook.com (2603:10b6:806:3a1::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Thu, 7 Nov
- 2024 20:47:28 +0000
-Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
- (2603:10b6:208:23c:cafe::14) by MN2PR18CA0003.outlook.office365.com
- (2603:10b6:208:23c::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19 via Frontend
- Transport; Thu, 7 Nov 2024 20:47:28 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ id 1t99aZ-0002dm-0Y
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 20:58:47 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060d.outbound.protection.outlook.com
+ [2a01:111:f403:2415::60d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11ff62cd-9d4b-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 21:58:43 +0100 (CET)
+Received: from CY5PR15CA0185.namprd15.prod.outlook.com (2603:10b6:930:81::24)
+ by CY5PR12MB6226.namprd12.prod.outlook.com (2603:10b6:930:22::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.18; Thu, 7 Nov
+ 2024 20:58:39 +0000
+Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
+ (2603:10b6:930:81:cafe::a5) by CY5PR15CA0185.outlook.office365.com
+ (2603:10b6:930:81::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.20 via Frontend
+ Transport; Thu, 7 Nov 2024 20:58:38 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Thu, 7 Nov 2024 20:47:28 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8137.17 via Frontend Transport; Thu, 7 Nov 2024 20:58:38 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Nov
- 2024 14:47:27 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 14:58:37 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Nov
- 2024 14:47:27 -0600
+ 2024 14:58:37 -0600
 Received: from [172.31.40.161] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 7 Nov 2024 14:47:26 -0600
+ Transport; Thu, 7 Nov 2024 14:58:35 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,230 +63,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82ea36fe-9d49-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQwODo6NjIyIiwiaGVsbyI6Ik5BTTA0LUJOOC1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjgyZWEzNmZlLTlkNDktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMDEyNDUzLjc4MDIxMSwic2VuZGVyIjoiamFzb24uYW5kcnl1a0BhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 11ff62cd-9d4b-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxNTo6NjBkIiwiaGVsbyI6Ik5BTTExLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjExZmY2MmNkLTlkNGItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMDEzMTIzLjQ2NzU1MSwic2VuZGVyIjoiamFzb24uYW5kcnl1a0BhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eL7xJ1j4UIuiXAffdgs0tNb8WZe1e1KeQRo9jmK6ljS2UMTA6WHaac0QCkC5uJ1RAuRkRL0wxXpxcsWnpoUzDVMExC5Dcjvzq0UCwT48fexewRYBbq2sgSEEjB/SXo2Jg7/FINLkgtsAS60FhIo3uR0WsRIBLwgBGlk2pt9S5Om4fQn5qhNRycqSmmZ40p9Nj11GVZHZlD6loBF1l/qKFf/fH4nKCbUBnMUYTYVOLxRc+Q3lhi93/dLuCWywtWT+z47Mtat1QPe5XXhupauOWfUbMo/24DOQ1t2bVMs7505GKPLtgm2Qdqd5ASFUTW0AePWxZRgFKOiM4k3YFkiJMQ==
+ b=ScUzk6qu1RnjWQldmFeBiApbj9E9WGtJbWGlTF1Zun5MzxEAXX/HOnsklxKLsn9Awdjd5TGLjsWjBMwycYh2Fj2SiUlTbRh6d1Wv3G6UzOwH2adMpEE/mKGu++YjdazicIMdxKMD30Mx8PWd/fW94hku/kZD2PCsExEskr3ssEm2FKv7aqNk4uHZxfvlMTkYRKvAcu+m9HyyUyiu0TDcvvaS+5ew7SXNlSNlv9tSLevaTCggTIvUXvUaW+AijE7zZ0+jCiFSYJu6IHRLMaDGrZGLy/9oQkgpMczjkmKO+brhmcVz/VXiKvyzNEs7CpW7DYZqxqAeBLDtiGS9ypCN6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Gp1VITgRuUgB5Q4DDZz/CZ+vfbhwymosWB1g6D1bi0=;
- b=pHmATzD20ZMp5ZdCcymgsxuQWcNwEC7dczEcu/HeYQAZzIZMb2drjXId9/sqFwwQunMLuSFJ8BfpOnpFqPZBXFPGYGItlTLffOmF4V8lD14wxR4uj6QczbIWvP0WO/MV1jbcOArpB9SMWjtG/+75/RbacMi02O/Bwr6EDAQgfznRUGHucnv08jGH2Cnoejg0WXq5YZ4zElMee//K0IukXABjJAoIiFqIO+5p7JDBP1+xJEOYb+lZ2HjHJys6XQUkZiEiGz7b6nJ5Zd/o9aF8IP8YqwgjlMEagnUDwlrn9Lf/2oN1uTN26MrnskLUo9qxSLonKIPxjxfTkgFGyqkVlQ==
+ bh=Qx0dw3guOB3XMuPqs5dm8Tr2WH50uT+xQ2WTwDKtohI=;
+ b=HR202OX+zTioKlbfLxbyztQ2T0KZPsBxB5e5SZzGom+8TuIqDAwinRln3IQerTM1DEFI62+Zp7Lj2Rw9Mm1oJTukFnifuctZb3ps2MwUkTq6gkMjwxA2MJ7cNqVNgpNfjztW4381t1IpN/brrurWiw+Jbs3O9qhGPMoteevEtY6087JrXT+S7uZHYtKzo1ISGSwSubT2hfGeLnAwljwx+2qnBMmy+SSamFZvE9wko0GK86uLKU7qxfcS4MB2XcJAb1iEx5/DSIswUqR0O2f5Y0YRcl9OAJbMtzOx9Zt2vawUNQhcnCFEV7+FGkMlclQCUgfEno2sTVG/epWc59DpGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Gp1VITgRuUgB5Q4DDZz/CZ+vfbhwymosWB1g6D1bi0=;
- b=uAZ2svh0m8NLxbDfXOMTynxJWWLrvsdbMjZ2KpfhbUQYimUpz5N1cHuKxdQr5pozDR++GKB8a76r05Gx8TuYjzDwdTeAjrG16aSbJU+aF6wWhaTqrROnOUeA8jZpkGo+wEu1Q7mcvzhFO9CWzbLhtTif5X8gvtJliIJgjuttin4=
+ bh=Qx0dw3guOB3XMuPqs5dm8Tr2WH50uT+xQ2WTwDKtohI=;
+ b=XY4J06FgBDSLLzRw1LchwwSvrQt1njBtdNLzaefVy0oslSrhMHa0zFID0invHpOeDpAXlI5/NdENibUxEiPmFQR8gb9aSi5OVlfGBeEvM50dHEcINk3fISesR1Ti2d63vFTgRGNx+9obaOHhDVhEWnl0lOjGDUXgORh6gTTg8aM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <bd4fa542-7e05-463d-99d7-b5c57781a56e@amd.com>
-Date: Thu, 7 Nov 2024 15:47:25 -0500
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <eb450574-071e-48f5-aab2-0af469b909e1@amd.com>
+Date: Thu, 7 Nov 2024 15:58:35 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/12] x86/boot: add start and size fields to struct
- boot_module
+Subject: Re: [PATCH 10/12] x86/boot: introduce boot domain
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	<xen-devel@lists.xenproject.org>
 CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
 	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
- <20241102172551.17233-10-dpsmith@apertussolutions.com>
+ <20241102172551.17233-11-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20241102172551.17233-10-dpsmith@apertussolutions.com>
+In-Reply-To: <20241102172551.17233-11-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|SA3PR12MB9179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 101c83f4-d6a5-4765-253d-08dcff6d647a
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|CY5PR12MB6226:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17a5e219-2ca2-4c66-476b-08dcff6ef3e1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?d0V5c1g5Q25yQTNvUnI1RzVGTlFZYjhJQ3l1UTcwQkN2R0l0SGJxZHdkZmRm?=
- =?utf-8?B?RUZPTlZHelRNNGVSa2drZHc0c3BIMUVqY0V2TlVlcEVkaFh5YmpRNVhhR2Mw?=
- =?utf-8?B?VytXdllxMUJmRnlUcUhDeHVzT0l1VjlYT2UySmdlR3ZkV0VmU3UxdUczdGdx?=
- =?utf-8?B?VTQ1cGZHRUNkdWVTcnlzNDBZcHhFaWFMa0VSWkdtK2VYd2d3MTJzdG55OWht?=
- =?utf-8?B?Ly9tbm0vOG1yMzdBOUdYZVE0cno1VUVNTUJ1UDJqWXdZWUVQUzdySXNpc0Vm?=
- =?utf-8?B?T3o3UHNMbmdzWW9vVVJGdDN5cndObzJQMmQ2WCtYaWNheTgzZWxyVVNrZTc4?=
- =?utf-8?B?TnpqK2RVY2dSZGRIejVTRUhKZHVvYXRlNC9iY2lxRDNwUXp0eFVJUk9EWUNh?=
- =?utf-8?B?dTdlSUgzeW9NT2NLeG5yc3RmMmsySUhKR2RJQURPRGxGUlV5Umx6Q1ZDYlRy?=
- =?utf-8?B?ZXo5U1ZRT1d3bGQvRFdISndUQzNNbzUrRDhEcEhla0t0QkdoNlArWEZwRHVJ?=
- =?utf-8?B?U2JWZmoxelhEVzd6QUkxcVIxSTBsMkJxbmpvcXU1dDJrU1ZERWlaR0EvYUlu?=
- =?utf-8?B?bWZaOGdNYm5OYTdyUGRlWm1vbkxTbkRrSnhScFJWY3hFdkEyUjBNVlRheW5P?=
- =?utf-8?B?aXJXRGVUdThKRjljeVZKbjlLR0tyN0RTdnhmWWcxWGhZdUJNbkZjbHNtY1hv?=
- =?utf-8?B?cEcrbGttdWJDMTZQaE1JRWRVdlE4bklwaWczaEhZL2FSMU93UmV4V0Rhb2w1?=
- =?utf-8?B?VXBzdEFPN0d0Tkw0TjlsK2NNY3NmM2NmZ2FZcVdZU3FJa0cxNE9HcENFL212?=
- =?utf-8?B?VU9HVDBQNXVtTDVBYXFNU0dpekNIaUMvMnZGdkt3MkJyOW9lQzhYNGl0WSth?=
- =?utf-8?B?ZEFDbUNBcU1WT0FPenBDd0U4dHo4WG16L3U1QkhuVnk3RHRJa040RDkyS0Zm?=
- =?utf-8?B?NmFyQXRoT3FidVY3QWVMWDhKOFZWUkg2bHNoeEVESkVCSnNPVUE1SFJBQVlt?=
- =?utf-8?B?WDlVQ284RTNoc1FpNjRubW02QzUxd2Q1ZHRoMS9UZzMzTFBveFhtT3JUUk4x?=
- =?utf-8?B?emY4OTRpc0k5eE1McE1MRU5KelZ4YnFLUG5va3BtSlpNVFRzRUVLdnR2QWR3?=
- =?utf-8?B?K1liMGY3SlcrWXd4K2M5T1V2ZDlEZVBlbGFXdXNuNU9VaTRCemNscExhaTNq?=
- =?utf-8?B?WWRTYUw1eFAvQ1RmdEJ0THhpMWF0VVozekRRT00yK0VKM0hGNXZJRmNYMTR3?=
- =?utf-8?B?OThZMGFLWWFKZVJocHlkKzFYUzI3a0NYRFoyWFVkN2NnQ3R0a0lvSGgxczNL?=
- =?utf-8?B?QnVkK0ovcjhnT2p6cmFia2NneDN5Zm1RN043SzdFRGo0K2NIdUtxWWs0eTIy?=
- =?utf-8?B?d3RRc3k2NHl1ejlkVmVna2YvdVVlaWhIUlZlRDNZaG1MamQ1QmwrLy83SG5j?=
- =?utf-8?B?aXhmR3BNLzdoempxbjM4azRoQ1U3dTBNcU9ZMFpPdEpoOFNMQ08vUWFzckNH?=
- =?utf-8?B?WGtSYzZjakJRM1JCRy9FajhzN2RJdFhiMzN2dXNZTDk5LzZYam03YTF6UU12?=
- =?utf-8?B?d1g4aWw2MjRGeWJMa1ZhVU5mL3A4KzdwTG9COGhMb094Vis4ZHpmYjV2U09w?=
- =?utf-8?B?RUkwR1JKMzNwV1RGUER6ZVMra09PNjBhL3NTZGVaODJ4MEx3dHNwWDFXQjR6?=
- =?utf-8?B?Lzg5YnN0SUlNdnVvOW1kT1J1Mm1hamQ0VEI3ekdEQ1VkOE1kSmxydWlRRVVW?=
- =?utf-8?B?NkhQSDJHNFh6SFpsb2FQaStRaGpWWWxlS0V2L1lHSW9NNHFJY3c3dHZCeTJF?=
- =?utf-8?B?T0JNWjZmZHVPdC9SL0ZiL20xV1duS1VGZCtpVDhZYlFOd0wrZDV4c25kQ2hk?=
- =?utf-8?B?bXpYSm1LTDBVTit1dThqY0VxZXJzb0hiQlVmcFh1My9ERGc9PQ==?=
+	=?utf-8?B?ME43bjRCODJGbUZNUjhJcWRYNmtBeTRVeVR4M3VNM29PNHJBeC9lZ0hYRTVL?=
+ =?utf-8?B?aFE4bzdmdDAybkxPaEY1RStmSHZhYWExRFZPMTFYV1pwYkcyVjJNVGtBYzBi?=
+ =?utf-8?B?UGtuT1QvemZ0a1QwTmpBaGo2SS90MTd5OXYxa3BONnV4cGcyZis5OWo0WnF1?=
+ =?utf-8?B?Rlc0WEhOdFhoR285cnRKcGw4NjZjN0l0bXFqUXZ3UGw1R21vOHlrdWFiaHFF?=
+ =?utf-8?B?TS9LWWx5ekk2THdrTGlQMTV1RFdvQlpGdklJeVlmV3NOUCtsUDYwVldObnFR?=
+ =?utf-8?B?bVF6T1ZjNWVLTGFLZVdON0dHdE9rRlluQ08rZFF5dFFDdnpET2hZSXVpNllH?=
+ =?utf-8?B?cmkwR1ZPb0pCQkx3eWhhaHozcHFKOU1XU2RGaTBZZlJ4Q2ZISlh6WEtNSnpl?=
+ =?utf-8?B?YndrY01FMG1JaVQzK3pvRzhDZ1ljVEVCSHRTOU5pQ2FEcERsRHJPd0dYR0lr?=
+ =?utf-8?B?QWJ0a1JuN05FVDZhaUJJUjlteGR1aE1zRnExVGk2WVZydTVZbDN6TkJYSnNi?=
+ =?utf-8?B?bUVMcjg5d1V6OFlCYkhIZlRlcXROd1RTb1l5RTFwMFAranZmT2tTMWFOUDdv?=
+ =?utf-8?B?V1JoMEFXbEt2MmY3elZTRllNUzBrcUhlKzdFelVIY0gxT25mckt5QWllVm9J?=
+ =?utf-8?B?bkNDbHJuUmpmYTdjMmpxMmJjWlMvbTBkNzRwRldnN2QwcW0vU1ZQaHNpb05J?=
+ =?utf-8?B?Wm9xdGwxMlNLdTEydGlKRTVqbkNzV3lCekNLTXBid00vVE9LWWNiWjJVYlJU?=
+ =?utf-8?B?T2ExM2pHSXpMWVkyWGZsa014OStWSzFrQzQwUWxVOXpjdlRLMWh0Smppa0ZY?=
+ =?utf-8?B?UWZqUWpXYTVXNU9TUjlxYXNNTEN3bm1ZTkRVNUFnQndYRytzNXBaRlF1RmFr?=
+ =?utf-8?B?Qm5DVWRnaTByMFhsZkEyM3Rab1QrUGhOOHJQcGZiNTFJZlFzVE1aNE4vYVlt?=
+ =?utf-8?B?QzJmK3dxNW1aSjczNFlVV2laNUViZE5PUzdNMmlUaGxKMUlnSUxCUEJwNzRy?=
+ =?utf-8?B?K3VyZktwdnRyTFZlT1dGMXNzc3VCc3MvY0hOQ1hSZjFBaVArZi9tOGNvQkJi?=
+ =?utf-8?B?UWNTU2lIUXN1SGN1SFF5NjhmRXVCbVcxRHdxak5LeFk4Sm4rNmUrWVM4K0FO?=
+ =?utf-8?B?SzVYLzAyVW1PZHk3clJiSFlENGZBUURjU2ZkNmFWQ21oQTczMnA5YXpWUHN3?=
+ =?utf-8?B?ci9tcUtHZ0tsb09tZ0VrUjg3NUVqbVlITSt2b1JZdUxLWGFzb3JJR29LUDVz?=
+ =?utf-8?B?dEVNam5WcEZoM3k2M0NvK3Vmbld6c0Z5eFpKVjZKbTZSK3JrM3BjbkI2T1Uv?=
+ =?utf-8?B?WWJXOHBJYjNRUXZ3a1hhV0E3dFdrMTlKVG5wK2h6cGNydDZFU0tqMmd0UVpn?=
+ =?utf-8?B?VDR2SlpTc0NwVmVjVGtVRThIQVQxUUgxUGltOSswdGJFWUV4MmE1NVF6WXd1?=
+ =?utf-8?B?TGZqb08zSktRcGMrNTQxdWxQZnNpUGNXNVZjTmxVZ2lZdHdxWmcrWXlDRmph?=
+ =?utf-8?B?MlB4VS9yQWFiUkN5QU5ySEx4N2xKVHkwNXlWZjVDYlpzOUFPb3pkbmg0S2o5?=
+ =?utf-8?B?Q0tyQlZDMkMwYTNoaDdYZ0V6WDcvbk5ZaERpeVZMWjVpbXcxZjUzMk5XV3Ir?=
+ =?utf-8?B?RW9EcGxjaHVUR1U2S2E0NDM4Q0tmS2laSmRiY3JFYkN2Qm55NmpRUFNjSEZr?=
+ =?utf-8?B?czI4Y01WUmkrU2ZtbVdhK3pyVVJLdTQwYUUxMFpTZHZqS0JxY2RFNHNYYmc2?=
+ =?utf-8?B?Sno4dlFCNy9oTmdBVWlZSVgrUEdnbVlpakxobmdGcEU4aDRvL2dKL3lHanNL?=
+ =?utf-8?B?b0IzbmtMbTltMkxISW93NzFmWU41eEQzcEpCOC9XaG5vc3FiTUxVZzlZWHU4?=
+ =?utf-8?B?eXMrdHNxVGFYNXFMWk90cThUOTMvSTNNVEtFY0RYL3FFZFE9PQ==?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2024 20:47:28.1387
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2024 20:58:38.1161
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 101c83f4-d6a5-4765-253d-08dcff6d647a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17a5e219-2ca2-4c66-476b-08dcff6ef3e1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E61.namprd04.prod.outlook.com
+	CY4PEPF0000EE3D.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9179
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6226
 
 On 2024-11-02 13:25, Daniel P. Smith wrote:
-> Introduce the start and size fields to struct boot_module and
-> assigns their value during boot_info construction. All uses of module_t to get
-> the address and size of a module are replaced with start and size.
+> To begin moving toward allowing the hypervisor to construct more than one
+> domain at boot, a container is needed for a domain's build information.
+> Introduce a new header, <xen/asm/bootdomain.h>, that contains the initial
+> struct boot_domain that encapsulate the build information for a domain.
 > 
-> The EFI entry point is a special case, as the EFI file loading boot service may
-> load a file beyond the 4G barrier. As a result, to make the address fit in the
-> 32bit integer used by the MB1 module_t structure, the frame number is stored in
-> mod_start and size in mod_end. Until the EFI entry point is enlightened to work
-> with boot_info and boot_module, multiboot_fill_boot_info will handle the
-> alternate values in mod_start and mod_end when EFI is detected.
-> 
-> A result of the switch to start/size removes all uses of the mod field in
-> struct boot_modules, along with the uses of bootstra_map() and release_module()
-> functions. With all usage gone, they all are dropped here.
+> Add a kernel and ramdisk boot module reference along with a struct domain
+> reference to the new struct boot_domain. This allows a struct boot_domain
+> reference to be the only parameter necessary to pass down through the domain
+> construction call chain.
 > 
 > Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> --
-> Changes since v7:
-> - add the start/size change to bootstrap_map_bm()
-> - convert all BM start/size when introduced, consolidates:
->      x86/boot: populate boot module for xen entry
->      x86/boot: transition relocation calculations to struct boot_module
-> - consolidates all the removal commits
-> 
-> Changes since v6:
-> - put the efi conversion for mod_start and mod_end back along with check
-> - dropped unnecessary cast
-> - updated the population of start and size fields to take into account efi
-> 
-> Changes since v5:
-> - switched EFI population of mod_start/mod_end to addresses
-> 
-> a#    edit 336ac1fc0019 x86/boot: introduce boot domain
+> ---
+> Changes since v7
+> - collapsed the incremental changes to the call chain into this commit
 > ---
 
 > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index d9785acf89b6..18b93d6a272a 100644
+> index 18b93d6a272a..6e25a9f726c7 100644
 > --- a/xen/arch/x86/setup.c
 > +++ b/xen/arch/x86/setup.c
-> @@ -313,13 +313,29 @@ static struct boot_info *__init multiboot_fill_boot_info(
->        */
->       for ( i = 0; i < MAX_NR_BOOTMODS && i < bi->nr_modules; i++ )
+
+> @@ -1026,11 +1019,11 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>           panic("Error creating d%uv0\n", domid);
+>   
+>       /* Grab the DOM0 command line. */
+> -    if ( image->cmdline_pa || bi->kextra )
+> +    if ( bd->kernel->cmdline_pa || bi->kextra )
 >       {
-> -        bi->mods[i].mod = &mods[i];
-> -
->           bi->mods[i].cmdline_pa = mods[i].string;
-> +
-> +        if ( !efi_enabled(EFI_LOADER) )
-> +        {
-> +            /*
-> +             * The EFI loader gives us modules which are already frame/size.
-> +             * Switch back to address/size.
-> +             */
+> -        if ( image->cmdline_pa )
+> -            safe_strcpy(
+> -                cmdline, cmdline_cook(__va(image->cmdline_pa), bi->loader));
+> +        if ( bd->kernel->cmdline_pa )
+> +            safe_strcpy(cmdline, cmdline_cook(__va(bd->kernel->cmdline_pa),
+> +                        bi->loader));
 
-This comment...
+I'd indent bi->loader so it lines up with __va, since bi->loader is the 
+second argument to cmdline_cook().
 
-> +            bi->mods[i].start = mods[i].mod_start;
-> +            bi->mods[i].size = mods[i].mod_end - mods[i].mod_start;
-> +        }
-> +        else
-> +        {
-> +            /*
-> +             * PVH and BIOS loaders give us modules which are start/end.
-> +             * Switch to address/size.
-> +             */
+With that:
 
-And this comment are reversed?  But I would just use positive logic:
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-if ( efi_enabled(EFI_LOADER) )
-    /* EFI case */
-else
-    /* non-EFI */
-
-> +            bi->mods[i].start = pfn_to_paddr(mods[i].mod_start);
-> +            bi->mods[i].size = mods[i].mod_end;
-> +        }
->       }
 >   
->       /* Variable 'i' should be one entry past the last module. */
-> -    bi->mods[i].mod = &mods[bi->nr_modules];
->       bi->mods[i].type = BOOTMOD_XEN;
->   
->       return bi;
-> @@ -335,8 +351,8 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
->   
->       for ( nr = i = 0; i < bi->nr_modules; ++i )
->       {
-> -        unsigned long start = bi->mods[i].mod->mod_start;
-> -        unsigned long end   = start + PFN_UP(bi->mods[i].mod->mod_end);
-> +        unsigned long start = bi->mods[i].start;
-
-This should be paddr_to_pfn(bi->mods[i].start)?
-
-> +        unsigned long end   = start + PFN_UP(bi->mods[i].size);
->   
->           if ( end > node_start && node_end > start )
->               nr += min(node_end, end) - max(node_start, start);
-
-> @@ -1745,13 +1733,11 @@ void asmlinkage __init noreturn __start_xen(void)
->   
->       for ( i = 0; i < bi->nr_modules; ++i )
->       {
-> -        const struct boot_module *bm = &bi->mods[i];
-> +        unsigned long s = bi->mods[i].start, l = bi->mods[i].size;
->   
-> -        set_pdx_range(bm->mod->mod_start,
-> -                      bm->mod->mod_start + PFN_UP(bm->mod->mod_end));
-> -        map_pages_to_xen((unsigned long)mfn_to_virt(bm->mod->mod_start),
-> -                         _mfn(bm->mod->mod_start),
-> -                         PFN_UP(bm->mod->mod_end), PAGE_HYPERVISOR);
-> +        set_pdx_range(paddr_to_pfn(s), paddr_to_pfn(s) + PFN_UP(l));
-
-This is fine today since s (.start) is checked for page alignment.  The 
-other option would be `paddr_to_pfn(s + l) + 1`, but I'm not sure that 
-is an improvement.
-
-You don't have to change anything.  Just noting something I noticed.
-
-Regards,
-Jason
-
-> +        map_pages_to_xen((unsigned long)maddr_to_virt(s), maddr_to_mfn(s),
-> +                         PFN_UP(l), PAGE_HYPERVISOR);
->       }
->   
->   #ifdef CONFIG_KEXEC
+>           if ( bi->kextra )
+>               /* kextra always includes exactly one leading space. */
 
