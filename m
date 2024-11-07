@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6250C9C0207
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 11:14:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831628.1246964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C12359C025F
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 11:30:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831638.1246974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8zXB-0000mU-6n; Thu, 07 Nov 2024 10:14:37 +0000
+	id 1t8zln-0003LR-D8; Thu, 07 Nov 2024 10:29:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831628.1246964; Thu, 07 Nov 2024 10:14:37 +0000
+Received: by outflank-mailman (output) from mailman id 831638.1246974; Thu, 07 Nov 2024 10:29:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8zXB-0000kG-46; Thu, 07 Nov 2024 10:14:37 +0000
-Received: by outflank-mailman (input) for mailman id 831628;
- Thu, 07 Nov 2024 10:14:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t8zln-0003Ie-9c; Thu, 07 Nov 2024 10:29:43 +0000
+Received: by outflank-mailman (input) for mailman id 831638;
+ Thu, 07 Nov 2024 10:29:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8zXA-0000kA-GX
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 10:14:36 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15315923-9cf1-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 11:14:32 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-539f1292a9bso737517e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 02:14:32 -0800 (PST)
+ id 1t8zlm-0003IY-Bc
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 10:29:42 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 30b38b55-9cf3-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 11:29:38 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-37d8901cb98so1136289f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 02:29:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa74abb9sm55253975e9.42.2024.11.07.02.14.31
+ 5b1f17b1804b1-432aa6b2c32sm54552105e9.10.2024.11.07.02.29.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 02:14:31 -0800 (PST)
+ Thu, 07 Nov 2024 02:29:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15315923-9cf1-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzYiLCJoZWxvIjoibWFpbC1sZjEteDEzNi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjE1MzE1OTIzLTljZjEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTc0NDcyLjk2MjIxNywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 30b38b55-9cf3-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmEiLCJoZWxvIjoibWFpbC13cjEteDQyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjMwYjM4YjU1LTljZjMtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTc1Mzc4LjE3ODg0MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730974472; x=1731579272; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730975377; x=1731580177; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f983S6h+HLmFUr9DZLpXfuoLLvROS9LPfZi1mCx7uok=;
-        b=UT8UwxiQd4iRSrhzxcvUW+8plN3+OZRyD5RU4G1DRdEeQssdErOASGx6wrYS0Tv+t8
-         xiVBC+OFzRNaKAYFF1JZ++8NimVlXtmDYWo9i26UWW6JunCMl7DJcYvvEJAnFpRMbIpT
-         wdADVatX50unkZ9vl2SO6yB5a/GGp2a3l+mO20A9ZmJUzF2YOz9uqIGWc8LQicJTKwcp
-         oXTBGWGo7L2mKJZ5R7yzV4oTxxpjscX4oP+LjUyEQHtAElk3NNpx33Z+KGFOzcmL9xOf
-         6tOjOlr7pJ63zkkQl4r5TVFCR+muS36DJ9HckqcdxdvwfDTHcUtwm8dC1OdfXWksKTgV
-         wtaA==
+        bh=uNu2z6FAZc0eEPxLHeTEkXZHEJGyYmsllslFLM14SDQ=;
+        b=KchI1UulLD76hANorul+wBYFJMX0mfsF3x/LWQjhmfL9wX0jregP8AKOHS7hLG21wZ
+         ercgwzTR6HqIJOQqAHJKsARwPDArle+6yh0ApMe7sf0X4AvKgWNqe8eTKiIq6DWcRUjh
+         D7V4kZKqP+D6vuLwDDMTUwo8R+rPGpqmOUabdBxmMVH1FTYl+Kv3I0eA1Qzb849GrIqh
+         qck0qh8pmbhrkq7ekpYIBk7pPeeMxoASz3He9UMLmFOJViy97FWTGoOCBB1YlQUq/x9l
+         anydzE+bx+7q1k4IMyDMrA1oAHB106glap/LdeMaLH0CJVSVXEuXQ/GVtM5j9237FFZ/
+         5udw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730974472; x=1731579272;
+        d=1e100.net; s=20230601; t=1730975377; x=1731580177;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f983S6h+HLmFUr9DZLpXfuoLLvROS9LPfZi1mCx7uok=;
-        b=axx8wf2yvNQ8l4zdFWzKwp3qRLkeIdXzLkv/eV8ZXiTRex0vGU1LQ/RgpdwyjKSSBm
-         V9ITu5pmSJWDxZ/6QRH2WWi0pXPOThwF8JMq51BblJSkOqk5/8l9ZDXhh9b5jANvIrjd
-         Bp6x4qfEyatW6dQySpsuOEOYq8AvBLe8g4A+L2g0Q7yQSgXHFfBhtfLyrN8a0oWDuPWX
-         Dbt8ObKB0rTeDRSOeAsVaLjgFA6BkdD8mCxyPzrtIuBjbdqq6gR4lAeqm4qqxpez5+8Q
-         vlBTJpaUNY4suSp9YOwTnlHuGdmtSdg03duZP6fApHOb2EjHLzHIfBdvRiDS6AXFWhnA
-         ZQDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXKMYpwDmz0AoW3TNUin1aNc9ozSUq+lnlys22+xfsp2fd6ztHV3cujI/yUJFUJ5JASdecUphBBN/4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxtckcweTdWtSIgDnr90EdujsLKD5xiDFaoj8oNJH1oEOBEP8s/
-	+ye/j1yCz3a6pigWluEfJ890yPMx5NQONfOo6Y+8sMZpo2Sd6JpXyE7qGEjENw==
-X-Google-Smtp-Source: AGHT+IFkKSBIIL6CrMu6ju0PzK9lGwabCBIcAuOFOW80toORbP63zXFX6sp8ZnemM8wRHK/Iz7M0JA==
-X-Received: by 2002:a05:6512:3b2b:b0:52e:f99e:5dd1 with SMTP id 2adb3069b0e04-53b3491cd1emr22061015e87.47.1730974472290;
-        Thu, 07 Nov 2024 02:14:32 -0800 (PST)
-Message-ID: <f6f439cb-4d89-48d5-98c4-83e3761ea59d@suse.com>
-Date: Thu, 7 Nov 2024 11:14:31 +0100
+        bh=uNu2z6FAZc0eEPxLHeTEkXZHEJGyYmsllslFLM14SDQ=;
+        b=aeJymUXPG0Lb5nCwUsYfrEcJrGLtdMgSBdOlvsDtr+wjuLcvlymvc1yMIPDjCDVp8e
+         K51aOlkClYBVMNupTkEQVoIvKFSkJ7oKKGZyQIG/vnuNvbmxoYE9pqZnCQIqK47XB0fN
+         m710+rFethl5BUN9OWkVND04NMmxo3+NyFKXjYQQbvZ2X+WTG+zfcRTlZkIe6CP9wjrm
+         S0yNi8sTLifYbBtnQ12ASWzGkTO15OcT2/jCR6JCQDm6HSmAJVWYwmJDTe12k8ajSDGp
+         ugLhP8PGi9lTakkALE9bsnDUls6M/hb8L/JU+itzJ0mTvuYcMM0xeetuyohxGE0UrW2e
+         sfDA==
+X-Forwarded-Encrypted: i=1; AJvYcCUYxBUo/D0H/NLhChgd5SrGFYOhTgZYjNsgVQm/fzxz4NxYNWEJG1f0/fxxmpXCs1sXzwt19GzcFa4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAI4nHIXQ9k35CXrcWpacHUkf78/dAfEkbiID7n7nJHxsO5dRR
+	ofJD5lqL54cROGxEuWGKQ2BFKTZjf1XoFLXtE3D9uyiEXcpg7D8ihcVAlGVqFA==
+X-Google-Smtp-Source: AGHT+IG3OvxnpkA313u/ENZWsqbW8H6q8G1xTYw3hNMGVYfnU7iTrfgvXr0lFeGvP4cih1yQ2pjXsA==
+X-Received: by 2002:a5d:6c6d:0:b0:37e:d6b9:a398 with SMTP id ffacd0b85a97d-381ec5d2dd4mr2340340f8f.9.1730975377532;
+        Thu, 07 Nov 2024 02:29:37 -0800 (PST)
+Message-ID: <819c9b77-8d09-4231-8a86-58fa84971459@suse.com>
+Date: Thu, 7 Nov 2024 11:29:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] x86/ucode: Enforce invariant about module
- selection
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+Subject: Re: [PATCH v2 01/13] x86/xstate: Remove stale assertions in
+ fpu_x{rstor,save}()
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241106003938.3453243-1-andrew.cooper3@citrix.com>
- <20241106003938.3453243-2-andrew.cooper3@citrix.com>
+ xen-devel@lists.xenproject.org
+References: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
+ <20241105143310.28301-2-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,46 +116,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241106003938.3453243-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20241105143310.28301-2-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.11.2024 01:39, Andrew Cooper wrote:
-> The work to add the `ucode=nmi` cmdline option left a subtle corner case.
-> Both scan and an explicit index could be chosen, and we could really find both
-> a CPIO archive and a microcode file.
+On 05.11.2024 15:32, Alejandro Vallejo wrote:
+> After edb48e76458b("x86/fpu: Combine fpu_ctxt and xsave_area in arch_vcpu"),
+> v->arch.xsave_area is always present and we can just remove these asserts.
 > 
-> Worse, because the if/else chains for processing ucode_{blob,mod} are opposite
-> ways around in early_microcode_load() and microcode_init_cache(), we can
-> genuinely perform early microcode loading from the CPIO archive, then cache
-> from the explicit file.
-> 
-> Therefore, enforce that only one selection method can be active.
+> Fixes: edb48e76458b("x86/fpu: Combine fpu_ctxt and xsave_area in arch_vcpu")
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-While, following my v1 comment on this, I'm okay with it staying like this,
-I'm afraid ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> @@ -109,13 +103,28 @@ static bool ucode_in_nmi = true;
->  /* Protected by microcode_mutex */
->  static const struct microcode_patch *microcode_cache;
->  
-> +/*
-> + * opt_mod_idx and opt_scan have subtle semantics.
-> + *
-> + * The cmdline can either identify a module by number (inc -ve back-reference)
-> + * containing a raw microcode container, or select scan which instructs Xen to
-> + * search all modules for an uncompressed CPIO archive containing a file with
-> + * a vendor-dependent name.
-> + *
-> + * These options do not make sense when combined, so for the benefit of module
-> + * location we require that they are not both active together.
-> + */
 
-... "do not make sense" is still wrong here. As per your subsequent v1 reply
-to my comments, it is merely the case that we do not assign any meaning to
-that combination. Yet as outlined we could. With the wording tweaked
-accordingly:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
