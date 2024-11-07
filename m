@@ -2,31 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 296A19C09F5
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 16:21:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832024.1247424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B76DD9C09F6
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 16:21:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832036.1247433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t94Jc-0000UF-83; Thu, 07 Nov 2024 15:20:56 +0000
+	id 1t94Jx-00015q-F5; Thu, 07 Nov 2024 15:21:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832024.1247424; Thu, 07 Nov 2024 15:20:56 +0000
+Received: by outflank-mailman (output) from mailman id 832036.1247433; Thu, 07 Nov 2024 15:21:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t94Jc-0000RT-4W; Thu, 07 Nov 2024 15:20:56 +0000
-Received: by outflank-mailman (input) for mailman id 832024;
- Thu, 07 Nov 2024 15:20:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t94Jx-00013M-C4; Thu, 07 Nov 2024 15:21:17 +0000
+Received: by outflank-mailman (input) for mailman id 832036;
+ Thu, 07 Nov 2024 15:21:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9PMW=SC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t94Jb-0000R7-5W
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 15:20:55 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de1e845c-9d1b-11ef-a0c6-8be0dac302b0;
- Thu, 07 Nov 2024 16:20:50 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1730992841286423.78284299951997;
- Thu, 7 Nov 2024 07:20:41 -0800 (PST)
+ <SRS0=GEtt=SC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t94Jw-00011n-67
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 15:21:16 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec9bcf91-9d1b-11ef-99a3-01e77a169b0f;
+ Thu, 07 Nov 2024 16:21:13 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c9c28c1e63so1302027a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 07:21:13 -0800 (PST)
+Received: from localhost ([213.195.124.162]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cf03bb75f4sm898765a12.44.2024.11.07.07.21.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Nov 2024 07:21:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,91 +44,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de1e845c-9d1b-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzNi4xNDMuMTg4LjUxIiwiaGVsbyI6InNlbmRlcjQtb2YtbzUxLnpvaG8uY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImRlMWU4NDVjLTlkMWItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTkyODUwLjczOTg5LCJzZW5kZXIiOiJkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-ARC-Seal: i=1; a=rsa-sha256; t=1730992842; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=h52WZWOC9y9F//b25eN81aMqkH21pn4MDFZJA6xBrsr32GgGxAfciN/Rx8F9EBi/129EuGgavmOM834IvAiRUT4PZdzxHYFVWMnhgAJ64obXFduPU9uQlNLHL4iowPCKOsAObawmID+Ij0W2t2tnjQN4CRNMsNEQ/9NUpgI+T40=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1730992842; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=e7pUCQEXiwbHmhXpKP5ghbovuABm4HGgLAe3v5b9E3g=; 
-	b=hXplxh2bF5WvY+jh5NzYxsfSMuop8DsCy+7yVxwI3VedsHOstmQC0RrAi3rYmxsHs9oARa8PvE5ivIY/tGM0vRVA5pKKS2zXyNL9FwfrKRsV3hCLoyl77rx63eP1HriMohEEF5dtaiW2UJGhNw2yqAhLVQnmWSR4L+7pspG109o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1730992842;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=e7pUCQEXiwbHmhXpKP5ghbovuABm4HGgLAe3v5b9E3g=;
-	b=NhKj6hPuMqWuvwQ6wLio3JogxMxQ+VZxcvxFLpYk4iE9/5E6enkH733Mp08g/2iE
-	P8yc/Xmpe7Yaq1+1HGNCoTGUBzbhiGNu5GynhNLTEHSOdNJtmQMJSebx2WZ1iDShyBI
-	2a28YlPseBy/Lmo1lqijYi0Bn6mw0ibpp72y3DqM=
-Message-ID: <63f5ad89-5221-4d2b-b6d2-aec78fa3d0dd@apertussolutions.com>
-Date: Thu, 7 Nov 2024 10:20:39 -0500
+X-Inumbo-ID: ec9bcf91-9d1b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmIiLCJoZWxvIjoibWFpbC1lZDEteDUyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImVjOWJjZjkxLTlkMWItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTkyODczLjI3MDk0Nywic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1730992873; x=1731597673; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=JM+JLM1VAtFg407nyvJk4DIkApbsRqgPtmJ7TaZfDKQ=;
+        b=hQoGxMSu7V6qtvVfc4TzdC7OaKKxSCUoLlZABawkNdgnegvXYLhyAg2gDcsNeTYjFQ
+         o7/S0bcNAQDzl/MaY+jAKSPPKblxhN3uyrzL9s/2hWAr9X/b6STrllylWCsL7ojQAJZ9
+         8NDYmno0zThVvYbRqTrDOzN89MBSdUKFfERLU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730992873; x=1731597673;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JM+JLM1VAtFg407nyvJk4DIkApbsRqgPtmJ7TaZfDKQ=;
+        b=bJF2A6GyKqg0o5Ripu3+czBx0jmnnOOv5AwcC9Pfk6o+HgaFSoDZ0RF23GxaFaUvao
+         5/igOgZXrlJqH7eNo/TCf1SvmNnWfJQ8wTb/Wgid4qbPVc0/VUMCqQYUkerBtHim9ee8
+         NbpjHvGpGZKmvWGphwGnagssKFsP3psnrRI4XYEXlGXUC0qYJuxujsA8ss6F/LkQJoyP
+         BWBHGquXovcTGUuO6SiBOOWVBGvJ/6OwJvM2+PP+Z7yKr2qCqKmpyX3wwmDZ5Ydn+Lli
+         8F6LJzUIJWw10Cg7ew2IEnSWTeoSIiDP0gJamh/Du22/rSsGWyeVzZLNtXNLwAwPW7XM
+         goSg==
+X-Gm-Message-State: AOJu0Yxt2cht5laXKlS9k7YQWqfZ7gI9JRs8hSSp2OkRL9M38suKXro/
+	wBCxKNC2GX33n5pvEdFZUOb/8YLB/yszctMJbYm5IlsgTxQNrLfRwUpyngIlvR3KRTRUo0gRdlr
+	N
+X-Google-Smtp-Source: AGHT+IEjUMadQ5abFYngTuObGyFbKfwP/l5BlLVy7wTwTZ74vJI+ZBWlVk1nF0u490dW+7IxIgRVMQ==
+X-Received: by 2002:a05:6402:5255:b0:5ce:d6b0:85c0 with SMTP id 4fb4d7f45d1cf-5cf08c2140amr270012a12.22.1730992872652;
+        Thu, 07 Nov 2024 07:21:12 -0800 (PST)
+Date: Thu, 7 Nov 2024 16:21:11 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Matthew Barnes <matthew.barnes@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2] CHANGELOG: Add note about xAPIC destination mode
+ change
+Message-ID: <Zyza57tpYLGWYsDx@macbook>
+References: <f7e299a8c1af7c5875e07f80b0229b1cd322a5f6.1730987624.git.matthew.barnes@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/12] x86/boot: eliminate module_map
-To: Jan Beulich <jbeulich@suse.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
- <20241102172551.17233-3-dpsmith@apertussolutions.com>
- <d32a3eb9-c0cb-4f87-9f88-4fc0d32cf1e8@suse.com>
- <bc6dab85-75a6-4bb2-83cc-884bc07650f5@apertussolutions.com>
- <4c40ca3e-73ab-402b-b5f9-23146ec14e60@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <4c40ca3e-73ab-402b-b5f9-23146ec14e60@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f7e299a8c1af7c5875e07f80b0229b1cd322a5f6.1730987624.git.matthew.barnes@cloud.com>
 
-On 11/7/24 10:15, Jan Beulich wrote:
-> On 07.11.2024 16:08, Daniel P. Smith wrote:
->> On 11/7/24 05:05, Jan Beulich wrote:
->>> On 02.11.2024 18:25, Daniel P. Smith wrote:
->>>> --- a/xen/xsm/xsm_policy.c
->>>> +++ b/xen/xsm/xsm_policy.c
->>>> @@ -33,22 +33,18 @@
->>>>    int __init xsm_multiboot_policy_init(
->>>>        struct boot_info *bi, void **policy_buffer, size_t *policy_size)
->>>>    {
->>>> -    int i;
->>>> +    unsigned int i;
->>>>        int rc = 0;
->>>>        u32 *_policy_start;
->>>>        unsigned long _policy_len;
->>>>    
->>>> -    /*
->>>> -     * Try all modules and see whichever could be the binary policy.
->>>> -     * Adjust module_map for the module that is the binary policy.
->>>> -     */
->>>> -    for ( i = bi->nr_modules - 1; i >= 1; i-- )
->>>> +    /* Try all unknown modules and see whichever could be the binary policy. */
->>>> +    for_each_boot_module_by_type(i, bi, BOOTMOD_UNKNOWN)
->>>>        {
->>>> -        if ( !test_bit(i, bi->module_map) )
->>>> -            continue;
->>>> +        struct boot_module *bm = &bi->mods[i];
->>>
->>> ... same here (and likely elsewhere in the series).
->>
->> Nope, you can't const this one as that will cause this is at the tail
->> end of the loop to fail:
->>
->> +            bm->type = BOOTMOD_XSM_POLICY;
-> 
-> Oh, I had managed to not spot that.
+On Thu, Nov 07, 2024 at 02:08:31PM +0000, Matthew Barnes wrote:
+> Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
 
-No worries. As I said, I have been trying to develop the habit to check 
-if write usage will be needed, const-ing and then finding myself often 
-greeted with gcc error about write to const. Wish gcc could warn about 
-pointers that have no writes in scope to help catch viable candidates.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-v/r,
-dps
+Not sure it's worth adding a:
+
+Fixes: dcbf8210f3f3 ('x86/APIC: Switch flat driver to use phys dst for ext ints')
+
+So it's tied to the commit that introduced the change.
+
+Thanks, Roger.
 
