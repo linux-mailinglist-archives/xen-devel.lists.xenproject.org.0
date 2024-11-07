@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80AF49C03F1
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 12:28:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831686.1247034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF57F9C0405
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 12:30:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831694.1247044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t90gT-0006Dp-NO; Thu, 07 Nov 2024 11:28:17 +0000
+	id 1t90iZ-0007kV-6L; Thu, 07 Nov 2024 11:30:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831686.1247034; Thu, 07 Nov 2024 11:28:17 +0000
+Received: by outflank-mailman (output) from mailman id 831694.1247044; Thu, 07 Nov 2024 11:30:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t90gT-0006Bn-Js; Thu, 07 Nov 2024 11:28:17 +0000
-Received: by outflank-mailman (input) for mailman id 831686;
- Thu, 07 Nov 2024 11:28:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t90gS-0006Bh-0t
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 11:28:16 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5fd32cfc-9cfb-11ef-a0c6-8be0dac302b0;
- Thu, 07 Nov 2024 12:28:13 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43163667f0eso7480855e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 03:28:13 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381eda066fdsm1455880f8f.104.2024.11.07.03.28.12
+	id 1t90iZ-0007i2-3K; Thu, 07 Nov 2024 11:30:27 +0000
+Received: by outflank-mailman (input) for mailman id 831694;
+ Thu, 07 Nov 2024 11:30:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Cd42=SC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1t90iX-0007hw-Qb
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 11:30:25 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id abcea415-9cfb-11ef-99a3-01e77a169b0f;
+ Thu, 07 Nov 2024 12:30:20 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a9e8522445dso134239866b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 03:30:20 -0800 (PST)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9ee0a18539sm82028966b.27.2024.11.07.03.30.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 03:28:12 -0800 (PST)
+ Thu, 07 Nov 2024 03:30:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fd32cfc-9cfb-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzMiLCJoZWxvIjoibWFpbC13bTEteDMzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjVmZDMyY2ZjLTljZmItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTc4ODkzLjM2MDQxOCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: abcea415-9cfb-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImFiY2VhNDE1LTljZmItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTc5MDIwLjcyMzMxOCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730978892; x=1731583692; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730979020; x=1731583820; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A7bBQYPu9Az+p1v15MSA/wK+0oXvQkwI0r0g5yDOrhs=;
-        b=SVYSCh3XscZ0dl9lAg69IZbWG7XzzS7tjdX6xzPU6AXSO6kxQgJflur2lsogrnrif7
-         lUKDckUHG+yNUjhYAr4GQvGZWCNSL3JMhXTBU8dR34NA115QEhe8crSYGRxuhTK0Fwc1
-         kmsLRc8MDR3wsxMFH2sL1aaTjPJWvBa+DJgJcRq8/7d0KqTYMEjn3zK23R0M/bX7cIrn
-         /1VKh5vheWXJvbh/89dBbtroDsdLkidON9E9HLbMBz/wXtcEs9EtBSBJhNPUOOi2NxfN
-         /DCVS/GSikS5RhCuoBT6FBsN1HeQK77VMx8u3KxEipvMtvTLJ2OkWH9M5OdBnCDXydH+
-         NlUQ==
+        bh=Fl/2YEe4eqHnPTHFiX33vww5QDimSXH6xE0JG7hHrE8=;
+        b=lK39YlBvtTeOD58p1SrPgp/grLf1HyMJbJ/klUwa7zv2d0usNAqaUKu8+H20dOrDEd
+         4eC5d9LjQGbePjFLaj9z9881AaeuSvFlkYDsoYBcJm4Wm0wNbGWgVz46yRYH17YicnRO
+         oveZxIZ4X2hOyqruBQyENStIRU+bJW3PdSuUk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730978892; x=1731583692;
+        d=1e100.net; s=20230601; t=1730979020; x=1731583820;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A7bBQYPu9Az+p1v15MSA/wK+0oXvQkwI0r0g5yDOrhs=;
-        b=Ekuw+1BG6bAi2QnJzgJNJoutq6kZehrmxpKLiAUYJvur3j8z6+1n9jzbnmBm+2nGRz
-         cJuqf0ZLOqnyjqnQCWEIV5RAX7uo3pq1EzRoZ0k5HdIu+WfJ7qGm6ABT+bA+AzuIek4P
-         PKzP7vM6GjcfnnSaXxYJvMYvTq3EW5X6h5qlL2rg/Nxvv6ihUCpoxT9qmrNDYjsKBSUm
-         J3EYKRW6152wxPD52segEt/mcmsNleaNEms5a2NHMTR5GDQrhYFA2cuW64PsdOeweos/
-         LP4nYpAvc2FAPNUvva0CqqbhczVLd5Nieagj9EzXQLOSSYu1WePupFRwS983ATHO8Tx0
-         R2RA==
-X-Forwarded-Encrypted: i=1; AJvYcCVc8OSHiHpA6EFmMDJ1nQkP7KgNEM540iDH0ae+rF9tIcvtsatloCr0ughbBR9uWSvZwoUFIqynrcM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkzaNdBzmPKshDvsCiMbuj/o4cl21j6y/UGN+QLUAh9NrY91M3
-	GKlh+3oxOCb7EX3m0KV9CXII2mr78AAmARs6iyiTOIgEK3Lz/zgETEPhXCFnPg==
-X-Google-Smtp-Source: AGHT+IEAQvKDPpL2lqIpjoD1YuF5hp+BkJTsXcY1Qn7NDWdyJaWkDzQrHQEAjSkJdduq5N5+k8yr/A==
-X-Received: by 2002:a05:600c:138d:b0:42c:bae0:f065 with SMTP id 5b1f17b1804b1-4328323f762mr191227295e9.5.1730978892642;
-        Thu, 07 Nov 2024 03:28:12 -0800 (PST)
-Message-ID: <9472eba9-c016-40c0-8cc3-8297d7db04d3@suse.com>
-Date: Thu, 7 Nov 2024 12:28:11 +0100
+        bh=Fl/2YEe4eqHnPTHFiX33vww5QDimSXH6xE0JG7hHrE8=;
+        b=PoBbpo/Gvo8I38wHbtYwEXRNw53MF1HFwfXm0eQgkzFl21q26uLhXrnsDGPFoFxkyl
+         xrothq9nwC87VZ6DFU6PKWPLRTkUboo3KutCYGgcWPIgbxhecbtnOgJn2du2YIYQMan/
+         u9j+2Pdb2Q4qpI8GAZwV3m/1SyVgibszMlrcPhedI2Y3RAZu4GCROAlElyufz9ZeXeTr
+         MadaLFD9YEpZBf2yqtZzQE9knakDU8AZ3AgqgXpCzOuKE/8IaYh/geJl37tMZiKIVJn/
+         SVNlUWJygrYhetDmH55yiBA8mrdktC8TUMv1+LHs9CDq+/i+KOQkKJ1SNM5qPBXULrgN
+         tN2w==
+X-Gm-Message-State: AOJu0YzdzHvi6f3/fnBmjVe0fwFrwzhlrf1J+boZ1VNYE7KGLuyY0tWH
+	jXYGvrQmP2oZ4bP3ggn9nJm1GB14KLWB/G+1F2KkmHqxZi4tTNFeqovVe3exo2Q=
+X-Google-Smtp-Source: AGHT+IF82/9lU5lvBRSURJvdRU8gEXJ3cQTtDlQJyzHea3Jf8woRGaXWLXj5obyA8odWFkdiuDcilA==
+X-Received: by 2002:a17:906:c145:b0:a80:f840:9004 with SMTP id a640c23a62f3a-a9e6553bf86mr2389758166b.12.1730979018515;
+        Thu, 07 Nov 2024 03:30:18 -0800 (PST)
+Message-ID: <e81ae2da-383f-4cc7-8213-66f8ccc9b6e7@citrix.com>
+Date: Thu, 7 Nov 2024 11:30:14 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] x86/mm: miscellaneous fixes
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241106122927.26461-1-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241106122927.26461-1-roger.pau@citrix.com>
+Subject: Re: [PATCH] xen/Kconfig: livepatch-build-tools requires debug
+ information
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20241107084927.37748-1-roger.pau@citrix.com>
+ <66fd7b53-25f5-459b-8563-e33fccba90ef@citrix.com> <ZyyLAj6MZ3fvOFBC@macbook>
+ <22c59035-67e3-4e43-bfe0-26675a93e9ae@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <22c59035-67e3-4e43-bfe0-26675a93e9ae@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.11.2024 13:29, Roger Pau Monne wrote:
-> The attempt to fix destroy_xen_mappings() so that L2 tables are
-> consistently freed uncovered some errors in the memory management code.
-> The following series attempts to fix them.
-> 
-> All patches except for 4/4 are new in v2, and 4/4 has no change from v1,
-> hence kept Jan's Reviewed-by tag in 4/4.
+On 07/11/2024 9:48 am, Jan Beulich wrote:
+> On 07.11.2024 10:40, Roger Pau Monné wrote:
+>> On Thu, Nov 07, 2024 at 09:21:26AM +0000, Andrew Cooper wrote:
+>>> On 07/11/2024 8:49 am, Roger Pau Monne wrote:
+>>>> The tools infrastructure used to build livepatches for Xen
+>>>> (livepatch-build-tools) consumes some DWARF debug information present in
+>>>> xen-syms to generate a livepatch (see livepatch-build script usage of readelf
+>>>> -wi).
+>>>>
+>>>> The current Kconfig defaults however will enable LIVEPATCH without DEBUG_INFO
+>>>> on release builds, thus providing a default Kconfig selection that's not
+>>>> suitable for livepatch-build-tools even when LIVEPATCH support is enabled,
+>>>> because it's missing the DWARF debug section.
+>>>>
+>>>> Fix by forcing the selection of DEBUG_INFO from LIVEPATCH.
+>>>>
+>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> Oops, yes.
+>>>
+>>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>
+>>> Fixes tag ?
+>> Was borderline on adding one, but wasn't sure since it's strictly
+>> livepatch-build-tools that requires the DWARF data, but custom made
+>> livepatches (like the examples in tests) do not require such
+>> information.
 
-Just to mention it: When a patch was buggy, and perhaps even more so when
-it actually needed reverting, I think all R-b (and likely even all A-b)
-should be dropped. Clearly the reviewer, too, missed an important point.
+Ok.  I guess it doesn't matter too much.
 
-That said, the tag is fine to keep in this specific case; I would merely
-have re-instated it after looking through the prereq changes.
+> At which point: Is "select" really appropriate then? Wouldn't it be more
+> logical then to change DEBUG_INFO's default to take LIVEPATCH into account
+> (still permitting people to turn debug info off if they know they won't
+> need it)?
 
-> Roger Pau Monne (4):
->   x86/mm: introduce helpers to detect super page alignment
->   x86/mm: special case super page alignment detection for INVALID_MFN
->   x86/setup: remove bootstrap_map_addr() usage of destroy_xen_mappings()
+I am very disinterested in letting people who think they can do
+livepatching without debug symbols shoot themselves in the foot like that.
 
-Btw - it looks like patch 3 (with the possibly adjusted description) is
-independent of patch 1 and 2. If you can confirm that and if we can agree
-on replacement wording for its description, it could go in before you
-send out a v3.
+It's only debugging symbols.   If people *really* think they know
+better, they can strip them themselves.
 
-Jan
+~Andrew
 
