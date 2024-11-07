@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E61959C0160
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:48:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831602.1246934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0391B9C0197
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:55:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831610.1246944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8z7s-0003DE-Ne; Thu, 07 Nov 2024 09:48:28 +0000
+	id 1t8zDm-0004iV-Am; Thu, 07 Nov 2024 09:54:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831602.1246934; Thu, 07 Nov 2024 09:48:28 +0000
+Received: by outflank-mailman (output) from mailman id 831610.1246944; Thu, 07 Nov 2024 09:54:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8z7s-0003AZ-KM; Thu, 07 Nov 2024 09:48:28 +0000
-Received: by outflank-mailman (input) for mailman id 831602;
- Thu, 07 Nov 2024 09:48:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t8zDm-0004fu-7V; Thu, 07 Nov 2024 09:54:34 +0000
+Received: by outflank-mailman (input) for mailman id 831610;
+ Thu, 07 Nov 2024 09:54:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8z7r-0003AT-2K
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:48:27 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d907bb9-9ced-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 10:48:23 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43167ff0f91so6643925e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:48:23 -0800 (PST)
+ id 1t8zDk-0004fl-8g
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:54:32 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46ee1998-9cee-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 10:54:27 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2fb57f97d75so7697431fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:54:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa6b2d13sm52499985e9.12.2024.11.07.01.48.22
+ 5b1f17b1804b1-432aa737c86sm56159315e9.38.2024.11.07.01.54.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 01:48:22 -0800 (PST)
+ Thu, 07 Nov 2024 01:54:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d907bb9-9ced-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjZkOTA3YmI5LTljZWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTcyOTAzLjMyMzczNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 46ee1998-9cee-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmYiLCJoZWxvIjoibWFpbC1sajEteDIyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjQ2ZWUxOTk4LTljZWUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTczMjY3Ljg3NjY0Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730972903; x=1731577703; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730973267; x=1731578067; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=81rmPOQxArOZCHQm7NcbBFKQylZnuCOKFIDm83WY5vg=;
-        b=VduM7s0N23lq3j+zZerv0JG3outXA4lQ9ii6KeSXCUjx5xhVGMWg+hYvK7mpZhXrEJ
-         ZHB/8PF2bXIm/uxOoaeEklA0ow26SlBsf3/FvfFu066tp9ZhRHNij9x8obqn1PCCX0cy
-         Z2mY/cssYz4skS6ADNEErfEHbRUxTPesy/G9kO5nTSqQArsu8DlfXViesmRIeGvyxEJD
-         PVhzjbCgkh19CjuPsO+aH6z9guPN8b7d7UHc0v2UAUp5g20ZS8XQVzFe9GR3p4EKQazW
-         UgdEbqBPzm293xESOE5QL2lFSDnt6eXLfhdMc3+XMq3GFTB8t+Dho42sC2hrfvhqvV7b
-         nCWQ==
+        bh=UB4xixjLoDQZljxh9xQWG+MH6w8lvKu1WiuWNlaTOXQ=;
+        b=VJhXlwV3olSM2sdYmJWz3IkScIf87xs2LM44nOd8CtqhaDTToflnd1snEAoHZOaRXb
+         xwsi+iBCbY3G2Fabnlc69LhQGSi31ikfX4P5qZUluBLm+13FnK1d84TXmsZj/GspUqBM
+         zgPvF1bkFz//F9isH5blyTn1N/7LHler93CGL9zCCo52/FZ2uJ/dnlT7bQIZCCffbkJ2
+         X/UdAU1DVZ3u9aFWqW74t8VB5xp1hzp8W5aoIx8Xgbs8k9NGkZ8eltY7T2TGVp4Hjjy2
+         HDt5Lfd82CSOMaNZkosH0dOT68S5Of1SoY98CMSbCIz/5Vfj/VpwPVg0bVA639BQ4fOi
+         n77g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730972903; x=1731577703;
+        d=1e100.net; s=20230601; t=1730973267; x=1731578067;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=81rmPOQxArOZCHQm7NcbBFKQylZnuCOKFIDm83WY5vg=;
-        b=NjSqVFExuYMaNYQWxJe+7Up+Ved6pmcEPVr4rbLWwVddubQqcRvO/5f8SMDOsu7JbL
-         qWDb4sQHK6X9abNZ4Y/bQjeHeMwWuzcfV/h51As81vMdWG36DvudIOAlnuLwwAkLOCBG
-         6nkXfCjyUHFSWuPkV2EkO4I1PpJn/ir04/z0ruA+3YwlF/RvhtKPhR2bZjHy8OManA5o
-         M/orA9sOavBgqx2HEI+1DAHAv4y9IledgPn52WHd+v371YX45zrwIVG8AFDxRTLzeOEs
-         wEuMbb+KDKpLRDcgGpDAJ8+iySZzBXRqF8WQRJIz+Kvq0I3EaTgEjjZOeZ7/4b6qZdF7
-         1fYQ==
-X-Gm-Message-State: AOJu0YxF4iZ9CMyrabDANg6z31DbkIM7abF6tz3N+Yg2fIWuSAfeA1a0
-	8fzdfLCiOVw87wQH2T8xVkWd0iXtSfcaD0If4Zt8nwGXYq96feeCg8I3BVs5Qg==
-X-Google-Smtp-Source: AGHT+IHCpZIpiyeCMdqDwaVOqE0l9q1zrBq0bjajtck4m24gULwh/PvuzHrhwl/SsgF5tNaBr5mUqg==
-X-Received: by 2002:a05:600c:19cd:b0:431:6153:a246 with SMTP id 5b1f17b1804b1-432b2fff579mr6035565e9.13.1730972902613;
-        Thu, 07 Nov 2024 01:48:22 -0800 (PST)
-Message-ID: <22c59035-67e3-4e43-bfe0-26675a93e9ae@suse.com>
-Date: Thu, 7 Nov 2024 10:48:21 +0100
+        bh=UB4xixjLoDQZljxh9xQWG+MH6w8lvKu1WiuWNlaTOXQ=;
+        b=kLZqMDJ/h02kJWIBsdTYA939AKDhKVAZNS2l7znpFri7CBFVe343QjXgAD+mnvDLrr
+         /qgim7WY4D28fQNKDfCgklBE45V8Md9EhHN1FlH93EqKhaJjVAeKSabqz0AVApXrPl2V
+         uKhQ7NIc4DmG2JFJ8knx06MLlyl/dzhBfQjASiT+v11iPtRcEuueexGSw7o6XcSHoV8i
+         eb6fePpzGNq3PHWzyDDmXnDPeAQ73I7jCQF/Dfp1Zf3ZeL8M2hVKO2Jro098ylbHJZm/
+         QfX1e4V2AdkNn073x2QHlkOQKCVObV9m4VXpYYlSOikomhf1+UuYM8hB/+P6rx5YJzSQ
+         Kgsg==
+X-Forwarded-Encrypted: i=1; AJvYcCX4mTJJNoiVAhiUXhjfsCS9+sfRq/dksNPla440M593GzVYIrPNi2yfTER/2cKkFBXxZJuJu2cDwRo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymnMDCmS38MFxnR8UoLDtZAJkeCQ5V/54ZlBr+TCeFIGPfuwUy
+	PoTTfqceHTjyWUZcK7nBOHARAJC43gvqZX34pIHhx4HMDLT8R0ICqJODcqs45sIEoZOEitfsTZs
+	=
+X-Google-Smtp-Source: AGHT+IFyQFqYAs3CO4e2zbd5qOXWQ/mkg+kmepBnfCufrE+SJ8LGzLxsoFqkAivwejQHvhe24JwG6Q==
+X-Received: by 2002:a2e:5109:0:b0:2fb:4428:e0fa with SMTP id 38308e7fff4ca-2fcbe04f435mr162406031fa.36.1730973267256;
+        Thu, 07 Nov 2024 01:54:27 -0800 (PST)
+Message-ID: <6f296504-1c71-4817-a3e8-f7e365ceef38@suse.com>
+Date: Thu, 7 Nov 2024 10:54:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/Kconfig: livepatch-build-tools requires debug
- information
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20241107084927.37748-1-roger.pau@citrix.com>
- <66fd7b53-25f5-459b-8563-e33fccba90ef@citrix.com> <ZyyLAj6MZ3fvOFBC@macbook>
+Subject: Re: [PATCH 02/12] x86/boot: eliminate module_map
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
+ <20241102172551.17233-3-dpsmith@apertussolutions.com>
+ <2faf07d6-35a2-46c8-92db-8cf26a304800@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,42 +118,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZyyLAj6MZ3fvOFBC@macbook>
+In-Reply-To: <2faf07d6-35a2-46c8-92db-8cf26a304800@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.11.2024 10:40, Roger Pau Monné wrote:
-> On Thu, Nov 07, 2024 at 09:21:26AM +0000, Andrew Cooper wrote:
->> On 07/11/2024 8:49 am, Roger Pau Monne wrote:
->>> The tools infrastructure used to build livepatches for Xen
->>> (livepatch-build-tools) consumes some DWARF debug information present in
->>> xen-syms to generate a livepatch (see livepatch-build script usage of readelf
->>> -wi).
->>>
->>> The current Kconfig defaults however will enable LIVEPATCH without DEBUG_INFO
->>> on release builds, thus providing a default Kconfig selection that's not
->>> suitable for livepatch-build-tools even when LIVEPATCH support is enabled,
->>> because it's missing the DWARF debug section.
->>>
->>> Fix by forcing the selection of DEBUG_INFO from LIVEPATCH.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 06.11.2024 15:34, Andrew Cooper wrote:
+> On 02/11/2024 5:25 pm, Daniel P. Smith wrote:
+>> With all boot modules now labeled by type, it is no longer necessary to
+>> track whether a boot module was identified via the module_map bitmap.
 >>
->> Oops, yes.
+>> Introduce a set of helpers to search the list of boot modules based on type and
+>> the reference type, pointer or array index, desired. Then drop all uses of
+>> setting a bit in module_map and replace its use for looping with the helpers.
 >>
->> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>
->> Fixes tag ?
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>> Changes since v7:
+>> - collapse the three module_map patches into one,
+>>   - x86/boot: remove module_map usage from microcode loading
+>>   - x86/boot: remove module_map usage from xsm policy loading
+>>   - x86/boot: remove module_map usage by ramdisk loading
 > 
-> Was borderline on adding one, but wasn't sure since it's strictly
-> livepatch-build-tools that requires the DWARF data, but custom made
-> livepatches (like the examples in tests) do not require such
-> information.
+> Definitely nicer for having been collapsed together.
+> 
+>> ---
+>>  xen/arch/x86/cpu/microcode/core.c   | 12 ++++-----
+>>  xen/arch/x86/include/asm/bootinfo.h | 42 ++++++++++++++++++++++++++++-
+>>  xen/arch/x86/setup.c                | 28 +++++++++++--------
+>>  xen/xsm/xsm_policy.c                | 19 +++++--------
+>>  4 files changed, 70 insertions(+), 31 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+>> index f46464241557..b09cf83249f6 100644
+>> --- a/xen/arch/x86/cpu/microcode/core.c
+>> +++ b/xen/arch/x86/cpu/microcode/core.c
+>> @@ -790,15 +790,13 @@ static int __init early_microcode_load(struct boot_info *bi)
+>>  
+>>      if ( opt_scan ) /* Scan for a CPIO archive */
+>>      {
+>> -        for ( idx = 1; idx < bi->nr_modules; ++idx )
+>> +        for_each_boot_module_by_type(idx, bi, BOOTMOD_UNKNOWN)
+> 
+> Minor, but we treat for_each_* as if they were for loops, so this either
+> wants to be
+> 
+> for_each_boot_module_by_type ( idx, bi, BOOTMOD_UNKNOWN )
+> 
+> or
+> 
+> for_each_boot_module_by_type (idx, bi, BOOTMOD_UNKNOWN)
+> 
+> spacing wise.  There's no agreement between maintainers on the extra
+> spaces inside brackets or not.
 
-At which point: Is "select" really appropriate then? Wouldn't it be more
-logical then to change DEBUG_INFO's default to take LIVEPATCH into account
-(still permitting people to turn debug info off if they know they won't
-need it)?
+Just to clarify - no, the latter form you suggest is not okay to use.
+Daniel's form is, as is the first one you suggest. The choice is between
+"like a for() loop" (your 1st form) and "just another macro invocation"
+(Daniel's form).
 
 Jan
 
