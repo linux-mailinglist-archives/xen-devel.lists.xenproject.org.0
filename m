@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E45F9C015E
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:46:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831596.1246924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E61959C0160
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:48:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831602.1246934 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8z5f-0002BU-Bk; Thu, 07 Nov 2024 09:46:11 +0000
+	id 1t8z7s-0003DE-Ne; Thu, 07 Nov 2024 09:48:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831596.1246924; Thu, 07 Nov 2024 09:46:11 +0000
+Received: by outflank-mailman (output) from mailman id 831602.1246934; Thu, 07 Nov 2024 09:48:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8z5f-00029L-8b; Thu, 07 Nov 2024 09:46:11 +0000
-Received: by outflank-mailman (input) for mailman id 831596;
- Thu, 07 Nov 2024 09:46:10 +0000
+	id 1t8z7s-0003AZ-KM; Thu, 07 Nov 2024 09:48:28 +0000
+Received: by outflank-mailman (input) for mailman id 831602;
+ Thu, 07 Nov 2024 09:48:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8z5e-00029F-74
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:46:10 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1t8z7r-0003AT-2K
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:48:27 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1c024fc7-9ced-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 10:46:06 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-37d3ecad390so1067485f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:46:06 -0800 (PST)
+ id 6d907bb9-9ced-11ef-99a3-01e77a169b0f;
+ Thu, 07 Nov 2024 10:48:23 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43167ff0f91so6643925e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:48:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381ed9978afsm1213396f8f.52.2024.11.07.01.46.04
+ 5b1f17b1804b1-432aa6b2d13sm52499985e9.12.2024.11.07.01.48.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 01:46:05 -0800 (PST)
+ Thu, 07 Nov 2024 01:48:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c024fc7-9ced-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzQiLCJoZWxvIjoibWFpbC13cjEteDQzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjFjMDI0ZmM3LTljZWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTcyNzY2LjUzMzQzMSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 6d907bb9-9ced-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjZkOTA3YmI5LTljZWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTcyOTAzLjMyMzczNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730972766; x=1731577566; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730972903; x=1731577703; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4icKvh7bQaT/mFZnzgWTco3Ya5kHOgRa2Lo28+KbHXA=;
-        b=cZWv4IVGUn6N4aYxvMyowmwCuJ/wd6Lfef+hyVbLi0M9BKdsp1+K9rdlFTaHoL0mqQ
-         M7yrwJRkv8FjMB3OKaEMlpngFig8sJLt0ZbX/VAW7i8ar0amQr09k+BMLkJyQ/Vu+iud
-         XDUK18cLu5i20swwSSZyJhtZ2MWl3Grn8klTKZKv7hWdmaHh6SIU2xE0GXh0FsuSqpoL
-         aKwwyGZBoGFyPokNA2cAbqDDsjzGxlnRMNtSUl9YDEm/QZb6VUDQUir+pP/WkcddRdes
-         IFH3hPDUg0Rwe/Y1pB3I1AkM4pjbeL8ddaJzmdYYgRaNoE7PvDmWBpHvwCL8zdnJQi/P
-         ppKQ==
+        bh=81rmPOQxArOZCHQm7NcbBFKQylZnuCOKFIDm83WY5vg=;
+        b=VduM7s0N23lq3j+zZerv0JG3outXA4lQ9ii6KeSXCUjx5xhVGMWg+hYvK7mpZhXrEJ
+         ZHB/8PF2bXIm/uxOoaeEklA0ow26SlBsf3/FvfFu066tp9ZhRHNij9x8obqn1PCCX0cy
+         Z2mY/cssYz4skS6ADNEErfEHbRUxTPesy/G9kO5nTSqQArsu8DlfXViesmRIeGvyxEJD
+         PVhzjbCgkh19CjuPsO+aH6z9guPN8b7d7UHc0v2UAUp5g20ZS8XQVzFe9GR3p4EKQazW
+         UgdEbqBPzm293xESOE5QL2lFSDnt6eXLfhdMc3+XMq3GFTB8t+Dho42sC2hrfvhqvV7b
+         nCWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730972766; x=1731577566;
+        d=1e100.net; s=20230601; t=1730972903; x=1731577703;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4icKvh7bQaT/mFZnzgWTco3Ya5kHOgRa2Lo28+KbHXA=;
-        b=csotWhF7YnrlEVqZJtrCaPmAzmOLIG8vog7VG3lGNG1VufW87bUjW5tEU/bK7/7ZW6
-         SLJNB7CLjyGeuwa+i3l17Ty/1qMMCipG9QXsBv7VtTRyAvF/I873HQVAJRBBytFtBVPQ
-         mYHJIoxhhjNIdpeClAYwTLyHTYXBvwrkAJTfc7pvueUYeewf8h5oa04eAhHrZi0tgdlA
-         qYolgfHhO4uBtLkAB6stnAQhW1hD7XBq46YsEGDnQ8w/BZwnZLXLvrkcTXTqbl/8UaVk
-         h9Uc5PaTEd7yeE2M07p3e7WeiUwYFo/15YSUfMFdtRXOFQVkHt7LPFrQREFfsEhO6W9Q
-         5F6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWFK9F9/DfO4X+YHCa4m5pAHTB9sbAZQGy31IPT+DqiAns778Ecp4O4DfT21DOWmfaef6pJDFi+xgI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyBvfaQVtUwpYO+2b5gHqREz2eTZDTRfdv97pcBHjdiP5ONxKsl
-	Est95QZKECIsS6akuhippgSQJ5O48pTQX8Rc40wlYlxoEPBz61ldLSnHjn4Euw==
-X-Google-Smtp-Source: AGHT+IG5XOAjpF6L7fiwvCOy1tU9PxqhI1qqmQ3+rOeE+iH+Q2iWe7mnqgZ4ailHXNn3U1Nr9enmRQ==
-X-Received: by 2002:a5d:59ae:0:b0:37d:2d6f:3284 with SMTP id ffacd0b85a97d-381ef6d3584mr540981f8f.9.1730972765657;
-        Thu, 07 Nov 2024 01:46:05 -0800 (PST)
-Message-ID: <9947c21d-b5f7-4197-b6d9-dd4d491a30c2@suse.com>
-Date: Thu, 7 Nov 2024 10:46:04 +0100
+        bh=81rmPOQxArOZCHQm7NcbBFKQylZnuCOKFIDm83WY5vg=;
+        b=NjSqVFExuYMaNYQWxJe+7Up+Ved6pmcEPVr4rbLWwVddubQqcRvO/5f8SMDOsu7JbL
+         qWDb4sQHK6X9abNZ4Y/bQjeHeMwWuzcfV/h51As81vMdWG36DvudIOAlnuLwwAkLOCBG
+         6nkXfCjyUHFSWuPkV2EkO4I1PpJn/ir04/z0ruA+3YwlF/RvhtKPhR2bZjHy8OManA5o
+         M/orA9sOavBgqx2HEI+1DAHAv4y9IledgPn52WHd+v371YX45zrwIVG8AFDxRTLzeOEs
+         wEuMbb+KDKpLRDcgGpDAJ8+iySZzBXRqF8WQRJIz+Kvq0I3EaTgEjjZOeZ7/4b6qZdF7
+         1fYQ==
+X-Gm-Message-State: AOJu0YxF4iZ9CMyrabDANg6z31DbkIM7abF6tz3N+Yg2fIWuSAfeA1a0
+	8fzdfLCiOVw87wQH2T8xVkWd0iXtSfcaD0If4Zt8nwGXYq96feeCg8I3BVs5Qg==
+X-Google-Smtp-Source: AGHT+IHCpZIpiyeCMdqDwaVOqE0l9q1zrBq0bjajtck4m24gULwh/PvuzHrhwl/SsgF5tNaBr5mUqg==
+X-Received: by 2002:a05:600c:19cd:b0:431:6153:a246 with SMTP id 5b1f17b1804b1-432b2fff579mr6035565e9.13.1730972902613;
+        Thu, 07 Nov 2024 01:48:22 -0800 (PST)
+Message-ID: <22c59035-67e3-4e43-bfe0-26675a93e9ae@suse.com>
+Date: Thu, 7 Nov 2024 10:48:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix build with LLVM toolchain
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20241105145507.613981-1-frediano.ziglio@cloud.com>
- <48a22295-f3ac-496b-bdfb-ee17b0ada994@suse.com>
- <CACHz=ZhrxTSYGyWMQSE0Xi6sW2BZiLDuKkP2508CBRELD-USgQ@mail.gmail.com>
- <816ae079-378b-4bfd-93f2-83c5a281eb01@suse.com>
- <CACHz=ZhzrZO5o8EarXewC6BzrX4acSyAFsAO2hHBvm9xYRecqg@mail.gmail.com>
- <80296824-760a-48c4-9dce-4875fca0ed31@suse.com>
- <CACHz=ZgY_O7siQUQZjxGe=gfiB-C9jw1UQqwK9ffuHUUQmRgiQ@mail.gmail.com>
- <cc7802cc-8591-4356-bf7e-3daa912c751c@suse.com>
- <CACHz=ZjZVPSueWjxfWBjbjg8_UhZc7hMwM49BFT0bipqeBOsSA@mail.gmail.com>
+Subject: Re: [PATCH] xen/Kconfig: livepatch-build-tools requires debug
+ information
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20241107084927.37748-1-roger.pau@citrix.com>
+ <66fd7b53-25f5-459b-8563-e33fccba90ef@citrix.com> <ZyyLAj6MZ3fvOFBC@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,85 +115,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZjZVPSueWjxfWBjbjg8_UhZc7hMwM49BFT0bipqeBOsSA@mail.gmail.com>
+In-Reply-To: <ZyyLAj6MZ3fvOFBC@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06.11.2024 12:58, Frediano Ziglio wrote:
-> On Wed, Nov 6, 2024 at 11:45 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 06.11.2024 12:34, Frediano Ziglio wrote:
->>> On Wed, Nov 6, 2024 at 10:59 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 06.11.2024 07:56, Frediano Ziglio wrote:
->>>>> On Tue, Nov 5, 2024 at 5:06 PM Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>
->>>>>> On 05.11.2024 17:35, Frediano Ziglio wrote:
->>>>>>> On Tue, Nov 5, 2024 at 3:32 PM Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>>>
->>>>>>>> On 05.11.2024 15:55, Frediano Ziglio wrote:
->>>>>>>>> This toolchain generates different object and map files.
->>>>>>>>> Account for these changes.
->>>>>>>>
->>>>>>>> At least briefly mentioning what exactly the differences are would be
->>>>>>>> quite nice, imo.
->>>>>>>>
->>>>>>>
->>>>>>> What about.
->>>>>>>
->>>>>>> Object have 3 additional sections which must be handled by the linker script.
->>>>>>
->>>>>> I expect these sections are there in both cases. The difference, I assume,
->>>>>> is that for the GNU linker they don't need mentioning in the linker script.
->>>>>> Maybe that's what you mean to say, but to me at least the sentence can also
->>>>>> be interpreted differently.
->>>>>
->>>>> Why do you expect such sections? They are used for dynamic symbols in
->>>>> shared objects, we don't use shared objects here. Normal object
->>>>> symbols are not handled by these sections. GNU compiler+linker (we
->>>>> link multiple objects together) do not generate these sections. So the
->>>>> comment looks correct to me.
->>>>
->>>> About every ELF object will have .symtab and .strtab, and many also a
->>>> separate .shstrtab. There's nothing "dynamic" about them. IOW - I'm
->>>> confused by your reply.
+On 07.11.2024 10:40, Roger Pau Monné wrote:
+> On Thu, Nov 07, 2024 at 09:21:26AM +0000, Andrew Cooper wrote:
+>> On 07/11/2024 8:49 am, Roger Pau Monne wrote:
+>>> The tools infrastructure used to build livepatches for Xen
+>>> (livepatch-build-tools) consumes some DWARF debug information present in
+>>> xen-syms to generate a livepatch (see livepatch-build script usage of readelf
+>>> -wi).
 >>>
->>> I checked the object files and there are no such sections using GNU toolchain.
+>>> The current Kconfig defaults however will enable LIVEPATCH without DEBUG_INFO
+>>> on release builds, thus providing a default Kconfig selection that's not
+>>> suitable for livepatch-build-tools even when LIVEPATCH support is enabled,
+>>> because it's missing the DWARF debug section.
+>>>
+>>> Fix by forcing the selection of DEBUG_INFO from LIVEPATCH.
+>>>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 >>
->> I think I checked every *.o that's under boot/, and they all have these three
->> sections. Can you clarify which one(s) specifically you checked?
+>> Oops, yes.
+>>
+>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>> Fixes tag ?
 > 
-> $ gcc --version
-> gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
-> Copyright (C) 2021 Free Software Foundation, Inc.
-> This is free software; see the source for copying conditions.  There is NO
-> warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-> 
-> $ ld --version
-> GNU ld (GNU Binutils for Ubuntu) 2.38
-> Copyright (C) 2022 Free Software Foundation, Inc.
-> This program is free software; you may redistribute it under the terms of
-> the GNU General Public Licence version 3 or (at your option) a later version.
-> This program has absolutely no warranty.
-> 
-> $ find xen/normal/ xen/pvh/ -name \*.o | xargs -ifilename sh -c
-> 'objdump -x filename' | grep -e \\.
-> shstrtab -e \\.strtab -e \\.symtab
-> 
-> (xen/normal and xen/pvh are the build directory, with different configurations)
-> 
-> I'm saying that's possibly why the linker scripts didn't need to
-> specify these sections.
+> Was borderline on adding one, but wasn't sure since it's strictly
+> livepatch-build-tools that requires the DWARF data, but custom made
+> livepatches (like the examples in tests) do not require such
+> information.
 
-Just to mention it here as well - objdump's -x option doesn't include "control"
-sections. Considering the help text for -x this feels like a bug. However, as
-documentation has it:
-
-"Display all available header information, including the symbol table and
- relocation entries."
-
-the symbol table and possible relocations _are_ being displayed, just not as
-part of "Sections:".
+At which point: Is "select" really appropriate then? Wouldn't it be more
+logical then to change DEBUG_INFO's default to take LIVEPATCH into account
+(still permitting people to turn debug info off if they know they won't
+need it)?
 
 Jan
 
