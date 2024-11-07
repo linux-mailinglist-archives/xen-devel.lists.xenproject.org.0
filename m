@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0391B9C0197
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:55:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831610.1246944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B18079C01DC
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 11:05:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831618.1246954 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8zDm-0004iV-Am; Thu, 07 Nov 2024 09:54:34 +0000
+	id 1t8zO1-00070P-9n; Thu, 07 Nov 2024 10:05:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831610.1246944; Thu, 07 Nov 2024 09:54:34 +0000
+Received: by outflank-mailman (output) from mailman id 831618.1246954; Thu, 07 Nov 2024 10:05:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8zDm-0004fu-7V; Thu, 07 Nov 2024 09:54:34 +0000
-Received: by outflank-mailman (input) for mailman id 831610;
- Thu, 07 Nov 2024 09:54:32 +0000
+	id 1t8zO1-0006xr-6L; Thu, 07 Nov 2024 10:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 831618;
+ Thu, 07 Nov 2024 10:05:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8zDk-0004fl-8g
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:54:32 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1t8zNz-0006xl-4k
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 10:05:07 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46ee1998-9cee-11ef-a0c6-8be0dac302b0;
- Thu, 07 Nov 2024 10:54:27 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2fb57f97d75so7697431fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:54:27 -0800 (PST)
+ id c266343f-9cef-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 11:05:04 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4315df7b43fso6493545e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 02:05:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa737c86sm56159315e9.38.2024.11.07.01.54.26
+ 5b1f17b1804b1-432b05620b4sm17623045e9.20.2024.11.07.02.05.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 01:54:26 -0800 (PST)
+ Thu, 07 Nov 2024 02:05:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46ee1998-9cee-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmYiLCJoZWxvIjoibWFpbC1sajEteDIyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjQ2ZWUxOTk4LTljZWUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTczMjY3Ljg3NjY0Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: c266343f-9cef-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmYiLCJoZWxvIjoibWFpbC13bTEteDMyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImMyNjYzNDNmLTljZWYtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTczOTA0LjYxMjg1Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730973267; x=1731578067; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730973904; x=1731578704; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UB4xixjLoDQZljxh9xQWG+MH6w8lvKu1WiuWNlaTOXQ=;
-        b=VJhXlwV3olSM2sdYmJWz3IkScIf87xs2LM44nOd8CtqhaDTToflnd1snEAoHZOaRXb
-         xwsi+iBCbY3G2Fabnlc69LhQGSi31ikfX4P5qZUluBLm+13FnK1d84TXmsZj/GspUqBM
-         zgPvF1bkFz//F9isH5blyTn1N/7LHler93CGL9zCCo52/FZ2uJ/dnlT7bQIZCCffbkJ2
-         X/UdAU1DVZ3u9aFWqW74t8VB5xp1hzp8W5aoIx8Xgbs8k9NGkZ8eltY7T2TGVp4Hjjy2
-         HDt5Lfd82CSOMaNZkosH0dOT68S5Of1SoY98CMSbCIz/5Vfj/VpwPVg0bVA639BQ4fOi
-         n77g==
+        bh=ZSxWTJkgsKtlME+nUFx9gsnt01aHX1wyLAAIHuEqRYA=;
+        b=KRwerDIlLJaV7yL77tGmtyH9C5BlqD3vin3tReV3Ge8My1u7Xz7KH3kY6aYujVfAfT
+         5CijYI2IK3CO5WL5EOjLIwAac2sku+u1WYe6kP/9wl6v6E/pL2u/mlSOFiDyakPtPg/E
+         CuICt3aAwG4ByaiofiVrW2QtXYRvUeeQzx1OPCWghJayfsVr+Zr6GeRzBRk5QxCUPebh
+         kLo9s0TJVQz+dL4+W1yi9072CYvbhLKSrzf3pOIJiEJsu+ErO1jgiGQ8xD2rNJEe/kel
+         +K9x4zD9yq1nKGhUWZZBdn8OhzNHkG3GwwtzQaQBNKyEc4QTTlZi5kHavLIs+cZOfxxV
+         CpQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730973267; x=1731578067;
+        d=1e100.net; s=20230601; t=1730973904; x=1731578704;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UB4xixjLoDQZljxh9xQWG+MH6w8lvKu1WiuWNlaTOXQ=;
-        b=kLZqMDJ/h02kJWIBsdTYA939AKDhKVAZNS2l7znpFri7CBFVe343QjXgAD+mnvDLrr
-         /qgim7WY4D28fQNKDfCgklBE45V8Md9EhHN1FlH93EqKhaJjVAeKSabqz0AVApXrPl2V
-         uKhQ7NIc4DmG2JFJ8knx06MLlyl/dzhBfQjASiT+v11iPtRcEuueexGSw7o6XcSHoV8i
-         eb6fePpzGNq3PHWzyDDmXnDPeAQ73I7jCQF/Dfp1Zf3ZeL8M2hVKO2Jro098ylbHJZm/
-         QfX1e4V2AdkNn073x2QHlkOQKCVObV9m4VXpYYlSOikomhf1+UuYM8hB/+P6rx5YJzSQ
-         Kgsg==
-X-Forwarded-Encrypted: i=1; AJvYcCX4mTJJNoiVAhiUXhjfsCS9+sfRq/dksNPla440M593GzVYIrPNi2yfTER/2cKkFBXxZJuJu2cDwRo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YymnMDCmS38MFxnR8UoLDtZAJkeCQ5V/54ZlBr+TCeFIGPfuwUy
-	PoTTfqceHTjyWUZcK7nBOHARAJC43gvqZX34pIHhx4HMDLT8R0ICqJODcqs45sIEoZOEitfsTZs
-	=
-X-Google-Smtp-Source: AGHT+IFyQFqYAs3CO4e2zbd5qOXWQ/mkg+kmepBnfCufrE+SJ8LGzLxsoFqkAivwejQHvhe24JwG6Q==
-X-Received: by 2002:a2e:5109:0:b0:2fb:4428:e0fa with SMTP id 38308e7fff4ca-2fcbe04f435mr162406031fa.36.1730973267256;
-        Thu, 07 Nov 2024 01:54:27 -0800 (PST)
-Message-ID: <6f296504-1c71-4817-a3e8-f7e365ceef38@suse.com>
-Date: Thu, 7 Nov 2024 10:54:26 +0100
+        bh=ZSxWTJkgsKtlME+nUFx9gsnt01aHX1wyLAAIHuEqRYA=;
+        b=pDMht5Jj3ZU3sy3QUkwvF9CcMJ3ckdp/t2WhChMI7geeUI8QvrDXlV34AEcg+ijWN3
+         Uy5L2rKPBxwqIziP8js8m2TkVfUseQ4NUmB7Zg6wiFn/edtHH16DotERD4oL2am3hLN4
+         j+25l+23KF98lvX/14oeddjIixT/wiUM9w2zjxTqIhmSNRR7yHISra6XDP/o0Caac+7p
+         N5uj4Ev0pJ22rLBpTRHRGD8SKVL3+lK5+R0tB3oQeO/iiBXrDmuAPmR98Ed7bCY9RbRZ
+         mshu64eaZPqFKchQirFF3jxjsOm6N6fmmQEZUiO6h7YExT4z00EvYlv8jNPwTZy8jWzX
+         S7gw==
+X-Forwarded-Encrypted: i=1; AJvYcCXMfUVwmS4DxsgI3U7sqQ+oiTSSQvJGNmfOt5VoE4PjuZxOv7ki0n6FZ64vRekXkMeLf0VHGu0RXJ0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwGs2hvJfWTV8jNz69VIwsVQlr93llHeqkPCTy57caSuvjnkfP5
+	+JBr6kQfFjCiOR43cKozu+B3fIsEIqTfYYQTVm7rJuH8y9w/2ImK15pNUoTKWg==
+X-Google-Smtp-Source: AGHT+IEgTuJBXosDAk0w7sVNmnyYggkgpNIDwfXqTwOBNbiInn7BOuBdJMY9KOZqwN9twuJmH4e9Yg==
+X-Received: by 2002:a05:600c:3593:b0:430:54a4:5ad7 with SMTP id 5b1f17b1804b1-4319ac76449mr399894515e9.1.1730973904011;
+        Thu, 07 Nov 2024 02:05:04 -0800 (PST)
+Message-ID: <d32a3eb9-c0cb-4f87-9f88-4fc0d32cf1e8@suse.com>
+Date: Thu, 7 Nov 2024 11:05:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 02/12] x86/boot: eliminate module_map
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
  <20241102172551.17233-3-dpsmith@apertussolutions.com>
- <2faf07d6-35a2-46c8-92db-8cf26a304800@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,63 +116,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2faf07d6-35a2-46c8-92db-8cf26a304800@citrix.com>
+In-Reply-To: <20241102172551.17233-3-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.11.2024 15:34, Andrew Cooper wrote:
-> On 02/11/2024 5:25 pm, Daniel P. Smith wrote:
->> With all boot modules now labeled by type, it is no longer necessary to
->> track whether a boot module was identified via the module_map bitmap.
->>
->> Introduce a set of helpers to search the list of boot modules based on type and
->> the reference type, pointer or array index, desired. Then drop all uses of
->> setting a bit in module_map and replace its use for looping with the helpers.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->> Changes since v7:
->> - collapse the three module_map patches into one,
->>   - x86/boot: remove module_map usage from microcode loading
->>   - x86/boot: remove module_map usage from xsm policy loading
->>   - x86/boot: remove module_map usage by ramdisk loading
-> 
-> Definitely nicer for having been collapsed together.
-> 
->> ---
->>  xen/arch/x86/cpu/microcode/core.c   | 12 ++++-----
->>  xen/arch/x86/include/asm/bootinfo.h | 42 ++++++++++++++++++++++++++++-
->>  xen/arch/x86/setup.c                | 28 +++++++++++--------
->>  xen/xsm/xsm_policy.c                | 19 +++++--------
->>  4 files changed, 70 insertions(+), 31 deletions(-)
->>
->> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
->> index f46464241557..b09cf83249f6 100644
->> --- a/xen/arch/x86/cpu/microcode/core.c
->> +++ b/xen/arch/x86/cpu/microcode/core.c
->> @@ -790,15 +790,13 @@ static int __init early_microcode_load(struct boot_info *bi)
->>  
->>      if ( opt_scan ) /* Scan for a CPIO archive */
->>      {
->> -        for ( idx = 1; idx < bi->nr_modules; ++idx )
->> +        for_each_boot_module_by_type(idx, bi, BOOTMOD_UNKNOWN)
-> 
-> Minor, but we treat for_each_* as if they were for loops, so this either
-> wants to be
-> 
-> for_each_boot_module_by_type ( idx, bi, BOOTMOD_UNKNOWN )
-> 
-> or
-> 
-> for_each_boot_module_by_type (idx, bi, BOOTMOD_UNKNOWN)
-> 
-> spacing wise.  There's no agreement between maintainers on the extra
-> spaces inside brackets or not.
+On 02.11.2024 18:25, Daniel P. Smith wrote:
+> --- a/xen/arch/x86/cpu/microcode/core.c
+> +++ b/xen/arch/x86/cpu/microcode/core.c
+> @@ -790,15 +790,13 @@ static int __init early_microcode_load(struct boot_info *bi)
+>  
+>      if ( opt_scan ) /* Scan for a CPIO archive */
+>      {
+> -        for ( idx = 1; idx < bi->nr_modules; ++idx )
+> +        for_each_boot_module_by_type(idx, bi, BOOTMOD_UNKNOWN)
+>          {
+> +            struct boot_module *bm = &bi->mods[idx];
 
-Just to clarify - no, the latter form you suggest is not okay to use.
-Daniel's form is, as is the first one you suggest. The choice is between
-"like a for() loop" (your 1st form) and "just another macro invocation"
-(Daniel's form).
+pointer-to-const? You really want to get used to applying const to pointed-to
+types whenever possible. IOW ...
+
+> --- a/xen/xsm/xsm_policy.c
+> +++ b/xen/xsm/xsm_policy.c
+> @@ -33,22 +33,18 @@
+>  int __init xsm_multiboot_policy_init(
+>      struct boot_info *bi, void **policy_buffer, size_t *policy_size)
+>  {
+> -    int i;
+> +    unsigned int i;
+>      int rc = 0;
+>      u32 *_policy_start;
+>      unsigned long _policy_len;
+>  
+> -    /*
+> -     * Try all modules and see whichever could be the binary policy.
+> -     * Adjust module_map for the module that is the binary policy.
+> -     */
+> -    for ( i = bi->nr_modules - 1; i >= 1; i-- )
+> +    /* Try all unknown modules and see whichever could be the binary policy. */
+> +    for_each_boot_module_by_type(i, bi, BOOTMOD_UNKNOWN)
+>      {
+> -        if ( !test_bit(i, bi->module_map) )
+> -            continue;
+> +        struct boot_module *bm = &bi->mods[i];
+
+... same here (and likely elsewhere in the series).
 
 Jan
 
