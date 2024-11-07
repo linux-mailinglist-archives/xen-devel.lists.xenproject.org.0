@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D66B9C00CB
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:06:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831530.1246844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B9E29C00FC
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 10:19:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831540.1246854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8ySS-0001Jg-Qv; Thu, 07 Nov 2024 09:05:40 +0000
+	id 1t8yfl-0003B5-VB; Thu, 07 Nov 2024 09:19:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831530.1246844; Thu, 07 Nov 2024 09:05:40 +0000
+Received: by outflank-mailman (output) from mailman id 831540.1246854; Thu, 07 Nov 2024 09:19:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8ySS-0001HF-Mz; Thu, 07 Nov 2024 09:05:40 +0000
-Received: by outflank-mailman (input) for mailman id 831530;
- Thu, 07 Nov 2024 09:05:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t8yfl-00038r-S5; Thu, 07 Nov 2024 09:19:25 +0000
+Received: by outflank-mailman (input) for mailman id 831540;
+ Thu, 07 Nov 2024 09:19:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t8ySR-0001H7-Eg
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:05:39 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72f3c2e0-9ce7-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 10:05:35 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a9ed49edd41so118109466b.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:05:35 -0800 (PST)
+ id 1t8yfj-00038l-V9
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 09:19:23 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ec3d822-9ce9-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 10:19:20 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43193678216so6633235e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 01:19:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0a4b5cesm64716566b.72.2024.11.07.01.05.33
+ ffacd0b85a97d-381eda137cesm1130698f8f.108.2024.11.07.01.19.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 01:05:34 -0800 (PST)
+ Thu, 07 Nov 2024 01:19:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72f3c2e0-9ce7-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzYiLCJoZWxvIjoibWFpbC1lajEteDYzNi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjcyZjNjMmUwLTljZTctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTcwMzM1LjM0OTQwNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 5ec3d822-9ce9-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmQiLCJoZWxvIjoibWFpbC13bTEteDMyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjVlYzNkODIyLTljZTktMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTcxMTYwLjQ4ODQxLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730970335; x=1731575135; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730971160; x=1731575960; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tRyRQ6ac7W6xsATqWq4b0tTA709f6tGCsC14IhqOfIg=;
-        b=FbK5yxQYfUwgBuA6NmyDmaNT8zVXwLicTks4mtXDHkgmBlRBCKHgWYR6spcjwPiC6/
-         awWWB+77birjBV2vXrzsMnTxQ5Rt8g5W3g+ia9R9g87qxoInhh1cRKtvGuo3JvmxjCY9
-         qbCBuLS0PeSfqL6+JV5AM/ItkRtLiFVTZNDmWm3MLldzGTJDmcT8Z755a15Mkx4VkqBU
-         nB7HLNDDtNSYW3gd9+3E7IOVpTn6v1/WvSwK5s0UAnfoSyh4qGakfQ9gK/ZK4OIioWuk
-         dQyRQC/dH3a5n58el0KyPyV8uOn0PB97FyKHj6osaBCUQgq3MKh1pAr51Eedyvnmx3Va
-         6cYg==
+        bh=8t8No/UVl29MEUMNuXPjvD4eBIQShE/o7jicsd79qPI=;
+        b=D4REkJGAMGlYOUG4sbtayrGeem6/V/LCtbhzKdHOy0qY6qUkdiyJqABEiSVUcViRov
+         7nCmABlalzTd7ns5F3UamCjdMIqRNPJK5KgQP4uz/8mv5wkv8Wvcq7AR0Iq+H9PHI/gc
+         1mwIvPK+cVj2eyMd7HPw/HjvdkPIQ4jdcUaB5xvSBlCD/27OPCmZNUBovZwyq6I0F4aM
+         xkREuZYDN6mMOCdVHOT+5m0AsZ2xw3XBM9eKmwolKnsr8OF6h21yFOFvp7r3FNGB9v02
+         I5DBmIdwFQSGNkcQc3TJ+rn3/zI8cONZ2cx7M8pwoFYw4FwewX18KHane+S3NcbY6lYc
+         Km+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730970335; x=1731575135;
+        d=1e100.net; s=20230601; t=1730971160; x=1731575960;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tRyRQ6ac7W6xsATqWq4b0tTA709f6tGCsC14IhqOfIg=;
-        b=uoRWqyVzAvX+jfWb+IL0/QDNzlmlcipK788+l4AHMKSUIdO3ooM3FaLAB+iXPoO8OD
-         VYf0SYslXU/ofmBolHqHrUeCZuVwACH6inVNmmMVA9pl6DzI5Rmzp3Vtp2QbsExIv8c+
-         0LjdB3cTscveBfRL3L6+qT3jwT+g+rq8DjoJIUECr1qLEB7HYBOsh9fJgAZ1lcZe7cse
-         4Zarsb+VWkICQCqdQvf2phhrZzs5w1ws6DqY/Sg1XncLWM0KmQLaAHNs59qI7RjVyotN
-         aBuRArDCr07OEqZcIA7ccAu92Pya1fibD8yfmCFGvKZv0XaB3171GVL1Gug48DrWedlw
-         j+CQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXAQ6jOTfQkuEgS0RA8Pv51GGfd64Oaewk7vc8UMYbm/r/DyWoyonUNvv4+CyLk8KmIXlU1ilBAdFc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxMJvBYWKoRUVn0ldMrrDd6oY+7VI6iu2sD1/9jA1J4k6FkPg4M
-	CdO4q3h0UndmfvlluHcQTX/U71UAhb3FH2GKDIX3hBm7Z6cP0wUD49M+u/uj3w==
-X-Google-Smtp-Source: AGHT+IFxRgnh5TFkVbFh1KqWaVZ4vB+b8rpPTnXsBkM79Vx9dIR/x3VfuolKk0oUUzoWNbhzlWyzTw==
-X-Received: by 2002:a17:906:f5a1:b0:a99:42e7:21f with SMTP id a640c23a62f3a-a9de5ff9e6fmr4051501366b.37.1730970334637;
-        Thu, 07 Nov 2024 01:05:34 -0800 (PST)
-Message-ID: <3ee6d76d-25ee-4c14-a71a-e93d06812320@suse.com>
-Date: Thu, 7 Nov 2024 10:05:33 +0100
+        bh=8t8No/UVl29MEUMNuXPjvD4eBIQShE/o7jicsd79qPI=;
+        b=eecs4JTbfdMjy5mdZVWuhFPZrZmXwguubwal6032qFnAhg8drYLy9Eojlyy8dS2GE/
+         nJDNhnzeGx4whgrAgi6Jaj9vUBXqsyXmoHyw5N9QTFtEbJi8uq6MERjiF4637Q5w3W7F
+         B43CAS+ZxRQ5NbQLvFbUaHnJc/q1R1//Y92Bn7wCJ1seDO71TeyJRXS7PvL9b6RPgjAh
+         yUMDeK81OV5osm/q3T49WUozksDhG11wKpggm2FQRrsZvg/I0e2Z9QkOllDQwZH92i2U
+         2/tIH3QbpWKI3diPnMk4zmgYjLmRW95XZ5VdSMp2lDeKfgVe5Ckt4QVBlRpknZc0Uh0X
+         UZPg==
+X-Forwarded-Encrypted: i=1; AJvYcCXNc54uzasFjx1c6jJ58SOwCXIWnAVDgHKFp/OT8+SnLgrrTPEXq3thyn/V3w/LgXH7RfOcZ2eIrcM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz7cXLB6u147GmpC3/zEyahvT6DKBYYqd3bRDcoig0BQg+hxqfx
+	XtKksdbrUOu5vSUcgJmtjXH+ChwHaDYQDmsSOI1u2DGecthCUFXM4PC4LAGpOQ==
+X-Google-Smtp-Source: AGHT+IFivhK52z6qr6NBni8n/5Tg3I6D7y3agLASvSpWI6OIVMQe+1U+pjm4D2zlbjbkn4rMjVC+bg==
+X-Received: by 2002:a5d:6943:0:b0:37d:4e74:68a with SMTP id ffacd0b85a97d-380611e0f5bmr27798608f8f.46.1730971160022;
+        Thu, 07 Nov 2024 01:19:20 -0800 (PST)
+Message-ID: <15f8c4d9-bd90-4b1e-9cea-53e62d601a58@suse.com>
+Date: Thu, 7 Nov 2024 10:19:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 01/13] xen/common: add cache coloring common code
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
-References: <20241025095014.42376-1-carlo.nonato@minervasys.tech>
- <20241025095014.42376-2-carlo.nonato@minervasys.tech>
- <6e6f8e2a-ea16-4b48-ac70-23e72ade2b1a@suse.com>
- <CAG+AhRUtmpB1uSd5kW7zNjyDdmBcVCta9t5Qdu6ND+RYx3VUfQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] xen/riscv: introduce setup_mm()
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1730465154.git.oleksii.kurochko@gmail.com>
+ <0f7cd809e848607408ff4615e55b847f5a524559.1730465154.git.oleksii.kurochko@gmail.com>
+ <9e22b5ad-634f-48b7-b64c-fc44319a1d4d@suse.com>
+ <8380261d24388e453e74514dad8216c97e3bebee.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,104 +119,192 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRUtmpB1uSd5kW7zNjyDdmBcVCta9t5Qdu6ND+RYx3VUfQ@mail.gmail.com>
+In-Reply-To: <8380261d24388e453e74514dad8216c97e3bebee.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06.11.2024 17:09, Carlo Nonato wrote:
-> On Tue, Nov 5, 2024 at 4:46 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 25.10.2024 11:50, Carlo Nonato wrote:
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -71,6 +71,9 @@ config HAS_IOPORTS
->>>  config HAS_KEXEC
->>>       bool
->>>
->>> +config HAS_LLC_COLORING
->>> +     bool
+On 06.11.2024 13:44, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-11-05 at 16:20 +0100, Jan Beulich wrote:
+>> On 01.11.2024 14:16, Oleksii Kurochko wrote:> @@ -423,3 +429,138 @@
+>> void * __init early_fdt_map(paddr_t fdt_paddr)
+>>>  
+>>>      return fdt_virt;
+>>>  }
 >>> +
->>>  config HAS_PIRQ
->>>       bool
->>>
->>> @@ -516,4 +519,23 @@ config TRACEBUFFER
->>>         to be collected at run time for debugging or performance analysis.
->>>         Memory and execution overhead when not active is minimal.
->>>
->>> +config LLC_COLORING
->>> +     bool "Last Level Cache (LLC) coloring" if EXPERT
->>> +     depends on HAS_LLC_COLORING
->>> +     depends on !NUMA
->>
->> Instead of this dependency, wouldn't it be more natural to suppress the
->> setting of HAS_LLC_COLORING by an arch when NUMA is on?
-> 
-> So moving the "depends on" in the HAS_LLC_COLORING definition? Yes I believe
-> it would be better.
-
-No. Putting it on an option without prompt will, iirc, only cause a warning
-when violated, but will otherwise have no real effect. The "select" of
-HAS_LLC_COLORING wants to become dependent upon !NUMA, until that combination
-was made work.
-
->>> --- /dev/null
->>> +++ b/xen/common/llc-coloring.c
->>> @@ -0,0 +1,111 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +/*
->>> + * Last Level Cache (LLC) coloring common code
->>> + *
->>> + * Copyright (C) 2022 Xilinx Inc.
->>
->> Does this need updating (if it can't be dropped)?
-> 
-> I don't remember what's the current policy for these copyright lines.
-> Do you still use them? If they are used, should they reflect the history
-> of the revisions of the patch series? I mean, in v1 it was "2019 Xilinx Inc."
-> 2023-2024 would then be MinervaSys.
-
-I don't know what the policy is either. I think it can be there or it can
-be omitted. Yet if it's there, I think it wants to be accurate at least at
-the time a new file is being added. (These lines usually aren't updated
-when later changes are made to the files.)
-
->>> +void __init llc_coloring_init(void)
+>>> +vaddr_t __ro_after_init directmap_virt_start =
+>>> DIRECTMAP_VIRT_START;
+>>> +
+>>> +#ifndef CONFIG_RISCV_32
+>>> +
+>>> +/* Map a frame table to cover physical addresses ps through pe */
+>>> +static void __init setup_frametable_mappings(paddr_t ps, paddr_t
+>>> pe)
 >>> +{
->>> +    unsigned int way_size;
+>>> +    paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
+>>> +    paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
+>>> +    unsigned long nr_mfns = PFN_DOWN(aligned_pe - aligned_ps);
+>>> +    unsigned long frametable_size = nr_mfns *
+>>> sizeof(*frame_table);
+>>> +    mfn_t base_mfn;
 >>> +
->>> +    if ( llc_size && llc_nr_ways )
->>> +    {
->>> +        llc_coloring_enabled = true;
->>> +        way_size = llc_size / llc_nr_ways;
->>> +    }
->>> +    else if ( !llc_coloring_enabled )
->>> +        return;
->>> +    else
->>> +    {
->>> +        way_size = get_llc_way_size();
->>> +        if ( !way_size )
->>> +            panic("LLC probing failed and 'llc-size' or 'llc-nr-ways' missing\n");
->>> +    }
+>>> +    if ( frametable_size > FRAMETABLE_SIZE )
+>>> +        panic("The frametable cannot cover [%#"PRIpaddr",
+>>> %#"PRIpaddr")\n",
+>>> +              ps, pe);
 >>> +
->>> +    /*
->>> +     * The maximum number of colors must be a power of 2 in order to correctly
->>> +     * map them to bits of an address.
->>> +     */
->>> +    max_nr_colors = way_size >> PAGE_SHIFT;
+>>> +    /*
+>>> +     * align base_mfn and frametable_size to MB(2) to have
+>>> superpage mapping
+>>> +     * in map_pages_to_xen()
+>>> +     */
+>>> +    frametable_size = ROUNDUP(frametable_size, MB(2));
+>>> +    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT,
+>>> PFN_DOWN(MB(2)));
+>>> +
+>>> +    if ( map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
+>>> +                          PFN_DOWN(frametable_size),
+>>> +                          PAGE_HYPERVISOR_RW) )
+>>> +        panic("frametable mappings failed: %#lx -> %#lx\n",
+>>> +              FRAMETABLE_VIRT_START, mfn_x(base_mfn));
+>>> +
+>>> +    memset(&frame_table[0], -1, frametable_size);
+>>> +    memset(&frame_table[PFN_DOWN(aligned_ps)],
+>>> +           0, nr_mfns * sizeof(*frame_table));
 >>
->> This discards low bits of the quotient calculated above, bearing a certain
->> risk that ...
->>
->>> +    if ( max_nr_colors & (max_nr_colors - 1) )
->>> +        panic("Number of LLC colors (%u) isn't a power of 2\n", max_nr_colors);
->>
->> ... this panic() wrongly doesn't trigger.
-> 
-> Yes, but I don't care if way_size isn't a power of 2.
+>> Interesting - now you write out a huge amount of -1s, just to then
+>> overwrite
+>> most of them with zeroes. I'm not going to insist that you change
+>> this yet
+>> another time, but the performance hit from this is going to bite
+>> you/us as
+>> soon as Xen is run on bigger-memory systems.
+> I agree that validating or invalidating frames in a single pass would
+> be preferable to nearly two passes. I’m considering whether there’s a
+> way to ensure that frame_table is set to -1 at compile time.
 
-Well, you may not care, but imo the resulting configuration ought to reflect
-what was requested on the command line (maybe unless e.g. documentation
-explicitly says otherwise). If way_size has low bits set, that wouldn't be
-the case.
+How would that work, if the entire frame table is allocated dynamically?
+
+> It seems
+> the best approach (and only one?) might be to initialize frame_table in
+> one pass as follows:
+> 1) [0, aligned_ps) = -1
+> 2) [aligned_ps, nr_mfns * sizeof(*frame_table)) = 0
+> 3) [nr_mfns * sizeof(*frame_table), frame_table_size) = -1
+> Does this approach seem optimal?
+
+That's what I would have expected, yes.
+
+>> Plus, unless I'm mistaken, the function continues to rely on ps == 0
+>> as
+>> input. Just that the dependency is now better hidden. Specifically if
+>> you
+>> calculate nr_mfns from the difference, and then use that for
+>> allocation,
+>> then you need to offset the start of the mapping you create
+>> accordingly.
+> I'm not quite understanding why the method of calculating nr_mfns
+> affects how the frame_table is mapped. Isn’t it only necessary to
+> calculate the correct size of the frame_table that needs to be
+> allocated?
+
+Assume there's 4G of memory actually starting at 16G. Afaict you'll
+allocate a frame table for those 4G, but you'll map it right at
+FRAMETABLE_VIRT_START. Hence it'll cover the first 4G of physical
+addresses, but _none_ of the actual memory you've got.
+
+> I assume by the offset you mean something similar to what was done for
+> directmap mapping?
+
+Kind of, yes.
+
+>>  At
+>> which point you may need to apply extra care to cover the case where
+>> sizeof(*frame_table) is not a power of two, and hence e.g. the first
+>> valid
+>> page might have a struct instance straddling a page boundary.
+> The first valid page is aligned_ps ( which is aligned on a page
+> boundary ) so assuming that sizeof(*frame_table) < PAGE_SIZE we can't
+> straddle a page boundary, can we?
+
+But sizeof(*frame_table) < PAGE_SIZE means nothing as to the alignment
+of an individual struct instance in memory. Iirc sizeof(*frame_table)
+is 48 for RISC-V, so the common alignment across struct instances isn't
+going to be better than 8, and there _will_ be instances straddling
+page boundaries.
+
+>>> +    /*
+>>> +     * The base address may not be aligned to the second level
+>>> +     * size in case of Sv39 (e.g. 1GB when using 4KB pages).
+>>> +     * This would prevent superpage mappings for all the regions
+>>> +     * because the virtual address and machine address should
+>>> +     * both be suitably aligned.
+>>> +     *
+>>> +     * Prevent that by offsetting the start of the directmap
+>>> virtual
+>>> +     * address.
+>>> +     */
+>>> +    if ( map_pages_to_xen(DIRECTMAP_VIRT_START + (base_addr &
+>>> ~high_bits_mask),
+>>
+>> I'm afraid this is correct only for the first invocation of the
+>> function.
+>> For any further invocation you'd likely (attempt to) replace
+>> previously
+>> established mappings. I think that here you need to use
+>> directmap_virt_start
+>> instead.
+> Banks are sorted by bank start address ( common/device-
+> tree/bootfdt.c:623 ):
+>        /*
+>         * On Arm64 setup_directmap_mappings() expects to be called with
+>    the lowest
+>         * bank in memory first. There is no requirement that the DT will
+>    provide
+>         * the banks sorted in ascending order. So sort them through.
+>         */
+>        sort(mem->bank, mem->nr_banks, sizeof(struct membank),
+>             cmp_memory_node, swap_memory_node);
+> ( btw, comment is needed to be updated ... )
+> 
+> Thereby no replacement should happen if I don't miss something.
+
+I don't see how banks being sorted matters here. On the 2nd invocation
+you'll start mapping pages again from DIRECTMAP_VIRT_START plus an at
+most 1G (for SV39) offset. If both banks have 2G, the resulting mappings
+will necessarily overlap, if I'm not mistaken.
+
+>>> +    for ( i = 0; i < banks->nr_banks; i++ )
+>>> +    {
+>>> +        const struct membank *bank = &banks->bank[i];
+>>> +        paddr_t bank_start = ROUNDUP(bank->start, PAGE_SIZE);
+>>> +        paddr_t bank_end = ROUNDDOWN(bank->start + bank->size,
+>>> PAGE_SIZE);
+>>> +        unsigned long bank_size = bank_end - bank_start;
+>>> +
+>>> +        ram_size += bank_size;
+>>> +        ram_start = min(ram_start, bank_start);
+>>> +        ram_end = max(ram_end, bank_end);
+>>> +
+>>> +        setup_directmap_mappings(PFN_DOWN(bank_start),
+>>> PFN_DOWN(bank_size));
+>>> +    }
+>>
+>> You maintain ram_start in the loop, just to then ...
+>>
+>>> +    total_pages = PFN_DOWN(ram_size);
+>>> +
+>>> +    setup_frametable_mappings(0, ram_end);
+>>> +    max_page = PFN_DOWN(ram_end);
+>>> +}
+>>
+>> ... not use it at all - why?
+> ram_start was needed for the case when setup_frametable_mappings() used
+> it as the first argument. Now it isn't true anymore so should be
+> dropped.
+
+As per above it may actually be necessary (or at least desirable) to pass
+it into there again, if nothing else then to know how much of the initial
+part of the (mapped) frame table to invalidate.
 
 Jan
 
