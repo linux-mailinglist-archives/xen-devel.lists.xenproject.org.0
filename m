@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B539C0399
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 12:15:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831665.1247004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4B769C03D6
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 12:24:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831673.1247015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t90TW-0002vD-2t; Thu, 07 Nov 2024 11:14:54 +0000
+	id 1t90cG-0004kx-VR; Thu, 07 Nov 2024 11:23:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831665.1247004; Thu, 07 Nov 2024 11:14:54 +0000
+Received: by outflank-mailman (output) from mailman id 831673.1247015; Thu, 07 Nov 2024 11:23:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t90TV-0002t7-WF; Thu, 07 Nov 2024 11:14:54 +0000
-Received: by outflank-mailman (input) for mailman id 831665;
- Thu, 07 Nov 2024 11:14:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h3Hw=SC=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1t90TT-0002sz-Pd
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 11:14:51 +0000
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [2607:f8b0:4864:20::72d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f2abefc-9cf9-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 12:14:47 +0100 (CET)
-Received: by mail-qk1-x72d.google.com with SMTP id
- af79cd13be357-7b153047b29so54235685a.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 03:14:47 -0800 (PST)
-Received: from localhost ([185.68.248.203]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7b32ac57c9bsm52636585a.54.2024.11.07.03.14.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Nov 2024 03:14:45 -0800 (PST)
+	id 1t90cG-0004hn-Ss; Thu, 07 Nov 2024 11:23:56 +0000
+Received: by outflank-mailman (input) for mailman id 831673;
+ Thu, 07 Nov 2024 11:23:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t90cF-0004hh-GX
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 11:23:55 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c48a80cd-9cfa-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 12:23:52 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2fb5111747cso8136871fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 03:23:52 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432a26a7508sm72434345e9.0.2024.11.07.03.23.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Nov 2024 03:23:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,219 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f2abefc-9cf9-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjo3MmQiLCJoZWxvIjoibWFpbC1xazEteDcyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjdmMmFiZWZjLTljZjktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTc4MDg3LjMyNjA1OSwic2VuZGVyIjoiYmVybmhhcmQua2FpbmRsQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: c48a80cd-9cfa-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMjkiLCJoZWxvIjoibWFpbC1sajEteDIyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImM0OGE4MGNkLTljZmEtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTc4NjMyLjU2NzMyNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1730978086; x=1731582886; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=BAL0jV1wYbpF9brwNg25ULVfF9qMZKxgs/nv5clUd7I=;
-        b=e+yA22zZ99RudOBD1oP7MejjbYYhpNrHLwecRZTb7mHvghDToAfjrHGYt4xI8YI36a
-         bPlEcf4k0GbZL1bP02jzp30kQTX85989DF1+fRFJglg7V4MPYa//jVngDWhUeB/WdMzR
-         ECZLKJ0z3ufZC4PHJrliPjZxa4+IM2T08cMDQ=
+        d=suse.com; s=google; t=1730978632; x=1731583432; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+Syh19L/M+eIV2mKgeoSgMkx4RX4dpOVqnJMgqzmGFI=;
+        b=MdOySZdiyBQH91xddWLWIwsdKeU/ZC24AyxXlnNHnLYZP1gVAxe+B9NDCQLteVMRrd
+         n9UF9T3Uvhn+S3I2/B9uGdyy5tu1/FGiD/7WMUl2sLJhwOGwnRpFtkuv75DFwlJc/ngq
+         1xAnulhbajlqs0AZlxV71IboJyGl0+/7UVWz6BRWlM/kSBylzhoxCR70evXQHpE0JZF0
+         XJghS6y+OeZtziFzBJrhenoDxiohHIFZCnt+hiCm/SlhqcnZqH5qcgHGHBZ8b1cAfTAp
+         03cBb5Dgs2pt3HUtHcCQ/o+IxGlwe5JIrdg+/+T0GiWqX08T9/BvIsB0WuVb35sd9AHk
+         YkDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730978086; x=1731582886;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BAL0jV1wYbpF9brwNg25ULVfF9qMZKxgs/nv5clUd7I=;
-        b=a+cERawTQ8xuGxsJxaCx8oqcYJvC36tZ2MAXTxxRKYETlj6iXrNOmSL+yWx7UR8iWW
-         GPUwPnOLGmZ8rL3xIgR1j9D/a0DcoC/y+tVDDsQj04tmYEfUHxKS8PJB559TYmgDdKpW
-         2Tf1isDOujI42ENDUYIgALIKglvTN530haAX7Q0Bwjt8D/MDo1zljbn/00bc3zcoEzZs
-         SKzGbmyJL5rKjtTW/iwgUOmSqGS65rVP2bt9nvwr2NlpzIZsti9qWS1qbV4vhfk+ReTM
-         N9c+Sc2sdU1zz2WY0cHODxlcckh2Fhqlv4/D7MrSn3DYSl3PjUIZEI7GpH4syWOFYPVC
-         zwng==
-X-Gm-Message-State: AOJu0Yx7vkE8IHzPzEHh9Pgj/RLG8u9sk0csks0cbcikgB6QG+3sw5rW
-	ufs7EpSVdM2xpM59qoiX5gGRxva+h0hxPKUtg1O/KCiYh6FPL9Iza+vgVs/telFAieAyql4XsAF
-	25rZJEQ==
-X-Google-Smtp-Source: AGHT+IGjlG1jy+C+giPHUEmtKnVUP4kdWakVDbvxMQ8lcpxjDrkelab0eNoKMsMo/FxYUcV6QTTKhA==
-X-Received: by 2002:a05:620a:24cb:b0:7ac:b1b1:e730 with SMTP id af79cd13be357-7b193f5d485mr5899173085a.61.1730978085881;
-        Thu, 07 Nov 2024 03:14:45 -0800 (PST)
-From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] NUMA: Introduce NODE_DATA->node_present_pages(RAM pages)
-Date: Thu,  7 Nov 2024 12:14:40 +0100
-Message-ID: <20241107111440.443547-1-bernhard.kaindl@cloud.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20230601; t=1730978632; x=1731583432;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+Syh19L/M+eIV2mKgeoSgMkx4RX4dpOVqnJMgqzmGFI=;
+        b=GSAYfL+Y0D8w131ZmDaxGwLpjmtrth1hH4fKlbTUsj7fVaoME3/eVF70Oe/9sW8a0n
+         6z+tgGgKHMHXsLNtsPjDoxZTmnniEvwGPX/JtZSajMNmxMemzZdS7qBzDStnNQVUAwvV
+         +N2fFZhjt/Ie6S2h4IcttRWPk6MICBXaNMmOadjDrNUk5azqUGE1H9AECfjoUwBsT99c
+         G04+HgPGCpO08q69hlWsMuVA1yMw8OTaU4jH3I9TKo07LxfWIGe8arbYnjl1jDR16ANM
+         7Iq9yHLvm+LO2zsr2S/poNKYnO8Kzk2NhpZ5aRMvmdaDplcm526bNAm5RIcQs7e4dfts
+         ES1Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXERwWszhWNIKDnWakIWj7PpWm2zbaJfnqZfHub4u9oiB2BTud80nVFqqsBvVqeVMdJrbhUHn7/tQk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxzX+GVa0V3Dg27zsfBrOVmIgCvnw94oJRfPK2X4bQCVsKDK7wz
+	SBVNm1SxuhfxKsC2rQn9YDzO5g3lm17IWteT8/cMEdsD6vZXji6ne5Q34cGlFQ==
+X-Google-Smtp-Source: AGHT+IFXU7XB0Evp6CcKHZiByPYRpUxo6dnZ1rCX9IK22kSLSbc9xs8xtAHKrAuFlUMI847G76Ukkg==
+X-Received: by 2002:a2e:a596:0:b0:2fb:57b7:5cd with SMTP id 38308e7fff4ca-2ff1a8c4906mr7005131fa.7.1730978631930;
+        Thu, 07 Nov 2024 03:23:51 -0800 (PST)
+Message-ID: <c8620982-37b5-4556-9061-5dbf5778a43a@suse.com>
+Date: Thu, 7 Nov 2024 12:23:51 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] x86/setup: remove bootstrap_map_addr() usage of
+ destroy_xen_mappings()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20241106122927.26461-1-roger.pau@citrix.com>
+ <20241106122927.26461-4-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241106122927.26461-4-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Xen tracks the total span of physical memory space of each NUMA node,
-but the PFN span includes large MMIO holes in e.g. the first NUMA node.
-Thus, the span is not the same as the amount of usable RAM of a node.
+On 06.11.2024 13:29, Roger Pau Monne wrote:
+> bootstrap_map_addr() top level comment states that it doesn't indented to
+> remove the L2 tables, as the same L2 will be re-used to create further 2MB
+> mappings.
 
-Xen does not need it, but NUMA node memory amount can be helpful for
-management tools and HW information tools like hwloc/lstopo with its
-Xen backend for Dom0: https://github.com/xenserver-next/hwloc/
+With that I assume you refer to the 2nd sentence in the comment immediately
+ahead of the function. According to my reading, it may imply what you say,
+but it certainly doesn't "state" this. Imo the problem was latent already
+before, if BOOTSTRAP_MAP_{BASE,LIMIT} were changed to cover at least one
+full L3E range. Which isn't to say that ...
 
-Introduce node_present_pages to node_data[]:
-On boot, set the count of usable PFNs and update it on memory_add().
+>  It's incorrect for the function to use destroy_xen_mappings() which
+> will free empty L2 tables.
+> 
+> Fix this by using map_pages_to_xen(), which does zap the page-table entries,
+> but does not free page-table structures even when empty.
+> 
+> Fixes: 4376c05c3113 ('x86-64: use 1GB pages in 1:1 mapping if available')
+> Signed-off-by: Roger Pau Monné <roger.pau@ctrix.com>
+> ---
+> The fixes tag reflects the fact that if 4376c05c3113 freed the L2 correctly
+> when empty, it would have become obvious that bootstrap_map_addr() shouldn't be
+> using it if it wants to keep the L2.  4376c05c3113 should have switched
+> bootstrap_map_addr() to not use destroy_xen_mappings().
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
----
-Changes in v5:
+... I mind the commit you name to be blamed. It was clearly something I
+missed back then.
 
-- Checked node_present_pages on NUMA HW.
-- Code and comments are exactly as suggested & affirmed in v4 review.
-- Comment adjustments on commit are ok, but keep the code as-is: e.g.:
-  'err' needs to be defined outside the loop to be in scope for check.
----
- xen/arch/x86/numa.c      | 13 +++++++++++++
- xen/arch/x86/x86_64/mm.c |  3 +++
- xen/common/numa.c        | 37 ++++++++++++++++++++++++++++++++-----
- xen/include/xen/numa.h   | 17 +++++++++++++++++
- 4 files changed, 65 insertions(+), 5 deletions(-)
+With the 1st sentence of the description re-worded some:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
-index 4b0b297c7e..27cee68a4d 100644
---- a/xen/arch/x86/numa.c
-+++ b/xen/arch/x86/numa.c
-@@ -100,6 +100,19 @@ unsigned int __init arch_get_dma_bitsize(void)
-                  + PAGE_SHIFT, 32);
- }
- 
-+/**
-+ * @brief Retrieves the RAM range for a given index from the e820 memory map.
-+ *
-+ * This function fetches the starting and ending addresses of a RAM range
-+ * specified by the given index idx from the e820 memory map.
-+ *
-+ * @param idx The index of the RAM range in the e820 memory map to retrieve.
-+ * @param start Pointer to store the starting address of the RAM range.
-+ * @param end Pointer to store the exclusive ending address of the RAM range.
-+ *
-+ * @return 0 on success, -ENOENT if the index is out of bounds,
-+ *         or -ENODATA if the memory map at index idx is not of type E820_RAM.
-+ */
- int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t *end)
- {
-     if ( idx >= e820.nr_map )
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index b2a280fba3..66b9bed057 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -1334,6 +1334,9 @@ int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm)
-     share_hotadd_m2p_table(&info);
-     transfer_pages_to_heap(&info);
- 
-+    /* Update the node's present pages (like the total_pages of the system) */
-+    NODE_DATA(node)->node_present_pages += epfn - spfn;
-+
-     return 0;
- 
- destroy_m2p:
-diff --git a/xen/common/numa.c b/xen/common/numa.c
-index 209c546a3b..38369e487b 100644
---- a/xen/common/numa.c
-+++ b/xen/common/numa.c
-@@ -4,6 +4,7 @@
-  * Adapted for Xen: Ryan Harper <ryanh@us.ibm.com>
-  */
- 
-+#include "xen/pfn.h"
- #include <xen/init.h>
- #include <xen/keyhandler.h>
- #include <xen/mm.h>
-@@ -499,15 +500,41 @@ int __init compute_hash_shift(const struct node *nodes,
-     return shift;
- }
- 
--/* Initialize NODE_DATA given nodeid and start/end */
-+/**
-+ * @brief Initialize a NUMA node's node_data structure at boot.
-+ *
-+ * It is given the NUMA node's index in the node_data array as well
-+ * as the start and exclusive end address of the node's memory span
-+ * as arguments and initializes the node_data entry with this information.
-+ *
-+ * It then initializes the total number of usable memory pages within
-+ * the NUMA node's memory span using the arch_get_ram_range() function.
-+ *
-+ * @param nodeid The index into the node_data array for the node.
-+ * @param start The starting physical address of the node's memory range.
-+ * @param end The exclusive ending physical address of the node's memory range.
-+ */
- void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t end)
- {
-     unsigned long start_pfn = paddr_to_pfn(start);
-     unsigned long end_pfn = paddr_to_pfn(end);
--
--    NODE_DATA(nodeid)->node_start_pfn = start_pfn;
--    NODE_DATA(nodeid)->node_spanned_pages = end_pfn - start_pfn;
--
-+    struct node_data *numa_node = NODE_DATA(nodeid);
-+    unsigned int idx = 0;
-+    int err;
-+
-+    numa_node->node_start_pfn = start_pfn;
-+    numa_node->node_spanned_pages = end_pfn - start_pfn;
-+    numa_node->node_present_pages = 0;
-+
-+    /* Calculate the number of present RAM pages within the node */
-+    do {
-+        paddr_t ram_start, ram_end;
-+
-+        err = arch_get_ram_range(idx++, &ram_start, &ram_end);
-+        if ( !err && ram_start < end && ram_end > start )
-+            numa_node->node_present_pages += PFN_DOWN(min(ram_end, end)) -
-+                                             PFN_UP(max(ram_start, start));
-+    } while ( err != -ENOENT );
-     node_set_online(nodeid);
- }
- 
-diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-index fd1511a6fb..f6c1f27ca1 100644
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -68,9 +68,24 @@ extern unsigned int memnode_shift;
- extern unsigned long memnodemapsize;
- extern nodeid_t *memnodemap;
- 
-+/* The memory information of NUMA nodes in the node_data[] array */
- struct node_data {
-+    /* The starting page frame number (lowest pfn) of the NUMA node */
-     unsigned long node_start_pfn;
-+
-+    /*
-+     * The number of pages spanned by the NUMA node, including memory holes.
-+     * Used for the pyhsical memory range when scrubbing unallocated memory.
-+     */
-     unsigned long node_spanned_pages;
-+
-+    /*
-+     * Number of usable memory pages that are available in this NUMA node.
-+     * The sum of these values from all NUMA nodes reflects total_pages.
-+     * The Xen Hypervisor does not use this field internally, but it is useful
-+     * for reporting the memory information of NUMA nodes to management tools.
-+     */
-+    unsigned long node_present_pages;
- };
- 
- extern struct node_data node_data[];
-@@ -91,6 +106,7 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
- 
- #define node_start_pfn(nid)     (NODE_DATA(nid)->node_start_pfn)
- #define node_spanned_pages(nid) (NODE_DATA(nid)->node_spanned_pages)
-+#define node_present_pages(nid) (NODE_DATA(nid)->node_present_pages)
- #define node_end_pfn(nid)       (NODE_DATA(nid)->node_start_pfn + \
-                                  NODE_DATA(nid)->node_spanned_pages)
- 
-@@ -123,6 +139,7 @@ extern void numa_set_processor_nodes_parsed(nodeid_t node);
- extern mfn_t first_valid_mfn;
- 
- #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
-+#define node_present_pages(nid) total_pages
- #define node_start_pfn(nid) mfn_x(first_valid_mfn)
- #define __node_distance(a, b) 20
- 
--- 
-2.43.0
-
+Jan
 
