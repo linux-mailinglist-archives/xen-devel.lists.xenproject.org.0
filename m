@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7023D9C097F
+	by mail.lfdr.de (Postfix) with ESMTPS id 48C909C097E
 	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 16:00:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831879.1247258 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.831883.1247284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t93zA-0003xd-Fb; Thu, 07 Nov 2024 14:59:48 +0000
+	id 1t93zQ-0005Ce-5q; Thu, 07 Nov 2024 15:00:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831879.1247258; Thu, 07 Nov 2024 14:59:48 +0000
+Received: by outflank-mailman (output) from mailman id 831883.1247284; Thu, 07 Nov 2024 15:00:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t93zA-0003uY-Ct; Thu, 07 Nov 2024 14:59:48 +0000
-Received: by outflank-mailman (input) for mailman id 831879;
- Thu, 07 Nov 2024 14:59:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t93zQ-00058D-22; Thu, 07 Nov 2024 15:00:04 +0000
+Received: by outflank-mailman (input) for mailman id 831883;
+ Thu, 07 Nov 2024 15:00:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UaIZ=SC=bounce.vates.tech=bounce-md_30504962.672cd5dd.v1-d3db07cae15342c28425c0fbcbd0c7e8@srs-se1.protection.inumbo.net>)
- id 1t93z9-0003uM-5R
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 14:59:47 +0000
-Received: from mail136-12.atl41.mandrillapp.com
- (mail136-12.atl41.mandrillapp.com [198.2.136.12])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb18bc92-9d18-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 15:59:42 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-12.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4Xklbd24Bhz5QkP7K
- for <xen-devel@lists.xenproject.org>; Thu,  7 Nov 2024 14:59:41 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- d3db07cae15342c28425c0fbcbd0c7e8; Thu, 07 Nov 2024 14:59:41 +0000
+ <SRS0=GEtt=SC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t93zO-0004op-OY
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 15:00:02 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f528c49f-9d18-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 15:59:59 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a9ed49ec0f1so181310466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 06:59:59 -0800 (PST)
+Received: from localhost ([213.195.124.162]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9ee0a4a995sm104931766b.61.2024.11.07.06.59.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Nov 2024 06:59:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,88 +44,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb18bc92-9d18-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjEzNi4xMiIsImhlbG8iOiJtYWlsMTM2LTEyLmF0bDQxLm1hbmRyaWxsYXBwLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImViMThiYzkyLTlkMTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTkxNTgzLjA3ODYyMywic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3MmNkNWRkLnYxLWQzZGIwN2NhZTE1MzQyYzI4NDI1YzBmYmNiZDBjN2U4QGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1730991581; x=1731252081;
-	bh=rAB3NA4jAWP69vOTwwHucDx92mVM2KIOfw2tuJPI2Rw=;
-	h=From:Subject:To:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=gUdLgKKeXPXfcuuwtkXZ0qgg+uIGlc/m6dulHMYfcAPnbLRYZ6tCN+yXJ3YEsbQ4Q
-	 14IXFffwePbamhxvUbNYVhU4X0u4rfJw9K7lHX0QQslb7jya4tNyfTR/yZl5FMerD8
-	 F6MMYmaW0dDSkbD4jW5oubYHW4LDBrM+53UPUxlIVJ8WoAl9FCJ5+s3JO1wncUzSm0
-	 aRr9oydFJj3lG5IwnSLcXyFWjucjCk0c4F9d631qzR0fMkddb/vTV395bfqlPVRdIs
-	 ynkd6QJQAvkQnwzjseqZ07CxmmQ3s9EOOq5BfLOrxKWyK4PJDjobZwDqP2TzjBYZrN
-	 KQUzsEu+0Hx2w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1730991581; x=1731252081; i=anthony.perard@vates.tech;
-	bh=rAB3NA4jAWP69vOTwwHucDx92mVM2KIOfw2tuJPI2Rw=;
-	h=From:Subject:To:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=L2oRyORFgMGnerTB/z8+PYAZMblQorzDcJ83E4R5YGqZYhztH3vi+tV8FULwF9p6z
-	 sY+Wdp3TXqZMkBldV52KqJ+Bsx9GZ/QWjWIaFnlq47vRtEyjf9g6OIw9ODHBpTtWYg
-	 4AFtElIFByddg5wa2k958pRV+f2rdfn9dU3qk/+4ouym1wiVl98dgc9k2UzZCrZyZ8
-	 G41jCd53kqfYHrQrHO5qRTg1taSjLRONV2sNuoxugNNv5DPUJmUcQI0ePh1QnitmmT
-	 BBqzNjyOaSuWxGgd68rB/UfsOU6Wbv7t79Sr0/vGP5ZKhLh2HEZG/wSD5SLHHq+64g
-	 RlKmcOjFgf/Tw==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Xen=20Project=20Winter=20Meetup=202025?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1730991580551
-To: xen-devel@lists.xenproject.org, xen-announce@lists.xenproject.org, xen-users@lists.xenproject.org
-Message-Id: <ZyzV2GBrFgz+z1dK@l14>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d3db07cae15342c28425c0fbcbd0c7e8?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241107:md
-Date: Thu, 07 Nov 2024 14:59:41 +0000
+X-Inumbo-ID: f528c49f-9d18-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmYiLCJoZWxvIjoibWFpbC1lajEteDYyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImY1MjhjNDlmLTlkMTgtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTkxNTk5LjI0OTE4LCJzZW5kZXIiOiJyb2dlci5wYXVAY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1730991598; x=1731596398; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kWudKZrT5r7ZSn6U4xo51gIARID7PZJcRRFdJ5MGAUc=;
+        b=IusyHBpR7pkVMp/GtIQR6VJaX/PBTvJYrSpYXgHrIgCwrEr44Wgq/CwwCy8o7lkZzI
+         ZwbzfZ16DzVu9i3b+dwBc2QaitwL11Zw8xZXYWWRv/RTbDOYh2GyYJObEARrkvYsa4e/
+         GO6Rn17azamXg0kUGO0vWEgMdC6h24SddO1Lk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730991598; x=1731596398;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kWudKZrT5r7ZSn6U4xo51gIARID7PZJcRRFdJ5MGAUc=;
+        b=M/hH9BjRt4lSBnaSraHZdDwHhy5nfpKU6LLDp9MJE9yo3l36dASYQ6lHtxnLijcM/5
+         xarXQYODD4l0+x3Cus8gZX9eldq5klk4GtV+vFNpuf81RYGq32KtSnpE9E5AUR7iXhpT
+         EaJbbGn3LhKT/LJVH+GSOOthb+FCyzD9E/kU1jdlgCz1gKVUMKLbI1p8/JK7yitVMAm6
+         23zWLVyZ6xhxcY6HrxOkX/J9+kuHDhaznCwlJmsjFDYwqgM552V17aNOMkJM2EA5Aj1a
+         FOt2684Vugldntmb721JvUyNvsTrtZ3l+2t2eOlP4nTEu6NBjJkK6KUyy7DwKKA1poUc
+         sFbQ==
+X-Gm-Message-State: AOJu0YzvlAYnJHnVIg37keeDT91FbX3b3+7FRj7b924r3/kd+e9n4F+L
+	HyjKmN0gJDcfKUVpINQO4sbC/cfBhxHFkYh35L+vOQze7BmisryBqKptQs5eo3Y3wvwqpfYrqGD
+	h
+X-Google-Smtp-Source: AGHT+IGklpQsEOfcEOlt9KJ2CJFqMxK3g3wcXmlS1Hqp7PEGQv1QogbpZ0L8+gEZ9ycNzhjI0eQbpA==
+X-Received: by 2002:a17:907:c26:b0:a9d:e1d1:bf95 with SMTP id a640c23a62f3a-a9eeaef5d00mr28148866b.25.1730991598311;
+        Thu, 07 Nov 2024 06:59:58 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] xen/x86: prevent addition of .note.gnu.property if livepatch is enabled
+Date: Thu,  7 Nov 2024 15:59:52 +0100
+Message-ID: <20241107145952.73403-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello everyone!
+GNU assembly that supports such feature will unconditionally add a
+.note.gnu.property section to object files.  The content of that section can
+change depending on the generated instructions.  The current logic in
+livepatch-build-tools doesn't know how to deal with such section changing
+as a result of applying a patch and rebuilding.
 
-Vates is pleased to organize the next Xen Project Winter Meetup. With
-this in mind, we're excited to announce that we'll be hosting the Xen
-Winter Summit in January 2025, on Thursday 30th and Friday 31st.
+Since .note.gnu.property is not consumed by the Xen build, suppress its
+addition when livepatch support is enabled.
 
-Here's what's in store: After a welcoming breakfast, we'll dive into two
-days of talks and collaboration, organized as follows:
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/arch.mk | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- - Morning: Talk sessions
- - Afternoon: Design sessions
-
-Whether you're already a Xen developer or just starting out with system
-development skills, this event will give you the opportunity to work on
-Xen topics to improve the hypervisor. You'll collaborate with Xen
-maintainers and help newcomers, including academics, join the project.
-We encourage you to register and submit a proposal if you'd like to
-share on a related topic - all contributions are welcome, and we'll
-review each with great interest.
-
-You can register and submit your proposal at
-    https://campaign.vates.tech/xen-project-winter-meetup
-at the bottom of the page.
-
-This site also contains all the information related to the event.
-
-We're also organizing a private tour of Aconit, Europe's largest and
-oldest computer museum collection, on Thursday afternoon, as well as a
-gourmet evening out in Grenoble. A detailed schedule of presentations
-and activities will follow soon. The link above also provides guides for
-accommodations, directions to the university venue, and activities,
-should you wish to enjoy the snow over the weekend or explore Grenoble's
-local culture.
-
-Please don't hesitate to reach out for any additional information.
-
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index 1460ecf30b9a..1ded012d9f5b 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -26,6 +26,12 @@ $(call as-option-add,CFLAGS,CC,"invpcid (%rax)$(comma)%rax",-DHAVE_AS_INVPCID)
+ $(call as-option-add,CFLAGS,CC,"movdiri %rax$(comma)(%rax)",-DHAVE_AS_MOVDIR)
+ $(call as-option-add,CFLAGS,CC,"enqcmd (%rax)$(comma)%rax",-DHAVE_AS_ENQCMD)
+ 
++# Disable the addition of a .note.gnu.property section to object files when
++# livepatch support is enabled.  The contents of that section can change
++# depending on the instructions used, and livepatch-build-tools doesn't know
++# how to deal with such changes.
++$(call cc-option-add,CFLAGS-$(CONFIG_LIVEPATCH),CC,-Wa$$(comma)-mx86-used-note=no)
++
+ # Check to see whether the assmbler supports the .nop directive.
+ $(call as-option-add,CFLAGS,CC,\
+     ".L1: .L2: .nops (.L2 - .L1)$(comma)9",-DHAVE_AS_NOPS_DIRECTIVE)
 -- 
+2.46.0
 
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
 
