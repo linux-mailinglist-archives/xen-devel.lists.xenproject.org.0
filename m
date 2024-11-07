@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6E59BFA99
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 01:16:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831430.1246734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83BCB9BFADD
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 01:44:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831440.1246743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8qAg-0000dG-Ru; Thu, 07 Nov 2024 00:14:46 +0000
+	id 1t8qce-0004gz-3U; Thu, 07 Nov 2024 00:43:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831430.1246734; Thu, 07 Nov 2024 00:14:46 +0000
+Received: by outflank-mailman (output) from mailman id 831440.1246743; Thu, 07 Nov 2024 00:43:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8qAg-0000aA-Na; Thu, 07 Nov 2024 00:14:46 +0000
-Received: by outflank-mailman (input) for mailman id 831430;
- Thu, 07 Nov 2024 00:14:44 +0000
+	id 1t8qce-0004ez-0k; Thu, 07 Nov 2024 00:43:40 +0000
+Received: by outflank-mailman (input) for mailman id 831440;
+ Thu, 07 Nov 2024 00:43:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Cd42=SC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t8qAe-0000a2-QP
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 00:14:44 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1t8qcc-0004et-Pi
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 00:43:38 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4780c2be-9c9d-11ef-a0c6-8be0dac302b0;
- Thu, 07 Nov 2024 01:14:40 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-37d538fe5f2so241058f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 16:14:39 -0800 (PST)
+ id 5206a8fd-9ca1-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 01:43:35 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5ceb75f9631so432401a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Nov 2024 16:43:35 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381eda04136sm128730f8f.97.2024.11.06.16.14.37
+ 4fb4d7f45d1cf-5cf03b9b661sm110232a12.36.2024.11.06.16.43.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Nov 2024 16:14:38 -0800 (PST)
+ Wed, 06 Nov 2024 16:43:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4780c2be-9c9d-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzIiLCJoZWxvIjoibWFpbC13cjEteDQzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjQ3ODBjMmJlLTljOWQtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTM4NDgwLjAxODk1NCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 5206a8fd-9ca1-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmYiLCJoZWxvIjoibWFpbC1lZDEteDUyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjUyMDZhOGZkLTljYTEtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTQwMjE1LjMzMzYsInNlbmRlciI6ImFuZHJldy5jb29wZXJAY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730938479; x=1731543279; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1730940215; x=1731545015; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A3IYPChvG9mz1mDcI7O/kOqBHEdLNysE+NFaE6/WO2M=;
-        b=Da3x2+qJBwo2pq8FR19GI/eqWob+10Jg0RuCPLer5OPxi+AwQDBqOKogYHD2eurkoi
-         3bN9HJpJ7MxnRdVDu9oUM/zsDpLqjjG4rkztxy3IDBdYuu70K+nQLmEW09smgP41FWlH
-         LwLUKKKrI+Svkda5Pyk8cInVgbcEB2rHxyR+8=
+        bh=dUjf75pWqTyO/d34duPXWyGmmlzbnFWkTMY/4NaRmuU=;
+        b=LfVbPZEvlan77S8pnQwhKTYR26TC+rlrH0pt9CpFqFVck0Vx00NiDJ+5No/EZkoljD
+         /oIXcL3N4yJG/+FSr3CBP6pFG2TcqA2mfmi/UJSPDpqp4o5NMHwdJUVGCc3/eFUxb2PY
+         lpqiobn6O4x8XstTtaD7TJj26bBpLMFYbCcoY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730938479; x=1731543279;
+        d=1e100.net; s=20230601; t=1730940215; x=1731545015;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A3IYPChvG9mz1mDcI7O/kOqBHEdLNysE+NFaE6/WO2M=;
-        b=MOZs1JPlrD3C9SgGw/VoKpLgn14+Ks1L2i3DtyfeMa93LfzKFTgHNQx2H0B7aTStJm
-         U4l6DJUASoAQp5rhrfUlKMKsTwwFdaovpUQ9tV8WfMHbEgHcrVtpzhcADwdn41SN3LCI
-         1EOfB/t0m/L+eGjMwGRq9MBPo1AYtOJljCbr78PhtGqDS9JcExyJRPhrky0Ps26eK19E
-         co17xB8Mlpv0Ehi2XCp+Ozy3tkzReoCJI8pMZi2/k79j4Egdv4jD3F34mxU3QE43woMb
-         kOJsPPjUyFH2jqhV1Wjo+eFpxbSIzH2lY4wG5qvPdSpw6Sp9iL+VEsvt3e84irLi9xL0
-         vmAg==
-X-Forwarded-Encrypted: i=1; AJvYcCXQ8MTrgrWnIhN/ELjYE9B3UHrD1N20baNGqYFelgSg1R2mFCnx9N/k+13DMz7TzoLtCoKta150jAA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFAo4AxKIWuYegb5zthZc6I1CTqU5xZmW2uQ+XowczuLA1HddP
-	81oWPKcrBnOTeqJHH1oWDg9K1w2pLYkdCClMHlKHSdi6KbO0MLrvhjJRkPRhfEM=
-X-Google-Smtp-Source: AGHT+IGBiji5BL5OQLWPJh52Xc/BxIH98My5WxsQnX6umd/uYGVimtD4i5XLihJL2HLLGSbI7LMmjQ==
-X-Received: by 2002:a05:6000:4213:b0:37d:f4b:b6ab with SMTP id ffacd0b85a97d-381edb2c0d1mr76499f8f.59.1730938478971;
-        Wed, 06 Nov 2024 16:14:38 -0800 (PST)
-Message-ID: <53590a98-f4cc-42cb-b85b-9820fcedecf3@citrix.com>
-Date: Thu, 7 Nov 2024 00:14:37 +0000
+        bh=dUjf75pWqTyO/d34duPXWyGmmlzbnFWkTMY/4NaRmuU=;
+        b=ug4leWddHzcxYgu4RWnbGw9Awitt+mqXFOGIahF8OUeFtPN/SkUdQH5VtbaD9hfZlo
+         8BQTBpllghq/YGjjUdx6XYV2PWTZpUfoAA4qn4Puur/8xLfheiGaH326eXH0Knp8YW4N
+         lCFclLOD0hdgxJOM7+hK96bC2rEiP2zPmfQ4lxBT93nyRiy8yihPRQhQ/FG42gK9DJTl
+         9eFz/KuNekrmZPKw8Zez3dwa+1b7oVblL4m1E7+9FwEp1L2LecAvAkiM38NirqYA1j1S
+         EGq6xU4dIx39OTdMgnfF0ey/mTGD2k5dix10zjGg2l7WCBYp9h4W5/kFBNEeHeUODl15
+         AisA==
+X-Forwarded-Encrypted: i=1; AJvYcCU1y3zbVkSn1kMCTqNm3xM/f1WBipRfMG7KfoI16sgUAfu5Ww9EMeg1oLRhhVegBMgEAk6wxFjioKM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzaxYpLS+BUtzwiRsCt3fFh+tAr+Lw8p6k5Fxznrgvk++xKBpA7
+	xeVvOcbqZ8DKPDqTZiMt6qw2Qa+33wkYIbo1wlkUzESKIZnqgWIGSQ/F70Bi3O4=
+X-Google-Smtp-Source: AGHT+IEiIISG+C8Ih/xwliC68P+RnPcNN7ppi9B95jVToSMr8Wu4QnMBrpnxJEFkeTRu+K0w6lNxyA==
+X-Received: by 2002:a05:6402:51d0:b0:5ce:fc54:9ebf with SMTP id 4fb4d7f45d1cf-5cefc549f75mr758177a12.27.1730940214751;
+        Wed, 06 Nov 2024 16:43:34 -0800 (PST)
+Message-ID: <2c1849f0-90f0-4e76-b8f9-c925522fc2e5@citrix.com>
+Date: Thu, 7 Nov 2024 00:43:33 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 08/12] x86/boot: convert domain construction to use boot
  info
-To: Jason Andryuk <jason.andryuk@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
  <20241102172551.17233-9-dpsmith@apertussolutions.com>
- <990c8955-ae4a-449f-a40c-7c15faf61154@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,167 +134,46 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <990c8955-ae4a-449f-a40c-7c15faf61154@amd.com>
+In-Reply-To: <20241102172551.17233-9-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/11/2024 11:06 pm, Jason Andryuk wrote:
-> On 2024-11-02 13:25, Daniel P. Smith wrote:
->> With all the components used to construct dom0 encapsulated in struct
->> boot_info
->> and struct boot_module, it is no longer necessary to pass all them as
->> parameters down the domain construction call chain. Change the
->> parameter list
->> to pass the struct boot_info instance and the struct domain reference.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->> Changes since v5:
->> - renamed from "x86/boot: convert create_dom0 to use boot info"
->>
->> Changes since v5:
->> - change headroom back to unsigned long
->> - make mod_idx unsigned int
->> ---
->>   xen/arch/x86/dom0_build.c             |  9 ++--
->>   xen/arch/x86/hvm/dom0_build.c         | 49 +++++++++++++---------
->>   xen/arch/x86/include/asm/dom0_build.h | 13 ++----
->>   xen/arch/x86/include/asm/setup.h      |  7 ++--
->>   xen/arch/x86/pv/dom0_build.c          | 59 ++++++++++++++++-----------
->>   xen/arch/x86/setup.c                  | 33 ++++++++-------
->>   6 files changed, 95 insertions(+), 75 deletions(-)
->>
->
->> diff --git a/xen/arch/x86/hvm/dom0_build.c
->> b/xen/arch/x86/hvm/dom0_build.c
->> index a4ac262db463..cd97f94a168a 100644
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->
->> @@ -1301,16 +1302,25 @@ static void __hwdom_init
->> pvh_setup_mmcfg(struct domain *d)
->>       }
->>   }
->>   -int __init dom0_construct_pvh(struct domain *d, const module_t
->> *image,
->> -                              unsigned long image_headroom,
->> -                              module_t *initrd,
->> -                              const char *cmdline)
->> +int __init dom0_construct_pvh(struct boot_info *bi, struct domain *d)
->>   {
->>       paddr_t entry, start_info;
->> +    struct boot_module *image;
->> +    struct boot_module *initrd = NULL;
->>       int rc;
->>         printk(XENLOG_INFO "*** Building a PVH Dom%d ***\n",
->> d->domain_id);
->>   +    rc = first_boot_module_index(bi, BOOTMOD_KERNEL);
->> +    if ( unlikely(rc < 0 || rc > bi->nr_modules) )
->
-> Here and ...
->
->> +        panic("Missing kernel boot module for %pd construction\n", d);
->> +
->> +    image = &bi->mods[rc];
->> +
->> +    rc = first_boot_module_index(bi, BOOTMOD_RAMDISK);
->> +    if ( rc > 0 || rc < bi->nr_modules )
->
-> ... here.  Can we just check rc < bi->nr_modules for validity?
+On 02/11/2024 5:25 pm, Daniel P. Smith wrote:
+> @@ -1301,16 +1302,25 @@ static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
+>      }
+>  }
+>  
+> -int __init dom0_construct_pvh(struct domain *d, const module_t *image,
+> -                              unsigned long image_headroom,
+> -                              module_t *initrd,
+> -                              const char *cmdline)
+> +int __init dom0_construct_pvh(struct boot_info *bi, struct domain *d)
+>  {
+>      paddr_t entry, start_info;
+> +    struct boot_module *image;
+> +    struct boot_module *initrd = NULL;
+>      int rc;
+>  
+>      printk(XENLOG_INFO "*** Building a PVH Dom%d ***\n", d->domain_id);
+>  
+> +    rc = first_boot_module_index(bi, BOOTMOD_KERNEL);
+> +    if ( unlikely(rc < 0 || rc > bi->nr_modules) )
+> +        panic("Missing kernel boot module for %pd construction\n", d);
 
-You could, but eventually MISRA will say no and I suspect it will then
-be made your problem to fix.
+Just noticed while experimenting.  The upper bound (for the error case)
+should be >= because nothing good can come of being handed the Xen module.
 
-In this case, we ought to have an `unsigned int idx` and not (re)use rc.
+> +
+> +    image = &bi->mods[rc];
+> +
+> +    rc = first_boot_module_index(bi, BOOTMOD_RAMDISK);
+> +    if ( rc > 0 || rc < bi->nr_modules )
+> +        initrd = &bi->mods[rc];
 
-Also, we panic far earlier in __start_xen() if there's no dom0 kernel,
-so I think we can just assert that rather than having a logically dead
-panic() path.
+This range check is tautologically true.  You want && instead of ||.
 
-
->   Valid modules are 0...nr_modules and not found is MAX_NR_BOOTMODS +
-> 1.  It eliminates these unecessary double checks.  This would apply to
-> 04/12 "x86/boot: introduce module release" as well.
->
->> +        initrd = &bi->mods[rc];
->> +
->>       if ( is_hardware_domain(d) )
->>       {
->>           /*
->
->
->> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
->> index c1f44502a1ac..594874cd8d85 100644
->> --- a/xen/arch/x86/pv/dom0_build.c
->> +++ b/xen/arch/x86/pv/dom0_build.c
->
->> @@ -374,10 +371,13 @@ static int __init dom0_construct(struct domain *d,
->>       unsigned int flush_flags = 0;
->>       start_info_t *si;
->>       struct vcpu *v = d->vcpu[0];
->> -    void *image_base = bootstrap_map(image);
->> -    unsigned long image_len = image->mod_end;
->> -    void *image_start = image_base + image_headroom;
->> -    unsigned long initrd_len = initrd ? initrd->mod_end : 0;
->> +    struct boot_module *image;
->> +    struct boot_module *initrd = NULL;
->> +    void *image_base;
->> +    unsigned long image_len;
->> +    void *image_start;
->> +    unsigned long initrd_len = 0;
->> +    const char *cmdline;
->>       l4_pgentry_t *l4tab = NULL, *l4start = NULL;
->>       l3_pgentry_t *l3tab = NULL, *l3start = NULL;
->>       l2_pgentry_t *l2tab = NULL, *l2start = NULL;
->> @@ -414,6 +414,23 @@ static int __init dom0_construct(struct domain *d,
->>         printk(XENLOG_INFO "*** Building a PV Dom%d ***\n",
->> d->domain_id);
->>   +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
->> +    if ( unlikely(i < 0 || i > bi->nr_modules) )
->
-> Single check here.
-
-Similar argument.  Except it turns out that i is used for precisely two
-loops in dom0_construct() both of which are from 0 to either 4 or 32.
-
-So it very much can be converted to being an unsigned variable, and then
-this works nicely.
-
-That said, drop the unlikely().   This is an init function run once, and
-all it is doing is reducing legibility.
-
->
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index aba9df8620ef..d9785acf89b6 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -977,10 +977,7 @@ static unsigned int __init copy_bios_e820(struct
->> e820entry *map, unsigned int li
->>       return n;
->>   }
->>   -static struct domain *__init create_dom0(const module_t *image,
->> -                                         unsigned long headroom,
->> -                                         module_t *initrd, const
->> char *kextra,
->> -                                         const char *loader)
->> +static struct domain *__init create_dom0(struct boot_info *bi)
->>   {
->>       static char __initdata cmdline[MAX_GUEST_CMDLINE];
->>   @@ -997,6 +994,14 @@ static struct domain *__init create_dom0(const
->> module_t *image,
->>       };
->>       struct domain *d;
->>       domid_t domid;
->> +    struct boot_module *image;
->> +    unsigned int idx;
->> +
->> +    idx = first_boot_module_index(bi, BOOTMOD_KERNEL);
->> +    if ( unlikely(idx < 0 || idx > bi->nr_modules) )
->
-> Single check here please.
-
-I'm surprised that the compiler didn't complain about "idx < 0" being
-tautological here.
+Same elsewhere, although this goes away when the variable is unsigned
+(and we remove assumptions about the dom0 kernel's index).
 
 ~Andrew
 
