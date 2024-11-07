@@ -2,31 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6D29BFB35
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 02:14:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831497.1246824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6389C0070
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 09:50:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831519.1246835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8r64-00049X-VD; Thu, 07 Nov 2024 01:14:04 +0000
+	id 1t8yCu-000720-EG; Thu, 07 Nov 2024 08:49:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831497.1246824; Thu, 07 Nov 2024 01:14:04 +0000
+Received: by outflank-mailman (output) from mailman id 831519.1246835; Thu, 07 Nov 2024 08:49:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t8r64-000473-SR; Thu, 07 Nov 2024 01:14:04 +0000
-Received: by outflank-mailman (input) for mailman id 831497;
- Thu, 07 Nov 2024 01:14:02 +0000
+	id 1t8yCu-0006yp-B9; Thu, 07 Nov 2024 08:49:36 +0000
+Received: by outflank-mailman (input) for mailman id 831519;
+ Thu, 07 Nov 2024 08:49:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9PMW=SC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1t8r62-00046x-Pm
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 01:14:02 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90e3cb6e-9ca5-11ef-a0c6-8be0dac302b0;
- Thu, 07 Nov 2024 02:14:00 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1730942032804316.4659053353964;
- Wed, 6 Nov 2024 17:13:52 -0800 (PST)
+ <SRS0=GEtt=SC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1t8yCs-0006yj-FO
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 08:49:34 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 33d39634-9ce5-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 09:49:30 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a9ec267b879so104616366b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 00:49:30 -0800 (PST)
+Received: from localhost ([213.195.124.162]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9ee0a17643sm63672266b.21.2024.11.07.00.49.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Nov 2024 00:49:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,90 +44,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90e3cb6e-9ca5-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzNi4xNDMuMTg4LjUxIiwiaGVsbyI6InNlbmRlcjQtb2YtbzUxLnpvaG8uY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjkwZTNjYjZlLTljYTUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTQyMDQwLjU3NDMyNywic2VuZGVyIjoiZHBzbWl0aEBhcGVydHVzc29sdXRpb25zLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-ARC-Seal: i=1; a=rsa-sha256; t=1730942035; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=a2RyTlskiuueu3mMb7uEzxMvbCKqEGZEnaxRAVxrUQMR20DBZsk5dl7dv/9NiuaJXbU8/l+GCFUOZ1MCZZq3jkXK2DyzW6hDtuM2vrpt/L+bIFnpmsWcA8453KZDwOtUQZ1VBbycAIQQsm4fHB1zip9EM/dWr3KetOp+0g5qrwQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1730942035; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=HqMJazsdIFaJ4mH78mQUuSonJ1WjNlhBuGlyCpIY5k4=; 
-	b=VGoE5bvehaWq4sZS0wcCBnUwjjexayKup9PzuMGPCrvSUkrboAy4QBmPObIHj2mQnAcj/Vcx/tKKZSaUZ2Dyt/Fq70msiFNGRHmzb/XxAAdbokRT6q+BGQf9D9CWLJE9Qbua7fLocQTJrTWH8Sf/xHaqCJTmG5hnrQJIa0m12A0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1730942035;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=HqMJazsdIFaJ4mH78mQUuSonJ1WjNlhBuGlyCpIY5k4=;
-	b=cSd/PV10fmxzQl3my2A/0LiKGq+uL2DQ1PF+nVOkS6LHoDYiVfVsUuE3o2vA6UAP
-	iJ5XT8lIGsJ5+P8lYHHJWzXmRf7CfNnejZqGjgmK7pTHimxeKSC3oChUi02pebzlUyZ
-	gmqYMGu+DsltmvKa6chG+C+WOP5vpEaufnfQZhb0=
-Message-ID: <53b8f7c6-3e02-4f5d-a0bd-25becdd0fcc7@apertussolutions.com>
-Date: Wed, 6 Nov 2024 20:13:51 -0500
+X-Inumbo-ID: 33d39634-9ce5-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjMzZDM5NjM0LTljZTUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTY5MzcwLjU0NjI4LCJzZW5kZXIiOiJyb2dlci5wYXVAY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1730969369; x=1731574169; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=09SQ87ZB9lYkZ4opBgm3YjpRGD4piTTFwgGq+KVliIc=;
+        b=T+Zemi8BzkRvKjW5fFHnE4VL4320FK+TucpvMpm5Apk91dhWteiBZKGUC/S9Xb52WU
+         8w9ud9wm0qzoL+joHX5dAufTAaVDeZU4+uVXUmKyY28kQE9mkNtUanqPuvgcuL5EmMD5
+         8NtHQafbPeZ/ejUbZ8cz+rBPrSV8/qcSH4Bsw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730969369; x=1731574169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=09SQ87ZB9lYkZ4opBgm3YjpRGD4piTTFwgGq+KVliIc=;
+        b=iRcYmSdFI2SJcP9SB3aTH6qqxIqvTAOsoXKNQn4/QnDPhAflYEOh+X+EqA2pK2knkX
+         jQmD1AbKZMbB2qrFp4LEblx4xC0XHmDJGtkWcnXXH8ONrKKUgz05nhJ1spQkI99FHNTw
+         YaNdz7OhFPLXr+M5zAFaPpUUcl0R4u6I4W/GgH4albiK2Jigqv5DHNppHrC8f5ggnkDn
+         qy8Cg1RhU5z/nr/IyT+7YJwj9w1QuN4TlOC/XtJfmuOK8DuPIV6+z58rRWZ+gw1VtSdo
+         ZuPw5919/LTxjWffXE7TplD/ELFQHWiBIyK4pJFXSrlVJwxe9o8rJB/MTnAdZTh2Qnqp
+         WC3g==
+X-Gm-Message-State: AOJu0Yy0fjwpJUW8cOGSBpAw+NOGs9xJoonKHE1Jo+RZjUoT3ty2iUGC
+	TJ9idDUGIKcUe7sBMX7LXVgg8pahykRb3J16sMAp0S9sntAKPsJNcYL4jjPZgM6MkdKoVyV8H7e
+	I
+X-Google-Smtp-Source: AGHT+IHKKRom8I21n8oDX4xAcaH2ltJu2AdHOpUtLNRiLPsXF/63kW4uMC7PagXvM3k65xu81OXg+A==
+X-Received: by 2002:a17:907:7e8d:b0:a9a:e6:a031 with SMTP id a640c23a62f3a-a9ee7568a87mr16742166b.59.1730969369568;
+        Thu, 07 Nov 2024 00:49:29 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen/Kconfig: livepatch-build-tools requires debug information
+Date: Thu,  7 Nov 2024 09:49:27 +0100
+Message-ID: <20241107084927.37748-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/12] x86/boot: convert domain construction to use boot
- info
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241102172551.17233-1-dpsmith@apertussolutions.com>
- <20241102172551.17233-9-dpsmith@apertussolutions.com>
- <2c1849f0-90f0-4e76-b8f9-c925522fc2e5@citrix.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <2c1849f0-90f0-4e76-b8f9-c925522fc2e5@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-On 11/6/24 19:43, Andrew Cooper wrote:
-> On 02/11/2024 5:25 pm, Daniel P. Smith wrote:
->> @@ -1301,16 +1302,25 @@ static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
->>       }
->>   }
->>   
->> -int __init dom0_construct_pvh(struct domain *d, const module_t *image,
->> -                              unsigned long image_headroom,
->> -                              module_t *initrd,
->> -                              const char *cmdline)
->> +int __init dom0_construct_pvh(struct boot_info *bi, struct domain *d)
->>   {
->>       paddr_t entry, start_info;
->> +    struct boot_module *image;
->> +    struct boot_module *initrd = NULL;
->>       int rc;
->>   
->>       printk(XENLOG_INFO "*** Building a PVH Dom%d ***\n", d->domain_id);
->>   
->> +    rc = first_boot_module_index(bi, BOOTMOD_KERNEL);
->> +    if ( unlikely(rc < 0 || rc > bi->nr_modules) )
->> +        panic("Missing kernel boot module for %pd construction\n", d);
-> 
-> Just noticed while experimenting.  The upper bound (for the error case)
-> should be >= because nothing good can come of being handed the Xen module.
+The tools infrastructure used to build livepatches for Xen
+(livepatch-build-tools) consumes some DWARF debug information present in
+xen-syms to generate a livepatch (see livepatch-build script usage of readelf
+-wi).
 
-Ack.
+The current Kconfig defaults however will enable LIVEPATCH without DEBUG_INFO
+on release builds, thus providing a default Kconfig selection that's not
+suitable for livepatch-build-tools even when LIVEPATCH support is enabled,
+because it's missing the DWARF debug section.
 
->> +
->> +    image = &bi->mods[rc];
->> +
->> +    rc = first_boot_module_index(bi, BOOTMOD_RAMDISK);
->> +    if ( rc > 0 || rc < bi->nr_modules )
->> +        initrd = &bi->mods[rc];
-> 
-> This range check is tautologically true.  You want && instead of ||.
-> 
-> Same elsewhere, although this goes away when the variable is unsigned
-> (and we remove assumptions about the dom0 kernel's index).
+Fix by forcing the selection of DEBUG_INFO from LIVEPATCH.
 
-Ack.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/common/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-v/r,
-dps
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 90268d92499a..f3135f85034d 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -420,6 +420,7 @@ config LIVEPATCH
+ 	default X86
+ 	depends on "$(XEN_HAS_BUILD_ID)" = "y"
+ 	select CC_SPLIT_SECTIONS
++	select DEBUG_INFO
+ 	help
+ 	  Allows a running Xen hypervisor to be dynamically patched using
+ 	  binary patches without rebooting. This is primarily used to binarily
+-- 
+2.46.0
 
 
