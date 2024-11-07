@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DAFF9C0453
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 12:40:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.831705.1247054 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942639C0459
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 12:42:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.831712.1247063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t90ra-0000TU-1q; Thu, 07 Nov 2024 11:39:46 +0000
+	id 1t90ty-0001uy-Ca; Thu, 07 Nov 2024 11:42:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 831705.1247054; Thu, 07 Nov 2024 11:39:46 +0000
+Received: by outflank-mailman (output) from mailman id 831712.1247063; Thu, 07 Nov 2024 11:42:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t90rZ-0000Qx-Ug; Thu, 07 Nov 2024 11:39:45 +0000
-Received: by outflank-mailman (input) for mailman id 831705;
- Thu, 07 Nov 2024 11:39:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1t90ty-0001sk-9y; Thu, 07 Nov 2024 11:42:14 +0000
+Received: by outflank-mailman (input) for mailman id 831712;
+ Thu, 07 Nov 2024 11:42:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1t90rY-0000Qr-OK
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 11:39:44 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f993c4be-9cfc-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 12:39:40 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-37d4ac91d97so741939f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 03:39:40 -0800 (PST)
+ id 1t90tw-0001se-Sk
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 11:42:12 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 52cf32f1-9cfd-11ef-a0c6-8be0dac302b0;
+ Thu, 07 Nov 2024 12:42:10 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-37d4fd00574so472731f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 03:42:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432b05c26e3sm21137675e9.33.2024.11.07.03.39.39
+ 5b1f17b1804b1-432b0562642sm21311245e9.21.2024.11.07.03.42.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Nov 2024 03:39:39 -0800 (PST)
+ Thu, 07 Nov 2024 03:42:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f993c4be-9cfc-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzAiLCJoZWxvIjoibWFpbC13cjEteDQzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImY5OTNjNGJlLTljZmMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTc5NTgwLjcwNzQ3OCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 52cf32f1-9cfd-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmQiLCJoZWxvIjoibWFpbC13cjEteDQyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjUyY2YzMmYxLTljZmQtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMwOTc5NzMwLjM2ODcyNiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1730979580; x=1731584380; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1730979730; x=1731584530; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/Y3sWFnTKA+M0AYgMs7ToFiiuGneUzyuFwxDollg57Q=;
-        b=f26/mbMOehPLNnYuQC87RdLxjjhYMjEiIQzFIG+0Np+YdX+h8Vx6c87FyIm9Y9FnAk
-         Hdo73gopDBTjPIWNJq9DEmdpVjYzT/CZorFKX0ktzz/o0AgQAHSjkvLaVBlNPQjATO9r
-         /85Zo2p8maiCFJoORi5lbY3ATgvIFYGXr6qjqX0l5C03xqEao22N7e04vSkr/5T0W/U/
-         ri7Zh+HkkgC5JiKZ9DSqHMf6dDutVF4UKvi6mOXqW4sT30e6y0MV9rRp23iOaE/SgJIo
-         MzO66U5EpdmwlWMHV9P2PB5pehcjrAuo3wwvSvCDVjD+SOFHQwYa9WpGHHwycO7/qacf
-         6B/Q==
+        bh=4i3EIorw66PDv2ixCYy6jyxTps6uALkK7M+QJjfvtBw=;
+        b=HAWRx2ZS0a+2OlSEyP4jhIJ+UuX601ECxuNFlIOk+AAlqvFFtxFK3c4XEpLeLgwurb
+         Lu5Tc9PIEPlTbVa8KTWpsliHH3onI/YNqRj/55RJT9F7XeX223hA+cXdavCkLqe56ZHd
+         0YIEncz14p9BifbMpjykGYWk7bFXSDUDPIivYWHO3Q31EnmjWesiD9j3cBDZ0B+ON7zu
+         ftJ7HXL2KNFEVWkwP3/W9Mqs78JymmdhH3LcrRjsemiW98RrSm7yNM7FMne9xbJy8qxw
+         FqRSes/Egx16rjb9nI3pis3rwtNBkaqU6KG0aZVdjsc5fBd/IR08P1w+doJ+U8h6POhq
+         ETMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730979580; x=1731584380;
+        d=1e100.net; s=20230601; t=1730979730; x=1731584530;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/Y3sWFnTKA+M0AYgMs7ToFiiuGneUzyuFwxDollg57Q=;
-        b=ZZxiF6tCwyJfn2Z5sUfb/KCXoZMtkZGTtizkBU4AriUQQiMIWXD/WI+MgZawFomC/y
-         pBwtt8JCFgblokILuU91bxFWKw35xhtnH9w50/kisffglH3wfjqlZIM33GOz1XkAD+FX
-         V7UA6CikhF/P6C7UqU07Z5+6XashCYxAnHoyv5dMeCg1ojAwuaKpBwB9H9r6IbwxPoo4
-         rMVOzqBIOMHrygTSRMEoTxW8Tqt1f9RIYsMi+pd0bPDkhQunTHpSIQQAhlydI/ujleqI
-         kSnssKe35svCEtHZi+JsGSDcEXtj/NrCQR7PtH7JhuqQKlhk2wf2XAU5m/MFu2TBlEaW
-         lmCg==
-X-Forwarded-Encrypted: i=1; AJvYcCXQIU4HjprER9CkWTvTF7C4B8t50+AMb7+1/K4lKdR+3W9ZUHjeF7GWderzF7/k9D0Cu88mYihS0O8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyKtQvVY+ZvJg94ewquLznexLHh20p/rK/iQRzResCpdQ3Z7vUu
-	fk1VKMHL62bqH1g+8m3Caik/FdNs1ndmvHwmz2leiAg2oGn7gaNVJOwZdWrkHA==
-X-Google-Smtp-Source: AGHT+IEghTBKaTxQ3K8cdWEzBcrKC9DXOHwKhDWsMsASxq2ROt7dkZbTzDiRcHnNdmeyjvoA1ATYfg==
-X-Received: by 2002:a05:6000:4189:b0:381:d844:512f with SMTP id ffacd0b85a97d-381d844521bmr9918420f8f.57.1730979579985;
-        Thu, 07 Nov 2024 03:39:39 -0800 (PST)
-Message-ID: <41bdfd6c-f842-4969-a30a-17d91916d8ac@suse.com>
-Date: Thu, 7 Nov 2024 12:39:39 +0100
+        bh=4i3EIorw66PDv2ixCYy6jyxTps6uALkK7M+QJjfvtBw=;
+        b=UA9L79kVniPBGtwUo25remfE6zBXvAiS/OiYr43QALC4KphVtAnxLpiC3PmcTbUQ4i
+         d89gn27Y9iBP48SJ1Glpf/gIyTRbSfuKbETSY5mF4mBs7eA0TsV/Vw8W2nJDiXwadPKe
+         VKy3aMXuIn5gYV2svyLgsYY3WL0N+AK1RZwu72nQbo09cBFgKYtLwG0gtfEtxa62713V
+         n75XW58jjGIDl0PvKHDH9cyZsQwz2PXhZFoTNjmC+L5MGIeeoEpoMYczCzDYs4CJVhFu
+         1K3H9EkqXj3Y4+qtCYijQww/Kq83IjV+qC255glbX8mcrIpUI3y+sV3yquhPQNiFRblE
+         aphg==
+X-Gm-Message-State: AOJu0YyKLpbn5sT11L7u60BnuhvYaqNv4KuyT7vZ1/IwlR50huquOkBR
+	dSqNBV1w4d2VYwqjTpyOemOAm4E0DXTaSZ5IlWq/9En4u3nl8vi3C1lja+EQEg==
+X-Google-Smtp-Source: AGHT+IH51t3VEabAuYpPft4vZ/EpXR1iNfkzxWMp1r77PtiTPKUeZXP1CCzGhsUMDTcAFHKXKeCAzA==
+X-Received: by 2002:a05:6000:178a:b0:374:b9ca:f1e8 with SMTP id ffacd0b85a97d-381ec607160mr2175329f8f.20.1730979729730;
+        Thu, 07 Nov 2024 03:42:09 -0800 (PST)
+Message-ID: <3dc45d47-7400-4c17-9e89-9604b01bdac4@suse.com>
+Date: Thu, 7 Nov 2024 12:42:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] NUMA: Introduce NODE_DATA->node_present_pages(RAM
- pages)
-To: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20241107111440.443547-1-bernhard.kaindl@cloud.com>
+Subject: Re: [PATCH] xen/Kconfig: livepatch-build-tools requires debug
+ information
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20241107084927.37748-1-roger.pau@citrix.com>
+ <66fd7b53-25f5-459b-8563-e33fccba90ef@citrix.com> <ZyyLAj6MZ3fvOFBC@macbook>
+ <22c59035-67e3-4e43-bfe0-26675a93e9ae@suse.com> <Zyyjmu9tm1KEGiqQ@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,79 +116,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241107111440.443547-1-bernhard.kaindl@cloud.com>
+In-Reply-To: <Zyyjmu9tm1KEGiqQ@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.11.2024 12:14, Bernhard Kaindl wrote:
-> --- a/xen/common/numa.c
-> +++ b/xen/common/numa.c
-> @@ -4,6 +4,7 @@
->   * Adapted for Xen: Ryan Harper <ryanh@us.ibm.com>
->   */
->  
-> +#include "xen/pfn.h"
->  #include <xen/init.h>
->  #include <xen/keyhandler.h>
->  #include <xen/mm.h>
+On 07.11.2024 12:25, Roger Pau Monné wrote:
+> On Thu, Nov 07, 2024 at 10:48:21AM +0100, Jan Beulich wrote:
+>> On 07.11.2024 10:40, Roger Pau Monné wrote:
+>>> On Thu, Nov 07, 2024 at 09:21:26AM +0000, Andrew Cooper wrote:
+>>>> On 07/11/2024 8:49 am, Roger Pau Monne wrote:
+>>>>> The tools infrastructure used to build livepatches for Xen
+>>>>> (livepatch-build-tools) consumes some DWARF debug information present in
+>>>>> xen-syms to generate a livepatch (see livepatch-build script usage of readelf
+>>>>> -wi).
+>>>>>
+>>>>> The current Kconfig defaults however will enable LIVEPATCH without DEBUG_INFO
+>>>>> on release builds, thus providing a default Kconfig selection that's not
+>>>>> suitable for livepatch-build-tools even when LIVEPATCH support is enabled,
+>>>>> because it's missing the DWARF debug section.
+>>>>>
+>>>>> Fix by forcing the selection of DEBUG_INFO from LIVEPATCH.
+>>>>>
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>
+>>>> Oops, yes.
+>>>>
+>>>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>
+>>>> Fixes tag ?
+>>>
+>>> Was borderline on adding one, but wasn't sure since it's strictly
+>>> livepatch-build-tools that requires the DWARF data, but custom made
+>>> livepatches (like the examples in tests) do not require such
+>>> information.
+>>
+>> At which point: Is "select" really appropriate then? Wouldn't it be more
+>> logical then to change DEBUG_INFO's default to take LIVEPATCH into account
+>> (still permitting people to turn debug info off if they know they won't
+>> need it)?
+> 
+> At least right now the only way to build useful livepatches for Xen
+> (not dummy tests) is using livepatch-build-tools (that requires DWARF
+> sections).  My concern with using the Fixes tag was that I don't know
+> whether initially the DWARF info was needed or not, or maybe whether
+> people used a different tool rather than livepatch-build-tools.
+> 
+> I don't mind changing, but I also don't think an hypervisor built with
+> LIVEPATCH but without DEBUG_INFO is going to be useful to anyone given
+> the requirements of the tools we provide to build livepatches.
 
-Please retain sorting, and please don't use ""-style includes when all others
-use <>-style (and there's no specific reason for using quotes).
-
-> @@ -499,15 +500,41 @@ int __init compute_hash_shift(const struct node *nodes,
->      return shift;
->  }
->  
-> -/* Initialize NODE_DATA given nodeid and start/end */
-> +/**
-> + * @brief Initialize a NUMA node's node_data structure at boot.
-> + *
-> + * It is given the NUMA node's index in the node_data array as well
-> + * as the start and exclusive end address of the node's memory span
-> + * as arguments and initializes the node_data entry with this information.
-> + *
-> + * It then initializes the total number of usable memory pages within
-> + * the NUMA node's memory span using the arch_get_ram_range() function.
-> + *
-> + * @param nodeid The index into the node_data array for the node.
-> + * @param start The starting physical address of the node's memory range.
-> + * @param end The exclusive ending physical address of the node's memory range.
-> + */
->  void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t end)
->  {
->      unsigned long start_pfn = paddr_to_pfn(start);
->      unsigned long end_pfn = paddr_to_pfn(end);
-> -
-> -    NODE_DATA(nodeid)->node_start_pfn = start_pfn;
-> -    NODE_DATA(nodeid)->node_spanned_pages = end_pfn - start_pfn;
-> -
-> +    struct node_data *numa_node = NODE_DATA(nodeid);
-
-Nit: Just "node" as a name would likely suffice, without losing anything,
-yet helping readability?
-
-> +    unsigned int idx = 0;
-> +    int err;
-> +
-> +    numa_node->node_start_pfn = start_pfn;
-> +    numa_node->node_spanned_pages = end_pfn - start_pfn;
-> +    numa_node->node_present_pages = 0;
-> +
-> +    /* Calculate the number of present RAM pages within the node */
-> +    do {
-> +        paddr_t ram_start, ram_end;
-> +
-> +        err = arch_get_ram_range(idx++, &ram_start, &ram_end);
-> +        if ( !err && ram_start < end && ram_end > start )
-> +            numa_node->node_present_pages += PFN_DOWN(min(ram_end, end)) -
-> +                                             PFN_UP(max(ram_start, start));
-> +    } while ( err != -ENOENT );
->      node_set_online(nodeid);
-
-Nit: Blank line above here please.
-
-With those (happy to take care of while committing):
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Well, okay, especially Andrew looks to be pretty strong about this. I
+don't want to stand in the way ...
 
 Jan
 
