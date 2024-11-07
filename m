@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588569C0AD0
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 17:07:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832085.1247484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 412C49C0BDB
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Nov 2024 17:41:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832097.1247493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t952s-0004Ii-Kt; Thu, 07 Nov 2024 16:07:42 +0000
+	id 1t95ZI-0001sw-48; Thu, 07 Nov 2024 16:41:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832085.1247484; Thu, 07 Nov 2024 16:07:42 +0000
+Received: by outflank-mailman (output) from mailman id 832097.1247493; Thu, 07 Nov 2024 16:41:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t952s-0004HD-IF; Thu, 07 Nov 2024 16:07:42 +0000
-Received: by outflank-mailman (input) for mailman id 832085;
- Thu, 07 Nov 2024 16:07:41 +0000
+	id 1t95ZI-0001qR-1T; Thu, 07 Nov 2024 16:41:12 +0000
+Received: by outflank-mailman (input) for mailman id 832097;
+ Thu, 07 Nov 2024 16:41:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GEtt=SC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1t952r-0004H5-6o
- for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 16:07:41 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ <SRS0=FYad=SC=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1t95ZG-0001qL-9d
+ for xen-devel@lists.xenproject.org; Thu, 07 Nov 2024 16:41:10 +0000
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
+ [2607:f8b0:4864:20::130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67fd8703-9d22-11ef-99a3-01e77a169b0f;
- Thu, 07 Nov 2024 17:07:37 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5cec7cde922so1465827a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 08:07:37 -0800 (PST)
-Received: from localhost ([213.195.124.162]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cf03b7e87asm929025a12.20.2024.11.07.08.07.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Nov 2024 08:07:36 -0800 (PST)
+ id 13872813-9d27-11ef-99a3-01e77a169b0f;
+ Thu, 07 Nov 2024 17:41:03 +0100 (CET)
+Received: by mail-il1-x130.google.com with SMTP id
+ e9e14a558f8ab-3a3b4663e40so4093115ab.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Nov 2024 08:41:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +40,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67fd8703-9d22-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzQiLCJoZWxvIjoibWFpbC1lZDEteDUzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjY3ZmQ4NzAzLTlkMjItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTk1NjU3LjI3NTQ4NCwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 13872813-9d27-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjoxMzAiLCJoZWxvIjoibWFpbC1pbDEteDEzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjEzODcyODEzLTlkMjctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMwOTk3NjYzLjY0NTkyMSwic2VuZGVyIjoiY2FybG8ubm9uYXRvQG1pbmVydmFzeXMudGVjaCIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1730995657; x=1731600457; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0dhvmXxfHbapXpqGm8fl5N0bzv/si7HULfLf8tDohfA=;
-        b=s8IoaGakD2eCh1GacyypBXMwFb/fj9h1ttI5WmUxjMXmRX6rlejwj3w7Vc0L/0Bx0b
-         In/SuOhMXMVB/e56kWuh3pKa2hvx1Yx6eDeOQAoAsTkYlMC7sOwP3Qgpfes86UOf/JRe
-         HClZZtBShBFHhy+o//Bbnz9gSMPlz3D/cGpxE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730995657; x=1731600457;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1730997662; x=1731602462; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0dhvmXxfHbapXpqGm8fl5N0bzv/si7HULfLf8tDohfA=;
-        b=MTxG6rWK82vNh5BGeq3R6R3JH60BFTmkDUQ9KZD6xmAX0Wu0XYYPEqz7xI59xzxDim
-         a7LFhEH664Ex+paGcu5otIbSbY4tfOUQI0ono7gu8cJkQkrjXkfGm8sRpGX9AKyW5iqw
-         4mVoL9eukKGyAa8b4wlOUvKz6fa6f1y9FN4WdJrWYK9piKUEpilLGaI2/JXShmeSAH+W
-         nETB2fqWMG5hwj4iqHlM7/ac4WnCZHXjQGWpO98peydCHcOQTJrVJ7nuMpghQRvqugXS
-         wnghtznNz/5IhnE+p0IhH43vODxEf2xhWG9O3TM2MNMd8XXEMJdj6aWe7myC5kKpWEnW
-         cIpA==
-X-Forwarded-Encrypted: i=1; AJvYcCWxQ4ppDYBZQFrpd3X+L+cac20izAVFitrOHGLpFEQ6vH2k95Ip+GRkXU1i4VS69Of/+8SsPGng80I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxvQ8HYn3PtNfel67u2nDFPWkDK3M2YN0cN+03qB5AzSbonc/IM
-	hZQRMJM1gt3Ya1Q+YIA9Vpgt3tbNix6AqB1wrfrrp5pQ3iOuY1kQgcyBYrO5xpc=
-X-Google-Smtp-Source: AGHT+IHEkRgQpIu/7IRr2IZdTj/Na8n7/b9Ukg+05EC8uO66Ybr00rzk9xGID6f3L4xhCclHhKI8Vw==
-X-Received: by 2002:a05:6402:5193:b0:5cb:b68d:8def with SMTP id 4fb4d7f45d1cf-5cf08c6be4emr341920a12.31.1730995656466;
-        Thu, 07 Nov 2024 08:07:36 -0800 (PST)
-Date: Thu, 7 Nov 2024 17:07:34 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/4] x86/mm: introduce helpers to detect super page
- alignment
-Message-ID: <ZyzlxiipPvbUjs0r@macbook>
-References: <20241106122927.26461-1-roger.pau@citrix.com>
- <20241106122927.26461-2-roger.pau@citrix.com>
- <85d6a128-965b-4f39-8d08-2b2084db65b4@suse.com>
+        bh=aMvM9pfaZHXSxg21BbBGZDS7D59ifQHvIVH8bWxb/CU=;
+        b=ErSTUlfypN9JhmxpuktNlRMgq5TZr4BH/oCB9U80eBGm09iXBjW1ZZ/Dd++0/Wxfal
+         53Vdl8SLrEyb2gxEBACNkZQ91T/+fEjA/CG7+VRVu+tZBnzGKKcTR/t4LluibHybd3cc
+         PPEER/KN+V6+EVY5f3gmjCnXmLfvNDD3iTPQ2qygGukZCgIqMy8Hsb+xNPL3Ax89qBRA
+         bVV1M2Xe4EHxNQYORSR68uxpCLHjdK8Fd3XM/1Al///12Fy7gLeni6Kr+GY/Z65DPWlH
+         VdyKyep/QZw/nv1n0cQAvdUufs5rS4eOCAh4v+AvnJ2hGiH3U/0tILU3JP+qXUfsh02A
+         RhUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730997662; x=1731602462;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aMvM9pfaZHXSxg21BbBGZDS7D59ifQHvIVH8bWxb/CU=;
+        b=Ye77Y3SNUISUcXeM/eRMCx1Yess6faUe+w9xGGDFXve9tVMxQBDj7l6MiYU4+pAh6h
+         EBpyfEcxvJhcSIOzlK1iSZrAAFb4R5u9Tx7WyhDKHbPs0aoyjnED0awdKCOOsGFU0Q19
+         DuoMQxOhTGdUva9RFtCXd6qfL4w3IcxQUEbxi10EHJV/XJvXPQg3a+jNWNSfsxsVvcTY
+         hMe9U9fTTgly2x+01LUmjXtwYrpIbxs2Mb+OYUBj6J3I5i8yJe7+NH86D2/NyOp0QMye
+         wCyJFud5NS1qiZjMWRKExtIvO68oZH5M7ACpcKvN7eU0fiSYcWIBwmxZLgrI7kKev+YW
+         wymQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWz2j5LAPpzNx6NJ7NdGnZeIDgq42ASDEDab59SrAYJ3MW0ACA/uuC+dx/EysYgOlNQtdvGXxNngVs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyRnjTBz4iQPAvXlg84JXFS6AmhURxxeRCMxWnsQUn//scel2L1
+	Nl/hMKaHDDvrlnyD/He/eEBLBPB1177eaSS/+2sHtMHcJ0rSdHAwFwD/5jYVMBYZsE91Cxez0I5
+	SGH2rK+THyPJDrN4533vZ6Vkbaaz25K9G5D1G+A==
+X-Google-Smtp-Source: AGHT+IFRY2af/mNfFVQ3SyQY4T2xl7yiB6Y0P+DQYT6R8Zk8yHCR/9usDZVcNQmecNlmZrWrPy3VPaOERsuoCTxXaO0=
+X-Received: by 2002:a05:6e02:1a6c:b0:3a4:e377:d906 with SMTP id
+ e9e14a558f8ab-3a6b021b260mr267343555ab.1.1730997662317; Thu, 07 Nov 2024
+ 08:41:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <85d6a128-965b-4f39-8d08-2b2084db65b4@suse.com>
+References: <20241025095014.42376-1-carlo.nonato@minervasys.tech>
+ <20241025095014.42376-9-carlo.nonato@minervasys.tech> <f86f611a-4f18-4847-8f21-c6ef20cd6b6c@suse.com>
+In-Reply-To: <f86f611a-4f18-4847-8f21-c6ef20cd6b6c@suse.com>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Thu, 7 Nov 2024 17:40:51 +0100
+Message-ID: <CAG+AhRVu6O=2X9vO12R43=0oHmEjr4Zwus3tx+rDWCRUwE9R0g@mail.gmail.com>
+Subject: Re: [PATCH v9 08/13] xen/page_alloc: introduce preserved page flags macro
+To: Jan Beulich <jbeulich@suse.com>
+Cc: andrea.bastoni@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 07, 2024 at 11:42:11AM +0100, Jan Beulich wrote:
-> On 06.11.2024 13:29, Roger Pau Monne wrote:
-> > --- a/xen/arch/x86/include/asm/page.h
-> > +++ b/xen/arch/x86/include/asm/page.h
-> > @@ -200,6 +200,12 @@ static inline l4_pgentry_t l4e_from_paddr(paddr_t pa, unsigned int flags)
-> >  #define l4_table_offset(a)         \
-> >      (((a) >> L4_PAGETABLE_SHIFT) & (L4_PAGETABLE_ENTRIES - 1))
-> >  
-> > +/* Check if an address is aligned for a given slot level. */
-> > +#define SLOT_IS_ALIGNED(v, m, s) \
-> > +    IS_ALIGNED(PFN_DOWN(v) | mfn_x(m), (1UL << ((s) - PAGE_SHIFT)) - 1)
-> 
-> The check involving an address and an MFN, I think the comment would better
-> also reflect this. "Check if a (va,mfn) tuple is suitably aligned to be
-> mapped by a large page at a given page table level"?
-> 
-> As to the name of this helper macro - "SLOT" can mean about anything when
-> not further qualified. If the macro was local to ...
-> 
-> > +#define IS_L3E_ALIGNED(v, m) SLOT_IS_ALIGNED(v, m, L3_PAGETABLE_SHIFT)
-> > +#define IS_L2E_ALIGNED(v, m) SLOT_IS_ALIGNED(v, m, L2_PAGETABLE_SHIFT)
+Hi Jan,
+
+On Tue, Nov 5, 2024 at 4:59=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 25.10.2024 11:50, Carlo Nonato wrote:
+> > PGC_static and PGC_extra needs to be preserved when assigning a page.
+> > Define a new macro that groups those flags and use it instead of or'ing
+> > every time.
+> >
+> > To make preserved flags even more meaningful, they are kept also when
+> > switching state in mark_page_free().
+> > Enforce the removal of PGC_extra before freeing new pages as this is
+> > considered an error and can cause ASSERT violations.
+>
+> What does "new" here mean?
+
+I believe it means "assigned to domains". So yes "new" it's definitely wron=
+g.
+
+> > Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> > ---
+> > v9:
+> > - add PGC_broken to PGC_preserved
+>
+> Which then also wants reflecting in the description.
+
+Yep.
+
+> > @@ -2485,6 +2485,14 @@ struct page_info *alloc_domheap_pages(
+> >          }
+> >          if ( assign_page(pg, order, d, memflags) )
+> >          {
+> > +            if ( memflags & MEMF_no_refcount )
+> > +            {
+> > +                unsigned long i;
 > > +
-> >  /* Convert a pointer to a page-table entry into pagetable slot index. */
-> >  #define pgentry_ptr_to_slot(_p)    \
-> >      (((unsigned long)(_p) & ~PAGE_MASK) / sizeof(*(_p)))
-> > --- a/xen/arch/x86/mm.c
-> > +++ b/xen/arch/x86/mm.c
-> 
-> ... this (sole) file using the derived ones, that might be acceptable. If
-> it's to remain in page.h, how about e.g. IS_LnE_ALIGNED()?
+> > +                for ( i =3D 0; i < (1UL << order); i++ )
+> > +                    pg[i].count_info &=3D ~PGC_extra;
+> > +            }
+>
+> The description doesn't cover this, only ...
 
-Since you expressed further concerns in the next patch, I will move it
-to being local to mm.c.  I don't have any other use-case, but assumed
-the macros are generic enough to be useful in other contexts.
+PGC_extra must be cleared before freeing pages. Since here we're going to f=
+ree
+pages, PGC_extra must be removed.
 
-> I further wonder whether it wouldn't be neater if just the level was passed
-> into the helper. Doing so wouldn't even require token concatenation (which
-> iirc both you and Andrew don't like in situations like this one), as the
-> mask can be calculated from just level and PAGETABLE_ORDER. At which point
-> it may even make sense to leave out the wrapper macros.
+> > @@ -2539,6 +2547,7 @@ void free_domheap_pages(struct page_info *pg, uns=
+igned int order)
+> >                  {
+> >                      ASSERT(d->extra_pages);
+> >                      d->extra_pages--;
+> > +                    pg[i].count_info &=3D ~PGC_extra;
+> >                  }
+> >              }
+>
+> ... this is mentioned there. And it's not clear to me why it would need d=
+oing
+> in both places.
+>
+> Jan
 
-I can see what I can do.
-
-Thanks, Roger.
+- Carlo
 
