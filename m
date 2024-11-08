@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24F9E9C1F86
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 15:43:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832620.1247923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F389C1FB8
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 15:54:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832655.1247946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9QCX-0004hx-Qp; Fri, 08 Nov 2024 14:43:05 +0000
+	id 1t9QMs-0007uA-O4; Fri, 08 Nov 2024 14:53:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832620.1247923; Fri, 08 Nov 2024 14:43:05 +0000
+Received: by outflank-mailman (output) from mailman id 832655.1247946; Fri, 08 Nov 2024 14:53:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9QCX-0004a3-LN; Fri, 08 Nov 2024 14:43:05 +0000
-Received: by outflank-mailman (input) for mailman id 832620;
- Fri, 08 Nov 2024 14:43:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t9QMs-0007s1-L8; Fri, 08 Nov 2024 14:53:46 +0000
+Received: by outflank-mailman (input) for mailman id 832655;
+ Fri, 08 Nov 2024 14:53:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ALGw=SD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t9QCV-0004Ee-Vn
- for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 14:43:03 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c007c9dc-9ddf-11ef-a0c6-8be0dac302b0;
- Fri, 08 Nov 2024 15:42:59 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-539fb49c64aso3405888e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 06:42:59 -0800 (PST)
+ id 1t9QMq-0007rv-R3
+ for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 14:53:44 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d0f137e-9de1-11ef-99a3-01e77a169b0f;
+ Fri, 08 Nov 2024 15:53:39 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a99f1fd20c4so319758966b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 06:53:39 -0800 (PST)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0a1769asm242652866b.1.2024.11.08.06.42.57
+ a640c23a62f3a-a9ee0dc4c18sm243429266b.121.2024.11.08.06.53.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Nov 2024 06:42:58 -0800 (PST)
+ Fri, 08 Nov 2024 06:53:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c007c9dc-9ddf-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzYiLCJoZWxvIjoibWFpbC1sZjEteDEzNi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImMwMDdjOWRjLTlkZGYtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMDc2OTc5Ljc1MDI0Niwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 3d0f137e-9de1-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzAiLCJoZWxvIjoibWFpbC1lajEteDYzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjNkMGYxMzdlLTlkZTEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMDc3NjE5LjEwMjQ5OSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731076979; x=1731681779; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eAYyhUk3NiNBRpvH7yor3qXtJxAbrlhbvjZAvpbioVA=;
-        b=KJeSDo5Y5/WyGjExdFR8TK/i5F1QnzOQ30Ma6/Jc3ZKxzbZhBlHAviIUkAk9pGOJwr
-         uUpOa7vtO4jk64wWN1j5bW+LKBN+odENUQIKlrqIncvCZFOOdVZ0OylVrMaZo42ljuax
-         XVT8v3qvyf9VNHsT6pGUXl41FpQxEMBEyBjRE=
+        d=citrix.com; s=google; t=1731077618; x=1731682418; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z6xkYzsBAesyu5Y5WNvzvYUHdQIIWi9YiQJdKKIjz60=;
+        b=JeLxG2YGumr8LenUQWGP63WFKmO841B4uZDQMX5GPmz0taxb/Go4TW254zayVyiM7I
+         MkaaRK8eNUA/UQ+6JW80yzqWn5/bGJ3P5uhr0uKcl5ykKjAJ4pWw7Yi9HjZyTBQOp6nP
+         RzN9Hbl9EmHxN1gThO0OYEMzzi3CdqPnxLyvw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731076979; x=1731681779;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eAYyhUk3NiNBRpvH7yor3qXtJxAbrlhbvjZAvpbioVA=;
-        b=MJtMHVXgDHVX6RqT5p0ip55q86063DrKmJBOdCfYIJ5IhlE9d+t2ovlAJ9xESpdP+Z
-         ciM7gKNd+R642LW0UTul2VTxw3s1iGQkIyMxZqWjywmHDzaTBQml+JyG7faI1YaavdFD
-         gmkps2/gDPXxgycrnvu7qu5ZGw74JPOHVrH0qHWUdUX5TalvGibV8ITnUpW9UIx70TJn
-         jrccd+pMS84auaX2d5WuwCpkdl7GUqJ06+bPMCKvEHiGP+I0i8B9A3gYX6PZTKMdA/EN
-         5kf8mDDFFY8uN5a7Vb3Fj458mM9jeY6GeW6c/4OdIjG0hMt8KiGR50aOaoCIlbRu52ol
-         vitw==
-X-Gm-Message-State: AOJu0Yy+73gvmkBl9AG8LD94T2ogGs1irbSqQtoSUAYn/umlODu7VTA4
-	MaD8GGnxVlh0dfSQoia/lR4UFSL1TkTqzH6GUTuLtDTES2cYOVqDSYGFnE89/pDUOWbC7cr9TwK
-	C
-X-Google-Smtp-Source: AGHT+IGnPqf8jybKj6TO83BLp1vxdYvmZx+c0I1+Ak4JN/eWFn0gbiR4NvaiWXKrze/JnFqBp02Irg==
-X-Received: by 2002:a05:6512:2348:b0:53b:1fd1:df34 with SMTP id 2adb3069b0e04-53d862ee36bmr2606893e87.45.1731076978612;
-        Fri, 08 Nov 2024 06:42:58 -0800 (PST)
+        d=1e100.net; s=20230601; t=1731077618; x=1731682418;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Z6xkYzsBAesyu5Y5WNvzvYUHdQIIWi9YiQJdKKIjz60=;
+        b=iRm7sL22+w1JGG+7mpNaRVBNr+LA+KYxnk7H4ECjr5yPz9dTwnq9qfubrmHUmws0x/
+         eHufQ5ZQ84TymgucsoA1bxrgMgUHwLXG/aukVr2ScQLBNB7lbXD8MIftAO2kRXnZlddm
+         ADZwj9s1rfRlMDLE/sAf+NouRbAsrjdGkM6xL+KAu5Ke4H3zaZgsua2PvdkKN7SzQU8W
+         /Skhrb5V8NmEPa492wo0N0wQnSpPUSokP5yTrI9SyWHGSUvNm3zZq/XB3WsuE179OFtv
+         oOmzfdPezCAz9hIyP2l3s8NXEXcoWSpTk1oZ/bKuLKx0h2iIvCNNl7XQs1dictm7sgni
+         isRw==
+X-Gm-Message-State: AOJu0YzBqrv+88/wo+YqqglpO5ck1wfIDYPU+7cT+oRBrg5VPzv+98RV
+	5i45/uOMQf7fjU5H1xdrYyuebLVVtT/sHhzxbwyabr9ZBLSIXyC0/TvV/VktzJC3J2uXgiZW7x7
+	4
+X-Google-Smtp-Source: AGHT+IH1aAKwK2xcMvN/qXmksM/XFL1VDe8FffY+N36SeEN+2yxfild1wDuGcesclASN7vrQu8nCMQ==
+X-Received: by 2002:a17:907:60cf:b0:a9a:1253:4d81 with SMTP id a640c23a62f3a-a9eefff1ffemr248768866b.47.1731077617984;
+        Fri, 08 Nov 2024 06:53:37 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 3/3] x86/ucode: Drop MIS_UCODE and microcode_match_result
-Date: Fri,  8 Nov 2024 14:42:52 +0000
-Message-Id: <20241108144252.315604-4-andrew.cooper3@citrix.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [PATCH v2] x86/trampoline: Collect other scattered trampoline symbols
+Date: Fri,  8 Nov 2024 14:53:35 +0000
+Message-Id: <20241108145335.315884-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241108144252.315604-1-andrew.cooper3@citrix.com>
-References: <20241108144252.315604-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-All uses of MIS_UCODE, have been removed, leaving only a simple ordering
-relation, and microcode_match_result being a stale name.
-
-Drop the enum entirely, and use a simple int -1/0/1 scheme like other standard
-ordering primitives in C.
-
-Swap the order or parameters to compare_patch(), to reduce cognitive
-complexity; all other logic operates the other way around.
+... and document them too.
 
 No functional change.
 
@@ -105,151 +97,81 @@ Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Frediano Ziglio <frediano.ziglio@cloud.com>
+CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-I don't particular like keeping "result" as a variable name, but nothing
-better comes to mind.
+v2:
+ * Rebase
+
+video.h, edd.h and e820.h also contain trampoline symbols, but they're pretty
+well contained headers already.
+
+kbd_shift_flags seems especially dubious.  It's a snapshot of the keyboard
+state when Xen happened to pass through the trampoline, and surely cannot be
+useful for dom0 in the slightest...
 ---
- xen/arch/x86/cpu/microcode/amd.c     | 10 ++++------
- xen/arch/x86/cpu/microcode/core.c    |  5 ++---
- xen/arch/x86/cpu/microcode/intel.c   |  9 ++++-----
- xen/arch/x86/cpu/microcode/private.h | 21 ++++++++++-----------
- 4 files changed, 20 insertions(+), 25 deletions(-)
+ xen/arch/x86/include/asm/processor.h  |  2 --
+ xen/arch/x86/include/asm/setup.h      |  2 --
+ xen/arch/x86/include/asm/trampoline.h | 15 +++++++++++++++
+ 3 files changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 3861fec6565a..366c8c59e93a 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -170,8 +170,7 @@ static bool check_final_patch_levels(const struct cpu_signature *sig)
-     return false;
- }
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 26e2fb13699a..877651212273 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -96,8 +96,6 @@ extern void ctxt_switch_levelling(const struct vcpu *next);
+ extern void (*ctxt_switch_masking)(const struct vcpu *next);
  
--static enum microcode_match_result compare_revisions(
--    uint32_t old_rev, uint32_t new_rev)
-+static int compare_revisions(uint32_t old_rev, uint32_t new_rev)
- {
-     if ( new_rev > old_rev )
-         return NEW_UCODE;
-@@ -199,8 +198,8 @@ static bool microcode_fits_cpu(const struct microcode_patch *patch)
-     return equiv.id == patch->processor_rev_id;
- }
+ extern bool opt_cpu_info;
+-extern u32 trampoline_efer;
+-extern u64 trampoline_misc_enable_off;
  
--static enum microcode_match_result cf_check compare_patch(
--    const struct microcode_patch *new, const struct microcode_patch *old)
-+static int cf_check compare_patch(
-+    const struct microcode_patch *old, const struct microcode_patch *new)
- {
-     /* Both patches to compare are supposed to be applicable to local CPU. */
-     ASSERT(microcode_fits_cpu(new));
-@@ -212,11 +211,10 @@ static enum microcode_match_result cf_check compare_patch(
- static int cf_check apply_microcode(const struct microcode_patch *patch,
-                                     unsigned int flags)
- {
--    int hw_err;
-+    int hw_err, result;
-     unsigned int cpu = smp_processor_id();
-     struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
-     uint32_t rev, old_rev = sig->rev;
--    enum microcode_match_result result;
-     bool ucode_force = flags & XENPF_UCODE_FORCE;
+ /* Maximum width of physical addresses supported by the hardware. */
+ extern unsigned int paddr_bits;
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index d7ed4f40024c..25c15ef9140d 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -48,8 +48,6 @@ int remove_xen_ranges(struct rangeset *r);
  
-     if ( !microcode_fits_cpu(patch) )
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 0cc5daa251e2..05d0d68d8158 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -470,8 +470,7 @@ struct ucode_buf {
- static long cf_check microcode_update_helper(void *data)
- {
-     struct microcode_patch *patch = NULL;
--    enum microcode_match_result result;
--    int ret;
-+    int ret, result;
-     struct ucode_buf *buffer = data;
-     unsigned int cpu, updated;
-     struct patch_with_flags patch_with_flags;
-@@ -527,7 +526,7 @@ static long cf_check microcode_update_helper(void *data)
-     spin_lock(&microcode_mutex);
-     if ( microcode_cache )
-     {
--        result = alternative_call(ucode_ops.compare_patch, patch, microcode_cache);
-+        result = alternative_call(ucode_ops.compare_patch, microcode_cache, patch);
+ int cf_check stub_selftest(void);
  
-         if ( result != NEW_UCODE &&
-              !(ucode_force && (result == OLD_UCODE || result == SAME_UCODE)) )
-diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
-index 3f37792ab4b5..9616a5e9db4b 100644
---- a/xen/arch/x86/cpu/microcode/intel.c
-+++ b/xen/arch/x86/cpu/microcode/intel.c
-@@ -229,8 +229,7 @@ static int microcode_sanity_check(const struct microcode_patch *patch)
-  * Production microcode has a positive revision.  Pre-production microcode has
-  * a negative revision.
-  */
--static enum microcode_match_result compare_revisions(
--    int32_t old_rev, int32_t new_rev)
-+static int compare_revisions(int32_t old_rev, int32_t new_rev)
- {
-     if ( new_rev > old_rev )
-         return NEW_UCODE;
-@@ -270,8 +269,8 @@ static bool microcode_fits_cpu(const struct microcode_patch *mc)
-     return false;
- }
- 
--static enum microcode_match_result cf_check compare_patch(
--    const struct microcode_patch *new, const struct microcode_patch *old)
-+static int cf_check compare_patch(
-+    const struct microcode_patch *old, const struct microcode_patch *new)
- {
-     /*
-      * Both patches to compare are supposed to be applicable to local CPU.
-@@ -290,7 +289,7 @@ static int cf_check apply_microcode(const struct microcode_patch *patch,
-     unsigned int cpu = smp_processor_id();
-     struct cpu_signature *sig = &this_cpu(cpu_sig);
-     uint32_t rev, old_rev = sig->rev;
--    enum microcode_match_result result;
-+    int result;
-     bool ucode_force = flags & XENPF_UCODE_FORCE;
- 
-     if ( !microcode_fits_cpu(patch) )
-diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
-index c9dd8ba066f9..957d4d4293d0 100644
---- a/xen/arch/x86/cpu/microcode/private.h
-+++ b/xen/arch/x86/cpu/microcode/private.h
-@@ -5,13 +5,6 @@
- 
- #include <asm/microcode.h>
- 
--enum microcode_match_result {
--    OLD_UCODE, /* signature matched, but revision id is older */
--    SAME_UCODE, /* signature matched, but revision id is the same */
--    NEW_UCODE, /* signature matched, but revision id is newer */
--    MIS_UCODE, /* signature mismatched */
--};
+-extern uint8_t kbd_shift_flags;
 -
- /* Opaque.  Internals are vendor-specific. */
- struct microcode_patch;
+ #ifdef NDEBUG
+ # define highmem_start 0
+ #else
+diff --git a/xen/arch/x86/include/asm/trampoline.h b/xen/arch/x86/include/asm/trampoline.h
+index 57a1f85a539e..838c2f0b6fcd 100644
+--- a/xen/arch/x86/include/asm/trampoline.h
++++ b/xen/arch/x86/include/asm/trampoline.h
+@@ -85,9 +85,24 @@ extern uint32_t trampoline_xen_phys_start;
+ /* A semaphore to indicate signs-of-life at the start of the AP boot path. */
+ extern uint8_t trampoline_cpu_started;
  
-@@ -54,11 +47,17 @@ struct microcode_ops {
-                            unsigned int flags);
++/*
++ * Extra MSR_EFER settings when activating Long Mode.  EFER_NXE is necessary
++ * for APs to boot if the BSP found and activated support.
++ */
++extern uint32_t trampoline_efer;
++
++/*
++ * When nonzero, clear the specified bits in MSR_MISC_ENABLE.  This is
++ * necessary to clobber XD_DISABLE before trying to set MSR_EFER.NXE.
++ */
++extern uint64_t trampoline_misc_enable_off;
++
+ /* Quirks about video mode-setting on S3 resume. */
+ extern uint8_t video_flags;
  
-     /*
--     * Given two patches, are they both applicable to the current CPU, and is
--     * new a higher revision than old?
-+     * Given a current patch, and a proposed new patch, order them based on revision.
-+     *
-+     * This operation is not necessarily symmetrical.  In some cases, a debug
-+     * "new" patch will always considered to be newer, on the expectation that
-+     * whomever is using debug patches knows exactly what they're doing.
-      */
--    enum microcode_match_result (*compare_patch)(
--        const struct microcode_patch *new, const struct microcode_patch *old);
-+#define OLD_UCODE  -1
-+#define SAME_UCODE  0
-+#define NEW_UCODE   1
-+    int (*compare_patch)(const struct microcode_patch *old,
-+                         const struct microcode_patch *new);
- 
-     /*
-      * For Linux inird microcode compatibliity.
++/* BIOS Int 16h, Fn 02h.  The keyboard shift status. */
++extern uint8_t kbd_shift_flags;
++
+ /* Extended Display Identification Data, gathered from the BIOS. */
+ extern uint16_t boot_edid_caps;
+ extern uint8_t boot_edid_info[128];
+
+base-commit: 75035c386eeb8bd5dbed1831dbb96a35b31521f6
 -- 
 2.39.5
 
