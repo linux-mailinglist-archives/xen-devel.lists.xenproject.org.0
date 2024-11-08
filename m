@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9A39C25FD
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 20:59:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832783.1248160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F06769C262F
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 21:06:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832853.1248189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9V81-0002mu-Gk; Fri, 08 Nov 2024 19:58:45 +0000
+	id 1t9VFi-0008Ja-KB; Fri, 08 Nov 2024 20:06:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832783.1248160; Fri, 08 Nov 2024 19:58:45 +0000
+Received: by outflank-mailman (output) from mailman id 832853.1248189; Fri, 08 Nov 2024 20:06:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9V81-0002kA-9M; Fri, 08 Nov 2024 19:58:45 +0000
-Received: by outflank-mailman (input) for mailman id 832783;
- Fri, 08 Nov 2024 19:58:43 +0000
+	id 1t9VFi-0008Hv-HN; Fri, 08 Nov 2024 20:06:42 +0000
+Received: by outflank-mailman (input) for mailman id 832853;
+ Fri, 08 Nov 2024 20:06:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ALGw=SD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t9V7z-0008TY-60
- for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 19:58:43 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ <SRS0=Hbhu=SD=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1t9V94-0008TY-Lk
+ for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 19:59:50 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20625.outbound.protection.outlook.com
+ [2a01:111:f403:2412::625])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d92719ef-9e0b-11ef-99a3-01e77a169b0f;
- Fri, 08 Nov 2024 20:58:39 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a9e8522445dso428872266b.1
- for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 11:58:39 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0dc5db6sm271523466b.119.2024.11.08.11.58.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Nov 2024 11:58:36 -0800 (PST)
+ id fda93938-9e0b-11ef-99a3-01e77a169b0f;
+ Fri, 08 Nov 2024 20:59:42 +0100 (CET)
+Received: from BL1PR13CA0382.namprd13.prod.outlook.com (2603:10b6:208:2c0::27)
+ by MW6PR12MB8958.namprd12.prod.outlook.com (2603:10b6:303:240::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Fri, 8 Nov
+ 2024 19:59:36 +0000
+Received: from BL02EPF0001A102.namprd05.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::5e) by BL1PR13CA0382.outlook.office365.com
+ (2603:10b6:208:2c0::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19 via Frontend
+ Transport; Fri, 8 Nov 2024 19:59:36 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A102.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8137.17 via Frontend Transport; Fri, 8 Nov 2024 19:59:36 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 8 Nov
+ 2024 13:59:36 -0600
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Fri, 8 Nov 2024 13:59:34 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,171 +59,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d92719ef-9e0b-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzMiLCJoZWxvIjoibWFpbC1lajEteDYzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQ5MjcxOWVmLTllMGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMDk1OTE5Ljg3MjY1NSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731095919; x=1731700719; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V7/2tyrjO+foQHdsyFkn3cPeL3RHFRZuXllVwsi5Vtc=;
-        b=CkARgPquSLI8bUur+u8lLxcr6PPOnZ8vFsAupUvc40a2okHHbS84epkYTOJqC9sbwV
-         xNV+vu/ZXQh4zWM/BF9NmB6QN5OjwZQdvCHYni7CJtLyIFTs0T9yar8nKTuvFEy5muhA
-         HC1z3b6ptTx3POuJQiwW3W6ll4cafkJ2tHULo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731095919; x=1731700719;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=V7/2tyrjO+foQHdsyFkn3cPeL3RHFRZuXllVwsi5Vtc=;
-        b=Zgj0arYIocY9j+P2DZ5HiCor8FCrAAGLMMcRD7wLEVM5CC/vIrf6rUudi/Sl+FtOhb
-         tm+F2nxv1UI9CV3S6f6H5AOBEUKyyI5H4IzaO1SW/Q7sW9xOWxKCYBCHByNezCQr2wX5
-         BZhdkL9yK44hrwuadhZaEEJOXxQY4YUDc7QmdYRs8eS9DKObiuJw+ndhEcw/tsFQ4eJM
-         1chhH47jMIvCfQINhIP8ycCbSajTahHAqFQUGaNldDdocfss6asVS8FmQ12a9IX2d7m9
-         cY/KWbd+pD2F034EC5E7NjRst8aU/N4W1b8HcEC4MlMvBN+Ag8ZOjbPbbhNFm4rxnfGF
-         Krsg==
-X-Gm-Message-State: AOJu0YxNPI6jwBf0v4AkhX8reGFkIRbZXXqM3ajYPXT8Hopa69zSAFHN
-	1GgCp7lC/a8WtIA/eOpamn7U0szzXWiMAK+LS/fEUWZZUTCzXUbX1ffu+8DRlZJvzMS/mJFzAUh
-	6
-X-Google-Smtp-Source: AGHT+IH/oI66KdDWXrvpJYzMBjtAQSbLS30PUxc/CQOomyFvs4Uyw/JRJcbEoLqDDY/Ktm/JcrdwtA==
-X-Received: by 2002:a17:906:dc8a:b0:a9e:b090:e65d with SMTP id a640c23a62f3a-a9eeff383eemr334778266b.32.1731095918858;
-        Fri, 08 Nov 2024 11:58:38 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 10/10] x86: Delete mach_apic.h
-Date: Fri,  8 Nov 2024 19:58:20 +0000
-Message-Id: <20241108195820.789716-11-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241108195820.789716-1-andrew.cooper3@citrix.com>
-References: <20241108195820.789716-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: fda93938-9e0b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMjo6NjI1IiwiaGVsbyI6Ik5BTTEwLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImZkYTkzOTM4LTllMGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMDk1OTgyLjU1ODcyNiwic2VuZGVyIjoiYXlhbi5rdW1hci5oYWxkZXJAYW1kLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HHBdWtrHsQWOyACF6/v0JSMkQoLXpa0OD1w3qu5Y+a15e1nU4m3qywXu8HoWg/AHiI1anpFYvljh6vVBkWuRAHqPNTmAqRY74jtaHk8cfQr6i+NxLQ926WzjTrnDwCGOrCKHUryrlgv8/stdmF2t4PKFh2SbK4Dwc2wSQ2gY26WR89ds9GnUNFPCPY0iIA3HkRw1laUOePnfM4Bm48O59ut2hHs9WGal+6X6H6Se/Ic4iqoPyCRhg/0AMYqLznfUBTCGyYqVzorH8pmtOpqu+xKo376N7Ma81IQcnT2u4aTapopRmQtIlhkdbUrKxu6vo2dDhCPTrcbG0BUB8BrE+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EjVkE7Hn/7zDFOepCcGvGZ5CLYZ0+pgJCfhHdOJNTRQ=;
+ b=lnaJcug/13EPYOupgeehr5Qob4tFpQY07Jh8VQfkFBLkmkjrh3J+8GqWmisAPU4aMnvOX0Xlh+/mTpM60nwlcOI7nLm37dk4rq4wwg7wzI650D5saGF7fX4BQ6YyH4mpJ/MSBzOWXJ94oWoal72TF4j08WWSWLax9ZwSwHJhRW9445xhE1MZFYqhPxzX7wFNwdTZ3ucIj0szsfJF96mjdSi+ZvhDVa/ZOxLVMs6WhFaxIJxHgD6ljL+WB8G3Ob4k/+E5oKs5B9wZo8NLznRSXLSl7Ffc6zjsLOeRv6to35rvtqmc0EFTTJLVIPrgI45MGHPUnIzZNz9rJNu9Oa6VfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EjVkE7Hn/7zDFOepCcGvGZ5CLYZ0+pgJCfhHdOJNTRQ=;
+ b=1Oi1HF1raRH9lfmCQGY0gaiuoqFaZGJtwP+YvAomcEavufqqExuaeWUwn1QBsom25sFLyqThO5dciu6e9qrMtta7DTJxZLHQt3WmjZor1xfw46XYMdHQ5RGe8fV/Oi9GJtD4X0X9SRYQZjvjEAHobkVl14hOK0y7sFXECWI2D2g=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Penny Zheng <Penny.Zheng@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Rahul Singh
+	<rahul.singh@arm.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Subject: [PATCH v1 2/2] xen/mmu: enable SMMU subsystem only in MMU
+Date: Fri, 8 Nov 2024 19:59:18 +0000
+Message-ID: <20241108195918.856412-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A102:EE_|MW6PR12MB8958:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3be77637-9b36-4752-933a-08dd002fdf42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?XTY6IMDccaXIfAS6ano/JEhhlmBBu5wE6RpZ+yXliUzCnYk2M+64nRFLLLAr?=
+ =?us-ascii?Q?V3BQX/uqCOodemjOwjhfdOlJP64IaJXH9wrGJytyD7/XQtt6cDGSFVuIX+FR?=
+ =?us-ascii?Q?djEXMYn8LXn5NYQkGXcrZflsvKYK11MWlojIZo3HlWMiZKTZgmr8UbQobXsN?=
+ =?us-ascii?Q?F7JOkud8jzWcwEaPzUa49eeJ5yg59lSJtMvd+8gaPs/HccL9k4AIcATHyPLG?=
+ =?us-ascii?Q?1Az1dLNfnIFGLqKl3chkqUtwyFbqrYlMWN48XFHA/TzKG5DBzy1JxXPQBrIQ?=
+ =?us-ascii?Q?0s16eKnltrwGrejszmASRTEMsLPdaqHesxw+QLLZ6JwL4Cx4PXJgafKnqeqk?=
+ =?us-ascii?Q?pZFX85nMUJC2H16jEldWK++Q58GrwVb+peJZ7aujgppAeseChwlM6BLGLevR?=
+ =?us-ascii?Q?eGZiH6OMKo3wRfhTft9axXfdaazrcOqXYAh+/VuWoqgqQOohakKk6x64AKBR?=
+ =?us-ascii?Q?eZFH7lhSHtqp/XACmgr1ScQysLXllEgj9OEfes8/jMmnBrPP0H9Gi8bskjlw?=
+ =?us-ascii?Q?eTF20tuaXihb+e6X9o4gJoO+BX5Ykro9E0BBAyLDiLnaaXgKNY92SeLMZG1p?=
+ =?us-ascii?Q?+UX74/m0yHxofmCSlMZumXXU8iEPj38t45QoV9ZJxWtHzL/i6F7OruvXdWPl?=
+ =?us-ascii?Q?One2lmHjq0l8WrEYr+5IJMGArbfXFcqHBjOS6spymC0ly7uiz6fwo+gMMquF?=
+ =?us-ascii?Q?gWMeft+tVO57G40HQJL+QIdOD0LaOM7MC+zot0y/XSBL4AHXgk+DCM240ToY?=
+ =?us-ascii?Q?khtHpjJnJ2a9rYney+LO2AnsrIiaXTaIBxXYUeBpKTYVTlIjWObKEcCKVsGa?=
+ =?us-ascii?Q?gT/n8/1KnSGM4PgZzt3QDassCOfxRGEUz3euEecFyXqTui3dXwihfXIqcWn9?=
+ =?us-ascii?Q?LP33xn9QHYxhcZYQUPFIAUiA+O7Oc3UxndjLvby5vU+Mw6UrkE5gVEGa2NA/?=
+ =?us-ascii?Q?xZLeybi3RAYFJGzpB/ZV1jh8/Zv0enbnK5deCM7f1a4OmMOvd1My2ShQX1Q2?=
+ =?us-ascii?Q?9fCGVg8SpU5KKvrqQn7sugK5HrZfAQYOcbZ5LGfBbZ2PdEVaWRSEq1u/o2Fq?=
+ =?us-ascii?Q?W+RQ3jRfc+EtKwnmlFChE8NThGE8g1Qyz2H1Lm/egrgM9mKFC95c1F3INJCS?=
+ =?us-ascii?Q?BpY/6qcN4tjxoLrzylUMUI6q/enn5cyTopCMzNXtR35swdsCUFjf50Y8E4t3?=
+ =?us-ascii?Q?Tm1Cvj9rw/m8XPgVJZe6ByQUM4ePuKt44oaYOlEXPbS3snhsPNhEqpHuMOhl?=
+ =?us-ascii?Q?uGofjWd0VSY5QknfG5cct2JfgniDyiMCpZMZZ7hPNOL6JFYP27LjrszWUecP?=
+ =?us-ascii?Q?q1d1PfR1AErCUotjbwSsxqsUHIdGSC4rh0V7/Jn0hffFS0HYEp1zln2lX/Eg?=
+ =?us-ascii?Q?aDHiDkushV1doy+m8EQA6B/SxZO9Ed/H0VHlshToZ+5OvS4S8Q=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2024 19:59:36.5154
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3be77637-9b36-4752-933a-08dd002fdf42
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A102.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8958
 
-All useful content has been moved elsewhere.
+From: Penny Zheng <Penny.Zheng@arm.com>
 
-Clean up the dregs, and remove the entire mach-generic include path.
+In Xen, SMMU subsystem is supported for MMU system only. The reason being SMMU
+driver uses the same page tables as MMU.
+Thus, we make it dependent on CONFIG_MMU.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Penny Zheng <Penny.Zheng@arm.com>
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/apic.c                           |  4 ++--
- xen/arch/x86/arch.mk                          |  1 -
- .../x86/include/asm/mach-generic/mach_apic.h  | 24 -------------------
- xen/arch/x86/io_apic.c                        | 15 +++++-------
- 4 files changed, 8 insertions(+), 36 deletions(-)
- delete mode 100644 xen/arch/x86/include/asm/mach-generic/mach_apic.h
+ xen/arch/arm/Kconfig            | 2 +-
+ xen/drivers/passthrough/Kconfig | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-index 9f3a374e9581..8f192f80b852 100644
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -35,7 +35,8 @@
- #include <asm/hardirq.h>
- #include <asm/apic.h>
- #include <asm/io_apic.h>
--#include <mach_apic.h>
-+#include <asm/genapic.h>
-+
- #include <io_ports.h>
- #include <irq_vectors.h>
- #include <xen/kexec.h>
-@@ -230,7 +231,6 @@ void __init connect_bsp_APIC(void)
-     }
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 15b2e4a227..3699e148e9 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -16,7 +16,7 @@ config ARM
+ 	select HAS_DEVICE_TREE
+ 	select HAS_PASSTHROUGH
+ 	select HAS_UBSAN
+-	select IOMMU_FORCE_PT_SHARE
++	select IOMMU_FORCE_PT_SHARE if MMU
  
-     printk("Enabling APIC mode.  Using %d I/O APICs\n", nr_ioapics);
--    enable_apic_mode();
- }
+ config ARCH_DEFCONFIG
+ 	string
+diff --git a/xen/drivers/passthrough/Kconfig b/xen/drivers/passthrough/Kconfig
+index 78edd80536..75ad403dd3 100644
+--- a/xen/drivers/passthrough/Kconfig
++++ b/xen/drivers/passthrough/Kconfig
+@@ -5,6 +5,7 @@ config HAS_PASSTHROUGH
+ if ARM
+ config ARM_SMMU
+ 	bool "ARM SMMUv1 and v2 driver"
++	depends on MMU
+ 	default y
+ 	help
+ 	  Support for implementations of the ARM System MMU architecture
+@@ -15,7 +16,7 @@ config ARM_SMMU
  
- void disconnect_bsp_APIC(int virt_wire_setup)
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index 1460ecf30b9a..8f8aeda679d8 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -3,7 +3,6 @@
- 
- export XEN_IMG_OFFSET := 0x200000
- 
--CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-generic
- CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-default
- CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
- 
-diff --git a/xen/arch/x86/include/asm/mach-generic/mach_apic.h b/xen/arch/x86/include/asm/mach-generic/mach_apic.h
-deleted file mode 100644
-index 3e17c271d9ac..000000000000
---- a/xen/arch/x86/include/asm/mach-generic/mach_apic.h
-+++ /dev/null
-@@ -1,24 +0,0 @@
--#ifndef __ASM_MACH_APIC_H
--#define __ASM_MACH_APIC_H
--
--#include <asm/apic.h>
--#include <asm/io_apic.h>
--#include <asm/genapic.h>
--#include <asm/smp.h>
--
--static inline void enable_apic_mode(void)
--{
--	/* Not needed for modern ES7000 which boot in Virtual Wire mode. */
--	/*es7000_sw_apic();*/
--}
--
--#define apicid_to_node(apicid) ((int)apicid_to_node[(u32)apicid])
--
--extern u32 bios_cpu_apicid[];
--
--static inline int multi_timer_check(int apic, int irq)
--{
--	return 0;
--}
--
--#endif /* __ASM_MACH_APIC_H */
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 2774cd45c091..13daebc10a97 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -31,13 +31,16 @@
- #include <xen/softirq.h>
- #include <xen/xvmalloc.h>
- 
-+#include <asm/apic.h>
-+#include <asm/genapic.h>
- #include <asm/hpet.h>
-+#include <asm/io_apic.h>
- #include <asm/mc146818rtc.h>
- #include <asm/smp.h>
- #include <asm/desc.h>
- #include <asm/msi.h>
- #include <asm/setup.h>
--#include <mach_apic.h>
-+
- #include <io_ports.h>
- #include <irq_vectors.h>
- #include <public/physdev.h>
-@@ -1104,14 +1107,8 @@ static void __init setup_IO_APIC_irqs(void)
-             }
- 
-             irq = pin_2_irq(idx, apic, pin);
--            /*
--             * skip adding the timer int on secondary nodes, which causes
--             * a small but painful rift in the time-space continuum
--             */
--            if (multi_timer_check(apic, irq))
--                continue;
--            else
--                add_pin_to_irq(irq, apic, pin);
-+
-+            add_pin_to_irq(irq, apic, pin);
- 
-             if (!IO_APIC_IRQ(irq))
-                 continue;
+ config ARM_SMMU_V3
+ 	bool "ARM Ltd. System MMU Version 3 (SMMUv3) Support" if EXPERT
+-	depends on ARM_64 && (!ACPI || BROKEN)
++	depends on ARM_64 && (!ACPI || BROKEN) && MMU
+ 	help
+ 	 Support for implementations of the ARM System MMU architecture
+ 	 version 3. Driver is in experimental stage and should not be used in
 -- 
-2.39.5
+2.25.1
 
 
