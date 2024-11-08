@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95AA29C1D5A
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 13:52:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832551.1247850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11CB49C1D5C
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 13:52:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832552.1247866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9OT6-0004Ez-FL; Fri, 08 Nov 2024 12:52:04 +0000
+	id 1t9OT8-0004jH-QR; Fri, 08 Nov 2024 12:52:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832551.1247850; Fri, 08 Nov 2024 12:52:04 +0000
+Received: by outflank-mailman (output) from mailman id 832552.1247866; Fri, 08 Nov 2024 12:52:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9OT6-00046Z-9c; Fri, 08 Nov 2024 12:52:04 +0000
-Received: by outflank-mailman (input) for mailman id 832551;
- Fri, 08 Nov 2024 12:52:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1t9OT8-0004h8-Mr; Fri, 08 Nov 2024 12:52:06 +0000
+Received: by outflank-mailman (input) for mailman id 832552;
+ Fri, 08 Nov 2024 12:52:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pwxj=SD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1t9OT5-0003yG-7X
- for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 12:52:03 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ea36d03-9dd0-11ef-a0c6-8be0dac302b0;
- Fri, 08 Nov 2024 13:52:00 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-539f0f9ee49so2345017e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 04:52:00 -0800 (PST)
+ id 1t9OT6-0004KV-RT
+ for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 12:52:04 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f34b8f3-9dd0-11ef-99a3-01e77a169b0f;
+ Fri, 08 Nov 2024 13:52:01 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-539f8490856so2486272e87.2
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 04:52:01 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ff179d1cd3sm6441261fa.94.2024.11.08.04.51.58
+ 38308e7fff4ca-2ff179d1cd3sm6441261fa.94.2024.11.08.04.51.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Nov 2024 04:51:58 -0800 (PST)
+ Fri, 08 Nov 2024 04:51:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ea36d03-9dd0-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzAiLCJoZWxvIjoibWFpbC1sZjEteDEzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjNlYTM2ZDAzLTlkZDAtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMDcwMzIwLjg5MTc4NSwic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 3f34b8f3-9dd0-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzEiLCJoZWxvIjoibWFpbC1sZjEteDEzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjNmMzRiOGYzLTlkZDAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMDcwMzIxLjIxMzkyMywic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1731070319; x=1731675119; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1731070320; x=1731675120; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5ami57zT7BuXkngz26sixB7SwBQKxu3U75GI5FEiqX0=;
-        b=MF20899FSvfF+yU27D/kaTZVYw1O0EpbWlyULKiHaPvtuKGqleW2D9FYt9ZA7t3dJ5
-         4xRyNvYbztwFqSoThtvvPjPX6GDCF5ZedkCITtUlpTn05VAU9BRZAxMhDrcBwD1iW/Kh
-         j+JRSrd3gbLUFTKytQamDGPSVLw9bvgmabgtflpg4myIvKHAyqsYGn/C1gZn4TCbpR4/
-         5+JRDymg6N2XDtPRlfkz3KovN41ESsE9XdCMfYXmVVBHH329/gQQ/kCtl09T8rw6r1f7
-         yeaw9tQhebDDW/sDVVVO56mSxiKAregMHIpJjXCuSVzRl0wwSqKqe+OhgDXO0plN2yvN
-         4A9A==
+        bh=5RBOzLKW+Lk5l1HfU2OOOR0TzYe+7zWVSmx7Lwgwr/s=;
+        b=bWkumRgq1DZ0Oud0NQW3xTJxwD/auyLXY3kaD6tB+zz3Ow0NE9bkoCbmL/18CzVXAF
+         lDmvf5cFQ8FtTcwUMTfTp8lRMpi8ygNtSRro/re7l8unshWay3uI3GuLBSujrV60yyNH
+         Cz5cdsYZ5SiNJa+Nyew4Q+AJgCHVRjCmpVBnSjAuFwo4w/ktsgmpoDfWR/A1NX27yd0N
+         guI4NrRdJvWy2h7irx4SNPbvnaxj3Mgrqifn/PmyxOTA9+HQPrztVPVG9x/9Xeb0TIJZ
+         zuhPmwu5K89By155WIYFg8CwFjHKCbEryHtMuURLEUzP8bz71Ft/+g83ogXXtNbVcQK3
+         0lhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731070319; x=1731675119;
+        d=1e100.net; s=20230601; t=1731070320; x=1731675120;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5ami57zT7BuXkngz26sixB7SwBQKxu3U75GI5FEiqX0=;
-        b=Uyekj05zU+b8wTgEawY/RD+DUNSSksELhixT2GS95T6BkRJHm+OScCmzqEiTprQFgn
-         5JG4QZsLGmWw6LSOeseLI+nZF6UOgaaO3FMzHUu+Kd/zsYaOqabFr5EEKUAY/OhNx3jU
-         1aEBocyumQ1FIRuhRJjbN4pvXiBslt/mnInwIMHPxevxZmeM0fqMZotovq3oLRDo/3t+
-         UO88pn7LQOPW9IGONNmS2IZSjYS26IGPmY6UA2DJjvuFZet//pZPldC7vLiQcgpNzBLo
-         pb9PY/GpLQ9HfsngXO+S2rXSZRVXskYar4w016WCoStS+9EzXDW1LkhC6swZSaHVFh3O
-         9XSw==
-X-Gm-Message-State: AOJu0Yw7dF+cn3FH/E+3y+eDF9i4zmAbjhQC3+RUr8tWmhX4uKtduBSo
-	KYxqTJrnlTbp2GT9qXDsDmT7gBox/279+OwvYrpam+nyoFUejab2RYU2TctR
-X-Google-Smtp-Source: AGHT+IFMtYnrrkD2Afi+XtQiYMUbxSn96kIZ/NxIl5AtWnu8otOooMN5wQCMmSO5p4CvU9ye14YzGQ==
-X-Received: by 2002:a05:651c:1589:b0:2fb:5bb8:7c24 with SMTP id 38308e7fff4ca-2ff20152825mr13961661fa.8.1731070319189;
+        bh=5RBOzLKW+Lk5l1HfU2OOOR0TzYe+7zWVSmx7Lwgwr/s=;
+        b=L60VUO/m0f7n519daXKeTGLArOOkJ1jGxQldgOEvmIHoNFiwezjs7fhjf5Y8byhZ36
+         /jvwdzn2nOnWeeAEELa0pFsZW9oxtF1rkvqvRdDK6iEN3uQwvm6g2Um6uVvHoAQjQ0Ea
+         RS8VeZmHyGAVPCwZ+W+kDHXMI9zrBWmCaR53ykabAta/26oM2p0/ciAaMwnSZEcI/v1/
+         0VQ+Jqi51sLtmQjxku/kTkIbhKwI8gw+Hayf4AAr4GGpL88wx413s5bBZ5d0OOJ2ZwEJ
+         JptKNqJ8mQ+dUaUk5TimvUH/iEjIN3bOoQtCtz5ZCE9gs+ds3AxlR1pijEk77G41EyST
+         XlMg==
+X-Gm-Message-State: AOJu0YwLRB/ICHm2Bd57l2XBcp2ihBR6mawb7zdj5lFNUDdFHYjU9imf
+	8D2uoCH2ZY9xJUbWJFtbLMK4sLKZni2qcEVChVQwFpcIjrEHq82qJWu6Z7vO
+X-Google-Smtp-Source: AGHT+IEt4Wpy+8yhnbg3fv3FC8KTAT8VSu28ply8GZ5ZZMEFkWTs3sDKX+Upjulv1x3VR40ubLzh1w==
+X-Received: by 2002:a05:651c:544:b0:2fb:6027:7c0a with SMTP id 38308e7fff4ca-2ff201e734amr12350001fa.8.1731070319976;
         Fri, 08 Nov 2024 04:51:59 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -86,20 +86,21 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 2/3] xen/riscv: initialize the VMAP_DEFAULT virtual range
-Date: Fri,  8 Nov 2024 13:51:53 +0100
-Message-ID: <5b4a5eb30bd98c1f204def1c6ea131488a79b6cc.1731069334.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 3/3] xen/riscv: finalize boot allocator and transition to boot state
+Date: Fri,  8 Nov 2024 13:51:54 +0100
+Message-ID: <f616818c38f65e0d59e9caa9bb922bf12238a109.1731069334.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <cover.1731069334.git.oleksii.kurochko@gmail.com>
 References: <cover.1731069334.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Call vm_init() to initialize the VMAP_DEFAULT virtual range.
+Add a call to end_boot_allocator() in start_xen() to finalize the
+boot memory allocator, moving free pages to the domain sub-allocator.
 
-To support this, introduce the populate_pt_range() and
-arch_vmap_virt_end() functions, which are used by
-vm_init()->vm_init_type().
+After initializing the memory subsystem, update `system_state` from
+`SYS_STATE_early_boot` to `SYS_STATE_boot`, signifying the end of the
+early boot phase.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
@@ -107,75 +108,24 @@ Acked-by: Jan Beulich <jbeulich@suse.com>
 Change in V2-V4:
  - Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/riscv/mm.c    | 11 +++++------
- xen/arch/riscv/pt.c    |  6 ++++++
- xen/arch/riscv/setup.c |  3 +++
- 3 files changed, 14 insertions(+), 6 deletions(-)
+ xen/arch/riscv/setup.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index 988673c313..14e6845c0d 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -351,12 +351,6 @@ void arch_dump_shared_mem_info(void)
-     BUG_ON("unimplemented");
- }
- 
--int populate_pt_range(unsigned long virt, unsigned long nr_mfns)
--{
--    BUG_ON("unimplemented");
--    return -1;
--}
--
- int xenmem_add_to_physmap_one(struct domain *d, unsigned int space,
-                               union add_to_physmap_extra extra,
-                               unsigned long idx, gfn_t gfn)
-@@ -566,3 +560,8 @@ void __init setup_mm(void)
-     setup_frametable_mappings(ram_start, ram_end);
-     max_page = PFN_DOWN(ram_end);
- }
-+
-+void *__init arch_vmap_virt_end(void)
-+{
-+    return (void *)(VMAP_VIRT_START + VMAP_VIRT_SIZE);
-+}
-diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
-index cc5e2d3266..d62aceb36c 100644
---- a/xen/arch/riscv/pt.c
-+++ b/xen/arch/riscv/pt.c
-@@ -1,6 +1,7 @@
- #include <xen/bug.h>
- #include <xen/domain_page.h>
- #include <xen/errno.h>
-+#include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/mm.h>
- #include <xen/pfn.h>
-@@ -419,3 +420,8 @@ int map_pages_to_xen(unsigned long virt,
- 
-     return pt_update(virt, mfn, nr_mfns, flags);
- }
-+
-+int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
-+{
-+    return pt_update(virt, INVALID_MFN, nr_mfns, PTE_POPULATE);
-+}
 diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 2887a18c0c..3652cb056d 100644
+index 3652cb056d..9680332fee 100644
 --- a/xen/arch/riscv/setup.c
 +++ b/xen/arch/riscv/setup.c
-@@ -7,6 +7,7 @@
- #include <xen/init.h>
- #include <xen/mm.h>
- #include <xen/shutdown.h>
-+#include <xen/vmap.h>
+@@ -65,6 +65,14 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
  
- #include <public/version.h>
+     vm_init();
  
-@@ -62,6 +63,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     setup_mm();
- 
-+    vm_init();
++    end_boot_allocator();
++
++    /*
++     * The memory subsystem has been initialized, we can now switch from
++     * early_boot -> boot.
++     */
++    system_state = SYS_STATE_boot;
 +
      printk("All set up\n");
  
