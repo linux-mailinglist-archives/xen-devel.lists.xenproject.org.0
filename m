@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DED339C25F4
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 20:58:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832779.1248128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0889C25FA
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 20:58:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832781.1248145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9V7w-0001oF-8R; Fri, 08 Nov 2024 19:58:40 +0000
+	id 1t9V7z-0002IO-4m; Fri, 08 Nov 2024 19:58:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832779.1248128; Fri, 08 Nov 2024 19:58:40 +0000
+Received: by outflank-mailman (output) from mailman id 832781.1248145; Fri, 08 Nov 2024 19:58:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9V7w-0001k0-2d; Fri, 08 Nov 2024 19:58:40 +0000
-Received: by outflank-mailman (input) for mailman id 832779;
- Fri, 08 Nov 2024 19:58:38 +0000
+	id 1t9V7y-0002AJ-Ta; Fri, 08 Nov 2024 19:58:42 +0000
+Received: by outflank-mailman (input) for mailman id 832781;
+ Fri, 08 Nov 2024 19:58:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ALGw=SD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t9V7u-0008TY-Jq
- for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 19:58:38 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1t9V7x-0008TY-Kt
+ for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 19:58:41 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6820324-9e0b-11ef-99a3-01e77a169b0f;
- Fri, 08 Nov 2024 20:58:35 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c9c28c1ecbso3208821a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 11:58:35 -0800 (PST)
+ id d778e7c9-9e0b-11ef-99a3-01e77a169b0f;
+ Fri, 08 Nov 2024 20:58:37 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a9e44654ae3so347762166b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 11:58:37 -0800 (PST)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0dc5db6sm271523466b.119.2024.11.08.11.58.33
+ a640c23a62f3a-a9ee0dc5db6sm271523466b.119.2024.11.08.11.58.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Nov 2024 11:58:33 -0800 (PST)
+ Fri, 08 Nov 2024 11:58:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6820324-9e0b-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmEiLCJoZWxvIjoibWFpbC1lZDEteDUyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQ2ODIwMzI0LTllMGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMDk1OTE1LjQ1MjczLCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: d778e7c9-9e0b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImQ3NzhlN2M5LTllMGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMDk1OTE3LjAyODE1Niwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731095914; x=1731700714; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1731095916; x=1731700716; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pYLPSJ4LnDxE4PBKWdzigEqbbkS/YUzGMHz1cObbzSM=;
-        b=eBifqC7RNAJMGsWO7CQudZZviiY2nS6g/+7/m7BSi3Z5kzyjYf/oJ37ACQ5n465jCS
-         2VUotdoAXM9/k/hVPjSN7uiKJYuN64arypaYXAkXZ/Xk8htrHU2YkX+KX4vikohYcd3D
-         r8Ez2/D5Mz+jtIraj79Dya+qjjgjzvUjUE+4s=
+        bh=LUt6z7qotJTk+Jtsld6eOnMm4y4nkKlOfdMmgeqNQZs=;
+        b=Xi2dX2gZJ1GAsaWPr8BLEA0xQkvRjtKRXZlhoVTTGzoiMCvfpePGJ8/WcPvAsC7dzo
+         q0y9OEk8gasGS9a+2P+hnWJG4wrxwxNHQKr8DD61OmtsdJ2T0ZH+X/8lpy2qYWRb9P+N
+         AYpis9D7Vr/HrpSWsdOMU0Zl5JC1zyT1FUfg8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731095914; x=1731700714;
+        d=1e100.net; s=20230601; t=1731095916; x=1731700716;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=pYLPSJ4LnDxE4PBKWdzigEqbbkS/YUzGMHz1cObbzSM=;
-        b=mRprT2knvG6XqjHca5W6s3/oS4xGw3RNYit1HXeCJ5hvJzTB+Du3IntSarZnOELpKk
-         ckvh9+Hx8WBqX3Tyk9STrY2BmKwKRiy//OJQHV6G+QMZUZ25BjYMa4GESQNdcNupEqsO
-         ZghUZRfvldJDkcEeammTI2IDsIJktHLNXHMDmPG5VWQVBuxpKKdB8+FGSFoDjGYiwAy6
-         PxE1D4DILVYoA5oGf9jNcEp3J0lY4ybDQ/J3i6xA7CLWwTlbpLat925fgB2AOMCC7Azc
-         zW3KxB0BjJJx880FdXwvGGuMB9OrSdFt4Q1e8LCpBBGZH1yoXLczcfdt1PyzDgemwAX9
-         282Q==
-X-Gm-Message-State: AOJu0YwJMgoTqM7B8nOYfSEFiINkpCLa7lqKqXFuU6Jw3HsualqcAMNz
-	oAYfZu+r3Vu3QARHcqt3n8H3UnbcyYxVlAB3seXZU3LkQhKYnO60QrHzJsGO4pXKklH1YYOpejU
-	u
-X-Google-Smtp-Source: AGHT+IElLsSjvElF2qNR+EDaQMrF6EoirLU7rCR/THkONc3tstOEx2T9+EaQ1ce4ezkwyEMa0wfgnA==
-X-Received: by 2002:a17:907:7b88:b0:a9e:441c:f74d with SMTP id a640c23a62f3a-a9eefee456bmr320848366b.16.1731095914232;
-        Fri, 08 Nov 2024 11:58:34 -0800 (PST)
+        bh=LUt6z7qotJTk+Jtsld6eOnMm4y4nkKlOfdMmgeqNQZs=;
+        b=D9AjKbq364Y4rKuyjLn/xbuyI+ro6pW413q4DeUm1a8B3cwtVkrp0XF2Yb4GZCS7Vs
+         S0g9DHlMxwrDyrANuJ2GUOu1R59DI6VlnImninsqX5a9HsAiWHpPrDTwgF3A1vpV81HD
+         7qUG+eff982esReUcLLCASDddye7r23QxcQHMVNWWtaVX7Mje84Nv8wJmEuElHaQAqhU
+         5ko5PvjHRy2v+CxuXO1b+ogWS7YXLp28El3Eb8uBBKRJrlGZ50XS1QXPyarL4kp+DP6K
+         abRGuBPPYh5CFxjrnFd/1o/VdiGsXTNXsUrcO03SFgUzfS/5TDydFBE2t1TUw5JVK35o
+         9bcg==
+X-Gm-Message-State: AOJu0Yym8ds47TbGUJT0RnhlyPGAGf7BSWZMYDgGqqmI/ibmJAAzOFFz
+	hD1ZesImncxSxSgJHToQII+6NUf9P1pIYlgUTUN8sdF+g6ZzV7EZCoZ/pGyw0LO0BG/YSY2ixG/
+	4
+X-Google-Smtp-Source: AGHT+IHcM9/g6UuN1NPBnHBdf2XO8eZElhhw83hxBGhwOm+YwzANwjNhHUrnnEvFQvs3nJMuqWdMug==
+X-Received: by 2002:a17:907:9288:b0:a9a:10c9:f4b8 with SMTP id a640c23a62f3a-a9ef0040b8amr345801966b.61.1731095915662;
+        Fri, 08 Nov 2024 11:58:35 -0800 (PST)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 07/10] x86/mach-apic: Drop check_apicid_present()
-Date: Fri,  8 Nov 2024 19:58:17 +0000
-Message-Id: <20241108195820.789716-8-andrew.cooper3@citrix.com>
+Subject: [PATCH 08/10] x86/mach-apic: Drop set_apicid()
+Date: Fri,  8 Nov 2024 19:58:18 +0000
+Message-Id: <20241108195820.789716-9-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20241108195820.789716-1-andrew.cooper3@citrix.com>
 References: <20241108195820.789716-1-andrew.cooper3@citrix.com>
@@ -90,9 +90,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It's an unnecessary wrapper.
+It's an unnecessary wrapper, and longer than the operation it wraps.
 
-It's also the only reason that smpboot.c includes mach_apic.h, other than for
+It's also the only reason that mpparse.c includes mach_apic.h, other than for
 transitive dependencies.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
@@ -100,57 +100,86 @@ Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/include/asm/mach-generic/mach_apic.h | 5 -----
- xen/arch/x86/smpboot.c                            | 6 ++++--
- 2 files changed, 4 insertions(+), 7 deletions(-)
+ xen/arch/x86/include/asm/mach-generic/mach_apic.h | 11 -----------
+ xen/arch/x86/io_apic.c                            |  4 ++--
+ xen/arch/x86/mpparse.c                            |  7 ++++---
+ 3 files changed, 6 insertions(+), 16 deletions(-)
 
 diff --git a/xen/arch/x86/include/asm/mach-generic/mach_apic.h b/xen/arch/x86/include/asm/mach-generic/mach_apic.h
-index c8e0637f4424..7940c0234cb9 100644
+index 7940c0234cb9..b4a2f0a0b068 100644
 --- a/xen/arch/x86/include/asm/mach-generic/mach_apic.h
 +++ b/xen/arch/x86/include/asm/mach-generic/mach_apic.h
-@@ -45,11 +45,6 @@ static inline int multi_timer_check(int apic, int irq)
-  * really not sure why, since all local APICs should have distinct physical
-  * IDs, and we need to know what they are.
-  */
--static inline int check_apicid_present(int apicid)
+@@ -39,15 +39,4 @@ static inline int multi_timer_check(int apic, int irq)
+ 	return 0;
+ }
+ 
+-/*
+- * The following functions based around phys_cpu_present_map are disabled in
+- * some i386 Linux subarchitectures, and in x86_64 'cluster' genapic mode. I'm
+- * really not sure why, since all local APICs should have distinct physical
+- * IDs, and we need to know what they are.
+- */
+-static inline void set_apicid(int phys_apicid, physid_mask_t *map)
 -{
--	return physid_isset(apicid, phys_cpu_present_map);
+-	physid_set(phys_apicid, *map);
 -}
 -
- static inline void set_apicid(int phys_apicid, physid_mask_t *map)
- {
- 	physid_set(phys_apicid, *map);
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 9e79c1a6d6e6..42272a9844fa 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -20,6 +20,9 @@
- #include <xen/serial.h>
- #include <xen/numa.h>
- #include <xen/cpu.h>
+ #endif /* __ASM_MACH_APIC_H */
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index 5a4d8597e07a..2774cd45c091 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -1537,7 +1537,7 @@ static void __init setup_ioapic_ids_from_mpc(void)
+                         "phys_id_present_map\n",
+                         mp_ioapics[apic].mpc_apicid);
+         }
+-        set_apicid(mp_ioapics[apic].mpc_apicid, &phys_id_present_map);
++        physid_set(mp_ioapics[apic].mpc_apicid, phys_id_present_map);
+ 
+         /*
+          * We need to adjust the IRQ routing table
+@@ -2270,7 +2270,7 @@ int __init io_apic_get_unique_id (int ioapic, int apic_id)
+         apic_id = i;
+     } 
+ 
+-    set_apicid(apic_id, &apic_id_map);
++    physid_set(apic_id, apic_id_map);
+ 
+     if (reg_00.bits.ID != apic_id) {
+         reg_00.bits.ID = apic_id;
+diff --git a/xen/arch/x86/mpparse.c b/xen/arch/x86/mpparse.c
+index e13b83bbe9dd..b16c105b18bf 100644
+--- a/xen/arch/x86/mpparse.c
++++ b/xen/arch/x86/mpparse.c
+@@ -20,8 +20,10 @@
+ #include <xen/delay.h>
+ #include <xen/efi.h>
+ #include <xen/sched.h>
+-
+ #include <xen/bitops.h>
 +
 +#include <asm/apic.h>
-+#include <asm/io_apic.h>
- #include <asm/cpuidle.h>
- #include <asm/current.h>
- #include <asm/mc146818rtc.h>
-@@ -37,7 +40,6 @@
- #include <asm/tboot.h>
- #include <asm/trampoline.h>
- #include <irq_vectors.h>
--#include <mach_apic.h>
++#include <asm/genapic.h>
+ #include <asm/smp.h>
+ #include <asm/acpi.h>
+ #include <asm/mtrr.h>
+@@ -29,7 +31,6 @@
+ #include <asm/io_apic.h>
+ #include <asm/setup.h>
  
- unsigned long __read_mostly trampoline_phys;
- enum ap_boot_method __read_mostly ap_boot_method = AP_BOOT_NORMAL;
-@@ -1193,7 +1195,7 @@ void __init smp_prepare_cpus(void)
-      * CPU too, but we do it for the sake of robustness anyway.
-      * Makes no sense to do this check in clustered apic mode, so skip it
-      */
--    if ( !check_apicid_present(boot_cpu_physical_apicid) )
-+    if ( !physid_isset(boot_cpu_physical_apicid, phys_cpu_present_map) )
-     {
-         printk("weird, boot CPU (#%d) not listed by the BIOS.\n",
-                boot_cpu_physical_apicid);
+-#include <mach_apic.h>
+ #include <bios_ebda.h>
+ 
+ /* Have we found an MP table */
+@@ -161,7 +162,7 @@ static int MP_processor_info_x(struct mpc_config_processor *m,
+ 	}
+ 	apic_version[apicid] = ver;
+ 
+-	set_apicid(apicid, &phys_cpu_present_map);
++	physid_set(apicid, phys_cpu_present_map);
+ 
+ 	if (num_processors >= nr_cpu_ids) {
+ 		printk_once(XENLOG_WARNING
 -- 
 2.39.5
 
