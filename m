@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9DD9C1964
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 10:42:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.832376.1247690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826B99C197A
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2024 10:46:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.832383.1247700 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9LUs-0003oY-3b; Fri, 08 Nov 2024 09:41:42 +0000
+	id 1t9LYm-0004OZ-JM; Fri, 08 Nov 2024 09:45:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 832376.1247690; Fri, 08 Nov 2024 09:41:42 +0000
+Received: by outflank-mailman (output) from mailman id 832383.1247700; Fri, 08 Nov 2024 09:45:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1t9LUs-0003n4-0k; Fri, 08 Nov 2024 09:41:42 +0000
-Received: by outflank-mailman (input) for mailman id 832376;
- Fri, 08 Nov 2024 09:41:40 +0000
+	id 1t9LYm-0004N4-GE; Fri, 08 Nov 2024 09:45:44 +0000
+Received: by outflank-mailman (input) for mailman id 832383;
+ Fri, 08 Nov 2024 09:45:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ALGw=SD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1t9LUq-0003my-S2
- for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 09:41:40 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uvFD=SD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1t9LYl-0004My-F0
+ for xen-devel@lists.xenproject.org; Fri, 08 Nov 2024 09:45:43 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a61ffedd-9db5-11ef-a0c6-8be0dac302b0;
- Fri, 08 Nov 2024 10:41:37 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5cec93719ccso2444110a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 01:41:37 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0e2e8basm207662266b.194.2024.11.08.01.41.36
+ id 370ee653-9db6-11ef-a0c6-8be0dac302b0;
+ Fri, 08 Nov 2024 10:45:40 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-53c779ef19cso2187028e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Nov 2024 01:45:40 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-21177de0872sm26513965ad.110.2024.11.08.01.45.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Nov 2024 01:41:36 -0800 (PST)
+ Fri, 08 Nov 2024 01:45:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a61ffedd-9db5-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmQiLCJoZWxvIjoibWFpbC1lZDEteDUyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImE2MWZmZWRkLTlkYjUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMDU4ODk3LjUxODA1OSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 370ee653-9db6-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmIiLCJoZWxvIjoibWFpbC1sZjEteDEyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjM3MGVlNjUzLTlkYjYtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMDU5MTQwLjU4NTM1Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731058897; x=1731663697; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731059140; x=1731663940; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zSjg0hVRsNeMjVCNDiBr6+9z0ld2xB1b3F2uPzushWY=;
-        b=ZSdf5BjphQi4s3mrL9YsIdwrNWTPI7WXNqNNMLLQw9sgGW01FhRdD4q5ToEg9IUJ4F
-         +4FakNS1CI8i7WE/2//AsAGorMDsOPnDwdet0d1wV8Gj36W3n7hbwodzdchfhN4Q7tAh
-         cyRTc6/x4p9aD7KkGgvitjXRtHQYxhySMo1HY=
+        bh=6UOsmGoWA1bG59+bj2O0Dulqy5+lu4/Q0P7Mnt9xzGA=;
+        b=EIvocoK8gdqakhwrOT253tbOvAvDhP6+JMar35wZ+NB93jnbZ+8za8ddF3NvVGWcqj
+         L7IRpRJPWnNF1qxF9c8reoOya7O+xHt87e7yuaZqMktDBJ/DI7uFieSEar6CXzuARE5r
+         pz4dfdTDo3aiAHUH4tPXn5wel5J2p1uJQYV9+hLCETPpl0Z4JUXuRj7RL1kHuvoSpCmz
+         0gBU2O+jWKa8KaYvP+J4BZtPJ7l3gPu18NVshzIBu6JV+2dZ5Y/NUzNK8NTmxZLqRTHm
+         ErXGpAUy9S9IRH8NbVSiRNwj8vLRTHbKQu62OydXQGq5DjDBxj/i76aOqpdFcE17ZCrV
+         Eayw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731058897; x=1731663697;
+        d=1e100.net; s=20230601; t=1731059140; x=1731663940;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zSjg0hVRsNeMjVCNDiBr6+9z0ld2xB1b3F2uPzushWY=;
-        b=rn41Tz3zSqMIzB7ItfNrvosl7f4113/3tw4Cuqn1gL819hd96kIhh4+2s+LMtsoNdT
-         etZqWY/hqSbPbh3xhH1FQwyspABMf4OxmHLFycM2YiQB6EcTaetcmo0i4HO+IL7CFj3I
-         ZgopJAMaXF0qDNu66f0JaHWsjcs75C7+vLlmBfotANIBi7TfooaJQpuQ7mJezRCFwQ89
-         jjOUyPjC3lPZiwrHrmjUN/YoQLkJXKig1F+MNI00vGoPXyl4OZn+wooO8slSzIgIuoyB
-         4qtP8HAT6fIJA/qOjwk+AsoZmL6CRCP8VN+847QH+yr5qrNXrHVsCInx1sFUNbzngFSj
-         sbaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVya+3bAQC8+pr8I2FcYhbZB4bDrckMHD3+lOh6VCNWXsBbh7kTKH9z00q8PRLK9kbZq5feF93oREo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzf2wm5AuvAtBQt7g+Jbryo/9Vsj03kZ23Ka98m/RXcor6B2MNU
-	dXmgjSakd7wIm+2BZrT9+S381TiXvyGDhv5+Z+YzRgooBMi4cGi9SlmCFEtxeWw=
-X-Google-Smtp-Source: AGHT+IGnaL6SCzrUZHkWPuwthJaiYZqy/qMOyJGSqVJS5j4IjiXp5blPzP3E7VWfAArxu1oQSccfUA==
-X-Received: by 2002:a17:907:5c7:b0:a9a:d23:f8ca with SMTP id a640c23a62f3a-a9eeff0831amr182639366b.13.1731058896900;
-        Fri, 08 Nov 2024 01:41:36 -0800 (PST)
-Message-ID: <ac948cdc-8ae6-41f1-b7dd-35820e9c2193@citrix.com>
-Date: Fri, 8 Nov 2024 09:41:35 +0000
+        bh=6UOsmGoWA1bG59+bj2O0Dulqy5+lu4/Q0P7Mnt9xzGA=;
+        b=Hk+ZCJeyCzb8fuMeKfOS5dQ8COvKiqi1ETdh4l84Q5fMTpz7SyLzvSZ75YB3+rbxUk
+         BrHkLRdLa1RGmEyfZ5/+0mI+uprgQ2+syTOvGtj30FregIqm+anIAySF1IpUc1fN9xu0
+         Qu+rRyAddOMUNXFHkVy+5MEP4umZ4blnV/GxqoUKZypy/lvXViDcZs7N4l3ayzSLAuSg
+         Wy0YFO/7Nej4b/vz6Ckmu+xAdl7uk34kne7S5KCrIA+8cTGrfSaXGNbleqdlVl/Nv7IH
+         +bZbxzVwlpKYahCLwFimwsiHZc4iEAzQP4qggaFQRhsgiqU1aHi00XycMkzlKzO/k19O
+         S2DQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUoFzkRCb+WqahMzvG9VusNenWXQZ6kXHn+GGxfIdOSB80gqt+Z5ejsGvLvMqT10Om5RLZBaQ35eZQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw7IZQOR5bduXoO19HY3sA6MWLECIAbS2zStKa9J86fUZN9/SBM
+	fXV69FZEXbLWm1L+O/VD7DXKdad9S0uFdbvIHlBqVVheuSQjSfRt9F5KQfTj1Q==
+X-Google-Smtp-Source: AGHT+IHYq0XbwkFzkzT4m/SsdhhoZHnMsvDZhOpnsGkjUReB1GnND9VSoFk6b7ZV5GnmtRCZag5ySw==
+X-Received: by 2002:a05:6512:3e01:b0:539:9720:99d4 with SMTP id 2adb3069b0e04-53d86296bb0mr902250e87.28.1731059139963;
+        Fri, 08 Nov 2024 01:45:39 -0800 (PST)
+Message-ID: <aa739c74-bbad-4cf4-b0a3-f86a2fa88a21@suse.com>
+Date: Fri, 8 Nov 2024 10:45:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 3/4] x86/setup: remove bootstrap_map_addr() usage of
  destroy_xen_mappings()
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@ctrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <20241106122927.26461-1-roger.pau@citrix.com>
  <20241106122927.26461-4-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241106122927.26461-4-roger.pau@citrix.com>
+ <ac948cdc-8ae6-41f1-b7dd-35820e9c2193@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ac948cdc-8ae6-41f1-b7dd-35820e9c2193@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/11/2024 12:29 pm, Roger Pau Monne wrote:
-> bootstrap_map_addr() top level comment states that it doesn't indented to
-> remove the L2 tables, as the same L2 will be re-used to create further 2MB
-> mappings.  It's incorrect for the function to use destroy_xen_mappings() which
-> will free empty L2 tables.
->
-> Fix this by using map_pages_to_xen(), which does zap the page-table entries,
-> but does not free page-table structures even when empty.
->
-> Fixes: 4376c05c3113 ('x86-64: use 1GB pages in 1:1 mapping if available')
-> Signed-off-by: Roger Pau Monné <roger.pau@ctrix.com>
-> ---
-> The fixes tag reflects the fact that if 4376c05c3113 freed the L2 correctly
-> when empty, it would have become obvious that bootstrap_map_addr() shouldn't be
-> using it if it wants to keep the L2.  4376c05c3113 should have switched
-> bootstrap_map_addr() to not use destroy_xen_mappings().
-> ---
->  xen/arch/x86/setup.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
+On 08.11.2024 10:41, Andrew Cooper wrote:
+> On 06/11/2024 12:29 pm, Roger Pau Monne wrote:
+>> bootstrap_map_addr() top level comment states that it doesn't indented to
+>> remove the L2 tables, as the same L2 will be re-used to create further 2MB
+>> mappings.  It's incorrect for the function to use destroy_xen_mappings() which
+>> will free empty L2 tables.
+>>
+>> Fix this by using map_pages_to_xen(), which does zap the page-table entries,
+>> but does not free page-table structures even when empty.
+>>
+>> Fixes: 4376c05c3113 ('x86-64: use 1GB pages in 1:1 mapping if available')
+>> Signed-off-by: Roger Pau Monné <roger.pau@ctrix.com>
+>> ---
+>> The fixes tag reflects the fact that if 4376c05c3113 freed the L2 correctly
+>> when empty, it would have become obvious that bootstrap_map_addr() shouldn't be
+>> using it if it wants to keep the L2.  4376c05c3113 should have switched
+>> bootstrap_map_addr() to not use destroy_xen_mappings().
+>> ---
+>>  xen/arch/x86/setup.c | 4 +++-
+>>  1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 177f4024abca..815b8651ba79 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -456,7 +456,9 @@ static void *__init bootstrap_map_addr(paddr_t start, paddr_t end)
+>>  
+>>      if ( !end )
+>>      {
+>> -        destroy_xen_mappings(BOOTSTRAP_MAP_BASE, BOOTSTRAP_MAP_LIMIT);
+>> +        map_pages_to_xen(BOOTSTRAP_MAP_BASE, INVALID_MFN,
+>> +                         PFN_DOWN(map_cur - BOOTSTRAP_MAP_BASE),
+>> +                         _PAGE_NONE);
+>>          map_cur = BOOTSTRAP_MAP_BASE;
+> 
+> One option to consider is this.
+> 
 > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 177f4024abca..815b8651ba79 100644
+> index eac8488c4ca5..b317a4d12f55 100644
 > --- a/xen/arch/x86/setup.c
 > +++ b/xen/arch/x86/setup.c
-> @@ -456,7 +456,9 @@ static void *__init bootstrap_map_addr(paddr_t start, paddr_t end)
->  
->      if ( !end )
->      {
-> -        destroy_xen_mappings(BOOTSTRAP_MAP_BASE, BOOTSTRAP_MAP_LIMIT);
-> +        map_pages_to_xen(BOOTSTRAP_MAP_BASE, INVALID_MFN,
-> +                         PFN_DOWN(map_cur - BOOTSTRAP_MAP_BASE),
-> +                         _PAGE_NONE);
->          map_cur = BOOTSTRAP_MAP_BASE;
+> @@ -461,8 +461,13 @@ static void *__init bootstrap_map_addr(paddr_t
+> start, paddr_t end)
+>  
+>      if ( !end )
+>      {
+> -        destroy_xen_mappings(BOOTSTRAP_MAP_BASE, BOOTSTRAP_MAP_LIMIT);
+> -        map_cur = BOOTSTRAP_MAP_BASE;
+> +        if ( map_cur > BOOTSTRAP_MAP_BASE )
+> +        {
+> +            memset(&l2_bootmap[l2_table_offset(BOOTSTRAP_MAP_BASE)],
+> +                   0, (map_cur - BOOTSTRAP_MAP_BASE) >>
+> L2_PAGETABLE_SHIFT);
+> +            flush_tlb_local();
+> +            map_cur = BOOTSTRAP_MAP_BASE;
+> +        }
+>          return NULL;
+>      }
+>  
+> We know for certain there's nothing to free, and and this far less logic
+> than either destroy_xen_mappings() or map_pages_to_xen().
 
-One option to consider is this.
+Yet then such open-coding can badly bite us at other times.
 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index eac8488c4ca5..b317a4d12f55 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -461,8 +461,13 @@ static void *__init bootstrap_map_addr(paddr_t
-start, paddr_t end)
- 
-     if ( !end )
-     {
--        destroy_xen_mappings(BOOTSTRAP_MAP_BASE, BOOTSTRAP_MAP_LIMIT);
--        map_cur = BOOTSTRAP_MAP_BASE;
-+        if ( map_cur > BOOTSTRAP_MAP_BASE )
-+        {
-+            memset(&l2_bootmap[l2_table_offset(BOOTSTRAP_MAP_BASE)],
-+                   0, (map_cur - BOOTSTRAP_MAP_BASE) >>
-L2_PAGETABLE_SHIFT);
-+            flush_tlb_local();
-+            map_cur = BOOTSTRAP_MAP_BASE;
-+        }
-         return NULL;
-     }
- 
-We know for certain there's nothing to free, and and this far less logic
-than either destroy_xen_mappings() or map_pages_to_xen().
-
-~Andrew
+Jan
 
