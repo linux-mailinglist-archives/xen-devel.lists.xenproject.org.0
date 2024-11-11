@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B01009C3AFF
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 10:38:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833444.1248595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC0479C3B67
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 10:53:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833452.1248604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQry-00049S-Fx; Mon, 11 Nov 2024 09:38:02 +0000
+	id 1tAR5X-0002QB-Gq; Mon, 11 Nov 2024 09:52:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833444.1248595; Mon, 11 Nov 2024 09:38:02 +0000
+Received: by outflank-mailman (output) from mailman id 833452.1248604; Mon, 11 Nov 2024 09:52:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQry-00047V-C8; Mon, 11 Nov 2024 09:38:02 +0000
-Received: by outflank-mailman (input) for mailman id 833444;
- Mon, 11 Nov 2024 09:38:00 +0000
+	id 1tAR5X-0002OK-CC; Mon, 11 Nov 2024 09:52:03 +0000
+Received: by outflank-mailman (input) for mailman id 833452;
+ Mon, 11 Nov 2024 09:52:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/YTX=SG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAQrw-00047P-UE
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 09:38:00 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1tAR5V-0002OE-Q6
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 09:52:01 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a27cf24a-a010-11ef-a0c6-8be0dac302b0;
- Mon, 11 Nov 2024 10:37:58 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-37d43a9bc03so2942786f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 01:37:58 -0800 (PST)
+ id 973b6e19-a012-11ef-a0c6-8be0dac302b0;
+ Mon, 11 Nov 2024 10:51:58 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43167ff0f91so37787995e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 01:51:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381eda0ed16sm12290232f8f.107.2024.11.11.01.37.56
+ 5b1f17b1804b1-432aa5b5fb1sm213944345e9.8.2024.11.11.01.51.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Nov 2024 01:37:57 -0800 (PST)
+ Mon, 11 Nov 2024 01:51:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a27cf24a-a010-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmIiLCJoZWxvIjoibWFpbC13cjEteDQyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImEyN2NmMjRhLWEwMTAtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzE3ODc4LjA1ODUyLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 973b6e19-a012-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijk3M2I2ZTE5LWEwMTItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzE4NzE4LjE3ODM4Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731317877; x=1731922677; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731318717; x=1731923517; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qn7e6EXwanVynR/ErhuHZjmpCHg/TeD84upznD2gpkA=;
-        b=L8MvnSyiawzNgRBn406YhlWYhXukk0bsQdh2VaW298sFLJdyEhH0wfOxUR5wo6u2ZD
-         Sw2ClzPlU1ybRBFbvhe0dcb+AmASBtnofmdLeUhvtkbYviQmrwxMcZhKPnNvLPwsO3uT
-         uJ+4qpX8URVyzTNjZC9utSUUTKGMKH6v+qdN+w7w246xhICS3uzD2iGgcWAYs3oCylBB
-         RVOj0EKdVNBoYTTos7MneK9vqa6WluRb0h0frODKCEdHn7mkqwtUPM/NbKEb/9K8j5v6
-         BFM/wJwoJuIdkfHXUFIv52IS9ryGxl/eac5tw8SDJV9a8+5BjS/xiaIIE8ZgUrXR7OEC
-         C5+g==
+        bh=NxDbsYYmTyK4GLQIdZ0EG7BslDm6UFCW/AUHCbeebxA=;
+        b=fkk4g/gjU+X2mg0dufy+GJpSYRw8+ykxbObghm1tPy4ShwIOk1qaQNTdwBd5vFRcfs
+         AJbByk6c74YfYoacRCBCQvPcqZSH09MDaPVr4BF8x4DVMo0Dxcl30Y3auQaqjNwsm/JS
+         x8wW/tx0cZtHN4yttbtiphFGmCxmrjk43Yx0eChjYgPGUbskvligfosKdjKiyrKkOyTf
+         X+JprkbHm1z9Bgcujp4raerXSoxZ6ldxHBIyDZqpvQuatZbYpVbwdPYc7mwIQNy2kh03
+         D0jS5sZ/zSlE1M2/k8oiFqGcS6ey3dSvn1fwtIvJtH5WcZ3EnQQHY9ZyHNhuGiaY84Zk
+         A7WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731317877; x=1731922677;
+        d=1e100.net; s=20230601; t=1731318717; x=1731923517;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qn7e6EXwanVynR/ErhuHZjmpCHg/TeD84upznD2gpkA=;
-        b=RVy6AA6Yba89QbDKHkwexBwHGVE9ht+jRGws8ocLJRTBX82w239+O6CTqrCaPKfV+4
-         mHL4N9gkzMK5EG5FH37oFk/QnFgEKcghoTVo2aAqzCQGfqBJmC0ny+l1KuJGUKV7TIn/
-         +aw23grOhhI0dVfP94mXSF5z0BVMHpGZw/xUmgEs9fmiBbAf1ZQohK2im4a1JK+spt4/
-         uuhV6I8uLi39HAN4NjgK0zquJV5SX0wuDmWVvvNwJvoeHz0zWgKdo2MF4p/ta5WlmITC
-         LLK/LpG3Upp5bXxgblXs8MNv6GgpgdLjwYOZiyw7GnSy6tiAwZV0dD1ebolXehtpuKdh
-         fgnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXNNwd2fR5ZAb1nwy07WNpffYypPlxtHcO/AHWdjH2AerPZfJQI547Ck7J+eXE1JDahelLFwpNiSdQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxqFd0p5EBW2agKkgOua8Im72B6knHQuTzhxRL/g6XECvWjlYHY
-	eY+KW0hgWdxLCFiCPK+tw0gFdgcmlo6ePdkz8vnV5YkjsDC0AJfROBjZUntSyw==
-X-Google-Smtp-Source: AGHT+IFkYNc0qz0PVsi3JRVEFDEaxcwJE4Haup6XFs/9BsZpi0gZLy5LWO8Zliml9BUk8y1HbEi1uw==
-X-Received: by 2002:a05:6000:1449:b0:37d:377f:51e6 with SMTP id ffacd0b85a97d-381f18852aamr8973037f8f.56.1731317877416;
-        Mon, 11 Nov 2024 01:37:57 -0800 (PST)
-Message-ID: <9ccb3216-533e-4e64-be89-e667db7390f7@suse.com>
-Date: Mon, 11 Nov 2024 10:37:58 +0100
+        bh=NxDbsYYmTyK4GLQIdZ0EG7BslDm6UFCW/AUHCbeebxA=;
+        b=bqiyDWvmNaiQj3B4+w63w2KKXIwawiTVyzYUE6lbLLBlgJfrBP4lh0AV6bw2cf0/hS
+         KaHnclinjAzd7VZt8Zq94KgECI6/s4YoBAf9P6oVjARTlYcNgrUUosmNrCiioMRZeyWv
+         dI/GlW/laeL4F7kHXzrCnitqd6vLgHWWmicI1vk4+3mq+XKO48UbZ0vAajJIRJRrXgfM
+         BlJo5jT97jnJCqPGerCSZ1suz7RI55CSkzkYWS0qUsfvsR2Q2aN02gpVrUuLtdiQ7j1P
+         TKHJChvYsW3FJ5MbzL8ro72ZZvxHxsLPW+yojzeGssX2SznUr2sbvMpaerh60hvDgf1B
+         hZlA==
+X-Forwarded-Encrypted: i=1; AJvYcCVQEwiQejks/FHQSJ9IT7wifhZAIO4nNqnNpV2kTg8LVhxkFSys5m89dBC7GmJLeEWjuQjCscFugG8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy0AYhaDamn/HGYRIp/LIzzG3zS5PCi09aoBYGTljz93D7Z7neo
+	N/9h43J4uE9CWwkPmip7ps5uU5BSKiFQicq5QW2SFiVKK6l2uR0CtpQX829JhA==
+X-Google-Smtp-Source: AGHT+IEbdUqgXJcAgC4jdb52mcSRqEBT8CKz5HIQE/jiVaIWCYb+KYBF37M74E6g5rzPoRdwrvEayQ==
+X-Received: by 2002:a05:600c:3586:b0:42c:b74c:d8c3 with SMTP id 5b1f17b1804b1-432b7522c60mr90092735e9.32.1731318717457;
+        Mon, 11 Nov 2024 01:51:57 -0800 (PST)
+Message-ID: <34a2d071-59a8-46eb-a9fd-516cce801343@suse.com>
+Date: Mon, 11 Nov 2024 10:51:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Setup correctly fs segment for bogus_real_magic
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Subject: Re: [XEN PATCH v2 1/2] x86/hvm: introduce config option for ACPI PM
+ timer
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241111091739.4885-1-frediano.ziglio@cloud.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1730887415.git.Sergiy_Kibrik@epam.com>
+ <da2758bba96e247027106e13129c87ae31193e97.1730887415.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,63 +116,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241111091739.4885-1-frediano.ziglio@cloud.com>
+In-Reply-To: <da2758bba96e247027106e13129c87ae31193e97.1730887415.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.11.2024 10:17, Frediano Ziglio wrote:
-> bogus_real_magic code uses fs segment so it should be initialised.
+On 06.11.2024 11:14, Sergiy Kibrik wrote:
+> Introduce config option X86_HVM_PMTIMER and make pmtimer emulation driver
+> configurable and possible to disable on systems that don't need it.
+> Option X86_X86_HVM_PMTIMER depends on HVM option, because this driver is part
+> of HVM support code.
+> 
+> Introduced additional check of domain's emulation flags, to cover the case
+> when user explicitly states the requirement of emulated devices that are
+> disabled in the build. HVM always require these devices to be present so domains
+> of this type can't be created when pmtimer or any other emulated device are
+> disabled.
+> 
+> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Like for Andrew's fix:
-Fixes: d8c8fef09054 ("Provide basic Xen PM infrastructure")
+What exactly was it that Roger suggested? I don't think it was what the patch
+does overall, but just _how_ it is being done? That makes quite a bit of a
+difference, as the former could be read as kind of an implicit ack to what is
+being done here (and also in the other patch). Issue is: I remain unconvinced
+that this conditionalizing is actually something we really want/need.
 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/wakeup.S | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> ---
-> OT: Seen another similar patch on ML I suppose this part of code is not that
-> tested. Also, considering EFI code, do we always have VGA available in these
-> cases?
-
-No, we can't really assume so. This is "best effort" only, with the hope that
-if there's no VGA there, then there's also nothing else there which might
-dislike the writes.
-
-> --- a/xen/arch/x86/boot/wakeup.S
-> +++ b/xen/arch/x86/boot/wakeup.S
-> @@ -20,6 +20,8 @@ ENTRY(wakeup_start)
->          movw    %ax, %ds
->          movw    %ax, %ss        # A stack required for BIOS call
->          movw    $wakesym(wakeup_stack), %sp
-> +        movw    $0xb800, %ax
-> +        movw    %ax, %fs
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -144,6 +144,19 @@ config INTEL_VMX
+>  	  If your system includes a processor with Intel VT-x support, say Y.
+>  	  If in doubt, say Y.
 >  
->          pushl   $0              # Kill dangerous flag early
->          popfl
-> @@ -44,8 +46,6 @@ ENTRY(wakeup_start)
->          call    mode_setw
+> +menu "Emulated HVM devices support"
+> +       visible if EXPERT
+> +       depends on HVM
+> +
+> +config X86_HVM_PMTIMER
+> +	bool "ACPI PM timer emulation support"
+> +	default y
+> +	help
+> +	  Build pmtimer driver that emulates ACPI PM timer for HVM/PVH guests.
+
+Does this really affect PVH guests? Isn't the whole point of the change
+that in a PVH-only environment this wouldn't be needed in Xen?
+
+I wonder how meaningful "pmtimer" is to someone reading this help test in
+isolation. I'd just drop the word.
+
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -742,11 +742,16 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
 >  
->  1:      # Show some progress if VGA is resumed
-> -        movw    $0xb800, %ax
-> -        movw    %ax, %fs
->          movw    $0x0e00 + 'L', %fs:(0x10)
+>  static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+>  {
+> -#ifdef CONFIG_HVM
+> +    const uint32_t disabled_emu_mask = X86_EMU_PM;
+> +
+> +#if defined(CONFIG_X86_HVM_PMTIMER)
+>      /* This doesn't catch !CONFIG_HVM case but it is better than nothing */
+>      BUILD_BUG_ON(X86_EMU_ALL != XEN_X86_EMU_ALL);
+>  #endif
 >  
->          lidt    wakesym(idt_48)
+> +    if ( emflags & disabled_emu_mask )
+> +        return false;
+> +
+>      if ( is_hvm_domain(d) )
+>      {
+>          if ( is_hardware_domain(d) &&
 
-Between these two hunks we have
-
-        lcall   $0xc000, $3
-        movw    %cs, %ax        # In case messed by BIOS
-        movw    %ax, %ds
-        movw    %ax, %ss        # Need this? How to ret if clobbered?
-
-I'd guess that the loading of %fs was deliberately after that point, in
-case some BIOSes messed with that, too. Hence I'm unconvinced we can
-simply move the loading of %fs; I think it needs duplicating instead.
-(That way it's probably also safer wrt the mode_setw() invocation. That
-doesn't touch %fs right now, but it's also not said anywhere that it
-shouldn't.)
+While you commented on this hunk, it didn't become clear what exactly the
+resulting new hunk would be. I question in particular the change to the
+#ifdef: If that's changed and the BUILD_BUG_ON() kept as is, the comment
+also needs adjusting. Yet it would perhaps be better of the BUILD_BUG_ON()
+was split accordingly.
 
 Jan
 
