@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AD519C3ADE
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 10:29:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833434.1248584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B01009C3AFF
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 10:38:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833444.1248595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQjc-00020g-Jj; Mon, 11 Nov 2024 09:29:24 +0000
+	id 1tAQry-00049S-Fx; Mon, 11 Nov 2024 09:38:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833434.1248584; Mon, 11 Nov 2024 09:29:24 +0000
+Received: by outflank-mailman (output) from mailman id 833444.1248595; Mon, 11 Nov 2024 09:38:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQjc-0001xO-Gy; Mon, 11 Nov 2024 09:29:24 +0000
-Received: by outflank-mailman (input) for mailman id 833434;
- Mon, 11 Nov 2024 09:29:22 +0000
+	id 1tAQry-00047V-C8; Mon, 11 Nov 2024 09:38:02 +0000
+Received: by outflank-mailman (input) for mailman id 833444;
+ Mon, 11 Nov 2024 09:38:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/YTX=SG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAQja-0001xI-S4
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 09:29:22 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tAQrw-00047P-UE
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 09:38:00 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6de88ccd-a00f-11ef-a0c6-8be0dac302b0;
- Mon, 11 Nov 2024 10:29:20 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-37ed7eb07a4so2786274f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 01:29:20 -0800 (PST)
+ id a27cf24a-a010-11ef-a0c6-8be0dac302b0;
+ Mon, 11 Nov 2024 10:37:58 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-37d43a9bc03so2942786f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 01:37:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381ed970729sm12358151f8f.15.2024.11.11.01.29.19
+ ffacd0b85a97d-381eda0ed16sm12290232f8f.107.2024.11.11.01.37.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Nov 2024 01:29:19 -0800 (PST)
+ Mon, 11 Nov 2024 01:37:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6de88ccd-a00f-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmYiLCJoZWxvIjoibWFpbC13cjEteDQyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjZkZTg4Y2NkLWEwMGYtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzE3MzYwLjM3MTg4Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: a27cf24a-a010-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmIiLCJoZWxvIjoibWFpbC13cjEteDQyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImEyN2NmMjRhLWEwMTAtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzE3ODc4LjA1ODUyLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731317359; x=1731922159; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731317877; x=1731922677; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xi6YOGGHaSJ68ELlxR6Pnu4bytUl+QM5euAZv/m6ARo=;
-        b=JRQ9k+nW3LfnHTlU/M2+fLgKROffKcaZ+iYlR5GDUtxd7JWFt/bCWZwMkewcahbtms
-         xbpDtnWcP2T/OK1aYVE9N5R9AzklayOviKsK0YCJfNByRww7UJD0T/sgCv8xB0ACIGBq
-         lx4QCprLMoMfswUBAoH/872rxznhhMe2MlZgjP7v5LFbAaxEBkSAyD3hTqSplZI8xAmU
-         NGqhkSMyXGsN2//YFHsPMijEJon/9lfwAFL9wduVHF08FV0NdINCh6MNNZlmiOEdOh2F
-         NL9DOIfzIu2jlisoqVnagpYeJ1UVZ+IRRxK1Br8ozvGupvsIolBCwKipkT14xFBD46Zo
-         TC2g==
+        bh=qn7e6EXwanVynR/ErhuHZjmpCHg/TeD84upznD2gpkA=;
+        b=L8MvnSyiawzNgRBn406YhlWYhXukk0bsQdh2VaW298sFLJdyEhH0wfOxUR5wo6u2ZD
+         Sw2ClzPlU1ybRBFbvhe0dcb+AmASBtnofmdLeUhvtkbYviQmrwxMcZhKPnNvLPwsO3uT
+         uJ+4qpX8URVyzTNjZC9utSUUTKGMKH6v+qdN+w7w246xhICS3uzD2iGgcWAYs3oCylBB
+         RVOj0EKdVNBoYTTos7MneK9vqa6WluRb0h0frODKCEdHn7mkqwtUPM/NbKEb/9K8j5v6
+         BFM/wJwoJuIdkfHXUFIv52IS9ryGxl/eac5tw8SDJV9a8+5BjS/xiaIIE8ZgUrXR7OEC
+         C5+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731317359; x=1731922159;
+        d=1e100.net; s=20230601; t=1731317877; x=1731922677;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xi6YOGGHaSJ68ELlxR6Pnu4bytUl+QM5euAZv/m6ARo=;
-        b=nMwOyTnCXdpKf8zBzl81qL10GzqfH7JzDdMvL1ecdWdcmrEMbXVionNvIbEfCG627/
-         YkT1fKSXJ2iOkatRMBSlH7xSNeSmSdx5RgtwWo5BDVWBVn2q3KvyUEKzKfhGFqfWBC5B
-         dxOPr+DIrMGCIrb8uPxSKnrtuFQnmTRpTcX/qIQTOUPpKME4TDARlJmxjyTmDozP6Skp
-         dzEOr5H++pQPS4lUe10BQlExE2Bmo241HyfA1SA2Z6owUJrMmHcC8Ah9bMr9rDDpcCLk
-         2hjFnjTNaPERholKLjln3EfmbB3QTmjLNSRv3tr/yGtX7Y131AIWgazxN8Ec0Pr+V7YK
-         YuQw==
-X-Forwarded-Encrypted: i=1; AJvYcCVeiWgddhof0gY32j6gcuZFylcew6j/S/6jiZI9iSpBh2gwzypuLM6S6foPd2BTbWwwXhx2biocSmo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFdc/vmlKWBoHZG3daL5rCTnXQp5ycux1/A/VGU37KY4BD1b7M
-	2vWaQPsDhQqkkEmk7xGdG7fT9KpqcjRsnVsUhwcbChBLWEyrDIJSgGYK2J96rQ==
-X-Google-Smtp-Source: AGHT+IFafj4yFrcvLIhVS6BJ2ac+sWY9dptO9VVSLg80Gd98ofRjhXR276sag2inkAe1zGj8H7cURQ==
-X-Received: by 2002:a05:6000:2d11:b0:37d:4e03:ff8e with SMTP id ffacd0b85a97d-381f1823a63mr7273787f8f.28.1731317359559;
-        Mon, 11 Nov 2024 01:29:19 -0800 (PST)
-Message-ID: <05cf7373-453b-4aab-ae41-b8c85cf0c9fa@suse.com>
-Date: Mon, 11 Nov 2024 10:29:20 +0100
+        bh=qn7e6EXwanVynR/ErhuHZjmpCHg/TeD84upznD2gpkA=;
+        b=RVy6AA6Yba89QbDKHkwexBwHGVE9ht+jRGws8ocLJRTBX82w239+O6CTqrCaPKfV+4
+         mHL4N9gkzMK5EG5FH37oFk/QnFgEKcghoTVo2aAqzCQGfqBJmC0ny+l1KuJGUKV7TIn/
+         +aw23grOhhI0dVfP94mXSF5z0BVMHpGZw/xUmgEs9fmiBbAf1ZQohK2im4a1JK+spt4/
+         uuhV6I8uLi39HAN4NjgK0zquJV5SX0wuDmWVvvNwJvoeHz0zWgKdo2MF4p/ta5WlmITC
+         LLK/LpG3Upp5bXxgblXs8MNv6GgpgdLjwYOZiyw7GnSy6tiAwZV0dD1ebolXehtpuKdh
+         fgnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNNwd2fR5ZAb1nwy07WNpffYypPlxtHcO/AHWdjH2AerPZfJQI547Ck7J+eXE1JDahelLFwpNiSdQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxqFd0p5EBW2agKkgOua8Im72B6knHQuTzhxRL/g6XECvWjlYHY
+	eY+KW0hgWdxLCFiCPK+tw0gFdgcmlo6ePdkz8vnV5YkjsDC0AJfROBjZUntSyw==
+X-Google-Smtp-Source: AGHT+IFkYNc0qz0PVsi3JRVEFDEaxcwJE4Haup6XFs/9BsZpi0gZLy5LWO8Zliml9BUk8y1HbEi1uw==
+X-Received: by 2002:a05:6000:1449:b0:37d:377f:51e6 with SMTP id ffacd0b85a97d-381f18852aamr8973037f8f.56.1731317877416;
+        Mon, 11 Nov 2024 01:37:57 -0800 (PST)
+Message-ID: <9ccb3216-533e-4e64-be89-e667db7390f7@suse.com>
+Date: Mon, 11 Nov 2024 10:37:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/wakeup: Fix code generation for bogus_saved_magic
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241109003654.884288-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/boot: Setup correctly fs segment for bogus_real_magic
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241111091739.4885-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,27 +114,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241109003654.884288-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20241111091739.4885-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.11.2024 01:36, Andrew Cooper wrote:
-> bogus_saved_magic() is in a .code64 section but invokved in 32bit mode.  This
-> causes a real encoding difference.
-> 
-> Before:
->   66 c7 04 25 14 80 0b 00 53 0e    movw   $0xe53,0xb8014(,%eiz,1)
-> 
-> After:
->   66 c7 05 14 80 0b 00 53 0e       movw   $0xe53,0xb8014
-> 
-> The differnce happens to be benign, but move the logic back into a .code32 for
-> sanity sake.  Annotate it with ELF metadata while doing so.
-> 
-> Fixes: d8c8fef09054 ("Provide basic Xen PM infrastructure")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 11.11.2024 10:17, Frediano Ziglio wrote:
+> bogus_real_magic code uses fs segment so it should be initialised.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Like for Andrew's fix:
+Fixes: d8c8fef09054 ("Provide basic Xen PM infrastructure")
 
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> ---
+>  xen/arch/x86/boot/wakeup.S | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> ---
+> OT: Seen another similar patch on ML I suppose this part of code is not that
+> tested. Also, considering EFI code, do we always have VGA available in these
+> cases?
 
+No, we can't really assume so. This is "best effort" only, with the hope that
+if there's no VGA there, then there's also nothing else there which might
+dislike the writes.
+
+> --- a/xen/arch/x86/boot/wakeup.S
+> +++ b/xen/arch/x86/boot/wakeup.S
+> @@ -20,6 +20,8 @@ ENTRY(wakeup_start)
+>          movw    %ax, %ds
+>          movw    %ax, %ss        # A stack required for BIOS call
+>          movw    $wakesym(wakeup_stack), %sp
+> +        movw    $0xb800, %ax
+> +        movw    %ax, %fs
+>  
+>          pushl   $0              # Kill dangerous flag early
+>          popfl
+> @@ -44,8 +46,6 @@ ENTRY(wakeup_start)
+>          call    mode_setw
+>  
+>  1:      # Show some progress if VGA is resumed
+> -        movw    $0xb800, %ax
+> -        movw    %ax, %fs
+>          movw    $0x0e00 + 'L', %fs:(0x10)
+>  
+>          lidt    wakesym(idt_48)
+
+Between these two hunks we have
+
+        lcall   $0xc000, $3
+        movw    %cs, %ax        # In case messed by BIOS
+        movw    %ax, %ds
+        movw    %ax, %ss        # Need this? How to ret if clobbered?
+
+I'd guess that the loading of %fs was deliberately after that point, in
+case some BIOSes messed with that, too. Hence I'm unconvinced we can
+simply move the loading of %fs; I think it needs duplicating instead.
+(That way it's probably also safer wrt the mode_setw() invocation. That
+doesn't touch %fs right now, but it's also not said anywhere that it
+shouldn't.)
+
+Jan
 
