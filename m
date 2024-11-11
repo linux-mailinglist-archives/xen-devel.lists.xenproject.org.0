@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE2D9C44BE
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 19:17:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834093.1249613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D1109C44C1
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 19:17:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834095.1249622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAYyB-00005v-N9; Mon, 11 Nov 2024 18:16:59 +0000
+	id 1tAYyG-0000Uo-VW; Mon, 11 Nov 2024 18:17:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834093.1249613; Mon, 11 Nov 2024 18:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 834095.1249622; Mon, 11 Nov 2024 18:17:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAYyB-0008V8-KB; Mon, 11 Nov 2024 18:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 834093;
- Mon, 11 Nov 2024 18:16:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tAYyG-0000SR-Si; Mon, 11 Nov 2024 18:17:04 +0000
+Received: by outflank-mailman (input) for mailman id 834095;
+ Mon, 11 Nov 2024 18:17:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dX8x=SG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tAYy9-0007mr-Jx
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 18:16:57 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 220166b6-a059-11ef-a0c6-8be0dac302b0;
- Mon, 11 Nov 2024 19:16:55 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-539fbe22ac0so4722516e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 10:16:55 -0800 (PST)
+ id 1tAYyE-0007n0-Px
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 18:17:02 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23e1687d-a059-11ef-99a3-01e77a169b0f;
+ Mon, 11 Nov 2024 19:16:58 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-53a007743e7so5717912e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 10:16:58 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53d82689a79sm1633691e87.109.2024.11.11.10.16.51
+ 2adb3069b0e04-53d826a9e5asm1652142e87.225.2024.11.11.10.16.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Nov 2024 10:16:52 -0800 (PST)
+ Mon, 11 Nov 2024 10:16:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,92 +44,501 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 220166b6-a059-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzAiLCJoZWxvIjoibWFpbC1sZjEteDEzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjIyMDE2NmI2LWEwNTktMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzQ5MDE1LjU3ODMxOSwic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 23e1687d-a059-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmMiLCJoZWxvIjoibWFpbC1sZjEteDEyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjIzZTE2ODdkLWEwNTktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMzQ5MDE4Ljc2Njk0Mywic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1731349014; x=1731953814; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mz2MW4exBDctQDRSrNhCcwZhjMjXlWzvBMCOW4yqM7c=;
-        b=lzEomCibVf8rTChGX4xaXzBg5CzowKCjR06kvS6DDIkKYf6v7ZkhEApAQUJCIHIkBl
-         FEEnxQ2wsZNYIkroIkI+oUsogCwJYr6VAwTAxdLO9ngstQ/jLfhKy3aaykRK2rZ1A+HD
-         +dBjnY1c7PiHWTWf1soAhMecGuY+WtTEfIHj9BMzBAr0wZPYEdaBNo9QdbdG+Ix3CtJU
-         ocgj6DezJQ7h36M4mNfzl4TekQ4EtJvFgS+F9aO1XenDrnEElO39XptVsyXhgw73zZj2
-         G9mDwOY4h5wXBSqGTdoTOFoNVmwltsbHwFVE2kCpa1QuvRXrJ1yJcNx3P4Kmr8WMvqZ8
-         QOfw==
+        d=gmail.com; s=20230601; t=1731349018; x=1731953818; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=gA7CVgc9PyiQqojqpTJ+sLU0fBsNohR7rU5rgE2PiCE=;
+        b=TztTidPZM5FlR/wfx+mgj55O1Y+qtdFYUzsq+tBf8WvPSAkIH5aovzPgLtPqa1Qpha
+         gkdax4xNsFCye+ghyKY3q/ZQeHgOR5p0je3J5+idsZb03iGi60GjkePdb1rvUH2Jd866
+         xYVDaZ/YJJWllJSQjBGsEV1R2PzxwZOprSP6gWjojY835vDHnfgIlvDxKj5SlMcDup0j
+         rGvgm1kMWjeFjUSyBVRieVkyZ9JcFMRAf45PvOgTi8RVcIEAtT1MV1YMOLPNRz9H9yca
+         CpRpIrPntlivUoQGWMW3arfKTob7kxPKYR09/AiVYnNkiQp2otevgUKMkaXBjCsG+DrB
+         SdIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731349014; x=1731953814;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Mz2MW4exBDctQDRSrNhCcwZhjMjXlWzvBMCOW4yqM7c=;
-        b=XfJw7cvvZDo9olX/7vKF71qKXdzSk93vwKYpMtSc3iOxO3fpmSWlggGD1iDc34I3xm
-         QDevJlEyrrI6P0y1kz8XWsk6PDUPjjSoNy0SA9wTaIE3upLeZE+LxXnOT76TWfcjC07X
-         5Jtn4DqdkD2nkBXVC/XHYSsx7HhFSwXwDsK8qo0TENjm/ViyZ4ojnARQAWuQ+Db6nRrD
-         TKWNtNJ6+NV9Nf0U8g47HuWEAybAb+IJPHjLJ9gMZE70ABo8+qd5OlW2rBLHmRSQ/DFa
-         h/oAN4dE9nKUCkB0/qsREPVTbPkztamOtIPfmAni+GhBlOlhLAHJ18lpW8fU96jqHQ16
-         3NCQ==
-X-Gm-Message-State: AOJu0YwUIscxTk0mxJbGk8x9gDofEvULCuojOjazrfQdE2fjCUhLEj6r
-	eMnslkYaYQuFTDtcms0EkcAllch41aiNaqzsO6/Imt4t+rPWKNHPGPajLg==
-X-Google-Smtp-Source: AGHT+IFDR0V/wPJFTzqQVaxuZu86z59oTmoUUJlLL6N0pYGV2RhQ8c1JSwnyhJENtaq9fPLx48NmjQ==
-X-Received: by 2002:a05:6512:2207:b0:53b:20a1:1c4a with SMTP id 2adb3069b0e04-53d862eea05mr6128215e87.42.1731349013843;
-        Mon, 11 Nov 2024 10:16:53 -0800 (PST)
+        d=1e100.net; s=20230601; t=1731349018; x=1731953818;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gA7CVgc9PyiQqojqpTJ+sLU0fBsNohR7rU5rgE2PiCE=;
+        b=epIQeiVbEFmKaol+AoYs5ww9227jr4BDdHHMjo2yn7lJZmSWg/2UcSQXxvXt2l5Vc4
+         /ZrSULYFqniyRVkV8cWq25k6axOtKB/Ma4INvfr1ydQhoIUSCkDmLrn3qYW/9A41aGXK
+         wfnpqeZeyBznf6h7JuBbrJxUzBnVDYWJrpMAOpzBwIkJTyeG0II9G66cAA0RVANSyN7v
+         clS2C2nf4oAY+U78qQo4d6vc3N/h+zbgmJ0ur99dZKXzAWuqbE67fFI4iswLWamrQMGx
+         9N8h5dqYXep5dhBdSdIMGzVRVM+fYLO78WgnDdmyKTFkASyFdYrzEpT/jTmdU5Bh31qe
+         bRPA==
+X-Gm-Message-State: AOJu0Yza87FH3+9Or2hJJdDa4enYa6lninayPwXyGURY9uyZGA20NwG7
+	iTHabKHOaVgIAzlJHQ7f7+18ZK2EnaRfnWqEEVnHI+DJFVrSVE6F3SXBUQ==
+X-Google-Smtp-Source: AGHT+IEJOOz+DTK6JeCXzCWvIC53nK8llhm1dwI8BHLIzt4merBfPOIi6sW+xlBLRaBNtiCENUIJeQ==
+X-Received: by 2002:a05:6512:1107:b0:530:ae4a:58d0 with SMTP id 2adb3069b0e04-53d86228046mr6073637e87.8.1731349017647;
+        Mon, 11 Nov 2024 10:16:57 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 3/3] xen/riscv: finalize boot allocator and transition to boot state
-Date: Mon, 11 Nov 2024 19:16:44 +0100
-Message-ID: <ff7f4f652337c8188ee531dc7b978cbfdb378cea.1731344883.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2] drivers/char: rename arm-uart.c to uart-init.c
+Date: Mon, 11 Nov 2024 19:16:55 +0100
+Message-ID: <11b3d91cc7ff2435bca8cb0b841faaac54c3e796.1731345930.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.47.0
-In-Reply-To: <cover.1731344883.git.oleksii.kurochko@gmail.com>
-References: <cover.1731344883.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a call to end_boot_allocator() in start_xen() to finalize the
-boot memory allocator, moving free pages to the domain sub-allocator.
+Rename the file containing uart_init() to enable reuse across other
+architectures that utilize device trees or SPCR tables to locate UART
+information.
+After locating UART data, {acpi}_device_init() is called to initialize
+the UART.
 
-After initializing the memory subsystem, update `system_state` from
-`SYS_STATE_early_boot` to `SYS_STATE_boot`, signifying the end of the
-early boot phase.
+arm_uart_init() is renamed to uart_init() to be reused by other
+architectures.
+
+A new configuration option, CONFIG_UART_INIT, is introduced, currently
+available only for Arm. Enabling CONFIG_UART_INIT on additional
+architectures will require additional functionality, such as device tree
+mapping and unflattening, etc.
+
+The MAINTAINERS file is updated to alphabetically sort files in the
+"ARM (W/ VIRTUALIZATION EXTENSIONS) ARCHITECTURE" section following
+the renaming of arm-uart.c.
+
+Add `select UART_INIT` for CONFIG_ARM to be sure that randconfig won't
+disable UART_INIT.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-Change in V2-V5:
- - Acked-by: Jan Beulich <jbeulich@suse.com>
----
- xen/arch/riscv/setup.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+NOTE:
+ I am not insisiting on having separate CONFIG_UART_INIT. If it would be fine
+ just to have in xen/drivers/char/Makefile:
+   obj-$(CONFIG_ARM) += uart-init.c 
+   obj-$(CONFIG_RISCV) += uart-init.c
 
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 3652cb056d..9680332fee 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -65,6 +65,14 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ I will be happy to send another one patch series version.
+---
+Changes in v2:
+ - Rename arm-uart.c to uart-init.c instead of moving only dt_uart_init() to
+   separate file.
+ - Introduce new CONFIG_UART_INIT.
+ - Rename arm_uart_init() to uart_init().
+ - Add 'select UART_INIT' for CONFIG_ARM to be sure that randconfig won't
+   disable UART_INIT.
+ - Update the commit message.
+---
+ MAINTAINERS                  |   2 +-
+ xen/arch/arm/Kconfig         |   1 +
+ xen/arch/arm/setup.c         |   2 +-
+ xen/drivers/char/Kconfig     |  11 +++
+ xen/drivers/char/Makefile    |   2 +-
+ xen/drivers/char/arm-uart.c  | 145 -----------------------------------
+ xen/drivers/char/uart-init.c | 145 +++++++++++++++++++++++++++++++++++
+ xen/include/xen/serial.h     |   2 +-
+ 8 files changed, 161 insertions(+), 149 deletions(-)
+ delete mode 100644 xen/drivers/char/arm-uart.c
+ create mode 100644 xen/drivers/char/uart-init.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 17fc5f9eec..a237080074 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -245,7 +245,6 @@ S:	Supported
+ L:	xen-devel@lists.xenproject.org
+ F:	docs/misc/arm/
+ F:	xen/arch/arm/
+-F:	xen/drivers/char/arm-uart.c
+ F:	xen/drivers/char/cadence-uart.c
+ F:	xen/drivers/char/exynos4210-uart.c
+ F:	xen/drivers/char/imx-lpuart.c
+@@ -254,6 +253,7 @@ F:	xen/drivers/char/mvebu-uart.c
+ F:	xen/drivers/char/omap-uart.c
+ F:	xen/drivers/char/pl011.c
+ F:	xen/drivers/char/scif-uart.c
++F:	xen/drivers/char/uart-init.c
+ F:	xen/drivers/passthrough/arm/
+ F:	xen/include/public/arch-arm/
+ F:	xen/include/public/arch-arm.h
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 15b2e4a227..e068497361 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -17,6 +17,7 @@ config ARM
+ 	select HAS_PASSTHROUGH
+ 	select HAS_UBSAN
+ 	select IOMMU_FORCE_PT_SHARE
++	select UART_INIT
  
-     vm_init();
+ config ARCH_DEFCONFIG
+ 	string
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 71ebaa77ca..2e27af4560 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -361,7 +361,7 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
  
-+    end_boot_allocator();
+     gic_preinit();
+ 
+-    arm_uart_init();
++    uart_init();
+     console_init_preirq();
+     console_init_ring();
+ 
+diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
+index e175d07c02..343165feb4 100644
+--- a/xen/drivers/char/Kconfig
++++ b/xen/drivers/char/Kconfig
+@@ -93,6 +93,17 @@ config SERIAL_TX_BUFSIZE
+ 
+ 	  Default value is 32768 (32KiB).
+ 
 +
-+    /*
-+     * The memory subsystem has been initialized, we can now switch from
-+     * early_boot -> boot.
-+     */
-+    system_state = SYS_STATE_boot;
++config UART_INIT
++	bool "UART initialization for DT and ACPI"
++	depends on ARM
++	default y
++	help
++	  Provides a generic method for locating UART device tree node when
++	  device tree is used, or for finding UART information in SPCR
++	  table when using ACPI. Once UART information is located,
++	  {acpi}_device_init() is called for UART-specific initialization.
 +
-     printk("All set up\n");
+ config XHCI
+ 	bool "XHCI DbC UART driver"
+ 	depends on X86
+diff --git a/xen/drivers/char/Makefile b/xen/drivers/char/Makefile
+index d3b987da1d..74dcde7e57 100644
+--- a/xen/drivers/char/Makefile
++++ b/xen/drivers/char/Makefile
+@@ -11,7 +11,7 @@ obj-$(CONFIG_HAS_EHCI) += ehci-dbgp.o
+ obj-$(CONFIG_XHCI) += xhci-dbc.o
+ obj-$(CONFIG_HAS_IMX_LPUART) += imx-lpuart.o
+ obj-$(CONFIG_HAS_LINFLEX) += linflex-uart.o
+-obj-$(CONFIG_ARM) += arm-uart.o
++obj-$(CONFIG_UART_INIT) += uart-init.o
+ obj-y += serial.o
+ obj-$(CONFIG_XEN_GUEST) += xen_pv_console.o
+ obj-$(CONFIG_PV_SHIM) += consoled.o
+diff --git a/xen/drivers/char/arm-uart.c b/xen/drivers/char/arm-uart.c
+deleted file mode 100644
+index 91f13a4136..0000000000
+--- a/xen/drivers/char/arm-uart.c
++++ /dev/null
+@@ -1,145 +0,0 @@
+-/*
+- * xen/drivers/char/arm-uart.c
+- *
+- * Generic uart retrieved via the device tree or ACPI
+- *
+- * Julien Grall <julien.grall@linaro.org>
+- * Copyright (c) 2013 Linaro Limited.
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- */
+-
+-#include <asm/device.h>
+-
+-#include <xen/console.h>
+-#include <xen/device_tree.h>
+-#include <xen/param.h>
+-#include <xen/serial.h>
+-#include <xen/errno.h>
+-#include <xen/acpi.h>
+-
+-/*
+- * Configure UART port with a string:
+- * path:options
+- *
+- * @path: full path used in the device tree for the UART. If the path
+- * doesn't start with '/', we assuming that it's an alias.
+- * @options: UART speficic options (see in each UART driver)
+- */
+-static char __initdata opt_dtuart[256] = "";
+-string_param("dtuart", opt_dtuart);
+-
+-static void __init dt_uart_init(void)
+-{
+-    struct dt_device_node *dev;
+-    int ret;
+-    const char *devpath = opt_dtuart;
+-    const char *options;
+-    char *split;
+-
+-    if ( !console_has("dtuart") )
+-        return; /* Not for us */
+-
+-    if ( !strcmp(opt_dtuart, "") )
+-    {
+-        const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
+-
+-        if ( chosen )
+-        {
+-            const char *stdout;
+-
+-            ret = dt_property_read_string(chosen, "stdout-path", &stdout);
+-            if ( ret >= 0 )
+-            {
+-                printk("Taking dtuart configuration from /chosen/stdout-path\n");
+-                if ( strlcpy(opt_dtuart, stdout, sizeof(opt_dtuart))
+-                     >= sizeof(opt_dtuart) )
+-                    printk("WARNING: /chosen/stdout-path too long, truncated\n");
+-            }
+-            else if ( ret != -EINVAL /* Not present */ )
+-                printk("Failed to read /chosen/stdout-path (%d)\n", ret);
+-        }
+-    }
+-
+-    if ( !strcmp(opt_dtuart, "") )
+-    {
+-        printk("No dtuart path configured\n");
+-        return;
+-    }
+-
+-    split = strchr(opt_dtuart, ':');
+-    if ( split )
+-    {
+-        split[0] = '\0';
+-        options = split + 1;
+-    }
+-    else
+-        options = "";
+-
+-    printk("Looking for dtuart at \"%s\", options \"%s\"\n", devpath, options);
+-    if ( *devpath == '/' )
+-        dev = dt_find_node_by_path(devpath);
+-    else
+-        dev = dt_find_node_by_alias(devpath);
+-
+-    if ( !dev )
+-    {
+-        printk("Unable to find device \"%s\"\n", devpath);
+-        return;
+-    }
+-
+-    ret = device_init(dev, DEVICE_SERIAL, options);
+-
+-    if ( ret )
+-        printk("Unable to initialize dtuart: %d\n", ret);
+-}
+-
+-#ifdef CONFIG_ACPI
+-static void __init acpi_uart_init(void)
+-{
+-    struct acpi_table_spcr *spcr = NULL;
+-    int ret;
+-
+-    acpi_get_table(ACPI_SIG_SPCR, 0, (struct acpi_table_header **)&spcr);
+-
+-    if ( spcr == NULL )
+-    {
+-        printk("Unable to get spcr table\n");
+-    }
+-    else
+-    {
+-        ret = acpi_device_init(DEVICE_SERIAL, NULL, spcr->interface_type);
+-
+-        if ( ret )
+-            printk("Unable to initialize acpi uart: %d\n", ret);
+-    }
+-}
+-#else
+-static void __init acpi_uart_init(void) { }
+-#endif
+-
+-void __init arm_uart_init(void)
+-{
+-    if ( acpi_disabled )
+-        dt_uart_init();
+-    else
+-        acpi_uart_init();
+-}
+-
+-/*
+- * Local variables:
+- * mode: C
+- * c-file-style: "BSD"
+- * c-basic-offset: 4
+- * tab-width: 4
+- * indent-tabs-mode: nil
+- * End:
+- */
+diff --git a/xen/drivers/char/uart-init.c b/xen/drivers/char/uart-init.c
+new file mode 100644
+index 0000000000..7f3b385308
+--- /dev/null
++++ b/xen/drivers/char/uart-init.c
+@@ -0,0 +1,145 @@
++/*
++ * xen/drivers/char/arm-uart.c
++ *
++ * Generic uart retrieved via the device tree or ACPI
++ *
++ * Julien Grall <julien.grall@linaro.org>
++ * Copyright (c) 2013 Linaro Limited.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#include <asm/device.h>
++
++#include <xen/console.h>
++#include <xen/device_tree.h>
++#include <xen/param.h>
++#include <xen/serial.h>
++#include <xen/errno.h>
++#include <xen/acpi.h>
++
++/*
++ * Configure UART port with a string:
++ * path:options
++ *
++ * @path: full path used in the device tree for the UART. If the path
++ * doesn't start with '/', we assuming that it's an alias.
++ * @options: UART speficic options (see in each UART driver)
++ */
++static char __initdata opt_dtuart[256] = "";
++string_param("dtuart", opt_dtuart);
++
++static void __init dt_uart_init(void)
++{
++    struct dt_device_node *dev;
++    int ret;
++    const char *devpath = opt_dtuart;
++    const char *options;
++    char *split;
++
++    if ( !console_has("dtuart") )
++        return; /* Not for us */
++
++    if ( !strcmp(opt_dtuart, "") )
++    {
++        const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
++
++        if ( chosen )
++        {
++            const char *stdout;
++
++            ret = dt_property_read_string(chosen, "stdout-path", &stdout);
++            if ( ret >= 0 )
++            {
++                printk("Taking dtuart configuration from /chosen/stdout-path\n");
++                if ( strlcpy(opt_dtuart, stdout, sizeof(opt_dtuart))
++                     >= sizeof(opt_dtuart) )
++                    printk("WARNING: /chosen/stdout-path too long, truncated\n");
++            }
++            else if ( ret != -EINVAL /* Not present */ )
++                printk("Failed to read /chosen/stdout-path (%d)\n", ret);
++        }
++    }
++
++    if ( !strcmp(opt_dtuart, "") )
++    {
++        printk("No dtuart path configured\n");
++        return;
++    }
++
++    split = strchr(opt_dtuart, ':');
++    if ( split )
++    {
++        split[0] = '\0';
++        options = split + 1;
++    }
++    else
++        options = "";
++
++    printk("Looking for dtuart at \"%s\", options \"%s\"\n", devpath, options);
++    if ( *devpath == '/' )
++        dev = dt_find_node_by_path(devpath);
++    else
++        dev = dt_find_node_by_alias(devpath);
++
++    if ( !dev )
++    {
++        printk("Unable to find device \"%s\"\n", devpath);
++        return;
++    }
++
++    ret = device_init(dev, DEVICE_SERIAL, options);
++
++    if ( ret )
++        printk("Unable to initialize dtuart: %d\n", ret);
++}
++
++#ifdef CONFIG_ACPI
++static void __init acpi_uart_init(void)
++{
++    struct acpi_table_spcr *spcr = NULL;
++    int ret;
++
++    acpi_get_table(ACPI_SIG_SPCR, 0, (struct acpi_table_header **)&spcr);
++
++    if ( spcr == NULL )
++    {
++        printk("Unable to get spcr table\n");
++    }
++    else
++    {
++        ret = acpi_device_init(DEVICE_SERIAL, NULL, spcr->interface_type);
++
++        if ( ret )
++            printk("Unable to initialize acpi uart: %d\n", ret);
++    }
++}
++#else
++static void __init acpi_uart_init(void) { }
++#endif
++
++void __init uart_init(void)
++{
++    if ( acpi_disabled )
++        dt_uart_init();
++    else
++        acpi_uart_init();
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/include/xen/serial.h b/xen/include/xen/serial.h
+index 3d21207a3d..63a82b032d 100644
+--- a/xen/include/xen/serial.h
++++ b/xen/include/xen/serial.h
+@@ -166,7 +166,7 @@ void xhci_dbc_uart_init(void);
+ static void inline xhci_dbc_uart_init(void) {}
+ #endif
  
-     machine_halt();
+-void arm_uart_init(void);
++void uart_init(void);
+ 
+ struct physdev_dbgp_op;
+ int dbgp_op(const struct physdev_dbgp_op *op);
 -- 
 2.47.0
 
