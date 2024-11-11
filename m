@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146659C3A57
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 09:59:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833371.1248505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCE3C9C3A5E
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 10:02:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833377.1248515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQGo-0001hK-Sx; Mon, 11 Nov 2024 08:59:38 +0000
+	id 1tAQJZ-0003Do-8U; Mon, 11 Nov 2024 09:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833371.1248505; Mon, 11 Nov 2024 08:59:38 +0000
+Received: by outflank-mailman (output) from mailman id 833377.1248515; Mon, 11 Nov 2024 09:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQGo-0001eu-P0; Mon, 11 Nov 2024 08:59:38 +0000
-Received: by outflank-mailman (input) for mailman id 833371;
- Mon, 11 Nov 2024 08:59:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tAQJZ-0003Aw-58; Mon, 11 Nov 2024 09:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 833377;
+ Mon, 11 Nov 2024 09:02:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/YTX=SG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAQGm-0001em-TY
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 08:59:36 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4552569b-a00b-11ef-a0c6-8be0dac302b0;
- Mon, 11 Nov 2024 09:59:34 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4314c452180so29138265e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 00:59:34 -0800 (PST)
+ id 1tAQJY-0003Aq-K6
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 09:02:28 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab073947-a00b-11ef-99a3-01e77a169b0f;
+ Mon, 11 Nov 2024 10:02:24 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4315e62afe0so40577555e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 01:02:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381eda137dbsm12138917f8f.110.2024.11.11.00.59.33
+ ffacd0b85a97d-381ed970729sm12301943f8f.15.2024.11.11.01.02.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Nov 2024 00:59:33 -0800 (PST)
+ Mon, 11 Nov 2024 01:02:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4552569b-a00b-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmQiLCJoZWxvIjoibWFpbC13bTEteDMyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjQ1NTI1NjliLWEwMGItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzE1NTc0LjE3OTE2Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: ab073947-a00b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmYiLCJoZWxvIjoibWFpbC13bTEteDMyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImFiMDczOTQ3LWEwMGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMzE1NzQ0LjgyNDE5Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731315573; x=1731920373; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731315744; x=1731920544; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VSsfGbkjh0BWPNyMVh08pMBq76DNNVzESDwckLiJD9c=;
-        b=Ox/WhGw8H2NeNE4zDbb3bNb+zbtyLiftJ9khjcR5nIKmzjs1ONZLstPrr6OKcCiGq4
-         jjvBl+b9uIYW8ArtbpkelUQOcFoosO0K7yMRZsWgX3scBcKJKXw2+TZxpc1LoThzh1cN
-         qxItEFwgGyh2SNG+UnL2jJ5UbHvLZ8IPQdP0G4rraF4VDrHeL36Qs1lVzY81ZmgPIGbh
-         Pq/ijAePfC8cKmkk7eY1UNXj0WlD+vcqD0x1/uy4ZutdEsub7SfjKnWAEPjFCLYie9Rq
-         4iXqdQfbOtz9O+n53FVv3wOjRxF+KQqPZ9IUSLwKNEPnxu8L6nWgmugVBun6fD4NguNb
-         2fJA==
+        bh=+eoVDAfQdegFBfoFuKk+lIZLkTbKuOjDAWMy4ty3WOU=;
+        b=MdIcyEDffcg1gGCo63rrva1AZ/yQuv9sA8JnpAZA+DbWUrT8VpQMX4TvAII5jmyxTN
+         PE2FQ05pGcL6wr/ofUDplVlpWPRTqBLZIGlAYAgo+L9U30Se69Of9My88i25c+cmkjuw
+         maR6Aak9P64PdxmUPzvDpPvWzuhysMKIh5fr1tT9xEuvhnL7dATfihALOUILJLb183by
+         FznLEJBBSRf2yStEQLnbmHBocUDLpsdEOc16SlU/eEQH7AC9kRPbKubzRRzsvtW17O45
+         LNgbDwFZ2OO6uAEs7ySXVF6aBgqmXBuwh7pNGUUJ3m8UqaC+Dpcprw+OZ0nWoGtz/yix
+         Q0DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731315573; x=1731920373;
+        d=1e100.net; s=20230601; t=1731315744; x=1731920544;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VSsfGbkjh0BWPNyMVh08pMBq76DNNVzESDwckLiJD9c=;
-        b=DEmFpXs0knBSIeTN/PR3msGkYndLEHhtWQi0ExYyFoLiXrpVjqZkqwUejDVhkwF7Cs
-         3LNnVyGZeqCk2IpolQk8az0ULMvtPMPTyaQGJGO8vL5rrxuYrj7MBRvVflhedOLKIkFb
-         6CyVlRUAOpiuCBRpWlZDgp/Koyy+OcE5IaSuQab5CZAlUOgrr/Npug5Xm1ACJRI7ExgF
-         qCkRxrzpcluYsci5zPEFNuU8aIfYV+HApo0dMcfW2Bk8uUIGvOw2qWBDoZV0knerLOE6
-         y8hv7ugflhNV4waTXb7/zs/PSZ8yS6ky9Maicgn6u28n191QNOxvjtbq8Dfwt3V6Pqkl
-         IkFA==
-X-Forwarded-Encrypted: i=1; AJvYcCUZ0xopEFvu3D2vSTmcwkUJNC/eJppGpzcTBAeSWhvTdllBAVRKkipjxXr+VMMHHqwebzYX1+AL7N4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydNu1h6SS32V9t3USlr18W58RJ3liywR5+Wx2B9Q0HVyI427hK
-	m4hq9TAQcSkyjilq+Fqy1ETFucyENrSHE2K8+d/b7+L2gvGwMOmOPXjxZR4fnzyD/vMc6HKBI6I
+        bh=+eoVDAfQdegFBfoFuKk+lIZLkTbKuOjDAWMy4ty3WOU=;
+        b=vomtmEsMj9uccfGpegSyNYMDzZnGLs+2lb0fX4DeFBFUmpBh4ecc3y0dYre3n64bQH
+         T7YEhu5Q9COvGHPAbrjHP9LFuv9xRP39OhHkHKaGmIbIXITIDmRYCGCfyClI3tBAi5eO
+         9iE2B4eqbprOTo+RNn+PbeQZwiUSmU8l3jX2um6211fQJijv09J9PA7mYB2xfesBhNef
+         /QD93mk1aDXKwrmfKVDeebrv+Mm9w8D/EVFAMaDZmtYf99MK9lTeZS9KYytpr0FFr47p
+         bMOF816+u09tI0lT8a0anZ01uZCOoFtFEQefWfJewkSu5GSz3Ny0KYTKnpxa3x4CUkLI
+         I95Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWVvnA7t8PvuzueWdWNB3tXzKtfRoSCEpYXR4qlMzGihHNU7Ur32zVkGnfXmmH7wzuqNqG0P62AnMo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzmwYQC3B7ZzAaUdcFYGY9euW77NDhTK2ws2Zcg91D1AHPr7ivl
+	D3UtdDyZSeK4qQeGrCf66ycrlzGrVo76G01K2uD+c9QEsSf11KdZSY9syOsXWuagTjaToOwRunk
 	=
-X-Google-Smtp-Source: AGHT+IGpmp7tVZm17IFbsnBTxU+53zQuTEPLshPL/ffg3JC0hdd2QwfgwU2JTHCt/dmyLe8O+/t94Q==
-X-Received: by 2002:a05:6000:4007:b0:381:c7b7:9f2d with SMTP id ffacd0b85a97d-381f1c8c3f2mr11318384f8f.27.1731315573691;
-        Mon, 11 Nov 2024 00:59:33 -0800 (PST)
-Message-ID: <b01fc421-cdca-43e8-8c87-52d8dcb9378b@suse.com>
-Date: Mon, 11 Nov 2024 09:59:35 +0100
+X-Google-Smtp-Source: AGHT+IEw6VPzBAfsgIvg9dv0k7gOMN+WkHTlwtuCVycDBu4fgLsxCN8NQPDoW1uGIGzEJelQqwcY/w==
+X-Received: by 2002:a05:6000:154d:b0:37d:45f0:dd0a with SMTP id ffacd0b85a97d-381f18672b7mr9064973f8f.1.1731315744240;
+        Mon, 11 Nov 2024 01:02:24 -0800 (PST)
+Message-ID: <4b2c525c-d421-4b71-a35a-f8c072781ad7@suse.com>
+Date: Mon, 11 Nov 2024 10:02:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] x86/mm: skip super-page alignment checks for
- non-present entries
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241108113144.83637-1-roger.pau@citrix.com>
- <20241108113144.83637-3-roger.pau@citrix.com>
+Subject: Re: [PATCH v2] x86/trampoline: Collect other scattered trampoline
+ symbols
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241108145335.315884-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,26 +117,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241108113144.83637-3-roger.pau@citrix.com>
+In-Reply-To: <20241108145335.315884-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.11.2024 12:31, Roger Pau Monne wrote:
-> @@ -5544,7 +5553,8 @@ int map_pages_to_xen(
->   check_l3:
->          if ( cpu_has_page1gb &&
->               (flags == PAGE_HYPERVISOR) &&
-> -             ((nr_mfns == 0) || IS_L3E_ALIGNED(virt, mfn)) )
-> +             ((nr_mfns == 0) || !(flags & _PAGE_PRESENT) ||
-> +              IS_L3E_ALIGNED(virt, mfn)) )
->          {
->              unsigned long base_mfn;
->              const l2_pgentry_t *l2t;
+On 08.11.2024 15:53, Andrew Cooper wrote:
+> ... and document them too.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
+> CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> 
+> v2:
+>  * Rebase
 
-With the "flags == PAGE_HYPERVISOR" check I don't think any change is needed
-here? With this dropped (again: uncertain whether to offer making the adjustment
-while committing)
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+As the previously somewhat controversial adjustment disappeared:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
