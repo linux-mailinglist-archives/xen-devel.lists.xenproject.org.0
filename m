@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 811AF9C368B
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 03:33:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833327.1248455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92DD89C3877
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 07:35:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833336.1248465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAKFE-0005KF-3k; Mon, 11 Nov 2024 02:33:36 +0000
+	id 1tAO0N-0008Ph-9K; Mon, 11 Nov 2024 06:34:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833327.1248455; Mon, 11 Nov 2024 02:33:36 +0000
+Received: by outflank-mailman (output) from mailman id 833336.1248465; Mon, 11 Nov 2024 06:34:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAKFE-0005Il-0A; Mon, 11 Nov 2024 02:33:36 +0000
-Received: by outflank-mailman (input) for mailman id 833327;
- Mon, 11 Nov 2024 02:33:34 +0000
+	id 1tAO0N-0008NI-62; Mon, 11 Nov 2024 06:34:31 +0000
+Received: by outflank-mailman (input) for mailman id 833336;
+ Mon, 11 Nov 2024 06:34:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zp6W=SG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tAKFC-0005Id-I4
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 02:33:34 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/YTX=SG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tAO0L-0008NC-JI
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 06:34:29 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56f46f82-9fd5-11ef-a0c6-8be0dac302b0;
- Mon, 11 Nov 2024 03:33:31 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id D2633A40E20;
- Mon, 11 Nov 2024 02:31:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6F6C4CECD;
- Mon, 11 Nov 2024 02:33:28 +0000 (UTC)
+ id fea02040-9ff6-11ef-a0c6-8be0dac302b0;
+ Mon, 11 Nov 2024 07:34:25 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-539e7e73740so3805913e87.3
+ for <xen-devel@lists.xenproject.org>; Sun, 10 Nov 2024 22:34:25 -0800 (PST)
+Received: from ?IPV6:2003:ca:b721:c835:8cf8:ed41:9b27:a44e?
+ (p200300cab721c8358cf8ed419b27a44e.dip0.t-ipconnect.de.
+ [2003:ca:b721:c835:8cf8:ed41:9b27:a44e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381ed97c6b6sm11902254f8f.24.2024.11.10.22.34.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 10 Nov 2024 22:34:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,174 +47,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56f46f82-9fd5-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDQ6MTM4MDo0NWQxOmVjMDA6OjMiLCJoZWxvIjoibnljLnNvdXJjZS5rZXJuZWwub3JnIn0=
-X-Custom-Transaction: eyJpZCI6IjU2ZjQ2ZjgyLTlmZDUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMjkyNDExLjY1OTE2NSwic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731292409;
-	bh=KTdgh3h0eJlKNMFEysLgDbsEX2rz1m+qifyRstn7WTw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Wn0kTO+O5rbj+vq6Poskp7YenM0zZd1t1/UdEwJTNlIwjdYncgvCjHdYoq4Jt9QkJ
-	 G7YykcwINITBEeNywcultG0+9AuS3F+XnCT9Yi6k4BFHVPRWkUAfaWu46sUcZ4/L23
-	 rSgNwW4RRmviGpHqkWD24FPmCiCkfGAKE9SdkSJAID++zG4JlO9DkPlNsYXV80cW9w
-	 jr2VaYqODFFjxGTY7/UzCtfanHG03OwdzOCNw8IEExr8drJPnRm0br8nviC9AsYop1
-	 eRpLYTgdo1fza5iuphC14N8ygiyOVXFunMqzSN5uFxHsosaXcxDRWmvCG2d0Bh+Rcc
-	 fbkEXRsq3lhFA==
-Date: Sun, 10 Nov 2024 18:33:27 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>
-Subject: Re: [XEN PATCH v2 2/2] x86/hvm: introduce config option for stdvga
- emulation
-In-Reply-To: <53b0d5552c128630e476c77b54b8983fe02e0e1c.1730887415.git.Sergiy_Kibrik@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2411101831220.14721@ubuntu-linux-20-04-desktop>
-References: <cover.1730887415.git.Sergiy_Kibrik@epam.com> <53b0d5552c128630e476c77b54b8983fe02e0e1c.1730887415.git.Sergiy_Kibrik@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: fea02040-9ff6-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmEiLCJoZWxvIjoibWFpbC1sZjEteDEyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImZlYTAyMDQwLTlmZjYtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzA2ODY1LjUyNDYwNiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1731306865; x=1731911665; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QoRLhL/8P+vCTgqdLldZ5WcOdrKK/Ll0D6M85RZqnB8=;
+        b=Ezc+teud4WYTTEPrPzVQWj4DEi2ndgT0yxA539algomTnGBd/UN1XJi1dO1ZeBBhXA
+         ppXL4k/ZvlPI0ZCvG3QnjbmDoxu9b6ok9qmOq0Dh3yp00k/S6Lw/6yRuUjMUiHjKOJ0P
+         tjPu7KEk+9Ff6z74RPpBjgZoyqMip0atPYnuWx+vxXWHcw64I3iOOk7EmMSjq6VkQTwN
+         SKujAryREl+Gtd0TMXFhXkXAv05Ys9+AB44E9NOAjktjhy3fJdAlv9tW151nnC6fDb2Z
+         RA9nLaQ5rM/EmZPFdI1tEPn+VCUIyeQmYdusXNPjzMZgdyahaQ8USzRu9rCdJ/RUvIfq
+         EL6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731306865; x=1731911665;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QoRLhL/8P+vCTgqdLldZ5WcOdrKK/Ll0D6M85RZqnB8=;
+        b=NAoKnFv7BPYy6/0P8nFUDAEunoMv5mKL+ODa0Sx9fBb620pHBIVEQmcsMhKYmVbA+v
+         f+bRTqvXr670l7Imv0Ik7a0C0URcZZflCZDZpKEeke6qNKNMTvdlkyzRJhsQRsCUQw1J
+         10zrljvXgln5XoaH0saoaXndvcdYe4BNRIuoNDG5fryhvr1cqvEpSi1Tr0a4aGu4dNMj
+         xAClwATljap1HAJ+vfc8ayG8/curtwV+2QTa6UQgvGHLLvik6Zby1lanMITcwon12jSJ
+         pvw3s6k4Cj+LKQYkt9H4hnUbhLf2Od+SdWjNy4yDRhgJBlSY1pUp8SbKgb+aPve7jC73
+         4T6Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV5xBVlZi2D+TthY4PBN/ePF4LQRiMGvD59XtNWP/gdzCGf/Fg4Cb/fR75g+O6K3AXy/oh40PQuP2Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5JdDROZR4hQl7C+KZBzlHR08jY9Mlp43a94ALNen2Tpizeso/
+	Ch+b9etLtPJf+NKBMVGiKZGA3Wl9dpdhQji5nnafcGuzjVzQvUmFzUbYfPSodw==
+X-Google-Smtp-Source: AGHT+IHfP3npFilnSaZ1rx+Myrxkuc/HL+XBjlkcF3QP4zgZWUaEBs4WNSmKGxEL1Cf4sbhUW9pR+Q==
+X-Received: by 2002:a05:6512:3994:b0:539:e232:e436 with SMTP id 2adb3069b0e04-53d8623da26mr5228209e87.24.1731306864791;
+        Sun, 10 Nov 2024 22:34:24 -0800 (PST)
+Message-ID: <57d407cf-3f3a-43f6-9aa4-05cac5b50c46@suse.com>
+Date: Mon, 11 Nov 2024 07:34:23 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-990869920-1731292410=:14721"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-990869920-1731292410=:14721
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 1/3] x86/emul: define pseudo keyword fallthrough
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Federico Serafini <federico.serafini@bugseng.com>,
+ consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1730880832.git.federico.serafini@bugseng.com>
+ <a0341b50ece1ba1b5b346b54db7d2abdc150cb95.1730880832.git.federico.serafini@bugseng.com>
+ <be21f3cf-e7a8-469a-99a6-4098032a4df4@suse.com>
+ <alpine.DEB.2.22.394.2411101820430.14721@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2411101820430.14721@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 7bit
 
-On Wed, 6 Nov 2024, Sergiy Kibrik wrote:
-> Introduce config option X86_HVM_STDVGA and make stdvga emulation driver
-> configurable so it can be disabled on systems that don't need it.
+On 11.11.2024 03:24, Stefano Stabellini wrote:
+> On Wed, 6 Nov 2024, Jan Beulich wrote:
+>> On 06.11.2024 10:04, Federico Serafini wrote:
+>>> The pseudo keyword fallthrough shall be used to make explicit the
+>>> fallthrough intention at the end of a case statement (doing this
+>>> through comments is deprecated).
+>>>
+>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>> ---
+>>>  xen/arch/x86/x86_emulate/x86_emulate.h | 10 ++++++++++
+>>>  1 file changed, 10 insertions(+)
+>>
+>> When you had asked my privately on Matrix, I specifically said: "Adding
+>> the pseudo-keyword to x86-emulate.h (not x86_emulate.h) is probably best,
+>> unless problems with that approach turn up." Even if identical re-
+>> definitions are deemed fine, I for one consider such bad practice. Yet
+>> by playing with this file (and outside of any relevant #ifdef) means
+>> there will be such a re-definition when building Xen itself.
+>>
+>> In fact the patch subject should also already clarify that the auxiliary
+>> definition is only needed for the test and fuzzing harnesses.
 > 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> ---
-> changes in v2:
->  - updated description
->  - renamed config option X86_STDVGA -> X86_HVM_STDVGA & moved related
->    Kconfig changes to this patch
->  - reverted changes to has_vvga() macro
->  - moved emulation_flags_ok() checks to this patch
-> ---
->  xen/arch/x86/Kconfig              | 10 ++++++++++
->  xen/arch/x86/domain.c             |  4 ++--
->  xen/arch/x86/hvm/Makefile         |  2 +-
->  xen/arch/x86/include/asm/domain.h |  8 ++++++--
->  xen/arch/x86/include/asm/hvm/io.h |  4 ++++
->  5 files changed, 23 insertions(+), 5 deletions(-)
+> Hi Jan, I don't understand this comment.
 > 
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index ed0ece85c7..35c8ace8ef 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -155,6 +155,16 @@ config X86_HVM_PMTIMER
->  	  Build pmtimer driver that emulates ACPI PM timer for HVM/PVH guests.
->  
->  	  If unsure, say Y.
-> +
-> +config X86_HVM_STDVGA
-> +	bool "Standard VGA card emulation support"
-> +	default y
-> +	help
-> +	  Build stdvga driver that emulates standard VGA card with VESA BIOS
-> +	  Extensions for HVM/PVH guests.
-> +
-> +	  If unsure, say Y.
-> +
->  endmenu
->  
->  config XEN_SHSTK
-> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> index b340818ee2..aefa1fc136 100644
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -742,9 +742,9 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->  
->  static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
->  {
-> -    const uint32_t disabled_emu_mask = X86_EMU_PM;
-> +    const uint32_t disabled_emu_mask = X86_EMU_PM | X86_EMU_VGA;
->  
-> -#if defined(CONFIG_X86_HVM_PMTIMER)
-> +#if defined(CONFIG_X86_HVM_PMTIMER) && defined(CONFIG_X86_HVM_STDVGA)
->      /* This doesn't catch !CONFIG_HVM case but it is better than nothing */
->      BUILD_BUG_ON(X86_EMU_ALL != XEN_X86_EMU_ALL);
->  #endif
+> You say "playing with this file (and outside of any relevant #ifdef)"
+> but actually the changes are within the #ifndef
+> __X86_EMULATE_H__/#endif. What do you mean?
 
-You need to remove this part, following your reply to the previous patch
+"relevant" was specifically to exclude the guard #ifdef. And the remark
+was to avoid the #define to merely be moved into or framed by an
+"#ifndef __XEN__".
 
-With that modification:
+> You say "Adding the pseudo-keyword to x86-emulate.h (not x86_emulate.h)
+> is probably best". I am not very familiar with x86-isms but the only
+> x86-emulate.h I can find is ./tools/tests/x86_emulator/x86-emulate.h
+> which is not a header that would help define anything for the Xen build?
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+But that's the whole point: We _have_ "fallthrough" as a pseudo-keyword
+already for the Xen build. For it to be usable in the emulator files, it
+particularly needs to be made available for the test and fuzzing
+harnesses. And that without interfering with what the Xen build has.
+Hence why it wants to go into precisely that file, where all other build
+compatibility definitions also live.
 
+> I am not understanding your suggestions. From what I can see this patch
+> looks OK?
 
-> diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
-> index 3af8963218..80ec425aa8 100644
-> --- a/xen/arch/x86/hvm/Makefile
-> +++ b/xen/arch/x86/hvm/Makefile
-> @@ -22,7 +22,7 @@ obj-$(CONFIG_X86_HVM_PMTIMER) += pmtimer.o
->  obj-y += quirks.o
->  obj-y += rtc.o
->  obj-y += save.o
-> -obj-y += stdvga.o
-> +obj-$(CONFIG_X86_HVM_STDVGA) += stdvga.o
->  obj-y += vioapic.o
->  obj-y += vlapic.o
->  obj-y += vm_event.o
-> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-> index 8550473997..106b438779 100644
-> --- a/xen/arch/x86/include/asm/domain.h
-> +++ b/xen/arch/x86/include/asm/domain.h
-> @@ -466,7 +466,6 @@ struct arch_domain
->  #define X86_EMU_RTC      XEN_X86_EMU_RTC
->  #define X86_EMU_IOAPIC   XEN_X86_EMU_IOAPIC
->  #define X86_EMU_PIC      XEN_X86_EMU_PIC
-> -#define X86_EMU_VGA      XEN_X86_EMU_VGA
->  #define X86_EMU_IOMMU    XEN_X86_EMU_IOMMU
->  #define X86_EMU_USE_PIRQ XEN_X86_EMU_USE_PIRQ
->  #define X86_EMU_VPCI     XEN_X86_EMU_VPCI
-> @@ -476,7 +475,6 @@ struct arch_domain
->  #define X86_EMU_RTC      0
->  #define X86_EMU_IOAPIC   0
->  #define X86_EMU_PIC      0
-> -#define X86_EMU_VGA      0
->  #define X86_EMU_IOMMU    0
->  #define X86_EMU_USE_PIRQ 0
->  #define X86_EMU_VPCI     0
-> @@ -488,6 +486,12 @@ struct arch_domain
->  #define X86_EMU_PM       0
->  #endif
->  
-> +#ifdef CONFIG_X86_HVM_STDVGA
-> +#define X86_EMU_VGA      XEN_X86_EMU_VGA
-> +#else
-> +#define X86_EMU_VGA      0
-> +#endif
-> +
->  #define X86_EMU_PIT     XEN_X86_EMU_PIT
->  
->  /* This must match XEN_X86_EMU_ALL in xen.h */
-> diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
-> index f2b8431fac..c02fad876c 100644
-> --- a/xen/arch/x86/include/asm/hvm/io.h
-> +++ b/xen/arch/x86/include/asm/hvm/io.h
-> @@ -108,7 +108,11 @@ struct vpci_arch_msix_entry {
->      int pirq;
->  };
->  
-> +#ifdef CONFIG_X86_HVM_STDVGA
->  void stdvga_init(struct domain *d);
-> +#else
-> +static inline void stdvga_init(struct domain *d) {}
-> +#endif
->  
->  extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
->  
-> -- 
-> 2.25.1
-> 
---8323329-990869920-1731292410=:14721--
+No, it is - first and foremost - the wrong file that is being touched.
+
+Jan
 
