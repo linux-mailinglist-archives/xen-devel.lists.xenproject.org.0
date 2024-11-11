@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16BC9C3E60
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 13:22:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833686.1248873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 802439C3EBC
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 13:52:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833696.1248891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tATQJ-0005oM-K4; Mon, 11 Nov 2024 12:21:39 +0000
+	id 1tATtV-0002en-Sq; Mon, 11 Nov 2024 12:51:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833686.1248873; Mon, 11 Nov 2024 12:21:39 +0000
+Received: by outflank-mailman (output) from mailman id 833696.1248891; Mon, 11 Nov 2024 12:51:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tATQJ-0005mG-GM; Mon, 11 Nov 2024 12:21:39 +0000
-Received: by outflank-mailman (input) for mailman id 833686;
- Mon, 11 Nov 2024 12:21:38 +0000
+	id 1tATtV-0002c3-Pa; Mon, 11 Nov 2024 12:51:49 +0000
+Received: by outflank-mailman (input) for mailman id 833696;
+ Mon, 11 Nov 2024 12:51:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MjDS=SG=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1tATQI-0005kw-Dx
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 12:21:38 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20616.outbound.protection.outlook.com
- [2a01:111:f403:2613::616])
+ <SRS0=dX8x=SG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tATtU-0002bx-Jr
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 12:51:48 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7df29a84-a027-11ef-a0c6-8be0dac302b0;
- Mon, 11 Nov 2024 13:21:35 +0100 (CET)
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by AS8PR03MB9143.eurprd03.prod.outlook.com
- (2603:10a6:20b:5b2::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Mon, 11 Nov
- 2024 12:21:32 +0000
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::35ac:8893:c31c:b971%6]) with mapi id 15.20.8137.022; Mon, 11 Nov 2024
- 12:21:32 +0000
+ id b52ddb92-a02b-11ef-a0c6-8be0dac302b0;
+ Mon, 11 Nov 2024 13:51:45 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2f7657f9f62so34817941fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 04:51:45 -0800 (PST)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ff179d7ec8sm16933201fa.109.2024.11.11.04.51.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Nov 2024 04:51:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,159 +45,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7df29a84-a027-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjYxMzo6NjE2IiwiaGVsbyI6IkVVUjA1LVZJMS1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjdkZjI5YTg0LWEwMjctMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzI3Njk1LjMxMTMyNSwic2VuZGVyIjoibXlreXRhX3BvdHVyYWlAZXBhbS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B2o8hIv5NurcgJ4n94VgSV/JsdqY2hioKVk9/CQq5SVwsjX/5NwNocIJ7FjmjtrEJ8Tj6MFXwPAYpjR6nDJCb+u02sfgs51DvDMB/GiuisIXG/ZECqytUXZbc/KYP+UZpGmi+0hhiq/Qgcmz+bikFttCNP/bas/rXaH0zX/KpCkDz7HZbyyhLyCUSZdr1onne31lp8u5MG+Ip0j/WQAKMmYfmB4zTUPLXMnmYbWvjQON3fqehmzcM/1d7s+axEONrNuK010B9PVbLegxDgI1uM5V2LcStaUHP6DygJ9/50n/2sFgND5W/N1jDvA6gKaphqOhmHixlqAYzKI+35g6Hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xr+91tTKpUbVd+SK71h0guGfK6SqdYIMAO319HNtcK8=;
- b=nBitSAihMJOHDAGeqesdDnQm8cBZfrHntS1D1WlAcILKFSvOEqV54MHVNW0yyjz4flVzxwrXLCK4NN8YFMS9duNx6Qi7tJ9Zmzrj743jra2fcLSPym7PUL1phFnF6i0K75Xgps4sq24TQWxiTcP/tzAdnIFP+vgi4K6oz/uQT8gUukFu3g6SzUwpI0kuCZF8QrDqHcRJH0qjOuBkrWPGvvRIazMvAZ2GhYpOTblmUnyBeJRYZJgp4XHo7OWw2kTT2xj2h/ZM3hGLxXcR/ofE4vrNVax1F86PnozQqlNE+LUMDt5JYY4KafLWYt7qMCaChsVGn0kTtIHcsRc1jNLD3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xr+91tTKpUbVd+SK71h0guGfK6SqdYIMAO319HNtcK8=;
- b=TWOWeLa7rRVKHFXr2q96Jf1/LKyWQvAXPlC4KGVE+qV2uQHKdgkzIW5cYm/1KRKhZyzz4ldV03kTZxKu9jFDTiLbKIr1l1KZQl2Qf80kS6hN+2+hcgXgtrE7or5+XSXnERSRFTTyAu228y1fH0gSrTfmMe4js63HnPuAhd7PsUmvbOvFuZ6uvKsGc+PrXIP57d7Bjn/W0BYNG+EkrJHFxBt9jEB+ThhAIbi1JuVotUkxD8+pc2ZxnMGLMAdlocGZAI4U1baOq5fxDq6gZi5ouwTQlkl33QwfVvdJTeG+OO6rEqJw38f5nh2kZWa2neLoAe8mqQRYW/UuJIKcRQfrsg==
-From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH] xen/vpci: Fix UB in mask_write
-Thread-Topic: [XEN PATCH] xen/vpci: Fix UB in mask_write
-Thread-Index:
- AQHbMCKf4QVge+H9k02dX4ZlwzpGqLKp9EiAgAACIoCAAChLAIAAD1kAgAAEXgCAAB6ggIAABvkAgAewKgA=
-Date: Mon, 11 Nov 2024 12:21:32 +0000
-Message-ID: <f5d8396b-26a7-476d-9871-63f603b983bd@epam.com>
-References:
- <559dfac91b8f097bc59c4de194fd2ae2b5b4144c.1730880005.git.mykyta_poturai@epam.com>
- <ZyswF4grJSNcVqY_@macbook> <Zysx4ZwCUv62uTBw@macbook>
- <6d3f322f-7047-4033-95b5-86751a58cc70@suse.com>
- <65d2043f-5e6f-4d84-8241-eb28dd94fc45@epam.com> <ZytkOP_7nmeSVEYH@macbook>
- <7c57371b-803a-418b-97cb-55e79516eed4@epam.com> <ZyuDwnYj5-uCWrMy@macbook>
-In-Reply-To: <ZyuDwnYj5-uCWrMy@macbook>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AS8PR03MB9143:EE_
-x-ms-office365-filtering-correlation-id: 10fd638a-7915-4035-ca9a-08dd024b60bd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?SGFsRXVGcTdzUkU5WW9GT3A1eFIrTEFzbktBTTNic0R5WEs0UVNJVTNJV3hE?=
- =?utf-8?B?QWh4bnRENmJVT1kvOVd5ZXhKbzk5Y2hyY3IwU0lRN1BiY3NQZkRxVzg3a3Qw?=
- =?utf-8?B?NmZsbG4vOG9mTndIeE9SRWdOZitWZjI4cjFLVnNiSWVRaXYwQXJjazFjV2xW?=
- =?utf-8?B?VVppMVRGaXVJWE5FSnBGRVdrcW0zN0UyK0ZhR01FQkVjN2ZtL3pzTFVJTzlX?=
- =?utf-8?B?cjVLY1lSRzZVakUyN0czTUgrbmlMQXlUTVB2Mkpta29ZMUIvMFBZMEZHZlJu?=
- =?utf-8?B?cFpON2ZRRFA3NDErMHN3Y2lUekhILzZmYW5IdWwwMnZ6bU5aeUhXVUtlck5x?=
- =?utf-8?B?MmIxRUZXTWY5QmxzbkFmZTI3MlVxSUhmeGdYdldaWS9PS3d2RHppZkRPL0hD?=
- =?utf-8?B?TXkxOTF5WjI1OG9TY3huL2xld04zb0crSlNyaHQ2VlBWb1o0MU5iMTg4cFVS?=
- =?utf-8?B?dktlNXk0MXBNbFlUZmtwcUs5V0o5WXd5NFJDc1JGK2JiQjhVVnpMU29ZL1hT?=
- =?utf-8?B?a1pnQnNQcXJOTngxVC9weDNPREdDRit0QWpBZVV6d3pvM2VmaWVqOFNVWjFY?=
- =?utf-8?B?YTJoODJ2cUtUR2VZQ1Q0QVlZWHAyQkJ6Sm9LVHpQWjZVSFNsOHV2bkc5REV0?=
- =?utf-8?B?dEpoNDN1T0F0eHdSNWM3V3ZSVUlZLzVBM1dtNnVGOGx5YnpVZ0cvbDZPRlVQ?=
- =?utf-8?B?RmVaNERiYlJwakpJNVRQdld6WExVWGMwa1Bob0R4UCtmQ0NyTjk4cGpoci9W?=
- =?utf-8?B?alI3NlNpc1FxV0ltRlNCRTVWQjFQeUxoL1N0Tm5rVjhSNXpYWFNTaDBUdnVs?=
- =?utf-8?B?S2dkT0ppNElVVzRyMEVHK3I0TVczaGxuWlhuY0F6bVZ2bFA2ZDBuR29pRFBB?=
- =?utf-8?B?dU41akxoY25lL0tKSlZ6MXhaNHBTQ3Mza1FJVm9IOSt1U0FmSUMxc0Rrb010?=
- =?utf-8?B?QkZ3U052QUVodE1XOHRmQjBSYm1YYm91NEQrcWV0TW4ya3hoNFFiUVYyaFN5?=
- =?utf-8?B?MHAwZW53SGV6OGo1YjFGbmcvYWdEK3Fxc3RQYjk4S2JmOWJYT3BYWjdZcnlm?=
- =?utf-8?B?b1A5Z3ZscUx6VURTV2NPbzZpQmVzc2JWMXdTeG5hNlhuOUp6bUZmTWZ2V3Ri?=
- =?utf-8?B?NzdKcGc0NmR5SWpSRXdsbFQ4RGZrUWFEQzBZK0FMWmhXL2hWRUVMS0VsYVdx?=
- =?utf-8?B?QzFPRlJLbDZTY0xHcFJXbGZaQUplWUczYjNhYzZCWUc5VFVDVU9qbHNnSVFy?=
- =?utf-8?B?ZkFXa0tUdzR2N2p3VEZQMmhqbTFOVm9SZWJnalJhdE0zUkw3ak5WdUdQSWlv?=
- =?utf-8?B?dENEdlptWjZubkRVWGRENC9RaGFzN3hSQTFLdFViTGtvanlIdlp4MGJvUU5W?=
- =?utf-8?B?Tld0S3EvZlZXQ2EzNk01RWxYRC9TNnJ6b1BLZndBTE9BL1BNNlJjWmVEUGpi?=
- =?utf-8?B?c21icEhHWHNNSjIwc2x5YTZZMDdaMlUzRVQ4aHZPVCtqeVlPT2tET2Z5aURu?=
- =?utf-8?B?a0pQSFZxSVNzR1J3Q0VjcFVTYk4venhvWnp4Y0ZnZkFVMldXVVd3K1FyR1d4?=
- =?utf-8?B?dGgzejF1SXAyU2FiSDhoYjNFdzNpMzl5RlpzelgvYkZ3VUNTZlZzeWRqK1Vw?=
- =?utf-8?B?b0JhZDJ5NnpRY29LTURxWWY5SnhRVmVvTmhuNkg4RkRJUVRwWjByLzZudVZW?=
- =?utf-8?B?cy9YM0V5bkZkYlpjZStoK1ozNXE5aEoyQkJhQzdTR2t2Zi84Qk9hcml5eGRz?=
- =?utf-8?B?VFM5OS9Ea3c3SmlOb1dFd2lsRkkrVnZCSDJvLzc3WjBBcFViaUR4S0lTMkY0?=
- =?utf-8?Q?SydI0G8p0niffq3eiuS7m1w1qMYpS5rBlT0z0=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?S1FLbFBrWkxsdG9abzg0Nyt4ZmhYdllqTWJlTVVUWThQZkhQMk0vN01oNEkx?=
- =?utf-8?B?MGZDV2h1VDFXWHBpQnd0TGZ1dVV3MWpRMEYxN1pKeWovRDFqV2JNSnhhQmsv?=
- =?utf-8?B?RnBWdGEwcFJ3NEZad1N5c2ZJLy9VK1FQeFdXcHcycUgrUWdDOGZaM2N0ekEw?=
- =?utf-8?B?WmJzd0tBMVJvWDBEOGU4dk1OczB0bVJ1YXcwZXo0eXhIbXJpSzY2ZzR4eUwx?=
- =?utf-8?B?UCs5ZS9sbjhRcUNEckJSR3l1dm9FaDRzN09xRXdQbWkwZEJ2U0Z6TkxHR0Rn?=
- =?utf-8?B?YzlvaFA5NDhPNGJBVm5Ja0FIL2RuQ0NSSmh0UVhjaVNPMkNZWi9saWNjaVVx?=
- =?utf-8?B?bVVKUDhtbmdtdUd1UzFhU3pnb1lGSlZZTElhVkVFTzNrdDNSaGlxRElWZnFv?=
- =?utf-8?B?eGh3MGxUL1dKWVpjdk5XOElzNUY2b2Rmd2N3Vm5ybXNsem9wZVFaYTFXTysx?=
- =?utf-8?B?Z3B5emwwRS93QzZRRTErYnV0bEI4eWJraXUyaTkyMmZLV2Q3c29SZmt2bzkw?=
- =?utf-8?B?TnMwUU5BK2dockFSQzFoRWthbmtkMXlsbXVrVm51NlJlbDFqOEE1YmY0cnpj?=
- =?utf-8?B?bUgxNDdOWXpycWo4UFFwOWlJUXJSNjB1RW1FOER4aVNzODBVWVlSWGVwcVpW?=
- =?utf-8?B?MzVQMC85TUZWMXNQV3oyUVBLZkJMWFFoWk1qZ1FZVHB5UUswODk0dTRhcDNs?=
- =?utf-8?B?ZTBESml5QnYwV0JFV0IxUWtEelZ0Q3NsSmZrSVRhRDNzOVR5bHhHejVNbFV4?=
- =?utf-8?B?S1duMDFCV1F0aXFuanBjVzZCYW1vUVUzMXB1eE9yQlRISjA4Zk9YQ3hsc2NE?=
- =?utf-8?B?QXMyWXZxaUo1L3drcG1reEJxRG9EQUpNTlBGK0tmOVNvRVV5a0NzMFlNYk5B?=
- =?utf-8?B?blhHNXZzdDFQaUJySTFGak82aUo2ZmtDNmFPUTgvMkQ0NkVDL2lQWHlsR2NN?=
- =?utf-8?B?aURJTkkrVHRJWUxhTkdCaXhJd1p1RDJxUWFJTVl5N29oRkdndnVuQ2tuTjJj?=
- =?utf-8?B?cnZtbTdXa0pBYlNrMEVZeTNNWFFLTlU0LzZPQ0VTazg4RkI1Z2xJSW9SZW9V?=
- =?utf-8?B?YVJyaDlnNHQ3ZWxOemdSRzhkNU5tb1R4Wko5aFozVzlqS3VCbkhIMSs1OVpN?=
- =?utf-8?B?TkpNRTZXWFlnVWRQdHl2Y1l2RUw0bjVqRzg0a2hGM2ZaUitzNWZyaW05MGJD?=
- =?utf-8?B?NU1YL0FYZ2lTNHNER1dhamhEbzdUTUtzZlh5bnpMZWhCdWNKNnB5ZWM5YkZl?=
- =?utf-8?B?RjlWSTI0cDlocEpubWFnSG5YRFQ4VDZuclc3YkxPcUVZT0FseGcwTXE4Q3hU?=
- =?utf-8?B?b3ptd29qMkltWUFIbUxmU2tGNzBVTGlmMmdZNjhDdGtnRjJOeTBsOVBJODBW?=
- =?utf-8?B?R1czVysrZmZvQVF4V21pWVR2KzQwSkxsZkJsOHA2eUFvMDR3VmJRdXpLeC9q?=
- =?utf-8?B?WWZncURhc3lpWG1vYzhESnNMYVNuNStpNGxXZXRKWUhPcE5LYzVwelg5bEFo?=
- =?utf-8?B?TFlHRU9rcFEvd1JWT2VSWnZiUWdNV2RYRTZsZEt5b05qYWp3dWxIeFhJTnh4?=
- =?utf-8?B?eFpOWWc4Ync4andQbWpxYUlZekFJWnlMbXYyNHQ2QVNnSnlnNkZ3NkhSekls?=
- =?utf-8?B?UTlkSWM5OXlRSkJVd1h4Rm5UNzFvdXMxUVJZU3I5RzhtVmJaN3lkNEMxM3R0?=
- =?utf-8?B?YVNxaS81di9YUW9CNFI3a1o2aTRQOHBtNkdkalFxVEx0R2hjL0FNT1BGRkUv?=
- =?utf-8?B?VmxrZXZSK1o5UEw2ZUxhaXAvNG5tcS9WZk51TE9BeHRiUFIwc3FnK1I4ZUVC?=
- =?utf-8?B?ZTRyamN4cGJ1d2Y5U294TzVIVzJhYWdzTzZrK242VWd0N0tVcDBTait0MXpu?=
- =?utf-8?B?d2J1aThNVU42L1ByME5lUi9zTWxPRkRjUXo3NTN4bnVPdlZSQjM4VVRzS3E2?=
- =?utf-8?B?dDBQRVlBMWZ5OERrc21IMFdFT0EzOFIzZ3BxdkM5LzJoOFFMdzQya1craEls?=
- =?utf-8?B?Y0pONStFTU50WGxxdGVQVDZiSVROM29mSklHc2p5S1BtbXRoWjA4MTV0dXp2?=
- =?utf-8?B?bnJYMXFnNEkxZHM5cGRvaklPaXY1cXVDL0pqR3RQSnJQU3p5RFpjRHJzYUhN?=
- =?utf-8?B?d2dGRlBwV1FhRjhCR3MyOVlLMWkrNDA1M1ppNGZrQmZaZ0RQK3VrR0NSc1pa?=
- =?utf-8?B?bXc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <3D6E2148129E73438A13EEE8EC69FA19@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: b52ddb92-a02b-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzEiLCJoZWxvIjoibWFpbC1sajEteDIzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImI1MmRkYjkyLWEwMmItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzI5NTA1LjYzMTY0Niwic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1731329505; x=1731934305; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=MI8OJUJG4eHDYLWxnT5Ae0wZm0qRX8ov5qqkOjKqy4Y=;
+        b=DRzgGL3U4482eu4bvDbqWa0iq0QXv4kuISY+92S+QVi/e0bK2yuvRefKxeLXS2Lw27
+         2a/PRRZFGEQAHFmF93pHpvB7yWqy9dNlj/BT4fN8SwJZQAbN/HUfrc7ZkypKdaE3rFC6
+         mb3sbcjRxk4XoZ/U7TZ3QYi9MaFkv/nJlZ9oT4epTSz2Q/F2pafp526EynTKpPaOveZp
+         pz4k8iqgW5iStYqy6Tv4A1L5S0pMCZKIdrMvmMEgyZSwV/x09rnR7pg7QUGZSzjVqXpk
+         sJ7XyMqfSfIKNASiUi2GGez88mFGgZXzmuLYpK/bzAii7A8dRXM58+90JBjZxZpS3WGG
+         9WNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731329505; x=1731934305;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MI8OJUJG4eHDYLWxnT5Ae0wZm0qRX8ov5qqkOjKqy4Y=;
+        b=b0BCTFgUKqoIuq+WPRggfWk2QQOkJDM76DiZP834ioghEWbbdbbaqgxG0srlsEe9/d
+         OxtLYF5jT6GDMvjlkXTVVlXzTMn7k0z2sRsTTbRYeYSNSp9M/uXoDeGp4Jig/NOeYAzY
+         w8kNHxR71DIQ4zJtvNxcTMzbUQ/gaea7CBl7vadlyLYSPtJelyXQNIN6HMG2ZUjfUmkK
+         x17fkBx8qoOGMmA1jzKGaN+D8jY2OXCT2iwLzAqyiZG2idoC5UsMaRo8fmMlCY5/9JzP
+         N2dt29dQfet2Yj9+3GUSX0V0fZ6kV6DGqxrzZzr2MmWZ6N6khejSUoN2qvGj+eOt2iUr
+         ngOw==
+X-Forwarded-Encrypted: i=1; AJvYcCWCDHHQFS3VxjyMkxcaVHISqbG05RIAIAv5O5L4WRPm94IUIshuyKCsphTyF+1SWD56fpMG5jbVu2A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBbJtuZ+1HoRTnJ5sRXfffBc//+Jv06PkPVXfxZpdwJHwG7CoZ
+	z7m+HyoyKUXE1RocNI36/bAqEysosA4+HhiIX2Bb/TGxvZYZC5K//ji9wA==
+X-Google-Smtp-Source: AGHT+IGcC5IxT04hUGYgeB0tVe2RNeOCu+t92deSs72a5ydTiwVAS3tQ0jHDt72cvd4I4KTeyoZuhg==
+X-Received: by 2002:a05:651c:512:b0:2fb:4b0d:9092 with SMTP id 38308e7fff4ca-2ff201e6ddfmr44658131fa.1.1731329504553;
+        Mon, 11 Nov 2024 04:51:44 -0800 (PST)
+Message-ID: <8af72f722c96bae029ee8278c9164e3bc5474272.camel@gmail.com>
+Subject: Re: [PATCH v4 1/3] xen/riscv: introduce setup_mm()
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman	
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper	 <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini	 <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Mon, 11 Nov 2024 13:51:43 +0100
+In-Reply-To: <9eeb11a3-df72-4a77-9235-6a872b365ecd@suse.com>
+References: <cover.1731069334.git.oleksii.kurochko@gmail.com>
+	 <2a9262165c71733792974f5e27795625013bc656.1731069334.git.oleksii.kurochko@gmail.com>
+	 <9eeb11a3-df72-4a77-9235-6a872b365ecd@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.1 (3.54.1-1.fc41app1) 
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10fd638a-7915-4035-ca9a-08dd024b60bd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2024 12:21:32.5282
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NlQVBMLwvklmICUESRwbgFXe38H8UHeK2omGoT//QkFz8PDNJIP2kZ+Vx5Q5phCpYFdNRI4zqec2KT7hZYcfrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB9143
 
-T24gMDYuMTEuMjQgMTY6NTcsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IA0KPiBMZXQncyB0
-cnkgdG8gZmlndXJlIG91dCB3aGF0IGNhdXNlcyBtc2lfbWF4dmVjIHRvIGJlIDAgaW4geW91ciBj
-YXNlDQo+IGFuZCB0aGVuIHdlIGNhbiBzZWUgaG93IHRvIGJldHRlciBkZXRlY3QgdGhpcy4gIElm
-IG1zaV9tYXh2ZWMgbmVlZHMgdG8NCj4gYmUgY2hlY2tlZCBpdCBzaG91bGQgbGlrZWx5IGJlIGRv
-bmUgaW4gaW5pdF9tc2koKS4NCj4gDQo+IFJlZ2FyZHMsIFJvZ2VyLg0KDQpIaSBldmVyeW9uZSwN
-ClNvIEkgaGF2ZSBkb25lIHNvbWUgbW9yZSBpbnZlc3RpZ2F0aW9ucywgYW5kIEkgdGhpbmsgaXQg
-ZmluYWxseSBtYWtlcyANCnNlbnNlLiBUaGUgcmVhbCBjYXVzZSBvZiBteSBjcmFzaGVzIHdhcyBh
-IGxvbmctc3RhbmRpbmcgYnVnIGluIHlldCB0byBiZSANCnVwc3RyZWFtZWQgdnBjaSBwYXRjaGVz
-IHdoZXJlIHRoZSByZWdpc3RlciB2YWx1ZSBhbmQgb2Zmc2V0IHdlcmUgc3dhcHBlZCANCmJ5IG1p
-c3Rha2UuIEFuZCB0aGlzIGJ1ZyB3YXMgaGlkZGVuIGZvciBhIGxvbmcgdGltZSBiZWNhdXNlIG1h
-c2tfd3JpdGUgDQpza2lwcGVkIGFjdHVhbGx5IGRvaW5nIGFueXRoaW5nLCByZXNwZWN0aW5nIHZl
-Y3RvcnMgPSAwLCBzbyBJIGZhaWxlZCB0byANCnNwb3QgaXQgZnJvbSB0aGUgZ2V0LWdvLg0KDQpS
-ZWdhcmRpbmcgbXNpX21heHZlYyB0aGVyZSBzZWVtcyB0byBiZSBhbiBpbXBsaWNpdCBkZXBlbmRl
-bmN5IGJldHdlZW4gDQpDT05GSUdfSEFTX1ZQQ0kgYW5kIENPTkZJR19IQVNfUENJX01TSS4gSWYg
-SEFTX1BDSV9NU0k9biwgdGhlbiANCnBkZXZfbXNpX2luaXQgZ2V0cyByZXBsYWNlZCB3aXRoIGEg
-c3R1YiBhbmQgbXNpX21heHZlYyByZW1haW5zIDAsIGJ1dCBpdCANCmlzIHN0aWxsIHVzZWQgaW4g
-Y29udHJvbF93cml0ZSB1bmNvbmRpdGlvbmFsbHkuDQoNCkkgc2VlIHR3byBwb3NzaWJsZSBzb2x1
-dGlvbnMgdG8gdGhpczogZWl0aGVyIGFkZGluZyBhbiBleHBsaWNpdCANCmRlcGVuZGVuY3kgb3Is
-IGlmIG1zaV9tYXh2ZWMgY2FuJ3QgYmUgMCBhbnl3YXksIGFsd2F5cyBpbml0aWFsaXppbmcgaXQg
-DQp0byAxLiBCdXQgSSBhbSBub3Qgc3VyZSB3aGljaCBvbmUgaXMgYmV0dGVyLg0KDQpNeWt5dGE=
+On Mon, 2024-11-11 at 11:29 +0100, Jan Beulich wrote:
+> On 08.11.2024 13:51, Oleksii Kurochko wrote:
+> > @@ -37,9 +42,9 @@ static inline void *maddr_to_virt(paddr_t ma)
+> > =C2=A0 */
+> > =C2=A0static inline unsigned long virt_to_maddr(unsigned long va)
+> > =C2=A0{
+> > -=C2=A0=C2=A0=C2=A0 if ((va >=3D DIRECTMAP_VIRT_START) &&
+> > +=C2=A0=C2=A0=C2=A0 if ((va >=3D directmap_virt_start) &&
+>=20
+> Is this a valid / necessary change to make?
+You are right, this not valid change, va value is DIRECTMAP_VIRT_START-
+relative.
+
+>  Right now there looks to be
+> nothing immediately below the directmap, yet that would need
+> guaranteeing
+> (e.g. by some BUILD_BIG_ON() or whatever else) if code builds upon
+> that.
+It is not really clear how to check that nothing below the directmap is
+present/used. But IIUC there is no need for this check if properly
+correct the condition above.
+
+>=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (va < (DIRECTMAP_VIRT_=
+START + DIRECTMAP_SIZE)))
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return directmapoff_to_madd=
+r(va - DIRECTMAP_VIRT_START);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return directmapoff_to_madd=
+r(va - directmap_virt_start);
+>=20
+> FTAOD - no question about this part of the change.
+>=20
+> > @@ -423,3 +429,140 @@ void * __init early_fdt_map(paddr_t
+> > fdt_paddr)
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 return fdt_virt;
+> > =C2=A0}
+> > +
+> > +vaddr_t __ro_after_init directmap_virt_start =3D
+> > DIRECTMAP_VIRT_START;
+> > +
+> > +struct page_info *__ro_after_init frametable_virt_start;
+>=20
+> As for directmap_virt_start - perhaps better with initializer?
+Do you mean to initialized by NULL or frame_table?
+
+If to initialize by frame_table then the if-condition won't work
+properly in setup_frametable_mappings() ( but I think that this
+condition could be dropped as setup_frametable_mappings() is supposed
+to be called only once ?! ). And you mentioned about this condition
+here ...
+
+>=20
+> > +#ifndef CONFIG_RISCV_32
+> > +
+> > +/* Map a frame table to cover physical addresses ps through pe */
+> > +static void __init setup_frametable_mappings(paddr_t ps, paddr_t
+> > pe)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 paddr_t aligned_ps =3D ROUNDUP(ps, PAGE_SIZE);
+> > +=C2=A0=C2=A0=C2=A0 paddr_t aligned_pe =3D ROUNDDOWN(pe, PAGE_SIZE);
+> > +=C2=A0=C2=A0=C2=A0 unsigned long nr_mfns =3D PFN_DOWN(aligned_pe - ali=
+gned_ps);
+> > +=C2=A0=C2=A0=C2=A0 unsigned long frametable_size =3D nr_mfns *
+> > sizeof(*frame_table);
+> > +=C2=A0=C2=A0=C2=A0 mfn_t base_mfn;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 if ( !frametable_virt_start )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 frametable_virt_start =3D f=
+rame_table -
+> > paddr_to_pfn(aligned_ps);
+>=20
+> If you make this conditional, then you need an "else" (or something
+> that's
+> effectively one) just like you have in setup_directmap_mappings().
+> Like
+> for the earlier assumption on ps being zero: Assumptions you make on
+> how
+> a function is used want to at least be self-consistent. I.e. here
+> either
+> you assume the function may be called more than once, or you don't.
+...
+
+Do we have in Xen something to be sure that the function is called only
+once or I have to come up with static variable inside the function?
+
+>=20
+> > +static void __init setup_directmap_mappings(unsigned long
+> > base_mfn,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long nr_mfns)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 static mfn_t __initdata directmap_mfn_start =3D
+> > INVALID_MFN_INITIALIZER;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 unsigned long base_addr =3D mfn_to_maddr(_mfn(base_=
+mfn));
+>=20
+> Seeing this and ...
+>=20
+> > +=C2=A0=C2=A0=C2=A0 unsigned long high_bits_mask =3D
+> > XEN_PT_LEVEL_MAP_MASK(HYP_PT_ROOT_LEVEL);
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /* First call sets the directmap physical and virtu=
+al offset.
+> > */
+> > +=C2=A0=C2=A0=C2=A0 if ( mfn_eq(directmap_mfn_start, INVALID_MFN) )
+> > +=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 directmap_mfn_start =3D _mf=
+n(base_mfn);
+>=20
+> ... this (and more further down) - perhaps better to have the
+> function take
+> mfn_t right away?
+Agree, it makes sense. I'll update correspondingly.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * The base address may not =
+be aligned to the second level
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * size in case of Sv39 (e.g=
+. 1GB when using 4KB pages).
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * This would prevent superp=
+age mappings for all the
+> > regions
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * because the virtual addre=
+ss and machine address should
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * both be suitably aligned.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Prevent that by offsettin=
+g the start of the directmap
+> > virtual
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * address.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 directmap_virt_start -=3D
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (ba=
+se_addr & high_bits_mask) + (base_addr &
+> > ~high_bits_mask);
+>=20
+> Isn't this the same as
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 directmap_virt_start -=3D base=
+_addr;
+>=20
+> i.e. no different from what you had a few revisions back? I continue
+> to
+> think that only the low bits matter for the offsetting.
+IIUYC you mean that "(base_addr &
+~high_bits_mask)" should be dropped then I agree. Thanks for noticing
+that.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 if ( base_mfn < mfn_x(directmap_mfn_start) )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 panic("can't add directmap =
+mapping at %#lx below directmap
+> > start %#lx\n",
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 base_mfn, mfn_x(directmap_mfn_start));
+> > +
+> > +=C2=A0=C2=A0=C2=A0 if ( map_pages_to_xen((vaddr_t)mfn_to_virt(base_mfn=
+),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 _mfn(base_mfn), nr_mfns,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 PAGE_HYPERVISOR_RW) )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 panic("Directmap mappings f=
+or [%#"PRIpaddr", %#"PRIpaddr")
+> > failed\n",
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 mfn_to_maddr(_mfn(base_mfn)),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 mfn_to_maddr(_mfn(base_mfn + nr_mfns)));
+>=20
+> Maybe worth also logging the error code?
+I am not really understand why do we need that as the use will see what
+is the issue in the message inside panic().
+
+>=20
+> > +void __init setup_mm(void)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 const struct membanks *banks =3D bootinfo_get_mem()=
+;
+> > +=C2=A0=C2=A0=C2=A0 paddr_t ram_start =3D INVALID_PADDR;
+> > +=C2=A0=C2=A0=C2=A0 paddr_t ram_end =3D 0;
+> > +=C2=A0=C2=A0=C2=A0 paddr_t ram_size =3D 0;
+> > +=C2=A0=C2=A0=C2=A0 unsigned int i;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * We need some memory to allocate the page-ta=
+bles used for
+> > the directmap
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * mappings. But some regions may contain memo=
+ry already
+> > allocated
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * for other uses (e.g. modules, reserved-memo=
+ry...).
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * For simplicity, add all the free regions in=
+ the boot
+> > allocator.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +=C2=A0=C2=A0=C2=A0 populate_boot_allocator();
+> > +
+> > +=C2=A0=C2=A0=C2=A0 for ( i =3D 0; i < banks->nr_banks; i++ )
+> > +=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct membank *bank =
+=3D &banks->bank[i];
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t bank_start =3D ROUN=
+DUP(bank->start, PAGE_SIZE);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t bank_end =3D ROUNDD=
+OWN(bank->start + bank->size,
+> > PAGE_SIZE);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long bank_size =3D=
+ bank_end - bank_start;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_size +=3D bank_size;
+>=20
+> As before - you maintain ram_size here, ...
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_start =3D min(ram_start=
+, bank_start);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ram_end =3D max(ram_end, ba=
+nk_end);
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 setup_directmap_mappings(PF=
+N_DOWN(bank_start),
+> > PFN_DOWN(bank_size));
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 setup_frametable_mappings(ram_start, ram_end);
+> > +=C2=A0=C2=A0=C2=A0 max_page =3D PFN_DOWN(ram_end);
+> > +}
+>=20
+> ... without ever using the value. Why?
+I started to use bank_end and bank_size in v2 and ram_size isn't really
+needed anymore.
+
+Thanks.
+
+~ Oleksii
 
