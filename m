@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DAE29C3CFB
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 12:21:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833585.1248759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBB8C9C3D07
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 12:22:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833593.1248773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tASTJ-000735-50; Mon, 11 Nov 2024 11:20:41 +0000
+	id 1tASUl-00084Y-Fp; Mon, 11 Nov 2024 11:22:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833585.1248759; Mon, 11 Nov 2024 11:20:41 +0000
+Received: by outflank-mailman (output) from mailman id 833593.1248773; Mon, 11 Nov 2024 11:22:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tASTJ-00071S-2D; Mon, 11 Nov 2024 11:20:41 +0000
-Received: by outflank-mailman (input) for mailman id 833585;
- Mon, 11 Nov 2024 11:20:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tASUl-00081x-CF; Mon, 11 Nov 2024 11:22:11 +0000
+Received: by outflank-mailman (input) for mailman id 833593;
+ Mon, 11 Nov 2024 11:22:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bt5q=SG=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tASTH-0006zz-Mh
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 11:20:39 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f409e7a8-a01e-11ef-a0c6-8be0dac302b0;
- Mon, 11 Nov 2024 12:20:27 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-539f84907caso4826521e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 03:20:27 -0800 (PST)
-Received: from localhost (0545937c.skybroadband.com. [5.69.147.124])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa6b3069sm205544935e9.14.2024.11.11.03.20.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Nov 2024 03:20:26 -0800 (PST)
+ <SRS0=pNnr=SG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tASUk-00081p-Er
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 11:22:10 +0000
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [2607:f8b0:4864:20::c2d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2e50d4d6-a01f-11ef-99a3-01e77a169b0f;
+ Mon, 11 Nov 2024 12:22:06 +0100 (CET)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ 006d021491bc7-5ebc0dbc65dso2126156eaf.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 03:22:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,218 +40,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f409e7a8-a01e-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzMiLCJoZWxvIjoibWFpbC1sZjEteDEzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImY0MDllN2E4LWEwMWUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxMzI0MDI3LjcwNzczMiwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 2e50d4d6-a01f-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjpjMmQiLCJoZWxvIjoibWFpbC1vbzEteGMyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjJlNTBkNGQ2LWEwMWYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMzI0MTI2Ljg4NzI5MSwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1731324027; x=1731928827; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1731324125; x=1731928925; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7cLCnNZS6Bpxyv+irrui2Z+UG4rtfjjtYcD7+pZnjUk=;
-        b=RQhzy+nzkuSgwLNk9QJJ75xCjjaVz45QnZrwI0yWZ2qRSvd/HaigcnkCGrarRtqYwB
-         d5XxFV8prCGce+KvIrOiXgYYUrE11AyTosToFX8/lM51/YUY2DtALo9LfNF38lv1eKTT
-         crV00YL5VEsZgqv6Hw//a4zF1t05/CthJGSlM=
+        bh=HZVJGjRydN2DLENj02s9jTif2zAXBMwENRaV6Cm60gk=;
+        b=Mu43kv1IrQ26jgsK8+eUwr9jKtOXDAGaRSklysHkyIvSOiaxUwjbEbaFp2pvjcfI56
+         +utMz35vd7rqB4sgV/natm/KLXz4GXo8o0IbOyo4HohweyXVCk3tPUqBKLQcGf6zZovX
+         U9cR//Ei35CYfMbvYBQrkXDvKZlLrlZEpIV0Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731324027; x=1731928827;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7cLCnNZS6Bpxyv+irrui2Z+UG4rtfjjtYcD7+pZnjUk=;
-        b=QgpeLXlx+SPPZm+q/SeijSkLPJwlO4CqTNS9/qcl8qzFmuwqHhbBEhuG6Xc+40fiJo
-         UYPeqYf2u5s2eXrU/2zXSiXMTCw4mHsXqosSnmA0yI77aPZiBm3Cjbp2bUEN7xL13K9q
-         HC3bF4vAxRTDF2j4xfKRfBqnijq6eVQTaRCXodRarGnmpvx6AURVhMEPAGCcZdPFHfco
-         EOtaWdvsCptEDlP6FDJsTyzqnOYFY66vwOLQR8Q/ZME+vqg6KZhhfTnmq62vTq3f1Cri
-         X7xTSYPx/CyDztmoqUn0E2Ma7/+XtBoQIlRXG61YqbczKfcLbuJFJbPNM7U2z5t9weQG
-         76DA==
-X-Forwarded-Encrypted: i=1; AJvYcCUHSxX7vF3+FUs6BuYpII6davFUfwt8hygkQz5xz+RNG/WA1k96mAmEwxGgn1oSpm9X9P6FFH1PEB0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxlzQ5uEj5wxYwfWFA5V4Gt90kyju3AJsb37icNEvlR7M1ldpnb
-	C/Enm6D4ros7KnREaJDs3ORDE4sRpjWoh9vxdyCY3zazqPwUvj/Vyz1mieKYXog=
-X-Google-Smtp-Source: AGHT+IGm5PlLX5ER66zzzG927PptR0yPJG3wMkLpZPQBPiEE3dVaO+E0m2RIC6jjvULgaxUqEBasgQ==
-X-Received: by 2002:a05:6512:1386:b0:53b:1526:3a48 with SMTP id 2adb3069b0e04-53d862c57cdmr4548188e87.14.1731324027043;
-        Mon, 11 Nov 2024 03:20:27 -0800 (PST)
-Mime-Version: 1.0
+        d=1e100.net; s=20230601; t=1731324125; x=1731928925;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HZVJGjRydN2DLENj02s9jTif2zAXBMwENRaV6Cm60gk=;
+        b=OLU6t+BgRAvg+r7DWKX9oSBqN2s5zaiuj1XKzhum0vbgn6YsKhO3d2jiqYA/VugOBQ
+         1XCiBba63LZWocLax02tFfqt4fLcfEwmJOHqHnUXcM6BvGBtfLAJLGBsFFWqJwtDyw51
+         L6nPt6BLkF9mnWClAFmKEs/9fn58W/bQA6+UvAooZFmmXw2rhn7QqwpjNyTtnwdJl6hh
+         aKpQwZp0VyQi7AmPaJ1WCA/ZkFVwKymBKaDPKnU7O96bdmUIFwwxx8isDy3Gp07Jc/BG
+         A8dX9iM4WU68X8TfzNDnC0NzAYkLoG5g1W5kpVj8zBXrFqufnE/i/aW8xb6hmbqJ9lCS
+         Dr+g==
+X-Gm-Message-State: AOJu0Yz+lKnt0r74vY1asI59aHdYV5qVLlw3nJPQbTt8J9c9NljRy2Au
+	zfNc2JCzNRKenr+gDLTg6axXB9Wjsaurp5HB0rWMsxF8WgcTLb2C2d35p32vHCfRoqRNFa6/N8v
+	R4Uyxfkj8imsG863hwBKv+wgUPDSs6azIl+d9PA==
+X-Google-Smtp-Source: AGHT+IGgPOLDYKsNpnewujfp4+Tl1B4HceuEfh1n6WIqGwQz3oG4hqgq7gKZ4CSGqHfXD3cW1APQC/w+cAb8IeLW2aY=
+X-Received: by 2002:a05:6820:8c8:b0:5eb:75a9:3aac with SMTP id
+ 006d021491bc7-5ee57c61091mr7048602eaf.6.1731324124753; Mon, 11 Nov 2024
+ 03:22:04 -0800 (PST)
+MIME-Version: 1.0
+References: <20241109003654.884288-1-andrew.cooper3@citrix.com>
+ <CACHz=ZjBiEkXCGayGSdFUUc0eCFqSvGGSyFDMmRc76Nz_aP9QA@mail.gmail.com> <1ace53f6-dd00-4277-9e91-4f3117facd38@citrix.com>
+In-Reply-To: <1ace53f6-dd00-4277-9e91-4f3117facd38@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 11 Nov 2024 11:21:54 +0000
+Message-ID: <CACHz=ZgjpZ5TkwwDrbCZkOG1XnjAV7uGxDqZGYu_StTMAPKD0w@mail.gmail.com>
+Subject: Re: [PATCH] x86/wakeup: Fix code generation for bogus_saved_magic
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 11 Nov 2024 11:20:24 +0000
-Message-Id: <D5JB58LVN4T6.1IUNQ15AHO1RV@cloud.com>
-Cc: "Jan Beulich" <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: Re: [PATCH v7 04/10] tools/hvmloader: Retrieve (x2)APIC IDs from
- the APs themselves
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <20241021154600.11745-1-alejandro.vallejo@cloud.com>
- <20241021154600.11745-5-alejandro.vallejo@cloud.com>
- <e8e2385d-b575-4483-ba54-f80c669af9c3@citrix.com>
-In-Reply-To: <e8e2385d-b575-4483-ba54-f80c669af9c3@citrix.com>
 
-On Wed Oct 30, 2024 at 11:31 AM GMT, Andrew Cooper wrote:
-> On 21/10/2024 4:45 pm, Alejandro Vallejo wrote:
-> > diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmload=
-er/config.h
-> > index cd716bf39245..04cab1e59f08 100644
-> > --- a/tools/firmware/hvmloader/config.h
-> > +++ b/tools/firmware/hvmloader/config.h
-> > @@ -4,6 +4,8 @@
-> >  #include <stdint.h>
-> >  #include <stdbool.h>
-> > =20
-> > +#include <xen/hvm/hvm_info_table.h>
-> > +
-> >  enum virtual_vga { VGA_none, VGA_std, VGA_cirrus, VGA_pt };
-> >  extern enum virtual_vga virtual_vga;
-> > =20
-> > @@ -48,8 +50,9 @@ extern uint8_t ioapic_version;
-> > =20
-> >  #define IOAPIC_ID           0x01
-> > =20
-> > +extern uint32_t cpu_to_x2apicid[HVM_MAX_VCPUS];
+On Mon, Nov 11, 2024 at 11:05=E2=80=AFAM Andrew Cooper
+<andrew.cooper3@citrix.com> wrote:
 >
-> Just cpu_to_apic_id[] please.=C2=A0=C2=A0 The distinction between x or x2=
- isn't
-> interesting here.
-
-I disagree.
-
-While "x" says nothing of interest "x2" does state the width. cpu_to_apic_i=
-d is
-ambiguous and I've seen no shortage of code in which it's impossible to ass=
-ess
-its correctness without going to check what the original author meant; and
-guesswork is bad for robustness. cpu_to_x2apicid has an unambiguous width a=
-t
-the meager cost of 2 chars. If you have very strong feelings about it I can
-change it, but my preference is to keep it as-is.
-
+> On 09/11/2024 5:29 pm, Frediano Ziglio wrote:
+> > On Sat, Nov 9, 2024 at 12:37=E2=80=AFAM Andrew Cooper <andrew.cooper3@c=
+itrix.com> wrote:
+> >> bogus_saved_magic() is in a .code64 section but invokved in 32bit mode=
+.  This
+> > Typo: invoked
+> >
+> >> causes a real encoding difference.
+> >>
+> >> Before:
+> >>   66 c7 04 25 14 80 0b 00 53 0e    movw   $0xe53,0xb8014(,%eiz,1)
+> >>
+> >> After:
+> >>   66 c7 05 14 80 0b 00 53 0e       movw   $0xe53,0xb8014
+> >>
+> >> The differnce happens to be benign, but move the logic back into a .co=
+de32 for
+> > Typo: difference
 >
-> HVM_MAX_VCPUS is a constant that should never have existed in the first
-> place, *and* its the limit we're looking to finally break when this
-> series is accepted.
+> Thanks.  I'd noticed and fixed up locally.
 >
-> This array needs to be hvm_info->nr_vcpus entries long, and will want to
-> be more than 128 entries very soon.=C2=A0 Just scratch_alloc() the array.=
-=C2=A0
-> Then you can avoid the include.
-
-That's a major PITA in the libxl side. I'll have a go to see how long it ta=
-kes
-me before I weep :_)
-
+> >
+> >> sanity sake.  Annotate it with ELF metadata while doing so.
+> >>
+> >> Fixes: d8c8fef09054 ("Provide basic Xen PM infrastructure")
+> >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >> ---
+> >> CC: Jan Beulich <JBeulich@suse.com>
+> >> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >>
+> >> This issue dates back to the very introduction of S3 support in Xen, i=
+n 2007.
+> >> ---
+> >>  xen/arch/x86/boot/wakeup.S | 9 +++++----
+> >>  1 file changed, 5 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/xen/arch/x86/boot/wakeup.S b/xen/arch/x86/boot/wakeup.S
+> >> index 08447e193496..c929fe921823 100644
+> >> --- a/xen/arch/x86/boot/wakeup.S
+> >> +++ b/xen/arch/x86/boot/wakeup.S
+> >> @@ -153,15 +153,16 @@ wakeup_32:
+> >>          /* Now in compatibility mode. Long-jump to 64-bit mode */
+> >>          ljmp    $BOOT_CS64, $bootsym_rel(wakeup_64,6)
+> >>
+> >> +FUNC_LOCAL(bogus_saved_magic, 0)
+> >> +        movw    $0x0e00 + 'S', 0xb8014
+> >> +        jmp     bogus_saved_magic
+> >> +END(bogus_saved_magic)
+> >> +
+> >>          .code64
+> >>  wakeup_64:
+> >>          /* Jump to high mappings and the higher-level wakeup code. */
+> >>          movabs  $s3_resume, %rbx
+> >>          jmp     *%rbx
+> >>
+> >> -bogus_saved_magic:
+> >> -        movw    $0x0e00 + 'S', 0xb8014
+> >> -        jmp     bogus_saved_magic
+> >> -
+> >>  /* Stack for wakeup: rest of first trampoline page. */
+> >>  ENTRY(wakeup_stack_start)
+> > Hi,
+> >    I agree with the code move, it's supposed to be 32 bit so it should
+> > be in the 32 bit section.
+> > Does the ELF annotation help with debug information? Maybe worth
+> > adding to the comment.
 >
-> > diff --git a/tools/firmware/hvmloader/mp_tables.c b/tools/firmware/hvml=
-oader/mp_tables.c
-> > index 77d3010406d0..539260365e1e 100644
-> > --- a/tools/firmware/hvmloader/mp_tables.c
-> > +++ b/tools/firmware/hvmloader/mp_tables.c
-> > @@ -198,8 +198,10 @@ static void fill_mp_config_table(struct mp_config_=
-table *mpct, int length)
-> >  /* fills in an MP processor entry for VCPU 'vcpu_id' */
-> >  static void fill_mp_proc_entry(struct mp_proc_entry *mppe, int vcpu_id=
-)
-> >  {
-> > +    ASSERT(cpu_to_x2apicid[vcpu_id] < 0xFF );
+> As said in the commit message, it's simply ELF metadata (symbol type and
+> size).
 >
-> This is just going to break when we hit 256 vCPUs in a VM.
+> It doesn't interact with debug symbols, so far as I'm aware.
 >
-> What do real systems do?
+> It's mainly for livepatching (the ELF metadata is how changes are
+> identified), but we're applying it uniformly to all assembly as a
+> cleanup activity.
 >
-> They'll either wrap around 255 like the CPUID xAPIC_ID does, or they'll
-> not write out MP tables at all.
 
-Definitely not wrapping around, that makes no sense.
+I don't think livepatching this code would be so easy. That code is
+copied to low memory and discarded (.init section) later, so patching
+the code in the current ELF code would corrupt Xen memory.
 
-It could also show the first 255 APs only. The reality is that if we're
-exposing 1000 vCPUs is because we expect the guest to use them. While it's
-likely we want to avoid writing the MP tables, that's not a puddle I want t=
-o
-play with ATM.
-
-Note that this is not a new breakage. It was already broken if we were to h=
-it
-such an APIC ID (which we can't because HVM_MAX_VCPUS is lower). I just mad=
-e
-sure we never write out corrupted tables.
-
+> > OT: If I understood correctly, the code is writing a character on
+> > screen in a tight loop. Maybe an hlt instruction could be helpful?
 >
-> > diff --git a/tools/firmware/hvmloader/smp.c b/tools/firmware/hvmloader/=
-smp.c
-> > index 1b940cefd071..d63536f14f00 100644
-> > --- a/tools/firmware/hvmloader/smp.c
-> > +++ b/tools/firmware/hvmloader/smp.c
-> > @@ -90,10 +120,11 @@ static void boot_cpu(unsigned int cpu)
-> >          BUG();
-> > =20
-> >      /*
-> > -     * Wait for the secondary processor to complete initialisation.
-> > +     * Wait for the secondary processor to complete initialisation,
-> > +     * which is signaled by its x2APIC ID being written to the LUT.
+> Yeah, it's not exactly great code, but it needs more adjustments than
+> just a hlt.
 >
-> Technically all arrays are a lookup table, but I'm not sure LUT is a
-
-No. A look-up table is a very specific implementation of a relation (in the
-mathematical sense) between an unsigned integer and some other type,
-implemented by means of an array indexed by said integer.
-
-> common enough term to be used unqualified like this.
-
-Happy to change the name if it's uncommon enough in this codebase, but it i=
-s
-fairly common outside of it, and it's common enough to have its own wikiped=
-ia
-page with that very acronym.
-
-  https://en.wikipedia.org/wiki/Lookup_table
-
+> It ought to know about CONFIG_VIDEO, and ideally video=3Dnone.
 >
-> Just say "... signalled by writing its APIC_ID out."=C2=A0 The where is v=
-ery
-> apparent by the code.
->
-> > @@ -104,6 +135,12 @@ static void boot_cpu(unsigned int cpu)
-> >  void smp_initialise(void)
-> >  {
-> >      unsigned int i, nr_cpus =3D hvm_info->nr_vcpus;
-> > +    uint32_t ecx;
-> > +
-> > +    cpuid(1, NULL, NULL, &ecx, NULL);
-> > +    has_x2apic =3D (ecx >> 21) & 1;
-> > +    if ( has_x2apic )
-> > +        printf("x2APIC supported\n");
->
-> You need to check max_leaf >=3D 0xb too.=C2=A0 Remember Xen might not giv=
-e you
-> leave 0xb yet, and then you'll hit the assert for finding 0.
 
-True.
+In head.S we write messages in both VGA (if possible) and serial.
+Anyway... out of scope here.
 
->
-> And has_x2apic wants to be a simple boolean.=C2=A0 Nothing good can come =
-from
-> confusing -1 with "x2apic available".
 
-Sure
-
+> > Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 >
->
-> I recommend splitting this patch into three.=C2=A0 Several aspects are qu=
-ite
-> subtle.
->
-> 1) Collect the APIC_IDs on APs
-> 2) Change how callin is signalled.
-> 3) Replace LAPIC_ID() with the collected apic_id.
->
-> but AFAICT, it can be done as a standalone series, independently of the
-> other Xen/toolstack work.
-
-Ack
-
+> Thanks.
 >
 > ~Andrew
 
-Cheers,
-Alejandro
+Frediano
 
