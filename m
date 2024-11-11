@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E3939C3AC3
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 10:21:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833412.1248555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 549FD9C3AC8
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 10:23:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833418.1248564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQbs-00087S-EJ; Mon, 11 Nov 2024 09:21:24 +0000
+	id 1tAQdX-0000DC-ON; Mon, 11 Nov 2024 09:23:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833412.1248555; Mon, 11 Nov 2024 09:21:24 +0000
+Received: by outflank-mailman (output) from mailman id 833418.1248564; Mon, 11 Nov 2024 09:23:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAQbs-00084e-B2; Mon, 11 Nov 2024 09:21:24 +0000
-Received: by outflank-mailman (input) for mailman id 833412;
- Mon, 11 Nov 2024 09:21:22 +0000
+	id 1tAQdX-0000Ai-Lj; Mon, 11 Nov 2024 09:23:07 +0000
+Received: by outflank-mailman (input) for mailman id 833418;
+ Mon, 11 Nov 2024 09:23:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/YTX=SG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAQbq-00084Y-2T
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 09:21:22 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1tAQdW-0000Ac-El
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 09:23:06 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4eb466d8-a00e-11ef-99a3-01e77a169b0f;
- Mon, 11 Nov 2024 10:21:18 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-37d4ba20075so2815528f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 01:21:18 -0800 (PST)
+ id 8c0847fb-a00e-11ef-99a3-01e77a169b0f;
+ Mon, 11 Nov 2024 10:23:01 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-37d70df0b1aso2651858f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Nov 2024 01:23:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381ed970d4fsm12638087f8f.5.2024.11.11.01.21.17
+ ffacd0b85a97d-381edc1104asm12585185f8f.88.2024.11.11.01.23.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Nov 2024 01:21:17 -0800 (PST)
+ Mon, 11 Nov 2024 01:23:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4eb466d8-a00e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzUiLCJoZWxvIjoibWFpbC13cjEteDQzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjRlYjQ2NmQ4LWEwMGUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMzE2ODc4LjQyMTE2LCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 8c0847fb-a00e-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzAiLCJoZWxvIjoibWFpbC13cjEteDQzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjhjMDg0N2ZiLWEwMGUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxMzE2OTgxLjMyODE0NCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731316878; x=1731921678; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731316981; x=1731921781; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ak3JEXcUuEnYrsteGJHDEZsA3uC1LaFR+UbhNKCFbBo=;
-        b=FmaGq2yFPYd7kpP6OakD3FoGSo9SCO7RCPSHZMJ8Il0t45VQwIyp0424t9/+aAp1JM
-         zONDq8//nbsfL6X6UXfprCiCyYvFBYjiqL5zhS7rvP0EaR3xKCvvAZf6nSn7ECNwYi4z
-         HmJIOlfVh8GP4SYBkq8+pJL62s/fnGdbiekeAhlGPYTOh55/EY2u67nEt5BvaBCLtugf
-         9SQ7BbhSvs9fwBCz43FuU0EnWnuKJIBYNc+zk0Y7v1FGoQFtczDUgiN6TJuCG59lCVsM
-         J5rhF12jb4wWje7erzuTEEaAawpcq5AUp+vFqqxV6SxHWBoYecTO1nS5r/I610/1td5A
-         Q9Xg==
+        bh=HWLnYUCttsC6XlffBNQz7o6QOiQ8yovhcb9yUdyZx8g=;
+        b=Wkonvy4NR6s2YPUccMeqKEwBgX3ylW8MPnTfumuHBpzS5Is4x9PTN0vcGu/omiBRWC
+         OWoX6YQ2ZWiRetoHnUyxsE3NAgRpTDTa2Wr/m75KeZixBbxbm4Ptvypf41xpU6NEO+YL
+         o31FobM3sfYgfe84TBSD3fPiYI3uoHFD04AAkiqjvch0qafBgx0MvFqv6ABrJ1dVKzme
+         WkV5/fFzYWFWYQyUaZ03i/w6ajvO9A9duSiu9dwnx2UmkhKpV2QPFVBCK1E4xxB2DSN3
+         gYWw6c8h80AGKMTO7qVqRrV7ayPG8fqCDIBYCCaxz6KEa31e+NgRuTWku9DlctGDqzaE
+         SFBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731316878; x=1731921678;
+        d=1e100.net; s=20230601; t=1731316981; x=1731921781;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ak3JEXcUuEnYrsteGJHDEZsA3uC1LaFR+UbhNKCFbBo=;
-        b=v5j6OM5R6sLMFRyS234hLJU8om5Iawm9qKqNpWhATrn2l/foAXXHZCq//VUIR1rVot
-         J8MHBsLxaopwP1LtWpELGyJzijHQ3a1hoClrMBkSGgygrHi21vuoqJq8cdm5mQ7IyxrQ
-         Wf7tsc/LEqAmz+rklT6erjqB7yt/fAJQOHrc99RrB7lLvS5tdUcH22DDc7vP/hdri6qG
-         ++EiXxIOPuYKOTXP/6gu8gPWWi2XeDnny+jmwu3AJUCkvECy1lHC8Yyxh5Y6hKWDUs97
-         WADfZwN+LPcOtznps1cvVky8EyFH0cssEknQUOOiEN1lzW0s/4rWieu/ICgM+AIfBrLG
-         qdRg==
-X-Forwarded-Encrypted: i=1; AJvYcCUVPO2d2mF23wM6NHDoVCFrtzMCsIRyx1SFO2OT0d1H9NzYOLQCmKD5pCR9X/WyEaMcWpylvsJzgV4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyBYkwoI7+HEG3qzDDcNFXhGlr8krAtU/vSanimF5pFBSPpY9ij
-	mM3PiZ7MdRhgYVqisrAjVM2n/KY54ViuICS/38ZwwZK1/nhLPOuBdBek0c/0dx+A8fIJDXTgeqk
+        bh=HWLnYUCttsC6XlffBNQz7o6QOiQ8yovhcb9yUdyZx8g=;
+        b=Y3GFZsIDDdIPmqkQ3a+BSXYxJjkTh+k3CHhhKkDlHnhiNriTeWTZ22trzLaLtLRC9b
+         Kkkjh9ZsDaxkpsS8EctAYx7O23VmGPiTyVLLZpEriZTWBUJIgh5fYOFNQIt9Jyb1a+SY
+         Yw966umleR68VRqMPDZ6EhZ6NUaO6RmE/wCz6cv9QP6y7GoVpjAnB5bxugSEpspWpCTv
+         6giuDLrvnqQ7n3DmwqcKRRXSFOMun9j6gyJkW/cqGM6Cxk9aUfb/3vuo5Fh9rfFg42r8
+         QaOJVlZ+t8V/fdXivW0HSbzm02Zdatvz/QAjk6YVh0UXbwH9JB7/gqxQlbsUGq7UHuCP
+         rCvw==
+X-Forwarded-Encrypted: i=1; AJvYcCVmnq1QHmmWwBPoqvzw7AYJ8xwd7VLF6H3bA5QINU95mNmhLytgZjdRbMeKSw+9u+4brQkLFwsG90o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvPRseUg4SrDoQ4bci+Af397RVGFthhHDdNZUmMc3nnb8AIU/G
+	1ovQY+Ga5Gt6hrv4oROJrIN47nopIy8Vzrj6cDgiphuOPD6ERaoEGnhhpazRU8QPwr2R74k9kGE
 	=
-X-Google-Smtp-Source: AGHT+IHOdlLLvL+6F8gPv+3tx5LU1FbSIr1HWXopimys9zd2OpNeOtQumQVbtUX3E1bB0JYMO8wqBg==
-X-Received: by 2002:a05:6000:4213:b0:37c:d1e3:ebd2 with SMTP id ffacd0b85a97d-381f1823488mr10460709f8f.29.1731316877823;
-        Mon, 11 Nov 2024 01:21:17 -0800 (PST)
-Message-ID: <63b510cf-b26c-41ab-a317-377eb56c434a@suse.com>
-Date: Mon, 11 Nov 2024 10:21:19 +0100
+X-Google-Smtp-Source: AGHT+IEZ2ppU+lDu1+H2GgxGLTMoG/OwqeRknrVab6k5RLRHhTM1jL0bIA4a8A7QYv5/avsNEZax2g==
+X-Received: by 2002:a05:6000:18a7:b0:37d:52d0:a59d with SMTP id ffacd0b85a97d-381f18672fdmr9022375f8f.10.1731316980656;
+        Mon, 11 Nov 2024 01:23:00 -0800 (PST)
+Message-ID: <f7515b69-f92b-4508-8859-e23c28b735ba@suse.com>
+Date: Mon, 11 Nov 2024 10:23:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86: Drop mach-default/bios_ebda.h
+Subject: Re: [PATCH 4/4] x86: Drop mach_mpspec.h
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241108201147.812036-1-andrew.cooper3@citrix.com>
- <20241108201147.812036-4-andrew.cooper3@citrix.com>
+ <20241108201147.812036-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,21 +115,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241108201147.812036-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20241108201147.812036-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.11.2024 21:11, Andrew Cooper wrote:
-> @@ -734,6 +732,13 @@ static void __init efi_check_config(void)
->  		efi_unmap_mpf();
->  }
->  
-> +static unsigned int get_bios_ebda(void)
-> +{
-> +	unsigned int address = *(unsigned short *)maddr_to_virt(0x40E);
+> --- a/xen/arch/x86/include/asm/mach-default/mach_mpspec.h
+> +++ /dev/null
+> @@ -1,10 +0,0 @@
+> -#ifndef __ASM_MACH_MPSPEC_H
+> -#define __ASM_MACH_MPSPEC_H
+> -
+> -#define MAX_IRQ_SOURCES 256
+> -
+> -/* Generic (i.e. installer) kernels need lots of bus entries. */
+> -/* Maximum 256 PCI busses, plus 1 ISA bus in each of 4 cabinets. */
 
-Now this is a case where I think use of uint16_t is not just optional, but
-even a requirement.
+This (presumably obsolete, but still) reasoning is entirely lost ...
+
+> -#define MAX_MP_BUSSES 260
+> -
+> -#endif /* __ASM_MACH_MPSPEC_H */
+> --- a/xen/arch/x86/include/asm/mpspec.h
+> +++ b/xen/arch/x86/include/asm/mpspec.h
+> @@ -3,7 +3,9 @@
+>  
+>  #include <xen/cpumask.h>
+>  #include <asm/mpspec_def.h>
+> -#include <mach_mpspec.h>
+> +
+> +#define MAX_IRQ_SOURCES 256
+> +#define MAX_MP_BUSSES 260
+
+... for why it's 260 here. Imo the value either wants lowering to 256
+(for there hardly being anything ISAish in 64-bit systems), or at least
+that half of the comment retaining.
 
 Jan
 
