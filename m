@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A34009C3BC6
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 11:18:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.833470.1248624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A81F19C3BCF
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2024 11:24:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.833477.1248638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tARV0-0006ek-OK; Mon, 11 Nov 2024 10:18:22 +0000
+	id 1tARaf-0000BF-C9; Mon, 11 Nov 2024 10:24:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 833470.1248624; Mon, 11 Nov 2024 10:18:22 +0000
+Received: by outflank-mailman (output) from mailman id 833477.1248638; Mon, 11 Nov 2024 10:24:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tARV0-0006cC-LU; Mon, 11 Nov 2024 10:18:22 +0000
-Received: by outflank-mailman (input) for mailman id 833470;
- Mon, 11 Nov 2024 10:18:21 +0000
+	id 1tARaf-000099-9E; Mon, 11 Nov 2024 10:24:13 +0000
+Received: by outflank-mailman (input) for mailman id 833477;
+ Mon, 11 Nov 2024 10:24:12 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tARUz-0006bn-Ma
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 10:18:21 +0000
+ (envelope-from <julien@xen.org>) id 1tARae-000092-3G
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2024 10:24:12 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tARUy-00015p-16;
- Mon, 11 Nov 2024 10:18:20 +0000
+ (envelope-from <julien@xen.org>) id 1tARad-0001C2-1D;
+ Mon, 11 Nov 2024 10:24:11 +0000
 Received: from [2a02:8012:3a1:0:440f:f547:9226:a08e]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tARUy-0001mc-12;
- Mon, 11 Nov 2024 10:18:20 +0000
+ (envelope-from <julien@xen.org>) id 1tARad-0002MR-1J;
+ Mon, 11 Nov 2024 10:24:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,45 +42,54 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ietWmLYycllmS2mSyMvZwkOylV26P1xbB+aobozA0a4=; b=kFizLWwW9dWB6Jo+eJSWqgw9+W
-	Fw9o5731VAGhEDoPc658yQxJAcB9Jr1UJbdwNCKgwAOEA3rQnTn9csdYH4tpE0DCCFCjhIiEg3q+b
-	uLLaLt4YCHBSUBJ1JOSOgJ8BUhoxoKV8c5v/+6LBfP5pdN8R7ayK2oFeaHE3GT+PA4y4=;
-Message-ID: <6ab4ad29-404d-4f5c-8582-5d2f492fd549@xen.org>
-Date: Mon, 11 Nov 2024 10:17:45 +0000
+	bh=0YBhHb/6pDPGIbPhvORejdS9Cn2tGzlmu4vrEvNcDH0=; b=Tgxy7H1q/RpWRuPpoPhSZLlawH
+	OA2QTjP4Dl+ceeBt3KaPGYsQA59vl/AtCCFwkAXLZOadaSV0MHT+KnJIldNZdHrigOTZa5lYNfpQk
+	3/XSMrVE42xhi/9w0UGfYL+/c9eNzAjb+/Hym1S8dAJHn5Kx7PKHbQ7hjsbQxRgOwpGA=;
+Message-ID: <96d8d5c0-015a-4dd5-8ef1-6d9cd6948cab@xen.org>
+Date: Mon, 11 Nov 2024 10:24:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/ipmmu-vmsa: Add Renesas R8A779G0 (R-Car V4H)
- support
+Subject: Re: [PATCH v1] drivers/char: move dt_uart_init() to dt-uart.c
 Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>, gragst.linux@gmail.com
-Cc: xen-devel@lists.xenproject.org,
- Grygorii Strashko <grygorii_strashko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Mykyta Poturai <Mykyta_Poturai@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20241107132501.724836-1-grygorii_strashko@epam.com>
- <alpine.DEB.2.22.394.2411071314270.89051@ubuntu-linux-20-04-desktop>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <8e1036a7e6c884702d46e377c1c5b723570c819e.1731077742.git.oleksii.kurochko@gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2411071314270.89051@ubuntu-linux-20-04-desktop>
+In-Reply-To: <8e1036a7e6c884702d46e377c1c5b723570c819e.1731077742.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Oleksii,
 
-On 07/11/2024 21:14, Stefano Stabellini wrote:
-> On Thu, 7 Nov 2024, gragst.linux@gmail.com wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> Add Renesas R8A779G0 (R-Car V4H) IPMMU support.
->>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+On 08/11/2024 14:56, Oleksii Kurochko wrote:
+> The `dt_uart_init()` functions is relocated to a new file `dt-uart.c` to allow
+> for reuse across architectures that utilize the device tree to describe hardware
+> components.
 > 
-> Assuming it was properly tested:
+> RISC-V is going to follow the same approach to UART initialization, which
+> includes checking for the presence of `dtuart` in the console string or verifying
+> the `stdout-path` property in the `/chosen` node, followed by searching for the UART
+> node and calling `device_init()` for UART setup.
 > 
-> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> Add `xen/drivers/char/dt-uart.c` to the ARM ARCHITECTURE section in the MAINTAINERS
+> file, as ARM maintainers are best suited to maintain this code.
+> 
+> No functional change.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+>   MAINTAINERS                 |  1 +
+>   xen/drivers/char/Makefile   |  1 +
+>   xen/drivers/char/arm-uart.c | 80 -------------------------------
 
-It is now committed.
+The only thing left in arm-uart.c is the ACPI initialize. I guess at the 
+some point this will be needed for other architectures. I think it would 
+be more suitable if the file is renamed, maybe uart-init.c?
 
 Cheers,
 
