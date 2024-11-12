@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CE319C5512
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 11:58:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834361.1249989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F7639C5525
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 12:00:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834368.1249999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAob2-0005AI-30; Tue, 12 Nov 2024 10:58:08 +0000
+	id 1tAocz-0006iH-EP; Tue, 12 Nov 2024 11:00:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834361.1249989; Tue, 12 Nov 2024 10:58:08 +0000
+Received: by outflank-mailman (output) from mailman id 834368.1249999; Tue, 12 Nov 2024 11:00:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAob2-000586-07; Tue, 12 Nov 2024 10:58:08 +0000
-Received: by outflank-mailman (input) for mailman id 834361;
- Tue, 12 Nov 2024 10:58:06 +0000
+	id 1tAocz-0006gA-Ar; Tue, 12 Nov 2024 11:00:09 +0000
+Received: by outflank-mailman (input) for mailman id 834368;
+ Tue, 12 Nov 2024 11:00:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KiBs=SH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAob0-00057o-Ni
- for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 10:58:06 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1tAocx-0006fw-E3
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 11:00:07 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd21792f-a0e4-11ef-a0c6-8be0dac302b0;
- Tue, 12 Nov 2024 11:58:03 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4316cce103dso69199435e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 02:58:03 -0800 (PST)
+ id 455c76a8-a0e5-11ef-a0c6-8be0dac302b0;
+ Tue, 12 Nov 2024 12:00:04 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4316a44d1bbso45710485e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 03:00:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa6bee9asm248081475e9.19.2024.11.12.02.58.02
+ 5b1f17b1804b1-432b054aed6sm203008895e9.15.2024.11.12.03.00.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Nov 2024 02:58:02 -0800 (PST)
+ Tue, 12 Nov 2024 03:00:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd21792f-a0e4-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImZkMjE3OTJmLWEwZTQtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDA5MDgzLjM1MzI4Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 455c76a8-a0e5-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjQ1NWM3NmE4LWEwZTUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDA5MjA0LjU0NjI1Mywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731409083; x=1732013883; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731409204; x=1732014004; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RPuFwaL3me5rE1rrWrcYUqVhle61hcZ5cCjlmR55mtM=;
-        b=dgv9M7IZZ/vS75j9xjH1y+gYwWQOTYyWcHVN/uM9TeOS/SRkVcbhsHrCZpux7xCLJ0
-         S1goqsdxMWJ512FYZ37TUc0TgiEoXTPP/1sgVniDScPlikMPsTno2bhm4OZz/Thk+q5s
-         ipcIZfS6dkZV4/oBse15M5SxZwYLRVSuIkSELA3KoO2KB0ZL9jHvJ/0herLogm94i5wX
-         9CSJS4u8Y0T4/U0uXkl/PI+F9GE5dE1QTOW+S0QqltVZzfS1yzuyoc9AW8yRK2eSikks
-         m7htHPh1l+ySGFUitXl2K2CQa8duowMAHaeY+knkqlBDt2UBgRCEdTDNrojeyc5+0Z71
-         g3Ug==
+        bh=qPsdqIwA9UKL567W0fQtpntc+rItlAmX8h3hQ74XqYc=;
+        b=cY6DSIaV3cR1PIVM6xtNaah4A//mgQDkidKdKpa1Tf+6NEEWMT4N59X8QTDB23N45u
+         l8FvrqsrYTblcZIGAk1+Jklog/SIHQkT314D/OOuMRHlIXZdlyBGuQfsdGFiXQ1hMYhm
+         Lw21tbn8PByHsZPjUK8nwAoiajrWKpQRzzRmlfsILVRiZ6qCfSC48L7Q6t0GowSwZWHT
+         ygK5huwMYOKMV9kdtukheMbJdE3Q4XIzGtlLxeUxny0nnTm+eZzAA2xzGmH/YkViHo0Z
+         ap9pBAWiLbX27vG0mCaAJQ4Sbrui4Yk0a3JJEl2aq5UdnDwlE2/+QGBMYKfkwmI7nVJu
+         MsKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731409083; x=1732013883;
+        d=1e100.net; s=20230601; t=1731409204; x=1732014004;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RPuFwaL3me5rE1rrWrcYUqVhle61hcZ5cCjlmR55mtM=;
-        b=aUeU44GtFNRcU8MmZRLoWkpKnyuZQK7R+BBdB4Qh8ilP2RsSGVG8oCt2RTn4ThtH/P
-         S//iOlSxsvLg/d+RLtK6qz9XRRi1yZw1WJpQL47pUABstQeJt/8yrYmHDIvesVOaFe/D
-         Ziqb9QYvQ9UsQQF9f1AcaQX/MexQZKP4QW6W6bKoH3NFpsp58sC3qgXkd3KlBWqZmIQu
-         KPNtvgVMdBv4TMuNM+sfvgzxjucNcU7Q/3zrBwTyqcBfysAXZjUHd4PiLNPGn9OxSzxc
-         4wzoWd4swvwFbV46IgkuH0qcBTC0siRvWYJFUbCZEYEpojUmJMGTj8Z/uDbgcznU820S
-         N1og==
-X-Forwarded-Encrypted: i=1; AJvYcCWHQUBPsEAcFob9Iq+UCRxLAx9vtB6mvkEE2Nt8Dmeao4cZG79PiSrmKim7S+eCmshZ928fb0p7vlc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxiqiGaejXN1JisW8GHUgYjnZXr6jYM6/ZXfTgU7vBxbwrPtB8O
-	bkT3dCYWzHR5lDBRTt7q90DFdmWbZsf82aWJloZI7ZL4ttSuh8/yznJNuWiLq38tbHy6TSM+4BA
-	=
-X-Google-Smtp-Source: AGHT+IHPasvj9xMOPTVMKwILgqKoXOexJdH+LG2I+tjFMPJ1SHhXL8Xi5dSRlrxyyNulCguP8o5ARw==
-X-Received: by 2002:a05:600c:3b87:b0:431:5ba1:a520 with SMTP id 5b1f17b1804b1-432b74fec0bmr177737075e9.3.1731409082814;
-        Tue, 12 Nov 2024 02:58:02 -0800 (PST)
-Message-ID: <73bdda88-da57-475e-87dc-943d527b3e67@suse.com>
-Date: Tue, 12 Nov 2024 11:58:01 +0100
+        bh=qPsdqIwA9UKL567W0fQtpntc+rItlAmX8h3hQ74XqYc=;
+        b=Am8h3yZNTVvyyrpA4eqKN9Uwql+gFjGWXMP9q46xMSY3w3v9QKLds6iO/HwkQjEAFT
+         WsFk9q0woJ1rlaxJrmOO3gegeqVIZ5Xsq1XAv/Cgf8Q03QTQtVImYR5quAzRRzDrOhl1
+         mwq818rWYzoc7QRC1KCDiysl0pVlF3aANSVVo/PYLxw4tn/3iI13lRHTm4eIAeVW5+9F
+         i9EUS6TAGlObXpZVX+yHT8YY7PuKhI7feG/cMTbsbkmFSqIA3KSs9KCUkicoXba+pHgR
+         Jh8i0PO7Y9fFgiVJxDu5pxwCctCS6ueBOdSUaqhMxLbaDkxAfI94e300ZV2uSqs+qhPj
+         /wnA==
+X-Forwarded-Encrypted: i=1; AJvYcCVm4BpF+rysFq3DhBVdiJORSTZj0g9zrXMYzlCKa+CI6qLs9TGZ3q1D1t8XXeqvMui0CNujA0prC84=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9NvO+UTcUzE3Q3IbfMsJef0DAeG+YepvXhZcI3IGufbzsNl32
+	f1FOvoqt0UGjEpuyczHT3WlstbglH9rqSnmBjDPaVCbRR90yINw/Cn8AoyQfVQ==
+X-Google-Smtp-Source: AGHT+IFZpY4t4YA+aTYFRcAcumGVmHGRq5+bUYwAloTDLtXHEMRjdNmPpIaA8K/UQS3W7tlstlAlhg==
+X-Received: by 2002:a05:600c:1c16:b0:431:4a83:2d80 with SMTP id 5b1f17b1804b1-432b749bc9bmr144731045e9.0.1731409203892;
+        Tue, 12 Nov 2024 03:00:03 -0800 (PST)
+Message-ID: <74cb0caa-6089-4bcc-9c9f-1d049d0553d7@suse.com>
+Date: Tue, 12 Nov 2024 12:00:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/ucode: Rework AMD's microcode_fits()
+Subject: Re: [PATCH 3/3] x86/ucode: Remove the collect_cpu_info() call from
+ parse_blob()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241108144252.315604-1-andrew.cooper3@citrix.com>
- <20241108144252.315604-3-andrew.cooper3@citrix.com>
+References: <20241107122117.4073266-1-andrew.cooper3@citrix.com>
+ <20241107122117.4073266-4-andrew.cooper3@citrix.com>
+ <5aa29b23-cf22-45a5-b7b6-7e307a2238d2@citrix.com>
+ <6d972a06-4acd-4b6c-b8e9-543a338d66ae@citrix.com>
+ <3f0ad893-4a67-488d-a350-020fdef2ad1f@suse.com>
+ <aae641b2-23e3-4631-98e6-454376ff3b9a@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,31 +119,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241108144252.315604-3-andrew.cooper3@citrix.com>
+In-Reply-To: <aae641b2-23e3-4631-98e6-454376ff3b9a@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.11.2024 15:42, Andrew Cooper wrote:
-> This function is overloaded, creating complexity; 3 of 4 callers already only
-> want it for it's "applicable to this CPU or not" answer, and handle revision
-> calculations separately.
+On 12.11.2024 11:57, Andrew Cooper wrote:
+> On 12/11/2024 10:49 am, Jan Beulich wrote:
+>> On 12.11.2024 11:36, Andrew Cooper wrote:
+>>> On 07/11/2024 9:58 pm, Andrew Cooper wrote:
+>>>> On 07/11/2024 12:21 pm, Andrew Cooper wrote:
+>>>>> With the tangle of logic starting to come under control, it is now plain to
+>>>>> see that parse_blob()'s side effect of re-gathering the signature/revision is
+>>>>> pointless.
+>>>>>
+>>>>> The cpu_request_microcode() hooks need the signature only.  The BSP gathers
+>>>>> this in early_microcode_init(), the APs and S3 in microcode_update_cpu().  For
+>>>>> good measure, the apply_microcode() hooks also keep the revision correct as
+>>>>> load attempts are made.
+>>>>>
+>>>>> This finally gets us down to a single call per CPU on boot / S3 resume, and no
+>>>>> calls during late-load hypercalls.
+>>>>>
+>>>>> No functional change.
+>>>>>
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>> ---
+>>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>
+>>>>> Slightly RFC.
+>>>>>
+>>>>> Just before posting, I've realised that cpu_request_microcode() does actually
+>>>>> use the current CPU revision, and it's buggy, and it's the cause of `xen-ucode
+>>>>> --force` not working as expected.
+>>>>>
+>>>>> I'm tempted to do another series cleaning that up in isolation, such that this
+>>>>> patch becomes true in this form.
+>>>> Actually no.  Having tried a bit, I think it's easier to do with patch 2
+>>>> already in place.
+>>>>
+>>>> So instead I'm tempted to edit the middle paragraph to note that it
+>>>> currently uses the revision but that's going to be fixed shortly.  The
+>>>> rest of the paragraph explains why it's still safe anyway.
+>>> So, after the latter series, this patch happens to be accurate.
+>>>
+>>> cpu_request_microcode() does read the revision, but discards the result
+>>> of the calculation which used it.
+>> What's the intended overall sequence of patches then? With two series that
+>> (aiui) now have grown some sort of dependency, and with this series have
+>> gained a 4/3 patch, having a clear picture would certainly help. Might it
+>> be best if you merge both series and re-submit as a single one?
 > 
-> Change it to be microcode_fits_cpu(), returning a simple boolean.  The
-> checking of the equiv table can be simplified substantially too; A mapping
-> will only be inserted if it's correct for the CPU, so any nonzero equiv.sig
-> suffices to know that equiv.id is correct.
-> 
-> Drop compare_header() too, which is simiarly overloaded, and use
-> compare_revisions() directly.
-> 
-> Notably, this removes a path where cpu_request_microcode() inspects
-> currently-loaded microcode revision, just to discard the answer.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> The order turns out to be as emailed out and threaded.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Yet above you said "after the latter series, this patch happens to be accurate."
+Which suggest to me that at least part of the latter series needs to be in place
+for the change here to be correct. IOW - I'm confused now.
 
-
+Jan
 
