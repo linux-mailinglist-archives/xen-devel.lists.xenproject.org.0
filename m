@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F7639C5525
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 12:00:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834368.1249999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F4989C564D
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 12:23:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834385.1250016 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAocz-0006iH-EP; Tue, 12 Nov 2024 11:00:09 +0000
+	id 1tAoz8-0002Q3-8f; Tue, 12 Nov 2024 11:23:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834368.1249999; Tue, 12 Nov 2024 11:00:09 +0000
+Received: by outflank-mailman (output) from mailman id 834385.1250016; Tue, 12 Nov 2024 11:23:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAocz-0006gA-Ar; Tue, 12 Nov 2024 11:00:09 +0000
-Received: by outflank-mailman (input) for mailman id 834368;
- Tue, 12 Nov 2024 11:00:07 +0000
+	id 1tAoz8-0002Nw-61; Tue, 12 Nov 2024 11:23:02 +0000
+Received: by outflank-mailman (input) for mailman id 834385;
+ Tue, 12 Nov 2024 11:23:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KiBs=SH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAocx-0006fw-E3
- for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 11:00:07 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1tAoz6-0002Nq-2r
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 11:23:00 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 455c76a8-a0e5-11ef-a0c6-8be0dac302b0;
- Tue, 12 Nov 2024 12:00:04 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4316a44d1bbso45710485e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 03:00:04 -0800 (PST)
+ id 778fe981-a0e8-11ef-a0c6-8be0dac302b0;
+ Tue, 12 Nov 2024 12:22:57 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-53b34ed38easo5458654e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 03:22:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432b054aed6sm203008895e9.15.2024.11.12.03.00.03
+ 5b1f17b1804b1-432b05c1f56sm204128805e9.34.2024.11.12.03.22.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Nov 2024 03:00:03 -0800 (PST)
+ Tue, 12 Nov 2024 03:22:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 455c76a8-a0e5-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjQ1NWM3NmE4LWEwZTUtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDA5MjA0LjU0NjI1Mywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 778fe981-a0e8-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmMiLCJoZWxvIjoibWFpbC1sZjEteDEyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc3OGZlOTgxLWEwZTgtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDEwNTc3LjEyNjYzNCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731409204; x=1732014004; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731410576; x=1732015376; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qPsdqIwA9UKL567W0fQtpntc+rItlAmX8h3hQ74XqYc=;
-        b=cY6DSIaV3cR1PIVM6xtNaah4A//mgQDkidKdKpa1Tf+6NEEWMT4N59X8QTDB23N45u
-         l8FvrqsrYTblcZIGAk1+Jklog/SIHQkT314D/OOuMRHlIXZdlyBGuQfsdGFiXQ1hMYhm
-         Lw21tbn8PByHsZPjUK8nwAoiajrWKpQRzzRmlfsILVRiZ6qCfSC48L7Q6t0GowSwZWHT
-         ygK5huwMYOKMV9kdtukheMbJdE3Q4XIzGtlLxeUxny0nnTm+eZzAA2xzGmH/YkViHo0Z
-         ap9pBAWiLbX27vG0mCaAJQ4Sbrui4Yk0a3JJEl2aq5UdnDwlE2/+QGBMYKfkwmI7nVJu
-         MsKg==
+        bh=f0zn5qLNjMJBaxfWeCflJF/SguG8+s50GLDJxt7T8bs=;
+        b=YlX5iI17Y+EtO6ysWPHqK7YyIVWOvX8mFFZ9nR6B6GRBxyEG0KerEhH68rOMBWrjv2
+         VFtXqw4xx3fvjhj5jYrPcBYXRTMMKyyQ12f6kfiMrQcl3d6MWf8ZJ8SA6Z8L2y6FOGnQ
+         iDGQnPApuNGjSMkTe57dgNSMmrSEPmin0p04KI80FRPyq7VKLQmYxqx6a5GI8lhsUkK9
+         f0GlZCs5qT0EuSWPvVu71vIDjP3IOs0EfAW8H349yNjvrWBVVMPNzmMJYMQbVCY0c5PO
+         B6L0yvByG0u0nv/KlIiV5sdjEv2rQwXoBnvpNFTgHh2CUV9iJQIPnF1L3AgAcUZPWkwD
+         Qgjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731409204; x=1732014004;
+        d=1e100.net; s=20230601; t=1731410576; x=1732015376;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qPsdqIwA9UKL567W0fQtpntc+rItlAmX8h3hQ74XqYc=;
-        b=Am8h3yZNTVvyyrpA4eqKN9Uwql+gFjGWXMP9q46xMSY3w3v9QKLds6iO/HwkQjEAFT
-         WsFk9q0woJ1rlaxJrmOO3gegeqVIZ5Xsq1XAv/Cgf8Q03QTQtVImYR5quAzRRzDrOhl1
-         mwq818rWYzoc7QRC1KCDiysl0pVlF3aANSVVo/PYLxw4tn/3iI13lRHTm4eIAeVW5+9F
-         i9EUS6TAGlObXpZVX+yHT8YY7PuKhI7feG/cMTbsbkmFSqIA3KSs9KCUkicoXba+pHgR
-         Jh8i0PO7Y9fFgiVJxDu5pxwCctCS6ueBOdSUaqhMxLbaDkxAfI94e300ZV2uSqs+qhPj
-         /wnA==
-X-Forwarded-Encrypted: i=1; AJvYcCVm4BpF+rysFq3DhBVdiJORSTZj0g9zrXMYzlCKa+CI6qLs9TGZ3q1D1t8XXeqvMui0CNujA0prC84=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy9NvO+UTcUzE3Q3IbfMsJef0DAeG+YepvXhZcI3IGufbzsNl32
-	f1FOvoqt0UGjEpuyczHT3WlstbglH9rqSnmBjDPaVCbRR90yINw/Cn8AoyQfVQ==
-X-Google-Smtp-Source: AGHT+IFZpY4t4YA+aTYFRcAcumGVmHGRq5+bUYwAloTDLtXHEMRjdNmPpIaA8K/UQS3W7tlstlAlhg==
-X-Received: by 2002:a05:600c:1c16:b0:431:4a83:2d80 with SMTP id 5b1f17b1804b1-432b749bc9bmr144731045e9.0.1731409203892;
-        Tue, 12 Nov 2024 03:00:03 -0800 (PST)
-Message-ID: <74cb0caa-6089-4bcc-9c9f-1d049d0553d7@suse.com>
-Date: Tue, 12 Nov 2024 12:00:02 +0100
+        bh=f0zn5qLNjMJBaxfWeCflJF/SguG8+s50GLDJxt7T8bs=;
+        b=lUMAX9HuZYwrLSGhx21PzGsBECwm/nOaWRimlqrRXQWztK/NEDEjJ+QyTx/QdSUoA/
+         UiYThn1iQ68plE1h88EYnZVye9DBEDH9xcWbOuhHimQGJOQfSpetgxzz/PfdAaOjX7fL
+         ODDs7AqrJFRH4+37gVYGyrBYUerBQJHpYQIi5xLVZn2qMjbwd1n9YTsrJLQAx3LR8OF8
+         cLl1br5PuW9I847VlEpcduNnlawLAKTcXWejQ0WA29f3Vd1P5fH9drC9DeFohtnNlh6b
+         6TY+fh9SzkFDb6pf3NYkaxmXdoa2o8lxIy43mu3sBonHfa0gjIA/Dk5/mrq+k1IZoQSo
+         yRcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV+wz+Vv2WOPRyDVN6nZCZHLORNR3tud3V0KJ5Q/bta16YjKbNsDj248SKHboH5inNK+/oyTu72Ck8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw6M2rX3tG40DVsqAqY/C2xqxGROlt2BIcQcLWMhrCATh2AJSKU
+	JUfVk7QJRN1DPjtJQ4G7OT/r5rci2mO8CzWTPF6I94r4Wgfr2OZ1lEsR9AYLUw==
+X-Google-Smtp-Source: AGHT+IHv5tJZM/CZtZkzb35diPegJbA7tGqzJqnhO2m/FKOrZtxKnNeufvS4Z8dinQsWnVaJMt57mA==
+X-Received: by 2002:a05:6512:238c:b0:52f:d0f0:e37e with SMTP id 2adb3069b0e04-53d862e4fc4mr7676419e87.42.1731410576549;
+        Tue, 12 Nov 2024 03:22:56 -0800 (PST)
+Message-ID: <acd75f3d-da7d-4487-afde-877405c24c2a@suse.com>
+Date: Tue, 12 Nov 2024 12:22:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/ucode: Remove the collect_cpu_info() call from
- parse_blob()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241107122117.4073266-1-andrew.cooper3@citrix.com>
- <20241107122117.4073266-4-andrew.cooper3@citrix.com>
- <5aa29b23-cf22-45a5-b7b6-7e307a2238d2@citrix.com>
- <6d972a06-4acd-4b6c-b8e9-543a338d66ae@citrix.com>
- <3f0ad893-4a67-488d-a350-020fdef2ad1f@suse.com>
- <aae641b2-23e3-4631-98e6-454376ff3b9a@citrix.com>
+Subject: Re: [PATCH v5 1/3] xen/riscv: introduce setup_mm()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1731344883.git.oleksii.kurochko@gmail.com>
+ <c3640fe453cb8a0eff4d50d21d57535f67f7b92a.1731344883.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,62 +117,127 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aae641b2-23e3-4631-98e6-454376ff3b9a@citrix.com>
+In-Reply-To: <c3640fe453cb8a0eff4d50d21d57535f67f7b92a.1731344883.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.11.2024 11:57, Andrew Cooper wrote:
-> On 12/11/2024 10:49 am, Jan Beulich wrote:
->> On 12.11.2024 11:36, Andrew Cooper wrote:
->>> On 07/11/2024 9:58 pm, Andrew Cooper wrote:
->>>> On 07/11/2024 12:21 pm, Andrew Cooper wrote:
->>>>> With the tangle of logic starting to come under control, it is now plain to
->>>>> see that parse_blob()'s side effect of re-gathering the signature/revision is
->>>>> pointless.
->>>>>
->>>>> The cpu_request_microcode() hooks need the signature only.  The BSP gathers
->>>>> this in early_microcode_init(), the APs and S3 in microcode_update_cpu().  For
->>>>> good measure, the apply_microcode() hooks also keep the revision correct as
->>>>> load attempts are made.
->>>>>
->>>>> This finally gets us down to a single call per CPU on boot / S3 resume, and no
->>>>> calls during late-load hypercalls.
->>>>>
->>>>> No functional change.
->>>>>
->>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>> ---
->>>>> CC: Jan Beulich <JBeulich@suse.com>
->>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>>>
->>>>> Slightly RFC.
->>>>>
->>>>> Just before posting, I've realised that cpu_request_microcode() does actually
->>>>> use the current CPU revision, and it's buggy, and it's the cause of `xen-ucode
->>>>> --force` not working as expected.
->>>>>
->>>>> I'm tempted to do another series cleaning that up in isolation, such that this
->>>>> patch becomes true in this form.
->>>> Actually no.  Having tried a bit, I think it's easier to do with patch 2
->>>> already in place.
->>>>
->>>> So instead I'm tempted to edit the middle paragraph to note that it
->>>> currently uses the revision but that's going to be fixed shortly.  The
->>>> rest of the paragraph explains why it's still safe anyway.
->>> So, after the latter series, this patch happens to be accurate.
->>>
->>> cpu_request_microcode() does read the revision, but discards the result
->>> of the calculation which used it.
->> What's the intended overall sequence of patches then? With two series that
->> (aiui) now have grown some sort of dependency, and with this series have
->> gained a 4/3 patch, having a clear picture would certainly help. Might it
->> be best if you merge both series and re-submit as a single one?
-> 
-> The order turns out to be as emailed out and threaded.
+On 11.11.2024 19:16, Oleksii Kurochko wrote:
+> @@ -25,8 +27,11 @@
+>  
+>  static inline void *maddr_to_virt(paddr_t ma)
+>  {
+> -    BUG_ON("unimplemented");
+> -    return NULL;
+> +    unsigned long va_offset = maddr_to_directmapoff(ma);
+> +
+> +    ASSERT(va_offset < DIRECTMAP_SIZE);
 
-Yet above you said "after the latter series, this patch happens to be accurate."
-Which suggest to me that at least part of the latter series needs to be in place
-for the change here to be correct. IOW - I'm confused now.
+Much like with the consideration towards virt_to_maddr() that was
+corrected from v4, I think this one also needs adjusting:
+
+    ASSERT(va_offset < DIRECTMAP_SIZE + (DIRECTMAP_VIRT_START -
+                                         directmap_virt_start));
+
+This is because ...
+
+> +    return (void *)(directmap_virt_start + va_offset);
+
+... you're offsetting the VA here. It may then want accompanying
+by
+
+    ASSERT(va_offset >= DIRECTMAP_VIRT_START - directmap_virt_start);
+
+(probably to go first).
+
+> @@ -423,3 +429,147 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>  
+>      return fdt_virt;
+>  }
+> +
+> +vaddr_t __ro_after_init directmap_virt_start = DIRECTMAP_VIRT_START;
+> +
+> +struct page_info *__ro_after_init frametable_virt_start = frame_table;
+> +
+> +#ifndef CONFIG_RISCV_32
+> +
+> +/* Map a frame table to cover physical addresses ps through pe */
+> +static void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+> +{
+> +    static mfn_t __initdata frametable_mfn_start = INVALID_MFN_INITIALIZER;
+> +
+> +    paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
+> +    paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
+> +    unsigned long nr_mfns = PFN_DOWN(aligned_pe - aligned_ps);
+> +    unsigned long frametable_size = nr_mfns * sizeof(*frame_table);
+> +    mfn_t base_mfn;
+> +
+> +    if ( mfn_eq(frametable_mfn_start, INVALID_MFN) )
+> +    {
+> +        frametable_mfn_start = maddr_to_mfn(aligned_ps);
+> +
+> +        frametable_virt_start -= paddr_to_pfn(aligned_ps);
+> +    }
+> +    else
+> +        panic("%s shouldn't be called twice\n", __func__);
+
+As said on the v4 thread - I don't think this is needed. Aiui Misra would
+actually dislike it, as it's unreachable code. Just to re-iterate: My
+complaint there wasn't about this missing check, but about the function
+partly giving the impression of expecting to be called more than once.
+
+> +    if ( frametable_size > FRAMETABLE_SIZE )
+> +        panic("The frametable cannot cover [%#"PRIpaddr", %#"PRIpaddr")\n",
+> +              ps, pe);
+> +
+> +    /*
+> +     * align base_mfn and frametable_size to MB(2) to have superpage mapping
+> +     * in map_pages_to_xen()
+> +     */
+> +    frametable_size = ROUNDUP(frametable_size, MB(2));
+> +    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, PFN_DOWN(MB(2)));
+
+As you already use PFN_DOWN() once, why do you open-code it for the other
+argument? You also use it ...
+
+> +    if ( map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
+> +                          PFN_DOWN(frametable_size),
+
+... here, where the purpose of the argument is exactly the same.
+
+> +void __init setup_mm(void)
+> +{
+> +    const struct membanks *banks = bootinfo_get_mem();
+> +    paddr_t ram_start = INVALID_PADDR;
+> +    paddr_t ram_end = 0;
+> +    unsigned int i;
+> +
+> +    /*
+> +     * We need some memory to allocate the page-tables used for the directmap
+> +     * mappings. But some regions may contain memory already allocated
+> +     * for other uses (e.g. modules, reserved-memory...).
+> +     *
+> +     * For simplicity, add all the free regions in the boot allocator.
+> +     */
+> +    populate_boot_allocator();
+> +
+> +    for ( i = 0; i < banks->nr_banks; i++ )
+> +    {
+> +        const struct membank *bank = &banks->bank[i];
+> +        paddr_t bank_start = ROUNDUP(bank->start, PAGE_SIZE);
+> +        paddr_t bank_end = ROUNDDOWN(bank->start + bank->size, PAGE_SIZE);
+> +        unsigned long bank_size = bank_end - bank_start;
+> +
+> +        ram_start = min(ram_start, bank_start);
+> +        ram_end = max(ram_end, bank_end);
+> +
+> +        setup_directmap_mappings(PFN_DOWN(bank_start), PFN_DOWN(bank_size));
+> +    }
+> +
+> +    setup_frametable_mappings(ram_start, ram_end);
+
+Just to double check: There is a guarantee that ->nr_banks isn't going to
+be zero? Else the setup_frametable_mappings() invocation here would badly
+degenerate.
 
 Jan
 
