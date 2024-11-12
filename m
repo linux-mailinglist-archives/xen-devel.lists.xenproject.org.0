@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D85979C5491
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 11:45:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834328.1249948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 714479C54BD
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 11:49:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834337.1249960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAoOo-0001dd-7D; Tue, 12 Nov 2024 10:45:30 +0000
+	id 1tAoSr-0002DO-Os; Tue, 12 Nov 2024 10:49:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834328.1249948; Tue, 12 Nov 2024 10:45:30 +0000
+Received: by outflank-mailman (output) from mailman id 834337.1249960; Tue, 12 Nov 2024 10:49:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAoOo-0001bC-4Q; Tue, 12 Nov 2024 10:45:30 +0000
-Received: by outflank-mailman (input) for mailman id 834328;
- Tue, 12 Nov 2024 10:45:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tAoSr-0002AD-LJ; Tue, 12 Nov 2024 10:49:41 +0000
+Received: by outflank-mailman (input) for mailman id 834337;
+ Tue, 12 Nov 2024 10:49:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KiBs=SH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAoOm-0001b6-Af
- for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 10:45:28 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38e42c08-a0e3-11ef-99a3-01e77a169b0f;
- Tue, 12 Nov 2024 11:45:24 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-539fe76e802so6112301e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 02:45:24 -0800 (PST)
+ id 1tAoSp-0002A7-Kv
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 10:49:39 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cf6fb155-a0e3-11ef-a0c6-8be0dac302b0;
+ Tue, 12 Nov 2024 11:49:37 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-539fbe22ac0so5339559e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 02:49:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432b05e6042sm204460305e9.44.2024.11.12.02.45.23
+ 5b1f17b1804b1-432b054b34csm207583785e9.14.2024.11.12.02.49.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Nov 2024 02:45:23 -0800 (PST)
+ Tue, 12 Nov 2024 02:49:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38e42c08-a0e3-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzAiLCJoZWxvIjoibWFpbC1sZjEteDEzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjM4ZTQyYzA4LWEwZTMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDA4MzI0LjU1MDYyNCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: cf6fb155-a0e3-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmYiLCJoZWxvIjoibWFpbC1sZjEteDEyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImNmNmZiMTU1LWEwZTMtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDA4NTc3LjA4MjYzMiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731408324; x=1732013124; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731408576; x=1732013376; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tZDqxD6FgZG4J4ac0tdrd9WcffNTwtmlRRr6/uq78KQ=;
-        b=RnjvP0w4Im6L4rEW1YJb+T/96a5zt6E+AVSBNOPAH5+l5mwKP9moKA/DdkHY7CtJbK
-         9xMCRGshn1ER4HtMHZYQDMnyevn0TIH6d83/GM4MdnPFN7g6e3LK/OtRw94n8h176ZVN
-         LnRMa52/O4IYidsTsEuQyAtkQoVTGZBC/euh6qL76qorlH7LivfLIeXZeP+2Zcq9tc1q
-         qGb5YJt/RBV9DxuvyUS/nKNFQemqD9Ab4Na+QuJZutcm1UAp6F9kHuJRfZzV2/Lx15rG
-         6YNv2zTSuye60QGhMHkWHxFfsZUGsij0yAQRXyvhJcyMgkE8tnJcPqyjL4v/MO/60B2q
-         acuA==
+        bh=sjOCv5X9qN8gfb7l+B3AhdykFYsnNYId6bWtnDRlZDk=;
+        b=Yuw/8EHqJYu77t5ZWLyW3vLlw5Z7aTIheV6nWtbCUxUwuHlzgsTc7G+UvAzaF5FXc7
+         ogKDZO1paKgMsFaSS/ALpfyA6db8vlLFosXeD4zhcMJrDWU7i/LJMZfvEwLNUtfMekJI
+         BGIkTH+dz9tc94Eod7/HDgp0ivXMpcKSefISwaqpQ82QU1czIq45VVHZEKUhmlnAKxBB
+         PVH9sg0zzp0SZQdqFzU7vyVIhobPznRZ6UNyWOtMbJoh/Did02fu+Mb15vxZBvffLOxX
+         AATBTbp9B/NbJyDf8E1+18pz5hXX0TENip+6Sh+vtHCqrHi8eR0ORsgtOnGMPexjc5xN
+         qqQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731408324; x=1732013124;
+        d=1e100.net; s=20230601; t=1731408576; x=1732013376;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tZDqxD6FgZG4J4ac0tdrd9WcffNTwtmlRRr6/uq78KQ=;
-        b=EOnKE3eFxb+fyUY+MPSOQeg8L10wFHTyVKyAJ8u2q7epvngFfp+nTgvuEA3hkAyQ1D
-         Mk4K08sg6EQtaomJq9JSlga8ldk1uBmNtx8IZKH6DNegBZdxnutI6lK0xpfhZROZCm6o
-         gXuHDu2nettnAUM0HB8TrQIccQD4DUGS+EocJdTZywqWPktSUYXvlj2hAJfUzWXxJMTh
-         57BVesuMEmYdMwx3oerqiKD9stn25pYNOoma5VIPUYJh1bzqHZAmasvXJ4J+zUsAd/4h
-         UXWlXesPNs198HDgN2HWouJc3ipx8Vw3C6tyLzYmaa2U1FfCVJU8TlRJ7NS3UI8W+bRh
-         cRLw==
-X-Forwarded-Encrypted: i=1; AJvYcCWAmAZcsehVxE6RyHgNO7WZY9486CQSp4UnXLp9++ZjcArfAWtH99FbmmABMrGS2KoS9HZ6nrTw7mw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxaEtZ3cFaEk1b4Wh4I0f7t5+o5/b/tqVdbYBQxK0oH3YIfVccZ
-	+Qlsb0EkZAy/N33ZhXHzQAnhY1IYGIcXK1FIbwZb2vf6H0bXCXtWKg6IxIVLvrnOkmuhEb1jI/s
-	=
-X-Google-Smtp-Source: AGHT+IEsmScdVqLAKKr13esILa1jUqG7Oh/kkjak4KAMNQfBBBb14PK/+GBUkPwdvqvCzIoWoK55Cw==
-X-Received: by 2002:a05:6512:3ba6:b0:539:8d2c:c01c with SMTP id 2adb3069b0e04-53d862fdf74mr7486924e87.41.1731408323826;
-        Tue, 12 Nov 2024 02:45:23 -0800 (PST)
-Message-ID: <3fa406d3-f714-41c2-984f-8478fab3e7b1@suse.com>
-Date: Tue, 12 Nov 2024 11:45:22 +0100
+        bh=sjOCv5X9qN8gfb7l+B3AhdykFYsnNYId6bWtnDRlZDk=;
+        b=NcuUITLw4x7DrgJ30Wh/sstuZ8bRiDYiaK3yKh3k+W1cK4t11FQiJXRgCTjFTiT7Di
+         u+s5PnK9mL0Jbj1kTBala2GF9UBcueii8Eq0iJVoISpf6ZpUpb2LriufDksCSHwt0dG5
+         5z/mir0GpIzkBBuPcy9QlWe+t/zonbexxBirL3iUSDKvkd6sL0dHWGRLfdEw7EeVn9xq
+         I1lbBINlqQeNgtSlvxI/Abq1qMujkDnAr1IfW9o07oDSCkDIJH7yZISAa3cxPhe9Ess8
+         iDRBRo8Xg3dl7zAsjbCK9TQwaSWx66T5mHGWOKsLcjBoCy+02xnXBb9CsSz7PDZ5RYV/
+         Kv6A==
+X-Forwarded-Encrypted: i=1; AJvYcCUH3IlNUL8wrRxYXxv6LkLJ5OE7V+fsxZmW1i9xvxBSo7HKheoWWOvNZicjJMXGddcXgez/32JCd1o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxy45uN8ZfjujG6uIzuNAvQNemJk/gegOgQA6hrtMyMk8iwaPvB
+	dABNSSGnoHDv5mBPQd+vC3bD3PcdDIPvMopRvrSSe08dv6TfocxTVVdycTfL3Q==
+X-Google-Smtp-Source: AGHT+IE1JPxxH+ovQmg62ft6JapAPUprY7Ewp4hCZ2vI/JxhGG2pdNTsgASUqhBCuPNRHfEwrxP2pg==
+X-Received: by 2002:a05:6512:3ca5:b0:539:8d9b:b61e with SMTP id 2adb3069b0e04-53d862ee08cmr8643956e87.44.1731408576487;
+        Tue, 12 Nov 2024 02:49:36 -0800 (PST)
+Message-ID: <3f0ad893-4a67-488d-a350-020fdef2ad1f@suse.com>
+Date: Tue, 12 Nov 2024 11:49:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/ucode: Fold microcode_update_cpu() and fix error
- handling
+Subject: Re: [PATCH 3/3] x86/ucode: Remove the collect_cpu_info() call from
+ parse_blob()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241107122117.4073266-1-andrew.cooper3@citrix.com>
- <20241107122117.4073266-3-andrew.cooper3@citrix.com>
+ <20241107122117.4073266-4-andrew.cooper3@citrix.com>
+ <5aa29b23-cf22-45a5-b7b6-7e307a2238d2@citrix.com>
+ <6d972a06-4acd-4b6c-b8e9-543a338d66ae@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,32 +117,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241107122117.4073266-3-andrew.cooper3@citrix.com>
+In-Reply-To: <6d972a06-4acd-4b6c-b8e9-543a338d66ae@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.11.2024 13:21, Andrew Cooper wrote:
-> Fold microcode_update_cpu() into its single remaining caller and simplify the
-> logic by removing the patch != NULL path with microcode_mutex held.
+On 12.11.2024 11:36, Andrew Cooper wrote:
+> On 07/11/2024 9:58 pm, Andrew Cooper wrote:
+>> On 07/11/2024 12:21 pm, Andrew Cooper wrote:
+>>> With the tangle of logic starting to come under control, it is now plain to
+>>> see that parse_blob()'s side effect of re-gathering the signature/revision is
+>>> pointless.
+>>>
+>>> The cpu_request_microcode() hooks need the signature only.  The BSP gathers
+>>> this in early_microcode_init(), the APs and S3 in microcode_update_cpu().  For
+>>> good measure, the apply_microcode() hooks also keep the revision correct as
+>>> load attempts are made.
+>>>
+>>> This finally gets us down to a single call per CPU on boot / S3 resume, and no
+>>> calls during late-load hypercalls.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>
+>>> Slightly RFC.
+>>>
+>>> Just before posting, I've realised that cpu_request_microcode() does actually
+>>> use the current CPU revision, and it's buggy, and it's the cause of `xen-ucode
+>>> --force` not working as expected.
+>>>
+>>> I'm tempted to do another series cleaning that up in isolation, such that this
+>>> patch becomes true in this form.
+>> Actually no.  Having tried a bit, I think it's easier to do with patch 2
+>> already in place.
+>>
+>> So instead I'm tempted to edit the middle paragraph to note that it
+>> currently uses the revision but that's going to be fixed shortly.  The
+>> rest of the paragraph explains why it's still safe anyway.
 > 
-> Explain why we bother grabbing the microcode revision even if we can't load
-> microcode.
+> So, after the latter series, this patch happens to be accurate.
 > 
-> Furthermore, delete the -EIO path.  An error updating microcode on AP boot or
-> S3 resume is certainly bad, but freeing the cache is about the worst possible
-> action we can take in response; it prevents subsequent APs from taking an
-> update they might have accepted.
+> cpu_request_microcode() does read the revision, but discards the result
+> of the calculation which used it.
 
-I'm afraid I disagree here, but I also disagree with the present error handling.
--EIO indicates the patch didn't apply. Why would there be any hope that any
-other CPU would accept it? We're assuming fully symmetric hardware, after all.
-However, imo it's not -EIO that ought to be special cased, but success and
--EEXIST. In all other cases the same error will re-surface for other CPUs. Plus
-by not cleaning the cache we prevent an older revision to be installed (without
-forcing its installation).
-
-Keeping what's cached might be an option, but then followed by cleaning the
-cache unless at least one CPU actually accepted the ucode.
+What's the intended overall sequence of patches then? With two series that
+(aiui) now have grown some sort of dependency, and with this series have
+gained a 4/3 patch, having a clear picture would certainly help. Might it
+be best if you merge both series and re-submit as a single one?
 
 Jan
 
