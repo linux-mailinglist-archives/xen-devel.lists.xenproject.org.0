@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C139C574E
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 13:06:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834422.1250079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53DF19C57D3
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 13:35:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834579.1250142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tApem-0001JG-9q; Tue, 12 Nov 2024 12:06:04 +0000
+	id 1tAq6C-0000tn-Ud; Tue, 12 Nov 2024 12:34:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834422.1250079; Tue, 12 Nov 2024 12:06:04 +0000
+Received: by outflank-mailman (output) from mailman id 834579.1250142; Tue, 12 Nov 2024 12:34:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tApem-0001Hb-5p; Tue, 12 Nov 2024 12:06:04 +0000
-Received: by outflank-mailman (input) for mailman id 834422;
- Tue, 12 Nov 2024 12:06:02 +0000
+	id 1tAq6C-0000rH-Rq; Tue, 12 Nov 2024 12:34:24 +0000
+Received: by outflank-mailman (input) for mailman id 834579;
+ Tue, 12 Nov 2024 12:34:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3GC9=SH=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1tApek-0000xb-32
- for xen-devel@lists.xen.org; Tue, 12 Nov 2024 12:06:02 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ <SRS0=PmjB=SH=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1tAq6B-0000rB-Je
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 12:34:23 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75de791e-a0ee-11ef-99a3-01e77a169b0f;
- Tue, 12 Nov 2024 13:05:52 +0100 (CET)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1tApeV-001dw3-1W;
- Tue, 12 Nov 2024 12:05:47 +0000
-Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1tApeV-001S2c-2H;
- Tue, 12 Nov 2024 12:05:47 +0000
+ id 6fd4b8f6-a0f2-11ef-99a3-01e77a169b0f;
+ Tue, 12 Nov 2024 13:34:19 +0100 (CET)
+Received: from [192.168.1.113] (93-36-216-241.ip62.fastwebnet.it
+ [93.36.216.241])
+ by support.bugseng.com (Postfix) with ESMTPSA id 126F74EE0739;
+ Tue, 12 Nov 2024 13:34:18 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,162 +40,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75de791e-a0ee-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEwNC4xMzAuMjE1LjM3IiwiaGVsbyI6Im1haWwueGVucHJvamVjdC5vcmcifQ==
-X-Custom-Transaction: eyJpZCI6Ijc1ZGU3OTFlLWEwZWUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDEzMTU1LjkyMzQ4MSwic2VuZGVyIjoiYW5kcmV3Y29vcEB4ZW5iaXRzLnhlbi5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVuLm9yZyJ9
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: 6fd4b8f6-a0f2-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE2Mi41NS4xMzEuNDciLCJoZWxvIjoic3VwcG9ydC5idWdzZW5nLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjZmZDRiOGY2LWEwZjItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDE0ODU5LjM3MTk0LCJzZW5kZXIiOiJmZWRlcmljby5zZXJhZmluaUBidWdzZW5nLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1731414858; bh=DawTrb/8OYdqQ/+dNLYfJmQu9TjbBAey82rAQ7mO5KQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mU+GUOGETkwGg0ki+AQBj6dZQUGktm5bGT89QGYDX1ScZvmf3zTnMmpffSH+a2Z8M
+	 nq54WhyJ9fsgeQsxVFc8tU+WPVisdsniGJrv39OUBndSnu4ZeAbyq+nZ5w8JHHYCfX
+	 TulALPoNTJfxKOYWLaQFg2vXowGy1pRmPT/eKhydyDkw51IJNyJdHx1hc/F+auhiAH
+	 N04psZoffyQCtYIM2sP6URksxB4FjSevEXOn+BlOhukkMZdySOIEsIUvPOZQhbWdiq
+	 IHwz326zLabqsqsOlnqe9F1211XtBEaFwVNAwtCcZpe0h3zLDvgRYjubDIm+ZKoL12
+	 Yt+f7pq3+webg==
+Message-ID: <c80ba929-3af4-4e72-b698-5f185a4ae708@bugseng.com>
+Date: Tue, 12 Nov 2024 13:34:16 +0100
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.510 (Entity 5.510)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 464 v2 (CVE-2024-45819) - libxl leaks data
- to PVH guests via ACPI tables
-Message-Id: <E1tApeV-001S2c-2H@xenbits.xenproject.org>
-Date: Tue, 12 Nov 2024 12:05:47 +0000
-
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 1/3] x86/emul: define pseudo keyword fallthrough
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1730880832.git.federico.serafini@bugseng.com>
+ <a0341b50ece1ba1b5b346b54db7d2abdc150cb95.1730880832.git.federico.serafini@bugseng.com>
+ <be21f3cf-e7a8-469a-99a6-4098032a4df4@suse.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <be21f3cf-e7a8-469a-99a6-4098032a4df4@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
 
-            Xen Security Advisory CVE-2024-45819 / XSA-464
-                               version 2
 
-            libxl leaks data to PVH guests via ACPI tables
+On 06/11/24 12:22, Jan Beulich wrote:
+> On 06.11.2024 10:04, Federico Serafini wrote:
+>> The pseudo keyword fallthrough shall be used to make explicit the
+>> fallthrough intention at the end of a case statement (doing this
+>> through comments is deprecated).
+>>
+>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>> ---
+>>   xen/arch/x86/x86_emulate/x86_emulate.h | 10 ++++++++++
+>>   1 file changed, 10 insertions(+)
+> 
+> When you had asked my privately on Matrix, I specifically said: "Adding
+> the pseudo-keyword to x86-emulate.h (not x86_emulate.h) is probably best,
+> unless problems with that approach turn up." Even if identical re-
+> definitions are deemed fine, I for one consider such bad practice. Yet
+> by playing with this file (and outside of any relevant #ifdef) means
+> there will be such a re-definition when building Xen itself.
 
-UPDATES IN VERSION 2
-====================
+Sorry Jan, I misinterpreted your message.
+I tested the definition in the x86-emulate.h and there are no problems.
+I will send a V2.
 
-Public release.
 
-ISSUE DESCRIPTION
-=================
+> In fact the patch subject should also already clarify that the auxiliary
+> definition is only needed for the test and fuzzing harnesses.
 
-PVH guests have their ACPI tables constructed by the toolstack.  The
-construction involves building the tables in local memory, which are
-then copied into guest memory.  While actually used parts of the local
-memory are filled in correctly, excess space that is being allocated is
-left with its prior contents.
+Ok.
 
-IMPACT
-======
 
-An unprivileged guest may be able to access sensitive information
-pertaining to the host, control domain, or other guests.
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+>> @@ -23,6 +23,16 @@
+>>   # error Unknown compilation width
+>>   #endif
+>>   
+>> +/*
+>> + * Pseudo keyword 'fallthrough' to make explicit the fallthrough intention at
+>> + * the end of a case statement.
+>> + */
+>> +#if (!defined(__clang__) && (__GNUC__ >= 7))
+> 
+> I realize xen/compiler.h has it like that, but may I ask that you omit
+> the meaningless outer pair of parentheses?
 
-VULNERABLE SYSTEMS
-==================
+Ok.
 
-Xen versions 4.8 and onwards are vulnerable.  Xen 4.7 and older are not
-vulnerable.
+-- 
+Federico Serafini, M.Sc.
 
-Only x86 systems running PVH guests are vulnerable.  Architectures other
-than x86 are not vulnerable.
+Software Engineer, BUGSENG
+Ph.D. Student, Ca' Foscari University of Venice
 
-Only PVH guests can leverage the vulnerability.  HVM and PV guests
-cannot leverage the vulnerability.  Note that PV guests when run inside
-the (PVH) shim can't leverage the vulnerability.
-
-MITIGATION
-==========
-
-Running only PV or HVM guests will avoid this vulnerability.
-
-CREDITS
-=======
-
-This issue was discovered by Jason Andryuk of AMD.
-
-RESOLUTION
-==========
-
-Applying the appropriate attached patch resolves this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa464.patch           xen-unstable - Xen 4.16.x
-
-$ sha256sum xsa464*
-16bca39d6136141e030276f588f1e77f634fce8301b42fb0848ddf2b611d835a  xsa464.patch
-$
-
-DEPLOYMENT DURING EMBARGO
-=========================
-
-Deployment of the patches and/or mitigations described above (or
-others which are substantially similar) is permitted during the
-embargo, even on public-facing systems with untrusted guest users and
-administrators.
-
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
-
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
-
-(Note: this during-embargo deployment notice is retained in
-post-embargo publicly released Xen Project advisories, even though it
-is then no longer applicable.  This is to enable the community to have
-oversight of the Xen Project Security Team's decisionmaking.)
-
-For more information about permissible uses of embargoed information,
-consult the Xen Project community's agreed Security Policy:
-  http://www.xenproject.org/security-policy.html
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmczRE4MHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZTG8H+wV+jRjwQcgPa2OQBuedO8V0Lpu1DqQnANU//oZK
-4p5ntCeMJ9MnMlWGZhdOAwSQNgwYf17G2DezNK0XvRacfvB0/pUTH94EmKmyRkVl
-vGgs302HkNb0Il84JN/HA9TtK5+g2kSa5J5prV9tu+nGvRZ1zZPnBEFohXvXdjr7
-/KGSrbHbi5+6DdBZmmEUu65PLvQAochHvQLEHpoRp0MCVE8g0FQPFikmST39TLpJ
-6SFfVZjdmYfOUN1BYcH6AYCuCXZfbUOlqm9y1Z2EX6N0chQXsBDbOFx7/0ey23fw
-Wy9l49G//xaTR4X4uXTRiiXC7qxpclD0VKGlHKz1AUyUw6c=
-=lRfn
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa464.patch"
-Content-Disposition: attachment; filename="xsa464.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmFzb24gQW5kcnl1ayA8amFzb24uYW5kcnl1a0BhbWQuY29tPgpT
-dWJqZWN0OiBsaWJ4bDogVXNlIHplcm8tZWQgbWVtb3J5IGZvciBQVkggYWNw
-aSB0YWJsZXMKCnhsL2xpYnhsIG1lbW9yeSBpcyBsZWFraW5nIGludG8gYSBQ
-VkggZ3Vlc3QgdGhyb3VnaCB1bmluaXRpYWxpemVkCnBvcnRpb25zIG9mIHRo
-ZSBBQ1BJIHRhYmxlcy4KClVzZSBsaWJ4bF96YWxsb2MoKSB0byBvYnRhaW4g
-emVyby1lZCBtZW1vcnkgdG8gYXZvaWQgdGhpcyBpc3N1ZS4KClRoaXMgaXMg
-WFNBLTQ2NCAvIENWRS0yMDI0LTQ1ODE5LgoKU2lnbmVkLW9mZi1ieTogSmFz
-b24gQW5kcnl1ayA8amFzb24uYW5kcnl1a0BhbWQuY29tPgpGaXhlczogMTRj
-MGQzMjhkYTJiICgibGlieGwvYWNwaTogQnVpbGQgQUNQSSB0YWJsZXMgZm9y
-IEhWTWxpdGUgZ3Vlc3RzIikKUmV2aWV3ZWQtYnk6IEphbiBCZXVsaWNoIDxq
-YmV1bGljaEBzdXNlLmNvbT4KCi0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQvbGli
-eGxfeDg2X2FjcGkuYworKysgYi90b29scy9saWJzL2xpZ2h0L2xpYnhsX3g4
-Nl9hY3BpLmMKQEAgLTE3NiwxMCArMTc2LDExIEBAIGludCBsaWJ4bF9fZG9t
-X2xvYWRfYWNwaShsaWJ4bF9fZ2MgKmdjLAogICAgICAgICBnb3RvIG91dDsK
-ICAgICB9CiAKLSAgICBjb25maWcucnNkcCA9ICh1bnNpZ25lZCBsb25nKWxp
-YnhsX19tYWxsb2MoZ2MsIGxpYnhsX2N0eHQucGFnZV9zaXplKTsKLSAgICBj
-b25maWcuaW5mb3AgPSAodW5zaWduZWQgbG9uZylsaWJ4bF9fbWFsbG9jKGdj
-LCBsaWJ4bF9jdHh0LnBhZ2Vfc2l6ZSk7CisgICAgLyogVGhlc2UgYXJlIGFs
-bCBjb3BpZWQgaW50byBndWVzdCBtZW1vcnksIHNvIHVzZSB6ZXJvLWVkIG1l
-bW9yeS4gKi8KKyAgICBjb25maWcucnNkcCA9ICh1bnNpZ25lZCBsb25nKWxp
-YnhsX196YWxsb2MoZ2MsIGxpYnhsX2N0eHQucGFnZV9zaXplKTsKKyAgICBj
-b25maWcuaW5mb3AgPSAodW5zaWduZWQgbG9uZylsaWJ4bF9femFsbG9jKGdj
-LCBsaWJ4bF9jdHh0LnBhZ2Vfc2l6ZSk7CiAgICAgLyogUGFnZXMgdG8gaG9s
-ZCBBQ1BJIHRhYmxlcyAqLwotICAgIGxpYnhsX2N0eHQuYnVmID0gbGlieGxf
-X21hbGxvYyhnYywgTlVNX0FDUElfUEFHRVMgKgorICAgIGxpYnhsX2N0eHQu
-YnVmID0gbGlieGxfX3phbGxvYyhnYywgTlVNX0FDUElfUEFHRVMgKgogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsaWJ4bF9jdHh0LnBh
-Z2Vfc2l6ZSk7CiAKICAgICAvKgo=
-
---=separator--
 
