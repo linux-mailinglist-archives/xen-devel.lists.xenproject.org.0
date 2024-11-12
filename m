@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A2BA9C524C
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 10:45:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834287.1249908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AACD09C5276
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 10:52:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834298.1249920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAnSu-0008Gr-8f; Tue, 12 Nov 2024 09:45:40 +0000
+	id 1tAnYv-0001g8-TZ; Tue, 12 Nov 2024 09:51:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834287.1249908; Tue, 12 Nov 2024 09:45:40 +0000
+Received: by outflank-mailman (output) from mailman id 834298.1249920; Tue, 12 Nov 2024 09:51:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAnSu-0008FP-62; Tue, 12 Nov 2024 09:45:40 +0000
-Received: by outflank-mailman (input) for mailman id 834287;
- Tue, 12 Nov 2024 09:45:39 +0000
+	id 1tAnYv-0001dX-PX; Tue, 12 Nov 2024 09:51:53 +0000
+Received: by outflank-mailman (input) for mailman id 834298;
+ Tue, 12 Nov 2024 09:51:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KiBs=SH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tAnSt-0008FJ-44
- for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 09:45:39 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1tAnYu-0001dR-AR
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 09:51:52 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de4ee6e8-a0da-11ef-a0c6-8be0dac302b0;
- Tue, 12 Nov 2024 10:45:36 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-431481433bdso47733005e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 01:45:36 -0800 (PST)
+ id bcb45c89-a0db-11ef-a0c6-8be0dac302b0;
+ Tue, 12 Nov 2024 10:51:49 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-37d41894a32so3138866f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 01:51:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432aa6b35b3sm231930195e9.18.2024.11.12.01.45.35
+ 5b1f17b1804b1-432aa73a2d8sm234711855e9.41.2024.11.12.01.51.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Nov 2024 01:45:35 -0800 (PST)
+ Tue, 12 Nov 2024 01:51:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de4ee6e8-a0da-11ef-a0c6-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImRlNGVlNmU4LWEwZGEtMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDA0NzM2LjY3NTI4NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: bcb45c89-a0db-11ef-a0c6-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzEiLCJoZWxvIjoibWFpbC13cjEteDQzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImJjYjQ1Yzg5LWEwZGItMTFlZi1hMGM2LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDA1MTA5LjgwMzUyMSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731404736; x=1732009536; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731405109; x=1732009909; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iGU1PQ0zStrU0E8d0kvdc8f2CeFpLfahIaeDIoG6Ozc=;
-        b=Q0F0aV1XnAUWuXYZNThpgZZX//vlxLVWO3DF+F9ET1k63OpnWCUwkKN9+0VDaV4/II
-         CYmeFObSBoOjINM6v4U+uOFO8kJChvnFDB55T+a3c112BcvJj0SrIid7MhdlDly961rd
-         6Lzp2ZUzXraBBtnLE7rVX6XwNz2YhYoAZsn+FwFOzctLZQp0gztYROaHcQNfJov/Ffcs
-         0HxoecPZ0IdXwV16YtmRAvLYv2BPXbCWF9ACPagNNel9gPQfhqQpOUpBorw9Ei80nFsS
-         KPZC/lXuVWYKAF0CrTVnADD7zvWjPp4uJLIrMqLyssQCGk/iybbIoG23tA27Y8HvKNao
-         o2Ew==
+        bh=4ct0+pX7Xic0nhtANT/nsC8XZ0pYls9L9UlNnC3/m5M=;
+        b=HPDkGWiMSQMSgh354XzHdrKTr0ZD+qEyz4Dgsk/JqVcxOY9B3HkhG0pME/OMiUSwp6
+         aRZXykevNrIskerImL72HiyJ7PuhJwP1YF1jtDSxJBe8hYYpA6ozpqGS51iDbI99TAOG
+         3n462Fe2Tf0WYF/GCfZJQ3ePeE7yar8FVU3rGx9766psIni21dIcvwwm7ms0/fUn5pEK
+         e5g0wLPWaknDj01crfD+p8go4tLuKw8Rfqw/T/7pQT9h/vms+HqAA5xN7Mx1IASkVMl8
+         tIcfldgXZfNcCPDI5Dg5qAc5O6jwfBd103evl/AYWmtK2YKzAYHqR7lLmv+rLJ1XamX0
+         6QNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731404736; x=1732009536;
+        d=1e100.net; s=20230601; t=1731405109; x=1732009909;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iGU1PQ0zStrU0E8d0kvdc8f2CeFpLfahIaeDIoG6Ozc=;
-        b=nPpySeG+qV220HTyf8n0GsxVcXCjlYIHRjl7b99GQ0PcmAi3PjdlaGkAewMXyNu439
-         TRWUh3rYk+b+dLQebLZ7n9uUVSbBcSjyrCK6U5bhGGqPFVtuquNLOtO/a4kqAGAd+FyG
-         HZGz27ei8xWeVrSoVmeq2fAg1ynQ0ZNlcgdsu2D39dlk9UmOWZ/kv28v551uDIoPlZyF
-         3wufSap+rrXoJssWAwPSiaroCs+YpL1b1rlEPB9Ru7a+B+UNVWQsqX4pNQu4o9i3UVUX
-         jTI6Mg1VFpQNSGbTGHkjm/2vCYUahtA6KNmZJnRepDIrBJND9Ilxs4+xxPkRTYMTxzzU
-         5poQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX5b4y+AnYbEyYxhP+SMolx8foRVnT2c6BrdNHNJJHoFtQARi7W4EOzXL6k7zw//b8lM2hZqBITejs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwUTp+0S/Chp7NyOajM2Dwu/jN6oP8lZ5sCTy2BWngNDng/7pTp
-	KruPCG4myYnptIBmUJ/JEfGvohp/zueRk50ED8wk5LsSpJqTKwEmNu6qGNCteQ==
-X-Google-Smtp-Source: AGHT+IEd0N2LzHybZ6KspsEKYlKr9+1M0fetJfoccPvlXV5P1ohCyXbRxL6sEg9gFKEkGtHBxDxu5Q==
-X-Received: by 2002:a05:600c:3544:b0:42c:b187:bde9 with SMTP id 5b1f17b1804b1-432b7522c3emr131199595e9.30.1731404736032;
-        Tue, 12 Nov 2024 01:45:36 -0800 (PST)
-Message-ID: <67fa8dc0-a58f-48d4-97df-25d7f8a0447d@suse.com>
-Date: Tue, 12 Nov 2024 10:45:34 +0100
+        bh=4ct0+pX7Xic0nhtANT/nsC8XZ0pYls9L9UlNnC3/m5M=;
+        b=KWMJ9mnVngfioYojnBiOEoQzO1MM9IUk7as/nBKcrHx3IBr930So732gQMlWet3Lkj
+         rdKNBP1PGJMa5JJat4YkLwmKhiSdeG4vgZFY72Aeylzjdwbf83M5/BeeW/zNjoeE54/t
+         yimA+CHRQ35VIyTgSSdbBgOjdTcwbuaKROXwbmM/DcAxJrDS7eIyV8ZhHngi8grIKjhr
+         qqnbiGPMgYjrlyYJKhuZhyn58a1my7M9G0JWRYQiHtzKCZSX6k9g/JjHccl94JrxTc7g
+         Bj3SvvJeraGcUqf3YkOUYsk9cMpFAmTm1D9kt1DRApU3DGr6SMQ5IrMW4VJBxkxwgupj
+         iqLw==
+X-Forwarded-Encrypted: i=1; AJvYcCVOeRxJ0NbuwJM9wx9IM2359qgYkZVCbPd6+xRp5mT6dw8kxZDMjZSjbW2wY+yTWtdhkv21HOZ6TM4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7MK0S1wVIjbiJVFYX+r+sr4PiK2Z016ZR4v1J5pFxb010Il43
+	3/9n0aqUI80p8SwPOCVkYxh2jSaYrmL3ygeK1KHxnbe0f6XTjfrxEzwioAQk8Q==
+X-Google-Smtp-Source: AGHT+IHmDtjuBWLakO663IiHcklZLslsSAh5i519Avc7ZxAuvbG64KPgDKZK/LDO9FAiiDEnDLZvOg==
+X-Received: by 2002:a5d:47a8:0:b0:37c:bafd:5624 with SMTP id ffacd0b85a97d-381f0f85819mr13747896f8f.25.1731405109184;
+        Tue, 12 Nov 2024 01:51:49 -0800 (PST)
+Message-ID: <59338269-e2a3-4c0d-9298-2ec9e48a8605@suse.com>
+Date: Tue, 12 Nov 2024 10:51:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Enclose all iommu related access within
- CONFIG_HAS_PASSTHROUGH
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, xen-devel@lists.xenproject.org,
+Subject: Re: [PATCH v2] drivers/char: rename arm-uart.c to uart-init.c
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20241111180635.1198552-1-ayan.kumar.halder@amd.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
+References: <11b3d91cc7ff2435bca8cb0b841faaac54c3e796.1731345930.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,17 +118,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241111180635.1198552-1-ayan.kumar.halder@amd.com>
+In-Reply-To: <11b3d91cc7ff2435bca8cb0b841faaac54c3e796.1731345930.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.11.2024 19:06, Ayan Kumar Halder wrote:
-> As CONFIG_HAS_PASSTHROUGH is enabled only for MMU, thus any common code
-> accessing iommu needs to be enclosed within CONFIG_HAS_PASSTHROUGH.
+On 11.11.2024 19:16, Oleksii Kurochko wrote:
+> NOTE:
+>  I am not insisiting on having separate CONFIG_UART_INIT. If it would be fine
+>  just to have in xen/drivers/char/Makefile:
+>    obj-$(CONFIG_ARM) += uart-init.c 
+>    obj-$(CONFIG_RISCV) += uart-init.c
 
-I'm not an Arm maintainer, so my opinion may not count much, but that's
-quite a bit of #ifdef-ary. In at least some of the cases using stubs instead
-may result in better legibility ...
+With PPC also using DT, a 3rd instance would likely occur down the road.
+The latest at that point I'd deem the UART_INIT approach preferable.
+Cc-ing Shawn for possible input.
+
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -93,6 +93,17 @@ config SERIAL_TX_BUFSIZE
+>  
+>  	  Default value is 32768 (32KiB).
+>  
+> +
+> +config UART_INIT
+
+Nit: No double blank lines please.
 
 Jan
 
