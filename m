@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7159A9C5EA5
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 18:19:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834802.1250630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBB349C5F2D
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 18:37:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834865.1250665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAuWg-0001fM-KB; Tue, 12 Nov 2024 17:18:02 +0000
+	id 1tAuoo-00067J-Q9; Tue, 12 Nov 2024 17:36:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834802.1250630; Tue, 12 Nov 2024 17:18:02 +0000
+Received: by outflank-mailman (output) from mailman id 834865.1250665; Tue, 12 Nov 2024 17:36:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAuWg-0001cW-GJ; Tue, 12 Nov 2024 17:18:02 +0000
-Received: by outflank-mailman (input) for mailman id 834802;
- Tue, 12 Nov 2024 17:18:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tAuoo-000652-MN; Tue, 12 Nov 2024 17:36:46 +0000
+Received: by outflank-mailman (input) for mailman id 834865;
+ Tue, 12 Nov 2024 17:36:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TvMk=SH=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1tAuWf-0001cL-9E
- for xen-devel@lists.xen.org; Tue, 12 Nov 2024 17:18:01 +0000
-Received: from fout-b8-smtp.messagingengine.com
- (fout-b8-smtp.messagingengine.com [202.12.124.151])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a341f7b-a11a-11ef-99a3-01e77a169b0f;
- Tue, 12 Nov 2024 18:17:49 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfout.stl.internal (Postfix) with ESMTP id D93B01140158;
- Tue, 12 Nov 2024 12:17:47 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Tue, 12 Nov 2024 12:17:48 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 12 Nov 2024 12:17:46 -0500 (EST)
+ <SRS0=mdiu=SH=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1tAuon-00064w-ET
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 17:36:45 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac8109b6-a11c-11ef-a0c7-8be0dac302b0;
+ Tue, 12 Nov 2024 18:36:39 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a9a628b68a7so1055396166b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 09:36:40 -0800 (PST)
+Received: from mbarnes-x-u.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9ee0deef3esm746325966b.141.2024.11.12.09.36.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Nov 2024 09:36:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,376 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a341f7b-a11a-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjIwMi4xMi4xMjQuMTUxIiwiaGVsbyI6ImZvdXQtYjgtc210cC5tZXNzYWdpbmdlbmdpbmUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjBhMzQxZjdiLWExMWEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDMxODc1Ljg3NjM1Mywic2VuZGVyIjoiZGVtaUBpbnZpc2libGV0aGluZ3NsYWIuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbi5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1731431867;
-	 x=1731518267; bh=ijnLtDgvmWOar4/me3j4PwWALwrWFCx/YAIFNwDgOBw=; b=
-	lS+Fn4zYVlZXHHy+GfYpm/GzyedEGFcQHnVIZlu9zNgjMGUHl6XkWtqxutBuBMD0
-	JWMy6u+dboC5tq1FbfOgiqzrU+lIm7rfI5QjhH6VldPD7a6HO7TYzZI+ZInPG3q6
-	2fgBU+WsaBuUdO+H7OJhHyBM8Kf/8PJVhng6AOUbSpapTPBZdpsgEIBWOtLagXai
-	aCNeCv/9XJsm9hM6S9oteY8HSIhdQdHjhdncf6gb7bbnXxuAXr+m9CYXlSwQb7O/
-	n9P5vE4DT+5qwILyBeRzG+MlhUFcVkDW2QDjaUmVtwKEcrVJR+bcgmxJwf6v4gUy
-	xoS30AbiuUlOUErXRXKTsQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1731431867; x=1731518267; bh=ijnLtDgvmWOar4/me3j4PwWALwrWFCx/YAI
-	FNwDgOBw=; b=kPskJuplgj0NZxMxMWgPy410eOS/88O0doZx2uri4jNyd1Hr+kQ
-	d+hch0Y3U7WKRFt/y5I9/fuvQG24+EVLjTcjEkgufFeVAfCnZ5fyf2uyd+D/Q+wm
-	qB8YAeI2I/c5yZ6Wn9RW62RLg2iyOBQ22fN0b5hjhzL9DBkMLaeiwG7sPC25fuLc
-	a35TdwcJVfqc3aTOSqScr1m//c2ohXYYhggqStVL7eAk5I5kyAmzHoIi1VJtMqqY
-	VQY9NMY5i7GepezFf0c+84OmzXJHs1I3CDYJGMbLze+9lU4hNAKijILvLvqj8igy
-	WgIhdo+ir0hJAuSJ5oVcn0rVLDfGPpINg7Q==
-X-ME-Sender: <xms:u40zZ7Rx02M1_2f6Bgx1-R7cLUQQqmzspx4yrAzuliQ1d2KQo-J91A>
-    <xme:u40zZ8w9FavlOqOON5rqXruL7P5cnMK60jmb-Dr1FTeQPL_hkXwlURkhQOnQe62Pa
-    SOr-DmlfSjEKkQ>
-X-ME-Received: <xmr:u40zZw3wAMX71O-kTKaIsDr2XyAR1L9OY3v44jpWctvEw7Wy9qi0Ho5Bf2EZk1YdS6eozQbJm3ygGC7p9-KctwPG66ZWNkyRLk4RTr9pHGZg2UH5>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudeggdelhecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
-    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
-    hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecu
-    hfhrohhmpeffvghmihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeu
-    tedvleehueetffejgeejgeffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvg
-    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhi
-    sghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmohguvgepsh
-    hmthhpohhuthdprhgtphhtthhopehoshhsqdhsvggtuhhrihhthieslhhishhtshdrohhp
-    vghnfigrlhhlrdgtohhmpdhrtghpthhtohepgigvnhdqrghnnhhouhhntggvsehlihhsth
-    hsrdigvghnrdhorhhgpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigv
-    nhdrohhrghdprhgtphhtthhopeigvghnqdhushgvrhhssehlihhsthhsrdigvghnrdhorh
-    hgpdhrtghpthhtohepshgvtghurhhithihqdhtvggrmhdqmhgvmhgsvghrshesgigvnhdr
-    ohhrgh
-X-ME-Proxy: <xmx:u40zZ7BP8Y9x5dbJFapL0dHJOItfObf9Zv2RypGXR1F5z9w9JycH9Q>
-    <xmx:u40zZ0jS2mlypibJLGqdReyo0kREI8cWJSe2Rv-7Op18NIOHwYUtZw>
-    <xmx:u40zZ_rUXnY2Q4DAgLwzaMQXbPhRai3aMcvoWedDMJRIBIKZTOAH0g>
-    <xmx:u40zZ_jbzi78V9kDhB31SeBie1useTaol-G3oKh9H2g8C_RA3KAAZg>
-    <xmx:u40zZ8fxEqtbaIIiEkkRym-hjm-q_J1YFGm6IqvbgCPbYX-i6R4jR-kS>
-Feedback-ID: iac594737:Fastmail
-Date: Tue, 12 Nov 2024 12:17:32 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: oss-security@lists.openwall.com, xen-announce@lists.xen.org,
-	xen-devel@lists.xen.org, xen-users@lists.xen.org
-Cc: "Xen.org security team" <security-team-members@xen.org>
-Subject: Re: [oss-security] Xen Security Advisory 464 v2 (CVE-2024-45819) -
- libxl leaks data to PVH guests via ACPI tables
-Message-ID: <ZzONuZFo1-AXNOFd@itl-email>
-References: <E1tApeV-001S2c-2H@xenbits.xenproject.org>
+X-Inumbo-ID: ac8109b6-a11c-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImFjODEwOWI2LWExMWMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDMyOTk5Ljg2NzQyNiwic2VuZGVyIjoibWF0dGhldy5iYXJuZXNAY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1731432999; x=1732037799; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4dHtb4C0WC3jTkiClRLTbwiGLDfIKgOfntISQe9iTE8=;
+        b=S+Q8GX+7T4fIQLdJVVDqG5VN3mfU/aITZTiczya1/JU96j3D+qZ7STSaY/eu2pLPc0
+         2Nn+gox0uOjq49DtP+s+OXquEEd73zd5zOTszBfVG5l96mw7I1CAafoL8dl0s7IZgTuy
+         FgzKg2bUocGzLUb3WHHxzMgFzUnM5aNA2QWxc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731432999; x=1732037799;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4dHtb4C0WC3jTkiClRLTbwiGLDfIKgOfntISQe9iTE8=;
+        b=VincPFrJjjYfl4EaTCO6gpdExgtv2+Zh3lmRZ5oo1KB4ZsVggMaj5eEDq9QxOdAv8z
+         5IcT7c7JAa+4Oy2k39ZFKWGBX1dWBqAuwbIV0niucqqetqJ0V4eo2ufiQoUfNw9tSg5P
+         Q4pLIk9os8CqgnHZdIVEVfDMrrssvvrJKcZXNPHVaajrAZZWpFAqaCsT9JL+ywlREjgG
+         m+DXukNaLf42pDBmGYu4yPOuRGQzCuDilNsHfCOAP7uHZgTyl2gJBJpGuVrwPQQva/O/
+         zUsRBi80VSUJVtQiN958JYS6ShDVL7TAczRj7I6Bv8IB3D1XGUb1dC/cCtDdSsi6alcg
+         5iMw==
+X-Gm-Message-State: AOJu0YxXAxUSk2hMh66XQ3Gv+9xppy4hotNuexT+1UJizxXV2wx4dW8S
+	tjcR5Vf2qyN0q5C+o+0P9NMli9F6sJVjP3ft0hoM2ILr9BvLNFIV+hRcpXMCtnqVKVkee5fd0E/
+	4
+X-Google-Smtp-Source: AGHT+IF0UOvRLGygklKcZJ+srfbdfCdYMlXr8+i6cu93V0/IYVMXEHgrVOpu64PJntugmVoOZKs7rg==
+X-Received: by 2002:a17:906:6a20:b0:a99:61d1:348f with SMTP id a640c23a62f3a-a9ef0016c58mr1634215166b.52.1731432999128;
+        Tue, 12 Nov 2024 09:36:39 -0800 (PST)
+From: Matthew Barnes <matthew.barnes@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Matthew Barnes <matthew.barnes@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [XTF PATCH] Misaligned I/O Breakpoints
+Date: Tue, 12 Nov 2024 17:22:46 +0000
+Message-Id: <bb3e94bf31387725fdc0dca6ab2154c2d24d2bc0.1731427668.git.matthew.barnes@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7Jj9SHbtbfH3XlO5"
-Content-Disposition: inline
-In-Reply-To: <E1tApeV-001S2c-2H@xenbits.xenproject.org>
+Content-Transfer-Encoding: 8bit
 
+This xtf test tests a bug to hardware IO port breakpoints fixed by
+08aacc392d86 ("x86/emul: Fix misaligned IO breakpoint behaviour in PV guests")
 
---7Jj9SHbtbfH3XlO5
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 Nov 2024 12:17:32 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: oss-security@lists.openwall.com, xen-announce@lists.xen.org,
-	xen-devel@lists.xen.org, xen-users@lists.xen.org
-Cc: "Xen.org security team" <security-team-members@xen.org>
-Subject: Re: [oss-security] Xen Security Advisory 464 v2 (CVE-2024-45819) -
- libxl leaks data to PVH guests via ACPI tables
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
+ docs/all-tests.dox                       |   2 +
+ tests/misaligned-io-breakpoints/Makefile |   9 +
+ tests/misaligned-io-breakpoints/main.c   | 283 +++++++++++++++++++++++
+ 3 files changed, 294 insertions(+)
+ create mode 100644 tests/misaligned-io-breakpoints/Makefile
+ create mode 100644 tests/misaligned-io-breakpoints/main.c
 
-On Tue, Nov 12, 2024 at 12:05:47PM +0000, Xen Security wrote:
-> Only PVH guests can leverage the vulnerability.  HVM and PV guests
-> cannot leverage the vulnerability.  Note that PV guests when run inside
-> the (PVH) shim can't leverage the vulnerability.
+diff --git a/docs/all-tests.dox b/docs/all-tests.dox
+index 0a8b9130cfe8..66e35babe4d7 100644
+--- a/docs/all-tests.dox
++++ b/docs/all-tests.dox
+@@ -41,6 +41,8 @@ Coveres XSA-106 and XSA-156.
+ 
+ @subpage test-umip - Guest User-Mode Instruction Prevention support.
+ 
++@subpage test-misaligned-io-breakpoints - Misaligned I/O port hardware breakpoint test.
++
+ 
+ @section index-xsa XSA Proof-of-Concept tests
+ 
+diff --git a/tests/misaligned-io-breakpoints/Makefile b/tests/misaligned-io-breakpoints/Makefile
+new file mode 100644
+index 000000000000..9e4cd3eef761
+--- /dev/null
++++ b/tests/misaligned-io-breakpoints/Makefile
+@@ -0,0 +1,9 @@
++include $(ROOT)/build/common.mk
++
++NAME      := misaligned-io-breakpoints
++CATEGORY  := utility
++TEST-ENVS := pv64
++
++obj-perenv += main.o
++
++include $(ROOT)/build/gen.mk
+diff --git a/tests/misaligned-io-breakpoints/main.c b/tests/misaligned-io-breakpoints/main.c
+new file mode 100644
+index 000000000000..d91222b29288
+--- /dev/null
++++ b/tests/misaligned-io-breakpoints/main.c
+@@ -0,0 +1,283 @@
++/**
++ * @file tests/misaligned-io-breakpoints/main.c
++ * @ref test-misaligned-io-breakpoints - Misaligned I/O port hardware breakpoint test.
++ *
++ * @page test-misaligned-io-breakpoints Misaligned I/O Breakpoints
++ *
++ * When hardware breakpoints are configured on misaligned IO ports, the
++ * hardware will mask the addresses based on the breakpoint width during
++ * comparison.
++ *
++ * This test checks that the emulated behaviour of misaligned IO breakpoints
++ * in PV guests match that of real hardware.
++ *
++ * @see tests/io-breakpoint-bug/main.c
++ */
++#include <xtf.h>
++
++enum width { _16, _32 };
++
++const char test_title[] = "Misaligned I/O Breakpoints";
++
++static const struct test {
++    unsigned long breakpoint_port;
++    enum width breakpoint_size;
++    uint16_t io_op_port;
++    enum width io_op_len;
++    bool expect_breakpoint_trigger;
++} tests[] = {
++    /* 16-bit breakpoint, 16-bit I/O operation */
++    { 0x09, _16, 0x06, _16, false },
++    { 0x09, _16, 0x07, _16, true  },
++    { 0x09, _16, 0x08, _16, true  },
++    { 0x09, _16, 0x09, _16, true  },
++    { 0x09, _16, 0x0a, _16, false },
++
++    { 0x0b, _16, 0x08, _16, false },
++    { 0x0b, _16, 0x09, _16, true  },
++    { 0x0b, _16, 0x0a, _16, true  },
++    { 0x0b, _16, 0x0b, _16, true  },
++    { 0x0b, _16, 0x0c, _16, false },
++
++    /* 16-bit breakpoint, 32-bit I/O operation */
++    { 0x09, _16, 0x04, _32, false },
++    { 0x09, _16, 0x05, _32, true  },
++    { 0x09, _16, 0x06, _32, true  },
++    { 0x09, _16, 0x07, _32, true  },
++    { 0x09, _16, 0x08, _32, true  },
++    { 0x09, _16, 0x09, _32, true  },
++    { 0x09, _16, 0x0a, _32, false },
++
++    { 0x0b, _16, 0x06, _32, false },
++    { 0x0b, _16, 0x07, _32, true  },
++    { 0x0b, _16, 0x08, _32, true  },
++    { 0x0b, _16, 0x09, _32, true  },
++    { 0x0b, _16, 0x0a, _32, true  },
++    { 0x0b, _16, 0x0b, _32, true  },
++    { 0x0b, _16, 0x0c, _32, false },
++
++    /* 32-bit breakpoint, 16-bit I/O operation */
++    { 0x09, _32, 0x06, _16, false },
++    { 0x09, _32, 0x07, _16, true  },
++    { 0x09, _32, 0x08, _16, true  },
++    { 0x09, _32, 0x09, _16, true  },
++    { 0x09, _32, 0x0a, _16, true  },
++    { 0x09, _32, 0x0b, _16, true  },
++    { 0x09, _32, 0x0c, _16, false },
++
++    { 0x0a, _32, 0x06, _16, false },
++    { 0x0a, _32, 0x07, _16, true  },
++    { 0x0a, _32, 0x08, _16, true  },
++    { 0x0a, _32, 0x09, _16, true  },
++    { 0x0a, _32, 0x0a, _16, true  },
++    { 0x0a, _32, 0x0b, _16, true  },
++    { 0x0a, _32, 0x0c, _16, false },
++
++    { 0x0b, _32, 0x06, _16, false },
++    { 0x0b, _32, 0x07, _16, true  },
++    { 0x0b, _32, 0x08, _16, true  },
++    { 0x0b, _32, 0x09, _16, true  },
++    { 0x0b, _32, 0x0a, _16, true  },
++    { 0x0b, _32, 0x0b, _16, true  },
++    { 0x0b, _32, 0x0c, _16, false },
++
++    { 0x0d, _32, 0x0a, _16, false },
++    { 0x0d, _32, 0x0b, _16, true  },
++    { 0x0d, _32, 0x0c, _16, true  },
++    { 0x0d, _32, 0x0d, _16, true  },
++    { 0x0d, _32, 0x0e, _16, true  },
++    { 0x0d, _32, 0x0f, _16, true  },
++    { 0x0d, _32, 0x10, _16, false },
++
++    { 0x0e, _32, 0x0a, _16, false },
++    { 0x0e, _32, 0x0b, _16, true  },
++    { 0x0e, _32, 0x0c, _16, true  },
++    { 0x0e, _32, 0x0d, _16, true  },
++    { 0x0e, _32, 0x0e, _16, true  },
++    { 0x0e, _32, 0x0f, _16, true  },
++    { 0x0e, _32, 0x10, _16, false },
++
++    { 0x0f, _32, 0x0a, _16, false },
++    { 0x0f, _32, 0x0b, _16, true  },
++    { 0x0f, _32, 0x0c, _16, true  },
++    { 0x0f, _32, 0x0d, _16, true  },
++    { 0x0f, _32, 0x0e, _16, true  },
++    { 0x0f, _32, 0x0f, _16, true  },
++    { 0x0f, _32, 0x10, _16, false },
++
++    /* 32-bit breakpoint, 32-bit I/O operation */
++    { 0x09, _32, 0x04, _32, false },
++    { 0x09, _32, 0x05, _32, true  },
++    { 0x09, _32, 0x06, _32, true  },
++    { 0x09, _32, 0x07, _32, true  },
++    { 0x09, _32, 0x08, _32, true  },
++    { 0x09, _32, 0x09, _32, true  },
++    { 0x09, _32, 0x0a, _32, true  },
++    { 0x09, _32, 0x0b, _32, true  },
++    { 0x09, _32, 0x0c, _32, false },
++
++    { 0x0a, _32, 0x04, _32, false },
++    { 0x0a, _32, 0x05, _32, true  },
++    { 0x0a, _32, 0x06, _32, true  },
++    { 0x0a, _32, 0x07, _32, true  },
++    { 0x0a, _32, 0x08, _32, true  },
++    { 0x0a, _32, 0x09, _32, true  },
++    { 0x0a, _32, 0x0a, _32, true  },
++    { 0x0a, _32, 0x0b, _32, true  },
++    { 0x0a, _32, 0x0c, _32, false },
++
++    { 0x0b, _32, 0x04, _32, false },
++    { 0x0b, _32, 0x05, _32, true  },
++    { 0x0b, _32, 0x06, _32, true  },
++    { 0x0b, _32, 0x07, _32, true  },
++    { 0x0b, _32, 0x08, _32, true  },
++    { 0x0b, _32, 0x09, _32, true  },
++    { 0x0b, _32, 0x0a, _32, true  },
++    { 0x0b, _32, 0x0b, _32, true  },
++    { 0x0b, _32, 0x0c, _32, false },
++
++    { 0x0d, _32, 0x08, _32, false },
++    { 0x0d, _32, 0x09, _32, true  },
++    { 0x0d, _32, 0x0a, _32, true  },
++    { 0x0d, _32, 0x0b, _32, true  },
++    { 0x0d, _32, 0x0c, _32, true  },
++    { 0x0d, _32, 0x0d, _32, true  },
++    { 0x0d, _32, 0x0e, _32, true  },
++    { 0x0d, _32, 0x0f, _32, true  },
++    { 0x0d, _32, 0x10, _32, false },
++
++    { 0x0e, _32, 0x08, _32, false },
++    { 0x0e, _32, 0x09, _32, true  },
++    { 0x0e, _32, 0x0a, _32, true  },
++    { 0x0e, _32, 0x0b, _32, true  },
++    { 0x0e, _32, 0x0c, _32, true  },
++    { 0x0e, _32, 0x0d, _32, true  },
++    { 0x0e, _32, 0x0e, _32, true  },
++    { 0x0e, _32, 0x0f, _32, true  },
++    { 0x0e, _32, 0x10, _32, false },
++
++    { 0x0f, _32, 0x08, _32, false },
++    { 0x0f, _32, 0x09, _32, true  },
++    { 0x0f, _32, 0x0a, _32, true  },
++    { 0x0f, _32, 0x0b, _32, true  },
++    { 0x0f, _32, 0x0c, _32, true  },
++    { 0x0f, _32, 0x0d, _32, true  },
++    { 0x0f, _32, 0x0e, _32, true  },
++    { 0x0f, _32, 0x0f, _32, true  },
++    { 0x0f, _32, 0x10, _32, false },
++};
++
++static void enable_debug_extensions(void)
++{
++    unsigned long cr4 = read_cr4();
++
++    if ( !(cr4 & X86_CR4_DE) )
++        write_cr4(cr4 | X86_CR4_DE);
++}
++
++static void init_breakpoint(enum width width)
++{
++    unsigned long io0, dr7;
++
++    switch (width)
++    {
++    case _16:
++        io0 = DR7_SYM(0, G, IO, 16) | X86_DR7_GE | X86_DR7_DEFAULT;
++        break;
++    case _32:
++        io0 = DR7_SYM(0, G, IO, 32) | X86_DR7_GE | X86_DR7_DEFAULT;
++        break;
++    default:
++        xtf_failure("  Fail: Unknown width %d\n", width);
++        return;
++    }
++
++    write_dr7(io0);
++
++    if ( (dr7 = read_dr7()) != io0 )
++        xtf_failure("  Fail: dr7 %#lx != io0 %#lx\n", dr7, io0);
++}
++
++static void set_breakpoint(unsigned long io_port)
++{
++    unsigned long dr0;
++
++    write_dr0(io_port);
++
++    if ( (dr0 = read_dr0()) != io_port )
++        xtf_failure("  Fail: dr0 %#lx != %#lx\n", dr0, io_port);
++}
++
++/* Set vCPU IOPL to 1 to allow IO calls in kernel space */
++static void set_iopl(void)
++{
++    unsigned int iopl = 1;
++
++    hypercall_physdev_op(PHYSDEVOP_set_iopl, &iopl);
++}
++
++static exinfo_t io_op(uint16_t io_port, enum width io_op_len)
++{
++    exinfo_t fault = 0;
++
++    switch (io_op_len)
++    {
++    case _16:
++        asm volatile ("outw %w0, %w1; 1:"
++                      _ASM_EXTABLE_HANDLER(1b, 1b, %P[rec])
++                      : "+a" (fault)
++                      : "Nd" (io_port),
++                        [rec] "p" (ex_record_fault_eax));
++        break;
++    case _32:
++        asm volatile ("outl %k0, %w1; 1:"
++                      _ASM_EXTABLE_HANDLER(1b, 1b, %P[rec])
++                      : "+a" (fault)
++                      : "Nd" (io_port),
++                        [rec] "p" (ex_record_fault_eax));
++        break;
++    default:
++        xtf_failure("  Fail: Unknown width %d\n", io_op_len);
++        break;
++    }
++
++    return fault;
++}
++
++void test_main(void)
++{
++    unsigned int i;
++
++    enable_debug_extensions();
++    set_iopl();
++
++    for ( i = 0; i < ARRAY_SIZE(tests); ++i )
++    {
++        const struct test *t = &tests[i];
++
++        /* arrange */
++        init_breakpoint(t->breakpoint_size);
++        set_breakpoint(t->breakpoint_port);
++
++        /* act */
++        exinfo_t ex = io_op(t->io_op_port, t->io_op_len);
++
++        /* assert */
++        if ( t->expect_breakpoint_trigger && ex != EXINFO_SYM(DB, 0) )
++            xtf_failure("Fail: Expected trigger with breakpoint port 0x%02lx and io port 0x%02x, but got no trigger.\n", t->breakpoint_port, t->io_op_port);
++        if ( !t->expect_breakpoint_trigger && ex == EXINFO_SYM(DB, 0) )
++            xtf_failure("Fail: Expected no trigger with breakpoint port 0x%02lx and io port 0x%02x, but got trigger.\n", t->breakpoint_port, t->io_op_port);
++    }
++
++    xtf_success(NULL);
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+-- 
+2.34.1
 
-Is this unconditional (perhaps because the relevant data gets zeroed out
-by the shim), or does it only apply when the PV guest can't extract data
-=66rom the shim's memory?  For instance, 32-bit PV guests aren't security
-supported anymore, but the PV shim isn't supposed to rely on the
-security of the shim itself, only of the rest of the system.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---7Jj9SHbtbfH3XlO5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmczjbQACgkQszaHOrMp
-8lNKRQ//fncRGpQS3i56xefRQVPTv0stbt6+FFFlM//dfnsbm3VBG6UNGKvU0wx3
-mLCt6zBq1GvcApEyWPaoDUKAp8d+GKlBzMITEvsA7udAp48dAPcMel0/SE03faxW
-P4g9MuLmiQuXDbjlhA+mwVNSxqrV+R9fDp0IstFy2XgnpWC1pjImtaUYITS2E1NK
-QlSUWNVmnqrlKdbxxSGmJUYE2MDJ5C7QVsdra4jcCIjpkcQrpmyxNx6HM3EJRc7V
-0PUd+XP8PYnpU4SSFgOmYXEhVDJGTISE1XIGDnhF8zzLVU5IPZLLNGu2kZyz1T2x
-vxgsDb8FSsqleGIZXNZeNYLHzCKcEWrhxJCuH0El221MnIb0QP6iSKP1EQfNQShX
-lUcJFNng63latxvebGUNpZ4GSkG21gpIF/0be2KZNCt1a8cUQM+A1/YCAf0e+idP
-SX37fovtsg2wP+Z4R0vUCkacgj37PaCp40Fe7nRxcSan1wsCF40hnfJ2qENuWp8N
-skEFG3u4yZ7onaayoQYi/LIAe1tj9oa8FnXbB2YwWwySS9W5YPZAGg7HlCtZapNN
-PAPcou8vGFseKRVHbU5ojY33g3Ok72nd8Ge2djJopeQNDF4RkH7NauxFbxP3UDs+
-RZ9jhJDHijOQHU20kmUEUudro7gZAMkkKzuNkTVt+BcZA0h/9Xs=
-=72sK
------END PGP SIGNATURE-----
-
---7Jj9SHbtbfH3XlO5--
 
