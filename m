@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 348349C5171
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 10:05:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.834252.1249868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CED399C522B
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2024 10:36:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.834263.1249879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAmq9-0001Px-Mu; Tue, 12 Nov 2024 09:05:37 +0000
+	id 1tAnJE-0005R7-V2; Tue, 12 Nov 2024 09:35:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 834252.1249868; Tue, 12 Nov 2024 09:05:37 +0000
+Received: by outflank-mailman (output) from mailman id 834263.1249879; Tue, 12 Nov 2024 09:35:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tAmq9-0001Ni-KG; Tue, 12 Nov 2024 09:05:37 +0000
-Received: by outflank-mailman (input) for mailman id 834252;
- Tue, 12 Nov 2024 09:05:35 +0000
+	id 1tAnJE-0005PE-Qx; Tue, 12 Nov 2024 09:35:40 +0000
+Received: by outflank-mailman (input) for mailman id 834263;
+ Tue, 12 Nov 2024 09:35:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yVpr=SH=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tAmq7-0001NK-Tq
- for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 09:05:35 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KiBs=SH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tAnJC-0005P8-I6
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2024 09:35:38 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45127668-a0d5-11ef-99a3-01e77a169b0f;
- Tue, 12 Nov 2024 10:05:32 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-aa1e51ce601so44914466b.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 01:05:32 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0e2eaa2sm691313066b.195.2024.11.12.01.05.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Nov 2024 01:05:31 -0800 (PST)
+ id 775d3776-a0d9-11ef-99a3-01e77a169b0f;
+ Tue, 12 Nov 2024 10:35:34 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4315e9e9642so45177465e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2024 01:35:34 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432b054ad23sm199944225e9.13.2024.11.12.01.35.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Nov 2024 01:35:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,175 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45127668-a0d5-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmEiLCJoZWxvIjoibWFpbC1lajEteDYyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjQ1MTI3NjY4LWEwZDUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDAyMzMyLjA3OTIwOSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 775d3776-a0d9-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmEiLCJoZWxvIjoibWFpbC13bTEteDMyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc3NWQzNzc2LWEwZDktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDA0MTM0LjQ3MjQ2MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731402331; x=1732007131; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=p2Oe+0oLPuzRuu8iJ/pJNcyNCi8OAncpgQMAKJPUyCI=;
-        b=sWpxDuXPfo6LGZkCiVVWmGbCFr5dzTI6qLbnD57Xj2H7jP+IgtgHC3dE6riHBeynOi
-         ZjKkv3DBidjIoKo1jhBKZLr7yEDQn9IAG7UYkCooBtZlb1kSUxz9UB7Oa5zSRLnEYHxi
-         nSbM52dGnJsRQzdw0DqUaY84sr6NBK5zaGEiY=
+        d=suse.com; s=google; t=1731404134; x=1732008934; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WitM66RSknAhNK+Jov9TP6YQcF84j3HUyRaPkLrO9k8=;
+        b=RNw/Wce6jcgrwlsdpfC+ifgupewjVcto4TMtsaoLpFRb7pnER5h67dl/CvXht0aVYm
+         n4GnjYpPFEpX23rbKnj+DUrQOC0V9tpWJ/vstik+KIVTdpEEzBT82xQiB79PYHQDtpkJ
+         aJOqUWYQtyn3PCsnvcMH4ej+qVAb+kyguAm5mLsQHcSnjyew9Z3AoQjoGmUObvzTl02K
+         EuvYkz2pBxRmNJVy/mROw/bJPfHhUyUljKhSo9xu5YFNa+7x86x7YG805K3hAPY467du
+         NYPpb62jg7qA1tmyUN2Qjs9LU4DeT+9n8QO5QDt1mbXEoFaxw6p3QQNPxz1RUbofwFwn
+         i62Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731402331; x=1732007131;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=p2Oe+0oLPuzRuu8iJ/pJNcyNCi8OAncpgQMAKJPUyCI=;
-        b=HNiltq/lL7+5mm47xPpkM+6CJRRQgbub9HAf0wEh9+Nin3wbrgJL3c/IvjkVNNrigO
-         LIapqjlfKJ4XM9jvfSBn3sT83uol7WOc0g4t90A1Msade2x51FXGRuf7Ya82WvmdKO/E
-         kJ9Cqwi+6hCkrMPVi5df7fC/7HQt05UXvjnwIAjVe1uZWtZV/hgGtbXsKlLtl/bx69AZ
-         gBivGHOXfO+sL8600qXZx1iMEz1vz3TwLLbOQDUHizrnsN8o9jj9m8P/v/G7v1dsosxJ
-         mCAypfy4h1HMe91F9r9kKUtbOCYBNbKS1aYrrjC9oM8iynyaO9rcp6lY0RoLvyPJJu0h
-         ZLxw==
-X-Forwarded-Encrypted: i=1; AJvYcCXlqxKfvkHJ4Cu6ZLYstylMCZIh2CLb3lltFtZuuPlOZoaEcIKjOfxbPCALKg7jiQhTXuXM7qeW02k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytIv9xRlVc5nEPGDbLGM2xUTbhPRdRakjOg+c9nUdY7KWjyGfz
-	Jyj2HWdv0OhHxiWKX0z6NmSKzHPuLVN+NuiVGA6t4U8MzpTJSsxOVKkj6F8+5Sg=
-X-Google-Smtp-Source: AGHT+IF02QkQ/fx+vl6b5WaTrlR2lMLPgTWw2RmcBwhOAxKnpN52ogaFMGG3lRDCtexsGMTuRtDM2g==
-X-Received: by 2002:a17:907:c12:b0:a7a:9144:e23a with SMTP id a640c23a62f3a-a9eeffeeea6mr1746803566b.43.1731402331422;
-        Tue, 12 Nov 2024 01:05:31 -0800 (PST)
-Date: Tue, 12 Nov 2024 10:05:30 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v6 2/3] xen/pci: introduce PF<->VF links
-Message-ID: <ZzMaWlGYStnh1FM9@macbook>
-References: <20241018203913.1162962-1-stewart.hildebrand@amd.com>
- <20241018203913.1162962-3-stewart.hildebrand@amd.com>
- <56b5a45b-871d-41a4-8e1d-74d72020054f@suse.com>
- <9ab19f1b-0dee-490e-b4f6-b07e6ae6223b@amd.com>
- <9625de28-f05b-4317-89cf-d1fe843a43a8@suse.com>
- <D5GT0NR29WEF.216KE5GCTH1TL@cloud.com>
- <39b2a334-1298-4e83-b7b7-393c79964539@suse.com>
- <Zy4sG915LicXNmIV@macbook>
- <ec9dd718-ef25-4a23-8080-8081ef2facb9@amd.com>
- <479d7430-ca30-4d72-b636-b47e5a2356f4@suse.com>
+        d=1e100.net; s=20230601; t=1731404134; x=1732008934;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WitM66RSknAhNK+Jov9TP6YQcF84j3HUyRaPkLrO9k8=;
+        b=PkYKzSryk7//5KLrrutN0Q89BsWswEh95CdqO86yw2w96UHrRDYO7xkUhG8m0ytZ7n
+         mke1Thf541+xMRr9RsZqcWXyRlo52h6ifWXJ+Bd13ow03AdMKm7cmF4OzH8hK2krRTKs
+         9H+WGgjf50QetonWtlsMEkH11TCEkgRchgDwiHR6NEhUxuDN5n4STlj9zYoTmd34/uD0
+         UxGVkz125AUdaZtewDmpw/fBRhgiG7zfjtsXhpBiB3hNwhK748x5A7fF5pzU9WVYDYun
+         yfIlWTC0vhlf1EFVd9KJk7zef/AFSMIXMJKozLIbshMFIDmYgOSvsMQ7/zQRMXg0d0oK
+         EJmg==
+X-Forwarded-Encrypted: i=1; AJvYcCVAA8DTKAljl9Fnjh/KACwY9pRmcUoorJE8oc9uuNYh6r5Drnu64z3sx4OQRjZ7rQs4jWITPENAs7E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYo6v+ZgTnQwPCdGDmmyZphR3ZCPjc4722YQwePqXvOm9oP6g4
+	wcUFCfuzXdu2mVjiDFGnMJEAIGxxk0ERUABVMUhoqQZvj9p6EM7ZizrGgZ6AeA==
+X-Google-Smtp-Source: AGHT+IHo2c5hYtMNOGwCR2KuwKhy18v11sZtBwUchR7EZ59p2XC+rme5x67nTm3epACgH/TTHnSSUg==
+X-Received: by 2002:a05:600c:154d:b0:42c:bae0:f05b with SMTP id 5b1f17b1804b1-432b74fd6f5mr132622455e9.1.1731404133844;
+        Tue, 12 Nov 2024 01:35:33 -0800 (PST)
+Message-ID: <7f28102d-c13f-4175-ad47-64e7495d22eb@suse.com>
+Date: Tue, 12 Nov 2024 10:35:32 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <479d7430-ca30-4d72-b636-b47e5a2356f4@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 1/3] x86/emul: define pseudo keyword fallthrough
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Federico Serafini <federico.serafini@bugseng.com>,
+ consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1730880832.git.federico.serafini@bugseng.com>
+ <a0341b50ece1ba1b5b346b54db7d2abdc150cb95.1730880832.git.federico.serafini@bugseng.com>
+ <be21f3cf-e7a8-469a-99a6-4098032a4df4@suse.com>
+ <alpine.DEB.2.22.394.2411101820430.14721@ubuntu-linux-20-04-desktop>
+ <57d407cf-3f3a-43f6-9aa4-05cac5b50c46@suse.com>
+ <alpine.DEB.2.22.394.2411111816210.14721@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2411111816210.14721@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 11, 2024 at 07:40:14AM +0100, Jan Beulich wrote:
-> On 08.11.2024 17:29, Stewart Hildebrand wrote:
-> > On 11/8/24 10:19, Roger Pau Monné wrote:
-> >> On Fri, Nov 08, 2024 at 02:17:40PM +0100, Jan Beulich wrote:
-> >>> On 08.11.2024 13:42, Alejandro Vallejo wrote:
-> >>>> On Mon Nov 4, 2024 at 7:44 AM GMT, Jan Beulich wrote:
-> >>>>> On 01.11.2024 21:16, Stewart Hildebrand wrote:
-> >>>>>> +Daniel (XSM mention)
-> >>>>>>
-> >>>>>> On 10/28/24 13:02, Jan Beulich wrote:
-> >>>>>>> On 18.10.2024 22:39, Stewart Hildebrand wrote:
-> >>>>>>>> Add links between a VF's struct pci_dev and its associated PF struct
-> >>>>>>>> pci_dev. Move the calls to pci_get_pdev()/pci_add_device() down to avoid
-> >>>>>>>> dropping and re-acquiring the pcidevs_lock().
-> >>>>>>>>
-> >>>>>>>> During PF removal, unlink VF from PF and mark the VF broken. As before,
-> >>>>>>>> VFs may exist without a corresponding PF, although now only with
-> >>>>>>>> pdev->broken = true.
-> >>>>>>>>
-> >>>>>>>> The hardware domain is expected to remove the associated VFs before
-> >>>>>>>> removing the PF. Print a warning in case a PF is removed with associated
-> >>>>>>>> VFs still present.
-> >>>>>>>>
-> >>>>>>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> >>>>>>>> ---
-> >>>>>>>> Candidate for backport to 4.19 (the next patch depends on this one)
-> >>>>>>>>
-> >>>>>>>> v5->v6:
-> >>>>>>>> * move printk() before ASSERT_UNREACHABLE()
-> >>>>>>>> * warn about PF removal with VFs still present
-> >>>>>>>
-> >>>>>>> Hmm, maybe I didn't make this clear enough when commenting on v5: I wasn't
-> >>>>>>> just after an adjustment to the commit message. I'm instead actively
-> >>>>>>> concerned of the resulting behavior. Question is whether we can reasonably
-> >>>>>>> do something about that.
-> >>>>>>
-> >>>>>> Right. My suggestion then is to go back to roughly how it was done in
-> >>>>>> v4 [0]:
-> >>>>>>
-> >>>>>> * Remove the VFs right away during PF removal, so that we don't end up
-> >>>>>> with stale VFs. Regarding XSM, assume that a domain with permission to
-> >>>>>> remove the PF is also allowed to remove the VFs. We should probably also
-> >>>>>> return an error from pci_remove_device in the case of removing the PF
-> >>>>>> with VFs still present (and still perform the removals despite returning
-> >>>>>> an error). Subsequent attempts by a domain to remove the VFs would
-> >>>>>> return an error (as they have already been removed), but that's expected
-> >>>>>> since we've taken a stance that PF-then-VF removal order is invalid
-> >>>>>> anyway.
-> >>>>>
-> >>>>> Imo going back is not an option.
-> >>>>>
-> >>>>>> While the above is what I prefer, I just want to mention other options I
-> >>>>>> considered for the scenario of PF removal with VFs still present:
-> >>>>>>
-> >>>>>> * Increase the "scariness" of the warning message added in v6.
-> >>>>>>
-> >>>>>> * Return an error from pci_remove_device (while still removing only the
-> >>>>>> PF). We would be left with stale VFs in Xen. At least this would
-> >>>>>> concretely inform dom0 that Xen takes issue with the PF-then-VF removal
-> >>>>>> order. Subsequent attempts by a domain to remove VFs, however
-> >>>>>> (un)likely, would succeed.
-> >>>>>
-> >>>>> Returning an error in such a case is a possibility, but comes with the
-> >>>>> risk of confusion. Seeing such an error, a caller may itself assume the
-> >>>>> device still is there, and retry its (with or without having removed the
-> >>>>> VFs) removal at a later point.
-> >>>>>
-> >>>>>> * Return an error from pci_remove_device and keep the PF and VFs. This
-> >>>>>> is IMO the worst option because then we would have a stale PF in
-> >>>>>> addition to stale VFs.
-> >>
-> >> I'm thinking probably this is the least bad option, and just force the
-> >> owner of the PF to ensure there are no VFs left when removing the PF.
-> >>
-> >> What sense does it make anyway to allow removing a PF with VFs still
-> >> present?  Not sure exactly what the owner of the PF will do before
-> >> calling pci_remove_device(), but it would seem to me the device should
-> >> be ready for unplug (so SR-IOV disabled).  Calling pci_remove_device()
-> >> with VFs still active points to an error to do proper cleanup by the
-> >> owner of the PF.
-> > 
-> > In normal, correct operation, right. The PF driver is indeed expected to
-> > disable SR-IOV (i.e. remove VFs) during its removal, prior to calling
-> > PHYSDEVOP_pci_device_remove for the PF.
-> > 
-> >> Returning error from pci_remove_device() and doing nothing would seem
-> >> fine to me.  There should be no stale PF or VFs in that case, as the
-> >> caller has been notified the device has failed to be removed, so
-> >> should treat the device as still present.
+On 12.11.2024 03:16, Stefano Stabellini wrote:
+> On Mon, 11 Nov 2024, Jan Beulich wrote:
+>> On 11.11.2024 03:24, Stefano Stabellini wrote:
+>>> On Wed, 6 Nov 2024, Jan Beulich wrote:
+>>>> On 06.11.2024 10:04, Federico Serafini wrote:
+>>>>> The pseudo keyword fallthrough shall be used to make explicit the
+>>>>> fallthrough intention at the end of a case statement (doing this
+>>>>> through comments is deprecated).
+>>>>>
+>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>> ---
+>>>>>  xen/arch/x86/x86_emulate/x86_emulate.h | 10 ++++++++++
+>>>>>  1 file changed, 10 insertions(+)
+>>>>
+>>>> When you had asked my privately on Matrix, I specifically said: "Adding
+>>>> the pseudo-keyword to x86-emulate.h (not x86_emulate.h) is probably best,
+>>>> unless problems with that approach turn up." Even if identical re-
+>>>> definitions are deemed fine, I for one consider such bad practice. Yet
+>>>> by playing with this file (and outside of any relevant #ifdef) means
+>>>> there will be such a re-definition when building Xen itself.
+>>>>
+>>>> In fact the patch subject should also already clarify that the auxiliary
+>>>> definition is only needed for the test and fuzzing harnesses.
+>>>
+>>> Hi Jan, I don't understand this comment.
+>>>
+>>> You say "playing with this file (and outside of any relevant #ifdef)"
+>>> but actually the changes are within the #ifndef
+>>> __X86_EMULATE_H__/#endif. What do you mean?
+>>
+>> "relevant" was specifically to exclude the guard #ifdef. And the remark
+>> was to avoid the #define to merely be moved into or framed by an
+>> "#ifndef __XEN__".
+>>
+>>> You say "Adding the pseudo-keyword to x86-emulate.h (not x86_emulate.h)
+>>> is probably best". I am not very familiar with x86-isms but the only
+>>> x86-emulate.h I can find is ./tools/tests/x86_emulator/x86-emulate.h
+>>> which is not a header that would help define anything for the Xen build?
+>>
+>> But that's the whole point: We _have_ "fallthrough" as a pseudo-keyword
+>> already for the Xen build. For it to be usable in the emulator files, it
+>> particularly needs to be made available for the test and fuzzing
+>> harnesses. And that without interfering with what the Xen build has.
+>> Hence why it wants to go into precisely that file, where all other build
+>> compatibility definitions also live.
 > 
-> Imo really that's another case that would best be addressed by proper
-> ref-counting. Each VF would hold a ref to its PF, and hence the PF would
-> go away when the last VF is removed, or when PF removal is (properly)
-> last. Just that this likely is too complex a change to be warranted for
-> the purpose here.
-> 
-> > But software has no way to guarantee there won't be a physical device
-> > removal.
-> > 
-> > In test scenario #2 described in the first patch [1], the PF (the whole
-> > device, actually) has already been physically unplugged, and dom0
-> > invokes PHYSDEVOP_pci_device_remove to inform Xen about it.
-> 
-> I don't think that's how it's supposed to work. Physical removal should
-> occur only after software has done all "soft removal". I'd view the
-> notification to Xen as part of that.
+> OK. So if I get this right, we need the below instead of patch #1 in
+> this series?
 
-That would be my expectation also, albeit IIRC we had other instances
-where the calling of the removal hypercall was not done in a vetoing
-manner by Linux, so it was mostly a notification that the device was
-going away, rather than a request for permission to removal.
+Yes, just with the addition not at the bottom of the file, but where the
+other compatibility definitions are. Also (nit) perhaps "statement block",
+matching terminology in xen/compiler.h.
 
-Thanks, Roger.
+Jan
+
+> --- a/tools/tests/x86_emulator/x86-emulate.h
+> +++ b/tools/tests/x86_emulator/x86-emulate.h
+> @@ -233,4 +233,14 @@ void emul_test_put_fpu(
+>      enum x86_emulate_fpu_type backout,
+>      const struct x86_emul_fpu_aux *aux);
+>  
+> +/*
+> + * Pseudo keyword 'fallthrough' to make explicit the fallthrough intention at
+> + * the end of a case statement.
+> + */
+> +#if (!defined(__clang__) && (__GNUC__ >= 7))
+> +# define fallthrough        __attribute__((__fallthrough__))
+> +#else
+> +# define fallthrough        do {} while (0)  /* fallthrough */
+> +#endif
+> +
+>  #endif /* X86_EMULATE_H */
+
 
