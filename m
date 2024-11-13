@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 150EC9C6E83
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 13:01:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835506.1251377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A1FA9C6E8B
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 13:03:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835517.1251386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBC38-00045K-Sx; Wed, 13 Nov 2024 12:00:42 +0000
+	id 1tBC4w-00052Y-7o; Wed, 13 Nov 2024 12:02:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835506.1251377; Wed, 13 Nov 2024 12:00:42 +0000
+Received: by outflank-mailman (output) from mailman id 835517.1251386; Wed, 13 Nov 2024 12:02:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBC38-00042A-Q7; Wed, 13 Nov 2024 12:00:42 +0000
-Received: by outflank-mailman (input) for mailman id 835506;
- Wed, 13 Nov 2024 12:00:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tBC4w-00050G-4R; Wed, 13 Nov 2024 12:02:34 +0000
+Received: by outflank-mailman (input) for mailman id 835517;
+ Wed, 13 Nov 2024 12:02:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=REvy=SI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBC36-0002tw-Mu
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 12:00:40 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e55c4cfe-a1b6-11ef-a0c7-8be0dac302b0;
- Wed, 13 Nov 2024 13:00:37 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4314f38d274so84885425e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 04:00:37 -0800 (PST)
+ id 1tBC4u-000506-Oa
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 12:02:32 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 27c5546e-a1b7-11ef-99a3-01e77a169b0f;
+ Wed, 13 Nov 2024 13:02:29 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4319399a411so64719895e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 04:02:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432d55054a4sm23257115e9.25.2024.11.13.04.00.36
+ ffacd0b85a97d-381ed970e23sm18103988f8f.18.2024.11.13.04.02.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Nov 2024 04:00:36 -0800 (PST)
+ Wed, 13 Nov 2024 04:02:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e55c4cfe-a1b6-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzAiLCJoZWxvIjoibWFpbC13bTEteDMzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImU1NWM0Y2ZlLWExYjYtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDk5MjM3Ljc4NjI0LCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 27c5546e-a1b7-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMjkiLCJoZWxvIjoibWFpbC13bTEteDMyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjI3YzU1NDZlLWExYjctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDk5MzQ5LjIxNjgwMiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731499237; x=1732104037; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731499348; x=1732104148; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kJf/gQA45CP4D/4Y6vOugYBGfudKZ43RGYtNiQjjtV8=;
-        b=en2d51QLkOqjvxjXSXunUqrkUR5UqOuARSH5WrczXufb/kUirRlCd+0+AeD4KgnlZR
-         nC0ZPvU9Esqm1zaGct8hGYqnQZ+E0DlvlJ/E9uEx6BTxxROK+8JrIUSS4FAM1yxGkvix
-         VYiPwd0y4I97eIQgYPgrZr+H0A8BVlUuueQhwPerexlmfBowo0Wq5HDZEwhNoSWFQHF5
-         KIKV0URGF950z1HybsEMc6hSZOSfGJdMmnBhAUO7wc+XrqSde5SqIv0qOuN9aO864Vly
-         bj+X+Nv8ZM8PJatOA7c74Srx6co8/0NAZKclDpdnhhyPQS1CLvn9b4k1AQ+7FhvzEr1o
-         7IdQ==
+        bh=RRKzwpnMHSEqbegF5vRDNZdYVHu3zdqL2rj6cftfnB4=;
+        b=BkpTrn89eQIN0UsdVr9NPI/hq0T/1RSzdRYQQL0rpCGQXJCUDKwFChcvUY0FY9Cxxv
+         UYooPAkB6ZtIVj7unB576jN6B+aF4lQxIIpQ3Lk1eBub/QjfyaqvFAKDmlQx7Le4BN4O
+         wy1YQoJHo1tuH53aoUo7yIkwvnDxQwoismjFtus/mRdfIvb8rCaEQezOcRNqBqSVIARf
+         XQzjH36Q8coqjkX9ASCszMSMBQkK3B78TmS/S9OD9jKnj8XgnnZ75BAi3TF2Bhmvz/Ze
+         fqrmqQZ5LGalPZPd9msIGaaHUFe4tQLnxzs3psi9CbqzVAwdvdc4HA4KjU2VYhCwATJC
+         Fc8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731499237; x=1732104037;
+        d=1e100.net; s=20230601; t=1731499348; x=1732104148;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kJf/gQA45CP4D/4Y6vOugYBGfudKZ43RGYtNiQjjtV8=;
-        b=c+FYqM7wY/7b6k9MDzkH+H8waACujvC3VrztozMGEu4/3enIxlr024TT4qvTC54amO
-         7a47ljI7q6GHbmU3iwV7f1bTdpra34v4vebcPc4rrFYsYGFltBBZNNvuJgPdBjjDJiQO
-         g5qNkOKtanXMHyr/cqJ3BksvcpIq2aH8z+2L0WTc8UNIOfAy2UJNYBUVimsmfOyTaiTm
-         cfO3rYE/RVpfIPLlIp/ezz2u6ALOgTDvks7xWDjvyVKB4WN9MJFdKOqVcnBefACEt4hN
-         q9bFakXTu3T1Jd24uyz3dpviXzLLPF4y0dGCyZijOy3d3w3Kb395m0Vk7BkZV0ptikjY
-         aWwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUWWxcmRh1pt0u4f5aNEE3Xa3xzlw0RlwPoE1PSj+wN0qaVzPog+XUTkr+BDxkThJ3yZ+5IgBMO55k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwxpFjpsUN02dRJOpsfzmRjBP8LJSHSLdn/I3ltJBH2bDNnVfbL
-	M9h5kJCglH1ACeH9IL+/Zrm0bG3bQhWCpEoKaPgFZ0zv1a7NiwkQOEiaW/kUzg==
-X-Google-Smtp-Source: AGHT+IFCcbPBPtLMFCrPlPYZAfacYD+3zWlL+ysbbXWx7LKzv298cB+QVcCiBnurLqLEP3tER3NKPA==
-X-Received: by 2002:a05:600c:a04:b0:42c:a387:6a6f with SMTP id 5b1f17b1804b1-432b7518cd4mr196379825e9.20.1731499237052;
-        Wed, 13 Nov 2024 04:00:37 -0800 (PST)
-Message-ID: <8b3d42b6-3c22-4882-8df3-e3ce2bfd2dfb@suse.com>
-Date: Wed, 13 Nov 2024 13:00:35 +0100
+        bh=RRKzwpnMHSEqbegF5vRDNZdYVHu3zdqL2rj6cftfnB4=;
+        b=Q/ShAErhb+j4ehYpJdk9g/eO3flcGeZUXoann8wg05dz/ZJfxoc37CPW94huPp9666
+         3IrBgttpdLTVRWOFqv+IpInn8/Ge3m/z8d9cjyGC1It/gZLuF6SL+FQ/rJQIk6d1bnzF
+         N0rH/LLEMSjq9asz9s9jZHm4J6JdCA2UjWtrFlnBIJBaAHoUdUdVRdrTSbV/KxO4jMuy
+         UtaN32Lmfj6gebaJN2t4ns/doa8HrE65G/1hnzk+f2NrBPgigD2WVdYk1up4sLbJC7kH
+         +/vrzp9w2lpQXaNEvIZKQg/GGkRyVsMDqrzFOypuGi14imylBQLHsjDcKCM5YLrTOQA5
+         L2mg==
+X-Forwarded-Encrypted: i=1; AJvYcCXovr37/hxkbzqNe2AeZzHZd6lNltsgWJIjVzzxZeqnLtQyNgP/2C6eLSPvmgbfHlvA4uaeMRTuJzg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYi+rxhfkEBVvMgArxLXV8YWA5FNN9zNGAwPHXLFAvo42PRFJ1
+	U1U/CGMXd/1mfoqXZ0RwSy6g5oGwZQotcQTcLsm0yU12kmRa/Gg1JfRRS5cnWg==
+X-Google-Smtp-Source: AGHT+IG9+KdO//sEPb/jrmzg1URuwgNp8c1CxhA/syaADOSgExsqciDzOSOocfpzxQ8vvC8WrTzldQ==
+X-Received: by 2002:a5d:6c6d:0:b0:37d:51f8:46fd with SMTP id ffacd0b85a97d-381f186dfcemr16326682f8f.22.1731499348593;
+        Wed, 13 Nov 2024 04:02:28 -0800 (PST)
+Message-ID: <f87a403a-0664-4383-8ce0-70d5a78bbefd@suse.com>
+Date: Wed, 13 Nov 2024 13:02:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] x86/trampoline: Rationalise the constants to describe
@@ -93,8 +93,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241113093058.1562447-1-andrew.cooper3@citrix.com>
  <20241113093058.1562447-3-andrew.cooper3@citrix.com>
- <5961777b-2d38-4edd-b2e0-2da89862655c@suse.com>
- <49a1ba0d-b24c-46d2-a0a9-49183575aeaa@citrix.com>
+ <8217032f-c5ec-4f93-b69f-42ceeae06073@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,42 +119,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <49a1ba0d-b24c-46d2-a0a9-49183575aeaa@citrix.com>
+In-Reply-To: <8217032f-c5ec-4f93-b69f-42ceeae06073@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.11.2024 12:52, Andrew Cooper wrote:
-> On 13/11/2024 10:23 am, Jan Beulich wrote:
->> On 13.11.2024 10:30, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/include/asm/config.h
->>> +++ b/xen/arch/x86/include/asm/config.h
->>> @@ -51,8 +51,9 @@
->>>  
->>>  #define IST_SHSTK_SIZE 1024
->>>  
->>> -#define TRAMPOLINE_STACK_SPACE  PAGE_SIZE
->>> -#define TRAMPOLINE_SPACE        (KB(64) - TRAMPOLINE_STACK_SPACE)
->>> +/* See asm/trampoline.h */
->>> +#define TRAMPOLINE_SIZE         KB(64)
->>> +#define TRAMPOLINE_HEAP_END     (TRAMPOLINE_SIZE - PAGE_SIZE)
->> Is there actually a reason these can't move to trampoline.h?
+On 13.11.2024 12:36, Andrew Cooper wrote:
+> On 13/11/2024 9:30 am, Andrew Cooper wrote:
+>> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+>> index 7930b7c73892..9d3f2b71447e 100644
+>> --- a/xen/arch/x86/efi/efi-boot.h
+>> +++ b/xen/arch/x86/efi/efi-boot.h
+>> @@ -633,7 +633,7 @@ static void __init efi_arch_memory_setup(void)
+>>      if ( efi_enabled(EFI_LOADER) )
+>>          cfg.size = trampoline_end - trampoline_start;
+>>      else
+>> -        cfg.size = TRAMPOLINE_SPACE + TRAMPOLINE_STACK_SPACE;
+>> +        cfg.size = TRAMPOLINE_SIZE;
 > 
-> I considered that, and ruled it out, but I can't remember why exactly.
+> Something I forgot to mention.
 > 
-> Right now, trampoline.h is C-only, but it can gain some __ASSEMBLY__
-> easily enough.
+> The EFI_LOADER side of this conditional means that the heap isn't valid.
 > 
-> 
-> The two later constants, WAKEUP_STACK_MIN and MBI_SPACE_MIN are used
-> only in linker assertions, and of dubious value.  In particular, the
-> size of the VESA information in the heap is not accounted for in the
-> MBI_SPACE_MIN check.
-> 
-> I have an idea to remove all of this boot metadata shuffling when the
-> boot_info work is a bit better done, which is why I left the constants
-> alone.
+> This includes modelist, vesa_glob_info and vesa_mode_info from video.S,
+> but I can't find where they're used at all.
 
-Fair enough then.
+If nothing else, then iirc to hand (whole struct) to Dom0 upon request.
 
 Jan
 
