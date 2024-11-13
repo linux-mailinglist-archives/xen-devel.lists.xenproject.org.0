@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D10499C79E8
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 18:25:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835938.1251806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D6B9C79E7
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 18:25:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835945.1251815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBH6r-0000iP-DC; Wed, 13 Nov 2024 17:24:53 +0000
+	id 1tBH7Z-0001CC-Lj; Wed, 13 Nov 2024 17:25:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835938.1251806; Wed, 13 Nov 2024 17:24:53 +0000
+Received: by outflank-mailman (output) from mailman id 835945.1251815; Wed, 13 Nov 2024 17:25:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBH6r-0000fh-AU; Wed, 13 Nov 2024 17:24:53 +0000
-Received: by outflank-mailman (input) for mailman id 835938;
- Wed, 13 Nov 2024 17:24:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1tBH7Z-0001AU-Iz; Wed, 13 Nov 2024 17:25:37 +0000
+Received: by outflank-mailman (input) for mailman id 835945;
+ Wed, 13 Nov 2024 17:25:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tBH6p-0000fb-Gr
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 17:24:51 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tBH6o-003LIc-2V;
- Wed, 13 Nov 2024 17:24:51 +0000
-Received: from [2a02:8012:3a1:0:2c06:4644:c8a3:2b5e]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tBH6o-003LNd-2a;
- Wed, 13 Nov 2024 17:24:50 +0000
+ (envelope-from <SRS0=QAIE=SI=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1tBH7Z-00015K-16
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 17:25:37 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4734b2ba-a1e4-11ef-a0c7-8be0dac302b0;
+ Wed, 13 Nov 2024 18:25:30 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
+ by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 4ADHPJ48038375
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Wed, 13 Nov 2024 12:25:25 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.18.1/8.15.2/Submit) id 4ADHPIlf038374;
+ Wed, 13 Nov 2024 09:25:18 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,92 +43,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=9AftGS72GNn16imIorFWBxhHYSjQ0uCLlM1fbSrZPCk=; b=O3S1/6nL5jw8IUsFEa22lyoZuv
-	aChhd6/pn0DIa1AwxB70Dddu5SD3P4TQ86eq99NdjLyyLFnCVxP9iOLyk2kPGGW04LTe6Db81aeeJ
-	XVuTqimLeQ1L9df1szsKcE65p1GbEcVkYiQ2O6+CW7NbsezicvOiRRDh/UHg49WfPR2E=;
-Message-ID: <5ea6430a-cd9c-4c5f-83e8-b0a71d333847@xen.org>
-Date: Wed, 13 Nov 2024 17:24:48 +0000
+X-Inumbo-ID: 4734b2ba-a1e4-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6Ijc0LjEwNC4xODguNCIsImhlbG8iOiJtYWlsaG9zdC5tNXAuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjQ3MzRiMmJhLWExZTQtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTE4NzMwLjkyNjczNSwic2VuZGVyIjoiZWhlbUBtNXAuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+Date: Wed, 13 Nov 2024 09:25:18 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Andrei Semenov <andrei.semenov@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        jgross@suse.com
+Subject: Re: AMD EPYC virtual network performances
+Message-ID: <ZzTg_p-8E0_jrkii@mattapan.m5p.com>
+References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/device-tree: Allow exact match for overlapping
- regions
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, Luca Fancellu
- <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-References: <20241106134132.2185492-1-luca.fancellu@arm.com>
- <d9ad0972-2fd1-40ef-a11c-d56e102fef38@amd.com>
- <c6ba416c-5781-4f23-8623-5f30ce279a29@xen.org>
- <d87bd0a7-0dc8-44a9-b43e-04a166cb0b6d@amd.com>
- <91140571-9237-42dc-8eb1-2263bbb23b07@xen.org>
- <51c04e42-105b-4452-8dd1-dcc1f02c54a2@amd.com>
- <8d04f515-ae46-4b30-8a98-7822b0d221ed@xen.org>
- <3cef1b1a-d17c-498c-a482-6ef01d781392@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <3cef1b1a-d17c-498c-a482-6ef01d781392@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
+X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
+
+On Tue, Jul 09, 2024 at 08:36:18AM +0000, Andrei Semenov wrote:
+> 
+> After some investigations we notices a huge performances drop (perfs divided
+> by
+> factor of 5) starting from 5.10.88 Linux kernel version on the AMD EPYC
+> platforms. The patch introduced in this kernel version that allows to
+> pinpoint
+> the buggy behavior is :
+> 
+>  “xen/netfront: harden netfront against event channel storms”
+> d31b3379179d64724d3bbfa87bd4ada94e3237de
+> 
+> The patch basically binds the network frontend to the `xen_lateeoi_chip`
+> irq_chip (insead of `xen_dynamic_chip`) which allows to its clients to
+> inform
+> the chip if spurious interrupts are detected and so the delay in interrupt
+> treatment is introduced by the chip.
+
+I worry I'm being knave here.
+
+For the heck of it, I took a glance at b27d47950e48.  If my understanding
+is correct, b27d47950e48 is making a very basic (and wrong) assumption
+about timing/latency.
+
+In particular any time either side receive an event, it will handle
+X # of incoming payloads and Y # of acknowledged outgoing payloads.  As
+such if X + Y > 1, then up to X + Y - 1 spurious events may be detected.
+The issue is there is no synchronization between the event channel and
+the work queues.
+
+In particular the network back end could legitimately generate:
+
+work0	signal0	work1	signal1	work2	signal2	work3	signal3
+
+Whereas the network front end may handle this as:
+
+event0	work0	work1	work2	work3	event1	event2	event3
+
+Where b27d47950e48 would interpret events 1-3 as spurious, even though
+they're perfectly legitimate.  The same phenomenon could occur in both
+directions and also with the Xen block devices.
+
+Ultimately how is the network portion of XSA-391 any different from any
+other network DoS?  If an interrupt is generated for every single packet
+of a series of runt frames, there will be heavy processor use for little
+network traffic.
+
+AMD systems may fair worse than Intel systems due to differing cache
+coherence behavior/latency.  Perhaps AMD's NUMA implementation adds
+some latency.  (huh, suddenly the RAID1 issue comes to mind)
 
 
+Hopefully I'm not making knave speculation here.  Might this be the
+simplest of issues, just it was missed due to being too obvious?
 
-On 13/11/2024 16:56, Michal Orzel wrote:
->>>>> For things that Xen can be interested in, only region for ramdisk for dom0 can match the /memreserve/ region.
->>>>> Providing a generic solution (like Luca did) would want providing an example of sth else that can match which I'm not aware of.
->>>>
->>>> I would argue this is the other way around. If we are not certain that
->>>> /memreserve/ will not be used for any other boot module, then we should
->>>> have a generic solution. Otherwise, we will end up with similar weird
->>>> issue in the future.
->>> We have 3 possible modules for bootloader->kernel workflow: kernel, dtb and ramdisk. The first 2 are not described in DT so I'm not sure
->>> what are your examples of bootmodules for which you want kernel know about memory reservation other than ramdisk.
->>
->> The DTB is not described but the kernel is. We also have XSM modules.
->> All of which could in theory be in memreserve if for some reasons the
->> bootloader wanted to preserve the modules for future use (think
->> Live-Update)...
->>
->> Anyway, to be honest, I don't understand why you are pushing back at a
->> more generic solution... Yes this may be what we just notice today, but
->> I haven't seen any evidence that it never happen.
->>
->> So I would rather go with the generic solution.
-> My reluctance comes from the fact that it's difficult for me to later justify (if someone asks) a code like that
-> in the port we maintain because I can't answer the question about the rationale of other modules.
-
-You also can't answer why it can't happen. So between the choice of 
-trying to be future-proof or handling in an emergency, I would chose the 
-former. If you want to handle differently in the AMD port, so be it.
-
- > All you wrote is just a theory.
-
-Hu, seriously? You are basing your decision on observation on a few 
-platforms and then you tell me I theorized?
-
-The main source of truth is the specification. This is ...
-
-> Neither you nor anyone seen a code where a bootloader sets up /memreserve/
-> for sth else than initrd. That's it.
-
-the only way we can confirm something doesn't happen is based on the 
-specification. If it is not written anywhere then it can happen.
-
-I will Nack any patch/approach that is not attempting to look at the 
-specification (if any) unless obviously this will break the guest OSes. 
-At which point I will weight the pros and cons.
-
-I don't believe this is the case here. So there is no excuses to try to 
-take short cut...
-
-Cheers,
 
 -- 
-Julien Grall
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
 
