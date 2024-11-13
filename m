@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC4E89C78BA
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 17:23:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835895.1251756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 949F19C790F
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 17:42:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835903.1251766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBG8r-0006kn-2m; Wed, 13 Nov 2024 16:22:53 +0000
+	id 1tBGQx-0001T5-F1; Wed, 13 Nov 2024 16:41:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835895.1251756; Wed, 13 Nov 2024 16:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 835903.1251766; Wed, 13 Nov 2024 16:41:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBG8r-0006j6-05; Wed, 13 Nov 2024 16:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 835895;
- Wed, 13 Nov 2024 16:22:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yEOK=SI=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1tBG8p-0006j0-Ji
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 16:22:51 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8593f02b-a1db-11ef-a0c7-8be0dac302b0;
- Wed, 13 Nov 2024 17:22:48 +0100 (CET)
+	id 1tBGQx-0001Qe-Bx; Wed, 13 Nov 2024 16:41:35 +0000
+Received: by outflank-mailman (input) for mailman id 835903;
+ Wed, 13 Nov 2024 16:41:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1tBGQw-0001QY-2O
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 16:41:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tBGQv-003KVi-1r;
+ Wed, 13 Nov 2024 16:41:33 +0000
+Received: from [2a02:8012:3a1:0:2c06:4644:c8a3:2b5e]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tBGQv-003DhA-1u;
+ Wed, 13 Nov 2024 16:41:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,123 +39,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8593f02b-a1db-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5My4xNDIuNDMuNTUiLCJoZWxvIjoiZ2Fsb2lzLmxpbnV0cm9uaXguZGUifQ==
-X-Custom-Transaction: eyJpZCI6Ijg1OTNmMDJiLWExZGItMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTE0OTY4LjczNTQxLCJzZW5kZXIiOiJ0Z2x4QGxpbnV0cm9uaXguZGUiLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1731514966;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3k8+NXf0XqcxSDVGHG1zcPA7gqnuYQaT+ExzotBYqus=;
-	b=2p1i5424l/Mw2o1go3eZuRlhLFfLu7r8KKASlGO/YPpkQZDBas2eHSNplLNLapYA8yDFgN
-	WCGwOvmnq1Y70YHVSNHcUfBoLXYw7St3krtFkCIvDFofEHsEFJI/tUmpthMj5822ePeIjp
-	ifMBL3OrlRi7yqyJVRpmbh0L7A1joJRZ4KnuDr5zlN46fN8Dou/rizXBUid26Zy+obL29T
-	Cyh07HAwKRIA8BddfyqNCGPoDLMe7kZNM3/4oUePcYUpjpZZSqveBKZGaoen8IK4gL1hrB
-	cLsa/ZQU5GMMglVK24fX2nMABPE7beIyU3V/10IGN6wc7T/52pLz94BPzzuPww==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1731514966;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3k8+NXf0XqcxSDVGHG1zcPA7gqnuYQaT+ExzotBYqus=;
-	b=2/sBlyjXN5KrpH5yo+sPPoE1Vj7RMOF2OIGTxhk0XidvUTXq9URTcJn7IcLDz/JowTbjmq
-	2LOMU1e9sNdrRBDg==
-To: Philipp Stanner <pstanner@redhat.com>, Damien Le Moal
- <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, Basavaraj Natikar
- <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
- Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
- <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
- <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
- <imitsyanko@quantenna.com>, Sergey Matyukevich <geomatsi@gmail.com>, Kalle
- Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam
- Sundar S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave
- Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn
- Helgaas <bhelgaas@google.com>, Alex Williamson
- <alex.williamson@redhat.com>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Philipp Stanner <pstanner@redhat.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Chen Ni
- <nichen@iscas.ac.cn>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
- <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>, Kevin Tian
- <kevin.tian@intel.com>, Mostafa Saleh <smostafa@google.com>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>, Kunwu Chan
- <chentao@kylinos.cn>, Ankit Agrawal <ankita@nvidia.com>, Christian Brauner
- <brauner@kernel.org>, Reinette Chatre <reinette.chatre@intel.com>, Eric
- Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
- linux-pci@vger.kernel.org, kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 11/11] Remove devres from pci_intx()
-In-Reply-To: <20241113124158.22863-13-pstanner@redhat.com>
-References: <20241113124158.22863-2-pstanner@redhat.com>
- <20241113124158.22863-13-pstanner@redhat.com>
-Date: Wed, 13 Nov 2024 17:22:45 +0100
-Message-ID: <87msi3ksru.ffs@tglx>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=HVA+R/o9AVUPyxfpGCcndmOSCziqn/HkDXaPvd8693w=; b=4wThfSQyEd1R1E571iqxZP0JFx
+	BNSCbiV4IPDZGRE4lKilMEnUjMnTFi6pJGDf/AeavtzZhJJgQIwt0ugKQVOTnGFeez0i4NqvUzW5k
+	LGssyB4Q8JQFJQCgaJOLSewGtIQspbHCF2VSvVa/JDhcRq2t9lLkcYVDGCKIGh8yMQ5Y=;
+Message-ID: <8d04f515-ae46-4b30-8a98-7822b0d221ed@xen.org>
+Date: Wed, 13 Nov 2024 16:41:31 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/device-tree: Allow exact match for overlapping
+ regions
+Content-Language: en-GB
+To: Michal Orzel <michal.orzel@amd.com>, Luca Fancellu
+ <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20241106134132.2185492-1-luca.fancellu@arm.com>
+ <d9ad0972-2fd1-40ef-a11c-d56e102fef38@amd.com>
+ <c6ba416c-5781-4f23-8623-5f30ce279a29@xen.org>
+ <d87bd0a7-0dc8-44a9-b43e-04a166cb0b6d@amd.com>
+ <91140571-9237-42dc-8eb1-2263bbb23b07@xen.org>
+ <51c04e42-105b-4452-8dd1-dcc1f02c54a2@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <51c04e42-105b-4452-8dd1-dcc1f02c54a2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 13 2024 at 13:41, Philipp Stanner wrote:
-> pci_intx() is a hybrid function which can sometimes be managed through
-> devres. This hybrid nature is undesirable.
->
-> Since all users of pci_intx() have by now been ported either to
-> always-managed pcim_intx() or never-managed pci_intx_unmanaged(), the
-> devres functionality can be removed from pci_intx().
->
-> Consequently, pci_intx_unmanaged() is now redundant, because pci_intx()
-> itself is now unmanaged.
->
-> Remove the devres functionality from pci_intx(). Have all users of
-> pci_intx_unmanaged() call pci_intx(). Remove pci_intx_unmanaged().
->
-> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
-> ---
->  drivers/misc/cardreader/rtsx_pcr.c            |  2 +-
->  drivers/misc/tifm_7xx1.c                      |  6 +--
->  .../net/ethernet/broadcom/bnx2x/bnx2x_main.c  |  2 +-
->  drivers/net/ethernet/brocade/bna/bnad.c       |  2 +-
->  drivers/ntb/hw/amd/ntb_hw_amd.c               |  4 +-
->  drivers/ntb/hw/intel/ntb_hw_gen1.c            |  2 +-
->  drivers/pci/devres.c                          |  4 +-
->  drivers/pci/msi/api.c                         |  2 +-
->  drivers/pci/msi/msi.c                         |  2 +-
->  drivers/pci/pci.c                             | 43 +------------------
->  drivers/vfio/pci/vfio_pci_core.c              |  2 +-
->  drivers/vfio/pci/vfio_pci_intrs.c             | 10 ++---
->  drivers/xen/xen-pciback/conf_space_header.c   |  2 +-
->  include/linux/pci.h                           |  1 -
->  14 files changed, 22 insertions(+), 62 deletions(-)
+Hi,
 
-Now I'm utterly confused. This undoes the pci_intx_unmanaged() churn
-which you carefully split into several patches first.
+On 13/11/2024 15:40, Michal Orzel wrote:
+> 
+> 
+> On 13/11/2024 15:40, Julien Grall wrote:
+>>
+>>
+>> Hi,
+>>
+>> On 13/11/2024 14:19, Michal Orzel wrote:
+>>>
+>>>
+>>> On 13/11/2024 14:50, Julien Grall wrote:
+>>>>
+>>>>
+>>>> Hi Michal,
+>>>>
+>>>> On 06/11/2024 15:07, Michal Orzel wrote:
+>>>>>
+>>>>>
+>>>>> On 06/11/2024 14:41, Luca Fancellu wrote:
+>>>>>>
+>>>>>>
+>>>>>> There are some cases where the device tree exposes a memory range
+>>>>>> in both /memreserve/ and reserved-memory node, in this case the
+>>>>>> current code will stop Xen to boot since it will find that the
+>>>>>> latter range is clashing with the already recorded /memreserve/
+>>>>>> ranges.
+>>>>>>
+>>>>>> Furthermore, u-boot lists boot modules ranges, such as ramdisk,
+>>>>>> in the /memreserve/ part and even in this case this will prevent
+>>>>>> Xen to boot since it will see that the module memory range that
+>>>>>> it is going to add in 'add_boot_module' clashes with a /memreserve/
+>>>>>> range.
+>>>>>>
+>>>>>> When Xen populate the data structure that tracks the memory ranges,
+>>>>>> it also adds a memory type described in 'enum membank_type', so
+>>>>>> in order to fix this behavior, allow the 'check_reserved_regions_overlap'
+>>>>>> function to check for exact memory range match given a specific memory
+>>>>>> type; allowing reserved-memory node ranges and boot modules to have an
+>>>>>> exact match with ranges from /memreserve/.
+>>>>>>
+>>>>>> While there, set a type for the memory recorded during ACPI boot.
+>>>>>>
+>>>>>> Fixes: 53dc37829c31 ("xen/arm: Add DT reserve map regions to bootinfo.reserved_mem")
+>>>>>> Reported-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+>>>>>> Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>>>> ---
+>>>>>> I tested this patch adding the same range in a /memreserve/ entry and
+>>>>>> /reserved-memory node, and by letting u-boot pass a ramdisk.
+>>>>>> I've also tested that a configuration running static shared memory still works
+>>>>>> fine.
+>>>>>> ---
+>>>>> So we have 2 separate issues. I don't particularly like the concept of introducing MEMBANK_NONE
+>>>>> and the changes below look a bit too much for me, given that for boot modules we can only have
+>>>>> /memreserve/ matching initrd.
+>>>>
+>>>> How so? Is this an observation or part of a specification?
+>>> Not sure what specification you would want to see.
+>>
+>> Anything that you bake your observation. My concern with observation is ...
+>>
+>>    It's all part of U-Boot and Linux behavior that is not documented
+>> (except for code comments).
+>>> My statement is based on the U-Boot and Linux behavior. U-Boot part only present for initrd:
+>>> https://github.com/u-boot/u-boot/blob/master/boot/fdt_support.c#L249
+>>
+>> ... a user is not forced to use U-boot. So this is not a good reason to
+> I thought that this behavior is solely down to u-boot playing tricks with memreserve.
 
-So the net change is that:
+Sure we noticed that U-boot is doing some we didn't expect. But this 
+really doesn't mean there are not other interesting behavior happening.
 
-   1) pci_intx() is now always unmanaged
+> 
+>> rely on it. If Linux starts to rely on it, then it is probably a better
+>> argument, but first I would need to see the code. Can you paste a link?
+> Not sure how I would do that given that it is all scattered. 
 
-   2) a couple of drivers use pcim_intx() now instead of pci_intx()
+There are no requirements to be all scattered.
 
-The obvious ordering is:
+ > But if it means sth, here is kexec code> to create fdt. It is clear 
+they do the same trick as u-boot.
+> https://github.com/torvalds/linux/blob/master/drivers/of/kexec.c#L355
 
-   1) Convert the drivers which need the managed version to use
-      pcim_intx()
+Yet this doesn't provide any information why this only has to be an 
+exact region... It only tells me the current behavior.
 
-   2) Remove the managed warning in pci_intx() and clean up the comment
+> 
+>>
+>>>
+>>> For things that Xen can be interested in, only region for ramdisk for dom0 can match the /memreserve/ region.
+>>> Providing a generic solution (like Luca did) would want providing an example of sth else that can match which I'm not aware of.
+>>
+>> I would argue this is the other way around. If we are not certain that
+>> /memreserve/ will not be used for any other boot module, then we should
+>> have a generic solution. Otherwise, we will end up with similar weird
+>> issue in the future.
+> We have 3 possible modules for bootloader->kernel workflow: kernel, dtb and ramdisk. The first 2 are not described in DT so I'm not sure
+> what are your examples of bootmodules for which you want kernel know about memory reservation other than ramdisk.
 
-   3) Remove __pcim_intx() and invoke pci_intx() in the devres code.
+The DTB is not described but the kernel is. We also have XSM modules. 
+All of which could in theory be in memreserve if for some reasons the 
+bootloader wanted to preserve the modules for future use (think 
+Live-Update)...
 
-No?
+Anyway, to be honest, I don't understand why you are pushing back at a 
+more generic solution... Yes this may be what we just notice today, but 
+I haven't seen any evidence that it never happen.
 
-Thanks,
+So I would rather go with the generic solution.
 
-        tglx
+Cheers,
+
+-- 
+Julien Grall
+
 
