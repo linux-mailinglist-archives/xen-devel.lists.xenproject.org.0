@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB5E69C6CAE
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 11:19:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835270.1251121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 821099C6CB6
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 11:20:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835277.1251131 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBASu-00054a-2m; Wed, 13 Nov 2024 10:19:12 +0000
+	id 1tBATv-0006Tf-Bs; Wed, 13 Nov 2024 10:20:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835270.1251121; Wed, 13 Nov 2024 10:19:12 +0000
+Received: by outflank-mailman (output) from mailman id 835277.1251131; Wed, 13 Nov 2024 10:20:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBASt-00051w-Vz; Wed, 13 Nov 2024 10:19:11 +0000
-Received: by outflank-mailman (input) for mailman id 835270;
- Wed, 13 Nov 2024 10:19:10 +0000
+	id 1tBATv-0006Qt-7q; Wed, 13 Nov 2024 10:20:15 +0000
+Received: by outflank-mailman (input) for mailman id 835277;
+ Wed, 13 Nov 2024 10:20:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1B9J=SI=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tBASs-00051q-7i
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 10:19:10 +0000
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [2607:f8b0:4864:20::c2a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=REvy=SI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tBATt-00051q-Cx
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 10:20:13 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b61ace65-a1a8-11ef-99a3-01e77a169b0f;
- Wed, 13 Nov 2024 11:19:06 +0100 (CET)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- 006d021491bc7-5eba976beecso260838eaf.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 02:19:06 -0800 (PST)
+ id dc4be819-a1a8-11ef-99a3-01e77a169b0f;
+ Wed, 13 Nov 2024 11:20:09 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43193678216so63916155e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 02:20:09 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432d54f7105sm19238865e9.13.2024.11.13.02.20.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Nov 2024 02:20:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,221 +45,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b61ace65-a1a8-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjpjMmEiLCJoZWxvIjoibWFpbC1vbzEteGMyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImI2MWFjZTY1LWExYTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDkzMTQ2LjE5NTg5OSwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: dc4be819-a1a8-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmEiLCJoZWxvIjoibWFpbC13bTEteDMyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImRjNGJlODE5LWExYTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDkzMjA5LjYzMjA0Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1731493145; x=1732097945; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=knZ+r7FW1fRdQOwcj0H70gtW+sdrfYJ9S1JJrvE2DOw=;
-        b=NvJLjJPOhW6OJXaCbKDNdc8Ru/WA03jp6vovkU9A8IIlrS6n2i/11tqXFR5I22c2a5
-         G5kXTxswlb5A4KgF8416MU4+IF01XrbNryOAt7wZMV+yf06THfcmBwHr/zUZYizIuJuZ
-         LhE4s7DEAfgLnw1xVauDfjhbuPzbqycFoUY/k=
+        d=suse.com; s=google; t=1731493209; x=1732098009; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TD5npga+YVniGyfpUiI0Tvj73sA8fJ+KJi16pH5mACE=;
+        b=OxwjG/4hakHBs+dpyj8dklvZMpkB/2Hiih3Yy0jVKhJdjLRYG0gzsdbp5TgKnTcgpR
+         iDmhNWvf+v7fDognixYCpuq4G6t+qJosVlQV56sRRCR8l2eFyAhbwEd4vaNSHDugElQH
+         6L24RXdd/alMRvNmPyPryI0DB2xAsvSHhs1v9aALugWlskZfQzU7D1dofsc4viA+Q2l8
+         lPVxh0xQ/DswW6Bt8csqhcHkgha8ELXcpJJHoV7NmoDfxN6MsG5/a1xBeD8fX5Igk1z7
+         2B2h7c3qGz95K/QuNuI2JFSTKBLro3KfldhFqk8SXw6s84ey8DNitbbYFwToVkZhG/tU
+         kdig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731493145; x=1732097945;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=knZ+r7FW1fRdQOwcj0H70gtW+sdrfYJ9S1JJrvE2DOw=;
-        b=ubTwv4VYx+L3pCG1WReiAZEok9X/pGrsEKW+lHEB8iWgHplMt7qV56TGcT2X7HBjes
-         XVDNtw1miqX9ML2DGa+cd3SMgsHJ94l55yaX8qztZFITVbRnlB1yg5b/ShVtw6/7eiEI
-         Vw9Un6geXcwp9KOdqiv3E82ytOGgTz53HHK7MeOX+8Fo5+AbNNfm17RktAHZb8GUAQyu
-         nc+p9Ou7Mlf3ATNsF19UTGqtqXN1EKvklz6Qn36dgaflFReGzg98/rXR8mz2lt110pvf
-         3lvYcfxMTEjyMMfbPdeUZbOx17egZr+JdPBY5LLH/0+ceF0S0W2o7iUrjUxoCEhQ3uTA
-         CnpA==
-X-Gm-Message-State: AOJu0YzyDCb0ziqbFMw0zBI42TbRWJBWigQ3rrdCEPnd+TKs9fOgo+Ww
-	xVBYcb5l36Gztjs2PHAZPDBAkuEduR2+40u5ddeJt0iR6DdBKq8CiuH8sTs7/V605IulLjpmOVa
-	E4Mz2eRviahNkSj8SliqcIyctqis+u9H6qNDOZQ==
-X-Google-Smtp-Source: AGHT+IFC3zZxJd41InJtRkHvNzLn9MKWgGVrcfW0zkwy68r/ECEtcGC0eQc+ty1eesaS2nlR/ORnCQUk+GgdKT+sm5g=
-X-Received: by 2002:a05:6820:2d07:b0:5eb:6b3e:ce7f with SMTP id
- 006d021491bc7-5ee585a9e78mr11196698eaf.0.1731493144747; Wed, 13 Nov 2024
- 02:19:04 -0800 (PST)
+        d=1e100.net; s=20230601; t=1731493209; x=1732098009;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TD5npga+YVniGyfpUiI0Tvj73sA8fJ+KJi16pH5mACE=;
+        b=uBzgqb4JyBGLbSGpPOb2pLtGJ8PAPgVYWZHqCOTF3f14DljVKFTv8VyQvNNeZzhs8s
+         XZMFM4YgitnuTzqnXbpetCdKmJOTdqXPSX9yP6YOtycd9ezHVA4mV9XFGgfgMpg0sIg+
+         vmzPm7DW008AjYAedzkbG2U8pR5h5xtoXddgmBpWGvXV2Bgn9vKKznLFA7hxxkdOJdop
+         xw/vps0gTpyqPjyi4lh7wtmuGCdUXMiUokBw3qac3logbw17MQcjPh0eKOM6bvPSwqUv
+         RktVDjY3HOpWD9xNaCA6Bem7eSSzTaGpOijADDNBbAaXunaOgNwMCL/o0ApjdCmujNtA
+         E0sA==
+X-Forwarded-Encrypted: i=1; AJvYcCWJAdG2g7vPbRJShPeqLm8/oxzXpwbgvvBxYd3dX4FBtyoWb3Xd4WAp0uBMZyeuChELiTvDIzbq1ZI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyuucE+bGIQeXK9FcdrqW5XInOSVnl1XbUvsshrKeviValt0hUU
+	7YBIaVCcSkZa21U/nEHI5XI/ZWB9XrNMpJml/fdA7AaAvETLnR6AvD8KgYvJOw==
+X-Google-Smtp-Source: AGHT+IEd7Nu3wG+gEyNktKpQRY/QD/DJFQRsQkF/hWieQJL0eX2d0XaWXx7dD4xg+90VtKU6NlNv5A==
+X-Received: by 2002:a05:600c:3b9e:b0:431:3927:d1bc with SMTP id 5b1f17b1804b1-432b74fcb02mr171490155e9.2.1731493209023;
+        Wed, 13 Nov 2024 02:20:09 -0800 (PST)
+Message-ID: <5f58dda2-1619-4416-b711-c600367d6f47@suse.com>
+Date: Wed, 13 Nov 2024 11:20:07 +0100
 MIME-Version: 1.0
-References: <20241113093058.1562447-1-andrew.cooper3@citrix.com> <20241113093058.1562447-3-andrew.cooper3@citrix.com>
-In-Reply-To: <20241113093058.1562447-3-andrew.cooper3@citrix.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Wed, 13 Nov 2024 10:18:53 +0000
-Message-ID: <CACHz=ZjO64JZTj4sXZirLpZFDjbd6RE+HGX38Y6u_RN=Jtw9mA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] x86/trampoline: Rationalise the constants to describe
- the size
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86/trampoline: Document how the trampoline is laid
+ out
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>, 
-	Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241113093058.1562447-1-andrew.cooper3@citrix.com>
+ <20241113093058.1562447-2-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241113093058.1562447-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 13, 2024 at 9:31=E2=80=AFAM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
->
-> The logic is far more sane to follow with a total size, and the position =
-of
-> the end of the heap.  Remove or fix the the remaining descriptions of how=
- the
-
-typo: the the
-
-> trampoline is laid out.
->
-> No functional change.  The compiled binary is identical.
->
+On 13.11.2024 10:30, Andrew Cooper wrote:
+> This is, to the best of my knowledge, accurate.  I am providing no comment on
+> how sane I believe it to be.
+> 
+> At the time of writing, the sizes of the regions are:
+> 
+>           offset  size
+>   AP:     0x0000  0x00b0
+>   S3:     0x00b0  0x0140
+>   Boot:   0x01f0  0x1780
+>   Heap:   0x1970  0xe690
+>   Stack:  0xf000  0x1000
+> 
+> and wakeup_stack overlays boot_edd_info.
+> 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > ---
 > CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
 > CC: Daniel P. Smith <dpsmith@apertussolutions.com>
 > CC: Frediano Ziglio <frediano.ziglio@cloud.com>
 > CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 > ---
->  xen/arch/x86/boot/head.S          | 21 ++-------------------
->  xen/arch/x86/boot/reloc.c         |  5 ++---
->  xen/arch/x86/efi/efi-boot.h       |  2 +-
->  xen/arch/x86/include/asm/config.h |  5 +++--
->  xen/arch/x86/xen.lds.S            |  2 +-
->  5 files changed, 9 insertions(+), 26 deletions(-)
->
-> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-> index dcda91cfda49..b31cf83758c1 100644
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -494,7 +494,7 @@ trampoline_bios_setup:
->
->  2:
->          /* Reserve memory for the trampoline and the low-memory stack. *=
-/
-> -        sub     $((TRAMPOLINE_SPACE+TRAMPOLINE_STACK_SPACE)>>4),%ecx
-> +        sub     $TRAMPOLINE_SIZE >> 4, %ecx
->
->          /* From arch/x86/smpboot.c: start_eip had better be page-aligned=
-! */
->          xor     %cl, %cl
-> @@ -525,23 +525,6 @@ trampoline_setup:
->          mov     %eax, sym_esi(multiboot_ptr)
->  2:
->
-> -        /*
-> -         * Now trampoline_phys points to the following structure (lowest=
- address
-> -         * is at the bottom):
-> -         *
-> -         * +------------------------+
-> -         * | TRAMPOLINE_STACK_SPACE |
-> -         * +------------------------+
-> -         * |     Data (MBI / PVH)   |
-> -         * +- - - - - - - - - - - - +
-> -         * |    TRAMPOLINE_SPACE    |
-> -         * +------------------------+
-> -         *
-> -         * Data grows downwards from the highest address of TRAMPOLINE_S=
-PACE
-> -         * region to the end of the trampoline. The rest of TRAMPOLINE_S=
-PACE is
-> -         * reserved for trampoline code and data.
-> -         */
-> -
+>  xen/arch/x86/include/asm/trampoline.h | 55 ++++++++++++++++++++++++++-
+>  1 file changed, 53 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/include/asm/trampoline.h b/xen/arch/x86/include/asm/trampoline.h
+> index 8c1e0b48c2c9..d801bea400dc 100644
+> --- a/xen/arch/x86/include/asm/trampoline.h
+> +++ b/xen/arch/x86/include/asm/trampoline.h
+> @@ -37,12 +37,63 @@
+>   * manually as part of placement.
+>   */
+>  
+> +/*
+> + * Layout of the trampoline.  Logical areas, in ascending order:
+> + *
+> + * 1) AP boot:
+> + *
+> + *    The INIT-SIPI-SIPI entrypoint.  This logic is stack-less so the identity
+> + *    mapping (which must be executable) can at least be Read Only.
+> + *
+> + * 2) S3 resume:
+> + *
+> + *    The S3 wakeup logic may need to interact with the BIOS, so needs a
+> + *    stack.  The stack pointer is set to trampoline_phys + 4k and clobbers an
+> + *    undefined part of the the boot trampoline.  The stack is only used with
+> + *    paging disabled.
+> + *
+> + * 3) Boot trampoline:
+> + *
+> + *    This region houses various data used by the AP/S3 paths too.
 
-I fail to see a similar description somewhere now.
+This is confusing to have here - isn't the boot part (that isn't in the
+same page as the tail of the AP/S3 region) being boot-time only, and hence
+unavailable for S3 and post-boot AP bringup? Both here and with the numbers
+in the description - what position did you use as separator between 2) and
+3)?
 
->          /* Interrogate CPU extended features via CPUID. */
->          mov     $1, %eax
->          cpuid
-> @@ -713,7 +696,7 @@ trampoline_setup:
->  1:
->          /* Switch to low-memory stack which lives at the end of trampoli=
-ne region. */
->          mov     sym_esi(trampoline_phys), %edi
-> -        lea     TRAMPOLINE_SPACE+TRAMPOLINE_STACK_SPACE(%edi),%esp
-> +        lea     TRAMPOLINE_SIZE(%edi), %esp
->          lea     trampoline_boot_cpu_entry-trampoline_start(%edi),%eax
->          pushl   $BOOT_CS32
->          push    %eax
-> diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
-> index e50e161b2740..1f47e10f7fa6 100644
-> --- a/xen/arch/x86/boot/reloc.c
-> +++ b/xen/arch/x86/boot/reloc.c
-> @@ -65,7 +65,7 @@ typedef struct memctx {
->      /*
->       * Simple bump allocator.
->       *
-> -     * It starts from the base of the trampoline and allocates downwards=
-.
-> +     * It starts from end of of the trampoline heap and allocates downwa=
-rds.
+Then again it may be just me who is confused: Didn't we, at some point, limit
+the resident trampoline to just one page? Was that only a plan, or a patch
+that never was committed?
 
-Nice !
-Minor typo "It starts from the end of the trampoline heap and
-allocates downwards."
+>  The boot
+> + *    trampoline collects data from the BIOS (E820/EDD/EDID/etc), so needs a
+> + *    stack.  The stack pointer is set to trampoline_phys + 64k and has 4k
+> + *    space reserved.
+> + *
+> + * 4) Heap space:
+> + *
+> + *    The first 1k of heap space is statically allocated for VESA information.
+> + *
+> + *    The remainder of the heap is used by reloc(), logic which is otherwise
+> + *    outside of the trampoline, to collect the bootloader metadata (cmdline,
+> + *    module list, etc).  It does so with a bump allocator starting from the
+> + *    end of the heap and allocating backwards.
+> + *
+> + * 5) Boot stack:
+> + *
+> + *    4k of space is reserved for the boot stack, at trampoline_phys + 64k.
 
->       */
->      uint32_t ptr;
->  } memctx;
-> @@ -349,8 +349,7 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, =
-memctx *ctx)
->  /* SAF-1-safe */
->  void *reloc(uint32_t magic, uint32_t in)
->  {
-> -    /* Get bottom-most low-memory stack address. */
-> -    memctx ctx =3D { trampoline_phys + TRAMPOLINE_SPACE };
-> +    memctx ctx =3D { trampoline_phys + TRAMPOLINE_HEAP_END };
->
->      switch ( magic )
->      {
-> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-> index 7930b7c73892..9d3f2b71447e 100644
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -633,7 +633,7 @@ static void __init efi_arch_memory_setup(void)
->      if ( efi_enabled(EFI_LOADER) )
->          cfg.size =3D trampoline_end - trampoline_start;
->      else
-> -        cfg.size =3D TRAMPOLINE_SPACE + TRAMPOLINE_STACK_SPACE;
-> +        cfg.size =3D TRAMPOLINE_SIZE;
->
->      status =3D efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
->                                     PFN_UP(cfg.size), &cfg.addr);
-> diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm=
-/config.h
-> index f8a5a4913b07..20141ede31a1 100644
-> --- a/xen/arch/x86/include/asm/config.h
-> +++ b/xen/arch/x86/include/asm/config.h
-> @@ -51,8 +51,9 @@
->
->  #define IST_SHSTK_SIZE 1024
->
-> -#define TRAMPOLINE_STACK_SPACE  PAGE_SIZE
-> -#define TRAMPOLINE_SPACE        (KB(64) - TRAMPOLINE_STACK_SPACE)
-> +/* See asm/trampoline.h */
+Perhaps add "ending" to clarify it doesn't go beyond +64k? It's being expressed
+...
 
-I fail to see any description and need for a heap or why the size is 64kb.
-There is a description about trampoline code and wakeup code but not
-the fact we copy MBI data and so we need a heap.
-Stack could be just due to the need of it, so implicit, heap a bit less.
+> + * Therefore, when placed, it looks somewhat like this:
+> + *
+> + *    +--- trampoline_phys
+> + *    v
+> + *    |<-------------------------------64K------------------------------->|
+> + *    |<-----4K----->|                                         |<---4K--->|
+> + *    +----+----+----+-+---------------------------------------+----------+
+> + *    | AP | S3 | Boot | Heap                                  |    Stack |
+> + *    +----+----+------+---------------------------------------+----------+
+> + *    ^           <~~^ ^                                    <~~^       <~~^
+> + *    |              | +- trampoline_end[]                     |          |
+> + *    |              +--- S3 Stack          reloc() allocator -+          |
+> + *    +------------------ trampoline_start[]       Boot Stack ------------+
+> + */
 
-> +#define TRAMPOLINE_SIZE         KB(64)
-> +#define TRAMPOLINE_HEAP_END     (TRAMPOLINE_SIZE - PAGE_SIZE)
->  #define WAKEUP_STACK_MIN        3072
->
->  #define MBI_SPACE_MIN           (2 * PAGE_SIZE)
-> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> index 35693f6e3380..e7d93d1f4ac3 100644
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -410,7 +410,7 @@ ASSERT(!SIZEOF(.plt),      ".plt non-empty")
->  ASSERT(!SIZEOF(.rela),     "leftover relocations")
->  #endif
->
-> -ASSERT((trampoline_end - trampoline_start) < TRAMPOLINE_SPACE - MBI_SPAC=
-E_MIN,
-> +ASSERT((trampoline_end - trampoline_start) < TRAMPOLINE_HEAP_END - MBI_S=
-PACE_MIN,
->      "not enough room for trampoline and mbi data")
->  ASSERT((wakeup_stack - wakeup_stack_start) >=3D WAKEUP_STACK_MIN,
->      "wakeup stack too small")
+... by this scheme, but could still do with being made explicit, just to avoid
+ambiguity or suspicion of things have gone stale again.
 
-Code is nice, just that documentation is stated but missing in my opinion.
-
-Frediano
+Jan
 
