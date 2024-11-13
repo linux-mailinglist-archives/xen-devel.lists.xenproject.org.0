@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B5119C6B80
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 10:31:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835156.1251020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C247D9C6B9F
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 10:39:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835188.1251031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tB9iR-0000Wa-H8; Wed, 13 Nov 2024 09:31:11 +0000
+	id 1tB9q3-000261-7x; Wed, 13 Nov 2024 09:39:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835156.1251020; Wed, 13 Nov 2024 09:31:11 +0000
+Received: by outflank-mailman (output) from mailman id 835188.1251031; Wed, 13 Nov 2024 09:39:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tB9iR-0000U9-DS; Wed, 13 Nov 2024 09:31:11 +0000
-Received: by outflank-mailman (input) for mailman id 835156;
- Wed, 13 Nov 2024 09:31:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tB9iP-00009N-Nu
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 09:31:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tB9iP-003Bam-00;
- Wed, 13 Nov 2024 09:31:09 +0000
-Received: from [2a02:8012:3a1:0:2c06:4644:c8a3:2b5e]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tB9iO-002qt2-2m;
- Wed, 13 Nov 2024 09:31:08 +0000
+	id 1tB9q3-00024U-51; Wed, 13 Nov 2024 09:39:03 +0000
+Received: by outflank-mailman (input) for mailman id 835188;
+ Wed, 13 Nov 2024 09:39:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LXmd=SI=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
+ id 1tB9q0-00024O-Sq
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 09:39:01 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1adcfead-a1a3-11ef-a0c7-8be0dac302b0;
+ Wed, 13 Nov 2024 10:38:57 +0100 (CET)
+Received: from delta.homenet.telecomitalia.it
+ (host-82-59-161-229.retail.telecomitalia.it [82.59.161.229])
+ by support.bugseng.com (Postfix) with ESMTPSA id 5D0D84EE073E;
+ Wed, 13 Nov 2024 10:38:55 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,413 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=mQwr+T2baO7ZV9EdrJzGP44jU2Z1hpyt5kXf8y68Ijc=; b=nIMo6vu7MrpN+AxrEDW68MDXGF
-	dfG8eEcPLA0i1lXKbiPGRyIg0bi7BRCJ0DT26YmfwbPuj3BqG/mfPfW6dNlQYJIyddF83HGaD3Wme
-	OdU5M7F06sYA//DPlwLE6/1JHN1l+wgTqdWFJDt43acoizR1m5lpBUbgmMEOkNo9q8Fo=;
-Message-ID: <4dbf2c4d-f7bd-4032-b52f-29c24e3ec055@xen.org>
-Date: Wed, 13 Nov 2024 09:31:06 +0000
+X-Inumbo-ID: 1adcfead-a1a3-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE2Mi41NS4xMzEuNDciLCJoZWxvIjoic3VwcG9ydC5idWdzZW5nLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjFhZGNmZWFkLWExYTMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDkwNzM3Ljc0MzgzNywic2VuZGVyIjoiYWxlc3NhbmRyby56dWNjaGVsbGlAYnVnc2VuZy5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1731490736; bh=qWowrHwog5vYWGg7Rukld6FcJCxVgYyaADYK76z8eGg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=VPDY7iFh3OKajXOLtt9bqsJPlhY65DUW3wRWN5y4//Ky9/al2/NMoKwh1AMAvZts2
+	 /k7e9guwPbgV32YNHx/rcG/Cl7AtpsJD8/XFcbvXijfbVXgcPvMg92w+qAfhpnqhrr
+	 4IzLoqlHgtriFlwVQQbd1kOmL24CSR4LOG+IEzm6XTUsP1v2gDKr26XAvMEzsmCJT3
+	 2W1aAhnPHgjS/rDbTb2Y1AXWUm1j5BFBC86sk2ViDVqzRmRSJy21xt6+2SwEqyWwht
+	 K2PWj5UzJ1yAosiU/qV+2elsFM3fKEXbDCAxJcVBVtDiMUAI0QCDHJfjksTXhnOxmY
+	 m45Rh2V59h2kw==
+From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>
+Subject: [PATCH] xen: add deviations for MISRA C 2012 Rule R5.4
+Date: Wed, 13 Nov 2024 10:38:45 +0100
+Message-ID: <255ae80cc8b95f33daa7534c9552c571391cf689.1731490650.git.alessandro.zucchelli@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: fusa: Add dom0less domain configuration
- requirements
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Artem Mygaiev <artem_mygaiev@epam.com>,
- Munakata Hisao <hisao.munakata.vt@renesas.com>
-References: <20241018155144.3433395-1-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20241018155144.3433395-1-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This addresses violations of MISRA C:2012 Rule 5.4 which states as
+following: Macro identifiers shall be distinct.
 
-On 18/10/2024 16:51, Ayan Kumar Halder wrote:
-> From: Michal Orzel <michal.orzel@amd.com>
-> 
-> Add requirements for dom0less domain creation.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
->   .../arm64/dom0less_domain_config.rst          | 267 ++++++++++++++++++
->   docs/fusa/reqs/market-reqs/reqs.rst           |  15 +
->   docs/fusa/reqs/product-reqs/arm64/reqs.rst    |  20 ++
->   3 files changed, 302 insertions(+)
->   create mode 100644 docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst
-> 
-> diff --git a/docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst b/docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst
-> new file mode 100644
-> index 0000000000..17b5f8962c
-> --- /dev/null
-> +++ b/docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst
-> @@ -0,0 +1,267 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +Dom0less Domain configuration requirements
-> +==========================================
-> +
-> +The following are the requirements related to dom0less domain configuration for
-> +Arm64 domains.
-> +
-> +Specify Arm64 Linux kernel image
-> +----------------------------------
-> +
-> +`XenSwdgn~arm64_specify_kernel_linux_image~1`
-> +
-> +Description:
-> +Xen shall create a domain with a Arm64 Linux kernel image.
+This deviation aims to address violations of Rule 5.4 regarding
+identifiers XLAT_hvm_altp2m_set_mem_access_multi_HNDL_pfn_list and
+XLAT_hvm_altp2m_set_mem_access_multi_HNDL_access_list, and identifiers
+declared in header file include/asm/guest/hyperv-tlfs.h.
 
-A link to the specification would be useful when you are referring to an 
-external format.
+No functional change.
 
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify Arm64 Gzip Linux kernel image
-> +---------------------------------------
-> +
-> +`XenSwdgn~arm64_specify_kernel_gzip_image~1`
-> +
-> +Description:
-> +Xen shall create a domain with a Arm64 Gzip compressed Linux kernel image.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify kernel with uImage header
-> +---------------------------------
-> +
-> +`XenSwdgn~arm64_specify_kernel_uimage~1`
-> +
-> +Description:
-> +Xen shall create a domain with a kernel containing uImage header.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify Gzip kernel with uImage header
-> +--------------------------------------
-> +
-> +`XenSwdgn~arm64_specify_gzip_kernel_uimage~1`
-> +
-> +Description:
-> +Xen shall create a domain with a Gzip compressed kernel containing uImage
-> +header.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify passthrough device tree
-> +-------------------------------
-> +
-> +`XenSwdgn~arm64_specify_passthrough_dt~1`
-> +
-> +Description:
-> +Xen shall support direct assignment of devices to a domain.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify kernel command line arguments
-> +-------------------------------------
-> +
-> +`XenSwdgn~arm64_specify_kernel_cmd_line_args~1`
-> +
-> +Description:
-> +Xen shall pass kernel command line arguments to a domain.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify initial ramdisk
-> +-----------------------
-> +
-> +`XenSwdgn~arm64_specify_initial_ramdisk~1`
-> +
-> +Description:
-> +Xen shall provide initial ramdisk to a domain.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify amount of memory
-> +------------------------
-> +
-> +`XenSwdgn~arm64_specify_memory~1`
-> +
-> +Description:
-> +Xen shall create a domain with specified amount of memory.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Assign a single vCPU
-> +--------------------
-> +
-> +`XenSwdgn~arm64_assign_single_vcpu~1`
-> +
-> +Description:
-> +Xen shall assign a single vCPU to a domain.
+Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 9 +++++++++
+ docs/misra/deviations.rst                        | 8 ++++++++
+ 2 files changed, 17 insertions(+)
 
-This wording is a bit ambiguous. You don't assign a vCPU to a domain. 
-You create a domain with "N vCPUs". It is also not clear why we are 
-making the distinction between one and ...
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Assign multiple vCPUs
-> +---------------------
-> +
-> +`XenSwdgn~arm64_assign_multiple_vcpus~1`
-> +
-> +Description:
-> +Xen shall assign multiple vCPUs to a domain.
-
-... multiple one. From Xen PoV there is no differences.
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Assign vCPUs from CPU pool
-> +--------------------------
-> +
-> +`XenSwdgn~arm64_assign_vcpus_cpu_pool~1`
-> +
-> +Description:
-> +Xen shall assign vCPUs to a domain from a CPU pool.
-
-Same remark about the wording. You create a domain with N vCPUs and 
-*assign* a CPU pool to a domain. You also assign pCPU to a CPU pool.
-
-But I am not sure about if this requirement is actually necessary given ...
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify CPU pool scheduler
-> +--------------------------
-> +
-> +`XenSwdgn~arm64_specify_cpu_pool_scheduler~1`
-> +
-> +Description:
-> +Xen shall assign a CPU pool scheduler to a domain.
-
-... you have th is one.
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Assign virtual UART
-> +-------------------
-> +
-> +`XenSwdgn~arm64_assign_virtual_uart~1`
-> +
-> +Description:
-> +Xen shall assign a virtual UART to a domain.
-
-Are we talking about the virtual PL011 or the fake emulation of the real 
-UART we do?
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify number of SPIs
-> +----------------------
-> +
-> +`XenSwdgn~arm64_specify_num_spis~1`
-> +
-> +Description:
-> +Xen shall allocate a specified number of shared peripheral interrupts for a
-> +domain.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify grant table version for a domain
-> +----------------------------------------
-> +
-> +`XenSwdgn~arm64_specify_grant_table_version~1`
-> +
-> +Description:
-> +Xen shall create a domain with a specified version of grant table structure
-
-Realistically grant table v2 is not supported for Arm and I am not 
-convinced it makes any sense for x86 in embedded system. It is mainly 
-useful when you have a guest with a large amount of address space (IIRC 
- > 4TB).
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify number of grant table frames for a domain
-> +-------------------------------------------------
-> +
-> +`XenSwdgn~arm64_specify_num_grant_table_frames~1`
-> +
-> +Description:
-> +Xen shall create a domain with a specified number of grant table frames.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +Specify number of grant maptrack frames for a domain
-> +----------------------------------------------------
-> +
-> +`XenSwdgn~arm64_specify_num_grant_maptrack_frames~1`
-> +
-> +Description:
-> +Xen shall create a domain with a specified number of grant maptrack frames.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenProd~static_domains_configuration~1`
-> +
-> +| [1] https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=docs/misc/arm/device-tree/booting.txt
-> +| [2] https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=docs/misc/arm/device-tree/cpupools.txt
-> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
-> index f456788d96..ca020f9a33 100644
-> --- a/docs/fusa/reqs/market-reqs/reqs.rst
-> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
-> @@ -47,3 +47,18 @@ Comments:
->   
->   Needs:
->    - XenProd
-> +
-> +Static VM definition
-> +--------------------
-> +
-> +`XenMkt~static_vm_definition~1`
-> +
-> +Description:
-> +Xen shall support specifying resources for a domain.
-
-Compare to the other requirements, this is quite a vague. Should we list 
-the resources?
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Needs:
-> + - XenProd
-> \ No newline at end of file
-> diff --git a/docs/fusa/reqs/product-reqs/arm64/reqs.rst b/docs/fusa/reqs/product-reqs/arm64/reqs.rst
-> index db91c47a02..0453dbb862 100644
-> --- a/docs/fusa/reqs/product-reqs/arm64/reqs.rst
-> +++ b/docs/fusa/reqs/product-reqs/arm64/reqs.rst
-> @@ -40,3 +40,23 @@ Covers:
->   
->   Needs:
->    - XenSwdgn
-> +
-> +Configure static domains
-> +------------------------
-> +
-> +`XenProd~static_domains_configuration~1`
-> +
-> +Description:
-> +Xen shall support specifying the resources required for a domain.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Rationale:
-> +
-> +Covers:
-> + - `XenMkt~static_vm_definition~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> \ No newline at end of file
-
-Missing a newline.
-
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index 2f58f29203..9e780e4465 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -98,6 +98,15 @@ it defines would (in the common case) be already defined. Peer reviewed by the c
+ -config=MC3R1.R5.3,reports+={safe, "any_area(any_loc(any_exp(macro(^read_debugreg$))&&any_exp(macro(^write_debugreg$))))"}
+ -doc_end
+ 
++-doc_begin="Identifiers declared in the following header file should not be changed, therefore they are excluded from compliance with this rule."
++-config=MC3R1.R5.4,reports+={safe, "any_area(any_loc(file(^xen/arch/x86/include/asm/guest/hyperv-tlfs\\.h$)))"}
++-doc_end
++
++-doc_begin="The following macro identifiers should not be changed, therefore they are excluded from compliance with this rule."
++-config=MC3R1.R5.4,ignored_macros+=^XLAT_hvm_altp2m_set_mem_access_multi_HNDL_pfn_list$
++-config=MC3R1.R5.4,ignored_macros+=^XLAT_hvm_altp2m_set_mem_access_multi_HNDL_access_list$
++-doc_end
++
+ -doc_begin="Macros expanding to their own identifier (e.g., \"#define x x\") are deliberate."
+ -config=MC3R1.R5.5,reports+={deliberate, "all_area(macro(same_id_body())||!macro(!same_id_body()))"}
+ -doc_end
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 15a993d050..2ce1c8e58a 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -109,6 +109,14 @@ Deviations related to MISRA C:2012 Rules:
+          - __emulate_2op and __emulate_2op_nobyte
+          - read_debugreg and write_debugreg
+ 
++   * - R5.4
++     - Macros XLAT_hvm_altp2m_set_mem_access_multi_HNDL_pfn_list and
++       XLAT_hvm_altp2m_set_mem_access_multi_HNDL_access_list should not be
++       changed, and are therefore ignored by the ECLAIR.
++       Identifiers in header file xen/arch/x86/include/asm/guest/hyperv-tlfs.halder
++       shall not be changed.
++     - Tagged as `safe` for ECLAIR.
++
+    * - R5.5
+      - Macros expanding to their own name are allowed.
+      - Tagged as `deliberate` for ECLAIR.
 -- 
-Julien Grall
+2.43.0
 
 
