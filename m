@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A72E9C70AA
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 14:31:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835696.1251556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53FC89C70AE
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 14:32:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835702.1251565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBDSo-00030i-0D; Wed, 13 Nov 2024 13:31:18 +0000
+	id 1tBDTk-0003hN-8l; Wed, 13 Nov 2024 13:32:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835696.1251556; Wed, 13 Nov 2024 13:31:17 +0000
+Received: by outflank-mailman (output) from mailman id 835702.1251565; Wed, 13 Nov 2024 13:32:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBDSn-0002yX-TH; Wed, 13 Nov 2024 13:31:17 +0000
-Received: by outflank-mailman (input) for mailman id 835696;
- Wed, 13 Nov 2024 13:31:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tBDTk-0003fM-5b; Wed, 13 Nov 2024 13:32:16 +0000
+Received: by outflank-mailman (input) for mailman id 835702;
+ Wed, 13 Nov 2024 13:32:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Gr6F=SI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tBDSm-0002yR-SV
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 13:31:16 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8bdf0d8b-a1c3-11ef-a0c7-8be0dac302b0;
- Wed, 13 Nov 2024 14:31:11 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2fb388e64b0so9734041fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 05:31:11 -0800 (PST)
+ id 1tBDTi-0003Q8-SL
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 13:32:14 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id afd12ff0-a1c3-11ef-99a3-01e77a169b0f;
+ Wed, 13 Nov 2024 14:32:11 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5cf7298c7ccso170827a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 05:32:11 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cf03b7f2b8sm7197342a12.32.2024.11.13.05.31.09
+ 4fb4d7f45d1cf-5cf03b7f2cesm7228414a12.34.2024.11.13.05.32.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Nov 2024 05:31:09 -0800 (PST)
+ Wed, 13 Nov 2024 05:32:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bdf0d8b-a1c3-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmEiLCJoZWxvIjoibWFpbC1sajEteDIyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjhiZGYwZDhiLWExYzMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTA0NjcxLjA4OTQ3MSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: afd12ff0-a1c3-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzMiLCJoZWxvIjoibWFpbC1lZDEteDUzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImFmZDEyZmYwLWExYzMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTA0NzMxLjQwOTA0Niwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731504670; x=1732109470; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=znqsvYnmZXuxbS1+kig6vcMbmZAmN6n4lE22vnllifE=;
-        b=AuPolQKLLkNFy9J1nA6eCqDth7q0HGhvI8r/rzm8eAqUWltv6bIrqY3AxpkRg8lDht
-         uEcTNp4Myo4DbC2OdotnEcH3Kzn953Dzjeo+sPJRub2WqMgfg4ws3Blb5rvFwfXxDzMi
-         WbZqFGk8WT6nqII6NnNr+5BgWUcFhhLfHu+vg=
+        d=citrix.com; s=google; t=1731504731; x=1732109531; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iW8L1xI2SnNjKv/eNls4jhkxMpt33foZJcBqaCgMcik=;
+        b=VgktYsvaB4JRmcxnoRTHdZCrQGVuiKw2/6dn5wm30SNe85NfzmgajALSbAQuX22i+x
+         oXY12OaIDeaHLvac3frHzdDLnPwEgKIhqKRUcWZoMehF+wpEOUVsBuLuu7qlr84OlpSk
+         dtP/4nUVen5fjWkT07VI9tG7vGOqVVTnxuJEQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731504670; x=1732109470;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=znqsvYnmZXuxbS1+kig6vcMbmZAmN6n4lE22vnllifE=;
-        b=wIZUG/mQa191HGc3bYbJqoBpjToefFqBUBKiiKKHO26dlMs0CvxJowPBTKerp2o0fX
-         nYIpKVdoNh/ARfVYIvAiF73QP2nSLpvQEXQ917bbamXS21uZUJrp3IO6njt1+8UYJcv1
-         UddjiNr5IlL/fTQmwTPYqvfR11v3aqTvEewM3yloSkVsKXmZsitHcXGXwiojFd9c2e/4
-         FeKME9QLT2kHtxZDEt09NZaCPocohw2bm1VJOM5ZgkBlo+QPsYVkd2QuUhy5QoEbMDfk
-         QFIWHl4ND+lQGgXbejkO/rqZ9Qajf65ivUNfFSEraFTyyaWqmR1xyl8cs4pdr4Qh36OX
-         tKKQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVHDTpntuu3vFbO/G47RY63fh3uTh1M7kdu3cBp2F8GqGhwxDBMjzKqyTCL8zfLckoc6litV2dsunk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrnSfDHfyEofaFbCKHYkbZu/cyztZ/OWj7UckURdYFbIV7TKyF
-	6eH2stt558NB/e3GIoUlmmOMgNy5L3rhanlYSbym0rR7KpZbTGrL8+fVP4TQUSk=
-X-Google-Smtp-Source: AGHT+IF4whJ0B6qflyUzSkeDhGEfH/7cxaWJMpk726BRk7y4je476YrUXci9mh+tqtDwJNtXkFBXSA==
-X-Received: by 2002:a2e:bd02:0:b0:2ef:20ae:d113 with SMTP id 38308e7fff4ca-2ff4271fec1mr36518441fa.40.1731504670243;
-        Wed, 13 Nov 2024 05:31:10 -0800 (PST)
-Message-ID: <876f727c-8929-4149-af72-c3344db06e31@citrix.com>
-Date: Wed, 13 Nov 2024 13:31:08 +0000
+        d=1e100.net; s=20230601; t=1731504731; x=1732109531;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iW8L1xI2SnNjKv/eNls4jhkxMpt33foZJcBqaCgMcik=;
+        b=JMWOiTDHBt4HE0FpJbv43avuzoTLE40oiG8mmSl6Q81apCd7gZVh4igvKADJ1IWCuT
+         gUdWiAUWJgGGR9qxFxBX8S/a6WsY/hHR9lnFULDJ9w1Ouok7jGSAMkURV91UW10vBRo1
+         ABIYEgEgwYMzYN5Zel/sfd9/WxdstVfcKRk+k1zWhVIb7MIkP3aVoqsZBRy5L0gFX0PI
+         sxG4/u+299Vx+6Rgei7cKGXSHHOBaytFO0Bq1EHMK/R7TYpD4IR9q1uqT6t/Es371luo
+         LxsQDyUXQjgFzLwuksTpljuqPtSUxyCLuVUqc12rQPcqQrx/Wx/5p/Q1dij54X1iKhOU
+         OxgQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWYvcjp7D53c71XGkCNBOEz3GPfPPh5ywePRIu4VH0JokwKnVUgDPeWOE1t0ZgFMhlLX9qRMa/8kOs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwCMg9twLmghhlVMPz5Ox/ml4dI5V2jFsPugswv+kvWdAdp2NHe
+	+38UpORIbO4+ZQ03IaXeB2ymzJO0zl/gpWndIqKD9IrI6xjIC1QwZ1XHkFVm6Tc=
+X-Google-Smtp-Source: AGHT+IGw56X44QNnUSS1J6OkG3NA8LZZvnTUo2nvNEgNiBevx5SOqZNwo4KezrYeJOBNIX3frOGp7Q==
+X-Received: by 2002:a05:6402:50cc:b0:5cf:707f:a101 with SMTP id 4fb4d7f45d1cf-5cf707fa2efmr811538a12.8.1731504730772;
+        Wed, 13 Nov 2024 05:32:10 -0800 (PST)
+Message-ID: <935442f7-4821-4215-a053-eeb1347282bb@citrix.com>
+Date: Wed, 13 Nov 2024 13:32:08 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] x86emul: ignore VEX.W for BMI{1,2} insns in 32-bit
  mode
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -89,8 +90,8 @@ References: <367ba117-f376-433b-bd70-586d7519d94c@suse.com>
  <39de64e1-c615-4ec3-ad05-ff99f27a8e30@suse.com>
  <6442a109-de9a-4b81-a283-2d72bbc3d284@citrix.com>
  <3788f564-7f02-4e2e-ac4c-b29214206e0d@suse.com>
+ <876f727c-8929-4149-af72-c3344db06e31@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -134,48 +135,48 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <3788f564-7f02-4e2e-ac4c-b29214206e0d@suse.com>
+In-Reply-To: <876f727c-8929-4149-af72-c3344db06e31@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13/11/2024 8:01 am, Jan Beulich wrote:
-> On 13.11.2024 01:24, Andrew Cooper wrote:
->> On 12/11/2024 3:00 pm, Jan Beulich wrote:
->>> While result values and other status flags are unaffected as long as we
->>> can ignore the case of registers having their upper 32 bits non-zero
->>> outside of 64-bit mode, EFLAGS.SF may obtain a wrong value when we
->>> mistakenly re-execute the original insn with VEX.W set.
->>>
->>> Note that the memory access, if any, is correctly carried out as 32-bit
->>> regardless of VEX.W.
->> I don't understand why this is true.
-> This talks about the access to guest memory, which is op_bytes based.
-> And op_bytes determination handles VEX.W correctly afaics. I've added
-> "guest" near the start of the sentence for clarification.
-
-Ah - that makes things much clearer.
-
-I had neglected to consider the access to guest memory.
-
-In addition to a "guest" earlier, I'd suggest having a new paragraph at
-this point, and ...
-
+On 13/11/2024 1:31 pm, Andrew Cooper wrote:
+> On 13/11/2024 8:01 am, Jan Beulich wrote:
+>> On 13.11.2024 01:24, Andrew Cooper wrote:
+>>> On 12/11/2024 3:00 pm, Jan Beulich wrote:
+>>>> While result values and other status flags are unaffected as long as we
+>>>> can ignore the case of registers having their upper 32 bits non-zero
+>>>> outside of 64-bit mode, EFLAGS.SF may obtain a wrong value when we
+>>>> mistakenly re-execute the original insn with VEX.W set.
+>>>>
+>>>> Note that the memory access, if any, is correctly carried out as 32-bit
+>>>> regardless of VEX.W.
+>>> I don't understand why this is true.
+>> This talks about the access to guest memory, which is op_bytes based.
+>> And op_bytes determination handles VEX.W correctly afaics. I've added
+>> "guest" near the start of the sentence for clarification.
+> Ah - that makes things much clearer.
 >
->> If we write out a VEX.W=1 form of BEXTR/etc and emulate while in 64bit
->> mode, it will have an operand size of 64.
->>
->> I can believe that ...
->>
->>>  Internal state also isn't leaked, as the field the
->>> memory value is read into (which is then wrongly accessed as a 64-bit
->>> quantity when executing the stub) is pre-initialized to zero.
+> I had neglected to consider the access to guest memory.
+>
+> In addition to a "guest" earlier, I'd suggest having a new paragraph at
+> this point, and ...
+>
+>>> If we write out a VEX.W=1 form of BEXTR/etc and emulate while in 64bit
+>>> mode, it will have an operand size of 64.
+>>>
+>>> I can believe that ...
+>>>
+>>>>  Internal state also isn't leaked, as the field the
+>>>> memory value is read into (which is then wrongly accessed as a 64-bit
+>>>> quantity when executing the stub) is pre-initialized to zero.
+> ... this reading:
+>
+> "The emulator-local memory operand will be accessed as a 64-bit
+> quantity, but it is pre-initialised to zero so no internal state an leak"
+>
+> or similar.
 
-... this reading:
-
-"The emulator-local memory operand will be accessed as a 64-bit
-quantity, but it is pre-initialised to zero so no internal state an leak"
-
-or similar.
+Oh, and Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 ~Andrew
 
