@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C2149C6C02
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 10:53:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835216.1251061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 715219C6C21
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 10:56:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835223.1251071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBA3J-0006RU-RL; Wed, 13 Nov 2024 09:52:45 +0000
+	id 1tBA6b-0007Hk-94; Wed, 13 Nov 2024 09:56:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835216.1251061; Wed, 13 Nov 2024 09:52:45 +0000
+Received: by outflank-mailman (output) from mailman id 835223.1251071; Wed, 13 Nov 2024 09:56:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBA3J-0006PH-Nf; Wed, 13 Nov 2024 09:52:45 +0000
-Received: by outflank-mailman (input) for mailman id 835216;
- Wed, 13 Nov 2024 09:52:44 +0000
+	id 1tBA6b-0007Eh-6I; Wed, 13 Nov 2024 09:56:09 +0000
+Received: by outflank-mailman (input) for mailman id 835223;
+ Wed, 13 Nov 2024 09:56:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=REvy=SI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBA3I-0006PB-Cy
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 09:52:44 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1tBA6Z-0007Ea-PN
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 09:56:07 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0562b8c4-a1a5-11ef-99a3-01e77a169b0f;
- Wed, 13 Nov 2024 10:52:40 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-381ee2e10dfso3994666f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 01:52:40 -0800 (PST)
+ id 7e840a4a-a1a5-11ef-99a3-01e77a169b0f;
+ Wed, 13 Nov 2024 10:56:03 +0100 (CET)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2fb599aac99so64189421fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 01:56:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381ed9ea647sm17598965f8f.68.2024.11.13.01.52.39
+ 5b1f17b1804b1-432d54e2e0esm19177055e9.2.2024.11.13.01.56.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Nov 2024 01:52:39 -0800 (PST)
+ Wed, 13 Nov 2024 01:56:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0562b8c4-a1a5-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzEiLCJoZWxvIjoibWFpbC13cjEteDQzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjA1NjJiOGM0LWExYTUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDkxNTYwLjU4Mzk3Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 7e840a4a-a1a5-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzUiLCJoZWxvIjoibWFpbC1sajEteDIzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjdlODQwYTRhLWExYTUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNDkxNzYzLjczMDQ4NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731491560; x=1732096360; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731491763; x=1732096563; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EZbnl9tMxe9ACTXlgS1uBrqvvXpBhN76Giy+I+7pOd8=;
-        b=TjQJYJzosfS5It+wC+jg53XYC3VL1Y3CA5R+MHxJKJQA2qAv3unsuPITEwuzr2peSR
-         UsT5kQNBG0d1/yA/J4yZjs42gJ+c0dEGGaPMafBY/PIntXb3CvOpU7k+pgGPwoRpM4Es
-         fFmM3QlNRIfgyN+dPKvSfnVkOC3FDbpa0nlV++XCG9w97kjBsOV5hj55e4w4laZZi6EF
-         927p2VIYYvWvUFPnreCZDD6KjdsmoYlXGgJOT5506sm2n88UhY54xNo/2kcfg0+uUGk5
-         tkd37fw9ZTTzsM2TcXBBaFnpqyOuRu87Kf4T/J3ZIuaekYj/hHOndzee1y1JXushfQ3F
-         4UqA==
+        bh=EX0c2+xqC1iW6QJJH7fEnNgF0lQVxbc+7EOohWX/qto=;
+        b=TVEDm/KCa49RvreHS6NBOu1cU8EOayBOANiixprO9sy6Ky0SMJIbK/AHfDKMESs7Gk
+         OY6+sDf86nskgapWvNjhbea31RXeHXXSMkX8OxaElr/qbJKOes6hrfSj8qYvICPySQe+
+         FM9q02BFJtPkOzr7Skt2/dI25sJfqAUI++GW5B6WgPjyw3/8Grh8U6EllW66pDKPgrNq
+         K+DqBIVXOt6ue94WwFAfYdSP6E2EPjcZnKz02R94OgSheGXTanrxmB4oJ7vI14fG9DIX
+         5A/tZ764nQkL63r1uLi46yEewF9DAqwgpTHeEUvnHYH8EWEvPv6BJoZ016Z/JOF4Y5qR
+         GFpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731491560; x=1732096360;
+        d=1e100.net; s=20230601; t=1731491763; x=1732096563;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EZbnl9tMxe9ACTXlgS1uBrqvvXpBhN76Giy+I+7pOd8=;
-        b=HVqNx7XxWtUV57LTsHbu0zoK65VXnRL0o1xLUme01btAzZQx2ITnpjtcSIHQxcGgPm
-         KS1fbZeQzB3p6j0I9otnBRzV9CFgN+tp8xBWHGBJlcETpGua0UV2l3+tvjT+mpCVOE9k
-         5ZWSSEfpoHzri3zuLlTEEHF3NlyEXP73CLSwSP7WKA58izT5ss3DwmsUyz7JLbcUyAo+
-         +WKqgs5kq0mKZs2XokA4gUpyACKCC74cg1KAQRZY6ITEvfMjgTafpI+wkIlRaKiyN7Z9
-         4qh5gt/LHQyf2QrR5O6ro1hg7bVdz9c0/UlcTrsRP87h4uSO0YkE5PDC4wLwbubUnV56
-         3HuQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWIkFzoc3NbnnsIUBjKYkrqT4DRRDs/+AzL92ivSPUKFPmH+a8RUQ0XvMmaqoSFcGQGDjHpWGsc3g0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFVxnfKbhYvrI09OQ+NGIwxFXOqMmJbv4LGpi0PWOsjZ3jxWVo
-	niojrIL8QJZNLoypiDDumY6hA9ExrlXzB4vlgpTNJrK95N0r1ALBbItjjXbVt74MxX5GmqXJoiA
-	=
-X-Google-Smtp-Source: AGHT+IGYa2G/kZ4giRxWGsZPU+sdAuAFflFSSNJUUWYcs/1UFYgJ/z4nb26DZImvG2amV/eQtj4SSQ==
-X-Received: by 2002:a5d:5f42:0:b0:37d:4436:4505 with SMTP id ffacd0b85a97d-381f186ccdemr16814371f8f.32.1731491559978;
-        Wed, 13 Nov 2024 01:52:39 -0800 (PST)
-Message-ID: <70ad2dc3-325d-4d24-97cb-6ef5b8a42c18@suse.com>
-Date: Wed, 13 Nov 2024 10:52:38 +0100
+        bh=EX0c2+xqC1iW6QJJH7fEnNgF0lQVxbc+7EOohWX/qto=;
+        b=M4E4RFlO08qZSlGsvLNHl20eyd/dZKX55ZDZblqyLl5ZMllSonZqIfYKcEaWzDoW9n
+         o1OCNn78MRflc7x0W/9WCbo/spBn0KRvswjiDlG2axtyMSTzdq8R0qsyuEKLkBw8NXGJ
+         Yz+LLKy/sMq2B/8y86nfMA3Pm6IYy6/b/dijXJKsX8uJ0ZNQpVRImsyVdvk8qMC/4eK/
+         KRDZ1s3QiCIoS45Akt2C1i0uKAJx3i9Gor3eMdG+82kAJk9rqRKFFsmClqaNaKWEnJhY
+         y1UZLM2yqBazpnaxREzlUTebLciUxTAqxV6wfhTiRdfxLPpoD+HUgPNdnl+bmZVhrJco
+         1NzA==
+X-Forwarded-Encrypted: i=1; AJvYcCUjMm1nVhyxg/Szg7RLBcaDdkGK4CZtQ28rJdnYQ8Cj0sviUGR6XjEQmJFlHWL56/dv0k6V9GFyCUA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSAdFjdEP4+xpXbSuswftvrcboGS1KsyRLA7mOs1Af17XWRFjk
+	mQDDJjlXsoJ1exnkpT10Wm4+4HHxa975L1esgEqI+1BkstvnQZC1dSZuRjgXWg==
+X-Google-Smtp-Source: AGHT+IHy0Wncpu7VDlCotQpcnXPBiVGAD7idllyWaWV/03pSPrT29i9YYDjBCnNVQKtZCnRD37gWDQ==
+X-Received: by 2002:a2e:be10:0:b0:2fb:5da7:47a7 with SMTP id 38308e7fff4ca-2ff20222f4cmr106004901fa.25.1731491763106;
+        Wed, 13 Nov 2024 01:56:03 -0800 (PST)
+Message-ID: <1076fcfa-3004-4cc1-94ef-a84b0da4bfef@suse.com>
+Date: Wed, 13 Nov 2024 10:56:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/3] x86/emul: auxiliary definition of pseudo
- keyword fallthrough
+Subject: Re: [XEN PATCH v2 2/3] x86/emul: use pseudo keyword fallthrough
 To: Federico Serafini <federico.serafini@bugseng.com>
 Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1731485149.git.federico.serafini@bugseng.com>
- <f1dc3c1e70cfa9f7ce505e10624d0771f7697013.1731485149.git.federico.serafini@bugseng.com>
+ <b8bf155274a31459cbaab9a435db105fc6372e4a.1731485149.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,38 +115,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f1dc3c1e70cfa9f7ce505e10624d0771f7697013.1731485149.git.federico.serafini@bugseng.com>
+In-Reply-To: <b8bf155274a31459cbaab9a435db105fc6372e4a.1731485149.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.11.2024 09:17, Federico Serafini wrote:
-> --- a/tools/tests/x86_emulator/x86-emulate.h
-> +++ b/tools/tests/x86_emulator/x86-emulate.h
-> @@ -70,6 +70,16 @@
->  extern uint32_t mxcsr_mask;
->  extern struct cpu_policy cpu_policy;
->  
-> +/*
-> + * Pseudo keyword 'fallthrough' to make explicit the fallthrough intention at
-> + * the end of a case statement block.
-> + */
-> +#if !defined(__clang__) && (__GNUC__ >= 7)
-> +# define fallthrough        __attribute__((__fallthrough__))
-> +#else
-> +# define fallthrough        do {} while (0)  /* fallthrough */
-> +#endif
-> +
->  #define MMAP_SZ 16384
->  bool emul_test_init(void);
->  
+> Make explicit the fallthrough intention by adding the pseudo keyword
+> where missing and replace fallthrough comments not following the
+> agreed syntax.
+> 
+> This satisfies the requirements to deviate violations of
+> MISRA C:2012 Rule 16.3 "An unconditional break statement shall
+> terminate every switch-clause".
+> 
+> No functional change.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-I'm sure you saw my reply to Stefano where I said "Yes, just with the
-addition not at the bottom of the file, but where the other compatibility
-definitions are." Yes, you fulfilled the first half, but then you still
-put it in the middle of testing-specific definitions / declarations. In
-the interest of saving yet another round trip and to avoid yet further
-misunderstanding, I'll take care of the further movement while committing.
-Then
+Repeating my v1 comment:
+
+"We can certainly take this as is, as a tiny first step. Personally I'm
+ not overly happy though to see a mix of comment- and pseudo-keyword-
+ style annotations in individual files. After all going forward we'll
+ want to use the latter, now that this becomes possible. Yet for that I
+ view it a more than just helpful if bad precedents didn't exist
+ anymore. Being the one to touch the emulator files most, I can say
+ that here more than perhaps anywhere else new code is very often added
+ by copy-and-paste-then-edit.
+
+ Therefore question in particular to the other x86 maintainers: Won't
+ we be better off if we fully convert to pseudo-keyword-style right
+ away?"
+
+I'm afraid I don't like this "don't care" behavior, yet once again in
+the interest of making progress:
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
