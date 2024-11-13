@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5808C9C6CC7
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 11:23:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835284.1251141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A9BC9C6CE1
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 11:31:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835293.1251151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBAWx-0007nv-Ob; Wed, 13 Nov 2024 10:23:23 +0000
+	id 1tBAdt-0000vz-F0; Wed, 13 Nov 2024 10:30:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835284.1251141; Wed, 13 Nov 2024 10:23:23 +0000
+Received: by outflank-mailman (output) from mailman id 835293.1251151; Wed, 13 Nov 2024 10:30:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBAWx-0007lG-Lt; Wed, 13 Nov 2024 10:23:23 +0000
-Received: by outflank-mailman (input) for mailman id 835284;
- Wed, 13 Nov 2024 10:23:21 +0000
+	id 1tBAdt-0000th-Bw; Wed, 13 Nov 2024 10:30:33 +0000
+Received: by outflank-mailman (input) for mailman id 835293;
+ Wed, 13 Nov 2024 10:30:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=REvy=SI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBAWv-0007lA-MG
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 10:23:21 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KbMU=SI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tBAds-0000tb-6C
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 10:30:32 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d4df859-a1a9-11ef-a0c7-8be0dac302b0;
- Wed, 13 Nov 2024 11:23:19 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4316cce103dso83613855e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 02:23:19 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381ed9ec272sm18269236f8f.85.2024.11.13.02.23.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Nov 2024 02:23:18 -0800 (PST)
+ id 4d5a756e-a1aa-11ef-a0c7-8be0dac302b0;
+ Wed, 13 Nov 2024 11:30:28 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a9a0ec0a94fso1068462866b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 02:30:28 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9ee0a4e1desm835437166b.81.2024.11.13.02.30.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Nov 2024 02:30:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +44,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d4df859-a1a9-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmMiLCJoZWxvIjoibWFpbC13bTEteDMyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjRkNGRmODU5LWExYTktMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDkzMzk5LjMyNjIxNiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 4d5a756e-a1aa-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmEiLCJoZWxvIjoibWFpbC1lajEteDYyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjRkNWE3NTZlLWExYWEtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNDkzODI4Ljc0OTM3Niwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731493398; x=1732098198; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YsEMDJh8WfyISDZbNRaepSxbVtvn7UW6OLscEb723qc=;
-        b=FbeKBqhwmlJwmPe6ksr+Y71baBkT+2lxLEEH+d4oEgIDdcP3t/aHdweSYlijxrO1OR
-         i8AuF3oMcxOt1DAGOBFaWqC8X3kdyg6OekJ3Vgz4g5WfKKIUtMNw42VdtEwRwKfy2R5e
-         jaeYlQTiXxgTwKB2Mp7KOznnbMjE51zWrxgB/BkQorpUAYxgP8SPbzuyd6aYOv1XGpb2
-         X+SrFWi9YjSmEhnoEZPVkkEPs0NsI27JoSlp7wJGHRsLclbIyuyIirD6wIJ3CQctT6jv
-         2Jp7hQ8k3Fg6C+b0iyqpoqF2Qo3SP7PUnzt/LcFKCoQtumDUvP5NqvGMskp3LhnkmaEZ
-         nejg==
+        d=citrix.com; s=google; t=1731493828; x=1732098628; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=AijoLL8z2s13Q9NAAw4biLzHfg/TjccnSDT1lrR4Pl8=;
+        b=B8xvVLkOQchDZqDbBiklHm5vgQE4I7O+db98bjyuAwAOJPdO05IGjQxhUxwzENCmNe
+         ef/xGMoZlPHbp1cGxCr3JgynqnQkPGwGhk6C4g2pe3n+V4OOW18clCOVzwBh0HzaaXYH
+         9hKl+9LDY9plLlXk4JFaD9ZwHaezmE8g9gh0Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731493398; x=1732098198;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YsEMDJh8WfyISDZbNRaepSxbVtvn7UW6OLscEb723qc=;
-        b=lfQhQAUBOOchURyMKtvsYIi0Mcyf46sOH1wJnLOvEFJDBfz9XIp/uvhVlVoRQQiXrO
-         9qd01maPiFD+QTrmngk/e5vDjO2z09oRpc42x+008qSxrre+aCRbedJS/LKexmFlVtH/
-         LQMlmooOY8nRhu9nal0vonUISnKbm7tzJxmKdDIkr2e9LSvY2E0wbwpLMU2cXZkvgjYm
-         cch6pLUj0adRx6VU2aT1fL+U5xhgLUMPrxurEMVMSAnqgqn00j415R+ZZMvCuLY5legr
-         jZvsS2aMLRGW1WuWmL7TjCndpzDf57lX0rBEyTfoeLJ2RzJvQ9LX7OgbPBwZJ5hAoLZB
-         IOUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXkD7362iFyCoD68nluchpgT1Y/lhAYOwTp7KHJ0d0w7Tt7sHRWDMQcdZ/XWWFGUEUBAHhtWJ1+2+U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwxDfjAMqSXKk0Df25mYFPM0rs2Ae9gYASlIbuMup2+2KE10Ygu
-	monOV/+Yg2HroxQv5EmqwbuGwprFZpjT09PlLu3hBNDma9ZvX8HdNvoQEW6V2A==
-X-Google-Smtp-Source: AGHT+IH7Um8yN+m7abMFbn4FCIvDst2d7ojBMIF/2RJgkk89/uAf0XgBWRrCoqjKedtJj6ZqNVu9SQ==
-X-Received: by 2002:a05:600c:3c99:b0:42c:ba83:3f00 with SMTP id 5b1f17b1804b1-432b74febf4mr210737545e9.1.1731493398609;
-        Wed, 13 Nov 2024 02:23:18 -0800 (PST)
-Message-ID: <5961777b-2d38-4edd-b2e0-2da89862655c@suse.com>
-Date: Wed, 13 Nov 2024 11:23:17 +0100
+        d=1e100.net; s=20230601; t=1731493828; x=1732098628;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=AijoLL8z2s13Q9NAAw4biLzHfg/TjccnSDT1lrR4Pl8=;
+        b=mxWwo9+UZj4Qs8F5r8shX83MOD6I1I0NtgdyiwkEFRcIWuBwIfxoDjEZa2PDRb/7+F
+         n8rKGfT5GwnPH2Qinou4WRAZwQxKRy6hmQmr/qjpTy7wAk0p/l3BV6Pj0+S/Q90j9S8V
+         tC7ESIlSRo70t+kp2xjKWt5L/1/1N9oMVtFTZXCF/6W18ZlXo1xJAKBFRY3j0AmjpdHM
+         ls6CQkStO1O8Fm/f0JRg5nATOTUfDXOHNrASaqmG77Uz/rrctd1MQRkoHLBxduu4H0JW
+         aAVJQpGFYXYeDEhioJ4KyvYk6bDsCZjJmPmEj8En1UUwZC9RsKs1u4CKRa6UbTUTQqIQ
+         Xbug==
+X-Gm-Message-State: AOJu0YwQSzOYMLPD65iVZ/V/aFTUDMJ+QGOHa9SNaL/e4hhL5TmGUqIL
+	lt1sCckwmLBxfGTqfJO2OYuJrVyFQgBEZZhW2WsWOzkxejaOUIRmnq3lYZsb37g=
+X-Google-Smtp-Source: AGHT+IEivFLBq/eVtE//vJBY65WZ8R0bFnHdGZMztknKEWWLi1zG0RDTDexC5ckS81KCGZmTW3eo4Q==
+X-Received: by 2002:a17:907:7f1f:b0:a99:f4be:7a6a with SMTP id a640c23a62f3a-a9eeffdc630mr2049560866b.47.1731493828033;
+        Wed, 13 Nov 2024 02:30:28 -0800 (PST)
+Date: Wed, 13 Nov 2024 11:30:26 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] vpci: Add resizable bar support
+Message-ID: <ZzR_wlY0wXjqec8T@macbook>
+References: <20241113080027.244240-1-Jiqian.Chen@amd.com>
+ <ZzRxqO3_GEgs7W1I@macbook>
+ <BL1PR12MB5849AB0F258C07AD72EFDB29E75A2@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/trampoline: Rationalise the constants to describe
- the size
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241113093058.1562447-1-andrew.cooper3@citrix.com>
- <20241113093058.1562447-3-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241113093058.1562447-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB5849AB0F258C07AD72EFDB29E75A2@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On 13.11.2024 10:30, Andrew Cooper wrote:
-> --- a/xen/arch/x86/include/asm/config.h
-> +++ b/xen/arch/x86/include/asm/config.h
-> @@ -51,8 +51,9 @@
->  
->  #define IST_SHSTK_SIZE 1024
->  
-> -#define TRAMPOLINE_STACK_SPACE  PAGE_SIZE
-> -#define TRAMPOLINE_SPACE        (KB(64) - TRAMPOLINE_STACK_SPACE)
-> +/* See asm/trampoline.h */
-> +#define TRAMPOLINE_SIZE         KB(64)
-> +#define TRAMPOLINE_HEAP_END     (TRAMPOLINE_SIZE - PAGE_SIZE)
+On Wed, Nov 13, 2024 at 10:00:33AM +0000, Chen, Jiqian wrote:
+> On 2024/11/13 17:30, Roger Pau Monné wrote:
+> > On Wed, Nov 13, 2024 at 04:00:27PM +0800, Jiqian Chen wrote:
+> >> Some devices, like discrete GPU of amd, support resizable bar capability,
+> >> but vpci of Xen doesn't support this feature, so they fail to resize bars
+> >> and then cause probing failure.
+> >>
+> >> According to PCIe spec, each bar that support resizing has two registers,
+> >> PCI_REBAR_CAP and PCI_REBAR_CTRL, so add these two registers and their
+> >> corresponding handler into vpci.
+> >>
+> >> PCI_REBAR_CAP is RO, only provide reading.
+> >>
+> >> PCI_REBAR_CTRL only has bar size is RW, so add write function to support
+> >> setting the new size.
+> > 
+> > I think the logic to handle resizable BAR could be much simpler.  Some
+> > time ago I've made a patch to add support for it, but due to lack of
+> > hardware on my side to test it I've never submitted it.
+> > 
+> > My approach would be to detect the presence of the
+> > PCI_EXT_CAP_ID_REBAR capability in init_header(), and if the
+> > capability is present force the sizing of BARs each time they are
+> > mapped in modify_bars().  I don't think we need to trap accesses to
+> > the capability itself, as resizing can only happen when memory
+> > decoding is not enabled for the device.  It's enough to fetch the size
+> > of the BARs ahead of each enabling of memory decoding.
+> > 
+> > Note that memory decoding implies mapping the BARs into the p2m, which
+> > is already an expensive operation, the extra sizing is unlikely to
+> > make much of a difference performance wise.
+> > 
+> > I've found the following on my git tree and rebased on top of staging:
+> OK.
+> Do you need me to validate your patch in my environment?
 
-Is there actually a reason these can't move to trampoline.h?
+Yes please, I have no way to test it.  Let's see what others think
+about the different approaches.
 
-Jan
+> And I have one question: where does your patch do writing the resizing size into hardware?
 
+dom0 has unrestricted access to the resize capability, so the value
+written by dom0 is propagated to the hardware without modification.
+
+I would be wary of exposing the resize capability to untrusted
+domains, as allowing a domU to change the size of BARs can lead to
+overlapping if the hardware domain hasn't accounted for the increase
+in BAR size.
+
+Thanks, Roger.
 
