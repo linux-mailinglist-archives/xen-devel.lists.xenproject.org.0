@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 447A19C74D2
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 15:53:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835798.1251655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 771FF9C75D7
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 16:15:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835812.1251666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBEjz-0004gU-La; Wed, 13 Nov 2024 14:53:07 +0000
+	id 1tBF4r-00080w-BX; Wed, 13 Nov 2024 15:14:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835798.1251655; Wed, 13 Nov 2024 14:53:07 +0000
+Received: by outflank-mailman (output) from mailman id 835812.1251666; Wed, 13 Nov 2024 15:14:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBEjz-0004ek-In; Wed, 13 Nov 2024 14:53:07 +0000
-Received: by outflank-mailman (input) for mailman id 835798;
- Wed, 13 Nov 2024 14:53:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lrmv=SI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tBEjx-0004ea-MA
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 14:53:05 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb3a4461-a1ce-11ef-99a3-01e77a169b0f;
- Wed, 13 Nov 2024 15:53:02 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2fb56cb61baso52789281fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 06:53:02 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ff178f3ca9sm24111981fa.41.2024.11.13.06.53.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Nov 2024 06:53:01 -0800 (PST)
+	id 1tBF4r-0007zL-7n; Wed, 13 Nov 2024 15:14:41 +0000
+Received: by outflank-mailman (input) for mailman id 835812;
+ Wed, 13 Nov 2024 15:14:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1tBF4p-0007zE-P4
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 15:14:39 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tBF4p-003ISK-0b;
+ Wed, 13 Nov 2024 15:14:39 +0000
+Received: from [2a02:8012:3a1:0:2c06:4644:c8a3:2b5e]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tBF4p-0039aN-0Q;
+ Wed, 13 Nov 2024 15:14:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +39,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb3a4461-a1ce-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzQiLCJoZWxvIjoibWFpbC1sajEteDIzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImZiM2E0NDYxLWExY2UtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTA5NTgyLjMxNDc1Nywic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1731509582; x=1732114382; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=L51Zyjy/dO/0R9bMg+bmqTswn/SVfcUyqvgNffwRYEs=;
-        b=jmJJkDMalrRlff0jLq3OFVh8dvf7sOM6S9gRtbdSeS5xlem5+mfkmUxI1LM/n+7/+H
-         3wC5xwE7Zhl8ANVyQNhq0NYq98x/5314+bPxc8PUbfRj8Vxc+9jVkkAr7MICZnPWlCMg
-         13Yc//VlNS73vFtV+gN6aJLbmOyNFLaTYtGO13jHNIfi1KP8pmgnQZ/55s805e4+oZq8
-         hWzg4xieAn4XWC9XD5AyKjTL6srMj/qlcxI4lQCdpqJHU+5iLG/HMcPPFS1LRwyEKjwi
-         xImRqiG5LTvFltlKFkcDt8zGYILGUfR6Pta6sA+77UQJ/cVEL5V9iD3KMp0bPbYyaDYw
-         /2oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731509582; x=1732114382;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=L51Zyjy/dO/0R9bMg+bmqTswn/SVfcUyqvgNffwRYEs=;
-        b=uzhYA7jBluRwGky6CN51KVGWz1iz+TBakTm1ft7DuhQtknb0qS8MotGPtFnaztJcoT
-         0zQdajs58N/wsqJWqGNX0//pe9yKjZX4WfRcIii3i2fQ4KKdWIWz7z9qQJ5UAIYq9KeL
-         vaNbOMXqZdGumve1HQGiV34rPfzxH8kAnAr0jc94xHGhIImCub3Jf0neAb+rQ86kcQOb
-         GIrodLL2RCxh6JU2pVewG0ZK6ZV4AaseyWV6QDgh2qhKyzuK2gqKh6YmYFR8de6sUUVc
-         zjpSwIN8RdJjAJQIe43QWni2mg8oCCXn+qQ0/HNUC2vnvfQ4q1KvydMrV+y4u6v3BwyD
-         swRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUduFjapTUsXWjkbW3nCnLkpK0WH30Ev+HLGeLzqOWRWrkrGNjvonkBZyxnZZbUSbjhINouQ/rcay8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUXnXkik0nJb52dYy5NxUwI+PgSPqpMPeLaPtg2x3m2ru889kV
-	fPIMtLlTVm+5Qp5sRKqvh1xGF2jh/Le2fbIpT9MraTtOxUMMqNvL
-X-Google-Smtp-Source: AGHT+IH8lyWhXQdhJHGEgAZMUuI3FoUVoduphY4ROvxdLHWLgOXcW15gWYUaFW0JEMrORPZ0jczTUQ==
-X-Received: by 2002:a2e:b8c6:0:b0:2fb:4bee:47ec with SMTP id 38308e7fff4ca-2ff4c6332a5mr23006151fa.33.1731509581594;
-        Wed, 13 Nov 2024 06:53:01 -0800 (PST)
-Message-ID: <0ac663fc22d0b3dc28abdc31b1e020f7a72ec034.camel@gmail.com>
-Subject: Re: Xen 4.20 Development Update [August-October]
-From: oleksii.kurochko@gmail.com
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Kelly Choi <kelly.choi@cloud.com>
-Date: Wed, 13 Nov 2024 15:53:00 +0100
-In-Reply-To: <8205ea71-858c-4552-819f-2b9753457034@suse.com>
-References: 
-	<CAMacjJzO+Oa1_BEBrV3J=L4=5vsxZRV8DGuiuho96qLqM-QWcA@mail.gmail.com>
-	 <8205ea71-858c-4552-819f-2b9753457034@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.1 (3.54.1-1.fc41app1) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=zn9lsV5UU1QuhWU2/07ayJVrSh3OXaaIFcqLKMhUkIU=; b=3r5iIR/PkP/Exv2jzKqJSXW1ds
+	VQCX27zPbWJSffEhlbM4I4b9+g7Rw/bu9nXHgI4NGMQMExgA/vcajXe15UaMqB8qkDCVcLFhQgznd
+	8UgPWC5uBQoeJfv2rKAhmF3X8AIWNeeDZsDjoItZ54WbSXiR7j2PxNy/7biieeYNbNgQ=;
+Message-ID: <c7f818b8-5dc7-4b16-a5ca-050af6c36be4@xen.org>
+Date: Wed, 13 Nov 2024 15:14:37 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/device-tree: Allow exact match for overlapping
+ regions
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20241106134132.2185492-1-luca.fancellu@arm.com>
+ <f0928350-0031-4f74-a61a-778e68a9f67b@xen.org>
+ <FA425FB4-7B3D-4FF0-9C94-2E5D8ECA1502@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <FA425FB4-7B3D-4FF0-9C94-2E5D8ECA1502@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2024-11-13 at 14:25 +0100, J=C3=BCrgen Gro=C3=9F wrote:
-> On 12.11.24 17:16, Oleksii Kurochko wrote:
-> > Hello everyone,
-> >=20
-> > This email only tracks big items for xen.git tree. Please reply for
-> > items you
-> > would like to see in 4.20 so that people have an idea what is going
-> > on and
-> > prioritise accordingly.
-> >=20
-> > You're welcome to provide description and use cases of the feature
-> > you're
-> > working on.
-> >=20
-> > =3D Timeline =3D
-> >=20
-> > ---> We are here
-> > * Last posting date: Nov 29, 2024
-> > * Feature freeze date: Dec 20, 2024
-> > * Hard code freeze: Jan 17, 2025
-> > * RC1: TBD
-> > * Release: Feb 21, 2025
-> > ( current release schedule: https://wiki.xenproject.org/wiki/=C2=A0
-> > Xen_Project_X.YY_Release_Notes <https://wiki.xenproject.org/wiki/=C2=A0
-> > Xen_Project_X.YY_Release_Notes> )
-> >=20
-> > All patches that wish to go into 4.20 must be posted no later than
-> > the last posting
-> > date. All patches posted after that date will be automatically
-> > queued
-> > into next release.
-> >=20
-> > RCs will be arranged immediately after freeze.
-> >=20
-> > =3D Projects =3D
-> >=20
-> > =3D=3D Hypervisor =3D=3D
-> > * =C2=A0stubdom: reduce xenstore library dependencies (v1)
-> > =C2=A0=C2=A0 - =C2=A0Juergen Gross
-> > =C2=A0=C2=A0 -
-> > https://lore.kernel.org/xen-devel/20241010155459.22389-1-jgross@suse.co=
-m/T/
-> > =C2=A0
-> > #m8b5af386e2d288961bb6e8f7839650e0cab96a83
-> > <https://lore.kernel.org/xen-=20
-> > devel/20241010155459.22389-1-jgross@suse.com/T/=20
-> > #m8b5af386e2d288961bb6e8f7839650e0cab96a83>
->=20
-> This one has been applied already.
-Thanks for notifying, I will move it to completed section.
 
-~ Oleksii
+
+On 13/11/2024 14:33, Luca Fancellu wrote:
+> Hi Julien,
+
+Hi,
+
+>> On 13 Nov 2024, at 14:01, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Luca,
+>>
+>> On 06/11/2024 13:41, Luca Fancellu wrote:
+>>> There are some cases where the device tree exposes a memory range
+>>> in both /memreserve/ and reserved-memory node, in this case the
+>>> current code will stop Xen to boot since it will find that the
+>>> latter range is clashing with the already recorded /memreserve/
+>>> ranges.
+>>> Furthermore, u-boot lists boot modules ranges, such as ramdisk,
+>>> in the /memreserve/ part and even in this case this will prevent
+>>> Xen to boot since it will see that the module memory range that
+>>> it is going to add in 'add_boot_module' clashes with a /memreserve/
+>>> range.
+>>> When Xen populate the data structure that tracks the memory ranges,
+>>> it also adds a memory type described in 'enum membank_type', so
+>>> in order to fix this behavior, allow the 'check_reserved_regions_overlap'
+>>> function to check for exact memory range match given a specific memory
+>>> type; allowing reserved-memory node ranges and boot modules to have an
+>>> exact match with ranges from /memreserve/.
+>>> While there, set a type for the memory recorded during ACPI boot.
+>>
+>> I am a bit confused which you mention only ACPI boot. Isn't the path also used when booting using Device-Tree?
+> 
+> right, maybe this should be:
+> 
+> “While there, set a type for the memory recorded using meminfo_add_bank() from eft-boot.h."
+> 
+>>>
+>>>   static bool __init meminfo_overlap_check(const struct membanks *mem,
+>>>                                            paddr_t region_start,
+>>> -                                         paddr_t region_size)
+>>> +                                         paddr_t region_size,
+>>> +                                         enum membank_type allow_match_type)
+>>
+>> Looking at the callers, you only seem to pass MEMBANK_FDT_RESVMEM or MEMBANK_NONE. So I wonder whether it actually make sense to introduce MEMBANK_NONE. Wouldn't it be better to have a boolean indicating whether we are looking for FDT_RESVMEM?
+> 
+> I wanted to give a more generic approach, but you are right, we could have a boolean like allow_match_memreserve.
+> 
+> 
+>>
+>>>   {
+>>>       paddr_t bank_start = INVALID_PADDR, bank_end = 0;
+>>>       paddr_t region_end = region_start + region_size;
+>>> @@ -113,12 +114,16 @@ static bool __init meminfo_overlap_check(const struct membanks *mem,
+>>>           if ( INVALID_PADDR == bank_start || region_end <= bank_start ||
+>>>                region_start >= bank_end )
+>>>               continue;
+>>> -        else
+>>> -        {
+>>> -            printk("Region: [%#"PRIpaddr", %#"PRIpaddr") overlapping with bank[%u]: [%#"PRIpaddr", %#"PRIpaddr")\n",
+>>> -                   region_start, region_end, i, bank_start, bank_end);
+>>> -            return true;
+>>> -        }
+>>> +
+>>> +        if ( (allow_match_type != MEMBANK_NONE) &&
+>>> +             (region_start == bank_start) && (region_end == bank_end) &&
+>>
+>> Why is this only an exact match?
+> 
+> Apparently what we are fixing is only a case where memreserve regions matches exactly modules or reserved_mem nodes.
+
+TBH, as I replied to Michal, I don't understand why we are just focusing 
+on just one issue. It would be good to provide some rationale.
+
+> 
+>>
+>>> +             (allow_match_type == mem->bank[i].type) )
+>>> +            continue;
+>>> +
+>>> +        printk("Region: [%#"PRIpaddr", %#"PRIpaddr") overlapping with bank[%u]: [%#"PRIpaddr", %#"PRIpaddr")\n",
+>>> +                region_start, region_end, i, bank_start, bank_end);
+>>> +        return true;
+>>> +
+>>>       }
+>>>         return false;
+>>> @@ -169,9 +174,14 @@ void __init fw_unreserved_regions(paddr_t s, paddr_t e,
+>>>    * with the existing reserved memory regions defined in bootinfo.
+>>>    * Return true if the input physical address range is overlapping with any
+>>>    * existing reserved memory regions, otherwise false.
+>>> + * The 'allow_match_type' parameter can be used to allow exact match of a
+>>> + * region with another memory region already recorded, but it needs to be used
+>>> + * only on memory regions that allows a type (reserved_mem, acpi). For all the
+>>> + * other cases, passing 'MEMBANK_NONE' will disable the exact match.
+>>>    */
+>>>   bool __init check_reserved_regions_overlap(paddr_t region_start,
+>>> -                                           paddr_t region_size)
+>>> +                                           paddr_t region_size,
+>>> +                                           enum membank_type allow_match_type)
+>>>   {
+>>>       const struct membanks *mem_banks[] = {
+>>>           bootinfo_get_reserved_mem(),
+>>> @@ -190,8 +200,21 @@ bool __init check_reserved_regions_overlap(paddr_t region_start,
+>>>        * shared memory banks (when static shared memory feature is enabled)
+>>>        */
+>>>       for ( i = 0; i < ARRAY_SIZE(mem_banks); i++ )
+>>> -        if ( meminfo_overlap_check(mem_banks[i], region_start, region_size) )
+>>> +    {
+>>> +        enum membank_type type = allow_match_type;
+>>> +
+>>> +#ifdef CONFIG_STATIC_SHM
+>>> +        /*
+>>> +         * Static shared memory banks don't have a type, so for them disable
+>>> +         * the exact match check.
+>>> +         */
+>>
+>> This feels a bit of a hack. Why can't we had a default type like you did in meminfo_add_bank()?
+> 
+> This is the structure:
+> 
+> struct membank {
+>      paddr_t start;
+>      paddr_t size;
+>      union {
+>          enum membank_type type;
+> #ifdef CONFIG_STATIC_SHM
+>          struct shmem_membank_extra *shmem_extra;
+> #endif
+>      };
+> };
+
+Anonymous union are really annoying... So effectively in 
+check_reserved_regions_overlap() we are hoping that the caller will not 
+set allow_match_type to another value than MEMBANK_NONE for static 
+memory. This is extremely fragile.
+
+I can't think of another solution right now, but I am definitely not 
+happy with this approach.
+
+> 
+> we did that in order to save space when static shared memory is not enabled, so we can’t have the
+> type for these banks because we are already writing shmem_extra.
+> 
+> We could remove the union but in that case we would waste space when static shared memory is
+> enabled.
+
+Can you remind me how much memory this is going to save?
+
+Cheers,
+
+-- 
+Julien Grall
+
 
