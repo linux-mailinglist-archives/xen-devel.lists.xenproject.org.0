@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA1D09C6EEA
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 13:20:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.835539.1251406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BFE9C6F51
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2024 13:43:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.835552.1251422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBCLX-0007dQ-Nh; Wed, 13 Nov 2024 12:19:43 +0000
+	id 1tBChp-0003ts-QH; Wed, 13 Nov 2024 12:42:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 835539.1251406; Wed, 13 Nov 2024 12:19:43 +0000
+Received: by outflank-mailman (output) from mailman id 835552.1251422; Wed, 13 Nov 2024 12:42:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBCLX-0007bg-K9; Wed, 13 Nov 2024 12:19:43 +0000
-Received: by outflank-mailman (input) for mailman id 835539;
- Wed, 13 Nov 2024 12:19:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tBChp-0003oV-NC; Wed, 13 Nov 2024 12:42:45 +0000
+Received: by outflank-mailman (input) for mailman id 835552;
+ Wed, 13 Nov 2024 12:42:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gr6F=SI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tBCLW-0007ba-Sh
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 12:19:42 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c7e1b30-a1b9-11ef-99a3-01e77a169b0f;
- Wed, 13 Nov 2024 13:19:37 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5ceb03aaddeso8083545a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 04:19:37 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
+ <SRS0=RFXx=SI=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
+ id 1tBCho-0003m4-Bg
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2024 12:42:44 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c22ee1d4-a1bc-11ef-a0c7-8be0dac302b0;
+ Wed, 13 Nov 2024 13:42:36 +0100 (CET)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-617-uaqureCkMxGI3q2SgPXraQ-1; Wed, 13 Nov 2024 07:42:31 -0500
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-37d432f9f5eso3589154f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Nov 2024 04:42:31 -0800 (PST)
+Received: from eisenberg.redhat.com (nat-pool-muc-u.redhat.com. [149.14.88.27])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9ee0a194dasm853542166b.3.2024.11.13.04.19.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Nov 2024 04:19:36 -0800 (PST)
+ ffacd0b85a97d-381ed99aa18sm18023528f8f.61.2024.11.13.04.42.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Nov 2024 04:42:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +49,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c7e1b30-a1b9-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MjkiLCJoZWxvIjoibWFpbC1lZDEteDUyOS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjhjN2UxYjMwLWExYjktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTAwMzc3LjE5MzQ5LCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731500376; x=1732105176; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=weItZhRknoTJndUCubjmFZddpjxkqH3+j+W1wp4tRKw=;
-        b=MBchYVEoxKaOZ9yF0qU/bkJCbFhrRmGunwVrGXfVgoorX72OoTz2aNF9mxm+M55a5V
-         f9uVhq+bRwrv3tUFidWNYQ7HX/qo27pG01tDp4sPQ1Q6qsS/wP72b93nwOu/Aw2sMs3+
-         uXizO+pon3umL9P8sxkaX0+oPvRcyJInlDVAo=
+X-Inumbo-ID: c22ee1d4-a1bc-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMjkuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImMyMmVlMWQ0LWExYmMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTAxNzU2LjY2MzE4LCJzZW5kZXIiOiJwc3Rhbm5lckByZWRoYXQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1731501755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=gi/nDuPOQh+kW8YCVePTGgMsqduTQsEMI/h4REBTyU8=;
+	b=XPq3IzCJ1K/qL737veRrH5eMdIWbPVROD1Bv6J/fB/gVLEvbEmfG14bZW+a+n4zXKXSW8W
+	eS+lJvMa4zecUG1VZTPo5czrUEB4PFCY1rYLxtEmu3NtsLTAYerFo3tzq25UM1W2dFFfJl
+	jkEMZhjPdk0vdnT6UBWL7Q4TqJyeKLw=
+X-MC-Unique: uaqureCkMxGI3q2SgPXraQ-1
+X-Mimecast-MFC-AGG-ID: uaqureCkMxGI3q2SgPXraQ
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731500376; x=1732105176;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=weItZhRknoTJndUCubjmFZddpjxkqH3+j+W1wp4tRKw=;
-        b=SzlTe9HUDtvpgnQyH4XOr4g/34NmKrhfJa6VZPkHTMnmI9fOQvop3Ufm4MEuU1wytV
-         VLi0AvWsWspTMFUIHj/LPrEm+doWpn8g5QpR7aiZuBN3g6JPKaVAFPTGA0N3D283Eai4
-         Nqi+SVkJqFrevB9tFZKCPpt4KwwCaoUnpolTU5B3sFmSqr09qAtkqCLaFfrTw1n/Kc42
-         sd50gkvifZawNf+gIX0KIMyXTiVbM+ll63YKC5bKRh3QtaKT1X7rG0waR4ctzNyM4Hsi
-         RfT6pYxWhZZxjYvj0rO+Qio8jzknqrW6Nnj2OuPJMpkbkwTzh6q75VdiuieCfmlpE9Kt
-         qsug==
-X-Forwarded-Encrypted: i=1; AJvYcCXstfmvkX1qrVACjAv7e2t4Zm+UmyPkGAlrqrpytDe5vKr2rtL7UeozByh4OZmwr1Ubd1b6ck86wg8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzNQHn0kXwzLRBu4pffno0PDQrrl3DbkjQ4gPF3g6Aa5RKa0kwg
-	hBQ7TSoRwVlA871FO/QVVUsl/upnKRs9M9urcR/b+NAr0Z1Rdu96+HNIXP40TQU=
-X-Google-Smtp-Source: AGHT+IG+COHURLVf8T8IkcM7kh2PFLad+sCENpWa0gY972cILpUTITO7F1fQq1uRoDJlU7EzmkM1rQ==
-X-Received: by 2002:a17:907:7f91:b0:a9e:b86f:c478 with SMTP id a640c23a62f3a-a9eeff44f3amr2063083566b.36.1731500376500;
-        Wed, 13 Nov 2024 04:19:36 -0800 (PST)
-Message-ID: <4bc2744b-81e5-4923-8321-ab9a95182b71@citrix.com>
-Date: Wed, 13 Nov 2024 12:19:34 +0000
+        d=1e100.net; s=20230601; t=1731501751; x=1732106551;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gi/nDuPOQh+kW8YCVePTGgMsqduTQsEMI/h4REBTyU8=;
+        b=rJBQaPvnnOy54a9zQ/F+PLDSylV7LyNcqYTwYAKZEiMqF6NSi2woDBo8j/ScwwZx9j
+         AHigywLywZ3SXj7YvJ4FGow7se0acnI1wt6TvYLSbow7xvWp5m8aN75YZpITYakt0hUJ
+         ihYlIIyLuoOHPOb5CcaQCTdK4ICisP3ATgZ87ZY13q0+8u6V8XUPmmpMwLuVoMxtinyf
+         Gmt3W2Pf9F5jsItFUTYMxt/JX4wvczoMKYdRwi1R2YjU/0ufVmErQVuOOok0GliQyser
+         SAx/un7cfjB2XMDRpH//3WIdJNbIE0jju4Mdn5imcG/D91a9TIIrv/2lBsCtkTHoZVjO
+         pSVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU9u/NlGiwNLtVsZUhtDnMVMSo44aKMYkWb7dS7SF0KhVOo/jMHIJj+f8j+aUt98Kc9yZVZ8PgwoEE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFZHRL0jnEIsx6Duxo9yBt805lkC/wO1Kz9yTiwOCIWz6lyk87
+	XUi5U4DfF6y4NpDOnpdl3v9YIpFy6eWoz0ls8k4bE2TMrcAAJ2+oE9EzubKftzLJl6Ylwq749lO
+	G4X40CufOfrvfpMBJ/64hDZzMX+4/o/0JK3rNT8o+uCL7AH7pfrRaqzd7enp3Bwu1
+X-Received: by 2002:a5d:5f53:0:b0:381:f595:fd0a with SMTP id ffacd0b85a97d-3820810ffc0mr4675161f8f.16.1731501750632;
+        Wed, 13 Nov 2024 04:42:30 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEkW+KWr+FGBC4soAeZ9AbHODqoGfzXwj1GlUIlZwp3/7RfEbVzZfIvsQ3hNUEE9XJJckqbgQ==
+X-Received: by 2002:a5d:5f53:0:b0:381:f595:fd0a with SMTP id ffacd0b85a97d-3820810ffc0mr4675138f8f.16.1731501750223;
+        Wed, 13 Nov 2024 04:42:30 -0800 (PST)
+From: Philipp Stanner <pstanner@redhat.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Basavaraj Natikar <basavaraj.natikar@amd.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alex Dubov <oakad@yahoo.com>,
+	Sudarsana Kalluru <skalluru@marvell.com>,
+	Manish Chopra <manishc@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rasesh Mody <rmody@marvell.com>,
+	GR-Linux-NIC-Dev@marvell.com,
+	Igor Mitsyanko <imitsyanko@quantenna.com>,
+	Sergey Matyukevich <geomatsi@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Sanjay R Mehta <sanju.mehta@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Philipp Stanner <pstanner@redhat.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Chen Ni <nichen@iscas.ac.cn>,
+	Ricky Wu <ricky_wu@realtek.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Breno Leitao <leitao@debian.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Mostafa Saleh <smostafa@google.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Yi Liu <yi.l.liu@intel.com>,
+	Kunwu Chan <chentao@kylinos.cn>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Ye Bin <yebin10@huawei.com>
+Cc: linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ntb@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2 00/11] Remove implicit devres from pci_intx()
+Date: Wed, 13 Nov 2024 13:41:48 +0100
+Message-ID: <20241113124158.22863-2-pstanner@redhat.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [ARM] preparations for 4.19.1
-To: Luca Fancellu <Luca.Fancellu@arm.com>, Julien Grall <julien@xen.org>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Kelly Choi <kelly.choi@cloud.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>
-References: <ddc41c9d-9754-4fde-bac0-6389511a7f7c@suse.com>
- <4aa24b39-5734-4b0a-8969-dc3eb4942975@amd.com>
- <718c2a9c-15b0-4f21-941a-5094c06787c7@xen.org>
- <FD24D223-1EDF-414F-BA41-112A72F894CD@arm.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <FD24D223-1EDF-414F-BA41-112A72F894CD@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 7SqlCWKtB-P6JZC5A5Ro5qAxeTchc6wv-GOBC3X6vvw_1731501751
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 
-On 13/11/2024 10:14 am, Luca Fancellu wrote:
-> Hi all,
->
->> On 12 Nov 2024, at 16:11, Julien Grall <julien@xen.org> wrote:
->>
->> Hi,
->>
->> On 12/11/2024 16:00, Stewart Hildebrand wrote:
->>> On 11/12/24 08:00, Jan Beulich wrote:
->>>> All,
->>>>
->>>> the release is due by the end of the month. Please point out
->>>> backports you find
->>>> missing from the respective staging branch, but which you consider
->>>> relevant.
->>>>
->>>> Advance notice: 4.18.4 ought to follow about two weeks later.
->>>>
->>>> Jan
->>>>
->>> Looking for Julien's input on this one:
->>> 35c64c3dce01 ("xen/arm64: entry: Actually skip do_trap_*() when an
->>> SError is triggered")
->>> As mentioned in the post-commit notes [0] it's a candidate for backport.
->>
->> In the past, Stefano handled backports for Arm. I am not sure if this
->> is still case. Stefano?
->>
->>> [0]
->>> https://lore.kernel.org/xen-devel/20240806124815.53492-1-julien@xen.org/
->>
->> Cheers,
->>
->> -- 
->> Julien Grall
->>
->>
->
-> Regarding back porting to the 4.19, there is a regression for Arm
-> discussed in the ML and on Matrix, do we want to address it now?
->
-> [v5,1/3] xen/device-tree: Let DT reserve map entries overlap
-> reserved-memory - Patchwork
-> <https://patchwork.kernel.org/project/xen-devel/patch/302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com/>
-> patchwork.kernel.org
-> <https://patchwork.kernel.org/project/xen-devel/patch/302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com/>
-> 	<https://patchwork.kernel.org/project/xen-devel/patch/302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com/>
->
-> <https://patchwork.kernel.org/project/xen-devel/patch/302647e409d91ea7ed39e568dadeedc572976c3b.1727388925.git.sanastasio@raptorengineering.com/>
->
->
-> xen/device-tree: Allow exact match for overlapping regions - Patchwork
-> <https://patchwork.kernel.org/project/xen-devel/patch/20241106134132.2185492-1-luca.fancellu@arm.com/>
-> patchwork.kernel.org
-> <https://patchwork.kernel.org/project/xen-devel/patch/20241106134132.2185492-1-luca.fancellu@arm.com/>
-> 	<https://patchwork.kernel.org/project/xen-devel/patch/20241106134132.2185492-1-luca.fancellu@arm.com/>
->
-> <https://patchwork.kernel.org/project/xen-devel/patch/20241106134132.2185492-1-luca.fancellu@arm.com/>
->
+@Driver-Maintainers: Your driver might be touched by patch "Remove
+devres from pci_intx()". You might want to take a look.
 
-That regression does want addressing ASAP, and wants to be included
-within 4.19.1.
+Changes in v2:
+  - Drop pci_intx() deprecation patch.
+  - ata: Add RB from Sergey and Niklas.
+  - wifi: Add AB by Kalle.
+  - Drop INTx deprecation patch
+  - Drop ALSA / hda_intel patch because pci_intx() was removed from
+    there in the meantime.
 
-But first, the ARM maintainers need to agree on what the fix should look
-like.
+Changes since the RFC [1]:
+  - Add a patch deprecating pci{m}_intx(). (Heiner, Andy, Me)
+  - Add Acked-by's already given.
+  - Export pcim_intx() as a GPL function. (Alex)
+  - Drop patch for rts5280, since this driver will be removed quite
+    soon. (Philipp Hortmann, Greg)
+  - Use early-return in pci_intx_unmanaged() and pci_intx(). (Andy)
 
-~Andrew
+Hi all,
+
+this series removes a problematic feature from pci_intx(). That function
+sometimes implicitly uses devres for automatic cleanup. We should get
+rid of this implicit behavior.
+
+To do so, a pci_intx() version that is always-managed, and one that is
+never-managed are provided. Then, all pci_intx() users are ported to the
+version they need. Afterwards, pci_intx() can be cleaned up and the
+users of the never-managed version be ported back to pci_intx().
+
+This way we'd get this PCI API consistent again.
+
+Patch "Remove devres from pci_intx()" obviously reverts the previous
+patches that made drivers use pci_intx_unmanaged(). But this way it's
+easier to review and approve. It also makes sure that each checked out
+commit should provide correct behavior, not just the entire series as a
+whole.
+
+Merge plan for this is to enter through the PCI tree.
+
+[1] https://lore.kernel.org/all/20241009083519.10088-1-pstanner@redhat.com/
+
+
+Regards,
+P.
+
+
+Philipp Stanner (11):
+  PCI: Prepare removing devres from pci_intx()
+  drivers/xen: Use never-managed version of pci_intx()
+  net/ethernet: Use never-managed version of pci_intx()
+  net/ntb: Use never-managed version of pci_intx()
+  misc: Use never-managed version of pci_intx()
+  vfio/pci: Use never-managed version of pci_intx()
+  PCI: MSI: Use never-managed version of pci_intx()
+  ata: Use always-managed version of pci_intx()
+  wifi: qtnfmac: use always-managed version of pcim_intx()
+  HID: amd_sfh: Use always-managed version of pcim_intx()
+  Remove devres from pci_intx()
+
+ drivers/ata/ahci.c                            |  2 +-
+ drivers/ata/ata_piix.c                        |  2 +-
+ drivers/ata/pata_rdc.c                        |  2 +-
+ drivers/ata/sata_sil24.c                      |  2 +-
+ drivers/ata/sata_sis.c                        |  2 +-
+ drivers/ata/sata_uli.c                        |  2 +-
+ drivers/ata/sata_vsc.c                        |  2 +-
+ drivers/hid/amd-sfh-hid/amd_sfh_pcie.c        |  4 ++--
+ drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_init.c |  2 +-
+ .../wireless/quantenna/qtnfmac/pcie/pcie.c    |  2 +-
+ drivers/pci/devres.c                          | 24 +++----------------
+ drivers/pci/pci.c                             | 16 +++----------
+ include/linux/pci.h                           |  1 +
+ 13 files changed, 18 insertions(+), 45 deletions(-)
+
+-- 
+2.47.0
+
 
