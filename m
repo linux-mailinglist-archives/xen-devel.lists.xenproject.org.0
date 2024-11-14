@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 772F19C88DB
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 12:26:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836311.1252192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC4B79C8927
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 12:42:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836324.1252202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBXzD-0001aU-Hq; Thu, 14 Nov 2024 11:26:07 +0000
+	id 1tBYEf-0004tj-RP; Thu, 14 Nov 2024 11:42:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836311.1252192; Thu, 14 Nov 2024 11:26:07 +0000
+Received: by outflank-mailman (output) from mailman id 836324.1252202; Thu, 14 Nov 2024 11:42:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBXzD-0001Xh-Ej; Thu, 14 Nov 2024 11:26:07 +0000
-Received: by outflank-mailman (input) for mailman id 836311;
- Thu, 14 Nov 2024 11:26:06 +0000
+	id 1tBYEf-0004rm-OH; Thu, 14 Nov 2024 11:42:05 +0000
+Received: by outflank-mailman (input) for mailman id 836324;
+ Thu, 14 Nov 2024 11:42:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81on=SJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBXzC-0001Xb-6m
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 11:26:06 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1tBYEe-0004rg-JP
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 11:42:04 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b69db8b-a27b-11ef-a0c7-8be0dac302b0;
- Thu, 14 Nov 2024 12:26:03 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-37d6a2aa748so316128f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 03:26:03 -0800 (PST)
+ id 765eee62-a27d-11ef-a0c7-8be0dac302b0;
+ Thu, 14 Nov 2024 12:42:01 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43163667f0eso4710955e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 03:42:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3821ada2d35sm1217706f8f.18.2024.11.14.03.26.02
+ 5b1f17b1804b1-432da27ffafsm20880675e9.22.2024.11.14.03.42.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Nov 2024 03:26:02 -0800 (PST)
+ Thu, 14 Nov 2024 03:42:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b69db8b-a27b-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmQiLCJoZWxvIjoibWFpbC13cjEteDQyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjNiNjlkYjhiLWEyN2ItMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTgzNTYzLjUyNDk5NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 765eee62-a27d-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc2NWVlZTYyLWEyN2QtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTg0NTIxLjQyMzE2Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731583563; x=1732188363; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731584521; x=1732189321; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=r5d34F7KUc1m0vzt31kFemyCLBA/1UsPI6/PPXrUlls=;
-        b=GaLoMmsxUSpJklrAxynlhbihQJAqRYDaGQN6EWd+t7TzfV87zOjcyfGm2Dhr4p5BE6
-         lBDt5Wwz0F5UcAvefJVNGNhE3GxeDQ4bcZFb4uVnZy3osbR3VMyHV8+2qmLrGDawP7lh
-         Z7s7DHl4vxsrp5OEA6WA2AxNWP7yOoD4bEkf6T7LaiINMXht+XS+iJJKwZFbKsCa+5r8
-         E4lNmvrsOz+DDPkWkUYsqtwAyuy7AVmu3uGNoDNcFrYd75XIZqjZiEmxB7go5ap0hgX+
-         brBKEBAcE1z4dI2UexCuIAFsO5gpZm3hV+k3/Fx4Os/u5zA8nVrCDH8v8F4M8FrOV2Cj
-         VaYg==
+        bh=vjPNGdQGo25oHcJOvSGhX3nl6JKxsDZiGpRGUM+/mnw=;
+        b=S7wMEz7wK2+ywWt3GozLqSDUhVljdB3zgVL6z5uNNYjCtESBwVM0oIbFq/5WcZtZuN
+         z9PC2uaZTjcTbE48Cs7R1JyRyYHdo/iz0h9QTH2uKeOmrwJb77J1vdPm3qB5quY9kTUU
+         XqLpsDUoOzEhNzmh4D0LZ8otzHSY2NI0dM0mwTdXVwKEjx6uEHabN7EoKuf548kTENGJ
+         fopocEWcawQGuitlfwb0zw3qvFGlNrQdtxgGPLnKGApWBWuPZfWjjdLCmbryiKUT5PHQ
+         eRCiLBEiDXjNJQJe2jwZKemkNSmbrr1x8yieTuKbRRU31nKrzTk0YrEN/3OiuMXcKFEu
+         gHKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731583563; x=1732188363;
+        d=1e100.net; s=20230601; t=1731584521; x=1732189321;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r5d34F7KUc1m0vzt31kFemyCLBA/1UsPI6/PPXrUlls=;
-        b=VCb4eud1tEd+9QkCBqe0Jx+cvtuyRgKVFM+zTGDiAMlVqhAQHWsKvdXmZWm7bWO+Jr
-         xBk+3Bga0f0cuZuvox5KtlBk3JqKk3wnV6pU7xsSPSt8/PjXPnd71tDbLmnD5y1mQlWY
-         NkXA9r7mdyX79bTcd86D6GSEhNTFQ0NFA2pzZP74rJksiIvS6MtbFXhrP7X1TXv6jAc8
-         gHYGSf3AecvYJGavVuj9V/YXWtG9hPFDFrL5QC575PRnJf8iRmAjGdYa4nPHzzPshYmD
-         GjVqeOmYHJSAOnnUa5+F/W3EAcME0xaJJs4ud0jQ+mS6e/B7HEb9cP56hCzJXoOx4BqT
-         vYbA==
-X-Forwarded-Encrypted: i=1; AJvYcCXmuJiaNnf2DYHEoUomAs495fQrFI/mwgkyL8Te0gNXHN8JdUOEbAuUDyYuz6XHwga6vqDGIGe0VKc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyRDhCe1aCsweUAPVbXWgqA2/W1qBOwISynSTYRgdJLzhiWKvnY
-	LkioruaQIpnGhBCuUNq6MyAd/OZ0i89zfmlB0UDi30VxRU+yR5tqm8ZBxQ+PNA==
-X-Google-Smtp-Source: AGHT+IEg0eavXiTdgvVjkcyUm7odtxVwkPgjUj5e/Eipbiwm4KF9m3YgSSTYP0hHJT8B2BAilpDp6g==
-X-Received: by 2002:a05:6000:18af:b0:37d:3985:8871 with SMTP id ffacd0b85a97d-382185392fbmr1419344f8f.39.1731583562862;
-        Thu, 14 Nov 2024 03:26:02 -0800 (PST)
-Message-ID: <c25b7a62-fc47-440f-9521-f11b65e2cb8b@suse.com>
-Date: Thu, 14 Nov 2024 12:26:01 +0100
+        bh=vjPNGdQGo25oHcJOvSGhX3nl6JKxsDZiGpRGUM+/mnw=;
+        b=TsBdWdLSR3+DrSNTRu1TNjD5FmrSSkg3IiA5bpzdX/P+pfKBDMR3sU6vSp1w6JC+e8
+         qgWPXD/xPIcou8HgGJK9/jzNPsUycbI/sxRd/zygf5Se1nSGuBmPcl0qeGQHQlXuhu4R
+         pmqRhlbon1Pc5qVJOXhS9OzENmTTK7q3YkflkujtSePt9W/Zu9Q4femGEVBwupKDViPC
+         7rMPpSISCOhirdYDEeZBNPzf9R6y8g+gbK4CfXItZP5RI2VcLmOhpA/SN2u5bnLYuUw4
+         KJAg/zPhfZVjXToA/Adk7BgnTnLCV2QU0Dhhcy/UGfP/h5gcd/JqoRDmsILI9nQH4rqG
+         YzXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUkI2T2u/grpeWPyLo3Xek+nXdPnfZQa/Ip07kTdUAgJ8AIYPPwTVdchPG3hfXRppWnqNa8zKoxaBM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxrI8Ho6fL20gqhMWsZQOau38I+l9lDyw/LyQxMZ6dVM9GYiOj
+	c+LAnfklGCTgJj5luVv6hHRPOKNnXOWStNfDTr+PKBzumCoxaiiIqCm+m4aagw==
+X-Google-Smtp-Source: AGHT+IEpEas25+lJXbB6zpvxH+5WeDRGgLx5IjJePN42cRvkOS38/CVshQxDZFSMW55xNWsq1MPECg==
+X-Received: by 2002:a05:600c:548b:b0:426:64a2:5362 with SMTP id 5b1f17b1804b1-432da7a051amr16541365e9.8.1731584520788;
+        Thu, 14 Nov 2024 03:42:00 -0800 (PST)
+Message-ID: <aee06ffe-fb3d-41ab-a715-0bb057d4ca52@suse.com>
+Date: Thu, 14 Nov 2024 12:41:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] x86/ucode: Fix cache handling in
- microcode_update_helper()
+Subject: Re: [PATCH v2 3/3] x86/ucode: Drop MIS_UCODE and
+ microcode_match_result
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241112211915.1473121-1-andrew.cooper3@citrix.com>
- <20241112211915.1473121-3-andrew.cooper3@citrix.com>
+ <20241112211915.1473121-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,48 +115,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241112211915.1473121-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20241112211915.1473121-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.11.2024 22:19, Andrew Cooper wrote:
-> microcode_update_cache() now has a single caller, but inlining it shows how
-> unnecessarily complicated the logic really is.
-> 
-> Outside of error paths, there is always one microcode patch to free.  Its
-> either result of parse_blob(), or it's the old cached value.
-> 
-> In order to fix this, have a local patch pointer (mostly to avoid the
-> unnecessary verbosity of patch_with_flags.patch), and always free it at the
-> end.  The only error path needing care is the IS_ERR(patch) path, which is
-> easy enough to handle.
-> 
-> Also, widen the scope of result.  We only need to call compare_patch() once,
-> and the answer is still good later when updating the cache.  In order to
-> update the cache, simply SWAP() the patch and the cache pointers, allowing the
-> singular xfree() at the end to cover both cases.
-> 
-> This also removes all callers microcode_free_patch() which fixes the need to
-> cast away const to allow it to compile.
-
-I'm sure you're well aware that this in turn is just because of your opposition
-to xfree() and alike taking const void *. Pointers needing to be to non-const
-just because of eventual freeing is precisely the scenario why freeing (and
-unmapping) functions better wouldn't take mutable pointers. Then ...
-
-> --- a/xen/arch/x86/cpu/microcode/core.c
-> +++ b/xen/arch/x86/cpu/microcode/core.c
-> @@ -86,7 +86,7 @@ struct patch_with_flags {
->  static bool ucode_in_nmi = true;
+> @@ -199,8 +198,8 @@ static bool microcode_fits_cpu(const struct microcode_patch *patch)
+>      return equiv.id == patch->processor_rev_id;
+>  }
 >  
->  /* Protected by microcode_mutex */
-> -static const struct microcode_patch *microcode_cache;
-> +static struct microcode_patch *microcode_cache;
+> -static enum microcode_match_result cf_check compare_patch(
+> -    const struct microcode_patch *new, const struct microcode_patch *old)
+> +static int cf_check compare_patch(
+> +    const struct microcode_patch *old, const struct microcode_patch *new)
+>  {
 
-... this imo pretty undesirable change also wouldn't be needed.
+Let's hope we won't screw up a backport because of this swapping. I'd
+like to ask to at least consider renaming at least the functions,
+perhaps also the hook pointer, perhaps simply by switching from singular
+to plural. This would then also avoid reviewers like me to go hunt for
+all uses of the function/hook, in an attempt to make sure none was left
+out when converting.
 
-Nevertheless, in the interest of not blocking this change over a long-standing
-disagreement we have,
+> @@ -54,11 +47,17 @@ struct microcode_ops {
+>                             unsigned int flags);
+>  
+>      /*
+> -     * Given two patches, are they both applicable to the current CPU, and is
+> -     * new a higher revision than old?
+> +     * Given a current patch, and a proposed new patch, order them based on revision.
+> +     *
+> +     * This operation is not necessarily symmetrical.  In some cases, a debug
+> +     * "new" patch will always considered to be newer, on the expectation that
+> +     * whomever is using debug patches knows exactly what they're doing.
+>       */
+> -    enum microcode_match_result (*compare_patch)(
+> -        const struct microcode_patch *new, const struct microcode_patch *old);
+> +#define OLD_UCODE  -1
+
+Nit: I'm pretty sure Misra wants parentheses here.
+
+Preferably with both (mechanical) adjustments:
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
