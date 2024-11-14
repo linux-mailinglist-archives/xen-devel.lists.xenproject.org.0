@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F6C9C8784
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 11:28:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836238.1252122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 214C29C8796
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 11:31:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836248.1252132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBX5H-00069q-Va; Thu, 14 Nov 2024 10:28:19 +0000
+	id 1tBX87-0007vp-Eh; Thu, 14 Nov 2024 10:31:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836238.1252122; Thu, 14 Nov 2024 10:28:19 +0000
+Received: by outflank-mailman (output) from mailman id 836248.1252132; Thu, 14 Nov 2024 10:31:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBX5H-00068B-S2; Thu, 14 Nov 2024 10:28:19 +0000
-Received: by outflank-mailman (input) for mailman id 836238;
- Thu, 14 Nov 2024 10:28:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vGyf=SJ=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tBX5G-000685-1d
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 10:28:18 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 2704c49c-a273-11ef-a0c7-8be0dac302b0;
- Thu, 14 Nov 2024 11:28:13 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A85EC1480;
- Thu, 14 Nov 2024 02:28:42 -0800 (PST)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A7F063F6A8;
- Thu, 14 Nov 2024 02:28:11 -0800 (PST)
+	id 1tBX87-0007uL-Br; Thu, 14 Nov 2024 10:31:15 +0000
+Received: by outflank-mailman (input) for mailman id 836248;
+ Thu, 14 Nov 2024 10:31:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1tBX85-0007uF-Te
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 10:31:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tBX83-004nnl-2a;
+ Thu, 14 Nov 2024 10:31:12 +0000
+Received: from [15.248.3.93] (helo=[10.24.67.25])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tBX83-004BO4-2t;
+ Thu, 14 Nov 2024 10:31:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,279 +39,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2704c49c-a273-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxNy4xNDAuMTEwLjE3MiIsImhlbG8iOiJmb3NzLmFybS5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6IjI3MDRjNDljLWEyNzMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTgwMDkzLjc5MzkxNCwic2VuZGVyIjoibHVjYS5mYW5jZWxsdUBhcm0uY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: [PATCH v2] xen/device-tree: Allow region overlapping with /memreserve/ ranges
-Date: Thu, 14 Nov 2024 10:28:02 +0000
-Message-Id: <20241114102802.54512-1-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=hGhMyGpbShgMMhAFFtpH4iZ6aQ/Ud7JtKzmpyWI7aAI=; b=NqIN1GeNkwjv881FewSb4YbkV/
+	mOqEBOeC9gCZcGwt98my8uK3b4PYvqSZlROnh9WPpAgfuSvVn9+N2RYkgSIMw90dF3E5atYTEauHm
+	Y1JiINF9a+iryjtEJzs5bCCAXvNTP24pw9W99B4nkYY1i8nvM5D3HvPk/eboGxSb3V+4=;
+Message-ID: <92564de9-24f7-4259-bc45-a95680101693@xen.org>
+Date: Thu, 14 Nov 2024 10:31:09 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/device-tree: Allow exact match for overlapping
+ regions
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Michal Orzel <michal.orzel@amd.com>, Luca Fancellu
+ <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20241106134132.2185492-1-luca.fancellu@arm.com>
+ <d9ad0972-2fd1-40ef-a11c-d56e102fef38@amd.com>
+ <c6ba416c-5781-4f23-8623-5f30ce279a29@xen.org>
+ <d87bd0a7-0dc8-44a9-b43e-04a166cb0b6d@amd.com>
+ <91140571-9237-42dc-8eb1-2263bbb23b07@xen.org>
+ <51c04e42-105b-4452-8dd1-dcc1f02c54a2@amd.com>
+ <8d04f515-ae46-4b30-8a98-7822b0d221ed@xen.org>
+ <alpine.DEB.2.22.394.2411131410240.222505@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2411131410240.222505@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-There are some cases where the device tree exposes a memory range
-in both /memreserve/ and reserved-memory node, in this case the
-current code will stop Xen to boot since it will find that the
-latter range is clashing with the already recorded /memreserve/
-ranges.
+Hi Stefano,
 
-Furthermore, u-boot lists boot modules ranges, such as ramdisk,
-in the /memreserve/ part and even in this case this will prevent
-Xen to boot since it will see that the module memory range that
-it is going to add in 'add_boot_module' clashes with a /memreserve/
-range.
+On 13/11/2024 22:41, Stefano Stabellini wrote:
+> On Wed, 13 Nov 2024, Julien Grall wrote:
+>> On 13/11/2024 15:40, Michal Orzel wrote:
+>>> On 13/11/2024 15:40, Julien Grall wrote:
+>>>> On 13/11/2024 14:19, Michal Orzel wrote:
+>>>>> On 13/11/2024 14:50, Julien Grall wrote:
+>>>>>> On 06/11/2024 15:07, Michal Orzel wrote:
+>>>>>>> On 06/11/2024 14:41, Luca Fancellu wrote:
+>>>>>>>> There are some cases where the device tree exposes a memory range
+>>>>>>>> in both /memreserve/ and reserved-memory node, in this case the
+>>>>>>>> current code will stop Xen to boot since it will find that the
+>>>>>>>> latter range is clashing with the already recorded /memreserve/
+>>>>>>>> ranges.
+>>>>>>>>
+>>>>>>>> Furthermore, u-boot lists boot modules ranges, such as ramdisk,
+>>>>>>>> in the /memreserve/ part and even in this case this will prevent
+>>>>>>>> Xen to boot since it will see that the module memory range that
+>>>>>>>> it is going to add in 'add_boot_module' clashes with a
+>>>>>>>> /memreserve/
+>>>>>>>> range.
+>>>>>>>>
+>>>>>>>> When Xen populate the data structure that tracks the memory
+>>>>>>>> ranges,
+>>>>>>>> it also adds a memory type described in 'enum membank_type', so
+>>>>>>>> in order to fix this behavior, allow the
+>>>>>>>> 'check_reserved_regions_overlap'
+>>>>>>>> function to check for exact memory range match given a specific
+>>>>>>>> memory
+>>>>>>>> type; allowing reserved-memory node ranges and boot modules to
+>>>>>>>> have an
+>>>>>>>> exact match with ranges from /memreserve/.
+>>>>>>>>
+>>>>>>>> While there, set a type for the memory recorded during ACPI boot.
+>>>>>>>>
+>>>>>>>> Fixes: 53dc37829c31 ("xen/arm: Add DT reserve map regions to
+>>>>>>>> bootinfo.reserved_mem")
+>>>>>>>> Reported-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+>>>>>>>> Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>>>>>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>>>>>> ---
+>>>>>>>> I tested this patch adding the same range in a /memreserve/ entry
+>>>>>>>> and
+>>>>>>>> /reserved-memory node, and by letting u-boot pass a ramdisk.
+>>>>>>>> I've also tested that a configuration running static shared memory
+>>>>>>>> still works
+>>>>>>>> fine.
+>>>>>>>> ---
+>>>>>>> So we have 2 separate issues. I don't particularly like the concept
+>>>>>>> of introducing MEMBANK_NONE
+>>>>>>> and the changes below look a bit too much for me, given that for
+>>>>>>> boot modules we can only have
+>>>>>>> /memreserve/ matching initrd.
+>>>>>>
+>>>>>> How so? Is this an observation or part of a specification?
+>>>>> Not sure what specification you would want to see.
+>>>>
+>>>> Anything that you bake your observation. My concern with observation is
+>>>> ...
+>>>>
+>>>>     It's all part of U-Boot and Linux behavior that is not documented
+>>>> (except for code comments).
+>>>>> My statement is based on the U-Boot and Linux behavior. U-Boot part only
+>>>>> present for initrd:
+>>>>> https://github.com/u-boot/u-boot/blob/master/boot/fdt_support.c#L249
+>>>>
+>>>> ... a user is not forced to use U-boot. So this is not a good reason to
+>>> I thought that this behavior is solely down to u-boot playing tricks with
+>>> memreserve.
+>>
+>> Sure we noticed that U-boot is doing some we didn't expect. But this really
+>> doesn't mean there are not other interesting behavior happening.
+>>
+>>>
+>>>> rely on it. If Linux starts to rely on it, then it is probably a better
+>>>> argument, but first I would need to see the code. Can you paste a link?
+>>> Not sure how I would do that given that it is all scattered.
+>>
+>> There are no requirements to be all scattered.
+>>
+>>> But if it means sth, here is kexec code> to create fdt. It is clear they do
+>> the same trick as u-boot.
+>>> https://github.com/torvalds/linux/blob/master/drivers/of/kexec.c#L355
+>>
+>> Yet this doesn't provide any information why this only has to be an exact
+>> region... It only tells me the current behavior.
+>>
+>>>
+>>>>
+>>>>>
+>>>>> For things that Xen can be interested in, only region for ramdisk for
+>>>>> dom0 can match the /memreserve/ region.
+>>>>> Providing a generic solution (like Luca did) would want providing an
+>>>>> example of sth else that can match which I'm not aware of.
+>>>>
+>>>> I would argue this is the other way around. If we are not certain that
+>>>> /memreserve/ will not be used for any other boot module, then we should
+>>>> have a generic solution. Otherwise, we will end up with similar weird
+>>>> issue in the future.
+>>> We have 3 possible modules for bootloader->kernel workflow: kernel, dtb and
+>>> ramdisk. The first 2 are not described in DT so I'm not sure
+>>> what are your examples of bootmodules for which you want kernel know about
+>>> memory reservation other than ramdisk.
+>>
+>> The DTB is not described but the kernel is. We also have XSM modules. All of
+>> which could in theory be in memreserve if for some reasons the bootloader
+>> wanted to preserve the modules for future use (think Live-Update)...
+>>
+>> Anyway, to be honest, I don't understand why you are pushing back at a more
+>> generic solution... Yes this may be what we just notice today, but I haven't
+>> seen any evidence that it never happen.
+>>
+>> So I would rather go with the generic solution.
+> 
+> I looked into the question: "Is this an observation or part of a
+> specification?"
+> 
+> Looking at the device tree specification
+> source/chapter5-flattened-format.rst:"Memory Reservation Block"
+> 
+> It says:
+> 
+> "It is used to protect vital data structures from being overwritten by
+> the client program." [...] "More specifically, a client program shall
+> not access memory in a reserved region unless other information provided
+> by the boot program explicitly indicates that it shall do so."
+> 
+> 
+> I think it is better to stay on the safe side and implement in Xen a
+> more generic behavior to support /memreserve/. It is possible that in a
+> future board more information could be residing in a /memreserve/
+> region. For instance, I could imagine EFI runtime services residing in a
+> /memreserve/ region.
 
-When Xen populate the data structure that tracks the memory ranges,
-it also adds a memory type described in 'enum membank_type', so
-in order to fix this behavior, allow overlapping with the /memreserve/
-ranges in the 'check_reserved_regions_overlap' function when a flag
-is set.
+I am not 100% sure about this one. The specification implies that if a 
+region is reserved, then it would need to be marked as 
+EfiReservedMemoryType in the EFI memory map. But for EFI runtime 
+services, they should be using EfiRuntimeServicesCode or 
+EfiRuntimeServicesData.
 
-In order to implement this solution, there is a distinction between
-the 'struct membanks *' handled by meminfo_overlap_check(...) that
-needs to be done, because the static shared memory banks doesn't have
-a usable bank[].type field and so it can't be accessed, hence now
-the 'struct membanks_hdr' have a 'enum region_type type' field in order
-to be able to identify static shared memory banks in meminfo_overlap_check(...).
+> 
+> I am a bit confused by ranges that are both in /memreserve/ and
+> /reserved-memory. Ranges under /memreserve/ should not be accessed at
+> all (unless otherwise specified), ranges under /reserved-memory are
+> reserved for specific drivers.
 
-While there, set a type for the memory recorded using meminfo_add_bank()
-from efi-boot.h.
+IIUC /memreserve/ is the legacy approach for describing reserved regions.
 
-Fixes: 53dc37829c31 ("xen/arm: Add DT reserve map regions to bootinfo.reserved_mem")
-Reported-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes from v1:
- - fixed commit message
- - used boolean to allow /memreserve/ overlap or not
- - now 'struct membanks *' have a type, while it might seem a waste of space,
-   it might be used in the future to consolidate also the 'struct bootmodules'
-   and 'struct bootcmdlines' to use the same 'struct membanks *' interface.
-   Also the added space is limited to 3/4 enum size.
- - The change above allowed this version to remove the "hack" when dealing with
-   static shared memory banks, that doesn't have a type.
+> I guess ranges that are both in /memreserve/ and /reserved-memory are
+> exactly the type of ranges that fall under this statement in the spec:
+> "unless other information provided by the boot program explicitly
+> indicates that it shall do so".
 
-I tested this patch adding the same range in a /memreserve/ entry and
-/reserved-memory node, and by letting u-boot pass a ramdisk.
-I've also tested that a configuration running static shared memory still works
-fine.
----
----
- xen/arch/arm/efi/efi-boot.h       |  3 ++-
- xen/arch/arm/static-shmem.c       |  2 +-
- xen/common/device-tree/bootfdt.c  |  9 ++++++-
- xen/common/device-tree/bootinfo.c | 39 +++++++++++++++++++++++--------
- xen/include/xen/bootfdt.h         | 20 +++++++++++++---
- 5 files changed, 57 insertions(+), 16 deletions(-)
+Yes. The OS would be able to use the range based what /reserved-memory 
+says. Note that you can also the describe a region from /memreserve/ 
+outside or /reserved-memory (such as the CPU spin table).
 
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 199f5260229d..a80a5a7ab326 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -167,13 +167,14 @@ static bool __init meminfo_add_bank(struct membanks *mem,
-     if ( mem->nr_banks >= mem->max_banks )
-         return false;
- #ifdef CONFIG_ACPI
--    if ( check_reserved_regions_overlap(start, size) )
-+    if ( check_reserved_regions_overlap(start, size, false) )
-         return false;
- #endif
- 
-     bank = &mem->bank[mem->nr_banks];
-     bank->start = start;
-     bank->size = size;
-+    bank->type = MEMBANK_DEFAULT;
- 
-     mem->nr_banks++;
- 
-diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
-index aa80756c3ca5..66088a426785 100644
---- a/xen/arch/arm/static-shmem.c
-+++ b/xen/arch/arm/static-shmem.c
-@@ -696,7 +696,7 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
-         if (i < mem->max_banks)
-         {
-             if ( (paddr != INVALID_PADDR) &&
--                 check_reserved_regions_overlap(paddr, size) )
-+                 check_reserved_regions_overlap(paddr, size, false) )
-                 return -EINVAL;
- 
-             /* Static shared memory shall be reserved from any other use. */
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index 927f59c64b0d..241810212c02 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -176,8 +176,15 @@ static int __init device_tree_get_meminfo(const void *fdt, int node,
-     for ( i = 0; i < banks && mem->nr_banks < mem->max_banks; i++ )
-     {
-         device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
-+        /*
-+         * Some valid device trees, such as those generated by OpenPOWER
-+         * skiboot firmware, expose all reserved memory regions in the
-+         * FDT memory reservation block AND in the reserved-memory node which
-+         * has already been parsed. Thus, any matching overlaps in the
-+         * reserved_mem banks should be ignored.
-+         */
-         if ( mem == bootinfo_get_reserved_mem() &&
--             check_reserved_regions_overlap(start, size) )
-+             check_reserved_regions_overlap(start, size, true) )
-             return -EINVAL;
-         /* Some DT may describe empty bank, ignore them */
-         if ( !size )
-diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
-index f2e6a1145b7c..b36b05fd9224 100644
---- a/xen/common/device-tree/bootinfo.c
-+++ b/xen/common/device-tree/bootinfo.c
-@@ -99,7 +99,8 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
-  */
- static bool __init meminfo_overlap_check(const struct membanks *mem,
-                                          paddr_t region_start,
--                                         paddr_t region_size)
-+                                         paddr_t region_size,
-+                                         bool allow_memreserve_overlap)
- {
-     paddr_t bank_start = INVALID_PADDR, bank_end = 0;
-     paddr_t region_end = region_start + region_size;
-@@ -113,12 +114,23 @@ static bool __init meminfo_overlap_check(const struct membanks *mem,
-         if ( INVALID_PADDR == bank_start || region_end <= bank_start ||
-              region_start >= bank_end )
-             continue;
--        else
--        {
--            printk("Region: [%#"PRIpaddr", %#"PRIpaddr") overlapping with bank[%u]: [%#"PRIpaddr", %#"PRIpaddr")\n",
--                   region_start, region_end, i, bank_start, bank_end);
--            return true;
--        }
-+
-+        /*
-+         * If allow_memreserve_overlap is set, this check allows a region to be
-+         * included in a MEMBANK_FDT_RESVMEM bank, but struct membanks *mem of
-+         * type STATIC_SHARED_MEMORY don't set the bank[].type field because
-+         * that is declared in a union with a field that is instead used,
-+         * in any case this restriction is ok since STATIC_SHARED_MEMORY banks
-+         * are not meant to clash with FDT /memreserve/ ranges.
-+         */
-+        if ( allow_memreserve_overlap && mem->type != STATIC_SHARED_MEMORY &&
-+             region_start >= bank_start && region_end <= bank_end &&
-+             mem->bank[i].type == MEMBANK_FDT_RESVMEM )
-+            continue;
-+
-+        printk("Region: [%#"PRIpaddr", %#"PRIpaddr") overlapping with bank[%u]: [%#"PRIpaddr", %#"PRIpaddr")\n",
-+                region_start, region_end, i, bank_start, bank_end);
-+        return true;
-     }
- 
-     return false;
-@@ -171,7 +183,8 @@ void __init fw_unreserved_regions(paddr_t s, paddr_t e,
-  * existing reserved memory regions, otherwise false.
-  */
- bool __init check_reserved_regions_overlap(paddr_t region_start,
--                                           paddr_t region_size)
-+                                           paddr_t region_size,
-+                                           bool allow_memreserve_overlap)
- {
-     const struct membanks *mem_banks[] = {
-         bootinfo_get_reserved_mem(),
-@@ -190,7 +203,8 @@ bool __init check_reserved_regions_overlap(paddr_t region_start,
-      * shared memory banks (when static shared memory feature is enabled)
-      */
-     for ( i = 0; i < ARRAY_SIZE(mem_banks); i++ )
--        if ( meminfo_overlap_check(mem_banks[i], region_start, region_size) )
-+        if ( meminfo_overlap_check(mem_banks[i], region_start, region_size,
-+                                   allow_memreserve_overlap) )
-             return true;
- 
-     /* Check if input region is overlapping with bootmodules */
-@@ -216,7 +230,12 @@ struct bootmodule __init *add_boot_module(bootmodule_kind kind,
-         return NULL;
-     }
- 
--    if ( check_reserved_regions_overlap(start, size) )
-+    /*
-+     * u-boot adds boot module such as ramdisk to the /memreserve/, since these
-+     * ranges are saved in reserved_mem at this stage, allow an eventual exact
-+     * match with MEMBANK_FDT_RESVMEM banks.
-+     */
-+    if ( check_reserved_regions_overlap(start, size, true) )
-         return NULL;
- 
-     for ( i = 0 ; i < mods->nr_mods ; i++ )
-diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index 16fa05f38f38..cea40ee11706 100644
---- a/xen/include/xen/bootfdt.h
-+++ b/xen/include/xen/bootfdt.h
-@@ -48,6 +48,12 @@ enum membank_type {
-     MEMBANK_FDT_RESVMEM,
- };
- 
-+enum region_type {
-+    MEMORY,
-+    RESERVED_MEMORY,
-+    STATIC_SHARED_MEMORY
-+};
-+
- /* Indicates the maximum number of characters(\0 included) for shm_id */
- #define MAX_SHM_ID_LENGTH 16
- 
-@@ -71,6 +77,7 @@ struct membanks {
-     __struct_group(membanks_hdr, common, ,
-         unsigned int nr_banks;
-         unsigned int max_banks;
-+        enum region_type type;
-     );
-     struct membank bank[];
- };
-@@ -136,13 +143,17 @@ struct bootinfo {
- };
- 
- #ifdef CONFIG_ACPI
--#define BOOTINFO_ACPI_INIT .acpi.common.max_banks = NR_MEM_BANKS,
-+#define BOOTINFO_ACPI_INIT                          \
-+    .acpi.common.max_banks = NR_MEM_BANKS,          \
-+    .acpi.common.type = MEMORY
- #else
- #define BOOTINFO_ACPI_INIT
- #endif
- 
- #ifdef CONFIG_STATIC_SHM
--#define BOOTINFO_SHMEM_INIT .shmem.common.max_banks = NR_SHMEM_BANKS,
-+#define BOOTINFO_SHMEM_INIT                         \
-+    .shmem.common.max_banks = NR_SHMEM_BANKS,       \
-+    .shmem.common.type = STATIC_SHARED_MEMORY
- #else
- #define BOOTINFO_SHMEM_INIT
- #endif
-@@ -150,7 +161,9 @@ struct bootinfo {
- #define BOOTINFO_INIT                               \
- {                                                   \
-     .mem.common.max_banks = NR_MEM_BANKS,           \
-+    .mem.common.type = MEMORY,                      \
-     .reserved_mem.common.max_banks = NR_MEM_BANKS,  \
-+    .reserved_mem.common.type = RESERVED_MEMORY,    \
-     BOOTINFO_ACPI_INIT                              \
-     BOOTINFO_SHMEM_INIT                             \
- }
-@@ -158,7 +171,8 @@ struct bootinfo {
- extern struct bootinfo bootinfo;
- 
- bool check_reserved_regions_overlap(paddr_t region_start,
--                                    paddr_t region_size);
-+                                    paddr_t region_size,
-+                                    bool allow_memreserve_overlap);
- 
- struct bootmodule *add_boot_module(bootmodule_kind kind,
-                                    paddr_t start, paddr_t size, bool domU);
+> 
+> The way I see it from the device tree spec, I think Xen should not map
+> /memreserve/ ranges to Dom0, and it should avoid accessing them itself.
+
+See above, Xen should be able to access the regions in /memreserve/. But 
+it should map them in the directmap.
+
+> But if a range is both in /memreserve/ and also in /reserved-memory,
+> then basically /reserved-memory takes precedence, so Xen should map it
+> to Dom0.
+
+Unless Xen needs to use some of them. At which point this will need to 
+be excluded from Dom0.
+
+Looking at the code, I think /memreserve/ and /reserved-memory are not 
+mapped in Xen and everything in /reserved-memory is mapped to dom0.
+
+Cheers,
+
 -- 
-2.34.1
+Julien Grall
 
 
