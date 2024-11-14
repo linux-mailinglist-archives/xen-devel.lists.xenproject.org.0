@@ -2,33 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D229C8550
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 09:53:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836087.1251962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD3169C859B
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 10:05:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836101.1251972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBVbi-0001X7-FH; Thu, 14 Nov 2024 08:53:42 +0000
+	id 1tBVn7-0003Nh-MQ; Thu, 14 Nov 2024 09:05:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836087.1251962; Thu, 14 Nov 2024 08:53:42 +0000
+Received: by outflank-mailman (output) from mailman id 836101.1251972; Thu, 14 Nov 2024 09:05:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBVbi-0001Uw-C7; Thu, 14 Nov 2024 08:53:42 +0000
-Received: by outflank-mailman (input) for mailman id 836087;
- Thu, 14 Nov 2024 08:53:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tBVn7-0003M4-JY; Thu, 14 Nov 2024 09:05:29 +0000
+Received: by outflank-mailman (input) for mailman id 836101;
+ Thu, 14 Nov 2024 09:05:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Deeb=SJ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tBVbh-0001Um-Kt
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 08:53:41 +0000
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [2607:f8b0:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f05bf705-a265-11ef-a0c7-8be0dac302b0;
- Thu, 14 Nov 2024 09:53:38 +0100 (CET)
-Received: by mail-ot1-x331.google.com with SMTP id
- 46e09a7af769-718078c7f53so144502a34.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 00:53:38 -0800 (PST)
+ <SRS0=/i0B=SJ=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
+ id 1tBVn6-0003Ly-9E
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 09:05:28 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 928667d7-a267-11ef-99a3-01e77a169b0f;
+ Thu, 14 Nov 2024 10:05:20 +0100 (CET)
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-408-EpdrKsGPPOq9VAjB3_UR3Q-1; Thu, 14 Nov 2024 04:05:17 -0500
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-53da203141bso281615e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 01:05:16 -0800 (PST)
+Received: from ?IPv6:2001:16b8:3dc0:7e00:9ea7:2841:8d4a:6aac?
+ ([2001:16b8:3dc0:7e00:9ea7:2841:8d4a:6aac])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432dab788e1sm13078295e9.15.2024.11.14.01.05.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Nov 2024 01:05:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,216 +50,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f05bf705-a265-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC1vdDEteDMzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImYwNWJmNzA1LWEyNjUtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTc0NDE4LjgyMTc5NCwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1731574417; x=1732179217; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9zXyvrAQAAMPEylwu5zr8e1VGZBnx70oFNdJ3TYfH98=;
-        b=ZRb8UTPvJclDEYKg4RTwnIZT6BQQ8yBQZDUYugLWJz+hFDXSkljCCRc1FOGNRF2uHm
-         hGEXjk6UmRcz20bZG5EJJUgUBnG2ztai3eWZDQCb91tJD25oLbdH6ZEOLuEEUgV3XwcD
-         NbUR5omul01i/hxixbS+feUt7z3+rLZsDE6LU=
+X-Inumbo-ID: 928667d7-a267-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMzMuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjkyODY2N2Q3LWEyNjctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTc1MTIwLjY3MzA4OSwic2VuZGVyIjoicHN0YW5uZXJAcmVkaGF0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1731575119;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kF95GC+iUY1Dm9Qv60S9X5a5C7Gjugcat/GIm+/tUc4=;
+	b=GsiOO7ifx1YCaMFAgQm31YEU0WUwTtW6TGcA8d6VFV+DBqip5wofcMl/rKT8i31+xi47fa
+	fLAO0thBoPn4PGJZQ8cDOl52EIPRCXiyaZT23uPDHflLaZ2AaG80SWtC9bTJExmIUPSfDH
+	c38pj3dgyzwT9jZPmDT2CjnqI+CR3y4=
+X-MC-Unique: EpdrKsGPPOq9VAjB3_UR3Q-1
+X-Mimecast-MFC-AGG-ID: EpdrKsGPPOq9VAjB3_UR3Q
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731574417; x=1732179217;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9zXyvrAQAAMPEylwu5zr8e1VGZBnx70oFNdJ3TYfH98=;
-        b=DnxCfBC2qJf5RqwaBGRYN3SLqqqMWbeL58+ihEY5reL4VX8CxoQ136/r5cUS0xIkbb
-         Gw25zu3lFXrdIR3BtfEBa7N+cnpT/Cx+oiCwDnSH9tos8R7LWjvwDmuz2dUgS8dT0Tdw
-         M+dkFYU3ow78jJSjSpHYvZHbMqJ6xz/3BZL1UoMWaifAdVEgE+ha9+sJh/lVSqiSKbZj
-         xMObVka7x8Wp6bi2O2djie8vICrhhoN8Kzr4F+zxsYGu2PCOPQoS1+rKsFvxu2hGBzEA
-         VoAOd9FiXx6gXdy0l9QBbQrztOCYUeebMJIRnIwd1xLhacEnTqLTk8rTMIXpHtSQ7yRB
-         smIA==
-X-Gm-Message-State: AOJu0YwxA1H+yWxGf8zaylqMaNyv15ceL3YaZv991E/ut4IwacO89FTe
-	n8L803cDhHis/b3fZgmG6Oun2ZiZrqeZxiL0YoZIeHcGtprFhABO59MOT7gTEnuOnPtkoBHiEam
-	otvpV4hkE+Oq/ImXsKi87NdJ/rE3elYys82I7VQ==
-X-Google-Smtp-Source: AGHT+IGz+4f4KCsDL0Zchbq6KKm8CMMkjUyObB7rY1NmLW4bZUlHR5PrCshlnlXboaZCHWsrr9THY+3Ea5+nrkZqRjM=
-X-Received: by 2002:a05:6830:6f41:b0:717:fbfe:52bc with SMTP id
- 46e09a7af769-71a6aeb3310mr1452003a34.12.1731574417408; Thu, 14 Nov 2024
- 00:53:37 -0800 (PST)
+        d=1e100.net; s=20230601; t=1731575115; x=1732179915;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kF95GC+iUY1Dm9Qv60S9X5a5C7Gjugcat/GIm+/tUc4=;
+        b=SuLdqOysIxQU0KAWCq0kkVNpMetEu7ZT4/TafjLnDUmQU8W+B63IVxBXpw6CJ6gira
+         KdqiIpg+ekKIHtMnNd/33EurrCZvXLSHuI7uPBqDUVX26CNFg30Oh9DfQ9e73EoNzbHZ
+         wrSS11wiqQi8k+UBqIusvmoywPj3jnqT5fWQP9tpd0LrXMYfcaWIwwzGj8mfv+e0q348
+         iHpgLDqRy1ZEgXV2y1ZALHIUD2kiHQ6Z9uUwqZvzPtra8ZuzFg7chLtGxmfLTx8XVX6f
+         NEwHKNuhFBnky19bDm1ASlug5f5nQZZNCMHi1sVkI0W59wX2vOB5ba6pk19Q9kv+f8n7
+         V7yA==
+X-Forwarded-Encrypted: i=1; AJvYcCVpnNqCimj3BMKcXg2tioX7cBlV2FE1ow/TE3tt5b1g29Xo2KM9MCvn97u5v+1DL4acQVvpMTAEb8Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzRD4vamzmcH4IiusP7GHkRF8hNjLf8yJpV2OTegemDNVO0Jjiv
+	DkkqxBjptnNYo6oC7CNcMIe2IEnk68MwgYVoG0J7fHEL+hkf2NeHWDJHoMh2adbKbR7OSXJuOqY
+	UfZYLTLmjAXlZazYigWRgzBmUOi/j3m3X2sQUaGgHlb5k2KwbjORy2mB4KqKuGZgm
+X-Received: by 2002:a05:6512:1191:b0:539:f67b:b849 with SMTP id 2adb3069b0e04-53d862f33b4mr10003041e87.49.1731575115345;
+        Thu, 14 Nov 2024 01:05:15 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHN0Hy6qiNEuUsypmH2/i/ZX6h1LZFagvmv3lYpze64dRxm0m4HLn6U0lfPme4RmJ7ieJ/jJA==
+X-Received: by 2002:a05:6512:1191:b0:539:f67b:b849 with SMTP id 2adb3069b0e04-53d862f33b4mr10002974e87.49.1731575114801;
+        Thu, 14 Nov 2024 01:05:14 -0800 (PST)
+Message-ID: <49bb6fc9ebff3cae844da0465ceadeef8d3217c7.camel@redhat.com>
+Subject: Re: [PATCH v2 11/11] Remove devres from pci_intx()
+From: Philipp Stanner <pstanner@redhat.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Damien Le Moal
+ <dlemoal@kernel.org>,  Niklas Cassel <cassel@kernel.org>, Basavaraj Natikar
+ <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>,  Benjamin
+ Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
+ Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+ <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
+ <rmody@marvell.com>,  GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
+ <imitsyanko@quantenna.com>,  Sergey Matyukevich <geomatsi@gmail.com>, Kalle
+ Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar
+ S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
+ <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Chen Ni <nichen@iscas.ac.cn>, Ricky Wu
+ <ricky_wu@realtek.com>,  Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao
+ <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>, Mostafa Saleh
+ <smostafa@google.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>, Kunwu Chan
+ <chentao@kylinos.cn>, Ankit Agrawal <ankita@nvidia.com>, Christian Brauner
+ <brauner@kernel.org>, Reinette Chatre <reinette.chatre@intel.com>, Eric
+ Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-input@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Date: Thu, 14 Nov 2024 10:05:12 +0100
+In-Reply-To: <87msi3ksru.ffs@tglx>
+References: <20241113124158.22863-2-pstanner@redhat.com>
+	 <20241113124158.22863-13-pstanner@redhat.com> <87msi3ksru.ffs@tglx>
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40)
 MIME-Version: 1.0
-References: <20241113185118.1786703-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20241113185118.1786703-1-andrew.cooper3@citrix.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 14 Nov 2024 08:53:26 +0000
-Message-ID: <CACHz=ZgnikqJwEiw95BWtdua6YrHgaMuUZqP-PMkhHPH3q6j4g@mail.gmail.com>
-Subject: Re: [PATCH] xen/multiboot: Make headers be standalone
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 7O4NZwr53TI6qDHlas2a0-JI9hQcjbFUsQqhoQvlF3g_1731575115
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-On Wed, Nov 13, 2024 at 6:51=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
->
-> Both require xen/types.h.
->
-> Change multiboot.h to include const.h by it's more normal path, and swap =
-u32
-> for uint32_t.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> ---
->  xen/include/xen/multiboot.h  | 68 +++++++++++++++++++-----------------
->  xen/include/xen/multiboot2.h |  3 ++
->  2 files changed, 38 insertions(+), 33 deletions(-)
->
-> diff --git a/xen/include/xen/multiboot.h b/xen/include/xen/multiboot.h
-> index 80a1761d9ee7..7ba86aab73d8 100644
-> --- a/xen/include/xen/multiboot.h
-> +++ b/xen/include/xen/multiboot.h
-> @@ -17,7 +17,7 @@
->  #ifndef __MULTIBOOT_H__
->  #define __MULTIBOOT_H__
->
-> -#include "const.h"
-> +#include <xen/const.h>
->
->  /*
->   * Multiboot header structure.
-> @@ -45,41 +45,43 @@
->
->  #ifndef __ASSEMBLY__
->
-> +#include <xen/types.h>
-> +
->  /* The symbol table for a.out.  */
->  struct aout_symbol_table {
-> -    u32 tabsize;
-> -    u32 strsize;
-> -    u32 addr;
-> -    u32 reserved;
-> +    uint32_t tabsize;
-> +    uint32_t strsize;
-> +    uint32_t addr;
-> +    uint32_t reserved;
->  };
->  typedef struct aout_symbol_table aout_symbol_table_t;
->
->  /* The section header table for ELF.  */
->  struct elf_section_header_table {
-> -    u32 num;
-> -    u32 size;
-> -    u32 addr;
-> -    u32 shndx;
-> +    uint32_t num;
-> +    uint32_t size;
-> +    uint32_t addr;
-> +    uint32_t shndx;
->  };
->  typedef struct elf_section_header_table elf_section_header_table_t;
->
->  /* The Multiboot information.  */
->  struct multiboot_info {
-> -    u32 flags;
-> +    uint32_t flags;
->
->      /* Valid if flags sets MBI_MEMLIMITS */
-> -    u32 mem_lower;
-> -    u32 mem_upper;
-> +    uint32_t mem_lower;
-> +    uint32_t mem_upper;
->
->      /* Valid if flags sets MBI_BOOTDEV */
-> -    u32 boot_device;
-> +    uint32_t boot_device;
->
->      /* Valid if flags sets MBI_CMDLINE */
-> -    u32 cmdline;
-> +    uint32_t cmdline;
->
->      /* Valid if flags sets MBI_MODULES */
-> -    u32 mods_count;
-> -    u32 mods_addr;
-> +    uint32_t mods_count;
-> +    uint32_t mods_addr;
->
->      /* Valid if flags sets ... */
->      union {
-> @@ -88,42 +90,42 @@ struct multiboot_info {
->      } u;
->
->      /* Valid if flags sets MBI_MEMMAP */
-> -    u32 mmap_length;
-> -    u32 mmap_addr;
-> +    uint32_t mmap_length;
-> +    uint32_t mmap_addr;
->
->      /* Valid if flags sets MBI_DRIVES */
-> -    u32 drives_length;
-> -    u32 drives_addr;
-> +    uint32_t drives_length;
-> +    uint32_t drives_addr;
->
->      /* Valid if flags sets MBI_BIOSCONFIG */
-> -    u32 config_table;
-> +    uint32_t config_table;
->
->      /* Valid if flags sets MBI_LOADERNAME */
-> -    u32 boot_loader_name;
-> +    uint32_t boot_loader_name;
->
->      /* Valid if flags sets MBI_APM */
-> -    u32 apm_table;
-> +    uint32_t apm_table;
->  };
->  typedef struct multiboot_info multiboot_info_t;
->
->  /* The module structure.  */
->  struct module {
-> -    u32 mod_start;
-> -    u32 mod_end;
-> -    u32 string;
-> -    u32 reserved;
-> +    uint32_t mod_start;
-> +    uint32_t mod_end;
-> +    uint32_t string;
-> +    uint32_t reserved;
->  };
->  typedef struct module module_t;
->
->  /* The memory map. Be careful that the offset 0 is base_addr_low
->     but no size.  */
->  struct memory_map {
-> -    u32 size;
-> -    u32 base_addr_low;
-> -    u32 base_addr_high;
-> -    u32 length_low;
-> -    u32 length_high;
-> -    u32 type;
-> +    uint32_t size;
-> +    uint32_t base_addr_low;
-> +    uint32_t base_addr_high;
-> +    uint32_t length_low;
-> +    uint32_t length_high;
-> +    uint32_t type;
->  };
->  typedef struct memory_map memory_map_t;
->
-> diff --git a/xen/include/xen/multiboot2.h b/xen/include/xen/multiboot2.h
-> index 7cda620eec8a..f96f5d4c3169 100644
-> --- a/xen/include/xen/multiboot2.h
-> +++ b/xen/include/xen/multiboot2.h
-> @@ -114,6 +114,9 @@
->  #define MULTIBOOT2_FRAMEBUFFER_TYPE_EGA_TEXT            2
->
->  #ifndef __ASSEMBLY__
-> +
-> +#include <xen/types.h>
-> +
->  typedef struct {
->      uint32_t total_size;
->      uint32_t reserved;
+T24gV2VkLCAyMDI0LTExLTEzIGF0IDE3OjIyICswMTAwLCBUaG9tYXMgR2xlaXhuZXIgd3JvdGU6
+Cj4gT24gV2VkLCBOb3YgMTMgMjAyNCBhdCAxMzo0MSwgUGhpbGlwcCBTdGFubmVyIHdyb3RlOgo+
+ID4gcGNpX2ludHgoKSBpcyBhIGh5YnJpZCBmdW5jdGlvbiB3aGljaCBjYW4gc29tZXRpbWVzIGJl
+IG1hbmFnZWQKPiA+IHRocm91Z2gKPiA+IGRldnJlcy4gVGhpcyBoeWJyaWQgbmF0dXJlIGlzIHVu
+ZGVzaXJhYmxlLgo+ID4gCj4gPiBTaW5jZSBhbGwgdXNlcnMgb2YgcGNpX2ludHgoKSBoYXZlIGJ5
+IG5vdyBiZWVuIHBvcnRlZCBlaXRoZXIgdG8KPiA+IGFsd2F5cy1tYW5hZ2VkIHBjaW1faW50eCgp
+IG9yIG5ldmVyLW1hbmFnZWQgcGNpX2ludHhfdW5tYW5hZ2VkKCksCj4gPiB0aGUKPiA+IGRldnJl
+cyBmdW5jdGlvbmFsaXR5IGNhbiBiZSByZW1vdmVkIGZyb20gcGNpX2ludHgoKS4KPiA+IAo+ID4g
+Q29uc2VxdWVudGx5LCBwY2lfaW50eF91bm1hbmFnZWQoKSBpcyBub3cgcmVkdW5kYW50LCBiZWNh
+dXNlCj4gPiBwY2lfaW50eCgpCj4gPiBpdHNlbGYgaXMgbm93IHVubWFuYWdlZC4KPiA+IAo+ID4g
+UmVtb3ZlIHRoZSBkZXZyZXMgZnVuY3Rpb25hbGl0eSBmcm9tIHBjaV9pbnR4KCkuIEhhdmUgYWxs
+IHVzZXJzIG9mCj4gPiBwY2lfaW50eF91bm1hbmFnZWQoKSBjYWxsIHBjaV9pbnR4KCkuIFJlbW92
+ZSBwY2lfaW50eF91bm1hbmFnZWQoKS4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogUGhpbGlwcCBT
+dGFubmVyIDxwc3Rhbm5lckByZWRoYXQuY29tPgo+ID4gLS0tCj4gPiDCoGRyaXZlcnMvbWlzYy9j
+YXJkcmVhZGVyL3J0c3hfcGNyLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gPiDC
+oGRyaXZlcnMvbWlzYy90aWZtXzd4eDEuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB8wqAgNiArLS0KPiA+IMKgLi4uL25ldC9ldGhlcm5ldC9icm9hZGNvbS9ibngy
+eC9ibngyeF9tYWluLmPCoCB8wqAgMiArLQo+ID4gwqBkcml2ZXJzL25ldC9ldGhlcm5ldC9icm9j
+YWRlL2JuYS9ibmFkLmPCoMKgwqDCoMKgwqAgfMKgIDIgKy0KPiA+IMKgZHJpdmVycy9udGIvaHcv
+YW1kL250Yl9od19hbWQuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDQgKy0KPiA+
+IMKgZHJpdmVycy9udGIvaHcvaW50ZWwvbnRiX2h3X2dlbjEuY8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfMKgIDIgKy0KPiA+IMKgZHJpdmVycy9wY2kvZGV2cmVzLmPCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArLQo+ID4gwqBkcml2ZXJzL3Bj
+aS9tc2kvYXBpLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfMKgIDIgKy0KPiA+IMKgZHJpdmVycy9wY2kvbXNpL21zaS5jwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstCj4gPiDCoGRyaXZlcnMvcGNp
+L3BjaS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgfCA0MyArLS0tLS0tLS0tLS0tLS0KPiA+IC0tLS0KPiA+IMKgZHJpdmVycy92ZmlvL3Bj
+aS92ZmlvX3BjaV9jb3JlLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQo+ID4g
+wqBkcml2ZXJzL3ZmaW8vcGNpL3ZmaW9fcGNpX2ludHJzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfCAxMCArKy0tLQo+ID4gwqBkcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlX2hl
+YWRlci5jwqDCoCB8wqAgMiArLQo+ID4gwqBpbmNsdWRlL2xpbnV4L3BjaS5owqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMSAtCj4gPiDCoDE0
+IGZpbGVzIGNoYW5nZWQsIDIyIGluc2VydGlvbnMoKyksIDYyIGRlbGV0aW9ucygtKQo+IAo+IE5v
+dyBJJ20gdXR0ZXJseSBjb25mdXNlZC4gVGhpcyB1bmRvZXMgdGhlIHBjaV9pbnR4X3VubWFuYWdl
+ZCgpIGNodXJuCj4gd2hpY2ggeW91IGNhcmVmdWxseSBzcGxpdCBpbnRvIHNldmVyYWwgcGF0Y2hl
+cyBmaXJzdC4KCkhhdmUgeW91IHJlYWQgdGhlIGVtYWlsIEkgaGF2ZSBsaW5rZWQ/CgpUaGVyZSBp
+cyBhbHNvIHRoZSBjb3Zlci1sZXR0ZXIgKGRvZXMgYW55b25lIGluIHRoZSBjb21tdW5pdHkgZXZl
+ciByZWFkCnRob3NlPykgd2hpY2ggZXhwbGljaXRseSBzdGF0ZXM6CgoiUGF0Y2ggIlJlbW92ZSBk
+ZXZyZXMgZnJvbSBwY2lfaW50eCgpIiBvYnZpb3VzbHkgcmV2ZXJ0cyB0aGUgcHJldmlvdXMKcGF0
+Y2hlcyB0aGF0IG1hZGUgZHJpdmVycyB1c2UgcGNpX2ludHhfdW5tYW5hZ2VkKCkuIEJ1dCB0aGlz
+IHdheSBpdCdzCmVhc2llciB0byByZXZpZXcgYW5kIGFwcHJvdmUuIEl0IGFsc28gbWFrZXMgc3Vy
+ZSB0aGF0IGVhY2ggY2hlY2tlZCBvdXQKY29tbWl0IHNob3VsZCBwcm92aWRlIGNvcnJlY3QgYmVo
+YXZpb3IsIG5vdCBqdXN0IHRoZSBlbnRpcmUgc2VyaWVzIGFzIGEKd2hvbGUuIgpQLgoKCgo+IAo+
+IFNvIHRoZSBuZXQgY2hhbmdlIGlzIHRoYXQ6Cj4gCj4gwqDCoCAxKSBwY2lfaW50eCgpIGlzIG5v
+dyBhbHdheXMgdW5tYW5hZ2VkCj4gCj4gwqDCoCAyKSBhIGNvdXBsZSBvZiBkcml2ZXJzIHVzZSBw
+Y2ltX2ludHgoKSBub3cgaW5zdGVhZCBvZiBwY2lfaW50eCgpCj4gCj4gVGhlIG9idmlvdXMgb3Jk
+ZXJpbmcgaXM6Cj4gCj4gwqDCoCAxKSBDb252ZXJ0IHRoZSBkcml2ZXJzIHdoaWNoIG5lZWQgdGhl
+IG1hbmFnZWQgdmVyc2lvbiB0byB1c2UKPiDCoMKgwqDCoMKgIHBjaW1faW50eCgpCj4gCj4gwqDC
+oCAyKSBSZW1vdmUgdGhlIG1hbmFnZWQgd2FybmluZyBpbiBwY2lfaW50eCgpIGFuZCBjbGVhbiB1
+cCB0aGUKPiBjb21tZW50Cj4gCj4gwqDCoCAzKSBSZW1vdmUgX19wY2ltX2ludHgoKSBhbmQgaW52
+b2tlIHBjaV9pbnR4KCkgaW4gdGhlIGRldnJlcyBjb2RlLgo+IAo+IE5vPwo+IAo+IFRoYW5rcywK
+PiAKPiDCoMKgwqDCoMKgwqDCoCB0Z2x4Cj4gCgoK
 
-Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-
-Frediano
 
