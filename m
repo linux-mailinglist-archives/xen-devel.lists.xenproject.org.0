@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08FE49C86DA
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 11:07:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836193.1252071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E5C59C8704
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 11:10:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836200.1252081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBWlC-0000Xr-C4; Thu, 14 Nov 2024 10:07:34 +0000
+	id 1tBWnx-00021N-Pn; Thu, 14 Nov 2024 10:10:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836193.1252071; Thu, 14 Nov 2024 10:07:34 +0000
+Received: by outflank-mailman (output) from mailman id 836200.1252081; Thu, 14 Nov 2024 10:10:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBWlC-0000VA-9Y; Thu, 14 Nov 2024 10:07:34 +0000
-Received: by outflank-mailman (input) for mailman id 836193;
- Thu, 14 Nov 2024 10:07:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tBWnx-0001zt-Mk; Thu, 14 Nov 2024 10:10:25 +0000
+Received: by outflank-mailman (input) for mailman id 836200;
+ Thu, 14 Nov 2024 10:10:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81on=SJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBWlB-0000V1-8j
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 10:07:33 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 424cf16e-a270-11ef-a0c7-8be0dac302b0;
- Thu, 14 Nov 2024 11:07:30 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4314f38d274so5410815e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 02:07:30 -0800 (PST)
+ id 1tBWnv-0001zn-TK
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 10:10:23 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a69bf387-a270-11ef-99a3-01e77a169b0f;
+ Thu, 14 Nov 2024 11:10:18 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43168d9c6c9so4069475e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 02:10:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432dab80869sm14787605e9.22.2024.11.14.02.07.29
+ 5b1f17b1804b1-432dac21b24sm14685735e9.40.2024.11.14.02.10.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Nov 2024 02:07:29 -0800 (PST)
+ Thu, 14 Nov 2024 02:10:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 424cf16e-a270-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjQyNGNmMTZlLWEyNzAtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTc4ODUwLjc4ODcwOCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: a69bf387-a270-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImE2OWJmMzg3LWEyNzAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTc5MDE4LjkwMDI0Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731578850; x=1732183650; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731579018; x=1732183818; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=h35C8okQB3vNG4nYnR3qa6Ma0o9RA/+n/DAO/zZDwzY=;
-        b=Guxe0J+fbZQb0rTPaL5MaJ3l2oNdOkFhu50DP+bbF4xbhbla/HXMBjTkewvrvwZtoJ
-         mIkSh2JHwJUKRI7wbiPppncMA3tJVCycMvkppbXu51Q2B5DekbZ9Urh3Ws65L4VqF4T5
-         EZzmkOpbP5vSzuRJguZWJ2ttLvmj2aQnIlfctNGYBGrFFpUrAM/D1xhCgojTOm6p0PIb
-         Ue4E695choF9H8dodtMVHqnOX6AKJoP2pTU4whOZcGhlQDBEcifi1eKci7OyVLS7bCHi
-         ilfreoJwkHqcsyyZhANXSPFi6h6mW1fOW/Wp1cmAdmCiWQ66YY7nbF3DEO/+f63L/jEf
-         ExvQ==
+        bh=8dfSkGZICL1J8WfSRv2JnimtXyU3rdrWxDcbKCG938Y=;
+        b=UScoZ5GLd0qHYzxyRIZn7C8GQ4wXmdsNISnNavIOGlP+8aUuc/ShyOJGPOJGMLbnCI
+         M9h67QQ1RUqTDCmTy9J6hx2RgPXF1Z7lco0BNip1pZfNGYVvA5Mj0gjBFu+U74/M7dV2
+         02sZO8nZB9rGKN76xEi/6nmZ5QLpoaVnV6nAjY8rAq4JSe/aw9G2JN1to96OcLuzwyMF
+         ubdsvdfUSslaQR2iLlg2B1OI//SXl0IVJKGfvGf8hAAgcBIOp0hYuIsdcDbJaQLEulfC
+         ETeFJKho8Fnv4T97BEht3SewfUKQH2UyTnBZEQ5QyNXuxnxcqaNj5b2KJ5PfyFDtf6Wu
+         9LHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731578850; x=1732183650;
+        d=1e100.net; s=20230601; t=1731579018; x=1732183818;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=h35C8okQB3vNG4nYnR3qa6Ma0o9RA/+n/DAO/zZDwzY=;
-        b=vPpp88rwohAWBod4Ne1waXxXRdCqfFqZXZZwLorDajKLAk/MXeUkqAieMjlO0cGe8h
-         ekXa/SvtwfTMsL7yK/JaCkU3MoZK6oSZvfRRNDApQIM+RfKjW+78r9m/ynTrdkBrh9kj
-         oUIkEy51skMpMEawZmc/uxOW3JO2S8AkH7k7IqNsRiw3BQPz5vPL1tkOTA+IqdTA6EvR
-         sKLtx0d32SwzQrPmBuUV6b6StKxNKABa74Prg2mNdOoNR9z5MD1g/43X6Oy++E+SCqqm
-         iHIcZh23FPjpKdp+7w2uS9v6ugRMc1fqu/wl3k6huDMh3jXjo8SC+IVDGyq0MkDZlxjo
-         ko+w==
-X-Forwarded-Encrypted: i=1; AJvYcCVVjmOd4wcXZxQrF+bgknvV4dMmy8NBwBWPlfmc3Q0P6VptETCicDtJGBVsI+kWauoA5iJTKCfPBFo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwxzbWOn4If2/KBJYcSnigJY4s6hsm358y8myfFBHmiUS+AZWDG
-	If4MnYx6FROU0w3NAj+HaUOGBZFdeFxLuMwDOEBup8eatABU1m1MgIubsE19VA==
-X-Google-Smtp-Source: AGHT+IFv+mi/8TtfDSFXoiFf+r7veAvvmt6Alm4tF7Jef+vjQ8x65PxZWcWFJjkuJ+W7QVD5CxHBbw==
-X-Received: by 2002:a05:600c:314c:b0:431:9a26:3cf6 with SMTP id 5b1f17b1804b1-432da7a050fmr17177635e9.4.1731578849976;
-        Thu, 14 Nov 2024 02:07:29 -0800 (PST)
-Message-ID: <f9142dfb-8403-46d6-a4a9-3d09966cefb2@suse.com>
-Date: Thu, 14 Nov 2024 11:07:28 +0100
+        bh=8dfSkGZICL1J8WfSRv2JnimtXyU3rdrWxDcbKCG938Y=;
+        b=qUqLpkMmvVI8iDCkRfYUzlQKYCnJg4dkzXiOt390yaybCtQTcx8/DtTgJDM3hosVOh
+         F77POP6nb6L5Vb7nOXxjnlx0AmcM8lgOM3zu2a/2OZWCwt4BGJEpllNK9IIN2neTHKMY
+         L2S/o5gn3FrsQ9alestkso46HtyPwx2N2tI79Cp5/AWZgvNFyvE7aAa2GxvXmSiLnxyt
+         0/nqxVmzlGdK5cMJXmaTQvmEJFQ2JZVM8vHnsUCGCaAQ09S0w26M55otdDeqG34tSZhI
+         QPJBa69bYCrTZkfKUShhElGSOK34uG4QS34txrtRzDOHhLcGGrnkSRzzr08gY1YanG4V
+         evcw==
+X-Forwarded-Encrypted: i=1; AJvYcCUwKLo5eTGlZj0QIKSkJpzXjvSu+HhKOzpJSh42I2GIuM/kmSnw6cwmnyuL45n4MtmRLm7s6hux1vM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywt4vZY+BgcwAssHxrp7XKd0KegsC587d6P7Qqi9vWc9CHUDt1r
+	a/Cr3VqIEposOL1Uo6auhGCHNnHcZ956Z8sy+QkWt+xDVKKoRPCOyvFfsHvQWA==
+X-Google-Smtp-Source: AGHT+IE+TVu3RelUzAu+3Cuj+He5kgdqiH7lNzJbcGLhnFlFMpsycsQrkFNPQtuk/9PC9qXgTWBe0g==
+X-Received: by 2002:a05:600c:138a:b0:431:59ab:15cf with SMTP id 5b1f17b1804b1-432b75061c3mr207278925e9.19.1731579018227;
+        Thu, 14 Nov 2024 02:10:18 -0800 (PST)
+Message-ID: <3dd6042c-139c-406b-bdde-aa2c3115f73b@suse.com>
+Date: Thu, 14 Nov 2024 11:10:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] x86/trampoline: Check the size permanent
- trampoline at link time
+Subject: Re: [PATCH v2 2/4] x86/trampoline: Simplify the wakeup_stack checks
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "Daniel P . Smith" <dpsmith@apertussolutions.com>,
@@ -92,7 +91,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20241114090810.1961175-1-andrew.cooper3@citrix.com>
- <20241114090810.1961175-2-andrew.cooper3@citrix.com>
+ <20241114090810.1961175-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,16 +117,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241114090810.1961175-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20241114090810.1961175-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.11.2024 10:08, Andrew Cooper wrote:
-> This is a little safer than leaving it to hope.
+> By checking that the permanent trampoline fits within 1k (at the time of
+> writing, it's 0x229 bytes), we can simplify the wakeup_stack handling.
+> 
+> Move the setup into wakeup.S, because it's rather out of place in
+> trampoline.S, and change it to a local symbol.
+> 
+> Drop wakeup_stack_start and WAKEUP_STACK_MIN entirely.
+> 
+> No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one nit:
 
+> --- a/xen/arch/x86/boot/trampoline.S
+> +++ b/xen/arch/x86/boot/trampoline.S
+> @@ -156,11 +156,6 @@ GLOBAL(trampoline_xen_phys_start)
+>  GLOBAL(trampoline_cpu_started)
+>          .byte   0
+>  
+> -/* The first page of trampoline is permanent, the rest boot-time only. */
+> -/* Reuse the boot trampoline on the 1st trampoline page as stack for wakeup. */
+> -        .equ    wakeup_stack, trampoline_start + PAGE_SIZE
+> -        .global wakeup_stack
+> -
+>  LABEL(trampoline_perm_end, 0)
+>  
+>  /* From here on early boot only. */
+> diff --git a/xen/arch/x86/boot/wakeup.S b/xen/arch/x86/boot/wakeup.S
+> index df5ea2445739..d53f92b02463 100644
+> --- a/xen/arch/x86/boot/wakeup.S
+> +++ b/xen/arch/x86/boot/wakeup.S
+> @@ -1,5 +1,10 @@
+>          .code16
+>  
+> +/* The first page of trampoline is permanent, the rest boot-time only. */
+> +/* Reuse the boot logic on the first trampoline page as stack for wakeup. */
+> +        .equ    wakeup_stack, trampoline_start + PAGE_SIZE
+> +        .local  wakeup_stack
+> +
+>  #define wakesym(sym) (sym - wakeup_start)
 
+As you move it, it would be nice for the commentary to become a single
+multi-line comment rather than two single-line ones.
+
+Jan
 
