@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330B99C8CBA
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 15:20:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836508.1252409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 036519C8D72
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 15:59:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836524.1252419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBahy-0002zq-2K; Thu, 14 Nov 2024 14:20:30 +0000
+	id 1tBbIY-0007N3-RZ; Thu, 14 Nov 2024 14:58:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836508.1252409; Thu, 14 Nov 2024 14:20:30 +0000
+Received: by outflank-mailman (output) from mailman id 836524.1252419; Thu, 14 Nov 2024 14:58:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBahx-0002y7-Vt; Thu, 14 Nov 2024 14:20:29 +0000
-Received: by outflank-mailman (input) for mailman id 836508;
- Thu, 14 Nov 2024 14:20:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tBbIY-0007KN-OW; Thu, 14 Nov 2024 14:58:18 +0000
+Received: by outflank-mailman (input) for mailman id 836524;
+ Thu, 14 Nov 2024 14:58:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3TDs=SJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tBahw-0002y1-Qb
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 14:20:28 +0000
+ <SRS0=QegD=SJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tBbIX-0007K6-0z
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 14:58:17 +0000
 Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
  [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96899994-a293-11ef-a0c7-8be0dac302b0;
- Thu, 14 Nov 2024 15:20:24 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id deaf943d-a298-11ef-99a3-01e77a169b0f;
+ Thu, 14 Nov 2024 15:58:12 +0100 (CET)
 Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a9ed49edd41so116267966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 06:20:24 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e047cb4sm67793066b.166.2024.11.14.06.20.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Nov 2024 06:20:23 -0800 (PST)
+ a640c23a62f3a-a9aa8895facso131186466b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 06:58:12 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa20e04676csm71508766b.157.2024.11.14.06.58.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Nov 2024 06:58:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +44,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96899994-a293-11ef-a0c7-8be0dac302b0
+X-Inumbo-ID: deaf943d-a298-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MjkiLCJoZWxvIjoibWFpbC1lajEteDYyOS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk2ODk5OTk0LWEyOTMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTk0MDI0LjI3NzY0Miwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Custom-Transaction: eyJpZCI6ImRlYWY5NDNkLWEyOTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTk2MjkyLjgzMzQ1Mywic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731594024; x=1732198824; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cJnXthI6RT1kM32h4bRBg6KgzEy+vWKReKKP+zyw52A=;
-        b=u0Flerj4bMpIFOXykOMVPf/DoQjUo0Eolk8SrqFek/bdg2/drbPBbBwz6YUDkRjEQA
-         w6aJySrSem5XTwY0F6DILozauK9Pda+zJW/czuZqeIuK6w3PbEf2zqQZNm8dqm20FvHC
-         Pb/uG+YdWNFM+siHvc9UteOSn8hRK3jn+NNgI=
+        d=citrix.com; s=google; t=1731596292; x=1732201092; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QCwomx5oWlO9wzXtDz6ZAqMPkfB4MOVjmOfc5ylfA5w=;
+        b=cP/lkVHoUVliE9szsfk2lW7eOv23P50p3A6Gw4Oxwl+emXBvJC1LJ2DPvB1xeSAyCJ
+         5qazQtW12HzNA7gHm3x/VTr3G5YszJ4ubnumFmPdeWjcF9zzKj+G/71aSs2oVT3Jw0AG
+         1G8YAUVXiIQoYepe/UoKRHhbdg3hFkzIc1PFc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731594024; x=1732198824;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cJnXthI6RT1kM32h4bRBg6KgzEy+vWKReKKP+zyw52A=;
-        b=SXend49FLNMY+SCCEX/D4ookZmyu5UyNt8C74z0qsGs39mA+sYumUznS7Wyzmoi6BJ
-         E+ukVHYeSNYxwClvYEheiuz8Hg7gRpuAVyNL/GtrxftHeq51ptmrzzfn35r9isT3w0Ge
-         2a+eCrVZoKNSdlVwJ/Jn+ej+7KVejTb+UTuy4GpI3m1tCz080NpIgiha81hS5CnRnxR9
-         KVAg27JAcrA5hOgMPTOT7Vme4PbvVE0wLl+MthcyFCdOjbakY4WEyqaJzIvHxyMMhD9b
-         ZYJMAfw1othWLKPs1lnSlJIdPGKJcYTaN12HGtpXCQ5hyQFjYMsFQa0AKovomXlZAvSL
-         MwQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXwtodE78W7ZC1twrRKndwymbCLga6E5Z+QE0ZfHuB2dxzvPyXQo1XxBuN0nPu5sixVc6x++XrAKbI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yygt3Sx2i2VjpFonHHeaNBnsbLsYU5xcZBK5whagmMKccpdxlUY
-	iXABYHNRV9CrqcloTr3IQLA/B24PQEE1Y+ehORqUxHbJbNiR4GzGMP9hZawz1dA=
-X-Google-Smtp-Source: AGHT+IH1gPTSm3us+pUTO6hVPnkNcMCLk0dYKhK/B3nfzh/GBCIBjBrdb/0Uc5vDeLmTwwcUuIvipA==
-X-Received: by 2002:a17:907:7f1f:b0:a9a:9ab:6233 with SMTP id a640c23a62f3a-a9eeff44cfcmr2664018866b.34.1731594023668;
-        Thu, 14 Nov 2024 06:20:23 -0800 (PST)
-Message-ID: <f380a78a-306e-4561-bed6-1f07db1bf744@citrix.com>
-Date: Thu, 14 Nov 2024 14:20:21 +0000
+        d=1e100.net; s=20230601; t=1731596292; x=1732201092;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QCwomx5oWlO9wzXtDz6ZAqMPkfB4MOVjmOfc5ylfA5w=;
+        b=P8D9oFbdLr/wyZg2ie5Tp0oXKhEv4c/QhLJ4en5BPedn1FXbGG1KJOt8ZHv2XY8XDf
+         3LKbYMgPwxtIo0IM/JRNZgP4d0qJqP0DaEYTccr16shWXHWU57uCPjqBgNe2o42fMbo4
+         /cnQuuOjqS9eGfpkGJdWJgccVnTChC0jltcT6Zzx0jv+6fNvWmRb6LFOaA3l8utbUXp2
+         7uArjrqJl/r/J52UFVXrOVMklqXSM+GyK+SQe7NbaHly3wOLl94GcXg37T8O2Yv56gGq
+         MuxiElSL0OTJL2AJEn15+J5xSlceFIUiSS2DicUfFPHQ6o61Xkky3tI6sBrbYpBHUuh2
+         3vcQ==
+X-Gm-Message-State: AOJu0YylpOxZw3/aB1VL7O1h8PJMKU2yHeDoEpQrYcktYEODhb13AVsC
+	YwhG+IavjaPG3zBf8W7IW/KjQGO+48gF2LBSRWNy3K4/pDeA8RipRXaIrs8dRG9YjsMB/OZFN/s
+	K
+X-Google-Smtp-Source: AGHT+IG5kd+2M59kuF5D4Q+iisSIKim4XR0z0mBjGlBgQowljIJ4vjkj6a2zuc0j1WQTclCGlNc9Bg==
+X-Received: by 2002:a17:907:3e9e:b0:a9a:8674:1739 with SMTP id a640c23a62f3a-a9ef0008cf0mr2359333466b.53.1731596291895;
+        Thu, 14 Nov 2024 06:58:11 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v3 0/4] x86/mm: miscellaneous fixes
+Date: Thu, 14 Nov 2024 15:57:11 +0100
+Message-ID: <20241114145715.59777-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: preparations for 4.19.1
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Kelly Choi <kelly.choi@cloud.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ddc41c9d-9754-4fde-bac0-6389511a7f7c@suse.com>
- <686facb6-0a6a-471c-a91c-b593cee7831a@citrix.com>
- <9482f40c-4913-4114-a951-6f92d95d4995@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9482f40c-4913-4114-a951-6f92d95d4995@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/11/2024 12:46 pm, Jan Beulich wrote:
-> On 13.11.2024 16:20, Andrew Cooper wrote:
->> On 12/11/2024 1:00 pm, Jan Beulich wrote:
->>> the release is due by the end of the month. Please point out backports you find
->>> missing from the respective staging branch, but which you consider relevant.
->> Looking over the XenServer patchqueue:
-> First, overall - that's quite a few.
+Hello,
 
-As chance would have it, we've just started efforts to move forward from
-4.17.
+The attempt to fix destroy_xen_mappings() so that L2 tables are
+consistently freed uncovered some errors in the memory management code.
+The following series attempts to fix them.
 
+All patches except for 4/4 are new in v2, and 4/4 has no change from v1,
+hence kept Jan's Reviewed-by tag in 4/4.
 
->> ba709d514aac: x86/viridian: Clarify some viridian logging strings
-> Not really a backporting candidate imo.
->> This is a diagnostic improvement, also from a customer bug:
->>
->> 2f413e22fa5e: x86/msr: add log messages to MSR state load error paths
-> Again - not really a backporting candidate imo.
+Thanks, Roger.
 
-There have been a steady stream of requests for help on list and on
-matrix, with people asking the wrong question because the Viridian error
-message is plain wrong for anyone who isn't an expert in the TLFS spec.
+Roger Pau Monne (4):
+  x86/mm: introduce helpers to detect super page alignment
+  x86/mm: skip super-page alignment checks for non-present entries
+  x86/setup: remove bootstrap_map_addr() usage of destroy_xen_mappings()
+  x86/mm: ensure L2 is always freed if empty
 
-What is even worse is that I've been trying to fix this damn error
-message for 5 years
-https://lore.kernel.org/xen-devel/20190913160404.495-1-andrew.cooper3@citrix.com/T/#u
-because it had already been causing confusion for years prior.
+ xen/arch/x86/mm.c    | 33 ++++++++++++++++++++++-----------
+ xen/arch/x86/setup.c |  4 +++-
+ 2 files changed, 25 insertions(+), 12 deletions(-)
 
+-- 
+2.46.0
 
-Good (or better) error messages are worth their weight in gold, for ease
-of investigating bug reports if nothing else.They really should be
-considered in the same category as bugfixes, IMO.
->> These are from a livepatching snafu:
->>
->> 3a28da8f4daf: xen/livepatch: remove useless check for duplicated sections
->> 8c81423038f1: xen/livepatch: drop load_addr Elf section field
->> 86d09d16dd74: xen/livepatch: simplify and unify logic in prepare_payload()
->> fa49f4be413c: xen/livepatch: do Xen build-id check earlier
->> aa5a06d5d6ed: x86/alternatives: do not BUG during apply
->>
->> where the buildid check is much too late.
-> I certainly agree with taking the last two. The first three though are all
-> "no functional change", which generally I'd prefer to omit unless they're
-> strictly prereqs, or diverging from master is deemed to be a severe issue.
-
-Patch 1 might be able to be excluded without too much trouble.
-
-Patch 2 and 3 are both prerequisites; the first to get a usable pointer
-early enough to do the check, and the second to get a suitable helper to
-perform the check with.
-
-~Andrew
 
