@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97999C85A3
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 10:08:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836113.1252022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 744E99C8637
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 10:33:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836155.1252031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBVpz-0004xh-Aa; Thu, 14 Nov 2024 09:08:27 +0000
+	id 1tBWDf-0002Rf-33; Thu, 14 Nov 2024 09:32:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836113.1252022; Thu, 14 Nov 2024 09:08:27 +0000
+Received: by outflank-mailman (output) from mailman id 836155.1252031; Thu, 14 Nov 2024 09:32:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBVpz-0004vP-6K; Thu, 14 Nov 2024 09:08:27 +0000
-Received: by outflank-mailman (input) for mailman id 836113;
- Thu, 14 Nov 2024 09:08:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3TDs=SJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tBVpy-0003tk-4l
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 09:08:26 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff9d46c9-a267-11ef-99a3-01e77a169b0f;
- Thu, 14 Nov 2024 10:08:22 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a9ed7d8c86cso67320066b.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 01:08:22 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e046ea8sm38491166b.169.2024.11.14.01.08.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Nov 2024 01:08:18 -0800 (PST)
+	id 1tBWDf-0002Q0-04; Thu, 14 Nov 2024 09:32:55 +0000
+Received: by outflank-mailman (input) for mailman id 836155;
+ Thu, 14 Nov 2024 09:32:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=81on=SJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tBWDc-0002Ps-Rg
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 09:32:52 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 68eb9ebe-a26b-11ef-a0c7-8be0dac302b0;
+ Thu, 14 Nov 2024 10:32:47 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2fb5fa911aaso6041171fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 01:32:47 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432da244924sm17233795e9.7.2024.11.14.01.32.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Nov 2024 01:32:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,234 +45,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff9d46c9-a267-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmYiLCJoZWxvIjoibWFpbC1lajEteDYyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImZmOWQ0NmM5LWEyNjctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTc1MzAyLjcyOTE2LCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 68eb9ebe-a26b-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzMiLCJoZWxvIjoibWFpbC1sajEteDIzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjY4ZWI5ZWJlLWEyNmItMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTc2NzY3Ljg3MzM5NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731575300; x=1732180100; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AzhC3CskSAYSceEJrXwog7riTboPPINw/IB+Rl7oKhQ=;
-        b=u3HBvDtSLa60U0ewO92D+YXUtdDWk/aYPv2INQ7VVoTVNnmET0NcGn2Yn8GtdyEv9m
-         XqlJM4aJ5OQ+LO7Ecp9Lcrzh9QlUjC7pKbdwU5krkM7awmtA262AS6x1xBi0NUhbU97r
-         wLw355rHKcysRqQQ6kpV2dOwL6AQFyaLGKZkU=
+        d=suse.com; s=google; t=1731576767; x=1732181567; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=CzXrmpKY1AwjTX7JjIVttAni6DzCxl8k37LNhWVE4xI=;
+        b=Z9HKLu3fTx8W5tnV1rOpCaWKq9Sg6mc8UIIEwzmaEOnu0PxjOt6f6f4Ej6th4ZwF9u
+         YmowEL3k+QbcIKy4BYs9BMeIhTQLiU4uAkC7lz2Y1olFrem3MwFuskqt2ji77XP7HEnl
+         LHW1UYE1gPtbWvsV+CoBWFLuhH9x2ub0INKGDJC/NNfcfRpGqRJNaMMAZWU358aECgnV
+         jstrplap7SSnThW/E5SvJ0aYDsg+b/cdk1PM8GfjP2bu5otl0fe4Te//9UIISyw3U3Cs
+         rZmBvqwXpmagQEdg3VBhQdGFm5mUv7em/LCPOt47Zv/0aJl8DHOQItE8TswYKIinOWVy
+         K6Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731575300; x=1732180100;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=AzhC3CskSAYSceEJrXwog7riTboPPINw/IB+Rl7oKhQ=;
-        b=o/hQDOWivXO1CxaF8Vfkw1DJ3xufGamJYDTfcOYABV9VjeaPCsWHeK6G1d68uvY0c9
-         CBm7YMU3nrNfCmF3wU+F/8oalWQWbVYYVfGKwnqAwuVLP4HUm8dWxKGHifBrDJ8AqhAa
-         lkAPPL0ADdDQ36oQ0ezq+zAoZzvn/gFd2MGzFU4JW1B7C+Xr9KRyweu/+RhutI/MykNv
-         nI8Uf30zZUSBmFTokHEPwTQiNcY6pKqTnXLByB+6lX9c7w1HIcDASFjvg0wPSf4q+mf9
-         LmnCAUk0r1KZjAeXhifbrw4YlKqYRU3d46GXHUfmYs/4pH542wSi+OCBktu/mRgET79F
-         fnjQ==
-X-Gm-Message-State: AOJu0YzB1X+GgUiR15neXECUG0Brdm64N9asFIgwgNg4k/cWevQeZApq
-	/6kxn7wTQVVIc7kaB5wXdH2d3DEO8IpHVJ/i5HbOgrjFW5PRpr+iCKPflpHtDZnsgeC2GEJFQGC
-	6
-X-Google-Smtp-Source: AGHT+IGy4EuJZwRq5bc/7ApZUcEBGKmle0oLQ/NfTck0CKaeiRQyx/m9zDmYBW9ih+vPq0IMEKeLmg==
-X-Received: by 2002:a17:906:99c4:b0:a99:caf5:c897 with SMTP id a640c23a62f3a-aa1f805886emr570186566b.20.1731575299947;
-        Thu, 14 Nov 2024 01:08:19 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Subject: [PATCH v2 4/4] x86/trampoline: Rationalise the constants to describe the size
-Date: Thu, 14 Nov 2024 09:08:10 +0000
-Message-Id: <20241114090810.1961175-5-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241114090810.1961175-1-andrew.cooper3@citrix.com>
-References: <20241114090810.1961175-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1731576767; x=1732181567;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CzXrmpKY1AwjTX7JjIVttAni6DzCxl8k37LNhWVE4xI=;
+        b=iXPy3l5H96+kchGWPeoyoLBmaLa60r1LnDkrPIGGyvvP6GGEiRCjS6HZ/1dv2dgIm9
+         UIsccNKy5NunUbS/eVoqTQLWaw9hNanmRc4Pb/ak9MdDxjAJvQMORmIM8DTMnufQH3R1
+         ke1a8kcmjlT90IEpzu63gU3BVDTOQomopZaS+SC+B8sUIV1oU4dyikf/WfxrcSg6VFOa
+         CVkHbVIowUzX1BBSPLX2tLdKIvwTYtV99Ax42/TkoFP9wBFpYGBj3Ta9mqPUkcTmRCCm
+         cTGqOEV6gK+mTS3OnIwqaObKwqa2ZeUX3kx/PKQcR8db3dnSEy6rvWKU32DRaBCXA+Mg
+         y+7w==
+X-Forwarded-Encrypted: i=1; AJvYcCUD6bWdgdLyCdR8kYJ9eU8NeFhf/cIgzAiMrcOj8ib0AXwQsv0q1JOOzYZDjvNZ5Z6nH1N6E2exVQ0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYhGdvGl69vBbC5V1J4GaTzEhTEthbj03austMr9A7dcmEOmp5
+	yKTYWbrBiTyX8dGfdk1tIwJkPNWCl8r0iHsjmED8yqRu0TYGIzprmiR5Ft5j5g==
+X-Google-Smtp-Source: AGHT+IHE7fDkyB35uuCrBW4Nz99ABm/O5HwOliuZXdahrOdib1s1d71HXmngT11EV4b4HDMRPzn/Rg==
+X-Received: by 2002:a2e:b896:0:b0:2ff:559e:c877 with SMTP id 38308e7fff4ca-2ff5909e884mr11336211fa.33.1731576767119;
+        Thu, 14 Nov 2024 01:32:47 -0800 (PST)
+Message-ID: <318c3af2-6233-4778-9fe9-2f9397025039@suse.com>
+Date: Thu, 14 Nov 2024 10:32:45 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] xen/multicall: Change nr_calls to uniformly be
+ unsigned long
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240621205800.329230-1-andrew.cooper3@citrix.com>
+ <20240621205800.329230-3-andrew.cooper3@citrix.com>
+ <660fc551-c6bc-456f-8e9e-80b3e592fece@suse.com>
+ <alpine.DEB.2.22.394.2411121912400.222505@ubuntu-linux-20-04-desktop>
+ <35b585a0-7d19-4b02-8ad6-90c7df3ae6ac@suse.com>
+ <alpine.DEB.2.22.394.2411131825400.222505@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2411131825400.222505@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-The logic is far more sane to follow with a total size, and the position of
-the end of the heap.  Remove or fix the remaining descriptions of how the
-trampoline is laid out.
+On 14.11.2024 03:34, Stefano Stabellini wrote:
+> On Wed, 13 Nov 2024, Jan Beulich wrote:
+>> On 13.11.2024 04:15, Stefano Stabellini wrote:
+>>> It is challenging to create a solution that satisfies everyone for this
+>>> patch. However, we should add R8.3 to the clean list as soon as possible
+>>> to enable rule blocking in GitLab-CI. Failing to do so risks introducing
+>>> regressions, as recently occurred, undoing the significant efforts made
+>>> by Bugseng and the community over the past year.
+>>>
+>>> Unless there is a specific counterproposal, let us proceed with
+>>> committing this patch.
+>>
+>> Well, I find this odd. We leave things sit in limbo for months and then
+>> want to go ahead with a controversial solution? Rather than actually
+>> (and finally) sorting out the underlying disagreement (of which there
+>> are actually two sufficiently separate parts)? Plus ...
+> 
+> The reason is that several MISRA regressions were recently introduced.
+> These regressions could have been easily detected by GitLab CI if we had
+> marked the rules as clean. I believe we should expedite accepting the
+> fixes and marking the rules as clean. We can always adjust the fixes or
+> deviations later to better suit our preferences. In my opinion, we
+> should prioritize marking the rules as clean.
+> 
+> 
+>>> On Mon, 24 Jun 2024, Jan Beulich wrote:
+>>>> On 21.06.2024 22:58, Andrew Cooper wrote:
+>>>>> Right now, the non-compat declaration and definition of do_multicall()
+>>>>> differing types for the nr_calls parameter.
+>>>>>
+>>>>> This is a MISRA rule 8.3 violation, but it's also time-bomb waiting for the
+>>>>> first 128bit architecture (RISC-V looks as if it might get there first).
+>>>>>
+>>>>> Worse, the type chosen here has a side effect of truncating the guest
+>>>>> parameter, because Xen still doesn't have a clean hypercall ABI definition.
+>>>>>
+>>>>> Switch uniformly to using unsigned long.
+>>>>
+>>>> And re-raising all the same question again: Why not uniformly unsigned int?
+>>>> Or uint32_t?
+>>
+>> ... this question of mine effectively represents a concrete alternative
+>> proposal (or even two, if you like).
+>>
+>> The two parts where there appears to be disagreement are:
+>> 1) When to (not) use fixed width types, as presently outlined in
+>>    ./CODING_STYLE.
+>> 2) How to type C function parameters called solely from assembly code (of
+>>    which the hypercall handlers are a subset).
+>>
+>> And maybe
+>> 2b) How to best express such function parameters when they're (sometimes)
+>>     shared between native and compat handlers.
+>>
+>> Of course 2) is affected by, as Andrew validly says, there not being a
+>> formally clean ABI definition.
+>>
+>> My fear is that if this gets committed as is, it'll be used as a handle to
+>> force in further similarly questionable / controversial changes to other
+>> hypercall handlers. Which is why I think the controversy needs sorting out
+>> first (which admittedly is hard when the ABI is fuzzy).
+> 
+> While I appreciate your concern, as you know, aligning on the topics
+> above takes time. I do not believe it is in the interest of the
+> community, both contributors and reviewers, to delay marking this rule
+> as clean. Honestly, I do not mind how it gets marked as clean, as long
+> as we do it soon.
+> 
+> Additionally, please keep in mind that the Xen Project tends to have a
+> long memory. As a result, there is usually little risk of the so-called
+> "slippery slope" problem.
+> 
+> If you prefer a deviation I am OK with that too. I just want 8.3 as
+> clean :-) 
 
-Move the relevant constants into trampoline.h, which requires making the
-header safe to include in assembly files.
+No, please no deviations when we can avoid them. Since it feels like it's
+always (going to be?) me to give in when there is such disagreement, why
+don't I do so here as well: Go ahead.
 
-No functional change.  The compiled binary is identical.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-CC: Frediano Ziglio <frediano.ziglio@cloud.com>
-CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-
-v2:
- * Fix typos
- * Rebase over removal of WAKEUP_STACK_MIN
- * Move constants into trampoline.h
----
- xen/arch/x86/boot/head.S              | 23 ++++-------------------
- xen/arch/x86/boot/reloc.c             |  5 ++---
- xen/arch/x86/efi/efi-boot.h           |  2 +-
- xen/arch/x86/include/asm/config.h     |  4 ----
- xen/arch/x86/include/asm/trampoline.h |  8 ++++++++
- xen/arch/x86/xen.lds.S                |  3 ++-
- 6 files changed, 17 insertions(+), 28 deletions(-)
-
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index dcda91cfda49..1b3bd16fe575 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -8,6 +8,8 @@
- #include <asm/processor.h>
- #include <asm/msr-index.h>
- #include <asm/cpufeature.h>
-+#include <asm/trampoline.h>
-+
- #include <public/elfnote.h>
- 
- #define ENTRY(name)                             \
-@@ -494,7 +496,7 @@ trampoline_bios_setup:
- 
- 2:
-         /* Reserve memory for the trampoline and the low-memory stack. */
--        sub     $((TRAMPOLINE_SPACE+TRAMPOLINE_STACK_SPACE)>>4),%ecx
-+        sub     $TRAMPOLINE_SIZE >> 4, %ecx
- 
-         /* From arch/x86/smpboot.c: start_eip had better be page-aligned! */
-         xor     %cl, %cl
-@@ -525,23 +527,6 @@ trampoline_setup:
-         mov     %eax, sym_esi(multiboot_ptr)
- 2:
- 
--        /*
--         * Now trampoline_phys points to the following structure (lowest address
--         * is at the bottom):
--         *
--         * +------------------------+
--         * | TRAMPOLINE_STACK_SPACE |
--         * +------------------------+
--         * |     Data (MBI / PVH)   |
--         * +- - - - - - - - - - - - +
--         * |    TRAMPOLINE_SPACE    |
--         * +------------------------+
--         *
--         * Data grows downwards from the highest address of TRAMPOLINE_SPACE
--         * region to the end of the trampoline. The rest of TRAMPOLINE_SPACE is
--         * reserved for trampoline code and data.
--         */
--
-         /* Interrogate CPU extended features via CPUID. */
-         mov     $1, %eax
-         cpuid
-@@ -713,7 +698,7 @@ trampoline_setup:
- 1:
-         /* Switch to low-memory stack which lives at the end of trampoline region. */
-         mov     sym_esi(trampoline_phys), %edi
--        lea     TRAMPOLINE_SPACE+TRAMPOLINE_STACK_SPACE(%edi),%esp
-+        lea     TRAMPOLINE_SIZE(%edi), %esp
-         lea     trampoline_boot_cpu_entry-trampoline_start(%edi),%eax
-         pushl   $BOOT_CS32
-         push    %eax
-diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
-index e50e161b2740..7a375ad41c1c 100644
---- a/xen/arch/x86/boot/reloc.c
-+++ b/xen/arch/x86/boot/reloc.c
-@@ -65,7 +65,7 @@ typedef struct memctx {
-     /*
-      * Simple bump allocator.
-      *
--     * It starts from the base of the trampoline and allocates downwards.
-+     * It starts from end of the trampoline heap and allocates downwards.
-      */
-     uint32_t ptr;
- } memctx;
-@@ -349,8 +349,7 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, memctx *ctx)
- /* SAF-1-safe */
- void *reloc(uint32_t magic, uint32_t in)
- {
--    /* Get bottom-most low-memory stack address. */
--    memctx ctx = { trampoline_phys + TRAMPOLINE_SPACE };
-+    memctx ctx = { trampoline_phys + TRAMPOLINE_HEAP_END };
- 
-     switch ( magic )
-     {
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 7930b7c73892..9d3f2b71447e 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -633,7 +633,7 @@ static void __init efi_arch_memory_setup(void)
-     if ( efi_enabled(EFI_LOADER) )
-         cfg.size = trampoline_end - trampoline_start;
-     else
--        cfg.size = TRAMPOLINE_SPACE + TRAMPOLINE_STACK_SPACE;
-+        cfg.size = TRAMPOLINE_SIZE;
- 
-     status = efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
-                                    PFN_UP(cfg.size), &cfg.addr);
-diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
-index 84696e0a7db5..19746f956ec3 100644
---- a/xen/arch/x86/include/asm/config.h
-+++ b/xen/arch/x86/include/asm/config.h
-@@ -51,10 +51,6 @@
- 
- #define IST_SHSTK_SIZE 1024
- 
--#define TRAMPOLINE_STACK_SPACE  PAGE_SIZE
--#define TRAMPOLINE_SPACE        (KB(64) - TRAMPOLINE_STACK_SPACE)
--#define MBI_SPACE_MIN           (2 * PAGE_SIZE)
--
- /* Primary stack is restricted to 8kB by guard pages. */
- #define PRIMARY_STACK_SIZE 8192
- 
-diff --git a/xen/arch/x86/include/asm/trampoline.h b/xen/arch/x86/include/asm/trampoline.h
-index 559111d2ccfc..cb3e3d06c7bc 100644
---- a/xen/arch/x86/include/asm/trampoline.h
-+++ b/xen/arch/x86/include/asm/trampoline.h
-@@ -90,6 +90,13 @@
-  */
- 
- #include <xen/compiler.h>
-+
-+#define TRAMPOLINE_SIZE         KB(64)
-+#define TRAMPOLINE_HEAP_END     (TRAMPOLINE_SIZE - PAGE_SIZE)
-+#define MBI_SPACE_MIN           (2 * PAGE_SIZE)
-+
-+#ifndef __ASSEMBLY__
-+
- #include <xen/types.h>
- 
- /*
-@@ -160,4 +167,5 @@ extern uint8_t kbd_shift_flags;
- extern uint16_t boot_edid_caps;
- extern uint8_t boot_edid_info[128];
- 
-+#endif /* !__ASSEMBLY__ */
- #endif /* X86_ASM_TRAMPOLINE_H */
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 224b46771d0c..42217eaf2485 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -9,6 +9,7 @@
- #endif
- #include <xen/xen.lds.h>
- #include <asm/page.h>
-+#include <asm/trampoline.h>
- 
- #ifdef EFI
- 
-@@ -420,5 +421,5 @@ ASSERT(!SIZEOF(.rela),     "leftover relocations")
- ASSERT((trampoline_perm_end - trampoline_start) <= 1024,
-        "Permentant trampoline too large")
- 
--ASSERT((trampoline_end - trampoline_start) < TRAMPOLINE_SPACE - MBI_SPACE_MIN,
-+ASSERT((trampoline_end - trampoline_start) < TRAMPOLINE_HEAP_END - MBI_SPACE_MIN,
-     "not enough room for trampoline and mbi data")
--- 
-2.39.5
-
+Jan
 
