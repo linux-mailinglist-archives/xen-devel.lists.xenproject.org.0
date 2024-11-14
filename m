@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F8429C90E4
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 18:37:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836724.1252621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA2489C912E
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 18:55:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836742.1252630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBdmF-0005Hz-2W; Thu, 14 Nov 2024 17:37:07 +0000
+	id 1tBe30-0000ZW-Gf; Thu, 14 Nov 2024 17:54:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836724.1252621; Thu, 14 Nov 2024 17:37:07 +0000
+Received: by outflank-mailman (output) from mailman id 836742.1252630; Thu, 14 Nov 2024 17:54:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBdmE-0005GN-VV; Thu, 14 Nov 2024 17:37:06 +0000
-Received: by outflank-mailman (input) for mailman id 836724;
- Thu, 14 Nov 2024 17:37:05 +0000
+	id 1tBe30-0000XE-E5; Thu, 14 Nov 2024 17:54:26 +0000
+Received: by outflank-mailman (input) for mailman id 836742;
+ Thu, 14 Nov 2024 17:54:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QegD=SJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tBdmD-0005GH-St
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 17:37:05 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ <SRS0=RpK4=SJ=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1tBe2y-0000X8-UB
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 17:54:25 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20631.outbound.protection.outlook.com
+ [2a01:111:f403:2612::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e595420-a2af-11ef-99a3-01e77a169b0f;
- Thu, 14 Nov 2024 18:37:01 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5cefc36c5d4so1187212a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 09:37:01 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e048f12sm85130066b.173.2024.11.14.09.37.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Nov 2024 09:37:00 -0800 (PST)
+ id 7973f4d8-a2b1-11ef-99a3-01e77a169b0f;
+ Thu, 14 Nov 2024 18:54:20 +0100 (CET)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by DU2PR03MB8091.eurprd03.prod.outlook.com (2603:10a6:10:2e6::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18; Thu, 14 Nov
+ 2024 17:54:16 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8137.027; Thu, 14 Nov 2024
+ 17:54:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,208 +47,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e595420-a2af-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzEiLCJoZWxvIjoibWFpbC1lZDEteDUzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjBlNTk1NDIwLWEyYWYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjA1ODIxLjc3NjI5NCwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731605821; x=1732210621; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=EGj+Z30Hqt1k8+JcKfIqAX7vuAmSvqq0H5UDp6VWI1M=;
-        b=LBwbAUzqRsNePimwUqe9XpcTphknEsK9Vo9GswZqOs2u5RM5eF2uuNNwZNVjOBLTQj
-         mYyY42+Mi59jsaYwkHGm1JXTHlpCOHFmaGi78/trFUyAYPlSIwLWveVJ6L+N+Cq2D3lp
-         9rgelwqsdBiN+HDukGgtoCpEJ4gNBBy8EgHQ8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731605821; x=1732210621;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EGj+Z30Hqt1k8+JcKfIqAX7vuAmSvqq0H5UDp6VWI1M=;
-        b=M0uH7mrBnrIn4HjtAJqLGve54WqlHLusDErXVAZm+VYTaHHF+cHB3G9GMC37mv5g0a
-         osu3ku/WiU22uHWVUvaruwpyRZBRteqjkNQWreNod+P86wjcZG/Ya/+8E8D677MhGP3h
-         32NAylw/8e028qd4je1+FEBHijoKvLCN/XiprjQp/92uudgN7h3xQP9iHnqrjYESTPim
-         coWmw5yQVP00TFHBNLVc0CcqGgaklobzxOCwamob38/tn0BSyiJzxeWiZAFIr/bMAglB
-         QjTbXZYhoMfQ/e7/3OMl8FXursSVho6hpKZOLxdIEXbGuzl7DmovzBcx+7t6pE7LdjlD
-         uzng==
-X-Gm-Message-State: AOJu0Yzc2ARICIXODiwB8x1IDcjGY2Ne75dHcImhN+S/8iNLPOBJbCVO
-	Q1zB6pJSdySUu+Az5dMZTQ8sl1BG+QFQmpAcVf3Gy7L3azAu9AblxNQR7cldU+Y=
-X-Google-Smtp-Source: AGHT+IFbv5g7o0IJN1+T/LMeONH8pFjqIuzVcKOGO1xrXjQ79KYvIkMwbZZbVxoc6OzA660eukpFsw==
-X-Received: by 2002:a17:907:98d:b0:a9a:8042:bbb8 with SMTP id a640c23a62f3a-aa20cdcf351mr317427666b.47.1731605821062;
-        Thu, 14 Nov 2024 09:37:01 -0800 (PST)
-Date: Thu, 14 Nov 2024 18:36:59 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] vpci: Add resizable bar support
-Message-ID: <ZzY1O-zrcWB6Ra3q@macbook>
-References: <20241113080027.244240-1-Jiqian.Chen@amd.com>
- <ZzRxqO3_GEgs7W1I@macbook>
- <BL1PR12MB5849AB0F258C07AD72EFDB29E75A2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzR_wlY0wXjqec8T@macbook>
- <BL1PR12MB5849F0606930076AC8CC66ADE75B2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzYcskZ-GZ8HsXfU@macbook>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 7973f4d8-a2b1-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjYxMjo6NjMxIiwiaGVsbyI6IkVVUjA1LUFNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6Ijc5NzNmNGQ4LWEyYjEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjA2ODYwLjU2NTkxMiwic2VuZGVyIjoiZ3J5Z29yaWlfc3RyYXNoa29AZXBhbS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ldwIYbOdfAgAA1vzcni0+yRH8YYOi1rz7xDbUH8hHFIlM+3nuJ9TLjrDpd5+TA0cxpmE8Ylj2vBvJFJF8r1nHCKHzKzsGljfBRDJ2RLeWdzwNx5bVqZeOeUvMbcj+mC5y0iC0Cr6jRJMc14aAJxlM/CkeTFhhzIekH/9t5tBPKeWyCEcGfdYZnSAd5Xg5muQrhyX5EFCdET/ItWfCP2n25zdf2oafpI1RnRB05klwMdi01w7p+1M8yOWzce74BFs8C1lfgeAu2pkcBIFpRauimJ4fCrUJYR3fw4qG/B2cdzv2p5l7VK0/FEtU7q1+87MxLDd2FQpgWgPGNSgnjValQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xxh9CkyzunF/CGGaKiqAzpxTU706WN/qzYGuqnx4XgU=;
+ b=Yj8tQxiodNEgGAlSdl00GtN+xUlKR+syHB4Q2pGtaAJ6JrwU8lxhYINyYROTtkhUQNrWbhRgjGMGDeDo2lYuEcxp1fR39YoNoWqYsAXRaJgp6sbWSwwGgA23PfEi+X90A21ibKAPBNU4y5qmnxj2fxURCOrm2sHr5A26Akx0H1tZJofj8eIJ6bHzZdlOkeV3x8p59r4RY59EeRiNI7zYBcb2X7NDloFt/L2CVChX5r9Pw5EUkEO9Xoklsoe8McFvcVD38/nRBuqkMgAc4AKkji7BZ0lWifocFP7DT8DO9078b15Z4pvy8K94gwjURRPfn3U39ooYO3zriNB3L3b60g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xxh9CkyzunF/CGGaKiqAzpxTU706WN/qzYGuqnx4XgU=;
+ b=dTRGQfh2kruuzJmuRiVa+3UXRWGGA0+l5tqePpBsDet7bMyd4mPNH15ewCCMYVBe7cBzT7VWa0mvK1q68EDyi/L5Xkr7iE/WT7vOOZWBBFCuLXuhiPCX5pKK7MZUDw+tHpbPFPR2IXIpl2k6jcCIA99tR6Q1dKQP5KU7vTpadbryzU4Lq/1yZ69jc2NxfMl+IalpSxgMGLmGn2h4c93bjgsO0ckObR/m9NGOaNXcmBxIUI24KbxIBVQTL+IxXQZ4iHVnzoIMQJatCxbCx+qNOsOVMnydsyErtc/mam7t8qFoSbhWndShyjNsx8z+aULgObiJNh1b3c87sXzj6Ergdw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <3f3e207e-65e3-4be0-b302-ba04e256625b@epam.com>
+Date: Thu, 14 Nov 2024 19:54:14 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/device-tree: Allow exact match for overlapping
+ regions
+To: Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
+References: <20241106134132.2185492-1-luca.fancellu@arm.com>
+ <d9ad0972-2fd1-40ef-a11c-d56e102fef38@amd.com>
+ <c6ba416c-5781-4f23-8623-5f30ce279a29@xen.org>
+ <d87bd0a7-0dc8-44a9-b43e-04a166cb0b6d@amd.com>
+ <91140571-9237-42dc-8eb1-2263bbb23b07@xen.org>
+ <51c04e42-105b-4452-8dd1-dcc1f02c54a2@amd.com>
+ <8d04f515-ae46-4b30-8a98-7822b0d221ed@xen.org>
+ <alpine.DEB.2.22.394.2411131410240.222505@ubuntu-linux-20-04-desktop>
+ <92564de9-24f7-4259-bc45-a95680101693@xen.org>
+ <e023a861-a1d6-415e-9be8-688664bf5680@amd.com>
+ <8e467912-a71a-4c10-91dc-46706ed7aa1e@xen.org>
+ <7ba02037-05ec-491a-92c6-de7195d298ed@amd.com>
+ <7eef8e7a-e2a1-41bd-8805-b00a2bc0ae1a@xen.org>
+Content-Language: en-US
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <7eef8e7a-e2a1-41bd-8805-b00a2bc0ae1a@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZzYcskZ-GZ8HsXfU@macbook>
+X-ClientProxiedBy: FR0P281CA0169.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::11) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DU2PR03MB8091:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06aec46f-523f-4b2a-6cf9-08dd04d55b16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VE5iSHMzK05ib1NYUEM5bVd2eWVqMUtaS283enQ2MjY4OHlUcHR3dmZMRmEz?=
+ =?utf-8?B?RkRDZlNZNkIvSlRHelByd2Q2ZFZmL3ZVSmRrQUFNTzVFV1Y1eDU3U0lUcVdN?=
+ =?utf-8?B?bGJHclNseHlSRWtySk1BK2xrcGpzdW5vaUpCUnUxNERGcFpJaExQUU5CemJJ?=
+ =?utf-8?B?K1FXN0pNbEpXY0JUd01MZ3hCckVlNUIwTnYwaXRjNDVWQ1dqdkl4bVp6Y1RT?=
+ =?utf-8?B?THduVjgrSXZmRTZTZE0rbmtWc0x5V1JUL21xMXh5VzB5MTM0dkFCMkhkV0lv?=
+ =?utf-8?B?R0lhdVFMeURQTUdSYXR5S0NlQ09zK0ZLZkV3cXVGTTFZTEtKZEFNdDJFcXo1?=
+ =?utf-8?B?Q2s5N3c4QzMya0pkNkZpdlRZVi9ldmhPdFc5Nm8vcy9lVkFVQ3R6dFVuU2Rx?=
+ =?utf-8?B?RHNpczRlaVRrQVZGUVZzVy9tOTJWaWIzU002VkVtV1Bwdm1ZdlZ2WEU3T2M2?=
+ =?utf-8?B?cStyWHZQSUlBZW5jeWVnc05uMTluMkFYS0xqdUw2WmQrZHhzcmhwVVdORG04?=
+ =?utf-8?B?UzhGL1F6OUxjYUFOaFFvT0Z4TkZOejBGQ0NmYlAvc3p3OHFTenRhbVkxejh1?=
+ =?utf-8?B?dnFFK09JVWFZWUJOQ0oyQS9tend4WVBJaElOaWNiUHdSeW50Z2hHK0pjS3Jm?=
+ =?utf-8?B?ZmFOT1p3aU56WUgxaC9RMktEQ1hnTmRUS2lHVzFFSDlLcVJkWXBMQlhNTlBV?=
+ =?utf-8?B?K1NQTkRQaDVrcnpReUVyTE1aK21IaGExQVl1N0ZMaWd4Q2E0M0ZvOE9IT0xC?=
+ =?utf-8?B?NTl6cWFsa3BnUU16ekF1LzZPY0I3ZHprSTFOY3puSU1OTGp6QmZwUXpmeExj?=
+ =?utf-8?B?NkM4RTFrcFBDckprNzIrOW00Nzd5OGxZNkxreDZoS0FlcjFYRFQ3NWI4TjFr?=
+ =?utf-8?B?U2pjRnViV3hWOVBKUmpSK2liU2lNWnBUTEltTGYxb3owMm9ya0RBNUM4UmNk?=
+ =?utf-8?B?Z1pVM2dWVEhndmpabkVDNWpxalVmWXlZRUFlYTRNT2RoTTVINWUwa2IwMG0z?=
+ =?utf-8?B?Y1Zlb0tmbEtUNW5BWk1LeEJYWlR1QWFSam8zL2RPdnhxN1BTcEgzUTdManJk?=
+ =?utf-8?B?alB4cjJ4TUdidThTc1V1QVZTUnlXdWVHbXFFekdqQW1CeUxvamN6eHJSUzFY?=
+ =?utf-8?B?UUtSS0U3MjlPYmtpTEFXK1dpTXQ1b2hSWS81S0Z4V1IyeTNtK1ZXSTVSWElV?=
+ =?utf-8?B?bEgrN3ZPZnVGT0hQam5qb3lMVFBFc1BqMWRUL2R5MFAvdFBWZ0hrNnlwOTM4?=
+ =?utf-8?B?SmtaTVJqL003c1NiS3BqYkZHMHBQL3kvd3BRaldYZE1CdGZRdmkraU9sZFlk?=
+ =?utf-8?B?VUxnb25yTDVSRVJxczVkeHRuU3NFNnpzMHBMSmR0L2hKbUkvNzY3SmdaNWpi?=
+ =?utf-8?B?L3FlaGNyUERpdTJ4NXN3T2sxZWNLL2N2Y1BVVGx3WXZpdjNaWDNFNi9mL3Ny?=
+ =?utf-8?B?d2w3cEM5blZXVEpxUUxXSHpTOTR2QWwyVWtVNUxET1cxdW52SUlwanI1Y3ls?=
+ =?utf-8?B?YU1DZmtDK2Y2WFdQQVU4Z1hCRE5KbmdYeEdmTi9IeTkyTXFmcXZIejFkT2FB?=
+ =?utf-8?B?Q3lzVEh1Y0NSTDNsdFVOSWVKU1gwUktBc3FqWE5MdjJPMkxhUUszK2hBc2FB?=
+ =?utf-8?B?ZjJVU2Ficy9uelFSbGdzVWhjTjhXaTNNbjA0cXhGR21EL1dyUGpYNHZ2d0pX?=
+ =?utf-8?B?UWIvZWVxZ3Z6M0pyejlYVFdRSVBvajFjT2FiZVZZM3Bma1hoMWx5MTFMU1pG?=
+ =?utf-8?Q?l9FANd5xwGGC+usAmBpCWiMYDsUBU7o6QS8BWQi?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bFZvdFBxNWV4QnRXWi92aTVTSGlkU3Fxa0VZUEJnU0JTa3M1UmJrb21KakdK?=
+ =?utf-8?B?cXd0QzdIQ3ZNZ09sN29OazduNjc5UWFLZFRtOHdRRm00dXZpUnpEWjdOc0N4?=
+ =?utf-8?B?UU1ySVRvQkpqM1BneEpXUzk4dVlHazdBeHBFa0w0OEw1NUxKNzhTSllCZnNW?=
+ =?utf-8?B?eVRvNW1WOXk2c09jQWprL0M0dktoNzJLb1VnOGM1eFE1M3l0YUdLblgxZlZy?=
+ =?utf-8?B?WGJ3TDFZWWQ2d01zMkJ1Vi9JVUVzV0JjSGxFa29mVWIwOXY3blB1N2Q0SzJu?=
+ =?utf-8?B?S2F0L3lyNFRYQ1AxRmFFNnY2bThYeXlmR1Z4alRlNE9UUDZiMDc4Q2hnVHFX?=
+ =?utf-8?B?T2ltSjZtZ2dBT2c4OEs0a2luZDJyWXRBdDVxVjU4WTlRVFVtTXBiVjcwWTJo?=
+ =?utf-8?B?U1FoWHB4M1NVOU9NeXVVNVBZejUvcXJKUUFnakpJWTE3eDBudmtOMHJGdndV?=
+ =?utf-8?B?TFBkTUx5RFNRVW9sOTJNbk5sUnQrQ3ZtNC9US1RDdGZNeG1iL2FBWEh3ejNL?=
+ =?utf-8?B?cSs1VEpkNzN6OFNLMzNqZkgxbGRNSWZjZ3BTSXpJZnQ1UXkvRkh5clBWMUw5?=
+ =?utf-8?B?K3FjTmdWWlVqUGxBbG42MWkvRW1Gd0pjckcyeDFUelQ0VStoR2lMc1lUVWxW?=
+ =?utf-8?B?ck9tQTltL3JmWTY4anphc20vc0hGUU5KV2NIZURXT0hBZkZxUFNRQXQrUElp?=
+ =?utf-8?B?dlpMWnRYaGwydkZpT1Vkb3dhMlNCeCtpWHJ3cjJ1NmdHNFlreUZsMC9ZVzJZ?=
+ =?utf-8?B?ZjhLbkZNWnhIMEFBLzcvRXJEVHFWelZTdjhuZEFNcW5sVmx1YkUzcm40V2tV?=
+ =?utf-8?B?T21FMDhkM1dYUm5CMWZTMzRQUFB5R0I0dnphTmJURURkOGMvcHFuM1VQamVo?=
+ =?utf-8?B?aVRyNXV2Y3Z1dmJEVUVZUUpvc1ZkZm1IT3pyREpzdUc5Q1VxWXFNRGJkNS9I?=
+ =?utf-8?B?Vko2OGpoSXk5YWFqQ1JwM1FTejNYaW50Slp1cU11ZDViVFUzV0JXYm8veVZ3?=
+ =?utf-8?B?ZSsvZ0paNDlBcDloMmhGRGZyRjdaNUxNUW85MjhKZ3ZTR09vR05TUnBXcDlh?=
+ =?utf-8?B?L1JTVWZiZlNWbEJkdnRNNnA5V0RHdGRSTzhxbCt6R0NDSlo4MWU0ZGNENkdL?=
+ =?utf-8?B?dkUvejlDcjEvMXlUY1hxOHRPbEpoSHhIUlI3cmVHM2RUMW9TMzNPZjJnazZX?=
+ =?utf-8?B?NndoWG1KRDFaR2Zwb2d4ZXZUR204VzR6WHZSVDNvWlp5eFVJQXo1MUpueFV4?=
+ =?utf-8?B?dGV6L3hRR1JsYkxna2dob3lZTzBaZU42am1uYzFoWVlBeGVNWWNvbDE0cC9i?=
+ =?utf-8?B?enNxemdJT3BSbTZjYy9hV3hsZHZpTUE3Vm1nUy9GejEyQ1BWVmlzdlBGWVJo?=
+ =?utf-8?B?RGpIYncwYzlFVnEyTHpsdjFtc3NIN3NXejByNVhqZUE0S0s2TEo2Rm1OQVhF?=
+ =?utf-8?B?aUJxU2l1TVh0Rmd0ZzRiU29sMGFvRENyV0NyWXhVT2x6MjJoUDFhR2c4emwy?=
+ =?utf-8?B?ZlpteUZuMmJ3bUFqbHFtYllFdHVNV3d5SDhPei9kOGxGY3I0d0hwNS9vZ0w1?=
+ =?utf-8?B?akNsK2dUV0gvUU5hTmxqdzlSNUwyVFhydHNSdnJXMzFNTGVwb1hLelMvbUpx?=
+ =?utf-8?B?OUVVM1M3S2U4aUtaQllGbUkzTkw5c0puM1Axc201a2VLT1JOMzc5Tk92MU1p?=
+ =?utf-8?B?RVgwelN1Y25QLzhwY3F1Z3J5RFFoMzFWRjhYUkxEMVJFWG1HSXY1RXY0M1VV?=
+ =?utf-8?B?TlZ3VzJOaXlNaWRQM0JUSmhCR1RmZjByOGFuM2RtRmFlMFhST0IxZ0N6T3NI?=
+ =?utf-8?B?QVg5dnk3R2NvcERaSjdSS0FRUU1sWnFoUkpraElkL0FHcUNYVjlyV1FaRVVa?=
+ =?utf-8?B?Q3JkQXlOSFFiQkh5eWlHWTJUSkMwZllXaFZ4c2pqMXRMMVFBVUNCUzF2QnZB?=
+ =?utf-8?B?WUdmT0pLRjFsL0N2aEJiQ3lCR1Nieit4NE4vWnN0Y1EwVzA4Z2J4TmNHdDB3?=
+ =?utf-8?B?UWE3d0V5b2tadXloSzk5OGhzZG9qV0FURWZUWjRyTkJhZTJVSHh2YWdkdm1K?=
+ =?utf-8?B?c1oxR29UQTVEdXlrOXZ2c2JtdW9xRUh0WHVaeWxtYWNpVTc2eFRtMkZsaXRY?=
+ =?utf-8?B?UEttY0JpQzVhb0lWRms2SWZPRU9TTVprVlJ4REowSmoxQXh6VnZJRW1JN2U1?=
+ =?utf-8?B?alE9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06aec46f-523f-4b2a-6cf9-08dd04d55b16
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2024 17:54:16.0657
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3PLVrUZ3ZnugWM5ooCgSp2DF3UCUqz4XPSRbSMu0Ehc+yOzFS/YhXPB/FzrXZQrxISot3i5MxNJ9mEs6RGHtMBc/cfVXO+1Rju9YzICEHuk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR03MB8091
 
-On Thu, Nov 14, 2024 at 04:52:18PM +0100, Roger Pau Monné wrote:
-> On Thu, Nov 14, 2024 at 06:11:46AM +0000, Chen, Jiqian wrote:
-> > On 2024/11/13 18:30, Roger Pau Monné wrote:
-> > > On Wed, Nov 13, 2024 at 10:00:33AM +0000, Chen, Jiqian wrote:
-> > >> On 2024/11/13 17:30, Roger Pau Monné wrote:
-> > >>> On Wed, Nov 13, 2024 at 04:00:27PM +0800, Jiqian Chen wrote:
-> > >>>> Some devices, like discrete GPU of amd, support resizable bar capability,
-> > >>>> but vpci of Xen doesn't support this feature, so they fail to resize bars
-> > >>>> and then cause probing failure.
-> > >>>>
-> > >>>> According to PCIe spec, each bar that support resizing has two registers,
-> > >>>> PCI_REBAR_CAP and PCI_REBAR_CTRL, so add these two registers and their
-> > >>>> corresponding handler into vpci.
-> > >>>>
-> > >>>> PCI_REBAR_CAP is RO, only provide reading.
-> > >>>>
-> > >>>> PCI_REBAR_CTRL only has bar size is RW, so add write function to support
-> > >>>> setting the new size.
-> > >>>
-> > >>> I think the logic to handle resizable BAR could be much simpler.  Some
-> > >>> time ago I've made a patch to add support for it, but due to lack of
-> > >>> hardware on my side to test it I've never submitted it.
-> > >>>
-> > >>> My approach would be to detect the presence of the
-> > >>> PCI_EXT_CAP_ID_REBAR capability in init_header(), and if the
-> > >>> capability is present force the sizing of BARs each time they are
-> > >>> mapped in modify_bars().  I don't think we need to trap accesses to
-> > >>> the capability itself, as resizing can only happen when memory
-> > >>> decoding is not enabled for the device.  It's enough to fetch the size
-> > >>> of the BARs ahead of each enabling of memory decoding.
-> > >>>
-> > >>> Note that memory decoding implies mapping the BARs into the p2m, which
-> > >>> is already an expensive operation, the extra sizing is unlikely to
-> > >>> make much of a difference performance wise.
-> > >>>
-> > >>> I've found the following on my git tree and rebased on top of staging:
-> > >> OK.
-> > >> Do you need me to validate your patch in my environment?
-> > > 
-> > > Yes please, I have no way to test it.  Let's see what others think
-> > > about the different approaches.
-> > There are some errors with your method.
-> > I attached the dmesg and xl dmesg logs.
-> > From the dmesg logs, it seems that 0000:03:00.0 has addresse overlap with 0000:03:00.1
+
+
+On 14.11.24 15:09, Julien Grall wrote:
 > 
-> Do you have the output of lspci with the BAR sizes/positions before
-> and after the resizing?
 > 
-> > 
-> > I think there is a place that needs to be modified regarding your method,
-> > although this modification does not help with the above-mentioned errors,
-> > it is that whether to support resizing is specific to which bar, rather than just determining whether there is a Rebar capability.
+> On 14/11/2024 12:22, Michal Orzel wrote:
+>>
+>>
+>> On 14/11/2024 13:04, Julien Grall wrote:
+>>>
+>>>
+>>> Hi Michal,
+>>>
+>>> On 14/11/2024 11:48, Michal Orzel wrote:
+>>>>
+>>>>
+>>>> On 14/11/2024 11:31, Julien Grall wrote:
+>>>>> Looking at the code, I think /memreserve/ and /reserved-memory are not
+>>>>> mapped in Xen and everything in /reserved-memory is mapped to dom0.
+>>>> Why do we forward /reserved-memory to dom0 fdt but /memreserve/ not?
+>>>
+>>> I was wondering the same. The main issue I can think of with
+>>> /memreserve/ is some of the regions will likely be for Xen own usage. So
+>> Can you give example of regions defined as reserved for Xen usage (other than static-mem)?
 > 
-> Do we really need such fine-grained information?  It should be
-> harmless (even if not strictly necessary) to size all BARs on the
-> device before enabling memory decoding, even if some of them do not
-> support resizing.
+> The spin table to bring-up CPUs.
 > 
-> I might have to provide a patch with additional messages to see what's
-> going on.
+>>
+>>> we would need to have a way to exclude them from dom0.
+>>>
+>>>   >  From the discussion> we're having it seems like we should treat them
+>>> equally. Also, looking at Luca patch,
+>>>> we seem to special case /memreserve/ and only allow for overlap /memresrve/ with boot modules
+>>>> and not /reserved-memory/ with boot modules. If we are going to claim that all the boot modules
+>>>> can be marked as reserved by the bootloader, then I think we should treat them equally providing
+>>>> the same experience to dom0.
+>>>
+>>> In my mind, /memreserved/ and /reserved-memory/ are different. The
+>>> former doesn't say what the region is for, but the latter will indicate it.
+>> In the context of this patch, I don't agree. We're discussing overlap, and if a region A
+>> from /memreserve/ overlaps fully with a module A, we know what is the purpose of it.
+>  > Today it's initrd, but as you say we cannot rule out other modules as well.
+> 
+> To give a concrete example, the /reserved-region/ can be used to reserve space for the VGA buffer. It would be odd that someone would put the boot module in the middle of the VGA buffer... If Xen ends up to use the VGA buffer (not the case today), then it would be a problem. Xen would need to be reworked to move all boot modules outside of the memory because it can access the VGA (or any other reserved regions).
+> 
+> The problem is slightly different for /memreserve/ because we don't exactly know what the regions are for until we parse the rest of the DT. Yes technically, a user could put the initrd in the wrong place. So the problem is the same. But this is a relexation I am more willing to accept over /reserved-region/ right now.
+> 
+>>> So I am not 100% sure how the bootmodule could end up in
+>>> /reserved-memory/ because they are described as part of the multiboot
+>>> modules. Do you have a scenario?
+>> I don't same as I don't have scenario for /memreserve/ overlapping with sth else than initrd.
+>> All of these comes from my validation of u-boot, grub, barebox code. I have a feeling that due to
+>> U-Boot trick that is not present in any other *known* bootloader, we are trying to over-engineer the problem :)
+>> But as Stefano and you wrote, we should follow the spec and for me we should therefore treat them equally.
+> 
+> See above why I don't think we should treat them equally today. We might be able in the future if we can categorize all the regions in /memreserve/.
+> 
+> [...]
+> 
+>>>> Last thing I wanted to ask (for my clarity) is that if bootloader loads initrd at region A and marks
+>>>> it as reserved (either in /memreserve/ or /reserved-memory/), and later on Xen copies initrd from region
+>>>> A to B, shouldn't the reserved memory region be updated to cover new region for initrd?
+>>>
+>>> If we mark the region has a reserved, then we are telling the OS it
+>>> can't use the region. But I am not sure why it would be needed as Xen
+>> Well, in the context of initrd, kernel uses it even though it is reserved. This is because
+>> of the second part of the spec where other bindings come into play.
+>>
+>>> doesn't care how the regions is going to be used by the domain. From a
+>>> domain side, do you see any reason why we would want to mark again the
+>>> region as reserved?
+>> TBH I don't same as I still don't know why U-Boot does that trick. It comes from a very
+>> old code and my initial understanding is that it is done purely for U-boot bookkeeping.
+> 
+> /memreserve/ (and now) /reserved-regions/ are an easy way to find the regions that should be excluded from the RAM. Without that, you will need to have special case (such as for initrd, and the various xen boot moudles). I suspect that Linux have a special case and hence why it hasn't been a problem that Xen doesn't reserve the region.
+> 
 
-One nit that I've noticed with the patch I gave you previously is that
-the check for a size change in modify_bars() should be done ahead of
-pci_check_bar(), otherwise the check is possibly using an outdated
-size.
+My be it will help in this discussion - some investigation results.
 
-I've also added a debug message to notify when a BAR register is
-written and report the new address.  This is done unconditionally, but
-if you think it's too chatty you can limit to only printing for the
-device that has the ReBAR capability.
+At boot time (only ARM64, but other arches looks similar):
 
-Thanks, Roger.
+- Determines if initrd present from DT : early_init_dt_scan()->setup_machine_fdt()
+or by checking bootargs "initrd/initrdmem=".
 
-diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index ef6c965c081c..d49d3588993b 100644
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -346,6 +346,30 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-              bar->enabled == !!(cmd & PCI_COMMAND_MEMORY) )
-             continue;
- 
-+        if ( bar->type != VPCI_BAR_ROM && header->bars_resizable &&
-+             (cmd & PCI_COMMAND_MEMORY) )
-+        {
-+            uint64_t addr, size;
-+
-+            pci_size_mem_bar(pdev->sbdf, PCI_BASE_ADDRESS_0 + i * 4,
-+                             &addr, &size, 0);
-+
-+            if ( bar->addr != addr )
-+                printk(XENLOG_G_ERR
-+                       "%pp: BAR#%u address mismatch %#lx vs %#lx\n",
-+                       &pdev->sbdf, i, bar->addr, addr);
-+
-+            if ( bar->size != size )
-+            {
-+                printk(XENLOG_G_DEBUG
-+                       "%pp: detected BAR#%u size change (%#lx -> %#lx)\n",
-+                       &pdev->sbdf, i, bar->size, size);
-+                bar->size = size;
-+                end = PFN_DOWN(bar->addr + size - 1);
-+                end_guest = PFN_DOWN(bar->guest_addr + size - 1);
-+            }
-+        }
-+
-         if ( !pci_check_bar(pdev, _mfn(start), _mfn(end)) )
-         {
-             printk(XENLOG_G_WARNING
-@@ -601,6 +625,9 @@ static void cf_check bar_write(
-     /* Update guest address, so hardware domain BAR is identity mapped. */
-     bar->guest_addr = bar->addr;
- 
-+gprintk(XENLOG_DEBUG, "%pp: updated BAR%zu address: %#lx\n",
-+                    &pdev->sbdf, bar - pdev->vpci->header.bars + hi, bar->addr);
-+
-     /* Make sure Xen writes back the same value for the BAR RO bits. */
-     if ( !hi )
-     {
-@@ -870,6 +897,9 @@ static int cf_check init_header(struct pci_dev *pdev)
-     if ( pdev->ignore_bars )
-         return 0;
- 
-+    header->bars_resizable = pci_find_ext_capability(pdev->sbdf,
-+                                                     PCI_EXT_CAP_ID_REBAR);
-+
-     cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
- 
-     /*
-diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
-index 250ba106dbd3..c543a2b86778 100644
---- a/xen/include/xen/pci_regs.h
-+++ b/xen/include/xen/pci_regs.h
-@@ -459,6 +459,7 @@
- #define PCI_EXT_CAP_ID_ARI	14
- #define PCI_EXT_CAP_ID_ATS	15
- #define PCI_EXT_CAP_ID_SRIOV	16
-+#define PCI_EXT_CAP_ID_REBAR	21
- 
- /* Advanced Error Reporting */
- #define PCI_ERR_UNCOR_STATUS	4	/* Uncorrectable Error Status */
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 41e7c3bc2791..45ebc1bb3356 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -129,6 +129,8 @@ struct vpci {
-          * upon to know whether BARs are mapped into the guest p2m.
-          */
-         bool bars_mapped      : 1;
-+        /* Device has the Resizable BARs capability. */
-+        bool bars_resizable   : 1;
-         /* FIXME: currently there's no support for SR-IOV. */
-     } header;
- 
+- [1] In arm64_memblock_init() it adds initrd in reserved memory
+https://github.com/torvalds/linux/blob/master/arch/arm64/mm/init.c#L274
+therefore Linux doesn't depends on any kind of "DT reserved memory" ranges for initrd.
+
+- The Linux processes "reserved-memory" nodes first.
+https://github.com/torvalds/linux/blob/master/drivers/of/fdt.c#L504
+
+- After this FDT memory reserve map is processed:
+https://github.com/torvalds/linux/blob/master/drivers/of/fdt.c#L496
+
+The Linux doesn't perform any special processing of FDT memory reserve map -
+it just adds it to the reserved memory list (splice allowed), which is reasonable, as
+Linux doesn't know what is the purpose of each reserved memory block in FDT memory reserve map.
+
+Later based on DT (or other meaning) some reserved memory can be handled in a special way.
+
+After early_init_fdt_scan_reserved_mem() finishes - the result is the list of reserved memory
+ranges which are excluded from generic memory management process.
+
+
+In case of Xen, initrd is not intended to be used by Xen directly, but should be passed to Dom0.
+My current, understanding - it will be copied, so from the Xen point of view the memory occupied by Initrd is
+not permanently reserved and can be even freed once Initrd successfully passed in Dom0.
+Also, due to the point [1] above no need to pass initrd memory as reserved region to Dom0 Linux based domain.
+
+Honestly, it looks like nothing from FDT memory reserve map make sense to blindly pass to Dom0/hwdom
+- initrd (described above)
+- FDT - it will be generated
+NOTE. From u-boot fdt_shrink_to_minimum() code it can be seen that FDT region also could be in /memreserve/
+https://github.com/u-boot/u-boot/blob/master/boot/fdt_support.c#L766
+- spin-table : Xen owns it, I assume.
+- any kind of secure/firmware memory - domains do not care unless specified explicitly in "reserved-memory" (or by other means).
+   Xen will guarantee that such ranges are not touched/allocated, i assume.
+
+So in my opinion.
+- native Linux (or other OS) need to know about all reserved memory to avoid clash with generic memory management routines.
+- virtual Linux (OS) does not need to know - as Xen should exclude memory, defined as reserved in System device tree,
+   when allocating memory for domain.
+   if domain need to know about some reserved memory - it is expected be defined in DT explicitly (or by other means).
+
+The Xen performs the primary memory management role in virtualized environment,
+so it is the main user of any kind of information about reserved memory.
+
+Do not shot me please I've tried to be helpful...and issue fixed.
+BR,
+-grygorii
+  
+
 
 
