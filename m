@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44E8D9C86D9
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 11:07:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836187.1252062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08FE49C86DA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 11:07:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836193.1252071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBWjw-0008Su-2K; Thu, 14 Nov 2024 10:06:16 +0000
+	id 1tBWlC-0000Xr-C4; Thu, 14 Nov 2024 10:07:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836187.1252062; Thu, 14 Nov 2024 10:06:16 +0000
+Received: by outflank-mailman (output) from mailman id 836193.1252071; Thu, 14 Nov 2024 10:07:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBWjv-0008Qn-Va; Thu, 14 Nov 2024 10:06:15 +0000
-Received: by outflank-mailman (input) for mailman id 836187;
- Thu, 14 Nov 2024 10:06:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tBWlC-0000VA-9Y; Thu, 14 Nov 2024 10:07:34 +0000
+Received: by outflank-mailman (input) for mailman id 836193;
+ Thu, 14 Nov 2024 10:07:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81on=SJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBWju-0008Qe-9v
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 10:06:14 +0000
+ id 1tBWlB-0000V1-8j
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 10:07:33 +0000
 Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
  [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1292af3c-a270-11ef-99a3-01e77a169b0f;
- Thu, 14 Nov 2024 11:06:10 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 424cf16e-a270-11ef-a0c7-8be0dac302b0;
+ Thu, 14 Nov 2024 11:07:30 +0100 (CET)
 Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4315f24a6bbso3892005e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 02:06:10 -0800 (PST)
+ 5b1f17b1804b1-4314f38d274so5410815e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 02:07:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432dab72159sm14946955e9.5.2024.11.14.02.06.09
+ 5b1f17b1804b1-432dab80869sm14787605e9.22.2024.11.14.02.07.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Nov 2024 02:06:09 -0800 (PST)
+ Thu, 14 Nov 2024 02:07:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1292af3c-a270-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 424cf16e-a270-11ef-a0c7-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjEyOTJhZjNjLWEyNzAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNTc4NzcwLjUzNDg3Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Custom-Transaction: eyJpZCI6IjQyNGNmMTZlLWEyNzAtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTc4ODUwLjc4ODcwOCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731578770; x=1732183570; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731578850; x=1732183650; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OjiG5FfzCvUoQmSwAVK3D9jVJJTn3Tm55wP16uDKKg0=;
-        b=eakQQh8+EYZGlH1nv5yh/Qhgf0B+JVha05168s2kBldMnhIYv/0DlLFq8Gp2LhEFro
-         UDSTrYorg6meuT0PV43Ue7q6tR83Rj3/Eg9+SvHTiZUObqCJrIK9WVUC/hZRaRcF0rSi
-         vtoeyiMA0+el5/MEc/BiRhZiZocyslIhgZbBtW6GdWg1xlt6PZGH0sylrn+NCM2Y1EqD
-         +40QoHiPvMbO7DCnUNzRqAN0tDbSFMVclhLNzX5S1RtD7zDibuxFpr9TZ40ty8xfSqF6
-         VcAi6E5UTNUFfKZnr/A145BEe6I2qHqVFYrfOIto74TObd73EadWr1LKkga5UnQsoOaS
-         vUQw==
+        bh=h35C8okQB3vNG4nYnR3qa6Ma0o9RA/+n/DAO/zZDwzY=;
+        b=Guxe0J+fbZQb0rTPaL5MaJ3l2oNdOkFhu50DP+bbF4xbhbla/HXMBjTkewvrvwZtoJ
+         mIkSh2JHwJUKRI7wbiPppncMA3tJVCycMvkppbXu51Q2B5DekbZ9Urh3Ws65L4VqF4T5
+         EZzmkOpbP5vSzuRJguZWJ2ttLvmj2aQnIlfctNGYBGrFFpUrAM/D1xhCgojTOm6p0PIb
+         Ue4E695choF9H8dodtMVHqnOX6AKJoP2pTU4whOZcGhlQDBEcifi1eKci7OyVLS7bCHi
+         ilfreoJwkHqcsyyZhANXSPFi6h6mW1fOW/Wp1cmAdmCiWQ66YY7nbF3DEO/+f63L/jEf
+         ExvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731578770; x=1732183570;
+        d=1e100.net; s=20230601; t=1731578850; x=1732183650;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OjiG5FfzCvUoQmSwAVK3D9jVJJTn3Tm55wP16uDKKg0=;
-        b=s3fLvPoYTKuIEj7AMwnB3aiS62D2QSHERsV0M5p5b8Rr4Gu4YCcdbjMTHQSZUXLCjW
-         Fseyb111C7nhJX+GIVVLR4E48ydo8n7k9fi7Hmn5o7bIaInsKbp/u/3R/yQUmK/c3G/2
-         Ehh84Ogk7A0133tqjUXkujJof53YYKYmJQKfOuloV6hnyQTfCSJtUlbfUHh+KOF08orL
-         x+FrLuRY3rPUc7E7vgQDcV5U32WbSSCKeuzR4LeI0IigHYc0lfXgkR0QgYYj1Os0GGGY
-         uFu9es0RwgWZFStifWGpzJvOoOTCnNCi6LtR+QjDvgP1bxdmOk9aiIsG7wNe8Mf8cejH
-         fPXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVLVn371ZXMlT0nGzMNo6DL3dug+boxjW1eBuBHX8G4STum5kLztu1k72ROs/aWbqHqAbdAx08erMA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjeQps3V4GXawjzdPgFHtkj1w3SPAaF5nh9vBKegcRu0GXeFpa
-	tNyl4HlqR+j5+K1vbPOWi0ae0ry5h2XoGQ6JXC397Oa+FiGFPIeXWfYG08DRVA==
-X-Google-Smtp-Source: AGHT+IFP/ZY8/EQ5VQfvxHPCD29G228P470JJ4Rt3JFMLswrI7Q4Zmuzi9ccHf84uVhxKBNBXsN7Og==
-X-Received: by 2002:a05:600c:8608:b0:431:4c14:abf4 with SMTP id 5b1f17b1804b1-432b7887154mr206140385e9.14.1731578769889;
-        Thu, 14 Nov 2024 02:06:09 -0800 (PST)
-Message-ID: <bfa96484-9539-405e-b589-fe478d0c62e5@suse.com>
-Date: Thu, 14 Nov 2024 11:06:08 +0100
+        bh=h35C8okQB3vNG4nYnR3qa6Ma0o9RA/+n/DAO/zZDwzY=;
+        b=vPpp88rwohAWBod4Ne1waXxXRdCqfFqZXZZwLorDajKLAk/MXeUkqAieMjlO0cGe8h
+         ekXa/SvtwfTMsL7yK/JaCkU3MoZK6oSZvfRRNDApQIM+RfKjW+78r9m/ynTrdkBrh9kj
+         oUIkEy51skMpMEawZmc/uxOW3JO2S8AkH7k7IqNsRiw3BQPz5vPL1tkOTA+IqdTA6EvR
+         sKLtx0d32SwzQrPmBuUV6b6StKxNKABa74Prg2mNdOoNR9z5MD1g/43X6Oy++E+SCqqm
+         iHIcZh23FPjpKdp+7w2uS9v6ugRMc1fqu/wl3k6huDMh3jXjo8SC+IVDGyq0MkDZlxjo
+         ko+w==
+X-Forwarded-Encrypted: i=1; AJvYcCVVjmOd4wcXZxQrF+bgknvV4dMmy8NBwBWPlfmc3Q0P6VptETCicDtJGBVsI+kWauoA5iJTKCfPBFo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxzbWOn4If2/KBJYcSnigJY4s6hsm358y8myfFBHmiUS+AZWDG
+	If4MnYx6FROU0w3NAj+HaUOGBZFdeFxLuMwDOEBup8eatABU1m1MgIubsE19VA==
+X-Google-Smtp-Source: AGHT+IFv+mi/8TtfDSFXoiFf+r7veAvvmt6Alm4tF7Jef+vjQ8x65PxZWcWFJjkuJ+W7QVD5CxHBbw==
+X-Received: by 2002:a05:600c:314c:b0:431:9a26:3cf6 with SMTP id 5b1f17b1804b1-432da7a050fmr17177635e9.4.1731578849976;
+        Thu, 14 Nov 2024 02:07:29 -0800 (PST)
+Message-ID: <f9142dfb-8403-46d6-a4a9-3d09966cefb2@suse.com>
+Date: Thu, 14 Nov 2024 11:07:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/multiboot: Make headers be standalone
+Subject: Re: [PATCH v2 1/4] x86/trampoline: Check the size permanent
+ trampoline at link time
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241113185118.1786703-1-andrew.cooper3@citrix.com>
+References: <20241114090810.1961175-1-andrew.cooper3@citrix.com>
+ <20241114090810.1961175-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,44 +118,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241113185118.1786703-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20241114090810.1961175-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.11.2024 19:51, Andrew Cooper wrote:
-> --- a/xen/include/xen/multiboot.h
-> +++ b/xen/include/xen/multiboot.h
-> @@ -17,7 +17,7 @@
->  #ifndef __MULTIBOOT_H__
->  #define __MULTIBOOT_H__
->  
-> -#include "const.h"
-> +#include <xen/const.h>
->  
->  /*
->   * Multiboot header structure.
-> @@ -45,41 +45,43 @@
->  
->  #ifndef __ASSEMBLY__
->  
-> +#include <xen/types.h>
+On 14.11.2024 10:08, Andrew Cooper wrote:
+> This is a little safer than leaving it to hope.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Isn't xen/stdint.h sufficient to include both here and ...
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/include/xen/multiboot2.h
-> +++ b/xen/include/xen/multiboot2.h
-> @@ -114,6 +114,9 @@
->  #define MULTIBOOT2_FRAMEBUFFER_TYPE_EGA_TEXT            2
->  
->  #ifndef __ASSEMBLY__
-> +
-> +#include <xen/types.h>
-> +
->  typedef struct {
->      uint32_t total_size;
->      uint32_t reserved;
 
-... here?
-
-Jan
 
