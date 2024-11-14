@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744E99C8637
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 10:33:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836155.1252031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6005E9C8656
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Nov 2024 10:40:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836165.1252042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBWDf-0002Rf-33; Thu, 14 Nov 2024 09:32:55 +0000
+	id 1tBWK7-000396-PS; Thu, 14 Nov 2024 09:39:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836155.1252031; Thu, 14 Nov 2024 09:32:55 +0000
+Received: by outflank-mailman (output) from mailman id 836165.1252042; Thu, 14 Nov 2024 09:39:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBWDf-0002Q0-04; Thu, 14 Nov 2024 09:32:55 +0000
-Received: by outflank-mailman (input) for mailman id 836155;
- Thu, 14 Nov 2024 09:32:52 +0000
+	id 1tBWK7-000376-M2; Thu, 14 Nov 2024 09:39:35 +0000
+Received: by outflank-mailman (input) for mailman id 836165;
+ Thu, 14 Nov 2024 09:39:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=81on=SJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBWDc-0002Ps-Rg
- for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 09:32:52 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ id 1tBWK5-000370-B4
+ for xen-devel@lists.xenproject.org; Thu, 14 Nov 2024 09:39:33 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68eb9ebe-a26b-11ef-a0c7-8be0dac302b0;
- Thu, 14 Nov 2024 10:32:47 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2fb5fa911aaso6041171fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 01:32:47 -0800 (PST)
+ id 58ff5287-a26c-11ef-a0c7-8be0dac302b0;
+ Thu, 14 Nov 2024 10:39:30 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-37d49ffaba6so294922f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 01:39:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432da244924sm17233795e9.7.2024.11.14.01.32.46
+ ffacd0b85a97d-3821adad3dcsm953492f8f.31.2024.11.14.01.39.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Nov 2024 01:32:46 -0800 (PST)
+ Thu, 14 Nov 2024 01:39:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68eb9ebe-a26b-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzMiLCJoZWxvIjoibWFpbC1sajEteDIzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjY4ZWI5ZWJlLWEyNmItMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTc2NzY3Ljg3MzM5NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 58ff5287-a26c-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzYiLCJoZWxvIjoibWFpbC13cjEteDQzNi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjU4ZmY1Mjg3LWEyNmMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNTc3MTcwLjcwNzYzNiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731576767; x=1732181567; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731577170; x=1732181970; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CzXrmpKY1AwjTX7JjIVttAni6DzCxl8k37LNhWVE4xI=;
-        b=Z9HKLu3fTx8W5tnV1rOpCaWKq9Sg6mc8UIIEwzmaEOnu0PxjOt6f6f4Ej6th4ZwF9u
-         YmowEL3k+QbcIKy4BYs9BMeIhTQLiU4uAkC7lz2Y1olFrem3MwFuskqt2ji77XP7HEnl
-         LHW1UYE1gPtbWvsV+CoBWFLuhH9x2ub0INKGDJC/NNfcfRpGqRJNaMMAZWU358aECgnV
-         jstrplap7SSnThW/E5SvJ0aYDsg+b/cdk1PM8GfjP2bu5otl0fe4Te//9UIISyw3U3Cs
-         rZmBvqwXpmagQEdg3VBhQdGFm5mUv7em/LCPOt47Zv/0aJl8DHOQItE8TswYKIinOWVy
-         K6Cw==
+        bh=RTeIcfRu8RRFkWV4gv7PBAqKjvdu0cbqiaNz4sH7gAY=;
+        b=O8kjVKkrJyYEgfW6m4xdCx+SUUa9goQOyy2EWwx31uDWxCJGu5vX4NuXdHnjmZkY1O
+         sbrhQHp+FsjQmi5pbM6CBikihl7WovyPXPq0vs65T33OFQ56Qt6Qwuq5nU7MSbwSQc6O
+         eafNboKAU0ak8Ms3XieeLb55mppHol5/bWg503SR+Goo6maT3f4U1kbLUPlUXRMaXoc5
+         GvOeabMQb7vtTM1n0lwaLda+pYjGFu77Aut4NCjH7XFoiVxlxEevrO1sMdNeLS0vkhm2
+         ytx5gMiNr1uBIIleRNI04GH2bHJ7YF4JfExzTtaX3DtVcohHkJow6yshhpbICoPM394s
+         lwjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731576767; x=1732181567;
+        d=1e100.net; s=20230601; t=1731577170; x=1732181970;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CzXrmpKY1AwjTX7JjIVttAni6DzCxl8k37LNhWVE4xI=;
-        b=iXPy3l5H96+kchGWPeoyoLBmaLa60r1LnDkrPIGGyvvP6GGEiRCjS6HZ/1dv2dgIm9
-         UIsccNKy5NunUbS/eVoqTQLWaw9hNanmRc4Pb/ak9MdDxjAJvQMORmIM8DTMnufQH3R1
-         ke1a8kcmjlT90IEpzu63gU3BVDTOQomopZaS+SC+B8sUIV1oU4dyikf/WfxrcSg6VFOa
-         CVkHbVIowUzX1BBSPLX2tLdKIvwTYtV99Ax42/TkoFP9wBFpYGBj3Ta9mqPUkcTmRCCm
-         cTGqOEV6gK+mTS3OnIwqaObKwqa2ZeUX3kx/PKQcR8db3dnSEy6rvWKU32DRaBCXA+Mg
-         y+7w==
-X-Forwarded-Encrypted: i=1; AJvYcCUD6bWdgdLyCdR8kYJ9eU8NeFhf/cIgzAiMrcOj8ib0AXwQsv0q1JOOzYZDjvNZ5Z6nH1N6E2exVQ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYhGdvGl69vBbC5V1J4GaTzEhTEthbj03austMr9A7dcmEOmp5
-	yKTYWbrBiTyX8dGfdk1tIwJkPNWCl8r0iHsjmED8yqRu0TYGIzprmiR5Ft5j5g==
-X-Google-Smtp-Source: AGHT+IHE7fDkyB35uuCrBW4Nz99ABm/O5HwOliuZXdahrOdib1s1d71HXmngT11EV4b4HDMRPzn/Rg==
-X-Received: by 2002:a2e:b896:0:b0:2ff:559e:c877 with SMTP id 38308e7fff4ca-2ff5909e884mr11336211fa.33.1731576767119;
-        Thu, 14 Nov 2024 01:32:47 -0800 (PST)
-Message-ID: <318c3af2-6233-4778-9fe9-2f9397025039@suse.com>
-Date: Thu, 14 Nov 2024 10:32:45 +0100
+        bh=RTeIcfRu8RRFkWV4gv7PBAqKjvdu0cbqiaNz4sH7gAY=;
+        b=aKHLE/LDAXmz0sFXktkUZd5ONkRLuJDdPmJKD4fYU0vWi7hdYe8kKmpCTr4M60GFBS
+         W2Z4e2dzKUOgQFjAZ/Cq9hZqtFB9zhvmrmee6Wpk507jYH9cNJsc0Vv5kC1h/jly+kSB
+         ZAL/32afD3fbE7uYR+PKtkNHMqLv7Fjn4JEdmmXNNEY/jcu9slWBha5xkDtyOjnvB9V5
+         55zi6/8JNASZo8UTSPmFtK9I+lsee7xj72P9GrXtQgN+u1rjw49e7BG78Qj4/YWsg9zF
+         PIJuRvXqbn57kr2lt2k559trVbWb212KogA7ZzVsWS2lI0KGdxsXipqb4wJToU1iB4CE
+         R3ew==
+X-Forwarded-Encrypted: i=1; AJvYcCX/KJlW0kWVUtWlWLM287u6+0Mn08F1965rqwC580Uh2UjBd/e05+oAFp+It7NN+Ibu0hZINbhtHRE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxyzP8rh6c2DYSAXyQz+Fn8w2QB1qsVYpiCQ0WY9dndHEVb1Afk
+	rz1v/2bl/bklrK27sQGcSW4IjMANXTMZfqw3o7ORYdtqGCT9tsRq/V2nnrJgOw==
+X-Google-Smtp-Source: AGHT+IGHphfRvmW722/TdJAZkp3QG9AaByMTNR+qbPHkvngQpqNgSwW1sNaqjUijvyXGt7Eqo+LYTw==
+X-Received: by 2002:a5d:5d88:0:b0:37d:4332:e91d with SMTP id ffacd0b85a97d-38208349f38mr8373766f8f.52.1731577169973;
+        Thu, 14 Nov 2024 01:39:29 -0800 (PST)
+Message-ID: <9815fb42-9205-4740-97b4-0b915de0c71b@suse.com>
+Date: Thu, 14 Nov 2024 10:39:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/multicall: Change nr_calls to uniformly be
- unsigned long
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240621205800.329230-1-andrew.cooper3@citrix.com>
- <20240621205800.329230-3-andrew.cooper3@citrix.com>
- <660fc551-c6bc-456f-8e9e-80b3e592fece@suse.com>
- <alpine.DEB.2.22.394.2411121912400.222505@ubuntu-linux-20-04-desktop>
- <35b585a0-7d19-4b02-8ad6-90c7df3ae6ac@suse.com>
- <alpine.DEB.2.22.394.2411131825400.222505@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH 2/2] x86emul: ignore VEX.W for BMI{1,2} insns in 32-bit
+ mode
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <367ba117-f376-433b-bd70-586d7519d94c@suse.com>
+ <39de64e1-c615-4ec3-ad05-ff99f27a8e30@suse.com>
+ <6442a109-de9a-4b81-a283-2d72bbc3d284@citrix.com>
+ <3788f564-7f02-4e2e-ac4c-b29214206e0d@suse.com>
+ <876f727c-8929-4149-af72-c3344db06e31@citrix.com>
+ <935442f7-4821-4215-a053-eeb1347282bb@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,88 +119,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2411131825400.222505@ubuntu-linux-20-04-desktop>
+In-Reply-To: <935442f7-4821-4215-a053-eeb1347282bb@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.11.2024 03:34, Stefano Stabellini wrote:
-> On Wed, 13 Nov 2024, Jan Beulich wrote:
->> On 13.11.2024 04:15, Stefano Stabellini wrote:
->>> It is challenging to create a solution that satisfies everyone for this
->>> patch. However, we should add R8.3 to the clean list as soon as possible
->>> to enable rule blocking in GitLab-CI. Failing to do so risks introducing
->>> regressions, as recently occurred, undoing the significant efforts made
->>> by Bugseng and the community over the past year.
->>>
->>> Unless there is a specific counterproposal, let us proceed with
->>> committing this patch.
+On 13.11.2024 14:32, Andrew Cooper wrote:
+> On 13/11/2024 1:31 pm, Andrew Cooper wrote:
+>> On 13/11/2024 8:01 am, Jan Beulich wrote:
+>>> On 13.11.2024 01:24, Andrew Cooper wrote:
+>>>> On 12/11/2024 3:00 pm, Jan Beulich wrote:
+>>>>> While result values and other status flags are unaffected as long as we
+>>>>> can ignore the case of registers having their upper 32 bits non-zero
+>>>>> outside of 64-bit mode, EFLAGS.SF may obtain a wrong value when we
+>>>>> mistakenly re-execute the original insn with VEX.W set.
+>>>>>
+>>>>> Note that the memory access, if any, is correctly carried out as 32-bit
+>>>>> regardless of VEX.W.
+>>>> I don't understand why this is true.
+>>> This talks about the access to guest memory, which is op_bytes based.
+>>> And op_bytes determination handles VEX.W correctly afaics. I've added
+>>> "guest" near the start of the sentence for clarification.
+>> Ah - that makes things much clearer.
 >>
->> Well, I find this odd. We leave things sit in limbo for months and then
->> want to go ahead with a controversial solution? Rather than actually
->> (and finally) sorting out the underlying disagreement (of which there
->> are actually two sufficiently separate parts)? Plus ...
-> 
-> The reason is that several MISRA regressions were recently introduced.
-> These regressions could have been easily detected by GitLab CI if we had
-> marked the rules as clean. I believe we should expedite accepting the
-> fixes and marking the rules as clean. We can always adjust the fixes or
-> deviations later to better suit our preferences. In my opinion, we
-> should prioritize marking the rules as clean.
-> 
-> 
->>> On Mon, 24 Jun 2024, Jan Beulich wrote:
->>>> On 21.06.2024 22:58, Andrew Cooper wrote:
->>>>> Right now, the non-compat declaration and definition of do_multicall()
->>>>> differing types for the nr_calls parameter.
->>>>>
->>>>> This is a MISRA rule 8.3 violation, but it's also time-bomb waiting for the
->>>>> first 128bit architecture (RISC-V looks as if it might get there first).
->>>>>
->>>>> Worse, the type chosen here has a side effect of truncating the guest
->>>>> parameter, because Xen still doesn't have a clean hypercall ABI definition.
->>>>>
->>>>> Switch uniformly to using unsigned long.
+>> I had neglected to consider the access to guest memory.
+>>
+>> In addition to a "guest" earlier, I'd suggest having a new paragraph at
+>> this point, and ...
+>>
+>>>> If we write out a VEX.W=1 form of BEXTR/etc and emulate while in 64bit
+>>>> mode, it will have an operand size of 64.
 >>>>
->>>> And re-raising all the same question again: Why not uniformly unsigned int?
->>>> Or uint32_t?
+>>>> I can believe that ...
+>>>>
+>>>>>  Internal state also isn't leaked, as the field the
+>>>>> memory value is read into (which is then wrongly accessed as a 64-bit
+>>>>> quantity when executing the stub) is pre-initialized to zero.
+>> ... this reading:
 >>
->> ... this question of mine effectively represents a concrete alternative
->> proposal (or even two, if you like).
+>> "The emulator-local memory operand will be accessed as a 64-bit
+>> quantity, but it is pre-initialised to zero so no internal state an leak"
 >>
->> The two parts where there appears to be disagreement are:
->> 1) When to (not) use fixed width types, as presently outlined in
->>    ./CODING_STYLE.
->> 2) How to type C function parameters called solely from assembly code (of
->>    which the hypercall handlers are a subset).
->>
->> And maybe
->> 2b) How to best express such function parameters when they're (sometimes)
->>     shared between native and compat handlers.
->>
->> Of course 2) is affected by, as Andrew validly says, there not being a
->> formally clean ABI definition.
->>
->> My fear is that if this gets committed as is, it'll be used as a handle to
->> force in further similarly questionable / controversial changes to other
->> hypercall handlers. Which is why I think the controversy needs sorting out
->> first (which admittedly is hard when the ABI is fuzzy).
-> 
-> While I appreciate your concern, as you know, aligning on the topics
-> above takes time. I do not believe it is in the interest of the
-> community, both contributors and reviewers, to delay marking this rule
-> as clean. Honestly, I do not mind how it gets marked as clean, as long
-> as we do it soon.
-> 
-> Additionally, please keep in mind that the Xen Project tends to have a
-> long memory. As a result, there is usually little risk of the so-called
-> "slippery slope" problem.
-> 
-> If you prefer a deviation I am OK with that too. I just want 8.3 as
-> clean :-) 
+>> or similar.
 
-No, please no deviations when we can avoid them. Since it feels like it's
-always (going to be?) me to give in when there is such disagreement, why
-don't I do so here as well: Go ahead.
+That's to _replace_ the "Internal state ..." sentence then, rather than an
+added separate sentence / paragraph? It says exactly the same, after all.
+
+> Oh, and Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Thanks, but I'll wait some for clarification above.
 
 Jan
 
