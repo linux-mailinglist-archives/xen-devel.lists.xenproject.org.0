@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 986D79CDDC8
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 12:53:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.837169.1253135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0227D9CDDC7
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 12:53:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.837168.1253115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBuss-0006kM-L0; Fri, 15 Nov 2024 11:53:06 +0000
+	id 1tBusq-000668-PF; Fri, 15 Nov 2024 11:53:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 837169.1253135; Fri, 15 Nov 2024 11:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 837168.1253115; Fri, 15 Nov 2024 11:53:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBuss-0006dJ-Fq; Fri, 15 Nov 2024 11:53:06 +0000
-Received: by outflank-mailman (input) for mailman id 837169;
- Fri, 15 Nov 2024 11:53:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tBusq-0005uP-HR; Fri, 15 Nov 2024 11:53:04 +0000
+Received: by outflank-mailman (input) for mailman id 837168;
+ Fri, 15 Nov 2024 11:53:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Akm3=SK=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tBusp-0005U9-Mi
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 11:53:03 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28fe931d-a348-11ef-99a3-01e77a169b0f;
- Fri, 15 Nov 2024 12:52:59 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5cacb76e924so2609901a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 03:52:59 -0800 (PST)
+ id 1tBuso-0005UF-NK
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 11:53:02 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 299e10b3-a348-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 12:53:00 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aa1e51ce601so311459966b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 03:53:00 -0800 (PST)
 Received: from localhost.localdomain (0545937c.skybroadband.com.
  [5.69.147.124]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e0860afsm173492766b.188.2024.11.15.03.52.57
+ a640c23a62f3a-aa20e0860afsm173492766b.188.2024.11.15.03.52.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2024 03:52:58 -0800 (PST)
+ Fri, 15 Nov 2024 03:52:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,212 +45,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28fe931d-a348-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmMiLCJoZWxvIjoibWFpbC1lZDEteDUyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjI4ZmU5MzFkLWEzNDgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjcxNTc5LjQyMjYzMiwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 299e10b3-a348-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmUiLCJoZWxvIjoibWFpbC1lajEteDYyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjI5OWUxMGIzLWEzNDgtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjcxNTgwLjQ0ODc2NCwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud; t=1731671579; x=1732276379; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V2Il6CAUmeVuteWCfEnG9JUs06lwoYmMwe5e8Dj7YCc=;
-        b=TnJgR+D4Tw+R2a7imFKFVITpZu9kX9F5Nrdkr5X7h5eXkqyJ/h8c3jJVnDj/rwaSlh
-         gAk4FdruQShsihT/Vbkzju67GhxrGLUP63sX2mHdv6LEh6TCRjtR/3aMf9VJBqjkfobb
-         8A9udAcyy7unf+3AVePylU/WBLWJr3FUlTeHM=
+        bh=rG3hGpHC8NrVDhtSg0TjY8wD98UlA4f/+d1taDxiYTY=;
+        b=VXSw+Z7XZmGfwzUdA4cQNyNFkkEN7RDyGpBaSU86ii/KqkFrZdQ1JHsgXHJvV6Z/Fn
+         R89tlfM9O0Umdgd8aywic/ZsBlDgd/STNAm4BAhT8Ow0ClBWiC1x74R8M8M8ejXKbb5R
+         jjUZ3/sNwKgd5yObMuNyKFh11drDZ0L8hGCGA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1731671579; x=1732276379;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=V2Il6CAUmeVuteWCfEnG9JUs06lwoYmMwe5e8Dj7YCc=;
-        b=PYXgOUimvLQdETTEirGB6tEASV8JdWVJp1Mh+FB7Bx2vHk3kDR/MTRTkBJb1VLZ7nW
-         o3zIGQekLXUni7Qamrpozrk1v1NI3S/0f2xzBrPO3pMyVwMSDwJn6VeXd8dNVkF4ujFK
-         JhFpGHcJc1xtISzOMgbqZ3gMWyMbxOpRyFWrKEZb+ahG34oYpJS6F8PGVAdCNqDItcyq
-         JdiXdLHIhFRs4JJidsdQTL3HONllTdqrYqdCpPPO9wIFMcnSVpOdPZWRLWe5eLmQIeou
-         qkU1Kyr+wmJOjzMxV5SEw1DjeHxVq5kNRQWoAkLv85yd+9cQclwoKnkDClvS7cugyXtd
-         vfuQ==
-X-Gm-Message-State: AOJu0Yx5JKOjtv8pCv6HzWTCObFHhh3vtGJSnUerIsmNragYtXP356qr
-	kjuWhZJEMZP/xh5O+KSPB68HLP3xoN1n4St4t+A8pCPqDHpOuJM1YafrONhnfG0aa6ZCpouF4cf
-	0
-X-Google-Smtp-Source: AGHT+IHgVBtkRtwgqIS6cGkk9ANUCp8sGTXtxenWTS6ogrhboiDW8cjjoZmcPndAnMBr+ggU7TCVSA==
-X-Received: by 2002:a17:907:7ba7:b0:a99:3318:e7c3 with SMTP id a640c23a62f3a-aa4835286d3mr208013966b.43.1731671578554;
-        Fri, 15 Nov 2024 03:52:58 -0800 (PST)
+        bh=rG3hGpHC8NrVDhtSg0TjY8wD98UlA4f/+d1taDxiYTY=;
+        b=UBvWUXtoJmbfDVUdCrWUKPJucALq2iT2Tyhae+N/o5wuM9lx2whS95i5Dag03x91m2
+         S7MOqzqNTaI54Ayk+skKHAfZjG2rwfLfsbdkFKYOqJTk7fD2ownbTqWSer192h7N6WUB
+         TeHV8F08RHEs3PtPVlOU/B2G/PnWzjHfAULIVNJJr3ETpf+gA8DdKaCPEWTgM85dd9iN
+         57zik/5wHzWkc/YG86WXjh+UALq5sU3XecMUZESkTvfNz4wJUj3ELLvwkC0UytEjCW8O
+         0dnXU/kO7EcEXg4zLxb2VGzoTzN97zeJ5tg30d15eLnd8XTU3lyE3Bl1veUuEqlOJTlr
+         i93g==
+X-Gm-Message-State: AOJu0YypUk3rW751LqixkkV8hQ5vuWQIOL1H5yb9gvR/MmzVm2nuVSp7
+	rj80csInCXoHAUqTy5UGvxNrq1vreZZlVZo5sJimbBHGvDtpoB3EXqxxXw6/W3QRILYFrPKA3KG
+	C
+X-Google-Smtp-Source: AGHT+IHaqAdkkVTKGpieGu4o1OUKEPqULq1gqWaTMHQnvFF1aQcJHkv9gR/qQtWD0pj2ilQM5lxifg==
+X-Received: by 2002:a17:906:fd89:b0:a9a:c61b:1329 with SMTP id a640c23a62f3a-aa4833f25bamr192432166b.3.1731671579539;
+        Fri, 15 Nov 2024 03:52:59 -0800 (PST)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Teddy Astie <teddy.astie@vates.tech>,
 	Yann Dirson <yann.dirson@vates.tech>
-Subject: [RFC PATCH 04/25] tools/xenbindgen: Add a TOML spec reader
-Date: Fri, 15 Nov 2024 11:51:33 +0000
-Message-ID: <20241115115200.2824-5-alejandro.vallejo@cloud.com>
+Subject: [RFC PATCH 05/25] tools/xenbindgen: Add basic plumbing for the C backend
+Date: Fri, 15 Nov 2024 11:51:34 +0000
+Message-ID: <20241115115200.2824-6-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241115115200.2824-1-alejandro.vallejo@cloud.com>
 References: <20241115115200.2824-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There isn't any deserialisation yet. It's mere plumbing.
+Takes an OutFileDef to generate a string with the file content. That
+will be all the structs, enums, bitmaps and includes we parse.
+
+For the time being, add the guards only, as the others are implemented
+by follow-up patches.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
- tools/rust/xenbindgen/src/main.rs | 28 ++++++++-
- tools/rust/xenbindgen/src/spec.rs | 96 +++++++++++++++++++++++++++++++
- 2 files changed, 121 insertions(+), 3 deletions(-)
- create mode 100644 tools/rust/xenbindgen/src/spec.rs
+ tools/rust/xenbindgen/src/c_lang.rs | 73 +++++++++++++++++++++++++++++
+ tools/rust/xenbindgen/src/main.rs   | 54 +++++++++++++++++++--
+ tools/rust/xenbindgen/src/spec.rs   |  2 +-
+ 3 files changed, 125 insertions(+), 4 deletions(-)
+ create mode 100644 tools/rust/xenbindgen/src/c_lang.rs
 
+diff --git a/tools/rust/xenbindgen/src/c_lang.rs b/tools/rust/xenbindgen/src/c_lang.rs
+new file mode 100644
+index 000000000000..f05e36bb362f
+--- /dev/null
++++ b/tools/rust/xenbindgen/src/c_lang.rs
+@@ -0,0 +1,73 @@
++//! C backend
++//!
++//! A backend for the C programming language. Enums and bitmaps appear as their
++//! backing primitive type. This is in order to mandate size and alignment at
++//! the ABI boundary.
++//!
++//! Otherwise, enums and struct are declared with their native C counterparts,
++//! whereas bitmaps are declared as `#define` items.
++//!
++//! There's an expectation that the supporting library will have the
++//! `(u)int64_aligned_t` types and `XEN_GUEST_HANDLE_64()`, These are important
++//! in order to allow 32bit domains to interact with 64bit hypervisors.
++//!
++//! As far as definitions go, `enums` are stored in native `enums`, but bitmaps
++//! are given in `#define` instead, with an empty struct on top to provide grep
++//! fodder and a tag to follow using an LSP, global, cscope, etc.
++
++use std::fmt::Write;
++
++use crate::spec::OutFileDef;
++
++use convert_case::{Case, Casing};
++
++/// An abstract indentation level. 0 is no indentation, 1 is [`INDENT_WIDTH`]
++/// and so on.
++#[derive(Copy, Clone)]
++struct Indentation(usize);
++
++/// Default width of each level of indentation
++const INDENT_WIDTH: usize = 4;
++
++/// Add a comment to a struct or a field.
++fn comment(out: &mut String, comment: &str, ind: Indentation) {
++    let spaces = " ".repeat(INDENT_WIDTH * ind.0);
++
++    if comment.contains('\n') {
++        writeln!(out, "{spaces}/*").unwrap();
++        for line in comment.split('\n') {
++            write!(out, "{spaces} *").unwrap();
++            if !line.is_empty() {
++                write!(out, " {line}").unwrap();
++            }
++            writeln!(out).unwrap();
++        }
++        writeln!(out, "{spaces} */").unwrap();
++    } else {
++        writeln!(out, "{spaces}/* {comment} */").unwrap();
++    }
++}
++
++/// Generates a single `.h` file.
++///
++/// `filedef` is a language-agnostic high level description of what the output
++/// must contain. The function returns the contents of the new
++///
++/// # Aborts
++/// Aborts the process with `rc=1` on known illegal specifications.
++pub fn parse(filedef: &OutFileDef) -> String {
++    let mut out = String::new();
++    let name = filedef
++        .name
++        .from_case(Case::Kebab)
++        .to_case(Case::UpperSnake);
++    let hdr = format!("{}\n\nAUTOGENERATED. DO NOT MODIFY", filedef.name);
++
++    comment(&mut out, &hdr, Indentation(0));
++    writeln!(out, "#ifndef __XEN_AUTOGEN_{name}_H").unwrap();
++    writeln!(out, "#define __XEN_AUTOGEN_{name}_H\n").unwrap();
++
++    writeln!(out, "#endif /* __XEN_AUTOGEN_{name}_H */\n").unwrap();
++
++    out
++}
 diff --git a/tools/rust/xenbindgen/src/main.rs b/tools/rust/xenbindgen/src/main.rs
-index 08fcf8fe4da6..497cf39d3bbd 100644
+index 497cf39d3bbd..00abf5ed7f33 100644
 --- a/tools/rust/xenbindgen/src/main.rs
 +++ b/tools/rust/xenbindgen/src/main.rs
-@@ -2,14 +2,22 @@
- //! crafted TOML files. The format of these files follows the following
- //! rules.
+@@ -4,11 +4,15 @@
  
-+mod spec;
+ mod spec;
+ 
+-use std::path::PathBuf;
++mod c_lang;
 +
-+use std::path::PathBuf;
-+
++use std::{io::Write, path::PathBuf};
+ 
  use clap::Parser;
++use convert_case::{Case, Casing};
  use env_logger::Env;
--use log::info;
-+use log::{error, info};
+ use log::{error, info};
++use spec::OutFileDef;
  
  /// A CLI tool to generate struct definitions in several languages.
  #[derive(Parser, Debug)]
- #[command(version, about)]
--struct Cli;
-+struct Cli {
-+    /// Path to the input directory containing the hypercall specification
+@@ -17,6 +21,20 @@ struct Cli {
+     /// Path to the input directory containing the hypercall specification
+     #[arg(short, long)]
+     indir: PathBuf,
++    /// Path to the output directory for the generated bindings.
 +    #[arg(short, long)]
-+    indir: PathBuf,
++    outdir: PathBuf,
++    /// Target language for the contents of `outdir`.
++    #[arg(short, long, value_enum)]
++    lang: Lang,
 +}
++
++/// Supported target languages
++#[derive(clap::ValueEnum, Clone, Debug)]
++#[clap(rename_all = "kebab_case")]
++enum Lang {
++    #[doc(hidden)]
++    C,
+ }
  
  fn main() {
-     env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
-@@ -17,5 +25,19 @@ fn main() {
+@@ -25,7 +43,7 @@ fn main() {
      let cli = Cli::parse();
      info!("args: {:?}", cli);
  
--    todo!("read spec files and generate output files");
-+    let _specification = match spec::Spec::new(&cli.indir) {
-+        Ok(x) => x,
-+        Err(spec::Error::Toml(x)) => {
-+            error!("TOML parsing error:");
-+            error!("{x:#?}");
-+            std::process::exit(1);
-+        }
-+        Err(spec::Error::Io(x)) => {
-+            error!("IO error:");
-+            error!("{x:#?}");
-+            std::process::exit(1);
-+        }
+-    let _specification = match spec::Spec::new(&cli.indir) {
++    let specification = match spec::Spec::new(&cli.indir) {
+         Ok(x) => x,
+         Err(spec::Error::Toml(x)) => {
+             error!("TOML parsing error:");
+@@ -39,5 +57,35 @@ fn main() {
+         }
+     };
+ 
+-    todo!("generate output files");
++    let (extension, parser): (&str, fn(&OutFileDef) -> String) = match cli.lang {
++        Lang::C => (".h", c_lang::parse),
 +    };
 +
-+    todo!("generate output files");
++    if let Err(x) = std::fs::create_dir_all(&cli.outdir) {
++        error!("Can't create outdir {:?}: {x}", cli.outdir);
++        std::process::exit(1);
++    }
++
++    for outfile in &specification.0 {
++        let mut path = cli.outdir.clone();
++        let name = outfile.name.from_case(Case::Kebab).to_case(Case::Snake);
++        path.push(format!("{name}{extension}"));
++
++        info!("Generating {path:?}");
++
++        // Parse the input file before creating the output
++        let output = parser(outfile);
++
++        let Ok(mut file) = std::fs::OpenOptions::new()
++            .write(true)
++            .create(true)
++            .truncate(true)
++            .open(path)
++        else {
++            error!("Can't open {}", outfile.name);
++            std::process::exit(1);
++        };
++
++        file.write_all(output.as_bytes()).unwrap();
++    }
  }
 diff --git a/tools/rust/xenbindgen/src/spec.rs b/tools/rust/xenbindgen/src/spec.rs
-new file mode 100644
-index 000000000000..e69f7c78dc7a
---- /dev/null
+index e69f7c78dc7a..08c4dc3a7eba 100644
+--- a/tools/rust/xenbindgen/src/spec.rs
 +++ b/tools/rust/xenbindgen/src/spec.rs
-@@ -0,0 +1,96 @@
-+//! Specification descriptions
-+//!
-+//! The TOML files are not parsed by hand. This module provides a sort of
-+//! schema for the TOML descriptions, in the sense that `serde` itself ensures
-+//! every field is deserialised into its equivalent Rust structure or the
-+//! deserialization procedure fails.
-+//!
-+//! If the specification is clearly invalid (i.e: missing fields) it'll scream
-+//! in a rather obvious way.
-+//!
-+//! A special case is the `typ` field in the specifications is meant to have
-+//! the format present in the specifications under `extra`. This allows `serde`
-+//! to properly decode the type and match it with a variant of the [`Typ`] type
-+//! with the payload landing in the payload of the variant itself.
-+
-+use std::{fs::read_to_string, path::Path};
-+
-+use log::{debug, info};
-+
-+/// A language-agnostic specification.
-+#[derive(Debug, serde::Deserialize)]
-+struct InFileDef;
-+
-+/// Description of an abstract output (i.e: `.rs`, `.h`, etc).
-+///
-+/// Contains every element of the ABI that needs representing.
-+#[derive(Debug)]
-+pub struct OutFileDef {
-+    /// The name of the output file, without the final extension.
-+    pub name: String,
-+}
-+
-+impl OutFileDef {
-+    /// Creates a new _output_ file description. Each [`OutFileDef`] is
-+    /// associated with a number of [`InFileDef`] and holds the merged
-+    /// contents described in all of them.
-+    ///
-+    /// # Errors
-+    /// Fails if the TOML is invalid or on IO error.
-+    pub fn new(name: String, dir: &Path) -> Result<Self, Error> {
-+        info!("Reading {dir:?} to generate an output file");
-+
-+        let mut ret = Self { name };
-+
-+        for entry in from_ioerr(dir.read_dir())? {
-+            let path = from_ioerr(entry)?.path();
-+            debug!("Reading {:?} to generate outfile={}", path, ret.name);
-+            let toml_str = from_ioerr(read_to_string(path))?;
-+            let filedef: InFileDef = toml::from_str(&toml_str).map_err(Error::Toml)?;
-+        }
-+
-+        Ok(ret)
-+    }
-+}
-+
-+/// Internal error type for every error spec parsing could encounter
-+#[derive(Debug)]
-+pub enum Error {
-+    /// Wrapper around IO errors
-+    Io(std::io::Error),
-+    /// Wrapper around deserialization errors
-+    Toml(toml::de::Error),
-+}
-+
-+/// Maps an [`std::io::Error`] onto a [`Error`] type for easier propagation
-+fn from_ioerr<T>(t: std::io::Result<T>) -> Result<T, Error> {
-+    t.map_err(Error::Io)
-+}
-+
-+/// Object containing the abstract definitions of all output files.
-+///
-+/// See [`OutFileDef`] to details on the specification contents of each output.
-+#[derive(Debug)]
-+pub struct Spec(pub Vec<OutFileDef>);
-+
-+impl Spec {
-+    /// Creates a new abstract specification from a top-level directory full
-+    /// of specification files. This is used later to aggregate all the content
-+    /// and generate the appropriate language outputs.
-+    ///
-+    /// # Errors
-+    /// Fails on IO errors.
-+    pub fn new(root: &Path) -> Result<Self, Error> {
-+        info!("Reading {root:?} as top-level directory");
-+
-+        let mut ret = Self(Vec::new());
-+        for outfile in from_ioerr(root.read_dir())? {
-+            // Each folder in the root defines a single output file
-+            let outfile = from_ioerr(outfile)?;
-+            let name = outfile.file_name().to_string_lossy().to_string();
-+            ret.0.push(OutFileDef::new(name, &outfile.path())?);
-+        }
-+
-+        Ok(ret)
-+    }
-+}
+@@ -40,7 +40,7 @@ impl OutFileDef {
+     pub fn new(name: String, dir: &Path) -> Result<Self, Error> {
+         info!("Reading {dir:?} to generate an output file");
+ 
+-        let mut ret = Self { name };
++        let ret = Self { name };
+ 
+         for entry in from_ioerr(dir.read_dir())? {
+             let path = from_ioerr(entry)?.path();
 -- 
 2.47.0
 
