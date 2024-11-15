@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AD369C968E
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 01:12:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836845.1252749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 981B59CD4CB
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 01:46:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836856.1252758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBjvs-0002Vh-QJ; Fri, 15 Nov 2024 00:11:28 +0000
+	id 1tBkTM-0006i6-CW; Fri, 15 Nov 2024 00:46:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836845.1252749; Fri, 15 Nov 2024 00:11:28 +0000
+Received: by outflank-mailman (output) from mailman id 836856.1252758; Fri, 15 Nov 2024 00:46:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBjvs-0002TN-Ma; Fri, 15 Nov 2024 00:11:28 +0000
-Received: by outflank-mailman (input) for mailman id 836845;
- Fri, 15 Nov 2024 00:11:26 +0000
+	id 1tBkTM-0006gR-9m; Fri, 15 Nov 2024 00:46:04 +0000
+Received: by outflank-mailman (input) for mailman id 836856;
+ Fri, 15 Nov 2024 00:46:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=N6VO=SK=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1tBjvq-0002TH-Kd
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 00:11:26 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=b7N1=SK=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1tBkTK-0006gL-Rq
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 00:46:03 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23520dc3-a2e6-11ef-99a3-01e77a169b0f;
- Fri, 15 Nov 2024 01:11:20 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
- by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 4AF0B9Xd051258
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 14 Nov 2024 19:11:15 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.18.1/8.15.2/Submit) id 4AF0B8rU051257;
- Thu, 14 Nov 2024 16:11:08 -0800 (PST) (envelope-from ehem)
+ id fa3a323c-a2ea-11ef-99a3-01e77a169b0f;
+ Fri, 15 Nov 2024 01:45:57 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,127 +36,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23520dc3-a2e6-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6Ijc0LjEwNC4xODguNCIsImhlbG8iOiJtYWlsaG9zdC5tNXAuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjIzNTIwZGMzLWEyZTYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjI5NDgwLjg4NTY4LCJzZW5kZXIiOiJlaGVtQG01cC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-Date: Thu, 14 Nov 2024 16:11:08 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: Andrei Semenov <andrei.semenov@vates.tech>, xen-devel@lists.xenproject.org,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: AMD EPYC virtual network performances
-Message-ID: <ZzaRnFLMq9OY3jj6@mattapan.m5p.com>
-References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
- <ZzTg_p-8E0_jrkii@mattapan.m5p.com>
- <467e46ad-d0d0-4217-9b70-b48e3c7a1fb5@suse.com>
+X-Inumbo-ID: fa3a323c-a2ea-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5My4xNDIuNDMuNTUiLCJoZWxvIjoiZ2Fsb2lzLmxpbnV0cm9uaXguZGUifQ==
+X-Custom-Transaction: eyJpZCI6ImZhM2EzMjNjLWEyZWEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjMxNTU4LjAwNTEyMiwic2VuZGVyIjoidGdseEBsaW51dHJvbml4LmRlIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1731631556;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wmlctHEns5HH4kuTaBjX2JNcI1LzVOydASF++UAbmDY=;
+	b=QOnTTM3upVgvLOqHHkULAR/Sd+IXv2/jwWShAxdu/d9Ou3VRQKwRFQcKkxYFlQbNCHuDKC
+	qmtZIl1QGU9LvuaVEHVi6mN8leBtPwfqyHUmV8sQ4okR7sVQBV4nqtQqHtK44NZWa+achm
+	KJtmcrXFernLrXFh8br79W+BBZcbUPnfW6G5ETbNxP5n4/wMMrok/VJbm/1lHIAX31JScD
+	X4TbcxeFRb0UaQ4ZOxoYrise9V26pZtUHGM6uIGxT7DAWZfdtWm58X+EkXZorarJx6j3sJ
+	jv7CYR1gtAzR1m3FucHfJnoCrMS9Ay9Ifg0KTixSjK7w1MQSxCZuE9xVfV0ltA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1731631556;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wmlctHEns5HH4kuTaBjX2JNcI1LzVOydASF++UAbmDY=;
+	b=B6FonATMAX4OxdtMR8JNBP8qWfBOIV1vFazP675PCOfWlXztCY+avvBu11Vcb9coe6V9WE
+	q7IVbFH9tV+539Aw==
+To: Philipp Stanner <pstanner@redhat.com>, Damien Le Moal
+ <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, Basavaraj Natikar
+ <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
+ Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+ <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
+ <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
+ <imitsyanko@quantenna.com>, Sergey Matyukevich <geomatsi@gmail.com>, Kalle
+ Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar
+ S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
+ <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Chen Ni <nichen@iscas.ac.cn>, Ricky Wu
+ <ricky_wu@realtek.com>, Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao
+ <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>, Mostafa Saleh
+ <smostafa@google.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Yi
+ Liu <yi.l.liu@intel.com>, Kunwu Chan <chentao@kylinos.cn>, Ankit Agrawal
+ <ankita@nvidia.com>, Christian Brauner <brauner@kernel.org>, Reinette
+ Chatre <reinette.chatre@intel.com>, Eric
+ Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-input@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 11/11] Remove devres from pci_intx()
+In-Reply-To: <49bb6fc9ebff3cae844da0465ceadeef8d3217c7.camel@redhat.com>
+References: <20241113124158.22863-2-pstanner@redhat.com>
+ <20241113124158.22863-13-pstanner@redhat.com> <87msi3ksru.ffs@tglx>
+ <49bb6fc9ebff3cae844da0465ceadeef8d3217c7.camel@redhat.com>
+Date: Fri, 15 Nov 2024 01:46:13 +0100
+Message-ID: <8734jtl3xm.ffs@tglx>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <467e46ad-d0d0-4217-9b70-b48e3c7a1fb5@suse.com>
-X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
+Content-Transfer-Encoding: base64
 
-On Wed, Nov 13, 2024 at 08:20:02PM +0100, Jürgen Groß wrote:
-> On 13.11.24 18:25, Elliott Mitchell wrote:
-> > On Tue, Jul 09, 2024 at 08:36:18AM +0000, Andrei Semenov wrote:
-> > > 
-> > > After some investigations we notices a huge performances drop (perfs divided
-> > > by
-> > > factor of 5) starting from 5.10.88 Linux kernel version on the AMD EPYC
-> > > platforms. The patch introduced in this kernel version that allows to
-> > > pinpoint
-> > > the buggy behavior is :
-> > > 
-> > >   “xen/netfront: harden netfront against event channel storms”
-> > > d31b3379179d64724d3bbfa87bd4ada94e3237de
-> > > 
-> > > The patch basically binds the network frontend to the `xen_lateeoi_chip`
-> > > irq_chip (insead of `xen_dynamic_chip`) which allows to its clients to
-> > > inform
-> > > the chip if spurious interrupts are detected and so the delay in interrupt
-> > > treatment is introduced by the chip.
-> > 
-> > I worry I'm being knave here.
-> > 
-> > For the heck of it, I took a glance at b27d47950e48.  If my understanding
-> > is correct, b27d47950e48 is making a very basic (and wrong) assumption
-> > about timing/latency.
-> > 
-> > In particular any time either side receive an event, it will handle
-> > X # of incoming payloads and Y # of acknowledged outgoing payloads.  As
-> > such if X + Y > 1, then up to X + Y - 1 spurious events may be detected.
-> > The issue is there is no synchronization between the event channel and
-> > the work queues.
-> > 
-> > In particular the network back end could legitimately generate:
-> > 
-> > work0	signal0	work1	signal1	work2	signal2	work3	signal3
-> > 
-> > Whereas the network front end may handle this as:
-> > 
-> > event0	work0	work1	work2	work3	event1	event2	event3
-> > 
-> > Where b27d47950e48 would interpret events 1-3 as spurious, even though
-> > they're perfectly legitimate.  The same phenomenon could occur in both
-> > directions and also with the Xen block devices.
-> 
-> No.
-> 
-> For one, as long as event0 isn't EOI'd, the other events would just be
-> merged into a single one.
-
-With the 2-level bitfield event channel certainly, but what if FIFO
-event channels were in use?
-
-> Additionally, as long as work0 isn't acknowledged by incrementing the
-> consumer index, additional queued work items should NOT result in
-> additional events being sent. An event is only sent if a work item is
-> queued to a ring buffer with consumer == producer.
-
-What if the front-end and back-end were running simultaneously on
-different processors?
-
-> > Ultimately how is the network portion of XSA-391 any different from any
-> > other network DoS?  If an interrupt is generated for every single packet
-> > of a series of runt frames, there will be heavy processor use for little
-> > network traffic.
-> 
-> The problem is that a steady stream of events could keep the other side
-> in IRQ handling for arbitrary amount of times, leading to hangups.
-
-I know.  I was pointing out this seems little different from other
-typical network DoS behavior.  This sort of situation is also an issue
-when network speeds are increasing since more packets means more
-interrupts.
-
-> > AMD systems may fair worse than Intel systems due to differing cache
-> > coherence behavior/latency.  Perhaps AMD's NUMA implementation adds
-> > some latency.  (huh, suddenly the RAID1 issue comes to mind)
-> > 
-> > 
-> > Hopefully I'm not making knave speculation here.  Might this be the
-> > simplest of issues, just it was missed due to being too obvious?
-> 
-> I don't agree with your analysis, see above.
-
-Okay.  I was asking since it looked a bit odd and there has been no news
-on this issue (unless I missed some patch flying by).
-
-I don't know how large the impact of this is.  I wouldn't be surprised if
-this turned out to overwhelm all my other efforts at performance
-improvement.
-
-Any news on your efforts to track this down?
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+T24gVGh1LCBOb3YgMTQgMjAyNCBhdCAxMDowNSwgUGhpbGlwcCBTdGFubmVyIHdyb3RlOg0KPiBP
+biBXZWQsIDIwMjQtMTEtMTMgYXQgMTc6MjIgKzAxMDAsIFRob21hcyBHbGVpeG5lciB3cm90ZToN
+Cj4+IE9uIFdlZCwgTm92IDEzIDIwMjQgYXQgMTM6NDEsIFBoaWxpcHAgU3Rhbm5lciB3cm90ZToN
+Cj4+ID4gcGNpX2ludHgoKSBpcyBhIGh5YnJpZCBmdW5jdGlvbiB3aGljaCBjYW4gc29tZXRpbWVz
+IGJlIG1hbmFnZWQNCj4+ID4gdGhyb3VnaA0KPj4gPiBkZXZyZXMuIFRoaXMgaHlicmlkIG5hdHVy
+ZSBpcyB1bmRlc2lyYWJsZS4NCj4+ID4gDQo+PiA+IFNpbmNlIGFsbCB1c2VycyBvZiBwY2lfaW50
+eCgpIGhhdmUgYnkgbm93IGJlZW4gcG9ydGVkIGVpdGhlciB0bw0KPj4gPiBhbHdheXMtbWFuYWdl
+ZCBwY2ltX2ludHgoKSBvciBuZXZlci1tYW5hZ2VkIHBjaV9pbnR4X3VubWFuYWdlZCgpLA0KPj4g
+PiB0aGUNCj4+ID4gZGV2cmVzIGZ1bmN0aW9uYWxpdHkgY2FuIGJlIHJlbW92ZWQgZnJvbSBwY2lf
+aW50eCgpLg0KPj4gPiANCj4+ID4gQ29uc2VxdWVudGx5LCBwY2lfaW50eF91bm1hbmFnZWQoKSBp
+cyBub3cgcmVkdW5kYW50LCBiZWNhdXNlDQo+PiA+IHBjaV9pbnR4KCkNCj4+ID4gaXRzZWxmIGlz
+IG5vdyB1bm1hbmFnZWQuDQo+PiA+IA0KPj4gPiBSZW1vdmUgdGhlIGRldnJlcyBmdW5jdGlvbmFs
+aXR5IGZyb20gcGNpX2ludHgoKS4gSGF2ZSBhbGwgdXNlcnMgb2YNCj4+ID4gcGNpX2ludHhfdW5t
+YW5hZ2VkKCkgY2FsbCBwY2lfaW50eCgpLiBSZW1vdmUgcGNpX2ludHhfdW5tYW5hZ2VkKCkuDQo+
+PiA+IA0KPj4gPiBTaWduZWQtb2ZmLWJ5OiBQaGlsaXBwIFN0YW5uZXIgPHBzdGFubmVyQHJlZGhh
+dC5jb20+DQo+PiA+IC0tLQ0KPj4gPiDCoGRyaXZlcnMvbWlzYy9jYXJkcmVhZGVyL3J0c3hfcGNy
+LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstDQo+PiA+IMKgZHJpdmVycy9taXNjL3Rp
+Zm1fN3h4MS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA2
+ICstLQ0KPj4gPiDCoC4uLi9uZXQvZXRoZXJuZXQvYnJvYWRjb20vYm54MngvYm54MnhfbWFpbi5j
+wqAgfMKgIDIgKy0NCj4+ID4gwqBkcml2ZXJzL25ldC9ldGhlcm5ldC9icm9jYWRlL2JuYS9ibmFk
+LmPCoMKgwqDCoMKgwqAgfMKgIDIgKy0NCj4+ID4gwqBkcml2ZXJzL250Yi9ody9hbWQvbnRiX2h3
+X2FtZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArLQ0KPj4gPiDCoGRyaXZl
+cnMvbnRiL2h3L2ludGVsL250Yl9od19nZW4xLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAy
+ICstDQo+PiA+IMKgZHJpdmVycy9wY2kvZGV2cmVzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArLQ0KPj4gPiDCoGRyaXZlcnMvcGNpL21z
+aS9hcGkuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
+wqAgMiArLQ0KPj4gPiDCoGRyaXZlcnMvcGNpL21zaS9tc2kuY8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQ0KPj4gPiDCoGRyaXZlcnMvcGNp
+L3BjaS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgfCA0MyArLS0tLS0tLS0tLS0tLS0NCj4+ID4gLS0tLQ0KPj4gPiDCoGRyaXZlcnMvdmZp
+by9wY2kvdmZpb19wY2lfY29yZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0N
+Cj4+ID4gwqBkcml2ZXJzL3ZmaW8vcGNpL3ZmaW9fcGNpX2ludHJzLmPCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgfCAxMCArKy0tLQ0KPj4gPiDCoGRyaXZlcnMveGVuL3hlbi1wY2liYWNrL2NvbmZf
+c3BhY2VfaGVhZGVyLmPCoMKgIHzCoCAyICstDQo+PiA+IMKgaW5jbHVkZS9saW51eC9wY2kuaMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDEg
+LQ0KPj4gPiDCoDE0IGZpbGVzIGNoYW5nZWQsIDIyIGluc2VydGlvbnMoKyksIDYyIGRlbGV0aW9u
+cygtKQ0KPj4gDQo+PiBOb3cgSSdtIHV0dGVybHkgY29uZnVzZWQuIFRoaXMgdW5kb2VzIHRoZSBw
+Y2lfaW50eF91bm1hbmFnZWQoKSBjaHVybg0KPj4gd2hpY2ggeW91IGNhcmVmdWxseSBzcGxpdCBp
+bnRvIHNldmVyYWwgcGF0Y2hlcyBmaXJzdC4NCj4NCj4gSGF2ZSB5b3UgcmVhZCB0aGUgZW1haWwg
+SSBoYXZlIGxpbmtlZD8NCj4NCj4gVGhlcmUgaXMgYWxzbyB0aGUgY292ZXItbGV0dGVyIChkb2Vz
+IGFueW9uZSBpbiB0aGUgY29tbXVuaXR5IGV2ZXIgcmVhZA0KPiB0aG9zZT8pIHdoaWNoIGV4cGxp
+Y2l0bHkgc3RhdGVzOg0KPg0KPiAiUGF0Y2ggIlJlbW92ZSBkZXZyZXMgZnJvbSBwY2lfaW50eCgp
+IiBvYnZpb3VzbHkgcmV2ZXJ0cyB0aGUgcHJldmlvdXMNCj4gcGF0Y2hlcyB0aGF0IG1hZGUgZHJp
+dmVycyB1c2UgcGNpX2ludHhfdW5tYW5hZ2VkKCkuIEJ1dCB0aGlzIHdheSBpdCdzDQo+IGVhc2ll
+ciB0byByZXZpZXcgYW5kIGFwcHJvdmUuIEl0IGFsc28gbWFrZXMgc3VyZSB0aGF0IGVhY2ggY2hl
+Y2tlZCBvdXQNCj4gY29tbWl0IHNob3VsZCBwcm92aWRlIGNvcnJlY3QgYmVoYXZpb3IsIG5vdCBq
+dXN0IHRoZSBlbnRpcmUgc2VyaWVzIGFzIGENCj4gd2hvbGUuIg0KDQpJIHJlYWQgaXQgYW5kIEkg
+YXNzdW1lIHlvdXIgaW50ZW50aW9uIHdhcyB0byBmb3JjZSBhbiBleWUgb24gZXZlcnkgdXNlDQpj
+YXNlIG9mIHBjaV9pbnR4KCkgYW5kIG5vdCBqdXN0IG9uIHRob3NlIHdoaWNoIG5lZWQgdG8gYmUg
+Y29udmVydGVkIHRvDQpwY2ltX2ludHgoKS4NCg0KSSdtIG5vdCBjb252aW5jZWQgdGhhdCB0aGlz
+IGlzIG5lZWRlZCwgYnV0IGZhaXIgZW5vdWdoLg0KDQoNCg0KDQo=
 
