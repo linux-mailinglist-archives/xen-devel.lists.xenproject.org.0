@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5303D9CF7AF
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:32:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838168.1254212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0FC99CF7A2
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:31:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838148.1254191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3va-0006L4-IW; Fri, 15 Nov 2024 21:32:30 +0000
+	id 1tC3um-000527-Sw; Fri, 15 Nov 2024 21:31:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838168.1254212; Fri, 15 Nov 2024 21:32:30 +0000
+Received: by outflank-mailman (output) from mailman id 838148.1254191; Fri, 15 Nov 2024 21:31:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3va-0006Im-Fa; Fri, 15 Nov 2024 21:32:30 +0000
-Received: by outflank-mailman (input) for mailman id 838168;
- Fri, 15 Nov 2024 21:32:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tC3um-0004zh-Pk; Fri, 15 Nov 2024 21:31:40 +0000
+Received: by outflank-mailman (input) for mailman id 838148;
+ Fri, 15 Nov 2024 21:31:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5OXi=SK=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tC3qD-0007DY-12
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:26:57 +0000
+ id 1tC3qA-0007AP-M8
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:26:54 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 53faabce-a398-11ef-99a3-01e77a169b0f;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 546242af-a398-11ef-a0c7-8be0dac302b0;
  Fri, 15 Nov 2024 22:26:51 +0100 (CET)
 Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
- by linux.microsoft.com (Postfix) with ESMTPSA id 25F9B2064AE0;
+ by linux.microsoft.com (Postfix) with ESMTPSA id 5CD1F2064AE2;
  Fri, 15 Nov 2024 13:26:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,24 +39,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53faabce-a398-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 546242af-a398-11ef-a0c7-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjUzZmFhYmNlLWEzOTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzA2MDExLjYxMTkxOSwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 25F9B2064AE0
+X-Custom-Transaction: eyJpZCI6IjU0NjI0MmFmLWEzOTgtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzA2MDEyLjI4MTk4MSwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5CD1F2064AE2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1731706005;
-	bh=7RgevXzVOF2wd0QHaqg8sKSXBh3tNnxEZNLAJYHO4/0=;
+	bh=DChbJW+DaqGHGWE0sMF41tmxT4FReQ1FKA/KDyHL32Y=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=UMDCxiMFhqj3OlDob3LYx0iO5XeNyfLgAMK6ZmPOVPjyLP8LbvBk/4clux5a7IhZf
-	 SUaWunrnwv/PJO3csx5OWc8mNOgOiHWkD1xkNHfyawuJ/x53ffFQkcrJhZT2Q2aLBA
-	 ECLfhBVQizunL7YqKMclkNruWg4koe1sEVlXuTiY=
+	b=ge1adyPGW09osua+wGGbdGdLanSrZuA2fUn6nHmkQB9BNqn7wXFeAp1cdPu9VCOCp
+	 35/hCv3XcEWTsrlvlhY2AjaoCI0WZCFykTU/SVB+MenGuEggOAvCtL12icddG0ZBHS
+	 CbMDQbZbPdYcJR1LvpcZibK937QvjL6m/Aizu5/Q=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Date: Fri, 15 Nov 2024 21:26:35 +0000
-Subject: [PATCH v2 18/21] ceph: Convert timeouts to secs_to_jiffies()
+Date: Fri, 15 Nov 2024 21:26:36 +0000
+Subject: [PATCH v2 19/21] livepatch: Convert timeouts to secs_to_jiffies()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241115-converge-secs-to-jiffies-v2-18-911fb7595e79@linux.microsoft.com>
+Message-Id: <20241115-converge-secs-to-jiffies-v2-19-911fb7595e79@linux.microsoft.com>
 References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
 In-Reply-To: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>, 
@@ -140,22 +140,78 @@ Changes made with the following Coccinelle rules:
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- fs/ceph/quota.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ samples/livepatch/livepatch-callbacks-busymod.c |  2 +-
+ samples/livepatch/livepatch-shadow-fix1.c       |  2 +-
+ samples/livepatch/livepatch-shadow-mod.c        | 10 +++++-----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/fs/ceph/quota.c b/fs/ceph/quota.c
-index 06ee397e0c3a6172592e62dba95cd267cfff0db1..d90eda19bcc4618f98bfed833c10a6071cf2e2ac 100644
---- a/fs/ceph/quota.c
-+++ b/fs/ceph/quota.c
-@@ -166,7 +166,7 @@ static struct inode *lookup_quotarealm_inode(struct ceph_mds_client *mdsc,
- 	if (IS_ERR(in)) {
- 		doutc(cl, "Can't lookup inode %llx (err: %ld)\n", realm->ino,
- 		      PTR_ERR(in));
--		qri->timeout = jiffies + msecs_to_jiffies(60 * 1000); /* XXX */
-+		qri->timeout = jiffies + secs_to_jiffies(60); /* XXX */
- 	} else {
- 		qri->timeout = 0;
- 		qri->inode = in;
+diff --git a/samples/livepatch/livepatch-callbacks-busymod.c b/samples/livepatch/livepatch-callbacks-busymod.c
+index 378e2d40271a9717d09eff51d3d3612c679736fc..d0fd801a7c21b7d7939c29d83f9d993badcc9aba 100644
+--- a/samples/livepatch/livepatch-callbacks-busymod.c
++++ b/samples/livepatch/livepatch-callbacks-busymod.c
+@@ -45,7 +45,7 @@ static int livepatch_callbacks_mod_init(void)
+ {
+ 	pr_info("%s\n", __func__);
+ 	schedule_delayed_work(&work,
+-		msecs_to_jiffies(1000 * 0));
++		secs_to_jiffies(0));
+ 	return 0;
+ }
+ 
+diff --git a/samples/livepatch/livepatch-shadow-fix1.c b/samples/livepatch/livepatch-shadow-fix1.c
+index 6701641bf12d454a770e49abeeb0dea92560e55e..948ea1f5760fed2fa27baf478c97cf98ad5c99a8 100644
+--- a/samples/livepatch/livepatch-shadow-fix1.c
++++ b/samples/livepatch/livepatch-shadow-fix1.c
+@@ -73,7 +73,7 @@ static struct dummy *livepatch_fix1_dummy_alloc(void)
+ 		return NULL;
+ 
+ 	d->jiffies_expire = jiffies +
+-		msecs_to_jiffies(1000 * EXPIRE_PERIOD);
++		secs_to_jiffies(EXPIRE_PERIOD);
+ 
+ 	/*
+ 	 * Patch: save the extra memory location into a SV_LEAK shadow
+diff --git a/samples/livepatch/livepatch-shadow-mod.c b/samples/livepatch/livepatch-shadow-mod.c
+index 7e753b0d2fa611524c9e2adbe02c8fa3e9b6015e..79296e6ccb119f521e86a121623855d841c9fc5e 100644
+--- a/samples/livepatch/livepatch-shadow-mod.c
++++ b/samples/livepatch/livepatch-shadow-mod.c
+@@ -102,7 +102,7 @@ static __used noinline struct dummy *dummy_alloc(void)
+ 		return NULL;
+ 
+ 	d->jiffies_expire = jiffies +
+-		msecs_to_jiffies(1000 * EXPIRE_PERIOD);
++		secs_to_jiffies(EXPIRE_PERIOD);
+ 
+ 	/* Oops, forgot to save leak! */
+ 	leak = kzalloc(sizeof(*leak), GFP_KERNEL);
+@@ -153,7 +153,7 @@ static void alloc_work_func(struct work_struct *work)
+ 	mutex_unlock(&dummy_list_mutex);
+ 
+ 	schedule_delayed_work(&alloc_dwork,
+-		msecs_to_jiffies(1000 * ALLOC_PERIOD));
++		secs_to_jiffies(ALLOC_PERIOD));
+ }
+ 
+ /*
+@@ -185,15 +185,15 @@ static void cleanup_work_func(struct work_struct *work)
+ 	mutex_unlock(&dummy_list_mutex);
+ 
+ 	schedule_delayed_work(&cleanup_dwork,
+-		msecs_to_jiffies(1000 * CLEANUP_PERIOD));
++		secs_to_jiffies(CLEANUP_PERIOD));
+ }
+ 
+ static int livepatch_shadow_mod_init(void)
+ {
+ 	schedule_delayed_work(&alloc_dwork,
+-		msecs_to_jiffies(1000 * ALLOC_PERIOD));
++		secs_to_jiffies(ALLOC_PERIOD));
+ 	schedule_delayed_work(&cleanup_dwork,
+-		msecs_to_jiffies(1000 * CLEANUP_PERIOD));
++		secs_to_jiffies(CLEANUP_PERIOD));
+ 
+ 	return 0;
+ }
 
 -- 
 2.34.1
