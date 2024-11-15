@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E9C9CF810
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:41:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838333.1254372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC83E9CF815
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:41:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838353.1254402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC43w-0001ku-79; Fri, 15 Nov 2024 21:41:08 +0000
+	id 1tC44I-0003UT-0F; Fri, 15 Nov 2024 21:41:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838333.1254372; Fri, 15 Nov 2024 21:41:08 +0000
+Received: by outflank-mailman (output) from mailman id 838353.1254402; Fri, 15 Nov 2024 21:41:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC43w-0001hf-3m; Fri, 15 Nov 2024 21:41:08 +0000
-Received: by outflank-mailman (input) for mailman id 838333;
- Fri, 15 Nov 2024 21:41:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tC44H-0003Qw-S4; Fri, 15 Nov 2024 21:41:29 +0000
+Received: by outflank-mailman (input) for mailman id 838353;
+ Fri, 15 Nov 2024 21:41:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5OXi=SK=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tC3qB-0007AP-Ly
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:26:55 +0000
+ id 1tC3qE-0007DY-0j
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:26:58 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 54b17fd2-a398-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 22:26:52 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 5523ca8d-a398-11ef-99a3-01e77a169b0f;
+ Fri, 15 Nov 2024 22:26:53 +0100 (CET)
 Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
- by linux.microsoft.com (Postfix) with ESMTPSA id 956492064AE3;
+ by linux.microsoft.com (Postfix) with ESMTPSA id CCEDA2064AE4;
  Fri, 15 Nov 2024 13:26:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,25 +39,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54b17fd2-a398-11ef-a0c7-8be0dac302b0
+X-Inumbo-ID: 5523ca8d-a398-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjU0YjE3ZmQyLWEzOTgtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzA2MDEyLjgwMTI2LCJzZW5kZXIiOiJlYWhhcmloYUBsaW51eC5taWNyb3NvZnQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 956492064AE3
+X-Custom-Transaction: eyJpZCI6IjU1MjNjYThkLWEzOTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzA2MDEzLjU1NDYzMSwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CCEDA2064AE4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1731706005;
-	bh=94UWkQUgIE+TIBJCr3TB9bjXju243wFFlCrw1pjugTo=;
+	bh=C//qZdfJfhN40N7nu/AQ5wmq+hj+onzvFzX2KrlsiOc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=mNHdIox58am1vKiSlapYyQSd/IB/puFk5Gi1H5FYHJ3c7VwmewWXtYwpq8qZgM5VC
-	 FsoAzIfa/5Dmw/g1Wnz5pM6x92x9pSsv8KUjV1VC6j6e14jtQDSlKdd0OQNegI9M/0
-	 o4hIDKt2X5QgI0I8DrdvAcv+VpyUUXxnbDtHt4Jg=
+	b=HJAgH8LJ0t02ke9L/fBSseVg4mPwyzRUYKkcIBNh0PXg4ks/yx3FEqq7Ab8V80mCx
+	 twfijyV8trWsX1EHtCAISl/otYzpQq+n69SN9Jzv1KZ/q2FjsSm6OPzwLcdwZ6tTZp
+	 t/rVqrGYFsKA1powLrxYtcm95fdENEeogYK2qDWs=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Date: Fri, 15 Nov 2024 21:26:37 +0000
-Subject: [PATCH v2 20/21] ALSA: line6: Convert timeouts to
- secs_to_jiffies()
+Date: Fri, 15 Nov 2024 21:26:38 +0000
+Subject: [PATCH v2 21/21] nfp: Convert timeouts to secs_to_jiffies()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241115-converge-secs-to-jiffies-v2-20-911fb7595e79@linux.microsoft.com>
+Message-Id: <20241115-converge-secs-to-jiffies-v2-21-911fb7595e79@linux.microsoft.com>
 References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
 In-Reply-To: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>, 
@@ -141,22 +140,22 @@ Changes made with the following Coccinelle rules:
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- sound/usb/line6/toneport.c | 2 +-
+ drivers/net/ethernet/netronome/nfp/nfp_net_common.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/usb/line6/toneport.c b/sound/usb/line6/toneport.c
-index ca2c6f5de407ece21ab69a39ed603e3f10069039..c073b38cd6738176fc6a276d05ed553526573341 100644
---- a/sound/usb/line6/toneport.c
-+++ b/sound/usb/line6/toneport.c
-@@ -386,7 +386,7 @@ static int toneport_setup(struct usb_line6_toneport *toneport)
- 		toneport_update_led(toneport);
+diff --git a/drivers/net/ethernet/netronome/nfp/nfp_net_common.c b/drivers/net/ethernet/netronome/nfp/nfp_net_common.c
+index 6e0929af0f725b2b3855c69bbe894e6626c566b3..6925ad985fc9e2d5641feea41ff277107a8dee9c 100644
+--- a/drivers/net/ethernet/netronome/nfp/nfp_net_common.c
++++ b/drivers/net/ethernet/netronome/nfp/nfp_net_common.c
+@@ -2779,7 +2779,7 @@ static void nfp_net_netdev_init(struct nfp_net *nn)
+ 		break;
+ 	}
  
- 	schedule_delayed_work(&toneport->line6.startup_work,
--			      msecs_to_jiffies(TONEPORT_PCM_DELAY * 1000));
-+			      secs_to_jiffies(TONEPORT_PCM_DELAY));
- 	return 0;
- }
+-	netdev->watchdog_timeo = msecs_to_jiffies(5 * 1000);
++	netdev->watchdog_timeo = secs_to_jiffies(5);
  
+ 	/* MTU range: 68 - hw-specific max */
+ 	netdev->min_mtu = ETH_MIN_MTU;
 
 -- 
 2.34.1
