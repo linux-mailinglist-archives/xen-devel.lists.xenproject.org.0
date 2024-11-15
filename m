@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 981B59CD4CB
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 01:46:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836856.1252758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812669CD4D3
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 01:56:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836863.1252769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBkTM-0006i6-CW; Fri, 15 Nov 2024 00:46:04 +0000
+	id 1tBkcs-0008Mw-8a; Fri, 15 Nov 2024 00:55:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836856.1252758; Fri, 15 Nov 2024 00:46:04 +0000
+Received: by outflank-mailman (output) from mailman id 836863.1252769; Fri, 15 Nov 2024 00:55:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBkTM-0006gR-9m; Fri, 15 Nov 2024 00:46:04 +0000
-Received: by outflank-mailman (input) for mailman id 836856;
- Fri, 15 Nov 2024 00:46:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tBkcs-0008LQ-5I; Fri, 15 Nov 2024 00:55:54 +0000
+Received: by outflank-mailman (input) for mailman id 836863;
+ Fri, 15 Nov 2024 00:55:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b7N1=SK=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1tBkTK-0006gL-Rq
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 00:46:03 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa3a323c-a2ea-11ef-99a3-01e77a169b0f;
- Fri, 15 Nov 2024 01:45:57 +0100 (CET)
+ <SRS0=olWw=SK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tBkcq-0008LH-Dy
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 00:55:52 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a6f1eb2-a2ec-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 01:55:48 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-431688d5127so10165665e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Nov 2024 16:55:48 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432dab80a10sm36360695e9.26.2024.11.14.16.55.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Nov 2024 16:55:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,123 +45,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa3a323c-a2ea-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5My4xNDIuNDMuNTUiLCJoZWxvIjoiZ2Fsb2lzLmxpbnV0cm9uaXguZGUifQ==
-X-Custom-Transaction: eyJpZCI6ImZhM2EzMjNjLWEyZWEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjMxNTU4LjAwNTEyMiwic2VuZGVyIjoidGdseEBsaW51dHJvbml4LmRlIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1731631556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wmlctHEns5HH4kuTaBjX2JNcI1LzVOydASF++UAbmDY=;
-	b=QOnTTM3upVgvLOqHHkULAR/Sd+IXv2/jwWShAxdu/d9Ou3VRQKwRFQcKkxYFlQbNCHuDKC
-	qmtZIl1QGU9LvuaVEHVi6mN8leBtPwfqyHUmV8sQ4okR7sVQBV4nqtQqHtK44NZWa+achm
-	KJtmcrXFernLrXFh8br79W+BBZcbUPnfW6G5ETbNxP5n4/wMMrok/VJbm/1lHIAX31JScD
-	X4TbcxeFRb0UaQ4ZOxoYrise9V26pZtUHGM6uIGxT7DAWZfdtWm58X+EkXZorarJx6j3sJ
-	jv7CYR1gtAzR1m3FucHfJnoCrMS9Ay9Ifg0KTixSjK7w1MQSxCZuE9xVfV0ltA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1731631556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wmlctHEns5HH4kuTaBjX2JNcI1LzVOydASF++UAbmDY=;
-	b=B6FonATMAX4OxdtMR8JNBP8qWfBOIV1vFazP675PCOfWlXztCY+avvBu11Vcb9coe6V9WE
-	q7IVbFH9tV+539Aw==
-To: Philipp Stanner <pstanner@redhat.com>, Damien Le Moal
- <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, Basavaraj Natikar
- <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
- Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
- <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
- <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
- <imitsyanko@quantenna.com>, Sergey Matyukevich <geomatsi@gmail.com>, Kalle
- Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar
- S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
- <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Chen Ni <nichen@iscas.ac.cn>, Ricky Wu
- <ricky_wu@realtek.com>, Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao
- <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>, Mostafa Saleh
- <smostafa@google.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Yi
- Liu <yi.l.liu@intel.com>, Kunwu Chan <chentao@kylinos.cn>, Ankit Agrawal
- <ankita@nvidia.com>, Christian Brauner <brauner@kernel.org>, Reinette
- Chatre <reinette.chatre@intel.com>, Eric
- Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-input@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
- linux-pci@vger.kernel.org, kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 11/11] Remove devres from pci_intx()
-In-Reply-To: <49bb6fc9ebff3cae844da0465ceadeef8d3217c7.camel@redhat.com>
-References: <20241113124158.22863-2-pstanner@redhat.com>
- <20241113124158.22863-13-pstanner@redhat.com> <87msi3ksru.ffs@tglx>
- <49bb6fc9ebff3cae844da0465ceadeef8d3217c7.camel@redhat.com>
-Date: Fri, 15 Nov 2024 01:46:13 +0100
-Message-ID: <8734jtl3xm.ffs@tglx>
+X-Inumbo-ID: 5a6f1eb2-a2ec-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjVhNmYxZWIyLWEyZWMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjMyMTQ4LjcwNzk4Miwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1731632148; x=1732236948; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YLKlV9TGKjUendVOGpOLjSwlswm5Bf69m1u0QHs7k+k=;
+        b=YhPHVatcp4AJo7fpuj3VWR7g8y7BI/fmN9PNpTpkMHzeaaMW8iN0qUKKZWpLL/UO48
+         OT8KXucjrHiR4ILEvSFa9y3sFgwelWA55OOrPfSVoZDBqUtsx4vatxHTH5S1EV95ajVU
+         5N5G4SWjXGxc/lrANa8ebTmYMqYDSscq8FLig=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731632148; x=1732236948;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YLKlV9TGKjUendVOGpOLjSwlswm5Bf69m1u0QHs7k+k=;
+        b=QiFw2dAPkkw8viHbfJreSqhuqoXbZxkTQTZYlXmXNtSsdSu87AzLhiLie68XG6r5vL
+         ju4fDumqxHWZxjJAnXIHS38Fq31hjzntFx3YW97LJatmiB9kFKuALUmdVH2ndmDPczk0
+         0SZSEwcG+MFttn4Y6P0N64EZz56m+h84ABka9EmsfHuUpdKxOpc84Gg3S/6QZG2bmSEz
+         RzVGwIWg9hwyukCO6H/EIyr0zdBIRawkPmLp//ASPFxFMAZiUrzM4KLq9tCcCEsgSMEs
+         OxHe+AUsOPsTM1+PPFOSkBZ+uXPE0xXjp91uU/J4x2wCLcH5ZujRlf07vKWHcZRRBNHJ
+         CU6w==
+X-Forwarded-Encrypted: i=1; AJvYcCVtC4crYMcsbPpB+E/oAQwIT4fGMcx1S8B4W9FooPYOtf7kNVsmaM+PVjIb/88BVt2FuM6x/sMMyZU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwO9CgX8kK85rS6Hwfa80jizmrbIvBktTzwvzBHc6u51RDJYGmj
+	L/gFagFTrgz7DDEWDwNwJcDQcCsvOP//TEbiMbjzHvaw2TKqlMLdH1gQB6TvffE=
+X-Google-Smtp-Source: AGHT+IFCv22AGh5xJnyjR+qRE5AoEyB7YxN7RgEOpFh+TZE6ijEWO+ejZ671LlXEO8nfThd9QzvWdA==
+X-Received: by 2002:a05:600c:5116:b0:42f:4f6:f8f3 with SMTP id 5b1f17b1804b1-432df71bc69mr4916755e9.7.1731632148009;
+        Thu, 14 Nov 2024 16:55:48 -0800 (PST)
+Message-ID: <0f575e16-3e83-4d8e-b5ce-7fd9c962c3ee@citrix.com>
+Date: Fri, 15 Nov 2024 00:55:46 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] x86/mm: miscellaneous fixes
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20241114145715.59777-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241114145715.59777-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-T24gVGh1LCBOb3YgMTQgMjAyNCBhdCAxMDowNSwgUGhpbGlwcCBTdGFubmVyIHdyb3RlOg0KPiBP
-biBXZWQsIDIwMjQtMTEtMTMgYXQgMTc6MjIgKzAxMDAsIFRob21hcyBHbGVpeG5lciB3cm90ZToN
-Cj4+IE9uIFdlZCwgTm92IDEzIDIwMjQgYXQgMTM6NDEsIFBoaWxpcHAgU3Rhbm5lciB3cm90ZToN
-Cj4+ID4gcGNpX2ludHgoKSBpcyBhIGh5YnJpZCBmdW5jdGlvbiB3aGljaCBjYW4gc29tZXRpbWVz
-IGJlIG1hbmFnZWQNCj4+ID4gdGhyb3VnaA0KPj4gPiBkZXZyZXMuIFRoaXMgaHlicmlkIG5hdHVy
-ZSBpcyB1bmRlc2lyYWJsZS4NCj4+ID4gDQo+PiA+IFNpbmNlIGFsbCB1c2VycyBvZiBwY2lfaW50
-eCgpIGhhdmUgYnkgbm93IGJlZW4gcG9ydGVkIGVpdGhlciB0bw0KPj4gPiBhbHdheXMtbWFuYWdl
-ZCBwY2ltX2ludHgoKSBvciBuZXZlci1tYW5hZ2VkIHBjaV9pbnR4X3VubWFuYWdlZCgpLA0KPj4g
-PiB0aGUNCj4+ID4gZGV2cmVzIGZ1bmN0aW9uYWxpdHkgY2FuIGJlIHJlbW92ZWQgZnJvbSBwY2lf
-aW50eCgpLg0KPj4gPiANCj4+ID4gQ29uc2VxdWVudGx5LCBwY2lfaW50eF91bm1hbmFnZWQoKSBp
-cyBub3cgcmVkdW5kYW50LCBiZWNhdXNlDQo+PiA+IHBjaV9pbnR4KCkNCj4+ID4gaXRzZWxmIGlz
-IG5vdyB1bm1hbmFnZWQuDQo+PiA+IA0KPj4gPiBSZW1vdmUgdGhlIGRldnJlcyBmdW5jdGlvbmFs
-aXR5IGZyb20gcGNpX2ludHgoKS4gSGF2ZSBhbGwgdXNlcnMgb2YNCj4+ID4gcGNpX2ludHhfdW5t
-YW5hZ2VkKCkgY2FsbCBwY2lfaW50eCgpLiBSZW1vdmUgcGNpX2ludHhfdW5tYW5hZ2VkKCkuDQo+
-PiA+IA0KPj4gPiBTaWduZWQtb2ZmLWJ5OiBQaGlsaXBwIFN0YW5uZXIgPHBzdGFubmVyQHJlZGhh
-dC5jb20+DQo+PiA+IC0tLQ0KPj4gPiDCoGRyaXZlcnMvbWlzYy9jYXJkcmVhZGVyL3J0c3hfcGNy
-LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyICstDQo+PiA+IMKgZHJpdmVycy9taXNjL3Rp
-Zm1fN3h4MS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA2
-ICstLQ0KPj4gPiDCoC4uLi9uZXQvZXRoZXJuZXQvYnJvYWRjb20vYm54MngvYm54MnhfbWFpbi5j
-wqAgfMKgIDIgKy0NCj4+ID4gwqBkcml2ZXJzL25ldC9ldGhlcm5ldC9icm9jYWRlL2JuYS9ibmFk
-LmPCoMKgwqDCoMKgwqAgfMKgIDIgKy0NCj4+ID4gwqBkcml2ZXJzL250Yi9ody9hbWQvbnRiX2h3
-X2FtZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArLQ0KPj4gPiDCoGRyaXZl
-cnMvbnRiL2h3L2ludGVsL250Yl9od19nZW4xLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAy
-ICstDQo+PiA+IMKgZHJpdmVycy9wY2kvZGV2cmVzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArLQ0KPj4gPiDCoGRyaXZlcnMvcGNpL21z
-aS9hcGkuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
-wqAgMiArLQ0KPj4gPiDCoGRyaXZlcnMvcGNpL21zaS9tc2kuY8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArLQ0KPj4gPiDCoGRyaXZlcnMvcGNp
-L3BjaS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgfCA0MyArLS0tLS0tLS0tLS0tLS0NCj4+ID4gLS0tLQ0KPj4gPiDCoGRyaXZlcnMvdmZp
-by9wY2kvdmZpb19wY2lfY29yZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKy0N
-Cj4+ID4gwqBkcml2ZXJzL3ZmaW8vcGNpL3ZmaW9fcGNpX2ludHJzLmPCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgfCAxMCArKy0tLQ0KPj4gPiDCoGRyaXZlcnMveGVuL3hlbi1wY2liYWNrL2NvbmZf
-c3BhY2VfaGVhZGVyLmPCoMKgIHzCoCAyICstDQo+PiA+IMKgaW5jbHVkZS9saW51eC9wY2kuaMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDEg
-LQ0KPj4gPiDCoDE0IGZpbGVzIGNoYW5nZWQsIDIyIGluc2VydGlvbnMoKyksIDYyIGRlbGV0aW9u
-cygtKQ0KPj4gDQo+PiBOb3cgSSdtIHV0dGVybHkgY29uZnVzZWQuIFRoaXMgdW5kb2VzIHRoZSBw
-Y2lfaW50eF91bm1hbmFnZWQoKSBjaHVybg0KPj4gd2hpY2ggeW91IGNhcmVmdWxseSBzcGxpdCBp
-bnRvIHNldmVyYWwgcGF0Y2hlcyBmaXJzdC4NCj4NCj4gSGF2ZSB5b3UgcmVhZCB0aGUgZW1haWwg
-SSBoYXZlIGxpbmtlZD8NCj4NCj4gVGhlcmUgaXMgYWxzbyB0aGUgY292ZXItbGV0dGVyIChkb2Vz
-IGFueW9uZSBpbiB0aGUgY29tbXVuaXR5IGV2ZXIgcmVhZA0KPiB0aG9zZT8pIHdoaWNoIGV4cGxp
-Y2l0bHkgc3RhdGVzOg0KPg0KPiAiUGF0Y2ggIlJlbW92ZSBkZXZyZXMgZnJvbSBwY2lfaW50eCgp
-IiBvYnZpb3VzbHkgcmV2ZXJ0cyB0aGUgcHJldmlvdXMNCj4gcGF0Y2hlcyB0aGF0IG1hZGUgZHJp
-dmVycyB1c2UgcGNpX2ludHhfdW5tYW5hZ2VkKCkuIEJ1dCB0aGlzIHdheSBpdCdzDQo+IGVhc2ll
-ciB0byByZXZpZXcgYW5kIGFwcHJvdmUuIEl0IGFsc28gbWFrZXMgc3VyZSB0aGF0IGVhY2ggY2hl
-Y2tlZCBvdXQNCj4gY29tbWl0IHNob3VsZCBwcm92aWRlIGNvcnJlY3QgYmVoYXZpb3IsIG5vdCBq
-dXN0IHRoZSBlbnRpcmUgc2VyaWVzIGFzIGENCj4gd2hvbGUuIg0KDQpJIHJlYWQgaXQgYW5kIEkg
-YXNzdW1lIHlvdXIgaW50ZW50aW9uIHdhcyB0byBmb3JjZSBhbiBleWUgb24gZXZlcnkgdXNlDQpj
-YXNlIG9mIHBjaV9pbnR4KCkgYW5kIG5vdCBqdXN0IG9uIHRob3NlIHdoaWNoIG5lZWQgdG8gYmUg
-Y29udmVydGVkIHRvDQpwY2ltX2ludHgoKS4NCg0KSSdtIG5vdCBjb252aW5jZWQgdGhhdCB0aGlz
-IGlzIG5lZWRlZCwgYnV0IGZhaXIgZW5vdWdoLg0KDQoNCg0KDQo=
+On 14/11/2024 2:57 pm, Roger Pau Monne wrote:
+> Hello,
+>
+> The attempt to fix destroy_xen_mappings() so that L2 tables are
+> consistently freed uncovered some errors in the memory management code.
+> The following series attempts to fix them.
+>
+> All patches except for 4/4 are new in v2, and 4/4 has no change from v1,
+> hence kept Jan's Reviewed-by tag in 4/4.
+>
+> Thanks, Roger.
+>
+> Roger Pau Monne (4):
+>   x86/mm: introduce helpers to detect super page alignment
+>   x86/mm: skip super-page alignment checks for non-present entries
+>   x86/setup: remove bootstrap_map_addr() usage of destroy_xen_mappings()
+>   x86/mm: ensure L2 is always freed if empty
+
+Still broken.  This happened to be a Cascade Lake:
+
+(XEN) 3... 2... 1...
+(XEN) Xen is relinquishing VGA console.
+(XEN) ----[ Xen-4.20.0-4-d  x86_64  debug=y  Not tainted ]----
+(XEN) CPU:    0
+(XEN) RIP:    e008:[<ffff82d04022cdc8>]
+common/page_alloc.c#free_heap_pages+0x52/0x753
+<snip>
+(XEN) Xen call trace:
+(XEN)    [<ffff82d04022cdc8>] R
+common/page_alloc.c#free_heap_pages+0x52/0x753
+(XEN)    [<ffff82d04022e98f>] F free_domheap_pages+0x445/0x447
+(XEN)    [<ffff82d040320f88>] F free_xen_pagetable+0x2f/0x31
+(XEN)    [<ffff82d04032193d>] F map_pages_to_xen+0x5df/0x1028
+(XEN)    [<ffff82d040238ab1>] F vunmap+0x27/0xde
+(XEN)    [<ffff82d040624b61>] F vesa_endboot+0x86/0xb3
+(XEN)    [<ffff82d0406244c1>] F video_endboot+0x93/0x261
+(XEN)    [<ffff82d040616e3d>] F console_endboot+0x92/0x120
+(XEN)    [<ffff82d0406407e2>] F __start_xen+0x2139/0x2307
+(XEN)    [<ffff82d0402033ae>] F __high_start+0x8e/0x90
+(XEN)
+(XEN) Pagetable walk from ffff82c000205001:
+(XEN)  L4[0x105] = 0000000060431063 ffffffffffffffff
+(XEN)  L3[0x100] = 000000006fffd063 ffffffffffffffff
+(XEN)  L2[0x001] = fffffffffffff000 ffffffffffffffff
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) FATAL PAGE FAULT
+(XEN) [error_code=0000]
+(XEN) Faulting linear address: ffff82c000205001
+(XEN) ****************************************
+
+Note the definitely bogus L2e, which I'm guessing is an issue with the
+use of INVALID_MFN.
+
+But the same crash is seen on BDX, SKX, SPR, Naples, Rome and Milan, all
+including the bad L2e.
+
+ICX crashed but there was no serial console.
+
+
+Genoa was weird.  It was:
+
+(XEN) ----[ Xen-4.20.0-4-d  x86_64  debug=y  Not tainted ]----
+(XEN) CPU:    24
+(XEN) RIP:    e008:[<ffff82d040330509>] __node_distance+0x20/0x62
+<snip>
+(XEN) Xen call trace:
+(XEN)    [<ffff82d040330509>] R __node_distance+0x20/0x62
+(XEN)    [<ffff82d040240ee5>] F do_sysctl+0xcf8/0x140e
+(XEN)    [<ffff82d0402f6b21>] F pv_hypercall+0x59b/0x62b
+(XEN)    [<ffff82d0402012d3>] F lstar_enter+0x143/0x150
+(XEN)
+(XEN) Pagetable walk from ffff82c000203024:
+(XEN)  L4[0x105] = 000000005fc31063 ffffffffffffffff
+(XEN)  L3[0x100] = 00000000677cd063 ffffffffffffffff
+(XEN)  L2[0x001] = 000000207a79a063 ffffffffffffffff
+(XEN)  L1[0x003] = 0000000000000000 ffffffffffffffff
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 24:
+(XEN) FATAL PAGE FAULT
+(XEN) [error_code=0000]
+(XEN) Faulting linear address: ffff82c000203024
+(XEN) ****************************************
+
+while sat at the login prompt, which means it had survived a full
+install and first boot.
+
+The range of the change was 64d2290cf96bb^..d2c214ede05ca (starting from
+Jan's fix to _xvrealloc()) but there are no other obvious candidates.
+
+This crash isn't obviously related to the others, but there's nothing
+else like it seen before.  Memory corruption isn't out of the question.
+
+~Andrew
 
