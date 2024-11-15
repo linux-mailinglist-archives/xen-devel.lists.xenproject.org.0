@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12AD19CF400
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 19:32:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.837971.1253881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 776B69CF461
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 19:54:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.837987.1253892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC17H-0002ba-U9; Fri, 15 Nov 2024 18:32:23 +0000
+	id 1tC1Rr-0005ps-Ok; Fri, 15 Nov 2024 18:53:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 837971.1253881; Fri, 15 Nov 2024 18:32:23 +0000
+Received: by outflank-mailman (output) from mailman id 837987.1253892; Fri, 15 Nov 2024 18:53:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC17H-0002YQ-RG; Fri, 15 Nov 2024 18:32:23 +0000
-Received: by outflank-mailman (input) for mailman id 837971;
- Fri, 15 Nov 2024 18:32:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tC1Rr-0005mk-Li; Fri, 15 Nov 2024 18:53:39 +0000
+Received: by outflank-mailman (input) for mailman id 837987;
+ Fri, 15 Nov 2024 18:53:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cuMk=SK=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tC17G-0002YK-HY
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 18:32:22 +0000
+ <SRS0=bZlB=SK=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1tC1Rp-0005me-SM
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 18:53:37 +0000
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20617.outbound.protection.outlook.com
- [2a01:111:f403:2412::617])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb9f36d7-a37f-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 19:32:15 +0100 (CET)
-Received: from PH8PR07CA0015.namprd07.prod.outlook.com (2603:10b6:510:2cd::20)
- by DS0PR12MB6390.namprd12.prod.outlook.com (2603:10b6:8:ce::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8158.18; Fri, 15 Nov 2024 18:32:04 +0000
-Received: from CY4PEPF0000E9CE.namprd03.prod.outlook.com
- (2603:10b6:510:2cd:cafe::26) by PH8PR07CA0015.outlook.office365.com
- (2603:10b6:510:2cd::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.22 via Frontend
- Transport; Fri, 15 Nov 2024 18:32:04 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9CE.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 18:32:04 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
- 2024 12:32:02 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
- 2024 12:32:01 -0600
-Received: from [172.17.143.135] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 15 Nov 2024 12:32:01 -0600
+ (mail-mw2nam10on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2412::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e813de19-a382-11ef-99a3-01e77a169b0f;
+ Fri, 15 Nov 2024 19:53:32 +0100 (CET)
+Received: from MW4PR12MB7334.namprd12.prod.outlook.com (2603:10b6:303:219::21)
+ by PH8PR12MB7230.namprd12.prod.outlook.com (2603:10b6:510:226::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18; Fri, 15 Nov
+ 2024 18:53:27 +0000
+Received: from MW4PR12MB7334.namprd12.prod.outlook.com
+ ([fe80::2e77:557:17d5:86f8]) by MW4PR12MB7334.namprd12.prod.outlook.com
+ ([fe80::2e77:557:17d5:86f8%7]) with mapi id 15.20.8158.017; Fri, 15 Nov 2024
+ 18:53:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,227 +47,558 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb9f36d7-a37f-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMjo6NjE3IiwiaGVsbyI6Ik5BTTEwLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImViOWYzNmQ3LWEzN2YtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjk1NTM1LjA2MDA3Nywic2VuZGVyIjoiamFzb24uYW5kcnl1a0BhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: e813de19-a382-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMjo6NjJiIiwiaGVsbyI6Ik5BTTEwLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImU4MTNkZTE5LWEzODItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjk2ODEyLjU2NDY5LCJzZW5kZXIiOiJheWFuLmt1bWFyLmhhbGRlckBhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bN7/aOXqr3JcbPDjy3v8iH21m7DiaAN+hxHbKusvckB9qr3SFWjctZ9FiWDXiAeeCWd19OOnp92E7nyWyrNzfPXhA5okdN5Rx6hjgBa1H9nyPm5KbS+qCAEdi19lX90mxkAvDnEgqsPgIuFiWbB9Rt9eXPnx4o12pMTED9xb28b4k5ALPaIr+VvNWIrurdlT99Ax+YWJWBo5fUPG/jupkVhenyW2UreVBrTAzG/+QKwTpHOiWMbeeF351jveLuzyWtAsh8D1gpru2SG4k8Y7dX/4BVWagQvxnS0Gbng2LU8Cl8nGQWP0Q/zqz5+r0Mmw427fOuDqajqTFs5RkVy2HA==
+ b=Vv1wllQAGCYoczabib1wNcAVZohwWXDQ7kCMQWc04/xCXFJgkjswhMvmXkSiZYcCnltUmo7ccrc831I48kt1ceN3OCdJzpVmeRVqmdPaQDccWZG7fk8tkBX4HBKjZsxjr7bfDY7LL/i+wJjc/28zgYrnsfzL4O3yCgVkYNi2TQFwZPpMhuY4TCzAnOP2TXINexT0Nu/Tc6Cy4HN0i/P/zMTb/F1bA6jxowttcYr9r9rz1BUjG7de/FtlzwEs25CjhpFJeHmKLUrvU0yEjB6JGnSA4GeBTYSaxQi7wRP97B8/57FwoOTBRG6lWJWV6GjPN0UNTbtYFtl9h0HrUq16Xw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0HvI5g1oVPNQgvVjBow9877QqwdGu+DwxgO8myBkoLg=;
- b=X6OBgD3Ar2bCjeG6knanerYklcAY0nvn3raotRKJ3HRL9qU5jBxMpwHrgRY+8MYJRTP8VB1eNN2IOfBDU80AddwJAHhjaC2f01LnPnTC/K7IwSjwC2QxJ/zKvrx4oLi5Y/l8VAN1ytHUCWNVK/VgejqmzMK+qdXAqDgr9MTmzCeCzyg5a6I4YsQQvPwKK318ZMrUx1rfuaa7eKhnNkmpFu0oYGRQYwXHH5JZPzClP0NDbgfrhMlqjsOFZ9lKgS18mhDo30ZCVgkm+Nw1TtmVFFd+h5IYHBGyHGPqUadd8cwcPGOC+ZQxuOm3rBnaAbvjJSxah1ugWn7DuqLsrkr76Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=zvewEK7Px6wTxXU/eqBVALT6CU1MMa8pYl23FC47WKY=;
+ b=wDHYrQHtTe152LG7jBClR64e+dJY8pCAyU/5PcO8cN6eLeZyIiQqGef6+QRD7jSQSl7mE4aH8jQmPa7H3x8A4VHWpocR53BZsWNtemK+bUr+Hnm7uGIsDrSwtaEKpYZ4xAJYEDEeFByK/y3tYkPgun+ljvpIqvIslrY6ZW93dwjbD+K7Am5z+HBsztiaI9GryXym6f/W7zY6t+6akISZ7UnGzTr07CI0/jHNdohDkQD8UDwNi0TTKQOw5iVQngKh7Bf2VjGZ4hMVRF4V2+BqZUbKrk/Ru4Qt8IBhcaMrjHcPrPntzB938McMdHL8Zknyac6b5/36bfgI3KcM5oNbzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0HvI5g1oVPNQgvVjBow9877QqwdGu+DwxgO8myBkoLg=;
- b=u1EUmkGLlloCrGR1/ihtL6q3/PJ6QxL6/dU6wfRgvn1dKDpOJvtz2DdbEAC9JxNt2etW41pcb81O0JpRkeYPMD1rD/9Dfy3lpWC5rjB/5LwFHmUQDVczqNHZr53knaQW8PBb1sT73IA5Zy1KmcpPM33qrNgy+3iXE/+FeN53pUQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <c4b37832-efaa-4a26-8bbf-a3cf7caa3468@amd.com>
-Date: Fri, 15 Nov 2024 13:20:45 -0500
-MIME-Version: 1.0
+ bh=zvewEK7Px6wTxXU/eqBVALT6CU1MMa8pYl23FC47WKY=;
+ b=jZQ5yXWrsKvuALUjsFCbkykquWhgA3bcc58WzzaNDnMBLVIiZuK6IsfWnfq+toCkiOS+OS+6O7dTaMZsKlxLaZgeAEM+UIRxFL2qniWEu+yWra7cuG/s3jXh0Ka/tRJgdnBTEpR8UGUOfBK/OqaavajkzzOIv6Ha0DALgwdGSu4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <22282f26-5c66-444b-b63a-d5442e6fcdad@amd.com>
+Date: Fri, 15 Nov 2024 18:53:16 +0000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 6/6] x86/boot: add cmdline to struct boot_domain
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
- <20241115131204.32135-7-dpsmith@apertussolutions.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20241115131204.32135-7-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+Subject: Re: [PATCH] docs: fusa: Add dom0less domain configuration
+ requirements
+Content-Language: en-GB
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Artem Mygaiev <artem_mygaiev@epam.com>,
+ Munakata Hisao <hisao.munakata.vt@renesas.com>
+References: <20241018155144.3433395-1-ayan.kumar.halder@amd.com>
+ <4dbf2c4d-f7bd-4032-b52f-29c24e3ec055@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <4dbf2c4d-f7bd-4032-b52f-29c24e3ec055@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0162.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:c8::6) To MW4PR12MB7334.namprd12.prod.outlook.com
+ (2603:10b6:303:219::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CE:EE_|DS0PR12MB6390:EE_
-X-MS-Office365-Filtering-Correlation-Id: deda968a-dde7-4223-5d69-08dd05a3cd7b
+X-MS-TrafficTypeDiagnostic: MW4PR12MB7334:EE_|PH8PR12MB7230:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d5e7fe3-c9c9-4eee-8e4a-08dd05a6c982
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dG5uelgyMDliVlZNc2xUazdJNVdIdTlIU1paOWpmSzZFZE8yK1QxTjFKTDk0?=
- =?utf-8?B?eWIrazJ4TjJzY1p6eno0aVBqdUIvQmFDZDg2M1J5cnFqRmdFS1FHR1k0dStT?=
- =?utf-8?B?T1hkaE05TEIyNjdaTUxvYU1tMSt6K1E4dk1Ha3FHUWk0aTN3RzI2YlBwUnpi?=
- =?utf-8?B?MHdFNXVtYlVYWjhocnNLOHp0ek9TYUIxK3dzLzNsMjdOVDF6TkZmUzFwdkw2?=
- =?utf-8?B?bUxEWXcwMTBZblJiQlZENDkwQXlHa0RsSmlIK0pCTUdBSW50UUN5b0s2b2JH?=
- =?utf-8?B?LzVRL3BRQ0pDeGdISzFkeHpTQTAraWRXVStiVUJVZ0lERVM4czN6Rm43ZzUw?=
- =?utf-8?B?bzllNDFhOVVIVVhRY3U2YkloekNoWWhDZWpyeDEvNllzL2V6VUczTXUrWVFO?=
- =?utf-8?B?aHA2NnFCcGJCR01LbHhPUnMxNzA2VndBQWk2L3l6UStmUUFRamRwYzJWdTUv?=
- =?utf-8?B?VnpzRTlYUzRGSnVWQVk1a3UvcmhDUlBXUU1ySnh4TE9QRzJCKzM2NDh2VXAv?=
- =?utf-8?B?NXAyVnB1REQ1TUtSL2xaUklzNlpPUnNlNEtXS1dWbm1tMU5VbzVQWEtDdnJP?=
- =?utf-8?B?OGV2MENGZWo5cy9nb2dLazlabnM0bk94QWNza3liMVpLOU9ldTZJbFBwRThI?=
- =?utf-8?B?MUlnSkUzV1VqMEEzZVlGZVJGK1JWVjlIZEVraDdsVWwxZjhzb2JqWUhSbWE3?=
- =?utf-8?B?YW1NbkExQi9Dbk5HM0FsK0Yzclc5NVZnZGpKMzdlUHkyT0NLUXlEOHg4eEUr?=
- =?utf-8?B?RGVuY0tQYU1HZWpEMU1RL251anB2NHpGamEvWWJEMnNrTmhzOGZVRjRuSlNm?=
- =?utf-8?B?VE9kK291eUtXVlZmdzVhbW1GM2NVOXBFNUZtZENqK3VIUDZmbmtScmFoaU5l?=
- =?utf-8?B?d1liRk5qUjlEb2lScFZ4WE5nUm1nSmRmVTg0UVdSdm9oYUdLMnQ3emhZZ0Nm?=
- =?utf-8?B?OENUSlpZbjNCR1hwVVBjVDJJY0UzZXoxSm5xSzZCbEhoUXFER3JraE1sWFQv?=
- =?utf-8?B?L3RNQWRQTFJFSTdhc1JsSDRJS0F4dURNVlgvd09wL2x6MDhZSEpGaDBxSkky?=
- =?utf-8?B?WDhBTHhzOG45NnpTRldMa1dNU2JrU0xIVVJSaGUwUEsrajQzTnpiM1JpRjcy?=
- =?utf-8?B?dXdGTit5UVc0cWNOTm5BWVVyRlhPVG5MYmJEL0l4RjQ0bVVZMjU4a29FRVFZ?=
- =?utf-8?B?Zk9PWVVvTzRBbGVYSTRzRlZUdXdIY0lkeWtYY0ZxajJOTHFXTEdSZ1lvUFpG?=
- =?utf-8?B?eHV6RmNlekFhQnhCVUg5WWRJZENlNGpobGNxeFlMQUtlaTlJWUxKVU9KbGRw?=
- =?utf-8?B?MG9DTUM4SEhTdWJjbndtMG1CcnB6dll5amVSQWttOFlDUjZPWDRlOWh6b01Z?=
- =?utf-8?B?ZFlqcG9La1ZGWUMzYTZyRE5sUFJvdE5IMEppQkg3bUxxRy9WbU1LNzBGc3Zh?=
- =?utf-8?B?YXZucjdLd1pOeTAwalM1UzJ1alY2RFgxSXBzb05sTXVReGw2YlJkQUY4bHgr?=
- =?utf-8?B?akdyUGNrTEx1RGZreXVMWGMrZ1FESE5CSTBBcEQvMDBUZlB1NWluSld4ZkFk?=
- =?utf-8?B?bjBmalp1L2Jwck81a1BPQ1I3cEd1RisrNGNRcElvQm1LNlBocEoyRW1CdzVy?=
- =?utf-8?B?K2ZwZnpaVlNDbzVVUTA0VFdtcmZwQzVHWWZnTUZUclRMNkVSN1hNL3NSZGR4?=
- =?utf-8?B?aFpOcVllUDI1UDhEcEdhallTbkFIaEhRRFVsZmhBZ2haR2pzc2dtV0p5akcz?=
- =?utf-8?B?dTlZRFh3RFZSc1IvaVZka05OTkZEYnlYbXNjVldpSEFmTGZHellmWjhmT0pJ?=
- =?utf-8?B?Qys3ZEdqQmJTelRwamttendXaHRlSHZONUczdmFoR05QMld5TC9oc0YzSHVw?=
- =?utf-8?B?NGJIQ2VGRGh5WmQxWS9La3I2R1ZrTmpFRDFReHNXdXhBclE9PQ==?=
+	=?utf-8?B?dHBGVmE4TXpsOVdIMkJWSGI5SUtpUCtBQ203UXU5c21ldnExcThOM1dhMXZX?=
+ =?utf-8?B?ODM0a1RDYnNUc3diNS8xZzJvZlVuTUVrT01jVXB3c1BUeXhjckZvSTdPaGEz?=
+ =?utf-8?B?ZVdIZmQvNWRpR3Z3Z0g1T0FsenZwVE05TW41c0ErNXE0MXVEdzN4enlDTmgx?=
+ =?utf-8?B?Vm4vdktzR3dXZnd0M2xMYnlrbkUxTDdnRSt2clZSQ1FkUVpWajQrYWJjN3JV?=
+ =?utf-8?B?VHl4SmZubmtWVFp2d2lGUlRybDB3M2JlOW9TSHE0d0tXZ1FkVFV4RzJkL3dH?=
+ =?utf-8?B?RmZJbjFQRVIrQURFR0llQ21DYnhkZUV2eWV0WXU0d2RSZjNBWVdaUGszTW9i?=
+ =?utf-8?B?TTdOdndOS1NWNjBaMjAwZXFqbVFQSVZHQ3FmM05EeUVKa1BRc2xUR0IybVMz?=
+ =?utf-8?B?Y1M2ckVtL3NSa0pSQmNKS21IQldMWEdIeWJTMU83VWVWR2ZycXVxWktUcU5F?=
+ =?utf-8?B?cGpBbENlOUY2MlFQa3k5cURwU1lMRXJBUGdBM1ZZRXFId3BXY2JYQ21iUE96?=
+ =?utf-8?B?bWxwemlJMWtwTFJnVjgwNDRMczJ3UmtPRUF4NnBsMlcrcG9paG84d2NjdHlm?=
+ =?utf-8?B?SE80ZVZWOFZkSURNZ1VLNmdKS0tCWkEzdXAwMndqWmRrM2c3T01CVVF3ckw3?=
+ =?utf-8?B?Z3cxTElJTlNnM0dYbXhJbUJLdk1kOG5NTnlScUFINXhTdkNoMURiYk9leVNE?=
+ =?utf-8?B?S1laZlgyRjJ2amc4eW5wTFVCeUhmc0d6a291YnZwSmhHYVd3SWQ0T1h2SlRZ?=
+ =?utf-8?B?UjNRVjR3bXJicm52VkhpaEgwUytyVTNqYVZPWnBiSnVPeXpXWXBGbjY5amJL?=
+ =?utf-8?B?ako4cDRXVmRUZTJidkEyR0NVYUgzcERUNjVjbjRMMzZMK0dvSi9SSFc3VWdJ?=
+ =?utf-8?B?WkNLUENsNExlbGFndWdvc1RPN2VMa2ZUbzJqUUh2eTk5VldqS1YvS3hVK2Zo?=
+ =?utf-8?B?VWhIb3V0a3NnNktHMkwvL2luTTllREN2NldTcGlsQXErMVpoUkluakRaazBh?=
+ =?utf-8?B?Ujg5ODJsM2JGSFdTU3djcWtxS1F5bXpxU2NsMkE3SzQ1VVY0YXJNUWdnSU5w?=
+ =?utf-8?B?TFNyZTJkYndxcGw5RVNFV3FnN0VYV2Y3UmpMdTQ4WWo4Mmg4SkpTc0tlNHBM?=
+ =?utf-8?B?TTE5NXhRWGo2TTBtdDNWeXJIN1ptN1J2SlJoWm1HTWN2RUVGamY5VDVaVkxs?=
+ =?utf-8?B?N0VXV3UxZzhCMS9lRHpENCtJTnBNR3h1L1RqZHV3OTFVM2x6NHQyVHZtUUNP?=
+ =?utf-8?B?dUZIbTRxbGQ4bEU2dTNZeGRHY01taDlJKy8rTm00YVZIcUVEYUcvVzhEaDV5?=
+ =?utf-8?B?c21KQnNuNjBPSytIaGptVDdtT2lhQ0pQMUJub1dXby9jRkxPazhzQ3QzM3Er?=
+ =?utf-8?B?d251RUxTeUI3WGFmVkhiY1JyckZaZmozdk4zN2JCTlpoWVArZlVUcXZ0N1Zr?=
+ =?utf-8?B?ejlhTTFPWG1PWDM2Zms2bjdTNHNEVzBCZlExcDlPeFRRWFpXR3FnSFRsV0dR?=
+ =?utf-8?B?TXlUUitIOWtlS080dTR1QXlIRVVQanVqTmZ0bDNzelRDQS9penVVMTROMmNQ?=
+ =?utf-8?B?cysyeEtZbEU1eXprS1VIMUo0VTVwR1oxOHkyOFduaUxMc2kxVEhNNGpxRU5r?=
+ =?utf-8?B?ZENWYTZZWUorT0dXeVJvNmtTYzR3YlBNQmh2N1F1YUJnNDNGb1FhWjJCSGcz?=
+ =?utf-8?Q?jHS7kgv9Lv++BFglFxUq?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB7334.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L1lyaUZkdXlpSG55N2s5L0JyV2hITDlzY2RPZWpBNlkrNGdlMHdzUTFEVnBp?=
+ =?utf-8?B?YnRsaG96QThNRmZoTGhKQ2t2U2N6K2pVbC9aOWVnS1JJZm5NeHRnT1k2NTJL?=
+ =?utf-8?B?U3E3bUM4Sk4xdW1iTGJPNHFhbkpLcXRJTjRVN3BRT2p0U1pIZ2VWK09HNkNR?=
+ =?utf-8?B?TlBvMmYyT2U0azlCRWpNWGdsbEt0a3NwWHY0NHJQMWRNYTByN2NLRHBCay9D?=
+ =?utf-8?B?aURDcTN0akhhaEZka0xFL3VHT0lKQVFrMFpzSDcvTkhUNUtsWTFKeGZFOFc5?=
+ =?utf-8?B?ZFpGOVRGWWJINGpXb292cTRjelJqclczM2tMcEphaUZCMlFnVDBZQjAwRXVN?=
+ =?utf-8?B?eElndGUvU1gxR05ldCszSXR0Y3BVb24rKzlTKzl0VkE5UGlhOExRQ1dEV0hZ?=
+ =?utf-8?B?c1hNTFlPM2pYeXBWWEYxKy80QURXcmg0c2RxbEhId2t4bDM2RDNnMzdJZ0VE?=
+ =?utf-8?B?ZVV3MkFKTWdlR1RpY0xDdFJ2NEh0QlkxNjMwTWg4bEpOZUIxQmxPSWt5MHI5?=
+ =?utf-8?B?WHdzMXJyYkNmaFI0SEdRanZidmswMGNFYWFIMkY2UG9EZ0xiYVlSUnJuODNP?=
+ =?utf-8?B?R0dEbm8vTVk3d0JlWDlCWENITlQvSk9xZ0FwSDdFUmRzN1FNckhkZ0EwdkFQ?=
+ =?utf-8?B?Q2ZKQkVoQy9VdGtvd0ZKY2VGZmtsNWlYa0ltd1paUWFaZUFmNTMzaVQ0SVRR?=
+ =?utf-8?B?T3lSTExQZ2R5b25lQitzaG1ZUXBYOVc5ZXZBbzlKVGtQR0huNVdJMUk5aWFk?=
+ =?utf-8?B?dEE5MCtwMEpkRHFhUjg4eTYyTlhKOWxtS0ZyVzVXMUQrODk4TFo2L2ZqaFJv?=
+ =?utf-8?B?WE1xbTlIL2pzRXUvUEcyV1d1UWhkTlBwVU92R0F3ZW9JcU8zTWtHL0ptVlM1?=
+ =?utf-8?B?RThROVkvdTVtdmJ0WkM2cHpVOUVDZnpldG41WmcvUzAwQloxNHhUZysxVkIv?=
+ =?utf-8?B?ejNwVE1Uc1VIaVlKNHJVRVdCUUNtdmtrRFRlTjMvaWdlaEtackgzdXFkeEJM?=
+ =?utf-8?B?a3ZyWFAyeExWV3duNkVER3F6aDNCWDRiOWp1eGlSYTVxUnYrbE1zenlyTGRU?=
+ =?utf-8?B?SlFaZ0xIdVJTcTFyR1BRdWpubVpZRTFZUFNPczRpSjVEajJWNklkbTFpQ0RD?=
+ =?utf-8?B?Y0hYQU1BT001aVl0WHp2MmMrSlZtUVZodno0R09CYllLL2UxQnA5MmlvM3Jj?=
+ =?utf-8?B?RUNFWk9QMVdVQUJRRDBRUEE1NzZmd3IvM244aXNRM1RSSW9KK1BtSk1VUU5u?=
+ =?utf-8?B?N3ZNWWR6cmZGbjFoTVo3TE5jRXdobVFnTnRyZkQ4MDkrMmFSb3pjTVRlVFBp?=
+ =?utf-8?B?cG1DbFFMOHZUa2xaRFhUd0djYkJXaFBSNytPaVBRdmdqNEVtb2FTNEFRM1BM?=
+ =?utf-8?B?R1Y0UEFjaFRUWExSNnhwTjgvc054dTRqdWdKV0RWdDJmRFNKQy81MkhieXhZ?=
+ =?utf-8?B?RzFTY0YrazhWRFR5a3cyQTJmR3ZtNnlaRm1aZlBjL0RlWFk1WXBmRG5DMHlH?=
+ =?utf-8?B?WmwrVG1Xd2hNSEkzbVlLTmt2aWxVU0ZCRng4K0g4aXp6WmNRV1VPZG1mQkha?=
+ =?utf-8?B?VlhzMDdhYzNXNGd5ZnRRVlplcE15N2VYaWgrTXk0b21iZVBMVjdJYUhsSndw?=
+ =?utf-8?B?Y2prRTNTRkI1THJmY1VVS012M3cxczRQcUw2aFFUU0tYV0pyTDEzTVZQR1VG?=
+ =?utf-8?B?MzNlR0cxblJoVkk3ekt1OHh6UmFGdzdmRVdGOVBEQk9XQlRHb0t5anFiS1pS?=
+ =?utf-8?B?MmtwRjcyclh0Q2RwYThMeG11Wjl0OTNlVk5EbnBoNlVWLzRxcCtlSnppcE9l?=
+ =?utf-8?B?N0JUdXp4UW50dTczRUxGdGllOWYzeW1MWmpBOWwxcVVVSHdIQkVWYVk3OFJr?=
+ =?utf-8?B?NnhhYlh0M2drK01TZjRCeGw3T0xta2Z6b1VNQzYxL1plZWN4M0dXNjlYdm1M?=
+ =?utf-8?B?bHloUS91Rk1WSnorMG4zSzYyY0NzZUN2ZHI3REl5ZEhNQnRrc095SXJBaDlF?=
+ =?utf-8?B?amh0R0FzTnBGM0hPNkhaTlpoOXByclh5VHRobE0vSVNDd3crMGNNNDI0Rk5h?=
+ =?utf-8?B?TXdlWVpFbmljbU45TUVSUHd0U3V5bm1JLy9UZjFtMmlTTVpXWW5oZDRuaEUz?=
+ =?utf-8?Q?NRma/rj/rbDRvl9fePLGGuT5i?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 18:32:04.0138
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d5e7fe3-c9c9-4eee-8e4a-08dd05a6c982
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB7334.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 18:53:26.3052
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: deda968a-dde7-4223-5d69-08dd05a3cd7b
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9CE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6390
-
-On 2024-11-15 08:12, Daniel P. Smith wrote:
-> Add a container for the "cooked" command line for a domain. This provides for
-> the backing memory to be directly associated with the domain being constructed.
-> This is done in anticipation that the domain construction path may need to be
-> invoked multiple times, thus ensuring each instance had a distinct memory
-> allocation.
-> 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RJAV5ckvxm7E3n+fmvc8AtfGJr+MpQNgeY/2WdZiF9ZqjxzXTMvvl+KblNe+pqJsf5emmKAYvJFJeqZGOfvKIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7230
 
 
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 533a1e2bbe05..b9ca9c486fe5 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -963,10 +963,31 @@ static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned int li
->       return n;
->   }
->   
-> -static struct domain *__init create_dom0(struct boot_info *bi)
-> +static size_t __init domain_cmdline_size(
-> +    struct boot_info *bi, struct boot_domain *bd)
->   {
-> -    static char __initdata cmdline[MAX_GUEST_CMDLINE];
-> +    size_t s = 0;
-> +
-> +    s += bi->kextra ? strlen(bi->kextra) : 0;
-> +    s += bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) : 0;
->   
-> +    /* Should only be called if one of extra or cmdline_pa are valid */
-> +    ASSERT(s > 0);
-> +
-> +    /*
-> +     * Add additional space for the following cases:
-> +     *  - 7 chars for " noapic"
-> +     *  - 13 chars for longest acpi opiton, " acpi=verbose"
+On 13/11/2024 09:31, Julien Grall wrote:
+> Hi,
+Hi Julien,
+>
+> On 18/10/2024 16:51, Ayan Kumar Halder wrote:
+>> From: Michal Orzel <michal.orzel@amd.com>
+>>
+>> Add requirements for dom0less domain creation.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>>   .../arm64/dom0less_domain_config.rst          | 267 ++++++++++++++++++
+>>   docs/fusa/reqs/market-reqs/reqs.rst           |  15 +
+>>   docs/fusa/reqs/product-reqs/arm64/reqs.rst    |  20 ++
+>>   3 files changed, 302 insertions(+)
+>>   create mode 100644 
+>> docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst
+>>
+>> diff --git 
+>> a/docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst 
+>> b/docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst
+>> new file mode 100644
+>> index 0000000000..17b5f8962c
+>> --- /dev/null
+>> +++ b/docs/fusa/reqs/design-reqs/arm64/dom0less_domain_config.rst
+>> @@ -0,0 +1,267 @@
+>> +.. SPDX-License-Identifier: CC-BY-4.0
+>> +
+>> +Dom0less Domain configuration requirements
+>> +==========================================
+>> +
+>> +The following are the requirements related to dom0less domain 
+>> configuration for
+>> +Arm64 domains.
+>> +
+>> +Specify Arm64 Linux kernel image
+>> +----------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_kernel_linux_image~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with a Arm64 Linux kernel image.
+>
+> A link to the specification would be useful when you are referring to 
+> an external format.
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify Arm64 Gzip Linux kernel image
+>> +---------------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_kernel_gzip_image~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with a Arm64 Gzip compressed Linux kernel 
+>> image.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify kernel with uImage header
+>> +---------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_kernel_uimage~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with a kernel containing uImage header.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify Gzip kernel with uImage header
+>> +--------------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_gzip_kernel_uimage~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with a Gzip compressed kernel containing 
+>> uImage
+>> +header.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify passthrough device tree
+>> +-------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_passthrough_dt~1`
+>> +
+>> +Description:
+>> +Xen shall support direct assignment of devices to a domain.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify kernel command line arguments
+>> +-------------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_kernel_cmd_line_args~1`
+>> +
+>> +Description:
+>> +Xen shall pass kernel command line arguments to a domain.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify initial ramdisk
+>> +-----------------------
+>> +
+>> +`XenSwdgn~arm64_specify_initial_ramdisk~1`
+>> +
+>> +Description:
+>> +Xen shall provide initial ramdisk to a domain.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify amount of memory
+>> +------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_memory~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with specified amount of memory.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Assign a single vCPU
+>> +--------------------
+>> +
+>> +`XenSwdgn~arm64_assign_single_vcpu~1`
+>> +
+>> +Description:
+>> +Xen shall assign a single vCPU to a domain.
+>
+> This wording is a bit ambiguous. You don't assign a vCPU to a domain. 
+> You create a domain with "N vCPUs". It is also not clear why we are 
+> making the distinction between one and ...
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Assign multiple vCPUs
+>> +---------------------
+>> +
+>> +`XenSwdgn~arm64_assign_multiple_vcpus~1`
+>> +
+>> +Description:
+>> +Xen shall assign multiple vCPUs to a domain.
+>
+> ... multiple one. From Xen PoV there is no differences.
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Assign vCPUs from CPU pool
+>> +--------------------------
+>> +
+>> +`XenSwdgn~arm64_assign_vcpus_cpu_pool~1`
+>> +
+>> +Description:
+>> +Xen shall assign vCPUs to a domain from a CPU pool.
+>
+> Same remark about the wording. You create a domain with N vCPUs and 
+> *assign* a CPU pool to a domain. 
 
-option
+Ok, so all the previous 3 requirements can be merged into
 
-> +     *  - 1 char to hold \0
-> +     */
-> +    s += 7 + 13 + 1;
+Xen shall create a domain with N vCPUs and assign a CPU pool to a domain.
 
-Seems a little fragile.  Sizing but also depending on code elsewhere. 
-Interesting - "verbose" wouldn't actually get updated into acpi_param. 
-Anyway, using sizeof(acpi_param) seems better.  Maybe:
+Or
 
-         s += strlen(" noapic") + strlen(" acpi=") + sizeof(acpi_param) + 1;
+Xen shall create a domain with N vCPUs.
 
-> +
-> +    return s;
-> +}
-> +
-> +static struct domain *__init create_dom0(struct boot_info *bi)
-> +{
-> +    char *cmdline = NULL;
->       struct xen_domctl_createdomain dom0_cfg = {
->           .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
->           .max_evtchn_port = -1,
-> @@ -1008,17 +1029,23 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->       /* Grab the DOM0 command line. */
->       if ( bd->kernel->cmdline_pa || bi->kextra )
+(which of the two looks better to you if we keep the next requirement ?)
 
- From your other email, since you don't need the length, just non-zero:
+Comments:
 
-     if ( (bd->kernel->cmdline_pa && __va(bd->kernel->cmdline_pa)[0]) ||
-           bi->kextra )
+Here N is determined by the device tree configuration provided by the user.
 
->       {
-> +        size_t cmdline_size = domain_cmdline_size(bi, bd);
-> +
-> +        if ( !(cmdline = xzalloc_array(char, cmdline_size)) )
+> You also assign pCPU to a CPU pool.
+>
+> But I am not sure about if this requirement is actually necessary 
+> given ...
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify CPU pool scheduler
+>> +--------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_cpu_pool_scheduler~1`
+>> +
+>> +Description:
+>> +Xen shall assign a CPU pool scheduler to a domain.
+>
+> ... you have th is one.
+So, we can keep it as it is.
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Assign virtual UART
+>> +-------------------
+>> +
+>> +`XenSwdgn~arm64_assign_virtual_uart~1`
+>> +
+>> +Description:
+>> +Xen shall assign a virtual UART to a domain.
+>
+> Are we talking about the virtual PL011 or the fake emulation of the 
+> real UART we do?
+virtual PL011.
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify number of SPIs
+>> +----------------------
+>> +
+>> +`XenSwdgn~arm64_specify_num_spis~1`
+>> +
+>> +Description:
+>> +Xen shall allocate a specified number of shared peripheral 
+>> interrupts for a
+>> +domain.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify grant table version for a domain
+>> +----------------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_grant_table_version~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with a specified version of grant table 
+>> structure
+>
+> Realistically grant table v2 is not supported for Arm and I am not 
+> convinced it makes any sense for x86 in embedded system. It is mainly 
+> useful when you have a guest with a large amount of address space 
+> (IIRC > 4TB).
+We can put this detail in comments.
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify number of grant table frames for a domain
+>> +-------------------------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_num_grant_table_frames~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with a specified number of grant table 
+>> frames.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +Specify number of grant maptrack frames for a domain
+>> +----------------------------------------------------
+>> +
+>> +`XenSwdgn~arm64_specify_num_grant_maptrack_frames~1`
+>> +
+>> +Description:
+>> +Xen shall create a domain with a specified number of grant maptrack 
+>> frames.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~static_domains_configuration~1`
+>> +
+>> +| [1] 
+>> https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=docs/misc/arm/device-tree/booting.txt
+>> +| [2] 
+>> https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=docs/misc/arm/device-tree/cpupools.txt
+>> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst 
+>> b/docs/fusa/reqs/market-reqs/reqs.rst
+>> index f456788d96..ca020f9a33 100644
+>> --- a/docs/fusa/reqs/market-reqs/reqs.rst
+>> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
+>> @@ -47,3 +47,18 @@ Comments:
+>>     Needs:
+>>    - XenProd
+>> +
+>> +Static VM definition
+>> +--------------------
+>> +
+>> +`XenMkt~static_vm_definition~1`
+>> +
+>> +Description:
+>> +Xen shall support specifying resources for a domain.
+>
+> Compare to the other requirements, this is quite a vague. Should we 
+> list the resources?
 
-Just xmalloc_array since it'll be overwritten immediately?
+The list of resources depends on what the user has provided in the 
+device tree configuration.
 
-> +            panic("Error allocating cmdline buffer for %pd\n", d);
-> +
->           if ( bd->kernel->cmdline_pa )
-> -            safe_strcpy(cmdline,
-> -                        cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader));
-> +            strlcpy(cmdline,
-> +                    cmdline_cook(__va(bd->kernel->cmdline_pa),bi->loader),
-> +                    cmdline_size);
->   
->           if ( bi->kextra )
->               /* kextra always includes exactly one leading space. */
-> -            safe_strcat(cmdline, bi->kextra);
-> +            strlcat(cmdline, bi->kextra, cmdline_size);
->   
->           /* Append any extra parameters. */
->           if ( skip_ioapic_setup && !strstr(cmdline, "noapic") )
-> -            safe_strcat(cmdline, " noapic");
-> +            strlcat(cmdline, " noapic", cmdline_size);
->   
->           if ( (strlen(acpi_param) == 0) && acpi_disabled )
->           {
-> @@ -1028,17 +1055,21 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->   
->           if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
->           {
-> -            safe_strcat(cmdline, " acpi=");
-> -            safe_strcat(cmdline, acpi_param);
-> +            strlcat(cmdline, " acpi=", cmdline_size);
-> +            strlcat(cmdline, acpi_param, cmdline_size);
->           }
->   
-> -        bd->kernel->cmdline_pa = __pa(cmdline);
-> +        bd->cmdline = cmdline;
-> +        bd->kernel->cmdline_pa = __pa(bd->cmdline);
+But the requirement is correct as it is. Xen allows direct assignment of 
+devices to domains (ie passthrough).
 
-Should cmdline_pa go away if we now have a valid cmdline variable?
+How do you want to write it ?
 
-Regards,
-Jason
-
->       }
->   
->       bd->d = d;
->       if ( construct_dom0(bd) != 0 )
->           panic("Could not construct domain 0\n");
->   
-> +    if ( cmdline )
-> +        xfree(cmdline);
-> +
->       return d;
->   }
->   
-
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Needs:
+>> + - XenProd
+>> \ No newline at end of file
+>> diff --git a/docs/fusa/reqs/product-reqs/arm64/reqs.rst 
+>> b/docs/fusa/reqs/product-reqs/arm64/reqs.rst
+>> index db91c47a02..0453dbb862 100644
+>> --- a/docs/fusa/reqs/product-reqs/arm64/reqs.rst
+>> +++ b/docs/fusa/reqs/product-reqs/arm64/reqs.rst
+>> @@ -40,3 +40,23 @@ Covers:
+>>     Needs:
+>>    - XenSwdgn
+>> +
+>> +Configure static domains
+>> +------------------------
+>> +
+>> +`XenProd~static_domains_configuration~1`
+>> +
+>> +Description:
+>> +Xen shall support specifying the resources required for a domain.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Rationale:
+>> +
+>> +Covers:
+>> + - `XenMkt~static_vm_definition~1`
+>> +
+>> +Needs:
+>> + - XenSwdgn
+>> \ No newline at end of file
+>
+> Missing a newline.
+- Ayan
 
