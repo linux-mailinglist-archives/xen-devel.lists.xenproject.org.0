@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5371A9CF32A
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 18:43:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.837953.1253862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56099CF386
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 19:04:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.837961.1253871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC0Li-0002tY-5y; Fri, 15 Nov 2024 17:43:14 +0000
+	id 1tC0f7-0006mX-Ne; Fri, 15 Nov 2024 18:03:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 837953.1253862; Fri, 15 Nov 2024 17:43:14 +0000
+Received: by outflank-mailman (output) from mailman id 837961.1253871; Fri, 15 Nov 2024 18:03:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC0Li-0002ql-39; Fri, 15 Nov 2024 17:43:14 +0000
-Received: by outflank-mailman (input) for mailman id 837953;
- Fri, 15 Nov 2024 17:43:13 +0000
+	id 1tC0f7-0006l3-Kz; Fri, 15 Nov 2024 18:03:17 +0000
+Received: by outflank-mailman (input) for mailman id 837961;
+ Fri, 15 Nov 2024 18:03:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cuMk=SK=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tC0Lh-0002qf-9S
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 17:43:13 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060f.outbound.protection.outlook.com
- [2a01:111:f403:200a::60f])
+ <SRS0=olWw=SK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tC0f6-0006kx-La
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 18:03:16 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 10d7593d-a379-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 18:43:05 +0100 (CET)
-Received: from BLAPR03CA0057.namprd03.prod.outlook.com (2603:10b6:208:32d::32)
- by LV3PR12MB9402.namprd12.prod.outlook.com (2603:10b6:408:213::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Fri, 15 Nov
- 2024 17:42:57 +0000
-Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
- (2603:10b6:208:32d:cafe::37) by BLAPR03CA0057.outlook.office365.com
- (2603:10b6:208:32d::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.29 via Frontend
- Transport; Fri, 15 Nov 2024 17:42:57 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 17:42:56 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
- 2024 11:42:56 -0600
-Received: from [172.17.143.135] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 15 Nov 2024 11:42:55 -0600
+ id e032dc6a-a37b-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 19:03:11 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a9e44654ae3so150413866b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 10:03:11 -0800 (PST)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa20df52adasm200289366b.81.2024.11.15.10.03.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Nov 2024 10:03:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,127 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10d7593d-a379-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjAwYTo6NjBmIiwiaGVsbyI6Ik5BTTEyLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjEwZDc1OTNkLWEzNzktMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjkyNTg1LjczODg5MSwic2VuZGVyIjoiamFzb24uYW5kcnl1a0BhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OLbrsfbueRIwsX24Nobs9HSeBIX/I1BeG/HGmr0FuxteJgBazQ2RUIHx0o/9HN212zIeFBaoXz8FaToPTxCXGM4lEeUr2rckcWGPk6FFZZ91XQ7hAcdrJQuVSDTgwfPK2CIA/pTGmACfh9ghOfRt/seKHqPRB+qbdfyv/5F/kKT5qGVIyCSYuOllwANWMeH4ZDwNkbsvREhhVTcbeASbVuDxGHeF2x5P86Jx6xYxCBySk4P4kJT+yhpLU4hse27zVSPP/FJPE4kk29aCGJXt/Mkr6lbF02xcAAYX+oc9cysUvaVy1zqMaVy/2mzOusaWPjBm3OSgwZ+zmD69uzs5Tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6epml8VYlzDbO/4BkdDq6lOkgUNkcK3H4yv8NSHVzXg=;
- b=mJck018TF+EJ40+kFVeunRtQSZiaFG1aEpKzXC6OtblnggC/oN0QacLjf80Cm0+chalVv+6AGXUf8Uwc3g50j867U8yHUJ3shGvKzUevwQgoE+fgN7l+Lnbo6xSAt6AYep0GIn1nL8zbbHGU7aWJwsoBkTLUbxRwHkOXmWMP22YJwbdZ1pBpMoghv3+ZevPxBa3+H2W0S2kmjR1K/9U8r0NKaHKsLAv7ZiypVALN+2bHj+DhsZX1o+tdg7JJ1gwxboIcjuen6XDJi9VGjUn12bc89E6xLfJ3tFxTG/rcudaUMymWu42uxx1daCNUKeis/THl+KJdTEcx88UXA+KvMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6epml8VYlzDbO/4BkdDq6lOkgUNkcK3H4yv8NSHVzXg=;
- b=NPNBFWSeXEFXAgLRyYp4ha5TCFOkxGuWH5eU9QH4G5xGUddY8e/j0WsX1pC8TgTxFaVakOguJrHrJngdqhlIMh7+BR5d/I6UPW5X5wK90cJRRzf/OOMMaev0uom6UXjqzGvI0U0wBXcKAJGmHcsv7ziU0evZhYb5EiClbTLYqhI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <87d2a1e6-c69e-4789-b4e1-54aaf60eb858@amd.com>
-Date: Fri, 15 Nov 2024 12:31:36 -0500
+X-Inumbo-ID: e032dc6a-a37b-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmMiLCJoZWxvIjoibWFpbC1lajEteDYyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImUwMzJkYzZhLWEzN2ItMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjkzNzkxLjExMTU1MSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1731693790; x=1732298590; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Vt8YeGqOnwZKJLkShM7ZkBWKYwFJg/rg9MhZxk65vhw=;
+        b=f8YEOurfxodKKQRcGTekJp1o6iOkrWEi3Qr/OqRlZZYaThyIbepOFI7REOhf0yZcLh
+         Jsr/4q6zVtzXQH5GK1YX8mb3QdxfQeYtDKzaZH3UucZkYY2BUcRqXLTq2X8Ov4OscdNh
+         NLPkAv6mVYoZ/H3gCPQlsqu5JsbjME4WXdmRQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731693790; x=1732298590;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Vt8YeGqOnwZKJLkShM7ZkBWKYwFJg/rg9MhZxk65vhw=;
+        b=IdxMsWaeNmhRkWjY5ydCVdpZ2vvYCEIIbD2/DOYEDshWUgG5OW0o6SY0iUAJrViYgM
+         7qttcnSVXQyuBoG8RaU3Yb2tm8yfmt0v5j7uH3YYIlpvov7/bX+VzG8KZ/RQ+maxegh3
+         WZJ/vRR723P0LettwJJb52rzrTzqe+IjO41rTFYdKUVbLtqlIXynWpUzQtWC17LkeYrj
+         /GrbbHFEQ0fsPJf4rlb1VDH89nZRq2gpuirKpo41V10zgHeLMAvbsh9EeJ0gf4wR4kai
+         TchjNQ7i9XVvaLgCdROOkjG2xrNbql865mLg24UeQIPQ3Ok25ccHK50lk4LlM0iWwBxM
+         +Ang==
+X-Forwarded-Encrypted: i=1; AJvYcCUMmZM16tAGwO1e4Almrci0hwFrA0P4FX3l3NpTOAL4j5ABOMWxpqbr+rBwKeVnvNaPagmNftwC8Ws=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBssTjxQODVaZx4ap/yn3x0BA45CYTfxpGOPN0UNjKygqHO6yp
+	FYwOCGlg5A4VgkvZpeR20iq4Awl92yUu15n1H8DczQ+qADXAxzJYqrVrPuibGFU=
+X-Google-Smtp-Source: AGHT+IGUozI8F4mrCu2bmBqoHIiwvjn7trJgIWFxlGK79bR8ELRiziuVbTq3Ifdo4baH7MNN1x7HtA==
+X-Received: by 2002:a17:907:36cb:b0:a9e:b1f9:bc52 with SMTP id a640c23a62f3a-aa48354d1d5mr331312466b.55.1731693789884;
+        Fri, 15 Nov 2024 10:03:09 -0800 (PST)
+Message-ID: <babfdcb5-c23f-4a18-b1bb-52026f9bf2f7@citrix.com>
+Date: Fri, 15 Nov 2024 18:03:07 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/6] x86/boot: add start and size fields to struct
- boot_module
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
- <20241115131204.32135-4-dpsmith@apertussolutions.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20241115131204.32135-4-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH v2 2/3] x86/ucode: Fix cache handling in
+ microcode_update_helper()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241112211915.1473121-1-andrew.cooper3@citrix.com>
+ <20241112211915.1473121-3-andrew.cooper3@citrix.com>
+ <c25b7a62-fc47-440f-9521-f11b65e2cb8b@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <c25b7a62-fc47-440f-9521-f11b65e2cb8b@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|LV3PR12MB9402:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6eda7f6-1764-415d-748a-08dd059cf0d7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UDRJRTlHdkZheXp0Sm5BU0UxVXJtTzhpUzd6T2ZqTXl1b3cxQXluSUVYc3JE?=
- =?utf-8?B?SXNiMlY5WkFucWtFNE9qbUU4RjJhV1UrTHRPVzZFQWovODBlQ0s4Yk51WGVr?=
- =?utf-8?B?SHdmZ29aYXcyOUZnRndIVDlZZGRKY2tRSVQrWUVrOXBna1J0QUxyc2NQeDhK?=
- =?utf-8?B?T09CT3JXV091ejh6TE5KR2tLSkR4K2tvRmx6bjlvbUFLWDE4S3FRYXRyNEVv?=
- =?utf-8?B?bHd2ZHpwWGlEODA5Q1YvYTdQVHlLNCt0ZGVjd01mM1JEcDE5YnZPSHJwZnFT?=
- =?utf-8?B?Q2RVLy9sdUFZa3FFRGxUQk5wSE40V0hlSW96L1ZMcnpvSFE4dHpjS1IweTlV?=
- =?utf-8?B?WkFEeXhFTEFMZlNoRmJPU29scUlUTS8zd0FQc1BkclhOblZPVFp6VVdVWkJr?=
- =?utf-8?B?UW1HUDl3QTNWdnlTYnFZTG1Db3dwOENSK0c5WHBYNDdlNzFGM0VHb1lva205?=
- =?utf-8?B?cUJvNTd5SUFWcndaa0NHbG5ueks0TmZZb21DZHpJblFnVWhuUFcyWXhpWVJ1?=
- =?utf-8?B?WEl6NHJsKzBaSnRLNDMyN1krbUhOWTZ4aDV3NjhoL2I0Z2ZWQWZyS1hqTUcw?=
- =?utf-8?B?VEQzWkxpYmRENURuSXo2Y240Smw3RzdMb05kQnlOS3Z3WEY1UjRHT1pacHMz?=
- =?utf-8?B?NldyODNmWkFWYkc0c1J1aSt5R0lOUFZ2Tlp6WU1acU1PSWRTZFIwaWx6V2tB?=
- =?utf-8?B?TmhYeHdQTm9rbFhoYmFjU28vTlJmeXFIZnMxcFQxVlF4UjBZR0x5WlhHeUhJ?=
- =?utf-8?B?ZnkwMDdkbXlvWUFiZktHRk5CTDdudUU1UTVWWmRyYW5PeHRvUEc1amllVWtL?=
- =?utf-8?B?b0JSQVEzV2huRWZYUWlhbXRCSTBnS2FhS1BBZXFBbUc2ZjVQUXRMQS92RWVI?=
- =?utf-8?B?czlvT1hRNjk0c2NwT2ZVL3JhQTR0RlhiQzZkWmZ1K1lIcDM5eWc3UkFLSWgr?=
- =?utf-8?B?WVJONXE1QTcrZ2ZVSVpDR2tRWXJvcGNBWm1ESllod3hsbklaQjZCMk1aY25r?=
- =?utf-8?B?R1ozWk56V2xSOFJZbmVGSUtMYUdWaFNYOEtKSFJDN0N1TUZVMlMrai9iamxr?=
- =?utf-8?B?M01Ib082QWtpZEFNRjA4aUNVVDZYZElVT05FUHUxQlNYNmppOHo5SHd2VmZW?=
- =?utf-8?B?RWo2Nm8wWTN5WFdzWlE0RTh6RTErSHRtZ21NK3BpaTdSRElZMGs1T0gyU3lj?=
- =?utf-8?B?bGxZdVpSMFJVdU8yalR5ZGtyT2MwcWFnQ1R6YVRQWTZDUm0wK3ltWmp3TkFH?=
- =?utf-8?B?ZGdOQmR3dms1UFQ5WHM3NytzekxyWmRpN3ZGKzB4SjNmdTFRKzRUazFMQW9B?=
- =?utf-8?B?MHhndis2YzJQOFQ2OTZWNVJ5NWVoeDlxTlpCQ29ieEpTMS9qZ044eFhySnlv?=
- =?utf-8?B?TWpMd2w1M2pyQmdEbjEveXh6c01LQXFRR0tvNHRkYi9sNnM5TWtxUW9NYVEr?=
- =?utf-8?B?U3FKVUJRQUhDMjlrVHFGbFk5SlJUUHoxQVRDQTZSNG5vSkMwWDRLOEVEVU5R?=
- =?utf-8?B?K2gyT3M0NWhIb3pjc0kyQkM1TjQ2Y3NzK2tQL0VLV0Q5TlA2VFJZblJVS3Vm?=
- =?utf-8?B?OTdMR29yWkhkM3RtcWhsalhTNWR4cmRJaVhRcm40K0E3dlFBN1dqYjdoUXBz?=
- =?utf-8?B?WWhmWTh2SzZNaW5hODN3ZzlmdE8yMEFGYmVseUNTVnpmL3ZhWEtuVzM0bWR6?=
- =?utf-8?B?eE94ZzBJN1Vod3REMXNFMitvYytSUmdnUHhET1dFZHdReUdoUkIvS2hkeElS?=
- =?utf-8?B?OG82SysxNDlNbzZ6Wmt1MkphT0JiQnJMNG5iNk9DejI3NWRlWFlqN01LS1Ju?=
- =?utf-8?B?WWNOL1lGSU0zOUVXODFjUlZWWFgrVnRCN3l6TzJnYkE0SmRBTWRpaFVtSzZQ?=
- =?utf-8?B?SWt4bTc2NkJOOVhKRmtwOVQwN0tsbmxPSG9Ob3lPc0dKL2c9PQ==?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 17:42:56.9542
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6eda7f6-1764-415d-748a-08dd059cf0d7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9402
 
-On 2024-11-15 08:12, Daniel P. Smith wrote:
-> Introduce the start and size fields to struct boot_module and
-> assigns their value during boot_info construction. All uses of module_t to get
-> the address and size of a module are replaced with start and size.
-> 
-> The EFI entry point is a special case, as the EFI file loading boot service may
-> load a file beyond the 4G barrier. As a result, to make the address fit in the
-> 32bit integer used by the MB1 module_t structure, the frame number is stored in
-> mod_start and size in mod_end. Until the EFI entry point is enlightened to work
-> with boot_info and boot_module, multiboot_fill_boot_info will handle the
-> alternate values in mod_start and mod_end when EFI is detected.
-> 
-> A result of the switch to start/size removes all uses of the mod field in
-> struct boot_modules, along with the uses of bootstra_map() and release_module()
+On 14/11/2024 11:26 am, Jan Beulich wrote:
+> On 12.11.2024 22:19, Andrew Cooper wrote:
+>> microcode_update_cache() now has a single caller, but inlining it shows how
+>> unnecessarily complicated the logic really is.
+>>
+>> Outside of error paths, there is always one microcode patch to free.  Its
+>> either result of parse_blob(), or it's the old cached value.
+>>
+>> In order to fix this, have a local patch pointer (mostly to avoid the
+>> unnecessary verbosity of patch_with_flags.patch), and always free it at the
+>> end.  The only error path needing care is the IS_ERR(patch) path, which is
+>> easy enough to handle.
+>>
+>> Also, widen the scope of result.  We only need to call compare_patch() once,
+>> and the answer is still good later when updating the cache.  In order to
+>> update the cache, simply SWAP() the patch and the cache pointers, allowing the
+>> singular xfree() at the end to cover both cases.
+>>
+>> This also removes all callers microcode_free_patch() which fixes the need to
+>> cast away const to allow it to compile.
+> I'm sure you're well aware that this in turn is just because of your opposition
+> to xfree() and alike taking const void *.
 
-bootstrap_map()
+My opposition, and the C standards committee, and MISRA to name but a few.
 
-> functions. With all usage gone, they all are dropped here.
-> 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>  Pointers needing to be to non-const
+> just because of eventual freeing is precisely the scenario why freeing (and
+> unmapping) functions better wouldn't take mutable pointers. Then ...
+>
+>> --- a/xen/arch/x86/cpu/microcode/core.c
+>> +++ b/xen/arch/x86/cpu/microcode/core.c
+>> @@ -86,7 +86,7 @@ struct patch_with_flags {
+>>  static bool ucode_in_nmi = true;
+>>  
+>>  /* Protected by microcode_mutex */
+>> -static const struct microcode_patch *microcode_cache;
+>> +static struct microcode_patch *microcode_cache;
+> ... this imo pretty undesirable change also wouldn't be needed.
+>
+> Nevertheless, in the interest of not blocking this change over a long-standing
+> disagreement we have,
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-with that:
+Thankyou.
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+~Andrew
 
