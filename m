@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206369CDB26
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 10:10:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836975.1252884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A5FD9CDB92
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 10:29:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836984.1252895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBsKp-0004hP-Eq; Fri, 15 Nov 2024 09:09:47 +0000
+	id 1tBsdX-0000A5-0U; Fri, 15 Nov 2024 09:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836975.1252884; Fri, 15 Nov 2024 09:09:47 +0000
+Received: by outflank-mailman (output) from mailman id 836984.1252895; Fri, 15 Nov 2024 09:29:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBsKp-0004ex-C9; Fri, 15 Nov 2024 09:09:47 +0000
-Received: by outflank-mailman (input) for mailman id 836975;
- Fri, 15 Nov 2024 09:09:45 +0000
+	id 1tBsdW-00007O-TU; Fri, 15 Nov 2024 09:29:06 +0000
+Received: by outflank-mailman (input) for mailman id 836984;
+ Fri, 15 Nov 2024 09:29:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OZ3N=SK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBsKn-0004eq-An
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 09:09:45 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1tBsdW-00007I-16
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 09:29:06 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58ec9f78-a331-11ef-99a3-01e77a169b0f;
- Fri, 15 Nov 2024 10:09:41 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-431616c23b5so8877675e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 01:09:41 -0800 (PST)
+ id 0cb72585-a334-11ef-99a3-01e77a169b0f;
+ Fri, 15 Nov 2024 10:29:01 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2fb3c3d5513so4484731fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 01:29:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432dab807d4sm47241515e9.21.2024.11.15.01.09.40
+ 5b1f17b1804b1-432da27fe73sm51167105e9.20.2024.11.15.01.29.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2024 01:09:40 -0800 (PST)
+ Fri, 15 Nov 2024 01:29:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58ec9f78-a331-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjU4ZWM5Zjc4LWEzMzEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjYxNzgxLjQ5MjE0Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 0cb72585-a334-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmMiLCJoZWxvIjoibWFpbC1sajEteDIyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjBjYjcyNTg1LWEzMzQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjYyOTQxLjk4NzY1Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731661781; x=1732266581; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1731662941; x=1732267741; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PqpoAcj/XQNOaartWdvf83r66dGZi5ggKPn0gD0m3Do=;
-        b=LTBfxKfjbxtTri4c4th8weNnJD4K2VlqUoE/vZu1ipYKV4j7QnMeJbWNyl3B4EKHgI
-         zMGtodva1EOGf2RSW1ip5EezZEs1UeDFqKIieJg7Yz0P39izPnTfPSUQUnlEoXNmkPq+
-         LOY9VPVYQOI09o43TwvgjVOWoSBqQGVyyA9Zl7WmvMlNX6fkXJdb337WX+2mviKHraIU
-         lCHNapIg7tOMTCAfK8JvptG7wjEWpWTAJt/Ps0528fromrFBfgL0NSWdGd20VsVVLjqW
-         Z0TmJHcMD+LyY4ZKOFXvAupIbha7byDZ+sfCcQjvzipuy49JvmrxzOJfNXXFvfMtJNzP
-         b8rw==
+        bh=E2P/v+CW82ZcWnIWYl2vBcowgYERNBV4qqG3WGqznls=;
+        b=bse+alANxsrx/XSMNuOkUCNxVeZMhGVMEOLzuGJdDR8VA9Iw7MxiWG4bR2IFceAHap
+         e9CoCvCj+1m0hloKR6m5eeNekBzJnv0tkn/5S6gElhuUc7lDguwB987hbsgdV6obDvgV
+         gZ3UwIlivdCWyHrfJLunwLBgD4K+yp0flkPqd2JIhdhh/N2sWDEWuesfWSriiT+NKydJ
+         EEdgoW4yUNRV3aFO9DLVdIHdGfOfAt3+aDT7Lrr4P0EXpe6HfqYjz4jXAeP+bxNaIXnq
+         KHAOq/WXJG2uYiiCoEOqkCSiS3XcOfdfI3Q658EZC0RzhNFyTrW49i68f3HrnvUzZYcw
+         8U6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731661781; x=1732266581;
+        d=1e100.net; s=20230601; t=1731662941; x=1732267741;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PqpoAcj/XQNOaartWdvf83r66dGZi5ggKPn0gD0m3Do=;
-        b=dPgyXG3u7a7N5TRXEGUXioc7q3BSUFc30J8bgx5y6Ci2tNmUV06w0HHlTdNZtQ6CTe
-         PEAPT+LNnpGX4KkQ9xVBSPvDtvDO6+p9jTUmuIeSzhp4Iw7nLDtlJR+v96hWkYmdGfNv
-         /FUkBhE+vRScHT/H/xqhXLEIXKZd02Gv5DuvHZ0AN03vwf0CikqUjJXufxKzTztEgtlf
-         cipfCtypO7M2tymlhAgsxi6SWYd5ojQheTzMkcZCAkBNkIrYMFkd5QmfD0KqXqi/OW1m
-         FgN75j44YJ+wa8rzlqDKXVoIqDX7PVORme6rc4mXObhDw9EzUluE9fWQcB2JRD7hO23m
-         54pA==
-X-Forwarded-Encrypted: i=1; AJvYcCXwCguIR21mhkXKweHExRsr3mvF7TMoXdvwhRko/nmgn7hEBGHRwQqfZwh8YIVb7EQIT0l0RXs5WSY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/o9JcF6pqbYEYhV/CWdWicOSW95TDtiK7eGbwPw3c0VL1Fy3Q
-	0+nzManhhcxEiTtoGpBe3BGvZriHRmzDf4CBVj7v6ypGaq7HjCiJI+ljLDVmYQ==
-X-Google-Smtp-Source: AGHT+IHb8/J1ODzmb4vBay/PZ/hK/pLlqIENn8K2zC5gH948qe0lcPB5sIY+gaDDfQHKcaemDviKsg==
-X-Received: by 2002:a05:600c:3516:b0:431:5226:1633 with SMTP id 5b1f17b1804b1-432defd2589mr17215775e9.6.1731661780760;
-        Fri, 15 Nov 2024 01:09:40 -0800 (PST)
-Message-ID: <32d9b9ac-f70f-42d7-8d6f-0d95b7838ed8@suse.com>
-Date: Fri, 15 Nov 2024 10:09:39 +0100
+        bh=E2P/v+CW82ZcWnIWYl2vBcowgYERNBV4qqG3WGqznls=;
+        b=i27XbOhdWzREuVyIqJq44BWZp8QdsdgEsZLrj7sb+eaidPmxwaWOPIjOVMhmaQRMvm
+         ddsK4TXSlxHP4aKhGSWL6TM57UWBazpunrYhBC1c+LdEoHTX+HXEsuuSPExNnSl8nzQd
+         0fOtuwdZpJaNzNszPa/3wiwDeyrKXGp3f4n3NH9hFqjh6dklQkSW1Uba7ZYWmLhpiVBY
+         uTUJ0/KBNWqaAZ811CLD5ATT1m+AauBy5Ts9Y+JsOk7fdfQVn/6rGT4LRVlp30MIjY9r
+         CvEVEl6H71I+YEWcAgO2Un1Ekktlf8teVLQialh/7uR5LlyTvKCAkFMT4q/dBg6+dcng
+         YN2g==
+X-Forwarded-Encrypted: i=1; AJvYcCXUmN0bCqTPfwtycvvgFRyZvav8qXUCFVBRW0FfCA3RKpq0tkFDLhrKgH/Z7AfE21OSKCBpIPIrjDY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyde59lSEIcyulkABcCF0MshWn3Qy/Q+Xj1TK/NNfUZ7RXmWuX5
+	i/yhAr0nPx95m87XxN8NyUm0k3pALvtjW438E3lmgrf/KdYCcu2cAV4Q6GeSfw==
+X-Google-Smtp-Source: AGHT+IEGCfICzKU8wNKKja2UR2GPF6mGVbclcIcpR6/FWo3uod7PMeHzUeV0tpjLvdZhksgTJMEfDg==
+X-Received: by 2002:a2e:bd84:0:b0:2ff:5e46:aafe with SMTP id 38308e7fff4ca-2ff60744d57mr10828101fa.39.1731662941344;
+        Fri, 15 Nov 2024 01:29:01 -0800 (PST)
+Message-ID: <990887c0-d76f-4f8a-a6a6-c3dca49dcb91@suse.com>
+Date: Fri, 15 Nov 2024 10:28:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] x86/mm: skip super-page alignment checks for
- non-present entries
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241114145715.59777-1-roger.pau@citrix.com>
- <20241114145715.59777-3-roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/boot: Fix comment about setting up the real mode
+ stack
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241114182219.1983073-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,46 +117,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241114145715.59777-3-roger.pau@citrix.com>
+In-Reply-To: <20241114182219.1983073-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.11.2024 15:57, Roger Pau Monne wrote:
-> @@ -5517,7 +5524,8 @@ int map_pages_to_xen(
->          L3T_LOCK(current_l3page);
->          ol3e = *pl3e;
->  
-> -        if ( cpu_has_page1gb && IS_L3E_ALIGNED(virt, mfn) &&
-> +        if ( cpu_has_page1gb &&
-> +             (!(flags & _PAGE_PRESENT) || IS_L3E_ALIGNED(virt, mfn)) &&
->               nr_mfns >= (1UL << (L3_PAGETABLE_SHIFT - PAGE_SHIFT)) &&
->               !(flags & (_PAGE_PAT | MAP_SMALL_PAGES)) )
->          {
-> @@ -5636,7 +5644,7 @@ int map_pages_to_xen(
->          if ( !pl2e )
->              goto out;
->  
-> -        if ( IS_L2E_ALIGNED(virt, mfn) &&
-> +        if ( (!(flags & _PAGE_PRESENT) || IS_L2E_ALIGNED(virt, mfn)) &&
->               (nr_mfns >= (1u << PAGETABLE_ORDER)) &&
->               !(flags & (_PAGE_PAT|MAP_SMALL_PAGES)) )
->          {
+On 14.11.2024 19:22, Andrew Cooper wrote:
+> It may have taken a while, but it occurs to me that the mentioned commit fixed
+> a second problem too.
+> 
+> On entering trampoline_boot_cpu_entry(), %esp points at the trampoline stack,
+> but in a 32bit flat segment.  It happens to be page aligned.
+> 
+> When dropping into 16bit mode, the stack segment operates on %sp, preserving
+> the upper bits.  Prior to 1ed76797439e, the top nibble of %sp would depend on
+> where the trampoline was placed in low memory, and only had a 1/16 chance of
+> being 0 and therefore operating on the intended stack.
+> 
+> There was a 15/16 chance of using a different page in the trampoline as if it
+> were the stack.  Therefore, zeroing %esp was correct, but for more reasons
+> than realised at the time.
 
-Upon inspecting Andrew's report of crashes I noticed that this can't be quite
-right. We can't entirely skip the alignment check when non-present mappings
-are requested; we merely need to limit the check to the VA. In a reply to
-the 1st v2 I actually had it arranged to match that requirement:
+I'm afraid I don't follow this analysis. Said commit replaced clearing of %sp
+by clearing of %esp. That made no difference for anything using the 16-bit
+register. I don't see how the top nibble of %sp could have been non-zero
+prior to that change.
 
-        if ( (cpu_has_page1gb || !(flags & _PAGE_PRESENT)) &&
-             IS_L3E_ALIGNED(virt, flags & _PAGE_PRESENT ? mfn : _mfn(0)) &&
-             nr_mfns >= (1UL << (L3_PAGETABLE_SHIFT - PAGE_SHIFT)) &&
-             !(flags & (_PAGE_PAT | MAP_SMALL_PAGES)) )
+> Update the comment to explain why zeroing %esp is correct in all cases.  Move
+> it marginally earlier to when a 16bit stack segment is first loaded.
 
-Yet then I didn't pay attention to the difference when reviewing the 2nd v2
-(that versioning issue of course isn't helping here either).
-
-I'm afraid I can't (yet) connect the observed bad behavior with this issue,
-though.
+The movement is fine, and the comment is fine by itself, too. It doesn't
+cover the significance of using 32-bit operand size, though (which may or may
+not be relevant, to a fair degree depending on the above).
 
 Jan
+
+> --- a/xen/arch/x86/boot/trampoline.S
+> +++ b/xen/arch/x86/boot/trampoline.S
+> @@ -176,6 +176,12 @@ trampoline_boot_cpu_entry:
+>          mov     %eax,%gs
+>          mov     %eax,%ss
+>  
+> +        /*
+> +         * The stack is at trampoline_phys + 64k, which for a 16bit stack
+> +         * segment wants %sp starting at 0.
+> +         */
+> +        xor     %esp, %esp
+> +
+>          /* Switch to pseudo-rm CS, enter real mode, and flush insn queue. */
+>          mov     %cr0,%eax
+>          dec     %eax
+> @@ -190,8 +196,6 @@ trampoline_boot_cpu_entry:
+>          mov     %ax,%es
+>          mov     %ax,%ss
+>  
+> -        /* Initialise stack pointer and IDT, and enable irqs. */
+> -        xor     %esp,%esp
+>          lidt    bootsym(rm_idt)
+>          sti
+>  
+
 
