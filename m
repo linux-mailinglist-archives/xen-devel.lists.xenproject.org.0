@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD8C9CEFF0
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 16:31:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.837727.1253635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D3989CF022
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 16:35:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.837734.1253646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tByI2-0003Rk-VF; Fri, 15 Nov 2024 15:31:18 +0000
+	id 1tByLx-00046b-EN; Fri, 15 Nov 2024 15:35:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 837727.1253635; Fri, 15 Nov 2024 15:31:18 +0000
+Received: by outflank-mailman (output) from mailman id 837734.1253646; Fri, 15 Nov 2024 15:35:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tByI2-0003Q1-SH; Fri, 15 Nov 2024 15:31:18 +0000
-Received: by outflank-mailman (input) for mailman id 837727;
- Fri, 15 Nov 2024 15:31:17 +0000
+	id 1tByLx-00044v-B3; Fri, 15 Nov 2024 15:35:21 +0000
+Received: by outflank-mailman (input) for mailman id 837734;
+ Fri, 15 Nov 2024 15:35:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=54cC=SK=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tByI1-0003Pv-Fm
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 15:31:17 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a503aa17-a366-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 16:31:13 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1731684666510153.32777909395384;
- Fri, 15 Nov 2024 07:31:06 -0800 (PST)
+ <SRS0=b7N1=SK=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1tByLv-000444-AH
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 15:35:19 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 35aa1d5b-a367-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 16:35:15 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,73 +37,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a503aa17-a366-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzNi4xNDMuMTg4LjUxIiwiaGVsbyI6InNlbmRlcjQtb2YtbzUxLnpvaG8uY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImE1MDNhYTE3LWEzNjYtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjg0Njc0LjI2NDAyMiwic2VuZGVyIjoiZHBzbWl0aEBhcGVydHVzc29sdXRpb25zLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-ARC-Seal: i=1; a=rsa-sha256; t=1731684669; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lDYfAyeARF84BHblEEg4JaQXe2daExmpeBN671C0a2UuEw8e8L7JNMq9I01R2JFwIOl+xS5RMdFS/mYlY66naWScKTJIPawYvoEJ7p5chXwbP5vfKasc+MajK3By72+HKEaQl8psqMTgL82NCo+o6kuN8CzEL5EvfqGCuRl7XYk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1731684669; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TKdtslLSIhKbALEPsVQD5f8zYXoQFa/thBHaY+yGAss=; 
-	b=aoZp9Kd3/zInKXzjaZw1D2cizFwgCxdfPRyxJjf2m43Vkr0vigTIu7FRGB4bpLLUavppW5bS9YV8HQ87ER5Z9QR+lyiF6kzyjOkonHMRLixyhGJKs3pmEN2gutkcrvdK81rWLFuo/5OGyWjELKcdteU51igimx2oGucl0+dCQzk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1731684669;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=TKdtslLSIhKbALEPsVQD5f8zYXoQFa/thBHaY+yGAss=;
-	b=eImSsVlq1RYoIVJfsiGAfCnCfwZoM5clkBEN3MheTzb1uU9elfwJb5rup48sXTYR
-	/4bfZvvRrPl9tIq9cpq2ZNT8T4PEasUw7CtkJHjD6qDioOJUTWtE7ycomJOjGL9RQxD
-	iM65mgUFLR+xI34Za66IelbymrvdGFDgn1MtS9gM=
-Message-ID: <972e232e-f468-454b-abfe-2924493c7dac@apertussolutions.com>
-Date: Fri, 15 Nov 2024 10:31:04 -0500
+X-Inumbo-ID: 35aa1d5b-a367-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMGE6NTFjMDowOjEyZTo1NTA6OjEiLCJoZWxvIjoiZ2Fsb2lzLmxpbnV0cm9uaXguZGUifQ==
+X-Custom-Transaction: eyJpZCI6IjM1YWExZDViLWEzNjctMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjg0OTE1LjQwODcxNCwic2VuZGVyIjoidGdseEBsaW51dHJvbml4LmRlIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1731684913;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yU1G2hIrLcZlXd3LaebeyKYONXTnd34hSfRSQEHJ1yU=;
+	b=IBWtp97mInpsavyNlaW7Wa7P9t1WIhdFZFGtmkYainZ6bfXDspevPRYpFW4pLoFiUdTJD4
+	U5VvdoT1K3yOQRre+DBq0sQWHdk4rIynAWjUT2zmNpIj2n43BIKL0t0/Vf6l/rtvSO0Fi+
+	gDrBIw99IdYG1uqRK3qErn9uAAGZz664d/tZZ8KcSi+2Phfl0Sz1omrERQ/lrAOES/7JlS
+	yRewNvz7aEuvd8A4q0Bq1FSIlOgXPmu0k2lEr6yoDeEt0bajmGyelDX+RQ8ypFICvCudhA
+	M17FF+uzSWHmHhP49+FBOqW8qbOWE/x/12QiHel/8b+KvHi6yusfYdMgsiBxnw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1731684913;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yU1G2hIrLcZlXd3LaebeyKYONXTnd34hSfRSQEHJ1yU=;
+	b=HbOShzA2dgF/rf/JxxHpay75yREzH698PUJ7XWVcQ8L3AwP4KqCVbfvEjEUE+BssSSuAzH
+	UAxm3b5R+xtq6JDw==
+To: Philipp Stanner <pstanner@redhat.com>, Damien Le Moal
+ <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, Basavaraj Natikar
+ <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
+ Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+ <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
+ <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
+ <imitsyanko@quantenna.com>, Sergey Matyukevich <geomatsi@gmail.com>, Kalle
+ Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam
+ Sundar S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave
+ Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn
+ Helgaas <bhelgaas@google.com>, Alex Williamson
+ <alex.williamson@redhat.com>, Juergen Gross <jgross@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Philipp Stanner <pstanner@redhat.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Chen Ni
+ <nichen@iscas.ac.cn>, Ricky Wu <ricky_wu@realtek.com>, Al Viro
+ <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>, Kevin Tian
+ <kevin.tian@intel.com>, Mostafa Saleh <smostafa@google.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Jason Gunthorpe
+ <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>, Kunwu Chan
+ <chentao@kylinos.cn>, Ankit Agrawal <ankita@nvidia.com>, Christian Brauner
+ <brauner@kernel.org>, Reinette Chatre <reinette.chatre@intel.com>, Eric
+ Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-input@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 07/11] PCI: MSI: Use never-managed version of pci_intx()
+In-Reply-To: <20241113124158.22863-9-pstanner@redhat.com>
+References: <20241113124158.22863-2-pstanner@redhat.com>
+ <20241113124158.22863-9-pstanner@redhat.com>
+Date: Fri, 15 Nov 2024 16:35:22 +0100
+Message-ID: <87y11kzf0l.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 5/6] x86/boot: introduce domid field to struct
- boot_domain
-To: xen-devel@lists.xenproject.org
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
- <20241115131204.32135-6-dpsmith@apertussolutions.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <20241115131204.32135-6-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain
 
-On 11/15/24 08:12, Daniel P. Smith wrote:
-> Add a domid field to struct boot_domain to hold the assigned domain id for the
-> domain. During initialization, ensure all instances of struct boot_domain have
-> the invalid domid to ensure that the domid must be set either by convention or
-> configuration.
-> 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
->   xen/arch/x86/include/asm/bootdomain.h |  2 ++
->   xen/arch/x86/setup.c                  | 12 +++++++-----
->   2 files changed, 9 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/x86/include/asm/bootdomain.h b/xen/arch/x86/include/asm/bootdomain.h
-> index 12c19ab37bd8..3873f916f854 100644
-> --- a/xen/arch/x86/include/asm/bootdomain.h
-> +++ b/xen/arch/x86/include/asm/bootdomain.h
-> @@ -12,6 +12,8 @@ struct boot_module;
->   struct domain;
->   
->   struct boot_domain {
-> +    domid_t domid;
+On Wed, Nov 13 2024 at 13:41, Philipp Stanner wrote:
+> pci_intx() is a hybrid function which can sometimes be managed through
+> devres. To remove this hybrid nature from pci_intx(), it is necessary to
+> port users to either an always-managed or a never-managed version.
+>
+> MSI sets up its own separate devres callback implicitly in
+> pcim_setup_msi_release(). This callback ultimately uses pci_intx(),
+> which is problematic since the callback of course runs on driver-detach.
+>
+> That problem has last been described here:
+> https://lore.kernel.org/all/ee44ea7ac760e73edad3f20b30b4d2fff66c1a85.camel@redhat.com/
+>
+> Replace the call to pci_intx() with one to the never-managed version
+> pci_intx_unmanaged().
+>
+> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 
-There is no definition for domid_t in this file, the only reason it has 
-yet to fail, is that everywhere it is included has xen.h included before it.
-
-v/r,
-dps
+Reviewed-by: Thomas Gleixner <tglx@linutronix.de>
 
