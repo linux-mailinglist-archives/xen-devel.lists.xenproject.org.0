@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 957EA9CF7EF
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:37:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838268.1254301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 493709CF80E
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:41:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838325.1254352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC40c-0004Oy-1t; Fri, 15 Nov 2024 21:37:42 +0000
+	id 1tC43Y-0000e9-I3; Fri, 15 Nov 2024 21:40:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838268.1254301; Fri, 15 Nov 2024 21:37:42 +0000
+Received: by outflank-mailman (output) from mailman id 838325.1254352; Fri, 15 Nov 2024 21:40:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC40b-0004Mj-UC; Fri, 15 Nov 2024 21:37:41 +0000
-Received: by outflank-mailman (input) for mailman id 838268;
- Fri, 15 Nov 2024 21:37:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tC43Y-0000cN-En; Fri, 15 Nov 2024 21:40:44 +0000
+Received: by outflank-mailman (input) for mailman id 838325;
+ Fri, 15 Nov 2024 21:40:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5OXi=SK=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tC3q5-0007DY-Vv
+ id 1tC3q5-0007AP-Kp
  for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:26:49 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 5125d127-a398-11ef-99a3-01e77a169b0f;
- Fri, 15 Nov 2024 22:26:46 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 5157ade1-a398-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 22:26:47 +0100 (CET)
 Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
- by linux.microsoft.com (Postfix) with ESMTPSA id D434E206BCFD;
- Fri, 15 Nov 2024 13:26:42 -0800 (PST)
+ by linux.microsoft.com (Postfix) with ESMTPSA id 17E88206BCFE;
+ Fri, 15 Nov 2024 13:26:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,24 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5125d127-a398-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 5157ade1-a398-11ef-a0c7-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjUxMjVkMTI3LWEzOTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzA2MDA3LjAzNjQzOCwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D434E206BCFD
+X-Custom-Transaction: eyJpZCI6IjUxNTdhZGUxLWEzOTgtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzA2MDA3LjM0MTA2NSwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 17E88206BCFE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1731706003;
-	bh=GmA2v8FrQkDc3PawrRu1NLBJUu3qRf/naCkvRhlPz0Q=;
+	bh=z5d0KiQ+mxHfS/dtMsbc4ttBd/lyUqPHYPOKqCM1B/M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=PLg1Ut3pMX8AIAjCAjy4bw02khMtlTmOdJICyDZ1qYDkIIeJUIA/Jl8Ax7qK0nzXA
-	 69WpHciXaLS10XUYziHT/1hEXLH04lMhVot2lJeh/b4MNSDj4bBTIfL48/xVYbcOQX
-	 4FHRZuPnT+9sZJ5HuVZVrIr57njKWIxmoNEf7/uw=
+	b=Qzjy8jhTqEhPkpbtMzhjO4pQ41WosaCc3rHXK7isQANvdHykkDrpnsXw2iEyDYrKZ
+	 bivctPWn2ufOhidk0VIZ+JFuRb3AziKQEhYq/E0XKlSC0nh99MCwSAdmHtPz39M16d
+	 mbtSMAjjgTqYd5iB3/X8WKQ1SIjBJafcvQ4z4Hts=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Date: Fri, 15 Nov 2024 21:26:25 +0000
-Subject: [PATCH v2 08/21] drm/xe: Convert timeout to secs_to_jiffies()
+Date: Fri, 15 Nov 2024 21:26:26 +0000
+Subject: [PATCH v2 09/21] drm/etnaviv: Convert timeouts to
+ secs_to_jiffies()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241115-converge-secs-to-jiffies-v2-8-911fb7595e79@linux.microsoft.com>
+Message-Id: <20241115-converge-secs-to-jiffies-v2-9-911fb7595e79@linux.microsoft.com>
 References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
 In-Reply-To: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>, 
@@ -140,22 +141,22 @@ Changes made with the following Coccinelle rules:
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/gpu/drm/xe/xe_device.c | 2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_cmdbuf.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index a1987b554a8d2aa42b29301f2853edddfda7fda5..bb3338ef4191e76128611eeb9531c9d2089db85a 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -502,7 +502,7 @@ static int wait_for_lmem_ready(struct xe_device *xe)
- 	drm_dbg(&xe->drm, "Waiting for lmem initialization\n");
- 
- 	start = jiffies;
--	timeout = start + msecs_to_jiffies(60 * 1000); /* 60 sec! */
-+	timeout = start + secs_to_jiffies(60); /* 60 sec! */
- 
- 	do {
- 		if (signal_pending(current))
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_cmdbuf.c b/drivers/gpu/drm/etnaviv/etnaviv_cmdbuf.c
+index 721d633aece9d4c81f0019e4c55884f26ee61c60..0f5a2c885d0ab7029c7248e15d6ea3c31823b782 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_cmdbuf.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_cmdbuf.c
+@@ -100,7 +100,7 @@ int etnaviv_cmdbuf_init(struct etnaviv_cmdbuf_suballoc *suballoc,
+ 		mutex_unlock(&suballoc->lock);
+ 		ret = wait_event_interruptible_timeout(suballoc->free_event,
+ 						       suballoc->free_space,
+-						       msecs_to_jiffies(10 * 1000));
++						       secs_to_jiffies(10));
+ 		if (!ret) {
+ 			dev_err(suballoc->dev,
+ 				"Timeout waiting for cmdbuf space\n");
 
 -- 
 2.34.1
