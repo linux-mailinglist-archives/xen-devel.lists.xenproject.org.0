@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8134B9CF282
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 18:13:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.837913.1253821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F279CF299
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 18:16:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.837926.1253842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBzso-0003hp-70; Fri, 15 Nov 2024 17:13:22 +0000
+	id 1tBzvb-0004rz-Sy; Fri, 15 Nov 2024 17:16:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 837913.1253821; Fri, 15 Nov 2024 17:13:22 +0000
+Received: by outflank-mailman (output) from mailman id 837926.1253842; Fri, 15 Nov 2024 17:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBzso-0003fl-4L; Fri, 15 Nov 2024 17:13:22 +0000
-Received: by outflank-mailman (input) for mailman id 837913;
- Fri, 15 Nov 2024 17:13:20 +0000
+	id 1tBzvb-0004qV-Pl; Fri, 15 Nov 2024 17:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 837926;
+ Fri, 15 Nov 2024 17:16:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=olWw=SK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tBzsm-0003dy-C6
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 17:13:20 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e74db0e2-a374-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 18:13:16 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5cf9cd1120bso846877a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 09:13:16 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cf79bb59cesm1732622a12.50.2024.11.15.09.13.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2024 09:13:15 -0800 (PST)
+ <SRS0=54cC=SK=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tBzva-0004qK-A7
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 17:16:14 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e291299-a375-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 18:16:10 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1731690963219973.3767882444106;
+ Fri, 15 Nov 2024 09:16:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +38,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e74db0e2-a374-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmQiLCJoZWxvIjoibWFpbC1lZDEteDUyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImU3NGRiMGUyLWEzNzQtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjkwNzk2LjU1NzM1Mywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731690796; x=1732295596; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=t8iE1Yyb3Or1ZwvEEVl/6h+gI1tGLnCKcRGmHGopyj0=;
-        b=OkVii4VM0domRUuwp8oQlKoGkIKmVDPiZezKxcd1o6P/43jd8jGuJASE92kE+EHemw
-         tWVEqY/NqRVT/WO19708/iJaU6wjrEzgPUG5klQoPaOVdfofuiu6M/rvymM2BqMuiDMK
-         JwkosnxRg3RkTFHO4TVMOBjheqOz+u1kYA+UQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731690796; x=1732295596;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=t8iE1Yyb3Or1ZwvEEVl/6h+gI1tGLnCKcRGmHGopyj0=;
-        b=E89eJA6LWDsAB4BtRKLvio2wjGzyo/rne/oeWDowmJJFjeOxjzMRWOoDwRQZOryJts
-         Q0KJBsi1Hpzmf0ef7b8hda8JvZZHkpmrgRTtA1Dq3Pmj8LJ0Ixemta1j8w/HZtUw0N5U
-         LN/mwTzYqQ+88bknxRIlUPuPp95+GRsDNyhrybDqu1Vhu1tNiWJ2/+GDkJ62j8K72o36
-         2PNuyiwXx8yswTIHgmotrup61s/ZuQRR0zkEOk56hfQjwqf81gfOxfeDsILfTxdFoV21
-         pC3q376faFVeSjn69V2uStA5cEtV+8ZW3dq3NA+aIMBlmMmT4pgK0M4thVFmxb+PH74A
-         bvuA==
-X-Forwarded-Encrypted: i=1; AJvYcCV7ak2oxdckzQoRmN4Ymir8UJnfBqm/uTikU1xdZU7DI+quO8JuZDgrLl5ugvsn29243I4SV2AVKDw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTHDyDn0b4XeK89Y1pRyy9W3irCbKWVlEo5nHVeiCYns9Ei8Jr
-	hbUluB70JFlhIr/nSx4p2+f71GCpAalb1qIOBGcCUMlnyMhN8F19cDjGD0m+XkU=
-X-Google-Smtp-Source: AGHT+IGO1cZZn6owo6krc/tYBIn3mVmwYQr7/3l8PgMUze1hMHPfw5pZkljGpmANUDd1DLZYu+HZUw==
-X-Received: by 2002:a05:6402:35cf:b0:5c9:1cdf:bbae with SMTP id 4fb4d7f45d1cf-5cf8e007e37mr3615549a12.11.1731690795871;
-        Fri, 15 Nov 2024 09:13:15 -0800 (PST)
-Message-ID: <6344f8f9-5e02-4018-9646-a2b0734da9a2@citrix.com>
-Date: Fri, 15 Nov 2024 17:13:13 +0000
+X-Inumbo-ID: 4e291299-a375-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzNi4xNDMuMTg4LjUxIiwiaGVsbyI6InNlbmRlcjQtb2YtbzUxLnpvaG8uY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjRlMjkxMjk5LWEzNzUtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjkwOTcxLjAyNjI5NCwic2VuZGVyIjoiZHBzbWl0aEBhcGVydHVzc29sdXRpb25zLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+ARC-Seal: i=1; a=rsa-sha256; t=1731690965; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EACVwoOOopQ76kVL/fSNKTo8yabb0NLNmEqHXvSe8qWPt3fKyEHjjHY/1DBASmlUiy7If5aDZ0lmzTZLl44tnIzwewJQ+PSWIdu4efiJiW0hf7p+7/TTcdDUrPQmCUfN1vtRkYsnu5uv2X6lozBQQqfRHpNneL7Ez8kUzUEtgME=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1731690965; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qbUVhWFYzl5YVjRa9lwYSVegewF6XUziWfyz3WPfjcY=; 
+	b=TDGqPmGC5TuMe0pJt2/xlLvrFLClgQbKpeZNMMwKfsEMb4O/xvD/tn5H6wK0vk2Cf/6+XBbpHv6US4x1eAY5Z5LCcXSj+i2eiZbXzKL13U31nX96N2qoaJiw47m6ETKPF/8mTIuMHkIpYJdgWlMOcIsoLocEN++jsYl7ICvUksA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1731690965;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=qbUVhWFYzl5YVjRa9lwYSVegewF6XUziWfyz3WPfjcY=;
+	b=cJbHIXErM3shvUuMOE1IMSR6IKcuzLB0rk/fOOdVdCi55XUQ0UwZ6XAmGMLkv755
+	Clohmoyc8aK85j1k2BlLt/UkcYHgJfHLMnABe+jx3R3KMphAjoKpexinZmvGHqcMUph
+	m1Ov5HSHT95bdrgnjHTWYqHDeQP9PdZr7eYVfBIE=
+Message-ID: <3f61cc43-c29a-40e0-ac40-4f273fd4461e@apertussolutions.com>
+Date: Fri, 15 Nov 2024 12:16:01 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 0/3] CI: Allow automatic rebuild of rolling release
- containers
-To: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241115170739.48983-1-anthony.perard@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241115170739.48983-1-anthony.perard@vates.tech>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v9 2/6] x86/boot: introduce module release
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
+ <20241115131204.32135-3-dpsmith@apertussolutions.com>
+ <374d2387-6f8c-4a2b-a979-7066675dd247@amd.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <374d2387-6f8c-4a2b-a979-7066675dd247@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 15/11/2024 5:07 pm, Anthony PERARD wrote:
-> Patch series available in this git branch:
-> https://xenbits.xenproject.org/git-http/people/aperard/xen-unstable.git br.gitlab-ci-rebuild-arch-container-v1
->
-> Hi,
->
-> This patch series would allow to setup a scheduled pipeline on GitLab which
-> would rebuild containers and run a test on them immediately (the container is
-> updated even if the test fail, but at least we can find out about it sooner
-> rather than later).
->
-> To enable this, just running a pipeline with XEN_CI_REBUILD_CONTAINERS=1 will
-> do.
->
-> I intend to add a scheduled pipeline to run once a month.
+On 11/15/24 11:50, Jason Andryuk wrote:
+> On 2024-11-15 08:12, Daniel P. Smith wrote:
+>> A precarious approach was used to release the pages used to hold a 
+>> boot module.
+>> The precariousness stemmed from the fact that in the case of PV dom0, the
+>> initrd module pages may be either mapped or copied into the dom0 
+>> address space.
+>> In the former case, the PV dom0 construction code will set the size of 
+>> the
+>> module to zero, relying on discard_initial_images() to skip any 
+>> modules with a
+>> size of zero. In the latter case, the pages are freed by the PV dom0
+>> construction code. This freeing of pages is done so that in either 
+>> case, the
+>> initrd variable can be reused for tracking the initrd location in dom0 
+>> memory
+>> through the remaining dom0 construction code.
+>>
+>> To encapsulate the logical action of releasing a boot module, the 
+>> function
+>> release_boot_module() is introduced along with the `released` flag 
+>> added to
+>> boot module. The boot module flag `released` allows the tracking of 
+>> when a boot
+>> module has been released by release_boot_module().
+>>
+>> As part of adopting release_boot_module() the function 
+>> discard_initial_images()
+>> is renamed to free_boot_modules(), a name that better reflects the 
+>> functions
+>> actions.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>> Changes since v8:
+>> - completely reworked the commit
+>>    - switch backed to a releasing all but pv initrd approach
+>>    - renamed discard_initial_images to free_boot_modules
+>> ---
+>>   xen/arch/x86/hvm/dom0_build.c       |  2 +-
+>>   xen/arch/x86/include/asm/bootinfo.h |  2 ++
+>>   xen/arch/x86/include/asm/setup.h    |  4 +++-
+>>   xen/arch/x86/pv/dom0_build.c        | 27 +++++++++++++--------------
+>>   xen/arch/x86/setup.c                | 27 +++++++++++++++------------
+>>   5 files changed, 34 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/ 
+>> dom0_build.c
+>> index d1bdf1b14601..d1410e1a02b0 100644
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -755,7 +755,7 @@ static int __init pvh_load_kernel(
+>>       }
+>>       /* Free temporary buffers. */
+>> -    discard_initial_images();
+>> +    free_boot_modules();
+> 
+> This...
+> 
+>>       if ( cmdline != NULL )
+>>       {
+> 
+>> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+>> index 6be3d7745fab..2580162f3df4 100644
+>> --- a/xen/arch/x86/pv/dom0_build.c
+>> +++ b/xen/arch/x86/pv/dom0_build.c
+> 
+>> @@ -875,7 +874,7 @@ static int __init dom0_construct(struct boot_info 
+>> *bi, struct domain *d)
+>>       }
+>>       /* Free temporary buffers. */
+>> -    discard_initial_images();
+>> +    free_boot_modules();
+> 
+> ...and this.  I think Andrew requested/suggested moving to a single 
+> free_boot_modules call:
+>      They're both right at the end of construction, so it would
+>      make far more sense for __start_xen() to do this after
+>      create_dom0().   That also avoids needing to export the function.
 
-Oh excellent.  Thanks for looking into this.
+I wanted to do this and had it written this way. Then I started testing 
+it and the pvhshim test failed due to not enough ram to build the domU 
+inside pvshim. I started splitting this commit to see where it broke the 
+test case, and for an unknown reason, replacing these two calls with a 
+single call in __start_xen() just after create_dom0() is the cause. 
+Instead of trying to tear apart the construction logic to determine why, 
+I backed this part of the change out for the time being.
 
-One thing I was going to look into doing was to push the new containers
-to a temporary repository (or a temp name in the main repository), kick
-off a regular pipeline overriding image:, and on success doing a rename.
+>>       /* Set up start info area. */
+>>       si = (start_info_t *)vstartinfo_start;
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 495e90a7e132..0bda1326a485 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+> 
+>> +void __init free_boot_modules(void)
+>>   {
+>>       struct boot_info *bi = &xen_boot_info;
+>>       unsigned int i;
+>>       for ( i = 0; i < bi->nr_modules; ++i )
+>>       {
+>> -        uint64_t start = pfn_to_paddr(bi->mods[i].mod->mod_start);
+>> -        uint64_t size  = bi->mods[i].mod->mod_end;
+>> -
+>> -        /*
+>> -         * Sometimes the initrd is mapped, rather than copied, into 
+>> dom0.
+>> -         * Size being 0 is how we're instructed to leave the module 
+>> alone.
+>> -         */
+>> -        if ( size == 0 )
+>> +        if ( bi->mods[i].released )
+>>               continue;
+>> -        init_domheap_pages(start, start + PAGE_ALIGN(size));
+>> +        release_boot_module(&bi->mods[i]);
+>>       }
+>> -
+>> -    bi->nr_modules = 0;
+> 
+> IIUC, zero-ing here was a safety feature to ensure boot modules could 
+> not be used after this point.  Should it be retained?
 
-That would avoid pushing a container with problems into main CI.
+The released flag displaced the need for this, but I realized it would 
+make it stronger if in bootstrap_map_bm() we add a check that the 
+released flag is not set before mapping. I think this is a stronger 
+approach without loosing information like the number of boot modules 
+were passed.
 
-~Andrew
+v/r,
+dps
 
