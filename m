@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA2879CDA8A
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 09:33:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836952.1252864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1413E9CDAFC
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 09:56:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836960.1252874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBrkl-0007sz-9o; Fri, 15 Nov 2024 08:32:31 +0000
+	id 1tBs7Q-0002g5-4K; Fri, 15 Nov 2024 08:55:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836952.1252864; Fri, 15 Nov 2024 08:32:31 +0000
+Received: by outflank-mailman (output) from mailman id 836960.1252874; Fri, 15 Nov 2024 08:55:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBrkl-0007qQ-79; Fri, 15 Nov 2024 08:32:31 +0000
-Received: by outflank-mailman (input) for mailman id 836952;
- Fri, 15 Nov 2024 08:32:29 +0000
+	id 1tBs7Q-0002dL-1Q; Fri, 15 Nov 2024 08:55:56 +0000
+Received: by outflank-mailman (input) for mailman id 836960;
+ Fri, 15 Nov 2024 08:55:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PbAW=SK=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
- id 1tBrkj-0007qK-GU
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 08:32:29 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OZ3N=SK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tBs7P-0002dF-0c
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 08:55:55 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 234398c0-a32c-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 09:32:24 +0100 (CET)
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-407-eDXXFYHWPNyftcVlg5u1_w-1; Fri, 15 Nov 2024 03:32:21 -0500
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-38223a3262bso267552f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 00:32:21 -0800 (PST)
-Received: from [10.200.68.91] (nat-pool-muc-u.redhat.com. [149.14.88.27])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3821ada2da2sm3716393f8f.15.2024.11.15.00.32.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2024 00:32:19 -0800 (PST)
+ id 69fce322-a32f-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 09:55:51 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-382219ceaacso688776f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 00:55:51 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3821ae2f651sm3920493f8f.87.2024.11.15.00.55.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Nov 2024 00:55:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,200 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 234398c0-a32c-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMjkuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjIzNDM5OGMwLWEzMmMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjU5NTQ1LjA4NDczNSwic2VuZGVyIjoicHN0YW5uZXJAcmVkaGF0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1731659543;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KwwtRZveGMe16US76kOe+Iauo+yTFHTCMml6hFlPRTY=;
-	b=iyBHw73neaeyiBXj5LGmJBkvbZEUjiGNpqfaOvY94KTx3G4j82p/3Bw3+zRo2VIwKy9D8a
-	I6RlZncOcCEimvcYxfZgiVK24CFtvPR5unBMiNLtRJIv7OPEQymTS04AbZtpkJ0+AJceid
-	+DniDpu755iUXXNPxpb0B/gEuf0RRgA=
-X-MC-Unique: eDXXFYHWPNyftcVlg5u1_w-1
-X-Mimecast-MFC-AGG-ID: eDXXFYHWPNyftcVlg5u1_w
+X-Inumbo-ID: 69fce322-a32f-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzIiLCJoZWxvIjoibWFpbC13cjEteDQzMi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjY5ZmNlMzIyLWEzMmYtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjYwOTUxLjE1MDYzMiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1731660950; x=1732265750; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ddfu+zNBaIeLM2TccbewDtmJtPpVM8dtHl5OATwltMc=;
+        b=GtKG3UwuS50+IGzqTAbl6VuSbyetXQRD/J3j4DhBkLpYijjZnFIZZNUCb+Trrn8hMa
+         NY+PfqJg+8DIxYMWnD5dlSRBp1Weab2ktGsyG+HWeDvxxkeSto+pPWyz0PrU8C9XSRBP
+         wcwhD6/vtDaE6YfxJ102rRMyLKoIgMh3SGuawuvLQOC0bfaYks8ciTkvDOBPCSelnnG3
+         DjquBsZVqbB5mc4cm/r5NszuJfu2ONMNYroaMMZ/UnrLfBQGeBbBbkjev1AoATICoVyl
+         WH86YF1UM7QF0XW406bmMTekzqDeopCygb1H9/+WoUYD5kSgk7OJEQei7/n/ysj+JHmm
+         U0EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731659540; x=1732264340;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KwwtRZveGMe16US76kOe+Iauo+yTFHTCMml6hFlPRTY=;
-        b=OpT7kuRAMRLqxKsPikUu7R1k1f8FDJck+sPAp80WAQXtZyZqoezAgj8oQbhznY01XQ
-         Ha/DtRlExAxSEiZY9fP9OFWUPequNaS1UkOncRuVuEmB/3N7TZtgqoLyG4/4IpVTNjq7
-         RnrUWN8X7+T6Tpqnf9i6yDxffD3n1UwFet7R7GbwT2exbCNlgcguCUYF44i28MJahEvt
-         BtBr4cEU8xefAfLlwVGqGYqErvCdWf5P90XhVC2F5/fTcm6GcNo+TX/BQNxU9wK7UaLQ
-         RI84IoUf2mhA2joyFxERxHrlO+3H5tjfcNEZFYnIEUxJHyu5heLk/UaKhGAocfIQHKXV
-         AzTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXeFDx9X/VATh+mvxCa8fM+H5Rsz2X+pZoRF9WDIONsRlhwM/kRtEKSTQIW9WBIEP2aioteKApVtL8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw51zTh/1ytzn+yeHEJ8xLga1i0FrVTXPAZ8PKPBSAaTu4vlh42
-	E9jZx6iYbCu57zR38l2JwAglvI6SdouX1mkgv8MYkGMBO+zNkXgtFC6+jovu/2sGOy4ab5C74fa
-	av2apMo51nw9j9z0/uJPnC86KwtpafwaneRrDyiJwTSN6zCkVsu83ZnXqGipw1U8J
-X-Received: by 2002:a5d:64c9:0:b0:37d:5173:7a54 with SMTP id ffacd0b85a97d-38225aafc0bmr1382355f8f.52.1731659540138;
-        Fri, 15 Nov 2024 00:32:20 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGdh/kmNlYkC/WQKFf2J1h1Btsr4ZUjp0WRHuv0DJX0wKMjNySBXwoM4GCHyqPFiIGeYI7IOw==
-X-Received: by 2002:a5d:64c9:0:b0:37d:5173:7a54 with SMTP id ffacd0b85a97d-38225aafc0bmr1382314f8f.52.1731659539626;
-        Fri, 15 Nov 2024 00:32:19 -0800 (PST)
-Message-ID: <ff7f7358cec4bb03423879a2e4efd16d0a3e8ed7.camel@redhat.com>
-Subject: Re: [PATCH v2 11/11] Remove devres from pci_intx()
-From: Philipp Stanner <pstanner@redhat.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Damien Le Moal
- <dlemoal@kernel.org>,  Niklas Cassel <cassel@kernel.org>, Basavaraj Natikar
- <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>,  Benjamin
- Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
- Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
- <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
- <rmody@marvell.com>,  GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
- <imitsyanko@quantenna.com>,  Sergey Matyukevich <geomatsi@gmail.com>, Kalle
- Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar
- S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
- <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Chen Ni <nichen@iscas.ac.cn>, Ricky Wu
- <ricky_wu@realtek.com>,  Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao
- <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>, Mostafa Saleh
- <smostafa@google.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>, Kunwu Chan
- <chentao@kylinos.cn>, Ankit Agrawal <ankita@nvidia.com>, Christian Brauner
- <brauner@kernel.org>, Reinette Chatre <reinette.chatre@intel.com>, Eric
- Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
- linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Date: Fri, 15 Nov 2024 09:32:16 +0100
-In-Reply-To: <8734jtl3xm.ffs@tglx>
-References: <20241113124158.22863-2-pstanner@redhat.com>
-	 <20241113124158.22863-13-pstanner@redhat.com> <87msi3ksru.ffs@tglx>
-	 <49bb6fc9ebff3cae844da0465ceadeef8d3217c7.camel@redhat.com>
-	 <8734jtl3xm.ffs@tglx>
-User-Agent: Evolution 3.52.4 (3.52.4-2.fc40)
+        d=1e100.net; s=20230601; t=1731660950; x=1732265750;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ddfu+zNBaIeLM2TccbewDtmJtPpVM8dtHl5OATwltMc=;
+        b=t/3vz6op0lsbYiYVc+mzu+e62/5OilaJkvast1wJKk9PiHt1nO0zO6JCnJ4OP/HGnF
+         x/htux0i9SIyQt3/vgA9Z8wLgSC3P1H+24a5Ic+EhpQjQ5Dn0wjt2tLGbG4nc7PCrNko
+         auJciJKTjLvijCJ31TaJmMsqT/g3n/8B/ZY3vl3b0pG2ct5k9XyYUKyS3tQ6BCDJoTzW
+         BkUYV1djp0HGUC5U4dlrXieBLtte78jUFBxtYIF9MqP1jnWbK/TU+2xMBbYXh7uvz4WT
+         BzkSyvil5azLfnL15+H49ftD6bXLOPvUSjeKSE4oZsNOX4R+vMyNaXhznpK0O6GIup9x
+         TKKg==
+X-Gm-Message-State: AOJu0YzcrxsE4AUksCedk/T9CC5Bcz52j5bAM5KS89XWSyiPgyMhKway
+	FDuTK5L8ljPJ9fK8dn7zsE0+Lq2KBxloifwdYF6JN37qAzdS4rI8ic8j2VcLrw==
+X-Google-Smtp-Source: AGHT+IFXNPa45ejdJpp/e+CPNH1y4P/kjRrYLeIG8xD5UVhnHq0o+8A4Sm8W3XyfAKfNjdLXSDfg7g==
+X-Received: by 2002:a05:6000:402b:b0:382:1e55:d3ca with SMTP id ffacd0b85a97d-38225a8a5cdmr1423853f8f.43.1731660950394;
+        Fri, 15 Nov 2024 00:55:50 -0800 (PST)
+Message-ID: <a04b5a17-6b30-4e81-bff4-5bfb748281bd@suse.com>
+Date: Fri, 15 Nov 2024 09:55:49 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 9E6bu4ctaUO5cN9tZkAB8V9DkLTU3rE0IPuFH_lWcJY_1731659540
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] x86/mm: miscellaneous fixes
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+References: <20241114145715.59777-1-roger.pau@citrix.com>
+ <0f575e16-3e83-4d8e-b5ce-7fd9c962c3ee@citrix.com>
+Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0f575e16-3e83-4d8e-b5ce-7fd9c962c3ee@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2024-11-15 at 01:46 +0100, Thomas Gleixner wrote:
-> On Thu, Nov 14 2024 at 10:05, Philipp Stanner wrote:
-> > On Wed, 2024-11-13 at 17:22 +0100, Thomas Gleixner wrote:
-> > > On Wed, Nov 13 2024 at 13:41, Philipp Stanner wrote:
-> > > > pci_intx() is a hybrid function which can sometimes be managed
-> > > > through
-> > > > devres. This hybrid nature is undesirable.
-> > > >=20
-> > > > Since all users of pci_intx() have by now been ported either to
-> > > > always-managed pcim_intx() or never-managed
-> > > > pci_intx_unmanaged(),
-> > > > the
-> > > > devres functionality can be removed from pci_intx().
-> > > >=20
-> > > > Consequently, pci_intx_unmanaged() is now redundant, because
-> > > > pci_intx()
-> > > > itself is now unmanaged.
-> > > >=20
-> > > > Remove the devres functionality from pci_intx(). Have all users
-> > > > of
-> > > > pci_intx_unmanaged() call pci_intx(). Remove
-> > > > pci_intx_unmanaged().
-> > > >=20
-> > > > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
-> > > > ---
-> > > > =C2=A0drivers/misc/cardreader/rtsx_pcr.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > > =C2=A0drivers/misc/tifm_7xx1.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 6 +--
-> > > > =C2=A0.../net/ethernet/broadcom/bnx2x/bnx2x_main.c=C2=A0 |=C2=A0 2 =
-+-
-> > > > =C2=A0drivers/net/ethernet/brocade/bna/bnad.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > > =C2=A0drivers/ntb/hw/amd/ntb_hw_amd.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +-
-> > > > =C2=A0drivers/ntb/hw/intel/ntb_hw_gen1.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > > =C2=A0drivers/pci/devres.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +-
-> > > > =C2=A0drivers/pci/msi/api.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > > =C2=A0drivers/pci/msi/msi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > > =C2=A0drivers/pci/pci.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 43 +----------
-> > > > ----
-> > > > ----
-> > > > =C2=A0drivers/vfio/pci/vfio_pci_core.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > > =C2=A0drivers/vfio/pci/vfio_pci_intrs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 10 ++---
-> > > > =C2=A0drivers/xen/xen-pciback/conf_space_header.c=C2=A0=C2=A0 |=C2=
-=A0 2 +-
-> > > > =C2=A0include/linux/pci.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
-> > > > =C2=A014 files changed, 22 insertions(+), 62 deletions(-)
-> > >=20
-> > > Now I'm utterly confused. This undoes the pci_intx_unmanaged()
-> > > churn
-> > > which you carefully split into several patches first.
-> >=20
-> > Have you read the email I have linked?
-> >=20
-> > There is also the cover-letter (does anyone in the community ever
-> > read
-> > those?) which explicitly states:
-> >=20
-> > "Patch "Remove devres from pci_intx()" obviously reverts the
-> > previous
-> > patches that made drivers use pci_intx_unmanaged(). But this way
-> > it's
-> > easier to review and approve. It also makes sure that each checked
-> > out
-> > commit should provide correct behavior, not just the entire series
-> > as a
-> > whole."
->=20
-> I read it and I assume your intention was to force an eye on every
-> use
-> case of pci_intx() and not just on those which need to be converted
-> to
-> pcim_intx().
->=20
-> I'm not convinced that this is needed, but fair enough.
+On 15.11.2024 01:55, Andrew Cooper wrote:
+> On 14/11/2024 2:57 pm, Roger Pau Monne wrote:
+>> Hello,
+>>
+>> The attempt to fix destroy_xen_mappings() so that L2 tables are
+>> consistently freed uncovered some errors in the memory management code.
+>> The following series attempts to fix them.
+>>
+>> All patches except for 4/4 are new in v2, and 4/4 has no change from v1,
+>> hence kept Jan's Reviewed-by tag in 4/4.
+>>
+>> Thanks, Roger.
+>>
+>> Roger Pau Monne (4):
+>>   x86/mm: introduce helpers to detect super page alignment
+>>   x86/mm: skip super-page alignment checks for non-present entries
+>>   x86/setup: remove bootstrap_map_addr() usage of destroy_xen_mappings()
+>>   x86/mm: ensure L2 is always freed if empty
+> 
+> Still broken.  This happened to be a Cascade Lake:
+> 
+> (XEN) 3... 2... 1...
+> (XEN) Xen is relinquishing VGA console.
+> (XEN) ----[ Xen-4.20.0-4-d  x86_64  debug=y  Not tainted ]----
+> (XEN) CPU:    0
+> (XEN) RIP:    e008:[<ffff82d04022cdc8>]
+> common/page_alloc.c#free_heap_pages+0x52/0x753
+> <snip>
+> (XEN) Xen call trace:
+> (XEN)    [<ffff82d04022cdc8>] R
+> common/page_alloc.c#free_heap_pages+0x52/0x753
+> (XEN)    [<ffff82d04022e98f>] F free_domheap_pages+0x445/0x447
+> (XEN)    [<ffff82d040320f88>] F free_xen_pagetable+0x2f/0x31
+> (XEN)    [<ffff82d04032193d>] F map_pages_to_xen+0x5df/0x1028
+> (XEN)    [<ffff82d040238ab1>] F vunmap+0x27/0xde
+> (XEN)    [<ffff82d040624b61>] F vesa_endboot+0x86/0xb3
+> (XEN)    [<ffff82d0406244c1>] F video_endboot+0x93/0x261
+> (XEN)    [<ffff82d040616e3d>] F console_endboot+0x92/0x120
+> (XEN)    [<ffff82d0406407e2>] F __start_xen+0x2139/0x2307
+> (XEN)    [<ffff82d0402033ae>] F __high_start+0x8e/0x90
+> (XEN)
+> (XEN) Pagetable walk from ffff82c000205001:
+> (XEN)  L4[0x105] = 0000000060431063 ffffffffffffffff
+> (XEN)  L3[0x100] = 000000006fffd063 ffffffffffffffff
+> (XEN)  L2[0x001] = fffffffffffff000 ffffffffffffffff
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) FATAL PAGE FAULT
+> (XEN) [error_code=0000]
+> (XEN) Faulting linear address: ffff82c000205001
+> (XEN) ****************************************
+> 
+> Note the definitely bogus L2e, which I'm guessing is an issue with the
+> use of INVALID_MFN.
 
-Whether pcim_enable_device() is really not used could have been
-overlooked, or the driver could move to "managed mode" in parallel for
-v6.13 for example. Then a bug would be silently introduced into those
-drivers.
+Why bogus? That's precisely what vunmap() requests:
 
-Besides, me touching pci_intx() unfortunately caused a few explosions
-in the past already, in
+    map_pages_to_xen(addr, INVALID_MFN, pages, _PAGE_NONE);
 
-fc8c818e756991f5f50b8dfab07f970a18da2556 and
-00f89ae4e759a7eef07e4188e1534af7dd2c7e9c
+What I agree with is that INVALID_MFN better wouldn't spill into the
+upper non-address part of the PTE, but that doesn't look to be important
+here.
 
-So this time I prefer to be rather safe than sorry.
+I can't, however, explain why free_heap_pages() would access VMAP space.
+It's all page / MFN based and shouldn't even have a notion of the VA
+space underlying vmap(). Is that address in CR2 inside the range that
+was mapping the frame buffer (i.e. part of what vunmap() is in the
+process of removing)?
 
+What I also don't understand: How did this pass CI then? Are all tests
+there perhaps done without vga= designating a VESA mode to use?
 
-BTW, if you can review the MSI patch and check whether removing devres
-from there really is fine, that would be helpful.
-
-
-Regards,
-P.
-
+Jan
 
