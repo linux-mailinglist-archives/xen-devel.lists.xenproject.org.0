@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 463E29CF725
+	by mail.lfdr.de (Postfix) with ESMTPS id 772629CF726
 	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:23:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838014.1253983 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.838018.1254008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3mF-0008Bd-Qc; Fri, 15 Nov 2024 21:22:51 +0000
+	id 1tC3mH-0000CG-O4; Fri, 15 Nov 2024 21:22:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838014.1253983; Fri, 15 Nov 2024 21:22:51 +0000
+Received: by outflank-mailman (output) from mailman id 838018.1254008; Fri, 15 Nov 2024 21:22:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3mF-00085c-Jd; Fri, 15 Nov 2024 21:22:51 +0000
-Received: by outflank-mailman (input) for mailman id 838014;
- Fri, 15 Nov 2024 21:22:49 +0000
+	id 1tC3mH-0008UL-8C; Fri, 15 Nov 2024 21:22:53 +0000
+Received: by outflank-mailman (input) for mailman id 838018;
+ Fri, 15 Nov 2024 21:22:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5OXi=SK=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tC3mD-0007DO-LI
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:22:49 +0000
+ id 1tC3mF-0007DO-8a
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:22:51 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id c19b4253-a397-11ef-99a3-01e77a169b0f;
- Fri, 15 Nov 2024 22:22:45 +0100 (CET)
+ id c2c30c00-a397-11ef-99a3-01e77a169b0f;
+ Fri, 15 Nov 2024 22:22:47 +0100 (CET)
 Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
- by linux.microsoft.com (Postfix) with ESMTPSA id ADD5A206BCE7;
+ by linux.microsoft.com (Postfix) with ESMTPSA id E451D206BCE8;
  Fri, 15 Nov 2024 13:22:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,25 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c19b4253-a397-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: c2c30c00-a397-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImMxOWI0MjUzLWEzOTctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzA1NzY2LjIxNTk4LCJzZW5kZXIiOiJlYWhhcmloYUBsaW51eC5taWNyb3NvZnQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ADD5A206BCE7
+X-Custom-Transaction: eyJpZCI6ImMyYzMwYzAwLWEzOTctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzA1NzY4LjE1MDg1Nywic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E451D206BCE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1731705762;
-	bh=2qNmVTIUPIQHjxG6U+oz3oOJorUpDTvltiEua1kgDGM=;
+	s=default; t=1731705763;
+	bh=uwqJCSe3GXdPjGHghPvDBfnEwZdT0uYA3z4HTDFu1hA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=jwtdE59vuxdQNE0RiS/g1dZX+uqTWG/w9IblshEquJbSzhtkY3Zk6fbDpk+PaYqJ3
-	 QDyNOhOWd9ZJoQqLoj3N42Lk4lBijUYlMVpBY8G/XYg13FKv7CiQTz5tjAvkJe5Ryj
-	 q0FRAVEgJKXl2OZRO71N5d2wqJQesfADXbZgbw84=
+	b=RVx2emb342NEz2mst6RfMUiki8VYrjbKedjHqPNNNkb4BXhLdZgldqHGBRr6S5V4l
+	 ot1jj3ag+tv5arCezMBNlcZVolqJ/kVXCKfLQi6UufSSi9gPBN5Z2YR5EAMTqKRljK
+	 uRWcAwELTERtWaAvz5gx5fAH4KPOOU/VcBtZ4kx8=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Date: Fri, 15 Nov 2024 21:22:34 +0000
-Subject: [PATCH 04/22] s390: kernel: Convert timeouts to use
+Date: Fri, 15 Nov 2024 21:22:35 +0000
+Subject: [PATCH 05/22] powerpc/papr_scm: Convert timeouts to
  secs_to_jiffies()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241115-converge-secs-to-jiffies-v1-4-19aadc34941b@linux.microsoft.com>
+Message-Id: <20241115-converge-secs-to-jiffies-v1-5-19aadc34941b@linux.microsoft.com>
 References: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
 In-Reply-To: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>, 
@@ -141,57 +141,22 @@ Changes made with the following Coccinelle rules:
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- arch/s390/kernel/lgr.c      | 3 ++-
- arch/s390/kernel/time.c     | 4 ++--
- arch/s390/kernel/topology.c | 2 +-
- 3 files changed, 5 insertions(+), 4 deletions(-)
+ arch/powerpc/platforms/pseries/papr_scm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/s390/kernel/lgr.c b/arch/s390/kernel/lgr.c
-index 6652e54cf3db9fbdd8cfb06f8a0dc1d4c05ae7d7..68021cb38574b122bbe3d9f70e9168305360017b 100644
---- a/arch/s390/kernel/lgr.c
-+++ b/arch/s390/kernel/lgr.c
-@@ -166,7 +166,8 @@ static struct timer_list lgr_timer;
-  */
- static void lgr_timer_set(void)
- {
--	mod_timer(&lgr_timer, jiffies + msecs_to_jiffies(LGR_TIMER_INTERVAL_SECS * MSEC_PER_SEC));
-+	mod_timer(&lgr_timer,
-+		  jiffies + secs_to_jiffies(LGR_TIMER_INTERVAL_SECS));
- }
+diff --git a/arch/powerpc/platforms/pseries/papr_scm.c b/arch/powerpc/platforms/pseries/papr_scm.c
+index 9e297f88adc5d97d4dc7b267b0bfebd58e5cf193..9e8086ec66e0f0e555ac27933854c06cfcf91a04 100644
+--- a/arch/powerpc/platforms/pseries/papr_scm.c
++++ b/arch/powerpc/platforms/pseries/papr_scm.c
+@@ -543,7 +543,7 @@ static int drc_pmem_query_health(struct papr_scm_priv *p)
  
- /*
-diff --git a/arch/s390/kernel/time.c b/arch/s390/kernel/time.c
-index b713effe057967623f64da8297314fcc42ff1af2..e28c61d39d27c6e89f490e779ff674ba2fe21d3e 100644
---- a/arch/s390/kernel/time.c
-+++ b/arch/s390/kernel/time.c
-@@ -656,12 +656,12 @@ static void stp_check_leap(void)
- 		if (ret < 0)
- 			pr_err("failed to set leap second flags\n");
- 		/* arm Timer to clear leap second flags */
--		mod_timer(&stp_timer, jiffies + msecs_to_jiffies(14400 * MSEC_PER_SEC));
-+		mod_timer(&stp_timer, jiffies + secs_to_jiffies(14400));
- 	} else {
- 		/* The day the leap second is scheduled for hasn't been reached. Retry
- 		 * in one hour.
- 		 */
--		mod_timer(&stp_timer, jiffies + msecs_to_jiffies(3600 * MSEC_PER_SEC));
-+		mod_timer(&stp_timer, jiffies + secs_to_jiffies(3600));
- 	}
- }
+ 	/* Jiffies offset for which the health data is assumed to be same */
+ 	cache_timeout = p->lasthealth_jiffies +
+-		msecs_to_jiffies(MIN_HEALTH_QUERY_INTERVAL * 1000);
++		secs_to_jiffies(MIN_HEALTH_QUERY_INTERVAL);
  
-diff --git a/arch/s390/kernel/topology.c b/arch/s390/kernel/topology.c
-index 813e5da9a9737e05ec3ef85a495fe38cbb40c49b..99095ff3897c1b5337f7e2abcf10f3fe8219ad7c 100644
---- a/arch/s390/kernel/topology.c
-+++ b/arch/s390/kernel/topology.c
-@@ -370,7 +370,7 @@ static void set_topology_timer(void)
- 	if (atomic_add_unless(&topology_poll, -1, 0))
- 		mod_timer(&topology_timer, jiffies + msecs_to_jiffies(100));
- 	else
--		mod_timer(&topology_timer, jiffies + msecs_to_jiffies(60 * MSEC_PER_SEC));
-+		mod_timer(&topology_timer, jiffies + secs_to_jiffies(60));
- }
- 
- void topology_expect_change(void)
+ 	/* Fetch new health info is its older than MIN_HEALTH_QUERY_INTERVAL */
+ 	if (time_after(jiffies, cache_timeout))
 
 -- 
 2.34.1
