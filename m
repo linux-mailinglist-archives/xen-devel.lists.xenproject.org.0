@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999AD9CF218
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 17:51:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.837843.1253741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E3249CF24D
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 18:02:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.837856.1253761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBzWs-00048H-Oq; Fri, 15 Nov 2024 16:50:42 +0000
+	id 1tBzi7-0006gR-2X; Fri, 15 Nov 2024 17:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 837843.1253741; Fri, 15 Nov 2024 16:50:42 +0000
+Received: by outflank-mailman (output) from mailman id 837856.1253761; Fri, 15 Nov 2024 17:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBzWs-00046q-Li; Fri, 15 Nov 2024 16:50:42 +0000
-Received: by outflank-mailman (input) for mailman id 837843;
- Fri, 15 Nov 2024 16:50:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tBzi6-0006eA-Vq; Fri, 15 Nov 2024 17:02:18 +0000
+Received: by outflank-mailman (input) for mailman id 837856;
+ Fri, 15 Nov 2024 17:02:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=olWw=SK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tBzWr-00046H-29
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 16:50:41 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9b1d206-a371-11ef-99a3-01e77a169b0f;
- Fri, 15 Nov 2024 17:50:31 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-aa20944ce8cso376874466b.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 08:50:31 -0800 (PST)
+ id 1tBzi6-0006dq-6K
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 17:02:18 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5beee03d-a373-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 18:02:13 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5cf7567f369so1259242a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 09:02:13 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e0812aesm193150266b.176.2024.11.15.08.50.29
+ a640c23a62f3a-aa20e086244sm193141366b.177.2024.11.15.09.02.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2024 08:50:30 -0800 (PST)
+ Fri, 15 Nov 2024 09:02:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9b1d206-a371-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImI5YjFkMjA2LWEzNzEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNjg5NDMxLjU5NjAwOSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 5beee03d-a373-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmEiLCJoZWxvIjoibWFpbC1lZDEteDUyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjViZWVlMDNkLWEzNzMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjkwMTMzLjIzNzQyOCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731689431; x=1732294231; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1731690133; x=1732294933; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LgnH9c/CJPEIiJW5jSYnGPeCjgzXtRdqoQgHtqJxvXk=;
-        b=rezFc9gsivgWwTtia0Ta9um7KmcuAjGCo5er7yU6NnI3DIxq5DG9uCzAK5+F2Smeq+
-         EY5XWPYraaY4efHDupYExiCVzvCoukx/+RhWopPgs83ECr97Bhd+5KIpTANb/Hk1LnVx
-         EilSZ1Xhveqzx7lmsh92PAB5HW6/ivK+1JX80=
+        bh=zkDitVZUA5dWT3zHqIcUquOaiet+JmHTNhRJCp5xeA4=;
+        b=WZjQPgABBZyuevV19ulLgSz7iUBBOuw6bOYKhUwuLukJT11TsnLJFTZy1kNr+zy99W
+         yEAwKLK06sPTsGT+gr+lH3SqWgoMiZoBi2Szuaha5W8fI59aZOWAgXn0CVZ3dlauYn7J
+         J9HxdWv53R/1MKadRCk8lx4PSYcpDQ8xtZ7Rg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731689431; x=1732294231;
+        d=1e100.net; s=20230601; t=1731690133; x=1732294933;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LgnH9c/CJPEIiJW5jSYnGPeCjgzXtRdqoQgHtqJxvXk=;
-        b=WpZUx9wItDADXzAMtIWY/shMFDUZ0ImOZ/ovAj5Bolf1ycz5PRGY9yQ0y0pLnmv5dY
-         9AUvjkw2LxotVBrqrcXJeGlCasH2EiIKyHjxc1Fv5Vp1U9pOuff/UoDP0Q+Jc2N3pXUN
-         m3gvPEkUTxtPtMs9/9wKuxjR6iR/GlVXC94BUwv9VcvpHcSQOlMoLbZXZAqMdiKNpje6
-         +DXBYOhH8isqRzYXb757wQ8kDlGvXr4uNtFfvI/v3sudv0Pm63b5pYpzSpxmJXNG4sWT
-         Y2s2JKu9AhMbFfJBqT+636t6AFcbojSCu/SbmxNfGPz0q4Ss8Hrd7hBw8FMWYDv43Fhy
-         SwXw==
-X-Forwarded-Encrypted: i=1; AJvYcCWJy9HaLnnBPaE/aJslccw42n3EFGjSoD5b/09kcdQLvG9RDXDDgWRiGlxwnGIWLmn9OwDTbNeu9nc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxKrehpHVjPlMXzANCoQ3y2And6tf3wt7ezdvDql0RAXSXQBTBi
-	VEbcsKv40/OK0WBsOPA5hlfp/h9om1yu62TSzOU+kBKOu+hh4yWFCuKbq7tPyMQR9LjBbFMWgrr
-	e
-X-Google-Smtp-Source: AGHT+IEDF6oPq8IZbDyqfi+Uuf++9zCvMYR1oBjW97hV6TeHJhSNLlML9sujoGpo/pniQiiurqGoEg==
-X-Received: by 2002:a17:907:2d93:b0:a9e:82f3:d4ab with SMTP id a640c23a62f3a-aa207687241mr718776366b.9.1731689430822;
-        Fri, 15 Nov 2024 08:50:30 -0800 (PST)
-Message-ID: <48641d1e-3e96-4a9e-bf4d-99fbf7348c0d@citrix.com>
-Date: Fri, 15 Nov 2024 16:50:28 +0000
+        bh=zkDitVZUA5dWT3zHqIcUquOaiet+JmHTNhRJCp5xeA4=;
+        b=OesWeWJS+35ccvNchfMiAR9E+bORvwlLdt3V/gwoKI+OT8OOw/gFtT7IkvtUfYrYw4
+         6R7xhtHueSL4eDyWt7XSbpfRJfrWVRi/+rvMcJB5xtnJmy12YMB6VJJ9JN7b74XI7tQy
+         Rc4nK3q3R0aAMF2p0/HlosLCKKrLaXWjIZAy4FiMrP3r2trFMVBlWGu0WZblg6KEYvV/
+         2u+CvIeJN2zGL4obmdrMmME8oZcEjF8gY+W7EyCMJX6ZmNU8UlrZhoIfy5vwhhYFCLNy
+         gA3sfZewNDEm2DeQ27sT9iCRpIw5Vrnq1x2iJn6paHZHFom3jQt/Ael1OET96Gxx3VRw
+         LkYA==
+X-Forwarded-Encrypted: i=1; AJvYcCUKDQL1zC1I2KzOv7fmdMT0VsxuExTNc2S9/H4WMb/QYcVWD6aT1QXelsIJyTXEJGkk3dYLABqyNpc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykCbdKmghvJfGv3KIaUJ0QXlesns9ewL6kp60aeiG25BhDndEn
+	riIj91Zdak1jrAg5OwUfNih9Lu+lC2xtqVJndyupShBanfSMkM0MsuPmc4QDSxM=
+X-Google-Smtp-Source: AGHT+IF5W9g0UQyqipHqFFPF4mfmTILYbC1MFJkZjswv1+j+4QDgYC8Y9nxtELW1YJIv9Ap2CD3vTA==
+X-Received: by 2002:a17:906:7952:b0:a9a:c57f:9666 with SMTP id a640c23a62f3a-aa4833e9b01mr311136066b.2.1731690122494;
+        Fri, 15 Nov 2024 09:02:02 -0800 (PST)
+Message-ID: <f45f516d-cf90-419f-b7a7-7fc91f9f2729@citrix.com>
+Date: Fri, 15 Nov 2024 17:01:58 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] x86/ucode: Drop MIS_UCODE and
- microcode_match_result
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241112211915.1473121-1-andrew.cooper3@citrix.com>
- <20241112211915.1473121-4-andrew.cooper3@citrix.com>
- <aee06ffe-fb3d-41ab-a715-0bb057d4ca52@suse.com>
- <6b656171-0f61-4ef9-82e7-dfb43f2bdd4d@citrix.com>
- <9ff021f5-fc32-4283-9ee4-f807333e05bb@suse.com>
+Subject: Re: [PATCH v9 1/6] x86/boot: convert domain construction to use boot
+ info
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
+ <20241115131204.32135-2-dpsmith@apertussolutions.com>
+ <24e23ea2-e359-41f3-be62-6b7bdff4e074@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,89 +136,59 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <9ff021f5-fc32-4283-9ee4-f807333e05bb@suse.com>
+In-Reply-To: <24e23ea2-e359-41f3-be62-6b7bdff4e074@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15/11/2024 8:02 am, Jan Beulich wrote:
-> On 14.11.2024 18:18, Andrew Cooper wrote:
->> On 14/11/2024 11:41 am, Jan Beulich wrote:
->>> On 12.11.2024 22:19, Andrew Cooper wrote:
->>>> @@ -199,8 +198,8 @@ static bool microcode_fits_cpu(const struct microcode_patch *patch)
->>>>      return equiv.id == patch->processor_rev_id;
->>>>  }
->>>>  
->>>> -static enum microcode_match_result cf_check compare_patch(
->>>> -    const struct microcode_patch *new, const struct microcode_patch *old)
->>>> +static int cf_check compare_patch(
->>>> +    const struct microcode_patch *old, const struct microcode_patch *new)
->>>>  {
->>> Let's hope we won't screw up a backport because of this swapping.
->> I wasn't going to start thinking about backports until the code gets
->> into a better state.
->>
->> But if backports do happen, it will be all-or-nothing.  This code is far
->> too tangled.
-> I wasn't so much worrying about backporting of this work (as of now I don't
-> think it's a candidate), but anything that's yet to come.
-
-This work is towards supporting the Intel Min-Rev header, because it's
-already deployed into the world for several releases, and is also what
-is likely to drive a wish for backports.
-
-Then there's the Intel uniform loading extensions, which are needed for
-GNR/SRF.  If nothing else we need to be able to parse the loading-scope
-and not get surprised when cross-core loading happens.  (This already
-happens since Sky Lake if SGX is active, and Intel were surprised when I
-noticed and asked them about it.)
-
-
-But mostly, the pre-existing logic is just irrationally complex for
-something so simple.  Most of the complexity appears to be because it
-was too complex to start with.
-
+On 15/11/2024 4:33 pm, Jason Andryuk wrote:
+> On 2024-11-15 08:11, Daniel P. Smith wrote:
+>> diff --git a/xen/arch/x86/hvm/dom0_build.c
+>> b/xen/arch/x86/hvm/dom0_build.c
+>> index 3dd913bdb029..d1bdf1b14601 100644
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -1300,16 +1301,26 @@ static void __hwdom_init
+>> pvh_setup_mmcfg(struct domain *d)
+>>       }
+>>   }
+>>   -int __init dom0_construct_pvh(struct domain *d, const module_t
+>> *image,
+>> -                              unsigned long image_headroom,
+>> -                              module_t *initrd,
+>> -                              const char *cmdline)
+>> +int __init dom0_construct_pvh(struct boot_info *bi, struct domain *d)
+>>   {
+>>       paddr_t entry, start_info;
+>> +    struct boot_module *image;
+>> +    struct boot_module *initrd = NULL;
+>> +    unsigned int idx;
+>>       int rc;
+>>         printk(XENLOG_INFO "*** Building a PVH Dom%d ***\n",
+>> d->domain_id);
+>>   +    idx = first_boot_module_index(bi, BOOTMOD_KERNEL);
+>> +    if ( idx >= bi->nr_modules )
 >
->> That said, in this specific case, the only thing that would go wrong is
->> with Intel debug patches.  Even I've only had a handful of those in the
->> past 8 years.
-> Why would that be? Doing the check the wrong way round would lead to
-> possible downgrading of ucode, wouldn't it?
-
-After this patch, there is a singular use of the hook.
-
-It is comparing the hypercall-provided blob to the cached blob, yielding
-OLD/SAME/NEW.
-
-Deciding to initiate patching (entering stop_machine() context) is based
-on !cached || NEW || --force.
-
-There is another check in apply_microcode() (this is why we needed to
-plumb --force down), which will catch an accidental swapping of the two
-arguments.
-
-Something that we don't handle properly is that we use "I have a cached
-blob" as if it means "the system is at a consistent level", but this is
-not true in both directions.  We might have not had anything to cache on
-boot (AMD Client platforms in particular), and what we had on boot may
-not have levelled a system which was left asymmetric by the BIOS.
->>> I'd like to ask to at least consider renaming at least the functions,
->>> perhaps also the hook pointer, perhaps simply by switching from singular
->>> to plural. This would then also avoid reviewers like me to go hunt for
->>> all uses of the function/hook, in an attempt to make sure none was left
->>> out when converting.
->> In the other series I've paused for a while, I have renamed some hooks
->> (along with related cleanup), but I'm undecided on this one.
->>
->> One option is cmp(), or perhaps compare().
-> Either would be fine with me as a hook name. As a function name I'm less
-> certain this will (remain to) be unambiguous.
+> What do you think about introducing a new define:
 >
->> But, it occurs to me, another option would be is_newer().  We always
->> care about the operation one way around.
-> is_newer() doesn't very well lend itself to a tristate return value.
+>     #define BOOTMOD_NOT_FOUND (MAX_NR_BOOTMODS + 1)
+>
+> For first_boot_module_index() to return.  And then:
+>
+>     if ( idx == BOOTMOD_NOT_FOUND )
+>
+> ?
 
-Fine.  I'll just go with compare().  I don't expect this will be the
-last time it's edited.
+Care would need to be taken vs BOOTMOD_XEN, which could have the same
+numeric value in a big HL configuration.
+
+From a "reading the code" point of view, a range check against any
+invalid value is better seeing as the next thing we do is index an
+array, so I'm marginally on the side of "keep it as it is".
+
+This particular logic can't trip because of earlier checks in
+__start_xen(), and gets rewritten in patch 4 in the conversion to
+boot_domains, so I'm also not overly fussed at extra polish on this
+specific piece of logic.
 
 ~Andrew
 
