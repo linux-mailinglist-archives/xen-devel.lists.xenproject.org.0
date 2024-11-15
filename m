@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934039CF727
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:23:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838016.1253994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 215EB9CF720
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:23:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838017.1253999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3mG-0008KN-GE; Fri, 15 Nov 2024 21:22:52 +0000
+	id 1tC3mG-0008UV-S6; Fri, 15 Nov 2024 21:22:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838016.1253994; Fri, 15 Nov 2024 21:22:52 +0000
+Received: by outflank-mailman (output) from mailman id 838017.1253999; Fri, 15 Nov 2024 21:22:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3mG-0008Fe-5r; Fri, 15 Nov 2024 21:22:52 +0000
-Received: by outflank-mailman (input) for mailman id 838016;
- Fri, 15 Nov 2024 21:22:50 +0000
+	id 1tC3mG-0008MY-NV; Fri, 15 Nov 2024 21:22:52 +0000
+Received: by outflank-mailman (input) for mailman id 838017;
+ Fri, 15 Nov 2024 21:22:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5OXi=SK=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tC3mE-0007DI-A2
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:22:50 +0000
+ id 1tC3mF-0007DI-2p
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:22:51 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id c2bd54f9-a397-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 22:22:47 +0100 (CET)
+ id c31abbac-a397-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 22:22:48 +0100 (CET)
 Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
- by linux.microsoft.com (Postfix) with ESMTPSA id 5C04E206BCEA;
+ by linux.microsoft.com (Postfix) with ESMTPSA id 8FF32206BCEB;
  Fri, 15 Nov 2024 13:22:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,25 +39,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2bd54f9-a397-11ef-a0c7-8be0dac302b0
+X-Inumbo-ID: c31abbac-a397-11ef-a0c7-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImMyYmQ1NGY5LWEzOTctMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzA1NzY4LjA5Mjk5Miwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5C04E206BCEA
+X-Custom-Transaction: eyJpZCI6ImMzMWFiYmFjLWEzOTctMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzA1NzY4LjcwODY2NSwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8FF32206BCEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1731705763;
-	bh=QYs6jKNkSqRMwxas8zTGS0f9EDen03tWxmE1GsbmPvQ=;
+	bh=GmA2v8FrQkDc3PawrRu1NLBJUu3qRf/naCkvRhlPz0Q=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=I95I66JgO1E7XQYaEm7ineOx+2MkduTJSN9e4D1cu0/NE7dcCwPndmzh7i/cNGesc
-	 2yzIBCvlbGPZzvMpNA+k96a1ZOGXJ+A0bPOMF6Lmuw/xKRtew/BB44Qgm554Xu3M7K
-	 XgYk3aN7aTdB7omQICy4E1708sGRqDk4h4Xf8u4c=
+	b=AQnLLRjERYrPiRXzVPhEVdOI2zLkiaTTtu0h8ex88Rh4yJJCvweeNDaisxPAM4okm
+	 aUzZzyLz5s6fIGp2xPOyrtkNts2+H40xXXXdKkNXjhayIPxOfHe+ruxbTRrUqhXle2
+	 46t8LcG0ioPljSxshglWdZxLMsfg/70LBRvzOJRk=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Date: Fri, 15 Nov 2024 21:22:37 +0000
-Subject: [PATCH 07/22] accel/habanalabs: Convert timeouts to
- secs_to_jiffies()
+Date: Fri, 15 Nov 2024 21:22:38 +0000
+Subject: [PATCH 08/22] drm/xe: Convert timeout to secs_to_jiffies()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241115-converge-secs-to-jiffies-v1-7-19aadc34941b@linux.microsoft.com>
+Message-Id: <20241115-converge-secs-to-jiffies-v1-8-19aadc34941b@linux.microsoft.com>
 References: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
 In-Reply-To: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>, 
@@ -141,37 +140,22 @@ Changes made with the following Coccinelle rules:
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/accel/habanalabs/common/device.c         | 2 +-
- drivers/accel/habanalabs/common/habanalabs_drv.c | 3 +--
- 2 files changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/accel/habanalabs/common/device.c b/drivers/accel/habanalabs/common/device.c
-index e0cf3b4343bb081638430f2552ed27431b488ff9..30277ae410d4b742ffb7bddc35498564ff96fe62 100644
---- a/drivers/accel/habanalabs/common/device.c
-+++ b/drivers/accel/habanalabs/common/device.c
-@@ -817,7 +817,7 @@ static void device_hard_reset_pending(struct work_struct *work)
- 		}
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index a1987b554a8d2aa42b29301f2853edddfda7fda5..bb3338ef4191e76128611eeb9531c9d2089db85a 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -502,7 +502,7 @@ static int wait_for_lmem_ready(struct xe_device *xe)
+ 	drm_dbg(&xe->drm, "Waiting for lmem initialization\n");
  
- 		queue_delayed_work(hdev->reset_wq, &device_reset_work->reset_work,
--					msecs_to_jiffies(HL_PENDING_RESET_PER_SEC * 1000));
-+					secs_to_jiffies(HL_PENDING_RESET_PER_SEC));
- 	}
- }
+ 	start = jiffies;
+-	timeout = start + msecs_to_jiffies(60 * 1000); /* 60 sec! */
++	timeout = start + secs_to_jiffies(60); /* 60 sec! */
  
-diff --git a/drivers/accel/habanalabs/common/habanalabs_drv.c b/drivers/accel/habanalabs/common/habanalabs_drv.c
-index 708dfd10f39c584a6221c29015f4b0323574145a..5ec13f3a46f915e75b04582b28d51ba8bb50be78 100644
---- a/drivers/accel/habanalabs/common/habanalabs_drv.c
-+++ b/drivers/accel/habanalabs/common/habanalabs_drv.c
-@@ -362,8 +362,7 @@ static void fixup_device_params_per_asic(struct hl_device *hdev, int timeout)
- 		 * a different default timeout for Gaudi
- 		 */
- 		if (timeout == HL_DEFAULT_TIMEOUT_LOCKED)
--			hdev->timeout_jiffies = msecs_to_jiffies(GAUDI_DEFAULT_TIMEOUT_LOCKED *
--										MSEC_PER_SEC);
-+			hdev->timeout_jiffies = secs_to_jiffies(GAUDI_DEFAULT_TIMEOUT_LOCKED);
- 
- 		hdev->reset_upon_device_release = 0;
- 		break;
+ 	do {
+ 		if (signal_pending(current))
 
 -- 
 2.34.1
