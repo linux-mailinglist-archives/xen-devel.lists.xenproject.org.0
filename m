@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E56099CF386
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 19:04:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.837961.1253871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12AD19CF400
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 19:32:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.837971.1253881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC0f7-0006mX-Ne; Fri, 15 Nov 2024 18:03:17 +0000
+	id 1tC17H-0002ba-U9; Fri, 15 Nov 2024 18:32:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 837961.1253871; Fri, 15 Nov 2024 18:03:17 +0000
+Received: by outflank-mailman (output) from mailman id 837971.1253881; Fri, 15 Nov 2024 18:32:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC0f7-0006l3-Kz; Fri, 15 Nov 2024 18:03:17 +0000
-Received: by outflank-mailman (input) for mailman id 837961;
- Fri, 15 Nov 2024 18:03:16 +0000
+	id 1tC17H-0002YQ-RG; Fri, 15 Nov 2024 18:32:23 +0000
+Received: by outflank-mailman (input) for mailman id 837971;
+ Fri, 15 Nov 2024 18:32:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=olWw=SK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tC0f6-0006kx-La
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 18:03:16 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ <SRS0=cuMk=SK=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tC17G-0002YK-HY
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 18:32:22 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2412::617])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e032dc6a-a37b-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 19:03:11 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a9e44654ae3so150413866b.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 10:03:11 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20df52adasm200289366b.81.2024.11.15.10.03.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2024 10:03:09 -0800 (PST)
+ id eb9f36d7-a37f-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 19:32:15 +0100 (CET)
+Received: from PH8PR07CA0015.namprd07.prod.outlook.com (2603:10b6:510:2cd::20)
+ by DS0PR12MB6390.namprd12.prod.outlook.com (2603:10b6:8:ce::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8158.18; Fri, 15 Nov 2024 18:32:04 +0000
+Received: from CY4PEPF0000E9CE.namprd03.prod.outlook.com
+ (2603:10b6:510:2cd:cafe::26) by PH8PR07CA0015.outlook.office365.com
+ (2603:10b6:510:2cd::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.22 via Frontend
+ Transport; Fri, 15 Nov 2024 18:32:04 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9CE.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 18:32:04 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
+ 2024 12:32:02 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
+ 2024 12:32:01 -0600
+Received: from [172.17.143.135] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 15 Nov 2024 12:32:01 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +63,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e032dc6a-a37b-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmMiLCJoZWxvIjoibWFpbC1lajEteDYyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImUwMzJkYzZhLWEzN2ItMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjkzNzkxLjExMTU1MSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731693790; x=1732298590; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Vt8YeGqOnwZKJLkShM7ZkBWKYwFJg/rg9MhZxk65vhw=;
-        b=f8YEOurfxodKKQRcGTekJp1o6iOkrWEi3Qr/OqRlZZYaThyIbepOFI7REOhf0yZcLh
-         Jsr/4q6zVtzXQH5GK1YX8mb3QdxfQeYtDKzaZH3UucZkYY2BUcRqXLTq2X8Ov4OscdNh
-         NLPkAv6mVYoZ/H3gCPQlsqu5JsbjME4WXdmRQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731693790; x=1732298590;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Vt8YeGqOnwZKJLkShM7ZkBWKYwFJg/rg9MhZxk65vhw=;
-        b=IdxMsWaeNmhRkWjY5ydCVdpZ2vvYCEIIbD2/DOYEDshWUgG5OW0o6SY0iUAJrViYgM
-         7qttcnSVXQyuBoG8RaU3Yb2tm8yfmt0v5j7uH3YYIlpvov7/bX+VzG8KZ/RQ+maxegh3
-         WZJ/vRR723P0LettwJJb52rzrTzqe+IjO41rTFYdKUVbLtqlIXynWpUzQtWC17LkeYrj
-         /GrbbHFEQ0fsPJf4rlb1VDH89nZRq2gpuirKpo41V10zgHeLMAvbsh9EeJ0gf4wR4kai
-         TchjNQ7i9XVvaLgCdROOkjG2xrNbql865mLg24UeQIPQ3Ok25ccHK50lk4LlM0iWwBxM
-         +Ang==
-X-Forwarded-Encrypted: i=1; AJvYcCUMmZM16tAGwO1e4Almrci0hwFrA0P4FX3l3NpTOAL4j5ABOMWxpqbr+rBwKeVnvNaPagmNftwC8Ws=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwBssTjxQODVaZx4ap/yn3x0BA45CYTfxpGOPN0UNjKygqHO6yp
-	FYwOCGlg5A4VgkvZpeR20iq4Awl92yUu15n1H8DczQ+qADXAxzJYqrVrPuibGFU=
-X-Google-Smtp-Source: AGHT+IGUozI8F4mrCu2bmBqoHIiwvjn7trJgIWFxlGK79bR8ELRiziuVbTq3Ifdo4baH7MNN1x7HtA==
-X-Received: by 2002:a17:907:36cb:b0:a9e:b1f9:bc52 with SMTP id a640c23a62f3a-aa48354d1d5mr331312466b.55.1731693789884;
-        Fri, 15 Nov 2024 10:03:09 -0800 (PST)
-Message-ID: <babfdcb5-c23f-4a18-b1bb-52026f9bf2f7@citrix.com>
-Date: Fri, 15 Nov 2024 18:03:07 +0000
+X-Inumbo-ID: eb9f36d7-a37f-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMjo6NjE3IiwiaGVsbyI6Ik5BTTEwLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImViOWYzNmQ3LWEzN2YtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjk1NTM1LjA2MDA3Nywic2VuZGVyIjoiamFzb24uYW5kcnl1a0BhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bN7/aOXqr3JcbPDjy3v8iH21m7DiaAN+hxHbKusvckB9qr3SFWjctZ9FiWDXiAeeCWd19OOnp92E7nyWyrNzfPXhA5okdN5Rx6hjgBa1H9nyPm5KbS+qCAEdi19lX90mxkAvDnEgqsPgIuFiWbB9Rt9eXPnx4o12pMTED9xb28b4k5ALPaIr+VvNWIrurdlT99Ax+YWJWBo5fUPG/jupkVhenyW2UreVBrTAzG/+QKwTpHOiWMbeeF351jveLuzyWtAsh8D1gpru2SG4k8Y7dX/4BVWagQvxnS0Gbng2LU8Cl8nGQWP0Q/zqz5+r0Mmw427fOuDqajqTFs5RkVy2HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0HvI5g1oVPNQgvVjBow9877QqwdGu+DwxgO8myBkoLg=;
+ b=X6OBgD3Ar2bCjeG6knanerYklcAY0nvn3raotRKJ3HRL9qU5jBxMpwHrgRY+8MYJRTP8VB1eNN2IOfBDU80AddwJAHhjaC2f01LnPnTC/K7IwSjwC2QxJ/zKvrx4oLi5Y/l8VAN1ytHUCWNVK/VgejqmzMK+qdXAqDgr9MTmzCeCzyg5a6I4YsQQvPwKK318ZMrUx1rfuaa7eKhnNkmpFu0oYGRQYwXHH5JZPzClP0NDbgfrhMlqjsOFZ9lKgS18mhDo30ZCVgkm+Nw1TtmVFFd+h5IYHBGyHGPqUadd8cwcPGOC+ZQxuOm3rBnaAbvjJSxah1ugWn7DuqLsrkr76Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0HvI5g1oVPNQgvVjBow9877QqwdGu+DwxgO8myBkoLg=;
+ b=u1EUmkGLlloCrGR1/ihtL6q3/PJ6QxL6/dU6wfRgvn1dKDpOJvtz2DdbEAC9JxNt2etW41pcb81O0JpRkeYPMD1rD/9Dfy3lpWC5rjB/5LwFHmUQDVczqNHZr53knaQW8PBb1sT73IA5Zy1KmcpPM33qrNgy+3iXE/+FeN53pUQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <c4b37832-efaa-4a26-8bbf-a3cf7caa3468@amd.com>
+Date: Fri, 15 Nov 2024 13:20:45 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] x86/ucode: Fix cache handling in
- microcode_update_helper()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241112211915.1473121-1-andrew.cooper3@citrix.com>
- <20241112211915.1473121-3-andrew.cooper3@citrix.com>
- <c25b7a62-fc47-440f-9521-f11b65e2cb8b@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <c25b7a62-fc47-440f-9521-f11b65e2cb8b@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v9 6/6] x86/boot: add cmdline to struct boot_domain
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
+ <20241115131204.32135-7-dpsmith@apertussolutions.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20241115131204.32135-7-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CE:EE_|DS0PR12MB6390:EE_
+X-MS-Office365-Filtering-Correlation-Id: deda968a-dde7-4223-5d69-08dd05a3cd7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dG5uelgyMDliVlZNc2xUazdJNVdIdTlIU1paOWpmSzZFZE8yK1QxTjFKTDk0?=
+ =?utf-8?B?eWIrazJ4TjJzY1p6eno0aVBqdUIvQmFDZDg2M1J5cnFqRmdFS1FHR1k0dStT?=
+ =?utf-8?B?T1hkaE05TEIyNjdaTUxvYU1tMSt6K1E4dk1Ha3FHUWk0aTN3RzI2YlBwUnpi?=
+ =?utf-8?B?MHdFNXVtYlVYWjhocnNLOHp0ek9TYUIxK3dzLzNsMjdOVDF6TkZmUzFwdkw2?=
+ =?utf-8?B?bUxEWXcwMTBZblJiQlZENDkwQXlHa0RsSmlIK0pCTUdBSW50UUN5b0s2b2JH?=
+ =?utf-8?B?LzVRL3BRQ0pDeGdISzFkeHpTQTAraWRXVStiVUJVZ0lERVM4czN6Rm43ZzUw?=
+ =?utf-8?B?bzllNDFhOVVIVVhRY3U2YkloekNoWWhDZWpyeDEvNllzL2V6VUczTXUrWVFO?=
+ =?utf-8?B?aHA2NnFCcGJCR01LbHhPUnMxNzA2VndBQWk2L3l6UStmUUFRamRwYzJWdTUv?=
+ =?utf-8?B?VnpzRTlYUzRGSnVWQVk1a3UvcmhDUlBXUU1ySnh4TE9QRzJCKzM2NDh2VXAv?=
+ =?utf-8?B?NXAyVnB1REQ1TUtSL2xaUklzNlpPUnNlNEtXS1dWbm1tMU5VbzVQWEtDdnJP?=
+ =?utf-8?B?OGV2MENGZWo5cy9nb2dLazlabnM0bk94QWNza3liMVpLOU9ldTZJbFBwRThI?=
+ =?utf-8?B?MUlnSkUzV1VqMEEzZVlGZVJGK1JWVjlIZEVraDdsVWwxZjhzb2JqWUhSbWE3?=
+ =?utf-8?B?YW1NbkExQi9Dbk5HM0FsK0Yzclc5NVZnZGpKMzdlUHkyT0NLUXlEOHg4eEUr?=
+ =?utf-8?B?RGVuY0tQYU1HZWpEMU1RL251anB2NHpGamEvWWJEMnNrTmhzOGZVRjRuSlNm?=
+ =?utf-8?B?VE9kK291eUtXVlZmdzVhbW1GM2NVOXBFNUZtZENqK3VIUDZmbmtScmFoaU5l?=
+ =?utf-8?B?d1liRk5qUjlEb2lScFZ4WE5nUm1nSmRmVTg0UVdSdm9oYUdLMnQ3emhZZ0Nm?=
+ =?utf-8?B?OENUSlpZbjNCR1hwVVBjVDJJY0UzZXoxSm5xSzZCbEhoUXFER3JraE1sWFQv?=
+ =?utf-8?B?L3RNQWRQTFJFSTdhc1JsSDRJS0F4dURNVlgvd09wL2x6MDhZSEpGaDBxSkky?=
+ =?utf-8?B?WDhBTHhzOG45NnpTRldMa1dNU2JrU0xIVVJSaGUwUEsrajQzTnpiM1JpRjcy?=
+ =?utf-8?B?dXdGTit5UVc0cWNOTm5BWVVyRlhPVG5MYmJEL0l4RjQ0bVVZMjU4a29FRVFZ?=
+ =?utf-8?B?Zk9PWVVvTzRBbGVYSTRzRlZUdXdIY0lkeWtYY0ZxajJOTHFXTEdSZ1lvUFpG?=
+ =?utf-8?B?eHV6RmNlekFhQnhCVUg5WWRJZENlNGpobGNxeFlMQUtlaTlJWUxKVU9KbGRw?=
+ =?utf-8?B?MG9DTUM4SEhTdWJjbndtMG1CcnB6dll5amVSQWttOFlDUjZPWDRlOWh6b01Z?=
+ =?utf-8?B?ZFlqcG9La1ZGWUMzYTZyRE5sUFJvdE5IMEppQkg3bUxxRy9WbU1LNzBGc3Zh?=
+ =?utf-8?B?YXZucjdLd1pOeTAwalM1UzJ1alY2RFgxSXBzb05sTXVReGw2YlJkQUY4bHgr?=
+ =?utf-8?B?akdyUGNrTEx1RGZreXVMWGMrZ1FESE5CSTBBcEQvMDBUZlB1NWluSld4ZkFk?=
+ =?utf-8?B?bjBmalp1L2Jwck81a1BPQ1I3cEd1RisrNGNRcElvQm1LNlBocEoyRW1CdzVy?=
+ =?utf-8?B?K2ZwZnpaVlNDbzVVUTA0VFdtcmZwQzVHWWZnTUZUclRMNkVSN1hNL3NSZGR4?=
+ =?utf-8?B?aFpOcVllUDI1UDhEcEdhallTbkFIaEhRRFVsZmhBZ2haR2pzc2dtV0p5akcz?=
+ =?utf-8?B?dTlZRFh3RFZSc1IvaVZka05OTkZEYnlYbXNjVldpSEFmTGZHellmWjhmT0pJ?=
+ =?utf-8?B?Qys3ZEdqQmJTelRwamttendXaHRlSHZONUczdmFoR05QMld5TC9oc0YzSHVw?=
+ =?utf-8?B?NGJIQ2VGRGh5WmQxWS9La3I2R1ZrTmpFRDFReHNXdXhBclE9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 18:32:04.0138
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: deda968a-dde7-4223-5d69-08dd05a3cd7b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9CE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6390
 
-On 14/11/2024 11:26 am, Jan Beulich wrote:
-> On 12.11.2024 22:19, Andrew Cooper wrote:
->> microcode_update_cache() now has a single caller, but inlining it shows how
->> unnecessarily complicated the logic really is.
->>
->> Outside of error paths, there is always one microcode patch to free.  Its
->> either result of parse_blob(), or it's the old cached value.
->>
->> In order to fix this, have a local patch pointer (mostly to avoid the
->> unnecessary verbosity of patch_with_flags.patch), and always free it at the
->> end.  The only error path needing care is the IS_ERR(patch) path, which is
->> easy enough to handle.
->>
->> Also, widen the scope of result.  We only need to call compare_patch() once,
->> and the answer is still good later when updating the cache.  In order to
->> update the cache, simply SWAP() the patch and the cache pointers, allowing the
->> singular xfree() at the end to cover both cases.
->>
->> This also removes all callers microcode_free_patch() which fixes the need to
->> cast away const to allow it to compile.
-> I'm sure you're well aware that this in turn is just because of your opposition
-> to xfree() and alike taking const void *.
+On 2024-11-15 08:12, Daniel P. Smith wrote:
+> Add a container for the "cooked" command line for a domain. This provides for
+> the backing memory to be directly associated with the domain being constructed.
+> This is done in anticipation that the domain construction path may need to be
+> invoked multiple times, thus ensuring each instance had a distinct memory
+> allocation.
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-My opposition, and the C standards committee, and MISRA to name but a few.
 
->  Pointers needing to be to non-const
-> just because of eventual freeing is precisely the scenario why freeing (and
-> unmapping) functions better wouldn't take mutable pointers. Then ...
->
->> --- a/xen/arch/x86/cpu/microcode/core.c
->> +++ b/xen/arch/x86/cpu/microcode/core.c
->> @@ -86,7 +86,7 @@ struct patch_with_flags {
->>  static bool ucode_in_nmi = true;
->>  
->>  /* Protected by microcode_mutex */
->> -static const struct microcode_patch *microcode_cache;
->> +static struct microcode_patch *microcode_cache;
-> ... this imo pretty undesirable change also wouldn't be needed.
->
-> Nevertheless, in the interest of not blocking this change over a long-standing
-> disagreement we have,
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 533a1e2bbe05..b9ca9c486fe5 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -963,10 +963,31 @@ static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned int li
+>       return n;
+>   }
+>   
+> -static struct domain *__init create_dom0(struct boot_info *bi)
+> +static size_t __init domain_cmdline_size(
+> +    struct boot_info *bi, struct boot_domain *bd)
+>   {
+> -    static char __initdata cmdline[MAX_GUEST_CMDLINE];
+> +    size_t s = 0;
+> +
+> +    s += bi->kextra ? strlen(bi->kextra) : 0;
+> +    s += bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) : 0;
+>   
+> +    /* Should only be called if one of extra or cmdline_pa are valid */
+> +    ASSERT(s > 0);
+> +
+> +    /*
+> +     * Add additional space for the following cases:
+> +     *  - 7 chars for " noapic"
+> +     *  - 13 chars for longest acpi opiton, " acpi=verbose"
 
-Thankyou.
+option
 
-~Andrew
+> +     *  - 1 char to hold \0
+> +     */
+> +    s += 7 + 13 + 1;
+
+Seems a little fragile.  Sizing but also depending on code elsewhere. 
+Interesting - "verbose" wouldn't actually get updated into acpi_param. 
+Anyway, using sizeof(acpi_param) seems better.  Maybe:
+
+         s += strlen(" noapic") + strlen(" acpi=") + sizeof(acpi_param) + 1;
+
+> +
+> +    return s;
+> +}
+> +
+> +static struct domain *__init create_dom0(struct boot_info *bi)
+> +{
+> +    char *cmdline = NULL;
+>       struct xen_domctl_createdomain dom0_cfg = {
+>           .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
+>           .max_evtchn_port = -1,
+> @@ -1008,17 +1029,23 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>       /* Grab the DOM0 command line. */
+>       if ( bd->kernel->cmdline_pa || bi->kextra )
+
+ From your other email, since you don't need the length, just non-zero:
+
+     if ( (bd->kernel->cmdline_pa && __va(bd->kernel->cmdline_pa)[0]) ||
+           bi->kextra )
+
+>       {
+> +        size_t cmdline_size = domain_cmdline_size(bi, bd);
+> +
+> +        if ( !(cmdline = xzalloc_array(char, cmdline_size)) )
+
+Just xmalloc_array since it'll be overwritten immediately?
+
+> +            panic("Error allocating cmdline buffer for %pd\n", d);
+> +
+>           if ( bd->kernel->cmdline_pa )
+> -            safe_strcpy(cmdline,
+> -                        cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader));
+> +            strlcpy(cmdline,
+> +                    cmdline_cook(__va(bd->kernel->cmdline_pa),bi->loader),
+> +                    cmdline_size);
+>   
+>           if ( bi->kextra )
+>               /* kextra always includes exactly one leading space. */
+> -            safe_strcat(cmdline, bi->kextra);
+> +            strlcat(cmdline, bi->kextra, cmdline_size);
+>   
+>           /* Append any extra parameters. */
+>           if ( skip_ioapic_setup && !strstr(cmdline, "noapic") )
+> -            safe_strcat(cmdline, " noapic");
+> +            strlcat(cmdline, " noapic", cmdline_size);
+>   
+>           if ( (strlen(acpi_param) == 0) && acpi_disabled )
+>           {
+> @@ -1028,17 +1055,21 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>   
+>           if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
+>           {
+> -            safe_strcat(cmdline, " acpi=");
+> -            safe_strcat(cmdline, acpi_param);
+> +            strlcat(cmdline, " acpi=", cmdline_size);
+> +            strlcat(cmdline, acpi_param, cmdline_size);
+>           }
+>   
+> -        bd->kernel->cmdline_pa = __pa(cmdline);
+> +        bd->cmdline = cmdline;
+> +        bd->kernel->cmdline_pa = __pa(bd->cmdline);
+
+Should cmdline_pa go away if we now have a valid cmdline variable?
+
+Regards,
+Jason
+
+>       }
+>   
+>       bd->d = d;
+>       if ( construct_dom0(bd) != 0 )
+>           panic("Could not construct domain 0\n");
+>   
+> +    if ( cmdline )
+> +        xfree(cmdline);
+> +
+>       return d;
+>   }
+>   
+
 
