@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0199CF719
+	by mail.lfdr.de (Postfix) with ESMTPS id C822D9CF71B
 	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 22:23:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838012.1253955 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.838011.1253947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3mD-0007Uj-WD; Fri, 15 Nov 2024 21:22:50 +0000
+	id 1tC3mD-0007KD-JS; Fri, 15 Nov 2024 21:22:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838012.1253955; Fri, 15 Nov 2024 21:22:49 +0000
+Received: by outflank-mailman (output) from mailman id 838011.1253947; Fri, 15 Nov 2024 21:22:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC3mD-0007MK-PB; Fri, 15 Nov 2024 21:22:49 +0000
-Received: by outflank-mailman (input) for mailman id 838012;
+	id 1tC3mD-0007Fe-G0; Fri, 15 Nov 2024 21:22:49 +0000
+Received: by outflank-mailman (input) for mailman id 838011;
  Fri, 15 Nov 2024 21:22:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5OXi=SK=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tC3mB-0007DO-VI
+ id 1tC3mB-0007DI-Uc
  for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 21:22:47 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id c02c4c66-a397-11ef-99a3-01e77a169b0f;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id c0564bf1-a397-11ef-a0c7-8be0dac302b0;
  Fri, 15 Nov 2024 22:22:43 +0100 (CET)
 Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
- by linux.microsoft.com (Postfix) with ESMTPSA id C8F55206BCE1;
- Fri, 15 Nov 2024 13:22:41 -0800 (PST)
+ by linux.microsoft.com (Postfix) with ESMTPSA id 1682D206BCE4;
+ Fri, 15 Nov 2024 13:22:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,28 +39,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c02c4c66-a397-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: c0564bf1-a397-11ef-a0c7-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImMwMmM0YzY2LWEzOTctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzA1NzYzLjg2NDc1OCwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C8F55206BCE1
+X-Custom-Transaction: eyJpZCI6ImMwNTY0YmYxLWEzOTctMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzA1NzY0LjIwNzQwOSwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1682D206BCE4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1731705762;
-	bh=NaKJY5KeJ2E1lFlJGT3YRi054w9/PadhToJsjl04lc4=;
-	h=From:Subject:Date:To:Cc:From;
-	b=qSckkTefY4nSDpMG6iW1ikvAvcu+Bro+zmtddjC9Ua2IIcocuRc7w5JVg1mXiL1Zv
-	 gjq7MVSAX23TgeVecpPfH5/IBxuFBQ/uZHv6yLuKDmXda9ST9w35n4VJDzv6x+pplU
-	 738dCnI1RTxo/K26kLo/E4BvWWcYM0/mvOAHIgpM=
+	bh=Q64Lap8gGilYnZS8wBYuXVtg6CkDWFgIDR5hpRb/qKY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=TpPSBC6Q0pyCMIPKcOfsvZX/wWIHu4+ejmKY8xw+0GecDvIAUfgwshz01AoOkZ0WD
+	 k4gHIei/egZSo7W0NlMAlHYHatQ5bzRsbZtX1NOQvIcE9aFKMDcUHtqmglM484AIGB
+	 /3Fdhfw7EN1qT/zCvUp8095p9P9VmicZ+TZgDM0I=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Subject: [PATCH 00/22] Converge on using secs_to_jiffies()
-Date: Fri, 15 Nov 2024 21:22:30 +0000
-Message-Id: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
+Date: Fri, 15 Nov 2024 21:22:31 +0000
+Subject: [PATCH 01/22] netfilter: conntrack: Cleanup timeout definitions
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJa7N2cC/y2NQQqDQAxFryJZN2AGKehVpIt2JtOmi5k2sSKId
- zdol+/Bf38FYxU2GJoVlGcxqcWBLg3E1708GSU5Q2hDR0QBYy0zq3vjaDhVfEvOXsDU94lauj4
- SEfj8o5xlOdLj7WTl788fpr/cth3E5bKGfwAAAA==
-X-Change-ID: 20241112-converge-secs-to-jiffies-d99d1016bd11
+Message-Id: <20241115-converge-secs-to-jiffies-v1-1-19aadc34941b@linux.microsoft.com>
+References: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
+In-Reply-To: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>, 
  Jozsef Kadlecsik <kadlec@netfilter.org>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -125,93 +123,53 @@ Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
  etnaviv@lists.freedesktop.org, oss-drivers@corigine.com, 
  linuxppc-dev@lists.ozlabs.org, 
  Anna-Maria Behnsen <anna-maria@linutronix.de>, 
- Easwar Hariharan <eahariha@linux.microsoft.com>, 
- Michael Kelley <mhklinux@outlook.com>, Thomas Gleixner <tglx@linutronix.de>, 
- Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+ Easwar Hariharan <eahariha@linux.microsoft.com>
 X-Mailer: b4 0.14.2
 
-This is a series that follows up on my previous series to introduce
-secs_to_jiffies() and convert a few initial users.[1] In the review for
-that series, Anna-Maria requested converting other users with
-Coccinelle. This is part 1 that converts users of msecs_to_jiffies()
-that use the multiply pattern of either of:
-- msecs_to_jiffies(N*1000), or
-- msecs_to_jiffies(N*MSEC_PER_SEC)
+None of the higher order definitions are used anymore, so remove
+definitions for minutes, hours, and days timeouts. Convert the seconds
+denominated timeouts to secs_to_jiffies()
 
-The entire conversion is made with Coccinelle in the script added in
-patch 2. Some changes suggested by Coccinelle have been deferred to
-later parts that will address other possible variant patterns.
-
-CC: Anna-Maria Behnsen <anna-maria@linutronix.de>
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-
-[1] https://lore.kernel.org/all/20241030-open-coded-timeouts-v3-0-9ba123facf88@linux.microsoft.com/
-[2] https://lore.kernel.org/all/8734kngfni.fsf@somnus/
-
 ---
-Easwar Hariharan (22):
-      netfilter: conntrack: Cleanup timeout definitions
-      coccinelle: misc: Add secs_to_jiffies script
-      arm: pxa: Convert timeouts to use secs_to_jiffies()
-      s390: kernel: Convert timeouts to use secs_to_jiffies()
-      powerpc/papr_scm: Convert timeouts to secs_to_jiffies()
-      mm: kmemleak: Convert timeouts to secs_to_jiffies()
-      accel/habanalabs: Convert timeouts to secs_to_jiffies()
-      drm/xe: Convert timeout to secs_to_jiffies()
-      drm/etnaviv: Convert timeouts to secs_to_jiffies()
-      scsi: lpfc: Convert timeouts to secs_to_jiffies()
-      scsi: arcmsr: Convert timeouts to secs_to_jiffies()
-      scsi: pm8001: Convert timeouts to secs_to_jiffies()
-      xen/blkback: Convert timeouts to secs_to_jiffies()
-      gve: Convert timeouts to secs_to_jiffies()
-      wifi: ath11k: Convert timeouts to secs_to_jiffies()
-      Bluetooth: MGMT: Convert timeouts to secs_to_jiffies()
-      staging: vc04_services: Convert timeouts to secs_to_jiffies()
-      ceph: Convert timeouts to secs_to_jiffies()
-      livepatch: Convert timeouts to secs_to_jiffies()
-      ALSA: line6: Convert timeouts to secs_to_jiffies()
-      nfp: Convert timeouts to secs_to_jiffies()
-      jiffies: Define secs_to_jiffies()
+ net/netfilter/nf_conntrack_proto_sctp.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
- arch/arm/mach-pxa/sharpsl_pm.c                      |  6 +++---
- arch/powerpc/platforms/pseries/papr_scm.c           |  2 +-
- arch/s390/kernel/lgr.c                              |  3 ++-
- arch/s390/kernel/time.c                             |  4 ++--
- arch/s390/kernel/topology.c                         |  2 +-
- drivers/accel/habanalabs/common/device.c            |  2 +-
- drivers/accel/habanalabs/common/habanalabs_drv.c    |  3 +--
- drivers/block/xen-blkback/blkback.c                 |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_cmdbuf.c            |  2 +-
- drivers/gpu/drm/xe/xe_device.c                      |  2 +-
- drivers/net/ethernet/google/gve/gve_tx_dqo.c        |  6 ++----
- drivers/net/ethernet/netronome/nfp/nfp_net_common.c |  2 +-
- drivers/net/wireless/ath/ath11k/debugfs.c           |  2 +-
- drivers/scsi/arcmsr/arcmsr_hba.c                    |  2 +-
- drivers/scsi/lpfc/lpfc_init.c                       | 18 +++++++++---------
- drivers/scsi/lpfc/lpfc_nportdisc.c                  |  8 ++++----
- drivers/scsi/lpfc/lpfc_nvme.c                       |  2 +-
- drivers/scsi/lpfc/lpfc_sli.c                        |  4 ++--
- drivers/scsi/lpfc/lpfc_vmid.c                       |  2 +-
- drivers/scsi/pm8001/pm8001_init.c                   |  2 +-
- .../vc04_services/bcm2835-audio/bcm2835-vchiq.c     |  2 +-
- fs/ceph/quota.c                                     |  2 +-
- include/linux/jiffies.h                             | 13 +++++++++++++
- mm/kmemleak.c                                       |  4 ++--
- net/bluetooth/hci_event.c                           |  2 --
- net/bluetooth/mgmt.c                                |  2 +-
- net/netfilter/nf_conntrack_proto_sctp.c             | 21 ++++++++-------------
- samples/livepatch/livepatch-callbacks-busymod.c     |  2 +-
- samples/livepatch/livepatch-shadow-fix1.c           |  2 +-
- samples/livepatch/livepatch-shadow-mod.c            | 10 +++++-----
- scripts/coccinelle/misc/secs_to_jiffies.cocci       | 21 +++++++++++++++++++++
- sound/usb/line6/toneport.c                          |  2 +-
- 32 files changed, 92 insertions(+), 67 deletions(-)
----
-base-commit: 2d5404caa8c7bb5c4e0435f94b28834ae5456623
-change-id: 20241112-converge-secs-to-jiffies-d99d1016bd11
+diff --git a/net/netfilter/nf_conntrack_proto_sctp.c b/net/netfilter/nf_conntrack_proto_sctp.c
+index 4cc97f971264ed779434ab4597dd0162586b3736..6c95ac96fa42a39acafb5b88a7cf8898010e911c 100644
+--- a/net/netfilter/nf_conntrack_proto_sctp.c
++++ b/net/netfilter/nf_conntrack_proto_sctp.c
+@@ -39,20 +39,15 @@ static const char *const sctp_conntrack_names[] = {
+ 	[SCTP_CONNTRACK_HEARTBEAT_SENT]		= "HEARTBEAT_SENT",
+ };
+ 
+-#define SECS  * HZ
+-#define MINS  * 60 SECS
+-#define HOURS * 60 MINS
+-#define DAYS  * 24 HOURS
+-
+ static const unsigned int sctp_timeouts[SCTP_CONNTRACK_MAX] = {
+-	[SCTP_CONNTRACK_CLOSED]			= 10 SECS,
+-	[SCTP_CONNTRACK_COOKIE_WAIT]		= 3 SECS,
+-	[SCTP_CONNTRACK_COOKIE_ECHOED]		= 3 SECS,
+-	[SCTP_CONNTRACK_ESTABLISHED]		= 210 SECS,
+-	[SCTP_CONNTRACK_SHUTDOWN_SENT]		= 3 SECS,
+-	[SCTP_CONNTRACK_SHUTDOWN_RECD]		= 3 SECS,
+-	[SCTP_CONNTRACK_SHUTDOWN_ACK_SENT]	= 3 SECS,
+-	[SCTP_CONNTRACK_HEARTBEAT_SENT]		= 30 SECS,
++	[SCTP_CONNTRACK_CLOSED]			= secs_to_jiffies(10),
++	[SCTP_CONNTRACK_COOKIE_WAIT]		= secs_to_jiffies(3),
++	[SCTP_CONNTRACK_COOKIE_ECHOED]		= secs_to_jiffies(3),
++	[SCTP_CONNTRACK_ESTABLISHED]		= secs_to_jiffies(210),
++	[SCTP_CONNTRACK_SHUTDOWN_SENT]		= secs_to_jiffies(3),
++	[SCTP_CONNTRACK_SHUTDOWN_RECD]		= secs_to_jiffies(3),
++	[SCTP_CONNTRACK_SHUTDOWN_ACK_SENT]	= secs_to_jiffies(3),
++	[SCTP_CONNTRACK_HEARTBEAT_SENT]		= secs_to_jiffies(3),
+ };
+ 
+ #define	SCTP_FLAG_HEARTBEAT_VTAG_FAILED	1
 
-Best regards,
 -- 
-Easwar Hariharan <eahariha@linux.microsoft.com>
+2.34.1
 
 
