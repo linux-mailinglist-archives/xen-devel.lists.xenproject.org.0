@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDB2C9CDA30
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 09:05:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.836942.1252855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA2879CDA8A
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2024 09:33:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.836952.1252864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBrKQ-0003jS-Bn; Fri, 15 Nov 2024 08:05:18 +0000
+	id 1tBrkl-0007sz-9o; Fri, 15 Nov 2024 08:32:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 836942.1252855; Fri, 15 Nov 2024 08:05:18 +0000
+Received: by outflank-mailman (output) from mailman id 836952.1252864; Fri, 15 Nov 2024 08:32:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tBrKQ-0003hZ-8X; Fri, 15 Nov 2024 08:05:18 +0000
-Received: by outflank-mailman (input) for mailman id 836942;
- Fri, 15 Nov 2024 08:05:16 +0000
+	id 1tBrkl-0007qQ-79; Fri, 15 Nov 2024 08:32:31 +0000
+Received: by outflank-mailman (input) for mailman id 836952;
+ Fri, 15 Nov 2024 08:32:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OZ3N=SK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tBrKO-0003hT-Oq
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 08:05:16 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PbAW=SK=redhat.com=pstanner@srs-se1.protection.inumbo.net>)
+ id 1tBrkj-0007qK-GU
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2024 08:32:29 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 57792a5a-a328-11ef-a0c7-8be0dac302b0;
- Fri, 15 Nov 2024 09:05:13 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4315eac969aso8431815e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 00:05:13 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432d478511dsm73731035e9.0.2024.11.15.00.05.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2024 00:05:12 -0800 (PST)
+ id 234398c0-a32c-11ef-a0c7-8be0dac302b0;
+ Fri, 15 Nov 2024 09:32:24 +0100 (CET)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-407-eDXXFYHWPNyftcVlg5u1_w-1; Fri, 15 Nov 2024 03:32:21 -0500
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-38223a3262bso267552f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 00:32:21 -0800 (PST)
+Received: from [10.200.68.91] (nat-pool-muc-u.redhat.com. [149.14.88.27])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3821ada2da2sm3716393f8f.15.2024.11.15.00.32.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Nov 2024 00:32:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,228 +49,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57792a5a-a328-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMjkiLCJoZWxvIjoibWFpbC13bTEteDMyOS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjU3NzkyYTVhLWEzMjgtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjU3OTEzLjYwMDg3LCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731657913; x=1732262713; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=P8Hrw8EAqrC07Vd7mEbJ7oOBP+Bco3sPPhzDL5SOPr4=;
-        b=Xw4YaztDY2JN+zOrjQoYa1vHiL2d+ubT8DBN6CQfptCca27MmdnkiOAx64rQxHNRE7
-         pbItETLAiDCg56cBZtKWnyfI+S5tl5+Zz6I+rnh+AYyPm2lf7NSTnYALNZ69/sizW2jY
-         DNK9IYBtQDwJ0fZFk8EXHAREr5B4ivJPBup9kJK3gToQ8lnnkMIlC7+FO2HxzcZhycTH
-         90u9Aifv1JjQP2GBhlJKFnE5bLVhfaxep4GN2EoEiBKBO8lGCawR9KKl0PfURKHaVi+R
-         mT48Fq4kMwVpz7k2G4Ml7SoUyFSd9AqH8wH22QJk5udgwBoqbc2RdHIoKiTaMJQ4XaTm
-         qBCQ==
+X-Inumbo-ID: 234398c0-a32c-11ef-a0c7-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMjkuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjIzNDM5OGMwLWEzMmMtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNjU5NTQ1LjA4NDczNSwic2VuZGVyIjoicHN0YW5uZXJAcmVkaGF0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1731659543;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KwwtRZveGMe16US76kOe+Iauo+yTFHTCMml6hFlPRTY=;
+	b=iyBHw73neaeyiBXj5LGmJBkvbZEUjiGNpqfaOvY94KTx3G4j82p/3Bw3+zRo2VIwKy9D8a
+	I6RlZncOcCEimvcYxfZgiVK24CFtvPR5unBMiNLtRJIv7OPEQymTS04AbZtpkJ0+AJceid
+	+DniDpu755iUXXNPxpb0B/gEuf0RRgA=
+X-MC-Unique: eDXXFYHWPNyftcVlg5u1_w-1
+X-Mimecast-MFC-AGG-ID: eDXXFYHWPNyftcVlg5u1_w
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731657913; x=1732262713;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=P8Hrw8EAqrC07Vd7mEbJ7oOBP+Bco3sPPhzDL5SOPr4=;
-        b=h8EvmJGT0g91XMAAASIZ9ob/cY77TZu7Z2ZQZgfz0GBd+wYlzk29Hz36OadiwX2ESF
-         xyJPdy3/q7cXtBdZKrD7lEsxzD3ujxIQ0yzMzrjuTzOCZMBYqpsnM/MjCpUA9WGcCGNX
-         fn9eZ/cLgDLLOG8SqaQmtZIN2KWOivIgXk79WiHYm9HAl1ZbJY+J+xWfTJ8FtE7YFkM9
-         DYg6LkfuegHqxQnPWFX0ls/m5r4sKizUJop9S+xQxwgrSwt67/h4O0lWt4iftS+MvA7s
-         sZyURvDvy3ANHIz/xkcjxTUhhb68kSFCQgwiZL8ifK8l0UQt7vT0DNXpVC6Fo1vR3it1
-         wqrw==
-X-Forwarded-Encrypted: i=1; AJvYcCUU8uCDUQg3CB4f3233GrU5bG4ymQH703UhbSpvdiThSXP1dX8ZCE55LZFYJ4semi87XP2icYK3GPM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxS9+YjlRZYCcyXEl44p0m0wybDgehQTk3hT/yVL21PRx2k/nwY
-	zdup0ZPrmW/fYjDT06KHSJZ5TkGw2YpAqoUzbuvUI9/0jdKIzXUu4zek4cqtXQ==
-X-Google-Smtp-Source: AGHT+IERJewGmhbRQcV3zIs0BU6x9oYGUbEWoW+DjDanDHhB/Hh/kLAwIn6H32ITagk7RFcIws9jvQ==
-X-Received: by 2002:a05:600c:4685:b0:431:47e7:9f45 with SMTP id 5b1f17b1804b1-432d9762455mr56348735e9.11.1731657912902;
-        Fri, 15 Nov 2024 00:05:12 -0800 (PST)
-Message-ID: <87a75956-dcc5-4bbd-90ff-b0b891c23859@suse.com>
-Date: Fri, 15 Nov 2024 09:05:11 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] xen/riscv: introduce setup_mm()
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+        d=1e100.net; s=20230601; t=1731659540; x=1732264340;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KwwtRZveGMe16US76kOe+Iauo+yTFHTCMml6hFlPRTY=;
+        b=OpT7kuRAMRLqxKsPikUu7R1k1f8FDJck+sPAp80WAQXtZyZqoezAgj8oQbhznY01XQ
+         Ha/DtRlExAxSEiZY9fP9OFWUPequNaS1UkOncRuVuEmB/3N7TZtgqoLyG4/4IpVTNjq7
+         RnrUWN8X7+T6Tpqnf9i6yDxffD3n1UwFet7R7GbwT2exbCNlgcguCUYF44i28MJahEvt
+         BtBr4cEU8xefAfLlwVGqGYqErvCdWf5P90XhVC2F5/fTcm6GcNo+TX/BQNxU9wK7UaLQ
+         RI84IoUf2mhA2joyFxERxHrlO+3H5tjfcNEZFYnIEUxJHyu5heLk/UaKhGAocfIQHKXV
+         AzTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXeFDx9X/VATh+mvxCa8fM+H5Rsz2X+pZoRF9WDIONsRlhwM/kRtEKSTQIW9WBIEP2aioteKApVtL8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw51zTh/1ytzn+yeHEJ8xLga1i0FrVTXPAZ8PKPBSAaTu4vlh42
+	E9jZx6iYbCu57zR38l2JwAglvI6SdouX1mkgv8MYkGMBO+zNkXgtFC6+jovu/2sGOy4ab5C74fa
+	av2apMo51nw9j9z0/uJPnC86KwtpafwaneRrDyiJwTSN6zCkVsu83ZnXqGipw1U8J
+X-Received: by 2002:a5d:64c9:0:b0:37d:5173:7a54 with SMTP id ffacd0b85a97d-38225aafc0bmr1382355f8f.52.1731659540138;
+        Fri, 15 Nov 2024 00:32:20 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGdh/kmNlYkC/WQKFf2J1h1Btsr4ZUjp0WRHuv0DJX0wKMjNySBXwoM4GCHyqPFiIGeYI7IOw==
+X-Received: by 2002:a5d:64c9:0:b0:37d:5173:7a54 with SMTP id ffacd0b85a97d-38225aafc0bmr1382314f8f.52.1731659539626;
+        Fri, 15 Nov 2024 00:32:19 -0800 (PST)
+Message-ID: <ff7f7358cec4bb03423879a2e4efd16d0a3e8ed7.camel@redhat.com>
+Subject: Re: [PATCH v2 11/11] Remove devres from pci_intx()
+From: Philipp Stanner <pstanner@redhat.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Damien Le Moal
+ <dlemoal@kernel.org>,  Niklas Cassel <cassel@kernel.org>, Basavaraj Natikar
+ <basavaraj.natikar@amd.com>, Jiri Kosina <jikos@kernel.org>,  Benjamin
+ Tissoires <bentiss@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Dubov <oakad@yahoo.com>,
+ Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+ <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rasesh Mody
+ <rmody@marvell.com>,  GR-Linux-NIC-Dev@marvell.com, Igor Mitsyanko
+ <imitsyanko@quantenna.com>,  Sergey Matyukevich <geomatsi@gmail.com>, Kalle
+ Valo <kvalo@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>, Shyam Sundar
+ S K <Shyam-sundar.S-k@amd.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
+ <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Chen Ni <nichen@iscas.ac.cn>, Ricky Wu
+ <ricky_wu@realtek.com>,  Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao
+ <leitao@debian.org>, Kevin Tian <kevin.tian@intel.com>, Mostafa Saleh
+ <smostafa@google.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Yi Liu <yi.l.liu@intel.com>, Kunwu Chan
+ <chentao@kylinos.cn>, Ankit Agrawal <ankita@nvidia.com>, Christian Brauner
+ <brauner@kernel.org>, Reinette Chatre <reinette.chatre@intel.com>, Eric
+ Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-input@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
+ linux-pci@vger.kernel.org,  kvm@vger.kernel.org,
  xen-devel@lists.xenproject.org
-References: <cover.1731344883.git.oleksii.kurochko@gmail.com>
- <c3640fe453cb8a0eff4d50d21d57535f67f7b92a.1731344883.git.oleksii.kurochko@gmail.com>
- <acd75f3d-da7d-4487-afde-877405c24c2a@suse.com>
- <aec35a326656a2b976b584ea5467f54cd87ca6d6.camel@gmail.com>
- <7aaa8eea-247f-43f5-9777-2a3431e0c1a0@suse.com>
- <b71986cbc487b68a8d6b31162bcefb8b3b7c2648.camel@gmail.com>
- <7555444c768edccee597dbb837edfe54a539722c.camel@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7555444c768edccee597dbb837edfe54a539722c.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 15 Nov 2024 09:32:16 +0100
+In-Reply-To: <8734jtl3xm.ffs@tglx>
+References: <20241113124158.22863-2-pstanner@redhat.com>
+	 <20241113124158.22863-13-pstanner@redhat.com> <87msi3ksru.ffs@tglx>
+	 <49bb6fc9ebff3cae844da0465ceadeef8d3217c7.camel@redhat.com>
+	 <8734jtl3xm.ffs@tglx>
+User-Agent: Evolution 3.52.4 (3.52.4-2.fc40)
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 9E6bu4ctaUO5cN9tZkAB8V9DkLTU3rE0IPuFH_lWcJY_1731659540
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 14.11.2024 17:49, oleksii.kurochko@gmail.com wrote:
-> On Thu, 2024-11-14 at 17:30 +0100, oleksii.kurochko@gmail.com wrote:
->> On Thu, 2024-11-14 at 10:49 +0100, Jan Beulich wrote:
->>>>>> @@ -423,3 +429,147 @@ void * __init early_fdt_map(paddr_t
->>>>>> fdt_paddr)
->>>>>>  
->>>>>>      return fdt_virt;
->>>>>>  }
->>>>>> +
->>>>>> +vaddr_t __ro_after_init directmap_virt_start =
->>>>>> DIRECTMAP_VIRT_START;
->>>>>> +
->>>>>> +struct page_info *__ro_after_init frametable_virt_start =
->>>>>> frame_table;
->>>>>> +
->>>>>> +#ifndef CONFIG_RISCV_32
->>>>>> +
->>>>>> +/* Map a frame table to cover physical addresses ps through
->>>>>> pe
->>>>>> */
->>>>>> +static void __init setup_frametable_mappings(paddr_t ps,
->>>>>> paddr_t
->>>>>> pe)
->>>>>> +{
->>>>>> +    static mfn_t __initdata frametable_mfn_start =
->>>>>> INVALID_MFN_INITIALIZER;
->>>>>> +
->>>>>> +    paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
->>>>>> +    paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
->>>>>> +    unsigned long nr_mfns = PFN_DOWN(aligned_pe -
->>>>>> aligned_ps);
->>>>>> +    unsigned long frametable_size = nr_mfns *
->>>>>> sizeof(*frame_table);
->>>>>> +    mfn_t base_mfn;
->>>>>> +
->>>>>> +    if ( mfn_eq(frametable_mfn_start, INVALID_MFN) )
->>>>>> +    {
->>>>>> +        frametable_mfn_start = maddr_to_mfn(aligned_ps);
->>>>>> +
->>>>>> +        frametable_virt_start -= paddr_to_pfn(aligned_ps);
->>>>>> +    }
->>>>>> +    else
->>>>>> +        panic("%s shouldn't be called twice\n", __func__);
->>>>>
->>>>> As said on the v4 thread - I don't think this is needed. Aiui
->>>>> Misra
->>>>> would
->>>>> actually dislike it, as it's unreachable code. Just to re-
->>>>> iterate: My
->>>>> complaint there wasn't about this missing check, but about the
->>>>> function
->>>>> partly giving the impression of expecting to be called more
->>>>> than
->>>>> once.
->>>> I’ll revert this check, then. Would it be better—and
->>>> sufficient—to
->>>> add
->>>> a comment before setup_frametable_mappings() indicating that this
->>>> function should only be called once, to avoid any impression that
->>>> it
->>>> might be expected to be called multiple times?
->>>
->>> You can add such a comment if you like, we we have many functions
->>> of
->>> this
->>> kind. The important aspect - as said before - is that the function
->>> should
->>> not - nowhere - give the impression of possibly expecting to be
->>> called
->>> more than once.
->> Then I am not 100% sure how to deal with this impression specifically
->> in the case of setup_frametable_mapping() which should be called
->> once.
->>
->> The only options I have in my head are:
->>    Option 1:
->>        static void __init setup_frametable_mappings(paddr_t ps,
->> paddr_t
->>       pe)
->>        {
->>       +    static bool __read_mostly once;
->>       +
->>            paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
->>            paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
->>            unsigned long nr_mfns = PFN_DOWN(aligned_pe - aligned_ps);
->>            unsigned long frametable_size = nr_mfns *
->>       sizeof(*frame_table);
->>            mfn_t base_mfn;
->>        
->>       +    ASSERT(!once);
->>       +
->>       +    once = true;
->>       +
->>            frametable_virt_start -= paddr_to_pfn(aligned_ps);
->>        
->>            if ( frametable_size > FRAMETABLE_SIZE )
->>
->>
->>    Option 2:
->>    
->>       -struct page_info *__ro_after_init frametable_virt_start =
->>       frame_table;
->>       +struct page_info *__ro_after_init frametable_virt_start;
->>        
->>        #ifndef CONFIG_RISCV_32
->>        
->>       @@ -442,7 +442,9 @@ static void __init
->>       setup_frametable_mappings(paddr_t ps, paddr_t pe)
->>            unsigned long frametable_size = nr_mfns *
->>    sizeof(*frame_table);
->>            mfn_t base_mfn;
->>        
->>       -    frametable_virt_start -= paddr_to_pfn(aligned_ps);
->>       +    ASSERT(!frametable_virt_start);
->>       +
->>       +    frametable_virt_start = frame_table -
->>    paddr_to_pfn(aligned_ps);
->>        
->>            if ( frametable_size > FRAMETABLE_SIZE )
->>                panic("The frametable cannot cover [%#"PRIpaddr",
->>       %#"PRIpaddr")\n",
->>    
-> Or your intention was that I can drop any check at all in
-> setup_frametable_mappings():
->    static void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
->    {
->        paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
->        paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
->        unsigned long nr_mfns = PFN_DOWN(aligned_pe - aligned_ps);
->        unsigned long frametable_size = nr_mfns * sizeof(*frame_table);
->        mfn_t base_mfn;
->    
->        frametable_virt_start -= paddr_to_pfn(aligned_ps);
->    
->    ...
->    }
->    
-> and it should be enough as this function by its nature shouldn't be called
-> twice.
+On Fri, 2024-11-15 at 01:46 +0100, Thomas Gleixner wrote:
+> On Thu, Nov 14 2024 at 10:05, Philipp Stanner wrote:
+> > On Wed, 2024-11-13 at 17:22 +0100, Thomas Gleixner wrote:
+> > > On Wed, Nov 13 2024 at 13:41, Philipp Stanner wrote:
+> > > > pci_intx() is a hybrid function which can sometimes be managed
+> > > > through
+> > > > devres. This hybrid nature is undesirable.
+> > > >=20
+> > > > Since all users of pci_intx() have by now been ported either to
+> > > > always-managed pcim_intx() or never-managed
+> > > > pci_intx_unmanaged(),
+> > > > the
+> > > > devres functionality can be removed from pci_intx().
+> > > >=20
+> > > > Consequently, pci_intx_unmanaged() is now redundant, because
+> > > > pci_intx()
+> > > > itself is now unmanaged.
+> > > >=20
+> > > > Remove the devres functionality from pci_intx(). Have all users
+> > > > of
+> > > > pci_intx_unmanaged() call pci_intx(). Remove
+> > > > pci_intx_unmanaged().
+> > > >=20
+> > > > Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+> > > > ---
+> > > > =C2=A0drivers/misc/cardreader/rtsx_pcr.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> > > > =C2=A0drivers/misc/tifm_7xx1.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 6 +--
+> > > > =C2=A0.../net/ethernet/broadcom/bnx2x/bnx2x_main.c=C2=A0 |=C2=A0 2 =
++-
+> > > > =C2=A0drivers/net/ethernet/brocade/bna/bnad.c=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> > > > =C2=A0drivers/ntb/hw/amd/ntb_hw_amd.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +-
+> > > > =C2=A0drivers/ntb/hw/intel/ntb_hw_gen1.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> > > > =C2=A0drivers/pci/devres.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +-
+> > > > =C2=A0drivers/pci/msi/api.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> > > > =C2=A0drivers/pci/msi/msi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> > > > =C2=A0drivers/pci/pci.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 43 +----------
+> > > > ----
+> > > > ----
+> > > > =C2=A0drivers/vfio/pci/vfio_pci_core.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> > > > =C2=A0drivers/vfio/pci/vfio_pci_intrs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 10 ++---
+> > > > =C2=A0drivers/xen/xen-pciback/conf_space_header.c=C2=A0=C2=A0 |=C2=
+=A0 2 +-
+> > > > =C2=A0include/linux/pci.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+> > > > =C2=A014 files changed, 22 insertions(+), 62 deletions(-)
+> > >=20
+> > > Now I'm utterly confused. This undoes the pci_intx_unmanaged()
+> > > churn
+> > > which you carefully split into several patches first.
+> >=20
+> > Have you read the email I have linked?
+> >=20
+> > There is also the cover-letter (does anyone in the community ever
+> > read
+> > those?) which explicitly states:
+> >=20
+> > "Patch "Remove devres from pci_intx()" obviously reverts the
+> > previous
+> > patches that made drivers use pci_intx_unmanaged(). But this way
+> > it's
+> > easier to review and approve. It also makes sure that each checked
+> > out
+> > commit should provide correct behavior, not just the entire series
+> > as a
+> > whole."
+>=20
+> I read it and I assume your intention was to force an eye on every
+> use
+> case of pci_intx() and not just on those which need to be converted
+> to
+> pcim_intx().
+>=20
+> I'm not convinced that this is needed, but fair enough.
 
-Indeed, that's what I was after.
+Whether pcim_enable_device() is really not used could have been
+overlooked, or the driver could move to "managed mode" in parallel for
+v6.13 for example. Then a bug would be silently introduced into those
+drivers.
 
-Jan
+Besides, me touching pci_intx() unfortunately caused a few explosions
+in the past already, in
+
+fc8c818e756991f5f50b8dfab07f970a18da2556 and
+00f89ae4e759a7eef07e4188e1534af7dd2c7e9c
+
+So this time I prefer to be rather safe than sorry.
+
+
+BTW, if you can review the MSI patch and check whether removing devres
+from there really is fine, that would be helpful.
+
+
+Regards,
+P.
+
 
