@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C0D9CFB84
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 01:13:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838487.1254482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC5E9CFB85
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 01:13:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838495.1254492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC6Qb-0003b3-NN; Sat, 16 Nov 2024 00:12:41 +0000
+	id 1tC6RH-0004h5-2S; Sat, 16 Nov 2024 00:13:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838487.1254482; Sat, 16 Nov 2024 00:12:41 +0000
+Received: by outflank-mailman (output) from mailman id 838495.1254492; Sat, 16 Nov 2024 00:13:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC6Qb-0003Yb-Jz; Sat, 16 Nov 2024 00:12:41 +0000
-Received: by outflank-mailman (input) for mailman id 838487;
- Sat, 16 Nov 2024 00:12:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tC6RG-0004ep-VU; Sat, 16 Nov 2024 00:13:22 +0000
+Received: by outflank-mailman (input) for mailman id 838495;
+ Sat, 16 Nov 2024 00:13:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E6K3=SL=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tC6Qa-0003Vo-1Y
- for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 00:12:40 +0000
+ id 1tC6RG-0004Cn-3P
+ for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 00:13:22 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 7b33a3da-a3af-11ef-a0c7-8be0dac302b0;
- Sat, 16 Nov 2024 01:12:35 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 94c3698d-a3af-11ef-99a3-01e77a169b0f;
+ Sat, 16 Nov 2024 01:13:18 +0100 (CET)
 Received: from [192.168.35.166] (c-73-118-245-227.hsd1.wa.comcast.net
  [73.118.245.227])
- by linux.microsoft.com (Postfix) with ESMTPSA id 1600B2064AEE;
- Fri, 15 Nov 2024 16:12:32 -0800 (PST)
+ by linux.microsoft.com (Postfix) with ESMTPSA id 95E342064AF0;
+ Fri, 15 Nov 2024 16:13:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,19 +40,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b33a3da-a3af-11ef-a0c7-8be0dac302b0
+X-Inumbo-ID: 94c3698d-a3af-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjdiMzNhM2RhLWEzYWYtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzE1OTU2LjExMDA1LCJzZW5kZXIiOiJlYWhhcmloYUBsaW51eC5taWNyb3NvZnQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1600B2064AEE
+X-Custom-Transaction: eyJpZCI6Ijk0YzM2OThkLWEzYWYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzE1OTk4Ljk2NTQxNywic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 95E342064AF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1731715954;
-	bh=xpBEojaRNmZLcf0UaP4ux3dQkOORS/leVLfy1gAywiE=;
+	s=default; t=1731715997;
+	bh=8aWsE6KsHqgZAR/UTPX2BOaIFAyMPoSLG9xpC4Hm8PA=;
 	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
-	b=Pq2k2Nni3cFBRk9EH3pyxgnDw6ECvdbg1vXWXgUrnZTvujbQOLePABt8LVR+E9JSZ
-	 k4WoN+iIfUxQpiMRt/FU+pwGNrKJBo/0Q2+4KvxqDSAbq0u3pnKwVj+6aACG5ZF/KB
-	 j3wJy4AhuvO/DGvU623x7nThkWYs37o8kaDAxg9k=
-Message-ID: <68331eb9-545f-48a4-9c49-1a3637b3d918@linux.microsoft.com>
-Date: Fri, 15 Nov 2024 16:12:31 -0800
+	b=juHtZTV0RDh+wTFwjvF/I5Cbue56gEXjd0kD3znUPuWXx2wtRwF3SiJZ6HWwI5inJ
+	 TBVBD9vnbAv41iOqcNYfHcjXy0Jo4vpPQnYC829Cp+vZARPfhAL4M9phLDROf5akb8
+	 KGqyHrYITaajwfOdtt56+uCdzgps3Ezs57MjrN0w=
+Message-ID: <0b4bbd38-f6aa-4091-b7db-8b87572ad83a@linux.microsoft.com>
+Date: Fri, 15 Nov 2024 16:13:13 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Cc: eahariha@linux.microsoft.com, Pablo Neira Ayuso <pablo@netfilter.org>,
@@ -116,30 +116,43 @@ Cc: eahariha@linux.microsoft.com, Pablo Neira Ayuso <pablo@netfilter.org>,
  live-patching@vger.kernel.org, linux-sound@vger.kernel.org,
  etnaviv@lists.freedesktop.org, oss-drivers@corigine.com,
  linuxppc-dev@lists.ozlabs.org, Anna-Maria Behnsen <anna-maria@linutronix.de>
-Subject: Re: [PATCH 03/22] arm: pxa: Convert timeouts to use secs_to_jiffies()
+Subject: Re: [PATCH v2 01/21] netfilter: conntrack: Cleanup timeout
+ definitions
 To: Stephen Rothwell <sfr@canb.auug.org.au>
-References: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
- <20241115-converge-secs-to-jiffies-v1-3-19aadc34941b@linux.microsoft.com>
- <20241116093815.5d37eb43@canb.auug.org.au>
+References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
+ <20241115-converge-secs-to-jiffies-v2-1-911fb7595e79@linux.microsoft.com>
+ <20241116093458.4aa19a0e@canb.auug.org.au>
 Content-Language: en-US
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-In-Reply-To: <20241116093815.5d37eb43@canb.auug.org.au>
+In-Reply-To: <20241116093458.4aa19a0e@canb.auug.org.au>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/15/2024 2:38 PM, Stephen Rothwell wrote:
+On 11/15/2024 2:34 PM, Stephen Rothwell wrote:
 > Hi Easwar,
 > 
-> On Fri, 15 Nov 2024 21:22:33 +0000 Easwar Hariharan <eahariha@linux.microsoft.com> wrote:
+> On Fri, 15 Nov 2024 21:26:18 +0000 Easwar Hariharan <eahariha@linux.microsoft.com> wrote:
 >>
->> -#define SHARPSL_CHARGE_ON_TIME_INTERVAL        (msecs_to_jiffies(1*60*1000))  /* 1 min */
->> -#define SHARPSL_CHARGE_FINISH_TIME             (msecs_to_jiffies(10*60*1000)) /* 10 min */
->> -#define SHARPSL_BATCHK_TIME                    (msecs_to_jiffies(15*1000))    /* 15 sec */
->> +#define SHARPSL_CHARGE_ON_TIME_INTERVAL        (secs_to_jiffies(60))  /* 1 min */
->> +#define SHARPSL_CHARGE_FINISH_TIME             (secs_to_jiffies(10*60)) /* 10 min */
->> +#define SHARPSL_BATCHK_TIME                    (secs_to_jiffies(15))    /* 15 sec */
+>>  static const unsigned int sctp_timeouts[SCTP_CONNTRACK_MAX] = {
+>> -	[SCTP_CONNTRACK_CLOSED]			= 10 SECS,
+>> -	[SCTP_CONNTRACK_COOKIE_WAIT]		= 3 SECS,
+>> -	[SCTP_CONNTRACK_COOKIE_ECHOED]		= 3 SECS,
+>> -	[SCTP_CONNTRACK_ESTABLISHED]		= 210 SECS,
+>> -	[SCTP_CONNTRACK_SHUTDOWN_SENT]		= 3 SECS,
+>> -	[SCTP_CONNTRACK_SHUTDOWN_RECD]		= 3 SECS,
+>> -	[SCTP_CONNTRACK_SHUTDOWN_ACK_SENT]	= 3 SECS,
+>> -	[SCTP_CONNTRACK_HEARTBEAT_SENT]		= 30 SECS,
+>> +	[SCTP_CONNTRACK_CLOSED]			= secs_to_jiffies(10),
+>> +	[SCTP_CONNTRACK_COOKIE_WAIT]		= secs_to_jiffies(3),
+>> +	[SCTP_CONNTRACK_COOKIE_ECHOED]		= secs_to_jiffies(3),
+>> +	[SCTP_CONNTRACK_ESTABLISHED]		= secs_to_jiffies(210),
+>> +	[SCTP_CONNTRACK_SHUTDOWN_SENT]		= secs_to_jiffies(3),
+>> +	[SCTP_CONNTRACK_SHUTDOWN_RECD]		= secs_to_jiffies(3),
+>> +	[SCTP_CONNTRACK_SHUTDOWN_ACK_SENT]	= secs_to_jiffies(3),
+>> +	[SCTP_CONNTRACK_HEARTBEAT_SENT]		= secs_to_jiffies(3),
 > 
-> It might be nice to keep the alignment of the comments here.
+> You have changed this last timeout from 30 seconds to 3 (presumably
+> just a copy and paste error).
 > 
 
 Will fix in v3.
