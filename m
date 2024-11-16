@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44A379CFD28
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 09:00:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838602.1254577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38C6A9CFD6A
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 10:01:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838628.1254598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCDiW-0003MB-5V; Sat, 16 Nov 2024 07:59:40 +0000
+	id 1tCEf4-0003lm-00; Sat, 16 Nov 2024 09:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838602.1254577; Sat, 16 Nov 2024 07:59:40 +0000
+Received: by outflank-mailman (output) from mailman id 838628.1254598; Sat, 16 Nov 2024 09:00:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCDiW-0003K4-2j; Sat, 16 Nov 2024 07:59:40 +0000
-Received: by outflank-mailman (input) for mailman id 838602;
- Sat, 16 Nov 2024 07:59:38 +0000
+	id 1tCEf3-0003kC-Sj; Sat, 16 Nov 2024 09:00:09 +0000
+Received: by outflank-mailman (input) for mailman id 838628;
+ Sat, 16 Nov 2024 09:00:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QYYW=SL=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
- id 1tCDiU-0003Jf-HW
- for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 07:59:38 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=Zkug=SL=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tCEf3-0003jC-3a
+ for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 09:00:09 +0000
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [2607:f8b0:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7a66d65-a3f0-11ef-99a3-01e77a169b0f;
- Sat, 16 Nov 2024 08:59:34 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4315eac969aso14377145e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2024 23:59:34 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432dab806e1sm81445685e9.20.2024.11.15.23.59.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2024 23:59:32 -0800 (PST)
+ id 2ad16a3c-a3f9-11ef-99a3-01e77a169b0f;
+ Sat, 16 Nov 2024 10:00:04 +0100 (CET)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 46e09a7af769-7180ab89c58so689108a34.1
+ for <xen-devel@lists.xenproject.org>; Sat, 16 Nov 2024 01:00:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,141 +40,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7a66d65-a3f0-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzIiLCJoZWxvIjoibWFpbC13bTEteDMzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImI3YTY2ZDY1LWEzZjAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzQzOTc0LjI1MjgyNywic2VuZGVyIjoiZGFuLmNhcnBlbnRlckBsaW5hcm8ub3JnIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 2ad16a3c-a3f9-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjozMmUiLCJoZWxvIjoibWFpbC1vdDEteDMyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjJhZDE2YTNjLWEzZjktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzQ3NjA0LjA4OTkwNCwic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1731743973; x=1732348773; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=xrsdExZKqTlwoTRHJD0ZdQo7yx2uU25FrNS0bU2S5+Y=;
-        b=YkX644enOMN0JU33dWgUm21/ifexE9wO/9VjzKchFwTPUm+8ia+9Wfoc2BlKDRwysi
-         T14QTdFpT7Wg3HIpwT3cKR9KjT3XbDx4Wowl9TKURbbbSQgTlJ4yf7fCU8e4P6P/hcCL
-         xImqk8Gy8Oo0gMO/MfOMNa50umewUrmzKBpQB8RL3kPNpWKqJqrzkWQ75d5B0YZaD6Jz
-         t0NUBksOMsRdU0oAVNaLgFetLdbHMZINswC/hVzhI1WlvID6Wa39eWK/ejDvTEpW1anA
-         UTzKCPoyIqpFjPMnuCF9vKVu9TPpQ8Orgqb2tnTIJbUAMRnRopoBo8LB1zZOqumrU6ux
-         n6yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731743973; x=1732348773;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1731747603; x=1732352403; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xrsdExZKqTlwoTRHJD0ZdQo7yx2uU25FrNS0bU2S5+Y=;
-        b=A2Cb82nYEkHEwpuX9KCmIlD/rmLFvcre7g8mo9zDtGW52IZCDJP2lzjilvjr/5743Y
-         NB9WJLWU47MzjEyiGTcz/38lc0EAT2t388WDccygz+IkHK7l4KvRZm5E5wK1C/FMc3vj
-         8UywkRzmO49EgXvOlqrowGe0n7R7SBecj0kgZzavG1faocfL4AvoPyHWFLT0QFOiHYSb
-         Xes2JCs0u5Mvdk1glfkURcbFKAFq59zakwlhkV4f8Ahbbboxb6OCgMgnN3dBIm2oLWFJ
-         0H/gZCaIHno3BDjT745DkdkXjiziy93M3xZytPDHNe0jO0C/cOMeT864+C8LVI5iUgJv
-         t60w==
-X-Forwarded-Encrypted: i=1; AJvYcCXlDqVgfkS3PIP4qx7F4crGx7ps+urOQMGGj2lUVeztjgiF8vWkONcR2sBYyQk2NvFEyYOAYgqokqo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxwy4w7MKA9A0kd20ER3YxPVGcPw5CReI5Gmcrv6sd/4IOkQo7d
-	KZnzhyEIxG79iUed1+qapS6bbRONd67U+f+CLba2OvLbSIky3V/FToT2RRXATOk=
-X-Google-Smtp-Source: AGHT+IHwPca/r8TengkDOJBkzNMy5+IC+M/DjfY5vaIp0XwfqGKX+JdkORZRtZVKPaDZkydKQ4+r2A==
-X-Received: by 2002:a05:600c:19cb:b0:431:559d:4103 with SMTP id 5b1f17b1804b1-432defe3203mr49400585e9.7.1731743973417;
-        Fri, 15 Nov 2024 23:59:33 -0800 (PST)
-Date: Sat, 16 Nov 2024 10:59:29 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	Nicolas Palix <nicolas.palix@imag.fr>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ofir Bitton <obitton@habana.ai>, Oded Gabbay <ogabbay@kernel.org>,
-	Lucas De Marchi <lucas.demarchi@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Jeroen de Borst <jeroendb@google.com>,
-	Praveen Kaligineedi <pkaligineedi@google.com>,
-	Shailend Chand <shailend@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	James Smart <james.smart@broadcom.com>,
-	Dick Kennedy <dick.kennedy@broadcom.com>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jack Wang <jinpu.wang@cloud.ionos.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>, Miroslav Benes <mbenes@suse.cz>,
-	Petr Mladek <pmladek@suse.com>,
-	Joe Lawrence <joe.lawrence@redhat.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Russell King <linux+etnaviv@armlinux.org.uk>,
-	Christian Gmeiner <christian.gmeiner@gmail.com>,
-	Louis Peens <louis.peens@corigine.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Naveen N Rao <naveen@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	cocci@inria.fr, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-scsi@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-	linux-mm@kvack.org, linux-bluetooth@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
-	ceph-devel@vger.kernel.org, live-patching@vger.kernel.org,
-	linux-sound@vger.kernel.org, etnaviv@lists.freedesktop.org,
-	oss-drivers@corigine.com, linuxppc-dev@lists.ozlabs.org,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>
-Subject: Re: [PATCH 19/22] livepatch: Convert timeouts to secs_to_jiffies()
-Message-ID: <896c656f-6d8c-4337-8464-7557c43a80ab@stanley.mountain>
-References: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
- <20241115-converge-secs-to-jiffies-v1-19-19aadc34941b@linux.microsoft.com>
+        bh=NTbW386E+4x70tu0Oqr6Co5qRfriONnFUJwS5ofOy7Y=;
+        b=Cg27FahZh3s8KyijFIOWDRNm4c6z5Csd7J/9OuZtPShkre/IGLYDTyBN1wJv48XY5k
+         wIYmrCU7+7FYNOzDd+SzXCeiBbuJWzJORVl6gU6UHqP8D2joXIq1uhx6AgvOK8p02OeU
+         vMxeDzUqXq+zEi4hV0sJJdkOUgFrGT+voI5xQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731747603; x=1732352403;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NTbW386E+4x70tu0Oqr6Co5qRfriONnFUJwS5ofOy7Y=;
+        b=spFhhOng5HfwO12NPR1CRYmjNwQTnQgy3pG/nU+hKEfPP9g9liQj5iF3jBnj/b1Rqb
+         HjxytyrtWW2EAku1Te+AYyMSdi6/iNYHFqOIg042Uleu6+F+PWBpSF0QI5/THSkCOnFO
+         oGDsQp4645/kduOChrFzQjUlLVWA0eiHzxo/K6dCkgdPoOM5k/X7y3h1+jQn3vcum3O9
+         MTQvC3rvXsDMTxJo3f6ofJ0Sv/ZHtjZI5uoNclsDsm9qb53/UwalbtgicF3sTFbqZxAk
+         IJtXlVHtvLNma409fmJShq+2cZaQ/U096uCPwZlHol1wyutX7nujwLjnFd05cYZV1MIM
+         zDug==
+X-Gm-Message-State: AOJu0YzLaMFr0+fIePLdRK+3SjVaB9VMHFd3/zfJOwI0nBJQpNzuVUCk
+	Z/+boTZBgfOhICilr96JdbkuIOoNeiVVXtub/0hJJvFszTJ35r0kt7M73/lxryPT0qqBg1rJEnb
+	SlpazlrMY1aDmDfgeX+TVvH2gdz6zDx6jOK6t7Q==
+X-Google-Smtp-Source: AGHT+IElMW+9HmYDsLVNULkddheex2DjtehqjYQTdSRJS0D7s/BjKBjgo2baMc8kakGW+tX1lNG/9XOyCacRvx5irOQ=
+X-Received: by 2002:a05:6830:3691:b0:718:1767:912f with SMTP id
+ 46e09a7af769-71a777b6770mr6399585a34.0.1731747602681; Sat, 16 Nov 2024
+ 01:00:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241115-converge-secs-to-jiffies-v1-19-19aadc34941b@linux.microsoft.com>
+References: <alpine.DEB.2.22.394.2411151617580.1160299@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2411151617580.1160299@ubuntu-linux-20-04-desktop>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Sat, 16 Nov 2024 08:59:52 +0000
+Message-ID: <CACHz=ZjZtP=tLuBX5Ko88_OLK8mEiPEvSwzNB4rd=-fn2uK_Eg@mail.gmail.com>
+Subject: Re: [PATCH] misra: increase identifiers length to 64
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, alessandro.zucchelli@bugseng.com, 
+	simone.ballarin@bugseng.com, consulting@bugseng.com, jbeulich@suse.com, 
+	andrew.cooper3@citrix.com, julien@xen.org, roger.pau@citrix.com, 
+	bertrand.marquis@arm.com, michal.orzel@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 15, 2024 at 09:22:49PM +0000, Easwar Hariharan wrote:
-> diff --git a/samples/livepatch/livepatch-callbacks-busymod.c b/samples/livepatch/livepatch-callbacks-busymod.c
-> index 378e2d40271a9717d09eff51d3d3612c679736fc..d0fd801a7c21b7d7939c29d83f9d993badcc9aba 100644
-> --- a/samples/livepatch/livepatch-callbacks-busymod.c
-> +++ b/samples/livepatch/livepatch-callbacks-busymod.c
-> @@ -45,7 +45,7 @@ static int livepatch_callbacks_mod_init(void)
->  {
->  	pr_info("%s\n", __func__);
->  	schedule_delayed_work(&work,
-> -		msecs_to_jiffies(1000 * 0));
-> +		secs_to_jiffies(0));
+On Sat, Nov 16, 2024 at 12:23=E2=80=AFAM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> Currently the identifiers characters limit is arbitrarily set to 40. It
+> causes a few violations as we have some identifiers longer than 40.
+>
+> Increase the limit to another rather arbitrary limit of 64. Thanks to
+> this change, we remove a few violations, getting us one step closer to
+> marking Rules 5.2 and 5.4 as clean.
+>
+> Also update the ECLAIR config that was actually set to 63 as character
+> limit.
+>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>
+> diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation=
+/eclair_analysis/ECLAIR/toolchain.ecl
+> index 86e9a79b52..8fb1778bce 100644
+> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> @@ -155,8 +155,8 @@
+>  -doc_end
+>
+>  -doc_begin=3D"See Section \"4.3 Identifiers\" of "GCC_MANUAL"."
+> --config=3DSTD.extidsig, behavior+=3D{c99, GCC_ARM64, "63"}
+> --config=3DSTD.extidsig, behavior+=3D{c99, GCC_X86_64, "63"}
+> +-config=3DSTD.extidsig, behavior+=3D{c99, GCC_ARM64, "64"}
+> +-config=3DSTD.extidsig, behavior+=3D{c99, GCC_X86_64, "64"}
+>  -doc_end
+>
+>  #
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 4a144da8d6..3ed5801bff 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -154,7 +154,7 @@ maintainers if you want to suggest a change.
+>     * - `Rule 5.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-=
+Suite/-/blob/master/R_05_01_2.c>`_
+>       - Required
+>       - External identifiers shall be distinct
+> -     - The Xen characters limit for identifiers is 40. Public headers
+> +     - The Xen characters limit for identifiers is 64. Public headers
+>         (xen/include/public/) are allowed to retain longer identifiers
+>         for backward compatibility.
+>
 
-Better to just call schedule_delayed_work(&work, 0);
+Do we need to retain this comments about public headers or now with 64
+characters they all fit into the limit?
 
->  	return 0;
->  }
+> @@ -162,7 +162,7 @@ maintainers if you want to suggest a change.
+>       - Required
+>       - Identifiers declared in the same scope and name space shall be
+>         distinct
+> -     - The Xen characters limit for identifiers is 40. Public headers
+> +     - The Xen characters limit for identifiers is 64. Public headers
+>         (xen/include/public/) are allowed to retain longer identifiers
+>         for backward compatibility.
+>
+> @@ -177,7 +177,7 @@ maintainers if you want to suggest a change.
+>     * - `Rule 5.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-=
+Suite/-/blob/master/R_05_04.c>`_
+>       - Required
+>       - Macro identifiers shall be distinct
+> -     - The Xen characters limit for macro identifiers is 40. Public
+> +     - The Xen characters limit for macro identifiers is 64. Public
+>         headers (xen/include/public/) are allowed to retain longer
+>         identifiers for backward compatibility.
+>
+>
 
-regards,
-dan carpenter
+Frediano
 
