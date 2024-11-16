@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027319CFE01
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 11:20:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838678.1254657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 247509CFE03
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 11:20:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838679.1254667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCFuS-0004qL-U5; Sat, 16 Nov 2024 10:20:08 +0000
+	id 1tCFuW-000575-5O; Sat, 16 Nov 2024 10:20:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838678.1254657; Sat, 16 Nov 2024 10:20:08 +0000
+Received: by outflank-mailman (output) from mailman id 838679.1254667; Sat, 16 Nov 2024 10:20:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCFuS-0004nG-Qs; Sat, 16 Nov 2024 10:20:08 +0000
-Received: by outflank-mailman (input) for mailman id 838678;
- Sat, 16 Nov 2024 10:20:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tCFuW-00054e-2E; Sat, 16 Nov 2024 10:20:12 +0000
+Received: by outflank-mailman (input) for mailman id 838679;
+ Sat, 16 Nov 2024 10:20:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zi9u=SL=csgroup.eu=christophe.leroy@srs-se1.protection.inumbo.net>)
- id 1tCFuR-0003aF-9X
- for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 10:20:07 +0000
+ id 1tCFuU-0003WR-IW
+ for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 10:20:10 +0000
 Received: from pegase2.c-s.fr (pegase2.c-s.fr [93.17.235.10])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 582289df-a404-11ef-99a3-01e77a169b0f;
- Sat, 16 Nov 2024 11:20:03 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 5a611d70-a404-11ef-a0c8-8be0dac302b0;
+ Sat, 16 Nov 2024 11:20:07 +0100 (CET)
 Received: from localhost (mailhub3.si.c-s.fr [172.26.127.67])
- by localhost (Postfix) with ESMTP id 4Xr8gl1ry9z9sSX;
- Sat, 16 Nov 2024 11:06:59 +0100 (CET)
+ by localhost (Postfix) with ESMTP id 4Xr8mL1R16z9sSd;
+ Sat, 16 Nov 2024 11:10:58 +0100 (CET)
 Received: from pegase2.c-s.fr ([172.26.127.65])
  by localhost (pegase2.c-s.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id GiuJ5kFiF1NH; Sat, 16 Nov 2024 11:06:59 +0100 (CET)
+ with ESMTP id sS8O0LnxtKc7; Sat, 16 Nov 2024 11:10:58 +0100 (CET)
 Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
- by pegase2.c-s.fr (Postfix) with ESMTP id 4Xr8gl0b48z9sST;
- Sat, 16 Nov 2024 11:06:59 +0100 (CET)
+ by pegase2.c-s.fr (Postfix) with ESMTP id 4Xr8mJ5rw4z9sSb;
+ Sat, 16 Nov 2024 11:10:56 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id ECAD08B7A0;
- Sat, 16 Nov 2024 11:06:58 +0100 (CET)
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id ABE338B7A0;
+ Sat, 16 Nov 2024 11:10:56 +0100 (CET)
 Received: from messagerie.si.c-s.fr ([127.0.0.1])
  by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
- with ESMTP id xw5jQJJ7h8Zy; Sat, 16 Nov 2024 11:06:58 +0100 (CET)
+ with ESMTP id F1qWTVabQRIL; Sat, 16 Nov 2024 11:10:56 +0100 (CET)
 Received: from [192.168.232.159] (POS169858.IDSI0.si.c-s.fr [192.168.232.159])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id 7AEB48B763;
- Sat, 16 Nov 2024 11:06:55 +0100 (CET)
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id 35D3D8B763;
+ Sat, 16 Nov 2024 11:10:53 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,17 +54,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 582289df-a404-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 5a611d70-a404-11ef-a0c8-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjkzLjE3LjIzNS4xMCIsImhlbG8iOiJwZWdhc2UyLmMtcy5mciJ9
-X-Custom-Transaction: eyJpZCI6IjU4MjI4OWRmLWE0MDQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzUyNDAzLjg0MTE1Miwic2VuZGVyIjoiY2hyaXN0b3BoZS5sZXJveUBjc2dyb3VwLmV1IiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Custom-Transaction: eyJpZCI6IjVhNjExZDcwLWE0MDQtMTFlZi1hMGM4LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzUyNDA3LjYyMTcyOCwic2VuZGVyIjoiY2hyaXN0b3BoZS5sZXJveUBjc2dyb3VwLmV1IiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 X-Virus-Scanned: amavisd-new at c-s.fr
 X-Virus-Scanned: amavisd-new at c-s.fr
-Message-ID: <b6a059d8-7b23-455d-9ecd-eb3cdddd22a2@csgroup.eu>
-Date: Sat, 16 Nov 2024 11:06:55 +0100
+Message-ID: <718febc4-59ee-4701-ad62-8b7a8fa7a910@csgroup.eu>
+Date: Sat, 16 Nov 2024 11:10:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/21] powerpc/papr_scm: Convert timeouts to
- secs_to_jiffies()
+Subject: Re: [PATCH v2 19/21] livepatch: Convert timeouts to secs_to_jiffies()
 To: Easwar Hariharan <eahariha@linux.microsoft.com>,
  Pablo Neira Ayuso <pablo@netfilter.org>,
  Jozsef Kadlecsik <kadlec@netfilter.org>,
@@ -127,10 +126,10 @@ Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
  etnaviv@lists.freedesktop.org, oss-drivers@corigine.com,
  linuxppc-dev@lists.ozlabs.org, Anna-Maria Behnsen <anna-maria@linutronix.de>
 References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
- <20241115-converge-secs-to-jiffies-v2-5-911fb7595e79@linux.microsoft.com>
+ <20241115-converge-secs-to-jiffies-v2-19-911fb7595e79@linux.microsoft.com>
 Content-Language: fr-FR
 From: Christophe Leroy <christophe.leroy@csgroup.eu>
-In-Reply-To: <20241115-converge-secs-to-jiffies-v2-5-911fb7595e79@linux.microsoft.com>
+In-Reply-To: <20241115-converge-secs-to-jiffies-v2-19-911fb7595e79@linux.microsoft.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
@@ -150,50 +149,104 @@ Le 15/11/2024 à 22:26, Easwar Hariharan a écrit :
 > 
 > - msecs_to_jiffies(C * MSEC_PER_SEC)
 > + secs_to_jiffies(C)
-
-Is it a special script or is it done with the script in patch 2.
-
-That's nice to say how it is done, but you also have to say _what_ and 
-_why_ you do it. This is even more important as you plan to get it 
-merged independently in each tree instead of merging it as a single series.
-
-It could be something like:
-
-Commit b35108a51cf7 ("jiffies: Define secs_to_jiffies()") introduced 
-secs_to_jiffies(). As the value here is a multiple of 1000, use 
-secs_to_jiffies() instead of msecs_to_jiffies to avoid the multiplication.
-
-This is converted using scripts/coccinelle/misc/secs_to_jiffies.cocci
-
 > 
 > Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 > ---
->   arch/powerpc/platforms/pseries/papr_scm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   samples/livepatch/livepatch-callbacks-busymod.c |  2 +-
+>   samples/livepatch/livepatch-shadow-fix1.c       |  2 +-
+>   samples/livepatch/livepatch-shadow-mod.c        | 10 +++++-----
+>   3 files changed, 7 insertions(+), 7 deletions(-)
 > 
-> diff --git a/arch/powerpc/platforms/pseries/papr_scm.c b/arch/powerpc/platforms/pseries/papr_scm.c
-> index 9e297f88adc5d97d4dc7b267b0bfebd58e5cf193..9e8086ec66e0f0e555ac27933854c06cfcf91a04 100644
-> --- a/arch/powerpc/platforms/pseries/papr_scm.c
-> +++ b/arch/powerpc/platforms/pseries/papr_scm.c
-> @@ -543,7 +543,7 @@ static int drc_pmem_query_health(struct papr_scm_priv *p)
+> diff --git a/samples/livepatch/livepatch-callbacks-busymod.c b/samples/livepatch/livepatch-callbacks-busymod.c
+> index 378e2d40271a9717d09eff51d3d3612c679736fc..d0fd801a7c21b7d7939c29d83f9d993badcc9aba 100644
+> --- a/samples/livepatch/livepatch-callbacks-busymod.c
+> +++ b/samples/livepatch/livepatch-callbacks-busymod.c
+> @@ -45,7 +45,7 @@ static int livepatch_callbacks_mod_init(void)
+>   {
+>          pr_info("%s\n", __func__);
+>          schedule_delayed_work(&work,
+> -               msecs_to_jiffies(1000 * 0));
+> +               secs_to_jiffies(0));
+
+Using secs_to_jiffies() is pointless, 0 is universal, should become 
+schedule_delayed_work(&work, 0);
+
+>          return 0;
+>   }
 > 
->          /* Jiffies offset for which the health data is assumed to be same */
->          cache_timeout = p->lasthealth_jiffies +
-> -               msecs_to_jiffies(MIN_HEALTH_QUERY_INTERVAL * 1000);
-> +               secs_to_jiffies(MIN_HEALTH_QUERY_INTERVAL);
+> diff --git a/samples/livepatch/livepatch-shadow-fix1.c b/samples/livepatch/livepatch-shadow-fix1.c
+> index 6701641bf12d454a770e49abeeb0dea92560e55e..948ea1f5760fed2fa27baf478c97cf98ad5c99a8 100644
+> --- a/samples/livepatch/livepatch-shadow-fix1.c
+> +++ b/samples/livepatch/livepatch-shadow-fix1.c
+> @@ -73,7 +73,7 @@ static struct dummy *livepatch_fix1_dummy_alloc(void)
+>                  return NULL;
+> 
+>          d->jiffies_expire = jiffies +
+> -               msecs_to_jiffies(1000 * EXPIRE_PERIOD);
+> +               secs_to_jiffies(EXPIRE_PERIOD);
+> 
+>          /*
+>           * Patch: save the extra memory location into a SV_LEAK shadow
+> diff --git a/samples/livepatch/livepatch-shadow-mod.c b/samples/livepatch/livepatch-shadow-mod.c
+> index 7e753b0d2fa611524c9e2adbe02c8fa3e9b6015e..79296e6ccb119f521e86a121623855d841c9fc5e 100644
+> --- a/samples/livepatch/livepatch-shadow-mod.c
+> +++ b/samples/livepatch/livepatch-shadow-mod.c
+> @@ -102,7 +102,7 @@ static __used noinline struct dummy *dummy_alloc(void)
+>                  return NULL;
+> 
+>          d->jiffies_expire = jiffies +
+> -               msecs_to_jiffies(1000 * EXPIRE_PERIOD);
+> +               secs_to_jiffies(EXPIRE_PERIOD);
 
-Wouldn't it now fit on a single line ?
-
-	cache_timeout = p->lasthealth_jiffies + 
-secs_to_jiffies(MIN_HEALTH_QUERY_INTERVAL);
-
-
-Also I'm not sure it is worth the MIN_HEALTH_QUERY_INTERVAL macro as it 
-is defined localy and used only once, but that's another story.
+Should fit on a single line, avoid multiple lines when possible.
 
 > 
->          /* Fetch new health info is its older than MIN_HEALTH_QUERY_INTERVAL */
->          if (time_after(jiffies, cache_timeout))
+>          /* Oops, forgot to save leak! */
+>          leak = kzalloc(sizeof(*leak), GFP_KERNEL);
+> @@ -153,7 +153,7 @@ static void alloc_work_func(struct work_struct *work)
+>          mutex_unlock(&dummy_list_mutex);
+> 
+>          schedule_delayed_work(&alloc_dwork,
+> -               msecs_to_jiffies(1000 * ALLOC_PERIOD));
+> +               secs_to_jiffies(ALLOC_PERIOD));
+
+Should fit on a single line, avoid multiple lines when possible.
+
+
+>   }
+> 
+>   /*
+> @@ -185,15 +185,15 @@ static void cleanup_work_func(struct work_struct *work)
+>          mutex_unlock(&dummy_list_mutex);
+> 
+>          schedule_delayed_work(&cleanup_dwork,
+> -               msecs_to_jiffies(1000 * CLEANUP_PERIOD));
+> +               secs_to_jiffies(CLEANUP_PERIOD));
+
+Should fit on a single line, avoid multiple lines when possible.
+
+
+>   }
+> 
+>   static int livepatch_shadow_mod_init(void)
+>   {
+>          schedule_delayed_work(&alloc_dwork,
+> -               msecs_to_jiffies(1000 * ALLOC_PERIOD));
+> +               secs_to_jiffies(ALLOC_PERIOD));
+
+Should fit on a single line, avoid multiple lines when possible.
+
+
+>          schedule_delayed_work(&cleanup_dwork,
+> -               msecs_to_jiffies(1000 * CLEANUP_PERIOD));
+> +               secs_to_jiffies(CLEANUP_PERIOD));
+
+Should fit on a single line, avoid multiple lines when possible.
+
+
+> 
+>          return 0;
+>   }
 > 
 > --
 > 2.34.1
