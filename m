@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF3EA9CFBA5
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 01:24:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838510.1254512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 042259CFBB8
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2024 01:34:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.838522.1254521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC6bR-0002bx-7A; Sat, 16 Nov 2024 00:23:53 +0000
+	id 1tC6lk-00074g-3k; Sat, 16 Nov 2024 00:34:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838510.1254512; Sat, 16 Nov 2024 00:23:53 +0000
+Received: by outflank-mailman (output) from mailman id 838522.1254521; Sat, 16 Nov 2024 00:34:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tC6bR-0002Zp-47; Sat, 16 Nov 2024 00:23:53 +0000
-Received: by outflank-mailman (input) for mailman id 838510;
- Sat, 16 Nov 2024 00:23:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tC6lk-00072c-16; Sat, 16 Nov 2024 00:34:32 +0000
+Received: by outflank-mailman (input) for mailman id 838522;
+ Sat, 16 Nov 2024 00:34:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aWrC=SL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tC6bP-0002Zh-RR
- for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 00:23:51 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c1eeb4d-a3b1-11ef-a0c7-8be0dac302b0;
- Sat, 16 Nov 2024 01:23:48 +0100 (CET)
+ id 1tC6li-00072W-5b
+ for xen-devel@lists.xenproject.org; Sat, 16 Nov 2024 00:34:30 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 878dc4c1-a3b2-11ef-99a3-01e77a169b0f;
+ Sat, 16 Nov 2024 01:34:25 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 80B5FA4287C;
- Sat, 16 Nov 2024 00:21:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8367C4CECF;
- Sat, 16 Nov 2024 00:23:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id ACA385C5C59;
+ Sat, 16 Nov 2024 00:33:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1BAC4CECF;
+ Sat, 16 Nov 2024 00:34:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +41,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c1eeb4d-a3b1-11ef-a0c7-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE0Ny43NS4xOTMuOTEiLCJoZWxvIjoibnljLnNvdXJjZS5rZXJuZWwub3JnIn0=
-X-Custom-Transaction: eyJpZCI6IjBjMWVlYjRkLWEzYjEtMTFlZi1hMGM3LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxNzE2NjI4Ljk2MDEzOCwic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 878dc4c1-a3b2-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
+X-Custom-Transaction: eyJpZCI6Ijg3OGRjNGMxLWEzYjItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxNzE3MjY1LjczMTE5MSwic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731716627;
-	bh=49pDdQydnL3D/DPJVWoglQOCqOnqk9uOJK0z/HNgkL8=;
+	s=k20201202; t=1731717263;
+	bh=hx/bnmrWZ6LULXfPX3ceK87hWvDv2ryRmoc0sbv9dG0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=PbOYAc+nevc2grcNV8znBSnEBadftDucD2mpwkwTKZEFTDn+nR2p3flQBuxFC7UCP
-	 g8xQttHHoHuuV59OfoKMvfWnBCVtdrThMS46kzEYSNIzYYb8qmyBCQzXNyD2fM6ap2
-	 10u9qPukDQSW8xFEnfjtrC46T4VMtYJQ/HjkLMUaaQ0N232xAU3DJTBX4U0fT60XSF
-	 PyoEJbXh1rINBaZeMng5y1aUpM2zqpCX3Aeta5oTRujIL1zMHH1K84ppl3VW0cLlKx
-	 f5h2BgIu0Amlh8hw+7oX9VY82cZjyX+Rn8meUHw1EJht1tx7E/soJy/tCCnxl64zeN
-	 XMXUlPJ39lxPA==
-Date: Fri, 15 Nov 2024 16:23:44 -0800 (PST)
+	b=CoHdRJFDnsrdYEg1O4km/DvDl4TBUbi6hTUMV/K/3GCaoOF6WMtPzNxZfd98GaSzl
+	 V5Ao0OvdqEsv1sxsS7/ffw8tFGtnGpfuUJurWRrZRqB8NY0TAGdLC+KEdVKGQIgGTT
+	 qgd24DIx2xbpGohoStzYe5Qxxzcpv7MrdGyeYzlG13GZWvag4BM97U7WclZdqdDnw/
+	 6vQRhko+MHTB5U0cpREiEw6N3/03k9LQ0JB01FpVmHl5fgwXXdLL2ueiaMnq1VXH+0
+	 svXLJ5KqHOCZVYSrhXS5kbgimQfMsNiX5Hf1saA5P5sovy5GfbRjCMWaWePj4LCYJb
+	 eV29VgILlK5yg==
+Date: Fri, 15 Nov 2024 16:34:21 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, consulting@bugseng.com, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] xen:add deviations for MISRA C 2012 Rule R5.2
-In-Reply-To: <0fa9be78162b596c69da6c1bf840364e@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2411151623170.1160299@ubuntu-linux-20-04-desktop>
-References: <41a1127e6d77d2be350e7679bd1034e0c2918e94.1731487210.git.alessandro.zucchelli@bugseng.com> <39168f90-7c80-451d-9c20-50da0de4af78@suse.com> <3789df92285b2c08b855369f46f3a229@bugseng.com> <24b117ed-dd5a-47a7-8c5d-ddddd7407ac9@suse.com>
- <alpine.DEB.2.22.394.2411131822260.222505@ubuntu-linux-20-04-desktop> <0fa9be78162b596c69da6c1bf840364e@bugseng.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH 3/3] CI: New stage "containers" to rebuild some
+ containers
+In-Reply-To: <20241115170739.48983-4-anthony.perard@vates.tech>
+Message-ID: <alpine.DEB.2.22.394.2411151629450.1160299@ubuntu-linux-20-04-desktop>
+References: <20241115170739.48983-1-anthony.perard@vates.tech> <20241115170739.48983-4-anthony.perard@vates.tech>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 15 Nov 2024, Alessandro Zucchelli wrote:
-> On 2024-11-14 03:23, Stefano Stabellini wrote:
-> > On Wed, 13 Nov 2024, Jan Beulich wrote:
-> > > On 13.11.2024 11:48, Alessandro Zucchelli wrote:
-> > > > At this link you can see all the violations of Rule 5.2:
-> > > >
-> > > >
-> > > https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/40_characters/X86_64/8143097084/PROJECT.ecd;/by_service/MC3R1.R5.2.html
-> > > 
-> > > Thank you. From a cursory look these all appear to be a result of the 40
-> > > chars limit we put in place (quite arbitrarily). That's not mentioned at
-> > > all ...
-> > > 
-> > > > By deviating the two macros CHECK_NAME_ and DEFINE_COMPAT_HANDLE all the
-> > > > violations are addressed.
-> > > >
-> > > > On 2024-11-13 11:31, Jan Beulich wrote:
-> > > >> On 13.11.2024 09:41, Alessandro Zucchelli wrote:
-> > > >>> This addresses violations of MISRA C:2012 Rule 5.2 which states as
-> > > >>> following: Identifiers declared in the same scope and name space shall
-> > > >>> be distinct.
-> > > >>>
-> > > >>> This deviation addresses violations of Rule 5.2 arising from
-> > > >>> identifiers generated through token pasting macros CHECK_NAME_ and
-> > > >>> DEFINE_COMPAT_HANDLE.
-> > > 
-> > > ... in the description.
-> > > 
-> > > Together with the 5.4 patch having the same lack of context, I wonder
-> > > whether we shouldn't simply up that limit.
-> > 
-> > Yes: if we up to the limit to 64 (another arbitrary number), can be mark
-> > both 5.4 and 5.1 as clean? If so, I think we should do it right away.
-> > 
-> Hi,
-> In doc/misra/rules.rst, the limit is documented as 40, but in the
-> configuration
-> file automation/eclair_analysis/ECLAIR/toolchain.ecl, it is set to 63.
+On Fri, 15 Nov 2024, Anthony PERARD wrote:
+> Rebuild rolling release containers when XEN_CI_REBUILD_CONTAINERS is
+> set. This is to be use with a scheduled pipeline.
 > 
-> If you intend to proceed by increasing the limit, you may ignore this
-> deviation
-> as well as my other deviation concerning Rule 5.4. In that case, please update
-> the documentation in doc/misra/rules.rst to reflect the new limit.
+> When $XEN_CI_REBUILD_CONTAINERS is set, only build jobs related to the
+> containers been rebuild will be executed.
+> 
+> Build jobs that are using one of the containers been rebuild should
+> wait for the container to be rebuild. If it's a normal pipeline, those
+> dependency are simply ignored.
 
-Got it. See:
-https://marc.info/?l=xen-devel&m=173171643022486
+This is a fantastic contribution, thanks Anthony!
+
+I think we can simplify this patch by removing all stages except for
+"containers" on the scheduled pipeline with XEN_CI_REBUILD_CONTAINERS
+set to true.
+
+I think it is a good idea to have a special schedule pipeline for this,
+and we should exploit the fact that it is special and only use it to
+rebuild the containers. If we want to, we can have a second scheduled
+pipeline to do a full normal run afterwards.
+
+This way, there is no need to carry the changes to build.yaml or
+test.yaml that are a bit hard to read/understand for someone unfamiliar
+with gitlab. When XEN_CI_REBUILD_CONTAINERS == true we only do the
+containers stage.
+
+
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+> ---
+>  .gitlab-ci.yml                       |  2 +
+>  automation/gitlab-ci/build.yaml      | 57 ++++++++++++++++++----------
+>  automation/gitlab-ci/containers.yaml | 29 ++++++++++++++
+>  automation/gitlab-ci/test.yaml       | 13 +++++++
+>  4 files changed, 81 insertions(+), 20 deletions(-)
+>  create mode 100644 automation/gitlab-ci/containers.yaml
+> 
+> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> index 941e5822e8..dab9171086 100644
+> --- a/.gitlab-ci.yml
+> +++ b/.gitlab-ci.yml
+> @@ -8,11 +8,13 @@ workflow:
+>      - when: always
+>  
+>  stages:
+> +  - containers
+>    - analyze
+>    - build
+>    - test
+>  
+>  include:
+> +  - 'automation/gitlab-ci/containers.yaml'
+>    - 'automation/gitlab-ci/analyze.yaml'
+>    - 'automation/gitlab-ci/build.yaml'
+>    - 'automation/gitlab-ci/test.yaml'
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index 1ca6764225..e01eec1423 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -3,6 +3,9 @@
+>    image: ${XEN_REGISTRY}/${CONTAINER}
+>    script:
+>      - ./automation/scripts/build 2>&1 | tee build.log
+> +  rules:
+> +    - if: $XEN_CI_REBUILD_CONTAINERS && $XEN_CI_RUN_AFTER_CONTAINER_BUILD
+> +    - if: $XEN_CI_REBUILD_CONTAINERS == null
+>    artifacts:
+>      paths:
+>        - binaries/
+> @@ -255,6 +258,8 @@
+>  .test-jobs-artifact-common:
+>    stage: build
+>    needs: []
+> +  rules:
+> +    - if: $XEN_CI_REBUILD_CONTAINERS == null
+>  
+>  # Arm test artifacts
+>  
+> @@ -516,17 +521,24 @@ alpine-3.18-clang-debug:
+>    variables:
+>      CONTAINER: alpine:3.18
+>  
+> -archlinux-gcc:
+> -  extends: .gcc-x86-64-build
+> +.container-archlinux-current:
+>    variables:
+>      CONTAINER: archlinux:current
+> +    XEN_CI_RUN_AFTER_CONTAINER_BUILD: true
+> +  needs:
+> +    - job: container-archlinux-current
+> +      optional: true
+>    allow_failure: true
+>  
+> +archlinux-gcc:
+> +  extends:
+> +    - .gcc-x86-64-build
+> +    - .container-archlinux-current
+> +
+>  archlinux-gcc-debug:
+> -  extends: .gcc-x86-64-build-debug
+> -  variables:
+> -    CONTAINER: archlinux:current
+> -  allow_failure: true
+> +  extends:
+> +    - .gcc-x86-64-build-debug
+> +    - .container-archlinux-current
+>  
+>  centos-7-gcc:
+>    extends: .gcc-x86-64-build
+> @@ -657,29 +669,34 @@ opensuse-leap-15.6-gcc-debug:
+>    variables:
+>      CONTAINER: opensuse:leap-15.6-x86_64
+>  
+> -opensuse-tumbleweed-clang:
+> -  extends: .clang-x86-64-build
+> +.container-opensuse-tumbleweed-x86_64:
+>    variables:
+>      CONTAINER: opensuse:tumbleweed-x86_64
+> +    XEN_CI_RUN_AFTER_CONTAINER_BUILD: true
+> +  needs:
+> +    - job: container-opensuse-tumbleweed-x86_64
+> +      optional: true
+>    allow_failure: true
+>  
+> +opensuse-tumbleweed-clang:
+> +  extends:
+> +    - .clang-x86-64-build
+> +    - .container-opensuse-tumbleweed-x86_64
+> +
+>  opensuse-tumbleweed-clang-debug:
+> -  extends: .clang-x86-64-build-debug
+> -  variables:
+> -    CONTAINER: opensuse:tumbleweed-x86_64
+> -  allow_failure: true
+> +  extends:
+> +    - .clang-x86-64-build-debug
+> +    - .container-opensuse-tumbleweed-x86_64
+>  
+>  opensuse-tumbleweed-gcc:
+> -  extends: .gcc-x86-64-build
+> -  variables:
+> -    CONTAINER: opensuse:tumbleweed-x86_64
+> -  allow_failure: true
+> +  extends:
+> +    - .gcc-x86-64-build
+> +    - .container-opensuse-tumbleweed-x86_64
+>  
+>  opensuse-tumbleweed-gcc-debug:
+> -  extends: .gcc-x86-64-build-debug
+> -  variables:
+> -    CONTAINER: opensuse:tumbleweed-x86_64
+> -  allow_failure: true
+> +  extends:
+> +    - .gcc-x86-64-build-debug
+> +    - .container-opensuse-tumbleweed-x86_64
+>  
+>  # PowerPC builds (x86 cross)
+>  debian-11-ppc64le-gcc:
+> diff --git a/automation/gitlab-ci/containers.yaml b/automation/gitlab-ci/containers.yaml
+> new file mode 100644
+> index 0000000000..25e8bdc34b
+> --- /dev/null
+> +++ b/automation/gitlab-ci/containers.yaml
+> @@ -0,0 +1,29 @@
+> +.container-build-tmpl:
+> +  stage: containers
+> +  image: docker:stable
+> +  tags:
+> +    - container-builder
+> +  rules:
+> +    - if: $XEN_CI_REBUILD_CONTAINERS
+> +  services:
+> +    - docker:dind
+> +  before_script:
+> +    - apk add make
+> +    - docker info
+> +    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+> +  script:
+> +    - make -C automation/build PUSH=1 REGISTRY=${XEN_REGISTRY} ${CONTAINER/:/\/}
+> +  after_script:
+> +    - docker logout
+> +
+> +container-archlinux-current:
+> +  extends:
+> +    - .container-build-tmpl
+> +  variables:
+> +    CONTAINER: "archlinux:current"
+> +
+> +container-opensuse-tumbleweed-x86_64:
+> +  extends:
+> +    - .container-build-tmpl
+> +  variables:
+> +    CONTAINER: "opensuse:tumbleweed-x86_64"
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 1822e3ea5f..e4d4f1f3c9 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -1,6 +1,16 @@
+> +.test-rules:
+> +  # Only add rules which prevent jobs from been added to the pipeline. They
+> +  # should all have "when: never".
+> +  pre_rules:
+> +    - if: $XEN_CI_REBUILD_CONTAINERS
+> +      when: never
+> +
+>  .test-jobs-common:
+>    stage: test
+>    image: ${XEN_REGISTRY}/${CONTAINER}
+> +  rules:
+> +    - !reference [.test-rules, pre_rules]
+> +    - when: always
+>  
+>  .arm64-test-needs: &arm64-test-needs
+>    - alpine-3.18-arm64-rootfs-export
+> @@ -99,6 +109,7 @@
+>        - '*.dtb'
+>      when: always
+>    rules:
+> +    - !reference [.test-rules, pre_rules]
+>      - if: $XILINX_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
+>    tags:
+>      - xilinx
+> @@ -117,6 +128,7 @@
+>        - '*.log'
+>      when: always
+>    rules:
+> +    - !reference [.test-rules, pre_rules]
+>      - if: $XILINX_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
+>    tags:
+>      - xilinx
+> @@ -136,6 +148,7 @@
+>        - '*.log'
+>      when: always
+>    rules:
+> +    - !reference [.test-rules, pre_rules]
+>      - if: $QUBES_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
+>    tags:
+>      - qubes-hw2
+> -- 
+> 
+> 
+> Anthony Perard | Vates XCP-ng Developer
+> 
+> XCP-ng & Xen Orchestra - Vates solutions
+> 
+> web: https://vates.tech
+> 
 
