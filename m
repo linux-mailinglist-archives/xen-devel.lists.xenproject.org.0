@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDC139D0483
-	for <lists+xen-devel@lfdr.de>; Sun, 17 Nov 2024 16:37:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.838988.1254798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02869D04E7
+	for <lists+xen-devel@lfdr.de>; Sun, 17 Nov 2024 18:47:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839001.1254807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tChK2-0007OW-TJ; Sun, 17 Nov 2024 15:36:22 +0000
+	id 1tCjLq-00059k-SX; Sun, 17 Nov 2024 17:46:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 838988.1254798; Sun, 17 Nov 2024 15:36:22 +0000
+Received: by outflank-mailman (output) from mailman id 839001.1254807; Sun, 17 Nov 2024 17:46:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tChK2-0007Mq-QO; Sun, 17 Nov 2024 15:36:22 +0000
-Received: by outflank-mailman (input) for mailman id 838988;
- Sun, 17 Nov 2024 15:36:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SF4L=SM=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
- id 1tChK1-0007Mi-OW
- for xen-devel@lists.xenproject.org; Sun, 17 Nov 2024 15:36:22 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af2094af-a4f9-11ef-99a3-01e77a169b0f;
- Sun, 17 Nov 2024 16:36:16 +0100 (CET)
-Received: from [192.168.1.219] (unknown [176.206.12.131])
- by support.bugseng.com (Postfix) with ESMTPSA id 643A34EE0754;
- Sun, 17 Nov 2024 16:36:15 +0100 (CET)
+	id 1tCjLq-00057i-Py; Sun, 17 Nov 2024 17:46:22 +0000
+Received: by outflank-mailman (input) for mailman id 839001;
+ Sun, 17 Nov 2024 17:46:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1tCjLo-00057a-Vi
+ for xen-devel@lists.xenproject.org; Sun, 17 Nov 2024 17:46:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tCjLo-009jOw-16;
+ Sun, 17 Nov 2024 17:46:20 +0000
+Received: from [2a02:8012:3a1:0:dc92:b14d:2764:76ac]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tCjLo-009VXh-16;
+ Sun, 17 Nov 2024 17:46:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,100 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af2094af-a4f9-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE2Mi41NS4xMzEuNDciLCJoZWxvIjoic3VwcG9ydC5idWdzZW5nLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImFmMjA5NGFmLWE0ZjktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxODU3Nzc2Ljc0MDA5LCJzZW5kZXIiOiJyb2JlcnRvLmJhZ25hcmFAYnVnc2VuZy5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1731857775; bh=hOZZSHXf009ZtuzsFIEeXq/xfLhI6HSQhbCZ3ObAnRs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dK6fcVPXkx/d54/CQK99X/wTM5TvcbZTrg0GRGQinn7TfKDcLpChAQ8cErJ+8MSTa
-	 5lJIRpMwsF1dIWagb4UdXMgek71nTeaBIUVWM4j11JN5X7iNViSdsrbEYqo6XwqtLe
-	 B79qQkzqlZsHhO02wjBbE3piANC/GyyLXuJfu9ih/5RCN5EViTJpTsIUURfeBmSIVq
-	 xZTv1+uJlHBI66jxKWd6rT+SfZEb4UAytZcC/3VDVvQ4aGoa+QvA5SDtcAXcJ5n5fW
-	 hkvEatI4FonluGvsuJTgF7JcwGDXA6andC6evfiUBPZH4G07/ZDTYR7XycL4bJcksJ
-	 rvpojaExeXRMw==
-Message-ID: <6c8a3461-a412-4cf4-91a0-c799aa90d62c@bugseng.com>
-Date: Sun, 17 Nov 2024 16:36:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=HxHel5mrBc81e+58U8A+t9kgXtw76FWKgsI0PpPVX10=; b=MZN4HZjiZ4UdFM+3Kc2kZjcLVP
+	/u2F+IsaSHbxPP5MAxP+Kn9eQdXLsjJAquN6LNKQRRJTjWRMMTgEvDZJcxSuW1rieuKTDG3A7z4jC
+	aK/Q2KYl/o+MnyXzfRg3Q6BKD0ds1J4EjGNIexMUgoM//nDIpyf4TPb5LrUrQA+pDR8k=;
+Message-ID: <e14ff136-f74c-43b6-aa7d-1c88f56f805d@xen.org>
+Date: Sun, 17 Nov 2024 17:46:18 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: increase identifiers length to 64
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- julien@xen.org, roger.pau@citrix.com, bertrand.marquis@arm.com,
- michal.orzel@amd.com
-References: <alpine.DEB.2.22.394.2411151617580.1160299@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Roberto Bagnara <roberto.bagnara@bugseng.com>
-In-Reply-To: <alpine.DEB.2.22.394.2411151617580.1160299@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH 2/5] arm/setup: Move MMU specific extern declarations to
+ mmu/mm.h
+Content-Language: en-GB
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20241115105036.218418-1-luca.fancellu@arm.com>
+ <20241115105036.218418-3-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20241115105036.218418-3-luca.fancellu@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2024-11-16 01:23, Stefano Stabellini wrote:
-> Currently the identifiers characters limit is arbitrarily set to 40. It
-> causes a few violations as we have some identifiers longer than 40.
-> 
-> Increase the limit to another rather arbitrary limit of 64. Thanks to
-> this change, we remove a few violations, getting us one step closer to
-> marking Rules 5.2 and 5.4 as clean.
-> 
-> Also update the ECLAIR config that was actually set to 63 as character
-> limit.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
-> index 86e9a79b52..8fb1778bce 100644
-> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
-> @@ -155,8 +155,8 @@
->   -doc_end
->   
->   -doc_begin="See Section \"4.3 Identifiers\" of "GCC_MANUAL"."
-> --config=STD.extidsig, behavior+={c99, GCC_ARM64, "63"}
-> --config=STD.extidsig, behavior+={c99, GCC_X86_64, "63"}
-> +-config=STD.extidsig, behavior+={c99, GCC_ARM64, "64"}
-> +-config=STD.extidsig, behavior+={c99, GCC_X86_64, "64"}
->   -doc_end
->   
->   #
-> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> index 4a144da8d6..3ed5801bff 100644
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -154,7 +154,7 @@ maintainers if you want to suggest a change.
->      * - `Rule 5.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_01_2.c>`_
->        - Required
->        - External identifiers shall be distinct
-> -     - The Xen characters limit for identifiers is 40. Public headers
-> +     - The Xen characters limit for identifiers is 64. Public headers
->          (xen/include/public/) are allowed to retain longer identifiers
->          for backward compatibility.
->   
-> @@ -162,7 +162,7 @@ maintainers if you want to suggest a change.
->        - Required
->        - Identifiers declared in the same scope and name space shall be
->          distinct
-> -     - The Xen characters limit for identifiers is 40. Public headers
-> +     - The Xen characters limit for identifiers is 64. Public headers
->          (xen/include/public/) are allowed to retain longer identifiers
->          for backward compatibility.
->   
-> @@ -177,7 +177,7 @@ maintainers if you want to suggest a change.
->      * - `Rule 5.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_04.c>`_
->        - Required
->        - Macro identifiers shall be distinct
-> -     - The Xen characters limit for macro identifiers is 40. Public
-> +     - The Xen characters limit for macro identifiers is 64. Public
->          headers (xen/include/public/) are allowed to retain longer
->          identifiers for backward compatibility.
+Hi Luca,
 
-While for external identifiers 64 can be considered as random as 63,
-for internal identifiers and macro names 63, which is what the C99
-standard guarantees, is better than 64 (which is one more than the
-standard guarantees).
+On 15/11/2024 10:50, Luca Fancellu wrote:
+> Move some extern declarations related to MMU structures and define
+> from asm/setup.h to asm/mm.h, in order to increase encapsulation and
 
-Kind regards,
+You are moving them to asm/mmu/mm.h. But I think I would prefer if they 
+are moved to asm/mmu/setup.h because boot_* are not supposed to be used 
+outside of boot. So it is clearer if they are still defined in a setup.h.
 
-    Roberto
+> allow the MPU part to build, since it has no clue about them.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+>   xen/arch/arm/include/asm/mmu/mm.h | 11 +++++++++++
+>   xen/arch/arm/include/asm/setup.h  | 11 -----------
+>   2 files changed, 11 insertions(+), 11 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm/mmu/mm.h
+> index c5e03a66bf9e..69b72d671012 100644
+> --- a/xen/arch/arm/include/asm/mmu/mm.h
+> +++ b/xen/arch/arm/include/asm/mmu/mm.h
+> @@ -12,6 +12,17 @@ extern vaddr_t directmap_virt_start;
+>   extern unsigned long directmap_base_pdx;
+>   #endif
+>   
+> +extern lpae_t boot_pgtable[XEN_PT_LPAE_ENTRIES];
+> +
+> +#ifdef CONFIG_ARM_64
+> +extern lpae_t boot_first[XEN_PT_LPAE_ENTRIES];
+> +extern lpae_t boot_first_id[XEN_PT_LPAE_ENTRIES];
+> +#endif
+> +extern lpae_t boot_second[XEN_PT_LPAE_ENTRIES];
+> +extern lpae_t boot_second_id[XEN_PT_LPAE_ENTRIES];
+> +extern lpae_t boot_third[XEN_PT_LPAE_ENTRIES * XEN_NR_ENTRIES(2)];
+> +extern lpae_t boot_third_id[XEN_PT_LPAE_ENTRIES];
+> +
+>   #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+>   
+>   /*
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index 64c227d171fc..3f5c6cf9a08b 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -65,17 +65,6 @@ int map_irq_to_domain(struct domain *d, unsigned int irq,
+>   int map_range_to_domain(const struct dt_device_node *dev,
+>                           uint64_t addr, uint64_t len, void *data);
+>   
+> -extern lpae_t boot_pgtable[XEN_PT_LPAE_ENTRIES];
+> -
+> -#ifdef CONFIG_ARM_64
+> -extern lpae_t boot_first[XEN_PT_LPAE_ENTRIES];
+> -extern lpae_t boot_first_id[XEN_PT_LPAE_ENTRIES];
+> -#endif
+> -extern lpae_t boot_second[XEN_PT_LPAE_ENTRIES];
+> -extern lpae_t boot_second_id[XEN_PT_LPAE_ENTRIES];
+> -extern lpae_t boot_third[XEN_PT_LPAE_ENTRIES * XEN_NR_ENTRIES(2)];
+> -extern lpae_t boot_third_id[XEN_PT_LPAE_ENTRIES];
+> -
+>   /* Find where Xen will be residing at runtime and return a PT entry */
+>   lpae_t pte_of_xenaddr(vaddr_t va);
+
+Shouldn't we move this function as well?
+
+Cheers,
+
+-- 
+Julien Grall
 
