@@ -2,59 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B6239D0ADC
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:28:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839106.1254906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 825F49D0B35
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:49:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839115.1254925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCx64-0001XO-8T; Mon, 18 Nov 2024 08:27:00 +0000
+	id 1tCxRx-0005Js-Bc; Mon, 18 Nov 2024 08:49:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839106.1254906; Mon, 18 Nov 2024 08:27:00 +0000
+Received: by outflank-mailman (output) from mailman id 839115.1254925; Mon, 18 Nov 2024 08:49:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCx64-0001Uk-5Q; Mon, 18 Nov 2024 08:27:00 +0000
-Received: by outflank-mailman (input) for mailman id 839106;
- Mon, 18 Nov 2024 08:26:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rD+n=SN=linux.ibm.com=hca@srs-se1.protection.inumbo.net>)
- id 1tCx62-0001Ue-Tr
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:26:58 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de743a4d-a586-11ef-a0c8-8be0dac302b0;
- Mon, 18 Nov 2024 09:26:55 +0100 (CET)
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AHJiO3Y023687;
- Mon, 18 Nov 2024 08:26:16 GMT
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 42xgtt0eh7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Nov 2024 08:26:15 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 4AI73j1E030931;
- Mon, 18 Nov 2024 08:26:14 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 42y63y27mu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Nov 2024 08:26:14 +0000
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com
- [10.20.54.106])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 4AI8QAR549479982
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 18 Nov 2024 08:26:10 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BD6AD20043;
- Mon, 18 Nov 2024 08:26:10 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A867E20040;
- Mon, 18 Nov 2024 08:26:06 +0000 (GMT)
-Received: from osiris (unknown [9.171.77.223])
- by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Mon, 18 Nov 2024 08:26:06 +0000 (GMT)
+	id 1tCxRx-0005FZ-6j; Mon, 18 Nov 2024 08:49:37 +0000
+Received: by outflank-mailman (input) for mailman id 839115;
+ Mon, 18 Nov 2024 08:49:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cNZr=SN=bounce.vates.tech=bounce-md_30504962.673aff99.v1-5969053c717d4bfb859f5f7a4154c65f@srs-se1.protection.inumbo.net>)
+ id 1tCxRv-0005D3-2Z
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:49:35 +0000
+Received: from mail180-8.suw31.mandrillapp.com
+ (mail180-8.suw31.mandrillapp.com [198.2.180.8])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 061e5204-a58a-11ef-99a3-01e77a169b0f;
+ Mon, 18 Nov 2024 09:49:30 +0100 (CET)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-8.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4XsLsP1JPtz3sNTdQ
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 08:49:29 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 5969053c717d4bfb859f5f7a4154c65f; Mon, 18 Nov 2024 08:49:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,147 +42,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de743a4d-a586-11ef-a0c8-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE0OC4xNjMuMTU4LjUiLCJoZWxvIjoibXgwYi0wMDFiMmQwMS5wcGhvc3RlZC5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6ImRlNzQzYTRkLWE1ODYtMTFlZi1hMGM4LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxOTE4NDE2LjA5Mjg3NCwic2VuZGVyIjoiaGNhQGxpbnV4LmlibS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=pofVBIDpbmPXxKdXBZzlW6SKJ1mpQg
-	5f+nyOC0P54ZU=; b=pVJ5a4SbiQLc7KmL6NMVUat1TeAb+E4P6v1BT086o1mEhk
-	asPz+d9pnH3oUetVu+XCwbjmIJgCChQ2Yg76ElBtpMc3MPIe4GEIJkdBOh3EDOTs
-	BshLlGoNMECAtRDAXjrNjk0/DJ4p9T1LW6K46OwdwtMNuLDXUx7tw7C0oS59z+J9
-	QShMh32WGNHKvTgEgpik3EK5hVK4TsghRPVpOZt4uDmXgH2LYgfrkGGFgYTal2qH
-	dz0ScnJgPbYohwDb0fe9yXNM0o6w8EzUNqyOgMmUN0w1gT6xXC0tgw+yBkjkz/Fh
-	q242Ut9KG7OxmdBC6tktol2tQuFTw331MM4YUGlg==
-Date: Mon, 18 Nov 2024 09:26:05 +0100
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-        Jozsef Kadlecsik <kadlec@netfilter.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Julia Lawall <Julia.Lawall@inria.fr>,
-        Nicolas Palix <nicolas.palix@imag.fr>, Daniel Mack <daniel@zonque.org>,
-        Haojian Zhuang <haojian.zhuang@gmail.com>,
-        Robert Jarzmik <robert.jarzmik@free.fr>,
-        Russell King <linux@armlinux.org.uk>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Ofir Bitton <obitton@habana.ai>,
-        Oded Gabbay <ogabbay@kernel.org>,
-        Lucas De Marchi <lucas.demarchi@intel.com>,
-        Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-        Rodrigo Vivi <rodrigo.vivi@intel.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jeroen de Borst <jeroendb@google.com>,
-        Praveen Kaligineedi <pkaligineedi@google.com>,
-        Shailend Chand <shailend@google.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        James Smart <james.smart@broadcom.com>,
-        Dick Kennedy <dick.kennedy@broadcom.com>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Jack Wang <jinpu.wang@cloud.ionos.com>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Johan Hedberg <johan.hedberg@gmail.com>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
-        Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>,
-        Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>,
-        Joe Lawrence <joe.lawrence@redhat.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        Russell King <linux+etnaviv@armlinux.org.uk>,
-        Christian Gmeiner <christian.gmeiner@gmail.com>,
-        Louis Peens <louis.peens@corigine.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Naveen N Rao <naveen@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org, cocci@inria.fr,
-        linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-        linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath11k@lists.infradead.org, linux-mm@kvack.org,
-        linux-bluetooth@vger.kernel.org, linux-staging@lists.linux.dev,
-        linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org,
-        live-patching@vger.kernel.org, linux-sound@vger.kernel.org,
-        etnaviv@lists.freedesktop.org, oss-drivers@corigine.com,
-        linuxppc-dev@lists.ozlabs.org,
-        Anna-Maria Behnsen <anna-maria@linutronix.de>
-Subject: Re: [PATCH v2 04/21] s390: kernel: Convert timeouts to use
- secs_to_jiffies()
-Message-ID: <20241118082605.17002-A-hca@linux.ibm.com>
-References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
- <20241115-converge-secs-to-jiffies-v2-4-911fb7595e79@linux.microsoft.com>
+X-Inumbo-ID: 061e5204-a58a-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE4MC44IiwiaGVsbyI6Im1haWwxODAtOC5zdXczMS5tYW5kcmlsbGFwcC5jb20ifQ==
+X-Custom-Transaction: eyJpZCI6IjA2MWU1MjA0LWE1OGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTE5NzcwLjc0ODE5Niwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3M2FmZjk5LnYxLTU5NjkwNTNjNzE3ZDRiZmI4NTlmNWY3YTQxNTRjNjVmQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1731919769; x=1732180269;
+	bh=OHbPZUdflYInf3pACcvlIdJaYJKwR1NVIIEYSmzoDXE=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=IkMzdBlK5IyGcizR/Wre563ZV3WIhZujNCHxh5ZW+zM4psW0C5Gxb0Wd4N0tGhPy1
+	 oE9JzC9y/F/5FUxS1Kj1E4OwNWMvn7MzYpJBfTdmloLJtpah9bIMVps/B/91jxZiPj
+	 nItJp68f3bFyx4Rzo7jv3sOjV1WggGueqrrBm7yTDBt4Fkri05y6kDU/tlIYIeeoVa
+	 a+5ofvkvbJWrnCtC9b9tZXOmO+sMKEdF2hb60lJZpV4h1a52XYq+uxmROTd9541PWj
+	 S2hn3+6U7AAbisGtcVLJNX65Uy41UBx01jFzgw2M8qESTDzaATIMYlixUa9C/eRF6X
+	 SlRRoLTiXGnCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1731919769; x=1732180269; i=ngoc-tu.dinh@vates.tech;
+	bh=OHbPZUdflYInf3pACcvlIdJaYJKwR1NVIIEYSmzoDXE=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=0q5lwBBXvABTG7aqF6HlA5nNdc7EXhJF+ILJay9j09VfEXZLTidj2SCqsMOwkyRtO
+	 GeZe2A1c90XGuPy0mSpMTF/SzOiZ8dl9TrmrNiNiKRYNnqPRmlhLO5vJvhNEDjWQCb
+	 0L08ZQzY+2wsPxg4QbwtNiIuMcWVPFVAd4yblizRbD0jlQpajj/SYEwMnS8Lor2uN1
+	 +BhGqXqVtjcaF+vdYd9OuoWUwTWPDgSxPjDoogU1J5swfUbmWn3Z51t7D8sBmBI+4T
+	 p8sg3qVjOFZpENO8QAR4zRBBqb7rfVNLQbcSu6vPAJF247yBgnlDM9JnC73jHS2YlF
+	 cU0mYKSAJcX+A==
+From: ngoc-tu.dinh@vates.tech
+Subject: =?utf-8?Q?[PATCH=202/4]=20x86:=20Add=20architectural=20LBR=20declarations?=
+X-Mailer: git-send-email 2.43.0
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1731919768728
+To: xen-devel@lists.xenproject.org
+Cc: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Message-Id: <20241118084914.22268-3-ngoc-tu.dinh@vates.tech>
+In-Reply-To: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
+References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.5969053c717d4bfb859f5f7a4154c65f?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241118:md
+Date: Mon, 18 Nov 2024 08:49:29 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241115-converge-secs-to-jiffies-v2-4-911fb7595e79@linux.microsoft.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: QBYvLy3JNa8evFseixOVfcUMyMppMmNG
-X-Proofpoint-ORIG-GUID: QBYvLy3JNa8evFseixOVfcUMyMppMmNG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
- definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 clxscore=1011 phishscore=0
- mlxscore=0 malwarescore=0 mlxlogscore=858 adultscore=0 priorityscore=1501
- bulkscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
- definitions=main-2411180066
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 15, 2024 at 09:26:21PM +0000, Easwar Hariharan wrote:
-> Changes made with the following Coccinelle rules:
-> 
-> @@ constant C; @@
-> 
-> - msecs_to_jiffies(C * 1000)
-> + secs_to_jiffies(C)
-> 
-> @@ constant C; @@
-> 
-> - msecs_to_jiffies(C * MSEC_PER_SEC)
-> + secs_to_jiffies(C)
-> 
-> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> ---
->  arch/s390/kernel/lgr.c      | 3 ++-
->  arch/s390/kernel/time.c     | 4 ++--
->  arch/s390/kernel/topology.c | 2 +-
->  3 files changed, 5 insertions(+), 4 deletions(-)
+From: Tu Dinh <ngoc-tu.dinh@vates.tech>
 
-...
+Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
+---
+ xen/arch/x86/include/asm/msr-index.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-> diff --git a/arch/s390/kernel/lgr.c b/arch/s390/kernel/lgr.c
-> index 6652e54cf3db9fbdd8cfb06f8a0dc1d4c05ae7d7..68021cb38574b122bbe3d9f70e9168305360017b 100644
-> --- a/arch/s390/kernel/lgr.c
-> +++ b/arch/s390/kernel/lgr.c
-> @@ -166,7 +166,8 @@ static struct timer_list lgr_timer;
->   */
->  static void lgr_timer_set(void)
->  {
-> -	mod_timer(&lgr_timer, jiffies + msecs_to_jiffies(LGR_TIMER_INTERVAL_SECS * MSEC_PER_SEC));
-> +	mod_timer(&lgr_timer,
-> +		  jiffies + secs_to_jiffies(LGR_TIMER_INTERVAL_SECS));
->  }
+diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+index 9cdb5b2625..867deab3c6 100644
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -304,6 +304,17 @@
+ #define MSR_IA32_LASTINTFROMIP		0x000001dd
+ #define MSR_IA32_LASTINTTOIP		0x000001de
+ 
++/* Architectural LBR state MSRs */
++#define MSR_IA32_LASTBRANCH_CTL		0x000014ce
++#define  LASTBRANCH_CTL_LBREN		(1<<0) /* Enable LBR recording */
++#define  LASTBRANCH_CTL_VALID		_AC(0x7f000f, ULL)
++#define MSR_IA32_LASTBRANCH_DEPTH	0x000014cf
++#define MSR_IA32_LER_INFO		0x000001e0
++#define MSR_IA32_LASTBRANCH_0_INFO	0x00001200
++#define MSR_IA32_LASTBRANCH_0_FROM_IP	0x00001500
++#define MSR_IA32_LASTBRANCH_0_TO_IP	0x00001600
++#define MAX_MSR_ARCH_LASTBRANCH_FROM_TO	64
++
+ #define MSR_IA32_POWER_CTL		0x000001fc
+ 
+ #define MSR_IA32_MTRR_PHYSBASE(n)   (0x00000200 + 2 * (n))
+-- 
+2.43.0
 
-Please don't add a new line break, especially not if the new line
-would be shorter than the old one.
+
+
+Ngoc Tu Dinh | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
