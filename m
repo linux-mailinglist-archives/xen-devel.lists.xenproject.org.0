@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD4309D0B37
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:50:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839117.1254940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C469D0B38
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:50:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839118.1254959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCxRy-0005bX-2P; Mon, 18 Nov 2024 08:49:38 +0000
+	id 1tCxS1-0006E0-CU; Mon, 18 Nov 2024 08:49:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839117.1254940; Mon, 18 Nov 2024 08:49:38 +0000
+Received: by outflank-mailman (output) from mailman id 839118.1254959; Mon, 18 Nov 2024 08:49:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCxRx-0005VK-Si; Mon, 18 Nov 2024 08:49:37 +0000
-Received: by outflank-mailman (input) for mailman id 839117;
- Mon, 18 Nov 2024 08:49:36 +0000
+	id 1tCxS1-0006B4-5T; Mon, 18 Nov 2024 08:49:41 +0000
+Received: by outflank-mailman (input) for mailman id 839118;
+ Mon, 18 Nov 2024 08:49:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wasq=SN=bounce.vates.tech=bounce-md_30504962.673aff99.v1-b69a6f8cf02f44949a0860350e2ff77a@srs-se1.protection.inumbo.net>)
- id 1tCxRw-0005D3-Nn
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:49:36 +0000
+ <SRS0=Y0Lw=SN=bounce.vates.tech=bounce-md_30504962.673aff9a.v1-6f3315d8734646bca3549145d22f803a@srs-se1.protection.inumbo.net>)
+ id 1tCxRz-0005D3-FH
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:49:39 +0000
 Received: from mail136-26.atl41.mandrillapp.com
  (mail136-26.atl41.mandrillapp.com [198.2.136.26])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 063fdedf-a58a-11ef-99a3-01e77a169b0f;
- Mon, 18 Nov 2024 09:49:30 +0100 (CET)
+ id 0904e8da-a58a-11ef-99a3-01e77a169b0f;
+ Mon, 18 Nov 2024 09:49:35 +0100 (CET)
 Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail136-26.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4XsLsP1tG0zJKF3ZY
- for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 08:49:29 +0000 (GMT)
+ 4XsLsQ1YgyzJKF3Zk
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 08:49:30 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- b69a6f8cf02f44949a0860350e2ff77a; Mon, 18 Nov 2024 08:49:29 +0000
+ 6f3315d8734646bca3549145d22f803a; Mon, 18 Nov 2024 08:49:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,269 +43,537 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 063fdedf-a58a-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 0904e8da-a58a-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjEzNi4yNiIsImhlbG8iOiJtYWlsMTM2LTI2LmF0bDQxLm1hbmRyaWxsYXBwLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjA2M2ZkZWRmLWE1OGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTE5NzcxLjA3NzE4LCJzZW5kZXIiOiJib3VuY2UtbWRfMzA1MDQ5NjIuNjczYWZmOTkudjEtYjY5YTZmOGNmMDJmNDQ5NDlhMDg2MDM1MGUyZmY3N2FAYm91bmNlLnZhdGVzLnRlY2giLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Custom-Transaction: eyJpZCI6IjA5MDRlOGRhLWE1OGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTE5Nzc1LjY3NDU0NCwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3M2FmZjlhLnYxLTZmMzMxNWQ4NzM0NjQ2YmNhMzU0OTE0NWQyMmY4MDNhQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1731919769; x=1732180269;
-	bh=r0skW4u++Ca1L9bVDD6J0qBy4MGffGcnZfM3V9qqDH4=;
+	s=mte1; t=1731919770; x=1732180270;
+	bh=jQsMIdFlhvKVHyeb3pcbSs0+jZjMBHrB3oPFmg+d7hA=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=CUSe+Ir4k3tMdpAj/Dd/Rbeja0nVh2sGHOLkPgH0I6pObb/A2ojIVqpI155JNEJTN
-	 mu9kMzEHdWGdxgy7vhEHQdoM8XK0pvqKw/dvWDvmhiB+ke4cmT7cBtwYEBBeG6jL+9
-	 hnsQyXfjzwsx1oy2ZpI5Ywx21CKQfYS+JciuVP3DetsCiz6BBlNxOBRsLm+/DoECri
-	 rvZgw4bmGQuARrTy5TN3G/PdjMNJs44ljPN20UcIPgtdIbhDGRBFRMWpjyCWrOdkvb
-	 cn5Wrno7RFSCYaTrYb6WUrydRvQClvcwctR6Olh7tm1eP2MA+1ovCdsPG3SYtGuc2q
-	 mVlvtwq1h7yog==
+	b=B2BS6yCKc3UQ9TtjZditDUEb4c26+eAeP+macp0aqdsMI6kG9wC041qCvitirGoVr
+	 mOt3/Th8GwKN16K7tWwwPcMVnKzCd3UmuSd5pvSvd46OqwWuvx+G4em1+s9THkP9nv
+	 9ET1TK8gWU76eS3Ckf3OcjTts36NoNGFnSDRFF25xW8rzhX+vh1cVybW4G2hGp5gXa
+	 fPho6sNbF9fFAk2O0PxTOBZydF/0JkRIc1Ryuxg7iIqEv1Az/Q2cMGu6oV998myk/B
+	 994zdLBNaDN1xeWxI7A3oElneFm/mALssU/8F3Gry8Fi+jbIhb80rIDrL1XTkW6i1F
+	 juZc+3wI+88Gg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1731919769; x=1732180269; i=ngoc-tu.dinh@vates.tech;
-	bh=r0skW4u++Ca1L9bVDD6J0qBy4MGffGcnZfM3V9qqDH4=;
+	t=1731919770; x=1732180270; i=ngoc-tu.dinh@vates.tech;
+	bh=jQsMIdFlhvKVHyeb3pcbSs0+jZjMBHrB3oPFmg+d7hA=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=I1Rjv4A+RIHq82t//DCkW/wl3q9n90J8I02rPWxgjhLlT59UALbxKz9A43kr80FA3
-	 Hg0OUCVD9eCSMhwtc0a0MjEHQMfhZG6CQZCPwuYEbEVz7iNljd81OCf6VrQoqzN8LI
-	 06Nla8fgKOgO6aLi2vLdjSv1mTyZlidpU0NMM8pPde1sJFFRAVop22d3jFcxX+bTYI
-	 maEi5WBjZgjhYYgVv0ig2F9rBy+bQT14gSlSFZH3k1cU51m4zLT1HzzQYwnzCz47f1
-	 a0Y/shOW4MrLYai7/Pos21hMaxK8jpmI6xu8fnKzZAi2DEfPSixhRNL2DBb6xcA4wU
-	 UWkAPaImYTWfA==
+	b=d2IKE3PLiO71PgI1Nr5BdvHpaFXKEqZipsvlFV/kjGx2YXSraExqN38KYcmiYWKvF
+	 GltDqabLk3zJeV2cak0SJ2a8ReQQWqi56Xc8xMT8AbZplvNJZtfET6TCsea26fD6UT
+	 1hHHyZB+OtORqbMLvKpmS3J9yg9R42+E6LqIOhboWLSs9puVDAUzyuBfXMt0JsXWnA
+	 PwLQkeKf5AcjL3Zpdhas74QXnbeZUKiq9ANOUuv7Z/vR/zvzBpLeRA7idZ11e/JA/m
+	 Yhjo5iRXySGEY0PrU65/UqsIFdRTOvk0sainQ9klrkDmMfBx2O64B7eeSWvq88qDlZ
+	 LcqXRblPkKNLg==
 From: ngoc-tu.dinh@vates.tech
-Subject: =?utf-8?Q?[PATCH=201/4]=20x86:=20Add=20Intel=20architectural=20LBR=20featureset=20bits?=
+Subject: =?utf-8?Q?[PATCH=204/4]=20x86/vmx:=20Virtualize=20architectural=20LBRs?=
 X-Mailer: git-send-email 2.43.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1731919768581
+X-Bm-Transport-Timestamp: 1731919769554
 To: xen-devel@lists.xenproject.org
 Cc: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Message-Id: <20241118084914.22268-2-ngoc-tu.dinh@vates.tech>
+Message-Id: <20241118084914.22268-5-ngoc-tu.dinh@vates.tech>
 In-Reply-To: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
 References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b69a6f8cf02f44949a0860350e2ff77a?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6f3315d8734646bca3549145d22f803a?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20241118:md
-Date: Mon, 18 Nov 2024 08:49:29 +0000
+Date: Mon, 18 Nov 2024 08:49:30 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
 From: Tu Dinh <ngoc-tu.dinh@vates.tech>
 
-Expose ARCH_LBR feature to guests.
+Virtual architectural LBRs work in guest mode only, using the "load
+guest IA32_LBR_CTL" and "clear IA32_LBR_CTL" VMX controls.
 
-Extend CPU featureset with 3 words for CPUID leaf 0x1c.
+Intercept writes to MSR_IA32_LASTBRANCH_{CTL,DEPTH} to inject LBR MSRs
+into guest. MSR_IA32_LASTBRANCH_DEPTH is only allowed to be equal to
+that of the host's.
 
 Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
 ---
- tools/libs/guest/xg_cpuid_x86.c             |  2 +-
- tools/misc/xen-cpuid.c                      |  3 ++
- xen/arch/x86/cpu-policy.c                   |  3 ++
- xen/arch/x86/cpu/common.c                   |  7 ++++
- xen/include/public/arch-x86/cpufeatureset.h | 28 ++++++++++++++-
- xen/include/xen/lib/x86/cpu-policy.h        | 38 ++++++++++++++++++++-
- xen/lib/x86/cpuid.c                         |  6 ++++
- 7 files changed, 84 insertions(+), 3 deletions(-)
+ xen/arch/x86/cpu-policy.c               |   3 +
+ xen/arch/x86/hvm/vmx/vmcs.c             |  11 +-
+ xen/arch/x86/hvm/vmx/vmx.c              | 269 +++++++++++++++++-------
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h |   8 +
+ 4 files changed, 211 insertions(+), 80 deletions(-)
 
-diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
-index 4453178100..64d9baa538 100644
---- a/tools/libs/guest/xg_cpuid_x86.c
-+++ b/tools/libs/guest/xg_cpuid_x86.c
-@@ -656,7 +656,7 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
-             p->policy.feat.mpx = test_bit(X86_FEATURE_MPX, host_featureset);
-         }
- 
--        p->policy.basic.max_leaf = min(p->policy.basic.max_leaf, 0xdu);
-+        p->policy.basic.max_leaf = min(p->policy.basic.max_leaf, 0x1cu);
-         p->policy.feat.max_subleaf = 0;
-         p->policy.extd.max_leaf = min(p->policy.extd.max_leaf, 0x8000001c);
-     }
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index 4c4593528d..4f0fb0a6ea 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -37,6 +37,9 @@ static const struct {
-     { "CPUID 0x00000007:1.edx",     "7d1" },
-     { "MSR_ARCH_CAPS.lo",         "m10Al" },
-     { "MSR_ARCH_CAPS.hi",         "m10Ah" },
-+    { "CPUID 0x0000001c.eax",       "1Ca" },
-+    { "CPUID 0x0000001c.ebx",       "1Cb" },
-+    { "CPUID 0x0000001c.ecx",       "1Cc" },
- };
- 
- #define COL_ALIGN "24"
 diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index 78bc9872b0..cf6b212fb6 100644
+index 2ac76eb058..9e78273a79 100644
 --- a/xen/arch/x86/cpu-policy.c
 +++ b/xen/arch/x86/cpu-policy.c
-@@ -271,6 +271,8 @@ static void recalculate_misc(struct cpu_policy *p)
+@@ -788,6 +788,9 @@ static void __init calculate_hvm_max_policy(void)
  
-     p->basic.raw[0xc] = EMPTY_LEAF;
- 
-+    zero_leaves(p->basic.raw, 0xe, 0x1b);
+         if ( !cpu_has_vmx_xsaves )
+             __clear_bit(X86_FEATURE_XSAVES, fs);
 +
-     p->extd.e1d &= ~CPUID_COMMON_1D_FEATURES;
++        if ( !cpu_has_vmx_guest_lbr_ctl )
++            __clear_bit(X86_FEATURE_ARCH_LBR, fs);
+     }
  
-     /* Most of Power/RAS hidden from guests. */
-@@ -303,6 +305,7 @@ static void recalculate_misc(struct cpu_policy *p)
-         zero_leaves(p->basic.raw, 0x2, 0x3);
-         memset(p->cache.raw, 0, sizeof(p->cache.raw));
-         zero_leaves(p->basic.raw, 0x9, 0xa);
-+        p->basic.raw[0x1c] = EMPTY_LEAF;
+     if ( test_bit(X86_FEATURE_ARCH_LBR, fs) )
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index 147e998371..a16daad78a 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -203,6 +203,7 @@ static void __init vmx_display_features(void)
+     P(cpu_has_vmx_bus_lock_detection, "Bus Lock Detection");
+     P(cpu_has_vmx_notify_vm_exiting, "Notify VM Exit");
+     P(cpu_has_vmx_virt_spec_ctrl, "Virtualize SPEC_CTRL");
++    P(cpu_has_vmx_guest_lbr_ctl, "Architectural LBR virtualization");
+ #undef P
  
-         p->extd.vendor_ebx = p->basic.vendor_ebx;
-         p->extd.vendor_ecx = p->basic.vendor_ecx;
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index 067d855bad..4c8eb188e9 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -505,6 +505,13 @@ static void generic_identify(struct cpuinfo_x86 *c)
- 			    &c->x86_capability[FEATURESET_Da1],
- 			    &tmp, &tmp, &tmp);
+     if ( !printed )
+@@ -448,7 +449,8 @@ static int vmx_init_vmcs_config(bool bsp)
  
-+	if (c->cpuid_level >= 0x1c)
-+		cpuid(0x1c,
-+			  &c->x86_capability[FEATURESET_1Ca],
-+			  &c->x86_capability[FEATURESET_1Cb],
-+			  &c->x86_capability[FEATURESET_1Cc],
-+			  &tmp);
+     min = VM_EXIT_ACK_INTR_ON_EXIT;
+     opt = (VM_EXIT_SAVE_GUEST_PAT | VM_EXIT_LOAD_HOST_PAT |
+-           VM_EXIT_LOAD_HOST_EFER | VM_EXIT_CLEAR_BNDCFGS);
++           VM_EXIT_LOAD_HOST_EFER | VM_EXIT_CLEAR_BNDCFGS |
++           VM_EXIT_CLEAR_GUEST_LBR_CTL);
+     min |= VM_EXIT_IA32E_MODE;
+     _vmx_vmexit_control = adjust_vmx_controls(
+         "VMExit Control", min, opt, MSR_IA32_VMX_EXIT_CTLS, &mismatch);
+@@ -489,7 +491,7 @@ static int vmx_init_vmcs_config(bool bsp)
+ 
+     min = 0;
+     opt = (VM_ENTRY_LOAD_GUEST_PAT | VM_ENTRY_LOAD_GUEST_EFER |
+-           VM_ENTRY_LOAD_BNDCFGS);
++           VM_ENTRY_LOAD_BNDCFGS | VM_ENTRY_LOAD_GUEST_LBR_CTL);
+     _vmx_vmentry_control = adjust_vmx_controls(
+         "VMEntry Control", min, opt, MSR_IA32_VMX_ENTRY_CTLS, &mismatch);
+ 
+@@ -1329,6 +1331,9 @@ static int construct_vmcs(struct vcpu *v)
+               | (paging_mode_hap(d) ? 0 : (1U << X86_EXC_PF))
+               | (v->arch.fully_eager_fpu ? 0 : (1U << X86_EXC_NM));
+ 
++    if ( cpu_has_vmx_guest_lbr_ctl )
++        __vmwrite(GUEST_LBR_CTL, 0);
 +
- 	if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability))
- 		rdmsr(MSR_ARCH_CAPABILITIES,
- 		      c->x86_capability[FEATURESET_m10Al],
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 8fa3fb711a..9304856fba 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -284,7 +284,7 @@ XEN_CPUFEATURE(SERIALIZE,     9*32+14) /*A  SERIALIZE insn */
- XEN_CPUFEATURE(HYBRID,        9*32+15) /*   Heterogeneous platform */
- XEN_CPUFEATURE(TSXLDTRK,      9*32+16) /*a  TSX load tracking suspend/resume insns */
- XEN_CPUFEATURE(PCONFIG,       9*32+18) /*   PCONFIG instruction */
--XEN_CPUFEATURE(ARCH_LBR,      9*32+19) /*   Architectural Last Branch Record */
-+XEN_CPUFEATURE(ARCH_LBR,      9*32+19) /*S  Architectural Last Branch Record */
- XEN_CPUFEATURE(CET_IBT,       9*32+20) /*   CET - Indirect Branch Tracking */
- XEN_CPUFEATURE(AMX_BF16,      9*32+22) /*   AMX BFloat16 instruction */
- XEN_CPUFEATURE(AVX512_FP16,   9*32+23) /*A  AVX512 FP16 instructions */
-@@ -379,6 +379,32 @@ XEN_CPUFEATURE(RFDS_CLEAR,         16*32+28) /*!A| Register File(s) cleared by V
+     if ( cpu_has_vmx_notify_vm_exiting )
+         __vmwrite(NOTIFY_WINDOW, vm_notify_window);
  
- /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.edx, word 17 */
+@@ -2087,6 +2092,8 @@ void vmcs_dump_vcpu(struct vcpu *v)
+            vmr32(GUEST_PREEMPTION_TIMER), vmr32(GUEST_SMBASE));
+     printk("DebugCtl = 0x%016lx  DebugExceptions = 0x%016lx\n",
+            vmr(GUEST_IA32_DEBUGCTL), vmr(GUEST_PENDING_DBG_EXCEPTIONS));
++    if ( vmentry_ctl & VM_ENTRY_LOAD_GUEST_LBR_CTL )
++        printk("LbrCtl = 0x%016lx\n", vmr(GUEST_LBR_CTL));
+     if ( vmentry_ctl & (VM_ENTRY_LOAD_PERF_GLOBAL_CTRL | VM_ENTRY_LOAD_BNDCFGS) )
+         printk("PerfGlobCtl = 0x%016lx  BndCfgS = 0x%016lx\n",
+                vmr(GUEST_PERF_GLOBAL_CTRL), vmr(GUEST_BNDCFGS));
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index b6885d0e27..d417ae17d3 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -423,65 +423,96 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
+     return rc;
+ }
  
-+/* Intel-defined CPU features, CPUID level 0x0000001c.eax, word 18 */
-+XEN_CPUFEATURE(LBR_DEPTH_8,        18*32+ 0) /*S  Depth 8 */
-+XEN_CPUFEATURE(LBR_DEPTH_16,       18*32+ 1) /*S  Depth 16 */
-+XEN_CPUFEATURE(LBR_DEPTH_24,       18*32+ 2) /*S  Depth 24 */
-+XEN_CPUFEATURE(LBR_DEPTH_32,       18*32+ 3) /*S  Depth 32 */
-+XEN_CPUFEATURE(LBR_DEPTH_40,       18*32+ 4) /*S  Depth 40 */
-+XEN_CPUFEATURE(LBR_DEPTH_48,       18*32+ 5) /*S  Depth 48 */
-+XEN_CPUFEATURE(LBR_DEPTH_56,       18*32+ 6) /*S  Depth 56 */
-+XEN_CPUFEATURE(LBR_DEPTH_64,       18*32+ 7) /*S  Depth 64 */
-+XEN_CPUFEATURE(LBR_DCST_RST,       18*32+30) /*S  Deep C-state reset */
-+XEN_CPUFEATURE(LBR_LIP,            18*32+31) /*S  IP is linear IP */
+-static const struct lbr_info {
++struct lbr_info {
+     u32 base, count;
+-} p4_lbr[] = {
+-    { MSR_P4_LER_FROM_LIP,          1 },
+-    { MSR_P4_LER_TO_LIP,            1 },
+-    { MSR_P4_LASTBRANCH_TOS,        1 },
+-    { MSR_P4_LASTBRANCH_0_FROM_LIP, NUM_MSR_P4_LASTBRANCH_FROM_TO },
+-    { MSR_P4_LASTBRANCH_0_TO_LIP,   NUM_MSR_P4_LASTBRANCH_FROM_TO },
+-    { 0, 0 }
++    u64 initial;
++};
 +
-+/* Intel-defined CPU features, CPUID level 0x0000001c.ebx, word 19 */
-+XEN_CPUFEATURE(LBR_CPL_FILTER,      19*32+ 0) /*S  CPL filtering */
-+XEN_CPUFEATURE(LBR_BR_FILTER,       19*32+ 1) /*S  Branch filtering */
-+XEN_CPUFEATURE(LBR_CALL_STACK_MODE, 19*32+ 2) /*S  Call stack mode */
-+
-+/* Intel-defined CPU features, CPUID level 0x0000001c.ecx, word 20 */
-+XEN_CPUFEATURE(LBR_MISPRED,        20*32+ 0) /*S  Mispredict mode */
-+XEN_CPUFEATURE(LBR_TIMED,          20*32+ 1) /*S  Timed mode */
-+XEN_CPUFEATURE(LBR_BR_TYPE,        20*32+ 2) /*S  Branch type */
-+XEN_CPUFEATURE(LBR_EVT_FMT0,       20*32+16) /*!S Event type format bit 0 */
-+XEN_CPUFEATURE(LBR_EVT_FMT1,       20*32+17) /*!S Event type format bit 1 */
-+XEN_CPUFEATURE(LBR_EVT_FMT2,       20*32+18) /*!S Event type format bit 2 */
-+XEN_CPUFEATURE(LBR_EVT_FMT3,       20*32+19) /*!S Event type format bit 3 */
-+
- #endif /* XEN_CPUFEATURE */
++static const struct lbr_info p4_lbr[] = {
++    { MSR_P4_LER_FROM_LIP,          1, 0 },
++    { MSR_P4_LER_TO_LIP,            1, 0 },
++    { MSR_P4_LASTBRANCH_TOS,        1, 0 },
++    { MSR_P4_LASTBRANCH_0_FROM_LIP, NUM_MSR_P4_LASTBRANCH_FROM_TO, 0 },
++    { MSR_P4_LASTBRANCH_0_TO_LIP,   NUM_MSR_P4_LASTBRANCH_FROM_TO, 0 },
++    { 0, 0, 0 }
+ }, c2_lbr[] = {
+-    { MSR_IA32_LASTINTFROMIP,       1 },
+-    { MSR_IA32_LASTINTTOIP,         1 },
+-    { MSR_C2_LASTBRANCH_TOS,        1 },
+-    { MSR_C2_LASTBRANCH_0_FROM_IP,  NUM_MSR_C2_LASTBRANCH_FROM_TO },
+-    { MSR_C2_LASTBRANCH_0_TO_IP,    NUM_MSR_C2_LASTBRANCH_FROM_TO },
+-    { 0, 0 }
++    { MSR_IA32_LASTINTFROMIP,       1, 0 },
++    { MSR_IA32_LASTINTTOIP,         1, 0 },
++    { MSR_C2_LASTBRANCH_TOS,        1, 0 },
++    { MSR_C2_LASTBRANCH_0_FROM_IP,  NUM_MSR_C2_LASTBRANCH_FROM_TO, 0 },
++    { MSR_C2_LASTBRANCH_0_TO_IP,    NUM_MSR_C2_LASTBRANCH_FROM_TO, 0 },
++    { 0, 0, 0 }
+ }, nh_lbr[] = {
+-    { MSR_IA32_LASTINTFROMIP,       1 },
+-    { MSR_IA32_LASTINTTOIP,         1 },
+-    { MSR_NHL_LBR_SELECT,           1 },
+-    { MSR_NHL_LASTBRANCH_TOS,       1 },
+-    { MSR_P4_LASTBRANCH_0_FROM_LIP, NUM_MSR_P4_LASTBRANCH_FROM_TO },
+-    { MSR_P4_LASTBRANCH_0_TO_LIP,   NUM_MSR_P4_LASTBRANCH_FROM_TO },
+-    { 0, 0 }
++    { MSR_IA32_LASTINTFROMIP,       1, 0 },
++    { MSR_IA32_LASTINTTOIP,         1, 0 },
++    { MSR_NHL_LBR_SELECT,           1, 0 },
++    { MSR_NHL_LASTBRANCH_TOS,       1, 0 },
++    { MSR_P4_LASTBRANCH_0_FROM_LIP, NUM_MSR_P4_LASTBRANCH_FROM_TO, 0 },
++    { MSR_P4_LASTBRANCH_0_TO_LIP,   NUM_MSR_P4_LASTBRANCH_FROM_TO, 0 },
++    { 0, 0, 0 }
+ }, sk_lbr[] = {
+-    { MSR_IA32_LASTINTFROMIP,       1 },
+-    { MSR_IA32_LASTINTTOIP,         1 },
+-    { MSR_NHL_LBR_SELECT,           1 },
+-    { MSR_NHL_LASTBRANCH_TOS,       1 },
+-    { MSR_SKL_LASTBRANCH_0_FROM_IP, NUM_MSR_SKL_LASTBRANCH },
+-    { MSR_SKL_LASTBRANCH_0_TO_IP,   NUM_MSR_SKL_LASTBRANCH },
+-    { MSR_SKL_LASTBRANCH_0_INFO,    NUM_MSR_SKL_LASTBRANCH },
+-    { 0, 0 }
++    { MSR_IA32_LASTINTFROMIP,       1, 0 },
++    { MSR_IA32_LASTINTTOIP,         1, 0 },
++    { MSR_NHL_LBR_SELECT,           1, 0 },
++    { MSR_NHL_LASTBRANCH_TOS,       1, 0 },
++    { MSR_SKL_LASTBRANCH_0_FROM_IP, NUM_MSR_SKL_LASTBRANCH, 0 },
++    { MSR_SKL_LASTBRANCH_0_TO_IP,   NUM_MSR_SKL_LASTBRANCH, 0 },
++    { MSR_SKL_LASTBRANCH_0_INFO,    NUM_MSR_SKL_LASTBRANCH, 0 },
++    { 0, 0, 0 }
+ }, at_lbr[] = {
+-    { MSR_IA32_LASTINTFROMIP,       1 },
+-    { MSR_IA32_LASTINTTOIP,         1 },
+-    { MSR_C2_LASTBRANCH_TOS,        1 },
+-    { MSR_C2_LASTBRANCH_0_FROM_IP,  NUM_MSR_ATOM_LASTBRANCH_FROM_TO },
+-    { MSR_C2_LASTBRANCH_0_TO_IP,    NUM_MSR_ATOM_LASTBRANCH_FROM_TO },
+-    { 0, 0 }
++    { MSR_IA32_LASTINTFROMIP,       1, 0 },
++    { MSR_IA32_LASTINTTOIP,         1, 0 },
++    { MSR_C2_LASTBRANCH_TOS,        1, 0 },
++    { MSR_C2_LASTBRANCH_0_FROM_IP,  NUM_MSR_ATOM_LASTBRANCH_FROM_TO, 0 },
++    { MSR_C2_LASTBRANCH_0_TO_IP,    NUM_MSR_ATOM_LASTBRANCH_FROM_TO, 0 },
++    { 0, 0, 0 }
+ }, sm_lbr[] = {
+-    { MSR_IA32_LASTINTFROMIP,       1 },
+-    { MSR_IA32_LASTINTTOIP,         1 },
+-    { MSR_SM_LBR_SELECT,            1 },
+-    { MSR_SM_LASTBRANCH_TOS,        1 },
+-    { MSR_C2_LASTBRANCH_0_FROM_IP,  NUM_MSR_ATOM_LASTBRANCH_FROM_TO },
+-    { MSR_C2_LASTBRANCH_0_TO_IP,    NUM_MSR_ATOM_LASTBRANCH_FROM_TO },
+-    { 0, 0 }
++    { MSR_IA32_LASTINTFROMIP,       1, 0 },
++    { MSR_IA32_LASTINTTOIP,         1, 0 },
++    { MSR_SM_LBR_SELECT,            1, 0 },
++    { MSR_SM_LASTBRANCH_TOS,        1, 0 },
++    { MSR_C2_LASTBRANCH_0_FROM_IP,  NUM_MSR_ATOM_LASTBRANCH_FROM_TO, 0 },
++    { MSR_C2_LASTBRANCH_0_TO_IP,    NUM_MSR_ATOM_LASTBRANCH_FROM_TO, 0 },
++    { 0, 0, 0 }
+ }, gm_lbr[] = {
+-    { MSR_IA32_LASTINTFROMIP,       1 },
+-    { MSR_IA32_LASTINTTOIP,         1 },
+-    { MSR_SM_LBR_SELECT,            1 },
+-    { MSR_SM_LASTBRANCH_TOS,        1 },
+-    { MSR_GM_LASTBRANCH_0_FROM_IP,  NUM_MSR_GM_LASTBRANCH_FROM_TO },
+-    { MSR_GM_LASTBRANCH_0_TO_IP,    NUM_MSR_GM_LASTBRANCH_FROM_TO },
+-    { 0, 0 }
++    { MSR_IA32_LASTINTFROMIP,       1, 0 },
++    { MSR_IA32_LASTINTTOIP,         1, 0 },
++    { MSR_SM_LBR_SELECT,            1, 0 },
++    { MSR_SM_LASTBRANCH_TOS,        1, 0 },
++    { MSR_GM_LASTBRANCH_0_FROM_IP,  NUM_MSR_GM_LASTBRANCH_FROM_TO, 0 },
++    { MSR_GM_LASTBRANCH_0_TO_IP,    NUM_MSR_GM_LASTBRANCH_FROM_TO, 0 },
++    { 0, 0, 0 }
+ };
+ static const struct lbr_info *__ro_after_init model_specific_lbr;
  
- /* Clean up from a default include.  Close the enum (for C). */
-diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index f43e1a3b21..afd66b4158 100644
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -22,6 +22,9 @@
- #define FEATURESET_7d1       15 /* 0x00000007:1.edx    */
- #define FEATURESET_m10Al     16 /* 0x0000010a.eax      */
- #define FEATURESET_m10Ah     17 /* 0x0000010a.edx      */
-+#define FEATURESET_1Ca       18 /* 0x0000001c.eax      */
-+#define FEATURESET_1Cb       19 /* 0x0000001c.ebx      */
-+#define FEATURESET_1Cc       20 /* 0x0000001c.ecx      */
- 
- struct cpuid_leaf
++static struct lbr_info __ro_after_init architectural_lbr[] = {
++    { MSR_IA32_LASTINTFROMIP,        1, 0 },
++    { MSR_IA32_LASTINTTOIP,          1, 0 },
++    { MSR_IA32_LER_INFO,             1, 0 },
++    /* to be updated by update_arch_lbr */
++    { MSR_IA32_LASTBRANCH_0_INFO,    MAX_MSR_ARCH_LASTBRANCH_FROM_TO, 0 },
++    { MSR_IA32_LASTBRANCH_0_FROM_IP, MAX_MSR_ARCH_LASTBRANCH_FROM_TO, 0 },
++    { MSR_IA32_LASTBRANCH_0_TO_IP,   MAX_MSR_ARCH_LASTBRANCH_FROM_TO, 0 },
++    { 0, 0, 0 }
++};
++static uint64_t __ro_after_init host_lbr_depth = 0;
++
++static void __init update_arch_lbr(void)
++{
++    struct lbr_info *lbr = architectural_lbr;
++
++    if ( boot_cpu_has(X86_FEATURE_ARCH_LBR) )
++        rdmsrl(MSR_IA32_LASTBRANCH_DEPTH, host_lbr_depth);
++    ASSERT((host_lbr_depth % 8) == 0 && (host_lbr_depth <= 64));
++
++    for ( ; lbr->count; lbr++ ) {
++        if ( lbr->base == MSR_IA32_LASTBRANCH_0_INFO ||
++             lbr->base == MSR_IA32_LASTBRANCH_0_FROM_IP ||
++             lbr->base == MSR_IA32_LASTBRANCH_0_TO_IP )
++            lbr->count = (u32)host_lbr_depth;
++    }
++}
++
+ static const struct lbr_info *__init get_model_specific_lbr(void)
  {
-@@ -85,7 +88,7 @@ unsigned int x86_cpuid_lookup_vendor(uint32_t ebx, uint32_t ecx, uint32_t edx);
-  */
- const char *x86_cpuid_vendor_to_str(unsigned int vendor);
+     switch ( boot_cpu_data.x86 )
+@@ -3056,6 +3087,8 @@ const struct hvm_function_table * __init start_vmx(void)
+     lbr_tsx_fixup_check();
+     ler_to_fixup_check();
  
--#define CPUID_GUEST_NR_BASIC      (0xdu + 1)
-+#define CPUID_GUEST_NR_BASIC      (0x1cu + 1)
- #define CPUID_GUEST_NR_CACHE      (5u + 1)
- #define CPUID_GUEST_NR_FEAT       (2u + 1)
- #define CPUID_GUEST_NR_TOPO       (1u + 1)
-@@ -158,6 +161,39 @@ struct cpu_policy
-             uint64_t :64, :64; /* Leaf 0xb - Topology. */
-             uint64_t :64, :64; /* Leaf 0xc - rsvd */
-             uint64_t :64, :64; /* Leaf 0xd - XSTATE. */
++    update_arch_lbr();
 +
-+            uint64_t :64, :64; /* Leaf 0xe - rsvd */
-+            uint64_t :64, :64; /* Leaf 0xf - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x10 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x11 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x12 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x13 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x14 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x15 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x16 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x17 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x18 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x19 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x1a - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x1b - rsvd */
-+
-+            union {
-+                uint32_t _1Ca;
-+                struct {
-+                    uint32_t supported_depths:8;
-+                    uint32_t :22;
-+                    uint32_t deep_cstate_reset:1;
-+                    uint32_t ip_contains_lip:1;
-+                };
-+            };
-+            union {
-+                uint32_t _1Cb;
-+                struct { DECL_BITFIELD(1Cb); };
-+            };
-+            union {
-+                uint32_t _1Cc;
-+                struct { DECL_BITFIELD(1Cc); };
-+            };
-         };
-     } basic;
- 
-diff --git a/xen/lib/x86/cpuid.c b/xen/lib/x86/cpuid.c
-index eb7698dc73..4d19349b17 100644
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
-@@ -81,6 +81,9 @@ void x86_cpu_policy_to_featureset(
-     fs[FEATURESET_7d1]       = p->feat._7d1;
-     fs[FEATURESET_m10Al]     = p->arch_caps.lo;
-     fs[FEATURESET_m10Ah]     = p->arch_caps.hi;
-+    fs[FEATURESET_1Ca]       = p->basic._1Ca;
-+    fs[FEATURESET_1Cb]       = p->basic._1Cb;
-+    fs[FEATURESET_1Cc]       = p->basic._1Cc;
+     return &vmx_function_table;
  }
  
- void x86_cpu_featureset_to_policy(
-@@ -104,6 +107,9 @@ void x86_cpu_featureset_to_policy(
-     p->feat._7d1             = fs[FEATURESET_7d1];
-     p->arch_caps.lo          = fs[FEATURESET_m10Al];
-     p->arch_caps.hi          = fs[FEATURESET_m10Ah];
-+    p->basic._1Ca            = fs[FEATURESET_1Ca];
-+    p->basic._1Cb            = fs[FEATURESET_1Cb];
-+    p->basic._1Cc            = fs[FEATURESET_1Cc];
+@@ -3303,25 +3336,36 @@ static void __init ler_to_fixup_check(void)
+     }
  }
  
- void x86_cpu_policy_recalc_synth(struct cpu_policy *p)
+-static int is_last_branch_msr(u32 ecx)
++static const struct lbr_info * find_last_branch_msr(struct vcpu *v, u32 ecx)
+ {
++    /*
++     * Model-specific and architectural LBRs are mutually exclusive.
++     * It's not necessary to check both lbr_info lists.
++     */
+     const struct lbr_info *lbr = model_specific_lbr;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+ 
+-    if ( lbr == NULL )
+-        return 0;
++    if ( lbr == NULL ) {
++        if ( cp->feat.arch_lbr )
++            lbr = architectural_lbr;
++        else
++            return NULL;
++    }
+ 
+     for ( ; lbr->count; lbr++ )
+         if ( (ecx >= lbr->base) && (ecx < (lbr->base + lbr->count)) )
+-            return 1;
++            return lbr;
+ 
+-    return 0;
++    return NULL;
+ }
+ 
+ static int cf_check vmx_msr_read_intercept(
+     unsigned int msr, uint64_t *msr_content)
+ {
+     struct vcpu *curr = current;
++    const struct cpu_policy *cp = curr->domain->arch.cpu_policy;
+     uint64_t tmp;
++    const struct lbr_info *lbr = NULL;
+ 
+     HVM_DBG_LOG(DBG_LEVEL_MSR, "ecx=%#x", msr);
+ 
+@@ -3369,6 +3413,18 @@ static int cf_check vmx_msr_read_intercept(
+         __vmread(GUEST_IA32_DEBUGCTL, msr_content);
+         break;
+ 
++    case MSR_IA32_LASTBRANCH_CTL:
++        if ( !cp->feat.arch_lbr )
++            goto gp_fault;
++        __vmread(GUEST_LBR_CTL, msr_content);
++        break;
++
++    case MSR_IA32_LASTBRANCH_DEPTH:
++        if ( !cp->feat.arch_lbr )
++            goto gp_fault;
++        *msr_content = host_lbr_depth;
++        break;
++
+     case MSR_IA32_VMX_BASIC...MSR_IA32_VMX_VMFUNC:
+         if ( !nvmx_msr_read_intercept(msr, msr_content) )
+             goto gp_fault;
+@@ -3397,9 +3453,10 @@ static int cf_check vmx_msr_read_intercept(
+         if ( vmx_read_guest_msr(curr, msr, msr_content) == 0 )
+             break;
+ 
+-        if ( is_last_branch_msr(msr) )
++        lbr = find_last_branch_msr(curr, msr);
++        if ( lbr != NULL )
+         {
+-            *msr_content = 0;
++            *msr_content = lbr->initial;
+             break;
+         }
+ 
+@@ -3540,6 +3597,34 @@ void cf_check vmx_vlapic_msr_changed(struct vcpu *v)
+     vmx_vmcs_exit(v);
+ }
+ 
++static int vmx_lbr_insert(struct vcpu *v, const struct lbr_info *lbr)
++{
++    for ( ; lbr->count; lbr++ )
++    {
++        unsigned int i;
++
++        for ( i = 0; i < lbr->count; i++ )
++        {
++            int rc = vmx_add_guest_msr(v, lbr->base + i, lbr->initial);
++
++            if ( unlikely(rc) )
++            {
++                return rc;
++            }
++
++            vmx_clear_msr_intercept(v, lbr->base + i, VMX_MSR_RW);
++        }
++    }
++
++    v->arch.hvm.vmx.lbr_flags |= LBR_MSRS_INSERTED;
++    if ( lbr_tsx_fixup_needed )
++        v->arch.hvm.vmx.lbr_flags |= LBR_FIXUP_TSX;
++    if ( ler_to_fixup_needed )
++        v->arch.hvm.vmx.lbr_flags |= LBR_FIXUP_LER_TO;
++
++    return 0;
++}
++
+ static int cf_check vmx_msr_write_intercept(
+     unsigned int msr, uint64_t msr_content)
+ {
+@@ -3652,36 +3737,64 @@ static int cf_check vmx_msr_write_intercept(
+         if ( !(v->arch.hvm.vmx.lbr_flags & LBR_MSRS_INSERTED) &&
+              (msr_content & IA32_DEBUGCTLMSR_LBR) )
+         {
+-            const struct lbr_info *lbr = model_specific_lbr;
++            int rc = vmx_lbr_insert(v, model_specific_lbr);
+ 
+-            for ( ; lbr->count; lbr++ )
++            if ( unlikely(rc) )
+             {
+-                unsigned int i;
++                gprintk(XENLOG_ERR,
++                        "Guest load/save list error %d\n", rc);
++                domain_crash(v->domain);
++                return X86EMUL_OKAY;
++            }
++        }
+ 
+-                for ( i = 0; i < lbr->count; i++ )
+-                {
+-                    int rc = vmx_add_guest_msr(v, lbr->base + i, 0);
++        __vmwrite(GUEST_IA32_DEBUGCTL, msr_content);
++        break;
+ 
+-                    if ( unlikely(rc) )
+-                    {
+-                        gprintk(XENLOG_ERR,
+-                                "Guest load/save list error %d\n", rc);
+-                        domain_crash(v->domain);
+-                        return X86EMUL_OKAY;
+-                    }
++    case MSR_IA32_LASTBRANCH_CTL:
++        if ( !cp->feat.arch_lbr )
++            goto gp_fault;
+ 
+-                    vmx_clear_msr_intercept(v, lbr->base + i, VMX_MSR_RW);
+-                }
++        if ( msr_content & ~LASTBRANCH_CTL_VALID )
++            goto gp_fault;
++
++        if ( !(v->arch.hvm.vmx.lbr_flags & LBR_MSRS_INSERTED) &&
++             (msr_content & LASTBRANCH_CTL_LBREN) )
++        {
++            int rc;
++
++            rc = vmx_lbr_insert(v, architectural_lbr);
++            if ( unlikely(rc) )
++            {
++                gprintk(XENLOG_ERR,
++                        "Guest load/save list error %d\n", rc);
++                domain_crash(v->domain);
++                return X86EMUL_OKAY;
+             }
++        }
++
++        __vmwrite(GUEST_LBR_CTL, msr_content);
++        break;
+ 
+-            v->arch.hvm.vmx.lbr_flags |= LBR_MSRS_INSERTED;
+-            if ( lbr_tsx_fixup_needed )
+-                v->arch.hvm.vmx.lbr_flags |= LBR_FIXUP_TSX;
+-            if ( ler_to_fixup_needed )
+-                v->arch.hvm.vmx.lbr_flags |= LBR_FIXUP_LER_TO;
++    case MSR_IA32_LASTBRANCH_DEPTH:
++        if ( !cp->feat.arch_lbr )
++            goto gp_fault;
++
++        if ( msr_content != host_lbr_depth )
++            goto gp_fault;
++
++        if ( v->arch.hvm.vmx.lbr_flags & LBR_MSRS_INSERTED )
++        {
++            /* writes to MSR_IA32_LASTBRANCH_DEPTH zero LBR state */
++            int i;
++            for (i = 0; i < host_lbr_depth; i++)
++            {
++                vmx_write_guest_msr(v, MSR_IA32_LASTBRANCH_0_INFO + i, 0);
++                vmx_write_guest_msr(v, MSR_IA32_LASTBRANCH_0_FROM_IP + i, 0);
++                vmx_write_guest_msr(v, MSR_IA32_LASTBRANCH_0_TO_IP + i, 0);
++            }
+         }
+ 
+-        __vmwrite(GUEST_IA32_DEBUGCTL, msr_content);
+         break;
+ 
+     case MSR_IA32_MISC_ENABLE:
+@@ -3710,7 +3823,7 @@ static int cf_check vmx_msr_write_intercept(
+             return X86EMUL_OKAY;
+ 
+         if ( vmx_write_guest_msr(v, msr, msr_content) == 0 ||
+-             is_last_branch_msr(msr) )
++             find_last_branch_msr(v, msr) != NULL )
+             break;
+ 
+         if ( v->domain->arch.msr_relaxed && !rdmsr_safe(msr, msr_content) )
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+index 939b87eb50..2b265e583f 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -229,6 +229,7 @@ extern u32 vmx_pin_based_exec_control;
+ #define VM_EXIT_LOAD_HOST_EFER          0x00200000
+ #define VM_EXIT_SAVE_PREEMPT_TIMER      0x00400000
+ #define VM_EXIT_CLEAR_BNDCFGS           0x00800000
++#define VM_EXIT_CLEAR_GUEST_LBR_CTL     0x04000000
+ extern u32 vmx_vmexit_control;
+ 
+ #define VM_ENTRY_IA32E_MODE             0x00000200
+@@ -238,6 +239,7 @@ extern u32 vmx_vmexit_control;
+ #define VM_ENTRY_LOAD_GUEST_PAT         0x00004000
+ #define VM_ENTRY_LOAD_GUEST_EFER        0x00008000
+ #define VM_ENTRY_LOAD_BNDCFGS           0x00010000
++#define VM_ENTRY_LOAD_GUEST_LBR_CTL     0x00200000
+ extern u32 vmx_vmentry_control;
+ 
+ #define SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES 0x00000001U
+@@ -391,6 +393,10 @@ extern u64 vmx_ept_vpid_cap;
+ #define cpu_has_vmx_notify_vm_exiting \
+     (IS_ENABLED(CONFIG_INTEL_VMX) && \
+      vmx_secondary_exec_control & SECONDARY_EXEC_NOTIFY_VM_EXITING)
++#define cpu_has_vmx_guest_lbr_ctl \
++    (IS_ENABLED(CONFIG_INTEL_VMX) && \
++     (vmx_vmexit_control & VM_EXIT_CLEAR_GUEST_LBR_CTL) && \
++     (vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_LBR_CTL))
+ 
+ #define VMCS_RID_TYPE_MASK              0x80000000U
+ 
+@@ -480,6 +486,8 @@ enum vmcs_field {
+     GUEST_PDPTE0                    = 0x0000280a,
+ #define GUEST_PDPTE(n) (GUEST_PDPTE0 + (n) * 2) /* n = 0...3 */
+     GUEST_BNDCFGS                   = 0x00002812,
++    GUEST_RTIT_CTL                  = 0x00002814,
++    GUEST_LBR_CTL                   = 0x00002816,
+     HOST_PAT                        = 0x00002c00,
+     HOST_EFER                       = 0x00002c02,
+     HOST_PERF_GLOBAL_CTRL           = 0x00002c04,
 -- 
 2.43.0
 
