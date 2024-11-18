@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89FCD9D0EF3
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 11:52:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839247.1255068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5435A9D0F37
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 12:07:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839258.1255079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCzML-0004lo-8H; Mon, 18 Nov 2024 10:51:57 +0000
+	id 1tCzaj-00068f-Fu; Mon, 18 Nov 2024 11:06:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839247.1255068; Mon, 18 Nov 2024 10:51:57 +0000
+Received: by outflank-mailman (output) from mailman id 839258.1255079; Mon, 18 Nov 2024 11:06:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCzML-0004k8-59; Mon, 18 Nov 2024 10:51:57 +0000
-Received: by outflank-mailman (input) for mailman id 839247;
- Mon, 18 Nov 2024 10:51:55 +0000
+	id 1tCzaj-00066i-CD; Mon, 18 Nov 2024 11:06:49 +0000
+Received: by outflank-mailman (input) for mailman id 839258;
+ Mon, 18 Nov 2024 11:06:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JUlN=SN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tCzMJ-0004g8-MA
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 10:51:55 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HleL=SN=suse.com=pmladek@srs-se1.protection.inumbo.net>)
+ id 1tCzai-00066c-33
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 11:06:48 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d66aff0-a59b-11ef-99a3-01e77a169b0f;
- Mon, 18 Nov 2024 11:51:50 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a9ec86a67feso788154066b.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 02:51:50 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ id 3169ddaf-a59d-11ef-99a3-01e77a169b0f;
+ Mon, 18 Nov 2024 12:06:43 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-38231e9d518so1642813f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 03:06:43 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.50])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20df5696fsm522287766b.77.2024.11.18.02.51.48
+ ffacd0b85a97d-38242eef982sm4319340f8f.8.2024.11.18.03.06.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Nov 2024 02:51:48 -0800 (PST)
+ Mon, 18 Nov 2024 03:06:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +45,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d66aff0-a59b-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzMiLCJoZWxvIjoibWFpbC1lajEteDYzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjFkNjZhZmYwLWE1OWItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTI3MTEwLjUxODkwMiwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 3169ddaf-a59d-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmUiLCJoZWxvIjoibWFpbC13cjEteDQyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjMxNjlkZGFmLWE1OWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTI4MDAzLjE2ODM5NCwic2VuZGVyIjoicG1sYWRla0BzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1731927109; x=1732531909; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=6E0Kaaftq1RqJE09RLDSsbeIV+RREbhQ6Fd9/Y2QUKQ=;
-        b=eiE9T51wfdMn+1oFK95Wv8IjZv6V0l/khIGY15kwkq2MaAUql53TPrMB0I144e23em
-         j3B3cz7RPsGW9ecPT3KtTBfKgTsbW58EVxaP09LWhXu7fNAtqmUN+8YEJdmUdAAu91yQ
-         rV9qCU3Imm9vQfV4pCnPAo/jil4bQqHJyn9Ac=
+        d=suse.com; s=google; t=1731928002; x=1732532802; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Q4K7ZFgLQYJQlGAzpq8RK54g3EqKOomWWOR+yhsr1qw=;
+        b=dnfB7Lowwdv2Ho7oG+SZH5DYf/3k2gXTKuCx0jHGyiCBQf5vunXdorbc9/XPbjluoN
+         aQ0kHg/H1FSipGRpT97RcCWc05ZQBonWUsGGv62LjxmZUC5PkXjPDhDgJdzGH8eyMJFr
+         TJBEIcb4+RgY5iwj/zT/cDmaA3OIT4aCJ2DLmn3mEk1SGOVdpPHsYTBfxFSHtGsfjz6d
+         p7S70oppXnAQ8TxWv0UpS5+eEi3PNXHnTO6ju31SfVC6YCGE4cfX65sMjfxzsr0bbCCs
+         HGn8qmZxqOam4S/eDCAOwwqlxnRfe8+olFItU617PXwMSMGTcikHlxQDvcknK1lzfEWd
+         RuHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731927109; x=1732531909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6E0Kaaftq1RqJE09RLDSsbeIV+RREbhQ6Fd9/Y2QUKQ=;
-        b=N1FrL6ysyFoMtSgRk7r//MLYJM6OEK1D8e46jd4oLxpstyu9VmtIb2KTCrT+yxxzEG
-         PO33gwTtQ1crSu+RMHXeK3Loc+6TH5J2e7loduHAnLMHWODpHgYa1eLEEKpaDSVtCyME
-         fC7rczxaleo44EhaOckxqTFsR/v2Wjpu+iIAxl3g3HhhmFDHQXKQZjQzGbJh2/izPy/6
-         LbExoKxaAKXwtF7nNLbH8MXbpnMHoEAlSaZzXUw4htOdGhGHfcci8iGaN+qoDTgA79Qz
-         OeVkQW4HQxnCBoPK4yczxlCq+Eb6VmLB5upE4IIdPUTxUWaZwIkCpXgFEe0zas/e0aBW
-         3NdA==
-X-Gm-Message-State: AOJu0YwuRC/szAlqtiXdo8JGNY3eUy5TbWUwfOcbGSuC+j33ipy42Yts
-	hJOJwbDSM9VkL1Iy+cjS96UN+po/F0AlhdL1vo3Ezts5P4J51exNh0UOtaxqkEq1ucS2Y/YXrAY
-	M
-X-Google-Smtp-Source: AGHT+IF+7jzebJ2teRC8Kzz7grSClL0NnK2DMupouM4RPwysH2XrrfnFWseAGh4ak5FLW4WIsclcJQ==
-X-Received: by 2002:a17:907:2dac:b0:a9a:ad8:fc56 with SMTP id a640c23a62f3a-aa483529cb4mr1167301866b.44.1731927108814;
-        Mon, 18 Nov 2024 02:51:48 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	"consulting @ bugseng . com" <consulting@bugseng.com>
-Subject: [PATCH] xen/bootinfo: Include declaration for fw_unreserved_regions()
-Date: Mon, 18 Nov 2024 10:51:45 +0000
-Message-Id: <20241118105145.2329902-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1731928002; x=1732532802;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q4K7ZFgLQYJQlGAzpq8RK54g3EqKOomWWOR+yhsr1qw=;
+        b=JcUDu6dKIzYXsm49xc0CHZMLIEF3QKcAOPXsC0URDtDxkwybemvXTESSybKI4Njewx
+         IyUt+jX2Xkyb3ZC66wThy+kwRmK3grchhQFHSADViq1PdVi7zf17hb1Qiz3M8ypZhi5m
+         YQ3b2WO0bGzORXtmRhuEKM+N72MqpO+ETpXqu4XoYqwjkQez7CRLBIDlaol0W1MNu0xu
+         00/Xf9dPPUtUAubWVFpkc7q/L6ST9r2zonvyLCAEEDcSUPL4u4KGcg2xexCttcXt7H13
+         s3qRHt82jVOzf1137jSD894JEkA4xLHCZfXU/67Ux6NzDy2TS9G8Vi3LjEJ2f79++JZ3
+         YPwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW2IKSwQF/KFlgX8keqKT/adNgMbEA+VMUG8CQEJ0D4smCSdIwP5NOlgPxouP9nq2fbY+MChhJUEsg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZPBS5JoNHjFuJupYhT9XNmo4fnbYfzkPoHmMDnszLeLw+N2E2
+	huG51HzRkCBCfRlau2lMxFaRCeVD7iuSBthpdwJtvZfbw/vwVttRQ6L1uNgrvwo=
+X-Google-Smtp-Source: AGHT+IEHvVmgRYFNhCs4UC7E5RjVk5JwGYVdnUZOYcUXsiEIWSohYFEZO8cTVp2lMrq4C8xPl0BQ1Q==
+X-Received: by 2002:a05:6000:18af:b0:37d:4ef1:1820 with SMTP id ffacd0b85a97d-38225a91e80mr10392779f8f.40.1731928002298;
+        Mon, 18 Nov 2024 03:06:42 -0800 (PST)
+Date: Mon, 18 Nov 2024 12:06:34 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Easwar Hariharan <eahariha@linux.microsoft.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Jozsef Kadlecsik <kadlec@netfilter.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Julia Lawall <Julia.Lawall@inria.fr>,
+	Nicolas Palix <nicolas.palix@imag.fr>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ofir Bitton <obitton@habana.ai>, Oded Gabbay <ogabbay@kernel.org>,
+	Lucas De Marchi <lucas.demarchi@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jeroen de Borst <jeroendb@google.com>,
+	Praveen Kaligineedi <pkaligineedi@google.com>,
+	Shailend Chand <shailend@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	James Smart <james.smart@broadcom.com>,
+	Dick Kennedy <dick.kennedy@broadcom.com>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jack Wang <jinpu.wang@cloud.ionos.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>, Miroslav Benes <mbenes@suse.cz>,
+	Joe Lawrence <joe.lawrence@redhat.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Russell King <linux+etnaviv@armlinux.org.uk>,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	Louis Peens <louis.peens@corigine.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Naveen N Rao <naveen@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cocci@inria.fr, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-scsi@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+	linux-mm@kvack.org, linux-bluetooth@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+	ceph-devel@vger.kernel.org, live-patching@vger.kernel.org,
+	linux-sound@vger.kernel.org, etnaviv@lists.freedesktop.org,
+	oss-drivers@corigine.com, linuxppc-dev@lists.ozlabs.org,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>
+Subject: Re: [PATCH v2 19/21] livepatch: Convert timeouts to secs_to_jiffies()
+Message-ID: <Zzsfuuv3AVomkMxn@pathway.suse.cz>
+References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
+ <20241115-converge-secs-to-jiffies-v2-19-911fb7595e79@linux.microsoft.com>
+ <718febc4-59ee-4701-ad62-8b7a8fa7a910@csgroup.eu>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <718febc4-59ee-4701-ad62-8b7a8fa7a910@csgroup.eu>
 
-Eclair complains that fw_unreserved_regions() can't see it's declaration.
-Include <asm/setup.h> to address this.
+On Sat 2024-11-16 11:10:52, Christophe Leroy wrote:
+> 
+> 
+> Le 15/11/2024 à 22:26, Easwar Hariharan a écrit :
+> > [Vous ne recevez pas souvent de courriers de eahariha@linux.microsoft.com. Découvrez pourquoi ceci est important à https://aka.ms/LearnAboutSenderIdentification ]
+> > 
+> > Changes made with the following Coccinelle rules:
+> > 
+> > @@ constant C; @@
+> > 
+> > - msecs_to_jiffies(C * 1000)
+> > + secs_to_jiffies(C)
+> > 
+> > @@ constant C; @@
+> > 
+> > - msecs_to_jiffies(C * MSEC_PER_SEC)
+> > + secs_to_jiffies(C)
+> > 
+> > Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+> > ---
+> >   samples/livepatch/livepatch-callbacks-busymod.c |  2 +-
+> >   samples/livepatch/livepatch-shadow-fix1.c       |  2 +-
+> >   samples/livepatch/livepatch-shadow-mod.c        | 10 +++++-----
+> >   3 files changed, 7 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/samples/livepatch/livepatch-callbacks-busymod.c b/samples/livepatch/livepatch-callbacks-busymod.c
+> > index 378e2d40271a9717d09eff51d3d3612c679736fc..d0fd801a7c21b7d7939c29d83f9d993badcc9aba 100644
+> > --- a/samples/livepatch/livepatch-callbacks-busymod.c
+> > +++ b/samples/livepatch/livepatch-callbacks-busymod.c
+> > @@ -45,7 +45,7 @@ static int livepatch_callbacks_mod_init(void)
+> >   {
+> >          pr_info("%s\n", __func__);
+> >          schedule_delayed_work(&work,
+> > -               msecs_to_jiffies(1000 * 0));
+> > +               secs_to_jiffies(0));
+> 
+> Using secs_to_jiffies() is pointless, 0 is universal, should become
+> schedule_delayed_work(&work, 0);
 
-This makes Mira Rule 8.4 clean on ARM, so tag it as such.
+Yes, schedule_delayed_work(&work, 0) looks like the right solution.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: consulting@bugseng.com <consulting@bugseng.com>
+Or even better, it seems that the delayed work might get replaced by
+a normal workqueue work.
 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1547057124
----
- automation/eclair_analysis/ECLAIR/tagging.ecl | 2 +-
- xen/common/device-tree/bootinfo.c             | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Anyway, I am working on a patchset which would remove this sample
+module. There is no need to put much effort into the clean up
+of this particular module. Do whatever is easiest for you.
 
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index 9318e5b10ca8..7944ce2ee3b2 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -115,7 +115,7 @@ if(string_equal(target,"x86_64"),
- )
- 
- if(string_equal(target,"arm64"),
--    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3.R11.2||MC3R1.R16.6||MC3R1.R20.7"})
-+    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3R1.R8.4||MC3.R11.2||MC3R1.R16.6||MC3R1.R20.7"})
- )
- 
- -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
-diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
-index f2e6a1145b7c..3738eb57ff52 100644
---- a/xen/common/device-tree/bootinfo.c
-+++ b/xen/common/device-tree/bootinfo.c
-@@ -17,6 +17,8 @@
- #include <xen/libfdt/libfdt-xen.h>
- #include <xen/mm.h>
- 
-+#include <asm/setup.h>
-+
- struct bootinfo __initdata bootinfo = BOOTINFO_INIT;
- 
- const char * __init boot_module_kind_as_string(bootmodule_kind kind)
-
-base-commit: 88c40dc108bfddb32a891e2e20d48bbe94949200
--- 
-2.39.5
-
+Best Regards,
+Petr
 
