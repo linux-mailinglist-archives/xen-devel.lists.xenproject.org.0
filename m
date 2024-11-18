@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F7069D0B34
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:49:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839114.1254920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B31AA9D0B36
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:50:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839116.1254933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCxRx-0005Ex-4r; Mon, 18 Nov 2024 08:49:37 +0000
+	id 1tCxRx-0005Rp-Nc; Mon, 18 Nov 2024 08:49:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839114.1254920; Mon, 18 Nov 2024 08:49:37 +0000
+Received: by outflank-mailman (output) from mailman id 839116.1254933; Mon, 18 Nov 2024 08:49:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCxRw-0005DS-Uc; Mon, 18 Nov 2024 08:49:36 +0000
-Received: by outflank-mailman (input) for mailman id 839114;
- Mon, 18 Nov 2024 08:49:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tCxRx-0005K7-GK; Mon, 18 Nov 2024 08:49:37 +0000
+Received: by outflank-mailman (input) for mailman id 839116;
+ Mon, 18 Nov 2024 08:49:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HhTh=SN=bounce.vates.tech=bounce-md_30504962.673aff99.v1-8f6556b918f44805a2f1fdef3b3f8a34@srs-se1.protection.inumbo.net>)
- id 1tCxRu-0005D2-MX
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:49:34 +0000
-Received: from mail180-8.suw31.mandrillapp.com
- (mail180-8.suw31.mandrillapp.com [198.2.180.8])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 063f0764-a58a-11ef-a0c8-8be0dac302b0;
+ <SRS0=LbT5=SN=bounce.vates.tech=bounce-md_30504962.673aff99.v1-f79108cbb7fe484e862e7fcb365ac070@srs-se1.protection.inumbo.net>)
+ id 1tCxRv-0005D3-Nj
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:49:35 +0000
+Received: from mail136-26.atl41.mandrillapp.com
+ (mail136-26.atl41.mandrillapp.com [198.2.136.26])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 063f63c6-a58a-11ef-99a3-01e77a169b0f;
  Mon, 18 Nov 2024 09:49:30 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-8.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4XsLsP61FMz3sNN6f
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-26.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4XsLsP1Yf1zJKF3ZX
  for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 08:49:29 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 8f6556b918f44805a2f1fdef3b3f8a34; Mon, 18 Nov 2024 08:49:29 +0000
+ f79108cbb7fe484e862e7fcb365ac070; Mon, 18 Nov 2024 08:49:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,46 +43,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 063f0764-a58a-11ef-a0c8-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE4MC44IiwiaGVsbyI6Im1haWwxODAtOC5zdXczMS5tYW5kcmlsbGFwcC5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6IjA2M2YwNzY0LWE1OGEtMTFlZi1hMGM4LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxOTE5NzcxLjEzMDc0NSwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3M2FmZjk5LnYxLThmNjU1NmI5MThmNDQ4MDVhMmYxZmRlZjNiM2Y4YTM0QGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 063f63c6-a58a-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjEzNi4yNiIsImhlbG8iOiJtYWlsMTM2LTI2LmF0bDQxLm1hbmRyaWxsYXBwLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjA2M2Y2M2M2LWE1OGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTE5NzcwLjk3MTMzNywic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3M2FmZjk5LnYxLWY3OTEwOGNiYjdmZTQ4NGU4NjJlN2ZjYjM2NWFjMDcwQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
 	s=mte1; t=1731919769; x=1732180269;
-	bh=1vvA+0VSIAC8nQ8VY1SX3ncz60BGkrkcakZs3orNshc=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=f/Q8M/9F9PGC6dOfh17uwvqf16ENb8scYDqCfgQuRaWcld2VTZ/s/aVOLLS20ykda
-	 fGmYgaSVDOMsqNEvFppx7A3OAJ4BywwSHkVrNMg5jKd8MYjR9vXTf+EnNbWItGRzvS
-	 Cl6KfXEEg5ADqMHO0u1siXx5l37hi7HYazhJ4wE01QhmejKh+F3erPNqBGd9Bb2eMT
-	 lGzQStE4kSgM6MY5p1S0M0oFHxtMA1rGBibEnd5raPNIF341S2ftQoq/rGxG+QGxnD
-	 ltziP7TfyTa0CdGYgKHPvWUyBge2pBXpzM8Ud3kZFM1v6U4nVOXivFMfamGEPrCbZ3
-	 1y1DoHo/KMkdg==
+	bh=X7pAjJkg7RR9F2RG6GXKRb5z5KA6bPQawpOfGyb4kXo=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=vSvtLWmPJ7UfPQnS89TK3gdLWUtf8OgiElwcy5X9SdJ/Hwg72K/J5gz4zXQb4cwRi
+	 N4Y6pUG/jua1stHN5nzyj+M0lCiTlyA7u87At2xtTlQJOahJHnH0HEpJaI2ooGlH+6
+	 K3CEOn42vywIlFOm8i2jSkS5cKVHxMg5B39rCHGDNGWJ9GqeD9lvwz74HNp3LVa9+U
+	 +a3yVxwgjHGQtKXPt5CuV+qZU2fn4KUD7FS9Zhec0/PceYpLyKgSpCVQ6+MI7fRorn
+	 wL172JDrcRyA4nhHfZy87QxpqVyYmhLKk6H7T/DQKzhyb5+5DttsiNnozAMoglSMSl
+	 H0Lu2bisFRsWg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
 	t=1731919769; x=1732180269; i=ngoc-tu.dinh@vates.tech;
-	bh=1vvA+0VSIAC8nQ8VY1SX3ncz60BGkrkcakZs3orNshc=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=zb/cnjvGLubBrj0nPtEIWXP6DjRr91YCpGBVEG6t7l2XxeoBmt7gU2NAyV3SQnVEL
-	 HmvYXcuiLIP/MUlV2YHApX0lduyDok9ZR8uqoUKfRQwK5yXfFpI/AXaNcL+KXh+6x8
-	 S3Kn3iD5qiXrv+OW/y75MaeeCigNlyASYj7yaDXn11ZnMoizS4l07eHtH0lmdJADgX
-	 Ubu8OJF7jg7RSPe/wTz8Eamzj0R/2uTyPVGDD0Aiy8CKWP15gIhj3rEFEpZGu5wLLD
-	 LmsE+eRgGfHQ1FTGqc/eTguYrLHkauRm8XhupVVIRFt4V3R4l+g5bClwuuSeKCeo/h
-	 juLYOwLTMTm+A==
+	bh=X7pAjJkg7RR9F2RG6GXKRb5z5KA6bPQawpOfGyb4kXo=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=Q1XJg+dciNrjdkoRlczRZ5l1Ae1mgBY+VrMZjoj5tw9MCoqUPs2qb11GFJ7hyjTi4
+	 sNZ/KwcXBlAbmxuNCRi/ugW2bZP+4hB63mfDBFPfzRF70lChr3qhDtIBbudj/WsYX5
+	 +6Ghod2sI01CwojBnetWlF+NXV0N5v2XgouvkeaMxD/01laeqp7sbtwqyOxoMYryfm
+	 8BS7cB/0M9hlYYXrQuQN6Ga4mglcCMgnw+f41TydlISEGToX9hHwWoGeUHY4ADvK8l
+	 KaGq+mDCwZ4TbJC4jHoybaHKsiXByKk3SwhEi/Gmra286eM6lahuG73WlvI8U4WQ4s
+	 kKysXBQ4ZMKvA==
 From: ngoc-tu.dinh@vates.tech
-Subject: =?utf-8?Q?[PATCH=203/4]=20x86:=20Adjust=20arch=20LBR=20CPU=20policy?=
+Subject: =?utf-8?Q?[PATCH=200/4]=20Virtualize=20architectural=20LBRs?=
 X-Mailer: git-send-email 2.43.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1731919768866
+X-Bm-Transport-Timestamp: 1731919768412
 To: xen-devel@lists.xenproject.org
 Cc: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Message-Id: <20241118084914.22268-4-ngoc-tu.dinh@vates.tech>
-In-Reply-To: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
-References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
+Message-Id: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.8f6556b918f44805a2f1fdef3b3f8a34?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f79108cbb7fe484e862e7fcb365ac070?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20241118:md
 Date: Mon, 18 Nov 2024 08:49:29 +0000
@@ -91,65 +88,34 @@ Content-Transfer-Encoding: 7bit
 
 From: Tu Dinh <ngoc-tu.dinh@vates.tech>
 
-Allow virtual arch LBR with a single depth that's equal to that of the
-host. If this is not possible, disable arch LBR altogether.
+Intel model-specific last branch records (LBRs) were replaced by
+architectural LBRs (see Chapter 20 of Intel SDM volume 3B). This
+patchset implements virtual LBRs for HVM guests using Intel's "load
+guest IA32_LBR_CTL" and "clear IA32_LBR_CTL" VMX controls.
 
-Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
----
- xen/arch/x86/cpu-policy.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Add the necessary CPUID and VMX feature checks into Xen. Note that in
+this patchset, MSR_IA32_LASTBRANCH_DEPTH is only allowed to be equal to
+that of the host's.
 
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index cf6b212fb6..2ac76eb058 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -638,6 +638,36 @@ static void __init calculate_pv_max_policy(void)
-     p->extd.raw[0xa] = EMPTY_LEAF; /* No SVM for PV guests. */
- }
- 
-+/*
-+ * Allow virtual arch LBR with a single depth that's equal to that of the
-+ * host. If this is not possible, disable arch LBR altogether.
-+ */
-+static void adjust_arch_lbr_depth(uint32_t fs[FEATURESET_NR_ENTRIES])
-+{
-+    uint64_t host_lbr_depth;
-+    bool lbr_supported = true;
-+
-+    rdmsrl(MSR_IA32_LASTBRANCH_DEPTH, host_lbr_depth);
-+    if ((host_lbr_depth == 0) ||
-+        (host_lbr_depth % 8) ||
-+        (host_lbr_depth > 64))
-+        lbr_supported = false;
-+
-+    host_lbr_depth = 1ul << ((host_lbr_depth / 8) - 1);
-+    if ((host_lbr_depth & fs[FEATURESET_1Ca] & 0xff) == 0)
-+        lbr_supported = false;
-+
-+    if (lbr_supported)
-+    {
-+        fs[FEATURESET_1Ca] = (fs[FEATURESET_1Ca] & ~0xffu) | host_lbr_depth;
-+    }
-+    else
-+    {
-+        __clear_bit(X86_FEATURE_ARCH_LBR, fs);
-+        fs[FEATURESET_1Ca] = fs[FEATURESET_1Cb] = fs[FEATURESET_1Cc] = 0;
-+    }
-+}
-+
- static void __init calculate_pv_def_policy(void)
- {
-     struct cpu_policy *p = &pv_def_cpu_policy;
-@@ -760,6 +790,9 @@ static void __init calculate_hvm_max_policy(void)
-             __clear_bit(X86_FEATURE_XSAVES, fs);
-     }
- 
-+    if ( test_bit(X86_FEATURE_ARCH_LBR, fs) )
-+        adjust_arch_lbr_depth(fs);
-+
-     /*
-      * Xen doesn't use PKS, so the guest support for it has opted to not use
-      * the VMCS load/save controls for efficiency reasons.  This depends on
+Tu Dinh (4):
+  x86: Add Intel architectural LBR featureset bits
+  x86: Add architectural LBR declarations
+  x86: Adjust arch LBR CPU policy
+  x86/vmx: Virtualize architectural LBRs
+
+ tools/libs/guest/xg_cpuid_x86.c             |   2 +-
+ tools/misc/xen-cpuid.c                      |   3 +
+ xen/arch/x86/cpu-policy.c                   |  39 +++
+ xen/arch/x86/cpu/common.c                   |   7 +
+ xen/arch/x86/hvm/vmx/vmcs.c                 |  11 +-
+ xen/arch/x86/hvm/vmx/vmx.c                  | 269 ++++++++++++++------
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h     |   8 +
+ xen/arch/x86/include/asm/msr-index.h        |  11 +
+ xen/include/public/arch-x86/cpufeatureset.h |  28 +-
+ xen/include/xen/lib/x86/cpu-policy.h        |  38 ++-
+ xen/lib/x86/cpuid.c                         |   6 +
+ 11 files changed, 339 insertions(+), 83 deletions(-)
+
 -- 
 2.43.0
 
