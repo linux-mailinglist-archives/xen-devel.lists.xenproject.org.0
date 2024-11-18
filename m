@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 571199D1991
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 21:21:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839515.1255309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF149D19B2
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 21:35:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839524.1255320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD8En-0000H2-CZ; Mon, 18 Nov 2024 20:20:45 +0000
+	id 1tD8SH-0003yT-Ih; Mon, 18 Nov 2024 20:34:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839515.1255309; Mon, 18 Nov 2024 20:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 839524.1255320; Mon, 18 Nov 2024 20:34:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD8En-0000EP-A1; Mon, 18 Nov 2024 20:20:45 +0000
-Received: by outflank-mailman (input) for mailman id 839515;
- Mon, 18 Nov 2024 20:20:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EsGE=SN=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1tD8El-00008i-LR
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 20:20:43 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92630f73-a5ea-11ef-99a3-01e77a169b0f;
- Mon, 18 Nov 2024 21:20:38 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 4AIKKQ0x075326
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 18 Nov 2024 15:20:32 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.18.1/8.15.2/Submit) id 4AIKKQo8075325;
- Mon, 18 Nov 2024 12:20:26 -0800 (PST) (envelope-from ehem)
+	id 1tD8SH-0003wE-Fp; Mon, 18 Nov 2024 20:34:41 +0000
+Received: by outflank-mailman (input) for mailman id 839524;
+ Mon, 18 Nov 2024 20:34:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=N8iN=SN=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1tD8SF-0003w6-R6
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 20:34:39 +0000
+Received: from fforwardh-b3-smtp.messagingengine.com
+ (fforwardh-b3-smtp.messagingengine.com [202.12.124.198])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8589f04b-a5ec-11ef-a0c9-8be0dac302b0;
+ Mon, 18 Nov 2024 21:34:35 +0100 (CET)
+Received: from phl-compute-05.internal (phl-compute-05.phl.internal
+ [10.202.2.45])
+ by mailfforwardh.stl.internal (Postfix) with ESMTP id 823CB17403CE;
+ Mon, 18 Nov 2024 15:34:33 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+ by phl-compute-05.internal (MEProxy); Mon, 18 Nov 2024 15:34:33 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 18 Nov 2024 15:34:32 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,71 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92630f73-a5ea-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6Ijc0LjEwNC4xODguNCIsImhlbG8iOiJtYWlsaG9zdC5tNXAuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjkyNjMwZjczLWE1ZWEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTYxMjM4LjU0NDI4Niwic2VuZGVyIjoiZWhlbUBtNXAuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-Date: Mon, 18 Nov 2024 12:20:26 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: Andrei Semenov <andrei.semenov@vates.tech>, xen-devel@lists.xenproject.org,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: AMD EPYC virtual network performances
-Message-ID: <ZzuhioHYhwercO04@mattapan.m5p.com>
-References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
- <ZzTg_p-8E0_jrkii@mattapan.m5p.com>
- <467e46ad-d0d0-4217-9b70-b48e3c7a1fb5@suse.com>
- <ZzaRnFLMq9OY3jj6@mattapan.m5p.com>
- <0f6fb528-7432-42b9-8605-58d95621509d@suse.com>
+X-Inumbo-ID: 8589f04b-a5ec-11ef-a0c9-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjIwMi4xMi4xMjQuMTk4IiwiaGVsbyI6ImZmb3J3YXJkaC1iMy1zbXRwLm1lc3NhZ2luZ2VuZ2luZS5jb20ifQ==
+X-Custom-Transaction: eyJpZCI6Ijg1ODlmMDRiLWE1ZWMtMTFlZi1hMGM5LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxOTYyMDc1LjQxNDcxNSwic2VuZGVyIjoic2FraWJAZGFya3N0YXIuc2l0ZSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1731962073; x=1732048473; bh=JPxOc4/0PlCvpZ0ob2sJAfYSLeuH
+	6RBTXPYFrwsJfpM=; b=VbpsCEmdkJhbnYlTmj6Qr15VDqUPkIEIQSArqtePl5CL
+	4NqZwO+x8HbivBPepfmc3oXhAULqt815pwXBPGXupEpUY8rGLI5wsFJFUQ6mxAXs
+	/NKqEhK+SPX2soF4jN1Kj8GMODQyZPklm680gf+MvOR2WV+nEb1JGGTVXZAQTLhb
+	UpLjtvRH8cuRNY0GW4DAtSYAlPS4Q26KZu2AFp8Q7If19XoRDxpz88N59b8xp6k4
+	l4yVc2x/0e/7sYt6XaZWxhzmvK11pRWa39Vvz4Gfhu0VF1+zSMhoMVaG0/w5CXM3
+	nDLpuAGXe+W1DOMyz3yI+fbQINLaCuL87qv/+PDAGQ==
+X-ME-Sender: <xms:2KQ7Z9IsqZJKSUxwZUUQWxCZKzqqvG1JIahvXEXcg1wkvdrl7zBw0g>
+    <xme:2KQ7Z5Ld2iWKFu2SvE25mEuihJIkmfyZAwfirl-oYOSZX40Xq4lK5F2R9Yzmeo9vW
+    fJ53rTwtLs-SVk0bmA>
+X-ME-Received: <xmr:2KQ7Z1vbOZfgxBPwJrZoN6HmzBxU9Btw1QBd1hxqy6jbbVxYvhKBz2N_pZnG0ihPfBSEnjzX3p1AHFkP7gS2g3lzuLo1swyZwvXyqNavnde7YmM5>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrfedtgddufeeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecu
+    hfhrohhmpefuvghrghhihicumfhisghrihhkuceoufgvrhhgihihpgfmihgsrhhikhesvg
+    hprghmrdgtohhmqeenucggtffrrghtthgvrhhnpeffvdelvdevgfdvjeeuvddvveefvdeu
+    geethfdtveeggeegleejveejteegveettdenucffohhmrghinhepkhgvrhhnvghlrdhorh
+    hgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshgr
+    khhisgesuggrrhhkshhtrghrrdhsihhtvgdpnhgspghrtghpthhtohepiedpmhhouggvpe
+    hsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
+    rhhojhgvtghtrdhorhhgpdhrtghpthhtohepshgvrhhgihihpghkihgsrhhikhesvghprg
+    hmrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphht
+    thhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtoh
+    eprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggv
+    lhhlihhniheskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:2KQ7Z-aTfcVpHLaRGrgPQj0CYfn7h1b82edFxqE5QQKDJ3ItLSFPPQ>
+    <xmx:2KQ7Z0ZhpPHk87YAFj7843wiO-k9CllWif-ktnYfQFJgIN6WosSVKQ>
+    <xmx:2KQ7ZyDr0HOxNh6HbCmoPH9dODwOI1Sduc3wIKeJYVMVGFvd-N7QJg>
+    <xmx:2KQ7ZyZuUPdrccaXIj1JJLYpRqptkXM5MFlKw0Pk-q7bc2fvpHByaw>
+    <xmx:2aQ7Z7VbN7CKHDbRN-6f_ZAWELQSEQbNUIi49Hm551i_Ep-ua_cigGRX3In6>
+Feedback-ID: ifd9ba90e:Fastmail
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v3 0/2] configurable stdvga & pmtimer emulation
+Date: Mon, 18 Nov 2024 22:34:27 +0200
+Message-Id: <cover.1731961652.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0f6fb528-7432-42b9-8605-58d95621509d@suse.com>
-X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
 
-On Fri, Nov 15, 2024 at 07:46:07AM +0100, Jürgen Groß wrote:
-> On 15.11.24 01:11, Elliott Mitchell wrote:
-> > On Wed, Nov 13, 2024 at 08:20:02PM +0100, Jürgen Groß wrote:
-> > > On 13.11.24 18:25, Elliott Mitchell wrote:
-> > > > 
-> > > > Hopefully I'm not making knave speculation here.  Might this be the
-> > > > simplest of issues, just it was missed due to being too obvious?
-> > > 
-> > > I don't agree with your analysis, see above.
-> > 
-> > Okay.  I was asking since it looked a bit odd and there has been no news
-> > on this issue (unless I missed some patch flying by).
-> > 
-> > I don't know how large the impact of this is.  I wouldn't be surprised if
-> > this turned out to overwhelm all my other efforts at performance
-> > improvement.
-> > 
-> > Any news on your efforts to track this down?
-> 
-> ENOTIME up to now.
-> 
-> Did you try to set the spurious threshold to e.g. 2 instead of the default
-> of 1? In case that helps it might be a good idea to either change the default
-> or to at least add a boot parameter for setting the default.
+Introduce build options for stdvga and ACPI PM timer emulation drivers to make
+them configurable with possibility to be disabled for finer-tuned setups that
+don't need this code.
 
-Appears it may somewhat, but not fully alleviate the situation.
+New config options reside in separate sub-menu, checks of emulation flags are
+added so that domain can't be created if it requires devices that had been
+disabled.
+Minor changes since previous series, details provided in per-patch changelogs.
 
-Just to make sure this is stated.  The spurious events are being
-observed on the back-ends of block and network devices.  The
-corresponding front-ends aren't recording any spurious events.
+v2 series here:
+https://lore.kernel.org/xen-devel/cover.1730887415.git.Sergiy_Kibrik@epam.com/
 
-I now wonder whether the network back-end I'm attempting to place in a
-DomU will observe spurious events.
+  -Sergiy
 
+Sergiy Kibrik (2):
+  x86/hvm: introduce config option for ACPI PM timer
+  x86/hvm: introduce config option for stdvga emulation
+
+ xen/arch/x86/Kconfig                  | 23 +++++++++++++++++++++++
+ xen/arch/x86/domain.c                 | 13 ++++++++++++-
+ xen/arch/x86/hvm/Makefile             |  4 ++--
+ xen/arch/x86/include/asm/acpi.h       |  5 +++++
+ xen/arch/x86/include/asm/domain.h     | 16 ++++++++++++----
+ xen/arch/x86/include/asm/hvm/domain.h |  2 ++
+ xen/arch/x86/include/asm/hvm/io.h     |  4 ++++
+ xen/arch/x86/include/asm/hvm/vpt.h    | 10 ++++++++++
+ 8 files changed, 70 insertions(+), 7 deletions(-)
 
 -- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
+2.25.1
 
 
