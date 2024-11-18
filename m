@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D4919D17A4
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 19:09:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839454.1255252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 080959D17B0
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 19:09:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839456.1255262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD6BQ-0000Ku-8d; Mon, 18 Nov 2024 18:09:08 +0000
+	id 1tD6Bi-0000ib-I2; Mon, 18 Nov 2024 18:09:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839454.1255252; Mon, 18 Nov 2024 18:09:08 +0000
+Received: by outflank-mailman (output) from mailman id 839456.1255262; Mon, 18 Nov 2024 18:09:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD6BQ-0000IU-5P; Mon, 18 Nov 2024 18:09:08 +0000
-Received: by outflank-mailman (input) for mailman id 839454;
- Mon, 18 Nov 2024 18:09:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tD6Bi-0000fP-EB; Mon, 18 Nov 2024 18:09:26 +0000
+Received: by outflank-mailman (input) for mailman id 839456;
+ Mon, 18 Nov 2024 18:09:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mIWu=SN=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tD6BO-0000IO-Og
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 18:09:06 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2fe13414-a5d8-11ef-99a3-01e77a169b0f;
- Mon, 18 Nov 2024 19:09:00 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a99f646ff1bso697182066b.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 10:09:00 -0800 (PST)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e081574sm565347366b.179.2024.11.18.10.08.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Nov 2024 10:08:59 -0800 (PST)
+ <SRS0=1Qym=SN=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
+ id 1tD6Bg-0000XQ-FJ
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 18:09:24 +0000
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 3c5f3185-a5d8-11ef-a0c8-8be0dac302b0;
+ Mon, 18 Nov 2024 19:09:22 +0100 (CET)
+Received: from [192.168.35.166] (c-73-118-245-227.hsd1.wa.comcast.net
+ [73.118.245.227])
+ by linux.microsoft.com (Postfix) with ESMTPSA id B3D1220BEBD0;
+ Mon, 18 Nov 2024 10:09:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,286 +40,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fe13414-a5d8-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzYiLCJoZWxvIjoibWFpbC1lajEteDYzNi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjJmZTEzNDE0LWE1ZDgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTUzMzQwLjgyNTg0MSwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1731953340; x=1732558140; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=05U+eHEv06g5QU7+ytyEww0kKOfOL8ykdgGZyS7ohgA=;
-        b=L8oS35DB6UNzNZhiQBESh2sqVQlWEjaFhvtyMOpF5Z91JHfWXjC4XFECJYYtPJSyKt
-         WWatYKCdWbPeeYHpUyTgR6lGKxiZvGC3xOg8e87UM3qOp1QYwL3/7CzSNkkJv1fu9PQL
-         WV5uVDzK3gdaAKiNMehErAT51D6uLFXDW5tyc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731953340; x=1732558140;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=05U+eHEv06g5QU7+ytyEww0kKOfOL8ykdgGZyS7ohgA=;
-        b=vXKPGkqdkdz0E26e3vwsyO2Z5deocg4y2iVwlvEcczmikYBRae7ManprRVtcfJWRLn
-         bUwrE0UIYkHYghEbob8FFpjWEjXzyD7X/6p2sBTb8+y8MJItBSyOFy1EJSv4SQa/ZMF2
-         7N4juK5syOyDvn+gIdBCgBqq6NcsG2zNM9+PWERJLLor/Ex7kepKckQ7AIcYAIlZU6dM
-         xyCTV6R0/9ON1cTRZ1QM+8sx8YgWgino0YiQQp3LGGTrsmfTP2fyL0SI1mJuGRjm6NsO
-         y0XSjDA8dppyvS6DLAgk0GTy1kL+d36HCxB/Fbs9ZynKadtfyMQ5d6ly2TgT8bf3Fc7f
-         4ViA==
-X-Forwarded-Encrypted: i=1; AJvYcCX6Dp5/FwMOrZXXiHZcYtu5eTjHXQuUSrdJdTsA8AwVKeaVDnt4xDf+W6l1ccEtRkB3IsFwNEo+EqE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwI/KbBd1rBjnBeTRsh4Ehcf2w9uSIsnq+JX9HsaTcc85iQcP9U
-	mDQ9QxYj6FTeeAhQObKqenkXNc7Wr+96PlvUhBslEkq+CrPTgTUncMxwvo75HRQ=
-X-Google-Smtp-Source: AGHT+IGq553ck/1IjnuXT6F0sh4qyDfnL7daw5ef/fz40NKLY3yQgFHAJBYtw6ZvjfEiECfUBRXm/A==
-X-Received: by 2002:a17:906:da84:b0:a99:403e:2578 with SMTP id a640c23a62f3a-aa4833e9196mr1365041366b.5.1731953340221;
-        Mon, 18 Nov 2024 10:09:00 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 3c5f3185-a5d8-11ef-a0c8-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjNjNWYzMTg1LWE1ZDgtMTFlZi1hMGM4LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxOTUzMzYyLjM2NTc1NCwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B3D1220BEBD0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1731953360;
+	bh=wR2vAxb4KjC7bChWhYgHEm7VYOkoUSKJ2zrGmmUQgeU=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=QcXvfQn32bbEJk/CliGqPjJlSoPmzpqy39Cb7yWbUp/UMAorBMUaWUr/NKZ9e69DC
+	 EuA6BiEwniO9Hz9jAZdoaPATG/Z4etAtwQMMCiIdSJ0wltRFnatVskzJPAClKWSWJ2
+	 IoOFaRlq/Uc2MlJVJm0M77F7OwMbRuycEwh39LjI=
+Message-ID: <52cc0733-49fc-4452-99c6-8c18bf20dde7@linux.microsoft.com>
+Date: Mon, 18 Nov 2024 10:09:17 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: eahariha@linux.microsoft.com, James.Bottomley@HansenPartnership.com,
+ Julia.Lawall@inria.fr, agordeev@linux.ibm.com, airlied@gmail.com,
+ akpm@linux-foundation.org, andrew+netdev@lunn.ch, anna-maria@linutronix.de,
+ ath11k@lists.infradead.org, axboe@kernel.dk,
+ bcm-kernel-feedback-list@broadcom.com, borntraeger@linux.ibm.com,
+ catalin.marinas@arm.com, ceph-devel@vger.kernel.org,
+ christian.gmeiner@gmail.com, christophe.leroy@csgroup.eu, cocci@inria.fr,
+ coreteam@netfilter.org, daniel@zonque.org, davem@davemloft.net,
+ dick.kennedy@broadcom.com, dri-devel@lists.freedesktop.org,
+ edumazet@google.com, etnaviv@lists.freedesktop.org,
+ florian.fainelli@broadcom.com, gor@linux.ibm.com,
+ gregkh@linuxfoundation.org, haojian.zhuang@gmail.com, hca@linux.ibm.com,
+ horms@kernel.org, idryomov@gmail.com, intel-xe@lists.freedesktop.org,
+ james.smart@broadcom.com, jeroendb@google.com, jikos@kernel.org,
+ jinpu.wang@cloud.ionos.com, jjohnson@kernel.org, joe.lawrence@redhat.com,
+ johan.hedberg@gmail.com, jpoimboe@kernel.org, kadlec@netfilter.org,
+ kuba@kernel.org, kvalo@kernel.org, l.stach@pengutronix.de,
+ linux+etnaviv@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-rpi-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-wireless@vger.kernel.org,
+ linux@armlinux.org.uk, linuxppc-dev@lists.ozlabs.org,
+ live-patching@vger.kernel.org, louis.peens@corigine.com,
+ lucas.demarchi@intel.com, luiz.dentz@gmail.com,
+ maarten.lankhorst@linux.intel.com, maddy@linux.ibm.com, marcel@holtmann.org,
+ martin.petersen@oracle.com, mbenes@suse.cz, mpe@ellerman.id.au,
+ mripard@kernel.org, naveen@kernel.org, netdev@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, nicolas.palix@imag.fr, npiggin@gmail.com,
+ obitton@habana.ai, ogabbay@kernel.org, oss-drivers@corigine.com,
+ pabeni@redhat.com, pablo@netfilter.org, perex@perex.cz,
+ pkaligineedi@google.com, pmladek@suse.com, rjui@broadcom.com,
+ robert.jarzmik@free.fr, rodrigo.vivi@intel.com, roger.pau@citrix.com,
+ sbranden@broadcom.com, shailend@google.com, simona@ffwll.ch,
+ svens@linux.ibm.com, thomas.hellstrom@linux.intel.com, tiwai@suse.com,
+ tzimmermann@suse.de, xen-devel@lists.xenproject.org, xiubli@redhat.com
+Subject: Re: [PATCH v2 02/21] coccinelle: misc: Add secs_to_jiffies script
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+References: <20241115-converge-secs-to-jiffies-v2-2-911fb7595e79@linux.microsoft.com>
+ <20241116060541.5798-1-christophe.jaillet@wanadoo.fr>
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+Content-Language: en-US
+In-Reply-To: <20241116060541.5798-1-christophe.jaillet@wanadoo.fr>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 18 Nov 2024 18:08:57 +0000
-Message-Id: <D5PI7VAO3Y1Z.AMHQW0VS2CBI@cloud.com>
-Cc: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, "Hongyan
- Xia" <hongyxia@amazon.com>, "Julien Grall" <jgrall@amazon.com>
-Subject: Re: [PATCH V4 07/15] x86/domain_page: Remove the fast paths when
- mfn is not in the directmap
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Elias El Yandouzi" <eliasely@amazon.com>,
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <20241111131148.52568-1-eliasely@amazon.com>
- <20241111131148.52568-8-eliasely@amazon.com>
-In-Reply-To: <20241111131148.52568-8-eliasely@amazon.com>
+Content-Transfer-Encoding: 8bit
 
-I'm still headscratching about various things, but the build errors are on
-release builds without pmap enabled. I'm highlighted them here.
+On 11/15/2024 10:05 PM, Christophe JAILLET wrote:
+> Le 15/11/2024 à 22:26, Easwar Hariharan a écrit :
+>> Suggested-by: Anna-Maria Behnsen <anna-maria@linutronix.de>
+>> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+>> ---
+>>   scripts/coccinelle/misc/secs_to_jiffies.cocci | 21 +++++++++++++++++++++
+>>   1 file changed, 21 insertions(+)
+>>
+>> diff --git a/scripts/coccinelle/misc/secs_to_jiffies.cocci b/scripts/coccinelle/misc/secs_to_jiffies.cocci
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..af762b1c0aac8f044f21150bfaafd9efc834ee87
+>> --- /dev/null
+>> +++ b/scripts/coccinelle/misc/secs_to_jiffies.cocci
+>> @@ -0,0 +1,21 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +///
+>> +/// Find usages of:
+>> +/// - msecs_to_jiffies(value*1000)
+>> +/// - msecs_to_jiffies(value*MSEC_PER_SEC)
+>> +///
+>> +// Confidence: High
+>> +// Copyright: (C) 2024 Easwar Hariharan Microsoft
+>> +//
+>> +// Keywords: secs, seconds, jiffies
+>> +//
+>> +
+>> +@@ constant C; @@
+>> +
+>> +- msecs_to_jiffies(C * 1000)
+>> ++ secs_to_jiffies(C)
+>> +
+>> +@@ constant C; @@
+>> +
+>> +- msecs_to_jiffies(C * MSEC_PER_SEC)
+>> ++ secs_to_jiffies(C)
+>>
+> Hi,
+> 
+> 	@@ constant C =~ "000"; @@
+> 
+> 	* msecs_to_jiffies(C)
+> 
+> also spots things like msecs_to_jiffies(1000)
+> 
+> I'm not sure that coccinelle is enable to capture part of the regex to automate the removal of the 000 when converting from ms to s.
+> 
+> Just my 2c,
+> 
+> CJ
 
-On Mon Nov 11, 2024 at 1:11 PM GMT, Elias El Yandouzi wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
->
-> When mfn is not in direct map, never use mfn_to_virt for any mappings.
->
-> We replace mfn_x(mfn) <=3D PFN_DOWN(__pa(HYPERVISOR_VIRT_END - 1)) with
-> arch_mfns_in_direct_map(mfn, 1) because these two are equivalent. The
-> extra comparison in arch_mfns_in_direct_map() looks different but because
-> DIRECTMAP_VIRT_END is always higher, it does not make any difference.
->
-> Lastly, domain_page_map_to_mfn() needs to gain to a special case for
-> the PMAP.
->
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
->
-> ----
->
->     Changes in v4:
->         * Introduce helper functions virt_is_fixmap and virt_in_fixmap_ra=
-nge
->
->     Changes since Hongyan's version:
->         * arch_mfn_in_direct_map() was renamed to arch_mfns_in_directmap(=
-)
->         * add a special case for the PMAP in domain_page_map_to_mfn()
->
-> diff --git a/xen/arch/x86/domain_page.c b/xen/arch/x86/domain_page.c
-> index 55e337aaf703..df7d4750ef05 100644
-> --- a/xen/arch/x86/domain_page.c
-> +++ b/xen/arch/x86/domain_page.c
-> @@ -14,8 +14,10 @@
->  #include <xen/sched.h>
->  #include <xen/vmap.h>
->  #include <asm/current.h>
-> +#include <asm/fixmap.h>
->  #include <asm/flushtlb.h>
->  #include <asm/hardirq.h>
-> +#include <asm/pmap.h>
->  #include <asm/setup.h>
-> =20
->  static DEFINE_PER_CPU(struct vcpu *, override);
-> @@ -24,6 +26,7 @@ static inline struct vcpu *mapcache_current_vcpu(void)
->  {
->      /* In the common case we use the mapcache of the running VCPU. */
->      struct vcpu *v =3D this_cpu(override) ?: current;
-> +    struct vcpu *idle_v =3D idle_vcpu[smp_processor_id()];
-> =20
->      /*
->       * When current isn't properly set up yet, this is equivalent to
-> @@ -35,10 +38,11 @@ static inline struct vcpu *mapcache_current_vcpu(void=
-)
->      /*
->       * When using efi runtime page tables, we have the equivalent of the=
- idle
->       * domain's page tables but current may point at another domain's VC=
-PU.
-> -     * Return NULL as though current is not properly set up yet.
-> +     * Return the idle domains's vcpu on that core because the efi per-d=
-omain
-> +     * region (where the mapcache is) is in-sync with the idle domain.
->       */
->      if ( efi_rs_using_pgtables() )
-> -        return NULL;
-> +        return idle_v;
-> =20
->      /*
->       * If guest_table is NULL, and we are running a paravirtualised gues=
-t,
-> @@ -48,7 +52,7 @@ static inline struct vcpu *mapcache_current_vcpu(void)
->      if ( unlikely(pagetable_is_null(v->arch.guest_table)) && is_pv_vcpu(=
-v) )
->      {
->          /* If we really are idling, perform lazy context switch now. */
-> -        if ( (v =3D idle_vcpu[smp_processor_id()]) =3D=3D current )
-> +        if ( (v =3D idle_v) =3D=3D current )
->              sync_local_execstate();
->          /* We must now be running on the idle page table. */
->          ASSERT(cr3_pa(read_cr3()) =3D=3D __pa(idle_pg_table));
-> @@ -77,18 +81,24 @@ void *map_domain_page(mfn_t mfn)
->      struct vcpu_maphash_entry *hashent;
-> =20
->  #ifdef NDEBUG
-> -    if ( mfn_x(mfn) <=3D PFN_DOWN(__pa(HYPERVISOR_VIRT_END - 1)) )
-> +    if ( arch_mfns_in_directmap(mfn_x(mfn), 1) )
->          return mfn_to_virt(mfn_x(mfn));
->  #endif
-> =20
->      v =3D mapcache_current_vcpu();
-> -    if ( !v )
-> -        return mfn_to_virt(mfn_x(mfn));
-> +    if ( !v || !v->domain->arch.mapcache.inuse )
-> +    {
-> +        if ( arch_mfns_in_directmap(mfn_x(mfn), 1) )
-> +            return mfn_to_virt(mfn_x(mfn));
-> +        else
-> +        {
-> +            BUG_ON(system_state >=3D SYS_STATE_smp_boot);
+Thank you, I'll try that rule for the later parts. Thank you all for
+helping with writing Coccinelle rules, I'm not familiar with
+metaprogramming in general and Coccinelle in particular, so these are
+super helpful.
 
-Missing CONFIG_HAS_PMAP guards around this return. Without it this wants to
-BUG(), I think. I'm not entirely convinced the current logic takes into acc=
-ount
-the extended directmap present in HVM and idle vCPUs though.
-
-arch_mfns_in_directmap() merely checks they fit in DIRECTMAP_SIZE, doesn't =
-it?
-
-> +            return pmap_map(mfn);
-> +        }
-> +    }
-> =20
->      dcache =3D &v->domain->arch.mapcache;
->      vcache =3D &v->arch.mapcache;
-> -    if ( !dcache->inuse )
-> -        return mfn_to_virt(mfn_x(mfn));
-> =20
->      perfc_incr(map_domain_page_count);
-> =20
-> @@ -184,6 +194,12 @@ void unmap_domain_page(const void *ptr)
->      if ( !va || va >=3D DIRECTMAP_VIRT_START )
->          return;
-> =20
-> +    if ( virt_is_fixmap(va) )
-> +    {
-> +        pmap_unmap(ptr);
-> +        return;
-> +    }
-> +
-
-This hunk is also missing CONFIG_HAS_PMAP guards.
-
->      ASSERT(va >=3D MAPCACHE_VIRT_START && va < MAPCACHE_VIRT_END);
-> =20
->      v =3D mapcache_current_vcpu();
-> @@ -237,7 +253,7 @@ int mapcache_domain_init(struct domain *d)
->      unsigned int bitmap_pages;
-> =20
->  #ifdef NDEBUG
-> -    if ( !mem_hotplug && max_page <=3D PFN_DOWN(__pa(HYPERVISOR_VIRT_END=
- - 1)) )
-> +    if ( !mem_hotplug && arch_mfn_in_directmap(0, max_page) )
-
-I suspect you wanted arch_mfns_in_directmap() rather than _mfn_
-
->          return 0;
->  #endif
-> =20
-> @@ -308,7 +324,7 @@ void *map_domain_page_global(mfn_t mfn)
->              local_irq_is_enabled()));
-> =20
->  #ifdef NDEBUG
-> -    if ( mfn_x(mfn) <=3D PFN_DOWN(__pa(HYPERVISOR_VIRT_END - 1)) )
-> +    if ( arch_mfn_in_directmap(mfn_x(mfn, 1)) )
-
-I suspect you wanted 's/mfn_x(mfn, 1)/mfn_x(mfn), 1/' instead?
-
->          return mfn_to_virt(mfn_x(mfn));
->  #endif
-> =20
-> @@ -335,6 +351,22 @@ mfn_t domain_page_map_to_mfn(const void *ptr)
->      if ( va >=3D DIRECTMAP_VIRT_START )
->          return _mfn(virt_to_mfn(ptr));
-> =20
-> +    /*
-> +     * The fixmap is stealing the top-end of the VMAP. So the check for
-> +     * the PMAP *must* happen first.
-> +     *
-> +     * Also, the fixmap translate a slot to an address backwards. The
-> +     * logic will rely on it to avoid any complexity. So check at
-> +     * compile time this will always hold.
-> +    */
-> +    BUILD_BUG_ON(fix_to_virt(FIX_PMAP_BEGIN) < fix_to_virt(FIX_PMAP_END)=
-);
-> +
-> +    if ( virt_in_fixmap_range(va, FIX_PMAP_BEGIN, FIX_PMAP_END) )
-> +    {
-> +        BUG_ON(system_state >=3D SYS_STATE_smp_boot);
-> +        return l1e_get_mfn(l1_fixmap[l1_table_offset(va)]);
-> +    }
-> +
-
-This hunk should be surrounded by CONFIG_HAS_PMAP guards or it'll fail to
-compile.
-
->      if ( va >=3D VMAP_VIRT_START && va < VMAP_VIRT_END )
->          return vmap_to_mfn(va);
-> =20
-> diff --git a/xen/arch/x86/include/asm/fixmap.h b/xen/arch/x86/include/asm=
-/fixmap.h
-> index 80b7b74fd816..381c95a8b11f 100644
-> --- a/xen/arch/x86/include/asm/fixmap.h
-> +++ b/xen/arch/x86/include/asm/fixmap.h
-> @@ -101,6 +101,31 @@ static inline unsigned long virt_to_fix(const unsign=
-ed long vaddr)
->      return __virt_to_fix(vaddr);
->  }
-> =20
-> +static inline bool virt_is_fixmap(const unsigned long vaddr)
-> +{
-> +    return vaddr >=3D FIXADDR_START && vaddr < FIXADDR_TOP;
-> +}
-> +
-> +static inline bool virt_in_fixmap_range(
-> +    const unsigned long vaddr,
-> +    const unsigned int start_idx,
-> +    const unsigned int end_idx
-> +)
-> +{
-> +    unsigned long start_addr =3D (unsigned long)fix_to_virt(start_idx);
-> +    unsigned long end_addr =3D (unsigned long)fix_to_virt(end_idx);
-> +
-> +    /*
-> +     * The check ensures that the virtual address (vaddr) is within the
-> +     * fixmap range. The addresses are allocated backwards, meaning the
-> +     * start address is higher than the end address. As a result, the
-> +     * check ensures that the virtual address is greater than or equal t=
-o
-> +     * the end address, and less than or equal to the start address, whi=
-ch
-> +     * may appear counterintuitive due to the reverse allocation order.
-> +     */
-> +    return ((vaddr & PAGE_MASK) <=3D start_addr) && (vaddr >=3D end_addr=
-);
-> +}
-> +
->  enum fixed_addresses_x {
->      /* Index 0 is reserved since fix_x_to_virt(0) =3D=3D FIXADDR_X_TOP. =
-*/
->      FIX_X_RESERVED,
-
-Cheers,
-Alejandro
+- Easwar
 
