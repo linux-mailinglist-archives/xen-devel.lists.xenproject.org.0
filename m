@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB7FA9D19B8
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 21:39:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839540.1255340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C98B9D1ABF
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 22:43:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839561.1255350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD8WF-00058p-Cp; Mon, 18 Nov 2024 20:38:47 +0000
+	id 1tD9V7-00059r-M0; Mon, 18 Nov 2024 21:41:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839540.1255340; Mon, 18 Nov 2024 20:38:47 +0000
+Received: by outflank-mailman (output) from mailman id 839561.1255350; Mon, 18 Nov 2024 21:41:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD8WF-00056y-9x; Mon, 18 Nov 2024 20:38:47 +0000
-Received: by outflank-mailman (input) for mailman id 839540;
- Mon, 18 Nov 2024 20:38:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tD9V7-000589-Ix; Mon, 18 Nov 2024 21:41:41 +0000
+Received: by outflank-mailman (input) for mailman id 839561;
+ Mon, 18 Nov 2024 21:41:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N8iN=SN=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1tD8WE-00056o-7o
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 20:38:46 +0000
-Received: from fforwardh-b3-smtp.messagingengine.com
- (fforwardh-b3-smtp.messagingengine.com [202.12.124.198])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 190bf74c-a5ed-11ef-99a3-01e77a169b0f;
- Mon, 18 Nov 2024 21:38:42 +0100 (CET)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfforwardh.stl.internal (Postfix) with ESMTP id 6621D17404B0;
- Mon, 18 Nov 2024 15:38:41 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
- by phl-compute-02.internal (MEProxy); Mon, 18 Nov 2024 15:38:41 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 18 Nov 2024 15:38:40 -0500 (EST)
+ <SRS0=JUlN=SN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tD9V6-000583-JV
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 21:41:40 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e30449b2-a5f5-11ef-a0c9-8be0dac302b0;
+ Mon, 18 Nov 2024 22:41:36 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43152b79d25so29944815e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 13:41:36 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-432da265ca8sm172725655e9.14.2024.11.18.13.41.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Nov 2024 13:41:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,195 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 190bf74c-a5ed-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjIwMi4xMi4xMjQuMTk4IiwiaGVsbyI6ImZmb3J3YXJkaC1iMy1zbXRwLm1lc3NhZ2luZ2VuZ2luZS5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6IjE5MGJmNzRjLWE1ZWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTYyMzIyLjYzNjI4Miwic2VuZGVyIjoic2FraWJAZGFya3N0YXIuc2l0ZSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1731962321; x=
-	1732048721; bh=fTfrGVdXy8YPyPc4er3hijs5yP5z3AbAi5qMVvZHAW8=; b=D
-	+6P/ylE1tsXE+hIHP/C5MIbv7ERw6UWnhqBBrm4hvoyxxl61BS6cbCuoJE9ynRBa
-	INlvcXnP6xPOIaG2xVPQEGNuhCXClGJ0Cx40tNV2C/u72wamkrk+mSwcZyCADIFE
-	3Gzl3hfyuajZrAPVQjlSG3uNoTXdMU5TonAnCXn7EOqHZcQ3FsqUb/PsH+cIYiEp
-	rXG2X8jD27MZCLeVvJ5jK9JS6UHmO636BzFh/FakXnnbOyNnAjARcgUn0R4h8GOs
-	WWcnVmCCQqIkf8a2eV1dN4CQ5Dz3KVSur6xVYznQMRWEc8jYtkcJNVLkNnCrti9H
-	lL8XIdN80lWrlmfU20nIA==
-X-ME-Sender: <xms:0aU7Z5VpMDhOk7f0tqea4AdidJo6JfEN03fM9PfeIPejsNhtnkhdxQ>
-    <xme:0aU7Z5nuyj4XyCGK55s69aB72HvoqFfnfBE76TYxk4U_N-ifJ0Y5CPV5Bpckyp8D1
-    3lKjniNnbZ7wsWASXs>
-X-ME-Received: <xmr:0aU7Z1ZlMam3wj6CCYGioQC5JXat9u94FUrf9CheU2YBM41QvtcW5D0vezna0gsmRBRhlctydou6TP1Qk157ue6JxF8suIrJuOpXfb-R4xq3bCVu>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrfedtgddufeejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdej
-    necuhfhrohhmpefuvghrghhihicumfhisghrihhkuceoufgvrhhgihihpgfmihgsrhhikh
-    esvghprghmrdgtohhmqeenucggtffrrghtthgvrhhnpeeigfdvjeduieefveefudegvdel
-    gfehjedttdeifffhlefgudetudetheduleevueenucevlhhushhtvghrufhiiigvpedtne
-    curfgrrhgrmhepmhgrihhlfhhrohhmpehsrghkihgssegurghrkhhsthgrrhdrshhithgv
-    pdhnsggprhgtphhtthhopeeipdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeigvg
-    hnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthho
-    pehsvghrghhihigpkhhisghrihhksegvphgrmhdrtghomhdprhgtphhtthhopegrnhgurh
-    gvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtoheprhhoghgvrhdr
-    phgruhestghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskh
-    gvrhhnvghlrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomh
-X-ME-Proxy: <xmx:0aU7Z8XVPq8d4_GD8raacTMUIbq_-8vgXbXiZVa2OLOW2fRNbv3vXQ>
-    <xmx:0aU7ZznHrzUCgBUTpaWyo2UZQWh4FVLUrKOhgvNSsLfItlTA3s-dQg>
-    <xmx:0aU7Z5elR2AYpZ535ZBnkWAgOaoFLNAP3XA5RuzUl1Ox31FAGGOYAQ>
-    <xmx:0aU7Z9G8GGnKcWaQKXt2uGachAfJf8pfgcWKaGLScIVDOw320LHqqQ>
-    <xmx:0aU7Z8C0nFeMfTZPNAMe26q4qpo-hNyUTqR7dNjfDX5po_TytXWIpMHuO6tX>
-Feedback-ID: id7975e81:Fastmail
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH v3 2/2] x86/hvm: introduce config option for stdvga emulation
-Date: Mon, 18 Nov 2024 22:38:38 +0200
-Message-Id: <b4163fe8957506d38294ba511c063c706cc1ac85.1731961652.git.Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1731961652.git.Sergiy_Kibrik@epam.com>
-References: <cover.1731961652.git.Sergiy_Kibrik@epam.com>
+X-Inumbo-ID: e30449b2-a5f5-11ef-a0c9-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzYiLCJoZWxvIjoibWFpbC13bTEteDMzNi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImUzMDQ0OWIyLWE1ZjUtMTFlZi1hMGM5LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxOTY2MDk2Ljc5OTI5NSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1731966095; x=1732570895; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nONolnJzn0IQ4ZuzliJB/6msxh9WiWjFljy9G8rVIsQ=;
+        b=aSoj9N9y6HADlW3sAcY/4N+U4H0sbDQWQwJwnbRnsUzyrSy0jJCeufhZMkJ3EVPnTg
+         C8GzMkRmYI4793N2LRp/v4SHRW8+o30v22qR/AkZ/arubJZLk1z3bFhzmWt2xDUXKnmX
+         H4/EFJU+URNllnCYOV47oiFpCmcWyCyTFiYAw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1731966095; x=1732570895;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nONolnJzn0IQ4ZuzliJB/6msxh9WiWjFljy9G8rVIsQ=;
+        b=HC85UlF7lj8Hn0Ae081A8YL5+TSYvEYHOmq0MmpKUkl8iCZrscI7S9VgOu5ZbtlOk8
+         TyyrNTSFilx7w7+DH+y7hu9lSD0rDXU4brh9WfgDAf0EUxM6e3NkIfs+Ido3vuHCuutQ
+         g5hYC6r1MCzerRVQe9xF8qBBYYXKYZWGRPWXw8IJ1JN4cal7b4kQ6qRnwb/Wg8v6laVs
+         svLBIXvhB1DktHGjgDaOZxLk3Bny+FmJBdDpwA6nNbrKcCB+igS4eVhN4XRhQMadQx+6
+         SsaEQXNuZzEg9mh6xyyK9xG8HS6Vt3KaygL2kmnGwq04OIrwagOHxjVqxdF8yPnU6GWG
+         55dQ==
+X-Gm-Message-State: AOJu0YxlR0wqDzcFBed04XPmIhk2+B8vzEjRidG2T1GPPJDAuEFF7eH6
+	lBfzGz12NmZhFUUBIDPxYAbIRpsG39asAmS8XHvp0LDJvkGfVuCluX6EXGW7VrHeij0SCOFKMoc
+	f
+X-Google-Smtp-Source: AGHT+IEPpazDcTqaQbiZnVjGWG3kHMYDsAtxLhGzXRvIAMZ8Rnr6wJ8JsplG7vBCt8gJuxFJ5oL67Q==
+X-Received: by 2002:a05:600c:4f10:b0:431:5194:1687 with SMTP id 5b1f17b1804b1-432df74da89mr114405635e9.18.1731966095293;
+        Mon, 18 Nov 2024 13:41:35 -0800 (PST)
+Message-ID: <4de83f5b-5fde-44a9-8943-b1bb3f41d2e3@citrix.com>
+Date: Mon, 18 Nov 2024 21:41:34 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting@bugseng.com" <consulting@bugseng.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: x86: Declarations for compat_set_{cx,px}_pminfo()
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Introduce config option X86_HVM_STDVGA and make stdvga emulation driver
-configurable so it can be disabled on systems that don't need it.
+Hello,
 
-Suggested-by: Roger Pau Monné <roger.pau@citrix.com> # approach
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-CC: Jan Beulich <jbeulich@suse.com>
----
-changes in v3:
- - changed config option's description
- - add build-time checks of X86_EMU_VGA vs XEN_X86_EMU_VGA
- - tags
-changes in v2:
- - updated description
- - renamed config option X86_STDVGA -> X86_HVM_STDVGA & moved related
-   Kconfig changes to this patch
- - reverted changes to has_vvga() macro
- - moved emulation_flags_ok() checks to this patch
----
- xen/arch/x86/Kconfig              | 10 ++++++++++
- xen/arch/x86/domain.c             |  7 +++++--
- xen/arch/x86/hvm/Makefile         |  2 +-
- xen/arch/x86/include/asm/domain.h |  8 ++++++--
- xen/arch/x86/include/asm/hvm/io.h |  4 ++++
- 5 files changed, 26 insertions(+), 5 deletions(-)
+Eclair reports Rule 8.4 violations for these two.  They're real
+violations, but fixing them is proving challenging.
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index d8f108a3ca..e2ba257fb3 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -155,6 +155,16 @@ config X86_HVM_PMTIMER
- 	  Build driver that emulates ACPI PM timer for HVM guests.
- 
- 	  If unsure, say Y.
-+
-+config X86_HVM_STDVGA
-+	bool "Standard VGA card emulation support"
-+	default y
-+	help
-+	  Build driver that emulates standard VGA card with VESA BIOS
-+	  Extensions for HVM guests.
-+
-+	  If unsure, say Y.
-+
- endmenu
- 
- config XEN_SHSTK
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index d867b4f046..e01759e2e5 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -744,12 +744,15 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
- {
- #ifdef CONFIG_HVM
-     /* This doesn't catch !CONFIG_HVM case but it is better than nothing */
--    BUILD_BUG_ON((X86_EMU_ALL & ~X86_EMU_PM) !=
--                 (XEN_X86_EMU_ALL & ~XEN_X86_EMU_PM));
-+    BUILD_BUG_ON((X86_EMU_ALL & ~(X86_EMU_PM | X86_EMU_VGA)) !=
-+                 (XEN_X86_EMU_ALL & ~(XEN_X86_EMU_PM | XEN_X86_EMU_VGA)));
- #endif
- #ifdef CONFIG_X86_HVM_PMTIMER
-        BUILD_BUG_ON(X86_EMU_PM != XEN_X86_EMU_PM);
- #endif
-+#ifdef CONFIG_X86_HVM_STDVGA
-+       BUILD_BUG_ON(X86_EMU_VGA != XEN_X86_EMU_VGA);
-+#endif
- 
-     /* emflags contain non-supported bits */
-     if ( (emflags & X86_EMU_ALL) != emflags )
-diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
-index 3af8963218..80ec425aa8 100644
---- a/xen/arch/x86/hvm/Makefile
-+++ b/xen/arch/x86/hvm/Makefile
-@@ -22,7 +22,7 @@ obj-$(CONFIG_X86_HVM_PMTIMER) += pmtimer.o
- obj-y += quirks.o
- obj-y += rtc.o
- obj-y += save.o
--obj-y += stdvga.o
-+obj-$(CONFIG_X86_HVM_STDVGA) += stdvga.o
- obj-y += vioapic.o
- obj-y += vlapic.o
- obj-y += vm_event.o
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index 8550473997..106b438779 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -466,7 +466,6 @@ struct arch_domain
- #define X86_EMU_RTC      XEN_X86_EMU_RTC
- #define X86_EMU_IOAPIC   XEN_X86_EMU_IOAPIC
- #define X86_EMU_PIC      XEN_X86_EMU_PIC
--#define X86_EMU_VGA      XEN_X86_EMU_VGA
- #define X86_EMU_IOMMU    XEN_X86_EMU_IOMMU
- #define X86_EMU_USE_PIRQ XEN_X86_EMU_USE_PIRQ
- #define X86_EMU_VPCI     XEN_X86_EMU_VPCI
-@@ -476,7 +475,6 @@ struct arch_domain
- #define X86_EMU_RTC      0
- #define X86_EMU_IOAPIC   0
- #define X86_EMU_PIC      0
--#define X86_EMU_VGA      0
- #define X86_EMU_IOMMU    0
- #define X86_EMU_USE_PIRQ 0
- #define X86_EMU_VPCI     0
-@@ -488,6 +486,12 @@ struct arch_domain
- #define X86_EMU_PM       0
- #endif
- 
-+#ifdef CONFIG_X86_HVM_STDVGA
-+#define X86_EMU_VGA      XEN_X86_EMU_VGA
-+#else
-+#define X86_EMU_VGA      0
-+#endif
-+
- #define X86_EMU_PIT     XEN_X86_EMU_PIT
- 
- /* This must match XEN_X86_EMU_ALL in xen.h */
-diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
-index f2b8431fac..c02fad876c 100644
---- a/xen/arch/x86/include/asm/hvm/io.h
-+++ b/xen/arch/x86/include/asm/hvm/io.h
-@@ -108,7 +108,11 @@ struct vpci_arch_msix_entry {
-     int pirq;
- };
- 
-+#ifdef CONFIG_X86_HVM_STDVGA
- void stdvga_init(struct domain *d);
-+#else
-+static inline void stdvga_init(struct domain *d) {}
-+#endif
- 
- extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
- 
--- 
-2.25.1
+Because of how x86_64/platform_hypercall.c sets up some defines and
+includes ../platform_hypercall.c, the declarations of
+compat_set_{cx,px}_pminfo() of pmstat.h become compat ones.
 
+Therefore the real hypercall handler does see a correct declaration.
+
+However, the implementation in cpufreq.c does not get the compat-ified
+version of pmstat.h, so misses the declaration and thus the violation.
+
+Worse however is the fact that cpufreq.c depends on not having the:
+
+#define xen_processor_performance compat_processor_performance
+
+in scope while it's transforming between the two formats, meaning we
+can't simply reuse pmstat.h with suitable defines.
+
+Any clever ideas for how to untangle this mess, before I go for the
+brute force approach of an #if COMPAT section in the main hypercall handler?
+
+~Andrew
 
