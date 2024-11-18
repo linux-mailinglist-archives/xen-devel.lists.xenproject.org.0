@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8299D17F6
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 19:19:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839494.1255296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 571199D1991
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 21:21:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839515.1255309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD6Kw-0005Y1-V8; Mon, 18 Nov 2024 18:18:58 +0000
+	id 1tD8En-0000H2-CZ; Mon, 18 Nov 2024 20:20:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839494.1255296; Mon, 18 Nov 2024 18:18:58 +0000
+Received: by outflank-mailman (output) from mailman id 839515.1255309; Mon, 18 Nov 2024 20:20:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD6Kw-0005WR-SH; Mon, 18 Nov 2024 18:18:58 +0000
-Received: by outflank-mailman (input) for mailman id 839494;
- Mon, 18 Nov 2024 18:18:57 +0000
+	id 1tD8En-0000EP-A1; Mon, 18 Nov 2024 20:20:45 +0000
+Received: by outflank-mailman (input) for mailman id 839515;
+ Mon, 18 Nov 2024 20:20:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Qym=SN=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tD6Kv-0005WJ-Lj
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 18:18:57 +0000
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 91037ca5-a5d9-11ef-99a3-01e77a169b0f;
- Mon, 18 Nov 2024 19:18:53 +0100 (CET)
-Received: from [192.168.35.166] (c-73-118-245-227.hsd1.wa.comcast.net
- [73.118.245.227])
- by linux.microsoft.com (Postfix) with ESMTPSA id 7B6DB206BCF9;
- Mon, 18 Nov 2024 10:18:49 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EsGE=SN=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1tD8El-00008i-LR
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 20:20:43 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 92630f73-a5ea-11ef-99a3-01e77a169b0f;
+ Mon, 18 Nov 2024 21:20:38 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 4AIKKQ0x075326
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 18 Nov 2024 15:20:32 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.18.1/8.15.2/Submit) id 4AIKKQo8075325;
+ Mon, 18 Nov 2024 12:20:26 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,149 +43,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91037ca5-a5d9-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzLjc3LjE1NC4xODIiLCJoZWxvIjoibGludXgubWljcm9zb2Z0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjkxMDM3Y2E1LWE1ZDktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTUzOTMzLjgyMzcwOCwic2VuZGVyIjoiZWFoYXJpaGFAbGludXgubWljcm9zb2Z0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7B6DB206BCF9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1731953932;
-	bh=fIQzgF1WsNR1uKKNTq0/EQo7zmlio+cixqR17RrtuRg=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
-	b=AG9s/uyDx0OBII3cr4HUzEtCn4nG6edMY2UD6tMYQJ1OpbxvtlkXS/eCyyKzQSDkC
-	 KcdCHl5p58vf39EYGhD7mqQUrW1VKQADyz79vhjulvgZLmWmAZisUXU71InKFz7Poi
-	 T4lQlDCJsC2Y9ZlNmbnEUe8f/zo4dQilCRsXYjpY=
-Message-ID: <96f3b51b-c28c-4ea8-b61e-a4982196215f@linux.microsoft.com>
-Date: Mon, 18 Nov 2024 10:18:49 -0800
+X-Inumbo-ID: 92630f73-a5ea-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6Ijc0LjEwNC4xODguNCIsImhlbG8iOiJtYWlsaG9zdC5tNXAuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjkyNjMwZjczLWE1ZWEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTYxMjM4LjU0NDI4Niwic2VuZGVyIjoiZWhlbUBtNXAuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+Date: Mon, 18 Nov 2024 12:20:26 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
+Cc: Andrei Semenov <andrei.semenov@vates.tech>, xen-devel@lists.xenproject.org,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: AMD EPYC virtual network performances
+Message-ID: <ZzuhioHYhwercO04@mattapan.m5p.com>
+References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
+ <ZzTg_p-8E0_jrkii@mattapan.m5p.com>
+ <467e46ad-d0d0-4217-9b70-b48e3c7a1fb5@suse.com>
+ <ZzaRnFLMq9OY3jj6@mattapan.m5p.com>
+ <0f6fb528-7432-42b9-8605-58d95621509d@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>,
- eahariha@linux.microsoft.com, Pablo Neira Ayuso <pablo@netfilter.org>,
- Jozsef Kadlecsik <kadlec@netfilter.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Julia Lawall <Julia.Lawall@inria.fr>,
- Nicolas Palix <nicolas.palix@imag.fr>, Daniel Mack <daniel@zonque.org>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Russell King
- <linux@armlinux.org.uk>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev
- <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ofir Bitton <obitton@habana.ai>,
- Oded Gabbay <ogabbay@kernel.org>, Lucas De Marchi
- <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jeroen de Borst <jeroendb@google.com>,
- Praveen Kaligineedi <pkaligineedi@google.com>,
- Shailend Chand <shailend@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- James Smart <james.smart@broadcom.com>,
- Dick Kennedy <dick.kennedy@broadcom.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>,
- Jeff Johnson <jjohnson@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Andrew Morton <akpm@linux-foundation.org>,
- Jack Wang <jinpu.wang@cloud.ionos.com>, Marcel Holtmann
- <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Xiubo Li <xiubli@redhat.com>,
- Ilya Dryomov <idryomov@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Jiri Kosina <jikos@kernel.org>, Miroslav Benes <mbenes@suse.cz>,
- Joe Lawrence <joe.lawrence@redhat.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Louis Peens <louis.peens@corigine.com>, Michael Ellerman
- <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Naveen N Rao <naveen@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, cocci@inria.fr,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, linux-mm@kvack.org,
- linux-bluetooth@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org,
- live-patching@vger.kernel.org, linux-sound@vger.kernel.org,
- etnaviv@lists.freedesktop.org, oss-drivers@corigine.com,
- linuxppc-dev@lists.ozlabs.org, Anna-Maria Behnsen <anna-maria@linutronix.de>
-Subject: Re: [PATCH v2 19/21] livepatch: Convert timeouts to secs_to_jiffies()
-To: Petr Mladek <pmladek@suse.com>
-References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
- <20241115-converge-secs-to-jiffies-v2-19-911fb7595e79@linux.microsoft.com>
- <718febc4-59ee-4701-ad62-8b7a8fa7a910@csgroup.eu>
- <Zzsfuuv3AVomkMxn@pathway.suse.cz>
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Content-Language: en-US
-In-Reply-To: <Zzsfuuv3AVomkMxn@pathway.suse.cz>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <0f6fb528-7432-42b9-8605-58d95621509d@suse.com>
+X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
 
-On 11/18/2024 3:06 AM, Petr Mladek wrote:
-> On Sat 2024-11-16 11:10:52, Christophe Leroy wrote:
->>
->>
->> Le 15/11/2024 Ã  22:26, Easwar Hariharan a Ã©critÂ :
->>> [Vous ne recevez pas souvent de courriers de eahariha@linux.microsoft.com. DÃ©couvrez pourquoi ceci est important Ã  https://aka.ms/LearnAboutSenderIdentification ]
->>>
->>> Changes made with the following Coccinelle rules:
->>>
->>> @@ constant C; @@
->>>
->>> - msecs_to_jiffies(C * 1000)
->>> + secs_to_jiffies(C)
->>>
->>> @@ constant C; @@
->>>
->>> - msecs_to_jiffies(C * MSEC_PER_SEC)
->>> + secs_to_jiffies(C)
->>>
->>> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
->>> ---
->>>   samples/livepatch/livepatch-callbacks-busymod.c |  2 +-
->>>   samples/livepatch/livepatch-shadow-fix1.c       |  2 +-
->>>   samples/livepatch/livepatch-shadow-mod.c        | 10 +++++-----
->>>   3 files changed, 7 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/samples/livepatch/livepatch-callbacks-busymod.c b/samples/livepatch/livepatch-callbacks-busymod.c
->>> index 378e2d40271a9717d09eff51d3d3612c679736fc..d0fd801a7c21b7d7939c29d83f9d993badcc9aba 100644
->>> --- a/samples/livepatch/livepatch-callbacks-busymod.c
->>> +++ b/samples/livepatch/livepatch-callbacks-busymod.c
->>> @@ -45,7 +45,7 @@ static int livepatch_callbacks_mod_init(void)
->>>   {
->>>          pr_info("%s\n", __func__);
->>>          schedule_delayed_work(&work,
->>> -               msecs_to_jiffies(1000 * 0));
->>> +               secs_to_jiffies(0));
->>
->> Using secs_to_jiffies() is pointless, 0 is universal, should become
->> schedule_delayed_work(&work, 0);
+On Fri, Nov 15, 2024 at 07:46:07AM +0100, Jürgen Groß wrote:
+> On 15.11.24 01:11, Elliott Mitchell wrote:
+> > On Wed, Nov 13, 2024 at 08:20:02PM +0100, Jürgen Groß wrote:
+> > > On 13.11.24 18:25, Elliott Mitchell wrote:
+> > > > 
+> > > > Hopefully I'm not making knave speculation here.  Might this be the
+> > > > simplest of issues, just it was missed due to being too obvious?
+> > > 
+> > > I don't agree with your analysis, see above.
+> > 
+> > Okay.  I was asking since it looked a bit odd and there has been no news
+> > on this issue (unless I missed some patch flying by).
+> > 
+> > I don't know how large the impact of this is.  I wouldn't be surprised if
+> > this turned out to overwhelm all my other efforts at performance
+> > improvement.
+> > 
+> > Any news on your efforts to track this down?
 > 
-> Yes, schedule_delayed_work(&work, 0) looks like the right solution.
+> ENOTIME up to now.
 > 
-> Or even better, it seems that the delayed work might get replaced by
-> a normal workqueue work.
-> 
-> Anyway, I am working on a patchset which would remove this sample
-> module. There is no need to put much effort into the clean up
-> of this particular module. Do whatever is easiest for you.
-> 
-> Best Regards,
-> Petr
+> Did you try to set the spurious threshold to e.g. 2 instead of the default
+> of 1? In case that helps it might be a good idea to either change the default
+> or to at least add a boot parameter for setting the default.
 
-If we're removing the module, I'll drop it from the series. Just to
-clarify, do you mean to remove all of samples/livepatch/* or some
-particular file(s)?
+Appears it may somewhat, but not fully alleviate the situation.
 
-Thanks,
-Easwar
+Just to make sure this is stated.  The spurious events are being
+observed on the back-ends of block and network devices.  The
+corresponding front-ends aren't recording any spurious events.
+
+I now wonder whether the network back-end I'm attempting to place in a
+DomU will observe spurious events.
+
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
