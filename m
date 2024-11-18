@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9938C9D0B3A
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:53:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839154.1254969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9483C9D0B4E
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 09:58:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839162.1254978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCxV1-0005Rw-QX; Mon, 18 Nov 2024 08:52:47 +0000
+	id 1tCxaP-0006Ah-Cl; Mon, 18 Nov 2024 08:58:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839154.1254969; Mon, 18 Nov 2024 08:52:47 +0000
+Received: by outflank-mailman (output) from mailman id 839162.1254978; Mon, 18 Nov 2024 08:58:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tCxV1-0005QG-Nh; Mon, 18 Nov 2024 08:52:47 +0000
-Received: by outflank-mailman (input) for mailman id 839154;
- Mon, 18 Nov 2024 08:52:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tCxaP-00067w-9y; Mon, 18 Nov 2024 08:58:21 +0000
+Received: by outflank-mailman (input) for mailman id 839162;
+ Mon, 18 Nov 2024 08:58:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=i7IS=SN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tCxV0-0005QA-KD
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:52:46 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 798455cb-a58a-11ef-a0c8-8be0dac302b0;
- Mon, 18 Nov 2024 09:52:43 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-432d9bb168cso21812825e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 00:52:43 -0800 (PST)
+ id 1tCxaO-00067q-0C
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 08:58:20 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3fdd6d45-a58b-11ef-99a3-01e77a169b0f;
+ Mon, 18 Nov 2024 09:58:16 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3823e45339bso948627f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 00:58:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432da265f28sm152169985e9.17.2024.11.18.00.52.42
+ ffacd0b85a97d-3821ae161b5sm12340969f8f.74.2024.11.18.00.58.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Nov 2024 00:52:42 -0800 (PST)
+ Mon, 18 Nov 2024 00:58:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 798455cb-a58a-11ef-a0c8-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijc5ODQ1NWNiLWE1OGEtMTFlZi1hMGM4LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxOTE5OTYzLjY0MzM0MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 3fdd6d45-a58b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MjkiLCJoZWxvIjoibWFpbC13cjEteDQyOS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjNmZGQ2ZDQ1LWE1OGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTIwMjk2LjQ0OTQyNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1731919963; x=1732524763; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XZk+bWx9T7B8AmhurcwVX9EBFu/eX9nrjXsCVUFCAHE=;
-        b=ShHf3PUTaf7tkkYMMVMi2hv4pHJBSi9KcreMIYRZG2qHAOpz5kChSUlkebUiNY1Wlx
-         D6xcNCLu3QAte0dQO9yK+pBrz5w9Ik0WIBTPm8WwNCfZIYKyvsOB9ydi7fHYT4pSHAdG
-         qEXX08rNvFGeyolYkW3LQ/HfpoStE+QtUBEV/y19jVzroDnIIpWWysKaz1Bvxhtkv48a
-         D+6FQ9HKtHhdORcYiM6T9X+S/MS3HjE5WIkq11oordo7h5sbGOvSMvxt8tc3jMwSy9ov
-         X/lcRh7qaVQlLMDDqfxEfwPjFiGWoyIV9vMtCBOPQwO2TFkSEsdH+3Bi5zeqxThts58S
-         SfHQ==
+        d=suse.com; s=google; t=1731920296; x=1732525096; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=8RdBtlZDrFbDSXsAJA/Mbsbr4mYFQZDkWIGKaPDcbE4=;
+        b=SffPJwqmFYLGCZSyYRohm8HyZXiJyT3b1xa2ReB4K8VxXIMePndCz0nSAR+Eh7UtBd
+         zUIjGTg9oLaoG23F10qU6f8vl89iIOHpGpmyQGo74pC0YPy4FpodYYyk/AoMG6Qrs0S/
+         hxv24GfWC7WFAqVcvnrCzYCdzGdIkFbBCbxW1+WM+MSRiNF+TDlUodTu7rdrujEyohM0
+         mGHwvkhtfONNXkGfYrc/JPPpdXQ/pk+Kk+R4EKR03hBIsUprBzZjTbEZ19c/44h/TqUb
+         +Gl4ZRfLLDK/RhPiNvdO7OXEso9L+hwQohCtyzsNslDRk0do8D4CZrYzP2Ugl0N5MbUi
+         9TDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731919963; x=1732524763;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XZk+bWx9T7B8AmhurcwVX9EBFu/eX9nrjXsCVUFCAHE=;
-        b=nDf1rWCNhvbQiRcNFj8o768asame+813+CIfmEgJiJxCnXjnJb1hDRMNCl4vMibPYz
-         wdPI2jtEtwXuItczNqqfHvfPYI/32YGeKYXxMEwc4AN0YLlJEWqOVvOAF6Kx69rCVVPy
-         lzLeDT1ZtxZqCLxw9Dtp8InNfxW/fUz/tyr3+SBqoFQvZ7au0jZFVqJ7CSFmYNu7VO1z
-         3eRcVrce8QfvRr6O76yWvvAOwVH2eYlIFlQaJP/jzJZMHhq2oOdmvfbAOp4EEsJuNlub
-         1UGFVuZXJBqeM7yklqDl0/w2WKIksGeZi86jisi7J+fMAs54MYFMVT68F0XCCesYrEtO
-         OkkQ==
-X-Gm-Message-State: AOJu0YxbSx5cQ7xyUjSob+kDodnCRnjABqElagm6Azsc5VcBkYPbQCIW
-	2Nmr3YHQitrebHQRtCvFq4mg/8Lx4clcfz9zoN7UHhEsfW0qjLxlt1BqqKj15ssOdoGiUDmwxiw
+        d=1e100.net; s=20230601; t=1731920296; x=1732525096;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8RdBtlZDrFbDSXsAJA/Mbsbr4mYFQZDkWIGKaPDcbE4=;
+        b=dt6gSVtm73ZfBUUtugs2VhZ6jNkPsgKLYVaPCBVbmpu8opjJzOCJEXQWpCqsP7xwh2
+         ilwGtg8ZxWybKhgOqT8r1hoDAY0ciUzvGi3xZx0nX1p9DHSwg7YSKyId78i89Df9+gU6
+         RextOuU8FouCYEQozZ8ttJgAz+KDmTOTg14OwuG4rEYceTAKKl3SA1FMLPkkRUin9MaW
+         l/dICqszIfvCf9NbOqL/m203ZJ94ckF3rDxWUvMRFbpYVKI0IOxzOFODP41m8ghDOTa3
+         mvQ1OFq/jlnrTcD0/02aP0SvQq3/4NN0sr6MI0GCXOY3QCIl74m4cNJzYyT05hYlr+Xe
+         gA+g==
+X-Forwarded-Encrypted: i=1; AJvYcCU7Svp/V3ksdvZqYY8Mzqsf11Sj5HTFy5QWAjtNcqSVH53cALcVF+FOeD6WxTKb+05N/cTojS6rISk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFxb3pDZfVm7RjDXvIIoUSNOKPWNSmlBYUa9Nug4ARD2ftjqBw
+	0erCK3WcV/oWyVCDPzVTy4ZWD+7n7DfD2G5u3JrTdfT+BMPhqQ+IoGOK9jnuyGCF2e2wNrcrRFo
 	=
-X-Google-Smtp-Source: AGHT+IGi3yH+l3f+ub5Efrvmv61A8KIohaidsHlXvVX2/4BF65KV9UgUmhVTugTF0o9q/F2bObfmTA==
-X-Received: by 2002:a05:600c:1d1d:b0:431:3b80:6ca7 with SMTP id 5b1f17b1804b1-432d9767819mr143916025e9.13.1731919963071;
-        Mon, 18 Nov 2024 00:52:43 -0800 (PST)
-Message-ID: <7706bd63-8f26-4eb8-8dc0-67b302597e3b@suse.com>
-Date: Mon, 18 Nov 2024 09:52:41 +0100
+X-Google-Smtp-Source: AGHT+IFNHh6qT8MWTtlxZel2NXnNF8PODY+O9vLPU2n4Ini1/W+Ian5+xx8azu1Esceh+gRLCqIHSg==
+X-Received: by 2002:a05:6000:4029:b0:382:4460:49c2 with SMTP id ffacd0b85a97d-38244604d59mr3065749f8f.33.1731920295858;
+        Mon, 18 Nov 2024 00:58:15 -0800 (PST)
+Message-ID: <782b24a0-a960-4667-a183-1e270841d2a8@suse.com>
+Date: Mon, 18 Nov 2024 09:58:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Virtualize architectural LBRs
-To: ngoc-tu.dinh@vates.tech
-References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
+Subject: Re: [PATCH] misra: increase identifiers length to 64
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: alessandro.zucchelli@bugseng.com, simone.ballarin@bugseng.com,
+ consulting@bugseng.com, andrew.cooper3@citrix.com, julien@xen.org,
+ roger.pau@citrix.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2411151617580.1160299@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,42 +116,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
+In-Reply-To: <alpine.DEB.2.22.394.2411151617580.1160299@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.11.2024 09:49, ngoc-tu.dinh@vates.tech wrote:
-> From: Tu Dinh <ngoc-tu.dinh@vates.tech>
+On 16.11.2024 01:23, Stefano Stabellini wrote:
+> Currently the identifiers characters limit is arbitrarily set to 40. It
+> causes a few violations as we have some identifiers longer than 40.
 > 
-> Intel model-specific last branch records (LBRs) were replaced by
-> architectural LBRs (see Chapter 20 of Intel SDM volume 3B). This
-> patchset implements virtual LBRs for HVM guests using Intel's "load
-> guest IA32_LBR_CTL" and "clear IA32_LBR_CTL" VMX controls.
+> Increase the limit to another rather arbitrary limit of 64. Thanks to
+> this change, we remove a few violations, getting us one step closer to
+> marking Rules 5.2 and 5.4 as clean.
 > 
-> Add the necessary CPUID and VMX feature checks into Xen. Note that in
-> this patchset, MSR_IA32_LASTBRANCH_DEPTH is only allowed to be equal to
-> that of the host's.
-> 
-> Tu Dinh (4):
->   x86: Add Intel architectural LBR featureset bits
->   x86: Add architectural LBR declarations
->   x86: Adjust arch LBR CPU policy
->   x86/vmx: Virtualize architectural LBRs
-> 
->  tools/libs/guest/xg_cpuid_x86.c             |   2 +-
->  tools/misc/xen-cpuid.c                      |   3 +
->  xen/arch/x86/cpu-policy.c                   |  39 +++
->  xen/arch/x86/cpu/common.c                   |   7 +
->  xen/arch/x86/hvm/vmx/vmcs.c                 |  11 +-
->  xen/arch/x86/hvm/vmx/vmx.c                  | 269 ++++++++++++++------
->  xen/arch/x86/include/asm/hvm/vmx/vmcs.h     |   8 +
->  xen/arch/x86/include/asm/msr-index.h        |  11 +
->  xen/include/public/arch-x86/cpufeatureset.h |  28 +-
->  xen/include/xen/lib/x86/cpu-policy.h        |  38 ++-
->  xen/lib/x86/cpuid.c                         |   6 +
->  11 files changed, 339 insertions(+), 83 deletions(-)
+> Also update the ECLAIR config that was actually set to 63 as character
+> limit.
 
-Looking over just the files touched: No change to XSAVE logic at all?
+What I don't really understand: With the Eclair config already having said
+63, how come we did see patches aiming at dealing with the limit being just
+40? IOW - how would those (supposed) issue even have been spotted.
 
 Jan
 
