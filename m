@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B82E9D1336
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 15:37:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839390.1255192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 016849D1507
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Nov 2024 17:06:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839400.1255201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD2sI-0003KM-Kg; Mon, 18 Nov 2024 14:37:10 +0000
+	id 1tD4Fj-0000sP-R5; Mon, 18 Nov 2024 16:05:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839390.1255192; Mon, 18 Nov 2024 14:37:10 +0000
+Received: by outflank-mailman (output) from mailman id 839400.1255201; Mon, 18 Nov 2024 16:05:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tD2sI-0003Ii-Hv; Mon, 18 Nov 2024 14:37:10 +0000
-Received: by outflank-mailman (input) for mailman id 839390;
- Mon, 18 Nov 2024 14:37:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KDp/=SN=bounce.vates.tech=bounce-md_30504962.673b5110.v1-298c3482636a455ca76c8f77db73fb96@srs-se1.protection.inumbo.net>)
- id 1tD2sH-0003Ic-8H
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 14:37:09 +0000
-Received: from mail180-8.suw31.mandrillapp.com
- (mail180-8.suw31.mandrillapp.com [198.2.180.8])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 948e41cb-a5ba-11ef-a0c8-8be0dac302b0;
- Mon, 18 Nov 2024 15:37:05 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-8.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4XsVZS0mwxz3sPCf0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Nov 2024 14:37:04 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 298c3482636a455ca76c8f77db73fb96; Mon, 18 Nov 2024 14:37:04 +0000
+	id 1tD4Fj-0000pj-OW; Mon, 18 Nov 2024 16:05:27 +0000
+Received: by outflank-mailman (input) for mailman id 839400;
+ Mon, 18 Nov 2024 16:05:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>) id 1tD4Fi-0000pd-7g
+ for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 16:05:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1tD4Fe-00BId7-02;
+ Mon, 18 Nov 2024 16:05:22 +0000
+Received: from lfbn-gre-1-248-145.w90-112.abo.wanadoo.fr ([90.112.205.145]
+ helo=l14) by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1tD4Fd-00FG94-2H;
+ Mon, 18 Nov 2024 16:05:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +39,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 948e41cb-a5ba-11ef-a0c8-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE4MC44IiwiaGVsbyI6Im1haWwxODAtOC5zdXczMS5tYW5kcmlsbGFwcC5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6Ijk0OGU0MWNiLWE1YmEtMTFlZi1hMGM4LThiZTBkYWMzMDJiMCIsInRzIjoxNzMxOTQwNjI1LjY1NzkyNSwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3M2I1MTEwLnYxLTI5OGMzNDgyNjM2YTQ1NWNhNzZjOGY3N2RiNzNmYjk2QGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1731940624; x=1732201124;
-	bh=GvsWmYKY14CXser9tx1rb3cHyozOIQwfv4RdVhYRfz8=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=IPu1ITjePQxbgbLLLnGvU4CRtZlGzt5o02iM5MQDMzF5Ue/06Zy3FFYhotCNoqQYs
-	 LWt9DSG2IWVStl8ynA7Jyh45G15Skn5RtNfpx9pgOVL7rffEtpuEvhrqQkwR4PgS3j
-	 8dEif+AMgiqFTdkBe0wjOTlbNJWapTduYRZFUlsteWeRHIXc9yMEYKHqW4ePxcFcOE
-	 wK3iQlHMTPpA+8WtuzrTVH64ENk0VqyI803Ucw9CY02tMtOOEsKDgB/Qr3K3OIC3jh
-	 WInI6kEAZkDnsxPiNp2ZW5BD4tbOULR/fnfRJplRoZEU1dpaHnOBP1ftVCkVp/kbC2
-	 bM7OQX+QSjtUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1731940624; x=1732201124; i=ngoc-tu.dinh@vates.tech;
-	bh=GvsWmYKY14CXser9tx1rb3cHyozOIQwfv4RdVhYRfz8=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=kd65Au9o14glv82UOkM7t5tsfTEq7fkW10MgmYG2SiqdR5r/hPPXhggBcpxWy4IWk
-	 wLOUmLd052TTUfaYdv5ozrXH8QHyDGjjO9UwqNIFyQC6A0Jond3Tu5UwibLq3Yk6n6
-	 iH9fjMKG6fuPhYBo/r36M31+/U8eB1OigEfG1ARcE1bcv/JhscMKQdoDIH0IgJynPy
-	 cTj/mu8CaiJWs15iPRsKiQhzYV9uAnf/lWgYAFT1WIIbu4/5zN9bULWYiMM4YduKMa
-	 pMiKUZWpqoJJPdEr0/PrVATlPsQb2xRIWPUo/UAF/wCfeSypB5bq5dhAJ03kDuL9E3
-	 j4/6YFpntIw7A==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=200/4]=20Virtualize=20architectural=20LBRs?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1731940623283
-Message-Id: <f4f5b29b-c77f-4b55-81ee-0fa63e2f5459@vates.tech>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech> <7706bd63-8f26-4eb8-8dc0-67b302597e3b@suse.com> <3f75df1d-f397-487f-9b81-d7740712b924@vates.tech> <78d9df73-c9b7-479d-8e05-e4efb823ea20@citrix.com>
-In-Reply-To: <78d9df73-c9b7-479d-8e05-e4efb823ea20@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.298c3482636a455ca76c8f77db73fb96?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241118:md
-Date: Mon, 18 Nov 2024 14:37:04 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date;
+	bh=hOPsZNwuk5Of7mPpSe/MIV1efYXeimkHvzOur3w1rP4=; b=OQiXcgEPsvbrw034DEWEss4y7z
+	PawOfKRjrWzYq6BaK+BXlU+cGyDwlKKR1CVR9AtldNz1qsLTncbQCyiZX/De9bEQlExXt9YXDW33V
+	bOh386Z1BUnzZvOH6aEKLY1T4V9dhWVuF7NMfclqt3MZNvD+5hbN8DNyuwdjrZSUgS8s=;
+Date: Mon, 18 Nov 2024 17:05:18 +0100
+From: Anthony PERARD <anthony@xenproject.org>
+To: Jiqian Chen <Jiqian.Chen@amd.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E . Iglesias" <edgar.iglesias@gmail.com>,
+	qemu-devel@nongnu.org, xen-devel@lists.xenproject.org,
+	Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	Huang Rui <ray.huang@amd.com>
+Subject: Re: [QEMU PATCH v10] xen/passthrough: use gsi to map pirq when dom0
+ is PVH
+Message-ID: <Zztlvl0m-Oi2XGXq@l14>
+References: <20241106061418.3655304-1-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241106061418.3655304-1-Jiqian.Chen@amd.com>
 
-On 18/11/2024 10:52, Andrew Cooper wrote:
-> There's also a reason why we haven't got this working yet.=C2=A0 There ar=
-e a
-> couple of areas of prerequisite work which need addressing before XSS
-> can be enabled properly.
+On Wed, Nov 06, 2024 at 02:14:18PM +0800, Jiqian Chen wrote:
+> In PVH dom0, when passthrough a device to domU, QEMU code
+> xen_pt_realize->xc_physdev_map_pirq wants to use gsi, but in current codes
+> the gsi number is got from file /sys/bus/pci/devices/<sbdf>/irq, that is
+> wrong, because irq is not equal with gsi, they are in different spaces, so
+> pirq mapping fails.
 > 
-> If you're willing to tackle this, then I can explain what needs doing,
-> and in roughly which order.
+> To solve above problem, use new interface of Xen, xc_pcidev_get_gsi to get
+> gsi and use xc_physdev_map_pirq_gsi to map pirq when dom0 is PVH.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
-I would appreciate explanations of the pending XSS issues.
+Acked-by: Anthony PERARD <anthony@xenproject.org>
 
+But, this following change probably needs an ack from PCI maintaners,
+CCed.
 
-Ngoc Tu Dinh | Vates XCP-ng Developer
+> diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
+> index eb26cac81098..07805aa8a5f3 100644
+> --- a/include/hw/pci/pci.h
+> +++ b/include/hw/pci/pci.h
+> @@ -23,6 +23,10 @@ extern bool pci_available;
+>  #define PCI_SLOT_MAX            32
+>  #define PCI_FUNC_MAX            8
+>  
+> +#define PCI_SBDF(seg, bus, dev, func) \
+> +            ((((uint32_t)(seg)) << 16) | \
+> +            (PCI_BUILD_BDF(bus, PCI_DEVFN(dev, func))))
+> +
+>  /* Class, Vendor and Device IDs from Linux's pci_ids.h */
+>  #include "hw/pci/pci_ids.h"
 
-XCP-ng & Xen Orchestra - Vates solutions
+Thanks,
 
-web: https://vates.tech
-
+-- 
+Anthony PERARD
 
