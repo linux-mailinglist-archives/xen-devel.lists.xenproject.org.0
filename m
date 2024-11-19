@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2DD69D27A5
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:09:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840100.1255887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C93459D27B0
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:11:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840107.1255896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDOtz-0005I7-OP; Tue, 19 Nov 2024 14:08:23 +0000
+	id 1tDOwb-00079c-40; Tue, 19 Nov 2024 14:11:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840100.1255887; Tue, 19 Nov 2024 14:08:23 +0000
+Received: by outflank-mailman (output) from mailman id 840107.1255896; Tue, 19 Nov 2024 14:11:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDOtz-0005Ey-LL; Tue, 19 Nov 2024 14:08:23 +0000
-Received: by outflank-mailman (input) for mailman id 840100;
- Tue, 19 Nov 2024 14:08:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDOwb-00077N-1O; Tue, 19 Nov 2024 14:11:05 +0000
+Received: by outflank-mailman (input) for mailman id 840107;
+ Tue, 19 Nov 2024 14:11:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o1Xh=SO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tDOty-0005Eq-B4
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:08:22 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b91f88a5-a67f-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 15:08:17 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5cedf5fe237so3946052a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:08:17 -0800 (PST)
+ id 1tDOwZ-00072S-8C
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:11:03 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a6db899-a680-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 15:11:00 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a9a0ef5179dso158854966b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:11:00 -0800 (PST)
 Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cfbcca8abesm2688129a12.44.2024.11.19.06.08.15
+ a640c23a62f3a-aa20e08aa47sm651311566b.196.2024.11.19.06.10.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2024 06:08:15 -0800 (PST)
+ Tue, 19 Nov 2024 06:10:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,67 +44,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b91f88a5-a67f-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzMiLCJoZWxvIjoibWFpbC1lZDEteDUzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImI5MWY4OGE1LWE2N2YtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDI1Mjk3LjAzNzQ1Miwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 1a6db899-a680-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzAiLCJoZWxvIjoibWFpbC1lajEteDYzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjFhNmRiODk5LWE2ODAtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDI1NDYwLjY1NjEzMywic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732025296; x=1732630096; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732025459; x=1732630259; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=4G/ZnPTlcS4BaCmknAlG1P6W6gWNLWNybjIyJxF5zqA=;
-        b=X8pZhUfANvBQcJ83PiJA6xoemQDJEeVjMckxop0C19anhBa5mDKamiYEGgezsL+1Fq
-         1QCjS1C9ACkatVafM9Q8zfo4XUGvpNBoQfuqV782cd9fogxur3r6TnbLk5YpXtHag0/h
-         p8GFetSTyNB//p+5z1NB+74tXCD1WuZ918oXM=
+        bh=Dbj4393xKiLG65NLJpzLD53XB3seZWf6XOINGDnrcfI=;
+        b=gD025HB34xVkv0pR/Yl3SyfyUJOPf8KP6bvryUWKyJnjHTKA4MZy2tzhT4A7QltJ/E
+         JDfgfG2gQ2sKYO+a82OMFu2fItHjOSBFEqAkxqC5JAax3gCBmmRqNOgWMx0GAijTi5Ih
+         58iq8wIsRS6mH3HyD6E66z6TB0EYGeimYHC5w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732025296; x=1732630096;
+        d=1e100.net; s=20230601; t=1732025459; x=1732630259;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4G/ZnPTlcS4BaCmknAlG1P6W6gWNLWNybjIyJxF5zqA=;
-        b=guJA5T0y1AZYeVfZiptEXgGoTi3MHNLUqgO5QeLGEfs8zdRSLJrYf3FAdTA/6B5sjg
-         IaVeVfFEhKNrzqkRb4hwKGO11gYxnRk/yFDeSA1/DGr5hPS/+U3vxnUcGRRHUs+gS1z2
-         C0F6G/gfXrkRpyrYp9yteekLp3Ex0zWBmziymFko7DBBHZ8k1EyVYMSO9pzkfHI968Qu
-         tDXVjAk7PIXH3D88IrorGJq+LJX6891ZH+pxGGPubMAJETXTju3tdr9Idb4PKMEA5wez
-         7vRqG0LJHlJiqMQLpcUN8ij2kkaL0SWeq6irbOLie6mSGnZoqkaKL8PDP2NoRVtjDpyX
-         0rGw==
-X-Gm-Message-State: AOJu0YxeEe6kvxiD37y9yEs3WE98jxI3nigGKXLhZChRE5zyR/7udjrG
-	CBCkAQAUIQzO+7gjpuKZVgRDd4e/mzS0OciAMuevdG7rFm6mE+KONB9NaoimOIM=
-X-Google-Smtp-Source: AGHT+IHYW288bpwv4Ys/1JSa43FS5a0uAVjBiMt7IcCikQ2XVJQ2hCIzpaOe20sFOr2oSQQstnhnww==
-X-Received: by 2002:a50:9346:0:b0:5ce:fa13:2668 with SMTP id 4fb4d7f45d1cf-5cf8fcfbf47mr10976376a12.27.1732025296163;
-        Tue, 19 Nov 2024 06:08:16 -0800 (PST)
-Date: Tue, 19 Nov 2024 15:08:15 +0100
+        bh=Dbj4393xKiLG65NLJpzLD53XB3seZWf6XOINGDnrcfI=;
+        b=sZDPpQRTYhSCBm/1Ov78sMN8+f/xVVPEM1EQRlAqjAxTrbDDFluEDhNJpmidYRV7VG
+         6B0epGivqfDlDS42Jku93k1xeLn8QNQJ/DOeYZxZ80/rbBDbLY6kh0OF7dQ9o4VRmriw
+         Hv7Y7VDvfN27DpN96ht/BtXZbURt+0nwhS8QgsvDwMSeRjXbixvNqJrLZR+42Jzm+XO1
+         pC7ZWeP+TE2mYSODrMrfZTVA5eN1ivxDnXhEIBjx2DWafdPQBF5ECxcrww0EcC2Jyuny
+         Rl+rEfxjIf+5JEwhJqLjo96h2emSr8ZvV9WXT1cOL9h2oW1exwSafVrY6KNqKjsF/zkb
+         MN8A==
+X-Gm-Message-State: AOJu0YwYK/LABXn3qAkhoENCd0xf+5v4AyhxoSQGRFtcVvevBtAFtvHb
+	X9pybgZ7F0OUlLLNDJgMbAkQeynce/J1IaashRWkcZbIJEwuTfaUEFzbuvUa5BY=
+X-Google-Smtp-Source: AGHT+IHoG6lgJycu3VukC+EgoMh//2KsLMuw8P3eGpELcMSY2fNvjG3kqTCXZ8fTbRjnUNHfJj0v8w==
+X-Received: by 2002:a17:907:a43:b0:aa1:f73b:be3d with SMTP id a640c23a62f3a-aa48347e853mr1462196166b.27.1732025459557;
+        Tue, 19 Nov 2024 06:10:59 -0800 (PST)
+Date: Tue, 19 Nov 2024 15:10:58 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH v2 3/4] xen/arm: Use vmap_contig instead of __vmap where
- it's possible
-Message-ID: <Zzybz2WUejRtl1LW@macbook>
-References: <20241119085806.805142-1-luca.fancellu@arm.com>
- <20241119085806.805142-4-luca.fancellu@arm.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/4] x8&/mm: fix IS_LnE_ALIGNED() to comply with Misra
+ Rule 20.7
+Message-ID: <ZzyccgtimsbbFMHH@macbook>
+References: <20241119103444.23296-1-roger.pau@citrix.com>
+ <20241119103444.23296-2-roger.pau@citrix.com>
+ <CACHz=Zg20Sxw_HY6EwXYvhcm=3ZjPwUH7vbdsZtSCU+2_TU7Kw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241119085806.805142-4-luca.fancellu@arm.com>
+In-Reply-To: <CACHz=Zg20Sxw_HY6EwXYvhcm=3ZjPwUH7vbdsZtSCU+2_TU7Kw@mail.gmail.com>
 
-On Tue, Nov 19, 2024 at 08:58:05AM +0000, Luca Fancellu wrote:
-> Currently the arm code uses __vmap function in few parts to map
-> physically contiguous pages, vmap_contig was introduced recently
-> and does the same because it's a wrapper for __vmap, so use the
-> latter instead of the direct __vmap function.
+On Tue, Nov 19, 2024 at 10:52:26AM +0000, Frediano Ziglio wrote:
+> On Tue, Nov 19, 2024 at 10:35 AM Roger Pau Monne <roger.pau@citrix.com> wrote:
+> >
+> > While not strictly needed to guarantee operator precedence is as expected, add
+> > the parentheses to comply with Misra Rule 20.7.
+> >
+> > No functional change intended.
+> >
+> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Fixes: 5b52e1b0436f ('x86/mm: skip super-page alignment checks for non-present entries')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/arch/x86/mm.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+> > index 494c14e80ff9..fa21903eb25a 100644
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -5498,7 +5498,7 @@ int map_pages_to_xen(
+> >   * be INVALID_MFN, since alignment is only relevant for present entries.
+> >   */
+> >  #define IS_LnE_ALIGNED(v, m, n) ({                              \
+> > -    mfn_t m_ = m;                                               \
+> > +    mfn_t m_ = (m);                                             \
+> >                                                                  \
+> >      ASSERT(!mfn_eq(m_, INVALID_MFN));                           \
+> >      IS_ALIGNED(PFN_DOWN(v) | mfn_x(m_),                         \
 > 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> Acked-by: Julien Grall <jgrall@amazon.com>
+> Minor, typo in subject: x8& -> x86
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Nice, that's what you get when you press shift + 6 on a Spanish
+keyboard.  Hope it can be adjusted at commit.
 
 Thanks.
 
