@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C15DF9D296D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 16:18:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840364.1256125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9E989D29AA
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 16:32:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840374.1256136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDPyU-00028h-Ah; Tue, 19 Nov 2024 15:17:06 +0000
+	id 1tDQCe-0006rT-IA; Tue, 19 Nov 2024 15:31:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840364.1256125; Tue, 19 Nov 2024 15:17:06 +0000
+Received: by outflank-mailman (output) from mailman id 840374.1256136; Tue, 19 Nov 2024 15:31:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDPyU-00026k-7h; Tue, 19 Nov 2024 15:17:06 +0000
-Received: by outflank-mailman (input) for mailman id 840364;
- Tue, 19 Nov 2024 15:17:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tDQCe-0006oM-Ev; Tue, 19 Nov 2024 15:31:44 +0000
+Received: by outflank-mailman (input) for mailman id 840374;
+ Tue, 19 Nov 2024 15:31:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d4NG=SO=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1tDPyT-00026e-GL
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 15:17:05 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on20616.outbound.protection.outlook.com
- [2a01:111:f403:2608::616])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52c62a5b-a689-11ef-a0ca-8be0dac302b0;
- Tue, 19 Nov 2024 16:17:00 +0100 (CET)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by PA6PR03MB10241.eurprd03.prod.outlook.com
- (2603:10a6:102:3c8::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.21; Tue, 19 Nov
- 2024 15:16:57 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%7]) with mapi id 15.20.8158.013; Tue, 19 Nov 2024
- 15:16:56 +0000
+ <SRS0=ydLn=SO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tDQCd-0006me-C9
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 15:31:43 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d7ffdef-a68b-11ef-99a3-01e77a169b0f;
+ Tue, 19 Nov 2024 16:31:37 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2fb4af0b6beso49134071fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 07:31:37 -0800 (PST)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa20dffbaf8sm667686666b.122.2024.11.19.07.31.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Nov 2024 07:31:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,233 +45,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52c62a5b-a689-11ef-a0ca-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjYwODo6NjE2IiwiaGVsbyI6IkVVUjAyLURCNS1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjUyYzYyYTViLWE2ODktMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDI5NDIwLjYxNTE5LCJzZW5kZXIiOiJ2b2xvZHlteXJfYmFiY2h1a0BlcGFtLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lInCq9fRawhins7fXhgf3HL7XEEssozG9oPaTdu+sKm/sTtpqXHE0BYMov2kODClFxQtwDgHFb8uLdNWrlAzqabn8W1U/slwbWnIkeFe6mWbgKXbEHGME66CV3te8yne07i7Q+pQatoClFjI2tDQ3dBjxj4g0zz0kEiTJ+EcY3QzUi7AuBdZcaEfW62dlLYNLnidqkObzXV/TmkutgRSnBh7X1ZQhkPuCDij06pf6Qai2cgT4RoVzN8L9EC7QBF3TJBK3aUHLadqRNoUuHNVuOH3qCdOzP8hHUlhTZlSnm5ECB84J44FGFTiClBf18zsHgS3/W/E8aSlKgzZHo2C6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S0esZiHgRpQ5BIk+owbZ3pSV+3GbEw3mv/LcZeWMX50=;
- b=S9viVa6y1AGpoD4thbiqOyE3Nz1N7YtDDfSmPzOwaflTg20ms0OkUbJYaA7kdRabmUdNolW5CIc2g4cV2Hpe4QQI+bIULPaBJxPNHxqkHvl3HrZN18qUB/SldRgZkFGLREt2tcIV4mgALK5MLTQadhW/Nq8Vr+LcYJBfqmvI6rsLxd9ng6okyA4B6zUvNYgF5aCNLBfi+zw9Yu6KO+TXQjmojJMlwZx9CYClbBB7S4fmScBvyM9BWO+YIhV6PaDzPCUAqiwyvO/+l/XeuXVKAwZ1m19runuyiMYZn4/m1aLKX5lJBg2/45TwtL9GWt7R43zLPrAg5+VglSzX78QxHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S0esZiHgRpQ5BIk+owbZ3pSV+3GbEw3mv/LcZeWMX50=;
- b=H+4vekZPdFGlmXdAvQd35eNtda+0PO5dzNDgGLa3QFt2YZVJfv38AafkgWVuA1m2cuKt+Lrp8qdpu3vsJhwWz1VWOHeHGYhLacDYk+dWG1Z7RDE0GCltb8Sdwa0l7YoYSqtOj0R6S5fw2uNVZ/8S+wwHCw5hU/eMaVODNAi+lR8Yhx+pVCszkfuRKkCI3jlptdQ457Qtz9BT47F9jBiJDZnwAh/wc31hqzl7L0WeD0EOxJ4pmfS+REsAQj+NyPmF6XhcPLTJHhbwm861fA4B/B+SZBMO4uhZzqRTIPKfBv+BgCUG7OeQB9LojLa/Kh9igus5hxTPrEeWH6k9CMo+xA==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Dario Faggioli <dfaggioli@suse.com>, Juergen
- Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
-Subject: Re: [RFC PATCH] xen: add libafl-qemu fuzzer support
-Thread-Topic: [RFC PATCH] xen: add libafl-qemu fuzzer support
-Thread-Index: AQHbNucXRmUX3Y7lRUGcS7d55ZSXhw==
-Date: Tue, 19 Nov 2024 15:16:56 +0000
-Message-ID: <875xojmexk.fsf@epam.com>
-References: <20241114224636.1942089-1-volodymyr_babchuk@epam.com>
-	<alpine.DEB.2.22.394.2411181737570.1160299@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2411181737570.1160299@ubuntu-linux-20-04-desktop>
-	(Stefano Stabellini's message of "Mon, 18 Nov 2024 17:46:20 -0800	(PST)")
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|PA6PR03MB10241:EE_
-x-ms-office365-filtering-correlation-id: 8851a33d-a86d-480b-d88f-08dd08ad34c6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?zxy+mADM9YbHPYHC5oh0RvoduvS2zQ+X/WuXo84Hp/I0thOvojOPJD8u5n?=
- =?iso-8859-1?Q?kyxckmjcaaiDNATVwrfNQoG3EV6ga+LGfnjJd8fyFtu4KykhpLyCX7LAkc?=
- =?iso-8859-1?Q?pye6H6ajrRSUHh9aPUnWhHbqasAiNypE2E/otU7YF06dvDShWb6edVnJ9s?=
- =?iso-8859-1?Q?SE4K1nhrv6UKY8lUESMzILA8ZrJ90okyzaprlD4sVE+qPj8ZMA1ZaWRsNj?=
- =?iso-8859-1?Q?chjwRhAIMRROyVPvZfVlAdL5KPkk6q+g6YhmNTleRLiJivdoVOgojmYNEQ?=
- =?iso-8859-1?Q?9uhGCQUP7PlInjiwggqgL7TuO6BLNIl+7U2MykIvgV9spzqEdrSBdzLGcY?=
- =?iso-8859-1?Q?rVnWqBDFh9mn/sVnC5cA1yPECoCuwal4K+APXN7nb1rLt9YvxRUyxaJn71?=
- =?iso-8859-1?Q?FeHo8Dsa+f+pzxOAzOgoGFxSgifrp7u5f2+d1Tdum5LdR7cG03EKMXqLHM?=
- =?iso-8859-1?Q?irVIg/TjW6sKsYNluDj1gg7mF9hP2t136cwVETUmvltJ1Med9esfwqxKon?=
- =?iso-8859-1?Q?QTHxjWQ+0AOk0m0oCkmXyLmJhnleDWuGSUyRna25JHm45Mi/dqCyoBoTqv?=
- =?iso-8859-1?Q?3R2RgAFoTCVihkV+KqJyKpyWnwpISQS9GXpz+OBs9KdytRgPT6KIsyXVky?=
- =?iso-8859-1?Q?XdgmFQVwgsDD1APs1nNSVzrpoADaltrFb3L0mJ8q92D9cwASSEX/x2CBe6?=
- =?iso-8859-1?Q?LppJZBATbYXw2FMKN+0dVEqjg4XujnWM4kvkSxjKqFNB3eAvpbjXm4EwQV?=
- =?iso-8859-1?Q?eitMm6pDbygiTLFbPWG7kDY1YGHMk3tFw4DTDw/bN2fgouJPqSmdKatp9l?=
- =?iso-8859-1?Q?Dp/0xICkKUylko0XdClwvOZ6/UcHL/tHJL58404NhP1h7N3k6nnL1SLsOQ?=
- =?iso-8859-1?Q?9dALgUUBokuX03H3ffK80pv2yhnyG3bTq3O36WcODaMKo69zdKCStbzFtz?=
- =?iso-8859-1?Q?53A4iVVhap7y5T6gCQ/zr5C55La3FwdKsYgbLEegVgZ1cNE9ycSCx99qGZ?=
- =?iso-8859-1?Q?0aoqr1W8BkjBLlUw5E09Pi+9cHopW/KXBqC/AGdMjOM0ze+rVm0HVdj4Cy?=
- =?iso-8859-1?Q?/NYZElV/p2DbjXVX/ju1aHlsFXxoGDnOgad0Q0K7U9sP9o7VvPVwvlUB0i?=
- =?iso-8859-1?Q?CgZcVBHTKsxAOrBEOWRDvYQtAZ+oNGhuVhYiTv5XPVwe4FMEBsDEJv4BeH?=
- =?iso-8859-1?Q?HFLFa1ewpf8BXVT2TMRMAW4imsZrpPIgm3WDnKFgVMaTAVQqnCJzLI8H7+?=
- =?iso-8859-1?Q?uphYFDgXHqjz2c3s+Qo3Gx7ijZAf6xni4DfVViyLN6dVRPKGMQ/ZuDLjFS?=
- =?iso-8859-1?Q?ptunTzKFn88R2WqmvbCZPJnahpuIqEMjLJxV167Q5OyqTtkWcbUE3JlZek?=
- =?iso-8859-1?Q?k89u3kh/DK?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?kE+PgFsbYvLztEvEkPyZjgke9//9ir3gZj4doJQdlVKB9HNEt2DBJdQYO9?=
- =?iso-8859-1?Q?Yowuwo13ihPQHqBxlZ3xlHwlO+9F+e+N+xYrQBmwgNMgDzpnpfKrNGsN8u?=
- =?iso-8859-1?Q?9wNKkd837YcmOAzOK6GfojjSlBkTzsnTLmGae4ojdOKzi0k4aNwIqns4wo?=
- =?iso-8859-1?Q?Cs3GSFRT0pcOxWTUfKO8cD2PxbLoIo2c53eX1n1Z8g1KvMejAMGzbemPJX?=
- =?iso-8859-1?Q?knee/mGLjDQkLh0ui+Y9xaEpMUbeHwtaH75KmkK4efNyMc39VHgehkwvs3?=
- =?iso-8859-1?Q?gl6vhwI77jnxJuSaWXao5fLyU8NY1RlXAzMD1otUOMuB8ppFoINTc+9ijT?=
- =?iso-8859-1?Q?hz7FEEroT8ZWgbPEwvhMenzPkyRx4ubR/JoRPbMX9pHZpm9HAfNvFs/zjo?=
- =?iso-8859-1?Q?fUEk5z/WEDVZyl+bw0qScYksP63R/f/r5HV5Yj6gNS2mF3HW7zPSEGpfzH?=
- =?iso-8859-1?Q?fy3NQY3NpCIrQMR8zkrc1JGX32b1o9s8NosWlWGCE6sCAiWji4iywRQHqj?=
- =?iso-8859-1?Q?XDrWTgXbRMvenLt9A3yCgHGFZotxI5//BoklnNgZLzJBdSO61Z6mK+EOTJ?=
- =?iso-8859-1?Q?ER9AoE/T8/QKo0MfplJKgLWM8oqptbl6TPw8FLBTVuo4V+mECXCIRgeGBA?=
- =?iso-8859-1?Q?3UghLWeDvQunif2JzWvO7qFlfsJpUmAmRsz7KSQBsje2lZRWDo+wU2zptM?=
- =?iso-8859-1?Q?SJ+C+WqiS2v+sz7437LxDQBj6WfFxJ3cDKQMML4XBoh7DuW0dsqqF9b496?=
- =?iso-8859-1?Q?wHFljasEqNVxLXSpnOrcm1gUV/ShraqJ14b1qiVt9/njyiGb2U5uX0pe5i?=
- =?iso-8859-1?Q?WcCgzGaole3vU1+Zl1QXRAFbmONA+qPRvIgWX6akg1Yx542VwedmhUEjd6?=
- =?iso-8859-1?Q?YcfgoCoWQvakUj9Fn4EaIFZcp2TQxnWvtda815ayu82RFS5gkYv7FAKWH4?=
- =?iso-8859-1?Q?JEwS7MIBFV+MG22EpvopENRfvtNkXCEpqygbfoMgv2Xqgnx+FDiF9at1II?=
- =?iso-8859-1?Q?DkKOOqjodZPuu8a+w9C/NSfqXozijGKbhu95eUCwvhAoRz1J8NGOCp2KP1?=
- =?iso-8859-1?Q?H+HdLKUQUa68acFG2yhv47wy2jdaF2SgzWwZ4biNG+sEIkI/Rv8OgqVJFB?=
- =?iso-8859-1?Q?ahFEOWjFEgypSi+Dg0mVJ4mnwxtTGB4fFyrOD7fq8GAY26oVjcW9g8zqG+?=
- =?iso-8859-1?Q?rrDGXhzvVzPiBrJ9FJaM51U8Z9HGbIOtRH/dGzZtzGm371DjISo1GVwtVz?=
- =?iso-8859-1?Q?jiVEBR3qwnSKWUDeOX7i3zH8qAt4DZLre6tKz2Pkd0jC6eJGetipGvXMGZ?=
- =?iso-8859-1?Q?TOOs1f2wTe3yG/j3IGracD/A812dCwCq+aR2qf0QPqyf53DZY5BEz4FrTI?=
- =?iso-8859-1?Q?/yShntXneabmNsk1SPU5cr4+NLDSD7WCsmIhyoT2W8iohfPvibnwYiGPD9?=
- =?iso-8859-1?Q?+nbkWXVfSb4z9gIJBFa/HWkxe64gzHi1uZS98gzJOx1hQ3tXDasi7i0Mfp?=
- =?iso-8859-1?Q?lezZDeFgGUm7FLt0adFbCeiaZ+r0mz1wNg8UlxCRIH4ERf1l/PjrWvFxwW?=
- =?iso-8859-1?Q?e+gZDK0kyFwa436Fkh7Cbl0PlNb9UIuOApGtxGJTs2mNT5UtpdwXzsoKRp?=
- =?iso-8859-1?Q?vqL62HfqehPheOVXVyasx4U2wFJgZsPZR2G8Qcl8oEYHAeiPXRa0nTTQ?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 5d7ffdef-a68b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmYiLCJoZWxvIjoibWFpbC1sajEteDIyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjVkN2ZmZGVmLWE2OGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDMwMjk3LjI2NjQwMywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1732030296; x=1732635096; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HndC8XrotjRyo85dZwX65ZIQAKa8dPh8VRGWQEf/h4k=;
+        b=acF1nePEsvBHUmU7+Oja6UPJee7hxrYSSTLQMXHPGbOeER+PNiK4emqUeC1JtS5EG8
+         Of2GroZku8p8VhJYym+HHavTm/G0P0iYiEVXsI6ueVZotwyTtOzqvH+Dv+Fy+cd+pg6/
+         FH9/Wguhym9MJvlCJ6hel2B4CtKKBHw3RAyv8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732030296; x=1732635096;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HndC8XrotjRyo85dZwX65ZIQAKa8dPh8VRGWQEf/h4k=;
+        b=QpEJ2rBzo9g2pea/jtqrE+OUgB+eGn33HrfuCCw64Pke9Abr5o59DRV3XLD3C8yE6b
+         oGxpUra7ryADAcKQStcVARE7GvQTWy+aj2HwWy7lLSCFUC52lkL4KasTPQAkuJMZudF7
+         yjTWDhxlnPJ+s99t1Q0fOee6am1ExMGgRGEuIL9vfTN8wJoyszR8nT13ePxmMFhnC++9
+         gvROflWIgaBbciu6R+9EPCsxgkbYYqa8DABNsXsDNQ/vVSqb4Udpf7hdE9fJe0UxI4/7
+         7q5n0XX5rb1M+0IS9PZ7PTRQiLTewBrrg1hg6sDOVu7SHHvFNfvXd3hlD7C61/4paUZz
+         ZMaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWznt60Yx1qTZZdJ19y0jv5Jymr8JLn8W3y9ySF5ej9jcb4kZme+HsNl6Y7QPi5iXWkvdWy40E+MvA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzoakruSNAMt8LYTqiT3bQXgiOTjofh4iCaHsZwdDODN5j27GYi
+	9Y7mtOErwUOqBS4+oFmPobGSXZ11xawlZeF6BcJ4bv0nmRPne3YsYis+uzL6jxSYaSX+lMRR3il
+	d
+X-Google-Smtp-Source: AGHT+IEiSUxh0Pw+LQ9WbYbuC6ViU8OHDbgFGyQlPTaytzNeFKyJv2VGDiWe0h6iupgpCT1BLa/0ew==
+X-Received: by 2002:a2e:be9e:0:b0:2ff:559e:c877 with SMTP id 38308e7fff4ca-2ff606f8091mr132085111fa.33.1732030296545;
+        Tue, 19 Nov 2024 07:31:36 -0800 (PST)
+Message-ID: <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
+Date: Tue, 19 Nov 2024 15:31:34 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8851a33d-a86d-480b-d88f-08dd08ad34c6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2024 15:16:56.3767
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AxPv0cCiYa4iQ0u9WmJkKAZUw+rk5YHRkYKIWm+aTICEyNBsqVKCJY6mTvkhyR3PgtWHhzGSMgzUpqj1d6pxzFPnNiyQr/qxzlf/hIR8l3o=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR03MB10241
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] x86/uaccess: rework user access speculative harden
+ guards
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20241119103444.23296-1-roger.pau@citrix.com>
+ <20241119103444.23296-4-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241119103444.23296-4-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-Hi Stefano,
-
-Stefano Stabellini <sstabellini@kernel.org> writes:
-
-> On Thu, 14 Nov 2024, Volodymyr Babchuk wrote:
-
-[...]
-
->> +Building LibAFL-QEMU based fuzzer
->> +---------------------------------
->> +
->> +Fuzzer is written in Rust, so you need Rust toolchain and `cargo` tool
->> +in your system. Please refer to your distro documentation on how to
->> +obtain them.
->> +
->> +Once Rust is ready, fetch and build the fuzzer::
->> +
->> + # git clone
->> https://github.com/xen-troops/xen-fuzzer-rs
->> +  # cd xen-fuzzer-rs
->> +  # cargo build
+On 19/11/2024 10:34 am, Roger Pau Monne wrote:
+> The current guards to select whether user accesses should be speculative
+> hardened violate Misra rule 20.7, as the UA_KEEP() macro doesn't (and can't)
+> parenthesize the 'args' argument.
 >
-> Is this the only way to trigger the fuzzer? Are there other ways (e.g.
-> other languages or scripts)? If this is the only way, do we expect it to
-> grow much over time, or is it just a minimal shim only to invoke the
-> fuzzer (so basically we need an x86 version of it but that's pretty much
-> it in terms of growth)?
-
-Well, original AFL++ is written in C. And I planned to use it
-initially. I wanted to make plugin for QEMU to do the basically same
-thing that LibAFL does - use QEMU to emulate target platform, create
-snapshot before running a test, restore it afterwards.
-
-But then I found LibAFL. It is a framework for creating fuzzers, it
-implements the same algorithms as original AFL++ but it is more
-flexible. And it already had QEMU support. Also, it seems it is quite
-easy to reconfigure it for x86 support. I didn't tried tested this yet,
-but looks like I need only to change one option in Cargo.toml.
-
-This particular fuzzer is based on LibAFL example, but I am going to
-tailor it for Xen Project-specific needs, like CI integration you
-mentioned below.
-
-As for test harness, I am using Zephyr currently. My first intention was
-to use XTF, but it is x86-only... I am still considering using XTF for
-x86 runs.
-
-Zephyr was just the easiest and fastest way to trigger hypercalls. At
-first I tried to use Linux kernel, but it was hard to cover all possible
-failure paths. Zephyr is much simpler in this regard. Even better is to
-use MiniOS or XTF. But ARM support in MiniOS is in sorry state and XTF
-does not work on ARM at all.
-
-[...]
-
->>  void call_psci_cpu_off(void)
->>  {
->> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
->> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
->> +#endif
+> Change the logic so the guard is implemented inside the assembly block using
+> the .if assembly directive.
 >
-> I think we should add a wrapper with an empty implementation in the
-> regular case and the call to libafl_qemu_end when the fuzzer is enabled.
-> So that here it becomes just something like:
+> No functional change intended.
 >
->   fuzzer_success();
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> The guard check could be moved inside of the guest_access_mask_ptr macro, but
+> given it's limited usages it's clearer to keep the check in the callers IMO.
 
-I considered this. In the next version I'll add fuzzer.h with inline wrappe=
-rs.
+Overall this is far more legible, and I'm tempted to take it on that
+justification alone.  But this is Jan's pile of magic.
 
+There is a weird effect from this change:
 
-[...]
+add/remove: 2/0 grow/shrink: 2/2 up/down: 740/-739 (1)
+Function                                     old     new   delta
+build_symbol_table                             -     686    +686
+build_symbol_table.cold                        -      48     +48
+pv_map_ldt_shadow_page                       641     644      +3
+pv_emulate_gate_op                          2919    2922      +3
+livepatch_op.cold                            557     509     -48
+livepatch_op                                5952    5261    -691
 
->> @@ -1452,6 +1456,10 @@ static long do_poll(const struct sched_poll *sche=
-d_poll)
->>      if ( !guest_handle_okay(sched_poll->ports, sched_poll->nr_ports) )
->>          return -EFAULT;
->>
->> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
->> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
->> +#endif
->
-> I am not sure about this one, why is this a success?
+which is clearly changing inlining decisions.  I suspect it's related to...
 
-vCPU get blocked here basically forever. So test harness can't call
-libafl_qemu_end(LIBAFL_QEMU_END_OK) from it's side because it is never
-scheduled after this point.
+> diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/usercopy.c
+> index 7ab2009efe4c..d66beecc5507 100644
+> --- a/xen/arch/x86/usercopy.c
+> +++ b/xen/arch/x86/usercopy.c
+> @@ -11,23 +11,23 @@
+>  #include <asm/uaccess.h>
+>  
+>  #ifndef GUARD
+> -# define GUARD UA_KEEP
+> +# define GUARD 1
+>  #endif
+>  
+>  unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
+>  {
+> -    GUARD(unsigned dummy);
+> +    unsigned __maybe_unused dummy;
 
-> Honestly, aside from these two comments, this looks quite good. I would
-> suggest adding a GitLab CI job to exercise this, if nothing else, to
-> serve as an integration point since multiple components are required for
-> this to work.
+... this.  This doesn't need to be __maybe_unused, because ...
 
-I was considering this as well. Problem is that fuzzing should be
-running for a prolonged periods of time. There is no clear consensus on
-"how long", but most widely accepted time period is 24 hours. So looks
-like it should be something like "nightly build" task. Fuzzer code
-needs to be extended to support some runtime restriction, because right
-now it runs indefinitely, until user stops it.
+>  
+>      stac();
+>      asm volatile (
+> -        GUARD(
+> +        ".if " STR(GUARD) "\n"
+>          "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
+> -        )
+> +        ".endif\n"
+>          "1:  rep movsb\n"
+>          "2:\n"
+>          _ASM_EXTABLE(1b, 2b)
+> -        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from)
+> -          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
+> +        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
+> +          [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy)
 
-I am certainly going to implement this, but this is a separate topic,
-because it quires changes in the fuzzer app. Speaking on which... Right
-now both fuzzer and test harness reside in our github repo, as you
-noticed. I believe it is better to host it on xenbits as an official
-part of the Xen Project.
+... these parameters are referenced unconditionally.
 
---
-WBR, Volodymyr
+However, it does mean the compiler is spilling the scratch registers
+even when guard is 0.  I expect this is what is affecting the inlining
+decisions.
+
+~Andrew
 
