@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E989D29AA
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 16:32:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840374.1256136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D62BF9D29AE
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 16:33:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840384.1256146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDQCe-0006rT-IA; Tue, 19 Nov 2024 15:31:44 +0000
+	id 1tDQDv-0007ZR-Va; Tue, 19 Nov 2024 15:33:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840374.1256136; Tue, 19 Nov 2024 15:31:44 +0000
+Received: by outflank-mailman (output) from mailman id 840384.1256146; Tue, 19 Nov 2024 15:33:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDQCe-0006oM-Ev; Tue, 19 Nov 2024 15:31:44 +0000
-Received: by outflank-mailman (input) for mailman id 840374;
- Tue, 19 Nov 2024 15:31:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDQDv-0007Wh-S4; Tue, 19 Nov 2024 15:33:03 +0000
+Received: by outflank-mailman (input) for mailman id 840384;
+ Tue, 19 Nov 2024 15:33:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ydLn=SO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tDQCd-0006me-C9
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 15:31:43 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d7ffdef-a68b-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 16:31:37 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2fb4af0b6beso49134071fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 07:31:37 -0800 (PST)
+ id 1tDQDu-0007WZ-P2
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 15:33:02 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8dfbec5b-a68b-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 16:32:58 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-53b13ea6b78so5557597e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 07:32:58 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20dffbaf8sm667686666b.122.2024.11.19.07.31.35
+ a640c23a62f3a-aa20df50041sm657515166b.43.2024.11.19.07.32.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Nov 2024 07:31:36 -0800 (PST)
+ Tue, 19 Nov 2024 07:32:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d7ffdef-a68b-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmYiLCJoZWxvIjoibWFpbC1sajEteDIyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjVkN2ZmZGVmLWE2OGItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDMwMjk3LjI2NjQwMywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 8dfbec5b-a68b-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzQiLCJoZWxvIjoibWFpbC1sZjEteDEzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjhkZmJlYzViLWE2OGItMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDMwMzc4LjUyNzI2Niwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732030296; x=1732635096; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732030378; x=1732635178; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HndC8XrotjRyo85dZwX65ZIQAKa8dPh8VRGWQEf/h4k=;
-        b=acF1nePEsvBHUmU7+Oja6UPJee7hxrYSSTLQMXHPGbOeER+PNiK4emqUeC1JtS5EG8
-         Of2GroZku8p8VhJYym+HHavTm/G0P0iYiEVXsI6ueVZotwyTtOzqvH+Dv+Fy+cd+pg6/
-         FH9/Wguhym9MJvlCJ6hel2B4CtKKBHw3RAyv8=
+        bh=N4D/wXfRzeOdtDZqfTpqIydxBPLig7mBWZGz+UPhk3Q=;
+        b=bShf2+/Ngao4xuBD2wsGKIU9H6utckKSwgebAhJD+x/hBq3dgR7j5dZErkAFosaQZ4
+         tzv2NiS5/ZHP123UrLYwjC4huNZ/U7AZCet73GFqgRSp6qXMem+Hwcx5xN5xBblJjDio
+         Q/qcJwSZD17qrNftHJUMeStdfliAq4QFjwsws=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732030296; x=1732635096;
+        d=1e100.net; s=20230601; t=1732030378; x=1732635178;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HndC8XrotjRyo85dZwX65ZIQAKa8dPh8VRGWQEf/h4k=;
-        b=QpEJ2rBzo9g2pea/jtqrE+OUgB+eGn33HrfuCCw64Pke9Abr5o59DRV3XLD3C8yE6b
-         oGxpUra7ryADAcKQStcVARE7GvQTWy+aj2HwWy7lLSCFUC52lkL4KasTPQAkuJMZudF7
-         yjTWDhxlnPJ+s99t1Q0fOee6am1ExMGgRGEuIL9vfTN8wJoyszR8nT13ePxmMFhnC++9
-         gvROflWIgaBbciu6R+9EPCsxgkbYYqa8DABNsXsDNQ/vVSqb4Udpf7hdE9fJe0UxI4/7
-         7q5n0XX5rb1M+0IS9PZ7PTRQiLTewBrrg1hg6sDOVu7SHHvFNfvXd3hlD7C61/4paUZz
-         ZMaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWznt60Yx1qTZZdJ19y0jv5Jymr8JLn8W3y9ySF5ej9jcb4kZme+HsNl6Y7QPi5iXWkvdWy40E+MvA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzoakruSNAMt8LYTqiT3bQXgiOTjofh4iCaHsZwdDODN5j27GYi
-	9Y7mtOErwUOqBS4+oFmPobGSXZ11xawlZeF6BcJ4bv0nmRPne3YsYis+uzL6jxSYaSX+lMRR3il
-	d
-X-Google-Smtp-Source: AGHT+IEiSUxh0Pw+LQ9WbYbuC6ViU8OHDbgFGyQlPTaytzNeFKyJv2VGDiWe0h6iupgpCT1BLa/0ew==
-X-Received: by 2002:a2e:be9e:0:b0:2ff:559e:c877 with SMTP id 38308e7fff4ca-2ff606f8091mr132085111fa.33.1732030296545;
-        Tue, 19 Nov 2024 07:31:36 -0800 (PST)
-Message-ID: <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
-Date: Tue, 19 Nov 2024 15:31:34 +0000
+        bh=N4D/wXfRzeOdtDZqfTpqIydxBPLig7mBWZGz+UPhk3Q=;
+        b=RtVQF4jZeXkmtfVTN3u1/AwmbJjXqeskx/EeDDkY8sdVlZ1VHiOYI2HDgnHG+fiNcV
+         L1QUKseSnBSS1Jib69Kf3rI3e+yoa2Tg5Tl4Ks00kZd0hdkHndRh54Azoxyny5UPk0I5
+         31lD72JF1ziL/iryLtFZAp8nzCnnYsK3gJHO8gOb2lvxRc1G/IBpNjBQnLC74eye/myS
+         KE6UnojxLc/E53so9VU06mu3uKR1Fo6PVLsCcqj16Rg2n+7A/gAk4Txd9RNV5ZrXSV/4
+         XwPzm6R0zp9LmbA2ytJysQsG/Dm2No/Q2+nHBXzj2FF4IHaxuOFE87swu3NAfcpgeZOR
+         iIdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV7XBk87G8ZJMif12UOkX3akvTrxRfEMF7Vu2eMbik1O0QyhbdunosWkegNnEbi/07IZyKHi2VJufk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykD/yIjvFV7kFtX5G5g63A6S1AEmvBxmBiKKkGTupFVgGMw9pD
+	StajH1levEnC8FA+kzK3Top/r/j1oIS2RZDyR31vr3Hnn5EYdGbkfIAvn19bkRQARSs+JZ1rlLC
+	N
+X-Google-Smtp-Source: AGHT+IHlyRP7WCdZWF9TtLv0MvyRixzuKvzTkRsTmcnh8ffemxFr9xO/b/S5kgLdoKLvGxQJYTZflg==
+X-Received: by 2002:a05:6512:224b:b0:53d:a16e:3684 with SMTP id 2adb3069b0e04-53dab3b16ebmr11942664e87.41.1732030377968;
+        Tue, 19 Nov 2024 07:32:57 -0800 (PST)
+Message-ID: <f7be7236-f479-4d42-8c81-bdcc7b2bc7bc@citrix.com>
+Date: Tue, 19 Nov 2024 15:32:55 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/uaccess: rework user access speculative harden
- guards
+Subject: Re: [PATCH 4/4] automation/eclair: make Misra rule 20.7 blocking for
+ x86 also
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20241119103444.23296-1-roger.pau@citrix.com>
- <20241119103444.23296-4-roger.pau@citrix.com>
+ <20241119103444.23296-5-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,81 +134,19 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241119103444.23296-4-roger.pau@citrix.com>
+In-Reply-To: <20241119103444.23296-5-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 19/11/2024 10:34 am, Roger Pau Monne wrote:
-> The current guards to select whether user accesses should be speculative
-> hardened violate Misra rule 20.7, as the UA_KEEP() macro doesn't (and can't)
-> parenthesize the 'args' argument.
->
-> Change the logic so the guard is implemented inside the assembly block using
-> the .if assembly directive.
->
-> No functional change intended.
+> There are no violations left, make the rule globally blocking for both x86 and
+> ARM.
 >
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> The guard check could be moved inside of the guest_access_mask_ptr macro, but
-> given it's limited usages it's clearer to keep the check in the callers IMO.
 
-Overall this is far more legible, and I'm tempted to take it on that
-justification alone.  But this is Jan's pile of magic.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-There is a weird effect from this change:
-
-add/remove: 2/0 grow/shrink: 2/2 up/down: 740/-739 (1)
-Function                                     old     new   delta
-build_symbol_table                             -     686    +686
-build_symbol_table.cold                        -      48     +48
-pv_map_ldt_shadow_page                       641     644      +3
-pv_emulate_gate_op                          2919    2922      +3
-livepatch_op.cold                            557     509     -48
-livepatch_op                                5952    5261    -691
-
-which is clearly changing inlining decisions.  I suspect it's related to...
-
-> diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/usercopy.c
-> index 7ab2009efe4c..d66beecc5507 100644
-> --- a/xen/arch/x86/usercopy.c
-> +++ b/xen/arch/x86/usercopy.c
-> @@ -11,23 +11,23 @@
->  #include <asm/uaccess.h>
->  
->  #ifndef GUARD
-> -# define GUARD UA_KEEP
-> +# define GUARD 1
->  #endif
->  
->  unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
->  {
-> -    GUARD(unsigned dummy);
-> +    unsigned __maybe_unused dummy;
-
-... this.  This doesn't need to be __maybe_unused, because ...
-
->  
->      stac();
->      asm volatile (
-> -        GUARD(
-> +        ".if " STR(GUARD) "\n"
->          "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
-> -        )
-> +        ".endif\n"
->          "1:  rep movsb\n"
->          "2:\n"
->          _ASM_EXTABLE(1b, 2b)
-> -        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from)
-> -          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
-> +        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
-> +          [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy)
-
-... these parameters are referenced unconditionally.
-
-However, it does mean the compiler is spilling the scratch registers
-even when guard is 0.  I expect this is what is affecting the inlining
-decisions.
+Obviously subject to all the other patches going in.
 
 ~Andrew
 
