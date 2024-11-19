@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20A269D1C15
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 00:59:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839602.1255390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD419D1C1A
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 01:05:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839612.1255400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDBdn-0001bN-M1; Mon, 18 Nov 2024 23:58:47 +0000
+	id 1tDBji-0004aG-Mg; Tue, 19 Nov 2024 00:04:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839602.1255390; Mon, 18 Nov 2024 23:58:47 +0000
+Received: by outflank-mailman (output) from mailman id 839612.1255400; Tue, 19 Nov 2024 00:04:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDBdn-0001Yw-JA; Mon, 18 Nov 2024 23:58:47 +0000
-Received: by outflank-mailman (input) for mailman id 839602;
- Mon, 18 Nov 2024 23:58:47 +0000
+	id 1tDBji-0004Xo-JD; Tue, 19 Nov 2024 00:04:54 +0000
+Received: by outflank-mailman (input) for mailman id 839612;
+ Tue, 19 Nov 2024 00:04:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M5+n=SN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tDBdm-0001Yq-Vw
- for xen-devel@lists.xenproject.org; Mon, 18 Nov 2024 23:58:46 +0000
+ <SRS0=IGE8=SO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tDBjg-0004Xg-Ro
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 00:04:52 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a119c05-a609-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 00:58:43 +0100 (CET)
+ id e381dde4-a609-11ef-99a3-01e77a169b0f;
+ Tue, 19 Nov 2024 01:04:47 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 845CCA41FD2;
- Mon, 18 Nov 2024 23:56:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063DFC4CECC;
- Mon, 18 Nov 2024 23:58:40 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 3D134A41FE0;
+ Tue, 19 Nov 2024 00:02:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7958CC4CECC;
+ Tue, 19 Nov 2024 00:04:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,90 +41,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a119c05-a609-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: e381dde4-a609-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjE0Ny43NS4xOTMuOTEiLCJoZWxvIjoibnljLnNvdXJjZS5rZXJuZWwub3JnIn0=
-X-Custom-Transaction: eyJpZCI6IjBhMTE5YzA1LWE2MDktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTc0MzIzLjM3MTczLCJzZW5kZXIiOiJzc3RhYmVsbGluaUBrZXJuZWwub3JnIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Custom-Transaction: eyJpZCI6ImUzODFkZGU0LWE2MDktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMxOTc0Njg4LjE2NTA3OSwic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731974321;
-	bh=PX0mpXdKKXHMdRljYUGqUi7dOJMFVoT5EBQ6rBGbwQ4=;
+	s=k20201202; t=1731974686;
+	bh=zwcNxODTX3rXWQ5TN+gRjQvgJsKiB5/aS8YUZiTJyzM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=I6WBOvLzQHy/DvnDof4nlfvwx/4VCay9cs4l4+S2W1HTo7M53uPnoTA4y0urC7J9K
-	 LH6zqTujAH+RHqEogvVrzAT2AjRByOGx740ImI29fRO1h1Z3SCdpwwYWTM1BBvw8bq
-	 +AeE7N36WH6awl65kptREodbhawIR8jN0FZ40IMFIBMt340l2cF9RwhiJqb1I+OFaT
-	 Ij6bdUN+AN3Z1871p3VO5T8ZGuDIaIybUGJVpLIVpQpB+6zeo3eb3NS8gW0ylLP5kF
-	 QsPgY6c7jhwumv2KoJCrzc0Wb7/xTbttbMVtiIqsFk/p/XoF7p4XITaQbeb5JpMs0j
-	 xB4KF05Vp1zsw==
-Date: Mon, 18 Nov 2024 15:58:39 -0800 (PST)
+	b=tin2+LSCmulpwB5XATXL6wlmwSbjLz27mNSmkwGxFduQH7I4jxcUQqKWjLROPc/aZ
+	 SavXZ2lsc2eEouiF3ZUy2QeYdBBq/XWFW9rhQerqG6vhqh7x4/7TERC0DyfoXZc/R/
+	 hFwOL61uJ3PWEGkAwt6pLDbl8APc452gu0OBQ0AHibfWYu4DQz3i9W4kqA/Re7dSAD
+	 pgNVzjl9bEA/QL6w+nRk9R6d9FRa46b8xtqzyN2JcxrwqHXEi/jmvBEEHYANjWarL3
+	 L4U11eM9RLnlXCQQg2UsnKg1fxWzn/7gBavtkaVvH49vjpGOHGUF18d3Mz/zQ3LgwA
+	 iAhHEI0lVJT3g==
+Date: Mon, 18 Nov 2024 16:04:44 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    "consulting @ bugseng . com" <consulting@bugseng.com>
-Subject: Re: [PATCH] xen/bootinfo: Include declaration for
- fw_unreserved_regions()
-In-Reply-To: <20241118105145.2329902-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2411181557520.1160299@ubuntu-linux-20-04-desktop>
-References: <20241118105145.2329902-1-andrew.cooper3@citrix.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [XEN PATCH 3/3] CI: New stage "containers" to rebuild some
+ containers
+In-Reply-To: <ZztJPKoLvaTZguze@l14>
+Message-ID: <alpine.DEB.2.22.394.2411181603160.1160299@ubuntu-linux-20-04-desktop>
+References: <20241115170739.48983-1-anthony.perard@vates.tech> <20241115170739.48983-4-anthony.perard@vates.tech> <alpine.DEB.2.22.394.2411151629450.1160299@ubuntu-linux-20-04-desktop> <ZztJPKoLvaTZguze@l14>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 18 Nov 2024, Andrew Cooper wrote:
-> Eclair complains that fw_unreserved_regions() can't see it's declaration.
-> Include <asm/setup.h> to address this.
+On Mon, 18 Nov 2024, Anthony PERARD wrote:
+> On Fri, Nov 15, 2024 at 04:34:21PM -0800, Stefano Stabellini wrote:
+> > On Fri, 15 Nov 2024, Anthony PERARD wrote:
+> > > Rebuild rolling release containers when XEN_CI_REBUILD_CONTAINERS is
+> > > set. This is to be use with a scheduled pipeline.
+> > > 
+> > > When $XEN_CI_REBUILD_CONTAINERS is set, only build jobs related to the
+> > > containers been rebuild will be executed.
+> > > 
+> > > Build jobs that are using one of the containers been rebuild should
+> > > wait for the container to be rebuild. If it's a normal pipeline, those
+> > > dependency are simply ignored.
+> > 
+> > This is a fantastic contribution, thanks Anthony!
+> > 
+> > I think we can simplify this patch by removing all stages except for
+> > "containers" on the scheduled pipeline with XEN_CI_REBUILD_CONTAINERS
+> > set to true.
+> > 
+> > I think it is a good idea to have a special schedule pipeline for this,
+> > and we should exploit the fact that it is special and only use it to
+> > rebuild the containers. If we want to, we can have a second scheduled
+> > pipeline to do a full normal run afterwards.
+> > 
+> > This way, there is no need to carry the changes to build.yaml or
+> > test.yaml that are a bit hard to read/understand for someone unfamiliar
+> > with gitlab. When XEN_CI_REBUILD_CONTAINERS == true we only do the
+> > containers stage.
 > 
-> This makes Mira Rule 8.4 clean on ARM, so tag it as such.
+> So, you mean having this following change instead of make changes to
+> build.yaml and test.yaml, right?
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>     diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+>     --- a/.gitlab-ci.yml
+>     +++ b/.gitlab-ci.yml
+>     @@ -14,7 +14,15 @@ stages:
+>        - test
+>      
+>      include:
+>     -  - 'automation/gitlab-ci/containers.yaml'
+>     -  - 'automation/gitlab-ci/analyze.yaml'
+>     -  - 'automation/gitlab-ci/build.yaml'
+>     -  - 'automation/gitlab-ci/test.yaml'
+>     +  - local: 'automation/gitlab-ci/containers.yaml'
+>     +    rules:
+>     +      - if: $XEN_CI_REBUILD_CONTAINERS
+>     +  - local: 'automation/gitlab-ci/analyze.yaml'
+>     +    rules:
+>     +      - if: $XEN_CI_REBUILD_CONTAINERS == null
+>     +  - local: 'automation/gitlab-ci/build.yaml'
+>     +    rules:
+>     +      - if: $XEN_CI_REBUILD_CONTAINERS == null
+>     +  - local: 'automation/gitlab-ci/test.yaml'
+>     +    rules:
+>     +      - if: $XEN_CI_REBUILD_CONTAINERS == null
+> 
+> 
+> Or I guess we can also compare to the string "true" and write the
+> expression as
+>     if: $XEN_CI_REBUILD_CONTAINERS == "true"
+> and
+>     if: $XEN_CI_REBUILD_CONTAINERS != "true"
 
-Very nice! Thank you!
+Yes exactly, either one of the above is fine!
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+It is much simpler and clearer than having to add (admittedly
+non-obvious) checks to build.yaml and test.yaml.
 
-
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: consulting@bugseng.com <consulting@bugseng.com>
-> 
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1547057124
-> ---
->  automation/eclair_analysis/ECLAIR/tagging.ecl | 2 +-
->  xen/common/device-tree/bootinfo.c             | 2 ++
->  2 files changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> index 9318e5b10ca8..7944ce2ee3b2 100644
-> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> @@ -115,7 +115,7 @@ if(string_equal(target,"x86_64"),
->  )
->  
->  if(string_equal(target,"arm64"),
-> -    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3.R11.2||MC3R1.R16.6||MC3R1.R20.7"})
-> +    service_selector({"additional_clean_guidelines","MC3R1.R2.1||MC3R1.R5.3||MC3R1.R8.4||MC3.R11.2||MC3R1.R16.6||MC3R1.R20.7"})
->  )
->  
->  -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
-> diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
-> index f2e6a1145b7c..3738eb57ff52 100644
-> --- a/xen/common/device-tree/bootinfo.c
-> +++ b/xen/common/device-tree/bootinfo.c
-> @@ -17,6 +17,8 @@
->  #include <xen/libfdt/libfdt-xen.h>
->  #include <xen/mm.h>
->  
-> +#include <asm/setup.h>
-> +
->  struct bootinfo __initdata bootinfo = BOOTINFO_INIT;
->  
->  const char * __init boot_module_kind_as_string(bootmodule_kind kind)
-> 
-> base-commit: 88c40dc108bfddb32a891e2e20d48bbe94949200
-> -- 
-> 2.39.5
-> 
+Thanks!
 
