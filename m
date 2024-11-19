@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0C359D2D81
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 19:04:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840721.1256212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FFC89D2DD4
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 19:23:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840731.1256222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDSZ6-0002nW-Gq; Tue, 19 Nov 2024 18:03:04 +0000
+	id 1tDSsE-0005yN-3Y; Tue, 19 Nov 2024 18:22:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840721.1256212; Tue, 19 Nov 2024 18:03:04 +0000
+Received: by outflank-mailman (output) from mailman id 840731.1256222; Tue, 19 Nov 2024 18:22:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDSZ6-0002kO-E6; Tue, 19 Nov 2024 18:03:04 +0000
-Received: by outflank-mailman (input) for mailman id 840721;
- Tue, 19 Nov 2024 18:03:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDSsE-0005vH-0W; Tue, 19 Nov 2024 18:22:50 +0000
+Received: by outflank-mailman (input) for mailman id 840731;
+ Tue, 19 Nov 2024 18:22:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ydLn=SO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tDSZ5-0002kI-GU
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 18:03:03 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8161676f-a6a0-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 19:02:56 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a9f1c590ecdso813213666b.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 10:02:56 -0800 (PST)
+ id 1tDSsC-0005vB-HI
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 18:22:48 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 447c090d-a6a3-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 19:22:43 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a9e8522c10bso9210066b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 10:22:43 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e043b84sm674592466b.137.2024.11.19.10.02.54
+ a640c23a62f3a-aa20e08625asm685108766b.187.2024.11.19.10.22.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Nov 2024 10:02:55 -0800 (PST)
+ Tue, 19 Nov 2024 10:22:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8161676f-a6a0-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmMiLCJoZWxvIjoibWFpbC1lajEteDYyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjgxNjE2NzZmLWE2YTAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDM5Mzc2LjkzNzQ4Miwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 447c090d-a6a3-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzEiLCJoZWxvIjoibWFpbC1lajEteDYzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjQ0N2MwOTBkLWE2YTMtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDQwNTYzLjIyNjUyNiwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732039376; x=1732644176; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732040563; x=1732645363; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qRDj+yjLmbyk5MnwWXYW36P2dTgdrMGOefuv1V9b2yo=;
-        b=jw5x7bElD8JCM1g/QpU9avKqtXlKRzg7JJ9Jyq4Hx1/VXw+mZDTH0rqee+aG7YOZ9S
-         YkmHhEfuz36/MoDuoE+S2tBa/Bm8OaQo2Oi1bewq1Gyr368TcjNFDNeiAdLLKWXBVlNs
-         nwOAaLU5fRgaJgGKEDWya9Nnw/7QOS1Sxh2Gs=
+        bh=+L9M5rjRulALgCVbmT+2eWrSNIu/UFYXBmq/PL8Nj1I=;
+        b=IjzUM3cZho2wzzAVMrc6zIe9FWrJ2rL0A3DHb8i82vHMdstv+vjYDCFvnigrajZYla
+         szQVqvbQVEC71KoLHru06AGk03ouRMk9EVPyzEVegZlCr/Px/n16oajZTMS3FHzytjzP
+         M6GbW1SGV+oE9HIBKaa58Y0gXKVa6OwfCNMBs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732039376; x=1732644176;
+        d=1e100.net; s=20230601; t=1732040563; x=1732645363;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qRDj+yjLmbyk5MnwWXYW36P2dTgdrMGOefuv1V9b2yo=;
-        b=EdA7kBcTv6x88LvYrvnZxTCdSRckWsmcz94GEPAy6x7BvVc2xv8CGorDoTaLv1zCWy
-         UdLozPJbfO/shrXxORi6ua90Bf0N/WZ2ElGJe2NbrIY2wC6wox8/3egoj6D6TWekhTVJ
-         NvYXmprE07dgvaeiAtSy9Kd7xwKzx1MJNIv8lNADyDvh+eT8CzmTFP1jI4QEuf70jrcq
-         lOBiYqFS0vcB/JigHF79NuuK6Nevku38appnEUye+oC4v7MWWbY2h39tou4SkoibZqO5
-         DJTvEJpbqel7kRqBr1N1kpSmszWpWABPPUaO7pnn1CBYlG3LYFnU8Ldn5BkJNTORCe30
-         tzMg==
-X-Gm-Message-State: AOJu0Yyl//dA350X5NwL6Lwf8WXPEC4zzNWItn0FSYHMVtcZtze6ZN5f
-	/LGmz6bTXeWO5v1AVpjJfDEdZt7SPukSyxaSaI7KITjllfZ4zEjrzvuw9hOzfs8=
-X-Google-Smtp-Source: AGHT+IHaZE4z6YY8JfwmddimrgJoDzR+/fGeHTUn56Kq4TIpSquv/8ibAQJjXv3C7vsr20prkUHUAQ==
-X-Received: by 2002:a17:907:2d0a:b0:a99:e82a:87ee with SMTP id a640c23a62f3a-aa48354d154mr1853971866b.57.1732039376143;
-        Tue, 19 Nov 2024 10:02:56 -0800 (PST)
-Message-ID: <ae2dbe98-57cf-4aba-bc48-6d7212cfc859@citrix.com>
-Date: Tue, 19 Nov 2024 18:02:53 +0000
+        bh=+L9M5rjRulALgCVbmT+2eWrSNIu/UFYXBmq/PL8Nj1I=;
+        b=LRrYXlqq7Rz6n4YwujhOrJxyhif0zzP3bjRz7BRRcD7MbeREcqAQScdUCJ2UxB8TNH
+         YtAULZToKmfabE62p2AQiE4/NlSSw5tohrdV5AaPLjgKPNyWlEq+YOm+0ZhmEaZKPQPH
+         fapFsi74PpyLw5JMSdu5jogJrmRckcwU39J44A+OmLrRVDhqVImxhx9dvt0hVkhPXOTO
+         1NuuRJu5cL5QRo0/oisSBFUhv7plGGYx5yl3HbmDHliZUMfUkZu8PzrPbnSw+ggB6hyw
+         toB2KhWYv5QRg11fLShRIR1ZvvrUclxwUYIYdhcH+Kbp9+waNxGsljeOvoS+6e0G8uBX
+         bw0w==
+X-Forwarded-Encrypted: i=1; AJvYcCVEZVs1IDWqlxdNq1QNekGd/yCjOq+5LLL6fnstfcHlp9p5ESEXc6lOZU12g/mcRrvS/5pVqeZYBc0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxBJG0sMnt30t4+Mgs2CYlNDSi4Rq4WWb4hK0yUqp7PgODIjXe5
+	ddjPUZ7814p1hrd5XeKAxj9TISmN9DVfR+1QLkk9fyEf21AOJnIi1Q6GZKvADGI=
+X-Google-Smtp-Source: AGHT+IHaSnxBlT/qgX4iMVlPIDK7xIuc/feJ3keDRwgE/raE+GcU+8BUmkJeqa7juEZrydTJlIl0Ow==
+X-Received: by 2002:a17:907:268e:b0:a99:fbb6:4972 with SMTP id a640c23a62f3a-aa4dcd5dd20mr1762866b.25.1732040562703;
+        Tue, 19 Nov 2024 10:22:42 -0800 (PST)
+Message-ID: <00fa3d65-d598-474f-b9ee-7b63db2d3b40@citrix.com>
+Date: Tue, 19 Nov 2024 18:22:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen: add libafl-qemu fuzzer support
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
-References: <20241114224636.1942089-1-volodymyr_babchuk@epam.com>
- <alpine.DEB.2.22.394.2411181737570.1160299@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH] x86/mce: Compile do_mca() for CONFIG_PV only
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241119125904.2681402-1-andrew.cooper3@citrix.com>
+ <d92cf59a-a798-4223-9439-85ae215b7daa@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,33 +133,72 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2411181737570.1160299@ubuntu-linux-20-04-desktop>
+In-Reply-To: <d92cf59a-a798-4223-9439-85ae215b7daa@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19/11/2024 1:46 am, Stefano Stabellini wrote:
-> On Thu, 14 Nov 2024, Volodymyr Babchuk wrote:
->> diff --git a/xen/arch/arm/libafl_qemu.c b/xen/arch/arm/libafl_qemu.c
->> new file mode 100644
->> index 0000000000..58924ce6c6
->> --- /dev/null
->> +++ b/xen/arch/arm/libafl_qemu.c
->> @@ -0,0 +1,152 @@
->> +/* SPDX-License-Identifier: Apache-2.0 */
+On 19/11/2024 2:34 pm, Jan Beulich wrote:
+> On 19.11.2024 13:59, Andrew Cooper wrote:
+>> Eclair reports a Misra Rule 8.4 violation; that do_mca() can't see it's
+>> declaration.  It turns out that this is a consequence of do_mca() being
+>> PV-only, and the declaration being compiled out in !PV builds.
+>>
+>> Therefore, arrange for do_mca() to be compiled out in !PV builds.  This in
+>> turn requires a number of static functions to become static inline.
+> Which generally we advocate against.
 
-I am afraid that we cannot accept this submission.
-
-While the Apache-2.0 license is compatible with GPLv3, it is
-incompatible with GPLv2, and therefore with Xen.
+It's `static inline` or `static __maybe_unused`, but I refer you to to
+the Matrix conversation on June 24th on the matter.
 
 
-Where precisely did this come from?
+>  The #ifdef variant you pointed at on
+> Matrix wasn't all that bad.
 
-The LibAFL project says it is explicitly dual-licensed Apache-2.0 and
-MIT, and MIT is compatible with GPLv2, so this likely can be made to work.
+It worked as a test, but ifdefary like that is a maintenance nightmare.
 
-Assuming the source really is both Apache-2.0 and MIT, then the SPDX
-header needs to state both, but this needs to be checked carefully.
+>  Plus ...
+>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: consulting@bugseng.com <consulting@bugseng.com>
+>>
+>> Bloat-o-meter on a !PV build reports:
+>>
+>>   add/remove: 0/6 grow/shrink: 0/0 up/down: 0/-3717 (-3717)
+>>   Function                                     old     new   delta
+>>   x86_mc_mceinject                              31       -     -31
+>>   do_mca.cold                                  117       -    -117
+>>   x86_mc_msrinject                             147       -    -147
+>>   x86_mc_msrinject.cold                        230       -    -230
+>>   do_mc_get_cpu_info                           500       -    -500
+>>   do_mca                                      2692       -   -2692
+> ... what's the effect of the addition of "inline" on a PV=y build? By
+> using the keyword, we may end up talking the compiler into inlining of
+> code that better wouldn't be inlined.
+
+xen.git/xen$ ../scripts/bloat-o-meter xen-syms-{before,after}
+add/remove: 0/0 grow/shrink: 0/0 up/down: 0/0 (0)
+Function                                     old     new   delta
+Total: Before=3901801, After=3901801, chg +0.00%
+xen.git/xen$ diff -u dis-{before,after}
+--- dis-before    2024-11-19 18:08:02.284091931 +0000
++++ dis-after    2024-11-19 18:08:24.491035756 +0000
+@@ -1,5 +1,5 @@
+ 
+-xen-syms-before:     file format elf64-x86-64
++xen-syms-after:     file format elf64-x86-64
+ 
+ 
+ Disassembly of section .text:
+
+xen.git/xen$
+
+
+Which is not surprising because at -O2, the keyword is effectively
+ignored because of the various -finline-*
 
 ~Andrew
 
