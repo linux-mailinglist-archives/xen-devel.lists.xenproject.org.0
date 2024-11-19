@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6BD9D282E
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:30:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840285.1256056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 991D99D2842
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:34:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840298.1256066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDPF2-000361-H7; Tue, 19 Nov 2024 14:30:08 +0000
+	id 1tDPJ8-0005C7-WC; Tue, 19 Nov 2024 14:34:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840285.1256056; Tue, 19 Nov 2024 14:30:08 +0000
+Received: by outflank-mailman (output) from mailman id 840298.1256066; Tue, 19 Nov 2024 14:34:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDPF2-00033Z-DV; Tue, 19 Nov 2024 14:30:08 +0000
-Received: by outflank-mailman (input) for mailman id 840285;
- Tue, 19 Nov 2024 14:30:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDPJ8-0005AN-TN; Tue, 19 Nov 2024 14:34:22 +0000
+Received: by outflank-mailman (input) for mailman id 840298;
+ Tue, 19 Nov 2024 14:34:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UMhk=SO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tDPF0-0002y9-Nb
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:30:06 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2380e5b-a682-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 15:30:01 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3824aef833bso1372191f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:30:00 -0800 (PST)
+ id 1tDPJ7-0005AH-EL
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:34:21 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c013af6-a683-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 15:34:18 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-382433611d0so2358047f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:34:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-432dac0ae45sm197489585e9.30.2024.11.19.06.29.59
+ ffacd0b85a97d-38246b7db13sm6486982f8f.91.2024.11.19.06.34.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Nov 2024 06:29:59 -0800 (PST)
+ Tue, 19 Nov 2024 06:34:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2380e5b-a682-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzQiLCJoZWxvIjoibWFpbC13cjEteDQzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImMyMzgwZTViLWE2ODItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDI2NjAxLjYyNjY3Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 5c013af6-a683-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmQiLCJoZWxvIjoibWFpbC13cjEteDQyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjVjMDEzYWY2LWE2ODMtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDI2ODU4LjgxMDIzMiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732026600; x=1732631400; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732026858; x=1732631658; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=x/bddkpy4qWW31Eozqd4IaMdwqroiR1plc0bvYJpFzI=;
-        b=H2fHw8rFD3U6aG9XAzIEfmgV07QNyaET8hldhpsKMTFkmYb9Fq2jE4AbOYmKxaUlV+
-         lnPsEdoeavWetPohHj7X5kG49J2n5EfP8Dvmw/2vgXEykgdw2JgLbpID/1kCb1UBP98e
-         knp8dvMeCf3cofNeTx++CsRR8zsA/pXHzxYQlv4ffEKG4iANDryvofvXGV5RbJ30pN3Z
-         4xo0SsXdTzyf0wFEcJyIy7GeJMWSyKz+hD8nr7LC0HCA2jZ9MhxD5iyw8yn9v2FOBJdd
-         +9/SLdnrf0S/LY15TUgVmfniELcHd/5lvrs3ymkPfjFwS6cd6qfK5o0S9BV5y2pXcarH
-         /bsQ==
+        bh=XcmnzsAoLOw/iAf1TPFm4c897+oHJKMZZOqnZsweXEU=;
+        b=WrOt1man0ZHWXEweoYlQB8RbMIt5/Pci0vyOa9uAXe/dPtK13L6bzwfQywLMqYO+51
+         PWEUkxfqPsZ/3vAoCKmjhFidw4LiZ0ebaM5XOaUm5t2tmi6cVUwZK6Dq6Z7EzH+b9Bxd
+         Uxt/B1VhwP0vn7T40cftqM3+NifD1D0bqYQCGOyeVMWSdwfrdZQd29CeEwLsxSkUXuWa
+         A1/xZVVzLXeJrTPuV1qJlSCapxxLig7twEjQ/kQLhpHQ0DR7YELfuhXgW1RvC4tSJiA9
+         fcynjgH6SOoFo0B/Ow84MjCf0+ZOiTjA3AKuEXiP4VQRmH1YbPDYiG6gdj74+1EWLx8j
+         TFeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732026600; x=1732631400;
+        d=1e100.net; s=20230601; t=1732026858; x=1732631658;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=x/bddkpy4qWW31Eozqd4IaMdwqroiR1plc0bvYJpFzI=;
-        b=AHjBx5gXh1Q/mBFSd9L5Y6NGh0Hv7QaClv5tjMekca3BSQvAog4lD/SzYXQ8LFHURB
-         VdaWnGdid7cKoO5T+E/ZQ6iJXaecmUEvGgW+mqjwFobn1X54kb25Gct32FcfXyIH4zgA
-         dj8RJM6/uXc55kp8JKgQm77MzgKTIDue/oZivRS1l3Z7tyBJRVwNo9fpRb2e9FPUS9Oi
-         TSkYcaqTnwpDIEyNUsaDQFMuSdHjuGoyl7nXZWlqF6c7curTclxoD4hAlAyOCdVojzcZ
-         Y8zrKhVrPTW74pE9s9euUd3exmvjwNx/cvDrh2nPa1V/LZHq7FspMFQHvJoit3WcWqJs
-         Q5qw==
-X-Forwarded-Encrypted: i=1; AJvYcCWT2WIN/IWeV29K9mTTgpO+D/99P5F+e4RKA92rv1kTALse8BNhtYQast/SVcQfQRa0PB1jsXCz79k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJfJz28d5Gbq/umm71SVy0+ibzfWrsn+9NLWtNU7i69LytAx64
-	5LEtzxNa8wQHL3gWf4FLlXCLbkW5nHiR37wc7M7s38rnqOIEDCVcQKsJaTvhs/FFls7YTIRg+6A
-	=
-X-Google-Smtp-Source: AGHT+IFJwvS6Q8S/Z4Aawi3jfDc/sC9LiLydZZgBdo8xmhurMzqT3qBwOmIKQcdz5Ar536dcDPbCLw==
-X-Received: by 2002:a05:6000:400b:b0:382:450c:2607 with SMTP id ffacd0b85a97d-382450c29f3mr6932599f8f.4.1732026600182;
-        Tue, 19 Nov 2024 06:30:00 -0800 (PST)
-Message-ID: <f733e721-f9b8-4fef-8145-176ebcbdaa01@suse.com>
-Date: Tue, 19 Nov 2024 15:29:58 +0100
+        bh=XcmnzsAoLOw/iAf1TPFm4c897+oHJKMZZOqnZsweXEU=;
+        b=PntKoOdP4OsAQGOtDLLJBORCmKydg0NkP2U0hxd+0WdFwTu3PdcHAqHz7Conh95z8T
+         pRtWkE0dY4bG3z3JOoi8036tcc6ThkLLJpb8bW4+2gNJQpY105TY+XiPJYBxjr1K2/wT
+         87+wqNJ/3iLlI438qkCYySkaAgWAV8xVAKJwGK0AH9xxqSumnOiIWQ2TBYHZimYSPPns
+         hIzTV8N7qVL4zPDXxkA6T+3+JoQI6oEOQDiGq/h1BUFjpiC/LH9ZJrCohYgHn5Yu9GbF
+         9n31nv7oWipiPy4Hl2aahYx3GabICyFKKY9iPqyFhVBr/tmxnprjJpp46bQceAnlchj6
+         w14g==
+X-Forwarded-Encrypted: i=1; AJvYcCV9HGxYBcifoqV5GvPBc+K4JojbOeUyOogzyuq0S81kEURvnWt/r3CHJGPvbypevZYVa6UIXY3RC5k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/JbnztTaASvJufGIMjdmgfxKP9HJ7UGhK2FUXm7QphL6EH0Ap
+	aG6pWZx5hY+bnKyUmJGoIIjv7rlUyMqa9dd5sL/JAtCRGJ1a1QIXwKr+SPAlLg==
+X-Google-Smtp-Source: AGHT+IFf3sEtLDaRyfpZTWdHzxwwtPEUFzBES16yB/VqDITda14p4KmP7jpxv9GG4wCO5iXcd/5PGg==
+X-Received: by 2002:a05:6000:2d82:b0:382:5141:f63d with SMTP id ffacd0b85a97d-3825141f7f2mr841256f8f.53.1732026858182;
+        Tue, 19 Nov 2024 06:34:18 -0800 (PST)
+Message-ID: <d92cf59a-a798-4223-9439-85ae215b7daa@suse.com>
+Date: Tue, 19 Nov 2024 15:34:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/uaccess: rework user access speculative harden
- guards
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241119103444.23296-1-roger.pau@citrix.com>
- <20241119103444.23296-4-roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/mce: Compile do_mca() for CONFIG_PV only
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241119125904.2681402-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,34 +115,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241119103444.23296-4-roger.pau@citrix.com>
+In-Reply-To: <20241119125904.2681402-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.11.2024 11:34, Roger Pau Monne wrote:
-> The current guards to select whether user accesses should be speculative
-> hardened violate Misra rule 20.7, as the UA_KEEP() macro doesn't (and can't)
-> parenthesize the 'args' argument.
+On 19.11.2024 13:59, Andrew Cooper wrote:
+> Eclair reports a Misra Rule 8.4 violation; that do_mca() can't see it's
+> declaration.  It turns out that this is a consequence of do_mca() being
+> PV-only, and the declaration being compiled out in !PV builds.
 > 
-> Change the logic so the guard is implemented inside the assembly block using
-> the .if assembly directive.
+> Therefore, arrange for do_mca() to be compiled out in !PV builds.  This in
+> turn requires a number of static functions to become static inline.
 
-Hmm, interesting idea. I don't overly like emitting stuff to pre-processed
-and even assembly files, but doing so is probably warranted here. Nevertheless:
-Did we consider at all to deviate these macros instead?
+Which generally we advocate against. The #ifdef variant you pointed at on
+Matrix wasn't all that bad. Plus ...
 
-> --- a/xen/arch/x86/usercopy.c
-> +++ b/xen/arch/x86/usercopy.c
-> @@ -11,23 +11,23 @@
->  #include <asm/uaccess.h>
->  
->  #ifndef GUARD
-> -# define GUARD UA_KEEP
-> +# define GUARD 1
->  #endif
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+> 
+> Bloat-o-meter on a !PV build reports:
+> 
+>   add/remove: 0/6 grow/shrink: 0/0 up/down: 0/-3717 (-3717)
+>   Function                                     old     new   delta
+>   x86_mc_mceinject                              31       -     -31
+>   do_mca.cold                                  117       -    -117
+>   x86_mc_msrinject                             147       -    -147
+>   x86_mc_msrinject.cold                        230       -    -230
+>   do_mc_get_cpu_info                           500       -    -500
+>   do_mca                                      2692       -   -2692
 
-At least in cases like this one I think a comment is necessary, perhaps as
-terse as /* Keep */ (and /* Drop */ further down).
+... what's the effect of the addition of "inline" on a PV=y build? By
+using the keyword, we may end up talking the compiler into inlining of
+code that better wouldn't be inlined.
 
 Jan
 
