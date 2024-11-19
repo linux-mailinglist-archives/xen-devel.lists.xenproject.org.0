@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDCCF9D215E
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 09:13:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.839718.1255500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 574689D2165
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 09:15:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.839725.1255509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDJLu-0004Rg-9m; Tue, 19 Nov 2024 08:12:50 +0000
+	id 1tDJNw-0004y5-Kf; Tue, 19 Nov 2024 08:14:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 839718.1255500; Tue, 19 Nov 2024 08:12:50 +0000
+Received: by outflank-mailman (output) from mailman id 839725.1255509; Tue, 19 Nov 2024 08:14:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDJLu-0004P3-6c; Tue, 19 Nov 2024 08:12:50 +0000
-Received: by outflank-mailman (input) for mailman id 839718;
- Tue, 19 Nov 2024 08:12:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDJNw-0004wK-Ht; Tue, 19 Nov 2024 08:14:56 +0000
+Received: by outflank-mailman (input) for mailman id 839725;
+ Tue, 19 Nov 2024 08:14:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UMhk=SO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tDJLt-0004Ox-8v
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 08:12:49 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e569e6a-a64e-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 09:12:45 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a9a6b4ca29bso593358066b.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 00:12:45 -0800 (PST)
+ id 1tDJNv-0004wE-2T
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 08:14:55 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a304f7a-a64e-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 09:14:52 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-aa4d257eb68so26300366b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 00:14:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20df52adasm620714866b.81.2024.11.19.00.12.44
+ a640c23a62f3a-aa20df26d6fsm621423866b.17.2024.11.19.00.14.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Nov 2024 00:12:44 -0800 (PST)
+ Tue, 19 Nov 2024 00:14:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e569e6a-a64e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjBlNTY5ZTZhLWE2NGUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDAzOTY1LjIwMDE5OSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 5a304f7a-a64e-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzAiLCJoZWxvIjoibWFpbC1lajEteDYzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjVhMzA0ZjdhLWE2NGUtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDA0MDkyLjQyMjQ5OCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732003964; x=1732608764; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732004092; x=1732608892; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+7bXGfBZyvdIZPTmXb4+ST5abFWGGKww59gbl5MyekQ=;
-        b=AgUs1Dfn91gKWrFVIwXE0tj+tPZ9LexlpXPufIUsSA7HsGGrYwudqmw/+kxzrFBByx
-         IdmaveHvTZuYAc9Nn+bFOvzceaZomADuOXUI79BGg/6nm1TFcjK164QPUJ+nqjTAgyqR
-         EOxnNCCCL0rArc8qEe1je4NBmFx0hwGKjuor2wlCDNiWcytFsiSu5lMBmLqhUVlxHnc0
-         F4MWUaqOJVjDnsNZBsesbmf9f/wnzMAWcH94v3DL+c03AKso4HS6l+9J74/slSx44D79
-         H1gM7inwWJMVxsTl1oo+6O1l/q1YVesvcIhG94AQ3gsRNvWnN16s8hevfOm9rB5XTLRz
-         KlQQ==
+        bh=xcYIf23G4cb8mxPzT+87GnPDfgP15dTrJ68QbgYfaf0=;
+        b=gD59MagIefKd0/nIW/7uXyoyBYlORAjVcmfth+oPKxjKdvTOigc5XrTsl0W7IPoca4
+         tRahoHrPq6BELXOSGHAM2P0Mf4q/PkdM30ftH3AEq/P62qQhirLoSkhabB3XwnTQ/zEv
+         HKpdTZ8jDRGQO8eW5Pp1r1wTg4G7Y+5cJI3i9WinysL22YNc1YAbzDsI1sEwkmO2EBrj
+         IWKmrDy0z1WNmEnvxXcAmgblNs25yJ6iNrt6zwIWou0adTjHN3fMPbnSq7dMEKrGqqxm
+         XW6Q7yn/Oj/7TvlairAkzq/0MBeaZJ287Q+U1/QMWmyF6QGCoLbzx/aug28ZUgXNIJ9Z
+         ja/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732003964; x=1732608764;
+        d=1e100.net; s=20230601; t=1732004092; x=1732608892;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+7bXGfBZyvdIZPTmXb4+ST5abFWGGKww59gbl5MyekQ=;
-        b=OLNiTcupNFNZX/ciZP7XKYVhw07pHWaz7ILfFsggSDrBBklS8UOoKQq0a527b/N42Q
-         gZMFnifaNhUCHXTRVIz9A8L7FlhoFTlYR+md59NmjJxlwSfKWxrGg1+hN+VEXlt9JGBC
-         8+Pj5ks1O38RHpyq269N7Kc6pQRZuKLWgVD3EUQBMsL/U4H8OKloAp37AZu7Sc7jawtD
-         3zxMaJQe6ON6315pesmNz9K+7uD37/iB8dKj772YFnc4lPbXSdGoW6PIwQVZvZdWBe7Y
-         glJubvApVHKFuJ6pLPhD1U0RjXgFW68vfRKd9su026NELCR2X7kymY+iFGWIZZvGJE+Y
-         zX3g==
-X-Gm-Message-State: AOJu0Yzug2NBXmvjV2oBVBgeQAPovubbcL77zHHquENb/gExsPftgBxr
-	9q5ZdYnoHGgH+mV3VKPCO8uP1soleGxLi+mpGCCZgBrN23y3jYeK3l0Q25Xucw9Fhs6Pk+erThk
-	=
-X-Google-Smtp-Source: AGHT+IGfEobCDnR+0BVd+TV/EDYd/Jy+aAxF5dEjs6K9N2/qtzeAdIyQmomQ033PZeHDuVN4nKoNaA==
-X-Received: by 2002:a17:907:981:b0:a99:f779:ae0c with SMTP id a640c23a62f3a-aa483450acbmr1482197966b.25.1732003964659;
-        Tue, 19 Nov 2024 00:12:44 -0800 (PST)
-Message-ID: <06b4f2c5-8470-4375-9311-c31921d7aaa8@suse.com>
-Date: Tue, 19 Nov 2024 09:12:43 +0100
+        bh=xcYIf23G4cb8mxPzT+87GnPDfgP15dTrJ68QbgYfaf0=;
+        b=hc5Zx5MRYhieM8kTGU2RR7zlWBdqd4WN7+YN4y+JVCcCQe7P/q53vQe5fqDBFhdvze
+         mG+R9ZAz+lCUbyE5zKBw0Mgqtnv+PtRrkwpqRS8Faf7EJP+dfuV+bVgCZ/MeuLJt3XoP
+         IC7jAmo3ZiUUfsBF4mfXQdQMo6ZV40bXoKhQNURqD+BrOKxCZy2BQikZ4KjTAzAPhRHm
+         VHBXCi2u3RO5oXShfXrMstzlVDsaEKaN9G9pwhu5hfRX0wuV2QkYVHCH3fj0LbAxEPyj
+         tDWkI8trqJaPw/ACArcltq7XMkIMcdvteoUk/xIVsM5sKQoG6CCe3nmSKyxx8WmfaEj6
+         f6uQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUy8ubGNsVqfirL6XPSj5EO5tM7nSPDa1NwEoLB4tAYFJPfU7fLM16ouBoyMMvtkMnhFUibbIO4SGQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqWX93heT4PP/VNH3pWQuKkz8dh3SqrtHneA7oLX733/Y7v/k7
+	mHdOabLzkG/qaVSPpQA+BFSoVh7+QB5rCIl0WG4h5J6QhfhcEU4JAasVxq9n5A==
+X-Google-Smtp-Source: AGHT+IG65ICmRaXIQuU27gi12rtbyg1WH5ubHt1v4ybk2t+BqT1TSF1/UcLkBrTK+SK4m51JzW1A3w==
+X-Received: by 2002:a17:907:2684:b0:a9a:170d:67b2 with SMTP id a640c23a62f3a-aa4c7e99ba2mr217616766b.29.1732004091906;
+        Tue, 19 Nov 2024 00:14:51 -0800 (PST)
+Message-ID: <dda211e2-0fb3-4750-a5bb-64f4cc77536b@suse.com>
+Date: Tue, 19 Nov 2024 09:14:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH] x86/pmstat: deal with Misra 8.4 violations
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <4de83f5b-5fde-44a9-8943-b1bb3f41d2e3@citrix.com>
+Subject: Re: [PATCH v2] misra: increase identifiers length to 63
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: alessandro.zucchelli@bugseng.com, simone.ballarin@bugseng.com,
+ consulting@bugseng.com, andrew.cooper3@citrix.com, julien@xen.org,
+ roger.pau@citrix.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2411181552510.1160299@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,46 +115,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4de83f5b-5fde-44a9-8943-b1bb3f41d2e3@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2411181552510.1160299@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While the override #define-s in x86_64/platform_hypercall.c are good for
-the consuming side of the compat variants of set_{cx,px}_pminfo(), the
-producers lack the respective declarations. Include pmstat.h early,
-before the overrides are put in place, while adding explicit
-declarations of the compat functions (alongside structure forward
-declarations).
+On 19.11.2024 00:54, Stefano Stabellini wrote:
+> Currently the identifiers characters limit is arbitrarily set to 40. It
+> causes a few violations as we have some identifiers longer than 40.
+> 
+> Increase the limit to another rather arbitrary limit of 63. Thanks to
+> this change, we remove a few violations, getting us one step closer to
+> marking Rules 5.2 and 5.4 as clean.
+> 
+> The ECLAIR configuration is already using 63, so this change matches
+> the rules.rst documentation with the ECLAIR behavior.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/x86_64/platform_hypercall.c
-+++ b/xen/arch/x86/x86_64/platform_hypercall.c
-@@ -4,8 +4,8 @@
- 
- EMIT_FILE;
- 
--#include <xen/lib.h>
- #include <xen/hypercall.h>
-+#include <xen/pmstat.h>
- 
- #define xen_platform_op     compat_platform_op
- #define xen_platform_op_t   compat_platform_op_t
---- a/xen/include/xen/pmstat.h
-+++ b/xen/include/xen/pmstat.h
-@@ -7,6 +7,12 @@
- 
- int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf);
- long set_cx_pminfo(uint32_t acpi_id, struct xen_processor_power *power);
-+#ifdef CONFIG_COMPAT
-+struct compat_processor_performance;
-+int compat_set_px_pminfo(uint32_t acpi_id, struct compat_processor_performance *perf);
-+struct compat_processor_power;
-+long compat_set_cx_pminfo(uint32_t acpi_id, struct compat_processor_power *power);
-+#endif
- uint32_t pmstat_get_cx_nr(unsigned int cpu);
- int pmstat_get_cx_stat(unsigned int cpu, struct pm_cx_stat *stat);
- int pmstat_reset_cx_stat(unsigned int cpu);
+I wonder though if the subject wouldn't better express that right now
+Eclair config and doc are out of sync. E.g. "align doc with Eclair
+config for ..."
 
+Jan
 
