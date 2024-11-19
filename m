@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93459D27B0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:11:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840107.1255896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05BBD9D27D2
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:13:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840121.1255905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDOwb-00079c-40; Tue, 19 Nov 2024 14:11:05 +0000
+	id 1tDOz5-0007pv-Hy; Tue, 19 Nov 2024 14:13:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840107.1255896; Tue, 19 Nov 2024 14:11:05 +0000
+Received: by outflank-mailman (output) from mailman id 840121.1255905; Tue, 19 Nov 2024 14:13:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDOwb-00077N-1O; Tue, 19 Nov 2024 14:11:05 +0000
-Received: by outflank-mailman (input) for mailman id 840107;
- Tue, 19 Nov 2024 14:11:03 +0000
+	id 1tDOz5-0007nW-FK; Tue, 19 Nov 2024 14:13:39 +0000
+Received: by outflank-mailman (input) for mailman id 840121;
+ Tue, 19 Nov 2024 14:13:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o1Xh=SO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tDOwZ-00072S-8C
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:11:03 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ <SRS0=PDt+=SO=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1tDOz4-0007nQ-6j
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:13:38 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a6db899-a680-11ef-a0ca-8be0dac302b0;
- Tue, 19 Nov 2024 15:11:00 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a9a0ef5179dso158854966b.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:11:00 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e08aa47sm651311566b.196.2024.11.19.06.10.59
+ id 75c80834-a680-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 15:13:33 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-aa20c733e92so611562566b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:13:33 -0800 (PST)
+Received: from carlo-ubuntu.home.arpa
+ (host-95-230-250-178.business.telecomitalia.it. [95.230.250.178])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa20df4e7bfsm655228166b.42.2024.11.19.06.13.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2024 06:10:59 -0800 (PST)
+ Tue, 19 Nov 2024 06:13:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +46,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a6db899-a680-11ef-a0ca-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzAiLCJoZWxvIjoibWFpbC1lajEteDYzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjFhNmRiODk5LWE2ODAtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDI1NDYwLjY1NjEzMywic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 75c80834-a680-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc1YzgwODM0LWE2ODAtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDI1NjEzLjU1NDA1NCwic2VuZGVyIjoiY2FybG8ubm9uYXRvQG1pbmVydmFzeXMudGVjaCIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732025459; x=1732630259; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Dbj4393xKiLG65NLJpzLD53XB3seZWf6XOINGDnrcfI=;
-        b=gD025HB34xVkv0pR/Yl3SyfyUJOPf8KP6bvryUWKyJnjHTKA4MZy2tzhT4A7QltJ/E
-         JDfgfG2gQ2sKYO+a82OMFu2fItHjOSBFEqAkxqC5JAax3gCBmmRqNOgWMx0GAijTi5Ih
-         58iq8wIsRS6mH3HyD6E66z6TB0EYGeimYHC5w=
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1732025613; x=1732630413; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9IFvfTjZE6wmZxfoRI0jv/bdIXJXzUe7p3S+8ifjEzU=;
+        b=3WK8mNZdeghROw1E1/a5bGIwKJRSDpSjefheO5fFPiqI4exNifERYgOHdcwCUibrlh
+         aSAZUtove/mLVNB6Xeh+kfgYWE127nWqAmu2f2ep4++3BdNuqWlyOrOc5jInZppdnHgw
+         1cn67j6lvcS05rIleb3NQOjoOx00gDvw/jQhTjhQ4I9K4ykFtP3H1foc/SJ7J/xtlYlA
+         QzcY/XylLj66ZVXMM7UUmvN62Ooc4AOdEM6gRrXkZXNlF81WdtPZytYdH3TDTNUaSND8
+         tCNWSp2RCMWFKpBAvSVZvSJb6ARRiCmgIGQGkYdu4sbHlUwc8MruhKVFLGaL0RVUFQgG
+         M+cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732025459; x=1732630259;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Dbj4393xKiLG65NLJpzLD53XB3seZWf6XOINGDnrcfI=;
-        b=sZDPpQRTYhSCBm/1Ov78sMN8+f/xVVPEM1EQRlAqjAxTrbDDFluEDhNJpmidYRV7VG
-         6B0epGivqfDlDS42Jku93k1xeLn8QNQJ/DOeYZxZ80/rbBDbLY6kh0OF7dQ9o4VRmriw
-         Hv7Y7VDvfN27DpN96ht/BtXZbURt+0nwhS8QgsvDwMSeRjXbixvNqJrLZR+42Jzm+XO1
-         pC7ZWeP+TE2mYSODrMrfZTVA5eN1ivxDnXhEIBjx2DWafdPQBF5ECxcrww0EcC2Jyuny
-         Rl+rEfxjIf+5JEwhJqLjo96h2emSr8ZvV9WXT1cOL9h2oW1exwSafVrY6KNqKjsF/zkb
-         MN8A==
-X-Gm-Message-State: AOJu0YwYK/LABXn3qAkhoENCd0xf+5v4AyhxoSQGRFtcVvevBtAFtvHb
-	X9pybgZ7F0OUlLLNDJgMbAkQeynce/J1IaashRWkcZbIJEwuTfaUEFzbuvUa5BY=
-X-Google-Smtp-Source: AGHT+IHoG6lgJycu3VukC+EgoMh//2KsLMuw8P3eGpELcMSY2fNvjG3kqTCXZ8fTbRjnUNHfJj0v8w==
-X-Received: by 2002:a17:907:a43:b0:aa1:f73b:be3d with SMTP id a640c23a62f3a-aa48347e853mr1462196166b.27.1732025459557;
-        Tue, 19 Nov 2024 06:10:59 -0800 (PST)
-Date: Tue, 19 Nov 2024 15:10:58 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 1/4] x8&/mm: fix IS_LnE_ALIGNED() to comply with Misra
- Rule 20.7
-Message-ID: <ZzyccgtimsbbFMHH@macbook>
-References: <20241119103444.23296-1-roger.pau@citrix.com>
- <20241119103444.23296-2-roger.pau@citrix.com>
- <CACHz=Zg20Sxw_HY6EwXYvhcm=3ZjPwUH7vbdsZtSCU+2_TU7Kw@mail.gmail.com>
+        d=1e100.net; s=20230601; t=1732025613; x=1732630413;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9IFvfTjZE6wmZxfoRI0jv/bdIXJXzUe7p3S+8ifjEzU=;
+        b=Cx0MWo2oL+pNB3z92WdtAM6F4u/3jf1FE0W+FSZYdyqyD3ItBDsOemEyLTHEm8z62b
+         kcOqBY/WTkjSUV6hNQmFUL6iRJMj9aVk3wUsHHvMFnVEsyM0T7aXyGma8J4U2xph2KTJ
+         J9WPnyrjBUgttzhf+HIqrYbktMuuZgilk+f7fL1te8DxRNLkM0WKPZbaDITTCqFZRR/H
+         cg3miinh4EtSZz9Y4d8MthzE7DXUEuLqtfJuXWl+ptangwF5mXjYn4TdBsI7OnLcacFm
+         76inmubrYmyhybSMt/7K4QvEYkZn83MdqKWXOgIGkeJ6T4G5rL7TFTMDoDH0ZNBOgbCO
+         Uj3g==
+X-Gm-Message-State: AOJu0Yx4lIkebsr3609ZkLOI4iEql2QY7z9Apgw0SV6/BTgOL5Aivnnl
+	KrviCWT5fAKIRSZ+meOLFTdXtSsmqwrJNP6z2H0Dgz5fL7nG2yQsN6XYQQ8ZQrjh8y1bJO/BSQJ
+	x
+X-Google-Smtp-Source: AGHT+IFi2huZ1vgA/wPm330M3kEiYKbl7sdhB2jGt1TIt8wrq818YdyBY1bFNvsdL01ImN3BRAQjPw==
+X-Received: by 2002:a17:907:1b2a:b0:a9e:b281:a55d with SMTP id a640c23a62f3a-aa48354d7fdmr1804740366b.56.1732025612741;
+        Tue, 19 Nov 2024 06:13:32 -0800 (PST)
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+To: xen-devel@lists.xenproject.org
+Cc: andrea.bastoni@minervasys.tech,
+	marco.solieri@minervasys.tech,
+	Carlo Nonato <carlo.nonato@minervasys.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v10 00/12] Arm cache coloring
+Date: Tue, 19 Nov 2024 15:13:17 +0100
+Message-ID: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACHz=Zg20Sxw_HY6EwXYvhcm=3ZjPwUH7vbdsZtSCU+2_TU7Kw@mail.gmail.com>
 
-On Tue, Nov 19, 2024 at 10:52:26AM +0000, Frediano Ziglio wrote:
-> On Tue, Nov 19, 2024 at 10:35 AM Roger Pau Monne <roger.pau@citrix.com> wrote:
-> >
-> > While not strictly needed to guarantee operator precedence is as expected, add
-> > the parentheses to comply with Misra Rule 20.7.
-> >
-> > No functional change intended.
-> >
-> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Fixes: 5b52e1b0436f ('x86/mm: skip super-page alignment checks for non-present entries')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >  xen/arch/x86/mm.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> > index 494c14e80ff9..fa21903eb25a 100644
-> > --- a/xen/arch/x86/mm.c
-> > +++ b/xen/arch/x86/mm.c
-> > @@ -5498,7 +5498,7 @@ int map_pages_to_xen(
-> >   * be INVALID_MFN, since alignment is only relevant for present entries.
-> >   */
-> >  #define IS_LnE_ALIGNED(v, m, n) ({                              \
-> > -    mfn_t m_ = m;                                               \
-> > +    mfn_t m_ = (m);                                             \
-> >                                                                  \
-> >      ASSERT(!mfn_eq(m_, INVALID_MFN));                           \
-> >      IS_ALIGNED(PFN_DOWN(v) | mfn_x(m_),                         \
-> 
-> Minor, typo in subject: x8& -> x86
+Shared caches in multi-core CPU architectures represent a problem for
+predictability of memory access latency. This jeopardizes applicability
+of many Arm platform in real-time critical and mixed-criticality
+scenarios. We introduce support for cache partitioning with page
+coloring, a transparent software technique that enables isolation
+between domains and Xen, and thus avoids cache interference.
 
-Nice, that's what you get when you press shift + 6 on a Spanish
-keyboard.  Hope it can be adjusted at commit.
+When creating a domain, a simple syntax (e.g. `0-3` or `4-11`) allows
+the user to define assignments of cache partitions ids, called colors,
+where assigning different colors guarantees no mutual eviction on cache
+will ever happen. This instructs the Xen memory allocator to provide
+the i-th color assignee only with pages that maps to color i, i.e. that
+are indexed in the i-th cache partition.
 
-Thanks.
+The proposed implementation supports the dom0less feature.
+The proposed implementation doesn't support the static-mem feature.
+The solution has been tested in several scenarios, including Xilinx Zynq
+MPSoCs.
+
+Carlo Nonato (11):
+  xen/common: add cache coloring common code
+  xen/arm: add initial support for LLC coloring on arm64
+  xen/arm: permit non direct-mapped Dom0 construction
+  xen/arm: add Dom0 cache coloring support
+  xen: extend domctl interface for cache coloring
+  tools: add support for cache coloring configuration
+  xen/arm: add support for cache coloring configuration via device-tree
+  xen/page_alloc: introduce preserved page flags macro
+  xen: add cache coloring allocator for domains
+  xen/arm: make consider_modules() available for xen relocation
+  xen/arm: add cache coloring support for Xen
+
+Luca Miccio (1):
+  xen/arm: add Xen cache colors command line parameter
+
+ SUPPORT.md                              |   7 +
+ docs/index.rst                          |   1 +
+ docs/man/xl.cfg.5.pod.in                |   6 +
+ docs/misc/arm/device-tree/booting.txt   |   4 +
+ docs/misc/cache-coloring.rst            | 246 +++++++++++++++
+ docs/misc/xen-command-line.pandoc       |  70 +++++
+ tools/include/libxl.h                   |   5 +
+ tools/include/xenctrl.h                 |   9 +
+ tools/libs/ctrl/xc_domain.c             |  35 +++
+ tools/libs/light/libxl_create.c         |  18 ++
+ tools/libs/light/libxl_types.idl        |   1 +
+ tools/xl/xl_parse.c                     |  38 ++-
+ xen/arch/arm/Kconfig                    |   1 +
+ xen/arch/arm/Makefile                   |   1 +
+ xen/arch/arm/alternative.c              |  30 +-
+ xen/arch/arm/arm32/mmu/mm.c             |  95 +-----
+ xen/arch/arm/arm64/mmu/head.S           |  58 +++-
+ xen/arch/arm/arm64/mmu/mm.c             |  28 +-
+ xen/arch/arm/dom0less-build.c           |  60 +---
+ xen/arch/arm/domain_build.c             | 106 ++++++-
+ xen/arch/arm/include/asm/domain_build.h |   1 +
+ xen/arch/arm/include/asm/mm.h           |   5 +
+ xen/arch/arm/include/asm/mmu/layout.h   |   3 +
+ xen/arch/arm/include/asm/processor.h    |  16 +
+ xen/arch/arm/include/asm/setup.h        |   3 +
+ xen/arch/arm/llc-coloring.c             | 141 +++++++++
+ xen/arch/arm/mmu/setup.c                | 195 +++++++++++-
+ xen/arch/arm/setup.c                    |  13 +-
+ xen/common/Kconfig                      |  29 ++
+ xen/common/Makefile                     |   1 +
+ xen/common/domain.c                     |   3 +
+ xen/common/domctl.c                     |  10 +
+ xen/common/keyhandler.c                 |   3 +
+ xen/common/llc-coloring.c               | 382 ++++++++++++++++++++++++
+ xen/common/page_alloc.c                 | 208 ++++++++++++-
+ xen/include/public/domctl.h             |   9 +
+ xen/include/xen/llc-coloring.h          |  64 ++++
+ xen/include/xen/sched.h                 |   5 +
+ xen/include/xen/xmalloc.h               |  12 +
+ 39 files changed, 1749 insertions(+), 173 deletions(-)
+ create mode 100644 docs/misc/cache-coloring.rst
+ create mode 100644 xen/arch/arm/llc-coloring.c
+ create mode 100644 xen/common/llc-coloring.c
+ create mode 100644 xen/include/xen/llc-coloring.h
+
+-- 
+2.43.0
+
 
