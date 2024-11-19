@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B21D9D2B13
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 17:37:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840695.1256191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A709D2B16
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 17:37:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840705.1256202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDRCt-0006MX-5A; Tue, 19 Nov 2024 16:36:03 +0000
+	id 1tDREG-0006uo-HO; Tue, 19 Nov 2024 16:37:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840695.1256191; Tue, 19 Nov 2024 16:36:03 +0000
+Received: by outflank-mailman (output) from mailman id 840705.1256202; Tue, 19 Nov 2024 16:37:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDRCt-0006Jd-2C; Tue, 19 Nov 2024 16:36:03 +0000
-Received: by outflank-mailman (input) for mailman id 840695;
- Tue, 19 Nov 2024 16:36:01 +0000
+	id 1tDREG-0006tL-Ef; Tue, 19 Nov 2024 16:37:28 +0000
+Received: by outflank-mailman (input) for mailman id 840705;
+ Tue, 19 Nov 2024 16:37:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o1Xh=SO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tDRCr-0006JX-8z
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 16:36:01 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ id 1tDREF-0006tD-0G
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 16:37:27 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a3b59ed-a694-11ef-a0ca-8be0dac302b0;
- Tue, 19 Nov 2024 17:35:57 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-53b13ea6b78so5696288e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 08:35:57 -0800 (PST)
+ id 8e2adce5-a694-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 17:37:24 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-53b34ed38easo1285693e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 08:37:24 -0800 (PST)
 Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20df50a97sm674638866b.61.2024.11.19.08.35.56
+ a640c23a62f3a-aa20dffd7cbsm664196366b.117.2024.11.19.08.37.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2024 08:35:56 -0800 (PST)
+ Tue, 19 Nov 2024 08:37:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,135 +44,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a3b59ed-a694-11ef-a0ca-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzQiLCJoZWxvIjoibWFpbC1sZjEteDEzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjVhM2I1OWVkLWE2OTQtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDM0MTU3LjI0MjE1NCwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 8e2adce5-a694-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmEiLCJoZWxvIjoibWFpbC1sZjEteDEyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjhlMmFkY2U1LWE2OTQtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDM0MjQ0LjQyMTA1MSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732034156; x=1732638956; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732034244; x=1732639044; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ysVWFhommthHijw5t3FYm9q+ziPEYzY7OHekTeCaiv0=;
-        b=rhuHvDVP9rWEjyXp368u8oHudxSgzNNo1KI8HqndWDCwUz0kg96hxiR5/v8lowe3L9
-         Sk/ajfx58j/SDVgXSzdEfP5JKVv68nN+DqcC1gARGwZFHvFB1VN0MZAnS20i0TZNX0eA
-         Yx0uJF6btfmmWcUGzB1YIAnZzNuZtkIJBeO2s=
+        bh=QSOuZprL5vzhvSM/FcpDoSesmRoOSSFJWyMwk0w1i1c=;
+        b=GRX24/w9LVYFXxvYNgnL8BStyNlDTflHjD7TbW8INw2rf1DGd4PFBThEX8d+rxbs3b
+         E72o9SneDpM8GWT5TWA1E1c94ehlzfU4ki1w65wraUhQua0U0bFTlGIQtufqenctvKum
+         qbhYrwUsc1mD/rpnzGwWeF1PUUp9BKQXnoDYo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732034156; x=1732638956;
+        d=1e100.net; s=20230601; t=1732034244; x=1732639044;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ysVWFhommthHijw5t3FYm9q+ziPEYzY7OHekTeCaiv0=;
-        b=Wf+aTFYXu0eEsZYenuskOcltuerwijeDix0Jr8kQ359KoQemKL4FjinWh0FJCzhQzG
-         zGhYlKxRcq7VWexFsZj5x4VzV74D+qBSVLtPr7gD6If20oOf6vBln6Wnzd/kebb+Ola8
-         DShGI/1quDFbAajUXXbbDudMWpsJJYqHqXBTzXLiS5hTlJN6PO7IfhSNPsf8w+J3iQeP
-         S8N48/693Y+bVzkCjWwsA9fqaoaTDMQJy+kR+NUEORa1V3E28OwAU0wTEhEMMhlspqBz
-         JmwZ8yHHkzNmDKUfoFVKwpYRdBliE+9tNpr6anafJpgWsHWoIqGDUxYuE7jQcr/9BsP0
-         YXWw==
-X-Gm-Message-State: AOJu0Yz5reQuc8/m44IN+2B7phbnsDCkH54wCSpmNYIpA6EAPMVVlCUt
-	o/r3c6C1EJ1K8kMPtMz2vq392urYiEwNrakj9JM6NFjZbhRlDfVxRHi3UWqvvQVH210/UEGbDWK
-	A
-X-Google-Smtp-Source: AGHT+IFPwEOQKRAnrMVjoNlDR94BbHP/tZRXL1e3y/Q9yLIMbdElQj1HP6QNRsq39nu9mlTyV3HLWg==
-X-Received: by 2002:a05:6512:b1e:b0:53d:a504:9334 with SMTP id 2adb3069b0e04-53dab3b1718mr9326493e87.44.1732034156547;
-        Tue, 19 Nov 2024 08:35:56 -0800 (PST)
-Date: Tue, 19 Nov 2024 17:35:55 +0100
+        bh=QSOuZprL5vzhvSM/FcpDoSesmRoOSSFJWyMwk0w1i1c=;
+        b=MRFw/OhKfmCRg7jS/AfixQOqifnR3rkyp01HiOEf6bc13og/vtTW+utsU6Gv8V/E+l
+         HDbnY7NZ/+dLxwI0UbrfzuwR4x19sfreWjCOJYvCHgVrEM/C55yTVK9T67gJFEuwAhJ0
+         qW+oUV4syx7ONiDrJIHmGgLsuGa6+n6kSFgoeW8QNLfCxpHuXfvg446xD2iuhsgaZKCE
+         2cvmitRqXEd33hSOIB5CyHiAn3QRsQv3pGFSH16mChhO8/3ajVpHykRsIn2spJEImgvU
+         VWfM7TncFi1JWts3/3EL8tGYVi68h5qEktROtI/XVh7dp7EDO7Iz+CLpwovwbvTdOcP7
+         PPyQ==
+X-Gm-Message-State: AOJu0Yx+aZAfvdyGT/PfyPPVqhoTKNPQ6G+b64wvkBCoekPRmmrxruwQ
+	qoP53OPutjwsL3EkOOsG2ddxqyxiIWsxSX9PQ/dbF2qCEaJ11MLywuZ54k/gx44=
+X-Google-Smtp-Source: AGHT+IHV9Jw4FBSrTHtLTHZ96DzBydTJEgNfLDu/vdqr/3Du4veD5x+KbaV5WCX01pByTY/8TmN3Ow==
+X-Received: by 2002:a19:6405:0:b0:53d:abd2:d564 with SMTP id 2adb3069b0e04-53dabd2d5b2mr6059161e87.24.1732034243760;
+        Tue, 19 Nov 2024 08:37:23 -0800 (PST)
+Date: Tue, 19 Nov 2024 17:37:22 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 3/4] x86/uaccess: rework user access speculative harden
- guards
-Message-ID: <Zzy-az2gE2PP3zSD@macbook>
+Subject: Re: [PATCH 2/4] x86/msi: fix Misra Rule 20.7 in msi.h
+Message-ID: <Zzy-woJaXwW27wkd@macbook>
 References: <20241119103444.23296-1-roger.pau@citrix.com>
- <20241119103444.23296-4-roger.pau@citrix.com>
- <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
+ <20241119103444.23296-3-roger.pau@citrix.com>
+ <05127810-a5d3-46f7-9a5b-8f5ac1ab8b87@citrix.com>
+ <ZzyjIgx0faIV31kM@macbook>
+ <d6d2cd7f-35ba-4480-b21a-b3ddef0e6d73@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
+In-Reply-To: <d6d2cd7f-35ba-4480-b21a-b3ddef0e6d73@citrix.com>
 
-On Tue, Nov 19, 2024 at 03:31:34PM +0000, Andrew Cooper wrote:
-> On 19/11/2024 10:34 am, Roger Pau Monne wrote:
-> > The current guards to select whether user accesses should be speculative
-> > hardened violate Misra rule 20.7, as the UA_KEEP() macro doesn't (and can't)
-> > parenthesize the 'args' argument.
+On Tue, Nov 19, 2024 at 03:35:34PM +0000, Andrew Cooper wrote:
+> On 19/11/2024 2:39 pm, Roger Pau Monné wrote:
+> > On Tue, Nov 19, 2024 at 02:21:35PM +0000, Andrew Cooper wrote:
+> >> On 19/11/2024 10:34 am, Roger Pau Monne wrote:
+> >>> ---
+> >>>  xen/arch/x86/include/asm/msi.h | 35 ++++++++++++++--------------------
+> >>>  1 file changed, 14 insertions(+), 21 deletions(-)
+> >>>
+> >>> diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
+> >>> index 748bc3cd6d8b..49a576383288 100644
+> >>> --- a/xen/arch/x86/include/asm/msi.h
+> >>> +++ b/xen/arch/x86/include/asm/msi.h
+> >>> @@ -147,33 +147,26 @@ int msi_free_irq(struct msi_desc *entry);
+> >>>   */
+> >>>  #define NR_HP_RESERVED_VECTORS 	20
+> >>>  
+> >>> -#define msi_control_reg(base)		(base + PCI_MSI_FLAGS)
+> >>> -#define msi_lower_address_reg(base)	(base + PCI_MSI_ADDRESS_LO)
+> >>> -#define msi_upper_address_reg(base)	(base + PCI_MSI_ADDRESS_HI)
+> >>> +#define msi_control_reg(base)		((base) + PCI_MSI_FLAGS)
+> >>> +#define msi_lower_address_reg(base)	((base) + PCI_MSI_ADDRESS_LO)
+> >>> +#define msi_upper_address_reg(base)	((base) + PCI_MSI_ADDRESS_HI)
+> >>>  #define msi_data_reg(base, is64bit)	\
+> >>> -	( (is64bit == 1) ? base+PCI_MSI_DATA_64 : base+PCI_MSI_DATA_32 )
+> >>> +	((base) + ((is64bit) ? PCI_MSI_DATA_64 : PCI_MSI_DATA_32))
+> >>>  #define msi_mask_bits_reg(base, is64bit) \
+> >>> -	( (is64bit == 1) ? base+PCI_MSI_MASK_BIT : base+PCI_MSI_MASK_BIT-4)
+> >>> +	((base) + PCI_MSI_MASK_BIT - ((is64bit) ? 0 : 4))
+> >>>  #define msi_pending_bits_reg(base, is64bit) \
+> >>>  	((base) + PCI_MSI_MASK_BIT + ((is64bit) ? 4 : 0))
+> >>> -#define msi_disable(control)		control &= ~PCI_MSI_FLAGS_ENABLE
+> >>>  #define multi_msi_capable(control) \
+> >>> -	(1 << ((control & PCI_MSI_FLAGS_QMASK) >> 1))
+> >>> +	(1U << MASK_EXTR(control, PCI_MSI_FLAGS_QMASK))
+> >>>  #define multi_msi_enable(control, num) \
+> >>> -	control |= (((fls(num) - 1) << 4) & PCI_MSI_FLAGS_QSIZE);
+> >>> -#define is_64bit_address(control)	(!!(control & PCI_MSI_FLAGS_64BIT))
+> >>> -#define is_mask_bit_support(control)	(!!(control & PCI_MSI_FLAGS_MASKBIT))
+> >>> -#define msi_enable(control, num) multi_msi_enable(control, num); \
+> >>> -	control |= PCI_MSI_FLAGS_ENABLE
+> >>> -
+> >>> -#define msix_control_reg(base)		(base + PCI_MSIX_FLAGS)
+> >>> -#define msix_table_offset_reg(base)	(base + PCI_MSIX_TABLE)
+> >>> -#define msix_pba_offset_reg(base)	(base + PCI_MSIX_PBA)
+> >>> -#define msix_enable(control)	 	control |= PCI_MSIX_FLAGS_ENABLE
+> >>> -#define msix_disable(control)	 	control &= ~PCI_MSIX_FLAGS_ENABLE
+> >>> -#define msix_table_size(control) 	((control & PCI_MSIX_FLAGS_QSIZE)+1)
+> >>> -#define msix_unmask(address)	 	(address & ~PCI_MSIX_VECTOR_BITMASK)
+> >>> -#define msix_mask(address)		(address | PCI_MSIX_VECTOR_BITMASK)
+> >>> +	((control) |= MASK_INSR(fls(num) - 1, PCI_MSI_FLAGS_QSIZE))
+> >>> +#define is_64bit_address(control)	!!((control) & PCI_MSI_FLAGS_64BIT)
+> >>> +#define is_mask_bit_support(control)	!!((control) & PCI_MSI_FLAGS_MASKBIT)
+> >> You need to retain the outermost brackets for other MISRA reasons.
+> > I was borderline on dropping those braces, as I was expecting Misra to
+> > require them.
 > >
-> > Change the logic so the guard is implemented inside the assembly block using
-> > the .if assembly directive.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > The guard check could be moved inside of the guest_access_mask_ptr macro, but
-> > given it's limited usages it's clearer to keep the check in the callers IMO.
+> >> I'm happy to fix up on commit, even splitting the patch (seeing as I've
+> >> already done the split in order to review the rest).
+> > Fine, by split I think you mean the pruning of unused macros vs the
+> > fixing of the parentheses?
 > 
-> Overall this is far more legible, and I'm tempted to take it on that
-> justification alone.  But this is Jan's pile of magic.
-> 
-> There is a weird effect from this change:
-> 
-> add/remove: 2/0 grow/shrink: 2/2 up/down: 740/-739 (1)
-> Function                                     old     new   delta
-> build_symbol_table                             -     686    +686
-> build_symbol_table.cold                        -      48     +48
-> pv_map_ldt_shadow_page                       641     644      +3
-> pv_emulate_gate_op                          2919    2922      +3
-> livepatch_op.cold                            557     509     -48
-> livepatch_op                                5952    5261    -691
+> Split pruning out into another patch, fold the bracket fix into this one.
 
-So build_symbol_table() is no longer inlined in load_payload_data()
-and thus livepatch_op().
-
-> which is clearly changing inlining decisions.  I suspect it's related to...
-> 
-> > diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/usercopy.c
-> > index 7ab2009efe4c..d66beecc5507 100644
-> > --- a/xen/arch/x86/usercopy.c
-> > +++ b/xen/arch/x86/usercopy.c
-> > @@ -11,23 +11,23 @@
-> >  #include <asm/uaccess.h>
-> >  
-> >  #ifndef GUARD
-> > -# define GUARD UA_KEEP
-> > +# define GUARD 1
-> >  #endif
-> >  
-> >  unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
-> >  {
-> > -    GUARD(unsigned dummy);
-> > +    unsigned __maybe_unused dummy;
-> 
-> ... this.  This doesn't need to be __maybe_unused, because ...
-
-This is a leftover from when I attempted to use preprocessor #if GUARD
-below, and the compiler would then complain about dummy being
-unused.
-
-I can fix if there's agreement on the basis of the change.
-
-> >  
-> >      stac();
-> >      asm volatile (
-> > -        GUARD(
-> > +        ".if " STR(GUARD) "\n"
-> >          "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
-> > -        )
-> > +        ".endif\n"
-> >          "1:  rep movsb\n"
-> >          "2:\n"
-> >          _ASM_EXTABLE(1b, 2b)
-> > -        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from)
-> > -          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
-> > +        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
-> > +          [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy)
-> 
-> ... these parameters are referenced unconditionally.
-> 
-> However, it does mean the compiler is spilling the scratch registers
-> even when guard is 0.  I expect this is what is affecting the inlining
-> decisions.
-
-That's my understanding yes, the registers will be spilled.
+If you want I can do that myself, as I will likely need to resend #3
+to drop the unneeded __maybe_unused attribute.
 
 Thanks, Roger.
 
