@@ -2,39 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3B19D2FF3
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 22:18:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840779.1256307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 436619D3017
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 22:40:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840790.1256317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDVbS-0002h2-2x; Tue, 19 Nov 2024 21:17:42 +0000
+	id 1tDVxU-0006cz-QT; Tue, 19 Nov 2024 21:40:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840779.1256307; Tue, 19 Nov 2024 21:17:42 +0000
+Received: by outflank-mailman (output) from mailman id 840790.1256317; Tue, 19 Nov 2024 21:40:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDVbS-0002eZ-0D; Tue, 19 Nov 2024 21:17:42 +0000
-Received: by outflank-mailman (input) for mailman id 840779;
- Tue, 19 Nov 2024 21:16:54 +0000
+	id 1tDVxU-0006bW-Np; Tue, 19 Nov 2024 21:40:28 +0000
+Received: by outflank-mailman (input) for mailman id 840790;
+ Tue, 19 Nov 2024 21:40:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0CE/=SO=edera.dev=alexander@srs-se1.protection.inumbo.net>)
- id 1tDVag-0002dS-Az
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 21:16:54 +0000
-Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
- [2607:f8b0:4864:20::f33])
+ <SRS0=IGE8=SO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tDVxT-0006Yk-Ac
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 21:40:27 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 96a7baaa-a6bb-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 22:16:49 +0100 (CET)
-Received: by mail-qv1-xf33.google.com with SMTP id
- 6a1803df08f44-6d382677c92so26448716d6.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 13:16:49 -0800 (PST)
-Received: from ip-172-31-19-182.us-east-2.compute.internal
- (ec2-18-219-201-45.us-east-2.compute.amazonaws.com. [18.219.201.45])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6d4380db2edsm865966d6.36.2024.11.19.13.16.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2024 13:16:47 -0800 (PST)
+ id e08a72c0-a6be-11ef-99a3-01e77a169b0f;
+ Tue, 19 Nov 2024 22:40:22 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id AEAF15C58E0;
+ Tue, 19 Nov 2024 21:39:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE40EC4CECF;
+ Tue, 19 Nov 2024 21:40:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,101 +41,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96a7baaa-a6bb-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjpmMzMiLCJoZWxvIjoibWFpbC1xdjEteGYzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk2YTdiYWFhLWE2YmItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDUxMDA5LjU1NDE0Niwic2VuZGVyIjoiYWxleGFuZGVyQGVkZXJhLmRldiIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=edera.dev; s=google; t=1732051008; x=1732655808; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Eg7OcnGXpKtgXWaHwtGS+ToZC8TTTiMcCPq5ZYxyLCo=;
-        b=MCdyx9uTe5jSoJ1q9u0wq1q/XWvpfWXzLTChrklTLJuvniTV55EFMJoxSGggzTYhBd
-         oeY8TBAmu19v0zmjHeQY7Yp1qY67iiLLWSuFL+mProY7MmkySEeIzsxbFOazyuVodvgV
-         mb9OT3H7FXV07+aZQcsWfOZ0CVtndPYcg4YHtjb0clB097Wd5bNNEdkf1crqKVDuTwmW
-         HZiJHYFbbw7mnKuvQfWt6ODO11WHvIJC7ecw1XhOKsTrpsJGlKDMAZ5srfvVpM0gWN1M
-         QShQOfKVSy071PxVpToRx+vSzfPboBS96+fvqT0cBif/2ltBGOcaOpcZgafzVbpct9Ko
-         zi7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732051008; x=1732655808;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Eg7OcnGXpKtgXWaHwtGS+ToZC8TTTiMcCPq5ZYxyLCo=;
-        b=UNfeRwxzTX5hvkXmLPmXYiOh5AHW2SXnBEHXcguV2X2jfHDw0y0QBs8DfkFNQJ94zI
-         zV8rtMcJ1v82UuV8EvBbumMycYRIb0IunV3uGGn2LzLRHoAgCcBpcYlAJJRIl08/RmKH
-         2OF6n6SW1jXxIpwFHmMhdzh/5cq4hpDqhoODNzi/6ZDjRTzBKbFR5d395ZHr39qmIIG8
-         S1DtY0R3hUB93zesIYNkwrUCse40hd4kezZWoJBfe1Wg4PSu4ZsFpU7kHmR1xH9QNRvs
-         BDhpPsFyssZ2ohALobTu/KsDM1CFflA9I80eg2AZL2pcZLZJaYkF+L92uS7+DZsqHAJ4
-         5uHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWVGp7nggq5tCOn536VG1KCzv3d5X01t+egptN1bvbr0j2pEDTdUv6aXXeQZYY5V4s9LEQ2eSFs22A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYyzQDcCcL8p7qMFffDUcb1LPsyUXG2Bidnb1zHyH4+3lRfRT2
-	9zCFyAJPGhJPjRwXusXcbNoJslsIrlys4WeO10zLaMdF9lYixAWn4xDlZH3RD98=
-X-Google-Smtp-Source: AGHT+IHB3u2/l2rZG0k9ZOUXZliIL+D2FSwQjxK7a12SP+D4OKLAIj7VApFTPwlDLTNgD+mrpxyQ9A==
-X-Received: by 2002:a05:6214:5004:b0:6d4:2778:ecb6 with SMTP id 6a1803df08f44-6d4377a118bmr7865406d6.18.1732051008401;
-        Tue, 19 Nov 2024 13:16:48 -0800 (PST)
-From: Alexander Merritt <alexander@edera.dev>
-To: v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Simon Horman <horms@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Alex Zenla <alex@edera.dev>,
-	Alexander Merritt <alexander@edera.dev>,
-	Ariadne Conill <ariadne@ariadne.space>
-Subject: [PATCH] 9p/xen: fix init sequence
-Date: Tue, 19 Nov 2024 21:16:33 +0000
-Message-ID: <20241119211633.38321-1-alexander@edera.dev>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: e08a72c0-a6be-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
+X-Custom-Transaction: eyJpZCI6ImUwOGE3MmMwLWE2YmUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDUyNDIyLjM4NjYzLCJzZW5kZXIiOiJzc3RhYmVsbGluaUBrZXJuZWwub3JnIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1732052420;
+	bh=rj2XHGTg6XjXGo+8aPdYHecbgCq2/Q+2IG0qEUSuJyI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=IYsdDkznHEcxfVpHiqsnD9OgdJjBdycBy5IdoCvCMKNtBI8GNYMwcBgmxhxnTOMYV
+	 QIUJpllWuSsvUFPXbP8bulFc7JZD61fHqtWk/4xk07Lf1G16PEW655m4ilG9yawESy
+	 Nj6s+X1NebCjdBIBi/ZKo8rrkGwv7+wplQ3S9vbhrNKkD3WXAoZRmIB1Yljs6HnIDi
+	 JXgBXM3YgGgEvA6i8+N/GBEIRPQQ7hQLcTmQH4Mdhu5UF8LE7uEBX87c+Sqz24s7n8
+	 1iXt+V8qgdUXfkM0rEmks5I6xyNsC6ox1AAQvvJnxpMkNj/qQRFf8jVOwrGYYcmEYO
+	 P+dvXncwdeutA==
+Date: Tue, 19 Nov 2024 13:40:18 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Luca Miccio <luca.miccio@amd.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org
+Subject: Re: [ImageBuilder] [PATCH V2] UBOOT_SOURCE/SCRIPTS variables must
+ always be set
+In-Reply-To: <20241119150111.3569267-1-luca.miccio@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2411191340110.1160299@ubuntu-linux-20-04-desktop>
+References: <20241119150111.3569267-1-luca.miccio@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Alex Zenla <alex@edera.dev>
+On Tue, 19 Nov 2024, Luca Miccio wrote:
+> The current README incorrectly omits the need for the UBOOT_SOURCE and
+> UBOOT_SCRIPT variables for uboot-script-gen to function properly.
+> Moreover, the script silently fails if these variables are not set.
+> Return an error if the the UBOOT_SCRIPT variable is not set and
+> correct the documentation accordingly.
+> 
+> Signed-off-by: Luca Miccio <luca.miccio@amd.com>
 
-Large amount of mount hangs observed during hotplugging of 9pfs devices. The
-9pfs Xen driver attempts to initialize itself more than once, causing the
-frontend and backend to disagree: the backend listens on a channel that the
-frontend does not send on, resulting in stalled processing.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Only allow initialization of 9p frontend once.
-
-Fixes: c15fe55d14b3b ("9p/xen: fix connection sequence")
-Signed-off-by: Alex Zenla <alex@edera.dev>
-Signed-off-by: Alexander Merritt <alexander@edera.dev>
-Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
----
- net/9p/trans_xen.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index dfdbe1ca5338..0304e8a1616d 100644
---- a/net/9p/trans_xen.c
-+++ b/net/9p/trans_xen.c
-@@ -465,6 +465,7 @@ static int xen_9pfs_front_init(struct xenbus_device *dev)
- 		goto error;
- 	}
- 
-+	xenbus_switch_state(dev, XenbusStateInitialised);
- 	return 0;
- 
-  error_xenbus:
-@@ -512,8 +513,10 @@ static void xen_9pfs_front_changed(struct xenbus_device *dev,
- 		break;
- 
- 	case XenbusStateInitWait:
--		if (!xen_9pfs_front_init(dev))
--			xenbus_switch_state(dev, XenbusStateInitialised);
-+		if (dev->state != XenbusStateInitialising)
-+			break;
-+
-+		xen_9pfs_front_init(dev);
- 		break;
- 
- 	case XenbusStateConnected:
--- 
-2.43.0
-
+> ---
+>  README.md                |  3 ++-
+>  scripts/uboot-script-gen | 12 ++++++++++++
+>  2 files changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/README.md b/README.md
+> index 4fcd908..ae2fdfd 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -272,7 +272,8 @@ Where:
+>  
+>  - UBOOT_SOURCE and UBOOT_SCRIPT specify the output. They are optional
+>    as you can pass -o FILENAME to uboot-script-gen as a command line
+> -  parameter
+> +  parameter. It has to be set either in the config file or CLI argument
+> +  though.
+>  
+>  - APPEND_EXTRA_CMDS: is optional and specifies the path to a text file
+>    containing extra u-boot commands to be added to the boot script before
+> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> index dcf5bdb..fc63702 100755
+> --- a/scripts/uboot-script-gen
+> +++ b/scripts/uboot-script-gen
+> @@ -1210,6 +1210,18 @@ then
+>      UBOOT_SCRIPT="$uboot_out_opt".scr
+>      UBOOT_SOURCE="$uboot_out_opt".source
+>  fi
+> +
+> +if test ! "$UBOOT_SOURCE"
+> +then
+> +    echo "UBOOT_SOURCE not set, either specify it in the config or set it with the -o option"
+> +    exit 1
+> +fi
+> +
+> +if test ! "$UBOOT_SCRIPT"
+> +then
+> +    UBOOT_SCRIPT="${UBOOT_SOURCE%.source}.scr"
+> +fi
+> +
+>  if test "$fit_opt" && ! test "$FIT"
+>  then
+>      FIT="${UBOOT_SOURCE%.source}.fit"
+> -- 
+> 2.34.1
+> 
 
