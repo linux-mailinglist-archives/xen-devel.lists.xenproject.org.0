@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8C449D27F9
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:22:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840203.1256036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF0E9D2801
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 15:24:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840241.1256046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDP6t-0007ly-F7; Tue, 19 Nov 2024 14:21:43 +0000
+	id 1tDP91-0000ZV-So; Tue, 19 Nov 2024 14:23:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840203.1256036; Tue, 19 Nov 2024 14:21:43 +0000
+Received: by outflank-mailman (output) from mailman id 840241.1256046; Tue, 19 Nov 2024 14:23:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDP6t-0007jA-AE; Tue, 19 Nov 2024 14:21:43 +0000
-Received: by outflank-mailman (input) for mailman id 840203;
- Tue, 19 Nov 2024 14:21:42 +0000
+	id 1tDP91-0000X0-Pn; Tue, 19 Nov 2024 14:23:55 +0000
+Received: by outflank-mailman (input) for mailman id 840241;
+ Tue, 19 Nov 2024 14:23:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ydLn=SO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tDP6s-0007dt-Lb
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:21:42 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ <SRS0=PDt+=SO=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1tDP8z-0000Ws-W9
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 14:23:53 +0000
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [2607:f8b0:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 966b8a53-a681-11ef-a0ca-8be0dac302b0;
- Tue, 19 Nov 2024 15:21:37 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a99eb8b607aso127619266b.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:21:37 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e043316sm656195366b.135.2024.11.19.06.21.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Nov 2024 06:21:36 -0800 (PST)
+ id e511b93c-a681-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 15:23:50 +0100 (CET)
+Received: by mail-il1-x12b.google.com with SMTP id
+ e9e14a558f8ab-3a6c2077afcso3529725ab.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 06:23:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,217 +40,317 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 966b8a53-a681-11ef-a0ca-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzAiLCJoZWxvIjoibWFpbC1lajEteDYzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk2NmI4YTUzLWE2ODEtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDI2MDk3Ljc5MTM3NCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: e511b93c-a681-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjoxMmIiLCJoZWxvIjoibWFpbC1pbDEteDEyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImU1MTFiOTNjLWE2ODEtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDI2MjMwLjQxNzY5Mywic2VuZGVyIjoiY2FybG8ubm9uYXRvQG1pbmVydmFzeXMudGVjaCIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732026097; x=1732630897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aLvJ3gMSLd1W/oSfXodJhG+t9ir2LHLsSl1Al3oYzmA=;
-        b=M6UrcmZc3d/05iwU331jq0/XoSmL1WpjvN4yu9Tnq/Tab4X54z3/YZFERUjUl7r1Qb
-         bv44n9y/4Hr1InE3SWH3aDVJdZkBrYMjEAVx782JKm7TV12UyNTl8dmIQHoxuAY8A++E
-         VpfOOZN4okl6kE81kLO15K5MLEvjRCna8R5VY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732026097; x=1732630897;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1732026229; x=1732631029; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aLvJ3gMSLd1W/oSfXodJhG+t9ir2LHLsSl1Al3oYzmA=;
-        b=pFf9VMy0aEA1jPuI1UhVEddzBIG/BVCltuF0j0OeJbfovWcl9p3EljdJq+RN/ZbR18
-         0HuD/OdNVU/wTf6oViPc6/EYaGByMhf8PcWkJCt5rHvl2DJAXHZixpqVUsuyBfv4xE08
-         QcUicpo9SrQFthkcMf9AU24zOi37FmqVPSNFsiabR3P6dt/KlakMfoXctw3VIVSX8Qjo
-         qrvA84nBP66Dy7A3TN1EiGJcKSv4+UIfVRbu/lB6zDi/cPRHIc8m+i6Da4bwRFgkTyYZ
-         YjI8+6cOXPiHcTVmw7G0tMCS6PYYudFtaVF8IY8Y2MJAfd/wxO1aGwzVzakpTBgKJ2Zg
-         wsHw==
-X-Forwarded-Encrypted: i=1; AJvYcCWpFyeNYeHcCvcJuuL4cfjGj5BiPcMsoWrz3fzb8tGCIKJp2Y4lFoLpCSuJ84ExvfSROqwCLK/xc2E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzxt+QZOXIbQpoekoOVDNDJTVt0xEovBpQw7g1MMGOT8QqEDJHH
-	Ggq1HHD5yfdmAxDUm4S68ZDOnhQUWN281pgMxRnm9Cek9+xbBlqXuyLKb1cssZ8=
-X-Google-Smtp-Source: AGHT+IEgQU73TcXWqZKsN3ETJG5Le2bVQ0Y2zrc24Y6PPWJwkjhyGZrVZTELzle//NNPgvUoXeCOwQ==
-X-Received: by 2002:a17:907:3f98:b0:a9a:26a1:1963 with SMTP id a640c23a62f3a-aa4833f66c5mr1567138966b.7.1732026097185;
-        Tue, 19 Nov 2024 06:21:37 -0800 (PST)
-Message-ID: <05127810-a5d3-46f7-9a5b-8f5ac1ab8b87@citrix.com>
-Date: Tue, 19 Nov 2024 14:21:35 +0000
+        bh=nbHSjBYmkmM1jutoPn3CtmLMhYMymb2+df1ssYEt8bU=;
+        b=Jjhchvgf4sOaTXUFDResGwDoF8xb/XVQVQCB69PgPxJQL73Ky8W75G6k9abb0Txue5
+         7eoFEQdIioRrX3cH/QqOnf6NDOZ6q7u7Sslr5HYQXT1D3wUQr+FxdWkUbITpMZhpkof6
+         XdlEHQdVNso19I+MTeiiVikusyP1ljBU8CUS+IEgegH6e+F3bIE2WfcXjFI8lol7aS5U
+         zpCK/Xt60wGo8IPeZmGrSUkarSadh6DeOn+VKmo+PEF6SX9z4lP5FNcMhJOuR6a5gjXn
+         +UhP5OB3DKxNE2bXDMaoUJ0/QynK2A+VLXMpgcuN7GAVSDfEisf+y5qKcn+8t9LF+FND
+         qaJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732026229; x=1732631029;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nbHSjBYmkmM1jutoPn3CtmLMhYMymb2+df1ssYEt8bU=;
+        b=kswtZJDtAdcwrg1ca2K5cEL7xGVoNif17/8e5GrVBSpKtTcqWFymWLjJ/DVpWdYqqQ
+         VRKTDZ6OeiyaZ9MAI9laEbHRtV1iSEN+xgjHE9OJF1PXPuUJRLskvgm4JMAdFWmhKgUu
+         Yp/IrT1wNa3mc5diPrcdQhAQNxwXGHkj0stzRtcU90uPvf1+toamlaP4GD/o7W4BZq8p
+         6ecVMqEjazwF2jgUBfVG1ms3mXlxwSccHGyFlWgAem2XxFWsfilyB2Bh/cis1MuNMvjP
+         DkVX1bO3vnuvDcM9xFdyY5cmCxmZh7sXUCWU/Jb8mzknFiN5GHHDxO6CCcfQvdEBhBaD
+         BwWQ==
+X-Gm-Message-State: AOJu0YwB5KM6Zhyx9vT/Gz8vtsuSIyNH0b9q//fps+bJxIj5/IIDqrh6
+	dMnRxhpcBen4PL3KsZGxmClK3uj8HodFxL+osJqspZwIKD1DKRk2TD9PS8RfXbkSeQ3rfKiNs5T
+	IazFR1EaDejSMWrFgoXRO051hvhG9O44xFwXwKQ==
+X-Google-Smtp-Source: AGHT+IFMe79JiybuXpZ4Jya9V7wWE3FTMJP+UnoJwcfzbW7/WeBYO9e9dD6N1x4vgHnPk2mZl20ee5et5n9MGYbVpow=
+X-Received: by 2002:a05:6602:27c1:b0:835:45f9:c2ee with SMTP id
+ ca18e2360f4ac-83e6c272e56mr1705233839f.4.1732026228928; Tue, 19 Nov 2024
+ 06:23:48 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] x86/msi: fix Misra Rule 20.7 in msi.h
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20241119103444.23296-1-roger.pau@citrix.com>
- <20241119103444.23296-3-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241119103444.23296-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAMacjJzO+Oa1_BEBrV3J=L4=5vsxZRV8DGuiuho96qLqM-QWcA@mail.gmail.com>
+In-Reply-To: <CAMacjJzO+Oa1_BEBrV3J=L4=5vsxZRV8DGuiuho96qLqM-QWcA@mail.gmail.com>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Tue, 19 Nov 2024 15:23:37 +0100
+Message-ID: <CAG+AhRW8FczMC1S2bzUsGLZozBiKXM1c5DALcAOc4=wuCGYc0Q@mail.gmail.com>
+Subject: Re: Xen 4.20 Development Update [August-October]
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Kelly Choi <kelly.choi@cloud.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 19/11/2024 10:34 am, Roger Pau Monne wrote:
-> Prune unused macros and adjust the remaining ones to parenthesize macro
-> arguments.
+Hi all,
+
+I would like to see "Arm cache coloring" in 4.20. I just sent v10.
+
+Best regards.
+
+- Carlo Nonato
+
+On Tue, Nov 12, 2024 at 5:16=E2=80=AFPM Oleksii Kurochko
+<oleksii.kurochko@gmail.com> wrote:
 >
-> No functional change intended.
+> Hello everyone,
 >
-> Singed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-It's a little early for carol season, isn't it?
-
-It would help to identify which macros are being dropped, because the
-diff is far from simple to read.
-
-AFAICT, its:
-
-  msi_disable()
-  msi_enable()
-  msix_enable()
-  msix_disable()
-  msix_unmask()
-  msix_mask()
-
-Splitting this change does make a marginal improvement in the diff, and
-a substantial improvement in `git diff --color-word`'s ability to review
-this change.
-
-You've also introduced uses of MASK_EXTR() and MASK_INSR(), which at
-least ought to be noted in the commit message.  Technically I think it's
-a bugfix for multi_msi_enable(), because I think it now won't overflow
-the 3-bit field if an overly large num is passed in.
-
-
-Bloat-o-meter reports:
-
-add/remove: 0/0 grow/shrink: 3/1 up/down: 15/-61 (-46)
-Function                                     old     new   delta
-set_iommu_interrupt_handler                  366     373      +7
-write_msi_msg                                348     352      +4
-init_msi                                     574     578      +4
-pci_enable_msi                              1084    1023     -61
-
-
-Taking the first example, that's caused by swapping this:
-
-> iommu->msi.msi.mpos = ( ((!!(control & 0x80)) == 1) ?
-> iommu->msi.msi_attrib.pos+16 : iommu->msi.msi_attrib.pos+16 -4);
-
-for this:
-
-> iommu->msi.msi.mpos = ((iommu->msi.msi_attrib.pos) + 16 -
-> (((!!((control) & 0x80))) ? 0 : 4));
-
-and code generation changing from a CMOV to straight-line arithmetic.
-
-In write_msi_msg(), we actually drop a conditional branch and replace it
-with straight-line arithmetic.
-
-init_msi() gets a substantial restructuring, but it looks like two
-branches are dropped.
-
-pci_enable_msi() has the biggest change, but doesn't obviously reduce
-the number of branches.  There is clearly less register setup around
-existing branches, so my best guess is that the new macro forms are more
-amenable to common-sub-expression-elimination.
-
-
-Either way, it's all minor.  Staring at the diff for long enough, I'm
-pretty sure it's all good.
-
-> ---
->  xen/arch/x86/include/asm/msi.h | 35 ++++++++++++++--------------------
->  1 file changed, 14 insertions(+), 21 deletions(-)
+> This email only tracks big items for xen.git tree. Please reply for items=
+ you
+> would like to see in 4.20 so that people have an idea what is going on an=
+d
+> prioritise accordingly.
 >
-> diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
-> index 748bc3cd6d8b..49a576383288 100644
-> --- a/xen/arch/x86/include/asm/msi.h
-> +++ b/xen/arch/x86/include/asm/msi.h
-> @@ -147,33 +147,26 @@ int msi_free_irq(struct msi_desc *entry);
->   */
->  #define NR_HP_RESERVED_VECTORS 	20
->  
-> -#define msi_control_reg(base)		(base + PCI_MSI_FLAGS)
-> -#define msi_lower_address_reg(base)	(base + PCI_MSI_ADDRESS_LO)
-> -#define msi_upper_address_reg(base)	(base + PCI_MSI_ADDRESS_HI)
-> +#define msi_control_reg(base)		((base) + PCI_MSI_FLAGS)
-> +#define msi_lower_address_reg(base)	((base) + PCI_MSI_ADDRESS_LO)
-> +#define msi_upper_address_reg(base)	((base) + PCI_MSI_ADDRESS_HI)
->  #define msi_data_reg(base, is64bit)	\
-> -	( (is64bit == 1) ? base+PCI_MSI_DATA_64 : base+PCI_MSI_DATA_32 )
-> +	((base) + ((is64bit) ? PCI_MSI_DATA_64 : PCI_MSI_DATA_32))
->  #define msi_mask_bits_reg(base, is64bit) \
-> -	( (is64bit == 1) ? base+PCI_MSI_MASK_BIT : base+PCI_MSI_MASK_BIT-4)
-> +	((base) + PCI_MSI_MASK_BIT - ((is64bit) ? 0 : 4))
->  #define msi_pending_bits_reg(base, is64bit) \
->  	((base) + PCI_MSI_MASK_BIT + ((is64bit) ? 4 : 0))
-> -#define msi_disable(control)		control &= ~PCI_MSI_FLAGS_ENABLE
->  #define multi_msi_capable(control) \
-> -	(1 << ((control & PCI_MSI_FLAGS_QMASK) >> 1))
-> +	(1U << MASK_EXTR(control, PCI_MSI_FLAGS_QMASK))
->  #define multi_msi_enable(control, num) \
-> -	control |= (((fls(num) - 1) << 4) & PCI_MSI_FLAGS_QSIZE);
-> -#define is_64bit_address(control)	(!!(control & PCI_MSI_FLAGS_64BIT))
-> -#define is_mask_bit_support(control)	(!!(control & PCI_MSI_FLAGS_MASKBIT))
-> -#define msi_enable(control, num) multi_msi_enable(control, num); \
-> -	control |= PCI_MSI_FLAGS_ENABLE
-> -
-> -#define msix_control_reg(base)		(base + PCI_MSIX_FLAGS)
-> -#define msix_table_offset_reg(base)	(base + PCI_MSIX_TABLE)
-> -#define msix_pba_offset_reg(base)	(base + PCI_MSIX_PBA)
-> -#define msix_enable(control)	 	control |= PCI_MSIX_FLAGS_ENABLE
-> -#define msix_disable(control)	 	control &= ~PCI_MSIX_FLAGS_ENABLE
-> -#define msix_table_size(control) 	((control & PCI_MSIX_FLAGS_QSIZE)+1)
-> -#define msix_unmask(address)	 	(address & ~PCI_MSIX_VECTOR_BITMASK)
-> -#define msix_mask(address)		(address | PCI_MSIX_VECTOR_BITMASK)
-> +	((control) |= MASK_INSR(fls(num) - 1, PCI_MSI_FLAGS_QSIZE))
-> +#define is_64bit_address(control)	!!((control) & PCI_MSI_FLAGS_64BIT)
-> +#define is_mask_bit_support(control)	!!((control) & PCI_MSI_FLAGS_MASKBIT)
-
-You need to retain the outermost brackets for other MISRA reasons.
-
-I'm happy to fix up on commit, even splitting the patch (seeing as I've
-already done the split in order to review the rest).
-
-~Andrew
+> You're welcome to provide description and use cases of the feature you're
+> working on.
+>
+> =3D Timeline =3D
+>
+> ---> We are here
+> * Last posting date: Nov 29, 2024
+> * Feature freeze date: Dec 20, 2024
+> * Hard code freeze: Jan 17, 2025
+> * RC1: TBD
+> * Release: Feb 21, 2025
+> ( current release schedule: https://wiki.xenproject.org/wiki/Xen_Project_=
+X.YY_Release_Notes )
+>
+> All patches that wish to go into 4.20 must be posted no later than the la=
+st posting
+> date. All patches posted after that date will be automatically queued
+> into next release.
+>
+> RCs will be arranged immediately after freeze.
+>
+> =3D Projects =3D
+>
+> =3D=3D Hypervisor =3D=3D
+>
+> *  Remove the directmap (v4)
+>   -  Elias El Yandouzi
+>   -  https://lore.kernel.org/xen-devel/f6973275-0d7e-4db4-b949-f21e530e1d=
+fc@citrix.com/T/#m9733aa717edf032db0cf8f8f6763537b4f30c1f8
+>
+> *  remove libxenctrl usage from xenstored (v1)
+>   -  Juergen Gross
+>   -  https://lore.kernel.org/xen-devel/20241023131005.32144-1-jgross@suse=
+.com/T/#md016c48a0889740d1822aa68f7f33d4ad48f4805
+>
+> *  automation: Refresh the remaining Debian containers (v2)
+>   -  Javi Merino
+>   -  https://lore.kernel.org/xen-devel/cover.1730743077.git.javi.merino@c=
+loud.com/T/#m5d9acb7cf5db3c2be3d6527de14b69b07812314e
+>
+> *  Move gic_preinit() to common code (v2)
+>   -  Oleksii Kurochko
+>   -  https://lore.kernel.org/xen-devel/2fe01b5a-aebb-4141-9cdd-887b5984d6=
+b8@suse.com/T/#m8144a030ef64a479068482c864c9258a5cb43a87
+>
+> *  stubdom: reduce xenstore library dependencies (v1)
+>   -  Juergen Gross
+>   -  https://lore.kernel.org/xen-devel/20241010155459.22389-1-jgross@suse=
+.com/T/#m8b5af386e2d288961bb6e8f7839650e0cab96a83
+>
+> *  xen: address violations of MISRA C Rule 13.6 (v2)
+>   -  Federico Serafini
+>   -  https://lore.kernel.org/xen-devel/cover.1727690180.git.federico.sera=
+fini@bugseng.com/T/#mbec702db211240305e0d35649e65627d9fa75a29
+>
+> =3D=3D=3D x86 =3D=3D=3D
+>
+> *  Expose consistent topology to guests (v7)
+>   -  Alejandro Vallejo
+>   -  https://lore.kernel.org/xen-devel/20241021154600.11745-1-alejandro.v=
+allejo@cloud.com/T/#m6033f95c660675039d7789d3af1ba2f292a3a69b
+>
+> *  Boot modules for Hyperlaunch (v8)
+>   -  Daniel P. Smith
+>   -  https://lore.kernel.org/xen-devel/20241102172551.17233-1-dpsmith@ape=
+rtussolutions.com/T/#m94a2f6b9d410c6d624aaebd7c2bf85584c74383e
+>
+> *  x86/mm: miscellaneous fixes (v2)
+>   -  Roger Pau Monne
+>   -  https://lore.kernel.org/xen-devel/Zyyo8qMobqQT-rA5@macbook/T/#m2df34=
+239b793501c6246c85c4b00e52f9c439ac0
+>
+> *  x86/ucode: Simplify/fix loading paths further (v1)
+>   -  Andrew Cooper
+>   -  https://lore.kernel.org/xen-devel/20241107122117.4073266-1-andrew.co=
+oper3@citrix.com/T/#m76304334081e6b4b0976c6c474f1f0772e0625d1
+>
+> *  Address Space Isolation FPU preparations (v2)
+>   -  Alejandro Vallejo
+>   -  https://lore.kernel.org/xen-devel/20241105143310.28301-1-alejandro.v=
+allejo@cloud.com/T/#mbca5192d7e5636ef5ea005a083e5ff28ebe6317d
+>
+> *  Fix module-handling use-after-free's (v2)
+>   -  Andrew Cooper
+>   -  https://lore.kernel.org/xen-devel/20241106003938.3453243-1-andrew.co=
+oper3@citrix.com/T/#mdf923bdf63b034a6493bf62beeead280b92a38ed
+>
+> *  Reuse 32 bit C code more safely (v4)
+>   -  Frediano Ziglio
+>   -  https://lore.kernel.org/xen-devel/20241014085332.3254546-1-frediano.=
+ziglio@cloud.com/T/#m53e36815ddec2511ddd1fa8d1a7ed9a27c0cd0f7
+>
+> *  x86/alternatives: Adjust all insn-relative fields (v2)
+>   -  Andrew Cooper
+>   -  https://lore.kernel.org/xen-devel/20241002152725.1841575-1-andrew.co=
+oper3@citrix.com/T/#mac2deaea7e02a343210d61887486433d946ad129
+>
+> *  x86: address violations of MISRA C Rule 16.3 (v1)
+>   -  Federico Serafini
+>   -  https://lore.kernel.org/xen-devel/cover.1725958416.git.federico.sera=
+fini@bugseng.com/T/#m46c991ed7ea7a6fe505056facddfcc684be01ab6
+>
+> *  Support device passthrough when dom0 is PVH on Xen (v16)
+>   -  Jiqian Chen
+>   -  https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Ch=
+en@amd.com/T/#m5d557d76f290ff5b5550c1443cab5774d397e526
+>
+> *  x86emul: misc additions (v5)
+>   -  Jan Beulich
+>   -  https://lore.kernel.org/xen-devel/0b9a0ae8-a39c-49d8-b4e7-f2a4631280=
+58@suse.com/T/#m5aae1045eb07d85fb029bdef12a78cdb6bfe780e
+>
+> *  x86/HVM: drop stdvga caching mode (v2)
+>   -  Jan Beulich
+>   -  https://lore.kernel.org/xen-devel/dc3faf7d-0690-46e6-8fbc-67a177a1e1=
+71@suse.com/T/#mc8ca51cdbfb6ba26ea6b4624059d40ea075c2117
+>
+> *  x86/HVM: emulation (MMIO) improvements (v1)
+>   -  Jan Beulich
+>   -  https://lore.kernel.org/xen-devel/31906cba-8646-4cf9-ab31-1d23654df8=
+d1@suse.com/T/#mdae2f21b929170d60a8640e82857700c940e65c7
+>
+> =3D=3D=3D ARM =3D=3D=3D
+>
+> *  Enable early bootup of AArch64 MPU systems (v5)
+>   -  Ayan Kumar Halder
+>   -  https://lore.kernel.org/xen-devel/20241107150330.181143-1-ayan.kumar=
+.halder@amd.com/T/#m9cfd8bed109cc703b6ae8b8b6faaa116c08598ee
+>
+> *  Add support for S32CC platforms and LINFlexD UART (v2)
+>   -  Andrei Cherechesu
+>   -  https://lore.kernel.org/xen-devel/20240930114715.642978-1-andrei.che=
+rechesu@oss.nxp.com/T/#m8452ac342fdcf989fc1e498c097812b50157f2cc
+>
+> *  Arm cache coloring (v9)
+>   -  Carlo Nonato
+>   -  https://lore.kernel.org/xen-devel/20241025095014.42376-1-carlo.nonat=
+o@minervasys.tech/T/#md18fb02842c4ad2cd61b456be89020affcc452a3
+>
+> *  ffa: Improvements and fixes (v2)
+>   -  Bertrand Marquis
+>   -  https://lore.kernel.org/xen-devel/cover.1729066788.git.bertrand.marq=
+uis@arm.com/T/#mb0c8aab97d46f9c9e933b3b9b0eef7e717e1f2e5
+>
+> *  Add Virtio-PCI for dom0less on ARM (v1)
+>   -  Edgar E. Iglesias
+>   -  https://lore.kernel.org/xen-devel/20240924162359.1390487-1-edgar.igl=
+esias@gmail.com/T/#mfa148991b9408f223a079d4cef610244d5b04c2b
+>
+> =3D=3D=3D RISCV =3D=3D=3D
+>
+> *  Setup memory management (v5)
+>   -  Oleksii Kurochko
+>   -  https://lore.kernel.org/xen-devel/cover.1731344883.git.oleksii.kuroc=
+hko@gmail.com/T/#m9f76f1b685896ea603a2b153e05104c7405a7d28
+>
+> =3D=3D=3D PPC =3D=3D=3D
+>
+> *  Early Boot Allocation on Power (v5)
+>   -  Shawn Anastasio
+>   -  https://lore.kernel.org/xen-devel/cover.1727388925.git.sanastasio@ra=
+ptorengineering.com/T/#m8cac91a93b56a359fa2d5f08596c4be61dca290d
+>
+> =3D=3D Completed =3D=3D
+>
+> =3D=3D=3D Hypervisor =3D=3D=3D
+>
+> *  libxl: Implement QEMU command line probe (v1)
+>   -  Anthony PERARD
+>   -  https://lore.kernel.org/xen-devel/20240827100328.23216-1-anthony.per=
+ard@vates.tech/T/#mdef23cefc2532ab0c9d7460290cef26780cf97cb
+>
+> *  xen/bitops: hweight() cleanup/improvements (v3)
+>   -  Andrew Cooper
+>   -  https://lore.kernel.org/xen-devel/20240904225530.3888315-1-andrew.co=
+oper3@citrix.com/T/#me22e08f7477be725122dd9b97d29d272e3b586c4
+>
+> *  Move percpu code to common (v2)
+>   -  Oleksii Kurochko
+>   -  https://lore.kernel.org/xen-devel/cover.1727185495.git.oleksii.kuroc=
+hko@gmail.com/T/#mf93394c46f15cbdcfc873de2d52d862a8b70da7f
+>
+> *  xen/livepatch: improvements to loading (v3)
+>   -  Roger Pau Monne
+>   -  https://lore.kernel.org/xen-devel/20240926101431.97444-1-roger.pau@c=
+itrix.com/T/#ma3f65948b065dc443aea2192873a3b3dfa52a2d7
+>
+> *  Move {acpi_}device_init() and device_get_class() to common code (v5)
+>   -  Oleksii Kurochko
+>   -  https://lore.kernel.org/xen-devel/17c7d988e45d7c82448b81fe66b01a5cec=
+a0c15e.camel@gmail.com/T/#m68bd00d4f8b3724e83ba13024e94b15b58a28829
+>
+> *  blkif: reconcile protocol specification with in-use implementations (v=
+1)
+>   -  Roger Pau Monne
+>   -  https://lore.kernel.org/xen-devel/20240903141923.72241-1-roger.pau@c=
+itrix.com/
+>
+> =3D=3D=3D x86 =3D=3D=3D
+>
+> *  Drop Xeon Phi support (v1)
+>   -  Jan Beulich
+>   -  https://lore.kernel.org/xen-devel/44147507-65a4-4f21-aada-fa647f53ff=
+d0@suse.com/
+>
+> *  Utilize ucode_force and remove opt_ucode_allow_same (v7)
+>   -  Fouad Hilly
+>   -  https://lore.kernel.org/xen-devel/20240822130426.492931-4-fouad.hill=
+y@cloud.com/
+>
+> *  Switch flat driver to use phys dst for ext ints (v2)
+>   -  Matthew Barnes
+>   -  https://lore.kernel.org/xen-devel/0db68e62ffc428f553a30397df1e79068d=
+26bb5f.1728311378.git.matthew.barnes@cloud.com/
+>
+> *  x86/shutdown: change default reboot method preference (v1)
+>   -  Roger Pau Monne
+>   -  https://lore.kernel.org/xen-devel/20240802105613.99197-1-roger.pau@c=
+itrix.com/
+>
+> =3D=3D=3D ARM =3D=3D=3D
+>
+> *  iommu/ipmmu-vmsa: Add Renesas R8A779G0 (R-Car V4H) support (v1)
+>   -  Grygorii Strashko
+>   -  https://lore.kernel.org/xen-devel/6ab4ad29-404d-4f5c-8582-5d2f492fd5=
+49@xen.org/T/#t
+>
+> *  xen/arm: dt overlay fixes (v2)
+>   -  Michal Orzel
+>   -  https://lore.kernel.org/xen-devel/20241004122220.234817-1-michal.orz=
+el@amd.com/T/#md51a060b93fe72f17637d6d72e3d4e2296cb4078
+>
+> =3D=3D=3D RISC-V =3D=3D=3D
+>
+> *  initialize bootinfo from dtb (v2)
+>   -  Oleksii Kurochko
+>   -  https://lore.kernel.org/xen-devel/cover.1728481578.git.oleksii.kuroc=
+hko@gmail.com/T/#m543bf84d47f0ea738938a9a442cd144bb34f7316
+>
+> *  Register Xen's load address as a boot module (v3)
+>   -  Oleksii Kurochko
+>   -  https://lore.kernel.org/xen-devel/cover.1728472163.git.oleksii.kuroc=
+hko@gmail.com/T/#t
+>
+> *  device tree mapping (v9)
+>   -  Oleksii Kurochko
+>   -  https://lore.kernel.org/xen-devel/cover.1727781468.git.oleksii.kuroc=
+hko@gmail.com/T/#t
 
