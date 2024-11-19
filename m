@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D71AB9D3038
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 23:02:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840842.1256368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04EFB9D30E6
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 00:24:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840858.1256398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDWIK-0003cf-Bv; Tue, 19 Nov 2024 22:02:00 +0000
+	id 1tDXZA-0005ns-8n; Tue, 19 Nov 2024 23:23:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840842.1256368; Tue, 19 Nov 2024 22:02:00 +0000
+Received: by outflank-mailman (output) from mailman id 840858.1256398; Tue, 19 Nov 2024 23:23:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDWIK-0003bC-99; Tue, 19 Nov 2024 22:02:00 +0000
-Received: by outflank-mailman (input) for mailman id 840842;
- Tue, 19 Nov 2024 22:01:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDXZA-0005lL-5e; Tue, 19 Nov 2024 23:23:28 +0000
+Received: by outflank-mailman (input) for mailman id 840858;
+ Tue, 19 Nov 2024 23:23:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IGE8=SO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tDWII-0003an-3Y
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 22:01:58 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e2e3b131-a6c1-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 23:01:54 +0100 (CET)
+ id 1tDXZ8-0005lF-Tm
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 23:23:26 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 449da44c-a6cd-11ef-a0ca-8be0dac302b0;
+ Wed, 20 Nov 2024 00:23:23 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C1462A42B64;
- Tue, 19 Nov 2024 21:59:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27555C4CECF;
- Tue, 19 Nov 2024 22:01:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8D2CC5C5924;
+ Tue, 19 Nov 2024 23:22:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3089C4CECF;
+ Tue, 19 Nov 2024 23:23:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,110 +42,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2e3b131-a6c1-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE0Ny43NS4xOTMuOTEiLCJoZWxvIjoibnljLnNvdXJjZS5rZXJuZWwub3JnIn0=
-X-Custom-Transaction: eyJpZCI6ImUyZTNiMTMxLWE2YzEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDUzNzE0Ljc2OTI4NSwic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 449da44c-a6cd-11ef-a0ca-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDQ6MTM4MDo0NjQxOmM1MDA6OjEiLCJoZWxvIjoiZGZ3LnNvdXJjZS5rZXJuZWwub3JnIn0=
+X-Custom-Transaction: eyJpZCI6IjQ0OWRhNDRjLWE2Y2QtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDU4NjAzLjQwNjM4OCwic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732053712;
-	bh=lTlfeIOSAzIhyBHQGmZg0AapZZvGe063U5NjxPjY3jA=;
+	s=k20201202; t=1732058601;
+	bh=OO6YlgIMzlEdt2qE7NBDYG/UQOC9OMFaQlZbxPuOXQI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=e2Y0MA6iFULsN6edcy8HNZYf/SdouaEXOahA6r9qEG8fwcyaPGYqAzCQ+yiyLFPMW
-	 iFCXGHmnfVU0SUrg32rJg2UzHB76gXSWIe26hSsTCmn4PPhsDeEPZOYBe7D40Sj7cd
-	 Qqu4DmttClo6HNDWEDPpa6It2XlOMpQ+noe2xdYOHpEpK2dRDl+EOp/EkhUZsLn8jx
-	 66m2jFaVAYzPZXu0jwPtak6pzEGBunxMBh0Yz3h4fQ6jiYGIcr+/CTcYkMrZiTk+L+
-	 SAXbhBAPPAaat4OEEi0TmZjkoZkw315lS6Ikok9Elo36DlbO83i3oHOHki6p4sTJ0L
-	 crW6/ceoXey/A==
-Date: Tue, 19 Nov 2024 14:01:50 -0800 (PST)
+	b=LgP1u9YZ+kNUcJh7SI9pYfq0r0F22pQV0o6qjZYQW4BKFPTIoJQNKrcBcaUr3CKtN
+	 kLWKiK9pfniwwphG1acvnZ8GZmBhhnRZwFZvZTtC0QaRzBQp8F/yzem0GRt5aCWHy0
+	 B58EBqH7fGKIDU8twlFiYoKcf6v119VEBDNpN0yPvwVTu24XcpbtI/Ye0t093s7KQX
+	 mtKmdDQdsJ/+9EblsI4tduFiTxv7fG0hWCFxOkpF8sWImIeWvn1cg0OSxHofBj1aeb
+	 owBgsVqCEQp3ebysAW+cRfqMBdKo882iY3udX29l633AtrlwPQs9ypf1tUZgKqp8pJ
+	 PSGOdrwjfUy+A==
+Date: Tue, 19 Nov 2024 15:23:18 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "consulting @ bugseng . com" <consulting@bugseng.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/mce: Compile do_mca() for CONFIG_PV only
-In-Reply-To: <00fa3d65-d598-474f-b9ee-7b63db2d3b40@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2411191400340.1160299@ubuntu-linux-20-04-desktop>
-References: <20241119125904.2681402-1-andrew.cooper3@citrix.com> <d92cf59a-a798-4223-9439-85ae215b7daa@suse.com> <00fa3d65-d598-474f-b9ee-7b63db2d3b40@citrix.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, Dario Faggioli <dfaggioli@suse.com>, 
+    Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
+Subject: Re: [RFC PATCH] xen: add libafl-qemu fuzzer support
+In-Reply-To: <875xojmexk.fsf@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2411191409140.1160299@ubuntu-linux-20-04-desktop>
+References: <20241114224636.1942089-1-volodymyr_babchuk@epam.com> <alpine.DEB.2.22.394.2411181737570.1160299@ubuntu-linux-20-04-desktop> <875xojmexk.fsf@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1880775059-1732053712=:1160299"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1880775059-1732053712=:1160299
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 19 Nov 2024, Andrew Cooper wrote:
-> On 19/11/2024 2:34 pm, Jan Beulich wrote:
-> > On 19.11.2024 13:59, Andrew Cooper wrote:
-> >> Eclair reports a Misra Rule 8.4 violation; that do_mca() can't see it's
-> >> declaration.  It turns out that this is a consequence of do_mca() being
-> >> PV-only, and the declaration being compiled out in !PV builds.
-> >>
-> >> Therefore, arrange for do_mca() to be compiled out in !PV builds.  This in
-> >> turn requires a number of static functions to become static inline.
-> > Which generally we advocate against.
+On Tue, 19 Nov 2024, Volodymyr Babchuk wrote:
+> Hi Stefano,
 > 
-> It's `static inline` or `static __maybe_unused`, but I refer you to to
-> the Matrix conversation on June 24th on the matter.
+> Stefano Stabellini <sstabellini@kernel.org> writes:
 > 
+> > On Thu, 14 Nov 2024, Volodymyr Babchuk wrote:
 > 
-> >  The #ifdef variant you pointed at on
-> > Matrix wasn't all that bad.
+> [...]
 > 
-> It worked as a test, but ifdefary like that is a maintenance nightmare.
-> 
-> >  Plus ...
+> >> +Building LibAFL-QEMU based fuzzer
+> >> +---------------------------------
+> >> +
+> >> +Fuzzer is written in Rust, so you need Rust toolchain and `cargo` tool
+> >> +in your system. Please refer to your distro documentation on how to
+> >> +obtain them.
+> >> +
+> >> +Once Rust is ready, fetch and build the fuzzer::
+> >> +
+> >> + # git clone
+> >> https://github.com/xen-troops/xen-fuzzer-rs
+> >> +  # cd xen-fuzzer-rs
+> >> +  # cargo build
 > >
-> >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >> ---
-> >> CC: Jan Beulich <JBeulich@suse.com>
-> >> CC: Roger Pau Monné <roger.pau@citrix.com>
-> >> CC: Stefano Stabellini <sstabellini@kernel.org>
-> >> CC: consulting@bugseng.com <consulting@bugseng.com>
-> >>
-> >> Bloat-o-meter on a !PV build reports:
-> >>
-> >>   add/remove: 0/6 grow/shrink: 0/0 up/down: 0/-3717 (-3717)
-> >>   Function                                     old     new   delta
-> >>   x86_mc_mceinject                              31       -     -31
-> >>   do_mca.cold                                  117       -    -117
-> >>   x86_mc_msrinject                             147       -    -147
-> >>   x86_mc_msrinject.cold                        230       -    -230
-> >>   do_mc_get_cpu_info                           500       -    -500
-> >>   do_mca                                      2692       -   -2692
-> > ... what's the effect of the addition of "inline" on a PV=y build? By
-> > using the keyword, we may end up talking the compiler into inlining of
-> > code that better wouldn't be inlined.
+> > Is this the only way to trigger the fuzzer? Are there other ways (e.g.
+> > other languages or scripts)? If this is the only way, do we expect it to
+> > grow much over time, or is it just a minimal shim only to invoke the
+> > fuzzer (so basically we need an x86 version of it but that's pretty much
+> > it in terms of growth)?
 > 
-> xen.git/xen$ ../scripts/bloat-o-meter xen-syms-{before,after}
-> add/remove: 0/0 grow/shrink: 0/0 up/down: 0/0 (0)
-> Function                                     old     new   delta
-> Total: Before=3901801, After=3901801, chg +0.00%
-> xen.git/xen$ diff -u dis-{before,after}
-> --- dis-before    2024-11-19 18:08:02.284091931 +0000
-> +++ dis-after    2024-11-19 18:08:24.491035756 +0000
-> @@ -1,5 +1,5 @@
->  
-> -xen-syms-before:     file format elf64-x86-64
-> +xen-syms-after:     file format elf64-x86-64
->  
->  
->  Disassembly of section .text:
+> Well, original AFL++ is written in C. And I planned to use it
+> initially. I wanted to make plugin for QEMU to do the basically same
+> thing that LibAFL does - use QEMU to emulate target platform, create
+> snapshot before running a test, restore it afterwards.
 > 
-> xen.git/xen$
+> But then I found LibAFL. It is a framework for creating fuzzers, it
+> implements the same algorithms as original AFL++ but it is more
+> flexible. And it already had QEMU support. Also, it seems it is quite
+> easy to reconfigure it for x86 support. I didn't tried tested this yet,
+> but looks like I need only to change one option in Cargo.toml.
 > 
-> 
-> Which is not surprising because at -O2, the keyword is effectively
-> ignored because of the various -finline-*
+> This particular fuzzer is based on LibAFL example, but I am going to
+> tailor it for Xen Project-specific needs, like CI integration you
+> mentioned below.
 
-Given this, and also given that this patch with the static inline looks
-nice, I prefer this version:
+Is my understanding correct that we only need to invoke LibAFL as you
+are doing already, and that's pretty much it? We need a better
+configuration specific for Xen, and we need one more way to invoke it to
+cover x86 but that's it? So, the expectation is that the code currently
+under https://github.com/xen-troops/xen-fuzzer-rs will not grow much?
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-1880775059-1732053712=:1160299--
+
+> As for test harness, I am using Zephyr currently. My first intention was
+> to use XTF, but it is x86-only... I am still considering using XTF for
+> x86 runs.
+> 
+> Zephyr was just the easiest and fastest way to trigger hypercalls. At
+> first I tried to use Linux kernel, but it was hard to cover all possible
+> failure paths. Zephyr is much simpler in this regard. Even better is to
+> use MiniOS or XTF. But ARM support in MiniOS is in sorry state and XTF
+> does not work on ARM at all.
+
+There is a not-yet-upstream XTF branch that works on ARM here:
+https://gitlab.com/xen-project/fusa/xtf/-/tree/xtf-arm?ref_type=heads
+
+
+> [...]
+> 
+> >>  void call_psci_cpu_off(void)
+> >>  {
+> >> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
+> >> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
+> >> +#endif
+> >
+> > I think we should add a wrapper with an empty implementation in the
+> > regular case and the call to libafl_qemu_end when the fuzzer is enabled.
+> > So that here it becomes just something like:
+> >
+> >   fuzzer_success();
+> 
+> I considered this. In the next version I'll add fuzzer.h with inline wrappers.
+> 
+> 
+> [...]
+> 
+> >> @@ -1452,6 +1456,10 @@ static long do_poll(const struct sched_poll *sched_poll)
+> >>      if ( !guest_handle_okay(sched_poll->ports, sched_poll->nr_ports) )
+> >>          return -EFAULT;
+> >>
+> >> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
+> >> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
+> >> +#endif
+> >
+> > I am not sure about this one, why is this a success?
+> 
+> vCPU get blocked here basically forever. So test harness can't call
+> libafl_qemu_end(LIBAFL_QEMU_END_OK) from it's side because it is never
+> scheduled after this point.
+> 
+> > Honestly, aside from these two comments, this looks quite good. I would
+> > suggest adding a GitLab CI job to exercise this, if nothing else, to
+> > serve as an integration point since multiple components are required for
+> > this to work.
+> 
+> I was considering this as well. Problem is that fuzzing should be
+> running for a prolonged periods of time. There is no clear consensus on
+> "how long", but most widely accepted time period is 24 hours. So looks
+> like it should be something like "nightly build" task. Fuzzer code
+> needs to be extended to support some runtime restriction, because right
+> now it runs indefinitely, until user stops it.
+
+We can let it run for 48 hours continuously every weekend using the
+Gitlab runners
+
+
+> I am certainly going to implement this, but this is a separate topic,
+> because it quires changes in the fuzzer app. Speaking on which... Right
+> now both fuzzer and test harness reside in our github repo, as you
+> noticed. I believe it is better to host it on xenbits as an official
+> part of the Xen Project.
+
+Yes we can create repos under gitlab.com/xen-project for this, maybe a
+new subgroup gitlab.com/xen-project/fuzzer
 
