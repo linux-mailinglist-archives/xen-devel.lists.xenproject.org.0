@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 498289D261D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 13:51:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840042.1255826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB2B9D2648
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2024 14:00:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840050.1255836 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDNhK-00074O-2U; Tue, 19 Nov 2024 12:51:14 +0000
+	id 1tDNp3-0007i8-Qw; Tue, 19 Nov 2024 12:59:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840042.1255826; Tue, 19 Nov 2024 12:51:14 +0000
+Received: by outflank-mailman (output) from mailman id 840050.1255836; Tue, 19 Nov 2024 12:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDNhJ-000720-VD; Tue, 19 Nov 2024 12:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 840042;
- Tue, 19 Nov 2024 12:51:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDNp3-0007f0-Na; Tue, 19 Nov 2024 12:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 840050;
+ Tue, 19 Nov 2024 12:59:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o1Xh=SO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tDNhI-00071u-BO
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 12:51:12 +0000
+ <SRS0=ydLn=SO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tDNp2-0007eu-Oi
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2024 12:59:12 +0000
 Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
  [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f26a2707-a674-11ef-99a3-01e77a169b0f;
- Tue, 19 Nov 2024 13:51:08 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 100ef3a0-a676-11ef-a0ca-8be0dac302b0;
+ Tue, 19 Nov 2024 13:59:07 +0100 (CET)
 Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5c9693dc739so4807298a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 04:51:08 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20df515e0sm643578866b.53.2024.11.19.04.51.07
+ 4fb4d7f45d1cf-5cef772621eso6989840a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2024 04:59:07 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5cfeada3353sm75194a12.78.2024.11.19.04.59.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2024 04:51:07 -0800 (PST)
+ Tue, 19 Nov 2024 04:59:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,81 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f26a2707-a674-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 100ef3a0-a676-11ef-a0ca-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzIiLCJoZWxvIjoibWFpbC1lZDEteDUzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImYyNmEyNzA3LWE2NzQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDIwNjY4LjcwMjQ5Miwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Custom-Transaction: eyJpZCI6IjEwMGVmM2EwLWE2NzYtMTFlZi1hMGNhLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDIxMTQ3Ljk3MzIyLCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732020668; x=1732625468; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0IKCBg8Wt8HGu2lHeJGsGH5/CDIw8fURbXvfftc4dac=;
-        b=gzhx5MuFj7mKFxz55CvycSN4qPZsvDfTT9mNe+UiHNQRRTJEVYceOTwWUsNieMajOY
-         eLCuLCrrL8nmXdIId8cAEzDyXyuYEJwAfBf/pjDojjnp9vJz+bvneJsnt7+Xutl6ydZw
-         DJYn90hJ6uh9aNZZuNEYm9vCBLYMdv4FrGmxk=
+        d=citrix.com; s=google; t=1732021147; x=1732625947; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=CxQenpaGaMzjrQymcJZ0umdG0FyNusdLvNQQSxeygiw=;
+        b=lyUz5uUWdTkw4m2jQyAtFlVQM4yACuiZbTl5ZEcfi+VgzfzX3GUQA2SqulRGK4JHQT
+         tDdy8ZnbRY3IkjHTuM8IZ5FI7UJePue4lo4LzViTuqoyH7+lTDaplBSK96z/N9DadKnt
+         IdPNqfC4nl5s8QljF4P0hIsesqR2A9rQF4VZU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732020668; x=1732625468;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0IKCBg8Wt8HGu2lHeJGsGH5/CDIw8fURbXvfftc4dac=;
-        b=vVa0XUakCI2D3aSfKQBA/yGvbK1hX4qx9yPOMaBq4BeqNHqisgfVMdXzXMdEa9nb+5
-         bRTKx8rCZrsr7kBgWpEzPYCCvCAOcCw5WhOwGdxR4lcoXKceOl02lRDESn6aJckFojKw
-         c4Y0lg8ApkvZSlzQjockrOGGKOx9DZknJgM0H8aLUWnGRkrrIMZTr0SMfNAQHU2Ji9Q3
-         +hBqkEXpD6I9Wp+Z989ZDTZ1/Omi3zvA8f35gOu+uE6fyCqMf/O4a/DenkeitF8wMK1b
-         hF9rKYH8AVG0jHm+zispQKOOgJIgjQWbOXseDH+3D3sYUgs8w/goRhLs5q8nOsOfEuj4
-         tStQ==
-X-Gm-Message-State: AOJu0Yxb4CNlyFRkI0kim555rAUz7ZEBEGBZ5FahQYVFC335LENZHLct
-	Xy8jugVSI8IEd9Ewecw9jMeXuhuUZKSFsDmX8CeyFi1j+3k0ovMcs0KjmYW3H9rbWaoixu/TzWZ
-	s
-X-Google-Smtp-Source: AGHT+IHlRtBm7ND14xz59rFrp5kNLLKad9h/NwRR7l5/uMbxTpWUyzHOmaOyPWkHw5Z5l7SfT/QhJA==
-X-Received: by 2002:a17:907:c22:b0:a99:77f0:51f7 with SMTP id a640c23a62f3a-aa48357dff1mr1406412366b.61.1732020668150;
-        Tue, 19 Nov 2024 04:51:08 -0800 (PST)
-Date: Tue, 19 Nov 2024 13:51:07 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] vpci: Add resizable bar support
-Message-ID: <ZzyJu9mrwJhDJClE@macbook>
-References: <20241113080027.244240-1-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1732021147; x=1732625947;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CxQenpaGaMzjrQymcJZ0umdG0FyNusdLvNQQSxeygiw=;
+        b=ZwPRt7Py2QaGPA3teZgc6GnsfpPk+a9Kqm1YDA56NALZKbdrydfclW8etDKOaCKxlN
+         P/+Lca/C/f0qk5mP/5v75zcKd6J/5X3DR1U7CdyGGKxQth1W0/L5j/nA+1nUWo5Uk+wn
+         rZRO70qpd1Yuw9ItPpZ28yykZKWhGiiLmwjKG9dud9TQB8K4AjoIAOAtBCpihtBdaMK9
+         TuQUlIXFzde1izIdzRkbPMU2+afveWP/xgRNyqbh7S+HB36EFbZRftj5zJi+UDbefHQ0
+         g+qZNvAJboL2WlMnAPlOfbNCqrsIxmY51H46GMg5tfaEaz2+l1lms6oswGN/rfzc8Xwn
+         dZVg==
+X-Gm-Message-State: AOJu0YxVGRNfhzyozjq9livV0N7Iwc1JGEVN85l3aO66/kX7nnNm8iQy
+	Hj7LjGrWd7wWpUnbC0Z99YsX8/6LKDVUjhE23DxF7pp4LijXpDG8O3YFau3gVVPxqoTYjmcKN5C
+	G
+X-Google-Smtp-Source: AGHT+IHV4dsppsIcjpFTHAMZ1qHqMhEcLzq0BcxZ0lzSwUGlsJk4kaAb1f+38ufL8k6/6pqJ0e8law==
+X-Received: by 2002:a05:6402:234d:b0:5cf:ac34:380a with SMTP id 4fb4d7f45d1cf-5cfac34390amr6856047a12.29.1732021146955;
+        Tue, 19 Nov 2024 04:59:06 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: [PATCH] x86/mce: Compile do_mca() for CONFIG_PV only
+Date: Tue, 19 Nov 2024 12:59:04 +0000
+Message-Id: <20241119125904.2681402-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241113080027.244240-1-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 13, 2024 at 04:00:27PM +0800, Jiqian Chen wrote:
-> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
-> +                                      unsigned int reg,
-> +                                      uint32_t val,
-> +                                      void *data)
-> +{
-> +    uint32_t ctrl, index;
-> +    struct vpci_bar *bars = pdev->vpci->header.bars;
-> +
-> +    ctrl = pci_conf_read32(pdev->sbdf, reg);
-> +    if ( ctrl == val )
-> +        return;
-> +
-> +    ctrl &= ~PCI_REBAR_CTRL_BAR_SIZE;
-> +    if ( ctrl != ( val & ~PCI_REBAR_CTRL_BAR_SIZE ) )
-> +        return;
-> +
-> +    index = ctrl & PCI_REBAR_CTRL_BAR_IDX;
-> +    bars[index].size = (1 << ((val & PCI_REBAR_CTRL_BAR_SIZE) >>
-> +                              PCI_REBAR_CTRL_BAR_SHIFT)) *
-> +                       PCI_REBAR_CTRL_BAR_UNIT;
+Eclair reports a Misra Rule 8.4 violation; that do_mca() can't see it's
+declaration.  It turns out that this is a consequence of do_mca() being
+PV-only, and the declaration being compiled out in !PV builds.
 
-One further comment: you also need to reset addr and guest_addr here
-(possibly by reading them from the BAR register), as the specification
-states that:
+Therefore, arrange for do_mca() to be compiled out in !PV builds.  This in
+turn requires a number of static functions to become static inline.
 
-"After writing the BAR Size field, the contents of the corresponding
-BAR are undefined"
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: consulting@bugseng.com <consulting@bugseng.com>
 
-Hence the cached addr and guest_addr are stale after a write to the
-control register.
+Bloat-o-meter on a !PV build reports:
 
-Thanks, Roger.
+  add/remove: 0/6 grow/shrink: 0/0 up/down: 0/-3717 (-3717)
+  Function                                     old     new   delta
+  x86_mc_mceinject                              31       -     -31
+  do_mca.cold                                  117       -    -117
+  x86_mc_msrinject                             147       -    -147
+  x86_mc_msrinject.cold                        230       -    -230
+  do_mc_get_cpu_info                           500       -    -500
+  do_mca                                      2692       -   -2692
+---
+ xen/arch/x86/cpu/mcheck/mce.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
+index 32c1b2756b90..2a88590525f0 100644
+--- a/xen/arch/x86/cpu/mcheck/mce.c
++++ b/xen/arch/x86/cpu/mcheck/mce.c
+@@ -932,7 +932,7 @@ void x86_mcinfo_dump(struct mc_info *mi)
+     } while ( 1 );
+ }
+ 
+-static void cf_check do_mc_get_cpu_info(void *v)
++static inline void cf_check do_mc_get_cpu_info(void *v)
+ {
+     int cpu = smp_processor_id();
+     int cindex, cpn;
+@@ -1114,7 +1114,7 @@ bool intpose_inval(unsigned int cpu_nr, uint64_t msr)
+      (r) <= MSR_IA32_MCx_MISC(per_cpu(nr_mce_banks, cpu) - 1) && \
+      ((r) - MSR_IA32_MC0_CTL) % 4) /* excludes MCi_CTL */
+ 
+-static bool x86_mc_msrinject_verify(struct xen_mc_msrinject *mci)
++static inline bool x86_mc_msrinject_verify(struct xen_mc_msrinject *mci)
+ {
+     const struct cpuinfo_x86 *c = &cpu_data[mci->mcinj_cpunr];
+     int i, errs = 0;
+@@ -1192,7 +1192,7 @@ static bool x86_mc_msrinject_verify(struct xen_mc_msrinject *mci)
+     return !errs;
+ }
+ 
+-static uint64_t x86_mc_hwcr_wren(void)
++static inline uint64_t x86_mc_hwcr_wren(void)
+ {
+     uint64_t old;
+ 
+@@ -1207,13 +1207,13 @@ static uint64_t x86_mc_hwcr_wren(void)
+     return old;
+ }
+ 
+-static void x86_mc_hwcr_wren_restore(uint64_t hwcr)
++static inline void x86_mc_hwcr_wren_restore(uint64_t hwcr)
+ {
+     if ( !(hwcr & K8_HWCR_MCi_STATUS_WREN) )
+         wrmsrl(MSR_K8_HWCR, hwcr);
+ }
+ 
+-static void cf_check x86_mc_msrinject(void *data)
++static inline void cf_check x86_mc_msrinject(void *data)
+ {
+     struct xen_mc_msrinject *mci = data;
+     struct mcinfo_msr *msr;
+@@ -1244,13 +1244,14 @@ static void cf_check x86_mc_msrinject(void *data)
+         x86_mc_hwcr_wren_restore(hwcr);
+ }
+ 
+-/*ARGSUSED*/
+-static void cf_check x86_mc_mceinject(void *data)
++static inline void cf_check x86_mc_mceinject(void *data)
+ {
+     printk("Simulating #MC on cpu %d\n", smp_processor_id());
+     __asm__ __volatile__("int $0x12");
+ }
+ 
++#ifdef CONFIG_PV /* do_mca() hypercall is PV-only */
++
+ #if BITS_PER_LONG == 64
+ 
+ #define ID2COOKIE(id) ((mctelem_cookie_t)(id))
+@@ -1654,6 +1655,8 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
+     return ret;
+ }
+ 
++#endif /* CONFIG_PV */
++
+ static int mcinfo_dumped;
+ 
+ static int cf_check x86_mcinfo_dump_panic(mctelem_cookie_t mctc)
+
+base-commit: 3128d7248f2ad389b8e9a3e252958cbfbd1898ee
+prerequisite-patch-id: 46b8fc2e9df2fd6be1bbbd6b50463e0e15a8f94d
+prerequisite-patch-id: c122b170f57ab96fe52c37aebf1f4bb366194637
+prerequisite-patch-id: 1c2d96bf17c5da0981b6c62939d3b7cc1e05933e
+prerequisite-patch-id: b3e43902729416e18b4fada7f529b4cb02b1815e
+prerequisite-patch-id: a06452180f71021893259bb3b883185f57742a31
+-- 
+2.39.5
+
 
