@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9048A9D39CA
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 12:46:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841069.1256588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBD99D3A3D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 13:07:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841091.1256599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDj9a-0004QS-Hq; Wed, 20 Nov 2024 11:45:50 +0000
+	id 1tDjU1-0008Bh-HT; Wed, 20 Nov 2024 12:06:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841069.1256588; Wed, 20 Nov 2024 11:45:50 +0000
+Received: by outflank-mailman (output) from mailman id 841091.1256599; Wed, 20 Nov 2024 12:06:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDj9a-0004Oz-F6; Wed, 20 Nov 2024 11:45:50 +0000
-Received: by outflank-mailman (input) for mailman id 841069;
- Wed, 20 Nov 2024 11:45:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tDjU1-00088Y-EO; Wed, 20 Nov 2024 12:06:57 +0000
+Received: by outflank-mailman (input) for mailman id 841091;
+ Wed, 20 Nov 2024 12:06:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8JZW=SP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tDj9Z-0004Ot-K8
- for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 11:45:49 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa187f19-a734-11ef-a0cb-8be0dac302b0;
- Wed, 20 Nov 2024 12:45:44 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5cfc19065ffso2398609a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 03:45:44 -0800 (PST)
+ id 1tDjTz-00088P-9F
+ for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 12:06:55 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec0a1f7a-a737-11ef-99a3-01e77a169b0f;
+ Wed, 20 Nov 2024 13:06:49 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a9aa8895facso360479166b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 04:06:49 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cff4502155sm755371a12.53.2024.11.20.03.45.43
+ a640c23a62f3a-aa20e081574sm764898166b.179.2024.11.20.04.06.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Nov 2024 03:45:43 -0800 (PST)
+ Wed, 20 Nov 2024 04:06:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa187f19-a734-11ef-a0cb-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmUiLCJoZWxvIjoibWFpbC1lZDEteDUyZS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImZhMTg3ZjE5LWE3MzQtMTFlZi1hMGNiLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMTAzMTQ0Ljk2Njk1NSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: ec0a1f7a-a737-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmQiLCJoZWxvIjoibWFpbC1lajEteDYyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImVjMGExZjdhLWE3MzctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTA0NDA5Ljg3OCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732103144; x=1732707944; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732104409; x=1732709209; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=l4QqAT9QYb/0rcRwuH6NbblO/Yrq97+qublWBnXh680=;
-        b=F/DtTYxb38JUkYrW4RRuKWOu086qicSXIMsNcV7OFFLTl5ykstK7VPKttGPBBslOQO
-         G6lvm2JDxeHnGXSlwleNnO1ZWToT6b/9GamuT2pNI1s/Bw6RSOikuyuvFH+S8UpO9Gs5
-         QAFnY9HvYq+uqjkwCgRhkfoUfrnc6rPPZ2JSQ=
+        bh=mZt4WzbXSGVnoNwUN9VSlqfqaDPaLVeH7dy3QiCAhSM=;
+        b=ktlD4hFHB/0UJICYMWGe5FZ6qL7Or4kYZUX1t6GmQEVATUkPNZVYydiMneDGf2Rper
+         YWzUd6o6xNuBxZutEjkdXY3tNB28xZrE0jWsk6jVzbekIUogEnE6TB5/YGkwdYz1VgYm
+         0nU8A78lOvQl+aw1Ps0vBkJVBLX2Y3uFmqmqc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732103144; x=1732707944;
+        d=1e100.net; s=20230601; t=1732104409; x=1732709209;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=l4QqAT9QYb/0rcRwuH6NbblO/Yrq97+qublWBnXh680=;
-        b=fiReSK/A2vCUspAizkT0YnJu8huQGuBN2vao1VNszbKRALjX7HM92HdTP1GP0GKNPf
-         RxuC5DhLqHu1rF1vO9uCrDr4nJco9BTp/qnFxObw/j64NDGv7ZdBYPeTXsGEfdqOZLwc
-         slpv9FUIZxf3OVjRpSY+bXZtCcmP1nqDQ4VLlqsy1mA7m0iRwZc+AavoefkqCm9j1sGK
-         gmbrt1HSt/5eDzxtO26kFBeyQQDFNf5IP9Qg13p6qe4LNCGM2xqaWGpt+Mjh+6Sid/PK
-         m62wXRkvgjxZYJ8KfVEWaVe1egYkaSeyFBPiDSd0A8KPxwmOS8GCGoRN2xepdouqgo0T
-         xUbA==
-X-Forwarded-Encrypted: i=1; AJvYcCWmvxeCSBYX2RMFdEhkqISLKwkD9BN3hN3gSK8jUdbks9OIrY0qhOg3PEvagIvY5WfV7d/wZimV5Uk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwgGKYmCSS3iVCbbsSJ2zc3Ohp8qfwmjB5zCXO38i/upPovoIdZ
-	CqhTnJFGoI9G0fj7LAdtGMyvTPuCiDcHgd5hEPa7A9DUlUenOMb3KBhIZ8mqRFQ=
-X-Gm-Gg: ASbGncugUiXhatTAPxG8g0X0FIM4WOeThG7oyTWQwBfSzuXDZFRcOa2ZE01PigoyEiM
-	HeZN31IosbzBqXLijZx8wK6EqiG28AbyWhCkzRzCMF1iAJ3guBFPoGOOQ95ZqUZ7txzYpG+j6jw
-	/2tUfAaeURTCTOKrII2JYICAuI2NJb3g0wL1sHvfsznj48r8niHgGKSj4pxLBFXHgO04EZ53lEv
-	ojqXWxUmTnj8i9GLbqxqqFyIKGmp9795i9TZ4nf7RycFFVrD41P/YROBfujy4w=
-X-Google-Smtp-Source: AGHT+IG09PPdFYjq1oBATAIfCf3gaEKUK66kW3XUdtL2qkZlcG8Ck4Riukr9Pudy3NUOYojLjOPFDA==
-X-Received: by 2002:a05:6402:2813:b0:5cf:8f10:44fb with SMTP id 4fb4d7f45d1cf-5cff4ce0abamr1711270a12.30.1732103144318;
-        Wed, 20 Nov 2024 03:45:44 -0800 (PST)
-Message-ID: <5fa8e6a1-ba06-4961-a067-5c6e2715dfef@citrix.com>
-Date: Wed, 20 Nov 2024 11:45:42 +0000
+        bh=mZt4WzbXSGVnoNwUN9VSlqfqaDPaLVeH7dy3QiCAhSM=;
+        b=Y4sPfrDyZfLsQql2twDU8JEyoKHbmak3YTL1kO6vZk8h0GI+nG4aSjXDhvqyR6NC5o
+         yAWjDwU+vUjsiCV8/tuhpysEIkwxWaMCfJopdFrrCboPc2JhJLn5G55/oYjBlsy+Nkd2
+         Q3/ocljqkqt25cUy61ke42d40y4pszU8WEgu8b2t1PB21fP02oh+WB16/58oPViioKv7
+         m/5Paob1A7MmwGGiuyaeeIBtvMSprU4PmJ0j7UmaztxdhG6w8/A2RN5jW1pLC19A979B
+         FvF+o/YKkUbuaAbn7uPagYQv99I7wuHAGcW9AV2J+eNjId+8XTyTetmFDA/S4orb2Vy2
+         cNlA==
+X-Forwarded-Encrypted: i=1; AJvYcCUXZq7CkNyCpMuczraANRzOsss2WaES8SSSqo/vgcreafVrdhLfctbedRlBKhj3pGAt3m6di5cVFFM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzlBouXGZn/Ov2crrXf3GCgVeCAnKsm8h/msR71Xme0JNOX0QFB
+	1a/kgcgdZbS/pa1/Umiw6cMI4PGuII9e7bAmetlHNMoeqDeG7CLpEa4GbvdaYb4=
+X-Google-Smtp-Source: AGHT+IEg/HBXjv7Am1nQjxuwlRsP5bNrV133PGOyz6ldIWjfu6UCvLmf+Vz1v937XiwwRzm2a5VIog==
+X-Received: by 2002:a17:906:ef03:b0:aa4:a810:79c2 with SMTP id a640c23a62f3a-aa4dd57ce42mr239737466b.31.1732104409280;
+        Wed, 20 Nov 2024 04:06:49 -0800 (PST)
+Message-ID: <b9772a66-ee5f-4cfc-ae55-8d53788f8456@citrix.com>
+Date: Wed, 20 Nov 2024 12:06:46 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/pvh: also print hardware domain pIRQ limit for
- PVH
+Subject: Re: [PATCH 1/2] x86/irq: fix calculation of max PV dom0 pIRQs
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>
 References: <20241120113555.38146-1-roger.pau@citrix.com>
- <20241120113555.38146-3-roger.pau@citrix.com>
+ <20241120113555.38146-2-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,17 +130,28 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241120113555.38146-3-roger.pau@citrix.com>
+In-Reply-To: <20241120113555.38146-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 20/11/2024 11:35 am, Roger Pau Monne wrote:
-> Do not return early in the PVH/HVM case, so that the number of pIRQs is also
-> printed.
+> The current calculation of PV dom0 pIRQs uses:
 >
-> Fixes: 17f6d398f765 ('cmdline: document and enforce "extra_guest_irqs" upper bounds')
+> n = min(fls(num_present_cpus()), dom0_max_vcpus());
+>
+> The usage of fls() is wrong, as num_present_cpus() already returns the number
+> of present CPUs, not the bitmap mask of CPUs.
+>
+> Fix by removing the usage of fls().
+>
+> Fixes: 7e73a6e7f12a ('have architectures specify the number of PIRQs a hardware domain gets')
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Yeah, that fls() fails the dimensional analysis sniff test.
 
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Is there any hint as to what the reasoning was?
+
+~Andrew
 
