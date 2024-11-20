@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B70769D3647
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 10:02:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.840957.1256478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CB8B9D37C1
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 11:00:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.840969.1256488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDgb6-0002bf-Vj; Wed, 20 Nov 2024 09:02:04 +0000
+	id 1tDhV7-0001QN-0l; Wed, 20 Nov 2024 09:59:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 840957.1256478; Wed, 20 Nov 2024 09:02:04 +0000
+Received: by outflank-mailman (output) from mailman id 840969.1256488; Wed, 20 Nov 2024 09:59:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDgb6-0002aC-Sp; Wed, 20 Nov 2024 09:02:04 +0000
-Received: by outflank-mailman (input) for mailman id 840957;
- Wed, 20 Nov 2024 09:02:03 +0000
+	id 1tDhV6-0001NV-TP; Wed, 20 Nov 2024 09:59:56 +0000
+Received: by outflank-mailman (input) for mailman id 840969;
+ Wed, 20 Nov 2024 09:59:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E1p6=SP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tDgb5-0002a4-0i
- for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 09:02:03 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Fky=SP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tDhV5-0001NP-3v
+ for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 09:59:55 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 184bc2dc-a71e-11ef-99a3-01e77a169b0f;
- Wed, 20 Nov 2024 10:01:57 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5cffb4d7d9dso242267a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 01:01:57 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e048f12sm742539466b.173.2024.11.20.01.01.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Nov 2024 01:01:55 -0800 (PST)
+ id 2e99242a-a726-11ef-99a3-01e77a169b0f;
+ Wed, 20 Nov 2024 10:59:50 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-38248b810ffso1298022f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 01:59:50 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3825490529fsm1646537f8f.4.2024.11.20.01.59.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Nov 2024 01:59:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,231 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 184bc2dc-a71e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmQiLCJoZWxvIjoibWFpbC1lZDEteDUyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjE4NGJjMmRjLWE3MWUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDkzMzE3LjIyNTA0NSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 2e99242a-a726-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmMiLCJoZWxvIjoibWFpbC13cjEteDQyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjJlOTkyNDJhLWE3MjYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDk2NzkwLjYxNzk1OCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732093316; x=1732698116; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/LgngNeKwC27cPz0lxxyz3TNcUMAaxfAOjCXqTyQA3s=;
-        b=KtYp0TDftxPXokpsTskVpO1bYxb1VB4Ijp3ph8R1nTOiKZM1vc+DQYEhTpPIgRSU1/
-         TbQUFkVpakxP+xYTk9E9WkdoGF05NADv1aQEKnIPWKIctXU/7XacNjpyH0hDaTg+vIVU
-         bwERycK0H6FLDft5A9LRSUF3gtsEUet87UaMo=
+        d=suse.com; s=google; t=1732096790; x=1732701590; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Af2hnQ+JZB567IdlSSYwS6xLyLikGdFms2r2dlJMcSI=;
+        b=fAk0BN60xtaZnGaVbTPF22rztsht/zQ3ycjJwdzRjt4FkQkL7h6lu/dZY280wvYQMn
+         9L/7dzawFT6u5Z12iDwr2VUAYoJz2cTYEXqTO2x6cox8mNUOSVkXL/ZAou7tfW3qqb8h
+         S/VQzqidh/nT2uvaQszcaffzLbqDgFk0f0qNZdCghDiSJTc++MJ3wgwUFZXGeXTjNdW5
+         dhTIO3PqxWzQfY4YwZsZbGM3jsMCVo6XRee6CJokwnNFc4G8iYCKVbLdlcQO1a/gJysa
+         CKPZo6fKGayOSQ36KvXj2+aqjx6g1eooTyaaZsx4h86iBOGDKeCiWIz6y2S1z2FlafCK
+         OAOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732093316; x=1732698116;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/LgngNeKwC27cPz0lxxyz3TNcUMAaxfAOjCXqTyQA3s=;
-        b=jx+I/J1aaQpoB+0KOoU9ZfPpva2V/USKEzxpZjw0vuK/kIp2zPoSgxEhD2SfINW0gs
-         Km7bjrZ6r2LF90BZOMcfxfIrcj/SnP9XQR8qGjpM6WVIfxPeo9x5Yz/nMWU8g9svzV0q
-         jo2i6StjKE6zio3X4mqvmAWFWxAnniYnqy1P+BhTtiQ0bgPY9+az3P8R2RTZgkSGm386
-         jnvoINW+OYe2uOkrySMUw85ZI4epcnXWEx2I2o5pJcBFux5I2id/cdXXrvX45ADdHsc1
-         nu54JjcUf2ipE6eoVfv9mi/HDG6aVfZW3RfI1lvycr8jS1MUfIKkEm9cFoTynis8gTRq
-         rCXQ==
-X-Gm-Message-State: AOJu0Yz9Cg/dwAfBIdG3Jsmo+4RLH5O+Q9HC9xXDBuRL40Cwgba8GXi/
-	HHbF9FdiFkPyJ5yNcUgTviVQptfWZI5im89uTsnL2P4xOaJNfTxukHV0TE9UBF6mTbNySR+psnX
-	B
-X-Google-Smtp-Source: AGHT+IEfuvQcE4K1Mu8x7+ZwbXPnwWMt6m0/fi2E+HqN+2mfIAqwjK3HZAU3v9xOE6Os6GfSQSaz8w==
-X-Received: by 2002:a17:907:9617:b0:a9e:e1a5:9746 with SMTP id a640c23a62f3a-aa4dd6b3c39mr158358566b.34.1732093316523;
-        Wed, 20 Nov 2024 01:01:56 -0800 (PST)
-Date: Wed, 20 Nov 2024 10:01:54 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] vpci: Add resizable bar support
-Message-ID: <Zz2lgkjgRoZ7Sr5Q@macbook>
-References: <BL1PR12MB5849AB0F258C07AD72EFDB29E75A2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzR_wlY0wXjqec8T@macbook>
- <BL1PR12MB5849F0606930076AC8CC66ADE75B2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzYcskZ-GZ8HsXfU@macbook>
- <ZzY1O-zrcWB6Ra3q@macbook>
- <BL1PR12MB5849FC8077C7C6035F1D3E15E7242@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzczqznFbixk3Vfu@macbook>
- <BL1PR12MB5849894360DB8D96073AB21EE7272@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzyIk0KipX8LPZNv@macbook>
- <BL1PR12MB5849FC514034CDFC2F68BA6FE7212@BL1PR12MB5849.namprd12.prod.outlook.com>
+        d=1e100.net; s=20230601; t=1732096790; x=1732701590;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Af2hnQ+JZB567IdlSSYwS6xLyLikGdFms2r2dlJMcSI=;
+        b=tHu3vpFtXUq2HEu64ikJsFV8R3wf3GyPx5qPAGIiyHAjxMrGordbyKG1sFiNsthRuv
+         aUTggv1TNQcYh4FbdeGQ65Lp0d+aT4Do9NflzP2Z9XSWtcuR4dzh29DTxQ1Tw/mbXbse
+         B7p/LPbNIwhV37ufAyxqCVYXuO+IXy+aX/FPV1fOeyWiuCMYKf293LWd4BG0VbzEoD43
+         UYDfB6s44LgMasMcOnqIrvN79BKp2reVMSoNg3FyTpo5JhNxXjwAqCixl/x0qUjGwD2l
+         Cct3IspbuuAy4Ne13uuBDzcO4mtMZet2zgAmJ6exblg6P8EJ77j4q6C6Kd6CvV740Cxt
+         Jh2g==
+X-Forwarded-Encrypted: i=1; AJvYcCVN0ZM/y7DWp2BN7+GyDT08g2S0ByDMntrg1zTL/H8aE2b3iEksGOitt6TlExIEdhCZB3aZP24Aj5c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJrwCoIE/ZwcXydcOtq0qF+CGLrqzwAUu5L/CuYGOdJQys3Ya+
+	Xa/I8pfWDPNoY8NDEXBNntlFq43/7JL0byyTiRfx18Y9XvM1nKV29kWF4r/WKQ==
+X-Google-Smtp-Source: AGHT+IF1PyP2rjNDS6BD34lSoKQkj6gHXdrf+S+w/tybg78EacFP3QF65bexwxZ6L4NnKmJWbrm/7w==
+X-Received: by 2002:a05:6000:2a83:b0:382:46d2:52ae with SMTP id ffacd0b85a97d-38254af4f9bmr1201201f8f.21.1732096789960;
+        Wed, 20 Nov 2024 01:59:49 -0800 (PST)
+Message-ID: <a414bde4-54fe-4be3-8ab5-98f04d3eaaa0@suse.com>
+Date: Wed, 20 Nov 2024 10:59:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mce: Compile do_mca() for CONFIG_PV only
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241119125904.2681402-1-andrew.cooper3@citrix.com>
+ <d92cf59a-a798-4223-9439-85ae215b7daa@suse.com>
+ <00fa3d65-d598-474f-b9ee-7b63db2d3b40@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <00fa3d65-d598-474f-b9ee-7b63db2d3b40@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <BL1PR12MB5849FC514034CDFC2F68BA6FE7212@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On Wed, Nov 20, 2024 at 03:01:57AM +0000, Chen, Jiqian wrote:
-> On 2024/11/19 20:46, Roger Pau Monné wrote:
-> > On Mon, Nov 18, 2024 at 06:06:03AM +0000, Chen, Jiqian wrote:
-> >> On 2024/11/15 19:42, Roger Pau Monné wrote:
-> >>> On Fri, Nov 15, 2024 at 03:04:22AM +0000, Chen, Jiqian wrote:
-> >>>> On 2024/11/15 01:36, Roger Pau Monné wrote:
-> >>>>> On Thu, Nov 14, 2024 at 04:52:18PM +0100, Roger Pau Monné wrote:
-> >>>>>> On Thu, Nov 14, 2024 at 06:11:46AM +0000, Chen, Jiqian wrote:
-> >>>>>>> On 2024/11/13 18:30, Roger Pau Monné wrote:
-> >>>>>>>> On Wed, Nov 13, 2024 at 10:00:33AM +0000, Chen, Jiqian wrote:
-> >>>>>>>>> On 2024/11/13 17:30, Roger Pau Monné wrote:
-> >>>>>>>>>> On Wed, Nov 13, 2024 at 04:00:27PM +0800, Jiqian Chen wrote:
-> >>>>>>>>>>> Some devices, like discrete GPU of amd, support resizable bar capability,
-> >>>>>>>>>>> but vpci of Xen doesn't support this feature, so they fail to resize bars
-> >>>>>>>>>>> and then cause probing failure.
-> >>>>>>>>>>>
-> >>>>>>>>>>> According to PCIe spec, each bar that support resizing has two registers,
-> >>>>>>>>>>> PCI_REBAR_CAP and PCI_REBAR_CTRL, so add these two registers and their
-> >>>>>>>>>>> corresponding handler into vpci.
-> >>>>>>>>>>>
-> >>>>>>>>>>> PCI_REBAR_CAP is RO, only provide reading.
-> >>>>>>>>>>>
-> >>>>>>>>>>> PCI_REBAR_CTRL only has bar size is RW, so add write function to support
-> >>>>>>>>>>> setting the new size.
-> >>>>>>>>>>
-> >>>>>>>>>> I think the logic to handle resizable BAR could be much simpler.  Some
-> >>>>>>>>>> time ago I've made a patch to add support for it, but due to lack of
-> >>>>>>>>>> hardware on my side to test it I've never submitted it.
-> >>>>>>>>>>
-> >>>>>>>>>> My approach would be to detect the presence of the
-> >>>>>>>>>> PCI_EXT_CAP_ID_REBAR capability in init_header(), and if the
-> >>>>>>>>>> capability is present force the sizing of BARs each time they are
-> >>>>>>>>>> mapped in modify_bars().  I don't think we need to trap accesses to
-> >>>>>>>>>> the capability itself, as resizing can only happen when memory
-> >>>>>>>>>> decoding is not enabled for the device.  It's enough to fetch the size
-> >>>>>>>>>> of the BARs ahead of each enabling of memory decoding.
-> >>>>>>>>>>
-> >>>>>>>>>> Note that memory decoding implies mapping the BARs into the p2m, which
-> >>>>>>>>>> is already an expensive operation, the extra sizing is unlikely to
-> >>>>>>>>>> make much of a difference performance wise.
-> >>>>>>>>>>
-> >>>>>>>>>> I've found the following on my git tree and rebased on top of staging:
-> >>>>>>>>> OK.
-> >>>>>>>>> Do you need me to validate your patch in my environment?
-> >>>>>>>>
-> >>>>>>>> Yes please, I have no way to test it.  Let's see what others think
-> >>>>>>>> about the different approaches.
-> >>>>>>> There are some errors with your method.
-> >>>>>>> I attached the dmesg and xl dmesg logs.
-> >>>>>>> From the dmesg logs, it seems that 0000:03:00.0 has addresse overlap with 0000:03:00.1
-> >>>>>>
-> >>>>>> Do you have the output of lspci with the BAR sizes/positions before
-> >>>>>> and after the resizing?
-> >>>>>>
-> >>>>>>>
-> >>>>>>> I think there is a place that needs to be modified regarding your method,
-> >>>>>>> although this modification does not help with the above-mentioned errors,
-> >>>>>>> it is that whether to support resizing is specific to which bar, rather than just determining whether there is a Rebar capability.
-> >>>>>>
-> >>>>>> Do we really need such fine-grained information?  It should be
-> >>>>>> harmless (even if not strictly necessary) to size all BARs on the
-> >>>>>> device before enabling memory decoding, even if some of them do not
-> >>>>>> support resizing.
-> >>>>>>
-> >>>>>> I might have to provide a patch with additional messages to see what's
-> >>>>>> going on.
-> >>>>>
-> >>>>> One nit that I've noticed with the patch I gave you previously is that
-> >>>>> the check for a size change in modify_bars() should be done ahead of
-> >>>>> pci_check_bar(), otherwise the check is possibly using an outdated
-> >>>>> size.
-> >>>>>
-> >>>>> I've also added a debug message to notify when a BAR register is
-> >>>>> written and report the new address.  This is done unconditionally, but
-> >>>>> if you think it's too chatty you can limit to only printing for the
-> >>>>> device that has the ReBAR capability.
-> >>>> Errors are the same.
-> >>>> Attached the dmesg, xl dmesg, patch and lspci output.
-> >>>> I will also continue to debug your method on my side to try to get some findings.
-> >>>
-> >>> Hello,
-> >>>
-> >>> I've been looking at the output, and it all seems fine, except the
-> >>> 03:00.0 device that becomes broken at some point, note the lspci
-> >>> output lists [virtual] next to the resource sizes.  This means reading
-> >>> for the registers returned 0, so the position and sizes are provided
-> >>> from the internal OS information.
-> >>>
-> >>> I'm assuming the patch you sent to the list doesn't lead to such errors,
-> >> Yes, the method of my patch doesn't lead to any errors.
-> >> I attached the dmesg, xl dmesg and lspci logs of my method.
-> >>
-> >>> in which case I can only guess that fetching the size of the
-> >>> BARs in modify_bars() causes issues with the device.
-> >>>
-> >>> To confirm this, can you try the following patch on top of your original change?  
-> >> I tried below patch with my original patch, it didn't cause any errors.
-> >> And the lspci showed without the "[virtual]".
-> >> So, unfortunately, it is not related to the fetching size of Bars in modify_bars().
-> > 
-> > I see, I'm at a loss as to what's wrong with my patch.  Do you have
-> > any additional patches on Xen when testing your or my approach?
-> No, just my patch or your patch, base on upstream codes(kernel branch is linux-next and xen branch is staging).
+On 19.11.2024 19:22, Andrew Cooper wrote:
+> On 19/11/2024 2:34 pm, Jan Beulich wrote:
+>> On 19.11.2024 13:59, Andrew Cooper wrote:
+>>> Eclair reports a Misra Rule 8.4 violation; that do_mca() can't see it's
+>>> declaration.  It turns out that this is a consequence of do_mca() being
+>>> PV-only, and the declaration being compiled out in !PV builds.
+>>>
+>>> Therefore, arrange for do_mca() to be compiled out in !PV builds.  This in
+>>> turn requires a number of static functions to become static inline.
+>> Which generally we advocate against.
 > 
-> > 
-> > I sadly don't have any box with a PCI device that exposes the
-> > resizable BAR capability, so I'm not able to test or debug this.
-> > 
-> > I would like to understand why my approach doesn't work, as otherwise
-> > I feel like I'm missing how ReBAR is supposed to work.  Anyway, if you
-> > can give a try to the diff below, it's the same patch, but with yet
-> > even more debug messages added.
-> Attached the xl dmesg.
+> It's `static inline` or `static __maybe_unused`, but I refer you to to
+> the Matrix conversation on June 24th on the matter.
+
+Well, and the outcome was __maybe_unused there. For consistency I'd therefore
+like to ask that you use __maybe_unused then here, too.
+
+As an aside, it would have helped if you had said which channel that discussion
+had been on. Scrolling back this far sadly doesn't work very nicely on the
+element.io interface (or I simply don't know how to make it go to a specific
+date), and I ended up trying XenDevel, then the committers channel, and only
+then the x86 one.
+
+>>  The #ifdef variant you pointed at on
+>> Matrix wasn't all that bad.
 > 
-> > 
-> > Thanks, and sorry for keeping you testing it.
-> That's fine, feel free to send me if you need more test information.
-> Actually I am still continuing to debug your patch and also curious about why your patch does not work.
+> It worked as a test, but ifdefary like that is a maintenance nightmare.
 > 
-> The only difference between our methods is the timing of updating the size.
-> Yours is later than mine because you updated the size when the driver re-enabled memory decoding, while I updated the size in time when driver resize it.
+>>  Plus ...
+>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: consulting@bugseng.com <consulting@bugseng.com>
+>>>
+>>> Bloat-o-meter on a !PV build reports:
+>>>
+>>>   add/remove: 0/6 grow/shrink: 0/0 up/down: 0/-3717 (-3717)
+>>>   Function                                     old     new   delta
+>>>   x86_mc_mceinject                              31       -     -31
+>>>   do_mca.cold                                  117       -    -117
+>>>   x86_mc_msrinject                             147       -    -147
+>>>   x86_mc_msrinject.cold                        230       -    -230
+>>>   do_mc_get_cpu_info                           500       -    -500
+>>>   do_mca                                      2692       -   -2692
+>> ... what's the effect of the addition of "inline" on a PV=y build? By
+>> using the keyword, we may end up talking the compiler into inlining of
+>> code that better wouldn't be inlined.
+> 
+> xen.git/xen$ ../scripts/bloat-o-meter xen-syms-{before,after}
+> add/remove: 0/0 grow/shrink: 0/0 up/down: 0/0 (0)
+> Function                                     old     new   delta
+> Total: Before=3901801, After=3901801, chg +0.00%
+> xen.git/xen$ diff -u dis-{before,after}
+> --- dis-before    2024-11-19 18:08:02.284091931 +0000
+> +++ dis-after    2024-11-19 18:08:24.491035756 +0000
+> @@ -1,5 +1,5 @@
+>  
+> -xen-syms-before:     file format elf64-x86-64
+> +xen-syms-after:     file format elf64-x86-64
+>  
+>  
+>  Disassembly of section .text:
+> 
+> xen.git/xen$
 
-Indeed, my last guess is the stale cached size is somehow used in my
-approach, and that leads to the failures.  One last (possibly dummy?)
-thing to try might be to use your patch to detect writes to the resize
-control register, but update the BAR sizes in modify_bars(), while
-keeping the traces of when the operations happen.
+Good. Preferably with __maybe_unused
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> I suspect that the driver or hypervisor may have done something in between and read outdated information.
-> I am debugging the driver codes.
-
-Thanks for doing this.
-
-I have a couple of side unrelated notes, something I've noticed from
-the trace you provided, taking device 0000:03:00.1 as an example:
-
-(XEN) 0000:03:00.1: modify bars cmd: 0 rom_only: 0
-(XEN) 0000:03:00.1: write BAR0 val: 0xfffffff0 BAR0 address: 0xfffffff0
-(XEN) 0000:03:00.1: write BAR0 val: 0xd0700000 BAR0 address: 0xd0700000
-(XEN) 0000:03:00.1: modify bars cmd: 3 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 0 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 3 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 0 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 3 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 0 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 3 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 0 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 3 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 0 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 3 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 0 rom_only: 0
-(XEN) 0000:03:00.1: modify bars cmd: 3 rom_only: 0
-(XEN) PCI add device 0000:03:00.1
-
-Linux toggles memory decoding individually for sizing each BAR.  This
-is very costly when running virtualized (as least on Xen), as toggling
-the memory decoding bit implies tearing down or creating p2m mappings
-for all the BARs of the device.  It would be much better if Linux
-toggled memory decoding, sized all the BARs of the device, and then
-enabled memory decoding again.  If done that way you could probably
-reduce boot time of Linux PVH dom0 noticeably.
-
-Secondly, the call to "PCI add device" is too late.  It works now
-because Xen scans for PCI devices, so those are already known and
-setup by Xen.  But if it's a hotplug device (or a device that somehow
-is not discovered by Xen at boot), doing the PHYSDEVOP_pci_device_add
-hypercall after sizing the device is wrong, the hypercall should be
-done ahead of Linux interacting with the device in any meaningful way.
-The checks done for device discovery are fine are obviously fine to be
-done ahead of the PHYSDEVOP_pci_device_add call.
-
-Thanks, Roger.
+Jan
 
