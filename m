@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49BD99D387E
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 11:36:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841003.1256518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD43B9D3898
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 11:44:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841012.1256527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDi4M-000848-A9; Wed, 20 Nov 2024 10:36:22 +0000
+	id 1tDiBv-0001YC-0r; Wed, 20 Nov 2024 10:44:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841003.1256518; Wed, 20 Nov 2024 10:36:22 +0000
+Received: by outflank-mailman (output) from mailman id 841012.1256527; Wed, 20 Nov 2024 10:44:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDi4M-00081m-7C; Wed, 20 Nov 2024 10:36:22 +0000
-Received: by outflank-mailman (input) for mailman id 841003;
- Wed, 20 Nov 2024 10:36:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uiNg=SP=bounce.vates.tech=bounce-md_30504962.673dbb9d.v1-5b22aaac3f6847c9ac33542cd5e1380b@srs-se1.protection.inumbo.net>)
- id 1tDi4K-00081g-LZ
- for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 10:36:20 +0000
-Received: from mail180-8.suw31.mandrillapp.com
- (mail180-8.suw31.mandrillapp.com [198.2.180.8])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4434438a-a72b-11ef-a0cb-8be0dac302b0;
- Wed, 20 Nov 2024 11:36:15 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-8.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4Xtd7d1WX9z3sPRqZ
- for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 10:36:13 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 5b22aaac3f6847c9ac33542cd5e1380b; Wed, 20 Nov 2024 10:36:13 +0000
+	id 1tDiBu-0001WA-UR; Wed, 20 Nov 2024 10:44:10 +0000
+Received: by outflank-mailman (input) for mailman id 841012;
+ Wed, 20 Nov 2024 10:44:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Fky=SP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tDiBt-0001W4-5G
+ for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 10:44:09 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5cfca258-a72c-11ef-99a3-01e77a169b0f;
+ Wed, 20 Nov 2024 11:44:05 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-539f1292a9bso2373790e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 02:44:05 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-433b45d178esm14542145e9.8.2024.11.20.02.44.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Nov 2024 02:44:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4434438a-a72b-11ef-a0cb-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE4MC44IiwiaGVsbyI6Im1haWwxODAtOC5zdXczMS5tYW5kcmlsbGFwcC5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6IjQ0MzQ0MzhhLWE3MmItMTFlZi1hMGNiLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMDk4OTc1LjE0ODE1OCwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3M2RiYjlkLnYxLTViMjJhYWFjM2Y2ODQ3YzlhYzMzNTQyY2Q1ZTEzODBiQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1732098973; x=1732359473;
-	bh=CTl+oQL607saCMY7it/Nb12fMfn5nfirlTEQZcHciXQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=TffVtotLeaQQhLMAYGtSzmZjhFGs976s3bEhMOa3XgYXQpfMF00t1Hsn260Yh7c1z
-	 QSLtK97L4YLzH/f/6ceNtW53R4++dIrI9CH3JGcToYxEM947qD+8TXlzLvkKO4OoyV
-	 x4hDkApq6yK7kq4HMYf9cw5XBLWkdb1I/PEwSifEkQAjBj3arZljQfbpSbW15rGE3p
-	 pwSRebJYmSNWPqsSfIFN8i0mK1+pSqBVPZrn+TxYEGesNvfjePrlHorsYFYdlEGt3V
-	 LO/ojCILgAYQN7OCj5D8K3y/ob3SoPXeRGGLBfyDzBkq57gOveym8Gq+5hXDIjhWMF
-	 jGAvkpIFgeQ/g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1732098973; x=1732359473; i=anthony.perard@vates.tech;
-	bh=CTl+oQL607saCMY7it/Nb12fMfn5nfirlTEQZcHciXQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=1LY4nGzwLbuFpUy1StucxD1NW4jUjJsfGn5yFfMIEaHAJw4y+P2Ta6AoB0iTZ9kIl
-	 Qwqo8I6SA0KDBIldUJSE2dlPol78VAnkf2S/icaegdLdK4JxTTkXGAUQvNE1g9jniD
-	 tQ7UjRyt4o/AhNOhK5hVMOua/BInMgv4Tph8qQHTR0dPlS1lhbglMvZ2kFw/X6xbS6
-	 m+cpZvvyFakCmj9Tqu8bJOigrqnEXS//t5PJYH9PNQX5DtAvY88F5BYzKtnXyGULU0
-	 fj2ZS0ipnYp3XRm6hJxOzQEUNC6a84/jnIMGi8DhUguSzEISKePOqbV1o79n+b6tA0
-	 kcYP98YC/IjXw==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v2=203/3]=20CI:=20New=20stage=20"containers"=20to=20rebuild=20some=20containers?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1732098971823
-To: "Stefano Stabellini" <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Doug Goldstein" <cardoe@cardoe.com>, committers@xenproject.org
-Message-Id: <Zz27m452NC9gDlWo@l14>
-References: <20241119101449.49747-1-anthony.perard@vates.tech> <20241119101449.49747-4-anthony.perard@vates.tech> <alpine.DEB.2.22.394.2411191347100.1160299@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2411191347100.1160299@ubuntu-linux-20-04-desktop>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.5b22aaac3f6847c9ac33542cd5e1380b?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241120:md
-Date: Wed, 20 Nov 2024 10:36:13 +0000
+X-Inumbo-ID: 5cfca258-a72c-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzQiLCJoZWxvIjoibWFpbC1sZjEteDEzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjVjZmNhMjU4LWE3MmMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMDk5NDQ1LjM0NTk1Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1732099445; x=1732704245; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AVb9RqPJ6u+aeso1HssXLb7aeoNWaj+KGHtJlU0nEpc=;
+        b=AojjPxjpUmab8eQFjkDvlBlAot7fF7Mum/vYD8MMWWxelSgPBBLJsfdovXPF1+XmLL
+         jm7Z7prIOSvvR9rFlsj95NT6YkmFMr5RMqkp1bD5YixMc58J+Vk9QM2CA+7EMD6BGB6t
+         rfXd6dV9LBJho67duqqaOE0hOelviskB1cAJBDA4C3mHpajb3gnBYQwIorOtJBlSJ1i4
+         HkNFxEQ4wkXfH1sOVU0QWEqTxO6DUc6AZ+28n8Glofbic1VW8mHmsoSTm2G+Pcjtfvvh
+         ERsoDEUoxc+0KESmDLS4RFw0fiSM8Qxfd3Wz5fyRcdD+c30EEqbfPg8/10+5M/nFxBdl
+         Lb5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732099445; x=1732704245;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AVb9RqPJ6u+aeso1HssXLb7aeoNWaj+KGHtJlU0nEpc=;
+        b=kCzfT0JNAtU/UXeHOWAD1vMelmH62JKjH/iKpLoAi1OpPhbMQk9BwtdnhwXwgkagcz
+         GBr80pYbujQXnIpWFVz4XPww7HPFztX6CGrFMNSgLoqLvXBRxtdxkAj1FGrRue/B32W6
+         PIrqkS8ZvVk0lU1qfkl8azB3zRwGGfrIuTQ1K9xpMI6qqFBB0eQKaKbbD+TorUZOqXzl
+         wSt+EKIlzZ2HB484FZVEoqrhPjZK9wuTHoD6JIEVAjBTfMkBr8hN/hNE33TT0hC7TT6/
+         PsFQmAA3zn5vWJ1e9S3z00lza6lf/kGIpMkGB40fkfqQND5s7yEAJGMbXdp5PVOrsAGd
+         ezrg==
+X-Forwarded-Encrypted: i=1; AJvYcCVkrcdOjDDKhl4QEmSALcEOrvAdvb1Th3jRryixr136KtsHfs8EqSj69scrE4OcWFZH+qH4+/ghIwI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+13AGLo7vHFcySFiydMri63lsUwLhEDVnSN3QqqgRxVP4Pjb2
+	IMf6sr9NTUxTu6/bFUJTNDdT5+/G4iQdeWrcSmuNCI+90JmTDVtfcZrowfcaZjFbJ0M7q9ataaA
+	=
+X-Google-Smtp-Source: AGHT+IEaq0iW3IZGrLgPpx0+AMedGpJ/Ax0lOFS2wMOi973frHxR/pIDQmnNeEhIkXp3EN01YGuLZA==
+X-Received: by 2002:a05:6512:3d8f:b0:53d:ab15:1aee with SMTP id 2adb3069b0e04-53dc136dc37mr915879e87.49.1732099444582;
+        Wed, 20 Nov 2024 02:44:04 -0800 (PST)
+Message-ID: <7ffe1d78-188b-495b-914a-663181d9faa8@suse.com>
+Date: Wed, 20 Nov 2024 11:44:02 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Load microcode much earlier on boot
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241119215708.2890691-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241119215708.2890691-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 19, 2024 at 01:47:16PM -0800, Stefano Stabellini wrote:
-> On Tue, 19 Nov 2024, Anthony PERARD wrote:
-> > Rebuild rolling release containers when XEN_CI_REBUILD_CONTAINERS is
-> > set. This is to be use with a scheduled pipeline.
-> > 
-> > Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+On 19.11.2024 22:57, Andrew Cooper wrote:
+> Following commit cd7cc5320bb2 ("x86/boot: add start and size fields to struct
+> boot_module"), bootstrap_map*() works as soon as boot_info is populated.
 
-Thanks!
+I'm struggling with following where this connection is coming from. Before
+Daniel's work (e.g. in 4.19) we have
 
-I've scheduled a pipeline to run once a month so the Arch Linux and
-Tumbleweed containers we'll get rebuilt regularly. Both container are
-already up-to-date because I failed to use a different registry during
-one of my test, but the build-jobs still works.
+    if ( pvh_boot )
+    {
+        ASSERT(mbi_p == 0);
+        pvh_init(&mbi, &mod);
+    }
+    else
+    {
+        mbi = __va(mbi_p);
+        mod = __va(mbi->mods_addr);
+    }
 
-Cheers,
+Leaving aside the issue with the PVH side, what would have stood in the way
+of accessing any of the modules (e.g. ucode) right afterwards?
 
--- 
+The question is also relevant when considering the potential need for
+backporting this functionality (even if not directly this change, as the
+dependency on Daniel's work would then need stripping off): There might
+conceivably be a point where for security needs way may need to have this
+as early as you now put it.
 
-Anthony Perard | Vates XCP-ng Developer
+> Resolve the todo, and move microcode loading to be the eariest action after
+> establishing a console.
 
-XCP-ng & Xen Orchestra - Vates solutions
+So yes, this is merely strengthening a dependency we already have:
+bootstrap_map_addr() arranging to avoid allocating any page table memory.
+Yet don't we rather need to move away from this? We don't know what's in
+the excess space we map, and hence we better wouldn't have any (cachable)
+mappings thereof.
 
-web: https://vates.tech
+Jan
 
