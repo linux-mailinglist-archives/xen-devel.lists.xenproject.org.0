@@ -2,34 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3574F9D43C6
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 23:08:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841209.1256718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 275239D43ED
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 23:32:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841220.1256729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDsrb-0006sI-S1; Wed, 20 Nov 2024 22:07:55 +0000
+	id 1tDtFK-0002P9-OV; Wed, 20 Nov 2024 22:32:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841209.1256718; Wed, 20 Nov 2024 22:07:55 +0000
+Received: by outflank-mailman (output) from mailman id 841220.1256729; Wed, 20 Nov 2024 22:32:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDsrb-0006qm-P2; Wed, 20 Nov 2024 22:07:55 +0000
-Received: by outflank-mailman (input) for mailman id 841209;
- Wed, 20 Nov 2024 22:07:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tDtFK-0002ND-Lc; Wed, 20 Nov 2024 22:32:26 +0000
+Received: by outflank-mailman (input) for mailman id 841220;
+ Wed, 20 Nov 2024 22:32:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zf15=SP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tDsra-0006qe-QG
- for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 22:07:54 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e21013e9-a78b-11ef-a0cc-8be0dac302b0;
- Wed, 20 Nov 2024 23:07:51 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3861E5C5EA4;
- Wed, 20 Nov 2024 22:07:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D812C4CECD;
- Wed, 20 Nov 2024 22:07:48 +0000 (UTC)
+ <SRS0=HGtN=SP=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tDtFJ-0002N7-9R
+ for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 22:32:25 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20626.outbound.protection.outlook.com
+ [2a01:111:f403:2418::626])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4d57d848-a78f-11ef-99a3-01e77a169b0f;
+ Wed, 20 Nov 2024 23:32:20 +0100 (CET)
+Received: from CH2PR07CA0005.namprd07.prod.outlook.com (2603:10b6:610:20::18)
+ by SA1PR12MB8742.namprd12.prod.outlook.com (2603:10b6:806:373::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.15; Wed, 20 Nov
+ 2024 22:32:12 +0000
+Received: from CH1PEPF0000A34C.namprd04.prod.outlook.com
+ (2603:10b6:610:20:cafe::bc) by CH2PR07CA0005.outlook.office365.com
+ (2603:10b6:610:20::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.24 via Frontend
+ Transport; Wed, 20 Nov 2024 22:32:12 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.12) by
+ CH1PEPF0000A34C.mail.protection.outlook.com (10.167.244.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8182.16 via Frontend Transport; Wed, 20 Nov 2024 22:32:12 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Nov
+ 2024 16:32:11 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Nov
+ 2024 16:32:11 -0600
+Received: from [172.29.146.152] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 20 Nov 2024 16:32:10 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,151 +63,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e21013e9-a78b-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6ImUyMTAxM2U5LWE3OGItMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMTQwNDcxLjk3ODk2Nywic2VuZGVyIjoic3N0YWJlbGxpbmlAa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732140469;
-	bh=fU/vacAEi1m2S92rWJM9qMHiFtrIXNfDJtfD7Oh13+s=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kAvSwFMWXuUjeUs6fPEhKBm38lgTz5h5CA4nH9OOEJKMxOc+z38WWHdCNwobaStUT
-	 PMejl/uunGsafmqVb8lPGQ8xbvigUFlCEudF3p42TCWPriEXJZzhPKnVfJfVWuA5um
-	 2vQdANpXTt+wdiNws63+gh3MLHvaM4EOZAeGZ+XkLMUiGJwPKB/G4W37wBlhpbMSpf
-	 ETMmYVJMEFByPW1Z/XkmD1h5giijwPhvNPLFEOZUe9sCWLpP5mGUt9DE6hTk0M7yhB
-	 fi2nFM9mfxyD+npGdI/7w/MDYjYp6WYMkH/wQ7NFqzyu2+9KwzmId4vCVRLBD+UXAO
-	 HfunD/tgjKcdg==
-Date: Wed, 20 Nov 2024 14:07:47 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, Dario Faggioli <dfaggioli@suse.com>, 
-    Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
-Subject: Re: [RFC PATCH] xen: add libafl-qemu fuzzer support
-In-Reply-To: <87iksilod0.fsf@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2411201406060.3516911@ubuntu-linux-20-04-desktop>
-References: <20241114224636.1942089-1-volodymyr_babchuk@epam.com> <alpine.DEB.2.22.394.2411181737570.1160299@ubuntu-linux-20-04-desktop> <875xojmexk.fsf@epam.com> <alpine.DEB.2.22.394.2411191409140.1160299@ubuntu-linux-20-04-desktop>
- <87iksilod0.fsf@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 4d57d848-a78f-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxODo6NjI2IiwiaGVsbyI6Ik5BTTEyLUJOOC1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjRkNTdkODQ4LWE3OGYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTQxOTQwLjE5NDg5Nywic2VuZGVyIjoiamFzb24uYW5kcnl1a0BhbWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TUSF7zT8VXdkWI5WN6i3dTRyW4jLbOViCPJ+lcHsup7npdEI6unR51Y/6W5Gr4/XUDuUaUZMuvnoxtLfTQFzbhzD6ZVxoXmJZhLtXeI6yoAUgxnj6G9pD8P8utMwcYboyV+kXK49h56VwCINDVRPUgGutXVBdjVl0oIJKUkCfNNrDFhMH+OvItuoQmtxRi5nusbRzUFNO5s7dCNc02yYbwQrxkHPfNHpB4q6+SL8djkZr21BqO6JNxvr1wHUHxQsnYVkzHWUkaaEvwtWM5oD6W4Iz0FDjtDE5JWsXXao3r9f8BfAXBot0IPVlWeBtcZGEieOPddF6r9K9QlHpl4XYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p8xm1btvpe9AmkygMgkrN7BtLT7Iickdu4+9Xrkjp0I=;
+ b=bgYS91ljo+NcG/URBnu7Hpm0Qrd1Nb4dTd5wx7sXxihKLedaAqrL+Sl/l8+I1LM7IEMKLw8sb/H2IqqmQqgvG3Fll+5bXpbHhgJ4nj7p7JBw7jGhy0c8P5niNBkiY2yvB3RlrrX1r0rHOCkj4WD13yXnz3IiskkhFFw/XB7YgBzVltKsJTHyxIYNTWniszqnnCDA4hIcDlicuzWOXal4rAJNWBNxjZCXVlJGAa50p9fVhUpZoZTM9hPsmPOshp6Kc3dJai+E4AICZi/icRIjnTPWJ4Me2pULlRthy4iu77Oh0ZmHRxk4Vpf8e/BabWxOL4sKYtSA0Rj9N5vQtUpa9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.12) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p8xm1btvpe9AmkygMgkrN7BtLT7Iickdu4+9Xrkjp0I=;
+ b=gdACDHCOx9rq9Zz+7X2m6Y9qcJXUmMryINzdpLyeKMkSFZ3Nz+wqV0lA09GfY9UzhED/bjp6wriDv2i7FGttQmo8rbgLy2DlmCVQCicAMYtrAIPaKxdRiw7EC4Nxsc1c1JKW82rK0f3DE/1q0FqVLhpIX3maN4qIp0uZSk8QaZI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.12)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.12 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.12; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <3736a7c0-694a-4741-b4d3-a821d3785646@amd.com>
+Date: Wed, 20 Nov 2024 17:32:06 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 6/6] x86/boot: add cmdline to struct boot_domain
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
+ <20241115131204.32135-7-dpsmith@apertussolutions.com>
+ <c4b37832-efaa-4a26-8bbf-a3cf7caa3468@amd.com>
+ <a7b7ec58-73f6-4463-97c8-f9acdedec7af@apertussolutions.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <a7b7ec58-73f6-4463-97c8-f9acdedec7af@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34C:EE_|SA1PR12MB8742:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b5fbfa1-a6a7-4843-7b96-08dd09b32d88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Szc3a09lT0ZqU2w5NGhBQndQOTliNlprVWtpZWdPYUZkVGlxZzEwNEVlUHR3?=
+ =?utf-8?B?MWNSQXZBUXFEZVlhOVB5aHhsdDlrMFdIMnBMckszaFErNFRZNmQ5NE9tTm4z?=
+ =?utf-8?B?UGJIc01oYlVDSFQ2ckh5cG0zT0lnczBGLzVQNVJ0RnNHVk5maDk2NHZocjRz?=
+ =?utf-8?B?UXdZblhmMFpGZ2dZRmlXbEJ1TmtMZjdrQmNqNmpZUTZuaVl1eHlWMHlFWXpk?=
+ =?utf-8?B?T0RTYjhWdmUva0R2Zjlpd3BHb2ltVVdIRFZJcG5KUjI4SzdaVG1pWlN0SFQy?=
+ =?utf-8?B?WnZrbHpxd1Zyb1NKQk1odkZIME8wNlNoYm84dUJSNFhvSnRYMG9IUGxwOVc0?=
+ =?utf-8?B?WUNNdFFLN1JIcUpkWUFBeEhhdThYL3VpR2QwSUlsVGRSRWUwRjd0cXBvNG5k?=
+ =?utf-8?B?WDFCWlJpTjMxSXhoUmV3QVlpdXBIOEdrQ09XeG4vVVZtRUhsREl2Q3pVNmxi?=
+ =?utf-8?B?SW1HNlU3QkozUXovN2ROeXhJN1ZLTXYvNlRlL1JZSzl0eGhHalAxTkVXR0l4?=
+ =?utf-8?B?T0VPaGplWlRtZ1RxRURSUWdTaGVkV2pnMVB1ZHBmTUNqM3JlWjdsd29lNHZv?=
+ =?utf-8?B?MGRZZm5kVVJzREdTR2pQRjNYTm1IK0lzckoyVGZxUDlJaGNTaGZEcjZGRnpl?=
+ =?utf-8?B?K1h4Z0pzNE9KdHFjQ1VlWCtsOWRmWkRqWUZMOFczV1kzSFhJamtsN2ZoNC96?=
+ =?utf-8?B?OE9CbjkvYmloNDMzZ2dXSzREZGtDVkQ1aUVucHdlWm1DckRzMXh0emJnSU12?=
+ =?utf-8?B?WEMwU0lvMzlqYStmL3doVlVVczZ6S0hrWnY5UXArQzR0d0FQN3NoQmRrQXZ3?=
+ =?utf-8?B?ZkhqdjlnVHFsYWE4b0ZvclpnNTBId1p4OFhxOUozMEpQL0gxUWlvK1Vpc2J2?=
+ =?utf-8?B?NDc3bHVlcFhQRWI3NVNyUkhGTE1IUEMvS3pmT0dJUFFuVkpwODBxYzdtSTJP?=
+ =?utf-8?B?cU1MM2l3bWlrZERDckYxNUcyOGtraUdzcUlSbmwrV3NlcHVrUkl4Q3lHa054?=
+ =?utf-8?B?MGFITjZMdkxXOWpTaGVXcjhib0tiQ2VtZXhIMjJVS1F5M3NySnF3SGRMVlpC?=
+ =?utf-8?B?YmVyRTZhRTFjcktUK0dIVkFKODhta1NreHI5TFJIRnFTN0RWZU5sWVNHRjEx?=
+ =?utf-8?B?cUJ3Nm1aem1oSWcvNXRRcjRwSWpKQ0k4bkduOUtzR01yZnVFcjlhUTZDKzl4?=
+ =?utf-8?B?L3QrelBrOHhDbW13TkZ5SEdRL3gzSUFlWDJYU1JjT0dVMWNkUkNMcDZpV1NF?=
+ =?utf-8?B?RTRwZGNZbThpZjEyV29RdGl1aXlRb21wcm8vMWU5UHZ0Z25KNzlBNVhWVGVy?=
+ =?utf-8?B?RFJnbHN1TjV4ZTZFVWYwWHVGNHhJZEtNZG1qV1VVdSthL1pyeHg2NWlaQUFl?=
+ =?utf-8?B?QWZxUGJtbkpaVytrRFNHYllvYVpTdFl5WkJmTFRNMzJiK0NlTmd3dy9Ld2J3?=
+ =?utf-8?B?ZWtRZ3dZZDNFS3NrNHhoUXpoZ2o0dWpQb1JxUWFrUDVxNU1ueGsySkJkbHVh?=
+ =?utf-8?B?QzlBYytCY2drQm9WQ2hzM3NzcTR6bWdnOGF4VVhVbjJLZTFIbmhiNk5BTEZp?=
+ =?utf-8?B?b1RtL2xUUVFCcTBWSFhZQmVYUldScWtUOWo1aVdPdG9QYkpKaXQrVU9XV1Zv?=
+ =?utf-8?B?Q0pPWXI1eUp4L2MwMDBocmxMU1llMFFMNlhlcFVsRG9VUFdQNEJscWtMN3Jy?=
+ =?utf-8?B?REQvaUZlNTlmNSt1NExqaEpZc2lEQk43L25RUDBXMUw4Y0REUlcyY1VpNGQr?=
+ =?utf-8?B?a3oxWVl1c0UvYk9NYTBtcG9weXMvNkZBeENDOXpDYWpUQ2NyeCtEQUxUMnJM?=
+ =?utf-8?B?ZEcvMTV2bnZXMXVsY0RIUGhoWWoxYTllNzVDMTJNZXd5Wm9MckIxVnA0SGJo?=
+ =?utf-8?B?aVlJWGRiRzdpZXdSeVBickJUc0o2UitJdkpNMllMNjRXSGc9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.12;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:atlvpn-bp.amd.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2024 22:32:12.3568
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b5fbfa1-a6a7-4843-7b96-08dd09b32d88
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.12];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A34C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8742
 
-On Wed, 20 Nov 2024, Volodymyr Babchuk wrote:
-> Hi Stefano,
+On 2024-11-20 12:57, Daniel P. Smith wrote:
+> On 11/15/24 13:20, Jason Andryuk wrote:
+>> On 2024-11-15 08:12, Daniel P. Smith wrote:>>
+>> Just xmalloc_array since it'll be overwritten immediately?
 > 
-> (sorry, hit wrong Reply-To option, re-sending for wider audience)
-> 
-> Stefano Stabellini <sstabellini@kernel.org> writes:
-> 
-> > On Tue, 19 Nov 2024, Volodymyr Babchuk wrote:
-> >> Hi Stefano,
-> >>
-> >> Stefano Stabellini <sstabellini@kernel.org> writes:
-> >>
-> >> > On Thu, 14 Nov 2024, Volodymyr Babchuk wrote:
-> >>
-> >> [...]
-> >>
-> >> >> +Building LibAFL-QEMU based fuzzer
-> >> >> +---------------------------------
-> >> >> +
-> >> >> +Fuzzer is written in Rust, so you need Rust toolchain and `cargo` tool
-> >> >> +in your system. Please refer to your distro documentation on how to
-> >> >> +obtain them.
-> >> >> +
-> >> >> +Once Rust is ready, fetch and build the fuzzer::
-> >> >> +
-> >> >> + # git clone
-> >> >> https://github.com/xen-troops/xen-fuzzer-rs
-> >> >> +  # cd xen-fuzzer-rs
-> >> >> +  # cargo build
-> >> >
-> >> > Is this the only way to trigger the fuzzer? Are there other ways (e.g.
-> >> > other languages or scripts)? If this is the only way, do we expect it to
-> >> > grow much over time, or is it just a minimal shim only to invoke the
-> >> > fuzzer (so basically we need an x86 version of it but that's pretty much
-> >> > it in terms of growth)?
-> >>
-> >> Well, original AFL++ is written in C. And I planned to use it
-> >> initially. I wanted to make plugin for QEMU to do the basically same
-> >> thing that LibAFL does - use QEMU to emulate target platform, create
-> >> snapshot before running a test, restore it afterwards.
-> >>
-> >> But then I found LibAFL. It is a framework for creating fuzzers, it
-> >> implements the same algorithms as original AFL++ but it is more
-> >> flexible. And it already had QEMU support. Also, it seems it is quite
-> >> easy to reconfigure it for x86 support. I didn't tried tested this yet,
-> >> but looks like I need only to change one option in Cargo.toml.
-> >>
-> >> This particular fuzzer is based on LibAFL example, but I am going to
-> >> tailor it for Xen Project-specific needs, like CI integration you
-> >> mentioned below.
-> >
-> > Is my understanding correct that we only need to invoke LibAFL as you
-> > are doing already, and that's pretty much it? We need a better
-> > configuration specific for Xen, and we need one more way to invoke it to
-> > cover x86 but that's it? So, the expectation is that the code currently
-> > under
-> > https://github.com/xen-troops/xen-fuzzer-rs
-> > will not grow much?
-> >
-> 
-> Yes, it basically configures different bits of LibAFL and integrates
-> them together. So yes, it will not grow much. I am planning to add some
-> QoL things like ability to re-run specific input so it will be easier to
-> debug discovered issues. Or maybe tune some fuzzing algorithms
-> settings... But nothing big.
- 
-OK then
- 
+> Yes and no, the concern I was worried about is that the allocation may 
+> end up being slight bigger than what is copied in to the buffer. If we 
+> do not zero the buffer, then those trailing bytes will have random data 
+> in them. In a perfect world, nothing should ever reach those bytes based 
+> on the current usage of the buffer. But from my perspective, it would be 
+> safer to zero the buffer than rely on the world being perfect. I am not 
+> fixed on not switching, just providing my 2 cents,
 
-> >> As for test harness, I am using Zephyr currently. My first intention was
-> >> to use XTF, but it is x86-only... I am still considering using XTF for
-> >> x86 runs.
-> >>
-> >> Zephyr was just the easiest and fastest way to trigger hypercalls. At
-> >> first I tried to use Linux kernel, but it was hard to cover all possible
-> >> failure paths. Zephyr is much simpler in this regard. Even better is to
-> >> use MiniOS or XTF. But ARM support in MiniOS is in sorry state and XTF
-> >> does not work on ARM at all.
-> >
-> > There is a not-yet-upstream XTF branch that works on ARM here:
-> > https://gitlab.com/xen-project/fusa/xtf/-/tree/xtf-arm?ref_type=heads
-> 
-> Ah, thanks. I'll try to use it as a harness.
-> 
-> [...]
-> 
-> >
-> >>
-> >> I was considering this as well. Problem is that fuzzing should be
-> >> running for a prolonged periods of time. There is no clear consensus on
-> >> "how long", but most widely accepted time period is 24 hours. So looks
-> >> like it should be something like "nightly build" task. Fuzzer code
-> >> needs to be extended to support some runtime restriction, because right
-> >> now it runs indefinitely, until user stops it.
-> >
-> > We can let it run for 48 hours continuously every weekend using the
-> > Gitlab runners
-> 
-> Great idea. Anyways, I need to add option to limit runtime to the fuzzer
-> and invent some method for reporting discovered crashes to the CI first.
-> 
-> >
-> >> I am certainly going to implement this, but this is a separate topic,
-> >> because it quires changes in the fuzzer app. Speaking on which... Right
-> >> now both fuzzer and test harness reside in our github repo, as you
-> >> noticed. I believe it is better to host it on xenbits as an official
-> >> part of the Xen Project.
-> >
-> > Yes we can create repos under gitlab.com/xen-project for this, maybe a
-> > new subgroup gitlab.com/xen-project/fuzzer
-> 
-> Good. Whom should I ask to do this?
+I only looked at the PVH case, but strlen() is used there to obtain the 
+copy length.  I think it's unnecessary and the code doesn't require a 
+zeroed buffer.  But I also realize it's safer to start from zeroed.
 
-I created gitlab.com/xen-project/fuzzer as an empty group. What
-repositories do you need under it?
+>>> +            panic("Error allocating cmdline buffer for %pd\n", d);
+>>> +
+>>>           if ( bd->kernel->cmdline_pa )
+>>> -            safe_strcpy(cmdline,
+>>> -                        cmdline_cook(__va(bd->kernel->cmdline_pa), 
+>>> bi->loader));
+>>> +            strlcpy(cmdline,
+>>> +                    cmdline_cook(__va(bd->kernel->cmdline_pa),bi- 
+>>> >loader),
+
+Also I just noticed a missing space: "cmdline_pa),bi"
+
+>>> +                    cmdline_size);
+>>>           if ( bi->kextra )
+>>>               /* kextra always includes exactly one leading space. */
+>>> -            safe_strcat(cmdline, bi->kextra);
+>>> +            strlcat(cmdline, bi->kextra, cmdline_size);
+>>>           /* Append any extra parameters. */
+>>>           if ( skip_ioapic_setup && !strstr(cmdline, "noapic") )
+>>> -            safe_strcat(cmdline, " noapic");
+>>> +            strlcat(cmdline, " noapic", cmdline_size);
+>>>           if ( (strlen(acpi_param) == 0) && acpi_disabled )
+>>>           {
+>>> @@ -1028,17 +1055,21 @@ static struct domain *__init 
+>>> create_dom0(struct boot_info *bi)
+>>>           if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
+>>>           {
+>>> -            safe_strcat(cmdline, " acpi=");
+>>> -            safe_strcat(cmdline, acpi_param);
+>>> +            strlcat(cmdline, " acpi=", cmdline_size);
+>>> +            strlcat(cmdline, acpi_param, cmdline_size);
+>>>           }
+>>> -        bd->kernel->cmdline_pa = __pa(cmdline);
+>>> +        bd->cmdline = cmdline;
+>>> +        bd->kernel->cmdline_pa = __pa(bd->cmdline);
+>>
+>> Should cmdline_pa go away if we now have a valid cmdline variable?
+> 
+> In the PVH dom0 case, we are still relying on cmdline_pa as the 
+> reference to get at the command line in the function pvh_load_kernel(). 
+> With the introduction of cmdline to boot_domain, I could convert the 
+> interface of pvh_load_kernel() to take the boot_domain instance, 
+> removing the need to update cmdline_pa. Not sure if you were asking 
+> this, but as for cmdline_pa going completely away, that is not possible. 
+> First the sequence of events do not allow it, and there is an one-off 
+> case for PVH dom0 where the cmdline_pa of the initrd module is copied 
+> into the domain.
+
+I was thinking from this point forward only boot_domain->cmdline is 
+necessary.  Maybe even zero-ing cmdline_pa?  With a valid pointer in 
+cmdline, cmdline_pa shouldn't be necessary anymore.
+
+Regards,
+Jason
 
