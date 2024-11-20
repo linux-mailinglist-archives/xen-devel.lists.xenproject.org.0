@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DBD99D3A3D
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 13:07:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841091.1256599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32CC19D3CBC
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 14:51:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841116.1256628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDjU1-0008Bh-HT; Wed, 20 Nov 2024 12:06:57 +0000
+	id 1tDl6V-0005Vh-VS; Wed, 20 Nov 2024 13:50:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841091.1256599; Wed, 20 Nov 2024 12:06:57 +0000
+Received: by outflank-mailman (output) from mailman id 841116.1256628; Wed, 20 Nov 2024 13:50:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDjU1-00088Y-EO; Wed, 20 Nov 2024 12:06:57 +0000
-Received: by outflank-mailman (input) for mailman id 841091;
- Wed, 20 Nov 2024 12:06:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tDl6V-0005TG-Rt; Wed, 20 Nov 2024 13:50:47 +0000
+Received: by outflank-mailman (input) for mailman id 841116;
+ Wed, 20 Nov 2024 13:50:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8JZW=SP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tDjTz-00088P-9F
- for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 12:06:55 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec0a1f7a-a737-11ef-99a3-01e77a169b0f;
- Wed, 20 Nov 2024 13:06:49 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a9aa8895facso360479166b.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 04:06:49 -0800 (PST)
+ id 1tDl6U-0005TA-3i
+ for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 13:50:46 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6de40b1b-a746-11ef-a0cb-8be0dac302b0;
+ Wed, 20 Nov 2024 14:50:40 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-53da353eb2eso7041328e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 05:50:40 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20e081574sm764898166b.179.2024.11.20.04.06.48
+ a640c23a62f3a-aa20dffba13sm767786066b.95.2024.11.20.05.50.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Nov 2024 04:06:48 -0800 (PST)
+ Wed, 20 Nov 2024 05:50:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec0a1f7a-a737-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmQiLCJoZWxvIjoibWFpbC1lajEteDYyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImVjMGExZjdhLWE3MzctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTA0NDA5Ljg3OCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 6de40b1b-a746-11ef-a0cb-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmIiLCJoZWxvIjoibWFpbC1sZjEteDEyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjZkZTQwYjFiLWE3NDYtMTFlZi1hMGNiLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMTEwNjQwLjc1NDA3LCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732104409; x=1732709209; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732110640; x=1732715440; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mZt4WzbXSGVnoNwUN9VSlqfqaDPaLVeH7dy3QiCAhSM=;
-        b=ktlD4hFHB/0UJICYMWGe5FZ6qL7Or4kYZUX1t6GmQEVATUkPNZVYydiMneDGf2Rper
-         YWzUd6o6xNuBxZutEjkdXY3tNB28xZrE0jWsk6jVzbekIUogEnE6TB5/YGkwdYz1VgYm
-         0nU8A78lOvQl+aw1Ps0vBkJVBLX2Y3uFmqmqc=
+        bh=zRouNAdArKjkjWjWS904hWd8Zi/vPRCjmMKGrFcSI9s=;
+        b=jROCh8JU4ONqjtkUcs2l0x8xCT06xm25FaPEWjj+0a0vK2wGq54ABXx45NA6KRgXzq
+         YzskGkJewSho30h3iFQrqlKFAcprOoMJv2Zm7QemUMFmReeMAqnbn7+9VgEBk39ZVFOa
+         BPt3bP1v/MsTKYEV9N3XBg3qMMwndbxiWKzms=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732104409; x=1732709209;
+        d=1e100.net; s=20230601; t=1732110640; x=1732715440;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mZt4WzbXSGVnoNwUN9VSlqfqaDPaLVeH7dy3QiCAhSM=;
-        b=Y4sPfrDyZfLsQql2twDU8JEyoKHbmak3YTL1kO6vZk8h0GI+nG4aSjXDhvqyR6NC5o
-         yAWjDwU+vUjsiCV8/tuhpysEIkwxWaMCfJopdFrrCboPc2JhJLn5G55/oYjBlsy+Nkd2
-         Q3/ocljqkqt25cUy61ke42d40y4pszU8WEgu8b2t1PB21fP02oh+WB16/58oPViioKv7
-         m/5Paob1A7MmwGGiuyaeeIBtvMSprU4PmJ0j7UmaztxdhG6w8/A2RN5jW1pLC19A979B
-         FvF+o/YKkUbuaAbn7uPagYQv99I7wuHAGcW9AV2J+eNjId+8XTyTetmFDA/S4orb2Vy2
-         cNlA==
-X-Forwarded-Encrypted: i=1; AJvYcCUXZq7CkNyCpMuczraANRzOsss2WaES8SSSqo/vgcreafVrdhLfctbedRlBKhj3pGAt3m6di5cVFFM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzlBouXGZn/Ov2crrXf3GCgVeCAnKsm8h/msR71Xme0JNOX0QFB
-	1a/kgcgdZbS/pa1/Umiw6cMI4PGuII9e7bAmetlHNMoeqDeG7CLpEa4GbvdaYb4=
-X-Google-Smtp-Source: AGHT+IEg/HBXjv7Am1nQjxuwlRsP5bNrV133PGOyz6ldIWjfu6UCvLmf+Vz1v937XiwwRzm2a5VIog==
-X-Received: by 2002:a17:906:ef03:b0:aa4:a810:79c2 with SMTP id a640c23a62f3a-aa4dd57ce42mr239737466b.31.1732104409280;
-        Wed, 20 Nov 2024 04:06:49 -0800 (PST)
-Message-ID: <b9772a66-ee5f-4cfc-ae55-8d53788f8456@citrix.com>
-Date: Wed, 20 Nov 2024 12:06:46 +0000
+        bh=zRouNAdArKjkjWjWS904hWd8Zi/vPRCjmMKGrFcSI9s=;
+        b=o1fkLh2v5Cke3PIvFFAizw18OLbiGmgGsmonNC86nN3OchD1zAsTS2xRTBIoXr5jWO
+         ZpD3eqBz+0D0hR0kXayksTyEcPaOTMIACHz2vf0cPWUqm0RWtH1yz+1XlQFmgSbQkNPx
+         OhiwZGVNVDEFsHAr5mTUsRun2rTFyDlaRVaY4I4a/4ll8xtaVaUvG24WTukJGxsozQwF
+         anWbZTQObNCAh+KQoXYgMJBqCdFnRxzfdUmPWfXv8d6KT/vOwxZBIhCEV0yE8ZepNyYj
+         Q7X/TYnsFRh6RVJnw7Wz+HDd2PXBifRD9dZoa/F2CEOpVjPFG3D6lAfNcCZ/3I4e6p1T
+         78tQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW+t0zhepWeTFXv9WyeWj7/CLT+HZue1vnlQ+Hz56AwoId0jdIo5V+P7i7odjjRTmQb9+6bVO8hgeU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwDUdymvPrYTC7FZDYEEQsQj7m6ZTyL6rbEHmKL3NFOXW5jz9b4
+	uJUYizjhgee2YjoGR9q/Puoe/AKpTBb9vczXvg7969IglRhFvHX8ocjtwL63XxUreddH5IyH5P/
+	r
+X-Google-Smtp-Source: AGHT+IE5eLNOTuU1jYAmgeWZXPmc+xGzkDP910R1qlv29Vic+7iZ7tX0CWtPVdkkrRv3jeLv1fOmWA==
+X-Received: by 2002:a05:6512:a8e:b0:53d:a0a7:1a8d with SMTP id 2adb3069b0e04-53dc136377amr2176776e87.46.1732110639774;
+        Wed, 20 Nov 2024 05:50:39 -0800 (PST)
+Message-ID: <b8776e87-0975-43a6-886c-95ec98d0c357@citrix.com>
+Date: Wed, 20 Nov 2024 13:50:37 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/irq: fix calculation of max PV dom0 pIRQs
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20241120113555.38146-1-roger.pau@citrix.com>
- <20241120113555.38146-2-roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/ucode: Only rescan features on successful microcode
+ load
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241119215827.2891332-1-andrew.cooper3@citrix.com>
+ <590cc46e-c4e2-44bc-b339-6ffc609314ce@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,28 +133,79 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241120113555.38146-2-roger.pau@citrix.com>
+In-Reply-To: <590cc46e-c4e2-44bc-b339-6ffc609314ce@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/11/2024 11:35 am, Roger Pau Monne wrote:
-> The current calculation of PV dom0 pIRQs uses:
->
-> n = min(fls(num_present_cpus()), dom0_max_vcpus());
->
-> The usage of fls() is wrong, as num_present_cpus() already returns the number
-> of present CPUs, not the bitmap mask of CPUs.
->
-> Fix by removing the usage of fls().
->
-> Fixes: 7e73a6e7f12a ('have architectures specify the number of PIRQs a hardware domain gets')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 20/11/2024 10:50 am, Jan Beulich wrote:
+> On 19.11.2024 22:58, Andrew Cooper wrote:
+>> There's no point rescanning if we didn't load something new.  Take the
+>> opportunity to make the comment a bit more concise.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Yeah, that fls() fails the dimensional analysis sniff test.
+Thanks.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>
+>> @@ -911,14 +915,5 @@ int __init early_microcode_init(struct boot_info *bi)
+>>  
+>>      rc = early_microcode_load(bi);
+>>  
+>> -    /*
+>> -     * Some CPUID leaves and MSRs are only present after microcode updates
+>> -     * on some processors. We take the chance here to make sure what little
+>> -     * state we have already probed is re-probed in order to ensure we do
+>> -     * not use stale values. tsx_init() in particular needs to have up to
+>> -     * date MSR_ARCH_CAPS.
+>> -     */
+>> -    early_cpu_init(false);
+>> -
+>>      return rc;
+>>  }
+> In principle with this rc could be dropped from the function.
 
-Is there any hint as to what the reasoning was?
+Oh, so it can.  I think I did so in an earlier attempt, prior to
+deciding to go down the route that is partially committed.
+
+I'm happy to fold in the removal.  The incremental diff is:
+
+@@ -873,7 +873,6 @@ static int __init early_microcode_load(struct
+boot_info *bi)
+ int __init early_microcode_init(struct boot_info *bi)
+ {
+     const struct cpuinfo_x86 *c = &boot_cpu_data;
+-    int rc = 0;
+ 
+     switch ( c->x86_vendor )
+     {
+@@ -913,7 +912,5 @@ int __init early_microcode_init(struct boot_info *bi)
+         return -ENODEV;
+     }
+ 
+-    rc = early_microcode_load(bi);
+-
+-    return rc;
++    return early_microcode_load(bi);
+ }
+
+
+> It's then further
+> unclear why early_microcode_load() needs to be a separate function, rather than
+> simply being inlined here (as I expect the compiler is going to do anyway).
+
+Both cognitive and code complexity.
+
+"Probe and install hooks" is separate from "try to load new ucode if we
+can".
+
+They've now got entirely disjoint local variables, and the latter has
+some non-trivial control flow in it.  It's liable to get even more
+complex if we try to allow CPIO in an explicitly nominated module.
+
+More generally, a separate function and internal return statements can
+express control flow which can only be done with gotos at the outer
+level, even if we fully intend the compiler to fold the two together.
 
 ~Andrew
 
