@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 892989D3977
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 12:25:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841034.1256548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73BF79D3995
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2024 12:36:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841042.1256557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDipF-0007oI-4Y; Wed, 20 Nov 2024 11:24:49 +0000
+	id 1tDj09-000181-3G; Wed, 20 Nov 2024 11:36:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841034.1256548; Wed, 20 Nov 2024 11:24:49 +0000
+Received: by outflank-mailman (output) from mailman id 841042.1256557; Wed, 20 Nov 2024 11:36:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tDipF-0007lj-13; Wed, 20 Nov 2024 11:24:49 +0000
-Received: by outflank-mailman (input) for mailman id 841034;
- Wed, 20 Nov 2024 11:24:47 +0000
+	id 1tDj09-000163-0R; Wed, 20 Nov 2024 11:36:05 +0000
+Received: by outflank-mailman (input) for mailman id 841042;
+ Wed, 20 Nov 2024 11:36:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8JZW=SP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tDipD-0007ld-RL
- for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 11:24:47 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ <SRS0=E1p6=SP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tDj07-00015r-6g
+ for xen-devel@lists.xenproject.org; Wed, 20 Nov 2024 11:36:03 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 07d124e3-a732-11ef-99a3-01e77a169b0f;
- Wed, 20 Nov 2024 12:24:39 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a9f1c590ecdso950148366b.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 03:24:39 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa20df4e7bfsm759572766b.42.2024.11.20.03.24.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Nov 2024 03:24:38 -0800 (PST)
+ id 9d231f9a-a733-11ef-99a3-01e77a169b0f;
+ Wed, 20 Nov 2024 12:35:59 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfd2978f95so3933816a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Nov 2024 03:35:59 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa20dfffdb0sm768906066b.125.2024.11.20.03.35.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Nov 2024 03:35:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +44,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07d124e3-a732-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmIiLCJoZWxvIjoibWFpbC1lajEteDYyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjA3ZDEyNGUzLWE3MzItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTAxODc5LjUyMTk2Nywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 9d231f9a-a733-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzAiLCJoZWxvIjoibWFpbC1lZDEteDUzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjlkMjMxZjlhLWE3MzMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTAyNTU5LjQ5MjMyMiwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732101879; x=1732706679; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nEidrNIIKyj9cg+1/5aijPsY+kQKUdZX0n92ri2i0BA=;
-        b=PRSDvEwucWjqXL0mQlLtDZGOcldqXttl7+tBWOntsxFUFwjBB/+Os3YBupgW9mDCAg
-         dPuoLHU4NYhWwtEWZdOtMyQm5H64t/UGHKnPmxji6uZrO23OpeUcuLd1xkDHDXDP8q4W
-         BQUkE5n80ytqFqUDollEX7tYijsaw9RIrw/vU=
+        d=citrix.com; s=google; t=1732102559; x=1732707359; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hQ46npOWgx/WbIOYgHqPXYUeHgCtD6U4gQy/xG8N7wY=;
+        b=knl5M0fSsdlpWK4x5d1SdI+k4YZB+bCfHnud+R/SQUXmOiRgUgS2RNXmGS27KyqlIl
+         y5LX1Ao65ImMPUju59DpL29jtDvUMfrLta0VQzRHn6Wm1Ol0nNR+v4k5gkBhPImkJhq+
+         I444OFPxSFdv3swj+16+4K7pkWRNB2pVi7J44=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732101879; x=1732706679;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nEidrNIIKyj9cg+1/5aijPsY+kQKUdZX0n92ri2i0BA=;
-        b=N+XoPjRCY6J2alH4xcrsbx+kAH1vixOx1p9xX1WOCXKOvsaAPtioQyq4PDJhsjLBoR
-         t/JQLT8Um2beTewFERxz5G9SKm1itOAm8gsYzCreDIKr8vi0XtxszDE+Ie3l95Wb+mrd
-         EzOPkjyyIXZsqg8KBAPU4xektmklyqlzv6aRZS3FQEkMgF8DwFrMgi0OtXj3XIetSV3F
-         WutS0crGzkX6TMvhLfN+fTkOffO79aUYuguHwKuf+1tqpRueMThHxWI0O/0vPW2XBgdz
-         3F5lGUniSVvHuSTdR5BRm+rd5BJSTn2QTrV3n+9T4dF7doXWCO9RCn48hDJlx8bPCPKe
-         KbbQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWj9yU+pc2EzLVdMQJq/WPama23zr3tCiSDSw1zuoVaZNUD1KzjbAUF+BXn9CPQtNshTueZNgPqrkk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzhCJTzZ6Q0o61aMJpxmhU5m8olbdWKbS/KC8QCMai/RNcSy3xU
-	YeTghuRe8dE3xduDNigTKQRVaBFK9HmJpZCawO/39wxqNVmG0kX5E6J2QqwKicQ=
-X-Google-Smtp-Source: AGHT+IGKgRQ4hYgkgwIXEnteTVpv7NZOGrBfJbdI75s/lanaamxXtLMZU8lbbyCd/PeVYVW+tjcudA==
-X-Received: by 2002:a17:906:4793:b0:a99:fb56:39cc with SMTP id a640c23a62f3a-aa4dd71e7famr230956466b.38.1732101878962;
-        Wed, 20 Nov 2024 03:24:38 -0800 (PST)
-Message-ID: <39c24cf2-73ac-4da2-84e3-8caee653e83d@citrix.com>
-Date: Wed, 20 Nov 2024 11:24:36 +0000
+        d=1e100.net; s=20230601; t=1732102559; x=1732707359;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hQ46npOWgx/WbIOYgHqPXYUeHgCtD6U4gQy/xG8N7wY=;
+        b=GEWzvokhqAJXruVQTDnOTIMGNMCEhLFd5q2gXy/zp8ZEPp4UuxRwKdIiQhqPiaBLGo
+         3Jd9yyhDYA02cdjqso4CHOwqWYEKqnbV6l4f7jWiAxYI+ThklIQ7GaHZtNsXPw+XpVAc
+         3kPKclH9MrXSFIEKEFvK4ZtHYV5cUxEnxmMqZ38OBuC+x3BCA7L6ATSqI/ZFCsYDCdP5
+         jDOPHoXNBUTShNhVC9m61J4C7eFFLZSHw3Bi+t194NBtm1gz51aqEjWwVwZErgaymZ2H
+         f0jKrSMKmKBZPmJR0WOxKe0B9nOeV/b273QWBhH7FDLyRiG476fdt1nDoJ5CMybJH70O
+         s1AQ==
+X-Gm-Message-State: AOJu0YzLgnjBDsqX2Mf6QB3OORwf7uFNhn0Zaa8tUbNOtJNZeRW2q5Ag
+	FrF4l6aTAgifFegyoHYcszRWmpNHYqPe9DS8FeDrYehkPFa0ANisAkJ2Kug1kZi2PqWTbENaR9+
+	D
+X-Google-Smtp-Source: AGHT+IEemFG57UORNq0u0yeCst6K8CkUmxTMtpYDDk4WTfHuyNbOOth7yIiVUUt4nL6m8cumJ3HgBw==
+X-Received: by 2002:a17:907:1b02:b0:a99:f0f4:463d with SMTP id a640c23a62f3a-aa4dd59e494mr247555966b.26.1732102558664;
+        Wed, 20 Nov 2024 03:35:58 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH 0/2] x86/irq: fix calculation of maximum pIRQs for dom0
+Date: Wed, 20 Nov 2024 12:35:53 +0100
+Message-ID: <20241120113555.38146-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Load microcode much earlier on boot
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241119215708.2890691-1-andrew.cooper3@citrix.com>
- <7ffe1d78-188b-495b-914a-663181d9faa8@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <7ffe1d78-188b-495b-914a-663181d9faa8@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/11/2024 10:44 am, Jan Beulich wrote:
-> On 19.11.2024 22:57, Andrew Cooper wrote:
->> Following commit cd7cc5320bb2 ("x86/boot: add start and size fields to struct
->> boot_module"), bootstrap_map*() works as soon as boot_info is populated.
-> I'm struggling with following where this connection is coming from.
+Hello,
 
-Specifically, the final hunk:
+First patch is a fix for the calculation of the max number of pIRQs
+allowed to dom0, second patch fixes the print of dom0 pIRQ limits so
+it's also printed for a PVH dom0.
 
-> @@ -1416,12 +1420,6 @@ void asmlinkage __init noreturn
-> __start_xen(void) if ( bi->mods[i].start & (PAGE_SIZE - 1) )
-> panic("Bootloader didn't honor module alignment request\n"); - /* - *
-> TODO: load ucode earlier once multiboot modules become accessible - *
-> at an earlier stage. - */ - early_microcode_init(bi); - if (
-> xen_phys_start ) { struct boot_module *xen = &bi->mods[bi->nr_modules];
+Thanks, Roger.
 
-The context with panic() used to read:
+Roger Pau Monne (2):
+  x86/irq: fix calculation of max PV dom0 pIRQs
+  x86/pvh: also print hardware domain pIRQ limit for PVH
 
-    panic("Bootloader didn't honor module alignment request\n");
-    bi->mods[i].mod->mod_end -= bi->mods[i].mod->mod_start;
-    bi->mods[i].mod->mod_start >>= PAGE_SHIFT;
+ xen/arch/x86/io_apic.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-and calling bootstrap_map() prior to that mapped junk because the start
-is wrong by PAGE_SHIFT.
+-- 
+2.46.0
 
-This is why the TODO was inserted the last time around when we couldn't
-move loading as early as wanted.
-
-
-I suppose in principle this could be backported if we took
-bootstrap_map_addr() (which is a self-contained patch), and adjusted
-early_microcode_init() to avoid using bootstrap_map(), but it feels
-rather fragile, and still depends on most of the ucode fixes.
-
-~Andrew
 
