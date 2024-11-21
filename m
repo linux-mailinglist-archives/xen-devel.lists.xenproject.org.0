@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3846E9D4AE2
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 11:28:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841281.1256769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF2129D4AEA
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 11:30:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841292.1256779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE4PZ-0001P8-E9; Thu, 21 Nov 2024 10:27:45 +0000
+	id 1tE4S5-0002uM-Tw; Thu, 21 Nov 2024 10:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841281.1256769; Thu, 21 Nov 2024 10:27:45 +0000
+Received: by outflank-mailman (output) from mailman id 841292.1256779; Thu, 21 Nov 2024 10:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE4PZ-0001Ne-BC; Thu, 21 Nov 2024 10:27:45 +0000
-Received: by outflank-mailman (input) for mailman id 841281;
- Thu, 21 Nov 2024 10:27:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r7dD=SQ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1tE4PY-0001NY-Ac
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 10:27:44 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20602.outbound.protection.outlook.com
- [2a01:111:f403:2415::602])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c0d21ba-a7f3-11ef-a0cc-8be0dac302b0;
- Thu, 21 Nov 2024 11:27:40 +0100 (CET)
-Received: from MW4PR03CA0241.namprd03.prod.outlook.com (2603:10b6:303:b4::6)
- by DM4PR12MB6398.namprd12.prod.outlook.com (2603:10b6:8:b5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.23; Thu, 21 Nov
- 2024 10:27:34 +0000
-Received: from CO1PEPF000044F3.namprd05.prod.outlook.com
- (2603:10b6:303:b4:cafe::77) by MW4PR03CA0241.outlook.office365.com
- (2603:10b6:303:b4::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.23 via Frontend
- Transport; Thu, 21 Nov 2024 10:27:34 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.12) by
- CO1PEPF000044F3.mail.protection.outlook.com (10.167.241.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8182.16 via Frontend Transport; Thu, 21 Nov 2024 10:27:33 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 21 Nov
- 2024 04:27:33 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 21 Nov 2024 04:27:31 -0600
+	id 1tE4S5-0002sC-R3; Thu, 21 Nov 2024 10:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 841292;
+ Thu, 21 Nov 2024 10:30:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0oSv=SQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tE4S3-0002rL-Sb
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 10:30:19 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 982f3e75-a7f3-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 11:30:14 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4316cce103dso8285865e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 02:30:14 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-433b45d395asm49942745e9.19.2024.11.21.02.30.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Nov 2024 02:30:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,270 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c0d21ba-a7f3-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxNTo6NjAyIiwiaGVsbyI6Ik5BTTExLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjNjMGQyMWJhLWE3ZjMtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMTg0ODYwLjAyNDY5NSwic2VuZGVyIjoibWljaGFsLm9yemVsQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sA6gjVI97pJWR3VqCwai4yssfB9Jl1/XhklJWQ+nGlZjEOJLA9gmr9JBISf3hoXoKZJXpoFCsj70PATf98iwy7uoc0csatZd0n9/rBPuaWyNCHeVlsO8K0p7DHLCPmdwhNI8QZfJEMstfIs1R9QWPK+aQKf/4/rUexSfwMB7CHoDmTyijgjHFXX3iplQtXOuqAV3nPDjiyID3fuE2NlHrtqt6XPcD1vwEPqzdwxGXvtwXi/4BuujnGFlYE8ta9W9Qa/fuiMGTI2XhVD1h/MlXM+C/d5mWEQ3uLSMx+dETMjW30bNKtERFuL6Fj/JtCkoo18LpjYvaHMWA9SNzgi8hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XIXn4ITrUG/XnG2Fc3dZysNG4aJEGMa3yR8pa6UN9pg=;
- b=faaJkzWM2UpEvz0/JtdJKqe7GqenJMZ1C5ozdZ7AWVBA68ISTckWh6Jfcq9ODf+WtMJMER2p/14K5IXWM+2pSLzaTk+WyATsVYoqnxtRLC6CrPjVGOy3yA22xXWTnnDKonxA4UsR+54Y4sBCoLPym6j32hC76F17X50UlW6D4k8ADAaBpbZPBROc//+Kk0b1M1LdylquuvLDUIAHqgy+Lqmw5XpJBcwvSBgFInRSZpWS43aq1cSBgauTGAIJX7PyLaOidLFjI76uAWfhjlx4T7wF/LitttlwJZZqHPX66Dv/Bq853j8++1heh9P0uqHL9KT98odVq49y97XHxfu+yA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.12) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XIXn4ITrUG/XnG2Fc3dZysNG4aJEGMa3yR8pa6UN9pg=;
- b=Od3f/ZUFTluOtvZ5TYQqw2YvDdqQIXs5klU8KUG60xy5tEra5J4HbUh+dxCZrPnSSIVGmWpkC1OSN3o6x6iTHRlk5Cj4uCFG3qq3AKIjlRnuw2/qH0eJoU19NZbk96gG2eCj0lr8H9fxHNbb8fPkk4fDe5oS4O8lkdBw7Wx3x6I=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.12)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.12 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.12; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <74f837dc-eaeb-495f-89ca-296eb56ad36b@amd.com>
-Date: Thu, 21 Nov 2024 11:27:26 +0100
+X-Inumbo-ID: 982f3e75-a7f3-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijk4MmYzZTc1LWE3ZjMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg1MDE0LjU4ODYxMywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1732185014; x=1732789814; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bKEAH3fAy+SlsSI3d4/qlK+dwWIag00PjqkGCn3prh8=;
+        b=ePzwQFOZo+ZJrrTTp7slxm1GMQDkUH25DAyqYZtlnU6FeNt7Bfmh8x0LloQX4S/kbq
+         aX5S2DlwZWr9qoiOjwry5/4hjMbaPdTqj5GOOwrvjbUw4FcI7GuoWqt+JJcgErnJAfAB
+         NsBCaUT8eTSqRjvvKjF6URScX6FFOXVAVSHAyOp9Ixdwvj/foe1OvFq3CjhUgWhF1WI/
+         /gDmguYXwPcIn7ZnGWFXA0tXJk+fuWwQApwkI6zivXysr4HM7S13kuF7aiG69tFmrU0i
+         kapQ82rqekk/6kzFi0tAbgs9mNQGcgqfErdVPplrmRp6R9vJbeKALrWhJPH/fSUXJx9a
+         ktvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732185014; x=1732789814;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bKEAH3fAy+SlsSI3d4/qlK+dwWIag00PjqkGCn3prh8=;
+        b=rXtGhpvXJo+BlaTsY93jFlzLws2zYLNLUbNyPsSF14r0qXzk98l23myVWGR3S7QZMu
+         TjWQVMmZOdEE4Kd0RdPp+qTU6oBVQYIk0F8RiTAaPTOXa+ExogbX/7dA5QDj+NaF7EmY
+         V5msyXNJHllmxD1u7SUMPqMEHDc2Vq3ph3sneRFkpJtqwzP9ktdAE45DdERVQeJ7vMqJ
+         gtuBgzqazvEIrHlctCfTOEztWzwMdzEEL9c7VFAtj0Se7TVcGprtvbqr9FG1HNoMDqkE
+         jYWtjWp3BD/9aE4HF8Uv8iokdFzbeFbgPKqDXfvS4LBp8eXI/uJQPoliv6Dibz7TRVQX
+         J2Gg==
+X-Forwarded-Encrypted: i=1; AJvYcCXoRjocNYf2/FtiadEOmwDLbEDQVq6G95JSYvhFEdK8maTgfezI7k+ZTOaEKsBBENINdRZoR3NZ27g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYrXTQsJG4iYTFmlybp5IQxAUiYk6+MH95+bm7810V2S5RCVhR
+	XSw5TV+WcZunNI2E7Zon2JfX5/SPsdtorRQuLl88AITqeRxSFX3S5Re/rXBZNQ==
+X-Google-Smtp-Source: AGHT+IH31Kmv6MVgR2tUbT7xfZO0FCHDan2dBlQ4TDGD+BEv/0j8X1CCPNQTtua8Z28I2iLkA73d2w==
+X-Received: by 2002:a05:600c:4ec6:b0:431:5465:8072 with SMTP id 5b1f17b1804b1-4334f01d8cdmr66607015e9.31.1732185014002;
+        Thu, 21 Nov 2024 02:30:14 -0800 (PST)
+Message-ID: <ca243df6-ccd8-434b-ad93-abd58f85cfc1@suse.com>
+Date: Thu, 21 Nov 2024 11:30:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] xen/common: Move gic_dt_preinit() to common code
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-References: <54d0ff689e167b3f3137afea45307f762ce0a974.1732027385.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH] x86/boot: Load microcode much earlier on boot
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241119215708.2890691-1-andrew.cooper3@citrix.com>
+ <7ffe1d78-188b-495b-914a-663181d9faa8@suse.com>
+ <39c24cf2-73ac-4da2-84e3-8caee653e83d@citrix.com>
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <54d0ff689e167b3f3137afea45307f762ce0a974.1732027385.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <39c24cf2-73ac-4da2-84e3-8caee653e83d@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|DM4PR12MB6398:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffdde05e-7e18-4c9b-450d-08dd0a171ce1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?b0R2b2hPbmlsaVM0VTcydkdRbWhmM2JuSTBaMFhZS2h6Qm5GMGp4cGkvQTJR?=
- =?utf-8?B?VTlBUC9SbFpqeE4zOTB2YVRQUDNncm9HSXNoQ2Y3YUdQQTg3VGRJM0ZuQlFx?=
- =?utf-8?B?NGthVDJvalgxYUJoczdERXJqUGl5aUwzd1poTEZCQzRhM1ZNS3ExK1ZsdWYw?=
- =?utf-8?B?dStkZlVsK05UQzQzUjlLOVd2bmF6cUZ4TmtuWVZwU2JoTXBjWkpjOHlScm5C?=
- =?utf-8?B?eU9mZktVa2xDVHo3QU1teDlzR1dCQjRWU0VIVDN5VUhkcVdzUzR1MTNvZjlv?=
- =?utf-8?B?TVdiS2hKOGdMVThaNDNtVnMwSUs1dTJPNnJQQmhLWjNKM2NhYnplQTV4Ly8v?=
- =?utf-8?B?MW5oV1hqSnNSUXFYc2UyeUpLbTFFSjA1Y0ExOEt2eU1mRitWU1NOQkJxYVMx?=
- =?utf-8?B?dnhRMDZsdTIyYTFtQ0VJYVRoeFA1TG91dDgySzZ1SGJvR1dUOS9kMUREdmc5?=
- =?utf-8?B?ajU0LysxWkFMbTdzeUJqckZoSktGbDNvSFBXRmgyUWRDRzNDNFEzK1pibnlO?=
- =?utf-8?B?MHJaSVdLa3dKdnRGSjZHMndtYk5xMm8wRGt0NndBbTdnRlF3QUJoVzEweFQy?=
- =?utf-8?B?aHJxTXlCbHNXeTMrOGM3RTdkanNkVVFkYjNGZ25CU25iUHRORmY1Q2pVRHNS?=
- =?utf-8?B?UmJwVE8yaXY5WkFPeG5Edi9DcW91M3dPbWtrMkdLcTJZUjhITGlLQ3RJWWln?=
- =?utf-8?B?NUQ0bDdBdFlYcUkvV2I3NURYYkFSUUM5NlZkVmozeFMxb3krWFpTdFdLU1N3?=
- =?utf-8?B?SDdwSEQ2WExPYWVhdEJ1aGZmOHoxRER3OWdYUjhRR1NJTlVJYWFhSENBRFB2?=
- =?utf-8?B?NEdIK0NXb3lsUjQ5d005azhvcjN5dHEzWVZUZUdyYVh0YXdCV211ZGFVdVVy?=
- =?utf-8?B?K1NNbytsSm9OK1ZqTVJMaTNudEVvUWFNUzdPcXNPblEvZlBRSUIzb3dDUWNk?=
- =?utf-8?B?eDVDNklwME5rdFpJRS9obVBJdUg1SmJPaTZ6dk1wMTNYNGVMUVpwZjlOV0I2?=
- =?utf-8?B?dWw2TUlscHl5VWQvUjh2empoSE9kQjNRTjJ6a2pMc2hiNHhTb0kwOXN0NTdE?=
- =?utf-8?B?Q0FHZ1g1Z1FvNk5sZHJveCtUVWxDWGJLc1Y0WDIvSGgrSUpLTHpkUmJLVjBn?=
- =?utf-8?B?THhFM2VDaUJCTTFWUkxXZ1Brcjc1cnQ3ZU9yb3psa2pQZ2ZkZGthQ3RlVjZB?=
- =?utf-8?B?VW5LVEhIM00xaVdYNjA3c09BdUtrdDJ6OTNnb2R5NlppNldVbG5HeUEvL3Mw?=
- =?utf-8?B?V2hUSzhHNWNhK3JzTTlFa3ZHZVJIU3RodWFDWEwrVGZvZ1k5MUZFb0IxcEJ2?=
- =?utf-8?B?N2U1b1ZlT2dKVjE0WEloNmYzYk1NYkpoUW5BS0pwSHROMUx6ODZZM1c1Si82?=
- =?utf-8?B?ZUNUYjRoQU9BRHZVYU1hTUdvTFc5NUV6S09KZTU3VG13eENRL2xhOW5zSVl4?=
- =?utf-8?B?a2RoZ0t6WnQwcVgxVCtSbWc2cG9Hak9PY08wUkppbG5jYmFwMW0vWDYzNnU0?=
- =?utf-8?B?Sk42dWZnK3RmZ1A1MkFHK3pPQjZPWlZJdFFEaHl4OG8yYWVsUWpMampzSGVG?=
- =?utf-8?B?ejhMNlNUSEptTTRySmVrTjJqK3N2K3ZmUGMyWi9idWtpK1N6ZmtvUTdFQVlY?=
- =?utf-8?B?Tkp5NTdTTEJOZytwK1BiMzNZdG10ME4wVDhzWnhxRkwyWS9VZ21LeER0Q2Ju?=
- =?utf-8?B?YWlnRGRtZ1JadkxvVTJjTlFlMjREZGFQN1dkSWtwWHo2b3lqSXNreldVU000?=
- =?utf-8?B?OGVCVVBHMmhGWFBTYkpEN3N6RU9OWUMvU0x5aXA4THpOZldVWGpzbTNoeUJJ?=
- =?utf-8?B?MEI0TVYxN3pMbStWdUFycWxBZlJ0R1AwWVRxQ081RXIyWUt2QlZpVVcxQm51?=
- =?utf-8?B?WjBLZnQzWC92RFZiZ0lza1UvZmpWTXByM3V5YUN3bFBwZ2c9PQ==?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.12;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:atlvpn-bp.amd.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2024 10:27:33.9654
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffdde05e-7e18-4c9b-450d-08dd0a171ce1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.12];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6398
 
+On 20.11.2024 12:24, Andrew Cooper wrote:
+> On 20/11/2024 10:44 am, Jan Beulich wrote:
+>> On 19.11.2024 22:57, Andrew Cooper wrote:
+>>> Following commit cd7cc5320bb2 ("x86/boot: add start and size fields to struct
+>>> boot_module"), bootstrap_map*() works as soon as boot_info is populated.
+>> I'm struggling with following where this connection is coming from.
+> 
+> Specifically, the final hunk:
+> 
+>> @@ -1416,12 +1420,6 @@ void asmlinkage __init noreturn
+>> __start_xen(void) if ( bi->mods[i].start & (PAGE_SIZE - 1) )
+>> panic("Bootloader didn't honor module alignment request\n"); - /* - *
+>> TODO: load ucode earlier once multiboot modules become accessible - *
+>> at an earlier stage. - */ - early_microcode_init(bi); - if (
+>> xen_phys_start ) { struct boot_module *xen = &bi->mods[bi->nr_modules];
+> 
+> The context with panic() used to read:
+> 
+>     panic("Bootloader didn't honor module alignment request\n");
+>     bi->mods[i].mod->mod_end -= bi->mods[i].mod->mod_start;
+>     bi->mods[i].mod->mod_start >>= PAGE_SHIFT;
+> 
+> and calling bootstrap_map() prior to that mapped junk because the start
+> is wrong by PAGE_SHIFT.
+> 
+> This is why the TODO was inserted the last time around when we couldn't
+> move loading as early as wanted.
 
+Hmm, I see. It wasn't really that they were inaccessible, it merely was
+that adjustments of internally maintained data would have been needed.
+Which could have been as easy as instantiating a local mod variable,
+fill it with suitably adjusted data, and pass an address thereof to
+bootstrap_map().
 
-On 19/11/2024 15:56, Oleksii Kurochko wrote:
-> 
-> 
-> Introduce intc_dt_preinit() in the common codebase, as it is not
-> architecture-specific and can be reused by both PPC and RISC-V.
-> This function identifies the node with the interrupt-controller property
-> in the device tree and calls device_init() to handle architecture-specific
-> initialization of the interrupt controller.
-> 
-> Make minor adjustments compared to the original ARM implementation of
-> gic_dt_preinit():
->  - Remove the local rc variable in gic_dt_preinit() since it is only used once.
->  - Change the prefix from gic to intc to clarify that the function is not
->    specific to ARM’s GIC, making it suitable for other architectures as well.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v4:
->  - Add SPDX tag in intc.c
->  - s/num_gics/num_intc
->  - Update the comment: s/GIC/interrupt controller.
-> ---
-> Changes in v3:
->  - s/ic/intc.
->  - Update the commit message.
->  - Move intc_dt_preinit() to common/device-tree/intc.c.
->  - Add declaration of intc_dt_preinit() in xen/device_tree.h.
->  - Revert intc_preinit()-related changes and just back gic_preinit() in
->    Arm's gic.c.
->  - Revert ACPI-related changes.
-> ---
-> Changes in v2:
->  - Revert changes connected to moving of gic_acpi_preinit() to common code as
->    it isn't really architecture indepent part.
->  - Update the commit message.
->  - Move stub of ic_acpi_preinit() to <asm-generic/device.h> for the case when
->    CONFIG_ACPI=n.
-> ---
->  xen/arch/arm/gic.c              | 32 +-----------------------------
->  xen/common/device-tree/Makefile |  1 +
->  xen/common/device-tree/intc.c   | 35 +++++++++++++++++++++++++++++++++
->  xen/include/xen/device_tree.h   |  6 ++++++
->  4 files changed, 43 insertions(+), 31 deletions(-)
->  create mode 100644 xen/common/device-tree/intc.c
-> 
-> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-> index 3eaf670fd7..acf61a4de3 100644
-> --- a/xen/arch/arm/gic.c
-> +++ b/xen/arch/arm/gic.c
-> @@ -214,36 +214,6 @@ int gic_map_hwdom_extra_mappings(struct domain *d)
->      return 0;
->  }
-> 
-> -static void __init gic_dt_preinit(void)
-> -{
-> -    int rc;
-> -    struct dt_device_node *node;
-> -    uint8_t num_gics = 0;
-> -
-> -    dt_for_each_device_node( dt_host, node )
-> -    {
-> -        if ( !dt_get_property(node, "interrupt-controller", NULL) )
-> -            continue;
-> -
-> -        if ( !dt_get_parent(node) )
-> -            continue;
-> -
-> -        rc = device_init(node, DEVICE_INTERRUPT_CONTROLLER, NULL);
-> -        if ( !rc )
-> -        {
-> -            /* NOTE: Only one GIC is supported */
-> -            num_gics = 1;
-> -            break;
-> -        }
-> -    }
-> -    if ( !num_gics )
-> -        panic("Unable to find compatible GIC in the device tree\n");
-> -
-> -    /* Set the GIC as the primary interrupt controller */
-> -    dt_interrupt_controller = node;
-> -    dt_device_set_used_by(node, DOMID_XEN);
-> -}
-> -
->  #ifdef CONFIG_ACPI
->  static void __init gic_acpi_preinit(void)
->  {
-> @@ -269,7 +239,7 @@ static void __init gic_acpi_preinit(void) { }
->  void __init gic_preinit(void)
->  {
->      if ( acpi_disabled )
-> -        gic_dt_preinit();
-> +        intc_dt_preinit();
->      else
->          gic_acpi_preinit();
->  }
-> diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-> index 58052d074e..7c549be38a 100644
-> --- a/xen/common/device-tree/Makefile
-> +++ b/xen/common/device-tree/Makefile
-> @@ -2,3 +2,4 @@ obj-y += bootfdt.init.o
->  obj-y += bootinfo.init.o
->  obj-y += device-tree.o
->  obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
-> +obj-y += intc.o
-> diff --git a/xen/common/device-tree/intc.c b/xen/common/device-tree/intc.c
-> new file mode 100644
-> index 0000000000..d2bcbc2d5e
-> --- /dev/null
-> +++ b/xen/common/device-tree/intc.c
-> @@ -0,0 +1,35 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/device_tree.h>
-> +#include <xen/init.h>
-> +#include <xen/lib.h>
-> +
-> +void __init intc_dt_preinit(void)
-> +{
-> +    struct dt_device_node *node;
-> +    uint8_t num_intc = 0;
-> +
-> +    dt_for_each_device_node( dt_host, node )
-> +    {
-> +        if ( !dt_get_property(node, "interrupt-controller", NULL) )
-> +            continue;
-> +
-> +        if ( !dt_get_parent(node) )
-> +            continue;
-> +
-> +        if ( !device_init(node, DEVICE_INTERRUPT_CONTROLLER, NULL) )
-> +        {
-> +            /* NOTE: Only one interrupt controller is supported */
-> +            num_intc = 1;
-> +            break;
-> +        }
-> +    }
-> +
-> +    if ( !num_intc )
-> +        panic("Unable to find compatible interrupt contoller"
-> +              "in the device tree\n");
-Don't split printk messages. Also the split is incorrect as it'll result in "contollerin" (i.e. no space in between).
-Also s/contoller/controller/
- 
-> +
-> +    /* Set the interrupt controller as the primary interrupt controller */
-> +    dt_interrupt_controller = node;
-> +    dt_device_set_used_by(node, DOMID_XEN);
-> +}
-Missing EMACS block at the end of file.
+In any event:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index e6287305a7..33d70b9594 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -238,6 +238,12 @@ extern rwlock_t dt_host_lock;
->  struct dt_device_node *
->  dt_find_interrupt_controller(const struct dt_device_match *matches);
-> 
-> +#ifdef CONFIG_HAS_DEVICE_TREE
-> +void intc_dt_preinit(void);
-> +#else
-> +static inline void intc_dt_preinit(void) { }
-> +#endif
-Is it really needed to provide the stub and guards? Other DT related functions in this header are not
-protected and AFAICT the inclusion of this header only works if CONFIG_HAS_DEVICE_TREE=y.
+I'm surprised though that you didn't comment at all on the other aspect
+I raised.
 
-~Michal
+Jan
 
