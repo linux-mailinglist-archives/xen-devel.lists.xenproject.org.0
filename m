@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BF3C9D4B0F
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 11:50:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841323.1256808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF1D9D4B1C
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 11:55:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841335.1256818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE4kz-00066P-K8; Thu, 21 Nov 2024 10:49:53 +0000
+	id 1tE4pt-0007vM-AB; Thu, 21 Nov 2024 10:54:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841323.1256808; Thu, 21 Nov 2024 10:49:53 +0000
+Received: by outflank-mailman (output) from mailman id 841335.1256818; Thu, 21 Nov 2024 10:54:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE4kz-00063m-HG; Thu, 21 Nov 2024 10:49:53 +0000
-Received: by outflank-mailman (input) for mailman id 841323;
- Thu, 21 Nov 2024 10:49:51 +0000
+	id 1tE4pt-0007tI-7H; Thu, 21 Nov 2024 10:54:57 +0000
+Received: by outflank-mailman (input) for mailman id 841335;
+ Thu, 21 Nov 2024 10:54:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0oSv=SQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tE4kx-00063g-9n
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 10:49:51 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ id 1tE4ps-0007tC-8z
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 10:54:56 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 532a4362-a7f6-11ef-99a3-01e77a169b0f;
- Thu, 21 Nov 2024 11:49:47 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-53da3545908so819555e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 02:49:47 -0800 (PST)
+ id 08e1f50f-a7f7-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 11:54:52 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3823e45339bso590972f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 02:54:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b4643194sm50113525e9.40.2024.11.21.02.49.45
+ ffacd0b85a97d-38254933d39sm4750361f8f.83.2024.11.21.02.54.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 02:49:46 -0800 (PST)
+ Thu, 21 Nov 2024 02:54:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 532a4362-a7f6-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmIiLCJoZWxvIjoibWFpbC1sZjEteDEyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjUzMmE0MzYyLWE3ZjYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg2MTg3LjIwMDQxLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 08e1f50f-a7f7-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmEiLCJoZWxvIjoibWFpbC13cjEteDQyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjA4ZTFmNTBmLWE3ZjctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg2NDkyLjE1NjAzLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732186186; x=1732790986; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732186491; x=1732791291; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fY/U65CTknhe6PuAffa5IRGg8E4YaKHX+C5Pzh5N4To=;
-        b=BaqUzKSLUKuEQhD+9rf6IQkk2bd/GH5m9auTJykJAK4WR2+Fze0xKuySmjF3+6uAyt
-         S2Z/1VKu/3aSiYu0FeOohjmHecdwqW2FQ3uUO95ng7IoGgljrp5pBOzv3LK5ghYGjjz3
-         qtLoOjttP/16tOzsIx1rx1/LS1N5xQyYDG1Gtk2Q5i3979AFJxn45mN/7MxSxoWuXeLH
-         Uz+Eozwu8wmE4noiSKzODaMcPeXIq3ggGlXYxpmxUksI7X4sU0qMg8stRSJoW81NpIst
-         wPStS+1wH9DbjD7qgx7JGqaYzEXTnJbyY8ipA55tPKVL/O/VeDyIOqQ6iQ9O7qHeLzsR
-         ruPQ==
+        bh=54Bo96MKWLNTw6NxwyaGGj7N9kGQ6B+p66118aKot90=;
+        b=EKJIgwmcWYW/ont0eEQfjO7a6gbfUeeoUoXZdzIQB1Qd3R9cp8W3jdmpmhV1aRvu+1
+         ARD/lfamL3odSMb89Da+f/NThO5N0BmBhyoBKk97K9OJrQBCNJwF8CkSOfYgt4Bll23C
+         Ef9ddApgQk8NQo8fRP4ckNU7z2ODpYn/u3jSnijTLPDHmPg08YcWWr9gZsnrPIigeW8Y
+         rbf42KfwNmc6pjr2GznUsB7TRGBPuaV/TBXZ5S0ouHbI7sjs6ihf4agzw+ZMXfAemt6z
+         CAqZjo5Y+ilkS3qlgIeasLVrYkcbkFJmiugUCTyTPdllU7b+ZycIygOsTgdydPw2Eub3
+         5bLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732186186; x=1732790986;
+        d=1e100.net; s=20230601; t=1732186491; x=1732791291;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fY/U65CTknhe6PuAffa5IRGg8E4YaKHX+C5Pzh5N4To=;
-        b=sxTCdMyk0Y2rmzXaLQDPcL5IHUGbmOmM2myz9qbv2n5i6qVcFWFUjTR0cTyMfIQCa6
-         Ka5Tl+62rkkef4+0urc6beC8f/+ANStkZ5Hfqz46gYZHHVsSEvQcgt8aZi2ztPtYp0TZ
-         lJaFn9dVtOaHoe1hxZ1SU+59AO/J5P9AsRNk5t+ilzx72c3un92OdqL9a/i3QGL8jnZP
-         4gaGGd9UGHK1s1vTK123Alkp5PSfFTa6T6dlqwfroZ3iGyQNSLqVAid5rd/dBZ1nKXJi
-         kZILXT8hVj07tBwh5L0yguW3BG/i2zbAr+ml+3tmti2WsHE3hT31piK26fZNHrfN52TW
-         L1Kg==
-X-Forwarded-Encrypted: i=1; AJvYcCW6hacUK8ylJ2S6Oe19a3x2vceJQqn6g7SqmsFkQjJ629v0CKxLbvf6/iUTZB7lBw+ox/agcDUIKjk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQHyYWMnAzn5AsvTCdL8/e7c7VSmkk0Ql3kF8gh3szLGTsu+ch
-	vDeo7u8vg1eNouj1O8r3pwamFvYfFKuVvlAnbX69IkhvE221LdOSJxFf9WQPlg==
-X-Gm-Gg: ASbGnctjmGrZOc2RjxFYj9eIU0Zfzif1e5JXlxpTS2y2Bep4vbrK6Ycby++YnsP9jqH
-	ITtzDSlnwO6IpXXSERzhEW8oPLRYKQAgc5n5guTsj6PEoET+y17tHtNvy5lBUo9iwZQ6zxmK90r
-	sX/oXyc+hjwQ7FYCE5bsgIykcGSGlSC4pFpnWXyYtYfdBlDFyyazNIrwPnIZgLrkuA31b6Ziibe
-	Aa9DkU269q2gTTV4OENZ8N79F7chnsSbfaberLKe7k4YT1mpLHfuMqyjNqdGdTx6F75rBaDOaKE
-	dBRy6gwNJn6NeGFGHvM3Mqge7Er+Vx31vvk=
-X-Google-Smtp-Source: AGHT+IEieXfPBjWaix4OmNIlTdoFR3WuCaYfN9gPEE+Xz60eMFN52iDIPyklR7mIkQBcQe4zraejXg==
-X-Received: by 2002:a05:6512:20a:b0:536:a50a:3c25 with SMTP id 2adb3069b0e04-53dc1328c39mr2333975e87.12.1732186186549;
-        Thu, 21 Nov 2024 02:49:46 -0800 (PST)
-Message-ID: <b849f46d-501a-4083-aecd-fdf0c4319eda@suse.com>
-Date: Thu, 21 Nov 2024 11:49:44 +0100
+        bh=54Bo96MKWLNTw6NxwyaGGj7N9kGQ6B+p66118aKot90=;
+        b=ukU1aS8XCwtSw4KB4kqw7twxlsq62jnipUpQ4W4HjfgP0kGiUSk/x9t/kthz0ha/ky
+         blxw25USmKfWmZUxmz3Wn2/6kgQNmKNu3WWLh1rFrXihXRzNPu0y3U+kCUHCCpPjbV5I
+         GY/RIDcv9U3zWrVhskGnf8eqhki3/QzID865MRL9+fUfbmAKrCf0qQbBHP3ighy0amRR
+         cMguBRHxE1KhR/3+idYfY5R3cxzn/G+tZLKdvi338kBF+0CXhuiaqNAhWK2I47bzwF8I
+         Jod+sQyZA2FaNHeWuSjdb+zd7hCVxR4jy7tF8A+N7MvPuYorltsOPkAbCbevwC9aXxmq
+         Mc/A==
+X-Forwarded-Encrypted: i=1; AJvYcCWWgSxvMgp0Sge1k3ECkogrDxWrihWpbYENsFkK6DS5KlZjMIsq2UQcNIMhm/klICthjPKWCu3/Irg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4vY9PmIV/ErN2AKyNoiyTrDocQHaLQ9wmC3Q2AFBGDFGKyChB
+	cXRUwHuEGd6Y5i/U0IaHI0wkO0/znOuRp5Jo6ybbu7E51gX8O4O2xmVtMG1kUw==
+X-Gm-Gg: ASbGnctlyPPYpFmWx5a4SFDiSZaryQZ1uXbepEfGrZQaUEUUV3z47bGivo0OJmDyWWF
+	Mj+BNeIxXKWvWaBhzCWs16BQjV6XbkdUMTK69aJyc6dDQG180Y28jpqE8EkxLRthuSFmmgEyCrb
+	GEc+Fxsm0zu4EOrLCKOWX4u1uylfnzvP1fy6cyN228vTTPkoOR820jyzkH8cUS4KkpLPqRwSZXf
+	SF6LOyeokviP7whGvwwn4B6os/g8BpBK7kanjwU7FJEky/8ppR0X/a28PJOMSP1YeRhJwp2azsC
+	IeP9ZIOb18lUUfL39Nfe5uS7n0rnonUMQCo=
+X-Google-Smtp-Source: AGHT+IGTW4zYU0NipV/07Q9JtqqvJqVAW9hJYON/sKBOZTAZSvwG5/qr1++FzRAsvpdNdOGCZQmCJQ==
+X-Received: by 2002:a05:6000:2c8:b0:382:2e9e:d688 with SMTP id ffacd0b85a97d-38254b290bfmr4891291f8f.51.1732186491485;
+        Thu, 21 Nov 2024 02:54:51 -0800 (PST)
+Message-ID: <25fb7dfe-50e0-446a-9057-050fd3c2edb2@suse.com>
+Date: Thu, 21 Nov 2024 11:54:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/irq: fix calculation of max PV dom0 pIRQs
+Subject: Re: [PATCH 2/2] x86/pvh: also print hardware domain pIRQ limit for
+ PVH
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20241120113555.38146-1-roger.pau@citrix.com>
- <20241120113555.38146-2-roger.pau@citrix.com>
+ <20241120113555.38146-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,23 +119,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241120113555.38146-2-roger.pau@citrix.com>
+In-Reply-To: <20241120113555.38146-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 20.11.2024 12:35, Roger Pau Monne wrote:
-> The current calculation of PV dom0 pIRQs uses:
-> 
-> n = min(fls(num_present_cpus()), dom0_max_vcpus());
-> 
-> The usage of fls() is wrong, as num_present_cpus() already returns the number
-> of present CPUs, not the bitmap mask of CPUs.
+> Do not return early in the PVH/HVM case, so that the number of pIRQs is also
+> printed.
 
-Hmm. Perhaps that use of fls() should have been accompanied by a comment, but
-I think it might have been put there intentionally, to avoid linear growth.
-Which isn't to say that I mind the adjustment, especially now that we don't
-use any clustered modes anymore for I/O interrupts. I'm merely questioning
-the Fixes: tag, and with that whether / how far to backport.
+What you're printing ...
+
+> Fixes: 17f6d398f765 ('cmdline: document and enforce "extra_guest_irqs" upper bounds')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/io_apic.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+> index bd5ad61c85e4..d9db2efc4f58 100644
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -2754,11 +2754,13 @@ unsigned int __hwdom_init arch_hwdom_irqs(const struct domain *d)
+>  
+>      /* PVH (generally: HVM) can't use PHYSDEVOP_pirq_eoi_gmfn_v{1,2}. */
+>      if ( is_hvm_domain(d) )
+> -        return nr_irqs;
+> -
+> -    if ( !d->domain_id )
+> -        n = min(n, dom0_max_vcpus());
+> -    n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, max_irqs);
+> +        n = nr_irqs;
+
+... is rather the number of IRQs we picked for the system. That may happen to
+end up being the upper bound for PVH Dom0, yet not logging this at all was
+because of the limited use pIRQ-s have there. Granted at the time I was still
+under the impression they have no use there at all, so this isn't really an
+objection to the change. I would have been nice though if the description had
+mentioned why significance pIRQ-s actually have in PVH Dom0.
 
 Jan
+
+> +    else
+> +    {
+> +        if ( !d->domain_id )
+> +            n = min(n, dom0_max_vcpus());
+> +        n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, max_irqs);
+> +    }
+>  
+>      printk("%pd has maximum %u PIRQs\n", d, n);
+>  
+
 
