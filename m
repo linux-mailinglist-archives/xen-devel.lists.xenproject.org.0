@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6685D9D4E11
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 14:48:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841513.1257001 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E9299D4E1F
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 14:52:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841521.1257012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE7XI-0006oz-9L; Thu, 21 Nov 2024 13:47:56 +0000
+	id 1tE7bn-0008To-QK; Thu, 21 Nov 2024 13:52:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841513.1257001; Thu, 21 Nov 2024 13:47:56 +0000
+Received: by outflank-mailman (output) from mailman id 841521.1257012; Thu, 21 Nov 2024 13:52:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE7XI-0006ms-6f; Thu, 21 Nov 2024 13:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 841513;
- Thu, 21 Nov 2024 13:47:54 +0000
+	id 1tE7bn-0008RB-NE; Thu, 21 Nov 2024 13:52:35 +0000
+Received: by outflank-mailman (input) for mailman id 841521;
+ Thu, 21 Nov 2024 13:52:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yn03=SQ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tE7XG-0006mk-Mf
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 13:47:54 +0000
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [2607:f8b0:4864:20::235])
+ <SRS0=XSdi=SQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tE7bm-0008R5-O2
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 13:52:34 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31bcffb4-a80f-11ef-99a3-01e77a169b0f;
- Thu, 21 Nov 2024 14:47:49 +0100 (CET)
-Received: by mail-oi1-x235.google.com with SMTP id
- 5614622812f47-3e5ffbc6acbso570398b6e.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 05:47:49 -0800 (PST)
+ id d8aab804-a80f-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 14:52:28 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5d00e24d874so709585a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 05:52:28 -0800 (PST)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa4f419dd9dsm84298166b.90.2024.11.21.05.52.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Nov 2024 05:52:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,131 +45,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31bcffb4-a80f-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjoyMzUiLCJoZWxvIjoibWFpbC1vaTEteDIzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjMxYmNmZmI0LWE4MGYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTk2ODY5LjIzNjU1Nywic2VuZGVyIjoiZnJlZGlhbm8uemlnbGlvQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: d8aab804-a80f-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmMiLCJoZWxvIjoibWFpbC1lZDEteDUyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImQ4YWFiODA0LWE4MGYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTk3MTQ4LjY0NDkzLCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1732196868; x=1732801668; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lktt4rpgGO68szIijmKgn4n1uRFXqIXG3qCErjJvxvM=;
-        b=EVdTHVt+bPCCpSkHAywydrwRCkzBJMP4uRE9oHJM6QwNZkAsq3JxOOEmGdpGr49kcE
-         /XF65569N13KtDl2UVtgEtXncdiFP/viXEhMXHW33WDJlz34pULtb1h4JsOYPRCj55NE
-         Z85ArGef+UZQf8bKpAfyDQK4tWB9+QqXLc1HY=
+        d=citrix.com; s=google; t=1732197148; x=1732801948; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=C1GO73gRzh4/IL3dMWuUkssDz5TlqQQuoYV3X0iBIrM=;
+        b=CmWpoc93viM6Gk5LlyhN+Z4C+24bzVpMV+nw8lGRSRUB1SleKZp3lf1i919iutPbeg
+         MI6L787VmJLG9usQNTcJDNz28xdhVdYbl3IqwVSbER39RmgU5Wa9KI92Of9AMBLE1DKv
+         aSbrFZh2vAi5QGZt6N/rHttOJbPuH8T5ldhRQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732196868; x=1732801668;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lktt4rpgGO68szIijmKgn4n1uRFXqIXG3qCErjJvxvM=;
-        b=rWB/2i0wAXSxGkrEgddrC3m9C+a3/Mw6ilamlqZSDqVes775yybWmqyPv1NFy/U2sI
-         /6s40af5mX5YI0y21TiKFTQrEsFkGH6rmxX5AYOJ8e5oGV2eqZ1UK+1MywFxsHVI8zl1
-         t3oHpUn0cnCRLcQm9K5AdK9MZYaX28voAjm/w4+M3wY6vI5Ba6f6BRY4t8TBotOGS/MR
-         tEwWdFew+Nl2WdosMDQYNgqudoT95W79lkQQdvvXST8kF72EkAL0OiK+fubMxOl1VYCX
-         VmrxYvXtNjwajfr0qg6k1Qkt5vPqa0q6TRRGGWS/LYEXCGj266LvFqi0QZjGcsLDhhkF
-         W7nQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXyrFqJ1BvR3sIq3moPYM47mGrz/C1TLkdAh+caJWZA112qIQR5KCJtiZZG7Jvoxb/0Sl2oXnNd+vo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5OoqkvAzsib1LaoHa9RUU5vpvH/tjXYb6S3MaTzCAgzO/5fln
-	Anqx9T2Wekl403FYhDlNURiPpy/VaxAHB3qUlsuz3jDsY+XdgkvkHsWYE5DYo9FgL3Q8/Mxnuzs
-	ewu6GvaUcGM86sy2u4c7uEWqshdUBVuY8LS4w7A==
-X-Gm-Gg: ASbGncvaYqFICJayTVt0oQ+Ea5g5plLWxt0N/SAHoLeaIOHCSBzuFC8f+aQSHcV/h9n
-	pRl8exD3XvtSc66H0DSXvLRIGu5rdwTSjiQ==
-X-Google-Smtp-Source: AGHT+IHYMF04+CLdS72p7w8qGSmoBkMwDkkJSxlS2G8gM46ZEjEKol1CSouIa+nuVqZlgo7pLSx6uPM8McCC1l3JYpw=
-X-Received: by 2002:a05:6808:f11:b0:3e5:c7f8:ad7d with SMTP id
- 5614622812f47-3e7eb7d4648mr6547344b6e.39.1732196867915; Thu, 21 Nov 2024
- 05:47:47 -0800 (PST)
+        d=1e100.net; s=20230601; t=1732197148; x=1732801948;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C1GO73gRzh4/IL3dMWuUkssDz5TlqQQuoYV3X0iBIrM=;
+        b=do7qDv6bRuK6hH23NbtzCdec4Ii8SFhEL+gDI4vwgMF0eUlBaHtVNc8VKkek0RqST8
+         3xE7XKoSx/CQHBcpvWYcBmgse1/8na7X93ZEXmFVFwpQgEz1AlM7Y6OR6BZ3MsDIreCs
+         fMlnBDAz+kVe0NztVQYt68nCuMF6QxrlI5v8AIgB/Xx3k1iVK7u7fiT/W6iljp3JvOSf
+         /j+sZ0qop80PMnMFoSHyLj9WvrclyC+JT3fvBsaXmJqgCY6BtGtBlyitjZLkYIHkJRdV
+         m5Jf+Fb4RyHYIVzoibHq6NSYj6MyATPM606I6+zFA4xZLFjUYIsWdAvPCjZbBW+BRDKd
+         fFSQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWaf4DGKaULJeb8SmTTN7k5gv3EP3xcJivStFOvY8SE5g+FS7JMvzHAdA1lW20uBFq8RUegEbQeqfU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1ZG/MIZ/TmPP1G3fiTkQyqF+FYw7n9NSUcTrbSl9ND9JIYlYN
+	NT6CqRsQQbNSM9rQxke37g9WRbaSVxsGYLCccl96emKXlxDm00EhfsTfNkfWGlCpbGD4pA7VdxM
+	W
+X-Gm-Gg: ASbGncs1tWXprLbPfvrfoSiZ42TnVa7QEGo6T1duKnnu1sZNPMDGbJt7IJWYogqa3gu
+	R1iJ9cl0BqHO8+WjlWvTrmf9tdJCpVg7AizyxZznF4fFboeVXzG8+z16CqKCFpf1MbFZQr16jTG
+	/gjqArlJEfviGuR2jVts8YpRJcs5ZzqwuUu4IBYGtaFP/NnUt5v2o4McZ772zcxRH+cmlybqYbf
+	M0a0uc9kXYyRpILuDaExabzT4FsEV0gyIX2Z65U1ON58r+EaNLh39zTVpZf3l0=
+X-Google-Smtp-Source: AGHT+IHZ5Titzq8tKB6Lyri4gRzr48V5OEkOSeEr+k6N83DC7BpGc1wiicRN8t0VOkkeAcm8JmbQAg==
+X-Received: by 2002:a17:907:7f9e:b0:a99:482c:b2b9 with SMTP id a640c23a62f3a-aa4dd6b1b7emr610186166b.29.1732197148113;
+        Thu, 21 Nov 2024 05:52:28 -0800 (PST)
+Message-ID: <28d69ba9-7f10-443d-88ca-71971140f108@citrix.com>
+Date: Thu, 21 Nov 2024 13:52:25 +0000
 MIME-Version: 1.0
-References: <e470822f190a41b2f1600821b81d7ad158ed33db.camel@gmail.com>
- <227db2a2-d36f-453e-8886-b8ef0d5f9616@citrix.com> <CACHz=ZjnfL_MorLcwduhJpUjFLX2y3KtQE8Pd4s=V68OgiV_rA@mail.gmail.com>
- <21cfb919-9150-4276-b613-d972a4b1d864@suse.com>
-In-Reply-To: <21cfb919-9150-4276-b613-d972a4b1d864@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 21 Nov 2024 13:47:36 +0000
-Message-ID: <CACHz=Zhf6Gh62eeWj-jBTcMrOpa1g+_dC-uT-D8vF2BLbFwX0Q@mail.gmail.com>
-Subject: Re: Xen 4.20 release schedule
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Load microcode much earlier on boot
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, oleksii.kurochko@gmail.com, 
-	Xen-devel <xen-devel@lists.xenproject.org>, 
-	Community Manager <community.manager@xenproject.org>, 
-	"committers @ xenproject . org" <committers@xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241119215708.2890691-1-andrew.cooper3@citrix.com>
+ <7ffe1d78-188b-495b-914a-663181d9faa8@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7ffe1d78-188b-495b-914a-663181d9faa8@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 21, 2024 at 1:40=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 21.11.2024 13:53, Frediano Ziglio wrote:
-> > On Wed, Oct 30, 2024 at 1:25=E2=80=AFPM Andrew Cooper <andrew.cooper3@c=
-itrix.com> wrote:
-> >>
-> >> On 21/10/2024 1:02 pm, oleksii.kurochko@gmail.com wrote:
-> >>> Hello everyone,
-> >>>
-> >>> As there were no objections to the proposed release schedule
-> >>> (https://lore.kernel.org/xen-devel/CAMacjJxEi6PThwH2=3DNwG3He8eQn39ai=
-axZCw3bQF7i4YcmjuNw@mail.gmail.com/
-> >>> ), I've updated the wiki with the schedule for Xen 4.20 release
-> >>> (https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes), an=
-d
-> >>> it is now accessible from
-> >>> https://xenbits.xen.org/docs/unstable-staging/support-matrix.html.
-> >>
-> >> I have a blocker to raise (against myself...) and no good idea of how =
-to
-> >> proceed.
-> >>
-> >> The for_each_bit work has a unexpected bug.
-> >>
-> >>     for_each_bit ( ... )
-> >>     {
-> >>         if ( ... )
-> >>             break;
-> >>     }
-> >>
-> >> will fall into an infinite loop.  This is caused by for_each_bit()
-> >> hiding a double for() loop, in order to declare two scope-local
-> >> variables of different types.
-> >>
-> >> The two variables are one copy of the source expression (really quite
-> >> important to keep), and one unsigned int iterator (improved optimisati=
-on
-> >> capability by not using a wider-scope variable).
-> >>
-> >> Options are (off the top of my head)
-> >>
-> >> 1) Always take the iterator from outer scope
-> >> 2) Iterator always the same type as the source expression
-> >> 3) Figure out some way of expressing "once" in the outer loop
-> >>
-> >> Or anything else that I've missed.
-> >>
-> >> ~Andrew
-> >>
-> >
-> > Something like
-> >
-> > #define for_each_set_bit(iter, val)                     \
-> >     for ( typeof(val) __v =3D (val), __c=3D1; __c; __c=3D0)   \
-> >         for ( unsigned int (iter);                      \
-> >               __v && ((iter) =3D ffs_g(__v) - 1, true);   \
-> >               __v &=3D __v - 1 )
-> >
-> > ?
->
-> Hmm, right, but then we don't even need a 2nd variable, do we?
->
-> #define for_each_set_bit(iter, val)                     \
->     for ( typeof(val) __v =3D (val); __v; __v =3D 0 )       \
->         for ( unsigned int (iter);                      \
->               __v && ((iter) =3D ffs_g(__v) - 1, true);   \
->               __v &=3D __v - 1 )
->
-> Jan
+On 20/11/2024 10:44 am, Jan Beulich wrote:
+> On 19.11.2024 22:57, Andrew Cooper wrote:
+>> Resolve the todo, and move microcode loading to be the eariest action after
+>> establishing a console.
+> So yes, this is merely strengthening a dependency we already have:
+> bootstrap_map_addr() arranging to avoid allocating any page table memory.
+> Yet don't we rather need to move away from this? We don't know what's in
+> the excess space we map, and hence we better wouldn't have any (cachable)
+> mappings thereof.
 
-In theory it should work too, not sure if the variable aliasing would
-compromise the assembly output. We depend on the compiler doing some
-optimizations.
+I don't see it this way.
 
-Frediano
+Yes it is somewhat dodgy that bootstrap_map*() blindly uses 2M pages.
+
+It's a problem with cacheability (in theory at least; TLBs tend to
+splinter mappings on MTRR mismatch).  It's a hard problem with the RMP
+table (AMD SEV-SNP), where any access into the page yields #PF[Rsvd] if
+there's any overlap with the RMP (locked in place by firmware and not
+always 2M aligned).
+
+But, any fix to this needs to fix *all* users of bootstrap_map*(),
+including the move_memory() loop.
+
+So I don't see any interaction with how early or late the early-map
+infrastructure is used.
+
+~Andrew
+
+P.S. I have a few ideas on how to address this.
+
+With only 2 extra pagetables in .init.bss, we can support any arbitrary
+single mapping with 4k alignment.
+
+move_memory() is the only user that makes multiple mappings, and it's
+broken anyway.  I'm now certain that it does get memmove() wrong if the
+move has a partial overlap.
+
+However, move_memory() always has a good destination pointer in the
+directmap, so I've got a crazy idea to fix the memmove() problem by also
+hooking the bootmap into idle_pg_table[511] creating a high alias of the
+mapping, and the source pointer can choose whichever of the aliases are
+the correct side of the directmap.
 
