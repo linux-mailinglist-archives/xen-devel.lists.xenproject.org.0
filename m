@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDD0C9D4C77
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 13:01:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841455.1256941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06C09D4CC3
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 13:24:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841468.1256952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE5rZ-0007Xv-Nt; Thu, 21 Nov 2024 12:00:45 +0000
+	id 1tE6ER-0002S5-ES; Thu, 21 Nov 2024 12:24:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841455.1256941; Thu, 21 Nov 2024 12:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 841468.1256952; Thu, 21 Nov 2024 12:24:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE5rZ-0007Vr-LK; Thu, 21 Nov 2024 12:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 841455;
- Thu, 21 Nov 2024 12:00:43 +0000
+	id 1tE6ER-0002QF-BR; Thu, 21 Nov 2024 12:24:23 +0000
+Received: by outflank-mailman (input) for mailman id 841468;
+ Thu, 21 Nov 2024 12:24:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JH7e=SQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tE5rX-0007NN-Nn
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 12:00:43 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a258195-a800-11ef-99a3-01e77a169b0f;
- Thu, 21 Nov 2024 13:00:40 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43168d9c6c9so6995875e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 04:00:40 -0800 (PST)
-Received: from ?IPV6:2003:e5:872e:b100:d3c7:e0c0:5e3b:aa1c?
- (p200300e5872eb100d3c7e0c05e3baa1c.dip0.t-ipconnect.de.
- [2003:e5:872e:b100:d3c7:e0c0:5e3b:aa1c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825490bfd6sm4799041f8f.25.2024.11.21.04.00.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 04:00:39 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zSRA=SQ=codewreck.org=asmadeus@srs-se1.protection.inumbo.net>)
+ id 1tE6EO-0002Q9-QT
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 12:24:21 +0000
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 867927fd-a803-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 13:24:16 +0100 (CET)
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+ by submarine.notk.org (Postfix) with ESMTPS id B831D14C1E1;
+ Thu, 21 Nov 2024 13:24:12 +0100 (CET)
+Received: from localhost (gaia.codewreck.org [local])
+ by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 4797f817;
+ Thu, 21 Nov 2024 12:24:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,66 +42,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a258195-a800-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjNhMjU4MTk1LWE4MDAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTkwNDQwLjI3ODE5OSwic2VuZGVyIjoiamdyb3NzQHN1c2UuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732190440; x=1732795240; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EO9H7L51gE6cPNefBYVK5KHtIK+HLO0v1Tul0wks2V0=;
-        b=aAsXBWCn+B0uufBmTbtY0VYvVsZnRQhNxq9Iv/zf8na3yZkhX5iRikS8+oqx65k62j
-         hb16Ted1bKCdvPBiTKMp2lkyQiNJDeMBYlU9Wv4wAwk02kwuG0xDpAjByu2y9Mc3GUHY
-         +g+iwJCiizcWHhOuT9o7kFz3kxLDXyNhoomhwb0B590AIamavZM2nX1VpfjExKVkwMZv
-         2nlEaGFaY0kEzHpKM5NU7g8Z2QQ+ZoScgxiK8wp3UpCHq7vgVLMtFVnN06r+1MS34Pkq
-         vtBGpCGsGko6z2AepeoWIaLwkznbZuFM/c+Wc+0d+C+l0vCkd97yjNXqeDZRzwz3A+oe
-         tAjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732190440; x=1732795240;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EO9H7L51gE6cPNefBYVK5KHtIK+HLO0v1Tul0wks2V0=;
-        b=Sl8iFnSTX1aJxqqySONVpeFQTCMBLmJNh6bggBEdOfCLSfzWMQa4xTD1uHbVn0OaZ0
-         TH18M6EtQBkc/miKLvXgZ2jur0IFWvsuNptaIWNv4CRwJ9FV9C3nsJQ7gQbSJzkU4nea
-         ZOmlyEhrFGBh7crfkMf9TGsXIg/bQI6FF5iurT3wL4eGvFiy+Fb5iiIecrZZZjDYdIlJ
-         V5DRKjt4ADAxzMn8zEONRFzc1SZEXxlKS+0WKUO2pTN58EXKYyyNAwLpWrjw//MdEDKL
-         nHPLorxLopzYVPm96i5eqlSouPwkrhL9AN5aN+p14sEQxi18dFjvw6vZ3tiYJ5Itq4YP
-         ledQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUC9EbLhfP6QOTUhQahL4XIgwSZGTPxqvFX95NmEUaORYYdHyAh0/z8bksVBDINIqev8sLMT9c7x/U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxXx290QLr0OM2QIsL2Ct/EhJDbAbWuPV1MIDRM6KGQy+78kkR7
-	BsQQgMel3Elt1Zb7JdmzmWQ8/CZ1q/urdu2JzkAwGsbSBfqMvY5+xzJPQp+X/ZY=
-X-Gm-Gg: ASbGnctDxXcfWolLryM8IEGqmnyu/O6NkaEhDYs8wsRvpCpc0DWNtswjUstJvqmko9i
-	8EHMRL2ZbqM1+hnnsqIBZ2jMYDiHRMVOtNHI4rly2lq5xiuHO/7d7iURZu+sXthruMUAhDOm3bv
-	bxpkmfS6ySJILZBxHgdD9y3X4egWbcrqLRXeNLfqFEs11Y6cSUcwLAtbSuIn+lsUdbqjbbY/PSY
-	1PGAtSj1BflY+xycFtzN/i4sMnekL3/NSst4vXkAw+AVLajCTbZEKWSuJmlbrAPsc081kxDJ+gC
-	OoYmm5sEDPsArx3nxxYTssmid2OUSkD6zlDA4038XuMyz+Vdgkab4G0Z4tJfmq7BllNGzf3TSxU
-	=
-X-Google-Smtp-Source: AGHT+IH/3NH9JKgLe2HMj+sVAVSzV5oHzHhIknlp/HwTvLcOeg4S3MgtK3eWa+wQPxuOZjcu3rfShQ==
-X-Received: by 2002:a05:600c:444f:b0:42c:b4f2:7c30 with SMTP id 5b1f17b1804b1-4334f017137mr48829815e9.23.1732190439548;
-        Thu, 21 Nov 2024 04:00:39 -0800 (PST)
-Message-ID: <82dbba56-e803-4332-81f7-225e35048e1e@suse.com>
-Date: Thu, 21 Nov 2024 13:00:38 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: 867927fd-a803-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjYyLjIxMC4yMTQuODQiLCJoZWxvIjoic3VibWFyaW5lLm5vdGsub3JnIn0=
+X-Custom-Transaction: eyJpZCI6Ijg2NzkyN2ZkLWE4MDMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTkxODU2LjgyOTMwOCwic2VuZGVyIjoiYXNtYWRldXNAY29kZXdyZWNrLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1732191855;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xHgJ4eJ5XwEZ8MzTd18+kcOaEGlva/2F8o2ACTeVRNM=;
+	b=yxoUOOXyCcnrIh5MIGLKt+gFezI6s3szXY5vlOZNbxeXF6Gzn4daTY6w5q/yYvMcYaa60+
+	plYDZWqx/gIwpHnaPuMpWb73F4XS3RvEAUfi1IMJQYN7Fi1mo5op7fhaFAtV+D6d+xlE0j
+	hJzfNaUXbNgN9cuSH5NixX1sBzWD2Jj2rbeW0kOdVUvNEBkdTXq5ZGsGoOgG1rDp43DLK9
+	T5l/xFT2+d3oomX4FHO1rNan20HsNAcRuC42xVDU6QuaadI8HISO4Y0cwhZUdykraEFaH3
+	PzT0H+Z+XH969qj/PL0KJK2SFq3wfPlmyWOgO/xK2WiA40MyaH/qe1gjDQlDWg==
+Date: Thu, 21 Nov 2024 21:23:55 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Alexander Merritt <alexander@edera.dev>
+Cc: v9fs@lists.linux.dev, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Simon Horman <horms@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Alex Zenla <alex@edera.dev>, Ariadne Conill <ariadne@ariadne.space>
 Subject: Re: [PATCH] 9p/xen: fix init sequence
-To: Alexander Merritt <alexander@edera.dev>, v9fs@lists.linux.dev,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- Simon Horman <horms@kernel.org>, Alex Zenla <alex@edera.dev>,
- Ariadne Conill <ariadne@ariadne.space>
+Message-ID: <Zz8mWwLQBNq6eopG@codewreck.org>
 References: <20241119211633.38321-1-alexander@edera.dev>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 In-Reply-To: <20241119211633.38321-1-alexander@edera.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 19.11.24 22:16, Alexander Merritt wrote:
+Alexander Merritt wrote on Tue, Nov 19, 2024 at 09:16:33PM +0000:
 > From: Alex Zenla <alex@edera.dev>
 > 
 > Large amount of mount hangs observed during hotplugging of 9pfs devices. The
@@ -115,14 +83,18 @@ On 19.11.24 22:16, Alexander Merritt wrote:
 > frontend does not send on, resulting in stalled processing.
 > 
 > Only allow initialization of 9p frontend once.
-> 
-> Fixes: c15fe55d14b3b ("9p/xen: fix connection sequence")
-> Signed-off-by: Alex Zenla <alex@edera.dev>
-> Signed-off-by: Alexander Merritt <alexander@edera.dev>
-> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+I'm not familiar with the xen bringup so I don't understand how the
+patch guarantees this -- otherend_changed calls are guaranted to be
+seralized for a given frontend?
+I guess that at least it guaratees that we won't restart the init
+process after init's been done on our side and before the remote side
+sends the ack, so if you've all tested this I'll just trust you and
+Juergen's review and take it as an improvement.
 
+Queued to 9p-next; will send this to Linus in ~1week
 
-Juergen
+Thanks!
+-- 
+Dominique
 
