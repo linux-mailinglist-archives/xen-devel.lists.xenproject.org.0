@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4495A9D4C22
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 12:39:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841425.1256911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB96B9D4C21
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 12:39:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841426.1256922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE5Wk-0001iS-Hc; Thu, 21 Nov 2024 11:39:14 +0000
+	id 1tE5Wl-0001wc-NR; Thu, 21 Nov 2024 11:39:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841425.1256911; Thu, 21 Nov 2024 11:39:14 +0000
+Received: by outflank-mailman (output) from mailman id 841426.1256922; Thu, 21 Nov 2024 11:39:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE5Wk-0001g3-Dj; Thu, 21 Nov 2024 11:39:14 +0000
-Received: by outflank-mailman (input) for mailman id 841425;
- Thu, 21 Nov 2024 11:39:13 +0000
+	id 1tE5Wl-0001u4-K7; Thu, 21 Nov 2024 11:39:15 +0000
+Received: by outflank-mailman (input) for mailman id 841426;
+ Thu, 21 Nov 2024 11:39:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0oSv=SQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tE5Wj-0001ft-Dt
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 11:39:13 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=A3MJ=SQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tE5Wk-0001ft-2j
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 11:39:14 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38cabce2-a7fd-11ef-99a3-01e77a169b0f;
- Thu, 21 Nov 2024 12:39:09 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5cfcf4df87aso1054333a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 03:39:09 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5cff44de5easm1749201a12.11.2024.11.21.03.39.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 03:39:08 -0800 (PST)
+ id 37e5181f-a7fd-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 12:39:08 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a9ed7d8d4e0so122135266b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 03:39:08 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa4f4152dcbsm70757366b.9.2024.11.21.03.39.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Nov 2024 03:39:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +44,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38cabce2-a7fd-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzAiLCJoZWxvIjoibWFpbC1lZDEteDUzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjM4Y2FiY2UyLWE3ZmQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg5MTQ5LjQ4NDQxLCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 37e5181f-a7fd-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmMiLCJoZWxvIjoibWFpbC1lajEteDYyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjM3ZTUxODFmLWE3ZmQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg5MTQ4LjkyODEzOSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732189149; x=1732793949; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sQQYFckKR7i8Pp7p+uENb6vD4qdhzRZ2nVmgvgxnsJI=;
-        b=XRnO9W86mKVP0pfFpw76WOfwRekd9p86LgJMOWyYh7Q5OXmGZor5ubQtKFWPHwxHHG
-         tSOwxE7jvQBynF4iwwUpdrrD8PA+vNbHFGLKogV6YSe4FYTNTSIdI3tJoJ0mMMg/efh/
-         tXNjBaoTeLnOWhZazbSjlnM6Ycy1RPBI3R1sX5OWZi1R1QaUul0plj6oBPnvL/tF5e5Q
-         MrcboFan7PrkgbxkJVfM7UWMsXLEV95LXsu8531tUFlamwhKu3/+3S4UrVbR/F3ovUKB
-         WdPpI62QyiWrOICIxcvgvAH4qd+a0zHmjlQu5CvrJIPClf1c6UDhcSBigQ6+62nD24EE
-         9KvQ==
+        d=citrix.com; s=google; t=1732189147; x=1732793947; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ahAHrUvfG7RrmD2ptXSzUVzn9gbWCOiC7B9AQQZwrYw=;
+        b=X+unA3OMYs3YNN8OXlhQA4Uzf8pj2Iq1ZQFAnfzf623rZZ3Z6Wd1UA1cp9+tpAW1IJ
+         UbzdC4Y2kMj3wP8x2ETpIOvjYIgxOyYG0HNPnW6Y1CzVDeeQyD/qEPWSAw6jMpON1L9I
+         x3lWAoazlpGFgZbEzRiy+xTQl57PoovkNe+Oo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732189149; x=1732793949;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sQQYFckKR7i8Pp7p+uENb6vD4qdhzRZ2nVmgvgxnsJI=;
-        b=RKdTmNhymsl5jZ65+dlXLbkyRNBkGq+SOmAu+PXJbEJw29gC6Zlop1vjR8DfYxSZHy
-         vB61xdiqRhH1rRKyuRQKouVbKJvaatgBTdA8QGTDAoN5rGsiHTpCGvumeoF45sO7Mg+g
-         h/P0JX0rRouxY8/mX/MYbEsORuM2B2+U437yfWxboH11pfxnHvX/vrRSs9U7LgUTOD/J
-         MFi8Jl4PAaoK5zsGzVTrYH/fELeLcfSmB02yzXnrnfWnBRTZQlGPSjiuoeMo8S/N0zn/
-         3wpWA4ZnI5K0UQ6BWtgzHBi6C+IDfsieMY8Jzu4Tl3DbjUp8v1hqrgLoo2uSBlxvJ1Ha
-         BS5g==
-X-Forwarded-Encrypted: i=1; AJvYcCW5aLTnhRMH0jqNH67+lnULLxcVrWNhFKai40uw05lpkq2pz7dqOMvR74feoNVBVdNpjOo38rwSG2g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YysuEU1lNZMX6/bm7kyc8Evg+i1HXJiy2mn5m5ymucpJjUbIIfo
-	k6WFWYeTuZ0t9C4r4pAR2f5I5rUcjR4aXBMyyP2f1Q9NVS8nbm+//Hbr/9OBGg==
-X-Google-Smtp-Source: AGHT+IE/WHDsBF7A8Nl4XdZMrjrMccybyNAX2IEyxMfeDyg3LK6hqgbgoUYi6QULdLgazAN8FPZiRg==
-X-Received: by 2002:a17:907:9709:b0:a9a:478:2ee3 with SMTP id a640c23a62f3a-aa4dd71e851mr650827266b.40.1732189148931;
-        Thu, 21 Nov 2024 03:39:08 -0800 (PST)
-Message-ID: <f0c0cdca-e6a8-47c9-934a-85a91609e9e7@suse.com>
+        d=1e100.net; s=20230601; t=1732189147; x=1732793947;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ahAHrUvfG7RrmD2ptXSzUVzn9gbWCOiC7B9AQQZwrYw=;
+        b=H66VGjDgE1Na96RDl0CrmZ6UoIP6w0lCkik5dA6jr7OOcPuYRZsGnXeSF3jMuJSS99
+         pFPViQDhLMC2LQvCy28TiOO7utwYlXy/79d+x9jOjvpWkagjXxUABRYpd9BdZBUVUnwF
+         s0Ctq64d9b/UITMHoTBkOF5TymrT09fKrFTbDBmWB4tgIAjbQqLAsU6KNDHsAjTOUcct
+         PPnPtvVq2F3XTOS925T6vFqezGvp0Eqxo5h5aQKGEQ2RNY8S7gybvDeuxyEEK7kMxElZ
+         +XEluYgrE/eP2HgxqnDfDiRi+DoW8aFidKxPKS07HdlXmjWa3dFRtBlKLYxQebjLbssn
+         DaVw==
+X-Gm-Message-State: AOJu0YxxZFPL+Usw8ktq9CI+B+kQvO4N7Xb4IMnLC9DMfbqtPpwljHMK
+	DD9I4cmWMW3umXyIGm/p5PNLL7Q312urtuP6F96gHLH6oWjxo2H5T/K7Si185vg=
+X-Gm-Gg: ASbGnctpFFqoqlABa55VRXNlCrMMhNmgZTN/oiyBY5ZfUlzXYB9GPnSh2vN5QY3WfW1
+	dUJHIdui4aLw2LarBLp7+6DBpUCHvD7t2DPKdj59YE/ife3sFmBVQw5CIgAwae6lD8P6fcWRyff
+	UolzEYwM2OLrts2inT6evyB6/xGniSqQJG81LiFWySRZ4oK/oEua6N+Sncz0XDxjcbiRQiF5QsF
+	672p2E9V+71SIl2pJvP0TCxfVATbWK9DnKz7cxTRPOET9oNr5ux+aEids4=
+X-Google-Smtp-Source: AGHT+IGtr2dZDlqtKYwgYn6y/rq2HzMu6mLQtIX+bt4ujFoxzlTgLfphR5gqKc29UYFkOELh0z9upg==
+X-Received: by 2002:a17:907:7ba3:b0:a9e:b471:8308 with SMTP id a640c23a62f3a-aa4dd764962mr494956066b.49.1732189147281;
+        Thu, 21 Nov 2024 03:39:07 -0800 (PST)
 Date: Thu, 21 Nov 2024 12:39:06 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/pv: limit GDT and LDT mappings areas to max number
+ of vCPUs
+Message-ID: <Zz8b2u5KJBlFr1qa@macbook>
+References: <20241121111218.50984-1-roger.pau@citrix.com>
+ <03053e3b-c101-4cc2-9f59-604e84f92ea0@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/irq: fix calculation of max PV dom0 pIRQs
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241120113555.38146-1-roger.pau@citrix.com>
- <20241120113555.38146-2-roger.pau@citrix.com>
- <b849f46d-501a-4083-aecd-fdf0c4319eda@suse.com> <Zz8Tugu22NPzAQUo@macbook>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zz8Tugu22NPzAQUo@macbook>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <03053e3b-c101-4cc2-9f59-604e84f92ea0@citrix.com>
 
-On 21.11.2024 12:04, Roger Pau Monné wrote:
-> On Thu, Nov 21, 2024 at 11:49:44AM +0100, Jan Beulich wrote:
->> On 20.11.2024 12:35, Roger Pau Monne wrote:
->>> The current calculation of PV dom0 pIRQs uses:
->>>
->>> n = min(fls(num_present_cpus()), dom0_max_vcpus());
->>>
->>> The usage of fls() is wrong, as num_present_cpus() already returns the number
->>> of present CPUs, not the bitmap mask of CPUs.
->>
->> Hmm. Perhaps that use of fls() should have been accompanied by a comment, but
->> I think it might have been put there intentionally, to avoid linear growth.
->> Which isn't to say that I mind the adjustment, especially now that we don't
->> use any clustered modes anymore for I/O interrupts. I'm merely questioning
->> the Fixes: tag, and with that whether / how far to backport.
+On Thu, Nov 21, 2024 at 11:26:19AM +0000, Andrew Cooper wrote:
+> On 21/11/2024 11:12 am, Roger Pau Monne wrote:
+> > The allocation of the paging structures in the per-domain area for mapping the
+> > guest GDT and LDT can be limited to the maximum number of vCPUs the guest can
+> > have.  The maximum number of vCPUs is available at domain creation since commit
+> > 4737fa52ce86.
+> >
+> > Limiting to the actual number of vCPUs avoids wasting memory for paging
+> > structures that will never be used.  Current logic unconditionally uses 513
+> > pages, one page for the L3, plus 512 L1 pages.  For guests with equal or less
+> > than 16 vCPUs only 2 pages are used (each guest vCPU GDT/LDT can only consume
+> > 32 L1 slots).
+> >
+> > No functional change intended, all possible domain vCPUs should have the GDT
+> > and LDT paging structures allocated and setup at domain creation, just like
+> > before the change.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> Hm, sorry I've assumed the fls() was a typo.  It seems wrong to cap
-> dom0 vCPUs with the fls of the present CPUs number.  For consistency,
-> if the intention was to use fls to limit growth, I would have expected
-> to also be applied to the dom0 number of vCPUs.
+> Ooh, that's a optimisation I'd not considered when doing the work.
+> 
+> But, is it really only the the LDT/GDT area which can benefit from
+> this?  The XLAT area seems like another good candidate.
 
-FTR: My vague recollection (it has been nearly 10 years) is that I first had
-it there, too. Until I realized that it hardly ever would have any effect,
-because of the min(). And for Dom0-s with extremely few vCPU-s it seemed
-reasonable to not apply that cap there.
+I don't see XLAT being pre-allocated like the GDT/LDT area is, it's
+only populated on a per-vCPU basis in setup_compat_arg_xlat() which is
+already bounded to the number of initialized vCPUs.
 
-Jan
+> > ---
+> >  xen/arch/x86/pv/domain.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+> > index d5a8564c1cbe..e861e3ce71d9 100644
+> > --- a/xen/arch/x86/pv/domain.c
+> > +++ b/xen/arch/x86/pv/domain.c
+> > @@ -346,7 +346,7 @@ void pv_domain_destroy(struct domain *d)
+> >      pv_l1tf_domain_destroy(d);
+> >  
+> >      destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
+> > -                              GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
+> > +                              d->max_vcpus << GDT_LDT_VCPU_SHIFT);
+> 
+> Probably not for this patch, but, should we really be passing in a size
+> here?
+> 
+> Don't we just want to tear down everything in the relevant slot?
+
+Hm, I've considered leaving that alone and keep passing GDT_LDT_MBYTES
+to destroy the whole slot.  The performance advantage of not iterating
+over the known empty slots is negligible IMO.  No strong opinion, I
+can leave as-is if it's considered better.
+
+> >  
+> >      XFREE(d->arch.pv.cpuidmasks);
+> >  
+> > @@ -377,7 +377,7 @@ int pv_domain_initialise(struct domain *d)
+> >          goto fail;
+> >  
+> >      rc = create_perdomain_mapping(d, GDT_LDT_VIRT_START,
+> > -                                  GDT_LDT_MBYTES << (20 - PAGE_SHIFT),
+> > +                                  d->max_vcpus << GDT_LDT_VCPU_SHIFT,
+> >                                    NULL, NULL);
+> 
+> I'd suggest putting a note here saying that the maximum bound for PV
+> vCPUs is governed by GDT_LDT_MBYTES.
+
+Yeah, MAX_VIRT_CPUS is already calculated based on GDT_LDT_MBYTES.
+
+> Or alternatively, we could have create_perdomain_mapping() fail if it
+> tries to allocate more than one slot's worth of mappings?   It feels
+> like an acceptable safety net.
+
+I would rather use something like:
+
+if ( (d->max_vcpus << GDT_LDT_VCPU_SHIFT) >
+     (PERDOMAIN_SLOT_MBYTES << (20 - PAGE_SHIFT)) )
+    ASSERT_UNREACHABLE();
+    return -EINVAL;
+}
+
+As it should be impossible to call pv_domain_initialise() with a
+number of vCPUs past what fits in the GDT/LDT slot.
+arch_sanitise_domain_config() should have filtered such attempt before
+it gets into pv_domain_initialise().
+
+Thanks, Roger.
 
