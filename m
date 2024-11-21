@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF2129D4AEA
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 11:30:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841292.1256779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4549D4AEC
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 11:31:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841303.1256788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE4S5-0002uM-Tw; Thu, 21 Nov 2024 10:30:21 +0000
+	id 1tE4TH-0003bU-7J; Thu, 21 Nov 2024 10:31:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841292.1256779; Thu, 21 Nov 2024 10:30:21 +0000
+Received: by outflank-mailman (output) from mailman id 841303.1256788; Thu, 21 Nov 2024 10:31:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE4S5-0002sC-R3; Thu, 21 Nov 2024 10:30:21 +0000
-Received: by outflank-mailman (input) for mailman id 841292;
- Thu, 21 Nov 2024 10:30:19 +0000
+	id 1tE4TH-0003ZA-4Y; Thu, 21 Nov 2024 10:31:35 +0000
+Received: by outflank-mailman (input) for mailman id 841303;
+ Thu, 21 Nov 2024 10:31:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0oSv=SQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tE4S3-0002rL-Sb
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 10:30:19 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1tE4TF-0002rL-2w
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 10:31:33 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 982f3e75-a7f3-11ef-99a3-01e77a169b0f;
- Thu, 21 Nov 2024 11:30:14 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4316cce103dso8285865e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 02:30:14 -0800 (PST)
+ id c4f3a3d3-a7f3-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 11:31:29 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4315839a7c9so6340945e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 02:31:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b45d395asm49942745e9.19.2024.11.21.02.30.13
+ 5b1f17b1804b1-433b463abbfsm53074365e9.32.2024.11.21.02.31.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 02:30:13 -0800 (PST)
+ Thu, 21 Nov 2024 02:31:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 982f3e75-a7f3-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk4MmYzZTc1LWE3ZjMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg1MDE0LjU4ODYxMywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: c4f3a3d3-a7f3-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmEiLCJoZWxvIjoibWFpbC13bTEteDMyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImM0ZjNhM2QzLWE3ZjMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg1MDg5LjY5NTYyMywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732185014; x=1732789814; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732185089; x=1732789889; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bKEAH3fAy+SlsSI3d4/qlK+dwWIag00PjqkGCn3prh8=;
-        b=ePzwQFOZo+ZJrrTTp7slxm1GMQDkUH25DAyqYZtlnU6FeNt7Bfmh8x0LloQX4S/kbq
-         aX5S2DlwZWr9qoiOjwry5/4hjMbaPdTqj5GOOwrvjbUw4FcI7GuoWqt+JJcgErnJAfAB
-         NsBCaUT8eTSqRjvvKjF6URScX6FFOXVAVSHAyOp9Ixdwvj/foe1OvFq3CjhUgWhF1WI/
-         /gDmguYXwPcIn7ZnGWFXA0tXJk+fuWwQApwkI6zivXysr4HM7S13kuF7aiG69tFmrU0i
-         kapQ82rqekk/6kzFi0tAbgs9mNQGcgqfErdVPplrmRp6R9vJbeKALrWhJPH/fSUXJx9a
-         ktvw==
+        bh=4WNq5nSdRGoU4dZQkTnmTjSNjuiFjZFs91toyRlB4FA=;
+        b=fuEz0glHEbFBw9Qlbbz/t7CUBf2SJhYOJYBlup/jmsnFuMoFbsI5xQxF8rKop4H7LU
+         4y7KBZ+t+QnDYMhaL5SVB0X1WK+hslz5LHlIumTfymWNFWWpOifDsZVxrkY3jwaLbur4
+         t1KNSvFX1SN2wSst9ziexfPKA+3LKWWwh5nnEEVvLfCA1eXbM+PAzcRqDc0MQc+ohtJ6
+         e0rybIPyTKgnhClmjBoWEfRI25+fbie2h27VjKF2+9ykzfNuxIB7JdEXnfuV63o2VKXJ
+         C+pqaX8n57a/qbfxEz+en8+ZwrnKQiizmfTArdIfhO/CrFkUrWBVRl+fI/o6QRPKvV5A
+         /waw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732185014; x=1732789814;
+        d=1e100.net; s=20230601; t=1732185089; x=1732789889;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bKEAH3fAy+SlsSI3d4/qlK+dwWIag00PjqkGCn3prh8=;
-        b=rXtGhpvXJo+BlaTsY93jFlzLws2zYLNLUbNyPsSF14r0qXzk98l23myVWGR3S7QZMu
-         TjWQVMmZOdEE4Kd0RdPp+qTU6oBVQYIk0F8RiTAaPTOXa+ExogbX/7dA5QDj+NaF7EmY
-         V5msyXNJHllmxD1u7SUMPqMEHDc2Vq3ph3sneRFkpJtqwzP9ktdAE45DdERVQeJ7vMqJ
-         gtuBgzqazvEIrHlctCfTOEztWzwMdzEEL9c7VFAtj0Se7TVcGprtvbqr9FG1HNoMDqkE
-         jYWtjWp3BD/9aE4HF8Uv8iokdFzbeFbgPKqDXfvS4LBp8eXI/uJQPoliv6Dibz7TRVQX
-         J2Gg==
-X-Forwarded-Encrypted: i=1; AJvYcCXoRjocNYf2/FtiadEOmwDLbEDQVq6G95JSYvhFEdK8maTgfezI7k+ZTOaEKsBBENINdRZoR3NZ27g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYrXTQsJG4iYTFmlybp5IQxAUiYk6+MH95+bm7810V2S5RCVhR
-	XSw5TV+WcZunNI2E7Zon2JfX5/SPsdtorRQuLl88AITqeRxSFX3S5Re/rXBZNQ==
-X-Google-Smtp-Source: AGHT+IH31Kmv6MVgR2tUbT7xfZO0FCHDan2dBlQ4TDGD+BEv/0j8X1CCPNQTtua8Z28I2iLkA73d2w==
-X-Received: by 2002:a05:600c:4ec6:b0:431:5465:8072 with SMTP id 5b1f17b1804b1-4334f01d8cdmr66607015e9.31.1732185014002;
-        Thu, 21 Nov 2024 02:30:14 -0800 (PST)
-Message-ID: <ca243df6-ccd8-434b-ad93-abd58f85cfc1@suse.com>
-Date: Thu, 21 Nov 2024 11:30:11 +0100
+        bh=4WNq5nSdRGoU4dZQkTnmTjSNjuiFjZFs91toyRlB4FA=;
+        b=vKOyC+j1PeaWqJD0+adzg9w6azKqhSoar8NRoXq7qxuLLmS4cELD8mX2WK4/Dq/fFZ
+         +4yH1W0/rTUlDgaWjCkzJWQYJrwcNFWkfLacfDtfOnnt3xjjMffHthOtH7VpLlUP6aNP
+         2xuZtc1dMr6aNgdjP2m4j8AcQvUIMHCGG6PVUQBjFBixW4FHmdypQvcgjrYzZjWwhRsR
+         BlNeWzCUCgC1YdHtURmURTfNeUqvMSHLuWNOeGHKAzhT/xR/I/5D2ri//bCuI2w21Uyp
+         Fx0PE8E5cKWNVhjBsIoMnVZO3b08KV6zS6KuaZzO6MZ4AdfEckXgk+Ase4dJN485bYf3
+         PHmg==
+X-Forwarded-Encrypted: i=1; AJvYcCULullm7AWjQP8HL3eZUeFogxyO6284QMQItTfVfrH/3McDYJiRSbN38+bA0RvAQ4sy8K5aTDB8+iU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzYwDX2V4jtfWyHXHQ2cmGOlRNC3g6UvYz6vi0KEs2c2eSvymwk
+	YpJs+y4MP1xOV59Yqb8zaBtyr2lp+1X+BxjyPcHAtu/IT/RpNw4H9Keq4B6L2g==
+X-Gm-Gg: ASbGncuTcRg7C3P6EGZzio2n29p1Pio1JHkjzuqIFvMMl6s4e0/YdAbAGMGvc189NPI
+	4ZsSZmSCXq+KNX+h+MsaYl047HQ6R+yJYLxqX5SV3zhZuXO5hPi6khLkvGvpp4op/P4oh4AWU9T
+	YoAg8GtNl2zbCPbNifgBdTd013P9lVhmvkae0KAYl17uQkd/krFyMeluuorMrjkWkjrDd0rLltf
+	vbMD1ZeIha0vTN+dPArfwt/wjB+UIrnJ2cV1lGg6M3zRnGDDtKaZtGfP3WFy+qhM4MHa6C03T/c
+	iRh+gaQQ5jIOHSiu66vUO3YrM1jktz/pduE=
+X-Google-Smtp-Source: AGHT+IFjTCOuqaAtS4ExEVofWtXNHOjNADRBNcS3Y/Et6LfEDIiOiZ0pNwAxgb3tMIiU1a8wA4W5zg==
+X-Received: by 2002:a05:600c:3ba6:b0:431:5df7:b337 with SMTP id 5b1f17b1804b1-433489b3414mr51873285e9.8.1732185088403;
+        Thu, 21 Nov 2024 02:31:28 -0800 (PST)
+Message-ID: <ec976c12-6f7c-4a52-810c-b0f23ef465fd@suse.com>
+Date: Thu, 21 Nov 2024 11:31:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Load microcode much earlier on boot
+Subject: Re: [PATCH] x86/ucode: Only rescan features on successful microcode
+ load
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241119215708.2890691-1-andrew.cooper3@citrix.com>
- <7ffe1d78-188b-495b-914a-663181d9faa8@suse.com>
- <39c24cf2-73ac-4da2-84e3-8caee653e83d@citrix.com>
+References: <20241119215827.2891332-1-andrew.cooper3@citrix.com>
+ <590cc46e-c4e2-44bc-b339-6ffc609314ce@suse.com>
+ <b8776e87-0975-43a6-886c-95ec98d0c357@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,49 +121,83 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <39c24cf2-73ac-4da2-84e3-8caee653e83d@citrix.com>
+In-Reply-To: <b8776e87-0975-43a6-886c-95ec98d0c357@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20.11.2024 12:24, Andrew Cooper wrote:
-> On 20/11/2024 10:44 am, Jan Beulich wrote:
->> On 19.11.2024 22:57, Andrew Cooper wrote:
->>> Following commit cd7cc5320bb2 ("x86/boot: add start and size fields to struct
->>> boot_module"), bootstrap_map*() works as soon as boot_info is populated.
->> I'm struggling with following where this connection is coming from.
+On 20.11.2024 14:50, Andrew Cooper wrote:
+> On 20/11/2024 10:50 am, Jan Beulich wrote:
+>> On 19.11.2024 22:58, Andrew Cooper wrote:
+>>> There's no point rescanning if we didn't load something new.  Take the
+>>> opportunity to make the comment a bit more concise.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Specifically, the final hunk:
+> Thanks.
 > 
->> @@ -1416,12 +1420,6 @@ void asmlinkage __init noreturn
->> __start_xen(void) if ( bi->mods[i].start & (PAGE_SIZE - 1) )
->> panic("Bootloader didn't honor module alignment request\n"); - /* - *
->> TODO: load ucode earlier once multiboot modules become accessible - *
->> at an earlier stage. - */ - early_microcode_init(bi); - if (
->> xen_phys_start ) { struct boot_module *xen = &bi->mods[bi->nr_modules];
+>>
+>>> @@ -911,14 +915,5 @@ int __init early_microcode_init(struct boot_info *bi)
+>>>  
+>>>      rc = early_microcode_load(bi);
+>>>  
+>>> -    /*
+>>> -     * Some CPUID leaves and MSRs are only present after microcode updates
+>>> -     * on some processors. We take the chance here to make sure what little
+>>> -     * state we have already probed is re-probed in order to ensure we do
+>>> -     * not use stale values. tsx_init() in particular needs to have up to
+>>> -     * date MSR_ARCH_CAPS.
+>>> -     */
+>>> -    early_cpu_init(false);
+>>> -
+>>>      return rc;
+>>>  }
+>> In principle with this rc could be dropped from the function.
 > 
-> The context with panic() used to read:
+> Oh, so it can.  I think I did so in an earlier attempt, prior to
+> deciding to go down the route that is partially committed.
 > 
->     panic("Bootloader didn't honor module alignment request\n");
->     bi->mods[i].mod->mod_end -= bi->mods[i].mod->mod_start;
->     bi->mods[i].mod->mod_start >>= PAGE_SHIFT;
+> I'm happy to fold in the removal.  The incremental diff is:
 > 
-> and calling bootstrap_map() prior to that mapped junk because the start
-> is wrong by PAGE_SHIFT.
-> 
-> This is why the TODO was inserted the last time around when we couldn't
-> move loading as early as wanted.
+> @@ -873,7 +873,6 @@ static int __init early_microcode_load(struct
+> boot_info *bi)
+>  int __init early_microcode_init(struct boot_info *bi)
+>  {
+>      const struct cpuinfo_x86 *c = &boot_cpu_data;
+> -    int rc = 0;
+>  
+>      switch ( c->x86_vendor )
+>      {
+> @@ -913,7 +912,5 @@ int __init early_microcode_init(struct boot_info *bi)
+>          return -ENODEV;
+>      }
+>  
+> -    rc = early_microcode_load(bi);
+> -
+> -    return rc;
+> +    return early_microcode_load(bi);
+>  }
 
-Hmm, I see. It wasn't really that they were inaccessible, it merely was
-that adjustments of internally maintained data would have been needed.
-Which could have been as easy as instantiating a local mod variable,
-fill it with suitably adjusted data, and pass an address thereof to
-bootstrap_map().
+Please do.
 
-In any event:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> It's then further
+>> unclear why early_microcode_load() needs to be a separate function, rather than
+>> simply being inlined here (as I expect the compiler is going to do anyway).
+> 
+> Both cognitive and code complexity.
+> 
+> "Probe and install hooks" is separate from "try to load new ucode if we
+> can".
+> 
+> They've now got entirely disjoint local variables, and the latter has
+> some non-trivial control flow in it.  It's liable to get even more
+> complex if we try to allow CPIO in an explicitly nominated module.
+> 
+> More generally, a separate function and internal return statements can
+> express control flow which can only be done with gotos at the outer
+> level, even if we fully intend the compiler to fold the two together.
 
-I'm surprised though that you didn't comment at all on the other aspect
-I raised.
+Fair enough.
 
 Jan
 
