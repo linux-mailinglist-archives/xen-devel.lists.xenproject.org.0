@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B2A9D4B43
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 12:08:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841353.1256843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E1AB9D4B55
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 12:13:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841365.1256851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE538-0001vx-NZ; Thu, 21 Nov 2024 11:08:38 +0000
+	id 1tE57E-0003Zf-99; Thu, 21 Nov 2024 11:12:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841353.1256843; Thu, 21 Nov 2024 11:08:38 +0000
+Received: by outflank-mailman (output) from mailman id 841365.1256851; Thu, 21 Nov 2024 11:12:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE538-0001so-Kk; Thu, 21 Nov 2024 11:08:38 +0000
-Received: by outflank-mailman (input) for mailman id 841353;
- Thu, 21 Nov 2024 11:08:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tE57E-0003Vp-5x; Thu, 21 Nov 2024 11:12:52 +0000
+Received: by outflank-mailman (input) for mailman id 841365;
+ Thu, 21 Nov 2024 11:12:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A3MJ=SQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tE537-0001si-3o
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 11:08:37 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3113674-a7f8-11ef-a0cc-8be0dac302b0;
- Thu, 21 Nov 2024 12:08:34 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a9a977d6cc7so53880466b.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 03:08:34 -0800 (PST)
+ id 1tE57C-0003Vj-1i
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 11:12:50 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 895967f3-a7f9-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 12:12:46 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a9a0ef5179dso143634766b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 03:12:46 -0800 (PST)
 Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa4f431890bsm67837766b.135.2024.11.21.03.08.32
+ a640c23a62f3a-aa4f4152b6dsm68468266b.7.2024.11.21.03.12.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 03:08:33 -0800 (PST)
+ Thu, 21 Nov 2024 03:12:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,95 +44,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3113674-a7f8-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmYiLCJoZWxvIjoibWFpbC1lajEteDYyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImYzMTEzNjc0LWE3ZjgtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMTg3MzE0LjQ5NjY4NSwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 895967f3-a7f9-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzMiLCJoZWxvIjoibWFpbC1lajEteDYzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijg5NTk2N2YzLWE3ZjktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMTg3NTY2LjY4ODI1Niwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732187314; x=1732792114; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ROnYd64rE6h4KD6m2oKnsy8stDQbnXo/C9dYZHNhfRE=;
-        b=sYswj+xQPRRCshtQhZmci20GXooVXanD0ZmbsfpcPzPshlkyu9sns4DA/168yXu8jV
-         zhbX8PSXc80sEJlbidCEJ3PSgNM32F81nmkaj/j3JxogrZksJ9pe9rtb36qvlvm+rm7O
-         /NP0nMzpD2DtxA6m8TubAc4EHwlX9/LywaIo0=
+        d=citrix.com; s=google; t=1732187566; x=1732792366; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tfW8sK5CwWflaMl6LKuOhOmD5Yp50rt2vxii7w2V5/s=;
+        b=LyIzyMUXPNryhXfA9HK5pJeZ9WH62VUaOYi6PzCWVK+2KvlEhKrHcwufWnUwhgnOAp
+         xFApZhvcH7ufSD9JrsG+YFBRV7xA7L154XRuNX/ydgv1NKVeWzeO72ALoKDdCFLCAKuS
+         +WicH/FkU2iFlnp1WJSJV/e4C9LzfD0sfkshU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732187314; x=1732792114;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ROnYd64rE6h4KD6m2oKnsy8stDQbnXo/C9dYZHNhfRE=;
-        b=GVj6uabnQHFTUViGEPfKo9UriF0Ma46r08Pp45FeqZdVbuCf6i/oL7iRgBMZuOj+/t
-         SlTTYexarOR94sUUO0LLC/m5TG7kpDPSdvO//WCZspFZ7xXyytvvpylFpnWSc6IjywqF
-         8+0nt+8wrfIBr/jantP7a6HHBwzWiORgaxGnpjrpZ+dWCKhzV23ukpp10OkKc5O1M77l
-         IvZ6GAE5Hxd8/vkPsSJv1CIAb95T1dSncm2BEmnye1X3JwAqJ+TIvtens9fY4rzrdYlK
-         sXBRhlRmC8M+B05Yt+oK+uEBE+zCAvfCDu4tKvr4gMa1iyUsYGblpXsHgw+kPFrNTLGp
-         5rdA==
-X-Forwarded-Encrypted: i=1; AJvYcCV5+XQgY2TSZ9IYS1fa4uYpnaF7sYL1GEAQ/oUZpmX2CvSf8SXBntGIoLLI2I7wJHplBUi+35aXwLw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIfFtV1vwOJ5+D+UwiXsqEbDQhFWl6PIW2kvECRAiP4E2c95e6
-	QTcuLS6Gn3uQ+frbNGV+TRaNFDgh/CNDT+/wUqF2eGh/XpxKqD9keOi6K+1sLux1DAmyOIdl1ZS
-	R
-X-Google-Smtp-Source: AGHT+IFdLI6UfhBlCJSUTheHCByZVCa38MAICxrCnUia6H1Z7HDVQLE0qxsrf5bJkSlYckrk0e2GtQ==
-X-Received: by 2002:a05:6402:274b:b0:5cf:c22f:524a with SMTP id 4fb4d7f45d1cf-5cff4b1440bmr6050878a12.8.1732187313558;
-        Thu, 21 Nov 2024 03:08:33 -0800 (PST)
-Date: Thu, 21 Nov 2024 12:08:32 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] x86/pvh: also print hardware domain pIRQ limit for
- PVH
-Message-ID: <Zz8UsJ4nJXyExQ53@macbook>
-References: <20241120113555.38146-1-roger.pau@citrix.com>
- <20241120113555.38146-3-roger.pau@citrix.com>
- <25fb7dfe-50e0-446a-9057-050fd3c2edb2@suse.com>
+        d=1e100.net; s=20230601; t=1732187566; x=1732792366;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tfW8sK5CwWflaMl6LKuOhOmD5Yp50rt2vxii7w2V5/s=;
+        b=D161E69t2SfJnaNHe+4I77XL8GcHVQcmna0vS78qOOz67XBDeLpo1VQSiFKy9kPMwq
+         HTcNRCpoyTieUw7AhGjMla7C6mxCiWf6K+ZBawljWndF4M42xREzD522fvZ3/vb3kK9O
+         7bqTuoPEFGg+X4dbTzXu4hgx0BT3zyQAxI3qbg9XcJtw9Oj4Qm8su7dD6hsVJv28hTHf
+         9KDtAv01VfgmyRQQb+LDyYHtsbINk2/Ao+SCC6T5TPokl0e3+sn+wIDUCjR5w/1D1oH7
+         7zacdzfdOgDEaPdRH87g9VFX2CoRqCNg4FVNsUnI8PMvij2WSf6aG0+JlbyRAnLfGyf8
+         CUZA==
+X-Gm-Message-State: AOJu0Yw/FtfFBjSJRTr1PRNHX5NlEeioOP8xO9mjNXLr5JswKN6m+DFk
+	MLJeihe/oFF1qqgSNlEv/J0thZv2PswuJBOG67C8IFNFX9S034X40tNT4PoeLhQm4t74iJErimR
+	n
+X-Gm-Gg: ASbGncujHJ5qGQ5GoVTzJ+Je0dK76FIRQCV3MszmUkDN7tW6lD4IapgNPvuAN2yhncl
+	X32Y0GCYh3GXuFtCkEitekCpY1vQN8KWpcX5xFyGHNzpcOSQWItG8FwIjbttOQNV0hHAVF3qVHT
+	FLc1Uqou+eupiJILR4s6x9SoI0lcdoqMmvAMcK0HZCH8aQtRzbUxxYwNzns2v7sPMSoi7/83ad6
+	w4ZWSHPvktiQBxYxLkp3H4LDTLzuojbgtGMRgIeTmVWPTBIvWxC/ur7wkY=
+X-Google-Smtp-Source: AGHT+IHRF2CXIiAi+N3StihUf8aAGLidqvRRyY5TSCgv/k5EI2l7sqT6fWhj+z6oIsvRZ6wA5qyPkw==
+X-Received: by 2002:a17:907:2cc2:b0:a9a:bbcd:e63 with SMTP id a640c23a62f3a-aa4dd54842cmr620018666b.14.1732187565771;
+        Thu, 21 Nov 2024 03:12:45 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] x86/pv: limit GDT and LDT mappings areas to max number of vCPUs
+Date: Thu, 21 Nov 2024 12:12:18 +0100
+Message-ID: <20241121111218.50984-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <25fb7dfe-50e0-446a-9057-050fd3c2edb2@suse.com>
 
-On Thu, Nov 21, 2024 at 11:54:49AM +0100, Jan Beulich wrote:
-> On 20.11.2024 12:35, Roger Pau Monne wrote:
-> > Do not return early in the PVH/HVM case, so that the number of pIRQs is also
-> > printed.
-> 
-> What you're printing ...
-> 
-> > Fixes: 17f6d398f765 ('cmdline: document and enforce "extra_guest_irqs" upper bounds')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >  xen/arch/x86/io_apic.c | 12 +++++++-----
-> >  1 file changed, 7 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-> > index bd5ad61c85e4..d9db2efc4f58 100644
-> > --- a/xen/arch/x86/io_apic.c
-> > +++ b/xen/arch/x86/io_apic.c
-> > @@ -2754,11 +2754,13 @@ unsigned int __hwdom_init arch_hwdom_irqs(const struct domain *d)
-> >  
-> >      /* PVH (generally: HVM) can't use PHYSDEVOP_pirq_eoi_gmfn_v{1,2}. */
-> >      if ( is_hvm_domain(d) )
-> > -        return nr_irqs;
-> > -
-> > -    if ( !d->domain_id )
-> > -        n = min(n, dom0_max_vcpus());
-> > -    n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, max_irqs);
-> > +        n = nr_irqs;
-> 
-> ... is rather the number of IRQs we picked for the system. That may happen to
-> end up being the upper bound for PVH Dom0, yet not logging this at all was
-> because of the limited use pIRQ-s have there. Granted at the time I was still
-> under the impression they have no use there at all, so this isn't really an
-> objection to the change. I would have been nice though if the description had
-> mentioned why significance pIRQ-s actually have in PVH Dom0.
+The allocation of the paging structures in the per-domain area for mapping the
+guest GDT and LDT can be limited to the maximum number of vCPUs the guest can
+have.  The maximum number of vCPUs is available at domain creation since commit
+4737fa52ce86.
 
-Sure, what about adding to the commit message:
+Limiting to the actual number of vCPUs avoids wasting memory for paging
+structures that will never be used.  Current logic unconditionally uses 513
+pages, one page for the L3, plus 512 L1 pages.  For guests with equal or less
+than 16 vCPUs only 2 pages are used (each guest vCPU GDT/LDT can only consume
+32 L1 slots).
 
-"While PVH dom0 doesn't have access to the hypercalls to manage pIRQs
-itself, neither the knowledge to do so, pIRQs are still used by Xen to
-map and bind interrupts to a PVH dom0 behind its back.  Hence the
-pIRQ limit is still relevant for a PVH dom0."
+No functional change intended, all possible domain vCPUs should have the GDT
+and LDT paging structures allocated and setup at domain creation, just like
+before the change.
 
-Thanks, Roger.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/pv/domain.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+index d5a8564c1cbe..e861e3ce71d9 100644
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -346,7 +346,7 @@ void pv_domain_destroy(struct domain *d)
+     pv_l1tf_domain_destroy(d);
+ 
+     destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
+-                              GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
++                              d->max_vcpus << GDT_LDT_VCPU_SHIFT);
+ 
+     XFREE(d->arch.pv.cpuidmasks);
+ 
+@@ -377,7 +377,7 @@ int pv_domain_initialise(struct domain *d)
+         goto fail;
+ 
+     rc = create_perdomain_mapping(d, GDT_LDT_VIRT_START,
+-                                  GDT_LDT_MBYTES << (20 - PAGE_SHIFT),
++                                  d->max_vcpus << GDT_LDT_VCPU_SHIFT,
+                                   NULL, NULL);
+     if ( rc )
+         goto fail;
+-- 
+2.46.0
+
 
