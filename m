@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F369D5058
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 17:03:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841582.1257072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA3239D507A
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Nov 2024 17:07:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841590.1257081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE9eh-00028D-0Y; Thu, 21 Nov 2024 16:03:43 +0000
+	id 1tE9iR-0002ig-Fm; Thu, 21 Nov 2024 16:07:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841582.1257072; Thu, 21 Nov 2024 16:03:42 +0000
+Received: by outflank-mailman (output) from mailman id 841590.1257081; Thu, 21 Nov 2024 16:07:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tE9eg-00025T-Tv; Thu, 21 Nov 2024 16:03:42 +0000
-Received: by outflank-mailman (input) for mailman id 841582;
- Thu, 21 Nov 2024 16:03:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tE9iR-0002fa-D7; Thu, 21 Nov 2024 16:07:35 +0000
+Received: by outflank-mailman (input) for mailman id 841590;
+ Thu, 21 Nov 2024 16:07:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0oSv=SQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tE9ef-00025L-Gd
- for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 16:03:41 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b386a43-a822-11ef-a0cc-8be0dac302b0;
- Thu, 21 Nov 2024 17:03:38 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43193678216so9772305e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 08:03:38 -0800 (PST)
+ id 1tE9iP-0002f9-J1
+ for xen-devel@lists.xenproject.org; Thu, 21 Nov 2024 16:07:33 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b58e20a5-a822-11ef-99a3-01e77a169b0f;
+ Thu, 21 Nov 2024 17:07:30 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4314fa33a35so9045515e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 08:07:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433b4642b8dsm60759255e9.41.2024.11.21.08.03.22
+ 5b1f17b1804b1-433b01e1170sm62988635e9.3.2024.11.21.08.07.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Nov 2024 08:03:23 -0800 (PST)
+ Thu, 21 Nov 2024 08:07:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b386a43-a822-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzAiLCJoZWxvIjoibWFpbC13bTEteDMzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjJiMzg2YTQzLWE4MjItMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMjA1MDE4LjE0NzE5Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: b58e20a5-a822-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzMiLCJoZWxvIjoibWFpbC13bTEteDMzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImI1OGUyMGE1LWE4MjItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMjA1MjUwLjIyNTMwMywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732205017; x=1732809817; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732205249; x=1732810049; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LzVz0zJp0BozBPebvSWuaRM2ULwnW/TLOLQgwOJr0/M=;
-        b=WgoWqLHRVKjjw+MtAJTZwF+nnTaJlMvHXc1IiZiod/6n+fvbRzQL7HU9Pp1rPrbns0
-         OS8d04Cy3WUo9+E0LKlRXhFCX2+RIJl20FeD6TEOjmIJc1ituggBo0KMXr4AUYrJlaFj
-         z281tafIaBRrAd3tK30HjcO8PAVyNoXbL49OHGUas12uA2F4aDNiztVJXZMgNruPTYqQ
-         tlIgRLncWNhGLxl/T8fPZyt9MDs82hvsYUNy7J6U2OQ/DVV/Od02DjR4zHv7I10X1+P6
-         HNVj5IJYHoYXGTpeL/RPCPgeH0ANz3QVWyUWR+wkbFlVKD+vh7IAyk1tsUxPVFk8+imt
-         CYJA==
+        bh=DdLAAEO5PDWJDXAZxFxXEb+XutM7Xnb/2tIpqcGTVT0=;
+        b=ACL8ika5R/5YlROe+tHARN6/1eTJhHAoKjsbl4VA+FEEF8ObuztFA53JWjb/q0N457
+         L5BkqDESb3Iwt17edSH0wJVFhaLNRGHDADyuEJpekTFjwvchVrThy9gtyD6lmAlbBId3
+         uiJeZXslh+XZKlMZPBiCvdY0bojKSs3kWzIL/2QNWvYhte2EL+E3Ygr8VyRQ8xHZck+Q
+         cTSnI+9a7SAikfuk4nKj/5VY0XDPtmD1eNTfsk+3k9YnBys649XQ6Nnk306J1s6v4ePv
+         0o8w+yIQfy1sONx0VPS3saf4N+9EkpP8W6PDcZjv9cq1F7v/rm84dJaF1iqSYvZSxPdW
+         EtLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732205017; x=1732809817;
+        d=1e100.net; s=20230601; t=1732205249; x=1732810049;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LzVz0zJp0BozBPebvSWuaRM2ULwnW/TLOLQgwOJr0/M=;
-        b=UCotNDFElR7nZ+I7p05EAxB2HM/8U4djzCobJzl+ZkzeOpr2vJ+9jrAa1bqW+Exioe
-         /auc0qw666vhHnHb7pROvWjH0gyAWFDC95vGxDH89q8Va3qGY/6JdYJ1tc2MYNf9tEGJ
-         ep4OjU5jZiUCfL/p8KWmTxIK4APPpYnMChPuL/GJD8Rz4h1+hduT6c72CiNWYREq7T+w
-         tPdhit7uuIFsxQs7YoqQarEZKVDF081uBHyXXFJOe38DD+RbuQxdPy9K71G7lCPN+u/5
-         RJjTsobNyWCWUOGn07PzJMCE8PeNlNTQj+kIhjl29M18lumC5c925gRUMN9aQY8dHGoC
-         sSpg==
-X-Forwarded-Encrypted: i=1; AJvYcCWpgBhmYwvBmUm0K/qqT4B6XIFJD7hCgS8yW2Sv2jJnnZUXx6I9nKpw8W34ITO6npn1wl1FTkVbv0g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxXQuEVq4bzRFTiP8jwkG5CiJrx3uHODj7zCbzVyBgZChP1mcF5
-	qKSDOPtiiGLeZJGVbC4+7UunEETsubR3SFA/tBbSfp9LJExNP6DqrOhh+6LGFw==
-X-Gm-Gg: ASbGncveoAEuCeKHYBsufOgTbOGsyI+O/9OiBJaB0rpF4cBNDU4QoJ5KKD0XqswMwDO
-	Jl1opXHAJSXsgtosyYW2NDwpTiLrHIEksHaMxz8oM2ACtZf4ZrxgrbaL/ujqldwCV6jfbd4Cs6/
-	fMWFckF3qJjTO9TozaQlgxzCzRjura7vvAYS3ZzQWCmA35rrTCZzrTA6jRh9A8W6FpxL+5zv3kp
-	KQrEuSCRU4dsi1dP7c/vVnilcMEWsoJBgI7+rxYWVVTXX/TJvoJjTGpwX0zhG3EMjLbvO/OAbsK
-	joanPKE3kNG78kwZXR2h5cNILpJUYSvHE1I=
-X-Google-Smtp-Source: AGHT+IH6Uee5YVk+qhQXlWBe12ZSvTjTP34XhoL7Xq875/JZ3/jPaJSyvBMivIsmGEndHTTPjmazIQ==
-X-Received: by 2002:a05:600c:4685:b0:431:1868:417f with SMTP id 5b1f17b1804b1-433489d577dmr72172035e9.17.1732205005785;
-        Thu, 21 Nov 2024 08:03:25 -0800 (PST)
-Message-ID: <b2d3a42f-b599-455f-ad15-716dd7552208@suse.com>
-Date: Thu, 21 Nov 2024 17:03:21 +0100
+        bh=DdLAAEO5PDWJDXAZxFxXEb+XutM7Xnb/2tIpqcGTVT0=;
+        b=LpzGxbKz/rVqtl4Fp+C3SGMNB9vpWksImmM/R4oqTtnfvDkXqwOtaH8Wvll5BgDRuj
+         TIv/t5CRGLfocGyGx++1FrZODToJA4lKfvMBYwGC1mHK4T01RR6/M1dYv2pKDE8Vf29w
+         7HIsVu2OInxpBGysk/730gFp0etmG48E5Ong+IOIx141D1vgEvvqhXCtcLKFmJL0yMXM
+         sG9tjq0LxG0+Yhkrr4rrypVGbKV2nI41pEyICYlbgWDh0uveVAiEvvRP8/ICU2C0PuDE
+         agAn0kZnD1jw9tMPs30ubN46OfMC9F4uDyeB8oM+TySWutF2mCa3EHrzdWsS3X0Y6vgV
+         9Rjw==
+X-Forwarded-Encrypted: i=1; AJvYcCWJp7OOPOeG1qTdPMhQ0X6ykVnde4fBaaud3Gk8F4JuNsleiW4sZ/Ha4u5/9HFeY24RE+/gpz1FFgk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx0Zf2cD7h4y00LS5Z92+Mmvk+menFwa4hHxzs427HFgUXVe8RM
+	my7WoMujeWkV8B5mHrcffgs5uqqBQvJxzRZri3/uEV28xHcjtd9RxOMcn119G4/xeHNvM+GYsbw
+	=
+X-Gm-Gg: ASbGncu35vr3RE+yVinr2XYi8buqUuD9J68pI9QQu7MfOcSyvQCsPbrY876NLMA5x8b
+	6a06HgHn/oMDpIQ9rfVQvFC6xwNkVsrOJobUkPQjVA5Y0IQ9IhDSZaPWTJHCzNk16lJJWcPEznP
+	I3lV0H5DfgCV6OJTJvYcJPUeo3piWAIBS2dFxa6URBbwuWcj72U4/40iym+LKgEMpEPT40XMBdJ
+	ZioyEhFF5nbfGbVBgSjUoe0o/+IUFsnDgKhquldIpiQAOh70vIYilAx1BOB2iFk0lOtQ0lSMWs/
+	x9nNDt/4DKK5CZQXmmH8i1ORnf7o2BUCJ8s=
+X-Google-Smtp-Source: AGHT+IGjxecNIlHQDEvJBuOUoibpN6fBFJQ+4/f5KDrzH4VOihzPAa+7CUZGtwFzuPaJJns7/N5gUA==
+X-Received: by 2002:a05:600c:34cf:b0:431:5a93:4e3c with SMTP id 5b1f17b1804b1-433489d4d84mr70668465e9.16.1732205239981;
+        Thu, 21 Nov 2024 08:07:19 -0800 (PST)
+Message-ID: <8e233118-ed75-4b85-b753-a815952661f2@suse.com>
+Date: Thu, 21 Nov 2024 17:07:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/pv: limit GDT and LDT mappings areas to max number of
- vCPUs
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241121111218.50984-1-roger.pau@citrix.com>
- <Zz9YM_MB1AoLqSIE@macbook>
+Subject: Re: [PATCH] xen/bitops: Fix break with in a for_each_set_bit() loop
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241121145000.3107723-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,34 +121,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zz9YM_MB1AoLqSIE@macbook>
+In-Reply-To: <20241121145000.3107723-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.11.2024 16:56, Roger Pau Monné wrote:
-> On Thu, Nov 21, 2024 at 12:12:18PM +0100, Roger Pau Monne wrote:
->> The allocation of the paging structures in the per-domain area for mapping the
->> guest GDT and LDT can be limited to the maximum number of vCPUs the guest can
->> have.  The maximum number of vCPUs is available at domain creation since commit
->> 4737fa52ce86.
->>
->> Limiting to the actual number of vCPUs avoids wasting memory for paging
->> structures that will never be used.  Current logic unconditionally uses 513
->> pages, one page for the L3, plus 512 L1 pages.
+On 21.11.2024 15:50, Andrew Cooper wrote:
+> for_each_set_bit()'s use of a double for loop had an accidental bug with a
+> break in the inner loop leading to an infinite outer loop.
 > 
-> This is not true, I was confused with the logic in
-> create_perdomain_mapping().  When create_perdomain_mapping() is called
-> with pl1tab == NULL and ppg == NULL it just allocates the L2, but not
-> the L1 tables.
+> Adjust for_each_set_bit() to avoid this behaviour, and add extend
+> test_for_each_set_bit() with a test case for this.
 > 
-> So the purpose of the create_perdomain_mapping(d, GDT_LDT_VIRT_START,
-> ...) in pv_domain_initialise() is even more dubious now - as it just
-> allocates a page to use as L2.  I'm tempted to just remove it if you
-> agree, since I don't consider this useful.  The allocation will
-> already be done at vCPU initialization.
+> Fixes: ed26376f20bf ("xen/bitops: Introduce for_each_set_bit()")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-If it's done implicitly there, removing is likely fine. It feels like it may
-have been necessary to do this explicitly earlier on.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Nit: In the title, isn't it supposed to be "within"? And in the 2md paragraph
+there looks to be a stray "add".
 
 Jan
 
