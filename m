@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B86D9D6293
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2024 17:51:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841979.1257446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F68A9D653A
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2024 22:08:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842001.1257456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEWsC-0004Cm-FT; Fri, 22 Nov 2024 16:51:12 +0000
+	id 1tEasP-000706-MA; Fri, 22 Nov 2024 21:07:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841979.1257446; Fri, 22 Nov 2024 16:51:12 +0000
+Received: by outflank-mailman (output) from mailman id 842001.1257456; Fri, 22 Nov 2024 21:07:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEWsC-0004Ak-Ch; Fri, 22 Nov 2024 16:51:12 +0000
-Received: by outflank-mailman (input) for mailman id 841979;
- Fri, 22 Nov 2024 16:51:10 +0000
+	id 1tEasP-0006xJ-Iy; Fri, 22 Nov 2024 21:07:41 +0000
+Received: by outflank-mailman (input) for mailman id 842001;
+ Fri, 22 Nov 2024 21:07:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BIkc=SR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tEWsA-0004AY-Pb
- for xen-devel@lists.xenproject.org; Fri, 22 Nov 2024 16:51:10 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ <SRS0=Tm/o=SR=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
+ id 1tEasN-0006xA-MN
+ for xen-devel@lists.xenproject.org; Fri, 22 Nov 2024 21:07:39 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20624.outbound.protection.outlook.com
+ [2a01:111:f403:2614::624])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f76e8385-a8f1-11ef-a0cc-8be0dac302b0;
- Fri, 22 Nov 2024 17:51:06 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a9ed49ec0f1so381875166b.1
- for <xen-devel@lists.xenproject.org>; Fri, 22 Nov 2024 08:51:06 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa50b28f8a1sm118743866b.41.2024.11.22.08.51.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Nov 2024 08:51:04 -0800 (PST)
+ id cbf583f7-a915-11ef-a0cc-8be0dac302b0;
+ Fri, 22 Nov 2024 22:07:35 +0100 (CET)
+Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
+ (2603:10a6:150:16a::21) by PAWPR03MB9738.eurprd03.prod.outlook.com
+ (2603:10a6:102:2ed::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.20; Fri, 22 Nov
+ 2024 21:07:29 +0000
+Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
+ ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
+ ([fe80::a41e:5aa8:e298:757e%7]) with mapi id 15.20.8182.016; Fri, 22 Nov 2024
+ 21:07:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +47,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f76e8385-a8f1-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzIiLCJoZWxvIjoibWFpbC1lajEteDYzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImY3NmU4Mzg1LWE4ZjEtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMjk0MjY2LjUyMTQ1NSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732294265; x=1732899065; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=81E9chfxVe/haFwsGpGAYWMCWngQMTzLIgGBkui4lPg=;
-        b=kQ8VcNAt6ew0at402QRPYhjeto0145A2UCIQiz/mxrh05Ch1QkRJJgOLy1zhrwyObi
-         5GfJbwTtWd6yS3Ojh9EFeu3HrZExOg7Rm2H3FvCTz3D8RR75nKleW9DU0i0ieD+XjpQH
-         lX9n33IbbymC2iLyP6DZDnckV6sEuRQV+hGSE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732294265; x=1732899065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=81E9chfxVe/haFwsGpGAYWMCWngQMTzLIgGBkui4lPg=;
-        b=lR0OsWBIwYMARZ2cbMxgin4yK7Vhl2159Ye6ZhH2UV07G/6om8Vzv6vxF+tTlWTFl+
-         cfVxUBoWDq8eQA4bOptduxrcPwXGVvvORo4hRJmNISSR7EvwndkwKuIIgugxglT2dFgf
-         85ucwxfRAgtuhWsz8KG1Iqn1mQSUgtDSKibv1aCLhwSxCsvsfwyqfLK1P/b2VCjjqelA
-         uQH49Jt2wuKi4xCL0ccE+gr4L5mjMWyznjeML1vW2uoyRhOm01jCEwn+1BYg3Y3R56qE
-         m24e083eJcUQJdoXFAtwG42fIvsGXMT4z+MBoGkL6kt64yySF/4Ef/ji7uE7JJSDSKQn
-         Jf2w==
-X-Gm-Message-State: AOJu0Yyr+iwZ5Ds3pVoUPJb7F1+DeTdJF+KuD70Mn81iNUacEAOXj4eC
-	0KcEIBiHO1QcHMKeoXnG5Y9cvkj89dMSV89FzbZUD7U9UphM413IfKpIqlyfjf15Yr6cJiVMzi8
-	C
-X-Gm-Gg: ASbGncs4ZDD9GOZQeryBIoRzIEPZRjQt1NuOjeTXJNOin3D7/DMsRplKtePnrzOOtQw
-	hP93dgX06DTSL54XBzT1QZuNU9xS/IOLlDFSWWel1mHzgBO8RxCqwUZxBza4slr4xSa6fgJ1ERk
-	1sqG7Lh6Ztj7VoXuDIeOEi79qT6G1uO8Z8DVOWU6ot3oFaK4EYgntlghOVokQXbINf7FGZmoHrB
-	ggOjsHQyBtGCsO7AOt9cYKQ3UGstza0+UVwRVS8l6/ut+vl05FCrpvu5CBoXkrW9hSHt6Lhz9dl
-X-Google-Smtp-Source: AGHT+IEyKZi7aOMN1UcA6IIzOe+i6MNwwZgL1QrkGh7fEy+e6RoCOwlRo4gnUlUSXBo2D8ImLkRMfA==
-X-Received: by 2002:a17:906:314c:b0:a9a:2a56:91e with SMTP id a640c23a62f3a-aa509975d39mr288237666b.6.1732294265581;
-        Fri, 22 Nov 2024 08:51:05 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH] docs/sphinx: Refresh config for newer Sphinx
-Date: Fri, 22 Nov 2024 16:51:02 +0000
-Message-Id: <20241122165102.3240758-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: cbf583f7-a915-11ef-a0cc-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjYxNDo6NjI0IiwiaGVsbyI6IkVVUjA1LURCOC1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImNiZjU4M2Y3LWE5MTUtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMzA5NjU1LjgyODIzNiwic2VuZGVyIjoidm9sb2R5bXlyX2JhYmNodWtAZXBhbS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dkP2TPxSWigLeV6ImjKyUswMrA88KogGfDnUdcKvcTU0aE0gp81+LjLZQuwJ0AEMIdP1zlR9l8XCx16q+W1ApGRL0cEunxSQ8kZjQWWZ/kJe5HU+PTq+pjzok2ly2a9/sVMQg6ZJ7Nex061uo7di3vNhjk1wwLzA1wQqmqs8N86ZPGYrL5A3bclQN60fo//e7GXyTElFs1a1LGp5ewJvc5+G2DN8ZK+2hq9n8VWT/CcG23v4K2P7bceXf488K7xc7Wz2KxLlhPF2+vtM0knYfbgIpYWd0JhvNR5AsUuNZONjbBuRCS15Dt2Ec6NEZoseEmfDPWfK0L94aTbc+p+UiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SMx/mwcK5hU6KcgFvnAc6iQo9AVCd9WSH/e8jGDjjvY=;
+ b=mUpXtnfBajurR1r/njEq70+wdI8R8qNx2GeVWePeZHGVFrVzpWZVIv6Qh0FwBdJz6saU0DMNHqFZNPhWPXxHhLzRrpZBBI45Mk+HD5Z8ZxhiQQVOWc/whDbl0uHzwAoQadFVnpIrpWsLwcxHnrOEqsDXRpOWAT5/mxwLjh+YtOYoj0MIuVsUPrmb1u8fhhe5FrDXD9f6nj7rW3jHtBAcDM2ttyQN6e3K7omHC9R2Yk+fIY/sJt9KvqZnEZSyrE618KpW3yNCCTe9qesJvJxpOxbI2bdXgiChv52gQQnGCQMnGm7s6CU0Qd3gOLm4H+WqOUFndtxbE5k7hNjlkBAGmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SMx/mwcK5hU6KcgFvnAc6iQo9AVCd9WSH/e8jGDjjvY=;
+ b=YEAeyDfcbp3NPA6vY7nNj94lu2mxujGT3Uapzew0x9vVkjjlaY/X6ki5Uo1Roy8cHJS+7jzcYjxn9KHPuOnF6+sgcPDo+/dOuzcA6qZ/CONsQDe9EBZLzxlTuLtJ/ItLto0zFJ2e8Dw6/14hNqIKrSgWVntbzxqCK4w2F2TLAX7tyS443jn+ZPA6j2yTxJJDRBhkqN0ADWnYv4HmcDjDzFLSlUn4MdYpJ3GFnpXXKr0TU2H2PCXSY4q+XDsEZG+qPuNQVUD29oZh+Alus8zSZZRr5gXF/gelRQRDYUOffRot3L0F0ewGvUwj8rzQQC+8i1URr51Z/HNJ4YfE0fgEBQ==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@vates.tech>, Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Alistair Francis
+	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
+ Davis <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH 0/3] Add stack protector
+Thread-Topic: [PATCH 0/3] Add stack protector
+Thread-Index: AQHbPSKJvmf4+DJbxEu3vjqcFnhN7Q==
+Date: Fri, 22 Nov 2024 21:07:29 +0000
+Message-ID: <20241122210719.2572072-1-volodymyr_babchuk@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: git-send-email 2.47.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|PAWPR03MB9738:EE_
+x-ms-office365-filtering-correlation-id: 0ea95a58-1046-4d54-20ce-08dd0b39ac7c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?TRHphPECUlSe/aaEWzduhgqDpQNY4ntR5bMWhpzeFTDV7JYEvzYU7Q9gu5?=
+ =?iso-8859-1?Q?VAWDxogDnN7yscfQLtZa5CLhVkBQthrnOidCSmpGMnHQ1mZkGeK2Bn0qH4?=
+ =?iso-8859-1?Q?PkVLF0v/u+ToHIRf9uBFt8nQwCqWWWsy30Imy5mG8dMvXJLE6UDhgD6V96?=
+ =?iso-8859-1?Q?THwPPFR868pc7tX2eVTJsuCLw2XIiKoEJ3BOX6RQe3QCzai5oI/MTkOMps?=
+ =?iso-8859-1?Q?Q0jtcS7MjrBGad+pmjsjtn0lHVQYvRqi/Z3BXRMhHUOSfSBlVQO1sM2ETB?=
+ =?iso-8859-1?Q?KcDSSSsLlUAcq2BgeEStholhXxvokQBcXLO7a13mIVv8GWkbH4pQsRBhHu?=
+ =?iso-8859-1?Q?ub6Fff4sOh7kC7nbA52gh3UhBUswTCtNT9ZrEu6QdP8qJEH2wm1XNW+sZF?=
+ =?iso-8859-1?Q?FtaDcp5/WaT0efaTnX6cRZH0Ad1kUerBcRCdr6rJMbWQLFo9CuJlHu6mjL?=
+ =?iso-8859-1?Q?83jyu2XKOZTNvWqa0wxcmW8h5N1m+qOOhPsTc+ASa6PT+LPzeEAoCXRMcq?=
+ =?iso-8859-1?Q?q9Keiu/JKYhv1NcYgcmmsg/NtIVc+F7bEPX3zhbIqx0wiE42g7wb8lb+x+?=
+ =?iso-8859-1?Q?stdEc+BJ1tV0PBuO8qjhFuHuRjeT40C6NjWtNGhKUZ/qyhkMcNhLl1VxB7?=
+ =?iso-8859-1?Q?Dsb8dPLJIkFSyaymLVrYt57C6E9xaMhWugY9Gk/mmEv8k/mYzWa3tOKNnZ?=
+ =?iso-8859-1?Q?oCcyrRGTv80cp4gHQfI4KFzvE+VE/v3tqLtGJiEj8XLjg6PG+9qn1on+5B?=
+ =?iso-8859-1?Q?GIX4uwx+b64jupp8C8eHBZvqBUOcaWP8r7kVlcopmvLQJrS7LXD+fB2+2Y?=
+ =?iso-8859-1?Q?PbDF6bSsVUq7BOQJYEY6NROl1NitFyYJ3s+9pu2JZxt39Bv4ehZt5BWyw0?=
+ =?iso-8859-1?Q?B5wgoQQaSkaBbEIEJLolgURNdQswciGvWBKCpWwGSHSZAN6z231b7FSAQu?=
+ =?iso-8859-1?Q?IsoN6LnM3X5vsdht6wEDivht+hzNiJDFAm1/bAxLI8REpyAvVK/9fR3JSr?=
+ =?iso-8859-1?Q?M9fKmbflyTrBPozOW7Z/In2N6pbuASCh7BS0eIJpSMbZA9L4xYlxQch0R/?=
+ =?iso-8859-1?Q?H2eFnomoFjD+mSDy91QgcTVPnbJr/9HnxZpeyS6l8BWj2cx/x2cL/Nz8Xc?=
+ =?iso-8859-1?Q?JSmi0Gw5eV2knvU729WpZEedpikGERnOTrE+F/WesNmTj6S1Cj+rjc2QvS?=
+ =?iso-8859-1?Q?3xJznNGy01NhUjjJkSjC1UnZOK2bfyj3PhSpcVZyTAIFUZspkDZfgYSmB0?=
+ =?iso-8859-1?Q?1wAdNLymNgMqH5UhccOjJdYUuQEw9G7GZoCEsZqCF5gBocGN4v38AstfOK?=
+ =?iso-8859-1?Q?etI3y77kpTRvvFtCMigz5e4m+optGKwU2peGpKvV1f+LUYxZrHtgWTReGK?=
+ =?iso-8859-1?Q?pRK6JTtob5B9Aq4FfzzYLrrQpDiFfPyHY9jq3+V9w3FfRpL3FoJGA=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?VTFR4i6muhibFOShnM6jTUA+QHOXGmUOYYbnGZ/jZudnDJl6Ffa6T9Vi81?=
+ =?iso-8859-1?Q?NC0aTf94Ot3xesgdZc7imHscTfM5VtI/kkLVyl0zmOroLwuXmMLcRAG4lI?=
+ =?iso-8859-1?Q?KttnxMZ7E3EqFEzrgZEWFpwrGrLyJv8dZC04jXGvChBSDfj20D+a807TLR?=
+ =?iso-8859-1?Q?sZFSDGP2qtTD1uVTNlxspmszqoxRuWPkYTI11WZ8xPIo844riZjR1FnWCI?=
+ =?iso-8859-1?Q?G/o0jD6+6PJhm2hmeke63jE6YUOeoX5Ybh/wOcIvUGZrPlBOye0STZuL0V?=
+ =?iso-8859-1?Q?e5EH78OraRWgpMS48xr/f/FMNimlrNCxkP381FeRmNbs19h2lNE/IH6qNL?=
+ =?iso-8859-1?Q?3f1vKs6j5oXyGg2GF0d7iPa4e5VAlwPbHqWT5xYRh3vD15WdadnP2zsLnf?=
+ =?iso-8859-1?Q?M+/1fHv829Ev79SUMkGwPqSzooi86kIiCxYYCs0ZBzCrDQ53mV2J41m9BW?=
+ =?iso-8859-1?Q?tuTjn4wVjIIqJZljQjA83+B1mtqGmxunqv5R0I8Gw6mBILVlJEYuwE7Weu?=
+ =?iso-8859-1?Q?1jIQT4mg1ZoQwcKd9M+ombHnCiDROaomXWA+q6Jkm7Q5pXK6WuYFast09p?=
+ =?iso-8859-1?Q?E+MEIJ72twI7atFpCAuTSrhJnhZaA7BCwj+YWEXJVRmXbAFEWqFXFDzSkB?=
+ =?iso-8859-1?Q?RTUuKSnUbzMtRn/Z1wew0nmTaSRLiFUBT+C/SXzPz6Cl/+l3AnLC4x5YvP?=
+ =?iso-8859-1?Q?wv3qKffIx9P3cLI+yQrcH3+kpHPnmk9+QRdp2UswO31V2qdnmVa4oY3Ket?=
+ =?iso-8859-1?Q?o2/oVSQP+mVxIk8wLydm5T6L25Em0owdDDJwh2X/LV4in+Eyq0YXvczf2y?=
+ =?iso-8859-1?Q?v2Di2cvI1t1vLFO9QI1qoAYYafF5xiBh/ppzc322G5h3y2rV7NU3KSBTVu?=
+ =?iso-8859-1?Q?PcmcFyr3n3kYJ9d2IIK6aEDIo/ETa4rGWLuIJRJCSapJ2ILPrwSrwKrsmC?=
+ =?iso-8859-1?Q?cpKKER/a8oYF3uDkXbEKbwODcIcWbsA9+xc5hP8sdHWqDjDcHV2eZD65aM?=
+ =?iso-8859-1?Q?q4e4cyBfRXzk9U8ekdXauOJ4rWhly3IrCLCedVJ76YXFoP4PaWXWCrVz/8?=
+ =?iso-8859-1?Q?st97aA7rRbxErMxcvg41/PuQAP09F5Tr93rsPVEDDZj87UHJg/zr5Cg9f8?=
+ =?iso-8859-1?Q?3+2rtsb5Y+5DphqGi6GFyt0SB9SZB0lkacMMpeJcsULSLJX3dFv/cty+pl?=
+ =?iso-8859-1?Q?CQ4F8KbsjgRmYvM5XDRaZn5XPfckepthrDOJzPny/vTIY1MRVWD9UB2xj8?=
+ =?iso-8859-1?Q?8jZPbOh4Wanhg1N3FuKN28m46Lao4xaqABatRldFZQ1yj95v3pPxJ33Cnw?=
+ =?iso-8859-1?Q?jebex6hvqa2vjjoH/M3snck4JBCyLJAJ93EUmzAhUKovBlFT91dRE9L4wT?=
+ =?iso-8859-1?Q?/tup2LcS0tn526y6WqpS4BdhTVknHEfMhxajM/4lB2e2mlMgAcMIBtSkjk?=
+ =?iso-8859-1?Q?3Fb2/BPXQ+qOVfc/izUJSD/ME7l3HbqA6bxwm8W3drTplf5DeoCT2Rkmk2?=
+ =?iso-8859-1?Q?1Muwc6TQWUdAuQABCTTZgf6IrcNKbg3zMv3BTvNplO2z3wA36WcqU6uh75?=
+ =?iso-8859-1?Q?P23q4W6q1Ye+Q4N11Iv2rGHPc3UV7wuO9N/IycSOIRMX/O9okggAomuF+8?=
+ =?iso-8859-1?Q?xCnLU4CAs8m+TDmhRm9K/tQcKr9T6E//TW7Wvo6xtlDyGi0NnpIvCkPg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ea95a58-1046-4d54-20ce-08dd0b39ac7c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2024 21:07:29.1312
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: h/Mnn3ykmu5Rlc3cWISliAFH7S+t9DRgycId1yKHpgssN2f9ujHq39G0iBXmrYmCkg7fDlujskuPLf51tHIlPzCrgtmZnPs4VHMKzLmDxV8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB9738
 
-Sphinx 5.0 and newer objects to language = None.  Switch to 'en'.
+Both GCC and Clang support -fstack-protector feature, which add stack
+canaries to functions where stack corruption is possible. This series
+makes possible to use this feature in Xen. I tested this on ARM64 and
+it is working as intended. Tested both with GCC and Clang.
 
-Also update the copyright year.  Use %Y to avoid this problem in the future,
-and provide compatibility for versions of Sphinx prior to 8.1 which don't
-support the syntax.
+My aim was to enable it on x86 also, but it appears that on x86 GCC
+stores canary value in TLS, exactly at fs:40, which is hardcoded. As
+Xen does not setup fs register for itself, any attempt to enable stack
+protector leads to paging abort.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
+I also tested build-ability for RISCV platform, but didn't tested that
+it does not break anything, so we will need RISCV maintainer's
+approval.
 
-This is in prepartion to get a Gitlab CI docs job, and to activate Sphinx's
--Werror equivelent.
----
- docs/conf.py | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+Volodymyr Babchuk (3):
+  xen: common: add ability to enable stack protector
+  xen: arm: enable stack protector feature
+  xen: riscv: enable stack protector feature
 
-diff --git a/docs/conf.py b/docs/conf.py
-index 50e41501db8f..5d2e97944900 100644
---- a/docs/conf.py
-+++ b/docs/conf.py
-@@ -3,9 +3,8 @@
- #
- # Configuration file for the Sphinx documentation builder.
- #
--# This file does only contain a selection of the most common options. For a
--# full list see the documentation:
--# http://www.sphinx-doc.org/en/master/config
-+# For the full list of built-in configuration values, see the documentation:
-+# https://www.sphinx-doc.org/en/master/usage/configuration.html
- 
- # -- Path setup --------------------------------------------------------------
- 
-@@ -19,11 +18,18 @@
- 
- 
- # -- Project information -----------------------------------------------------
-+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-+
-+import sphinx
- 
- project = u'Xen'
--copyright = u'2019, The Xen development community'
-+copyright = u'2019-%Y, The Xen development community'
- author = u'The Xen development community'
- 
-+if sphinx.version_info < (8, 1):
-+    from datetime import datetime
-+    copyright = datetime.today().strftime(copyright)
-+
- # Pull the Xen version straight out of the Makefile
- try:
-     xen_ver = xen_subver = xen_extra = None
-@@ -45,6 +51,7 @@ finally:
-         version = release = u"unknown version"
- 
- # -- General configuration ---------------------------------------------------
-+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
- 
- # If your documentation needs a minimal Sphinx version, state it here.
- #
-@@ -69,10 +76,7 @@ master_doc = 'index'
- 
- # The language for content autogenerated by Sphinx. Refer to documentation
- # for a list of supported languages.
--#
--# This is also used if you do content translation via gettext catalogs.
--# Usually you set "language" from the command line for these cases.
--language = None
-+language = 'en'
- 
- # List of patterns, relative to source directory, that match files and
- # directories to ignore when looking for source files.
-@@ -86,6 +90,7 @@ primary_domain = 'c'
- highlight_language = 'none'
- 
- # -- Options for HTML output -------------------------------------------------
-+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
- 
- # The theme to use for HTML and HTML Help pages.  See the documentation for
- # a list of builtin themes.
+ Config.mk                            |  2 +-
+ stubdom/Makefile                     |  2 ++
+ tools/firmware/Rules.mk              |  2 ++
+ tools/tests/x86_emulator/testcase.mk |  2 ++
+ xen/Makefile                         |  6 ++++++
+ xen/arch/arm/Kconfig                 |  1 +
+ xen/arch/arm/setup.c                 |  3 +++
+ xen/arch/riscv/Kconfig               |  1 +
+ xen/arch/riscv/setup.c               |  3 +++
+ xen/common/Kconfig                   | 13 ++++++++++++
+ xen/common/Makefile                  |  1 +
+ xen/common/stack_protector.c         | 16 +++++++++++++++
+ xen/include/xen/stack_protector.h    | 30 ++++++++++++++++++++++++++++
+ 13 files changed, 81 insertions(+), 1 deletion(-)
+ create mode 100644 xen/common/stack_protector.c
+ create mode 100644 xen/include/xen/stack_protector.h
 
-base-commit: c0bf8816c9e2a4701c925d8b23abfda5990a0087
-prerequisite-patch-id: b4ef4fc3ee5669c078aa0b9c7501ac7ef673966c
--- 
-2.39.5
-
+--=20
+2.47.0
 
