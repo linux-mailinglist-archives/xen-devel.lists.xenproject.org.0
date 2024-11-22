@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4512D9D5A77
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2024 08:55:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841738.1257235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB9B69D5A81
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2024 08:58:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841746.1257245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEOVA-0004uw-8S; Fri, 22 Nov 2024 07:54:52 +0000
+	id 1tEOYn-0005VP-N3; Fri, 22 Nov 2024 07:58:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841738.1257235; Fri, 22 Nov 2024 07:54:52 +0000
+Received: by outflank-mailman (output) from mailman id 841746.1257245; Fri, 22 Nov 2024 07:58:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEOVA-0004t1-5l; Fri, 22 Nov 2024 07:54:52 +0000
-Received: by outflank-mailman (input) for mailman id 841738;
- Fri, 22 Nov 2024 07:54:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tEOYn-0005T0-KZ; Fri, 22 Nov 2024 07:58:37 +0000
+Received: by outflank-mailman (input) for mailman id 841746;
+ Fri, 22 Nov 2024 07:58:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PYSV=SR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tEOV8-0004sv-Vi
- for xen-devel@lists.xenproject.org; Fri, 22 Nov 2024 07:54:51 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ac3837c-a8a7-11ef-99a3-01e77a169b0f;
- Fri, 22 Nov 2024 08:54:46 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5cec9609303so2057851a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 23:54:46 -0800 (PST)
+ id 1tEOYm-0005Su-OU
+ for xen-devel@lists.xenproject.org; Fri, 22 Nov 2024 07:58:36 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9236b862-a8a7-11ef-a0cc-8be0dac302b0;
+ Fri, 22 Nov 2024 08:58:33 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-aa20c733e92so226295266b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2024 23:58:33 -0800 (PST)
 Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa50b57c1e6sm65579366b.157.2024.11.21.23.54.45
+ a640c23a62f3a-aa50b52fd20sm66029666b.111.2024.11.21.23.58.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2024 23:54:45 -0800 (PST)
+ Thu, 21 Nov 2024 23:58:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,88 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ac3837c-a8a7-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzIiLCJoZWxvIjoibWFpbC1lZDEteDUzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjBhYzM4MzdjLWE4YTctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMjYyMDg2LjczOTI4OCwic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 9236b862-a8a7-11ef-a0cc-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmMiLCJoZWxvIjoibWFpbC1lajEteDYyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjkyMzZiODYyLWE4YTctMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMjYyMzEzLjk0MTcxLCJzZW5kZXIiOiJyb2dlci5wYXVAY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732262086; x=1732866886; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732262313; x=1732867113; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=0wllQQcW9IV92W3o3FO1lZKoZou2H3eOmasZCp2hnNA=;
-        b=rVH//zglI7gYuzQMfDwBVdlkaAbYzX62YZRaEvl1mm+pxU1M+6l3kEuqyQdWNOiVqY
-         QnLbY+mX3AYebkDdSDCNjJCOxyNpqnxevanDtJ9uq9zCyp0OnFcmJobmlmfQo+SUWWRJ
-         0+ZKTKdTwPdeMQdVEPVXEBRSZUvyhX3XXRO/w=
+        bh=xljAT8OSq2IJPduuPZt1Xo4ThQPmaTdw1vaue2jdPzw=;
+        b=FgFelfEdkf7ln9MIgveoxRucJv1fl8GGALczKsU0zbYZQZZ/5Px9M93EgtmX3TuF0W
+         xnXYCAoI8I/cZ9hqCjEABOB2hjqfb7BBoahP1AoIffBCS9ZzlxaMUirnUZP0GwdTzJD/
+         bGdsMZAfyTEclIvvDXuH2psIeMsTdBgHZYua8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732262086; x=1732866886;
+        d=1e100.net; s=20230601; t=1732262313; x=1732867113;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0wllQQcW9IV92W3o3FO1lZKoZou2H3eOmasZCp2hnNA=;
-        b=SBU7zJULnSoALIiv+M5S0s+KtcYAQUPGTRN7+4KLBNcxpyyMV/J2J9DxAi+xRFYMtf
-         wNabgMPkBnZqPhWvrL8gKvVuUJeJW6r9e7rkz2Mug2WKn1M3lsxo/KFKksmt9iRIpUc2
-         AqGmjPETbpbh2T3oupd0PKUwmUa1NtKHD31eRc5QvVH8JJS74t3+Hko/mWgfRgo5g3VH
-         wISbdsGps8B9rglYFuClDlR9XCNK8eQM5dH3tsRcsS9jDeL9XiN04ItAVu0C+qcauQW+
-         pjh/GBBpynvrklpxfekRg2ux7dWPLyHhikmLBVfDsLkfK9GUVF+uOuug7YWT9gZISFVY
-         CulA==
-X-Gm-Message-State: AOJu0Yybtw7sSXBwUGkc4hk2qjZdZOymNMPvurZ/hij8EgPkceLqpKBI
-	pIxwBnUhhKyXYloFfQYqR+TOipyviGkpZuvmyGt70xTE/U5tBe9xeAvCZ7q38c4=
-X-Gm-Gg: ASbGncu4a9cBrr3t3G5hBXlGaRQvxt5unl6YBnsRVPSY2WX/ln18rWEPRPd/uYqsqSC
-	3y3Ub4u41w21bvKzUaQo2lsxanCVoPW85ePJpr49KHVKHgvJit4Z6C5UePtxSVDFHr+ZbpoZE1t
-	TcNeTUbDiigd5HHrVBTaQ6i7ywI1TXDHD0QZf2nWeuZUQEM90/lMHl59LtMxwffOvspAGeTb2R6
-	q0a+ECwiGKs9YooqjVi4vOXDcklez5WEM/JiuGA1U1zRx4VMLRUGLz5tgk=
-X-Google-Smtp-Source: AGHT+IEoc8oAuVw+ExICcF2A+w2ZLxPd8xYd7sxHBmFqyUQzSIxgqWtlFaOvj7b8AIcmB18VvVjeXA==
-X-Received: by 2002:a17:907:2718:b0:a9e:b86f:c478 with SMTP id a640c23a62f3a-aa509a0388bmr162467366b.36.1732262086077;
-        Thu, 21 Nov 2024 23:54:46 -0800 (PST)
-Date: Fri, 22 Nov 2024 08:54:44 +0100
+        bh=xljAT8OSq2IJPduuPZt1Xo4ThQPmaTdw1vaue2jdPzw=;
+        b=OH49hn61iXpCATn4C2vvytK3JobI17b7aiA/9UsEylX+dsXPiH8G7SIGxdf3Er8qv0
+         4lZFt8VOKGEBzE+cJQJaa6EbeGTgPqmLWwiYTj0XHJLKgRw3EN83cs/1+N/l2yMFhLOR
+         +XDSBQniJB9nZhM4JzAcD+k0Bis8pGgJhVFPmsipBohCmNxNAygcA2rhWZVyo8yUx6Me
+         ARm7FlfPospDZR9gb+QbV2l5L0R+atzzRb97ArzVt4o6uRqRV+iCaq08lxvlkzeGnaqX
+         JQH0NLF64uI03jE7y6Ibwy8RMxMdYcD3RgezjYwcmmKRCvOankbTe8iAIw8dqoJBOmoK
+         31qA==
+X-Gm-Message-State: AOJu0YzpacAKoGLrUBIAh/Z/vaRrQeXcVt5yl6T52q1kDyLiHN897psm
+	3P47YAyFUtaKUoRDaVpQVep0t/g5mmchTrYEzsAEa7tKv1MW16tjpRy8idLoFZ0=
+X-Gm-Gg: ASbGncvtRmoYBBQSQolEBnlLWE9UjTfy6unlZFT214P7nkT5QAlBAyJB5kpmaL9cNNE
+	rRx56KhYwdxwocpCqCobWNg1+h4QhLTd/ylmaeUAscD/rWMDW3zIAhH1gKMvCebPdf0TKh7sisK
+	EAhJJAKGvT+VKky9LL2HDxZntD0qMd+Lr21W8mNXkFkgvYLfi6RbJjIkvciPmSVwtMF1FkoBW/R
+	a22x8T5nptRK0xve3m4Wx/3nHaDVa6dmZWnLy45IBQ0wezwp0oXCbLfems=
+X-Google-Smtp-Source: AGHT+IFwfmv2teB7NhwKeZl2XyE+GpnJRho31qpcmbuhUPJpKPJ7w64IL4sBXbjP8lprAWLWS47cvQ==
+X-Received: by 2002:a17:907:2cf0:b0:a99:da6c:f607 with SMTP id a640c23a62f3a-aa509d2138bmr149829566b.44.1732262313355;
+        Thu, 21 Nov 2024 23:58:33 -0800 (PST)
+Date: Fri, 22 Nov 2024 08:58:32 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <JBeulich@suse.com>,
-	Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] xen/bitops: Fix break with in a for_each_set_bit() loop
-Message-ID: <Z0A4xER41zciSbiW@macbook>
-References: <20241121145000.3107723-1-andrew.cooper3@citrix.com>
- <Zz9gkhQgsOtJUA0I@macbook>
- <bb6736b2-ec3e-4e72-bd6c-fabeccc3654b@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] vpci: Add resizable bar support
+Message-ID: <Z0A5qHd2AqrsuRFr@macbook>
+References: <ZzY1O-zrcWB6Ra3q@macbook>
+ <BL1PR12MB5849FC8077C7C6035F1D3E15E7242@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzczqznFbixk3Vfu@macbook>
+ <BL1PR12MB5849894360DB8D96073AB21EE7272@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzyIk0KipX8LPZNv@macbook>
+ <BL1PR12MB5849FC514034CDFC2F68BA6FE7212@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz2lgkjgRoZ7Sr5Q@macbook>
+ <BL1PR12MB5849F5382CF3A03C080C4CA4E7222@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz8Cwj3KJ1BIBEg_@macbook>
+ <BL1PR12MB5849786A66C48A85202F40C5E7232@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <bb6736b2-ec3e-4e72-bd6c-fabeccc3654b@citrix.com>
+In-Reply-To: <BL1PR12MB5849786A66C48A85202F40C5E7232@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On Thu, Nov 21, 2024 at 05:35:16PM +0000, Andrew Cooper wrote:
-> On 21/11/2024 4:32 pm, Roger Pau Monné wrote:
-> > On Thu, Nov 21, 2024 at 02:50:00PM +0000, Andrew Cooper wrote:
-> >> diff --git a/xen/common/bitops.c b/xen/common/bitops.c
-> >> index 91ae961440af..0edd62d25c28 100644
-> >> --- a/xen/common/bitops.c
-> >> +++ b/xen/common/bitops.c
-> >> @@ -110,6 +110,22 @@ static void __init test_for_each_set_bit(void)
-> >>  
-> >>      if ( ull != ull_res )
-> >>          panic("for_each_set_bit(uint64) expected %#"PRIx64", got %#"PRIx64"\n", ull, ull_res);
-> >> +
-> >> +    /* Check that we break from the middle of the loop */
-> >> +    ui = HIDE(0x80001008U);
-> >> +    ui_res = 0;
-> >> +    for_each_set_bit ( i, ui )
-> >> +    {
-> >> +        static __initdata unsigned int count;
-> > Preferably as you suggested without the static variable, I may suggest
-> > that you use ui_tmp instead of plain tmp as the variable name?
+On Fri, Nov 22, 2024 at 04:04:05AM +0000, Chen, Jiqian wrote:
+> On 2024/11/21 17:52, Roger Pau Monné wrote:
+> > On Thu, Nov 21, 2024 at 03:05:14AM +0000, Chen, Jiqian wrote:
+> >> On 2024/11/20 17:01, Roger Pau Monné wrote:
+> >>> On Wed, Nov 20, 2024 at 03:01:57AM +0000, Chen, Jiqian wrote:
+> >>>> The only difference between our methods is the timing of updating the size.
+> >>>> Yours is later than mine because you updated the size when the driver re-enabled memory decoding, while I updated the size in time when driver resize it.
+> >>>
+> >>> Indeed, my last guess is the stale cached size is somehow used in my
+> >>> approach, and that leads to the failures.  One last (possibly dummy?)
+> >>> thing to try might be to use your patch to detect writes to the resize
+> >>> control register, but update the BAR sizes in modify_bars(), while
+> >>> keeping the traces of when the operations happen.
+> >>>
+> >> This can work, combine our method, use my patch to detect and write the size into hardware register, and use your patch to update bar[i].size in modify_bars().
+> >> Attached the combined patch and the xl dmesg.
+> > 
+> > This is even weirder, so the attached patch works fine? 
+> Yes, it works fine.
+> And I will double check.
 > 
-> For this, I'd prefer not to.
+> > The only difference with my proposal is that you trap the CTRL registers, but
+> > the sizing is still done in modify_bars().
+> > 
+> > What happens if (based on the attached patch) you change
+> > rebar_ctrl_write() to:
+> > 
+> > static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> >                                       unsigned int reg,
+> >                                       uint32_t val,
+> >                                       void *data)
+> > {
+> >     pci_conf_write32(pdev->sbdf, reg, val);
+> > }
+> Will try.
 > 
-> For ui, ul and ull, there are a pair of variables with precise usage.
-> 
-> This is one random number that gets as far as 2.  And it's test code.
+> > 
+> > And if you don't trap any PCI_REBAR_CTRL at all?
+> What do you mean? If I don't trap any rebar_ctrl, how can I call rebar_ctrl_write?
 
-My suggestion was on the basis that we might need to add more 'tmp'
-variables of different types in the future maybe?  No strong opinion
-anyway, I'm fine if you prefer to leave as plain 'tmp'.
+Well, that's part of the question, is just trapping PCI_REBAR_CTRL
+enough to make this work?
+
+At the moment it's unclear to me what makes your approach work and not
+mine.  And I would like to understand why your code works, otherwise
+I fear I'm not understanding how the capability works, and hence our
+support for it might not be reliable.
 
 Thanks, Roger.
 
