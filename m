@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E81C79D6144
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2024 16:20:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.841944.1257416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CA859D625F
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2024 17:35:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.841958.1257426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEVRi-0007ce-JK; Fri, 22 Nov 2024 15:19:46 +0000
+	id 1tEWbn-0000rd-Rj; Fri, 22 Nov 2024 16:34:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 841944.1257416; Fri, 22 Nov 2024 15:19:46 +0000
+Received: by outflank-mailman (output) from mailman id 841958.1257426; Fri, 22 Nov 2024 16:34:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEVRi-0007aF-Fw; Fri, 22 Nov 2024 15:19:46 +0000
-Received: by outflank-mailman (input) for mailman id 841944;
- Fri, 22 Nov 2024 15:19:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tEWbn-0000ph-Og; Fri, 22 Nov 2024 16:34:15 +0000
+Received: by outflank-mailman (input) for mailman id 841958;
+ Fri, 22 Nov 2024 16:34:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JvYz=SR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tEVRg-0007a9-Bm
- for xen-devel@lists.xenproject.org; Fri, 22 Nov 2024 15:19:44 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30599a52-a8e5-11ef-a0cc-8be0dac302b0;
- Fri, 22 Nov 2024 16:19:38 +0100 (CET)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2fb5111747cso26806091fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 Nov 2024 07:19:38 -0800 (PST)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa50b52fe94sm110268766b.96.2024.11.22.07.19.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Nov 2024 07:19:36 -0800 (PST)
+ <SRS0=Ep2p=SR=bounce.vates.tech=bounce-md_30504962.6740b27e.v1-a31070d2a5534cdba6a139ac35c3f248@srs-se1.protection.inumbo.net>)
+ id 1tEWbl-0000pb-RY
+ for xen-devel@lists.xenproject.org; Fri, 22 Nov 2024 16:34:14 +0000
+Received: from mail179-37.suw41.mandrillapp.com
+ (mail179-37.suw41.mandrillapp.com [198.2.179.37])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97c9157c-a8ef-11ef-99a3-01e77a169b0f;
+ Fri, 22 Nov 2024 17:34:07 +0100 (CET)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-37.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Xw0zf1FwnzG0CSN8
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Nov 2024 16:34:06 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ a31070d2a5534cdba6a139ac35c3f248; Fri, 22 Nov 2024 16:34:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,228 +43,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30599a52-a8e5-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzIiLCJoZWxvIjoibWFpbC1sajEteDIzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjMwNTk5YTUyLWE4ZTUtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMjg4Nzc4LjUxMjgyMywic2VuZGVyIjoib2xla3NpaS5rdXJvY2hrb0BnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1732288778; x=1732893578; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=nuM013zxcMBhaTjQpIKcYjopYLoD/j3oW8CjHL2l0N8=;
-        b=Livl4zuF7O0waKy7XHUqJkzbXXOriX+keoLPEntKehvSgMmy8JjLVVLDiXf8VrzcRe
-         7gPlKYw7ynri4wA+rlynT99BBY6H8FNkpSXX/1Xkjr2xgFmMbCzste3iYqcaVA6nZ7oz
-         1/ImefnE/wRCuiedF1s6+s3I0vLcO5Cz0NgjHnCFEy8eTFS34aRFYZhsnxF/4Izdwssx
-         nWDwHcdZvInB6iqe/qNoLchH/j2bGYhBd4zpzFFbvItVFnLnFp4EJ/9nqhMiFqAwH7Wg
-         79V0ACeHgZO57o5A+PxPQL8qgY9QAt1vpOTXAKWIRNGsC65hKVGxyy/rhJUkjHNf3KLf
-         Y64w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732288778; x=1732893578;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=nuM013zxcMBhaTjQpIKcYjopYLoD/j3oW8CjHL2l0N8=;
-        b=qeL+afZd9ogIKW4C8UwUezDt+d04KAAhWPlGGckEd4CSztqKVsAK9YMKXOJxV7+QV4
-         3OqKYP1pkvTznIZCH8n2AGVnbc0lEqZT1y7QIUgpt/g0u5hUAjuxnezx+TQQdn8cAGz+
-         3FBX/2bhnDIXsg7ucEaJIzMyYEEumtIObS7+urvTkSP6Yu/YDetq3HR9U20O2JP6ZSnF
-         ul6vcKPadMG2mmv10vbqcCfZuQ1+1XoNIxAxzjf9LWcwBADCLbbq5FlavZlVHO2grMab
-         aFxEexhY022HlnJD3AJuwqhgYwz32QNHCrx0dt02x5+XeCOg8onvoyaqLvsrhDSlCXpq
-         uiSg==
-X-Gm-Message-State: AOJu0YxDueNnMoHqLjwQopCXxE3/2JdoTI0aLeOk5BRsgL42JWlO0Ma5
-	kNIG3bfpAiVAiTIjpoDApmUTffu+3/XxqPI4A2loLWeEpyCcK/NTouR7AA==
-X-Gm-Gg: ASbGncvO1/gTMAhLBFcyfbRn7z1gvu8gEAd9EqoG1ATe8/i+tpFAiA6gz4ZxgGu+wHj
-	fE0KEks3EQJ3BRKdQQBZF+BjxjBMkUgPkUvaAvLsynwvVJNkJqNKmLkPkGvxB05y7qMZlhfQWuU
-	xD97Zue0jLyo6ePH4zA/YNaXRTBkZx3FzkotZO/oqjmvkfSCO0eWYiJ+++QIvCQylIrMCZ2XZyU
-	P6x0lW7qnUKrGkGDEDQz4vmsUsnY7eIHr5JozgBs6h97ccMAVA=
-X-Google-Smtp-Source: AGHT+IHJUYEGAhWPSkkJT6y3hsJZ0p+KvGum3Vld0p0jzMZ973GaXmq03iaVKM0OJAsyarysJC7dlA==
-X-Received: by 2002:a2e:be8b:0:b0:2fb:6465:3198 with SMTP id 38308e7fff4ca-2ffa70f6acfmr18106261fa.5.1732288777319;
-        Fri, 22 Nov 2024 07:19:37 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v5] xen/common: Move gic_dt_preinit() to common code
-Date: Fri, 22 Nov 2024 16:19:34 +0100
-Message-ID: <151ac176ff02d2ff9b7f87e3c02b9ce0472720fa.1732288620.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.47.0
+X-Inumbo-ID: 97c9157c-a8ef-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE3OS4zNyIsImhlbG8iOiJtYWlsMTc5LTM3LnN1dzQxLm1hbmRyaWxsYXBwLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6Ijk3YzkxNTdjLWE4ZWYtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMjkzMjQ3Ljg2MTA5Niwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3NDBiMjdlLnYxLWEzMTA3MGQyYTU1MzRjZGJhNmExMzlhYzM1YzNmMjQ4QGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1732293246; x=1732553746;
+	bh=CxIlHsYgIuCCv+drcwRIX/K6ZdsEnVb652U/edEcHGw=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=GOUSOOjTXKDKp8RC2QvTFsSr4FkDBrI2VNVX5EKJxEiQXbi/kk1IyqHMPs7QS/gPA
+	 ChraVFWaMgibP8oTEwFVE6I/WhXsTOVemtrcQ1tjPBnyilFwPXCdKCB2UWYUJ7GedC
+	 biHmWUOCpFh0oHCHfUoaBwVYXwFmFffkCQ2hO375xkB9lOkP6Bl5UTczdOCmiKS8LV
+	 Vtt2KslpEN6CdiaRMtYTASKP7rnDj2J5txQvsmh/Zequb9Y60nz0xUs+4cxkFz51z/
+	 WtEHvcyt/GaWbMt2ByhmxLsNeCmRmsxtcUwOiQiyaKBgf5BRY6JnBJM/kCgsQe6lI4
+	 KphQaVjGej05A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1732293246; x=1732553746; i=anthony.perard@vates.tech;
+	bh=CxIlHsYgIuCCv+drcwRIX/K6ZdsEnVb652U/edEcHGw=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=oC+1naX7hOLsmCztL/822fuVDZNuMGscYGRJIQTPF0wXEwNoxby1H18H1xgu4cHY+
+	 kdwSlwtn4Klq+GAP8SGjTIJVudVE2/j9hahR3fu7KAkvSWwcBu3+nX5RyIcypdESRA
+	 igPfDOFJqcN/nPVG3ngSpIdj4kjHWiBfxAvWIuKZRCEu91brliCgdlSqZ2dIRkrglb
+	 0g+zU1OlBGEBshvfuyhWt+Fh5DNeRcbE1V65bv4AOQMPWSxX3eVy7uurlOC5L5BJZ9
+	 huWyoutzO06kONrN2oKQq5bXnopPNdLX2SgPYL0WIBgxJ+pki0GBJRnWbT23g++VnC
+	 EePnHeeHpxpQA==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=2000/25]=20Introduce=20xenbindgen=20to=20autogen=20hypercall=20structs?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1732293244525
+To: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org, "Juergen Gross" <jgross@suse.com>, "Julien Grall" <julien@xen.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Christian Lindig" <christian.lindig@citrix.com>, "David Scott" <dave@recoil.org>, =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Michal Orzel" <michal.orzel@amd.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Samuel Thibault" <samuel.thibault@ens-lyon.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, "Tim Deegan" <tim@xen.org>, "Lukasz Hawrylko" <lukasz@hawrylko.pl>, =?utf-8?Q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>, "Doug Goldstein" <cardoe@cardoe.com>, "Teddy Astie" <teddy.astie@vates.tech>, "Yann Dirson" <yann.dirson@vates.tech>
+Message-Id: <Z0Cye-0TEzvdu61W@l14>
+References: <20241115115200.2824-1-alejandro.vallejo@cloud.com> <Zz9yEUj1_t1SSKE_@l14> <D5SQEZIL2SZV.QR3X5MRVQJJP@cloud.com>
+In-Reply-To: <D5SQEZIL2SZV.QR3X5MRVQJJP@cloud.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a31070d2a5534cdba6a139ac35c3f248?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241122:md
+Date: Fri, 22 Nov 2024 16:34:06 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Introduce intc_dt_preinit() in the common codebase, as it is not
-architecture-specific and can be reused by both PPC and RISC-V.
-This function identifies the node with the interrupt-controller property
-in the device tree and calls device_init() to handle architecture-specific
-initialization of the interrupt controller.
+On Fri, Nov 22, 2024 at 01:12:24PM +0000, Alejandro Vallejo wrote:
+> On Thu Nov 21, 2024 at 5:47 PM GMT, Anthony PERARD wrote:
+> > On Fri, Nov 15, 2024 at 11:51:29AM +0000, Alejandro Vallejo wrote:
+> > > This series is the result of my "Interfacing Rust with Xen" talk in Xen Summit.
+> > > It adds a hypercall ABI IDL parser and generator to the xen tree, replaces a
+> > > couple of existing hypercalls, creates a Rust crate with autogenerated contents
+> > > an creates a CI job to ensure nothing goes out of sync.
+> > >
+> > > The changes are fairly invasive because the various autogenerated items appear
+> > > in many places (specially the domaincreate flags). However, the changes to the
+> > > hypervisor are all mechanical and not functional (not intentionally so, at
+> > > least).
+> >
+> > I tried to build QEMU with this series applied, and the build failed. In
+> > this case nothing important, the "autogen" directory just need to be
+> > installed. But I fear the changes introduce to the API (like change
+> > of case for the flags) will also be done to other API that project
+> > outside of the xen repo use, and thus introduce unneeded breakage.
+> 
+> That's bizarre, I run the series in CI and it came out green.
+> 
+>   https://gitlab.com/xen-project/people/agvallejo/xen/-/pipelines/1543402100
+> 
+> And I can do `make dist` without issues locally.
+> 
+> There might be some flaky dependency somewhere. I admit I'm not sure how the
+> headers are installed for the QEMU build.
 
-Make minor adjustments compared to the original ARM implementation of
-gic_dt_preinit():
- - Remove the local rc variable in gic_dt_preinit() since it is only used once.
- - Change the prefix from gic to intc to clarify that the function is not
-   specific to ARM’s GIC, making it suitable for other architectures as well.
+So, I'm pretty sure the CI have QEMU been built via Xen's build system.
+As such, we set $PKG_CONFIG_PATH to "tools/pkg-config". And I think
+QEMU's build system will just use that pkgconfig and exctract the
+include path from it, and it point to the in-tree include directory,
+which has the "autogen" symlink.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in V5:
- - Fix a typo in panic()'s message: s/contoller/controller/
- - Remove splitting of panic() message.
- - Add EMACS block at the end of intc.c.
- - Drop stub and guards around declaration of intc_dt_preinit() in
-   xen/device_tree.h.
----
-Changes in v4:
- - Add SPDX tag in intc.c
- - s/num_gics/num_intc
- - Update the comment: s/GIC/interrupt controller.
----
-Changes in v3:
- - s/ic/intc.
- - Update the commit message.
- - Move intc_dt_preinit() to common/device-tree/intc.c.
- - Add declaration of intc_dt_preinit() in xen/device_tree.h.
- - Revert intc_preinit()-related changes and just back gic_preinit() in
-   Arm's gic.c.
- - Revert ACPI-related changes.
----
-Changes in v2:
- - Revert changes connected to moving of gic_acpi_preinit() to common code as
-   it isn't really architecture indepent part.
- - Update the commit message.
- - Move stub of ic_acpi_preinit() to <asm-generic/device.h> for the case when
-   CONFIG_ACPI=n.
----
- xen/arch/arm/gic.c              | 32 +-----------------------
- xen/common/device-tree/Makefile |  1 +
- xen/common/device-tree/intc.c   | 43 +++++++++++++++++++++++++++++++++
- xen/include/xen/device_tree.h   |  2 ++
- 4 files changed, 47 insertions(+), 31 deletions(-)
- create mode 100644 xen/common/device-tree/intc.c
+What I often do is `make dist`, and then build QEMU with that created
+dist directory. It's almost like installing Xen on my system and trying
+to build QEMU.
 
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index 3eaf670fd7..acf61a4de3 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -214,36 +214,6 @@ int gic_map_hwdom_extra_mappings(struct domain *d)
-     return 0;
- }
- 
--static void __init gic_dt_preinit(void)
--{
--    int rc;
--    struct dt_device_node *node;
--    uint8_t num_gics = 0;
--
--    dt_for_each_device_node( dt_host, node )
--    {
--        if ( !dt_get_property(node, "interrupt-controller", NULL) )
--            continue;
--
--        if ( !dt_get_parent(node) )
--            continue;
--
--        rc = device_init(node, DEVICE_INTERRUPT_CONTROLLER, NULL);
--        if ( !rc )
--        {
--            /* NOTE: Only one GIC is supported */
--            num_gics = 1;
--            break;
--        }
--    }
--    if ( !num_gics )
--        panic("Unable to find compatible GIC in the device tree\n");
--
--    /* Set the GIC as the primary interrupt controller */
--    dt_interrupt_controller = node;
--    dt_device_set_used_by(node, DOMID_XEN);
--}
--
- #ifdef CONFIG_ACPI
- static void __init gic_acpi_preinit(void)
- {
-@@ -269,7 +239,7 @@ static void __init gic_acpi_preinit(void) { }
- void __init gic_preinit(void)
- {
-     if ( acpi_disabled )
--        gic_dt_preinit();
-+        intc_dt_preinit();
-     else
-         gic_acpi_preinit();
- }
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index 58052d074e..7c549be38a 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -2,3 +2,4 @@ obj-y += bootfdt.init.o
- obj-y += bootinfo.init.o
- obj-y += device-tree.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
-+obj-y += intc.o
-diff --git a/xen/common/device-tree/intc.c b/xen/common/device-tree/intc.c
-new file mode 100644
-index 0000000000..b09fbf6a49
---- /dev/null
-+++ b/xen/common/device-tree/intc.c
-@@ -0,0 +1,43 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#include <xen/device_tree.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+
-+void __init intc_dt_preinit(void)
-+{
-+    struct dt_device_node *node;
-+    uint8_t num_intc = 0;
-+
-+    dt_for_each_device_node( dt_host, node )
-+    {
-+        if ( !dt_get_property(node, "interrupt-controller", NULL) )
-+            continue;
-+
-+        if ( !dt_get_parent(node) )
-+            continue;
-+
-+        if ( !device_init(node, DEVICE_INTERRUPT_CONTROLLER, NULL) )
-+        {
-+            /* NOTE: Only one interrupt controller is supported */
-+            num_intc = 1;
-+            break;
-+        }
-+    }
-+
-+    if ( !num_intc )
-+        panic("Unable to find compatible interrupt controller in the device tree\n");
-+
-+    /* Set the interrupt controller as the primary interrupt controller */
-+    dt_interrupt_controller = node;
-+    dt_device_set_used_by(node, DOMID_XEN);
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index e6287305a7..5ff763bb80 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -238,6 +238,8 @@ extern rwlock_t dt_host_lock;
- struct dt_device_node *
- dt_find_interrupt_controller(const struct dt_device_match *matches);
- 
-+void intc_dt_preinit(void);
-+
- #define dt_prop_cmp(s1, s2) strcmp((s1), (s2))
- #define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
- #define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
+> > Should the changes also introduce a compatibility with the previous API?
+> 
+> Jan mentioned something to that effect when I first proposed the change to
+> grant_opts, but at the time the why was a bit lacking in substance. I then sent
+> this whole thing to show the why in context.
+
+Yes, I've seen that other series after this one, and it help to explain
+why some change help. Like the one changing the case of the flags.
+
+> A more compatible alternative would be to retroactively widen the single
+> subfield inside *_opts to occupy the whole field. Then we can suitably extend
+> the masking macros to u32, keep them around for compatibility (outside the
+> autogenerated stuff; say, in xen.h) and the API would be preserved.
+> 
+> Does that sound like a better approach?
+
+I don't know. For flags, having macro/define/const with the old name
+would be fairly easy to provide. For new fields on the other end, it
+might just be better to break the build and require some adjustment.
+
+> That said, I was under the impression the API to be maintained was in libxl and
+> everything else was fair game so long as libxc et al. were suitably updated.
+> 
+> What do we actually promise externally?
+
+I don't know to be honest, breaking the API might be ok. Quite often,
+whenever we want to interface with Xen, we copy the Xen's header into
+that project (OVMF for sure, Linux and FreeBSD I guess). For QEMU,
+there's also header been copied, for the PV devices. I don't know why
+QEMU includes domctl.h from outside the project (this is how I
+discovered autogen directory was missing). It might just be included via
+the header of one of the library.
+
+> > > I've split the generator in reasonably small pieces, but it's still not a small
+> > > tool. The Rust backend remains monolithic in a single patch until the RFC goes
+> > > further. It mirrors the C backend for the most part.
+> > > 
+> > > The hypercall ABI is specified in a schema of TOML. Most of it should be fairly
+> > > obvious as to what it does and means, with the possible exception of the "typ"
+> > > field. That has the look of a dictionary because that helps the deserializer to
+> > > automatically resolve the typ to a convenient Rust enum type (Typ). In time,
+> > > that will become something nicer to write, but that's fairly far in my list of
+> > > priorities at the moment.
+> >
+> > Instead of creating your own IDL specification, did you look for
+> > existing project that would do just that? That is been able to describe
+> > the existing ABI in IDL and use an existing project to generate C and
+> > Rust headers.
+> >
+> > I kind of look into this, but there's quite a few project to explore and
+> > I didn't really spend enough time. Also, there's probably quite a lot
+> > that are for client-server interfaces rather than syscall/hypercalls, or
+> > they impose a data format.
+> >
+> 
+> I looked a fair bit. Alas, the biggest case for this is web microservices, so
+> the overwhelming majority of IDL projects focus on end-to-end RPC. That is,
+> given pairs of functions for producers/consumers and a byte-based comms channel
+> (typically a socket), they create their own ABI serialising on one side and
+> deserialising on the other. That's not adequate here because we care about the
+> precise semantics of the ABI at the hypercall boundary to avoid pushing a
+> deserialiser in the hypervisor.
+> 
+> Protocol buffers, flatbuffers and Cap'n Proto all fall in this category, and
+> gRPC is a higher level construct using protocol buffers or flatbuffers. So all
+> those are off the table, and virtually all others suffer from the same sin.
+> 
+> A notable exception is Kaitai Struct (https://kaitai.io/), because it was
+> designed to represent binary formats. I really wanted to use it, but Rust is
+> not officially supported and the last release dates from 2022. All in all, it
+> doesn't sound like something alive enough for use in a serious existing
+> project.
+
+Thanks!
+
+Yeah, Kaitai looks almost like it could do the job, but it doesn't look
+to be available in Debian repo. So yes, xenbindgen sounds like a better
+candidate. At least, it gives us an other example on a way to describe
+binary struct, and it's YAML :-), more or less.
+
+But I'm all in for xenbindgen now.
+
+> >
+> > Next, on the file format choice, is TOML the best for describing an ABI,
+> > or would other existing file format make it a bit easier to read, like
+> > JSON or YAML? (I quite like using YAML so I have a bias toward it :-),
+> > and that's the format used for the CI). I don't think it mater much for
+> > Serde which file format is used.
+> 
+> Sure. I don't really care which. I can use serde to convert anything to
+> anything else anyway. I happened to already have something set up for TOML, so
+> I shamelessly reused it. But I'm happy to use something else.
+> 
+> I'm halfway through formalising evtchn atm (with a few addition to the
+> generator), but I'll try migrating the specs to YAML and JSON to see how they
+> look like.
+> 
+> I'm only frontally opposed to XML :)
+
+:-), I agree.
+
+I'm not going to be the primary consumer of those files so I don't mind
+too much. It just that I don't like having to repeat
+'[[structs.fields]]' sooo many times, I'm not familiar enough with TOML
+to know if it is a limitation of the format, or not. I would think that
+in YAML or JSON, we could avoid this repeats, with something like:
+
+    structs:
+    - name: xen_sysctl_readconsole
+      description: "..."
+      fields:
+        - name: clear
+          description: "..."
+          typ: u8
+        - name: incremental
+          typ: u8
+        - name: buffer
+          typ:
+            tag: ptr
+            args: u8
+
+Not sure it's valid YAML for "buffer", but otherwise, we can probably
+something similar in JSON, with just a few {} and loads of "".
+
+> > > After the series sysctl::readconsole and domctl::createdomain are autogenerated
+> > > from their formalized forms. In the course of formalizing the ABI it became
+> > > apparent readconsole has a different ABI in 32 and 64 bits. While benign in
+> > > that particular case, it's yet one more reason to formalize the ABI in a
+> > > language agnostic way and have it machine-checked.
+> > > 
+> > > ======== The Plan ===========
+> > > 
+> > > So, the idea of the series is to adjust 2 meaningful hypercalls to TOML-based
+> > > specifications (sysctl::readconsole and domctl::createdomain). The series is
+> > > organised in the following chunks of work
+> > > 
+> > >   1. Sanitise domctl::createdomain to remove packed subfields.
+> > >   2. Introduce xenbindgen (IDL parser and generator for C).
+> > >   3. Specify hypercalls in TOML, and replace the hand-crafted public bits.
+> > >   4. Introduce Rust generator for xenbindgen.
+> > >   5. Introduce a xen-sys crate, with the autogenerated Rust constructs.
+> > >   6. Introduce CI checks for Rust linters, ABI validation and autogenerated
+> > >      file consistency.
+> > > 
+> > > Future work involves migrating more hypercalls, in the same way patch 12 does.
+> > > Most hypercalls should not take the amount of churn createdomain did. With the
+> > > foundations laid down the involved work should be simple.
+> > > 
+> > > I have considered integrating the hypercall generation in the build process.
+> > > That forces the Rust toolchain to be in the list of build dependencies for
+> > > downstreams, which might be complicated or annoying. For the time being, I
+> > > think checking in the autogenerated files and confirming in CI that they are
+> > > in-sync is (imo) more than enough.
+> >
+> > Having the generated header files been committed sound like a good idea
+> > for now. For better or for worth we've got a few of those already, so
+> > it isn't a first.
+> 
+> So long as CI checks for consistency (and it does here), it shouldn't be a
+> problem and helps a lot with review. I have noticed a few times regressions
+> while developing merely because it became apparent in `git status`.
+
+Having CI check from the start is a good idea. I kind of tried to do
+that for the autoconf and the *.gen.go files, but that not done (and I
+think I've sent something to the list).
+
+> > But the way the different pieces are spread out in the repository in
+> > this patch series will make it difficult for future contributor to update
+> > the hypercall ABI. They'll be meet with an "autogenerated file, don't
+> > modify" with little clue as to how actually regenerate them. For that I
+> > think it would be better to have the IDL description (TOML files) in
+> > that "xen/public/include" directory or at the very least in "xen/".
+> 
+> I can move the specs to <root>/xen/abi, or something like that. Having it in
+> the include folder might risk installing them on the targets, and while that
+> shouldn't matter it's better if we only ship .h files there.
+> 
+> Regardless of this, I should add a bit more context to the message in the
+> headers they reference where the spec lives and some README.
+
+Sounds good.
+
+> > Second, with "xenbindgen" been in in "tools/", this introduce a soft
+> > dependency of "xen" on "tools", which should be avoided even if the
+> > build system of "xen/" doesn't call into xenbindgen today. So I think it
+> > would be better to have xenbindgen either live in "xen/" or in a
+> > different directory at the root of the repo. There's already Kconfig in
+> > "xen/" so xenbindgen isn't going to be the first parser/generator in
+> > "xen/" directory.
+> 
+> I don't disagree, but what do I do with xen-sys then? Should I put it with the
+> hypervisor somewhere in <root>/xen? <root>/xen/rust/xen-sys, maybe?
+> 
+> Otherwise the same coupling exists between xen and tools, except in the other
+> direction.
+
+Coupling in one direction is fine, but going back and fort is not.
+Unless we had a single non-recursive build system, but that not the
+case, will never be, as the build system for "xen/" is fine and doesn't
+need to be shared with anything else (or at least that my point of view).
+
+As for "xen-sys", that just another "tools/libs", so that can live in
+"tools/".
+
+Cheers,
+
 -- 
-2.47.0
 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
