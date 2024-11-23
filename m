@@ -2,31 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86AD29D6AC5
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Nov 2024 19:24:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842146.1257586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 521E49D6BD8
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Nov 2024 23:46:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842275.1257696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEunP-0008Qk-Re; Sat, 23 Nov 2024 18:23:51 +0000
+	id 1tEysR-0008RK-6e; Sat, 23 Nov 2024 22:45:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842146.1257586; Sat, 23 Nov 2024 18:23:51 +0000
+Received: by outflank-mailman (output) from mailman id 842275.1257696; Sat, 23 Nov 2024 22:45:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEunP-0008OR-Or; Sat, 23 Nov 2024 18:23:51 +0000
-Received: by outflank-mailman (input) for mailman id 842146;
- Sat, 23 Nov 2024 18:23:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tEysR-0008Pr-34; Sat, 23 Nov 2024 22:45:19 +0000
+Received: by outflank-mailman (input) for mailman id 842275;
+ Sat, 23 Nov 2024 22:45:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=waGT=SS=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tEunN-0008OL-R3
- for xen-devel@lists.xenproject.org; Sat, 23 Nov 2024 18:23:49 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 12f8c85e-a9c8-11ef-99a3-01e77a169b0f;
- Sat, 23 Nov 2024 19:23:46 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1732386076488696.0833111040206;
- Sat, 23 Nov 2024 10:21:16 -0800 (PST)
+ <SRS0=iYdR=SS=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1tEysO-0008Pk-UZ
+ for xen-devel@lists.xenproject.org; Sat, 23 Nov 2024 22:45:17 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20616.outbound.protection.outlook.com
+ [2a01:111:f403:2415::616])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9955056a-a9ec-11ef-a0cc-8be0dac302b0;
+ Sat, 23 Nov 2024 23:45:12 +0100 (CET)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by SA3PR12MB7952.namprd12.prod.outlook.com (2603:10b6:806:316::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.18; Sat, 23 Nov
+ 2024 22:45:07 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8158.021; Sat, 23 Nov 2024
+ 22:45:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,138 +47,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12f8c85e-a9c8-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzNi4xNDMuMTg4LjUxIiwiaGVsbyI6InNlbmRlcjQtb2YtbzUxLnpvaG8uY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjEyZjhjODVlLWE5YzgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMzg2MjI2LjQ3NTY0NSwic2VuZGVyIjoiZHBzbWl0aEBhcGVydHVzc29sdXRpb25zLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-ARC-Seal: i=1; a=rsa-sha256; t=1732386081; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=T+mA76iBA1TcOBLOKRxAmyDYO7cT37goqM0wyAVnB3jGTpFBGMJH+CYXP1vptb902FhHAtSkWBsayFvWYTQdBJMdDplLYQBXkCNjRLM5R0z0YGm40Vij4auGCI2N5/m1rw64g2OMBIqb38CP69q15OrRGtg7gbDquayuwJ+zm2U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1732386081; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kGDrQzVGJffHLng67CVtl7JaehFGVtrHTRbUgIidSbY=; 
-	b=Gh0kjY7wAwKetrAzgASO0zmvpK5j7LEtxYZ8E0ZncQlONLliPcwV2Rxb+7alua6NQYqDJER2emMob9O6cBTxZ4CWXVvQK6JgJaJ+8OFrpM78yWILtf8hXTKnpabQRbbe3Kym2yPg6zxYWlum/YGbRMcvJmvSJV1bZHwIw656hCg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1732386081;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=kGDrQzVGJffHLng67CVtl7JaehFGVtrHTRbUgIidSbY=;
-	b=pp1Zn23W/AezqSEvTrK72Wd0GClkVvC62Eov5f65Kgog1ZaEBMu+l0OZQaEsUIgk
-	iWV1cAb27Cnmbl1Tf7kMPYmDpw8DbYnNnq5dXsDQX9Z7xfNe51hRASm3cpUTqh3HYDY
-	IZ+q4OSbjePDCpdYzWjwqS5RzLydJrxSOUzPn1/Y=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	jason.andryuk@amd.com,
-	christopher.w.clark@gmail.com,
-	stefano.stabellini@amd.com,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 15/15] x86/hyperlaunch: add capabilities to boot domain
-Date: Sat, 23 Nov 2024 13:20:44 -0500
-Message-Id: <20241123182044.30687-16-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20241123182044.30687-1-dpsmith@apertussolutions.com>
-References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
+X-Inumbo-ID: 9955056a-a9ec-11ef-a0cc-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxNTo6NjE2IiwiaGVsbyI6Ik5BTTExLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6Ijk5NTUwNTZhLWE5ZWMtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNDAxOTEyLjQ2MTU0OCwic2VuZGVyIjoiYXlhbi5rdW1hci5oYWxkZXJAYW1kLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h9LgAiHnG4jtGtRH+iKa3uJGm6jItq030xwuRvbwtxval6AqJIreQhTMvcSEOA2oUJC3uoPoAVfMoR+Ricl8v7/TxqsNMzGLANW70UkghLx7LWrhR0LGgw4bpK95n4Rb5pt5/U1GVhq94a9XWWQcqSmmCPqRtf1aU8PV1xxdddlHHRwxjFoIFbV/TmU9ubOpN1z1iY7O7VWaQBSIHzLcdxQ8XTvmofeQme+oP+eN1yj17lE/ONvtQUnzR58J1uC285UyoBwAeuYr7ufucFVIOWamq8dAhcSWiqyoZILBRv5jPFN18pbac9tZ8/Jy25aKYoPsz5i9E4lbfSEBYA1ttA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DIsUFxLWVgrt9rFh1IDI86ze+7+xzkVzf2F9JNyc0xw=;
+ b=NSvBjwW06LjgR2Ec9qip9+AYX5gopxNIwOz1QPIuX1aJICtKWlw9/ss8at8lFDwX1t1aZBkqtswqxqClXLTACAGzTBbqOxYA6X7dxyox364kn9jI6z8MWfGvQpLBVszyhN45lMJUlTkgInAStxs26iTveqOnYUCUSfw+sQoEJrE3hw1Lxlqq+LY+LcAAOR2em86OGVW53cAc27q3qfG9oc2JncU6bYo3R1wgr8cVhB6R2Yoz8+umLgkJ8NR22swkk4chQma8KtGMwPW6ONwR/N/ffNyZAf+bDxsou8QZ30R6q74ly1zEKAl7nxNactLeflJJ6CKSH+ntTOCy2hPnmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DIsUFxLWVgrt9rFh1IDI86ze+7+xzkVzf2F9JNyc0xw=;
+ b=fHyBcHs9cltxwizFDTZ0mLtJ5J0BoVYnBQbU7LSBQC6HBQQp6etzjeajzbfWA1mT8J7xXN/cOLYqtUyMKaRARlVSbgmiAzidOv7DF+1pTidMUh1ikFJCuur4rKpjO3f0bjBwCu5+XS/4lxVeE4eXbbXiKEEyfq96l9cW2tRlg5s=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <0b58ff6d-e3ed-43dd-8700-83fe989b5d7f@amd.com>
+Date: Sun, 24 Nov 2024 02:44:58 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/sphinx: Fix FUSA indexing
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+References: <20241122164908.3240056-1-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <20241122164908.3240056-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PNYP287CA0047.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:23e::24) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|SA3PR12MB7952:EE_
+X-MS-Office365-Filtering-Correlation-Id: 286f6f8a-a5fc-4bec-9dad-08dd0c107a7d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?c0xVUHN3M3BjZWNWaGQxaFkvdzlwV095QmkwQTZWMmRzUm45QWs3L2lBS1pG?=
+ =?utf-8?B?UWlZU0h4REhXelZhUlpiTld2QU54MjFpQjdUSWRxM3QvZ2szOUdWTGY4SndZ?=
+ =?utf-8?B?NkxIUC83Nks2cElZYkFhbkt0WXpEQnZ5cnFpNEx3VmU5K09pbVprRDZSUUdq?=
+ =?utf-8?B?dFZBbi84OUcxeENDaHVPRVZ2ajVTTXVUS0hXaGQyMVdaeUNLNXZSc25WUVNN?=
+ =?utf-8?B?NTE3ZHI1NStpdHZQNmVkQ0ZpUkJscXpQc1d2cjZ5YUc4Z1hkNkFhcFNRQ2FU?=
+ =?utf-8?B?UzlYMjBNZXJ6QmlMT1RkNlArZWU5SVdrYnp3U3AvWGdud0dPUlN6QU5YWS8v?=
+ =?utf-8?B?Z3pzdE5NZGlwNVZFSThwcCsyNHhNQmU2bksxcHdtOW9Zbjc4dTVmWjExYXVL?=
+ =?utf-8?B?eGVaMi9LckZrN2JxWVdUNGh3eERTTllxazZMa3BMdEkvWEEyWjA3QUhHMytV?=
+ =?utf-8?B?Y0tZQlZhSW1sZGVnR3k5SXlvdUE4NEhiWkxHdnIvWWx1bWU0SFRNWXFGTjk4?=
+ =?utf-8?B?TElGYkdzZ0xlWUtveDJUK0tSNDVZM2NocFBlMnQzdExDZndVRGF2YzBFcWY3?=
+ =?utf-8?B?Uk1TMk84bVdnZjMrNXFBSGFHRkQzYjJYeDdJTzRpZE0xckw0K2tUbDZ2TUVx?=
+ =?utf-8?B?VG4zK0EwK0d0MnR5NS9Ma0RzRXhTdEl3REtTTGNYNmQ2UlNDeHlVQitNVHJx?=
+ =?utf-8?B?bXhjWStJM1ZJaVNZanV3TkVKTk1lN0wxN2pNVWlGVDR0d3BWbVRsdFAxS0pE?=
+ =?utf-8?B?OVkyWTEvbFRZSEtFUVc2MzRBeXR2ODljS1BETUs4RVNjMFNQbGJXZHd5bmZr?=
+ =?utf-8?B?czBoQmlzUkVTNWh1OXVGNzdCYUl4VmtoYjdHQnVxeHRyNjVKMlhQQmw3TmNH?=
+ =?utf-8?B?R204eU9GTkNnZEYvclNzczFwZDB4cE1NMmp4SXA2aTVCTWpLSDdyOXdPcWZP?=
+ =?utf-8?B?eDQ2VG5IYzlnVDg4aXQ1MlpDL1hGWDdrMDQzVkE5QjlWbi9oaGM1SkxsRnNt?=
+ =?utf-8?B?UXo0V0lzRkxwMEIvemlrayt5c0pZOVB4enlaR0JrVHdCazhCZjhXVGhGaEEr?=
+ =?utf-8?B?SmVyd0ZrUW1pYXVXZXBxMEE0czBwaDZ5MEFOOHU4RHJiMEVwR040OFNpN21R?=
+ =?utf-8?B?b0hlSzRQQTlzM094OC90MmVYZDczVE42dTZ5d1ByQ2JQOGlveWRBd0p0dDA1?=
+ =?utf-8?B?cmVEV3JkVkVaSVpkZlc2WFA4MWxibjRwc1A2VlJVU2pSTmZUK0NrOXMwQ2sr?=
+ =?utf-8?B?a1VyREhheWFmbVdIZmROOGl4WW1USFRoKzRkZ0JYVkVzUk9id2hYUmZJOXlW?=
+ =?utf-8?B?MHNrSTRSVmJyL1FrZExpMjZ4aFZtWW5nRTl5elpoYy9jTnlEUWRYVXl4ZEd2?=
+ =?utf-8?B?SVJEaC93Q01XQ2VJeVdzOVRIUFEvU1N6VmZJSGRZbEZIVHlqam05ZFJuMmIr?=
+ =?utf-8?B?ckZjUHVyL0cxOUkrd3pubGw5Zldwc3FuSkhtYkNDTDBCRVlNMWVJMHlyeS9W?=
+ =?utf-8?B?eEF2NG5JY1VXU2RYU1M0RlRkc2ZmSytpZW5nWTR5N2ZUTk05VHd0eE9kZ3JI?=
+ =?utf-8?B?aitKcURkMlRta25EWWE5bGdoS2tEekgvN0xpZDhqNzVTd0s0VzZIbERBaVp2?=
+ =?utf-8?B?WmZaWlBHSnYwK2JDZC9QNFpUMmhpM0dsSWMyRzVaZ1JMcENjN1M0UmNpRXd1?=
+ =?utf-8?B?OVVRRERWNnlPb1MrREFLRUR0cUkwYVF6Q0VMbm80RzY3R1I2V0o2SDhVUmJm?=
+ =?utf-8?B?aE9QbStsbXR1eW9RcTBPb1owMjY3c0VsejZuTkdsZ0dOaW1xZWhoQ3F6ZERj?=
+ =?utf-8?B?RnZ1TUZjWGJTK2V1YkpxQT09?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZzRFK05qcldNQS9acjBxcHpGcWp0YW1LYUJLK3oxdFZwVmxIL2cvcFNRaVpl?=
+ =?utf-8?B?M3lmbm5pR2x3cG9nNUVpc2pCdVFRWnF5YWwrYlZmTFZnU01oU3ZneHhJRUE5?=
+ =?utf-8?B?TTU2UTM3MTVWOEViaFdhcTA5aUthOTAxTHFHNGpYeGVOclM4UTJHMHVrdUN5?=
+ =?utf-8?B?SldqazUycFJnQk1KUVZ4a2lhOUhHOFNKYVNDUTc3bG5pcEdrdVZSVEhJZFdu?=
+ =?utf-8?B?STZhUFU5VE01ZGM5Y3BCaHk2UjdWcXMyZ0x5eHRHcDVkcE5kWDRnQ1NBUkhD?=
+ =?utf-8?B?S3EzQ1JaWGdINGpZTzlsMzVRdG1iUGsyclZMVHY2SEM3MFkveDVsV2h3Z3FP?=
+ =?utf-8?B?a0dRKzlzbFNyVUs5VVBheVdQTE9FZ1AzOENoblRMWEVNKzNoUi9UNmRyc3Zv?=
+ =?utf-8?B?b3hjVEJES25PczViU3k2UXMxZGwyb29uRU5XMkdhZCs4UjZXWFY2TS9YY0hq?=
+ =?utf-8?B?NkxTZU1OZXhYQTRHMnc4NElpVlFuc3dzNWNIYnhxU2hvc3JBdUMrMnJLSG45?=
+ =?utf-8?B?T01SamhldjlkblhNRGRqVjdPU2MrS2tFeUU0dmFkZWpjVEhZMVgreWRSeCt0?=
+ =?utf-8?B?MFJlUTJNbHI1YURVclFJNSs3dktnckpOREViQWRmWHo5U3VlRlE4UVZHZ3Vo?=
+ =?utf-8?B?Q05hbFBMMG84WWZuT3JXSlJPMHBOWUdhbmwzNzVzclhLdCs2aUJOeGVOR1h3?=
+ =?utf-8?B?bGo5L2FGQ010QVFGSnIzN3NQL1NyMXZwM0UzbEdod1Z6QXJublg5QWpkR2pC?=
+ =?utf-8?B?dEdhSFBNc1BHRWFxL1dBQVZDYTd0WU5EVTAyZG1RWUJxa2ZPNEFacXpDVjgx?=
+ =?utf-8?B?MTM1SllFclk1UlpRL1hvNlBFblNOTnAxZWdIYUdhcXBsd1l4NGlLNC80bzUw?=
+ =?utf-8?B?K3VscENYVFBsRzBBemVjYjlocFZLL0hiQmVVK2J2ckUyRWdKQnZ0RVJkSW45?=
+ =?utf-8?B?dzAyNzVwdHo2OS9qZFRJVVpLV3NhY3dxdlJBbCtscDBxejJqOU9ZVmUxSGpi?=
+ =?utf-8?B?YUFBYlBhbnVyYyt0K2QwM1I2MHNSUklrdUxyWkRFWnRYS3A5SEx0RUExOFVE?=
+ =?utf-8?B?SExVUm1aWk44d1Bqck1lQlVjSys3VnV6U3NCNGhPaFFVbnR6VjlFTkRwS0hK?=
+ =?utf-8?B?dFNwUzhCNURTODh0aU5JakdIbWNONDNHeGt6U1dLVjNQeHlIeHl1dmQ3c3FS?=
+ =?utf-8?B?ZkNOZ1Q2NGdtYVhCK3oyVEV2ckxnQjVZTVpDaGk5MU9FNEpqZzN5S3RnaWRU?=
+ =?utf-8?B?MDhsMkRTZzdmRlZpZHA2b0d1UFpxYTJBaE5EZ0FxWFhmM2VQK0I4eDdDVXVG?=
+ =?utf-8?B?a2VlNGxTejJWQU13RE14TW1qM0ZxQWJ0MGJFbFVtKzk4WFNEOG94blRRRk9r?=
+ =?utf-8?B?c0NsWFBzaVY5K2xBL1E2Ymk2dmllQnF6ZTJIV0N3VGR2Q093S3ZqUFh4TS9p?=
+ =?utf-8?B?TGhSQ25CbkZQZ2xRSk9HaDlFVWdYdEF0cWNidlYzamMvNk03b3p2ZFExeFFa?=
+ =?utf-8?B?eTMxL3hJdGU5ajluWFloVUtSaGY4bU9IN1psK0JhK1N3b2t4ZU1FRDdZWkNn?=
+ =?utf-8?B?bW9EUHJnRDNKQldzOExSWXRxUk5OMGZQKzdqMU10YnBvSW15VHJId0MxZTNI?=
+ =?utf-8?B?dlBWTjh3NVJkTHJNRzFzQ3YyOERlamNFRmpHR3BBRGxuSHY1cW12SWdmOWNm?=
+ =?utf-8?B?dFFwdzZ4ZGZhc0Q3UFl3ZWVUSFpIYjNiRW5SaktNRDdvTGI1d2Mrb1dYOEE0?=
+ =?utf-8?B?KzVUaGFvWFpzNjRpS01nUW8zdDZOL2kyb2ZOMHRGeWVWSk5BdGkrZTY3Y1Rn?=
+ =?utf-8?B?enFXaVJSNEIvWE1lNUhueHp6L2tBYllZdWUyV0YvUG5ZdzQwaHlFQUZKbnRE?=
+ =?utf-8?B?bGd4bDlXVFpGbHVMR3puYzlGTUdZVmlRSXladSttTXlnRXZqYWNiL1NCK2V1?=
+ =?utf-8?B?VnM3bmpSLzhMb2JVRlQ5YUNqUWY3QWhqYzdIMzc3dDNaMGdVZHlZNVV3ZXVq?=
+ =?utf-8?B?NjExTUZnbmtCMTF6TGZEVFk0WStlLzJwSEFKWEZlWG9UcTJvaWt1SFlETFZk?=
+ =?utf-8?B?cVJsVVV2ejgzV3o4bmZnM1JHNGt2NmZ0SWZGRFZOS0JFNzdmdzMrb2pBeU9L?=
+ =?utf-8?Q?++/FFCodxhN36Bty1mIyenbUX?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 286f6f8a-a5fc-4bec-9dad-08dd0c107a7d
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2024 22:45:07.4148
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9dYCEwFEY+8ALDjBUWbAjSy7i/q3fkbudmmabmMVJ+dvleN/98i1cUbSSbfpyntmV0CH9jMAmQisQ3Gqhph3Fg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7952
 
-Introduce the ability to assign capabilities to a domain via its definition in
-device tree. The first capability enabled to select is the control domain
-capability. The capability property is a bitfield in both the device tree and
-`struct boot_domain`.
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
----
- xen/arch/x86/domain_builder/core.c    |  2 +-
- xen/arch/x86/domain_builder/fdt.c     | 13 +++++++++++++
- xen/arch/x86/include/asm/bootdomain.h |  4 ++++
- xen/arch/x86/setup.c                  |  6 +++++-
- 4 files changed, 23 insertions(+), 2 deletions(-)
+On 22/11/2024 20:49, Andrew Cooper wrote:
+> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
+>
+>
+> Sphinx complains:
+>
+>    docs/fusa/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs'
+>    docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/market-reqs'
+>    docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/product-reqs'
+>    docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/design-reqs/arm64'
+>
+>    docs/fusa/index.rst: WARNING: document isn't included in any toctree
+>    docs/fusa/reqs/design-reqs/arm64/generic-timer.rst: WARNING: document isn't included in any toctree
+>    docs/fusa/reqs/design-reqs/arm64/sbsa-uart.rst: WARNING: document isn't included in any toctree
+>    docs/fusa/reqs/index.rst: WARNING: document isn't included in any toctree
+>    docs/fusa/reqs/market-reqs/reqs.rst: WARNING: document isn't included in any toctree
+>    docs/fusa/reqs/product-reqs/arm64/reqs.rst: WARNING: document isn't included in any toctree
+>
+> Fix the toctrees.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-diff --git a/xen/arch/x86/domain_builder/core.c b/xen/arch/x86/domain_builder/core.c
-index 95cab06e6159..eaa019472724 100644
---- a/xen/arch/x86/domain_builder/core.c
-+++ b/xen/arch/x86/domain_builder/core.c
-@@ -93,9 +93,9 @@ void __init builder_init(struct boot_info *bi)
-         i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
-         bi->mods[i].type = BOOTMOD_KERNEL;
-         bi->domains[0].kernel = &bi->mods[i];
-+        bi->domains[0].capabilities |= BUILD_CAPS_CONTROL;
-         bi->nr_domains = 1;
-     }
--
- }
- 
- /*
-diff --git a/xen/arch/x86/domain_builder/fdt.c b/xen/arch/x86/domain_builder/fdt.c
-index d24e265f2378..9499e337938c 100644
---- a/xen/arch/x86/domain_builder/fdt.c
-+++ b/xen/arch/x86/domain_builder/fdt.c
-@@ -209,6 +209,19 @@ static int __init process_domain_node(
-             bd->max_vcpus = val;
-             printk("  max vcpus: %d\n", bd->max_vcpus);
-         }
-+        if ( match_fdt_property(fdt, prop, "capabilities" ) )
-+        {
-+            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
-+            {
-+                printk("  failed processing domain id for domain %s\n",
-+                       name == NULL ? "unknown" : name);
-+                return -EINVAL;
-+            }
-+            printk("  caps: ");
-+            if ( bd->capabilities & BUILD_CAPS_CONTROL )
-+                printk("c");
-+            printk("\n");
-+        }
-     }
- 
-     fdt_for_each_subnode(node, fdt, dom_node)
-diff --git a/xen/arch/x86/include/asm/bootdomain.h b/xen/arch/x86/include/asm/bootdomain.h
-index d144d6173400..51ebf1f68189 100644
---- a/xen/arch/x86/include/asm/bootdomain.h
-+++ b/xen/arch/x86/include/asm/bootdomain.h
-@@ -18,6 +18,10 @@ struct boot_domain {
- 
-     domid_t domid;
- 
-+#define BUILD_CAPS_NONE          (0)
-+#define BUILD_CAPS_CONTROL       (1 << 0)
-+    uint32_t capabilities;
-+
-                                           /* On     | Off    */
- #define BUILD_MODE_PARAVIRT      (1 << 0) /* PV     | PVH/HVM */
- #define BUILD_MODE_ENABLE_DM     (1 << 1) /* HVM    | PVH     */
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index dae25721994d..28e750a420e8 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -992,6 +992,7 @@ static size_t __init domain_cmdline_size(
- static struct domain *__init create_dom0(struct boot_info *bi)
- {
-     char *cmdline = NULL;
-+    int create_flags = 0;
-     struct xen_domctl_createdomain dom0_cfg = {
-         .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
-         .max_evtchn_port = -1,
-@@ -1023,7 +1024,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
-     /* Create initial domain.  Not d0 for pvshim. */
-     if ( bd->domid == DOMID_INVALID )
-         bd->domid = get_initial_domain_id();
--    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-+    if ( bd->capabilities & BUILD_CAPS_CONTROL )
-+            create_flags |= CDF_privileged;
-+    d = domain_create(bd->domid, &dom0_cfg,
-+                      pv_shim ? 0 : create_flags);
-     if ( IS_ERR(d) )
-         panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
- 
--- 
-2.30.2
+Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 
 
