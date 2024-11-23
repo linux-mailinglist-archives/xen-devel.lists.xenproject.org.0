@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E5339D6AD1
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Nov 2024 19:31:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842185.1257656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86AD29D6AC5
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Nov 2024 19:24:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842146.1257586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEuuC-0003xq-8g; Sat, 23 Nov 2024 18:30:52 +0000
+	id 1tEunP-0008Qk-Re; Sat, 23 Nov 2024 18:23:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842185.1257656; Sat, 23 Nov 2024 18:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 842146.1257586; Sat, 23 Nov 2024 18:23:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEuuC-0003vP-1E; Sat, 23 Nov 2024 18:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 842185;
- Sat, 23 Nov 2024 18:30:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tEunP-0008OR-Or; Sat, 23 Nov 2024 18:23:51 +0000
+Received: by outflank-mailman (input) for mailman id 842146;
+ Sat, 23 Nov 2024 18:23:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=waGT=SS=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tEunD-0006MT-Hw
- for xen-devel@lists.xenproject.org; Sat, 23 Nov 2024 18:23:39 +0000
+ id 1tEunN-0008OL-R3
+ for xen-devel@lists.xenproject.org; Sat, 23 Nov 2024 18:23:49 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d839d35-a9c8-11ef-a0cc-8be0dac302b0;
- Sat, 23 Nov 2024 19:23:37 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1732386074952625.5918532207943;
- Sat, 23 Nov 2024 10:21:14 -0800 (PST)
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 12f8c85e-a9c8-11ef-99a3-01e77a169b0f;
+ Sat, 23 Nov 2024 19:23:46 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1732386076488696.0833111040206;
+ Sat, 23 Nov 2024 10:21:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,27 +38,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d839d35-a9c8-11ef-a0cc-8be0dac302b0
+X-Inumbo-ID: 12f8c85e-a9c8-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzNi4xNDMuMTg4LjUxIiwiaGVsbyI6InNlbmRlcjQtb2YtbzUxLnpvaG8uY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjBkODM5ZDM1LWE5YzgtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMzg2MjE3LjU3MDk5Nywic2VuZGVyIjoiZHBzbWl0aEBhcGVydHVzc29sdXRpb25zLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-ARC-Seal: i=1; a=rsa-sha256; t=1732386079; cv=none; 
+X-Custom-Transaction: eyJpZCI6IjEyZjhjODVlLWE5YzgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMzg2MjI2LjQ3NTY0NSwic2VuZGVyIjoiZHBzbWl0aEBhcGVydHVzc29sdXRpb25zLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+ARC-Seal: i=1; a=rsa-sha256; t=1732386081; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=JfjUzRuVdgu03JmMJ5s2O0voxRwbLJ4CBYjs3PrFIMUo88e9iNtvVL1L+OFGNHhYT94FoIq72vGrI96jmy8ArAJRs/qmc7JA1n0W2fw185eflojlr2SEhNgFRfFzbrCTznDSV5j+Fud7r3rtxLeoKfV89Sc4R6h0IY+GH702ttg=
+	b=T+mA76iBA1TcOBLOKRxAmyDYO7cT37goqM0wyAVnB3jGTpFBGMJH+CYXP1vptb902FhHAtSkWBsayFvWYTQdBJMdDplLYQBXkCNjRLM5R0z0YGm40Vij4auGCI2N5/m1rw64g2OMBIqb38CP69q15OrRGtg7gbDquayuwJ+zm2U=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1732386079; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QKzJS5eFtECZxvuLdDMttAltTe8m1ybZIito+adUWcs=; 
-	b=lVOALTE35FkFWXsyQ6e06tDp/mGh/sYIAdoEicwRCaEG4zFWBJejQkbWE3+OX7KRD59N5TcKr2MigVEDzY0ZK2Ifid8u3ASewIIJmpI7yiv2Jysik0cnoQo7qDW/nstV7Wk+KPjyQTdkkovK+sn6CMFldF/KjSKM48XwI0ALVyo=
+	t=1732386081; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=kGDrQzVGJffHLng67CVtl7JaehFGVtrHTRbUgIidSbY=; 
+	b=Gh0kjY7wAwKetrAzgASO0zmvpK5j7LEtxYZ8E0ZncQlONLliPcwV2Rxb+7alua6NQYqDJER2emMob9O6cBTxZ4CWXVvQK6JgJaJ+8OFrpM78yWILtf8hXTKnpabQRbbe3Kym2yPg6zxYWlum/YGbRMcvJmvSJV1bZHwIw656hCg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1732386079;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1732386081;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=QKzJS5eFtECZxvuLdDMttAltTe8m1ybZIito+adUWcs=;
-	b=M6pe5kk4JKInmhmAxvKDezN1KYBLvsWBIvhyOjWo/VOpWSiKjFOrcWrWJyLq8NyA
-	kzfE57oAC+F0MgaULEbNNFxcxOWNy5mBFMdWD/AjnwzjgfSgqUIYfcIFCML4gJC9f4L
-	P2h3DHF+2yUBF3PtHqNfhmCXX0nR65guQvqqkpoM=
+	bh=kGDrQzVGJffHLng67CVtl7JaehFGVtrHTRbUgIidSbY=;
+	b=pp1Zn23W/AezqSEvTrK72Wd0GClkVvC62Eov5f65Kgog1ZaEBMu+l0OZQaEsUIgk
+	iWV1cAb27Cnmbl1Tf7kMPYmDpw8DbYnNnq5dXsDQX9Z7xfNe51hRASm3cpUTqh3HYDY
+	IZ+q4OSbjePDCpdYzWjwqS5RzLydJrxSOUzPn1/Y=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -68,9 +68,9 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 14/15] x86/hyperlaunch: add max vcpu parsing of hyperlaunch device tree
-Date: Sat, 23 Nov 2024 13:20:43 -0500
-Message-Id: <20241123182044.30687-15-dpsmith@apertussolutions.com>
+Subject: [PATCH 15/15] x86/hyperlaunch: add capabilities to boot domain
+Date: Sat, 23 Nov 2024 13:20:44 -0500
+Message-Id: <20241123182044.30687-16-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20241123182044.30687-1-dpsmith@apertussolutions.com>
 References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
@@ -78,66 +78,96 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-Introduce the `cpus` property, named as such for dom0less compatibility, that
-represents the maximum number of vpcus to allocate for a domain. In the device
-tree, it will be encoded as a u32 value.
+Introduce the ability to assign capabilities to a domain via its definition in
+device tree. The first capability enabled to select is the control domain
+capability. The capability property is a bitfield in both the device tree and
+`struct boot_domain`.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/arch/x86/dom0_build.c             |  3 +++
- xen/arch/x86/domain_builder/fdt.c     | 12 ++++++++++++
- xen/arch/x86/include/asm/bootdomain.h |  2 ++
- 3 files changed, 17 insertions(+)
+ xen/arch/x86/domain_builder/core.c    |  2 +-
+ xen/arch/x86/domain_builder/fdt.c     | 13 +++++++++++++
+ xen/arch/x86/include/asm/bootdomain.h |  4 ++++
+ xen/arch/x86/setup.c                  |  6 +++++-
+ 4 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-index 1c3b7ff0e658..7ff052016bfd 100644
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -617,6 +617,9 @@ int __init construct_dom0(struct boot_domain *bd)
-     if ( !get_memsize(&dom0_max_size, LONG_MAX) && bd->max_pages )
-         dom0_size.nr_pages = bd->max_pages;
+diff --git a/xen/arch/x86/domain_builder/core.c b/xen/arch/x86/domain_builder/core.c
+index 95cab06e6159..eaa019472724 100644
+--- a/xen/arch/x86/domain_builder/core.c
++++ b/xen/arch/x86/domain_builder/core.c
+@@ -93,9 +93,9 @@ void __init builder_init(struct boot_info *bi)
+         i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+         bi->mods[i].type = BOOTMOD_KERNEL;
+         bi->domains[0].kernel = &bi->mods[i];
++        bi->domains[0].capabilities |= BUILD_CAPS_CONTROL;
+         bi->nr_domains = 1;
+     }
+-
+ }
  
-+    if ( opt_dom0_max_vcpus_max == UINT_MAX && bd->max_vcpus )
-+        opt_dom0_max_vcpus_max = bd->max_vcpus;
-+
-     if ( is_hvm_domain(d) )
-         rc = dom0_construct_pvh(bd);
-     else if ( is_pv_domain(d) )
+ /*
 diff --git a/xen/arch/x86/domain_builder/fdt.c b/xen/arch/x86/domain_builder/fdt.c
-index b8ace5c18c6a..d24e265f2378 100644
+index d24e265f2378..9499e337938c 100644
 --- a/xen/arch/x86/domain_builder/fdt.c
 +++ b/xen/arch/x86/domain_builder/fdt.c
-@@ -197,6 +197,18 @@ static int __init process_domain_node(
-             bd->max_pages = PFN_DOWN(kb * SZ_1K);
-             printk("  max memory: %ld\n", bd->max_pages << PAGE_SHIFT);
+@@ -209,6 +209,19 @@ static int __init process_domain_node(
+             bd->max_vcpus = val;
+             printk("  max vcpus: %d\n", bd->max_vcpus);
          }
-+        if ( match_fdt_property(fdt, prop, "cpus" ) )
++        if ( match_fdt_property(fdt, prop, "capabilities" ) )
 +        {
-+            uint32_t val = UINT_MAX;
-+            if ( fdt_prop_as_u32(prop, &val) != 0 )
++            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
 +            {
-+                printk("  failed processing max_vcpus for domain %s\n",
++                printk("  failed processing domain id for domain %s\n",
 +                       name == NULL ? "unknown" : name);
 +                return -EINVAL;
 +            }
-+            bd->max_vcpus = val;
-+            printk("  max vcpus: %d\n", bd->max_vcpus);
++            printk("  caps: ");
++            if ( bd->capabilities & BUILD_CAPS_CONTROL )
++                printk("c");
++            printk("\n");
 +        }
      }
  
      fdt_for_each_subnode(node, fdt, dom_node)
 diff --git a/xen/arch/x86/include/asm/bootdomain.h b/xen/arch/x86/include/asm/bootdomain.h
-index 9a5ba2931665..d144d6173400 100644
+index d144d6173400..51ebf1f68189 100644
 --- a/xen/arch/x86/include/asm/bootdomain.h
 +++ b/xen/arch/x86/include/asm/bootdomain.h
-@@ -28,6 +28,8 @@ struct boot_domain {
-     unsigned long min_pages;
-     unsigned long max_pages;
+@@ -18,6 +18,10 @@ struct boot_domain {
  
-+    unsigned int max_vcpus;
+     domid_t domid;
+ 
++#define BUILD_CAPS_NONE          (0)
++#define BUILD_CAPS_CONTROL       (1 << 0)
++    uint32_t capabilities;
 +
-     struct boot_module *kernel;
-     struct boot_module *ramdisk;
+                                           /* On     | Off    */
+ #define BUILD_MODE_PARAVIRT      (1 << 0) /* PV     | PVH/HVM */
+ #define BUILD_MODE_ENABLE_DM     (1 << 1) /* HVM    | PVH     */
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index dae25721994d..28e750a420e8 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -992,6 +992,7 @@ static size_t __init domain_cmdline_size(
+ static struct domain *__init create_dom0(struct boot_info *bi)
+ {
+     char *cmdline = NULL;
++    int create_flags = 0;
+     struct xen_domctl_createdomain dom0_cfg = {
+         .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
+         .max_evtchn_port = -1,
+@@ -1023,7 +1024,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+     /* Create initial domain.  Not d0 for pvshim. */
+     if ( bd->domid == DOMID_INVALID )
+         bd->domid = get_initial_domain_id();
+-    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
++    if ( bd->capabilities & BUILD_CAPS_CONTROL )
++            create_flags |= CDF_privileged;
++    d = domain_create(bd->domid, &dom0_cfg,
++                      pv_shim ? 0 : create_flags);
+     if ( IS_ERR(d) )
+         panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
  
 -- 
 2.30.2
