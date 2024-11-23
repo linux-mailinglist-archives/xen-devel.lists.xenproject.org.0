@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA7429D66A4
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Nov 2024 01:15:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842068.1257516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10169D6816
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Nov 2024 08:43:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842083.1257525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEdny-00077G-UR; Sat, 23 Nov 2024 00:15:18 +0000
+	id 1tEkmJ-0004Ms-Hl; Sat, 23 Nov 2024 07:42:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842068.1257516; Sat, 23 Nov 2024 00:15:18 +0000
+Received: by outflank-mailman (output) from mailman id 842083.1257525; Sat, 23 Nov 2024 07:42:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEdny-00074q-Qs; Sat, 23 Nov 2024 00:15:18 +0000
-Received: by outflank-mailman (input) for mailman id 842068;
- Sat, 23 Nov 2024 00:15:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tEkmJ-0004KK-EN; Sat, 23 Nov 2024 07:42:03 +0000
+Received: by outflank-mailman (input) for mailman id 842083;
+ Sat, 23 Nov 2024 07:42:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VklA=SS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tEdny-00074X-5I
- for xen-devel@lists.xenproject.org; Sat, 23 Nov 2024 00:15:18 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0348455d-a930-11ef-a0cc-8be0dac302b0;
- Sat, 23 Nov 2024 01:15:15 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 83C85A417BD;
- Sat, 23 Nov 2024 00:13:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FA1EC4CECE;
- Sat, 23 Nov 2024 00:15:13 +0000 (UTC)
+ <SRS0=U4h7=SS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tEkmH-0004KE-RJ
+ for xen-devel@lists.xenproject.org; Sat, 23 Nov 2024 07:42:01 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6906ecc1-a96e-11ef-99a3-01e77a169b0f;
+ Sat, 23 Nov 2024 08:41:54 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3822ec43fb0so2211909f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Nov 2024 23:41:54 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3825faf9f59sm4480231f8f.34.2024.11.22.23.41.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 22 Nov 2024 23:41:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0348455d-a930-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE0Ny43NS4xOTMuOTEiLCJoZWxvIjoibnljLnNvdXJjZS5rZXJuZWwub3JnIn0=
-X-Custom-Transaction: eyJpZCI6IjAzNDg0NTVkLWE5MzAtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyMzIwOTE1LjkyODk2LCJzZW5kZXIiOiJzc3RhYmVsbGluaUBrZXJuZWwub3JnIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732320914;
-	bh=YlHkbIybHaKke3z7OEd0iJd4bQeYwuyD02PPiOGWLs4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=sVGMWeJm9w8AJKJbbU8mQFdqfnfin7Bc1PzvYMV31kR68ykKUXZvea+9SisQMIdvD
-	 fD7DEDvHkKN+JgM+LlabPuVbjrbeBT/AHy/NFAGysyRwt2tnF6rLtVB/GUkmegth4n
-	 HRP/KxOjDWT3dOboZOLwAyYi5gOreIw1OWKaV/IEzVg/eQ/IXE0ikccrFUjmizNoJv
-	 nQv5uI9zYq8vGJqal8ci3MecgmGcdNuWB33F9AQkGn9kV98lG6WYTHfw8Q9hvtg7Eg
-	 ieYniguknSsul0HwGMKcloIMvUgXZE5OGKEpzy/FMrhtqhPK4j8g7d6XwFnaKKSyHU
-	 ftNxWAtmEt3Cw==
-Date: Fri, 22 Nov 2024 16:15:12 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    ayankuma@amd.com
-Subject: Re: [PATCH] docs/sphinx: Fix FUSA indexing
-In-Reply-To: <20241122164908.3240056-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2411221614530.11605@ubuntu-linux-20-04-desktop>
-References: <20241122164908.3240056-1-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 6906ecc1-a96e-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmEiLCJoZWxvIjoibWFpbC13cjEteDQyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjY5MDZlY2MxLWE5NmUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyMzQ3NzE0Ljc5MjQ0OCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1732347714; x=1732952514; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BHtiFrlnk5wNQ2xcKnNmkcEGMOHMkcIDcdpbC7dGDSo=;
+        b=V+HpdQ3am5JFyYSmo/cGvE+dmV3w/sSaWZPLY9OgnV2xSrFg7Ne6i3Kh/iAPjFor77
+         lH9VMR+weghbZQ5RvrfyW6x+7dgC4pfZ0QZZlp+Qwasy0zJsgAk77fYEKZ45feQ9EAW8
+         uuA0iKuWKdDMwIEZuA7oVjDWLkfZuIXlEin/k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732347714; x=1732952514;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BHtiFrlnk5wNQ2xcKnNmkcEGMOHMkcIDcdpbC7dGDSo=;
+        b=Z40pDj3CtubvvM8MYnl7Dm3he8yTSOj7METAbpWiF0saxOpN9adAdweAUy4VnuQuLe
+         qp67dmLysFF8A60Ott40rj9cko12l3BdKWJaUpeQJneVSqsrEOhIo8hc3zm0N4EGKiBr
+         8Jy8Yw8QudQwosGdM2VfM+1s7LmzFetHHSsFk/KUdkBPzEsCWq5kJ3f3t5Y6sNsieQ8/
+         EAsTrE0B6mQDiVWZfCWHtKufGikGycb2AT38kPe/u6AI1qepm95bqt4GNrD4QgBz2z+o
+         SAP9pHP4NmAEkSrEbZtuDbCiBsKpcEkE6pySfJDgp71LChS2ldkGEVGOD31CsTMM0GsO
+         qVIA==
+X-Forwarded-Encrypted: i=1; AJvYcCU8LiJbkpLtzofXnc5UMJuTomdN39o7YtQgOAvaqf0y8NwfeW8HS/BbtPwRitA6bX/0z1Nhg8yK/fk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzgLkQOhRsUZsgVItkvMKtUzZVU3krIeUZVDbQ2f36QLgJjZE0o
+	bu5wsugfq3l1UdSmmQFikukAoLrMLvnpcUESfX6FEQI8U9deHBJnQZrFX9kra0k=
+X-Gm-Gg: ASbGncvdm61qZjw2rnWlth7pZfQKsZVFNZLWyYcMu2u0py7muYgtDKZCjXk9Go5qpJG
+	xHpwIKatt1AHQleLgqj5un4MTH4m8OP5SicAo5W+i1262SoEObHBRqKsocwaza2YG2g5aWd9Qcs
+	G0biMEcVcQICi6k2pHU3MFzWesDM+f53Kv0JJRKSj4/+1X3ZFQlVjUQ1teCo5ppa37YMY5CRxGo
+	fEAr34da7U6mo3nrA5qs33NjI5RAfCsK5ZPOX9AXEvnPNPZB4zVKkyKyXK8h33ti/wXYVKDH0wm
+	cdGCVi/26L89Yg==
+X-Google-Smtp-Source: AGHT+IHli3gx8osuPd7o6qYuw2BpJ0B3JryQsLmqWDY+w9IJvpsF+i2Hhngscr6so58rch9oCtr5Cg==
+X-Received: by 2002:a05:6000:1acc:b0:382:58b7:e538 with SMTP id ffacd0b85a97d-38260b44c73mr4236083f8f.4.1732347714140;
+        Fri, 22 Nov 2024 23:41:54 -0800 (PST)
+Message-ID: <1c3f9ae2-cde3-4e7e-aff3-63ec36bb5b4a@citrix.com>
+Date: Sat, 23 Nov 2024 07:41:52 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] Add stack protector
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20241122210719.2572072-1-volodymyr_babchuk@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241122210719.2572072-1-volodymyr_babchuk@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-+Ayan
+On 22/11/2024 9:07 pm, Volodymyr Babchuk wrote:
+> Both GCC and Clang support -fstack-protector feature, which add stack
+> canaries to functions where stack corruption is possible. This series
+> makes possible to use this feature in Xen. I tested this on ARM64 and
+> it is working as intended. Tested both with GCC and Clang.
+>
+> My aim was to enable it on x86 also, but it appears that on x86 GCC
+> stores canary value in TLS, exactly at fs:40, which is hardcoded. As
+> Xen does not setup fs register for itself, any attempt to enable stack
+> protector leads to paging abort.
 
-On Fri, 22 Nov 2024, Andrew Cooper wrote:
-> Sphinx complains:
-> 
->   docs/fusa/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs'
->   docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/market-reqs'
->   docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/product-reqs'
->   docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/design-reqs/arm64'
-> 
->   docs/fusa/index.rst: WARNING: document isn't included in any toctree
->   docs/fusa/reqs/design-reqs/arm64/generic-timer.rst: WARNING: document isn't included in any toctree
->   docs/fusa/reqs/design-reqs/arm64/sbsa-uart.rst: WARNING: document isn't included in any toctree
->   docs/fusa/reqs/index.rst: WARNING: document isn't included in any toctree
->   docs/fusa/reqs/market-reqs/reqs.rst: WARNING: document isn't included in any toctree
->   docs/fusa/reqs/product-reqs/arm64/reqs.rst: WARNING: document isn't included in any toctree
-> 
-> Fix the toctrees.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> 
-> I'm also going to prioritise getting a docs test in Gitlab CI.
-> ---
->  docs/fusa/index.rst      | 2 +-
->  docs/fusa/reqs/index.rst | 7 ++++---
->  docs/index.rst           | 1 +
->  3 files changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/docs/fusa/index.rst b/docs/fusa/index.rst
-> index 13bf4e8e23f1..5f1e8acfc429 100644
-> --- a/docs/fusa/index.rst
-> +++ b/docs/fusa/index.rst
-> @@ -6,4 +6,4 @@ Functional Safety documentation
->  .. toctree::
->     :maxdepth: 2
->  
-> -   reqs
-> +   reqs/index
-> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
-> index 183f183b1f8c..8a4dae6fb249 100644
-> --- a/docs/fusa/reqs/index.rst
-> +++ b/docs/fusa/reqs/index.rst
-> @@ -7,6 +7,7 @@ Requirements documentation
->     :maxdepth: 2
->  
->     intro
-> -   market-reqs
-> -   product-reqs
-> -   design-reqs/arm64
-> +   market-reqs/reqs
-> +   product-reqs/arm64/reqs
-> +   design-reqs/arm64/generic-timer
-> +   design-reqs/arm64/sbsa-uart
-> diff --git a/docs/index.rst b/docs/index.rst
-> index ab051a0f3833..1d44796d7296 100644
-> --- a/docs/index.rst
-> +++ b/docs/index.rst
-> @@ -65,6 +65,7 @@ Documents in need of some rearranging.
->     designs/launch/hyperlaunch-devicetree
->     misc/xen-makefiles/makefiles
->     misra/index
-> +   fusa/index
->  
->  
->  Miscellanea
-> 
-> base-commit: c0bf8816c9e2a4701c925d8b23abfda5990a0087
-> prerequisite-patch-id: c6d7da051cd408c9f38d32ecdd24807bfbe619d1
-> -- 
-> 2.39.5
-> 
+It's rather worse than a #PF, if a devious PV guest decides to map
+memory at 0.
+
+There's a long and complicated history with stack-protector on x86.
+
+It is %fs:40 by default, but this becomes %gs:40 with -mcmodel=kernel
+(which Xen doesn't use, but is necessary to know if anyone wants to look
+at how Linux does this.)
+
+Xen on x86 uses neither %fs nor %gs for per-cpu variables, because PV
+guests do.  This happens to have saved us from a number of privilege
+escalation corner cases that exist in the x86 architecture.  I'm very
+reluctant to open ourselves up to such problems just to support
+stack-protector.
+
+
+With GCC 8.1, we get -mstack-protector-{guard,reg,offset} to fine-tune
+things a whole lot more.  I am not sure when these got into Clang.
+
+In particular, -mstack-protector-guard=global lets us have a scheme that
+seems to be the same as the ARM/RISCV, which is probably good enough to
+start with, although it involves restarting the toolchain debate and is
+probably not something you want to do in this series.
+
+See
+https://lore.kernel.org/lkml/20241105155801.1779119-1-brgerst@gmail.com/T/#u
+for most of the gory details.
+
+> I also tested build-ability for RISCV platform, but didn't tested that
+> it does not break anything, so we will need RISCV maintainer's
+> approval.
+
+There's a RISC-V smoke test in gitlab CI, but you can run it locally too.
+
+~Andrew
 
