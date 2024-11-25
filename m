@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 577B09D89C2
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:54:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842880.1258547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D669D89F0
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 17:08:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842892.1258558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFbQ3-0003PO-8D; Mon, 25 Nov 2024 15:54:35 +0000
+	id 1tFbdM-0006AT-CS; Mon, 25 Nov 2024 16:08:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842880.1258547; Mon, 25 Nov 2024 15:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 842892.1258558; Mon, 25 Nov 2024 16:08:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFbQ3-0003NW-5Z; Mon, 25 Nov 2024 15:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 842880;
- Mon, 25 Nov 2024 15:54:34 +0000
+	id 1tFbdM-00067q-91; Mon, 25 Nov 2024 16:08:20 +0000
+Received: by outflank-mailman (input) for mailman id 842892;
+ Mon, 25 Nov 2024 16:08:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mqqh=SU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFbQ1-0003NQ-V4
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:54:33 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1tFbdK-00067k-Gm
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 16:08:18 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e38f3a1-ab45-11ef-99a3-01e77a169b0f;
- Mon, 25 Nov 2024 16:54:30 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43497839b80so14947365e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:54:30 -0800 (PST)
+ id 797ba0c7-ab47-11ef-99a3-01e77a169b0f;
+ Mon, 25 Nov 2024 17:08:14 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5ceca0ec4e7so5755643a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 08:08:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4349496abe1sm79614585e9.11.2024.11.25.07.54.27
+ 4fb4d7f45d1cf-5d01d3fc777sm4284085a12.68.2024.11.25.08.08.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Nov 2024 07:54:27 -0800 (PST)
+ Mon, 25 Nov 2024 08:08:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e38f3a1-ab45-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjhlMzhmM2ExLWFiNDUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTUwMDcwLjE1MTgzOSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 797ba0c7-ab47-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzUiLCJoZWxvIjoibWFpbC1lZDEteDUzNS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijc5N2JhMGM3LWFiNDctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTUwODk0LjI5ODUxNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732550069; x=1733154869; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=q/8+mNUi1zkQfTB0TIHQzSjbv9DcNNX0QOobIkUNubw=;
-        b=SBqg+q4BZOdXHeZo9KtYnHBtwf2fPcCJfWHKml37mQfWT42JTJQu1cRRxQ7GUkQ1SQ
-         KFfEI10WOaONskorkCjihwkrygGDwsBVZjKA48eFWb5c96/+EPc86hBXepbbTFmfKdQ7
-         iQOYihNpk+nCcwCFfnDQtRrBJ3TA5eMZ5bcMjcOrnVzQy9dy1hSlSy+0XlqPZ2SNsauE
-         RVnCRGbONJmS87+ADvQkVwli1TQ38b3K1QBO+KsJ0pSB0KopvJXHgEDhudf7i7c8TX9A
-         5qO34LLJ6TGkzqREVkqIFrwYXcv1/b+4UaCsiBu4jg8tFVRxcaFYJPlYxeKEFATLL7DY
-         ShzA==
+        d=suse.com; s=google; t=1732550894; x=1733155694; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fvlmYYBlKKPQcgag3pzc6nmwLlKCitIK8hEIfIiz/fU=;
+        b=Cq8wsJi1L5b/rPw4ity4zbX5hvBQMf3FvQnEV3W7URMHmVZHgmNa1nEu7EaBIIvjrz
+         3/zL4WeKrZ0GVwpOrXO4cqOq+RRcfbSCIvZMWECfokCp7gi+qRjGycfLehmOA8u0vShX
+         LxdZy5CgnhXU9iesNlunVKHtJE+kYJ0vPgtollbXkHTup7Bestrwlx7Z3eZaZhjt3jL+
+         Ao84HptLvE/xYF2YdvGUFkdB0xjOcTD+z07K2TewVZ+VhPGgw3PVh9HOB+QS6M7f/Pgv
+         AgR+Q5nD3q1gp1OnF+2hDXli6/75PTRnhUUVaNJ1j4H4ZiR0c85z2brUEC1BKJ708GwY
+         cVzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732550069; x=1733154869;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=q/8+mNUi1zkQfTB0TIHQzSjbv9DcNNX0QOobIkUNubw=;
-        b=Rk9p981tjCchFtgt8ZOoJiV9olSw7/oUk2g0EVCYGm3lhi1WlsBdextcCw/dGld0Si
-         KEECOcZS4sSkwIP4lnnh+vKtdEBiIchGZPXqSEzb2miSOb7f80P/m4dE31C5b7xKLBPp
-         6w+HyGOWc0ZQsCe7qn6gPI5M1Qugg/2AnPvzQzLHU5wVXu2tmByUsgn50dLYcLfTwO/X
-         VKLP/v4AdMFT3Cx3AxP2nLL5cQ1P0bHZKvzhFBi2Sv7Tz6+4m9GWJxL5I6w/YdnZtnlO
-         RNDlhdB23az0eGUjXAmXxUaKtWGO/34P1PNfeYR3tZo5plcAplN0Im4wle4/tT8oF7gF
-         c+kQ==
-X-Gm-Message-State: AOJu0YwDpxtHxi2/in0gGMVc0g0IMIMjCwriNtqHkJ/n2h4Blzgb6M7o
-	+iELUkYDZSVUjcAAfMx3biTtvJ1eA+IQOq9x7t4FdE5gTvcJL46cGnBhL3gPQA==
-X-Gm-Gg: ASbGncvciH/fBLCfl8SQfO2vlK5AOgJfYTxrj2dbiy0tNaEdTGns7qiHCIeLKs0h9dC
-	sizq37ydQxN6eWamdnjoNbyQjXgm6PmVl5TCsSM5M0/uV0T1HRkUN/+oqPzpWAlyq+DJQ4Hblfe
-	mduriW5gBCjNmVQXZQxAU235Y7YCwHWjq5F7HgkFPX/RzHzhAx7w1S5epx53TzhUICm09rZDYUt
-	hz409qeC+KHZi6vpLVIPJd9TD2vX0wDhbGhetRoU6EptvPxTm03l2DhUiG29EmESn4tttunCXCr
-	qcrNsO4r8eeN5l1r9RFIfdmdz2aRN0/MUsk=
-X-Google-Smtp-Source: AGHT+IGEYKH1oNFjzoj/N9bbJUQtATtcPMf4iBylIfqSKcfGD5E3mFNun9OITnGDJpDtPE60wYoH9w==
-X-Received: by 2002:a05:600c:3589:b0:434:a4b3:5ebe with SMTP id 5b1f17b1804b1-434a4b35f4amr1406455e9.24.1732550068156;
-        Mon, 25 Nov 2024 07:54:28 -0800 (PST)
-Message-ID: <a23c6ad4-d72f-4f18-afb6-a0fbffa91b88@suse.com>
-Date: Mon, 25 Nov 2024 16:54:26 +0100
+        d=1e100.net; s=20230601; t=1732550894; x=1733155694;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fvlmYYBlKKPQcgag3pzc6nmwLlKCitIK8hEIfIiz/fU=;
+        b=ODYz7HywnVLR0Qw+Omd+HOQX8RB8WyXauvH5IMcswGS/NHegUlMwDbtXE3zoeT5y/C
+         0DTqojZvda4JJcoZBqIZlJP3qihrY1hyyz5e/gMvpn3j4ztZehyBFy7CS/LwHMwznwlY
+         NTA4g8LZ3Vfbzs8YTPIOo8qvhbKyVSpVTMuDI5u3FHVsr26NhI3RXMz3vdD8MVl2/JMW
+         jUlk9I9g4x7aC/hvXC1PcKSkU09DKxyNYxcjC4ewkLqlSwhnw9pCBHauUY5W95V3BbQI
+         BcE1f9rlkgURpVc3YfjvBF5zY99FvKB1K0WV8CYNWYILaZYRjBUSis8uZMJY1ZbAxH8j
+         FOlA==
+X-Forwarded-Encrypted: i=1; AJvYcCVIC3Xov6mPkly6ExL7G2+MEOdwxTZ3h54b6PL4rs8mS4rNJFLGN2NJobTEb21ashrYXXFsJpRBhBs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3rMcit0ABvI5Jgiufry7J2nbU0hl3CM+JKG8igV81ZYxIBdOz
+	e3b22cWWoNg9ftj7+fqJztI8KsL4E6ILhajgurReaQSG4FAtFm6O9Gdw5sDucNZ2FvbUuBn+yhU
+	=
+X-Gm-Gg: ASbGncsWgyFUghe/XXrVtHeB+0TC+SAjPczIrT0cjCSEPXcd5FMreNahSHpVESzrAUk
+	fyUq+dM0tRMQSMMg28glcPGLS9ugefZDNAszOYLrIUmGlGyFRtCd1PY3VjpS+hxYMi0Qdo8H5Za
+	Xe/6nY3P+Q9WKqp9hawMSIvl2T41I+VoLFtKxcSEGCS5hEgRI+0nQjPy/5C25vucbO8zDyRSxw3
+	H1GDGL38Htx3tRv9KZmanPhHgk17oisY5pcLODYSoFC/fPKonPrszeKYio2lEAkcYzfuukG9KU9
+	oOF/CxKz7PoVuJ8DwolbtAgJf0dQwNS6gPk=
+X-Google-Smtp-Source: AGHT+IG9sXlbF0rT2nSeazX98Vy20eNs+j5tQK9iuzDf1kFoXT3v1zkHGZCv8Ko4cUqrKKr3FUSwEQ==
+X-Received: by 2002:a05:6402:5186:b0:5cf:4f4:95dc with SMTP id 4fb4d7f45d1cf-5d0207b135bmr11629118a12.29.1732550893612;
+        Mon, 25 Nov 2024 08:08:13 -0800 (PST)
+Message-ID: <4fca39e6-6c59-49cc-9f76-9fc226c49f8b@suse.com>
+Date: Mon, 25 Nov 2024 17:08:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/uaccess: rework user access speculative harden
- guards
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20241119103444.23296-1-roger.pau@citrix.com>
- <20241119103444.23296-4-roger.pau@citrix.com>
- <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
+Subject: Re: [PATCH v8 1/3] xen/pci: introduce PF<->VF links
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241115160905.551224-1-stewart.hildebrand@amd.com>
+ <20241115160905.551224-2-stewart.hildebrand@amd.com>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,69 +121,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
+In-Reply-To: <20241115160905.551224-2-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 19.11.2024 16:31, Andrew Cooper wrote:
-> On 19/11/2024 10:34 am, Roger Pau Monne wrote:
-> Overall this is far more legible, and I'm tempted to take it on that
-> justification alone.  But this is Jan's pile of magic.
+On 15.11.2024 17:09, Stewart Hildebrand wrote:
+> Add links between a VF's struct pci_dev and its associated PF struct
+> pci_dev.
 > 
-> There is a weird effect from this change:
+> The hardware domain is expected to remove the associated VFs before
+> removing the PF. If removal happens out of order, print a warning and
+> return an error. This means that VFs can only exist with an associated
+> PF.
 > 
-> add/remove: 2/0 grow/shrink: 2/2 up/down: 740/-739 (1)
-> Function                                     old     new   delta
-> build_symbol_table                             -     686    +686
-> build_symbol_table.cold                        -      48     +48
-> pv_map_ldt_shadow_page                       641     644      +3
-> pv_emulate_gate_op                          2919    2922      +3
-> livepatch_op.cold                            557     509     -48
-> livepatch_op                                5952    5261    -691
+> Additionally, if the hardware domain attempts to remove a PF with VFs
+> still present, mark the PF and VFs broken, because Linux Dom0 has been
+> observed to not respect the error returned.
 > 
-> which is clearly changing inlining decisions.  I suspect it's related to...
+> Move the calls to pci_get_pdev() and pci_add_device() down to avoid
+> dropping and re-acquiring the pcidevs_lock().
 > 
->> --- a/xen/arch/x86/usercopy.c
->> +++ b/xen/arch/x86/usercopy.c
->> @@ -11,23 +11,23 @@
->>  #include <asm/uaccess.h>
->>  
->>  #ifndef GUARD
->> -# define GUARD UA_KEEP
->> +# define GUARD 1
->>  #endif
->>  
->>  unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
->>  {
->> -    GUARD(unsigned dummy);
->> +    unsigned __maybe_unused dummy;
+> Check !pdev->pf_pdev before adding the VF to the list to guard against
+> adding it multiple times.
 > 
-> ... this.  This doesn't need to be __maybe_unused, because ...
-> 
->>  
->>      stac();
->>      asm volatile (
->> -        GUARD(
->> +        ".if " STR(GUARD) "\n"
->>          "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
->> -        )
->> +        ".endif\n"
->>          "1:  rep movsb\n"
->>          "2:\n"
->>          _ASM_EXTABLE(1b, 2b)
->> -        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from)
->> -          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
->> +        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
->> +          [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy)
-> 
-> ... these parameters are referenced unconditionally.
-> 
-> However, it does mean the compiler is spilling the scratch registers
-> even when guard is 0.  I expect this is what is affecting the inlining
-> decisions.
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-Or the increased number of newlines that the asm() expands to (or the
-combination of both).
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+> @@ -698,12 +691,48 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>      if ( info )
+>      {
+>          pdev->info = *info;
+> -        /*
+> -         * VF's 'is_extfn' field is used to indicate whether its PF is an
+> -         * extended function.
+> -         */
+>          if ( pdev->info.is_virtfn )
+> -            pdev->info.is_extfn = pf_is_extfn;
+> +        {
+> +            struct pci_dev *pf_pdev =
+> +                pci_get_pdev(NULL, PCI_SBDF(seg, info->physfn.bus,
+> +                                            info->physfn.devfn));
+> +
+> +            if ( !pf_pdev )
+> +            {
+> +                ret = pci_add_device(seg, info->physfn.bus, info->physfn.devfn,
+> +                                     NULL, node);
+> +                if ( ret )
+> +                {
+> +                    printk(XENLOG_WARNING
+> +                           "Failed to add SR-IOV device PF %pp for VF %pp\n",
+> +                           &PCI_SBDF(seg, info->physfn.bus, info->physfn.devfn),
+> +                           &pdev->sbdf);
+> +                    free_pdev(pseg, pdev);
+> +                    goto out;
+> +                }
+> +                pf_pdev = pci_get_pdev(NULL, PCI_SBDF(seg, info->physfn.bus,
+> +                                                      info->physfn.devfn));
+> +                if ( !pf_pdev )
+> +                {
+> +                    printk(XENLOG_ERR
+> +                           "Inconsistent PCI state: failed to find newly added PF %pp for VF %pp\n",
+> +                           &PCI_SBDF(seg, info->physfn.bus, info->physfn.devfn),
+> +                           &pdev->sbdf);
+> +                    ASSERT_UNREACHABLE();
+> +                    free_pdev(pseg, pdev);
+> +                    ret = -EILSEQ;
+> +                    goto out;
+> +                }
+> +            }
+> +
+> +            if ( !pdev->pf_pdev )
+> +            {
+> +                /* VF inherits its 'is_extfn' from PF */
+> +                pdev->info.is_extfn = pf_pdev->info.is_extfn;
+> +                list_add(&pdev->vf_list, &pf_pdev->vf_list);
+> +                pdev->pf_pdev = pf_pdev;
+
+As a general pattern, I think filling fields before adding to lists is preferable.
+For now it doesn't really matter here (lock held here and while removing), yet
+still: Thoughts towards flipping the last two lines above, perhaps while committing?
 
 Jan
 
