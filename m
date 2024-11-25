@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C2E49D8581
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 13:39:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842512.1258050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 059A89D859A
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 13:47:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842525.1258060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFYN4-0001WY-Fv; Mon, 25 Nov 2024 12:39:18 +0000
+	id 1tFYUy-0003bW-9k; Mon, 25 Nov 2024 12:47:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842512.1258050; Mon, 25 Nov 2024 12:39:18 +0000
+Received: by outflank-mailman (output) from mailman id 842525.1258060; Mon, 25 Nov 2024 12:47:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFYN4-0001Us-Ba; Mon, 25 Nov 2024 12:39:18 +0000
-Received: by outflank-mailman (input) for mailman id 842512;
- Mon, 25 Nov 2024 12:39:16 +0000
+	id 1tFYUy-0003YS-74; Mon, 25 Nov 2024 12:47:28 +0000
+Received: by outflank-mailman (input) for mailman id 842525;
+ Mon, 25 Nov 2024 12:47:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Uxrf=SU=bounce.vates.tech=bounce-md_30504962.67446fed.v1-9fbbdb30330a4bae8dd0e343e4975130@srs-se1.protection.inumbo.net>)
- id 1tFYN2-0001Uk-Fm
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 12:39:16 +0000
-Received: from mail134-5.atl141.mandrillapp.com
- (mail134-5.atl141.mandrillapp.com [198.2.134.5])
+ <SRS0=p6X4=SU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tFYUv-0003YM-RW
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 12:47:25 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45560e73-ab2a-11ef-a0cd-8be0dac302b0;
- Mon, 25 Nov 2024 13:39:12 +0100 (CET)
-Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail134-5.atl141.mandrillapp.com (Mailchimp) with ESMTP id
- 4Xxld92xC7zG0CByw
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 12:39:09 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 9fbbdb30330a4bae8dd0e343e4975130; Mon, 25 Nov 2024 12:39:09 +0000
+ id 69d795f3-ab2b-11ef-a0cd-8be0dac302b0;
+ Mon, 25 Nov 2024 13:47:22 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a9f1c590ecdso719716166b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 04:47:22 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa50b3457basm459236766b.89.2024.11.25.04.47.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Nov 2024 04:47:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,153 +44,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45560e73-ab2a-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjEzNC41IiwiaGVsbyI6Im1haWwxMzQtNS5hdGwxNDEubWFuZHJpbGxhcHAuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjQ1NTYwZTczLWFiMmEtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTM4MzUyLjI5NTI4Nywic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3NDQ2ZmVkLnYxLTlmYmJkYjMwMzMwYTRiYWU4ZGQwZTM0M2U0OTc1MTMwQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1732538349; x=1732798849;
-	bh=IXR2piY85zWK0osdoMrnuuiokPxa8VpFHcies5EH5BM=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=yEa76uop03EMATv5HPw4SG5j8zlR1VYB0qt4YO1XnAlPoKlQ7/mFRoV3QdQSx8vq5
-	 lKppxMt7dcIT0wHWvYXGY5Wkohb+EAvvvkG1aqaC4FpT8mU3DvoJXvgh2q2CFnK3tj
-	 9pgf7J2Bd0kd3BlbOumYDBt1F7POegiagaazBYrvAUcTusX0408S7pexwFzLOW78IV
-	 6j8Rsq4KdkhHLSIWhql6eEj34hRlErZl/eZWy7QdEt419j070+N9hiQ2wajExqWe7b
-	 ZIzG3d1bSyL8TSgO6JNFbTP2a4HcHlIF9DyxBWzwn3LItY+mQk/oGPsMThZSCIFS4b
-	 HSPKOeiGLGHUw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1732538349; x=1732798849; i=teddy.astie@vates.tech;
-	bh=IXR2piY85zWK0osdoMrnuuiokPxa8VpFHcies5EH5BM=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ERMHdxyrI7KIqbyrPDXAItBwb55v2IShvYVSqpSi22m3+rH8U4M6lc/ShmI37qCoL
-	 V/YsjRhgSLG8sJf0RCfQEf9/TJB4/pIb1jJsu1FW/k1LQa7UT2d4f/90Djo2oNQc3N
-	 1FVD3bltLf/5qRdRbcf0YsB+QaiPIyHTZNCGvcDWTrpRA+RdlFz9kKT7a/zVene98y
-	 6ifRfZ48n28IFSiwY2W5NU33m0ExkmE/Zh5nAzJRLd26Uc1kdKhSV9j2jng5pcbm+4
-	 68N5kuKzd2I2OFN8kKmcnSmCFtkbMAWItrpJvShSoMSqfd+FEaGSDIxm6+VakdJr2q
-	 CMCXxepEsPTRQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=2007/25]=20tools/xenbindgen:=20Add=20support=20for=20structs=20in=20TOML=20specs?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1732538348441
-Message-Id: <8dcd8297-d9d9-4106-ba6d-eefd5df6f69a@vates.tech>
-To: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>, xen-devel@lists.xenproject.org
-Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Yann Dirson" <yann.dirson@vates.tech>
-References: <20241115115200.2824-1-alejandro.vallejo@cloud.com> <20241115115200.2824-8-alejandro.vallejo@cloud.com>
-In-Reply-To: <20241115115200.2824-8-alejandro.vallejo@cloud.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.9fbbdb30330a4bae8dd0e343e4975130?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241125:md
-Date: Mon, 25 Nov 2024 12:39:09 +0000
+X-Inumbo-ID: 69d795f3-ab2b-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzEiLCJoZWxvIjoibWFpbC1lajEteDYzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjY5ZDc5NWYzLWFiMmItMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTM4ODQyLjExNjAyMywic2VuZGVyIjoicm9nZXIucGF1QGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1732538842; x=1733143642; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=c/MZ7qQPDZn9WoacarwXEZFSPAJiR4wFq7rrJBnJSPc=;
+        b=Wfe1AKFTERSq5w0rlc3L81Zu+68qZoYTksxIX+Hf4lINjqpA3BbVBb4FFthw06pZA/
+         ZS9C6WXnXlVek+je9oMuU+YRJl5yUnQcVgwEliByDVSRQm69dfXpaFQwnDs+1lXKYZGZ
+         O/AJ3hroIBLJEtqtVIVyX7xFSFDH20k2TSkY4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732538842; x=1733143642;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=c/MZ7qQPDZn9WoacarwXEZFSPAJiR4wFq7rrJBnJSPc=;
+        b=TctTwPNXKUyeFAs0JYCWjDK/JPLPZtxvg6AgR2BXRQWt+MjZqWBKpO0/oggSD0YqpY
+         OxpZPHRYpMkz8FblYJkUQG+NyBcg14Qm9xE4YrZxJO3z7/jvs/V5cwPjbqj8CrwQO6X2
+         BTWbKjmZ3ip9HYmCUxibDLWHIL9RV2/kynR+/0eOxkHGQbMDLidoc/k3G7WfUuCErFCZ
+         i90LISaMHncJv7PCYjmJtMN9Q6bB2Htk3q0wsOIIPCMsVNVfuRol5vrA6w82rQt1iBHS
+         PulWtsnJNPZR0NCdYv9S3y5TKudrIiTSdZvmyjCY6dYFeAqGzII6clBsz6tFzaMiHaFW
+         GxFA==
+X-Gm-Message-State: AOJu0YxUPGprL/MuVLmSN1jeysCqwb6hun+Gp12atOie4EUM6XuUHGys
+	vWa/zGjiRVWG5CzxKYNEwIm4agqdx2qawh8bDCkfJzk6fX5P48yfnem9T4uRpzotdYeaKE1u0GO
+	e
+X-Gm-Gg: ASbGncsrsQjhaiUkT73izuRulZCscy+/uEtE5THjBNbYRkGJZ8mN6X8Vi3bVvUgWNi1
+	K6P3HeiQqCsSOMaPflq2o7gKLs9raHL0cZ8hfuSrK5K0mO8G4DsrznzOCsMp2Oh1KeGYRCkAbxb
+	PJ13rDRHTWytMJoBFcdixXhevagP4utryd9ZFbDCwykjIuLtzhZWGYBDwZL69N8Z+Mpol22gQSz
+	mhC5S8a929F6xRfxouqdqQS0Z+GG/bnobxCvZLRI/kujuXE4Q5JUoVF6EQ=
+X-Google-Smtp-Source: AGHT+IHqV+ajEDv5I+yDuledBOFjyNwnB2We4iC4jejfiGmbRyn0J7/gFRy4CrYrZsvXoQv9hBJYhw==
+X-Received: by 2002:a17:906:31c1:b0:aa5:1d68:1ec8 with SMTP id a640c23a62f3a-aa51d681fc8mr1023719566b.7.1732538841988;
+        Mon, 25 Nov 2024 04:47:21 -0800 (PST)
+Date: Mon, 25 Nov 2024 13:47:20 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] vpci: Add resizable bar support
+Message-ID: <Z0Rx2IXqqvrLaIIq@macbook>
+References: <ZzY1O-zrcWB6Ra3q@macbook>
+ <BL1PR12MB5849FC8077C7C6035F1D3E15E7242@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzczqznFbixk3Vfu@macbook>
+ <BL1PR12MB5849894360DB8D96073AB21EE7272@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzyIk0KipX8LPZNv@macbook>
+ <BL1PR12MB5849FC514034CDFC2F68BA6FE7212@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz2lgkjgRoZ7Sr5Q@macbook>
+ <BL1PR12MB5849F5382CF3A03C080C4CA4E7222@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz8Cwj3KJ1BIBEg_@macbook>
+ <BL1PR12MB584977971D2C0A00443A1A79E72E2@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB584977971D2C0A00443A1A79E72E2@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-Hi Alejandro,
-
-Le 15/11/2024 =C3=A0 12:51, Alejandro Vallejo a =C3=A9crit=C2=A0:
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
->   tools/rust/xenbindgen/src/c_lang.rs | 56 ++++++++++++++++++++++++-
->   tools/rust/xenbindgen/src/spec.rs   | 64 ++++++++++++++++++++++++++++-
->   2 files changed, 117 insertions(+), 3 deletions(-)
+On Mon, Nov 25, 2024 at 03:44:52AM +0000, Chen, Jiqian wrote:
+> On 2024/11/21 17:52, Roger Pau Monné wrote:
+> > On Thu, Nov 21, 2024 at 03:05:14AM +0000, Chen, Jiqian wrote:
+> >> On 2024/11/20 17:01, Roger Pau Monné wrote:
+> >>> On Wed, Nov 20, 2024 at 03:01:57AM +0000, Chen, Jiqian wrote:
+> >>>> The only difference between our methods is the timing of updating the size.
+> >>>> Yours is later than mine because you updated the size when the driver re-enabled memory decoding, while I updated the size in time when driver resize it.
+> >>>
+> >>> Indeed, my last guess is the stale cached size is somehow used in my
+> >>> approach, and that leads to the failures.  One last (possibly dummy?)
+> >>> thing to try might be to use your patch to detect writes to the resize
+> >>> control register, but update the BAR sizes in modify_bars(), while
+> >>> keeping the traces of when the operations happen.
+> >>>
+> >> This can work, combine our method, use my patch to detect and write the size into hardware register, and use your patch to update bar[i].size in modify_bars().
+> >> Attached the combined patch and the xl dmesg.
+> > 
+> > This is even weirder, so the attached patch works fine?  The only
+> > difference with my proposal is that you trap the CTRL registers, but
+> > the sizing is still done in modify_bars().
+> > 
+> > What happens if (based on the attached patch) you change
+> > rebar_ctrl_write() to:
+> > 
+> > static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> >                                       unsigned int reg,
+> >                                       uint32_t val,
+> >                                       void *data)
+> > {
+> >     pci_conf_write32(pdev->sbdf, reg, val);
+> > }
+> > 
+> If I change rebar_ctrl_write() to:
+> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+>                                       unsigned int reg,
+>                                       uint32_t val,
+>                                       void *data)
+> {
+>     printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, reg, val);
+>     pci_conf_write32(pdev->sbdf, reg, val);
+> }
 > 
-> diff --git a/tools/rust/xenbindgen/src/c_lang.rs b/tools/rust/xenbindgen/=
-src/c_lang.rs
-> index f05e36bb362f..597e0ed41362 100644
-> --- a/tools/rust/xenbindgen/src/c_lang.rs
-> +++ b/tools/rust/xenbindgen/src/c_lang.rs
-> @@ -17,9 +17,10 @@
->   
->   use std::fmt::Write;
->   
-> -use crate::spec::OutFileDef;
-> +use crate::spec::{OutFileDef, StructDef, Typ};
->   
->   use convert_case::{Case, Casing};
-> +use log::{debug, trace};
->   
->   /// An abstract indentation level. 0 is no indentation, 1 is [`INDENT_W=
-IDTH`]
->   /// and so on.
-> @@ -29,6 +30,39 @@ struct Indentation(usize);
->   /// Default width of each level of indentation
->   const INDENT_WIDTH: usize =3D 4;
->   
-> +/// Create a C-compatible struct field. Without the terminating semicolo=
-n.
-> +fn structfield(typ: &Typ, name: &str) -> String {
-> +    match typ {
-> +        Typ::Ptr(x) =3D> {
-> +            let t: &Typ =3D x;
-> +            format!(
-> +                "XEN_GUEST_HANDLE_64({}) {name}",
-> +                match t {
-> +                    Typ::U8 =3D> "uint8",
-> +                    Typ::U16 =3D> "uint16",
-> +                    Typ::U32 =3D> "uint32",
-> +                    Typ::U64 =3D> "uint64_aligned_t",
-> +                    Typ::I8 =3D> "int8",
-> +                    Typ::I16 =3D> "int16",
-> +                    Typ::I32 =3D> "int32",
-> +                    Typ::I64 =3D> "int64_aligned_t",
-> +                    _ =3D> panic!("foo {t:?}"),
-> +                }
-> +            )
-> +        }
-> +        Typ::Struct(x) =3D> format!("struct {x} {name}"),
-> +        Typ::Array(x, len) =3D> format!("{}{name}[{len}]", structfield(x=
-, "")),
-> +        Typ::U8 =3D> format!("uint8_t {name}"),
-> +        Typ::U16 =3D> format!("uint16_t {name}"),
-> +        Typ::U32 =3D> format!("uint32_t {name}"),
-> +        Typ::U64 =3D> format!("uint64_aligned_t {name}"),
-> +        Typ::I8 =3D> format!("int8_t {name}"),
-> +        Typ::I16 =3D> format!("int16_t {name}"),
-> +        Typ::I32 =3D> format!("int32_t {name}"),
-> +        Typ::I64 =3D> format!("int64_aligned_t {name}"),
-> +    }
-> +}
-> +
+> I can see three time prints, it can't work.
+> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 528, val 102
+> 
+> If I change rebar_ctrl_write() to:
+> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+>                                       unsigned int reg,
+>                                       uint32_t val,
+>                                       void *data)
+> {
+>     if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+>         return;
+>     printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, reg, val);
+>     pci_conf_write32(pdev->sbdf, reg, val);
+> } 
+> 
+> I can only see one time print:
+> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+> 
+> The check prevented the two times incorrect write actions.
+>     if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+>         return;
+> 
+> And why my original patch can work too, the check:
+> +    ctrl = pci_conf_read32(pdev->sbdf, reg);
+> +    if ( ctrl == val )
+> +        return;
+> happened to play the same role as PCI_COMMAND_MEMORY check.
 
-I think _t are missing in the Ptr cases (we are currently generating 
-XEN_GUEST_HANDLE_64(uint8) which I don't think is valid).
-Aside that, wouldn't it be better to have a separate function for 
-converting the type to its C representation ?
+Thank you very much for figuring this out.  So in the end it's a bug
+in the driver that plays with PCI_REBAR_CTRL with memory decoding
+enabled.
 
-Something like
+Won't this also cause issues when running natively without Xen?
 
-impl Typ { // or blanket trait
-     fn c_repr(&self) -> String {
-         match self {
-             /* ... */
-         }
-     }
-}
+I think we have no other option but to trap accesses to the capability
+registers themselves in order to ensure a minimum amount of sanity
+(iow: no writes to the ReBAR control registers decoding is enabled).
 
-fn structfield(typ: &Typ, name: &str) -> String {
-     format!("{} {name}", typ.c_repr());
-}
-
-We can also consider Typ::Struct or Typ::Array cases to call recursively 
-to c_repr on its inner type to get its representation.
-
-That way, we can have XEN_GUEST_HANDLE_64(struct something).
-
-Cheers
-
-Teddy
-
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Thanks, Roger.
 
