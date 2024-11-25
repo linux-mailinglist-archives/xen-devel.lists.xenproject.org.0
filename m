@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D669D89F0
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 17:08:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842892.1258558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AD1C9D89F1
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 17:09:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842900.1258568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFbdM-0006AT-CS; Mon, 25 Nov 2024 16:08:20 +0000
+	id 1tFbeJ-0006ft-Md; Mon, 25 Nov 2024 16:09:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842892.1258558; Mon, 25 Nov 2024 16:08:20 +0000
+Received: by outflank-mailman (output) from mailman id 842900.1258568; Mon, 25 Nov 2024 16:09:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFbdM-00067q-91; Mon, 25 Nov 2024 16:08:20 +0000
-Received: by outflank-mailman (input) for mailman id 842892;
- Mon, 25 Nov 2024 16:08:18 +0000
+	id 1tFbeJ-0006e3-Ia; Mon, 25 Nov 2024 16:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 842900;
+ Mon, 25 Nov 2024 16:09:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mqqh=SU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFbdK-00067k-Gm
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 16:08:18 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1tFbeI-00067k-Bv
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 16:09:18 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 797ba0c7-ab47-11ef-99a3-01e77a169b0f;
- Mon, 25 Nov 2024 17:08:14 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5ceca0ec4e7so5755643a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 08:08:14 -0800 (PST)
+ id 9d9f45a1-ab47-11ef-99a3-01e77a169b0f;
+ Mon, 25 Nov 2024 17:09:14 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfc19065ffso6062542a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 08:09:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d01d3fc777sm4284085a12.68.2024.11.25.08.08.12
+ 4fb4d7f45d1cf-5d01f9c2dd2sm4160595a12.18.2024.11.25.08.09.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Nov 2024 08:08:13 -0800 (PST)
+ Mon, 25 Nov 2024 08:09:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 797ba0c7-ab47-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzUiLCJoZWxvIjoibWFpbC1lZDEteDUzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijc5N2JhMGM3LWFiNDctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTUwODk0LjI5ODUxNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 9d9f45a1-ab47-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzMiLCJoZWxvIjoibWFpbC1lZDEteDUzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjlkOWY0NWExLWFiNDctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTUwOTU0LjkwOTE4Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732550894; x=1733155694; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732550954; x=1733155754; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fvlmYYBlKKPQcgag3pzc6nmwLlKCitIK8hEIfIiz/fU=;
-        b=Cq8wsJi1L5b/rPw4ity4zbX5hvBQMf3FvQnEV3W7URMHmVZHgmNa1nEu7EaBIIvjrz
-         3/zL4WeKrZ0GVwpOrXO4cqOq+RRcfbSCIvZMWECfokCp7gi+qRjGycfLehmOA8u0vShX
-         LxdZy5CgnhXU9iesNlunVKHtJE+kYJ0vPgtollbXkHTup7Bestrwlx7Z3eZaZhjt3jL+
-         Ao84HptLvE/xYF2YdvGUFkdB0xjOcTD+z07K2TewVZ+VhPGgw3PVh9HOB+QS6M7f/Pgv
-         AgR+Q5nD3q1gp1OnF+2hDXli6/75PTRnhUUVaNJ1j4H4ZiR0c85z2brUEC1BKJ708GwY
-         cVzA==
+        bh=DwU0tSV4nmmIocAUnM4latcUelkP2qtQby9QcjOLxBc=;
+        b=cN/WdQeFGFurdEv4xWY75E/0Oq7DI2pK7+bZyTLZBBpONfWRq1yhXw7P/UBKvy/Pwf
+         Eq7N8iQsUQGEJzS0qU6BxR27qgBpZZqs6Bwsf1pfKfO7Ga+Ql4E8aYe7lKnLFqihWKCj
+         4BeP1SQPUFHF2Av83dTrVpditVG7g/RUWLv8Jab1C4PQxCinosnYSP9YjTaEkFsLbCMl
+         omSTIRVVIprVqq/37z/abkYGjd7GT0tUvwhXAlghhldncBukdxJdqrGEwP5WTbgRaYlr
+         QOUfyFsk7CEXmQG2r9lqdB2G/9gACjfBEo0+hfWAkHGXWtfTlIQLxC3+MRHmz0bpu2Ss
+         lKJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732550894; x=1733155694;
+        d=1e100.net; s=20230601; t=1732550954; x=1733155754;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fvlmYYBlKKPQcgag3pzc6nmwLlKCitIK8hEIfIiz/fU=;
-        b=ODYz7HywnVLR0Qw+Omd+HOQX8RB8WyXauvH5IMcswGS/NHegUlMwDbtXE3zoeT5y/C
-         0DTqojZvda4JJcoZBqIZlJP3qihrY1hyyz5e/gMvpn3j4ztZehyBFy7CS/LwHMwznwlY
-         NTA4g8LZ3Vfbzs8YTPIOo8qvhbKyVSpVTMuDI5u3FHVsr26NhI3RXMz3vdD8MVl2/JMW
-         jUlk9I9g4x7aC/hvXC1PcKSkU09DKxyNYxcjC4ewkLqlSwhnw9pCBHauUY5W95V3BbQI
-         BcE1f9rlkgURpVc3YfjvBF5zY99FvKB1K0WV8CYNWYILaZYRjBUSis8uZMJY1ZbAxH8j
-         FOlA==
-X-Forwarded-Encrypted: i=1; AJvYcCVIC3Xov6mPkly6ExL7G2+MEOdwxTZ3h54b6PL4rs8mS4rNJFLGN2NJobTEb21ashrYXXFsJpRBhBs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3rMcit0ABvI5Jgiufry7J2nbU0hl3CM+JKG8igV81ZYxIBdOz
-	e3b22cWWoNg9ftj7+fqJztI8KsL4E6ILhajgurReaQSG4FAtFm6O9Gdw5sDucNZ2FvbUuBn+yhU
+        bh=DwU0tSV4nmmIocAUnM4latcUelkP2qtQby9QcjOLxBc=;
+        b=POawDF4qGOXiUo7RY49/TpnCxn/xUFcGfpoApM3D1eDEzPVWUNVddgjT42yCO/m/Sv
+         q4uCiS2815pRPjvsMcD8K5Cf/WkQ6pNdgGWU5MHqZY0ZIoGfX1vXu5xq4LkYHNGGzJsY
+         BQOJvKtIgonPR5IVbBsglR7Yx5FuERk0XPy6BV7eOwEzftvbOeOI6CFyPnEKrSYA3nap
+         LEpCF619st+INkO2Juu3J/vnURjRA/zT9JriRsJtbOnC8DFGVaDS6sruBsqoINnbX2JZ
+         QBUGWbhb9muwvcXJJj9+Q1y9XSubMRAQZ3mr09TOGTIP/rZ3xe/NEBoz5D0jeC3PFyQH
+         ej3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUOyo/YqXpTaNzWjuEeP3bogc+6jLj+yNG62lNYIxeK6OYq+1pPW8kGf7SnSxN5Mx82AaT2imEA02s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZZo1ztoVHdjYqW14c6d1qEjs0hFMJDRT3BvLyQgF8ZbItw5SE
+	tsM6HFMyRFELAD63eurE7aFzFnCXJubgCgkD1lKdkaf0zx4swuNTXkETPbTX012ZPImmD0RFo2g
 	=
-X-Gm-Gg: ASbGncsWgyFUghe/XXrVtHeB+0TC+SAjPczIrT0cjCSEPXcd5FMreNahSHpVESzrAUk
-	fyUq+dM0tRMQSMMg28glcPGLS9ugefZDNAszOYLrIUmGlGyFRtCd1PY3VjpS+hxYMi0Qdo8H5Za
-	Xe/6nY3P+Q9WKqp9hawMSIvl2T41I+VoLFtKxcSEGCS5hEgRI+0nQjPy/5C25vucbO8zDyRSxw3
-	H1GDGL38Htx3tRv9KZmanPhHgk17oisY5pcLODYSoFC/fPKonPrszeKYio2lEAkcYzfuukG9KU9
-	oOF/CxKz7PoVuJ8DwolbtAgJf0dQwNS6gPk=
-X-Google-Smtp-Source: AGHT+IG9sXlbF0rT2nSeazX98Vy20eNs+j5tQK9iuzDf1kFoXT3v1zkHGZCv8Ko4cUqrKKr3FUSwEQ==
-X-Received: by 2002:a05:6402:5186:b0:5cf:4f4:95dc with SMTP id 4fb4d7f45d1cf-5d0207b135bmr11629118a12.29.1732550893612;
-        Mon, 25 Nov 2024 08:08:13 -0800 (PST)
-Message-ID: <4fca39e6-6c59-49cc-9f76-9fc226c49f8b@suse.com>
-Date: Mon, 25 Nov 2024 17:08:11 +0100
+X-Gm-Gg: ASbGncti/+MlzwCCbS/YHj3Y+Bs+EpL47U5w56YjuW/ZNyVqTFllM2TaSKOi4xMIjRp
+	76y5OWOj/m7XWPkIbyxshEaamEQjY6HNeaTB+BzC2UjBWWctZSpRJOpGS6NJiJRS/8XZBS3tmXm
+	zHMaZioqJdBkRDYP4ZCTBbWblrXg++QsKppn13001Ma/H8xDUN/QmHJ+ahQcslZ9hqhGCwTQlod
+	2AWJr3cu8ciVLtkRYVjq9VDah0JNH9+Pn3acfUKNrT3nrwvdk/4lmhDeBI5M3ZOZ9y3Bv/Zd4Wv
+	4K+ijJc030lmb6Zr0AG4JNHYTU8XUpHeKnQ=
+X-Google-Smtp-Source: AGHT+IFB6SuVxcN8tK2i+SaZLoO1G7vbcaiwIH3PVk0sOdFqOp0FOold0PH0LCj8YzRg7LrMqEtGQw==
+X-Received: by 2002:a05:6402:35cb:b0:5cf:cf81:c3a8 with SMTP id 4fb4d7f45d1cf-5d0205dc765mr10311577a12.10.1732550954317;
+        Mon, 25 Nov 2024 08:09:14 -0800 (PST)
+Message-ID: <9ca9040a-9b20-4576-93d7-9f8537bd8f94@suse.com>
+Date: Mon, 25 Nov 2024 17:09:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/3] xen/pci: introduce PF<->VF links
+Subject: Re: [PATCH v8 3/3] xen/pci: remove logic catering to adding VF
+ without PF
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20241115160905.551224-1-stewart.hildebrand@amd.com>
- <20241115160905.551224-2-stewart.hildebrand@amd.com>
+ <20241115160905.551224-4-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,86 +121,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241115160905.551224-2-stewart.hildebrand@amd.com>
+In-Reply-To: <20241115160905.551224-4-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.11.2024 17:09, Stewart Hildebrand wrote:
-> Add links between a VF's struct pci_dev and its associated PF struct
-> pci_dev.
-> 
-> The hardware domain is expected to remove the associated VFs before
-> removing the PF. If removal happens out of order, print a warning and
-> return an error. This means that VFs can only exist with an associated
-> PF.
-> 
-> Additionally, if the hardware domain attempts to remove a PF with VFs
-> still present, mark the PF and VFs broken, because Linux Dom0 has been
-> observed to not respect the error returned.
-> 
-> Move the calls to pci_get_pdev() and pci_add_device() down to avoid
-> dropping and re-acquiring the pcidevs_lock().
-> 
-> Check !pdev->pf_pdev before adding the VF to the list to guard against
-> adding it multiple times.
+> The hardware domain is expected to add a PF first before adding
+> associated VFs. If adding happens out of order, print a warning and
+> return an error. Drop the recursive call to pci_add_device().
 > 
 > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> @@ -698,12 +691,48 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->      if ( info )
->      {
->          pdev->info = *info;
-> -        /*
-> -         * VF's 'is_extfn' field is used to indicate whether its PF is an
-> -         * extended function.
-> -         */
->          if ( pdev->info.is_virtfn )
-> -            pdev->info.is_extfn = pf_is_extfn;
-> +        {
-> +            struct pci_dev *pf_pdev =
-> +                pci_get_pdev(NULL, PCI_SBDF(seg, info->physfn.bus,
-> +                                            info->physfn.devfn));
-> +
-> +            if ( !pf_pdev )
-> +            {
-> +                ret = pci_add_device(seg, info->physfn.bus, info->physfn.devfn,
-> +                                     NULL, node);
-> +                if ( ret )
-> +                {
-> +                    printk(XENLOG_WARNING
-> +                           "Failed to add SR-IOV device PF %pp for VF %pp\n",
-> +                           &PCI_SBDF(seg, info->physfn.bus, info->physfn.devfn),
-> +                           &pdev->sbdf);
-> +                    free_pdev(pseg, pdev);
-> +                    goto out;
-> +                }
-> +                pf_pdev = pci_get_pdev(NULL, PCI_SBDF(seg, info->physfn.bus,
-> +                                                      info->physfn.devfn));
-> +                if ( !pf_pdev )
-> +                {
-> +                    printk(XENLOG_ERR
-> +                           "Inconsistent PCI state: failed to find newly added PF %pp for VF %pp\n",
-> +                           &PCI_SBDF(seg, info->physfn.bus, info->physfn.devfn),
-> +                           &pdev->sbdf);
-> +                    ASSERT_UNREACHABLE();
-> +                    free_pdev(pseg, pdev);
-> +                    ret = -EILSEQ;
-> +                    goto out;
-> +                }
-> +            }
-> +
-> +            if ( !pdev->pf_pdev )
-> +            {
-> +                /* VF inherits its 'is_extfn' from PF */
-> +                pdev->info.is_extfn = pf_pdev->info.is_extfn;
-> +                list_add(&pdev->vf_list, &pf_pdev->vf_list);
-> +                pdev->pf_pdev = pf_pdev;
 
-As a general pattern, I think filling fields before adding to lists is preferable.
-For now it doesn't really matter here (lock held here and while removing), yet
-still: Thoughts towards flipping the last two lines above, perhaps while committing?
-
-Jan
 
