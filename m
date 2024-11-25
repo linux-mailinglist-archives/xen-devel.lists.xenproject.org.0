@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76FB69D88EC
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:14:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842789.1258467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 377D29D88F4
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:15:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842796.1258477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFanQ-0000OY-MX; Mon, 25 Nov 2024 15:14:40 +0000
+	id 1tFaoK-000128-VV; Mon, 25 Nov 2024 15:15:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842789.1258467; Mon, 25 Nov 2024 15:14:40 +0000
+Received: by outflank-mailman (output) from mailman id 842796.1258477; Mon, 25 Nov 2024 15:15:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFanQ-0000M5-Jk; Mon, 25 Nov 2024 15:14:40 +0000
-Received: by outflank-mailman (input) for mailman id 842789;
- Mon, 25 Nov 2024 15:14:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tFaoK-00010J-Se; Mon, 25 Nov 2024 15:15:36 +0000
+Received: by outflank-mailman (input) for mailman id 842796;
+ Mon, 25 Nov 2024 15:15:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mqqh=SU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFanO-0000Ec-JV
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:14:38 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb71dd82-ab3f-11ef-a0cd-8be0dac302b0;
- Mon, 25 Nov 2024 16:14:36 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-434a099ba95so7248935e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:14:36 -0800 (PST)
+ id 1tFaoJ-000108-TL
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:15:35 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1ca04a54-ab40-11ef-99a3-01e77a169b0f;
+ Mon, 25 Nov 2024 16:15:32 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-432d9b8558aso31859015e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:15:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433cde8fcdfsm130278935e9.32.2024.11.25.07.14.35
+ ffacd0b85a97d-3825fbc38afsm10578877f8f.67.2024.11.25.07.15.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Nov 2024 07:14:35 -0800 (PST)
+ Mon, 25 Nov 2024 07:15:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb71dd82-ab3f-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzIiLCJoZWxvIjoibWFpbC13bTEteDMzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImZiNzFkZDgyLWFiM2YtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTQ3Njc2LjM0NTQ2NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 1ca04a54-ab40-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmIiLCJoZWxvIjoibWFpbC13bTEteDMyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjFjYTA0YTU0LWFiNDAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTQ3NzMyLjA0Njc3Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732547676; x=1733152476; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YyuD4K1sHrhw+y8DqTrBQovFbOZHn/VYVv9g7sH6d+k=;
-        b=OlvlgKSwrulkzEYPshpDK/Bg23PHvEW6MruWKJOLlz3bn1CxQ9/NuSS5y4FzJMUdDd
-         uS/g2nZM2OrBA72TpmP3layGFc8HWvp2vkJ7uKXnHj+64PgouM2znPubPi7/SIs4dCQG
-         /xQDCn0VQEy/kNgB0rdmyD+GzTi+tx0r4TVWz0cCLue9ufhDrtFNdfMu0ZDJJyRC6W7d
-         7lcXN/Y9M0RVi6M08VyGRZNwX7BnEqQtX7v2tVeI+ZSt8VxSP0s9m6j+xqIWPhpZVVZ5
-         Cp/uTb55UnwfFeM6MN/RUfva3mit3PMQr29xfD3F1PngfKVoJlDr/GA/mn6SMhu+AS1u
-         ZRYQ==
+        d=suse.com; s=google; t=1732547731; x=1733152531; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TGRkgRXpIK18BrPBydpyw7bMQqZHWSHjK9VFOA2LsgU=;
+        b=Z2/y9KLFnk+Ji0Fq6trGwrskKYb/MHr5tx4d+HERI7P2dhqsGqZC16mikhzS4rT9Kn
+         HEvSQLDfXP/CiYy7pBZov8Cx0S3KM81AY1AgwZDoTiF45JX6zofkdGkMtLgZCSa0cTz3
+         7E+ThnnK5naXu6dMqWywvJMfas2PolPPOVCijTnp8gwgNUP48nptVuyPXI6DKK0WwCX7
+         1Yje6UIcokzHwpgGZy7fF4rTZSuLO8za2URTLNpmWwerOXbWNjttuv70qTWCN3Gt2SOM
+         mej/TvnRZ+39978Vd5e4/zSk81/huz4CVeJ6BjkK0EPQcMKf/OKTXATKgjidKq6iOsob
+         NXYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732547676; x=1733152476;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YyuD4K1sHrhw+y8DqTrBQovFbOZHn/VYVv9g7sH6d+k=;
-        b=V2fCuaJN9zeYbvvwBIO2a/lwsBzhxL5rJNgu6cztFZiMCRM1DocvT++vRTNjy/ISR8
-         p5Jt2SMwTOtpu/NVFTfmpK7F3mgpwWZzQsy+4+ma3LMe5P0Jfv6BBYHyc9oZqbbkgOuo
-         NwpSqMmND+tur4doq6TzDStOSSYqngMpKyqI181F17VBOc4o2q6tdhtIrTIc9in8sXGh
-         lZ3GLXxXSgHZR2a5S83dyG2pFUqNSXkbeWed3+UTxq4hCmdLymoMGfauNPUi7GPtmNqA
-         40/h8UWAnxWQ5GCqN+ehURpwClw7fSPp+ELq9vhB4oZSrF7Fycs3N55m3hk9IfkNIx8g
-         zixQ==
-X-Gm-Message-State: AOJu0YzLDpqJ7xUyvaSvmoWCTfKbEqjdA7vPCxR9/4XIt5VYVIH4Q4Lw
-	iJHFA9E3jExUQFl8E5q3u8UQzAiGRrP/VHPH+xzZIgT0lKQqB3JFiC99tZkb0DRGwomwsFoTRjk
+        d=1e100.net; s=20230601; t=1732547731; x=1733152531;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TGRkgRXpIK18BrPBydpyw7bMQqZHWSHjK9VFOA2LsgU=;
+        b=aoq1iVb5Ft0Iegx528LHypi9+47t9Yo90Ce/DGVkFL2Th0bwmI7u3r4bBpqaRxALqa
+         //MgKwy5c9CdRurjyDQqrfCKIa5HX5nswa+OCIH54JmsVo0IjKP8Vjz+bQLNtcDP4bgl
+         jhUEaozP7zhVtvlYc9XPdUV8FJoHwPPOZOyh7wqWo0JRmMUcpGP5vJl1oJOAiqBFIyXk
+         9toKY8IkAa/Su4bBg5ZuJ900Z6UnivHCPOHDf+incQoL9UlfiJMMV2iKeKnQ6Z4dbOcm
+         mMNBxorXgFrRxeeh8/vqnrd2CNGEGyvCnmx02Ytbkfi616Re/aehCc72fRmtd9VgodPw
+         DLFA==
+X-Gm-Message-State: AOJu0YwFsutvBapFaCyklO5Vb9MkA9q0xE7sgCPFOhNfdc81HNSIaUYW
+	/p/HQka16oJAwvX2pNk16avp+1qaoXyGmzM3Z5kP1M1wJbjQ14oDBuiA8XCQy5Fz14inzCvw0bA
 	=
-X-Gm-Gg: ASbGncu9kHoiRI7rz7Praa3IBqfPSVPLHgcbNJD4w14tVGWJ87xUm5qY8N6KDsM2DQ2
-	yFaEEhET4Y+5l4VUXBLooM20aE2iB0fO9vUtCGJZB7Pc/RI21NTt4C6PXiHr7VjODa6TiYUKggB
-	cmqMXpfEH8Oo1H4ZtALBWbX2NWxcYw2PHTWAKi6sU3I9mBKnMm1zRSlmgiPEzZEJq1HdQlMXmfo
-	wBdhapR74ZEVoPa6C2AgTzgpw5aqFe1BqQCMAMIbIGM0T7hFDyh9S485+7Zdlw5l60ufjOZ6Q8f
-	pIwS4Ku6nIbqd6gjVy42/SpYU9oirMb48vw=
-X-Google-Smtp-Source: AGHT+IHstv5PaZ7AFicsKmR3JZmDTlRaVdSVrDsBKGIlLOO6RWiimS45vcD5259Hxo9XBf9JfTFwTw==
-X-Received: by 2002:a05:600c:5805:b0:432:a36b:d896 with SMTP id 5b1f17b1804b1-434872f56a9mr95328135e9.26.1732547675677;
-        Mon, 25 Nov 2024 07:14:35 -0800 (PST)
-Message-ID: <7455ff48-4bbc-465c-baff-d5c0ff684dfd@suse.com>
-Date: Mon, 25 Nov 2024 16:14:34 +0100
+X-Gm-Gg: ASbGncvbWHEpuNOG0Irije7ywsLQugQlkcwVSTP6lYXq5xVYR/9s9oN2S/RhHg98Aj9
+	fw4Rt5ODVT3qVaAxE6e9KnTJcj/fWrHFnMnX3YjBA67Y9NkND4JLJItXBNBZ6pLwHKwx+Uj+rc4
+	GsZfn0aDGczDEo8TieAZw+PGqdPIMDdaOgD0AL7+4+NQXNKKs4RfRYMG7OFhDsRCp4MyGovDCHh
+	fcVa550pr2aUJp0mVqY9y1wKMJ75F+m0EhloFwLpHTyKcKLp5g+CwIonmU8EJZZ8TqJip+3Hlby
+	Z014YS1JkRqSygRFjsMzi0brTFHg+lW0gvA=
+X-Google-Smtp-Source: AGHT+IGPj/0qEdeUlaY1455oF82V8Slr3195f0Xx9Hr3o5MCdEhyzG3ilHWB2pxtvz0kKbiL/xRXyw==
+X-Received: by 2002:a05:6000:2c8:b0:382:3211:6b7e with SMTP id ffacd0b85a97d-3826061faefmr10747933f8f.31.1732547729929;
+        Mon, 25 Nov 2024 07:15:29 -0800 (PST)
+Message-ID: <9eca264f-57b3-45d3-8017-cd11af0b6cf7@suse.com>
+Date: Mon, 25 Nov 2024 16:15:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/2] libxl/ACPI: don't hard-code guest page size
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Juergen Gross <jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/2] libxl/ACPI: address observations from XSA-464
+References: <7455ff48-4bbc-465c-baff-d5c0ff684dfd@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,11 +118,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7455ff48-4bbc-465c-baff-d5c0ff684dfd@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-1: don't hard-code guest page size
-2: bound RSDP allocation
+We have libxl_ctxt.page_size for this purpose; use it to eliminate a
+latent buffer overrun.
 
-Jan
+Fixes: 14c0d328da2b ("libxl/acpi: Build ACPI tables for HVMlite guests")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Yet better might be to limit the size to what's actually used (libacpi's
+struct acpi_info). That would then also have avoided the respective part
+of XSA-???.
+
+--- a/tools/libs/light/libxl_x86_acpi.c
++++ b/tools/libs/light/libxl_x86_acpi.c
+@@ -218,7 +218,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
+         dom->acpi_modules[0].guest_addr_out = 0x100000 - 64;
+ 
+     dom->acpi_modules[1].data = (void *)config.infop;
+-    dom->acpi_modules[1].length = 4096;
++    dom->acpi_modules[1].length = libxl_ctxt.page_size;
+     dom->acpi_modules[1].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS;
+ 
+     dom->acpi_modules[2].data = libxl_ctxt.buf;
+
 
