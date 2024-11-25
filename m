@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC00D9D88AE
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:03:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842697.1258366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C970D9D88B6
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:05:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842704.1258376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFacH-0002c3-Gq; Mon, 25 Nov 2024 15:03:09 +0000
+	id 1tFaeJ-00038x-Rf; Mon, 25 Nov 2024 15:05:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842697.1258366; Mon, 25 Nov 2024 15:03:09 +0000
+Received: by outflank-mailman (output) from mailman id 842704.1258376; Mon, 25 Nov 2024 15:05:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFacH-0002Zs-Dj; Mon, 25 Nov 2024 15:03:09 +0000
-Received: by outflank-mailman (input) for mailman id 842697;
- Mon, 25 Nov 2024 15:03:07 +0000
+	id 1tFaeJ-00037T-On; Mon, 25 Nov 2024 15:05:15 +0000
+Received: by outflank-mailman (input) for mailman id 842704;
+ Mon, 25 Nov 2024 15:05:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MivI=SU=bounce.vates.tech=bounce-md_30504962.674491a5.v1-376656317dec4576900ce02877570898@srs-se1.protection.inumbo.net>)
- id 1tFacF-0002Zm-33
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:03:07 +0000
-Received: from mail179-37.suw41.mandrillapp.com
- (mail179-37.suw41.mandrillapp.com [198.2.179.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mqqh=SU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tFaeH-00037N-IF
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:05:13 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5dcbe779-ab3e-11ef-a0cd-8be0dac302b0;
- Mon, 25 Nov 2024 16:03:03 +0100 (CET)
-Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail179-37.suw41.mandrillapp.com (Mailchimp) with ESMTP id
- 4Xxpq92gPCzG0CQpF
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 15:03:01 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 376656317dec4576900ce02877570898; Mon, 25 Nov 2024 15:03:01 +0000
+ id a9b943ea-ab3e-11ef-a0cd-8be0dac302b0;
+ Mon, 25 Nov 2024 16:05:09 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5d01db666ceso4316658a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:05:09 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa50b28dd59sm472346266b.7.2024.11.25.07.05.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Nov 2024 07:05:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,108 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dcbe779-ab3e-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE3OS4zNyIsImhlbG8iOiJtYWlsMTc5LTM3LnN1dzQxLm1hbmRyaWxsYXBwLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjVkY2JlNzc5LWFiM2UtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTQ2OTgzLjQ2NDAzNCwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3NDQ5MWE1LnYxLTM3NjY1NjMxN2RlYzQ1NzY5MDBjZTAyODc3NTcwODk4QGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1732546981; x=1732807481;
-	bh=fMlKSa8F3exCFtR5iKzZxxZqR3FfSoPfF9ErHR6aFmc=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=O6LlnDPvuRbnjBGC7Y+HLpgCgL2I+ZioLZtEOMVRLxgAM7Qjb5T8gZbwZAH23fRbx
-	 AfDeRFu9SWQdJ5IC4buDkXu2cPB4KeJSv24Yjm1ZiiOrRM/p4GemB74EUV2Ct0jPqO
-	 fJiK2ej3TkEL+kw0rgeTdGCdcl6mC9rrtKbo79Eg1JqhcSyZXQ8BiIFzSwL32l8oCl
-	 K/3cpD3+31YX1RCmJ6ukbzRfZ2NbebCuvEWHDSMJkDPrkI9zpHfu30s6X3tYqFakBj
-	 a5uHhZRBQi85hnjwqBINpExbBbDMzcgibWphb59uNPSFeLbpmbEKugq00Z0pwWzLpZ
-	 r7X7N1ejg31dg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1732546981; x=1732807481; i=teddy.astie@vates.tech;
-	bh=fMlKSa8F3exCFtR5iKzZxxZqR3FfSoPfF9ErHR6aFmc=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Yz7vk0F+skvy0ziL77Z9bJhe7qlFDT6a1K9CElq6ycLjTqIcPZ74EZuANgr3ctMkH
-	 RDq1sSqTp4ArEuZB/QCNUqmP1ytB/hMab1Wy4ud56woIwkrWwnz3qViBxCXMJBn71/
-	 V8gpqfzl2Eq93H3RuQ64ES5t3r+BPAeAIExKMysAYIFCDpwq5J2FNMaM5JmzTjAF1a
-	 G375u9YNCdswx8wSUgafib9JRPdpWvbeU+ZbfHKLyMOY3nKDchhm8L10t0qZJctw1K
-	 WFb8pV1R5NWEAAb0d9dzuQf6vWqXYChqO4YzVYNB+/Jt2VPOL5tOpLGypRc/fUPNKA
-	 AJznC+w7bnZrw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=2007/25]=20tools/xenbindgen:=20Add=20support=20for=20structs=20in=20TOML=20specs?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1732546980388
-Message-Id: <d98f8aa1-b0ba-4fb5-8c5d-ab18cc40fb01@vates.tech>
-To: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>, xen-devel@lists.xenproject.org
-Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Yann Dirson" <yann.dirson@vates.tech>
-References: <20241115115200.2824-1-alejandro.vallejo@cloud.com> <20241115115200.2824-8-alejandro.vallejo@cloud.com>
-In-Reply-To: <20241115115200.2824-8-alejandro.vallejo@cloud.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.376656317dec4576900ce02877570898?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241125:md
-Date: Mon, 25 Nov 2024 15:03:01 +0000
+X-Inumbo-ID: a9b943ea-ab3e-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzIiLCJoZWxvIjoibWFpbC1lZDEteDUzMi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImE5Yjk0M2VhLWFiM2UtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTQ3MTA5LjcxNzc0MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1732547109; x=1733151909; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=AHQrPgDLFge4x/7fwo43s+2wgrV0HGSrmV/YErP3WjU=;
+        b=RbAjeyVOBxpMh91jFcpqBFrSg0/CaArA9+IHPejfWmEaxenpGEOaOlXW58R6HfMeqZ
+         twbSIWQlqUFeUSMVSH6dadMJwtRgRtWtYePBTfSeTeBc/NRp1FkLUXdWCBKfWGaENVDE
+         +K7zPNPf4WGdNXaAH/jNT6bdZ+MKMgZ6kOCRNhiWTRyaw/KeoKYCM63Z3DGmOIiXdSIc
+         YOew0N2ar+iufi0qNgNFQumP7Hhy82dPkRCCenzg/T2jRkhbsbUrhc63d/jnthb2Iws+
+         uXefWZ+3YTEr/bdo3Sd59PnxdUAIscSTBhPk5FnWa12cNEQGHECwsT0TIzv1cy3Anl/B
+         qdew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732547109; x=1733151909;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AHQrPgDLFge4x/7fwo43s+2wgrV0HGSrmV/YErP3WjU=;
+        b=R1YZVp0M4qDqQZXhgjjzVcP5nlL2gHUv4YA+rHInYh15bzvIzvT8BkPuHux0G/7EZC
+         dFK2JZ+vfReFCvWWgyNAgpzjOd6PwWI5xwY+LbkjggUA7YMPqqzZalMYIX9IGFsRxWnv
+         TYe8NC5IEhQxgzayHm27n3We4cviqd2b1XlzGn+KuLuBT/o+QA5tJ1BA82w/y5Cr3Wqi
+         /7KuP7w1AakuG/mKhcaKl6A/xMo7/OChKwdXCvSpE1ig/+8xHIx10A9OjcnW1niSZqeo
+         0qamfqBRnptri7dLe4qLJ+ZQ8tQKRxKM8f9RIHPV7bG+DSUX7FC/avmL/fDybyO1kgA0
+         GjoQ==
+X-Gm-Message-State: AOJu0Ywm2X/NQWtQrjwTpORT66Qoj7NisSZYrUIItR6Ewu8cyAC7vUHQ
+	PeUGQVqYSDX8m7sX85u4DRQg0W5/j98dzvq+/nsakf0lDGCygEQASjw9vku87OjqxR5Lb3LFiHs
+	=
+X-Gm-Gg: ASbGnctqxoHXNwC9v6aA0jp1Nn/hGMxtoK1SYO8sHPb4W7LY7vlNba+sb4mEegyDBhd
+	HftQkYybNf+fIiKXI1bXdIR1xVKiHkJq5HbuAoebvc+M2dMAM65wxQaCuQcMQeJZgZIg3g5Lxxk
+	eJ5BeMD1vFOmz+n6Ser5r/u8UZIINTEGopKQjzSO2LEg82dfQNWNBIrrIJhFsD1hCG1aWAqShPc
+	RTbNKSUaVbglWaUgpuo9za0JV1WJFRUNOL4Jit3HAjOGe2ymZQVD5IyOisL1b4K1fnJ98Anwm/V
+	uIEG/zZkQYdLdJX5TYqwwKDx9zUk6WYLr9I=
+X-Google-Smtp-Source: AGHT+IGTar6Ny5us3jHGxZ+Heo78lSJGMNWVhJ1a6Ju/vnosPCBCHyjAoBbv28tGy7LSgOCSSoF/Fw==
+X-Received: by 2002:a17:906:1bb1:b0:aa5:4ca6:11b1 with SMTP id a640c23a62f3a-aa54ca61205mr426941566b.52.1732547105074;
+        Mon, 25 Nov 2024 07:05:05 -0800 (PST)
+Message-ID: <3a25cd59-e1cb-4bfc-b868-fb11599d22f5@suse.com>
+Date: Mon, 25 Nov 2024 16:05:03 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v7 0/7] x86emul: misc additions
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
+1: x86emul: support LKGS
+2: x86emul+VMX: support {RD,WR}MSRLIST
+3: x86emul: support USER_MSR instructions
+4: x86/cpu-policy: re-arrange no-VMX logic
+5: VMX: support USER_MSR
+6: x86emul: support MSR_IMM instructions
+7: x86emul: support non-SIMD MOVRS
 
-> +/// An IDL type. A type may be a primitive integer, a pointer to an IDL type,
-> +/// an array of IDL types or a struct composed of IDL types. Every integer must
-> +/// be aligned to its size.
-> +///
-> +/// FIXME: This enumerated type is recovered as-is from the `typ` field in the
-> +/// TOML files. Ideally, that representation should be more ergonomic and the
-> +/// parser instructed to deal with it.
-> +#[allow(clippy::missing_docs_in_private_items)]
-> +#[derive(Debug, serde::Deserialize, PartialEq)]
-> +#[serde(rename_all = "lowercase", tag = "tag", content = "args")]
-> +pub enum Typ {
-> +    Struct(String),
-> +    U8,
-> +    U16,
-> +    U32,
-> +    U64,
-> +    I8,
-> +    I16,
-> +    I32,
-> +    I64,
-> +    Ptr(Box<Typ>),
-> +    Array(Box<Typ>, usize),
-> +}
-> +
+Due to lack of specification the VMX counterpart for MSR_IMM is still
+missing (unlike USER_MSR).
 
-I think we can name it Type (it doesn't clash with a keyword actually)
-
-> +
-> +/// Deserialized form of a field within a hypercall struct (see [`StructDef`])
-> +#[derive(Debug, serde::Deserialize)]
-> +pub struct FieldDef {
-> +    /// Name of the field
-> +    pub name: String,
-> +    /// Description of what the field is for. This string is added as a comment
-> +    /// on top of the autogenerated field.
-> +    pub description: String,
-> +    /// Type of the field.
-> +    pub typ: Typ,
-> +}
-> +
-
-regarding this "typ" name, we can either use the "raw identifier" syntax 
-with r#type to have it "technically" named 'type' or use
-#[serde(rename = "type")]
-to have it named "type" during deserialization even if the field is 
-still "typ"
-
-Cheers
-Teddy
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Jan
 
