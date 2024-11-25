@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9446C9D88F6
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:16:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842798.1258488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3589D8902
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:19:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842834.1258507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFaod-0001QI-9G; Mon, 25 Nov 2024 15:15:55 +0000
+	id 1tFarh-0002uz-U3; Mon, 25 Nov 2024 15:19:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842798.1258488; Mon, 25 Nov 2024 15:15:55 +0000
+Received: by outflank-mailman (output) from mailman id 842834.1258507; Mon, 25 Nov 2024 15:19:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFaod-0001NX-4n; Mon, 25 Nov 2024 15:15:55 +0000
-Received: by outflank-mailman (input) for mailman id 842798;
- Mon, 25 Nov 2024 15:15:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tFarh-0002sr-RW; Mon, 25 Nov 2024 15:19:05 +0000
+Received: by outflank-mailman (input) for mailman id 842834;
+ Mon, 25 Nov 2024 15:19:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mqqh=SU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFaob-0001NF-UJ
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:15:53 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2819672f-ab40-11ef-a0cd-8be0dac302b0;
- Mon, 25 Nov 2024 16:15:51 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-434a1639637so5766675e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:15:51 -0800 (PST)
+ id 1tFarg-0002ed-2j
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:19:04 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9912bfbd-ab40-11ef-99a3-01e77a169b0f;
+ Mon, 25 Nov 2024 16:19:00 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43163667f0eso40907375e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:19:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43499bdfc0fsm73468575e9.19.2024.11.25.07.15.49
+ 5b1f17b1804b1-433cde98b4dsm132705555e9.43.2024.11.25.07.18.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Nov 2024 07:15:50 -0800 (PST)
+ Mon, 25 Nov 2024 07:18:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2819672f-ab40-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmUiLCJoZWxvIjoibWFpbC13bTEteDMyZS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjI4MTk2NzJmLWFiNDAtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTQ3NzUxLjI3NzUsInNlbmRlciI6ImpiZXVsaWNoQHN1c2UuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 9912bfbd-ab40-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmYiLCJoZWxvIjoibWFpbC13bTEteDMyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijk5MTJiZmJkLWFiNDAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTQ3OTQwLjgxNDM0MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732547751; x=1733152551; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6Rt7SMGZpWzGl0ygHzpmt9iX7x/9cyy3QYKd49U7x4A=;
-        b=Pgk1r2+qTEhIKSfo4KXN1fr0FkXYjrjh+4Nn7jcfpmzzciMHTg11yz+RQA5LKyaBNK
-         SarxrteHJgwUSR4MmpuEIrYQsyoiefTZW6Mzt7squpC80p/tzL4sYilKvv3GVjLNgEZo
-         bVtkZRwVa5ZM4JzByMJ5RPOacTWVVDs3rbUnVyhRoh3qVv7w4+DA3eyx/8aQNz/w9ddg
-         zFizeZ5gjbP/WMOeOfLZ/SVI/BT2my6Ba8MUSuE5MpYpKutnfEWDS9fhQns7Ij3mU3FV
-         IJkbIGOJGKiXs/DecOKIyH7FM1C2NA0A4KLQa5B+wK2IAWjx+LJVz/C5xpm0WX+ET6T5
-         SEYg==
+        d=suse.com; s=google; t=1732547940; x=1733152740; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Bbzl4+WdF2uCFxZFiU3I43axHjlGKuMk0FeLDNxovys=;
+        b=HffpTL2H8oENuruUV13AYX3TKdBdG8CieOEBiLTz5GiwEnz3kw9ZbWe3qG0K3gJ4jg
+         zFOr1Xrq4yloyNyMNpv5woSMBUVf1g8oPAGrwevoatd5HLl7vqgFsPsOZ38PwcCGOppa
+         mQbQXHr4mol8JGcgM4+2EKZSNPVrcf0yEXXMzILoK8Yb8hXdkGNIb8HjMKJnBQC180Bx
+         A57lu5nxI8e6sHwAA/3+ryGtHDR/uerQJCLYRLZRgenrSLQ/jr11wGOkcfoiupj9KYaF
+         gDnPNopHU2hTrT6bCRVtsXppFwqfvIziuWIn5gIQ6jpzrUQ6ufrx4b0b8wuxP7x4Qe6U
+         8VrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732547751; x=1733152551;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6Rt7SMGZpWzGl0ygHzpmt9iX7x/9cyy3QYKd49U7x4A=;
-        b=LSbQrAEBivm8yVc1/0kW1X5GHx99XzRMSTjW6bSH6PzUagh+XhMuuAJWKaV7sAIyNb
-         NfdZ7W6RD+FlFsgxEmlePT0Y2p0WBGEY8RI7rGLrt0vsTWjX0PAElnzIujmWIk71Dua9
-         4lt011vyI2z8FImxsXxFKmPsVgOnBW2bKt7e1+dzcy9L4z0yi30805aoBwVCMVPxWAU/
-         npfpCUh50Bycko1+i9Mj+/9CUp542yPiarUOGyLYeGi7uBASP0mk6D6bIcu1tTskJZv+
-         ZcylReXGP+j9Q7S0fK+ZTjFribPJ0N9Q6Eyi/Sephb0DrT/bZnZ1hh9FoOB7MI7fQOsf
-         DAlg==
-X-Gm-Message-State: AOJu0YykQ4ZoqZRsCYr15HZXmLUnB/y8A+yIUGF+SQsZrlSPncHjLwOH
-	XHfJbOCDfQGAOBYhXmxgsm9p5iLchFlo/jZ3EjS4scdO3VMQXlj8/ZREOHzhrseU1HGjCZ4qIJc
-	=
-X-Gm-Gg: ASbGnct8tYh0RRlKRf2jT83s5bizulms5hndZ/LxhMDRgokQ55BMFE91lxX9KWvspom
-	GOtpA4f2HA44kZ0Ytp7p6Gmg/Xz/YZzYe0wEsVGBCHWomP5rIAr0G0+HqIvOFaLQZwsVdyNjrKz
-	LfiI5G9AT1p5C+5P9QZ/1e4cnUg4sRG/bTrWodtQHOUk+UaKL9ZgJ9dcbEaIRv7j1fXrOuLA2Nc
-	IUgtIL5UcwE3tuRgkREoj2D3odwbInurETBa3zo/pBQVlpeFh6JtnAGkqIPbfC7ED4aY+9pUg53
-	jcELWJdGU+EpVi3eFBkpmNj7C86V5HkYTAo=
-X-Google-Smtp-Source: AGHT+IHIdwO1/kmBMbSzRc2tO32O71nDHVfl2hV7/GbvC6N2YVBcLBl0tlbMu0lm0aFGyeaEHjC9FQ==
-X-Received: by 2002:a05:600c:1d0f:b0:432:d735:cc73 with SMTP id 5b1f17b1804b1-433ce424ff9mr110023085e9.11.1732547750515;
-        Mon, 25 Nov 2024 07:15:50 -0800 (PST)
-Message-ID: <e995156e-c84a-426f-8d20-bebc8ccb3961@suse.com>
-Date: Mon, 25 Nov 2024 16:15:49 +0100
+        d=1e100.net; s=20230601; t=1732547940; x=1733152740;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Bbzl4+WdF2uCFxZFiU3I43axHjlGKuMk0FeLDNxovys=;
+        b=q/WcdMAHTPJQInZJcMT9lGSsCpJxu6fIh76FrsHq2qNuZwVCA++ApeGNKyp/gCMH0l
+         EqRIeRRvB97pyz4a1HG26hRkLcHB5Ly2CYI09YHyYMKfsdNkPqHdvi04/gTnkYTcNBGg
+         faA/Vwlej2iEJxFgedjQvx8aRCqa3PYj4DiFHLFtd8wUwlvwxC6jIf+Js/rQeuZaUkmv
+         m2XrHQBlemj2HK+h4Rd/g/FqH6FYM4W6yW+AqpDmyK6MNe2wf+T7tFCuL+03XdKah+8a
+         AqcdslHe67nMV4wkzfVuG2NZnKGpKlBn8GTgGAWf/boojO13Pmlrz2M01hCDEOMiC4vs
+         uh7A==
+X-Forwarded-Encrypted: i=1; AJvYcCU6himAwL8HlV3A846nn2ZLn5QxOv5eiQdElS96f2qKFCobTddOu2z40POW/521vZKqapjCwmezmbk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YziQEQXjjcIsx1ta5as4VBkuIh/QGPRzjyX9xfkO7S/rDEY+04/
+	mM6cXnrk6fSjLQwK8AEOP1fvMAXjjVc1pE8TQ2Y7H6E+vcz5RP0WK+YoZ/EC/g==
+X-Gm-Gg: ASbGncsG+jCHTQYA12p7t4vkVCKQ7IEZaA0tfkC29HrUDOcrzJRL6oiWV1pT0baGP/k
+	RiE6rcM2EFwLmXo+PFR/3T4UgIGcqX8iKDH9sbWCudpGvCRFbJae5Yupixi44KmA2tyFMK0gppV
+	4KPrNnag4QSWwOLRRUONuH9krlbgv7ruCrrNTHEYC4OV+FKo+wmA6B1XN3IL9H0jbajud4gunsI
+	fKZfSOj6j8gXI8m1guuSBa8t2Yvf5ycz+VmyhDn0tjq7tEG/bLyNSDl+fdZr2ZZEJrzgsHGXgDj
+	WtKhhIr3IitYn4VeDPVzxN4xBT27tm8hSM8=
+X-Google-Smtp-Source: AGHT+IFZSvI10ODL8rU+rszr/9jzKHlhkzvR+dY/mPY0TikooRIWjPIp8s0uT+OGSAmbtpMdNl0W7w==
+X-Received: by 2002:a05:600c:3d8d:b0:432:d82d:6a6c with SMTP id 5b1f17b1804b1-433ce4e74f4mr122093825e9.30.1732547940238;
+        Mon, 25 Nov 2024 07:19:00 -0800 (PST)
+Message-ID: <095d7f9b-ca64-4241-a268-ae481dec4535@suse.com>
+Date: Mon, 25 Nov 2024 16:18:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/2] libxl/ACPI: bound RSDP allocation
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>
-References: <7455ff48-4bbc-465c-baff-d5c0ff684dfd@suse.com>
+Subject: Re: [PATCH] x86/pv: don't populate the GDT/LDT L3 slot at domain
+ creation
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20241121171504.55383-1-roger.pau@citrix.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,59 +118,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7455ff48-4bbc-465c-baff-d5c0ff684dfd@suse.com>
+In-Reply-To: <20241121171504.55383-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-First instroduce a manifest constant, to avoid open-coding 64 in several
-places. Then use this constant to bound the allocation.
+On 21.11.2024 18:15, Roger Pau Monne wrote:
+> The current code in pv_domain_initialise() populates the L3 slot used for the
+> GDT/LDT, however that's not needed, since the create_perdomain_mapping() in
+> pv_create_gdt_ldt_l1tab() will already take care of allocating an L2 and
+> populating the L3 entry if not present.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Similarly bounding the info "page" allocation would be nice, but would
-require knowing libacpi's struct acpi_info size here.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---- a/tools/libs/light/libxl_x86_acpi.c
-+++ b/tools/libs/light/libxl_x86_acpi.c
-@@ -20,6 +20,8 @@
- 
-  /* Number of pages holding ACPI tables */
- #define NUM_ACPI_PAGES 16
-+/* Hard-coded size of RSDP */
-+#define RSDP_LEN 64
- #define ALIGN(p, a) (((p) + ((a) - 1)) & ~((a) - 1))
- 
- struct libxl_acpi_ctxt {
-@@ -177,7 +179,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     }
- 
-     /* These are all copied into guest memory, so use zero-ed memory. */
--    config.rsdp = (unsigned long)libxl__zalloc(gc, libxl_ctxt.page_size);
-+    config.rsdp = (unsigned long)libxl__zalloc(gc, RSDP_LEN);
-     config.infop = (unsigned long)libxl__zalloc(gc, libxl_ctxt.page_size);
-     /* Pages to hold ACPI tables */
-     libxl_ctxt.buf = libxl__zalloc(gc, NUM_ACPI_PAGES *
-@@ -204,18 +206,18 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-                       libxl_ctxt.guest_start) >> libxl_ctxt.page_shift;
- 
-     dom->acpi_modules[0].data = (void *)config.rsdp;
--    dom->acpi_modules[0].length = 64;
-+    dom->acpi_modules[0].length = RSDP_LEN;
-     /*
-      * Some Linux versions cannot properly process hvm_start_info.rsdp_paddr
-      * and so we need to put RSDP in location that can be discovered by ACPI's
--     * standard search method, in R-O BIOS memory (we chose last 64 bytes)
-+     * standard search method, in R-O BIOS memory (we chose last RSDP_LEN bytes)
-      */
-     if (strcmp(xc_dom_guest_os(dom), "linux") ||
-         xc_dom_feature_get(dom, XENFEAT_linux_rsdp_unrestricted))
-         dom->acpi_modules[0].guest_addr_out = ACPI_INFO_PHYSICAL_ADDRESS +
-             (1 + acpi_pages_num) * libxl_ctxt.page_size;
-     else
--        dom->acpi_modules[0].guest_addr_out = 0x100000 - 64;
-+        dom->acpi_modules[0].guest_addr_out = 0x100000 - RSDP_LEN;
- 
-     dom->acpi_modules[1].data = (void *)config.infop;
-     dom->acpi_modules[1].length = libxl_ctxt.page_size;
 
 
