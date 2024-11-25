@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 521E49D6BD8
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Nov 2024 23:46:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842275.1257696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC9AA9D7A6D
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 04:46:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842319.1257705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEysR-0008RK-6e; Sat, 23 Nov 2024 22:45:19 +0000
+	id 1tFQ27-0001ob-6A; Mon, 25 Nov 2024 03:45:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842275.1257696; Sat, 23 Nov 2024 22:45:19 +0000
+Received: by outflank-mailman (output) from mailman id 842319.1257705; Mon, 25 Nov 2024 03:45:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tEysR-0008Pr-34; Sat, 23 Nov 2024 22:45:19 +0000
-Received: by outflank-mailman (input) for mailman id 842275;
- Sat, 23 Nov 2024 22:45:17 +0000
+	id 1tFQ26-0001lY-W4; Mon, 25 Nov 2024 03:45:06 +0000
+Received: by outflank-mailman (input) for mailman id 842319;
+ Mon, 25 Nov 2024 03:45:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iYdR=SS=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1tEysO-0008Pk-UZ
- for xen-devel@lists.xenproject.org; Sat, 23 Nov 2024 22:45:17 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20616.outbound.protection.outlook.com
- [2a01:111:f403:2415::616])
+ <SRS0=rOK8=SU=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1tFQ25-0001lS-GZ
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 03:45:05 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20629.outbound.protection.outlook.com
+ [2a01:111:f403:2009::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9955056a-a9ec-11ef-a0cc-8be0dac302b0;
- Sat, 23 Nov 2024 23:45:12 +0100 (CET)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by SA3PR12MB7952.namprd12.prod.outlook.com (2603:10b6:806:316::6)
+ id a3425bf9-aadf-11ef-a0cc-8be0dac302b0;
+ Mon, 25 Nov 2024 04:44:58 +0100 (CET)
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
+ by PH0PR12MB8032.namprd12.prod.outlook.com (2603:10b6:510:26f::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.18; Sat, 23 Nov
- 2024 22:45:07 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8158.021; Sat, 23 Nov 2024
- 22:45:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.20; Mon, 25 Nov
+ 2024 03:44:52 +0000
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::b77f:9333:3a5a:d285]) by BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::b77f:9333:3a5a:d285%3]) with mapi id 15.20.8182.019; Mon, 25 Nov 2024
+ 03:44:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,156 +47,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9955056a-a9ec-11ef-a0cc-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxNTo6NjE2IiwiaGVsbyI6Ik5BTTExLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6Ijk5NTUwNTZhLWE5ZWMtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNDAxOTEyLjQ2MTU0OCwic2VuZGVyIjoiYXlhbi5rdW1hci5oYWxkZXJAYW1kLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: a3425bf9-aadf-11ef-a0cc-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjAwOTo6NjI5IiwiaGVsbyI6Ik5BTTEwLUJONy1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImEzNDI1YmY5LWFhZGYtMTFlZi1hMGNjLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTA2Mjk4LjE4NTgxMSwic2VuZGVyIjoiamlxaWFuLmNoZW5AYW1kLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h9LgAiHnG4jtGtRH+iKa3uJGm6jItq030xwuRvbwtxval6AqJIreQhTMvcSEOA2oUJC3uoPoAVfMoR+Ricl8v7/TxqsNMzGLANW70UkghLx7LWrhR0LGgw4bpK95n4Rb5pt5/U1GVhq94a9XWWQcqSmmCPqRtf1aU8PV1xxdddlHHRwxjFoIFbV/TmU9ubOpN1z1iY7O7VWaQBSIHzLcdxQ8XTvmofeQme+oP+eN1yj17lE/ONvtQUnzR58J1uC285UyoBwAeuYr7ufucFVIOWamq8dAhcSWiqyoZILBRv5jPFN18pbac9tZ8/Jy25aKYoPsz5i9E4lbfSEBYA1ttA==
+ b=dHD0PdW+GpW3qhJx1nPCYgaWjsY3tT3E7wXHIGrlyZ4YWVUSimAbGo+VyMhyNmejYWsKOidS5PJyLDww5O6OdKcUid/hVdtax3JYUMhf5eMrKBTyW/G3Hzv3lrHcHRXtEgNtb9ihrVBPTYWYsZEVddmrvM7MsuY+BiSRJ+gL5q5NSgpRORjvBL1MozZ9mBJIlsLRj+U8F8a2z8js7i26Edo3jm4eTKjaytj/i8gyj+IodxciDBiu+8+zhkhek1z9d8pwvppCteD0pBRnwVHz9tdWkSt2Y/u6+2jVuiiAcUzrEfYHAEQxc5MHMGwSVaxUdH2pDB6nF3XpRjNYFUHACA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DIsUFxLWVgrt9rFh1IDI86ze+7+xzkVzf2F9JNyc0xw=;
- b=NSvBjwW06LjgR2Ec9qip9+AYX5gopxNIwOz1QPIuX1aJICtKWlw9/ss8at8lFDwX1t1aZBkqtswqxqClXLTACAGzTBbqOxYA6X7dxyox364kn9jI6z8MWfGvQpLBVszyhN45lMJUlTkgInAStxs26iTveqOnYUCUSfw+sQoEJrE3hw1Lxlqq+LY+LcAAOR2em86OGVW53cAc27q3qfG9oc2JncU6bYo3R1wgr8cVhB6R2Yoz8+umLgkJ8NR22swkk4chQma8KtGMwPW6ONwR/N/ffNyZAf+bDxsou8QZ30R6q74ly1zEKAl7nxNactLeflJJ6CKSH+ntTOCy2hPnmQ==
+ bh=kUDaNk2JcwCEVOf8M2jImzF0xKE5N8uU/OBY+gCzBoc=;
+ b=xUpUHDvgZaryYxhBqbP767o+jJD4WlHRL0C9y4pUCdSCIs6U/jwH3NnRnRxE9MMqyLrpaSVR9pXJ0zz+DlBEZ0CTXz7da65l+n1ytqZPyvMf9pMkNJ57fj0gD3FgmzukdCAv6Jv+ww2iJKrPkEfUzqdxedtswt+7hc+aPquupMCkVQ9j+aPufxbq6x1tp1J9MDwr7T+GsBoA01zg/QOAu23eEdhwZkhlgNBqxHqmIkVEzGj9XwpL43z+XsMRsvZvTvTfgxODUeybCfRxKPYxNjgfdZSVqOW82kaVrY8Y2bjP4dY1513bOEGqVaH2mkDLLY7PmhnhwC81qCUNc7ReoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DIsUFxLWVgrt9rFh1IDI86ze+7+xzkVzf2F9JNyc0xw=;
- b=fHyBcHs9cltxwizFDTZ0mLtJ5J0BoVYnBQbU7LSBQC6HBQQp6etzjeajzbfWA1mT8J7xXN/cOLYqtUyMKaRARlVSbgmiAzidOv7DF+1pTidMUh1ikFJCuur4rKpjO3f0bjBwCu5+XS/4lxVeE4eXbbXiKEEyfq96l9cW2tRlg5s=
-Authentication-Results: dkim=none (message not signed)
+ bh=kUDaNk2JcwCEVOf8M2jImzF0xKE5N8uU/OBY+gCzBoc=;
+ b=bOMup2WqUQxgKPAheYxx2qZBOrfCOAatKM7dlyj7NvRHEhHdeRSbgVRexlvYdQ0XnaWf6BcOewHA0bFfBkFI5RGkFyFgT2LWmPAg0rLjmlDozHhh5m/vqw41wmg5POk7iMGIGkTMHv+yIbLoe321dVZnsVT6FuQOrqsVQW5Yvbc=
+From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+To: =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Chen,
+ Jiqian" <Jiqian.Chen@amd.com>
+Subject: Re: [PATCH] vpci: Add resizable bar support
+Thread-Topic: [PATCH] vpci: Add resizable bar support
+Thread-Index:
+ AQHbNaIlMxf8mJcywkeNRFmHEai1qbK08gcAgACKfwD//4ZQAIABzRcAgAAfLACAAB0/gIABIxcAgAAMOoCABNwTAIABfwWAgAFxTQD//+JeAIABss4A///tiAAAzKybgA==
+Date: Mon, 25 Nov 2024 03:44:52 +0000
+Message-ID:
+ <BL1PR12MB584977971D2C0A00443A1A79E72E2@BL1PR12MB5849.namprd12.prod.outlook.com>
+References:
+ <BL1PR12MB5849F0606930076AC8CC66ADE75B2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzYcskZ-GZ8HsXfU@macbook> <ZzY1O-zrcWB6Ra3q@macbook>
+ <BL1PR12MB5849FC8077C7C6035F1D3E15E7242@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzczqznFbixk3Vfu@macbook>
+ <BL1PR12MB5849894360DB8D96073AB21EE7272@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzyIk0KipX8LPZNv@macbook>
+ <BL1PR12MB5849FC514034CDFC2F68BA6FE7212@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz2lgkjgRoZ7Sr5Q@macbook>
+ <BL1PR12MB5849F5382CF3A03C080C4CA4E7222@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz8Cwj3KJ1BIBEg_@macbook>
+In-Reply-To: <Zz8Cwj3KJ1BIBEg_@macbook>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-imapappendstamp: BL1PR12MB5849.namprd12.prod.outlook.com
+ (15.20.8182.018)
+authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <0b58ff6d-e3ed-43dd-8700-83fe989b5d7f@amd.com>
-Date: Sun, 24 Nov 2024 02:44:58 +0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/sphinx: Fix FUSA indexing
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-References: <20241122164908.3240056-1-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20241122164908.3240056-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PNYP287CA0047.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23e::24) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|PH0PR12MB8032:EE_
+x-ms-office365-filtering-correlation-id: 2acd737c-69d1-4791-051d-08dd0d038541
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?fekoFvrS0NZ5YNVSurcZ3o13BeaAVoEshZF3CCvwzKdcAbgbiFNFFWgUAF?=
+ =?iso-8859-1?Q?4USeKwDQR19X8UOWVwe31YvHO2+NZSCascDMqyu0U8HmiKbiC05VOAivq3?=
+ =?iso-8859-1?Q?w75eZlkQRC/ecGDcFWT7uyZ31NkvLFlcakJQuc86Xw3hEr8j/hmMlh6iiR?=
+ =?iso-8859-1?Q?qSo2Ax9s2v7hT+oTrt/W39Xrj2QNZHBNcwHeoUPgmiGnh8/CX2UOs5x436?=
+ =?iso-8859-1?Q?Z2dTdP5Zpt+b7WFg2557bP5Vydkk9SOQAk1sp/p1Ton8CDYnOJxhfAEeqb?=
+ =?iso-8859-1?Q?isCARW+EKHjQw/IkNPXo48sy1itoCAu12zBbUG0gjhrwm+vHtxzna8gCJc?=
+ =?iso-8859-1?Q?AqlSgSmuLiGYiHtu7vHMuc62PmboTwBcUHRHRWb2QmSgzb/X3RO7AY+ks+?=
+ =?iso-8859-1?Q?7vyer+fKNMeJSXUTZ+sU9izRqGlQqFENFqtSciuzhv0sySgLeWfREtvq1d?=
+ =?iso-8859-1?Q?Xdy+XdA1A2qy/7CHynb82RSdnpI6MI9hg70w/Dg/lxJuTAR25E0eObC7sQ?=
+ =?iso-8859-1?Q?8Ipiq25GAEAlUT2tAZblt8RBctYu+nitfoa6nbMsQHQbrAQV2sWPTS3SP7?=
+ =?iso-8859-1?Q?lnfnG8pfZxvbIkZc2mZfK7YwrNt00wF0F5n+u7u1bUKxAhswN2MzgbvvWP?=
+ =?iso-8859-1?Q?GPhcUkvG1b2hFWyJHdo58iIPonC8x/fazEIhxyAY7dWqA+I0XcU5W0UwqO?=
+ =?iso-8859-1?Q?5HGDjSevHq9BqT/fzZg54PqarXZkaEI4nZoSGwNsFDRcL5E5YeeEUSgS91?=
+ =?iso-8859-1?Q?Mh1VEWC43W69R3OpW2qcvU2L2eIJFUjvhFPHO/nmPt+nodwBeOkCTi9NAZ?=
+ =?iso-8859-1?Q?qWqArV0LsJAcmBb49gdymLTk7TsNPIULzl9uY4f/BDFYRoGPgSCVb+lEIK?=
+ =?iso-8859-1?Q?/tBUM0bsS0exjnRzZemJV1l1+CjGkfOfZxdOxqWN+0edxgAlwA2b+cLDcC?=
+ =?iso-8859-1?Q?h05qdzhoiwqzsywkrrdnCTprdwpD8ubc/tEUGeRtCxTwkoEs2oDcmeQx11?=
+ =?iso-8859-1?Q?u6YFBeQM3Cpa3a/VERmDvxn1T5/GJH4HByffkIQB/fG9oHgXZ5w/H5CScy?=
+ =?iso-8859-1?Q?gajBqJZFA5o48v0+vqp5gCWfOYgwBB/xf5dFSD79fhgzIDotWVAiRuNIwq?=
+ =?iso-8859-1?Q?mCWLvrTXY6IitW/PlQvPpcq8qAFNkaU8UFMZMiJb3185lgMGuRA1BlBXFv?=
+ =?iso-8859-1?Q?ymy6SMJEiotr45xErGCuNT4R6pyKyqtTHomvErpbpvgRk6ayklswLTjLgm?=
+ =?iso-8859-1?Q?qkusPS8ef+pVzpLbO+YP+gWLaInt3r9j3nDKcl8d2wvQ/g8NvB6YUV9dT9?=
+ =?iso-8859-1?Q?yf9fsZMoNh0pwiuf2ME5XWeZaPlCNZKSvSj91i0R4ImxqJVBxQxjimNS5S?=
+ =?iso-8859-1?Q?iJTfJS80ARGg86972/ce/xVY2JgScx3asuG38dypH7LQjU56k+Mxh9gd2s?=
+ =?iso-8859-1?Q?l8gA0S9fMu1HDGVHtdqFweTRfNQSKsfxubsgzg=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?2ZyhdR4qmxQ+jQ0LmeuLv0n8LwCHNWcX3wNRMjJ7XEOzPB3pJ7yOx4z834?=
+ =?iso-8859-1?Q?nzcFW+zzuXjd9H/bJ500h6tI7FrdirTpz+HsM9qDhJveoTvHkpzPgv0Rw4?=
+ =?iso-8859-1?Q?cxS3RKqHpMKNzh2kutSdKDS6KfKIyqSUsHyS53HxmRdBaDqGnXZDNmgKNU?=
+ =?iso-8859-1?Q?nf7kivIK+vLMIk9yCFh5ZYG/5kv9v43w4tihpnb0qZu1V4wl9JrBc4U4VZ?=
+ =?iso-8859-1?Q?m+e8A9DDOHl02eynZsvohq/lP00VgZdNzUAZn2J2mCVtFYi+rVVIm6JYnT?=
+ =?iso-8859-1?Q?JhrPA8M4j0JxVYpmkzEjfc93RDY8jwBX6p8suK5j3f95+QatgvKwqlwxlt?=
+ =?iso-8859-1?Q?Lo/iPcQSRd9MUBIyo1Wl3EpUD2sylyswqZRXMtJEnjdCQPNGWa783Pxd0b?=
+ =?iso-8859-1?Q?/HyvMMUR8np6gjyX9x6WCFKenz13/fBvrzLpSb9EFsMQ3X+L0uTi22HWvD?=
+ =?iso-8859-1?Q?pAtnn9hl3SqA10YRr/d7+mmOfxOGUIJO5hfGA7mXtqrt5l5KTMQESWGt86?=
+ =?iso-8859-1?Q?OqbyKU0DjLxWb7GuIqtaJyrd1JYXO3fm4bh+kMnjLps8NmkPQqwz001aJF?=
+ =?iso-8859-1?Q?UoccpFxpyNGmCJjH6R3z0koxBVoGvDdPXU06Q9Yn1VybJGa1T8rAXqiOxt?=
+ =?iso-8859-1?Q?l2xccT2q6VZ2ifbx7SR7nwECQacbsy+e3otDwmFq2BtTMgKlGwx0tvcaNn?=
+ =?iso-8859-1?Q?HnKvbfqhgnBlMgiMc+TN2oA3C/kOKRNKvMij9ImaZ+nkBI80FB/Gyh8eGC?=
+ =?iso-8859-1?Q?UxU88qEmHKxelN4lOnBmQoGU0i0ubcn5MmnDf6nCELSQnCigLFTUoD20lk?=
+ =?iso-8859-1?Q?G7L8Vbi2l6Mv7XMxq4c8epNnavTqlBks7l5P9+1OYTweSi9UKru5pFECtj?=
+ =?iso-8859-1?Q?NYkeF2+AhQbFRTln9p4g/i4I2xv2OT85OFOOopG2a6Vi4kwgyKIQhWsvcv?=
+ =?iso-8859-1?Q?vcwy2kbfSKzuaHBuK0rF1soIPtbc4nRMZ+GnD7qlUW06PkFAhBe8EY0/C9?=
+ =?iso-8859-1?Q?HJ4VAn4aBN9PAf5ftfkXF/zLkgZEhSVxHach0Q93dWqCyh/rtENfD2YzCU?=
+ =?iso-8859-1?Q?IyJm3An6LHAqlmquHwh6KK8SIlg+rIYDtghBKRwNdnQ7FNFQ9kbAAr4NVc?=
+ =?iso-8859-1?Q?rw685SnYHB1fGStoTYzmCcOsHi+a2hNlPfbiI8Qlu6i3xJBeihopXD/LMq?=
+ =?iso-8859-1?Q?T2ykMHMhXHETmjbgsQS6j7iyXBE8OWUl45PpCohKbLaBwtGN08iJ1+uKPe?=
+ =?iso-8859-1?Q?6KZWANG4ifBHhFR6b/FWiEofXLCegNK03ESols3nBmT0PglATpwyKZd0e1?=
+ =?iso-8859-1?Q?3S4YzUb3RP4jjrQ9j4C6kr9W9ADvmvdPYb50uAOIWDqNDx+rwGgIvDJxcF?=
+ =?iso-8859-1?Q?tH528GjsCtXYTIbf7IwAVarRIg0JLPot3j/WoWjjVYedb2BU4raF8NH/L8?=
+ =?iso-8859-1?Q?rXF6KZQnVDsk8lj3qFQnHA/jEw7/hBOhlvOXpQ24AAUVD+uYrxsVmZ2M8B?=
+ =?iso-8859-1?Q?tCXFWnslokytKTRhuVckW8kR4BrLCgJXF96HdwBGHuYtTKMXG1NRGcarBF?=
+ =?iso-8859-1?Q?yKfbCNFnBhPI/K6C6zey6VsJuynSskEyrNmp06xM0QXeDEG8n4gPJv/7YF?=
+ =?iso-8859-1?Q?exMHxNiPFPhKM=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <306478791964E344A7D8AC1881E8A571@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|SA3PR12MB7952:EE_
-X-MS-Office365-Filtering-Correlation-Id: 286f6f8a-a5fc-4bec-9dad-08dd0c107a7d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?c0xVUHN3M3BjZWNWaGQxaFkvdzlwV095QmkwQTZWMmRzUm45QWs3L2lBS1pG?=
- =?utf-8?B?UWlZU0h4REhXelZhUlpiTld2QU54MjFpQjdUSWRxM3QvZ2szOUdWTGY4SndZ?=
- =?utf-8?B?NkxIUC83Nks2cElZYkFhbkt0WXpEQnZ5cnFpNEx3VmU5K09pbVprRDZSUUdq?=
- =?utf-8?B?dFZBbi84OUcxeENDaHVPRVZ2ajVTTXVUS0hXaGQyMVdaeUNLNXZSc25WUVNN?=
- =?utf-8?B?NTE3ZHI1NStpdHZQNmVkQ0ZpUkJscXpQc1d2cjZ5YUc4Z1hkNkFhcFNRQ2FU?=
- =?utf-8?B?UzlYMjBNZXJ6QmlMT1RkNlArZWU5SVdrYnp3U3AvWGdud0dPUlN6QU5YWS8v?=
- =?utf-8?B?Z3pzdE5NZGlwNVZFSThwcCsyNHhNQmU2bksxcHdtOW9Zbjc4dTVmWjExYXVL?=
- =?utf-8?B?eGVaMi9LckZrN2JxWVdUNGh3eERTTllxazZMa3BMdEkvWEEyWjA3QUhHMytV?=
- =?utf-8?B?Y0tZQlZhSW1sZGVnR3k5SXlvdUE4NEhiWkxHdnIvWWx1bWU0SFRNWXFGTjk4?=
- =?utf-8?B?TElGYkdzZ0xlWUtveDJUK0tSNDVZM2NocFBlMnQzdExDZndVRGF2YzBFcWY3?=
- =?utf-8?B?Uk1TMk84bVdnZjMrNXFBSGFHRkQzYjJYeDdJTzRpZE0xckw0K2tUbDZ2TUVx?=
- =?utf-8?B?VG4zK0EwK0d0MnR5NS9Ma0RzRXhTdEl3REtTTGNYNmQ2UlNDeHlVQitNVHJx?=
- =?utf-8?B?bXhjWStJM1ZJaVNZanV3TkVKTk1lN0wxN2pNVWlGVDR0d3BWbVRsdFAxS0pE?=
- =?utf-8?B?OVkyWTEvbFRZSEtFUVc2MzRBeXR2ODljS1BETUs4RVNjMFNQbGJXZHd5bmZr?=
- =?utf-8?B?czBoQmlzUkVTNWh1OXVGNzdCYUl4VmtoYjdHQnVxeHRyNjVKMlhQQmw3TmNH?=
- =?utf-8?B?R204eU9GTkNnZEYvclNzczFwZDB4cE1NMmp4SXA2aTVCTWpLSDdyOXdPcWZP?=
- =?utf-8?B?eDQ2VG5IYzlnVDg4aXQ1MlpDL1hGWDdrMDQzVkE5QjlWbi9oaGM1SkxsRnNt?=
- =?utf-8?B?UXo0V0lzRkxwMEIvemlrayt5c0pZOVB4enlaR0JrVHdCazhCZjhXVGhGaEEr?=
- =?utf-8?B?SmVyd0ZrUW1pYXVXZXBxMEE0czBwaDZ5MEFOOHU4RHJiMEVwR040OFNpN21R?=
- =?utf-8?B?b0hlSzRQQTlzM094OC90MmVYZDczVE42dTZ5d1ByQ2JQOGlveWRBd0p0dDA1?=
- =?utf-8?B?cmVEV3JkVkVaSVpkZlc2WFA4MWxibjRwc1A2VlJVU2pSTmZUK0NrOXMwQ2sr?=
- =?utf-8?B?a1VyREhheWFmbVdIZmROOGl4WW1USFRoKzRkZ0JYVkVzUk9id2hYUmZJOXlW?=
- =?utf-8?B?MHNrSTRSVmJyL1FrZExpMjZ4aFZtWW5nRTl5elpoYy9jTnlEUWRYVXl4ZEd2?=
- =?utf-8?B?SVJEaC93Q01XQ2VJeVdzOVRIUFEvU1N6VmZJSGRZbEZIVHlqam05ZFJuMmIr?=
- =?utf-8?B?ckZjUHVyL0cxOUkrd3pubGw5Zldwc3FuSkhtYkNDTDBCRVlNMWVJMHlyeS9W?=
- =?utf-8?B?eEF2NG5JY1VXU2RYU1M0RlRkc2ZmSytpZW5nWTR5N2ZUTk05VHd0eE9kZ3JI?=
- =?utf-8?B?aitKcURkMlRta25EWWE5bGdoS2tEekgvN0xpZDhqNzVTd0s0VzZIbERBaVp2?=
- =?utf-8?B?WmZaWlBHSnYwK2JDZC9QNFpUMmhpM0dsSWMyRzVaZ1JMcENjN1M0UmNpRXd1?=
- =?utf-8?B?OVVRRERWNnlPb1MrREFLRUR0cUkwYVF6Q0VMbm80RzY3R1I2V0o2SDhVUmJm?=
- =?utf-8?B?aE9QbStsbXR1eW9RcTBPb1owMjY3c0VsejZuTkdsZ0dOaW1xZWhoQ3F6ZERj?=
- =?utf-8?B?RnZ1TUZjWGJTK2V1YkpxQT09?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZzRFK05qcldNQS9acjBxcHpGcWp0YW1LYUJLK3oxdFZwVmxIL2cvcFNRaVpl?=
- =?utf-8?B?M3lmbm5pR2x3cG9nNUVpc2pCdVFRWnF5YWwrYlZmTFZnU01oU3ZneHhJRUE5?=
- =?utf-8?B?TTU2UTM3MTVWOEViaFdhcTA5aUthOTAxTHFHNGpYeGVOclM4UTJHMHVrdUN5?=
- =?utf-8?B?SldqazUycFJnQk1KUVZ4a2lhOUhHOFNKYVNDUTc3bG5pcEdrdVZSVEhJZFdu?=
- =?utf-8?B?STZhUFU5VE01ZGM5Y3BCaHk2UjdWcXMyZ0x5eHRHcDVkcE5kWDRnQ1NBUkhD?=
- =?utf-8?B?S3EzQ1JaWGdINGpZTzlsMzVRdG1iUGsyclZMVHY2SEM3MFkveDVsV2h3Z3FP?=
- =?utf-8?B?a0dRKzlzbFNyVUs5VVBheVdQTE9FZ1AzOENoblRMWEVNKzNoUi9UNmRyc3Zv?=
- =?utf-8?B?b3hjVEJES25PczViU3k2UXMxZGwyb29uRU5XMkdhZCs4UjZXWFY2TS9YY0hq?=
- =?utf-8?B?NkxTZU1OZXhYQTRHMnc4NElpVlFuc3dzNWNIYnhxU2hvc3JBdUMrMnJLSG45?=
- =?utf-8?B?T01SamhldjlkblhNRGRqVjdPU2MrS2tFeUU0dmFkZWpjVEhZMVgreWRSeCt0?=
- =?utf-8?B?MFJlUTJNbHI1YURVclFJNSs3dktnckpOREViQWRmWHo5U3VlRlE4UVZHZ3Vo?=
- =?utf-8?B?Q05hbFBMMG84WWZuT3JXSlJPMHBOWUdhbmwzNzVzclhLdCs2aUJOeGVOR1h3?=
- =?utf-8?B?bGo5L2FGQ010QVFGSnIzN3NQL1NyMXZwM0UzbEdod1Z6QXJublg5QWpkR2pC?=
- =?utf-8?B?dEdhSFBNc1BHRWFxL1dBQVZDYTd0WU5EVTAyZG1RWUJxa2ZPNEFacXpDVjgx?=
- =?utf-8?B?MTM1SllFclk1UlpRL1hvNlBFblNOTnAxZWdIYUdhcXBsd1l4NGlLNC80bzUw?=
- =?utf-8?B?K3VscENYVFBsRzBBemVjYjlocFZLL0hiQmVVK2J2ckUyRWdKQnZ0RVJkSW45?=
- =?utf-8?B?dzAyNzVwdHo2OS9qZFRJVVpLV3NhY3dxdlJBbCtscDBxejJqOU9ZVmUxSGpi?=
- =?utf-8?B?YUFBYlBhbnVyYyt0K2QwM1I2MHNSUklrdUxyWkRFWnRYS3A5SEx0RUExOFVE?=
- =?utf-8?B?SExVUm1aWk44d1Bqck1lQlVjSys3VnV6U3NCNGhPaFFVbnR6VjlFTkRwS0hK?=
- =?utf-8?B?dFNwUzhCNURTODh0aU5JakdIbWNONDNHeGt6U1dLVjNQeHlIeHl1dmQ3c3FS?=
- =?utf-8?B?ZkNOZ1Q2NGdtYVhCK3oyVEV2ckxnQjVZTVpDaGk5MU9FNEpqZzN5S3RnaWRU?=
- =?utf-8?B?MDhsMkRTZzdmRlZpZHA2b0d1UFpxYTJBaE5EZ0FxWFhmM2VQK0I4eDdDVXVG?=
- =?utf-8?B?a2VlNGxTejJWQU13RE14TW1qM0ZxQWJ0MGJFbFVtKzk4WFNEOG94blRRRk9r?=
- =?utf-8?B?c0NsWFBzaVY5K2xBL1E2Ymk2dmllQnF6ZTJIV0N3VGR2Q093S3ZqUFh4TS9p?=
- =?utf-8?B?TGhSQ25CbkZQZ2xRSk9HaDlFVWdYdEF0cWNidlYzamMvNk03b3p2ZFExeFFa?=
- =?utf-8?B?eTMxL3hJdGU5ajluWFloVUtSaGY4bU9IN1psK0JhK1N3b2t4ZU1FRDdZWkNn?=
- =?utf-8?B?bW9EUHJnRDNKQldzOExSWXRxUk5OMGZQKzdqMU10YnBvSW15VHJId0MxZTNI?=
- =?utf-8?B?dlBWTjh3NVJkTHJNRzFzQ3YyOERlamNFRmpHR3BBRGxuSHY1cW12SWdmOWNm?=
- =?utf-8?B?dFFwdzZ4ZGZhc0Q3UFl3ZWVUSFpIYjNiRW5SaktNRDdvTGI1d2Mrb1dYOEE0?=
- =?utf-8?B?KzVUaGFvWFpzNjRpS01nUW8zdDZOL2kyb2ZOMHRGeWVWSk5BdGkrZTY3Y1Rn?=
- =?utf-8?B?enFXaVJSNEIvWE1lNUhueHp6L2tBYllZdWUyV0YvUG5ZdzQwaHlFQUZKbnRE?=
- =?utf-8?B?bGd4bDlXVFpGbHVMR3puYzlGTUdZVmlRSXladSttTXlnRXZqYWNiL1NCK2V1?=
- =?utf-8?B?VnM3bmpSLzhMb2JVRlQ5YUNqUWY3QWhqYzdIMzc3dDNaMGdVZHlZNVV3ZXVq?=
- =?utf-8?B?NjExTUZnbmtCMTF6TGZEVFk0WStlLzJwSEFKWEZlWG9UcTJvaWt1SFlETFZk?=
- =?utf-8?B?cVJsVVV2ejgzV3o4bmZnM1JHNGt2NmZ0SWZGRFZOS0JFNzdmdzMrb2pBeU9L?=
- =?utf-8?Q?++/FFCodxhN36Bty1mIyenbUX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 286f6f8a-a5fc-4bec-9dad-08dd0c107a7d
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2024 22:45:07.4148
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2acd737c-69d1-4791-051d-08dd0d038541
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Nov 2024 03:44:52.8031
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9dYCEwFEY+8ALDjBUWbAjSy7i/q3fkbudmmabmMVJ+dvleN/98i1cUbSSbfpyntmV0CH9jMAmQisQ3Gqhph3Fg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7952
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: XErXOlioSnLA67lwaIBabrQVPLHrgYYgGKYvaqKLD9Z22FLm+8BKhp39tCLgiMieQQPnARS6aJfArnYAw1R3zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8032
 
+On 2024/11/21 17:52, Roger Pau Monn=E9 wrote:
+> On Thu, Nov 21, 2024 at 03:05:14AM +0000, Chen, Jiqian wrote:
+>> On 2024/11/20 17:01, Roger Pau Monn=E9 wrote:
+>>> On Wed, Nov 20, 2024 at 03:01:57AM +0000, Chen, Jiqian wrote:
+>>>> The only difference between our methods is the timing of updating the =
+size.
+>>>> Yours is later than mine because you updated the size when the driver =
+re-enabled memory decoding, while I updated the size in time when driver re=
+size it.
+>>>
+>>> Indeed, my last guess is the stale cached size is somehow used in my
+>>> approach, and that leads to the failures.  One last (possibly dummy?)
+>>> thing to try might be to use your patch to detect writes to the resize
+>>> control register, but update the BAR sizes in modify_bars(), while
+>>> keeping the traces of when the operations happen.
+>>>
+>> This can work, combine our method, use my patch to detect and write the =
+size into hardware register, and use your patch to update bar[i].size in mo=
+dify_bars().
+>> Attached the combined patch and the xl dmesg.
+>=20
+> This is even weirder, so the attached patch works fine?  The only
+> difference with my proposal is that you trap the CTRL registers, but
+> the sizing is still done in modify_bars().
+>=20
+> What happens if (based on the attached patch) you change
+> rebar_ctrl_write() to:
+>=20
+> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+>                                       unsigned int reg,
+>                                       uint32_t val,
+>                                       void *data)
+> {
+>     pci_conf_write32(pdev->sbdf, reg, val);
+> }
+>=20
+If I change rebar_ctrl_write() to:
+static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+                                      unsigned int reg,
+                                      uint32_t val,
+                                      void *data)
+{
+    printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, r=
+eg, val);
+    pci_conf_write32(pdev->sbdf, reg, val);
+}
 
-On 22/11/2024 20:49, Andrew Cooper wrote:
-> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
->
->
-> Sphinx complains:
->
->    docs/fusa/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs'
->    docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/market-reqs'
->    docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/product-reqs'
->    docs/fusa/reqs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'fusa/reqs/design-reqs/arm64'
->
->    docs/fusa/index.rst: WARNING: document isn't included in any toctree
->    docs/fusa/reqs/design-reqs/arm64/generic-timer.rst: WARNING: document isn't included in any toctree
->    docs/fusa/reqs/design-reqs/arm64/sbsa-uart.rst: WARNING: document isn't included in any toctree
->    docs/fusa/reqs/index.rst: WARNING: document isn't included in any toctree
->    docs/fusa/reqs/market-reqs/reqs.rst: WARNING: document isn't included in any toctree
->    docs/fusa/reqs/product-reqs/arm64/reqs.rst: WARNING: document isn't included in any toctree
->
-> Fix the toctrees.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I can see three time prints, it can't work.
+(XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+(XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+(XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 528, val 102
 
-Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+If I change rebar_ctrl_write() to:
+static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+                                      unsigned int reg,
+                                      uint32_t val,
+                                      void *data)
+{
+    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+        return;
+    printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, r=
+eg, val);
+    pci_conf_write32(pdev->sbdf, reg, val);
+}=20
 
+I can only see one time print:
+(XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+
+The check prevented the two times incorrect write actions.
+    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+        return;
+
+And why my original patch can work too, the check:
++    ctrl =3D pci_conf_read32(pdev->sbdf, reg);
++    if ( ctrl =3D=3D val )
++        return;
+happened to play the same role as PCI_COMMAND_MEMORY check.
+
+> Thanks, Roger.
+
+--=20
+Best regards,
+Jiqian Chen.
 
