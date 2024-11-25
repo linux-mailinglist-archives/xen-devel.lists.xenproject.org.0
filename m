@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D99479D89B0
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:50:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.842872.1258538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 577B09D89C2
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 16:54:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.842880.1258547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFbLi-00026s-PY; Mon, 25 Nov 2024 15:50:06 +0000
+	id 1tFbQ3-0003PO-8D; Mon, 25 Nov 2024 15:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 842872.1258538; Mon, 25 Nov 2024 15:50:06 +0000
+Received: by outflank-mailman (output) from mailman id 842880.1258547; Mon, 25 Nov 2024 15:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFbLi-00025M-LM; Mon, 25 Nov 2024 15:50:06 +0000
-Received: by outflank-mailman (input) for mailman id 842872;
- Mon, 25 Nov 2024 15:50:05 +0000
+	id 1tFbQ3-0003NW-5Z; Mon, 25 Nov 2024 15:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 842880;
+ Mon, 25 Nov 2024 15:54:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mqqh=SU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFbLh-0001t1-9h
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:50:05 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1tFbQ1-0003NQ-V4
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 15:54:33 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ee247df9-ab44-11ef-99a3-01e77a169b0f;
- Mon, 25 Nov 2024 16:50:01 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-382610c7116so2291048f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:50:01 -0800 (PST)
+ id 8e38f3a1-ab45-11ef-99a3-01e77a169b0f;
+ Mon, 25 Nov 2024 16:54:30 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43497839b80so14947365e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 07:54:30 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fbedeb3sm10604401f8f.95.2024.11.25.07.50.00
+ 5b1f17b1804b1-4349496abe1sm79614585e9.11.2024.11.25.07.54.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Nov 2024 07:50:00 -0800 (PST)
+ Mon, 25 Nov 2024 07:54:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee247df9-ab44-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmEiLCJoZWxvIjoibWFpbC13cjEteDQyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImVlMjQ3ZGY5LWFiNDQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTQ5ODAxLjUyNjc0Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 8e38f3a1-ab45-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjhlMzhmM2ExLWFiNDUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTUwMDcwLjE1MTgzOSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732549801; x=1733154601; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NcMFGQApEPC1H/vPQaVJ5HH1rFOd2IH9EgRCs+bvlN8=;
-        b=Vbru51jAvyT0/yVcjPatnjGQR/XVzHjX8oWmXvWIVCoYU+KKTJrvDMT613X2MfAR0G
-         f+8T5b3uGGxe8RufyWByf5N5/5166HxDSsBEd7L3iwKfsB0ccN4QADk1QljPFz7iQ7Lj
-         EEuDAmlCSa6rUQy1RUA/9PGHdTKQmoZBCERWvR+36wi/qgEi0vPexJzKpb//wBikHUQl
-         ldz8PuR3TQvJ0kogazxgEkzFEi9ToeVubY60FChpShi+fJXBvufJ3xBpdPFRiJgnKIYW
-         7fDTpH6QDbdWN9L1Czn0TMs6kb//vM5p01EGo14E2By5tUirRiNH+NfjaNJjCveDBE88
-         4qJA==
+        d=suse.com; s=google; t=1732550069; x=1733154869; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=q/8+mNUi1zkQfTB0TIHQzSjbv9DcNNX0QOobIkUNubw=;
+        b=SBqg+q4BZOdXHeZo9KtYnHBtwf2fPcCJfWHKml37mQfWT42JTJQu1cRRxQ7GUkQ1SQ
+         KFfEI10WOaONskorkCjihwkrygGDwsBVZjKA48eFWb5c96/+EPc86hBXepbbTFmfKdQ7
+         iQOYihNpk+nCcwCFfnDQtRrBJ3TA5eMZ5bcMjcOrnVzQy9dy1hSlSy+0XlqPZ2SNsauE
+         RVnCRGbONJmS87+ADvQkVwli1TQ38b3K1QBO+KsJ0pSB0KopvJXHgEDhudf7i7c8TX9A
+         5qO34LLJ6TGkzqREVkqIFrwYXcv1/b+4UaCsiBu4jg8tFVRxcaFYJPlYxeKEFATLL7DY
+         ShzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732549801; x=1733154601;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NcMFGQApEPC1H/vPQaVJ5HH1rFOd2IH9EgRCs+bvlN8=;
-        b=ch5v08BxfZi4iQohRhEBaxLR+NW4AD98jR9WrK28DnEl+TjI3UouI2SUUgVKopzzYE
-         UNM4iJM25AJ34mi5NXosMrhab1NkYcBx5QEhnLfz2OT3sf6IKucIXH2sEA+Rjf6YT0wt
-         r7f446Ok08hJWxpDdnqhbjbYJ6yS5uSDFQpaaxueFnliegtY82+cnffAkEO36+KWmJC8
-         Puxx6/hSIU487xA/0usolVss+UBo385Eh7I6r2IifOS5T3P6v0sWgQYc4UJ5MbHm/Uda
-         FhYvXJWExzuQfnK8YHIGN8UdseAPbCs9elWJ1ZNLBEWcrZ5CBTCBPcActJ898j/Lcixp
-         tYOw==
-X-Forwarded-Encrypted: i=1; AJvYcCWZZ0GmjRBOV2YD4T3msGabJoPrM70Uah053n/87fY/mTy8WHuspGCY4PZ79yhgA6xYICxnu9YsCYM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoE4bcoPelXauze1p7xoox8Oc6AmqL5dDk/XXS6Gs+iaerZCRR
-	NmBJbc0pDsls237kUC7x6bUul+S+ofppHzX5ZSE6IGa0rSiZ0AThq8hLW47nXQ==
-X-Gm-Gg: ASbGncuDuVnBQAkAcG/4f2i1sUR29+qImYlM3J6YiMQr44445xFjJ07B/Wszc31YQgg
-	/I1mLKlg0CC8rWNQbMj3dr7XXVObXyFnb0j88bcJy0WeTSFVa9ab/HvzUsOnQqVl9O/J+gzP/PE
-	05FaHA9upaMI5Fyic7TeFdL4HSyzZjn5v87DTCpwEo7XRjsEwvG5bXXBv8/HKSJwxmL+ZCq8h/D
-	kfuwJTFHFd5wGfhFd22faHqmQbm9KQ5A3q0I/IrwCW23Tz/pRyzFP1ObtK5vgVpNLpm44TX9Vq6
-	a1WcHxop1t26RmJBO2NV/zuYeJYUZDBgvn8=
-X-Google-Smtp-Source: AGHT+IFrV0T5TpmrTjj2tDWFleJallVoIpJttzSWGds9mJaSmt2WiPy4fJBOwTcoKKTb+pU+lOwA0A==
-X-Received: by 2002:a5d:6da7:0:b0:382:49a5:2229 with SMTP id ffacd0b85a97d-38260bcd7eamr10908073f8f.39.1732549800930;
-        Mon, 25 Nov 2024 07:50:00 -0800 (PST)
-Message-ID: <fb5c12b0-5bc1-4129-a4e9-9716ffd4685c@suse.com>
-Date: Mon, 25 Nov 2024 16:49:59 +0100
+        d=1e100.net; s=20230601; t=1732550069; x=1733154869;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=q/8+mNUi1zkQfTB0TIHQzSjbv9DcNNX0QOobIkUNubw=;
+        b=Rk9p981tjCchFtgt8ZOoJiV9olSw7/oUk2g0EVCYGm3lhi1WlsBdextcCw/dGld0Si
+         KEECOcZS4sSkwIP4lnnh+vKtdEBiIchGZPXqSEzb2miSOb7f80P/m4dE31C5b7xKLBPp
+         6w+HyGOWc0ZQsCe7qn6gPI5M1Qugg/2AnPvzQzLHU5wVXu2tmByUsgn50dLYcLfTwO/X
+         VKLP/v4AdMFT3Cx3AxP2nLL5cQ1P0bHZKvzhFBi2Sv7Tz6+4m9GWJxL5I6w/YdnZtnlO
+         RNDlhdB23az0eGUjXAmXxUaKtWGO/34P1PNfeYR3tZo5plcAplN0Im4wle4/tT8oF7gF
+         c+kQ==
+X-Gm-Message-State: AOJu0YwDpxtHxi2/in0gGMVc0g0IMIMjCwriNtqHkJ/n2h4Blzgb6M7o
+	+iELUkYDZSVUjcAAfMx3biTtvJ1eA+IQOq9x7t4FdE5gTvcJL46cGnBhL3gPQA==
+X-Gm-Gg: ASbGncvciH/fBLCfl8SQfO2vlK5AOgJfYTxrj2dbiy0tNaEdTGns7qiHCIeLKs0h9dC
+	sizq37ydQxN6eWamdnjoNbyQjXgm6PmVl5TCsSM5M0/uV0T1HRkUN/+oqPzpWAlyq+DJQ4Hblfe
+	mduriW5gBCjNmVQXZQxAU235Y7YCwHWjq5F7HgkFPX/RzHzhAx7w1S5epx53TzhUICm09rZDYUt
+	hz409qeC+KHZi6vpLVIPJd9TD2vX0wDhbGhetRoU6EptvPxTm03l2DhUiG29EmESn4tttunCXCr
+	qcrNsO4r8eeN5l1r9RFIfdmdz2aRN0/MUsk=
+X-Google-Smtp-Source: AGHT+IGEYKH1oNFjzoj/N9bbJUQtATtcPMf4iBylIfqSKcfGD5E3mFNun9OITnGDJpDtPE60wYoH9w==
+X-Received: by 2002:a05:600c:3589:b0:434:a4b3:5ebe with SMTP id 5b1f17b1804b1-434a4b35f4amr1406455e9.24.1732550068156;
+        Mon, 25 Nov 2024 07:54:28 -0800 (PST)
+Message-ID: <a23c6ad4-d72f-4f18-afb6-a0fbffa91b88@suse.com>
+Date: Mon, 25 Nov 2024 16:54:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] xen/riscv: introduce setup_mm()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1731672668.git.oleksii.kurochko@gmail.com>
- <1ebb209f191e3e2323840acfe3714a597aa7be6c.1731672668.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 3/4] x86/uaccess: rework user access speculative harden
+ guards
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+References: <20241119103444.23296-1-roger.pau@citrix.com>
+ <20241119103444.23296-4-roger.pau@citrix.com>
+ <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
 Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,48 +120,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1ebb209f191e3e2323840acfe3714a597aa7be6c.1731672668.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <9cf6ea3e-b6b5-4fc8-a0f1-53c1b2f7ab31@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15.11.2024 13:47, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/config.h
-> +++ b/xen/arch/riscv/include/asm/config.h
-> @@ -90,6 +90,7 @@
->  #define DIRECTMAP_SLOT_START    200
->  #define DIRECTMAP_VIRT_START    SLOTN(DIRECTMAP_SLOT_START)
->  #define DIRECTMAP_SIZE          (SLOTN(DIRECTMAP_SLOT_END) - SLOTN(DIRECTMAP_SLOT_START))
-> +#define DIRECTMAP_VIRT_END      (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
+On 19.11.2024 16:31, Andrew Cooper wrote:
+> On 19/11/2024 10:34 am, Roger Pau Monne wrote:
+> Overall this is far more legible, and I'm tempted to take it on that
+> justification alone.  But this is Jan's pile of magic.
+> 
+> There is a weird effect from this change:
+> 
+> add/remove: 2/0 grow/shrink: 2/2 up/down: 740/-739 (1)
+> Function                                     old     new   delta
+> build_symbol_table                             -     686    +686
+> build_symbol_table.cold                        -      48     +48
+> pv_map_ldt_shadow_page                       641     644      +3
+> pv_emulate_gate_op                          2919    2922      +3
+> livepatch_op.cold                            557     509     -48
+> livepatch_op                                5952    5261    -691
+> 
+> which is clearly changing inlining decisions.  I suspect it's related to...
+> 
+>> --- a/xen/arch/x86/usercopy.c
+>> +++ b/xen/arch/x86/usercopy.c
+>> @@ -11,23 +11,23 @@
+>>  #include <asm/uaccess.h>
+>>  
+>>  #ifndef GUARD
+>> -# define GUARD UA_KEEP
+>> +# define GUARD 1
+>>  #endif
+>>  
+>>  unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
+>>  {
+>> -    GUARD(unsigned dummy);
+>> +    unsigned __maybe_unused dummy;
+> 
+> ... this.  This doesn't need to be __maybe_unused, because ...
+> 
+>>  
+>>      stac();
+>>      asm volatile (
+>> -        GUARD(
+>> +        ".if " STR(GUARD) "\n"
+>>          "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
+>> -        )
+>> +        ".endif\n"
+>>          "1:  rep movsb\n"
+>>          "2:\n"
+>>          _ASM_EXTABLE(1b, 2b)
+>> -        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from)
+>> -          GUARD(, [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy))
+>> +        : [cnt] "+c" (n), [to] "+D" (to), [from] "+S" (from),
+>> +          [scratch1] "=&r" (dummy), [scratch2] "=&r" (dummy)
+> 
+> ... these parameters are referenced unconditionally.
+> 
+> However, it does mean the compiler is spilling the scratch registers
+> even when guard is 0.  I expect this is what is affecting the inlining
+> decisions.
 
-While it is of course okay to have this value be inclusive (matching
-FRAMETABLE_VIRT_END), I'd like to point out that
-- on x86 *_END are exclusive (i.e. there's some risk of confusion),
-- RISC-V's DIRECTMAP_SIZE appears to assume DIRECTMAP_SLOT_END is
-  exclusive, when from all I can tell (in particular the table in the
-  earlier comment) it's inclusive.
-
-> @@ -25,8 +27,12 @@
->  
->  static inline void *maddr_to_virt(paddr_t ma)
->  {
-> -    BUG_ON("unimplemented");
-> -    return NULL;
-> +    unsigned long va_offset = maddr_to_directmapoff(ma);
-> +
-> +    ASSERT(va_offset >= DIRECTMAP_VIRT_START - directmap_virt_start);
-> +    ASSERT(va_offset <= DIRECTMAP_VIRT_END - directmap_virt_start);
-> +
-> +    return (void *)(directmap_virt_start + va_offset);
->  }
-
-If you added in directmap_virt_start right when setting the variable,
-you'd simplify the assertions. The unsigned long arithmetic is going to
-be okay either way. (The variable may want renaming if doing so, perhaps
-simply to "va".)
-
-Preferably with the latter adjustment and pending clarification on the
-intentions wrt the comment further up
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Or the increased number of newlines that the asm() expands to (or the
+combination of both).
 
 Jan
 
