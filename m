@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC24C9D8C86
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2024 19:53:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843094.1258748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0521D9D91B7
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 07:26:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843106.1258973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFeD2-0005R3-Lq; Mon, 25 Nov 2024 18:53:20 +0000
+	id 1tFp1A-0005vP-Hc; Tue, 26 Nov 2024 06:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843094.1258748; Mon, 25 Nov 2024 18:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 843106.1258973; Tue, 26 Nov 2024 06:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFeD2-0005OG-Ig; Mon, 25 Nov 2024 18:53:20 +0000
-Received: by outflank-mailman (input) for mailman id 843094;
- Mon, 25 Nov 2024 18:53:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tFp1A-0005st-E9; Tue, 26 Nov 2024 06:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 843106;
+ Mon, 25 Nov 2024 19:49:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=toQe=SU=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tFeD1-0005O8-5w
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 18:53:19 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8585b984-ab5e-11ef-99a3-01e77a169b0f;
- Mon, 25 Nov 2024 19:53:13 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5cfc035649bso6398547a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 10:53:12 -0800 (PST)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d01d401f64sm4365437a12.70.2024.11.25.10.53.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Nov 2024 10:53:11 -0800 (PST)
+ <SRS0=KbVG=SU=gmail.com=zichenxie0106@srs-se1.protection.inumbo.net>)
+ id 1tFf54-0003g2-RT
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2024 19:49:10 +0000
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [2607:f8b0:4864:20::841])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 54d0354b-ab66-11ef-a0cd-8be0dac302b0;
+ Mon, 25 Nov 2024 20:49:07 +0100 (CET)
+Received: by mail-qt1-x841.google.com with SMTP id
+ d75a77b69052e-466929d6013so12842811cf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2024 11:49:07 -0800 (PST)
+Received: from localhost.localdomain (mobile-130-126-255-54.near.illinois.edu.
+ [130.126.255.54]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-4653c3dc08dsm49025411cf.3.2024.11.25.11.49.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Nov 2024 11:49:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8585b984-ab5e-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmYiLCJoZWxvIjoibWFpbC1lZDEteDUyZi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijg1ODViOTg0LWFiNWUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNTYwNzkzLjc4MDk5Miwic2VuZGVyIjoiYWxlamFuZHJvLnZhbGxlam9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Inumbo-ID: 54d0354b-ab66-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjo4NDEiLCJoZWxvIjoibWFpbC1xdDEteDg0MS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjU0ZDAzNTRiLWFiNjYtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNTY0MTQ3Ljc2NDA5MSwic2VuZGVyIjoiemljaGVueGllMDEwNkBnbWFpbC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1732560792; x=1733165592; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Wl3zhNmZgTRvTEReqGu5Ux58qMzkLcJXeOsEPoFIVR4=;
-        b=gi3g3L/r5O8Fg++KFm9hzvWaF4ORwPFzBPwT22HKUtKIyHli8qUTKoIIRAYpo60gf+
-         9zB0s5ZKc4tVMRFpnd9Si36lhfbzP+sCOptuFpgDje84oOPfHxXUqjOrAlr2mHDlPgPP
-         I9iOurZnhv+Zw7JTtGtxUIicBhgqbAhnatnSE=
+        d=gmail.com; s=20230601; t=1732564146; x=1733168946; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YnQPQy9QUMSA3qSC9VfWBW7KVkhU2YHo+3Vjavlz26Y=;
+        b=S/KDu0+/dlvFDGa91q7UQuoeFxwguWIw5ZOLZ3Wai9LX5aa54vWMmhOSe+Sjb0LjP9
+         cIuaiEh5IhvM9kkoAKqI89XPwiIr7bSX57duuWBflFGZUDurhKCsDHnZUi9Ql76FsFxg
+         uew2u0syPuHlLV+srDThtV9eHFpneZjFRn51QF4hhiXmAY0kHWRdheZ+8vNCFBf87tsV
+         xaf7sR+Sdo4yJCCEWUVWd5xT+a6/p5gAN0T7QHJGSxUcBc9bJCGOqb4s/8Pf7XN5CBP5
+         y7RsxAlBGJlh8HJWXrdsZf+4ipPV6Jp/WR7obaa/DIGNCenzskG5eoWbVon0Kafh0rcx
+         pGDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732560792; x=1733165592;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Wl3zhNmZgTRvTEReqGu5Ux58qMzkLcJXeOsEPoFIVR4=;
-        b=nLdssG5k4hhRW3b6v+1wtjfns5SBl8qSl0K6bBna+hSxHEgbFH6g31QucEG0F25+oc
-         9XEOdAB4iINdPZ5qwYzASJ60G5slFXzp8XhwtCXBC+NoDFDJV9FPtrJVaUuwRujJfc2p
-         qjAgMQYGnNNq98T2+MDvgAHcG+vh+sls/f87a0BjEDkZBpuX4SuKmFNDlQtPxFRegPWi
-         VBN5nbSLQy77jtaEdq5/J9sYn1oCE3zThgJJIdk4idxbiTnc8kQRKivmKaxwB6C30ZkN
-         bh3A58Ya6BUox1a0IpxAtV6o3zXnpFhVMTculRIWEZMpvtgU3hmmGyZK2eUaRsU4Zf43
-         6r6g==
-X-Forwarded-Encrypted: i=1; AJvYcCXkMMx4fTu0f6ZNXtJ4vASubZLw1KF96Oi1lKBkE72jXl7+f9O5alSafyWUjSwpkCpd5OBSk4075DY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwcP2ax9OlweMN34gY6QiTtVOxJ4xGy3zYQRaBv9VV5ozrtltRa
-	aPeZMbnfbrG/BqC1DIPbRuuMUTTQdFIO0HZh17jCDduvIOrnrIzc1kHQraYzrV8=
-X-Gm-Gg: ASbGncsSOMCMV3NOBId7cVk1IJhDGlkGTj7Hb1ZBD7KVrmkUm25SBAiT/a8p0ZLPcCo
-	7I8UtWk5TcIsWV4zlY4/1xF7BJvhOg9RyKVozHueyBWsVPOwe+BuKY/ezLgGWYndCHbw3ZnDuiM
-	fCHiQvDGH8AvSSBTSFFyx4AKO48GYMQ7KEPCS11PFT24TZwYTIqrSq/VUybrHS1910u3C9LqUq8
-	PfTIub4TAwGvHOkvCtgcI7nUmpjgcdkpUhRQ8/htNhVcuwlFaElxSJh
-X-Google-Smtp-Source: AGHT+IGE/wLutvKwe0fsXlxo5GI/m1IDeDPgOVZFy7vCbNDSb4tw/tv3m4Ml3pY3Qlu1jKjWTQ5WZw==
-X-Received: by 2002:a05:6402:5256:b0:5ce:bb32:ccac with SMTP id 4fb4d7f45d1cf-5d020695138mr10264907a12.26.1732560792237;
-        Mon, 25 Nov 2024 10:53:12 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 25 Nov 2024 18:53:06 +0000
-Message-Id: <D5VHJHKS0N3P.3KJG9X9PU0MT1@cloud.com>
-Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross"
- <jgross@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Julien
- Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>,
- "Christian Lindig" <christian.lindig@citrix.com>, "David Scott"
- <dave@recoil.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [RFC PATCH 16/25] xen/x86: Replace hand-crafted
- xen_arch_domainconfig with autogenerated one
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-X-Mailer: aerc 0.18.2
-References: <20241115115200.2824-1-alejandro.vallejo@cloud.com>
- <20241115115200.2824-17-alejandro.vallejo@cloud.com>
- <f0c46c9a-9ff1-4627-9692-13e2483f7187@suse.com>
-In-Reply-To: <f0c46c9a-9ff1-4627-9692-13e2483f7187@suse.com>
+        d=1e100.net; s=20230601; t=1732564146; x=1733168946;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YnQPQy9QUMSA3qSC9VfWBW7KVkhU2YHo+3Vjavlz26Y=;
+        b=iuWLlBLCOQosS/H223nWDA2AgSjt2S0hwz219g5VblEpsq1pp5hqhNVy/tez/j3aON
+         XGoD6NJwaqz2o6oUqm0FOYBPFKKHEO19Nyo3AcQ4kJLuMip/LrYxANp8rKU0q4fi5VZi
+         d8ZG2J7hgmeYfSiDPPPNG3KK05MqnzvbW4uN4b9R2/HBmYYaFV7z69Zfrjg8kcZxKA2u
+         WpVT/ug5v2I/mUGinDxhP9vZ/iOfuVlEbxwkpjGYYZiMXtkdwcRfbZnzFqRRxp4hQ9nP
+         agIi9t8grbxmyk2ZK20sIESf8+ci5k7gsL9IsFeMWtOwt2oE830ESSTaxBPet9/4WP8m
+         CTug==
+X-Forwarded-Encrypted: i=1; AJvYcCV7aSwxfq/MNWYjXet6m5qAIEHFWXiZ0swttFhtI5lOn2V6zBNhO5qYJJ817sxvPWKIO4bQqIG2Kck=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzrUBLMBHRSZe3XDETKIPm0iOrbBu3Tf00u1kGIJvcEWxdqFF7t
+	xdX4YP5zECNeleiO7wHVYJ0gwkWXFq+MjePidzCU2itOBFba4ARY
+X-Gm-Gg: ASbGncs3ocxVCf6Ub/Sz7zoH6pdyIhe5CRZS/UYPjC1d/gvB44VSNsxcM0lVhDjWK7F
+	fDp6doywFveVGcklB6vEdyjPuOjrkGRb/5XpN3UQeWNAOdbBN4JNElpoiLcSpgkZD3d88c2icon
+	g54dFpSIfgNNatZvcU/nGcTQhTNArt/rZbyZcdbm2ixF1OMG1uocGmVwFBWtlIJp3YwjH+z+TCl
+	e93U/LPE/nB9B+HkFT71x3gudg5J+TBWYj1B+s0oHR+ag57RxiKLHnh7iq5Bu3a3CXfLjRYDGws
+	Qwuo4cwCJCtc4O/YciSvhgpudYoDhSq6E+ua
+X-Google-Smtp-Source: AGHT+IGASnVlZTy8uOIIeLvm0VVgeI8MN7apGYPIXsgonX7l5aN8h7HkmTpP2xqHs+QhD2knS7irSw==
+X-Received: by 2002:a05:622a:391:b0:461:17e6:2651 with SMTP id d75a77b69052e-4653d525977mr210750511cf.8.1732564146425;
+        Mon, 25 Nov 2024 11:49:06 -0800 (PST)
+From: Gax-c <zichenxie0106@gmail.com>
+To: oleksandr_andrushchenko@epam.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com
+Cc: dri-devel@lists.freedesktop.org,
+	xen-devel@lists.xenproject.org,
+	Zichen Xie <zichenxie0106@gmail.com>
+Subject: [PATCH] drm/xen-front: cast calculation to __u64 in xen_drm_drv_dumb_create()
+Date: Mon, 25 Nov 2024 13:48:51 -0600
+Message-Id: <20241125194850.14274-1-zichenxie0106@gmail.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon Nov 25, 2024 at 12:09 PM GMT, Jan Beulich wrote:
-> On 15.11.2024 12:51, Alejandro Vallejo wrote:
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> > ---
-> >  tools/libs/light/libxl_x86.c                  |  4 +-
-> >  tools/ocaml/libs/xc/xenctrl_stubs.c           |  4 +-
-> >  .../extra/arch-x86/domainconfig.toml          | 87 +++++++++++++++++++
-> >  .../xenbindgen/extra/domctl/createdomain.toml |  6 ++
-> >  xen/arch/x86/domain.c                         |  8 +-
-> >  xen/arch/x86/include/asm/domain.h             |  4 +-
-> >  xen/arch/x86/setup.c                          |  2 +-
-> >  xen/include/public/arch-x86/xen.h             | 51 -----------
-> >  xen/include/public/autogen/arch_x86.h         | 52 +++++++++++
->
-> Nit: If at all possible, please avoid underscores in the names of new fil=
-es.
->
-> Jan
+From: Zichen Xie <zichenxie0106@gmail.com>
 
-Sure, re-casing it is easy.
+Like commit b0b0d811eac6 ("drm/mediatek: Fix coverity issue with
+unintentional integer overflow"), directly multiply args->pitch and
+args->height may lead to integer overflow. Add a cast to avoid it.
 
-Cheers,
-Alejandro
+Signed-off-by: Zichen Xie <zichenxie0106@gmail.com>
+---
+ drivers/gpu/drm/xen/xen_drm_front.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/xen_drm_front.c
+index aab79c5e34c2..639aad26f6c9 100644
+--- a/drivers/gpu/drm/xen/xen_drm_front.c
++++ b/drivers/gpu/drm/xen/xen_drm_front.c
+@@ -415,7 +415,7 @@ static int xen_drm_drv_dumb_create(struct drm_file *filp,
+ 	 * For details also see drm_gem_handle_create
+ 	 */
+ 	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
+-	args->size = args->pitch * args->height;
++	args->size = (__u64)args->pitch * args->height;
+ 
+ 	obj = xen_drm_front_gem_create(dev, args->size);
+ 	if (IS_ERR(obj)) {
+-- 
+2.34.1
+
 
