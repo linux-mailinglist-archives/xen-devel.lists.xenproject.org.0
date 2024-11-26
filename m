@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4EB09D9FA4
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:31:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844207.1259806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D713F9D9FA0
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:23:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844060.1259676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG51k-0004Tg-0W; Tue, 26 Nov 2024 23:31:28 +0000
+	id 1tG4tq-0001vA-O9; Tue, 26 Nov 2024 23:23:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844207.1259806; Tue, 26 Nov 2024 23:31:27 +0000
+Received: by outflank-mailman (output) from mailman id 844060.1259676; Tue, 26 Nov 2024 23:23:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG51j-0004Ra-R8; Tue, 26 Nov 2024 23:31:27 +0000
-Received: by outflank-mailman (input) for mailman id 844207;
- Tue, 26 Nov 2024 23:31:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tG4tq-0001hF-4S; Tue, 26 Nov 2024 23:23:18 +0000
+Received: by outflank-mailman (input) for mailman id 844060;
+ Tue, 26 Nov 2024 23:22:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rasV=SV=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tG4ss-0000At-EW
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:18 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4052cc30-ac4d-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 00:22:06 +0100 (CET)
+ id 1tG4sg-0000Ao-Lb
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:06 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3d87a499-ac4d-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 00:22:02 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 424AC5C5CDF;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 550B45C5CF1;
  Tue, 26 Nov 2024 23:21:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 720A2C4CED0;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 83748C4CEDD;
  Tue, 26 Nov 2024 23:21:56 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 68E9ED66B97;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 7C9CCD66B8E;
  Tue, 26 Nov 2024 23:21:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -45,26 +46,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4052cc30-ac4d-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6IjQwNTJjYzMwLWFjNGQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjYzMzI2Ljc2MzYwMywic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 3d87a499-ac4d-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDQ6MTM4MDo0NjQxOmM1MDA6OjEiLCJoZWxvIjoiZGZ3LnNvdXJjZS5rZXJuZWwub3JnIn0=
+X-Custom-Transaction: eyJpZCI6IjNkODdhNDk5LWFjNGQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjYzMzIyLjg5ODM2Miwic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1732663316;
-	bh=Bn46VxfAkAcMhv6DUkrTdMnTNfB+okMDoUD+Om5BMyY=;
+	bh=Cap5cSdXQnJhIWZIJycGmw66XTO7q8HjNlh67Jy7JB4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=m6JM8GCJGhtrmxVQvqrmhKB9kFFTklfeOAlWO5/+UU2fq0kgrPSgUXV6ImmQXliNa
-	 TfqmqY4ZmR/6s4p2kAyF3HNG0ut8Z0gsysqmZWF470Wo/ILXdRF3ezJCHsPdh2Mvuw
-	 Tk6zBz9+FTdtUMwHsSZgOMn8BREHv9vNoS0fZSD8f6/pg2pf5QRxkbeGBjOeq3BTjD
-	 sF7MdJ9TbqgNWk92LP7fd8QPrv/eIJ6QRXFDlpXs1zGpBEdaL1F8GwrjFE0dVR9Y/U
-	 x0zD9U98I/Es1TkqFRukmmZtmfM0Eg2O9WikFnfJm8sNmqKEg1LIx8966xPMTllta0
-	 I9bwC9b578QoQ==
+	b=Roi4bnO89HuQscE/mllmZ4di8KrGNkAEgaFCrZwspwH1JCGP7EeSelMhqJp3FtN2p
+	 1vmqcBEY6PtxBqWJW1VUHMpW/bPH5B+YC80zhJx30UowTy+ZgCQQnJEd0hnAn1Hlkt
+	 XcGKUReaRSPFHSjEvr5WInFgGkBvQkKepHz1F2TNg2MZxcNVm5HUfJxwzd27u0Wdt2
+	 DjdOJziJugSXgtF7Jn3f6bo30Ln6l01S2E8qR9nY0G4TFpac36FqwR/86tOFX/ts/x
+	 nKhPwQFQosdNK6Bir87YPHUpd+Dfu25EOC3kfrmlu72LVexy+/k0LtMpla4qGDvOj8
+	 CoRT7AHq/AL0A==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Tue, 26 Nov 2024 15:22:06 -0800
-Subject: [PATCH 16/36] xen/console: rename console_input_domain
+Date: Tue, 26 Nov 2024 15:22:07 -0800
+Subject: [PATCH 17/36] xen/console: rename switch_serial_input() to
+ console_find_owner()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241126-vuart-ns8250-v1-v1-16-87b9a8375b7a@ford.com>
+Message-Id: <20241126-vuart-ns8250-v1-v1-17-87b9a8375b7a@ford.com>
 References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 In-Reply-To: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 To: Jan Beulich <jbeulich@suse.com>, 
@@ -86,11 +88,11 @@ To: Jan Beulich <jbeulich@suse.com>,
  =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Cc: xen-devel@lists.xenproject.org, Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=2162;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=1478;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=//8B6RWBIW7SNgnF2T6+HEA2/O3wgsD0ciOR+76PaLM=;
- b=F6KU38cCC+uW7VC+/FDMuTylh4u51qK5IZuAVjuLIRIwoAHjJEwX1ZcwPeWYsBp7Jcz2UZs+H
- m3VQ/gQTRhgDEAbVrKlIKpMw6P5C7JIWDqUAjxReSCvMICF7iavKNUM
+ bh=kkv+AJB+iT69SEANPtdQ4jOx6o8Fe+p28DiGHObsMCE=;
+ b=34yyRPfAwR5Xa4Xuz4/BOFOrcATMDRQQnnZ5y9UsR0hdVr18qx/Zq/l4GCrf/HFvgLYIzpxwv
+ YVD7bNrxNZHCYCzTZGhZp5eE+8zkM7+FIcjsbE+IX79uUTZFrdW6EHP
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -100,58 +102,46 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-console_input_domain() takes an RCU lock to protect domain structure.
-That implies call to rcu_unlock_domain() after use.
-
-Rename console_input_domain() to rcu_lock_domain_console_owner() to
-highlight the need of calling rcu_unlock_domain().
+Updated the name to highlight the logic of selection the physical console
+owner: existing code does not switch only serial console, it also switches
+video console and debugging console (debug I/O port and console hypercall).
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/arch/arm/vpl011.c      | 2 +-
- xen/drivers/char/console.c | 2 +-
- xen/include/xen/console.h  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ xen/drivers/char/console.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-index 3e1487b101053891c9c0fb7fb50af1c547d4cbf3..07ef872d72b7881a70f4a938dcd6bea4c30198d9 100644
---- a/xen/arch/arm/vpl011.c
-+++ b/xen/arch/arm/vpl011.c
-@@ -78,7 +78,7 @@ static void vpl011_write_data_xen(struct domain *d, uint8_t data)
-     unsigned long flags;
-     struct vpl011 *vpl011 = &d->arch.vpl011;
-     struct vpl011_xen_backend *intf = vpl011->backend.xen;
--    struct domain *input = console_input_domain();
-+    struct domain *input = rcu_lock_domain_console_owner();
- 
-     VPL011_LOCK(d, flags);
- 
 diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 0af4b551801356f242f1770b3826608136d65653..01fcbd5581d11f8f4f2b23592255b5c744430a3e 100644
+index 01fcbd5581d11f8f4f2b23592255b5c744430a3e..f8a7db385c9525cabc69ceb1a84d73f57863aa45 100644
 --- a/xen/drivers/char/console.c
 +++ b/xen/drivers/char/console.c
-@@ -477,7 +477,7 @@ static unsigned int __read_mostly console_rx = 0;
+@@ -485,7 +485,7 @@ struct domain *rcu_lock_domain_console_owner(void)
+ }
+ #endif
  
- #ifdef CONFIG_SBSA_VUART_CONSOLE
- /* Make sure to rcu_unlock_domain after use */
--struct domain *console_input_domain(void)
-+struct domain *rcu_lock_domain_console_owner(void)
+-static void switch_serial_input(void)
++static void console_find_owner(void)
  {
-     if ( console_rx == 0 )
-             return NULL;
-diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
-index 6dfbade3ece36352c74f1124305da945b210f2a7..0e211e44d9703c804e18f52c9743916f8d2a9d4e 100644
---- a/xen/include/xen/console.h
-+++ b/xen/include/xen/console.h
-@@ -31,7 +31,7 @@ void console_end_sync(void);
- void console_start_log_everything(void);
- void console_end_log_everything(void);
+     unsigned int next_rx = console_rx;
  
--struct domain *console_input_domain(void);
-+struct domain *rcu_lock_domain_console_owner(void);
+@@ -588,7 +588,7 @@ static void cf_check serial_rx(char c)
+         /* We eat CTRL-<switch_char> in groups of 3 to switch console input. */
+         if ( ++switch_code_count == 3 )
+         {
+-            switch_serial_input();
++            console_find_owner();
+             switch_code_count = 0;
+         }
+         return;
+@@ -1128,7 +1128,7 @@ void __init console_endboot(void)
+                             "toggle host/guest log level adjustment", 0);
  
- /*
-  * Steal output from the console. Returns +ve identifier, else -ve error.
+     /* Serial input is directed to DOM0 by default. */
+-    switch_serial_input();
++    console_find_owner();
+ }
+ 
+ int __init console_has(const char *device)
 
 -- 
 2.34.1
