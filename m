@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D85009D9643
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 12:34:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843646.1259277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF38E9D967E
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 12:50:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843657.1259286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFtpe-0006jl-9f; Tue, 26 Nov 2024 11:34:14 +0000
+	id 1tFu4d-0000N7-H8; Tue, 26 Nov 2024 11:49:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843646.1259277; Tue, 26 Nov 2024 11:34:14 +0000
+Received: by outflank-mailman (output) from mailman id 843657.1259286; Tue, 26 Nov 2024 11:49:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFtpe-0006gc-5r; Tue, 26 Nov 2024 11:34:14 +0000
-Received: by outflank-mailman (input) for mailman id 843646;
- Tue, 26 Nov 2024 11:34:13 +0000
+	id 1tFu4d-0000Ld-E5; Tue, 26 Nov 2024 11:49:43 +0000
+Received: by outflank-mailman (input) for mailman id 843657;
+ Tue, 26 Nov 2024 11:49:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zjIj=SV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFtpd-00061B-5m
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 11:34:13 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1tFu4b-0000LX-Fj
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 11:49:41 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59e29a9e-abea-11ef-a0cd-8be0dac302b0;
- Tue, 26 Nov 2024 12:34:09 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5cfddb70965so6830658a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 03:34:09 -0800 (PST)
+ id 8348177a-abec-11ef-a0cd-8be0dac302b0;
+ Tue, 26 Nov 2024 12:49:37 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-434a7ee3d60so2070405e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 03:49:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d01d3fcf86sm5027755a12.63.2024.11.26.03.34.07
+ ffacd0b85a97d-3825fad61b0sm13341133f8f.7.2024.11.26.03.49.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 03:34:08 -0800 (PST)
+ Tue, 26 Nov 2024 03:49:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59e29a9e-abea-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmQiLCJoZWxvIjoibWFpbC1lZDEteDUyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjU5ZTI5YTllLWFiZWEtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjIwODQ5LjIzMDI1NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 8348177a-abec-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmYiLCJoZWxvIjoibWFpbC13bTEteDMyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjgzNDgxNzdhLWFiZWMtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjIxNzc3Ljc2MTA3Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732620848; x=1733225648; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732621777; x=1733226577; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NXEf/dAtJZBLZtMU5kvPCJZklY+UbwtVTARyPY5N0jo=;
-        b=L1bLN3k38jRxb/wQFMGHKC1EntlEnH29YEIf6NLSrcLceT5ZlI7OoX9HTBfJANAWTR
-         txxuWa1jq4y5lsFTNpPbbyD91Vp6HV4qZzZCsKVNo3ixSun95Sx51wXxU4HvHcr1aA6m
-         df93pk13pX+iDTKPIFWMjR60idRBrFCjdRd+ZckKQIs8AWPk8o1lYitz2MP+OJIXLw5A
-         JJ8UUQ+jwOFz5nSpDfzPTCqKTeuUIs0m6i5U7Tw2PYQbWIaNp8X00q1JlK4BHfAp5gi5
-         2PFFNikgFAIOQPk60ZT/9d3DYxlBmv2tM7CgvSFIHJrAXNjnaytP+w0ZGK9DPhl2E2rH
-         uLfA==
+        bh=FVQJXT1kS/A88u7MRUw6kjpIXlwjmEIfSnCST/LNQxk=;
+        b=gft6HbrA1IpPv3+yN4vE/qOluK2xUd/rlnGyFvVqM25fkJ7FebMvbpafx7GuweLZXZ
+         ATn1IRYjwQiJdU7H47dNH+qrBUiLNI/OYnl4W/CmO6sGMhZflQBFOnHuVz2HV6kwmbvb
+         skJdWs/qgNrQ/bi8Ds8YJMn0126FVvy9TusA+SpS6Z29kvZR6AvJUhTCrD4/Ruo1bkUP
+         cCSE6xqM+ByzD/6OsmefujZqg4eF0GFam+FqHtMWKTtfSYKPcBsLaYLd8Pu8+wJXAAxd
+         P7b4PteyNkGEKd0VQUVuEkfRqYgHwNvo/0pjSeEQusBF5O+NmrihFMWOpeVsw1Z4cdMA
+         D/Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732620848; x=1733225648;
+        d=1e100.net; s=20230601; t=1732621777; x=1733226577;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=NXEf/dAtJZBLZtMU5kvPCJZklY+UbwtVTARyPY5N0jo=;
-        b=t9+BpZ3J42/UGngT4WaQTPZovYQ52CT59MvhxfeCDcBuCs2RN7Zvnin/Nroru7N1Pw
-         18x9KnIiHRH5oXsLhHoAgxWmjhZMLXA3Ck7l9qfx2POVcWl8z2sY5ImNsEavrsCzVzE8
-         xa46iUav6A2hKtAK7cfl9C/Li/0jnGv7KlIDH+jpzygOCEAXKoqQTOUyuTD+5e1JkBtL
-         O+68qs8lBFUcegV7ljlicfv2hhBonz73gEDn9gJAYuCU60TaUF5p/ckplhxf5hQp3AOd
-         wnutr4IoAv0kEBMCBbQn7w+BpvivAaZU418VDEDyiEwynQiYZoBVJfqEh+jn8na027K0
-         8x6Q==
-X-Gm-Message-State: AOJu0YyUx9l+taBUEIko2b39DET8py7FrntiQ/jQsl/aOEx7c3ciybTu
-	xpaimiN/2DrXTZtSMazWoE6GZz4PG7Qk9QUPeqdHoirr+fuF7rOgXRwYIy6mhg==
-X-Gm-Gg: ASbGncuuoch4+AaCZxxR8ZfHg7/8303jeMCpxrmojJL4U3y9Eic/KrvReAygq4H/mxc
-	tQBcFaD6LkF8NFvu1lNUXoBxgYemSrT5ClTFmvkFlkm/0nqlQ6cVdF9ANn+a2TqgaufadlrJRwH
-	D3jUG/1MiuYf15oYVnyIbJUc2GmNATjjDCi3c1uR/gIHQeJoCSMBp5kr3xy1Xg9GNadqHUDRu3M
-	x7X56HP+GRbVsETXjOErVrvepLKU4S8lM1DK4RyZaGB8DcqQclXJO8iDZOcjb/vjk9wcUgLLe3z
-	qaz0CKcMFv4N3ywiNXHH5Icy7uTSV8lAuCY=
-X-Google-Smtp-Source: AGHT+IFOuOQoWI0tGQqNUXP6wg+IpkUDCM6h6Fn61fZmqFGJqoAr78iBGoEwNWzigK+2Zt0GgNMsJg==
-X-Received: by 2002:a05:6402:26cc:b0:5cf:98d:547b with SMTP id 4fb4d7f45d1cf-5d0205c2684mr14692607a12.5.1732620848607;
-        Tue, 26 Nov 2024 03:34:08 -0800 (PST)
-Message-ID: <3086afbe-5412-4dc5-bdce-7cd5b90a999d@suse.com>
-Date: Tue, 26 Nov 2024 12:34:07 +0100
+        bh=FVQJXT1kS/A88u7MRUw6kjpIXlwjmEIfSnCST/LNQxk=;
+        b=ItPkZtyNyVDR3M1hIKDzs9IeNkAyNE2fcEEMLm3rvmi2223NdPa+i1SsQW1Qw6VWsz
+         mJkWYbXZikNvQh7r/pXHB0rpzayB+LA5LfMbCBF6z4GXIUdjDR8nVML7yZs5oRM8ffrH
+         WN84LZKGjIOnp4o4w+r/WGEMAeevok3Xv248NPhe7BFPde7mh/PJ8Zl3D6NYqo+3jLnL
+         0Y7anzKW4kzbmckD2QCLpRI0MvQoCvWrxoT75ItA6lXNReltXHOXDp3206Y9a3DktBDa
+         M7+/tPy1uIFmsLsVuxR+HVMLDpeGkcoLB1LCfkKWi7VxkIv9GoFtPBMFy/5Zhl2GIqFP
+         Duew==
+X-Gm-Message-State: AOJu0YyG5TCtR9TwWwPYsuZNwVjs9I8XjgzqjDQ9luRvHhFWfIb4pZWa
+	br8P0YoTwW5wW/UHhzQNXCyC5A/sXgFpYjAFASY+azlol5FB/iDlNaQkzb5jCQ==
+X-Gm-Gg: ASbGncu06nEolfQv6cs8R/NvzZPVzW3SiAu8ScE8sP6GefiZC1qKZ8hYBYCaUfPizVZ
+	CaaWvAtKhkZfu7Q19rMziSJtLYyimk0DbCRQfDVXz7jt3XYh7L3buLpqEoYNwsHNCrtvctlZJm6
+	H1K2bVTkDXtXRf7Xdwzt9gaSp4UlIO0ygk9ONpv2uKE+iCXYNjz8lbnC9w0iyXIJ3tLjynLjkGL
+	Ul9mN47lKZXtvDIOL/1koipt7U/YDgkpZxbg8rt/tE49nR7ghMBm7TS0iPjbBhgtYWiSoQ9nMml
+	LAa3fGBXMTR73FPhgYhwZb/Co3BHUGenhg4=
+X-Google-Smtp-Source: AGHT+IF9qsyijDwgGeZyjKvINgM8DRAw9wVTLZ+7y0x9Sh4rym9OYWjj9W7v04NC6D7Nvumde/wgog==
+X-Received: by 2002:a5d:64c2:0:b0:382:444f:4eb0 with SMTP id ffacd0b85a97d-385bfaf0d52mr2603374f8f.13.1732621776993;
+        Tue, 26 Nov 2024 03:49:36 -0800 (PST)
+Message-ID: <7f4f8f53-646e-4489-9fb8-1867a028dcc0@suse.com>
+Date: Tue, 26 Nov 2024 12:49:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] x86: Add architectural LBR declarations
+Subject: Re: [PATCH 4/4] x86/vmx: Virtualize architectural LBRs
 To: ngoc-tu.dinh@vates.tech
 References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
- <20241118084914.22268-3-ngoc-tu.dinh@vates.tech>
+ <20241118084914.22268-5-ngoc-tu.dinh@vates.tech>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,30 +117,129 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241118084914.22268-3-ngoc-tu.dinh@vates.tech>
+In-Reply-To: <20241118084914.22268-5-ngoc-tu.dinh@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 18.11.2024 09:49, ngoc-tu.dinh@vates.tech wrote:
-> --- a/xen/arch/x86/include/asm/msr-index.h
-> +++ b/xen/arch/x86/include/asm/msr-index.h
-> @@ -304,6 +304,17 @@
->  #define MSR_IA32_LASTINTFROMIP		0x000001dd
->  #define MSR_IA32_LASTINTTOIP		0x000001de
+> --- a/xen/arch/x86/cpu-policy.c
+> +++ b/xen/arch/x86/cpu-policy.c
+> @@ -788,6 +788,9 @@ static void __init calculate_hvm_max_policy(void)
 >  
-> +/* Architectural LBR state MSRs */
-> +#define MSR_IA32_LASTBRANCH_CTL		0x000014ce
-> +#define  LASTBRANCH_CTL_LBREN		(1<<0) /* Enable LBR recording */
-> +#define  LASTBRANCH_CTL_VALID		_AC(0x7f000f, ULL)
-> +#define MSR_IA32_LASTBRANCH_DEPTH	0x000014cf
-> +#define MSR_IA32_LER_INFO		0x000001e0
-> +#define MSR_IA32_LASTBRANCH_0_INFO	0x00001200
-> +#define MSR_IA32_LASTBRANCH_0_FROM_IP	0x00001500
-> +#define MSR_IA32_LASTBRANCH_0_TO_IP	0x00001600
-> +#define MAX_MSR_ARCH_LASTBRANCH_FROM_TO	64
+>          if ( !cpu_has_vmx_xsaves )
+>              __clear_bit(X86_FEATURE_XSAVES, fs);
+> +
+> +        if ( !cpu_has_vmx_guest_lbr_ctl )
+> +            __clear_bit(X86_FEATURE_ARCH_LBR, fs);
 
-This is rather NUM than MAX; MAX would be 63.
+How will this be reflected onto leaf 1C? Patch 3 doesn't check this bit.
+In fact I wonder whether patch 1 shouldn't introduce dependencies of all
+leaf 1C bits upon this one bit (in tools/gen-cpuid.py).
+
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -423,65 +423,96 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
+>      return rc;
+>  }
+>  
+> -static const struct lbr_info {
+> +struct lbr_info {
+>      u32 base, count;
+> -} p4_lbr[] = {
+> -    { MSR_P4_LER_FROM_LIP,          1 },
+> -    { MSR_P4_LER_TO_LIP,            1 },
+> -    { MSR_P4_LASTBRANCH_TOS,        1 },
+> -    { MSR_P4_LASTBRANCH_0_FROM_LIP, NUM_MSR_P4_LASTBRANCH_FROM_TO },
+> -    { MSR_P4_LASTBRANCH_0_TO_LIP,   NUM_MSR_P4_LASTBRANCH_FROM_TO },
+> -    { 0, 0 }
+> +    u64 initial;
+
+uint64_t please in new code.
+
+> +};
+> +
+> +static const struct lbr_info p4_lbr[] = {
+> +    { MSR_P4_LER_FROM_LIP,          1, 0 },
+> +    { MSR_P4_LER_TO_LIP,            1, 0 },
+> +    { MSR_P4_LASTBRANCH_TOS,        1, 0 },
+> +    { MSR_P4_LASTBRANCH_0_FROM_LIP, NUM_MSR_P4_LASTBRANCH_FROM_TO, 0 },
+> +    { MSR_P4_LASTBRANCH_0_TO_LIP,   NUM_MSR_P4_LASTBRANCH_FROM_TO, 0 },
+> +    { 0, 0, 0 }
+
+If these adjustments are really needed, I'd wonder whether we wouldn't be
+better of switching to C99 initializers instead.
+
+> +static struct lbr_info __ro_after_init architectural_lbr[] = {
+> +    { MSR_IA32_LASTINTFROMIP,        1, 0 },
+> +    { MSR_IA32_LASTINTTOIP,          1, 0 },
+> +    { MSR_IA32_LER_INFO,             1, 0 },
+> +    /* to be updated by update_arch_lbr */
+
+Nit: Comment style (start with a capital letter).
+
+> +    { MSR_IA32_LASTBRANCH_0_INFO,    MAX_MSR_ARCH_LASTBRANCH_FROM_TO, 0 },
+> +    { MSR_IA32_LASTBRANCH_0_FROM_IP, MAX_MSR_ARCH_LASTBRANCH_FROM_TO, 0 },
+> +    { MSR_IA32_LASTBRANCH_0_TO_IP,   MAX_MSR_ARCH_LASTBRANCH_FROM_TO, 0 },
+> +    { 0, 0, 0 }
+> +};
+> +static uint64_t __ro_after_init host_lbr_depth = 0;
+
+No need for the initializer.
+
+> +static void __init update_arch_lbr(void)
+> +{
+> +    struct lbr_info *lbr = architectural_lbr;
+> +
+> +    if ( boot_cpu_has(X86_FEATURE_ARCH_LBR) )
+> +        rdmsrl(MSR_IA32_LASTBRANCH_DEPTH, host_lbr_depth);
+
+Again you're reading an MSR here which was never written. Are you perhaps
+assuming that the reset value is still in place?
+
+> +    ASSERT((host_lbr_depth % 8) == 0 && (host_lbr_depth <= 64));
+> +
+> +    for ( ; lbr->count; lbr++ ) {
+> +        if ( lbr->base == MSR_IA32_LASTBRANCH_0_INFO ||
+> +             lbr->base == MSR_IA32_LASTBRANCH_0_FROM_IP ||
+> +             lbr->base == MSR_IA32_LASTBRANCH_0_TO_IP )
+> +            lbr->count = (u32)host_lbr_depth;
+
+You don't want to use presently undefined bits here which may happen to
+become defined on future hardware. IOW a cast is insufficient here.
+(Comment applies to patch 2 as well.)
+
+> @@ -3303,25 +3336,36 @@ static void __init ler_to_fixup_check(void)
+>      }
+>  }
+>  
+> -static int is_last_branch_msr(u32 ecx)
+> +static const struct lbr_info * find_last_branch_msr(struct vcpu *v, u32 ecx)
+
+Nit: Excess blank after the first *, and please take the opportunity to
+switch to uint32_t.
+
+>  {
+> +    /*
+> +     * Model-specific and architectural LBRs are mutually exclusive.
+> +     * It's not necessary to check both lbr_info lists.
+> +     */
+>      const struct lbr_info *lbr = model_specific_lbr;
+> +    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+>  
+> -    if ( lbr == NULL )
+> -        return 0;
+> +    if ( lbr == NULL ) {
+> +        if ( cp->feat.arch_lbr )
+> +            lbr = architectural_lbr;
+
+I'm inclined to think that this should be independent of lbr being NULL.
+That would then also eliminate the style issue (with the placement of the
+figure brace).
+
+By the end of the patch / series, what I'm missing are context switch and
+migration handling. You want to engage XSAVES to cover both (it being the
+first XSS component we support, there'll be prereq work necessary, as I
+think Andrew did already point out). Or did I overlook anything?
 
 Jan
-
 
