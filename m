@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8803A9D96D6
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 12:58:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843669.1259296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F39D9D96EA
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 13:03:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843684.1259306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFuC0-0002N3-CK; Tue, 26 Nov 2024 11:57:20 +0000
+	id 1tFuI0-0004PA-3Z; Tue, 26 Nov 2024 12:03:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843669.1259296; Tue, 26 Nov 2024 11:57:20 +0000
+Received: by outflank-mailman (output) from mailman id 843684.1259306; Tue, 26 Nov 2024 12:03:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFuC0-0002LD-9E; Tue, 26 Nov 2024 11:57:20 +0000
-Received: by outflank-mailman (input) for mailman id 843669;
- Tue, 26 Nov 2024 11:57:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+J1p=SV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tFuBz-0002L7-Dx
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 11:57:19 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 93a578d1-abed-11ef-99a3-01e77a169b0f;
- Tue, 26 Nov 2024 12:57:14 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-53deeb6d986so207341e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 03:57:14 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53dd2499f27sm1982798e87.272.2024.11.26.03.57.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Nov 2024 03:57:13 -0800 (PST)
+	id 1tFuI0-0004Mk-0h; Tue, 26 Nov 2024 12:03:32 +0000
+Received: by outflank-mailman (input) for mailman id 843684;
+ Tue, 26 Nov 2024 12:03:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zjIj=SV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tFuHy-0004Me-Dg
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 12:03:30 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 71eba37a-abee-11ef-a0cd-8be0dac302b0;
+ Tue, 26 Nov 2024 13:03:27 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-434a2033562so12645235e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 04:03:27 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3825fad6723sm13221455f8f.16.2024.11.26.04.03.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Nov 2024 04:03:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93a578d1-abed-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmMiLCJoZWxvIjoibWFpbC1sZjEteDEyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjkzYTU3OGQxLWFiZWQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjIyMjM0LjU2ODY4LCJzZW5kZXIiOiJvbGVrc2lpLmt1cm9jaGtvQGdtYWlsLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 71eba37a-abee-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmQiLCJoZWxvIjoibWFpbC13bTEteDMyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjcxZWJhMzdhLWFiZWUtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjIyNjA3LjU3MDQ3NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1732622234; x=1733227034; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=RF5Fb5nT/w300UuK/JeTu1eB3qVWFMEKYzZKmk3KXrI=;
-        b=F3Swpg8bFNPit904o4gSEJPSK2PCbAMYCbpPWF3L8d0AyISoDVMr+VqoQSrvNjkJQ6
-         X1KstoyheU1JGB8doRfPYcCAckPwuH/Mo/cf1v+nXSi/5Pr549cYUUato83D5c0RmkxX
-         Od81QEoxsjC7Z/5v6s4W3tRFsOvZqw7f91oXm2nSfs0wdIfKJKD3XHNAlx2lLe9iQIpu
-         pR1C1rrrWKgveOzmqNLsZCfQKkZ+dMJw4MsExXJLHEk3sNzkzpR3CLnnHffnY/wm9FCZ
-         iAvTAia4kFXgAhBlhSi/Wxwh4VB92ZBbb9s4jiUCxJbS9suG0TpLjCike+XtGwuvB1Yq
-         SpJw==
+        d=suse.com; s=google; t=1732622607; x=1733227407; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZPFk8VlynJ+ar18atOdhPkuCkjxJ4St2l9dzlWGZulQ=;
+        b=VtBT+hP4upruEr9o/sYFTgR+AlwNjl1NIBv7tqR5OwWSvrcsiFi6iu8KIrKn26fzWw
+         8pm67t3ayiK1iG3AdHYuc9GAgFPAE061eTM39lDHGWKGh0ZlDkpiIK+FCrRZWkqgkJWN
+         XEdbieOwgA01Hr6bnMRLhwW2CAe6ydF8DAD5nDTJdGK9F1QnnnJJXhXyBLLIEjTSVdD8
+         bzUmJ/nkfeevqmlzrX/KTbVbovLn5A3xm7YTJ7Q6I9teHu1cQttibmPSJCTzszuCObII
+         W0PS1SLNOtEhFx/Z4DGlRgRj9WTCBCaL2/ZqPSAgAIOCt9P3+J6Vx454L0ZWWnBTrp4O
+         aq8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732622234; x=1733227034;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=RF5Fb5nT/w300UuK/JeTu1eB3qVWFMEKYzZKmk3KXrI=;
-        b=toKFjlO0v0/FFtu2bJ7hXOQmeRpI2UO/ksEp09OPTtxTZQdNrq6Z5T7P20MYJcK51m
-         FUpdUWB1wDrJtuo2ova4iKXAE/r/vxuhlxox/is5OAdcaEv3Kxn8RlRN9mX+DrPAhoNX
-         75i3UHvlG3+H2ZU+4Kcr9U3JfUbxjnjynoc6M+ATeFait0JRhLZlYZj22Wi6grkse7KC
-         bq5eNJtWq/tPjTYJ939Fu360QpqmygA2zSLHimsseuPT/NA/7IaUdf36RU7gfvXtO4yE
-         8aBwq+C7d/Bhpdc/jRUuqw9y4Cd6+zFaIUMwPLVlg5Zap6ECCJ+OJm2zZQFd/yFWEFRg
-         hqEA==
-X-Forwarded-Encrypted: i=1; AJvYcCXRtX9hDE+PFTcWPa/YpzT6G3uIvvSoXR1lxkwUAR0s9mTeJiQ+DOJioxdWRFUamYLDepajm1+et+Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxENVYeHKvJLTPr2sD8UoECNxC2fYYa+aSsARYUJH2SGF+s1KTj
-	0D2VuSxZj4bryYRVnCgkcL5BdC1uxjZe+aiM+oiKHXenMk7S2knl
-X-Gm-Gg: ASbGnctok+eR7uw2SDYPMFSrJqqeRKg/2ZoVHzbnDXih1twHtfQ9rtZok9/jV52E3S9
-	yI7E2JhVXHW7qwGBPH/iOtkI0cX4bFKUdY8vqfN4+IYg91XlGjTP9L//9GHtiukSiWiSFRshqgx
-	lpbYbUoQO29L6P+yrCbGDJsGt9YgXs3t9Du7RnGg6NbQUmifh4Y1ZqbNWKxzmHxF6L5j/Pj8Qf1
-	s2V+zxSVlnJfL4AyMBDZVJR5b6x0ldVmMUbtXPbzLJXXFfhvqN4j/d+k9B8LSo=
-X-Google-Smtp-Source: AGHT+IF+bmpM7o92/Av8m062751BH9J93WQZBFb7AIvc3foIpxfK44shHTtyGmWq1DXFRAKlY08b6A==
-X-Received: by 2002:a05:6512:39c3:b0:53d:d957:9f92 with SMTP id 2adb3069b0e04-53dd9579fd5mr7372308e87.9.1732622233789;
-        Tue, 26 Nov 2024 03:57:13 -0800 (PST)
-Message-ID: <360ce2bf4c418cf8f5c4318435ca3308477a07b6.camel@gmail.com>
-Subject: Re: [PATCH v6 1/3] xen/riscv: introduce setup_mm()
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman	
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper	 <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini	 <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Tue, 26 Nov 2024 12:57:12 +0100
-In-Reply-To: <fb5c12b0-5bc1-4129-a4e9-9716ffd4685c@suse.com>
-References: <cover.1731672668.git.oleksii.kurochko@gmail.com>
-	 <1ebb209f191e3e2323840acfe3714a597aa7be6c.1731672668.git.oleksii.kurochko@gmail.com>
-	 <fb5c12b0-5bc1-4129-a4e9-9716ffd4685c@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.1 (3.54.1-1.fc41app1) 
+        d=1e100.net; s=20230601; t=1732622607; x=1733227407;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZPFk8VlynJ+ar18atOdhPkuCkjxJ4St2l9dzlWGZulQ=;
+        b=Dp6bXBh59SEQotwWL9HinwW9JdxJJoWDxMnoyr/mOphw7YXO5KjjiVqV609Zt7spsW
+         fsdytRWUv4OqHCbhXgSzWe8DwDoRJ2Pdf4bgH2ASYwVFQs3+c1Q+zxTMZiYfhnwVaabj
+         IPeurRtfV9YxRrf1LvkS3iiRZeJfAflMh5aR+ErhAHqpsyuuFTw2J94ov5gP2nn0Si/L
+         sEdW2SeznN56aw6BqSbob2ReXsz5jxHtJyv4PoYk2g1jozpXU4e6Dj3D9lif2Md6Ng1+
+         6s81KLUnzgAEmcfezyX2X7GyDl1YS4jKGeRezFsBYUlWLH7c/8J8KVnKiGFHEFk7yoLE
+         6QPg==
+X-Gm-Message-State: AOJu0YxnzM6Ns01Fm58LShzuhdDcVxnE9cZKqJsp197zkz6jz7PPh7/p
+	V5UX1pOPG0146ZejvBRxYs1tTl98n4rqmqSxyt/m+m2chfCh6gNRDrCf6cEO7g==
+X-Gm-Gg: ASbGncuuC5e88H+Zb2KhHRrg+2TX2ojMq+KUYdPlWN4LHyWuckI6mns/5OE6W+VfRjC
+	eWg7DBIJ3PPbsonmcis8Q+g6iwNyz3mQ0Qgx530JAj1tcMuhMs/X4AXbvmhDOGiaxH627iAShZQ
+	V5UzyId/f25D7fMXV/ZiEHcSt6JG74PFzE81lssgBqupRI37crsIMn3AcWLAM8OSs9APuGSUU7s
+	tzblzhFo3rdjbbS1b2iqxwF2+1VZew2KvwtQWvJZGMwwIcKT4p6wBdmk6HSzgU87pkTi871/An3
+	pf40ZKERD3P1koB3xLUxRiDZKb520p1Ozzc=
+X-Google-Smtp-Source: AGHT+IGTtHxJzVB4lVnIvLcxLirpwq4W5keCrOSHBu3u0GbbWmbvdxU7qzkMqXW92F7tJnZTWnS/KA==
+X-Received: by 2002:a05:6000:1f8c:b0:382:424b:d0a6 with SMTP id ffacd0b85a97d-38260be2ea2mr13798891f8f.55.1732622606866;
+        Tue, 26 Nov 2024 04:03:26 -0800 (PST)
+Message-ID: <7d115f26-757d-40a6-87ee-76d55042b8d6@suse.com>
+Date: Tue, 26 Nov 2024 13:03:25 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] x86: Add architectural LBR declarations
+To: ngoc-tu.dinh@vates.tech
+References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech>
+ <20241118084914.22268-3-ngoc-tu.dinh@vates.tech>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Cc: xen-devel@lists.xenproject.org
+In-Reply-To: <20241118084914.22268-3-ngoc-tu.dinh@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2024-11-25 at 16:49 +0100, Jan Beulich wrote:
-> On 15.11.2024 13:47, Oleksii Kurochko wrote:
-> > --- a/xen/arch/riscv/include/asm/config.h
-> > +++ b/xen/arch/riscv/include/asm/config.h
-> > @@ -90,6 +90,7 @@
-> > =C2=A0#define DIRECTMAP_SLOT_START=C2=A0=C2=A0=C2=A0 200
-> > =C2=A0#define DIRECTMAP_VIRT_START=C2=A0=C2=A0=C2=A0 SLOTN(DIRECTMAP_SL=
-OT_START)
-> > =C2=A0#define DIRECTMAP_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 (SLOTN(DIRECTMAP_SLOT_END) -
-> > SLOTN(DIRECTMAP_SLOT_START))
-> > +#define DIRECTMAP_VIRT_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (DIRECTMAP_VI=
-RT_START +
-> > DIRECTMAP_SIZE - 1)
->=20
-> While it is of course okay to have this value be inclusive (matching
-> FRAMETABLE_VIRT_END), I'd like to point out that
-> - on x86 *_END are exclusive (i.e. there's some risk of confusion),
-> - RISC-V's DIRECTMAP_SIZE appears to assume DIRECTMAP_SLOT_END is
-> =C2=A0 exclusive, when from all I can tell (in particular the table in th=
-e
-> =C2=A0 earlier comment) it's inclusive.
-Agree, overlooked that DIRECTMAP_SIZE is exclusive,  the value should
-correspond to the table thereby DIRECTMAP_SIZE should be inclusive and
-defined as:
-#define DIRECTMAP_SIZE (SLOTN(DIRECTMAP_SLOT_END + 1) -
-SLOTN(DIRECTMAP_SLOT_START))
+On 18.11.2024 09:49, ngoc-tu.dinh@vates.tech wrote:
+> From: Tu Dinh <ngoc-tu.dinh@vates.tech>
+> 
+> Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
+> ---
+>  xen/arch/x86/include/asm/msr-index.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+> index 9cdb5b2625..867deab3c6 100644
+> --- a/xen/arch/x86/include/asm/msr-index.h
+> +++ b/xen/arch/x86/include/asm/msr-index.h
+> @@ -304,6 +304,17 @@
+>  #define MSR_IA32_LASTINTFROMIP		0x000001dd
+>  #define MSR_IA32_LASTINTTOIP		0x000001de
+>  
+> +/* Architectural LBR state MSRs */
+> +#define MSR_IA32_LASTBRANCH_CTL		0x000014ce
 
-and then DIRECTMAP_VIRT_END could be left as it is defined now:
-   #define DIRECTMAP_VIRT_END      (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE
-   - 1)
+The SDM calls this IA32_LBR_CTL, so we want it to be MSR_LBR_CTL, ...
 
-Regarding the first one point. Do you think it would be better to
-follow x86 approach and have *_END to be exclusive? Then
-FRAMETABLE_VIRT_END should be updated too?
+> +#define  LASTBRANCH_CTL_LBREN		(1<<0) /* Enable LBR recording */
+> +#define  LASTBRANCH_CTL_VALID		_AC(0x7f000f, ULL)
+> +#define MSR_IA32_LASTBRANCH_DEPTH	0x000014cf
 
->=20
-> > @@ -25,8 +27,12 @@
-> > =C2=A0
-> > =C2=A0static inline void *maddr_to_virt(paddr_t ma)
-> > =C2=A0{
-> > -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
-> > -=C2=A0=C2=A0=C2=A0 return NULL;
-> > +=C2=A0=C2=A0=C2=A0 unsigned long va_offset =3D maddr_to_directmapoff(m=
-a);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 ASSERT(va_offset >=3D DIRECTMAP_VIRT_START -
-> > directmap_virt_start);
-> > +=C2=A0=C2=A0=C2=A0 ASSERT(va_offset <=3D DIRECTMAP_VIRT_END -
-> > directmap_virt_start);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 return (void *)(directmap_virt_start + va_offset);
-> > =C2=A0}
->=20
-> If you added in directmap_virt_start right when setting the variable,
-> you'd simplify the assertions. The unsigned long arithmetic is going
-> to
-> be okay either way. (The variable may want renaming if doing so,
-> perhaps
-> simply to "va".)
+... MSR_LBR_DEPTH, and ...
 
-Just to be sure that I understand your point correct. Do you mean the
-following:
-    static inline void *maddr_to_virt(paddr_t ma)
-    {
-   -    unsigned long va_offset =3D maddr_to_directmapoff(ma);
-   +    unsigned long va =3D maddr_to_directmapoff(ma) +
-   directmap_virt_start;
-   =20
-   -    ASSERT(va_offset >=3D DIRECTMAP_VIRT_START -
-   directmap_virt_start);
-   -    ASSERT(va_offset <=3D DIRECTMAP_VIRT_END - directmap_virt_start);
-   +    ASSERT(va >=3D DIRECTMAP_VIRT_START);
-   +    ASSERT(va <=3D DIRECTMAP_VIRT_END);
-   =20
-   -    return (void *)(directmap_virt_start + va_offset);
-   +    return (void *)va;
-    }
+> +#define MSR_IA32_LER_INFO		0x000001e0
+> +#define MSR_IA32_LASTBRANCH_0_INFO	0x00001200
+> +#define MSR_IA32_LASTBRANCH_0_FROM_IP	0x00001500
+> +#define MSR_IA32_LASTBRANCH_0_TO_IP	0x00001600
 
-Thanks.
+... similarly *_LBR_* here.
 
-~ Oleksii
+For these three, as they actually cover groups, in other similar cases we
+use function like macros, to ease access to any of the MSRs in the group.
+I.e.
 
->=20
-> Preferably with the latter adjustment and pending clarification on
-> the
-> intentions wrt the comment further up
-> Acked-by: Jan Beulich <jbeulich@suse.com>
->=20
-> Jan
+#define MSR_LBR_INFO(n) (0x00001200 + (n))
 
+> +#define MAX_MSR_ARCH_LASTBRANCH_FROM_TO	64
+
+Where's this 64 coming from? I understand CPUID permits up to 64, but the
+XSAVES area layout covers only up to 32. Is the SDM flawed here?
+
+Jan
 
