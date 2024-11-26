@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BD269D9BB7
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 17:45:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843911.1259485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 352D29D9C10
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 18:07:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843922.1259495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFygG-0006YH-D5; Tue, 26 Nov 2024 16:44:52 +0000
+	id 1tFz1i-0001Lw-6l; Tue, 26 Nov 2024 17:07:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843911.1259485; Tue, 26 Nov 2024 16:44:52 +0000
+Received: by outflank-mailman (output) from mailman id 843922.1259495; Tue, 26 Nov 2024 17:07:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFygG-0006Vi-AX; Tue, 26 Nov 2024 16:44:52 +0000
-Received: by outflank-mailman (input) for mailman id 843911;
- Tue, 26 Nov 2024 16:44:50 +0000
+	id 1tFz1i-0001K5-2V; Tue, 26 Nov 2024 17:07:02 +0000
+Received: by outflank-mailman (input) for mailman id 843922;
+ Tue, 26 Nov 2024 17:07:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v151=SV=bounce.vates.tech=bounce-md_30504962.6745faf9.v1-0688dcd5cbf84ea789141c1879271c86@srs-se1.protection.inumbo.net>)
- id 1tFygE-0006Vc-5a
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 16:44:50 +0000
-Received: from mail179-37.suw41.mandrillapp.com
- (mail179-37.suw41.mandrillapp.com [198.2.179.37])
+ <SRS0=lAfR=SV=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
+ id 1tFz1g-0001Jz-76
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 17:07:00 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc2e17d4-ac15-11ef-a0cd-8be0dac302b0;
- Tue, 26 Nov 2024 17:44:43 +0100 (CET)
-Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail179-37.suw41.mandrillapp.com (Mailchimp) with ESMTP id
- 4XyT2159SCzG0CBP9
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 16:44:41 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 0688dcd5cbf84ea789141c1879271c86; Tue, 26 Nov 2024 16:44:41 +0000
+ id d74580a1-ac18-11ef-a0cd-8be0dac302b0;
+ Tue, 26 Nov 2024 18:06:56 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfaa02c716so7514163a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 09:06:56 -0800 (PST)
+Received: from localhost.localdomain ([217.156.233.154])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d01d3bfa27sm5213946a12.37.2024.11.26.09.06.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Nov 2024 09:06:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,109 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc2e17d4-ac15-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE3OS4zNyIsImhlbG8iOiJtYWlsMTc5LTM3LnN1dzQxLm1hbmRyaWxsYXBwLmNvbSJ9
-X-Custom-Transaction: eyJpZCI6ImJjMmUxN2Q0LWFjMTUtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjM5NDgzLjQwMjkzNywic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3NDVmYWY5LnYxLTA2ODhkY2Q1Y2JmODRlYTc4OTE0MWMxODc5MjcxYzg2QGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1732639481; x=1732899981;
-	bh=u2edpL9A3CYIADy/5nFGhk+zu8DB9yJIDOSz906iVHQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=E/DA2Uc3VkE6FWg1hTDsJcvmB06VBkO6JaPnorJ9YX5i6cTyhMoYrLV8I7YxzeekV
-	 0T49cah80iOlKFGq6t8q2OBfNSMa/fFowhQ59+c+2OyDAH0Zbm95pIonTwgHtnySdy
-	 3QfXOLOn/QG1pUXhVWZABz70PcvMKRtd9QfOt7ZzhpMCKcLu5CapTBnkRhxPBwh1yM
-	 ifwIX6KdsjEQTITGsj1PTVANoQdeZUYF9Cy0EH05OAB+vvdwifbnWObDJfiyGO02C/
-	 yJ02QrtkEXS5ok9Ze5fOy31TgyyTkQJygc7g5X/PHddf9OJUQsLK8Mr2ougGqJEiaE
-	 N5pt+6nGLlVNw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1732639481; x=1732899981; i=anthony.perard@vates.tech;
-	bh=u2edpL9A3CYIADy/5nFGhk+zu8DB9yJIDOSz906iVHQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=FSFaVkV3h6/EnawpgvEn63nUdKER2KWtVs0JvqONM7gxAbHZVRfFQy1j8OI6xahuU
-	 i1MxaNhzIvkseF0i/15D3ypGwsIcRaXbH/LNgous45hjJgVWiGAQnCaW9PpVxnUj/2
-	 NMAJdcdTeB5zPq6azyF6Eurswqh8Zv0jlF80Mf1haqygbmQgd93MBz7KhSRlL6B4EP
-	 4fHJZ7wcqBVA8counh5xdZR6Nupv3FTYoGTC2Qe1W3A8mmpSomFSvjt1dutnmoW3YM
-	 GoglQfeMvA30zpwhbQCI5uru1eDwxeMikdTmIR9PrO0L9fRV83H1MaUYdJSp5piE4R
-	 QD9Ch10Q4Ii5w==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=204/6]=20tools/libs:=20add=20a=20new=20libxenmanage=20library?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1732639481127
-To: =?utf-8?Q?J=C3=BCrgen=20Gro=C3=9F?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Message-Id: <Z0X6-EzHQtVjDGs7@l14>
-References: <20241023131005.32144-1-jgross@suse.com> <20241023131005.32144-5-jgross@suse.com> <Z0CNNdezcIbUelrk@l14> <1846da14-f942-4414-8776-d76019fba37f@suse.com>
-In-Reply-To: <1846da14-f942-4414-8776-d76019fba37f@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.0688dcd5cbf84ea789141c1879271c86?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241126:md
-Date: Tue, 26 Nov 2024 16:44:41 +0000
+X-Inumbo-ID: d74580a1-ac18-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MzIiLCJoZWxvIjoibWFpbC1lZDEteDUzMi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImQ3NDU4MGExLWFjMTgtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjQwODE2LjU0NjM0Niwic2VuZGVyIjoiamF2aS5tZXJpbm9AY2xvdWQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1732640816; x=1733245616; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fPIZ22ML9suk8fFJ87mEcSpGb1DdtpFHM7NqH1LU+GM=;
+        b=cCp2b/O4/SC6w4eIJgTcRQtu0lInWhM/NUOBhkuscDVN7j/TctcoX5LAOuSi//QAh0
+         deNvRhVHdPsffaWhwvDsxgC6Puiajx7a7JcHSXnywgUfMLu78n6jwjSU1N8oEhjCDyQ8
+         cvEr7TgIwM4f2iHc2D33AIKlBAlLWR4E+Rs6c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732640816; x=1733245616;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fPIZ22ML9suk8fFJ87mEcSpGb1DdtpFHM7NqH1LU+GM=;
+        b=xRuSTvc+JODgiZnKl2Our5uZu19CoLXSnQRc1jsSegbpsvBB7j3aEq4kyNKpa6pqN8
+         w2jNhxTCy+Y9b1g4zEcjGVZCFiBSvEoNcQGmovlgPRvYARkV45pG283Zaz+Mq+0xrk2/
+         3mLblIOMrM2sijKSEx7wARYvb78Zf69NcIzg0xREPj64IOfbdXwoynKTWJi9kt+GHGEG
+         eLpnSsxx6u3NP2pvQ6GjmxxSMh9pQeXEpROTc3cPe9DTpQ6C8h4AEG872LQNk/WqoQnv
+         H01dxYfQNqQB4eRCEAIu7U/u0TiBS9+8rflis5+fgdv55ad3dZ5owgbLgUS/DwTAzQ9P
+         JULQ==
+X-Gm-Message-State: AOJu0YwjXj0xHy5l5daBVBm3aVS//Z3aiF8WvVrvP6SeC/dNIsSLcipa
+	OL1QhlN/Ows4dX++Rh+PuDuw0s/0Dmf/X+nCY+4B4uM1QT3gjKZ87SzZ5ptbK1bYR1HCGapJ7yI
+	67lU=
+X-Gm-Gg: ASbGncsn/AwHWPQvauS08ReFQSMM4PfyI/K2ZVTsBnaFFcnriNTB9JSmfwrgEEICiuF
+	QH+AwSCXLn8JttoxQffysAKTWm9tehYYRrJK/w7rQUjfzvirnbdwSzuiMah9a/ohbSqvarD0gj9
+	ePhxhxzleY5KPo2cae3hAF48Dvr1HlLA7YyjPHxzaECc2qmm7pllB/Sxm6DekoYgWmKQpUc0aWl
+	OHP3IyB5fzacfcXLlH/Er5sqsR9B3Af0Di9j4voUAUYAiVetWsLjJIBFztFeimjDQs=
+X-Google-Smtp-Source: AGHT+IEP9luS/b6NuZUskIvgfr4LRLAoCXAKoBLd8X7HxE+A/NhS2OGS752I+QmJoX8PBXdT1YHogQ==
+X-Received: by 2002:a05:6402:5ce:b0:5cf:3dc3:7a3f with SMTP id 4fb4d7f45d1cf-5d080b7fb81mr34534a12.5.1732640815277;
+        Tue, 26 Nov 2024 09:06:55 -0800 (PST)
+From: Javi Merino <javi.merino@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Javi Merino <javi.merino@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH v1] x86/APIC: Read Error Status Register correctly
+Date: Tue, 26 Nov 2024 17:06:15 +0000
+Message-ID: <3270b77c005745dcf56cc833bdf3e4c703190b05.1732639041.git.javi.merino@cloud.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 22, 2024 at 04:12:25PM +0100, J=C3=BCrgen Gro=C3=9F wrote:
-> On 22.11.24 14:55, Anthony PERARD wrote:
-> > On Wed, Oct 23, 2024 at 03:10:03PM +0200, Juergen Gross wrote:
-> > > diff --git a/tools/include/xenmanage.h b/tools/include/xenmanage.h
-> > > new file mode 100644
-> > > index 0000000000..2e6c3dedaa
-> > > --- /dev/null
-> > > +++ b/tools/include/xenmanage.h
-> > > @@ -0,0 +1,98 @@
-> > > +/*
-> > > + * Copyright (c) 2024 SUSE Software Solutions Germany GmbH
-> > > + *
-> > > + * This library is free software; you can redistribute it and/or
-> > > + * modify it under the terms of the GNU Lesser General Public
-> > > + * License as published by the Free Software Foundation;
-> > > + * version 2.1 of the License.
-> > > + *
-> > > + * This library is distributed in the hope that it will be useful,
-> > > + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> > > + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-> > > + * Lesser General Public License for more details.
-> > > + *
-> > > + * You should have received a copy of the GNU Lesser General Public
-> > > + * License along with this library; If not, see <http://www.gnu.org/=
-licenses/>.
-> > 
-> > Shall we use SPDX tags instead of this boilerplate?
-> 
-> My thinking was to avoid that for "official" header files, as those might
-> be copied verbatim to other projects, which might not use SPDX. So having
-> the license text verbatim avoids any problems in this regard.
+The logic to read the APIC_ESR was copied from linux in a commit from
+2002: 4676bbf96dc8 (bitkeeper revision
+1.2 (3ddb79c9KusG02eh7i-uXkgY0IksKA), 2002-11-20).  In linux 3.14,
+this logic was fixed to follow the Intel SDM (see commit
+60283df7ac26 (x86/apic: Read Error Status Register correctly,
+2014-01-14) in the linux kernel).  The Intel(r) 64 and IA-32
+Architectures Software Develover's Manual currently says
+in Volume 3, Section 12.5.3:
 
-Well, this header in particular would be fairly useless, I believe, if it
-was copied into an other project, it described a library so need to be
-distributed along side the library. Second, this isn't the text of the
-license but something describing which license is used and where to
-find the text for it. An SPDX tag does nearly the same thing, but can
-actually be parse by a computer.
+  Before attempt to read from the ESR, software should first write to
+  it. (The value written does not affect the values read subsequently;
+  only zero may be written in x2APIC mode.) This write clears any
+  previously logged errors and updates the ESR with any errors
+  detected since the last write to the ESR. This write also rearms the
+  APIC error interrupt triggering mechanism.
 
-Official headers that would be useful to be copied into other project
-already expose the SPDX tags, many/all the headers in
-xen/include/public, as well as headers created by `mkheader.py` in this
-directory (tools/include).
+Update error_interrupt() to remove the first read and follow the Intel
+manual.
 
-I've taken a look into my directory "/usr/include", and they are plenty
-of headers having the SPDX tag.
+Signed-off-by: Javi Merino <javi.merino@cloud.com>
+---
+ xen/arch/x86/apic.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-So overall, I think we are fine to use SPDX tags here as well. ;-)
-
-Cheers,
-
+diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
+index bb86a1c161b3..b4f542d25918 100644
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -1385,20 +1385,19 @@ static void cf_check error_interrupt(void)
+         ", Illegal register address",
+     };
+     const char *entries[ARRAY_SIZE(esr_fields)];
+-    unsigned int v, v1;
++    unsigned int v;
+     unsigned int i;
+ 
+     /* First tickle the hardware, only then report what went on. -- REW */
+-    v = apic_read(APIC_ESR);
+     apic_write(APIC_ESR, 0);
+-    v1 = apic_read(APIC_ESR);
++    v = apic_read(APIC_ESR);
+     ack_APIC_irq();
+ 
+     for ( i = 0; i < ARRAY_SIZE(entries); ++i )
+-        entries[i] = v1 & (1 << i) ? esr_fields[i] : "";
++        entries[i] = v & (1 << i) ? esr_fields[i] : "";
+     printk(XENLOG_DEBUG
+-           "APIC error on CPU%u: %02x(%02x)%s%s%s%s%s%s%s%s\n",
+-           smp_processor_id(), v, v1,
++           "APIC error on CPU%u: %02x%s%s%s%s%s%s%s%s\n",
++           smp_processor_id(), v,
+            entries[7], entries[6], entries[5], entries[4],
+            entries[3], entries[2], entries[1], entries[0]);
+ }
 -- 
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+2.46.0
 
 
