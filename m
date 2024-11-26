@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 201549D986E
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 14:22:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843714.1259326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBED09D987F
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 14:26:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843723.1259335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFvUq-0006sN-Ti; Tue, 26 Nov 2024 13:20:52 +0000
+	id 1tFvZl-0007Sf-Dk; Tue, 26 Nov 2024 13:25:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843714.1259326; Tue, 26 Nov 2024 13:20:52 +0000
+Received: by outflank-mailman (output) from mailman id 843723.1259335; Tue, 26 Nov 2024 13:25:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFvUq-0006q7-QG; Tue, 26 Nov 2024 13:20:52 +0000
-Received: by outflank-mailman (input) for mailman id 843714;
- Tue, 26 Nov 2024 13:20:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tFvZl-0007QP-B5; Tue, 26 Nov 2024 13:25:57 +0000
+Received: by outflank-mailman (input) for mailman id 843723;
+ Tue, 26 Nov 2024 13:25:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zjIj=SV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFvUo-0006px-Sx
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 13:20:50 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e4a2471-abf9-11ef-a0cd-8be0dac302b0;
- Tue, 26 Nov 2024 14:20:45 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-434a14d6bf4so15614095e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 05:20:45 -0800 (PST)
+ id 1tFvZj-0007QJ-SE
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 13:25:55 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f50782bf-abf9-11ef-99a3-01e77a169b0f;
+ Tue, 26 Nov 2024 14:25:51 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfa9979cd1so9491667a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 05:25:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4349cf7e4fesm94912855e9.22.2024.11.26.05.20.43
+ 4fb4d7f45d1cf-5d01d3b0b1fsm5078579a12.32.2024.11.26.05.25.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 05:20:44 -0800 (PST)
+ Tue, 26 Nov 2024 05:25:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e4a2471-abf9-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmEiLCJoZWxvIjoibWFpbC13bTEteDMyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjNlNGEyNDcxLWFiZjktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjI3MjQ1LjQ4NDgxNSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: f50782bf-abf9-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmUiLCJoZWxvIjoibWFpbC1lZDEteDUyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImY1MDc4MmJmLWFiZjktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjI3NTUxLjk2MTY0Mywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732627245; x=1733232045; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732627551; x=1733232351; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ie0mWLpOW0oUrSVSj+ll90vwMo8ta7P223PIY0zLVC8=;
-        b=bIrQsMtspN7t1IJhMTM4R7yus5V0LXxjNjXm4rxh7I2ubnOOn+Xoa3qKC8a3JIKg56
-         G0a89IUWvheA4gqttSRP+4SoFfRhcSLWgNgrnk3x9pIlZdoVryVbOCOhwJmX9Dzt2FU5
-         d6AjjF5FqKgQiI8ax8CGvDDsGTGKwCvI0xPt7UepgroajBdTbopB15O9uIJKFKN1tljB
-         loN4xlzzKWisnr26UN2GNa8tx7XzyzXw7qHbgf+ddTMQoUn0CwPaJ7OUulJavNP+KAA8
-         vhHxA99sRAwzY5Xl/ESpnLAU8HyIHD3GCASF1Kcl8uOEdo2pPcZHUmXjuzP5cjx6mFGV
-         7ZkA==
+        bh=o8kYuxFNQRDbiz+DaCgINnkyhg1GQ5TJaB7QWhGD2bQ=;
+        b=NS4hDZkTyyqPUPFbggdSfspyJd2BzZlHXNLu1cwirdkzJMDZseezlrtAqg+aNnWzrW
+         68yAApXHCwD93Ku6oWy+uzUqH8G6VDQ6zPKJLaDTMrCF7E0bLCZ7mg6wnELMR0/eG56S
+         y7cdgsQvXNevVeaDqGlTibr0KokJXzaZu4n0oro81u8OVkq9RfwLwKAO3tqzjOvWf3Ra
+         d6mXhXDuMuY3yAVZm0982f67PCvFkDgPmfrJIDTHnIIUHmdx39iLXtFMmnUWvE0vQ4NE
+         MP0xR8b/tMJcOyrHji42n9AD8XFvyUgF064ex0OM5IqpINudri/OX1sG7SCI6HGIAKjI
+         bgzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732627245; x=1733232045;
+        d=1e100.net; s=20230601; t=1732627551; x=1733232351;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ie0mWLpOW0oUrSVSj+ll90vwMo8ta7P223PIY0zLVC8=;
-        b=NEmqTGiI2QyWIaq6iRu7HtlWA7BnRypo4ssFiqy4G/1qGDHV+1LgC+BVv2U8TOxg8f
-         P9MCxb7SPWS3jTQgOfZWncbKs4Egb//hgJZ0eMAxUkBH0jBZUl3GFs8EPEvrIivIJZW2
-         tMKbNm0pwJ4L/a1Ru4AYy/k4WkG0A2fbhPstj1aMC9KwyOwQOrIZyRWU2QiSnJGOdAi5
-         ugSXdw5cMfSxL+9O6thicCub6zlIxbQ8uRwEwYAYQMITlOgEvkqE+Xf+NK1RTRRxsrVy
-         dqti8QIORpT419Nt/AmlfU5//UKdLyXsXd8hJGllJn67WrnhrjjDMs2BZB73hVigftXh
-         kQRg==
-X-Forwarded-Encrypted: i=1; AJvYcCW73mDPwzkRdxwaq/yiQBsGNTA8aUfOuhbVDcRYztWlSPJ5nvTE0XVKjDDuyw4XRaC1wFkgzvF8vGY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz9o8F7Zd866Y68LnpOHdm6xw/wAc2/IlNe44KhnRBcTD17MnFF
-	XkXop570Ek+D1LsgIHOwimEx06MovFvkYiTzIemeYqveTOVkd45UGD0dixHCZw==
-X-Gm-Gg: ASbGncsCIKZclyUe4zMd7Ax9eSipoN+rK0DATbVi9NWERMVN6AqBe+953wvbY3Q5IcJ
-	GIdNO1eW8K7IxXNmHhMLy9f53PvsVqwJ9rPQ2IwiIAwSHDLrb4umWNC/xvdABKld7CTl8dl8Njj
-	BgsFnHuE+ln3hNeTewGmWohFuYdsOwvPO2RULUiIzVrLaMurMgmkZZHuANYYKkmF9x51ja4THQS
-	02mMkL1uH9KyLcuGciwc8+/uMVvE8gw3HxEcxoKmG/N87a6UFf2yhHUNDI3gVxoZYoBvJPB0lHC
-	OwOA0YZtTGZJpKsfkxwTtZ02WM9JkQrKKys=
-X-Google-Smtp-Source: AGHT+IHHjCo0uYOwKMuTSNPxSjwrneaiW25NBfmXX4UwudpaXyKhJUzlZAxOhdpeS8Mr2v+jZjoDLg==
-X-Received: by 2002:a05:600c:35c4:b0:431:93d8:e1a1 with SMTP id 5b1f17b1804b1-433ce4c1f1bmr143799315e9.27.1732627244765;
-        Tue, 26 Nov 2024 05:20:44 -0800 (PST)
-Message-ID: <e40ed7c2-6111-468e-8655-884953bd33e7@suse.com>
-Date: Tue, 26 Nov 2024 14:20:43 +0100
+        bh=o8kYuxFNQRDbiz+DaCgINnkyhg1GQ5TJaB7QWhGD2bQ=;
+        b=PPwypvZYOJzfbbxUVkI15FLBSOnUVF2Iaj8akVcX2kImxf0hGNB6mppJ5Cdf4rb7Kw
+         OEUdim9TM6fkkuzJZfwSyYWL/rus8mWV8fn6G3NgCvHgkSP4yV1J5Qvs8fHPGhbjmZrT
+         +9eKrzN9oTNpLpQcANYg0qlgogeF0vt2061FcZF+yRG8cWNMlJuFXjSj4laXavJRx3aG
+         4UcdMCjrtgbLGG5zvDtMszO34YCgTwkjMB2UcjGp77wz5wUtkbMJv6UPUNPkkITD8HpW
+         hJuu/3yXGMOKYMEAIuqw24P/DLc3PBzjhKztS5CN9vAvKKar9MeQvRWT5drehJuVeNq+
+         0FJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXxZh/JCbOX90KIC7DwRnnCoODcGahg66Isr8ug0UD1FwjBwq1rmIpDO2Z4Cjux8s7KF06Cotx22VM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6P+IVgOyTiR8WqTJLt7lvG4b1n9UPJ44d15OsrFZT34hh3Jl9
+	u4FAZFJiVVT+uWzlHPoE2KhYXtyvTiqtlvlko8bRAY+Ag2PdAXBwfO0wVtvufA==
+X-Gm-Gg: ASbGncs6XioSNjsN1DhJGGWec7zyi3BIvcCfXtIiy49Y2jiyIEEaCbMP+EQfe7YvT30
+	ywsrB8UePnZxMPdfACJhRi9QM4sA0c9sgD9hkflVZr8zU6ixKKJGqDIGvwHRj9RXPiKB14zDnme
+	oySBxdPPQFjNhPFTnhxYZfS6JdqlaJVaWYirOJ1No11h2gkEJ+Zi/1dShsveIbTQdUvOfJ1yOZS
+	pnOZco1f2HSBVbwc+2wPhwyF3QG9jwaMfr44CbbkiOI6hzx+HrGGvglEAQXxzGz4qgfJ4hI4WsR
+	bFEii9ddamFkm2dHSlJ8qsEHOUzbduLtF9k=
+X-Google-Smtp-Source: AGHT+IHhK1G7vMQoUisVqIxXycGTu2Kq7vWdHHvrOososG5qWcOL1a78DEHwJB81pLHC6GicitiQzw==
+X-Received: by 2002:a05:6402:2355:b0:5d0:771e:36de with SMTP id 4fb4d7f45d1cf-5d0771e3794mr1414635a12.7.1732627551313;
+        Tue, 26 Nov 2024 05:25:51 -0800 (PST)
+Message-ID: <fe4d16ad-a0e4-4948-b268-c48071cbf971@suse.com>
+Date: Tue, 26 Nov 2024 14:25:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 12/25] xen: Replace sysctl/readconsole with
- autogenerated version
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Subject: Re: [PATCH v6 1/3] xen/riscv: introduce setup_mm()
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <20241115115200.2824-1-alejandro.vallejo@cloud.com>
- <20241115115200.2824-13-alejandro.vallejo@cloud.com>
- <0a5a66d9-4fd4-4084-b7f9-0923d5a4c6d5@suse.com>
- <D5VHI2OA8QTK.1H4ZDUSP5EZX5@cloud.com>
- <737292fd-1c4a-4fd6-ae98-a701adb0b88e@suse.com>
- <D5W3YYDE2F09.IHJMRBUBE6EV@cloud.com>
+References: <cover.1731672668.git.oleksii.kurochko@gmail.com>
+ <1ebb209f191e3e2323840acfe3714a597aa7be6c.1731672668.git.oleksii.kurochko@gmail.com>
+ <fb5c12b0-5bc1-4129-a4e9-9716ffd4685c@suse.com>
+ <360ce2bf4c418cf8f5c4318435ca3308477a07b6.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,89 +124,90 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D5W3YYDE2F09.IHJMRBUBE6EV@cloud.com>
+In-Reply-To: <360ce2bf4c418cf8f5c4318435ca3308477a07b6.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.11.2024 13:27, Alejandro Vallejo wrote:
-> On Tue Nov 26, 2024 at 9:40 AM GMT, Jan Beulich wrote:
->> On 25.11.2024 19:51, Alejandro Vallejo wrote:
->>> On Mon Nov 25, 2024 at 12:05 PM GMT, Jan Beulich wrote:
->>>> On 15.11.2024 12:51, Alejandro Vallejo wrote:
->>>>> Describe sysctl/readconsole as a TOML specification, remove old
->>>>> hand-coded version and replace it with autogenerated file.
->>>>>
->>>>> While at it, transform the console driver to use uint8_t rather than
->>>>> char in order to mandate the type to be unsigned and ensure the ABI is
->>>>> not defined with regards to C-specific types.
->>>>
->>>> Yet the derived C representation imo then should still be using char, not
->>>> uint8_t.
->>>
->>> There's 2 issued addressed by this patch.
->>>
->>>   1. The removal of char from the external headers (and the Xen driver).
->>>   2. The replacement of the existing struct by the autogenerated one.
->>>
->>> (1) wants doing irrespective of (2). char has neither a fixed width nor a fixed
->>> sign. Which is irrelevant for ABI purposes in this case because what we really
->>> meant is "give me a pointer" in this hypercall, but it may be important in
->>> other cases.
->>>
->>> IOW, char should've never made it to the definition of the public ABI, and I'm
->>> merely taking the chance to take it out. Happy to extract this patch and send
->>> it separately.
+On 26.11.2024 12:57, oleksii.kurochko@gmail.com wrote:
+> On Mon, 2024-11-25 at 16:49 +0100, Jan Beulich wrote:
+>> On 15.11.2024 13:47, Oleksii Kurochko wrote:
+>>> --- a/xen/arch/riscv/include/asm/config.h
+>>> +++ b/xen/arch/riscv/include/asm/config.h
+>>> @@ -90,6 +90,7 @@
+>>>  #define DIRECTMAP_SLOT_START    200
+>>>  #define DIRECTMAP_VIRT_START    SLOTN(DIRECTMAP_SLOT_START)
+>>>  #define DIRECTMAP_SIZE          (SLOTN(DIRECTMAP_SLOT_END) -
+>>> SLOTN(DIRECTMAP_SLOT_START))
+>>> +#define DIRECTMAP_VIRT_END      (DIRECTMAP_VIRT_START +
+>>> DIRECTMAP_SIZE - 1)
 >>
->> Well, work towards fully getting char out of the public headers may indeed be
->> worthwhile. Otoh with char being the basic addressing granularity, I think
->> the ABI is pretty much tied to sizeof(char) == 1, imo limiting the
->> worthwhile-ness quite a bit.
+>> While it is of course okay to have this value be inclusive (matching
+>> FRAMETABLE_VIRT_END), I'd like to point out that
+>> - on x86 *_END are exclusive (i.e. there's some risk of confusion),
+>> - RISC-V's DIRECTMAP_SIZE appears to assume DIRECTMAP_SLOT_END is
+>>   exclusive, when from all I can tell (in particular the table in the
+>>   earlier comment) it's inclusive.
+> Agree, overlooked that DIRECTMAP_SIZE is exclusive,  the value should
+> correspond to the table thereby DIRECTMAP_SIZE should be inclusive and
+> defined as:
+> #define DIRECTMAP_SIZE (SLOTN(DIRECTMAP_SLOT_END + 1) -
+> SLOTN(DIRECTMAP_SLOT_START))
 > 
-> Let me put it another way. If I were to create a separate patch stripping char
-> and using uint8_t instead, what are my chances of getting an Acked-by? Or not a
-> NAK, at least. (there's other maintainers that I need that from, but one step
-> at a time).
-
-That would to some degree depend on what other maintainers think. Not a straight
-NAK in any event.
-
->> Signed-ness of plain char doesn't really matter as long as it's used only for
->> what really are characters (or strings thereof). And that looks the be pretty
->> much the case throughout the public headers.
+> and then DIRECTMAP_VIRT_END could be left as it is defined now:
+>    #define DIRECTMAP_VIRT_END      (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE
+>    - 1)
 > 
-> Maybe. Still, as a general principle caller and callee ought to agree on size,
-> alignment and sign for every type. I'd rather not make exceptions for that
-> invariant unless truly well motivated. And in this case it's a case of
-> requiring trivial non-functional changes.
+> Regarding the first one point. Do you think it would be better to
+> follow x86 approach and have *_END to be exclusive? Then
+> FRAMETABLE_VIRT_END should be updated too?
 
-In how far they're non-functional will need to be seen. You also need to keep
-consumers in mind: They may face sudden type disagreement that compilers may
-complain about. Yet "stable" for the public headers means not just the ABI
-itself being stable, but updated headers also being usable as drop-in
-replacements for older versions.
+I think it would be better if all ports agreed in this regard. That agreement
+may also mean that x86 needs changing. Arm's mmu/layout.h also specifies
+DIRECTMAP_VIRT_END as inclusive, for example (and, because of aliasing, also
+HYPERVISOR_VIRT_END).
 
->>>> Nit: For anything that is committed, it would be nice if those files were as
->>>> tidy as possible style-wise. Most of the above looks entirely okay, just
->>>> that there is an unnecessary trailing blank line.
->>>
->>> I did go out of my way to prettify the output.
->>>
->>> The trailing newline was intentional to make it C++03-compatible. I can get rid
->>> of it, as it doesn't matter a whole lot.
+>>> @@ -25,8 +27,12 @@
+>>>  
+>>>  static inline void *maddr_to_virt(paddr_t ma)
+>>>  {
+>>> -    BUG_ON("unimplemented");
+>>> -    return NULL;
+>>> +    unsigned long va_offset = maddr_to_directmapoff(ma);
+>>> +
+>>> +    ASSERT(va_offset >= DIRECTMAP_VIRT_START -
+>>> directmap_virt_start);
+>>> +    ASSERT(va_offset <= DIRECTMAP_VIRT_END -
+>>> directmap_virt_start);
+>>> +
+>>> +    return (void *)(directmap_virt_start + va_offset);
+>>>  }
 >>
->> I haven't followed the development of C++ very closely; my experience with it
->> is mostly from far more than 20 years ago. What's that C++03 compatibility
->> requirement?
+>> If you added in directmap_virt_start right when setting the variable,
+>> you'd simplify the assertions. The unsigned long arithmetic is going
+>> to
+>> be okay either way. (The variable may want renaming if doing so,
+>> perhaps
+>> simply to "va".)
 > 
-> It's really unimportant. -Wnewline-eof, I think it was. There's a pedantic
-> paragraph in the C++ spec from 2003 that states that if a file is not
-> newline-terminated it's UB to parse it. I tend to newline-terminate my files
-> for easy `cat`-ing them together in the rare occasions where that's useful for
-> something.
+> Just to be sure that I understand your point correct. Do you mean the
+> following:
+>     static inline void *maddr_to_virt(paddr_t ma)
+>     {
+>    -    unsigned long va_offset = maddr_to_directmapoff(ma);
+>    +    unsigned long va = maddr_to_directmapoff(ma) +
+>    directmap_virt_start;
+>     
+>    -    ASSERT(va_offset >= DIRECTMAP_VIRT_START -
+>    directmap_virt_start);
+>    -    ASSERT(va_offset <= DIRECTMAP_VIRT_END - directmap_virt_start);
+>    +    ASSERT(va >= DIRECTMAP_VIRT_START);
+>    +    ASSERT(va <= DIRECTMAP_VIRT_END);
+>     
+>    -    return (void *)(directmap_virt_start + va_offset);
+>    +    return (void *)va;
+>     }
 
-Unimportant or not - there must then be some misunderstanding on either my
-side or yours. Even the assembler insists on a final newline, as does plain
-C. Yet that means one newline, not two (i.e. not a trailing blank line).
+Yes (and at this point you could even fold the two assertions).
 
 Jan
 
