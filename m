@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA82E9D94B9
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 10:40:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843461.1259080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 012E29D94DD
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 10:48:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843477.1259090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFs3T-0008Kk-Pj; Tue, 26 Nov 2024 09:40:23 +0000
+	id 1tFsAg-0000qX-K1; Tue, 26 Nov 2024 09:47:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843461.1259080; Tue, 26 Nov 2024 09:40:23 +0000
+Received: by outflank-mailman (output) from mailman id 843477.1259090; Tue, 26 Nov 2024 09:47:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFs3T-0008IL-Ma; Tue, 26 Nov 2024 09:40:23 +0000
-Received: by outflank-mailman (input) for mailman id 843461;
- Tue, 26 Nov 2024 09:40:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tFsAg-0000nu-Gt; Tue, 26 Nov 2024 09:47:50 +0000
+Received: by outflank-mailman (input) for mailman id 843477;
+ Tue, 26 Nov 2024 09:47:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zjIj=SV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFs3S-0008IF-FD
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 09:40:22 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 707324ee-abda-11ef-99a3-01e77a169b0f;
- Tue, 26 Nov 2024 10:40:15 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-434a10588f3so13424135e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 01:40:15 -0800 (PST)
+ id 1tFsAe-0000no-Iu
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 09:47:48 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7cd95408-abdb-11ef-a0cd-8be0dac302b0;
+ Tue, 26 Nov 2024 10:47:45 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3823eb7ba72so3615046f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 01:47:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fb537dfsm12740393f8f.63.2024.11.26.01.40.13
+ ffacd0b85a97d-3825fb537dfsm12757071f8f.63.2024.11.26.01.47.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 01:40:14 -0800 (PST)
+ Tue, 26 Nov 2024 01:47:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 707324ee-abda-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzEiLCJoZWxvIjoibWFpbC13bTEteDMzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjcwNzMyNGVlLWFiZGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjE0MDE1LjE3NTA5Mywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 7cd95408-abdb-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzIiLCJoZWxvIjoibWFpbC13cjEteDQzMi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjdjZDk1NDA4LWFiZGItMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjE0NDY1LjQ1NjI4MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732614014; x=1733218814; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732614465; x=1733219265; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8w+R585ArY6dj+SymyS1SEpF2eLQMwTzkI580s0ANjE=;
-        b=C2C0Jzp5FGVoJEe5W+QuOUpNgk+Lm5UC0AsFz8x0WU8XlNf8xkVFlSXRFDwKIwYlaA
-         BsJAw1WFHhdysmShpa2DAjSgUdxvFp1hbeBslt5vmOI0wmTIbxz/6b/CzNs7b6HNhZCy
-         +3mamBJodrfb1EFLzaMKdSgfL0sUDzn/VjDevOIyDgZtNGSyFnS0QYkQUYfZ/QwZ6MeF
-         uvW6JpbkgYBnPDfQ42Tql5gPwPWg4AtC3BPOjwFSIpndb3TxbZEZyea7R0na5kIa23PK
-         sfNKTM5BcOB2p7F9xTpGI4nSo6QXxTPd2qmziFrAoe2xey0rtncBx0WQmXtdqg19ZMi6
-         xlpg==
+        bh=YRNxrvGGPv+J7YPiNDTf+hiJYnm6JyW2vOAOkEdMY94=;
+        b=Z4ybu+6O4kbbP93yACoKTftQzF2waG3tt+HhNEyj7KnE4x3R1SyndvLRGFAs1okEqk
+         Bube2mbtoIQ1w5BiGSGg/l9rtVqJ9dSUPgq8rkHBpPDOW3IBuzYWkp+zKVHX8re7gc7j
+         ILVvE+SDcFh5XmtRmDln+rnUwSQe2Zbia5LJTIuxPwqVbVM0goCqT005/eMm5ypCLrQV
+         Hd5BPtuhywFMKMm834H1dsCvOV8bvnj0j3w5g2t93S+KMYczlirAmzNNYDpJFoEgPpfQ
+         mzs0CwznYy4SPiOsgzt29jP2xDlR/XAkr1W1aFZmLML71IGyV4Vlrv//CC3bfnK/cPsY
+         NYPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732614014; x=1733218814;
+        d=1e100.net; s=20230601; t=1732614465; x=1733219265;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8w+R585ArY6dj+SymyS1SEpF2eLQMwTzkI580s0ANjE=;
-        b=URPuiL5CPFmRlYj4D/E/rOXVf3qzCIG7Juy9SUUVmWTHgTPj76qF+h6+c2PShUeXCV
-         QzFdT0m5/8iKJdoWudPfsY4EpiaKdnJHw7oxB/W7g+Z/nsCW2z88yaOmbV2gNlxuhKqL
-         yLO+Lm9wjENBeicVl0YlrjBpvw2eNNgzWXT4jS6RG/3lIdVJsDN8XoblTeeHTfG1c/BC
-         R2fh0Qufrpk0pJx6lQ14kEZQSHmpy3OgpcQNnXXNAtfgPp6hM8SXQ09pFI9fpy6YmTSQ
-         2RtNULzCgavj7UokvYdyTkQIId3DDKfl6Ifaa2qWnufAPTMlaXsRlZKg9lZslxvxW+Ri
-         7IrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV4vU4PWKuZZaD/j/E2uguWVor8NGQBvrNRgxDY5LqdMsnmqtI3al6nh7RWj7AhRwykXpOJUD9CN3s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIZ7XLgdEz/X0Y6tu1Uyoo3HuiV+MONKIcYvhjU9qGdSWrHZeB
-	oaJ0Sxrhp0YDKuN8h9xRdGhUlRDnObhHDSKLPbFYES/xYnhOP7zyZoT/vJRGUw==
-X-Gm-Gg: ASbGncuB5jq6G+kprnto7UO0cVNYQ//dMGPcOoCsZwl0icqNHbEhS1j3Jk5BO4NxF0V
-	Lus9gIdclutSd3pndMWoUbLig8g/A8XogMpZbjxmvoH2mLsXwBzAeivLLCWbTa1xOGIxU1Db6e/
-	gC6OLwScmD43YY9hFr562+hlLZPsw8p07tKBWXPB9HGZqUtshYE1dWEU6gHEEPZTM99ihdCiptV
-	0wLC2+cn3eZNKiUs2PkXzSHLe/iDZdqbh99e/oII1BjJucyn786rxUV8SgDPIyVIAYZhqhSMq89
-	c4Gdd/4+BjWuqrVNIonHq55xe6VfjCV1QoQ=
-X-Google-Smtp-Source: AGHT+IGr8b17ihGnPIZTev2qFn61YEtRUtJYJZHyGeUv7S/uuj/Zn1TgVo20rdsI0HegcPBoOzqi/g==
-X-Received: by 2002:a05:6000:2d06:b0:382:4b83:d4c0 with SMTP id ffacd0b85a97d-38260b486f8mr10807601f8f.3.1732614014398;
-        Tue, 26 Nov 2024 01:40:14 -0800 (PST)
-Message-ID: <737292fd-1c4a-4fd6-ae98-a701adb0b88e@suse.com>
-Date: Tue, 26 Nov 2024 10:40:12 +0100
+        bh=YRNxrvGGPv+J7YPiNDTf+hiJYnm6JyW2vOAOkEdMY94=;
+        b=K5e9mZB0oofu6Tvt1PFqaqAY9K+dYTAHtF6v4FBFupE0JB7i4ViJZ50Cs/rjXM7uGs
+         xV4uySaNBSygCG25jarSIB9r5+9NGrbNZCQk35A7AccpLImCso+sEmdCIiwnNkKaWN9b
+         w7BjhV3R4r17Tcw855i2j/eN5ZwLo+BrfwzhmNLNCoXwXDL98pIxLIp4jFaNwfoCMyei
+         COiWquXr2D8sBXi9c/6PbBzpDzipKMmTt9CD1w+80yptwm8xC3Hvo39kYByN9VqAWAjb
+         mRXbOXPHuzXmwSV6FNfiBWqDzSyYByxKsmTdHvOX8MNjoLguyyfpAqVoOq/kz1N7xfWn
+         Y55w==
+X-Gm-Message-State: AOJu0Yzb2DXKzr7BZQlgUVzLwHMSxLzn0NjzLyS5kMnYYCFa7rfRBfjO
+	MRXuO8OpbnwTseTAVJMoS5WRsjzCRPmV/qmrgczep2fKKXz4nuB7ElMid0oyxg==
+X-Gm-Gg: ASbGncs1ZiaiSjroVdW/YJMYEMe2GwmrT4gG8Z17yGtQ5uNltX9fj8moaLQHGeuFk74
+	vBgKyPVKErhe4I1lJqM1CTqqI69fxdPLsDKcR8pnWs9I/rcYvNIFljNWAqRqbPSRIqsokJqqHIC
+	cdERxQgpEadV9fqRlOsdPNdmEP0gdqbji3p1mAkqolLdfOirRAavSNqK2aF48mLs+IquWZzY7BW
+	MEO8LTOCVrMgJI0qLDGR9/e7l4GnHKSkzFUlSAmJEgTW1L+rSLtUCBojf1by5EYKLlJYQdd8FCp
+	8LgUBeo0uJEzsqoZ+GWjWazj36dKQlG9FPk=
+X-Google-Smtp-Source: AGHT+IFPlSyodWeM/ES/GQaMg0Mf88tYP73BTj2SaYvLHYPNMAcfMHR8tyzv17a4LfFf3aWy37o3gQ==
+X-Received: by 2002:a5d:588b:0:b0:382:4a9d:28fa with SMTP id ffacd0b85a97d-38260b808edmr12712675f8f.30.1732614464805;
+        Tue, 26 Nov 2024 01:47:44 -0800 (PST)
+Message-ID: <c8aa7b64-b5b5-4ac3-b0c0-67d74441588e@suse.com>
+Date: Tue, 26 Nov 2024 10:47:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 12/25] xen: Replace sysctl/readconsole with
- autogenerated version
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
+Subject: Re: [PATCH] vpci: Add resizable bar support
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20241115115200.2824-1-alejandro.vallejo@cloud.com>
- <20241115115200.2824-13-alejandro.vallejo@cloud.com>
- <0a5a66d9-4fd4-4084-b7f9-0923d5a4c6d5@suse.com>
- <D5VHI2OA8QTK.1H4ZDUSP5EZX5@cloud.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <ZzY1O-zrcWB6Ra3q@macbook>
+ <BL1PR12MB5849FC8077C7C6035F1D3E15E7242@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzczqznFbixk3Vfu@macbook>
+ <BL1PR12MB5849894360DB8D96073AB21EE7272@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZzyIk0KipX8LPZNv@macbook>
+ <BL1PR12MB5849FC514034CDFC2F68BA6FE7212@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz2lgkjgRoZ7Sr5Q@macbook>
+ <BL1PR12MB5849F5382CF3A03C080C4CA4E7222@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Zz8Cwj3KJ1BIBEg_@macbook>
+ <BL1PR12MB584977971D2C0A00443A1A79E72E2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <Z0Rx2IXqqvrLaIIq@macbook>
+ <BL1PR12MB5849B85C116A74D138FF65AAE72F2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,352 +130,98 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D5VHI2OA8QTK.1H4ZDUSP5EZX5@cloud.com>
+In-Reply-To: <BL1PR12MB5849B85C116A74D138FF65AAE72F2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.11.2024 19:51, Alejandro Vallejo wrote:
-> On Mon Nov 25, 2024 at 12:05 PM GMT, Jan Beulich wrote:
->> On 15.11.2024 12:51, Alejandro Vallejo wrote:
->>> Describe sysctl/readconsole as a TOML specification, remove old
->>> hand-coded version and replace it with autogenerated file.
+On 26.11.2024 07:02, Chen, Jiqian wrote:
+> On 2024/11/25 20:47, Roger Pau Monné wrote:
+>> On Mon, Nov 25, 2024 at 03:44:52AM +0000, Chen, Jiqian wrote:
+>>> On 2024/11/21 17:52, Roger Pau Monné wrote:
+>>>> On Thu, Nov 21, 2024 at 03:05:14AM +0000, Chen, Jiqian wrote:
+>>>>> On 2024/11/20 17:01, Roger Pau Monné wrote:
+>>>>>> On Wed, Nov 20, 2024 at 03:01:57AM +0000, Chen, Jiqian wrote:
+>>>>>>> The only difference between our methods is the timing of updating the size.
+>>>>>>> Yours is later than mine because you updated the size when the driver re-enabled memory decoding, while I updated the size in time when driver resize it.
+>>>>>>
+>>>>>> Indeed, my last guess is the stale cached size is somehow used in my
+>>>>>> approach, and that leads to the failures.  One last (possibly dummy?)
+>>>>>> thing to try might be to use your patch to detect writes to the resize
+>>>>>> control register, but update the BAR sizes in modify_bars(), while
+>>>>>> keeping the traces of when the operations happen.
+>>>>>>
+>>>>> This can work, combine our method, use my patch to detect and write the size into hardware register, and use your patch to update bar[i].size in modify_bars().
+>>>>> Attached the combined patch and the xl dmesg.
+>>>>
+>>>> This is even weirder, so the attached patch works fine?  The only
+>>>> difference with my proposal is that you trap the CTRL registers, but
+>>>> the sizing is still done in modify_bars().
+>>>>
+>>>> What happens if (based on the attached patch) you change
+>>>> rebar_ctrl_write() to:
+>>>>
+>>>> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+>>>>                                       unsigned int reg,
+>>>>                                       uint32_t val,
+>>>>                                       void *data)
+>>>> {
+>>>>     pci_conf_write32(pdev->sbdf, reg, val);
+>>>> }
+>>>>
+>>> If I change rebar_ctrl_write() to:
+>>> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+>>>                                       unsigned int reg,
+>>>                                       uint32_t val,
+>>>                                       void *data)
+>>> {
+>>>     printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, reg, val);
+>>>     pci_conf_write32(pdev->sbdf, reg, val);
+>>> }
 >>>
->>> While at it, transform the console driver to use uint8_t rather than
->>> char in order to mandate the type to be unsigned and ensure the ABI is
->>> not defined with regards to C-specific types.
+>>> I can see three time prints, it can't work.
+>>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+>>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+>>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 528, val 102
+>>>
+>>> If I change rebar_ctrl_write() to:
+>>> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+>>>                                       unsigned int reg,
+>>>                                       uint32_t val,
+>>>                                       void *data)
+>>> {
+>>>     if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+>>>         return;
+>>>     printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, reg, val);
+>>>     pci_conf_write32(pdev->sbdf, reg, val);
+>>> } 
+>>>
+>>> I can only see one time print:
+>>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
+>>>
+>>> The check prevented the two times incorrect write actions.
+>>>     if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+>>>         return;
+>>>
+>>> And why my original patch can work too, the check:
+>>> +    ctrl = pci_conf_read32(pdev->sbdf, reg);
+>>> +    if ( ctrl == val )
+>>> +        return;
+>>> happened to play the same role as PCI_COMMAND_MEMORY check.
 >>
->> Yet the derived C representation imo then should still be using char, not
->> uint8_t.
-> 
-> There's 2 issued addressed by this patch.
-> 
->   1. The removal of char from the external headers (and the Xen driver).
->   2. The replacement of the existing struct by the autogenerated one.
-> 
-> (1) wants doing irrespective of (2). char has neither a fixed width nor a fixed
-> sign. Which is irrelevant for ABI purposes in this case because what we really
-> meant is "give me a pointer" in this hypercall, but it may be important in
-> other cases.
-> 
-> IOW, char should've never made it to the definition of the public ABI, and I'm
-> merely taking the chance to take it out. Happy to extract this patch and send
-> it separately.
+>> Thank you very much for figuring this out.  So in the end it's a bug
+>> in the driver that plays with PCI_REBAR_CTRL with memory decoding
+>> enabled.
+> Yes, I think.
+> During driver initiation, it calls pci_rebar_set_size to resize BARs,
+> after that, it calls pci_restore_state->pci_restore_rebar_state to restore BARs,
+> the problem is when calling pci_restore_rebar_state, memory deoding is enabled state.
+> I will discuss with my colleagues internally whether this needs to be modified in amdgpu driver.
 
-Well, work towards fully getting char out of the public headers may indeed be
-worthwhile. Otoh with char being the basic addressing granularity, I think
-the ABI is pretty much tied to sizeof(char) == 1, imo limiting the
-worthwhile-ness quite a bit.
-
-Signed-ness of plain char doesn't really matter as long as it's used only for
-what really are characters (or strings thereof). And that looks the be pretty
-much the case throughout the public headers.
-
->> In particular it would be a good sign if the Xen sources wouldn't
->> need to change, unlike happens here (altering types of a few internals of
->> the console machinery).
-> 
-> And that would be the case if Xen had uniform naming conventions and its ABI
-> was fully unambiguous. The process of uniformizing the naming convention and
-> disambiguating the ABI is bound to cause (non-functional) changes, mostly in
-> the naming conventions side of things.
-> 
-> Naming conventions can be _MOSTLY_ sorted by creating compat #defines and
-> typedefs that match the old types. I can do that, but note that even then some
-> code would have to change in order to i.e: s/struct OLD_NAME/NEW_NAME_T/
-
-Here we already disagree: I think we'd better avoid any typedef-s in the public
-interface when they're not strictly needed (e.g. in order to declare associated
-handles). Imo we simply shouldn't introduce more into the name space than
-actually required.
-
-> If this is deemed important for backporting changes, I can do it for invasive
-> replacements, like the createdomain flags.
-> 
-> On the topic of changing types, The present case is an ABI inconsistency case.
-> My intention is to keep the ABI fixed as a matter of principle (if anything,
-> because the domU ABI cannot be changed). However, changing the way C represents
-> said ABI is a requirement if the current definition is ambiguous. In those
-> cases we ought to change C to ensure there's one and only one way of
-> interpreting it.
-
-I wonder what concrete cases of ambiguity you're thinking of here.
-
->>>  xen/include/public/autogen/sysctl.h           | 35 +++++++++++++++
->>
->> In the build tree, having an autogen subdir under public/ _may_ be okay
->> (personally I dislike even that). I didn't manage to spot adjustments to
->> how files are eventually installed, yet at that point there clearly
->> shouldn't be any autogen subdir(s) anymore. How the individual files come
->> into existence is, imo, nothing consumers of the interface ought to (need
->> to) care about.
-> 
-> Anthony already mentioned an error while building QEMU, which I'm guessing
-> comes from the same problem. The stitching is definitely up for discussion. I
-> got far enough to allow the compilation of `dist` to go through, but didn't
-> think incredibly hard about the finer details (like the install targets).
-> 
-> In principle, renaming `autogen` to `abi` and adding its contents to the list of
-> installed headers ought to sort that particular concern? 
-
-Not really, no. That only gives the child a different name. Imo the original
-tree structure shouldn't change. By the end of the conversion work, all-
-generated stuff would simply replace all-hand-written stuff.
-
->>> --- /dev/null
->>> +++ b/tools/rust/xenbindgen/extra/sysctl/readconsole.toml
->>> @@ -0,0 +1,43 @@
->>> +[[structs]]
->>> +name = "xen_sysctl_readconsole"
->>> +description = "Read console content from Xen buffer ring."
->>> +
->>> +[[structs.fields]]
->>> +name = "clear"
->>> +description = "IN: Non-zero -> clear after reading."
->>> +typ = { tag = "u8" }
->>> +
->>> +[[structs.fields]]
->>> +name = "incremental"
->>> +description = "IN: Non-zero -> start index specified by `index` field."
->>> +typ = { tag = "u8" }
->>> +
->>> +[[structs.fields]]
->>> +name = "_pad"
->>> +description = "Unused."
->>> +typ = { tag = "u16" }
->>> +
->>> +[[structs.fields]]
->>> +name = "index"
->>> +description = """
->>> +IN:  Start index for consuming from ring buffer (if @incremental);
->>> +OUT: End index after consuming from ring buffer."""
->>> +typ = { tag = "u32" }
->>> +
->>> +[[structs.fields]]
->>> +name = "buffer"
->>> +description = """
->>> +IN: Virtual address to write console data.
->>> +
->>> +NOTE: The pointer itself is IN, but the contents of the buffer are OUT."""
->>> +typ = { tag = "ptr", args = { tag = "u8" } }
->>> +
->>> +[[structs.fields]]
->>> +name = "count"
->>> +description = "IN: Size of buffer; OUT: Bytes written to buffer."
->>> +typ = { tag = "u32" }
->>> +
->>> +[[structs.fields]]
->>> +name = "rsvd0_a"
->>> +description = "Tail padding reserved to zero."
->>> +typ = { tag = "u32" }
->>
->> Up to here I wasn't able to spot any documentation on what it to be written
->> in which way.
-> 
-> You're right that the specification is not itself specified. I neglected to do
-> so to avoid having to rewrite it should we settle on a different markup
-> language.
-> 
-> Much of your confusion seems to stem from simultanuously looking at a new
-> markup language and a new schema for it. Let me try to unpick some of that...
-> 
->> I already struggle with the double square brackets. The TOML
->> doc I found when searching the web doesn't have such. Taking just the example
->> above also doesn't allow me to conclude how e.g. nested structures would be
->> specified.
-> 
-> The schema is represented by the contents of `spec.rs`. All structs with a
-> Deserialize attribute (i.e: #[derive(Foo, Bar, Deserialize)]) map to some
-> "table" in TOML.
-> 
-> When I say "struct" now I mean a struct inside the generator that represents
-> the input file (_NOT_ a struct representing a hypercall).
-> 
-> The rules are as follows. The whole file is deserialized in a single struct
-> (InFileDef). When there's a single square bracket (which I don't think I've
-> required yet), that means that what follows is a "table" with the name between
-> the brackets. There's several ways to represent table
-> 
->     Regular tables:           [foo]
->                               bar = "some_bar"
->                               baz = "some_baz"
-> 
->                               [foo2]
->                               bar = "blergh"
-> 
->     Inline tables:            foo = { bar = "some_bar", baz = "some_baz" }
->                               foo2 = { bar = "blergh" }
-> 
-> Both of those deserialize to the same thing (it's C for ease of explaining it
-> here, but it's actually Rust in the generator).
-> 
->                 struct infiledef {
->                     struct {
->                         char *bar; // points to "some_bar"
->                         char *baz; // points to "some_baz"
->                     } foo;
->                     struct {
->                         char *bar; // points to "blergh"
->                     } foo2;
->                 };
-> 
-> The double brackets are adding one more element to a "list"
-> 
-> That is. This TOML...
-> 
->                              [[foos]]
->                              bar = "some_bar"
->                              baz = "some_baz"
-> 
->                              [[foos]]
->                              bar = "some_bar"
->                              baz = "some_baz"
-> 
-> ... deserializes to...
-> 
->                 struct foodef {
->                     char *bar;
->                     char *baz;
->                 }
-> 
->                 struct infiledef {
->                     struct foodef *foos;
->                 };
-> 
-> The last bit of relevant information is that you can identify which table you
-> want to add to with dots. So [[structs.fields]] is saying "Add this field to
-> the list of fields of the current hypercall struct".
-> 
-> The "typ" field is a bit quirky (I have a solution to simplify it), but that
-> uses inline tables.
-> 
->> Really, when talk was of some form of IDL, I expected to see
->> something IDLish (im particular closer to typical programming languages we
->> use). Whereas TOML, aiui, is more an easy language for config files of all
->> sorts.
-> 
-> I might've been unclear in the talk. One of my goals is to _not_ define a new
-> language. Or I'll just exchange one problem for two. Maybe I should've called
-> it an Interface Definition Schema, rather than Language.
-> 
-> The key benefit here is that, while the generators can be tricky, the parser is
-> all done and strictly specified. We can experiment with YAML (Anthony already
-> asked about it). But it really is a matter of getting used to. TOML is
-> fantastic for saving horizontal space. And multi-line comments are neatly
-> organized.
-
-It may indeed be a matter of getting used to, yet I'm afraid your explanations
-above make the situation yet more confusing, at least for the moment. Just to
-explain my expectations some: I don't really speak e.g. Python or Perl, but the
-languages are self-explanatory above that I can at least roughly follow not
-overly involved pieces of code written therein. An interface specification imo
-certainly falls in the group of "not overly involved". Yet the (so far small)
-pieces of TOML that there aren't as self-explanatory as I'd have expected them
-to be.
-
->> What I have in mind wouldn't allow for descriptions, yet I'm not sure that's
->> relevant. The description ought to, first of all, live in the primary source
->> (i.e. the IDL itself) anyway. Commentary there might be possible to extract
->> into proper (machine generated/derived) documentation.
-> 
-> Not sure I follow, these TOML files _are_ the IDL itself.
-> 
-> The descriptions here are propagated to the generated code, so they are
-> infinitely helpful when reaching the type via e.g: cscope, LSPs, etc.
-
-Yet they are full-fledged attributes, when normally I'd expect such to be
-comments (thus clearly separating "code" from "non-code").
-
-As to propagating to generated code - hmm, yes, for use of cscope and alike
-it may indeed be helpful to propagate, if such tools can't associate back
-the generated files to their origins. My general take though is that
-generated code is something you look at as a human only when actually
-dealing with their generation. For all other purposes one would prefer the
-"original" source.
-
->>> --- a/xen/drivers/char/console.c
->>> +++ b/xen/drivers/char/console.c
->>> @@ -42,6 +42,8 @@
->>>  #include <asm/vpl011.h>
->>>  #endif
->>>  
->>> +#include <public/xen.h>
->>
->> Why would this be needed all of the sudden?
->>
-> 
-> Because of the new XEN_GUEST_HANDLE_64(uint8) type. The macro is quite ugly and
-> requires being declared ahead.
-
-How's that different from the earlier XEN_GUEST_HANDLE_PARAM(char)?
-
->>> --- /dev/null
->>> +++ b/xen/include/public/autogen/sysctl.h
->>> @@ -0,0 +1,35 @@
->>> +/*
->>> + * sysctl
->>> + *
->>> + * AUTOGENERATED. DO NOT MODIFY
->>> + */
->>> +#ifndef __XEN_AUTOGEN_SYSCTL_H
->>> +#define __XEN_AUTOGEN_SYSCTL_H
->>> +
->>> +/* Read console content from Xen buffer ring. */
->>> +struct xen_sysctl_readconsole {
->>> +    /* IN: Non-zero -> clear after reading. */
->>> +    uint8_t clear;
->>> +    /* IN: Non-zero -> start index specified by `index` field. */
->>> +    uint8_t incremental;
->>> +    /* Unused. */
->>> +    uint16_t _pad;
->>> +    /*
->>> +     * IN:  Start index for consuming from ring buffer (if @incremental);
->>> +     * OUT: End index after consuming from ring buffer.
->>> +     */
->>> +    uint32_t index;
->>> +    /*
->>> +     * IN: Virtual address to write console data.
->>> +     *
->>> +     * NOTE: The pointer itself is IN, but the contents of the buffer are OUT.
->>> +     */
->>> +    XEN_GUEST_HANDLE_64(uint8) buffer;
->>> +    /* IN: Size of buffer; OUT: Bytes written to buffer. */
->>> +    uint32_t count;
->>> +    /* Tail padding reserved to zero. */
->>> +    uint32_t rsvd0_a;
->>> +};
->>> +
->>> +#endif /* __XEN_AUTOGEN_SYSCTL_H */
->>> +
->>
->> If this file is auto-generated, why would it need committing? And yes, there
->> is the connected question: Will everyone then need to have a Rust compiler
->> available?
-> 
-> Committing it is required precisely so that no one needs to have a Rust
-> compiler available.
-
-How would that work? If I make a change to what currently is a public header,
-I'd still need to have one available, wouldn't I?
-
-> The last patch in the series checks the generated code
-> matches the specs byte by byte. It has the nice benefit that you can git-grep
-> for it and tags work even without compiling first. You also get all
-> architectures upfront and it's a lot easier to review changes to the generator
-> because CI will scream to you if the outputs diverge.
-> 
->>
->> Nit: For anything that is committed, it would be nice if those files were as
->> tidy as possible style-wise. Most of the above looks entirely okay, just
->> that there is an unnecessary trailing blank line.
-> 
-> I did go out of my way to prettify the output.
-> 
-> The trailing newline was intentional to make it C++03-compatible. I can get rid
-> of it, as it doesn't matter a whole lot.
-
-I haven't followed the development of C++ very closely; my experience with it
-is mostly from far more than 20 years ago. What's that C++03 compatibility
-requirement?
+Why would memory decoding be enabled at that time? pci_restore_config_space()
+specifically takes care of restoring CMD only after restoring BARs. And
+pci_restore_config_space() is invoked by pci_restore_state() quite a bit
+later than pci_restore_rebar_state(). So the driver must (wrongly?) be
+enabling decoding earlier on?
 
 Jan
 
