@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834239D9B71
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 17:29:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843878.1259464 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969299D9B74
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 17:30:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843896.1259474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFyQn-0002e7-T6; Tue, 26 Nov 2024 16:28:53 +0000
+	id 1tFySW-0004Xd-7T; Tue, 26 Nov 2024 16:30:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843878.1259464; Tue, 26 Nov 2024 16:28:53 +0000
+Received: by outflank-mailman (output) from mailman id 843896.1259474; Tue, 26 Nov 2024 16:30:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFyQn-0002cS-QX; Tue, 26 Nov 2024 16:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 843878;
- Tue, 26 Nov 2024 16:28:52 +0000
+	id 1tFySW-0004W8-4p; Tue, 26 Nov 2024 16:30:40 +0000
+Received: by outflank-mailman (input) for mailman id 843896;
+ Tue, 26 Nov 2024 16:30:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zjIj=SV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFyQm-0002cK-SH
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 16:28:52 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1tFySU-0004W2-JP
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 16:30:38 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83cd499a-ac13-11ef-99a3-01e77a169b0f;
- Tue, 26 Nov 2024 17:28:48 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3824a089b2cso3495883f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 08:28:48 -0800 (PST)
+ id c2c888de-ac13-11ef-99a3-01e77a169b0f;
+ Tue, 26 Nov 2024 17:30:34 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-38232cebb0cso4443497f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 08:30:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-433cde8fcdfsm167214035e9.32.2024.11.26.08.28.47
+ ffacd0b85a97d-3825fad62fasm13669582f8f.15.2024.11.26.08.30.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 08:28:48 -0800 (PST)
+ Tue, 26 Nov 2024 08:30:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83cd499a-ac13-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmEiLCJoZWxvIjoibWFpbC13cjEteDQyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjgzY2Q0OTlhLWFjMTMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjM4NTI4Ljk2NzI5Mywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: c2c888de-ac13-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmUiLCJoZWxvIjoibWFpbC13cjEteDQyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImMyYzg4OGRlLWFjMTMtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjM4NjM0LjYwODUyMywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732638528; x=1733243328; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732638634; x=1733243434; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6LbY2/Z8g3yZAlSZ2+2/h3c1vYNCFGWYirCl7GAhQYM=;
-        b=EDWar1TBZing8oL3WffM2IQ3OWIKCsPIxa/uPowshDzLVzzjq3g4CmxzEiclC7GUoh
-         TKOVz+QzNR8zptFSWUgo3ZFyx/rAld6tFXLk65bgUkV6GoERvKocLgUUYFkIrPSHf1mb
-         sXSRxmBnPuHyPF/0eozamoYbGcPSulNsgWvK8hy1P3zQf2epLMsrt9HpVEDm6E6UEEDK
-         /BSMS8VYzr+x/LRkzfSR+ADwsgJrQIv3M5HSEeLK7uE+S/0POb2O4mqpwniwwOOoXHNp
-         X73f7mnzIs2C+pzUL5iRK9Yv+ES8ETJjdNDLVKMQOJfdNttytrZE3s8KRXDqgiWckT8z
-         5wtg==
+        bh=+iQsoucG1FbnWYK5dYnT0dzMfVPx6QEiyqOs78wZ2cU=;
+        b=X9BszPfvTBwCOgMKjpCAQ5W+wpNumbOpYUqAbA9tdwDyhatupu1R2wleFKpNFY976W
+         OBRnaC0hRMRywVqelzwsZ20Ypk/i3/DOzbJh267U+amieZsH8PCwjPtYHU2aUtI+dXKa
+         8NIxcu+hHH6u1kzlkOfiepRAOWitcIoV2T0ps0MJJ4KtsCHdYsZGfA6TRt37PliYKO1G
+         WrJKmClztC0x51E1v3qoyvYt9FDPKY4j+OWGcOYnIh5j8KkN06oHDYJNyczegHKHgXyJ
+         66gip96jGBhKgS5ECsM6u7F29smlUHKFsNVPb7gWaSd2OBTeWFljP9UAgxXMJhdmDtrp
+         Hgkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732638528; x=1733243328;
+        d=1e100.net; s=20230601; t=1732638634; x=1733243434;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6LbY2/Z8g3yZAlSZ2+2/h3c1vYNCFGWYirCl7GAhQYM=;
-        b=HM2B+Jkpm09N/3gmtca0Tlg2R6rETa/JQ8gLULjYWCHY/jLNxkTjpCqRhwW3w7zU5E
-         aEquVCc3XGp2dW1XE0z4zk5JEq4FqJ1yAo6d/E/HlFCw8EloAbVXg2Topv7nXWhsUVlI
-         xE/hr7T8R/g8eH3hEVBwcuzF6ckEdRXJCdgW27PM/stV/6IYZ24Mw0C6Ko7FFzbtlOrq
-         hSOfF46EnsABKN9G9NcPGkMYYbGap2vjKnxzlBH4xI63VRXrEiEAom9i1zp6Ga81DIyA
-         82g9LG6Rfk9PktCdG/MGc6PnVOh+C/nfm8gpATIu4EY4rK4j809hkvVaQySxsFfYLL2P
-         PsUA==
-X-Forwarded-Encrypted: i=1; AJvYcCWugr8jxBpiB3AcXIEAePrxAgmzM64VC5PIdc0NYR42kb/zYIRiqnlbz+NwZH9aDAqM0j373ihv52Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YygPkTraa1c/oSvRFBwipzK+fDiFo6uymcrxgvBmVk5jXLCe4qY
-	3FiJcsRNwVc/gzL5wZ7w2Qb6HfUsF2A1aXkSrBTN0gM8bL7SkpLtmUHZiyrkIg==
-X-Gm-Gg: ASbGncsUH1rWBcLJCad/LDvK66Ib/Q2GPI+36D6VCGrgSWSjrz3bsNiiEbKf1r4sXvz
-	b/Eog2+o6p+YWZbGjqh+jTIy2FV2ZHSSy7VM0rq+9g6u52EnDWTeqLT87oDubSRsVOfYMbERf5/
-	i1jkiOB3Cwy06v+RfGIwHXnyTjeoh9KiBgQhojavci48hxEkstr+JmIWnM8VHftAp40jWFE0m26
-	3voJbLP6NahxAZgph84CkVB2rbM87aItxUjuYO6xNu6/Sk9f0jJrYhvsh8/mieQ4HT5zsdS+Zyw
-	A9uaFIYwWqJ2GGhtef3v9t2+1ChYH0/tEx0=
-X-Google-Smtp-Source: AGHT+IFuwqCo23vZ7CQ2AEXcwrXSl4eUFZb+ZirE/SQjeBEt1ET2dlTeEk9vv6esat38KQBFkVeX7w==
-X-Received: by 2002:a5d:64ce:0:b0:382:38e6:1eb3 with SMTP id ffacd0b85a97d-38260b86501mr12498017f8f.30.1732638528340;
-        Tue, 26 Nov 2024 08:28:48 -0800 (PST)
-Message-ID: <be2c69d0-2d6a-4774-a6b6-a71b44aaa41b@suse.com>
-Date: Tue, 26 Nov 2024 17:28:46 +0100
+        bh=+iQsoucG1FbnWYK5dYnT0dzMfVPx6QEiyqOs78wZ2cU=;
+        b=aLewwC2YJtcg3F/RPMrfsG6kP/8wH25zVxVosb53vk21PXM3KrY/iZuCx3oIFTKDqS
+         M/SwcvsUiOnhD5FdYToTcskmfYQtetRjf8b8clKjSoGqQDApYHu1eWjekR078sW3etZD
+         tfxgcwTbrhqv2mppzS7uL6XWTEJ1ReCD45qh34209HAnLP3fJhzx9PxuLE3NyU056cfb
+         /VzhiC/kE0ooiF5CyPpjd3tOkDCaL1Z8vKw+gKAsSR3T8wONZZvqrd3uEz2iyCd/jLPi
+         pJkg9Nr9eehjY/7GJbepsMswmnQuLQgN5RXMYOAHA9CP0DqXhf3sbSVnc6qdOcX5We58
+         lKMA==
+X-Forwarded-Encrypted: i=1; AJvYcCV3mjcx3s7MmocUZz61parC+k+ibzYXZwJ6M2XlCL1Fj9OIs9cJZhkZXqpKYyfJPY+b9e/f7LjNO40=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTc8JhaZH7GdlME2GkuD/so4kOmLs8zhiVC+abgg+P3URQh7xe
+	C/UR7XRFi8NHviKAD5OBvZaX148cF/WmPrmCLnXo9Xq8B0xZgXsZTyKnlOuHrw==
+X-Gm-Gg: ASbGncvaSSFZEGikZq/uoR9OmXAe+Y/VVP8oEHMVSbt//GVNL7XPIUpoyxv25wlKZXJ
+	M86TCfRYF1RMBf54kDsGpDgt60Ld1HoF41kxq8+k5DdOhtAneA1bR5lpadpltnwfIfCC1Jil/ro
+	Kzh2zMaLJpH/Ok4/JAfyDrxcDhGzPSoA2KIgRlRR3Bu795ZBpWsn6a7I3zVh+K99PbNWYY9Mq2R
+	TJdgDU5JsiRAJ4alhJZDhRvSJ/HJza3yFTcUB1G1Ep95xzjnYM4lzZLvkADxHP0jtpdBPOciAPk
+	gRiwUlsEVQZlBgmJkk0WV14atCFcQQDv65Q=
+X-Google-Smtp-Source: AGHT+IEd95bTHAZSKLvE9QKPKw+vReSo1DhCpwBxogiPRe6cByDib6fh5tOZ6NVWSzFLA7Tqtp5Vww==
+X-Received: by 2002:a5d:5c0e:0:b0:382:4e57:48f8 with SMTP id ffacd0b85a97d-38260bc9755mr16975825f8f.43.1732638633984;
+        Tue, 26 Nov 2024 08:30:33 -0800 (PST)
+Message-ID: <5707cbdd-00f5-41e8-a376-602976087934@suse.com>
+Date: Tue, 26 Nov 2024 17:30:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH 12/25] xen: Replace sysctl/readconsole with
  autogenerated version
-To: Teddy Astie <teddy.astie@vates.tech>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Samuel Thibault <samuel.thibault@ens-lyon.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
+ xen-devel@lists.xenproject.org
 References: <20241115115200.2824-1-alejandro.vallejo@cloud.com>
  <20241115115200.2824-13-alejandro.vallejo@cloud.com>
  <0a5a66d9-4fd4-4084-b7f9-0923d5a4c6d5@suse.com>
@@ -105,7 +104,7 @@ References: <20241115115200.2824-1-alejandro.vallejo@cloud.com>
  <737292fd-1c4a-4fd6-ae98-a701adb0b88e@suse.com>
  <D5W3YYDE2F09.IHJMRBUBE6EV@cloud.com>
  <e40ed7c2-6111-468e-8655-884953bd33e7@suse.com>
- <6bba75e1-72d9-482e-be11-40c549651f10@vates.tech>
+ <D5W6PN8FJ5CA.378A9JFXP34X7@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,47 +130,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6bba75e1-72d9-482e-be11-40c549651f10@vates.tech>
+In-Reply-To: <D5W6PN8FJ5CA.378A9JFXP34X7@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.11.2024 15:39, Teddy Astie wrote:
-> Le 26/11/2024 à 14:20, Jan Beulich a écrit :
+On 26.11.2024 15:36, Alejandro Vallejo wrote:
+> On Tue Nov 26, 2024 at 1:20 PM GMT, Jan Beulich wrote:
+>> On 26.11.2024 13:27, Alejandro Vallejo wrote:
+>>> On Tue Nov 26, 2024 at 9:40 AM GMT, Jan Beulich wrote:
+>>>> On 25.11.2024 19:51, Alejandro Vallejo wrote:
+>>>>> On Mon Nov 25, 2024 at 12:05 PM GMT, Jan Beulich wrote:
+>>>>>> On 15.11.2024 12:51, Alejandro Vallejo wrote:
+>>>>>>> Describe sysctl/readconsole as a TOML specification, remove old
+>>>>>>> hand-coded version and replace it with autogenerated file.
+>>>>>>>
+>>>>>>> While at it, transform the console driver to use uint8_t rather than
+>>>>>>> char in order to mandate the type to be unsigned and ensure the ABI is
+>>>>>>> not defined with regards to C-specific types.
+>>>>>>
+>>>>>> Yet the derived C representation imo then should still be using char, not
+>>>>>> uint8_t.
+>>>>>
+>>>>> There's 2 issued addressed by this patch.
+>>>>>
+>>>>>   1. The removal of char from the external headers (and the Xen driver).
+>>>>>   2. The replacement of the existing struct by the autogenerated one.
+>>>>>
+>>>>> (1) wants doing irrespective of (2). char has neither a fixed width nor a fixed
+>>>>> sign. Which is irrelevant for ABI purposes in this case because what we really
+>>>>> meant is "give me a pointer" in this hypercall, but it may be important in
+>>>>> other cases.
+>>>>>
+>>>>> IOW, char should've never made it to the definition of the public ABI, and I'm
+>>>>> merely taking the chance to take it out. Happy to extract this patch and send
+>>>>> it separately.
+>>>>
+>>>> Well, work towards fully getting char out of the public headers may indeed be
+>>>> worthwhile. Otoh with char being the basic addressing granularity, I think
+>>>> the ABI is pretty much tied to sizeof(char) == 1, imo limiting the
+>>>> worthwhile-ness quite a bit.
+>>>
+>>> Let me put it another way. If I were to create a separate patch stripping char
+>>> and using uint8_t instead, what are my chances of getting an Acked-by? Or not a
+>>> NAK, at least. (there's other maintainers that I need that from, but one step
+>>> at a time).
+>>
+>> That would to some degree depend on what other maintainers think. Not a straight
+>> NAK in any event.
+>>
 >>>> Signed-ness of plain char doesn't really matter as long as it's used only for
 >>>> what really are characters (or strings thereof). And that looks the be pretty
 >>>> much the case throughout the public headers.
+>>>
 >>> Maybe. Still, as a general principle caller and callee ought to agree on size,
 >>> alignment and sign for every type. I'd rather not make exceptions for that
 >>> invariant unless truly well motivated. And in this case it's a case of
 >>> requiring trivial non-functional changes.
+>>
 >> In how far they're non-functional will need to be seen. You also need to keep
 >> consumers in mind: They may face sudden type disagreement that compilers may
 >> complain about. Yet "stable" for the public headers means not just the ABI
 >> itself being stable, but updated headers also being usable as drop-in
 >> replacements for older versions.
 > 
-> I don't think we currently enforce stability on all Xen headers 
-> (especially not those control-domain related).
-> For instance
-> 
-> Commit 21e3ef57e0406b6b9a783f721f29df8f91a00f99
-> x86: Rename {domctl,sysctl}.cpu_policy.{cpuid,msr}_policy fields
-> 
-> actually modifies the name of some fields in a struct of sysctl.h, so I 
-> suppose modifying the type of fields with more defined variants is 
-> acceptable.
+> Would it be fair to say that users of the Xen low-level API strictly go via
+> xenctrl et al?
 
-Context shifted away from what the subject says, towards doing replacement
-on _all_ public headers. For domctl/sysctl and other toolstack-only ones
-the transformation would indeed be less problematic (it would be mainly us
-who need to adjust the wrapper functions in the libraries).
-
-> One thing remain is that if the user is not careful of this change and 
-> char is silently replaced by uint8_t, could that break something by 
-> possibly changing the signed-ness ?
-
-Well, sure, such a risk exists. Much would depend on how the wrapper
-functions were adjusted.
+No - recall we're meanwhile talking about all public headers, not just ones
+limited to toolstack use. Kernels (and alike, e.g. xtf) obviously won't use
+xenctrl.
 
 Jan
 
