@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79D6A9D9FB2
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:35:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844299.1259885 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8549D9FA5
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:31:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844209.1259810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG55p-00016T-7C; Tue, 26 Nov 2024 23:35:41 +0000
+	id 1tG51k-0004Wz-9b; Tue, 26 Nov 2024 23:31:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844299.1259885; Tue, 26 Nov 2024 23:35:41 +0000
+Received: by outflank-mailman (output) from mailman id 844209.1259810; Tue, 26 Nov 2024 23:31:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG55p-00013g-3j; Tue, 26 Nov 2024 23:35:41 +0000
-Received: by outflank-mailman (input) for mailman id 844299;
- Tue, 26 Nov 2024 23:35:39 +0000
+	id 1tG51k-0004Ti-2H; Tue, 26 Nov 2024 23:31:28 +0000
+Received: by outflank-mailman (input) for mailman id 844209;
+ Tue, 26 Nov 2024 23:31:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rasV=SV=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tG4sq-0000At-EH
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:16 +0000
+ id 1tG4sr-0000At-EN
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:17 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 402dbdde-ac4d-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 00:22:07 +0100 (CET)
+ id 4019797e-ac4d-11ef-99a3-01e77a169b0f;
+ Wed, 27 Nov 2024 00:22:06 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7DC285C5D1E;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 950025C5D22;
  Tue, 26 Nov 2024 23:21:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AC684C4CED2;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C34ACC4CED7;
  Tue, 26 Nov 2024 23:21:56 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id A2F71D66B94;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B4ACDD66B8E;
  Tue, 26 Nov 2024 23:21:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -45,26 +45,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 402dbdde-ac4d-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 4019797e-ac4d-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6IjQwMmRiZGRlLWFjNGQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjYzMzI3LjMxNjU4Nywic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Custom-Transaction: eyJpZCI6IjQwMTk3OTdlLWFjNGQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjYzMzI2LjM1NjQ2OCwic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1732663316;
-	bh=EehkYBiOP/PXKJY+PdWeOgafO7LhWK+IAcas/cU+rxo=;
+	bh=50fKjc2QOVuxtHeCWL67mp4YIYRrVBdHtpZLvHIma5E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=brD5/9fb2xAuUirBhFjGTHQOyaRnbK6H/SN3nlnc6TLnkymQMAVupzp+jdzWRxx4u
-	 ozETwS51ugRZcEeZVAmEQIrcACKEt9AD1g8IOxVtmNczRcwSFDpqiCkvikBAPttGpi
-	 LwxUKCvhsbBxF913fbsCaZ+qiS98SfMOs5i4fhdxfvn4C14Hq7z40b5LO4aYS97ItQ
-	 x4ax8U+EfQGHnOzEhLXzOaO8qvHjO7mYzD8MMCv2Qtj+XQ2Lzx3WMmU3puNv3+5OgW
-	 GlsOZnMeAtpQqTWtVgxJvTMUf5woCC4OmtO7B4ImYvj9FZ3FOinjGMU709Itsc7mHU
-	 4X9yxORAq8oew==
+	b=BBoTyplhMIAPEAOnJhFln241XCN141CxblrzJCf0bRaf3R6yqKmOnrTKzlU0yhCaJ
+	 L6+hYvAMtPk6+Nv2Ss611hnJD51ZQUDtgCo5B4LvRPpieEBOrdGl6+LBZ9T2XaBrBU
+	 UKqv/PKH2bKvM1+Du0mEFXUp0eXEgqDM8TwOxn1b6w7OWODGqHLCCzOlnZ5uVQldgQ
+	 xoSmncVBRkZ2ld06R5RYwAszQNZaL7ZL/b7V5lFcb7rXXbsCo22I/e4BsjcnLBxd++
+	 awpFMdzAAym2D0wjAK8isiYRERxu94xr6vRbLkamxim8KEK4+AJzVsL9cjSPu1jwI2
+	 s06zjdIbGWvyA==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Tue, 26 Nov 2024 15:22:09 -0800
-Subject: [PATCH 19/36] xen/console: introduce printk_common()
+Date: Tue, 26 Nov 2024 15:22:10 -0800
+Subject: [PATCH 20/36] xen/console: introduce consoled_is_enabled()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241126-vuart-ns8250-v1-v1-19-87b9a8375b7a@ford.com>
+Message-Id: <20241126-vuart-ns8250-v1-v1-20-87b9a8375b7a@ford.com>
 References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 In-Reply-To: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 To: Jan Beulich <jbeulich@suse.com>, 
@@ -86,11 +86,11 @@ To: Jan Beulich <jbeulich@suse.com>,
  =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Cc: xen-devel@lists.xenproject.org, Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=1598;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=4384;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=ZaoWKGFunF1v2fJrLgskSFgg/fFHSsN+iDoAE6XfT9Q=;
- b=qf1Tso16MB8AZmrXNCz9umrGZGM1ODTNxpZz1C5AlhIFFZtIt51Zk7hm0IXDTzpOaQ21aT1Xy
- Bnsh8vhnpDLD2g2jthBGW9Vj4jFyK4LFbJhtEQZuruPSO9haplPlZcM
+ bh=dmfspZvPgoI4EGX+YrlzVMe2EpWEao1fcT911zaxlEE=;
+ b=b8yT+vorsOT/zpMXLcXELRcjbP8A5xks6ATDBkx57XKFIDY+aHn3Ylyvhm4Z3AH3+ZRx1C8qL
+ Jwel3yfp81XClJATR0JRkeqv+Ek2LpNbnP2Vh/Z/EibO0x25KL5xBeT
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -100,49 +100,172 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-Introduce new printk() variant for convenient printouts which skip '(XEN)'
-prefix on xen console. This is needed for the case when physical console is
-owned by a domain w/ in-hypervisor UART emulation enabled.
+There are few places which check pv_shim console under CONFIG_PV_SHIM in xen
+console driver. Instead of #ifdef-ing, use new consoled_is_enabled() to
+customize the logic.
+
+Header file now can be included w/o CONFIG_X86.
+
+Signature of consoled_guest_{rx,tx} has changed to account for follow-on
+console switch logic cleanup.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/drivers/char/console.c | 8 ++++++++
- xen/include/xen/lib.h      | 3 +++
- 2 files changed, 11 insertions(+)
+ xen/drivers/char/console.c  | 10 +++-------
+ xen/drivers/char/consoled.c | 18 ++++++++++++++----
+ xen/include/xen/consoled.h  | 35 +++++++++++++++++++++++++++++++++--
+ 3 files changed, 50 insertions(+), 13 deletions(-)
 
 diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 86bf899ada8f8221ffc77bcffb1f58777a22198e..f034ce5aab3f3bf59b0df9fa583ee9ce32dbf665 100644
+index f034ce5aab3f3bf59b0df9fa583ee9ce32dbf665..60c055396b697869b04b9132b0dcfa832fabe932 100644
 --- a/xen/drivers/char/console.c
 +++ b/xen/drivers/char/console.c
-@@ -968,6 +968,14 @@ void printk(const char *fmt, ...)
-     va_end(args);
+@@ -33,9 +33,9 @@
+ #include <xen/pv_console.h>
+ #include <asm/setup.h>
+ #include <xen/sections.h>
++#include <xen/consoled.h>
+ 
+ #ifdef CONFIG_X86
+-#include <xen/consoled.h>
+ #include <asm/guest.h>
+ #endif
+ #ifdef CONFIG_SBSA_VUART_CONSOLE
+@@ -505,11 +505,9 @@ static void console_find_owner(void)
+             break;
+         }
+ 
+-#ifdef CONFIG_PV_SHIM
+-        if ( next_rx == 1 )
++        if ( consoled_is_enabled() && next_rx == 1 )
+             domid = get_initial_domain_id();
+         else
+-#endif
+             domid = next_rx - 1;
+         d = rcu_lock_domain_by_id(domid);
+         if ( d )
+@@ -573,10 +571,8 @@ static void __serial_rx(char c)
+ #endif
+     }
+ 
+-#ifdef CONFIG_X86
+-    if ( pv_shim && pv_console )
++    if ( consoled_is_enabled() )
+         consoled_guest_tx(c);
+-#endif
  }
  
-+void printk_common(const char *fmt, ...)
-+{
-+    va_list args;
-+    va_start(args, fmt);
-+    vprintk_common("", fmt, args);
-+    va_end(args);
+ static void cf_check serial_rx(char c)
+diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
+index b415b632cecc0a80e161b701d7b70ba4f3cc5fb8..d6624e7697f56e1a1959b0efa5dca104f34af002 100644
+--- a/xen/drivers/char/consoled.c
++++ b/xen/drivers/char/consoled.c
+@@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(void)
+ static char buf[BUF_SZ + 1];
+ 
+ /* Receives characters from a domain's PV console */
+-void consoled_guest_rx(void)
++int consoled_guest_rx(void)
+ {
+     size_t idx = 0;
+     XENCONS_RING_IDX cons, prod;
+ 
+     if ( !cons_ring )
+-        return;
++        return 0;
+ 
+     spin_lock(&rx_lock);
+ 
+@@ -91,15 +91,17 @@ void consoled_guest_rx(void)
+ 
+  out:
+     spin_unlock(&rx_lock);
++
++    return 0;
+ }
+ 
+ /* Sends a character into a domain's PV console */
+-void consoled_guest_tx(char c)
++int consoled_guest_tx(char c)
+ {
+     XENCONS_RING_IDX cons, prod;
+ 
+     if ( !cons_ring )
+-        return;
++        return 0;
+ 
+     cons = ACCESS_ONCE(cons_ring->in_cons);
+     prod = cons_ring->in_prod;
+@@ -118,6 +120,7 @@ void consoled_guest_tx(char c)
+ 
+     cons_ring->in[MASK_XENCONS_IDX(prod++, cons_ring->in)] = c;
+ 
++
+     /* Write to the ring before updating the pointer */
+     smp_wmb();
+     ACCESS_ONCE(cons_ring->in_prod) = prod;
+@@ -125,6 +128,13 @@ void consoled_guest_tx(char c)
+  notify:
+     /* Always notify the guest: prevents receive path from getting stuck. */
+     pv_shim_inject_evtchn(pv_console_evtchn());
++
++    return 0;
 +}
 +
- void guest_printk(const struct domain *d, const char *fmt, ...)
- {
-     va_list args;
-diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
-index 81b722ea3e801e9089aaf8758249feb3a758c4f7..8a7ff2e8af9089796ff28ef8d01c00e9845782ca 100644
---- a/xen/include/xen/lib.h
-+++ b/xen/include/xen/lib.h
-@@ -61,6 +61,9 @@ debugtrace_printk(const char *fmt, ...) {}
- extern void printk(const char *fmt, ...)
-     __attribute__ ((format (printf, 1, 2), cold));
++bool consoled_is_enabled(void)
++{
++    return pv_shim && pv_console;
+ }
  
-+extern void printk_common(const char *fmt, ...)
-+    __attribute__ ((format (printf, 1, 2)));
+ /*
+diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
+index bd7ab6329ee8a7c466484021247241ded8ed03c7..b88e3025fde84a52d7027b785b0a51ada8493832 100644
+--- a/xen/include/xen/consoled.h
++++ b/xen/include/xen/consoled.h
+@@ -3,10 +3,41 @@
+ 
+ #include <public/io/console.h>
+ 
++#if defined(CONFIG_PV_SHIM)
 +
- #define printk_once(fmt, args...)               \
- ({                                              \
-     static bool __read_mostly once_;            \
+ void consoled_set_ring_addr(struct xencons_interface *ring);
+ struct xencons_interface *consoled_get_ring_addr(void);
+-void consoled_guest_rx(void);
+-void consoled_guest_tx(char c);
++int consoled_guest_rx(void);
++int consoled_guest_tx(char c);
++bool consoled_is_enabled(void);
++
++#else
++
++void consoled_set_ring_addr(struct xencons_interface *ring)
++{
++}
++
++struct xencons_interface *consoled_get_ring_addr(void)
++{
++    return NULL;
++}
++
++int consoled_guest_rx(void)
++{
++    return 0;
++}
++
++int consoled_guest_tx(char c)
++{
++    return 0;
++}
++
++bool consoled_is_enabled(void)
++{
++    return false;
++}
++
++#endif /* #if defined(CONFIG_PV_SHIM) */
+ 
+ #endif /* __XEN_CONSOLED_H__ */
+ /*
 
 -- 
 2.34.1
