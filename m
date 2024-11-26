@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 012E29D94DD
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 10:48:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.843477.1259090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F45C9D9501
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Nov 2024 10:59:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.843487.1259100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFsAg-0000qX-K1; Tue, 26 Nov 2024 09:47:50 +0000
+	id 1tFsLW-0002om-IA; Tue, 26 Nov 2024 09:59:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 843477.1259090; Tue, 26 Nov 2024 09:47:50 +0000
+Received: by outflank-mailman (output) from mailman id 843487.1259100; Tue, 26 Nov 2024 09:59:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tFsAg-0000nu-Gt; Tue, 26 Nov 2024 09:47:50 +0000
-Received: by outflank-mailman (input) for mailman id 843477;
- Tue, 26 Nov 2024 09:47:48 +0000
+	id 1tFsLW-0002mB-Eu; Tue, 26 Nov 2024 09:59:02 +0000
+Received: by outflank-mailman (input) for mailman id 843487;
+ Tue, 26 Nov 2024 09:59:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zjIj=SV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tFsAe-0000no-Iu
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 09:47:48 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1tFsLV-0002m5-3N
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 09:59:01 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7cd95408-abdb-11ef-a0cd-8be0dac302b0;
- Tue, 26 Nov 2024 10:47:45 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3823eb7ba72so3615046f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 01:47:45 -0800 (PST)
+ id 0dbc7bc4-abdd-11ef-a0cd-8be0dac302b0;
+ Tue, 26 Nov 2024 10:58:58 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5cf6f804233so6285621a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 01:58:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fb537dfsm12757071f8f.63.2024.11.26.01.47.43
+ 4fb4d7f45d1cf-5d01d3c0e2bsm4959421a12.52.2024.11.26.01.58.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 01:47:44 -0800 (PST)
+ Tue, 26 Nov 2024 01:58:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cd95408-abdb-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzIiLCJoZWxvIjoibWFpbC13cjEteDQzMi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjdjZDk1NDA4LWFiZGItMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjE0NDY1LjQ1NjI4MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 0dbc7bc4-abdd-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmYiLCJoZWxvIjoibWFpbC1lZDEteDUyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjBkYmM3YmM0LWFiZGQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjE1MTM4LjAxMzY1NCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732614465; x=1733219265; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732615137; x=1733219937; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YRNxrvGGPv+J7YPiNDTf+hiJYnm6JyW2vOAOkEdMY94=;
-        b=Z4ybu+6O4kbbP93yACoKTftQzF2waG3tt+HhNEyj7KnE4x3R1SyndvLRGFAs1okEqk
-         Bube2mbtoIQ1w5BiGSGg/l9rtVqJ9dSUPgq8rkHBpPDOW3IBuzYWkp+zKVHX8re7gc7j
-         ILVvE+SDcFh5XmtRmDln+rnUwSQe2Zbia5LJTIuxPwqVbVM0goCqT005/eMm5ypCLrQV
-         Hd5BPtuhywFMKMm834H1dsCvOV8bvnj0j3w5g2t93S+KMYczlirAmzNNYDpJFoEgPpfQ
-         mzs0CwznYy4SPiOsgzt29jP2xDlR/XAkr1W1aFZmLML71IGyV4Vlrv//CC3bfnK/cPsY
-         NYPA==
+        bh=HrIBwtm1zvbGr15cT0+vVk2sAOQSQvRvsuHiR6e54M0=;
+        b=fZKDaTo8M43AUJyz4/9ilNVnTQ38xR2gAnoZs8mQVP5g33tDsRWHbDaLOax24ppi3k
+         f+pxopqDzTxu1og8pjXuNJkh6cQuCkJKs8qg1AEpeaurMAQDupcqaK7OCy7at3mfIlWy
+         /u4q+jej612GgN+isPIoEvJi9Hm3zAeU99WdDEDU47AGDXRK3t+pP6/foq0DP7JIUYED
+         AFf1PpFzeq0kfzgexjXVe3Vp1jkcC94c9zNdgaPL9tOxxZqzHeoZX1ys1vkbuiN5rrHu
+         9E7DnfM4aui0f8l6JPzWIDiDrqH/XP46D73B5nbYwWnB/cG1WAkhkeYg2GOGvY3lbUQq
+         Gd1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732614465; x=1733219265;
+        d=1e100.net; s=20230601; t=1732615137; x=1733219937;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YRNxrvGGPv+J7YPiNDTf+hiJYnm6JyW2vOAOkEdMY94=;
-        b=K5e9mZB0oofu6Tvt1PFqaqAY9K+dYTAHtF6v4FBFupE0JB7i4ViJZ50Cs/rjXM7uGs
-         xV4uySaNBSygCG25jarSIB9r5+9NGrbNZCQk35A7AccpLImCso+sEmdCIiwnNkKaWN9b
-         w7BjhV3R4r17Tcw855i2j/eN5ZwLo+BrfwzhmNLNCoXwXDL98pIxLIp4jFaNwfoCMyei
-         COiWquXr2D8sBXi9c/6PbBzpDzipKMmTt9CD1w+80yptwm8xC3Hvo39kYByN9VqAWAjb
-         mRXbOXPHuzXmwSV6FNfiBWqDzSyYByxKsmTdHvOX8MNjoLguyyfpAqVoOq/kz1N7xfWn
-         Y55w==
-X-Gm-Message-State: AOJu0Yzb2DXKzr7BZQlgUVzLwHMSxLzn0NjzLyS5kMnYYCFa7rfRBfjO
-	MRXuO8OpbnwTseTAVJMoS5WRsjzCRPmV/qmrgczep2fKKXz4nuB7ElMid0oyxg==
-X-Gm-Gg: ASbGncs1ZiaiSjroVdW/YJMYEMe2GwmrT4gG8Z17yGtQ5uNltX9fj8moaLQHGeuFk74
-	vBgKyPVKErhe4I1lJqM1CTqqI69fxdPLsDKcR8pnWs9I/rcYvNIFljNWAqRqbPSRIqsokJqqHIC
-	cdERxQgpEadV9fqRlOsdPNdmEP0gdqbji3p1mAkqolLdfOirRAavSNqK2aF48mLs+IquWZzY7BW
-	MEO8LTOCVrMgJI0qLDGR9/e7l4GnHKSkzFUlSAmJEgTW1L+rSLtUCBojf1by5EYKLlJYQdd8FCp
-	8LgUBeo0uJEzsqoZ+GWjWazj36dKQlG9FPk=
-X-Google-Smtp-Source: AGHT+IFPlSyodWeM/ES/GQaMg0Mf88tYP73BTj2SaYvLHYPNMAcfMHR8tyzv17a4LfFf3aWy37o3gQ==
-X-Received: by 2002:a5d:588b:0:b0:382:4a9d:28fa with SMTP id ffacd0b85a97d-38260b808edmr12712675f8f.30.1732614464805;
-        Tue, 26 Nov 2024 01:47:44 -0800 (PST)
-Message-ID: <c8aa7b64-b5b5-4ac3-b0c0-67d74441588e@suse.com>
-Date: Tue, 26 Nov 2024 10:47:43 +0100
+        bh=HrIBwtm1zvbGr15cT0+vVk2sAOQSQvRvsuHiR6e54M0=;
+        b=ZZten+lFHPJ+e/BPjNpnL8H9AiGutY2d+cIociw77q7+HQFHwTzbku46P0ElwjhgZl
+         jL1Q5eZ2l3ZUNCjRBw3qhLiDaCwhdQD/HX6bxi5P/Nh4UU14rWZICDNunzoltWEkKVoO
+         a9rCHMTuJt19KD2vS0MsjE4WGNpLHJA405Pn+iCWl6tg89UfO1sh0vTH4irQ+RT19S13
+         1U2ck6PcmvWgg9jRmlc0ozntAw53QxuuahsKy5C1HtzCn4TEyzS5Hp8XRsk2QHDYUCiN
+         +rtNkgCOxM6xFStruaw9Xd2sFitB0e4GpV4md7W0qGcGE1M8PcssriFl8IcI7NJBQSkO
+         4NIg==
+X-Forwarded-Encrypted: i=1; AJvYcCV7TjiwjjTWOIBhk6AhJNzgL+bWKWcjp9feZm8VrmZiOlJ4DexWEUZjicd/gMcf4TtyFtlRR1ZI2h4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YznBZiH4DKUyeup/QNu2NsaZ+G9Lp+3yYtNnxAp7d1JMM1879bt
+	V4RsHdsUulFf4wQUSLSBbb2BW5IkxYup/wpbmBdYBn6LWnefWdk0MidhbXNVcQ==
+X-Gm-Gg: ASbGncupZyvLyrQBey0TH2cNqRPpsTSFeAlBbmIvYqbsm50poNT3Nm0Q2rQJp74zWfL
+	6uQ2Hi3GiAw3P9QwhFBap0I3JeHPeGOw4Tlcsxv/wzyh7v4d6QFUMf8U/Dj/HAbGsLEH4T0iLtI
+	JIxyKMesP/aVKnsTBJWS8CEvet++Rl0JKIlSG7/wTVCe2JN7l+ZLTvvHPAMOQqX9uE69CreN+Jw
+	xfFh27uCIDLEASWcS50X2lXE1AtOtKpZuEK2KI57m35dW0NGSD3Fomp/xfhliCMaTlvv82wY/RZ
+	qeBLX/tAnq8zQgCb4qCOtMCikzlOw6ZJ4eg=
+X-Google-Smtp-Source: AGHT+IFmQnlJimCLT/w440j1RlkGdMbjhGxXUw3jZKEvFpBoMFkVInzJXiu2SC+vO4E+ejXfW6vbGA==
+X-Received: by 2002:a05:6402:3509:b0:5cf:1b53:1bf4 with SMTP id 4fb4d7f45d1cf-5d020626645mr12468556a12.17.1732615137470;
+        Tue, 26 Nov 2024 01:58:57 -0800 (PST)
+Message-ID: <cf1f87d1-f616-4944-94fa-69a777249072@suse.com>
+Date: Tue, 26 Nov 2024 10:58:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vpci: Add resizable bar support
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <ZzY1O-zrcWB6Ra3q@macbook>
- <BL1PR12MB5849FC8077C7C6035F1D3E15E7242@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzczqznFbixk3Vfu@macbook>
- <BL1PR12MB5849894360DB8D96073AB21EE7272@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZzyIk0KipX8LPZNv@macbook>
- <BL1PR12MB5849FC514034CDFC2F68BA6FE7212@BL1PR12MB5849.namprd12.prod.outlook.com>
- <Zz2lgkjgRoZ7Sr5Q@macbook>
- <BL1PR12MB5849F5382CF3A03C080C4CA4E7222@BL1PR12MB5849.namprd12.prod.outlook.com>
- <Zz8Cwj3KJ1BIBEg_@macbook>
- <BL1PR12MB584977971D2C0A00443A1A79E72E2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <Z0Rx2IXqqvrLaIIq@macbook>
- <BL1PR12MB5849B85C116A74D138FF65AAE72F2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v2 1/2] x86/uaccess: rework user access speculative harden
+ guards
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ "consulting@bugseng.com" <consulting@bugseng.com>
+References: <20241126093508.6966-1-roger.pau@citrix.com>
+ <20241126093508.6966-2-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,98 +121,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849B85C116A74D138FF65AAE72F2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <20241126093508.6966-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.11.2024 07:02, Chen, Jiqian wrote:
-> On 2024/11/25 20:47, Roger Pau Monné wrote:
->> On Mon, Nov 25, 2024 at 03:44:52AM +0000, Chen, Jiqian wrote:
->>> On 2024/11/21 17:52, Roger Pau Monné wrote:
->>>> On Thu, Nov 21, 2024 at 03:05:14AM +0000, Chen, Jiqian wrote:
->>>>> On 2024/11/20 17:01, Roger Pau Monné wrote:
->>>>>> On Wed, Nov 20, 2024 at 03:01:57AM +0000, Chen, Jiqian wrote:
->>>>>>> The only difference between our methods is the timing of updating the size.
->>>>>>> Yours is later than mine because you updated the size when the driver re-enabled memory decoding, while I updated the size in time when driver resize it.
->>>>>>
->>>>>> Indeed, my last guess is the stale cached size is somehow used in my
->>>>>> approach, and that leads to the failures.  One last (possibly dummy?)
->>>>>> thing to try might be to use your patch to detect writes to the resize
->>>>>> control register, but update the BAR sizes in modify_bars(), while
->>>>>> keeping the traces of when the operations happen.
->>>>>>
->>>>> This can work, combine our method, use my patch to detect and write the size into hardware register, and use your patch to update bar[i].size in modify_bars().
->>>>> Attached the combined patch and the xl dmesg.
->>>>
->>>> This is even weirder, so the attached patch works fine?  The only
->>>> difference with my proposal is that you trap the CTRL registers, but
->>>> the sizing is still done in modify_bars().
->>>>
->>>> What happens if (based on the attached patch) you change
->>>> rebar_ctrl_write() to:
->>>>
->>>> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->>>>                                       unsigned int reg,
->>>>                                       uint32_t val,
->>>>                                       void *data)
->>>> {
->>>>     pci_conf_write32(pdev->sbdf, reg, val);
->>>> }
->>>>
->>> If I change rebar_ctrl_write() to:
->>> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->>>                                       unsigned int reg,
->>>                                       uint32_t val,
->>>                                       void *data)
->>> {
->>>     printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, reg, val);
->>>     pci_conf_write32(pdev->sbdf, reg, val);
->>> }
->>>
->>> I can see three time prints, it can't work.
->>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
->>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
->>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 528, val 102
->>>
->>> If I change rebar_ctrl_write() to:
->>> static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->>>                                       unsigned int reg,
->>>                                       uint32_t val,
->>>                                       void *data)
->>> {
->>>     if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
->>>         return;
->>>     printk("cjq_debug %pp: bar ctrl write reg %u, val %x\n", &pdev->sbdf, reg, val);
->>>     pci_conf_write32(pdev->sbdf, reg, val);
->>> } 
->>>
->>> I can only see one time print:
->>> (XEN) cjq_debug 0000:03:00.0: bar ctrl write reg 520, val d40
->>>
->>> The check prevented the two times incorrect write actions.
->>>     if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
->>>         return;
->>>
->>> And why my original patch can work too, the check:
->>> +    ctrl = pci_conf_read32(pdev->sbdf, reg);
->>> +    if ( ctrl == val )
->>> +        return;
->>> happened to play the same role as PCI_COMMAND_MEMORY check.
->>
->> Thank you very much for figuring this out.  So in the end it's a bug
->> in the driver that plays with PCI_REBAR_CTRL with memory decoding
->> enabled.
-> Yes, I think.
-> During driver initiation, it calls pci_rebar_set_size to resize BARs,
-> after that, it calls pci_restore_state->pci_restore_rebar_state to restore BARs,
-> the problem is when calling pci_restore_rebar_state, memory deoding is enabled state.
-> I will discuss with my colleagues internally whether this needs to be modified in amdgpu driver.
+On 26.11.2024 10:35, Roger Pau Monne wrote:
+> The current guards to select whether user accesses should be speculative
+> hardened violate Misra rule 20.7, as the UA_KEEP() macro doesn't (and can't)
+> parenthesize the 'args' argument.
 
-Why would memory decoding be enabled at that time? pci_restore_config_space()
-specifically takes care of restoring CMD only after restoring BARs. And
-pci_restore_config_space() is invoked by pci_restore_state() quite a bit
-later than pci_restore_rebar_state(). So the driver must (wrongly?) be
-enabling decoding earlier on?
+For my own education: This definitely isn't the only place where we use a
+macro with variable arguments, and where the use of the respective macro
+parameter can't be parenthesized. Given patch 2, why is e.g.
+
+#define emulate_fpu_insn_stub(bytes...)                                 \
+do {                                                                    \
+    unsigned int nr_ = sizeof((uint8_t[]){ bytes });                    \
+    memcpy(get_stub(stub), ((uint8_t[]){ bytes, 0xc3 }), nr_ + 1);      \
+    invoke_stub("", "", "=m" (dummy) : "i" (0));                        \
+    put_stub(stub);                                                     \
+} while (0)
+
+not an issue? The first use of "bytes" is in figure braces, so probably
+fine. Yet the second use is followed by a comma, so unlikely to be okay.
+
+Somewhat similarly for
+
+#define AMD_OSVW_ERRATUM(osvw_id, ...)  osvw_id, __VA_ARGS__, 0
+
+where we're using the C99 form rather than the GNU extension, and where
+hence __VA_ARGS__ would - by extrapolation of the Misra rule - need
+parenthesizing, when it isn't and can't be.
+
+Isn't it rather the case that variable argument macros need a more general
+deviation, if not an adjustment to the Misra rule? Extending the Cc list
+some ...
 
 Jan
 
