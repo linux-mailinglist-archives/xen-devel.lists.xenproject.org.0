@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 333E69D9FAD
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:32:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844262.1259865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1ABE9D9FAC
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:32:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844257.1259855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG52l-0007gK-Gl; Tue, 26 Nov 2024 23:32:31 +0000
+	id 1tG52h-0007NN-8o; Tue, 26 Nov 2024 23:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844262.1259865; Tue, 26 Nov 2024 23:32:31 +0000
+Received: by outflank-mailman (output) from mailman id 844257.1259855; Tue, 26 Nov 2024 23:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG52l-0007dl-CI; Tue, 26 Nov 2024 23:32:31 +0000
-Received: by outflank-mailman (input) for mailman id 844262;
- Tue, 26 Nov 2024 23:32:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tG52h-0007La-5l; Tue, 26 Nov 2024 23:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 844257;
+ Tue, 26 Nov 2024 23:32:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rasV=SV=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tG4sp-0000Ao-NJ
+ id 1tG4sp-0000At-EC
  for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:15 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f8d82d9-ac4d-11ef-a0cd-8be0dac302b0;
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f7da23a-ac4d-11ef-99a3-01e77a169b0f;
  Wed, 27 Nov 2024 00:22:05 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 77C2A5C5D98;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 874FF5C5BF6;
  Tue, 26 Nov 2024 23:21:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A456AC4CEDC;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B79D1C4CED0;
  Tue, 26 Nov 2024 23:21:57 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 99391D66B94;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id AB5C4D66B9D;
  Tue, 26 Nov 2024 23:21:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -45,26 +45,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f8d82d9-ac4d-11ef-a0cd-8be0dac302b0
+X-Inumbo-ID: 3f7da23a-ac4d-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6IjNmOGQ4MmQ5LWFjNGQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjYzMzI2LjI2NzQzMSwic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Custom-Transaction: eyJpZCI6IjNmN2RhMjNhLWFjNGQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjYzMzI1LjM2NDIxLCJzZW5kZXIiOiJkZXZudWxsK2RtdWtoaW4uZm9yZC5jb21Aa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1732663317;
-	bh=3rV9SQVk/30C/uR+xCoEerXgtGQ+GY3Qffyqy2vy1lU=;
+	bh=WDr/PwUo7NPVqK8vVCu/sN3ApYHaNVXqHBFVutTjEsg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SGwS+nVz3R6LTSZsbbawwgPSwG4FaUqt9ctb2YeNyoXD85n0MiuI42uEE5b5dVvSf
-	 k14PHNnarznICc31SNfnu1/ana8c+YOCI3ioBTsoOn7EQ2PMwUTqE5ofrq3KAflVK+
-	 ltoaNe9+TZth6HkLEnL7A9aMsz69Cp6/UJgIMJc4ugya+bnQssgYtNA9vHg69fdKU1
-	 pXxzMWSAq8XhUw6nivMr5iJYAFZoF5DnPvgYqrex4jZsanPoBzBCmSulixr3U+9DTo
-	 qfQkjPs8HxlTaDGSUtvD3OoyVQw45FCwx1pl6hLlmOne6RZfaPJiayazr5ZCYihI54
-	 ZGcrL2wHwi+3Q==
+	b=bkBhss7xSShP7C40xt01FhoPGq5cQEMVzQF4f2cY3ApbZPrWn7RayCwmhkqJRhEhj
+	 d6yKiwYR+jFN1eG47mBUGxoEWMABee3dAqxyeK0yi/0MD+1Km5Ebt9i3+JdaS5RJu3
+	 aw2qgl3uxapuufS+U+6DSi0HA2ElrQecaX47KVibJZSY+TAx0NohANkA9ZxMHdM7z6
+	 jRCwe5WFfl6Ug2eaHwfbVtOur+sA67kkVw//QOvpq7ZQSqCdIM9EWMr3HLEuZuVjlq
+	 XiZqAPJ26GgjnQ1c1Qyzc/jfAXYECd8GAN/u5bpwh465T4X/OnTnjuNlD67+T6SoGv
+	 d16BKhnKRlEpg==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Tue, 26 Nov 2024 15:22:21 -0800
-Subject: [PATCH 31/36] x86/hvm: add HVM-specific Kconfig
+Date: Tue, 26 Nov 2024 15:22:22 -0800
+Subject: [PATCH 32/36] x86/hvm: add helpers for raising guest IRQs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241126-vuart-ns8250-v1-v1-31-87b9a8375b7a@ford.com>
+Message-Id: <20241126-vuart-ns8250-v1-v1-32-87b9a8375b7a@ford.com>
 References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 In-Reply-To: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 To: Jan Beulich <jbeulich@suse.com>, 
@@ -86,11 +86,11 @@ To: Jan Beulich <jbeulich@suse.com>,
  =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Cc: xen-devel@lists.xenproject.org, Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=5119;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=1876;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=xth/C4RssnpHF5d1BFSmQSRG1c+DKNwkoUPEyi1j9F4=;
- b=SOUETyT5mODqIQZsTEddy3lHiDVCjngDNDkNnn32sXy/ZccYCCpVCwy+fm7nrRFJ0PM9nFBaT
- yp2ZeAxEGFSCAl6mI+CVbAxa55bdaoZsW+pk5yz0S5PBRuTMQtP31rr
+ bh=7BbjWtYddozrVOKtAkZI0QGQoqm6ofyyNdgxey+37YU=;
+ b=ThSK3I1nGSONSUOI8mLhfE3bYgxEWNIeTGmqKGF4Wt0hASsaBfM9mvC9LGsCTP8xT/H1gbzAI
+ 1Ak2zfg3dNeDPlENUq8QeW8vsLJWhYmLYPD53ex/4VN5v6wLCj5aagQ
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -100,175 +100,66 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-Add separate menu for configuring HVM build-time settings.
-That will help organizing HVM-specific options under a separate menu.
+Added convenience wrappers for asserting/de-asserting interrupts in the
+hardware emulation code.
+
+That will be used for PCI-based NS8250 emulator.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/arch/x86/Kconfig     | 66 +++---------------------------------------------
- xen/arch/x86/hvm/Kconfig | 63 +++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 66 insertions(+), 63 deletions(-)
+ xen/arch/x86/hvm/irq.c             | 24 ++++++++++++++++++++++++
+ xen/arch/x86/include/asm/hvm/irq.h |  3 +++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 9cdd04721afa1916c7edd8fdf7d606858c73ce88..5afee9a9f9bafa3c760b06b8601fad4cad3b7191 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -107,42 +107,9 @@ config PV_LINEAR_PT
+diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
+index 1eab44defca4c82ec35769617c66c380cc07d1b6..9e3a50d21dcf281c1015116094e47795c51ed5d0 100644
+--- a/xen/arch/x86/hvm/irq.c
++++ b/xen/arch/x86/hvm/irq.c
+@@ -242,6 +242,30 @@ void hvm_isa_irq_deassert(
+     spin_unlock(&d->arch.hvm.irq_lock);
+ }
  
-          If unsure, say Y.
++void hvm_irq_raise(struct domain *d, unsigned int irq)
++{
++    if ( irq < NR_ISAIRQS )
++    {
++        hvm_isa_irq_assert(d, irq, NULL);
++    }
++    else
++    {
++        hvm_gsi_assert(d, irq);
++    }
++}
++
++void hvm_irq_lower(struct domain *d, unsigned int irq)
++{
++    if ( irq < NR_ISAIRQS )
++    {
++        hvm_isa_irq_deassert(d, irq);
++    }
++    else
++    {
++        hvm_gsi_deassert(d, irq);
++    }
++}
++
+ static void hvm_set_callback_irq_level(struct vcpu *v)
+ {
+     struct domain *d = v->domain;
+diff --git a/xen/arch/x86/include/asm/hvm/irq.h b/xen/arch/x86/include/asm/hvm/irq.h
+index 87e89993a44f48f366fa84e851688f383cb562d4..27bb9f64171c1b8aac2cf119699e60c91e727177 100644
+--- a/xen/arch/x86/include/asm/hvm/irq.h
++++ b/xen/arch/x86/include/asm/hvm/irq.h
+@@ -210,6 +210,9 @@ void hvm_maybe_deassert_evtchn_irq(void);
+ void hvm_assert_evtchn_irq(struct vcpu *v);
+ void hvm_set_callback_via(struct domain *d, uint64_t via);
  
--config HVM
--	bool "HVM support"
--	depends on !PV_SHIM_EXCLUSIVE
--	default !PV_SHIM
--	select COMPAT
--	select IOREQ_SERVER
--	select MEM_ACCESS_ALWAYS_ON
--	help
--	  Interfaces to support HVM domains.  HVM domains require hardware
--	  virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
--	  guests which have no specific Xen knowledge.
--
--	  This option is needed if you want to run HVM or PVH domains.
--
--	  If unsure, say Y.
--
--config AMD_SVM
--	bool "AMD-V" if EXPERT
--	depends on HVM
--	default y
--	help
--	  Enables virtual machine extensions on platforms that implement the
--	  AMD Virtualization Technology (AMD-V).
--	  If your system includes a processor with AMD-V support, say Y.
--	  If in doubt, say Y.
--
--config INTEL_VMX
--	bool "Intel VT-x" if EXPERT
--	depends on HVM
--	default y
--	select ARCH_VCPU_IOREQ_COMPLETION
--	help
--	  Enables virtual machine extensions on platforms that implement the
--	  Intel Virtualization Technology (Intel VT-x).
--	  If your system includes a processor with Intel VT-x support, say Y.
--	  If in doubt, say Y.
-+menu "HVM Support"
-+source "arch/x86/hvm/Kconfig"
-+endmenu
++void hvm_irq_raise(struct domain *d, unsigned int irq);
++void hvm_irq_lower(struct domain *d, unsigned int irq);
++
+ struct pirq;
+ bool hvm_domain_use_pirq(const struct domain *d, const struct pirq *pirq);
  
- config XEN_SHSTK
- 	bool "Supervisor Shadow Stacks"
-@@ -201,25 +168,6 @@ config BIGMEM
- 
- 	  If unsure, say N.
- 
--config HVM_FEP
--	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
--	default DEBUG
--	depends on HVM
--	help
--
--	  Compiles in a feature that allows HVM guest to arbitrarily
--	  exercise the instruction emulator.
--
--	  This feature can only be enabled during boot time with
--	  appropriate hypervisor command line option. Please read
--	  hypervisor command line documentation before trying to use
--	  this feature.
--
--	  This is strictly for testing purposes, and not appropriate
--	  for use in production.
--
--	  If unsure, say N.
--
- config TBOOT
- 	bool "Xen tboot support (UNSUPPORTED)"
- 	depends on INTEL && UNSUPPORTED
-@@ -348,14 +296,6 @@ config HYPERV_GUEST
- 
- endif
- 
--config MEM_PAGING
--	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
--	depends on HVM
--
--config MEM_SHARING
--	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
--	depends on HVM
--
- config REQUIRE_NX
- 	bool "Require NX (No eXecute) support"
- 	help
-diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-new file mode 100644
-index 0000000000000000000000000000000000000000..361bb6572e633f3cf0fc972a3b391e8341c33361
---- /dev/null
-+++ b/xen/arch/x86/hvm/Kconfig
-@@ -0,0 +1,63 @@
-+config HVM
-+	bool "HVM support"
-+	depends on !PV_SHIM_EXCLUSIVE
-+	default !PV_SHIM
-+	select COMPAT
-+	select IOREQ_SERVER
-+	select MEM_ACCESS_ALWAYS_ON
-+	help
-+	  Interfaces to support HVM domains.  HVM domains require hardware
-+	  virtualisation extensions (e.g. Intel VT-x, AMD SVM), but can boot
-+	  guests which have no specific Xen knowledge.
-+
-+	  This option is needed if you want to run HVM or PVH domains.
-+
-+	  If unsure, say Y.
-+
-+config AMD_SVM
-+	bool "AMD-V" if EXPERT
-+	depends on HVM
-+	default y
-+	help
-+	  Enables virtual machine extensions on platforms that implement the
-+	  AMD Virtualization Technology (AMD-V).
-+	  If your system includes a processor with AMD-V support, say Y.
-+	  If in doubt, say Y.
-+
-+config INTEL_VMX
-+	bool "Intel VT-x" if EXPERT
-+	depends on HVM
-+	default y
-+	select ARCH_VCPU_IOREQ_COMPLETION
-+	help
-+	  Enables virtual machine extensions on platforms that implement the
-+	  Intel Virtualization Technology (Intel VT-x).
-+	  If your system includes a processor with Intel VT-x support, say Y.
-+	  If in doubt, say Y.
-+
-+config MEM_PAGING
-+	bool "Xen memory paging support (UNSUPPORTED)" if UNSUPPORTED
-+	depends on HVM
-+
-+config MEM_SHARING
-+	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
-+	depends on HVM
-+
-+config HVM_FEP
-+	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
-+	default DEBUG
-+	depends on HVM
-+	help
-+
-+	  Compiles in a feature that allows HVM guest to arbitrarily
-+	  exercise the instruction emulator.
-+
-+	  This feature can only be enabled during boot time with
-+	  appropriate hypervisor command line option. Please read
-+	  hypervisor command line documentation before trying to use
-+	  this feature.
-+
-+	  This is strictly for testing purposes, and not appropriate
-+	  for use in production.
-+
-+	  If unsure, say N.
 
 -- 
 2.34.1
