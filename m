@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60DD9D9F91
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:23:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844078.1259753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8CC29D9FDC
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:57:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844456.1259965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG4u0-0004O3-EZ; Tue, 26 Nov 2024 23:23:28 +0000
+	id 1tG5Qs-0004n5-O8; Tue, 26 Nov 2024 23:57:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844078.1259753; Tue, 26 Nov 2024 23:23:28 +0000
+Received: by outflank-mailman (output) from mailman id 844456.1259965; Tue, 26 Nov 2024 23:57:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG4tz-0003yO-6Q; Tue, 26 Nov 2024 23:23:27 +0000
-Received: by outflank-mailman (input) for mailman id 844078;
- Tue, 26 Nov 2024 23:22:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tG5Qs-0004lC-L4; Tue, 26 Nov 2024 23:57:26 +0000
+Received: by outflank-mailman (input) for mailman id 844456;
+ Tue, 26 Nov 2024 23:57:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rasV=SV=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tG4sk-0000Ao-MS
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:10 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f492bb9-ac4d-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 00:22:04 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0054A5C5DA4;
- Tue, 26 Nov 2024 23:21:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A80AC4CEDB;
- Tue, 26 Nov 2024 23:21:58 +0000 (UTC)
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 21B5FD66B9D;
- Tue, 26 Nov 2024 23:21:58 +0000 (UTC)
+ <SRS0=zdLj=SV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tG5Qq-0004ko-Kq
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:57:24 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2ba763ef-ac52-11ef-99a3-01e77a169b0f;
+ Wed, 27 Nov 2024 00:57:19 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-38232c6311fso4154153f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 15:57:19 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3825fafe207sm14655667f8f.36.2024.11.26.15.57.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Nov 2024 15:57:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +45,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f492bb9-ac4d-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6IjNmNDkyYmI5LWFjNGQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjYzMzI1LjAwMzU0LCJzZW5kZXIiOiJkZXZudWxsK2RtdWtoaW4uZm9yZC5jb21Aa2VybmVsLm9yZyIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732663318;
-	bh=YBcSY6jiH0oljNDw524ilFoQbBSFGheVZRh8mWFvphc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=MoYlYSuIPCnu4b1HHhuKXukwkOccdSQUeZFE42H1bU6Wt2EZ6uyaQv+nIwJzW3pE6
-	 Bg1CIxMkJ0kVWBwSk35mcZL70XCPj0xIgbWG8W0rWSiO4VQuTGH/c4fn5XFyphjxk1
-	 3yD5e4/vVXdjMzA/Qq/uFAOIt1Id6EhdbdO/prkOBLlXgkSv5i0RUc0y3B6MxFDcl9
-	 C7ZMyMeFT94Ij8KXqfiqHOA5Xh0h2+TvVj30nuDi3f6qUSuCXLgQBBJOEXKbO3cv3D
-	 TU0nzE7hODveOO6yKOeMTiwolRk222khkUESkmRxDElOHVWwYQzzk+zc6rEoq2U3b6
-	 Z3ApgaxGuiMOA==
-From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Tue, 26 Nov 2024 15:22:26 -0800
-Subject: [PATCH 36/36] docs/misc: update console documentation
+X-Inumbo-ID: 2ba763ef-ac52-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzAiLCJoZWxvIjoibWFpbC13cjEteDQzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjJiYTc2M2VmLWFjNTItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjY1NDM5LjQ2NDY4Nywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1732665438; x=1733270238; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=t+C3y/3deXe5FvWAbGkxXZsARH4fUV6hi+SPx0ceH6Q=;
+        b=tsbtJR5dWFhmbLR4R0z7pxBk83rzrk/KGEzXK9T3HqCAQXwjXZb4692pD+Rk8jSJB7
+         D/h5OBvqFF1iCqPHkCk4ZLuVOgkvAQhe255V7ocgV1suwo2yGZ3c1Unt8izhNuqzj1qU
+         Hv4BYq6c2drO7vG/W4w7CCgY9WvlY2IRuftiQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732665438; x=1733270238;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t+C3y/3deXe5FvWAbGkxXZsARH4fUV6hi+SPx0ceH6Q=;
+        b=KaQFrdGdK50wbMuD3fprtP0M51zRX/v/coIz7RPlNkg1trF6etPk3OE4bt5ouu0Pd8
+         MEanMRdXGkNvbhw7XjoUytax58dMB/m1xqw1lB8MI49PAQwt8H1rBESeiy3eut+cqAj8
+         YghSHXqGe6ENIvIs2ZmGCKP65i2pTLo6Lju8ub+dWF0Am4pjDiQy1UUR5u0Wz3NmbOzo
+         3nHuhYI6qQsbXAc+7H2xRvIYjgkpxk+rlBhzcM61SPVZA6p6VcaRSsqZtlogQMqpls69
+         kya1OFqiBqKeQKCJ6Pt20EZm9CbmHqAHpFxAxDbc3xO7wtoohw/S03l6Ix/LY+/no05p
+         Ntmg==
+X-Gm-Message-State: AOJu0Yzz3a8W7hNkVVTpbiBR7EfYFQAjf/W+HVjIyDkGkkLvatEAhim/
+	Nx1S7VInnyCb9+LG3iwnqy5+VK0DkX+iiBsJEUoloHalZWz0qMpSKXjjgwwTPxw=
+X-Gm-Gg: ASbGnctbPxk2IMMtnd9mOL7HOv35yOBFSlQ+m53qzAdHhOyNZgi5u82EvNK695ezR4Y
+	GjhcTuCCmMXDk6IJNIUv1e8JJYDHyBNhK0U2Yt1Fo5Fc0hH0aWA3ofwQ2PDQ/v5gmjwGhNycQdM
+	khNGz7TK/Pg/lAkOEjdn3uO+l9eAU10gfD+71o4YZVSOak+Mc9c5iTM/ba3TQJHKsp2TuzsryYj
+	V9ze/B3T8tWMt/N6E06on3bgHZhYbpshKmRHrSMaAe1cqZ8L6JA/F3txsL3cUruVKEAmmWxwcQC
+	OHg6kz2IkX+CkA==
+X-Google-Smtp-Source: AGHT+IH34HGTrZhgHynb4PwHxCnqR+bEOTY/Xpaw1qrIRNkhiEnHiAF+8gjfKixH+15dMuXGj7woug==
+X-Received: by 2002:a5d:64c6:0:b0:37d:4706:f728 with SMTP id ffacd0b85a97d-385c6ef476fmr482019f8f.50.1732665438579;
+        Tue, 26 Nov 2024 15:57:18 -0800 (PST)
+Message-ID: <c08bd940-a2eb-4fb8-9f8d-2c5f3f1fab54@citrix.com>
+Date: Tue, 26 Nov 2024 23:57:16 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241126-vuart-ns8250-v1-v1-36-87b9a8375b7a@ford.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/36] Introduce NS8250 UART emulator
+To: dmukhin@ford.com
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich
+ <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Connor Davis <connojdavis@gmail.com>, Juergen Gross <jgross@suse.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ David Scott <dave@recoil.org>, Rahul Singh <rahul.singh@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
 In-Reply-To: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
-To: Jan Beulich <jbeulich@suse.com>, 
- Andrew Cooper <andrew.cooper3@citrix.com>, 
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
- "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
- Bertrand Marquis <bertrand.marquis@arm.com>, 
- Michal Orzel <michal.orzel@amd.com>, Rahul Singh <rahul.singh@arm.com>, 
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
- Alistair Francis <alistair.francis@wdc.com>, 
- Bob Eshleman <bobbyeshleman@gmail.com>, 
- Connor Davis <connojdavis@gmail.com>, 
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
- Shawn Anastasio <sanastasio@raptorengineering.com>, 
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, 
- Christian Lindig <christian.lindig@citrix.com>, 
- David Scott <dave@recoil.org>, 
- =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Denis Mukhin <dmukhin@ford.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=5611;
- i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=O/e2TuAbfREf6sK5Rox2Z4H+zlo5Q3N8ksFZglsK7sE=;
- b=XavKhjZA3mfK4h09UVfAzuoD+nqYtkqc4418biMqkmSexlVgea/EgM0/sVOixRT0rGc6Is/Ke
- gmcR6+YgzKOD7ftpuWh53AGZUZYrdt+D/f3ZpAPz7y6T7Ams0JNWAsX
-X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
- pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
-X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
- auth_id=287
-X-Original-From: Denis Mukhin <dmukhin@ford.com>
-Reply-To: dmukhin@ford.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Denis Mukhin <dmukhin@ford.com>
+On 26/11/2024 11:21 pm, Denis Mukhin via B4 Relay wrote:
+> The patch series introduces initial in-hypervisor emulator for
+> NS8250/NS16x50-compatible UARTs under CONFIG_HAS_VUART_NS8250.
+>
+> In parallel domain creation scenario (hyperlaunch), NS8520 emulator helps
+> early guest OS bringup debugging, because it eliminates dependency on the
+> external emulator being operational by the time domains are created. Also,
+> there's no early console facility similar to vpl011 to support x86 guest OS
+> bring up.
+>
+> The NS8250 emulator is disabled by default.
+>
+> Series
+> ======
+> - patches 1-2: some miscellaneous random fixes, added into the series
+>   because I stepped into those while debugging NS8250 emulator.
+>
+> - patches 3-14: preparation fixes for xen console and NS8250 emulator.
+>
+> - patches 15-29: xen console driver cleanup and preparation for enabling
+>   physical serial console focus assignment to the guest VM w/ virtual NS8250.
+>
+> - patches 30-36: initial NS8250 emulator. That adds the I/O port emulator
+>   for legacy PC COM UARTs, Kconfig option, enabling emulator and libxl
+>   plumbing.
+>
+> Limitations
+> ===========
+> - Only x86;
+> - Only Linux guest tested so far;
+> - Only legacy COM{1,2,3,4} resources, no customization;
+> - Only Xen console as a backend, no inter-domain communication (similar to
+>   vpl011 on Arm);
+> - Only 8-bit characters;
+> - Baud rate is not emulated;
+> - FIFO-less mode is not emulated properly;
+> - RX FIFO interrupt moderation (FCR) is not emulated properly, TL16C750
+>   has special FCR handling;
+> - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
+>   friends);
+> - Assumes no ISA-device IRQ sharing;
+> - MMIO-based UART is not supported.
+>
+> Testing
+> =======
+>
+> I tested boot of HVM linux guest w/ OVMF as the virtual firmware.
+>
+> The emulator, if enabled via CONFIG_HAS_VUART_NS8250=y, will use COM1 (0x3f8)
+> resources by default.
+>
+> To test w/ virtual COM1, the guest kernel parameters should contain
+>   earlycon=uart,io,0x3f8,115200n8 console=uart,io,0x3f8,115200n8
+>
+> Xen is able to forward physical console input to the domain w/ virtual NS8250.
+> To switch the console focus press Ctrl+aaa. If console= is given to the HVM
+> kernel, then the user shall be able to see the login prompt on xen console once
+> console focus is switched to the HVM guest.
+>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Minor update related to virtual UART support.
+Hello,
 
-Also:
- s/pv/PV/g
- s/hvm/HVM/g
+Thankyou for this.  It's an excellent start for first posting to the list.
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
- docs/misc/console.txt | 48 +++++++++++++++++++++++++-----------------------
- 1 file changed, 25 insertions(+), 23 deletions(-)
+Two things stand out at a glance.
 
-diff --git a/docs/misc/console.txt b/docs/misc/console.txt
-index 4e180f88ba1312d8fcc47d27622ec347d387ce12..b5411b4d74b6d3d920a4fbb2ce6033a239ec5832 100644
---- a/docs/misc/console.txt
-+++ b/docs/misc/console.txt
-@@ -4,11 +4,11 @@ Xen PV Console notes
-                                         stefano.stabellini@eu.citrix.com
- 
- 
--Xen traditionally provided a single pv console to pv guests, storing the
-+Xen traditionally provided a single PV console to PV guests, storing the
- relevant information in xenstore under /local/domain/$DOMID/console.
- 
--Now many years after the introduction of the pv console we have
--multiple pv consoles support for pv and hvm guests; multiple pv
-+Now many years after the introduction of the PV console we have
-+multiple PV consoles support for PV and HVM guests; multiple PV
- console backends (qemu and xenconsoled, see limitations below) and
- emulated serial cards too.
- 
-@@ -103,48 +103,50 @@ The supported values are only xenconsoled or ioemu; xenconsoled has
- several limitations: it can only be used for the first PV or virtual UART
- console and it can only connect to a pty.
- 
--Emulated serials are provided by qemu-dm only to hvm guests; the number
--of emulated serials depends on how many "-serial" command line options
--are given to qemu. The output of a serial is specified as argument to
--the -serial command line option to qemu. Qemu writes the tty name to
--xenstore in the following path:
-+Emulated serials are provided to HVM guests by qemu-dm or in-hypervisor UART
-+emulator (Xen needs to be re-compiled).
-+
-+In qemu-dm case, the number of emulated serials depends on how many "-serial"
-+command line options are given to qemu. The output of a serial is specified as
-+argument to the -serial command line option to qemu. Qemu writes the tty name
-+to xenstore in the following path:
- 
- /local/domain/$DOMID/serial/$SERIAL_NUM/tty
- 
- xenconsole is the tool to connect to a PV or virtual UART console or an
- emulated serial that has a pty as output. Xenconsole takes a domid as
--parameter plus an optional console type (pv for PV consoles, vuart for
-+parameter plus an optional console type (PV for PV consoles, vuart for
- virtual UART or serial for emulated serials) and console number.
- Depending on the type and console number, xenconsole will look for the tty
- node in different xenstore paths, as described above.  If the user doesn't
--specify the console type xenconsole will try to guess: if the guest is a pv
--guest it defaults to PV console, if the guest is an hvm guest it defaults to
-+specify the console type xenconsole will try to guess: if the guest is a PV
-+guest it defaults to PV console, if the guest is an HVM guest it defaults to
- emulated serial.
- 
--By default xl creates a pv console for hvm guests, plus an emulated
-+By default xl creates a PV console for HVM guests, plus an emulated
- serial if the user specified 'serial = "pty"' in the VM config file.
--Considering that xenconsole defaults to emulated serials for hvm guests,
-+Considering that xenconsole defaults to emulated serials for HVM guests,
- executing xl create -c "domain" causes xenconsole to attach to the
- emulated serial tty. This is most probably what the user wanted because
--currently no bootloaders support xen pv consoles so the only way to
-+currently no bootloaders support xen PV consoles so the only way to
- interact with a bootloader like grub over a console is to use the
- emulated serial.
--However the pv console is still easy to use with Linux PV on HVM guests:
-+However the PV console is still easy to use with Linux PV on HVM guests:
- the user just need to pass "console=hvc0" to the kernel command line and
- then execute "xl console -t pv <domain>" to connect to it.
- 
- When using stubdoms the serial cards are still emulated by qemu (this
- time running in the stubdom), the number of serial cards and where the
- output goes is still specified using qemu command line options.
--The difference is that for each emulated serial card there must be a pv
-+The difference is that for each emulated serial card there must be a PV
- console connection between the stubdom and dom0 to export the serial
--output from the stubdom to dom0. The pv console backend for stubdom's pv
--consoles is always ioemu because multiple pv consoles support is a
--requirement in this case, considering that minios has its own pv console
--too. In order to simplify the setup when using stubdoms the hvm guest
--can only have one pv console with xenstored as backend (the stubdom
--could provide pv console backends to the hvm guest but then it would
--need another pv console connection for each console backend to export
-+output from the stubdom to dom0. The PV console backend for stubdom's PV
-+consoles is always ioemu because multiple PV consoles support is a
-+requirement in this case, considering that minios has its own PV console
-+too. In order to simplify the setup when using stubdoms the HVM guest
-+can only have one PV console with xenstored as backend (the stubdom
-+could provide PV console backends to the HVM guest but then it would
-+need another PV console connection for each console backend to export
- the pty to dom0).
- 
- The xenconsole program supports a very simple protocol to notify parent about
+First, xmalloc/free are the expected functions to use, and kmalloc/free
+are not equivalent.  We have some drivers ported from Linux, hence the
+compatibility, and if it needs to extend beyond smmu.c then there's
+linux-compat.h where definitions can live, but we really don't want them
+visible generally.
 
--- 
-2.34.1
+Second and more importantly, I'm afraid this won't pass CI right now. 
+Your function pointees (e.g. ns8250_iir_check_lsi()/etc) need a cf_check
+attribute on them, in order to function when running on CET-IBT capable
+hardware.
+
+From the root of the Xen tree, if you run:
+
+CONTAINER=bookworm-x86_64-gcc-ibt ./automation/scripts/containerize
+
+then you'll get a build environment with suitable diagnostics. 
+Unfortunately we're still relying on an out-of-tree GCC patch to have a
+compiler that can point out the problems at build time, as opposed to
+encountering the #CP exceptions at runtime.
 
 
+I'll try to have a closer look at the rest of the series tomorrow.
+
+~Andrew
 
