@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF0E9D9FA9
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:32:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844226.1259834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 266699D9FA8
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:31:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844222.1259825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG521-0005ZT-PX; Tue, 26 Nov 2024 23:31:45 +0000
+	id 1tG51u-00059L-J9; Tue, 26 Nov 2024 23:31:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844226.1259834; Tue, 26 Nov 2024 23:31:45 +0000
+Received: by outflank-mailman (output) from mailman id 844222.1259825; Tue, 26 Nov 2024 23:31:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG521-0005XM-MT; Tue, 26 Nov 2024 23:31:45 +0000
-Received: by outflank-mailman (input) for mailman id 844226;
- Tue, 26 Nov 2024 23:31:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tG51u-000575-FO; Tue, 26 Nov 2024 23:31:38 +0000
+Received: by outflank-mailman (input) for mailman id 844222;
+ Tue, 26 Nov 2024 23:31:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rasV=SV=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tG4sv-0000At-Ei
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:21 +0000
+ id 1tG4sm-0000Ao-Mu
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:12 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3fd053c2-ac4d-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 00:22:06 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3fb763ee-ac4d-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 00:22:05 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2D1395C5D81;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3D79C5C5D84;
  Tue, 26 Nov 2024 23:21:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5507EC4CED9;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 65829C4CED7;
  Tue, 26 Nov 2024 23:21:57 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 4D7EAD66B9D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 5BC36D66B9A;
  Tue, 26 Nov 2024 23:21:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -45,26 +45,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fd053c2-ac4d-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 3fb763ee-ac4d-11ef-a0cd-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6IjNmZDA1M2MyLWFjNGQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjYzMzI2LjY3MzkzNCwic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Custom-Transaction: eyJpZCI6IjNmYjc2M2VlLWFjNGQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjYzMzI1LjU5MzM4Nywic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1732663317;
-	bh=MgApai2X2eHnbK37BwNB8ShofCKeQUT/r7C8T0eMz1I=;
+	bh=P4X+dnER+7JoqwwmELmRNzsru3TR+rJuCDE5NVa75n8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Kr4Oa3t4K4Lqehvz16FW6oidxWBNJJCWVcBIING4CPQQMH9bCF60D3lqRB5iZww1s
-	 l28HhYztl0EArICqaJohxeYIfob6EHHJVjrgmI+45/CUb+QjdaOQ0BRPiqEAj8EEE7
-	 QR3qfxv6Cvi3ETN/EOvruf1iuysj0PGLoPkjKgoSWfuQ3DZmisdxp2K2qieHdyIoMF
-	 30P5pX8+TA7oXj+ayjDnuO0aBnAcH/5Dek/9FmSc4Ges+vIoSQTpkvVWosLaHbNArM
-	 kwVAA/VwcjQzuLpSB9BGbnm8BeboZTxjip26X+tTrY+5WpL3f9AAHGQnzuLeLgWDBb
-	 CMwLNSTQkyy+A==
+	b=LTOb+oAyp07JKXq2KJLVV+d+MoHMeglaDQDpfdyCKHfYf7hokgtzJvzzayeEwnusL
+	 xHKXsVFkKdUWVziDvBhvsgLEE6VCg6BVZgJwbo3dSLP4THmQTvfCwtYpm6MtR9vEu6
+	 8Zs1a5pzDa3Zwa1yAafV6H1ovtNzVr1OwPRlydFehttigbeFLTNM4XGW8VncIlEjrM
+	 aeg0NzHColTIN1EiqOM0a0KvmsToLU1Dz23F7cwgrdyJvEYDzRn2bIirirIbDJcf7P
+	 2Ssf20fmV2hDlhO7E69JzPLNLozLDgYy/+FuuBT7BRABn4wGqD5pKuKJwnJb7LcBdH
+	 saDtyLBreVxDg==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Tue, 26 Nov 2024 15:22:17 -0800
-Subject: [PATCH 27/36] xen/console: introduce hwdom_crashconsole=
+Date: Tue, 26 Nov 2024 15:22:18 -0800
+Subject: [PATCH 28/36] xen/console: simplify console owner switch hint
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241126-vuart-ns8250-v1-v1-27-87b9a8375b7a@ford.com>
+Message-Id: <20241126-vuart-ns8250-v1-v1-28-87b9a8375b7a@ford.com>
 References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 In-Reply-To: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 To: Jan Beulich <jbeulich@suse.com>, 
@@ -86,11 +86,11 @@ To: Jan Beulich <jbeulich@suse.com>,
  =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Cc: xen-devel@lists.xenproject.org, Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=3869;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=881;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=JESGJHjMxTvWh9SGyt0+xymQaxEqPkPKVM3b9HUELmI=;
- b=mY7Ag7UTh6FVmqmRN1Vz6+VT0ef9bxlfj+zIyWvTuiQ7Kzug6VSn9jEO79q8KDBzcMJb0BbLg
- SBhaZjR2X43Bt0VtujV+uNAm8/kuyShsWwnARo7ewwDgMfGgasQJAyr
+ bh=IPN7McCx2GMasxWXQvc4fWV7JKmlK0HvFSHLV2y3YOg=;
+ b=oN+IviwIRCqEG8bugGFvwedgL4OLnk6vPm6uROZKAImjHwOcHtL8C/RatenQWqO7uSxuLu4gJ
+ ZT0mRsqa0qjA91V6VY/0iAfAWAnoxW6FR+klTt83UV5rUFCDfvYqK8S
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -100,101 +100,29 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-The new command line switch `hwdom_crashconsole=BOOL` allows to switch serial
-console input focus to xen for machine state inspection using keyhandler
-mechanism after the hardware domain crashes.
-
-The new command line switch is aliased via `dom0=...,crashconsole` knob.
-
-Such functionality can be useful while debugging dom0 bringup.
+Update the hint w/ the combination of keys to press to switch physical console
+to the next owner.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- docs/misc/xen-command-line.pandoc |  5 +++++
- xen/arch/x86/dom0_build.c         |  2 ++
- xen/arch/x86/include/asm/setup.h  |  1 +
- xen/common/domain.c               | 14 +++++++++++++-
- 4 files changed, 21 insertions(+), 1 deletion(-)
+ xen/drivers/char/console.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 293dbc1a957ba6e668fd4d55d58e84f643822126..fb77d7dca1ea517f79d6713aa6909422f31e7724 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -806,6 +806,7 @@ Specify the bit width of the DMA heap.
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 3d8d3c852e69d8fddd1d978fdd8932eb75551f25..9f67ecb26f5ab1183d17c83631a17b45cfefd5ab 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -526,8 +526,8 @@ int console_set_owner(domid_t domid)
+     console_owner = domid;
  
- ### dom0
-     = List of [ pv | pvh, shadow=<bool>, verbose=<bool>,
-+                crashconsole=<bool>,
-                 cpuid-faulting=<bool>, msr-relaxed=<bool> ] (x86)
+     if ( switch_code )
+-        printk(" (type 'CTRL-%c' three times to switch input)",
+-               opt_conswitch[0]);
++        printk(" (type 'CTRL-%c%c%c' to switch input)",
++               opt_conswitch[0], opt_conswitch[0], opt_conswitch[0]);
+     printk("\n");
  
-     = List of [ sve=<integer> ] (Arm64)
-@@ -839,6 +840,10 @@ Controls for how dom0 is constructed on x86 systems.
-     information during the dom0 build.  It defaults to the compile time choice
-     of `CONFIG_VERBOSE_DEBUG`.
- 
-+*   The `crashconsole` boolean instructs Xen to drop into emergency console
-+    in case of dom0 crash. May be useful for dom0 bringup on a custom
-+    hardware.
-+
- *   The `cpuid-faulting` boolean is an interim option, is only applicable to
-     PV dom0, and defaults to true.
- 
-diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-index e8f5bf5447bc47a6daa3d95787106a4c11e80d31..706aeec0ecbb565a415edbfb33ca2fd72967c560 100644
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -286,6 +286,8 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
-         opt_dom0_cpuid_faulting = val;
-     else if ( (val = parse_boolean("msr-relaxed", s, e)) >= 0 )
-         opt_dom0_msr_relaxed = val;
-+    else if ( (val = parse_boolean("crashconsole", s, e)) >= 0 )
-+        opt_hwdom_crashconsole = !!val;
-     else
-         return -EINVAL;
- 
-diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
-index 296348655b9d146c73acc305cc9edd5fd46f7d47..5edae2d15cc0a1ad74eb1637a48dd3a74e0c37ee 100644
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -68,5 +68,6 @@ extern bool opt_dom0_pvh;
- extern bool opt_dom0_verbose;
- extern bool opt_dom0_cpuid_faulting;
- extern bool opt_dom0_msr_relaxed;
-+extern bool opt_hwdom_crashconsole;
- 
- #endif
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 56f5d3b2031c52d567bfcf839740600320d952e9..68112ca6de09d58f3df10b8545fec55583d2bf74 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -56,6 +56,13 @@ unsigned int xen_processor_pmbits = XEN_PROCESSOR_PM_PX;
- bool opt_dom0_vcpus_pin;
- boolean_param("dom0_vcpus_pin", opt_dom0_vcpus_pin);
- 
-+/*
-+ * Hardware domain crash handler: if true, do not halt machine, but switch to
-+ * Xen console for debugging.
-+ */
-+bool opt_hwdom_crashconsole;
-+boolean_param("hwdom_crashconsole", opt_hwdom_crashconsole);
-+
- /* Protect updates/reads (resp.) of domain_list and domain_hash. */
- DEFINE_SPINLOCK(domlist_update_lock);
- DEFINE_RCU_READ_LOCK(domlist_read_lock);
-@@ -1144,7 +1151,12 @@ int domain_shutdown(struct domain *d, u8 reason)
-     reason = d->shutdown_code;
- 
-     if ( is_hardware_domain(d) )
--        hwdom_shutdown(reason);
-+    {
-+        if ( opt_hwdom_crashconsole )
-+            console_set_owner(DOMID_XEN);
-+        else
-+            hwdom_shutdown(reason);
-+    }
- 
-     if ( d->is_shutting_down )
-     {
+     return 0;
 
 -- 
 2.34.1
