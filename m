@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EB9E9D9FB4
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:37:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844323.1259905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CF0E9D9FA9
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 00:32:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844226.1259834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG57f-0002Po-Pj; Tue, 26 Nov 2024 23:37:35 +0000
+	id 1tG521-0005ZT-PX; Tue, 26 Nov 2024 23:31:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844323.1259905; Tue, 26 Nov 2024 23:37:35 +0000
+Received: by outflank-mailman (output) from mailman id 844226.1259834; Tue, 26 Nov 2024 23:31:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tG57f-0002Nj-MX; Tue, 26 Nov 2024 23:37:35 +0000
-Received: by outflank-mailman (input) for mailman id 844323;
- Tue, 26 Nov 2024 23:37:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tG521-0005XM-MT; Tue, 26 Nov 2024 23:31:45 +0000
+Received: by outflank-mailman (input) for mailman id 844226;
+ Tue, 26 Nov 2024 23:31:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rasV=SV=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tG4sn-0000Ao-NE
- for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:13 +0000
+ id 1tG4sv-0000At-Ei
+ for xen-devel@lists.xenproject.org; Tue, 26 Nov 2024 23:22:21 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fc4fba5-ac4d-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 00:22:05 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3fd053c2-ac4d-11ef-99a3-01e77a169b0f;
+ Wed, 27 Nov 2024 00:22:06 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1F59F5C5D77;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2D1395C5D81;
  Tue, 26 Nov 2024 23:21:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 45451C4CED0;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5507EC4CED9;
  Tue, 26 Nov 2024 23:21:57 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3B882D66B8E;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4D7EAD66B9D;
  Tue, 26 Nov 2024 23:21:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -45,26 +45,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fc4fba5-ac4d-11ef-a0cd-8be0dac302b0
+X-Inumbo-ID: 3fd053c2-ac4d-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzOS4xNzguODQuMjE3IiwiaGVsbyI6ImRmdy5zb3VyY2Uua2VybmVsLm9yZyJ9
-X-Custom-Transaction: eyJpZCI6IjNmYzRmYmE1LWFjNGQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjYzMzI1LjgxMDY0OCwic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Custom-Transaction: eyJpZCI6IjNmZDA1M2MyLWFjNGQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjYzMzI2LjY3MzkzNCwic2VuZGVyIjoiZGV2bnVsbCtkbXVraGluLmZvcmQuY29tQGtlcm5lbC5vcmciLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1732663317;
-	bh=5p7FQirypDNvXa/ADc/A3qm2m9f35PQKXZmP0f/F4yM=;
+	bh=MgApai2X2eHnbK37BwNB8ShofCKeQUT/r7C8T0eMz1I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=vPwWjyWIjN/ljcfhd3K4w3gyn1iFmZMe/TRHxFN8DZvVAIz/5prMPhINBiaGqzQZz
-	 9uEe5ei3yODyUP9cJ2uVHO6ISEktdurzgm7RNtBS4mULVAWdTDQmBp1WyCpeyQ0XoE
-	 QfgnSdSQzQeebIYM4HUrqztxN3OIzzNl1Y7eabDWYKyfNG8SSMbHjZiIDARIilMOCt
-	 ahAKkPlpuCK5srsQ0IvgjOyI/mLPDUJT86iwSDM+ZVtsYNQ5lhj1GNZERmjScV8MXV
-	 Ke1BRLvORdIaANR5/Wf8mOIniodkcTgkgvU2VMGtnMrvsHkXG4usxTxKLrq1RQex+/
-	 Pt9f8eaqqaz4w==
+	b=Kr4Oa3t4K4Lqehvz16FW6oidxWBNJJCWVcBIING4CPQQMH9bCF60D3lqRB5iZww1s
+	 l28HhYztl0EArICqaJohxeYIfob6EHHJVjrgmI+45/CUb+QjdaOQ0BRPiqEAj8EEE7
+	 QR3qfxv6Cvi3ETN/EOvruf1iuysj0PGLoPkjKgoSWfuQ3DZmisdxp2K2qieHdyIoMF
+	 30P5pX8+TA7oXj+ayjDnuO0aBnAcH/5Dek/9FmSc4Ges+vIoSQTpkvVWosLaHbNArM
+	 kwVAA/VwcjQzuLpSB9BGbnm8BeboZTxjip26X+tTrY+5WpL3f9AAHGQnzuLeLgWDBb
+	 CMwLNSTQkyy+A==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Tue, 26 Nov 2024 15:22:16 -0800
-Subject: [PATCH 26/36] xen/console: introduce console_write()
+Date: Tue, 26 Nov 2024 15:22:17 -0800
+Subject: [PATCH 27/36] xen/console: introduce hwdom_crashconsole=
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241126-vuart-ns8250-v1-v1-26-87b9a8375b7a@ford.com>
+Message-Id: <20241126-vuart-ns8250-v1-v1-27-87b9a8375b7a@ford.com>
 References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 In-Reply-To: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
 To: Jan Beulich <jbeulich@suse.com>, 
@@ -86,11 +86,11 @@ To: Jan Beulich <jbeulich@suse.com>,
  =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Cc: xen-devel@lists.xenproject.org, Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=4283;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1732663312; l=3869;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=mC1dfr4+26P41BllPMG6MZbu9F46btGiiA2X1kH3gME=;
- b=hb4ZH7CsrUUdK9/NkrG9FYu22AqGi/bZMiyvvI9e3EZYIzNKn/vse7pJTCknstGu43n9nc68n
- zegv/33ak9sCf0BS87RJVnZ4f1YoDras7AKDidQNrQtdz43jVQn137A
+ bh=JESGJHjMxTvWh9SGyt0+xymQaxEqPkPKVM3b9HUELmI=;
+ b=mY7Ag7UTh6FVmqmRN1Vz6+VT0ef9bxlfj+zIyWvTuiQ7Kzug6VSn9jEO79q8KDBzcMJb0BbLg
+ SBhaZjR2X43Bt0VtujV+uNAm8/kuyShsWwnARo7ewwDgMfGgasQJAyr
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -100,148 +100,101 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-PV Linux kernel uses HYPERVISOR_console_io hypercall for early console which
-ends up being handled by Xen's console driver's guest_console_write().
+The new command line switch `hwdom_crashconsole=BOOL` allows to switch serial
+console input focus to xen for machine state inspection using keyhandler
+mechanism after the hardware domain crashes.
 
-guest_console_write() duplicates the code from __putstr(), elimitate code
-duplication.
+The new command line switch is aliased via `dom0=...,crashconsole` knob.
+
+Such functionality can be useful while debugging dom0 bringup.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/drivers/char/console.c | 94 ++++++++++++++++++++++++----------------------
- 1 file changed, 50 insertions(+), 44 deletions(-)
+ docs/misc/xen-command-line.pandoc |  5 +++++
+ xen/arch/x86/dom0_build.c         |  2 ++
+ xen/arch/x86/include/asm/setup.h  |  1 +
+ xen/common/domain.c               | 14 +++++++++++++-
+ 4 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 4439e00763631969767719053cdc81e67c2cda2c..3d8d3c852e69d8fddd1d978fdd8932eb75551f25 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -665,6 +665,19 @@ static void cf_check notify_dom0_con_ring(void *unused)
- static DECLARE_SOFTIRQ_TASKLET(notify_dom0_con_ring_tasklet,
-                                notify_dom0_con_ring, NULL);
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 293dbc1a957ba6e668fd4d55d58e84f643822126..fb77d7dca1ea517f79d6713aa6909422f31e7724 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -806,6 +806,7 @@ Specify the bit width of the DMA heap.
  
-+static bool console_locks_busted;
+ ### dom0
+     = List of [ pv | pvh, shadow=<bool>, verbose=<bool>,
++                crashconsole=<bool>,
+                 cpuid-faulting=<bool>, msr-relaxed=<bool> ] (x86)
+ 
+     = List of [ sve=<integer> ] (Arm64)
+@@ -839,6 +840,10 @@ Controls for how dom0 is constructed on x86 systems.
+     information during the dom0 build.  It defaults to the compile time choice
+     of `CONFIG_VERBOSE_DEBUG`.
+ 
++*   The `crashconsole` boolean instructs Xen to drop into emergency console
++    in case of dom0 crash. May be useful for dom0 bringup on a custom
++    hardware.
 +
-+static void conring_write(const char *str, size_t len)
-+{
-+    if ( opt_console_to_ring )
-+    {
-+        conring_puts(str, len);
-+
-+        if ( !console_locks_busted )
-+            tasklet_schedule(&notify_dom0_con_ring_tasklet);
-+    }
-+}
-+
- #ifdef CONFIG_X86
- static inline void xen_console_write_debug_port(const char *buf, size_t len)
- {
-@@ -673,8 +686,43 @@ static inline void xen_console_write_debug_port(const char *buf, size_t len)
-                    : "=&S" (tmp), "=&c" (tmp)
-                    : "0" (buf), "1" (len), "d" (XEN_HVM_DEBUGCONS_IOPORT) );
- }
-+
-+static void xen_console_write(const char *str, size_t len)
-+{
-+    if ( opt_console_xen )
-+    {
-+        if ( xen_guest )
-+            xen_hypercall_console_write(str, len);
-+        else
-+            xen_console_write_debug_port(str, len);
-+    }
-+}
-+#else
-+static void xen_console_write(const char *str, size_t len)
-+{
-+}
+ *   The `cpuid-faulting` boolean is an interim option, is only applicable to
+     PV dom0, and defaults to true.
+ 
+diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+index e8f5bf5447bc47a6daa3d95787106a4c11e80d31..706aeec0ecbb565a415edbfb33ca2fd72967c560 100644
+--- a/xen/arch/x86/dom0_build.c
++++ b/xen/arch/x86/dom0_build.c
+@@ -286,6 +286,8 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
+         opt_dom0_cpuid_faulting = val;
+     else if ( (val = parse_boolean("msr-relaxed", s, e)) >= 0 )
+         opt_dom0_msr_relaxed = val;
++    else if ( (val = parse_boolean("crashconsole", s, e)) >= 0 )
++        opt_hwdom_crashconsole = !!val;
+     else
+         return -EINVAL;
+ 
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index 296348655b9d146c73acc305cc9edd5fd46f7d47..5edae2d15cc0a1ad74eb1637a48dd3a74e0c37ee 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -68,5 +68,6 @@ extern bool opt_dom0_pvh;
+ extern bool opt_dom0_verbose;
+ extern bool opt_dom0_cpuid_faulting;
+ extern bool opt_dom0_msr_relaxed;
++extern bool opt_hwdom_crashconsole;
+ 
  #endif
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 56f5d3b2031c52d567bfcf839740600320d952e9..68112ca6de09d58f3df10b8545fec55583d2bf74 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -56,6 +56,13 @@ unsigned int xen_processor_pmbits = XEN_PROCESSOR_PM_PX;
+ bool opt_dom0_vcpus_pin;
+ boolean_param("dom0_vcpus_pin", opt_dom0_vcpus_pin);
  
 +/*
-+ * Write characters to console.
-+ *
-+ * That will handle all possible scenarios working w/ console
-+ * - serial console;
-+ * - video output;
-+ * - __HYPERVISOR_console_io hypercall (x86 only);
-+ * - debug I/O port (x86 only);
-+ * - forward to Xen event channel.
++ * Hardware domain crash handler: if true, do not halt machine, but switch to
++ * Xen console for debugging.
 + */
-+static void console_write(const char *str, size_t len)
-+{
-+    ASSERT(rspin_is_locked(&console_lock));
++bool opt_hwdom_crashconsole;
++boolean_param("hwdom_crashconsole", opt_hwdom_crashconsole);
 +
-+    console_serial_puts(str, len);
-+    video_puts(str, len);
-+    xen_console_write(str, len);
-+    conring_write(str, len);
-+}
-+
- static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-                                 unsigned int count)
- {
-@@ -695,28 +743,8 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+ /* Protect updates/reads (resp.) of domain_list and domain_hash. */
+ DEFINE_SPINLOCK(domlist_update_lock);
+ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+@@ -1144,7 +1151,12 @@ int domain_shutdown(struct domain *d, u8 reason)
+     reason = d->shutdown_code;
  
-         if ( is_hardware_domain(cd) )
-         {
--            /* Use direct console output as it could be interactive */
-             nrspin_lock_irq(&console_lock);
--
--            console_serial_puts(kbuf, kcount);
--            video_puts(kbuf, kcount);
--
--#ifdef CONFIG_X86
--            if ( opt_console_xen )
--            {
--                if ( xen_guest )
--                    xen_hypercall_console_write(kbuf, kcount);
--                else
--                    xen_console_write_debug_port(kbuf, kcount);
--            }
--#endif
--
--            if ( opt_console_to_ring )
--            {
--                conring_puts(kbuf, kcount);
--                tasklet_schedule(&notify_dom0_con_ring_tasklet);
--            }
--
-+            console_write(kbuf, kcount);
-             nrspin_unlock_irq(&console_lock);
-         }
-         else
-@@ -817,31 +845,9 @@ long do_console_io(
-  * *****************************************************
-  */
+     if ( is_hardware_domain(d) )
+-        hwdom_shutdown(reason);
++    {
++        if ( opt_hwdom_crashconsole )
++            console_set_owner(DOMID_XEN);
++        else
++            hwdom_shutdown(reason);
++    }
  
--static bool console_locks_busted;
--
- static void __putstr(const char *str)
- {
--    size_t len = strlen(str);
--
--    ASSERT(rspin_is_locked(&console_lock));
--
--    console_serial_puts(str, len);
--    video_puts(str, len);
--
--#ifdef CONFIG_X86
--    if ( opt_console_xen )
--    {
--        if ( xen_guest )
--            xen_hypercall_console_write(str, len);
--        else
--            xen_console_write_debug_port(str, len);
--    }
--#endif
--
--    conring_puts(str, len);
--
--    if ( !console_locks_busted )
--        tasklet_schedule(&notify_dom0_con_ring_tasklet);
-+    console_write(str, strlen(str));
- }
- 
- static int printk_prefix_check(char *p, char **pp)
+     if ( d->is_shutting_down )
+     {
 
 -- 
 2.34.1
