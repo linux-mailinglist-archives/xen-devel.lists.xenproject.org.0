@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98B7D9DACAF
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 18:46:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845025.1260520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 601769DACCD
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 19:01:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845035.1260531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGM6e-00044t-Eh; Wed, 27 Nov 2024 17:45:40 +0000
+	id 1tGMLr-0006sF-NH; Wed, 27 Nov 2024 18:01:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845025.1260520; Wed, 27 Nov 2024 17:45:40 +0000
+Received: by outflank-mailman (output) from mailman id 845035.1260531; Wed, 27 Nov 2024 18:01:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGM6e-00042l-Bk; Wed, 27 Nov 2024 17:45:40 +0000
-Received: by outflank-mailman (input) for mailman id 845025;
- Wed, 27 Nov 2024 17:45:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tGMLr-0006pr-Ka; Wed, 27 Nov 2024 18:01:23 +0000
+Received: by outflank-mailman (input) for mailman id 845035;
+ Wed, 27 Nov 2024 18:01:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k0uU=SW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGM6c-00042f-8u
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 17:45:38 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 65e99e26-ace7-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 18:45:32 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ff976ab0edso76812071fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 09:45:32 -0800 (PST)
+ id 1tGMLq-0006pl-DA
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 18:01:22 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 98adfb3c-ace9-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 19:01:16 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a9a977d6cc7so429678866b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 10:01:16 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa53299ff77sm590619966b.73.2024.11.27.09.45.30
+ 4fb4d7f45d1cf-5d01d3fc7a9sm6342911a12.62.2024.11.27.10.01.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 09:45:30 -0800 (PST)
+ Wed, 27 Nov 2024 10:01:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65e99e26-ace7-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzEiLCJoZWxvIjoibWFpbC1sajEteDIzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjY1ZTk5ZTI2LWFjZTctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzI5NTMyLjA1Mzk4Mywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 98adfb3c-ace9-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzEiLCJoZWxvIjoibWFpbC1lajEteDYzMS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijk4YWRmYjNjLWFjZTktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzMwNDc2LjgxOTM1OCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732729531; x=1733334331; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732730476; x=1733335276; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ncIHqWrPV6/2UhkUyYKUe1wcSIL6GbhDBV/cprgzeTU=;
-        b=PezLahInnpVQtqR/dCeGwZmB5z5xQokXwxcE+SDB7PkOpXNmlOotq6F4/28rFIIKBz
-         28eo/bg8Au3T3vNRh7hem+Nbu9PPpnpoqq/wSmQNyy2nEFqufZALeRE33lqVWKZ2go88
-         lD04gFEQziEUIYYyOAs71KeOyHNpL9wtx3PgE=
+        bh=bDLP9mbgI9gmR3ZbQwSJds3EiPuOJx84Eu0LC0TaxTM=;
+        b=pa+X+VVr0Jbk2r8F9Z5UzVv14V+d7fbgxx4pRRAuFD3l382fAaN/9dnVlBxj4vfk3+
+         tJq/VTBMLkiY8Q5ogvmywLBNi1NG+yNaJFiaEsfdadejGy6XzrnZA2iCzPA5jlrfTlpy
+         4dCxS6IlABkHLsMNen34t+oaV75qRkU9NryoI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732729531; x=1733334331;
+        d=1e100.net; s=20230601; t=1732730476; x=1733335276;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ncIHqWrPV6/2UhkUyYKUe1wcSIL6GbhDBV/cprgzeTU=;
-        b=pkbaaA4v0oC+RklmBPQR6eXRGzAeVfgg7HljwNoSAAU9RCwvLjANV/Qfoa96VyNQ3h
-         SBBKdkimxvEQ9oy38hdizBCzXgTIkTuq3Dx5b9H9/nhQkJeMAheRlxcAhz09p/pp9Ho3
-         ZWDrpoxOQnmCkUPEqWlecGcSieo22t4MMXAr3ATITLC5wr+xb/CW3XZxCEBBefYIqWuu
-         nf+A89sMR7LuHrbMogYCArFghVGmxjsAuNtuihX6Ksp3k1Mk7k80zinSF/ibFrRizyal
-         OemS+83ckYysFhDV2kNO/Te8WHFi+Tl9Jm3hsrBa7Sh2f4io5Wbj+K/0T8EsmssI05Dt
-         GfoA==
-X-Gm-Message-State: AOJu0YxopKOHOwlo5G4ZsvEvRmjcRWu324CPx8Z7cF6xr3EjK/Hr3LAI
-	XE4lLPb69CdMtAQbAevu5zCkHTVejnlrVVdM8kqFBzfEvSfUsiLgIFH88Gw6+Wk=
-X-Gm-Gg: ASbGncuTG7WBvyj0YSMofH6iAwurpBl7XCjKdLTeA9ICJ3ttLmOxFjKXhZQqkONJHMa
-	/U+BNpGoItkV6UU7KZJ1CoGVqcEsv7chUgC1Rfna+TQ+WtqohDbNWFA56tNjbgwVopJH2huujYq
-	0ZivMKXyvRDuYhElo/P9RAPzVo6UmJ0J9Z0ZQlO1VqFW0TXZHfs8lpUKWA6NX0GLUybbzyymDlJ
-	bR32/DG6TGvkl9pK4+xGYT+Agn2LqhUlyoLWU1b6RhgyRXFU7ixobQK2yLOx8w=
-X-Google-Smtp-Source: AGHT+IHTc3oOy82JnTOcEnxJCSx8it9VR8P0lCoy/M0/SsDcHMZenZNCq07RY10ekeOm24nqrfklwA==
-X-Received: by 2002:a05:6512:3f1f:b0:53d:d3ff:77f6 with SMTP id 2adb3069b0e04-53df010900cmr2725325e87.46.1732729531393;
-        Wed, 27 Nov 2024 09:45:31 -0800 (PST)
-Message-ID: <63cf9731-61ff-472b-94fe-06b3a4fa5763@citrix.com>
-Date: Wed, 27 Nov 2024 17:45:29 +0000
+        bh=bDLP9mbgI9gmR3ZbQwSJds3EiPuOJx84Eu0LC0TaxTM=;
+        b=suFJHY/2AyKIxtJ2pQpYaIoIH+teyTazswBlqfzIICRmOgAi8wSpvhQVXekD3aYBUA
+         zyzMMEOg7fOUhgv80/sDvxuYScGEC9zkFoPP4+ki128zWZAxBNA83D9IjioGPh+/ori7
+         CLy1YvHCfb4If+7S4qUFCfHjxQsThq2G2s2q7UhBILo8fPOMqwXrYyMtYfgX37X/FR+x
+         aEm/l/oDOA7OHQm2NuS28uZloHbcLE8OhvslYlKLv+GmZHypmRKZd1/mvazayiZDIN+a
+         xoEvBnupzaiJLJ9zDVQeruVZpoShBz0Fa7j1s18dOqbtGF3k4knfT/dTAWmUQ2j+PAuM
+         D9GA==
+X-Forwarded-Encrypted: i=1; AJvYcCVaKiX8AkIx4Kh45OfygvKEl5GYgxJ8D0JzlaRsXYU/hGzZ12o9S6H3izs9eIkFUktnAdfzHl+Z1+c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDSh26N2hDiCpUV1yLvI7frt/j3rjA9KHzjt3gNZC/Y5HEj/ad
+	fc7dc50Y6Eg/0sTpX2eO1oyhlun6BMIhH0J4DtyeI0o8V411GUsPvH580mc2LfA=
+X-Gm-Gg: ASbGncsBU9A+dFtkUCFOmsY+SDIE0JnXeq6+iSAVJ+G1lrLseZPBrqlJ2dNmoWQjQKG
+	2J0fZfs7+Lg0kWJftuy6l8V12k9AUx/TqUF1w5niwgowBCBxTx3j7ujbrstsIsOjlAMl7WI+OPv
+	BDZRJhAEUya2jkxbweJcwcBHIVl/q4ky3L6JTvo5HF5ql1g6YoFcJpIG4aNn3bG7ZPRwB2++wnM
+	AddcrbxfR6oXVpSn/XRWsvduZWGwEQaOzzV9subk3iqkHeOqdWpH7pFQATippA=
+X-Google-Smtp-Source: AGHT+IEsLO31vG2dJ1zNJ84hTok9cOmYJuwyemxpabxdAP3h1CIVs8fx4VTjUeYJorWhJm9rFnBmRw==
+X-Received: by 2002:a05:6402:1d55:b0:5d0:88ea:6560 with SMTP id 4fb4d7f45d1cf-5d088ea65a4mr2466763a12.31.1732730475371;
+        Wed, 27 Nov 2024 10:01:15 -0800 (PST)
+Message-ID: <912ba37b-f60f-4423-bb10-37c708382951@citrix.com>
+Date: Wed, 27 Nov 2024 18:01:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/APIC: Remove workaround Pentium 3AP APIC_ESR erratum
-To: Javi Merino <javi.merino@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Javi Merino <javi.merino@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <3270b77c005745dcf56cc833bdf3e4c703190b05.1732639041.git.javi.merino@cloud.com>
  <20241126205859.23090-1-andrew.cooper3@citrix.com>
- <j743is6qrolxcblkz7q5ta46l2y6vad3e4vetcrgtziqpdpo6y@q7tsoe45ltdf>
+ <a2efdf6c-ab52-4ab6-931e-0801844b4875@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,53 +137,58 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <j743is6qrolxcblkz7q5ta46l2y6vad3e4vetcrgtziqpdpo6y@q7tsoe45ltdf>
+In-Reply-To: <a2efdf6c-ab52-4ab6-931e-0801844b4875@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27/11/2024 10:03 am, Javi Merino wrote:
-> On Tue, Nov 26, 2024 at 08:58:59PM +0000, Andrew Cooper wrote:
->> The SDM instructs software to write 0 to ESR prior to reading it.  However,
->> due to an original Pentium erratum, most logic skips the write based on there
->> being more than 3 LVTs; a stand-in to identify the Pentium.
->>
->> Xen, being 64bit, doesn't need compatibility for i586 processors.
->>
->> Introduce a new apic_read_esr() helper, quoting the SDM to explain why a
->> function named apic_read_esr() has a write in it too.
->>
->> Use the new helper throughout apic.c and smpboot.c, which allows us to remove
->> some useless reads of APIC_LVR.  This in turn removes the external callers of
->> get_maxlvt(), so make it local to apic.c
->>
->> No practical change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Javi Merino <javi.merino@cloud.com>
->>
->> Based on Javi's patch correcting error_interrupt()
-> Fair enough.  I was only looking at error_interrupt() and missed the
-> bigger picture. This patch is more comprehensive and this is very nice:
+On 27/11/2024 8:20 am, Jan Beulich wrote:
+> On 26.11.2024 21:58, Andrew Cooper wrote:
+>> @@ -1389,8 +1381,7 @@ static void cf_check error_interrupt(void)
+>>      unsigned int i;
+>>  
+>>      /* First tickle the hardware, only then report what went on. -- REW */
+>> -    apic_write(APIC_ESR, 0);
+>> -    v = apic_read(APIC_ESR);
+>> +    v = apic_read_esr();
+>>      ack_APIC_irq();
+> As indicated in the earlier reply, I think this comment should be dropped,
+
+This one probably can, but ...
+
+> plus ...
 >
->> Bloat-o-meter reports:
->>
->>   add/remove: 0/1 grow/shrink: 0/3 up/down: 0/-269 (-269)
->>   Function                                     old     new   delta
->>   get_maxlvt                                    48       -     -48
->>   __cpu_up                                    1465    1417     -48
->>   clear_local_APIC                            1109    1050     -59
->>   setup_local_APIC                             942     828    -114
->> ---
->>  xen/arch/x86/apic.c             | 29 ++++++++++-------------------
->>  xen/arch/x86/include/asm/apic.h | 24 +++++++++++++++++++++++-
->>  xen/arch/x86/smpboot.c          | 17 ++++-------------
->>  3 files changed, 37 insertions(+), 33 deletions(-)
-> Reviewed-by: Javi Merino <javi.merino@cloud.com>
+>> --- a/xen/arch/x86/smpboot.c
+>> +++ b/xen/arch/x86/smpboot.c
+>> @@ -422,7 +422,7 @@ void asmlinkage start_secondary(void *unused)
+>>  static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
+>>  {
+>>      unsigned long send_status = 0, accept_status = 0;
+>> -    int maxlvt, timeout, i;
+>> +    int timeout, i;
+>>  
+>>      /*
+>>       * Normal AP startup uses an INIT-SIPI-SIPI sequence.
+>> @@ -444,8 +444,7 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
+>>      /*
+>>       * Be paranoid about clearing APIC errors.
+>>       */
+>> -    apic_write(APIC_ESR, 0);
+>> -    apic_read(APIC_ESR);
+>> +    apic_read_esr();
+> ... the one here.
 
-Thanks.  Are you happy for me to merge the two patches?
+... this one is still correct in place.
+
+
+I almost had a second function called apic_clear_esr() which was just
+(void)apic_read_esr().
+
+I could put that back in if you think it would be clearer ?
+
+>  With that and with Javi's change folded into here,
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Thanks.
 
 ~Andrew
 
