@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 061799DA3AE
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 09:18:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844506.1260005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C9129DA3CD
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 09:21:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844514.1260015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGDEt-0000sI-UM; Wed, 27 Nov 2024 08:17:35 +0000
+	id 1tGDIB-0002Zq-CS; Wed, 27 Nov 2024 08:20:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844506.1260005; Wed, 27 Nov 2024 08:17:35 +0000
+Received: by outflank-mailman (output) from mailman id 844514.1260015; Wed, 27 Nov 2024 08:20:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGDEt-0000qF-R0; Wed, 27 Nov 2024 08:17:35 +0000
-Received: by outflank-mailman (input) for mailman id 844506;
- Wed, 27 Nov 2024 08:17:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tGDIB-0002X9-90; Wed, 27 Nov 2024 08:20:59 +0000
+Received: by outflank-mailman (input) for mailman id 844514;
+ Wed, 27 Nov 2024 08:20:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=owYM=SW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGDEs-0000q9-3S
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 08:17:34 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a5908f5-ac98-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 09:17:28 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-434a90fed23so8641725e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 00:17:28 -0800 (PST)
+ id 1tGDI9-0002X0-Gn
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 08:20:57 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 85548b4e-ac98-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 09:20:54 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-382325b0508so4123358f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 00:20:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fad62e9sm15946436f8f.6.2024.11.27.00.17.26
+ ffacd0b85a97d-3825fad60dasm15459818f8f.21.2024.11.27.00.20.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 00:17:27 -0800 (PST)
+ Wed, 27 Nov 2024 00:20:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a5908f5-ac98-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmQiLCJoZWxvIjoibWFpbC13bTEteDMyZC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjBhNTkwOGY1LWFjOTgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjk1NDQ4LjI1ODcxOCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 85548b4e-ac98-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzYiLCJoZWxvIjoibWFpbC13cjEteDQzNi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6Ijg1NTQ4YjRlLWFjOTgtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNjk1NjU0LjYzMTY0LCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732695447; x=1733300247; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732695654; x=1733300454; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=USh6vXam1LbUEiBfJ2czYuOzGdLb81gSU8rGdvPi/dQ=;
-        b=L3o6o8NXlzwdljIIhxGD+/dXaDaPzSSX3GMQ5RfrMpKvpvHDG+ZfKbJDWfI52arhPc
-         2g2Z4iipsOnv8oGTekL2E2SdjKUEecxAwSXNrfUJmeObdE1++91gOV6+R6X9SIsRsMCb
-         5XAksGGrIECn2MvzN1ijte4oiALuerzhZYxuMMYmmbIRkrrRolfC+e29uBMPMugFzgVr
-         SulOarnYupHXbkFBXdOkVQ5EkxMy6TS6i+997LCS7kx8h0asqLNv1lsHksX7IpoDbCmr
-         yXZ1zH8aZpLDPBkUfqMy/o4t2YeUwAHYKUx1D75HSMdb/C3Sre8k06/J8mKX+USVL9EX
-         /J7A==
+        bh=7++azYOEt1PIwkgm9g6gDrBsAQ4AefoT5/taWZCewm8=;
+        b=Qc35Q4/hWmlolkMFc3fUPmTjt+8KOsVIUmwgEUSdg2g8z/+HSpfXKRe3Zjmk23U4Wq
+         qtpAdOZA9cMfKMBdYg0sAEWHmMksZzXH+U/ZgwqP0v41j6IymoLUFaiXdJxFt05nEq7F
+         aQ7mJUMehUshn4sugNZesDUqJvREBnwZW62UVTAgfXy9XpQ2I8rKs7fhrXJk+0Bc73hX
+         Evx2Uqj3YTwyPhhENsQgwmmhpAesuZ+CzWjhxq5ZoHuh6yzE1Y3OZRyaBds8qXkxwOZp
+         A+xYP9wAOtm0cxgW9fYavZlJsqMMK0Lbdzd/xwHmsSmWfDlmkKdF8SNHTO0Q1LpvUoyU
+         PNQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732695447; x=1733300247;
+        d=1e100.net; s=20230601; t=1732695654; x=1733300454;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=USh6vXam1LbUEiBfJ2czYuOzGdLb81gSU8rGdvPi/dQ=;
-        b=q/CYk0/K080VatSuYL9GJZQx3lQKWqGll050twEybv07h5DAsi+YdgFwHdt9PX4zhl
-         cvqxSOb1rNn3Sb/7bLNhyRQwIrTLngUcl/gv2WNRv13/fnTqBtZ7buq5nkhVopx3ZSBl
-         sQx2jXdWjXfO8hPfhoaQaQpViITZ+9XWb38dyietMbQoCP+2Z4mgIWugZlT6ew60P2g3
-         +IVNE8V+oxAt8iHDWTE4b/bN3YvbHo2jAeAPKNkBCg6C8Eya3fDsqmzHHhpmN7CyEGdK
-         Y3XufqqZRMQKNNc1thPXBM9EafFmDvSOU6sWoyc6tuyOvvEPOtO57gVb+isb9w0eG8Ht
-         n4mw==
-X-Forwarded-Encrypted: i=1; AJvYcCXjlfKWfD2ALocPKrER47SbfoPFlvs43nBAGCRyc9ua9V31sU7l7SlMJXaIQLnRNrdshRRVBJ1wUpo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YweA1bCFuG2U/DL303DPUTD9ulYMNfml8qItjy53+4bFcREo/7h
-	+l+0NoDI4Dpib7DhlK+BUgrXiVkcViXUzaBKGyNqw4cTF8FXiN77ZpJ4NP8BhA==
-X-Gm-Gg: ASbGncsM7l+Y0aHRfz1WZ5a54+HFCaK8ySr2yXohQ7fpGriQidh4ruQerwDu57i7RdX
-	JwJbgI4lBI82mObOpewDlEs9jY9GgmjEEoj8tKHgRE1H2cgJrooJuuA7AbSlGGG+l3yWAF4wxvN
-	RKpCx44Jbs5MNZOEKvgKDH4PWhLaE4r3AO5XK3Dmn1zmDRCevE64vSLHTpgDWs9TM/xcmEtZnvh
-	Z+vINvAzIgbr6UIjSrggFl1KqL53Uz/uXaLhQHqdKJN6TDhEVm1TR/BUCLQNgIc6OkFEiqy78rH
-	nQVog1rxmtXOm9ujXRGTjvYGyOUCh7PDMsQ=
-X-Google-Smtp-Source: AGHT+IFLVXxoHP2v4PTFZbm0tpfWysjkXHZHg9Za6f3v+ZcRB0TpYOQNp1ZfvBhGLBDL/hcNYhN1wA==
-X-Received: by 2002:a05:600c:4e8a:b0:431:5e3c:2ff0 with SMTP id 5b1f17b1804b1-434a9dc5003mr17789795e9.8.1732695447634;
-        Wed, 27 Nov 2024 00:17:27 -0800 (PST)
-Message-ID: <e0fc3cd0-8684-48c2-8cde-8849a0d085d5@suse.com>
-Date: Wed, 27 Nov 2024 09:17:26 +0100
+        bh=7++azYOEt1PIwkgm9g6gDrBsAQ4AefoT5/taWZCewm8=;
+        b=iPzaNtufgZ3QELsQZnrzx4ZS+KmI2MrmgWRKpHBboNBaFNwRupVOruVw8IyJFHTalj
+         IFUSiMNbClhV7wo+EEf1fncTD+MbUSQFPjWeo8jP9KAwKWbIBhtuFm63FqcGR7ieHfyL
+         HIEA7FRqDImzMUg33FFmxp6axRJ+F+a+jXQ4/1tjDCajHl5ogTXCcB/QZe2LP6A+x0KY
+         RMHC9D4EqFtTw1c1qzH2Up5mDBK8LVEHoAviN9pdIYQxxP4lKSXuifjqYUL82S5ZZUxE
+         JD+3eJZfp5P1yPn2legm3JKzBtH9ndqR/eXs4aJLDBhalpCFgV9DN3masQ+h7EliLjgS
+         0YXg==
+X-Forwarded-Encrypted: i=1; AJvYcCUh2PSS8zoSvshkdM/46SATp7nkhS6wDOXFKEV63TDGw9zt3IwFszziIlBW1aptwUAcDKZdg2emJn4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1a4aNkpkFMkxBH2FpEXu39mRpg89SdCzt4c78OGe/GnyFswX6
+	XhZvhId8EbkzjH73pGMs/RWhRdPjx1Ku/ARcWQhONRq+kC2kXYSzmRaNYHArhQ==
+X-Gm-Gg: ASbGncvhICG8CY9V6LWDxRl7ICigIUepsD/4VlGJZUFwhHdV0sc+jzMG4xD3xVrpLUY
+	JoqDTGGvdoaMgnS89j16/nIFj2qlVulOQt6ik5BzZEcvskm2r6M9qdZkbmsHZdEXn7alKuuFhXB
+	4KAOvCFMbYsDjNAkD4UdGVzCF4E4FaFNOwF+bFB/LcJhrNK5RY/AzRLRCLA41TojNNxJe/C72Kw
+	P7AP5avT1P6/toUj4UVQ/v+QfnFh3JLFD1+bcZD2WpvS9YzbKfqIfrMVILU4jU1uodf4TfJJ6Sp
+	LIvRLBOIAgP2YBqTqgSC8iOYrVBFcaNCrAM=
+X-Google-Smtp-Source: AGHT+IFMc3rcmhax22J7cwzvNvc5NAq/QI1cq2X0YuPzSlpkXvphKK47SIvet4pz06OC9NekZgOdIA==
+X-Received: by 2002:a5d:588e:0:b0:382:41ad:d8e2 with SMTP id ffacd0b85a97d-385c6edd470mr1219374f8f.39.1732695654062;
+        Wed, 27 Nov 2024 00:20:54 -0800 (PST)
+Message-ID: <a2efdf6c-ab52-4ab6-931e-0801844b4875@suse.com>
+Date: Wed, 27 Nov 2024 09:20:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1] x86/APIC: Read Error Status Register correctly
+Subject: Re: [PATCH] x86/APIC: Remove workaround Pentium 3AP APIC_ESR erratum
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
+ Javi Merino <javi.merino@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <3270b77c005745dcf56cc833bdf3e4c703190b05.1732639041.git.javi.merino@cloud.com>
- <46949b57-242b-4724-8e81-62d205233829@citrix.com>
+ <20241126205859.23090-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,51 +120,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <46949b57-242b-4724-8e81-62d205233829@citrix.com>
+In-Reply-To: <20241126205859.23090-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.11.2024 21:07, Andrew Cooper wrote:
-> On 26/11/2024 5:06 pm, Javi Merino wrote:
->> The logic to read the APIC_ESR was copied from linux in a commit from
->> 2002: 4676bbf96dc8 (bitkeeper revision
->> 1.2 (3ddb79c9KusG02eh7i-uXkgY0IksKA), 2002-11-20).  In linux 3.14,
->> this logic was fixed to follow the Intel SDM (see commit
->> 60283df7ac26 (x86/apic: Read Error Status Register correctly,
->> 2014-01-14) in the linux kernel).  The Intel(r) 64 and IA-32
->> Architectures Software Develover's Manual currently says
->> in Volume 3, Section 12.5.3:
->>
->>   Before attempt to read from the ESR, software should first write to
->>   it. (The value written does not affect the values read subsequently;
->>   only zero may be written in x2APIC mode.) This write clears any
->>   previously logged errors and updates the ESR with any errors
->>   detected since the last write to the ESR. This write also rearms the
->>   APIC error interrupt triggering mechanism.
->>
->> Update error_interrupt() to remove the first read and follow the Intel
->> manual.
->>
->> Signed-off-by: Javi Merino <javi.merino@cloud.com>
-> 
-> In Linux, this bugfix was further corrected with
-> https://lore.kernel.org/lkml/alpine.LFD.2.11.1404011300010.27402@eddie.linux-mips.org/
-> 
-> However, Xen being 64-bit only doesn't care about the Pentium 3AP errata
-> with writing to ESR.
-> 
-> I'm tempted to take this patch as-is, then do a followup on top to
-> remove the remnants of the Pentium errata from Xen.  I don't think it's
-> interesting to take bugfixes to bugfixes simply to delete them right after.
+On 26.11.2024 21:58, Andrew Cooper wrote:
+> @@ -1389,8 +1381,7 @@ static void cf_check error_interrupt(void)
+>      unsigned int i;
+>  
+>      /* First tickle the hardware, only then report what went on. -- REW */
+> -    apic_write(APIC_ESR, 0);
+> -    v = apic_read(APIC_ESR);
+> +    v = apic_read_esr();
+>      ack_APIC_irq();
 
-Hmm. I think the adjustment done here is actually removing part of the erratum
-workaround, and hence ought to be removed in one go by your patch. The double
-read there is - aiui - to be on the safe side wrt that erratum, i.e. to cover
-the (at that time) potential case that the erratum would also be present on
-CPUs with more than 3 LVTs.
+As indicated in the earlier reply, I think this comment should be dropped,
+plus ...
 
-In any event the comment ahead of the code being touched ought to be removed as
-well, imo.
+> --- a/xen/arch/x86/smpboot.c
+> +++ b/xen/arch/x86/smpboot.c
+> @@ -422,7 +422,7 @@ void asmlinkage start_secondary(void *unused)
+>  static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
+>  {
+>      unsigned long send_status = 0, accept_status = 0;
+> -    int maxlvt, timeout, i;
+> +    int timeout, i;
+>  
+>      /*
+>       * Normal AP startup uses an INIT-SIPI-SIPI sequence.
+> @@ -444,8 +444,7 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
+>      /*
+>       * Be paranoid about clearing APIC errors.
+>       */
+> -    apic_write(APIC_ESR, 0);
+> -    apic_read(APIC_ESR);
+> +    apic_read_esr();
+
+... the one here. With that and with Javi's change folded into here,
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
