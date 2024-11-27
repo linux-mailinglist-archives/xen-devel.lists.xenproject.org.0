@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 601769DACCD
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 19:01:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845035.1260531 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 076969DACD1
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 19:04:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845043.1260540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGMLr-0006sF-NH; Wed, 27 Nov 2024 18:01:23 +0000
+	id 1tGMOH-0007VK-3x; Wed, 27 Nov 2024 18:03:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845035.1260531; Wed, 27 Nov 2024 18:01:23 +0000
+Received: by outflank-mailman (output) from mailman id 845043.1260540; Wed, 27 Nov 2024 18:03:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGMLr-0006pr-Ka; Wed, 27 Nov 2024 18:01:23 +0000
-Received: by outflank-mailman (input) for mailman id 845035;
- Wed, 27 Nov 2024 18:01:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tGMOH-0007Sc-0i; Wed, 27 Nov 2024 18:03:53 +0000
+Received: by outflank-mailman (input) for mailman id 845043;
+ Wed, 27 Nov 2024 18:03:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k0uU=SW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGMLq-0006pl-DA
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 18:01:22 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 98adfb3c-ace9-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 19:01:16 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a9a977d6cc7so429678866b.3
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 10:01:16 -0800 (PST)
+ id 1tGMOF-0007SS-Qc
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 18:03:51 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f24db905-ace9-11ef-99a3-01e77a169b0f;
+ Wed, 27 Nov 2024 19:03:46 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-53df1e0641fso987194e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 10:03:46 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d01d3fc7a9sm6342911a12.62.2024.11.27.10.01.14
+ a640c23a62f3a-aa50b2f0ebfsm730211466b.52.2024.11.27.10.03.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 10:01:14 -0800 (PST)
+ Wed, 27 Nov 2024 10:03:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98adfb3c-ace9-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzEiLCJoZWxvIjoibWFpbC1lajEteDYzMS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijk4YWRmYjNjLWFjZTktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzMwNDc2LjgxOTM1OCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: f24db905-ace9-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmEiLCJoZWxvIjoibWFpbC1sZjEteDEyYS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImYyNGRiOTA1LWFjZTktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzMwNjI2LjU0NzkyNSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732730476; x=1733335276; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1732730626; x=1733335426; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bDLP9mbgI9gmR3ZbQwSJds3EiPuOJx84Eu0LC0TaxTM=;
-        b=pa+X+VVr0Jbk2r8F9Z5UzVv14V+d7fbgxx4pRRAuFD3l382fAaN/9dnVlBxj4vfk3+
-         tJq/VTBMLkiY8Q5ogvmywLBNi1NG+yNaJFiaEsfdadejGy6XzrnZA2iCzPA5jlrfTlpy
-         4dCxS6IlABkHLsMNen34t+oaV75qRkU9NryoI=
+        bh=DZqwZPyMlQBYajamrm7edqHvtJ4AI1FlvEr5Qgjg2q0=;
+        b=FaqNPHGM1PA9AB2iWx9Ugr9rHhb5cTi9VTizDJzb4+4sXl5ePsmHBXxY0LIRuEIbUe
+         4GVKCij7iK+tK87BYWmOIbXW0w2Xz5YJimL2xJHBjlzQyn0BBaDnw3G0pOBBUvF4F/Ij
+         UrROUZA+GzZcojQ8Erx9LqQbCvhntF4MlH798=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732730476; x=1733335276;
+        d=1e100.net; s=20230601; t=1732730626; x=1733335426;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bDLP9mbgI9gmR3ZbQwSJds3EiPuOJx84Eu0LC0TaxTM=;
-        b=suFJHY/2AyKIxtJ2pQpYaIoIH+teyTazswBlqfzIICRmOgAi8wSpvhQVXekD3aYBUA
-         zyzMMEOg7fOUhgv80/sDvxuYScGEC9zkFoPP4+ki128zWZAxBNA83D9IjioGPh+/ori7
-         CLy1YvHCfb4If+7S4qUFCfHjxQsThq2G2s2q7UhBILo8fPOMqwXrYyMtYfgX37X/FR+x
-         aEm/l/oDOA7OHQm2NuS28uZloHbcLE8OhvslYlKLv+GmZHypmRKZd1/mvazayiZDIN+a
-         xoEvBnupzaiJLJ9zDVQeruVZpoShBz0Fa7j1s18dOqbtGF3k4knfT/dTAWmUQ2j+PAuM
-         D9GA==
-X-Forwarded-Encrypted: i=1; AJvYcCVaKiX8AkIx4Kh45OfygvKEl5GYgxJ8D0JzlaRsXYU/hGzZ12o9S6H3izs9eIkFUktnAdfzHl+Z1+c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDSh26N2hDiCpUV1yLvI7frt/j3rjA9KHzjt3gNZC/Y5HEj/ad
-	fc7dc50Y6Eg/0sTpX2eO1oyhlun6BMIhH0J4DtyeI0o8V411GUsPvH580mc2LfA=
-X-Gm-Gg: ASbGncsBU9A+dFtkUCFOmsY+SDIE0JnXeq6+iSAVJ+G1lrLseZPBrqlJ2dNmoWQjQKG
-	2J0fZfs7+Lg0kWJftuy6l8V12k9AUx/TqUF1w5niwgowBCBxTx3j7ujbrstsIsOjlAMl7WI+OPv
-	BDZRJhAEUya2jkxbweJcwcBHIVl/q4ky3L6JTvo5HF5ql1g6YoFcJpIG4aNn3bG7ZPRwB2++wnM
-	AddcrbxfR6oXVpSn/XRWsvduZWGwEQaOzzV9subk3iqkHeOqdWpH7pFQATippA=
-X-Google-Smtp-Source: AGHT+IEsLO31vG2dJ1zNJ84hTok9cOmYJuwyemxpabxdAP3h1CIVs8fx4VTjUeYJorWhJm9rFnBmRw==
-X-Received: by 2002:a05:6402:1d55:b0:5d0:88ea:6560 with SMTP id 4fb4d7f45d1cf-5d088ea65a4mr2466763a12.31.1732730475371;
-        Wed, 27 Nov 2024 10:01:15 -0800 (PST)
-Message-ID: <912ba37b-f60f-4423-bb10-37c708382951@citrix.com>
-Date: Wed, 27 Nov 2024 18:01:12 +0000
+        bh=DZqwZPyMlQBYajamrm7edqHvtJ4AI1FlvEr5Qgjg2q0=;
+        b=KXreIWfCcit4Phos0XPii4o1t+P0n97dDoSov1PH0OHhbcjUqRfVvoaDtUAFwkR8x0
+         XHLLSlLmTtnfix55bss17wBmDRlW8NXrNYv0y9CerXVGrONKoF+PD+GTRRvyrKqTkYBF
+         tScDJ9g0WUM+nTSC7++gj59S2ygMb1bDtDi+9VHYyf0VCC9XipV9qI3OQT+o/H2Yu6Dy
+         i+sT/TzGMwhNs9bvDwB506PkbYHmlmnk+XNQtnKOG/+TQnUPbFO6XMRthMOIY0kkLEoj
+         oprOJQEDB6hgj6zw53dnPkJKklkXO6NdDiofAgvrVe29UrZHIr1RWMnEZEsTZkzG6M96
+         oOFg==
+X-Gm-Message-State: AOJu0YyZG6xVJN0AQIyBUSgyMRSn7MBrxxQfvrIl8pqKmYj2SpHJKO8V
+	mTHIdjM8CeqStVUzBw5O3VAnXlyzdzppy7vfFuw1RZOxcE/cRP88u7AJXIIspeY=
+X-Gm-Gg: ASbGncv+7Q7WZKrdt8D3WqoeUQddrYC9wOn/E0+fA9iGxPQZKJSOMlmbahPmd0EqBST
+	F5eVocyyo0YuPee7HSld5vDb64G1JtfaOQ8WGC8G3g7XqEoVCjsa8cJGblpPhcnVNoF4H3KAhUG
+	/F/+N9ZG7x+GySgKXuQv71NevG0hMADrSNcXZ2qAky24q2YybvSniEeGxoNSSEzRfQljCHIXKaS
+	dxPPUvknmDXyI2yz/zEDKQDtcSLnULCpAazvDsVBpREkTaoh5gy+veSkVk6D/8=
+X-Google-Smtp-Source: AGHT+IE69zGi1v/VssdvbkvWD1TPio3LKKbst0mDUQmfiGDNhATg4ObEpIIvO2ZTxPOZoYvy4aV7EQ==
+X-Received: by 2002:a05:6512:3d24:b0:53d:ab0d:b9ef with SMTP id 2adb3069b0e04-53df0106c38mr2514897e87.43.1732730625743;
+        Wed, 27 Nov 2024 10:03:45 -0800 (PST)
+Message-ID: <814813b6-f3f5-41eb-ba97-18e373670ef9@citrix.com>
+Date: Wed, 27 Nov 2024 18:03:43 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/APIC: Remove workaround Pentium 3AP APIC_ESR erratum
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Javi Merino <javi.merino@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, Javi Merino <javi.merino@cloud.com>
 References: <3270b77c005745dcf56cc833bdf3e4c703190b05.1732639041.git.javi.merino@cloud.com>
- <20241126205859.23090-1-andrew.cooper3@citrix.com>
- <a2efdf6c-ab52-4ab6-931e-0801844b4875@suse.com>
+ <20241126205859.23090-1-andrew.cooper3@citrix.com> <Z0bajveZYoKu3qE4@macbook>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,58 +134,39 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <a2efdf6c-ab52-4ab6-931e-0801844b4875@suse.com>
+In-Reply-To: <Z0bajveZYoKu3qE4@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/11/2024 8:20 am, Jan Beulich wrote:
-> On 26.11.2024 21:58, Andrew Cooper wrote:
->> @@ -1389,8 +1381,7 @@ static void cf_check error_interrupt(void)
->>      unsigned int i;
->>  
->>      /* First tickle the hardware, only then report what went on. -- REW */
->> -    apic_write(APIC_ESR, 0);
->> -    v = apic_read(APIC_ESR);
->> +    v = apic_read_esr();
->>      ack_APIC_irq();
-> As indicated in the earlier reply, I think this comment should be dropped,
-
-This one probably can, but ...
-
-> plus ...
+On 27/11/2024 8:38 am, Roger Pau Monné wrote:
+> On Tue, Nov 26, 2024 at 08:58:59PM +0000, Andrew Cooper wrote:
+>> The SDM instructs software to write 0 to ESR prior to reading it.  However,
+>> due to an original Pentium erratum, most logic skips the write based on there
+>> being more than 3 LVTs; a stand-in to identify the Pentium.
+>>
+>> Xen, being 64bit, doesn't need compatibility for i586 processors.
+>>
+>> Introduce a new apic_read_esr() helper, quoting the SDM to explain why a
+>> function named apic_read_esr() has a write in it too.
+>>
+>> Use the new helper throughout apic.c and smpboot.c, which allows us to remove
+>> some useless reads of APIC_LVR.  This in turn removes the external callers of
+>> get_maxlvt(), so make it local to apic.c
+>>
+>> No practical change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 >
->> --- a/xen/arch/x86/smpboot.c
->> +++ b/xen/arch/x86/smpboot.c
->> @@ -422,7 +422,7 @@ void asmlinkage start_secondary(void *unused)
->>  static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
->>  {
->>      unsigned long send_status = 0, accept_status = 0;
->> -    int maxlvt, timeout, i;
->> +    int timeout, i;
->>  
->>      /*
->>       * Normal AP startup uses an INIT-SIPI-SIPI sequence.
->> @@ -444,8 +444,7 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
->>      /*
->>       * Be paranoid about clearing APIC errors.
->>       */
->> -    apic_write(APIC_ESR, 0);
->> -    apic_read(APIC_ESR);
->> +    apic_read_esr();
-> ... the one here.
+> Just a couple of nits.
 
-... this one is still correct in place.
+Thanks, but I'm going to intentionally defer the ancillary cleanup for
+later.
 
-
-I almost had a second function called apic_clear_esr() which was just
-(void)apic_read_esr().
-
-I could put that back in if you think it would be clearer ?
-
->  With that and with Javi's change folded into here,
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
+Yes it should be done, but; while I'm very confident about the fix, if
+it does turn out to break something then I don't want to be "was it a
+different errata, or was it an integer handling change" because both
+will be nasty.
 
 ~Andrew
 
