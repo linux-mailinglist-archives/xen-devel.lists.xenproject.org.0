@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6789DAB62
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 17:08:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844896.1260441 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD1E9DAB69
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 17:08:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844898.1260451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGKaU-00049X-UK; Wed, 27 Nov 2024 16:08:22 +0000
+	id 1tGKaW-0004Sy-8P; Wed, 27 Nov 2024 16:08:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844896.1260441; Wed, 27 Nov 2024 16:08:22 +0000
+Received: by outflank-mailman (output) from mailman id 844898.1260451; Wed, 27 Nov 2024 16:08:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGKaU-00047d-OT; Wed, 27 Nov 2024 16:08:22 +0000
-Received: by outflank-mailman (input) for mailman id 844896;
- Wed, 27 Nov 2024 16:08:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tGKaW-0004Qh-5X; Wed, 27 Nov 2024 16:08:24 +0000
+Received: by outflank-mailman (input) for mailman id 844898;
+ Wed, 27 Nov 2024 16:08:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8BRf=SW=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1tGKaS-00034d-U9
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 16:08:20 +0000
+ id 1tGKaU-0002q2-Ox
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 16:08:22 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id d02bc6a7-acd9-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 17:08:17 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id d1d6b6ef-acd9-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 17:08:20 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E75C2244B;
- Wed, 27 Nov 2024 08:08:46 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C55C11477;
+ Wed, 27 Nov 2024 08:08:49 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.58.181])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A78D3F5A1;
- Wed, 27 Nov 2024 08:08:15 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B51D3F5A1;
+ Wed, 27 Nov 2024 08:08:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,9 +42,9 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d02bc6a7-acd9-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: d1d6b6ef-acd9-11ef-a0cd-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxNy4xNDAuMTEwLjE3MiIsImhlbG8iOiJmb3NzLmFybS5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6ImQwMmJjNmE3LWFjZDktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzIzNjk3Ljc1NzMxMSwic2VuZGVyIjoiYmVydHJhbmQubWFycXVpc0Bhcm0uY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Custom-Transaction: eyJpZCI6ImQxZDZiNmVmLWFjZDktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzIzNzAwLjU4ODcwNCwic2VuZGVyIjoiYmVydHJhbmQubWFycXVpc0Bhcm0uY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: jens.wiklander@linaro.org,
@@ -52,40 +52,20 @@ Cc: jens.wiklander@linaro.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v3 03/10] xen/arm: ffa: Fix version negotiation
-Date: Wed, 27 Nov 2024 17:07:35 +0100
-Message-ID: <47944bb5ea18a7c7aa968534c7e28c26f2cada12.1732702210.git.bertrand.marquis@arm.com>
+Subject: [PATCH v3 04/10] xen/arm: ffa: Fine granular call support
+Date: Wed, 27 Nov 2024 17:07:36 +0100
+Message-ID: <1b02c9c1df9ff2230e076f25398a5de876f98a51.1732702210.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <cover.1732702210.git.bertrand.marquis@arm.com>
 References: <cover.1732702210.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix FFA version negotiation with the firmware to follow the
-specification guidance more closely (see FF-A Specification Version 1.1
-in chapter 13.2.1).
-When the firmware returns OK we can have several cases:
-- the version requested is accepted but the firmware supports a greater
-  one in the same major.
-- the firmware supports a greater major version. It could still return
-  OK even if the version requested is not accepted. Reject it.
-- the firmware supports a lower version. It will return OK and give that
-  version. Check if we support it and use it or reject it if we do not.
+Create a bitmap to store which feature is supported or not by the
+firmware and use it to filter which calls are done to the firmware.
 
-Adapt the code to:
-- reject any version lower than the one we support or not with the same
-  major version
-- use the version returned if in our supported range (currently 1.1
-  only)
-- use 1.1 if the version returned is greater.
-
-Also adapt the handling of version requests from VM:
-- use our version if same major but greater minor is requested
-- use requested version if same major but lower minor is requested
-- do not use if incompatible major is requested
-- always return our version without error to the requester
-
-[1] https://developer.arm.com/documentation/den0077/e/
+While there reoder ABI definition by numbers to easily find the min and
+max ones.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
@@ -93,120 +73,316 @@ Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 Changes in v3:
 - add Jens R-b
 Changes in v2:
-- add link in commit message and code to the version and chapter of
-  the spec.
-- fix comment coding style
-- introduce macros to get the major and minor of a version
-- add BUILD_BUG_ON to validate that the SPMC version we want is
-  compatible with our own version
-- rework version testing and selecting to be clearer by discarding
-  different major or version lower than what we want and then selecting
-  based on the minor version.
-- fix get_version handling to be more generic
+- rename fw_feat to abi and macros to FFA_ABI to be coherent with the
+  abi needed change done before
+- rework the macros to be simpler by directly defining MIN and MAX using
+  only Function ids
+- check that requested function ids do not go over the bitmap size in
+  ffa_fw_supports_fid
+- add an ASSERT to make sure that we do not try to set bits outside of
+  the bitmap
+- turn off FF-A if there is not firmware support and adapt the commit
+  message to reflect this
+- add a compile time check that FFA_ABI_MIN < FFA_ABI_MAX
+- remove spurious line removal
+- restore proper cleanup of rxtx init in case of error
+- reorder ABI by numbers
 ---
- xen/arch/arm/tee/ffa.c         | 53 +++++++++++++++++++++++++---------
- xen/arch/arm/tee/ffa_private.h |  3 ++
- 2 files changed, 43 insertions(+), 13 deletions(-)
+ xen/arch/arm/tee/ffa.c          | 28 +++++++++++++++---------
+ xen/arch/arm/tee/ffa_notif.c    |  7 ++++++
+ xen/arch/arm/tee/ffa_partinfo.c | 30 +++++++++++++++++++++++++-
+ xen/arch/arm/tee/ffa_private.h  | 38 ++++++++++++++++++++++++++++-----
+ xen/arch/arm/tee/ffa_rxtx.c     |  4 ++++
+ xen/arch/arm/tee/ffa_shm.c      | 12 +++++++++++
+ 6 files changed, 103 insertions(+), 16 deletions(-)
 
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index ade6aaa6fd1d..c5dcb4fe240c 100644
+index c5dcb4fe240c..1b0919041dc1 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -148,13 +148,20 @@ static void handle_version(struct cpu_user_regs *regs)
-     struct ffa_ctx *ctx = d->arch.tee;
-     uint32_t vers = get_user_reg(regs, 1);
+@@ -72,7 +72,10 @@
+ #include "ffa_private.h"
  
--    if ( vers < FFA_VERSION_1_1 )
--        vers = FFA_VERSION_1_0;
--    else
--        vers = FFA_VERSION_1_1;
--
--    ctx->guest_vers = vers;
--    ffa_set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
-+    /*
-+     * Guest will use the version it requested if it is our major and minor
-+     * lower or equals to ours. If the minor is greater, our version will be
-+     * used.
-+     * In any case return our version to the caller.
-+     */
-+    if ( FFA_VERSION_MAJOR(vers) == FFA_MY_VERSION_MAJOR )
+ /* Negotiated FF-A version to use with the SPMC, 0 if not there or supported */
+-static uint32_t __ro_after_init ffa_fw_version;
++uint32_t __ro_after_init ffa_fw_version;
++
++/* Features supported by the SPMC or secure world when present */
++DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+ 
+ struct ffa_fw_abi {
+     uint32_t id;
+@@ -177,6 +180,13 @@ static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
+     else
+         mask = GENMASK_ULL(31, 0);
+ 
++    if ( !ffa_fw_supports_fid(fid) )
 +    {
-+        if ( FFA_VERSION_MINOR(vers) > FFA_MY_VERSION_MINOR )
-+            ctx->guest_vers = FFA_MY_VERSION;
-+        else
-+            ctx->guest_vers = vers;
++        resp.a0 = FFA_ERROR;
++        resp.a2 = FFA_RET_NOT_SUPPORTED;
++        goto out;
 +    }
-+    ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
- }
- 
- static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-@@ -537,17 +544,39 @@ static bool ffa_probe(void)
-         goto err_no_fw;
-     }
- 
--    if ( vers < FFA_MIN_SPMC_VERSION || vers > FFA_MY_VERSION )
-+    /* Some sanity check in case we update the version we support */
-+    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
-+    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=
-+                                   FFA_MY_VERSION_MAJOR);
 +
-+    major_vers = FFA_VERSION_MAJOR(vers);
-+    minor_vers = FFA_VERSION_MINOR(vers);
-+
-+    if ( major_vers != FFA_MY_VERSION_MAJOR ||
-+         minor_vers < FFA_VERSION_MINOR(FFA_MIN_SPMC_VERSION) )
+     src_dst = get_user_reg(regs, 1);
+     if ( (src_dst >> 16) != ffa_get_vm_id(d) )
      {
--        printk(XENLOG_ERR "ffa: Incompatible version %#x found\n", vers);
-+        printk(XENLOG_ERR "ffa: Incompatible firmware version %u.%u\n",
-+               major_vers, minor_vers);
-         goto err_no_fw;
-     }
+@@ -577,19 +587,16 @@ static bool ffa_probe(void)
+     else
+         ffa_fw_version = vers;
  
--    major_vers = (vers >> FFA_VERSION_MAJOR_SHIFT) & FFA_VERSION_MAJOR_MASK;
--    minor_vers = vers & FFA_VERSION_MINOR_MASK;
-     printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
-            major_vers, minor_vers);
- 
-+    /*
-+     * If the call succeed and the version returned is higher or equal to
-+     * the one Xen requested, the version requested by Xen will be the one
-+     * used. If the version returned is lower but compatible with Xen, Xen
-+     * will use that version instead.
-+     * A version with a different major or lower than the minimum version
-+     * we support is rejected before.
-+     * See https://developer.arm.com/documentation/den0077/e/ chapter 13.2.1
-+     */
-+    if ( minor_vers > FFA_MY_VERSION_MINOR )
-+        ffa_fw_version = FFA_MY_VERSION;
-+    else
-+        ffa_fw_version = vers;
+-    /*
+-     * At the moment domains must support the same features used by Xen.
+-     * TODO: Rework the code to allow domain to use a subset of the
+-     * features supported.
+-     */
+     for ( unsigned int i = 0; i < ARRAY_SIZE(ffa_fw_abi_needed); i++ )
+     {
+-        if ( !ffa_abi_supported(ffa_fw_abi_needed[i].id) )
+-        {
++        ASSERT(FFA_ABI_BITNUM(ffa_fw_abi_needed[i].id) < FFA_ABI_BITMAP_SIZE);
 +
-     /*
-      * At the moment domains must support the same features used by Xen.
-      * TODO: Rework the code to allow domain to use a subset of the
-@@ -563,8 +592,6 @@ static bool ffa_probe(void)
-         }
++        if ( ffa_abi_supported(ffa_fw_abi_needed[i].id) )
++            set_bit(FFA_ABI_BITNUM(ffa_fw_abi_needed[i].id),
++                    ffa_fw_abi_supported);
++        else
+             printk(XENLOG_INFO "ARM FF-A Firmware does not support %s\n",
+                    ffa_fw_abi_needed[i].name);
+-            goto err_no_fw;
+-        }
      }
  
--    ffa_fw_version = vers;
--
      if ( !ffa_rxtx_init() )
+@@ -611,6 +618,7 @@ err_rxtx_destroy:
+     ffa_rxtx_destroy();
+ err_no_fw:
+     ffa_fw_version = 0;
++    bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+     printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
+ 
+     return false;
+diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+index 541e61d2f606..4b3e46318f4b 100644
+--- a/xen/arch/arm/tee/ffa_notif.c
++++ b/xen/arch/arm/tee/ffa_notif.c
+@@ -377,6 +377,13 @@ void ffa_notif_init(void)
+     unsigned int irq;
+     int ret;
+ 
++    /* Only enable fw notification if all ABIs we need are supported */
++    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
++           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
++           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
++           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
++        return;
++
+     arm_smccc_1_2_smc(&arg, &resp);
+     if ( resp.a0 != FFA_SUCCESS_32 )
+         return;
+diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
+index 93a03c6bc672..99c48f0e5c05 100644
+--- a/xen/arch/arm/tee/ffa_partinfo.c
++++ b/xen/arch/arm/tee/ffa_partinfo.c
+@@ -77,7 +77,15 @@ int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
+      */
+     if ( w5 == FFA_PARTITION_INFO_GET_COUNT_FLAG &&
+          ctx->guest_vers == FFA_VERSION_1_1 )
+-        return ffa_partition_info_get(w1, w2, w3, w4, w5, count, fpi_size);
++    {
++        if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
++            return ffa_partition_info_get(w1, w2, w3, w4, w5, count, fpi_size);
++        else
++        {
++            *count = 0;
++            return FFA_RET_OK;
++        }
++    }
+     if ( w5 )
+         return FFA_RET_INVALID_PARAMETERS;
+ 
+@@ -87,6 +95,18 @@ int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
+     if ( !spin_trylock(&ctx->rx_lock) )
+         return FFA_RET_BUSY;
+ 
++    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
++    {
++        if ( ctx->guest_vers == FFA_VERSION_1_0 )
++            *fpi_size = sizeof(struct ffa_partition_info_1_0);
++        else
++            *fpi_size = sizeof(struct ffa_partition_info_1_1);
++
++        *count = 0;
++        ret = FFA_RET_OK;
++        goto out;
++    }
++
+     if ( !ctx->page_count || !ctx->rx_is_free )
+         goto out;
+     spin_lock(&ffa_rx_buffer_lock);
+@@ -250,6 +270,11 @@ bool ffa_partinfo_init(void)
+     uint32_t count;
+     int e;
+ 
++    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
++         !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) ||
++         !ffa_rx || !ffa_tx )
++        return false;
++
+     e = ffa_partition_info_get(0, 0, 0, 0, 0, &count, &fpi_size);
+     if ( e )
      {
-         printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
+@@ -313,6 +338,9 @@ int ffa_partinfo_domain_init(struct domain *d)
+     unsigned int n;
+     int32_t res;
+ 
++    if ( !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) )
++        return 0;
++
+     ctx->vm_destroy_bitmap = xzalloc_array(unsigned long, count);
+     if ( !ctx->vm_destroy_bitmap )
+         return -ENOMEM;
 diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
-index 7c6b06f686fc..045d9c4a0b56 100644
+index 045d9c4a0b56..85eb61c13464 100644
 --- a/xen/arch/arm/tee/ffa_private.h
 +++ b/xen/arch/arm/tee/ffa_private.h
-@@ -35,6 +35,9 @@
- #define MAKE_FFA_VERSION(major, minor)  \
-         ((((major) & FFA_VERSION_MAJOR_MASK) << FFA_VERSION_MAJOR_SHIFT) | \
-          ((minor) & FFA_VERSION_MINOR_MASK))
-+#define FFA_VERSION_MAJOR(vers) (((vers) >> FFA_VERSION_MAJOR_SHIFT) & \
-+                                 FFA_VERSION_MAJOR_MASK)
-+#define FFA_VERSION_MINOR(vers) ((vers) & FFA_VERSION_MINOR_MASK)
+@@ -14,6 +14,7 @@
+ #include <xen/spinlock.h>
+ #include <xen/sched.h>
+ #include <xen/time.h>
++#include <xen/bitmap.h>
  
- #define FFA_VERSION_1_0         MAKE_FFA_VERSION(1, 0)
- #define FFA_VERSION_1_1         MAKE_FFA_VERSION(1, 1)
+ /* Error codes */
+ #define FFA_RET_OK                      0
+@@ -201,18 +202,17 @@
+ #define FFA_INTERRUPT                   0x84000062U
+ #define FFA_VERSION                     0x84000063U
+ #define FFA_FEATURES                    0x84000064U
+-#define FFA_RX_ACQUIRE                  0x84000084U
+ #define FFA_RX_RELEASE                  0x84000065U
+ #define FFA_RXTX_MAP_32                 0x84000066U
+ #define FFA_RXTX_MAP_64                 0xC4000066U
+ #define FFA_RXTX_UNMAP                  0x84000067U
+ #define FFA_PARTITION_INFO_GET          0x84000068U
+ #define FFA_ID_GET                      0x84000069U
+-#define FFA_SPM_ID_GET                  0x84000085U
++#define FFA_MSG_POLL                    0x8400006AU
+ #define FFA_MSG_WAIT                    0x8400006BU
+ #define FFA_MSG_YIELD                   0x8400006CU
+ #define FFA_RUN                         0x8400006DU
+-#define FFA_MSG_SEND2                   0x84000086U
++#define FFA_MSG_SEND                    0x8400006EU
+ #define FFA_MSG_SEND_DIRECT_REQ_32      0x8400006FU
+ #define FFA_MSG_SEND_DIRECT_REQ_64      0xC400006FU
+ #define FFA_MSG_SEND_DIRECT_RESP_32     0x84000070U
+@@ -230,8 +230,6 @@
+ #define FFA_MEM_RECLAIM                 0x84000077U
+ #define FFA_MEM_FRAG_RX                 0x8400007AU
+ #define FFA_MEM_FRAG_TX                 0x8400007BU
+-#define FFA_MSG_SEND                    0x8400006EU
+-#define FFA_MSG_POLL                    0x8400006AU
+ #define FFA_NOTIFICATION_BITMAP_CREATE  0x8400007DU
+ #define FFA_NOTIFICATION_BITMAP_DESTROY 0x8400007EU
+ #define FFA_NOTIFICATION_BIND           0x8400007FU
+@@ -240,6 +238,25 @@
+ #define FFA_NOTIFICATION_GET            0x84000082U
+ #define FFA_NOTIFICATION_INFO_GET_32    0x84000083U
+ #define FFA_NOTIFICATION_INFO_GET_64    0xC4000083U
++#define FFA_RX_ACQUIRE                  0x84000084U
++#define FFA_SPM_ID_GET                  0x84000085U
++#define FFA_MSG_SEND2                   0x84000086U
++
++/**
++ * Encoding of features supported or not by the fw in a bitmap:
++ * - Function IDs are going from 0x60 to 0xFF
++ * - A function can be supported in 32 and/or 64bit
++ * The bitmap has one bit for each function in 32 and 64 bit.
++ */
++#define FFA_ABI_ID(id)        ((id) & ARM_SMCCC_FUNC_MASK)
++#define FFA_ABI_CONV(id)      (((id) >> ARM_SMCCC_CONV_SHIFT) & BIT(0,U))
++
++#define FFA_ABI_MIN           FFA_ABI_ID(FFA_ERROR)
++#define FFA_ABI_MAX           FFA_ABI_ID(FFA_MSG_SEND2)
++
++#define FFA_ABI_BITMAP_SIZE   (2 * (FFA_ABI_MAX - FFA_ABI_MIN + 1))
++#define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_ABI_MIN) << 1 | \
++                               FFA_ABI_CONV(id))
+ 
+ struct ffa_ctx_notif {
+     bool enabled;
+@@ -289,6 +306,8 @@ extern void *ffa_rx;
+ extern void *ffa_tx;
+ extern spinlock_t ffa_rx_buffer_lock;
+ extern spinlock_t ffa_tx_buffer_lock;
++extern uint32_t __ro_after_init ffa_fw_version;
++extern DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+ 
+ bool ffa_shm_domain_destroy(struct domain *d);
+ void ffa_handle_mem_share(struct cpu_user_regs *regs);
+@@ -401,4 +420,13 @@ static inline int32_t ffa_rx_release(void)
+     return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+ }
+ 
++static inline bool ffa_fw_supports_fid(uint32_t fid)
++{
++    BUILD_BUG_ON(FFA_ABI_MIN > FFA_ABI_MAX);
++
++    if ( FFA_ABI_BITNUM(fid) > FFA_ABI_BITMAP_SIZE)
++        return false;
++    return test_bit(FFA_ABI_BITNUM(fid), ffa_fw_abi_supported);
++}
++
+ #endif /*__FFA_PRIVATE_H__*/
+diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+index c8bc516a19be..132a7982407b 100644
+--- a/xen/arch/arm/tee/ffa_rxtx.c
++++ b/xen/arch/arm/tee/ffa_rxtx.c
+@@ -193,6 +193,10 @@ bool ffa_rxtx_init(void)
+ {
+     int e;
+ 
++    /* Firmware not there or not supporting */
++    if ( !ffa_fw_supports_fid(FFA_RXTX_MAP_64) )
++        return false;
++
+     ffa_rx = alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0);
+     if ( !ffa_rx )
+         return false;
+diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+index 370d83ec5cf8..efa5b67db8e1 100644
+--- a/xen/arch/arm/tee/ffa_shm.c
++++ b/xen/arch/arm/tee/ffa_shm.c
+@@ -149,6 +149,9 @@ static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
+ static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi,
+                                uint32_t flags)
+ {
++    if ( !ffa_fw_supports_fid(FFA_MEM_RECLAIM) )
++        return FFA_RET_NOT_SUPPORTED;
++
+     return ffa_simple_call(FFA_MEM_RECLAIM, handle_lo, handle_hi, flags, 0);
+ }
+ 
+@@ -467,6 +470,12 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
+     uint32_t range_count;
+     uint32_t region_offs;
+ 
++    if ( !ffa_fw_supports_fid(FFA_MEM_SHARE_64) )
++    {
++        ret = FFA_RET_NOT_SUPPORTED;
++        goto out_set_ret;
++    }
++
+     /*
+      * We're only accepting memory transaction descriptors via the rx/tx
+      * buffer.
+@@ -621,6 +630,9 @@ int ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags)
+     register_t handle_lo;
+     int ret;
+ 
++    if ( !ffa_fw_supports_fid(FFA_MEM_RECLAIM) )
++        return FFA_RET_NOT_SUPPORTED;
++
+     spin_lock(&ctx->lock);
+     shm = find_shm_mem(ctx, handle);
+     if ( shm )
 -- 
 2.47.0
 
