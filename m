@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2589B9DA638
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:55:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844670.1260158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD70E9DA63E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:58:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844681.1260169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGFhY-0003W8-UU; Wed, 27 Nov 2024 10:55:20 +0000
+	id 1tGFk7-00044Q-Ad; Wed, 27 Nov 2024 10:57:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844670.1260158; Wed, 27 Nov 2024 10:55:20 +0000
+Received: by outflank-mailman (output) from mailman id 844681.1260169; Wed, 27 Nov 2024 10:57:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGFhY-0003TE-Rx; Wed, 27 Nov 2024 10:55:20 +0000
-Received: by outflank-mailman (input) for mailman id 844670;
- Wed, 27 Nov 2024 10:55:19 +0000
+	id 1tGFk7-00041f-7r; Wed, 27 Nov 2024 10:57:59 +0000
+Received: by outflank-mailman (input) for mailman id 844681;
+ Wed, 27 Nov 2024 10:57:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tGFhX-0003T8-CZ
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:55:19 +0000
+ (envelope-from <julien@xen.org>) id 1tGFk5-00041Z-Fs
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:57:57 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tGFhW-008Fr9-24;
- Wed, 27 Nov 2024 10:55:18 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa (TLS1.2) tls
+ (envelope-from <julien@xen.org>) id 1tGFk1-008Fsu-1V;
+ Wed, 27 Nov 2024 10:57:53 +0000
+Received: from [15.248.3.95] (helo=[10.24.67.15])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tGFhW-007nOR-26;
- Wed, 27 Nov 2024 10:55:18 +0000
+ (envelope-from <julien@xen.org>) id 1tGFk1-007ngB-1l;
+ Wed, 27 Nov 2024 10:57:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,271 +40,86 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
-	Subject:Cc:To:From; bh=Fa5x1UMLBesQpAwc0wH76erW8DMFqpBeaUOxSYzJg7s=; b=mhroyS
-	kg4wI9uUi692AdstHlNZcCqmrVhG7V8tWL7HtXi68Z1D+VwmnWN+MIwMfs7ISru3FarZayDUHu8Zq
-	CKdsnIivs/yIw8teCua1DROwVes+UvVXeyh2FxewVffAiTI96o6CSm6YritMWadVhPYivbp4Uomp1
-	vCjrwNBJAiU=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm32: Get rid of __memzero()
-Date: Wed, 27 Nov 2024 10:55:12 +0000
-Message-Id: <20241127105512.88703-1-julien@xen.org>
-X-Mailer: git-send-email 2.40.1
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=wIVPfv0asLpOkP01L3tYMhc5b/ktGk6Qh7Moq9Beth0=; b=m3RNdL5QpiFhPncXSMr3XunJC6
+	7NjkNocaI39NNxvwcrT8M8QrqhXHqFSA4jNzC/HuHTrK9AzFDwTYcsdpuMTYEOVHGPMxAQipvnKjy
+	vtYRBU3633iIxpjpt4bRQBuDrxcvOV7dQKVZrE/Q8C1TMSzg4iSbUXUd6OGaejo2/BX4=;
+Message-ID: <6233cbef-c5c3-43ac-bc57-e42e79f86f7b@xen.org>
+Date: Wed, 27 Nov 2024 10:57:51 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 07/11] Arm32: use new-style entry annotations for
+ library code
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
+ <98590a41-cee7-4ba3-a723-4e3ee3b55357@suse.com>
+ <658f0a05-742e-44ed-bf3f-bd6bb8c694a7@suse.com>
+ <7026ab4b-11b9-4ca1-9d33-581fc46b11e9@xen.org>
+ <2af39ca6-af4a-4686-bc4c-90dfbe9b6c8e@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <2af39ca6-af4a-4686-bc4c-90dfbe9b6c8e@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Julien Grall <jgrall@amazon.com>
+Hi,
 
-All the code in arch/arm32/lib/ where copied from Linux 3.16
-and never re-synced since then.
+On 26/11/2024 08:41, Jan Beulich wrote:
+> On 25.11.2024 21:15, Julien Grall wrote:
+>> Hi Jan,
+>>
+>> Sorry for the late answer.
+>>
+>> On 01/10/2024 16:16, Jan Beulich wrote:
+>>> No functional change, albeit all globals now become hidden, and aliasing
+>>> symbols (__aeabi_{u,}idiv) as well as __memzero lose their function-ness
+>>> and size.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> If the function-ness is important, some new construct would need
+>>> inventing. Not setting size for the aliases may even be desirable, as
+>>> I'm uncertain whether it is really legal in ELF that two entities
+>>> overlap in space.
+>>
+>> I can't think of a reason where we would need the "function-ness".
+> 
+> Good, thanks for confirming.
+> 
+>>> I fear I'm breaking __memzero(), as I don't understand the purpose of
+>>> the ".word 0" next to where the FUNC_LOCAL() appears.
+>>
+>> I am not entirely sure either. AFAIK, "0" is not a valid instruction.
+>>
+>> This code was taken from Linux, the history doesn't give much clue
+>> because it seems the ".word 0" was added before Linux used git.
+> 
+> My vague guess is that this is a crude way of arranging for desired
+> alignment of labels later in the function. That wouldn't require use
+> of .word (could simply be a nop), yet what specifically is used there
+> doesn't matter for the patch here.
+> 
+>> However, it looks like Linux replace __memzero with memset() 6 years ago
+>> on arm32. So maybe we should get rid of it? This would at least avoid
+>> worrying on the purpose of ".word 0".
+> 
+> Certainly an option, yet may I remind you of your replies [1], [2] to
+> a much older patch of mine, which I still have pending for the
+> suggested removal never having happened? I fear the patch here may get
+> stuck over this just like the other one did.
 
-A few years ago, Linux got rid of __memzero() because the implementation
-is very similar to memset(p,0,n) and the current use of __memzero()
-interferes with optimization. See full commit message from Linux below.
+Here we go 
+https://lore.kernel.org/xen-devel/20241127105512.88703-1-julien@xen.org/
 
-So it makes sense to get rid of __memzero in Xen as well.
+Cheers,
 
-    From ff5fdafc9e9702846480e0cea55ba861f72140a2 Mon Sep 17 00:00:00 2001
-    From: Nicolas Pitre <nicolas.pitre@linaro.org>
-    Date: Fri, 19 Jan 2018 18:17:46 +0100
-    Subject: [PATCH] ARM: 8745/1: get rid of __memzero()
-
-    The __memzero assembly code is almost identical to memset's except for
-    two orr instructions. The runtime performance of __memset(p, n) and
-    memset(p, 0, n) is accordingly almost identical.
-
-    However, the memset() macro used to guard against a zero length and to
-    call __memzero at compile time when the fill value is a constant zero
-    interferes with compiler optimizations.
-
-    Arnd found tha the test against a zero length brings up some new
-    warnings with gcc v8:
-
-      https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82103
-
-    And successively rremoving the test against a zero length and the call
-    to __memzero optimization produces the following kernel sizes for
-    defconfig with gcc 6:
-
-        text     data     bss       dec       hex  filename
-    12248142  6278960  413588  18940690   1210312  vmlinux.orig
-    12244474  6278960  413588  18937022   120f4be  vmlinux.no_zero_test
-    12239160  6278960  413588  18931708   120dffc  vmlinux.no_memzero
-
-    So it is probably not worth keeping __memzero around given that the
-    compiler can do a better job at inlining trivial memset(p,0,n) on its
-    own. And the memset code already handles a zero length just fine.
-
-    Suggested-by: Arnd Bergmann <arnd@arndb.de>
-    Signed-off-by: Nicolas Pitre <nico@linaro.org>
-    Acked-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-    Acked-by: Arnd Bergmann <arnd@arndb.de>
-    Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
-
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git ff5fdafc9e97
-Signed-off-by: Julien Grall <jgrall@amazon.com>
----
- xen/arch/arm/README.LinuxPrimitives |   3 +-
- xen/arch/arm/arm32/lib/Makefile     |   2 +-
- xen/arch/arm/arm32/lib/memzero.S    | 124 ----------------------------
- xen/arch/arm/include/asm/string.h   |  18 ----
- 4 files changed, 2 insertions(+), 145 deletions(-)
- delete mode 100644 xen/arch/arm/arm32/lib/memzero.S
-
-diff --git a/xen/arch/arm/README.LinuxPrimitives b/xen/arch/arm/README.LinuxPrimitives
-index 301c0271bbe4..107a01aab743 100644
---- a/xen/arch/arm/README.LinuxPrimitives
-+++ b/xen/arch/arm/README.LinuxPrimitives
-@@ -108,10 +108,9 @@ linux/arch/arm/lib/memchr.S             xen/arch/arm/arm32/lib/memchr.S
- linux/arch/arm/lib/memcpy.S             xen/arch/arm/arm32/lib/memcpy.S
- linux/arch/arm/lib/memmove.S            xen/arch/arm/arm32/lib/memmove.S
- linux/arch/arm/lib/memset.S             xen/arch/arm/arm32/lib/memset.S
--linux/arch/arm/lib/memzero.S            xen/arch/arm/arm32/lib/memzero.S
- 
- for i in copy_template.S memchr.S memcpy.S memmove.S memset.S \
--         memzero.S ; do
-+        ; do
-     diff -u linux/arch/arm/lib/$i xen/arch/arm/arm32/lib/$i
- done
- 
-diff --git a/xen/arch/arm/arm32/lib/Makefile b/xen/arch/arm/arm32/lib/Makefile
-index b1457c89dc66..18326b284e3b 100644
---- a/xen/arch/arm/arm32/lib/Makefile
-+++ b/xen/arch/arm/arm32/lib/Makefile
-@@ -1,4 +1,4 @@
--obj-y += memcpy.o memmove.o memset.o memchr.o memzero.o
-+obj-y += memcpy.o memmove.o memset.o memchr.o
- obj-y += findbit.o
- obj-y += bitops.o
- obj-y += strchr.o strrchr.o
-diff --git a/xen/arch/arm/arm32/lib/memzero.S b/xen/arch/arm/arm32/lib/memzero.S
-deleted file mode 100644
-index dca5867c24ae..000000000000
---- a/xen/arch/arm/arm32/lib/memzero.S
-+++ /dev/null
-@@ -1,124 +0,0 @@
--/*
-- *  linux/arch/arm/lib/memzero.S
-- *
-- *  Copyright (C) 1995-2000 Russell King
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
-- */
--#include "assembler.h"
--
--	.text
--	.align	5
--	.word	0
--/*
-- * Align the pointer in r0.  r3 contains the number of bytes that we are
-- * mis-aligned by, and r1 is the number of bytes.  If r1 < 4, then we
-- * don't bother; we use byte stores instead.
-- */
--1:	subs	r1, r1, #4		@ 1 do we have enough
--	blt	5f			@ 1 bytes to align with?
--	cmp	r3, #2			@ 1
--	strltb	r2, [r0], #1		@ 1
--	strleb	r2, [r0], #1		@ 1
--	strb	r2, [r0], #1		@ 1
--	add	r1, r1, r3		@ 1 (r1 = r1 - (4 - r3))
--/*
-- * The pointer is now aligned and the length is adjusted.  Try doing the
-- * memzero again.
-- */
--
--ENTRY(__memzero)
--	mov	r2, #0			@ 1
--	ands	r3, r0, #3		@ 1 unaligned?
--	bne	1b			@ 1
--/*
-- * r3 = 0, and we know that the pointer in r0 is aligned to a word boundary.
-- */
--	cmp	r1, #16			@ 1 we can skip this chunk if we
--	blt	4f			@ 1 have < 16 bytes
--
--#if ! CALGN(1)+0
--
--/*
-- * We need an extra register for this loop - save the return address and
-- * use the LR
-- */
--	str	lr, [sp, #-4]!		@ 1
--	mov	ip, r2			@ 1
--	mov	lr, r2			@ 1
--
--3:	subs	r1, r1, #64		@ 1 write 32 bytes out per loop
--	stmgeia	r0!, {r2, r3, ip, lr}	@ 4
--	stmgeia	r0!, {r2, r3, ip, lr}	@ 4
--	stmgeia	r0!, {r2, r3, ip, lr}	@ 4
--	stmgeia	r0!, {r2, r3, ip, lr}	@ 4
--	bgt	3b			@ 1
--	ldmeqfd	sp!, {pc}		@ 1/2 quick exit
--/*
-- * No need to correct the count; we're only testing bits from now on
-- */
--	tst	r1, #32			@ 1
--	stmneia	r0!, {r2, r3, ip, lr}	@ 4
--	stmneia	r0!, {r2, r3, ip, lr}	@ 4
--	tst	r1, #16			@ 1 16 bytes or more?
--	stmneia	r0!, {r2, r3, ip, lr}	@ 4
--	ldr	lr, [sp], #4		@ 1
--
--#else
--
--/*
-- * This version aligns the destination pointer in order to write
-- * whole cache lines at once.
-- */
--
--	stmfd	sp!, {r4-r7, lr}
--	mov	r4, r2
--	mov	r5, r2
--	mov	r6, r2
--	mov	r7, r2
--	mov	ip, r2
--	mov	lr, r2
--
--	cmp	r1, #96
--	andgts	ip, r0, #31
--	ble	3f
--
--	rsb	ip, ip, #32
--	sub	r1, r1, ip
--	movs	ip, ip, lsl #(32 - 4)
--	stmcsia	r0!, {r4, r5, r6, r7}
--	stmmiia	r0!, {r4, r5}
--	movs	ip, ip, lsl #2
--	strcs	r2, [r0], #4
--
--3:	subs	r1, r1, #64
--	stmgeia	r0!, {r2-r7, ip, lr}
--	stmgeia	r0!, {r2-r7, ip, lr}
--	bgt	3b
--	ldmeqfd	sp!, {r4-r7, pc}
--
--	tst	r1, #32
--	stmneia	r0!, {r2-r7, ip, lr}
--	tst	r1, #16
--	stmneia	r0!, {r4-r7}
--	ldmfd	sp!, {r4-r7, lr}
--
--#endif
--
--4:	tst	r1, #8			@ 1 8 bytes or more?
--	stmneia	r0!, {r2, r3}		@ 2
--	tst	r1, #4			@ 1 4 bytes or more?
--	strne	r2, [r0], #4		@ 1
--/*
-- * When we get here, we've got less than 4 bytes to zero.  We
-- * may have an unaligned pointer as well.
-- */
--5:	tst	r1, #2			@ 1 2 bytes or more?
--	strneb	r2, [r0], #1		@ 1
--	strneb	r2, [r0], #1		@ 1
--	tst	r1, #1			@ 1 a byte left over
--	strneb	r2, [r0], #1		@ 1
--	mov	pc, lr			@ 1
--ENDPROC(__memzero)
-diff --git a/xen/arch/arm/include/asm/string.h b/xen/arch/arm/include/asm/string.h
-index b485e4904419..7cbc8ecc7600 100644
---- a/xen/arch/arm/include/asm/string.h
-+++ b/xen/arch/arm/include/asm/string.h
-@@ -24,24 +24,6 @@
- #define __HAVE_ARCH_MEMSET
- #define __HAVE_ARCH_MEMCHR
- 
--#if defined(CONFIG_ARM_32)
--
--void __memzero(void *ptr, size_t n);
--
--#define memset(p, v, n)                                                 \
--        ({                                                              \
--                void *__p = (p); size_t __n = n;                        \
--                if ((__n) != 0) {                                       \
--                        if (__builtin_constant_p((v)) && (v) == 0)      \
--                                __memzero((__p),(__n));                 \
--                        else                                            \
--                                memset((__p),(v),(__n));                \
--                }                                                       \
--                (__p);                                                  \
--        })
--
--#endif
--
- #endif /* __ARM_STRING_H__ */
- /*
-  * Local variables:
 -- 
-2.40.1
+Julien Grall
 
 
