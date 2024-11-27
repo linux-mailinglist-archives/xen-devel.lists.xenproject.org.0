@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA0A09DA55A
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:05:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844593.1260086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F72F9DA597
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:18:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844606.1260096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGEv6-0002AH-3Y; Wed, 27 Nov 2024 10:05:16 +0000
+	id 1tGF7M-00040j-6t; Wed, 27 Nov 2024 10:17:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844593.1260086; Wed, 27 Nov 2024 10:05:16 +0000
+Received: by outflank-mailman (output) from mailman id 844606.1260096; Wed, 27 Nov 2024 10:17:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGEv5-00027r-Vs; Wed, 27 Nov 2024 10:05:15 +0000
-Received: by outflank-mailman (input) for mailman id 844593;
- Wed, 27 Nov 2024 10:05:15 +0000
+	id 1tGF7M-0003xa-3Z; Wed, 27 Nov 2024 10:17:56 +0000
+Received: by outflank-mailman (input) for mailman id 844606;
+ Wed, 27 Nov 2024 10:17:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=owYM=SW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGEv5-0001bw-1F
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:05:15 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1tGF7L-0003xU-6w
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:17:55 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 165e1c15-aca7-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 11:05:10 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3824446d2bcso5849757f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 02:05:10 -0800 (PST)
+ id dc14a17c-aca8-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 11:17:52 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4349fd77b33so25854785e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 02:17:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fbf2b29sm15874392f8f.107.2024.11.27.02.05.09
+ 5b1f17b1804b1-434aa7cfb40sm16006435e9.27.2024.11.27.02.17.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 02:05:09 -0800 (PST)
+ Wed, 27 Nov 2024 02:17:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 165e1c15-aca7-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzYiLCJoZWxvIjoibWFpbC13cjEteDQzNi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjE2NWUxYzE1LWFjYTctMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzAxOTEwLjg1MDM2MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: dc14a17c-aca8-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzQiLCJoZWxvIjoibWFpbC13bTEteDMzNC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImRjMTRhMTdjLWFjYTgtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzAyNjcyLjEwMjAwNywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732701910; x=1733306710; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732702671; x=1733307471; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XbN0fTqnwZN/9GMSVARgsA9xzl0rOvRlu2VemrrXBqo=;
-        b=Ha0BcRzyps5jr9eeFyjltz+vIgvbYKobcsOvyYN+uUEhQix7tLAgN9i5P7JrT0pE9k
-         zTTPKQLXkomcODBcYAy8hZ9lMkEW/eMkG/5WUbhZkgL8wEmdmbH9OnmbqbipSJ6QJmfb
-         hFkRvSQsfhsLnEGlvVHVaxybnxb/aj+m29x7l107KjTP2bKWgPxtzXxJ990cnkEMl91d
-         kUUrXPkTvfnX5rTomoS7v9qIGKSpxt71YJtyucMHqDa8mlL0NOFUGaj5pklnfy4fhSOt
-         duKAl1erbQEoCb0o4C6BwRN4DHGJ/5PQTh3O7gp4YfbQUIUq6K6n8L+4O+Tvc3kPkOyJ
-         mG0g==
+        bh=7e7T4p59YwSRHDoVgOvnbiH4M0w1C6gfOek2eTGu2pw=;
+        b=U+VLFFayalPTL0wX8bSD8W0z/lXkIILK3SEcZzdyYrtpaWGvVSsy4lsyGfqgHzQ13l
+         lLlcOCCUznplVl5VTW83gxep/40ekY8x6l3QjmlGie2x6SEzY6ahLQOQILbPkXRCO1oq
+         h4P5NHeFKcHBlajC8C2BgmOf8naDqkAnGiTe9eCnDWY0alYSGgP7FYtQxym65vcxCsWO
+         7JuBeM60Phn1U+hwoNcsNByYx2BaDGmgFeA4aw1UK0vVVnrA5ebFeMREJ5d04aWO/MRo
+         ZAMD/6ViD57YZFccznRalZ8IczxNCbrWK2xLRGEtUk79YqyuEUUJ2uK8Cd1xEfMdM4aq
+         azzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732701910; x=1733306710;
+        d=1e100.net; s=20230601; t=1732702671; x=1733307471;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XbN0fTqnwZN/9GMSVARgsA9xzl0rOvRlu2VemrrXBqo=;
-        b=VEJmqHp8cmrNX4bHIOZmX0xOofW56jpg3c1DTD2HseqEIoPyn1pWIkjNEl8aQQyAo+
-         ACCFKHcV762Qn9aijcrvOb86b7xHAMj2txEUqFTDDspIxouF2lizaMHoY7A+xSEv9aXL
-         xhXAKqwyPW7dgjh3Wtz31S++4DB48VR2KXeRBctra0eWFnXZdBTEEjjAPMB3EXKPGyJd
-         myWzlwnKoF4fr5I+ORFl1sVekQtYvx4mOPjpgHehkcMgQJDGiMukpeih+fLsrAh9HyX2
-         hXbSNv4G3qBJ6vepAhAz4Ogcfb9PVmK8noidtc58hx1yGtRIpgMpMGrLwkckd4pDTFQW
-         ZW9g==
-X-Forwarded-Encrypted: i=1; AJvYcCV20Aswt0xhZp/mzfpo14OsPELO18yyL6NnEgz79mDdTWv1VFucOTK9KI1C6tSD9Pbe5PebUKsEM8g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzzDM64/oJQkkaVcNwqq4fm+Z8u57hHQCCmP4wP8Yjj5CPi6oPK
-	HKstpBQ7HL7SM3LtbsaO2caUC+DgwkWcsLNGGKyAFjA2mCk0XpRAbPZ8SpleqQ==
-X-Gm-Gg: ASbGnct8Y/xE/s0auZ8SQae0Np10JTf4ABfFVuV/GdSn6UnODzO/l9Fp8SX5wPwElw9
-	MGK8KXHqCId3srWmNBDXTldLspCDKGVF8Wbem/Ua8X8X/Qp8aPTsunrINRpLa0GnpE8VJP/bki9
-	r8nyrZ43aKJfNw1QdgZLknCtJTGRMzCRkkqhELgJ/TaNEcR9G4nHEtqOD9cHIn6YVgNIUTGbI02
-	RZ3puaaOBqA2q6AehHYwEba0DXwp4hZsKx236wGgb3YjumfXghK8mc8RYo8ebwxdXCMi7rH0HAn
-	zviMdri/KoRD4JRdwBR0bKMaGY2NHrpnPrQ=
-X-Google-Smtp-Source: AGHT+IGncZKls3asm/pUuE5CeZx6sbvc4b8607Ecs9neY3O8quJyH/QidD1ZukbHwCAqPD1UU1Ks7g==
-X-Received: by 2002:a5d:584c:0:b0:382:4f7a:7a87 with SMTP id ffacd0b85a97d-385c6edd128mr1965953f8f.48.1732701910172;
-        Wed, 27 Nov 2024 02:05:10 -0800 (PST)
-Message-ID: <1fccb300-ffec-40c2-8eff-c8a7a97c29c7@suse.com>
-Date: Wed, 27 Nov 2024 11:05:08 +0100
+        bh=7e7T4p59YwSRHDoVgOvnbiH4M0w1C6gfOek2eTGu2pw=;
+        b=aJc3W5uf97aRUHBJIDKcqFqXiDiWBgAobtMgm2LOn0E2Ke/VSaY9zUowmaM3FgmCWV
+         /53rJH+67EuuNTC8okhen5VlBfBfF8M6/wCsTiIFsjKaT/Sx319OJlJK/8ABgfCKXVaR
+         8zH2H9zE4QSrc28KhAgfKIW1l+PhVBdvKMdJRkz3vlY5q4w8X7HulHzaSju+w0TJFkDY
+         0vMYKbnB8J7+ik86KwKCUb6DciF+bVj5BITFTe2vwURiJJ2XNxem8bPE/xC6axpLJ3/D
+         iVczdjBQfybhmsRtHc031FseIOCjQTWBXL2fyTcnoD34cfha2rLKN7JUYRlKHySSmZGw
+         ZsaA==
+X-Forwarded-Encrypted: i=1; AJvYcCWmSUd3CsznkmMItHAx2iGjcDa+MrGKd53vW6zXzwJ2geaca4xzy9KcL/fEW78YO83LMLGF+a8+jc0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwSP0UMpcV8sTbd5bQqA/sbVtLXaTUPsrBNake1Y4h+R8gYhupd
+	WCYhaIrZkGXdF3O5Is90RgtrtOfs3lYxUq0PIaHuUHrjUvI99TcLrQ4xhi3Efw==
+X-Gm-Gg: ASbGncsYGuI4yAnXrXOJASibU50bK7ijKTsajpA3S42YAocOYQXnbtNj8XDxcjZQEs3
+	ZK7j2l+DEXymfktK6bUw2lgS2vmDJEFhkK7jNjR5wfSZncJPoJtU8sxg3EQAtB7WwuOpm6FNp4l
+	E85ZrSd6rkTzGsENc1J8xj7NIw/OHdNX/rGzlfgmN0MiBapMEzm846HFI21aufRQYVyHcA/Pcju
+	1GrWwFEemF6ykyK32+NvuhSzT24Qfk4ZIeK/fTXFpF8u1cBgJSKv8iu2qyciMr2+YKgiNOm8z2A
+	3qlBghM9Nxj1MuJ1TFSD8cnsdEMKEQ1IVjg=
+X-Google-Smtp-Source: AGHT+IF4Cu0XteCz7KZPtdtOGIGoQ/CP2WwJv+0AKhd2iEQBs5irmnKuowRqf4YlPJN313cnFOdinw==
+X-Received: by 2002:a05:600c:4f08:b0:434:a39b:5e46 with SMTP id 5b1f17b1804b1-434a9dbbba1mr20170265e9.7.1732702671302;
+        Wed, 27 Nov 2024 02:17:51 -0800 (PST)
+Message-ID: <8004e261-0ce5-427e-abdb-0cd18121dc6e@suse.com>
+Date: Wed, 27 Nov 2024 11:17:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/7] x86: re-work memcpy()
+Subject: Re: [PATCH v3 4/7] x86: control memset() and memcpy() inlining
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com>
- <c2aa4307-230b-4287-b9e4-6d7d84dba490@suse.com>
- <2cb12ee6-3acd-4667-9882-4d36466a7da8@citrix.com>
+ <1c935aba-a185-43de-9806-6781b1a7fcf9@suse.com>
+ <3fa4555a-f66f-47c0-ada2-3a5591536432@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,107 +120,115 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2cb12ee6-3acd-4667-9882-4d36466a7da8@citrix.com>
+In-Reply-To: <3fa4555a-f66f-47c0-ada2-3a5591536432@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.11.2024 20:16, Andrew Cooper wrote:
-> On 25/11/2024 2:28 pm, Jan Beulich wrote:
->> Move the function to its own assembly file. Having it in C just for the
->> entire body to be an asm() isn't really helpful. Then have two flavors:
->> A "basic" version using qword steps for the bulk of the operation, and an
->> ERMS version for modern hardware, to be substituted in via alternatives
->> patching.
+On 26.11.2024 20:58, Andrew Cooper wrote:
+> On 25/11/2024 2:29 pm, Jan Beulich wrote:
+>> Stop the compiler from inlining non-trivial memset() and memcpy() (for
+>> memset() see e.g. map_vcpu_info() or kimage_load_segments() for
+>> examples). This way we even keep the compiler from using REP STOSQ /
+>> REP MOVSQ when we'd prefer REP STOSB / REP MOVSB (when ERMS is
+>> available).
 >>
->> Alternatives patching, however, requires an extra precaution: It uses
->> memcpy() itself, and hence the function may patch itself. Luckily the
->> patched-in code only replaces the prolog of the original function. Make
->> sure this remains this way.
+>> With gcc10 this yields a modest .text size reduction (release build) of
+>> around 2k.
+
+With this, ...
+
+>> Unfortunately these options aren't understood by the clang versions I
+>> have readily available for testing with; I'm unaware of equivalents.
 >>
->> Additionally alternatives patching, while supposedly safe via enforcing
->> a control flow change when modifying already prefetched code, may not
->> really be. Afaict a request is pending to drop the first of the two
->> options in the SDM's "Handling Self- and Cross-Modifying Code" section.
->> Insert a serializing instruction there.
+>> Note also that using cc-option-add is not an option here, or at least I
+>> couldn't make things work with it (in case the option was not supported
+>> by the compiler): The embedded comma in the option looks to be getting
+>> in the way.
 >>
+>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >> ---
->> We may want to consider branching over the REP MOVSQ as well, if the
->> number of qwords turns out to be zero.
->> We may also want to consider using non-REP MOVS{L,W,B} for the tail.
+>> v3: Re-base.
+>> v2: New.
+>> ---
+>> The boundary values are of course up for discussion - I wasn't really
+>> certain whether to use 16 or 32; I'd be less certain about using yet
+>> larger values.
+>>
+>> Similarly whether to permit the compiler to emit REP STOSQ / REP MOVSQ
+>> for known size, properly aligned blocks is up for discussion.
 > 
-> My feedback for patch 2 is largely applicable here too.
-
-Sure, and I'll apply here whatever we decide to do there.
-
->> --- a/xen/arch/x86/alternative.c
->> +++ b/xen/arch/x86/alternative.c
->> @@ -153,12 +153,14 @@ void init_or_livepatch add_nops(void *in
->>   * executing.
->>   *
->>   * "noinline" to cause control flow change and thus invalidate I$ and
->> - * cause refetch after modification.
->> + * cause refetch after modification.  While the SDM continues to suggest this
->> + * is sufficient, it may not be - issue a serializing insn afterwards as well.
+> I didn't realise there were any options like this.
 > 
-> Did you find a problem in practice, or is this just in case?
-
-It's been too long, so I can now only guess that it's just in case. The
-comment change, otoh, suggests otherwise.
-
-> I suspect if you are seeing problems, then it's non-atomicity of the
-> stores into memcpy() rather than serialisation.
-
-How would atomicity (or not) matter here? There shouldn't be any difference
-between a single and any number of stores into the (previously executed)
-insn stream.
-
->>   */
->>  static void init_or_livepatch noinline
->>  text_poke(void *addr, const void *opcode, size_t len)
->>  {
->>      memcpy(addr, opcode, len);
->> +    cpuid_eax(0);
+> The result is very different on GCC-12, with the following extremes:
 > 
-> This whole function is buggy in a couple of ways, starting with the
-> comments.
+> add/remove: 0/0 grow/shrink: 83/71 up/down: 8764/-3913 (4851)
+> Function                                     old     new   delta
+> x86_emulate                               136966  139990   +3024
+> ptwr_emulated_cmpxchg                        555    1058    +503
+> hvm_emulate_cmpxchg                         1178    1648    +470
+> hvmemul_do_io                               1605    2059    +454
+> hvmemul_linear_mmio_access                  1060    1324    +264
+> hvmemul_write_cache                          655     890    +235
+> ...
+> do_console_io                               1293    1170    -123
+> arch_get_info_guest                         2200    2072    -128
+> avtab_read_item                              821     692    -129
+> acpi_tb_create_local_fadt                    866     714    -152
+> xz_dec_lzma2_run                            2573    2272    -301
+> __hvm_copy                                  1085     737    -348
+> Total: Before=3902769, After=3907620, chg +0.12%
 > 
-> The comment about noinline and control flow changes is only really
-> relevant to 32bit processors; we inherited that comment from Linux, and
-> they're not applicable to Xen.
-> 
-> AMD64 (both the APM, and SDM) guarantee that Self Modifying Code will be
-> dealt with on your behalf, with no serialisation needed.
-> 
-> Cross-modifying code needs far more severe serialisation than given
-> here.  We get away with it because alternative_{instructions,branches}()
-> are pre-SMP, and apply_alternatives() is on livepatches prior to them
-> becoming live.
-> 
-> 
-> I happen to know there's an AMD CPU which has an erratum regarding Self
-> Modifying Code and genuinely does need a serialising instruction, but I
-> don't know which exact CPU it is.
+> So there is a mix, but it's in a distinctly upward direction.
 
-Maybe I ran into that on one of the two older AMD systems I routinely
-test on every once in a while?
+... was this a release or a debug build? Of course I'm not surprised of
+there being differences between compiler versions, but the overall change
+being clearly in the opposite direction is still a little worrying.
 
-> If we're going to put a serialising instruction, it should be a write to
-> CR2.  We don't care about 486 compatibility, and it's faster than CPUID
-> and much much faster if virtualised because it's unlikely to be
-> intercepted even under shadow paging.
+> As a possibly-related tangent, something I did notice when playing with
+> -fanalyzer was that even attr(alloc_size/align) helped the code
+> generation for an inlined memcpy().
 > 
-> But, it would be nice not to put serialisation in the general case to
-> begin with, especially not into the livepatching case.
+> e.g. with _xmalloc() only getting
+> __attribute__((alloc_size(1),alloc_align(2))), functions like
+> init_domain_cpu_policy() go from:
+> 
+> 48 8b 13                 mov    (%rbx),%rdx
+> 48 8d 78 08              lea    0x8(%rax),%rdi
+> 48 89 c1                 mov    %rax,%rcx
+> 48 89 de                 mov    %rbx,%rsi
+> 48 83 e7 f8              and    $0xfffffffffffffff8,%rdi
+> 48 89 10                 mov    %rdx,(%rax)
+> 48 29 f9                 sub    %rdi,%rcx
+> 48 8b 93 b0 07 00 00     mov    0x7b0(%rbx),%rdx
+> 48 29 ce                 sub    %rcx,%rsi
+> 81 c1 b8 07 00 00        add    $0x7b8,%ecx
+> 48 89 90 b0 07 00 00     mov    %rdx,0x7b0(%rax)
+> c1 e9 03                 shr    $0x3,%ecx
+> f3 48 a5                 rep movsq %ds:(%rsi),%es:(%rdi)
+> 
+> down to simply
+> 
+> 48 89 c7                 mov    %rax,%rdi
+> b9 f7 00 00 00           mov    $0xf7,%ecx
+> 48 89 ee                 mov    %rbp,%rsi
+> f3 48 a5                 rep movsq %ds:(%rsi),%es:(%rdi)
+> 
+> which is removing the logic to cope with a misaligned destination pointer.
+> 
+> 
+> As a possibly unrelated tangent, even __attribute__((malloc)) seems to
+> have some code gen changes.
+> 
+> In xenctl_bitmap_to_cpumask(), the change is simply to not align the
+> -ENOMEM basic block, saving 8 bytes.  This is quite reasonable because
+> xmalloc() genuinely failing is 0% of the time to many significant figures.
+> 
+> Mostly though, it's just basic block churn, which seems to be giving a
+> "likely not NULL" on the return value, therefore shuffling the error paths.
 
-If you're aware of an erratum there, how can we get away without any
-serialization? I can surely switch to a CR2 write, and I can also make
-this dependent upon system_state (thus excluding the LP case).
-
-I notice that arch_livepatch_{apply,revert}() indeed use plain memcpy()
-with just the noinline "protection". I wonder how well that works if a
-livepatch actually touched the tail of either of these functions
-(however unlikely that may be).
+Could you clarify for me what of the above is the actionable part, for me
+to take care of?
 
 Jan
 
