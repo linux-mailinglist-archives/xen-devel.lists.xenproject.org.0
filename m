@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C479DAB63
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 17:08:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844904.1260481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD3279DAB67
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 17:08:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844909.1260491 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGKab-0005QE-Np; Wed, 27 Nov 2024 16:08:29 +0000
+	id 1tGKae-0005qO-2K; Wed, 27 Nov 2024 16:08:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844904.1260481; Wed, 27 Nov 2024 16:08:29 +0000
+Received: by outflank-mailman (output) from mailman id 844909.1260491; Wed, 27 Nov 2024 16:08:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGKab-0005Id-H8; Wed, 27 Nov 2024 16:08:29 +0000
-Received: by outflank-mailman (input) for mailman id 844904;
- Wed, 27 Nov 2024 16:08:28 +0000
+	id 1tGKad-0005lv-Te; Wed, 27 Nov 2024 16:08:31 +0000
+Received: by outflank-mailman (input) for mailman id 844909;
+ Wed, 27 Nov 2024 16:08:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8BRf=SW=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1tGKaa-0002q2-AG
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 16:08:28 +0000
+ id 1tGKac-0002q2-1M
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 16:08:30 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id d50566b6-acd9-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 17:08:25 +0100 (CET)
+ id d6619fab-acd9-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 17:08:27 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 23A8F244B;
- Wed, 27 Nov 2024 08:08:55 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 90B2E1477;
+ Wed, 27 Nov 2024 08:08:57 -0800 (PST)
 Received: from C3HXLD123V.arm.com (unknown [10.57.58.181])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC0AD3F5A1;
- Wed, 27 Nov 2024 08:08:23 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A39BD3F5A1;
+ Wed, 27 Nov 2024 08:08:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,9 +42,9 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d50566b6-acd9-11ef-a0cd-8be0dac302b0
+X-Inumbo-ID: d6619fab-acd9-11ef-a0cd-8be0dac302b0
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxNy4xNDAuMTEwLjE3MiIsImhlbG8iOiJmb3NzLmFybS5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6ImQ1MDU2NmI2LWFjZDktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzIzNzA1Ljk2MzI5NCwic2VuZGVyIjoiYmVydHJhbmQubWFycXVpc0Bhcm0uY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Custom-Transaction: eyJpZCI6ImQ2NjE5ZmFiLWFjZDktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzIzNzA4LjA1NjM4Nywic2VuZGVyIjoiYmVydHJhbmQubWFycXVpc0Bhcm0uY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: jens.wiklander@linaro.org,
@@ -52,477 +52,232 @@ Cc: jens.wiklander@linaro.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v3 07/10] xen/arm: ffa: Transmit RXTX buffers to the SPMC
-Date: Wed, 27 Nov 2024 17:07:39 +0100
-Message-ID: <56217f2f7b4c29a5f84fb02de3f4cbb8342c5560.1732702210.git.bertrand.marquis@arm.com>
+Subject: [PATCH v3 08/10] xen/arm: ffa: move message function into ffa_msg.c
+Date: Wed, 27 Nov 2024 17:07:40 +0100
+Message-ID: <c189c1ba68832567617eafde30da1471df4e7e01.1732702210.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <cover.1732702210.git.bertrand.marquis@arm.com>
 References: <cover.1732702210.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an RXTX buffer is mapped by a VM transmit it to the SPMC when it
-supports RX_ACQUIRE.
-As a consequence of that, we must acquire the RX buffer of a VM from the
-SPMC when we want to use it:
-- create a generic acquire and release function to get the rx buffer of
-  a VM which gets it from the SPMC when supported
-- rename the rx_acquire to hyp_rx_acquire to remove confusion
-- rework the rx_lock to only lock access to rx_is_free and only allow
-  usage of the rx buffer to one who managed to acquire it, thus removing
-  the trylock and returning busy if rx_is_free is false
-
-As part of this change move some structure definition to ffa_private
-from ffa_shm as those are need for the MAP call with the SPMC.
-
-While there also fix ffa_handle_rxtx_map which was testing the wrong
-variable after getting the page for the rx buffer, testing tx_pg
-instead of rx_pg.
-
-Fixes: be75f686eb03 ("xen/arm: ffa: separate rxtx buffer routines")
+Move the direct message handling function in its own source file and
+rename it to have a ffa_ prefix.
+This is a preparation to add support for indirect messages which will
+go into this newly created source file.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
 Changes in v3:
-- add a comment to explain why we only release the RX buffer if an error
-  occurs during partition_info_get
-- fix the BUILD_BUG_ON check for TX buffer size in rxtx_map (coding
-  style and use PAGE_SIZE * NUM_PAGE)
-- remove invalid 3 argument to ffa_rxtx_map when forwarding the call to
-  the SPMC
-- fix bug in ffa_handle_rxtx_map testing wrong variable
+- add Jens R-b
 Changes in v2:
-- unmap VM rxtx buffer in SPMC on unmap call or on VM destroy
-- rework the unmap call to the SPMC to properly pass the VM ID
+- rebase
 ---
- xen/arch/arm/tee/ffa.c          |   2 +-
- xen/arch/arm/tee/ffa_partinfo.c |  36 ++++---
- xen/arch/arm/tee/ffa_private.h  |  22 ++++-
- xen/arch/arm/tee/ffa_rxtx.c     | 161 ++++++++++++++++++++++++++------
- xen/arch/arm/tee/ffa_shm.c      |  15 ---
- 5 files changed, 170 insertions(+), 66 deletions(-)
+ xen/arch/arm/tee/Makefile      |  1 +
+ xen/arch/arm/tee/ffa.c         | 69 +----------------------------
+ xen/arch/arm/tee/ffa_msg.c     | 80 ++++++++++++++++++++++++++++++++++
+ xen/arch/arm/tee/ffa_private.h |  2 +
+ 4 files changed, 84 insertions(+), 68 deletions(-)
+ create mode 100644 xen/arch/arm/tee/ffa_msg.c
 
+diff --git a/xen/arch/arm/tee/Makefile b/xen/arch/arm/tee/Makefile
+index 7c0f46f7f446..0848c833fec3 100644
+--- a/xen/arch/arm/tee/Makefile
++++ b/xen/arch/arm/tee/Makefile
+@@ -3,5 +3,6 @@ obj-$(CONFIG_FFA) += ffa_shm.o
+ obj-$(CONFIG_FFA) += ffa_partinfo.o
+ obj-$(CONFIG_FFA) += ffa_rxtx.o
+ obj-$(CONFIG_FFA) += ffa_notif.o
++obj-$(CONFIG_FFA) += ffa_msg.o
+ obj-y += tee.o
+ obj-$(CONFIG_OPTEE) += optee.o
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 0026ac9134ad..bc2722d53fd7 100644
+index bc2722d53fd7..8488fe6af9c0 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -347,7 +347,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-         ffa_handle_partition_info_get(regs);
-         return true;
-     case FFA_RX_RELEASE:
--        e = ffa_handle_rx_release();
-+        e = ffa_rx_release(d);
+@@ -167,73 +167,6 @@ static void handle_version(struct cpu_user_regs *regs)
+     ffa_set_regs(regs, FFA_MY_VERSION, 0, 0, 0, 0, 0, 0, 0);
+ }
+ 
+-static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
+-{
+-    struct arm_smccc_1_2_regs arg = { .a0 = fid, };
+-    struct arm_smccc_1_2_regs resp = { };
+-    struct domain *d = current->domain;
+-    uint32_t src_dst;
+-    uint64_t mask;
+-
+-    if ( smccc_is_conv_64(fid) )
+-        mask = GENMASK_ULL(63, 0);
+-    else
+-        mask = GENMASK_ULL(31, 0);
+-
+-    if ( !ffa_fw_supports_fid(fid) )
+-    {
+-        resp.a0 = FFA_ERROR;
+-        resp.a2 = FFA_RET_NOT_SUPPORTED;
+-        goto out;
+-    }
+-
+-    src_dst = get_user_reg(regs, 1);
+-    if ( (src_dst >> 16) != ffa_get_vm_id(d) )
+-    {
+-        resp.a0 = FFA_ERROR;
+-        resp.a2 = FFA_RET_INVALID_PARAMETERS;
+-        goto out;
+-    }
+-
+-    /* we do not support direct messages to VMs */
+-    if ( !FFA_ID_IS_SECURE(src_dst & GENMASK(15,0)) )
+-    {
+-        resp.a0 = FFA_ERROR;
+-        resp.a2 = FFA_RET_NOT_SUPPORTED;
+-        goto out;
+-    }
+-
+-    arg.a1 = src_dst;
+-    arg.a2 = get_user_reg(regs, 2) & mask;
+-    arg.a3 = get_user_reg(regs, 3) & mask;
+-    arg.a4 = get_user_reg(regs, 4) & mask;
+-    arg.a5 = get_user_reg(regs, 5) & mask;
+-    arg.a6 = get_user_reg(regs, 6) & mask;
+-    arg.a7 = get_user_reg(regs, 7) & mask;
+-
+-    arm_smccc_1_2_smc(&arg, &resp);
+-    switch ( resp.a0 )
+-    {
+-    case FFA_ERROR:
+-    case FFA_SUCCESS_32:
+-    case FFA_SUCCESS_64:
+-    case FFA_MSG_SEND_DIRECT_RESP_32:
+-    case FFA_MSG_SEND_DIRECT_RESP_64:
+-        break;
+-    default:
+-        /* Bad fid, report back to the caller. */
+-        memset(&resp, 0, sizeof(resp));
+-        resp.a0 = FFA_ERROR;
+-        resp.a1 = src_dst;
+-        resp.a2 = FFA_RET_ABORTED;
+-    }
+-
+-out:
+-    ffa_set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 & mask,
+-                 resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
+-                 resp.a7 & mask);
+-}
+-
+ static void handle_features(struct cpu_user_regs *regs)
+ {
+     struct domain *d = current->domain;
+@@ -351,7 +284,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
          break;
      case FFA_MSG_SEND_DIRECT_REQ_32:
      case FFA_MSG_SEND_DIRECT_REQ_64:
-diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
-index 74324e1d9d3f..939ed49dd3da 100644
---- a/xen/arch/arm/tee/ffa_partinfo.c
-+++ b/xen/arch/arm/tee/ffa_partinfo.c
-@@ -121,11 +121,9 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
-         goto out;
-     }
- 
--    if ( !spin_trylock(&ctx->rx_lock) )
--    {
--        ret = FFA_RET_BUSY;
-+    ret = ffa_rx_acquire(d);
-+    if ( ret != FFA_RET_OK )
-         goto out;
--    }
- 
-     dst_buf = ctx->rx;
- 
-@@ -135,22 +133,16 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
-         goto out_rx_release;
-     }
- 
--    if ( !ctx->page_count || !ctx->rx_is_free )
--    {
--        ret = FFA_RET_DENIED;
--        goto out_rx_release;
--    }
--
-     spin_lock(&ffa_rx_buffer_lock);
- 
-     ret = ffa_partition_info_get(uuid, 0, &ffa_sp_count, &src_size);
- 
-     if ( ret )
--        goto out_rx_buf_unlock;
-+        goto out_rx_hyp_unlock;
- 
-     /*
-      * ffa_partition_info_get() succeeded so we now own the RX buffer we
--     * share with the SPMC. We must give it back using ffa_rx_release()
-+     * share with the SPMC. We must give it back using ffa_hyp_rx_release()
-      * once we've copied the content.
-      */
- 
-@@ -190,15 +182,20 @@ void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
-         }
-     }
- 
--    ctx->rx_is_free = false;
--
- out_rx_hyp_release:
--    ffa_rx_release();
--out_rx_buf_unlock:
-+    ffa_hyp_rx_release();
-+out_rx_hyp_unlock:
-     spin_unlock(&ffa_rx_buffer_lock);
- out_rx_release:
--    spin_unlock(&ctx->rx_lock);
--
-+    /*
-+     * The calling VM RX buffer only contains data to be used by the VM if the
-+     * call was successfull, in which case the VM has to release the buffer
-+     * once it has used the data.
-+     * If something went wrong during the call, we have to release the RX
-+     * buffer back to the SPMC as the VM will not do it.
-+     */
-+    if ( ret != FFA_RET_OK )
-+        ffa_rx_release(d);
- out:
-     if ( ret )
-         ffa_set_regs_error(regs, ret);
-@@ -365,8 +362,7 @@ bool ffa_partinfo_init(void)
-     ret = init_subscribers(count, fpi_size);
- 
- out:
--    ffa_rx_release();
--
-+    ffa_hyp_rx_release();
-     return ret;
- }
- 
+-        handle_msg_send_direct_req(regs, fid);
++        ffa_handle_msg_send_direct_req(regs, fid);
+         return true;
+     case FFA_MEM_SHARE_32:
+     case FFA_MEM_SHARE_64:
+diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+new file mode 100644
+index 000000000000..ae263e54890e
+--- /dev/null
++++ b/xen/arch/arm/tee/ffa_msg.c
+@@ -0,0 +1,80 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2024  Linaro Limited
++ */
++
++#include <xen/const.h>
++#include <xen/sizes.h>
++#include <xen/types.h>
++
++#include <asm/smccc.h>
++#include <asm/regs.h>
++
++#include "ffa_private.h"
++
++void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
++{
++    struct arm_smccc_1_2_regs arg = { .a0 = fid, };
++    struct arm_smccc_1_2_regs resp = { };
++    struct domain *d = current->domain;
++    uint32_t src_dst;
++    uint64_t mask;
++
++    if ( smccc_is_conv_64(fid) )
++        mask = GENMASK_ULL(63, 0);
++    else
++        mask = GENMASK_ULL(31, 0);
++
++    if ( !ffa_fw_supports_fid(fid) )
++    {
++        resp.a0 = FFA_ERROR;
++        resp.a2 = FFA_RET_NOT_SUPPORTED;
++        goto out;
++    }
++
++    src_dst = get_user_reg(regs, 1);
++    if ( (src_dst >> 16) != ffa_get_vm_id(d) )
++    {
++        resp.a0 = FFA_ERROR;
++        resp.a2 = FFA_RET_INVALID_PARAMETERS;
++        goto out;
++    }
++
++    /* we do not support direct messages to VMs */
++    if ( !FFA_ID_IS_SECURE(src_dst & GENMASK(15,0)) )
++    {
++        resp.a0 = FFA_ERROR;
++        resp.a2 = FFA_RET_NOT_SUPPORTED;
++        goto out;
++    }
++
++    arg.a1 = src_dst;
++    arg.a2 = get_user_reg(regs, 2) & mask;
++    arg.a3 = get_user_reg(regs, 3) & mask;
++    arg.a4 = get_user_reg(regs, 4) & mask;
++    arg.a5 = get_user_reg(regs, 5) & mask;
++    arg.a6 = get_user_reg(regs, 6) & mask;
++    arg.a7 = get_user_reg(regs, 7) & mask;
++
++    arm_smccc_1_2_smc(&arg, &resp);
++    switch ( resp.a0 )
++    {
++    case FFA_ERROR:
++    case FFA_SUCCESS_32:
++    case FFA_SUCCESS_64:
++    case FFA_MSG_SEND_DIRECT_RESP_32:
++    case FFA_MSG_SEND_DIRECT_RESP_64:
++        break;
++    default:
++        /* Bad fid, report back to the caller. */
++        memset(&resp, 0, sizeof(resp));
++        resp.a0 = FFA_ERROR;
++        resp.a1 = src_dst;
++        resp.a2 = FFA_RET_ABORTED;
++    }
++
++out:
++    ffa_set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 & mask,
++                 resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
++                 resp.a7 & mask);
++}
 diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
-index afe69b43dbef..9adfe687c3c9 100644
+index 9adfe687c3c9..02162e0ee4c7 100644
 --- a/xen/arch/arm/tee/ffa_private.h
 +++ b/xen/arch/arm/tee/ffa_private.h
-@@ -265,6 +265,21 @@
- #define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_ABI_MIN) << 1 | \
-                                FFA_ABI_CONV(id))
+@@ -360,6 +360,8 @@ void ffa_handle_notification_info_get(struct cpu_user_regs *regs);
+ void ffa_handle_notification_get(struct cpu_user_regs *regs);
+ int ffa_handle_notification_set(struct cpu_user_regs *regs);
  
-+/* Constituent memory region descriptor */
-+struct ffa_address_range {
-+    uint64_t address;
-+    uint32_t page_count;
-+    uint32_t reserved;
-+};
++void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid);
 +
-+/* Composite memory region descriptor */
-+struct ffa_mem_region {
-+    uint32_t total_page_count;
-+    uint32_t address_range_count;
-+    uint64_t reserved;
-+    struct ffa_address_range address_range_array[];
-+};
-+
- struct ffa_ctx_notif {
-     bool enabled;
- 
-@@ -292,7 +307,7 @@ struct ffa_ctx {
-     struct ffa_ctx_notif notif;
-     /*
-      * tx_lock is used to serialize access to tx
--     * rx_lock is used to serialize access to rx
-+     * rx_lock is used to serialize access to rx_is_free
-      * lock is used for the rest in this struct
-      */
-     spinlock_t tx_lock;
-@@ -331,7 +346,8 @@ void ffa_rxtx_domain_destroy(struct domain *d);
- uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
- 			     register_t rx_addr, uint32_t page_count);
- uint32_t ffa_handle_rxtx_unmap(void);
--int32_t ffa_handle_rx_release(void);
-+int32_t ffa_rx_acquire(struct domain *d);
-+int32_t ffa_rx_release(struct domain *d);
- 
- void ffa_notif_init(void);
- void ffa_notif_init_interrupt(void);
-@@ -420,7 +436,7 @@ static inline int32_t ffa_simple_call(uint32_t fid, register_t a1,
-     return ffa_get_ret_code(&resp);
- }
- 
--static inline int32_t ffa_rx_release(void)
-+static inline int32_t ffa_hyp_rx_release(void)
+ static inline uint16_t ffa_get_vm_id(const struct domain *d)
  {
-     return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
- }
-diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-index 132a7982407b..e1cab7fa5e46 100644
---- a/xen/arch/arm/tee/ffa_rxtx.c
-+++ b/xen/arch/arm/tee/ffa_rxtx.c
-@@ -30,6 +30,17 @@ struct ffa_endpoint_rxtx_descriptor_1_1 {
-     uint32_t tx_region_offs;
- };
- 
-+static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
-+                            uint32_t page_count)
-+{
-+    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_count, 0);
-+}
-+
-+static int32_t ffa_rxtx_unmap(uint16_t id)
-+{
-+    return ffa_simple_call(FFA_RXTX_UNMAP, ((uint64_t)id)<<16, 0, 0, 0);
-+}
-+
- uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
- 			     register_t rx_addr, uint32_t page_count)
- {
-@@ -42,6 +53,9 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-     void *rx;
-     void *tx;
- 
-+    /* The code is considering that we only get one page for now */
-+    BUILD_BUG_ON(FFA_MAX_RXTX_PAGE_COUNT != 1);
-+
-     if ( !smccc_is_conv_64(fid) )
-     {
-         /*
-@@ -72,7 +86,7 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-         goto err_put_tx_pg;
- 
-     rx_pg = get_page_from_gfn(d, gfn_x(gaddr_to_gfn(rx_addr)), &t, P2M_ALLOC);
--    if ( !tx_pg )
-+    if ( !rx_pg )
-         goto err_put_tx_pg;
- 
-     /* Only normal RW RAM for now */
-@@ -87,6 +101,66 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-     if ( !rx )
-         goto err_unmap_tx;
- 
-+    /*
-+     * Transmit the RX/TX buffer information to the SPM if acquire is supported
-+     * as the spec says that if not there is not need to acquire/release/map
-+     * rxtx buffers from the SPMC
-+     */
-+    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
-+    {
-+        struct ffa_endpoint_rxtx_descriptor_1_1 *rxtx_desc;
-+        struct ffa_mem_region *mem_reg;
-+
-+        /* All must fit in our TX buffer */
-+        BUILD_BUG_ON(sizeof(*rxtx_desc) + sizeof(*mem_reg) * 2 +
-+                     sizeof(struct ffa_address_range) * 2 >
-+                     FFA_MAX_RXTX_PAGE_COUNT * FFA_PAGE_SIZE);
-+
-+        spin_lock(&ffa_tx_buffer_lock);
-+        rxtx_desc = ffa_tx;
-+
-+        /*
-+         * We have only one page for each so we pack everything:
-+         * - rx region descriptor
-+         * - rx region range
-+         * - tx region descriptor
-+         * - tx region range
-+         */
-+        rxtx_desc->sender_id = ffa_get_vm_id(d);
-+        rxtx_desc->reserved = 0;
-+        rxtx_desc->rx_region_offs = sizeof(*rxtx_desc);
-+        rxtx_desc->tx_region_offs = sizeof(*rxtx_desc) +
-+                                    offsetof(struct ffa_mem_region,
-+                                             address_range_array[1]);
-+
-+        /* rx buffer */
-+        mem_reg = ffa_tx + sizeof(*rxtx_desc);
-+        mem_reg->total_page_count = 1;
-+        mem_reg->address_range_count = 1;
-+        mem_reg->reserved = 0;
-+
-+        mem_reg->address_range_array[0].address = page_to_maddr(rx_pg);
-+        mem_reg->address_range_array[0].page_count = 1;
-+        mem_reg->address_range_array[0].reserved = 0;
-+
-+        /* tx buffer */
-+        mem_reg = ffa_tx + rxtx_desc->tx_region_offs;
-+        mem_reg->total_page_count = 1;
-+        mem_reg->address_range_count = 1;
-+        mem_reg->reserved = 0;
-+
-+        mem_reg->address_range_array[0].address = page_to_maddr(tx_pg);
-+        mem_reg->address_range_array[0].page_count = 1;
-+        mem_reg->address_range_array[0].reserved = 0;
-+
-+        ret = ffa_rxtx_map(0, 0, 0);
-+
-+        spin_unlock(&ffa_tx_buffer_lock);
-+
-+        if ( ret != FFA_RET_OK )
-+            goto err_unmap_rx;
-+    }
-+
-     ctx->rx = rx;
-     ctx->tx = tx;
-     ctx->rx_pg = rx_pg;
-@@ -95,6 +169,8 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
-     ctx->rx_is_free = true;
-     return FFA_RET_OK;
- 
-+err_unmap_rx:
-+    unmap_domain_page_global(rx);
- err_unmap_tx:
-     unmap_domain_page_global(tx);
- err_put_rx_pg:
-@@ -105,8 +181,22 @@ err_put_tx_pg:
-     return ret;
- }
- 
--static void rxtx_unmap(struct ffa_ctx *ctx)
-+static uint32_t  rxtx_unmap(struct domain *d)
- {
-+    struct ffa_ctx *ctx = d->arch.tee;
-+
-+    if ( !ctx->page_count )
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
-+    {
-+        uint32_t ret;
-+
-+        ret = ffa_rxtx_unmap(ffa_get_vm_id(d));
-+        if ( ret != FFA_RET_OK )
-+            return ret;
-+    }
-+
-     unmap_domain_page_global(ctx->rx);
-     unmap_domain_page_global(ctx->tx);
-     put_page(ctx->rx_pg);
-@@ -117,32 +207,63 @@ static void rxtx_unmap(struct ffa_ctx *ctx)
-     ctx->tx_pg = NULL;
-     ctx->page_count = 0;
-     ctx->rx_is_free = false;
-+
-+    return FFA_RET_OK;
- }
- 
- uint32_t ffa_handle_rxtx_unmap(void)
- {
--    struct domain *d = current->domain;
-+    return rxtx_unmap(current->domain);
-+}
-+
-+int32_t ffa_rx_acquire(struct domain *d)
-+{
-+    int32_t ret = FFA_RET_OK;
-     struct ffa_ctx *ctx = d->arch.tee;
- 
--    if ( !ctx->rx )
--        return FFA_RET_INVALID_PARAMETERS;
-+    spin_lock(&ctx->rx_lock);
- 
--    rxtx_unmap(ctx);
-+    if ( !ctx->page_count )
-+    {
-+        ret = FFA_RET_DENIED;
-+        goto out;
-+    }
- 
--    return FFA_RET_OK;
-+    if ( !ctx->rx_is_free )
-+    {
-+        ret = FFA_RET_BUSY;
-+        goto out;
-+    }
-+
-+    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
-+    {
-+        ret = ffa_simple_call(FFA_RX_ACQUIRE, ffa_get_vm_id(d), 0, 0, 0);
-+        if ( ret != FFA_RET_OK )
-+            goto out;
-+    }
-+    ctx->rx_is_free = false;
-+out:
-+    spin_unlock(&ctx->rx_lock);
-+
-+    return ret;
- }
- 
--int32_t ffa_handle_rx_release(void)
-+int32_t ffa_rx_release(struct domain *d)
- {
-     int32_t ret = FFA_RET_DENIED;
--    struct domain *d = current->domain;
-     struct ffa_ctx *ctx = d->arch.tee;
- 
--    if ( !spin_trylock(&ctx->rx_lock) )
--        return FFA_RET_BUSY;
-+    spin_lock(&ctx->rx_lock);
- 
-     if ( !ctx->page_count || ctx->rx_is_free )
-         goto out;
-+
-+    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
-+    {
-+        ret = ffa_simple_call(FFA_RX_RELEASE, ffa_get_vm_id(d), 0, 0, 0);
-+        if ( ret != FFA_RET_OK )
-+            goto out;
-+    }
-     ret = FFA_RET_OK;
-     ctx->rx_is_free = true;
- out:
-@@ -151,23 +272,9 @@ out:
-     return ret;
- }
- 
--static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
--                            uint32_t page_count)
--{
--    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_count, 0);
--}
--
--static int32_t ffa_rxtx_unmap(void)
--{
--    return ffa_simple_call(FFA_RXTX_UNMAP, 0, 0, 0, 0);
--}
--
- void ffa_rxtx_domain_destroy(struct domain *d)
- {
--    struct ffa_ctx *ctx = d->arch.tee;
--
--    if ( ctx->rx )
--        rxtx_unmap(ctx);
-+    rxtx_unmap(d);
- }
- 
- void ffa_rxtx_destroy(void)
-@@ -186,7 +293,7 @@ void ffa_rxtx_destroy(void)
-     }
- 
-     if ( need_unmap )
--        ffa_rxtx_unmap();
-+        ffa_rxtx_unmap(0);
- }
- 
- bool ffa_rxtx_init(void)
-diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-index 29675f9ba3f7..d628c1b70609 100644
---- a/xen/arch/arm/tee/ffa_shm.c
-+++ b/xen/arch/arm/tee/ffa_shm.c
-@@ -16,21 +16,6 @@
- 
- #include "ffa_private.h"
- 
--/* Constituent memory region descriptor */
--struct ffa_address_range {
--    uint64_t address;
--    uint32_t page_count;
--    uint32_t reserved;
--};
--
--/* Composite memory region descriptor */
--struct ffa_mem_region {
--    uint32_t total_page_count;
--    uint32_t address_range_count;
--    uint64_t reserved;
--    struct ffa_address_range address_range_array[];
--};
--
- /* Memory access permissions descriptor */
- struct ffa_mem_access_perm {
-     uint16_t endpoint_id;
+     /* +1 since 0 is reserved for the hypervisor in FF-A */
 -- 
 2.47.0
 
