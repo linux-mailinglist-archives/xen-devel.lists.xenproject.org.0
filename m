@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F90B9DA5A6
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:23:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844618.1260104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A8739DA5D6
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:32:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844630.1260116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGFBx-0005pk-Pf; Wed, 27 Nov 2024 10:22:41 +0000
+	id 1tGFLS-0007kP-Lg; Wed, 27 Nov 2024 10:32:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844618.1260104; Wed, 27 Nov 2024 10:22:41 +0000
+Received: by outflank-mailman (output) from mailman id 844630.1260116; Wed, 27 Nov 2024 10:32:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGFBx-0005nU-Mv; Wed, 27 Nov 2024 10:22:41 +0000
-Received: by outflank-mailman (input) for mailman id 844618;
- Wed, 27 Nov 2024 10:22:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tGFLS-0007hI-IS; Wed, 27 Nov 2024 10:32:30 +0000
+Received: by outflank-mailman (input) for mailman id 844630;
+ Wed, 27 Nov 2024 10:32:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=owYM=SW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGFBw-0005nO-M4
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:22:40 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85c9d97f-aca9-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 11:22:36 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-434a852bb6eso11679775e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 02:22:36 -0800 (PST)
+ id 1tGFLQ-0007hC-Qr
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:32:28 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3f89ba3-acaa-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 11:32:24 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-434a2033562so21721135e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 02:32:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3825fbedfccsm15823304f8f.101.2024.11.27.02.22.35
+ 5b1f17b1804b1-434aa7cdd64sm16505895e9.26.2024.11.27.02.32.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 02:22:35 -0800 (PST)
+ Wed, 27 Nov 2024 02:32:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85c9d97f-aca9-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzMiLCJoZWxvIjoibWFpbC13bTEteDMzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijg1YzlkOTdmLWFjYTktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzAyOTU2Ljc3NTAxMywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: e3f89ba3-acaa-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmMiLCJoZWxvIjoibWFpbC13bTEteDMyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImUzZjg5YmEzLWFjYWEtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzAzNTQ0LjM0NzQzNiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732702956; x=1733307756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732703543; x=1733308343; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GwU0VI/DWcd9IATRJO1XDest4Rb9ifvpjNXE7LPL7XM=;
-        b=W7qwCLNNYrZr3zXMgVAhSGNFKb3FEE+9sm1KLXKOucGr0Bp7qgSNC6OV8zkreHrU6e
-         JJPAvD/hyS+kOtaOJxBQY1QycQri+o4cHKlyckVTqOy7dCIB5riKdDnhio3w5/bPj9It
-         6EliVot3HCtvdihuWpSSyyB2kR72Bb+J5n4LC2v9ogheUTgd8qvOC+uQIXMEjnENbrW4
-         hPamnyM2XZcq/8OsIPLjbshFtvnctX7YCYnXDL0mBHIuaCpIsWC8Odr4rCuZU9i52mqb
-         p+3YOogkS4t/y+puJi/niHlKwzVa44ZeXPvFPDfWN2N3ezdNByBU1fQVdIbu86EIJ0jy
-         AvAA==
+        bh=wBkBqar7unopO8folyoovjZByPW3iT0Wg/av+QUdAA4=;
+        b=Vkh7RNqZW8MNIwMQ7gfZzAtkdSAbdyVNjmax5uoLB0IF838bF0zitqig+nwRfqk6VZ
+         WA8ygsZO7/IUMb7ER5ZDo/8fxGpbCclTZT+fGcOJT8sqD2xYV4Pl5T/9CeNYxvksX+br
+         oRWub1cOo7uv4jtJ+LZGDdgh9A0dO01cde27rU8YXB5d4k6ugioLnu0MgokpuX8joFG+
+         8wiEL1avANRiR93uaLFlc5ltw7fx8BsD2p3gNIz1Vbq5bh8HKPOlevSqOoSOD9PTcsER
+         dSnYAo2wMuP287b1wtOqC80MNj8ilL3dqVGQUf7ZtOuJ1SQmXGf2/m2c2lRe5hhVqoFH
+         akzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732702956; x=1733307756;
+        d=1e100.net; s=20230601; t=1732703543; x=1733308343;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GwU0VI/DWcd9IATRJO1XDest4Rb9ifvpjNXE7LPL7XM=;
-        b=vBFJteoNuTRmUGpUakB6FthqPkoB34x48yTHJ7EMlogSREk17CYbyPEjFV6HIjd5AO
-         Oy4O+RhSTpKLVbjkmOzHs9hevq7gGDkqooFigJ5wINI3td/jDzm1V7D81Nzmmi+Ofuk0
-         f5bWWZ9RPd6RJb16OjEe2pvoJf7RU+l3sN6KMtuDAewI2GeNu08t0ER6KwXQB5mWeRxy
-         QTV+ube+9CdM8VhJ4Zv1P8DVteeZ+qA3KhJLGczzJjheDzMYVvSiXb9ytJslsJote67c
-         mAVFOhaRCvSoo/K8mlXtYBJE3VNSxAkhB+wFw/slVPfkrxNoDJm2oKZW525NR9TkH/WW
-         0a8A==
-X-Forwarded-Encrypted: i=1; AJvYcCXYYxyDq8N/n4PfFGpqJp3eb83SSfmq9M+L6sCazTbXMPuQAyD7F+lUUHeZ3zfRnjUkGyfXMBWeeL0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8D0NQO0ZVrv2GitdCahYU9E1QvtmA9Zu7q1HK+cTwzz9XaC2Z
-	BMRmLJKc/NXsL9hEAlfMjf/MOPCAzVzwbuRTtO72hthsrkiZZGO0fvMMnIeMqw==
-X-Gm-Gg: ASbGncuzNOrK5+XTkc05NQcR93szE6hJuP6ziNMudwZDv9vYJtorF/SQ686j4/9Bare
-	eAG3cDIrNgkwFMsCkXjrCmD0SX8LM+EwnEfjQ7QcXp8Tvr14e2lbje53PvMalRzP4w+A98kRqi6
-	JIwMsXhzE5QpB8wdfcfCBfDQ2zIySezmZ37puTV62ZxtdHgeNPCj/hg44ZThijR0GKWba2qPI7D
-	qVWu/qbZlRWdY4kImCKvJwv4aXDoru9eO8Gem78gBXUZy/6dTk8EoAOGBOm+6JQVyM53v4fbIij
-	ToklYVYXKAnHHTxeT8FinMB7r8a4QF/Itu4=
-X-Google-Smtp-Source: AGHT+IHmWs6n7aPb3iYgBymdJMU22INGjQDeJUlyZ/mePCE25D4+Xy1VZLAkD1NT29UoQvHouVFnpA==
-X-Received: by 2002:a05:6000:4708:b0:382:5010:c8da with SMTP id ffacd0b85a97d-385c6ee187bmr2151923f8f.59.1732702956235;
-        Wed, 27 Nov 2024 02:22:36 -0800 (PST)
-Message-ID: <6c2defc4-f8ae-4d5a-a9b8-721f168e6520@suse.com>
-Date: Wed, 27 Nov 2024 11:22:34 +0100
+        bh=wBkBqar7unopO8folyoovjZByPW3iT0Wg/av+QUdAA4=;
+        b=Zz2w13CrHPYUgwzXIusYXi4WPR7RV56QT1dBibgiPx1nZP164ZF2HkWj+d2zfYnqhn
+         DaJIyIwfo34A/XedQjdA9Ey8Ah8FHMg3DNrMAmK+m+OEYa2p50xiiduEIBHrWBRCjWPw
+         yX3TArGn/TdZRVxDoBW7d6N1aUdWKu8MA0gTFbl/CiHVdamhO1qyRT+8tgB3TEcm43tb
+         9Rz+YUc0N7aEt24JXijB4dBp6yUZMDfty8brCecP7GBA6car/9FtAe0uQWCMiOOWzrt7
+         13saT6q1skJS5XMXgMYLV2WN14eWwY577AeUSsx65CabW8pirzrE/8DFunDnsm3PFiSQ
+         03/g==
+X-Forwarded-Encrypted: i=1; AJvYcCWa3+WFTs9an1M6pLg3yVSr0zZe55b1STx71RODNM6GD6bjIL0ep/fco5+g2832CbGZ8jRdgATZaAU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbM6ffQ3HjhlDXfHnPwNmOSIu9YsjyrQwcPFKsDw7cSSIREIhs
+	L+6tM6Vnhhnu9iRjFHZH2wjKTccLVs6hjIZyzQDQ9x9DkH80ikKfDtXsnGG8Gg==
+X-Gm-Gg: ASbGncura9u1BpBDN74ejI4aD2epuaY1NL6nYaxlqaMEYYup8lFwMvEhDTt2Vgm8QYm
+	m5uKPgfk4vppT8vQbvBHUhXfRJwKcRYUGmxTddN2nqGw61Y1OPZxxA0NJS3gkqO9x718lWAtPwu
+	sZ4YYKvIo7cb4b33EyMQShpDkztHyH8a4bl0IlwyiktfVJaSXI1eIbS6+R2JukU1tt9ReHHcm/e
+	xDWTJy+x8Y2eLDuiqAE2SAG4QLdsBkhr3wsHgrdECTcMReJRjnEBPaRBgx3asdwtz/I+3OeinXW
+	vglrOTH7+qfDaW/ysKr+lkD8Ptg1tSe6zlk=
+X-Google-Smtp-Source: AGHT+IGT/DuguTEWwIOXFXA23x9ynToqtqp1XWDuB1iZF7zA3+YDZ4GMF0nhZWKfwZAQ7Wy6uU4JoA==
+X-Received: by 2002:a05:600c:4f08:b0:434:a39b:5e46 with SMTP id 5b1f17b1804b1-434a9dbbba1mr20577305e9.7.1732703543596;
+        Wed, 27 Nov 2024 02:32:23 -0800 (PST)
+Message-ID: <bfbd15eb-9888-4988-b9a1-8191a696a4c2@suse.com>
+Date: Wed, 27 Nov 2024 11:32:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/6] x86/boot: introduce boot domain
+Subject: Re: [PATCH v9 5/6] x86/boot: introduce domid field to struct
+ boot_domain
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
- <20241115131204.32135-5-dpsmith@apertussolutions.com>
+ <20241115131204.32135-6-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,53 +122,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241115131204.32135-5-dpsmith@apertussolutions.com>
+In-Reply-To: <20241115131204.32135-6-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.11.2024 14:12, Daniel P. Smith wrote:
-> --- /dev/null
+> Add a domid field to struct boot_domain to hold the assigned domain id for the
+> domain. During initialization, ensure all instances of struct boot_domain have
+> the invalid domid to ensure that the domid must be set either by convention or
+> configuration.
+
+I'm missing the "why" part here - after all ...
+
+> --- a/xen/arch/x86/include/asm/bootdomain.h
 > +++ b/xen/arch/x86/include/asm/bootdomain.h
-> @@ -0,0 +1,31 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (c) 2024 Apertus Solutions, LLC
-> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
-> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
-> + */
-> +
-> +#ifndef __XEN_X86_BOOTDOMAIN_H__
-> +#define __XEN_X86_BOOTDOMAIN_H__
-> +
-> +struct boot_module;
-> +struct domain;
-
-You don't really need these, do you? The uses ...
-
-> +struct boot_domain {
-> +    struct boot_module *kernel;
-> +    struct boot_module *ramdisk;
-> +
-> +    struct domain *d;
-> +};
-
-... here still introduce the struct tags into global scope, unlike for C++
-and unlike ...
-
-> --- a/xen/arch/x86/include/asm/dom0_build.h
-> +++ b/xen/arch/x86/include/asm/dom0_build.h
-> @@ -13,9 +13,9 @@ unsigned long dom0_compute_nr_pages(struct domain *d,
->                                      unsigned long initrd_len);
->  int dom0_setup_permissions(struct domain *d);
+> @@ -12,6 +12,8 @@ struct boot_module;
+>  struct domain;
 >  
-> -struct boot_info;
-> -int dom0_construct_pv(struct boot_info *bi, struct domain *d);
-> -int dom0_construct_pvh(struct boot_info *bi, struct domain *d);
-> +struct boot_domain;
-> +int dom0_construct_pv(struct boot_domain *bd);
-> +int dom0_construct_pvh(struct boot_domain *bd);
+>  struct boot_domain {
+> +    domid_t domid;
+> +
+>      struct boot_module *kernel;
+>      struct boot_module *ramdisk;
+>  
 
-... when used in prototypes.
+... just out of context here there is struct domain *. I can only guess that
+the domain ID is needed for the time until the domain pointer was actually
+filled.
+
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -339,6 +339,9 @@ static struct boot_info *__init multiboot_fill_boot_info(
+>      /* Variable 'i' should be one entry past the last module. */
+>      bi->mods[i].type = BOOTMOD_XEN;
+>  
+> +    for ( i = 0; i < MAX_NR_BOOTDOMS; i++ )
+> +        bi->domains[i].domid = DOMID_INVALID;
+
+Generally I think ARRAY_SIZE() is better to use for loop boundaries. Yet
+then - why don't you statically initialize the array in xen_boot_info?
+
+> @@ -977,7 +980,6 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>      };
+>      struct boot_domain *bd = &bi->domains[0];
+>      struct domain *d;
+> -    domid_t domid;
+>  
+>      if ( opt_dom0_pvh )
+>      {
+> @@ -993,15 +995,15 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+>  
+>      /* Create initial domain.  Not d0 for pvshim. */
+> -    domid = get_initial_domain_id();
+> -    d = domain_create(domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
+> +    bd->domid = get_initial_domain_id();
+> +    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
+>      if ( IS_ERR(d) )
+> -        panic("Error creating d%u: %ld\n", domid, PTR_ERR(d));
+> +        panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+
+As to the comment at the top - this change alone certainly doesn't clarify
+the "why".
+
+>      init_dom0_cpuid_policy(d);
+>  
+>      if ( alloc_dom0_vcpu0(d) == NULL )
+> -        panic("Error creating d%uv0\n", domid);
+> +        panic("Error creating d%uv0\n", bd->domid);
+
+Imo this would better use d->domain_id. And while touching it, %u would also
+want swapping for %d.
 
 Jan
 
