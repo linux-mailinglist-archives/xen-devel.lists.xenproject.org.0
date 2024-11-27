@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F409DAB6B
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 17:08:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844888.1260401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B4EF9DAB64
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 17:08:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844889.1260412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGKa0-0002rc-Sb; Wed, 27 Nov 2024 16:07:52 +0000
+	id 1tGKa8-00037v-4k; Wed, 27 Nov 2024 16:08:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844888.1260401; Wed, 27 Nov 2024 16:07:52 +0000
+Received: by outflank-mailman (output) from mailman id 844889.1260412; Wed, 27 Nov 2024 16:08:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGKa0-0002q8-Pa; Wed, 27 Nov 2024 16:07:52 +0000
-Received: by outflank-mailman (input) for mailman id 844888;
- Wed, 27 Nov 2024 16:07:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tGKa8-000353-1T; Wed, 27 Nov 2024 16:08:00 +0000
+Received: by outflank-mailman (input) for mailman id 844889;
+ Wed, 27 Nov 2024 16:07:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k0uU=SW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGKa0-0002q2-5W
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 16:07:52 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bcf9357c-acd9-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 17:07:45 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-aa539d2b4b2so186837366b.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 08:07:45 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa53683eafbsm564294866b.189.2024.11.27.08.01.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 08:01:26 -0800 (PST)
+ <SRS0=8BRf=SW=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1tGKa7-00034d-8u
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 16:07:59 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id c2416068-acd9-11ef-99a3-01e77a169b0f;
+ Wed, 27 Nov 2024 17:07:54 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8617E1477;
+ Wed, 27 Nov 2024 08:08:23 -0800 (PST)
+Received: from C3HXLD123V.arm.com (unknown [10.57.58.181])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1F7793F5A1;
+ Wed, 27 Nov 2024 08:07:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +42,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcf9357c-acd9-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzMiLCJoZWxvIjoibWFpbC1lajEteDYzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImJjZjkzNTdjLWFjZDktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzIzNjY1LjYyNDczOSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732723665; x=1733328465; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QOajJGkqrRzAKADAAd0z4wDNLTiv7h8Mem5y4HKc3DQ=;
-        b=hOWNmhJnZy0COtCr/l1ExzOmiLpjSEv7wlUmBY3/TVmeWw8vHp1TTBpRt4sdj2yAcE
-         wF7Hr51v0iJT4umnAASrHUU24OuPbgDzEfX0nSCK3BzGt/nIVzL2GuPfk1DYzmoWN7Tl
-         iy72I36TdqFm4C40x+58k0ExdMip/SKFGHp+8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732723665; x=1733328465;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QOajJGkqrRzAKADAAd0z4wDNLTiv7h8Mem5y4HKc3DQ=;
-        b=s/rBpy1vBlEwTOZg9tAh+NkKeNeaEvNDlblkCQHHazMrr/RJApmi1ZzSdsJTo+syqL
-         stbKzeriTNs4jw15fUOfMHD1GTif0+51NxZxKvvZNe+UigyyHuCeSIr1c4kUbP+1+FW+
-         8A1F6iFakvPlQEkNRDu8F2OxLwjxdj1I5JrlREv8lDW/mbA936vUxDmYPG0omYLBanN3
-         1BShaY4546w4aYTx3/4iP5DqC1YsWdPgHjiQNy+lrU50G30j4o9Cz0KDjoKXw3aveaCn
-         c67aV4qoC4i94KfRjz814jOQKqN9+Ul0TS8xQPbJZ5IBNGapqi9rgGkUCDObK18hACvV
-         A0jQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUYrn2TCprcnRgXUmhMI5sBZfOSbwP6UFLwtiJnDBDW1YRa/nYVRLpeOpYO0lix/pzj9QYGIZrIWpY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YznKNUgIZ2UtIK8NoZ0uW6d4XaXf1ATgW0tHJI5n5vK3hRQWDaV
-	euQSD/uIdbIqMTnjuVYXh+BEBVm+Wbq2Wr6ZxhvycakS5d/w2QG9xH4lMR+jhThOdY0QXBVmXv9
-	9
-X-Gm-Gg: ASbGncsv9S9pvjwfU3v+aksYr2muX0Alrki/Ym7b3043rolwc+DO9FQwXKYIJ4cKE9g
-	j7dZNxZjH0F07MlTTP385pOQqdSMwGRWPjCd4S6IqroKDuNEFJSw3BiiuSPGotGZ3oeaFzHbVLW
-	HVE/RN/u1VYsQWUnpXPGZq+rmAolVzJ8t2yy1WF1ItLP353RMgiVVFg2wHn6by5eaP3RzAJHrx4
-	wzoAlOGyeQr7/mTCTAjOv1U2KkHpqNEKSx4TtDeICpYJ2/ki22pqIcy8ireRFc=
-X-Google-Smtp-Source: AGHT+IGPnZhdvtnmsbSlmCcmCjJBUEl9+5gdqhl3v+xdk9DnErnQuzIpauOLC/heQXuhIXf3X+AW6Q==
-X-Received: by 2002:a17:906:3ca9:b0:a9a:616c:459e with SMTP id a640c23a62f3a-aa57fbe94f9mr353507966b.27.1732723286833;
-        Wed, 27 Nov 2024 08:01:26 -0800 (PST)
-Message-ID: <c4b7b7bc-1956-444b-a613-971a60f9a27e@citrix.com>
-Date: Wed, 27 Nov 2024 16:01:23 +0000
+X-Inumbo-ID: c2416068-acd9-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxNy4xNDAuMTEwLjE3MiIsImhlbG8iOiJmb3NzLmFybS5jb20ifQ==
+X-Custom-Transaction: eyJpZCI6ImMyNDE2MDY4LWFjZDktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzIzNjc0LjYwODgzMiwic2VuZGVyIjoiYmVydHJhbmQubWFycXVpc0Bhcm0uY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: jens.wiklander@linaro.org,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: [PATCH v3 00/10] xen/arm: ffa: Improvements and fixes
+Date: Wed, 27 Nov 2024 17:07:32 +0100
+Message-ID: <cover.1732702210.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul: MOVBE requires a memory operand
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <157a6ac0-6929-4e01-8588-7e5591427654@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <157a6ac0-6929-4e01-8588-7e5591427654@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/11/2024 7:15 am, Jan Beulich wrote:
-> The reg-reg forms should cause #UD; they come into existence only with
-> APX, where MOVBE also extends BSWAP (for the latter not being "eligible"
-> to a REX2 prefix).
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+This serie contains various patches to rework how firmware discovery and
+feature detection is done and allow to have a more fine granular
+filtering of the calls we do or not to the firmware.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+There is also a patch introducing the use of the "bit 15" convention
+from the FF-A specification to distinguish between secure and non-secure
+identifiers as Xen VM IDs cannot have bit 15 set.
+
+Finally we introduce support for indirect messages and for that we
+transmit the RXTX buffers to the SPMC and we put the message related
+functions into their own source file.
+
+Changes in v3:
+- add some comments in code
+- add some R-b from Jens
+- handle comments from Jens (details in each patch)
+- rebase on top of latest staging
+
+Changes in v2:
+- do not activate FF-A if firmware does not support it
+- various clean up and small fixes explained in each patch
+- rebase on top of latest staging
+
+
+Bertrand Marquis (10):
+  xen/arm: ffa: Rework firmware discovery
+  xen/arm: ffa: Rework feature discovery
+  xen/arm: ffa: Fix version negotiation
+  xen/arm: ffa: Fine granular call support
+  xen/arm: ffa: Rework partition info get
+  xen/arm: ffa: Use bit 15 convention for SPs
+  xen/arm: ffa: Transmit RXTX buffers to the SPMC
+  xen/arm: ffa: move message function into ffa_msg.c
+  xen/arm: ffa: Remove per VM notif_enabled
+  xen/arm: ffa: Add indirect message support
+
+ xen/arch/arm/tee/Makefile       |   1 +
+ xen/arch/arm/tee/ffa.c          | 251 +++++++++++++++-----------------
+ xen/arch/arm/tee/ffa_msg.c      | 130 +++++++++++++++++
+ xen/arch/arm/tee/ffa_notif.c    |  21 +--
+ xen/arch/arm/tee/ffa_partinfo.c | 234 ++++++++++++++++++++---------
+ xen/arch/arm/tee/ffa_private.h  |  79 ++++++++--
+ xen/arch/arm/tee/ffa_rxtx.c     | 169 +++++++++++++++++----
+ xen/arch/arm/tee/ffa_shm.c      |  39 +++--
+ 8 files changed, 654 insertions(+), 270 deletions(-)
+ create mode 100644 xen/arch/arm/tee/ffa_msg.c
+
+-- 
+2.47.0
+
 
