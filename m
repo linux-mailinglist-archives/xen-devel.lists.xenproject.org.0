@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 076969DACD1
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 19:04:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845043.1260540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938289DAD41
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 19:39:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845059.1260555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGMOH-0007VK-3x; Wed, 27 Nov 2024 18:03:53 +0000
+	id 1tGMwj-0003gi-UM; Wed, 27 Nov 2024 18:39:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845043.1260540; Wed, 27 Nov 2024 18:03:53 +0000
+Received: by outflank-mailman (output) from mailman id 845059.1260555; Wed, 27 Nov 2024 18:39:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGMOH-0007Sc-0i; Wed, 27 Nov 2024 18:03:53 +0000
-Received: by outflank-mailman (input) for mailman id 845043;
- Wed, 27 Nov 2024 18:03:51 +0000
+	id 1tGMwj-0003fF-RT; Wed, 27 Nov 2024 18:39:29 +0000
+Received: by outflank-mailman (input) for mailman id 845059;
+ Wed, 27 Nov 2024 18:39:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k0uU=SW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGMOF-0007SS-Qc
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 18:03:51 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ <SRS0=UPyn=SW=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1tGMwh-0003ey-Vk
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 18:39:28 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20612.outbound.protection.outlook.com
+ [2a01:111:f403:2412::612])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f24db905-ace9-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 19:03:46 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-53df1e0641fso987194e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 10:03:46 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa50b2f0ebfsm730211466b.52.2024.11.27.10.03.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 10:03:45 -0800 (PST)
+ id e8dcdf96-acee-11ef-99a3-01e77a169b0f;
+ Wed, 27 Nov 2024 19:39:19 +0100 (CET)
+Received: from BY5PR20CA0017.namprd20.prod.outlook.com (2603:10b6:a03:1f4::30)
+ by PH0PR12MB8031.namprd12.prod.outlook.com (2603:10b6:510:28e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.13; Wed, 27 Nov
+ 2024 18:39:13 +0000
+Received: from CO1PEPF000075EE.namprd03.prod.outlook.com
+ (2603:10b6:a03:1f4:cafe::bb) by BY5PR20CA0017.outlook.office365.com
+ (2603:10b6:a03:1f4::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.12 via Frontend Transport; Wed,
+ 27 Nov 2024 18:39:13 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000075EE.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8207.12 via Frontend Transport; Wed, 27 Nov 2024 18:39:12 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Nov
+ 2024 12:39:11 -0600
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Wed, 27 Nov 2024 12:39:10 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +59,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f24db905-ace9-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMmEiLCJoZWxvIjoibWFpbC1sZjEteDEyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImYyNGRiOTA1LWFjZTktMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzMwNjI2LjU0NzkyNSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732730626; x=1733335426; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DZqwZPyMlQBYajamrm7edqHvtJ4AI1FlvEr5Qgjg2q0=;
-        b=FaqNPHGM1PA9AB2iWx9Ugr9rHhb5cTi9VTizDJzb4+4sXl5ePsmHBXxY0LIRuEIbUe
-         4GVKCij7iK+tK87BYWmOIbXW0w2Xz5YJimL2xJHBjlzQyn0BBaDnw3G0pOBBUvF4F/Ij
-         UrROUZA+GzZcojQ8Erx9LqQbCvhntF4MlH798=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732730626; x=1733335426;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DZqwZPyMlQBYajamrm7edqHvtJ4AI1FlvEr5Qgjg2q0=;
-        b=KXreIWfCcit4Phos0XPii4o1t+P0n97dDoSov1PH0OHhbcjUqRfVvoaDtUAFwkR8x0
-         XHLLSlLmTtnfix55bss17wBmDRlW8NXrNYv0y9CerXVGrONKoF+PD+GTRRvyrKqTkYBF
-         tScDJ9g0WUM+nTSC7++gj59S2ygMb1bDtDi+9VHYyf0VCC9XipV9qI3OQT+o/H2Yu6Dy
-         i+sT/TzGMwhNs9bvDwB506PkbYHmlmnk+XNQtnKOG/+TQnUPbFO6XMRthMOIY0kkLEoj
-         oprOJQEDB6hgj6zw53dnPkJKklkXO6NdDiofAgvrVe29UrZHIr1RWMnEZEsTZkzG6M96
-         oOFg==
-X-Gm-Message-State: AOJu0YyZG6xVJN0AQIyBUSgyMRSn7MBrxxQfvrIl8pqKmYj2SpHJKO8V
-	mTHIdjM8CeqStVUzBw5O3VAnXlyzdzppy7vfFuw1RZOxcE/cRP88u7AJXIIspeY=
-X-Gm-Gg: ASbGncv+7Q7WZKrdt8D3WqoeUQddrYC9wOn/E0+fA9iGxPQZKJSOMlmbahPmd0EqBST
-	F5eVocyyo0YuPee7HSld5vDb64G1JtfaOQ8WGC8G3g7XqEoVCjsa8cJGblpPhcnVNoF4H3KAhUG
-	/F/+N9ZG7x+GySgKXuQv71NevG0hMADrSNcXZ2qAky24q2YybvSniEeGxoNSSEzRfQljCHIXKaS
-	dxPPUvknmDXyI2yz/zEDKQDtcSLnULCpAazvDsVBpREkTaoh5gy+veSkVk6D/8=
-X-Google-Smtp-Source: AGHT+IE69zGi1v/VssdvbkvWD1TPio3LKKbst0mDUQmfiGDNhATg4ObEpIIvO2ZTxPOZoYvy4aV7EQ==
-X-Received: by 2002:a05:6512:3d24:b0:53d:ab0d:b9ef with SMTP id 2adb3069b0e04-53df0106c38mr2514897e87.43.1732730625743;
-        Wed, 27 Nov 2024 10:03:45 -0800 (PST)
-Message-ID: <814813b6-f3f5-41eb-ba97-18e373670ef9@citrix.com>
-Date: Wed, 27 Nov 2024 18:03:43 +0000
+X-Inumbo-ID: e8dcdf96-acee-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxMjo6NjEyIiwiaGVsbyI6Ik5BTTEwLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImU4ZGNkZjk2LWFjZWUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzMyNzU5Ljg2NTAxMywic2VuZGVyIjoiYXlhbi5rdW1hci5oYWxkZXJAYW1kLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XSF+IqXcbVUw6nK9/g9b30BuVDq8uBmfqakTP9rwi1sNQbWzebmRETvjWA+nbR4ZDftX/6k3od7GDMnL9BB7uLYm05IIuANcPCHbnWidE9BguP0AjsmVSBFXeCOpQcT0nbR6pEtmiGEiZ4zzfEKKJT8BUUzIFxNQPq3RuYTHylJ8Jx/drncRN/P2N9NAp/IS0BcbPoApGhuckiTM07fuLMZlPZwhrPOtGISAOJqc35VAWVnr94ZQcjuoQG+2ZbKr0i/UT2XfWzKnrNNemTKlY6A8Jj3S+b3bD/IR8rOIMkJ4WnfEGyV1tDubUaCmrRXaQl8CWI6i0W4USIaj7cwdbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3yxzhZAhRbX3t641mXMQ9ylAN1Wld0qdxw4trJkAYKI=;
+ b=eGT6X20NGNCV/m3nW4V5e/Zwoul2wBo+S0t6PhJWNvbbHITVoxv9JuJq3fXNtu3ddZlkCi0780dBYo1HFMXqznBJLMQKxqGsW2XFM7Tc43eqlrKsX0D23vmPCBZhAR12GfKKiAEJaDnCc5O/2Vfb2mFzkjRwC2zFz1tMctaYW2BYvETaSx4NIzkHHV/hfI7CY/oxfgtz815rCN0AXbfavdLaYHCt4Hrl0pb+tbZl+P6UgCB4oSaF2QW2F/tOnZJ5DpFrNxf30btyV7iExo+RQuu9Ep9b3lzh3w/h5gYvJsJHWzBE7iliKBd8Zh5QebO1474hQbHHPifT31RqdDXrRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3yxzhZAhRbX3t641mXMQ9ylAN1Wld0qdxw4trJkAYKI=;
+ b=yPemZlnfgKdpG4VE7icsw3v+o4YNrNtGSGRrT+lQIMKjVH/YMTNtMj+L9D77L5vx394uBqh6TTlQ+Lx3SJEVgCuuypdn62Mn/7bJ8+pYKGJtVg6OkvyWyRpSd4Jp3Egyi9Vv+byZDDBnEMKdbfplHGuoTAjJ/5JlzqVZSzNTPlk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 0/2] Enable early bootup of AArch64 MPU systems (Part 2)
+Date: Wed, 27 Nov 2024 18:39:04 +0000
+Message-ID: <20241127183906.485824-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/APIC: Remove workaround Pentium 3AP APIC_ESR erratum
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, Javi Merino <javi.merino@cloud.com>
-References: <3270b77c005745dcf56cc833bdf3e4c703190b05.1732639041.git.javi.merino@cloud.com>
- <20241126205859.23090-1-andrew.cooper3@citrix.com> <Z0bajveZYoKu3qE4@macbook>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Z0bajveZYoKu3qE4@macbook>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EE:EE_|PH0PR12MB8031:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d747163-fce7-40a4-f266-08dd0f12c9fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?xWmQBoTwt6HO6NVMNBhEIPTbHSRGYCuFSWRuAYnSBwp4aT4g5sX3wEAxWRQ1?=
+ =?us-ascii?Q?cf8TojrwPDhF2fsB1aWBB9gi2oivBgMPB7lpfHjT3BG/jYyIGcdjfGz00DIG?=
+ =?us-ascii?Q?vIZpyBRYe7DJZTZcQoCK8zj9IR3jRG2kHd89Prawfrx5UZxjQI/Ol1a3eaVv?=
+ =?us-ascii?Q?uzgR/3rftaksiD3ByWFIxPQ+2hNlfnzrcetD8pwsc2LMelVHd37pQAIk+FYL?=
+ =?us-ascii?Q?nLEMmU8wQ13ZDy9zd7IbUDTczrnvucLLvFsk1efKegS3fh73F+r7Cs8drtIL?=
+ =?us-ascii?Q?HJNbGBlrWoJq1Xmpk3jY3lQHrLNyF9pPRQnaJynMgk+irdwAEZ25hP3ZvY2e?=
+ =?us-ascii?Q?2gFEPPRgI9/8TSDcVen/q88PEqksFOKiPxSOTdajthVFA7p3KByOtp/2p7sm?=
+ =?us-ascii?Q?ILaB6HzNg2ZmUkvq+XXlg8UlZtiXys8KPjmCBm9ko1G9u3GHE/n1+pNx+TTK?=
+ =?us-ascii?Q?DsIpVQ06B+8y+Ts5/zYyJEVUA/GDVg7qJMFWpfhcvjPy0d8EigzZxdE4EghT?=
+ =?us-ascii?Q?st9kxOGkUHDef4vXLlY5vooWLpFMvsAzT1g2Q4fWWaGGrUP8cTf+rkVD9aFv?=
+ =?us-ascii?Q?hDufKD/sisjOBwlgDn9VNBZPPeYHGlNJk2OQW5nHh9+mOWPW9p4CrVcxWGIh?=
+ =?us-ascii?Q?uOQuKqgKkKNPBqVayEwywqA/ytgucJDIbLLr0UZgS6VkWBOOsA7f0rlk9Pvy?=
+ =?us-ascii?Q?L9werOVK6pL3ErblmDVJKke8xlx5SBnhX7TNzT5pUrzN0/+AIkcGsMYy8I1A?=
+ =?us-ascii?Q?KS1ZB1LkSq5huemdrWUwTYf2Iv4coY9UCgocnsSvG8cmbwXzFdILwDHN+FMW?=
+ =?us-ascii?Q?/ecRMNjTREcodjELWgo7ry0xAfcZdO1J/3F0+ZEdDSlVsRsiGTFZq728lpYg?=
+ =?us-ascii?Q?0jLMVj9cn/4Fk5iS34PxhvGm5lHClAaA6Y/wJI5XdiEwNcpW32a5107e+ZMe?=
+ =?us-ascii?Q?bDpSloCKC33xb9587/ogjkKPbBo6O/OevYNSQD/8rEOv+AG24qIh0XKnlihT?=
+ =?us-ascii?Q?bT7AQHqf1iasXwqvvVQkjUNudq+zGyw+rs4yos+jeS0tKtazPRFtgNMFP8nX?=
+ =?us-ascii?Q?ZYlf4u8Dos5P4J/MBEmQt80RpD0uZXGFrHtE9bVsrRQLLR//fu1G5puRX7H5?=
+ =?us-ascii?Q?IHnbWAFsc5wQGlDFS4GNrRhMGrBQThdGSX0q2ylWljdJ0docEXYRGk8VbSkF?=
+ =?us-ascii?Q?V3H6/t0WSxH62eo60pWQhuO+sXid9IFnR4RT01HgGurFBTEN+rWOBWqs3Zi/?=
+ =?us-ascii?Q?oJxA2fyL8f6sHWi/G26Fxsb2HuKbwhNR4IlXeBlXx+Y+sX5ueNtkkwmyC55O?=
+ =?us-ascii?Q?cjdW/h+XzHdnPxA1IP2vkv+Ia1oIp34YG76RYSMQRrqt/omcJXSX96/YoDWx?=
+ =?us-ascii?Q?4JloGOC5TjZ65fcrCqB0mwqdIUi6kJEyzhWrw622HcSOv4EdLqb6rUtVlpi5?=
+ =?us-ascii?Q?2zRS49+1AYg939YBKSthxNWmVTr5bIu0?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2024 18:39:12.7254
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d747163-fce7-40a4-f266-08dd0f12c9fa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000075EE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8031
 
-On 27/11/2024 8:38 am, Roger Pau Monné wrote:
-> On Tue, Nov 26, 2024 at 08:58:59PM +0000, Andrew Cooper wrote:
->> The SDM instructs software to write 0 to ESR prior to reading it.  However,
->> due to an original Pentium erratum, most logic skips the write based on there
->> being more than 3 LVTs; a stand-in to identify the Pentium.
->>
->> Xen, being 64bit, doesn't need compatibility for i586 processors.
->>
->> Introduce a new apic_read_esr() helper, quoting the SDM to explain why a
->> function named apic_read_esr() has a write in it too.
->>
->> Use the new helper throughout apic.c and smpboot.c, which allows us to remove
->> some useless reads of APIC_LVR.  This in turn removes the external callers of
->> get_maxlvt(), so make it local to apic.c
->>
->> No practical change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
->
-> Just a couple of nits.
+This patch serie concludes earlyboot support for Arm-v8R AArch64 MPU systems.
 
-Thanks, but I'm going to intentionally defer the ancillary cleanup for
-later.
+Depends on "[PATCH v6 0/3] Enable early bootup of AArch64 MPU systems".
 
-Yes it should be done, but; while I'm very confident about the fix, if
-it does turn out to break something then I don't want to be "was it a
-different errata, or was it an integer handling change" because both
-will be nasty.
+Ayan Kumar Halder (1):
+  xen/mpu: Map early uart when earlyprintk on
 
-~Andrew
+Penny Zheng (1):
+  xen/mmu: enable SMMU subsystem only in MMU
+
+ xen/arch/arm/Kconfig                    |  4 ++--
+ xen/arch/arm/Kconfig.debug              |  7 +++++++
+ xen/arch/arm/arm64/mpu/head.S           |  9 ++++++++
+ xen/arch/arm/include/asm/early_printk.h | 28 ++++++++++++++++++++++++-
+ 4 files changed, 45 insertions(+), 3 deletions(-)
+
+-- 
+2.25.1
+
 
