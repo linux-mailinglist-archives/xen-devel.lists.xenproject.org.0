@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52FED9DA30F
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 08:26:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844480.1259985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 009279DA315
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 08:28:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844492.1259995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGCRP-0001WU-Sv; Wed, 27 Nov 2024 07:26:27 +0000
+	id 1tGCSi-00026B-A8; Wed, 27 Nov 2024 07:27:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844480.1259985; Wed, 27 Nov 2024 07:26:27 +0000
+Received: by outflank-mailman (output) from mailman id 844492.1259995; Wed, 27 Nov 2024 07:27:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGCRP-0001TW-P4; Wed, 27 Nov 2024 07:26:27 +0000
-Received: by outflank-mailman (input) for mailman id 844480;
- Wed, 27 Nov 2024 07:26:25 +0000
+	id 1tGCSi-00023Y-72; Wed, 27 Nov 2024 07:27:48 +0000
+Received: by outflank-mailman (input) for mailman id 844492;
+ Wed, 27 Nov 2024 07:27:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=owYM=SW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGCRN-0001TK-Pk
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 07:26:25 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1tGCSh-00023S-9L
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 07:27:47 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e583b854-ac90-11ef-99a3-01e77a169b0f;
- Wed, 27 Nov 2024 08:26:19 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-38241435528so4055968f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 23:26:19 -0800 (PST)
+ id 17764bfa-ac91-11ef-99a3-01e77a169b0f;
+ Wed, 27 Nov 2024 08:27:43 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3823cf963f1so4102176f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2024 23:27:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434aa7d1a90sm11745985e9.32.2024.11.26.23.26.17
+ ffacd0b85a97d-3825fad6270sm15382800f8f.14.2024.11.26.23.27.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2024 23:26:18 -0800 (PST)
+ Tue, 26 Nov 2024 23:27:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e583b854-ac90-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzMiLCJoZWxvIjoibWFpbC13cjEteDQzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImU1ODNiODU0LWFjOTAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjkyMzc5Ljk4MjE4OCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 17764bfa-ac91-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmUiLCJoZWxvIjoibWFpbC13cjEteDQyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjE3NzY0YmZhLWFjOTEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNjkyNDYzLjc3OTM0Mywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732692379; x=1733297179; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732692463; x=1733297263; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RoJ+SaTNP9GuzWMj+dBTxdESYt9FOdMe9CsWL5Gn4nA=;
-        b=DMBYI6Q8PAdRwYfosy9mI5kVSGJd3MRWDNh7iBdk74qoR7E7xPsA14pTV8vV900hUJ
-         LJL6ijgPTsMq8773EDI9YxgbvXzqXbxGcGD9GzTnkCbr6TjX+Co9+OXVfx4UCr316zET
-         idDKdIw39UJcIhg2QSO8pOUJfHnCm69TNNRWjc3elpLl9HOsklDbAtvKtiQKlCxYdBk1
-         aKKOq9osPyMPcyrZeoIS2EB7ZJDHDayTe+KQwJmfoC5YEKEbrKacSIGirnf6M+0Zbtmt
-         qohqUIn70ojMkNE8cDm+uFPW26Bd7WSrqj8HRNS2aZ9JFEdFK+9HuJ+UtRg+0O223M2H
-         weJg==
+        bh=9imLK/RWMmt3dOa2HaY/dk0zqUKBQATRJ3bha5+E1D8=;
+        b=E8y9c6LQkib29ohNUCjzIR887uhSSutELhrM4oQQBzPdW7U2YEE4Raih6KJsPbILLm
+         VaAAhKM+KyMlyopH+dkOaMVLyxaNzoD36ndxci/LQZycb8U5JqnuW+1MfDn3Gkdom2Bo
+         TWgM0lOrWZxbGqCeigQUXs5mvCSBHGyo6Ij+0AbVVsouxEF+UKWDdWO34rYBOOrXMRsg
+         8lgF2rND/2Ft864AIPqWk92sZl/ujvrfDMSegI4w1P6I5DuycOY+iyGUIz1J+t0589Ei
+         0PtN0UmexrPQof+JUxPKMtZ+yqCa18PaCEeZp+HQ1vUVy1dtpaJBnMvIXxlNE1tYaNoK
+         MgYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732692379; x=1733297179;
+        d=1e100.net; s=20230601; t=1732692463; x=1733297263;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RoJ+SaTNP9GuzWMj+dBTxdESYt9FOdMe9CsWL5Gn4nA=;
-        b=nTswctLdIOK1ON5uR6rONvPZxVa++FYRzjKBkg53N6NYbn0Vq/Hyr+vGW2uTCXFDGj
-         176MsCcKJmGJkmezaN7YELKjuzXdl0p0Yr3KR+uEFaRee0ngIFBaImZyqFIYUC+nwGFU
-         gcM9OtFWHhuDhNgfAgTG3vZ597lWJ73lnXJv9Xkdrvwn4Y/Du7BtUQ8642irEvNkI6WK
-         uykVTfSBpwP6vdJDy1a4JUPEG2gA3XsnqWBGKzHE/SwLw3ohNOVNoKI2Dnj9bhZjDuVa
-         DxSwToJYet6iimyJQ5QZo+Z2JjNdyS9MWuOQI2FQ8jYcs9oL37q8UwMdcxPs6ERIDGPy
-         Ds5w==
-X-Gm-Message-State: AOJu0Yz/7FckWHdIrYfaU5VRCNQ4zYgHuRYjuoor/Z7S9olMoAp2QcyT
-	XAhw2+/YpyEAy2fj9bxeYeTm4E3S4AzqBjfeBWcVGQ35KDHj5bypLVXMfm1PGw==
-X-Gm-Gg: ASbGnctLhvJh+c6lZDzxoY7cWSauH37NFil7G4PBCvXR2KxTEUgI6FpTcR2pQA55/ES
-	BORf/3rYde9Xtap7CBZnVOSqZKA1Oy5Iz/UixeHxN6qdy+jM8dXXG2W4CDgm4JerY9ZpM3drGxi
-	ch6eD4QDNfghREcMJYR4RxnSHotNaugD1yBAeVHEaEkLFmtf506cfSr7HxcsjCf8dkEDbzDXkd9
-	/BxiklL+3s3JcbktcLhoJjK58godoTR3vVobb15LqsO73yfwhGCFaT7JjXiDB2aD0EyItK/8fa7
-	LTfx+/fcCMUKXw26FL4RaKzaImVXFrX6PPQ=
-X-Google-Smtp-Source: AGHT+IEVxUuITR/wzyFw6qIoT0c3oit0CVnTDSvtSeM3xER/wmrXowTqiP+WvfpMdZAvTPbFh+lgDw==
-X-Received: by 2002:a05:6000:2d07:b0:382:372a:5718 with SMTP id ffacd0b85a97d-385c6ec02cemr966412f8f.26.1732692379309;
-        Tue, 26 Nov 2024 23:26:19 -0800 (PST)
-Message-ID: <298c4fb8-4879-4471-90c0-3a4aa0151686@suse.com>
-Date: Wed, 27 Nov 2024 08:26:16 +0100
+        bh=9imLK/RWMmt3dOa2HaY/dk0zqUKBQATRJ3bha5+E1D8=;
+        b=d/JnnAStkVm/dglFyne9i3WfxzjHRWRxVwkFSsDKbYCqwKMuOnveflT11KmAHi9+QI
+         zqi3CtTfsltzlBvZ8k6ugJQB/7RBKwPRaJ59Wwj5M6wKLvGCYh+nD66aOsHI3XuxwPGD
+         uHmad1J8MMgIJRMLtCEFhYUpc9F2tK6lgzv3+zUq6x4MLh7ypS7bXs1Tw8EOyn1fVvit
+         kSLLQpvTwpAmAenSh/KCacthIxMRLBJHWdOmbgqlnAq6FKTivq6iqNl05jnene3PXluR
+         WuzJ4m4Sl3w9h+I9lJ+e3WgrbsnLbAiUC0Ll4C7unDJ12+f7lLrBJ+45hjH8zxpxyJ0Z
+         E6dA==
+X-Gm-Message-State: AOJu0Yw3RL6H2TNxqdWJgZ69ozUDAsnpWjiRLcPPC1QJAkZyJO73KOAr
+	IhN8u2G6i4AY2zoxZ5uoAOZckIM5teX9h2hQjoXOtoE4rvFPF1EiIEvsMEWDHA==
+X-Gm-Gg: ASbGnctzYQRwgaEqVwjpij9CVRBoXAZqPQGR6Ft0dsemZwtNv2tJtCUgy6iB6qB+rrH
+	/oDFTKNHXxmCHZX+WvywfeaszCdLjUBTOIcRTcLxv/vk/j6EwHwMroGrXj9C/2QuG/C6J7RgLnK
+	DFegyoi43R56/ExAhJuuD2uyc+99QPnh0wycJOs80O6VbjKvN4n2uTn3GrPM+99CjvDRGvL9Zqi
+	q8ahQ6pFn8NOAezPmiUxOtEkMOF3dMu0Ydo7npd13FGLaaZRHi4g1us+2hdESgeIwhZv7sEwQsq
+	egZhd9rI/ojyws1t8GyJXwaAYnRMBfom9KU=
+X-Google-Smtp-Source: AGHT+IG+N9zIJ9z6iykOnERHrSxB2Rx0bVET+rWNJBWASy31bwaVd+9dVnuPqTSiOMs2if7ecb/X+Q==
+X-Received: by 2002:a05:6000:481b:b0:382:4f80:1359 with SMTP id ffacd0b85a97d-385c6eb74d4mr1630838f8f.20.1732692463147;
+        Tue, 26 Nov 2024 23:27:43 -0800 (PST)
+Message-ID: <8a22329c-dee0-4244-b69e-eb55a32f789a@suse.com>
+Date: Wed, 27 Nov 2024 08:27:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/36] Introduce NS8250 UART emulator
+Subject: Re: [PATCH 01/36] x86/setup: fix typo in acpi=off description
 To: dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Christian Lindig <christian.lindig@citrix.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Connor Davis <connojdavis@gmail.com>, Juergen Gross <jgross@suse.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- David Scott <dave@recoil.org>, Rahul Singh <rahul.singh@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
- <c08bd940-a2eb-4fb8-9f8d-2c5f3f1fab54@citrix.com>
+ <20241126-vuart-ns8250-v1-v1-1-87b9a8375b7a@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,88 +119,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c08bd940-a2eb-4fb8-9f8d-2c5f3f1fab54@citrix.com>
+In-Reply-To: <20241126-vuart-ns8250-v1-v1-1-87b9a8375b7a@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.11.2024 00:57, Andrew Cooper wrote:
-> On 26/11/2024 11:21 pm, Denis Mukhin via B4 Relay wrote:
->> The patch series introduces initial in-hypervisor emulator for
->> NS8250/NS16x50-compatible UARTs under CONFIG_HAS_VUART_NS8250.
->>
->> In parallel domain creation scenario (hyperlaunch), NS8520 emulator helps
->> early guest OS bringup debugging, because it eliminates dependency on the
->> external emulator being operational by the time domains are created. Also,
->> there's no early console facility similar to vpl011 to support x86 guest OS
->> bring up.
->>
->> The NS8250 emulator is disabled by default.
->>
->> Series
->> ======
->> - patches 1-2: some miscellaneous random fixes, added into the series
->>   because I stepped into those while debugging NS8250 emulator.
->>
->> - patches 3-14: preparation fixes for xen console and NS8250 emulator.
->>
->> - patches 15-29: xen console driver cleanup and preparation for enabling
->>   physical serial console focus assignment to the guest VM w/ virtual NS8250.
->>
->> - patches 30-36: initial NS8250 emulator. That adds the I/O port emulator
->>   for legacy PC COM UARTs, Kconfig option, enabling emulator and libxl
->>   plumbing.
->>
->> Limitations
->> ===========
->> - Only x86;
->> - Only Linux guest tested so far;
->> - Only legacy COM{1,2,3,4} resources, no customization;
->> - Only Xen console as a backend, no inter-domain communication (similar to
->>   vpl011 on Arm);
->> - Only 8-bit characters;
->> - Baud rate is not emulated;
->> - FIFO-less mode is not emulated properly;
->> - RX FIFO interrupt moderation (FCR) is not emulated properly, TL16C750
->>   has special FCR handling;
->> - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
->>   friends);
->> - Assumes no ISA-device IRQ sharing;
->> - MMIO-based UART is not supported.
->>
->> Testing
->> =======
->>
->> I tested boot of HVM linux guest w/ OVMF as the virtual firmware.
->>
->> The emulator, if enabled via CONFIG_HAS_VUART_NS8250=y, will use COM1 (0x3f8)
->> resources by default.
->>
->> To test w/ virtual COM1, the guest kernel parameters should contain
->>   earlycon=uart,io,0x3f8,115200n8 console=uart,io,0x3f8,115200n8
->>
->> Xen is able to forward physical console input to the domain w/ virtual NS8250.
->> To switch the console focus press Ctrl+aaa. If console= is given to the HVM
->> kernel, then the user shall be able to see the login prompt on xen console once
->> console focus is switched to the HVM guest.
->>
->> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+(Cc list reduced)
+
+On 27.11.2024 00:21, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Hello,
-> 
-> Thankyou for this.  It's an excellent start for first posting to the list.
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-+1
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> Two things stand out at a glance.
-> 
-> First, xmalloc/free are the expected functions to use,
-
-Small correction - as of their introduction, it's xvmalloc() etc and xvfree()
-which are to be used in new code.
-
-One other, more general remark: Please send patches To: the list, with
-maintainers Cc-ed. And please compose the Cc: lists per-patch - looking at
-patch 2, there should really have been just a single person (Daniel) on Cc.
-
-Jan
 
