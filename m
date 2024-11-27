@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A8739DA5D6
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:32:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844630.1260116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95C6A9DA627
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 11:49:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844649.1260144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGFLS-0007kP-Lg; Wed, 27 Nov 2024 10:32:30 +0000
+	id 1tGFbU-0001W1-6G; Wed, 27 Nov 2024 10:49:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844630.1260116; Wed, 27 Nov 2024 10:32:30 +0000
+Received: by outflank-mailman (output) from mailman id 844649.1260144; Wed, 27 Nov 2024 10:49:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGFLS-0007hI-IS; Wed, 27 Nov 2024 10:32:30 +0000
-Received: by outflank-mailman (input) for mailman id 844630;
- Wed, 27 Nov 2024 10:32:28 +0000
+	id 1tGFbU-0001Th-35; Wed, 27 Nov 2024 10:49:04 +0000
+Received: by outflank-mailman (input) for mailman id 844649;
+ Wed, 27 Nov 2024 10:49:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=owYM=SW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGFLQ-0007hC-Qr
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:32:28 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KjDT=SW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tGFbS-0001TW-8F
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 10:49:02 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20613.outbound.protection.outlook.com
+ [2a01:111:f403:2415::613])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3f89ba3-acaa-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 11:32:24 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-434a2033562so21721135e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 02:32:24 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434aa7cdd64sm16505895e9.26.2024.11.27.02.32.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Nov 2024 02:32:23 -0800 (PST)
+ id 32137867-acad-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 11:48:54 +0100 (CET)
+Received: from MN2PR06CA0010.namprd06.prod.outlook.com (2603:10b6:208:23d::15)
+ by PH0PR12MB7959.namprd12.prod.outlook.com (2603:10b6:510:282::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.20; Wed, 27 Nov
+ 2024 10:48:44 +0000
+Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
+ (2603:10b6:208:23d:cafe::81) by MN2PR06CA0010.outlook.office365.com
+ (2603:10b6:208:23d::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.12 via Frontend Transport; Wed,
+ 27 Nov 2024 10:48:44 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8230.0 via Frontend Transport; Wed, 27 Nov 2024 10:48:43 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Nov
+ 2024 04:48:43 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 27 Nov 2024 04:48:41 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,154 +59,538 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3f89ba3-acaa-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmMiLCJoZWxvIjoibWFpbC13bTEteDMyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImUzZjg5YmEzLWFjYWEtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzAzNTQ0LjM0NzQzNiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732703543; x=1733308343; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wBkBqar7unopO8folyoovjZByPW3iT0Wg/av+QUdAA4=;
-        b=Vkh7RNqZW8MNIwMQ7gfZzAtkdSAbdyVNjmax5uoLB0IF838bF0zitqig+nwRfqk6VZ
-         WA8ygsZO7/IUMb7ER5ZDo/8fxGpbCclTZT+fGcOJT8sqD2xYV4Pl5T/9CeNYxvksX+br
-         oRWub1cOo7uv4jtJ+LZGDdgh9A0dO01cde27rU8YXB5d4k6ugioLnu0MgokpuX8joFG+
-         8wiEL1avANRiR93uaLFlc5ltw7fx8BsD2p3gNIz1Vbq5bh8HKPOlevSqOoSOD9PTcsER
-         dSnYAo2wMuP287b1wtOqC80MNj8ilL3dqVGQUf7ZtOuJ1SQmXGf2/m2c2lRe5hhVqoFH
-         akzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732703543; x=1733308343;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wBkBqar7unopO8folyoovjZByPW3iT0Wg/av+QUdAA4=;
-        b=Zz2w13CrHPYUgwzXIusYXi4WPR7RV56QT1dBibgiPx1nZP164ZF2HkWj+d2zfYnqhn
-         DaJIyIwfo34A/XedQjdA9Ey8Ah8FHMg3DNrMAmK+m+OEYa2p50xiiduEIBHrWBRCjWPw
-         yX3TArGn/TdZRVxDoBW7d6N1aUdWKu8MA0gTFbl/CiHVdamhO1qyRT+8tgB3TEcm43tb
-         9Rz+YUc0N7aEt24JXijB4dBp6yUZMDfty8brCecP7GBA6car/9FtAe0uQWCMiOOWzrt7
-         13saT6q1skJS5XMXgMYLV2WN14eWwY577AeUSsx65CabW8pirzrE/8DFunDnsm3PFiSQ
-         03/g==
-X-Forwarded-Encrypted: i=1; AJvYcCWa3+WFTs9an1M6pLg3yVSr0zZe55b1STx71RODNM6GD6bjIL0ep/fco5+g2832CbGZ8jRdgATZaAU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxbM6ffQ3HjhlDXfHnPwNmOSIu9YsjyrQwcPFKsDw7cSSIREIhs
-	L+6tM6Vnhhnu9iRjFHZH2wjKTccLVs6hjIZyzQDQ9x9DkH80ikKfDtXsnGG8Gg==
-X-Gm-Gg: ASbGncura9u1BpBDN74ejI4aD2epuaY1NL6nYaxlqaMEYYup8lFwMvEhDTt2Vgm8QYm
-	m5uKPgfk4vppT8vQbvBHUhXfRJwKcRYUGmxTddN2nqGw61Y1OPZxxA0NJS3gkqO9x718lWAtPwu
-	sZ4YYKvIo7cb4b33EyMQShpDkztHyH8a4bl0IlwyiktfVJaSXI1eIbS6+R2JukU1tt9ReHHcm/e
-	xDWTJy+x8Y2eLDuiqAE2SAG4QLdsBkhr3wsHgrdECTcMReJRjnEBPaRBgx3asdwtz/I+3OeinXW
-	vglrOTH7+qfDaW/ysKr+lkD8Ptg1tSe6zlk=
-X-Google-Smtp-Source: AGHT+IGT/DuguTEWwIOXFXA23x9ynToqtqp1XWDuB1iZF7zA3+YDZ4GMF0nhZWKfwZAQ7Wy6uU4JoA==
-X-Received: by 2002:a05:600c:4f08:b0:434:a39b:5e46 with SMTP id 5b1f17b1804b1-434a9dbbba1mr20577305e9.7.1732703543596;
-        Wed, 27 Nov 2024 02:32:23 -0800 (PST)
-Message-ID: <bfbd15eb-9888-4988-b9a1-8191a696a4c2@suse.com>
-Date: Wed, 27 Nov 2024 11:32:22 +0100
+X-Inumbo-ID: 32137867-acad-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQxNTo6NjEzIiwiaGVsbyI6Ik5BTTExLURNNi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjMyMTM3ODY3LWFjYWQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzA0NTM0LjUyMjY1Mywic2VuZGVyIjoibWljaGFsLm9yemVsQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I0JYdSTLvqfPlM1y8MlyisXaS61dXsnjMs324ZIY2ncn22ZzFKdXMuZ/W+hlA43TiynDIIShiv3du3Kogo70b07fX56u+UxPwHc+WsQ0A4ubuf2gDJjf8ZZbd0ujUBO3iVAtYxQgnvI/oJGt1+mIhnRijG1cSP+2lL4/k05ScdZG0QL/YeQEQ0OPRxooFZq3N5/jLPI0FfyV6fZhzJ5+JAj3tocY6vhJ2QIroODncaONm18Jpthtji5or3tWNY3bCY7vp3SB0iyz535apNsQvwLuSPRLlJlfm0dV0Ksnq+ha0lHlKC4qvrCZY5o92YUlIgPDPWa8GkXo/XdpjyXS+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qajI1uuyRj1jy107yPDQIAaNNMmReIq54wJEnC7Azp8=;
+ b=QP4DlZdndNbadwFu/M6XvrIdj+0KX7ffhnsXW6fkuLsy6rO68N2vCp5ogEEGmdpuSkj1EcPltwKsIgmsLqJkYyqVuzgVAla+WdSPp3/oRjCpHFIMWE5hJP6nO7tJCekJktbZ86c76iqCB7UAb0F6JLQDiEpyaI1nNEg5Hea/xpgOv+WYbdLj8/HoQ5WEACJIsKQcKEYCjglc+4AX1LQpdyOxS69gwe8ANUy35BINtGVZMypS16mMS8WS38MZ3k9TNHDBnz5Bq9EmmZCadzuC8BOVLUUOeQYIcsPNW4OnXKFEI/A1kcNizX72PNKCzLz4vUgtVMOf9RiBJEjPcFvGxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=minervasys.tech smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qajI1uuyRj1jy107yPDQIAaNNMmReIq54wJEnC7Azp8=;
+ b=J4mbyzUt8Eqbm76a5ZZqicb46zFL7T7S1IrxXjKvS4bFKmH6blNINMn0fXv5wkaNtq0Kk+7xKHKQA3opKw3X+MMGhTbnRxJzuKiMVRUm/7iG5gCD1u0qbp5Bywuc9DuJjCsWm+AawGvHvUSkCPCpsTFe9RFE7TmojStnL+H/yes=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <93c0a25f-4edc-4d21-8767-48d496cc3575@amd.com>
+Date: Wed, 27 Nov 2024 11:48:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 5/6] x86/boot: introduce domid field to struct
- boot_domain
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
- <20241115131204.32135-6-dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v10 01/12] xen/common: add cache coloring common code
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+	<xen-devel@lists.xenproject.org>
+CC: <andrea.bastoni@minervasys.tech>, <marco.solieri@minervasys.tech>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
+ <20241119141329.44221-2-carlo.nonato@minervasys.tech>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241115131204.32135-6-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20241119141329.44221-2-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|PH0PR12MB7959:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d5ba573-5991-4761-93d3-08dd0ed11024
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?TmMrOXZxM1BvZkhkbzNvMmliZ21jazJQb3VsTmZLeGM4OWc4VEV5VDBFTzBw?=
+ =?utf-8?B?SGFUbXJpTmVlQVdXdjZUaHZ0T3JXNEZkS1VtVHM2NUo2YWw2eHo5em9ZeGJv?=
+ =?utf-8?B?TUROanFlTmdVK24xUnowWW85dytvK0xaMG5ENTZLTFNPS0FzdGVtY25pdHBJ?=
+ =?utf-8?B?NHNrNXIxUWRkVHRFaVlBUitST0l3aUlsYW96QWh4ODFJLzhxTnBzeXo1bi9J?=
+ =?utf-8?B?R2wxQURlNVE5UWEvUFBpb3lOZHVETHZTd1JxaWtmZTFlbEJ0eDd5Z2h4RG5E?=
+ =?utf-8?B?UTJhdlB5cXlROGs3bngwSkh6bEhDUVFHdzF0cy93bkl2a3ExYmNVbm4wMU82?=
+ =?utf-8?B?SGVJSEFrWGloMkYxeEc4OTYvT1dhRlQwdGJqN1hNMTMyL3c0MlYwZElOSWtX?=
+ =?utf-8?B?alJ5NlBRVTgvNXF1a2wvMVBraWV2WWkwY1RGT0RPYlBDNmNiN1JzZzcwRXhJ?=
+ =?utf-8?B?Z1RWajlyWmpuTFNsMHZjUHJxZEIvSjM2cFd0d0M3eU1xZ1FuaGUrbnE0SmdF?=
+ =?utf-8?B?UERYK005eXRvb2U0NGJqWU1tbEdjWW94KzJLYWhObXoxUVNybUQxa1U1bmpj?=
+ =?utf-8?B?aEFzYWo1YmhCa3dZaVVUanliRVhRbERjZUQ1WGVMRGxXSXVXMEV6a2M5QkdL?=
+ =?utf-8?B?dEdYbHNkRGxmbjM3b253Yjk4TmQ3S1cwTGcwdzJtUS84RWhUS25ZejRRMXRF?=
+ =?utf-8?B?YjkrVmFkcm9RNVdDeUZ4RGhsZXJudjdjWWVPVDhkNDNmV0puQXdqbGJiY0FK?=
+ =?utf-8?B?RXZpb0lVbkRTdi9MUERQMllSS0JOeFhpTGJIR2pZbWZrMldLQUt1dTN5Szhk?=
+ =?utf-8?B?bG5sQTRtaGg3QTkvUGtvTHJLY1MrVWFPcnJFaGVvaFFGb3BMRzZBVEtYTmRB?=
+ =?utf-8?B?VnA1bTAxYnVxUFl6WjYycit0MkNYbldpeWV1V2JyZDBKejlSZ2E5NStNcEI2?=
+ =?utf-8?B?NTJubm9xT3ZuNVZqUllmQ0I4dThtVUlHQThzK1F5bWE0VVh2MHFnTnhGUWJU?=
+ =?utf-8?B?aFplMGl0MDI0U28rS0t1Q3IrUlRDNTdXLzFvaHF6OUlMWDBSU2VoZk9wRjdC?=
+ =?utf-8?B?bmdRTzdaMWN4clc1OUNFbnI5OTV4d2IzdzdIOVNkVXlhcEgwY1UzTHBnZnJt?=
+ =?utf-8?B?S0Z0c3RkbnRDQlRQd2xZSTBWdmV5ZmVibDV3N2I5eVVOTEtXOXF1Q0VQNmdn?=
+ =?utf-8?B?Mnh1bzV6bXJzZTRwOE53ckp5MWlSWUg4QTVOQjkxQ3NNZzNTK2xQTVdvWnZ3?=
+ =?utf-8?B?Nnh1anFaSU1RVnpHdWY1aitUNWFKMFVNb09jcWJCSGlOUmFNNHVtYitqdjVh?=
+ =?utf-8?B?WmF4STNHaUdtRGd0RGo2eTdXSGNzZUdkQWJGVHVMVmxYVDV4Q0JKUGQ2TnBQ?=
+ =?utf-8?B?YmxWWmNLcElhQ0dGUVg0RU85ZUE1Wi92eDRrVUxSaXg0RGk3bElSNmxBOTdF?=
+ =?utf-8?B?MGxoNllma081dmtsMVBsTmJ3RnZxMTVjaDdoL2F1eFVQZVRGZW8zMUtNcFRE?=
+ =?utf-8?B?Vm5BU2Y0WFVNN3hJMitpYmZVeEttQzgvRzM2Yk45T0VnQTdDalR3RE5SbzZ0?=
+ =?utf-8?B?Qk5LdHZLMllkNXVlWjY0cytTV21EamhxTGYvUU9wMVpzQWRPS3NNL1NwVWFn?=
+ =?utf-8?B?cm8wNTlvZS9uOWdNUThuN2d3U3lFNjEyZzBxbkhnbkgwakltQW93TE9OdUla?=
+ =?utf-8?B?a3o5UnUyazJxTzJITk05TlpudmgwU2NlTmlQSGhxcjl5SVJIbFVCREREYTB0?=
+ =?utf-8?B?SW9qOTA4L1lFMnNHZENKRE9aWEl0ZFZzWUUvZm5Zai9sT2VDTUgvSUpYQ1hz?=
+ =?utf-8?B?NDVyUitScVozaEU1dWU0eUhRb05uODFBTHkwNTJqZCt1dEt0cXFHSkNPb0ZP?=
+ =?utf-8?B?NERjR2E4Sm9kZjdQamZoQ0NqdGpqRTRuZXAxZXlNandmUFRiSkhuNkI1YmRl?=
+ =?utf-8?Q?wT+DxjBSOBkHls2e2Vr0MnsJx4lchD0S?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2024 10:48:43.7639
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d5ba573-5991-4761-93d3-08dd0ed11024
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B374.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7959
 
-On 15.11.2024 14:12, Daniel P. Smith wrote:
-> Add a domid field to struct boot_domain to hold the assigned domain id for the
-> domain. During initialization, ensure all instances of struct boot_domain have
-> the invalid domid to ensure that the domid must be set either by convention or
-> configuration.
 
-I'm missing the "why" part here - after all ...
 
-> --- a/xen/arch/x86/include/asm/bootdomain.h
-> +++ b/xen/arch/x86/include/asm/bootdomain.h
-> @@ -12,6 +12,8 @@ struct boot_module;
->  struct domain;
->  
->  struct boot_domain {
-> +    domid_t domid;
+On 19/11/2024 15:13, Carlo Nonato wrote:
+> 
+> 
+> Last Level Cache (LLC) coloring allows to partition the cache in smaller
+> chunks called cache colors.
+> 
+> Since not all architectures can actually implement it, add a HAS_LLC_COLORING
+> Kconfig option.
+> LLC_COLORS_ORDER Kconfig option has a range maximum of 10 (2^10 = 1024)
+> because that's the number of colors that fit in a 4 KiB page when integers
+> are 4 bytes long.
+> 
+> LLC colors are a property of the domain, so struct domain has to be extended.
+> 
+> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
+> 
+> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> ---
+> v10:
+> - fixed commit message to use LLC_COLORS_ORDER
+> - added documentation to index.rst
+> - moved check on CONFIG_NUMA in arch/arm/Kconfig (next patch)
+> - fixed copyright line
+> - fixed array type for colors parameter in print_colors()
+> - added check on (way_size & ~PAGE_MASK)
+> v9:
+> - dropped _MAX_ from CONFIG_MAX_LLC_COLORS_ORDER
+> v8:
+> - minor documentation fixes
+> - "llc-coloring=on" is inferred from "llc-nr-ways" and "llc-size" usage
+> - turned CONFIG_NR_LLC_COLORS to CONFIG_MAX_LLC_COLORS_ORDER, base-2 exponent
+> - moved Kconfig options to common/Kconfig
+> - don't crash if computed max_nr_colors is too large
+> v7:
+> - SUPPORT.md changes added to this patch
+> - extended documentation to better address applicability of cache coloring
+> - "llc-nr-ways" and "llc-size" params introduced in favor of "llc-way-size"
+> - moved dump_llc_coloring_info() call in 'm' keyhandler (pagealloc_info())
+> v6:
+> - moved almost all code in common
+> - moved documentation in this patch
+> - reintroduced range for CONFIG_NR_LLC_COLORS
+> - reintroduced some stub functions to reduce the number of checks on
+>   llc_coloring_enabled
+> - moved domain_llc_coloring_free() in same patch where allocation happens
+> - turned "d->llc_colors" to pointer-to-const
+> - llc_coloring_init() now returns void and panics if errors are found
+> v5:
+> - used - instead of _ for filenames
+> - removed domain_create_llc_colored()
+> - removed stub functions
+> - coloring domain fields are now #ifdef protected
+> v4:
+> - Kconfig options moved to xen/arch
+> - removed range for CONFIG_NR_LLC_COLORS
+> - added "llc_coloring_enabled" global to later implement the boot-time
+>   switch
+> - added domain_create_llc_colored() to be able to pass colors
+> - added is_domain_llc_colored() macro
+> ---
+>  SUPPORT.md                        |   7 ++
+>  docs/index.rst                    |   1 +
+>  docs/misc/cache-coloring.rst      | 116 ++++++++++++++++++++++++++++++
+>  docs/misc/xen-command-line.pandoc |  37 ++++++++++
+>  xen/common/Kconfig                |  21 ++++++
+>  xen/common/Makefile               |   1 +
+>  xen/common/keyhandler.c           |   3 +
+>  xen/common/llc-coloring.c         | 115 +++++++++++++++++++++++++++++
+>  xen/common/page_alloc.c           |   3 +
+>  xen/include/xen/llc-coloring.h    |  37 ++++++++++
+>  xen/include/xen/sched.h           |   5 ++
+>  11 files changed, 346 insertions(+)
+>  create mode 100644 docs/misc/cache-coloring.rst
+>  create mode 100644 xen/common/llc-coloring.c
+>  create mode 100644 xen/include/xen/llc-coloring.h
+> 
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index 82239d0294..998faf5635 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -401,6 +401,13 @@ by maintaining multiple physical to machine (p2m) memory mappings.
+>      Status, x86 HVM: Tech Preview
+>      Status, ARM: Tech Preview
+> 
+> +### Cache coloring
 > +
->      struct boot_module *kernel;
->      struct boot_module *ramdisk;
->  
+> +Allows to reserve Last Level Cache (LLC) partitions for Dom0, DomUs and Xen
+> +itself.
+> +
+> +    Status, Arm64: Experimental
+> +
+>  ## Resource Management
+> 
+>  ### CPU Pools
+> diff --git a/docs/index.rst b/docs/index.rst
+> index ab051a0f38..fad4462bbb 100644
+> --- a/docs/index.rst
+> +++ b/docs/index.rst
+> @@ -65,6 +65,7 @@ Documents in need of some rearranging.
+>     designs/launch/hyperlaunch-devicetree
+>     misc/xen-makefiles/makefiles
+>     misra/index
+> +   misc/cache-coloring
+> 
+> 
+>  Miscellanea
+> diff --git a/docs/misc/cache-coloring.rst b/docs/misc/cache-coloring.rst
+> new file mode 100644
+> index 0000000000..0fe3830c40
+> --- /dev/null
+> +++ b/docs/misc/cache-coloring.rst
+> @@ -0,0 +1,116 @@
+You're missing SPDX tag at the top of the RST file:
+.. SPDX-License-Identifier: CC-BY-4.0
 
-... just out of context here there is struct domain *. I can only guess that
-the domain ID is needed for the time until the domain pointer was actually
-filled.
+> +Xen cache coloring user guide
+> +=============================
+> +
+> +The cache coloring support in Xen allows to reserve Last Level Cache (LLC)
+> +partitions for Dom0, DomUs and Xen itself. Currently only ARM64 is supported.
+> +Cache coloring realizes per-set cache partitioning in software and is applicable
+> +to shared LLCs as implemented in Cortex-A53, Cortex-A72 and similar CPUs.
+> +
+> +To compile LLC coloring support set ``CONFIG_LLC_COLORING=y``.
+> +
+> +If needed, change the maximum number of colors with
+> +``CONFIG_LLC_COLORS_ORDER=<n>``.
+> +
+> +Runtime configuration is done via `Command line parameters`_.
+> +
+> +Background
+> +**********
+> +
+> +Cache hierarchy of a modern multi-core CPU typically has first levels dedicated
+> +to each core (hence using multiple cache units), while the last level is shared
+> +among all of them. Such configuration implies that memory operations on one
+> +core (e.g. running a DomU) are able to generate interference on another core
+> +(e.g. hosting another DomU). Cache coloring realizes per-set cache-partitioning
+> +in software and mitigates this, guaranteeing more predictable performances for
+> +memory accesses.
+> +Software-based cache coloring is particularly useful in those situations where
+> +no hardware mechanisms (e.g., DSU-based way partitioning) are available to
+> +partition caches. This is the case for e.g., Cortex-A53, A57 and A72 CPUs that
+> +feature a L2 LLC cache shared among all cores.
+> +
+> +The key concept underlying cache coloring is a fragmentation of the memory
+> +space into a set of sub-spaces called colors that are mapped to disjoint cache
+> +partitions. Technically, the whole memory space is first divided into a number
+> +of subsequent regions. Then each region is in turn divided into a number of
+> +subsequent sub-colors. The generic i-th color is then obtained by all the
+> +i-th sub-colors in each region.
+> +
+> +::
+> +
+> +                            Region j            Region j+1
+> +                .....................   ............
+> +                .                     . .
+> +                .                       .
+> +            _ _ _______________ _ _____________________ _ _
+> +                |     |     |     |     |     |     |
+> +                | c_0 | c_1 |     | c_n | c_0 | c_1 |
+> +           _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
+> +                    :                       :
+> +                    :                       :...         ... .
+> +                    :                            color 0
+> +                    :...........................         ... .
+> +                                                :
+> +          . . ..................................:
+> +
+> +How colors are actually defined depends on the function that maps memory to
+> +cache lines. In case of physically-indexed, physically-tagged caches with linear
+> +mapping, the set index is found by extracting some contiguous bits from the
+> +physical address. This allows colors to be defined as shown in figure: they
+> +appear in memory as subsequent blocks of equal size and repeats themselves after
+> +``n`` different colors, where ``n`` is the total number of colors.
+> +
+> +If some kind of bit shuffling appears in the mapping function, then colors
+> +assume a different layout in memory. Those kind of caches aren't supported by
+> +the current implementation.
+> +
+> +**Note**: Finding the exact cache mapping function can be a really difficult
+> +task since it's not always documented in the CPU manual. As said Cortex-A53, A57
+> +and A72 are known to work with the current implementation.
+> +
+> +How to compute the number of colors
+> +###################################
+> +
+> +Given the linear mapping from physical memory to cache lines for granted, the
+> +number of available colors for a specific platform is computed using three
+> +parameters:
+> +
+> +- the size of the LLC.
+> +- the number of the LLC ways.
+> +- the page size used by Xen.
+> +
+> +The first two parameters can be found in the processor manual, while the third
+> +one is the minimum mapping granularity. Dividing the cache size by the number of
+> +its ways we obtain the size of a way. Dividing this number by the page size,
+> +the number of total cache colors is found. So for example an Arm Cortex-A53
+> +with a 16-ways associative 1 MiB LLC can isolate up to 16 colors when pages are
+> +4 KiB in size.
+> +
+> +Effective colors assignment
+> +###########################
+> +
+> +When assigning colors, if one wants to avoid cache interference between two
+> +domains, different colors needs to be used for their memory.
+> +
+> +Command line parameters
+> +***********************
+> +
+> +Specific documentation is available at `docs/misc/xen-command-line.pandoc`.
+> +
+> ++----------------------+-------------------------------+
+> +| **Parameter**        | **Description**               |
+> ++----------------------+-------------------------------+
+> +| ``llc-coloring``     | Enable coloring at runtime    |
+> ++----------------------+-------------------------------+
+> +| ``llc-size``         | Set the LLC size              |
+> ++----------------------+-------------------------------+
+> +| ``llc-nr-ways``      | Set the LLC number of ways    |
+> ++----------------------+-------------------------------+
+> +
+> +Auto-probing of LLC specs
+> +#########################
+> +
+> +LLC size and number of ways are probed automatically by default.
+> +
+> +LLC specs can be manually set via the above command line parameters. This
+> +bypasses any auto-probing and it's used to overcome failing situations, such as
+> +flawed probing logic, or for debugging/testing purposes.
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 293dbc1a95..abd8dae96f 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1708,6 +1708,43 @@ This option is intended for debugging purposes only.  Enable MSR_DEBUGCTL.LBR
+>  in hypervisor context to be able to dump the Last Interrupt/Exception To/From
+>  record with other registers.
+> 
+> +### llc-coloring (arm64)
+> +> `= <boolean>`
+> +
+> +> Default: `false`
+> +
+> +Flag to enable or disable LLC coloring support at runtime. This option is
+> +available only when `CONFIG_LLC_COLORING` is enabled. See the general
+> +cache coloring documentation for more info.
+> +
+> +### llc-nr-ways (arm64)
+> +> `= <integer>`
+> +
+> +> Default: `Obtained from hardware`
+> +
+> +Specify the number of ways of the Last Level Cache. This option is available
+> +only when `CONFIG_LLC_COLORING` is enabled. LLC size and number of ways are used
+> +to find the number of supported cache colors. By default the value is
+> +automatically computed by probing the hardware, but in case of specific needs,
+> +it can be manually set. Those include failing probing and debugging/testing
+> +purposes so that it's possible to emulate platforms with different number of
+> +supported colors. If set, also "llc-size" must be set, otherwise the default
+> +will be used. Note that using both options implies "llc-coloring=on".
+I can understand this decision, but ...
 
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -339,6 +339,9 @@ static struct boot_info *__init multiboot_fill_boot_info(
->      /* Variable 'i' should be one entry past the last module. */
->      bi->mods[i].type = BOOTMOD_XEN;
->  
-> +    for ( i = 0; i < MAX_NR_BOOTDOMS; i++ )
-> +        bi->domains[i].domid = DOMID_INVALID;
+[...]
 
-Generally I think ARRAY_SIZE() is better to use for loop boundaries. Yet
-then - why don't you statically initialize the array in xen_boot_info?
+> +    if ( llc_size && llc_nr_ways )
+> +    {
+> +        llc_coloring_enabled = true;
+> +        way_size = llc_size / llc_nr_ways;
+> +    }
+> +    else if ( !llc_coloring_enabled )
+> +        return;
+the above code does not seem to be right. When debugging or in general it is useful to have on the cmdline:
+llc-size=1M llc-nr-ways=16 llc-coloring=on
+and be able to disable it by just switching between on/off in llc-coloring=. However, with your solution,
+even if I specify llc-coloring=off, it will be enabled because I specified both llc-size and llc-nr-ways.
+I think llc-coloring= should have a precedence.
 
-> @@ -977,7 +980,6 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->      };
->      struct boot_domain *bd = &bi->domains[0];
->      struct domain *d;
-> -    domid_t domid;
->  
->      if ( opt_dom0_pvh )
->      {
-> @@ -993,15 +995,15 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
->  
->      /* Create initial domain.  Not d0 for pvshim. */
-> -    domid = get_initial_domain_id();
-> -    d = domain_create(domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-> +    bd->domid = get_initial_domain_id();
-> +    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
->      if ( IS_ERR(d) )
-> -        panic("Error creating d%u: %ld\n", domid, PTR_ERR(d));
-> +        panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+> +    else
+> +    {
+> +        way_size = get_llc_way_size();
+> +        if ( !way_size )
+> +            panic("LLC probing failed and 'llc-size' or 'llc-nr-ways' missing\n");
+> +    }
+> +
+> +    if ( way_size & ~PAGE_MASK )
+> +        panic("LLC way size must be a multiple of PAGE_SIZE\n");
+> +
+> +    /*
+> +     * The maximum number of colors must be a power of 2 in order to correctly
+> +     * map them to bits of an address.
+> +     */
+> +    max_nr_colors = way_size >> PAGE_SHIFT;
+> +
+> +    if ( max_nr_colors & (max_nr_colors - 1) )
+> +        panic("Number of LLC colors (%u) isn't a power of 2\n", max_nr_colors);
+> +
+> +    if ( max_nr_colors > NR_LLC_COLORS )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "Number of LLC colors (%u) too big. Using configured max %u\n",
+> +               max_nr_colors, NR_LLC_COLORS);
+> +        max_nr_colors = NR_LLC_COLORS;
+> +    } else if ( max_nr_colors < 2 )
+CODING STYLE
 
-As to the comment at the top - this change alone certainly doesn't clarify
-the "why".
+> +        panic("Number of LLC colors %u < 2\n", max_nr_colors);
+> +
+> +    arch_llc_coloring_init();
+> +}
+> +
+> +void dump_llc_coloring_info(void)
+> +{
+> +    if ( !llc_coloring_enabled )
+> +        return;
+> +
+> +    printk("LLC coloring info:\n");
+> +    printk("    Number of LLC colors supported: %u\n", max_nr_colors);
+> +}
+> +
+> +void domain_dump_llc_colors(const struct domain *d)
+> +{
+> +    if ( !llc_coloring_enabled )
+> +        return;
+> +
+> +    printk("%u LLC colors: ", d->num_llc_colors);
+> +    print_colors(d->llc_colors, d->num_llc_colors);
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 33c8c917d9..7b911b5ed9 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -126,6 +126,7 @@
+>  #include <xen/irq.h>
+>  #include <xen/keyhandler.h>
+>  #include <xen/lib.h>
+> +#include <xen/llc-coloring.h>
+>  #include <xen/mm.h>
+>  #include <xen/nodemask.h>
+>  #include <xen/numa.h>
+> @@ -2626,6 +2627,8 @@ static void cf_check pagealloc_info(unsigned char key)
+>      }
+> 
+>      printk("    Dom heap: %lukB free\n", total << (PAGE_SHIFT-10));
+> +
+> +    dump_llc_coloring_info();
+>  }
+> 
+>  static __init int cf_check pagealloc_keyhandler_init(void)
+> diff --git a/xen/include/xen/llc-coloring.h b/xen/include/xen/llc-coloring.h
+> new file mode 100644
+> index 0000000000..6ccf4613c2
+> --- /dev/null
+> +++ b/xen/include/xen/llc-coloring.h
+> @@ -0,0 +1,37 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Last Level Cache (LLC) coloring common header
+> + *
+> + * Copyright (C) 2024, Advanced Micro Devices, Inc.
+> + * Copyright (C) 2024, Minerva Systems SRL
+> + */
+> +#ifndef __COLORING_H__
+> +#define __COLORING_H__
+> +
+> +#include <xen/sched.h>
+You could just forward declare struct domain unless you know you need sched.h for other things too in other patches.
 
->      init_dom0_cpuid_policy(d);
->  
->      if ( alloc_dom0_vcpu0(d) == NULL )
-> -        panic("Error creating d%uv0\n", domid);
-> +        panic("Error creating d%uv0\n", bd->domid);
+> +#include <public/domctl.h>
+Why is this here? It's not needed yet at this point.
 
-Imo this would better use d->domain_id. And while touching it, %u would also
-want swapping for %d.
+> +
+> +#ifdef CONFIG_LLC_COLORING
+> +void llc_coloring_init(void);
+> +void dump_llc_coloring_info(void);
+> +void domain_dump_llc_colors(const struct domain *d);
+> +#else
+> +static inline void llc_coloring_init(void) {}
+> +static inline void dump_llc_coloring_info(void) {}
+> +static inline void domain_dump_llc_colors(const struct domain *d) {}
+> +#endif
+> +
+> +unsigned int get_llc_way_size(void);
+> +void arch_llc_coloring_init(void);
+> +
+> +#endif /* __COLORING_H__ */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 90666576c2..c0e49cd1e7 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -637,6 +637,11 @@ struct domain
+> 
+>      /* Holding CDF_* constant. Internal flags for domain creation. */
+>      unsigned int cdf;
+> +
+> +#ifdef CONFIG_LLC_COLORING
+> +    unsigned int num_llc_colors;
+> +    const unsigned int *llc_colors;
+> +#endif
+>  };
+> 
+>  static inline struct page_list_head *page_to_list(
+> --
+> 2.43.0
+> 
 
-Jan
+Otherwise, with the remarks addressed:
+Acked-by: Michal Orzel <michal.orzel@amd.com>
+
+~Michal
+
+
 
