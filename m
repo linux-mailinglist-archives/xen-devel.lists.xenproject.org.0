@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 517149DA9E9
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 15:35:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.844877.1260391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68F409DAB6B
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2024 17:08:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.844888.1260401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGJ8X-0007gJ-Cs; Wed, 27 Nov 2024 14:35:25 +0000
+	id 1tGKa0-0002rc-Sb; Wed, 27 Nov 2024 16:07:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 844877.1260391; Wed, 27 Nov 2024 14:35:25 +0000
+Received: by outflank-mailman (output) from mailman id 844888.1260401; Wed, 27 Nov 2024 16:07:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGJ8X-0007eW-A7; Wed, 27 Nov 2024 14:35:25 +0000
-Received: by outflank-mailman (input) for mailman id 844877;
- Wed, 27 Nov 2024 14:35:23 +0000
+	id 1tGKa0-0002q8-Pa; Wed, 27 Nov 2024 16:07:52 +0000
+Received: by outflank-mailman (input) for mailman id 844888;
+ Wed, 27 Nov 2024 16:07:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NRnq=SW=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tGJ8V-0007eM-J0
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 14:35:23 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d221c62d-accc-11ef-a0cd-8be0dac302b0;
- Wed, 27 Nov 2024 15:35:18 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1732718111138749.7389414299095;
- Wed, 27 Nov 2024 06:35:11 -0800 (PST)
+ <SRS0=k0uU=SW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tGKa0-0002q2-5W
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2024 16:07:52 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bcf9357c-acd9-11ef-a0cd-8be0dac302b0;
+ Wed, 27 Nov 2024 17:07:45 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aa539d2b4b2so186837366b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2024 08:07:45 -0800 (PST)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa53683eafbsm564294866b.189.2024.11.27.08.01.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Nov 2024 08:01:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,53 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d221c62d-accc-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjEzNi4xNDMuMTg4LjUxIiwiaGVsbyI6InNlbmRlcjQtb2YtbzUxLnpvaG8uY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQyMjFjNjJkLWFjY2MtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzE4MTE4LjcwOTE1MSwic2VuZGVyIjoiZHBzbWl0aEBhcGVydHVzc29sdXRpb25zLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-ARC-Seal: i=1; a=rsa-sha256; t=1732718113; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Ki3jTayrnCamit8rGkvav2J3iKdxGrHxJ1EBSwMLAM1FvVYjzWIZPCq8lvxyojmgCrCNVFyfiJndwnqnEyiYvqy1NEJObhgbydatx2ePx/Z+tNAr+oR3Lwiv0SWmhtSZiRH3prACp4clUqGk4WsgNkhCIPwnLpWqwIwahTLuVlU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1732718113; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
-	bh=P1He0xBsfX60X496o0JraSR1u0b5+Q6FTJSFfCG0i/s=; 
-	b=KFbLYoOr8Pi+URbomTKaw7P5VWlNS7fLhtD7RCMOITc0CqCsgh7IjwRIxMwSL0XpMnWz8agSaQBdXzUK3kSUgByljUi0tjQUUtzTZvgxtH0uSBNVFcRPaF3BelNwOe5cMb+tWXgpEZL0YuxlCMEvgeWgjsvWttp9wyB8s5oqI2U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1732718113;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
-	bh=P1He0xBsfX60X496o0JraSR1u0b5+Q6FTJSFfCG0i/s=;
-	b=amvuIIUznXzg86V0+uwQz77+l3cPKTHNkj8sJSPscUESsqcw0g228NsBz5QU5EhW
-	WweSIp5w0ww5FzdLZHNyGa3L/7XA6K4k/TpKe4/4Ow78hN0TGx7B3na+Q5O0VGGboa/
-	8ZU9RzYvLQ70dWkXSv1+amg301d2tbJmQHyDObng=
-Message-ID: <adf24a8c-9a40-4750-ad1a-49cf63542122@apertussolutions.com>
-Date: Wed, 27 Nov 2024 09:35:10 -0500
+X-Inumbo-ID: bcf9357c-acd9-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzMiLCJoZWxvIjoibWFpbC1lajEteDYzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImJjZjkzNTdjLWFjZDktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzIzNjY1LjYyNDczOSwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1732723665; x=1733328465; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QOajJGkqrRzAKADAAd0z4wDNLTiv7h8Mem5y4HKc3DQ=;
+        b=hOWNmhJnZy0COtCr/l1ExzOmiLpjSEv7wlUmBY3/TVmeWw8vHp1TTBpRt4sdj2yAcE
+         wF7Hr51v0iJT4umnAASrHUU24OuPbgDzEfX0nSCK3BzGt/nIVzL2GuPfk1DYzmoWN7Tl
+         iy72I36TdqFm4C40x+58k0ExdMip/SKFGHp+8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732723665; x=1733328465;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QOajJGkqrRzAKADAAd0z4wDNLTiv7h8Mem5y4HKc3DQ=;
+        b=s/rBpy1vBlEwTOZg9tAh+NkKeNeaEvNDlblkCQHHazMrr/RJApmi1ZzSdsJTo+syqL
+         stbKzeriTNs4jw15fUOfMHD1GTif0+51NxZxKvvZNe+UigyyHuCeSIr1c4kUbP+1+FW+
+         8A1F6iFakvPlQEkNRDu8F2OxLwjxdj1I5JrlREv8lDW/mbA936vUxDmYPG0omYLBanN3
+         1BShaY4546w4aYTx3/4iP5DqC1YsWdPgHjiQNy+lrU50G30j4o9Cz0KDjoKXw3aveaCn
+         c67aV4qoC4i94KfRjz814jOQKqN9+Ul0TS8xQPbJZ5IBNGapqi9rgGkUCDObK18hACvV
+         A0jQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUYrn2TCprcnRgXUmhMI5sBZfOSbwP6UFLwtiJnDBDW1YRa/nYVRLpeOpYO0lix/pzj9QYGIZrIWpY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YznKNUgIZ2UtIK8NoZ0uW6d4XaXf1ATgW0tHJI5n5vK3hRQWDaV
+	euQSD/uIdbIqMTnjuVYXh+BEBVm+Wbq2Wr6ZxhvycakS5d/w2QG9xH4lMR+jhThOdY0QXBVmXv9
+	9
+X-Gm-Gg: ASbGncsv9S9pvjwfU3v+aksYr2muX0Alrki/Ym7b3043rolwc+DO9FQwXKYIJ4cKE9g
+	j7dZNxZjH0F07MlTTP385pOQqdSMwGRWPjCd4S6IqroKDuNEFJSw3BiiuSPGotGZ3oeaFzHbVLW
+	HVE/RN/u1VYsQWUnpXPGZq+rmAolVzJ8t2yy1WF1ItLP353RMgiVVFg2wHn6by5eaP3RzAJHrx4
+	wzoAlOGyeQr7/mTCTAjOv1U2KkHpqNEKSx4TtDeICpYJ2/ki22pqIcy8ireRFc=
+X-Google-Smtp-Source: AGHT+IGPnZhdvtnmsbSlmCcmCjJBUEl9+5gdqhl3v+xdk9DnErnQuzIpauOLC/heQXuhIXf3X+AW6Q==
+X-Received: by 2002:a17:906:3ca9:b0:a9a:616c:459e with SMTP id a640c23a62f3a-aa57fbe94f9mr353507966b.27.1732723286833;
+        Wed, 27 Nov 2024 08:01:26 -0800 (PST)
+Message-ID: <c4b7b7bc-1956-444b-a613-971a60f9a27e@citrix.com>
+Date: Wed, 27 Nov 2024 16:01:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/36] xsm/flask: missing breaks, MISRA rule 16.4
-To: dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com>
- <20241126-vuart-ns8250-v1-v1-2-87b9a8375b7a@ford.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <20241126-vuart-ns8250-v1-v1-2-87b9a8375b7a@ford.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] x86emul: MOVBE requires a memory operand
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <157a6ac0-6929-4e01-8588-7e5591427654@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <157a6ac0-6929-4e01-8588-7e5591427654@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 11/26/24 18:21, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> While working on console forwarding for virtual NS8250 I stepped into
->    flask_domain_alloc_security()
-> where break statement was missing in default case which violates MISRA
-> rule 16.4.
-> 
-> Fixed everywhere in hooks.c.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+On 27/11/2024 7:15 am, Jan Beulich wrote:
+> The reg-reg forms should cause #UD; they come into existence only with
+> APX, where MOVBE also extends BSWAP (for the latter not being "eligible"
+> to a REX2 prefix).
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
