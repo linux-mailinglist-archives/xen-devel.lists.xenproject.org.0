@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E479DB705
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:57:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845407.1260829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F9379DB70E
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 13:00:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845418.1260839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGd9C-00012S-Pu; Thu, 28 Nov 2024 11:57:26 +0000
+	id 1tGdCC-0002b6-BD; Thu, 28 Nov 2024 12:00:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845407.1260829; Thu, 28 Nov 2024 11:57:26 +0000
+Received: by outflank-mailman (output) from mailman id 845418.1260839; Thu, 28 Nov 2024 12:00:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGd9C-000101-Mq; Thu, 28 Nov 2024 11:57:26 +0000
-Received: by outflank-mailman (input) for mailman id 845407;
- Thu, 28 Nov 2024 11:57:25 +0000
+	id 1tGdCC-0002ZK-8U; Thu, 28 Nov 2024 12:00:32 +0000
+Received: by outflank-mailman (input) for mailman id 845418;
+ Thu, 28 Nov 2024 12:00:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=53lb=SX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGd9B-0000zv-8K
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:57:25 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ <SRS0=t80U=SX=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tGdCA-0002Wa-GO
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 12:00:30 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060a.outbound.protection.outlook.com
+ [2a01:111:f403:200a::60a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebeb4451-ad7f-11ef-a0cd-8be0dac302b0;
- Thu, 28 Nov 2024 12:57:20 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5cfcb7183deso3201313a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 03:57:20 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa599905defsm58714166b.137.2024.11.28.03.57.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2024 03:57:19 -0800 (PST)
+ id 59838cb8-ad80-11ef-a0cd-8be0dac302b0;
+ Thu, 28 Nov 2024 13:00:25 +0100 (CET)
+Received: from SJ0PR03CA0136.namprd03.prod.outlook.com (2603:10b6:a03:33c::21)
+ by CY5PR12MB6323.namprd12.prod.outlook.com (2603:10b6:930:20::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.14; Thu, 28 Nov
+ 2024 12:00:19 +0000
+Received: from SJ5PEPF000001F7.namprd05.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::12) by SJ0PR03CA0136.outlook.office365.com
+ (2603:10b6:a03:33c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.13 via Frontend Transport; Thu,
+ 28 Nov 2024 12:00:19 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001F7.mail.protection.outlook.com (10.167.242.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8207.12 via Frontend Transport; Thu, 28 Nov 2024 12:00:18 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 28 Nov
+ 2024 06:00:17 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 28 Nov 2024 06:00:16 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +59,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebeb4451-ad7f-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmEiLCJoZWxvIjoibWFpbC1lZDEteDUyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImViZWI0NDUxLWFkN2YtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzk1MDQwLjM5Mjk0NCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732795040; x=1733399840; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EqmE+nW053InlD43iJvaDRW4jPg+ohSEaaA237Ok2YQ=;
-        b=U4375S+xTe9sfGdDtM1hXoWtfR+8DCubus+QLWXAJM2y4fhVUU8ihw0iP+S5DGIafQ
-         0lyHZ6Hh9lJCj9FfaxDH5cvfZe7KOUKIbgy4/mI+80CUNyAbaycl8hQS6v9BXx2qjdV1
-         tPISEHfK7Wxno3RjC3jUbBmm1UHG3ttHFLkUc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732795040; x=1733399840;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EqmE+nW053InlD43iJvaDRW4jPg+ohSEaaA237Ok2YQ=;
-        b=BBhLq5pxbhP0JhB7NPRWQAN1RIDIjZEt1gilun9v3WFOjSVuBwUcZhkM0Ex8pP8Y7o
-         IMlxXs/ftQI94K1BsAl+Ff3TRLsyk6gMI9TftOHVR4Eozruss7FAP0yLCoEP+z34qadh
-         sw5ose2mRabTB9PEDj7zpiwMqyDeS7i9QJ4YNpwbpoib6EVWL+MU90u4ofgyQoRZTK1u
-         KAigHVZRo7Fq6IEaKlEj0wQRhXhEwf2DXTN4hw/MXr/H2iVytU3PDSGqcg6nE4e5/XRS
-         otrR1cfpgFpytliI7DTVrljV008hec1MzIxFe0w/La79mg3wZzoiWA4gxBK3Zr9mMp65
-         sE3A==
-X-Forwarded-Encrypted: i=1; AJvYcCX1lCe9E9FPi/VqPi4FVQiJWf1SjewcBgZBm/QtO9Y5tlzdP+6uM/r27yVHL1prXwe5n7mzY9voJ/w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwoL/DXZm86LDKIJojCBlOXXV1Aop+CkbiMUf60wJWNbfMFcO/I
-	E5lp9FbeWu04UtdX1u8FOPQBNzES6HELQY3PMs7LeLwOB8hJqkTIRv55epairdc9fDi6LPTA2MV
-	q
-X-Gm-Gg: ASbGncvV5unry2F2aEKvhJdcRxYcrcbbbdn+PL7xii78sHB2DwSXsrts5O2SpYmTd5Z
-	qEwrPR1aMTK4dFsr0uf/geYEHV+hWLRPyOuzJfN/dmHTcz/yeMR58WTSTxAL3SUN3N4aQ0Ytyfp
-	3ayzNAgeGLAh8mvKVs1QTvoaaRBFBemEN6gu469dtbArExreSav5WDLrPH1kvja6OXY+sQufhdT
-	FFnzShIzVk5W3WzwIzoxtukXX8DBpoWeV+SXuRD/ur0StFxPHNfgwQQbyMOQ8g=
-X-Google-Smtp-Source: AGHT+IE+dQ35oS0zvOrkJ3Z0REIon37rJDyNKRhPPErUEHVu1JQa4TiSkyVBVJ9MRBvrjGtL2lk8Ng==
-X-Received: by 2002:a17:906:329b:b0:aa5:c1b:2204 with SMTP id a640c23a62f3a-aa594573455mr315522466b.8.1732795039835;
-        Thu, 28 Nov 2024 03:57:19 -0800 (PST)
-Message-ID: <e8bf67fb-fc58-42cd-81dd-b11e041e82b2@citrix.com>
-Date: Thu, 28 Nov 2024 11:57:17 +0000
+X-Inumbo-ID: 59838cb8-ad80-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjAwYTo6NjBhIiwiaGVsbyI6Ik5BTTEyLU1XMi1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjU5ODM4Y2I4LWFkODAtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzk1MjI1LjY2OTMzNiwic2VuZGVyIjoibWljaGFsLm9yemVsQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PKKKsnNRY8gC7GHXsyEH0GLTTAkYIktu5jf04Bj0/agpzCATmMoQukg/tqcoAIJ7ChGU7P+dfs2f962EAYW5qviiC6N0+WoSv3b5Ya9hW/WijpGT56VtQHxcp8OmyHZfHMiQwQ3xqKZfbLoMaCxdNWZpjPW6ehhqTdcAsz+d+MWWtS2rdhOK5Edft/2tYLq//VeLP/Nl/Lo61XDeQh8w4WQIKQpFGB/p7S8nlEfldosQiLdxpl58mKo1za5RXD6qN4RNXZ6mnHKgeD8tQjL91FFRFUePWWoWe2PrhDveMk4/rT22IrOUXW+zVPIPmd06NGhxhW5GomrxK3tvkcuXog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eB7Yb5HGZxjWzyl3RpwCdAeA90lJ2umlKPswSFSyfiQ=;
+ b=NAF+ewOoALou3/hB+oT9NPlCnbiaMWxppwm8c6R/88Yo2s27rdAP45k0x35RVo+WoH13bJpCPE1EVAk1zJxjvhPn6/4xhzCnlf+DCyKNzFr0Kez9bZaZvcJoLzsTdNPWeUsYZcvpz4euohgWAnBOOLIebkZD65xYeDOQH8E1uteCuPbehVFHLNIIjvcEhMJlfJAN4vYHInpvkyKeElVcbB9gYfbQACXIhgjIbOHYJGtVPow1W3mmQ56LlWRzmk6OE0JacYH7QY0qbhs7QenCXZ7AodH7L9T8SZBLVPiZWf7zhU2Q4PbOn1hFUYfrGD3BOseHHf+mSbkhMn3N1GhYZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=minervasys.tech smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eB7Yb5HGZxjWzyl3RpwCdAeA90lJ2umlKPswSFSyfiQ=;
+ b=xJ7t+UnEpdJL41U2po9VGveFDc8QZqBfIPS2h71nbNSEf1M427jmxwVR6ydc3L7qCbk2CizUZHSccnfoSusPMDjueFeiF6+6qymqGh7FnWf0vnv/gaTfyWcWQBA99DUMV2LmA0tzTlENcQ0gQbVK/+cl+oL88d2hNW+rtpoXeFo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <355f9c8d-abc8-418a-b78b-6b6d7c0c3466@amd.com>
+Date: Thu, 28 Nov 2024 13:00:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/vlapic: Fix handling of writes to APIC_ESR
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241128004737.283521-1-andrew.cooper3@citrix.com>
- <20241128004737.283521-2-andrew.cooper3@citrix.com>
- <e576e161-5054-40d2-af02-6f32ef636782@suse.com>
- <8a3a3daa-16f6-4488-ae46-224379033c54@citrix.com>
- <b97f13ad-f3d4-4e92-b3e6-5522badbad5b@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <b97f13ad-f3d4-4e92-b3e6-5522badbad5b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v10 07/12] xen/arm: add support for cache coloring
+ configuration via device-tree
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+	<xen-devel@lists.xenproject.org>
+CC: <andrea.bastoni@minervasys.tech>, <marco.solieri@minervasys.tech>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>
+References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
+ <20241119141329.44221-8-carlo.nonato@minervasys.tech>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20241119141329.44221-8-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F7:EE_|CY5PR12MB6323:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92693ced-2ac3-4de3-cef8-08dd0fa43a95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|7416014|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Y21yM2MxQUVVUklsUjRtMUpLcUwwTHovWERmaUhvL3g4Y2lVM0tJcVcrZndC?=
+ =?utf-8?B?MmRKR05NZnc1SXlnS0dPZHBGRkI5Q0hyZ2lvelNmTTczNGhjWElpc2Fyazg2?=
+ =?utf-8?B?cHZ5Q1pBQ0thdmZtcTJGVndoY1pDTGNVNG5kUy9sL2tnSHZjTm5PSGNJTmxU?=
+ =?utf-8?B?ZG90WCtuZUFUa0toMWlEL0tFNXkzRUlMNkhDV214ZnpPR0N5TzVvN2NvMlFD?=
+ =?utf-8?B?am9xMnVsKzFMYzZqazNBWDAzNjIxQ0tnVzZhY203MXp5cUx0cFBuWFBEVnFk?=
+ =?utf-8?B?NXRxK0UxQnh0akNKcUF6M3ZXbXlqR1QvWWcvMTBPdjN5MEQwR3VhMlJuT2JT?=
+ =?utf-8?B?eFFHdFRLbGFGRWVJTnpudWJ2dFVONzJvQXpNNWIwMS9aR1MvaStXdE9SeVhy?=
+ =?utf-8?B?dnlkTE5IMUR5a0NMU0lVcnUxNm5rWGZOMUM2RjVjWEY4M2RVc04vWEtFd2RV?=
+ =?utf-8?B?R0JTaGozbFhVaHhRdkpZM2Mxb0NRVCsybFpoZ2VNN1o4OGcwTjZaZE0zNmtE?=
+ =?utf-8?B?SllLL1ZuZ2FXeU1Hb1kySHB2eVB4eW9QWlQyakdTU2lBT2docmlLNWFqOUJU?=
+ =?utf-8?B?SS85N0JUSkVoa1d4d3FEakpIdHd4YjQ1dW5nYmVINDU4czdDSmVKV25od3NY?=
+ =?utf-8?B?WTFHbzcrMDdZSmdZc2Vxd2o5dk1QbWMzVUJ4MkZhMjRTRXh2QUtnQmpSa3d2?=
+ =?utf-8?B?aVRTQ1d2em85WDZQYTlNTzJhZFkzV2dOdlhnL0J3RHNjcCtoYU9Zb1J3dkJQ?=
+ =?utf-8?B?UU95YmRyaTlnSmFoVUVqVjk5djhDT0orT0tMeWlsbW03eEFJWUdLTEo4S3c1?=
+ =?utf-8?B?VFY0ajcrd2sxVFhiS2JlTVh2cG5VWm5HaGJoajFGWENvbEZncXFyZTRXeWph?=
+ =?utf-8?B?N0hFOHJBU0I5Z3pnVzdRejZ3akx2bUlCc3pFQlNmeGpBOVpTRVM5cW8vSHJs?=
+ =?utf-8?B?cTB6WFA4ZXJwVmxxdTUzdFA1NTZoZjNmMW5VcFYvdWVUajF4UXFDenRMSEJX?=
+ =?utf-8?B?Q21EODdJWXo0QnNicm9WS1RhekUrWGVoSjRzYW9KelFCL2lRUE9jZWwrVi9Z?=
+ =?utf-8?B?dTN6dHhhVmdpOFlJY2xNOUh0VWdlM3RoWjJvc3Q1WkhkSVU2Yy9aY1lRL0kx?=
+ =?utf-8?B?T1JFVWRONXhJUWdrcmQ2RTN1Q2VwbndWOGFVZG0rRUhtdUhodjdmbUFHY09O?=
+ =?utf-8?B?MHd6dTN3WmlxN2tqNUdrV0dtZS84U1U1M0wxalpnMEZQWGdVQnBwNnZzU3hz?=
+ =?utf-8?B?WUVWSGN0VjhLa1VPbkxyaUc1ajc3b3lmZUE4dW9HTy9wRkFHNEl3V2VON0Nn?=
+ =?utf-8?B?elluNXp6K05XcTBHblIrZWx6bEp0aXRsbGdTdjYveUZvcGdxb2pzQk9UK3BQ?=
+ =?utf-8?B?akl6OEZQZUFvZFRQRldpMERqVlNxRkFtdWpibUlMNTY2ZThoKyszSzY2Q0F1?=
+ =?utf-8?B?WTBIRkhJdzJBYTFMMEt4M0dSczJLaWZOSHNkWlN2WGNDbVIxdnlXVjVxT0do?=
+ =?utf-8?B?Z2hHSG9qQWhMNFp3dGR0d0dyNWMzMVAzSk1hSTM2bXFGZWcyS0tDRWs3OUZw?=
+ =?utf-8?B?aUU1a3JXb29PSUJPSk5la01JWlBLcjBkbFFiL2xqclh2Yjc1MzRTb0xJaUQy?=
+ =?utf-8?B?MnE4a3hJSWk2NGRwNEpwQ1V3ZHROTWxGQ1Q5dWcwcHkydnBtU1paVXpoU2lr?=
+ =?utf-8?B?VERucVNwT0hVVUhFSWJSVlhQOFZsdS9PeGFDRTVzMnByQVlNMms1anBrajI1?=
+ =?utf-8?B?am52Vzg0NGdsSDJHUmxmcXh6ajFVQUNacEVkTHBtblIzWDdaa0dXZjduZlJH?=
+ =?utf-8?B?UXJ3c3JiQWMrdWNvSW91QmVSVFd6R2dJK3dKZUJxN3ZqVkptbEFKOGNBMm9D?=
+ =?utf-8?B?SGIrYXIwTG1CRzJFaXpvWDNQNXZKL0s3bHd2VS9KemxEK2x0WmdqekxQaGEz?=
+ =?utf-8?Q?CIniv+QvHPkUQgP3N7l+zdfWRTAsRXau?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(7416014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2024 12:00:18.6240
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92693ced-2ac3-4de3-cef8-08dd0fa43a95
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F7.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6323
 
-On 28/11/2024 11:50 am, Jan Beulich wrote:
-> On 28.11.2024 12:10, Andrew Cooper wrote:
->> On 28/11/2024 10:31 am, Jan Beulich wrote:
->>> On 28.11.2024 01:47, Andrew Cooper wrote:
->>>> Xen currently presents APIC_ESR to guests as a simple read/write register.
->>>>
->>>> This is incorrect.  The SDM states:
->>>>
->>>>   The ESR is a write/read register. Before attempt to read from the ESR,
->>>>   software should first write to it. (The value written does not affect the
->>>>   values read subsequently; only zero may be written in x2APIC mode.) This
->>>>   write clears any previously logged errors and updates the ESR with any
->>>>   errors detected since the last write to the ESR. This write also rearms the
->>>>   APIC error interrupt triggering mechanism.
->>>>
->>>> Introduce a new pending_esr field in hvm_hw_lapic.  Update vlapic_error() to
->>>> accumulate errors here, and extend vlapic_reg_write() to discard the written
->>>> value, and instead transfer pending_esr into APIC_ESR.  Reads are still as
->>>> before.
->>>>
->>>> Importantly, this means that guests no longer destroys the ESR value it's
->>>> looking for in the LVTERR handler when following the SDM instructions.
->>>>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> No Fixes: tag presumably because the issue had been there forever?
->> Oh, I forgot to note that.
->>
->> I can't decide between forever, or since the introduction of the ESR
->> support (so Xen 4.5 like XSA-462, and still basically forever).
->>>> ---
->>>> Slightly RFC.  This collides with Alejandro's patch which adds the apic_id
->>>> field to hvm_hw_lapic too.  However, this is a far more obvious backport
->>>> candidate.
->>>>
->>>> lapic_check_hidden() might in principle want to audit this field, but it's not
->>>> clear what to check.  While prior Xen will never have produced it in the
->>>> migration stream, Intel APIC-V will set APIC_ESR_ILLREGA above and beyond what
->>>> Xen will currently emulate.
->>> The ESR really is an 8-bit value (in a 32-bit register), so checking the
->>> upper bits may be necessary.
->> It is now, but it may not be in the future.
->>
->> My concern is that this value is generated by microcode, so we can't
->> audit based on which reserved bits we think prior versions of Xen never set.
->>
->> I don't particularly care about a toolstack deciding to feed ~0 in
->> here.  But, if any bit beyond 7 gets allocated in the future, then
->> auditing the bottom byte would lead to a migration failure of what is in
->> practice a correct value.
-> If a bit beyond zero got allocated, then it being set in an incoming stream
-> will, for an unaware Xen version, still be illegal. Such a guest simply can't
-> be migrated to a Xen version unaware of the bit. Once Xen becomes aware, the
-> auditing would (of course) also need adjustment.
 
-That's the whole point.  It's not about Xen's awareness; it's what
-APIC-V/AVIC might do *in existing configurations* on future hardware
-without taking a VMExit.
 
-If there were no APIC-V support to begin with, this would be easy and
-auditing would be limited to SENDILL|RECVILL as those are the only two
-bits Xen knows about.
+On 19/11/2024 15:13, Carlo Nonato wrote:
+> 
+> 
+> Add the "llc-colors" Device Tree attribute to express DomUs and Dom0less
+NIT: s/attribute/property/
 
-~Andrew
+> color configurations.
+> 
+> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
+> 
+> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com> # non-Arm
+> ---
+> v10:
+> - no changes
+> v9:
+> - use best-effort allocation in domain_set_llc_colors_from_str()
+> v8:
+> - fixed memory leak on error path of domain_set_llc_colors_from_str()
+> - realloc colors array after parsing from string to reduce memory usage
+> v7:
+> - removed alloc_colors() helper usage from domain_set_llc_colors_from_str()
+> v6:
+> - rewrote domain_set_llc_colors_from_str() to be more explicit
+> v5:
+> - static-mem check has been moved in a previous patch
+> - added domain_set_llc_colors_from_str() to set colors after domain creation
+> ---
+>  docs/misc/arm/device-tree/booting.txt |  4 +++
+>  docs/misc/cache-coloring.rst          | 48 +++++++++++++++++++++++++++
+>  xen/arch/arm/dom0less-build.c         | 10 ++++++
+>  xen/common/llc-coloring.c             | 41 +++++++++++++++++++++++
+>  xen/include/xen/llc-coloring.h        |  1 +
+>  xen/include/xen/xmalloc.h             | 12 +++++++
+>  6 files changed, 116 insertions(+)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 3a04f5c57f..9085645433 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -162,6 +162,10 @@ with the following properties:
+> 
+>      An integer specifying the number of vcpus to allocate to the guest.
+> 
+> +- llc-colors
+> +    A string specifying the LLC color configuration for the guest.
+> +    Refer to docs/misc/cache_coloring.rst for syntax.
+Shouldn't we make it clear that this property is Arm64 only?
+
+> +
+>  - vpl011
+> 
+>      An empty property to enable/disable a virtual pl011 for the guest to
+> diff --git a/docs/misc/cache-coloring.rst b/docs/misc/cache-coloring.rst
+> index c5fb33996c..c14b6ee2f4 100644
+> --- a/docs/misc/cache-coloring.rst
+> +++ b/docs/misc/cache-coloring.rst
+> @@ -12,6 +12,7 @@ If needed, change the maximum number of colors with
+>  ``CONFIG_LLC_COLORS_ORDER=<n>``.
+> 
+>  Runtime configuration is done via `Command line parameters`_.
+> +For DomUs follow `DomUs configuration`_.
+> 
+>  Background
+>  **********
+> @@ -147,6 +148,53 @@ LLC specs can be manually set via the above command line parameters. This
+>  bypasses any auto-probing and it's used to overcome failing situations, such as
+>  flawed probing logic, or for debugging/testing purposes.
+> 
+> +DomUs configuration
+> +*******************
+> +
+> +DomUs colors can be set either in the ``xl`` configuration file (documentation
+> +at `docs/man/xl.cfg.pod.5.in`) or via Device Tree, also for Dom0less
+> +configurations (documentation at `docs/misc/arm/device-tree/booting.txt`) using
+NIT: I think you can remove the part "also for Dom0less configurations" if you already
+mentioned "or via Device Tree".
+
+Other than that:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+~Michal
+
+
 
