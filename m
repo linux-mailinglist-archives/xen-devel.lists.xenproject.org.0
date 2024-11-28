@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 620679DB634
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:05:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845308.1260759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68D589DB647
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:09:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845320.1260769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGcKY-0006WA-Jp; Thu, 28 Nov 2024 11:05:06 +0000
+	id 1tGcOm-00077R-3r; Thu, 28 Nov 2024 11:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845308.1260759; Thu, 28 Nov 2024 11:05:06 +0000
+Received: by outflank-mailman (output) from mailman id 845320.1260769; Thu, 28 Nov 2024 11:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGcKY-0006TZ-GW; Thu, 28 Nov 2024 11:05:06 +0000
-Received: by outflank-mailman (input) for mailman id 845308;
- Thu, 28 Nov 2024 11:05:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tGcOm-00074c-0X; Thu, 28 Nov 2024 11:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 845320;
+ Thu, 28 Nov 2024 11:09:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v7zX=SX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGcKW-0006TR-UW
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:05:04 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ca6a3fa-ad78-11ef-99a3-01e77a169b0f;
- Thu, 28 Nov 2024 12:05:00 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-434a044dce2so7505465e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 03:05:00 -0800 (PST)
+ id 1tGcOj-00074W-PJ
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:09:25 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 38d06dbe-ad79-11ef-a0cd-8be0dac302b0;
+ Thu, 28 Nov 2024 12:09:22 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-382378f359dso537367f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 03:09:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434b0d9bef8sm18492005e9.7.2024.11.28.03.04.59
+ 5b1f17b1804b1-434b0f70ea8sm18966035e9.40.2024.11.28.03.09.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2024 03:05:00 -0800 (PST)
+ Thu, 28 Nov 2024 03:09:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ca6a3fa-ad78-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzUiLCJoZWxvIjoibWFpbC13bTEteDMzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjljYTZhM2ZhLWFkNzgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzkxOTAwLjk2MzI3NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 38d06dbe-ad79-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzMiLCJoZWxvIjoibWFpbC13cjEteDQzMy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjM4ZDA2ZGJlLWFkNzktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzkyMTYyLjk1NTEzNywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732791900; x=1733396700; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732792162; x=1733396962; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Tf9e3TdnYtGxqFx1XkyvFSt9XUmCh5TlD34xV1GaH+A=;
-        b=HUqRxmptvVgWCK9X60ycuE6dkXgCGJU/uP/B2m6emnvsQMziGlrHSJuRpJN4TIEbNi
-         IMRXLjdoVx3W0cLOMfuo/BcNPRm2FbblJYofGBSCU0CpbTkE9loUBe2Yxmpf9xGZ+9x3
-         NjyD4zvSVrtwL5z7EaWcLhjOajI2ckNGpCa8mEbm6JqyPxh9zsXsjLg6zRxgDuugNoLv
-         mV0Zrza+ByoHe64Eog9YJ+dfKFt9MFt1Pi00ygcTU/Fr9sSOyY1jFCSvv9vBuMcvFi3Q
-         Rfjy3tNPDwFAztpHo5MxplomYmlEvBf4h2TXTtFczitnZemNjKtTJ7rLVTNJtmuQzf1d
-         +otQ==
+        bh=Z0BupGNm/apGpJAAzh6cqG4V9lRTsiOxQb2A9JGVFQs=;
+        b=fRGlKSOfCra8H7/HzJzCNWELadi9URjKBtDX9dnKjzVDaV/UvM4rnLsQ3BYOpD/EXy
+         u9ZVgpBDIItN+f8F/i3oCKN+LfUQVp63BODFFKVCexIlDWcQeD/7EUQTP2qPDyBJItR9
+         FyuD+BFopoUgriNA1ANGbEtaBVTsxFnG57hEPq4V9xh+Qc0aD0D0X2POiETajCRyp7Fg
+         YDptgf5sosCe1dn8yAbwHKV2VWA7Hj3OzIHdgQZWajSGTXOt7mwa9WWahpDSSMijqIf8
+         B6qyr7yUSPNJOoUQ/Pj5BwdhMPvP9E2VqjCac1C955U7D4IL3q3MV0V4IL/qsa9HqsZ8
+         +Xvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732791900; x=1733396700;
+        d=1e100.net; s=20230601; t=1732792162; x=1733396962;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Tf9e3TdnYtGxqFx1XkyvFSt9XUmCh5TlD34xV1GaH+A=;
-        b=Yi5fH51fTrvt4TUTeTDujgRilwR+Cc2xrkUFZSupR31gKbn11EowrG+G2blzNHK75W
-         TlfRQmNZsMxIBNsugbWbAA182WGDzWz+4Yo7iwaedfMAQDsEEXnSqkq/j0Et+GcKZaN0
-         iF2XRzKE2ey/8GbKEV84b7ZqnlAsD2DAts9WIU9rgNc1RY60fuAifyIlnZUN9JrBMJd0
-         HXCZuBWGq7h0zyPmCVIH/ulwmz3XICHrbg6ZtqaZ+Sd9xPQtVvvsZJaneIJBZNNqXrAC
-         GIO78Z+MYGTtiX5qDMOQv7LeyBg1znyWWGyJPAjmUfsGR5yb3MY8F2Sd1IR8aBCNJOEy
-         uAvA==
-X-Forwarded-Encrypted: i=1; AJvYcCV4zni7PiQYqt1nIDvjUObpg1zMu9FnXxXeuhWxUJx2SzF7iAmAjqnpEhPKLDF31K94sU9p4J6Hur4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzhhyCL0ENGe0ikOT6cv3bWy3Z5Dqgf+3rDv7byXoClmziNOOFb
-	tfpW3TwSsYjkjyf9vf6U1tGbX3be02x+UYXmOF9zjZaqMhmA0qNlZrW6B70ssw==
-X-Gm-Gg: ASbGncsWxzalBf6gQhULpNz0wda6YrBt+leUD5yfV+Oy3LJ5B1edmO+yN5YnDfIoHMT
-	0vSyPXdOggbQI8+P4rmgPmz1mgkb4CKwWz568i8ydhL0iupzkemHhHyMhT10zH97MAQ+EqxKy02
-	DM9WvE/eNKBF/Om6sOWQrSdQhDeUDFC3cnDCx61lg+J3X23CRyI1Z4bZWwzwf6k7YnvBciDqyZx
-	hIcTESsVfTAjTxPKKOhmAHHEbMyxqf0NYuqYZTgW7SoYKaPYOrwkNhMtmSiQ0KAbGsfEd/b3um0
-	wDdP2gg4Jk+jP+EkzXdm75iYtNYq8c9VSMc=
-X-Google-Smtp-Source: AGHT+IEDXrBhSQBcVl7DRj09AKHMlrST7rqkdjShLMGdcFskZGi1Bft0O/vsuJquKVUFkBnJ3wsH9g==
-X-Received: by 2002:a05:600c:5024:b0:434:a1d3:a321 with SMTP id 5b1f17b1804b1-434a9dbb663mr78379815e9.3.1732791900335;
-        Thu, 28 Nov 2024 03:05:00 -0800 (PST)
-Message-ID: <29e69d97-41ef-4ebc-a68e-0253e230f6f4@suse.com>
-Date: Thu, 28 Nov 2024 12:04:59 +0100
+        bh=Z0BupGNm/apGpJAAzh6cqG4V9lRTsiOxQb2A9JGVFQs=;
+        b=cVwR540JSp/v7jrkmOPBMwVHqeBcocLR1YQDdzAzwsjXVL5u5b4eo/F3+TbOqbnwRm
+         4XOOtJ2vCWl3g2jHBBv/bLFR8zGRy8tVKcg5MEEXpujM0bof4uMIDMte+ltsXiHyb8mi
+         oOjgXtqGELQT5MyExad8/KOCX8stdnZbalCdAW7cU7+iGGvO2jrx1a7mryLG1aNBk+tU
+         N1eEoO/2lnT8FscQ62ZIIGDeEkNXd20qE5leG9H6PjfF8ItKnYdYRHIx6PPzJZ/Mxib1
+         38n166LCYJUPmB0GrCY1fAEY6nIexVOXEGlYRod44TT22GnYo21ao8Fh3w9S0aHvcIse
+         FMzA==
+X-Gm-Message-State: AOJu0YxUYRteTbVQE3vJ8U1YGA94ra8lYMECVeY0ujHxIWkzrRsAO9wH
+	l/4ogEuhywIuGxwCwp3p/F5/RDNlsj72o3wMbw8/or3J6SihYuegu2kIZp6vHg==
+X-Gm-Gg: ASbGnctyIc1JKp9c2fpLsGNCtXEQI6M/skVUbGfZknGRf+94cIlv6ULmqN+u2l7mOkh
+	DYUbmnW+r8ad/fsDgVpNf4oW3XCoMM8tM3z6mHdVVOioEPQZ8ywfVgrAxJVsJdSHiks6xnaRSUs
+	VPiqlQxA6NbAsKPg5Dzg3UXD1DL1LiSuEPicr7znqR8cXM3WCsVFsZeR8fmlOGxopovPYHdvrh4
+	2y8X+oeB67nlRiFknizO8QCelvQ+OjULcVCUUoVnbrwyeBvCj/vPbU86WZJcYHFGGkyDjFHg7rt
+	5KtUHPROQJnXUBKP0/TZ48joOc0Mw2sY+Bc=
+X-Google-Smtp-Source: AGHT+IGiK/GCRcs0f80xByGgpzPExg4Fu0pwSoq39nPCFnEc5tIuQhrj1//cnMXsrTd4XIoOBGajCQ==
+X-Received: by 2002:a05:6000:2804:b0:382:4aeb:91ac with SMTP id ffacd0b85a97d-385c6ebaa04mr3892691f8f.31.1732792162310;
+        Thu, 28 Nov 2024 03:09:22 -0800 (PST)
+Message-ID: <9799e1e3-b3bb-48e2-8d9a-7deb4ef0d694@suse.com>
+Date: Thu, 28 Nov 2024 12:09:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 08/12] xen/page_alloc: introduce preserved page flags
- macro
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
- <20241119141329.44221-9-carlo.nonato@minervasys.tech>
+Subject: Re: [PATCH 1/2] x86/vlapic: Fix handling of writes to APIC_ESR
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241128004737.283521-1-andrew.cooper3@citrix.com>
+ <20241128004737.283521-2-andrew.cooper3@citrix.com>
+ <Z0gx5EdqcPiEUt3z@macbook> <4b8656ad-5a52-4c62-a7b4-bbc16226653d@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,84 +119,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241119141329.44221-9-carlo.nonato@minervasys.tech>
+In-Reply-To: <4b8656ad-5a52-4c62-a7b4-bbc16226653d@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.11.2024 15:13, Carlo Nonato wrote:
-> PGC_static, PGC_extra and PGC_broken need to be preserved when assigning a
-> page. Define a new macro that groups those flags and use it instead of or'ing
-> every time.
+On 28.11.2024 12:01, Andrew Cooper wrote:
+> On 28/11/2024 9:03 am, Roger Pau Monné wrote:
+>> On Thu, Nov 28, 2024 at 12:47:36AM +0000, Andrew Cooper wrote:
+>>> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+>>> index 3363926b487b..98394ed26a52 100644
+>>> --- a/xen/arch/x86/hvm/vlapic.c
+>>> +++ b/xen/arch/x86/hvm/vlapic.c
+>>> @@ -108,7 +108,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigned int errmask)
+>>>      uint32_t esr;
+>>>  
+>>>      spin_lock_irqsave(&vlapic->esr_lock, flags);
+>>> -    esr = vlapic_get_reg(vlapic, APIC_ESR);
+>>> +    esr = vlapic->hw.pending_esr;
+>>>      if ( (esr & errmask) != errmask )
+>>>      {
+>>>          uint32_t lvterr = vlapic_get_reg(vlapic, APIC_LVTERR);
+>>> @@ -127,7 +127,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigned int errmask)
+>>>                   errmask |= APIC_ESR_RECVILL;
+>>>          }
+>>>  
+>>> -        vlapic_set_reg(vlapic, APIC_ESR, esr | errmask);
+>>> +        vlapic->hw.pending_esr |= errmask;
+>>>  
+>>>          if ( inj )
+>>>              vlapic_set_irq(vlapic, lvterr & APIC_VECTOR_MASK, 0);
+>> The SDM also contains:
+>>
+>> "This write also rearms the APIC error interrupt triggering
+>> mechanism."
+>>
+>> Where "this write" is a write to the ESR register.
 > 
-> To make preserved flags even more meaningful, they are kept also when
-> switching state in mark_page_free().
-> Enforce the removal of PGC_extra before freeing domain pages as this is
-> considered an error and can cause ASSERT violations.
+> Correct.
 > 
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> ---
-> v10:
-> - fixed commit message
-> v9:
-> - add PGC_broken to PGC_preserved
-> - clear PGC_extra in alloc_domheap_pages() only if MEMF_no_refcount is set
-> v8:
-> - fixed PGC_extra ASSERT fail in alloc_domheap_pages() by removing PGC_extra
->   before freeing
-> v7:
-> - PGC_preserved used also in mark_page_free()
-> v6:
-> - preserved_flags renamed to PGC_preserved
-> - PGC_preserved is used only in assign_pages()
-> v5:
-> - new patch
-> ---
->  xen/common/page_alloc.c | 19 ++++++++++++++-----
->  1 file changed, 14 insertions(+), 5 deletions(-)
+>> My understanding
+>> is that the error vector will only be injected for the first reported
+>> error. I think the logic regarding whether to inject the lvterr vector
+>> needs to additionally be gated on whether vlapic->hw.pending_esr ==
+>> 0.
 > 
-> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index 7b911b5ed9..34cd473150 100644
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -160,6 +160,7 @@
->  #endif
->  
->  #define PGC_no_buddy_merge PGC_static
-> +#define PGC_preserved (PGC_extra | PGC_static | PGC_broken)
->  
->  #ifndef PGT_TYPE_INFO_INITIALIZER
->  #define PGT_TYPE_INFO_INITIALIZER 0
-> @@ -1427,12 +1428,11 @@ static bool mark_page_free(struct page_info *pg, mfn_t mfn)
->      {
->      case PGC_state_inuse:
->          BUG_ON(pg->count_info & PGC_broken);
-> -        pg->count_info = PGC_state_free;
-> +        pg->count_info = PGC_state_free | (pg->count_info & PGC_preserved);
->          break;
+> I think it's clumsy wording.
+> 
+> Bits being set mask subsequent LVTERR's of the same type.  That's what
+> the "if ( (esr & errmask) != errmask )" guard is doing above.
 
-PGC_extra doesn't want preserving here. Since it's mark_page_free(), and
-since PGC_extra is removed before freeing, the state change is apparently
-fine. But an assertion may want adding, for documentation purposes if
-nothing else.
+That's what we do, yes, but is that correct? I agree with Roger's reading
+of that sentence.
 
-Alternatively it may make sense to indeed exclude PGC_extra here. In fact
-PGC_static doesn't need using here either, as unprepare_staticmem_pages()
-will explicitly set it again anyway.
+> What I think it's referring to is that writing APIC_ESR will zero
+> pending_esr and thus any subsequent error will cause LVTERR to deliver.
 
-Hence I wonder whether the change here really is necessary (one will then
-be needed in the next patch aiui, when PGC_colored is introduced). Which
-would then eliminate the need for the final two hunks of the patch, I
-think.
-
->      case PGC_state_offlining:
-> -        pg->count_info = (pg->count_info & PGC_broken) |
-> -                         PGC_state_offlined;
-> +        pg->count_info = (pg->count_info & PGC_preserved) | PGC_state_offlined;
->          pg_offlined = true;
->          break;
-
-I'm similarly unconvinced that anything other than PGC_broken (and
-subsequently perhaps PGC_colored) would need preserving here.
+..., while at the same time preventing LVTERR delivery when there was
+another error already pending.
 
 Jan
 
