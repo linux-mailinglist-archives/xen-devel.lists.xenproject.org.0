@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9CB19DB7E0
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 13:46:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845442.1260859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E352A9DB7E1
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 13:46:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845444.1260865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGdu2-00013y-U9; Thu, 28 Nov 2024 12:45:50 +0000
+	id 1tGdu3-0001AF-7u; Thu, 28 Nov 2024 12:45:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845442.1260859; Thu, 28 Nov 2024 12:45:50 +0000
+Received: by outflank-mailman (output) from mailman id 845444.1260865; Thu, 28 Nov 2024 12:45:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGdu2-000125-QZ; Thu, 28 Nov 2024 12:45:50 +0000
-Received: by outflank-mailman (input) for mailman id 845442;
- Thu, 28 Nov 2024 12:29:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tGdu3-00014i-2O; Thu, 28 Nov 2024 12:45:51 +0000
+Received: by outflank-mailman (input) for mailman id 845444;
+ Thu, 28 Nov 2024 12:29:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Z92i=SX=redhat.com=amarkuze@srs-se1.protection.inumbo.net>)
- id 1tGddm-0006y9-9S
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 12:29:02 +0000
+ id 1tGde4-0006yl-9D
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 12:29:20 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 564cc39a-ad84-11ef-a0cd-8be0dac302b0;
- Thu, 28 Nov 2024 13:28:57 +0100 (CET)
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 617cfd7e-ad84-11ef-99a3-01e77a169b0f;
+ Thu, 28 Nov 2024 13:29:16 +0100 (CET)
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-663-FFTSCjIaOh2ycyd4kY3ONQ-1; Thu, 28 Nov 2024 07:28:53 -0500
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-38240d9ed31so455800f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 04:28:53 -0800 (PST)
+ us-mta-111-xkaBIXfWOUu4wxiXOqbTIg-1; Thu, 28 Nov 2024 07:29:13 -0500
+Received: by mail-ed1-f70.google.com with SMTP id
+ 4fb4d7f45d1cf-5cfbec85442so510286a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 04:29:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,54 +44,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 564cc39a-ad84-11ef-a0cd-8be0dac302b0
+X-Inumbo-ID: 617cfd7e-ad84-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjE3MC4xMC4xMjkuMTI0IiwiaGVsbyI6InVzLXNtdHAtZGVsaXZlcnktMTI0Lm1pbWVjYXN0LmNvbSJ9
-X-Custom-Transaction: eyJpZCI6IjU2NGNjMzlhLWFkODQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzk2OTM3LjkzNjI5LCJzZW5kZXIiOiJhbWFya3V6ZUByZWRoYXQuY29tIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+X-Custom-Transaction: eyJpZCI6IjYxN2NmZDdlLWFkODQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzk2OTU2LjQ5ODA0Nywic2VuZGVyIjoiYW1hcmt1emVAcmVkaGF0LmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1732796936;
+	s=mimecast20190719; t=1732796955;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ZACMslqIaF7iVtmlx12c8LPoSlN7TzLegXngDuX2z78=;
-	b=QPnys0og/9ZtXa5XVKgdSczFqWElYPx0x38aFbMVU/kymsa4vfCBuKFYZwqJVQGxed07VY
-	DfCSxyGrJBgVG8MHz2QkW11kvxWp1FxbuNxYNbmfCChS0MwjTQ1cpaOR7EfKSlEMXecB2B
-	1o3Zeuon1Q7UeIa2GVutpzvainNbh5g=
-X-MC-Unique: FFTSCjIaOh2ycyd4kY3ONQ-1
-X-Mimecast-MFC-AGG-ID: FFTSCjIaOh2ycyd4kY3ONQ
+	bh=0Nxf6CkGK3NslY+JLgqPcTLt32q1OCumzkrHYUKQkbE=;
+	b=X0g1wvKo1KD2HtnbqEDPWQbnLBHxs627+Ksu5II3Tf0tG0Bin3Ggr6/WHA0lQdmwHDHi+q
+	zToRtRbVKXYVqtSXSdxkeC4U3VjwU6gm6YSNGmxzNY16h3BajM5Ord1sIifq+amvGZ8iKv
+	pm5xZTiJEeOIxdf2Lt6QrqMZxHDVYYY=
+X-MC-Unique: xkaBIXfWOUu4wxiXOqbTIg-1
+X-Mimecast-MFC-AGG-ID: xkaBIXfWOUu4wxiXOqbTIg
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732796932; x=1733401732;
+        d=1e100.net; s=20230601; t=1732796952; x=1733401752;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ZACMslqIaF7iVtmlx12c8LPoSlN7TzLegXngDuX2z78=;
-        b=koj9kGgSvVG97wBNrDNRkTSQcrsvfgdlroLzGvLIQKpTnnGUA0KuhIOIwsZShKPSWO
-         ICcHHtL6TDO/o3L6CpN+9Cf6mOzJtUrh2JmpD4I9wgB5oZ8MHoWj0V/EefZCzogD06jB
-         l0+K8P6tfvZsCYbsua+zdSjk9F1ORj4muNqhauJ83tiV2K9NStCHgZPYOmuwBTWzgJz2
-         AuD6tejJmVOz62FDmPJL8FoBFcQXmO+DX8hNd9Y3LIpnvSFrhtYEBCZq/Ai6F7EwffhL
-         CZQ/ZNlkcj93VAawqkhUiBLdSN33caa4sOdW05boi2dmZlCteBcYweZPE9l9Q9wrPzIx
-         ViNw==
-X-Forwarded-Encrypted: i=1; AJvYcCVm07vLC3q1N/ngxhhzJ0Y9O4xMLk8i8GOqpdl8XKEeXag93nSDrPbbDpyhddIk0FNlSTWkNvuEfJY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4P2ZdEKjvYd1CcP4IR47/HGNKYGLFmLeCbLdZ9fFmIF0WuVA+
-	Ej9VL9jD9HKCCPsADIw3zctNlHtYWwRfUMLe1nUlyExte9NWMWWz4YpEG69KLPQjDVGL+2pikSa
-	wsTnNBuI7KregcbLm5rS0xIQ0Efu4CEemzzSCtzg0AgrxoYXWNc71NsLLBIxFb26aSUvcxpFSeX
-	omLV2fbvoc9Y0YgI4oxVXpyEcVvRXKi4OhbnV4ZLI=
-X-Gm-Gg: ASbGncugC3z0sok79OrKHkVIddsiSMD7ZstC6wXbh8XmCRA099QTq2dxYGnYIAMHrAp
-	ptZjOUbZdR+mmSoIv8m+I9y3rC2k6jzU=
-X-Received: by 2002:a05:6000:18ac:b0:382:4a27:1319 with SMTP id ffacd0b85a97d-385c6eb5840mr5776127f8f.6.1732796931976;
-        Thu, 28 Nov 2024 04:28:51 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGGOqoP8tsZ6KQpRsoqtGa6KHF61EJ3NUmj3Aw3MlprtODTvHQ/TDY7uTpa3Nw0Vy2Is2RlK3QrcXMwzmVV8rU=
-X-Received: by 2002:a05:6000:18ac:b0:382:4a27:1319 with SMTP id
- ffacd0b85a97d-385c6eb5840mr5776067f8f.6.1732796931576; Thu, 28 Nov 2024
- 04:28:51 -0800 (PST)
+        bh=0Nxf6CkGK3NslY+JLgqPcTLt32q1OCumzkrHYUKQkbE=;
+        b=BSZg8XqVtBq3BNqR1QfgSdoD4gJkrSJOlPEfSncm60RhTEart44wF+wVDx02/WwvEE
+         Y4m9C/7EM/2YzgIHy4w76gP/we/BlvuyCrmKuKFYL0Yv0d6qh7ab8aUrHLvFXcRyc5n0
+         dv+fIAyIKBKC4OjPGOsA5TDjTMG2c5CsEUuKrpE95wWoYOggfgIQKCK9Du6T56fySw0i
+         OkfpUWLmf23PXahbXuqA8w4ZCiQOoaEuKyGXxpijqu9CSyHU7J+kquR/3F5fRqZUmnEP
+         Jt6gVhMheSMv9oO1xaf1FT6+vnxIM/z62GwdbWBJKCA9mq9L4e6rwMPDGFK+VC66FkUU
+         clcA==
+X-Forwarded-Encrypted: i=1; AJvYcCUUxwcgzz4xNFMnpZQGOAubzOAy3zR2Z4MKE+Hq/0n+CdgMbDnv/2T45Eqrkha1IrUB8kgi9RammHA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbwDlfPqOzijiidKOZyscvY6lZQgxw8C/osRHMFV/+wEFCdVae
+	SREJ2IRrToUwMevGLToWQrpl96t09pkJ8rKTbzuUA0qe84L3LnLngKbiBmp7A5GXWJ1kxDKmggM
+	OPmcsE6mXPXhHSs2Ofwb82NhQNwl+YEtSqNxAXWKuh+/V0exwGFybxwmEOpKAv3RwPFA5A8mOVY
+	8UX3W1P+DZ2z0KU0f8QnnomvBnTtUajzVo3NcMfoM=
+X-Gm-Gg: ASbGncv3JdvrcgfUEs4aKJsUa7sTGCcblAPiuIzqpTS/GHaRK0pYCjFjW29vihAXj+f
+	TNFn079M4jmy/Idp36vqRJ9z1JFOjvg8=
+X-Received: by 2002:a05:6402:5243:b0:5cf:e26b:9797 with SMTP id 4fb4d7f45d1cf-5d080c604fcmr5605161a12.29.1732796951973;
+        Thu, 28 Nov 2024 04:29:11 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGuE0zkJ6zJza+fGet7qX+06h7Jmet7/bu0xRwgqC9A06SMAgod8PaoQJd1k5pY7KRDfw0cJAGqmNIglvOyUZo=
+X-Received: by 2002:a05:6402:5243:b0:5cf:e26b:9797 with SMTP id
+ 4fb4d7f45d1cf-5d080c604fcmr5605060a12.29.1732796951475; Thu, 28 Nov 2024
+ 04:29:11 -0800 (PST)
 MIME-Version: 1.0
-References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
- <20241115-converge-secs-to-jiffies-v2-18-911fb7595e79@linux.microsoft.com>
-In-Reply-To: <20241115-converge-secs-to-jiffies-v2-18-911fb7595e79@linux.microsoft.com>
+References: <20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com>
+ <20241115-converge-secs-to-jiffies-v1-18-19aadc34941b@linux.microsoft.com>
+In-Reply-To: <20241115-converge-secs-to-jiffies-v1-18-19aadc34941b@linux.microsoft.com>
 From: Alex Markuze <amarkuze@redhat.com>
-Date: Thu, 28 Nov 2024 14:28:40 +0200
-Message-ID: <CAO8a2SgQ-==SjhDFZpi2s3r9FUGA96jwuJL7kTDwE=Hw4UcgUg@mail.gmail.com>
-Subject: Re: [PATCH v2 18/21] ceph: Convert timeouts to secs_to_jiffies()
+Date: Thu, 28 Nov 2024 14:29:00 +0200
+Message-ID: <CAO8a2SjKS2nWWVkAcqXkZhR+Q1TocULkwRk09ABf8XQjjzwJPQ@mail.gmail.com>
+Subject: Re: [PATCH 18/22] ceph: Convert timeouts to secs_to_jiffies()
 To: Easwar Hariharan <eahariha@linux.microsoft.com>
 Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.org>, 
 	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -141,14 +141,14 @@ Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.
 	oss-drivers@corigine.com, linuxppc-dev@lists.ozlabs.org, 
 	Anna-Maria Behnsen <anna-maria@linutronix.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 6daSme4NZynAJRVrO5OJI1AU0xT4HdKqITsURX0Zg-M_1732796932
+X-Mimecast-MFC-PROC-ID: -5mNdrsTC0LPi7qL8IDd_jU2L1t-7cqrqTYgnKcRR6k_1732796952
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 looks good
 
-On Sat, Nov 16, 2024 at 12:32=E2=80=AFAM Easwar Hariharan
+On Fri, Nov 15, 2024 at 11:35=E2=80=AFPM Easwar Hariharan
 <eahariha@linux.microsoft.com> wrote:
 >
 > Changes made with the following Coccinelle rules:
