@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BA5D9DB5F5
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 11:48:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845283.1260739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1E2B9DB626
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:02:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845300.1260748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGc3e-0002Nk-V9; Thu, 28 Nov 2024 10:47:38 +0000
+	id 1tGcH8-0005bu-5w; Thu, 28 Nov 2024 11:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845283.1260739; Thu, 28 Nov 2024 10:47:38 +0000
+Received: by outflank-mailman (output) from mailman id 845300.1260748; Thu, 28 Nov 2024 11:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGc3e-0002Le-RI; Thu, 28 Nov 2024 10:47:38 +0000
-Received: by outflank-mailman (input) for mailman id 845283;
- Thu, 28 Nov 2024 10:47:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tGcH8-0005aR-2s; Thu, 28 Nov 2024 11:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 845300;
+ Thu, 28 Nov 2024 11:01:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=53lb=SX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGc3d-0002LY-Jh
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 10:47:37 +0000
+ id 1tGcH6-0005aL-N9
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:01:32 +0000
 Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
  [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c60569c-ad76-11ef-a0cd-8be0dac302b0;
- Thu, 28 Nov 2024 11:47:33 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1d350c2e-ad78-11ef-99a3-01e77a169b0f;
+ Thu, 28 Nov 2024 12:01:27 +0100 (CET)
 Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-aa55171d73cso328585666b.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 02:47:33 -0800 (PST)
+ a640c23a62f3a-a9f1c590ecdso97649366b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 03:01:27 -0800 (PST)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5998e6d96sm53485166b.126.2024.11.28.02.47.32
+ a640c23a62f3a-aa5996c19fasm54397066b.34.2024.11.28.03.01.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2024 02:47:32 -0800 (PST)
+ Thu, 28 Nov 2024 03:01:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c60569c-ad76-11ef-a0cd-8be0dac302b0
+X-Inumbo-ID: 1d350c2e-ad78-11ef-99a3-01e77a169b0f
 X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmIiLCJoZWxvIjoibWFpbC1lajEteDYyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjJjNjA1NjljLWFkNzYtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzkwODUzLjU1MjI5LCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Custom-Transaction: eyJpZCI6IjFkMzUwYzJlLWFkNzgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzkxNjg3LjE1NTg3NCwic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732790853; x=1733395653; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/pC4PdwshJmcWPYOQG/WxY4rkLlXK+MIN9S37mt1RJk=;
-        b=e3F3xHy1iZumwzjRI0WLkmIkhI2dYfl5z9rXz/qzr51KNQYpYgUU1pzRCNdniO4I9x
-         zlRzkzpgagjSifS/IEpoaFq34fsNRIvD7nXdJaKExgMu6O8/jLLlysNbKYSdmJXSjT1I
-         9Vs8oxJO0zIlPAYhSwBSHYZpPpHQBx7xK37gs=
+        d=citrix.com; s=google; t=1732791686; x=1733396486; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=NdisanXihBrK8URDLQd6ISVpgLHh90er2ZExBULLirs=;
+        b=lN8zePPzsgCWLVaqFnzGGkmLauzbbDIDUfPVqMZlZ1RUKBp7ZPGGTEhMjSeGbnZPom
+         KFBK7LBBnoDdzL7ypMEIqtspiKtPhnC/xtPaFd2Gom2pCub3GcRaVtush+MusOcXWCKn
+         BhWD6qBbY1rCmDp8pk1Ost7C0/LOwo4AjUKHw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732790853; x=1733395653;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/pC4PdwshJmcWPYOQG/WxY4rkLlXK+MIN9S37mt1RJk=;
-        b=wPcFkL+j6PCr8ymngSM11Zs7ztlyKQb31qcLaLJZwoLnZId4TMXxWOTeuHkIRiqnW4
-         mhdqs9VQHKFePb01315RSjECcH8H7oIcZrLO60+6Zlly+3/ZFS70kBkqmxbGD4Kr36uc
-         8+27RPHK5F9RJCajVVatIURyK3F3u+OTB9aJbO7S/Pi/z68LqeNGt3IiDfdggqa6S/JD
-         yt086cYSq2GlJSkUZX2auuu1AXcSrWh+P1ftvPhcTCFwlw8GTkxT8H+c+ur8IRBRr6OP
-         8cZlagJzpm4rH5arolDxwuW/d4gZZulqZhOrWI/meJECg0bXFbE2oBhbHroWosGFELxj
-         xS0A==
-X-Gm-Message-State: AOJu0Ywul3lYMnMW3asxRZnSkEnRQYDkzSTeg6fkR0y1GdLst14yk43K
-	Bn8g9O1zy2QXvV+t9JDzYbqcCe/vB4r67m6tbLdP6SRzf3r7xFT94j2r7DZFna8=
-X-Gm-Gg: ASbGncvuRkr80ai0zfLBniweSLMeqQaiHy2nDzPRLTMZpYBSNVfMvAdiHJbnrPJeh8D
-	O+7viCsmzIt0jkGwGftGgfGC09tM+9g0PxLrqQx9AHA588Pm0miYZXmLkSJsaiyF1bGBU9k/jwQ
-	tsJ0TC/1Mgo0JmFcs87mKqSOVM1jzpwlkeJ9ptfY3ZKfTpw1nLsb/4OyLUdyxXTu+wfEblQ5McP
-	gtYuq4D/sfkQrP8PKy7nOvMY29fufENgNjJZUMHex+YEdR+cjxs3RLY7ntiyZY=
-X-Google-Smtp-Source: AGHT+IG66XcUOnFwGg4+X8iZrifWbPIFJsJMVguOPWdZ3nJyq2YHg9QlCw6iQCmtbSabW658lRHMcg==
-X-Received: by 2002:a17:907:9494:b0:aa5:63a0:5d97 with SMTP id a640c23a62f3a-aa5945cdbdcmr311545366b.13.1732790853014;
-        Thu, 28 Nov 2024 02:47:33 -0800 (PST)
-Message-ID: <14036f23-563e-449a-8439-7e26dd6dbd25@citrix.com>
-Date: Thu, 28 Nov 2024 10:47:31 +0000
+        d=1e100.net; s=20230601; t=1732791686; x=1733396486;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NdisanXihBrK8URDLQd6ISVpgLHh90er2ZExBULLirs=;
+        b=tqTLE9OnXr1wdbxp2UvvlKsmjnjWydvJ7oSrNKIsT/pvGsIJ/OI2/7SjFuNnZRnsCN
+         yC/umM5qPc1ga17YlF+EjJo7plvAXZELFv3OvAKXx2E7n2Y0BXVFWGs8rI6Dme+yTpLS
+         s7o62W16yEdgVdA9k+HOncj9nQeaMnEyU19nkHUmLxM1W5rwVUmJD+xvbYUpm2xrqwNL
+         paK7r64fcaQXFZoZlfijkfqv0Hwu8QkRhQ14VhTx7xy9o7eKJH9JuRSIbg7F9jE41gAm
+         tj+AtGst8aa9SWUgpZ4Y1SX+dLNviHmnjSPuU2bF3SxjbomMVv+QqQZpfzp36zhGPWxq
+         rJdw==
+X-Gm-Message-State: AOJu0Yw62jMUh6jVBJrnck71zVfYH7w+Y9umPdrkkG1p0rZCcw//gI57
+	j6mw30Ea8utwgfI0hjpYU2zSz0jajNpl/1SiQpSfTLNyhrgA2CRhDKc0Bw8x7vSURSJJuRiQmwN
+	T
+X-Gm-Gg: ASbGncszV5UJj0bPPdZmoUrnrf1CRckJMbTo8bmNianZqaHDfPA9da4nPD/p6jnH9+Y
+	XuH32AunTRs7HdPe41cNXjw4LOWA8GJYvQC3SoENWxatrYXU50O0OLb01BZfqeFEgJi4FJYkPFK
+	aHCM1b8l3PbG/R00IWy9dkVauIjeSlrfR0zrlbBujQ0z6gLOci3Z6CPHfbGGWkgxPYqymPmqCzC
+	9mz+/9kGkPAjOL/w9RsiZar+cw+w/4wrvxFR8te5USE9gb2iOOpKFaD/dUq/bU=
+X-Google-Smtp-Source: AGHT+IGr7FTk8DMyNMgmQkGUkn/BKNDivAF1zFC+ysXhG3JL00WajLrbqlNBGGWGni+U1G5vbZuKVw==
+X-Received: by 2002:a17:906:328d:b0:aa5:1d08:dad0 with SMTP id a640c23a62f3a-aa580ede47cmr501873866b.1.1732791686424;
+        Thu, 28 Nov 2024 03:01:26 -0800 (PST)
+Message-ID: <4b8656ad-5a52-4c62-a7b4-bbc16226653d@citrix.com>
+Date: Thu, 28 Nov 2024 11:01:24 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/vlapic: Drop vlapic->esr_lock
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/2] x86/vlapic: Fix handling of writes to APIC_ESR
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Jan Beulich <JBeulich@suse.com>
 References: <20241128004737.283521-1-andrew.cooper3@citrix.com>
- <20241128004737.283521-3-andrew.cooper3@citrix.com>
- <Z0g3LBzM-8ox5dAW@macbook> <33f3dbbf-217d-45a7-bb9f-fac7e1a36584@citrix.com>
- <Z0hFJq22n0IljtOy@macbook>
+ <20241128004737.283521-2-andrew.cooper3@citrix.com>
+ <Z0gx5EdqcPiEUt3z@macbook>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -136,72 +136,60 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Z0hFJq22n0IljtOy@macbook>
+In-Reply-To: <Z0gx5EdqcPiEUt3z@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28/11/2024 10:25 am, Roger Pau Monné wrote:
-> On Thu, Nov 28, 2024 at 10:10:39AM +0000, Andrew Cooper wrote:
->> On 28/11/2024 9:26 am, Roger Pau Monné wrote:
->>> On Thu, Nov 28, 2024 at 12:47:37AM +0000, Andrew Cooper wrote:
->>>> With vlapic->hw.pending_esr held outside of the main regs page, it's much
->>>> easier to use atomic operations.
->>>>
->>>> Use xchg() in vlapic_reg_write(), and *set_bit() in vlapic_error().
->>>>
->>>> The only interesting change is that vlapic_error() now needs to take an
->>>> err_bit rather than an errmask, but thats fine for all current callers and
->>>> forseable changes.
->>>>
->>>> No practical change.
->>>>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> ---
->>>> CC: Jan Beulich <JBeulich@suse.com>
->>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> It turns out that XSA-462 had an indentation bug in it.
->>>>
->>>> Our spinlock infrastructure is obscenely large.  Bloat-o-meter reports:
->>>>
->>>>   add/remove: 0/0 grow/shrink: 0/3 up/down: 0/-111 (-111)
->>>>   Function                                     old     new   delta
->>>>   vlapic_init                                  208     190     -18
->>>>   vlapic_error                                 112      67     -45
->>>>   vlapic_reg_write                            1145    1097     -48
->>>>
->>>> In principle we could revert the XSA-462 patch now, and remove the LVTERR
->>>> vector handling special case.  MISRA is going to complain either way, because
->>>> it will see the cycle through vlapic_set_irq() without considering the
->>>> surrounding logic.
->>>> ---
->>>>  xen/arch/x86/hvm/vlapic.c             | 32 ++++++---------------------
->>>>  xen/arch/x86/include/asm/hvm/vlapic.h |  1 -
->>>>  2 files changed, 7 insertions(+), 26 deletions(-)
->>>>
->>>> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
->>>> index 98394ed26a52..f41a5d4619bb 100644
->>>> --- a/xen/arch/x86/hvm/vlapic.c
->>>> +++ b/xen/arch/x86/hvm/vlapic.c
->>>> @@ -102,14 +102,9 @@ static int vlapic_find_highest_irr(struct vlapic *vlapic)
->>>>      return vlapic_find_highest_vector(&vlapic->regs->data[APIC_IRR]);
->>>>  }
->>>>  
->>>> -static void vlapic_error(struct vlapic *vlapic, unsigned int errmask)
->>>> +static void vlapic_error(struct vlapic *vlapic, unsigned int err_bit)
->>> Having to use ilog2() in the callers is kind of ugly.  I would rather
->>> keep the same function parameter (a mask), and then either assert that
->>> it only has one bit set, or iterate over all possible set bits on the
->>> mask.
->> It can't stay as a mask, or we can't convert the logic to be lockless. 
->> There's no such thing as test_and_set_mask()  (until we get into next
->> years processors).
-> The test_and_set_bit() will also need to be changed if you agree with
-> my comment on patch 1, as the interrupt should only be injected when
-> vlapic->hw.pending_esr == 0 rather than whether the specific error is
-> set in ESR.
+On 28/11/2024 9:03 am, Roger Pau Monné wrote:
+> On Thu, Nov 28, 2024 at 12:47:36AM +0000, Andrew Cooper wrote:
+>> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+>> index 3363926b487b..98394ed26a52 100644
+>> --- a/xen/arch/x86/hvm/vlapic.c
+>> +++ b/xen/arch/x86/hvm/vlapic.c
+>> @@ -108,7 +108,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigned int errmask)
+>>      uint32_t esr;
+>>  
+>>      spin_lock_irqsave(&vlapic->esr_lock, flags);
+>> -    esr = vlapic_get_reg(vlapic, APIC_ESR);
+>> +    esr = vlapic->hw.pending_esr;
+>>      if ( (esr & errmask) != errmask )
+>>      {
+>>          uint32_t lvterr = vlapic_get_reg(vlapic, APIC_LVTERR);
+>> @@ -127,7 +127,7 @@ static void vlapic_error(struct vlapic *vlapic, unsigned int errmask)
+>>                   errmask |= APIC_ESR_RECVILL;
+>>          }
+>>  
+>> -        vlapic_set_reg(vlapic, APIC_ESR, esr | errmask);
+>> +        vlapic->hw.pending_esr |= errmask;
+>>  
+>>          if ( inj )
+>>              vlapic_set_irq(vlapic, lvterr & APIC_VECTOR_MASK, 0);
+> The SDM also contains:
+>
+> "This write also rearms the APIC error interrupt triggering
+> mechanism."
+>
+> Where "this write" is a write to the ESR register.
 
-I'm writing a longer email explaining why that's not correct :)
+Correct.
+
+> My understanding
+> is that the error vector will only be injected for the first reported
+> error. I think the logic regarding whether to inject the lvterr vector
+> needs to additionally be gated on whether vlapic->hw.pending_esr ==
+> 0.
+
+I think it's clumsy wording.
+
+Bits being set mask subsequent LVTERR's of the same type.  That's what
+the "if ( (esr & errmask) != errmask )" guard is doing above.
+
+What I think it's referring to is that writing APIC_ESR will zero
+pending_esr and thus any subsequent error will cause LVTERR to deliver.
+
+
+Having said all that, I can't find anything in the current SDM/APM which
+states this.  I think I need to go back to the older manuals.
 
 ~Andrew
 
