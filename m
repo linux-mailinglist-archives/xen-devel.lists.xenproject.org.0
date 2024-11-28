@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBDAB9DBC55
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 20:01:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845582.1260939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1100E9DBC65
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 20:08:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845595.1260948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGjkG-0000Cg-0r; Thu, 28 Nov 2024 19:00:08 +0000
+	id 1tGjsE-0000uW-Re; Thu, 28 Nov 2024 19:08:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845582.1260939; Thu, 28 Nov 2024 19:00:07 +0000
+Received: by outflank-mailman (output) from mailman id 845595.1260948; Thu, 28 Nov 2024 19:08:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGjkF-0000Ah-TG; Thu, 28 Nov 2024 19:00:07 +0000
-Received: by outflank-mailman (input) for mailman id 845582;
- Thu, 28 Nov 2024 19:00:06 +0000
+	id 1tGjsE-0000sy-Ow; Thu, 28 Nov 2024 19:08:22 +0000
+Received: by outflank-mailman (input) for mailman id 845595;
+ Thu, 28 Nov 2024 19:08:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tGjkE-0008RF-60
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 19:00:06 +0000
+ (envelope-from <julien@xen.org>) id 1tGjsD-0000ss-5U
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 19:08:21 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tGjk7-00A7QU-0b;
- Thu, 28 Nov 2024 18:59:59 +0000
+ (envelope-from <julien@xen.org>) id 1tGjsC-00A7fn-10;
+ Thu, 28 Nov 2024 19:08:20 +0000
 Received: from [2a02:8012:3a1:0:1024:27fc:e73a:2414]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tGjk7-00AzBm-0X;
- Thu, 28 Nov 2024 18:59:59 +0000
+ (envelope-from <julien@xen.org>) id 1tGjsC-00B0DY-1K;
+ Thu, 28 Nov 2024 19:08:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,67 +40,77 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jz5s7SXvMNZhxMKQuRTeHe1X10q2hV7uaEcJvXZOvEU=; b=5vAAEutLJU4ehI8UgzMLUNayDi
-	yCt8pyh7/wPF3yne7jaYfEOKn5LrkXXr61oMK2DblDBFvcA9LysSK65laQfG0199nItT9pPdMrNMq
-	Lkm3mXtIrqT4aXhYc3JQ/A8MQVXj3fCxbZyMyBdrIm/6AYw5nqiuSwMU/6/9y6uxsiR8=;
-Message-ID: <a5809331-b719-42cd-b68e-60871299e303@xen.org>
-Date: Thu, 28 Nov 2024 18:59:56 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=MJSLEUWUD2021tVHT6whE7GqwVvKq55deRZCUACrV+I=; b=Jo2R/XBK2yoXQ5uwrg2259CrNf
+	BH3qFxsxC2U8k1XHXNichfBoas30NXMhWX+mNeyun1YC5IgE85Qq1ufPOMIEa2oVyahrR2p6wDO4C
+	Sy0F27N8R3h+0QJr0HGjC6Xmk9wTNVrakMUW1NF8B4l351lf2A2oTfqngV5TP7sT/gVo=;
+Message-ID: <946a522a-b174-44fe-8a9a-74ade0fdda2c@xen.org>
+Date: Thu, 28 Nov 2024 19:08:18 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] mm: allow page scrubbing routine(s) to be arch
- controlled
+Subject: Re: [PATCH v2] xen/device-tree: Allow region overlapping with
+ /memreserve/ ranges
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Bobby Eshleman
- <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com>
- <49b0a003-3fae-4908-ba63-a1c764293755@suse.com>
- <70389f10-5706-4fb4-a186-984a9fd52d76@xen.org>
- <2d3c14c1-d4e8-41a0-98a7-3da1a3a89e24@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <2d3c14c1-d4e8-41a0-98a7-3da1a3a89e24@suse.com>
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <20241114102802.54512-1-luca.fancellu@arm.com>
+ <f35997e4-40a7-40c5-9b29-932724e9cac5@xen.org>
+In-Reply-To: <f35997e4-40a7-40c5-9b29-932724e9cac5@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+Hi,
 
-On 26/11/2024 08:02, Jan Beulich wrote:
-> On 25.11.2024 23:17, Julien Grall wrote:
->>> --- a/xen/arch/arm/include/asm/page.h
->>> +++ b/xen/arch/arm/include/asm/page.h
->>> @@ -144,6 +144,12 @@ extern size_t dcache_line_bytes;
->>>    
->>>    #define copy_page(dp, sp) memcpy(dp, sp, PAGE_SIZE)
->>>    
->>> +#define clear_page_hot  clear_page
->>> +#define clear_page_cold clear_page
->>> +
->>> +#define scrub_page_hot(page) memset(page, SCRUB_BYTE_PATTERN, PAGE_SIZE)
->>> +#define scrub_page_cold      scrub_page_hot
+On 16/11/2024 10:18, Julien Grall wrote:
+> On 14/11/2024 10:28, Luca Fancellu wrote:
+>> There are some cases where the device tree exposes a memory range
+>> in both /memreserve/ and reserved-memory node, in this case the
+>> current code will stop Xen to boot since it will find that the
+>> latter range is clashing with the already recorded /memreserve/
+>> ranges.
 >>
->> This block seems to be common between all the arch but x86. Should we
->> add an header in asm generic?
+>> Furthermore, u-boot lists boot modules ranges, such as ramdisk,
+>> in the /memreserve/ part and even in this case this will prevent
+>> Xen to boot since it will see that the module memory range that
+>> it is going to add in 'add_boot_module' clashes with a /memreserve/
+>> range.
+>>
+>> When Xen populate the data structure that tracks the memory ranges,
+>> it also adds a memory type described in 'enum membank_type', so
+>> in order to fix this behavior, allow overlapping with the /memreserve/
+>> ranges in the 'check_reserved_regions_overlap' function when a flag
+>> is set.
+>>
+>> In order to implement this solution, there is a distinction between
+>> the 'struct membanks *' handled by meminfo_overlap_check(...) that
+>> needs to be done, because the static shared memory banks doesn't have
+>> a usable bank[].type field and so it can't be accessed, hence now
+>> the 'struct membanks_hdr' have a 'enum region_type type' field in order
+>> to be able to identify static shared memory banks in 
+>> meminfo_overlap_check(...).
+>>
+>> While there, set a type for the memory recorded using meminfo_add_bank()
+>> from efi-boot.h.
+>>
+>> Fixes: 53dc37829c31 ("xen/arm: Add DT reserve map regions to 
+>> bootinfo.reserved_mem")
+>> Reported-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+>> Reported-by: Grygorii Strashko <grygorii_strashko@epam.com>
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 > 
-> I'd say that largely depends on the intentions of Arm, RISC-V, and PPC.
-> Personally I've always found it odd that memset() / memcpy() are used for
-> page clearing / copying. Surely there are better ways, and pretty certainly
-> about every arch also has distinct means to efficiently do "hot" and "cold"
-> clearing. Therefore keeping these #define-s in per-arch headers imo serves
-> as a reminder that something wants doing about them.
+> Reviewed-by: Julien Grall <jgrall@amazon.com>
+> 
+> I will give a few days for the others to review and Shawn to comment 
+> whether it fixes his issue (I can't remember if it was already done).
 
-Fair enough. For the code:
-
-Acked-by: Julien Grall <jgrall@amazon.com>
+This is now committed.
 
 Cheers,
 
