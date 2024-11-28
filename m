@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48E539DB64E
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:11:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845328.1260779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4CA79DB681
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:28:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845359.1260788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGcQD-0000GM-Fq; Thu, 28 Nov 2024 11:10:57 +0000
+	id 1tGcgG-0002tY-TG; Thu, 28 Nov 2024 11:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845328.1260779; Thu, 28 Nov 2024 11:10:57 +0000
+Received: by outflank-mailman (output) from mailman id 845359.1260788; Thu, 28 Nov 2024 11:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGcQD-0000EI-BP; Thu, 28 Nov 2024 11:10:57 +0000
-Received: by outflank-mailman (input) for mailman id 845328;
- Thu, 28 Nov 2024 11:10:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tGcgG-0002qg-QR; Thu, 28 Nov 2024 11:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 845359;
+ Thu, 28 Nov 2024 11:27:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=53lb=SX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGcQC-0000EC-3n
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:10:56 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6db23ec4-ad79-11ef-a0cd-8be0dac302b0;
- Thu, 28 Nov 2024 12:10:51 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-53dd59a2bc1so714719e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 03:10:51 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5998e649csm54756466b.110.2024.11.28.03.10.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2024 03:10:50 -0800 (PST)
+ <SRS0=t80U=SX=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tGcgF-0002qJ-8U
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:27:31 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2061d.outbound.protection.outlook.com
+ [2a01:111:f403:2407::61d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bb8bd317-ad7b-11ef-99a3-01e77a169b0f;
+ Thu, 28 Nov 2024 12:27:22 +0100 (CET)
+Received: from PH8PR05CA0016.namprd05.prod.outlook.com (2603:10b6:510:2cc::17)
+ by BY5PR12MB4306.namprd12.prod.outlook.com (2603:10b6:a03:206::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.13; Thu, 28 Nov
+ 2024 11:27:12 +0000
+Received: from SN1PEPF00036F3D.namprd05.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::ac) by PH8PR05CA0016.outlook.office365.com
+ (2603:10b6:510:2cc::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.13 via Frontend Transport; Thu,
+ 28 Nov 2024 11:27:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF00036F3D.mail.protection.outlook.com (10.167.248.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8207.12 via Frontend Transport; Thu, 28 Nov 2024 11:27:12 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 28 Nov
+ 2024 05:27:10 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 28 Nov 2024 05:27:09 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +59,405 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6db23ec4-ad79-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMzAiLCJoZWxvIjoibWFpbC1sZjEteDEzMC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjZkYjIzZWM0LWFkNzktMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzkyMjUxLjU1OTA0LCJzZW5kZXIiOiJhbmRyZXcuY29vcGVyQGNsb3VkLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732792251; x=1733397051; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V97E3FiWEnwxj2OyjCj39Hw/xOUhGkwp796iRXQqa9A=;
-        b=LewlCm3jTDboxnKgdHUG2kfNJROJGJz/5ZpsMdqBaEcrWvVWAvbwgY4qYQHRXw/PNu
-         tn8TI8c3xxmZl6jPIUsHvPqgUd06wEEfHXlPFvpCUdIFwxXRjMTOxpJNMJwgK/b+SlYJ
-         7KNIAfqARZ6o6WnMFlJXLaxxgdA0eevGT4uao=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732792251; x=1733397051;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V97E3FiWEnwxj2OyjCj39Hw/xOUhGkwp796iRXQqa9A=;
-        b=fZnrCUq3U+z78u9yugOBLmF+/dH4pc77hiioh4AESq3lfMJdnH5lUA3eXUKA6ZXXS1
-         zLgFlW6WmZ4XZemS6siZ395lyeX/xZk8dD2Wbtjjabt7mU9+V3wrJpk5gyxzfqjYjN5R
-         M1nIhPb0AxF7HyCOEI6et1Yb+aqTDC7Ja2JBTpStEobH4zRJ8Jl7IEMet3mVCDe1cdYK
-         1/iQan8gRayZ5OjMXW3sOyVfNoA8TDNyICyla4sqeLeL32LbMhoX0lOgUu2WBKh9/IYY
-         DjEZk2Qz6fBZD4s8Py6U/4nCUSp26eElgbJZvnk9L/1el4ZiASCVooerDqNWrAuMG5ZM
-         DdwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX5vZuM+kbdaGoMigS0RUfHsAHnkEjvt3sDfTFbnYrH1txcALCuIQHbMsK8eNnN9JdTPqWvNXrO3eI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxmO2s1JgM5pieygKUQZz9d0kOWMvypDYx8INBxPpFcYhnCTEPh
-	ODVXqknIgAhrdqGMXQz+3M6LPYO6evU0euMvOEW3B4sV3B26uaakKbrkNIJXdb4=
-X-Gm-Gg: ASbGncvW14Dgj4ZGArTNYFnaSzvbdGzUDwwqbF3hNiTDTP89BRDToSsmIWlFJub4G2c
-	4HT0zpna8LEdstr6pGcyNwLw/y3mY1mMG1QMHgYl2UDeJpqPWyPoqjpPAF4ockq/LEYth21X1BT
-	slRVfxNEEceU4jJhoYpNn4/+oE9oESfWWmDfpLPQCM1CyID3V8iKwfLCLMLLuUy7d8wx94S5u8G
-	fKUv4KkPB1RhSfR5gHDLlvYvXcpgzGCs7bRD7ACUMfWWKsnAYRajhx5Xl80td4=
-X-Google-Smtp-Source: AGHT+IGrFjx2zwlkE3eaV1e/G5y9NdgTVLR+Zmj2bY1fvthRHQCChDKy9rI490PbzC/pF9mA7AabeA==
-X-Received: by 2002:a05:6512:3e1d:b0:539:e12c:bba7 with SMTP id 2adb3069b0e04-53df00a9f2amr3647568e87.12.1732792250973;
-        Thu, 28 Nov 2024 03:10:50 -0800 (PST)
-Message-ID: <8a3a3daa-16f6-4488-ae46-224379033c54@citrix.com>
-Date: Thu, 28 Nov 2024 11:10:48 +0000
+X-Inumbo-ID: bb8bd317-ad7b-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDE6MTExOmY0MDM6MjQwNzo6NjFkIiwiaGVsbyI6Ik5BTTAyLUJOMS1vYmUub3V0Ym91bmQucHJvdGVjdGlvbi5vdXRsb29rLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImJiOGJkMzE3LWFkN2ItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyNzkzMjQyLjI1MTEzMiwic2VuZGVyIjoibWljaGFsLm9yemVsQGFtZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fhmj9y8FIfZu7WMhm2/8iHCb4C8LrFBMLeF7JpP3BUQWRuXakGoLtwhV5Yjy/bXzzBQBUG70B4y5FgEkv+c0E1W7LOHkl7EGTlSMmui11or6WBMD+gYFkyueu+7p4XZ128x9HDzUiBiP+qOTsT22+CKvxQJfC4nuYOA3V9QiqbITe7pqW/wTd6oXYa1lcHknV02TZT9gREad4u64uIb0mpB+SW7txMMyPw0W1S3GBBgi6M9VCNWb/FntppYCUm0Kp3AsCvmy4P3bsrTb/zwdPbnSfSyBwehGInG4MPIZzXmvhYgDTqjHHAB/tB8txmQB3GNb+wNLrbCot8JGY1T3jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DRR+vA9X5NgwptOMCfAUnUvMOlkqjmd2Z0yb+fBYOpA=;
+ b=AOw8iAeZ3zyqvyDjfdBaVV96fBkVk7oglhF4AV4JGQzzrkqeYwyw6lrbVP4pu6mGgiqG4GBeI08fZ2+reYlIrVe9zYZiko4KMHmoIsa1nycw1UvW7ELORGsn42g70L8b5pUFfk/JFtr8uKvgumKL4W7Bm62QQ2xBedaoL/OT++reeY5ZS2IHsyKizidGt00pUzG7LHaJlhCuDdX7bbjezQLZb+HBqyuFhOsdHEcVA4O05999u8rhOkecndQDGTWQUqgbDcFxAxD6q0whBijMNuNU6Bfm8RTObWikHFCi4N3nRRWd+Vb0gnfnFFJzBwR0Rn4KIokrK+wwsZWMeCi74g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=minervasys.tech smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DRR+vA9X5NgwptOMCfAUnUvMOlkqjmd2Z0yb+fBYOpA=;
+ b=OxUz54MukjWQzGMvkBRnVd6MtD3TGjZbQO+fZL2OjhfVF6v1kIu0g94KiKLqJhf/iaedRFjUMC46FipiTVTthAyB/FiW1UwGyix5777ZEb8+OXXrVHrM59aH/nMl/sF1UVXNmdxqrm/D0tOvXMFA42FM5/tgy5NLkFAJSHpHZV4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <8bf09c24-4226-4a67-aa16-89fb43790237@amd.com>
+Date: Thu, 28 Nov 2024 12:27:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/vlapic: Fix handling of writes to APIC_ESR
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241128004737.283521-1-andrew.cooper3@citrix.com>
- <20241128004737.283521-2-andrew.cooper3@citrix.com>
- <e576e161-5054-40d2-af02-6f32ef636782@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <e576e161-5054-40d2-af02-6f32ef636782@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v10 04/12] xen/arm: add Dom0 cache coloring support
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+	<xen-devel@lists.xenproject.org>
+CC: <andrea.bastoni@minervasys.tech>, <marco.solieri@minervasys.tech>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
+ <20241119141329.44221-5-carlo.nonato@minervasys.tech>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20241119141329.44221-5-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3D:EE_|BY5PR12MB4306:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5dfd3f61-fadb-41ae-8b40-08dd0f9f9a7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|7416014|1800799024|376014|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?S0kxb0EzZFVvUmc1Y1hTL255cnZ0OHB2OWVWVzJwVzNWaVVZTjFIa0hUT0FE?=
+ =?utf-8?B?REcyeFpIaVZFZXNrWXJIOVhFOG5ieUdnZjVBcitBRHdORFpTbHRveWljU09O?=
+ =?utf-8?B?UTlzNnZVUXZxZmJJZzZuNXJZaEZGT1J6dUNtd2wyekdqWE1RWDZ5ZTM5cWoy?=
+ =?utf-8?B?V094Umt6c0NuRzFmaVdUSjlieVRLUDlRZlkxaXZwK08ybzZaRXFlbS9QMXU4?=
+ =?utf-8?B?WG1vSUZqTTNFVmVYVEpnYnlxRGptSnprSitaLzdGYjdXS1NzSUJDNFh6dkNP?=
+ =?utf-8?B?ejBMV2dJVlpKaTcrdENSZm85WE1mK2pNQnRQSmQzaERYZU9wbDJvelYrRTYr?=
+ =?utf-8?B?ZVJtQnpqc05nQysyaGo1b2tkbUppWU9CMU5SbVhpTllhbGRLbktlQitOS3VX?=
+ =?utf-8?B?VldIVG9IZGlUZXNabUVDMHhuY0dtZlVBNVBUQjA5SkxBT1VwTEFpZFc2NTgx?=
+ =?utf-8?B?Vmk5WWVpSVZmQStLWFRlcTRlMkRuSDBaQ3N4dWpNWmdMU0IveGtKeGhsUFpO?=
+ =?utf-8?B?YVVPMHdPRjVnZjVnblhGWTF5STFSNVltenR5MFkvRm9vZXliaGFDTjdjNGNo?=
+ =?utf-8?B?dkpMcm5yOU0rSXpFUDhWenFMOWdyU2VjbmkvdGRYT3kyK2tFWEQ0b21SSndo?=
+ =?utf-8?B?c0Z1NEFTdDd3clY4cGZWWGlkOXFkblBRTXhOaGt2NWpINXYxaW5rbzdOUWxQ?=
+ =?utf-8?B?cm10VFRrdXIvMFhCbUYza01qWXJ2bnRINzhLMExlOWtCUUplSFRmUE1Sclo5?=
+ =?utf-8?B?ZGM1dnR2SFR0dndHYmNpVVE4ZlNZUjVvaVRDUGtDS3A0aFdlQk9CMGhsRFh5?=
+ =?utf-8?B?ZWdSYlZFcjcvTGdsdEY2QjZjQ0N3S2s3MGZISmliOGtlcGZjVTgrTTRDOFEz?=
+ =?utf-8?B?TmRranhUa0xGdTVDWUh0QXBoMzhWckdiNlV3WlRQR0laWjlGeGY1K2xGQjJV?=
+ =?utf-8?B?TEVCbm04ZmY5UFpJZkU3YUdqd0NmakxYY1A1RlRiaDZnSWhieUJDOFFpaWRt?=
+ =?utf-8?B?Um5hbnJuczRjYkxWSkFyRGwvYUROZG5VSHpEWUVqR3VvdnVNVElwSDByOGVw?=
+ =?utf-8?B?STRKYjZlbGdaSFVydDBHMi82b0gxMGpESEExd2JQbUJwekorbjZIQzRab2ox?=
+ =?utf-8?B?M1RiZFhtamZnc1k3UEhaS2FzZkZhRGRXUU9xUWRndU13TktidXUzYTNBYUFu?=
+ =?utf-8?B?Q2tod0lITzlvUElqMWpwRm1FMkJaTDkreHlObDBvVmo4dklkcWpyeER1WmZX?=
+ =?utf-8?B?TWFCUUxiZ1BuMnB2WklHWE02eGVyZGp2alRsWTR6RHFRaW91cm8yNSsyN1VG?=
+ =?utf-8?B?cHVTQm9vUzE0K2hIbXFycHRsa0hUeUJ4RFlmRG9nRU0xK3JERXlLY2lDNXNl?=
+ =?utf-8?B?T1UrOVczalY0QjdlK2thMTg5eTh1U21LdDQ0eDd0M0Jhcm95R0g3ajZzVGcz?=
+ =?utf-8?B?citweDE3aTlva29rSUEvVmh3dHNrdjdBZEptcFpwTHdjcEhxdjlXZjNobjQ0?=
+ =?utf-8?B?L0Fta0F5Rkt0cWt0MGZKNXlsWEJNNmNNakxxY3BqMVdqYUgrRDFVdEtsd29Z?=
+ =?utf-8?B?OWRiZzdXK3EwQUIrTHJOdGI3bFhUR25JZ09TMG1YUGd1bUZncENSbklmWEFW?=
+ =?utf-8?B?c0dlQjBkd0VHZzc0MDRmYXE1K1I2YkFCWEVCQ3FKaTI4MWg5MUtVOFl3dlNy?=
+ =?utf-8?B?QXAyR3g4dnYyNCt4ZnhsbTVuajd3M0ZYQU5PN1plcUJhSWplNXhNSUdITzBL?=
+ =?utf-8?B?R2VjYTMvOFNQbDVjSmxjbWR1Qyt3S3JXaFI5b0xoTmp4L3pQeFBCVGh1b0Rx?=
+ =?utf-8?B?UFdIWmhUNTlmKzBvd05JYStVNG1uR3gwM1hXNXhjcmtkZmpmeCtnTWRSZVJX?=
+ =?utf-8?B?OGhvZHBXSmFuSDZ2eS92Wmo3Q0FQNG15Q1orOGRET0JLeEQvZmFlc2ZGcGlR?=
+ =?utf-8?Q?o77b4+wLBrIpqOKsNdQXHo6sFLJsm3jb?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(7416014)(1800799024)(376014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2024 11:27:12.1611
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5dfd3f61-fadb-41ae-8b40-08dd0f9f9a7c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00036F3D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4306
 
-On 28/11/2024 10:31 am, Jan Beulich wrote:
-> On 28.11.2024 01:47, Andrew Cooper wrote:
->> Xen currently presents APIC_ESR to guests as a simple read/write register.
->>
->> This is incorrect.  The SDM states:
->>
->>   The ESR is a write/read register. Before attempt to read from the ESR,
->>   software should first write to it. (The value written does not affect the
->>   values read subsequently; only zero may be written in x2APIC mode.) This
->>   write clears any previously logged errors and updates the ESR with any
->>   errors detected since the last write to the ESR. This write also rearms the
->>   APIC error interrupt triggering mechanism.
->>
->> Introduce a new pending_esr field in hvm_hw_lapic.  Update vlapic_error() to
->> accumulate errors here, and extend vlapic_reg_write() to discard the written
->> value, and instead transfer pending_esr into APIC_ESR.  Reads are still as
->> before.
->>
->> Importantly, this means that guests no longer destroys the ESR value it's
->> looking for in the LVTERR handler when following the SDM instructions.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> No Fixes: tag presumably because the issue had been there forever?
 
-Oh, I forgot to note that.
 
-I can't decide between forever, or since the introduction of the ESR
-support (so Xen 4.5 like XSA-462, and still basically forever).
->> ---
->> Slightly RFC.  This collides with Alejandro's patch which adds the apic_id
->> field to hvm_hw_lapic too.  However, this is a far more obvious backport
->> candidate.
->>
->> lapic_check_hidden() might in principle want to audit this field, but it's not
->> clear what to check.  While prior Xen will never have produced it in the
->> migration stream, Intel APIC-V will set APIC_ESR_ILLREGA above and beyond what
->> Xen will currently emulate.
-> The ESR really is an 8-bit value (in a 32-bit register), so checking the
-> upper bits may be necessary.
+On 19/11/2024 15:13, Carlo Nonato wrote:
+> 
+> 
+> Add a command line parameter to allow the user to set the coloring
+> configuration for Dom0.
+> A common configuration syntax for cache colors is introduced and
+> documented.
+> Take the opportunity to also add:
+>  - default configuration notion.
+>  - function to check well-formed configurations.
+> 
+> Direct mapping Dom0 isn't possible when coloring is enabled, so
+> CDF_directmap flag is removed when creating it.
+> 
+> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
+> 
+> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v10:
+> - fixed array type for colors parameter in check_colors()
+> v9:
+> - moved domain_llc_coloring_free() in next patch cause it's never used for dom0
+> v8:
+> - added bound check on dom0_num_colors
+> - default colors array set just once
+> v7:
+> - parse_color_config() doesn't accept leading/trailing commas anymore
+> - removed alloc_colors() helper
+> v6:
+> - moved domain_llc_coloring_free() in this patch
+> - removed domain_alloc_colors() in favor of a more explicit allocation
+> - parse_color_config() now accepts the size of the array to be filled
+> - allocate_memory() moved in another patch
+> v5:
+> - Carlo Nonato as the new author
+> - moved dom0 colors parsing (parse_colors()) in this patch
+> - added dom0_set_llc_colors() to set dom0 colors after creation
+> - moved color allocation and checking in this patch
+> - error handling when allocating color arrays
+> - FIXME: copy pasted allocate_memory() cause it got moved
+> v4:
+> - dom0 colors are dynamically allocated as for any other domain
+>   (colors are duplicated in dom0_colors and in the new array, but logic
+>   is simpler)
+> ---
+>  docs/misc/cache-coloring.rst      |  29 ++++++++
+>  docs/misc/xen-command-line.pandoc |   9 +++
+>  xen/arch/arm/domain_build.c       |  10 ++-
+>  xen/common/llc-coloring.c         | 119 +++++++++++++++++++++++++++++-
+>  xen/include/xen/llc-coloring.h    |   1 +
+>  5 files changed, 166 insertions(+), 2 deletions(-)
+> 
+> diff --git a/docs/misc/cache-coloring.rst b/docs/misc/cache-coloring.rst
+> index b608284e9b..c5fb33996c 100644
+> --- a/docs/misc/cache-coloring.rst
+> +++ b/docs/misc/cache-coloring.rst
+> @@ -105,6 +105,35 @@ Specific documentation is available at `docs/misc/xen-command-line.pandoc`.
+>  +----------------------+-------------------------------+
+>  | ``llc-nr-ways``      | Set the LLC number of ways    |
+>  +----------------------+-------------------------------+
+> +| ``dom0-llc-colors``  | Dom0 color configuration      |
+> ++----------------------+-------------------------------+
+> +
+> +Colors selection format
+> +***********************
+> +
+> +Regardless of the memory pool that has to be colored (Xen, Dom0/DomUs),
+> +the color selection can be expressed using the same syntax. In particular a
+> +comma-separated list of colors or ranges of colors is used.
+> +Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive on both
+> +sides.
+> +
+> +Note that:
+> +
+> +- no spaces are allowed between values.
+> +- no overlapping ranges or duplicated colors are allowed.
+> +- values must be written in ascending order.
+> +
+> +Examples:
+> +
+> ++-------------------+-----------------------------+
+> +| **Configuration** | **Actual selection**        |
+> ++-------------------+-----------------------------+
+> +| 1-2,5-8           | [1, 2, 5, 6, 7, 8]          |
+> ++-------------------+-----------------------------+
+> +| 4-8,10,11,12      | [4, 5, 6, 7, 8, 10, 11, 12] |
+> ++-------------------+-----------------------------+
+> +| 0                 | [0]                         |
+> ++-------------------+-----------------------------+
+> 
+>  Auto-probing of LLC specs
+>  #########################
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index abd8dae96f..bfdc8b0002 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
+> 
+>  Specify a list of IO ports to be excluded from dom0 access.
+> 
+> +### dom0-llc-colors (arm64)
+> +> `= List of [ <integer> | <integer>-<integer> ]`
+> +
+> +> Default: `All available LLC colors`
+> +
+> +Specify dom0 LLC color configuration. This option is available only when
+> +`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
+> +colors are used.
+> +
+>  ### dom0_max_vcpus
+> 
+>  Either:
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index a95376dcdc..01aa9016f5 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2,6 +2,7 @@
+>  #include <xen/init.h>
+>  #include <xen/compile.h>
+>  #include <xen/lib.h>
+> +#include <xen/llc-coloring.h>
+>  #include <xen/mm.h>
+>  #include <xen/param.h>
+>  #include <xen/domain_page.h>
+> @@ -2284,6 +2285,7 @@ void __init create_dom0(void)
+>          .max_maptrack_frames = -1,
+>          .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+>      };
+> +    unsigned int flags = CDF_privileged;
+>      int rc;
+> 
+>      /* The vGIC for DOM0 is exactly emulating the hardware GIC */
+> @@ -2311,10 +2313,16 @@ void __init create_dom0(void)
+>              panic("SVE vector length error\n");
+>      }
+> 
+> -    dom0 = domain_create(0, &dom0_cfg, CDF_privileged | CDF_directmap);
+> +    if ( !llc_coloring_enabled )
+> +        flags |= CDF_directmap;
+> +
+> +    dom0 = domain_create(0, &dom0_cfg, flags);
+>      if ( IS_ERR(dom0) )
+>          panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
+> 
+> +    if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
+> +        panic("Error initializing LLC coloring for domain 0 (rc = %d)", rc);
+Missing newline \n
 
-It is now, but it may not be in the future.
+> +
+>      if ( alloc_dom0_vcpu0(dom0) == NULL )
+>          panic("Error creating domain 0 vcpu0\n");
+> 
+> diff --git a/xen/common/llc-coloring.c b/xen/common/llc-coloring.c
+> index 45b001b105..740b5b9e4f 100644
+> --- a/xen/common/llc-coloring.c
+> +++ b/xen/common/llc-coloring.c
+> @@ -20,6 +20,66 @@ static unsigned int __initdata llc_nr_ways;
+>  integer_param("llc-nr-ways", llc_nr_ways);
+>  /* Number of colors available in the LLC */
+>  static unsigned int __ro_after_init max_nr_colors;
+> +/* Default coloring configuration */
+> +static unsigned int __ro_after_init default_colors[NR_LLC_COLORS];
+> +
+> +static unsigned int __initdata dom0_colors[NR_LLC_COLORS];
+> +static unsigned int __initdata dom0_num_colors;
+> +
+> +/*
+> + * Parse the coloring configuration given in the buf string, following the
+> + * syntax below.
+> + *
+> + * COLOR_CONFIGURATION ::= COLOR | RANGE,...,COLOR | RANGE
+> + * RANGE               ::= COLOR-COLOR
+> + *
+> + * Example: "0,2-6,15-16" represents the set of colors: 0,2,3,4,5,6,15,16.
+> + */
+> +static int __init parse_color_config(const char *buf, unsigned int colors[],
+> +                                     unsigned int max_num_colors,
+> +                                     unsigned int *num_colors)
+> +{
+> +    const char *s = buf;
+> +
+> +    *num_colors = 0;
+> +
+> +    while ( *s != '\0' )
+> +    {
+> +        unsigned int color, start, end;
+> +
+> +        start = simple_strtoul(s, &s, 0);
+> +
+> +        if ( *s == '-' )    /* Range */
+> +        {
+> +            s++;
+> +            end = simple_strtoul(s, &s, 0);
+> +        }
+> +        else                /* Single value */
+> +            end = start;
+> +
+> +        if ( start > end || (end - start) > (UINT_MAX - *num_colors) ||
+> +             (*num_colors + (end - start)) >= max_num_colors )
+> +            return -EINVAL;
+> +
+> +        /* Colors are range checked in check_colors() */
+> +        for ( color = start; color <= end; color++ )
+> +            colors[(*num_colors)++] = color;
+> +
+> +        if ( *s == ',' )
+> +            s++;
+> +        else if ( *s != '\0' )
+> +            break;
+> +    }
+> +
+> +    return *s ? -EINVAL : 0;
+> +}
+> +
+> +static int __init parse_dom0_colors(const char *s)
+> +{
+> +    return parse_color_config(s, dom0_colors, ARRAY_SIZE(dom0_colors),
+> +                              &dom0_num_colors);
+> +}
+> +custom_param("dom0-llc-colors", parse_dom0_colors);
+> 
+>  static void print_colors(const unsigned int colors[], unsigned int num_colors)
+>  {
+> @@ -44,9 +104,26 @@ static void print_colors(const unsigned int colors[], unsigned int num_colors)
+>      printk(" }\n");
+>  }
+> 
+> +static bool __init check_colors(const unsigned int colors[],
+> +                                unsigned int num_colors)
+> +{
+> +    unsigned int i;
+> +
+> +    for ( i = 0; i < num_colors; i++ )
+> +    {
+> +        if ( colors[i] >= max_nr_colors )
+> +        {
+> +            printk(XENLOG_ERR "LLC color %u >= %u\n", colors[i], max_nr_colors);
+The information about max colors is not printed at the start of day, so a message like:
+LLC color 20 >= 10
+is not that meaningful. Could we perhaps append (max allowable) or similar to the message?
 
-My concern is that this value is generated by microcode, so we can't
-audit based on which reserved bits we think prior versions of Xen never set.
+> +            return false;
+> +        }
+> +    }
+> +
+> +    return true;
+> +}
+> +
+>  void __init llc_coloring_init(void)
+>  {
+> -    unsigned int way_size;
+> +    unsigned int way_size, i;
+> 
+>      if ( llc_size && llc_nr_ways )
+>      {
+> @@ -83,6 +160,9 @@ void __init llc_coloring_init(void)
+>      } else if ( max_nr_colors < 2 )
+>          panic("Number of LLC colors %u < 2\n", max_nr_colors);
+> 
+> +    for ( i = 0; i < max_nr_colors; i++ )
+> +        default_colors[i] = i;
+> +
+>      arch_llc_coloring_init();
+>  }
+> 
+> @@ -104,6 +184,43 @@ void domain_dump_llc_colors(const struct domain *d)
+>      print_colors(d->llc_colors, d->num_llc_colors);
+>  }
+> 
+> +static void __init domain_set_default_colors(struct domain *d)
+> +{
+> +    printk(XENLOG_WARNING
+> +           "LLC color config not found for %pd, using all colors\n", d);
+> +
+> +    d->llc_colors = default_colors;
+> +    d->num_llc_colors = max_nr_colors;
+> +}
+> +
+> +int __init dom0_set_llc_colors(struct domain *d)
+> +{
+> +    typeof(*dom0_colors) *colors;
+> +
+> +    if ( !dom0_num_colors )
+> +    {
+> +        domain_set_default_colors(d);
+> +        return 0;
+> +    }
+> +
+> +    if ( dom0_num_colors > max_nr_colors ||
+NIT: Can we surround dom0_num_colors > max_nr_colors with brackets?
 
-I don't particularly care about a toolstack deciding to feed ~0 in
-here.  But, if any bit beyond 7 gets allocated in the future, then
-auditing the bottom byte would lead to a migration failure of what is in
-practice a correct value.
+Other than that:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
->  Plus ...
->
->> --- a/xen/include/public/arch-x86/hvm/save.h
->> +++ b/xen/include/public/arch-x86/hvm/save.h
->> @@ -394,6 +394,7 @@ struct hvm_hw_lapic {
->>      uint32_t             disabled; /* VLAPIC_xx_DISABLED */
->>      uint32_t             timer_divisor;
->>      uint64_t             tdt_msr;
->> +    uint32_t             pending_esr;
->>  };
-> ... I think you need to make padding explicit here, and then check that
-> to be zero.
+~Michal
 
-On further consideration I need to merge this with Alejandro's change. 
-His depends on spotting the need to zero-extend beyond tdt_msr to
-identify the compatibility case.
-
-~Andrew
 
