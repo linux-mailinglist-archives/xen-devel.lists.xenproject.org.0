@@ -2,38 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16C29DB8AA
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 14:29:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845478.1260889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC7319DBA86
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 16:32:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845525.1260900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGeaD-0008LV-Md; Thu, 28 Nov 2024 13:29:25 +0000
+	id 1tGgUV-0007vr-4G; Thu, 28 Nov 2024 15:31:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845478.1260889; Thu, 28 Nov 2024 13:29:25 +0000
+Received: by outflank-mailman (output) from mailman id 845525.1260900; Thu, 28 Nov 2024 15:31:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGeaD-0008It-Jm; Thu, 28 Nov 2024 13:29:25 +0000
-Received: by outflank-mailman (input) for mailman id 845478;
- Thu, 28 Nov 2024 13:29:24 +0000
+	id 1tGgUU-0007tQ-WA; Thu, 28 Nov 2024 15:31:38 +0000
+Received: by outflank-mailman (input) for mailman id 845525;
+ Thu, 28 Nov 2024 15:31:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=53lb=SX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tGeaC-0008If-AQ
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 13:29:24 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ <SRS0=JzN0=SX=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
+ id 1tGgUT-0007tK-Ff
+ for xen-devel@lists.xen.org; Thu, 28 Nov 2024 15:31:37 +0000
+Received: from smarthost01c.sbp.mail.zen.net.uk
+ (smarthost01c.sbp.mail.zen.net.uk [212.23.1.5])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c52d63cc-ad8c-11ef-a0cd-8be0dac302b0;
- Thu, 28 Nov 2024 14:29:19 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a9f1d76dab1so144294166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 05:29:19 -0800 (PST)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5996c1945sm66320466b.19.2024.11.28.05.29.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2024 05:29:18 -0800 (PST)
+ id d6e3d53b-ad9d-11ef-a0cd-8be0dac302b0;
+ Thu, 28 Nov 2024 16:31:32 +0100 (CET)
+Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
+ by smarthost01c.sbp.mail.zen.net.uk with esmtpsa (TLS1.0) tls
+ TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (Exim 4.95)
+ (envelope-from <james@dingwall.me.uk>) id 1tGgUE-00Alk6-Oe
+ for xen-devel@lists.xen.org; Thu, 28 Nov 2024 15:31:29 +0000
+Received: from localhost (localhost [IPv6:::1])
+ by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id F33CBB4C38E
+ for <xen-devel@lists.xen.org>; Thu, 28 Nov 2024 15:31:31 +0000 (GMT)
+Received: from mail0.xen.dingwall.me.uk ([IPv6:::1])
+ by localhost (mail0.xen.dingwall.me.uk [IPv6:::1]) (amavisd-new, port 10024)
+ with ESMTP id BK3O6FKUE447 for <xen-devel@lists.xen.org>;
+ Thu, 28 Nov 2024 15:31:31 +0000 (GMT)
+Received: from behemoth.dingwall.me.uk (behemoth.dingwall.me.uk [192.168.1.5])
+ by dingwall.me.uk (Postfix) with ESMTP id C5BB0B4C38B
+ for <xen-devel@lists.xen.org>; Thu, 28 Nov 2024 15:31:31 +0000 (GMT)
+Received: by behemoth.dingwall.me.uk (Postfix, from userid 1000)
+ id A9E64ED87A7; Thu, 28 Nov 2024 15:31:16 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +54,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c52d63cc-ad8c-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmMiLCJoZWxvIjoibWFpbC1lajEteDYyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImM1MmQ2M2NjLWFkOGMtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODAwNTU5LjI2MTk2Nywic2VuZGVyIjoiYW5kcmV3LmNvb3BlckBjbG91ZC5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1732800558; x=1733405358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bo8khfxQEyROCPM9BIiGe8UB9lbU+wqhWzgGKkylDOA=;
-        b=tg6qCMFVlZ0h667ltI+tHlpSnDE2LF/JFsq6gBH0WQnyi3/npt7M/bjmkNB/M9iFdr
-         IzhHmDSlMXsc2/wDzkE0bqOkUhw1xZeLco2tZzOGJpBMQYJMQqJwgktmgNbfVZsuThas
-         W6gG08RM5fg+cv1GNiVsPsurwIdak0s8C8uO4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732800558; x=1733405358;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Bo8khfxQEyROCPM9BIiGe8UB9lbU+wqhWzgGKkylDOA=;
-        b=vgGxIGnzckPcVBvgxF5BidtoAUWF8vz/+ZsTQhX6WKudxwANOS0Rmn+sbBJdCS0Dia
-         EWIeIhZlHvncjH8u8ZBSI3FAVIEhNakFwgKWiDWXnKRm2GVo6wESreGkfQECF7FFBbLU
-         Wd2x5HuUWN0n+UE9LkYxMmQvOaVgCwuCpE+beIMFHsc233nms+rh6z94N8x7S+iS3UM/
-         9SSRzJr9Nh3Q1LX7VjtyrfJcaRHv0tuBUOEO3k50gcCBXlepBtC03q0fwuGlxWU1i0TW
-         O/TBJqwyOqtAmfOVaIb/HwfSEQ7OZ4lvqn05jFc8J78cjKtW0KVIVNkoIs9Pc8+Nv6rW
-         unmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXfIpEWXKYlgyyF08HSfKyLFbOsUGt2YFmLnSiHeYCVGzwRXzaJNxZ6caMS3Jvb+z8XDCwLEFfMQmA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywmw+1nCruYO9PZszPttv4q/u82EXYw1FisZQyzxUnCiNh4fMZh
-	drpVeR6gMYkHsNLbLNW3VxWfjXeOJ/zICfB9W59biOhFhqyy1lU9wbh27Am6MFngb7ps0/K9HKU
-	I
-X-Gm-Gg: ASbGncu990cBfh0tNLfSR3VUqRQ/Ao1t/AR22J7PX16g+FdUL9mY02m/LnixVTn/UW+
-	Lyu7YClZOLrdw979Kyk719xgWlJblkygk8nx8X7FaMM3qI7YObYgfWxuF9r9gEPywrlN6+ahwN+
-	U58/URDD+9km/dS4xjc7qYKCjaXcuFMGIhwNGfho2JzP3PnlMR/JfxDNPRaqWpr/IPwQDTNGCCU
-	elN4YcjQBxSUurt3q+e8wV2DMd3mIt8iAFpZ1mZGwUbCW9EDup/ClGzZ8Yi5Dg=
-X-Google-Smtp-Source: AGHT+IFIhVKVh4WSymt3kQugmw3bXloehRAGzb4U5v28lFCWKiBPJKVypRQDGxKUzR0dTsFTV4JESQ==
-X-Received: by 2002:a17:907:7802:b0:a9e:441c:f729 with SMTP id a640c23a62f3a-aa580b2e09dmr770015666b.0.1732800558513;
-        Thu, 28 Nov 2024 05:29:18 -0800 (PST)
-Message-ID: <27f89a1f-8cbe-4fb3-af84-c92448295423@citrix.com>
-Date: Thu, 28 Nov 2024 13:29:16 +0000
+X-Inumbo-ID: d6e3d53b-ad9d-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjIxMi4yMy4xLjUiLCJoZWxvIjoic21hcnRob3N0MDFjLnNicC5tYWlsLnplbi5uZXQudWsifQ==
+X-Custom-Transaction: eyJpZCI6ImQ2ZTNkNTNiLWFkOWQtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODA3ODkyLjExOTYyOCwic2VuZGVyIjoiamFtZXNAZGluZ3dhbGwubWUudWsiLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVuLm9yZyJ9
+X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
+Date: Thu, 28 Nov 2024 15:31:16 +0000
+From: James Dingwall <james-xen@dingwall.me.uk>
+To: xen-devel@lists.xen.org
+Subject: stable-4.18: reliably crash network driver domain by squeezing
+ free_memory
+Message-ID: <Z0iMxP2gah9Ky4Pl@dingwall.me.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul: correct VPBROADCASTMW2D predicate testing
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <d06c56c5-f67a-435b-af26-ed5d6a472ddd@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <d06c56c5-f67a-435b-af26-ed5d6a472ddd@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Originating-smarthost01c-IP: [217.155.64.189]
+Feedback-ID: 217.155.64.189
 
-On 28/11/2024 1:28 pm, Jan Beulich wrote:
-> Due to presumably a copy-and-paste mistake VPBROADCASTMB2Q was tested
-> twice instead.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi,
+
+We have reproducible issue with the current HEAD of the stable-4.18 branch
+which crashes a network driver domain and on some hardware subsequently
+results in a dom0 crash.
+
+`xl info` reports: free_memory : 39961, configuring a guest with
+memory = 39800 and starting it gives the log as below.  This is intel
+hardware so if I've followed the code correctly I think this leads through
+to intel_iommu_map_page() from drivers/passthrough/vtd/iommu.c.
+
+The expectation is that we can safely allocate up to free_memory for a
+guest without any issue.  Is there any extra logging we could enable to
+gain more information?
+
+Thanks,
+James
+
+
+(XEN) d2: IOMMU mapping dfn afdf79 to mfn afdf79 failed: -12
+(XEN) domain_crash called from drivers/passthrough/iommu.c:366
+(XEN) Domain 2 (vcpu#1) crashed on cpu#3:
+(XEN) ----[ Xen-4.18.4-pre  x86_64  debug=y  Not tainted ]----
+(XEN) CPU:    3
+(XEN) RIP:    e033:[<ffffffff8220128c>]
+(XEN) RFLAGS: 0000000000000282   EM: 0   CONTEXT: pv guest (d2v1)
+(XEN) rax: 0000000000000014   rbx: ffffc90041361000   rcx: ffffffff8220128c
+(XEN) rdx: 0000000000000001   rsi: ffffc9004136b018   rdi: 0000000000000000
+(XEN) rbp: ffffc900400e0e18   rsp: ffffc900400e0dc8   r8:  0000000000000000
+(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000282
+(XEN) r12: 0000000000000001   r13: ffffc9004136b018   r14: ffffc90041361000
+(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 00000000003526e0
+(XEN) cr3: 0000000cb07c6000   cr2: 00005dc9ed4f6710
+(XEN) fsb: 000073436e0b9400   gsb: ffff888023100000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
+(XEN) Guest stack trace from rsp=ffffc900400e0dc8:
+(XEN)    0000000000000000 0000000000000001 ffffffff81a94320 0000000000000000
+(XEN)    ffffc9004136e818 ffffc90041361000 0000000000000000 0000000000000001
+(XEN)    ffffc90041361000 0000000000000000 ffffc900400e0e58 ffffffffc0542f35
+(XEN)    0000000100000001 1332c17936eda000 ffffc90041361030 0000000000000000
+(XEN)    0000000000000040 ffffc90041361000 ffffc900400e0e88 ffffffffc05464ae
+(XEN)    ffffc90041361030 0000000000000000 ffffc900400e0eef 0000000000000040
+(XEN)    ffffc900400e0ec0 ffffffff81edef70 ffff888023135e40 000000000000012c
+(XEN)    ffffc900400e0ef8 ffffc90041361030 0000000000000000 ffffc900400e0f48
+(XEN)    ffffffff81edf551 ffffffff811b5c7f ffff888023136100 0000000100566b96
+(XEN)    0000000000000007 ffff888023131b60 ffffc900400e0ef8 ffffc900400e0ef8
+(XEN)    ffffc900400e0f08 ffffc900400e0f08 1332c17936eda000 0000000080000100
+(XEN)    0000000000000003 0000000000000008 0000000000000004 ffffffff834060d8
+(XEN)    ffffc900400e0fb8 ffffffff8110a198 ffff888023134200 0040010000000001
+(XEN)    ffff888004798000 0000000100566b96 000000000000000a ffffc90000000003
+(XEN)    ffffffff81a9f77e ffffc9004000b788 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 ffffc900400e0fd8 ffffffff8110a4e9
+(XEN)    ffffc9004000b788 0000000000000000 ffffc900400e0fe8 ffffffff8110a84e
+(XEN)    ffffc9004000b778 ffffffff821ffd0a ffffc9004000b760
+(XEN)     Fault while accessing guest memory.
+(XEN) common/memory.c:278:d0v2 Could not allocate order=18 extent: id=24 memflags=0xc0 (0 of 1)
+...repeated
+(XEN) common/memory.c:278:d0v2 Could not allocate order=9 extent: id=24 memflags=0xc0 (3 of 4)
+(XEN) common/memory.c:278:d0v2 Could not allocate order=9 extent: id=24 memflags=0xc0 (0 of 4)
+...repeated
+
+
+
+
+decoding the symbols from the crashed driver domain:
+
+vcpu0:
+rip: ffffffff8220128c
+flags: 00001282 i s nz
+rsp: ffffc90040003dc8
+rax: 0000000000000000 rcx: ffffffff8220128c rdx: deadbeefdeadf00d
+rbx: ffffc90040358680 rsi: deadbeefdeadf00d rdi: deadbeefdeadf00d
+rbp: ffffc90040003e18 r8: 0000000000000000 r9: 0000000000000000
+r10: 0000000000000000 r11: 0000000000000282 r12: 0000000000000001
+r13: ffffc90040362698 r14: ffffc90040358680 r15: 0000000000000000
+cs: e033 ss: e02b ds: 0000 es: 0000
+fs: 0000 @ 0000000000000000
+gs: 0000 @ ffff888103c00000/0000000000000000
+Code (instr addr ffffffff8220128c)
+cc cc cc cc cc cc cc cc cc 51 41 53 48 c7 c0 14 00 00 00 0f 05 <41> 5b 59 c3 cc cc cc cc cc cc cc
+
+
+Stack:
+0000000000000000 0000000000000001 ffffffff81a942a0 0000000000000000
+ffffc90040365e98 ffffc90040358680 0000000000000000 0000000000000001
+ffffc90040358680 0000000000000000 ffffc90040003e58 ffffffffc05a6f35
+0000000200000001 2acc1e6e51961900 ffffc900403586b0 0000000000000000
+0000000000000040 ffffc90040358680 ffffc90040003e88 ffffffffc05aa4ae
+
+Call Trace:
+[<ffffffff8220128c>] <--  xen_hypercall_grant_table_op+0xc
+ffffc90040003dd8: [<ffffffff81a942a0>]  gnttab_map_refs+0x30
+ffffc90040003e20: [<ffffffffc05a6f35>]  
+ffffc90040003e60: [<ffffffffc05aa4ae>]  
+ffffc90040003e90: [<ffffffff81edede0>]  __napi_poll+0x30
+ffffc90040003ec8: [<ffffffff81edf3c1>]  net_rx_action+0x181
+ffffc90040003ed0: [<ffffffff811b5c7f>]  generic_handle_irq+0x1f
+ffffc90040003f40: [<ffffffff834060d8>]  
+ffffc90040003f50: [<ffffffff8110a198>]  handle_softirqs+0xd8
+ffffc90040003f68: [<ffffffff8340fcc0>]  
+ffffc90040003f88: [<ffffffff81a9f6fe>]  evtchn_fifo_handle_events+0xe
+ffffc90040003f90: [<ffffffff83403cc8>]  
+ffffc90040003fc0: [<ffffffff8110a4e9>]  __irq_exit_rcu+0xd9
+ffffc90040003fc8: [<ffffffff83403cc8>]  
+ffffc90040003fe0: [<ffffffff8110a84e>]  irq_exit_rcu+0xe
+ffffc90040003fe8: [<ffffffff83403cb8>]  
+ffffc90040003ff0: [<ffffffff821ffd0a>]  xen_pv_evtchn_do_upcall+0xaa
+ffffc90040003ff8: [<ffffffff83403ca0>]  
+
+vcpu1:
+rip: ffffffff822013ac
+flags: 00001246 i z p
+rsp: ffffc900400a3e60
+rax: 0000000000000000 rcx: ffffffff822013ac rdx: 0000000000000000
+rbx: 0000000000000000 rsi: deadbeefdeadf00d rdi: deadbeefdeadf00d
+rbp: ffffc900400a3e78 r8: 0000000000000000 r9: 0000000000000000
+r10: 0000000000000000 r11: 0000000000000246 r12: ffff8881003b8000
+r13: 0000000000000000 r14: 0000000000000000 r15: 0000000000000000
+cs: e033 ss: e02b ds: 002b es: 002b
+fs: 0000 @ 0000000000000000
+gs: 0000 @ ffff888103d00000/0000000000000000
+Code (instr addr ffffffff822013ac)
+cc cc cc cc cc cc cc cc cc 51 41 53 48 c7 c0 1d 00 00 00 0f 05 <41> 5b 59 c3 cc cc cc cc cc cc cc
+
+
+Stack:
+0000000000000000 0000000000000000 ffffffff82200060 ffffc900400a3e88
+ffffffff82209629 ffffc900400a3e98 ffffffff822096f9 ffffc900400a3ea8
+ffffffff822099cc ffffc900400a3ee8 ffffffff8117bf53 0000000000000001
+ac54db278c0d3c00 0000000000000001 ffff8881003b8000 0000000000000001
+0000000000000000 ffffc900400a3f08 ffffffff8117c027 000000000000008f
+
+Call Trace:
+[<ffffffff822013ac>] <--  xen_hypercall_sched_op+0xc
+ffffc900400a3e70: [<ffffffff82200060>]  xen_safe_halt+0x10
+ffffc900400a3e80: [<ffffffff82209629>]  default_idle+0x9
+ffffc900400a3e90: [<ffffffff822096f9>]  arch_cpu_idle+0x9
+ffffc900400a3ea0: [<ffffffff822099cc>]  default_idle_call+0x2c
+ffffc900400a3eb0: [<ffffffff8117bf53>]  cpuidle_idle_call+0x153
+ffffc900400a3ef0: [<ffffffff8117c027>]  do_idle+0x87
+ffffc900400a3f10: [<ffffffff8117c2ba>]  cpu_startup_entry+0x2a
+ffffc900400a3f28: [<ffffffff8104bb51>]  cpu_bringup_and_idle+0xa1
+ffffc900400a3f50: [<ffffffff81052565>]  asm_cpu_bringup_and_idle+0x5
+
 
