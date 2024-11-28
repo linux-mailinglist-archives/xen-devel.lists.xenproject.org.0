@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B0299DB6ED
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:51:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845386.1260809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB6E49DB6F1
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2024 12:54:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845395.1260819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGd2z-000831-U6; Thu, 28 Nov 2024 11:51:01 +0000
+	id 1tGd5h-0000TB-AG; Thu, 28 Nov 2024 11:53:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845386.1260809; Thu, 28 Nov 2024 11:51:01 +0000
+Received: by outflank-mailman (output) from mailman id 845395.1260819; Thu, 28 Nov 2024 11:53:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGd2z-00081Y-RI; Thu, 28 Nov 2024 11:51:01 +0000
-Received: by outflank-mailman (input) for mailman id 845386;
- Thu, 28 Nov 2024 11:51:00 +0000
+	id 1tGd5h-0000Ql-7N; Thu, 28 Nov 2024 11:53:49 +0000
+Received: by outflank-mailman (input) for mailman id 845395;
+ Thu, 28 Nov 2024 11:53:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v7zX=SX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGd2y-000809-02
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:51:00 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1tGd5g-0000Qf-R5
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2024 11:53:48 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 078b919a-ad7f-11ef-a0cd-8be0dac302b0;
- Thu, 28 Nov 2024 12:50:57 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-432d86a3085so6322145e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 03:50:57 -0800 (PST)
+ id 6bf45331-ad7f-11ef-a0cd-8be0dac302b0;
+ Thu, 28 Nov 2024 12:53:45 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-385d7b4da2bso12058f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 03:53:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434b0d9bed7sm20090685e9.8.2024.11.28.03.50.56
+ 5b1f17b1804b1-434b0d10d52sm20521075e9.0.2024.11.28.03.53.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2024 03:50:56 -0800 (PST)
+ Thu, 28 Nov 2024 03:53:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 078b919a-ad7f-11ef-a0cd-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMzMiLCJoZWxvIjoibWFpbC13bTEteDMzMy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjA3OGI5MTlhLWFkN2YtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzk0NjU3LjI3ODkyNywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 6bf45331-ad7f-11ef-a0cd-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzAiLCJoZWxvIjoibWFpbC13cjEteDQzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjZiZjQ1MzMxLWFkN2YtMTFlZi1hMGNkLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyNzk0ODI1Ljg5MTU2Nywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732794657; x=1733399457; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732794825; x=1733399625; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fFsVZEUEQ9yhLojhHgJSrf04chauLVnfQfwjL8IQBRk=;
-        b=Pzd7yulcr2RLrnWSnznVkm1h2LWdHDM6oAiYQ2PzXtxtiXjOlbFnjv5wu0V+JkGn3y
-         L9ajd7kir+UYBG/sYS0+JxluSMietCPo5wxk25Nxl97qv6k9zcNalVd4mUYx2TjAEkpd
-         mzOPSGjIT69x8ispwp43uPcMK451svlC6y12Boja6kh5svgJqaomP0/c4ovE4fqvZ/PV
-         PyduUAttJaCDoQbq6i3M4kJoAfBAG2GhZDEi8dRpU2OY7+t+ABUpuEo5OL8+5E/2saJu
-         DXP4AcVUHqtI/lM7g8iOQw//4fJHfjklXQ7kuDP1zk9Pm1902B92UYQzV+LhedtRYrmN
-         o4JA==
+        bh=oCQqXz5QRnHWz5PPN8v8+dO4jNy1l28cez7CMgB8pE8=;
+        b=aamHsnPxR+RN3Pg7g+rgUEo8txJ67ayR29Kl8JCzm5ocX72aYNTyPcSFEpIIIxIQIG
+         GRi902dt2IqZJ72O0+QmlMF0whjBBsQm90zJiVk70Us1/CrwvPRgrRKMm6fwtZOEZhQb
+         sRiM8SE7iEDYnKp1UBHopCS6yizOS/cD9J9Sde1AfBgxJJA7QCf7v4dM22FtJUedZFR9
+         ko8ROkoYGh82LNveFCZqBcNHmi/P4JO4kl9NuR1OzWhIXT77cVEtSGw4I2MFNGG1Nxik
+         a5vRoiLEy9X7oADaLuyjZumkJ0GwluAecZPxrBsH+fbnPDgEkcuFc3vHa18oJKvHkvod
+         lYvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732794657; x=1733399457;
+        d=1e100.net; s=20230601; t=1732794825; x=1733399625;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fFsVZEUEQ9yhLojhHgJSrf04chauLVnfQfwjL8IQBRk=;
-        b=PfEiGJfLKnwXB27IWPuyjXIKOqFQMicZDS8CC1AGHZ0Mrufh4zyGvuXUUHBXhKlSKz
-         taAJV7z9i8zkn44Nqm+HMDchJBIqF1EqQ9MMw6JPDAyIV/TEZHLGa/OcQTuSMyv5Wepk
-         z4LUPoopOPQoRRAksr+vzNdgj0/t8hrJ9Qm69iZGVesGMG7DHhQzZ/aSXYa+kVcygvUI
-         OXTfq8wTWfXJM0pJ4kmlCqrILH8xCUF9gjE2Cg3RM+TBvmR1f46DpJM8+5YrQD03i35n
-         96r+ia1zt6lcBJrQv4HrOF2pQG7YNu9uAopIeWuNtnvRJ1NNCDJhV5ZXkP96E/DCbbR0
-         8XHA==
-X-Forwarded-Encrypted: i=1; AJvYcCXwBki1JNiCj+ZHjMzWerBs74ucxvIVItGwOkA1awh7Us7Ey8P3ZOmf2lGF2tewFUJJzQZq6VQL30E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz2HJjydq431NTjeqUr3z84MFu+VMKY8aF2MbSm9Wtc6ypoB31j
-	Jpbk+LcMw7NZVvccgalRKp1CG0hhNOOYS1dif+l3ewtW5WtBs19Nd/AyUM/0Mw==
-X-Gm-Gg: ASbGncuQLdld/bbDa+DAfeb4T0CSAbpjHGFvhF27ptQQoCl9aA9ckyJ2jqqho+nuUBj
-	lE8jvwQ2dXTCKjmGlP8mpFe+Lq7Geqyq5lT8wPpc+pTnt8fShp3AAeRZDMWPAh/9Wf+RSNX3L7P
-	oR+l1luCZHB/elLlwN55auZ/BJOk/AyWJ1BjJfcYMU7bGj2tpj6Ic8T10cF1InvQL+0C8dbr5pV
-	fxS8N+RkC+0S3ZSjHz8Jt0390CElaJipSXB5mRJLwkicywv/nzwTZCo9R/489fw9bJj1/AqNpNW
-	HhiubQFZejGMalDTTQBM10gLrspGWV2JmY0=
-X-Google-Smtp-Source: AGHT+IFB1GNUQ4KSd3cnTRfzNhKdE+C3+9I74uFrKFqGoASHYMQ6rfK0S/rkRFLeiY4BFyqQCT3jPQ==
-X-Received: by 2002:a05:600c:3ba6:b0:434:9e63:faff with SMTP id 5b1f17b1804b1-434a9dbc41bmr63542525e9.2.1732794656612;
-        Thu, 28 Nov 2024 03:50:56 -0800 (PST)
-Message-ID: <b97f13ad-f3d4-4e92-b3e6-5522badbad5b@suse.com>
-Date: Thu, 28 Nov 2024 12:50:55 +0100
+        bh=oCQqXz5QRnHWz5PPN8v8+dO4jNy1l28cez7CMgB8pE8=;
+        b=tZDnrqg5dErF0+FyPRGMel1uyh+yCQoDVgjnn+DXiBMeHB7QGc7gjVK7iPe5zBWjdM
+         9gITsOh6vM4p1Gu2x+osIrd9iNyJ8Cayojm2HPtEpEfMhmcwVkapmZGY7PG5eOL92pWl
+         8P9ke7c4GCaI+uzOXGjNICzMrzIAsGeQjt5n7QLyvyjlC7CVJgWO5Oa3g7aHAmFtrLiP
+         afJ2VLaydkDOyyxnLJ5DAXYIXBAAGeJG/0ez7xi6UPqkebYAXlCbqRxnggh2fszXASno
+         vausyFBcZWprQ/+Yg8rcDABmQBmQ/a0DGIGVm4bNdBnE9UCz1SlMd90NfzFfDzZxyZBQ
+         fEbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVsA66SHMNDrpi/kN1/0C96IEGkcYsH2i/JZ0bK2TkLakl0mBS5f+mpqcNKXxJ8H5bl7NcbkLvdETY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxl2zFnazUN+z5qR+BFXXHo/i5sGDe3VDsUi5URv0aLdlwbZMqE
+	JvSMMW/8Spcw875Ar5UGMSR58hqXL+O7J1H9GD+YnZYmkSuCAGGW/hJpgSNrAA==
+X-Gm-Gg: ASbGncs8pjk89sY4KFtmRpT18NbnvQdDh0wiAwFnEDeHWKS/YjVUV57mC9o1yGGuYXo
+	jmQeC3n19WlLdg+FSbgSjRW+mc1uduGOOXmA1Ju/AtneE/Fkzw5o6ww3oEy4tYRpRBMTM1oMN4V
+	XXgB8Dl8Ay2a1Gjb/3pIRT2kEUzOHr0vnQDwMaI3wBj4bFoUVz6RRIgXTYZ+O05s0uPJOC0pfTN
+	lO/zoHeW97+kEb55XtCg9rNCjFUkm0LfPOkvZ+qfXoLr8Lnuknp2PXZLDSgwovnGRdpCRRRBTZ/
+	blcX/fEBM7BgM2Ig5T/ShdtFJp0x/ooYYhc=
+X-Google-Smtp-Source: AGHT+IFkxl2kreJ5RFYzOx0tK5FAbbBqtVv50QKeBbBgLra7sN9h1DlHBi5Wc2yMxW0iPjgf0EPkZw==
+X-Received: by 2002:a5d:59ac:0:b0:382:450c:25e9 with SMTP id ffacd0b85a97d-385c6ebb925mr7067376f8f.35.1732794825078;
+        Thu, 28 Nov 2024 03:53:45 -0800 (PST)
+Message-ID: <e8dcd294-a9a7-43d7-94af-f01d86020741@suse.com>
+Date: Thu, 28 Nov 2024 12:53:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/vlapic: Fix handling of writes to APIC_ESR
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241128004737.283521-1-andrew.cooper3@citrix.com>
- <20241128004737.283521-2-andrew.cooper3@citrix.com>
- <e576e161-5054-40d2-af02-6f32ef636782@suse.com>
- <8a3a3daa-16f6-4488-ae46-224379033c54@citrix.com>
+Subject: Re: [PATCH v10 12/12] xen/arm: add cache coloring support for Xen
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
+ <20241119141329.44221-13-carlo.nonato@minervasys.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,65 +123,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8a3a3daa-16f6-4488-ae46-224379033c54@citrix.com>
+In-Reply-To: <20241119141329.44221-13-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28.11.2024 12:10, Andrew Cooper wrote:
-> On 28/11/2024 10:31 am, Jan Beulich wrote:
->> On 28.11.2024 01:47, Andrew Cooper wrote:
->>> Xen currently presents APIC_ESR to guests as a simple read/write register.
->>>
->>> This is incorrect.  The SDM states:
->>>
->>>   The ESR is a write/read register. Before attempt to read from the ESR,
->>>   software should first write to it. (The value written does not affect the
->>>   values read subsequently; only zero may be written in x2APIC mode.) This
->>>   write clears any previously logged errors and updates the ESR with any
->>>   errors detected since the last write to the ESR. This write also rearms the
->>>   APIC error interrupt triggering mechanism.
->>>
->>> Introduce a new pending_esr field in hvm_hw_lapic.  Update vlapic_error() to
->>> accumulate errors here, and extend vlapic_reg_write() to discard the written
->>> value, and instead transfer pending_esr into APIC_ESR.  Reads are still as
->>> before.
->>>
->>> Importantly, this means that guests no longer destroys the ESR value it's
->>> looking for in the LVTERR handler when following the SDM instructions.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> No Fixes: tag presumably because the issue had been there forever?
+On 19.11.2024 15:13, Carlo Nonato wrote:
+> Add the cache coloring support for Xen physical space.
 > 
-> Oh, I forgot to note that.
+> Since Xen must be relocated to a new physical space, some relocation
+> functionalities must be brought back:
+> - the virtual address of the new space is taken from 0c18fb76323b
+>   ("xen/arm: Remove unused BOOT_RELOC_VIRT_START").
+> - relocate_xen() and get_xen_paddr() are taken from f60658c6ae47
+>   ("xen/arm: Stop relocating Xen").
 > 
-> I can't decide between forever, or since the introduction of the ESR
-> support (so Xen 4.5 like XSA-462, and still basically forever).
->>> ---
->>> Slightly RFC.  This collides with Alejandro's patch which adds the apic_id
->>> field to hvm_hw_lapic too.  However, this is a far more obvious backport
->>> candidate.
->>>
->>> lapic_check_hidden() might in principle want to audit this field, but it's not
->>> clear what to check.  While prior Xen will never have produced it in the
->>> migration stream, Intel APIC-V will set APIC_ESR_ILLREGA above and beyond what
->>> Xen will currently emulate.
->> The ESR really is an 8-bit value (in a 32-bit register), so checking the
->> upper bits may be necessary.
+> setup_pagetables() must be adapted for coloring and for relocation. Runtime
+> page tables are used to map the colored space, but they are also linked in
+> boot tables so that the new space is temporarily available for relocation.
+> This implies that Xen protection must happen after the copy.
 > 
-> It is now, but it may not be in the future.
+> Finally, since the alternative framework needs to remap the Xen text and
+> inittext sections, this operation must be done in a coloring-aware way.
+> The function xen_remap_colored() is introduced for that.
 > 
-> My concern is that this value is generated by microcode, so we can't
-> audit based on which reserved bits we think prior versions of Xen never set.
-> 
-> I don't particularly care about a toolstack deciding to feed ~0 in
-> here.  But, if any bit beyond 7 gets allocated in the future, then
-> auditing the bottom byte would lead to a migration failure of what is in
-> practice a correct value.
+> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
 
-If a bit beyond zero got allocated, then it being set in an incoming stream
-will, for an unaware Xen version, still be illegal. Such a guest simply can't
-be migrated to a Xen version unaware of the bit. Once Xen becomes aware, the
-auditing would (of course) also need adjustment.
+Reviewed-by: Jan Beulich <jbeulich@suse.com> # common
+preferably with ...
+
+> @@ -353,6 +355,22 @@ unsigned int get_max_nr_llc_colors(void)
+>      return max_nr_colors;
+>  }
+>  
+> +mfn_t __init xen_colored_mfn(mfn_t mfn)
+> +{
+> +    unsigned int i, color = mfn_to_color(mfn);
+> +
+> +    for ( i = 0; i < xen_num_colors; i++ )
+> +    {
+> +        if ( color == xen_colors[i] )
+> +            return mfn;
+> +        else if ( color < xen_colors[i] )
+
+... "else" dropped from here.
 
 Jan
 
