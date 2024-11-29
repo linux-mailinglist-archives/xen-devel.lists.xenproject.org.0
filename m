@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C1979DBFD1
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 08:45:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845718.1261064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD3F9DBFF7
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 08:58:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845731.1261075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGvfg-0006n5-Aq; Fri, 29 Nov 2024 07:44:12 +0000
+	id 1tGvtO-00005m-LP; Fri, 29 Nov 2024 07:58:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845718.1261064; Fri, 29 Nov 2024 07:44:12 +0000
+Received: by outflank-mailman (output) from mailman id 845731.1261075; Fri, 29 Nov 2024 07:58:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGvfg-0006ks-8A; Fri, 29 Nov 2024 07:44:12 +0000
-Received: by outflank-mailman (input) for mailman id 845718;
- Fri, 29 Nov 2024 07:44:11 +0000
+	id 1tGvtO-0008Ub-IM; Fri, 29 Nov 2024 07:58:22 +0000
+Received: by outflank-mailman (input) for mailman id 845731;
+ Fri, 29 Nov 2024 07:58:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFrC=SY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGvfe-0006km-W9
- for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 07:44:11 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1tGvtN-0008UV-1V
+ for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 07:58:21 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b585eb78-ae25-11ef-99a3-01e77a169b0f;
- Fri, 29 Nov 2024 08:44:05 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-aa53ebdf3caso300347866b.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 23:44:05 -0800 (PST)
+ id a06e9e54-ae27-11ef-99a3-01e77a169b0f;
+ Fri, 29 Nov 2024 08:57:49 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-385dfb168cbso101705f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Nov 2024 23:57:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d097dd617asm1552162a12.42.2024.11.28.23.44.04
+ ffacd0b85a97d-385ccd3a405sm3743890f8f.45.2024.11.28.23.57.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2024 23:44:04 -0800 (PST)
+ Thu, 28 Nov 2024 23:57:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b585eb78-ae25-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImI1ODVlYjc4LWFlMjUtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyODY2MjQ1LjY1NjIxMiwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: a06e9e54-ae27-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmIiLCJoZWxvIjoibWFpbC13cjEteDQyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImEwNmU5ZTU0LWFlMjctMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyODY3MDY5LjIyNjMwOSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732866245; x=1733471045; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732867068; x=1733471868; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yOG7yv+MN1iFNYFD0nzQtxRdykEReEn9OMMLf5/ayAE=;
-        b=Mpf6OXM1bDEEL5ajTK3zmdCiXswEXo/vZm5SqOQCTLo+tL1EfSKNOR3O44K3vcT2L5
-         b/BOJ8pmueg1Thk2KGgpW4lN3GvO68zgbB8eBv4B/4uWoFMSorDfZCOyupEI4eTg7V80
-         hZvp4DFPQxiP4bmT1275rdvrfV33BNkM5ccc2AQbctLvGGf2peUGeZnA6RmcUK1KJrAl
-         H9HHlaoXz0/F88uwvW1LBJoqG3z4BN8oL1VndMmsD9EWZxhmRdlTqAOvkAK/BQ3q8U1J
-         AZaprkj4KXfotflrDgO0ueaUk1mhso5akrUBX9SzhW4HC27TtgIIQvfufwCgBt6frzH/
-         tGrQ==
+        bh=EhUxUsXlYTOPIuI/9Wjr+HtLnFZVyckeVjHXp63PFxk=;
+        b=PZIJfWJY4bO01e3uAUjkOFdjBUbWUOy5T5kTxb2E9D//q/+xyRUuSG7yzPpPOd3r/S
+         XAfrk2iqzmT9rTSWPCHtqyJn7muS2hSOzk+jN4Ity0cA+HSAiIzwejWt29cl4dbdPa+I
+         H0dCxoGze0zUO/35PzfmmKpQWMUk63uXws0BflW7SAP+idx9xzu4UVyGQbhhR77SgNMV
+         lP1DYInJ+qLedmxHUF152ZwbSt4FpGhhmc6WU5W0i500YE8k4NlvVqRRNK5Hx8XO/Phb
+         uubk7HP+DizHQV17Tqp3CG9U3jtt6+zWtevufUdueB76EDHzddt37ztOqjtnrDWJK0oV
+         hDmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732866245; x=1733471045;
+        d=1e100.net; s=20230601; t=1732867068; x=1733471868;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yOG7yv+MN1iFNYFD0nzQtxRdykEReEn9OMMLf5/ayAE=;
-        b=T6b0Ew3nMs2+Umy2Rc8CRR7ezC34SsLjYjh/l3TzMoLRTsljSLSyQnadsPyIqkveZg
-         2J/ATnOgwkve7GD+skPt525IqMsRn3uH/osTPLpsZJ235NNKrSraGdcc1gk2AsgnapyZ
-         lVgrxR/BRaUcmwHMyNDVOnI763vp/4FEGRQsjT8urIK/YwVgycrwyCBIgHh19qMVZM25
-         /wK5kJYstNouqc2APJkxBl667SywbUbiP3GilqKgqCjSFWzI4YVIm/bow3WYz0kE83/E
-         0PZbXCXOtUXYZKH8sDTSeDmgCI3Aj0XOqQBwcpeIfq5MilN3dSUUk/cc8BdPaYgU/pi/
-         gXyw==
-X-Forwarded-Encrypted: i=1; AJvYcCV/sWvf0BpywmC6Vfo1LFGn9HBUsdonmMUr8lY0wi3haMJ6RBrV782fgUKcg/ds1rgI7n66l2danZ8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwyjG+pdG2ebck5Q5aiaKDenuFGNhqcUP/HtU5RP/z9AbW2dbDg
-	Is2BHL1YMVOmdhicK06bu4Cr01s62AWsA04oNaJlbyQaEWI0wBZrZQsLh+Jvww==
-X-Gm-Gg: ASbGnctEOdV58xlfOj9YvK/BUMd9mU4u5SrUTL29+LPAvM5aDUyexTr1eVQmx6QTCfN
-	ya9LLXcNMpYoRjVs+3CfCfABux4wJNEMnQpmeU0zdtoXexmtci6Lat3ysL3pXVwu+ln+TjLYSnr
-	iwWb5qRubF7F+p98oY8Rt2F7NbF30iG6JRwpsKzXtTFH+e0XKOXiFFIDhDIFQOR9fLrWWcMc5S/
-	o0LOCbGYfOkAukDygPou1Ug76v6b7dG55XZxi8ev+SbJit0/4ZYKV09KyOCoRSSsszz8Q0m9XsM
-	BNW1xZyvcd3AbFo76/Wz62pwukrekzH5aoM=
-X-Google-Smtp-Source: AGHT+IFW27UF8h8vHXALqw1sw8LY9WSjgcx3KzmqA8U+cWT/lp5OcAUv433siLSu/Go+zQH7xt7Gig==
-X-Received: by 2002:a17:906:3143:b0:aa5:11fa:626d with SMTP id a640c23a62f3a-aa580ee013dmr1055389566b.3.1732866244992;
-        Thu, 28 Nov 2024 23:44:04 -0800 (PST)
-Message-ID: <c31bf522-41d6-46be-8e04-5f7ec566d925@suse.com>
-Date: Fri, 29 Nov 2024 08:44:03 +0100
+        bh=EhUxUsXlYTOPIuI/9Wjr+HtLnFZVyckeVjHXp63PFxk=;
+        b=KcI9Pct6OH5C1cj2rsV52eIGYhyCXRdc1YLZftsswLcXrJeicu1iOA2DclH4I6sm/q
+         hXkH+7UTuXVIqrkyAfjPYSY2o472fSpXP2L1+WbrTVxx1I4eGPjNMFlxcLFd1L0AhmL5
+         0jvOFdDoV0anJOljmlKXmkJ9jaCl98oThrvRAimeTd/CQ8+gtyVmrwWVGRO87ezu2qXg
+         Ue7oZBfwtUR8ydU1OLvNvRz9cesEG3o3cVBssVnMxQUeAWlGVHsBcOd/2swKlPAcAzwL
+         4Ilkv8/zkJ48fldL1yFpqFAdTR+VeJO6zoBfU5Rb5xzucv1tA8X/XyLjH+Fwvxms8OCT
+         nosA==
+X-Forwarded-Encrypted: i=1; AJvYcCX1ef8shYz/UjGVeQ/jmt8dD8EquUgPM1glc0YZYSrYNxqTyzoqxZ2B9RRx2pwqxmdm5zZZtOaoxhA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzeTkmfT8CrSM9BW/qWW5IP3SU2JE/A4ichFOCQKrDmPAMb17S8
+	dfr5q3oT+dHfoPphoA6W0NbAqeACpqGyaBFgHFljLh9iQ853dALmN2MiZW04mw==
+X-Gm-Gg: ASbGncsRxVEPxztMotrbp1UlhSqY0pezrHQt2Xgl0EFmTdYpayMPIgjTjtonVCQ232x
+	Q6uP56PlwmctFoTJSZA80DTgyRfNg2t0KnftZIYF8JxdehpOoqJO+Igfg2tjXlnQcD2GEThDqSk
+	9EFeFuvygR8+/EJvqCnGGDFISy89CKLCWSHhp1lOoU0Kotp6D0zOyXFh5Q9c+A4g2RjmjZAyS+p
+	A/HAUZEFw7TmuwQ6UCZPNE4CR4QWxRwl5jhIy5iiibSlga9OdyICv9n82B9ibBJ6GA8CvVWRTHq
+	b+DtANVRtdNnUAPfd9w1cu7s8LuEQvFtyUI=
+X-Google-Smtp-Source: AGHT+IGuyjtl9V1UZBbRtUli2zHnDJ1sD+IrNwVVwXm7drOdNZXo8InlvWxeLoSek2j5l281KHDiaQ==
+X-Received: by 2002:a05:6000:178c:b0:385:d7f9:f168 with SMTP id ffacd0b85a97d-385d7f9f2c9mr2944334f8f.17.1732867068577;
+        Thu, 28 Nov 2024 23:57:48 -0800 (PST)
+Message-ID: <57291d0d-fe7e-4410-8cc5-a2bed0de108e@suse.com>
+Date: Fri, 29 Nov 2024 08:57:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] arm: bugframe: emit msg offset only if msg is present
+Subject: Re: [PATCH 2/5] build: add possibility to use LLVM tools
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>
 References: <20241129014850.2852844-1-volodymyr_babchuk@epam.com>
- <20241129014850.2852844-2-volodymyr_babchuk@epam.com>
+ <20241129014850.2852844-3-volodymyr_babchuk@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,37 +121,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241129014850.2852844-2-volodymyr_babchuk@epam.com>
+In-Reply-To: <20241129014850.2852844-3-volodymyr_babchuk@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 29.11.2024 02:49, Volodymyr Babchuk wrote:
-> Before this change, compiler would generate symbol that points right
-> past .rodata.str section. While GNU ld handles this just fine, LLVM ld
-> will complain:
-> 
-> ld.lld: error: common/device-tree/device-tree.o:(.rodata.str): offset is outside the section
+> Currently, even if we are using clang as a C compiler, we still use
+> GNU binutils. This patch adds new option "llvm" that allows to use
+> linker, objcopy and all other tools from LLVM project. As LLVM tools
+> use different approach for cross-compilation, we don't need
+> CROSS_COMPILE prefix in this case.
 
-As this is pretty clearly a bug in the linker, has that been reported
-there? A reference to such a bug report would then imo want ...
+This new option is meant to control both toolstack and hypervisor builds?
+As to the latter, I assume you're aware we're trying to move away from
+this kind of command line control of the build.
 
-> --- a/xen/arch/arm/include/asm/bug.h
-> +++ b/xen/arch/arm/include/asm/bug.h
-> @@ -47,7 +47,11 @@ struct bug_frame {
->           ".p2align 2\n"                                                     \
->           ".long (1b - 4b)\n"                                                \
->           ".long (2b - 4b)\n"                                                \
-> +         ".if " #has_msg "\n"                                               \
->           ".long (3b - 4b)\n"                                                \
-> +         ".else\n"                                                          \
-> +         ".long 0\n"                                                        \
-> +         ".endif\n"                                                         \
->           ".hword " __stringify(line) ", 0\n"                                \
->           ".popsection");                                                    \
->  } while (0)
+How is this intended to interact with the existing $(clang) that we have?
+In the cover letter you appear to only care about the clang=y llvm=y case,
+while ...
 
-... attaching as a comment here, to make clear why the extra complexity is
-needed.
+> --- a/config/StdGNU.mk
+> +++ b/config/StdGNU.mk
+> @@ -19,20 +19,4 @@ OBJCOPY    = $(CROSS_COMPILE)objcopy
+>  OBJDUMP    = $(CROSS_COMPILE)objdump
+>  SIZEUTIL   = $(CROSS_COMPILE)size
+
+... even up from here there are uses of $(clang).
+
+Also please Cc Anthony on build system changes.
 
 Jan
 
