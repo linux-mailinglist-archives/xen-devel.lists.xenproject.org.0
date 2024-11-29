@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB5C99DC038
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 09:04:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845743.1261084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C494A9DC040
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 09:10:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845753.1261095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGvzK-0002IH-Db; Fri, 29 Nov 2024 08:04:30 +0000
+	id 1tGw55-0003mp-1t; Fri, 29 Nov 2024 08:10:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845743.1261084; Fri, 29 Nov 2024 08:04:30 +0000
+Received: by outflank-mailman (output) from mailman id 845753.1261095; Fri, 29 Nov 2024 08:10:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGvzK-0002Fy-Ax; Fri, 29 Nov 2024 08:04:30 +0000
-Received: by outflank-mailman (input) for mailman id 845743;
- Fri, 29 Nov 2024 08:04:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tGw54-0003km-V3; Fri, 29 Nov 2024 08:10:26 +0000
+Received: by outflank-mailman (input) for mailman id 845753;
+ Fri, 29 Nov 2024 08:10:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFrC=SY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGvzI-0002Fs-Md
- for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 08:04:28 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c5756df-ae28-11ef-99a3-01e77a169b0f;
- Fri, 29 Nov 2024 09:04:25 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-385de59c1a0so417991f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 00:04:25 -0800 (PST)
+ id 1tGw53-0003kX-TQ
+ for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 08:10:25 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6197e355-ae29-11ef-a0cf-8be0dac302b0;
+ Fri, 29 Nov 2024 09:10:22 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-38241435528so720957f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 00:10:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-385df69feaasm672021f8f.5.2024.11.29.00.04.23
+ ffacd0b85a97d-385df15e1e7sm920061f8f.40.2024.11.29.00.10.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Nov 2024 00:04:24 -0800 (PST)
+ Fri, 29 Nov 2024 00:10:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c5756df-ae28-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MjkiLCJoZWxvIjoibWFpbC13cjEteDQyOS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjhjNTc1NmRmLWFlMjgtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyODY3NDY1LjA3OTI5LCJzZW5kZXIiOiJqYmV1bGljaEBzdXNlLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 6197e355-ae29-11ef-a0cf-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MzAiLCJoZWxvIjoibWFpbC13cjEteDQzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjYxOTdlMzU1LWFlMjktMTFlZi1hMGNmLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODY3ODIyLjc5MjQ0MSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732867464; x=1733472264; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732867822; x=1733472622; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QWjaF82ZtLmSToo0JDa/Cr4RjUnoJ84M74/NrDf/FU0=;
-        b=Aaox5vAmiL0FjSzl8YFpZiQcGIACFam1t870/6CDlGz0AfRFTU1oEZNPT3/HIdPjMJ
-         03aE/MiMNaBdOXFKzh+OMKxyewy7DK0LmaWjKwstkjlmqnAtLUW7/nyux8Sotw7o9ua3
-         wuxJ5LDhy7r4nhxEGjV1i46MmCCb4kU5Xzcq8jlhLH9OYs/C0GF2GxmRJT68RrdcQdtI
-         fm5hG6odsqu8en48Yitxi+xYSvdotYs5D9bOLDJ3ak7E9IAN2ZO9xhzHQA2OWqOqZDP+
-         fJHk8r3IxFVGtVBeJTvtAOyGWVqvVnqedVOCV7s7Xt15pdkxodie6t+9KEMJ0E0r0H8x
-         cyAg==
+        bh=v0DIuT5zuKBgvF/RnFYROoCdsmz0eaqdpfZLuvSiics=;
+        b=Iky6fXKFqJQy+eggPkzh0U2HKRH33GLbDfLw4OoYVCr/9y0iOuJ6DfbrRQgWoM/Lzg
+         HJJWsD1U8miC3dWxN9TVzmJb5xSRrfW7+8F5fPrPZqkk2ROdYe1hdv2OhLrg5EQfy16J
+         j6rKjD1WFVsvbBbFo/F1AFWA3uO+YbL0r/2ZK76hZDQYXMTKt7M9hTczQA2tWqTRFw+g
+         lBYz3h2e13WMLakjsJn00U32HD1FbokapRl2vNnz8w0z65wIYcTe0HVTEOI5U/l8eB/T
+         t2L2drBftGXuXXq0ejGDLQ9qSwNoPqZjLgH/WOpgdZPXZ5u9UMnrYLLUPMNh9CFaWm0K
+         sPow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732867464; x=1733472264;
+        d=1e100.net; s=20230601; t=1732867822; x=1733472622;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QWjaF82ZtLmSToo0JDa/Cr4RjUnoJ84M74/NrDf/FU0=;
-        b=KqtFQBNfsg44D+ul2golbPVWdCw1FQK5NN60YQVnn3G9K+bsDri6SH88hK8vLNpDqz
-         sLR/a5cY5q7OPV2nwUsMHzNV0AOPI9mC8pVOlzyUNThy+lcH/f/2Q1gz1aLOLw8pDkUO
-         k3nCFCm2KrTK9cqhB4H/SgwYUSZMAWxHCNwlr4UAdplUgKE/7KGL/ne0GNyNVrrwpzZG
-         HMzsyl4YUfDymzC3MDtm27JjbKk6nVAMvCJuCGMiYuJ5yleiMOOe7yuyL20UCDNKZzXj
-         guUP+pBJy9A94GI8UiOdQTnAbFLCfHjlLIruJt949WBuyppcszzOUivIuXgmPO7clca2
-         JzfA==
-X-Forwarded-Encrypted: i=1; AJvYcCUKnp3haAJgMNr3wDpVGxTi8Ua9afmB/6GU4m/KO4S3nBmB3Otumg+Y8JxkjuX//H3dkW76bBA1Gog=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yye2Arpx4WZ2GuKQzGoUIEqjalVNWOmGmtKxyTeeIeH0geWROTQ
-	q2K1TiDGIefSpeclmoI3b9CTAqUuz/c6hEVuc7vN/uKgFkHl/IY+wYaTklKgcA==
-X-Gm-Gg: ASbGncssC5PzHYnvSWGiuzlNAxjDd8vlZfln/cDVYbsRIgj5wDVyAnqx4Ixe5K6bC9c
-	Xqop6nAri4/Nj83gLyJBvl0yTnw+LlpMFdM9KnGnmMmqQIKR0PgBbPXd5WeWflHpNfV5YduQ2Wr
-	vi0dpesHivOsRBFoOLI3ThnakHQac5zqml1kDGbtVHPtr2fAcPutvYJG6XFN007gPaz920Iv8CV
-	wFbBq2GgL03n0CVoWpy+Gp1MvB34WPrMWm+cVPN9ACLgH3CrNlWzU1S5ewrLv8sE8fQD790qj2j
-	wad8aNcQfPFpk9lgh/Kl4oyyUWs0fIJ2AtQ=
-X-Google-Smtp-Source: AGHT+IFtDz9pIyuqbzpHg18zY1aErvP4728gqniT6CLubQyYXBg0LZ/qIkBr11FVTm6Vb63/YVed2A==
-X-Received: by 2002:a5d:6f06:0:b0:382:383e:850e with SMTP id ffacd0b85a97d-385c6ebcb69mr9036631f8f.13.1732867464381;
-        Fri, 29 Nov 2024 00:04:24 -0800 (PST)
-Message-ID: <d8bdd084-3e0a-40aa-b829-534219b24df7@suse.com>
-Date: Fri, 29 Nov 2024 09:04:23 +0100
+        bh=v0DIuT5zuKBgvF/RnFYROoCdsmz0eaqdpfZLuvSiics=;
+        b=dAAsX3SZIFurJw7LFJRoupBZ2zIdPdVOwIoWbD8Z/8XMsyKgcQVe/xlVFuY4Vz2wKv
+         0ch9HkltQJu2ERMXYqPegs9tZ6tvY8VbRWTw59kkDdmeR9mmNFcX35j1Hmkw9eygVJiO
+         1na+QPhWnLtrIgbAZepDFPIkP4akFIh2SmUubFg+IsuQ3JjsgYtSA+r0dVSzuE8TcuPl
+         tspLn7N7+vNFybtR1Xu404GoxSkbNplhsEcn+I6SIgHz56SfwiHkc+jt6aMI58q+vrSa
+         ZLAjZrmf/xoiGM8HtL7nM5pUkcRh5IfvAaaDDfxnfbUqhFbswmIVytKFvKeMYSmmSnjP
+         tzew==
+X-Forwarded-Encrypted: i=1; AJvYcCVLydMUGXZmd4a/fvEY9GLOVKD4lePruC2Tjmx8SUMdu+g12vJyIeK7D0IdXPcqBlgyJt4H+xtIAXc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzW1wsoVuH+LVNqNy+vxPQIOzi38wio55ABnvufVdgfpcn3ZbiC
+	5tgXuUDYUycepmNDg59imbQtXxuuSzkqCrHrcJdS5Pgsct9Zmp8jeQKdtuP/Zw==
+X-Gm-Gg: ASbGncuNsxM0pYjHRflf7vr4GBXfroUFW+7gMQz8qYFKEkILmMAFOR3r5UCz/3MIW3g
+	OhnwFhVZUHVzQzpMWBTSM4bt6LcTGcO1z2169NCOk6J6Hz1GFQNO3Wcmuc/XbDk3UfOCavhO+W+
+	1TRVlXARTIlQBhYt2f/ldi91mgC3Aoew5WOH7nJhXvB904PpWzlkc8/JF7smLME06kDJlLCSR6O
+	taLEmdcu4Xe6DYQpMLLujnq14CmtKf7kJoF+xTa6Ng5hzZrg36ErsZfavCkQbXCctQ8A8bcdLcF
+	k/L8y3bneiNzfJndgOOvZ/Ey7HikgAwdREM=
+X-Google-Smtp-Source: AGHT+IHpeNZ7QLEPzKl3FSrMn4DyR41gBcxhlpgtB+ycw3FhbAykT8eEAl9wCMRyP4KlYViEZdlEFA==
+X-Received: by 2002:a5d:47ac:0:b0:382:4aa0:e728 with SMTP id ffacd0b85a97d-385c6eb7af7mr9501431f8f.1.1732867822213;
+        Fri, 29 Nov 2024 00:10:22 -0800 (PST)
+Message-ID: <00b2e757-30e7-4cea-b4cd-9c48461b4b5b@suse.com>
+Date: Fri, 29 Nov 2024 09:10:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] build: arm64: provide -target and -march if using
- clang
+Subject: Re: [PATCH 4/5] xen: build: add support for CFLAGS_REMOVE variable
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Anthony PERARD <anthony.perard@vates.tech>
 References: <20241129014850.2852844-1-volodymyr_babchuk@epam.com>
- <20241129014850.2852844-4-volodymyr_babchuk@epam.com>
+ <20241129014850.2852844-5-volodymyr_babchuk@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,43 +121,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241129014850.2852844-4-volodymyr_babchuk@epam.com>
+In-Reply-To: <20241129014850.2852844-5-volodymyr_babchuk@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 29.11.2024 02:49, Volodymyr Babchuk wrote:
-> Provide -target and -march explicitly when building with clang. This
-> makes cross-compilation much easier, because clang accept this
-> parameters regardless of host platform. Basically,
-> 
->   make XEN_TARGET_ARCH=arm64 clang=y llvm=y
-> 
-> will behave in the same way if building Xen on x86, or on arm64 or on
-> any other platform.
-> 
-> -march is required because with default value, clang will not
-> recognize EL2 registers.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> ---
->  config/arm64.mk | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/config/arm64.mk b/config/arm64.mk
-> index c4662f67d0..97eb9a82e7 100644
-> --- a/config/arm64.mk
-> +++ b/config/arm64.mk
-> @@ -5,6 +5,10 @@ CONFIG_XEN_INSTALL_SUFFIX :=
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -179,7 +179,7 @@ cpp_flags = $(filter-out -Wa$(comma)% -flto,$(1))
+>  # Calculation of flags, first the generic flags, then the arch specific flags,
+>  # and last the flags modified for a target or a directory.
 >  
->  CFLAGS += #-marm -march= -mcpu= etc
->  
-> +ifeq ($(clang),y)
-> +CFLAGS += -target aarch64 -march=armv8-a
-> +endif
+> -c_flags = -MMD -MP -MF $(depfile) $(XEN_CFLAGS)
+> +c_flags = -MMD -MP -MF $(depfile) $(filter-out $(CFLAGS_REMOVE),$(XEN_CFLAGS))
 
-Why is this dependent on (just?) $(clang), not (also?) $(llvm)? Also
-this affects both toolstack builds and hypervisor. Is applying -march
-like this actually appropriate for the toolstack?
+This looks rather fragile to me. Plus see the comment on the next patch,
+where this is actually used.
 
 Jan
 
