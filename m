@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D56D39DC285
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 12:07:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845907.1261224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF8E09DC287
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 12:09:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845916.1261234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGypt-0005qo-BG; Fri, 29 Nov 2024 11:06:57 +0000
+	id 1tGys4-0006Sx-QU; Fri, 29 Nov 2024 11:09:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845907.1261224; Fri, 29 Nov 2024 11:06:57 +0000
+Received: by outflank-mailman (output) from mailman id 845916.1261234; Fri, 29 Nov 2024 11:09:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGypt-0005oG-8R; Fri, 29 Nov 2024 11:06:57 +0000
-Received: by outflank-mailman (input) for mailman id 845907;
- Fri, 29 Nov 2024 11:06:55 +0000
+	id 1tGys4-0006R1-Nj; Fri, 29 Nov 2024 11:09:12 +0000
+Received: by outflank-mailman (input) for mailman id 845916;
+ Fri, 29 Nov 2024 11:09:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFrC=SY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGypr-0005oA-RZ
- for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 11:06:55 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1tGys3-0006Qt-IX
+ for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 11:09:11 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09cfefb8-ae42-11ef-a0cf-8be0dac302b0;
- Fri, 29 Nov 2024 12:06:53 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5cf9ef18ae9so4939053a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 03:06:53 -0800 (PST)
+ id 59d0e7e7-ae42-11ef-a0cf-8be0dac302b0;
+ Fri, 29 Nov 2024 12:09:07 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-aa539d2b4b2so315081466b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 03:09:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5997d410dsm164348566b.66.2024.11.29.03.06.51
+ a640c23a62f3a-aa5996c195bsm162438066b.1.2024.11.29.03.09.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Nov 2024 03:06:52 -0800 (PST)
+ Fri, 29 Nov 2024 03:09:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09cfefb8-ae42-11ef-a0cf-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo1MmEiLCJoZWxvIjoibWFpbC1lZDEteDUyYS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjA5Y2ZlZmI4LWFlNDItMTFlZi1hMGNmLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODc4NDEzLjEyMzY3Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 59d0e7e7-ae42-11ef-a0cf-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmYiLCJoZWxvIjoibWFpbC1lajEteDYyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjU5ZDBlN2U3LWFlNDItMTFlZi1hMGNmLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODc4NTQ3LjIxODg1Mywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732878412; x=1733483212; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732878546; x=1733483346; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bc4D9daP2jgGDWAVkZSMOGIQAs0gCD6njQOTAAljpMQ=;
-        b=OYYOto/AO9ajs30nxAu8sIMCAAZFrHtx4caA2o1lS/VKrTu1eLd8TwhER7jcXlAU5m
-         mt4oe2ifUxGksQaMoJM5c/ziXis+5Krv2tZsQroTgjJ8r81JnJGnqYQI5tY2PJWxz0NL
-         EuI+v2kIQjzzmUZV+nA+0hNO7NKcUDO4uUIZ01I0jgjlVFLxLroIV+iWdnrN3zT5MoPC
-         BOmJCNGK4sUv5c19TFC1MTdv30Y+mH8lPfG8BFprlzywni/rYqvrEBykh2N5NMgISeRG
-         PF7pz+uMypLuAXWJNalIpnUZFH1k4Ptpkmw+yO1gJPYC/HEQGxqEP0qq9QGez54VQi/s
-         xVLw==
+        bh=suS8GMsY/L1TAtrDkG03JJO6sO64anaubLikawhtW+U=;
+        b=A6+fbPz+J6GDkoTXST1F7ioIIuXvveb9iA7GY/45kq5g5ImTl7ZEqYWdlzDgGUY3DA
+         9Ucn/sBsBlDlsemAKWPOVE/U5eUiS5Nn1YsL71/dj0xmZYYqCrLCghJAdl5W3earA5vj
+         Su5RU76vLaThjqSoJqX1dqxFVYWGeUMwazBvMd/NMq2NbGA6nRaCQdcY0ohv+H7OCDQc
+         S3KJPZjaxd2qZeyP/8R7iukixwskue/+EOD3PRKrtGNqtvtnC8/N//20PxOXMH3aqUkn
+         tc+lHyAZ3Iz1DCMu943fT/IxE+wWGakoANMebYfuKpquUHHKuoH2YLhuqRQd5bN3Vxo9
+         OVWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732878412; x=1733483212;
+        d=1e100.net; s=20230601; t=1732878546; x=1733483346;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Bc4D9daP2jgGDWAVkZSMOGIQAs0gCD6njQOTAAljpMQ=;
-        b=ppwtvbhhKAig/uJ7ZRwnqP5r4vFd36OGoW+JbenMnWoc40Dbrsa78fg6a6U3cmVMsF
-         LY5kj25yoi3euZk4QxhRCt2FdKZ8kxL1WFqO5GoYE4WNKgtqIoA+ZuDHi8Lfmz716JCw
-         nhlQV7aSnizAXoMl5B5rxzgSRNe/9gDfFwFOqeCHiPSQdF4cOVZKyJsxd9kIGphLkYtF
-         mAbhLLYOetJu6Bs8GuGgt3T2ZvHzg6jiN6TrFV+J0GjE1fX49G/ZYyzttHOrwg+ODdrp
-         GQWsLUqfIhYq4Rq/pSkMHtwJkaVAgkSPaTm5wGXMpJDFiC35T3um4ZXZwsmNUBeQWboQ
-         DLzw==
-X-Forwarded-Encrypted: i=1; AJvYcCWOQc0zzrXemvPp1ojx7ZK5StkoGYyRbmOcampe2tdBLWrTHkgIB+WneenX++iInesDbqnuNe+5mCg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbHy2BirTDnjruRL6oobnu/DYSD4V7YMYiw81Ta0hXv2VbDmO3
-	cBEMVhK419lV+wyuTxVWZMuBNZqu4rOyJdiokoR3VZhMoOda07BHqX2p6ZohDw==
-X-Gm-Gg: ASbGncscux1pOQsxCyv4lx5TwyeK6k8IaPNhNzEWhlsSNgV+gbG36fYJ+EAO4J2RtxH
-	62rn4C03OhNs+kZvjK+r1v89pn0fd5bcp8Ebz8/F65qwhR31byyxSubYuLkELlD2B/KJ5e6Nkzn
-	b974tHj5CbUcjk5UvxD1KCSDJw5VwgwPue/yuuWmu3EA77TgzBEbSzjIM2OcRFpa6RDxyzBND3x
-	CP1dQYhQWXSIhKL5LCuE2S+7a0q5xjs5BRtJ0VQwR/bn0EIJEcivB0OoD9mUA2eLNtxsbot/kgD
-	MupI5qWu0zptpxVZu3sYggihpKyYPbRYuhY=
-X-Google-Smtp-Source: AGHT+IH5K4JEHeYPuqPNXNjI3fcvRDye0qmet2J9C07OLA1meFM6V2ttPPDkOnUbFa6VNLaXPoWnnw==
-X-Received: by 2002:a17:907:7819:b0:aa5:3c57:c407 with SMTP id a640c23a62f3a-aa5945f4ee6mr799817666b.16.1732878412365;
-        Fri, 29 Nov 2024 03:06:52 -0800 (PST)
-Message-ID: <63022d0b-5761-4392-8280-fbfca8c679f7@suse.com>
-Date: Fri, 29 Nov 2024 12:06:51 +0100
+        bh=suS8GMsY/L1TAtrDkG03JJO6sO64anaubLikawhtW+U=;
+        b=uBsx7T8c9mYGWkm/62aQhB5FsWSLB0T2vRegRwSE4dohorMSOePmaUZrVtGp79jHki
+         nYAiL5k82fT5VH5KB9sNRCcOQW2PDT3Cvw9GZB5irqYK8VQZHSpJm1cXKemFs3B8k9ov
+         C0dKHosZI3U5S+ig4JoxKhf1Gj/EfC8c8sz6/+nbXOqiFGoI+dHCiWbcQWxxvqKEXZBx
+         scDGlw2cLO3KexpUGQ4qgOVkYOa35JNtMyM9GMdEtfXmWtCEc+FcHUu6bjBQ1MvBzThp
+         JTAsOBF68uupi/Tzt2ZQJITnEwDgUugMEILxg5TMGrCPPqDw3zOnWWEb6aKglrv2SqOo
+         RHvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVCdRYxN0jMgNXirlsL0+LpEbWGbfDEgQXwC2raRB813lsSK/e0DhnImdvaUCkYRRCP1Lndx1E5XmU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4cKlcipFQNbCez4Ucr7Ifs7iwBgKFFNDb8xuBB3b1aIP8QytI
+	wSfAm8ERFkkY6VW3+c3z4kKdtRJE/4zPuHRAHTgOh6Ep+UIioOslqs0U0fVl6g==
+X-Gm-Gg: ASbGnct602HNDIWM01bsgPWD8awjsCcrUSwvY4cCDktz1E1nM8i0NbMGz+L73V0TxEk
+	07pwHQ9LNRwwbij+bcazUlp3W3aRRJx/UzPV7NVN5ogurlWF0VBADSGt8q6xfGMmKwM21pR+GbV
+	2tgFFR1xKdVD+lWBLVIU0qIQ+B09GCpbpxzvA8Vw7SBydA7q7hVFs7+hjHl+ls+Jrr/RacW7iMs
+	NDeC7BI5zGMt2+B3Bbyuc8urwGQdLBOmiDcPHc+pba29bOa8VxsU4IgKf/AveZrq15aILvn3ej2
+	8mociORPCRGUvaE6+tKzlTuTbNt+VjprXtY=
+X-Google-Smtp-Source: AGHT+IEZAKRMmX3bxTHucZbcAGsscyCDqGKYSPKa+uPpIBCDK70OcE+NKfeXD+ryjkNWqem8N/znag==
+X-Received: by 2002:a17:907:7ba0:b0:a9e:b08f:867e with SMTP id a640c23a62f3a-aa5945dd02fmr657292166b.16.1732878546526;
+        Fri, 29 Nov 2024 03:09:06 -0800 (PST)
+Message-ID: <ce9c6a08-f1d5-4755-8dc4-737f147b2b22@suse.com>
+Date: Fri, 29 Nov 2024 12:09:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] common/vmap: Fall back to simple allocator when
- !HAS_VMAP
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v10 08/12] xen/page_alloc: introduce preserved page flags
+ macro
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241129091237.3409304-1-luca.fancellu@arm.com>
- <20241129091237.3409304-2-luca.fancellu@arm.com>
+References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
+ <20241119141329.44221-9-carlo.nonato@minervasys.tech>
+ <29e69d97-41ef-4ebc-a68e-0253e230f6f4@suse.com>
+ <CAG+AhRWWK6e3KJ66v5wvowTzOvyJRaECpkXYpSzMa9+83ea0eA@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,54 +123,102 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241129091237.3409304-2-luca.fancellu@arm.com>
+In-Reply-To: <CAG+AhRWWK6e3KJ66v5wvowTzOvyJRaECpkXYpSzMa9+83ea0eA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29.11.2024 10:12, Luca Fancellu wrote:
-> --- a/xen/include/xen/xvmalloc.h
-> +++ b/xen/include/xen/xvmalloc.h
-> @@ -40,20 +40,46 @@
->      ((typeof(ptr))_xvrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]), \
->                               __alignof__(typeof(*(ptr)))))
->  
-> +#ifdef CONFIG_HAS_VMAP
-> +
->  /* Free any of the above. */
->  void xvfree(void *va);
->  
-> +/* Underlying functions */
-> +void *_xvmalloc(size_t size, unsigned int align);
-> +void *_xvzalloc(size_t size, unsigned int align);
-> +void *_xvrealloc(void *va, size_t size, unsigned int align);
-> +
-> +#else /* !CONFIG_HAS_VMAP */
-> +
-> +static inline void xvfree(void *va)
-> +{
-> +    xfree(va);
-> +}
-> +
-> +static inline void *_xvmalloc(size_t size, unsigned int align)
-> +{
-> +    return _xmalloc(size, align);
-> +}
-> +
-> +static inline void *_xvzalloc(size_t size, unsigned int align)
-> +{
-> +    return _xzalloc(size, align);
-> +}
-> +
-> +static inline void *_xvrealloc(void *va, size_t size, unsigned int align)
-> +{
-> +    return _xrealloc(va, size, align);
-> +}
+On 29.11.2024 10:32, Carlo Nonato wrote:
+> Hi Jan,
+> 
+> On Thu, Nov 28, 2024 at 12:05 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 19.11.2024 15:13, Carlo Nonato wrote:
+>>> PGC_static, PGC_extra and PGC_broken need to be preserved when assigning a
+>>> page. Define a new macro that groups those flags and use it instead of or'ing
+>>> every time.
+>>>
+>>> To make preserved flags even more meaningful, they are kept also when
+>>> switching state in mark_page_free().
+>>> Enforce the removal of PGC_extra before freeing domain pages as this is
+>>> considered an error and can cause ASSERT violations.
+>>>
+>>> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+>>> ---
+>>> v10:
+>>> - fixed commit message
+>>> v9:
+>>> - add PGC_broken to PGC_preserved
+>>> - clear PGC_extra in alloc_domheap_pages() only if MEMF_no_refcount is set
+>>> v8:
+>>> - fixed PGC_extra ASSERT fail in alloc_domheap_pages() by removing PGC_extra
+>>>   before freeing
+>>> v7:
+>>> - PGC_preserved used also in mark_page_free()
+>>> v6:
+>>> - preserved_flags renamed to PGC_preserved
+>>> - PGC_preserved is used only in assign_pages()
+>>> v5:
+>>> - new patch
+>>> ---
+>>>  xen/common/page_alloc.c | 19 ++++++++++++++-----
+>>>  1 file changed, 14 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+>>> index 7b911b5ed9..34cd473150 100644
+>>> --- a/xen/common/page_alloc.c
+>>> +++ b/xen/common/page_alloc.c
+>>> @@ -160,6 +160,7 @@
+>>>  #endif
+>>>
+>>>  #define PGC_no_buddy_merge PGC_static
+>>> +#define PGC_preserved (PGC_extra | PGC_static | PGC_broken)
+>>>
+>>>  #ifndef PGT_TYPE_INFO_INITIALIZER
+>>>  #define PGT_TYPE_INFO_INITIALIZER 0
+>>> @@ -1427,12 +1428,11 @@ static bool mark_page_free(struct page_info *pg, mfn_t mfn)
+>>>      {
+>>>      case PGC_state_inuse:
+>>>          BUG_ON(pg->count_info & PGC_broken);
+>>> -        pg->count_info = PGC_state_free;
+>>> +        pg->count_info = PGC_state_free | (pg->count_info & PGC_preserved);
+>>>          break;
+>>
+>> PGC_extra doesn't want preserving here. Since it's mark_page_free(), and
+>> since PGC_extra is removed before freeing, the state change is apparently
+>> fine. But an assertion may want adding, for documentation purposes if
+>> nothing else.
+>>
+>> Alternatively it may make sense to indeed exclude PGC_extra here. In fact
+>> PGC_static doesn't need using here either, as unprepare_staticmem_pages()
+>> will explicitly set it again anyway.
+>>
+>> Hence I wonder whether the change here really is necessary (one will then
+>> be needed in the next patch aiui, when PGC_colored is introduced). Which
+>> would then eliminate the need for the final two hunks of the patch, I
+>> think.
+>>
+>>>      case PGC_state_offlining:
+>>> -        pg->count_info = (pg->count_info & PGC_broken) |
+>>> -                         PGC_state_offlined;
+>>> +        pg->count_info = (pg->count_info & PGC_preserved) | PGC_state_offlined;
+>>>          pg_offlined = true;
+>>>          break;
+>>
+>> I'm similarly unconvinced that anything other than PGC_broken (and
+>> subsequently perhaps PGC_colored) would need preserving here.
+> 
+> Yes, we (re)checked the code and also believe that the introduction of
+> PGC_preserved is generating more confusion (and code) then the actual logical
+> help it provides.
+> 
+> We'll remove this patch and integrate PGC_colored explicitly in the flags to
+> be preserved. This avoid the clumsy logic of preserving something (extra)
+> when it's not needed and then handling the special case to remove it
+> explicitly.
+> Basically my goal is to go back to v4 where this patch didn't exist.
 
-Just to double check: Was it at least considered to use simple #define-s
-to effect the aliasing? Wrapper functions like the above ones have the
-downside of needing touching (easy to miss) when the wrapped function
-types change in whichever minor way. (And yes, I do understand that we
-generally aim at using inline functions in preference to macros.)
+Hmm, no, I don't think I said anything in the direction of removing PGC_preserved
+again. I merely think you went too far in where it actually wants using.
 
 Jan
 
