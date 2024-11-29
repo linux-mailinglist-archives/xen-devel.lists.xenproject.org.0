@@ -2,56 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63AF79DE6EA
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 14:05:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845999.1261298 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9120C9DE8F2
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 15:52:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.846028.1261308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tH0fO-0007bj-Kx; Fri, 29 Nov 2024 13:04:14 +0000
+	id 1tH2Ku-0003MB-TN; Fri, 29 Nov 2024 14:51:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845999.1261298; Fri, 29 Nov 2024 13:04:14 +0000
+Received: by outflank-mailman (output) from mailman id 846028.1261308; Fri, 29 Nov 2024 14:51:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tH0fO-0007Z4-Hv; Fri, 29 Nov 2024 13:04:14 +0000
-Received: by outflank-mailman (input) for mailman id 845999;
- Fri, 29 Nov 2024 12:58:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tH2Ku-0003Jh-Ou; Fri, 29 Nov 2024 14:51:12 +0000
+Received: by outflank-mailman (input) for mailman id 846028;
+ Fri, 29 Nov 2024 14:51:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cBq4=SY=intel.com=przemyslaw.kitszel@srs-se1.protection.inumbo.net>)
- id 1tH0Za-0006We-Bb
- for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 12:58:15 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92c17355-ae51-11ef-99a3-01e77a169b0f;
- Fri, 29 Nov 2024 13:58:06 +0100 (CET)
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2024 04:58:04 -0800
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by orviesa006.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 29 Nov 2024 04:58:04 -0800
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 29 Nov 2024 04:58:03 -0800
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Fri, 29 Nov 2024 04:58:03 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.176)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Fri, 29 Nov 2024 04:58:02 -0800
-Received: from MN6PR11MB8102.namprd11.prod.outlook.com (2603:10b6:208:46d::9)
- by SA2PR11MB5147.namprd11.prod.outlook.com (2603:10b6:806:118::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.15; Fri, 29 Nov
- 2024 12:58:00 +0000
-Received: from MN6PR11MB8102.namprd11.prod.outlook.com
- ([fe80::15b2:ee05:2ae7:cfd6]) by MN6PR11MB8102.namprd11.prod.outlook.com
- ([fe80::15b2:ee05:2ae7:cfd6%4]) with mapi id 15.20.8207.010; Fri, 29 Nov 2024
- 12:58:00 +0000
+ <SRS0=Y5mU=SY=bounce.vates.tech=bounce-md_30504962.6749d4d0.v1-12fcfe0bf84843e594a39beb982d550a@srs-se1.protection.inumbo.net>)
+ id 1tH2Ks-0003JZ-Hy
+ for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 14:51:10 +0000
+Received: from mail180-27.suw31.mandrillapp.com
+ (mail180-27.suw31.mandrillapp.com [198.2.180.27])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 576715d3-ae61-11ef-a0cf-8be0dac302b0;
+ Fri, 29 Nov 2024 15:50:58 +0100 (CET)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-27.suw31.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Y0GMN4mxdz6CPyPr
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 14:50:56 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 12fcfe0bf84843e594a39beb982d550a; Fri, 29 Nov 2024 14:50:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,259 +43,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92c17355-ae51-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4xNzUuNjUuMjEiLCJoZWxvIjoibWdhbWFpbC5pbnRlbC5jb20ifQ==
-X-Custom-Transaction: eyJpZCI6IjkyYzE3MzU1LWFlNTEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyODg1MDg3LjAwMDcwMSwic2VuZGVyIjoicHJ6ZW15c2xhdy5raXRzemVsQGludGVsLmNvbSIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1732885087; x=1764421087;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=weL3piMTjoNujiNid4RDogwwA/DCEKj+1u5pMzDG49k=;
-  b=XA5wrvrXAS+wP/31ct2/sCwawW9czlA0iDUm/h/ZGVfNEoFGKj5X7aN4
-   yRT97T937Y/YuzCneslKWt46nrFvGLgcx+P/EQWgLVK4iOZ+TTBC/WPuY
-   +QTMQHDhCo49tC8VKAi3I06K3tY805EfEyFFmxfwpnTBOJR3CSB5P3qAi
-   hSh02/cB3aAkrh0ZiHvG8nPVtw0wLt2snam54TcX0eB0mHIp2+l/Kas2C
-   RW2lwd9nMFfJXrXdF93wmbSDLF+byjv3iQJYURdlvcuin6La7EeAnZiQb
-   ArvLRh+buHSFspewbvYxblayPdOqn2JMOaCRkk9IdfryQNFE3ZAJsE9BV
-   Q==;
-X-CSE-ConnectionGUID: PDFuF+0iR2WhvXUbX4lJ2w==
-X-CSE-MsgGUID: u4r9DsoORWO7Vxjc9HPOQQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11271"; a="33054651"
-X-IronPort-AV: E=Sophos;i="6.12,195,1728975600"; 
-   d="scan'208";a="33054651"
-X-CSE-ConnectionGUID: HAvQQNW/RNWOl4aOfrc//Q==
-X-CSE-MsgGUID: QKzxRDpsRp2+YRSgSDDPkg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,195,1728975600"; 
-   d="scan'208";a="92593314"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=quCbtJ24tWPmPATmSXI/wOXpATuCaCo0hIr9k7ZcwEZewHb/EuBWyTInctB5QwhSROxmEXN3PiwxGX687e7QwCYxAlBFD70gzdNI5a8r7uNBpjJWZqy9uxCqXKbkTFYWqlm7HzQFc2+yE9/f2BbXDBXPre1STezTtXrVQpV2vaJOZ/1nNyvtn+PSE/1JAAqbG/bkxJG+ApYSq82+VTLWjkX1PcITcSpGlfM0J8Rl0y6X35x1eEQM7RI77zmYQHh5gixrXJqrvrpBxim9bIJUMU28zFs1eWDnsxbKwG0fhFcgSoOfMvE+Ro/5A5OsQ5rKCZr4/tJg2yF1pLgVvvEmcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SV+OufASk8xBhFc+yWg6QA9nU9jS1Mod881QXXOOPQA=;
- b=lJRjYzW7QtP0TJ254CvUOkjztPHqGJmr37Wdd1gmdGN7C2dILYcW7EJsd+41ncfJ1q1qHgmJaGY941JBQJOQiPEGlP9tIexdimvDINiV0Wrm9lg+1ZXYDtdx3QnJPejJ6MA6mxT5sbz+WQthSO56tiBrHYLkVhwJtZCB1Go351VQJcKLR/tCNEfmn1rGlmykc/coPhXRCHztsFeZMPpe4kLsXEYN1OWauVRPxDYj+UxE45GOZm1+E7DFSGg2TStYKLnOVDNTSSgr9W/BUx+7vo9kkTrBXxAW5PDSt5fcnRAJo/tfwcjW+AUjbhXBZ/MC4Yhl76E8g8JFTWGgqYCT+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Message-ID: <b9fcb12a-b7a4-4c33-836e-67109ce07deb@intel.com>
-Date: Fri, 29 Nov 2024 13:57:52 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/21] Converge on using secs_to_jiffies()
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-CC: <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <cocci@inria.fr>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-s390@vger.kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
-	<linux-scsi@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
-	<linux-block@vger.kernel.org>, <linux-wireless@vger.kernel.org>,
-	<ath11k@lists.infradead.org>, <linux-mm@kvack.org>,
-	<linux-bluetooth@vger.kernel.org>, <linux-staging@lists.linux.dev>,
-	<linux-rpi-kernel@lists.infradead.org>, <ceph-devel@vger.kernel.org>,
-	<live-patching@vger.kernel.org>, <linux-sound@vger.kernel.org>,
-	<etnaviv@lists.freedesktop.org>, <oss-drivers@corigine.com>,
-	<linuxppc-dev@lists.ozlabs.org>, Anna-Maria Behnsen
-	<anna-maria@linutronix.de>
-References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
-From: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Content-Language: en-US
-In-Reply-To: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA2P291CA0045.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1f::19) To MN6PR11MB8102.namprd11.prod.outlook.com
- (2603:10b6:208:46d::9)
+X-Inumbo-ID: 576715d3-ae61-11ef-a0cf-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE4MC4yNyIsImhlbG8iOiJtYWlsMTgwLTI3LnN1dzMxLm1hbmRyaWxsYXBwLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6IjU3NjcxNWQzLWFlNjEtMTFlZi1hMGNmLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODkxODU4LjM3NzU5NSwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3NDlkNGQwLnYxLTEyZmNmZTBiZjg0ODQzZTU5NGEzOWJlYjk4MmQ1NTBhQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1732891856; x=1733152356;
+	bh=+ZBetPMI2OwnoEKFVuJ+NhQwKrv5m2cvszeiHnM3vMU=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=Mopn4DU2ri3B3fjAehbIEy6E2wIJtBgnmRF3Zekd+ONi5RKT9yjT0lHA3yplERgsQ
+	 uNlCKlZF+s1pwatnvaWGcWmsWryTAP2hx/v264xNGFlxk9/HBula7T1nfAWYv2G/iO
+	 hDHMMnjq7h3SiqBWfo6iVkVSAKX0PQ3ErOV5BqhJa3XBr2qFwWrVb0cVRw24FgJOto
+	 PW/wiKcO/0mULHUllMtl4eyEe8DZznYZWIre2zBgXue5NmAXdYsOLEtO0j5ZkoUGAG
+	 eet+ZC2nK7bSYhqwBeiNi5W2OkPv50Bg4+PnGjuL2VueIXfP59/JrGmmOxjH2TLTsv
+	 oRMvDVF1LRyKA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1732891856; x=1733152356; i=anthony.perard@vates.tech;
+	bh=+ZBetPMI2OwnoEKFVuJ+NhQwKrv5m2cvszeiHnM3vMU=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=niPqc8uDauQ0WXGCW4eVJjt7IunEfYd3gb96Iyz6kTewn3Tudd/kWBZfR0qtwiznb
+	 74rLv5YCuoctB/dIH9+4qjzpIZGcn+AEYSaBNRHTJtcklhWlk+UqgdrenbBop/x7Oa
+	 02wcjM664PApkbN8eqYSpqE+d4AUZYAfvjJItX5K6TMrwZUf5hoYjkIPsmb4f1cGcc
+	 B7imnMxS4JaoNoyYFFMw3T+77k29mdlh22r3BjBpXhxXiC3jjVrbX+71+Syn2h1YJo
+	 FUEH/rWdoZrUTAfJeMVMQazSq5s1ifb4w4PbG9Nj2dZ8DEZrdKYDE9iULAI+4aaNUL
+	 +OyYwGbXRO/WA==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=202/5]=20build:=20add=20possibility=20to=20use=20LLVM=20tools?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1732891855469
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Message-Id: <Z0nUzQk5Nr7WQ2kI@l14>
+References: <20241129014850.2852844-1-volodymyr_babchuk@epam.com> <20241129014850.2852844-3-volodymyr_babchuk@epam.com> <57291d0d-fe7e-4410-8cc5-a2bed0de108e@suse.com>
+In-Reply-To: <57291d0d-fe7e-4410-8cc5-a2bed0de108e@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.12fcfe0bf84843e594a39beb982d550a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241129:md
+Date: Fri, 29 Nov 2024 14:50:56 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN6PR11MB8102:EE_|SA2PR11MB5147:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67d5165e-3df9-44c0-490c-08dd10757449
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dkxVcnZ6ZG1sM1ZPYjdBekZPRHhJMzJOVDlWdVc4Lzg3T254OEFXSFVEbEV1?=
- =?utf-8?B?bitJLy9YVHdIeHB5Q1o4QjZVSzJZcDFHem5rTXcyMnF1VTFvU3RiQ3BUNVhy?=
- =?utf-8?B?TlZhckMvZm1GSXNaVm1ra2JjWklJM3MwWUQ2eEhSbENQa1ZSa3VXMUN2QUhl?=
- =?utf-8?B?aXIxZWdpejRINDMvb1dwM0Z1UllBQUNad3lzMEliTGRva2lOUFV3WjZrNjN2?=
- =?utf-8?B?Y1V2dmtWVmV0ejBzazAxcnFBcHpCSXpzcE9Vam1UUkEyQTRRM1pVeGYrbDJS?=
- =?utf-8?B?RkpOSEgrMEhLNklaMXJJazdSbUVFWEVoSWdsaHluQkNRWVd0Um81ODB3WS9O?=
- =?utf-8?B?N3c1a1FEejgyWkVyemxrU1VXMkdWMmF2RGtFTFpoNjNObFpMdVAzaytNU1RL?=
- =?utf-8?B?OUZwd3ZBVTk5RG1BdHNKOUFEV2JPSXVuVGdMOVY3Q0NJQmZPTTNGdUpzRkZV?=
- =?utf-8?B?NFpCTnJndkNSRkdNNzc1NzhkVzN2Z1poaGtBcmVkdElHOGpSVHA5UFlCKzlG?=
- =?utf-8?B?M3pjMUovRkxnZ2wySlFteHRqTWRhRFBHUzBiazJCcnJZZ0xSQmNPdDlQcWlz?=
- =?utf-8?B?ZWFMb0tkYU9lcFRQTjVJN2ZuZmIwb3R6K2sxTW5HeEg5RGFMUzFraXhKZVJP?=
- =?utf-8?B?bFl6WkkyU0NOL1g2OFBTVUUrNEhJc2d4YTZnRHl2em9kVHZNZkRFQnVQSFRX?=
- =?utf-8?B?bDNjM2NndjB3WkhITmtMb2w4U3NNSjZRdE1XRUNMQjNVejEyQkdhaUtnUWRk?=
- =?utf-8?B?Vndia0hpeFFUaERTWUtjYWdZK0c5d0NHelZPNFRpVWNmd0ZpVmVUNk5wSUx0?=
- =?utf-8?B?QW5DN2xLREVFaXRlZWJ1Tnp1RDMwYS8yN0ZZempwbXhudzNJUE5vczhuZ2N4?=
- =?utf-8?B?UTJya0tlYWcrM1ZNdWI3UFo5WHo5QTE2bUhvVi9ITXpSOHdlczREY1FodStv?=
- =?utf-8?B?QXR6RDdheE9NSmNHTVhJV1RMNk10djE4anhhL0I2dnhveFZLNkhuZWw0ZndJ?=
- =?utf-8?B?OEhNK3Z4SGtDVHZHeCt2NU9SRjdIMEl2MWRBVGFpV2NpWlpIMmY5ZktTdlY5?=
- =?utf-8?B?L0RHL0tTdkNGRUl2alA5VW1ROUlLWnRUSTdNMXB2YkVVa3NIUDZKckNaWG1I?=
- =?utf-8?B?cmdvaEJYVWYvdWFIYVYyMCtKeGY4RGpVb3hjbDVqblVHTU1mQVd2djNCaGFV?=
- =?utf-8?B?QnZTaDlSWGtyVjJTL0pvQVRjc282VFpMdG0xVVUzb05PUit3VG1SVWN3T0tP?=
- =?utf-8?B?VldMMG4zdk1BZGhUVjZNZ3YvVVZaNFRIZkx4MHk4YXF2QTg4U2pUWlRXdS94?=
- =?utf-8?B?VHp1VFFXNEU1elUzQVJZbWNTcS9YOWlLcUwySzhZWDd6aWRRcUMvTVpzL1Bq?=
- =?utf-8?B?ZEN2anZzNEJVMmQ5Q0xpbW15cFdLa2NiM2RGYnZvZU4zSmQyaTNkS1VxMENx?=
- =?utf-8?B?WWprTEpoVkg1WEJrQ3Z2SlpEOVA5dXdkY3p4NnBWNmhBYlpnZXFWS3V4dmVy?=
- =?utf-8?B?RDlyQ2ZrZ3B5VlR2TkFOUWVqb0NJT05UazByRlRoUnJIbmNYNi8xTk1WM0Zt?=
- =?utf-8?B?cExlWS85VWJiU0MwaDNPQnBXMTc1ZStybFY5SkNWSitvUXh0cUFObE04R2pa?=
- =?utf-8?B?NlZMalFXWURBaDgvdFpISm9yVHFGaStaUHlHckJWNmpxVUhObVMrcnV1NTU1?=
- =?utf-8?B?anloQTgzZllIUFVLYmZnYjJYV3kvMUJqSlJ1M3BtQ2orbnlsRzFIK2hMN0or?=
- =?utf-8?Q?kqlUCgrkXGW14PGqqE=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN6PR11MB8102.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzBicjlHQkRsSklUZGpsMVBLRW9WOUVoUUxVMTZLREpncm9KZGhPN2hKa0cx?=
- =?utf-8?B?S1NHZHNaKzJjM1ZleElOVjVPSkh0eklmRFY1enpxWk9TUFlnbkoxeGdzMXNn?=
- =?utf-8?B?NFVjTks5ZjZCRndhR05rTzBQQmdaM2FBaWNGK29wOTZmc2gyS1JWdlczQzZo?=
- =?utf-8?B?OFlSd0FUQVBtaGNzak1nbHQ4cFZVRDNvbDB2Qm54RURlOEZEL01xN1JTMFRk?=
- =?utf-8?B?U1NOSDE5UTdiUWl0TjlKSG96eUtPQ1lPL2Z0Q2dUSFRBQUNTeWdkSHY5YTBh?=
- =?utf-8?B?cVNRZys3RXVTbmJkdm01VExFV0tKaW1NbUdDUDhUZzk1VWVWTkZEcWo1aU1o?=
- =?utf-8?B?cGVJY1VuMmdZbmtxaHQ2UC94OFBhVzRBOGJCbzk0b0FCcDd6UlliQnFBaXB4?=
- =?utf-8?B?ZUhRb21KZ2VlNG9FTjIvUGxxb3BvUnM0Tk00NUlsQzN1NVFIcHFZaUxHVGtG?=
- =?utf-8?B?ZitGeGtHR05mMzd0M1Y5QlpPLzlqTlFMR2xrbjhjTW5OdndkL3lGM0lQNkhP?=
- =?utf-8?B?MEdwZ2FPTnc5Sm85Vm5pOFRmTTl0akdlRFhIR2h2bktZTFBFeHdsQ0dNUlI4?=
- =?utf-8?B?S3dDUWJUM0xoRVZ5R21TaUMwelozRGdkVzVzemhTTFBTOWxnNTUwSjdVcUtj?=
- =?utf-8?B?Q2VQOVZEWXYzQWJpd0ViQnpwR3I2MWVkVkMweWc1Nm4vWkhBVzhxQmFzczA1?=
- =?utf-8?B?VTJ6NVdoeGVuZ2dOQzlWQzFYQ1c5UStNWHVhRmlzbGlGS0lERVFaSFFxUUpI?=
- =?utf-8?B?cURYMEs3RStNbCtMZmlJNDhzVjlhTjFwRHdzZjlrYlR1S0I5RkVYUDhKbXk5?=
- =?utf-8?B?Tm41ZUhiMnlQZnhER0w0NU1GM01FWGxJSHFUeURaUis2Tng1T1Z5a04wdUJM?=
- =?utf-8?B?MWxVbCszdk42UUpZM1pVMWVZQTFzc3pySUlzOG5WN2tXZm11cHZmUG9Ddkx1?=
- =?utf-8?B?SmdmbFVJMnljR1RQam1xR3BSd29oYmJjcGZNVU5qL3hzYUtMWTN2UHBrMlJ4?=
- =?utf-8?B?d1ZoSmFrVU5GQXc0N1J5Rm1HeVRwSXVHUGhXOHhIWW1lMkYwNTFudFlwMUlz?=
- =?utf-8?B?bzlzcENOblQ4U2k1NTRLeGoySW9pdmJZZjIyL3dwQTdvaGk1cnUzUE5yeUdr?=
- =?utf-8?B?OVRSWDNIZUgwMkd0UmZ4TFZnNzhpSitJSm8xRjB4TUcxbVl3cmxscDhZNzRI?=
- =?utf-8?B?cEtYLytwY0h4RGJOY1d6U01PYVI0cUh3Vm0zOEhsV2paN2U3VTZ5TTNwS2F0?=
- =?utf-8?B?Q1I4OFlpMnY3UjV0NXVVSmJiYzF3bklpVlJOMW1Wc21NZVc3ZXdTbzBBUHp1?=
- =?utf-8?B?KzluVlN4UnFPem9PZEZhODI0L05BNWVZRnBkbVZCU1Bkb2JYQWZVRTZObGcx?=
- =?utf-8?B?ZFpTNzVZZXdBVEtSc2o4YzdXdXRnY2p0b0tLTzFVR296cEg3ZkFlYVAwMXc0?=
- =?utf-8?B?Z1lka1lNQjNHZDdISXNCQTFXRkRiWkNFWk9SbmhvRkJSSlRLWWRGaWFtTllq?=
- =?utf-8?B?c3plVkVtRTB6ZGYrSG9KbjkwOXB4a3h6cnNVc0FZWDhNVUV3ZDVGcVRsRW40?=
- =?utf-8?B?YjhQeThqMkYwQzE5dHpWUDg5cmVObE1DRGlGL0IyMWZCR1ZrYU1SYmY2eUUy?=
- =?utf-8?B?VVZNTmpRUzRnc2FnSEVIbEJidmFGdEVEblExcVJIV1RnR3VEOFpxTEJoZmlk?=
- =?utf-8?B?NnJXTmZOWXFVV244ZzFhSHhQUGtKaHUvcUptdzJ1ZXRTRlM2djdxaHFwZndM?=
- =?utf-8?B?VUlMTjJBUS90ME9EQUhVU2tHcVdrTFYrWjVWNkZsWGNyRjAyc2JSUUYxY0tj?=
- =?utf-8?B?c3RKZ1pFenJ3RjZwWUJtbXpKQmhxWXBpUlRIR3ZXUnVqWDVVVlplbmtUZTN3?=
- =?utf-8?B?WHZld1VzY2pQWnNyeldBV3FHM2xobmpiTC9rM29IS29yaVJYYWJScnQwdHNY?=
- =?utf-8?B?SVFXa1czanVTdlg3Ny9leFlURnRqUGVDZHg5U0Vrb1c3TUdwVGlWdFlYS1Z2?=
- =?utf-8?B?RFVSZzlOMk91N0ZrU2F6RGQ0ZkRvdjJzRmdIRVZMeUd4ZUQxRHp2NXl4d1pU?=
- =?utf-8?B?YXdBaXFGUGUvR3BNOUF4c0pGOE1FQ005eWd1Q2ZaR1FxYkFLc1krYWFtTjk5?=
- =?utf-8?B?anFqOG5TNWNyRlZJR3N5UGY4bmtsVHRNRjA2S1pvbzRtNVhqYmNvNUVRNkhn?=
- =?utf-8?B?T0E9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67d5165e-3df9-44c0-490c-08dd10757449
-X-MS-Exchange-CrossTenant-AuthSource: MN6PR11MB8102.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2024 12:58:00.6662
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7oJDD6qW2ylePjbQiFLukqf725XNvKEjJdGC96Qc7GsdtHc8H4mr0M/UZyhXA11t6B6X2TWAYoqh/Ueo1h3WJ/GmLtyX9JwWT9WrZpqkg70=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5147
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
+On Fri, Nov 29, 2024 at 08:57:47AM +0100, Jan Beulich wrote:
+> On 29.11.2024 02:49, Volodymyr Babchuk wrote:
+> > Currently, even if we are using clang as a C compiler, we still use
+> > GNU binutils. This patch adds new option "llvm" that allows to use
+> > linker, objcopy and all other tools from LLVM project. As LLVM tools
+> > use different approach for cross-compilation, we don't need
+> > CROSS_COMPILE prefix in this case.
 
-[removed most non-list recipients, it's just too much]
+It might be worth explaining what this different approach is ;-). My
+guess is that you ask llvm/clang to build for a specific arch, via
+XEN_TARGET_ARCH=riscv64, and llvm doesn't need different binaries will
+just do what is needed, right? (with -march I guess).
 
-On 11/15/24 10:26 PM, Easwar Hariharan wrote:
-> This is a series that follows up on my previous series to introduce
-> secs_to_jiffies() and convert a few initial users.[1] In the review for
-> that series, Anna-Maria requested converting other users with
-> Coccinelle. This is part 1 that converts users of msecs_to_jiffies()
-> that use the multiply pattern of either of:
-> - msecs_to_jiffies(N*1000), or
-> - msecs_to_jiffies(N*MSEC_PER_SEC)
-> 
-> The entire conversion is made with Coccinelle in the script added in
-> patch 2. Some changes suggested by Coccinelle have been deferred to
-> later parts that will address other possible variant patterns.
-> 
-> CC: Anna-Maria Behnsen <anna-maria@linutronix.de>
-> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> 
-> [1] https://lore.kernel.org/all/20241030-open-coded-timeouts-v3-0-9ba123facf88@linux.microsoft.com/
-> [2] https://lore.kernel.org/all/8734kngfni.fsf@somnus/
-> 
-> ---
-> Changes in v2:
-> - EDITME: describe what is new in this series revision.
-> - EDITME: use bulletpoints and terse descriptions.
-> - Link to v1: https://lore.kernel.org/r/20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com
+> This new option is meant to control both toolstack and hypervisor builds?
+> As to the latter, I assume you're aware we're trying to move away from
+> this kind of command line control of the build.
 
-that is not a proper changelog, you were supposed to edit those
-placeholder entries; please look around for examples
+Having "clang=y" is a bit useless when one can do "CC=clang" and let
+the build system figure out what CC is. That's at least true for the
+build system under "xen/".
 
-There is also just too much recipients. Please split up your patches
-into smaller pieces. You will also learn the process on a smaller
-sample.
+But if one want to use the whole LLVM toolchain, it as to write a lot
+more. To build Xen (just the hypervisor) with it, one would need to run:
 
-And definitively please wait for 48h before reposting such big series.
+make CC=clang CXX=clang++ AS=llvm-as LD=ld.lld LD_LTO=llvm-lto \
+    ADDR2LINE=llvm-addr2line AR=llvm-ar RANLIB=llvm-ranlib NM=llvm-nm \
+    STRIP=llvm-strip OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump \
+    SIZEUTIL=llvm-size
 
-Regarding code - you could also convert msecs_to_jiffies(const * HZ),
-there are 10 that are greppable.
+So while it's possible, maybe introducing "llvm" or "LLVM" to switch
+toolchain might be ok, to help. (Just because Linux did just that
+recently:
+    https://www.kernel.org/doc/html/latest/kbuild/llvm.html#the-llvm-argument
+)
 
-> 
-> ---
-> Easwar Hariharan (21):
->        netfilter: conntrack: Cleanup timeout definitions
->        coccinelle: misc: Add secs_to_jiffies script
->        arm: pxa: Convert timeouts to use secs_to_jiffies()
->        s390: kernel: Convert timeouts to use secs_to_jiffies()
->        powerpc/papr_scm: Convert timeouts to secs_to_jiffies()
->        mm: kmemleak: Convert timeouts to secs_to_jiffies()
->        accel/habanalabs: Convert timeouts to secs_to_jiffies()
->        drm/xe: Convert timeout to secs_to_jiffies()
->        drm/etnaviv: Convert timeouts to secs_to_jiffies()
->        scsi: lpfc: Convert timeouts to secs_to_jiffies()
->        scsi: arcmsr: Convert timeouts to secs_to_jiffies()
->        scsi: pm8001: Convert timeouts to secs_to_jiffies()
->        xen/blkback: Convert timeouts to secs_to_jiffies()
->        gve: Convert timeouts to secs_to_jiffies()
->        wifi: ath11k: Convert timeouts to secs_to_jiffies()
->        Bluetooth: MGMT: Convert timeouts to secs_to_jiffies()
->        staging: vc04_services: Convert timeouts to secs_to_jiffies()
->        ceph: Convert timeouts to secs_to_jiffies()
->        livepatch: Convert timeouts to secs_to_jiffies()
->        ALSA: line6: Convert timeouts to secs_to_jiffies()
->        nfp: Convert timeouts to secs_to_jiffies()
-> 
->   arch/arm/mach-pxa/sharpsl_pm.c                      |  6 +++---
->   arch/powerpc/platforms/pseries/papr_scm.c           |  2 +-
->   arch/s390/kernel/lgr.c                              |  3 ++-
->   arch/s390/kernel/time.c                             |  4 ++--
->   arch/s390/kernel/topology.c                         |  2 +-
->   drivers/accel/habanalabs/common/device.c            |  2 +-
->   drivers/accel/habanalabs/common/habanalabs_drv.c    |  3 +--
->   drivers/block/xen-blkback/blkback.c                 |  2 +-
->   drivers/gpu/drm/etnaviv/etnaviv_cmdbuf.c            |  2 +-
->   drivers/gpu/drm/xe/xe_device.c                      |  2 +-
->   drivers/net/ethernet/google/gve/gve_tx_dqo.c        |  6 ++----
->   drivers/net/ethernet/netronome/nfp/nfp_net_common.c |  2 +-
->   drivers/net/wireless/ath/ath11k/debugfs.c           |  2 +-
->   drivers/scsi/arcmsr/arcmsr_hba.c                    |  2 +-
->   drivers/scsi/lpfc/lpfc_init.c                       | 18 +++++++++---------
->   drivers/scsi/lpfc/lpfc_nportdisc.c                  |  8 ++++----
->   drivers/scsi/lpfc/lpfc_nvme.c                       |  2 +-
->   drivers/scsi/lpfc/lpfc_sli.c                        |  4 ++--
->   drivers/scsi/lpfc/lpfc_vmid.c                       |  2 +-
->   drivers/scsi/pm8001/pm8001_init.c                   |  2 +-
->   .../vc04_services/bcm2835-audio/bcm2835-vchiq.c     |  2 +-
->   fs/ceph/quota.c                                     |  2 +-
->   mm/kmemleak.c                                       |  4 ++--
->   net/bluetooth/mgmt.c                                |  2 +-
->   net/netfilter/nf_conntrack_proto_sctp.c             | 21 ++++++++-------------
->   samples/livepatch/livepatch-callbacks-busymod.c     |  2 +-
->   samples/livepatch/livepatch-shadow-fix1.c           |  2 +-
->   samples/livepatch/livepatch-shadow-mod.c            | 10 +++++-----
->   scripts/coccinelle/misc/secs_to_jiffies.cocci       | 21 +++++++++++++++++++++
->   sound/usb/line6/toneport.c                          |  2 +-
->   30 files changed, 79 insertions(+), 65 deletions(-)
-> ---
-> base-commit: 2d5404caa8c7bb5c4e0435f94b28834ae5456623
-> change-id: 20241112-converge-secs-to-jiffies-d99d1016bd11
-> 
-> Best regards,
+Beyond switching toolchain, I don't think $(llvm) or $(clang) should be
+used in the build system, and instead rely on autodetection for
+arguments. (There's already $(CONFIG_CC_IS_CLANG) and
+$(CONFIG_LD_IS_LLVM) in the hypervisor's build system, via Kconfig)
 
+At least for the hypervisor. For the toolstack, we should probably deal
+with toolchain in ./configure.
+
+Thanks,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
