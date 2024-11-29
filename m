@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C469DC2AC
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 12:17:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845940.1261255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDAF99DC2BE
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 12:22:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845955.1261265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGyzl-0000Ho-Rh; Fri, 29 Nov 2024 11:17:09 +0000
+	id 1tGz51-0002BN-GK; Fri, 29 Nov 2024 11:22:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845940.1261255; Fri, 29 Nov 2024 11:17:09 +0000
+Received: by outflank-mailman (output) from mailman id 845955.1261265; Fri, 29 Nov 2024 11:22:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGyzl-0000FA-Nl; Fri, 29 Nov 2024 11:17:09 +0000
-Received: by outflank-mailman (input) for mailman id 845940;
- Fri, 29 Nov 2024 11:17:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tGz51-00029U-DS; Fri, 29 Nov 2024 11:22:35 +0000
+Received: by outflank-mailman (input) for mailman id 845955;
+ Fri, 29 Nov 2024 11:22:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFrC=SY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tGyzk-0000F4-5U
- for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 11:17:08 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 76c90290-ae43-11ef-a0cf-8be0dac302b0;
- Fri, 29 Nov 2024 12:17:05 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2ffa974b2b0so19038621fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 03:17:05 -0800 (PST)
+ id 1tGz4z-00029O-9B
+ for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 11:22:33 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 35b5a11a-ae44-11ef-99a3-01e77a169b0f;
+ Fri, 29 Nov 2024 12:22:25 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2ffc76368c6so29337131fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 03:22:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d097e8db03sm1711480a12.56.2024.11.29.03.17.03
+ a640c23a62f3a-aa5998e6a7bsm165327466b.104.2024.11.29.03.22.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Nov 2024 03:17:04 -0800 (PST)
+ Fri, 29 Nov 2024 03:22:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76c90290-ae43-11ef-a0cf-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMzUiLCJoZWxvIjoibWFpbC1sajEteDIzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijc2YzkwMjkwLWFlNDMtMTFlZi1hMGNmLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODc5MDI1LjE0NTIzMywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 35b5a11a-ae44-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoyMmYiLCJoZWxvIjoibWFpbC1sajEteDIyZi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjM1YjVhMTFhLWFlNDQtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyODc5MzQ1LjU1NjkwNywic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1732879024; x=1733483824; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1732879345; x=1733484145; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rDu2tsNS+XK9rKpCqZLepS6OsSIEoZbg7fk9R3nnpUM=;
-        b=Bx+s0Hz/Ebs64Dwmsbomf3YRubj18w1Y5uT8Tm4oBpcVJW+uZywyOL2lvv+OfILOGV
-         +hYPcQx9qSuk3zuDc/fXeczT9s+ToxkMPdXp1/bPSQckuCG5xNz49dtDL8F3KmzlQ+KN
-         D24aUc5zv65wl0mlXsMtsvwh2vpj9FpWFp5nC4oTv+Dkdt1NXTnc1EaA4C2kcYY/xujw
-         dFso9aZwLx7bffon5nzJ1lS7JgdBJS0gEyaZCoLIFDvVCxf0VXcdSmbKpj5wJcfTDAar
-         +igd/guh/Yvolp52WsQ0tqMm4+bNJ/qE9xpIc9hJNZdN4MhWPxHXGcDjgTKsUZdndk6p
-         hHnQ==
+        bh=81LOAsSMXEi+8JT7BTHq+q3xwjZ4MNJv87OAfCMneXY=;
+        b=J/QLH9RrKaeKEyZKIgP/Ky38Q62qXxEqg/I6iCWtY0R8Eni1W9SZpNHexjJJn3xkNI
+         eGgYcEUOAvsdkd7UasZbBSyW8PLXKxeCQlGiah+ZKC8DijrL4Ik7Jz5tFpdA3oGXxLum
+         41PwkIcF+1O9C0mb55pFgtH4vTqBGAk5kWyVtG4RtfeznABd1kw3owhIa9FXziUCqkBZ
+         +LE2e+kqAfE9hf1g1qM/0PckPtZSSSGcoX3ThUHsv3Mx57ZG1K0jxwIeDHIyyYKyh1vv
+         eCFBaP1FCXoId3IXwPzoGS227SB0233mh+CucMBwRtMQxROHurIBXO8+05qcT1lMA46w
+         Pydw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732879024; x=1733483824;
+        d=1e100.net; s=20230601; t=1732879345; x=1733484145;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rDu2tsNS+XK9rKpCqZLepS6OsSIEoZbg7fk9R3nnpUM=;
-        b=sI8GmH84OXDl+e0mfbIQzeqSr+mVDoTwUsK32PmXCaGZyTQx0j8JzzA4mOx3RbG0IE
-         mdHrCfiz+VBXGBSs+qAD63UFA2OY2dXsW9btFIxID5Hgt3yvyLi48khC3/AzCppBDtiS
-         lStZVgOF9EF1x7o8LuxDO7LA45dYEC+xY9VWu7uVaeOOQa4/sBNGiWv7nCLtrpOvYjeC
-         Q1Md+iPW8pF7xezVWiqSjQOqJ2kPC7q1tGOG8glngRPp3Sgk0REDi6atjrgDyqKTPxoc
-         bNiuREomZ7KpvL1Rxf3sYLSKcfysV9vLRw66g3Y6rplZKamjRcwqlQmX55wnyf5ithmS
-         UrNw==
-X-Forwarded-Encrypted: i=1; AJvYcCWVUPJuQ8gyQTWOju424O2CUUNa/tXkgi2TQdlu4qkIPJhBwskhsXciLUloHbyiRS46vTUJHDvVpaM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxd2f/m3BVaRx4/1cMOr2GtnMmGP0ZtiDnUBxtnuts8sH0Ioy6a
-	KcnN4iK6xb9GyXlBC2vmM7QVxELow8+XXgE3IgvqghiRoZvJG5sWVvFO7UoLig==
-X-Gm-Gg: ASbGncsqm+UiKtj1UaSa8ejTILm/bfT/nQU7RSaBxetKWb7uZsHnpr57bospfDHPkYA
-	wVCqrpNuHCy/9r79OTk1EP4T5E3HJv5FMl3tEPTTdShr0s0T7dN7bTDS91dZKOUfSsyGAEWc6Pc
-	NFd8/9/r49FBnJJ1f6joTQLAkEsEKrqQEOZHM8ZnPTOVP8e9aqBy8zYne4CE2LmWv7IfNu+59OT
-	YwAydy6ZD1UKsAezyNxigaZ18lLFoIRK+ayGEvdBcV56Nib82RhPwDhvPa33NZlNfvHUNzFcdH5
-	kdOlrYg225sCeqwScNoy+B/bc2p8chvI29o=
-X-Google-Smtp-Source: AGHT+IGgjQNBUVrMpim7RRBQYHZLwGCdypmRALaEhY3Tg0nw3FncTXP/4IIdZZINLFr2vK30SrkqpQ==
-X-Received: by 2002:a2e:9e4b:0:b0:2ff:e1ec:e6c7 with SMTP id 38308e7fff4ca-2ffe1ece72emr24625141fa.39.1732879024487;
-        Fri, 29 Nov 2024 03:17:04 -0800 (PST)
-Message-ID: <78ba5afd-43ab-4a3c-b9bf-384f1d61b2a8@suse.com>
-Date: Fri, 29 Nov 2024 12:17:02 +0100
+        bh=81LOAsSMXEi+8JT7BTHq+q3xwjZ4MNJv87OAfCMneXY=;
+        b=Czvo34wo8EiZEOQD2Tj8aRJKaXlWgCcRtnipdMeR+BBogF6ki7pZ+hBFZQgRzAtCkx
+         kH8nGQIh27O9DJtskZrUEqppypcIGy6XSKLdV1lN0s871oXhWeOEgw0kPX6/+s32M5DG
+         +JFtWGAsC3EStQyOcSUWU4Ov/Yxdf4svEPUevBkciIdM+thL7oQm26SGW0EjXVXlKxrN
+         G68hX9j2FakhnytVXb6UMnhGqnjQMe7W5CrZWeEi8oJz3R0wxvMe/tmrdobjI8TAkuXH
+         3eDxUCsEOVphuXRqDNe52vYHk8iKGt2AmIiQP+U8yQTvNMO2v/Qf+flnibGT/rcb1mNJ
+         Kq2A==
+X-Forwarded-Encrypted: i=1; AJvYcCVNA0UXyxpte4dsOujkFEFOkzMejUsSE2WW23Z1q6/WbELStfAJGCXI1sipkZbu10MklQEQjAP45XE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyk6WkzZ+SU9Y2/l3kIM8O+D2z59Y181E+33T3Ln/mpnM2wP/WS
+	7brSpwSfzvd7Ogd9L7SIQmqHHSnnqNas4iBQrbr0cBSFU07Q8mAuXk0qwLO2sA==
+X-Gm-Gg: ASbGncsLAgC9ItKE8OhZ/7WE2DtyYtA1TNxQ80N1oHUybg8Bl+h51BCVFCeO3eTGF0t
+	qpBrWa4ju5n3xiz8hOQ29N15NUhXU64ypCe+r4rj5WLXPqn+9wFuIux0sdrZ3pI5avFseOtW3cv
+	ZV0NYz+c0A77q6Xyv1oUCeLEyoICvJ9ouPPgusIU0N7MDuzLogk7UmVgOWIhnWtPGRiS5si8x8H
+	berwHfZXmrkRYNBCG8GSpMQC3EqaPtP6rWKO7NkF33wPHWEQ9zdN21akBxh9I1qJDep+3MzCuaq
+	e94UEReMOKhea/5aV/k8nldJK9QmS+apxCI=
+X-Google-Smtp-Source: AGHT+IH7eC+qOsvnTonYluNajqyeTePFq6+DixSo80qx2sPY0rfxm0N4xndyw52bkxTDqJHhdrq/rQ==
+X-Received: by 2002:a05:6512:3a8d:b0:53d:e83e:a23d with SMTP id 2adb3069b0e04-53df00d952dmr9584517e87.27.1732879344836;
+        Fri, 29 Nov 2024 03:22:24 -0800 (PST)
+Message-ID: <b064a441-4f46-4a2e-bc2b-965548242820@suse.com>
+Date: Fri, 29 Nov 2024 12:22:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 09/12] xen: add cache coloring allocator for domains
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
- <20241119141329.44221-10-carlo.nonato@minervasys.tech>
- <5f876671-4624-4ec6-957e-d4a7802fb46a@suse.com>
- <CAG+AhRWAwkwd6w8+TOp8k+9pxj9=JvEjwNode_HrgdwMZHE5Qg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] common/vmap: Fall back to simple allocator when
+ !HAS_VMAP
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20241129091237.3409304-1-luca.fancellu@arm.com>
+ <20241129091237.3409304-2-luca.fancellu@arm.com>
+ <63022d0b-5761-4392-8280-fbfca8c679f7@suse.com>
+ <52FD5E2C-A620-486D-A648-5F34531B2681@arm.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,61 +123,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRWAwkwd6w8+TOp8k+9pxj9=JvEjwNode_HrgdwMZHE5Qg@mail.gmail.com>
+In-Reply-To: <52FD5E2C-A620-486D-A648-5F34531B2681@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.11.2024 10:37, Carlo Nonato wrote:
-> On Thu, Nov 28, 2024 at 12:43 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 19.11.2024 15:13, Carlo Nonato wrote:
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -537,4 +537,12 @@ config LLC_COLORS_ORDER
->>>         The default value corresponds to an 8 MiB 16-ways LLC, which should be
->>>         more than what's needed in the general case.
->>>
->>> +config BUDDY_ALLOCATOR_SIZE
->>> +     int "Buddy allocator reserved memory size (MiB)" if LLC_COLORING
->>> +     default "0" if !LLC_COLORING
->>> +     default "64"
->>> +     help
->>> +       Amount of memory reserved for the buddy allocator to serve Xen heap,
->>> +       working alongside the colored one.
->>
->> As the description has nothing in this regard: Why again is it that this
->> can't simply have "depends on LLC_COLORING"? Even if it ends up with a
->> value of 0, in an LLC_COLORING=n (or LLC_COLORING entirely absent) .config
->> I'd find it at least irritating to see this setting to be there.
+On 29.11.2024 12:14, Luca Fancellu wrote:
+> Hi Jan,
 > 
-> Quoting you from v8 (6 months ago, a lot of time ago I know, link here
-> https://patchew.org/Xen/20240502165533.319988-1-carlo.nonato@minervasys.tech/20240502165533.319988-10-carlo.nonato@minervasys.tech/#5c16f53f-3bb0-49d6-b174-b0e8c6ceff4c@suse.com):
->>> +/* Memory required for buddy allocator to work with colored one */
->>> +#ifdef CONFIG_LLC_COLORING
->>> +static unsigned long __initdata buddy_alloc_size =
->>> +    MB(CONFIG_BUDDY_ALLOCATOR_SIZE);
+>> On 29 Nov 2024, at 11:06, Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> I think it would be quite nice if this and ...
->>
->>> +size_param("buddy-alloc-size", buddy_alloc_size);
+>> On 29.11.2024 10:12, Luca Fancellu wrote:
+>>> --- a/xen/include/xen/xvmalloc.h
+>>> +++ b/xen/include/xen/xvmalloc.h
+>>> @@ -40,20 +40,46 @@
+>>>     ((typeof(ptr))_xvrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]), \
+>>>                              __alignof__(typeof(*(ptr)))))
+>>>
+>>> +#ifdef CONFIG_HAS_VMAP
 >>> +
->>> +#define domain_num_llc_colors(d) (d)->num_llc_colors
->>> +#define domain_llc_color(d, i)   (d)->llc_colors[i]
->>> +#else
->>> +static unsigned long __initdata buddy_alloc_size;
+>>> /* Free any of the above. */
+>>> void xvfree(void *va);
+>>>
+>>> +/* Underlying functions */
+>>> +void *_xvmalloc(size_t size, unsigned int align);
+>>> +void *_xvzalloc(size_t size, unsigned int align);
+>>> +void *_xvrealloc(void *va, size_t size, unsigned int align);
+>>> +
+>>> +#else /* !CONFIG_HAS_VMAP */
+>>> +
+>>> +static inline void xvfree(void *va)
+>>> +{
+>>> +    xfree(va);
+>>> +}
+>>> +
+>>> +static inline void *_xvmalloc(size_t size, unsigned int align)
+>>> +{
+>>> +    return _xmalloc(size, align);
+>>> +}
+>>> +
+>>> +static inline void *_xvzalloc(size_t size, unsigned int align)
+>>> +{
+>>> +    return _xzalloc(size, align);
+>>> +}
+>>> +
+>>> +static inline void *_xvrealloc(void *va, size_t size, unsigned int align)
+>>> +{
+>>> +    return _xrealloc(va, size, align);
+>>> +}
 >>
->> ... this were folded. Which I think would be possible if the Kconfig
->> addition went like this:
->>
->> config BUDDY_ALLOCATOR_SIZE
->> int "Buddy allocator reserved memory size (MiB)" if LLC_COLORING
->> default "0" if !LLC_COLORING
->> default "64"
+>> Just to double check: Was it at least considered to use simple #define-s
+>> to effect the aliasing? Wrapper functions like the above ones have the
+>> downside of needing touching (easy to miss) when the wrapped function
+>> types change in whichever minor way. (And yes, I do understand that we
+>> generally aim at using inline functions in preference to macros.)
+> 
+> Yes, I think I tried and I didn’t have issues using #define-s, I asked here
+> https://patchwork.kernel.org/project/xen-devel/patch/20241115105036.218418-2-luca.fancellu@arm.com/#26123448
+> about a preferred approach, but I didn’t have any reply, so I went for what
+> I believed was preferred as you said, static inline-s instead of macros.
 
-Hmm, I see. I didn't consider the negative effect back at the time, it seems.
-The main goal was anyway to get rid of the multiple instances of
-buddy_alloc_size. I'm sure that can be easily achieved also when going back
-to the original form of the Kconfig option (at least partly by following what
-I said in the initial reply to this v10 patch, I think).
+As Andrew's idea didn't work out, personally I think the simple #define
+approach you suggested would be preferable in this case. There is in
+particular no type-safety concern here, as the wrapped functions will
+all have the intended type checking applied.
 
 Jan
 
