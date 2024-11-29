@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3501D9DC193
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 10:37:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.845875.1261205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F5009DC279
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Nov 2024 12:03:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.845897.1261214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGxRC-0002ih-PX; Fri, 29 Nov 2024 09:37:22 +0000
+	id 1tGykx-0005Ek-Pq; Fri, 29 Nov 2024 11:01:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 845875.1261205; Fri, 29 Nov 2024 09:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 845897.1261214; Fri, 29 Nov 2024 11:01:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tGxRC-0002fq-Mf; Fri, 29 Nov 2024 09:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 845875;
- Fri, 29 Nov 2024 09:37:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+lhP=SY=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1tGxRB-0002fi-Lm
- for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 09:37:21 +0000
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [2607:f8b0:4864:20::d35])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85c041b9-ae35-11ef-a0cf-8be0dac302b0;
- Fri, 29 Nov 2024 10:37:18 +0100 (CET)
-Received: by mail-io1-xd35.google.com with SMTP id
- ca18e2360f4ac-843d8679e0cso55034339f.2
- for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 01:37:17 -0800 (PST)
+	id 1tGykx-0005Cr-N8; Fri, 29 Nov 2024 11:01:51 +0000
+Received: by outflank-mailman (input) for mailman id 845897;
+ Fri, 29 Nov 2024 11:01:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XFrC=SY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tGykw-0005Cg-5X
+ for xen-devel@lists.xenproject.org; Fri, 29 Nov 2024 11:01:50 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52e9609a-ae41-11ef-99a3-01e77a169b0f;
+ Fri, 29 Nov 2024 12:01:46 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-aa543c4db92so230913666b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Nov 2024 03:01:46 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa5998e6fa4sm161089666b.116.2024.11.29.03.01.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Nov 2024 03:01:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,284 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85c041b9-ae35-11ef-a0cf-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjI2MDc6ZjhiMDo0ODY0OjIwOjpkMzUiLCJoZWxvIjoibWFpbC1pbzEteGQzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6Ijg1YzA0MWI5LWFlMzUtMTFlZi1hMGNmLThiZTBkYWMzMDJiMCIsInRzIjoxNzMyODczMDM4LjAzOTQ1NCwic2VuZGVyIjoiY2FybG8ubm9uYXRvQG1pbmVydmFzeXMudGVjaCIsInJlY2lwaWVudCI6Inhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyJ9
+X-Inumbo-ID: 52e9609a-ae41-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmIiLCJoZWxvIjoibWFpbC1lajEteDYyYi5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjUyZTk2MDlhLWFlNDEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMyODc4MTA2LjA1MzM1OSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1732873037; x=1733477837; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j5wWp+R6OZpResArPiZ0kV1o1jzeqJc9Ee7t7eGQkuQ=;
-        b=t/MXRadanorUmcYenhpEBQZZOGkihGbHEbj6hrUkww3NN/8Db4xl9YMX2REb7gbtvt
-         FkKQh/wBGlhfXvtSx+fp7DeUHhwc0N1c5LtJKN84DuiPOEWA2wbnQA8AP4CLSG6/nU+n
-         AIJ8V5A0wkS4PPPtamZbaRsOwJgNJRKq6kT9AM8yzALvzosjbYYQhaueS3tqDDIZbfAR
-         LjMMCxlvg/jjVUaZiWjimE7yssCvoIhKIO73yChS4PwGBhA3OQG/vTP5G4wuJEK3EH8Z
-         Qev5zorHx9HHEM+zPP/c2aIfJ5iLnJ+mmwvnlDelgq5n96Ktaiuf9NXcKtvTI/4VhyXy
-         Tuqg==
+        d=suse.com; s=google; t=1732878105; x=1733482905; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=aPIfRx9b1D9I9+Kwy+ccj2KaU+kZ+7/oX/Sc7S+tCr4=;
+        b=be7pV1BAuw3omkqfzElqy31+UsFkrIAebb1EtQL+BH0zaP5d77678etRZpDR+NoCJB
+         V6WjPiByJCxj663eiGD3UdnIdaakZtLPOY8aGE9kXWLSfIlK31wYOcB1SbuWcW4tJPFJ
+         JaHm8sufPAo5LLjk3g4lkwN5oD+0WIuPtPZqRC+41TgzG7nw4Tmz3WYmQBWEq70dFc3d
+         3A/OZPxSs9ApiJD2u1Rt4OqFao6+jp/Inm7hK8hIcjVodbY9aYLpGtoTCUN8LMKP0igE
+         N+cQDvBUk4sqZLKW2exXfQuAha4Z4CrRL4Pa4Z7cWviFWGBww/050KYJxhv22k6Sgnnq
+         Dd8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732873037; x=1733477837;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=j5wWp+R6OZpResArPiZ0kV1o1jzeqJc9Ee7t7eGQkuQ=;
-        b=sjUKM4toMuAPCi4uAcnISMVm87ds+3lbeofxxlQaBXOViRbZAqZGXSRVvTh/YABLjP
-         cvEuLHKMp1UxbVCxMl2A3s3GJQ0Bi5c2Neb0rwRQaJzBvuD69IxvvMW610OdNxhk/IF/
-         dsOlnG2dMKuoEMg97irqFsYS9iEw+NFz9dpqLtlrdB6HPnISWKESyXhBQbj0MqsWINT3
-         Tc/CONMbqpI043GgFL+Pl4rHq0K3YP2oH5ocEnMSJHwspvL830Rx0gP/hQmJmmjlnPSU
-         bvO6kMGUgycPjdfYrH2M46iAzhdmwtNWs5MKZEgDWFgFHGeN9Gf9LE+54Vb2LPUQ46Eq
-         wU+w==
-X-Forwarded-Encrypted: i=1; AJvYcCWDTp6cvA/u8hczTQwgC4WheoV4puNM9MUN5Ai9wy8ijabC1Qee2cxjEhbVD8kbdboIxXYE0QU6dZA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwSqtl7Cpln88DF2z9dX2Sajde4MqD2NjODqEgeYCEeMapfoMIa
-	LIopWlctH5A4bU/iHMKH6MbdRIHRe4IwhO5mzHpxv2L4FHETxA5bGJPIcETXaQzKJjUkWNqtL0q
-	U5eMNv2XqOw7t8UZeyHeWVqZqdIx9bN3n50zKvdpdHMSPqVx/C2Y=
-X-Gm-Gg: ASbGnctUBIx/Dd165khNVgasPqv3CBqkhbMqP6gpPyOIJjV+JY1pbmjDvfTUYehgmW+
-	0g4u7g1GFHzLFTTBUT3S5t5O731sPE3Oo
-X-Google-Smtp-Source: AGHT+IFA9p1AKj5FG3kc1eQdLVQtgN38ZmSc+LHDql+RBfM1KeIAFti/Lshn/zEz97xo5cPett7z6QtuWRph+wq73aI=
-X-Received: by 2002:a05:6602:340b:b0:841:950b:3871 with SMTP id
- ca18e2360f4ac-843ecfd398emr1300245739f.4.1732873036675; Fri, 29 Nov 2024
- 01:37:16 -0800 (PST)
+        d=1e100.net; s=20230601; t=1732878105; x=1733482905;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aPIfRx9b1D9I9+Kwy+ccj2KaU+kZ+7/oX/Sc7S+tCr4=;
+        b=SYgE4RcJxnd13pPF/4PUUklcYAHOjW47pxux/N4PSWc4uHY/FTuZNQgAFjWdspqX9+
+         Fmop3mWYIsG5Wddm6GQ8LedqSB7KpS8L+P4VSB1RXXHzHkSb3rRVpKEdL41QrwiXDlKs
+         p3qIdK+VCUY+MiChoSXL+L/16c/KNycqOUEWsV1bsEtS9PT/8ydS5Qnfvw+lc8ezDLeO
+         tN4cFW9dI/yejoebhfSKLKcAnHh+AKimvlqHvQ/ABJ6Yi2r/JvigmBq0rhNi3bLkfC80
+         PRhWDeFpBxppQdaaarfbLUA0aILjxSVXUpwe52QnFzrlvVw4EtPme+8LgOpaYKshdTrx
+         u1Mg==
+X-Forwarded-Encrypted: i=1; AJvYcCXnTHVfSDrQ6wVv8hCwY90g/w8Nl4uwH8uxwpOCAqd/KbKLCZrIc23K+qR1Fpg/rz82VSSVQVb4CIk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzC1/bUYWdN10C60gFDQp7eE6snKjoFiay3rY76cpLse22zKHWc
+	RmRNXfsZp6Sw+MFVmnrlKNvUwsAHNtfJhf48TgIxUmRugtIwa03yR7XmRebucw==
+X-Gm-Gg: ASbGnct9neploVKDeED0f/jBXRk9Hz1Gse1cH41DDVzpS1KzM6YD0EIUpEn/fJcWWbK
+	dpTyGQBqBKLisRim1EVycJtHRjSM1LZgT+jGxr+yxDglW29bmNp8YELtgyg+zqLdgB5ixy7RSUT
+	GDbczGAb/42cCq7ZCXVyKtLBnuXel1kEIujhk+j7ckWdWMPAVrne2ooLGTPr4nrDMejR68n7o1Z
+	EokWLD94e8R2ChBQ3d014V3TNyfowLDfx/szJg6hhDHnlg3MbzcqmD5FRbQH0qeUa1VQfpq1GWM
+	hBXh5lVskbp3nWSKZVp30SqIiDi9+Za15AU=
+X-Google-Smtp-Source: AGHT+IHrYcTuWe4yOEFtAYGRXb+UsYPxdHswYjS/mGAjt+O83pOCcDlw0mR2dbPVZvEWCZJXMeRk4g==
+X-Received: by 2002:a17:907:7852:b0:aa5:1957:342d with SMTP id a640c23a62f3a-aa580ed02a6mr778902666b.11.1732878105402;
+        Fri, 29 Nov 2024 03:01:45 -0800 (PST)
+Message-ID: <e1b4d634-da27-4855-bee1-8dc0797a7a1e@suse.com>
+Date: Fri, 29 Nov 2024 12:01:43 +0100
 MIME-Version: 1.0
-References: <20241119141329.44221-1-carlo.nonato@minervasys.tech>
- <20241119141329.44221-10-carlo.nonato@minervasys.tech> <5f876671-4624-4ec6-957e-d4a7802fb46a@suse.com>
-In-Reply-To: <5f876671-4624-4ec6-957e-d4a7802fb46a@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Fri, 29 Nov 2024 10:37:06 +0100
-Message-ID: <CAG+AhRWAwkwd6w8+TOp8k+9pxj9=JvEjwNode_HrgdwMZHE5Qg@mail.gmail.com>
-Subject: Re: [PATCH v10 09/12] xen: add cache coloring allocator for domains
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, andrea.bastoni@minervasys.tech, 
-	marco.solieri@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] xen/arm: Check for Static Heap feature when
+ freeing resources
+To: Luca Fancellu <luca.fancellu@arm.com>, Penny Zheng <Penny.Zheng@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Chen <wei.chen@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <20241129091237.3409304-1-luca.fancellu@arm.com>
+ <20241129091237.3409304-5-luca.fancellu@arm.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241129091237.3409304-5-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+On 29.11.2024 10:12, Luca Fancellu wrote:
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -165,6 +165,11 @@
+>  #define PGT_TYPE_INFO_INITIALIZER 0
+>  #endif
+>  
+> +#ifdef CONFIG_STATIC_MEMORY
+> +/* Flag saved when Xen is using the static heap feature (xen,static-heap) */
+> +bool __ro_after_init static_heap;
+> +#endif
 
-On Thu, Nov 28, 2024 at 12:43=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 19.11.2024 15:13, Carlo Nonato wrote:
-> > --- a/docs/misc/xen-command-line.pandoc
-> > +++ b/docs/misc/xen-command-line.pandoc
-> > @@ -270,6 +270,20 @@ and not running softirqs. Reduce this if softirqs =
-are not being run frequently
-> >  enough. Setting this to a high value may cause boot failure, particula=
-rly if
-> >  the NMI watchdog is also enabled.
-> >
-> > +### buddy-alloc-size (arm64)
-> > +> `=3D <size>`
-> > +
-> > +> Default: `64M`
-> > +
-> > +Amount of memory reserved for the buddy allocator when colored allocat=
-or is
-> > +active. This option is available only when `CONFIG_LLC_COLORING` is en=
-abled.
-> > +The colored allocator is meant as an alternative to the buddy allocato=
-r,
-> > +because its allocation policy is by definition incompatible with the g=
-eneric
-> > +one. Since the Xen heap systems is not colored yet, we need to support=
- the
-> > +coexistence of the two allocators for now. This parameter, which is op=
-tional
-> > +and for expert only, it's used to set the amount of memory reserved to=
- the
-> > +buddy allocator.
->
-> Every time I see this, and I further see the title of patch 12, I'm confu=
-sed,
-> expecting that what's being said here needs adjusting (or even undoing) t=
-here.
-> The issue is that patch 12's title says just "Xen" when, if I'm not mista=
-ken,
-> it really only means the Xen image.
+I'm afraid I can't make sense of the last (parenthesized) part of the comment.
+Presumably this is a DT-ism, but in a non-DT source file this then needs saying
+one way or another.
 
-I'll change the patch 12 title to reflect what you said.
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -72,6 +72,19 @@
+>  
+>  struct page_info;
+>  
+> +#ifdef CONFIG_STATIC_MEMORY
+> +extern bool static_heap;
+> +#endif
+> +
+> +static inline bool using_static_heap(void)
+> +{
+> +#ifdef CONFIG_STATIC_MEMORY
+> +    return static_heap;
+> +#else
+> +    return false;
+> +#endif
+> +}
 
-> > --- a/xen/common/Kconfig
-> > +++ b/xen/common/Kconfig
-> > @@ -537,4 +537,12 @@ config LLC_COLORS_ORDER
-> >         The default value corresponds to an 8 MiB 16-ways LLC, which sh=
-ould be
-> >         more than what's needed in the general case.
-> >
-> > +config BUDDY_ALLOCATOR_SIZE
-> > +     int "Buddy allocator reserved memory size (MiB)" if LLC_COLORING
-> > +     default "0" if !LLC_COLORING
-> > +     default "64"
-> > +     help
-> > +       Amount of memory reserved for the buddy allocator to serve Xen =
-heap,
-> > +       working alongside the colored one.
->
-> As the description has nothing in this regard: Why again is it that this
-> can't simply have "depends on LLC_COLORING"? Even if it ends up with a
-> value of 0, in an LLC_COLORING=3Dn (or LLC_COLORING entirely absent) .con=
-fig
-> I'd find it at least irritating to see this setting to be there.
+Or, with less #ifdef-ary (and like we do elsewhere in similar situations):
 
-Quoting you from v8 (6 months ago, a lot of time ago I know, link here
-https://patchew.org/Xen/20240502165533.319988-1-carlo.nonato@minervasys.tec=
-h/20240502165533.319988-10-carlo.nonato@minervasys.tech/#5c16f53f-3bb0-49d6=
--b174-b0e8c6ceff4c@suse.com):
-> > +/* Memory required for buddy allocator to work with colored one */
-> > +#ifdef CONFIG_LLC_COLORING
-> > +static unsigned long __initdata buddy_alloc_size =3D
-> > +    MB(CONFIG_BUDDY_ALLOCATOR_SIZE);
->
-> I think it would be quite nice if this and ...
->
-> > +size_param("buddy-alloc-size", buddy_alloc_size);
-> > +
-> > +#define domain_num_llc_colors(d) (d)->num_llc_colors
-> > +#define domain_llc_color(d, i)   (d)->llc_colors[i]
-> > +#else
-> > +static unsigned long __initdata buddy_alloc_size;
->
-> ... this were folded. Which I think would be possible if the Kconfig
-> addition went like this:
->
-> config BUDDY_ALLOCATOR_SIZE
-> int "Buddy allocator reserved memory size (MiB)" if LLC_COLORING
-> default "0" if !LLC_COLORING
-> default "64"
+#ifdef CONFIG_STATIC_MEMORY
+extern bool static_heap;
+#else
+#define static_heap false
+#endif
 
-But I know that...
+static inline bool using_static_heap(void)
+{
+    return static_heap;
+}
 
-> > @@ -1945,6 +1960,155 @@ static unsigned long avail_heap_pages(
-> >      return free_pages;
-> >  }
-> >
-> > +/*************************
-> > + * COLORED SIDE-ALLOCATOR
-> > + *
-> > + * Pages are grouped by LLC color in lists which are globally referred=
- to as the
-> > + * color heap. Lists are populated in end_boot_allocator().
-> > + * After initialization there will be N lists where N is the number of
-> > + * available colors on the platform.
-> > + */
-> > +static struct page_list_head *__ro_after_init _color_heap;
-> > +#define color_heap(color) (&_color_heap[color])
-> > +
-> > +static unsigned long *__ro_after_init free_colored_pages;
-> > +
-> > +/* Memory required for buddy allocator to work with colored one */
-> > +static unsigned long __initdata buddy_alloc_size =3D
-> > +    MB(CONFIG_BUDDY_ALLOCATOR_SIZE);
-> > +size_param("buddy-alloc-size", buddy_alloc_size);
-> > +
-> > +#ifdef CONFIG_LLC_COLORING
->
-> According to the (updated) command line doc, this #ifdef needs to move up
-> so the command line option indeed is unrecognized when !LLC_COLORING.
-> Question then is whether the variable is actually needed. With the variab=
-le
-> also moved into the #ifdef, the need for BUDDY_ALLOCATOR_SIZE also goes
-> away when !LLC_COLORING (see the comment on the common/Kconfig change). O=
-f
-> course you'll then need "#ifndef buddy_alloc_size" in
-> init_color_heap_pages(), around the respective if() there.
+At which point it becomes questionable whether a wrapper function is
+actually needed, and if not whether the variable itself could/should be
+named using_static_heap then.
 
-buddy-alloc-size must not be parsed when !LLC_COLORING. I'll change the cod=
-e
-accordingly to what you said.
-
-> > +#define domain_num_llc_colors(d) ((d)->num_llc_colors)
-> > +#define domain_llc_color(d, i)   ((d)->llc_colors[i])
-> > +#else
-> > +#define domain_num_llc_colors(d) 0
-> > +#define domain_llc_color(d, i)   0
-> > +#endif
-> > +
-> > +static void free_color_heap_page(struct page_info *pg, bool need_scrub=
-)
-> > +{
-> > +    unsigned int color;
-> > +
-> > +    color =3D page_to_llc_color(pg);
-> > +    free_colored_pages[color]++;
-> > +    /*
-> > +     * Head insertion allows re-using cache-hot pages in configuration=
-s without
-> > +     * sharing of colors.
-> > +     */
-> > +    page_list_add(pg, color_heap(color));
-> > +}
->
-> Iirc it was me who had asked to keep this and further functions outside o=
-f
-> #ifdef-s, for the compiler's DCE to take care of. However, with all that
-> Misra work that has been going on since then, I now wonder what Misra
-> thinks of this: When PGC_colored is 0, functions like the above are
-> unreachable, and any code or data the compiler doesn't manage to eliminat=
-e
-> would be dead. Imo if the code is to remain as is, correctness Misra-wise
-> may want mentioning in the description (this isn't the only place we have
-> such, so an overall position towards this is going to be needed).
-
-For the time being, I'll add a note that can be updated when the overall
-position is found.
-
-> > +static void __init init_color_heap_pages(struct page_info *pg,
-> > +                                         unsigned long nr_pages)
-> > +{
-> > +    unsigned int i;
-> > +    bool need_scrub =3D opt_bootscrub =3D=3D BOOTSCRUB_IDLE;
-> > +
-> > +    if ( buddy_alloc_size >=3D PAGE_SIZE )
-> > +    {
-> > +        unsigned long buddy_pages =3D min(PFN_DOWN(buddy_alloc_size), =
-nr_pages);
-> > +
-> > +        init_heap_pages(pg, buddy_pages);
-> > +        nr_pages -=3D buddy_pages;
-> > +        buddy_alloc_size -=3D buddy_pages << PAGE_SHIFT;
-> > +        pg +=3D buddy_pages;
-> > +    }
-> > +
-> > +    if ( !_color_heap )
-> > +    {
-> > +        unsigned int max_nr_colors =3D get_max_nr_llc_colors();
-> > +
-> > +        _color_heap =3D xmalloc_array(struct page_list_head, max_nr_co=
-lors);
-> > +        free_colored_pages =3D xzalloc_array(unsigned long, max_nr_col=
-ors);
->
-> At this point, xvmalloc() and friends want using by all new code, unless
-> explicitly justified otherwise.
-
-Yes.
-
-> > +        if ( !_color_heap || !free_colored_pages )
-> > +            panic("Can't allocate colored heap. Buddy reserved size is=
- too low");
-> > +
-> > +        for ( i =3D 0; i < max_nr_colors; i++ )
-> > +            INIT_PAGE_LIST_HEAD(color_heap(i));
->
-> While for this loop i being unsigned int is okay, I fear that ...
->
-> > +    }
-> > +
-> > +    for ( i =3D 0; i < nr_pages; i++ )
-> > +    {
-> > +        pg[i].count_info =3D PGC_colored;
-> > +        free_color_heap_page(&pg[i], need_scrub);
-> > +    }
->
-> ... for this loop it isn't.
-
-Ok.
-
-> Jan
-
-Thanks.
-- Carlo
+Jan
 
