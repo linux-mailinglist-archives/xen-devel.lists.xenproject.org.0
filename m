@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F0E9DFBEE
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 09:29:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.846346.1261511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 613399DFC72
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 09:54:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.846357.1261521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI1oP-0001GE-6y; Mon, 02 Dec 2024 08:29:45 +0000
+	id 1tI2BS-0005fM-0l; Mon, 02 Dec 2024 08:53:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 846346.1261511; Mon, 02 Dec 2024 08:29:45 +0000
+Received: by outflank-mailman (output) from mailman id 846357.1261521; Mon, 02 Dec 2024 08:53:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI1oP-0001DF-3W; Mon, 02 Dec 2024 08:29:45 +0000
-Received: by outflank-mailman (input) for mailman id 846346;
- Mon, 02 Dec 2024 08:29:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tI2BR-0005dt-U0; Mon, 02 Dec 2024 08:53:33 +0000
+Received: by outflank-mailman (input) for mailman id 846357;
+ Mon, 02 Dec 2024 08:53:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iCIG=S3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tI1oN-0001D7-JO
- for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 08:29:43 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 930004c8-b087-11ef-a0d2-8be0dac302b0;
- Mon, 02 Dec 2024 09:29:40 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-53df67d6659so5624811e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 00:29:41 -0800 (PST)
+ id 1tI2BQ-0005dn-JB
+ for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 08:53:32 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e5e691c9-b08a-11ef-99a3-01e77a169b0f;
+ Mon, 02 Dec 2024 09:53:28 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-385e3621518so1364011f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 00:53:28 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5997d55eesm481814466b.80.2024.12.02.00.29.39
+ ffacd0b85a97d-385dfb2d7e0sm8703660f8f.44.2024.12.02.00.53.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 00:29:40 -0800 (PST)
+ Mon, 02 Dec 2024 00:53:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 930004c8-b087-11ef-a0d2-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjoxMjkiLCJoZWxvIjoibWFpbC1sZjEteDEyOS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjkzMDAwNGM4LWIwODctMTFlZi1hMGQyLThiZTBkYWMzMDJiMCIsInRzIjoxNzMzMTI4MTgwLjU3NzUwOCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: e5e691c9-b08a-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmQiLCJoZWxvIjoibWFpbC13cjEteDQyZC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6ImU1ZTY5MWM5LWIwOGEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMzMTI5NjA4LjI4NDg2OCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733128180; x=1733732980; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733129608; x=1733734408; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YBnG0jgYVPf8aIoX2AG24CNnm8979480L+azcJ+l19o=;
-        b=JcEr3vuDSg8qYpGpw6+GWtbXxiVuQfkMsIU1LSsVwJH+S9nJI3L+TuWNK17xQMO1J/
-         Bo7U8CkTq3eQrfVcawadX2Jd9O7DDMQavRQzUatehlDYEUov1QpKUzMPbV5IMNCGw2m8
-         urf5yq3zpjQk6Q9Kc6X+mPAkbB8iKWIF/yUIfZKIPmHCQrYHeCCaRQWCtH8qGEhBmslt
-         dMrtiwm/rPmii7ytM49pmfgtvXd8ni7LVQz0zcX5pKPookCn7K7fabiMrOCsbodkF/D9
-         BL9WOj3QmaSXgPBmmpn+2OA9WvHk3imIU8qzvpiYNgjz4xqROKhYca4l8BDX0U1SXV0+
-         k1+w==
+        bh=eHwGe0iie1X8zSQpM1na0u6g//5QLMPxvpkm6VnnP+s=;
+        b=C2hVsaY45m96fXc1A4j/mQ9zV1PxQpmN5/1nHPml+wpy4vn5ErbehwmCs6Hk46zZn7
+         IYcu6ASqElKjmDgHE3/Xirs7VcdEMPO3k+PDy4UuHexqHbmH3vw57vAuuwDcsdxVgDnA
+         J91H4oP4Rf3JWhexxWxjdUKzksqKZKJbkdhb3Nch4CwFBfW4STeq58G4c6ea7fAVkv+A
+         fGMGaAcmMjvY62cAxVxgCpxnrCNlTBe7Kv7PqrdteJCHOi+wMTAFCdNj/msZC/8Wb1eR
+         w8NNsQsoPP8GHjiP6Ai+ZitC4VLZYdeNm2d+2+0PSQvb9xQ7pHnuzmZrUAOIxEorwsVK
+         WNbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733128180; x=1733732980;
+        d=1e100.net; s=20230601; t=1733129608; x=1733734408;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YBnG0jgYVPf8aIoX2AG24CNnm8979480L+azcJ+l19o=;
-        b=dNNU7O+k5oKJJ8oWgoFuh+9DA7jjfUQpXSrRcy9QCNPN66sQs4miWmzLh2ZIh4p3fK
-         dPCTVsILaIMeD2zfzSRWTZATtjFf28F+FP2TfV6KDjEBX0lMtJOc1Cww3MEyTPluM17N
-         4X3eDbND+c0NUv1Tw/TPrzJShf/ftV5vXZq1RxIJ1yykWRFYJibA9L4n8DCmZbMx4c18
-         xYddIcTKRUxsqhwQHM8yVGx97TtsX+VarSthN2VpWanGzXBL6x3MFZ6Q9Ea/SpYdPjNS
-         BB6PVR6cS1wpMozhW54gdSc/q89Ni9EVDdWcXvU4KNJR9uc3ldqil/7CCHvb3CQBUSHU
-         ICxg==
-X-Forwarded-Encrypted: i=1; AJvYcCVZSsGiwhSaJ7yLGH9cKbVO2p7mcLYlSBTTsdY+69LGQaWVNdv0D85yBn51TTDissUnTbVVCNU9wp0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywi+uj/0s2rpTF6p6FAQ6/dluNTwxWIS6suO6PV1K+M8LAsg7uB
-	rz5kmtAYQhZKRZr0F4NV5xgjsaVMX6U7mHKuJiCVUCin9bGrsQun5MeNoAYK5w==
-X-Gm-Gg: ASbGnctZq3AddZoVfV1a30Oz+WKBR84FHRFcVjq24ugFoIBjfnoulGkItcHe0kw38PR
-	WJIZ98savKhMfMdw2iTxo8V+IXPSoKLrJE8i5gEMHIc+c1shPjBfXZ+mILDJ6EZ0c61ThGURQMT
-	lGA8iqzZvz8eUsNSKuIp4R1oyaJpeQiurIbrK81gNWwi4jtCJxtWN7hBKvmx7dLwZD3q3CVwAuK
-	ZdJTaHeRmQdUfIRCkRl8gDd0hB6I55may5aHEfe1WhZi7Ti8//rXq9Y8SvtBkBCDGVco5pdyZYW
-	baPxZhegEe5lYr+7lsavxXxuyASD1W7A7dU=
-X-Google-Smtp-Source: AGHT+IHmVda+hYlUcPppcnC9b39ra8GFvlKGc8JKvNVBW8NCXEfbAq8pABFez3hRE40xd6tFdyJh5w==
-X-Received: by 2002:a05:6512:3d87:b0:53d:ecfc:306d with SMTP id 2adb3069b0e04-53df00cf62dmr13460297e87.19.1733128180426;
-        Mon, 02 Dec 2024 00:29:40 -0800 (PST)
-Message-ID: <ce0ff646-94c0-47f8-9aca-ee5b714fc8e6@suse.com>
-Date: Mon, 2 Dec 2024 09:29:42 +0100
+        bh=eHwGe0iie1X8zSQpM1na0u6g//5QLMPxvpkm6VnnP+s=;
+        b=qVBl2JObXOYbflej+VsqGEl8YtMCxYlEXJxvY5nv2wxAsYSyjQePSDhas1PT1yWZ6y
+         YGprMINkLQKIeD8v9Nv8VEqEhKXxI0j+qfwmaHavqB2NbBz8TfiR+agQrxNaAOwOCgTr
+         9znfESYqKGUfI8htx+vL0F05OYX+vo6+O00wq5X7IoP1HijA4bPGPCNrEGFvW+exFRbv
+         Z0d+gN+zpMCxE6JdMfxPmX7jlgiSDPFrA87442J4Vc/nbO/EEaFD+qgU9otV0ZMmsvBF
+         QbtzaMsmI04Y0SrAxTdkg84PWKQyhgL2AFJGDDk+Ow2aliHcv2kWwMAQSsvu7XuAXOjq
+         OOhQ==
+X-Gm-Message-State: AOJu0Yzl3cfWLb2uL6VoVQyo+kgc2RCdU9P5JYyP/gUe7jook8vSKNJo
+	DJwFIgfpmoX580KbHnfn5cyCYb0ejJRVm1neSxhfoAYspmCrZHUZkSCTClcxhw==
+X-Gm-Gg: ASbGncsYQtFibrIwf2JOsplefDKnMhpzRIXWhjA76Lmh70fwMz2odR4yCaJZulbc45L
+	F+d26ceoxn1l417i02JZyO4FBtaQFdLtmBs+5EhHI1zwGheaBLjxhmRR5nGJwUJoz71/NicrMD4
+	59Gt9XRdHJ+OsvxKdUTrJCq6tDcgOnNE96jEAkZ2ooqKBIhdEwEOSBwdE19wiYv1xWut37hbDaT
+	56WUu91zRUJblqAJA9vMZFotGWTP51vVnuD1znOfzQJ69Y8bRlcgZtbzCPR+mh491EQlpBJff+y
+	dyuDP4ARl5MfwUhBbWGB6/eUXwiPGGvRPzA=
+X-Google-Smtp-Source: AGHT+IGVew6GaD1esGkYvevWZtkzCQ0h2rtWln06y+MyoFrYTedF8dpo8R7J9URPPxWhKk0OXR7MbA==
+X-Received: by 2002:a05:6000:1fac:b0:382:5aae:87ac with SMTP id ffacd0b85a97d-385c6ec0c37mr17966537f8f.32.1733129607697;
+        Mon, 02 Dec 2024 00:53:27 -0800 (PST)
+Message-ID: <95754086-9c90-4765-b386-299baf2b5f94@suse.com>
+Date: Mon, 2 Dec 2024 09:53:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] xen: common: add ability to enable stack protector
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20241130010954.36057-1-volodymyr_babchuk@epam.com>
- <20241130010954.36057-3-volodymyr_babchuk@epam.com>
+Subject: Re: [PATCH v2 1/2] xl: Keep monitoring suspended domain
+To: Anthony PERARD <anthony.perard@vates.tech>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20241126171941.170897-1-jason.andryuk@amd.com>
+ <20241126171941.170897-2-jason.andryuk@amd.com> <Z0ieLBwYt2jm_WAa@l14>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,54 +118,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241130010954.36057-3-volodymyr_babchuk@epam.com>
+In-Reply-To: <Z0ieLBwYt2jm_WAa@l14>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.11.2024 02:10, Volodymyr Babchuk wrote:
-> --- /dev/null
-> +++ b/xen/common/stack-protector.c
-> @@ -0,0 +1,10 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +#include <xen/lib.h>
-> +#include <xen/random.h>
-> +
-> +unsigned long __ro_after_init __stack_chk_guard;
-> +
-> +void __stack_chk_fail(void)
-> +{
-> +    panic("Detected stack corruption\n");
-> +}
+On 28.11.2024 17:45, Anthony PERARD wrote:
+> On Tue, Nov 26, 2024 at 12:19:40PM -0500, Jason Andryuk wrote:
+>> When a VM transitioned to LIBXL_SHUTDOWN_REASON_SUSPEND, the xl daemon
+>> was exiting as 0 = DOMAIN_RESTART_NONE "No domain restart".
+>> Later, when the VM actually shutdown, the missing xl daemon meant the
+>> domain wasn't cleaned up properly.
+>>
+>> Add a new DOMAIN_RESTART_SUSPENDED to handle the case.  The xl daemon
+>> keeps running to react to future shutdown events.
+>>
+>> The domain death event needs to be re-enabled to catch subsequent
+>> events.  The libxl_evgen_domain_death is moved from death_list to
+>> death_reported, and then it isn't found on subsequent iterations through
+>> death_list.  We enable the new event before disabling the old event, to
+>> keep the xenstore watch active.  If it is unregistered and
+>> re-registered, it'll fire immediately for our suspended domain which
+>> will end up continuously re-triggering.
+>>
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> 
+> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-That's very little information that'll end up in the log to understand
-what has gone wrong.
-
-> --- /dev/null
-> +++ b/xen/include/xen/stack-protector.h
-> @@ -0,0 +1,29 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef XEN__STACK_PROTECTOR_H
-> +#define XEN__STACK_PROTECTOR_H
-> +
-> +#ifdef CONFIG_STACKPROTECTOR
-> +
-> +extern unsigned long __stack_chk_guard;
-> +
-> +/*
-> + * This function should be always inlined. Also it should be called
-> + * from a function that never returns or a function that with
-> + * stack-protector disabled.
-> + */
-> +static always_inline void boot_stack_chk_guard_setup(void)
-> +{
-> +	__stack_chk_guard = get_random();
-> +	if (BITS_PER_LONG == 64)
-> +		__stack_chk_guard |= ((unsigned long)get_random()) << 32;
-> +}
-
-The hard tabs here make it look like Linux style, when - unless there's a
-specific reason - new files want to be Xen style.
+While committing I was wondering: Does this want/need backporting (and hence
+was it perhaps lacking a Fixes: tag)?
 
 Jan
 
