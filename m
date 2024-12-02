@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B0919E0950
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 18:02:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.846879.1262034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4709E09B7
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 18:22:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.846934.1262058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI9oR-0007ZN-Hh; Mon, 02 Dec 2024 17:02:19 +0000
+	id 1tIA7K-0003nU-A5; Mon, 02 Dec 2024 17:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 846879.1262034; Mon, 02 Dec 2024 17:02:19 +0000
+Received: by outflank-mailman (output) from mailman id 846934.1262058; Mon, 02 Dec 2024 17:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI9oR-0007XZ-DQ; Mon, 02 Dec 2024 17:02:19 +0000
-Received: by outflank-mailman (input) for mailman id 846879;
- Mon, 02 Dec 2024 17:02:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tIA7K-0003lA-7N; Mon, 02 Dec 2024 17:21:50 +0000
+Received: by outflank-mailman (input) for mailman id 846934;
+ Mon, 02 Dec 2024 17:21:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wrSh=S3=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1tI9oP-0006xH-Cu
- for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 17:02:17 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e553771-b0cf-11ef-99a3-01e77a169b0f;
- Mon, 02 Dec 2024 18:02:15 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-aa51bf95ce1so76277866b.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 09:02:15 -0800 (PST)
+ <SRS0=mfuJ=S3=bounce.vates.tech=bounce-md_30504962.674deca9.v1-2b9c360ecc7e462db0f990868fee4e0c@srs-se1.protection.inumbo.net>)
+ id 1tIA7J-0003l4-9g
+ for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 17:21:49 +0000
+Received: from mail136-20.atl41.mandrillapp.com
+ (mail136-20.atl41.mandrillapp.com [198.2.136.20])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e86c27f2-b0d1-11ef-a0d2-8be0dac302b0;
+ Mon, 02 Dec 2024 18:21:47 +0100 (CET)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-20.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Y29Z15nXHzCf9MQv
+ for <xen-devel@lists.xenproject.org>; Mon,  2 Dec 2024 17:21:45 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 2b9c360ecc7e462db0f990868fee4e0c; Mon, 02 Dec 2024 17:21:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,101 +43,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e553771-b0cf-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1733158935; x=1733763735; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=yvUO+Cob+4BPHSlSnE+x5pEdUSplc0l78jq4eGwEYSw=;
-        b=HxFNXmgHfqVZ/5XOIvZj32pVqMnNP0DyPFSrJu6yvwGxFZ14MKl6NxVnUEV8C3ZqEk
-         ecxkUOPYA/DxXOx+CJosBuZBKGsh1xCTpCEXF1u1snMcp+Vnwp7loRMLMfHs4Az55J8o
-         3kCkr0n/QwT6Is98wOb1mTPZTDWnoHTTNy0I8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733158935; x=1733763735;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yvUO+Cob+4BPHSlSnE+x5pEdUSplc0l78jq4eGwEYSw=;
-        b=qeCyKg04Z8jA6MOG1PODwb5hBYsqqmnuJXeB/s2SB28clZalh45mvE6Vw91Dc9a0B4
-         PMSHwdQUKuwOkJD4IBHtDplKfmJ20kB5Hc3UBD6PAb+quFThRSlDF5xHF8TxR8G7nHie
-         UFzX4GGDJDMpkqjb8rDox+cAwy28/BulrpHH4W66D3OQFXv5BqxjMKFAFsMqDqZSAyjI
-         kCZDssrP6Ja4o0rwVkei1G+t2chals256wo2iLmgYB7ny65c3U9PyBggRAuXS53VHjcG
-         NMvmi6gxqhhWI6c6kRynYUwoZIzNEw3wsvA+lbzNWeJHgyV6BQCJTCeC6njoNpAExLc0
-         vr2g==
-X-Forwarded-Encrypted: i=1; AJvYcCVh1JvUeHKNp2/B6Ln/pIEQwv7AmS98+udO8IKGT/mBj8indcd74se0kxDI951w9r86iic4/kyMGF4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxhXeLpXuHcwWhIPywOjQCsYxjuwoSVQE3l5URiRxZInHzbw53h
-	NsoBYvfX22XHb3QhT5zn2cTUI2hRoiwuyCW7mEvj/PXEUQr2GAT8Vknqqbxrl/dXp6b7S3qNDNh
-	+5HIrhGYd5eNSH3PL+xvkCBnsUEwHcmrrLXeh3g==
-X-Gm-Gg: ASbGncu8DjMUwSIBSWc8MfazNkvL2q6movQt/SoSkCUjfzV+1+cthyp6Ow8ZKB3iuOV
-	QDQjbq4gml7LXC32Og0/LzuqmzBB2wG3DK0fwIMFwxcz+lUSsaaNT2LRazLb8+ZPSBw==
-X-Google-Smtp-Source: AGHT+IGA/yyMxVuh1zjvfEZctTTbU1UJeWezawIMrQd4uH37xw0bXd5kJbfbI4cQk1fMeBFilqXjf11v4Wyjzl82CCQ=
-X-Received: by 2002:a17:906:1bb2:b0:aa2:c73:3720 with SMTP id
- a640c23a62f3a-aa58107846bmr2358157166b.58.1733158933157; Mon, 02 Dec 2024
- 09:02:13 -0800 (PST)
+X-Inumbo-ID: e86c27f2-b0d1-11ef-a0d2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1733160105; x=1733420605;
+	bh=IauL8Qp0YWYvkAARRtO9cDCFO2BMI77KcbI4z8abZFI=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=TJYc7w4NRxGk6MPQUE9jI6jgbHmWSm2V+ZytN5Wtn08PPdWeiCYQrLsklgDRCx5sO
+	 WVj8PJMLUwky6gh67HNu8abeMQfbBE99c9eC5QKlo0pO8UpulMOVx5qC1E/afJwgBB
+	 ovtuGZeq2LZQyjrymxAdbkkgzGvQOniOrNcZxLonW5VqO85e0N0Ecj5Y4ygVGPiros
+	 h/x1gGYE2L8wh641vUKYDOckcgSfRDwy9c5Dnx0VNPEIh1dkeu5rtcBGcBSiwWsS1s
+	 MTuKhIGa1ziWeeosRSJr0/tloxYXQkrG10aTkq5HjdrPkb6XnYy6S3sixGcBt9PkTQ
+	 FhuMlION6UL2Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1733160105; x=1733420605; i=thierry.escande@vates.tech;
+	bh=IauL8Qp0YWYvkAARRtO9cDCFO2BMI77KcbI4z8abZFI=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=qnbSV9suHL9D9gVxDNxH6dKUO7oSiJ0TlwhWjgh2dgAp7ebtGSyzvr1iBTFsGNbj4
+	 7jp9WMn+hueO1+suofQyezozU9A/+IL6ubTu+C3Yc110R70VaaiST4+nvGHEl5i0fS
+	 9cJeeilsLWUmCRxSFttLA+5zm8Jje1M1vFnuqZpWqpMBzOOW3r6W6jYCYk7T2+4UwD
+	 A40zjaWHUhUq/osiVjtw3eqxPOvzpbEBPqbfq/dPS6MMIknq0FNxd+hRFHExaB61In
+	 t7iiRjgg232yE+6BMJfDWu0z4rYTXrMs3qHzivAUCzs2npJ0HIV+bdKxq9nrndBL8y
+	 2Ly8ok8JqhS4Q==
+From: "Thierry Escande" <thierry.escande@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2=201/2]=20xen/swiotlb:=20add=20alignment=20check=20for=20dma=20buffers?=
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1733160104462
+Message-Id: <c9eca3df-d1ba-46f8-95c2-2da0b8c25803@vates.tech>
+To: =?utf-8?Q?J=C3=BCrgen=20Gro=C3=9F?= <jgross@suse.com>, linux-kernel@vger.kernel.org, iommu@lists.linux.dev
+Cc: "Stefano Stabellini" <sstabellini@kernel.org>, "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org, jbeulich@suse.com
+References: <20240916064748.18071-1-jgross@suse.com> <20240916064748.18071-2-jgross@suse.com> <e6ceb22d-3fa7-430c-9410-3c5ffd9ded2d@vates.tech> <2d4fd45a-2461-441e-a116-3b6cff18ee9e@suse.com>
+In-Reply-To: <2d4fd45a-2461-441e-a116-3b6cff18ee9e@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.2b9c360ecc7e462db0f990868fee4e0c?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241202:md
+Date: Mon, 02 Dec 2024 17:21:45 +0000
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Mon, 2 Dec 2024 17:01:37 +0000
-Message-ID: <CAO-mL=zyghadT2Fvmck9r5+V7URnm6EXnPUFUX9Tq-mxNsXwiw@mail.gmail.com>
-Subject: New Xen Project Website
-To: Xen Project Advisory Board <advisory-board@lists.xenproject.org>, xen-announce@lists.xenproject.org, 
-	xen-devel <xen-devel@lists.xenproject.org>
-Cc: "committers @ xenproject . org" <committers@xenproject.org>
-Content-Type: multipart/alternative; boundary="0000000000008cffb706284c82ef"
-
---0000000000008cffb706284c82ef
-Content-Type: text/plain; charset="UTF-8"
-
-Hello Xen Community,
-
-For the past 12 months, I have been working with our web developer and UX
-designer on creating and refreshing our project website. I'm excited to
-share that this is now live!
-The URL remains the same and you can view this at *https://xenproject.org/
-<https://xenproject.org/> *
-
-These new changes are part of an ongoing effort to increase our visibility
-and make it easier to find information on pages.
-
-Our documentation will still link to our old wiki for now, as this is where
-most of our guides are stored. However, you might remember we are in the
-process of moving to Sphinx so we will eventually update the website once
-we have more content created. We welcome community members to contribute to
-this!
-
-I'd also like to thank our existing board members, whose financial
-investment in the Xen Project allows for these changes.
-
-If you do have any feedback or notice errors, please feel free to reach out.
-
-Thanks,
-Kelly Choi
-Community Manager
-Xen Project <https://xenproject.org/>
-
---0000000000008cffb706284c82ef
-Content-Type: text/html; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hello Xen Community,</div><div><br></div><div>For the=
- past 12 months, I have been working with our web developer and UX designer=
- on creating and refreshing our project website. I&#39;m excited=C2=A0to sh=
-are that this=C2=A0is now live!</div><div>The URL remains the same and you =
-can view this at=C2=A0<b><a href=3D"https://xenproject.org/">https://xenpro=
-ject.org/</a>=C2=A0</b></div><div><br></div><div>These new changes are part=
- of an ongoing effort to increase our visibility and make it easier to find=
- information on pages.=C2=A0</div><div><br></div><div>Our documentation wil=
-l still link to our old wiki for now, as this is where most of our guides a=
-re stored. However, you might remember we are in the process of moving to S=
-phinx so we will eventually update the website once we have more content cr=
-eated. We welcome community members to contribute to this!</div><div><br></=
-div><div>I&#39;d also like to thank our existing board members, whose finan=
-cial investment in the Xen Project allows for these changes.</div><div><br>=
-</div><div>If you do have any feedback or notice errors,=C2=A0please feel f=
-ree to reach out.</div><div><br></div><div><div dir=3D"ltr" class=3D"gmail_=
-signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Thanks,=
-</div><div>Kelly Choi<br></div><div><div style=3D"color:rgb(136,136,136)">C=
-ommunity Manager</div><div style=3D"color:rgb(136,136,136)"><a href=3D"http=
-s://xenproject.org/" target=3D"_blank">Xen Project</a><br></div></div></div=
-></div></div></div>
 
---0000000000008cffb706284c82ef--
+On 02/12/2024 09:27, J=C3=BCrgen Gro=C3=9F wrote:
+> On 29.11.24 18:36, Thierry Escande wrote:
+>> Hi,
+>>
+>> On 16/09/2024 08:47, Juergen Gross wrote:
+>>> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+>>> index 35155258a7e2..ddf5b1df632e 100644
+>>> --- a/drivers/xen/swiotlb-xen.c
+>>> +++ b/drivers/xen/swiotlb-xen.c
+>>> @@ -78,9 +78,15 @@ static inline int
+>>> range_straddles_page_boundary(phys_addr_t p, size_t size)
+>>> =C2=A0 {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long next_bfn, xen_pfn =3D XEN_=
+PFN_DOWN(p);
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int i, nr_pages =3D XEN_PFN_UP(=
+xen_offset_in_page(p) +
+>>> size);
+>>> +=C2=A0=C2=A0=C2=A0 phys_addr_t algn =3D 1ULL << (get_order(size) + PAG=
+E_SHIFT);
+>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 next_bfn =3D pfn_to_bfn(xen_pfn);
+>>> =C2=A0 +=C2=A0=C2=A0=C2=A0 /* If buffer is physically aligned, ensure D=
+MA alignment. */
+>>> +=C2=A0=C2=A0=C2=A0 if (IS_ALIGNED(p, algn) &&
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !IS_ALIGNED(next_bfn << XEN=
+_PAGE_SHIFT, algn))
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 1;
+>>
+>> There is a regression in the mpt3sas driver because of this change.
+>> When, in a dom0, this driver creates its DMA pool at probe time and
+>> calls dma_pool_zalloc() (see [1]), the call to
+>> range_straddles_page_boundary() (from xen_swiotlb_alloc_coherent())
+>> returns 1 because of the alignment checks added by this patch. Then the
+>> call to xen_create_contiguous_region() in xen_swiotlb_alloc_coherent()
+>> fails because the passed size order is too big (> MAX_CONTIG_ORDER).
+>> This driver sets the pool allocation block size to 2.3+ MBytes.
+>>
+>> =C2=A0From previous discussions on the v1 patch, these checks are not
+>> necessary from xen_swiotlb_alloc_coherent() that already ensures
+>> alignment, right?
+> 
+> It ensures alignment regarding guest physical memory, but it doesn't do
+> so for machine memory.
+> 
+> For DMA machine memory proper alignment might be needed, too, so the
+> check is required. As an example, some crypto drivers seem to rely on
+> proper machine memory alignment, which was the reason for those checks
+> to be added.
+> 
+> Possible solutions include:
+> 
+> - rising the MAX_CONTIG_ORDER limit (to which value?)
+
+Looks like the quick and easy solution. Bumping MAX_CONTIG_ORDER to 10
+would allow 4MB pools, enough for this particular driver. I'll send a
+patch if that sounds reasonable.
+
+Regards,
+Thierry
+
+> - adding a way to allocate large DMA buffers with relaxed alignment
+> =C2=A0 requirements (this will impact the whole DMA infrastructure plus
+> =C2=A0 drivers like mp3sas which would need to use the new interface)
+> - modify the mpt3sas driver to stay within the current limits
+> - only guarantee proper machine memory alignment up to MAX_CONTIG_ORDER
+> =C2=A0 (risking to introduce hard to diagnose bugs for the rare use cases=
+ of
+> =C2=A0 such large buffers)
+> 
+> 
+> Juergen
+
 
