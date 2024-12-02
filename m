@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1EB59DFDAF
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C009DFDB0
 	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 10:49:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.846465.1261630 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.846466.1261641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI33H-0000qx-3b; Mon, 02 Dec 2024 09:49:11 +0000
+	id 1tI33S-00018b-Bx; Mon, 02 Dec 2024 09:49:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 846465.1261630; Mon, 02 Dec 2024 09:49:11 +0000
+Received: by outflank-mailman (output) from mailman id 846466.1261641; Mon, 02 Dec 2024 09:49:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI33H-0000p4-0m; Mon, 02 Dec 2024 09:49:11 +0000
-Received: by outflank-mailman (input) for mailman id 846465;
- Mon, 02 Dec 2024 09:49:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iCIG=S3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tI33F-0000oy-CR
- for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 09:49:09 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab399091-b092-11ef-99a3-01e77a169b0f;
- Mon, 02 Dec 2024 10:49:05 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a9f1c590ecdso682402766b.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 01:49:05 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5996c195bsm489707066b.1.2024.12.02.01.49.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 01:49:04 -0800 (PST)
+	id 1tI33S-00015x-8a; Mon, 02 Dec 2024 09:49:22 +0000
+Received: by outflank-mailman (input) for mailman id 846466;
+ Mon, 02 Dec 2024 09:49:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9jsF=S3=bounce.vates.tech=bounce-md_30504962.674d829a.v1-5b8a2aa0c92547d784c63cf2f1c94b70@srs-se1.protection.inumbo.net>)
+ id 1tI33R-00015h-PL
+ for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 09:49:21 +0000
+Received: from mail180-27.suw31.mandrillapp.com
+ (mail180-27.suw31.mandrillapp.com [198.2.180.27])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b156f50c-b092-11ef-a0d2-8be0dac302b0;
+ Mon, 02 Dec 2024 10:49:16 +0100 (CET)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-27.suw31.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Y1zWt2mcPz6CQWq6
+ for <xen-devel@lists.xenproject.org>; Mon,  2 Dec 2024 09:49:14 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 5b8a2aa0c92547d784c63cf2f1c94b70; Mon, 02 Dec 2024 09:49:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +43,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab399091-b092-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzUiLCJoZWxvIjoibWFpbC1lajEteDYzNS5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImFiMzk5MDkxLWIwOTItMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMzMTMyOTQ1Ljc3OTU3OSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733132945; x=1733737745; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2WuL8BGgzlV0OtH+XWvK2eVFhlKFA5J+gVnjKDUTz7M=;
-        b=EpPSY1aLWJu9rNhh76C1txx3KHwuE8uVBqkpzW+QjRvTx3VllfB4T7OZVx4i023CF0
-         Hx3YNb/9LwwAZXt/PYDxwTi9AqXHGeXzeqdgfFDJB2S6j/iB/DZRVVi+r4iA19wBUg9J
-         E+tzEKv3iw3dU+hTeXZ3+f3HJu/uwIGI+6+hijt6TeDNahS88rcGrYP3WLyeUxlSZ2E4
-         5cRNF+jGAGOvOq00teyveGFwLTIjJN50aIZk+et/l5CsAPZyTdETvUA1krbXJkDMHXt7
-         K9+/lB60ipep7RZq4ZS8yh6tjdkC8fhgMN3VcEw/2vfRiutGy24576aT5aqJG2+1a2va
-         R9dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733132945; x=1733737745;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2WuL8BGgzlV0OtH+XWvK2eVFhlKFA5J+gVnjKDUTz7M=;
-        b=GNCyq79peGU95HBPeqAGv95WrUf7Qmw/gtoUSX4Iu988xUI69qIo4UP+gU64Y07oLw
-         Pq424H1nkjOgsFBphOY0CgKwPaNMS1VdsxQQE2qJsWt18WLSm07Pxle5H2IVppkgdcMq
-         1NHaXtZalvDhMF677rNAido6CwDaCTTNxJXkeEc30XHRaUDS3VzAlPoZKoUZkUs9O/jQ
-         iswx6CBGbxdzQLz/EOwROsz/cczbjizxhCHQmerJ2LVuBXDek/kCxMzvnUPh+yeX/NLN
-         Oi3x3m/UjIfalOBFRCxQpLEgAfy2kq20zfygT2c1OsK9igKMJSOE1IYRfgdQbpVnat79
-         aw+w==
-X-Forwarded-Encrypted: i=1; AJvYcCWyAiRoiguT0DQMRnZRDyOlX9p/aTuRqZS0WZIgUl7vJQNe+hJ3SOBeftKFvBNSZoAZlrIRiImekto=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YymiBIia+K2y93Dr9Pi2bF7lpYLLRzQAgOBcuiAv5AqLsh480GH
-	ddkwFoSSmqh2nz8Yb0VNjj7WK0Lb5DZT90+r/1h75KyehR4TAkqg8DMAhg4XTA==
-X-Gm-Gg: ASbGncuaKMfTU2qGbmOMoGZ1AmQS7v8EsdQ2OEZNpzxb354X+AotV5Xf8HnrZOb3rIj
-	yKjn8pNuFlf0ega7y6nI4PrWeM0qrYTQPnLrX7sS0c7QLA5qbCdKCLYE7lFGwDZOOO/iQbsYiSt
-	lTooZkFVbO8nju8QaYy5Id5qIkc0AFTZPWv9OgBj4a2q8suASiiXkaBesor6BepigMAnlN3w+1W
-	ZpSMoZyJnBgeQETpIff6s8M20kN+x/UetH0uiLUHD+Evtm9LY+2EEu9vLNiZ74V5EIa0Em6XkjL
-	nKpo09heGjU9mn2RUgOUMqScxNU4bjcXZ/I=
-X-Google-Smtp-Source: AGHT+IHsXCuH4g/AxQVzKRcDoQNXR5BhPAPXcfYjlftkeFCxsf/6NwqQWcDyiCZ//dQ1LRM9Znq9Fg==
-X-Received: by 2002:a17:907:7748:b0:aa5:7d7e:7b7b with SMTP id a640c23a62f3a-aa580f1d7e4mr1761104966b.24.1733132945225;
-        Mon, 02 Dec 2024 01:49:05 -0800 (PST)
-Message-ID: <43ce0519-5717-4d59-922d-10dc2c663747@suse.com>
-Date: Mon, 2 Dec 2024 10:49:06 +0100
+X-Inumbo-ID: b156f50c-b092-11ef-a0d2-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjE5OC4yLjE4MC4yNyIsImhlbG8iOiJtYWlsMTgwLTI3LnN1dzMxLm1hbmRyaWxsYXBwLmNvbSJ9
+X-Custom-Transaction: eyJpZCI6ImIxNTZmNTBjLWIwOTItMTFlZi1hMGQyLThiZTBkYWMzMDJiMCIsInRzIjoxNzMzMTMyOTU2Ljk0MDc1MSwic2VuZGVyIjoiYm91bmNlLW1kXzMwNTA0OTYyLjY3NGQ4MjlhLnYxLTViOGEyYWEwYzkyNTQ3ZDc4NGM2M2NmMmYxYzk0YjcwQGJvdW5jZS52YXRlcy50ZWNoIiwicmVjaXBpZW50IjoieGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1733132954; x=1733393454;
+	bh=ucqGhHnOiz/ZBpgQgGjtVLuUnH2uZLJRFuH6QWW+l5E=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=mRd1V+VnH1rD/XqyLLcip/Fp0fCzZRVKQP3MJHQFOHVo1xrtQWR9mHUelwO+3ji+W
+	 CyB+5JYno3x7W/gyXSSKAtweTcD8cKbfg+85GSpprAEx4coalBi8P/KHl9LkdVf0JZ
+	 ptaO5wZC2Psvu0S3uEzCPApX/H+23jbUtW96cM5+JC4A7VNf1DpwCrW1YnJzVxMyhV
+	 BsQLabd+AN4CeW55pldKWnkDyzNRZWAGUVF+khv7qabXPlkRQUtazSrJmV6vvGg4g3
+	 PSPoPPTX+3hmI9y5Z5iIyr3RWVkQE3eiL2qQfiIJQRoJmTeZuRa0rLUH7SW5JA7zF9
+	 /A/Vlg55IyVZg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1733132954; x=1733393454; i=teddy.astie@vates.tech;
+	bh=ucqGhHnOiz/ZBpgQgGjtVLuUnH2uZLJRFuH6QWW+l5E=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=A8l/Q1xeAZk2B3wRWBBLp8UAeUsxSg1H6y66f2qvSqlJFuX8Z3n57kFybm4b9yUJ7
+	 3bckRJJB5t0EkeeA07lPkOQTpdvG4YdzPGVv3YU+nMBEpalMQM0jhjN+O0TgaBsAma
+	 Jr4EdxR+89XmigYbpztNouGfEhwEsYrcgr2tzR4HPjusKpuxo/bEDx6PXG8WuOVoeu
+	 uMXyS4jTesJnT+bQS9THG+tQ6YUMiZcliRFCCRte+NGY1gecoDKoCWw3Vz0wXlXJ07
+	 SuLJ029IJdGlolZ46Tts0iqxycIxr1tpHhnZwppm5Si5c7JPtbaVVcIaZmNkGkDXZc
+	 8Hfdy4vG09cfA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[XEN=20PATCH=20v2]=20x86/hvm:=20Use=20constants=20for=20x86=20modes?=
+X-Mailer: git-send-email 2.45.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1733132953401
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Paul Durrant" <paul@xen.org>
+Message-Id: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.5b8a2aa0c92547d784c63cf2f1c94b70?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241202:md
+Date: Mon, 02 Dec 2024 09:49:14 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/15] x86/boot: add cmdline to struct boot_domain
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
- <20241123182044.30687-4-dpsmith@apertussolutions.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241123182044.30687-4-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On 23.11.2024 19:20, Daniel P. Smith wrote:
-> --- a/xen/arch/x86/hvm/dom0_build.c
-> +++ b/xen/arch/x86/hvm/dom0_build.c
-> @@ -644,9 +644,11 @@ static bool __init check_and_adjust_load_address(
->  }
->  
->  static int __init pvh_load_kernel(
-> -    struct domain *d, struct boot_module *image, struct boot_module *initrd,
-> -    paddr_t *entry, paddr_t *start_info_addr)
-> +    struct boot_domain *bd, paddr_t *entry, paddr_t *start_info_addr)
->  {
-> +    struct domain *d = bd->d;
-> +    struct boot_module *image = bd->kernel;
-> +    struct boot_module *initrd = bd->ramdisk;
->      void *image_base = bootstrap_map_bm(image);
->      void *image_start = image_base + image->headroom;
->      unsigned long image_len = image->size;
-> @@ -1304,14 +1306,12 @@ static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
->  int __init dom0_construct_pvh(struct boot_domain *bd)
->  {
->      paddr_t entry, start_info;
-> -    struct boot_module *image = bd->kernel;
-> -    struct boot_module *initrd = bd->ramdisk;
->      struct domain *d = bd->d;
->      int rc;
->  
->      printk(XENLOG_INFO "*** Building a PVH Dom%d ***\n", d->domain_id);
->  
-> -    if ( image == NULL )
-> +    if ( bd->kernel == NULL )
->          panic("Missing kernel boot module for %pd construction\n", d);
->  
->      if ( is_hardware_domain(d) )
-> @@ -1351,7 +1351,7 @@ int __init dom0_construct_pvh(struct boot_domain *bd)
->          return rc;
->      }
->  
-> -    rc = pvh_load_kernel(d, image, initrd, &entry, &start_info);
-> +    rc = pvh_load_kernel(bd, &entry, &start_info);
->      if ( rc )
->      {
->          printk("Failed to load Dom0 kernel\n");
+In many places of x86 HVM code, constants integer are used to indicate in what mode is
+running the CPU (real, vm86, 16-bits, 32-bits, 64-bits). However, these constants are
+are written directly as integer which hides the actual meaning of these modes.
 
-None of this looks command line related - do these changes rather belong into
-patch 1?
+This patch introduces X86_MODE_* macros and replace those occurences with it.
 
-Jan
+Signed-off-by Teddy Astie <teddy.astie@vates.tech>
+---
+v2:
+Formatting changes (alignment, ...)
+Renamed v86 to vm86. (Jan)
+---
+ xen/arch/x86/hvm/emulate.c           | 18 ++++++++++--------
+ xen/arch/x86/hvm/hypercall.c         | 13 +++++++------
+ xen/arch/x86/hvm/viridian/viridian.c |  9 +++++----
+ xen/arch/x86/hvm/vmx/vmx.c           |  9 +++++----
+ xen/arch/x86/hvm/vmx/vvmx.c          |  5 +++--
+ xen/arch/x86/include/asm/hvm/hvm.h   |  6 ++++++
+ 6 files changed, 36 insertions(+), 24 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+index f2bc6967df..9721fd8d4d 100644
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -2433,14 +2433,15 @@ static void cf_check hvmemul_put_fpu(
+ 
+         switch ( mode )
+         {
+-        case 8:
++        case X86_MODE_64BIT:
+             fpu_ctxt->fip.addr = aux->ip;
+             if ( dval )
+                 fpu_ctxt->fdp.addr = aux->dp;
+             fpu_ctxt->x[FPU_WORD_SIZE_OFFSET] = 8;
+             break;
+ 
+-        case 4: case 2:
++        case X86_MODE_32BIT:
++        case X86_MODE_16BIT:
+             fpu_ctxt->fip.offs = aux->ip;
+             fpu_ctxt->fip.sel  = aux->cs;
+             if ( dval )
+@@ -2451,7 +2452,8 @@ static void cf_check hvmemul_put_fpu(
+             fpu_ctxt->x[FPU_WORD_SIZE_OFFSET] = mode;
+             break;
+ 
+-        case 0: case 1:
++        case X86_MODE_REAL:
++        case X86_MODE_VM86:
+             fpu_ctxt->fip.addr = aux->ip | (aux->cs << 4);
+             if ( dval )
+                 fpu_ctxt->fdp.addr = aux->dp | (aux->ds << 4);
+@@ -2952,11 +2954,11 @@ static const char *guest_x86_mode_to_str(int mode)
+ {
+     switch ( mode )
+     {
+-    case 0:  return "Real";
+-    case 1:  return "v86";
+-    case 2:  return "16bit";
+-    case 4:  return "32bit";
+-    case 8:  return "64bit";
++    case X86_MODE_REAL:   return "Real";
++    case X86_MODE_VM86:   return "v86";
++    case X86_MODE_16BIT:  return "16bit";
++    case X86_MODE_32BIT:  return "32bit";
++    case X86_MODE_64BIT:  return "64bit";
+     default: return "Unknown";
+     }
+ }
+diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
+index 81883c8d4f..dd5b017fd1 100644
+--- a/xen/arch/x86/hvm/hypercall.c
++++ b/xen/arch/x86/hvm/hypercall.c
+@@ -11,6 +11,7 @@
+ #include <xen/ioreq.h>
+ #include <xen/nospec.h>
+ 
++#include <asm/hvm/hvm.h>
+ #include <asm/hvm/emulate.h>
+ #include <asm/hvm/support.h>
+ #include <asm/hvm/viridian.h>
+@@ -112,23 +113,23 @@ int hvm_hypercall(struct cpu_user_regs *regs)
+ 
+     switch ( mode )
+     {
+-    case 8:
++    case X86_MODE_64BIT:
+         eax = regs->rax;
+         fallthrough;
+-    case 4:
+-    case 2:
++    case X86_MODE_32BIT:
++    case X86_MODE_16BIT:
+         if ( currd->arch.monitor.guest_request_userspace_enabled &&
+             eax == __HYPERVISOR_hvm_op &&
+-            (mode == 8 ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
++            (mode == X86_MODE_64BIT ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
+             break;
+ 
+         if ( likely(!hvm_get_cpl(curr)) )
+             break;
+         fallthrough;
+-    default:
++    case X86_MODE_VM86:
+         regs->rax = -EPERM;
+         return HVM_HCALL_completed;
+-    case 0:
++    case X86_MODE_REAL:
+         break;
+     }
+ 
+diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridian/viridian.c
+index 21480d9ee7..0e3b824bf0 100644
+--- a/xen/arch/x86/hvm/viridian/viridian.c
++++ b/xen/arch/x86/hvm/viridian/viridian.c
+@@ -16,6 +16,7 @@
+ #include <asm/paging.h>
+ #include <asm/p2m.h>
+ #include <asm/apic.h>
++#include <asm/hvm/hvm.h>
+ #include <public/sched.h>
+ #include <public/hvm/hvm_op.h>
+ 
+@@ -933,13 +934,13 @@ int viridian_hypercall(struct cpu_user_regs *regs)
+ 
+     switch ( mode )
+     {
+-    case 8:
++    case X86_MODE_64BIT:
+         input.raw = regs->rcx;
+         input_params_gpa = regs->rdx;
+         output_params_gpa = regs->r8;
+         break;
+ 
+-    case 4:
++    case X86_MODE_32BIT:
+         input.raw = (regs->rdx << 32) | regs->eax;
+         input_params_gpa = (regs->rbx << 32) | regs->ecx;
+         output_params_gpa = (regs->rdi << 32) | regs->esi;
+@@ -1038,11 +1039,11 @@ int viridian_hypercall(struct cpu_user_regs *regs)
+ 
+     switch ( mode )
+     {
+-    case 8:
++    case X86_MODE_64BIT:
+         regs->rax = output.raw;
+         break;
+ 
+-    case 4:
++    case X86_MODE_32BIT:
+         regs->rdx = output.raw >> 32;
+         regs->rax = (uint32_t)output.raw;
+         break;
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index b6885d0e27..eee1d4b47a 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -886,14 +886,15 @@ int cf_check vmx_guest_x86_mode(struct vcpu *v)
+     unsigned long cs_ar_bytes;
+ 
+     if ( unlikely(!(v->arch.hvm.guest_cr[0] & X86_CR0_PE)) )
+-        return 0;
++        return X86_MODE_REAL;
+     if ( unlikely(guest_cpu_user_regs()->eflags & X86_EFLAGS_VM) )
+-        return 1;
++        return X86_MODE_VM86;
+     __vmread(GUEST_CS_AR_BYTES, &cs_ar_bytes);
+     if ( hvm_long_mode_active(v) &&
+          likely(cs_ar_bytes & X86_SEG_AR_CS_LM_ACTIVE) )
+-        return 8;
+-    return (likely(cs_ar_bytes & X86_SEG_AR_DEF_OP_SIZE) ? 4 : 2);
++        return X86_MODE_64BIT;
++    return (likely(cs_ar_bytes & X86_SEG_AR_DEF_OP_SIZE)
++            ? X86_MODE_32BIT : X86_MODE_16BIT);
+ }
+ 
+ static void vmx_save_dr(struct vcpu *v)
+diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+index 78135ca23b..c267b101d1 100644
+--- a/xen/arch/x86/hvm/vmx/vvmx.c
++++ b/xen/arch/x86/hvm/vmx/vvmx.c
+@@ -411,7 +411,7 @@ static int decode_vmx_inst(struct cpu_user_regs *regs,
+     }
+     else
+     {
+-        bool mode_64bit = (vmx_guest_x86_mode(v) == 8);
++        bool mode_64bit = (vmx_guest_x86_mode(v) == X86_MODE_64BIT);
+ 
+         decode->type = VMX_INST_MEMREG_TYPE_MEMORY;
+ 
+@@ -2073,7 +2073,8 @@ int nvmx_handle_vmx_insn(struct cpu_user_regs *regs, unsigned int exit_reason)
+ 
+     if ( !(curr->arch.hvm.guest_cr[4] & X86_CR4_VMXE) ||
+          !nestedhvm_enabled(curr->domain) ||
+-         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? 8 : 2)) ||
++         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? X86_MODE_64BIT
++                                                                 : X86_MODE_16BIT)) ||
+          (exit_reason != EXIT_REASON_VMXON && !nvmx_vcpu_in_vmx(curr)) )
+     {
+         hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
+diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+index 02de18c7d4..dbc37e8b75 100644
+--- a/xen/arch/x86/include/asm/hvm/hvm.h
++++ b/xen/arch/x86/include/asm/hvm/hvm.h
+@@ -26,6 +26,12 @@ extern bool opt_hvm_fep;
+ #define opt_hvm_fep 0
+ #endif
+ 
++#define X86_MODE_REAL  0
++#define X86_MODE_VM86  1
++#define X86_MODE_16BIT 2
++#define X86_MODE_32BIT 4
++#define X86_MODE_64BIT 8
++
+ /* Interrupt acknowledgement sources. */
+ enum hvm_intsrc {
+     hvm_intsrc_none,
+-- 
+2.45.2
+
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
