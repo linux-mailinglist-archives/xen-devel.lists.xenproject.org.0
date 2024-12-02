@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CEE69E00FD
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 12:53:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.846601.1261758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1EB89E012A
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 13:00:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.846613.1261769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI4zS-0006mH-9k; Mon, 02 Dec 2024 11:53:22 +0000
+	id 1tI56H-0008Lo-3p; Mon, 02 Dec 2024 12:00:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 846601.1261758; Mon, 02 Dec 2024 11:53:22 +0000
+Received: by outflank-mailman (output) from mailman id 846613.1261769; Mon, 02 Dec 2024 12:00:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI4zS-0006jc-78; Mon, 02 Dec 2024 11:53:22 +0000
-Received: by outflank-mailman (input) for mailman id 846601;
- Mon, 02 Dec 2024 11:53:20 +0000
+	id 1tI56H-0008KL-0p; Mon, 02 Dec 2024 12:00:25 +0000
+Received: by outflank-mailman (input) for mailman id 846613;
+ Mon, 02 Dec 2024 12:00:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iCIG=S3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tI4zQ-0006jW-Lc
- for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 11:53:20 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1tI56E-0008KB-Uz
+ for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 12:00:22 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0496534d-b0a4-11ef-a0d2-8be0dac302b0;
- Mon, 02 Dec 2024 12:53:17 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-aa5b0d8bd41so483578166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 03:53:17 -0800 (PST)
+ id 00c392a8-b0a5-11ef-a0d2-8be0dac302b0;
+ Mon, 02 Dec 2024 13:00:20 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-385e25c5d75so1432099f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 04:00:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5998e6a4csm506173866b.106.2024.12.02.03.53.15
+ ffacd0b85a97d-385f8448d32sm824502f8f.96.2024.12.02.04.00.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 03:53:16 -0800 (PST)
+ Mon, 02 Dec 2024 04:00:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0496534d-b0a4-11ef-a0d2-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MmIiLCJoZWxvIjoibWFpbC1lajEteDYyYi5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjA0OTY1MzRkLWIwYTQtMTFlZi1hMGQyLThiZTBkYWMzMDJiMCIsInRzIjoxNzMzMTQwMzk3LjMxNDg1OSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 00c392a8-b0a5-11ef-a0d2-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmMiLCJoZWxvIjoibWFpbC13cjEteDQyYy5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjAwYzM5MmE4LWIwYTUtMTFlZi1hMGQyLThiZTBkYWMzMDJiMCIsInRzIjoxNzMzMTQwODIwLjI4Mzk0NCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733140396; x=1733745196; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733140819; x=1733745619; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5DoJVkRDl7xqQfr3XVSjHuo8s60t3A5HPd+qP0iUR2M=;
-        b=Ph0XTUPt9AUR8w8z8LXWGegtDGwsNsqj9GBjp0ahnaLLEAyAx6FLTIwQ9lXesfOztA
-         LKf21ybY4KgVODmRY4/1QxA9LR2StRH/rFS/e793U6smHCdjPrIGeWYHr0YF7lxq3/Db
-         ZiYLOOVj7g8FPfpokhwheA3yTjj/Iu/rP6RbJrVICiE7r7lwMLA1H0Qsh6PS6LqTQLM1
-         xHJ4IQx1aNZLELM6y8ZNgormw8aBGk9ih4qOckQmkwucc0DxNWSuV4Q3ynnoWcVuim6Q
-         D4rV5cUdKyHdrbvTgJIeaIlJctftU8JTNIJsgvjhdPlKgJc4cDahY/wKuUeP6vSKCBMw
-         82vg==
+        bh=4b96tTSo18/UJ5vXpie39GiiFQDkPf0RfaBo0sXQzKE=;
+        b=PmmFNDU30Z/ig/hwEWDZYDft5mO6W8YzNEVnRI0GR0t+CdLJ5nkrir89StuJx7c6pN
+         G6ds4Dder7NfYttydjdZK7tWPM7nYakk0PsyNvX+jFykHmlfcmcJVziAP6mu7Qmj0pXO
+         7pKlSs8zVnNW8WrGTVtiNvShguKn9Yd0bcovpxBRXC78GPpOSkJxfB3BVrB3Vz+NXmCD
+         m6xJ8j37dnxKl989qmOJD3gHRFV7QdMrzd0h+t1Qry9Z6mRQYbGvnf3hvM87N/PvyqQ/
+         PTY1u+4G4HQMNPF0fa26Ou8P1BV6r16s8bepVlIpl5uJoS/v+Y3ldqvdtdIBYU0TqLAq
+         TkLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733140396; x=1733745196;
+        d=1e100.net; s=20230601; t=1733140819; x=1733745619;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5DoJVkRDl7xqQfr3XVSjHuo8s60t3A5HPd+qP0iUR2M=;
-        b=byiNrKew2MYRjcJliJ659SsnVQ+4yxSLi3EnJfRtTJXgiPQD4AR5ioQDFD6fQZBYw/
-         3E04/fup7ELqe4QgnF32H+zHU6+uIn/KesBfqfBLupyfsJ/7gWKPdU+S0xIiRZX8vhTF
-         mxsN5ElYh39YC6dXl7lyM/3WmzoJrwhPT2zi3QwNXmNwk9dVJefmlF/efxI4LfzW+P/r
-         dnQnzPVgT5DDjj3Fas+sdbLaZkZbPmgjjKlouq9gk0a1r52k+7WaQFzbVwnJQ6ItebHV
-         t0j9Qd+ubc3PfZib1N0UCUzLTnQnhDAjTquMX6tYo5Ma5ipF6UD4ohnM12qNmUXE7sEA
-         CXIw==
-X-Forwarded-Encrypted: i=1; AJvYcCUNTYzGqau10JiynPM4JiwWYNtZwvucZpJqYg21h2cjF18mdIUwA8yGMmzxN9sUKAOkvnXP8H74138=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw7AJY0bp1qs108VeVlPXx9jDfa1sewvCWcI1+8m4tAFjceY8kB
-	CfE98OfsLXu+YAk1k6LFZDp2cW1z8Mdqp6MexGXZmui2N3BJf9q1GXYg8Qh58g==
-X-Gm-Gg: ASbGnctaLSVSpuiu2WveB3Vv8r9SORnAeYjW8EZsXtWtDwPWtAOFKUQcWk8EyV46Kio
-	qy8bXqDJtWZVKd38TJJQdy+IaiBdHvpbi3xpfik6jXtCVgFNa87jiT4m3PlFMVk2+Fra56W+xOI
-	ihD0tF775yW5EwoKJBT1y//KOqknpllKGlq9Slmp8dzwmCQnh1mRR5/uvQdatqYSe549wQFxpSn
-	KME4NpYHvi7iVJMd683PWg1rrWEuBPd8R2+1QYWrIyr119Gbz+m6rWAY6nhw/pjczsaqNJ6Gcuf
-	uHWUgQZNoH0lC1A5i56HSghkc9dHOxTOkao=
-X-Google-Smtp-Source: AGHT+IEZqItffRhnEE3Z99JLOePc9SGQCNLZJThczJcrs8fxacPAWKXR4tL2LSp7bTQ8l3GVRfdsGw==
-X-Received: by 2002:a17:906:1bb1:b0:a9a:1739:91e9 with SMTP id a640c23a62f3a-aa580f26c3bmr1864896366b.24.1733140396515;
-        Mon, 02 Dec 2024 03:53:16 -0800 (PST)
-Message-ID: <91e6d4e7-b4ff-4e13-8814-95eaac891cf4@suse.com>
-Date: Mon, 2 Dec 2024 12:53:18 +0100
+        bh=4b96tTSo18/UJ5vXpie39GiiFQDkPf0RfaBo0sXQzKE=;
+        b=uWnE8nUOjJRl9MY2pL50kLmR5DuNg4D+d770Gr+Hiw5OTph/P0Ea1h4NVDXK8vNPid
+         KZsXn5hiObRbotMPGBFLljYLOP5osn/784Z4tabSRXuVNmH/jVVPrOeJ0GbrhXKO8Ftg
+         bxuic4RWN4cqhROejEqUdHVtVS9zgaEY1pGXhtZGN6iNqOH32OMPe1J3Nc5oKHH+tEA2
+         hIVLsYl7/SI0W7P4OeNeepm5/fLxReY+JOvLuJDLHeU4GyWMlguI8BoxOk5HeuQt6xGc
+         OzoJHxuopMis6HmDTYO7sVGhhn+Upcgid6Ltm/8QVq0U6DbJRUhooNrqKOPX5kJpc59A
+         5/Cg==
+X-Forwarded-Encrypted: i=1; AJvYcCW0ylp+VRm7DSHXXcEC/75lvxY79bXYnazSiFcikeB4M6xschXs5gYw2fu2mtow52mXRaKvKfN5Bi8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxhHjVAmAvuihUduu4zX8XTKY3rIUrWTjF/8IMK5vqDbDamd55w
+	e2yjawzYnBvfS2E/XrB8Br47iUwFx4P2esFNSmRbrov0GJ4Ult+kuxCQKd43DQ==
+X-Gm-Gg: ASbGncsWw51ue2MLYmbs0dnevqQZGDpKY5hQh0rgF3u0bO9pRza+YLo4CdxJtZxVBQz
+	fps/1YpCuwaBF8fyTxwXs7pSV6xR4CzleXXrlB6y52w7TUSRQDAEwyZxMMY0rp/3LY7BUrv3gjn
+	Ln7u8piPGdqanvfYzurhyR3eQ5gjdZEGdZi/qNzR3bm+lBStV3r/jsR2lS+yQ2/S4xUSwvAXbTf
+	AZnpcE6vxosgDbW1naecRt7OnMvk2FbJ1rpRU7XkNEpnqjoBctgDTXeL2sl3IoGbpIorKM5fN1A
+	08yy7yywIczjB3K2YXdobId7ju5i7B2Gus8=
+X-Google-Smtp-Source: AGHT+IFAy7vm/qZ68W05kBIAmoDwdHgtnv6bA9nn1qAC3gFO+DCF18Cuu2KyjmKkTX0U6TZNWVGKOg==
+X-Received: by 2002:a5d:6f09:0:b0:385:eecb:6f02 with SMTP id ffacd0b85a97d-385eecb7143mr4456149f8f.28.1733140819629;
+        Mon, 02 Dec 2024 04:00:19 -0800 (PST)
+Message-ID: <4dbd5882-0724-4023-9c0e-43c82eba2b80@suse.com>
+Date: Mon, 2 Dec 2024 13:00:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/15] x86/hyperlaunch: locate dom0 kernel with
- hyperlaunch
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 11/15] x86/hyperlaunch: add domain id parsing to domain
+ config
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
- <20241123182044.30687-9-dpsmith@apertussolutions.com>
+ <20241123182044.30687-12-dpsmith@apertussolutions.com>
+ <99177823-38d9-4aca-af84-150ae6f37a25@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,212 +124,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241123182044.30687-9-dpsmith@apertussolutions.com>
+In-Reply-To: <99177823-38d9-4aca-af84-150ae6f37a25@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.11.2024 19:20, Daniel P. Smith wrote:
-> Look for a subnode of type `multiboot,kernel` within a domain node. If found,
-> process the reg property for the MB1 module index. If the bootargs property is
-> present and there was not an MB1 string, then use the command line from the
-> device tree definition.
+On 26.11.2024 00:45, Jason Andryuk wrote:
+> On 2024-11-23 13:20, Daniel P. Smith wrote:
+>> @@ -186,6 +209,12 @@ static int __init process_domain_node(
+>>           return -EFAULT;
+>>       }
+>>   
+>> +    if ( bd->domid == DOMID_INVALID )
+>> +        bd->domid = get_initial_domain_id();
+>> +    else
+>> +        if ( bd->domid != get_initial_domain_id() )
+> 
+> single line "else if"?
 
-Why specifically MB1?
+Yes.
 
-> --- a/xen/arch/x86/domain_builder/core.c
-> +++ b/xen/arch/x86/domain_builder/core.c
-> @@ -56,6 +56,18 @@ void __init builder_init(struct boot_info *bi)
->  
->          printk(XENLOG_INFO "  Number of domains: %d\n", bi->nr_domains);
->      }
-> +    else
-> +    {
-> +        int i;
+>> +            printk(XENLOG_WARNING "WARN: unsuported booting not using initial domid\n");
+> 
+> "unsupported"
+> 
+> Maybe "Booting without initial domid not supported"?
 
-Plain int when ...
-
-> +        /* Find first unknown boot module to use as Dom0 kernel */
-> +        printk("Falling back to using first boot module as dom0\n");
-> +        i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
-> +        bi->mods[i].type = BOOTMOD_KERNEL;
-> +        bi->domains[0].kernel = &bi->mods[i];
-> +        bi->nr_domains = 1;
-> +    }
-
-... it's used as array index (and there's no check for the function return
-value being negative)?
-
-> --- a/xen/arch/x86/domain_builder/fdt.c
-> +++ b/xen/arch/x86/domain_builder/fdt.c
-> @@ -14,6 +14,122 @@
->  
->  #include "fdt.h"
->  
-> +static inline int __init fdt_get_prop_as_reg(
-
-What does "reg" stand for here?
-
-> +    const void *fdt, int node, const char *name, unsigned int ssize,
-> +    unsigned int asize, uint64_t *size, uint64_t *addr)
-> +{
-> +    int ret;
-> +    const struct fdt_property *prop;
-> +    fdt32_t *cell;
-> +
-> +    /* FDT spec max size is 4 (128bit int), but largest arch int size is 64 */
-> +    if ( ssize > 2 || asize > 2 )
-> +        return -EINVAL;
-> +
-> +    prop = fdt_get_property(fdt, node, name, &ret);
-> +    if ( !prop || ret < sizeof(u32) )
-> +        return ret < 0 ? ret : -EINVAL;
-> +
-> +    /* read address field */
-> +    cell = (fdt32_t *)prop->data;
-> +
-> +    if ( asize == 1 )
-> +    {
-> +        uint32_t val;
-> +        fdt_cell_as_u32(cell, &val);
-> +        *addr = (uint64_t)val;
-
-No need for a cast here nor ...
-
-> +    }
-> +    else
-> +        fdt_cell_as_u64(cell, addr);
-> +
-> +    /* read size field */
-> +    cell += asize;
-> +
-> +    if ( ssize == 1 )
-> +    {
-> +        uint32_t val;
-> +        fdt_cell_as_u32(cell, &val);
-> +        *size = (uint64_t)val;
-
-... here?
-
-> +    }
-> +    else
-> +        fdt_cell_as_u64(cell, size);
-> +
-> +    return 0;
-> +}
-
-This whole function reads very much like a library one. Does it really need
-adding here, rather than to the FDT library code we already have? In any
-event there's nothing x86-specific about it, afaics.
-
-> +static int __init dom0less_module_node(
-> +    void *fdt, int node, int size_size, int address_size)
-
-Three times plain int, when ...
-
-> +{
-> +    uint64_t size, addr;
-> +    int ret = fdt_get_prop_as_reg(fdt, node, "reg", size_size, address_size,
-
-... two get converted to unsigned int in the course of the function call
-here?
-
-> +                                  &size, &addr);
-> +    /* An FDT error value may have been returned, translate to -EINVAL */
-> +    if ( ret < 0 )
-> +        return -EINVAL;
-> +
-> +    if ( size != 0 )
-> +        return -EOPNOTSUPP;
-
-Not knowing much about DT: What does 0 represent here?
-
-> +    if ( addr > MAX_NR_BOOTMODS )
-> +        return -ERANGE;
-> +
-> +    /*
-> +     * MAX_NR_BOOTMODS cannot exceed the max for MB1, represented by a u32,
-> +     * thus the cast down to a u32 will be safe due to the prior check.
-> +     */
-> +    return (int)addr;
-
-Comment and cast contradict one another. DYM u32 (really: uint32_t), or plain
-int? If you mean to return a plain int (for the sake of the -errno values
-further up), MAX_NR_BOOTMODS needs to stay below 2**31.
-
-> +static int __init process_domain_node(
-> +    struct boot_info *bi, void *fdt, int dom_node)
-> +{
-> +    int node;
-> +    struct boot_domain *bd = &bi->domains[bi->nr_domains];
-> +    const char *name = fdt_get_name(fdt, dom_node, NULL);
-> +    int address_size = fdt_address_cells(fdt, dom_node);
-> +    int size_size = fdt_size_cells(fdt, dom_node);
-> +
-> +    if ( address_size < 0 || size_size < 0 )
-> +    {
-> +        printk("  failed processing #address or #size for domain %s)\n",
-> +               name == NULL ? "unknown" : name);
-> +        return -EINVAL;
-> +    }
-> +
-> +    fdt_for_each_subnode(node, fdt, dom_node)
-> +    {
-> +        if ( fdt_node_check_compatible(fdt, node, "multiboot,kernel") == 0 )
-> +        {
-> +            int idx = dom0less_module_node(fdt, node, size_size, address_size);
-> +            if ( idx < 0 )
-> +            {
-> +                printk("  failed processing kernel module for domain %s)\n",
-> +                       name == NULL ? "unknown" : name);
-> +                return idx;
-> +            }
-> +
-> +            if ( idx > bi->nr_modules )
-> +            {
-> +                printk("  invalid kernel module index for domain node (%d)\n",
-> +                       bi->nr_domains);
-> +                return -EINVAL;
-> +            }
-> +
-> +            printk("  kernel: boot module %d\n", idx);
-> +            bi->mods[idx].type = BOOTMOD_KERNEL;
-> +            bd->kernel = &bi->mods[idx];
-> +        }
-> +    }
-
-What if you find two?
-
-> --- a/xen/arch/x86/domain_builder/fdt.h
-> +++ b/xen/arch/x86/domain_builder/fdt.h
-> @@ -3,6 +3,7 @@
->  #define __XEN_X86_FDT_H__
->  
->  #include <xen/init.h>
-> +#include <xen/libfdt/libfdt.h>
->  
->  #include <asm/bootinfo.h>
->  
-> @@ -10,6 +11,22 @@
->  #define HYPERLAUNCH_MODULE_IDX 0
->  
->  #ifdef CONFIG_DOMAIN_BUILDER
-> +
-> +static inline int __init fdt_cell_as_u32(const fdt32_t *cell, uint32_t *val)
-> +{
-> +    *val = fdt32_to_cpu(*cell);
-> +
-> +    return 0;
-> +}
-> +
-> +static inline int __init fdt_cell_as_u64(const fdt32_t *cell, uint64_t *val)
-> +{
-> +    *val = ((uint64_t)fdt32_to_cpu(cell[0]) << 32) |
-> +           (uint64_t)fdt32_to_cpu(cell[1]);
-> +
-> +    return 0;
-> +}
-
-Basic library routines again?
+Plus the line then wants splitting after XENLOG_WARNING.
 
 Jan
 
