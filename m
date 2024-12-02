@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1EB89E012A
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 13:00:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.846613.1261769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 839239E013C
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 13:02:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.846622.1261778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI56H-0008Lo-3p; Mon, 02 Dec 2024 12:00:25 +0000
+	id 1tI58T-0000kc-F4; Mon, 02 Dec 2024 12:02:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 846613.1261769; Mon, 02 Dec 2024 12:00:25 +0000
+Received: by outflank-mailman (output) from mailman id 846622.1261778; Mon, 02 Dec 2024 12:02:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI56H-0008KL-0p; Mon, 02 Dec 2024 12:00:25 +0000
-Received: by outflank-mailman (input) for mailman id 846613;
- Mon, 02 Dec 2024 12:00:23 +0000
+	id 1tI58T-0000ir-CE; Mon, 02 Dec 2024 12:02:41 +0000
+Received: by outflank-mailman (input) for mailman id 846622;
+ Mon, 02 Dec 2024 12:02:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iCIG=S3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tI56E-0008KB-Uz
- for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 12:00:22 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1tI58S-0000il-9T
+ for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 12:02:40 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00c392a8-b0a5-11ef-a0d2-8be0dac302b0;
- Mon, 02 Dec 2024 13:00:20 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-385e25c5d75so1432099f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 04:00:20 -0800 (PST)
+ id 529a2a1a-b0a5-11ef-a0d2-8be0dac302b0;
+ Mon, 02 Dec 2024 13:02:37 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4349fb56260so35776335e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 04:02:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-385f8448d32sm824502f8f.96.2024.12.02.04.00.17
+ ffacd0b85a97d-385dd99504csm10333233f8f.85.2024.12.02.04.02.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 04:00:18 -0800 (PST)
+ Mon, 02 Dec 2024 04:02:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00c392a8-b0a5-11ef-a0d2-8be0dac302b0
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo0MmMiLCJoZWxvIjoibWFpbC13cjEteDQyYy5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6IjAwYzM5MmE4LWIwYTUtMTFlZi1hMGQyLThiZTBkYWMzMDJiMCIsInRzIjoxNzMzMTQwODIwLjI4Mzk0NCwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 529a2a1a-b0a5-11ef-a0d2-8be0dac302b0
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjozMmUiLCJoZWxvIjoibWFpbC13bTEteDMyZS5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjUyOWEyYTFhLWIwYTUtMTFlZi1hMGQyLThiZTBkYWMzMDJiMCIsInRzIjoxNzMzMTQwOTU3LjU3MDE5Niwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733140819; x=1733745619; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733140957; x=1733745757; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4b96tTSo18/UJ5vXpie39GiiFQDkPf0RfaBo0sXQzKE=;
-        b=PmmFNDU30Z/ig/hwEWDZYDft5mO6W8YzNEVnRI0GR0t+CdLJ5nkrir89StuJx7c6pN
-         G6ds4Dder7NfYttydjdZK7tWPM7nYakk0PsyNvX+jFykHmlfcmcJVziAP6mu7Qmj0pXO
-         7pKlSs8zVnNW8WrGTVtiNvShguKn9Yd0bcovpxBRXC78GPpOSkJxfB3BVrB3Vz+NXmCD
-         m6xJ8j37dnxKl989qmOJD3gHRFV7QdMrzd0h+t1Qry9Z6mRQYbGvnf3hvM87N/PvyqQ/
-         PTY1u+4G4HQMNPF0fa26Ou8P1BV6r16s8bepVlIpl5uJoS/v+Y3ldqvdtdIBYU0TqLAq
-         TkLA==
+        bh=yYZblrAheqyANJS/2YXXWISZ98F4iN3X0U4SDz7Anus=;
+        b=VQZQ7j+2yZgCsWSQxYEi3eega0UvSqECieSVDtzRpNgJHVtrMvhMQ6WT0bUwxgA5Am
+         0NLwAVy/BF7cj3UMo5uS6O85Hl1W8Ij2gQOPqA3wzV/s9HLyhrZcOGz0VxXMmmvsqBoY
+         akgcQCJQbbIHMFsxVkyt0hgS+ZO09MAB/fJA+ZWKOV4TUKzxTVUMBI2iopTnTGjHsGIV
+         35K2sG6KOun70MmLS9mGsr5yMBEn1LEmE9ltlVHCHACv3FUGj4FFDOrGHJbtFVzlWEd1
+         l9TNSoOb+WIth5TwyoYHBqmF6QGug+dKLNmmFILTVLyMYGL2ksm39FylYMkiSh/mMHsC
+         h6lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733140819; x=1733745619;
+        d=1e100.net; s=20230601; t=1733140957; x=1733745757;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4b96tTSo18/UJ5vXpie39GiiFQDkPf0RfaBo0sXQzKE=;
-        b=uWnE8nUOjJRl9MY2pL50kLmR5DuNg4D+d770Gr+Hiw5OTph/P0Ea1h4NVDXK8vNPid
-         KZsXn5hiObRbotMPGBFLljYLOP5osn/784Z4tabSRXuVNmH/jVVPrOeJ0GbrhXKO8Ftg
-         bxuic4RWN4cqhROejEqUdHVtVS9zgaEY1pGXhtZGN6iNqOH32OMPe1J3Nc5oKHH+tEA2
-         hIVLsYl7/SI0W7P4OeNeepm5/fLxReY+JOvLuJDLHeU4GyWMlguI8BoxOk5HeuQt6xGc
-         OzoJHxuopMis6HmDTYO7sVGhhn+Upcgid6Ltm/8QVq0U6DbJRUhooNrqKOPX5kJpc59A
-         5/Cg==
-X-Forwarded-Encrypted: i=1; AJvYcCW0ylp+VRm7DSHXXcEC/75lvxY79bXYnazSiFcikeB4M6xschXs5gYw2fu2mtow52mXRaKvKfN5Bi8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxhHjVAmAvuihUduu4zX8XTKY3rIUrWTjF/8IMK5vqDbDamd55w
-	e2yjawzYnBvfS2E/XrB8Br47iUwFx4P2esFNSmRbrov0GJ4Ult+kuxCQKd43DQ==
-X-Gm-Gg: ASbGncsWw51ue2MLYmbs0dnevqQZGDpKY5hQh0rgF3u0bO9pRza+YLo4CdxJtZxVBQz
-	fps/1YpCuwaBF8fyTxwXs7pSV6xR4CzleXXrlB6y52w7TUSRQDAEwyZxMMY0rp/3LY7BUrv3gjn
-	Ln7u8piPGdqanvfYzurhyR3eQ5gjdZEGdZi/qNzR3bm+lBStV3r/jsR2lS+yQ2/S4xUSwvAXbTf
-	AZnpcE6vxosgDbW1naecRt7OnMvk2FbJ1rpRU7XkNEpnqjoBctgDTXeL2sl3IoGbpIorKM5fN1A
-	08yy7yywIczjB3K2YXdobId7ju5i7B2Gus8=
-X-Google-Smtp-Source: AGHT+IFAy7vm/qZ68W05kBIAmoDwdHgtnv6bA9nn1qAC3gFO+DCF18Cuu2KyjmKkTX0U6TZNWVGKOg==
-X-Received: by 2002:a5d:6f09:0:b0:385:eecb:6f02 with SMTP id ffacd0b85a97d-385eecb7143mr4456149f8f.28.1733140819629;
-        Mon, 02 Dec 2024 04:00:19 -0800 (PST)
-Message-ID: <4dbd5882-0724-4023-9c0e-43c82eba2b80@suse.com>
-Date: Mon, 2 Dec 2024 13:00:19 +0100
+        bh=yYZblrAheqyANJS/2YXXWISZ98F4iN3X0U4SDz7Anus=;
+        b=s9SKvOEdJl5d0pBHGcOyKYcA/MnC+sJGcIeHTiEUXSFZcDP35qmxBCNor6b/0mKl2R
+         r8YDX+yo8z7bAZ7QsMPhFhcws5pVFT0/Gsr78b4kvYcn8wnUAyq7CRs2+Ea3uyESgLR8
+         RBRqe2WvQHUgBOGh/oX+KTEkNYKSp8lxtWUyc8sE4ylw7O19/oJ8Tuhbq7EFh5vvvLdj
+         Gx4Kb4s0bLoHstr5YF7Lx5SDo5Rwk6yrO9hyDLnVULtJhE9U4nStf5lCOJrE201MBtqO
+         rG3OiFU5945CYWTYvW0rHjZ3Q9GR8jPgbF0+5cQ05TwAA2aGhap2+5tYclC9aSePwcAp
+         TZEw==
+X-Forwarded-Encrypted: i=1; AJvYcCXG1yWpfqWKZHY3QndXGyqOkpXWdWZg9tsdWFzHdL+3T5uplQY9SH/gXy/RfnEnG/B9Jrvi8lfdpVM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKC/1Ii3P/yz8Xc3BnRILGE/1sOe1+fAhfbZpOcNBd3swLzKS4
+	WeG87Gv5CYGoggFVM70SzC5lgB7Ld+afZTopq3qpf4J6oBGlc2n0RaHaYdT2VA==
+X-Gm-Gg: ASbGncupnWG/Kby4uR9hk9S5YsCHoa0pJiTXEGszNgZlAZ0MW1xOOfhBwPPwFh/14qr
+	vQdt0dClIgu+Zr8b9FymVQ9Xpu1VSRQTgook2JoE5r1wE/GY5SCseWxv/ZOaemTEePbTf0Pz5cK
+	A0CghT7jwjo/UhFTsHAhW8Lw00ttjHGhrz4edSLn2jFx2eZAJKQ7zbaV8NRN3U//2ZSw4ElyQgq
+	IYa3/ON5JQuF9haXBeGZrOBVeJjlXXC2DY0VmY2ZRWLGJPaAYM2w2z7PU3GHTSnDzcKh6XcXaJd
+	ecFJ7ThwkqTB5D1CXI8HqOE2du57W+8AgIA=
+X-Google-Smtp-Source: AGHT+IFiUOs2pvEvimK2zlxiSP7qFuaC067uLC9/xtuGhGasImd3ZXwfUCvMko3V0tahtCg8MGj8xA==
+X-Received: by 2002:a05:600c:1e03:b0:434:a805:1939 with SMTP id 5b1f17b1804b1-434a9e0a29amr175438035e9.33.1733140954037;
+        Mon, 02 Dec 2024 04:02:34 -0800 (PST)
+Message-ID: <8a492a4d-cc9c-4756-8fb9-721626c295a6@suse.com>
+Date: Mon, 2 Dec 2024 13:02:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 11/15] x86/hyperlaunch: add domain id parsing to domain
  config
-To: Jason Andryuk <jason.andryuk@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
  <20241123182044.30687-12-dpsmith@apertussolutions.com>
- <99177823-38d9-4aca-af84-150ae6f37a25@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,32 +122,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <99177823-38d9-4aca-af84-150ae6f37a25@amd.com>
+In-Reply-To: <20241123182044.30687-12-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.11.2024 00:45, Jason Andryuk wrote:
-> On 2024-11-23 13:20, Daniel P. Smith wrote:
->> @@ -186,6 +209,12 @@ static int __init process_domain_node(
->>           return -EFAULT;
->>       }
->>   
->> +    if ( bd->domid == DOMID_INVALID )
->> +        bd->domid = get_initial_domain_id();
->> +    else
->> +        if ( bd->domid != get_initial_domain_id() )
-> 
-> single line "else if"?
+On 23.11.2024 19:20, Daniel P. Smith wrote:
+> --- a/xen/arch/x86/domain_builder/fdt.h
+> +++ b/xen/arch/x86/domain_builder/fdt.h
+> @@ -27,6 +27,24 @@ static inline int __init fdt_cell_as_u64(const fdt32_t *cell, uint64_t *val)
+>      return 0;
+>  }
+>  
+> +static inline int __init fdt_prop_as_u32(
+> +    const struct fdt_property *prop, uint32_t *val)
+> +{
+> +    if ( !prop || fdt32_to_cpu(prop->len) < sizeof(u32) )
+> +        return -EINVAL;
+> +
+> +    return fdt_cell_as_u32((fdt32_t *)prop->data, val);
+> +}
+> +
+> +static inline bool __init match_fdt_property(
+> +    const void *fdt, const struct fdt_property *prop, const char *s)
+> +{
+> +    int slen, len = strlen(s);
 
-Yes.
+Plain int isn't quite appropriate for strlen()'s return. It doesn't strictly
+need to be size_t, but it should be at least unsigned int.
 
->> +            printk(XENLOG_WARNING "WARN: unsuported booting not using initial domid\n");
-> 
-> "unsupported"
-> 
-> Maybe "Booting without initial domid not supported"?
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1020,7 +1020,8 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+>  
+>      /* Create initial domain.  Not d0 for pvshim. */
+> -    bd->domid = get_initial_domain_id();
+> +    if ( bd->domid == DOMID_INVALID )
+> +        bd->domid = get_initial_domain_id();
 
-Plus the line then wants splitting after XENLOG_WARNING.
+Looks like the comment then wants to move, too.
 
 Jan
 
