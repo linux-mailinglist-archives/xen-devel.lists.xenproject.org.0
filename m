@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE129DFD4C
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 10:36:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.846439.1261607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDFEC9DFD6B
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2024 10:41:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.846455.1261621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI2qg-0006jL-P6; Mon, 02 Dec 2024 09:36:10 +0000
+	id 1tI2v8-0008Vw-C0; Mon, 02 Dec 2024 09:40:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 846439.1261607; Mon, 02 Dec 2024 09:36:10 +0000
+Received: by outflank-mailman (output) from mailman id 846455.1261621; Mon, 02 Dec 2024 09:40:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tI2qg-0006h5-M2; Mon, 02 Dec 2024 09:36:10 +0000
-Received: by outflank-mailman (input) for mailman id 846439;
- Mon, 02 Dec 2024 09:36:09 +0000
+	id 1tI2v8-0008Tc-8J; Mon, 02 Dec 2024 09:40:46 +0000
+Received: by outflank-mailman (input) for mailman id 846455;
+ Mon, 02 Dec 2024 09:40:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iCIG=S3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tI2qf-0006gv-At
- for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 09:36:09 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1tI2v6-0008TV-Kn
+ for xen-devel@lists.xenproject.org; Mon, 02 Dec 2024 09:40:44 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d864f676-b090-11ef-99a3-01e77a169b0f;
- Mon, 02 Dec 2024 10:36:02 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-aa51b8c5f4dso591857866b.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 01:36:02 -0800 (PST)
+ id 7e68b748-b091-11ef-99a3-01e77a169b0f;
+ Mon, 02 Dec 2024 10:40:41 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-aa535eed875so640280066b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2024 01:40:41 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa599953c81sm490983466b.184.2024.12.02.01.36.01
+ a640c23a62f3a-aa5998e63b8sm492733666b.123.2024.12.02.01.40.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Dec 2024 01:36:01 -0800 (PST)
+ Mon, 02 Dec 2024 01:40:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d864f676-b090-11ef-99a3-01e77a169b0f
-X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzQiLCJoZWxvIjoibWFpbC1lajEteDYzNC5nb29nbGUuY29tIn0=
-X-Custom-Transaction: eyJpZCI6ImQ4NjRmNjc2LWIwOTAtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMzMTMyMTYyLjU3NjI3NSwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
+X-Inumbo-ID: 7e68b748-b091-11ef-99a3-01e77a169b0f
+X-Custom-Connection: eyJyZW1vdGVpcCI6IjJhMDA6MTQ1MDo0ODY0OjIwOjo2MzAiLCJoZWxvIjoibWFpbC1lajEteDYzMC5nb29nbGUuY29tIn0=
+X-Custom-Transaction: eyJpZCI6IjdlNjhiNzQ4LWIwOTEtMTFlZi05OWEzLTAxZTc3YTE2OWIwZiIsInRzIjoxNzMzMTMyNDQxLjA5MzI5Miwic2VuZGVyIjoiamJldWxpY2hAc3VzZS5jb20iLCJyZWNpcGllbnQiOiJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733132162; x=1733736962; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733132440; x=1733737240; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ncVPVMFQselSNH82zaKBtknHPQnp5qdgaOeaIudmg2c=;
-        b=BmPu7z82HPknDZvHy97v947tjHrpX4m0sWolvSx00uhBj83g4egXbIPw2yXm2rsAUk
-         msuSoTG2WBpqL2Sgzu/Nz1IJLcarPApAQ4I87nbPokoohZlLPI7CJdh54ujm7n2oUKWn
-         nsAwefzMIW72rImu2wwkRt0xARexBKFsgNP7OjaW5eD89nA8JIE6hcUO5BJ3wDa1WcUb
-         kuKbd+E5vNxjRX8jkHKmQnBbBphUN3PgtJXrMVbu7wMQ8CHdg3XMcGqJfUrivh6jCrXB
-         8B3CzZIYBrjy8m+cKgwCByT3f7K9uTbr20KLQPmAC+lMfEEto2XCYVnqyMyfqKPz6I2h
-         Gy2A==
+        bh=vw2wXZocv82RCPx217CPnuB34VXjsc0CsGzUZrn5t5Y=;
+        b=Pj/ftNYSnPN+mjYpfdQ2opiHgq7fxTav5iW4JJDezro7n9CWgsawe8oUkT+n8dpCUe
+         LyRwe7aERS80yML6nxc8tyarnWJGe5CAlWj0sXbKgB1QZipAEGnPQAm6K/XPnDPatIqK
+         nT/x51V2O/K3JZ+Z0i0Aa5nW/urwhn1t82r20ezPoIf/IJYngdTUnDhy2KcwFV7fPC3C
+         oezpLjT5kYj9muz7m1/w2xgqx3SOtZ35eR9YH0/Gn6Dup3x+7VkMnzUlFqSgeV2HhYEM
+         mm2OraB+LGJC+6tjo+4EaJgkjFmBKDnboD7OCYBMnKWAmSMqfvwyz0M8JNbwLoGzZa6C
+         6RKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733132162; x=1733736962;
+        d=1e100.net; s=20230601; t=1733132440; x=1733737240;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ncVPVMFQselSNH82zaKBtknHPQnp5qdgaOeaIudmg2c=;
-        b=uo2r5UssXQbMvaoq2AdF7yIzbZzo2ufqy1ZjfByX2WelLVT0mobr3BV3LwKWFM8JLU
-         u78ZCyOWKBAYYYGWGGwgkt73/3ycYCqXI6DbhNt4FBHLkaFyhqB/P6KLXhedi6LQiDcm
-         Iaz0o19tsjmLdre6Y/Tc1Ssr3hiZNqTu9FUnOBGlLa6QXEO3kO3DQV4tr0SuDNslXD1i
-         NGJsX3WOdTmuPxL8ZiK7fQtv18mMzoS+pkT363LGUS4+Gfv7RLO89wXmA3DHLZLPeEzz
-         O78bGPFUZrgCFKUY4TRx12V4eDAjCFhYFR/xx0VrV5euy4et6TMe26vAmqgcAkVN5cWt
-         Xwpw==
-X-Forwarded-Encrypted: i=1; AJvYcCV/ZmUJckhWVIAVmEhAoRd43N/6awA/2DFPdoM6k58UHkVnihAf7QRGJ6VHgl8uaCf1g53VTc7EZNM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdP5HkWHPZ7q8qArbYQQJVeClTKFd+GrUXVLGT3bT6mzLOdUPs
-	p8Hl7o0PB73jGDyVeITde1KmABOWGjOLHNrkQrmAZS1Pa/sJoUCG3/krwyNaLQ==
-X-Gm-Gg: ASbGncvM6FYVYjBlv59u2oVeMqVcQEgQL+LfyNLc1fTgpCBRmw0+MkVKsTuubOg1E9z
-	Ww31pQDiVI/4xdCJKNsUq8CLuLmQc9hARxwLk4nUuTR3/eXRhdcnmbG/rcbPX2MpMXhiKPjwunM
-	YseeDJzMczpkfz+8BLu4IOPOnGh33ChUHTtH3voEO4YvCI50nFQL6ABsRHzcbkisntN/K3bboMv
-	YMQyczTZYGI3fD925yUFo19zzY53YAtw2htxdY3+Sd/G45opRbu8/BGcsB7T4H5qB6Xh0PKLU7n
-	7FphVAZbHju6rcahloAI/bqVuZqgwpdLWm4=
-X-Google-Smtp-Source: AGHT+IEiPWT8Q61tvpFGosJkm2vcUyjrwxJ5nbL4xZDoImDYb5tV0zVyhSuiBj/DYRIgG2BseUGeAg==
-X-Received: by 2002:a17:906:318d:b0:aa4:9ab1:1982 with SMTP id a640c23a62f3a-aa580ecfcf0mr1979870166b.4.1733132161944;
-        Mon, 02 Dec 2024 01:36:01 -0800 (PST)
-Message-ID: <31a61fa0-0e3c-4a81-9004-593608b2199a@suse.com>
-Date: Mon, 2 Dec 2024 10:36:03 +0100
+        bh=vw2wXZocv82RCPx217CPnuB34VXjsc0CsGzUZrn5t5Y=;
+        b=Vohmrf67PKYxSjNOpbIGDigwaZxymJSWUqBRNZ5lMxxX5J8t+7wA8UBENE5HiNwtMp
+         h7s7lGy+pl6Too79a75l7HaUBeg5JBhnA664we9WnPdhEagjUOk/ClvdMHFxntC0gBA0
+         UNHaL5o7Igjw1nbr+c9K5wJKjfmoBe2UbJWtam2H5W6grmPmX8B3lv9JatABwz5afkp5
+         Z6MavH/ZyofXC/U1N2wb7TcGCezVmqQe80s7lpmgbrkkPk/tRR91l9VfZ+ljNLB2BeEf
+         hYTUdDrT4utQc88FkNRZ7VqUHKOTete/Fi9UNz7X5kRaBvii6tSrBIfWutAgVYIbp9K7
+         jDkA==
+X-Forwarded-Encrypted: i=1; AJvYcCXqkA00xqt5wq/K677ss6Y1kFLcbP/dTyyifRi886cDde3jZed7ddJ77RmtjNzbPsiQGRUA6Hhmfyg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxDsA4zW1Yh6CJtpxZNNo7M5Kc8jDoQfDrZBeIaL0fzaKQaKV6Y
+	jJCOHvsJDjdXMPBxJeW8xU8YzpCB2UPi2hGqh8eKD/0NlYYO5mf3yhdJB55DhA==
+X-Gm-Gg: ASbGncvmfwaTla9/Mo25PmqF3nPdblBqXRs9ibNCFMOd4cUInsWmxNFEkp54OiR9mic
+	2DUrLQslMWfdeywCnHHJ6wAwch7khDb0ty6QBrJH/A40glHYc64KednJFZGZXZcX6sN8MSh1ZoH
+	eLwJbSIyR3ANnqv9kIXzZEK+6abFNeuihCl4k+kb2vupncH261ddbczaZnNVPMgUgQxcUI3G3lz
+	KmVnY6aliIGyiQmFhE46lcJ6BEnwd9CmoVNNPTj7UiFahHsFtMnKqYA/mfv3l2NrAu7aHrcTfZX
+	nk54F/U+uQZ7bEmMl8vamUIEttbr1vTHHDU=
+X-Google-Smtp-Source: AGHT+IHhOQ+l7Wal0CzZCSp2o+Fwge5D5zZ1E1U1j1IdO9o2Z9YW4MzX++V5tAxOULQsKyK/yfUSzA==
+X-Received: by 2002:a17:907:2d25:b0:aa5:274b:60eb with SMTP id a640c23a62f3a-aa581059879mr2310470766b.44.1733132440563;
+        Mon, 02 Dec 2024 01:40:40 -0800 (PST)
+Message-ID: <6e19dd6c-c270-4faa-b739-1f024d958f0b@suse.com>
+Date: Mon, 2 Dec 2024 10:40:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/10] tools/hvmloader: Retrieve (x2)APIC IDs from the
- APs themselves
+Subject: Re: [PATCH v7 05/10] tools/libacpi: Use LUT of APIC IDs rather than
+ function pointer
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
 References: <20241021154600.11745-1-alejandro.vallejo@cloud.com>
- <20241021154600.11745-5-alejandro.vallejo@cloud.com>
+ <20241021154600.11745-6-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,71 +122,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241021154600.11745-5-alejandro.vallejo@cloud.com>
+In-Reply-To: <20241021154600.11745-6-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21.10.2024 17:45, Alejandro Vallejo wrote:
-> --- a/tools/firmware/hvmloader/hvmloader.c
-> +++ b/tools/firmware/hvmloader/hvmloader.c
-> @@ -224,7 +224,7 @@ static void apic_setup(void)
->  
->      /* 8259A ExtInts are delivered through IOAPIC pin 0 (Virtual Wire Mode). */
->      ioapic_write(0x10, APIC_DM_EXTINT);
-> -    ioapic_write(0x11, SET_APIC_ID(LAPIC_ID(0)));
-> +    ioapic_write(0x11, SET_APIC_ID(cpu_to_x2apicid[0]));
->  }
+> Refactors libacpi so that a single LUT is the authoritative source of
+> truth for the CPU to APIC ID mappings. This has a know-on effect in
+> reducing complexity on future patches, as the same LUT can be used for
+> configuring the APICs and configuring the ACPI tables for PVH.
+> 
+> Not functional change intended, because the same mappings are preserved.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+> v7:
+>   * NOTE: didn't add assert to libacpi as initially accepted in order to
+>     protect libvirt from an assert failure.
 
-In uses like this or ...
-
-> --- a/tools/firmware/hvmloader/mp_tables.c
-> +++ b/tools/firmware/hvmloader/mp_tables.c
-> @@ -198,8 +198,10 @@ static void fill_mp_config_table(struct mp_config_table *mpct, int length)
->  /* fills in an MP processor entry for VCPU 'vcpu_id' */
->  static void fill_mp_proc_entry(struct mp_proc_entry *mppe, int vcpu_id)
->  {
-> +    ASSERT(cpu_to_x2apicid[vcpu_id] < 0xFF );
-> +
->      mppe->type = ENTRY_TYPE_PROCESSOR;
-> -    mppe->lapic_id = LAPIC_ID(vcpu_id);
-> +    mppe->lapic_id = cpu_to_x2apicid[vcpu_id];
-
-... this one (and also in acpi_lapic_id()), I consider the "x2" in the name
-actively confusing, despite ...
-
-> --- a/tools/firmware/hvmloader/smp.c
-> +++ b/tools/firmware/hvmloader/smp.c
-> @@ -29,7 +29,37 @@
->  
->  #include <xen/vcpu.h>
->  
-> -static int ap_callin;
-> +/**
-> + * Lookup table of (x2)APIC IDs.
-> + *
-> + * Each entry is populated its respective CPU as they come online. This is required
-> + * for generating the MADT with minimal assumptions about ID relationships.
-> + *
-> + * While the name makes "x2" explicit, these may actually be xAPIC IDs if no
-> + * x2APIC is present. "x2" merely highlights that each entry is 32 bits wide.
-> + */
-> +uint32_t cpu_to_x2apicid[HVM_MAX_VCPUS];
-
-... the commentary here.
-
-> +/** Tristate about x2apic being supported. -1=unknown */
-> +static int has_x2apic = -1;
-
-Why is this a tristate? Prior to the variable having been set, ...
-
-> +static uint32_t read_apic_id(void)
-> +{
-> +    uint32_t apic_id;
-> +
-> +    if ( has_x2apic )
-> +        cpuid(0xb, NULL, NULL, NULL, &apic_id);
-
-... this is bogus anyway.
+If such an assertion can trigger, doesn't that suggest a problem with the
+corresponding caller? I.e. isn't omitting the assertion merely trading a
+noisy failure for a silent (and possibly hard to understand) one?
 
 Jan
 
