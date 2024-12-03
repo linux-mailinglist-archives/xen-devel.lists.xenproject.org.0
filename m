@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 181FD9E11A1
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 04:13:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847233.1262351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D94EC9E1231
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 05:11:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847243.1262361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIJL3-0003cm-De; Tue, 03 Dec 2024 03:12:37 +0000
+	id 1tIKFU-0002jc-KM; Tue, 03 Dec 2024 04:10:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847233.1262351; Tue, 03 Dec 2024 03:12:37 +0000
+Received: by outflank-mailman (output) from mailman id 847243.1262361; Tue, 03 Dec 2024 04:10:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIJL3-0003Zr-Av; Tue, 03 Dec 2024 03:12:37 +0000
-Received: by outflank-mailman (input) for mailman id 847233;
- Tue, 03 Dec 2024 03:12:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ueo+=S4=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
- id 1tIJL2-0003Zl-MP
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 03:12:36 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11olkn2081e.outbound.protection.outlook.com
- [2a01:111:f403:2c14::81e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70190445-b124-11ef-a0d3-8be0dac302b0;
- Tue, 03 Dec 2024 04:12:34 +0100 (CET)
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by DM3PR02MB10276.namprd02.prod.outlook.com (2603:10b6:0:42::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.18; Tue, 3 Dec
- 2024 03:12:29 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::cedd:1e64:8f61:b9df%7]) with mapi id 15.20.8182.018; Tue, 3 Dec 2024
- 03:12:29 +0000
+	id 1tIKFU-0002hB-HE; Tue, 03 Dec 2024 04:10:56 +0000
+Received: by outflank-mailman (input) for mailman id 847243;
+ Tue, 03 Dec 2024 04:10:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NTCP=S4=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1tIKFS-0002h5-Dj
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 04:10:54 +0000
+Received: from mail.zytor.com (torg.zytor.com [2607:7c80:54:3::138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 945db2ef-b12c-11ef-99a3-01e77a169b0f;
+ Tue, 03 Dec 2024 05:10:51 +0100 (CET)
+Received: from [192.168.7.205] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 4B349oNB230762
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Mon, 2 Dec 2024 20:09:51 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,269 +40,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70190445-b124-11ef-a0d3-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JBT437YwG/C/miYaKx+fsN2IP/gddGECJX/eMhPKiO1etVq4QnIp/H+he91SoTmtaW3fw49O8/6+vWkwxVPbdHKBtOlgXXS2Fivg+4pswB4fE3yml8qSOroBjs9sgjMnElwTdzxK12iJoFTEL0FXCsFt/lghATQ6ywFHcB4WcZIpiFEJZ9yUcSuWg0nBsDkIQOJMjv3dOhrb1xvCOMmaBrZWOAaICcc1nJHki6C3sqlqBaJJR665ACtPMF+HUPDrhKa+3Ro91Bmf3ujUfLOQbfAu9ksXWz4L4Hvviw92C2osxhk18dMsnwKB11cM3bWKg9+32YbiotE20NVteeNVMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZplPv3xqGvvwUi46639Brdw+EmoWbKI+XpTmDUaTQeI=;
- b=T9Fun+kCLAU04p2has/qPXY3zh1uvIGZRT0KkHjKXsm++VEVjWSt9Xh1bXjQ0Zu7LBrw35YvaTT2FUlz0m585lzZ8dQSu0lTaj+wAT08PJUYzjK2D39PDMJg8nKvQS2NC9l//R8oDmp/F7LlZfNH8/GTO74+Jb7hr7xf/Zsn3gUQom0JSQ5ccQNTttt6sZ2xzuJN69IxPhcSVAjBXT8x2wguj5n2TALkoTEf2fgnzYsCAJxJG/1Ct3+7tsbYg+HsPHaZ96Zj3OwTVL+KVNzF+iIy43az8TtDzKHlqPo9ExGK4TelOutOb8GxYv5npJ250mNcVbx3m//2pbupbgYzEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZplPv3xqGvvwUi46639Brdw+EmoWbKI+XpTmDUaTQeI=;
- b=FnX3m2+1+Bo7vzKfoD/FbgQnZAIFpH9uWMoeW/wrvYGuwZgxXMKOK+25OH2H7cDP//6CU+bROQ+yIZOSVgtDe3hS0iy0Q/8Pfi1ZGjZMYM3tn7P64XAr2Z7R5+XNjdiNvhjTbdujYkbeS72KL7PoPCwIkD+8ZAG4mNe6WG0o37pOEjdgwNnDExWcUU1rEyeH7qt4QR5hxgVAUBjokJCPBU9Ajl65N2D6vDqGCcydDWCLsdisT+iG+aX0JIs4agm58xmG8NU0ZQvym/2zsb9OTfIMcCepWdXDIT2glamiJ2uilLvyZoPYmnXe8l+BQzt8FTdI9F0S0tyWJ4a6UHeNVA==
-From: Michael Kelley <mhklinux@outlook.com>
-To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org"
-	<x86@kernel.org>
-CC: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross
-	<jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Gaosheng Cui
-	<cuigaosheng1@huawei.com>, Michael Roth <michael.roth@amd.com>, Tom Lendacky
-	<thomas.lendacky@amd.com>, Ashish Kalra <ashish.kalra@amd.com>, Kai Huang
-	<kai.huang@intel.com>, Andi Kleen <ak@linux.intel.com>, Sean Christopherson
-	<seanjc@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Dave Hansen <dave.hansen@intel.com>
-Subject: RE: [PATCH, RESEND] x86/mtrr: Rename mtrr_overwrite_state() to
- guest_force_mtrr_state()
-Thread-Topic: [PATCH, RESEND] x86/mtrr: Rename mtrr_overwrite_state() to
- guest_force_mtrr_state()
-Thread-Index: AQHbRIxOtYAfZHtFM0eAunneB0shz7LT1/sQ
-Date: Tue, 3 Dec 2024 03:12:28 +0000
-Message-ID:
- <SN6PR02MB4157E858430497AD6687A88CD4362@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20241202073139.448208-1-kirill.shutemov@linux.intel.com>
-In-Reply-To: <20241202073139.448208-1-kirill.shutemov@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|DM3PR02MB10276:EE_
-x-ms-office365-filtering-correlation-id: 1f260513-a488-4a08-6439-08dd134851f5
-x-microsoft-antispam:
- BCL:0;ARA:14566002|15080799006|8060799006|8062599003|19110799003|461199028|4302099013|440099028|3412199025|1602099012|10035399004|102099032;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?oFu6tdQIGfeHVO+F8mWkQ+5p1NMpIZ5/udl0OQ2QA8L/bK0B6QbSvDeLIjF3?=
- =?us-ascii?Q?heA1UvZWm+kfESHkfdzfMBDCO/iEt6+xOqgig672uMv01XA+483VsrLdGfJW?=
- =?us-ascii?Q?9GBZQqutytUCQoQzsjNhViS+Lze7u3GxVjzktKN/28UUf6rmdsR14jq2jWqk?=
- =?us-ascii?Q?K+7KDBuRtvuj8D7xL3pKOMGji2pP1U+6fofl5KXBOzFcS3felnuPfcV+RXAr?=
- =?us-ascii?Q?n4fiujoIkKrGc0FQyeU6MiNh1xmMdS+1YIIR7deunwaFg/AZY6td3NB2EBqM?=
- =?us-ascii?Q?z0ooGD1D52xnQWSGcopfN9uLCJAGHkq71tCSAMpAGAcYnomNbyZxSAeJ75kQ?=
- =?us-ascii?Q?5SZSwZ+0Gc885ivg8ZhFTsIGB4Mts0dXbxdJyakom9aZQDVPDiPZWzTDKQnS?=
- =?us-ascii?Q?NxLWOGqZSMfiiEW4MaO3RDn+BUe1uNZyuVvkKTSMwzZkwtFCnnJ/WijoRpIc?=
- =?us-ascii?Q?V9iZMaZMc6Qc8tRC+EhdyAOUIKlCQxtAeFbYS//vJ2sXmobGAKYE2bclRPp9?=
- =?us-ascii?Q?D0TKDEb6bkkiQb/DCWBmw83h8kRWthDbQmwcABBBLdyRYG7nAxnvIexc1une?=
- =?us-ascii?Q?Tit6euexwLGHGF3m4JeIKmROjHgHi18ZsdYv77okBtdbcQBkmQUv02UaWJcU?=
- =?us-ascii?Q?cTX5NLIeHxUPDZbsEAZz0yh+nuKi18A6In/rvzlJ38zmt+6TbCTzYm93dTTK?=
- =?us-ascii?Q?BHwPei2vLicM4HERNjTPfu6Y9oRoOJiq6XP5BFOcwbgDfpWcvL8lkK6uQGvi?=
- =?us-ascii?Q?h0XmJEF9Mh//y5mG38rlL4d8RnNjNFh9dYBY75FpXDlr5PxeWqecQgzaJVSI?=
- =?us-ascii?Q?sYesVKD72cqjkZAA6dyHReVCLE+og9Iq2yMsJzX51xseYH0aFi31JuI85RTl?=
- =?us-ascii?Q?C2hUk0uvmym1LOw76Z6t0Ax/vI70/+dVnZ8umvMDHR/JuO8FaNhW7wZvilXP?=
- =?us-ascii?Q?YalK5QFPOuPwwYh9aD0D6Ou2cxDLjH4FrGGA1ftIUJJaHSbNPPptGimlhwyo?=
- =?us-ascii?Q?ib/hyvJ6lwBOsFjK76C9nf7lVPUo5Lvk+UjA7kHMVx6cSE/JlfvaTaKs8JEv?=
- =?us-ascii?Q?bRtWW9sKQCNSfjs6PX0hLdRqe13NRGJW9aBVTSFHRpmBUIkjkzUh9HDlLTIH?=
- =?us-ascii?Q?AmSin+yN9sG/ggcVTsoB7MwAtO7fM4OuBGsfTOOdUJ4NrEhgwiCR8uA=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?uIZ0Hx9RVxiHYEwic90WFLW4k0PGWCn9zpPNfR8WdnaENiRu0XHczaaYkXtP?=
- =?us-ascii?Q?2nOtcxOMkGtPKy0/NK5xtUqpTCnFMYCOHBPAK+4avkRPJ94HBpBskN2s3eYU?=
- =?us-ascii?Q?5jJrsaFY3CNcw1Hh7whzOORtjvPp2KzSHBsd6idJBugZcsT0TTCy1hLmt4Mb?=
- =?us-ascii?Q?D5xZnI4wukUVxrVOAp8LMoisJtU/HF4WWrKQsH7WbcKVBqX4WG9KYcOo+am+?=
- =?us-ascii?Q?rX3OMbndrp1lp3lwmiFKEke00/8kMddWkaUYenGuHwRuSKbWIY50A0kTPcrW?=
- =?us-ascii?Q?IieQPyYTjhBL8xH9ojoIGXNTSXrWC9o5+wKymlSSKVNmqMdb7sBVI9PptiLS?=
- =?us-ascii?Q?qkQ2be4OVdZGsqdqMOhl+6iXnO/JxgK7JToJ3Y3F7LWrTpLsW4qkqAPX7fh3?=
- =?us-ascii?Q?qM6xQvBUy1R5ac6aTP/JwZaN0uhoGPH9VRowMxd0ZIYN62yCwc4rWXHnC8jT?=
- =?us-ascii?Q?XBBkSXUJNlbdkFoIUIlavv301X/WrJdaikxef4exEXKX16cCz3+jBhzv+dGf?=
- =?us-ascii?Q?krIhpxFHFuq1xdCVAGJO0HRc9Bmm/KGz2cae2kIFsdpAbI4UPv+5d8Xvi17n?=
- =?us-ascii?Q?QZy6bm4O9nBUXuoEI5XLJ1zAKNqBUPz01OoRgcUtWVEnHJlfQWnafgb9Xaee?=
- =?us-ascii?Q?LAxKF21FnpAZaQbSC4QjkhR/MuOa3EvLDGggdCD/HQ5KJi70XGmqmjiOTxRt?=
- =?us-ascii?Q?5BGaMDro2NgHAp3WZH9nzA3rAHGq+IaXky5BFBt7E+EVl1m29cI/fSM2OiND?=
- =?us-ascii?Q?T9ZqlE6/3lXpSYnqbd+tabOhNAM4ppXysDX4JUBRR96TqMPKlbQDaoM+IKhN?=
- =?us-ascii?Q?LhSCHwmQfHp0GOfeokJzKpTjuXwXyfQrbBuPevvuxaS9BmRSGaPtfKUJrWl0?=
- =?us-ascii?Q?LUGs85yzjvakSVvB2s0gS2v1XVqWmT6aC36uyAQyUhlJadTfGrmBO10iTacW?=
- =?us-ascii?Q?cEneUnqMfTHWsPfnGy5Sr50LXG/h+QQ2fqjQY2/aOfsnubjwr1hcrrLN+8RN?=
- =?us-ascii?Q?RR0jOugbYOCJS6+6X40Yctz156OCyGpH+LrBxf8a0hz0Yr2OJp6iAIg49aFq?=
- =?us-ascii?Q?iEM36nognffg6eHd67aB7TWMdGMH9voFM57cjvRxNlDPX0hJXEor88CXtGzE?=
- =?us-ascii?Q?mUzaiZc7wvuVrtfqbAN2gPVAokE/Zr4JqM637+PAHhfG0uVKCTtjDh6q4J98?=
- =?us-ascii?Q?0ALJLiKVD2t2dpH2Y07sIagok1zwrBMhgwQoLIAK7KtNcrw5oF4XbYrx/i8?=
- =?us-ascii?Q?=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 945db2ef-b12c-11ef-99a3-01e77a169b0f
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 4B349oNB230762
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2024111601; t=1733198993;
+	bh=sHPXdo6p8K0elhJ6IE0XDTGTz2zzDKVVPgjp1vb9is4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RDSHn9YgbMj/SGP9f25WYjgOkPbspINuSTcqQC3Xn+QMx9ncZZeAsFmGs09JHNZtN
+	 6IeBjOt9WIiegvHcSkw/6rp+CwdoraHSEI8mISCic+C6z7LhE6UEIUMC9fjJJPpL3u
+	 dU7IxTRlEhh73Pwh1BsbLXECyGA7jocz2SR47GxukMlxWavs5sH9kGA/dcrqNggUAA
+	 /1X4gR402tHq67Cb5GPgcMexk9W8p63VCgtmRZGkc4STwEneVaK/sdxH8ZiszXd2iu
+	 6dm3uvrouJ8CeaUYvDMH3hAJtNISHNOO2X0feQTYDC1eCHKD4CzX/oROXoD6QksjbP
+	 j4ykXHguONibg==
+Message-ID: <bc4a4095-d8bd-4d97-a623-be35ef81aad0@zytor.com>
+Date: Mon, 2 Dec 2024 20:09:49 -0800
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f260513-a488-4a08-6439-08dd134851f5
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2024 03:12:28.9825
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR02MB10276
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/2] x86, lib, xenpv: Add WBNOINVD helper functions
+To: Kevin Loughlin <kevinloughlin@google.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: linux-kernel@vger.kernel.org, seanjc@google.com, pbonzini@redhat.com,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        kvm@vger.kernel.org, thomas.lendacky@amd.com, pgonda@google.com,
+        sidtelang@google.com, mizhang@google.com,
+        virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+        bcm-kernel-feedback-list@broadcom.com
+References: <20241203005921.1119116-1-kevinloughlin@google.com>
+ <20241203005921.1119116-2-kevinloughlin@google.com>
+ <a9560e97-478d-4e03-b936-cf6f663279a4@citrix.com>
+ <CAGdbjmLRA5g+Rgiq-fRbWaNqXK51+naNBi0b3goKxsN-79wpaw@mail.gmail.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <CAGdbjmLRA5g+Rgiq-fRbWaNqXK51+naNBi0b3goKxsN-79wpaw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Kirill A. Shutemov <kirill.shutemov@linux.intel.com> Sent: Sunday, De=
-cember 1, 2024 11:32 PM
->=20
-> Rename the helper to better reflect its function.
->=20
-> Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-> Suggested-by: Dave Hansen <dave.hansen@intel.com>
-> Acked-by: Dave Hansen <dave.hansen@intel.com>
+On 12/2/2024 5:44 PM, Kevin Loughlin wrote:
+> On Mon, Dec 2, 2024 at 5:28 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>
+>> On 03/12/2024 12:59 am, Kevin Loughlin wrote:
+>>> diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
+>>> index d4eb9e1d61b8..c040af2d8eff 100644
+>>> --- a/arch/x86/include/asm/paravirt.h
+>>> +++ b/arch/x86/include/asm/paravirt.h
+>>> @@ -187,6 +187,13 @@ static __always_inline void wbinvd(void)
+>>>        PVOP_ALT_VCALL0(cpu.wbinvd, "wbinvd", ALT_NOT_XEN);
+>>>   }
+>>>
+>>> +extern noinstr void pv_native_wbnoinvd(void);
+>>> +
+>>> +static __always_inline void wbnoinvd(void)
+>>> +{
+>>> +     PVOP_ALT_VCALL0(cpu.wbnoinvd, "wbnoinvd", ALT_NOT_XEN);
+>>> +}
+>>
+>> Given this, ...
+>>
+>>> diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
+>>> index fec381533555..a66b708d8a1e 100644
+>>> --- a/arch/x86/kernel/paravirt.c
+>>> +++ b/arch/x86/kernel/paravirt.c
+>>> @@ -149,6 +154,7 @@ struct paravirt_patch_template pv_ops = {
+>>>        .cpu.write_cr0          = native_write_cr0,
+>>>        .cpu.write_cr4          = native_write_cr4,
+>>>        .cpu.wbinvd             = pv_native_wbinvd,
+>>> +     .cpu.wbnoinvd           = pv_native_wbnoinvd,
+>>>        .cpu.read_msr           = native_read_msr,
+>>>        .cpu.write_msr          = native_write_msr,
+>>>        .cpu.read_msr_safe      = native_read_msr_safe,
+>>
+>> this, and ...
+>>
+>>> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+>>> index d6818c6cafda..a5c76a6f8976 100644
+>>> --- a/arch/x86/xen/enlighten_pv.c
+>>> +++ b/arch/x86/xen/enlighten_pv.c
+>>> @@ -1162,6 +1162,7 @@ static const typeof(pv_ops) xen_cpu_ops __initconst = {
+>>>                .write_cr4 = xen_write_cr4,
+>>>
+>>>                .wbinvd = pv_native_wbinvd,
+>>> +             .wbnoinvd = pv_native_wbnoinvd,
+>>>
+>>>                .read_msr = xen_read_msr,
+>>>                .write_msr = xen_write_msr,
+>>
+>> this, what is the point having a paravirt hook which is wired to
+>> native_wbnoinvd() in all cases?
+>>
+>> That just seems like overhead for overhead sake.
+> 
+> I'm mirroring what's done for WBINVD here, which was changed to a
+> paravirt hook in 10a099405fdf ("cpuidle, xenpv: Make more PARAVIRT_XXL
+> noinstr clean") in order to avoid calls out to instrumented code as
+> described in the commit message in more detail. I believe a hook is
+> similarly required for WBNOINVD, but please let me know if you
+> disagree. Thanks!
 
-FWIW, I previously gave my "Reviewed-by" on this patch [1].
-I didn't call it out explicitly, but did so for the patch in general
-as well as specifically for the Hyper-V related change.
-
-Michael
-
-[1]: https://lore.kernel.org/linux-hyperv/SN6PR02MB4157C91EE70F4EF4B6EDDE46=
-D4412@SN6PR02MB4157.namprd02.prod.outlook.com/
-
-> ---
->  arch/x86/hyperv/ivm.c              |  2 +-
->  arch/x86/include/asm/mtrr.h        | 10 +++++-----
->  arch/x86/kernel/cpu/mtrr/generic.c |  6 +++---
->  arch/x86/kernel/cpu/mtrr/mtrr.c    |  2 +-
->  arch/x86/kernel/kvm.c              |  2 +-
->  arch/x86/xen/enlighten_pv.c        |  4 ++--
->  6 files changed, 13 insertions(+), 13 deletions(-)
->=20
-> diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
-> index 60fc3ed72830..90aabe1fd3b6 100644
-> --- a/arch/x86/hyperv/ivm.c
-> +++ b/arch/x86/hyperv/ivm.c
-> @@ -664,7 +664,7 @@ void __init hv_vtom_init(void)
->  	x86_platform.guest.enc_status_change_finish =3D hv_vtom_set_host_visibi=
-lity;
->=20
->  	/* Set WB as the default cache mode. */
-> -	mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
-> +	guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
->  }
->=20
->  #endif /* defined(CONFIG_AMD_MEM_ENCRYPT) ||
-> defined(CONFIG_INTEL_TDX_GUEST) */
-> diff --git a/arch/x86/include/asm/mtrr.h b/arch/x86/include/asm/mtrr.h
-> index 4218248083d9..c69e269937c5 100644
-> --- a/arch/x86/include/asm/mtrr.h
-> +++ b/arch/x86/include/asm/mtrr.h
-> @@ -58,8 +58,8 @@ struct mtrr_state_type {
->   */
->  # ifdef CONFIG_MTRR
->  void mtrr_bp_init(void);
-> -void mtrr_overwrite_state(struct mtrr_var_range *var, unsigned int num_v=
-ar,
-> -			  mtrr_type def_type);
-> +void guest_force_mtrr_state(struct mtrr_var_range *var, unsigned int num=
-_var,
-> +			    mtrr_type def_type);
->  extern u8 mtrr_type_lookup(u64 addr, u64 end, u8 *uniform);
->  extern void mtrr_save_fixed_ranges(void *);
->  extern void mtrr_save_state(void);
-> @@ -75,9 +75,9 @@ void mtrr_disable(void);
->  void mtrr_enable(void);
->  void mtrr_generic_set_state(void);
->  #  else
-> -static inline void mtrr_overwrite_state(struct mtrr_var_range *var,
-> -					unsigned int num_var,
-> -					mtrr_type def_type)
-> +static inline void guest_force_mtrr_state(struct mtrr_var_range *var,
-> +					  unsigned int num_var,
-> +					  mtrr_type def_type)
->  {
->  }
->=20
-> diff --git a/arch/x86/kernel/cpu/mtrr/generic.c b/arch/x86/kernel/cpu/mtr=
-r/generic.c
-> index 7b29ebda024f..2fdfda2b60e4 100644
-> --- a/arch/x86/kernel/cpu/mtrr/generic.c
-> +++ b/arch/x86/kernel/cpu/mtrr/generic.c
-> @@ -423,7 +423,7 @@ void __init mtrr_copy_map(void)
->  }
->=20
->  /**
-> - * mtrr_overwrite_state - set static MTRR state
-> + * guest_force_mtrr_state - set static MTRR state for a guest
->   *
->   * Used to set MTRR state via different means (e.g. with data obtained f=
-rom
->   * a hypervisor).
-> @@ -436,8 +436,8 @@ void __init mtrr_copy_map(void)
->   * @num_var: length of the @var array
->   * @def_type: default caching type
->   */
-> -void mtrr_overwrite_state(struct mtrr_var_range *var, unsigned int num_v=
-ar,
-> -			  mtrr_type def_type)
-> +void guest_force_mtrr_state(struct mtrr_var_range *var, unsigned int num=
-_var,
-> +			    mtrr_type def_type)
->  {
->  	unsigned int i;
->=20
-> diff --git a/arch/x86/kernel/cpu/mtrr/mtrr.c b/arch/x86/kernel/cpu/mtrr/m=
-trr.c
-> index 989d368be04f..ecbda0341a8a 100644
-> --- a/arch/x86/kernel/cpu/mtrr/mtrr.c
-> +++ b/arch/x86/kernel/cpu/mtrr/mtrr.c
-> @@ -625,7 +625,7 @@ void mtrr_save_state(void)
->  static int __init mtrr_init_finalize(void)
->  {
->  	/*
-> -	 * Map might exist if mtrr_overwrite_state() has been called or if
-> +	 * Map might exist if guest_force_mtrr_state() has been called or if
->  	 * mtrr_enabled() returns true.
->  	 */
->  	mtrr_copy_map();
-> diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-> index 21e9e4845354..7a422a6c5983 100644
-> --- a/arch/x86/kernel/kvm.c
-> +++ b/arch/x86/kernel/kvm.c
-> @@ -983,7 +983,7 @@ static void __init kvm_init_platform(void)
->  	x86_platform.apic_post_init =3D kvm_apic_init;
->=20
->  	/* Set WB as the default cache mode for SEV-SNP and TDX */
-> -	mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
-> +	guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
->  }
->=20
->  #if defined(CONFIG_AMD_MEM_ENCRYPT)
-> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-> index d6818c6cafda..633469fab536 100644
-> --- a/arch/x86/xen/enlighten_pv.c
-> +++ b/arch/x86/xen/enlighten_pv.c
-> @@ -171,7 +171,7 @@ static void __init xen_set_mtrr_data(void)
->=20
->  	/* Only overwrite MTRR state if any MTRR could be got from Xen. */
->  	if (reg)
-> -		mtrr_overwrite_state(var, reg, MTRR_TYPE_UNCACHABLE);
-> +		guest_force_mtrr_state(var, reg, MTRR_TYPE_UNCACHABLE);
->  #endif
->  }
->=20
-> @@ -195,7 +195,7 @@ static void __init xen_pv_init_platform(void)
->  	if (xen_initial_domain())
->  		xen_set_mtrr_data();
->  	else
-> -		mtrr_overwrite_state(NULL, 0, MTRR_TYPE_WRBACK);
-> +		guest_force_mtrr_state(NULL, 0, MTRR_TYPE_WRBACK);
->=20
->  	/* Adjust nr_cpu_ids before "enumeration" happens */
->  	xen_smp_count_cpus();
-> --
-> 2.45.2
->=20
-
+Then the question is why we need to add WBINVD/WBNOINVD to the paravirt
+hooks.
 
