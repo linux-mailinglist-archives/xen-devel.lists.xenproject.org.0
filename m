@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 066439E1734
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:22:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847515.1262602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE3079E1735
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:22:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847517.1262612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIP6b-0003Vi-5G; Tue, 03 Dec 2024 09:22:05 +0000
+	id 1tIP6g-0003oN-Dg; Tue, 03 Dec 2024 09:22:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847515.1262602; Tue, 03 Dec 2024 09:22:05 +0000
+Received: by outflank-mailman (output) from mailman id 847517.1262612; Tue, 03 Dec 2024 09:22:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIP6b-0003SM-2W; Tue, 03 Dec 2024 09:22:05 +0000
-Received: by outflank-mailman (input) for mailman id 847515;
- Tue, 03 Dec 2024 09:22:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tIP6g-0003lD-A2; Tue, 03 Dec 2024 09:22:10 +0000
+Received: by outflank-mailman (input) for mailman id 847517;
+ Tue, 03 Dec 2024 09:22:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yzh2=S4=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tIP6a-0003Ra-1G
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:22:04 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0de70a18-b158-11ef-99a3-01e77a169b0f;
- Tue, 03 Dec 2024 10:22:02 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-53df6322ea7so9025667e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Dec 2024 01:22:02 -0800 (PST)
+ id 1tIP6e-0003Be-73
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:22:08 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10fb037f-b158-11ef-a0d3-8be0dac302b0;
+ Tue, 03 Dec 2024 10:22:07 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5d0be79e7e7so4771954a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Dec 2024 01:22:07 -0800 (PST)
 Received: from localhost.localdomain ([176.187.209.146])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa599908be5sm591969266b.140.2024.12.03.01.22.00
+ 4fb4d7f45d1cf-5d0c8dc9b8asm3868557a12.17.2024.12.03.01.22.05
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 03 Dec 2024 01:22:00 -0800 (PST)
+ Tue, 03 Dec 2024 01:22:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0de70a18-b158-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 10fb037f-b158-11ef-a0d3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1733217722; x=1733822522; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1733217727; x=1733822527; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XItCJo5+ANEXJJ4rNbIonoA3BAW/mx+bgexv+wsAke8=;
-        b=lYSS1UjsP3SYWBGfErLLhzadHBbklYQcYKcFvItkVEUX3hGMb+2E34viwr67ih07+z
-         mipLjH5voNoB6jgTguovCh9AIewy8DV5dQxKZiVFcaL2H1EmWh/KsYukVK931etRlhyQ
-         CREVUxIPW+FwjBpMhqDEyTnuphYzmvTBzWyPXbeH9MkPCwu/nddWGjzCDgepxSClUg2S
-         4T79uQbjo+4Lpc2jzIFFAGjsg5tJ+025n9fmCC+TnJ/KRd0C/mcFk7Swxz9G/4O1/fO9
-         30aGKHmQC21fi2UCrhutdBztO2v21vl2Ab59rdVhHHtqQy/wu0gLgtMZthbe/jv1pL9E
-         58tQ==
+        bh=QhfmnQV2U1yeLbQ0YN69JuJChLdIfKrfDAxolXgPuaM=;
+        b=NY2YzZpXib/9b46FQvVQ5Pa0ome/80ghyw/L1Emqfl+JAXKlIn78p1aIcwQNgxobhk
+         tGfWaGjGcwMltnXFi5H0xspUtgKONh6Z9sCfVvth/fwv3Uc2hUKUi0m4M4G8lf5IwOvX
+         X2DrfqG8D5A3eLhYYgyGx86ncpctJiuOFHvrZMRxsAqCJToNtuqx7uSUG2zaZ39Wq8I5
+         hAGY18duND5LLbQw8gMmsqhT1HjkjCG5rcgAedOzyKjy6ltocLcvQnFUz57E92DJ2wSk
+         jUDKO54J2Iq9zYv0Yyv4rkCc+75U4iW6qyT2wMcl856mSpfIKmBPnYaGh4U4JMHB5a7H
+         6yJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733217722; x=1733822522;
+        d=1e100.net; s=20230601; t=1733217727; x=1733822527;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=XItCJo5+ANEXJJ4rNbIonoA3BAW/mx+bgexv+wsAke8=;
-        b=m1pYas7CuNJtNzfFMeyli8csZPQUdIYrGeeisF/MocGscGWQACw2YqH7nBs1KaOx8V
-         UoR6/8/5BL7lcxmbMWlKHvQHCy0lz3M7JrGiSR/tEve9e2r6amrcaatYC+vbYbYRPE2V
-         K9NCYfvkRRwYGv4Tw1x/t4On10MjV2ECcrhZPWFpE/dOSQmbRY0hyvBWA/J4Q/rtcYko
-         L+p8oN0mgDAkCcNg95iRVE/Ec5Ci8A0U1cM/nIlNGp0yzLJ8F0n4rKIaJrvvSNzHdVN8
-         h5Afi119v1MB06nSZt9nHgLobcW2njFv8BRZiYXsac7xa63Fucb6piIBaXeaSsLdBbW3
-         c7Pg==
-X-Forwarded-Encrypted: i=1; AJvYcCVzCBrBNPS/MzsovcnOw57EZc93PC0r6fcs8kK4rZ/tN3GQJehybU39D8NskkIYOjiOaGZrZ0jh01E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwuQaE3/uYr2TkjkHsXNxXpWuyXsIgzxtjBSq3vrPsT5IUR2O2D
-	ATxKLM6l5Eo6KG9OiVKeb4JlaINcvWFAtmiJNb5ykssZYMmwq8SdljDuqWZDWHI=
-X-Gm-Gg: ASbGncuIdQO8Ghk/2R/vY9gOrYVZ77PRKoxvQdP/+5kbMU4iwqaBK2hUMkHHkZsckao
-	+kBEuDc/9mPSyginkTzJJ+yOnvUbmshhh+PQg6YaksejTqsrqIcDrz4a20OLbch0IWCADhbui1p
-	TiC2bYgeCZUvP3wYBHWlLUfzdQR9V/dMMdMrW16XruWM0eekyiAPYci/68lTQ7l7W3Fbd3nZzOe
-	6bORDN0bIOmIrujvUIBCGwtveBJyj8NElp2pFdgSh2Rb9LFnOCQxQYa/VwmEqRs6WKFNqlj
-X-Google-Smtp-Source: AGHT+IELVm7e97U6LHV1aSNR3lGVC9QDV3n0nCKk5HiuyFOrOWNT99UW+76qnuiTrgbzvwhK7O0Rcg==
-X-Received: by 2002:ac2:5967:0:b0:53e:12f2:5e02 with SMTP id 2adb3069b0e04-53e12f25e19mr1049931e87.42.1733217721439;
-        Tue, 03 Dec 2024 01:22:01 -0800 (PST)
+        bh=QhfmnQV2U1yeLbQ0YN69JuJChLdIfKrfDAxolXgPuaM=;
+        b=CZ+xjSpH9/MX7XbHeKYbIupPYS9+Jn1cT3zd3jdwMUkZc7ZzBETgESM6lsOsIACy+1
+         HVszYRn5sksxXlMdGDb7p1RCypxQ/qhOmd1N1VS/O31+NhRYSr0kZXu5tNqDco9tGUep
+         h1G41Ckek7nS14hPHA8Xemb63WBR5Mdx4hPuNjyVzCu2tLfOg+ogwApumV8EmZlo6i2/
+         /V4rH1lEPofKIIvFZaCgsq3T1XCJpa4+P+Yk9Z3vNcLY5HrV1A1cEO6Ij+BBConeU2WH
+         dSDyFh+mzasn3c6/MaeBV5jXX2MIvl9G26ySmJ63Vop2YT659QtZoqdEwfjGmfYIPjiX
+         TNtQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVotojgVrKTzmmAYxvUK/8U7YFrWkAf1Rs5noBfgH39j/XcOV+HzR0QU1tjsY9IytZ+4fMJEoLKHkI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzwc0borwUhKZiCJ7gSHx2fRKdOETD7ye+HId4kILoOcc+ETVTU
+	RMkas9vaEjzMZLQ4ezJMEZzxDdqdZj8mLvP/T09a1k+pJCiifSEM3nEyU/OambI=
+X-Gm-Gg: ASbGncsJJAU6M5Jt0jZXN/n4UdFU2z5gyOUehi8GWKIqrfR6qVajUy8t5NuoP4W5i8i
+	4JwCay3bxP8WYcgtF4obyPXm9e2dycF5Bv+fWQ85e/p4BiBj0zOFP7fDV2/bE38tXFpCFfCM+xw
+	NPt3itNUjGErBKitFCrqxnJrcrKzvMZBtHz26n8kQni1egRf/jUDiRK0DGjatJKlXmehpUw5HJ3
+	/RkfNQY+auESz3BV377kgLiqYPlY76SsPLdYj2ofdAFnB02t6THSjFwoMKUa02IXmlK/9aE
+X-Google-Smtp-Source: AGHT+IExs5Yi7XHHfGv+VoO8nUw6diCtB41A7VJ/kLqxsUAKXSiS5Jv3sEFudcXPJVh9yDPwSljpgA==
+X-Received: by 2002:a05:6402:518c:b0:5d0:abb8:799 with SMTP id 4fb4d7f45d1cf-5d10cb4e1ccmr1719770a12.7.1733217727075;
+        Tue, 03 Dec 2024 01:22:07 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -90,9 +90,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	qemu-arm@nongnu.org,
 	Thomas Huth <thuth@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 1/7] tests/functional/test_ppc64_hv: Remove legacy '-machine foo,accel=bar'
-Date: Tue,  3 Dec 2024 10:21:47 +0100
-Message-ID: <20241203092153.60590-2-philmd@linaro.org>
+Subject: [PATCH 2/7] tests/functional/test_virtio_gpu: Remove legacy '-machine foo,accel=bar'
+Date: Tue,  3 Dec 2024 10:21:48 +0100
+Message-ID: <20241203092153.60590-3-philmd@linaro.org>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241203092153.60590-1-philmd@linaro.org>
 References: <20241203092153.60590-1-philmd@linaro.org>
@@ -108,23 +108,36 @@ functional tests.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- tests/functional/test_ppc64_hv.py | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tests/functional/test_virtio_gpu.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/tests/functional/test_ppc64_hv.py b/tests/functional/test_ppc64_hv.py
-index 312248bbfe4..536a433b993 100755
---- a/tests/functional/test_ppc64_hv.py
-+++ b/tests/functional/test_ppc64_hv.py
-@@ -138,7 +138,8 @@ def do_test_kvm(self, hpt=False):
-         else:
-             append = ''
-         exec_command(self, 'qemu-system-ppc64 -nographic -smp 2 -m 1g '
--                           '-machine pseries,x-vof=on,accel=kvm '
-+                           '-accel kvm '
-+                           '-machine pseries,x-vof=on '
-                            '-machine cap-cfpc=broken,cap-sbbc=broken,'
-                                     'cap-ibs=broken,cap-ccf-assist=off '
-                            '-drive file=/dev/nvme0n1,format=raw,readonly=on '
+diff --git a/tests/functional/test_virtio_gpu.py b/tests/functional/test_virtio_gpu.py
+index d5027487ac4..cc0ec234861 100755
+--- a/tests/functional/test_virtio_gpu.py
++++ b/tests/functional/test_virtio_gpu.py
+@@ -61,7 +61,8 @@ def test_virtio_vga_virgl(self):
+         self.vm.set_console()
+         self.vm.add_args("-cpu", "host")
+         self.vm.add_args("-m", "2G")
+-        self.vm.add_args("-machine", "pc,accel=kvm")
++        self.vm.add_args('-accel', 'kvm')
++        self.vm.add_args("-machine", "pc")
+         self.vm.add_args("-device", "virtio-vga-gl")
+         self.vm.add_args("-display", "egl-headless")
+         self.vm.add_args(
+@@ -118,10 +119,11 @@ def test_vhost_user_vga_virgl(self):
+         )
+ 
+         self.vm.set_console()
++        self.vm.add_args('-accel', 'kvm')
+         self.vm.add_args("-cpu", "host")
+         self.vm.add_args("-m", "2G")
+         self.vm.add_args("-object", "memory-backend-memfd,id=mem,size=2G")
+-        self.vm.add_args("-machine", "pc,memory-backend=mem,accel=kvm")
++        self.vm.add_args("-machine", "pc,memory-backend=mem")
+         self.vm.add_args("-chardev", "socket,id=vug,fd=%d" % qemu_sock.fileno())
+         self.vm.add_args("-device", "vhost-user-vga,chardev=vug")
+         self.vm.add_args("-display", "egl-headless")
 -- 
 2.45.2
 
