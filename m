@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C67C9E13CF
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 08:16:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847268.1262381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A2629E1551
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 09:12:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847283.1262390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIN8Y-0006uB-Lo; Tue, 03 Dec 2024 07:15:58 +0000
+	id 1tIO0W-000675-Ca; Tue, 03 Dec 2024 08:11:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847268.1262381; Tue, 03 Dec 2024 07:15:58 +0000
+Received: by outflank-mailman (output) from mailman id 847283.1262390; Tue, 03 Dec 2024 08:11:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIN8Y-0006rI-IZ; Tue, 03 Dec 2024 07:15:58 +0000
-Received: by outflank-mailman (input) for mailman id 847268;
- Tue, 03 Dec 2024 07:15:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tIO0W-00065A-9s; Tue, 03 Dec 2024 08:11:44 +0000
+Received: by outflank-mailman (input) for mailman id 847283;
+ Tue, 03 Dec 2024 08:11:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pQ6z=S4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tIN8X-0006rC-Es
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 07:15:57 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6feb9826-b146-11ef-a0d3-8be0dac302b0;
- Tue, 03 Dec 2024 08:15:55 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id ED95D2116D;
- Tue,  3 Dec 2024 07:15:54 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E6A8139C2;
- Tue,  3 Dec 2024 07:15:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id abvvGCqwTmeVJwAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 03 Dec 2024 07:15:54 +0000
+ (envelope-from <SRS0=NTCP=S4=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1tIO0U-00064y-IX
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 08:11:42 +0000
+Received: from mail.zytor.com (torg.zytor.com [2607:7c80:54:3::138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 34adec79-b14e-11ef-99a3-01e77a169b0f;
+ Tue, 03 Dec 2024 09:11:33 +0100 (CET)
+Received: from [192.168.7.205] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 4B38AqJi322558
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Tue, 3 Dec 2024 00:10:52 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,222 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6feb9826-b146-11ef-a0d3-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1733210155; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=YteXmpzJovraoUH7Bk6Fvs0Z1YQksr+1l5QkNJPajMU=;
-	b=S/nw+k6yAnLTqZGvI+KqLMq9SD/ydjeYjWSkKssGFQ5/wmKWcKZAc0hdpWkm5il70c5Wtr
-	oMTbYJC1dGwwa+hXGAppeD1nq5eMoWerYwtTzeInPPkovaKmiQia53Rj0Tl0ks8dbR5ABl
-	8Hrg+j0bW5/3hcrY8zfcspXZzGbEhp0=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b="S/nw+k6y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1733210155; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=YteXmpzJovraoUH7Bk6Fvs0Z1YQksr+1l5QkNJPajMU=;
-	b=S/nw+k6yAnLTqZGvI+KqLMq9SD/ydjeYjWSkKssGFQ5/wmKWcKZAc0hdpWkm5il70c5Wtr
-	oMTbYJC1dGwwa+hXGAppeD1nq5eMoWerYwtTzeInPPkovaKmiQia53Rj0Tl0ks8dbR5ABl
-	8Hrg+j0bW5/3hcrY8zfcspXZzGbEhp0=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	virtualization@lists.linux.dev
-Cc: Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.amakhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH] x86/paravirt: remove the wbinvd hook
-Date: Tue,  3 Dec 2024 08:15:50 +0100
-Message-ID: <20241203071550.26487-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 34adec79-b14e-11ef-99a3-01e77a169b0f
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 4B38AqJi322558
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2024111601; t=1733213454;
+	bh=Gjt29Xyz+OZvO528TtflAd8fuc5YuSz5FuvYYAukkjY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NJVWnyohYxxPHKawzE2PaIJShfBzSYY3l6rvK/K94gmRO32nSvFn5vdb/0lD1IN3W
+	 BLOprK8yii/5+vEloY+ObAHpkivASlubGMQyPO9LWvh/13JJD0BrhrnZeLdIZlE95S
+	 wB3UaFxWOBbWQ9U/7bLejiu7cPyPQ5tM1T+18KuIqrAdGjX+LiR6TJcCWCELXEIkBQ
+	 DN0CYc2ouYU4ThmU5gqBDG41+egL3BpPL8T22pdH3Tal8O0VMKQuFwwKSis8Tdx5mA
+	 zmgeFXrRsTjnWIuF9Jj5o1eVpGEUsAbDnSYWkC/2HqkJaFlpH3lNec8fWHlK/dkep/
+	 ABs6l+vOD/WlQ==
+Message-ID: <25fa8746-3b36-4d43-86cd-37aadaacdf2e@zytor.com>
+Date: Tue, 3 Dec 2024 00:10:46 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/2] x86, lib, xenpv: Add WBNOINVD helper functions
+To: Juergen Gross <jgross@suse.com>,
+        Kevin Loughlin
+ <kevinloughlin@google.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: linux-kernel@vger.kernel.org, seanjc@google.com, pbonzini@redhat.com,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        kvm@vger.kernel.org, thomas.lendacky@amd.com, pgonda@google.com,
+        sidtelang@google.com, mizhang@google.com,
+        virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+        bcm-kernel-feedback-list@broadcom.com
+References: <20241203005921.1119116-1-kevinloughlin@google.com>
+ <20241203005921.1119116-2-kevinloughlin@google.com>
+ <a9560e97-478d-4e03-b936-cf6f663279a4@citrix.com>
+ <CAGdbjmLRA5g+Rgiq-fRbWaNqXK51+naNBi0b3goKxsN-79wpaw@mail.gmail.com>
+ <bc4a4095-d8bd-4d97-a623-be35ef81aad0@zytor.com>
+ <24b80006-dcea-4a76-b5c8-e147d9191ed2@suse.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <24b80006-dcea-4a76-b5c8-e147d9191ed2@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: ED95D2116D
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
 
-The wbinvd paravirt hook is a leftover of lguest times. Today it is
-no longer needed, as all users use the native wbinvd implementation.
+On 12/2/2024 10:47 PM, Juergen Gross wrote:
+> P.S.: As the paravirt maintainer I would have preferred to be Cc-ed in the
+>        initial patch mail.
 
-Remove the hook and rename native_wbinvd() to wbinvd().
+Looks that Kevin didn't run './scripts/get_maintainer.pl'?
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/include/asm/paravirt.h           | 7 -------
- arch/x86/include/asm/paravirt_types.h     | 2 --
- arch/x86/include/asm/special_insns.h      | 8 +-------
- arch/x86/kernel/cpu/resctrl/pseudo_lock.c | 2 +-
- arch/x86/kernel/paravirt.c                | 6 ------
- arch/x86/kernel/process.c                 | 4 ++--
- arch/x86/xen/enlighten_pv.c               | 2 --
- 7 files changed, 4 insertions(+), 27 deletions(-)
-
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index d4eb9e1d61b8..041aff51eb50 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -180,13 +180,6 @@ static inline void halt(void)
- 	PVOP_VCALL0(irq.halt);
- }
- 
--extern noinstr void pv_native_wbinvd(void);
--
--static __always_inline void wbinvd(void)
--{
--	PVOP_ALT_VCALL0(cpu.wbinvd, "wbinvd", ALT_NOT_XEN);
--}
--
- static inline u64 paravirt_read_msr(unsigned msr)
- {
- 	return PVOP_CALL1(u64, cpu.read_msr, msr);
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 8d4fbe1be489..fea56b04f436 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -86,8 +86,6 @@ struct pv_cpu_ops {
- 	void (*update_io_bitmap)(void);
- #endif
- 
--	void (*wbinvd)(void);
--
- 	/* cpuid emulation, mostly so that caps bits can be disabled */
- 	void (*cpuid)(unsigned int *eax, unsigned int *ebx,
- 		      unsigned int *ecx, unsigned int *edx);
-diff --git a/arch/x86/include/asm/special_insns.h b/arch/x86/include/asm/special_insns.h
-index aec6e2d3aa1d..fab7c8af27a4 100644
---- a/arch/x86/include/asm/special_insns.h
-+++ b/arch/x86/include/asm/special_insns.h
-@@ -115,7 +115,7 @@ static inline void wrpkru(u32 pkru)
- }
- #endif
- 
--static __always_inline void native_wbinvd(void)
-+static __always_inline void wbinvd(void)
- {
- 	asm volatile("wbinvd": : :"memory");
- }
-@@ -167,12 +167,6 @@ static inline void __write_cr4(unsigned long x)
- {
- 	native_write_cr4(x);
- }
--
--static __always_inline void wbinvd(void)
--{
--	native_wbinvd();
--}
--
- #endif /* CONFIG_PARAVIRT_XXL */
- 
- static __always_inline void clflush(volatile void *__p)
-diff --git a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
-index 972e6b6b0481..b72f7e91387e 100644
---- a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
-+++ b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
-@@ -459,7 +459,7 @@ static int pseudo_lock_fn(void *_rdtgrp)
- 	 * increase likelihood that allocated cache portion will be filled
- 	 * with associated memory.
- 	 */
--	native_wbinvd();
-+	wbinvd();
- 
- 	/*
- 	 * Always called with interrupts enabled. By disabling interrupts
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index fec381533555..927e33e6843a 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -116,11 +116,6 @@ static noinstr void pv_native_set_debugreg(int regno, unsigned long val)
- 	native_set_debugreg(regno, val);
- }
- 
--noinstr void pv_native_wbinvd(void)
--{
--	native_wbinvd();
--}
--
- static noinstr void pv_native_safe_halt(void)
- {
- 	native_safe_halt();
-@@ -148,7 +143,6 @@ struct paravirt_patch_template pv_ops = {
- 	.cpu.read_cr0		= native_read_cr0,
- 	.cpu.write_cr0		= native_write_cr0,
- 	.cpu.write_cr4		= native_write_cr4,
--	.cpu.wbinvd		= pv_native_wbinvd,
- 	.cpu.read_msr		= native_read_msr,
- 	.cpu.write_msr		= native_write_msr,
- 	.cpu.read_msr_safe	= native_read_msr_safe,
-diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-index f63f8fd00a91..58ead05a1c29 100644
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -825,7 +825,7 @@ void __noreturn stop_this_cpu(void *dummy)
- 	 * X86_FEATURE_SME due to cmdline options.
- 	 */
- 	if (c->extended_cpuid_level >= 0x8000001f && (cpuid_eax(0x8000001f) & BIT(0)))
--		native_wbinvd();
-+		wbinvd();
- 
- 	/*
- 	 * This brings a cache line back and dirties it, but
-@@ -846,7 +846,7 @@ void __noreturn stop_this_cpu(void *dummy)
- 		/*
- 		 * Use native_halt() so that memory contents don't change
- 		 * (stack usage and variables) after possibly issuing the
--		 * native_wbinvd() above.
-+		 * wbinvd() above.
- 		 */
- 		native_halt();
- 	}
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index d6818c6cafda..fd2169063480 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -1161,8 +1161,6 @@ static const typeof(pv_ops) xen_cpu_ops __initconst = {
- 
- 		.write_cr4 = xen_write_cr4,
- 
--		.wbinvd = pv_native_wbinvd,
--
- 		.read_msr = xen_read_msr,
- 		.write_msr = xen_write_msr,
- 
--- 
-2.43.0
-
+Thanks!
+     Xin
 
