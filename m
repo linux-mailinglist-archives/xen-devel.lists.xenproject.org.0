@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB0179E165E
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 09:55:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847469.1262550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 732A69E1688
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:01:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847481.1262560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIOgC-0004ja-04; Tue, 03 Dec 2024 08:54:48 +0000
+	id 1tIOmN-0006b0-OB; Tue, 03 Dec 2024 09:01:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847469.1262550; Tue, 03 Dec 2024 08:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 847481.1262560; Tue, 03 Dec 2024 09:01:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIOgB-0004hv-Tp; Tue, 03 Dec 2024 08:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 847469;
- Tue, 03 Dec 2024 08:54:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tIOmN-0006YT-LU; Tue, 03 Dec 2024 09:01:11 +0000
+Received: by outflank-mailman (input) for mailman id 847481;
+ Tue, 03 Dec 2024 09:01:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D5Za=S4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tIOgB-0004hp-0B
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 08:54:47 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e2e8b08-b154-11ef-99a3-01e77a169b0f;
- Tue, 03 Dec 2024 09:54:45 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aa531a70416so339033066b.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Dec 2024 00:54:45 -0800 (PST)
+ id 1tIOmM-0006YN-Ac
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:01:10 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 231225d6-b155-11ef-a0d3-8be0dac302b0;
+ Tue, 03 Dec 2024 10:01:09 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-53df67d6659so8123241e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Dec 2024 01:01:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d097db0a6esm5846455a12.27.2024.12.03.00.54.43
+ a640c23a62f3a-aa59991f1b1sm588820066b.165.2024.12.03.01.01.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Dec 2024 00:54:44 -0800 (PST)
+ Tue, 03 Dec 2024 01:01:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e2e8b08-b154-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 231225d6-b155-11ef-a0d3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733216084; x=1733820884; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733216468; x=1733821268; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jPUNVDWkogcynT8pGLDTi0w2gyUNXgK+hXK8tDXrm4w=;
-        b=YYoi9Tdnt1YEg1Bf6UQJisNwZ/Q7xiMnEYogWHM7n+62XsoAOkLHhqRWWGR61WYKQC
-         779TTmk4WngqOP4jOxtbikUyT28ee1Am8SrSfKqWgNVXmaPm/CHtMA0Wopz1dU/WIxX1
-         QQlewaa0r2zCzevo6QeslZK+WP+Gf0+wegXi5CX+xTOVus/a5kALfQXBZOa5/QLNvi3d
-         ZPHBexMJYO8+CbfY/00wIp5Aw0FvjS7Kr7JEBoNtXrdobDEGD9P4zrT9sktwen/Ghg7S
-         ytvjLeGRcJKD5AXV0KW7Y7HX+WVQd5cfYUHlVTFJ8UTpqhKj+8n6MI2auGrWYKNfz2Ej
-         HoDw==
+        bh=4YRb2XHdKNSFAGkA9/fZjUUYBUqXrLnykySbZz9RxHM=;
+        b=gLLwlEDwhUOFCcC+Ui5b1EZYnCISjbAYSue68tPkfc6srZZSbGHnQQzzZs2aJzq0cQ
+         5u8eJWzjBFihK6t/9v01N1FgY4AEjvBSTxxPLRDkc1Xi3oYsG2FSp5L07siIvuFjPszi
+         +Gh2bzs9+UGW8WadnwDiXqHx5xvjA1XrfFNamYxm5FrqgnZ1PZc/c2XTv9ZmMUBBVW2I
+         v3A7zOGlurLV8Yr0+RgIdp7D7m5P+YqeH+HRwe9rFE0jdfKsMXw8/n+AJ1317VJafpWf
+         9etKTxq9fCbr+5xGm+CmkYmxa/nYaREnNywbRzQnkSoIqAbHx7OyhN14YrIuEDTyTY2a
+         UrHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733216084; x=1733820884;
+        d=1e100.net; s=20230601; t=1733216468; x=1733821268;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jPUNVDWkogcynT8pGLDTi0w2gyUNXgK+hXK8tDXrm4w=;
-        b=s8Wvzgu0xxBCDYb4Y9Fd5Rfe7Q9GqTJS8DLmiFqicdc8oAl74l1KKn+EJA9vkcZ/Td
-         hnKrEI0o87vzIQghT2vzJM2lfhKVfeNGssXiROTJbSR3aRPNFrSqLioZlgdsGhoUDnog
-         fG4g93iI0J7pIZzq0ycYRbA+C7hKKfjqQin9lYDAJAbW2nWPPW+Vz7CqP7cwZtKde5XC
-         LFeVIHI7Ng008qtcPBwnNwZoYfDdJM9ePj/hwDTOo4WqIOkgPeJa+YTdm29293jkum/h
-         z3tVae+3GLYWSpWEDxIbnQatTqDonbEXdvrTIdi0m7pqpKn5Zm2Wus/wJNBaK/E6E1EZ
-         6tKg==
-X-Forwarded-Encrypted: i=1; AJvYcCXGbL8tCBkhhA6WVSSaXmPLcOj7nuDWl+mQoIFQrIC7q58qX24+0oGyoMn8vpF0f92GqlrUHkSedqs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwB4OBXGZq9nyrJIEc6qO/tuPNTNfiUpqQZC6PrhPkXHNNuvlJu
-	yCw6Jbe2ZVXzytvZHLT8CWgj0COgTDKPO46Tp9f9vq/AewYe2k8n7JwR1idzvg==
-X-Gm-Gg: ASbGncsdLIb0nTvlAcpafuldiIj7dh1FI5EJMoaSS4aQTXrTsoUdvw9XEJCbJXkHGgp
-	R7J1SKbIaMYc9SbdbJoZ4koy0OSVrsetM1PsbmvpfT3qV0fLBNtvX26WBLwxp1OUzHp4EdcBzWP
-	yRHLxIUVweGgH+AJw+v3+CGTh1gcqXNidqBt+v+IMDEz59hhdpbgfWwhMWsNR2qsOvYHV1FPgLr
-	bj6kBoUkBLD9qei607p/yTP1jS7FI7izt0yT9yul19prMjkTREFV0TPSBO+BfQf4PpBhteHzTVf
-	Urh8kze6NROy4lTcHMhJyr1MzNAMcbw3Jdc=
-X-Google-Smtp-Source: AGHT+IFXi2GLytIYV7oO6QRxR5PHJZFrbuv2c1s/CiYg21PquypfTwtStZfIczn8XTlfneOL2ybtyw==
-X-Received: by 2002:a05:6402:42c3:b0:5d0:d2ed:ebb with SMTP id 4fb4d7f45d1cf-5d10cb4e70amr1966772a12.3.1733216084619;
-        Tue, 03 Dec 2024 00:54:44 -0800 (PST)
-Message-ID: <5b98f7cd-fb84-4a67-af3a-9c81a687b291@suse.com>
-Date: Tue, 3 Dec 2024 09:54:43 +0100
+        bh=4YRb2XHdKNSFAGkA9/fZjUUYBUqXrLnykySbZz9RxHM=;
+        b=Sl9lypat7TvkDCHFQzS8pDdl0jwJZ4rahB2POymno0dty7/fXKEntHyxq6iVNUUKnE
+         VmpwaeB7dJRc3kOs7ZSLUePiCfqLiTO+Ai3pQwROoUAUJjDSrc//uZuUuY2qFoerdUSh
+         QaAT/tNAGNXuP1OKDErjtA8XOgR8g7bQauO1plrJvXRo8DsY9AUuYyBe4nQxMO+wKYR0
+         UN3U4HR1fnHi9x8u6BL5pAqkgJvW7/fkkqQB9Q991fOZ3Rp0jjzg+yy2gyL4eEqCxqP0
+         NbYYXN0wVB5FyoMVoe8SfeTaXf8gg5DdfiaEpQGDwjZVRK8tQrO1t3z673r+d8jSc24s
+         Io1A==
+X-Forwarded-Encrypted: i=1; AJvYcCXF1rWnNDtP+LaF0xDAmFDAxsMeHAfvAVoGEiH/Xp5xAmXGz7xFphlu35ypCiDqjZvmnxHvYi4l+eQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJNQ2xBj5yHlgQuVTN3Fwc/MJXJpMbZL6T/yoDTTWZWPDO8JX6
+	j1Szr/peRk0nS4J3BR/fgIVkSMljH3aRnlS5FEqWSL1dxCEo4UZQhfN1D3KtOQ==
+X-Gm-Gg: ASbGnct0ZjBoLRf8tDLPbzOdok6x18Xt96CDixXBuDTFo9e233qD0od1iB2p2gs2zPN
+	7eyUTnqbfTbR6W2HqJNh2tCf8w2gTQCuxiRF4rmPqxbXGtZTopQgcfU6FDuIkj4MXXfglcF+YRh
+	8kocuZOrUW2iqAIIBfGokFg2X6KG7VA+B3+HXxicFW/FL8HZfDki3Cg9RJ7zL9m6vatQYAQA769
+	kzQlRf1LkPHIhdlJazEUGtYVa0atCoy6NrS3RoUoPgJ38rNTfxIpLjtbKhldBtw4yrSK8oVzRhE
+	pdZN/UX0MeKP6PxBxfdIvuiWaISoleUsJRo=
+X-Google-Smtp-Source: AGHT+IFCoZx9jD9ylrLhyUpnHj7rce1pa6sjPuv8/ddPVXjBP2Elo7tKAZmg+o9z8MkBNSA32IOdOA==
+X-Received: by 2002:a05:6512:b14:b0:53d:e7b6:c701 with SMTP id 2adb3069b0e04-53e12a06d37mr1395337e87.33.1733216468557;
+        Tue, 03 Dec 2024 01:01:08 -0800 (PST)
+Message-ID: <593baee2-9bf1-4db4-86e8-015cae48dc1a@suse.com>
+Date: Tue, 3 Dec 2024 10:01:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 08/12] xen/page_alloc: introduce preserved page flags
- macro
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241202165921.249585-1-carlo.nonato@minervasys.tech>
- <20241202165921.249585-9-carlo.nonato@minervasys.tech>
- <CAG+AhRXrnZbX=0Dic4zRTddYx7+tbounnB9tT4vrt-MHsp9ikw@mail.gmail.com>
+Subject: Re: [PATCH v1 00/11] amd-pstate CPU Performance Scaling Driver
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: stefano.stabellini@amd.com, Ray.Huang@amd.com, Xenia.Ragiadakou@amd.com,
+ Jason.Andryuk@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20241203081111.463400-1-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,27 +119,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRXrnZbX=0Dic4zRTddYx7+tbounnB9tT4vrt-MHsp9ikw@mail.gmail.com>
+In-Reply-To: <20241203081111.463400-1-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.12.2024 18:33, Carlo Nonato wrote:
-> Sorry guys, this patch is wrong.
-> Here's the correct one.
-
-Which looks okay to me now, just that imo ...
-
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -161,6 +161,7 @@
->  #endif
+On 03.12.2024 09:11, Penny Zheng wrote:
+> amd-pstate is the AMD CPU performance scaling driver that introduces a
+> new CPU frequency control mechanism on modern AMD APU and CPU series in
+> Xen. The new mechanism is based on Collaborative Processor Performance
+> Control (CPPC) which provides finer grain frequency management than
+> legacy ACPI hardware P-States. Current AMD CPU/APU platforms are using
+> the ACPI P-states driver to manage CPU frequency and clocks with
+> switching only in 3 P-states. CPPC replaces the ACPI P-states controls
+> and allows a flexible, low-latency interface for Xen to directly
+> communicate the performance hints to hardware.
 > 
->  #define PGC_no_buddy_merge PGC_static
-> +#define PGC_preserved (PGC_extra | PGC_static)
+> amd_pstate CPPC has 2 operation modes: autonomous (active) mode,
+> and non-autonomous (passive) mode. We register different CPUFreq driver
+> for different modes, "amd-pstate" for passive mode and "amd-pstate-epp"
+> for active mode.
+> 
+> The passive mode leverages common governors such as *ondemand*,
+> *performance*, etc, to manage the performance hints. And the active mode
+> uses epp to provides a hint to the hardware if software wants to bias
+> toward performance (0x0) or energy efficiency (0xff). CPPC power algorithm
+> will calculate the runtime workload and adjust the realtime cpu cores
+> frequency according to the power supply and thermal, core voltage and some
+> other hardware conditions.
+> 
+> amd-pstate is enabled with a top-level cpufreq=amd-pstate option. It will
+> fallback to cpufreq=xen if amd-pstate is unavailable.
+> 
+> With `cpufreq=amd-pstate,active`, We did a 60s sampling test to see the CPU
+> frequency change, through tweaking the energy_perf preference from
+> `xenpm set-cpufreq-cppc powersave` to `xenpm set-cpufreq-cppc performance`.
+> The outputs are as follows:
+> ```
+> Setting CPU in powersave mode
+> Sampling and Outputs:
+>   Avg freq      2000000 KHz
+>   Avg freq      2000000 KHz
+>   Avg freq      2000000 KHz
+> Setting CPU in performance mode
+> Sampling and Outputs:
+>   Avg freq      4640000 KHz
+>   Avg freq      4220000 KHz
+>   Avg freq      4640000 KHz
+> ```
+> 
+> Penny Zheng (11):
+>   xen/x86: add CPPC feature flag for AMD processors
+>   xen/x86: introduce new sub-hypercall to get CPPC data
+>   xen/x86: introduce "cpufreq=amd-pstate" xen cmdline
+>   xen/x86: get processor max speed from DMI table
+>   xen/x86: introduce a new amd pstate driver for cpufreq scaling
+>   xen/cpufreq: introduce policy type when cpufreq_driver->setpolicy
+>     exists
+>   xen/cpufreq: only set gov NULL when cpufreq_driver.target() exists
+>   x86/cpufreq: add "cpufreq=amd-pstate,active" para
+>   xen/x86: implement EPP support for the AMD processors
+>   tools/xenpm: Print CPPC parameters for amd-pstate driver
+>   xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC xen_sysctl_pm_op for
+>     amd-pstate driver
 
-... this new #define now wants a comment, to clarify where the constant is
-to be used (or specifically not to be used). Unlike for PGC_no_buddy_merge
-this can't be easily deduced from the name.
+Just to clarify: While certainly fine, it is a little surprising to see
+such a submission just after the submission deadline for 4.20 was passed.
+This is intended for 4.21 then, I expect? Or else have you talked to the
+release manager?
 
 Jan
 
