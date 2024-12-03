@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA979E1808
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:43:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847691.1262761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 833899E183C
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:48:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847709.1262770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIPR1-0007ob-F3; Tue, 03 Dec 2024 09:43:11 +0000
+	id 1tIPW6-0000br-3R; Tue, 03 Dec 2024 09:48:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847691.1262761; Tue, 03 Dec 2024 09:43:11 +0000
+Received: by outflank-mailman (output) from mailman id 847709.1262770; Tue, 03 Dec 2024 09:48:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIPR1-0007mR-B2; Tue, 03 Dec 2024 09:43:11 +0000
-Received: by outflank-mailman (input) for mailman id 847691;
- Tue, 03 Dec 2024 09:43:09 +0000
+	id 1tIPW6-0000ZO-0I; Tue, 03 Dec 2024 09:48:26 +0000
+Received: by outflank-mailman (input) for mailman id 847709;
+ Tue, 03 Dec 2024 09:48:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L6AI=S4=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1tIPQz-0007Yh-MM
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:43:09 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fffb194a-b15a-11ef-99a3-01e77a169b0f;
- Tue, 03 Dec 2024 10:43:08 +0100 (CET)
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-365-jUBPHpOAMHWdwhWg_maZJw-1; Tue,
- 03 Dec 2024 04:43:01 -0500
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C3C591955D45; Tue,  3 Dec 2024 09:43:00 +0000 (UTC)
-Received: from redhat.com (unknown [10.42.28.37])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8F78A1956089; Tue,  3 Dec 2024 09:42:57 +0000 (UTC)
+ <SRS0=iaGl=S4=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1tIPW4-0000ZC-W2
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:48:24 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id bbc32b1b-b15b-11ef-99a3-01e77a169b0f;
+ Tue, 03 Dec 2024 10:48:22 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B618FEC;
+ Tue,  3 Dec 2024 01:48:50 -0800 (PST)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 692173F58B;
+ Tue,  3 Dec 2024 01:48:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,67 +42,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fffb194a-b15a-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1733218987;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I+JRUYnBGGGQCm69OO+rjh8nq3v9YjWxvZA969LR9Tw=;
-	b=bSvTOInJMRaJVATcnvR5w6P950rAQULYJNM/G0mMxFmjmbxpTHyCWJOMRDLLugpgjSjWMu
-	1AuOkfKXIN4U/OYT5LDojwYyS5spJhsUCYLBSkNblp+HNwO+Lp+mY0AvgOjqzEk67gLpPy
-	y7XuLO6/nbCQJcWzQE/U7PECg0YZzso=
-X-MC-Unique: jUBPHpOAMHWdwhWg_maZJw-1
-X-Mimecast-MFC-AGG-ID: jUBPHpOAMHWdwhWg_maZJw
-Date: Tue, 3 Dec 2024 09:42:53 +0000
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
-	xen-devel@lists.xenproject.org, qemu-ppc@nongnu.org,
-	Markus Armbruster <armbru@redhat.com>, qemu-arm@nongnu.org,
-	Thomas Huth <thuth@redhat.com>
-Subject: Re: [PATCH 6/7] accel/kvm: Remove mentions of legacy '-machine
- foo,accel=bar'
-Message-ID: <Z07SnalqtT8hYsSZ@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20241203092153.60590-1-philmd@linaro.org>
- <20241203092153.60590-7-philmd@linaro.org>
+X-Inumbo-ID: bbc32b1b-b15b-11ef-99a3-01e77a169b0f
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH v4 0/5] Prerequisite patches for R82 upstreaming
+Date: Tue,  3 Dec 2024 09:48:05 +0000
+Message-Id: <20241203094811.427076-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241203092153.60590-7-philmd@linaro.org>
-User-Agent: Mutt/2.2.13 (2024-03-09)
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
 
-On Tue, Dec 03, 2024 at 10:21:52AM +0100, Philippe Mathieu-Daudé wrote:
-> Since commit 6f6e1698a68 ("vl: configure accelerators from -accel
-> options") we prefer the '-accel bar' command line option.
-> 
-> Update the documentation when KVM is referred to.
-> 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> ---
->  docs/bypass-iommu.txt            | 3 ++-
->  docs/nvdimm.txt                  | 2 +-
->  docs/specs/tpm.rst               | 2 +-
->  docs/system/arm/cpu-features.rst | 2 +-
->  docs/system/cpu-hotplug.rst      | 2 +-
->  docs/system/ppc/powernv.rst      | 2 +-
->  docs/system/ppc/pseries.rst      | 4 ++--
->  scripts/device-crash-test        | 2 +-
->  8 files changed, 10 insertions(+), 9 deletions(-)
+In this serie I've taken out patches from the R82 branch already in the ML[1]
+and some new patches I've done based on the current status of staging that will
+not impact the current Armv8-R earlyboot work.
 
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+[1] https://patchwork.kernel.org/project/xen-devel/cover/20230626033443.2943270-1-Penny.Zheng@arm.com/
 
+Changes between v2 and v3:
+ - New patch
+ - changes to previous patch are listed inside them
 
-With regards,
-Daniel
+Luca Fancellu (4):
+  common/vmap: Fall back to simple allocator when !HAS_VMAP
+  arm/setup: Move MMU specific extern declarations to mmu/setup.h
+  xen/arm: Use vmap_contig instead of __vmap where it's possible
+  xen/arm: Move setup_frametable_mappings to arm/mmu
+
+Penny Zheng (1):
+  xen/arm: Check for Static Heap feature when freeing resources
+
+ xen/arch/arm/alternative.c           |  3 +-
+ xen/arch/arm/arm32/mmu/mm.c          |  4 +-
+ xen/arch/arm/cpuerrata.c             |  5 +--
+ xen/arch/arm/include/asm/mmu/setup.h | 31 ++++++++++++++
+ xen/arch/arm/include/asm/setup.h     | 20 +++------
+ xen/arch/arm/kernel.c                |  9 ++--
+ xen/arch/arm/livepatch.c             |  3 +-
+ xen/arch/arm/mm.c                    | 40 ------------------
+ xen/arch/arm/mmu/Makefile            |  1 +
+ xen/arch/arm/mmu/mm.c                | 61 ++++++++++++++++++++++++++++
+ xen/arch/arm/mmu/setup.c             |  8 +++-
+ xen/arch/arm/setup.c                 | 27 ++++++------
+ xen/common/device-tree/bootfdt.c     |  4 +-
+ xen/common/device-tree/bootinfo.c    |  2 +-
+ xen/common/page_alloc.c              |  5 +++
+ xen/include/xen/bootfdt.h            |  1 -
+ xen/include/xen/mm.h                 |  6 +++
+ xen/include/xen/vmap.h               |  2 +-
+ xen/include/xen/xvmalloc.h           | 21 +++++++---
+ 19 files changed, 162 insertions(+), 91 deletions(-)
+ create mode 100644 xen/arch/arm/include/asm/mmu/setup.h
+ create mode 100644 xen/arch/arm/mmu/mm.c
+
 -- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+2.34.1
 
 
