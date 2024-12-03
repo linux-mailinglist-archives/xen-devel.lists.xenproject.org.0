@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799929E183B
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:48:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847714.1262820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B419E1854
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:54:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847767.1262831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIPWE-0001yo-AK; Tue, 03 Dec 2024 09:48:34 +0000
+	id 1tIPbz-0006CF-2f; Tue, 03 Dec 2024 09:54:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847714.1262820; Tue, 03 Dec 2024 09:48:34 +0000
+Received: by outflank-mailman (output) from mailman id 847767.1262831; Tue, 03 Dec 2024 09:54:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIPWE-0001wB-5y; Tue, 03 Dec 2024 09:48:34 +0000
-Received: by outflank-mailman (input) for mailman id 847714;
- Tue, 03 Dec 2024 09:48:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tIPby-00069x-W7; Tue, 03 Dec 2024 09:54:30 +0000
+Received: by outflank-mailman (input) for mailman id 847767;
+ Tue, 03 Dec 2024 09:54:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iaGl=S4=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tIPWB-0000ZC-MD
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:48:31 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id c027a98b-b15b-11ef-99a3-01e77a169b0f;
- Tue, 03 Dec 2024 10:48:29 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7976A1DB5;
- Tue,  3 Dec 2024 01:48:57 -0800 (PST)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 503E83F58B;
- Tue,  3 Dec 2024 01:48:28 -0800 (PST)
+ <SRS0=L6AI=S4=redhat.com=berrange@srs-se1.protection.inumbo.net>)
+ id 1tIPbx-00069r-DD
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:54:29 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 94abc892-b15c-11ef-a0d3-8be0dac302b0;
+ Tue, 03 Dec 2024 10:54:27 +0100 (CET)
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-19-YxXr4IOQPeeG_3ecYmygPg-1; Tue,
+ 03 Dec 2024 04:54:22 -0500
+Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 95DD5195608A; Tue,  3 Dec 2024 09:54:21 +0000 (UTC)
+Received: from redhat.com (unknown [10.42.28.37])
+ by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 39021195608A; Tue,  3 Dec 2024 09:54:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,182 +52,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c027a98b-b15b-11ef-99a3-01e77a169b0f
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 5/5] xen/arm: Move setup_frametable_mappings to arm/mmu
-Date: Tue,  3 Dec 2024 09:48:10 +0000
-Message-Id: <20241203094811.427076-6-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241203094811.427076-1-luca.fancellu@arm.com>
-References: <20241203094811.427076-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 94abc892-b15c-11ef-a0d3-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1733219666;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l3VcSU2FOCO6z2TK0iPyybiLDyV7PIhM+xSHQeNdxLM=;
+	b=bNgLo4E8dDfMZszR8H33xrDHzPEhzEcEUHhQp4/veQwmt6LxWsAlOeNXR1ddd1Ymhds1Mq
+	QIxSsGteZgjOxhmdnh59hAkpslmqjluoJQBGGyDcS+oSP/PvShCPAPNIGD1W0TyEs2otlm
+	DJH/BHsYaSPw2aFtpZ8UfQO0AC73k7g=
+X-MC-Unique: YxXr4IOQPeeG_3ecYmygPg-1
+X-Mimecast-MFC-AGG-ID: YxXr4IOQPeeG_3ecYmygPg
+Date: Tue, 3 Dec 2024 09:54:15 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+	xen-devel@lists.xenproject.org, qemu-ppc@nongnu.org,
+	Markus Armbruster <armbru@redhat.com>, qemu-arm@nongnu.org,
+	Thomas Huth <thuth@redhat.com>
+Subject: Re: [PATCH 7/7] qemu-options: Remove mentions of legacy '-machine
+ foo,accel=bar'
+Message-ID: <Z07VR-YvVCxdTua_@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <20241203092153.60590-1-philmd@linaro.org>
+ <20241203092153.60590-8-philmd@linaro.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241203092153.60590-8-philmd@linaro.org>
+User-Agent: Mutt/2.2.13 (2024-03-09)
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
 
-Move the current setup_frametable_mappings implementation to
-arm/mmu under a new file mm.c, this implementation depends on
-virtual memory and won't be used as it is for MPU systems.
+On Tue, Dec 03, 2024 at 10:21:53AM +0100, Philippe Mathieu-Daudé wrote:
+> Since commit 6f6e1698a68 ("vl: configure accelerators from -accel
+> options") we prefer the '-accel bar' command line option.
+> 
+> The new form started to be documented in commit 8d4e9146b35 ("tcg:
+> add options for enabling MTTCG"); it is safe to remove the mentions
+> of the legacy option.
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>  qemu-options.hx | 9 ---------
+>  1 file changed, 9 deletions(-)
+> 
+> diff --git a/qemu-options.hx b/qemu-options.hx
+> index dacc9790a4b..11f0aab1470 100644
+> --- a/qemu-options.hx
+> +++ b/qemu-options.hx
+> @@ -27,8 +27,6 @@ ERST
+>  DEF("machine", HAS_ARG, QEMU_OPTION_machine, \
+>      "-machine [type=]name[,prop[=value][,...]]\n"
+>      "                selects emulated machine ('-machine help' for list)\n"
+> -    "                property accel=accel1[:accel2[:...]] selects accelerator\n"
+> -    "                supported accelerators are kvm, xen, hvf, nvmm, whpx or tcg (default: tcg)\n"
+>      "                vmport=on|off|auto controls emulation of vmport (default: auto)\n"
+>      "                dump-guest-core=on|off include guest memory in a core dump (default=on)\n"
+>      "                mem-merge=on|off controls memory merge support (default: on)\n"
+> @@ -59,13 +57,6 @@ SRST
+>  
+>      Supported machine properties are:
+>  
+> -    ``accel=accels1[:accels2[:...]]``
+> -        This is used to enable an accelerator. Depending on the target
+> -        architecture, kvm, xen, hvf, nvmm, whpx or tcg can be available.
+> -        By default, tcg is used. If there is more than one accelerator
+> -        specified, the next one is used if the previous one fails to
+> -        initialize.
+> -
 
-Take the occasion to fix code style issues related to the line
-length.
+I'm not convinced we should be removing documentation for options that
+currently exist and remain supported.
 
-Moved also frametable_virt_end since it is used only on MMU
-systems.
+The documentation should be updated to say that we prefer use of '-accel'
+instead at least.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes to v3:
- - changed SPDX to reflect original file
-Changes to v2:
- - New patch
----
----
- xen/arch/arm/mm.c         | 40 -------------------------
- xen/arch/arm/mmu/Makefile |  1 +
- xen/arch/arm/mmu/mm.c     | 61 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 62 insertions(+), 40 deletions(-)
- create mode 100644 xen/arch/arm/mmu/mm.c
+Beyond that, what is our long term intention with '-machine accel=xxx' ?
 
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index def939172cc5..a56e20ba2bdc 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -22,7 +22,6 @@
- #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
- 
- unsigned long frametable_base_pdx __read_mostly;
--unsigned long frametable_virt_end __read_mostly;
- 
- void flush_page_to_ram(unsigned long mfn, bool sync_icache)
- {
-@@ -43,45 +42,6 @@ void flush_page_to_ram(unsigned long mfn, bool sync_icache)
-         invalidate_icache();
- }
- 
--/* Map a frame table to cover physical addresses ps through pe */
--void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
--{
--    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(pe), -1)) -
--                            mfn_to_pdx(maddr_to_mfn(ps)) + 1;
--    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
--    mfn_t base_mfn;
--    const unsigned long mapping_size = frametable_size < MB(32) ? MB(2) : MB(32);
--    int rc;
--
--    /*
--     * The size of paddr_t should be sufficient for the complete range of
--     * physical address.
--     */
--    BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
--    BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
--
--    if ( frametable_size > FRAMETABLE_SIZE )
--        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
--              ps, pe);
--
--    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
--    /* Round up to 2M or 32M boundary, as appropriate. */
--    frametable_size = ROUNDUP(frametable_size, mapping_size);
--    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20-12));
--
--    rc = map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
--                          frametable_size >> PAGE_SHIFT,
--                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
--    if ( rc )
--        panic("Unable to setup the frametable mappings.\n");
--
--    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
--    memset(&frame_table[nr_pdxs], -1,
--           frametable_size - (nr_pdxs * sizeof(struct page_info)));
--
--    frametable_virt_end = FRAMETABLE_VIRT_START + (nr_pdxs * sizeof(struct page_info));
--}
--
- int steal_page(
-     struct domain *d, struct page_info *page, unsigned int memflags)
- {
-diff --git a/xen/arch/arm/mmu/Makefile b/xen/arch/arm/mmu/Makefile
-index 2cb44b857dd2..1c89602947de 100644
---- a/xen/arch/arm/mmu/Makefile
-+++ b/xen/arch/arm/mmu/Makefile
-@@ -1,3 +1,4 @@
-+obj-y += mm.o
- obj-y += p2m.o
- obj-y += pt.o
- obj-y += setup.o
-diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
-new file mode 100644
-index 000000000000..9c50479c6373
---- /dev/null
-+++ b/xen/arch/arm/mmu/mm.c
-@@ -0,0 +1,61 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/macros.h>
-+#include <xen/mm.h>
-+#include <xen/mm-frame.h>
-+#include <xen/pdx.h>
-+#include <xen/string.h>
-+
-+unsigned long frametable_virt_end __read_mostly;
-+
-+/* Map a frame table to cover physical addresses ps through pe */
-+void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
-+{
-+    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(pe), -1)) -
-+                            mfn_to_pdx(maddr_to_mfn(ps)) + 1;
-+    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
-+    mfn_t base_mfn;
-+    const unsigned long mapping_size = frametable_size < MB(32) ? MB(2)
-+                                                                : MB(32);
-+    int rc;
-+
-+    /*
-+     * The size of paddr_t should be sufficient for the complete range of
-+     * physical address.
-+     */
-+    BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
-+    BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
-+
-+    if ( frametable_size > FRAMETABLE_SIZE )
-+        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
-+              ps, pe);
-+
-+    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
-+    /* Round up to 2M or 32M boundary, as appropriate. */
-+    frametable_size = ROUNDUP(frametable_size, mapping_size);
-+    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20-12));
-+
-+    rc = map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
-+                          frametable_size >> PAGE_SHIFT,
-+                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
-+    if ( rc )
-+        panic("Unable to setup the frametable mappings.\n");
-+
-+    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
-+    memset(&frame_table[nr_pdxs], -1,
-+           frametable_size - (nr_pdxs * sizeof(struct page_info)));
-+
-+    frametable_virt_end = FRAMETABLE_VIRT_START + (nr_pdxs *
-+                                                   sizeof(struct page_info));
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+Is this a case where we are happy to leave '-machine accel=' as syntax
+sugar forever ?  Or is this a case where we want to deprecate it and
+eventually remove its impl (and thus the documention here)
+
+>      ``vmport=on|off|auto``
+>          Enables emulation of VMWare IO port, for vmmouse etc. auto says
+>          to select the value based on accel and i8042. For accel=xen or
+> -- 
+> 2.45.2
+> 
+
+With regards,
+Daniel
 -- 
-2.34.1
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
