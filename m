@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 954389E1929
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 11:24:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847829.1262890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5884A9E1928
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 11:23:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847827.1262881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIQ4K-0007sH-HQ; Tue, 03 Dec 2024 10:23:48 +0000
+	id 1tIQ4E-0007Yv-AI; Tue, 03 Dec 2024 10:23:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847829.1262890; Tue, 03 Dec 2024 10:23:48 +0000
+Received: by outflank-mailman (output) from mailman id 847827.1262881; Tue, 03 Dec 2024 10:23:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIQ4K-0007qB-EI; Tue, 03 Dec 2024 10:23:48 +0000
-Received: by outflank-mailman (input) for mailman id 847829;
- Tue, 03 Dec 2024 10:23:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tIQ4E-0007Wa-6U; Tue, 03 Dec 2024 10:23:42 +0000
+Received: by outflank-mailman (input) for mailman id 847827;
+ Tue, 03 Dec 2024 10:23:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lc0I=S4=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1tIQ4I-0007oa-IP
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 10:23:46 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac4976ed-b160-11ef-99a3-01e77a169b0f;
- Tue, 03 Dec 2024 11:23:44 +0100 (CET)
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-594-pNdf7GLvNait0MZc-Mskig-1; Tue, 03 Dec 2024 05:23:40 -0500
-Received: by mail-yw1-f199.google.com with SMTP id
- 00721157ae682-6ef7c67eeb8so41018527b3.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Dec 2024 02:23:40 -0800 (PST)
-Received: from [192.168.0.7] (ip-109-42-51-199.web.vodafone.de.
- [109.42.51.199]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6d87fe890a3sm53397756d6.29.2024.12.03.02.23.36
+ (envelope-from <SRS0=D5Za=S4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tIQ4C-0007WU-FN
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 10:23:40 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9b5be80-b160-11ef-a0d3-8be0dac302b0;
+ Tue, 03 Dec 2024 11:23:39 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-385e1721716so1969843f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Dec 2024 02:23:39 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-385e2716cedsm10231480f8f.38.2024.12.03.02.23.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Dec 2024 02:23:39 -0800 (PST)
+ Tue, 03 Dec 2024 02:23:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,159 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac4976ed-b160-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1733221423;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=kmyxVJ+YUkcgpMOIJZRmGj3gv31AXTUXR3Mg+4OB2T0=;
-	b=dwlktHBupXvfVnzHUbOVNwXSA0UKg3dv1c6lWCuw5sfp9Pu/Oww2b+ag85Ikjp/HbEPBJ5
-	DC9cVlE9eHwB1DYEbn9dKieaYPEM5J+3toH8hoMYoEE5XKkMYqGRNyiReDCOs2S0C1XeVA
-	8JS4mVuLyv0LTkf2WciQCyU0Pqh8UEs=
-X-MC-Unique: pNdf7GLvNait0MZc-Mskig-1
-X-Mimecast-MFC-AGG-ID: pNdf7GLvNait0MZc-Mskig
+X-Inumbo-ID: a9b5be80-b160-11ef-a0d3-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1733221419; x=1733826219; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=s9mJzrQ656d1QIixiQ7zVRy6sfzjK+3fk+YEJqEfkuo=;
+        b=FIl4Mm/2gzVikVpkM41AM2vcIqChAciHOFw+0/e2UiDnCkiJVMHfafgNRm/FMigvED
+         51FgWYwwNiqkSILZ3nTjfLYvqEp3nvjTHJV8l8NKtCVKK/k4/imcouFuc/IsabWl6vy4
+         2zceMOEOrBKyI7858odq3BWu+v3vlsseflxmj24c/A1DnrNLQz2F+ly58fQzJ6xp/8z9
+         Wtk0O+0okQAhU2Xt2L69inZAAVs6bkLr/flGVBZhmsPdU+o2CnoNtWzbBcE06/BP5Kxq
+         p0pdqWN1IY2xyl7EH0feo57CY5G+U5nuEOM2htFTu7/0GijgDPRtK47FmmQwCTub5hjh
+         YdKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733221420; x=1733826220;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kmyxVJ+YUkcgpMOIJZRmGj3gv31AXTUXR3Mg+4OB2T0=;
-        b=jlYaogiasyZDpaiV1qi+REsK4+3K13lyKqXNdZzWWSh6HhXbDM/4ch5OkHVXAKOXuS
-         VHqbiagIdbhUluEkttlfp8ZathH9AMkyGOu9ckaJxqcHEobNrgYKawA8uVqy1vzX/TGK
-         wixj8uz/hrzsylDfFlhWmbSauDAHHOuxoWLBY1JWr18yL11xr/+83Fv+vo7eDfympxlN
-         cIJB3RJRuXxMi/+ehytBgRLMcQrNRnNU+XijrhfJMFTDrC0J6KDn/w/2vEZpLe8iO2wY
-         dAEcI4f2mBFoDn+IxtmBPTf8kM58cV3m44wcVBR0TLtMcZDB53b59V/E/MH+SUeylwZe
-         sYtg==
-X-Forwarded-Encrypted: i=1; AJvYcCVCGIh6OBh2dCZJ8q5DdPIi8H76fJMWohQDIonR7R9T5jqMZlkBnQ7tkMMA6YQFX+JrOeY/xBzq4PI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6pyAFllDt2Nl6iCIZz0I5H1MF8fFxZUwSbzjRZlfwk/+kbT0I
-	XWPNprgG2hc+ondcfdo9mTB3GXVIEAg4PpvJ8JKeYqaZRuZVhLM4l9WUyLqilWpe0aVHJ8IRvTN
-	hwgqIGR81ftaYlWONEjECjj+mahGdzywAubi+7rtwLILRhrgy4mZehbcPNpdc+9Mu
-X-Gm-Gg: ASbGncs3Y4GG5AVJsRmdNvDoi4D8eLqWxVQfBA+5d9m/HYYBeMRVjeMnoc77gnxs7t1
-	rrhXLA2Quvv1kGbrL6/lH2FOflH70mB85GjB2iXDhEEbsLZWvvFN1zTyR/E+tQBSedo9AQmSmQq
-	Amv5Q3Y99oAHoW13u1jBxGMhJ6Wow68LkIPFZ/LA0yWOYAdltiIbIs1TQOxQhNjfdUqctSOvCkT
-	DzS675i9adrp/BeUdlBlvCmErmTLdQzcqvRujLqpLoX2XNSQ23r1umeFOBbMfxcp8/67kv2GaSE
-	UIDAFQ==
-X-Received: by 2002:a05:690c:498c:b0:6ef:6d37:1844 with SMTP id 00721157ae682-6eface0165amr26104437b3.7.1733221419704;
+        d=1e100.net; s=20230601; t=1733221419; x=1733826219;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s9mJzrQ656d1QIixiQ7zVRy6sfzjK+3fk+YEJqEfkuo=;
+        b=pp2kooe/bu3tDPRzNQEvuNpvN8uQmiqqTQljxN20qhOlKKHYaZjpRCrQJEUcLktQ/B
+         3JwSGuzCrvLfETCKyo9ts3jLhOJeH/uMPyjLttMTf1gh0EJvyQP8MP7R6vqAMXGYVeiM
+         m0tboNMDmi7YfLiNyXxKAtBSxE+fnhw6hbedb6IVL0yGcw9oT0VBMGUScp/bCFbUsjt0
+         FW9bwTGbZ5gHn43b+bNQxi5g4Gpohft0c4XwAwJz1+2F+IO004TiKiAHcYPj2iUrzpn8
+         OXfSVIjA/JRjUk4FRPAV1w+pEnQE/6v3CCjlgxneh/ZqXKcGzhMwMHNznxR3COyeHqY5
+         wnXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWTw8JHMSRsp/h3ozK3r7D8WsgEKoQ8kAruAoAx1PFbnIfl0baKPjPL/HKudNWLXxcfRTEe6kifjeA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz7Na+dn9hoy0taAAMeivjvzKNwVFfh4+YWtvn7zk/3buyNisPu
+	KntVLKqflKy4hxmuULqLg19nryeY1dTO3RWri2L6NLESdcAImFaOOtw2aD2XZA==
+X-Gm-Gg: ASbGncsuGHxbJ+86KpzCVHiUNNCkPeaKd9CLPMvvP46PFWvxWDfbnXrh0vl2QzKTUaM
+	/tzCAlF6PBzU5fMVO7stnRjMZPaUbUeVlnltJrqAisZCTGAC8MUa4nV9rOW4OBIhhNDpn6jGtok
+	07QcNaGyj8X2y96wpEPis+OvlZDj0YCubK8x/0ckP0v0Ldc/VktwHA/MDZ3GfTm87Lo76+gj3AK
+	5riet3dAW/raqeCuxYtCOD9F5kKDqZ9hAu5cW+zBW7R3/QOvf9fGmqnZYzxD9s5iCJDNolqDOJT
+	crCpCP07YzVPhQbfXJpDWKXN2Km9D6RqKp8=
+X-Google-Smtp-Source: AGHT+IHFBWHFExpDYW3Ocxe/Ua0eJeCYaS5d0IvuRviGcImSUX6mfD4n7Vxb5NKU25d5PyU4gjxgZQ==
+X-Received: by 2002:a05:6000:1fae:b0:385:fa3d:19c6 with SMTP id ffacd0b85a97d-385fd419e15mr1581448f8f.38.1733221419040;
         Tue, 03 Dec 2024 02:23:39 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHhLH5mlnPSZDMavmUUFnJVktKyJMWmluLB4C8Hy0mLsNN/3vDHojrXbS5zn/OAP8RhyeXzIw==
-X-Received: by 2002:a05:690c:498c:b0:6ef:6d37:1844 with SMTP id 00721157ae682-6eface0165amr26104227b3.7.1733221419366;
-        Tue, 03 Dec 2024 02:23:39 -0800 (PST)
-Message-ID: <a4f32fe4-37e8-4695-a2d2-46943b4893d7@redhat.com>
-Date: Tue, 3 Dec 2024 11:23:34 +0100
+Message-ID: <54ac1d03-3dc1-49a5-9cd8-da544a0139a6@suse.com>
+Date: Tue, 3 Dec 2024 11:23:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] tests/functional/test_virtio_gpu: Remove legacy
- '-machine foo,accel=bar'
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- qemu-devel@nongnu.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- =?UTF-8?Q?Daniel_P_=2E_Berrang=C3=A9?= <berrange@redhat.com>,
- xen-devel@lists.xenproject.org, qemu-ppc@nongnu.org,
- Markus Armbruster <armbru@redhat.com>, qemu-arm@nongnu.org
-References: <20241203092153.60590-1-philmd@linaro.org>
- <20241203092153.60590-3-philmd@linaro.org>
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20241203092153.60590-3-philmd@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: wIf5NZF8eGUBMIeYhrmytIKAme05zwBleI6hKqdn80Y_1733221420
-X-Mimecast-Originator: redhat.com
+Subject: Re: [PATCH v4 1/5] common/vmap: Fall back to simple allocator when
+ !HAS_VMAP
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241203094811.427076-1-luca.fancellu@arm.com>
+ <20241203094811.427076-2-luca.fancellu@arm.com>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241203094811.427076-2-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 03/12/2024 10.21, Philippe Mathieu-Daudé wrote:
-> Since commit 6f6e1698a68 ("vl: configure accelerators from -accel
-> options") we prefer the '-accel bar' command line option.
+On 03.12.2024 10:48, Luca Fancellu wrote:
+> When HAS_VMAP is disabled, the xv{malloc,zalloc,...} functions
+> should fall back to the simple x{malloc,zalloc,...} variant,
+> implement that because MPU systems won't have virtual memory.
 > 
-> Replace '-machine foo,accel=bar' -> '-machine foo -accel bar' in
-> functional tests.
+> Additionally remove VMAP_VIRT_START from vmap.h guards since
+> MPU systems won't have it defined.
 > 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> ---
->   tests/functional/test_virtio_gpu.py | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tests/functional/test_virtio_gpu.py b/tests/functional/test_virtio_gpu.py
-> index d5027487ac4..cc0ec234861 100755
-> --- a/tests/functional/test_virtio_gpu.py
-> +++ b/tests/functional/test_virtio_gpu.py
-> @@ -61,7 +61,8 @@ def test_virtio_vga_virgl(self):
->           self.vm.set_console()
->           self.vm.add_args("-cpu", "host")
->           self.vm.add_args("-m", "2G")
-> -        self.vm.add_args("-machine", "pc,accel=kvm")
-> +        self.vm.add_args('-accel', 'kvm')
-> +        self.vm.add_args("-machine", "pc")
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-While you're at it, could you please change this test to use 
-"self.set_machine('pc')" at the very beginning of the test function instead 
-of using -machine pc here? That way the test gets properly skipped in case 
-the machine is not available in the QEMU binary.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-  Thanks,
-   Thomas
-
-
->           self.vm.add_args("-device", "virtio-vga-gl")
->           self.vm.add_args("-display", "egl-headless")
->           self.vm.add_args(
-> @@ -118,10 +119,11 @@ def test_vhost_user_vga_virgl(self):
->           )
->   
->           self.vm.set_console()
-> +        self.vm.add_args('-accel', 'kvm')
->           self.vm.add_args("-cpu", "host")
->           self.vm.add_args("-m", "2G")
->           self.vm.add_args("-object", "memory-backend-memfd,id=mem,size=2G")
-> -        self.vm.add_args("-machine", "pc,memory-backend=mem,accel=kvm")
-> +        self.vm.add_args("-machine", "pc,memory-backend=mem")
->           self.vm.add_args("-chardev", "socket,id=vug,fd=%d" % qemu_sock.fileno())
->           self.vm.add_args("-device", "vhost-user-vga,chardev=vug")
->           self.vm.add_args("-display", "egl-headless")
 
 
