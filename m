@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 097729E2E94
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 23:01:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.848185.1263151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9B99E2EA3
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 23:07:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.848196.1263161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIawm-0002Ld-4I; Tue, 03 Dec 2024 22:00:44 +0000
+	id 1tIb2d-0002wz-Q8; Tue, 03 Dec 2024 22:06:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 848185.1263151; Tue, 03 Dec 2024 22:00:44 +0000
+Received: by outflank-mailman (output) from mailman id 848196.1263161; Tue, 03 Dec 2024 22:06:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIawm-0002IV-1N; Tue, 03 Dec 2024 22:00:44 +0000
-Received: by outflank-mailman (input) for mailman id 848185;
- Tue, 03 Dec 2024 22:00:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tIb2d-0002uU-NN; Tue, 03 Dec 2024 22:06:47 +0000
+Received: by outflank-mailman (input) for mailman id 848196;
+ Tue, 03 Dec 2024 22:06:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=On7Z=S4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tIawk-0002IN-D3
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 22:00:42 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 08cac5d8-b1c2-11ef-a0d4-8be0dac302b0;
- Tue, 03 Dec 2024 23:00:40 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-aa549d9dffdso969806966b.2
- for <xen-devel@lists.xenproject.org>; Tue, 03 Dec 2024 14:00:40 -0800 (PST)
-Received: from [192.168.86.29] ([90.240.255.120])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5998e6dc3sm664840866b.121.2024.12.03.14.00.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Dec 2024 14:00:39 -0800 (PST)
+ <SRS0=BnMR=S4=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tIb2b-0002uO-Pr
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 22:06:45 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061c.outbound.protection.outlook.com
+ [2a01:111:f403:2414::61c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e085c2d3-b1c2-11ef-99a3-01e77a169b0f;
+ Tue, 03 Dec 2024 23:06:43 +0100 (CET)
+Received: from PH7P221CA0037.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::9)
+ by PH0PR12MB7472.namprd12.prod.outlook.com (2603:10b6:510:1e9::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.18; Tue, 3 Dec
+ 2024 22:06:37 +0000
+Received: from MWH0EPF000A6733.namprd04.prod.outlook.com
+ (2603:10b6:510:33c:cafe::a1) by PH7P221CA0037.outlook.office365.com
+ (2603:10b6:510:33c::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.18 via Frontend Transport; Tue,
+ 3 Dec 2024 22:06:37 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000A6733.mail.protection.outlook.com (10.167.249.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8230.7 via Frontend Transport; Tue, 3 Dec 2024 22:06:36 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 3 Dec
+ 2024 16:06:35 -0600
+Received: from amd-BIRMANPLUS.mshome.net (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Tue, 3 Dec 2024 16:06:35 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +59,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08cac5d8-b1c2-11ef-a0d4-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1733263240; x=1733868040; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zEV4uiUrM+twfEXjtF1CX6yDxxHdTHowV4QnSlnrfow=;
-        b=kakyK3ZGWfXJ+2UD64a5CEDzzFWfE+ms3ZVfYLaAexb8MKoIEHCXbHEGhzC5HQfd3b
-         3OKdQzefNFv5VUVubilyHPuKzSFOyA+QFCQtUjAFiX7Tmk31ndSWiIBvqABstQb5aWek
-         0rxL1p9+XQfFtm3sV8gp2/DiGCwiflJC5+v78=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733263240; x=1733868040;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zEV4uiUrM+twfEXjtF1CX6yDxxHdTHowV4QnSlnrfow=;
-        b=U9+Jf90Lzqc0umdIM+CM/EjtzmuDnAufKnj3c5YccqsL+7ATGVuZsOA9Ue45enwbMf
-         Oz1rPDC9pLSFfDObp1V32jwZUSbctOxlDRvmvQRevoyJakKfCDhrMIsLZg5fP5M/wEEY
-         HRkyyaloBDrYYkexVjQTnUu/czRUt6XAeDDTJ0D0lnbWaQSWRotRo0aUhC9CwQSj/sOx
-         0ZxLjwvorE9WjeMFZnorSJiam0cAXE7z8oLCryQmF16fuNb+z53MbRBaWUJqPih306Qx
-         LCCS99wG56nWxiG4v5xVlgLVP8XkN6y9XxCRCBajYgX9a4+JopSrtt5QR+RmxslySd4c
-         qRwA==
-X-Forwarded-Encrypted: i=1; AJvYcCWjUaG1nCQha5fldiLoFvbnrAcaSUsAbnBRGY1X2NSM69Ag3K9GHE1TvMFqOhLTatJ0mg/EBjGA0WY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxeV3J2SHe7bdSVLILVONhW1AoVAhrT3qlspsFmL8VK9z9OIInS
-	QC42yPHn/9FDy3bBLuEjwZto7BvT7XmLRuB67qqLwFkScUKdkBY+UStg/A1kTFI=
-X-Gm-Gg: ASbGncvE2JfEURIzD3n49ma/tcIYf1QJKSR4pEDDMoPrr2WFA0KV7G0jArFNFDPNxTy
-	9tWbDI8akn3j8Ok1mgCfJvAaPojq+bD/FE6/CUfqWO4NYj4MFsW9qDIJTEjn3Y7L/5tUiHUrUjy
-	Vv9m89z8UjQq0BqEvCqEc2ERnAhZ+bi5f++BshkIqCBcciIr9u4b11nyHsovT4tDx/dZ3Y2ZOJ9
-	QDBKgZSFMGQI1Eu3es6kkfuJsa3eDEkqvZqSvoktc4CXbciUw4S8dc1oCjprXg=
-X-Google-Smtp-Source: AGHT+IHhd1TzoPjJc/oQSobQ7ZdvMuWxnxMujckyKXRHGg+bDQgCezKiTjkWNCCOABtTLCiohc6p+w==
-X-Received: by 2002:a17:906:cc2:b0:a9a:ad8:fc56 with SMTP id a640c23a62f3a-aa5f7f006d8mr299435566b.44.1733263239629;
-        Tue, 03 Dec 2024 14:00:39 -0800 (PST)
-Message-ID: <d6f17723-8503-4e6e-bd5e-0a42a7149ac3@citrix.com>
-Date: Tue, 3 Dec 2024 22:00:38 +0000
+X-Inumbo-ID: e085c2d3-b1c2-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D3XRdt1ng4gpuGmOrq2GCbvd0/sH5x/aMxmkWjmKuooUNXxj3v24/4jeo0Qz4Hu5Qs6FJI4etRgMUjB6oKi7m51fcDK6DE8Z7DYIrvrpSqeUCZv0MR92LWRQYxg41zTqL6Gn7V0atha4ehEI182/HW1erBgTXzIiwrA9jwJplFpb57+QXUTP8ftMGqKQs8jQMc/xXhvO9/jyiiyQGZflDPJZYcVtflrcSeTJFT9DWxopROLdl/u1GcwpRMmK1SaGPHBZlyJ+TbERn7+lZnswg2tcjwEpZgjXi7gq3pK34Gdo3EhWRswZJ9wfhyDno8lkUP5kHkwAYmQR+6MHYpHwUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q66tnZkfbJTgYgQsDYVjaaaWnZNr+Jjg9l611QxeEqY=;
+ b=l8IYtNLWmL54NvqsvYvpWljXV/dARDk6Wh8yCznHlS3YQyLQaima/ftnZJE0CFsc3+VZwg4Er23baqYQSd2bgaa6nAXuMsYX5+S3B85IPnQEoINa7/JfcV8B/4WHqdGS1bFQh2Zhc8lsUHOalEx2P2bOKGS5uO4e73yFr4fzJyhQW5sTzS4HHc/r9Har69svM9UvEkhOf7HeVaX6FIYTSuLshCdOQN0lMGBhpfxsFIsAJPi9DKYy0ujfRyFcQBCWd6t+qnci0lmAPybWVSgp3C+xiOBabL6jkprGomr5pHwYfXbWFZVsOjBth1Qs9cuXe24b3TE2tu8eugDyoVH5MA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q66tnZkfbJTgYgQsDYVjaaaWnZNr+Jjg9l611QxeEqY=;
+ b=I/OqoekgvOJQwoZSE9NOPlDWCraXMLMD3cnbBgUX1LT3g8ooTMpc3kG64Hh244VDjUWXGMsLzvU72N26gXJRv1uOdBfylb5A9/+zOEjmga26erSgFe67HT+r5ZOnVDoCHLyAeYNnuN/xtrxirHc+xCEhdImo1pZ8OXHzDNQauHA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: =?UTF-8?q?zithro=20/=20Cyril=20R=C3=A9bert?= <slack@rabbit.lu>, "Anthony
+ PERARD" <anthony.perard@vates.tech>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Jason Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH v3] tools/xl: add suspend and resume subcommands
+Date: Tue, 3 Dec 2024 17:06:41 -0500
+Message-ID: <20241203220641.4202-1-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] xen: arm: enable stack protector feature
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <20241130010954.36057-1-volodymyr_babchuk@epam.com>
- <20241130010954.36057-4-volodymyr_babchuk@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241130010954.36057-4-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6733:EE_|PH0PR12MB7472:EE_
+X-MS-Office365-Filtering-Correlation-Id: d32f6e1e-43d5-4df8-2f09-08dd13e6c18f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RXVneWlZbTNmb2VnL2l4eFFBenhCSnNzZ2FYTmZwQTlYWmZHWWRyWGI0dWxP?=
+ =?utf-8?B?SmtSTFFCZDJiVXVMdkFaWGJudElSR1phY1JoR044dnVzK2xmWGVybVBVL3Vx?=
+ =?utf-8?B?WloyQ1JBZVVzTzVCZnJMQTVlWHM0VlQwMkI1S2ViM2NHOGZsZHhSY1BOcm5y?=
+ =?utf-8?B?K0VySnFLMG1KT2ZUVE9XTno4bEF0bjJDSUs5RHZsdVNxOVA1c2llZWxCazRY?=
+ =?utf-8?B?c3pOQkRFOGRIeHNpSnZFLzU4U3R2aWNpMVdjWEZjQi9aZmI1WVZUQ29sMVV0?=
+ =?utf-8?B?RGIzOWxuTjJmdGo4YU9qOEhORW14WmRLRHY0TjVGb3A0cWQ2SmN5SGNmcHNJ?=
+ =?utf-8?B?dnlUNHRzU2JwTXkrTEtESXd3SnhvVlFVSU90dElCdnBPcnZRQzltenkxeko0?=
+ =?utf-8?B?Y1MzbVU0K2V5bXN6ajc3VnpFVGt1SEsvUDVtTm5PdGttdnFlaGlzTFFnNXZv?=
+ =?utf-8?B?Uzh0MlFjVWNSb2RTWm5RdXZJYjY3WERuU3dTekVvdWttcVg1TkhiNyt4bEhB?=
+ =?utf-8?B?L1lneEVuaXpSTFNPRXJLaFVkN3ltZHAxaCtNV1pITVNvN3lsNjdMVnN6SWpK?=
+ =?utf-8?B?cFhxQ0NIUDFaWWNsMy9rNWc5WUsraXlkdWUzMzZWdFJGclFJTlZZUVpXU1RJ?=
+ =?utf-8?B?SHRyM2poV3gyRDVwMFIyY25qTGRhMXV2NzdjekpaWkU5bU4yTFZKTXF2NC9h?=
+ =?utf-8?B?NVVrelovcTdtRVZ5cDBWUWlreExmK3RuMzQ0cTMwWmhBNGpINzhDL2tXOVFo?=
+ =?utf-8?B?c2lKMGdZUUhOZjFCSEZleWJJWC9Yd2FYdVdGQ0JrTkoxOEpUbWF0OGpIRFNP?=
+ =?utf-8?B?R2RxaWtXZ0NnaGhVcm40MGRPRUQ5dDY0V2V0dXRacFk1QTJ2V3JLV0hFT0tM?=
+ =?utf-8?B?RWVEcWpVVm1GTFRzV2hXL3ZiS3FTNnhDcnRTQnRaZWtEelNyaGgwaHh2SzZv?=
+ =?utf-8?B?U0FhTFNlbGNPdUJXRlZqRXZJbmdlMk9wYzROcnRYTVJqUGpDNWNHc0JuUERF?=
+ =?utf-8?B?OHdkQ3JkMGE3dlJyRjdqUnZSd2xtSzM5aFFhQUpIZlErUCt1bHdlM0d3OTM5?=
+ =?utf-8?B?ZXduTk05YkZyT0llL216RVZXYmQ0SmlYSG9Bd0tySXFVaG03Yi9Qa0FoUUkx?=
+ =?utf-8?B?dVYzVmsxQi9xa1MrWVhseWVDclcrSi9tMnlQRXVES2xrQlhkR3M2RVJoSGlF?=
+ =?utf-8?B?enhIajJZb09EeEp4OStmSkQ1Uzk4czJGOVh0eGp5QjRwL0hodkR3d2h3U3hB?=
+ =?utf-8?B?T0pBaGJ0dWN0MVpGd09IYmdQdzdWSTA5VXcydk1VVXdjK083dGNQSVF2dU1h?=
+ =?utf-8?B?WjJuRTV4eUlMZUhRRFN0VW1mcVZkUDlWb2FBeVdMQWlxVEVMY3pTOW9yakNU?=
+ =?utf-8?B?dEEyUW5SbmErR1hRVTU0Vmd6Y2J0SHI3MW4za0NNUUJDUWd5a2FkZXc3VVlx?=
+ =?utf-8?B?RHhUcXgxRU80MUdjYlRrcWtNa2MzZDQwRzkvSkx4T090aHZhclZlSDA0dWcz?=
+ =?utf-8?B?VXdDTDdJOTZkYzZqR3FNclB5MmMyTXFPdUlQRFF3Y0tURVUrSVpVRmVldnRV?=
+ =?utf-8?B?bW9ja1ZVQjNzcHZ4M0VxM05SZjRCdTNteFd5OUxpR0o5b00va1h6YzRsaWxP?=
+ =?utf-8?B?OG5lSjJleEw0MS8xVUlWTm9yQUhmYVU2dG9IeFZMdmdtbUEyQmJLQW5mcksr?=
+ =?utf-8?B?N0l5YU1maVBDMmxlc0Y1QXVDanVhd3ZmengvRWFEQTFwYXEyM0pGZGtOc1hM?=
+ =?utf-8?B?akN0R2MvakVOQW41eUdJVmpURXRKRUoyTWtNTEd1Rm5rUzFWT3VCTVpsS3B0?=
+ =?utf-8?B?dHlpZVdycDFtZjMvejBETENaUm1JazhHLzNyMk5VZ3hibVJhVEhwTWtNRWxk?=
+ =?utf-8?B?RU4wTExZUE5FMWJWYXVrMGhYRGQ4U2FUWWRqZ1ZjNGI2VXdRbGtLcWdZRitD?=
+ =?utf-8?Q?5Wu2h5Hc2gcZsvn1tcnuMxjoHR9f7yOL?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2024 22:06:36.5551
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d32f6e1e-43d5-4df8-2f09-08dd13e6c18f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000A6733.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7472
 
-On 30/11/2024 1:10 am, Volodymyr Babchuk wrote:
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 2e27af4560..f855e97e25 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -341,6 +342,8 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
->       */
->      system_state = SYS_STATE_boot;
->  
-> +    boot_stack_chk_guard_setup();
-> +
->      if ( acpi_disabled )
->      {
->          printk("Booting using Device Tree\n");
+From: zithro / Cyril Rébert <slack@rabbit.lu>
 
-I still think that __stack_chk_guard wants setting up in ASM before
-entering C.
+The xl command doesn't provide suspend/resume, so add them :
+  xl suspend <Domain>
+  xl resume <Domain>
 
-The only reason this call is so late is because Xen's get_random()
-sequence is less than helpful.  That wants rewriting somewhat, but maybe
-now isn't the best time.
+This patch follows a discussion on XenDevel: when you want the
+virtualized equivalent of "sleep"-ing a host, it's better to
+suspend/resume than to pause/unpause a domain.
 
-Even if you initialise __stack_chk_guard it to -1 rather than 0, it's
-still got a better chance of catching errors during very early boot; the
-instrumentation is present, but is using 0 as the canary value.
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Suggested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Cyril Rébert (zithro) <slack@rabbit.lu>
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+v2
+Rename command to just "suspend"
+Move inside the HAVE_NO_SUSPEND_RESUME
 
-On x86, dumping the current TSC value into __stack_chk_guard would be
-far better than using -1.  Even if it skewed to a lower number, it's
-unpredictable and not going to reoccur by accident during a stack overrun.
+v3
+Move more functions inside HAVE_NO_SUSPEND_RESUME
+---
+ docs/man/xl.1.pod.in    | 12 ++++++++++++
+ tools/xl/xl.h           |  2 ++
+ tools/xl/xl_cmdtable.c  | 10 ++++++++++
+ tools/xl/xl_vmcontrol.c | 38 ++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 62 insertions(+)
 
-Surely ARM has something similar it could use?
+diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+index bed8393473..fe38724b2b 100644
+--- a/docs/man/xl.1.pod.in
++++ b/docs/man/xl.1.pod.in
+@@ -682,6 +682,10 @@ Pass the VNC password to vncviewer via stdin.
+ 
+ =back
+ 
++=item B<resume> I<domain-id>
++
++Resume a domain, after having been suspended.
++
+ =item B<save> [I<OPTIONS>] I<domain-id> I<checkpointfile> [I<configfile>]
+ 
+ Saves a running domain to a state file so that it can be restored
+@@ -760,6 +764,14 @@ in response to this event.
+ 
+ =back
+ 
++=item B<suspend> I<domain-id>
++
++Suspend a domain.  This is a cooperative operation where the domain must
++respond to the xenstore trigger.  When in a suspended state the domain
++still consumes allocated resources (such as memory), but is not eligible
++for scheduling by the Xen hypervisor.  It is in a shutdown state, but
++not dying.
++
+ =item B<sysrq> I<domain-id> I<letter>
+ 
+ Send a <Magic System Request> to the domain, each type of request is
+diff --git a/tools/xl/xl.h b/tools/xl/xl.h
+index 967d034cfe..45745f0dbb 100644
+--- a/tools/xl/xl.h
++++ b/tools/xl/xl.h
+@@ -129,6 +129,8 @@ int main_restore(int argc, char **argv);
+ int main_migrate_receive(int argc, char **argv);
+ int main_save(int argc, char **argv);
+ int main_migrate(int argc, char **argv);
++int main_suspend(int argc, char **argv);
++int main_resume(int argc, char **argv);
+ #endif
+ int main_dump_core(int argc, char **argv);
+ int main_pause(int argc, char **argv);
+diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+index 53fc22d344..06a0039718 100644
+--- a/tools/xl/xl_cmdtable.c
++++ b/tools/xl/xl_cmdtable.c
+@@ -193,6 +193,16 @@ const struct cmd_spec cmd_table[] = {
+       "Restore a domain from a saved state",
+       "- for internal use only",
+     },
++    { "suspend",
++      &main_suspend, 0, 1,
++      "Suspend a domain to RAM",
++      "<Domain>",
++    },
++    { "resume",
++      &main_resume, 0, 1,
++      "Resume a domain from RAM",
++      "<Domain>",
++    },
+ #endif
+     { "dump-core",
+       &main_dump_core, 0, 1,
+diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+index c45d497c28..c813732838 100644
+--- a/tools/xl/xl_vmcontrol.c
++++ b/tools/xl/xl_vmcontrol.c
+@@ -32,6 +32,44 @@
+ 
+ static int fd_lock = -1;
+ 
++#ifndef LIBXL_HAVE_NO_SUSPEND_RESUME
++static void suspend_domain(uint32_t domid)
++{
++    libxl_domain_suspend_only(ctx, domid, NULL);
++}
++
++static void resume_domain(uint32_t domid)
++{
++    libxl_domain_resume(ctx, domid, 1, NULL);
++}
++
++int main_suspend(int argc, char **argv)
++{
++    int opt;
++
++    SWITCH_FOREACH_OPT(opt, "", NULL, "suspend", 1) {
++        /* No options */
++    }
++
++    suspend_domain(find_domain(argv[optind]));
++
++    return EXIT_SUCCESS;
++}
++
++int main_resume(int argc, char **argv)
++{
++    int opt;
++
++    SWITCH_FOREACH_OPT(opt, "", NULL, "resume", 1) {
++        /* No options */
++    }
++
++    resume_domain(find_domain(argv[optind]));
++
++    return EXIT_SUCCESS;
++}
++#endif
++
+ static void pause_domain(uint32_t domid)
+ {
+     libxl_domain_pause(ctx, domid, NULL);
+-- 
+2.34.1
 
-[edit] Yes, get_cycles(), which every architecture seems to have.  In
-fact, swapping get_random() from NOW() to get_cycles() would be good
-enough to get it usable from early assembly.
-
-~Andrew
-
-A better option for get_random() would be to use a proven PRNG (e.g. one
-of the xorshift family), seeded with get_cycles() and then re-seeded
-with a real RDRAND/etc instruction if such a capability is found to
-exist on the hardware.
 
