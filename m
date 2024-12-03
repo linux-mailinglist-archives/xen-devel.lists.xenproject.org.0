@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833899E183C
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:48:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.847709.1262770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65229E1837
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Dec 2024 10:48:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.847710.1262776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIPW6-0000br-3R; Tue, 03 Dec 2024 09:48:26 +0000
+	id 1tIPW6-0000eF-9Y; Tue, 03 Dec 2024 09:48:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 847709.1262770; Tue, 03 Dec 2024 09:48:26 +0000
+Received: by outflank-mailman (output) from mailman id 847710.1262776; Tue, 03 Dec 2024 09:48:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIPW6-0000ZO-0I; Tue, 03 Dec 2024 09:48:26 +0000
-Received: by outflank-mailman (input) for mailman id 847709;
+	id 1tIPW6-0000bu-6I; Tue, 03 Dec 2024 09:48:26 +0000
+Received: by outflank-mailman (input) for mailman id 847710;
  Tue, 03 Dec 2024 09:48:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iaGl=S4=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tIPW4-0000ZC-W2
- for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:48:24 +0000
+ id 1tIPW5-0000ZD-A3
+ for xen-devel@lists.xenproject.org; Tue, 03 Dec 2024 09:48:25 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id bbc32b1b-b15b-11ef-99a3-01e77a169b0f;
- Tue, 03 Dec 2024 10:48:22 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id bc4a7fe0-b15b-11ef-a0d3-8be0dac302b0;
+ Tue, 03 Dec 2024 10:48:23 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B618FEC;
- Tue,  3 Dec 2024 01:48:50 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3E247143D;
+ Tue,  3 Dec 2024 01:48:51 -0800 (PST)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 692173F58B;
- Tue,  3 Dec 2024 01:48:20 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 337253F58B;
+ Tue,  3 Dec 2024 01:48:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbc32b1b-b15b-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: bc4a7fe0-b15b-11ef-a0d3-8be0dac302b0
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH v4 0/5] Prerequisite patches for R82 upstreaming
-Date: Tue,  3 Dec 2024 09:48:05 +0000
-Message-Id: <20241203094811.427076-1-luca.fancellu@arm.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v4 1/5] common/vmap: Fall back to simple allocator when !HAS_VMAP
+Date: Tue,  3 Dec 2024 09:48:06 +0000
+Message-Id: <20241203094811.427076-2-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241203094811.427076-1-luca.fancellu@arm.com>
+References: <20241203094811.427076-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In this serie I've taken out patches from the R82 branch already in the ML[1]
-and some new patches I've done based on the current status of staging that will
-not impact the current Armv8-R earlyboot work.
+When HAS_VMAP is disabled, the xv{malloc,zalloc,...} functions
+should fall back to the simple x{malloc,zalloc,...} variant,
+implement that because MPU systems won't have virtual memory.
 
-[1] https://patchwork.kernel.org/project/xen-devel/cover/20230626033443.2943270-1-Penny.Zheng@arm.com/
+Additionally remove VMAP_VIRT_START from vmap.h guards since
+MPU systems won't have it defined.
 
-Changes between v2 and v3:
- - New patch
- - changes to previous patch are listed inside them
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+Changes from v3:
+ - use #define-s instead of static inline functions
+Changes from v2:
+ - Don't protect declarations.
+Changes from v1:
+ - put back static inline iounmap
+ - changed commit message
+ - hide not used declaration for system with !HAS_VMAP
+ - correct function declared in xvmalloc.h to be static inline
+ - prefer '#ifdef' instead of '#if defined' where possible
+---
+---
+ xen/include/xen/vmap.h     |  2 +-
+ xen/include/xen/xvmalloc.h | 21 ++++++++++++++++-----
+ 2 files changed, 17 insertions(+), 6 deletions(-)
 
-Luca Fancellu (4):
-  common/vmap: Fall back to simple allocator when !HAS_VMAP
-  arm/setup: Move MMU specific extern declarations to mmu/setup.h
-  xen/arm: Use vmap_contig instead of __vmap where it's possible
-  xen/arm: Move setup_frametable_mappings to arm/mmu
-
-Penny Zheng (1):
-  xen/arm: Check for Static Heap feature when freeing resources
-
- xen/arch/arm/alternative.c           |  3 +-
- xen/arch/arm/arm32/mmu/mm.c          |  4 +-
- xen/arch/arm/cpuerrata.c             |  5 +--
- xen/arch/arm/include/asm/mmu/setup.h | 31 ++++++++++++++
- xen/arch/arm/include/asm/setup.h     | 20 +++------
- xen/arch/arm/kernel.c                |  9 ++--
- xen/arch/arm/livepatch.c             |  3 +-
- xen/arch/arm/mm.c                    | 40 ------------------
- xen/arch/arm/mmu/Makefile            |  1 +
- xen/arch/arm/mmu/mm.c                | 61 ++++++++++++++++++++++++++++
- xen/arch/arm/mmu/setup.c             |  8 +++-
- xen/arch/arm/setup.c                 | 27 ++++++------
- xen/common/device-tree/bootfdt.c     |  4 +-
- xen/common/device-tree/bootinfo.c    |  2 +-
- xen/common/page_alloc.c              |  5 +++
- xen/include/xen/bootfdt.h            |  1 -
- xen/include/xen/mm.h                 |  6 +++
- xen/include/xen/vmap.h               |  2 +-
- xen/include/xen/xvmalloc.h           | 21 +++++++---
- 19 files changed, 162 insertions(+), 91 deletions(-)
- create mode 100644 xen/arch/arm/include/asm/mmu/setup.h
- create mode 100644 xen/arch/arm/mmu/mm.c
-
+diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
+index c1dd7ac22f30..26c831757a11 100644
+--- a/xen/include/xen/vmap.h
++++ b/xen/include/xen/vmap.h
+@@ -5,7 +5,7 @@
+  * purpose area (VMAP_DEFAULT) and a livepatch-specific area (VMAP_XEN). The
+  * latter is used when loading livepatches and the former for everything else.
+  */
+-#if !defined(__XEN_VMAP_H__) && defined(VMAP_VIRT_START)
++#ifndef __XEN_VMAP_H__
+ #define __XEN_VMAP_H__
+ 
+ #include <xen/mm-frame.h>
+diff --git a/xen/include/xen/xvmalloc.h b/xen/include/xen/xvmalloc.h
+index 440d85a284bb..7686d49f8154 100644
+--- a/xen/include/xen/xvmalloc.h
++++ b/xen/include/xen/xvmalloc.h
+@@ -40,20 +40,31 @@
+     ((typeof(ptr))_xvrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]), \
+                              __alignof__(typeof(*(ptr)))))
+ 
++#ifdef CONFIG_HAS_VMAP
++
+ /* Free any of the above. */
+ void xvfree(void *va);
+ 
++/* Underlying functions */
++void *_xvmalloc(size_t size, unsigned int align);
++void *_xvzalloc(size_t size, unsigned int align);
++void *_xvrealloc(void *va, size_t size, unsigned int align);
++
++#else /* !CONFIG_HAS_VMAP */
++
++#define xvfree      xfree
++#define _xvmalloc   _xmalloc
++#define _xvzalloc   _xzalloc
++#define _xvrealloc  _xrealloc
++
++#endif /* CONFIG_HAS_VMAP */
++
+ /* Free an allocation, and zero the pointer to it. */
+ #define XVFREE(p) do { \
+     xvfree(p);         \
+     (p) = NULL;        \
+ } while ( false )
+ 
+-/* Underlying functions */
+-void *_xvmalloc(size_t size, unsigned int align);
+-void *_xvzalloc(size_t size, unsigned int align);
+-void *_xvrealloc(void *va, size_t size, unsigned int align);
+-
+ static inline void *_xvmalloc_array(
+     size_t size, unsigned int align, unsigned long num)
+ {
 -- 
 2.34.1
 
