@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D4629E3870
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2024 12:11:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.848517.1263377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 441DB9E38A1
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2024 12:18:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.848528.1263386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tInGz-0004zV-Re; Wed, 04 Dec 2024 11:10:25 +0000
+	id 1tInOd-0005ue-IL; Wed, 04 Dec 2024 11:18:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 848517.1263377; Wed, 04 Dec 2024 11:10:25 +0000
+Received: by outflank-mailman (output) from mailman id 848528.1263386; Wed, 04 Dec 2024 11:18:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tInGz-0004wu-O3; Wed, 04 Dec 2024 11:10:25 +0000
-Received: by outflank-mailman (input) for mailman id 848517;
- Wed, 04 Dec 2024 11:10:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tInOd-0005sL-Fk; Wed, 04 Dec 2024 11:18:19 +0000
+Received: by outflank-mailman (input) for mailman id 848528;
+ Wed, 04 Dec 2024 11:18:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KkXt=S5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tInGy-0004wo-V8
- for xen-devel@lists.xenproject.org; Wed, 04 Dec 2024 11:10:24 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bb345f9-b230-11ef-a0d4-8be0dac302b0;
- Wed, 04 Dec 2024 12:10:24 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aa51bf95ce1so475547866b.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Dec 2024 03:10:24 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa5996c19c0sm726507966b.23.2024.12.04.03.10.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Dec 2024 03:10:23 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1tInOc-0005sF-EY
+ for xen-devel@lists.xenproject.org; Wed, 04 Dec 2024 11:18:18 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tInOb-003b73-1Y;
+ Wed, 04 Dec 2024 11:18:17 +0000
+Received: from [15.248.2.30] (helo=[10.24.67.22])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1tInOb-00F1tV-1Y;
+ Wed, 04 Dec 2024 11:18:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,145 +39,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bb345f9-b230-11ef-a0d4-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733310623; x=1733915423; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nj7CgqAAQQhNHgK0hte7ZaiQHV8FhEfQVmCLQVxteIQ=;
-        b=gkgj05vUx8zaX/JhP0LqWpj6Ly5JJgGp/phokpUS5k+EloaxC6DqoFPiFE/nby/pYK
-         +iKBgx0saVJWd9Gxkt8xtWiP5XgBtXSXeV6NDt2ixvVF5lhrvlRQ0dCt7K7LrqAhtCJD
-         1ONY5LeL6gbdi02Ww/6rUS9aK0h5NCj8Q/kCuyOyg5wO5qCV79Z0weG2TIdM+CiaNRxL
-         hUlGEL12KWz1YA+N14oGSvcvgKENlBWP4q77lTPVsZx//XRNvF9pV9nG0U9p3fU8RNLJ
-         7GEMB/lFHpRFBknKGKvqTS6BGWc0QtrRxFojoB9/TJ3RJT9llGugQ00vN7uJLxxXmLkZ
-         9KKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733310623; x=1733915423;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nj7CgqAAQQhNHgK0hte7ZaiQHV8FhEfQVmCLQVxteIQ=;
-        b=GnTW5OISkSKct6BLqSJF+wudTIvAaVQeRtg9LcKsFnWeiR3ia4zdP/hs6b741HNe9e
-         V+ar/ULBPHqshBYYVgYE/EO/Mt/gh52Q0SXv716csGIRSKob96z8nOE4uj7pDLIN2Ai6
-         ddpv9RU9iCDUwNZOgQRRVBUQAArVsYl9u8MrGroHZ+M9Idq+gv9173EhFx99WY2Z8Niz
-         LFG/THBhypynZ8nfizBwnpMjX5Fd+nt5lwqbrmkAazFdHbukTWbmr+5SPwOoX1AdbJHA
-         pDmCg9G+Wq7bxq7jiVYYth0B/DX3icJzCltSPH9va23Tno8rfaozxY4crbU85TA5+QDv
-         1fBw==
-X-Forwarded-Encrypted: i=1; AJvYcCUFPU9Mry3lmyuQEnMOKMDQQ47K8TlZl9L/vEtnf1YB6c9FlkFF/qWJToJ8nd2JpgcsW2zykQdAzXg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyxTVPKsNGMxAT/P/JsTq01paM56I2nnOLx0VwlHkbif0JCjPwO
-	n9kDy5RAtd34xlHXN8Ea/qwujYeDJEMpUuA9W14MDNoQh0OvCMAD6IgRnmZyyQ==
-X-Gm-Gg: ASbGncsk6aTy9CdmwbPP4DrCqropRpzOor3uw3IW/Uod+yGa6u+ejJUCFd+t/NwqQOm
-	oZlghNdBr0LE+83Q1AFdr+VxxICZRKYgz17u/W6KH3ZUYR0wrLiYHjTd93oUnKhWIO8kSotOqyu
-	+l8wz4pT5rwEeM9RKy++VBCmSEisE1hBPHBTBbsPVyROcPnboUlq31iFuyh549Lqx7Ntk9Xsd5S
-	ElZjo9Sp1MOgCPzy7FyBMBwP8m1raIc0mVpTWnfwfM5WX8ohlfP0IwEWLWhRxtx6xGeC+m182iU
-	7uhXViHuXWKmlOi0bggcVX9ea/0s96ufVyM=
-X-Google-Smtp-Source: AGHT+IGIihWtD8bmSHjj/ucBs5sXCWXky+VH2kSnATRJOI8gu1qj7r/4LD0UEnZcGwbsOwNrj8ZDmQ==
-X-Received: by 2002:a17:907:7758:b0:aa5:630d:7de0 with SMTP id a640c23a62f3a-aa6018d8978mr408893866b.44.1733310623459;
-        Wed, 04 Dec 2024 03:10:23 -0800 (PST)
-Message-ID: <12fcd5dd-5d01-465b-bbaa-4e7e2f598727@suse.com>
-Date: Wed, 4 Dec 2024 12:10:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=wQtOr/4W3Ysv2wRRLbBoQxvR2KNUVcWPImcsAjJEyeI=; b=a7R0yq9+2TeuUfLNM7P7EVoeRm
+	MC6fpShSSpl5u3aWo7SrsNr8Wa3MJp3C+aDJTIkWI/tU486lzLwnnufGfRjTwKV2u8S/3ePsVSqlx
+	aficeYAu+8+DIemFOl2JiGKS8KpFJdNbZqYc90z+dnB+fikK10pzRQt4DIrqz1Ad85yk=;
+Message-ID: <2bea0c6d-ce0e-44e3-ab9a-cbd5c2fdd99e@xen.org>
+Date: Wed, 4 Dec 2024 11:18:15 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] x86/hvm: Use constants for x86 modes
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 12/12] xen/arm: add cache coloring support for Xen
+ image
+Content-Language: en-GB
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: xen-devel@lists.xenproject.org, andrea.bastoni@minervasys.tech,
+ marco.solieri@minervasys.tech, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+References: <20241202165921.249585-1-carlo.nonato@minervasys.tech>
+ <20241202165921.249585-13-carlo.nonato@minervasys.tech>
+ <800b0b49-e6c5-4a83-8ee6-d89d51613b0c@xen.org>
+ <CAG+AhRXM=u33jq2yY4F4tJHUXBzDJ8jOHcM53ejmPtfPweQLQg@mail.gmail.com>
+ <5580b3fc-66d7-4193-9c54-2733fb628418@xen.org>
+ <CAG+AhRWSpjOcaabWGpCDh6zqUfMpUVGe3eM2zbWz759=Fv+Kfg@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <CAG+AhRWSpjOcaabWGpCDh6zqUfMpUVGe3eM2zbWz759=Fv+Kfg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 02.12.2024 10:49, Teddy Astie wrote:
-> In many places of x86 HVM code, constants integer are used to indicate in what mode is
-> running the CPU (real, vm86, 16-bits, 32-bits, 64-bits). However, these constants are
-> are written directly as integer which hides the actual meaning of these modes.
+Hi Carlo,
+
+On 03/12/2024 11:37, Carlo Nonato wrote:
+> On Tue, Dec 3, 2024 at 11:36 AM Julien Grall <julien@xen.org> wrote:
+>>
+>> On 03/12/2024 10:08, Carlo Nonato wrote:
+>>> Hi Julien,
+>>>
+>>> On Mon, Dec 2, 2024 at 10:44 PM Julien Grall <julien@xen.org> wrote:
+>>>>
+>>>> Hi Carlo,
+>>>
+>>> [...]
+>>>
+>>>>> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
+>>>>> index 671eaadbc1..3732d5897e 100644
+>>>>> --- a/xen/arch/arm/arm64/mmu/mm.c
+>>>>> +++ b/xen/arch/arm/arm64/mmu/mm.c
+>>>>> @@ -1,6 +1,7 @@
+>>>>>     /* SPDX-License-Identifier: GPL-2.0-only */
+>>>>>
+>>>>>     #include <xen/init.h>
+>>>>> +#include <xen/llc-coloring.h>
+>>>>>     #include <xen/mm.h>
+>>>>>     #include <xen/pfn.h>
+>>>>>
+>>>>> @@ -138,27 +139,46 @@ void update_boot_mapping(bool enable)
+>>>>>     }
+>>>>>
+>>>>>     extern void switch_ttbr_id(uint64_t ttbr);
+>>>>> +extern void relocate_xen(uint64_t ttbr, void *src, void *dst, size_t len);
+>>>>>
+>>>>>     typedef void (switch_ttbr_fn)(uint64_t ttbr);
+>>>>> +typedef void (relocate_xen_fn)(uint64_t ttbr, void *src, void *dst, size_t len);
+>>>>>
+>>>>>     void __init switch_ttbr(uint64_t ttbr)
+>>>>
+>>>> Given the change below, I think this function needs to be renamed.
+>>>> Possibly to relocate_and_jump() with a comment explaning that the
+>>>> relocation only happen for cache-coloring.
+>>>
+>>> Changing the name of switch_ttbr() to relocate_and_jump() seems a bit
+>>> misleading to me. First I need to change the name also for arm32 where there's
+>>> no relocation at all. Second, relocation is something that happens
+>>> conditionally so I don't think it's a good name for the function.
+>>
+>> Feel free to propose a new name. The main thing is the current name
+>> can't stay "switch_ttbr()" because you are doing more than switching the
+>> TTBR.
+>>
+>> The other solution is to have a separate call for relocating xen (which
+>> will fall-through to switch_ttbr) and another one for those that only to
+>> switch TTBR.
 > 
-> This patch introduces X86_MODE_* macros and replace those occurences with it.
+> What about a function like this one, defined in xen/arch/arm/arm64/mmu/mm.c:
 > 
-> Signed-off-by Teddy Astie <teddy.astie@vates.tech>
+> typedef void (relocate_xen_fn)(uint64_t ttbr, void *src, void *dst, size_t len);
+> 
+> void __init relocate_and_switch_ttbr(uint64_t ttbr) {
+>      vaddr_t id_addr = virt_to_maddr(relocate_xen);
+>      relocate_xen_fn *fn = (relocate_xen_fn *)id_addr;
+>      lpae_t pte;
+> 
+>      /* Enable the identity mapping in the boot page tables */
+>      update_identity_mapping(true);
+> 
+>      /* Enable the identity mapping in the runtime page tables */
+>      pte = pte_of_xenaddr((vaddr_t)relocate_xen);
+>      pte.pt.table = 1;
+>      pte.pt.xn = 0;
+>      pte.pt.ro = 1;
+>      write_pte(&xen_third_id[third_table_offset(id_addr)], pte);
+> 
+>      /* Relocate Xen and switch TTBR */
+>      fn(ttbr, _start, (void *)BOOT_RELOC_VIRT_START, _end - _start);
+> 
+>      /*
+>       * Disable the identity mapping in the runtime page tables.
+>       * Note it is not necessary to disable it in the boot page tables
+>       * because they are not going to be used by this CPU anymore.
+>       */
+>      update_identity_mapping(false);
+> }
+> 
+> which is actually a clone of switch_ttbr() but it does relocation. I would
+> then call it in case of coloring in setup_pagetables(). This should go in the
+> direction you suggested, but it would duplicate a bit of code. What do you
+> think about it?
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with further style adjustments (see below) and ideally with ...
+I think the duplication is fine here.
 
-> ---
-> v2:
-> Formatting changes (alignment, ...)
-> Renamed v86 to vm86. (Jan)
+It would be possible to reduce the duplication is we introduce an helper 
+for call update_identity_mapping(true) and update the PTE. But I am not 
+sure it is worth it.
 
-... this extended to ...
+Cheers,
 
-> @@ -2952,11 +2954,11 @@ static const char *guest_x86_mode_to_str(int mode)
->  {
->      switch ( mode )
->      {
-> -    case 0:  return "Real";
-> -    case 1:  return "v86";
-> -    case 2:  return "16bit";
-> -    case 4:  return "32bit";
-> -    case 8:  return "64bit";
-> +    case X86_MODE_REAL:   return "Real";
-> +    case X86_MODE_VM86:   return "v86";
+-- 
+Julien Grall
 
-... the string literal here.
-
-> @@ -112,23 +113,23 @@ int hvm_hypercall(struct cpu_user_regs *regs)
->  
->      switch ( mode )
->      {
-> -    case 8:
-> +    case X86_MODE_64BIT:
->          eax = regs->rax;
->          fallthrough;
-> -    case 4:
-> -    case 2:
-> +    case X86_MODE_32BIT:
-> +    case X86_MODE_16BIT:
->          if ( currd->arch.monitor.guest_request_userspace_enabled &&
->              eax == __HYPERVISOR_hvm_op &&
-> -            (mode == 8 ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
-> +            (mode == X86_MODE_64BIT ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
-
-This line is too long now.
-
-> @@ -2073,7 +2073,8 @@ int nvmx_handle_vmx_insn(struct cpu_user_regs *regs, unsigned int exit_reason)
->  
->      if ( !(curr->arch.hvm.guest_cr[4] & X86_CR4_VMXE) ||
->           !nestedhvm_enabled(curr->domain) ||
-> -         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? 8 : 2)) ||
-> +         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? X86_MODE_64BIT
-> +                                                                 : X86_MODE_16BIT)) ||
-
-As are these two.
-
-Likely easy enough to adjust while committing.
-
-Jan
 
