@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0ABF9E3823
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2024 12:01:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.848506.1263366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D4629E3870
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2024 12:11:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.848517.1263377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIn7x-0003Hk-Vc; Wed, 04 Dec 2024 11:01:05 +0000
+	id 1tInGz-0004zV-Re; Wed, 04 Dec 2024 11:10:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 848506.1263366; Wed, 04 Dec 2024 11:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 848517.1263377; Wed, 04 Dec 2024 11:10:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tIn7x-0003FZ-Sw; Wed, 04 Dec 2024 11:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 848506;
- Wed, 04 Dec 2024 11:01:05 +0000
+	id 1tInGz-0004wu-O3; Wed, 04 Dec 2024 11:10:25 +0000
+Received: by outflank-mailman (input) for mailman id 848517;
+ Wed, 04 Dec 2024 11:10:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KkXt=S5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tIn7x-0003FT-AF
- for xen-devel@lists.xenproject.org; Wed, 04 Dec 2024 11:01:05 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1tInGy-0004wo-V8
+ for xen-devel@lists.xenproject.org; Wed, 04 Dec 2024 11:10:24 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d23430e-b22f-11ef-a0d4-8be0dac302b0;
- Wed, 04 Dec 2024 12:01:02 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-434a9f2da82so58500605e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Dec 2024 03:01:02 -0800 (PST)
+ id 5bb345f9-b230-11ef-a0d4-8be0dac302b0;
+ Wed, 04 Dec 2024 12:10:24 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-aa51bf95ce1so475547866b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Dec 2024 03:10:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434d5273199sm20553715e9.14.2024.12.04.03.01.01
+ a640c23a62f3a-aa5996c19c0sm726507966b.23.2024.12.04.03.10.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Dec 2024 03:01:01 -0800 (PST)
+ Wed, 04 Dec 2024 03:10:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d23430e-b22f-11ef-a0d4-8be0dac302b0
+X-Inumbo-ID: 5bb345f9-b230-11ef-a0d4-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733310062; x=1733914862; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733310623; x=1733915423; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K6EPxLBgH2uOPc1YMRH/qANrWmud5mKlT8E7LujwulM=;
-        b=Ty9++cvOLd1VVmGyAVh/YbEpVYp0iIgNNL1gsjkGLLYBcsxzZmVwnSNe1Ld9xZuwIg
-         FOM5CPxeSeYVzl+jc4nTg3n4bXLRnHmf2QbpWCS+DZWWCmNRJhBH+AfZ+NcypAUw2Xfl
-         ThM/EGcfIQoi0ZCEeCOXXeAr7CQhbPO3af7O1Sonct/5bfE4ElN71B6dxCH23xgpN4rU
-         OHQL42ngKhMnRgmNXmGlKLPyyFYl/Jn5i37NUBbcMy7/zc+mwqAzOAGY8ZAYkHYyA0sS
-         unzZUbkMAqUFaNrmlSYF1q3OnNeIXGe/+JTHOGai8fZR0R9q+oLCLWVSROcOqxM5ksxs
-         EImw==
+        bh=nj7CgqAAQQhNHgK0hte7ZaiQHV8FhEfQVmCLQVxteIQ=;
+        b=gkgj05vUx8zaX/JhP0LqWpj6Ly5JJgGp/phokpUS5k+EloaxC6DqoFPiFE/nby/pYK
+         +iKBgx0saVJWd9Gxkt8xtWiP5XgBtXSXeV6NDt2ixvVF5lhrvlRQ0dCt7K7LrqAhtCJD
+         1ONY5LeL6gbdi02Ww/6rUS9aK0h5NCj8Q/kCuyOyg5wO5qCV79Z0weG2TIdM+CiaNRxL
+         hUlGEL12KWz1YA+N14oGSvcvgKENlBWP4q77lTPVsZx//XRNvF9pV9nG0U9p3fU8RNLJ
+         7GEMB/lFHpRFBknKGKvqTS6BGWc0QtrRxFojoB9/TJ3RJT9llGugQ00vN7uJLxxXmLkZ
+         9KKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733310062; x=1733914862;
+        d=1e100.net; s=20230601; t=1733310623; x=1733915423;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K6EPxLBgH2uOPc1YMRH/qANrWmud5mKlT8E7LujwulM=;
-        b=VhQCCZ7PLLPSsjtq/FaV+8fn6zxWWri/pqWJH1CNqFgTGYIATw7XfZiTIQMwwFBoWC
-         6puzeOUF9aC7MkDIs9v3XpzX1lv6sum9CCGVQo9dDOTpP9FgUCtBmrK+jIE9BZ1snGyJ
-         zBIYFFNJYe6bYGSI8odqvzFs33olW2X7zSWZHVHBE60vSw44bTw3OgjENbpAcwuWKUaz
-         jvd/571nPg+HJtfR8WJgM6hZ2fAuWWIuD2EUM7m/f2metKDCDzp5cMA78g51Mlej5X/k
-         Bq3jm6viOOBBuwNzIKxfG4zraufuEfmhXxcs5s62EiX83eNLF40v3TtCSRqsoH7vT42P
-         U98g==
-X-Forwarded-Encrypted: i=1; AJvYcCVNP/DpYPK3Ak38L8ALz3mF+BDPHY2EL7LGFCbVo77WizgAa7wtvZJ6LDa9ZzaMlIvuYcdTt+8SZfk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxxksqg+ibFUp/TmNMMZUH9T0XZ7+lVjZ7PXtCezZPpBhmAvQkD
-	lqt4L+POD7Mart59JmALB7aUPbu/dRYAjJtCbtJ6pr8C+0B5th6lvq6tYkwv1B4LuOuxIc7N6IQ
-	=
-X-Gm-Gg: ASbGncs//vFIo+NEX2b751AlI328oLZJRHeiPZzMVY02sh4B7RnJ/t/WuvXlIY7iv+6
-	s44rpTSWOPQzQ8wzyEJfkZV18Vd/V+Ptu7+pUXRKpTFjNm2c0/XGV0BR7uXjZGYmaOBr2oMD4kJ
-	uSJuQAQ6cULg8sQT53cMiza63N2CdFZBhXSt3oPkA9SxxXHKHNZeO4mwT/sKVnbT7ZyzbMJaatT
-	GWWPmkAgPYS2PdPn5MbxusDZJ2CiyW+YPjLgCcOCzIuE4x0o2dw3QORulWUJhtpugpG8VkG0/Yf
-	7bL7MVXugUSh7NzV9j+iaLahBqprBHq2wtk=
-X-Google-Smtp-Source: AGHT+IHArLbFC3F5WAAgEgxRisITlttOdOuzaGtekx0ZU33kmpUTEX2/XDfxliwF2yImnYXNpWF1sQ==
-X-Received: by 2002:a05:600c:524d:b0:431:5aea:95f with SMTP id 5b1f17b1804b1-434d09ce368mr53712405e9.16.1733310062044;
-        Wed, 04 Dec 2024 03:01:02 -0800 (PST)
-Message-ID: <3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com>
-Date: Wed, 4 Dec 2024 12:01:00 +0100
+        bh=nj7CgqAAQQhNHgK0hte7ZaiQHV8FhEfQVmCLQVxteIQ=;
+        b=GnTW5OISkSKct6BLqSJF+wudTIvAaVQeRtg9LcKsFnWeiR3ia4zdP/hs6b741HNe9e
+         V+ar/ULBPHqshBYYVgYE/EO/Mt/gh52Q0SXv716csGIRSKob96z8nOE4uj7pDLIN2Ai6
+         ddpv9RU9iCDUwNZOgQRRVBUQAArVsYl9u8MrGroHZ+M9Idq+gv9173EhFx99WY2Z8Niz
+         LFG/THBhypynZ8nfizBwnpMjX5Fd+nt5lwqbrmkAazFdHbukTWbmr+5SPwOoX1AdbJHA
+         pDmCg9G+Wq7bxq7jiVYYth0B/DX3icJzCltSPH9va23Tno8rfaozxY4crbU85TA5+QDv
+         1fBw==
+X-Forwarded-Encrypted: i=1; AJvYcCUFPU9Mry3lmyuQEnMOKMDQQ47K8TlZl9L/vEtnf1YB6c9FlkFF/qWJToJ8nd2JpgcsW2zykQdAzXg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxTVPKsNGMxAT/P/JsTq01paM56I2nnOLx0VwlHkbif0JCjPwO
+	n9kDy5RAtd34xlHXN8Ea/qwujYeDJEMpUuA9W14MDNoQh0OvCMAD6IgRnmZyyQ==
+X-Gm-Gg: ASbGncsk6aTy9CdmwbPP4DrCqropRpzOor3uw3IW/Uod+yGa6u+ejJUCFd+t/NwqQOm
+	oZlghNdBr0LE+83Q1AFdr+VxxICZRKYgz17u/W6KH3ZUYR0wrLiYHjTd93oUnKhWIO8kSotOqyu
+	+l8wz4pT5rwEeM9RKy++VBCmSEisE1hBPHBTBbsPVyROcPnboUlq31iFuyh549Lqx7Ntk9Xsd5S
+	ElZjo9Sp1MOgCPzy7FyBMBwP8m1raIc0mVpTWnfwfM5WX8ohlfP0IwEWLWhRxtx6xGeC+m182iU
+	7uhXViHuXWKmlOi0bggcVX9ea/0s96ufVyM=
+X-Google-Smtp-Source: AGHT+IGIihWtD8bmSHjj/ucBs5sXCWXky+VH2kSnATRJOI8gu1qj7r/4LD0UEnZcGwbsOwNrj8ZDmQ==
+X-Received: by 2002:a17:907:7758:b0:aa5:630d:7de0 with SMTP id a640c23a62f3a-aa6018d8978mr408893866b.44.1733310623459;
+        Wed, 04 Dec 2024 03:10:23 -0800 (PST)
+Message-ID: <12fcd5dd-5d01-465b-bbaa-4e7e2f598727@suse.com>
+Date: Wed, 4 Dec 2024 12:10:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen 4.20 Development Update [November]
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: committers@xenproject.org, kelly.choi@cloud.com,
- xen-devel@lists.xenproject.org
-References: <20241204102035.22505-1-oleksii.kurochko@gmail.com>
+Subject: Re: [XEN PATCH v2] x86/hvm: Use constants for x86 modes
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,104 +117,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241204102035.22505-1-oleksii.kurochko@gmail.com>
+In-Reply-To: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.12.2024 11:20, Oleksii Kurochko wrote:
-> === x86 === 
+On 02.12.2024 10:49, Teddy Astie wrote:
+> In many places of x86 HVM code, constants integer are used to indicate in what mode is
+> running the CPU (real, vm86, 16-bits, 32-bits, 64-bits). However, these constants are
+> are written directly as integer which hides the actual meaning of these modes.
 > 
-> *  Expose consistent topology to guests (v7)
->   -  Alejandro Vallejo
->   -  https://lore.kernel.org/xen-devel/20241021154600.11745-1-alejandro.vallejo@cloud.com/T/#m6033f95c660675039d7789d3af1ba2f292a3a69b
+> This patch introduces X86_MODE_* macros and replace those occurences with it.
 > 
-> *  Boot modules for Hyperlaunch (v8 -> v9)
->   -  Daniel P. Smith
->   -  https://patchew.org/Xen/20241115131204.32135-1-dpsmith@apertussolutions.com/
-> 
-> *  x86/mm: miscellaneous fixes (v2 -> v3)
->   -  Roger Pau Monne
->   -  https://patchew.org/Xen/20241114145715.59777-1-roger.pau@citrix.com/
+> Signed-off-by Teddy Astie <teddy.astie@vates.tech>
 
-This went in, didn't it?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with further style adjustments (see below) and ideally with ...
 
-> *  Address Space Isolation FPU preparations (v2)
->   -  Alejandro Vallejo
->   -  https://lore.kernel.org/xen-devel/20241105143310.28301-1-alejandro.vallejo@cloud.com/T/#mbca5192d7e5636ef5ea005a083e5ff28ebe6317d
-> 
-> *  x86/alternatives: Adjust all insn-relative fields (v2)
->   -  Andrew Cooper
->   -  https://lore.kernel.org/xen-devel/20241002152725.1841575-1-andrew.cooper3@citrix.com/T/#mac2deaea7e02a343210d61887486433d946ad129
-> 
-> *  Support device passthrough when dom0 is PVH on Xen (v16)
->   -  Jiqian Chen
->   -  https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m5d557d76f290ff5b5550c1443cab5774d397e526
+> ---
+> v2:
+> Formatting changes (alignment, ...)
+> Renamed v86 to vm86. (Jan)
 
-Some of this went in too, I think?
+... this extended to ...
 
-> *  x86emul: misc additions (v5 -> v7)
->   -  Jan Beulich
->   -  https://patchew.org/Xen/3a25cd59-e1cb-4bfc-b868-fb11599d22f5@suse.com/
-> 
-> *  x86/HVM: emulation (MMIO) improvements (v2)
->   -  Jan Beulich
->   -  https://lore.kernel.org/xen-devel/3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com/
-> 
-> *  x86: support AVX10.1 (v2)
->   -  Jan Beulich
->   -  https://lore.kernel.org/xen-devel/bcfea345-57c1-43d9-82b3-240b685486cc@suse.com/
+> @@ -2952,11 +2954,11 @@ static const char *guest_x86_mode_to_str(int mode)
+>  {
+>      switch ( mode )
+>      {
+> -    case 0:  return "Real";
+> -    case 1:  return "v86";
+> -    case 2:  return "16bit";
+> -    case 4:  return "32bit";
+> -    case 8:  return "64bit";
+> +    case X86_MODE_REAL:   return "Real";
+> +    case X86_MODE_VM86:   return "v86";
 
-In v2 the title had changed to "x86: support AVX10", dealing with a first
-aspect of AVX10.2 as well. I have long completed AVX10.2 work, yet there
-was little reason to re-post without having got any feedback.
+... the string literal here.
 
-> *  APX support (v?)
->   -  Jan Beulich
->   -  ?
+> @@ -112,23 +113,23 @@ int hvm_hypercall(struct cpu_user_regs *regs)
+>  
+>      switch ( mode )
+>      {
+> -    case 8:
+> +    case X86_MODE_64BIT:
+>          eax = regs->rax;
+>          fallthrough;
+> -    case 4:
+> -    case 2:
+> +    case X86_MODE_32BIT:
+> +    case X86_MODE_16BIT:
+>          if ( currd->arch.monitor.guest_request_userspace_enabled &&
+>              eax == __HYPERVISOR_hvm_op &&
+> -            (mode == 8 ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
+> +            (mode == X86_MODE_64BIT ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
 
-I think you want to remove this from the list. While I have completed work
-there, I'm not fancying re-basing ahead of the AVX10 work, and hence that
-needs to go in first anyway. Which seems unlikely enough at this point, for
-4.20.
+This line is too long now.
 
-> *  VT-d: SATC handling; ATS: tidying (v2)
->   -  Jan Beulich
->   -  https://patchew.org/Xen/64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com/
-> 
-> *  x86: parallelize AP bring-up during boot (v1)
->   -  Krystian Hebel
->   -  https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/
-> 
-> *  x86: memcpy() / memset() (non-)ERMS flavors plus (v3)
->   -  Jan Beulich
->   -  https://lore.kernel.org/xen-devel/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/
+> @@ -2073,7 +2073,8 @@ int nvmx_handle_vmx_insn(struct cpu_user_regs *regs, unsigned int exit_reason)
+>  
+>      if ( !(curr->arch.hvm.guest_cr[4] & X86_CR4_VMXE) ||
+>           !nestedhvm_enabled(curr->domain) ||
+> -         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? 8 : 2)) ||
+> +         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? X86_MODE_64BIT
+> +                                                                 : X86_MODE_16BIT)) ||
 
-Isn't this the same as ...
+As are these two.
 
-> *  x86/spec-ctrl: IBPB improvements (v4)
->   -  Jan Beulich
->   -  https://patchew.org/Xen/06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com/
-> 
-> *  Move some boot code from assembly to C (v2)
->   -  Frediano Ziglio
->   -  https://patchew.org/Xen/20241122093358.478774-1-frediano.ziglio@cloud.com/
-> 
-> *  Hyperlaunch device tree for dom0 (v1)
->   -  Daniel P. Smith
->   -  https://patchew.org/Xen/20241123182044.30687-1-dpsmith@apertussolutions.com/
-> 
-> *  x86: memcpy() / memset() (non-)ERMS flavors plus fallout (v3)
->   -  Jan Beulich
->   -  https://patchew.org/Xen/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/
-
-... this?
-
-> *  amd-pstate CPU Performance Scaling Driver (v1)
->   -  Penny Zheng
->   -  https://patchew.org/Xen/20241203081111.463400-1-Penny.Zheng@amd.com/
-
-This series was posted only this week, and upon asking it was clarified that
-it's indeed not aiming at 4.20.
+Likely easy enough to adjust while committing.
 
 Jan
 
