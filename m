@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85F189E5DDF
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 19:03:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849204.1263848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 977C89E5E7B
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 19:53:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849218.1263858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJGAx-0006VR-DA; Thu, 05 Dec 2024 18:02:07 +0000
+	id 1tJGxm-0004R3-4O; Thu, 05 Dec 2024 18:52:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849204.1263848; Thu, 05 Dec 2024 18:02:07 +0000
+Received: by outflank-mailman (output) from mailman id 849218.1263858; Thu, 05 Dec 2024 18:52:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJGAx-0006Sk-9t; Thu, 05 Dec 2024 18:02:07 +0000
-Received: by outflank-mailman (input) for mailman id 849204;
- Thu, 05 Dec 2024 18:02:05 +0000
+	id 1tJGxm-0004Pa-0L; Thu, 05 Dec 2024 18:52:34 +0000
+Received: by outflank-mailman (input) for mailman id 849218;
+ Thu, 05 Dec 2024 18:52:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L7i5=S6=bounce.vates.tech=bounce-md_30504962.6751ea9a.v1-6834e9160f654eb09fe924cf10ec595b@srs-se1.protection.inumbo.net>)
- id 1tJGAv-0006Se-Ep
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 18:02:05 +0000
-Received: from mail180-17.suw31.mandrillapp.com
- (mail180-17.suw31.mandrillapp.com [198.2.180.17])
+ <SRS0=62Hd=S6=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
+ id 1tJGxk-0004PU-3m
+ for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 18:52:32 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07d86fb8-b333-11ef-a0d5-8be0dac302b0;
- Thu, 05 Dec 2024 19:02:03 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-17.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4Y42K61FZczRKMxJk
- for <xen-devel@lists.xenproject.org>; Thu,  5 Dec 2024 18:02:02 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 6834e9160f654eb09fe924cf10ec595b; Thu, 05 Dec 2024 18:02:02 +0000
+ id 12f0fa1e-b33a-11ef-a0d5-8be0dac302b0;
+ Thu, 05 Dec 2024 19:52:29 +0100 (CET)
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2024 10:52:26 -0800
+Received: from uaeoff-desk2.amr.corp.intel.com (HELO [10.124.220.98])
+ ([10.124.220.98])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2024 10:52:26 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +43,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07d86fb8-b333-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1733421722; x=1733682222;
-	bh=ad6+7K0MU3AplIOcEBv8BaP7kQJXpeNbZddg7QpiWRs=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=1yvwnZMlNUp3vJj+KC3E0hoW7nAJR3HUP65k3YGHWDOLYtsykSRAebgSuQ2+1ix1p
-	 hvo7KVti7UVUFqngwqG2KApzVUtZff/XmI3Lo0bgLeRfUaNPxzg3w9oNuxx8RI4Dxa
-	 RTYBQsEStrMRMPH1NYH0z28EsnAigiVXOnLoO6hNYZ+ce7l06R6RI+Lhu7WVr39s6t
-	 M6btLsgwqwT68bctlBt3WGLnM7EcuMceLoNg6U0911cmDIXf+bivyxEz1XuI8DNAn1
-	 jj9P27gWqq7L9LXxBV6vcnxdAA8MObqbTUVwlqr2Uom04T9ezHD8ki+B6HhSlpGvkp
-	 XFyy0AJN2DxPw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1733421722; x=1733682222; i=teddy.astie@vates.tech;
-	bh=ad6+7K0MU3AplIOcEBv8BaP7kQJXpeNbZddg7QpiWRs=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Z0gEM+IP1NNdJKfVNAwxxY6/9X5ORQuRxdrf+MEzelSwZ9DWIdkmmjT7L7gZWdNqr
-	 /GzCMFnhnoHk44ndkKJL3xJMXPxK9uSo8p3cg/LAt3r6TVEuxcqFq3W5CJ5fIdTyRf
-	 5CnuoeW5tkk75GQCs5T1GuYtP1ziB2D3qObSsznWXuGpNoTXArCZC7W37S66kJSbFh
-	 5Skk7TPG/dt8FwwEcuky4SJCRFBmWsTOi0ksK0kgXsiyzsNr5T8QmiL4T84Srqu9id
-	 pCRho2P/7nqxFjT0LauBdfyLPepYUOIbnGMZOgP6nlDaCSo93Z4XOZXA8NIMERdBUH
-	 FyhIUAnmLHIRg==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v2]=20x86/hvm:=20Use=20constants=20for=20x86=20modes?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1733421721142
-Message-Id: <05013b39-fb2c-4eed-97e9-b91506ff89b2@vates.tech>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: "Jan Beulich" <jbeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Paul Durrant" <paul@xen.org>
-References: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech> <79004c19-7e55-4623-86e6-badd165b1d30@citrix.com>
-In-Reply-To: <79004c19-7e55-4623-86e6-badd165b1d30@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6834e9160f654eb09fe924cf10ec595b?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241205:md
-Date: Thu, 05 Dec 2024 18:02:02 +0000
+X-Inumbo-ID: 12f0fa1e-b33a-11ef-a0d5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1733424749; x=1764960749;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=l/aDO4IrCDD1jgJitpkzmkkhO1BeEVsbZ673Y07xHBg=;
+  b=XoNa73ifWa15I99ADVQfF531JC/hN1lFU3XinAQFaVxsvxsDEMGjv/aA
+   nJO+U6sFGLIdH6k4lZLL5N1dIKhY3U97g2YOPz7XBHTnsXY8epqy6uS77
+   dsQKzGUQN/M4OkLC6cFiA32roJhz1CKmphVehQHfZs5JS4qY0OBCq+XBE
+   qNTGewxOxIc+u2oKQXDgkJCBSjNtYeWrgaMm9n1adGApOw1KHM5XUPdZw
+   UPmyjz+B+xnZjcDgqSr6BViN5/L42kVNGYt8HYD0zUax7QBVuKnm0mlVL
+   3Y5dThxHvZ6RHxw/CuiJtMek8EOW8c3n5qz7h3eXr0MNyiVg52o5kB2AN
+   g==;
+X-CSE-ConnectionGUID: mAj7Ye8VQTWEOStmbxjaVA==
+X-CSE-MsgGUID: niCMX+kqTVK+nFxrJ68Abw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="44425979"
+X-IronPort-AV: E=Sophos;i="6.12,211,1728975600"; 
+   d="scan'208";a="44425979"
+X-CSE-ConnectionGUID: hgJixa3hRde6dU6inf3fqg==
+X-CSE-MsgGUID: kMRGM0CMSduZ1oINGDyJUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,211,1728975600"; 
+   d="scan'208";a="94621790"
+Message-ID: <24b8d4a0-36c3-4404-98aa-7d8e2c67ac95@intel.com>
+Date: Thu, 5 Dec 2024 10:52:24 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Grab mm lock before grabbing pt lock
+To: Maksym Planeta <maksym@exostellar.io>, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20241204103516.3309112-1-maksym@exostellar.io>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20241204103516.3309112-1-maksym@exostellar.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 12/4/24 02:35, Maksym Planeta wrote:
+> Function xen_pin_page calls xen_pte_lock, which in turn grab page
+> table lock (ptlock). When locking, xen_pte_lock expect mm->page_table_lock
+> to be held before grabbing ptlock, but this does not happen when pinning
+> is caused by xen_mm_pin_all.
 
-Le 04/12/2024 =C3=A0 14:01, Andrew Cooper a =C3=A9crit=C2=A0:
-> On 02/12/2024 9:49 am, Teddy Astie wrote:
->> In many places of x86 HVM code, constants integer are used to indicate i=
-n what mode is
->> running the CPU (real, vm86, 16-bits, 32-bits, 64-bits). However, these =
-constants are
->> are written directly as integer which hides the actual meaning of these =
-modes.
->>
->> This patch introduces X86_MODE_* macros and replace those occurences wit=
-h it.
->>
->> Signed-off-by Teddy Astie <teddy.astie@vates.tech>
-> 
-> As fed back previously, these are (mostly) not modes.
-> 
-> "Mode" has a specific meaning in the x86 architecture which is not
-> this.=C2=A0 You are going to have to change your commit message, and choi=
-ce
-> of constant names.
-> 
-> ~Andrew
+In changelogs, please indicate functions with parenthesis like this:
+func().  It makes it easier to tell what is a function versus a variable
+or other text.
 
-I took a look on the page you sent in the past [1], but I am quite 
-confused on how they should be named then.
+The use of init_mm here in the preexisting code is a _bit_ fishy because
+these pgds *HAVE* an mm and yet xen_mm_pin_all() passes in '&init_mm'
+for them. That's relevant here because locking 'init_mm' obviously
+doesn't do any good for other mm's.
 
-Intel System Programming Guide in 2.2 "Modes of operation" defines these 
-as "operating modes"
-- Protected mode (which are named in this patch X86_MODE_32BIT and 
-X86_MODE_16BIT)
-- Real-address mode (which is named in this patch X86_MODE_REAL)
-- Virtual-8086 mode (X86_MODE_VM86)
-- IA-32e mode (X86_MODE_64BIT and in some cases X86_MODE_32BIT)
+I have the _feeling_ it's just a big hack and this code throws caution
+tot the wind because of:
 
-The page you sent introduce multiple "processor modes" with variants of 
-real mode (RM16, RM32), VM86 (VM16, VM16E0, VM16E1), Protected mode 
-(PM16, PM32) and IA32-mode "long mode" (CM16, CM32, PM64).
+>  * Expected to be called in stop_machine() ("equivalent to taking
+>  * every spinlock in the system"), so the locking doesn't really
+>  * matter all that much.
 
-I think we can add all these modes as separate defines, while having a 
-way (macro ?) to check some attributes (e.g is it "long mode" ? with a 
-bit indicating a "long mode" mode).
+So the patch here kinda doubles down on the hack and continues the theme
+because "locking doesn't really matter all that much."
 
-[1] https://sandpile.org/x86/mode.htm
+If so, it's not super satisfying, but it is consistent with the existing
+code.
 
-Teddy
+> This commit addresses lockdep warning below, which shows up when
+> suspending a Xen VM.
 
+If the comment I quote above is right, this is a _harmless_ warning
+because nothing else can race here and the locking that gets added is
+useless anyway, right? You seem to agree because there's no cc:stable@
+or Fixes: tags.
 
-Teddy Astie | Vates XCP-ng Developer
+Either way, I'm hesitant to add incorrect-in-any-other-context and
+uncommented locking just to shut up lockdep. Is there no better way?
 
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+If not, can we comment it at least, please, so nobody else tries to
+duplicate the locking?
 
