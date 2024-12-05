@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68B1F9E5EB9
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 20:24:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849238.1263874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD039E5EC7
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 20:30:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849253.1263884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJHS5-00009i-HA; Thu, 05 Dec 2024 19:23:53 +0000
+	id 1tJHXz-0000qA-7W; Thu, 05 Dec 2024 19:29:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849238.1263874; Thu, 05 Dec 2024 19:23:53 +0000
+Received: by outflank-mailman (output) from mailman id 849253.1263884; Thu, 05 Dec 2024 19:29:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJHS5-00007T-Dp; Thu, 05 Dec 2024 19:23:53 +0000
-Received: by outflank-mailman (input) for mailman id 849238;
- Thu, 05 Dec 2024 19:23:52 +0000
+	id 1tJHXz-0000oF-4F; Thu, 05 Dec 2024 19:29:59 +0000
+Received: by outflank-mailman (input) for mailman id 849253;
+ Thu, 05 Dec 2024 19:29:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wNEb=S6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tJHS4-00007N-9j
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 19:23:52 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1tJHXy-0000o7-Ag
+ for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 19:29:58 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74b30d71-b33e-11ef-99a3-01e77a169b0f;
- Thu, 05 Dec 2024 20:23:50 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-432d86a3085so9106525e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2024 11:23:50 -0800 (PST)
+ id 4f19fbd9-b33f-11ef-99a3-01e77a169b0f;
+ Thu, 05 Dec 2024 20:29:56 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3862a4b8ec2so89603f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2024 11:29:56 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38621909739sm2678954f8f.66.2024.12.05.11.23.48
+ ffacd0b85a97d-3862190965asm2748754f8f.82.2024.12.05.11.29.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2024 11:23:48 -0800 (PST)
+ Thu, 05 Dec 2024 11:29:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74b30d71-b33e-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 4f19fbd9-b33f-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1733426629; x=1734031429; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1733426996; x=1734031796; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZYN67hFp8JAJSq9JWJnAKUz4jAU23Uz6qBkwgEF8fAs=;
-        b=RHaYFWHKqG2hB7rQlfpnmJX5qeoq45OUhMCWWE707IPPWZRXo8eHRcNbU9mlg1VOW/
-         OYppCc6HS5mZ3EQSY5cyffN0t6RBZiAZ0l003/VtjDZcg8HNuo9FCLhxErKcBbIMgGtq
-         hO0lv9KITeqcMXGZRMwDLgbZf8ksPNaxXpaaw=
+        bh=Jrm0cAtT507kZI0+GHeU1830OSWqdmqJYqV3CAdFlb8=;
+        b=fnrrTC/rCwM1j905UDOZJFYzGWXMjEcNKGnwWNQG/83Bx7chZ/zt6con5R2J/CY4oZ
+         0U62+kEX50nzJht1hX1GNfskcM74Lc3HrWpGJByJG4+OEn8xP+ei1AwHK5il3ddLniPL
+         tyAzCr88dcQVGfdbf8p+dvuZk8j6HEXwdDAYk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733426629; x=1734031429;
+        d=1e100.net; s=20230601; t=1733426996; x=1734031796;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZYN67hFp8JAJSq9JWJnAKUz4jAU23Uz6qBkwgEF8fAs=;
-        b=qi5pSGsyCnb6Wt07J9D1IaTx+wzjDhvRHqCdS64hgMnSuCF8fYF3EGs5RawPP1NORL
-         H8nfH8Zke9w4OngOt5tYdF7yQW9AFBply2d0qu7tXndH8ZyVHpDcIcYwd90A1d4np7ld
-         q2bwK3JC9npXJgKYVdZpTSSYcnslx9puzOJfakM7nnFqCgZeJgHf0yG+moOkfdZY8aE+
-         FEM3HOjKkWDD9UQylYp9mpYsXOI5TAgNbctxhPnCjsFrFT+nsci8dkYPEpCYzxSRCEpt
-         DJezVSF2teQcDDumEghyTxLqIGRDPlT5rX8sG3eiiHwRXNoEibg8DAFNs5/AvDAp0bpA
-         1WKQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXOAH3MGisxefc57/0XFTO6q83fE1U6mrrb3qjVytAM0l28wPuPm1Q81FgJczIG86BnannM+nAKzE8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzEKvPRSegRyIkjLy4nGM/alwjN9zPKdWy+j81+gsqCn7uC2zox
-	bkRoYi8+DSAjnFEm0/RM+BxY7pMIHz+xrPIxM5DuHjBEvUN2QAKg1adUvnwUhO0=
-X-Gm-Gg: ASbGncsnRRqMxC38kl4/rL41PsaS0CC9eEBJoLrtzdV1OBwkCAVpSJMF0LZELo8lo7W
-	hbnxbzzdF468pJkNc5EA+TfIJMTLlDOYplwp3f6cBRbiqYIvGYgwkatVGdEDHKHDGRGL0xQuNwY
-	i8C+rKF8EFuWBcU9gUFesCv8o4hh2vSUw9VS04Nlk2TY3dQTHBZIvjAOjXZoxsslwWDWLoRdchA
-	JHw5RPum3HgY7i9EkMzq+R8dCiF3YU5S7MHSTtdapMpqj1dEvMO7lNu1vP9OKQAlCNf6kz0Vzs6
-	vHUKsD8uDWh40Q==
-X-Google-Smtp-Source: AGHT+IG+p8ekGv/ewNgrODj5zAesLs0L80qzZbd15CBO0jbQG1BuyLWFXCYNftnBuZeBE2SCnTuCTA==
-X-Received: by 2002:a5d:6da5:0:b0:385:f195:27f with SMTP id ffacd0b85a97d-3862b33b9d3mr245902f8f.5.1733426629315;
-        Thu, 05 Dec 2024 11:23:49 -0800 (PST)
-Message-ID: <79bb69b0-b00d-4e3c-966e-a341eac59499@citrix.com>
-Date: Thu, 5 Dec 2024 19:23:48 +0000
+        bh=Jrm0cAtT507kZI0+GHeU1830OSWqdmqJYqV3CAdFlb8=;
+        b=XbdMP56QZvocj3MUJsFfqTZRj5RxZ+z6WAksk//VYE1OmvSgRR0S0xnX7OXlM3RY7U
+         9YVwMAUKUOCL9qvv7H/26I/2emKWoahQEHfhXQwr45vQEa0YiPQH3b5mOiSa8sSk7zA/
+         KjWzz0Fx/XGrIA5qC5CBETaiSbH1JmgQAnAlZGbyaA/L2DfdgTjT2BELs7sO1bXHJrgi
+         PDDnuihYug1LNHLAkuatWqQSXOZPyUSjcIohwEYMocRb4JPnircQA97Jpoip0kVzNTad
+         fudCy+MbJ6x0cFRhObOkb4d0EKUq2eTc0yZwLhE91bVrnzkXoyUteFAPye3zOy5bdYrR
+         /nNw==
+X-Gm-Message-State: AOJu0YzwrEvSflVUxKh/lNNQDLo+S04zNQR7YnABZE04p73R9J5OnwAo
+	UTqVb6/XrDR7j1dRcIQtfxWWVD1qhHvzwxtYLG3WYznH2sOjFLULkMS0wsgi5ZAr1AtqxN2hsxZ
+	V
+X-Gm-Gg: ASbGncuZQX6Tst/reIMsFuVfHn2pPkaav5AUSGWsGyoEZCUqNoqTqdCf+JpwUw2WoQf
+	CHsZBY2paziVucdzATAMU7UlqE0SAreFVWkeH9swyActq1Vmo7BgHNJaoCUV8QbBhLRLDbgKYSL
+	mhkoXFdGQulizowC29q2NEploYnb4PdCz6VYqzP650FKGqknrPMfwohYq9plqcA6IaDNhLITXII
+	fGWvpwtK0RUFy/7hArphjNuIRJIl5eDUcWwltn15W7iXuYS3QOnDRuamOYuYagnerB4tk9HqZ+6
+	Kcy9Wj9e10M7lA==
+X-Google-Smtp-Source: AGHT+IGBMiYKBRQoOq1OGegWXCZcE45iK4QvL+h3JdgjxMqy+8TQxknxTryho9iRGZiaRSKc51nwcA==
+X-Received: by 2002:a05:6000:793:b0:385:ef39:6ce9 with SMTP id ffacd0b85a97d-3862b351418mr253154f8f.21.1733426995920;
+        Thu, 05 Dec 2024 11:29:55 -0800 (PST)
+Message-ID: <f0ca35df-b999-4cf8-bd54-9fbf29e5117c@citrix.com>
+Date: Thu, 5 Dec 2024 19:29:54 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] xen: arm: enable stack protector feature
-To: Julien Grall <julien.grall.oss@gmail.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <20241130010954.36057-1-volodymyr_babchuk@epam.com>
- <20241130010954.36057-4-volodymyr_babchuk@epam.com>
- <d6f17723-8503-4e6e-bd5e-0a42a7149ac3@citrix.com>
- <CAJ=z9a2v-96CSjpRSfn2s+BydcC=boFt7RGhU+BRXpaVphG8MQ@mail.gmail.com>
+Subject: Re: [PATCH v3] tools/xl: add suspend and resume subcommands
+To: Anthony PERARD <anthony.perard@vates.tech>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?zithro_/_Cyril_R=C3=A9bert?=
+ <slack@rabbit.lu>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20241203220641.4202-1-jason.andryuk@amd.com>
+ <Z1Gz0VrMZ5degOUJ@l14>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,82 +136,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <CAJ=z9a2v-96CSjpRSfn2s+BydcC=boFt7RGhU+BRXpaVphG8MQ@mail.gmail.com>
+In-Reply-To: <Z1Gz0VrMZ5degOUJ@l14>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/12/2024 11:16 pm, Julien Grall wrote:
-> On Tue, 3 Dec 2024 at 22:00, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->> On 30/11/2024 1:10 am, Volodymyr Babchuk wrote:
->>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
->>> index 2e27af4560..f855e97e25 100644
->>> --- a/xen/arch/arm/setup.c
->>> +++ b/xen/arch/arm/setup.c
->>> @@ -341,6 +342,8 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
->>>       */
->>>      system_state = SYS_STATE_boot;
->>>
->>> +    boot_stack_chk_guard_setup();
->>> +
->>>      if ( acpi_disabled )
->>>      {
->>>          printk("Booting using Device Tree\n");
->> I still think that __stack_chk_guard wants setting up in ASM before
->> entering C.
+On 05/12/2024 2:08 pm, Anthony PERARD wrote:
+> On Tue, Dec 03, 2024 at 05:06:41PM -0500, Jason Andryuk wrote:
+>> From: zithro / Cyril Rébert <slack@rabbit.lu>
 >>
->> The only reason this call is so late is because Xen's get_random()
->> sequence is less than helpful.  That wants rewriting somewhat, but maybe
->> now isn't the best time.
+>> The xl command doesn't provide suspend/resume, so add them :
+>>   xl suspend <Domain>
+>>   xl resume <Domain>
 >>
->> Even if you initialise __stack_chk_guard it to -1 rather than 0, it's
->> still got a better chance of catching errors during very early boot; the
->> instrumentation is present, but is using 0 as the canary value.
+>> This patch follows a discussion on XenDevel: when you want the
+>> virtualized equivalent of "sleep"-ing a host, it's better to
+>> suspend/resume than to pause/unpause a domain.
 >>
->> On x86, dumping the current TSC value into __stack_chk_guard would be
->> far better than using -1.  Even if it skewed to a lower number, it's
->> unpredictable and not going to reoccur by accident during a stack overrun.
->>
->> Surely ARM has something similar it could use?
-> There is a optional system register to read a random number.
+>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Suggested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> Signed-off-by: Cyril Rébert (zithro) <slack@rabbit.lu>
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Only in v8.5 as far as I can see, and even then it's not required. 
-Also, it suffers from the same problem as RDRAND on x86; we need to boot
-to at least feature detection before we can safely use it if it's available.
-
->
->> [edit] Yes, get_cycles(), which every architecture seems to have.  In
->> fact, swapping get_random() from NOW() to get_cycles() would be good
->> enough to get it usable from early assembly.
-> Not quite. Technically we can't rely on the timer counter until
-> platform_init_time() is called.
-> This was to cater an issue on the exynos we used in OssTest. But
-> arguably this is the exception
-> rather than the norm because the firmware ought to properly initialize
-> the timer...
->
-> I haven't checked recent firmware. But I could be convinced to access
-> the counter before
-> hand if we really think that setting __stack_chk_guard from ASM is much better.
-
-The C instrumentation is always present, right from the very start of
-start_xen().
-
-Even working with a canary of 0, there's some value.  It will spot
-clobbering with a non-zero value, but it won't spot e.g. an overly-long
-memset(, 0).
-
-During boot, we're not defending against a malicious entity.  Simply
-defending against bad developer expectations.
-
-Therefore, anything to get a non-zero value prior to entering C will be
-an improvement.  Best-effort is fine, and if there's one platform with
-an errata that causes it to miss out, then oh well.  Any other platform
-which manifests a crash will still lead to the problem being fixed.
-
-I suppose taking this argument to it's logical conclusion, we could
-initialise __stack_chk_guard with a poison pattern, although not one
-shared by any other poison pattern in Xen.  That alone would be better
-than using 0 in early boot.
+Committed.  This definitely warrants a note in CHANGELOG.md
 
 ~Andrew
 
