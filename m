@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 977C89E5E7B
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 19:53:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849218.1263858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68B1F9E5EB9
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 20:24:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849238.1263874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJGxm-0004R3-4O; Thu, 05 Dec 2024 18:52:34 +0000
+	id 1tJHS5-00009i-HA; Thu, 05 Dec 2024 19:23:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849218.1263858; Thu, 05 Dec 2024 18:52:34 +0000
+Received: by outflank-mailman (output) from mailman id 849238.1263874; Thu, 05 Dec 2024 19:23:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJGxm-0004Pa-0L; Thu, 05 Dec 2024 18:52:34 +0000
-Received: by outflank-mailman (input) for mailman id 849218;
- Thu, 05 Dec 2024 18:52:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tJHS5-00007T-Dp; Thu, 05 Dec 2024 19:23:53 +0000
+Received: by outflank-mailman (input) for mailman id 849238;
+ Thu, 05 Dec 2024 19:23:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=62Hd=S6=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
- id 1tJGxk-0004PU-3m
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 18:52:32 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12f0fa1e-b33a-11ef-a0d5-8be0dac302b0;
- Thu, 05 Dec 2024 19:52:29 +0100 (CET)
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 10:52:26 -0800
-Received: from uaeoff-desk2.amr.corp.intel.com (HELO [10.124.220.98])
- ([10.124.220.98])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2024 10:52:26 -0800
+ <SRS0=wNEb=S6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tJHS4-00007N-9j
+ for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 19:23:52 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 74b30d71-b33e-11ef-99a3-01e77a169b0f;
+ Thu, 05 Dec 2024 20:23:50 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-432d86a3085so9106525e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2024 11:23:50 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38621909739sm2678954f8f.66.2024.12.05.11.23.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Dec 2024 11:23:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,130 +45,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12f0fa1e-b33a-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1733424749; x=1764960749;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=l/aDO4IrCDD1jgJitpkzmkkhO1BeEVsbZ673Y07xHBg=;
-  b=XoNa73ifWa15I99ADVQfF531JC/hN1lFU3XinAQFaVxsvxsDEMGjv/aA
-   nJO+U6sFGLIdH6k4lZLL5N1dIKhY3U97g2YOPz7XBHTnsXY8epqy6uS77
-   dsQKzGUQN/M4OkLC6cFiA32roJhz1CKmphVehQHfZs5JS4qY0OBCq+XBE
-   qNTGewxOxIc+u2oKQXDgkJCBSjNtYeWrgaMm9n1adGApOw1KHM5XUPdZw
-   UPmyjz+B+xnZjcDgqSr6BViN5/L42kVNGYt8HYD0zUax7QBVuKnm0mlVL
-   3Y5dThxHvZ6RHxw/CuiJtMek8EOW8c3n5qz7h3eXr0MNyiVg52o5kB2AN
-   g==;
-X-CSE-ConnectionGUID: mAj7Ye8VQTWEOStmbxjaVA==
-X-CSE-MsgGUID: niCMX+kqTVK+nFxrJ68Abw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11277"; a="44425979"
-X-IronPort-AV: E=Sophos;i="6.12,211,1728975600"; 
-   d="scan'208";a="44425979"
-X-CSE-ConnectionGUID: hgJixa3hRde6dU6inf3fqg==
-X-CSE-MsgGUID: kMRGM0CMSduZ1oINGDyJUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,211,1728975600"; 
-   d="scan'208";a="94621790"
-Message-ID: <24b8d4a0-36c3-4404-98aa-7d8e2c67ac95@intel.com>
-Date: Thu, 5 Dec 2024 10:52:24 -0800
+X-Inumbo-ID: 74b30d71-b33e-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1733426629; x=1734031429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZYN67hFp8JAJSq9JWJnAKUz4jAU23Uz6qBkwgEF8fAs=;
+        b=RHaYFWHKqG2hB7rQlfpnmJX5qeoq45OUhMCWWE707IPPWZRXo8eHRcNbU9mlg1VOW/
+         OYppCc6HS5mZ3EQSY5cyffN0t6RBZiAZ0l003/VtjDZcg8HNuo9FCLhxErKcBbIMgGtq
+         hO0lv9KITeqcMXGZRMwDLgbZf8ksPNaxXpaaw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733426629; x=1734031429;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZYN67hFp8JAJSq9JWJnAKUz4jAU23Uz6qBkwgEF8fAs=;
+        b=qi5pSGsyCnb6Wt07J9D1IaTx+wzjDhvRHqCdS64hgMnSuCF8fYF3EGs5RawPP1NORL
+         H8nfH8Zke9w4OngOt5tYdF7yQW9AFBply2d0qu7tXndH8ZyVHpDcIcYwd90A1d4np7ld
+         q2bwK3JC9npXJgKYVdZpTSSYcnslx9puzOJfakM7nnFqCgZeJgHf0yG+moOkfdZY8aE+
+         FEM3HOjKkWDD9UQylYp9mpYsXOI5TAgNbctxhPnCjsFrFT+nsci8dkYPEpCYzxSRCEpt
+         DJezVSF2teQcDDumEghyTxLqIGRDPlT5rX8sG3eiiHwRXNoEibg8DAFNs5/AvDAp0bpA
+         1WKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXOAH3MGisxefc57/0XFTO6q83fE1U6mrrb3qjVytAM0l28wPuPm1Q81FgJczIG86BnannM+nAKzE8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEKvPRSegRyIkjLy4nGM/alwjN9zPKdWy+j81+gsqCn7uC2zox
+	bkRoYi8+DSAjnFEm0/RM+BxY7pMIHz+xrPIxM5DuHjBEvUN2QAKg1adUvnwUhO0=
+X-Gm-Gg: ASbGncsnRRqMxC38kl4/rL41PsaS0CC9eEBJoLrtzdV1OBwkCAVpSJMF0LZELo8lo7W
+	hbnxbzzdF468pJkNc5EA+TfIJMTLlDOYplwp3f6cBRbiqYIvGYgwkatVGdEDHKHDGRGL0xQuNwY
+	i8C+rKF8EFuWBcU9gUFesCv8o4hh2vSUw9VS04Nlk2TY3dQTHBZIvjAOjXZoxsslwWDWLoRdchA
+	JHw5RPum3HgY7i9EkMzq+R8dCiF3YU5S7MHSTtdapMpqj1dEvMO7lNu1vP9OKQAlCNf6kz0Vzs6
+	vHUKsD8uDWh40Q==
+X-Google-Smtp-Source: AGHT+IG+p8ekGv/ewNgrODj5zAesLs0L80qzZbd15CBO0jbQG1BuyLWFXCYNftnBuZeBE2SCnTuCTA==
+X-Received: by 2002:a5d:6da5:0:b0:385:f195:27f with SMTP id ffacd0b85a97d-3862b33b9d3mr245902f8f.5.1733426629315;
+        Thu, 05 Dec 2024 11:23:49 -0800 (PST)
+Message-ID: <79bb69b0-b00d-4e3c-966e-a341eac59499@citrix.com>
+Date: Thu, 5 Dec 2024 19:23:48 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Grab mm lock before grabbing pt lock
-To: Maksym Planeta <maksym@exostellar.io>, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20241204103516.3309112-1-maksym@exostellar.io>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20241204103516.3309112-1-maksym@exostellar.io>
+Subject: Re: [PATCH v2 3/4] xen: arm: enable stack protector feature
+To: Julien Grall <julien.grall.oss@gmail.com>
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <20241130010954.36057-1-volodymyr_babchuk@epam.com>
+ <20241130010954.36057-4-volodymyr_babchuk@epam.com>
+ <d6f17723-8503-4e6e-bd5e-0a42a7149ac3@citrix.com>
+ <CAJ=z9a2v-96CSjpRSfn2s+BydcC=boFt7RGhU+BRXpaVphG8MQ@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CAJ=z9a2v-96CSjpRSfn2s+BydcC=boFt7RGhU+BRXpaVphG8MQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12/4/24 02:35, Maksym Planeta wrote:
-> Function xen_pin_page calls xen_pte_lock, which in turn grab page
-> table lock (ptlock). When locking, xen_pte_lock expect mm->page_table_lock
-> to be held before grabbing ptlock, but this does not happen when pinning
-> is caused by xen_mm_pin_all.
+On 03/12/2024 11:16 pm, Julien Grall wrote:
+> On Tue, 3 Dec 2024 at 22:00, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>> On 30/11/2024 1:10 am, Volodymyr Babchuk wrote:
+>>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+>>> index 2e27af4560..f855e97e25 100644
+>>> --- a/xen/arch/arm/setup.c
+>>> +++ b/xen/arch/arm/setup.c
+>>> @@ -341,6 +342,8 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
+>>>       */
+>>>      system_state = SYS_STATE_boot;
+>>>
+>>> +    boot_stack_chk_guard_setup();
+>>> +
+>>>      if ( acpi_disabled )
+>>>      {
+>>>          printk("Booting using Device Tree\n");
+>> I still think that __stack_chk_guard wants setting up in ASM before
+>> entering C.
+>>
+>> The only reason this call is so late is because Xen's get_random()
+>> sequence is less than helpful.  That wants rewriting somewhat, but maybe
+>> now isn't the best time.
+>>
+>> Even if you initialise __stack_chk_guard it to -1 rather than 0, it's
+>> still got a better chance of catching errors during very early boot; the
+>> instrumentation is present, but is using 0 as the canary value.
+>>
+>> On x86, dumping the current TSC value into __stack_chk_guard would be
+>> far better than using -1.  Even if it skewed to a lower number, it's
+>> unpredictable and not going to reoccur by accident during a stack overrun.
+>>
+>> Surely ARM has something similar it could use?
+> There is a optional system register to read a random number.
 
-In changelogs, please indicate functions with parenthesis like this:
-func().  It makes it easier to tell what is a function versus a variable
-or other text.
+Only in v8.5 as far as I can see, and even then it's not required. 
+Also, it suffers from the same problem as RDRAND on x86; we need to boot
+to at least feature detection before we can safely use it if it's available.
 
-The use of init_mm here in the preexisting code is a _bit_ fishy because
-these pgds *HAVE* an mm and yet xen_mm_pin_all() passes in '&init_mm'
-for them. That's relevant here because locking 'init_mm' obviously
-doesn't do any good for other mm's.
+>
+>> [edit] Yes, get_cycles(), which every architecture seems to have.  In
+>> fact, swapping get_random() from NOW() to get_cycles() would be good
+>> enough to get it usable from early assembly.
+> Not quite. Technically we can't rely on the timer counter until
+> platform_init_time() is called.
+> This was to cater an issue on the exynos we used in OssTest. But
+> arguably this is the exception
+> rather than the norm because the firmware ought to properly initialize
+> the timer...
+>
+> I haven't checked recent firmware. But I could be convinced to access
+> the counter before
+> hand if we really think that setting __stack_chk_guard from ASM is much better.
 
-I have the _feeling_ it's just a big hack and this code throws caution
-tot the wind because of:
+The C instrumentation is always present, right from the very start of
+start_xen().
 
->  * Expected to be called in stop_machine() ("equivalent to taking
->  * every spinlock in the system"), so the locking doesn't really
->  * matter all that much.
+Even working with a canary of 0, there's some value.  It will spot
+clobbering with a non-zero value, but it won't spot e.g. an overly-long
+memset(, 0).
 
-So the patch here kinda doubles down on the hack and continues the theme
-because "locking doesn't really matter all that much."
+During boot, we're not defending against a malicious entity.  Simply
+defending against bad developer expectations.
 
-If so, it's not super satisfying, but it is consistent with the existing
-code.
+Therefore, anything to get a non-zero value prior to entering C will be
+an improvement.  Best-effort is fine, and if there's one platform with
+an errata that causes it to miss out, then oh well.  Any other platform
+which manifests a crash will still lead to the problem being fixed.
 
-> This commit addresses lockdep warning below, which shows up when
-> suspending a Xen VM.
+I suppose taking this argument to it's logical conclusion, we could
+initialise __stack_chk_guard with a poison pattern, although not one
+shared by any other poison pattern in Xen.  That alone would be better
+than using 0 in early boot.
 
-If the comment I quote above is right, this is a _harmless_ warning
-because nothing else can race here and the locking that gets added is
-useless anyway, right? You seem to agree because there's no cc:stable@
-or Fixes: tags.
-
-Either way, I'm hesitant to add incorrect-in-any-other-context and
-uncommented locking just to shut up lockdep. Is there no better way?
-
-If not, can we comment it at least, please, so nobody else tries to
-duplicate the locking?
+~Andrew
 
