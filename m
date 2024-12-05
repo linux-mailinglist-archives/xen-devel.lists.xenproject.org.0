@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21A1C9E58C7
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 15:45:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849083.1263784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25C5C9E5A8A
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 17:00:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849159.1263824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJD6Y-0004wN-VK; Thu, 05 Dec 2024 14:45:22 +0000
+	id 1tJEGH-0006sK-M7; Thu, 05 Dec 2024 15:59:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849083.1263784; Thu, 05 Dec 2024 14:45:22 +0000
+Received: by outflank-mailman (output) from mailman id 849159.1263824; Thu, 05 Dec 2024 15:59:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJD6Y-0004tY-RO; Thu, 05 Dec 2024 14:45:22 +0000
-Received: by outflank-mailman (input) for mailman id 849083;
- Thu, 05 Dec 2024 14:45:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tJEGH-0006pU-JM; Thu, 05 Dec 2024 15:59:29 +0000
+Received: by outflank-mailman (input) for mailman id 849159;
+ Thu, 05 Dec 2024 15:59:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1V0d=S6=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1tJD6X-0004tS-BA
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 14:45:21 +0000
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [2607:f8b0:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c72bee6-b317-11ef-a0d5-8be0dac302b0;
- Thu, 05 Dec 2024 15:45:20 +0100 (CET)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-3ea6b011b27so1002636b6e.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2024 06:45:20 -0800 (PST)
+ id 1tJEGG-0006pO-Cd
+ for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 15:59:28 +0000
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [2001:4860:4864:20::31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e67d9c81-b321-11ef-99a3-01e77a169b0f;
+ Thu, 05 Dec 2024 16:59:26 +0100 (CET)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-29e5bf419ebso366949fac.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2024 07:59:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,47 +40,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c72bee6-b317-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: e67d9c81-b321-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1733409919; x=1734014719; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1733414365; x=1734019165; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0ZgRQhHyuN6yCF0EyJMCVjUH6Tzf65Z7q3KGkJjdL+I=;
-        b=jJRRuhnUF3f4Ifa5vCMiUHAcYtOjcITQoC3btnajHHBYk/w1Pv1tdUMou6s5j/lguO
-         djd2TxK8a7GiXkJtppNSHcKbI1MhI6tedXVNrRHtkmEBkQBvj9cTkT/pcXDeiU1Gwrwr
-         zaNq9ZQKojpziqHnOCrMaoNoN6yfguJo0RX6xmTIvymVcP/xRkx5BsMBXFPcOHtqKJjd
-         BKpotagWOncrPzrzRxLwZOoa+ky7AVMVkckwYU8L5ijFCvGdSbOjXL5Y+krZDlOfL1vN
-         xSf6Yz/XU/prA4Jp3WUXfdxTjqFNG6VZjCNRpUgSWNnAtZteP/WyMKL8/OXz5Pna1QIy
-         7uew==
+        bh=hEhcfAlqoTBbddD5bKETueYddtGFrbPHE/WdJaY9dts=;
+        b=hRQEE+lZN+HDXq8fFzNo/5ps3Lmf48brx5PP7ybMq+pHNpDiP/cBo15ilRXSxHDOLO
+         k17RlEoXDNfpMUIwJFYPOJv4V7GPVCHjoqF06k2jp0j6WOs8yoC7UoGHEJSE4Ju48diZ
+         kXWcooBQ/FLSf/ssNKeTQIZhurYrWQod0Rhr1joA79vxHVpj3mCGzgDGZjZ7enuE8RY2
+         ysff6VflP5ilVilt3H4h1EaQGeMaIp6oYUQDecqij82gX2FSw5SisjyKHYgVhW/N78aa
+         9WedwZt2/mqgNLsWCSviAfE2L+1j1EGOARJYDtq6YjiAmaURqiNBw4IQzx8aAtH0nf7H
+         KgeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733409919; x=1734014719;
+        d=1e100.net; s=20230601; t=1733414365; x=1734019165;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0ZgRQhHyuN6yCF0EyJMCVjUH6Tzf65Z7q3KGkJjdL+I=;
-        b=tth0TnIy0kIn6HeID9XJQEA03mabAgYiPbADckGjIUxfZEPEeTRrVq00WD84Y8Ohsb
-         YD6KfXffZsGVSN3gA6slv+NLeliopfdWVCE/5Xdf5oXt27l8NwL7XSDP7C0DddPc5K5s
-         SR5Eh5ENaH+efbAh1NTSiqvGXlF832cjelwWsprUPO6VCxiFsfASZPUUran2dok6dp7p
-         NQNCyDwe6p9ubrVFOF7NRkW/jiMyo95e2dUX/92DmohAm5YSzrXGJzKAGXLUp9rEU5mN
-         ljsBnkSWSCNn+AvhyZ8baRhzIt+l3YGl35x3FJ/H47ICh31sfolT9aON1cw/ALBNn452
-         lV3w==
-X-Gm-Message-State: AOJu0Yw7HliyoF4YBAc+MX6D+SYUyqKYWLpyC77BBKd0F6EoKBtEiOfW
-	mm8+3n1Et9eEt0ix7v7rB7QSJqBGX8YlfcFdiiXSoXVS6SY/8AVOLKgc8dzhXfY6ARZeCZHxRet
-	4X0J/EW32MhnLecN0bXfBq2jTVXXnyaWOZJOigA==
-X-Gm-Gg: ASbGncvh14o1bS0f+3H9UTlskIx13+glAHCzvYkSAn11ByxFFCLlZSkgAL7C0zQm3jA
-	1oQtkqbkcR8ZuS+M7j7CIoZWwA1QFGno=
-X-Google-Smtp-Source: AGHT+IG4gPj3qtGbAP5V8CtdEkijrF4OGCFB/CjfZ4qb0ghLH56gKmObG2NZ9wXuhszmqWv90lT3+PIC1poPFQOpz+g=
-X-Received: by 2002:a05:6808:182a:b0:3e7:9e8c:304f with SMTP id
- 5614622812f47-3eb045add67mr1552844b6e.7.1733409918705; Thu, 05 Dec 2024
- 06:45:18 -0800 (PST)
+        bh=hEhcfAlqoTBbddD5bKETueYddtGFrbPHE/WdJaY9dts=;
+        b=tR7jzSkaXnFw9Kqd4/fM4R2jx7MnhqHdEgKbhNctJAZqSEJJL/SlzNnXgdv2ZEYPfh
+         Ac9sqp2IJ7M9AAt/WMcACw+znIuius5PpK/GulIoqPWwzeMSIeFMDEBwQm7QQMpQAtrT
+         0YJYn++qLtO+ByBMa+UU1Og2VNHG4YHPRdwJcJp20QQjg9S1+JJ7Tzesx1YMGZ8woW47
+         9zpfJVFFyo3I5Q/zSqP0q2CaQPl/DqODcxkpYPu072w+UWk/MAiSL+zWNIx8bdxeR435
+         yDA2OyY9UNEX4JFs521dMhdOAsKMKpDpI5uuk2np29e/eqkU0UtRphDOKhx8YrdUwN/h
+         RYig==
+X-Gm-Message-State: AOJu0YwlvqhSz1irC719T8vdsSKLOhWTal910GStsBoNAVx5WvdZppmA
+	I7iXxSTjPFTeh/vCDJY3scDjNbTiV5xamIJUvCEpUxX5c8knZtEuFdBqDpAzaCbrMi9C3bBBvgX
+	x+M4SbWGlX9vmYk8ClT1Y9Gl6cQxs1EsjlHJU7w==
+X-Gm-Gg: ASbGncuodFr8cy/hDHrteHRZEHyaKeWmnMYdSLzlZs6jwlXOkvOYOtT63n167RtRQJe
+	il/avnUCiBsxR+5cBv8QPYbvA4C7YnII=
+X-Google-Smtp-Source: AGHT+IEjd9sgTFDcE3GmnYLGWqbSJ7I3AAIoACD5wqxEDTEIIZ65YvLOWuA64cztc9TKxgyG76q6rr7xN0k3wj6Hlo4=
+X-Received: by 2002:a05:6871:10d:b0:29e:20c4:2217 with SMTP id
+ 586e51a60fabf-29e888949cfmr9408376fac.33.1733414364789; Thu, 05 Dec 2024
+ 07:59:24 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1732702210.git.bertrand.marquis@arm.com> <3fcc536cd2e13d0421839fc6890daeda71cfac44.1732702210.git.bertrand.marquis@arm.com>
-In-Reply-To: <3fcc536cd2e13d0421839fc6890daeda71cfac44.1732702210.git.bertrand.marquis@arm.com>
+References: <cover.1732702210.git.bertrand.marquis@arm.com> <244dc07cda4cdba30e305f62818141444223a4e4.1732702210.git.bertrand.marquis@arm.com>
+In-Reply-To: <244dc07cda4cdba30e305f62818141444223a4e4.1732702210.git.bertrand.marquis@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Thu, 5 Dec 2024 15:45:07 +0100
-Message-ID: <CAHUa44GoKNSvxzUT5Xox6Rxyyxa6BkA_0g2aLADT+5q0-158=A@mail.gmail.com>
-Subject: Re: [PATCH v3 01/10] xen/arm: ffa: Rework firmware discovery
+Date: Thu, 5 Dec 2024 16:59:13 +0100
+Message-ID: <CAHUa44EmOwzBnQXjDEHakzGfmsOh2Tim5S46nWHNhAeYbxydjg@mail.gmail.com>
+Subject: Re: [PATCH v3 02/10] xen/arm: ffa: Rework feature discovery
 To: Bertrand Marquis <bertrand.marquis@arm.com>
 Cc: xen-devel@lists.xenproject.org, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
@@ -93,30 +93,26 @@ Hi Bertrand,
 On Wed, Nov 27, 2024 at 5:08=E2=80=AFPM Bertrand Marquis
 <bertrand.marquis@arm.com> wrote:
 >
-> Rework firmware discovery during probe:
-> - move prints into the probe
-> - rename ffa_version to ffa_fw_version as the variable identifies the
->   version of the firmware and not the one we support
-> - add error prints when allocation fail during probe
+> Store the list of ABI we need in a list and go through the list instead
+> of having a list of conditions inside the code.
 >
-> No functional changes.
+> No functional change.
 >
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
 > Changes in v3:
-> - Revert spurious change assigning major_vers
-> - Remove error print in ffa_rxtx_init as we have already a print in the
->   main init function
+> - remove const attribute for id in ffa_fw_abi struct
 > Changes in v2:
-> - Fix error message when we fail to retrieve ffa_version
-> - Move back printing the firmware version before checking supported
->   features
-> - Use Warning instead of Info to inform user that FF-A is not supported
->   in firmware.
+> - Store a string version of ABI needed from firmware and print the name
+>   of the ABI not supported instead of the id
+> - Restore comment with TODO which should not have been removed at this
+>   stage
+> - fix to unsigned int the index in the loop on the array
+> - use abi instead of feature in the names of the functions and variables
+>   as we are not checking features but abis
 > ---
->  xen/arch/arm/tee/ffa.c      | 41 ++++++++++++++++++++++---------------
->  xen/arch/arm/tee/ffa_rxtx.c |  4 +---
->  2 files changed, 26 insertions(+), 19 deletions(-)
+>  xen/arch/arm/tee/ffa.c | 57 +++++++++++++++++++++++++-----------------
+>  1 file changed, 34 insertions(+), 23 deletions(-)
 
 Looks good.
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
@@ -126,136 +122,93 @@ Jens
 
 >
 > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 022089278e1c..5a7f297ca5c6 100644
+> index 5a7f297ca5c6..ade6aaa6fd1d 100644
 > --- a/xen/arch/arm/tee/ffa.c
 > +++ b/xen/arch/arm/tee/ffa.c
-> @@ -71,8 +71,8 @@
->
->  #include "ffa_private.h"
->
-> -/* Negotiated FF-A version to use with the SPMC */
-> -static uint32_t __ro_after_init ffa_version;
-> +/* Negotiated FF-A version to use with the SPMC, 0 if not there or suppo=
+> @@ -74,6 +74,31 @@
+>  /* Negotiated FF-A version to use with the SPMC, 0 if not there or suppo=
 rted */
-> +static uint32_t __ro_after_init ffa_fw_version;
+>  static uint32_t __ro_after_init ffa_fw_version;
 >
+> +struct ffa_fw_abi {
+> +    uint32_t id;
+> +    const char *name;
+> +};
+> +
+> +#define FW_ABI(abi) {abi,#abi}
+> +
+> +/* List of ABI we use from the firmware */
+> +static const struct ffa_fw_abi ffa_fw_abi_needed[] =3D {
+> +    FW_ABI(FFA_VERSION),
+> +    FW_ABI(FFA_FEATURES),
+> +    FW_ABI(FFA_NOTIFICATION_BITMAP_CREATE),
+> +    FW_ABI(FFA_NOTIFICATION_BITMAP_DESTROY),
+> +    FW_ABI(FFA_PARTITION_INFO_GET),
+> +    FW_ABI(FFA_NOTIFICATION_INFO_GET_64),
+> +    FW_ABI(FFA_NOTIFICATION_GET),
+> +    FW_ABI(FFA_RX_RELEASE),
+> +    FW_ABI(FFA_RXTX_MAP_64),
+> +    FW_ABI(FFA_RXTX_UNMAP),
+> +    FW_ABI(FFA_MEM_SHARE_32),
+> +    FW_ABI(FFA_MEM_SHARE_64),
+> +    FW_ABI(FFA_MEM_RECLAIM),
+> +    FW_ABI(FFA_MSG_SEND_DIRECT_REQ_32),
+> +    FW_ABI(FFA_MSG_SEND_DIRECT_REQ_64),
+> +};
 >
 >  /*
-> @@ -105,10 +105,7 @@ static bool ffa_get_version(uint32_t *vers)
->
->      arm_smccc_1_2_smc(&arg, &resp);
->      if ( resp.a0 =3D=3D FFA_RET_NOT_SUPPORTED )
-> -    {
-> -        gprintk(XENLOG_ERR, "ffa: FFA_VERSION returned not supported\n")=
-;
->          return false;
-> -    }
->
->      *vers =3D resp.a0;
->
-> @@ -372,7 +369,7 @@ static int ffa_domain_init(struct domain *d)
->      struct ffa_ctx *ctx;
->      int ret;
->
-> -    if ( !ffa_version )
-> +    if ( !ffa_fw_version )
->          return -ENODEV;
->       /*
->        * We can't use that last possible domain ID or ffa_get_vm_id() wou=
-ld
-> @@ -505,6 +502,9 @@ static bool ffa_probe(void)
->       */
->      BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
->
-> +    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-> +           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-> +
->      /*
->       * psci_init_smccc() updates this value with what's reported by EL-3
->       * or secure world.
-> @@ -514,22 +514,23 @@ static bool ffa_probe(void)
->          printk(XENLOG_ERR
->                 "ffa: unsupported SMCCC version %#x (need at least %#x)\n=
-",
->                 smccc_ver, ARM_SMCCC_VERSION_1_2);
-> -        return false;
-> +        goto err_no_fw;
->      }
->
->      if ( !ffa_get_version(&vers) )
-> -        return false;
-> +    {
-> +        gprintk(XENLOG_ERR, "Cannot retrieve the FFA version\n");
-> +        goto err_no_fw;
-> +    }
->
->      if ( vers < FFA_MIN_SPMC_VERSION || vers > FFA_MY_VERSION )
->      {
->          printk(XENLOG_ERR "ffa: Incompatible version %#x found\n", vers)=
-;
-> -        return false;
-> +        goto err_no_fw;
->      }
->
->      major_vers =3D (vers >> FFA_VERSION_MAJOR_SHIFT) & FFA_VERSION_MAJOR=
-_MASK;
->      minor_vers =3D vers & FFA_VERSION_MINOR_MASK;
-> -    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-> -           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
->      printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
->             major_vers, minor_vers);
->
-> @@ -546,12 +547,18 @@ static bool ffa_probe(void)
->           !check_mandatory_feature(FFA_MEM_SHARE_32) ||
->           !check_mandatory_feature(FFA_MEM_RECLAIM) ||
->           !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
-> -        return false;
-> +    {
-> +        printk(XENLOG_ERR "ffa: Mandatory feature not supported by fw\n"=
-);
-> +        goto err_no_fw;
-> +    }
->
-> -    if ( !ffa_rxtx_init() )
-> -        return false;
-> +    ffa_fw_version =3D vers;
->
-> -    ffa_version =3D vers;
-> +    if ( !ffa_rxtx_init() )
-> +    {
-> +        printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
-> +        goto err_no_fw;
-> +    }
->
->      if ( !ffa_partinfo_init() )
->          goto err_rxtx_destroy;
-> @@ -564,7 +571,9 @@ static bool ffa_probe(void)
->
->  err_rxtx_destroy:
->      ffa_rxtx_destroy();
-> -    ffa_version =3D 0;
-> +err_no_fw:
-> +    ffa_fw_version =3D 0;
-> +    printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
->
->      return false;
->  }
-> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-> index 661764052e67..c8bc516a19be 100644
-> --- a/xen/arch/arm/tee/ffa_rxtx.c
-> +++ b/xen/arch/arm/tee/ffa_rxtx.c
-> @@ -203,10 +203,8 @@ bool ffa_rxtx_init(void)
->
->      e =3D ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), FFA_RXTX_PAGE_COUNT);
->      if ( e )
-> -    {
-> -        printk(XENLOG_ERR "ffa: Failed to map rxtx: error %d\n", e);
->          goto err;
-> -    }
-> +
+>   * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
+> @@ -112,20 +137,9 @@ static bool ffa_get_version(uint32_t *vers)
 >      return true;
+>  }
 >
->  err:
+> -static int32_t ffa_features(uint32_t id)
+> -{
+> -    return ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
+> -}
+> -
+> -static bool check_mandatory_feature(uint32_t id)
+> +static bool ffa_abi_supported(uint32_t id)
+>  {
+> -    int32_t ret =3D ffa_features(id);
+> -
+> -    if ( ret )
+> -        printk(XENLOG_ERR "ffa: mandatory feature id %#x missing: error =
+%d\n",
+> -               id, ret);
+> -
+> -    return !ret;
+> +    return !ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
+>  }
+>
+>  static void handle_version(struct cpu_user_regs *regs)
+> @@ -539,17 +553,14 @@ static bool ffa_probe(void)
+>       * TODO: Rework the code to allow domain to use a subset of the
+>       * features supported.
+>       */
+> -    if ( !check_mandatory_feature(FFA_PARTITION_INFO_GET) ||
+> -         !check_mandatory_feature(FFA_RX_RELEASE) ||
+> -         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
+> -         !check_mandatory_feature(FFA_MEM_SHARE_64) ||
+> -         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
+> -         !check_mandatory_feature(FFA_MEM_SHARE_32) ||
+> -         !check_mandatory_feature(FFA_MEM_RECLAIM) ||
+> -         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> +    for ( unsigned int i =3D 0; i < ARRAY_SIZE(ffa_fw_abi_needed); i++ )
+>      {
+> -        printk(XENLOG_ERR "ffa: Mandatory feature not supported by fw\n"=
+);
+> -        goto err_no_fw;
+> +        if ( !ffa_abi_supported(ffa_fw_abi_needed[i].id) )
+> +        {
+> +            printk(XENLOG_INFO "ARM FF-A Firmware does not support %s\n"=
+,
+> +                   ffa_fw_abi_needed[i].name);
+> +            goto err_no_fw;
+> +        }
+>      }
+>
+>      ffa_fw_version =3D vers;
 > --
 > 2.47.0
 >
