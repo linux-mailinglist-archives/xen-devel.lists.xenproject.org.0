@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E50F09E5824
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 15:09:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849072.1263772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A1C9E58C7
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2024 15:45:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849083.1263784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJCWo-0008N0-JR; Thu, 05 Dec 2024 14:08:26 +0000
+	id 1tJD6Y-0004wN-VK; Thu, 05 Dec 2024 14:45:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849072.1263772; Thu, 05 Dec 2024 14:08:26 +0000
+Received: by outflank-mailman (output) from mailman id 849083.1263784; Thu, 05 Dec 2024 14:45:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJCWo-0008Kr-GF; Thu, 05 Dec 2024 14:08:26 +0000
-Received: by outflank-mailman (input) for mailman id 849072;
- Thu, 05 Dec 2024 14:08:24 +0000
+	id 1tJD6Y-0004tY-RO; Thu, 05 Dec 2024 14:45:22 +0000
+Received: by outflank-mailman (input) for mailman id 849083;
+ Thu, 05 Dec 2024 14:45:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fOVr=S6=bounce.vates.tech=bounce-md_30504962.6751b3d3.v1-fa438506577d428fa8d740685fae2d5a@srs-se1.protection.inumbo.net>)
- id 1tJCWm-0008Kl-If
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 14:08:24 +0000
-Received: from mail180-17.suw31.mandrillapp.com
- (mail180-17.suw31.mandrillapp.com [198.2.180.17])
+ <SRS0=1V0d=S6=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1tJD6X-0004tS-BA
+ for xen-devel@lists.xenproject.org; Thu, 05 Dec 2024 14:45:21 +0000
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [2607:f8b0:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61d1cf6a-b312-11ef-a0d5-8be0dac302b0;
- Thu, 05 Dec 2024 15:08:21 +0100 (CET)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-17.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4Y3x7R5VR8zRKX5dV
- for <xen-devel@lists.xenproject.org>; Thu,  5 Dec 2024 14:08:19 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- fa438506577d428fa8d740685fae2d5a; Thu, 05 Dec 2024 14:08:19 +0000
+ id 8c72bee6-b317-11ef-a0d5-8be0dac302b0;
+ Thu, 05 Dec 2024 15:45:20 +0100 (CET)
+Received: by mail-oi1-x231.google.com with SMTP id
+ 5614622812f47-3ea6b011b27so1002636b6e.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2024 06:45:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,77 +40,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61d1cf6a-b312-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1733407699; x=1733668199;
-	bh=owLWFM0WcMlsum23q/+BIpROAYWCco6AogDN+VAoWe4=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Qu4aSn2eq6ABinoCRdDr9sCUlqd0W70dYXdbIOVzD3QZoaaz3htLvqApVwGRyYCF0
-	 XwrWDUYEKOD6PwR6aLzSGUauu5E2ST+Gq1A+EacET93jGCAF8mOuvTpj53OdNs9E02
-	 U62nRvT56VCS8h0sp9dLI94kUHgp8orAZbl5g7TZIw9ujv2xytYz8E3YejqVRV49Z0
-	 a7RczXvpkUASLaChwvpv1dlAcYYy5cPsc5gTgEASRKt2SWCXF3LhO0L5UyUQm9FEEc
-	 rZy5uwKNuWU+O7C/HLFTvm8FCLPRLWH3whlXDIi6YIpXd2mDIOPEebWJIH+ytkXofB
-	 PlK/mgXhp9Wvg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1733407699; x=1733668199; i=anthony.perard@vates.tech;
-	bh=owLWFM0WcMlsum23q/+BIpROAYWCco6AogDN+VAoWe4=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Xi/J6u5KiqhfhkkyQ8DvIQJwll4M0aC2WCnP7aNp3TZZ44dMeEj8D0zVdw/6I/+XK
-	 hrT7G6yE3WabpDaCntnQwtSCQdSrw9EUUUqMZuOG9D906FCCXA/yt7GRnzRHRftlEB
-	 DKlMn0am+0Q2Q8+JfGjqeJ7ZnyeA9Z8vq2nUgLfu+IOEgl4fOjmjbIAOJOF/9leIpu
-	 Y7Ghy8cziE5LL3IemVsaE2JDSjMOzYn5J5Yi5f4mVXCPz+MrrgIJQ9ovVwYbuaoKH0
-	 94beHc877O/RUUKtRsaj8iiMo+G6zJW2IpJniRDCE17n2EJxQjMb8qfHcemVo7IcOz
-	 MLvoIVbULQ1Hw==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3]=20tools/xl:=20add=20suspend=20and=20resume=20subcommands?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1733407698446
-To: "Jason Andryuk" <jason.andryuk@amd.com>
-Cc: xen-devel@lists.xenproject.org, "=?utf-8?Q?zithro=20/=20Cyril=20R=C3=A9bert?=" <slack@rabbit.lu>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
-Message-Id: <Z1Gz0VrMZ5degOUJ@l14>
-References: <20241203220641.4202-1-jason.andryuk@amd.com>
-In-Reply-To: <20241203220641.4202-1-jason.andryuk@amd.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.fa438506577d428fa8d740685fae2d5a?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241205:md
-Date: Thu, 05 Dec 2024 14:08:19 +0000
+X-Inumbo-ID: 8c72bee6-b317-11ef-a0d5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1733409919; x=1734014719; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0ZgRQhHyuN6yCF0EyJMCVjUH6Tzf65Z7q3KGkJjdL+I=;
+        b=jJRRuhnUF3f4Ifa5vCMiUHAcYtOjcITQoC3btnajHHBYk/w1Pv1tdUMou6s5j/lguO
+         djd2TxK8a7GiXkJtppNSHcKbI1MhI6tedXVNrRHtkmEBkQBvj9cTkT/pcXDeiU1Gwrwr
+         zaNq9ZQKojpziqHnOCrMaoNoN6yfguJo0RX6xmTIvymVcP/xRkx5BsMBXFPcOHtqKJjd
+         BKpotagWOncrPzrzRxLwZOoa+ky7AVMVkckwYU8L5ijFCvGdSbOjXL5Y+krZDlOfL1vN
+         xSf6Yz/XU/prA4Jp3WUXfdxTjqFNG6VZjCNRpUgSWNnAtZteP/WyMKL8/OXz5Pna1QIy
+         7uew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733409919; x=1734014719;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0ZgRQhHyuN6yCF0EyJMCVjUH6Tzf65Z7q3KGkJjdL+I=;
+        b=tth0TnIy0kIn6HeID9XJQEA03mabAgYiPbADckGjIUxfZEPEeTRrVq00WD84Y8Ohsb
+         YD6KfXffZsGVSN3gA6slv+NLeliopfdWVCE/5Xdf5oXt27l8NwL7XSDP7C0DddPc5K5s
+         SR5Eh5ENaH+efbAh1NTSiqvGXlF832cjelwWsprUPO6VCxiFsfASZPUUran2dok6dp7p
+         NQNCyDwe6p9ubrVFOF7NRkW/jiMyo95e2dUX/92DmohAm5YSzrXGJzKAGXLUp9rEU5mN
+         ljsBnkSWSCNn+AvhyZ8baRhzIt+l3YGl35x3FJ/H47ICh31sfolT9aON1cw/ALBNn452
+         lV3w==
+X-Gm-Message-State: AOJu0Yw7HliyoF4YBAc+MX6D+SYUyqKYWLpyC77BBKd0F6EoKBtEiOfW
+	mm8+3n1Et9eEt0ix7v7rB7QSJqBGX8YlfcFdiiXSoXVS6SY/8AVOLKgc8dzhXfY6ARZeCZHxRet
+	4X0J/EW32MhnLecN0bXfBq2jTVXXnyaWOZJOigA==
+X-Gm-Gg: ASbGncvh14o1bS0f+3H9UTlskIx13+glAHCzvYkSAn11ByxFFCLlZSkgAL7C0zQm3jA
+	1oQtkqbkcR8ZuS+M7j7CIoZWwA1QFGno=
+X-Google-Smtp-Source: AGHT+IG4gPj3qtGbAP5V8CtdEkijrF4OGCFB/CjfZ4qb0ghLH56gKmObG2NZ9wXuhszmqWv90lT3+PIC1poPFQOpz+g=
+X-Received: by 2002:a05:6808:182a:b0:3e7:9e8c:304f with SMTP id
+ 5614622812f47-3eb045add67mr1552844b6e.7.1733409918705; Thu, 05 Dec 2024
+ 06:45:18 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <cover.1732702210.git.bertrand.marquis@arm.com> <3fcc536cd2e13d0421839fc6890daeda71cfac44.1732702210.git.bertrand.marquis@arm.com>
+In-Reply-To: <3fcc536cd2e13d0421839fc6890daeda71cfac44.1732702210.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Thu, 5 Dec 2024 15:45:07 +0100
+Message-ID: <CAHUa44GoKNSvxzUT5Xox6Rxyyxa6BkA_0g2aLADT+5q0-158=A@mail.gmail.com>
+Subject: Re: [PATCH v3 01/10] xen/arm: ffa: Rework firmware discovery
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 03, 2024 at 05:06:41PM -0500, Jason Andryuk wrote:
-> From: zithro / Cyril R=C3=A9bert <slack@rabbit.lu>
-> 
-> The xl command doesn't provide suspend/resume, so add them :
->   xl suspend <Domain>
->   xl resume <Domain>
-> 
-> This patch follows a discussion on XenDevel: when you want the
-> virtualized equivalent of "sleep"-ing a host, it's better to
-> suspend/resume than to pause/unpause a domain.
-> 
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Suggested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsla=
-b.com>
-> Signed-off-by: Cyril R=C3=A9bert (zithro) <slack@rabbit.lu>
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Hi Bertrand,
 
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+On Wed, Nov 27, 2024 at 5:08=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Rework firmware discovery during probe:
+> - move prints into the probe
+> - rename ffa_version to ffa_fw_version as the variable identifies the
+>   version of the firmware and not the one we support
+> - add error prints when allocation fail during probe
+>
+> No functional changes.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v3:
+> - Revert spurious change assigning major_vers
+> - Remove error print in ffa_rxtx_init as we have already a print in the
+>   main init function
+> Changes in v2:
+> - Fix error message when we fail to retrieve ffa_version
+> - Move back printing the firmware version before checking supported
+>   features
+> - Use Warning instead of Info to inform user that FF-A is not supported
+>   in firmware.
+> ---
+>  xen/arch/arm/tee/ffa.c      | 41 ++++++++++++++++++++++---------------
+>  xen/arch/arm/tee/ffa_rxtx.c |  4 +---
+>  2 files changed, 26 insertions(+), 19 deletions(-)
 
-Thanks,
+Looks good.
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
--- 
+Cheers,
+Jens
 
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 022089278e1c..5a7f297ca5c6 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -71,8 +71,8 @@
+>
+>  #include "ffa_private.h"
+>
+> -/* Negotiated FF-A version to use with the SPMC */
+> -static uint32_t __ro_after_init ffa_version;
+> +/* Negotiated FF-A version to use with the SPMC, 0 if not there or suppo=
+rted */
+> +static uint32_t __ro_after_init ffa_fw_version;
+>
+>
+>  /*
+> @@ -105,10 +105,7 @@ static bool ffa_get_version(uint32_t *vers)
+>
+>      arm_smccc_1_2_smc(&arg, &resp);
+>      if ( resp.a0 =3D=3D FFA_RET_NOT_SUPPORTED )
+> -    {
+> -        gprintk(XENLOG_ERR, "ffa: FFA_VERSION returned not supported\n")=
+;
+>          return false;
+> -    }
+>
+>      *vers =3D resp.a0;
+>
+> @@ -372,7 +369,7 @@ static int ffa_domain_init(struct domain *d)
+>      struct ffa_ctx *ctx;
+>      int ret;
+>
+> -    if ( !ffa_version )
+> +    if ( !ffa_fw_version )
+>          return -ENODEV;
+>       /*
+>        * We can't use that last possible domain ID or ffa_get_vm_id() wou=
+ld
+> @@ -505,6 +502,9 @@ static bool ffa_probe(void)
+>       */
+>      BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
+>
+> +    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+> +           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
+> +
+>      /*
+>       * psci_init_smccc() updates this value with what's reported by EL-3
+>       * or secure world.
+> @@ -514,22 +514,23 @@ static bool ffa_probe(void)
+>          printk(XENLOG_ERR
+>                 "ffa: unsupported SMCCC version %#x (need at least %#x)\n=
+",
+>                 smccc_ver, ARM_SMCCC_VERSION_1_2);
+> -        return false;
+> +        goto err_no_fw;
+>      }
+>
+>      if ( !ffa_get_version(&vers) )
+> -        return false;
+> +    {
+> +        gprintk(XENLOG_ERR, "Cannot retrieve the FFA version\n");
+> +        goto err_no_fw;
+> +    }
+>
+>      if ( vers < FFA_MIN_SPMC_VERSION || vers > FFA_MY_VERSION )
+>      {
+>          printk(XENLOG_ERR "ffa: Incompatible version %#x found\n", vers)=
+;
+> -        return false;
+> +        goto err_no_fw;
+>      }
+>
+>      major_vers =3D (vers >> FFA_VERSION_MAJOR_SHIFT) & FFA_VERSION_MAJOR=
+_MASK;
+>      minor_vers =3D vers & FFA_VERSION_MINOR_MASK;
+> -    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+> -           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
+>      printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+>             major_vers, minor_vers);
+>
+> @@ -546,12 +547,18 @@ static bool ffa_probe(void)
+>           !check_mandatory_feature(FFA_MEM_SHARE_32) ||
+>           !check_mandatory_feature(FFA_MEM_RECLAIM) ||
+>           !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> -        return false;
+> +    {
+> +        printk(XENLOG_ERR "ffa: Mandatory feature not supported by fw\n"=
+);
+> +        goto err_no_fw;
+> +    }
+>
+> -    if ( !ffa_rxtx_init() )
+> -        return false;
+> +    ffa_fw_version =3D vers;
+>
+> -    ffa_version =3D vers;
+> +    if ( !ffa_rxtx_init() )
+> +    {
+> +        printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
+> +        goto err_no_fw;
+> +    }
+>
+>      if ( !ffa_partinfo_init() )
+>          goto err_rxtx_destroy;
+> @@ -564,7 +571,9 @@ static bool ffa_probe(void)
+>
+>  err_rxtx_destroy:
+>      ffa_rxtx_destroy();
+> -    ffa_version =3D 0;
+> +err_no_fw:
+> +    ffa_fw_version =3D 0;
+> +    printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
+>
+>      return false;
+>  }
+> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> index 661764052e67..c8bc516a19be 100644
+> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> @@ -203,10 +203,8 @@ bool ffa_rxtx_init(void)
+>
+>      e =3D ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), FFA_RXTX_PAGE_COUNT);
+>      if ( e )
+> -    {
+> -        printk(XENLOG_ERR "ffa: Failed to map rxtx: error %d\n", e);
+>          goto err;
+> -    }
+> +
+>      return true;
+>
+>  err:
+> --
+> 2.47.0
+>
 
