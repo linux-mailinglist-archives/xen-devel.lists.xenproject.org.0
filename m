@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6351E9E6EF7
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 14:10:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.850335.1264774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0C0F9E6FEB
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 15:17:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.850366.1264784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJY6W-0000IQ-4X; Fri, 06 Dec 2024 13:10:44 +0000
+	id 1tJZ86-0001G4-DA; Fri, 06 Dec 2024 14:16:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 850335.1264774; Fri, 06 Dec 2024 13:10:44 +0000
+Received: by outflank-mailman (output) from mailman id 850366.1264784; Fri, 06 Dec 2024 14:16:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJY6W-0000GD-0n; Fri, 06 Dec 2024 13:10:44 +0000
-Received: by outflank-mailman (input) for mailman id 850335;
- Fri, 06 Dec 2024 13:10:42 +0000
+	id 1tJZ86-0001EF-9W; Fri, 06 Dec 2024 14:16:26 +0000
+Received: by outflank-mailman (input) for mailman id 850366;
+ Fri, 06 Dec 2024 14:16:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BoLq=S7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tJXz7-0003LF-RK
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 13:03:05 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=StVE=S7=bounce.vates.tech=bounce-md_30504962.67530734.v1-4ca2d43c805d4cd3ad4ee2cb8912a549@srs-se1.protection.inumbo.net>)
+ id 1tJZ85-0001E9-6B
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 14:16:25 +0000
+Received: from mail180-17.suw31.mandrillapp.com
+ (mail180-17.suw31.mandrillapp.com [198.2.180.17])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d9ea9bc-b3d2-11ef-99a3-01e77a169b0f;
- Fri, 06 Dec 2024 14:03:03 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 46FEA210F9;
- Fri,  6 Dec 2024 13:03:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0EB9F13647;
- Fri,  6 Dec 2024 13:03:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oa3AAQf2Umf6TgAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 06 Dec 2024 13:03:03 +0000
+ id aad574e1-b3dc-11ef-99a3-01e77a169b0f;
+ Fri, 06 Dec 2024 15:16:22 +0100 (CET)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-17.suw31.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Y4YGD4RGfzRKMtvJ
+ for <xen-devel@lists.xenproject.org>; Fri,  6 Dec 2024 14:16:20 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4ca2d43c805d4cd3ad4ee2cb8912a549; Fri, 06 Dec 2024 14:16:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,343 +43,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d9ea9bc-b3d2-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1733490183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bhwLwinhL41mvl1g8G0nYehYCkjaRw7nKPlhqQuc6NM=;
-	b=FLR6VpByAlVajvDhzk3Ez6z3P+bPf1RsGMx5G/NTPPbRoILd5yljq/NS97tmO5WPtzcoTG
-	8m6pSZQcjIP1ZauFVM74wtanTclo3yuPoheR1VM0rCJtRjnxqo8yd2znuGVf9vGv7Hdg+H
-	zoJ79rJpLkry5CpHEosp3JXxElGdeRg=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1733490183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bhwLwinhL41mvl1g8G0nYehYCkjaRw7nKPlhqQuc6NM=;
-	b=FLR6VpByAlVajvDhzk3Ez6z3P+bPf1RsGMx5G/NTPPbRoILd5yljq/NS97tmO5WPtzcoTG
-	8m6pSZQcjIP1ZauFVM74wtanTclo3yuPoheR1VM0rCJtRjnxqo8yd2znuGVf9vGv7Hdg+H
-	zoJ79rJpLkry5CpHEosp3JXxElGdeRg=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH v2 7/7] tools/xenstored: use new stable interface instead of libxenctrl
-Date: Fri,  6 Dec 2024 14:02:21 +0100
-Message-ID: <20241206130221.17773-8-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241206130221.17773-1-jgross@suse.com>
-References: <20241206130221.17773-1-jgross@suse.com>
+X-Inumbo-ID: aad574e1-b3dc-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1733494580; x=1733755080;
+	bh=Y0o1f3HA8+COSIdJmIZ/qovkjjUIMOVDZfQZHuY9OhQ=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=L0q3CzeC5wwg9fk1WmGeOIK3NLIvIiKF4xLOu48HW/5gkG7d5oWt7XPQDI8HDWI7f
+	 ubo59GjbmVbrFl7xWEVPIrLUIrigKWUnBFDyePJ2CtOXpvyhovyYsaUwFReNUhgqfy
+	 7/AFLpAe4nGyEyLw9Biaf5kIKcoivQ6jxiP8LoX63b5ZvSy5DKd6N71bhB+4R6R1ei
+	 fXtFrPcEVDW3v6HGQ+D6wIP6zWgy0uwTY89e7xOIg2BIaGJt5ZLKCbvCBRDnXwf5Qc
+	 nkMk3PhZyCgf03A3hug79gVlIq2/v1PJkhCdZsh170yAuFmluSVV0NfNHRA7S59Y/y
+	 gVQuNyi2za2kg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1733494580; x=1733755080; i=ngoc-tu.dinh@vates.tech;
+	bh=Y0o1f3HA8+COSIdJmIZ/qovkjjUIMOVDZfQZHuY9OhQ=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=DQgDLklNvaXSd27Jrl7Vk074nMTsEuSxx+x+k0U/IAn4BASsqoOAjLCX0ajcnCd/W
+	 b8bNRwHxiijYk0wqZuZWZw45xFta2irTv6oVPBNIelc+vJDibpuOLzPNCpwlW8t/+O
+	 1KtOGp8LLE9FYkPTjKeXFQ5+lbP+CSzzQVGoplKoRKAdmXTvaeO/NTAJ8CX4kXUju0
+	 8NOK7gayH+Tr7zHLz+VwWmCQzS3gTUUIYBrjTAgFkOkLWNrIM7q4C3sfouj3w1X/Lo
+	 w6AdzHDoVW2QNYpByxS6KMuAahUtWy+bgecVsfV2TocBxoqKS34CraoUMNmOsEqpa+
+	 KJjS5+BZuvbWw==
+From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=200/4]=20Virtualize=20architectural=20LBRs?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1733494579706
+Message-Id: <953fed09-385c-4489-ae50-b59ebd444114@vates.tech>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20241118084914.22268-1-ngoc-tu.dinh@vates.tech> <7706bd63-8f26-4eb8-8dc0-67b302597e3b@suse.com> <3f75df1d-f397-487f-9b81-d7740712b924@vates.tech> <78d9df73-c9b7-479d-8e05-e4efb823ea20@citrix.com>
+In-Reply-To: <78d9df73-c9b7-479d-8e05-e4efb823ea20@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4ca2d43c805d4cd3ad4ee2cb8912a549?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241206:md
+Date: Fri, 06 Dec 2024 14:16:20 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Level: 
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Replace the current use of the unstable xc_domain_getinfo_single()
-interface with the stable domctl XEN_DOMCTL_get_domain_state call
-via the new libxenmanage library.
+Hi Andrew,
 
-This will remove the last usage of libxenctrl by Xenstore, so update
-the library dependencies accordingly.
+On 18/11/2024 10:52, Andrew Cooper wrote:
+> On 18/11/2024 9:13 am, Tu Dinh wrote:
+>> On 18/11/2024 09:52, Jan Beulich wrote:
+>>> Looking over just the files touched: No change to XSAVE logic at all?
+>> XSAVE is hidden behind a new IA32_XSS bit. I'll try to implement that ne=
+xt.
+> 
+> It's rather more severe than that.
+> 
+> Without XSAVE support, Xen can't context-switch the LBR state when vCPUs
+> are scheduled in and out.=C2=A0 (In patch 4 you seem to have copied the
+> legacy way, which is extremely expensive.)
+> 
+> Architecturally, ARCH_LBR depends on XSAVES so OSes can context switch
+> it easily(ish) per thread.
+> 
+> There's also a reason why we haven't got this working yet.=C2=A0 There ar=
+e a
+> couple of areas of prerequisite work which need addressing before XSS
+> can be enabled properly.
+> 
+> If you're willing to tackle this, then I can explain what needs doing,
+> and in roughly which order.
+> 
+> ~Andrew
 
-For now only do a direct replacement without using the functionality
-of obtaining information about domains having changed the state.
+Following the community call yesterday, I'd like to clarify my 
+understanding of the issue:
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V1:
-- use library instead of direct hypercall, only replace current
-  libxenctrl use case
+- Firstly, virtual XSS support for architectural LBR must be enabled. I 
+noticed that XSS is already implemented, just not enabled; barring the 
+LBR format issues below, are there any other issues with the current XSS 
+implementation?
 
-Please note that this patch can be committed only after the related
-Mini-OS patch "config: add support for libxenmanage" has gone in AND
-the Mini-OS commit-id has been updated in Config.mk accordingly!
+- There are LBR format differences between some cores of the same CPU 
+(e.g. in Intel hybrid CPUs: P-cores use effective IP while E-cores use 
+linear IP). These differences are expected to be handled by 
+XSAVES/XRSTORS. However, Xen would have to make sure that LBR MSRs are 
+saved/restored by XSS instead of by manually poking MSRs.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- stubdom/Makefile                |  8 ++---
- stubdom/mini-os.mk              |  1 +
- tools/xenstored/Makefile        |  2 +-
- tools/xenstored/Makefile.common |  2 +-
- tools/xenstored/core.h          |  1 -
- tools/xenstored/domain.c        | 52 ++++++++++++---------------------
- tools/xenstored/lu.c            |  1 +
- tools/xenstored/lu_daemon.c     |  1 +
- 8 files changed, 28 insertions(+), 40 deletions(-)
+- A related issue is handling the compressed XSAVE format for migration 
+streams. Xen currently expands/compacts XSAVE format manually during 
+migration; are there any concerns with arch LBR breaking the XSAVE 
+migration logic?
 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 2a81af28a1..ca800b243c 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -307,7 +307,7 @@ endif
- # libraries under tools/libs
- #######
- 
--STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest
-+STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest manage
- 
- LIBDEP_guest := cross-zlib
- 
-@@ -465,7 +465,7 @@ grub: cross-polarssl grub-upstream $(CROSS_ROOT) grub-$(XEN_TARGET_ARCH)-minios-
- # xenstore
- ##########
- 
--xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
-+xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
- xenstore-minios.gen.cfg: xenstore-minios.cfg Makefile
- 	$(GEN_config) >$@
- 
-@@ -480,7 +480,7 @@ xenstore: $(CROSS_ROOT) xenstore-minios-config.mk
- # xenstorepvh
- #############
- 
--xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
-+xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
- xenstorepvh-minios.gen.cfg: xenstorepvh-minios.cfg Makefile
- 	$(GEN_config) >$@
- 
-@@ -523,7 +523,7 @@ else
- pv-grub-if-enabled:
- endif
- 
--XENSTORE_DEPS := libxenevtchn libxengnttab libxenctrl
-+XENSTORE_DEPS := libxenevtchn libxengnttab libxenmanage
- 
- .PHONY: xenstore-stubdom
- xenstore-stubdom: mini-os-$(XEN_TARGET_ARCH)-xenstore $(XENSTORE_DEPS) xenstore
-diff --git a/stubdom/mini-os.mk b/stubdom/mini-os.mk
-index 7e4968e026..be32302f9e 100644
---- a/stubdom/mini-os.mk
-+++ b/stubdom/mini-os.mk
-@@ -13,5 +13,6 @@ GNTTAB_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
- CALL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
- FOREIGNMEMORY_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
- DEVICEMODEL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
-+MANAGE_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/manage
- CTRL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/ctrl
- GUEST_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/guest
-diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
-index 09adfe1d50..81c42838e0 100644
---- a/tools/xenstored/Makefile
-+++ b/tools/xenstored/Makefile
-@@ -5,7 +5,7 @@ include Makefile.common
- 
- xenstored: LDLIBS += $(LDLIBS_libxenevtchn)
- xenstored: LDLIBS += $(LDLIBS_libxengnttab)
--xenstored: LDLIBS += $(LDLIBS_libxenctrl)
-+xenstored: LDLIBS += $(LDLIBS_libxenmanage)
- xenstored: LDLIBS += -lrt
- xenstored: LDLIBS += $(SOCKET_LIBS)
- 
-diff --git a/tools/xenstored/Makefile.common b/tools/xenstored/Makefile.common
-index 27fdb3b49e..271134fcc1 100644
---- a/tools/xenstored/Makefile.common
-+++ b/tools/xenstored/Makefile.common
-@@ -12,7 +12,7 @@ XENSTORED_OBJS-$(CONFIG_MiniOS) += minios.o lu_minios.o
- # Include configure output (config.h)
- CFLAGS += -include $(XEN_ROOT)/tools/config.h
- CFLAGS += $(CFLAGS_libxenevtchn)
--CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenmanage)
- CFLAGS += $(CFLAGS_libxentoolcore)
- 
- $(XENSTORED_OBJS-y): CFLAGS += $(CFLAGS_libxengnttab)
-diff --git a/tools/xenstored/core.h b/tools/xenstored/core.h
-index e58779e88c..632886cecf 100644
---- a/tools/xenstored/core.h
-+++ b/tools/xenstored/core.h
-@@ -19,7 +19,6 @@
- #ifndef _XENSTORED_CORE_H
- #define _XENSTORED_CORE_H
- 
--#include <xenctrl.h>
- #include <xengnttab.h>
- 
- #include <sys/types.h>
-diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-index 64c8fd0cc3..c0264d9477 100644
---- a/tools/xenstored/domain.c
-+++ b/tools/xenstored/domain.c
-@@ -34,14 +34,15 @@
- #include "control.h"
- 
- #include <xenevtchn.h>
--#include <xenctrl.h>
-+#include <xenmanage.h>
-+#include <xen-barrier.h>
- #include <xen/grant_table.h>
- 
- #ifdef __MINIOS__
- #include <mini-os/xenbus.h>
- #endif
- 
--static xc_interface **xc_handle;
-+static xenmanage_handle *xm_handle;
- xengnttab_handle **xgt_handle;
- static evtchn_port_t virq_port;
- 
-@@ -619,32 +620,28 @@ static int destroy_domain(void *_domain)
- 	return 0;
- }
- 
--static bool get_domain_info(unsigned int domid, xc_domaininfo_t *dominfo)
--{
--	return xc_domain_getinfo_single(*xc_handle, domid, dominfo) == 0;
--}
--
- static int check_domain(const void *k, void *v, void *arg)
- {
--	xc_domaininfo_t dominfo;
-+	unsigned int state;
- 	struct connection *conn;
--	bool dom_valid;
-+	int dom_invalid;
- 	struct domain *domain = v;
- 	bool *notify = arg;
- 
--	dom_valid = get_domain_info(domain->domid, &dominfo);
-+	dom_invalid = xenmanage_get_domain_info(xm_handle, domain->domid,
-+						&state, NULL);
- 	if (!domain->introduced) {
--		if (!dom_valid)
-+		if (dom_invalid)
- 			talloc_free(domain);
- 		return 0;
- 	}
--	if (dom_valid) {
--		if ((dominfo.flags & XEN_DOMINF_shutdown)
-+	if (!dom_invalid) {
-+		if ((state & XENMANAGE_GETDOMSTATE_STATE_SHUTDOWN)
- 		    && !domain->shutdown) {
- 			domain->shutdown = true;
- 			*notify = true;
- 		}
--		if (!(dominfo.flags & XEN_DOMINF_dying))
-+		if (!(state & XENMANAGE_GETDOMSTATE_STATE_DYING))
- 			return 0;
- 	}
- 	if (domain->conn) {
-@@ -786,10 +783,9 @@ static struct domain *find_or_alloc_domain(const void *ctx, unsigned int domid)
- static struct domain *find_or_alloc_existing_domain(unsigned int domid)
- {
- 	struct domain *domain;
--	xc_domaininfo_t dominfo;
- 
- 	domain = find_domain_struct(domid);
--	if (!domain && get_domain_info(domid, &dominfo))
-+	if (!domain && !xenmanage_get_domain_info(xm_handle, domid, NULL, NULL))
- 		domain = alloc_domain(NULL, domid);
- 
- 	return domain;
-@@ -1187,12 +1183,6 @@ int do_reset_watches(const void *ctx, struct connection *conn,
- 	return 0;
- }
- 
--static int close_xc_handle(void *_handle)
--{
--	xc_interface_close(*(xc_interface**)_handle);
--	return 0;
--}
--
- static int close_xgt_handle(void *_handle)
- {
- 	xengnttab_close(*(xengnttab_handle **)_handle);
-@@ -1258,15 +1248,9 @@ void domain_early_init(void)
- 	if (!domhash)
- 		barf_perror("Failed to allocate domain hashtable");
- 
--	xc_handle = talloc(talloc_autofree_context(), xc_interface*);
--	if (!xc_handle)
--		barf_perror("Failed to allocate domain handle");
--
--	*xc_handle = xc_interface_open(0,0,0);
--	if (!*xc_handle)
--		barf_perror("Failed to open connection to hypervisor");
--
--	talloc_set_destructor(xc_handle, close_xc_handle);
-+	xm_handle = xenmanage_open(NULL, 0);
-+	if (!xm_handle)
-+		barf_perror("Failed to open connection to libxenmanage");
- 
- 	xgt_handle = talloc(talloc_autofree_context(), xengnttab_handle*);
- 	if (!xgt_handle)
-@@ -1306,6 +1290,8 @@ void domain_deinit(void)
- {
- 	if (virq_port)
- 		xenevtchn_unbind(xce_handle, virq_port);
-+
-+	xenmanage_close(xm_handle);
- }
- 
- /*
-@@ -1335,13 +1321,13 @@ int domain_alloc_permrefs(struct node_perms *perms)
- {
- 	unsigned int i, domid;
- 	struct domain *d;
--	xc_domaininfo_t dominfo;
- 
- 	for (i = 0; i < perms->num; i++) {
- 		domid = perms->p[i].id;
- 		d = find_domain_struct(domid);
- 		if (!d) {
--			if (!get_domain_info(domid, &dominfo))
-+			if (xenmanage_get_domain_info(xm_handle, domid,
-+						      NULL, NULL))
- 				perms->p[i].perms |= XS_PERM_IGNORE;
- 			else if (!alloc_domain(NULL, domid))
- 				return ENOMEM;
-diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
-index bec2a84e10..4fccbbc195 100644
---- a/tools/xenstored/lu.c
-+++ b/tools/xenstored/lu.c
-@@ -11,6 +11,7 @@
- #include <stdlib.h>
- #include <syslog.h>
- #include <time.h>
-+#include <unistd.h>
- #include <sys/mman.h>
- #include <sys/stat.h>
- 
-diff --git a/tools/xenstored/lu_daemon.c b/tools/xenstored/lu_daemon.c
-index 6df6c80a2a..88d8d9e1b3 100644
---- a/tools/xenstored/lu_daemon.c
-+++ b/tools/xenstored/lu_daemon.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <syslog.h>
-+#include <unistd.h>
- #include <sys/stat.h>
- 
- #include "talloc.h"
--- 
-2.43.0
+My understanding is that as long as we don't manually poke the LBR state 
+component, and that LBR state size remains consistent across hybrid 
+cores in the same CPU (which it should be for XSAVE compatibility), 
+there should be no concern with the XSAVE state itself. However, Xen 
+must check CPU features of both sides during migration to make sure that 
+XSAVE states are compatible, which is more complex in migrations 
+involving hosts with hybrid CPUs.
+
+Please tell me if I'm missing any potential issues.
+
+Thanks,
+
+
+Ngoc Tu Dinh | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
 
