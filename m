@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA929E6679
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 05:47:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849508.1264198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2B09E6860
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 09:00:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849894.1264394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJQEV-0006eK-6K; Fri, 06 Dec 2024 04:46:27 +0000
+	id 1tJTF0-000061-Te; Fri, 06 Dec 2024 07:59:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849508.1264198; Fri, 06 Dec 2024 04:46:27 +0000
+Received: by outflank-mailman (output) from mailman id 849894.1264394; Fri, 06 Dec 2024 07:59:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJQEV-0006ch-0s; Fri, 06 Dec 2024 04:46:27 +0000
-Received: by outflank-mailman (input) for mailman id 849508;
- Fri, 06 Dec 2024 04:46:25 +0000
+	id 1tJTF0-0008VH-Qg; Fri, 06 Dec 2024 07:59:10 +0000
+Received: by outflank-mailman (input) for mailman id 849894;
+ Fri, 06 Dec 2024 07:59:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ODA6=S7=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1tJQET-0006c5-3S
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 04:46:25 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2062b.outbound.protection.outlook.com
- [2a01:111:f403:2613::62b])
+ <SRS0=GQh0=S7=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1tJTEy-0008VB-Eo
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 07:59:08 +0000
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [2001:4860:4864:20::36])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b93481b-b38d-11ef-a0d5-8be0dac302b0;
- Fri, 06 Dec 2024 05:46:24 +0100 (CET)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by PAWPR03MB10089.eurprd03.prod.outlook.com
- (2603:10a6:102:360::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.12; Fri, 6 Dec
- 2024 04:46:21 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%7]) with mapi id 15.20.8230.010; Fri, 6 Dec 2024
- 04:46:20 +0000
+ id f73ed596-b3a7-11ef-a0d5-8be0dac302b0;
+ Fri, 06 Dec 2024 08:59:06 +0100 (CET)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-29654932226so948179fac.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2024 23:59:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,224 +40,555 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b93481b-b38d-11ef-a0d5-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x0cYZIvQxLnLemZYK/oAL6OC9LGc1tHdfXG1NYNM++ASnYi87ECLuXQ0/DawSgqRZ9CQ+7KgtRPvm+1Y4Gglw5bjWmir+9K4i8HRn6YOz+fWblB7y8LrKYDVVkMSnDdRYN9KHq7I/iXPDU7EeUPt1WbTE9vcF3s7M25UMPWNbKrRGvtOz1cjRz/nNViYOlEEbV2F/LGHYgJeMkHmQYurR+g4soVtNhhIJFi3JtV9/m1f/oNP0H1JTSM+SyE1il5KJ9OFNvSu+hThMjG4REGP4pVoUZQvcF3RZXY8YyPsEi8T5hK09xYmdJVhA2T5+9T9CMLH444+xtQ919NghW31Bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EhlqcASNy3eMPF02NdURzocj0TYfge7ov9uhgp3WDrY=;
- b=MyVGXVXzd/AvVXLx+iHYcP3GU+R0mBZ456Y6rnoEdAVq0T6mSCen9qjW6U94A0Qun3QQb19XSLeVUbzWbvqUVJ5w7O6irQB/9VIzxbWRw8oVkFn3yK2DExiYWSrn0lug5TSH3jGrR9e5KGwpkRHajJyh4IkyK19V018BahLhIvJM1XQcFtb4JaDslSEJXRfM4WdlGLvci/e1opZ1kIczJSRt0mIdnL8UH/btzP4BCHmMIBQr4V5Yj4ggQzRz22HdXl7Gm+xojLJgtRHbBJoZ1/3Urcz9dD9+BYEQbtNpv58cOqeS7ZK6PcwJnHi65xjqtJ+Y8Bcsbm9oZ3WZCZI4ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EhlqcASNy3eMPF02NdURzocj0TYfge7ov9uhgp3WDrY=;
- b=kqhIFtD90yuxjMFduSCqO7d6PNJY0LsdE1lEQtdBXYxVxq+JDPON8bp70ILLzWCucgl+1xpS3rLczQJm+tUAG9XkW4b8kRGSg7shVca3qu7N0KZXI0QmbUkqxW3LBQZ2UQnS+WGT6OilipPjZlM1LrjRYTPlXJgnDH73kRGGn3ceQa+1RvpMqnIv6SmyNb8nV2mVzigPLdxh5VuiR8z7k7EWRMQLRr/kNEuOL0ExQMGMKBFPcWjqY8Bj+bkxgc885CG6+p/i8IPJQFWSX4JHvl/bEP8IVpWb6Mo/ksEySPCvaMUKKZoLj5xJG3+lcs/eg27fIgZfuE5kmHjEVHSLXA==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Julien Grall <julien.grall.oss@gmail.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v2 3/4] xen: arm: enable stack protector feature
-Thread-Topic: [PATCH v2 3/4] xen: arm: enable stack protector feature
-Thread-Index: AQHbQsSdZeSazgkTckCfCx9gDu8jUA==
-Date: Fri, 6 Dec 2024 04:46:20 +0000
-Message-ID: <87a5d94dwk.fsf@epam.com>
-References: <20241130010954.36057-1-volodymyr_babchuk@epam.com>
-	<20241130010954.36057-4-volodymyr_babchuk@epam.com>
-	<d6f17723-8503-4e6e-bd5e-0a42a7149ac3@citrix.com>
-	<CAJ=z9a2v-96CSjpRSfn2s+BydcC=boFt7RGhU+BRXpaVphG8MQ@mail.gmail.com>
-	<79bb69b0-b00d-4e3c-966e-a341eac59499@citrix.com>
-In-Reply-To: <79bb69b0-b00d-4e3c-966e-a341eac59499@citrix.com> (Andrew
-	Cooper's message of "Thu, 5 Dec 2024 19:23:48 +0000")
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|PAWPR03MB10089:EE_
-x-ms-office365-filtering-correlation-id: c9a77fb4-d341-461a-e74f-08dd15b0edcc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?Z2xPSTRIQ0JOSDRzMGlsc25xNHhvMXJnK3k3RVYrU0hZYVpsQmVRcXJaNFE2?=
- =?utf-8?B?TnJocGNTbWJtT1pZVUlGOFFyKzBJb1hKVHllWDVKTXBtWVdUZ2t2NWhrUmNT?=
- =?utf-8?B?M3hVS2NZbUVCVUFSbGxWMFREUC9peTQydjF1MitBWGY1M3o5Y1kwOUhvcEU1?=
- =?utf-8?B?dklZZDBJVVpTUndUUFQzd1ozN3A5d0ZNZk5wSjFtNDZURCtRTGwwVVo3RTVt?=
- =?utf-8?B?dHl6YTh1RXc4U2ZJWE51dUlaNGw3bWw1ODd1YmZPUE12Z3l5NURDcC9KWlFl?=
- =?utf-8?B?Z2tCZ3NlbUxBeHd4U2N1U1RDYzZmeTNDR2RBTlV4d3pseFNRMytFSXp5SU1J?=
- =?utf-8?B?WlVUSURKSXBqb1JFek5yMXp1NThJNWpmSXI2aFJBZ2t2Y1FHTS82SVhPemY0?=
- =?utf-8?B?UGRDR3NYK3V3d3FTd2RraVc0THlyaEkxQThqZ0xmbkFibjdaMlpON1B3TXFm?=
- =?utf-8?B?UWtPLzFuT3pocUpLbk9ZMXlrSmZSeU5EOVhXVmNiMzZuTXk4YVVjV2x2bmdT?=
- =?utf-8?B?NXlqenRYSDFFVmdUVzBFMmdWUXBvVWpXSkFLZVIyRkVRQVA2V2NLNFIyUmVE?=
- =?utf-8?B?YUZKNGZ3U1dDRFFqK0FsclpyWGQxRW40b3BKamlWZUtFVWkyRGRLeEN3VDh6?=
- =?utf-8?B?MVNnWEs3c204YzBqMW96aWwxT0ozS2J0UFZrZksrVjRJcnVaU3RmK1QyMmRr?=
- =?utf-8?B?QTBxL3FGYmhWS3h3ZnNuU3dTdGZ6dFUxMkxHaFVFcGFQeFBtV0hsSHdlK1A5?=
- =?utf-8?B?byt6bWV1cFZ5dGlvcUdwT2c2eCtEUlJub2M2ekNyU0xxbUg4KzFEV1lJWWdY?=
- =?utf-8?B?M3lpYUZFcE1idDQ0d1E4QWFsZjNRRWFFeDVob09tTFVZRTNVb2JNdnBMeGR2?=
- =?utf-8?B?OEJxVy8zbXEzT3N1bWhqZEpyV01EWkkyaXZIOGdpam1xVWpsL3EzT3dsRFFR?=
- =?utf-8?B?ZGxJOTJsaUFvZ2pDRCtzRmxwVnB3eThzSFlxU2dkWEc4VjVhcDlKWFVybno0?=
- =?utf-8?B?Z2JRcTlaQytOU2ZOR1lzUUMyVW8vdzJjVWpweVU2aTdPcjVVREtIRENiUWdC?=
- =?utf-8?B?bE1MWjBmazhUSWRRVUxhRjRISWhaVDlEUGUvQURoVGFkOVl3OEJzcm52OCtP?=
- =?utf-8?B?RGphLytlVEp1TmM1QWQxMlFvREFkcjlVS1JOWjM0UncxRDBPQ0VwWVMrR3Mx?=
- =?utf-8?B?VVpGVnFMMTNpQlEyc1lZOFV2OVB2SW9CZy83NDVRTE1KeUNVUC9Dc0FaTkV4?=
- =?utf-8?B?TnAvb0wzQ1ZsbnhzR053NkZVUExTUzRXSWV3RHBWUDVBSnpqNldGeS83ZlhR?=
- =?utf-8?B?ZXFUeHVydWRPNCt3Wk9qeWVJZTA1NnMxQXVnSFNSN3ZDV0xtU1dDNngxTzNK?=
- =?utf-8?B?QndoTUlPbmtVRWkxUENGbmJOR2wzYUZWZ1RiRHJlZ1RrUWp5Qk9wRmZPbHd1?=
- =?utf-8?B?bVcyYVorOU5RVEgwTGFzYjlXQmlnM1g0UHlUN0ZRTnVtRjJhVzNuYnRVYmk2?=
- =?utf-8?B?bStYSTVvaXFmMndaV0FxWndUdTJCL1h3aDFLNXlSTDQ2WlRIQ0hmalRMYTNB?=
- =?utf-8?B?dHNqR1RUSDRSb0ZHWUNmeS9yV2kvOHQrRGo2WEtEenM5K1p1amNjTHBzZW43?=
- =?utf-8?B?d1JVeS9ybFFNd1krT2dCaFR3MzIySEtCUGJuTkpMV2VpWFNXL3QvRzR1T1VQ?=
- =?utf-8?B?WTNhVGVJUXhKUWxxNnpZY2ZrdWU5UjBnQThwWDBleFFObWQ2bG1mTC9tWUtl?=
- =?utf-8?B?dzBkeFZveUxDMkY5eXhkSzJOWnROZUhBMUlFUFdtTlhYZWJiWjdhR2dTU0lV?=
- =?utf-8?B?b2ZqTlMwQzhOai9La29pUzJGcHYxWDY0cC9SSnBaR0Exdy83aVNOS2l3dHk5?=
- =?utf-8?B?UktFaXRhN0owb25LMzZkdkxURTdNeXd4UnVnUldiUnVLL1E9PQ==?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Qzl5ampvMy9uVjd1RUNIa1lsZ1NPOSt4NkNEUjI3SVZjTExaODlVVk4yZnlW?=
- =?utf-8?B?b096TmtENDkweGpvcjExazNEQTdXc2pyWWZ2MDQ4NHNkYk9uY2FBRnFyNERB?=
- =?utf-8?B?ekVpNVlCd1JhS2VDd25ZbmtpQmM0a0p2SUdmbzRIVUx2bk1URG9rek9nckxF?=
- =?utf-8?B?MWtPM1M2SUdORUhEZlpNRlF3Q3I4Wkp2VXFGUjZRNW1EZHBkR1dQOTNhTUg5?=
- =?utf-8?B?Q3cybmxzMHlzZCtMZ1QvRmROb3pKMFI1ZFhvSythN1kweXhJOTFOU25HeC9W?=
- =?utf-8?B?cmNMLzBlRlR2VDZpU3ZPUEsxZ1FSMklOQ1pNWllZSzVUTmxJczBRR2xaVWsw?=
- =?utf-8?B?K2VzM0E1NmwrY2RHanc3REFPKyswNTVlV3Erajh2Y1hwWDIrdVJNeGV5blEy?=
- =?utf-8?B?cDF5dG5XSHFqYi85dmZ3L1hoczFCT1FaUENSZ1NqMnR3N2NBQmJ5NVJKK0hV?=
- =?utf-8?B?MThJUEh2cXl5K2ZYQ2ZwaVdpa0JrbzhueHVMcVJhcThuU20rTWQveDhPbXJZ?=
- =?utf-8?B?RGZMbXZsVDFnR2I4L3RtRi8zcTg4amhiSUpsQkpUbWRqTU9WdnRZd0owck9k?=
- =?utf-8?B?Qkw0NlpwUkJWdDZTbE5URlhXVElQTjBXYXpPQUhwaWpXc3lMZmZJV01ieGdR?=
- =?utf-8?B?S2ljdVJDT0Mrd0o0OUl3U3BBdC8zck9GcVlHYmN3SU13NHdjdkNqNlZzREFS?=
- =?utf-8?B?aEJZTUFFZ2laRjFxemIzNTd2ZTRHRldNZTNseU9VSFhsSnV2dUl5TTdwSk55?=
- =?utf-8?B?c3RpV2xCbVREUVpJZ21vMFY1Mi9JVGp2NFBkeDlIbFh3YlZsSENvY3o5MTl0?=
- =?utf-8?B?OXRqWEt2MzA4NE1Ud3ZQSEtDbDlwNjdDWkh3T2VKY2V2eTFmZXJZWmdLVTMx?=
- =?utf-8?B?ZzdObWdiWkwzd2VRb2tKQUFBOGowR3ZzaFJWWnM4Zk1CM1dBUjhYZ1Y2MmRN?=
- =?utf-8?B?YmZyTVZlckc5dFFkWG1HUGVZeVluMUxMU0VHNkIzYkNWN3VNdWdLdEEvMDRV?=
- =?utf-8?B?d1JhR2JsWTkrT29IT1IxckRMbGdicVVxYnpMWkJ5MXFYRlRmNXJ5ZlBsL2hE?=
- =?utf-8?B?Yncxd3kzOHUyK1N5cVNiNll1ZnNFVk5ndWh4VU9aeVVuanNQTmFkTmxvRXZU?=
- =?utf-8?B?TlRjb2FhbzBnQkZVNmhUOHhMRU0rbjNvU2g2VHk4TjcvU3JCQ3VaOEQxSnlz?=
- =?utf-8?B?a2VaYTU4cHAvR3BxTGM0L3BlNEZRL3FJU1Erc0dLNWJxTEhzQzNCVmxzakJD?=
- =?utf-8?B?bDFETktiOWhISTM4aVNnV3cwdnE5UGdzSDk2aFpuc051VEFJbVdVQXhlak5H?=
- =?utf-8?B?b0F6MjkwMHp4RFlnYWh5eHh2K3BsNG1JWmhSaWp0dnZTS3Y2ZUdrRjUvZ0tJ?=
- =?utf-8?B?RUhjaUp5WlZHSWFKa055YVhFeFZQajllTUVUY2JycjdiMSt0OUpOSU5DbGxy?=
- =?utf-8?B?NjdwWGNaU0VYdmgwbU41UkRwMTFtYWplUHZieWh4dlZzcWEzbTk4ZEFNb0cr?=
- =?utf-8?B?SjJFZ1JDZW9tQm11c1RKZnFrWmFEcTY2YWc0R2hxVVpqdzdMR25NbDIrNFJk?=
- =?utf-8?B?b2F4VVo3TGxZZ2FhM2dXWSsxUkQvKzduT0xSMG9BZVNMN2Y3Z0hnOHY3SHo2?=
- =?utf-8?B?ejRDVFJXKy8xQ0NGSkNsaEV2SSt0dGtGRFFWTmpGZzBXblFhWkZmMTllL3VW?=
- =?utf-8?B?N1BTMDNVcXVtWGI1L0FTQWNRN1Q4RHBSZGNDdVcxSzhQWGdwOVRiVExtclFL?=
- =?utf-8?B?R3RERnVnS3Y1QVJiUEEvUlVLaUg5RjNheGxZYVd5QmQ0ajdPbVJmS0RMK0tI?=
- =?utf-8?B?RnVWSXhZd3BFOUwwL2FUak51OTJhd3JkV1dSd0JuYU91WVZYRHp4RDlxSlc4?=
- =?utf-8?B?aER4RzIyV1NseUZOL3FBa29JYkpNQmlOMzBYVUxKdFRDTjYwV3R6QjY3UUk3?=
- =?utf-8?B?aHYyckp4UytTRkd5TDVQUE1IcFc1VysvRzl2ZlVvNXBVMk5GN0t3WFdRZGo4?=
- =?utf-8?B?RGZRRmxkYUhwL0kxcnFRMCtGQTlmanFFTG9lU1VZUWxHTGFrSll5NXVEM3hV?=
- =?utf-8?B?VXQxQmtvUzZBUTM4TVRMMkNLbEo5MyszcTZTQVJ1SW84WTRxL2hsc3kwTjZ0?=
- =?utf-8?B?SXFFTXhWZStPdG9XSGYvMlNObk9rS0xZWlhuYjdBTzJySUYydXh2REVKdXRa?=
- =?utf-8?B?MkE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <80493A35FDC2F744981B36DD3CF658CA@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: f73ed596-b3a7-11ef-a0d5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1733471945; x=1734076745; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0YvyLJeFTkW8Aygi/0tkmgWGqrDPo/MIJUCL1hTOEp4=;
+        b=rAzihSnp0/vSB5EvufSsBOFR1UHTS7YWdmuLBCcGuDwq89K4+Ib20+5kmbkEhUbedr
+         5so2nQjSF/Iy3+nv+HKjB87xpWUoeTSZnBH0yWELE3wRznIDwrXFkWx+VEHTHu+iaY2v
+         rUXNchjsUYgssSIUhhcCdHiL+UV4F4OQbKAt/iR/90qWk6/Df6d7Na+KENnVLlwGbnBG
+         3ZbVIGMwzapGB7BGLjVXkkEqpWmbulhaZ5x7rSbOHSqZgi1bMHkGzBZzC8MNJrN6R69o
+         6FOEpNfmxLoOSRDWOEz4T0TdCKYecDLEVAhjC41JaX4qertE4bU0PfQOd+2UNXfJW0H2
+         YvJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733471945; x=1734076745;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0YvyLJeFTkW8Aygi/0tkmgWGqrDPo/MIJUCL1hTOEp4=;
+        b=c0po40G6Eom9ZYwAe4tnUmCuYVxioyN7dGx45c+9JnaUfIqw9zOsxpze2GmtIEmI+u
+         Di6C+91wcbz1h/g27T+NmHE+HuMwLeVuBoUJT1AeRaIJsmGOhH8QPVxDK61ti91n3e5R
+         yOeakvdMlF6exLOjmWNUW3oTwafkM3pqYChTTcl1+hx8XVdPqqpUB7XQO3Rwv0L59qkP
+         yNGZiV1hiAuDfH5ATzElA0bpDTYghH8oZ8PHupJB3kpQMV1jTcG6+Ow1xrA6EewDr5QE
+         d9MAa2Y3prFp1vvrdRjNKg9JeYXTPV5OgBqPLT9pHX40tzMrOcKSNTrl0ROUZ3U2TKJJ
+         zOUA==
+X-Gm-Message-State: AOJu0YxA6JizPeXGZR5BRzCsUfy+C5bIIQBpaMkUun0pu2ZK0+Hh+cI/
+	d+R1hMhlbLvJhuIX3iiwvrKYrZanbLKp0GZMheH6PEOXF5QHOvgC8gJ3Bf4IAwQBJjVvoS2DXcs
+	1PiZ7Aw142HWoexZCaxGXMDHxP9DNUPjcfh0XGQ==
+X-Gm-Gg: ASbGncvGi0rz515l7IzVEME+OaMRG0I1WzyIINDte+TDIOHzWsnlqT4gbzLZg7Q9aEk
+	sF27x1QAqJ+/ZMG2M2mwEi9vYd0zsR+k=
+X-Google-Smtp-Source: AGHT+IGJS06Sp7PkFKH5KQuNr7udauDoCCdoIQ3OHtZZx84DAz8pszc/pFC30spqW8H0RfwrZfk5ibvtIhgdcr8710U=
+X-Received: by 2002:a05:6870:1f19:b0:29d:caa2:f0ef with SMTP id
+ 586e51a60fabf-29f71b3ffa2mr1279752fac.6.1733471945379; Thu, 05 Dec 2024
+ 23:59:05 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9a77fb4-d341-461a-e74f-08dd15b0edcc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2024 04:46:20.4090
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4/1sAHp3EoUrbgNVkN7h5k4X+ZJWQODzihVuqKGN46hYk6o2a+UR/4OVk/QJBgHe1JsodmTZwfNLoN/5xpvrV1k/P5aWvVC4NDa0ZwGFylQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB10089
+References: <cover.1732702210.git.bertrand.marquis@arm.com> <56217f2f7b4c29a5f84fb02de3f4cbb8342c5560.1732702210.git.bertrand.marquis@arm.com>
+In-Reply-To: <56217f2f7b4c29a5f84fb02de3f4cbb8342c5560.1732702210.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Fri, 6 Dec 2024 08:58:53 +0100
+Message-ID: <CAHUa44Gp1sMKY7txO9cXu1=K1+g5XdEB-0MsN_4v9Em=Vd9FSw@mail.gmail.com>
+Subject: Re: [PATCH v3 07/10] xen/arm: ffa: Transmit RXTX buffers to the SPMC
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-DQpIaSBBbmRyZXcsDQoNCkFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+
-IHdyaXRlczoNCg0KPiBPbiAwMy8xMi8yMDI0IDExOjE2IHBtLCBKdWxpZW4gR3JhbGwgd3JvdGU6
-DQo+PiBPbiBUdWUsIDMgRGVjIDIwMjQgYXQgMjI6MDAsIEFuZHJldyBDb29wZXIgPGFuZHJldy5j
-b29wZXIzQGNpdHJpeC5jb20+IHdyb3RlOg0KPj4+IE9uIDMwLzExLzIwMjQgMToxMCBhbSwgVm9s
-b2R5bXlyIEJhYmNodWsgd3JvdGU6DQo+Pj4+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vc2V0
-dXAuYyBiL3hlbi9hcmNoL2FybS9zZXR1cC5jDQo+Pj4+IGluZGV4IDJlMjdhZjQ1NjAuLmY4NTVl
-OTdlMjUgMTAwNjQ0DQo+Pj4+IC0tLSBhL3hlbi9hcmNoL2FybS9zZXR1cC5jDQo+Pj4+ICsrKyBi
-L3hlbi9hcmNoL2FybS9zZXR1cC5jDQo+Pj4+IEBAIC0zNDEsNiArMzQyLDggQEAgdm9pZCBhc21s
-aW5rYWdlIF9faW5pdCBzdGFydF94ZW4odW5zaWduZWQgbG9uZyBmZHRfcGFkZHIpDQo+Pj4+ICAg
-ICAgICovDQo+Pj4+ICAgICAgc3lzdGVtX3N0YXRlID0gU1lTX1NUQVRFX2Jvb3Q7DQo+Pj4+DQo+
-Pj4+ICsgICAgYm9vdF9zdGFja19jaGtfZ3VhcmRfc2V0dXAoKTsNCj4+Pj4gKw0KPj4+PiAgICAg
-IGlmICggYWNwaV9kaXNhYmxlZCApDQo+Pj4+ICAgICAgew0KPj4+PiAgICAgICAgICBwcmludGso
-IkJvb3RpbmcgdXNpbmcgRGV2aWNlIFRyZWVcbiIpOw0KPj4+IEkgc3RpbGwgdGhpbmsgdGhhdCBf
-X3N0YWNrX2Noa19ndWFyZCB3YW50cyBzZXR0aW5nIHVwIGluIEFTTSBiZWZvcmUNCj4+PiBlbnRl
-cmluZyBDLg0KPj4+DQo+Pj4gVGhlIG9ubHkgcmVhc29uIHRoaXMgY2FsbCBpcyBzbyBsYXRlIGlz
-IGJlY2F1c2UgWGVuJ3MgZ2V0X3JhbmRvbSgpDQo+Pj4gc2VxdWVuY2UgaXMgbGVzcyB0aGFuIGhl
-bHBmdWwuICBUaGF0IHdhbnRzIHJld3JpdGluZyBzb21ld2hhdCwgYnV0IG1heWJlDQo+Pj4gbm93
-IGlzbid0IHRoZSBiZXN0IHRpbWUuDQo+Pj4NCj4+PiBFdmVuIGlmIHlvdSBpbml0aWFsaXNlIF9f
-c3RhY2tfY2hrX2d1YXJkIGl0IHRvIC0xIHJhdGhlciB0aGFuIDAsIGl0J3MNCj4+PiBzdGlsbCBn
-b3QgYSBiZXR0ZXIgY2hhbmNlIG9mIGNhdGNoaW5nIGVycm9ycyBkdXJpbmcgdmVyeSBlYXJseSBi
-b290OyB0aGUNCj4+PiBpbnN0cnVtZW50YXRpb24gaXMgcHJlc2VudCwgYnV0IGlzIHVzaW5nIDAg
-YXMgdGhlIGNhbmFyeSB2YWx1ZS4NCj4+Pg0KPj4+IE9uIHg4NiwgZHVtcGluZyB0aGUgY3VycmVu
-dCBUU0MgdmFsdWUgaW50byBfX3N0YWNrX2Noa19ndWFyZCB3b3VsZCBiZQ0KPj4+IGZhciBiZXR0
-ZXIgdGhhbiB1c2luZyAtMS4gIEV2ZW4gaWYgaXQgc2tld2VkIHRvIGEgbG93ZXIgbnVtYmVyLCBp
-dCdzDQo+Pj4gdW5wcmVkaWN0YWJsZSBhbmQgbm90IGdvaW5nIHRvIHJlb2NjdXIgYnkgYWNjaWRl
-bnQgZHVyaW5nIGEgc3RhY2sgb3ZlcnJ1bi4NCj4+Pg0KPj4+IFN1cmVseSBBUk0gaGFzIHNvbWV0
-aGluZyBzaW1pbGFyIGl0IGNvdWxkIHVzZT8NCj4+IFRoZXJlIGlzIGEgb3B0aW9uYWwgc3lzdGVt
-IHJlZ2lzdGVyIHRvIHJlYWQgYSByYW5kb20gbnVtYmVyLg0KPg0KPiBPbmx5IGluIHY4LjUgYXMg
-ZmFyIGFzIEkgY2FuIHNlZSwgYW5kIGV2ZW4gdGhlbiBpdCdzIG5vdCByZXF1aXJlZC7CoA0KPiBB
-bHNvLCBpdCBzdWZmZXJzIGZyb20gdGhlIHNhbWUgcHJvYmxlbSBhcyBSRFJBTkQgb24geDg2OyB3
-ZSBuZWVkIHRvIGJvb3QNCj4gdG8gYXQgbGVhc3QgZmVhdHVyZSBkZXRlY3Rpb24gYmVmb3JlIHdl
-IGNhbiBzYWZlbHkgdXNlIGl0IGlmIGl0J3MgYXZhaWxhYmxlLg0KPg0KPj4NCj4+PiBbZWRpdF0g
-WWVzLCBnZXRfY3ljbGVzKCksIHdoaWNoIGV2ZXJ5IGFyY2hpdGVjdHVyZSBzZWVtcyB0byBoYXZl
-LiAgSW4NCj4+PiBmYWN0LCBzd2FwcGluZyBnZXRfcmFuZG9tKCkgZnJvbSBOT1coKSB0byBnZXRf
-Y3ljbGVzKCkgd291bGQgYmUgZ29vZA0KPj4+IGVub3VnaCB0byBnZXQgaXQgdXNhYmxlIGZyb20g
-ZWFybHkgYXNzZW1ibHkuDQo+PiBOb3QgcXVpdGUuIFRlY2huaWNhbGx5IHdlIGNhbid0IHJlbHkg
-b24gdGhlIHRpbWVyIGNvdW50ZXIgdW50aWwNCj4+IHBsYXRmb3JtX2luaXRfdGltZSgpIGlzIGNh
-bGxlZC4NCj4+IFRoaXMgd2FzIHRvIGNhdGVyIGFuIGlzc3VlIG9uIHRoZSBleHlub3Mgd2UgdXNl
-ZCBpbiBPc3NUZXN0LiBCdXQNCj4+IGFyZ3VhYmx5IHRoaXMgaXMgdGhlIGV4Y2VwdGlvbg0KPj4g
-cmF0aGVyIHRoYW4gdGhlIG5vcm0gYmVjYXVzZSB0aGUgZmlybXdhcmUgb3VnaHQgdG8gcHJvcGVy
-bHkgaW5pdGlhbGl6ZQ0KPj4gdGhlIHRpbWVyLi4uDQo+Pg0KPj4gSSBoYXZlbid0IGNoZWNrZWQg
-cmVjZW50IGZpcm13YXJlLiBCdXQgSSBjb3VsZCBiZSBjb252aW5jZWQgdG8gYWNjZXNzDQo+PiB0
-aGUgY291bnRlciBiZWZvcmUNCj4+IGhhbmQgaWYgd2UgcmVhbGx5IHRoaW5rIHRoYXQgc2V0dGlu
-ZyBfX3N0YWNrX2Noa19ndWFyZCBmcm9tIEFTTSBpcyBtdWNoIGJldHRlci4NCj4NCj4gVGhlIEMg
-aW5zdHJ1bWVudGF0aW9uIGlzIGFsd2F5cyBwcmVzZW50LCByaWdodCBmcm9tIHRoZSB2ZXJ5IHN0
-YXJ0IG9mDQo+IHN0YXJ0X3hlbigpLg0KPg0KPiBFdmVuIHdvcmtpbmcgd2l0aCBhIGNhbmFyeSBv
-ZiAwLCB0aGVyZSdzIHNvbWUgdmFsdWUuwqAgSXQgd2lsbCBzcG90DQo+IGNsb2JiZXJpbmcgd2l0
-aCBhIG5vbi16ZXJvIHZhbHVlLCBidXQgaXQgd29uJ3Qgc3BvdCBlLmcuIGFuIG92ZXJseS1sb25n
-DQo+IG1lbXNldCgsIDApLg0KPg0KPiBEdXJpbmcgYm9vdCwgd2UncmUgbm90IGRlZmVuZGluZyBh
-Z2FpbnN0IGEgbWFsaWNpb3VzIGVudGl0eS7CoCBTaW1wbHkNCj4gZGVmZW5kaW5nIGFnYWluc3Qg
-YmFkIGRldmVsb3BlciBleHBlY3RhdGlvbnMuDQo+DQo+IFRoZXJlZm9yZSwgYW55dGhpbmcgdG8g
-Z2V0IGEgbm9uLXplcm8gdmFsdWUgcHJpb3IgdG8gZW50ZXJpbmcgQyB3aWxsIGJlDQo+IGFuIGlt
-cHJvdmVtZW50LsKgIEJlc3QtZWZmb3J0IGlzIGZpbmUsIGFuZCBpZiB0aGVyZSdzIG9uZSBwbGF0
-Zm9ybSB3aXRoDQo+IGFuIGVycmF0YSB0aGF0IGNhdXNlcyBpdCB0byBtaXNzIG91dCwgdGhlbiBv
-aCB3ZWxsLsKgIEFueSBvdGhlciBwbGF0Zm9ybQ0KPiB3aGljaCBtYW5pZmVzdHMgYSBjcmFzaCB3
-aWxsIHN0aWxsIGxlYWQgdG8gdGhlIHByb2JsZW0gYmVpbmcgZml4ZWQuDQo+DQo+IEkgc3VwcG9z
-ZSB0YWtpbmcgdGhpcyBhcmd1bWVudCB0byBpdCdzIGxvZ2ljYWwgY29uY2x1c2lvbiwgd2UgY291
-bGQNCj4gaW5pdGlhbGlzZSBfX3N0YWNrX2Noa19ndWFyZCB3aXRoIGEgcG9pc29uIHBhdHRlcm4s
-IGFsdGhvdWdoIG5vdCBvbmUNCj4gc2hhcmVkIGJ5IGFueSBvdGhlciBwb2lzb24gcGF0dGVybiBp
-biBYZW4uwqAgVGhhdCBhbG9uZSB3b3VsZCBiZSBiZXR0ZXINCj4gdGhhbiB1c2luZyAwIGluIGVh
-cmx5IGJvb3QuDQoNCk9rYXksIHNvIEkgY29tZSB3aXRoIHRocmVlLXN0YWdlIGluaXRpYWxpemF0
-aW9uOg0KDQoxLiBTdGF0aWMgcG9pc29uIHBhdHRlcm4NCjIuIFRpbWUtYmFzZWQgZWFybHkgdmFs
-dWUNCjMuIFJhbmRvbS1udW1iZXIgYmFzZWQgbG9uZy10ZXJtIHZhbHVlDQoNClNvLCBhcGFydCBm
-cm9tIGFscmVhZHkgcHJlc2VudA0KDQpzdGF0aWMgYWx3YXlzX2lubGluZSB2b2lkIGJvb3Rfc3Rh
-Y2tfY2hrX2d1YXJkX3NldHVwKHZvaWQpOw0KDQpJIGRpZCB0aGlzOg0KDQovKg0KICogSW5pdGlh
-bCB2YWx1ZSBpcyBjaG9zZW4gYnkgZmFpciBkaWNlIHJvbGwuDQogKiBJdCB3aWxsIGJlIHVwZGF0
-ZWQgZHVyaW5nIGJvb3QgcHJvY2Vzcy4NCiAqLw0KI2lmIEJJVFNfUEVSX0xPTkcgPT0gMzINCnVu
-c2lnbmVkIGxvbmcgX19yb19hZnRlcl9pbml0IF9fc3RhY2tfY2hrX2d1YXJkID0gMHhkZDJjYzky
-NzsNCiNlbHNlDQp1bnNpZ25lZCBsb25nIF9fcm9fYWZ0ZXJfaW5pdCBfX3N0YWNrX2Noa19ndWFy
-ZCA9IDB4MmQ4NTM2MDVhNGQ5YTA5YzsNCiNlbmRpZg0KDQovKiBUaGlzIGZ1bmN0aW9uIHNob3Vs
-ZCBiZSBjYWxsZWQgZnJvbSBBU00gb25seSAqLw0Kdm9pZCBfX2luaXQgYXNtbGlua2FnZSBib290
-X3N0YWNrX2Noa19ndWFyZF9zZXR1cF9lYXJseSh2b2lkKQ0Kew0KICAgIC8qDQogICAgICogTGlu
-ZWFyIGNvbmdydWVudCBnZW5lcmF0b3IuIENvbnN0YW50IGlzIHRha2VuIGZyb20NCiAgICAgKiBU
-YWJsZXMgT2YgTGluZWFyIENvbmdydWVudGlhbCBHZW5lcmF0b3JzDQogICAgICogT2YgRGlmZmVy
-ZW50IFNpemVzIEFuZCBHb29kIExhdHRpY2UgU3RydWN0dXJlIGJ5IFBpZXJyZSBM4oCZRWN1eWVy
-DQogICAgICovDQojaWYgQklUU19QRVJfTE9ORyA9PSAzMg0KICAgIGNvbnN0IHVuc2lnbmVkIGxv
-bmcgYSA9IDI4OTEzMzY0NTM7DQojZWxzZQ0KICAgIGNvbnN0IHVuc2lnbmVkIGxvbmcgYSA9IDI4
-NjI5MzM1NTU3Nzc5NDE3NTc7DQojZW5kaWYNCiAgICBjb25zdCB1bnNpZ25lZCBjID0gMTsNCiAg
-ICB1bnNpZ25lZCBsb25nIGN5Y2xlcyA9IGdldF9jeWNsZXMoKTsNCg0KICAgIGlmICggIWN5Y2xl
-cyApDQogICAgICAgIHJldHVybjsNCg0KICAgIF9fc3RhY2tfY2hrX2d1YXJkID0gY3ljbGVzICog
-YSArIGM7DQp9DQoNCmJvb3Rfc3RhY2tfY2hrX2d1YXJkX3NldHVwX2Vhcmx5KCkgaXMgYmVpbmcg
-Y2FsbGVkIGJ5IEFTTSBjb2RlIGR1cmluZw0KZWFybHkgYm9vdCBzdGFnZXMuDQoNClRoZW4sIGxh
-dGVyLCBib290X3N0YWNrX2Noa19ndWFyZF9zZXR1cCgpIGlzIGNhbGxlZC4NCg0KSWYgeW91IGFy
-ZSBva2F5IHdpdGggdGhpcyBhcHByb2FjaCwgSSdsbCBzZW5kIHRoZSBuZXh0IHZlcnNpb24uDQoN
-Ci0tIA0KV0JSLCBWb2xvZHlteXI=
+Hi Bertrand,
+
+On Wed, Nov 27, 2024 at 5:08=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> When an RXTX buffer is mapped by a VM transmit it to the SPMC when it
+> supports RX_ACQUIRE.
+> As a consequence of that, we must acquire the RX buffer of a VM from the
+> SPMC when we want to use it:
+> - create a generic acquire and release function to get the rx buffer of
+>   a VM which gets it from the SPMC when supported
+> - rename the rx_acquire to hyp_rx_acquire to remove confusion
+> - rework the rx_lock to only lock access to rx_is_free and only allow
+>   usage of the rx buffer to one who managed to acquire it, thus removing
+>   the trylock and returning busy if rx_is_free is false
+>
+> As part of this change move some structure definition to ffa_private
+> from ffa_shm as those are need for the MAP call with the SPMC.
+>
+> While there also fix ffa_handle_rxtx_map which was testing the wrong
+> variable after getting the page for the rx buffer, testing tx_pg
+> instead of rx_pg.
+>
+> Fixes: be75f686eb03 ("xen/arm: ffa: separate rxtx buffer routines")
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v3:
+> - add a comment to explain why we only release the RX buffer if an error
+>   occurs during partition_info_get
+> - fix the BUILD_BUG_ON check for TX buffer size in rxtx_map (coding
+>   style and use PAGE_SIZE * NUM_PAGE)
+> - remove invalid 3 argument to ffa_rxtx_map when forwarding the call to
+>   the SPMC
+> - fix bug in ffa_handle_rxtx_map testing wrong variable
+> Changes in v2:
+> - unmap VM rxtx buffer in SPMC on unmap call or on VM destroy
+> - rework the unmap call to the SPMC to properly pass the VM ID
+> ---
+>  xen/arch/arm/tee/ffa.c          |   2 +-
+>  xen/arch/arm/tee/ffa_partinfo.c |  36 ++++---
+>  xen/arch/arm/tee/ffa_private.h  |  22 ++++-
+>  xen/arch/arm/tee/ffa_rxtx.c     | 161 ++++++++++++++++++++++++++------
+>  xen/arch/arm/tee/ffa_shm.c      |  15 ---
+>  5 files changed, 170 insertions(+), 66 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 0026ac9134ad..bc2722d53fd7 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -347,7 +347,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
+s)
+>          ffa_handle_partition_info_get(regs);
+>          return true;
+>      case FFA_RX_RELEASE:
+> -        e =3D ffa_handle_rx_release();
+> +        e =3D ffa_rx_release(d);
+>          break;
+>      case FFA_MSG_SEND_DIRECT_REQ_32:
+>      case FFA_MSG_SEND_DIRECT_REQ_64:
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index 74324e1d9d3f..939ed49dd3da 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -121,11 +121,9 @@ void ffa_handle_partition_info_get(struct cpu_user_r=
+egs *regs)
+>          goto out;
+>      }
+>
+> -    if ( !spin_trylock(&ctx->rx_lock) )
+> -    {
+> -        ret =3D FFA_RET_BUSY;
+> +    ret =3D ffa_rx_acquire(d);
+> +    if ( ret !=3D FFA_RET_OK )
+>          goto out;
+> -    }
+>
+>      dst_buf =3D ctx->rx;
+>
+> @@ -135,22 +133,16 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+regs *regs)
+>          goto out_rx_release;
+>      }
+>
+> -    if ( !ctx->page_count || !ctx->rx_is_free )
+> -    {
+> -        ret =3D FFA_RET_DENIED;
+> -        goto out_rx_release;
+> -    }
+> -
+>      spin_lock(&ffa_rx_buffer_lock);
+>
+>      ret =3D ffa_partition_info_get(uuid, 0, &ffa_sp_count, &src_size);
+>
+>      if ( ret )
+> -        goto out_rx_buf_unlock;
+> +        goto out_rx_hyp_unlock;
+>
+>      /*
+>       * ffa_partition_info_get() succeeded so we now own the RX buffer we
+> -     * share with the SPMC. We must give it back using ffa_rx_release()
+> +     * share with the SPMC. We must give it back using ffa_hyp_rx_releas=
+e()
+>       * once we've copied the content.
+>       */
+>
+> @@ -190,15 +182,20 @@ void ffa_handle_partition_info_get(struct cpu_user_=
+regs *regs)
+>          }
+>      }
+>
+> -    ctx->rx_is_free =3D false;
+> -
+>  out_rx_hyp_release:
+> -    ffa_rx_release();
+> -out_rx_buf_unlock:
+> +    ffa_hyp_rx_release();
+> +out_rx_hyp_unlock:
+>      spin_unlock(&ffa_rx_buffer_lock);
+>  out_rx_release:
+> -    spin_unlock(&ctx->rx_lock);
+> -
+> +    /*
+> +     * The calling VM RX buffer only contains data to be used by the VM =
+if the
+> +     * call was successfull, in which case the VM has to release the buf=
+fer
+
+successful
+
+> +     * once it has used the data.
+> +     * If something went wrong during the call, we have to release the R=
+X
+> +     * buffer back to the SPMC as the VM will not do it.
+> +     */
+> +    if ( ret !=3D FFA_RET_OK )
+> +        ffa_rx_release(d);
+>  out:
+>      if ( ret )
+>          ffa_set_regs_error(regs, ret);
+> @@ -365,8 +362,7 @@ bool ffa_partinfo_init(void)
+>      ret =3D init_subscribers(count, fpi_size);
+>
+>  out:
+> -    ffa_rx_release();
+> -
+> +    ffa_hyp_rx_release();
+>      return ret;
+>  }
+>
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index afe69b43dbef..9adfe687c3c9 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -265,6 +265,21 @@
+>  #define FFA_ABI_BITNUM(id)    ((FFA_ABI_ID(id) - FFA_ABI_MIN) << 1 | \
+>                                 FFA_ABI_CONV(id))
+>
+> +/* Constituent memory region descriptor */
+> +struct ffa_address_range {
+> +    uint64_t address;
+> +    uint32_t page_count;
+> +    uint32_t reserved;
+> +};
+> +
+> +/* Composite memory region descriptor */
+> +struct ffa_mem_region {
+> +    uint32_t total_page_count;
+> +    uint32_t address_range_count;
+> +    uint64_t reserved;
+> +    struct ffa_address_range address_range_array[];
+> +};
+> +
+>  struct ffa_ctx_notif {
+>      bool enabled;
+>
+> @@ -292,7 +307,7 @@ struct ffa_ctx {
+>      struct ffa_ctx_notif notif;
+>      /*
+>       * tx_lock is used to serialize access to tx
+> -     * rx_lock is used to serialize access to rx
+> +     * rx_lock is used to serialize access to rx_is_free
+>       * lock is used for the rest in this struct
+>       */
+>      spinlock_t tx_lock;
+> @@ -331,7 +346,8 @@ void ffa_rxtx_domain_destroy(struct domain *d);
+>  uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+>                              register_t rx_addr, uint32_t page_count);
+>  uint32_t ffa_handle_rxtx_unmap(void);
+> -int32_t ffa_handle_rx_release(void);
+> +int32_t ffa_rx_acquire(struct domain *d);
+> +int32_t ffa_rx_release(struct domain *d);
+>
+>  void ffa_notif_init(void);
+>  void ffa_notif_init_interrupt(void);
+> @@ -420,7 +436,7 @@ static inline int32_t ffa_simple_call(uint32_t fid, r=
+egister_t a1,
+>      return ffa_get_ret_code(&resp);
+>  }
+>
+> -static inline int32_t ffa_rx_release(void)
+> +static inline int32_t ffa_hyp_rx_release(void)
+>  {
+>      return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+>  }
+> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
+> index 132a7982407b..e1cab7fa5e46 100644
+> --- a/xen/arch/arm/tee/ffa_rxtx.c
+> +++ b/xen/arch/arm/tee/ffa_rxtx.c
+> @@ -30,6 +30,17 @@ struct ffa_endpoint_rxtx_descriptor_1_1 {
+>      uint32_t tx_region_offs;
+>  };
+>
+> +static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
+> +                            uint32_t page_count)
+> +{
+> +    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_count=
+, 0);
+> +}
+> +
+> +static int32_t ffa_rxtx_unmap(uint16_t id)
+> +{
+> +    return ffa_simple_call(FFA_RXTX_UNMAP, ((uint64_t)id)<<16, 0, 0, 0);
+
+Please add a space before and after the "<<" operator.
+
+Cheers,
+Jens
+
+> +}
+> +
+>  uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
+>                              register_t rx_addr, uint32_t page_count)
+>  {
+> @@ -42,6 +53,9 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t t=
+x_addr,
+>      void *rx;
+>      void *tx;
+>
+> +    /* The code is considering that we only get one page for now */
+> +    BUILD_BUG_ON(FFA_MAX_RXTX_PAGE_COUNT !=3D 1);
+> +
+>      if ( !smccc_is_conv_64(fid) )
+>      {
+>          /*
+> @@ -72,7 +86,7 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t t=
+x_addr,
+>          goto err_put_tx_pg;
+>
+>      rx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(rx_addr)), &t, P2M=
+_ALLOC);
+> -    if ( !tx_pg )
+> +    if ( !rx_pg )
+>          goto err_put_tx_pg;
+>
+>      /* Only normal RW RAM for now */
+> @@ -87,6 +101,66 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t=
+ tx_addr,
+>      if ( !rx )
+>          goto err_unmap_tx;
+>
+> +    /*
+> +     * Transmit the RX/TX buffer information to the SPM if acquire is su=
+pported
+> +     * as the spec says that if not there is not need to acquire/release=
+/map
+> +     * rxtx buffers from the SPMC
+> +     */
+> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> +    {
+> +        struct ffa_endpoint_rxtx_descriptor_1_1 *rxtx_desc;
+> +        struct ffa_mem_region *mem_reg;
+> +
+> +        /* All must fit in our TX buffer */
+> +        BUILD_BUG_ON(sizeof(*rxtx_desc) + sizeof(*mem_reg) * 2 +
+> +                     sizeof(struct ffa_address_range) * 2 >
+> +                     FFA_MAX_RXTX_PAGE_COUNT * FFA_PAGE_SIZE);
+> +
+> +        spin_lock(&ffa_tx_buffer_lock);
+> +        rxtx_desc =3D ffa_tx;
+> +
+> +        /*
+> +         * We have only one page for each so we pack everything:
+> +         * - rx region descriptor
+> +         * - rx region range
+> +         * - tx region descriptor
+> +         * - tx region range
+> +         */
+> +        rxtx_desc->sender_id =3D ffa_get_vm_id(d);
+> +        rxtx_desc->reserved =3D 0;
+> +        rxtx_desc->rx_region_offs =3D sizeof(*rxtx_desc);
+> +        rxtx_desc->tx_region_offs =3D sizeof(*rxtx_desc) +
+> +                                    offsetof(struct ffa_mem_region,
+> +                                             address_range_array[1]);
+> +
+> +        /* rx buffer */
+> +        mem_reg =3D ffa_tx + sizeof(*rxtx_desc);
+> +        mem_reg->total_page_count =3D 1;
+> +        mem_reg->address_range_count =3D 1;
+> +        mem_reg->reserved =3D 0;
+> +
+> +        mem_reg->address_range_array[0].address =3D page_to_maddr(rx_pg)=
+;
+> +        mem_reg->address_range_array[0].page_count =3D 1;
+> +        mem_reg->address_range_array[0].reserved =3D 0;
+> +
+> +        /* tx buffer */
+> +        mem_reg =3D ffa_tx + rxtx_desc->tx_region_offs;
+> +        mem_reg->total_page_count =3D 1;
+> +        mem_reg->address_range_count =3D 1;
+> +        mem_reg->reserved =3D 0;
+> +
+> +        mem_reg->address_range_array[0].address =3D page_to_maddr(tx_pg)=
+;
+> +        mem_reg->address_range_array[0].page_count =3D 1;
+> +        mem_reg->address_range_array[0].reserved =3D 0;
+> +
+> +        ret =3D ffa_rxtx_map(0, 0, 0);
+> +
+> +        spin_unlock(&ffa_tx_buffer_lock);
+> +
+> +        if ( ret !=3D FFA_RET_OK )
+> +            goto err_unmap_rx;
+> +    }
+> +
+>      ctx->rx =3D rx;
+>      ctx->tx =3D tx;
+>      ctx->rx_pg =3D rx_pg;
+> @@ -95,6 +169,8 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t =
+tx_addr,
+>      ctx->rx_is_free =3D true;
+>      return FFA_RET_OK;
+>
+> +err_unmap_rx:
+> +    unmap_domain_page_global(rx);
+>  err_unmap_tx:
+>      unmap_domain_page_global(tx);
+>  err_put_rx_pg:
+> @@ -105,8 +181,22 @@ err_put_tx_pg:
+>      return ret;
+>  }
+>
+> -static void rxtx_unmap(struct ffa_ctx *ctx)
+> +static uint32_t  rxtx_unmap(struct domain *d)
+>  {
+> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> +
+> +    if ( !ctx->page_count )
+> +        return FFA_RET_INVALID_PARAMETERS;
+> +
+> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> +    {
+> +        uint32_t ret;
+> +
+> +        ret =3D ffa_rxtx_unmap(ffa_get_vm_id(d));
+> +        if ( ret !=3D FFA_RET_OK )
+> +            return ret;
+> +    }
+> +
+>      unmap_domain_page_global(ctx->rx);
+>      unmap_domain_page_global(ctx->tx);
+>      put_page(ctx->rx_pg);
+> @@ -117,32 +207,63 @@ static void rxtx_unmap(struct ffa_ctx *ctx)
+>      ctx->tx_pg =3D NULL;
+>      ctx->page_count =3D 0;
+>      ctx->rx_is_free =3D false;
+> +
+> +    return FFA_RET_OK;
+>  }
+>
+>  uint32_t ffa_handle_rxtx_unmap(void)
+>  {
+> -    struct domain *d =3D current->domain;
+> +    return rxtx_unmap(current->domain);
+> +}
+> +
+> +int32_t ffa_rx_acquire(struct domain *d)
+> +{
+> +    int32_t ret =3D FFA_RET_OK;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+>
+> -    if ( !ctx->rx )
+> -        return FFA_RET_INVALID_PARAMETERS;
+> +    spin_lock(&ctx->rx_lock);
+>
+> -    rxtx_unmap(ctx);
+> +    if ( !ctx->page_count )
+> +    {
+> +        ret =3D FFA_RET_DENIED;
+> +        goto out;
+> +    }
+>
+> -    return FFA_RET_OK;
+> +    if ( !ctx->rx_is_free )
+> +    {
+> +        ret =3D FFA_RET_BUSY;
+> +        goto out;
+> +    }
+> +
+> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> +    {
+> +        ret =3D ffa_simple_call(FFA_RX_ACQUIRE, ffa_get_vm_id(d), 0, 0, =
+0);
+> +        if ( ret !=3D FFA_RET_OK )
+> +            goto out;
+> +    }
+> +    ctx->rx_is_free =3D false;
+> +out:
+> +    spin_unlock(&ctx->rx_lock);
+> +
+> +    return ret;
+>  }
+>
+> -int32_t ffa_handle_rx_release(void)
+> +int32_t ffa_rx_release(struct domain *d)
+>  {
+>      int32_t ret =3D FFA_RET_DENIED;
+> -    struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+>
+> -    if ( !spin_trylock(&ctx->rx_lock) )
+> -        return FFA_RET_BUSY;
+> +    spin_lock(&ctx->rx_lock);
+>
+>      if ( !ctx->page_count || ctx->rx_is_free )
+>          goto out;
+> +
+> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
+> +    {
+> +        ret =3D ffa_simple_call(FFA_RX_RELEASE, ffa_get_vm_id(d), 0, 0, =
+0);
+> +        if ( ret !=3D FFA_RET_OK )
+> +            goto out;
+> +    }
+>      ret =3D FFA_RET_OK;
+>      ctx->rx_is_free =3D true;
+>  out:
+> @@ -151,23 +272,9 @@ out:
+>      return ret;
+>  }
+>
+> -static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
+> -                            uint32_t page_count)
+> -{
+> -    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_count=
+, 0);
+> -}
+> -
+> -static int32_t ffa_rxtx_unmap(void)
+> -{
+> -    return ffa_simple_call(FFA_RXTX_UNMAP, 0, 0, 0, 0);
+> -}
+> -
+>  void ffa_rxtx_domain_destroy(struct domain *d)
+>  {
+> -    struct ffa_ctx *ctx =3D d->arch.tee;
+> -
+> -    if ( ctx->rx )
+> -        rxtx_unmap(ctx);
+> +    rxtx_unmap(d);
+>  }
+>
+>  void ffa_rxtx_destroy(void)
+> @@ -186,7 +293,7 @@ void ffa_rxtx_destroy(void)
+>      }
+>
+>      if ( need_unmap )
+> -        ffa_rxtx_unmap();
+> +        ffa_rxtx_unmap(0);
+>  }
+>
+>  bool ffa_rxtx_init(void)
+> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
+> index 29675f9ba3f7..d628c1b70609 100644
+> --- a/xen/arch/arm/tee/ffa_shm.c
+> +++ b/xen/arch/arm/tee/ffa_shm.c
+> @@ -16,21 +16,6 @@
+>
+>  #include "ffa_private.h"
+>
+> -/* Constituent memory region descriptor */
+> -struct ffa_address_range {
+> -    uint64_t address;
+> -    uint32_t page_count;
+> -    uint32_t reserved;
+> -};
+> -
+> -/* Composite memory region descriptor */
+> -struct ffa_mem_region {
+> -    uint32_t total_page_count;
+> -    uint32_t address_range_count;
+> -    uint64_t reserved;
+> -    struct ffa_address_range address_range_array[];
+> -};
+> -
+>  /* Memory access permissions descriptor */
+>  struct ffa_mem_access_perm {
+>      uint16_t endpoint_id;
+> --
+> 2.47.0
+>
 
