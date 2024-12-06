@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F0C29E6682
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 05:52:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849623.1264269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 063479E668E
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 05:59:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849724.1264309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJQKH-0003Wh-Cz; Fri, 06 Dec 2024 04:52:25 +0000
+	id 1tJQQc-00078Q-RC; Fri, 06 Dec 2024 04:58:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849623.1264269; Fri, 06 Dec 2024 04:52:25 +0000
+Received: by outflank-mailman (output) from mailman id 849724.1264309; Fri, 06 Dec 2024 04:58:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJQKH-0003UG-84; Fri, 06 Dec 2024 04:52:25 +0000
-Received: by outflank-mailman (input) for mailman id 849623;
- Fri, 06 Dec 2024 04:52:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tJQQc-00075H-Nu; Fri, 06 Dec 2024 04:58:58 +0000
+Received: by outflank-mailman (input) for mailman id 849724;
+ Fri, 06 Dec 2024 04:58:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5aHD=S7=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tJQA4-0004Ka-N5
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 04:41:52 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64216c89-b38c-11ef-a0d5-8be0dac302b0;
- Fri, 06 Dec 2024 05:41:42 +0100 (CET)
+ id 1tJQA8-0004Kb-0Y
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 04:41:56 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 64345bc6-b38c-11ef-99a3-01e77a169b0f;
+ Fri, 06 Dec 2024 05:41:43 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 689D45C7326;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 753495C7328;
  Fri,  6 Dec 2024 04:40:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 09FA7C4CED2;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1675AC4CEE4;
  Fri,  6 Dec 2024 04:41:39 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 01DF2E77179;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 0EA64E77173;
  Fri,  6 Dec 2024 04:41:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -46,25 +45,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64216c89-b38c-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 64345bc6-b38c-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1733460099;
-	bh=Im1Mvwd2pdpjWUGPxHVuvCi077+oaVpTSYKTKajHUUQ=;
+	bh=pfeozTwM0lG3guW16R9YEzvHJZviJlXoXV1tkNollME=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=YnIAFC1KOQscV16csADO8+1kFmxcwMoJQGjTMUDHNQJA23KSOad09CfF759yRqc49
-	 hsY/hyXNoiVl7Uzd14gJ3vZGUG7YafwoZV2TsBPjoBqt+SXV9R4eSt7j2rsTAGwiu0
-	 hVDelKN3R5paZ1L5BG/0aFmN1a1bqHxgZxsv9X7qhD7bbA0JHlHGfXmgMAG/OgzMmj
-	 JphKEkeoyNNffgAqf8QyEoBXsKqH0hnAqIw7nEzsD8W9JAWbHl3wZk9RRbHu8g/n2d
-	 rXBRCRn2YjwGgAGLqohLgjndBKXM9qGD19XGDqi8LKv9Hl4MIURbW/9fXzuGK8sSou
-	 6YkgOd2+gctoA==
+	b=f6gF7PdCGex8zQ5mnanBXlfimZN+yyf9wVHGpLH0v6ONU5aF1nyYf9uODenzHMjZg
+	 o7TVTyUr8MFFtqHsow6MDgvfsSCOEz9yXNXR4dOtTCuxIAZbKan3DSLU2yquYO7qp8
+	 uY9B1aNpIuM2d8MvvF8szQdybnNboU4qdnHckcUhTtBFkU7RpNYDNDrEGd4DKh0TFS
+	 98HivOcZfVQBNf2kz83KBaurJrL0Im3fLndLTxxr/PO4vTfPWk84Cvixwi4y3PH4My
+	 GB7dHoXVLHiCIkByOrbVTRlPToks8znvhQwux0BcsAlLqSbrNYF+01+J3FrNbLUrRT
+	 I22VL57Iv98zg==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Thu, 05 Dec 2024 20:41:56 -0800
-Subject: [PATCH v2 26/35] xen/console: make console buffer size
- configurable
+Date: Thu, 05 Dec 2024 20:41:57 -0800
+Subject: [PATCH v2 27/35] xen/console: flush console ring to physical
+ console
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241205-vuart-ns8250-v1-26-e9aa923127eb@ford.com>
+Message-Id: <20241205-vuart-ns8250-v1-27-e9aa923127eb@ford.com>
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
 In-Reply-To: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
 To: xen-devel@lists.xenproject.org
@@ -73,11 +72,11 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, 
  Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733460094; l=2270;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733460095; l=3110;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=c1A6Ce5BfoKvn4U6L7fgV9aDcO1E8jTShGZsUzA9o1w=;
- b=6nQIusazz8SZIdcS2FjkD73AGOVR3RZCfFt69UsZdbDOMeBLkjG7wc5tSw9FTJxQCypBclp6S
- qYSAqfv4s5xAyrHNjlKYKwaWHsnUW3YUkTF6v6RS2oc0+KOumBnFyY1
+ bh=9P4Y8stZ3v9veFAxdHp9EFeTfuXrbjGeXMl4yBrDrRM=;
+ b=LcDAXG+yR65ns4PDQ7+Ep0c/twONKtCO6FP3OyvFTTqVtifqgbIkwSkeCUfa9psmIj3lFPPnM
+ 83h3+UYJFZ4D7QPLSxSZewJhQFIyiw2yPpSDbEylErgaWgtM7WS39IF
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -87,70 +86,112 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-Add new CONRING_LOG_SHIFT Kconfig parameter to specify the boot console buffer
-size as a power of 2.
+Messages printed before the serial and VGA consoles are initialized end up in
+the internal console buffer (conring). Flush contents of conring to all
+external consoles after external consoles are fully initialied.
 
-Bump default size to 32 KiB.
-
-Link: https://gitlab.com/xen-project/xen/-/issues/185
+Link: https://gitlab.com/xen-project/xen/-/issues/184
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/drivers/char/Kconfig   | 23 +++++++++++++++++++++++
- xen/drivers/char/console.c |  4 ++--
- 2 files changed, 25 insertions(+), 2 deletions(-)
+ xen/drivers/char/console.c | 54 +++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 39 insertions(+), 15 deletions(-)
 
-diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-index e6e12bb4139717f9319031f51f5d20155d2caee2..3bc892fc38d8cdeb3c76ea44d747f712a8d0d372 100644
---- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -96,6 +96,29 @@ config SERIAL_TX_BUFSIZE
- 
- 	  Default value is 32768 (32KiB).
- 
-+config CONRING_LOG_SHIFT
-+	int "Console buffer size"
-+	range 14 25
-+	default 15
-+	help
-+	  Select the boot console buffer size as a power of 2.
-+	  Run-time console buffer size is the same as the boot console size,
-+	  unless enforced via 'conring_size=' boot parameter.
-+
-+	  Examples:
-+	    25 =>  32 MiB
-+	    24 =>  16 MiB
-+	    23 =>   8 MiB
-+	    22 =>   4 MiB
-+	    21 =>   2 MiB
-+	    20 =>   1 MiB
-+	    19 => 512 KiB
-+	    18 => 256 KiB
-+	    17 => 128 KiB
-+	    16 =>  64 KiB
-+	    15 =>  32 KiB
-+	    14 =>  16 KiB
-+
- config XHCI
- 	bool "XHCI DbC UART driver"
- 	depends on X86
 diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index d22fb4a253af26f9b51d91bd408e1dbf4bb5a7c1..581ee22b85302a54db5b9d5d28e8b2d689d31403 100644
+index 581ee22b85302a54db5b9d5d28e8b2d689d31403..a26daee9c4c4b1134d0ae3d105ffdb656340b6df 100644
 --- a/xen/drivers/char/console.c
 +++ b/xen/drivers/char/console.c
-@@ -104,11 +104,11 @@ static int cf_check parse_console_timestamps(const char *s);
- custom_runtime_param("console_timestamps", parse_console_timestamps,
-                      con_timestamp_mode_upd);
+@@ -426,23 +426,35 @@ void console_serial_puts(const char *s, size_t nr)
+     pv_console_puts(s, nr);
+ }
  
--/* conring_size: allows a large console ring than default (16kB). */
-+/* conring_size: allows a large console ring than default (32 KiB). */
- static uint32_t __initdata opt_conring_size;
- size_param("conring_size", opt_conring_size);
+-static void cf_check dump_console_ring_key(unsigned char key)
++/*
++ * Write characters to physical console(s).
++ * That covers:
++ * - serial console;
++ * - video output.
++ */
++static void console_puts(const char *str, size_t len)
++{
++    ASSERT(rspin_is_locked(&console_lock));
++
++    console_serial_puts(str, len);
++    video_puts(str, len);
++}
++
++/*
++ * Flush contents of the conring to the physical console devices.
++ */
++static int console_flush(void)
+ {
+     uint32_t idx, len, sofar, c;
+     unsigned int order;
+     char *buf;
  
--#define _CONRING_SIZE 16384
-+#define _CONRING_SIZE       (1U << CONFIG_CONRING_LOG_SHIFT)
- #define CONRING_IDX_MASK(i) ((i)&(conring_size-1))
- static char __initdata _conring[_CONRING_SIZE];
- static char *__read_mostly conring = _conring;
+-    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
+-
+-    /* create a buffer in which we'll copy the ring in the correct
+-       order and NUL terminate */
+     order = get_order_from_bytes(conring_size + 1);
+     buf = alloc_xenheap_pages(order, 0);
+     if ( buf == NULL )
+-    {
+-        printk("unable to allocate memory!\n");
+-        return;
+-    }
++        return -ENOMEM;
++
++    nrspin_lock_irq(&console_lock);
+ 
+     c = conringc;
+     sofar = 0;
+@@ -457,10 +469,23 @@ static void cf_check dump_console_ring_key(unsigned char key)
+         c += len;
+     }
+ 
+-    console_serial_puts(buf, sofar);
+-    video_puts(buf, sofar);
++    console_puts(buf, sofar);
++
++    nrspin_unlock_irq(&console_lock);
+ 
+     free_xenheap_pages(buf, order);
++
++    return 0;
++}
++
++static void cf_check dump_console_ring_key(unsigned char key)
++{
++    int rc;
++
++    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
++    rc = console_flush();
++    if ( rc )
++        printk("failed to dump console ring buffer: %d\n", rc);
+ }
+ 
+ /*
+@@ -707,10 +732,7 @@ static inline void xen_console_write(const char *str, size_t len)
+  */
+ static void console_write(const char *str, size_t len)
+ {
+-    ASSERT(rspin_is_locked(&console_lock));
+-
+-    console_serial_puts(str, len);
+-    video_puts(str, len);
++    console_puts(str, len);
+ 
+     if ( opt_console_xen )
+         xen_console_write(str, len);
+@@ -1177,6 +1199,8 @@ void __init console_endboot(void)
+ 
+     video_endboot();
+ 
++    /* NB: send conring contents to all enabled physical consoles, if any */
++    console_flush();
+     use_conring = opt_console_to_ring;
+     smp_wmb();
+ 
 
 -- 
 2.34.1
