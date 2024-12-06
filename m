@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCF39E6661
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 05:42:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849417.1264094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9607E9E665A
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 05:42:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849406.1263997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJQA3-0006ey-6f; Fri, 06 Dec 2024 04:41:51 +0000
+	id 1tJQ9v-0004Nj-Ml; Fri, 06 Dec 2024 04:41:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849417.1264094; Fri, 06 Dec 2024 04:41:51 +0000
+Received: by outflank-mailman (output) from mailman id 849406.1263997; Fri, 06 Dec 2024 04:41:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJQA2-0006La-S9; Fri, 06 Dec 2024 04:41:50 +0000
-Received: by outflank-mailman (input) for mailman id 849417;
- Fri, 06 Dec 2024 04:41:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tJQ9v-0004L6-J4; Fri, 06 Dec 2024 04:41:43 +0000
+Received: by outflank-mailman (input) for mailman id 849406;
+ Fri, 06 Dec 2024 04:41:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5aHD=S7=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tJQ9x-0004Kb-Vk
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 04:41:45 +0000
+ id 1tJQ9t-0004Ka-Rt
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 04:41:41 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 617c78bd-b38c-11ef-99a3-01e77a169b0f;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 617d9a13-b38c-11ef-a0d5-8be0dac302b0;
  Fri, 06 Dec 2024 05:41:39 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3DC0C5C7300;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 438EA5C7301;
  Fri,  6 Dec 2024 04:40:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A1DAC4CED2;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 96D5BC4CEE1;
  Fri,  6 Dec 2024 04:41:37 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 790DFE77178;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 85447E7716F;
  Fri,  6 Dec 2024 04:41:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -45,24 +45,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 617c78bd-b38c-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 617d9a13-b38c-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1733460097;
-	bh=7koQaWLewXvB3SCK9dZyYM5ZVrnylbZtaIV5UaNbJIw=;
+	bh=8N48N7tGzPRpnph3uUKQy0qYgM/g5Ojg1QgMgxF7sN8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hoHmD/h87nsVaTNuOwWGeJIP/ib+VrDqptGul4bHy+1jdGv6d0tesKtcPvEI/oaJe
-	 5gYgVFGmwqoGY8HEbJxfhSqIJt2tDg0S2l/0824jsFFymZXukR9QdzTePCDTnKjc38
-	 iodnbyM/HB9js6hJlTSJe5RkFB7ZexvdPVAjq3rXZkcAG4deVzj6gZX9VlOuUI2FN4
-	 JCNQptf8RThz9o2L6YpvS5+FNqMfWtdvEWOzE6i8ERk9pL/nbNWc2BWNUTGXcEJyoC
-	 1S96uEz9GWNeT1az2qZFamB5BR34pQ6pLzl92zrJhvSY57uAbe/pxoQ2Gi6vSMfzZa
-	 Pbpxih71Gdd6A==
+	b=B7AKTba+ZCUl25/KVnwXJy8Hx4furWv40RdLJaBnWVuOeZFlL/5lXJCq2aX3vKNY0
+	 FOPix4J8eUDtwg7EjiUI9azlKC5V7Ci32+o22yC5GcEML6yz2jSqzMyg9ZW6vutoIM
+	 ZFTso8B0JdpV5SlGxqfc+o0tWdfJ4oeDBHAHJVm+WEwcrSxmZH6i5xaTkJY1josudm
+	 ZGXCgRot0jLMbpwx3mN+hBvdUELrLXlCeiCVP5OA9c89lUik+igDLmmsrAE+5evPFH
+	 RbJad18NKxmI4mCFErwyOwedH1ceSBgUOmilmdSsGu38B3PqTqJQw0wCP+BMf9v2GM
+	 JanRKrjFnDcvA==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Thu, 05 Dec 2024 20:41:33 -0800
-Subject: [PATCH v2 03/35] xen/ctype: introduce isconsole()
+Date: Thu, 05 Dec 2024 20:41:34 -0800
+Subject: [PATCH v2 04/35] arm/vuart: use guest_printk()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241205-vuart-ns8250-v1-3-e9aa923127eb@ford.com>
+Message-Id: <20241205-vuart-ns8250-v1-4-e9aa923127eb@ford.com>
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
 In-Reply-To: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
 To: xen-devel@lists.xenproject.org
@@ -71,11 +71,11 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, 
  Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1733460094; l=2965;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1733460094; l=1513;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=VA1l2CgJQ6KceeM+tuMGN+rK6UFSe0FXEY/EUwUiYwI=;
- b=JGqXyT0nbX97Vn2mSNHSEgjpczcuciXKVCHfEW8CEpXFPzirY37JgpYwVuNT3Xh6fyHyQupM6
- JwhVvYBYibZAg7WSsrLhqzDPlyDVc9R3X0g80jgVMZyQ7FNV0dbt/mw
+ bh=6dwRL08Xk+9xlKPfi6ImA8lNmAhhTdKU8a+CgXv8hC0=;
+ b=r5qb9yLpCd19QazESKUYeqUw7XPz66116TcHZEi5I9uE5J5SBT20R+uyqiC8flWJlNa2WIADE
+ piEke0mFrzmBELwfn54JWQkHGG+Fa1aPdvjA0UdJOW55FV1zieIoAsz
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -85,80 +85,43 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-There are several console drivers which have same checks w.r.t. printable
-characters. The check is moved to new isconsole() macro and re-used in
-the console drivers.
+Use guest_printk() in all current in-hypervisor UART emulators.
+
+That slightly improves the logging as guest_printk() already prints the
+domain ID.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/arch/arm/vuart.c       | 3 +--
- xen/arch/x86/hvm/hvm.c     | 3 +--
- xen/drivers/char/console.c | 2 +-
- xen/include/xen/ctype.h    | 3 +++
- 4 files changed, 6 insertions(+), 5 deletions(-)
+ xen/arch/arm/vpl011.c | 2 +-
+ xen/arch/arm/vuart.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+index 1fc3114cce9ddb48cf199834c8e9abe8cfba92b5..8ade6f2588b8bbcc58fb0f9edc324502a1992ce7 100644
+--- a/xen/arch/arm/vpl011.c
++++ b/xen/arch/arm/vpl011.c
+@@ -107,7 +107,7 @@ static void vpl011_write_data_xen(struct domain *d, uint8_t data)
+             if ( data != '\n' )
+                 intf->out[intf->out_prod++] = '\n';
+             intf->out[intf->out_prod++] = '\0';
+-            printk("DOM%u: %s", d->domain_id, intf->out);
++            guest_printk(d, "%s", intf->out);
+             intf->out_prod = 0;
+         }
+     }
 diff --git a/xen/arch/arm/vuart.c b/xen/arch/arm/vuart.c
-index d5ba483f1e63245e545346ad5045098152b8c152..ac76e2327bb84f05ea5716c6f5550f94812d2827 100644
+index ac76e2327bb84f05ea5716c6f5550f94812d2827..38ce8cc14fac4132578059b696be952b29fab809 100644
 --- a/xen/arch/arm/vuart.c
 +++ b/xen/arch/arm/vuart.c
-@@ -79,8 +79,7 @@ static void vuart_print_char(struct vcpu *v, char c)
-     struct domain *d = v->domain;
-     struct vuart *uart = &d->arch.vuart;
- 
--    /* Accept only printable characters, newline, and horizontal tab. */
--    if ( !isprint(c) && (c != '\n') && (c != '\t') )
-+    if ( !isconsole(c) )
-         return ;
- 
-     spin_lock(&uart->lock);
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 74e58c653e6f697e7e563fd076bbbafaf257137d..493b699c708949b2109c26573a107565543f5d45 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -561,8 +561,7 @@ static int cf_check hvm_print_line(
-     if ( dir != IOREQ_WRITE )
-         return X86EMUL_UNHANDLEABLE;
- 
--    /* Accept only printable characters, newline, and horizontal tab. */
--    if ( !isprint(c) && (c != '\n') && (c != '\t') )
-+    if ( !isconsole(c) )
-         return X86EMUL_OKAY;
- 
-     spin_lock(&cd->pbuf_lock);
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 7da8c5296f3b62c6c45131c58fe5cf0e393e9ef3..bb56953bab681a13da8d41431aba4632f1919df9 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -674,7 +674,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-                 c = *kin++;
-                 if ( c == '\n' )
-                     break;
--                if ( isprint(c) || c == '\t' )
-+                if ( isconsole(c) )
-                     *kout++ = c;
-             } while ( --kcount > 0 );
- 
-diff --git a/xen/include/xen/ctype.h b/xen/include/xen/ctype.h
-index 773ac27aa44ac65e76e87cdec960450804310249..deebaad96ede34f16f61ece862c788232c1d1efd 100644
---- a/xen/include/xen/ctype.h
-+++ b/xen/include/xen/ctype.h
-@@ -4,6 +4,8 @@
- /*
-  * NOTE! This ctype does not handle EOF like the standard C
-  * library is required to.
-+ *
-+ * See Rule 21.13 in docs/misra/rules.rst.
-  */
- 
- #define _U	0x01	/* upper */
-@@ -30,6 +32,7 @@ extern const unsigned char _ctype[];
- #define isspace(c)	((__ismask(c)&(_S)) != 0)
- #define isupper(c)	((__ismask(c)&(_U)) != 0)
- #define isxdigit(c)	((__ismask(c)&(_D|_X)) != 0)
-+#define isconsole(c)	(isprint(c) || (c) == '\n' || (c) == '\t')
- 
- #define isascii(c) (((unsigned char)(c))<=0x7f)
- #define toascii(c) (((unsigned char)(c))&0x7f)
+@@ -89,7 +89,7 @@ static void vuart_print_char(struct vcpu *v, char c)
+         if ( c != '\n' )
+             uart->buf[uart->idx++] = '\n';
+         uart->buf[uart->idx] = '\0';
+-        printk(XENLOG_G_DEBUG "DOM%u: %s", d->domain_id, uart->buf);
++        guest_printk(d, "%s", uart->buf);
+         uart->idx = 0;
+     }
+     spin_unlock(&uart->lock);
 
 -- 
 2.34.1
