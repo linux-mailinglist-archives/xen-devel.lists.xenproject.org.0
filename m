@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09A409E7A4F
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 21:59:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.850509.1264920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0D599E7EA1
+	for <lists+xen-devel@lfdr.de>; Sat,  7 Dec 2024 08:05:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.850520.1264956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJfP8-0006xb-6w; Fri, 06 Dec 2024 20:58:26 +0000
+	id 1tJorL-0003Mu-Dr; Sat, 07 Dec 2024 07:04:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 850509.1264920; Fri, 06 Dec 2024 20:58:26 +0000
+Received: by outflank-mailman (output) from mailman id 850520.1264956; Sat, 07 Dec 2024 07:04:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJfP8-0006uk-4P; Fri, 06 Dec 2024 20:58:26 +0000
-Received: by outflank-mailman (input) for mailman id 850509;
- Fri, 06 Dec 2024 20:58:24 +0000
+	id 1tJorL-0003Kt-9o; Sat, 07 Dec 2024 07:04:11 +0000
+Received: by outflank-mailman (input) for mailman id 850520;
+ Fri, 06 Dec 2024 21:33:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q2bs=S7=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tJfP6-0006ue-If
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 20:58:24 +0000
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id d2aa23ba-b414-11ef-99a3-01e77a169b0f;
- Fri, 06 Dec 2024 21:58:21 +0100 (CET)
-Received: from [100.65.128.154] (unknown [20.236.11.102])
- by linux.microsoft.com (Postfix) with ESMTPSA id 8B63620ACD7A;
- Fri,  6 Dec 2024 12:58:18 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gq+l=S7=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tJfwi-0003so-Sm
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 21:33:10 +0000
+Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
+ [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id addd39ff-b419-11ef-99a3-01e77a169b0f;
+ Fri, 06 Dec 2024 22:33:06 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +36,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2aa23ba-b414-11ef-99a3-01e77a169b0f
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8B63620ACD7A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1733518699;
-	bh=M9PuEUd7fHK0twjnpmT4sQ2WiGKSyXN5nPrU+06sRxI=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
-	b=opdIpAACnQeStJ33oACe6p52ZM8f0Sws7Fv8oVZEtnJ34oxYkj2Ifncn0UBE7+8VM
-	 /Rer5IHWNKL+Om4cBhthsawIs+kQdevr3ykVw21CBvfVnNLhAZ1lcWLQbVr0aJDoH2
-	 0Lv+tHrW7mbf2ysXMzyMfTT7x/zNVB+cEVkkvmJU=
-Message-ID: <dab77729-682f-4182-9fb2-cd522ac29b5f@linux.microsoft.com>
-Date: Fri, 6 Dec 2024 12:58:17 -0800
+X-Inumbo-ID: addd39ff-b419-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=kachd45jjna2bfmskmv7qgdoua.protonmail; t=1733520784; x=1733779984;
+	bh=a28murfzlss628d/kTMfKQcWna9mVpTv8n6pyLK5+sU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=OgHA6cn9+BTQmnZOw2/b7ZRNDyVf48ruoWTAupf81rdOPY8TJXotiml5R5xCm0cUE
+	 4GC+EuHHs1GYDpPSRrCRGBSszt+Wqjx5CVr2oMM1wCUT6dYoQqG2FFFPixqarOZxNN
+	 TjgSkouMmbZdghTCzcgSpRtJC+FJRbToBozZDLQBFa7Y96bP0YW28gVjAsO0YYomXX
+	 npPIrFFtjZtyKCZKv5aZlepHQmFXnIjK9zZYPpxF7q/yvrnHi9m8LUjGXwslO9QJnC
+	 xGvIuPyg0IxOGIRU8wuuFu9bE3coynf0zupVI4IQqlEpIIx0jtBSkD9qbT1Su/GYSd
+	 wpgR4EozR3icg==
+Date: Fri, 06 Dec 2024 21:32:57 +0000
+To: oleksii.kurochko@gmail.com
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: dmukhin@ford.com, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Rahul Singh <rahul.singh@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Shawn Anastasio <sanastasio@raptorengineering.com>, Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 09/36] riscv/domain: introduce domain_has_vuart()
+Message-ID: <YlPh-dsRQR3lCD7Xxdhp1kfF24QMKuu8nCzvXkDQAClIhEHlmLvwSxIMLjX6pPpQ_Nup0UJsD4TmPPSUzJUk3wSmsXx2IsZMzxNiqEJJT70=@proton.me>
+In-Reply-To: <bc3136303d0e88017a5e3da21f97f9da28213acf.camel@gmail.com>
+References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com> <20241126-vuart-ns8250-v1-v1-9-87b9a8375b7a@ford.com> <bc3136303d0e88017a5e3da21f97f9da28213acf.camel@gmail.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: b049a544b06de699c41cef9d7477863568cdd764
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: eahariha@linux.microsoft.com, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, cocci@inria.fr,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, linux-mm@kvack.org,
- linux-bluetooth@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org,
- live-patching@vger.kernel.org, linux-sound@vger.kernel.org,
- etnaviv@lists.freedesktop.org, oss-drivers@corigine.com,
- linuxppc-dev@lists.ozlabs.org, Anna-Maria Behnsen <anna-maria@linutronix.de>
-Subject: Re: [PATCH v2 00/21] Converge on using secs_to_jiffies()
-To: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-References: <20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com>
- <b9fcb12a-b7a4-4c33-836e-67109ce07deb@intel.com>
-From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Content-Language: en-US
-In-Reply-To: <b9fcb12a-b7a4-4c33-836e-67109ce07deb@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/29/2024 4:57 AM, Przemek Kitszel wrote:
-> 
-> [removed most non-list recipients, it's just too much]
-> 
-> On 11/15/24 10:26 PM, Easwar Hariharan wrote:
-<snip>
->>
->> ---
->> Changes in v2:
->> - EDITME: describe what is new in this series revision.
->> - EDITME: use bulletpoints and terse descriptions.
->> - Link to v1: https://lore.kernel.org/r/20241115-converge-secs-to-
->> jiffies-v1-0-19aadc34941b@linux.microsoft.com
-> 
-> that is not a proper changelog, you were supposed to edit those
-> placeholder entries; please look around for examples
-> 
-> There is also just too much recipients. Please split up your patches
-> into smaller pieces. You will also learn the process on a smaller
-> sample.
-> 
-> And definitively please wait for 48h before reposting such big series.
 
-Yes, sorry, I sent out a v2 in a moment of panic on including the
-already accepted patch in v1. I failed to edit the changelog in that
-same panic. I'll try to not panic and do better in the future.
+On Wednesday, November 27th, 2024 at 5:02 AM, oleksii.kurochko@gmail.com <o=
+leksii.kurochko@gmail.com> wrote:
 
-> 
-> Regarding code - you could also convert msecs_to_jiffies(const * HZ),
-> there are 10 that are greppable.
-> 
+>=20
+>=20
+> On Tue, 2024-11-26 at 15:21 -0800, Denis Mukhin via B4 Relay wrote:
+>=20
+> > From: Denis Mukhin dmukhin@ford.com
+> >=20
+> > Introduce domain_has_vuart() for RISC-V port to be used in the
+> > console driver.
+> >=20
+> > Signed-off-by: Denis Mukhin dmukhin@ford.com
+> > ---
+> > xen/arch/riscv/include/asm/domain.h | 2 ++
+> > 1 file changed, 2 insertions(+)
+> >=20
+> > diff --git a/xen/arch/riscv/include/asm/domain.h
+> > b/xen/arch/riscv/include/asm/domain.h
+> > index
+> > c3d965a559b6ce3661bf17166d0c51853ff295a2..efbc4f1ea2619a187fe30ede17d
+> > 96de01e599220 100644
+> > --- a/xen/arch/riscv/include/asm/domain.h
+> > +++ b/xen/arch/riscv/include/asm/domain.h
+> > @@ -10,6 +10,8 @@ struct hvm_domain
+> > uint64_t params[HVM_NR_PARAMS];
+> > };
+> >=20
+> > +#define domain_has_vuart(d) false
+> > +
+> > struct arch_vcpu_io {
+> > };
+>=20
+>=20
+> LGTM: Reviewed-by: Oleksii Kurochko oleksii.kurochko@gmail.com
 
-Those seem to be mistakes. const*HZ is a seconds-denominated timeout,
-being passed to msecs_to_jiffies() which will treat it as a
-millisecond-denominated timeout resulting in an excessively long
-timeout. I suppose that's better than a too-short timeout, and
-apparently it's been working fine all along since hardware responds
-before the too-long timeout expires. Half of them are in
-drivers/scsi/arcmsr/arcmsr_hba.c and the pattern has apparently been
-there since 2010.
+Thanks!
 
-Thanks,
-Easwar
+>=20
+>=20
+> Probably it would be nice instead of having stub ( #define
+> domain_has_vuart(d) false ) in arch specific code, just ifdef-ing it
+> and put somewhere in
+> <xen/domain.h> to not introduce this definition for each architecture
+>=20
+> which doesn't support vuart now.
+
+Actually, my thought was adding arch-independent vuart layer which can
+call into vpl011, duart or ns8250.
+This way, domain_has_vuart() will move there, along w/ APIs which
+hooked into Xen console driver (e.g. ns8250's vuart_putchar()) will be
+all there as well.
+I kept this stub as is for now (in the follow on v2).
+
+>=20
+> Thanks.
+>=20
+> ~ Oleksii
+
+
 
