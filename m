@@ -2,39 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C3869E6BDD
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 11:21:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.850055.1264594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9312B9E6C86
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 11:48:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.850214.1264674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJVS8-0002Ds-5K; Fri, 06 Dec 2024 10:20:52 +0000
+	id 1tJVsO-0001ov-IR; Fri, 06 Dec 2024 10:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 850055.1264594; Fri, 06 Dec 2024 10:20:52 +0000
+Received: by outflank-mailman (output) from mailman id 850214.1264674; Fri, 06 Dec 2024 10:48:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJVS8-0002CA-23; Fri, 06 Dec 2024 10:20:52 +0000
-Received: by outflank-mailman (input) for mailman id 850055;
- Fri, 06 Dec 2024 10:20:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tJVsO-0001nP-FD; Fri, 06 Dec 2024 10:48:00 +0000
+Received: by outflank-mailman (input) for mailman id 850214;
+ Fri, 06 Dec 2024 10:47:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=igGl=S7=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
- id 1tJVQ7-0001of-GM
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 10:18:47 +0000
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73399b33-b3bb-11ef-a0d5-8be0dac302b0;
- Fri, 06 Dec 2024 11:18:36 +0100 (CET)
-Received: from mail.maildlp.com (unknown [172.19.163.252])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Y4RwZ71KbzgZ88;
- Fri,  6 Dec 2024 18:15:42 +0800 (CST)
-Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
- by mail.maildlp.com (Postfix) with ESMTPS id B46F71800D9;
- Fri,  6 Dec 2024 18:18:33 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemg200008.china.huawei.com
- (7.202.181.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 6 Dec
- 2024 18:18:32 +0800
+ <SRS0=bXi8=S7=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1tJVsM-0001nJ-WE
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 10:47:59 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20628.outbound.protection.outlook.com
+ [2a01:111:f403:2612::628])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8cfdb9bd-b3bf-11ef-99a3-01e77a169b0f;
+ Fri, 06 Dec 2024 11:47:56 +0100 (CET)
+Received: from DB9PR06CA0018.eurprd06.prod.outlook.com (2603:10a6:10:1db::23)
+ by DBAPR08MB5592.eurprd08.prod.outlook.com (2603:10a6:10:1a8::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.12; Fri, 6 Dec
+ 2024 10:47:49 +0000
+Received: from DB3PEPF0000885B.eurprd02.prod.outlook.com
+ (2603:10a6:10:1db:cafe::94) by DB9PR06CA0018.outlook.office365.com
+ (2603:10a6:10:1db::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8230.11 via Frontend Transport; Fri,
+ 6 Dec 2024 10:47:49 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB3PEPF0000885B.mail.protection.outlook.com (10.167.242.6) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8230.7
+ via Frontend Transport; Fri, 6 Dec 2024 10:47:48 +0000
+Received: ("Tessian outbound 6f08927dda96:v522");
+ Fri, 06 Dec 2024 10:47:48 +0000
+Received: from Lca6abbf1f4eb.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ E006B807-D365-4DB6-8566-C9841BBC6AF2.1; 
+ Fri, 06 Dec 2024 10:47:42 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
+ Lca6abbf1f4eb.1 (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 06 Dec 2024 10:47:42 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by AS8PR08MB9292.eurprd08.prod.outlook.com (2603:10a6:20b:5a7::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.24; Fri, 6 Dec
+ 2024 10:47:40 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a%4]) with mapi id 15.20.8230.008; Fri, 6 Dec 2024
+ 10:47:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,474 +72,462 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73399b33-b3bb-11ef-a0d5-8be0dac302b0
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <oleg@redhat.com>,
-	<sstabellini@kernel.org>, <tglx@linutronix.de>, <peterz@infradead.org>,
-	<luto@kernel.org>, <mingo@redhat.com>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <kees@kernel.org>, <wad@chromium.org>,
-	<akpm@linux-foundation.org>, <samitolvanen@google.com>,
-	<masahiroy@kernel.org>, <hca@linux.ibm.com>, <aliceryhl@google.com>,
-	<rppt@kernel.org>, <xur@google.com>, <paulmck@kernel.org>, <arnd@arndb.de>,
-	<mbenes@suse.cz>, <puranjay@kernel.org>, <mark.rutland@arm.com>,
-	<ruanjinjie@huawei.com>, <pcc@google.com>, <ardb@kernel.org>,
-	<sudeep.holla@arm.com>, <guohanjun@huawei.com>, <rafael@kernel.org>,
-	<liuwei09@cestc.cn>, <dwmw@amazon.co.uk>, <Jonathan.Cameron@huawei.com>,
-	<liaochang1@huawei.com>, <kristina.martsenko@arm.com>, <ptosi@google.com>,
-	<broonie@kernel.org>, <thiago.bauermann@linaro.org>, <kevin.brodsky@arm.com>,
-	<joey.gouly@arm.com>, <liuyuntao12@huawei.com>, <leobras@redhat.com>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: [PATCH -next v5 22/22] arm64: entry: Convert to generic entry
-Date: Fri, 6 Dec 2024 18:17:44 +0800
-Message-ID: <20241206101744.4161990-23-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241206101744.4161990-1-ruanjinjie@huawei.com>
-References: <20241206101744.4161990-1-ruanjinjie@huawei.com>
+X-Inumbo-ID: 8cfdb9bd-b3bf-11ef-99a3-01e77a169b0f
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=W7C+KNAMpZf2Dr0XU110b42uIMRxjidJpBXimwzZvlR35JQYgeK6AdHweQpVyRwstVqOV94jk54HEoh9M6zytO0aqdgRy0XAOZ0jKNq/tIjYSjDNM4f1QcF+P9G7VbmDXUIQlgzBMB16KkCvmDyrduB2FeGMWrBGvYQ6kbugJVdRIVd4sT6xZKD2YXLIW44fmj6Iwmc1+WKfkfsS+s+VKjkiaJO5B/pDp6emfh3hZWuiA+5OYbSYZ840d2N5HZ/izim5OsBlRA15pRjZFo2/5v2+w5r0pZMgTn7W8rlR8fzjpOUzx64fiiaBBUm/oYtmHfH2PyxopDx63XD1S3nlaw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=njios90dD7U0Q7dHlrhFvVFJSm4cXzISUZO+54rGHao=;
+ b=gpAI8//+1Ndp285el6nkWjkNlTILRmpcO5al8KzJDTxb3/ow2z2gRkcSqkSJ4patgHXua+BmUvj4gle9tDJzBTVDjkiQj+9TvixO6fSrsEoxl21CKLT6UjX0l8WpcBL2uFWYqT3KmnVLlKvz/Z7T7QmhGOi+kAdg5xok7EpyVxscyyNSd764VdsjPXl581tmmQFuCH1qizKNdmhkYCAiWVXTFBAnGGPsMA/GCWygHE7AVkWbQgu8XBTeRjrSqTZg3aS+oTUI3qJfCidVDEfIX6tBc7AtAtlvwecWRSarB37MGwhXhH6AKeV7Ua56Sk0KAn5SQbQED/8gxtNrXCYbcQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=njios90dD7U0Q7dHlrhFvVFJSm4cXzISUZO+54rGHao=;
+ b=qJiUwe9D2zMRtteYjbollWlSLnb1LoQt9voPh1hI0mYhRtX9mNXf0Fw8O6Un3XPHdvwA2WSk/6cWmVVNcnvnKzGP8Ox1mZa8oLL02MyB60p81r7uwOJcBZVf/9qeFACVf3b1hAg1hNlDJLIv4OLCHwUSWVeEc6ZV/EsozruCneI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 46fa36d804209ce4
+X-TessianGatewayMetadata: 8Cz/NPgt/4SKLMqypk1re3ebrk/sa09DFZ5WttLqkyFiceE/yXxOrx/3wECuKWqfLAGmmZSHSxsAP+X5cXZ4w5uMSFKmy6wESHFr8JFygNcvsUaXRzv+lpyGYOByDHhbp4dr0Jau6qKRKKNezcGWiLxr16UW9ZjnzdKHUF8Qdwo=
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nwM1O8aULD5R+rUKkOgM3CDltZP97gkzQURrAxQVRq3/yx9x2y8ydcW5uqJiyNrCtvn6/YGrRAFQjt1w8TCkp+/naH+RWcPRQDX4frcInAl7aDJYi9+5x3nkSsGi5QlBiNKJ8gUwYOT4pK+QFzKkpNEBtuwMWXhoNQIdO0bSYNfVIeRv1PbeK07mT8Vrl60UQ3KMcSnkdgEWfGkqiEVEAAqCP5qQWH+f5T65w6Kh9xi9dYZXbKtJ7WsGQcLSmHca67pgdA9tfh1mpNwwEfcjV2UwJh615gp/SbwM0dzls7k0GrZeGIBtYha32TCp4a04qQT6UTJlXvEK3BDWkbI8tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=njios90dD7U0Q7dHlrhFvVFJSm4cXzISUZO+54rGHao=;
+ b=GNjalRytH5qKCmqDZb2lyNDRsDdH05YyXkyTWn8XJIihv0EMKpwB4C/z6b/2VMYDkq3C+/B0+eY9MRwHbOmR0+xOYtqK+3KfKI36Ox3tYMIVzHZGedPvdy5a1QhC1wml8zDd6f4oS0IzYakfACPIXzoY7vqNTVMjtxGAdH/tsZiheR1zP/MsvD7Z9sNXbk2IIDMX5U+lfpk4ByTu4zZsGHldpXhBAEZWLVcEK2oHeN5qdd3VzNg1i+jUxV6ZuPc+RsNZrYF9I4+s3T1sCV2XYr1CFgsh1YEnIsW1nwGoiHRIiSNt8DNp2gMB6Z+J8Igj2hPUyeE2Lr9uOespWgf3iQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=njios90dD7U0Q7dHlrhFvVFJSm4cXzISUZO+54rGHao=;
+ b=qJiUwe9D2zMRtteYjbollWlSLnb1LoQt9voPh1hI0mYhRtX9mNXf0Fw8O6Un3XPHdvwA2WSk/6cWmVVNcnvnKzGP8Ox1mZa8oLL02MyB60p81r7uwOJcBZVf/9qeFACVf3b1hAg1hNlDJLIv4OLCHwUSWVeEc6ZV/EsozruCneI=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel
+	<michal.orzel@amd.com>
+Subject: Re: [PATCH v3 07/10] xen/arm: ffa: Transmit RXTX buffers to the SPMC
+Thread-Topic: [PATCH v3 07/10] xen/arm: ffa: Transmit RXTX buffers to the SPMC
+Thread-Index: AQHbQOaiujpt26xv7UijucaMZXJ1w7LY55WAgAAvG4A=
+Date: Fri, 6 Dec 2024 10:47:39 +0000
+Message-ID: <8EA516E9-A660-436A-A64D-69DD04E9759E@arm.com>
+References: <cover.1732702210.git.bertrand.marquis@arm.com>
+ <56217f2f7b4c29a5f84fb02de3f4cbb8342c5560.1732702210.git.bertrand.marquis@arm.com>
+ <CAHUa44Gp1sMKY7txO9cXu1=K1+g5XdEB-0MsN_4v9Em=Vd9FSw@mail.gmail.com>
+In-Reply-To:
+ <CAHUa44Gp1sMKY7txO9cXu1=K1+g5XdEB-0MsN_4v9Em=Vd9FSw@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.200.121)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|AS8PR08MB9292:EE_|DB3PEPF0000885B:EE_|DBAPR08MB5592:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2bc8555e-5d96-43f8-42b2-08dd15e36cf7
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|10070799003|1800799024|366016|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?utf-8?B?ak0vcmdxZVE5T25hVW93ek1PUXVHREVZMS9ZMVAxOUh2RXdxRUQrV2JYOEVJ?=
+ =?utf-8?B?NHJKTnBva25VcmhUNU1SM09rZEZWUDFuNGJNbzdZdnlXMzM5czA5QWtKYmhl?=
+ =?utf-8?B?SG5JbmdGYld2NG1ETzBLZ0Q0WVNTU0tQMmt2cGRzanZNdkhEZkdWbFdQc3pD?=
+ =?utf-8?B?eXNTK091WFJiSUVDeXBOOUFIQTRRVzVNOTRyR0dEOGE2TTF6Y3pqcjNOQXhy?=
+ =?utf-8?B?ZXViejluM2lXRzMyRHQ0NkdGV21DY2RoR2t2dkFUcFBYQmZsZGR0Mk0rSUZJ?=
+ =?utf-8?B?eFNId2dHTTR1Z1NLb0hIak9GNXFCc1JnUTlrTUhER3E2VmFyUkdxQzV1REtB?=
+ =?utf-8?B?aStTN2NRMFRhRE9MM1VHcFNBZk1kTHdSUVNBTjlkM2l6R2ZBQXp0SHdaK2JF?=
+ =?utf-8?B?VzRzOERiTng4QkRqSnpqV2tkVHBzQWZaNU1LeU9GNGdydCtOOUJXb3lSTWpx?=
+ =?utf-8?B?Z3U5cXB4WGxydEwvQkF1OXc4TnhMTS9vWnRiYTIvbkJmTFdOUzk4YlQ3amdB?=
+ =?utf-8?B?eUJxTFhWSnZZRDJIcUNwQ0doRDgzb2ZEY28yQzhnUkNNYm9NWnFrRTYyUG0v?=
+ =?utf-8?B?clliLzZ1eE15SW1iaHFHUEwwN2xKRy9lazdBN3BRb05MU1VibnJ4SzdJVzFS?=
+ =?utf-8?B?MnFzLzVRYWxlLzc5MnZUblJ4WHhGWUlEZW5obXo5WXdRN0l3ZTljTWYvWjJT?=
+ =?utf-8?B?OTR4dFBkMmpmRm5JWXJNT1hVd1doVU5zRVQ4ZEY0Zng1R1R4c3JyeEExaGcy?=
+ =?utf-8?B?NkRPUGNXZUtUK25lTVFZNWdObUxUa2FlZUJ2UUpWd0NUOVBmQkhtVVR2NUly?=
+ =?utf-8?B?dlRLTUtXNEQzSjJiTWd0Q0lMVTNYMjNiZWlwWHM4dzNpekxqcmRjMXgxalNG?=
+ =?utf-8?B?MExLaXhlQ2d2K2dUTEk5QTl5MzNHNjNuTG10QXkvN2dnd01vNFRyMTRJUit5?=
+ =?utf-8?B?dTBvcDFCSFk2OUl0S2tDN2Zkb3Y5dDd6alVQdkVuc0ZtaFpIUklDajBRcXF4?=
+ =?utf-8?B?eVY2NzlTVXc5U1RpNE9wYUJQYzdIY2h3M3pscUIwbzlMWkppb3ovUStUVGxn?=
+ =?utf-8?B?aWV6ZWVGNGxzTWJldnF6RWg4UUZyZ1ZYanVpY1BoY3JXY2czNmRTMnFSNFEy?=
+ =?utf-8?B?REVsMXVyOXYweFRwSDUwbnhEcm9mU3VsU3hhRnVsNVNlK2xaRHltUm5NZitO?=
+ =?utf-8?B?bkRqeWhCNFFiajZ2bUoxUUlud09BNThUcU5vUUo2UmU4RmhQOVR2a2IyZSs3?=
+ =?utf-8?B?VEtUYmlIZE1CYzV5UW1IbXNoRm4rc3NGdmZsUGZ3Vk9iVThiUGtSY1h2ejRG?=
+ =?utf-8?B?M2dCTGM2dVpCWmIrNUlMUGV0L3Fxa3ZLQ3FEa1IvU2p0dlBtakRiS1N0eW5n?=
+ =?utf-8?B?ZXk3QU1ZSEQrRDFwZExLb1BGS2RwNFNob1hTTTdyVldzQXJqc0NaY3YyWHZE?=
+ =?utf-8?B?cjFHSnhucE9URUhIRDhxMjBTLzIvQ2xpbDNRN3cwUktDWng4djZWdHNjUVNY?=
+ =?utf-8?B?ODVxK25QbDN2QTBDTG5iNWo4Yzh2dFpWbTJNWlh1b1AwNG9zREdJZUxaeGYy?=
+ =?utf-8?B?T2RuYjY0b2UvcXNCS2pkdEZtekxMZXlmb1ovUGlhSk1mQ3ZnRm51VFowcVJI?=
+ =?utf-8?B?cXk4ellyTVp6cWFKMXk3OXVLMlJaNDZzcGFsNjJ0ZkpjKzNyU2ROK1FPRjFR?=
+ =?utf-8?B?TXpkTlVYUk1lV2ZCclRTRVhBenZkUHZKTUpGdXMrMEh6ZHhhczAwalEzMTE1?=
+ =?utf-8?B?aks5bUhnMjRYQ2hlL283ZnVSMXN1WGxvbGxGbE5iZ3VycDVOQmt0VjFlQnhw?=
+ =?utf-8?B?ZmhNdWJ3ZXF2cEhUYmZreTh1aERQbTZ0U1M4eWhSQXFmMjgrUHIzWTBhY2hT?=
+ =?utf-8?B?Q2FvL1k4aDM1SXNsWllreUxJR1V5eVE4blVjcklvOFdUYmc9PQ==?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <0FE5F6320AB975458EDF490D0F22CADD@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- kwepemg200008.china.huawei.com (7.202.181.35)
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9292
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-SkipListedInternetSender:
+ ip=[2603:10a6:10:25a::24];domain=DB9PR08MB6588.eurprd08.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB3PEPF0000885B.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	6d3908a5-a019-48c2-7da5-08dd15e367cf
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|35042699022|1800799024|36860700013|376014|82310400026|14060799003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aXdxMStGWEFHUFBPeVJRSjVUYkhBT2kxUG1HMmJFZ1l6VUZWL1ZiOVRVMUpi?=
+ =?utf-8?B?QUNvaGdONVllMDdNTkxOcWpBeEwzcDIwemZEUXdEelJaT3V6eHRtenEwRVpt?=
+ =?utf-8?B?VldwQjk1ZlFPOWtXMU0zVjJZdUZXamMyZ0c2alpLblZTenFTNkY3RUx1UFBn?=
+ =?utf-8?B?dnNKdHBIVDBKdVJsay94ZmZhdE4rekt3TXlKOFQ1VjdPL010Z1lRODBhQ3Fs?=
+ =?utf-8?B?RmpZbFpDVXJjZDZkN2RWcDRvd0hLckdWSlg4R01PUm5yRVJ1QTFlUmJsa3JB?=
+ =?utf-8?B?TzZNMjZuRVdDS0dhcHJNTXFjVUxrUHJWNnVMaTh5TG9uMmZKRk5RbFdiZnlv?=
+ =?utf-8?B?NmNxVjVrVTUraGo5UnZRMmpCYnFmbys5emJlWmxqREhnQ1poa3k5ck4zbDRE?=
+ =?utf-8?B?SkE5SDNIZnFxUkkzSk56VUt6WmtaNWdNazZtdEVBbkZ5UVRIUGRmaTN0TGhs?=
+ =?utf-8?B?T1F6MFNSTzFQMTZhU05Jc1ByNm5PTkJHSVRTa1F1MGhlYmV4Q3lja3UrR1ZU?=
+ =?utf-8?B?NTFtOWxYQ2Q2WncvVWRvQ1hGTHRGMFNKZ3lkV3pmN0NJcGFWNG1RcmlHUGZY?=
+ =?utf-8?B?Qk5OeDhCbjNwRWRxQm1nemQ0Qml2bG9JVmxZWmZzME1TSmZ6dCtCSzNveko3?=
+ =?utf-8?B?elBsdmV3M1h4OTFWMCsySW5VcDZYeVpKSXdUdm1rbkE3STJkUzFwYXBVVC8r?=
+ =?utf-8?B?Uk40MmVyOENhK3VtWkJYMFdJNEZVNzIrL1JvV3NxSmJicUlOK2srUk1MQndu?=
+ =?utf-8?B?SEk5U3dKT3JFUmtad2ZUMm00cEVLNFkwVzNNV0paSHlubFdlWGZHcER0RXZj?=
+ =?utf-8?B?a2xlR016VUczSU90MFR4QWplcW9xTzdFRmZSTjR0SzNyK1N2WkZ0NW9TbTJv?=
+ =?utf-8?B?a1hLVFNyM3ZnVXRGMW14ZHNUUzh6VWVUMjNQaFFHcGgyRjBuU1hwWGxoSE1n?=
+ =?utf-8?B?ZDdoTmwvTlMxQk81dHluSGEwbGFjODZ1TXFONWNRcHZkZlVPNDhkZVN0WnVE?=
+ =?utf-8?B?OXlVUTNlaWNsRnhiRCtqUlRGSlBBSXR2Q09Gajh2bE1kRVRpWnh2bTA3SXB1?=
+ =?utf-8?B?dVZreEE4YXlPQ2lUT0dmMkVreisrQ2hqcWJtVWJHQkJIZm9CbEwyY015REVO?=
+ =?utf-8?B?VUQ5WXJmYTJsVXAyTjN5RzkxcWtubjZ0czdJNVdDTFp3Mk9DL0ZaNW1QV2R0?=
+ =?utf-8?B?K294a3M1djlLNWE1ZjRMMmdUcmMwRm5jVzBkV2lISmtjSU5XSG4wdUJVbGZv?=
+ =?utf-8?B?QXlOZWVjYVphK1NKMXZSczhuUjVYT2xvMENtRkdoRjNJMjF2Tk1zYm5LZnQ4?=
+ =?utf-8?B?UkY5d1AzTDl6UGVEcHQ3WEdqTW85UUFpcXJBRU01NmlZUHl6d3VTOXFtUDcr?=
+ =?utf-8?B?U2NXY2ZwQW4xbk9PWXhjaEJWeE5VVEx2TFVMRC9CUnJHSEpEdVRDa3U4Nk5N?=
+ =?utf-8?B?cFZubzhYYm5sWXREekFJbzJ6V21PNkxRTTF1RWNaelJmUW11VzVHN3cvcysx?=
+ =?utf-8?B?Ti9yZitUbmxtbVNzQ0JMODlZcGllWlE3WDdxQlBwUGprYkNLRzJ2MHEyZWM3?=
+ =?utf-8?B?eWFPV2JQVE96eVNNVEVHdmZCVVZKL21DeFc5MlRyeGNyTVJQbTNHZnVtdTdt?=
+ =?utf-8?B?Rm5Xc1ZiSnhpVlo0NlBGRDRvNEJSYnk2bnU0eVcvSnJFS0h3eXdRaHlHa0NL?=
+ =?utf-8?B?dGtVeE13enJwSkkyVEpuWVdIZ1hkOCtnbnVxdGtoSXhLN2lHdkJFZ1FjRE14?=
+ =?utf-8?B?ZVNvNFEyTktpNzBWWVNuTjhHSk9oeGFQRTd6UmFnL3ovOFRYZEV1N0Jodldx?=
+ =?utf-8?B?S3Y2cWpoWjJ2clU2dkpjZXZsYUg3bUVpMkxWZm1iOVNCVHlLQWVWYUMxejZt?=
+ =?utf-8?B?NjN5OExia0ZxQnRkYjdCRnpLUXhVVUo1NDNiUXVyRzhuY2pSQ3hHaHBpeGdt?=
+ =?utf-8?B?ZU5lWHZUOVJJOEJYZ0NuTmowTFN2NDVVRFFwSnhOdzdJZTJKem4vRzVETkdI?=
+ =?utf-8?B?OS9zSDh4OEdRPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:64aa7808-outbound-1.mta.getcheckrecipient.com;CAT:NONE;SFS:(13230040)(35042699022)(1800799024)(36860700013)(376014)(82310400026)(14060799003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2024 10:47:48.5913
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bc8555e-5d96-43f8-42b2-08dd15e36cf7
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB3PEPF0000885B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5592
 
-Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
-to use the generic entry infrastructure from kernel/entry/*.
-The generic entry makes maintainers' work easier and codes more elegant.
-
-The changes are below:
- - Remove TIF_SYSCALL_* flag, _TIF_WORK_MASK, _TIF_SYSCALL_WORK
- - Remove syscall_trace_enter/exit() and use generic identical functions.
-
-Tested ok with following test cases on Qemu virt platform:
- - Perf tests.
- - Different `dynamic preempt` mode switch.
- - Pseudo NMI tests.
- - Stress-ng CPU stress test.
- - MTE test case in Documentation/arch/arm64/memory-tagging-extension.rst
-   and all test cases in tools/testing/selftests/arm64/mte/*.
-
-Suggested-by: Mark Rutland <mark.rutland@arm.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v5:
-- Rebased on the previous patch udapte.
-- Define ARCH_SYSCALL_WORK_EXIT.
----
- arch/arm64/Kconfig                    |   2 +-
- arch/arm64/include/asm/entry-common.h |  70 ++++++++++++++
- arch/arm64/include/asm/syscall.h      |   7 +-
- arch/arm64/include/asm/thread_info.h  |  23 +----
- arch/arm64/kernel/debug-monitors.c    |   7 ++
- arch/arm64/kernel/ptrace.c            | 134 --------------------------
- arch/arm64/kernel/signal.c            |   2 +-
- arch/arm64/kernel/syscall.c           |   6 +-
- 8 files changed, 87 insertions(+), 164 deletions(-)
-
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 3751ab9f2a21..a1d96712428e 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -148,9 +148,9 @@ config ARM64
- 	select GENERIC_CPU_DEVICES
- 	select GENERIC_CPU_VULNERABILITIES
- 	select GENERIC_EARLY_IOREMAP
-+	select GENERIC_ENTRY
- 	select GENERIC_IDLE_POLL_SETUP
- 	select GENERIC_IOREMAP
--	select GENERIC_IRQ_ENTRY
- 	select GENERIC_IRQ_IPI
- 	select GENERIC_IRQ_KEXEC_CLEAR_VM_FORWARD
- 	select GENERIC_IRQ_PROBE
-diff --git a/arch/arm64/include/asm/entry-common.h b/arch/arm64/include/asm/entry-common.h
-index 1cc9d966a6c3..6082393c61f2 100644
---- a/arch/arm64/include/asm/entry-common.h
-+++ b/arch/arm64/include/asm/entry-common.h
-@@ -10,6 +10,12 @@
- #include <asm/mte.h>
- #include <asm/stacktrace.h>
- 
-+enum ptrace_syscall_dir {
-+	PTRACE_SYSCALL_ENTER = 0,
-+	PTRACE_SYSCALL_EXIT,
-+};
-+
-+#define ARCH_SYSCALL_WORK_EXIT (SYSCALL_WORK_SECCOMP | SYSCALL_WORK_SYSCALL_EMU)
- #define ARCH_EXIT_TO_USER_MODE_WORK (_TIF_MTE_ASYNC_FAULT | _TIF_FOREIGN_FPSTATE)
- 
- static __always_inline void arch_exit_to_user_mode_work(struct pt_regs *regs,
-@@ -61,4 +67,68 @@ static inline bool arch_irqentry_exit_need_resched(void)
- 
- #define arch_irqentry_exit_need_resched arch_irqentry_exit_need_resched
- 
-+static inline int arch_ptrace_report_syscall_entry(struct pt_regs *regs)
-+{
-+	unsigned long saved_reg;
-+	int regno, ret;
-+
-+	/*
-+	 * We have some ABI weirdness here in the way that we handle syscall
-+	 * exit stops because we indicate whether or not the stop has been
-+	 * signalled from syscall entry or syscall exit by clobbering a general
-+	 * purpose register (ip/r12 for AArch32, x7 for AArch64) in the tracee
-+	 * and restoring its old value after the stop. This means that:
-+	 *
-+	 * - Any writes by the tracer to this register during the stop are
-+	 *   ignored/discarded.
-+	 *
-+	 * - The actual value of the register is not available during the stop,
-+	 *   so the tracer cannot save it and restore it later.
-+	 *
-+	 * - Syscall stops behave differently to seccomp and pseudo-step traps
-+	 *   (the latter do not nobble any registers).
-+	 */
-+	regno = (is_compat_task() ? 12 : 7);
-+	saved_reg = regs->regs[regno];
-+	regs->regs[regno] = PTRACE_SYSCALL_ENTER;
-+
-+	ret = ptrace_report_syscall_entry(regs);
-+	if (ret)
-+		forget_syscall(regs);
-+
-+	regs->regs[regno] = saved_reg;
-+
-+	return ret;
-+}
-+
-+#define arch_ptrace_report_syscall_entry arch_ptrace_report_syscall_entry
-+
-+static inline void arch_ptrace_report_syscall_exit(struct pt_regs *regs,
-+						   int step)
-+{
-+	unsigned long saved_reg;
-+	int regno;
-+
-+	/* See comment for arch_ptrace_report_syscall_entry() */
-+	regno = (is_compat_task() ? 12 : 7);
-+	saved_reg = regs->regs[regno];
-+	regs->regs[regno] = PTRACE_SYSCALL_EXIT;
-+
-+	if (!test_thread_flag(TIF_SINGLESTEP)) {
-+		ptrace_report_syscall_exit(regs, 0);
-+		regs->regs[regno] = saved_reg;
-+	} else {
-+		regs->regs[regno] = saved_reg;
-+
-+		/*
-+		 * Signal a pseudo-step exception since we are stepping but
-+		 * tracer modifications to the registers may have rewound the
-+		 * state machine.
-+		 */
-+		ptrace_report_syscall_exit(regs, 1);
-+	}
-+}
-+
-+#define arch_ptrace_report_syscall_exit arch_ptrace_report_syscall_exit
-+
- #endif /* _ASM_ARM64_ENTRY_COMMON_H */
-diff --git a/arch/arm64/include/asm/syscall.h b/arch/arm64/include/asm/syscall.h
-index 6eeb1e7b033f..9891b15da4c3 100644
---- a/arch/arm64/include/asm/syscall.h
-+++ b/arch/arm64/include/asm/syscall.h
-@@ -85,12 +85,9 @@ static inline int syscall_get_arch(struct task_struct *task)
- 	return AUDIT_ARCH_AARCH64;
- }
- 
--static inline bool has_syscall_work(unsigned long flags)
-+static inline bool arch_syscall_is_vdso_sigreturn(struct pt_regs *regs)
- {
--	return unlikely(flags & _TIF_SYSCALL_WORK);
-+	return false;
- }
- 
--int syscall_trace_enter(struct pt_regs *regs, long syscall, unsigned long flags);
--void syscall_exit_to_user_mode_prepare(struct pt_regs *regs);
--
- #endif	/* __ASM_SYSCALL_H */
-diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
-index 1114c1c3300a..543fdb00d713 100644
---- a/arch/arm64/include/asm/thread_info.h
-+++ b/arch/arm64/include/asm/thread_info.h
-@@ -43,6 +43,7 @@ struct thread_info {
- 	void			*scs_sp;
- #endif
- 	u32			cpu;
-+	unsigned long		syscall_work;   /* SYSCALL_WORK_ flags */
- };
- 
- #define thread_saved_pc(tsk)	\
-@@ -64,11 +65,6 @@ void arch_setup_new_exec(void);
- #define TIF_UPROBE		4	/* uprobe breakpoint or singlestep */
- #define TIF_MTE_ASYNC_FAULT	5	/* MTE Asynchronous Tag Check Fault */
- #define TIF_NOTIFY_SIGNAL	6	/* signal notifications exist */
--#define TIF_SYSCALL_TRACE	8	/* syscall trace active */
--#define TIF_SYSCALL_AUDIT	9	/* syscall auditing */
--#define TIF_SYSCALL_TRACEPOINT	10	/* syscall tracepoint for ftrace */
--#define TIF_SECCOMP		11	/* syscall secure computing */
--#define TIF_SYSCALL_EMU		12	/* syscall emulation active */
- #define TIF_MEMDIE		18	/* is terminating due to OOM killer */
- #define TIF_FREEZE		19
- #define TIF_RESTORE_SIGMASK	20
-@@ -87,28 +83,13 @@ void arch_setup_new_exec(void);
- #define _TIF_NEED_RESCHED	(1 << TIF_NEED_RESCHED)
- #define _TIF_NOTIFY_RESUME	(1 << TIF_NOTIFY_RESUME)
- #define _TIF_FOREIGN_FPSTATE	(1 << TIF_FOREIGN_FPSTATE)
--#define _TIF_SYSCALL_TRACE	(1 << TIF_SYSCALL_TRACE)
--#define _TIF_SYSCALL_AUDIT	(1 << TIF_SYSCALL_AUDIT)
--#define _TIF_SYSCALL_TRACEPOINT	(1 << TIF_SYSCALL_TRACEPOINT)
--#define _TIF_SECCOMP		(1 << TIF_SECCOMP)
--#define _TIF_SYSCALL_EMU	(1 << TIF_SYSCALL_EMU)
--#define _TIF_UPROBE		(1 << TIF_UPROBE)
--#define _TIF_SINGLESTEP		(1 << TIF_SINGLESTEP)
-+#define _TIF_UPROBE            (1 << TIF_UPROBE)
- #define _TIF_32BIT		(1 << TIF_32BIT)
- #define _TIF_SVE		(1 << TIF_SVE)
- #define _TIF_MTE_ASYNC_FAULT	(1 << TIF_MTE_ASYNC_FAULT)
- #define _TIF_NOTIFY_SIGNAL	(1 << TIF_NOTIFY_SIGNAL)
- #define _TIF_TSC_SIGSEGV	(1 << TIF_TSC_SIGSEGV)
- 
--#define _TIF_WORK_MASK		(_TIF_NEED_RESCHED | _TIF_SIGPENDING | \
--				 _TIF_NOTIFY_RESUME | _TIF_FOREIGN_FPSTATE | \
--				 _TIF_UPROBE | _TIF_MTE_ASYNC_FAULT | \
--				 _TIF_NOTIFY_SIGNAL)
--
--#define _TIF_SYSCALL_WORK	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
--				 _TIF_SYSCALL_TRACEPOINT | _TIF_SECCOMP | \
--				 _TIF_SYSCALL_EMU)
--
- #ifdef CONFIG_SHADOW_CALL_STACK
- #define INIT_SCS							\
- 	.scs_base	= init_shadow_call_stack,			\
-diff --git a/arch/arm64/kernel/debug-monitors.c b/arch/arm64/kernel/debug-monitors.c
-index 460c09d03a73..95b70555a1a8 100644
---- a/arch/arm64/kernel/debug-monitors.c
-+++ b/arch/arm64/kernel/debug-monitors.c
-@@ -452,11 +452,18 @@ void user_enable_single_step(struct task_struct *task)
- 
- 	if (!test_and_set_ti_thread_flag(ti, TIF_SINGLESTEP))
- 		set_regs_spsr_ss(task_pt_regs(task));
-+
-+	/*
-+	 * Ensure that a trap is triggered once stepping out of a system
-+	 * call prior to executing any user instruction.
-+	 */
-+	set_task_syscall_work(task, SYSCALL_EXIT_TRAP);
- }
- NOKPROBE_SYMBOL(user_enable_single_step);
- 
- void user_disable_single_step(struct task_struct *task)
- {
- 	clear_ti_thread_flag(task_thread_info(task), TIF_SINGLESTEP);
-+	clear_task_syscall_work(task, SYSCALL_EXIT_TRAP);
- }
- NOKPROBE_SYMBOL(user_disable_single_step);
-diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-index 3a7a1eaca0a9..a09058b9b7fb 100644
---- a/arch/arm64/kernel/ptrace.c
-+++ b/arch/arm64/kernel/ptrace.c
-@@ -42,9 +42,6 @@
- #include <asm/traps.h>
- #include <asm/system_misc.h>
- 
--#define CREATE_TRACE_POINTS
--#include <trace/events/syscalls.h>
--
- struct pt_regs_offset {
- 	const char *name;
- 	int offset;
-@@ -2293,137 +2290,6 @@ long arch_ptrace(struct task_struct *child, long request,
- 	return ptrace_request(child, request, addr, data);
- }
- 
--enum ptrace_syscall_dir {
--	PTRACE_SYSCALL_ENTER = 0,
--	PTRACE_SYSCALL_EXIT,
--};
--
--static int report_syscall_enter(struct pt_regs *regs)
--{
--	unsigned long saved_reg;
--	int regno, ret;
--
--	/*
--	 * We have some ABI weirdness here in the way that we handle syscall
--	 * exit stops because we indicate whether or not the stop has been
--	 * signalled from syscall entry or syscall exit by clobbering a general
--	 * purpose register (ip/r12 for AArch32, x7 for AArch64) in the tracee
--	 * and restoring its old value after the stop. This means that:
--	 *
--	 * - Any writes by the tracer to this register during the stop are
--	 *   ignored/discarded.
--	 *
--	 * - The actual value of the register is not available during the stop,
--	 *   so the tracer cannot save it and restore it later.
--	 *
--	 * - Syscall stops behave differently to seccomp and pseudo-step traps
--	 *   (the latter do not nobble any registers).
--	 */
--	regno = (is_compat_task() ? 12 : 7);
--	saved_reg = regs->regs[regno];
--	regs->regs[regno] = PTRACE_SYSCALL_ENTER;
--
--	ret = ptrace_report_syscall_entry(regs);
--	if (ret)
--		forget_syscall(regs);
--
--	regs->regs[regno] = saved_reg;
--
--	return ret;
--}
--
--static void report_syscall_exit(struct pt_regs *regs)
--{
--	int regno;
--	unsigned long saved_reg;
--
--	/* See comment for report_syscall_enter() */
--	regno = (is_compat_task() ? 12 : 7);
--	saved_reg = regs->regs[regno];
--	regs->regs[regno] = PTRACE_SYSCALL_EXIT;
--
--	if (!test_thread_flag(TIF_SINGLESTEP)) {
--		ptrace_report_syscall_exit(regs, 0);
--		regs->regs[regno] = saved_reg;
--	} else {
--		regs->regs[regno] = saved_reg;
--
--		/*
--		 * Signal a pseudo-step exception since we are stepping but
--		 * tracer modifications to the registers may have rewound the
--		 * state machine.
--		 */
--		ptrace_report_syscall_exit(regs, 1);
--	}
--}
--
--static inline void syscall_enter_audit(struct pt_regs *regs, long syscall)
--{
--	if (unlikely(audit_context())) {
--		unsigned long args[6];
--
--		syscall_get_arguments(current, regs, args);
--		audit_syscall_entry(syscall, args[0], args[1], args[2], args[3]);
--	}
--
--}
--
--int syscall_trace_enter(struct pt_regs *regs, long syscall, unsigned long flags)
--{
--	int ret;
--
--	if (flags & (_TIF_SYSCALL_EMU | _TIF_SYSCALL_TRACE)) {
--		ret = report_syscall_enter(regs);
--		if (ret || (flags & _TIF_SYSCALL_EMU))
--			return NO_SYSCALL;
--	}
--
--	/* Do the secure computing after ptrace; failures should be fast. */
--	if (flags & _TIF_SECCOMP) {
--		ret = __secure_computing(NULL);
--		if (ret == -1L)
--			return NO_SYSCALL;
--	}
--
--	/* Either of the above might have changed the syscall number */
--	syscall = syscall_get_nr(current, regs);
--
--	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT)) {
--		trace_sys_enter(regs, syscall);
--
--		/*
--		 * Probes or BPF hooks in the tracepoint may have changed the
--		 * system call number as well.
--		 */
--		 syscall = syscall_get_nr(current, regs);
--	}
--
--	syscall_enter_audit(regs, syscall);
--
--	return regs->syscallno;
--}
--
--static void syscall_trace_exit(struct pt_regs *regs, unsigned long flags)
--{
--	audit_syscall_exit(regs);
--
--	if (flags & _TIF_SYSCALL_TRACEPOINT)
--		trace_sys_exit(regs, syscall_get_return_value(current, regs));
--
--	if (flags & (_TIF_SYSCALL_TRACE | _TIF_SINGLESTEP))
--		report_syscall_exit(regs);
--}
--
--void syscall_exit_to_user_mode_prepare(struct pt_regs *regs)
--{
--	unsigned long flags = read_thread_flags();
--
--	rseq_syscall(regs);
--
--	if (has_syscall_work(flags) || flags & _TIF_SINGLESTEP)
--		syscall_trace_exit(regs, flags);
--}
--
- /*
-  * SPSR_ELx bits which are always architecturally RES0 per ARM DDI 0487D.a.
-  * We permit userspace to set SSBS (AArch64 bit 12, AArch32 bit 23) which is
-diff --git a/arch/arm64/kernel/signal.c b/arch/arm64/kernel/signal.c
-index 84b6628647c7..6cc8fe19e6a0 100644
---- a/arch/arm64/kernel/signal.c
-+++ b/arch/arm64/kernel/signal.c
-@@ -8,8 +8,8 @@
- 
- #include <linux/cache.h>
- #include <linux/compat.h>
-+#include <linux/entry-common.h>
- #include <linux/errno.h>
--#include <linux/irq-entry-common.h>
- #include <linux/kernel.h>
- #include <linux/signal.h>
- #include <linux/freezer.h>
-diff --git a/arch/arm64/kernel/syscall.c b/arch/arm64/kernel/syscall.c
-index a50db885fc34..5aa585111c4b 100644
---- a/arch/arm64/kernel/syscall.c
-+++ b/arch/arm64/kernel/syscall.c
-@@ -2,6 +2,7 @@
- 
- #include <linux/compiler.h>
- #include <linux/context_tracking.h>
-+#include <linux/entry-common.h>
- #include <linux/errno.h>
- #include <linux/nospec.h>
- #include <linux/ptrace.h>
-@@ -68,6 +69,7 @@ static void invoke_syscall(struct pt_regs *regs, unsigned int scno,
- static void el0_svc_common(struct pt_regs *regs, int scno, int sc_nr,
- 			   const syscall_fn_t syscall_table[])
- {
-+	unsigned long work = READ_ONCE(current_thread_info()->syscall_work);
- 	unsigned long flags = read_thread_flags();
- 
- 	regs->orig_x0 = regs->regs[0];
-@@ -101,7 +103,7 @@ static void el0_svc_common(struct pt_regs *regs, int scno, int sc_nr,
- 		return;
- 	}
- 
--	if (has_syscall_work(flags)) {
-+	if (has_syscall_work(work)) {
- 		/*
- 		 * The de-facto standard way to skip a system call using ptrace
- 		 * is to set the system call to -1 (NO_SYSCALL) and set x0 to a
-@@ -119,7 +121,7 @@ static void el0_svc_common(struct pt_regs *regs, int scno, int sc_nr,
- 		 */
- 		if (scno == NO_SYSCALL)
- 			syscall_set_return_value(current, regs, -ENOSYS, 0);
--		scno = syscall_trace_enter(regs, regs->syscallno, flags);
-+		scno = syscall_trace_enter(regs, regs->syscallno, work);
- 		if (scno == NO_SYSCALL) {
- 			syscall_exit_to_user_mode_prepare(regs);
- 			return;
--- 
-2.34.1
-
+SGkgSmVucywNCg0KPiBPbiA2IERlYyAyMDI0LCBhdCAwODo1OCwgSmVucyBXaWtsYW5kZXIgPGpl
+bnMud2lrbGFuZGVyQGxpbmFyby5vcmc+IHdyb3RlOg0KPiANCj4gSGkgQmVydHJhbmQsDQo+IA0K
+PiBPbiBXZWQsIE5vdiAyNywgMjAyNCBhdCA1OjA44oCvUE0gQmVydHJhbmQgTWFycXVpcw0KPiA8
+YmVydHJhbmQubWFycXVpc0Bhcm0uY29tPiB3cm90ZToNCj4+IA0KPj4gV2hlbiBhbiBSWFRYIGJ1
+ZmZlciBpcyBtYXBwZWQgYnkgYSBWTSB0cmFuc21pdCBpdCB0byB0aGUgU1BNQyB3aGVuIGl0DQo+
+PiBzdXBwb3J0cyBSWF9BQ1FVSVJFLg0KPj4gQXMgYSBjb25zZXF1ZW5jZSBvZiB0aGF0LCB3ZSBt
+dXN0IGFjcXVpcmUgdGhlIFJYIGJ1ZmZlciBvZiBhIFZNIGZyb20gdGhlDQo+PiBTUE1DIHdoZW4g
+d2Ugd2FudCB0byB1c2UgaXQ6DQo+PiAtIGNyZWF0ZSBhIGdlbmVyaWMgYWNxdWlyZSBhbmQgcmVs
+ZWFzZSBmdW5jdGlvbiB0byBnZXQgdGhlIHJ4IGJ1ZmZlciBvZg0KPj4gIGEgVk0gd2hpY2ggZ2V0
+cyBpdCBmcm9tIHRoZSBTUE1DIHdoZW4gc3VwcG9ydGVkDQo+PiAtIHJlbmFtZSB0aGUgcnhfYWNx
+dWlyZSB0byBoeXBfcnhfYWNxdWlyZSB0byByZW1vdmUgY29uZnVzaW9uDQo+PiAtIHJld29yayB0
+aGUgcnhfbG9jayB0byBvbmx5IGxvY2sgYWNjZXNzIHRvIHJ4X2lzX2ZyZWUgYW5kIG9ubHkgYWxs
+b3cNCj4+ICB1c2FnZSBvZiB0aGUgcnggYnVmZmVyIHRvIG9uZSB3aG8gbWFuYWdlZCB0byBhY3F1
+aXJlIGl0LCB0aHVzIHJlbW92aW5nDQo+PiAgdGhlIHRyeWxvY2sgYW5kIHJldHVybmluZyBidXN5
+IGlmIHJ4X2lzX2ZyZWUgaXMgZmFsc2UNCj4+IA0KPj4gQXMgcGFydCBvZiB0aGlzIGNoYW5nZSBt
+b3ZlIHNvbWUgc3RydWN0dXJlIGRlZmluaXRpb24gdG8gZmZhX3ByaXZhdGUNCj4+IGZyb20gZmZh
+X3NobSBhcyB0aG9zZSBhcmUgbmVlZCBmb3IgdGhlIE1BUCBjYWxsIHdpdGggdGhlIFNQTUMuDQo+
+PiANCj4+IFdoaWxlIHRoZXJlIGFsc28gZml4IGZmYV9oYW5kbGVfcnh0eF9tYXAgd2hpY2ggd2Fz
+IHRlc3RpbmcgdGhlIHdyb25nDQo+PiB2YXJpYWJsZSBhZnRlciBnZXR0aW5nIHRoZSBwYWdlIGZv
+ciB0aGUgcnggYnVmZmVyLCB0ZXN0aW5nIHR4X3BnDQo+PiBpbnN0ZWFkIG9mIHJ4X3BnLg0KPj4g
+DQo+PiBGaXhlczogYmU3NWY2ODZlYjAzICgieGVuL2FybTogZmZhOiBzZXBhcmF0ZSByeHR4IGJ1
+ZmZlciByb3V0aW5lcyIpDQo+PiANCj4+IFNpZ25lZC1vZmYtYnk6IEJlcnRyYW5kIE1hcnF1aXMg
+PGJlcnRyYW5kLm1hcnF1aXNAYXJtLmNvbT4NCj4+IC0tLQ0KPj4gQ2hhbmdlcyBpbiB2MzoNCj4+
+IC0gYWRkIGEgY29tbWVudCB0byBleHBsYWluIHdoeSB3ZSBvbmx5IHJlbGVhc2UgdGhlIFJYIGJ1
+ZmZlciBpZiBhbiBlcnJvcg0KPj4gIG9jY3VycyBkdXJpbmcgcGFydGl0aW9uX2luZm9fZ2V0DQo+
+PiAtIGZpeCB0aGUgQlVJTERfQlVHX09OIGNoZWNrIGZvciBUWCBidWZmZXIgc2l6ZSBpbiByeHR4
+X21hcCAoY29kaW5nDQo+PiAgc3R5bGUgYW5kIHVzZSBQQUdFX1NJWkUgKiBOVU1fUEFHRSkNCj4+
+IC0gcmVtb3ZlIGludmFsaWQgMyBhcmd1bWVudCB0byBmZmFfcnh0eF9tYXAgd2hlbiBmb3J3YXJk
+aW5nIHRoZSBjYWxsIHRvDQo+PiAgdGhlIFNQTUMNCj4+IC0gZml4IGJ1ZyBpbiBmZmFfaGFuZGxl
+X3J4dHhfbWFwIHRlc3Rpbmcgd3JvbmcgdmFyaWFibGUNCj4+IENoYW5nZXMgaW4gdjI6DQo+PiAt
+IHVubWFwIFZNIHJ4dHggYnVmZmVyIGluIFNQTUMgb24gdW5tYXAgY2FsbCBvciBvbiBWTSBkZXN0
+cm95DQo+PiAtIHJld29yayB0aGUgdW5tYXAgY2FsbCB0byB0aGUgU1BNQyB0byBwcm9wZXJseSBw
+YXNzIHRoZSBWTSBJRA0KPj4gLS0tDQo+PiB4ZW4vYXJjaC9hcm0vdGVlL2ZmYS5jICAgICAgICAg
+IHwgICAyICstDQo+PiB4ZW4vYXJjaC9hcm0vdGVlL2ZmYV9wYXJ0aW5mby5jIHwgIDM2ICsrKyst
+LS0NCj4+IHhlbi9hcmNoL2FybS90ZWUvZmZhX3ByaXZhdGUuaCAgfCAgMjIgKysrKy0NCj4+IHhl
+bi9hcmNoL2FybS90ZWUvZmZhX3J4dHguYyAgICAgfCAxNjEgKysrKysrKysrKysrKysrKysrKysr
+KysrKystLS0tLS0NCj4+IHhlbi9hcmNoL2FybS90ZWUvZmZhX3NobS5jICAgICAgfCAgMTUgLS0t
+DQo+PiA1IGZpbGVzIGNoYW5nZWQsIDE3MCBpbnNlcnRpb25zKCspLCA2NiBkZWxldGlvbnMoLSkN
+Cj4+IA0KPj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS90ZWUvZmZhLmMgYi94ZW4vYXJjaC9h
+cm0vdGVlL2ZmYS5jDQo+PiBpbmRleCAwMDI2YWM5MTM0YWQuLmJjMjcyMmQ1M2ZkNyAxMDA2NDQN
+Cj4+IC0tLSBhL3hlbi9hcmNoL2FybS90ZWUvZmZhLmMNCj4+ICsrKyBiL3hlbi9hcmNoL2FybS90
+ZWUvZmZhLmMNCj4+IEBAIC0zNDcsNyArMzQ3LDcgQEAgc3RhdGljIGJvb2wgZmZhX2hhbmRsZV9j
+YWxsKHN0cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdzKQ0KPj4gICAgICAgICBmZmFfaGFuZGxlX3Bh
+cnRpdGlvbl9pbmZvX2dldChyZWdzKTsNCj4+ICAgICAgICAgcmV0dXJuIHRydWU7DQo+PiAgICAg
+Y2FzZSBGRkFfUlhfUkVMRUFTRToNCj4+IC0gICAgICAgIGUgPSBmZmFfaGFuZGxlX3J4X3JlbGVh
+c2UoKTsNCj4+ICsgICAgICAgIGUgPSBmZmFfcnhfcmVsZWFzZShkKTsNCj4+ICAgICAgICAgYnJl
+YWs7DQo+PiAgICAgY2FzZSBGRkFfTVNHX1NFTkRfRElSRUNUX1JFUV8zMjoNCj4+ICAgICBjYXNl
+IEZGQV9NU0dfU0VORF9ESVJFQ1RfUkVRXzY0Og0KPj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2Fy
+bS90ZWUvZmZhX3BhcnRpbmZvLmMgYi94ZW4vYXJjaC9hcm0vdGVlL2ZmYV9wYXJ0aW5mby5jDQo+
+PiBpbmRleCA3NDMyNGUxZDlkM2YuLjkzOWVkNDlkZDNkYSAxMDA2NDQNCj4+IC0tLSBhL3hlbi9h
+cmNoL2FybS90ZWUvZmZhX3BhcnRpbmZvLmMNCj4+ICsrKyBiL3hlbi9hcmNoL2FybS90ZWUvZmZh
+X3BhcnRpbmZvLmMNCj4+IEBAIC0xMjEsMTEgKzEyMSw5IEBAIHZvaWQgZmZhX2hhbmRsZV9wYXJ0
+aXRpb25faW5mb19nZXQoc3RydWN0IGNwdV91c2VyX3JlZ3MgKnJlZ3MpDQo+PiAgICAgICAgIGdv
+dG8gb3V0Ow0KPj4gICAgIH0NCj4+IA0KPj4gLSAgICBpZiAoICFzcGluX3RyeWxvY2soJmN0eC0+
+cnhfbG9jaykgKQ0KPj4gLSAgICB7DQo+PiAtICAgICAgICByZXQgPSBGRkFfUkVUX0JVU1k7DQo+
+PiArICAgIHJldCA9IGZmYV9yeF9hY3F1aXJlKGQpOw0KPj4gKyAgICBpZiAoIHJldCAhPSBGRkFf
+UkVUX09LICkNCj4+ICAgICAgICAgZ290byBvdXQ7DQo+PiAtICAgIH0NCj4+IA0KPj4gICAgIGRz
+dF9idWYgPSBjdHgtPnJ4Ow0KPj4gDQo+PiBAQCAtMTM1LDIyICsxMzMsMTYgQEAgdm9pZCBmZmFf
+aGFuZGxlX3BhcnRpdGlvbl9pbmZvX2dldChzdHJ1Y3QgY3B1X3VzZXJfcmVncyAqcmVncykNCj4+
+ICAgICAgICAgZ290byBvdXRfcnhfcmVsZWFzZTsNCj4+ICAgICB9DQo+PiANCj4+IC0gICAgaWYg
+KCAhY3R4LT5wYWdlX2NvdW50IHx8ICFjdHgtPnJ4X2lzX2ZyZWUgKQ0KPj4gLSAgICB7DQo+PiAt
+ICAgICAgICByZXQgPSBGRkFfUkVUX0RFTklFRDsNCj4+IC0gICAgICAgIGdvdG8gb3V0X3J4X3Jl
+bGVhc2U7DQo+PiAtICAgIH0NCj4+IC0NCj4+ICAgICBzcGluX2xvY2soJmZmYV9yeF9idWZmZXJf
+bG9jayk7DQo+PiANCj4+ICAgICByZXQgPSBmZmFfcGFydGl0aW9uX2luZm9fZ2V0KHV1aWQsIDAs
+ICZmZmFfc3BfY291bnQsICZzcmNfc2l6ZSk7DQo+PiANCj4+ICAgICBpZiAoIHJldCApDQo+PiAt
+ICAgICAgICBnb3RvIG91dF9yeF9idWZfdW5sb2NrOw0KPj4gKyAgICAgICAgZ290byBvdXRfcnhf
+aHlwX3VubG9jazsNCj4+IA0KPj4gICAgIC8qDQo+PiAgICAgICogZmZhX3BhcnRpdGlvbl9pbmZv
+X2dldCgpIHN1Y2NlZWRlZCBzbyB3ZSBub3cgb3duIHRoZSBSWCBidWZmZXIgd2UNCj4+IC0gICAg
+ICogc2hhcmUgd2l0aCB0aGUgU1BNQy4gV2UgbXVzdCBnaXZlIGl0IGJhY2sgdXNpbmcgZmZhX3J4
+X3JlbGVhc2UoKQ0KPj4gKyAgICAgKiBzaGFyZSB3aXRoIHRoZSBTUE1DLiBXZSBtdXN0IGdpdmUg
+aXQgYmFjayB1c2luZyBmZmFfaHlwX3J4X3JlbGVhc2UoKQ0KPj4gICAgICAqIG9uY2Ugd2UndmUg
+Y29waWVkIHRoZSBjb250ZW50Lg0KPj4gICAgICAqLw0KPj4gDQo+PiBAQCAtMTkwLDE1ICsxODIs
+MjAgQEAgdm9pZCBmZmFfaGFuZGxlX3BhcnRpdGlvbl9pbmZvX2dldChzdHJ1Y3QgY3B1X3VzZXJf
+cmVncyAqcmVncykNCj4+ICAgICAgICAgfQ0KPj4gICAgIH0NCj4+IA0KPj4gLSAgICBjdHgtPnJ4
+X2lzX2ZyZWUgPSBmYWxzZTsNCj4+IC0NCj4+IG91dF9yeF9oeXBfcmVsZWFzZToNCj4+IC0gICAg
+ZmZhX3J4X3JlbGVhc2UoKTsNCj4+IC1vdXRfcnhfYnVmX3VubG9jazoNCj4+ICsgICAgZmZhX2h5
+cF9yeF9yZWxlYXNlKCk7DQo+PiArb3V0X3J4X2h5cF91bmxvY2s6DQo+PiAgICAgc3Bpbl91bmxv
+Y2soJmZmYV9yeF9idWZmZXJfbG9jayk7DQo+PiBvdXRfcnhfcmVsZWFzZToNCj4+IC0gICAgc3Bp
+bl91bmxvY2soJmN0eC0+cnhfbG9jayk7DQo+PiAtDQo+PiArICAgIC8qDQo+PiArICAgICAqIFRo
+ZSBjYWxsaW5nIFZNIFJYIGJ1ZmZlciBvbmx5IGNvbnRhaW5zIGRhdGEgdG8gYmUgdXNlZCBieSB0
+aGUgVk0gaWYgdGhlDQo+PiArICAgICAqIGNhbGwgd2FzIHN1Y2Nlc3NmdWxsLCBpbiB3aGljaCBj
+YXNlIHRoZSBWTSBoYXMgdG8gcmVsZWFzZSB0aGUgYnVmZmVyDQo+IA0KPiBzdWNjZXNzZnVsDQoN
+CkFjay4NCg0KPiANCj4+ICsgICAgICogb25jZSBpdCBoYXMgdXNlZCB0aGUgZGF0YS4NCj4+ICsg
+ICAgICogSWYgc29tZXRoaW5nIHdlbnQgd3JvbmcgZHVyaW5nIHRoZSBjYWxsLCB3ZSBoYXZlIHRv
+IHJlbGVhc2UgdGhlIFJYDQo+PiArICAgICAqIGJ1ZmZlciBiYWNrIHRvIHRoZSBTUE1DIGFzIHRo
+ZSBWTSB3aWxsIG5vdCBkbyBpdC4NCj4+ICsgICAgICovDQo+PiArICAgIGlmICggcmV0ICE9IEZG
+QV9SRVRfT0sgKQ0KPj4gKyAgICAgICAgZmZhX3J4X3JlbGVhc2UoZCk7DQo+PiBvdXQ6DQo+PiAg
+ICAgaWYgKCByZXQgKQ0KPj4gICAgICAgICBmZmFfc2V0X3JlZ3NfZXJyb3IocmVncywgcmV0KTsN
+Cj4+IEBAIC0zNjUsOCArMzYyLDcgQEAgYm9vbCBmZmFfcGFydGluZm9faW5pdCh2b2lkKQ0KPj4g
+ICAgIHJldCA9IGluaXRfc3Vic2NyaWJlcnMoY291bnQsIGZwaV9zaXplKTsNCj4+IA0KPj4gb3V0
+Og0KPj4gLSAgICBmZmFfcnhfcmVsZWFzZSgpOw0KPj4gLQ0KPj4gKyAgICBmZmFfaHlwX3J4X3Jl
+bGVhc2UoKTsNCj4+ICAgICByZXR1cm4gcmV0Ow0KPj4gfQ0KPj4gDQo+PiBkaWZmIC0tZ2l0IGEv
+eGVuL2FyY2gvYXJtL3RlZS9mZmFfcHJpdmF0ZS5oIGIveGVuL2FyY2gvYXJtL3RlZS9mZmFfcHJp
+dmF0ZS5oDQo+PiBpbmRleCBhZmU2OWI0M2RiZWYuLjlhZGZlNjg3YzNjOSAxMDA2NDQNCj4+IC0t
+LSBhL3hlbi9hcmNoL2FybS90ZWUvZmZhX3ByaXZhdGUuaA0KPj4gKysrIGIveGVuL2FyY2gvYXJt
+L3RlZS9mZmFfcHJpdmF0ZS5oDQo+PiBAQCAtMjY1LDYgKzI2NSwyMSBAQA0KPj4gI2RlZmluZSBG
+RkFfQUJJX0JJVE5VTShpZCkgICAgKChGRkFfQUJJX0lEKGlkKSAtIEZGQV9BQklfTUlOKSA8PCAx
+IHwgXA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZGQV9BQklfQ09OVihpZCkp
+DQo+PiANCj4+ICsvKiBDb25zdGl0dWVudCBtZW1vcnkgcmVnaW9uIGRlc2NyaXB0b3IgKi8NCj4+
+ICtzdHJ1Y3QgZmZhX2FkZHJlc3NfcmFuZ2Ugew0KPj4gKyAgICB1aW50NjRfdCBhZGRyZXNzOw0K
+Pj4gKyAgICB1aW50MzJfdCBwYWdlX2NvdW50Ow0KPj4gKyAgICB1aW50MzJfdCByZXNlcnZlZDsN
+Cj4+ICt9Ow0KPj4gKw0KPj4gKy8qIENvbXBvc2l0ZSBtZW1vcnkgcmVnaW9uIGRlc2NyaXB0b3Ig
+Ki8NCj4+ICtzdHJ1Y3QgZmZhX21lbV9yZWdpb24gew0KPj4gKyAgICB1aW50MzJfdCB0b3RhbF9w
+YWdlX2NvdW50Ow0KPj4gKyAgICB1aW50MzJfdCBhZGRyZXNzX3JhbmdlX2NvdW50Ow0KPj4gKyAg
+ICB1aW50NjRfdCByZXNlcnZlZDsNCj4+ICsgICAgc3RydWN0IGZmYV9hZGRyZXNzX3JhbmdlIGFk
+ZHJlc3NfcmFuZ2VfYXJyYXlbXTsNCj4+ICt9Ow0KPj4gKw0KPj4gc3RydWN0IGZmYV9jdHhfbm90
+aWYgew0KPj4gICAgIGJvb2wgZW5hYmxlZDsNCj4+IA0KPj4gQEAgLTI5Miw3ICszMDcsNyBAQCBz
+dHJ1Y3QgZmZhX2N0eCB7DQo+PiAgICAgc3RydWN0IGZmYV9jdHhfbm90aWYgbm90aWY7DQo+PiAg
+ICAgLyoNCj4+ICAgICAgKiB0eF9sb2NrIGlzIHVzZWQgdG8gc2VyaWFsaXplIGFjY2VzcyB0byB0
+eA0KPj4gLSAgICAgKiByeF9sb2NrIGlzIHVzZWQgdG8gc2VyaWFsaXplIGFjY2VzcyB0byByeA0K
+Pj4gKyAgICAgKiByeF9sb2NrIGlzIHVzZWQgdG8gc2VyaWFsaXplIGFjY2VzcyB0byByeF9pc19m
+cmVlDQo+PiAgICAgICogbG9jayBpcyB1c2VkIGZvciB0aGUgcmVzdCBpbiB0aGlzIHN0cnVjdA0K
+Pj4gICAgICAqLw0KPj4gICAgIHNwaW5sb2NrX3QgdHhfbG9jazsNCj4+IEBAIC0zMzEsNyArMzQ2
+LDggQEAgdm9pZCBmZmFfcnh0eF9kb21haW5fZGVzdHJveShzdHJ1Y3QgZG9tYWluICpkKTsNCj4+
+IHVpbnQzMl90IGZmYV9oYW5kbGVfcnh0eF9tYXAodWludDMyX3QgZmlkLCByZWdpc3Rlcl90IHR4
+X2FkZHIsDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVnaXN0ZXJfdCByeF9hZGRy
+LCB1aW50MzJfdCBwYWdlX2NvdW50KTsNCj4+IHVpbnQzMl90IGZmYV9oYW5kbGVfcnh0eF91bm1h
+cCh2b2lkKTsNCj4+IC1pbnQzMl90IGZmYV9oYW5kbGVfcnhfcmVsZWFzZSh2b2lkKTsNCj4+ICtp
+bnQzMl90IGZmYV9yeF9hY3F1aXJlKHN0cnVjdCBkb21haW4gKmQpOw0KPj4gK2ludDMyX3QgZmZh
+X3J4X3JlbGVhc2Uoc3RydWN0IGRvbWFpbiAqZCk7DQo+PiANCj4+IHZvaWQgZmZhX25vdGlmX2lu
+aXQodm9pZCk7DQo+PiB2b2lkIGZmYV9ub3RpZl9pbml0X2ludGVycnVwdCh2b2lkKTsNCj4+IEBA
+IC00MjAsNyArNDM2LDcgQEAgc3RhdGljIGlubGluZSBpbnQzMl90IGZmYV9zaW1wbGVfY2FsbCh1
+aW50MzJfdCBmaWQsIHJlZ2lzdGVyX3QgYTEsDQo+PiAgICAgcmV0dXJuIGZmYV9nZXRfcmV0X2Nv
+ZGUoJnJlc3ApOw0KPj4gfQ0KPj4gDQo+PiAtc3RhdGljIGlubGluZSBpbnQzMl90IGZmYV9yeF9y
+ZWxlYXNlKHZvaWQpDQo+PiArc3RhdGljIGlubGluZSBpbnQzMl90IGZmYV9oeXBfcnhfcmVsZWFz
+ZSh2b2lkKQ0KPj4gew0KPj4gICAgIHJldHVybiBmZmFfc2ltcGxlX2NhbGwoRkZBX1JYX1JFTEVB
+U0UsIDAsIDAsIDAsIDApOw0KPj4gfQ0KPj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS90ZWUv
+ZmZhX3J4dHguYyBiL3hlbi9hcmNoL2FybS90ZWUvZmZhX3J4dHguYw0KPj4gaW5kZXggMTMyYTc5
+ODI0MDdiLi5lMWNhYjdmYTVlNDYgMTAwNjQ0DQo+PiAtLS0gYS94ZW4vYXJjaC9hcm0vdGVlL2Zm
+YV9yeHR4LmMNCj4+ICsrKyBiL3hlbi9hcmNoL2FybS90ZWUvZmZhX3J4dHguYw0KPj4gQEAgLTMw
+LDYgKzMwLDE3IEBAIHN0cnVjdCBmZmFfZW5kcG9pbnRfcnh0eF9kZXNjcmlwdG9yXzFfMSB7DQo+
+PiAgICAgdWludDMyX3QgdHhfcmVnaW9uX29mZnM7DQo+PiB9Ow0KPj4gDQo+PiArc3RhdGljIGlu
+dDMyX3QgZmZhX3J4dHhfbWFwKHBhZGRyX3QgdHhfYWRkciwgcGFkZHJfdCByeF9hZGRyLA0KPj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50MzJfdCBwYWdlX2NvdW50KQ0KPj4gK3sN
+Cj4+ICsgICAgcmV0dXJuIGZmYV9zaW1wbGVfY2FsbChGRkFfUlhUWF9NQVBfNjQsIHR4X2FkZHIs
+IHJ4X2FkZHIsIHBhZ2VfY291bnQsIDApOw0KPj4gK30NCj4+ICsNCj4+ICtzdGF0aWMgaW50MzJf
+dCBmZmFfcnh0eF91bm1hcCh1aW50MTZfdCBpZCkNCj4+ICt7DQo+PiArICAgIHJldHVybiBmZmFf
+c2ltcGxlX2NhbGwoRkZBX1JYVFhfVU5NQVAsICgodWludDY0X3QpaWQpPDwxNiwgMCwgMCwgMCk7
+DQo+IA0KPiBQbGVhc2UgYWRkIGEgc3BhY2UgYmVmb3JlIGFuZCBhZnRlciB0aGUgIjw8IiBvcGVy
+YXRvci4NCg0KU3VyZS4NCg0KV2l0aCB0aG9zZSAyIGZpeGVzIGNhbiBJIGFkZCB5b3UgUi1iIGlu
+IHRoZSBuZXh0IHBhdGNoIHZlcnNpb24gPw0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXdzLg0KDQpD
+aGVlcnMNCkJlcnRyYW5kDQoNCj4gDQo+IENoZWVycywNCj4gSmVucw0KPiANCj4+ICt9DQo+PiAr
+DQo+PiB1aW50MzJfdCBmZmFfaGFuZGxlX3J4dHhfbWFwKHVpbnQzMl90IGZpZCwgcmVnaXN0ZXJf
+dCB0eF9hZGRyLA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZ2lzdGVyX3Qgcnhf
+YWRkciwgdWludDMyX3QgcGFnZV9jb3VudCkNCj4+IHsNCj4+IEBAIC00Miw2ICs1Myw5IEBAIHVp
+bnQzMl90IGZmYV9oYW5kbGVfcnh0eF9tYXAodWludDMyX3QgZmlkLCByZWdpc3Rlcl90IHR4X2Fk
+ZHIsDQo+PiAgICAgdm9pZCAqcng7DQo+PiAgICAgdm9pZCAqdHg7DQo+PiANCj4+ICsgICAgLyog
+VGhlIGNvZGUgaXMgY29uc2lkZXJpbmcgdGhhdCB3ZSBvbmx5IGdldCBvbmUgcGFnZSBmb3Igbm93
+ICovDQo+PiArICAgIEJVSUxEX0JVR19PTihGRkFfTUFYX1JYVFhfUEFHRV9DT1VOVCAhPSAxKTsN
+Cj4+ICsNCj4+ICAgICBpZiAoICFzbWNjY19pc19jb252XzY0KGZpZCkgKQ0KPj4gICAgIHsNCj4+
+ICAgICAgICAgLyoNCj4+IEBAIC03Miw3ICs4Niw3IEBAIHVpbnQzMl90IGZmYV9oYW5kbGVfcnh0
+eF9tYXAodWludDMyX3QgZmlkLCByZWdpc3Rlcl90IHR4X2FkZHIsDQo+PiAgICAgICAgIGdvdG8g
+ZXJyX3B1dF90eF9wZzsNCj4+IA0KPj4gICAgIHJ4X3BnID0gZ2V0X3BhZ2VfZnJvbV9nZm4oZCwg
+Z2ZuX3goZ2FkZHJfdG9fZ2ZuKHJ4X2FkZHIpKSwgJnQsIFAyTV9BTExPQyk7DQo+PiAtICAgIGlm
+ICggIXR4X3BnICkNCj4+ICsgICAgaWYgKCAhcnhfcGcgKQ0KPj4gICAgICAgICBnb3RvIGVycl9w
+dXRfdHhfcGc7DQo+PiANCj4+ICAgICAvKiBPbmx5IG5vcm1hbCBSVyBSQU0gZm9yIG5vdyAqLw0K
+Pj4gQEAgLTg3LDYgKzEwMSw2NiBAQCB1aW50MzJfdCBmZmFfaGFuZGxlX3J4dHhfbWFwKHVpbnQz
+Ml90IGZpZCwgcmVnaXN0ZXJfdCB0eF9hZGRyLA0KPj4gICAgIGlmICggIXJ4ICkNCj4+ICAgICAg
+ICAgZ290byBlcnJfdW5tYXBfdHg7DQo+PiANCj4+ICsgICAgLyoNCj4+ICsgICAgICogVHJhbnNt
+aXQgdGhlIFJYL1RYIGJ1ZmZlciBpbmZvcm1hdGlvbiB0byB0aGUgU1BNIGlmIGFjcXVpcmUgaXMg
+c3VwcG9ydGVkDQo+PiArICAgICAqIGFzIHRoZSBzcGVjIHNheXMgdGhhdCBpZiBub3QgdGhlcmUg
+aXMgbm90IG5lZWQgdG8gYWNxdWlyZS9yZWxlYXNlL21hcA0KPj4gKyAgICAgKiByeHR4IGJ1ZmZl
+cnMgZnJvbSB0aGUgU1BNQw0KPj4gKyAgICAgKi8NCj4+ICsgICAgaWYgKCBmZmFfZndfc3VwcG9y
+dHNfZmlkKEZGQV9SWF9BQ1FVSVJFKSApDQo+PiArICAgIHsNCj4+ICsgICAgICAgIHN0cnVjdCBm
+ZmFfZW5kcG9pbnRfcnh0eF9kZXNjcmlwdG9yXzFfMSAqcnh0eF9kZXNjOw0KPj4gKyAgICAgICAg
+c3RydWN0IGZmYV9tZW1fcmVnaW9uICptZW1fcmVnOw0KPj4gKw0KPj4gKyAgICAgICAgLyogQWxs
+IG11c3QgZml0IGluIG91ciBUWCBidWZmZXIgKi8NCj4+ICsgICAgICAgIEJVSUxEX0JVR19PTihz
+aXplb2YoKnJ4dHhfZGVzYykgKyBzaXplb2YoKm1lbV9yZWcpICogMiArDQo+PiArICAgICAgICAg
+ICAgICAgICAgICAgc2l6ZW9mKHN0cnVjdCBmZmFfYWRkcmVzc19yYW5nZSkgKiAyID4NCj4+ICsg
+ICAgICAgICAgICAgICAgICAgICBGRkFfTUFYX1JYVFhfUEFHRV9DT1VOVCAqIEZGQV9QQUdFX1NJ
+WkUpOw0KPj4gKw0KPj4gKyAgICAgICAgc3Bpbl9sb2NrKCZmZmFfdHhfYnVmZmVyX2xvY2spOw0K
+Pj4gKyAgICAgICAgcnh0eF9kZXNjID0gZmZhX3R4Ow0KPj4gKw0KPj4gKyAgICAgICAgLyoNCj4+
+ICsgICAgICAgICAqIFdlIGhhdmUgb25seSBvbmUgcGFnZSBmb3IgZWFjaCBzbyB3ZSBwYWNrIGV2
+ZXJ5dGhpbmc6DQo+PiArICAgICAgICAgKiAtIHJ4IHJlZ2lvbiBkZXNjcmlwdG9yDQo+PiArICAg
+ICAgICAgKiAtIHJ4IHJlZ2lvbiByYW5nZQ0KPj4gKyAgICAgICAgICogLSB0eCByZWdpb24gZGVz
+Y3JpcHRvcg0KPj4gKyAgICAgICAgICogLSB0eCByZWdpb24gcmFuZ2UNCj4+ICsgICAgICAgICAq
+Lw0KPj4gKyAgICAgICAgcnh0eF9kZXNjLT5zZW5kZXJfaWQgPSBmZmFfZ2V0X3ZtX2lkKGQpOw0K
+Pj4gKyAgICAgICAgcnh0eF9kZXNjLT5yZXNlcnZlZCA9IDA7DQo+PiArICAgICAgICByeHR4X2Rl
+c2MtPnJ4X3JlZ2lvbl9vZmZzID0gc2l6ZW9mKCpyeHR4X2Rlc2MpOw0KPj4gKyAgICAgICAgcnh0
+eF9kZXNjLT50eF9yZWdpb25fb2ZmcyA9IHNpemVvZigqcnh0eF9kZXNjKSArDQo+PiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb2Zmc2V0b2Yoc3RydWN0IGZmYV9tZW1fcmVn
+aW9uLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFk
+ZHJlc3NfcmFuZ2VfYXJyYXlbMV0pOw0KPj4gKw0KPj4gKyAgICAgICAgLyogcnggYnVmZmVyICov
+DQo+PiArICAgICAgICBtZW1fcmVnID0gZmZhX3R4ICsgc2l6ZW9mKCpyeHR4X2Rlc2MpOw0KPj4g
+KyAgICAgICAgbWVtX3JlZy0+dG90YWxfcGFnZV9jb3VudCA9IDE7DQo+PiArICAgICAgICBtZW1f
+cmVnLT5hZGRyZXNzX3JhbmdlX2NvdW50ID0gMTsNCj4+ICsgICAgICAgIG1lbV9yZWctPnJlc2Vy
+dmVkID0gMDsNCj4+ICsNCj4+ICsgICAgICAgIG1lbV9yZWctPmFkZHJlc3NfcmFuZ2VfYXJyYXlb
+MF0uYWRkcmVzcyA9IHBhZ2VfdG9fbWFkZHIocnhfcGcpOw0KPj4gKyAgICAgICAgbWVtX3JlZy0+
+YWRkcmVzc19yYW5nZV9hcnJheVswXS5wYWdlX2NvdW50ID0gMTsNCj4+ICsgICAgICAgIG1lbV9y
+ZWctPmFkZHJlc3NfcmFuZ2VfYXJyYXlbMF0ucmVzZXJ2ZWQgPSAwOw0KPj4gKw0KPj4gKyAgICAg
+ICAgLyogdHggYnVmZmVyICovDQo+PiArICAgICAgICBtZW1fcmVnID0gZmZhX3R4ICsgcnh0eF9k
+ZXNjLT50eF9yZWdpb25fb2ZmczsNCj4+ICsgICAgICAgIG1lbV9yZWctPnRvdGFsX3BhZ2VfY291
+bnQgPSAxOw0KPj4gKyAgICAgICAgbWVtX3JlZy0+YWRkcmVzc19yYW5nZV9jb3VudCA9IDE7DQo+
+PiArICAgICAgICBtZW1fcmVnLT5yZXNlcnZlZCA9IDA7DQo+PiArDQo+PiArICAgICAgICBtZW1f
+cmVnLT5hZGRyZXNzX3JhbmdlX2FycmF5WzBdLmFkZHJlc3MgPSBwYWdlX3RvX21hZGRyKHR4X3Bn
+KTsNCj4+ICsgICAgICAgIG1lbV9yZWctPmFkZHJlc3NfcmFuZ2VfYXJyYXlbMF0ucGFnZV9jb3Vu
+dCA9IDE7DQo+PiArICAgICAgICBtZW1fcmVnLT5hZGRyZXNzX3JhbmdlX2FycmF5WzBdLnJlc2Vy
+dmVkID0gMDsNCj4+ICsNCj4+ICsgICAgICAgIHJldCA9IGZmYV9yeHR4X21hcCgwLCAwLCAwKTsN
+Cj4+ICsNCj4+ICsgICAgICAgIHNwaW5fdW5sb2NrKCZmZmFfdHhfYnVmZmVyX2xvY2spOw0KPj4g
+Kw0KPj4gKyAgICAgICAgaWYgKCByZXQgIT0gRkZBX1JFVF9PSyApDQo+PiArICAgICAgICAgICAg
+Z290byBlcnJfdW5tYXBfcng7DQo+PiArICAgIH0NCj4+ICsNCj4+ICAgICBjdHgtPnJ4ID0gcng7
+DQo+PiAgICAgY3R4LT50eCA9IHR4Ow0KPj4gICAgIGN0eC0+cnhfcGcgPSByeF9wZzsNCj4+IEBA
+IC05NSw2ICsxNjksOCBAQCB1aW50MzJfdCBmZmFfaGFuZGxlX3J4dHhfbWFwKHVpbnQzMl90IGZp
+ZCwgcmVnaXN0ZXJfdCB0eF9hZGRyLA0KPj4gICAgIGN0eC0+cnhfaXNfZnJlZSA9IHRydWU7DQo+
+PiAgICAgcmV0dXJuIEZGQV9SRVRfT0s7DQo+PiANCj4+ICtlcnJfdW5tYXBfcng6DQo+PiArICAg
+IHVubWFwX2RvbWFpbl9wYWdlX2dsb2JhbChyeCk7DQo+PiBlcnJfdW5tYXBfdHg6DQo+PiAgICAg
+dW5tYXBfZG9tYWluX3BhZ2VfZ2xvYmFsKHR4KTsNCj4+IGVycl9wdXRfcnhfcGc6DQo+PiBAQCAt
+MTA1LDggKzE4MSwyMiBAQCBlcnJfcHV0X3R4X3BnOg0KPj4gICAgIHJldHVybiByZXQ7DQo+PiB9
+DQo+PiANCj4+IC1zdGF0aWMgdm9pZCByeHR4X3VubWFwKHN0cnVjdCBmZmFfY3R4ICpjdHgpDQo+
+PiArc3RhdGljIHVpbnQzMl90ICByeHR4X3VubWFwKHN0cnVjdCBkb21haW4gKmQpDQo+PiB7DQo+
+PiArICAgIHN0cnVjdCBmZmFfY3R4ICpjdHggPSBkLT5hcmNoLnRlZTsNCj4+ICsNCj4+ICsgICAg
+aWYgKCAhY3R4LT5wYWdlX2NvdW50ICkNCj4+ICsgICAgICAgIHJldHVybiBGRkFfUkVUX0lOVkFM
+SURfUEFSQU1FVEVSUzsNCj4+ICsNCj4+ICsgICAgaWYgKCBmZmFfZndfc3VwcG9ydHNfZmlkKEZG
+QV9SWF9BQ1FVSVJFKSApDQo+PiArICAgIHsNCj4+ICsgICAgICAgIHVpbnQzMl90IHJldDsNCj4+
+ICsNCj4+ICsgICAgICAgIHJldCA9IGZmYV9yeHR4X3VubWFwKGZmYV9nZXRfdm1faWQoZCkpOw0K
+Pj4gKyAgICAgICAgaWYgKCByZXQgIT0gRkZBX1JFVF9PSyApDQo+PiArICAgICAgICAgICAgcmV0
+dXJuIHJldDsNCj4+ICsgICAgfQ0KPj4gKw0KPj4gICAgIHVubWFwX2RvbWFpbl9wYWdlX2dsb2Jh
+bChjdHgtPnJ4KTsNCj4+ICAgICB1bm1hcF9kb21haW5fcGFnZV9nbG9iYWwoY3R4LT50eCk7DQo+
+PiAgICAgcHV0X3BhZ2UoY3R4LT5yeF9wZyk7DQo+PiBAQCAtMTE3LDMyICsyMDcsNjMgQEAgc3Rh
+dGljIHZvaWQgcnh0eF91bm1hcChzdHJ1Y3QgZmZhX2N0eCAqY3R4KQ0KPj4gICAgIGN0eC0+dHhf
+cGcgPSBOVUxMOw0KPj4gICAgIGN0eC0+cGFnZV9jb3VudCA9IDA7DQo+PiAgICAgY3R4LT5yeF9p
+c19mcmVlID0gZmFsc2U7DQo+PiArDQo+PiArICAgIHJldHVybiBGRkFfUkVUX09LOw0KPj4gfQ0K
+Pj4gDQo+PiB1aW50MzJfdCBmZmFfaGFuZGxlX3J4dHhfdW5tYXAodm9pZCkNCj4+IHsNCj4+IC0g
+ICAgc3RydWN0IGRvbWFpbiAqZCA9IGN1cnJlbnQtPmRvbWFpbjsNCj4+ICsgICAgcmV0dXJuIHJ4
+dHhfdW5tYXAoY3VycmVudC0+ZG9tYWluKTsNCj4+ICt9DQo+PiArDQo+PiAraW50MzJfdCBmZmFf
+cnhfYWNxdWlyZShzdHJ1Y3QgZG9tYWluICpkKQ0KPj4gK3sNCj4+ICsgICAgaW50MzJfdCByZXQg
+PSBGRkFfUkVUX09LOw0KPj4gICAgIHN0cnVjdCBmZmFfY3R4ICpjdHggPSBkLT5hcmNoLnRlZTsN
+Cj4+IA0KPj4gLSAgICBpZiAoICFjdHgtPnJ4ICkNCj4+IC0gICAgICAgIHJldHVybiBGRkFfUkVU
+X0lOVkFMSURfUEFSQU1FVEVSUzsNCj4+ICsgICAgc3Bpbl9sb2NrKCZjdHgtPnJ4X2xvY2spOw0K
+Pj4gDQo+PiAtICAgIHJ4dHhfdW5tYXAoY3R4KTsNCj4+ICsgICAgaWYgKCAhY3R4LT5wYWdlX2Nv
+dW50ICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgcmV0ID0gRkZBX1JFVF9ERU5JRUQ7DQo+PiAr
+ICAgICAgICBnb3RvIG91dDsNCj4+ICsgICAgfQ0KPj4gDQo+PiAtICAgIHJldHVybiBGRkFfUkVU
+X09LOw0KPj4gKyAgICBpZiAoICFjdHgtPnJ4X2lzX2ZyZWUgKQ0KPj4gKyAgICB7DQo+PiArICAg
+ICAgICByZXQgPSBGRkFfUkVUX0JVU1k7DQo+PiArICAgICAgICBnb3RvIG91dDsNCj4+ICsgICAg
+fQ0KPj4gKw0KPj4gKyAgICBpZiAoIGZmYV9md19zdXBwb3J0c19maWQoRkZBX1JYX0FDUVVJUkUp
+ICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgcmV0ID0gZmZhX3NpbXBsZV9jYWxsKEZGQV9SWF9B
+Q1FVSVJFLCBmZmFfZ2V0X3ZtX2lkKGQpLCAwLCAwLCAwKTsNCj4+ICsgICAgICAgIGlmICggcmV0
+ICE9IEZGQV9SRVRfT0sgKQ0KPj4gKyAgICAgICAgICAgIGdvdG8gb3V0Ow0KPj4gKyAgICB9DQo+
+PiArICAgIGN0eC0+cnhfaXNfZnJlZSA9IGZhbHNlOw0KPj4gK291dDoNCj4+ICsgICAgc3Bpbl91
+bmxvY2soJmN0eC0+cnhfbG9jayk7DQo+PiArDQo+PiArICAgIHJldHVybiByZXQ7DQo+PiB9DQo+
+PiANCj4+IC1pbnQzMl90IGZmYV9oYW5kbGVfcnhfcmVsZWFzZSh2b2lkKQ0KPj4gK2ludDMyX3Qg
+ZmZhX3J4X3JlbGVhc2Uoc3RydWN0IGRvbWFpbiAqZCkNCj4+IHsNCj4+ICAgICBpbnQzMl90IHJl
+dCA9IEZGQV9SRVRfREVOSUVEOw0KPj4gLSAgICBzdHJ1Y3QgZG9tYWluICpkID0gY3VycmVudC0+
+ZG9tYWluOw0KPj4gICAgIHN0cnVjdCBmZmFfY3R4ICpjdHggPSBkLT5hcmNoLnRlZTsNCj4+IA0K
+Pj4gLSAgICBpZiAoICFzcGluX3RyeWxvY2soJmN0eC0+cnhfbG9jaykgKQ0KPj4gLSAgICAgICAg
+cmV0dXJuIEZGQV9SRVRfQlVTWTsNCj4+ICsgICAgc3Bpbl9sb2NrKCZjdHgtPnJ4X2xvY2spOw0K
+Pj4gDQo+PiAgICAgaWYgKCAhY3R4LT5wYWdlX2NvdW50IHx8IGN0eC0+cnhfaXNfZnJlZSApDQo+
+PiAgICAgICAgIGdvdG8gb3V0Ow0KPj4gKw0KPj4gKyAgICBpZiAoIGZmYV9md19zdXBwb3J0c19m
+aWQoRkZBX1JYX0FDUVVJUkUpICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgcmV0ID0gZmZhX3Np
+bXBsZV9jYWxsKEZGQV9SWF9SRUxFQVNFLCBmZmFfZ2V0X3ZtX2lkKGQpLCAwLCAwLCAwKTsNCj4+
+ICsgICAgICAgIGlmICggcmV0ICE9IEZGQV9SRVRfT0sgKQ0KPj4gKyAgICAgICAgICAgIGdvdG8g
+b3V0Ow0KPj4gKyAgICB9DQo+PiAgICAgcmV0ID0gRkZBX1JFVF9PSzsNCj4+ICAgICBjdHgtPnJ4
+X2lzX2ZyZWUgPSB0cnVlOw0KPj4gb3V0Og0KPj4gQEAgLTE1MSwyMyArMjcyLDkgQEAgb3V0Og0K
+Pj4gICAgIHJldHVybiByZXQ7DQo+PiB9DQo+PiANCj4+IC1zdGF0aWMgaW50MzJfdCBmZmFfcnh0
+eF9tYXAocGFkZHJfdCB0eF9hZGRyLCBwYWRkcl90IHJ4X2FkZHIsDQo+PiAtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHVpbnQzMl90IHBhZ2VfY291bnQpDQo+PiAtew0KPj4gLSAgICByZXR1
+cm4gZmZhX3NpbXBsZV9jYWxsKEZGQV9SWFRYX01BUF82NCwgdHhfYWRkciwgcnhfYWRkciwgcGFn
+ZV9jb3VudCwgMCk7DQo+PiAtfQ0KPj4gLQ0KPj4gLXN0YXRpYyBpbnQzMl90IGZmYV9yeHR4X3Vu
+bWFwKHZvaWQpDQo+PiAtew0KPj4gLSAgICByZXR1cm4gZmZhX3NpbXBsZV9jYWxsKEZGQV9SWFRY
+X1VOTUFQLCAwLCAwLCAwLCAwKTsNCj4+IC19DQo+PiAtDQo+PiB2b2lkIGZmYV9yeHR4X2RvbWFp
+bl9kZXN0cm95KHN0cnVjdCBkb21haW4gKmQpDQo+PiB7DQo+PiAtICAgIHN0cnVjdCBmZmFfY3R4
+ICpjdHggPSBkLT5hcmNoLnRlZTsNCj4+IC0NCj4+IC0gICAgaWYgKCBjdHgtPnJ4ICkNCj4+IC0g
+ICAgICAgIHJ4dHhfdW5tYXAoY3R4KTsNCj4+ICsgICAgcnh0eF91bm1hcChkKTsNCj4+IH0NCj4+
+IA0KPj4gdm9pZCBmZmFfcnh0eF9kZXN0cm95KHZvaWQpDQo+PiBAQCAtMTg2LDcgKzI5Myw3IEBA
+IHZvaWQgZmZhX3J4dHhfZGVzdHJveSh2b2lkKQ0KPj4gICAgIH0NCj4+IA0KPj4gICAgIGlmICgg
+bmVlZF91bm1hcCApDQo+PiAtICAgICAgICBmZmFfcnh0eF91bm1hcCgpOw0KPj4gKyAgICAgICAg
+ZmZhX3J4dHhfdW5tYXAoMCk7DQo+PiB9DQo+PiANCj4+IGJvb2wgZmZhX3J4dHhfaW5pdCh2b2lk
+KQ0KPj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS90ZWUvZmZhX3NobS5jIGIveGVuL2FyY2gv
+YXJtL3RlZS9mZmFfc2htLmMNCj4+IGluZGV4IDI5Njc1ZjliYTNmNy4uZDYyOGMxYjcwNjA5IDEw
+MDY0NA0KPj4gLS0tIGEveGVuL2FyY2gvYXJtL3RlZS9mZmFfc2htLmMNCj4+ICsrKyBiL3hlbi9h
+cmNoL2FybS90ZWUvZmZhX3NobS5jDQo+PiBAQCAtMTYsMjEgKzE2LDYgQEANCj4+IA0KPj4gI2lu
+Y2x1ZGUgImZmYV9wcml2YXRlLmgiDQo+PiANCj4+IC0vKiBDb25zdGl0dWVudCBtZW1vcnkgcmVn
+aW9uIGRlc2NyaXB0b3IgKi8NCj4+IC1zdHJ1Y3QgZmZhX2FkZHJlc3NfcmFuZ2Ugew0KPj4gLSAg
+ICB1aW50NjRfdCBhZGRyZXNzOw0KPj4gLSAgICB1aW50MzJfdCBwYWdlX2NvdW50Ow0KPj4gLSAg
+ICB1aW50MzJfdCByZXNlcnZlZDsNCj4+IC19Ow0KPj4gLQ0KPj4gLS8qIENvbXBvc2l0ZSBtZW1v
+cnkgcmVnaW9uIGRlc2NyaXB0b3IgKi8NCj4+IC1zdHJ1Y3QgZmZhX21lbV9yZWdpb24gew0KPj4g
+LSAgICB1aW50MzJfdCB0b3RhbF9wYWdlX2NvdW50Ow0KPj4gLSAgICB1aW50MzJfdCBhZGRyZXNz
+X3JhbmdlX2NvdW50Ow0KPj4gLSAgICB1aW50NjRfdCByZXNlcnZlZDsNCj4+IC0gICAgc3RydWN0
+IGZmYV9hZGRyZXNzX3JhbmdlIGFkZHJlc3NfcmFuZ2VfYXJyYXlbXTsNCj4+IC19Ow0KPj4gLQ0K
+Pj4gLyogTWVtb3J5IGFjY2VzcyBwZXJtaXNzaW9ucyBkZXNjcmlwdG9yICovDQo+PiBzdHJ1Y3Qg
+ZmZhX21lbV9hY2Nlc3NfcGVybSB7DQo+PiAgICAgdWludDE2X3QgZW5kcG9pbnRfaWQ7DQo+PiAt
+LQ0KPj4gMi40Ny4wDQoNCg0K
 
