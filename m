@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329F19E6868
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 09:03:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.849909.1264404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 431A99E6871
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2024 09:09:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.849920.1264413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJTJH-0003af-Ky; Fri, 06 Dec 2024 08:03:35 +0000
+	id 1tJTOZ-0004Cz-7q; Fri, 06 Dec 2024 08:09:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 849909.1264404; Fri, 06 Dec 2024 08:03:35 +0000
+Received: by outflank-mailman (output) from mailman id 849920.1264413; Fri, 06 Dec 2024 08:09:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tJTJH-0003YK-IK; Fri, 06 Dec 2024 08:03:35 +0000
-Received: by outflank-mailman (input) for mailman id 849909;
- Fri, 06 Dec 2024 08:03:34 +0000
+	id 1tJTOZ-0004AI-5E; Fri, 06 Dec 2024 08:09:03 +0000
+Received: by outflank-mailman (input) for mailman id 849920;
+ Fri, 06 Dec 2024 08:09:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GQh0=S7=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1tJTJG-0003YE-6G
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 08:03:34 +0000
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [2001:4860:4864:20::2b])
+ id 1tJTOX-0004AC-Le
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2024 08:09:01 +0000
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [2001:4860:4864:20::2d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9230b1c9-b3a8-11ef-99a3-01e77a169b0f;
- Fri, 06 Dec 2024 09:03:26 +0100 (CET)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-29e579b9e9aso1206089fac.1
- for <xen-devel@lists.xenproject.org>; Fri, 06 Dec 2024 00:03:32 -0800 (PST)
+ id 55523615-b3a9-11ef-99a3-01e77a169b0f;
+ Fri, 06 Dec 2024 09:08:54 +0100 (CET)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-29e59db8d58so1282714fac.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Dec 2024 00:08:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,47 +40,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9230b1c9-b3a8-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 55523615-b3a9-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1733472211; x=1734077011; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1733472538; x=1734077338; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s9WuLxGnWqMHLUGy8xvZb0nPWni3GmQT6rbbqKA64U4=;
-        b=um4u6IW8ByoP7nQL7M/Q5ouK7EqHFVUdEFPCN5q807RKOSzmssMqOFKktDQy6GBQEa
-         6PoQheYZb8Fcdjsrrr3jghKoGNnHexwHiOedWjzxbObiI9RQ9VqvcIJDL6+HAz9p4cRQ
-         GpsJtXlyw22wzlxsZ2gPNg37dhdpeli3uXiA2xy9Nd1SNHS24wYRiZuqV4q5AXAopm82
-         aZMOq+WCabO65KoN3pJPcyfjYOqP8KT9fofodRYM44K6yP9Hyl+u2tSP+0JhmsxelDmQ
-         u7vGD4u76hsKMwvk5Xz0zUpL7GUDnCjQP/ofTbc000hRjKT7kdCDvrAsIx4Z6FUcspg+
-         Jiuw==
+        bh=wJtk4S31GHBpWXy2Qd+rQtajgw7zqTCvAuIy9qxvuUM=;
+        b=xri5MIcbW4W3V809l/3eW4f5xldu8GV0aiPOIoOz7VDio7Y29h6ZqRRkEIsD4cwA1/
+         h7p0Ky66rgrx09e04PVyVXoOpQ71nGUX2USv3scwWSHz5CbZc3sGinrwOHuLeo8eETot
+         TZMqFv/y0uPfV5FNEFSCsf2jnJwtbw8LEq9kK1SQ1Qdcr6PimPsIWdXszsvSr4KZxJJZ
+         5rXT1zGQPw6ekv+WTiT9Qwqzx5IpUZvavd8/xfk22+TAikTOefcheUwd+U6u1aBncbAA
+         eyBQHWoDS+0AWeNGGmEw+1IoHehJeHgyN/o1QFSD1y5Nm2DDMkEylZqzd7ozDMDaiq46
+         6B2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733472211; x=1734077011;
+        d=1e100.net; s=20230601; t=1733472538; x=1734077338;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=s9WuLxGnWqMHLUGy8xvZb0nPWni3GmQT6rbbqKA64U4=;
-        b=djicUkPrzvbUYBzyZ2ncf9INLpyDTYq7JNG+JaNklS+dq2ctIJEDrabXgILahuTm1U
-         BpZJXyhl8f4hcNp5a5ogsni7I3f7VCdkT7HjCNuC8jIUera4i7j0IQtVES1/i8p12OvS
-         Ppzmy2HalsW4vjrAPpRuCYhUfdoOA1UXzbeNxEXcfAVMtNkcoh2wnNX0KrFr3rW9GaPf
-         iNRX9tf0rzDu8/tt+7sUtAiBc/el7qeo0gynJlzdV5Afhr4BLHzD2WQWPQ+kEdE5SMLy
-         tBX/99TtAy+jULAyP6JxxFGc8SPocPMl4uaPBpW/FgB0X4U57/dLhkv5fFPSlPg3wuid
-         LaVg==
-X-Gm-Message-State: AOJu0YwUD2Zw0rG6okNLvNHsI3yvaC4DgZY/e5NzMajh0pAeQXLsE/3n
-	PC2a0na1hf1rabKjG1NDePSJKeTRRxRyi50Ba0sFMpo0X1G97nJz5u2qk3cs/86iaT4JTqjUZ1z
-	68PbkYu0B47XRWk0cqp6Fp0mG3I4mrP8TJ3j48A==
-X-Gm-Gg: ASbGncv8hTfDEBP9Okc2rX2EGTDwsbkO6fDPd80agvi9gFyz3DpRP+N6q8ijdocQF+y
-	5AloN0EHEhTUl83qV3YQKFSsLw55Riy4=
-X-Google-Smtp-Source: AGHT+IEgHiObddcPtWJDCxFRQKMn4ZhJ25QMJAGBycxoGu2L94bXA4h7XwT+vwq4XzbGk+lUkklJCItE1LvtnXjx4vA=
-X-Received: by 2002:a05:6870:e97:b0:29e:5897:e9ed with SMTP id
- 586e51a60fabf-29f7355f123mr2193325fac.35.1733472210972; Fri, 06 Dec 2024
- 00:03:30 -0800 (PST)
+        bh=wJtk4S31GHBpWXy2Qd+rQtajgw7zqTCvAuIy9qxvuUM=;
+        b=BsQvA85Bkv6DiLBCcwV0BZyu+uhTN+I2+1TOcokI7rZkN8dlM5d2FEFhGVJtVolls2
+         iEO5QPXU8e0Vpnj1/TixjR20hVzHTxE8ttvwnBErHJ75J62JGuZs8hdB7WNEFNnp4r4B
+         damrL8jIGXNQ9XZN5TbZ9tQPPSqPGM5MLDGUgp8rhq3V9ZvR1TPW6EZXS6xweBbNth67
+         YL6juAp28YQj6JjltxwaMuPjF3TwfPmiZxkNNu/X/Cg98cb8sPaO0kTrznRMw3H0JFJ/
+         Gm3/3ejeUaXJBnslTZErr88O4XEvRu6/qiOQHdCjmXfxWiDD7yvNoI6iQBwMKhq/1cuL
+         cu1g==
+X-Gm-Message-State: AOJu0YzzIk9SjY8HuheZ3/HAyMevxekQhLhekfR/8QByuRV/W398tDnL
+	kjOk7pZ1pmvhBhBjvPovlulKOFVpz5axHZqdU7G0r5uQrtJI5O7JHUnA1sinUrvRJmBkMIuqiis
+	zLJuI6hDoZfalx0TdNsGnpj3v5gTH474U3DBykA==
+X-Gm-Gg: ASbGncs3JSg4f8p4/DzQZIaoFb6KDkMBCQPVABhcLA9V82jscisr+PJAdiOOkcvMlIR
+	cg8GJdfvlfsR8Xrdv/pLxjfjACGNPrKc=
+X-Google-Smtp-Source: AGHT+IF9UVBA4stT054vD2CesF+g2alBl2n8BaADsQu+Wr0+F3MkDnkx9+70r1F46epl9EgUKKOB06hvoZT9Urbu8Ks=
+X-Received: by 2002:a05:6870:ec9f:b0:297:24ad:402f with SMTP id
+ 586e51a60fabf-29f732dff69mr981277fac.12.1733472538330; Fri, 06 Dec 2024
+ 00:08:58 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1732702210.git.bertrand.marquis@arm.com> <8e7cf913eeba955f8ed6bced1cafdf264dcb4318.1732702210.git.bertrand.marquis@arm.com>
-In-Reply-To: <8e7cf913eeba955f8ed6bced1cafdf264dcb4318.1732702210.git.bertrand.marquis@arm.com>
+References: <cover.1732702210.git.bertrand.marquis@arm.com> <7b3dc2c98d01478d5ab03780932844ea980b7ae0.1732702210.git.bertrand.marquis@arm.com>
+In-Reply-To: <7b3dc2c98d01478d5ab03780932844ea980b7ae0.1732702210.git.bertrand.marquis@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 6 Dec 2024 09:03:19 +0100
-Message-ID: <CAHUa44GkZh5YC6wD2ac5w9Sk63EsQjryfaH5faHjwKZKF_H80g@mail.gmail.com>
-Subject: Re: [PATCH v3 09/10] xen/arm: ffa: Remove per VM notif_enabled
+Date: Fri, 6 Dec 2024 09:08:46 +0100
+Message-ID: <CAHUa44GNkyLAhYP4XdwKhJvfUdUxEGqHEAC=1u7f4s6O+Y2irw@mail.gmail.com>
+Subject: Re: [PATCH v3 10/10] xen/arm: ffa: Add indirect message support
 To: Bertrand Marquis <bertrand.marquis@arm.com>
 Cc: xen-devel@lists.xenproject.org, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
@@ -93,25 +93,22 @@ Hi Bertrand,
 On Wed, Nov 27, 2024 at 5:08=E2=80=AFPM Bertrand Marquis
 <bertrand.marquis@arm.com> wrote:
 >
-> Remove the per VM flag to store if notifications are enabled or not as
-> the only case where they are not, if notifications are enabled globally,
-> will make the VM creation fail.
-> Also use the opportunity to always give the notifications interrupts IDs
-> to VM. If the firmware does not support notifications, there won't be
-> any generated and setting one will give back a NOT_SUPPORTED.
+> Add support for FFA_MSG_SEND2 to send indirect messages from a VM to a
+> secure partition.
 >
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
 > Changes in v3:
-> - Add a comment explaining why it is ok to call bitmap destroy even if
->   bitmap create failed.
+> - in ffa_handle_msg_send2 use ffa_get_vm_id instead of a local variable
+>   to make sure that we use the right VM ID as source without having a
+>   potential solution for the VM to give a wrong identity.
 > Changes in v2:
 > - rebase
 > ---
->  xen/arch/arm/tee/ffa.c         | 17 +++--------------
->  xen/arch/arm/tee/ffa_notif.c   | 14 +++++---------
->  xen/arch/arm/tee/ffa_private.h |  2 --
->  3 files changed, 8 insertions(+), 25 deletions(-)
+>  xen/arch/arm/tee/ffa.c         |  5 ++++
+>  xen/arch/arm/tee/ffa_msg.c     | 50 ++++++++++++++++++++++++++++++++++
+>  xen/arch/arm/tee/ffa_private.h |  1 +
+>  3 files changed, 56 insertions(+)
 
 Looks good.
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
@@ -121,103 +118,120 @@ Jens
 
 >
 > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 8488fe6af9c0..04d2403415fe 100644
+> index 04d2403415fe..87775ed88ffd 100644
 > --- a/xen/arch/arm/tee/ffa.c
 > +++ b/xen/arch/arm/tee/ffa.c
-> @@ -169,8 +169,6 @@ static void handle_version(struct cpu_user_regs *regs=
-)
->
->  static void handle_features(struct cpu_user_regs *regs)
->  {
-> -    struct domain *d =3D current->domain;
-> -    struct ffa_ctx *ctx =3D d->arch.tee;
->      uint32_t a1 =3D get_user_reg(regs, 1);
->      unsigned int n;
->
-> @@ -218,16 +216,10 @@ static void handle_features(struct cpu_user_regs *r=
-egs)
->          ffa_set_regs_success(regs, 0, 0);
->          break;
->      case FFA_FEATURE_NOTIF_PEND_INTR:
-> -        if ( ctx->notif.enabled )
-> -            ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0);
-> -        else
-> -            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0);
->          break;
->      case FFA_FEATURE_SCHEDULE_RECV_INTR:
-> -        if ( ctx->notif.enabled )
-> -            ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID, =
-0);
-> -        else
-> -            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID, 0);
->          break;
->
->      case FFA_NOTIFICATION_BIND:
-> @@ -236,10 +228,7 @@ static void handle_features(struct cpu_user_regs *re=
-gs)
->      case FFA_NOTIFICATION_SET:
->      case FFA_NOTIFICATION_INFO_GET_32:
->      case FFA_NOTIFICATION_INFO_GET_64:
-> -        if ( ctx->notif.enabled )
-> -            ffa_set_regs_success(regs, 0, 0);
-> -        else
-> -            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        ffa_set_regs_success(regs, 0, 0);
->          break;
->      default:
->          ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-> index 4b3e46318f4b..21b9e78f6399 100644
-> --- a/xen/arch/arm/tee/ffa_notif.c
-> +++ b/xen/arch/arm/tee/ffa_notif.c
-> @@ -405,7 +405,6 @@ void ffa_notif_init(void)
->
->  int ffa_notif_domain_init(struct domain *d)
->  {
-> -    struct ffa_ctx *ctx =3D d->arch.tee;
->      int32_t res;
->
->      if ( !notif_enabled )
-> @@ -415,18 +414,15 @@ int ffa_notif_domain_init(struct domain *d)
->      if ( res )
->          return -ENOMEM;
->
-> -    ctx->notif.enabled =3D true;
-> -
->      return 0;
->  }
->
->  void ffa_notif_domain_destroy(struct domain *d)
->  {
-> -    struct ffa_ctx *ctx =3D d->arch.tee;
-> -
-> -    if ( ctx->notif.enabled )
-> -    {
-> +    /*
-> +     * Call bitmap_destroy even if bitmap create failed as the SPMC will
-> +     * return a DENIED error that we will ignore.
-> +     */
-> +    if ( notif_enabled )
->          ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
-> -        ctx->notif.enabled =3D false;
-> -    }
->  }
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index 02162e0ee4c7..973ee55be09b 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -281,8 +281,6 @@ struct ffa_mem_region {
+> @@ -101,6 +101,7 @@ static const struct ffa_fw_abi ffa_fw_abi_needed[] =
+=3D {
+>      FW_ABI(FFA_MEM_RECLAIM),
+>      FW_ABI(FFA_MSG_SEND_DIRECT_REQ_32),
+>      FW_ABI(FFA_MSG_SEND_DIRECT_REQ_64),
+> +    FW_ABI(FFA_MSG_SEND2),
 >  };
 >
->  struct ffa_ctx_notif {
-> -    bool enabled;
-> -
->      /*
->       * True if domain is reported by FFA_NOTIFICATION_INFO_GET to have
->       * pending global notifications.
+>  /*
+> @@ -195,6 +196,7 @@ static void handle_features(struct cpu_user_regs *reg=
+s)
+>      case FFA_PARTITION_INFO_GET:
+>      case FFA_MSG_SEND_DIRECT_REQ_32:
+>      case FFA_MSG_SEND_DIRECT_REQ_64:
+> +    case FFA_MSG_SEND2:
+>          ffa_set_regs_success(regs, 0, 0);
+>          break;
+>      case FFA_MEM_SHARE_64:
+> @@ -275,6 +277,9 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
+s)
+>      case FFA_MSG_SEND_DIRECT_REQ_64:
+>          ffa_handle_msg_send_direct_req(regs, fid);
+>          return true;
+> +    case FFA_MSG_SEND2:
+> +        e =3D ffa_handle_msg_send2(regs);
+> +        break;
+>      case FFA_MEM_SHARE_32:
+>      case FFA_MEM_SHARE_64:
+>          ffa_handle_mem_share(regs);
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> index ae263e54890e..ee594e737fc7 100644
+> --- a/xen/arch/arm/tee/ffa_msg.c
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -12,6 +12,15 @@
+>
+>  #include "ffa_private.h"
+>
+> +/* Encoding of partition message in RX/TX buffer */
+> +struct ffa_part_msg_rxtx {
+> +    uint32_t flags;
+> +    uint32_t reserved;
+> +    uint32_t msg_offset;
+> +    uint32_t send_recv_id;
+> +    uint32_t msg_size;
+> +};
+> +
+>  void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t=
+ fid)
+>  {
+>      struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
+> @@ -78,3 +87,44 @@ out:
+>                   resp.a4 & mask, resp.a5 & mask, resp.a6 & mask,
+>                   resp.a7 & mask);
+>  }
+> +
+> +int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
+> +{
+> +    struct domain *src_d =3D current->domain;
+> +    struct ffa_ctx *src_ctx =3D src_d->arch.tee;
+> +    const struct ffa_part_msg_rxtx *src_msg;
+> +    uint16_t dst_id, src_id;
+> +    int32_t ret;
+> +
+> +    if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
+> +        return FFA_RET_NOT_SUPPORTED;
+> +
+> +    if ( !spin_trylock(&src_ctx->tx_lock) )
+> +        return FFA_RET_BUSY;
+> +
+> +    src_msg =3D src_ctx->tx;
+> +    src_id =3D src_msg->send_recv_id >> 16;
+> +    dst_id =3D src_msg->send_recv_id & GENMASK(15,0);
+> +
+> +    if ( src_id !=3D ffa_get_vm_id(src_d) || !FFA_ID_IS_SECURE(dst_id) )
+> +    {
+> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> +        goto out_unlock_tx;
+> +    }
+> +
+> +    /* check source message fits in buffer */
+> +    if ( src_ctx->page_count * FFA_PAGE_SIZE <
+> +         src_msg->msg_offset + src_msg->msg_size ||
+> +         src_msg->msg_offset < sizeof(struct ffa_part_msg_rxtx) )
+> +    {
+> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> +        goto out_unlock_tx;
+> +    }
+> +
+> +    ret =3D ffa_simple_call(FFA_MSG_SEND2,
+> +                          ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0, 0, =
+0);
+> +
+> +out_unlock_tx:
+> +    spin_unlock(&src_ctx->tx_lock);
+> +    return ret;
+> +}
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 973ee55be09b..d441c0ca5598 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -359,6 +359,7 @@ void ffa_handle_notification_get(struct cpu_user_regs=
+ *regs);
+>  int ffa_handle_notification_set(struct cpu_user_regs *regs);
+>
+>  void ffa_handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t=
+ fid);
+> +int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs);
+>
+>  static inline uint16_t ffa_get_vm_id(const struct domain *d)
+>  {
 > --
 > 2.47.0
 >
