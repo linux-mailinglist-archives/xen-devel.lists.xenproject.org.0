@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5310F9E9B56
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 17:14:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851607.1265656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61ED99E9B66
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 17:17:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.851621.1265666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKgOx-0000iJ-1G; Mon, 09 Dec 2024 16:14:27 +0000
+	id 1tKgRp-0001JX-FC; Mon, 09 Dec 2024 16:17:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851607.1265656; Mon, 09 Dec 2024 16:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 851621.1265666; Mon, 09 Dec 2024 16:17:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKgOw-0000go-Uo; Mon, 09 Dec 2024 16:14:26 +0000
-Received: by outflank-mailman (input) for mailman id 851607;
- Mon, 09 Dec 2024 16:14:26 +0000
+	id 1tKgRp-0001HI-Bb; Mon, 09 Dec 2024 16:17:25 +0000
+Received: by outflank-mailman (input) for mailman id 851621;
+ Mon, 09 Dec 2024 16:17:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oUxd=TC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKgOw-0000gg-BO
- for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 16:14:26 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1tKgRo-0001HC-2J
+ for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 16:17:24 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8822253-b648-11ef-a0d5-8be0dac302b0;
- Mon, 09 Dec 2024 17:14:25 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-385e0e224cbso2346717f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 08:14:25 -0800 (PST)
+ id 1281ab45-b649-11ef-a0d5-8be0dac302b0;
+ Mon, 09 Dec 2024 17:17:23 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-385d7b4da2bso3837031f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 08:17:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-725e59ec54esm2902988b3a.85.2024.12.09.08.14.20
+ d2e1a72fcca58-725e054b3bbsm3257948b3a.42.2024.12.09.08.16.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Dec 2024 08:14:23 -0800 (PST)
+ Mon, 09 Dec 2024 08:16:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8822253-b648-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 1281ab45-b649-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733760865; x=1734365665; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733761042; x=1734365842; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4KNYZ7a2I2dbgKZ1H8TKiU7KiDZpr7dlCDtIM0BRtjQ=;
-        b=MHTOmHH77TyE7KfmvmRZ585ekxXST92HTUbtbrShe/JYjJdghwpn+iWTTD4MwpLPqS
-         X26hU+/o/KhJCqQoGIZTmS41Q0npjPHTLvDX9NCv8lNgNcOsdibapdhoSSgA9evdrygi
-         GlNmxHEd9aN9wHEj/pj0hELRSWMWw3yiU8Asl8O5Ukkw05aI0vqDybScutG0uBJo3HQo
-         t/Sae/bZ6wNSrspGHKHNzX/v5LaYtZw60sytZwWZCyZQrX7Gk3wDmfpN+fYRRrCOQOM3
-         25VZ3qFtPRpk5LZpxYFfAw2UNg+14A8J6bgFDXGWzL44HhXL1aPedR5kq0BElp3GuvkH
-         KV+A==
+        bh=kgZBGhZwbc3YtaGwh0Sp7Dx1oAkn5DYtUhx1DnSqQPg=;
+        b=QPrtKJV2yxRcED8oHXyUO9xqzVzmifbbxie6UzCjHHpyGMDgc1q3N/hyDB/7y127OO
+         Ej8mRKRHOrqPZg4QpA1VcW1D4s+TNk+TUJ50rcHeXrO78ZHv6qnbEUF1Bym+gV2Mifwy
+         vTw1++uRVEoSseYhIco9mgC+d5f39FJgwF2a/OUt/evIQfLDUB6QEgbnfbq5nDpIwezW
+         Sb+E70hukh7kAxja6ItWKkaF0DBhH4YiclXe4OPo5cx/P2DdJiOxjn5cr+z7grDg5Zm1
+         EF17QZ96UR57OsDirGTBASngkrJIWXe8Q9RA2+gX5mCFmobd0mvl7LjGbTpqUzVDi8Fw
+         S3sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733760865; x=1734365665;
+        d=1e100.net; s=20230601; t=1733761042; x=1734365842;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4KNYZ7a2I2dbgKZ1H8TKiU7KiDZpr7dlCDtIM0BRtjQ=;
-        b=ojGEjP3wHJ3M307h7X7niW7etOTOYjj0hk9X1yIRrQsn0VtGqp/BeIRdkwSdFI1djv
-         qD8VY30ip3Rcu+TPCmDqXCJNevf3wlbCk/wtYlAD6wEjsbZ/ICQl78bDukXjDJCiEqVz
-         K/4Pi+pHBw+hKsY3laeZJaK/c99cEcm5+6mqTRN7R1TTyqVuvArptsFKhi7cF3tVyWWS
-         7BVd3S6BQPwmkyYkYHIk1hyq2sVUE2NEiVbed+3Clb5OwQA4lUVQTxGeVSRupT27aeKe
-         ulU00Ojn3deM8UndKeN09GOKC7+lN5tEwVwPTL/4Xrwq5upX/XkrzxghvTOlpJSx59hF
-         frvw==
-X-Forwarded-Encrypted: i=1; AJvYcCWiYb4wyhK8ABttmrHqA7J3gLrnXG1RIyLQKR/TNiD6APsPn+OySy8new8A3oUvS8F9zzMIRatpqgg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzccC9FF/3xH9LgYDI4agdHHxRKrRhJBZ6WQZHHjeQuvSeLoGZN
-	XQlGqTEMpSoYluKV5TE+b3AjdabXtlNnVdtn8MVvF3QfVUjm4KTLTbD3s0hl4A==
-X-Gm-Gg: ASbGncs42lfAYJH+K8camyDV1VxEaOPpGajtpQVqFEityrWArhVe/EaxceobuGoitbe
-	a4GYnTyplpnpB0rn2rF4w29PXJhOFy2nEmAeEivVWPprzoWfj+XGl3MDTyD2Y6I8OBOef8zaVDx
-	Am97tZb22Puc104B4NZL+syq8HkIQRrx8GGV1C7pz8X797FwInHSNnVKrVUeR8CCKklMEhKmNm/
-	60vAJmtkSt+0Dyu5gQzThMYgLHW9xiwidlwcVxBQZLdnkAbh0S/JRFM+5VUxZso4+vEm85CAzNB
-	Nth+KwZJbTcn0kPVarQMshxPM2mFBthuq2c=
-X-Google-Smtp-Source: AGHT+IEDkqxHYEkoxi4V34u1EsaX3FathzMs6FKXU5lBOq87a8WdDlxtTFcU3xKN+w/Lols4fhlHPw==
-X-Received: by 2002:a05:6000:2a7:b0:386:3d16:9609 with SMTP id ffacd0b85a97d-386453dbb27mr907422f8f.17.1733760863481;
-        Mon, 09 Dec 2024 08:14:23 -0800 (PST)
-Message-ID: <c9f934ac-b142-4161-8164-7b0273e610b4@suse.com>
-Date: Mon, 9 Dec 2024 17:14:17 +0100
+        bh=kgZBGhZwbc3YtaGwh0Sp7Dx1oAkn5DYtUhx1DnSqQPg=;
+        b=C9q1CPuyJX1mtycZ9XlrlTbRsuIi9cP40b6U78U8R6YJnInOx1ReG9CDKwu29EmSm8
+         p1pxFLXP9wKuqxgw1Lj78OtoqlyySrdqpeli2hr9AlhLfG/PzrXZYs4oCfq5SYnT7xUP
+         tBBkbnGIwX9uUGHUAi0WAvCFD7pFL0cKhKIWNQETFL9IDtX8xwR1wI5x0KiVH/ad6LWG
+         A83+f5p8rfIe2I9d1m5L5wbfc9D2iUTyq9DvnIlX4zKgGkQrcfTbqGH01yKfEUODfK70
+         dSCuhmQqVF5IAPgSEKpyxNXrHsX5Xn8cv0O5dib5F9oLA34b+wU8gfQYY6/pJq1B/kYk
+         7KWA==
+X-Forwarded-Encrypted: i=1; AJvYcCXUmqLJGDX4vLH5gF+SCqJRhGHzFhBCcpp8mpIaKhqSdQIdVkcs/kMzL/6PmxCE5rAtygY7iDcLm3o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+TxWwCPZwP36j/WvziaguCXLaCQLK3dNwhsJtWlMQ7FYm9s6y
+	E1evSbGTl/3ywY3hFpKKX9JRWGVL+V2L2RvBpsHmqdFRwwvFBK8GrAQEQ739HA==
+X-Gm-Gg: ASbGncth2cqQtd/IiwzdEOGiDq7MR0dFc/7Q/IPoIWS/AK8VaFXlLjqoYKCirJzqmno
+	8ExrBlcXPkMdD9J8LKRYxMEJ1bHuirqiIJwkSNp0K7uvIKUDzeVhdLuyEJVIcTRFEyqdmUW0YEh
+	qtkyD69NzMI/iolPGWlYQgbeBEk3prej0saVyotbaDM5EzAwUWSQFVThgOKDG6c7jtGhVa+dj79
+	BLJKVDVKiShKoosoiqEpIX7PvziFUgb0Sn/yQ7KtRH/UrPxVVf98nn/PDhUN+HeNPEa8RAn/lPX
+	Etia8dAaUni/uYy8G/q3P7N2xAL8riqqBGI=
+X-Google-Smtp-Source: AGHT+IGaWggHeLj4QU/2f1Mg8nIO+RF40XpSELE6qVsekFnWkJk05kr/mElKFOk9baJStEAdK/drpQ==
+X-Received: by 2002:a5d:584b:0:b0:386:3672:73c7 with SMTP id ffacd0b85a97d-386453d931amr1350434f8f.17.1733761012731;
+        Mon, 09 Dec 2024 08:16:52 -0800 (PST)
+Message-ID: <fb3bafe4-73f3-4aa1-981a-8faff5f92f9f@suse.com>
+Date: Mon, 9 Dec 2024 17:16:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/13] x86/fpu: Map/umap xsave area in
- vcpu_{reset,setup}_fpu()
+Subject: Re: [PATCH v2 05/13] x86/xstate: Map/unmap xsave area in
+ xstate_set_init() and handle_setbv()
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
- <20241105143310.28301-5-alejandro.vallejo@cloud.com>
+ <20241105143310.28301-6-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,7 +119,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241105143310.28301-5-alejandro.vallejo@cloud.com>
+In-Reply-To: <20241105143310.28301-6-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -129,6 +129,20 @@ On 05.11.2024 15:33, Alejandro Vallejo wrote:
 > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
+with ...
 
+> --- a/xen/arch/x86/xstate.c
+> +++ b/xen/arch/x86/xstate.c
+> @@ -993,7 +993,13 @@ int handle_xsetbv(u32 index, u64 new_bv)
+>  
+>          clts();
+>          if ( curr->fpu_dirtied )
+> -            asm ( "stmxcsr %0" : "=m" (curr->arch.xsave_area->fpu_sse.mxcsr) );
+> +        {
+> +            /* has a fastpath for `current`, so there's no actual map */
+> +            struct xsave_struct *xsave_area = VCPU_MAP_XSAVE_AREA(curr);
 
+... comment style adhered to (capital 'H').
+
+Jan
 
