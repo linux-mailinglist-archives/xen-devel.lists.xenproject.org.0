@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 625B69E9BF8
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 17:41:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851728.1265755 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 666C29E9C23
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 17:52:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.851741.1265766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKgoz-0002Kj-G6; Mon, 09 Dec 2024 16:41:21 +0000
+	id 1tKgzV-0004RK-Ef; Mon, 09 Dec 2024 16:52:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851728.1265755; Mon, 09 Dec 2024 16:41:21 +0000
+Received: by outflank-mailman (output) from mailman id 851741.1265766; Mon, 09 Dec 2024 16:52:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKgoz-0002JE-DI; Mon, 09 Dec 2024 16:41:21 +0000
-Received: by outflank-mailman (input) for mailman id 851728;
- Mon, 09 Dec 2024 16:41:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tKgzV-0004PQ-BY; Mon, 09 Dec 2024 16:52:13 +0000
+Received: by outflank-mailman (input) for mailman id 851741;
+ Mon, 09 Dec 2024 16:52:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oUxd=TC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKgoy-0002J6-IA
- for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 16:41:20 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6abbf184-b64c-11ef-a0d5-8be0dac302b0;
- Mon, 09 Dec 2024 17:41:19 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-385e0e224cbso2362311f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 08:41:19 -0800 (PST)
+ id 1tKgzT-0004PI-H0
+ for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 16:52:11 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ee023b09-b64d-11ef-99a3-01e77a169b0f;
+ Mon, 09 Dec 2024 17:52:09 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3862df95f92so2366383f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 08:52:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21631bd2c2dsm39345285ad.263.2024.12.09.08.41.16
+ d9443c01a7336-21627260937sm45821495ad.103.2024.12.09.08.52.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Dec 2024 08:41:18 -0800 (PST)
+ Mon, 09 Dec 2024 08:52:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6abbf184-b64c-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: ee023b09-b64d-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733762479; x=1734367279; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733763129; x=1734367929; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4KNYZ7a2I2dbgKZ1H8TKiU7KiDZpr7dlCDtIM0BRtjQ=;
-        b=KPdBnifDNN+4YW696QHGCPkmqEh4ZaG58EjqQwejwyb/4LFpG0JyPsOiqs1f9tqkF0
-         GB6f7Gyq6KbCyPeEVLycuSM+s/hOomLk7vP6EAYImMIBbz8uluO0yIBZ4BnFWIgmEkXr
-         3+kTuscVYF5Crzf2aOaROdX3yzp8BYYvymt9boAC3w04MIK9y5hQcJJnOwn3iM6CVfgt
-         7zY5o2N0jRzN2G+yR2PyPZIeZdMlwdEKqpK9e1kymeBiWrbnu50hPbgLkyN/+NCGwK3F
-         PRlHtWhZYMjPKoZM0R0AWKrF7JJQ8897a0MheuDAHJ4Bt0xXSQdXbyS3gRGX6B/Oftsw
-         K4dQ==
+        bh=Oe7SIAzJ7RU6DukID+TlaLefZM63Iz7E9Xmln4k3LXc=;
+        b=UBV1GmmWYQYVB6xSbeFivlnM3c9tIRve4yZDlVsTGDmCet61lHDqH/L2R3LT7uByeF
+         U1BNRQgWNfAsPOHzJK20HNSs/4JCxg9st6Nc/mKLHIPd5WII5DyXbRAb31WdRXvFO5VT
+         DQILlkIn1k/cXrLGCBPLnHgJgEUj4VerF/MycLgGNcKawOwY+laV+9fLDpA6kKAioGo4
+         OGTn92YH940DAmXypY6W8g2FNI5UqSGPE6wFzF+Ve6ZlgIFLxmmaiDAbZ3udrsId3H29
+         jSwxbBpSxTHvnkuD8KXil8HtLo8oD+TWBacqR2dd9nyJqgscJq0MbjtLNDR53oaf/jqK
+         iRBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733762479; x=1734367279;
+        d=1e100.net; s=20230601; t=1733763129; x=1734367929;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4KNYZ7a2I2dbgKZ1H8TKiU7KiDZpr7dlCDtIM0BRtjQ=;
-        b=xAu485S/ZmDU/gTeVIwfj4iO5RJQtHG3m0sCr/8NtDMIDf4GysjQ6EgYq1/W2LZdEE
-         O1MCAPRk2pIVUgZC6yEYnOPkhiJB0BrwR2wArFkaZGLkzwZCNaQN5xmQtZ6M9AAo+F+2
-         FsNlpmvUU0SYQCig6j+uF5hzgU3HGDYpf5oCfjfVu9vaE+2ockW4VjmTD9TIDQ3dep7+
-         +n1Fun2quVX9VEwyOF3lbGBurnXHC5oEaUGBTMTgtHPZoX6F6VQJyeoViqqUEBNYd6GL
-         femeamhkc0VlyQVYllpjp4Cl3DLGvUlrDUTgBpiFE8Yh/YFqGae/2FWhX0sOtO6fANmc
-         VEow==
-X-Forwarded-Encrypted: i=1; AJvYcCVytweop8XiE8+qTSnGleaUv1dBikyQuG5XGgi66kSxQ52WdkxPrUQ1VPS4+PPjU/5GRysGhfNPUAk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyBtZZgYIATN5yB5R6QVJSAAgzBwemlZjcPBnXgU3zQTyAYC6mH
-	h/EdHMTkQssRVAs9YGS0arf2AhmqqaDk4H//g/UOLh3msckq/i/3U+KlsBG5Ng==
-X-Gm-Gg: ASbGncutuxDMLBDyu96cRxFVKl+z06la1dxRqEwxLHdASkvhA8iwS5rHQhooPODD1fE
-	Zl1h+7hKtUPfRXyGJVwPpbVcNmoV7TAkYTQErLh19xg0OK/KREhReiG9Jd9sXxsMjcX+jjSfGFo
-	8SmVwPySw/4lf9jtAZCyNYXTH97uf97zYDOXo/cI4NveZI7tghacoJbKo+k+3GsaPPl6YDTv3aX
-	pgW0Ng/UmCWdTpcowcnvE16ec39+b/NMO13SZOzOPUL4EyAv5wg80s+FkoJXwOip3P1/3Ta4tZv
-	enRhs43F8WpfrhgMJOGqpY4RpSGH88UpTPY=
-X-Google-Smtp-Source: AGHT+IGSswVdTz6RYfKM7Udf1KRZagQ99uGclDqxsm93sTcIJLE3syDKgE/xX7b8s4q7Ps0AkQwvsQ==
-X-Received: by 2002:a05:6000:2c3:b0:385:fae4:424e with SMTP id ffacd0b85a97d-386453fe4dfmr1028394f8f.52.1733762479247;
-        Mon, 09 Dec 2024 08:41:19 -0800 (PST)
-Message-ID: <1eb18f87-eb50-454b-89f4-5e7431fde285@suse.com>
-Date: Mon, 9 Dec 2024 17:41:13 +0100
+        bh=Oe7SIAzJ7RU6DukID+TlaLefZM63Iz7E9Xmln4k3LXc=;
+        b=bqV48R6Apa0X3NqQOu8UqhGn4BS8AJDuGcRbVmpmDI5u9KPJt2bYTx/0KvbLEoJXLD
+         NJ/Zto/TDk1h4b9LdEurw31OLL6s90uoPzJ9lbx5DPhfOge5ww4e4H5brimgl0Qi2ZZH
+         vaGbGxBpr3fUW/RiaXFZoNmwdOSJr0QQtrHGUJP8gfMANwr2ls8fhYZHX/azdvL3ovK4
+         J3LX36+4RXzaX/RF21fWqsfqXu2U3AeHQ7Q2ck8fOpuNfUPbZ7Lm5KwwncYtIiaWfOfK
+         ibsB3wHTdijJAquvrZ5lJE0ldfKSPANagXkbtviaOfsTgOwiuU+O7RS5gzlY5nX+mAts
+         6oog==
+X-Forwarded-Encrypted: i=1; AJvYcCUOrAY3ZcHW1NThUvWj6W+yoykWlO8J4fpZ+MBr/8WwCUA/HiTKGcbl+Nz1zT6Z4KtmKd7guzBeyZM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQbxrjQL4i17kSILNk6T7GgfVA5kXxekm+YsVO18PzhUF7dfiz
+	gISwkXX65jg5KQaHrqIS8jaHQdPGHfD6fO9dc7p86MK7nBX83nLyiPYH1ZoPDA==
+X-Gm-Gg: ASbGncv8dLi4OPhDEchh1Vx9j0NP7k+UyzmAdz2eJ+Zfk0KOY15nEQrs5oOqZagfydL
+	Bl3UwGRUotYJv4G55122EPFQb5tNxKux+PNTe+SGi/95RgHUCb+tvqfDUGNfnjCwINRLBx/zJ/2
+	2h9Cb8ucw7srCslmYuxfbU8NWYbbugGn/FiUwm1/WS1BnMrVFC7/VPw83T5vQFV5zteU0f3aB+S
+	zPE5uoU/JBch2GzKLqtEKBjX4/jyJLJFUpBF6/pc8OSkBh2tsdXNLgnS0VjlhRHyz2cMUouhksX
+	U0Fg6N+S9Blb8VUDrbD8IErf4J6JgaxNMmI=
+X-Google-Smtp-Source: AGHT+IGOubpyw9dAdIj8DXacrzzYXTafP+GlDAuI7a4WoomOhRf/3i7Stzg9gzQ4lpbvhjMzSlsmQA==
+X-Received: by 2002:a5d:64cb:0:b0:386:3cfa:62ad with SMTP id ffacd0b85a97d-3863cfa63acmr4611378f8f.1.1733763128911;
+        Mon, 09 Dec 2024 08:52:08 -0800 (PST)
+Message-ID: <8acde5e5-7972-4f7a-ae31-92c3f323669c@suse.com>
+Date: Mon, 9 Dec 2024 17:52:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] x86/xstate: Make xstate_all() and
- vcpu_xsave_mask() take explicit xstate
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
- <20241105143310.28301-14-alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH v2 4/7] xen: add bitmap to indicate per-domain state
+ changes
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241206130221.17773-1-jgross@suse.com>
+ <20241206130221.17773-5-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,15 +118,102 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241105143310.28301-14-alejandro.vallejo@cloud.com>
+In-Reply-To: <20241206130221.17773-5-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.11.2024 15:33, Alejandro Vallejo wrote:
-> No functional change.
+On 06.12.2024 14:02, Juergen Gross wrote:
+> Add a bitmap with one bit per possible domid indicating the respective
+> domain has changed its state (created, deleted, dying, crashed,
+> shutdown).
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> Registering the VIRQ_DOM_EXC event will result in setting the bits for
+> all existing domains and resetting all other bits.
+> 
+> Resetting a bit will be done in a future patch.
+> 
+> This information is needed for Xenstore to keep track of all domains.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+What I'm still missing is at least mention of the global-ness of all of
+this, and why that's deemed okay for now.
 
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -138,6 +138,60 @@ bool __read_mostly vmtrace_available;
+>  
+>  bool __read_mostly vpmu_is_available;
+>  
+> +static DEFINE_SPINLOCK(dom_state_changed_lock);
+> +static unsigned long *dom_state_changed;
+> +
+> +int domain_init_states(void)
+> +{
+> +    const struct domain *d;
+> +    int rc = -ENOMEM;
+> +
+> +    spin_lock(&dom_state_changed_lock);
+> +
+> +    if ( dom_state_changed )
+> +        bitmap_zero(dom_state_changed, DOMID_FIRST_RESERVED);
+> +    else
+> +    {
+> +        dom_state_changed = xzalloc_array(unsigned long,
+> +                                          BITS_TO_LONGS(DOMID_FIRST_RESERVED));
+
+New code wants to use xvmalloc() et al.
+
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -485,20 +485,27 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>      if ( (v = domain_vcpu(d, vcpu)) == NULL )
+>          return -ENOENT;
+>  
+> +    if ( virq == VIRQ_DOM_EXC )
+> +    {
+> +        rc = domain_init_states();
+> +        if ( rc )
+> +            goto out;
+> +    }
+> +
+>      write_lock(&d->event_lock);
+>  
+>      if ( read_atomic(&v->virq_to_evtchn[virq]) )
+>      {
+>          rc = -EEXIST;
+>          gdprintk(XENLOG_WARNING, "EVTCHNOP failure: error %d\n", rc);
+> -        goto out;
+> +        goto unlock;
+>      }
+>  
+>      port = rc = evtchn_get_port(d, port);
+>      if ( rc < 0 )
+>      {
+>          gdprintk(XENLOG_WARNING, "EVTCHNOP failure: error %d\n", rc);
+> -        goto out;
+> +        goto unlock;
+>      }
+>  
+>      rc = 0;
+> @@ -524,9 +531,13 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>       */
+>      write_atomic(&v->virq_to_evtchn[virq], port);
+>  
+> - out:
+> + unlock:
+>      write_unlock(&d->event_lock);
+>  
+> + out:
+> +    if ( rc )
+> +        domain_deinit_states();
+> +
+>      return rc;
+>  }
+
+Renaming the prior label (and hence needing to fiddle with existing goto-s)
+feels a little fragile. How about keeping "out" as is and introducing "deinit"
+or some such?
+
+Jan
 
