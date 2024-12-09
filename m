@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A88549E98DF
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 15:30:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851428.1265501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 922789E9913
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 15:36:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.851438.1265511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKelj-0000sc-Gf; Mon, 09 Dec 2024 14:29:51 +0000
+	id 1tKerL-0002qu-43; Mon, 09 Dec 2024 14:35:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851428.1265501; Mon, 09 Dec 2024 14:29:51 +0000
+Received: by outflank-mailman (output) from mailman id 851438.1265511; Mon, 09 Dec 2024 14:35:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKelj-0000q6-Dx; Mon, 09 Dec 2024 14:29:51 +0000
-Received: by outflank-mailman (input) for mailman id 851428;
- Mon, 09 Dec 2024 14:29:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oUxd=TC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKeli-0000q0-6s
- for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 14:29:50 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ae59508-b63a-11ef-99a3-01e77a169b0f;
- Mon, 09 Dec 2024 15:29:48 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-434f80457a4so5982085e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 06:29:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-725e71ce821sm2733662b3a.183.2024.12.09.06.29.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Dec 2024 06:29:47 -0800 (PST)
+	id 1tKerL-0002oU-0X; Mon, 09 Dec 2024 14:35:39 +0000
+Received: by outflank-mailman (input) for mailman id 851438;
+ Mon, 09 Dec 2024 14:35:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UJmG=TC=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1tKerK-0002oO-1C
+ for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 14:35:38 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dad28a21-b63a-11ef-a0d5-8be0dac302b0;
+ Mon, 09 Dec 2024 15:35:37 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5d122cf8dd1so7223563a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 06:35:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +40,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ae59508-b63a-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: dad28a21-b63a-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733754588; x=1734359388; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2MlTmTWDs6VrTPaxU79Si5fl1PwiSEPiVUomIzVJ6dA=;
-        b=arZcyP06aLx3X2l+nmWhc+W0VdPxxk5hK1xDQsNN0RPJjg6YEEx1KBq2UfsyWdp/zE
-         JNgrYH7RfsiIjy77UO/Xb0qiu77CKiI4gzqR6M5j4Lht3rJ/G0axdl0vtBNnJOOkst8u
-         qN6f8Pjz/G+/MCTaAHM7Z58qcGV67l8wTYkUT4QS4LYNj86IOKRK2ySJB3mbUxM1lj5O
-         pi2CuNPpGuWRU72BpuFWottUF6Berp8MVwq82+7B60LHoiT2kC31SGDxIeFbOyoyMwYB
-         DAQD0w9w7t0tbDO82gFy0zZZoLuQEJR712+SKPB1wrK2VhbSmH5QpTZduaKUSW2dI39h
-         gNgQ==
+        d=cloud.com; s=cloud; t=1733754936; x=1734359736; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=MgJHBj8dWe6d+WY6U/eQkzjv4lbdNoswat5wV0xftN0=;
+        b=hQVQR/M2tPwiitbeNRG53277fzwoSgOrp8Ry+HNOnbrF29Id0cIFkd17WO/AkZWp6H
+         x+oNejMPu50MvSJbTQtFKuvw9h8uqN7xkM9b9EFzZbxAADqZJP99OOdvbC/sFi7ic/6/
+         mY67kduXxJHC69VORygS7hNqKNfz61dOLWgAI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733754588; x=1734359388;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2MlTmTWDs6VrTPaxU79Si5fl1PwiSEPiVUomIzVJ6dA=;
-        b=FMBEZwqpombwL2vubpjFp9ds465M6ElLvri4jMadr1jc2en51hZRxrHrScTGHBHunJ
-         9yH3WGxqFe1FKRp4mtaAXWD/f2RJ+90rKLHxezKnYuNexjCnlDjc39ENFPflCyAmYg24
-         xa1FKmls78F397aoRJt6P5Kb/XmU4Xz7xRnRN6vG3Ku6t3kCJttHh2ZyJiQrCDqYKzZv
-         06M+5GDqWcZRqvOP1HMzbDyL5tYdIQ/kJpWiugEGhZd9Md7NC3FYAQSU/ztqrp1fowh6
-         kdS1vD3UQbyw8G4OyBBzVl7aH86RNQZMHeO8jS7wODomb3ZllbAQVaJI1WsAcRF5hh3h
-         dIXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVy73kihom7GzuxDtk3WNvtCZVnXbUFU4cztvu7QsTfwlewJljQ5RbCt51enMxv/g/eJ86FWRtnh+g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTegRV0//J9YvnHuVpo5fWBemcMXER5f/5ejvDWTwIocxr/qgX
-	JK29k3fP0qdqBlrgJDO/+gRdNckNs/8QH0tqlaRkYduHspaPC3Ank0xu8RKw0A==
-X-Gm-Gg: ASbGncuvyWQrqrrZgGSTaoeSg3/y9MqO/SivcyI3+pMFf9h79jrsLhee6TLv/IaIqfc
-	rv8iqRhOU5H+FKT+4pKJW7HgxADsVUZizW1OXKDkiHBsUmXSvXLUzZlzVSOwvsQ3B6fIoyAeCpA
-	GDbb3sDz5ZJ/dfi0xmS6Dk6VPsxJ5zBoT5fW066TEIbXfk7RuntTQFYxe5uEDHKYHeXz2zFlOF8
-	ECH7JoEBaX/vLL2svZRb8IBNaxYlhR+mwty9RTIhFW9uEHxCVLnAqqJpme2eaVD937YBrT39DyH
-	7cTf2PlIrLyzKBl1y/0ull8xMbhNH4SZuXY=
-X-Google-Smtp-Source: AGHT+IGHTi5buNiVzOsovjRQgHKW1h3uDsUJdrOb9jadqUV7h7t0DcDXO5e91rh6NdChrlKyfrEE7g==
-X-Received: by 2002:a5d:5889:0:b0:386:3d33:a61a with SMTP id ffacd0b85a97d-3863d33a7d8mr3233896f8f.27.1733754587729;
-        Mon, 09 Dec 2024 06:29:47 -0800 (PST)
-Message-ID: <ba0280ef-c0a1-4521-b08c-a10098c8aaa0@suse.com>
-Date: Mon, 9 Dec 2024 15:29:40 +0100
+        d=1e100.net; s=20230601; t=1733754936; x=1734359736;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MgJHBj8dWe6d+WY6U/eQkzjv4lbdNoswat5wV0xftN0=;
+        b=jox+bzNOzae/M3q7BbbM7iV00gDBJjrwf56MXlLh2gNZoJSfNvrsUWMbhH/+cf2ou6
+         FWJZVB1fwfxlOJrZf2ixKykjrUyvvh8LZ7EOPujVfX4zWALm3mFIJduPVR8oUidoVeKl
+         lNWiUvqyszyPwT5g3KO2Sf6FggzniHm/EJGxlGs1/k6O4v015kgNJ8DajRrb7AJj2X9A
+         wm99ulNln+aO3sen3tmyKTN+kThQcW2l4XH0qQV0TtwLf845NodxRGJEvYhntETX6BGG
+         zZS7JSBPYoLmTwyObXorv5YEGCtdEM5mf046JgG0BLIfzqEq5ZAiCY0mWKmGhq5wCWUY
+         BU7A==
+X-Gm-Message-State: AOJu0YylEIRRZgt6ZhhYQyTMoSWClqXGneaUBVXVSHPEl5Wk9ioTlFtF
+	LR1S439jv8HjkjDcVnINEGrzF4SxnNYqWFsA9Cv2rUNaueJsOupewPBruU/0IUAdLlpgB1vdZuR
+	Wo2sUhdXhaYwf80nyleC8z0E8Vu5cqcJg8YShC3kW/weRfNn0jhQ=
+X-Gm-Gg: ASbGncvxzQi1JbAyPAbqmgW1b5BIx/cVqgWTtNovU86S8y1knrYJy/J6I3jzlGpnQFi
+	3pnvEaJaqhcLIC3r3SK3EiC7utxo83nnfWnb82COqXZI4bH23Sz6R99d5s36KzLfTUhgf9w==
+X-Google-Smtp-Source: AGHT+IELReHT6avVznhXJY7M6bz6KB4XMluedWzWmHuvu66Hc6YP1D2WPJzf7BLZVas6+sQVY8wO9bkWrOJzfudou3c=
+X-Received: by 2002:a05:6402:390a:b0:5d1:43e4:bcaf with SMTP id
+ 4fb4d7f45d1cf-5d3be4656bemr13941689a12.0.1733754935795; Mon, 09 Dec 2024
+ 06:35:35 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/6] xen/riscv: add {set,clear}_fixmap() functions for
- managing fixmap entries
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1732709650.git.oleksii.kurochko@gmail.com>
- <2badea2de39b7614d38a620d1b718478de1fc82c.1732709650.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2badea2de39b7614d38a620d1b718478de1fc82c.1732709650.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Mon, 9 Dec 2024 14:34:59 +0000
+Message-ID: <CAO-mL=xGGvJSyh2u8pv4ORtuB2mkCZzWrJ=02WUnZUsHSX4cPg@mail.gmail.com>
+Subject: Welcome Honda to the Xen Project Board
+To: xen-devel <xen-devel@lists.xenproject.org>, xen-announce@lists.xenproject.org, 
+	"committers @ xenproject . org" <committers@xenproject.org>, 
+	Xen Project Advisory Board <advisory-board@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000137f070628d747c8"
 
-On 27.11.2024 13:50, Oleksii Kurochko wrote:
-> Introduce set_fixmap() and clear_fixmap() functions to manage mappings
-> in the fixmap region. The set_fixmap() function maps a 4k page ( as only L0
-> is expected to be updated; look at setup_fixmap_mappings() ) at a specified
-> fixmap entry using map_pages_to_xen(), while clear_fixmap() removes the
-> mapping from a fixmap entry by calling destroy_xen_mappings().
-> 
-> Both functions ensure that the operations succeed by asserting that their
-> respective calls (map_pages_to_xen() and destroy_xen_mappings()) return 0.
-> A `BUG_ON` check is used to trigger a failure if any issues occur during
-> the mapping or unmapping process.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+--000000000000137f070628d747c8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Hi all,
 
-However, ...
+We're excited to announce our newest Advisory Board Member Honda, to the
+Xen Project.
 
-> @@ -433,3 +434,21 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
->  {
->      return pt_update(virt, INVALID_MFN, nr_mfns, PTE_POPULATE);
->  }
-> +
-> +/* Map a 4k page in a fixmap entry */
-> +void set_fixmap(unsigned int map, mfn_t mfn, unsigned int flags)
-> +{
-> +    int res;
-> +
-> +    res = map_pages_to_xen(FIXMAP_ADDR(map), mfn, 1, flags | PTE_SMALL);
-> +    BUG_ON(res != 0);
-> +}
+Since its foundation, Honda has been committed to "creating a society that
+is useful to people" by utilizing its technologies and ideas. Honda also
+focuses on environmental responsiveness and traffic safety, and continue to
+take on the challenge of realizing a sustainable future.
 
-... imo in such cases it is preferable to go without a local variable:
+I am sure that the community will agree that this is a huge step and
+achievement for our open source project. Honda's investment into supporting
+Xen means we are expanding our efforts to create a more secure and
+versatile hypervisor, with real world applications. Their commitment and
+partnership with Xen only increase the capabilities that our virtualization
+technology has achieved so far.
 
-    if ( map_pages_to_xen(FIXMAP_ADDR(map), mfn, 1, flags | PTE_SMALL) != 0 )
-        BUG();
+With Honda joining, their insights will help us navigate new challenges,
+expand our outreach to new contributors and enhance policies surrounding
+our community.
 
-Just to double check: Iirc this BUG would in particular trigger when trying
-to set a fixmap slot that was already set, and not intermediately cleared?
+Their unique perspective will be invaluable as we tackle goals for the
+future, and we=E2=80=99re thrilled to have their voice guiding our strategy=
+ and
+vision.
 
-Jan
+Please join us in giving a warm welcome to Honda! We=E2=80=99re eager to se=
+e how
+their leadership and technical teams will help shape the future of the Xen
+Project.
+
+Together, we=E2=80=99ll continue building a strong, inclusive, and innovati=
+ve
+community.
+
+Kelly Choi
+Community Manager
+Xen Project <https://xenproject.org/>
+
+--000000000000137f070628d747c8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi all,</div><div><br></div><div><div dir=3D"ltr" cla=
+ss=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">=
+We&#39;re excited to announce our newest Advisory Board Member Honda, to th=
+e Xen Project.<br><br>Since its foundation, Honda has been committed to &qu=
+ot;creating a society that is useful to people&quot; by utilizing its techn=
+ologies and ideas. Honda also focuses on environmental responsiveness and t=
+raffic safety, and continue to take on the challenge of realizing a sustain=
+able future.<br><br>I am sure that the community will agree that this is a =
+huge step and achievement for our open source project. Honda&#39;s investme=
+nt into supporting Xen means we are expanding our efforts to create a more =
+secure and versatile hypervisor, with real world applications. Their commit=
+ment and partnership with Xen only increase the capabilities that our virtu=
+alization technology has achieved so far.<br><br>With Honda joining, their =
+insights will help us navigate new challenges, expand our outreach to new c=
+ontributors and enhance policies surrounding our community.<br><br>Their un=
+ique perspective will be invaluable as we tackle goals for the future, and =
+we=E2=80=99re thrilled to have their voice guiding our strategy and vision.=
+<br><br>Please join us in giving a warm welcome to Honda! We=E2=80=99re eag=
+er to see how their leadership and technical teams will help shape the futu=
+re of the Xen Project.=C2=A0</div><div dir=3D"ltr"><br></div><div dir=3D"lt=
+r">Together, we=E2=80=99ll continue building a strong, inclusive, and innov=
+ative community.<br><div><br></div><div>Kelly Choi<br></div><div><div style=
+=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(=
+136,136,136)"><a href=3D"https://xenproject.org/" target=3D"_blank">Xen Pro=
+ject</a><br></div></div></div></div></div></div>
+
+--000000000000137f070628d747c8--
 
