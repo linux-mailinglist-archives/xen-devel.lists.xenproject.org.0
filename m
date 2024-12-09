@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4C69E9AF8
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 16:56:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851565.1265616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A05939E9B02
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 16:58:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.851578.1265626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKg7K-0003UX-UF; Mon, 09 Dec 2024 15:56:14 +0000
+	id 1tKg98-00045R-AL; Mon, 09 Dec 2024 15:58:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851565.1265616; Mon, 09 Dec 2024 15:56:14 +0000
+Received: by outflank-mailman (output) from mailman id 851578.1265626; Mon, 09 Dec 2024 15:58:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKg7K-0003SY-RE; Mon, 09 Dec 2024 15:56:14 +0000
-Received: by outflank-mailman (input) for mailman id 851565;
- Mon, 09 Dec 2024 15:56:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tKg98-00043Y-7S; Mon, 09 Dec 2024 15:58:06 +0000
+Received: by outflank-mailman (input) for mailman id 851578;
+ Mon, 09 Dec 2024 15:58:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oUxd=TC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKg7J-0003SS-Lg
- for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 15:56:13 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1cc0afc5-b646-11ef-a0d5-8be0dac302b0;
- Mon, 09 Dec 2024 16:56:12 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-385f07cd1a4so3121445f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 07:56:12 -0800 (PST)
+ id 1tKg96-00043P-Da
+ for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 15:58:04 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5eaeeb6e-b646-11ef-99a3-01e77a169b0f;
+ Mon, 09 Dec 2024 16:58:02 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-385e06af753so2008818f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 07:58:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-7fd1570ae4esm6615603a12.43.2024.12.09.07.56.07
+ d9443c01a7336-216221db645sm51050685ad.46.2024.12.09.07.57.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Dec 2024 07:56:10 -0800 (PST)
+ Mon, 09 Dec 2024 07:58:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cc0afc5-b646-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 5eaeeb6e-b646-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733759771; x=1734364571; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fJf0V9+Ju346hjZ87tma06reIxf/VkI1okYq5jwMPlA=;
-        b=a7mT3D9TIJzAdtOJOdbVyfNMPiOl95SIruWxr57QEBjHYbvZUbA2mta0Vz0DA2krbg
-         b/5X4N2aJlzx+fy+KXsWskz5gf6aXYtPmITSR6BY1gQIBMUKTrJVJrfu06OWfb5oUV89
-         zMDICFncxLEKr0Bu05X2cK4kZbZDn5SJ+daEke8m+USlY8iFordkCRy6QSSJ8VLmqPMr
-         hrmKMyiHnpzapxEhJ/CC7Y1OoORZd8xUbUqKCIzi8Q3DKUZ+HgyAaT9ZFDigsG8SEGkJ
-         d0xpaFOpb69tYWBjcOdjeYDLpWCZwSd2hQ0ltSOu7s9odMyX2Jvgq1T1IM+TEEjETaOI
-         zlgw==
+        d=suse.com; s=google; t=1733759882; x=1734364682; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hPFWur24oZ0+j3v8fcdhH42mXvRL1EKpzLETRZJFrWs=;
+        b=gNLWQ/2b2I2SZw3PqTiTypL5axdhqo08WZww4hDo6Dxv8dosBcaOwhv6mOnqHcMXwi
+         OivM57RypInpG5wv2TPBK/Sy6UE+r3ezYRhPYxuEygp5RyAqRyEZ+WG27bjKBcc9pPMR
+         O37qpjfRbcyRzguSwarPJODRv4HmkIWhklBEpk27yd3W3roljNV3VuIoG8r0N7Lb52Be
+         DhaVgzMqAt76JsPf2Y4c+L3qIJ54moHIHYvMYHFv4bxtK4pOI3FqgwBkj3CR+83zaZCi
+         sPmTdC/JDgLk7ML8JeJaZH5kmHTXQFBRPDj1yq+V9XehCdS0cYyUGHeyfRBfS+9aOVcU
+         PjOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733759771; x=1734364571;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fJf0V9+Ju346hjZ87tma06reIxf/VkI1okYq5jwMPlA=;
-        b=bA97tYrtPYc7Wr4/UcYgw0CZ6JGM8BWK5pQV1qNnj6+Rw/C5uV/8iRHkO2HPzVLfUL
-         GLWMra0XRlMDb4cM8LPITE5V5kr0xibS3hxMf8MXalQrE2UFZGwdUpP1kexivI2oxl3P
-         iUIsZYDwifqJqHK/Vi8aaf6S4Yz3JNOxnJuJRYVz71Tg60hA7mP2x36pOlgnIzWsKwaY
-         MqhD1ipHkIX0Z4DsYJUQUyTeSk7LNjoKXXmoymbzjlhz4+dVCp7vklMHV46igRQ/hIhE
-         PTryAONUSYR98Jk6MgUJZf5X6C0X0Jpdn2L5B9HiM3M1qQbrV6Yujk2emm0OmpL4RNQ2
-         wlzg==
-X-Forwarded-Encrypted: i=1; AJvYcCXW16mR8fSj4P7zkep8SqZQv4imMyLRzsiC3T93AQKMYxtX1IJloiWq38mLviE/n30tdYgvDK8VrLA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPlSAVnYVNXmMPPH0gB3oA8iwByBiz+tQAJDNdk/TxnncIp9y8
-	+G2BNSMIe6NG+zDcwJIrTgS8B98v5kor9qBz23T8uYiPFbP71tQ1h524bFKB8Q==
-X-Gm-Gg: ASbGncu0OoUwFaJHVaFpkq08Se/N0mdpfqGoh/i2jAdIqXp7n1I01mdOmxGPEpf80fW
-	7+jCqecM6iCDo7+HQXDSTStxBm2MapH8KBaUo7gg++lw5SmDHGdYg3C1oJcB1cR+fwEUqmDHuLr
-	/IKXbnhoU1CIjFRD44a+S5lMzy3leff8SeELGRxwv/Fk5CnaXTw4wwg88cFxzkfOgManZ5+8h9C
-	o8BcYl5wd7dYmDD4bEwKcD/xicOlLv1KhP6VWPhXUtpclvt7ZU8qAlhgm6VJnTTeRcgeXUVrTcJ
-	gp1ik/s94ztQInNTxu/fm5XmzR8fR/boNLE=
-X-Google-Smtp-Source: AGHT+IHm4vYgr1ra2NZEQADIK7nrsLNhtwPlIqtmKQYwyjIT9i95aXHIonnPbJ7AuNkxg2hMThMIjw==
-X-Received: by 2002:a05:6000:461a:b0:385:f07b:93da with SMTP id ffacd0b85a97d-3862b3e43b0mr9004234f8f.47.1733759771353;
-        Mon, 09 Dec 2024 07:56:11 -0800 (PST)
-Message-ID: <bcc38672-647c-4fd6-9f90-cf26641b83f7@suse.com>
-Date: Mon, 9 Dec 2024 16:56:03 +0100
+        d=1e100.net; s=20230601; t=1733759882; x=1734364682;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hPFWur24oZ0+j3v8fcdhH42mXvRL1EKpzLETRZJFrWs=;
+        b=IRmkHd9atApOG13hb45n/n9Hqoh8ctuliK/ZIJaPFAjPdDxEOmAN3ol6cVJEY+GNM4
+         V16xCF+Nz/Z7EQMjkxdQET+wXT4PEGnlCYI4LgpRXLBLOycTjMixNs76hMOTTflcm7sD
+         Ac4ZhfnboUrC7yRJNKl40bxXvjvkQtF7zvWm/5VrQzPvMEfX9KqRNbWEEFZZEfmYlOR2
+         zvXcTFoZZhHN0geOpilk5IdBy3RZJsMQnSDkZP4Wslf94KZTX5dWK+HnlOuWARYhjUsN
+         i5N+x+TGRsmIiKKXOYtQXa7LarZ5UWFSLnSZpoWtHGQSgrCF8s7Sz63gFqv0ux99RrPh
+         tSbg==
+X-Forwarded-Encrypted: i=1; AJvYcCWlmAF/0X408Iu040WgbVVIIEqMrOcXOM45WhvSxCnVjmWQR5VOpaZZQ7TQxzYwZqbHg8cKXAhk9QE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxci0HuxWSPPBE9ltchISg+UC+14rQvyqEFUxpkkUlaAfke13wN
+	8AH6u04ibxkUP3ELgvI/a8Uu9Z02tE5OxKX1w73w6CG4bSBdkObcB/4Ab+SuKQ==
+X-Gm-Gg: ASbGncv/XKq9HpoQTNoru24toI7lY7CXu1Ie9+1EkbAXbPI9i+VA76XhoPhxM47UV5O
+	UARoRbmTMptUF7aQOAtMPcR1tpkWqSWi2cHCU0UWl8x+QtfXTNmLRsWk2JTvKs4NKPfyGfDkCtk
+	k/4JeapV3YdNiGyGE/kS4zkkBIZ3CLt4KCfJlDFUgdLeYYe8Uyayy7ciA+nNAAkVwoKA7N45Kwf
+	jNYUS9AFViRGHcakyoGVDe7dscnB5lZeq7hd/aHl+KL1JbLcq6k15AVV35QD0tBGYV48FRL6meo
+	gWwrBtNKxyd/0q2+qqRu2VL0hGnf8xmedjA=
+X-Google-Smtp-Source: AGHT+IGX4VXM/giAgAbWmaO5+dBhbJSUnPx++bO/X9g5YKVFH7twhK+oMUam3ZcAAMjQAvZB4PS6MQ==
+X-Received: by 2002:a05:6000:1887:b0:385:e2c4:1f8d with SMTP id ffacd0b85a97d-386453dd6b4mr573833f8f.19.1733759882029;
+        Mon, 09 Dec 2024 07:58:02 -0800 (PST)
+Message-ID: <34fbc3bf-f740-47bd-90e4-2f8b9ce46cfd@suse.com>
+Date: Mon, 9 Dec 2024 16:57:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1 6/6] xen/riscv: relocating and unflattening host device
  tree
+From: Jan Beulich <jbeulich@suse.com>
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -96,8 +97,8 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1732709650.git.oleksii.kurochko@gmail.com>
  <f2b1b8b4d80d6b2ccc846ae7171a316a9b46ac56.1732709650.git.oleksii.kurochko@gmail.com>
+ <bcc38672-647c-4fd6-9f90-cf26641b83f7@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,51 +122,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f2b1b8b4d80d6b2ccc846ae7171a316a9b46ac56.1732709650.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <bcc38672-647c-4fd6-9f90-cf26641b83f7@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.11.2024 13:50, Oleksii Kurochko wrote:
-> Relocate FDT to Xen heap instead of using early mapping as it is
-> expected that discard_initial_modules() ( is supposed to call in
-> the future ) discards the FDT boot module and remove_early_mappings()
-> destroys the early mapping.
+On 09.12.2024 16:56, Jan Beulich wrote:
+> On 27.11.2024 13:50, Oleksii Kurochko wrote:
+>> Relocate FDT to Xen heap instead of using early mapping as it is
+>> expected that discard_initial_modules() ( is supposed to call in
+>> the future ) discards the FDT boot module and remove_early_mappings()
+>> destroys the early mapping.
+>>
+>> Unflatten a device tree, creating the tree of struct device_node.
+>> It also fills the "name" and "type" pointers of the nodes so the normal
+>> device-tree walking functions can be used.
+>>
+>> Set device_tree_flattened to NULL in the case when acpi_disabled is
+>> equal to false.
+>>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > 
-> Unflatten a device tree, creating the tree of struct device_node.
-> It also fills the "name" and "type" pointers of the nodes so the normal
-> device-tree walking functions can be used.
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Set device_tree_flattened to NULL in the case when acpi_disabled is
-> equal to false.
+> Albeit ...
 > 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> @@ -71,6 +72,7 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>>                                 paddr_t dtb_addr)
+>>  {
+>>      const char *cmdline;
+>> +    size_t fdt_size;
+>>  
+>>      remove_identity_mapping();
+>>  
+>> @@ -95,7 +97,7 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>>                            _end - _start, false) )
+>>          panic("Failed to add BOOTMOD_XEN\n");
+>>  
+>> -    if ( !boot_fdt_info(device_tree_flattened, dtb_addr) )
+>> +    if ( !(fdt_size = boot_fdt_info(device_tree_flattened, dtb_addr)) )
+>>          BUG();
+> 
+> ... perhaps better
+> 
+>     fdt_size = boot_fdt_info(device_tree_flattened, dtb_addr);
+>     BUG_ON(!fdt_size);
+> 
+> ?
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Albeit ...
-
-> @@ -71,6 +72,7 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->                                 paddr_t dtb_addr)
->  {
->      const char *cmdline;
-> +    size_t fdt_size;
->  
->      remove_identity_mapping();
->  
-> @@ -95,7 +97,7 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->                            _end - _start, false) )
->          panic("Failed to add BOOTMOD_XEN\n");
->  
-> -    if ( !boot_fdt_info(device_tree_flattened, dtb_addr) )
-> +    if ( !(fdt_size = boot_fdt_info(device_tree_flattened, dtb_addr)) )
->          BUG();
-
-... perhaps better
-
-    fdt_size = boot_fdt_info(device_tree_flattened, dtb_addr);
-    BUG_ON(!fdt_size);
-
-?
+And then I notice that Arm has no such check at all. Better stay in sync?
 
 Jan
 
