@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65A249E975F
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 14:41:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851378.1265460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 584F19E9808
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 15:00:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.851389.1265470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKe0o-0008Hk-4Y; Mon, 09 Dec 2024 13:41:22 +0000
+	id 1tKeIZ-0002bI-KF; Mon, 09 Dec 2024 13:59:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851378.1265460; Mon, 09 Dec 2024 13:41:22 +0000
+Received: by outflank-mailman (output) from mailman id 851389.1265470; Mon, 09 Dec 2024 13:59:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKe0o-0008FY-1T; Mon, 09 Dec 2024 13:41:22 +0000
-Received: by outflank-mailman (input) for mailman id 851378;
- Mon, 09 Dec 2024 13:41:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tKeIZ-0002ZV-Hh; Mon, 09 Dec 2024 13:59:43 +0000
+Received: by outflank-mailman (input) for mailman id 851389;
+ Mon, 09 Dec 2024 13:59:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oUxd=TC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKe0n-0008FS-Bd
- for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 13:41:21 +0000
+ id 1tKeIY-0002ZP-Ci
+ for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 13:59:42 +0000
 Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
  [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45b3babe-b633-11ef-a0d5-8be0dac302b0;
- Mon, 09 Dec 2024 14:41:20 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d541022b-b635-11ef-99a3-01e77a169b0f;
+ Mon, 09 Dec 2024 14:59:40 +0100 (CET)
 Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-385eed29d17so3235899f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 05:41:20 -0800 (PST)
+ ffacd0b85a97d-385e1fcb0e1so2505035f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 05:59:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21656c4b072sm14136235ad.78.2024.12.09.05.41.14
+ 41be03b00d2f7-7fd4657a124sm2616205a12.2.2024.12.09.05.59.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Dec 2024 05:41:19 -0800 (PST)
+ Mon, 09 Dec 2024 05:59:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45b3babe-b633-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: d541022b-b635-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733751680; x=1734356480; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733752779; x=1734357579; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DOK+raQKQPXK0jBYDlFfWpw3pU6n5fUrIPMio1Ddi3s=;
-        b=cxXz81MIJVZ6mhXuvUt+d1uIYiPsD6kOi+LxQ9SYBrHFoo1B+AxpWxJ/O0tHQ0qSex
-         pO7n2mem0YfM8q1O9sm8oxIF5Y4PBtxTHEZmens6Cxhr/diIYWfXZBkP/H+hd0zONV3Q
-         03L9FJcKFgXHpz/baBJwyQPb76lEXDyiQXr8GPcouj3YvRfy7Pty3iTsGD1ACAVc4pO8
-         ykTnOmJzx+8qvWu0v/G8RkXRnaJZYT6JPJi3LrSwapEgHIm5DVDGHvC+jJR7MGjxbiNd
-         xE1H0Z2fZyrqemB+0bNQSbkokW1euKQzG8EAQA163F5cZ9GE8B229/2X0H+N2830hRzz
-         v0jw==
+        bh=RHTOGzomTI+5DHJuDkaDJ1TQap05hXVmYm5I2YKajp4=;
+        b=G02WQmEMkG9RsR67IkZqJaBsXelxNUAtVPbvQZf5zzgPnzcoewIdYSiKR+t9jsRFD2
+         4QLK+Z2ewAgFHUg9HJu7IXS2OHe60JdACEhavu8C7tYqQfEQ93gBdvxHWgtPMA+/uayt
+         4iRVY3iD4Q0mSUKHp08NOsYP3ayyzxHeD1rD67CPZogGRl6EtLn7k0uVpn/MqS/vhblj
+         s6+USx41cG7lpfnP5fxU1MByThSNYInw6gjTPM0Bj/Kcj8GHUnA2YU5WATT+LkzTfqez
+         kecl9/JBR9ifO9FekvgJxNYNmkqpZ1p2MXDFYDrxRO0jqHLennRoL2DTxfh/FS+L+p6/
+         MULw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733751680; x=1734356480;
+        d=1e100.net; s=20230601; t=1733752779; x=1734357579;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DOK+raQKQPXK0jBYDlFfWpw3pU6n5fUrIPMio1Ddi3s=;
-        b=KZ9rOWRCzXhi2LDqwHddDwu7z+TAwTBMVKNmnQ/7PXW0ImBz/VVgVqXVgfKxsqmXar
-         7u/x2u66UE3VbpTkPEd9KAoEccH3CJzGLkEaXpi9cuAXbm0CjVl3iUJVgDqeyWJHZPRj
-         gQLnG6Tp6qoTxZY9JrsgDxsHutGDlpOf/IE71PCvIvjcScC+zkXysWW78VHSk9zLJsrB
-         VJ4DDUke/i5CriqaOeBvUmc5qQXu9y1VonSay4Nqf0brZ3a+cTxnLZuQtGmZTSdqcpzT
-         u1niKg5fj3tCL1LmRug3e5KViR/3JmuPbkyFwTDJkLEyiMMnM+gle+NLVAo7wv+W8pYg
-         miKA==
-X-Forwarded-Encrypted: i=1; AJvYcCUYNcxvgr/ZLC1l81sOSdcATLhWTcJvXRiGWA1+ysFhbxYMfUxAnrxnzIeTSiy390kvEa/xju7+dpg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy3zrHI1OmN0BUtFAxdalfVMOMEcn09Rpntt9Syv2epsZ/rwe7V
-	PY/2kkZbbwIFXyUuYd6XBB4ZO+aPXCr5/T3EpEXw4CKrvq0H1H6izAxV2SA/xw==
-X-Gm-Gg: ASbGncvv+KhSkYb+0/CbLTax+KdyqNHOjNR3+GZkW3PoNiUxY6jBGnvXyclnpXWBixF
-	rp6p/KtaXJeERtdzzSBDpkjwCwspGUwOk61ojM6zaiWfJ6DkYRbmDQJ3tq9piNATf0w/jWnvTqP
-	tZlSzfqCHfQ8SwcPavcg62Nv7hco7Qh+HPzNY/rU9gRnVU5F1xK3W4UxyIRmwkHcHFk7GMTIsdt
-	fEHSyw6So7UyqtU9s75DDVQmmQrvvghzxGOtGyyC9xjYWmuAZZbo4zUDt1pPrkgEg0qyNAKgrPL
-	Q8y6Jse4HgMA2SeDd0iBrUBGN7yhBJVxIGE=
-X-Google-Smtp-Source: AGHT+IGSYojpu7sw7Qd1DtZ6+9Hi0jQc/RxqFfFhA132qTnXaPRcQ6sh8GUxA4aUQj0rG97HFY+yYw==
-X-Received: by 2002:adf:e184:0:b0:385:f1f2:13ee with SMTP id ffacd0b85a97d-3862b3ceddbmr10117706f8f.46.1733751679703;
-        Mon, 09 Dec 2024 05:41:19 -0800 (PST)
-Message-ID: <db981b87-3518-4a68-9892-60adada8a445@suse.com>
-Date: Mon, 9 Dec 2024 14:41:11 +0100
+        bh=RHTOGzomTI+5DHJuDkaDJ1TQap05hXVmYm5I2YKajp4=;
+        b=Gy7D8kuvIYRGCWP5nEbtoiByg/stWoK9rjoVyzwy4oNQPg4FVR4Ei9F9AID8WzkjQi
+         f0IVE+9HXOmTX+8b61+JH/PDHCnarpcqXw+TKuK0Gk1RIBIhnFHqYk3PGuXwREMz5ts+
+         kEHsZ3H357CqQ890hrD5eLNueQj5cwWY/jyhZUyMm6Z7St3zEOEnnLyrt3ZF7UtL4RIQ
+         TIfhV5VIwHIUQHshLdYAAhgtBtgd8RHvCDAF1FJczw7QeqHomhqitp6/Uil1OUntdo2/
+         uDMmDxRgn4XGKvs+Vi64nOJOR6O5roOUmkSwifnLkXDG4GIe4InQcEppstocgrXT2+Du
+         MizQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWJoDwbS7CZV0IF0m5M/fud9mDd0IRbOpyuXGbC3H9WHx+tQJ6RrX7z8l95TqmAPPnkomPrRiKqaVw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTIsE8y69oNE8DeF7PR67cjxFC1Nz83mn9amSD+U+hq/126yA2
+	lqYhFxvMgT+jKg3bgzW3Bl+/dHzNr2v7QrS/RPIKxC7bDFZzaBoUa4KtL4KRAg==
+X-Gm-Gg: ASbGncthMz8XkHgfcfqzJO+RRNZWRMhaPPJcXbHm6uhbIHT3cQFXHWHzhbRyChUByDG
+	mf7l/WL3fTw/EgvoleIDxnZOEjCtrNosblgXOewvrm9UsTuG9tr1oDZSnLlvgYCtWHf/k54F9rD
+	mzzeqylw4Le+kIWk6cLbUwqwT0pIR40yXtTIk/iD4dMTqRLYXQ3Qa38JPiYWs2r9CXICfdqDvRJ
+	WM6PNfVTZmPdt2ToEjpsKUwrj89EN0ts+cAPT1WrSS/BkNUqEztEQSXDy+FJtvCRROmiIXiKX79
+	eskdFbfyHKkOqUycK+HNdVWkA59dn9BBqYE=
+X-Google-Smtp-Source: AGHT+IGixjyqAYxZhDsEI2vh1C4Z8EGpOpjgu3Sx7w2uAEdI69EDZpQfOCw0aeIrquRmzfj8rkU1Lg==
+X-Received: by 2002:a5d:64ef:0:b0:385:fb56:fb73 with SMTP id ffacd0b85a97d-3862b3553cfmr8341058f8f.15.1733752779393;
+        Mon, 09 Dec 2024 05:59:39 -0800 (PST)
+Message-ID: <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+Date: Mon, 9 Dec 2024 14:59:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 09/12] xen: add cache coloring allocator for domains
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
+Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Huang Rui <ray.huang@amd.com>,
  xen-devel@lists.xenproject.org
-References: <20241202165921.249585-1-carlo.nonato@minervasys.tech>
- <20241202165921.249585-10-carlo.nonato@minervasys.tech>
+References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,23 +118,141 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241202165921.249585-10-carlo.nonato@minervasys.tech>
+In-Reply-To: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.12.2024 17:59, Carlo Nonato wrote:
-> +static void __init init_color_heap_pages(struct page_info *pg,
-> +                                         unsigned long nr_pages)
-> +{
-> +    unsigned long i;
-> +    bool need_scrub = opt_bootscrub == BOOTSCRUB_IDLE;
-> +
-> +#ifdef buddy_alloc_size
+On 02.12.2024 07:09, Jiqian Chen wrote:
+> --- /dev/null
+> +++ b/xen/drivers/vpci/rebar.c
+> @@ -0,0 +1,93 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
 
-Did you mean #ifndef? Or #ifdef CONFIG_LLC_COLORING? The latter may be
-more logical here, given that no fallback #define is needed for the
-variable. Then
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Was this a deliberate decision? We default to GPL-2.0-only, I think.
+
+> +/*
+> + * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+> + *
+> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
+> + */
+> +
+> +#include <xen/hypercall.h>
+> +#include <xen/vpci.h>
+> +
+> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> +                                      unsigned int reg,
+> +                                      uint32_t val,
+> +                                      void *data)
+> +{
+> +    uint64_t size;
+> +    unsigned int index;
+> +    struct vpci_bar *bars = data;
+> +
+> +    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+> +        return;
+
+I don't think something like this can go uncommented. I don't think the
+spec mandates to drop writes in this situation?
+
+> +    index = pci_conf_read32(pdev->sbdf, reg) & PCI_REBAR_CTRL_BAR_IDX;
+> +    if ( index >= PCI_HEADER_NORMAL_NR_BARS )
+> +        return;
+> +
+> +    if ( bars[index].type != VPCI_BAR_MEM64_LO &&
+> +         bars[index].type != VPCI_BAR_MEM32 )
+> +        return;
+> +
+> +    size = PCI_REBAR_CTRL_SIZE(val);
+> +    if ( !((size >> 20) &
+> +         MASK_EXTR(pci_conf_read32(pdev->sbdf, reg - 4), PCI_REBAR_CAP_SIZES)) )
+
+No such literal 4 please. What I think you mean is reg - PCI_REBAR_CTRL +
+PCI_REBAR_CAP.
+
+Also indentation is off (by 2) here.
+
+> +        gprintk(XENLOG_WARNING,
+> +                "%pp: new size %#lx for BAR%u isn't supported\n",
+> +                &pdev->sbdf, size, index);
+> +
+> +    bars[index].size = size;
+> +    bars[index].addr = 0;
+> +    bars[index].guest_addr = 0;
+> +    pci_conf_write32(pdev->sbdf, reg, val);
+> +}
+> +
+> +static int cf_check init_rebar(struct pci_dev *pdev)
+> +{
+> +    uint32_t ctrl;
+> +    unsigned int rebar_offset, nbars;
+> +
+> +    rebar_offset = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_REBAR);
+> +
+> +    if ( !rebar_offset )
+> +        return 0;
+> +
+> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL);
+> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+> +
+> +    for ( unsigned int i = 0; i < nbars; i++, rebar_offset += PCI_REBAR_CTRL )
+> +    {
+> +        int rc;
+> +
+> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
+> +                               rebar_offset + PCI_REBAR_CAP, 4, NULL);
+
+The capability register is r/o aiui. While permitting hwdom to write it is
+fine, DomU-s shouldn't be permitted doing so, just in case. (An alternative
+to making handler selection conditional here would be to bail early for the
+!hwdom case, accompanied by a TODO comment. This would then also address
+the lack of virtualization of the extended capability chain, as we may not
+blindly expose all capabilities to DomU-s.)
+
+> +        if ( rc )
+> +        {
+> +            printk("%pp: add register for PCI_REBAR_CAP failed (rc=%d)\n",
+> +                   &pdev->sbdf, rc);
+> +            break;
+> +        }
+> +
+> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
+> +                               rebar_offset + PCI_REBAR_CTRL, 4,
+> +                               pdev->vpci->header.bars);
+> +        if ( rc )
+> +        {
+> +            printk("%pp: add register for PCI_REBAR_CTRL failed %d\n",
+> +                   &pdev->sbdf, rc);
+> +            break;
+
+Is it correct to keep the other handler installed? After all ...
+
+> +        }
+> +    }
+> +
+> +    return 0;
+
+... you - imo sensibly - aren't communicating the error back up (to allow
+the device to be used without BAR resizing.
+
+> @@ -541,6 +542,16 @@
+>  #define  PCI_VNDR_HEADER_REV(x)	(((x) >> 16) & 0xf)
+>  #define  PCI_VNDR_HEADER_LEN(x)	(((x) >> 20) & 0xfff)
+>  
+> +/* Resizable BARs */
+> +#define PCI_REBAR_CAP		4	/* capability register */
+> +#define  PCI_REBAR_CAP_SIZES		0xFFFFFFF0  /* supported BAR sizes */
+
+Misra demands that this have a U suffix.
+
+> +#define PCI_REBAR_CTRL		8	/* control register */
+> +#define  PCI_REBAR_CTRL_BAR_IDX	0x00000007  /* BAR index */
+> +#define  PCI_REBAR_CTRL_NBAR_MASK	0x000000E0  /* # of resizable BARs */
+> +#define  PCI_REBAR_CTRL_BAR_SIZE	0x00001F00  /* BAR size */
+> +#define  PCI_REBAR_CTRL_SIZE(v) \
+> +            (1UL << (MASK_EXTR(v, PCI_REBAR_CTRL_BAR_SIZE) + 20))
+
+The literal 20 (appearing here the 2nd time) also wants hiding behind a
+#define.
 
 Jan
 
