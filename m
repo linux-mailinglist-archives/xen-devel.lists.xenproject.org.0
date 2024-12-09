@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9062F9E93F2
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 13:29:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851149.1265269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8714A9E947B
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Dec 2024 13:40:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.851160.1265279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKcsM-00023r-DC; Mon, 09 Dec 2024 12:28:34 +0000
+	id 1tKd33-0003pM-CD; Mon, 09 Dec 2024 12:39:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851149.1265269; Mon, 09 Dec 2024 12:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 851160.1265279; Mon, 09 Dec 2024 12:39:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKcsM-00021Y-AD; Mon, 09 Dec 2024 12:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 851149;
- Mon, 09 Dec 2024 12:28:32 +0000
+	id 1tKd33-0003mK-9P; Mon, 09 Dec 2024 12:39:37 +0000
+Received: by outflank-mailman (input) for mailman id 851160;
+ Mon, 09 Dec 2024 12:39:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MSU1=TC=amd.com=Christian.Koenig@srs-se1.protection.inumbo.net>)
- id 1tKcsK-00021S-Nx
- for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 12:28:32 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20602.outbound.protection.outlook.com
- [2a01:111:f403:200a::602])
+ <SRS0=yTwD=TC=exostellar.io=maksym@srs-se1.protection.inumbo.net>)
+ id 1tKd31-0003mE-TZ
+ for xen-devel@lists.xenproject.org; Mon, 09 Dec 2024 12:39:36 +0000
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [2607:f8b0:4864:20::736])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18435e6d-b629-11ef-99a3-01e77a169b0f;
- Mon, 09 Dec 2024 13:28:30 +0100 (CET)
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.11; Mon, 9 Dec
- 2024 12:28:26 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8207.017; Mon, 9 Dec 2024
- 12:28:26 +0000
+ id a41e208a-b62a-11ef-99a3-01e77a169b0f;
+ Mon, 09 Dec 2024 13:39:33 +0100 (CET)
+Received: by mail-qk1-x736.google.com with SMTP id
+ af79cd13be357-7b6d24069b2so86025885a.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Dec 2024 04:39:33 -0800 (PST)
+Received: from [192.168.1.76] ([188.91.253.160])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa6696acc74sm329635666b.134.2024.12.09.04.39.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Dec 2024 04:39:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,194 +45,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18435e6d-b629-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t9jWmPfEe8i1V9BuJJ0MpOMhVQ6PeK2yk5KaX2xxw9DNCWAkilSBzuLonWEsOLY3mOdJ0Xx6bNckplfE0bxwpTcYBClaBhK4evnHOcfIEb1B8iyOmh+mhv6nynkakXmzlqv4ihlEoHwunrpv4gCMb3+TQqeSTe9h8jv3TclsH2Hi7j91sOMywfvUMvj03q00yqVuNzryCvLh16Yakkx52xMinhpxk/2/Gnb1NvZre1vlVw9jAOrSCTpNXwgVulEfj9s41sfE9yho8ntMK5HQugENRgtytPA+yIRoD2XGTGMgcqpBHMXKFLIu7NmRBB7IIldPSm5EKO1d/goziXy1vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U3gXwbLF7ec4E+qCH3HUJ9Yzg2Nirswc69Reb7raWrU=;
- b=v01uS9IZPdpWbIuU6t13VbzJALPAyUiWIUbIXR9Ra/KsmIWxoWABtYa6fiF2hsSefTLdDKkd43lvCqkHJLmxbZPKjMa1VuMbyBVXvFf2IwY7cBZX2FTNQVtZQb6vgma7fhMpRQzasCecmN5uOUwzQB34JqABVogbFd16TRQ+3t5omKQXaSlOLecVoSUZB3ml4J9Z/GmMGJ1wdG5GehGxecnO00DMMZfKqNsGK+Yi3ROzRx1ZyjX/i1SHIDfhcXJnhStXUmJyq7Av6yeb4l5D0pvYQoBXDcDRNaq6yJXs5q0l8PfDyqV5SlS1XTeUfUfYwTkXjAi4HuJf/7XtFUFCoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U3gXwbLF7ec4E+qCH3HUJ9Yzg2Nirswc69Reb7raWrU=;
- b=E0dzUGWKwESCWA32waB9aTThOByKS5ULXygacoklpkmk0SJ0klqPMEwn7pneITw6ZP8oX/kM6TVeTfHWPtW6WGsXHkcYI5s5bMFP2Vb3n9o7RM9oEZ2CE8+OtK6Tk68p7K1i6hKVsSnK/ki0eBZEXncIxu8qxiLX0fScbpFBBuo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <36aa77a1-7a72-4cf4-850a-210e6f7f266a@amd.com>
-Date: Mon, 9 Dec 2024 13:28:16 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/virtio: Implement device_attach
-To: Julia Zhang <julia.zhang@amd.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Daniel Vetter
- <daniel@ffwll.ch>, Chen Jiqian <Jiqian.Chen@amd.com>,
- Huang Rui <ray.huang@amd.com>, Penny Zheng <penny.zheng@amd.com>,
- Zhu Lingshan <Lingshan.Zhu@amd.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
-References: <20241207105023.542399-1-julia.zhang@amd.com>
- <20241207105023.542399-4-julia.zhang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20241207105023.542399-4-julia.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0103.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-Inumbo-ID: a41e208a-b62a-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=exostellar.io; s=google; t=1733747973; x=1734352773; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tRUTaSdtSTWDNx2ubmJEe+KjO9kK07Vwb4Eyr3Ojt1w=;
+        b=nVkTQiGEMKEjlByXt9Xl0yNvzkyjSnU4bMuPNeZIba41GazicKNZ2EvLDQlGUnPZQC
+         SMVhcb/MDgi9L1WDkzHckFtpRv+ZUESmb1VEzfuIOU3T3bU9vd/aQixUkSK6qevyxMOF
+         EWaJ4QqT2zF5kDfPwElOavMJ+woO5bi4CWjSq0BBbCaFWgmwpbDRUE5+LTszDUEwoVuU
+         OP/oVG2se1p7BzxtYoqCskGzwig7F5J6p3HS5yrMHlohm0B6MBLk5hywUyIeaStNkJGE
+         871gRZ7HLuq62ZQDKF0pAbmkQR9mVULdwqEIjCn2F5PEZylvnoSrdHN+Yad822c18K04
+         24nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733747973; x=1734352773;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=tRUTaSdtSTWDNx2ubmJEe+KjO9kK07Vwb4Eyr3Ojt1w=;
+        b=Yg3qGtf065Oj57QBf1fq/YWtzy/fuNxJGi03j9t9u+hUhG2XqVO5Rn/st2QvwxpIHD
+         W5TbbDpqI2N8L7S8OCHwSfVLwM2y5rqRASNMKIAarZYke5keKBL/hAgfDKeEp35MHhrU
+         9/dUojL+mGI+F7kYmp5cpx7So0gwzbn9bVLw+C5PA1GgnTPh0dIdv5hUwtKSxpXo8gcT
+         pbXOKMA3poMICnJjj709ia87OzBldZMg2gSMku+odccRhhuJ03GiQ+BRNdcyF0mAjX3q
+         fhdngAbMc6ifk/li6Lp/uSXMoQe5GtQJqp15J64G/NHgp8oDL1MXUgFCLXQakrIfHi/5
+         f6eQ==
+X-Gm-Message-State: AOJu0YwxobWZdmRwoN9KpcMwaDy4QI02TdKXABLeuErAD1Q2Lw2Q1DiH
+	N130pjQnR/IVpukqRGWQbDMmrkbtJNHzWg/JkfoMrfCWJUP8iw7/w5pZxoph2YI=
+X-Gm-Gg: ASbGnctiYPOnKzM9KE1evLPkTjhY9sSCiO2OdpVTYdRUOz0ywV2/tF1Koa3MQPg5pKq
+	kTN+HZ/K5te71BGxk5+txreWNWqk5k1vM8z6Ui51aY4IFTxBo/khJ1m27WWxzpsW6fU1Vp4QCeA
+	LUxd3CoLUy5tJeww/EYYvCicpe1E2BuYupQf/LIES8R36J1Xxk1GcVszBTIkCKBsh2lxBbc+sYg
+	Cwk/cmbNMbRPlpwfKC6WuJOcJ6gg+QDM4zInbUqSUubEP16gSrJCI8=
+X-Google-Smtp-Source: AGHT+IGUN0y5tavLjGg8nctS+87f9zbgPbgkotfQ+C/sUG31IJkgL5wL2zKycZaYTebhyfsU6ab9rw==
+X-Received: by 2002:a05:620a:2b8d:b0:7b6:cedf:1b4b with SMTP id af79cd13be357-7b6dcdd0b6bmr28812585a.7.1733747972695;
+        Mon, 09 Dec 2024 04:39:32 -0800 (PST)
+Message-ID: <813d9908-48e4-46ce-87c9-7414170e6a6e@exostellar.io>
+Date: Mon, 9 Dec 2024 13:39:30 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4266:EE_
-X-MS-Office365-Filtering-Correlation-Id: a99ceac9-f966-4ac2-a6cd-08dd184cfabb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|366016|376014|921020;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aUtSZzBNUllkdmtxWmdMczZRalZsU3BUSnlCYTNvaGtKNkFVM0hmR0s5a2p3?=
- =?utf-8?B?a1p6YUZ6ODlkWFZrYzN0OUo5c0o5Nkl1T2MvWmZuREFRS1FmTWpNMVRqU09o?=
- =?utf-8?B?ckZYWXE4U3ZOdGRoeEIxdjIwNHhyak0vRUpMcFNTclJXTi9sVmF5OCtsWldr?=
- =?utf-8?B?bTk5UUcrTDBHUE1IOEFXODZPVnVNYXZsbGZOWjhVMTFwYWlkUTlLb2Q1bXNs?=
- =?utf-8?B?OGNhVjlhRlVaa01VOStpNlJmaTB1UjJNSVRybUZ2TmFJNEo3NXVSZlBzeWtZ?=
- =?utf-8?B?N1pIVzhCVWJ2MG1HR0dXM1R4dVk2b3pGOXRsWHlzWmpPdkpFcXpxb3NhM1A4?=
- =?utf-8?B?ZkVjK3RCRml5RUI4eFZqekRYdGdDUVAwelFIelpyRXUvMHJPRUJpNklkd1RP?=
- =?utf-8?B?ckZJNCtBUG5QejBPZGZ2dE1oVC8rQWlLaS9JQ0E2OUpheDNyNDZKR2RjWTF6?=
- =?utf-8?B?U3VMQlNUYlZsajFva2dTa1FLMW1WNENTZHAvYXVScUd2c1RzSXVPSXlWS1I0?=
- =?utf-8?B?VGhlTktRMjdrRUxRdElYbXNOVWNBOUhjb2dlWnVZcjNZV3BqWUl6TDc2TjFP?=
- =?utf-8?B?VnBDL0F0THRZeldBWWltMlovRVFaZE9IMG56NkRqQlJBYVNISVRpMndxVkRa?=
- =?utf-8?B?VmhrMHlOd0wwQ3Bzb3FqQmw5NnB1NDA2dXJUTDhTaURmcVgvb0dXYW5DWXFW?=
- =?utf-8?B?ayszakx3RXQzM1ZkaDExcjg1YmRSbXRNZFM4Y3o2ekNuN1RiU25IeEJiQkVl?=
- =?utf-8?B?OSszY1RKR1E2eHdlMlhDeVp3SjFNbUdqNzRDeWF6WDQ2NmFHK3ozMzRlVnVD?=
- =?utf-8?B?TFhZaE1aTzFIOG12NHVNTE56NGZpaXN2dWd0MkZPUFhwME0zQVhrN1lXaUpZ?=
- =?utf-8?B?WStueSsvS1E5QTczbHZ3WGNtVWV4Q2tUVFNNcWVIN3hVZGs1cytaZGhXWDNw?=
- =?utf-8?B?d1dIZFZCUHZsU2pkNnFETWIrdDlUVDVoNzFWT3FUM2ljWGhNK3ZBaVZISnhX?=
- =?utf-8?B?eTg2RzR6dVpnS2tSZG1oZUhwMFlSbjdndDVtSndpcnE0K3NYajRRY0s1SHVC?=
- =?utf-8?B?T3JTQ0xDK2ZjcjhlUVoxOVEwNDJEbkc0elE4MWt3dEJtWEQzV3JPMjZxeUF4?=
- =?utf-8?B?TDF6RWJwYlh0djloS1VPT05tZC9RKzd5Wng4SlovOWlUUVEvQkdrQzJYbEdo?=
- =?utf-8?B?OEJtYnc1NFRXc1h2Y2Y3QnhpS2dHdUxyUkF3aWdmNmM4UEJIMVFyRDJzOGQy?=
- =?utf-8?B?b05hTHBYTkN3L2J0WGxyY0FFWUE3WEgwbmtoMk5lN3I2SCtubWpmMTNJTExj?=
- =?utf-8?B?dTZLZFhEUzR6QVNSYWlRVHVXanFHckt3SHkxdHVkcCtVbi9RWFMvYzhrTkgx?=
- =?utf-8?B?ZHNIYXFtT1RNOXUyUW9XZUF6a1lkaTByUWJaRTRBUjJSVFhTbVJzMXp1ZEJ2?=
- =?utf-8?B?UUh2VmxGa1VkNFJ0QkVsSGJOODhFalloeVVWNEUyTE1PRFJtYzFLNzZWNzA1?=
- =?utf-8?B?Mk9rZmVVMG9Fa1plK3BicDZPbG1icE1RYSt3WnVjalNBQlVObHBoOHgxdGRK?=
- =?utf-8?B?V3Bha3BjODZRUFM3RDQwa2lONHJibllZc3drRXdyamNpbDdnRjdvRmJOY1FQ?=
- =?utf-8?B?YTVZWEZLZVdTbWVNS2d5aDMwcWszWktQNVlNSFZxTGk2eUZvTjdUd01wTGk0?=
- =?utf-8?B?MDJoSjZGZE5DN0dNeEFPUnR6dmdkTkkzcW54eWN4VVZqY1k4aERTckVieTNa?=
- =?utf-8?B?SXV1Tzlsblpna1dWcjhCeXhoZENBU0FOWC8xaHV6TlkwU2p3SVRRODdTUWhn?=
- =?utf-8?B?NkljTUJFbk5JUHplTHROVEFETEpPSmp2N1pad1lWdS9vWnpIRXpkYS94TGZt?=
- =?utf-8?Q?VX4HN+C1VTNvR?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aEZGMzJ1V282K3hVZ2Vzb0EwYjNZbEZiNUJZZ2dOS2RYa0FwcnlXSzJ3SmhX?=
- =?utf-8?B?dFcvcU5wODB3TW8xdFNGTFc0N0VtU3czSU1mRnVLZVREd3djd3J6ekd3S3l3?=
- =?utf-8?B?SU1XeE56UkxMZ2tvRXg0TEpQcEVOQ0VPZUN3WUF4b3B3b1pDZ1lUTHdacVli?=
- =?utf-8?B?OFBQb2t1ZHVJWXc4MjhXWE8yRHE2QWs0SExSRFZJdWdRLzhnUnN0cmhqS3ZU?=
- =?utf-8?B?eDExM2EwSTRVd3ozemxIckdRRmx1NTkxOXl3ME9SOGhORUZuTitUUmR0OHhJ?=
- =?utf-8?B?aCtCTVYya0xSQ3didlE1Ty9HYnBnSUpwK041a0dWR2hVT2E0ODJUVUlXWUtt?=
- =?utf-8?B?SS9taDZVZ01XR2d2TjdhbjV0UWdqdUkxeStKNTRnNWM2VUlBTTVRTEJRb2lR?=
- =?utf-8?B?bkxMcnphMWlVK0hCM1A2Q3ZZQUk0MlVlYW1YOExwcEU3WUMvQlJrWDFEcURl?=
- =?utf-8?B?VEk3NWNpK3ZOMHl6U3pEOStyTUthZWJmL25xWlhiUXkxbWhIb3RLbVFnN0NW?=
- =?utf-8?B?QTRNcTRrSmU0UEMrVDBuUnFORnVuSlFKTTNJcnN0ZFNBcnkvaHU3Y25TSElM?=
- =?utf-8?B?bzFwZVJSeWc0L3M2VDlnbVVwR3dCQWloelFDeDg4bDZGbWJmMjkvOFZXQU1l?=
- =?utf-8?B?T0F4djJsZXY0QjhWei9rTm4wY2FrQngwV1RJUGFrcTQ4NVEyZ2pYZmNOaUd6?=
- =?utf-8?B?dXhQbFExMmhYYXZKcTBDMVJIcjliNTVjT2dwYWxNTFBCRDZQVVVjR1cxanRO?=
- =?utf-8?B?RVZvZmtnT3p6dll2ODBHdWNsa2lvYmptR3RqcUhwUVdzUW8vZXhHeHZ0ZFdO?=
- =?utf-8?B?Vm5QOFZTMTIzU2V0Tk4vckkxL0x3QVhGMWhqcms0WnJEaDhydFNpMVhuc0Zj?=
- =?utf-8?B?djM5SjM2MmVXNzduUGx0a1JTNFo0THpmTElSRXMweXFVVTFCWjBnNkNSbU9k?=
- =?utf-8?B?RXJBdmMwTDRINEVoKzU0VW90RElaYys2cU9Mb3hhT1hRY1czem80R1VhZWxh?=
- =?utf-8?B?VUxPZ2xsazZMTHRPNS9SZUhDUHBXUFhUbjV1VXdVT2lWTlBRb25FbW1CUWJ5?=
- =?utf-8?B?OVdrcXFJY00rRzRWN3RYZnBjSHBhUXlobkhTQkF3azFKTEsxTmpBSW9WUUVE?=
- =?utf-8?B?Vms0eSt1dU90Z0doOFNZcXZkUDBoc1hKTUlPeGhmNzg5bFJ0VUdvQlFrc1Iz?=
- =?utf-8?B?N2Myblk5MkltVUtUM0duZmlMaHZsUlFwdVRPWkt2R2UzZWU5dzRacHN0U3hE?=
- =?utf-8?B?cSt0YjlSV1REVDhXQUZxU0pNZTRSRHlnMkNsRE5CTXYybzVIUnFpQituNjVN?=
- =?utf-8?B?Uk9NZTZUQnNybWViTWFpcXRnZzl0Q0xPVDdHcHFGUnlMcnRhaUdKWCs0a0J0?=
- =?utf-8?B?amVFR3hPdG5UOWdMb0NMSXJ5bzVNeHRqckpqQml5OTVkTkhFdkFLUmpwd09p?=
- =?utf-8?B?UWlYWFZGdFF1eDVjQVhHcCtIa0NJWjVlL1JucmJzL2U3WG52eHdHY1ZKbndk?=
- =?utf-8?B?aFdlelVqekpZSENFc0NlY2puTGtwS3pwU0h0Q3MyZXVDVEg1RlhZWmY5UEdv?=
- =?utf-8?B?anBvNU1UT29RV1dlSFNYVDJsc2lFT2VXNUpqUDl3UkR1REw5dUZYOW5iV0xG?=
- =?utf-8?B?ekpsa09tR211MFErRm1sejVhenRFTzVlMUg0SnRBUS9DUjJPOUxmaW5sY29S?=
- =?utf-8?B?cUtZVlcxUjVIQ0ZlSzBubUFjMy8wRjduMDY2Q2d2ZDVXTElCTC9HcHFlU1Jw?=
- =?utf-8?B?bUtMb09mYWllaUQ2WHFKQ1VmdWZEUnpHclcvMDBFOTkwY3JvVHQ1Q2xia0R3?=
- =?utf-8?B?UHJhdmtJS3JYdGxxS3M0b1AveGF5ZjE2NUF4Q281dW1SQm5Lb1JYaElQQzZY?=
- =?utf-8?B?V1JVSWcxSjQwV1M3VzVORCs2MUpzVUo5SGRxMkFFajNRMm5tOGZQbGZjRWZn?=
- =?utf-8?B?b3Y1U3hYTXBoc0M0MTM4eVJKRmRnMkNhMnpVNDJKVDVRZkZTUDEvSVVza1k1?=
- =?utf-8?B?RkRBZFJjYWZEVVk1QWJFaDFnY1Q0czJUVHNTdkZJVHhrVjhVanZITWRLYStz?=
- =?utf-8?B?em5OeDhneThSa1ZRcDcrcVF5UGpOM3IzS1RFMEFZMnJycXBDbEp2NS9WbnVI?=
- =?utf-8?Q?1Si7K9dvCFl7rbuaq/UwDDk5R?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a99ceac9-f966-4ac2-a6cd-08dd184cfabb
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2024 12:28:26.0910
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y8vxxuHrWl3xKqjQj6hmnK6KwGJoAvtZS/wTC2xPE7wBsqVY/shgS6CENsL6qbdJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Grab mm lock before grabbing pt lock
+To: Dave Hansen <dave.hansen@intel.com>, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20241204103516.3309112-1-maksym@exostellar.io>
+ <24b8d4a0-36c3-4404-98aa-7d8e2c67ac95@intel.com>
+From: Maksym Planeta <maksym@exostellar.io>
+Content-Language: en-US
+In-Reply-To: <24b8d4a0-36c3-4404-98aa-7d8e2c67ac95@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Am 07.12.24 um 11:50 schrieb Julia Zhang:
-> As vram objects may be imported by other gpu drivers, peer2peer flag
-> should be checked in dma_buf_ops->attach(). This reimplement virtio gpu
-> dma_buf_ops->attach by adding a device_attach() function for virtio gpu.
-> This function will get pci_p2pdma_distance and check attach->peer2peer
-> before calling drm_gem_map_attach().
->
-> Signed-off-by: Julia Zhang <julia.zhang@amd.com>
 
-I can't judge that virtgpu or XEN code path, but that here looks like it 
-should work.
 
-Acked-by: Christian König <christian.koenig@amd.com>
+On 05/12/2024 19:52, Dave Hansen wrote:
+> I have the _feeling_ it's just a big hack and this code throws caution
+> tot the wind because of:
+> 
+>>   * Expected to be called in stop_machine() ("equivalent to taking
+>>   * every spinlock in the system"), so the locking doesn't really
+>>   * matter all that much.
+> 
+> So the patch here kinda doubles down on the hack and continues the theme
+> because "locking doesn't really matter all that much."
+> 
+> If so, it's not super satisfying, but it is consistent with the existing
+> code.
+> 
 
-> ---
->   drivers/gpu/drm/virtio/virtgpu_prime.c | 14 +++++++++++++-
->   1 file changed, 13 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> index 4960620eba02..4f6bce79e10e 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> @@ -116,6 +116,18 @@ static int virtgpu_get_p2pdma_distance(struct dma_buf *dma_buf,
->   	return 0;
->   }
->   
-> +static int virtgpu_gem_device_attach(struct dma_buf *dma_buf,
-> +				     struct dma_buf_attachment *attach)
-> +{
-> +	int ret = virtgpu_get_p2pdma_distance(dma_buf, attach);
-> +	if (ret)
-> +		return ret;
-> +	if (!attach->peer2peer)
-> +		return -EBUSY;
-> +
-> +	return drm_gem_map_attach(dma_buf, attach);
-> +}
-> +
->   static const struct virtio_dma_buf_ops virtgpu_dmabuf_ops =  {
->   	.ops = {
->   		.cache_sgt_mapping = true,
-> @@ -128,7 +140,7 @@ static const struct virtio_dma_buf_ops virtgpu_dmabuf_ops =  {
->   		.vmap = drm_gem_dmabuf_vmap,
->   		.vunmap = drm_gem_dmabuf_vunmap,
->   	},
-> -	.device_attach = drm_gem_map_attach,
-> +	.device_attach = virtgpu_gem_device_attach,
->   	.get_uuid = virtgpu_virtio_get_uuid,
->   };
->   
-
+I indeed could not find reasons why locking would be strictly necessary for correctness here. On the other hand a 
+clearly benign warning should not be triggered, especially considering that panic_on_warn may be on on some systems.
 
