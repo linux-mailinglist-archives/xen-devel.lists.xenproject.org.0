@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BAE9EAD1D
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 10:55:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851954.1265909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18FC89EADA1
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 11:10:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.851968.1265919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKwx6-0002c5-28; Tue, 10 Dec 2024 09:54:48 +0000
+	id 1tKxC3-0005NS-Ad; Tue, 10 Dec 2024 10:10:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851954.1265909; Tue, 10 Dec 2024 09:54:48 +0000
+Received: by outflank-mailman (output) from mailman id 851968.1265919; Tue, 10 Dec 2024 10:10:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKwx5-0002a3-V3; Tue, 10 Dec 2024 09:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 851954;
- Tue, 10 Dec 2024 09:54:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKwx5-0002Zx-8t
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 09:54:47 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c912b434-b6dc-11ef-a0d5-8be0dac302b0;
- Tue, 10 Dec 2024 10:54:46 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-434fef8203fso8939895e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 01:54:45 -0800 (PST)
-Received: from ?IPV6:2003:ca:b746:63c:3d8c:c505:78ea:f982?
- (p200300cab746063c3d8cc50578eaf982.dip0.t-ipconnect.de.
- [2003:ca:b746:63c:3d8c:c505:78ea:f982])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434f82bc754sm72415315e9.9.2024.12.10.01.54.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 01:54:44 -0800 (PST)
+	id 1tKxC3-0005KL-7L; Tue, 10 Dec 2024 10:10:15 +0000
+Received: by outflank-mailman (input) for mailman id 851968;
+ Tue, 10 Dec 2024 10:10:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4V3c=TD=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tKxC1-0005KE-Oq
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 10:10:13 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20624.outbound.protection.outlook.com
+ [2a01:111:f403:2414::624])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0368c6d-b6de-11ef-99a3-01e77a169b0f;
+ Tue, 10 Dec 2024 11:10:11 +0100 (CET)
+Received: from BL1PR13CA0131.namprd13.prod.outlook.com (2603:10b6:208:2bb::16)
+ by CH2PR12MB4247.namprd12.prod.outlook.com (2603:10b6:610:7c::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.12; Tue, 10 Dec
+ 2024 10:10:05 +0000
+Received: from BN1PEPF00004682.namprd03.prod.outlook.com
+ (2603:10b6:208:2bb:cafe::7a) by BL1PR13CA0131.outlook.office365.com
+ (2603:10b6:208:2bb::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.9 via Frontend Transport; Tue,
+ 10 Dec 2024 10:10:05 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004682.mail.protection.outlook.com (10.167.243.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8230.7 via Frontend Transport; Tue, 10 Dec 2024 10:10:05 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Dec
+ 2024 04:10:04 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Dec
+ 2024 04:10:03 -0600
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Tue, 10 Dec 2024 04:10:02 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,205 +63,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c912b434-b6dc-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733824485; x=1734429285; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3pDMHKsd4uD3RZV9HYnVz5B5Oqa/KJqR0y987XV/fzY=;
-        b=N+jm6ZJD3mrKCsBAeglH3v6qEB89BJjqXrMdZE1dmZ7PaYOXFZ+2VRlpvMaLk73nwj
-         Sxl0ZutiPmXqfBbXrToXY3VWsHOp02M7+HNs8T8BHTn8z2E3E3lrev3n+LRKg9oxpbmn
-         PwMPJwbYjFxrmweWFuCZPOOxNtN/Fhs9CTMWWxXrzHMbaTxIqDnb9UkETxh8ay0xM0xM
-         37SKcOXhPjQC65AS3InfoHMNZooB6oKBV1+EO4PuVUIVUefCVc+WcamPZykGwJnxpAtL
-         CEizaaCI2fyenl/CcJqu813j5Nx6mEQZxKRtFc4dWnJZOBJ8jxn6tYyRPqYLk44Nx99B
-         WV9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733824485; x=1734429285;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3pDMHKsd4uD3RZV9HYnVz5B5Oqa/KJqR0y987XV/fzY=;
-        b=UizT9wPNpyInZx4zLLpNEycTDeyq8wbUyNvzQEXCMAHydjHpoQK/VtMma1yffmKy66
-         7LUsnaTuv3a5AvY9H16Y8F1t86V4nfHDsW5ki6F1QTGrMxtTtI8jdxZ4rLJcVhQggoDQ
-         rziJY4pLCd/MRjgRwVHRz4UtGWx5+XRsv9A9BcLXaIljSGiKrE0Yn0ypme8lf3AitMuw
-         7p3A0cUwwwJrItqx/zCzti9qH7xv6H7XTOwFIsKENzbwuNvg6rupdnIPrH2AympEjhng
-         ElIqgTJCSUh9dMEo81VyPPFlViGLjisZzWN6YPRUsSCXaK+xdgME/MTlBLPa3oAJ8MRq
-         bJ/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW7HxgSsDmQuPulS8QHwUQ27EGVlc/VYRd2x2UpkW64uDz6SC5PhxWUBxjCqb5A9G76FZqqZ2EaRcs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyq++Q5WMQ/rWbGKdMLfRF7h6bcUajqSS15GGMx6zxlzpsamYtH
-	ZqWHWPh6ul00VvkmmQDb6Bl4n1olnodJES/lB+P2cNJ44fXm4gRhg038GEubRA==
-X-Gm-Gg: ASbGncsTicBX+Ij2ewiLP+33vPBeAr/isB2bQoB9sI/wCWNXKI52hn3HOEYx7LJvUwF
-	5FtsLzvJxiidYknCcB3Z5UTvP2aiYegMkdN52IEnlwPi3wFVmaBDeYwcbLv2bfn/aRaVYdtW77R
-	4PxINOF/CNEc5Se/6z7eMFGMR7EYUU8NraYDmhPpQrVV1QgSFsjqxBDSsZPQphVxm6SVWjZ/EVS
-	tr99R7b5LQ3BB8i2DKGqXdnAbazuqacF5TSWAF/dngVa70GBfc6qXMLpGecGlpwRX3AOds+s4R+
-	by+h68mfUT4Tw7o9Izo/nwSyCF5MhZv9LRB3PVFb1qSvXI3BQzxCv9wqRjhmlhV0O+UMKcZRfBj
-	pLJm4lX9Ewg==
-X-Google-Smtp-Source: AGHT+IHDzWR/J8nSjYkC513izSujcmoN2wOTvMsK/FVlDQYQmCeAmdSweR7LA/+JMC5nyBCY6hsFrA==
-X-Received: by 2002:a05:600c:46c6:b0:434:eb73:b0c0 with SMTP id 5b1f17b1804b1-434fff5b51dmr30610645e9.5.1733824484844;
-        Tue, 10 Dec 2024 01:54:44 -0800 (PST)
-Message-ID: <a07bca59-90d2-4a84-bb47-59157bf5207d@suse.com>
-Date: Tue, 10 Dec 2024 10:54:43 +0100
+X-Inumbo-ID: f0368c6d-b6de-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xKMeFi5kGJ5YOgwe6+Hir+HdL2LgLAtTDjEUlWqwg1MnF/c0qdl++0q3w7wkkWdSOJkmDp7ix8uyvDLlSwJ3IsSqe7LZIJaJTc7UPs8tusV5EZn6hjsH0yovneL+7PYkGFDokOK+dPDyEsf7DZifC+3UbVdvXHHskSAOZ5i48tzLF/QWhAou9DgcFG62TzE0YMzWmR7daLsfL+Nj/gFGvf6XGxV6t7UxNWLP8pgYvUfhGobfCwo94CrBxeDKLS41riA5C3eYlSg97B/sv0gkXWZDUCm0WezoOyaABTQu4r7r70MQFJQB/lyLR8BE2D6v/HWl+xSJ2GA27oQBZzkaUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2FWwb6WTcr2dSFjW7+fCV8K6mYtPDhpAzQSoFWhD5xs=;
+ b=mF9uZzt3IzYBBR4ZYqU485u7tXUgVuGP/XlO34nfbXI+n0yFgb/nSbBZ0i0k0/pkD7YGh9HnQINbvZ7Mtwa09onPVZzHv0K3gpv9wPpN2eweBfdHWjlavJ8cG5tkAG7IUcrInNO6GBTKYnwBnK3fb94o8IcH90LlkfmzTPnbTCJjThxjwkKk5qOcuAzAh+pqXHz6PUVqU0V2zENDquFlj65DeXMjw0dNgJSk45xVTg5KCSnuSZVnaGvuuHyr68PxP9yrqIHKTe2BlWH+5WFysOPvrTGx+Uz8fsG8UNgVnco2GZEmZbHwlTD/+yLUT81KD813GRjmsg6SBzTCnS9l4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2FWwb6WTcr2dSFjW7+fCV8K6mYtPDhpAzQSoFWhD5xs=;
+ b=KB8Ym2CygfE6ssBLNHEiqmeKiXNp0qoQdzTwZx6V1TLb1jwLXwZXpzX2+r6+30uI7N8v4ycJ4eUMJpQDQ7BrIsMZm47G24xvoQJwb9i2ijoy+Rt5xY4kw4CwRtn87xDWVo2gTwDy9jBsuPVExRgNXks9ZXhWeefBIKuMP/mDfVc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] arm/domain_build: Make find_unallocated_memory() more generic
+Date: Tue, 10 Dec 2024 11:10:01 +0100
+Message-ID: <20241210101001.91578-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
- <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
- <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
- <BL1PR12MB58499BEB287C4F9711324F71E73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <1e0576d9-400e-4483-8dd1-061e215a00cd@suse.com>
- <BL1PR12MB584945F11C271CE137231F7BE73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB584945F11C271CE137231F7BE73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004682:EE_|CH2PR12MB4247:EE_
+X-MS-Office365-Filtering-Correlation-Id: e31a1813-eb57-4ccc-15a7-08dd1902d18b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?pcSvCFoB95DEqhqPoW5wZxGMPmnahcNw1Gn4z/uzD6uGNlkmtECMC0aAdXZm?=
+ =?us-ascii?Q?e9+jfnsriwvVE47CpfPZaIrMrOAjceIkBipwaCcEJ3f+J1bsqMkKsJlfOcfu?=
+ =?us-ascii?Q?yJIZzzS0ITtH3F+bDOCLJL9jFFMXhsaAIzqY8fcOWcTcB+sncA+auvNAYzaC?=
+ =?us-ascii?Q?bQf3SvkZ6zuSGrnr3/uRfNoqJX7GBo67uxQJOq69x5Urm+MARHmtEChBQJMo?=
+ =?us-ascii?Q?RWhrBDkmgu7N6N6+aWveAKTTz5bQV/AAT1fvjFCYlZqf/p1l5Ti1lbTpSB3b?=
+ =?us-ascii?Q?bdgtlYjnFp/NrHhr4L/lLbZA6EOh8JaQW40gea3t9Nk8vF3HXbVIjvMyoGSH?=
+ =?us-ascii?Q?zIXOjYrX4/wBNPwUzFsP+tg3MNYnOhDalKt2yIYQEM7N3Jqdmrpl5U59Kxmg?=
+ =?us-ascii?Q?sYAd70pLdngJSGLv9Ky9N8zfBXmUdhZEKyTlAZK7cVhwoNH4FiDG0oWML85z?=
+ =?us-ascii?Q?Q1edkGAFbhDX3c6WipaUYefrpcptppfdpfzIhJ0dDlir0+uV02UddTz/OgTx?=
+ =?us-ascii?Q?P1kbmBtKc5dIbyi3Zz8rvE3F9u1XSNfltUH1X1R/pqJTSwasZ+Qy9D3cU78b?=
+ =?us-ascii?Q?n4/j5sdElgyXJi11kCEA6M0kSLdbuIo6tTMAXV5P9QS35QY+TSik0KR+MxNT?=
+ =?us-ascii?Q?LS5HQAe3fqQm5weJzAUL//cL6pJxA7r09voSMbxI2ZpWxU0dF9+OdCleF94m?=
+ =?us-ascii?Q?pGOGD2kuLhG5KwLXcPuhFa+zu7rajSLWSnFSKpZwn9XS9hhjc3NrOqKiY3Ue?=
+ =?us-ascii?Q?/ozso08fElfT5sBx6ieHtqwNU/WMFgphW3peJ449WE2O7vzWiE5KqeDMGZjE?=
+ =?us-ascii?Q?D066XhFLdyXTVNXWOdC4Ly+i4+Wbv8ZOsW7VqOqb6h5CIc5JDFgmQDWB/doe?=
+ =?us-ascii?Q?BDuNiPPzDXfYnyOmwfNXwf2721mGrKyAiZpqgI0skocXHmEJNvrwU7hUDtqq?=
+ =?us-ascii?Q?+3UFDEEaM6gM2dhHwYCFG3Ajm4E7g1qyzsAk/stL9TOoTzdQjFPrUm7G/+1w?=
+ =?us-ascii?Q?V3OX423FwIswy/D9Lb7vwS+HpgFx/Duq2TQTHcF5AtLawMdERnXPTgnmsKq3?=
+ =?us-ascii?Q?Zd9ZI6iVYqVOGT2Drz21lpXaQEZPF8p16w6Ghje/mcCkzxarsorZVmidvRzj?=
+ =?us-ascii?Q?368p2yhYtW3tzOj82hpb2nMCNI5d2hDH29maeZ6qEii20IR125I4x6H3+HDm?=
+ =?us-ascii?Q?6uD3dP3hAzaptt1hh/UZZq2mnif7XF6GUf7oCZdrLuQ0mxjtSm5+xfuDlHXZ?=
+ =?us-ascii?Q?uUXMKX50X9bdjGjjFgc9DRuEpFJpK4/dsyBP29XCVuq9iYrfi6uBZOtVDo6o?=
+ =?us-ascii?Q?lFdcylNGQXgr1FRwFQ8xQznvmZAMFNkfiRdAEMqOoHZ5f0LcJXLPXfclzQhv?=
+ =?us-ascii?Q?/3+OXA05tljZee1hdA4LFBpFiNIgKXN25PGUvG39PxNm9n1EjfAbi1KHusB9?=
+ =?us-ascii?Q?COLcPfOVqPGXe09X433FP9CzkAxzTQcJ?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2024 10:10:05.2035
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e31a1813-eb57-4ccc-15a7-08dd1902d18b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00004682.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4247
 
-On 10.12.2024 08:57, Chen, Jiqian wrote:
-> On 2024/12/10 15:17, Jan Beulich wrote:
->> On 10.12.2024 08:07, Chen, Jiqian wrote:
->>> On 2024/12/9 21:59, Jan Beulich wrote:
->>>> On 02.12.2024 07:09, Jiqian Chen wrote:
->>>>> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->>>>> +                                      unsigned int reg,
->>>>> +                                      uint32_t val,
->>>>> +                                      void *data)
->>>>> +{
->>>>> +    uint64_t size;
->>>>> +    unsigned int index;
->>>>> +    struct vpci_bar *bars = data;
->>>>> +
->>>>> +    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
->>>>> +        return;
->>>>
->>>> I don't think something like this can go uncommented. I don't think the
->>>> spec mandates to drop writes in this situation?
->>> Spec says: Software must clear the Memory Space Enable bit in the Command register before writing the BAR Size field.
->>> This check is suggested by Roger and it really helps to prevent erroneous writes in this case,
->>> such as the result of debugging with Roger in the previous version.
->>> I will add the spec's sentences as comments here in next version.
->>
->> What you quote from the spec may not be enough as a comment here. There's
->> no direct implication that the write would simply be dropped on the floor
->> if the bit is still set. So I think you want to go a little beyond just
->> quoting from the spec.
-> How about quoting Roger's previous words: " The memory decoding must be disabled before writing the BAR size field.
-> Otherwise changing the BAR size will lead to the active p2m mappings getting out of sync w.r.t. the new BAR size." ?
+At the moment, find_unallocated_memory() is only used to retrieve free
+memory ranges for direct mapped domains in order to find extended
+regions. It is not generic as it makes assumptions as for the place at
+which it's being called (domain memory already allocated, gnttab region
+already found) and hardcodes the memory banks to be excluded.
 
-That'll be better, but imo still not enough to explain the outright ignoring
-of the write.
+Make the function more generic, so that it can be used for other
+purposes whenever there is a need to find free host memory regions (e.g.
+upcoming LLC coloring series). Allow passing array with memory banks as a
+parameter together with a callback to populate free regions structure,
+as the logic may differ depending on the needs.
 
->>>>> +        if ( rc )
->>>>> +        {
->>>>> +            printk("%pp: add register for PCI_REBAR_CAP failed (rc=%d)\n",
->>>>> +                   &pdev->sbdf, rc);
->>>>> +            break;
->>>>> +        }
->>>>> +
->>>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
->>>>> +                               rebar_offset + PCI_REBAR_CTRL, 4,
->>>>> +                               pdev->vpci->header.bars);
->>>>> +        if ( rc )
->>>>> +        {
->>>>> +            printk("%pp: add register for PCI_REBAR_CTRL failed %d\n",
->>>>> +                   &pdev->sbdf, rc);
->>>>> +            break;
->>>>
->>>> Is it correct to keep the other handler installed? After all ...
->>> Will change to "return rc;" here and above in next version.
->>
->> I'm not convinced this is what we want, as per ...
->>
->>>>> +        }
->>>>> +    }
->>>>> +
->>>>> +    return 0;
->>>>
->>>> ... you - imo sensibly - aren't communicating the error back up (to allow
->>>> the device to be used without BAR resizing.
->>
->> ... what I said here.
-> Sorry, I didn’t understand.
-> Do you mean it is not enough to return error code once a handler failed to be installed, I need to remove the already installed handlers?
+Add find_host_extended_regions() to be called from make_hypervisor_node()
+to contain the logic to find extended regions for domains using host
+memory layout that are not permitted to use IOMMU.
 
-No, if you return an error here, nothing else needs doing. However, I
-question that returning an error here is good or even necessary. In
-the event of an error, the device ought to still be usable, just
-without the BAR-resizing capability.
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+This is a prerequisite patch for LLC coloring series patch 3.
+For dom0 LLC coloring, we just need to pass resmem and gnttab in mem_banks.
+---
+ xen/arch/arm/domain_build.c | 97 +++++++++++++++++++++----------------
+ 1 file changed, 55 insertions(+), 42 deletions(-)
 
->>>>> @@ -541,6 +542,16 @@
->>>>>  #define  PCI_VNDR_HEADER_REV(x)	(((x) >> 16) & 0xf)
->>>>>  #define  PCI_VNDR_HEADER_LEN(x)	(((x) >> 20) & 0xfff)
->>>>>  
->>>>> +/* Resizable BARs */
->>>>> +#define PCI_REBAR_CAP		4	/* capability register */
->>>>> +#define  PCI_REBAR_CAP_SIZES		0xFFFFFFF0  /* supported BAR sizes */
->>>>
->>>> Misra demands that this have a U suffix.
->>> Do below PCI_REBAR_CTRL_BAR_IDX, PCI_REBAR_CTRL_NBAR_MASK and PCI_REBAR_CTRL_BAR_SIZE also need a U suffix?
->>
->> They may want to gain them for consistency, but they don't strictly need
->> them. I wanted to say "See the rest of the file", but it looks like the
->> file wasn't cleaned up yet Misra-wise.
-> Yes, I noticed that the rest of the file didn't add U suffix too.
-> So, I just need to add U suffixes for my new macros?
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 2c30792de88b..500005079b88 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -901,31 +901,26 @@ int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
+ }
+ 
+ /*
+- * Find unused regions of Host address space which can be exposed to Dom0
+- * as extended regions for the special memory mappings. In order to calculate
+- * regions we exclude every region assigned to Dom0 from the Host RAM:
+- * - domain RAM
+- * - reserved-memory
+- * - static shared memory
+- * - grant table space
++ * Find unused regions of Host address space which can be exposed to domain
++ * using the host memory layout (i.e. direct mapped or hardware domain). In
++ * order to calculate regions we exclude every region passed in mem_banks from
++ * the Host RAM.
+  */
+ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+-                                          struct membanks *ext_regions)
++                                          const struct membanks *mem_banks[],
++                                          unsigned int nr_mem_banks,
++                                          struct membanks *free_regions,
++                                          int (*cb)(unsigned long s_gfn,
++                                                    unsigned long e_gfn,
++                                                    void *data))
+ {
+     const struct membanks *mem = bootinfo_get_mem();
+-    const struct membanks *mem_banks[] = {
+-        kernel_info_get_mem_const(kinfo),
+-        bootinfo_get_reserved_mem(),
+-#ifdef CONFIG_STATIC_SHM
+-        bootinfo_get_shmem(),
+-#endif
+-    };
+     struct rangeset *unalloc_mem;
+     paddr_t start, end;
+     unsigned int i, j;
+     int res;
+ 
+-    dt_dprintk("Find unallocated memory for extended regions\n");
++    ASSERT(domain_use_host_layout(kinfo->d));
+ 
+     unalloc_mem = rangeset_new(NULL, NULL, 0);
+     if ( !unalloc_mem )
+@@ -946,13 +941,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+         }
+     }
+ 
+-    /*
+-     * Exclude the following regions:
+-     * 1) Remove RAM assigned to Dom0
+-     * 2) Remove reserved memory
+-     * 3) Remove static shared memory (when the feature is enabled)
+-     */
+-    for ( i = 0; i < ARRAY_SIZE(mem_banks); i++ )
++    /* Remove all regions listed in mem_banks */
++    for ( i = 0; i < nr_mem_banks; i++ )
+         for ( j = 0; j < mem_banks[i]->nr_banks; j++ )
+         {
+             start = mem_banks[i]->bank[j].start;
+@@ -973,28 +963,13 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+             }
+         }
+ 
+-    /* Remove grant table region */
+-    if ( kinfo->gnttab_size )
+-    {
+-        start = kinfo->gnttab_start;
+-        end = kinfo->gnttab_start + kinfo->gnttab_size;
+-        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
+-                                    PFN_DOWN(end - 1));
+-        if ( res )
+-        {
+-            printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+-                   start, end);
+-            goto out;
+-        }
+-    }
+-
+     start = 0;
+     end = (1ULL << p2m_ipa_bits) - 1;
+     res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
+-                                 add_ext_regions, ext_regions);
++                                 cb, free_regions);
+     if ( res )
+-        ext_regions->nr_banks = 0;
+-    else if ( !ext_regions->nr_banks )
++        free_regions->nr_banks = 0;
++    else if ( !free_regions->nr_banks )
+         res = -ENOENT;
+ 
+ out:
+@@ -1170,6 +1145,44 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
+     return remove_shm_holes_for_domU(kinfo, ext_regions);
+ }
+ 
++static int __init find_host_extended_regions(const struct kernel_info *kinfo,
++                                             struct membanks *ext_regions)
++{
++    int res;
++    struct membanks *gnttab = xzalloc_flex_struct(struct membanks, bank, 1);
++
++    /*
++     * Exclude the following regions:
++     * 1) Remove RAM assigned to domain
++     * 2) Remove reserved memory
++     * 3) Grant table assigned to domain
++     * 4) Remove static shared memory (when the feature is enabled)
++     */
++    const struct membanks *mem_banks[] = {
++        kernel_info_get_mem_const(kinfo),
++        bootinfo_get_reserved_mem(),
++        gnttab,
++#ifdef CONFIG_STATIC_SHM
++        bootinfo_get_shmem(),
++#endif
++    };
++
++    dt_dprintk("Find unallocated memory for extended regions\n");
++
++    if ( !gnttab )
++        return -ENOMEM;
++
++    gnttab->nr_banks = 1;
++    gnttab->bank[0].start = kinfo->gnttab_start;
++    gnttab->bank[0].size = kinfo->gnttab_size;
++
++    res = find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
++                                  ext_regions, add_ext_regions);
++    xfree(gnttab);
++
++    return res;
++}
++
+ int __init make_hypervisor_node(struct domain *d,
+                                 const struct kernel_info *kinfo,
+                                 int addrcells, int sizecells)
+@@ -1226,7 +1239,7 @@ int __init make_hypervisor_node(struct domain *d,
+         if ( is_domain_direct_mapped(d) )
+         {
+             if ( !is_iommu_enabled(d) )
+-                res = find_unallocated_memory(kinfo, ext_regions);
++                res = find_host_extended_regions(kinfo, ext_regions);
+             else
+                 res = find_memory_holes(kinfo, ext_regions);
+         }
+-- 
+2.25.1
 
-You only strictly need to add U to values with the top bit set.
-
->>>>> +#define PCI_REBAR_CTRL		8	/* control register */
->>>>> +#define  PCI_REBAR_CTRL_BAR_IDX	0x00000007  /* BAR index */
->>>>> +#define  PCI_REBAR_CTRL_NBAR_MASK	0x000000E0  /* # of resizable BARs */
->>>>> +#define  PCI_REBAR_CTRL_BAR_SIZE	0x00001F00  /* BAR size */
->>>>> +#define  PCI_REBAR_CTRL_SIZE(v) \
->>>>> +            (1UL << (MASK_EXTR(v, PCI_REBAR_CTRL_BAR_SIZE) + 20))
->>>>
->>>> The literal 20 (appearing here the 2nd time) also wants hiding behind a
->>>> #define.
->>> OK, will add " #define PCI_REBAR_SIZE_UNIT_BYTES_LEN 20" to replace above two '20' case.
->>
->> What is "UNIT_BYTES_LEN" there? There's nothing byte-ish here, I don't
->> think, 20 is simply the shift bias.
-> It's a naming problem. What I want to express here is that the basic unit is 1MB, which is 2^20 of bytes.
-> Since the spec has the definition about the value of the bar size bits of register:
-> BAR Size - This is an encoded value.
-> 0	1 MB (2^20 bytes)
-> 1	2 MB (2^21 bytes)
-> 2	4 MB (2^22 bytes)
-> 3	8 MB (2^23 bytes)
-> …
-> 43	8 EB (2^63 bytes)
-> Do you have suggestion about this macro name?
-
-PCI_REBAR_SIZE_BIAS? PCI_REBAR_SIZE_SHIFT_BIAS? PCI_REBAR_SIZE_SHIFT?
-
-Jan
 
