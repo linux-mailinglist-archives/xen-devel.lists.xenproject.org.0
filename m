@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE519EB3CD
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:46:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852614.1266361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E833C9EB3E3
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:49:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852625.1266370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1Uc-00083m-C8; Tue, 10 Dec 2024 14:45:42 +0000
+	id 1tL1Xr-0000EF-PU; Tue, 10 Dec 2024 14:49:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852614.1266361; Tue, 10 Dec 2024 14:45:42 +0000
+Received: by outflank-mailman (output) from mailman id 852625.1266370; Tue, 10 Dec 2024 14:49:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1Uc-00081n-89; Tue, 10 Dec 2024 14:45:42 +0000
-Received: by outflank-mailman (input) for mailman id 852614;
- Tue, 10 Dec 2024 14:45:40 +0000
+	id 1tL1Xr-0000Bg-MP; Tue, 10 Dec 2024 14:49:03 +0000
+Received: by outflank-mailman (input) for mailman id 852625;
+ Tue, 10 Dec 2024 14:49:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CVUM=TD=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tL1Ua-00081f-Jy
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:45:40 +0000
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [2001:4860:4864:20::2a])
+ id 1tL1Xp-0000Ba-KS
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:49:01 +0000
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [2607:f8b0:4864:20::231])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b5b357d-b705-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 15:45:38 +0100 (CET)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-29e65257182so2801830fac.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:45:38 -0800 (PST)
+ id e3659c5c-b705-11ef-99a3-01e77a169b0f;
+ Tue, 10 Dec 2024 15:48:59 +0100 (CET)
+Received: by mail-oi1-x231.google.com with SMTP id
+ 5614622812f47-3eb790888c6so121004b6e.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:48:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,199 +40,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b5b357d-b705-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: e3659c5c-b705-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1733841937; x=1734446737; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1733842138; x=1734446938; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GLGVs3NXHjHw02oEprwUAflxGkcXVQa78J4wQ2tWkj4=;
-        b=LjRKvv/4Pm9hOxz69vzNQoUDvSyqkD2T0yPsoNh7fyRPY+2LO/wcWNQM8NMryD+Pd3
-         FhizCZhhbvx7KASw/c5ETjn92y3xi1qXHt8zXMitXWtsUWt7EZntgsYPfVJjjkNP2cQH
-         cgYNNprIaQIgduCgvjSAXcYcTUiJouDAu+ZeQ=
+        bh=lgtrdQl4jJcRWigYwaWojZ9z2pPJNU33XrppaF+9j5E=;
+        b=LT+qmExJHfcAOYADRA09imqiUOCRUDE5DMIRTyo5kwxLgwFPUCEWdpmCxpBj71Z17N
+         q8bofFJOewg1LAZz4h9eQ9maA/dnwlUuKZi6t268zrydHhpysgJf5p2/nbq4XJAix5yr
+         +FN7qO+Z5BfFiYHCzeHgNzZZ97YQxUNUSy4bs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733841937; x=1734446737;
+        d=1e100.net; s=20230601; t=1733842138; x=1734446938;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GLGVs3NXHjHw02oEprwUAflxGkcXVQa78J4wQ2tWkj4=;
-        b=FGIn2z59cteli+utgEftBTJqJDYOX1JBYvLWttlWN9pR4euoFf6s9+j777gcomCvpd
-         yksyPI+L9RS2/fPQzxJJ8lAz6jXevfC7wQxaOwKTTjEKCCrz+ytOshsVHCMhX67GRTei
-         5ikSM/MEwrt8rJ2mK7ZOIJWdF8rW8HzChfkcj5TC5CQmEOsDN1Dq7UVCinK4H+y2bUHu
-         1/JeF/J8V2S6wM/r88GaWqaGCnt6qcci+4OknTrzRZ6yKOV6E+Fs+OL5F0W1GSKX3DYt
-         3Imwdhlq+zThQqUpWropi0m+4uaMyFtQbtQ2indtZuWemiTBaAeVmM2MmCG3Qg3z1VaM
-         +OMQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUAGxzZegUX5apXQw4m67WjXwW53s92cOi9lgAPIUpAyogQ3z1ujbzoar9Cg/zNTtFiNs9Pp5DRjXk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YycVwilWfk3qpwvzIUdFHZAJgdO+ROjUz0sNVFhRxwnySLLqtwS
-	zjIvZ5xGvOcpunUGieUBqYTjVAOJgCfyCISvvJj4rqRm50Y4qBhsRc7a7ZHnE/amG/fHD8RE57g
-	NBxR+OXfYwlwNC7ff7kLWPpmn1q7ICHJpFllNwA==
-X-Gm-Gg: ASbGncsbWVHqtOKKuONrV9apa8XCx/WFlCKZsrgDGinDWVmBzpDhcCWR3ONoWwNJEOO
-	1MwPMVX8kB0mnOqnjEDoGSCWwchtLDlwSHdGtwQ==
-X-Google-Smtp-Source: AGHT+IHfLhkUU9Q/x2HFvJrzmbTQYOVH0nDtxC1AMjgRc038cg9iEnoY+ZNw24tNOhWiqiePi9EJoqOfqov9WEDpF9A=
-X-Received: by 2002:a05:6870:6b07:b0:297:241b:c48 with SMTP id
- 586e51a60fabf-29f735a0d3cmr12413565fac.40.1733841937004; Tue, 10 Dec 2024
- 06:45:37 -0800 (PST)
+        bh=lgtrdQl4jJcRWigYwaWojZ9z2pPJNU33XrppaF+9j5E=;
+        b=cyIwPnp12CgMsHONcuYVRnMN/6ulw+4lJcYCc69sCfhf8TdvUlkQf98a7fTkus3FRv
+         zj3IfFk3fLiZfcCgpjkV1TmTOWznQiMoNpLqvMHBnxh8sXkVDHQImgDpqFCaySvYEFTa
+         2iJLdznxmUw8Hov66KA6IBqhj1PROPrzVkkEFwHqAd5qMr1ZdVRY1gcJZFFIbtW8zNwj
+         ifc4BNe88TO2O8dQxk5myGOb8QBBx6el/RGL0Fn9VnRGjGOcr34MZIL0RwqLvXUoeZeh
+         vn9hYxzymPJKYO+/5yrX0ilAx0KBQEtyLb76m8Dk7nIARDwL7XFJtdezpLZrP2dEyQ7z
+         BDmg==
+X-Forwarded-Encrypted: i=1; AJvYcCXVoyKgTqdWllRZN1mMRjqIqVtERSxZWB+AZeNHX3wzE+rztSLk/fq3ZVaqY+B1ymFykYwKb+obfUQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyzRiiBxlA1iOe6ShhzyuCV5RFSy3/f+oCbmFkA+pJp119/JxrJ
+	WB/i48sTMAKKQTxWRA71dXMttfoZikYbmbcGW/+N3h7LA2KkA92dnsxbxUplKRZr64juETDq/S6
+	JFH0BA33OddgzltJdJgPQGMcby1kAnBZkeSXLRTcFYdMvy6Vn
+X-Gm-Gg: ASbGnctXdqCJ87okniQELQfhASHoQ+QIoERT5iKmxWBPrgVmws0Hao4WSQmZqoIeAy9
+	bDP3vkUr9JIGflOjySn1XTure4/qzZUur8iaijQ==
+X-Google-Smtp-Source: AGHT+IGABqJQfwluXS5vdz2E6nETL+dL80NQkworXSk9lb23QutIK5vNp1ypfeMLMK1hoUAfSkuSdTTu2mM7M+kxsjQ=
+X-Received: by 2002:a05:6870:b529:b0:29e:503a:7ea3 with SMTP id
+ 586e51a60fabf-29fee71c5b9mr2589715fac.36.1733842138442; Tue, 10 Dec 2024
+ 06:48:58 -0800 (PST)
 MIME-Version: 1.0
 References: <20241122093358.478774-1-frediano.ziglio@cloud.com>
- <20241122093358.478774-4-frediano.ziglio@cloud.com> <d5b856b5-ba0d-489b-9107-7c16b4042c55@suse.com>
-In-Reply-To: <d5b856b5-ba0d-489b-9107-7c16b4042c55@suse.com>
+ <20241122093358.478774-3-frediano.ziglio@cloud.com> <7f74b7a9-1869-4efa-a213-04d56ba48fb1@suse.com>
+ <CACHz=Zhpk7HOULDjoK1==mLz-G8qcFLjo4ihWTuQxGqJ1u+zQQ@mail.gmail.com> <d245dcc2-49f8-4ada-9eb0-a922c1171b9d@suse.com>
+In-Reply-To: <d245dcc2-49f8-4ada-9eb0-a922c1171b9d@suse.com>
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 10 Dec 2024 14:45:25 +0000
-Message-ID: <CACHz=ZhQiETp-=wO1XgcJ2BqLSMq79c=0W34ZBrAMSu3epSVAQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] x86/boot: Move some settings to C
+Date: Tue, 10 Dec 2024 14:48:47 +0000
+Message-ID: <CACHz=Zhf=B5mvNgTzhAJ6OkYtPFYnDg_TrMsfFsCPdPX64XWAQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] x86/boot: Use header to allows inclusion of public
+ xen.h header
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
 	xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 10, 2024 at 10:38=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
+On Tue, Dec 10, 2024 at 2:44=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
 >
-> On 22.11.2024 10:33, Frediano Ziglio wrote:
-> > Initialise multiboot_ptr and pvh_start_info_pa from C code.
+> On 10.12.2024 15:35, Frediano Ziglio wrote:
+> > On Tue, Dec 10, 2024 at 10:32=E2=80=AFAM Jan Beulich <jbeulich@suse.com=
+> wrote:
+> >>
+> >> On 22.11.2024 10:33, Frediano Ziglio wrote:
+> >>> This allows to include other headers and avoid duplicated declaration=
+s.
+> >>>
+> >>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> >>
+> >> Again it's left unclear what the purpose / goal is.
+> >>
 > >
-> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> > ---
-> >  xen/arch/x86/boot/build32.lds.S           |  3 +++
-> >  xen/arch/x86/boot/head.S                  | 10 --------
-> >  xen/arch/x86/boot/reloc.c                 | 28 ++++++++++++++++++-----
-> >  xen/arch/x86/include/asm/guest/pvh-boot.h |  1 +
-> >  4 files changed, 26 insertions(+), 16 deletions(-)
+> > Reduce duplication avoiding duplicate declarations. The alternative
+> > would be to duplicate them, which was proposed already and refused as
+> > duplication was not good.
 >
-> From the diffstat alone - is this really a win?
+> Which declarations specifically?
 >
-
-Yes, C can be longer then assembly, consider calling a function, assembly:
-
-    foo:
-
-    call foo
-
-C:
-
-   void foo(int x); // declaration (maybe in a separate header)
-
-   void foo(int x) {
-       ...
-   }
-
-   foo(123);
-
-yes, much longer. Actually we could avoid the declaration, but usually
-we explicitly force the compiler to complains about a missing
-declaration. The reason is that usually programmers prefer the
-compiler to avoid crashes and check for the passed parameters. This
-requires more code but pay back the time not having to debug crashes.
-
-If you look more at wide range (so, not only at this patch) the code
-for a bit increases adding new files and symbols but after a while the
-code starts to reduce (once added headers and preparation).
-
-> > --- a/xen/arch/x86/boot/head.S
-> > +++ b/xen/arch/x86/boot/head.S
-> > @@ -517,16 +517,6 @@ trampoline_setup:
-> >          /*      reloc(magic/eax, info/edx) using fastcall. */
-> >          call    reloc
+> >>> --- /dev/null
+> >>> +++ b/xen/arch/x86/include/boot/public/xen.h
+> >>> @@ -0,0 +1,28 @@
+> >>> +/* SPDX-License-Identifier: GPL-2.0-only */
+> >>> +
+> >>> +/* This header allows the inclusion of public xen.h */
+> >>> +
+> >>> +#ifndef BOOT__PUBLIC__XEN_H
+> >>> +#define BOOT__PUBLIC__XEN_H
+> >>> +
+> >>> +#if !defined(__XEN__) || defined(__XEN_TOOLS__) || __XEN__ !=3D 1
+> >>> +#error Unexpected defines
+> >>> +#endif
+> >>
+> >> What is this to guard against? We're in the Xen tree, building Xen.
+> >>
 > >
-> > -#ifdef CONFIG_PVH_GUEST
-> > -        cmpb    $0, sym_esi(pvh_boot)
-> > -        je      1f
-> > -        mov     %eax, sym_esi(pvh_start_info_pa)
-> > -        jmp     2f
-> > -#endif
-> > -1:
-> > -        mov     %eax, sym_esi(multiboot_ptr)
-> > -2:
-> > -
-> >          /* Interrogate CPU extended features via CPUID. */
-> >          mov     $1, %eax
-> >          cpuid
-> > --- a/xen/arch/x86/boot/reloc.c
-> > +++ b/xen/arch/x86/boot/reloc.c
-> > @@ -17,13 +17,15 @@
-> >  #include <xen/types.h>
+> > In include/public/arch-x86/xen.h file there are these declarations:
 > >
-> >  #include <xen/kconfig.h>
-> > -#include <xen/multiboot.h>
-> >  #include <xen/multiboot2.h>
-> >  #include <xen/page-size.h>
-> > +#include <xen/bug.h>
+> > #if defined(__i386__)
+> > # ifdef __XEN__
+> > __DeFiNe__ __DECL_REG_LO8(which) uint32_t e ## which ## x
+> > __DeFiNe__ __DECL_REG_LO16(name) union { uint32_t e ## name; }
+> > # endif
+> > #include "xen-x86_32.h"
+> > # ifdef __XEN__
+> > __UnDeF__ __DECL_REG_LO8
+> > __UnDeF__ __DECL_REG_LO16
+> > __DeFiNe__ __DECL_REG_LO8(which) e ## which ## x
+> > __DeFiNe__ __DECL_REG_LO16(name) e ## name
+> > # endif
+> > #elif defined(__x86_64__)
+> > #include "xen-x86_64.h"
+> > #endif
 > >
-> >  #include <asm/trampoline.h>
-> > +#include <asm/setup.h>
-> >
-> >  #include <public/arch-x86/hvm/start_info.h>
-> > +#include <asm/guest/pvh-boot.h>
-> >
-> >  #ifdef CONFIG_VIDEO
-> >  # include "video.h"
-> > @@ -347,27 +349,41 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_=
-in, memctx *ctx)
-> >  }
-> >
-> >  /* SAF-1-safe */
-> > -void *reloc(uint32_t magic, uint32_t in)
-> > +void reloc(uint32_t magic, uint32_t in)
-> >  {
-> >      memctx ctx =3D { trampoline_phys + TRAMPOLINE_HEAP_END };
-> >
-> > +    void *res;
-> > +
+> > This header allows us to include that part without compiler errors due
+> > to __DeFiNe__ and __UnDeF__ not being C code.
 >
-> Nit: Please avoid blank lines between declarations unless the set of loca=
-ls
-> is huge, or some really need to stand out.
+> And why exactly can't 32-bit code simply include the compat variant of
+> the public header, which is being generated by processing those non-C
+> constructs?
 >
 
-Noted.
-
-> >      switch ( magic )
-> >      {
-> >      case MULTIBOOT_BOOTLOADER_MAGIC:
-> > -        return mbi_reloc(in, &ctx);
-> > +        res =3D mbi_reloc(in, &ctx);
-> > +        break;
-> >
-> >      case MULTIBOOT2_BOOTLOADER_MAGIC:
-> > -        return mbi2_reloc(in, &ctx);
-> > +        res =3D mbi2_reloc(in, &ctx);
-> > +        break;
-> >
-> >      case XEN_HVM_START_MAGIC_VALUE:
-> >          if ( IS_ENABLED(CONFIG_PVH_GUEST) )
-> > -            return pvh_info_reloc(in, &ctx);
-> > +        {
-> > +            res =3D pvh_info_reloc(in, &ctx);
-> > +            break;
-> > +        }
-> >          /* Fallthrough */
-> >
-> >      default:
-> >          /* Nothing we can do */
-> > -        return NULL;
-> > +        res =3D NULL;
->
-> Simply keep returning here? No need to write the NULL when the variables
-> start out zeroed?
->
-
-Yes, considering pvh_start_info_pa and multiboot_ptr should be already
-NULL it makes sense
-
-> >      }
-> > +
-> > +#ifdef CONFIG_PVH_GUEST
-> > +    if ( pvh_boot )
-> > +        pvh_start_info_pa =3D (unsigned long)res;
-> > +#endif
-> > +
-> > +    multiboot_ptr =3D (unsigned long)res;
->
-> In the assembly original this is an "else" to the if().
->
-
-I suppose the return change above would solve also this.
+I suppose I could solve that specific issue in that way. Where are
+they generated?
 
 > Jan
 
