@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F879EB104
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 13:40:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852266.1266108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F599EB116
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 13:43:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852281.1266119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKzWT-0001GW-4H; Tue, 10 Dec 2024 12:39:29 +0000
+	id 1tKzaF-00032d-Jb; Tue, 10 Dec 2024 12:43:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852266.1266108; Tue, 10 Dec 2024 12:39:29 +0000
+Received: by outflank-mailman (output) from mailman id 852281.1266119; Tue, 10 Dec 2024 12:43:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKzWT-0001DZ-1Q; Tue, 10 Dec 2024 12:39:29 +0000
-Received: by outflank-mailman (input) for mailman id 852266;
- Tue, 10 Dec 2024 12:39:27 +0000
+	id 1tKzaF-00030P-G7; Tue, 10 Dec 2024 12:43:23 +0000
+Received: by outflank-mailman (input) for mailman id 852281;
+ Tue, 10 Dec 2024 12:43:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKzWR-0001DT-Cc
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 12:39:27 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1tKzaD-00030J-Ll
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 12:43:21 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca6fd7da-b6f3-11ef-a0d5-8be0dac302b0;
- Tue, 10 Dec 2024 13:39:26 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3862d161947so2672682f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 04:39:26 -0800 (PST)
+ id 56398323-b6f4-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 13:43:20 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-385dece873cso2633151f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 04:43:20 -0800 (PST)
 Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
  (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
  [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434eba653a0sm115534275e9.22.2024.12.10.04.39.25
+ ffacd0b85a97d-386396af76esm8294233f8f.0.2024.12.10.04.43.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 04:39:25 -0800 (PST)
+ Tue, 10 Dec 2024 04:43:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,60 +47,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca6fd7da-b6f3-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 56398323-b6f4-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733834366; x=1734439166; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733834600; x=1734439400; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nQnCOqjD9HNe0OPZOevfaMkGzBLAhpg7NAJMwx3emW4=;
-        b=OXKBnyWpwJAKvnMsgggCvsr9X82qhJwsp7MScXbQsk6Uvo+r8/nvMInOyU0AS0P86i
-         sX9UMntYm1Nw1UyquZaFK9DtISpUliClapEbn8oj9fLIvd2Ea2bGyN4+sC0l/YgUdL0D
-         tdw0KiikaMVXU6Siq1Our4F9No3Jr0y6adE0BtkmwJ3s3VlOQh6ct1iHm5TSaHfjixnt
-         vw+6H9Zo9gpM8WA1pH9Pjbs8/QYhixG5widFlC3hhsFGKYRophmAxd9dw5V7F/wfVNTP
-         mhox8tBp3ZKNZTTUxQreW7Yf7IMdE7WH75Mh//mvlEwQKZriONhuMY9ngU71zvqIUe6B
-         Z7Xg==
+        bh=6dmuzEL6vNF13tBP+ZS3JeVgP6/ZgrvBAjRDYPlOpMM=;
+        b=cUK3Qmu+hFOkliIL4YC/AV1mPxna9VUbR65UABv8ykFKUs7sh/iIqnzk5iUho9eVla
+         VlyZ6JSdj9biqdzx3cxVphjNceLgYG90EEfwsIffebHuzsUpupbeWPwmc46MvsAbpZXv
+         EEYrvMrr8PbzEIDgcVkA8nDr8a1rf92BkJTSWJ3AFCUWCChaN+YE6nHZhYMs4/Zsj8JV
+         n5TdYrUb+JGuEO319edo6rw2VE0GMoBQdj4qTUpv5wMJik/TQpIKGsqfDYDK0Nrkl/ga
+         ooar8DivJ18Lw+xPU/3AK8d9pszY7AoQjwNMifQAAmclSF33jtUtc5pigW/xr8hV7Wpv
+         ceJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733834366; x=1734439166;
+        d=1e100.net; s=20230601; t=1733834600; x=1734439400;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nQnCOqjD9HNe0OPZOevfaMkGzBLAhpg7NAJMwx3emW4=;
-        b=QDieXVsUwATto+fUgcUmibv36EXZKFYq9Sq7GqpZX353nwBRonmony1UQHENZ341Zo
-         nyI6gJXFYagKZ9xfSvUtI3isk8f05Hq6jukjPmPBvhI2vIsRW0g9wKd72BDV+5jeZ8NN
-         6WLG05n6dd96FdNbl0si5MuDkCcRcgyvOMh19crmwMl1/E63DljvyZadVMyLtjpUHCd0
-         D5BNTOy1ZM3a+3u8UUyywHmgXiGS4v/XQvNFnCcRi8TF42GLfYuQoUZzJOhbCYQiqUfD
-         /7EVtlP5U26IicnvD64XelTXblePJBm8QjIVoPh+zY3TSSk4nHSEv6+sp+CmXiCIhALH
-         RS7g==
-X-Forwarded-Encrypted: i=1; AJvYcCXOg4Yyup+axYVTepIx3axnC4vR7t8AILyC6tKqBA1oPiXmNivuIy+V0rDVyhWdPyCNFtO1IFatHrA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzyBHGVgYxcg4CdGCnpnbWiRJE5dkRY2Ow7Pe3L4pLcREHzogq1
-	B6AT2di11vLQoY8PJt2nxfezrelRF0qH1LfQt2k/Rvfi7xKwGGN7chfQFOLjWA==
-X-Gm-Gg: ASbGncv3avOIz8uOpmEeR7fShT65Y2DvK63gJ0E+0tFY2y6egR7yypxQ1Iur5NsUft3
-	TfSdlm3FYx6k5laApeGUUkvR+wqXP9nIOaqNtRuwJ6JgrCX9Z8RRogfr2/oDmmzm8Wuq6tnFYuV
-	UrsaG/d45lx0ETZ/a6rOU0eWmqbmwnZV4wZ1Jc3pwat1zQzD0YvmljqTTqwedN9PxLz3TTu8Yto
-	v7F2U89Rnx4/Y94OuYzOtTkQR/D0kP/DDe8+x/zadTawMG/NW424gbGiDFft7Wg5ndAkhP7x5A0
-	BYiSh0CyEpmER08jPvsKiujcyJLNdjiFe3nPUnGDvJEA+I3aOmD/efLIIhI33o1MCbeaWvSzzWJ
-	NsAkflPM0XA==
-X-Google-Smtp-Source: AGHT+IF08IQmU458koaI7BcoexpauYQv3EpG09qh+uRyfrLGzT1+7z4olE/29xgJfIrmB+HYaza1rw==
-X-Received: by 2002:a05:6000:4028:b0:386:4acd:4d77 with SMTP id ffacd0b85a97d-3864acd502amr548041f8f.44.1733834365671;
-        Tue, 10 Dec 2024 04:39:25 -0800 (PST)
-Message-ID: <a599a06b-afcb-46f3-bdb9-0536c45907ba@suse.com>
-Date: Tue, 10 Dec 2024 13:39:23 +0100
+        bh=6dmuzEL6vNF13tBP+ZS3JeVgP6/ZgrvBAjRDYPlOpMM=;
+        b=geEDrTA1slLWu6cjA4dzDC8pALjVrx0PjWlpBC8R6ZigWBv9KU1mMkBP90Yj9j23kG
+         qPeVWufU6r+AAKIhfAfe/1cbgBHLFG08fYiOiW4TJGvSSrLRF6QZfdX4j29A8+lbTrLc
+         0H2HqLqBL0lul13Vi3W07hvHHIAbn2cwnYLUZPUymWO4pKd+zrlxZP3RaZCUNiSm/OCr
+         hVcMN8s2kCYX80bL8058sN4FFQQmuk6Uia9/O7WDuDDt1E81okhIyEEFM2HHsYNLjCeN
+         /IMKchnK75p6LZTNPvPt0pyQN9mC+FHtnWnnVUU1rO1sLGc+maQ4RirACtFFMmfb4DmS
+         frmA==
+X-Forwarded-Encrypted: i=1; AJvYcCUmRQNKLsghoN0nsn6e/tc0ge6kjQG6WfMG7Z+E4ycNG9VzCYUDhC7nEu/J/jBV8Sen0RMwlQhEMIM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKitziGOF63PUX/EHnJX06MfHGHy9JjhkQga+X5Jx5q0aAU6bG
+	ns2Hzq1Eg2rQwrM8zv/mMX5erthnu6gl3AkNkWTh/bzXwIagdeOQPVuFv3wyN95ELJrAIi6qkvw
+	=
+X-Gm-Gg: ASbGnctaGMl30AWYNk0BvlumL9rifN+iY+7jCxxHmFotEH7nAXOn6I9xYknj7lcI5zv
+	m3PZp7BeqRF7nIg1GPcceDrVGFNpgTu+uTeBh4VIpD6sb6NYYZnE5TLmLFDNiU++F1X8/HwwyFv
+	S3wDO/M7QRX2AEH5dNIR0uHCT1pJcuCldVIGRjVyVVSeNQgyye82XSaaBgIZ/Qfkvovy3QQMmd8
+	yVOqLlMrPFWR0OwDOAPouJd1j9prZnpSD8mM0JsfXZTAJVmoMUNSuy4Zi2+ftxmsnHMd8BYrbw5
+	zVtCPmXyu2wnispDIIZ4+rKGJmDhfPpc4M4nMjxF8x8hNE3HC0m/tkkneSyibEkWvKeACVvfnyB
+	T9DQLWw7xAQ==
+X-Google-Smtp-Source: AGHT+IF1zxvBhYF/o/bm6NSeh2b9BA0tIfr4em13GJ6uUgZ21I1gBnhfeJXBkXK33c75KJc+v1EbUw==
+X-Received: by 2002:a05:6000:156f:b0:385:fd24:3303 with SMTP id ffacd0b85a97d-3862abdcca4mr10437270f8f.0.1733834600293;
+        Tue, 10 Dec 2024 04:43:20 -0800 (PST)
+Message-ID: <b8680a05-1605-40ae-a3e6-e013525097cc@suse.com>
+Date: Tue, 10 Dec 2024 13:43:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 4/6] xen/riscv: introduce cache management operations
- (CMO)
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [XEN PATCH v3] x86: p2m-pod: address violation of MISRA C Rule
+ 2.1
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1732709650.git.oleksii.kurochko@gmail.com>
- <1310a2fb3b9824ae66f850600925127fdfdb44fa.1732709650.git.oleksii.kurochko@gmail.com>
- <9d49befe-4592-4e71-ad0b-9a0af34253f5@suse.com>
- <a85319ab-b6bb-4be4-be6c-032feceede7c@gmail.com>
+References: <05b5fd3a85d033adacd5aa08ca81ce579cb1a120.1733827766.git.nicola.vetrini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,99 +124,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a85319ab-b6bb-4be4-be6c-032feceede7c@gmail.com>
+In-Reply-To: <05b5fd3a85d033adacd5aa08ca81ce579cb1a120.1733827766.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.12.2024 13:19, Oleksii Kurochko wrote:
+On 10.12.2024 11:54, Nicola Vetrini wrote:
+> Rule 2.1 states: "A project shall not contain unreachable code".
 > 
-> On 12/9/24 3:38 PM, Jan Beulich wrote:
->> On 27.11.2024 13:50, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/Kconfig
->>> +++ b/xen/arch/riscv/Kconfig
->>> @@ -14,6 +14,9 @@ config ARCH_DEFCONFIG
->>>       string
->>>       default "arch/riscv/configs/tiny64_defconfig"
->>>   +config HAS_CMO # Cache Management Operations
->>> +    bool
->> Hmm, and nothing ever sets this, and hence ...
->>
->>> @@ -148,9 +149,24 @@ static inline bool pte_is_mapping(pte_t p)
->>>       return (p.pte & PTE_VALID) && (p.pte & PTE_ACCESS_MASK);
->>>   }
->>>   +#ifndef HAS_CMO
->>> +static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
->>> +{
->>> +    return -EOPNOTSUPP;
->>> +}
->>> +
->>> +static inline int clean_dcache_va_range(const void *p, unsigned long size)
->>> +{
->>> +    return -EOPNOTSUPP;
->>> +}
->>> +#else
->>> +int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size);
->>> +int clean_dcache_va_range(const void *p, unsigned long size);
->>> +#endif
->> ... all you really provide are stubs and declarations, but no
->> definition anywhere?
+> The placement of the loop after "out_unmap" can be moved earlier
+> in order to avoid the unconditional return to be marked as a cause of
+> unreachability for the loop, as this is a consequence of
+> "__builtin_unreachable" being configured in ECLAIR as being deliberately
+> unreachable, and therefore not reported as causing the code after the
+> "out_unmap" label to be unreachable.
 > 
-> Yes, this was done intentionally because:
-> - I don't have hardware with the CMO extension, so I can't test it. ( QEMU doesn't model cache and so
->   there is no need for CMO extension emulation IIUC )
-> - The instructions used for these functions may be hardware-specific and exist only for particular devices.
+> Replacing one instance of "goto out_unmap" with the loop avoids
+> considering the unconditional return at the end of the function as a cause
+> of unreachability, while preserving the semantics of the function.
 > 
-> It seems useful to have something similar to Linux:
-> https://elixir.bootlin.com/linux/v6.6.64/source/arch/riscv/include/asm/errata_list.h#L135 <https://elixir.bootlin.com/linux/v6.6.64/source/arch/riscv/include/asm/errata_list.h#L135>
-> (There are also custom instructions for THEAD above this macro.)
+> No functional change intended.
 > 
-> We could use|ALT_CMO_OP(...)| inside|clean_and_invalidate_dcache_va_range()| and|clean_dcache_va_range()|.
-> However, I think it would be better to introduce or implement these functions when|HAS_CMO| is set to|y| someday.
-> 
-> As an alternative, we could implement these functions as|panic("need to be implemented\n")| in case when HAS_CMO=y.
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-I think this would be well in line with various other stubs you have.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with ...
 
-> Another option is to drop|HAS_CMO| entirely for now and keep the current implementation (|return -EOPNOTSUPP|).
-> However, with this approach, there's a risk of encountering hard-to-debug issues on platforms with the CMO extension.
-> And necessity of implementation of these could be missed because there is no any notification...
+> --- a/xen/arch/x86/mm/p2m-pod.c
+> +++ b/xen/arch/x86/mm/p2m-pod.c
+> @@ -1005,7 +1005,14 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
+>              {
+>                  ASSERT_UNREACHABLE();
+>                  domain_crash(d);
+> -                goto out_unmap;
+> +out_unmap:
 
-Well, callers ought to check return values?
-
->>>   static inline void invalidate_icache(void)
->>>   {
->>> -    BUG_ON("unimplemented");
->>> +    asm volatile ( "fence.i" ::: "memory" );
->>>   }
->> That's a separate extension, Zifencei, which I don't think you can just
->> assume to be present?
-> 
-> Based on the specification:
-> ```
-> Chapter 34. RV32/64G Instruction Set Listings
-> One goal of the RISC-V project is that it be used as a stable software development target. For this
-> purpose, we define a combination of a base ISA (RV32I or RV64I) plus selected standard extensions
-> (IMAFD, Zicsr, Zifencei) as a "general-purpose" ISA, and we use the abbreviation G for the
-> IMAFDZicsr_Zifencei combination of instruction-set extensions. This chapter presents opcode maps
-> and instruction-set listings for RV32G and RV64G
-> ```
-
-Hmm, indeed. That's well hidden in a place I didn't expect it to live at.
-Maybe worth a sentence in the description?
-
-> and that G is needed to boot Linux kernel ( and so Xen ) I make an assumption that Zifencei will be always
-> present.
-
-I'd be a little careful here. Xen may be used in Linux-free environments.
-I notice arch.mk specifies rv64g, yet I'm uncertain we shouldn't relax
-that at some point.
-
-> And based on Linux code (https://elixir.bootlin.com/linux/v6.12.4/source/arch/riscv/kernel/cpufeature.c#L676 )
-> when 'i' is present in riscv,isa property zifencei is present unconditionally.
-
-That looks questionable to me. I don't think Zifencei can be inferred from
-I. Historically it was, and imo that's what the comment there says. Plus
-it is dependent upon acpi_disabled.
+... the label indented by one or more blanks, as per ./CODING_STYLE.
+Happy to adjust while committing.
 
 Jan
 
