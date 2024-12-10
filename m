@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0581D9EAE8E
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 11:50:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852067.1265979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE929EAEBE
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 11:55:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852082.1265989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxoO-0004Iw-Kz; Tue, 10 Dec 2024 10:49:52 +0000
+	id 1tKxtv-0006A7-8S; Tue, 10 Dec 2024 10:55:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852067.1265979; Tue, 10 Dec 2024 10:49:52 +0000
+Received: by outflank-mailman (output) from mailman id 852082.1265989; Tue, 10 Dec 2024 10:55:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxoO-0004HP-Hp; Tue, 10 Dec 2024 10:49:52 +0000
-Received: by outflank-mailman (input) for mailman id 852067;
- Tue, 10 Dec 2024 10:49:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKxoM-0004HJ-Sk
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 10:49:50 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79ea0c1a-b6e4-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 11:49:48 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-385de9f789cso4042682f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 02:49:48 -0800 (PST)
-Received: from ?IPV6:2003:ca:b746:63c:3d8c:c505:78ea:f982?
- (p200300cab746063c3d8cc50578eaf982.dip0.t-ipconnect.de.
- [2003:ca:b746:63c:3d8c:c505:78ea:f982])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-386408549b9sm5028734f8f.89.2024.12.10.02.49.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 02:49:46 -0800 (PST)
+	id 1tKxtv-00066z-4v; Tue, 10 Dec 2024 10:55:35 +0000
+Received: by outflank-mailman (input) for mailman id 852082;
+ Tue, 10 Dec 2024 10:55:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zYqq=TD=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1tKxtt-00066r-1T
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 10:55:33 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 469137f3-b6e5-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 11:55:32 +0100 (CET)
+Received: from nico.bugseng.com (unknown [46.228.253.214])
+ by support.bugseng.com (Postfix) with ESMTPSA id 440BC4EE0738;
+ Tue, 10 Dec 2024 11:55:30 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,136 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79ea0c1a-b6e4-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733827788; x=1734432588; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=T1+JtpJhKjuJZC0M0gDGzIMy8kIn7FafaJ7/N9niL/4=;
-        b=Byh2Jf9UR8r9bEssXxP1bBDhCRkhCd6d1GWV+iK0gNAGFAb6va6uGckoQj7Xgcn7+7
-         mRU3d5YVsEMAMzom499kDudX2QI+FSdW4Uo6NCquDmah4z+tl+aR6avmeK9tRstCe2pD
-         YZlMgR4H3SKcRFyRP9vTOt3+qhHbT2lCSeS2fmSU6fRMseOjvDHIxX4zFZfc0PFPRSj7
-         tHzl9G4+GL5hqvC8yzlHn6BxgGIEWZX2mWCYEnMxu+myEQX5n2LdL4kqgHNXdftq758z
-         DK2RAV/pRVNE8kk4I1FYnQYbEEwCneXPq9nfjPguHGO84VnQ2VqxZdaredC4HZVd8TMq
-         bmZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733827788; x=1734432588;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T1+JtpJhKjuJZC0M0gDGzIMy8kIn7FafaJ7/N9niL/4=;
-        b=HVAe4/UYf1FfyHpKXCCwSFyVjeeVWRlc0M0v5Ns+xZZkYE9n5LHuh0l8EAnxlMlkuz
-         TB2bh2qrwC2Xey3wukoPd+DsujBTwr1QlXjlJ60mwUXTiftSjTeGQbUmfU/r+LQI/OPA
-         +EWgsKw/lA4wzZKMiG96ogdOVwMIjjxACu5ZTtQZ6cohhJMy+H7gQeAgKRMyPujxFoIp
-         mjXfDRJtfBcMBWIBnUO+v6JXGgYXwBb6C91eJYEVpaNLKZYDq/lzMQfB1klUjrI0tnf0
-         xdbTLQ7D+hSp7M8Tx3Sm1u67LfHepeNeJFdtZDQBa9AuZ9t+xsihbXtGNQ0ZsS4/LUGM
-         4rCw==
-X-Forwarded-Encrypted: i=1; AJvYcCVCuDvcJyRvylNx2chJfrGZ0cRgDaBXwH50+plJZvnmMB8LK0xeikeUM1aqCfViBG5I9xP5I4Scn3c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxN7oyoK1O8WVZj0wPWPs/6/tHqHszzn6wJCvJl7wrXoysgY0zH
-	FELHZWSBTxCmIuQiFxJBi7fg90KFDrYSpAd1folVwhb4HetXP77bzXdpaF5O3w==
-X-Gm-Gg: ASbGncuC+qr06Q8DE5UZlwBW3ud1W8s2Xb6Qe6yu71p0toF0kFJmQEyhJWCzsBsJUQ0
-	qPdK8lDvlSVWHPYhavPPeDEmr/IifDJymg30nNpy5ekOrK3QNBr3f+fyH6te6NtOaA7kY76uTdF
-	suagstFNYdPHqv/YerX0VE81LEJDr8Ljf/m9/Mzg+r3vapUCxlfKVevb3AYg0s3lij11Ikhnaz7
-	NDw/5eD+tSZoWCkzQOPXY2s02/IhZhoDcleJFGPJDIkoR0o3lBPBzRRAnbfAlVP4x8jmMz5YxrQ
-	jfwYZRlo/ErYcOEFC5MG3vh+t2747D9/Q8etXF2sNF7g6KCdbGGZKI2UBzVUyrYs0R8+UJzKjCv
-	xYKvYgWFayw==
-X-Google-Smtp-Source: AGHT+IH6BbkofEd6yAgOijFDW/kZuqjmE6GbsbnG1dpsH2I3LmNsZc9IjRK+xNQaFgQoivID+MlejQ==
-X-Received: by 2002:a05:6000:1446:b0:386:42a6:21f2 with SMTP id ffacd0b85a97d-38642a624f0mr3941528f8f.10.1733827786694;
-        Tue, 10 Dec 2024 02:49:46 -0800 (PST)
-Message-ID: <0b990a3c-4803-4d18-a42f-bf9601e14ca1@suse.com>
-Date: Tue, 10 Dec 2024 11:49:45 +0100
+X-Inumbo-ID: 469137f3-b6e5-11ef-a0d5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1733828131; bh=u5yI1U7QpCEc+V1D8jZzLmbdJwaI+XFI2TgvkxNxhqI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Pty/NXKj9MrTQYz2nCS7fwAzCDxVsujkExwwPeo3xaNsu+NEfeRtdkGjU1z9K1ioh
+	 h2Ni5n7DOOGqevwySZY+gbV+hGH8qVNPoYbZSsGHEyXwM3PPOn6IzB8EWEirdw1O1T
+	 9JGTsBjtLR39tjy49TabP01mm4gwYZrhVPgXjG40kM4rKtPjc+21xljgHSoh3p7FYD
+	 8hJlPJ402lVTSiWv8CPbkXcQEaImFIsJkqyoe70sWRqxAsNP4DKvjfWgw+F8JU8WZS
+	 x/bv11b/2uoCu0WdL4e7nAAdNg992vRQEOI2b+w2Le6U6suMC5xS54gWErnZMrJM0b
+	 T8W8/VFIpekxg==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH v3] x86: p2m-pod: address violation of MISRA C Rule 2.1
+Date: Tue, 10 Dec 2024 11:54:59 +0100
+Message-ID: <05b5fd3a85d033adacd5aa08ca81ce579cb1a120.1733827766.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] x86/boot: Use external symbols from
- cmdline_parse_early
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241122093358.478774-1-frediano.ziglio@cloud.com>
- <20241122093358.478774-5-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241122093358.478774-5-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.11.2024 10:33, Frediano Ziglio wrote:
-> Move some assembly code to C.
-> 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/build32.lds.S         |  1 +
->  xen/arch/x86/boot/cmdline.c             | 14 ++++++++++++--
->  xen/arch/x86/boot/head.S                |  9 +--------
->  xen/arch/x86/boot/trampoline.S          |  2 +-
->  xen/arch/x86/include/asm/setup.h        |  2 ++
->  xen/arch/x86/include/boot/xen/cpumask.h |  1 +
->  xen/arch/x86/include/boot/xen/string.h  | 10 ++++++++++
->  7 files changed, 28 insertions(+), 11 deletions(-)
->  create mode 100644 xen/arch/x86/include/boot/xen/cpumask.h
->  create mode 100644 xen/arch/x86/include/boot/xen/string.h
+Rule 2.1 states: "A project shall not contain unreachable code".
 
-Again the diffstat doesn't really suggest this is a win. As an upside
-I can see that the argument passing to the function is somewhat ugly
-when done from assembly, especially when the function needs new
-parameters added or ones removed / changed. The downside is that now
-you're switching to dealing with globals, which generally seems less
-desirable.
+The placement of the loop after "out_unmap" can be moved earlier
+in order to avoid the unconditional return to be marked as a cause of
+unreachability for the loop, as this is a consequence of
+"__builtin_unreachable" being configured in ECLAIR as being deliberately
+unreachable, and therefore not reported as causing the code after the
+"out_unmap" label to be unreachable.
 
-> --- a/xen/arch/x86/include/asm/setup.h
-> +++ b/xen/arch/x86/include/asm/setup.h
-> @@ -16,6 +16,8 @@ extern uint64_t boot_tsc_stamp;
->  extern void *stack_start;
->  extern unsigned int multiboot_ptr;
->  
-> +struct domain;
-> +
->  void early_cpu_init(bool verbose);
->  void early_time_init(void);
->  
+Replacing one instance of "goto out_unmap" with the loop avoids
+considering the unconditional return at the end of the function as a cause
+of unreachability, while preserving the semantics of the function.
 
-While I think I can see why this would be needed, personally I think
-such forward decls belong either immediately past all #include-s or
-immediately ahead of where they are first needed.
+No functional change intended.
 
-> --- /dev/null
-> +++ b/xen/arch/x86/include/boot/xen/cpumask.h
-> @@ -0,0 +1 @@
-> +/* Empty. */
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in v2:
+- rebased against current staging
+Changes in v3:
+- move the loop inside the if and avoid one goto
+---
+ xen/arch/x86/mm/p2m-pod.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-Are there perhaps better ways to deal with whatever needs dealing with
-(which sadly isn't obvious and also isn't mentioned anywhere)? At a
-guess, asm/numa.h may be where the problem is, yet then setup.h
-includes that just to get a decl of nodeid_t afaics. As we're meaning
-to split headers into two or perhaps even three parts anyway (to allow
-reducing dependency chains), maybe we should do so here and introduce
-e.g. asm/types/numa.h?
+diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
+index bd84fe9e27ee..8b6f9909c5a1 100644
+--- a/xen/arch/x86/mm/p2m-pod.c
++++ b/xen/arch/x86/mm/p2m-pod.c
+@@ -1005,7 +1005,14 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
+             {
+                 ASSERT_UNREACHABLE();
+                 domain_crash(d);
+-                goto out_unmap;
++out_unmap:
++                /*
++                 * Something went wrong, probably crashing the domain.  Unmap
++                 * everything and return.
++                 */
++                for ( i = 0; i < count; i++ )
++                    if ( map[i] )
++                        unmap_domain_page(map[i]);
+             }
+         }
+         else
+@@ -1032,17 +1039,6 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
+             ioreq_request_mapcache_invalidate(d);
+         }
+     }
+-
+-    return;
+-
+-out_unmap:
+-    /*
+-     * Something went wrong, probably crashing the domain.  Unmap
+-     * everything and return.
+-     */
+-    for ( i = 0; i < count; i++ )
+-        if ( map[i] )
+-            unmap_domain_page(map[i]);
+ }
 
-Jan
+ static void
+--
+2.43.0
 
