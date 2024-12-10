@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7169EBC96
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 23:03:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.853128.1266764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 932429EBC92
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 23:03:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.853129.1266773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL8Jf-0004Tf-3g; Tue, 10 Dec 2024 22:02:51 +0000
+	id 1tL8Jg-0004h3-34; Tue, 10 Dec 2024 22:02:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 853128.1266764; Tue, 10 Dec 2024 22:02:51 +0000
+Received: by outflank-mailman (output) from mailman id 853129.1266773; Tue, 10 Dec 2024 22:02:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL8Je-0004JL-If; Tue, 10 Dec 2024 22:02:50 +0000
-Received: by outflank-mailman (input) for mailman id 853128;
+	id 1tL8Jf-0004Rg-Gn; Tue, 10 Dec 2024 22:02:51 +0000
+Received: by outflank-mailman (input) for mailman id 853129;
  Tue, 10 Dec 2024 22:02:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9guP=TD=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
- id 1tL8Jb-0001xA-Md
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 22:02:47 +0000
+ id 1tL8Jc-0001xA-Mk
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 22:02:48 +0000
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 7b9287cf-b742-11ef-a0d5-8be0dac302b0;
+ id 7c02e4cd-b742-11ef-a0d5-8be0dac302b0;
  Tue, 10 Dec 2024 23:02:44 +0100 (CET)
 Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
- by linux.microsoft.com (Postfix) with ESMTPSA id 6FF4C2047230;
+ by linux.microsoft.com (Postfix) with ESMTPSA id 9DC932047231;
  Tue, 10 Dec 2024 14:02:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,23 +39,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b9287cf-b742-11ef-a0d5-8be0dac302b0
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6FF4C2047230
+X-Inumbo-ID: 7c02e4cd-b742-11ef-a0d5-8be0dac302b0
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9DC932047231
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1733868158;
-	bh=U++D0WKRUcBPTXKKmA8ay83+fBnoO24djfuDhPxnmd0=;
+	bh=gKZLAOaJwfAP+6Kmm8Uoact7ay9fLs6b2uIK/ai8VsE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=i9DsTNH+sl/IoEAtSjlSJHTOE30TcOTSfxv7yvCJsXzsKYC64wXa+LBK94U2wED8+
-	 6hMcKIbUoHeurUTa3oCFtWHdRYvf3LnrkdYUlQGzEUBgp5Wh7dgkbASpnSVSuIShxl
-	 Qe59P7FSrX+a5TC/+UUUxnQ63OeNqL5idRg6Tx5c=
+	b=svAtqGWUfwwxhkPtOsHM9wFpOe5H7V37CPLpc1efEJB+hZDbAOkD4T5b6sfMzxhZ+
+	 yP7ZIp8mBgs9llSr4qUZT5sBXpDyffL9kReLgTxKKh0F7Rks+AtMLKTRz+ik8N0b4l
+	 Co5R1xYnpZA/XZN3kdMilWWEgRejdEMkmjUvT5B4=
 From: Easwar Hariharan <eahariha@linux.microsoft.com>
-Date: Tue, 10 Dec 2024 22:02:42 +0000
-Subject: [PATCH v3 11/19] scsi: pm8001: Convert timeouts to
+Date: Tue, 10 Dec 2024 22:02:43 +0000
+Subject: [PATCH v3 12/19] xen/blkback: Convert timeouts to
  secs_to_jiffies()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241210-converge-secs-to-jiffies-v3-11-ddfefd7e9f2a@linux.microsoft.com>
+Message-Id: <20241210-converge-secs-to-jiffies-v3-12-ddfefd7e9f2a@linux.microsoft.com>
 References: <20241210-converge-secs-to-jiffies-v3-0-ddfefd7e9f2a@linux.microsoft.com>
 In-Reply-To: <20241210-converge-secs-to-jiffies-v3-0-ddfefd7e9f2a@linux.microsoft.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>, 
@@ -140,22 +140,22 @@ the following Coccinelle rules:
 
 Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
 ---
- drivers/scsi/pm8001/pm8001_init.c | 2 +-
+ drivers/block/xen-blkback/blkback.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/pm8001/pm8001_init.c b/drivers/scsi/pm8001/pm8001_init.c
-index f8c81e53e93f7849bbe7fe9cbc861f22b964bc39..22e0e79e88ab0a60965ff3809de116eb4a6851e2 100644
---- a/drivers/scsi/pm8001/pm8001_init.c
-+++ b/drivers/scsi/pm8001/pm8001_init.c
-@@ -736,7 +736,7 @@ static int pm8001_init_sas_add(struct pm8001_hba_info *pm8001_ha)
- 		return -EIO;
- 	}
- 	time_remaining = wait_for_completion_timeout(&completion,
--				msecs_to_jiffies(60*1000)); // 1 min
-+				secs_to_jiffies(60)); // 1 min
- 	if (!time_remaining) {
- 		kfree(payload.func_specific);
- 		pm8001_dbg(pm8001_ha, FAIL, "get_nvmd_req timeout\n");
+diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
+index 838064593f62b75f3d937c0c041ea78dedbbaf84..a7c2b04ab943de9cbd69b596aad177a0534f7762 100644
+--- a/drivers/block/xen-blkback/blkback.c
++++ b/drivers/block/xen-blkback/blkback.c
+@@ -544,7 +544,7 @@ static void print_stats(struct xen_blkif_ring *ring)
+ 		 ring->st_rd_req, ring->st_wr_req,
+ 		 ring->st_f_req, ring->st_ds_req,
+ 		 ring->persistent_gnt_c, max_pgrants);
+-	ring->st_print = jiffies + msecs_to_jiffies(10 * 1000);
++	ring->st_print = jiffies + secs_to_jiffies(10);
+ 	ring->st_rd_req = 0;
+ 	ring->st_wr_req = 0;
+ 	ring->st_oo_req = 0;
 
 -- 
 2.43.0
