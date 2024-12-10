@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EED69EB094
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 13:15:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852223.1266078 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 591779EB0A2
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 13:20:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852234.1266089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKz8r-0005GD-My; Tue, 10 Dec 2024 12:15:05 +0000
+	id 1tKzDQ-0005qt-8j; Tue, 10 Dec 2024 12:19:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852223.1266078; Tue, 10 Dec 2024 12:15:05 +0000
+Received: by outflank-mailman (output) from mailman id 852234.1266089; Tue, 10 Dec 2024 12:19:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKz8r-0005EL-Jg; Tue, 10 Dec 2024 12:15:05 +0000
-Received: by outflank-mailman (input) for mailman id 852223;
- Tue, 10 Dec 2024 12:15:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKz8q-0005EF-Se
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 12:15:04 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 621f79e7-b6f0-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 13:15:02 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-434e69857d9so18468325e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 04:15:02 -0800 (PST)
-Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
- (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
- [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
+	id 1tKzDQ-0005ov-4e; Tue, 10 Dec 2024 12:19:48 +0000
+Received: by outflank-mailman (input) for mailman id 852234;
+ Tue, 10 Dec 2024 12:19:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ybAe=TD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tKzDP-0005op-CA
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 12:19:47 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0b2b965d-b6f1-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 13:19:46 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-54025432becso903080e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 04:19:46 -0800 (PST)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-435d4cd4a78sm15432415e9.28.2024.12.10.04.15.01
+ 2adb3069b0e04-5401d2aab5csm721225e87.168.2024.12.10.04.19.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 04:15:01 -0800 (PST)
+ Tue, 10 Dec 2024 04:19:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,204 +45,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 621f79e7-b6f0-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 0b2b965d-b6f1-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733832902; x=1734437702; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VN/XkDuVaTjolMOyGf7nGyHdqQnIcuNJJVWfTZMVHSA=;
-        b=N+NM4r9hNymfzVRw/rtgXXStVHL2Gw9lGD/AFnOkXIqqnrSc+XGQEaVSLhd5asGoJi
-         vptJpykasJjFkyRonmtmoLX8tRLASRoJJHUZZsTAo2MhHNh03rRC2gra2D+ZdUsGbtdR
-         20vITjb5q+XGpSHfQQzYOUE797kANefL5x7M9ZSAegfw2ZvQPTb1UPPz/5ML0PAH/uGs
-         AiqUH2NaynlY1ib1pYOMkaVCMlMLw25Jhb3SWTukKuxoJPES7GK/PM+/mB3MEb0luCzm
-         l7mJqDCh5/fgmXvHcQ0yD1Z4a0RkeEbvw8ZjEK8itSoq7Dke/VmFmulpQt+jhS/JTleI
-         v9kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733832902; x=1734437702;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1733833186; x=1734437986; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VN/XkDuVaTjolMOyGf7nGyHdqQnIcuNJJVWfTZMVHSA=;
-        b=nxMHyoPxm69dAh3bt2vpiP2+bpWkqahMlZ7aRZL0jb5eKMk8SIRMEcY2+GEulAsHfa
-         5jOxhNnFLJqVJDVwgYT5Xp11l1CFDuVHx0vj8u5XsKxETlrveZ13riHUgqYDTx/GOAPw
-         emKBElYhKs0fMTPivo0hylbCir3wOwJ+DZmACkcH4iBV71ApDpdbU/gPwDvLPSMLnMIt
-         BvTSLu2Ywt9WSJbEIiSjb6+ULKQWdGKrNLD40k6XWxhdlT1SH7xPpkvPcjISSBykuJvq
-         VNBq+GEiAjHbWY6OfnTbp8UuSBBlfemRiuOvltVMsW4MCaKkbB52YSjWa5UFhB96YBpE
-         E2Vg==
-X-Forwarded-Encrypted: i=1; AJvYcCUSF2TCbIQn78d3WtPluItu0O2dlFiDZeoY8rD1SQVJstmzgnDBLLhTnfA1z4n8rdGfLG9zDG0DwcY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwEOntdSrLNUKK/JBR2Q6c0ewnvi5P/gOCs49bnjAixnlPzxPZW
-	V7KXvjmzx+gOPY9T2LrQfv+ctPY0uhogtn68/t/02Ca4B1Gk37UidtTRzpHDSQ==
-X-Gm-Gg: ASbGnctQsJxZykvblLTWa6O7A1H7HLHITz29S8wp5ToCAxWAFnqPg3BnV9Di+2givYT
-	FmcipfS79Jy9vUyi9zAYiaCiMZ5jHT2DLctri6SY8WYrLwSRGZJ6Uhd1UHSotpHLh7onHifltR+
-	VUfcgh+4Tj98ne74Tg+uJz1wEolOvZKVrtNzk1eNf44f7D/l00fjllupxQQ9cDjH5DVQ7kltiRJ
-	/gXKfX/AEXTijdG9A03yevAUU31+k+w33L0fqhwvq9QpbjpF9Ifr03c91Pd7fXvdSveINL2+d9H
-	K3Ew3wMs00f9WUi++it1hJ2HBk/BReMxKz9TYydp4xZDCuYXZOMK99CjayqL17Fs73zYr44YRIm
-	b4sZLblmysg==
-X-Google-Smtp-Source: AGHT+IESlpRT9UqqU1MpPU2RVpcxcxGVuYoc9i+dSELlevqa/ftR1J9ZyoIBmRo42ahrwYs7YaTujA==
-X-Received: by 2002:a05:600c:4ed2:b0:434:e69c:d338 with SMTP id 5b1f17b1804b1-43502182706mr21046805e9.5.1733832902136;
-        Tue, 10 Dec 2024 04:15:02 -0800 (PST)
-Message-ID: <e3231310-0041-44f8-b92b-989992c64d0a@suse.com>
-Date: Tue, 10 Dec 2024 13:15:00 +0100
+        bh=LgcqTNrVfOBJ9uwgrvP3jJcEtD74Nx2GTUvqY74CY+4=;
+        b=NErQiXQuvKYW21TilPqAPjd3jb+wB9Xg1KwSb9jGvQTCZJaiVZni/cxEpQFSsBOfcS
+         NT89cwT0aQDCMUz0VlyQ2LUE8z9e9Sf6Zjf51Fv1kSz4oz/uyvOuGCSoHPObpbqGEtEz
+         QTb8uiEvoR9lh7vSgAyTVFBGT7UfSI1wKhFv52MsEZIhK+xcRWOx/OJsEw9zr1qFH6RK
+         hwfGIPjamV9jIpQdX6pZ+mBpQeQ8t+8ixNada1v3MFZ522Du0J9RerwrMxLLq53Z4KMe
+         UAa0XX1kWI+Hv46pILawHvAKj2vsNDrMf1bHFIETO+zbmoiXIA56s1bX9QxmoC5/ySfA
+         1eNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733833186; x=1734437986;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=LgcqTNrVfOBJ9uwgrvP3jJcEtD74Nx2GTUvqY74CY+4=;
+        b=cC3AbD7+xBUu+lekCQGQgH+ihr6/qgC9lSSNz8SE0oXKpeDuZ5P6c7hFmQ2ZNGrYl9
+         87CFl8vQqIe+YW7XvqoSW760MtaNXwuGuxxx6G1IjHZsPyTwa9a9e6QH9obSfY5ZDZoB
+         YPBjTwfdBTvv3qq1uFBPW3eXVKlWMgXY/4dfkeIHChB1AcnDxI3ea1ToogwrHF0P/Gca
+         c9iN7GXAnjPGbOSbxSAi2vf2ifKY6a7rW7wML4V/7kJR1L3/SSBhuI6qj9vYW5+EGDyx
+         DzCtvnuDUmfS3VluJvlGDzt9xxUhm+b6q7+vKUDtj1zf/z6KfXm7gYdaUZzpTAqKi4p5
+         Qi3w==
+X-Forwarded-Encrypted: i=1; AJvYcCV3MnqqTNZ/X1u6C3/Ltm2uLFY+PE9YLVqsdBdbpN0aOZ3FlXVAQz69Kd5nkvYPG0ITi0asR0secNc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOA4o3oavOpIUNVQUe1U0BfUbM4QZDke0S3u0uImOogtu5ssPO
+	RxvJMeDzHRI3xaF19y7mnwt5iZC2fToy0+cp6Aw1SUwfGm2q228k
+X-Gm-Gg: ASbGncuBpVIKrRKAzN7Sl2X9u4Z5nLCiosOxhqnSHgZXtx3qjMwHrMFFBl+FyUEPsQC
+	XriRQa0BrO5nahRo9UA5ks1+5muTZNQDhIcFR6LEIcpQX1/r3i8WcvzelGi+hEcyO7zM08jJ5f5
+	KvbI8W2A3pEf8W7k0jsXQQ39oK/Py3KeBkUxHpV5w2qXkwfsiGkl4Ht9o2awZLCPK+GQxZpfnMi
+	sPqqlKvSFHq6ajJazhihAuG1tPCYPChqywIwKY5bOQSZwYXXPeUNlRJk4qPrBrRrYQ=
+X-Google-Smtp-Source: AGHT+IH3Mqx6wcZJQ8KT9JLikkYEvGtdVJ5len2jFu7r4XW6F6I79x4gGoHLEmQqwajtY+NAGrsbHA==
+X-Received: by 2002:a05:6512:318e:b0:53e:39f0:4bbd with SMTP id 2adb3069b0e04-540240c982amr1388787e87.21.1733833185342;
+        Tue, 10 Dec 2024 04:19:45 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------jmoKaTs5QomEdFFe7PM0f7KF"
+Message-ID: <a85319ab-b6bb-4be4-be6c-032feceede7c@gmail.com>
+Date: Tue, 10 Dec 2024 13:19:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
- <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
- <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
- <BL1PR12MB58499BEB287C4F9711324F71E73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <1e0576d9-400e-4483-8dd1-061e215a00cd@suse.com>
- <BL1PR12MB584945F11C271CE137231F7BE73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <a07bca59-90d2-4a84-bb47-59157bf5207d@suse.com>
- <Z1glF5FJjnSzRqsB@macbook.local>
+Subject: Re: [PATCH v1 4/6] xen/riscv: introduce cache management operations
+ (CMO)
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1732709650.git.oleksii.kurochko@gmail.com>
+ <1310a2fb3b9824ae66f850600925127fdfdb44fa.1732709650.git.oleksii.kurochko@gmail.com>
+ <9d49befe-4592-4e71-ad0b-9a0af34253f5@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z1glF5FJjnSzRqsB@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <9d49befe-4592-4e71-ad0b-9a0af34253f5@suse.com>
 
-On 10.12.2024 12:25, Roger Pau Monné wrote:
-> On Tue, Dec 10, 2024 at 10:54:43AM +0100, Jan Beulich wrote:
->> On 10.12.2024 08:57, Chen, Jiqian wrote:
->>> On 2024/12/10 15:17, Jan Beulich wrote:
->>>> On 10.12.2024 08:07, Chen, Jiqian wrote:
->>>>> On 2024/12/9 21:59, Jan Beulich wrote:
->>>>>> On 02.12.2024 07:09, Jiqian Chen wrote:
->>>>>>> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->>>>>>> +                                      unsigned int reg,
->>>>>>> +                                      uint32_t val,
->>>>>>> +                                      void *data)
->>>>>>> +{
->>>>>>> +    uint64_t size;
->>>>>>> +    unsigned int index;
->>>>>>> +    struct vpci_bar *bars = data;
->>>>>>> +
->>>>>>> +    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
->>>>>>> +        return;
->>>>>>
->>>>>> I don't think something like this can go uncommented. I don't think the
->>>>>> spec mandates to drop writes in this situation?
->>>>> Spec says: Software must clear the Memory Space Enable bit in the Command register before writing the BAR Size field.
->>>>> This check is suggested by Roger and it really helps to prevent erroneous writes in this case,
->>>>> such as the result of debugging with Roger in the previous version.
->>>>> I will add the spec's sentences as comments here in next version.
->>>>
->>>> What you quote from the spec may not be enough as a comment here. There's
->>>> no direct implication that the write would simply be dropped on the floor
->>>> if the bit is still set. So I think you want to go a little beyond just
->>>> quoting from the spec.
->>> How about quoting Roger's previous words: " The memory decoding must be disabled before writing the BAR size field.
->>> Otherwise changing the BAR size will lead to the active p2m mappings getting out of sync w.r.t. the new BAR size." ?
->>
->> That'll be better, but imo still not enough to explain the outright ignoring
->> of the write.
-> 
-> I think we might want to do something along the lines of:
-> 
-> uint64_t size = PCI_REBAR_CTRL_SIZE(val);
-> struct vpci_bar *bar = data;
-> 
-> if ( bar->enabled )
-> {
->     if ( size == bar->size )
->         return;
-> 
->     /*
->      * Refuse to resize a BAR while memory decoding is enabled, as
->      * otherwise the size of the mapped region in the p2m would become
->      * stale with the newly set BAR size, and the position of the BAR
->      * would be reset to undefined.  Note the PCIe specification also
->      * forbids resizing a BAR with memory decoding enabled.
->      */
->     gprintk(XENLOG_ERR,
->             "%pp: refuse to resize BAR with memory decoding enabled\n",
-> 	    &pci->sbdf);
->     return;
-> }
-> 
-> Note this requires that the data parameter points to the BAR that
-> matches the ReBAR control register, this needs adjusting in
-> init_rebar().
+This is a multi-part message in MIME format.
+--------------jmoKaTs5QomEdFFe7PM0f7KF
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGTM.
 
->>>>>>> +        if ( rc )
->>>>>>> +        {
->>>>>>> +            printk("%pp: add register for PCI_REBAR_CAP failed (rc=%d)\n",
->>>>>>> +                   &pdev->sbdf, rc);
->>>>>>> +            break;
->>>>>>> +        }
->>>>>>> +
->>>>>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
->>>>>>> +                               rebar_offset + PCI_REBAR_CTRL, 4,
->>>>>>> +                               pdev->vpci->header.bars);
->>>>>>> +        if ( rc )
->>>>>>> +        {
->>>>>>> +            printk("%pp: add register for PCI_REBAR_CTRL failed %d\n",
->>>>>>> +                   &pdev->sbdf, rc);
->>>>>>> +            break;
->>>>>>
->>>>>> Is it correct to keep the other handler installed? After all ...
->>>>> Will change to "return rc;" here and above in next version.
->>>>
->>>> I'm not convinced this is what we want, as per ...
->>>>
->>>>>>> +        }
->>>>>>> +    }
->>>>>>> +
->>>>>>> +    return 0;
->>>>>>
->>>>>> ... you - imo sensibly - aren't communicating the error back up (to allow
->>>>>> the device to be used without BAR resizing.
->>>>
->>>> ... what I said here.
->>> Sorry, I didn’t understand.
->>> Do you mean it is not enough to return error code once a handler failed to be installed, I need to remove the already installed handlers?
->>
->> No, if you return an error here, nothing else needs doing. However, I
->> question that returning an error here is good or even necessary. In
->> the event of an error, the device ought to still be usable, just
->> without the BAR-resizing capability.
-> 
-> So you suggest that the capability should be hidden in that case?
+On 12/9/24 3:38 PM, Jan Beulich wrote:
+> On 27.11.2024 13:50, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/Kconfig
+>> +++ b/xen/arch/riscv/Kconfig
+>> @@ -14,6 +14,9 @@ config ARCH_DEFCONFIG
+>>   	string
+>>   	default "arch/riscv/configs/tiny64_defconfig"
+>>   
+>> +config HAS_CMO # Cache Management Operations
+>> +	bool
+> Hmm, and nothing ever sets this, and hence ...
+>
+>> @@ -148,9 +149,24 @@ static inline bool pte_is_mapping(pte_t p)
+>>       return (p.pte & PTE_VALID) && (p.pte & PTE_ACCESS_MASK);
+>>   }
+>>   
+>> +#ifndef HAS_CMO
+>> +static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
+>> +{
+>> +    return -EOPNOTSUPP;
+>> +}
+>> +
+>> +static inline int clean_dcache_va_range(const void *p, unsigned long size)
+>> +{
+>> +    return -EOPNOTSUPP;
+>> +}
+>> +#else
+>> +int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size);
+>> +int clean_dcache_va_range(const void *p, unsigned long size);
+>> +#endif
+> ... all you really provide are stubs and declarations, but no
+> definition anywhere?
 
-Yes.
+Yes, this was done intentionally because:
+- I don't have hardware with the CMO extension, so I can't test it. ( QEMU doesn't model cache and so
+   there is no need for CMO extension emulation IIUC )
+- The instructions used for these functions may be hardware-specific and exist only for particular devices.
 
->  We
-> have logic to hide capabilities, just not used for the hardware
-> domain.  It would need some extra wiring to be capable of hiding
-> failed capabilities.
+It seems useful to have something similar to Linux:
+https://elixir.bootlin.com/linux/v6.6.64/source/arch/riscv/include/asm/errata_list.h#L135 <https://elixir.bootlin.com/linux/v6.6.64/source/arch/riscv/include/asm/errata_list.h#L135>
+(There are also custom instructions for THEAD above this macro.)
 
-Indeed.
+We could use|ALT_CMO_OP(...)| inside|clean_and_invalidate_dcache_va_range()| and|clean_dcache_va_range()|.
+However, I think it would be better to introduce or implement these functions when|HAS_CMO| is set to|y| someday.
 
-Jan
+As an alternative, we could implement these functions as|panic("need to be implemented\n")| in case when HAS_CMO=y.
+
+Another option is to drop|HAS_CMO| entirely for now and keep the current implementation (|return -EOPNOTSUPP|).
+However, with this approach, there's a risk of encountering hard-to-debug issues on platforms with the CMO extension.
+And necessity of implementation of these could be missed because there is no any notification...
+
+>
+> Plus of course this gets us into feature detection territory again: If
+> RISC-V provided a way to detect presence / absence of certain extensions,
+> this really shouldn't be a compile time setting, but be determined
+> dynamically.
+
+This is the next patch I plan to send after this patch series:
+https://gitlab.com/xen-project/people/olkur/xen/-/commit/f81ae67c42854073da5403210c9e31de6b0ee5bd <https://gitlab.com/xen-project/people/olkur/xen/-/commit/f81ae67c42854073da5403210c9e31de6b0ee5bd>
+
+It "detects" available extensions based on a device tree property. While this is not the best approach
+(the ideal solution would be hardware having a register that lists all available extensions), it seems to be
+the best option available at the moment.
+
+Another option I considered was introducing a new SBI call, delegating the responsibility to OpenSBI
+to provide this information.
+
+>
+>>   static inline void invalidate_icache(void)
+>>   {
+>> -    BUG_ON("unimplemented");
+>> +    asm volatile ( "fence.i" ::: "memory" );
+>>   }
+> That's a separate extension, Zifencei, which I don't think you can just
+> assume to be present?
+
+Based on the specification:
+```
+Chapter 34. RV32/64G Instruction Set Listings
+One goal of the RISC-V project is that it be used as a stable software development target. For this
+purpose, we define a combination of a base ISA (RV32I or RV64I) plus selected standard extensions
+(IMAFD, Zicsr, Zifencei) as a "general-purpose" ISA, and we use the abbreviation G for the
+IMAFDZicsr_Zifencei combination of instruction-set extensions. This chapter presents opcode maps
+and instruction-set listings for RV32G and RV64G
+```
+and that G is needed to boot Linux kernel ( and so Xen ) I make an assumption that Zifencei will be always
+present.
+
+And based on Linux code (https://elixir.bootlin.com/linux/v6.12.4/source/arch/riscv/kernel/cpufeature.c#L676 )
+when 'i' is present in riscv,isa property zifencei is present unconditionally.
+
+~ Oleksii
+
+--------------jmoKaTs5QomEdFFe7PM0f7KF
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 12/9/24 3:38 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:9d49befe-4592-4e71-ad0b-9a0af34253f5@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 27.11.2024 13:50, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -14,6 +14,9 @@ config ARCH_DEFCONFIG
+ 	string
+ 	default "arch/riscv/configs/tiny64_defconfig"
+ 
++config HAS_CMO # Cache Management Operations
++	bool
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Hmm, and nothing ever sets this, and hence ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -148,9 +149,24 @@ static inline bool pte_is_mapping(pte_t p)
+     return (p.pte &amp; PTE_VALID) &amp;&amp; (p.pte &amp; PTE_ACCESS_MASK);
+ }
+ 
++#ifndef HAS_CMO
++static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
++{
++    return -EOPNOTSUPP;
++}
++
++static inline int clean_dcache_va_range(const void *p, unsigned long size)
++{
++    return -EOPNOTSUPP;
++}
++#else
++int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size);
++int clean_dcache_va_range(const void *p, unsigned long size);
++#endif
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... all you really provide are stubs and declarations, but no
+definition anywhere?</pre>
+    </blockquote>
+    <pre>Yes, this was done intentionally because:
+- I don't have hardware with the CMO extension, so I can't test it. ( QEMU doesn't model cache and so
+  there is no need for CMO extension emulation IIUC )
+- The instructions used for these functions may be hardware-specific and exist only for particular devices.
+
+</pre>
+    <pre>It seems useful to have something similar to Linux:
+<a rel="noopener" target="_new"
+href="https://elixir.bootlin.com/linux/v6.6.64/source/arch/riscv/include/asm/errata_list.h#L135"><span>https</span><span>://elixir</span><span>.bootlin</span><span>.com</span><span>/linux</span><span>/v6.6.64</span><span>/source</span><span>/arch</span><span>/riscv</span><span>/include</span><span>/asm</span><span>/errata_list</span><span>.h</span><span>#L135</span></a>
+(There are also custom instructions for THEAD above this macro.)</pre>
+    <pre>We could use <code>ALT_CMO_OP(...)</code> inside <code>clean_and_invalidate_dcache_va_range()</code> and <code>clean_dcache_va_range()</code>.
+However, I think it would be better to introduce or implement these functions when <code>HAS_CMO</code> is set to <code>y</code> someday.
+
+</pre>
+    <pre>As an alternative, we could implement these functions as <code>panic("need to be implemented\n")</code> in case when HAS_CMO=y.
+
+Another option is to drop <code>HAS_CMO</code> entirely for now and keep the current implementation (<code>return -EOPNOTSUPP</code>).
+However, with this approach, there's a risk of encountering hard-to-debug issues on platforms with the CMO extension.
+And necessity of implementation of these could be missed because there is no any notification...
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9d49befe-4592-4e71-ad0b-9a0af34253f5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Plus of course this gets us into feature detection territory again: If
+RISC-V provided a way to detect presence / absence of certain extensions,
+this really shouldn't be a compile time setting, but be determined
+dynamically.</pre>
+    </blockquote>
+    <pre>This is the next patch I plan to send after this patch series:
+<a rel="noopener" target="_new"
+href="https://gitlab.com/xen-project/people/olkur/xen/-/commit/f81ae67c42854073da5403210c9e31de6b0ee5bd"><span>https</span><span>://gitlab</span><span>.com</span><span>/xen</span><span>-project</span><span>/people</span><span>/olkur</span><span>/xen</span><span>/-/commit</span><span>/f81ae67c42854073da5403210c9e31de6b0ee5bd</span></a></pre>
+    <pre>It "detects" available extensions based on a device tree property. While this is not the best approach
+(the ideal solution would be hardware having a register that lists all available extensions), it seems to be
+the best option available at the moment.</pre>
+    <pre>Another option I considered was introducing a new SBI call, delegating the responsibility to OpenSBI
+to provide this information.</pre>
+    <pre></pre>
+    <blockquote type="cite"
+      cite="mid:9d49befe-4592-4e71-ad0b-9a0af34253f5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> static inline void invalidate_icache(void)
+ {
+-    BUG_ON("unimplemented");
++    asm volatile ( "fence.i" ::: "memory" );
+ }
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+That's a separate extension, Zifencei, which I don't think you can just
+assume to be present?</pre>
+    </blockquote>
+    <pre>Based on the specification:
+```
+Chapter 34. RV32/64G Instruction Set Listings
+One goal of the RISC-V project is that it be used as a stable software development target. For this
+purpose, we define a combination of a base ISA (RV32I or RV64I) plus selected standard extensions
+(IMAFD, Zicsr, Zifencei) as a "general-purpose" ISA, and we use the abbreviation G for the
+IMAFDZicsr_Zifencei combination of instruction-set extensions. This chapter presents opcode maps
+and instruction-set listings for RV32G and RV64G
+```
+and that G is needed to boot Linux kernel ( and so Xen ) I make an assumption that Zifencei will be always
+present.
+
+And based on Linux code ( <a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/v6.12.4/source/arch/riscv/kernel/cpufeature.c#L676">https://elixir.bootlin.com/linux/v6.12.4/source/arch/riscv/kernel/cpufeature.c#L676</a> )
+when 'i' is present in riscv,isa property zifencei is present unconditionally.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------jmoKaTs5QomEdFFe7PM0f7KF--
 
