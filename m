@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE929EAEBE
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 11:55:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852082.1265989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4267F9EAEED
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 12:01:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852092.1265998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxtv-0006A7-8S; Tue, 10 Dec 2024 10:55:35 +0000
+	id 1tKxz3-0007ty-PQ; Tue, 10 Dec 2024 11:00:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852082.1265989; Tue, 10 Dec 2024 10:55:35 +0000
+Received: by outflank-mailman (output) from mailman id 852092.1265998; Tue, 10 Dec 2024 11:00:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxtv-00066z-4v; Tue, 10 Dec 2024 10:55:35 +0000
-Received: by outflank-mailman (input) for mailman id 852082;
- Tue, 10 Dec 2024 10:55:33 +0000
+	id 1tKxz3-0007rk-Mn; Tue, 10 Dec 2024 11:00:53 +0000
+Received: by outflank-mailman (input) for mailman id 852092;
+ Tue, 10 Dec 2024 11:00:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zYqq=TD=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1tKxtt-00066r-1T
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 10:55:33 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=+Xbj=TD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tKxz3-0007re-2J
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 11:00:53 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 469137f3-b6e5-11ef-a0d5-8be0dac302b0;
- Tue, 10 Dec 2024 11:55:32 +0100 (CET)
-Received: from nico.bugseng.com (unknown [46.228.253.214])
- by support.bugseng.com (Postfix) with ESMTPSA id 440BC4EE0738;
- Tue, 10 Dec 2024 11:55:30 +0100 (CET)
+ id 052a6c1c-b6e6-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 12:00:51 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-aa6a3c42400so95649366b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 03:00:51 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d3ecef4c07sm3922013a12.1.2024.12.10.03.00.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Dec 2024 03:00:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,97 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 469137f3-b6e5-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1733828131; bh=u5yI1U7QpCEc+V1D8jZzLmbdJwaI+XFI2TgvkxNxhqI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Pty/NXKj9MrTQYz2nCS7fwAzCDxVsujkExwwPeo3xaNsu+NEfeRtdkGjU1z9K1ioh
-	 h2Ni5n7DOOGqevwySZY+gbV+hGH8qVNPoYbZSsGHEyXwM3PPOn6IzB8EWEirdw1O1T
-	 9JGTsBjtLR39tjy49TabP01mm4gwYZrhVPgXjG40kM4rKtPjc+21xljgHSoh3p7FYD
-	 8hJlPJ402lVTSiWv8CPbkXcQEaImFIsJkqyoe70sWRqxAsNP4DKvjfWgw+F8JU8WZS
-	 x/bv11b/2uoCu0WdL4e7nAAdNg992vRQEOI2b+w2Le6U6suMC5xS54gWErnZMrJM0b
-	 T8W8/VFIpekxg==
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	michal.orzel@amd.com,
-	xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com,
-	consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
+X-Inumbo-ID: 052a6c1c-b6e6-11ef-a0d5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1733828451; x=1734433251; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=XEBeKYCCu64IPF0XgaOrtuu0z+8g7mPMzXrZeOCpmn4=;
+        b=kzB/hzx6xS8IEgyLl3xHXZoEA/CMo0dYdPtZIoh7G0BM/yBr9kFJS5jvCcrRbU2EV3
+         EKRKqJQ8S3t9iO86YmlT/n92tar5WCXDVmWbGqNO7tugZOe8Ew4iqPphfJlOYgkXCjTP
+         /P0vgp0nFL6FwK0gNkUu0fRRuvwTuiR8POVyg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733828451; x=1734433251;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XEBeKYCCu64IPF0XgaOrtuu0z+8g7mPMzXrZeOCpmn4=;
+        b=mmdL3zMv8xJzVzahyrXZzfhm5JsGmQxGjYBNslpT9atioTwrnEpPpgmrgSdPcC7W1Q
+         u0lh//j8PWUuxjGdkSjl5aXD7FLAVLSgWrlOODddbMcDayQNejBtIn/q3Bbws8DDLZDf
+         X49XIvs/QrYB7CKIB3SS0VQxsptre3/NQ6ZQ1idp1qLMlQJ2qPm7C95DRUihoOhwL+ci
+         rPyq3Cf8x4FzmhHcTEzS8Hg00oe3kRxHUCcBUTOg+eYzJkhYTbumAhALlX0lT2Mpcud8
+         3VcvwUJvBcSpedv+EznOcuwwCQmpyWWm5nKW2b/6S/hlYoDkORAcrByKEuNKVXZop8xA
+         OAbA==
+X-Forwarded-Encrypted: i=1; AJvYcCWX/gf4X/cJcGpjKY7B20+OMutbRhMGH+efkgzawTJ6Ja+5gVle8Fnm6tcjsKUEiQ4ei9+f3jbeJlQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwwSCHmN8M5rvIuBiJghqqbRIZkgsROeTMpkQYijMbv5UwpOj+E
+	FeRdZyU+vlQ2qK0hbAFgzqt122gCV+AWKdlmWbI9QmyVtehKQgbtAYN9sa1w1qI=
+X-Gm-Gg: ASbGnct0G1pYsbePTXfmfjLzQtRqhKLVpQFtm2t/Do/h/oVX04od496q2Olf99L5esk
+	lM9sYK4tfRSWWggrkcJYZIEUU2/RCUboLQqdiLbSXy1SbPBAgjZ2sL6+xvtXTSTZ6wYplXntIZa
+	pbIDTvc0ibDvBvQ7Xntd9cGzlmbj+tmuEg4Yrw4X2Z1VN7tSeKTMGbCJQciiHOzQyeF91NoTF5T
+	1NSWrxN9haBuhkl5dsEfan5z+JzTAVAM65ABzLW/4cCPF2AFvh4KqwQTPJrQm0=
+X-Google-Smtp-Source: AGHT+IHSL9AamaKsgshnWGUpG5RDf6Peh0p8cvpBi3P9+5fw2YJx1zPvcrUsVqmzgsUtTQi3XDlSug==
+X-Received: by 2002:a17:907:7213:b0:aa6:4a87:3c4 with SMTP id a640c23a62f3a-aa69ffdbbbfmr261572766b.3.1733828451260;
+        Tue, 10 Dec 2024 03:00:51 -0800 (PST)
+Date: Tue, 10 Dec 2024 12:00:49 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH v3] x86: p2m-pod: address violation of MISRA C Rule 2.1
-Date: Tue, 10 Dec 2024 11:54:59 +0100
-Message-ID: <05b5fd3a85d033adacd5aa08ca81ce579cb1a120.1733827766.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.43.0
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
+Message-ID: <Z1gfYeJL-mgTn5Gj@macbook.local>
+References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
+ <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
 
-Rule 2.1 states: "A project shall not contain unreachable code".
+On Mon, Dec 09, 2024 at 02:59:31PM +0100, Jan Beulich wrote:
+> On 02.12.2024 07:09, Jiqian Chen wrote:
+> > +static int cf_check init_rebar(struct pci_dev *pdev)
+> > +{
+> > +    uint32_t ctrl;
+> > +    unsigned int rebar_offset, nbars;
+> > +
+> > +    rebar_offset = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_REBAR);
+> > +
+> > +    if ( !rebar_offset )
+> > +        return 0;
+> > +
+> > +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL);
+> > +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+> > +
+> > +    for ( unsigned int i = 0; i < nbars; i++, rebar_offset += PCI_REBAR_CTRL )
+> > +    {
+> > +        int rc;
+> > +
+> > +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
+> > +                               rebar_offset + PCI_REBAR_CAP, 4, NULL);
+> 
+> The capability register is r/o aiui. While permitting hwdom to write it is
+> fine, DomU-s shouldn't be permitted doing so, just in case. (An alternative
+> to making handler selection conditional here would be to bail early for the
+> !hwdom case, accompanied by a TODO comment. This would then also address
+> the lack of virtualization of the extended capability chain, as we may not
+> blindly expose all capabilities to DomU-s.)
 
-The placement of the loop after "out_unmap" can be moved earlier
-in order to avoid the unconditional return to be marked as a cause of
-unreachability for the loop, as this is a consequence of
-"__builtin_unreachable" being configured in ECLAIR as being deliberately
-unreachable, and therefore not reported as causing the code after the
-"out_unmap" label to be unreachable.
+I don't think we can safely expose this capability to domUs by
+default, so my preference would be a returning an error in that case
+(and printing a log message indicating ReBAR is not supported for
+domUs).
 
-Replacing one instance of "goto out_unmap" with the loop avoids
-considering the unconditional return at the end of the function as a cause
-of unreachability, while preserving the semantics of the function.
+Note it's already not exposed to domUs by not being part of
+supported_caps in init_header().
 
-No functional change intended.
-
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
-Changes in v2:
-- rebased against current staging
-Changes in v3:
-- move the loop inside the if and avoid one goto
----
- xen/arch/x86/mm/p2m-pod.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
-
-diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
-index bd84fe9e27ee..8b6f9909c5a1 100644
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -1005,7 +1005,14 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
-             {
-                 ASSERT_UNREACHABLE();
-                 domain_crash(d);
--                goto out_unmap;
-+out_unmap:
-+                /*
-+                 * Something went wrong, probably crashing the domain.  Unmap
-+                 * everything and return.
-+                 */
-+                for ( i = 0; i < count; i++ )
-+                    if ( map[i] )
-+                        unmap_domain_page(map[i]);
-             }
-         }
-         else
-@@ -1032,17 +1039,6 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
-             ioreq_request_mapcache_invalidate(d);
-         }
-     }
--
--    return;
--
--out_unmap:
--    /*
--     * Something went wrong, probably crashing the domain.  Unmap
--     * everything and return.
--     */
--    for ( i = 0; i < count; i++ )
--        if ( map[i] )
--            unmap_domain_page(map[i]);
- }
-
- static void
---
-2.43.0
+Regards, Roger
 
