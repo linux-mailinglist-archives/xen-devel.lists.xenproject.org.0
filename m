@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54DD79EB35C
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:32:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852550.1266311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA8FF9EB36C
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:34:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852562.1266321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1HL-0003NW-Bq; Tue, 10 Dec 2024 14:31:59 +0000
+	id 1tL1Jm-00048o-Mt; Tue, 10 Dec 2024 14:34:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852550.1266311; Tue, 10 Dec 2024 14:31:59 +0000
+Received: by outflank-mailman (output) from mailman id 852562.1266321; Tue, 10 Dec 2024 14:34:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1HL-0003Kw-8P; Tue, 10 Dec 2024 14:31:59 +0000
-Received: by outflank-mailman (input) for mailman id 852550;
- Tue, 10 Dec 2024 14:31:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tL1Jm-00046i-KE; Tue, 10 Dec 2024 14:34:30 +0000
+Received: by outflank-mailman (input) for mailman id 852562;
+ Tue, 10 Dec 2024 14:34:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tL1HJ-0003It-IP
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:31:57 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81867389-b703-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 15:31:55 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-434a2033562so50898245e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:31:55 -0800 (PST)
+ id 1tL1Jk-000443-Um
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:34:28 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dc438098-b703-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 15:34:28 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-385eed29d17so3836639f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:34:28 -0800 (PST)
 Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
  (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
  [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434e83f3958sm127960075e9.25.2024.12.10.06.31.54
+ 5b1f17b1804b1-434f39653c6sm97268075e9.7.2024.12.10.06.34.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 06:31:54 -0800 (PST)
+ Tue, 10 Dec 2024 06:34:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,55 +47,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81867389-b703-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: dc438098-b703-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733841115; x=1734445915; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733841267; x=1734446067; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NtlEXwh6yYBs/wbgm42hE/EwOq6DI8mNTFjnOTacq1w=;
-        b=Khcfm+d9xy59XeOKTvcfHDMJLrj/W3CmQKDA+8YUjek6oHQjD6Btqi4AF90xkaK848
-         yljSZO/SsCEQYGcmHWM1wjV3m971WNG8cFxAxK2mXrC4nV84uR3IxwSZLVjKshto6Mu4
-         +QOJ3xnSQY+yzxTpvnxbroNdoua+5Ahd16gPzlTJOsc5oolOpCviQjbWeBVC2RrfaXQa
-         q2EfHly4/cHtD/gGLjpAlyDvzDsQ5d3e3yKXFTmb4rNG+/UrbGXtqCwmDBWBj99cCxjJ
-         Wmf8GaZFTiGhfZwnZdJjZEmJDm2jj1CDj06e/TeS+dyBOmBqus6AMoNpOdrfUP+YVFmt
-         gRJA==
+        bh=eP4phFgs+v8HUdiuLF/dOdt+yySmdFu8NJLZ/FDbxtk=;
+        b=Qc8J4DbIF4M+BkjHiGMSVe1i4V6q3CM4rEPgtZ01UELGcAptQdZhjdvM0VAuNcsrJk
+         qGHYic4kPoDPDfTmqhuVnjns95Gqkh93fzJz33goWtQZ4d3zb5AgNFSFQtb3jyyT2LtY
+         5UIeS1jgoMfjakZo8ZnIn0sZieLaj4TvkSk/ayiqAUqCZGeTIcEGOc/FLYvXBzMQen9e
+         pgkun1xSLSYJZm7OdcS4z/e+HQ5hFTBjpkndJoDrHeMPZHLsRMSEhD9UMvQeufeMyeQP
+         f+vhp8mBJdmfQqLFtxlUzUp4yVrESTkstQziwQ4n/2dhq+bujf2aIfx6TPoicXBYTNsF
+         BMQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733841115; x=1734445915;
+        d=1e100.net; s=20230601; t=1733841267; x=1734446067;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NtlEXwh6yYBs/wbgm42hE/EwOq6DI8mNTFjnOTacq1w=;
-        b=kPcEPfnvm43XWDqiYiA5rsH3Obxmjq60mgjJHnl16MIBcqs4bqrAk3M+VKi+On1srm
-         6jYyQe6trpaVbV4vlLkp/a1YK7M6ngpm/L6kEcLwykVru1dFiW6OUPvP+vua6HaMnNeq
-         Vaay4nhj/7G+xWMWwmtJRfdY0xF+jqzdj0r1X9Xtz7PGBLSxU3ZldoMSpTUlwLNuPAbW
-         J5gdtAh07hHvN6Qq7I2CmGkP7acLJApc7HZ4S62a+pz8aAm36BIW2StQHxIx6e6qi1jw
-         I/StrbDV1+pmItg0II2oi0xpX/VvNHG7V/J5phWB/htRrGMtzB3qf4DEZz7KGGl0Vzlp
-         yvkg==
-X-Forwarded-Encrypted: i=1; AJvYcCUVbs/Dm4sW1o/AfxpXCDhZ86TVTkuqxnp4FunNQUE+LTe0G1feR1vRygSHIqh8XuftO4E80JO2tn8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxG2AVvciXcUFyNFrnpSu3Mod85A8u/DVmKFUwaBSOxkI6mcf8E
-	McSp0CTRo0rc0M7JsR5Q/ujJVw/sWy1jvHDXZHjFRuayLJ29fAD4349ve2vJbeeTn41gNDVfK/g
-	=
-X-Gm-Gg: ASbGncvwvWnugMiEtPXCHJH8jKmb3ymi/n5j30TBu1GBVPMYU2jGcxnWBjEVEmnVJXl
-	R8IpgR6Qd5mhXDajJ9c630+S4naSLcl5Aj2zN+RxfbZz3VQdvLex0aBWymuWL2lrVea2iKUGfyt
-	K5q5lKlesagnW83mPDNeYgMkD5hA0hDdbbSam6yaPPU2BYfECWGlNUGkpMvc2q4WG4zfCOEeEi/
-	zOQZeBloCFvE/SrizujZEuW8kAhqknGJ6b//M29Cg97OciMI4yjc2q2cL7ZxzzxvDENMIQgPsbL
-	6gFdDbJOkL0NKYXV/UtHMFy8A24Hyb/ivgG/ZXBUYTopuTbcUT7gv9128j7x+mXzsWLmLo1mTd4
-	TmW0FJT1y8Q==
-X-Google-Smtp-Source: AGHT+IFEmtvnklM3nnmWYiGcdCWSYmgaDSYQKIRk6zstYoaZarNl1fAnEoK8VltncZOBNphpZM6/Rg==
-X-Received: by 2002:a05:600c:5587:b0:434:effb:9f8a with SMTP id 5b1f17b1804b1-434effba0e8mr104257545e9.15.1733841115150;
-        Tue, 10 Dec 2024 06:31:55 -0800 (PST)
-Message-ID: <1968c658-595d-4d36-8558-8f178f8ed531@suse.com>
-Date: Tue, 10 Dec 2024 15:31:53 +0100
+        bh=eP4phFgs+v8HUdiuLF/dOdt+yySmdFu8NJLZ/FDbxtk=;
+        b=GUBk1PdZAj17u6mW6WlljdOBLoxkKZPVGCTYQSifs2gEaPGqGH/zH7Oa01YTuUxWlH
+         +xZpuuFWqHQ7WLqhfLXTEE804SoiMCorxm+vZz4ZPs1ccD06ZHNW7ykDpeAbzVmmUw4d
+         FeiDwq/+WElg8wYH1ETOra/jPQ71n9VjZxOjsx5RZnaAjmQsFy10ECxFUCiJfGFGTxyL
+         vZRxwkCRhCKCMAU9N07pzT21Llv9J3PKpropGytNXzrpXaetcCHEgRcBXVuTdnk3jNjN
+         uCLcplGXUkbFVFi0BNgLxqMebmRV7PyzcfyZzsfbiR4cjcNmLntCh4vXZL14RM/7MlOz
+         63GA==
+X-Forwarded-Encrypted: i=1; AJvYcCX5PYeL/RohugxrdjO1YoW8LKSAvecqqDrlBDAlGRBt+yqJQNv+yoT4GRWn0Y9w9NK4TirTChnZi/E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmRBzNc7sij70XepHcg+K9wvshgoSNLUMcnAyXbQZVdRx5/q90
+	fzvzWg0dYxHjVH2BtwbNBaWcAa17Uf2JjWdrwDrv+2jKdhDXJlQuFuVCuf9a8w==
+X-Gm-Gg: ASbGnctiEWD8sCbPuJLcmndlL+jar44bfrx8Jjk4IsE6JWwyk/L1jYjS1XY4ykpAUv6
+	/WhzA2mUpzFM7gWwOI8Lfn1H18Ir1Wdcjemd4jgh+wKSdMRDe6eRaLc4OnAv4FMU2NWc7wqrteL
+	YCNt+FwR3tG9UxcM5Sru65QAi4dHwFSiVLXCmjF42jhfEnfZmqekFAtHjQokbjMdEGg6sFp5bFm
+	8brasFCmiZXCLx72nYRd91o82tRY3z2InkFpk5t8u/lYEDH9uG7p3KXeUDM+nCEsp5fCnAY1oey
+	RWSi1GmXXmFx+nJc5QHzYW48SPFEZXGX8Ib5kIYiNGI7cedwsyrLtYZJ7syK/cDAyO4cyQdPMwz
+	i9YS5CPO6KA==
+X-Google-Smtp-Source: AGHT+IGMEUdfaVBKCCQfllGOU2wQDuHePuGnVYs2LyFayWJtBfpFkwjwB1Lz6QkYAZW6SWr4gyn+Wg==
+X-Received: by 2002:a5d:47ac:0:b0:386:3e48:f732 with SMTP id ffacd0b85a97d-3863e48f812mr7193837f8f.16.1733841267573;
+        Tue, 10 Dec 2024 06:34:27 -0800 (PST)
+Message-ID: <4e9c0566-bed7-47a6-aa6d-2ac76c0a1bfe@suse.com>
+Date: Tue, 10 Dec 2024 15:34:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 17/35] xen/console: introduce consoled_is_enabled()
-To: dmukhin@ford.com
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-17-e9aa923127eb@ford.com>
+Subject: Re: [PATCH] x86/FPU: make vcpu_reset_fpu() build again with old gcc
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <da8320f7-1baf-41f5-b7ac-c05b6371e1e4@suse.com>
+ <D6838QWBS1OG.37M94XNPN17P7@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,76 +121,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241205-vuart-ns8250-v1-17-e9aa923127eb@ford.com>
+In-Reply-To: <D6838QWBS1OG.37M94XNPN17P7@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
-> --- a/xen/drivers/char/consoled.c
-> +++ b/xen/drivers/char/consoled.c
-> @@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(void)
->  static char buf[BUF_SZ + 1];
->  
->  /* Receives characters from a domain's PV console */
-> -void consoled_guest_rx(void)
-> +int consoled_guest_rx(void)
->  {
->      size_t idx = 0;
->      XENCONS_RING_IDX cons, prod;
->  
->      if ( !cons_ring )
-> -        return;
-> +        return 0;
->  
->      spin_lock(&rx_lock);
->  
-> @@ -91,15 +91,17 @@ void consoled_guest_rx(void)
->  
->   out:
->      spin_unlock(&rx_lock);
-> +
-> +    return 0;
->  }
->  
->  /* Sends a character into a domain's PV console */
-> -void consoled_guest_tx(char c)
-> +int consoled_guest_tx(char c)
->  {
->      XENCONS_RING_IDX cons, prod;
->  
->      if ( !cons_ring )
-> -        return;
-> +        return 0;
->  
->      cons = ACCESS_ONCE(cons_ring->in_cons);
->      prod = cons_ring->in_prod;
-> @@ -118,6 +120,7 @@ void consoled_guest_tx(char c)
->  
->      cons_ring->in[MASK_XENCONS_IDX(prod++, cons_ring->in)] = c;
->  
-> +
->      /* Write to the ring before updating the pointer */
+On 10.12.2024 15:25, Alejandro Vallejo wrote:
+> On Mon Dec 9, 2024 at 3:13 PM GMT, Jan Beulich wrote:
+>> Fields of anonymous structs/unions may not be part of an initializer for
+>> rather old gcc.
+> 
+> Can you add the specific version for tracking purposes?
 
-No excess blank lines please.
+It's all the same as before, and I really didn't want to waste time on
+once again figuring out which exact version it was that the behavior
+changed to the better.
 
-> @@ -125,6 +128,13 @@ void consoled_guest_tx(char c)
->   notify:
->      /* Always notify the guest: prevents receive path from getting stuck. */
->      pv_shim_inject_evtchn(pv_console_evtchn());
-> +
-> +    return 0;
-> +}
+>> Fixes: 49a068471d77 ("x86/fpu: Rework fpu_setup_fpu() uses to split it in two")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/i387.c
+>> +++ b/xen/arch/x86/i387.c
+>> @@ -306,13 +306,13 @@ void vcpu_reset_fpu(struct vcpu *v)
+>>  {
+>>      v->fpu_initialised = false;
+>>      *v->arch.xsave_area = (struct xsave_struct) {
+>> -        .fpu_sse = {
+>> -            .mxcsr = MXCSR_DEFAULT,
+>> -            .fcw = FCW_RESET,
+>> -            .ftw = FXSAVE_FTW_RESET,
+>> -        },
+>>          .xsave_hdr.xstate_bv = X86_XCR0_X87,
+>>      };
+>> +
+>> +    /* Old gcc doesn't permit these to be part of the initializer. */
+>> +    v->arch.xsave_area->fpu_sse.mxcsr = MXCSR_DEFAULT;
+>> +    v->arch.xsave_area->fpu_sse.fcw = FCW_RESET;
+>> +    v->arch.xsave_area->fpu_sse.ftw = FXSAVE_FTW_RESET;
+> 
+> That's not quite the same though. A more apt equivalence would be to memset the
+> area to zero ahead of the assignments. Otherwise rubble will be left behind.
 
-For both of the functions - what use is it to make the functions return
-a value, when all they'd ever return is zero (and callers don't care)?
-I'm also having a hard time seeing how this adjustment is related to ...
+No. I didn't delete the initializer. All fields not mentioned there will
+be default-initialized.
 
-> +bool consoled_is_enabled(void)
-> +{
-> +    return pv_shim && pv_console;
->  }
+>>  }
+>>  
+>>  void vcpu_setup_fpu(struct vcpu *v, const void *data)
+> 
+> Out of context and not triggering the GCC bug, but vcpu_setup_fpu() should
+> probably share the same initialization style as vcpu_reset_fpu(), imo.
 
-... the introduction of this function (which by itself is probably fine).
+Why?
 
 Jan
 
