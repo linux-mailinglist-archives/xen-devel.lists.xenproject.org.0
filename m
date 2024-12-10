@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82CA89EB44F
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 16:05:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852687.1266420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 162299EB460
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 16:12:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852709.1266431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1nm-00063u-VX; Tue, 10 Dec 2024 15:05:30 +0000
+	id 1tL1uI-0007hS-Qa; Tue, 10 Dec 2024 15:12:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852687.1266420; Tue, 10 Dec 2024 15:05:30 +0000
+Received: by outflank-mailman (output) from mailman id 852709.1266431; Tue, 10 Dec 2024 15:12:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1nm-000622-St; Tue, 10 Dec 2024 15:05:30 +0000
-Received: by outflank-mailman (input) for mailman id 852687;
- Tue, 10 Dec 2024 15:05:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tL1nl-00061W-5F
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 15:05:29 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30879482-b708-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 16:05:27 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3862b364538so2427579f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 07:05:27 -0800 (PST)
-Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
- (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
- [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3861f4a859esm15966484f8f.23.2024.12.10.07.05.26
+	id 1tL1uI-0007fj-Mz; Tue, 10 Dec 2024 15:12:14 +0000
+Received: by outflank-mailman (input) for mailman id 852709;
+ Tue, 10 Dec 2024 15:12:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=o3V8=TD=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tL1uH-0007fd-PV
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 15:12:13 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 221d651c-b709-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 16:12:12 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-aa6a3c42400so138762966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 07:12:12 -0800 (PST)
+Received: from localhost ([217.156.233.154]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d149a49f79sm7749154a12.32.2024.12.10.07.12.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 07:05:26 -0800 (PST)
+ Tue, 10 Dec 2024 07:12:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,137 +44,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30879482-b708-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 221d651c-b709-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733843127; x=1734447927; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=abNTXu84lOkHxjOFMdNsvofnXqxH/OgUrvNNoWc4Bco=;
-        b=PPFBdkr2p3eupcsQgLqrdJtAW5XV0sG5jMWqZPQc5rvk5e4s2Lc2B88/luXXl2Cd6z
-         SuBoz+POf0Wh89G1PTZtPO5pSfz9AG0d3xqbz35VA0zaomwO8ONHnwYYKRMVKIhz8bAw
-         Lx/8pM9pA7qEseZusEp5233+el8DxGNAGU7AtYcAWLNibW9akCEE9FI2KoOjgnPHZPVB
-         v6DAAtMaYVrx8ISBmEgum64azNm0tPU1e1P1zjWvBk4Hom3nPG0zuLnVfHGe1RKtB46H
-         a057lnJuSwSmUXNcZptBd01GBKsIh8mLfaqWOK3HR3PJTui9KyR9Cm/7WX08UBqsFuS8
-         0/6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733843127; x=1734447927;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1733843532; x=1734448332; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=abNTXu84lOkHxjOFMdNsvofnXqxH/OgUrvNNoWc4Bco=;
-        b=wPz/78gX5uG8M4DYdvhVTjaOmkOC8eBHnUZMNZNdBw2xr34eYTPevJRumwf5Yh34M/
-         5n5npFYmuYQZjzZgisgUD7KyxpiG8YkBR1YVz0MCDyPPYrwOt3U+xwx/eER0M9fBtk3V
-         F3cPXOvvNkycaEC4iGtq91lcXX4tBKaBXEwetY/Gy9F6HoNcA8+MSjj0RU4mMfDNEoBK
-         sRDDr7uLpJ/P6A6j9srboos5tTFGKLExJmxZlm2b3UFTpXRcf/TbJujiCHDMnxlS1Uau
-         ZxwaIsLCZHYDjpo+FsZ+4jw8gUqFpsUBDvVGAhTklWzVAB0rpTi+diVrPnyeEVe3GWMG
-         6jwA==
-X-Forwarded-Encrypted: i=1; AJvYcCWqSclbJ+NxCsgYtra334/g4wjGC+Yg1LlbUqycPybi6oKcaClzV3/UXX+nZ33qS9XhmpVzzqJTz+U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4uQSstBRtAWgLjyFCZ5zDDK7zXOSn9EKihG+YblMQpHlnZkfV
-	6C1W5tOg8DsWbGyI2ZIjNS5krplxy9fCEqqYkz2NWcf3lpIp1amLMLRo/UJg3w==
-X-Gm-Gg: ASbGncvjKErk9s1vjIm7/EDPYlfL5gNpNNuF2fcraM/SUPa8TjLlHtfERYlljSoQYii
-	PfNYlIrsz7vRVUUMMknfpGbzaTwA73i0PoqEFU8i8EmB00PfMIbLn8e5KNGmG0YZU4keOXOzLSc
-	m+/jzMPpkO+WKXXSimgvpqWnQrv43Yt9F2K4NzXuj8LA09JISuM8DBQcVNR3F14v3zkIAirpUex
-	32Wq7zjBpnbMB0rQvC6DTzrph0ZkAp5roM1rwly6rXRmQvBWA55T7bNZIV0aLbpujEW5H0rnpUC
-	M29AEQnryefeOUAUqCROgPmhnBkxGVdMM174VQmo7uYfV8aXlGyv6kajWOI8oCQMwON59nTi1hG
-	8nG52tJNcDw==
-X-Google-Smtp-Source: AGHT+IH3ObJYbSJ1fFbKHM8kXFe3iKy7E43Qc5t6RHVHD62Ri4kPRvCoMmAzFFaij7pUPVRoxYU+Pw==
-X-Received: by 2002:a5d:6c6d:0:b0:385:df17:2148 with SMTP id ffacd0b85a97d-386469d513bmr2905347f8f.20.1733843126650;
-        Tue, 10 Dec 2024 07:05:26 -0800 (PST)
-Message-ID: <492bd49b-a0a1-4d86-b5c2-304a7deac755@suse.com>
-Date: Tue, 10 Dec 2024 16:05:25 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] x86/boot: Move some settings to C
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241122093358.478774-1-frediano.ziglio@cloud.com>
- <20241122093358.478774-4-frediano.ziglio@cloud.com>
- <d5b856b5-ba0d-489b-9107-7c16b4042c55@suse.com>
- <CACHz=ZhQiETp-=wO1XgcJ2BqLSMq79c=0W34ZBrAMSu3epSVAQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZhQiETp-=wO1XgcJ2BqLSMq79c=0W34ZBrAMSu3epSVAQ@mail.gmail.com>
+        bh=65Em8QSlUXLFR8ulOa1t0ycxHy3COnuTlh9s0EWbqSk=;
+        b=NXc3UqVF87fzkWpzVidV9LXMeHCKPosrWgZFy0V8TMKL7GxXrBGG7cGmZf0t5AJDEY
+         uLlWRzqRpyl0pt2kr4T/e04jAB0f3W4nWKWYzqw6cZKI/W6GNNsDGayUk1d5OnbnzWuD
+         MPJJu2AKTTf+eiMmotiC+tJH53So+IFR64EEU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733843532; x=1734448332;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=65Em8QSlUXLFR8ulOa1t0ycxHy3COnuTlh9s0EWbqSk=;
+        b=YovfYVpKsFuqh7NlO+MiM3HR1VHlCiznAAO5ltW7xz6sfIyb7ffrwLbj7d3u4vZRV5
+         42tVXE6/l1ZbjODtNTZ9+unBk91R2SRtAXYsJv8Be6surfvyxI3bnbFoGdIjpRSQq6aB
+         nzstgpDZCChu2ddA0oz+TgYIsVF1EK/yhu0sNfYUkA1XkfHToC+hrP9PhsdNjjybN9tX
+         EtKwXy5ZHoquSLeEKZ97czVQ9cXxpT/vXt2j/pTptiljKZBE7P7F6PFNORamzwYctCdQ
+         JTZRRwWztaZ5X8tf1fzKc5JmG0D6hfcEd+0BgKQHuaDzyqTh6M67kJdFZyqtgKoc/j6u
+         HjxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXWvlCU9TlFlxq/xEt8z2G6q9RhQuC94zpUwPwrZJsi1B+QO3sqPoBy7LEMClt6CCp3vXU9D3jY4+Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKXJPyKgHV4tpAO+bH/d3JuJf8qTL1Eb77ofU6HgSNEuOpW5O6
+	hrkGfr+l94mhwxpGxE558L/F3clw3k2LenwR8yyKAE+VTxLXs0VCH31Ql7M+698=
+X-Gm-Gg: ASbGnctglyKp4REShRAKkr+av+J9QJGHXGXC8nVL94l5R3EBwCSzl+2s88t3W/H3XWl
+	odzyT6AcrGr89H+V9jn1bYP1/CPV7Ca643grQrXyY00sYviHhGREULA1ciEdiKivgQli14YXstM
+	ucExe8e8+4JSArno4Jnkb9qlOfKneTg1QEu9PCiBUcli8FjFPT1YzCwoZOEoVTLM1n0JtYCk9YD
+	iI/WTZqH/IgSjFm6ab2dDxxoOzGw2vzMmBk4hfgzJ4tkmd9nbcAPS7K8UsnZXo=
+X-Google-Smtp-Source: AGHT+IFIUHccvHq+Av5npUzk+AJpA5aiV6QG7iPrplhLCKBUdR0VTOwGyDMQI7HBRLhthRO0bdwFpg==
+X-Received: by 2002:a17:907:3da1:b0:a9a:6c41:50a8 with SMTP id a640c23a62f3a-aa6a01bebf7mr397425366b.17.1733843532191;
+        Tue, 10 Dec 2024 07:12:12 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 10 Dec 2024 15:12:09 +0000
+Message-Id: <D6848HMS6BT5.RX9OAXRM91C8@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/FPU: make vcpu_reset_fpu() build again with old gcc
+X-Mailer: aerc 0.18.2
+References: <da8320f7-1baf-41f5-b7ac-c05b6371e1e4@suse.com>
+ <D6838QWBS1OG.37M94XNPN17P7@cloud.com>
+ <4e9c0566-bed7-47a6-aa6d-2ac76c0a1bfe@suse.com>
+In-Reply-To: <4e9c0566-bed7-47a6-aa6d-2ac76c0a1bfe@suse.com>
 
-On 10.12.2024 15:45, Frediano Ziglio wrote:
-> On Tue, Dec 10, 2024 at 10:38 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 22.11.2024 10:33, Frediano Ziglio wrote:
->>>      switch ( magic )
->>>      {
->>>      case MULTIBOOT_BOOTLOADER_MAGIC:
->>> -        return mbi_reloc(in, &ctx);
->>> +        res = mbi_reloc(in, &ctx);
->>> +        break;
->>>
->>>      case MULTIBOOT2_BOOTLOADER_MAGIC:
->>> -        return mbi2_reloc(in, &ctx);
->>> +        res = mbi2_reloc(in, &ctx);
->>> +        break;
->>>
->>>      case XEN_HVM_START_MAGIC_VALUE:
->>>          if ( IS_ENABLED(CONFIG_PVH_GUEST) )
->>> -            return pvh_info_reloc(in, &ctx);
->>> +        {
->>> +            res = pvh_info_reloc(in, &ctx);
->>> +            break;
->>> +        }
->>>          /* Fallthrough */
->>>
->>>      default:
->>>          /* Nothing we can do */
->>> -        return NULL;
->>> +        res = NULL;
->>
->> Simply keep returning here? No need to write the NULL when the variables
->> start out zeroed?
->>
-> 
-> Yes, considering pvh_start_info_pa and multiboot_ptr should be already
-> NULL it makes sense
-> 
->>>      }
->>> +
->>> +#ifdef CONFIG_PVH_GUEST
->>> +    if ( pvh_boot )
->>> +        pvh_start_info_pa = (unsigned long)res;
->>> +#endif
->>> +
->>> +    multiboot_ptr = (unsigned long)res;
->>
->> In the assembly original this is an "else" to the if().
->>
-> 
-> I suppose the return change above would solve also this.
+On Tue Dec 10, 2024 at 2:34 PM GMT, Jan Beulich wrote:
+> On 10.12.2024 15:25, Alejandro Vallejo wrote:
+> > On Mon Dec 9, 2024 at 3:13 PM GMT, Jan Beulich wrote:
+> >> Fields of anonymous structs/unions may not be part of an initializer f=
+or
+> >> rather old gcc.
+> >=20
+> > Can you add the specific version for tracking purposes?
+>
+> It's all the same as before, and I really didn't want to waste time on
+> once again figuring out which exact version it was that the behavior
+> changed to the better.
 
-I'm not convinced of this.
+Just checked on Godbolt. 4.7.1 works and 4.6.4 doesn't. Adding that data po=
+int
+to the commit message really helps when navigating git-blame, even if it's =
+not
+as precise as it could be. Particularly if one wants to understand exactly
+which quirk of which version of which compiler is being dealt with.
 
-Jan
+>
+> >> Fixes: 49a068471d77 ("x86/fpu: Rework fpu_setup_fpu() uses to split it=
+ in two")
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>
+> >> --- a/xen/arch/x86/i387.c
+> >> +++ b/xen/arch/x86/i387.c
+> >> @@ -306,13 +306,13 @@ void vcpu_reset_fpu(struct vcpu *v)
+> >>  {
+> >>      v->fpu_initialised =3D false;
+> >>      *v->arch.xsave_area =3D (struct xsave_struct) {
+> >> -        .fpu_sse =3D {
+> >> -            .mxcsr =3D MXCSR_DEFAULT,
+> >> -            .fcw =3D FCW_RESET,
+> >> -            .ftw =3D FXSAVE_FTW_RESET,
+> >> -        },
+> >>          .xsave_hdr.xstate_bv =3D X86_XCR0_X87,
+> >>      };
+> >> +
+> >> +    /* Old gcc doesn't permit these to be part of the initializer. */
+> >> +    v->arch.xsave_area->fpu_sse.mxcsr =3D MXCSR_DEFAULT;
+> >> +    v->arch.xsave_area->fpu_sse.fcw =3D FCW_RESET;
+> >> +    v->arch.xsave_area->fpu_sse.ftw =3D FXSAVE_FTW_RESET;
+> >=20
+> > That's not quite the same though. A more apt equivalence would be to me=
+mset the
+> > area to zero ahead of the assignments. Otherwise rubble will be left be=
+hind.
+>
+> No. I didn't delete the initializer. All fields not mentioned there will
+> be default-initialized.
+
+Right. I misread the diff and thought you had nuked the initializer. That's
+indeed all fine. Which means...
+
+>
+> >>  }
+> >> =20
+> >>  void vcpu_setup_fpu(struct vcpu *v, const void *data)
+> >=20
+> > Out of context and not triggering the GCC bug, but vcpu_setup_fpu() sho=
+uld
+> > probably share the same initialization style as vcpu_reset_fpu(), imo.
+>
+> Why?
+
+... there's indeed no reason to touch that.
+
+>
+> Jan
+
+With the commit message adjusted with the offending GCC version (i.e: <4.7.=
+1):
+
+  Acked-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+
+Cheers,
+Alejandro
 
