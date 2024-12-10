@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D6FF9EAEF6
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 12:04:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852105.1266008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FC629EAF02
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 12:06:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852117.1266018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKy1v-0008Vd-6P; Tue, 10 Dec 2024 11:03:51 +0000
+	id 1tKy3i-0000gg-Ka; Tue, 10 Dec 2024 11:05:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852105.1266008; Tue, 10 Dec 2024 11:03:51 +0000
+Received: by outflank-mailman (output) from mailman id 852117.1266018; Tue, 10 Dec 2024 11:05:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKy1v-0008U6-3W; Tue, 10 Dec 2024 11:03:51 +0000
-Received: by outflank-mailman (input) for mailman id 852105;
- Tue, 10 Dec 2024 11:03:50 +0000
+	id 1tKy3i-0000ea-I6; Tue, 10 Dec 2024 11:05:42 +0000
+Received: by outflank-mailman (input) for mailman id 852117;
+ Tue, 10 Dec 2024 11:05:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKy1u-0008U0-Bz
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 11:03:50 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1tKy3h-0000eO-Dv
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 11:05:41 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f091f28-b6e6-11ef-a0d5-8be0dac302b0;
- Tue, 10 Dec 2024 12:03:49 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-385e87b25f0so3760822f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 03:03:49 -0800 (PST)
+ id b1231254-b6e6-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 12:05:40 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-434e3953b65so21973215e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 03:05:40 -0800 (PST)
 Received: from ?IPV6:2003:ca:b746:63c:3d8c:c505:78ea:f982?
  (p200300cab746063c3d8cc50578eaf982.dip0.t-ipconnect.de.
  [2003:ca:b746:63c:3d8c:c505:78ea:f982])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3863afc16b0sm7247176f8f.37.2024.12.10.03.03.48
+ ffacd0b85a97d-386219096b8sm16049294f8f.84.2024.12.10.03.05.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 03:03:48 -0800 (PST)
+ Tue, 10 Dec 2024 03:05:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,55 +47,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f091f28-b6e6-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: b1231254-b6e6-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733828629; x=1734433429; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733828740; x=1734433540; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OXIX+4qELLkm2iATGIFnUkN8RiljZvitomEBLL4mB8s=;
-        b=Ci2xKpldBkbxdY34uOZ9VhMuvelRWc/C1/xYecGAyjqkHgP8O0T8KNDIULmPSaKWMe
-         QyHjwqBddjjrVIoglOzdbW4qTayBqNDCfS5Pk3nTJ+UJ7qvysaC8EqwEYJA/dP5aN4i3
-         BPOwdLqhFHNmFgo8aY940tKFU5fmXIGrd/KhXuaVT53vaC4cZxSG15AozHVY79Vcj5Lf
-         3Z8o68HNLW9umSz/7tLNzf2PSf4PnnBTcdlrmuBgHsyB/v0TxrLnRU/aIltYVnPKPyES
-         dZMvTpBSmF4cX6tGTzJvM5hKgfDc+0cxk6xar6IpukbLJ3eRKltl+eZNBvDZBi5OkYbR
-         jREw==
+        bh=IFcdD2jm1JS2uLl6E5zYjBh52nJmsDjO8uQkSwxPF7g=;
+        b=QBqX3dnmENDeUWNEbnBFrpY5aP5uSSlqtEMksCx2aAFfP9RZfx2draXXo++X7q1WsX
+         rn/kOPEAWSixE0PEGgOCuPS6eIeaZTTgdhb2lPcMDGC3CW4wEBngRnj2Lsr7n0Z0Rg2E
+         eTWGsDOtkhEwuy8zYheCYM7hMBJMrUU0GReiw2iat4kHDL/OPjeHnG0lIX626o7Jq7ft
+         tY7DH5Tp1drr40JW0qKud8KwmY03P+Ce5t9Dqb+HzaAqEpLBILB/VCGBqxAB5jmZAqXz
+         IaS7q/nlLXih6GqMVBRWaJuPsRBsS3iWlM6frgqZ2niKs6/YK7AM2OBSpaLihu70+hgw
+         pXCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733828629; x=1734433429;
+        d=1e100.net; s=20230601; t=1733828740; x=1734433540;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OXIX+4qELLkm2iATGIFnUkN8RiljZvitomEBLL4mB8s=;
-        b=vRRtXpgHp+rYE8eODDl4wb1wk0mvZdC6YJeuIfXN/Is5xmkrlfWqAQ47XV2NCFIO/l
-         52lUTXAfM2/UEk5/O6OO11C/Wg851RyMoqLOAef2652gYZU8qIOD4p7JSR9Nouw+QpBt
-         EVOjfIhbQnY6IDuewR496bHcZkfmVFcdKLXEqU8RICwgR2c+5OCntZrd91dR6TMTs4E1
-         6laWjxkzDNE2IZybFdoOZ+9bssTx2YXpxP8OGudwVFq/PMnGKGOgt9dNvGuhsksbnwVJ
-         w9J/KokC8h9k/uibVdI8sPXgqjwRt5+ExNJMmVjwzNtDzLQmvjdE6dVh06Q8NEpU1y2i
-         OTGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUR4c6v1DpCfW0QpjHtG2VsEicrGah7jgK+G1mlO7wU4ZwzFCJ3C2urFiAu3XaK55qi0Ff8vmQ8YxM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/ELGnZElSQfozmfxtSyluJVlF8Mb3q43WEMmq/0yGeP6HI2c4
-	vxoA+ykO5E4Pl0G0SBIeo+ACCNWMYxrwKGzU7/YSrAfPz57/LHxnc1OH/a5ubA==
-X-Gm-Gg: ASbGncu/52RAxsSg+GFjd5eSbTiY+fCFM3a2p4sAjaYyOZJFOCe1aK7KbyWg9hNSueV
-	A61pcLCx2xXzMYrIjvtm0DnVsPAPRcgQ0oFAypRmsPcjkSV8rCBkueaaVp3FJlDQkb8Hgw/90Ym
-	zjUpV2BCK8ta5572RFPnqdt0IIYDa+2qDbSEMpy8FHIRJ/Gw75UkVGbiLUncvHlXlGujrIqhrXn
-	yI5XYcDw1KXAAENkmh4Dd5EM+WeHV23Ve+Adp2AroWBOdeg9sHY9VEQuAnwIJNUe9jcGmFh3YHb
-	j48Rg2BtjdG2JLWmFwi6KEpRwXyEMrGpCuD0c7n8nqOVH75IbTNd0v5pkWn/mvWVvYHU+8ExL1P
-	vXKparN/53Q==
-X-Google-Smtp-Source: AGHT+IGd+8b1Bwje2BKjl1Vo5u3xODS04RUVwUwUha0bPnqtDWtMoxjhtaDwEaFDVqAMmkk1ChciRg==
-X-Received: by 2002:a05:6000:2ad:b0:382:45db:6a1e with SMTP id ffacd0b85a97d-386469ad719mr1955396f8f.14.1733828628937;
-        Tue, 10 Dec 2024 03:03:48 -0800 (PST)
-Message-ID: <361bcfe8-6c76-4508-bbd9-961f75baa10f@suse.com>
-Date: Tue, 10 Dec 2024 12:03:47 +0100
+        bh=IFcdD2jm1JS2uLl6E5zYjBh52nJmsDjO8uQkSwxPF7g=;
+        b=NFg3HPapc3yVSF5CU6gGhWLym1ZOP6UPDy/6kh8cpmRJRugc3env0QrDk0dzrupf+v
+         2mKpyrgj08WvK0vZOasZWgCJ6A2EClVtG5RnBxlGMmv9+8+IkMpzcptcyvaj5ip29S5I
+         RVg8xPKV+/CSpbCkWdXZHYayKQG4xN4f6EXbaF4gMYNcbRKHCqUjb82nEPIHwyjY1m2m
+         5WxNZ/PDYLlmMoYGlQUEeDVDjem3L4ZkI2jl5ra8EB+jA9+ozTRUXIQ/HAFZDmqaJ0v6
+         S3Y8Z7rQV1ChIvpGCcrQv/EL/ea1bH0TVY5y7mokU3BecUI4ksU5rj5uOlNoBeXZOoZj
+         NREA==
+X-Forwarded-Encrypted: i=1; AJvYcCXkKn32KljN7iVcxOA86lcvVXzqkI4rzZExbSkKcF3kcee1LLmfARg9q5MzqQVNRuSDaA38cIdGBUM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywhd87xlqlZUraQzpWKVuwyz2+k1CtCQZv1FVTuvmsbhdCDzY6Q
+	sqfoj5Ol+jtGXtq4goFcukWKDHCfiOvaDZAR0WJ6LSfOCexJt8kC2HK+ano8SYNHfLl7bzwSqn0
+	=
+X-Gm-Gg: ASbGncvaI1etwfrAKbzibDY2rImMr1mrUGAHyKFUdvZYKywuNikqT8cI8r61AQ8YsJn
+	UO9yXisnPpZHzEKQtpMaz/i4SbKH9wypbOIBsg0zar6YbWKUhW1vtZCz4xhmFxPDd3yErI1Rrb0
+	anRl0tByE1q+9r3CFPiF63KrwceOgfxIqx+PJqjqO8CtqpK7CqmZOEF6/U1sN1Upo1Q3o2SLpZd
+	TUEPvbib86MxiB6dFbjKgfeG/rDbxmj5MDWMS+RgeZqCvsTdQaMb4G6/rbzS/q0nsm6tUfv/DdB
+	IVO5OMwyjQgVnUo91sgAkXDMiggZfTemaKkb0cd4QabEzet8xKCRv2ncd/zr/9OtegxxtRvVXE/
+	XB5EnnCXytQ==
+X-Google-Smtp-Source: AGHT+IGr9mw9OCitLaVF5hjLM7Jvh3nieaza+nKcxv2x8+A5VeCt8W2K9I8HQay68DpiBUJr0VoGDQ==
+X-Received: by 2002:adf:f38f:0:b0:385:ec6e:e899 with SMTP id ffacd0b85a97d-38645405137mr2350023f8f.59.1733828739817;
+        Tue, 10 Dec 2024 03:05:39 -0800 (PST)
+Message-ID: <ee41e80f-3661-423f-8b82-29cb2e404f41@suse.com>
+Date: Tue, 10 Dec 2024 12:05:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen 4.20 Development Update [November]
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: committers@xenproject.org, kelly.choi@cloud.com,
+Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Huang Rui <ray.huang@amd.com>,
  xen-devel@lists.xenproject.org
-References: <20241204102035.22505-1-oleksii.kurochko@gmail.com>
- <3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com>
- <412fabb2-04e2-49cd-a204-340fea3ad940@gmail.com>
+References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
+ <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+ <Z1gfYeJL-mgTn5Gj@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,24 +124,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <412fabb2-04e2-49cd-a204-340fea3ad940@gmail.com>
+In-Reply-To: <Z1gfYeJL-mgTn5Gj@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.12.2024 11:29, Oleksii Kurochko wrote:
-> On 12/4/24 12:01 PM, Jan Beulich wrote:
->> On 04.12.2024 11:20, Oleksii Kurochko wrote:
->>> *  Support device passthrough when dom0 is PVH on Xen (v16)
->>>    -  Jiqian Chen
->>>    -https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m5d557d76f290ff5b5550c1443cab5774d397e526
->> Some of this went in too, I think?
+On 10.12.2024 12:00, Roger Pau Monné wrote:
+> On Mon, Dec 09, 2024 at 02:59:31PM +0100, Jan Beulich wrote:
+>> On 02.12.2024 07:09, Jiqian Chen wrote:
+>>> +static int cf_check init_rebar(struct pci_dev *pdev)
+>>> +{
+>>> +    uint32_t ctrl;
+>>> +    unsigned int rebar_offset, nbars;
+>>> +
+>>> +    rebar_offset = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_REBAR);
+>>> +
+>>> +    if ( !rebar_offset )
+>>> +        return 0;
+>>> +
+>>> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL);
+>>> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+>>> +
+>>> +    for ( unsigned int i = 0; i < nbars; i++, rebar_offset += PCI_REBAR_CTRL )
+>>> +    {
+>>> +        int rc;
+>>> +
+>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
+>>> +                               rebar_offset + PCI_REBAR_CAP, 4, NULL);
+>>
+>> The capability register is r/o aiui. While permitting hwdom to write it is
+>> fine, DomU-s shouldn't be permitted doing so, just in case. (An alternative
+>> to making handler selection conditional here would be to bail early for the
+>> !hwdom case, accompanied by a TODO comment. This would then also address
+>> the lack of virtualization of the extended capability chain, as we may not
+>> blindly expose all capabilities to DomU-s.)
 > 
-> "Support device passthrough when dom0 is PVH on Xen" should be moved to Completed. ( Accidentally did a grep for the cover letter subject not
-> for the subject of the 1st patch so though that 1st patch isn't merged.
-> 
-> And it seems to me that it should be mentioned in CHANGELOG.md, shouldn't it?
+> I don't think we can safely expose this capability to domUs by
+> default, so my preference would be a returning an error in that case
+> (and printing a log message indicating ReBAR is not supported for
+> domUs).
 
-If that work is deemed to be complete, perhaps.
+I understood Jiqian's recent reply to mean that that's what he's going to do.
+
+> Note it's already not exposed to domUs by not being part of
+> supported_caps in init_header().
+
+Just to mention it - supported_caps is, aiui, about "traditional" caps only
+anyway, not extended ones.
 
 Jan
 
