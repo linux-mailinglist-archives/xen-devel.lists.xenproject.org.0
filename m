@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 807C79EB1B0
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 14:13:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852332.1266160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B620E9EB1BE
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 14:17:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852357.1266170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL03J-0000MW-L1; Tue, 10 Dec 2024 13:13:25 +0000
+	id 1tL06x-0001N4-3i; Tue, 10 Dec 2024 13:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852332.1266160; Tue, 10 Dec 2024 13:13:25 +0000
+Received: by outflank-mailman (output) from mailman id 852357.1266170; Tue, 10 Dec 2024 13:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL03J-0000K4-IB; Tue, 10 Dec 2024 13:13:25 +0000
-Received: by outflank-mailman (input) for mailman id 852332;
- Tue, 10 Dec 2024 13:13:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tL06x-0001Ku-19; Tue, 10 Dec 2024 13:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 852357;
+ Tue, 10 Dec 2024 13:17:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tL03H-0000Ju-On
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 13:13:23 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87af9be5-b6f8-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 14:13:21 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-434f3d934fcso15859965e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 05:13:21 -0800 (PST)
+ id 1tL06v-0001Kk-Ny
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 13:17:09 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0ed2e5fe-b6f9-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 14:17:08 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3862d16b4f5so2436787f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 05:17:08 -0800 (PST)
 Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
  (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
  [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3861f59ccd6sm15794407f8f.32.2024.12.10.05.13.20
+ ffacd0b85a97d-386220b071dsm15629457f8f.101.2024.12.10.05.17.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 05:13:20 -0800 (PST)
+ Tue, 10 Dec 2024 05:17:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,54 +47,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87af9be5-b6f8-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 0ed2e5fe-b6f9-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733836401; x=1734441201; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733836628; x=1734441428; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1aF7XpvhQ6Apl9P2KccD9VrasN0wSy21pMmLhIayMSI=;
-        b=MeH+w+h/L3w8QgtOMXK3h8JhAF+Oau7EKmQdBhAuv+17UgEriCv8lP6Xmr63vcVHSD
-         Mqc0xehCJHlqEO0iDgSOBM5BuAFYAD01zj44Pct4dKCUp02hWYlVFhoPJ57BQu9zXBu/
-         9Ds48ZytUsAqaM72ISmY2O70xx2Dmqyy7LnVGqnRfdn1OqjT1MuFjykm+hrNoXOeVTEV
-         YguMuQSfBmC7wqhB3GKntqBoA9lvzC8ZRt9qwODAjGdB4l2bUWozLhMx4GGt6z2fAAi0
-         X7/sssDJj+i2pS3pSu51yYippY8NZpJ6DJ8+J8m9HLic5I6XhZVd1VceZWKzan6jrHSe
-         9mYA==
+        bh=7NnMrJ1jCt3SXxiczbCnK0KjHO4wCfNpPKuiIhRFoUM=;
+        b=R3UqxoszpFfSJlatOfGrm7LaQ0EPiT4kSpGGxQ3Dlj1NfV7SPqZ6EJiQ3jh8J2tTJP
+         uCAFvoOc91t0nUxzZQouvPoy/c8XIVtIYWQjvn0767WIuRtIRpttUUkodXclrAInHcLa
+         Wl4tOjFOV2ONelH14o9xGIrYC3nwN8l6yz5jSQy3tZePhNdG2UE6hE/i4GcaeCnnJCWV
+         AaYrVBdlCgG4GU0/EXUxkM4Icnk2WxMQpQmnYki+vM055FgKalJiEuan6/GsDAwxQDZF
+         Tm8IFZDOsC2Xs+nvJaLH8cFqAgQv2h5pLoDTaaNWnbiSfSZ3qcVW5FZs/jEyOAiByerO
+         ceyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733836401; x=1734441201;
+        d=1e100.net; s=20230601; t=1733836628; x=1734441428;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1aF7XpvhQ6Apl9P2KccD9VrasN0wSy21pMmLhIayMSI=;
-        b=YaEFbjukPPp9oVzJ9329eO7qy3hLc97elTayH42qrSwxqv3lXofD/S62BTHUloh/u4
-         czjt4vG2CBzMAolS6eHgk8kzXtP0oA/Hzbfsdk0X6Pyd5Wk6KfempCuG74kuNn2ZDn8J
-         xnqFxJkrHGgtyRR90DlQTW1PM2oEpxVScBFtDtucjD+F1ROw9S5nKJz2UnhbAM88ImGr
-         tDCZRLf/Fzv3GGzskLTGBMX4G8910DiMhs8LEhkgspAFGPQsR4/xPoQVv1T0kQgHDb4F
-         YfCvmMCrPeSD1hQaevMSAvyV+IxPAJa7nNzqsf/Q57xybJ8uYZWbxYfgnANYuNhvTdSF
-         Ao3A==
-X-Forwarded-Encrypted: i=1; AJvYcCV57gKmEVlu5v5k0CEUaBgYCcs4yUfc+j6TgGIDqtxMcCqiZnb+hh/I59I7tarV0I5ZHVbQoz/wAoQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDErKMf5F9sY8moSqZdTUebRfJwNqpmekd1/OzUnka2tYuevN4
-	mELqx8zgRP7eX8kgpQpTEqtKnnvwsomIMsKzI1DertLdhikgxurH6OVycWe4Vg==
-X-Gm-Gg: ASbGnctYKaR5G9F7OuFRv8AV+8L/UjZZzuyWQ+/JM/Iz1vz7EkDYgrTniOiPguVFopE
-	PGDOgxZ2S+cbhNUbKhnDBCWyUdQmXU0ibz2U6IbNXRHDK4Tj4yzwfV9O8+kbpI2+dUPHU1rPMZ8
-	ps/97v1rlcuWOwjIeWIRUXFzJuYMrttgyoawLlB2MmcURDfryIy+iZFTMyf6br0+r7psk3EmS7b
-	M4RRjQ/333yq+gtzf8C/5wg/gCkP6LuQxFaPDA8pnbnf/v3Oq4W3H175ZQGOLhUWbtp7n/YNvyL
-	uLmQourh07fY3WjvGOl3M3mrPKAsRFdBrD2nwct9By7Zw73o19ygnFxkEKFjHGnCHJkpeg3quBy
-	aWCmJ9ag+YQ==
-X-Google-Smtp-Source: AGHT+IETrVvJzmw157A1fHLwbSDF/caGV7/c67mf5FT4o98dZEkOnt4NLUWdBp7iWO6MDLfH7A811w==
-X-Received: by 2002:a5d:5989:0:b0:385:dfab:1644 with SMTP id ffacd0b85a97d-386453e316fmr2922258f8f.33.1733836401084;
-        Tue, 10 Dec 2024 05:13:21 -0800 (PST)
-Message-ID: <a6442bb6-ac06-47e4-a981-512314c8c8b9@suse.com>
-Date: Tue, 10 Dec 2024 14:13:19 +0100
+        bh=7NnMrJ1jCt3SXxiczbCnK0KjHO4wCfNpPKuiIhRFoUM=;
+        b=fVLEemJvcDj98uI8rZWE7tWaSAn9kY50A88I3nSTXDUMGj4Xn/Pvxmf1F8gcVvxAEp
+         oWh9Xj5FPWsnEI/j1SaMWKAu0Myp9psOLrBi4lDt+qgqBoT4RwdzqgInOwmlB/gbJpft
+         wHFegBCsodRs2ZXbtBgKm0hCs/tHiZ2HlFv4BixwVrXFXAki8O9mk7zpjL4QWEMKHsSh
+         daWWi0F9ATHZ9Sr0xQ1Oq3RvM3eG1X1Yk+h1RtjIkiipwNvUSctrpBldv8GlrqpTujWk
+         PHfMZW0NJd2TRNyGc5tiZq513XF0oJKglWmwhE83cqifXbsp3dJCLp2yBSXiruP1W2tJ
+         QvCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV+GL8p9OIg0dt582QFrVuH1J0fswq7kYj9opr7m65ziyxqpU3B8nGRgis4PakFCCPI2HnzQbI/DvE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YympZn7XrfyXO/7NksWLM3njq+2+E/md87UFUYaXOCFSZdXeZDR
+	+3j8Fq+T4bwIlDVQEzb4pp9VuVweU7HP4d1YFCMGHjcBGsmpGCE6nFzUFOUI9A==
+X-Gm-Gg: ASbGncu5X8/DEwKSLV1iF511Eb4VDoRTpOvcq7icZjya1U58bdrK7FGbUpwx8Ossob7
+	ikH/345dB7zlA5Qos23EKZ2h4TmKy1SQRcNL1dyAZ67U6pzUEa3bDcvVJ7mVN4rO1AGFpzPGo0O
+	yKxfaSoVPT7I7fxSXAtJ85gbXAe3lSnDC8opv8oVaCIXfrN+NsNjG396Cy1FEDcF9aFw/dgf3ke
+	gtCg1PIRH5KaKzW2RNSUKz2RKcuDe5TxMXpn8KdwFe0VFuE3OqEDwwr1BMtMskmJXplY/jXAdws
+	Gmf8vab01Aw3r8Vo4tIylrIfCcsUJmhLR8kWIMhQyw5HzacLgQpDdebz1KnzA70R0Bm08UbjTjW
+	CciCftvuL/g==
+X-Google-Smtp-Source: AGHT+IFPB3t+svpamS6wHJE6uW8uhwUbVL/32mp39xubyJa6AAMR1jQcgRdgl34mzS+hU3KO58e6AA==
+X-Received: by 2002:a5d:47c9:0:b0:385:f349:ffe5 with SMTP id ffacd0b85a97d-38646a09222mr2319330f8f.29.1733836627973;
+        Tue, 10 Dec 2024 05:17:07 -0800 (PST)
+Message-ID: <8c7daeda-2a00-476a-9a86-806139035cd0@suse.com>
+Date: Tue, 10 Dec 2024 14:17:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/35] xen: introduce resource.h
+Subject: Re: [PATCH v2 02/35] xen/irq: introduce NO_IRQ
 To: dmukhin@ford.com
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-1-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-2-e9aa923127eb@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,74 +120,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241205-vuart-ns8250-v1-1-e9aa923127eb@ford.com>
+In-Reply-To: <20241205-vuart-ns8250-v1-2-e9aa923127eb@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
-> --- /dev/null
-> +++ b/xen/include/xen/resource.h
-> @@ -0,0 +1,40 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
+> From: Denis Mukhin <dmukhin@ford.com>
+> 
+> Introduce definition for IRQ resource checks.
 
-GPL-2.0-only
+How does this fit ...
 
-> +/*
-> + * System resource description.
-> + *
-> + * Reference:
-> + *   include/linux/ioport.h
+> --- a/xen/include/xen/irq.h
+> +++ b/xen/include/xen/irq.h
+> @@ -53,6 +53,7 @@ struct irqaction {
+>  #define AUTO_ASSIGN_IRQ         (-1)
+>  #define NEVER_ASSIGN_IRQ        (-2)
+>  #define FREE_TO_ASSIGN_IRQ      (-3)
+> +#define NO_IRQ                  (-4)
 
-I'm unsure of the usefulness of such a reference.
-
-> + */
-> +#if !defined(XEN__RESOURCE_H)
-
-Nit: #ifdef / #ifndef please whenever possible (as long as not inconsistent
-with adjacent code).
-
-> +#define XEN__RESOURCE_H
-> +
-> +#define IORESOURCE_BITS         0x000000FFU      /* Bus-specific bits */
-> +
-> +#define IORESOURCE_TYPE_BITS    0x00001F00U      /* Resource type */
-> +#define IORESOURCE_IO           0x00000100U      /* PCI/ISA I/O ports */
-> +#define IORESOURCE_MEM          0x00000200U
-> +#define IORESOURCE_REG          0x00000300U      /* Register offsets */
-> +#define IORESOURCE_IRQ          0x00000400U
-> +#define IORESOURCE_DMA          0x00000800U
-> +#define IORESOURCE_BUS          0x00001000U
-> +
-> +#define IORESOURCE_PREFETCH     0x00002000U      /* No side effects */
-> +#define IORESOURCE_READONLY     0x00004000U
-> +#define IORESOURCE_CACHEABLE    0x00008000U
-> +#define IORESOURCE_RANGELENGTH  0x00010000U
-> +#define IORESOURCE_SHADOWABLE   0x00020000U
-> +
-> +#define IORESOURCE_UNKNOWN      (~0U)
-> +
-> +struct resource {
-> +    paddr_t addr;
-> +    paddr_t size;
-> +    unsigned int type;
-> +};
-> +
-> +#define resource_size(res) (res)->size;
-
-The semicolon surely was wrong before and is wrong now. Plus Misra
-demands that such macro expansions be parenthesized, I think.
-
-> +#define foreach_resource(res) \
-> +    for (; res && res->type != IORESOURCE_UNKNOWN; res++)
-
-This one isn't being moved, but is being added. It's not used here,
-which makes it difficult to judge its correctness. Perhaps better to
-introduce this when its first needed, and then right away with the
-required parentheses around uses of the macro parameter.
-
-> +#endif /* #if !defined(XEN__RESOURCE_H) */
-
-Just the guard identifier in the comment please.
+... the grouping here? The constants in context aren't used anywhere,
+so it's hard to see whether / how the new one fits here (and doesn't
+instead belong into the new resource.h you introduce in patch 1). Once
+again likely best to have this in the patch where it's first needed,
+thus providing at least some context.
 
 Jan
 
