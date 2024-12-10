@@ -2,52 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB12B9EB79C
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 18:11:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852932.1266581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25DC49EBC8E
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 23:03:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.853116.1266669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL3lH-0000N4-8x; Tue, 10 Dec 2024 17:11:03 +0000
+	id 1tL8JW-00021w-FO; Tue, 10 Dec 2024 22:02:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852932.1266581; Tue, 10 Dec 2024 17:11:03 +0000
+Received: by outflank-mailman (output) from mailman id 853116.1266669; Tue, 10 Dec 2024 22:02:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL3lH-0000Kb-6A; Tue, 10 Dec 2024 17:11:03 +0000
-Received: by outflank-mailman (input) for mailman id 852932;
- Tue, 10 Dec 2024 17:11:02 +0000
+	id 1tL8JW-0001zQ-7t; Tue, 10 Dec 2024 22:02:42 +0000
+Received: by outflank-mailman (input) for mailman id 853116;
+ Tue, 10 Dec 2024 22:02:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YcGJ=TD=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1tL3lG-0000KU-Dz
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 17:11:02 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2062f.outbound.protection.outlook.com
- [2a01:111:f403:2409::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9935888-b719-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 18:11:00 +0100 (CET)
-Received: from BN1PR14CA0028.namprd14.prod.outlook.com (2603:10b6:408:e3::33)
- by SN7PR12MB8601.namprd12.prod.outlook.com (2603:10b6:806:26e::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.18; Tue, 10 Dec
- 2024 17:10:54 +0000
-Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
- (2603:10b6:408:e3:cafe::83) by BN1PR14CA0028.outlook.office365.com
- (2603:10b6:408:e3::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8230.15 via Frontend Transport; Tue,
- 10 Dec 2024 17:10:53 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8272.0 via Frontend Transport; Tue, 10 Dec 2024 17:10:53 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Dec
- 2024 11:10:52 -0600
-Received: from [172.21.132.86] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 10 Dec 2024 11:10:52 -0600
+ <SRS0=9guP=TD=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
+ id 1tL8JV-0001x9-5y
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 22:02:41 +0000
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 77b2fc8f-b742-11ef-99a3-01e77a169b0f;
+ Tue, 10 Dec 2024 23:02:37 +0100 (CET)
+Received: from eahariha-devbox.internal.cloudapp.net (unknown [40.91.112.99])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 5C8092047227;
+ Tue, 10 Dec 2024 14:02:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,132 +39,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9935888-b719-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O1WLPk6NHYqlM5b2VqmA4xxiXY/QhTwTEjuAMvrBchAb8EyBIQhEXev3aBanNOo+YH9rNCKkKo3p8OpyPk6kCJjZ2LllGHHSUPe5hRscek5AxHUHcLEfg3oE1YANzIwxFT8Ph19qIreqrRn7jZ2umWNJ6gDLN3xFWgHX95M3d19XRWUa+i6JhN9PIaogrtSq/K98Xf1ZpnBiVG2kZzGUwEwyZAwJlQ4+1997KdIagndYr6Y4sj1EyHndWuGqSWY9BXqZbj711MDg1D688KlyAZe1wH57k5kjUJNCR/kvGdlIN3jAzUSFy4xh/XqsY/SFcS1uIqhH+Tc8P4jr2tTv1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gu6eYOa3khxPcVYL956PzomvkQ877K0g6poQ1WpNxyA=;
- b=plMC6o98c49jT8QGvGRBG8/Y3T6ow8sdLf9akz1LorglBukVfQy2Eo/3FSqnI3dW+LdmAEGmIcbPMw5RhflKfIapXhznfLxdrl56e0QBXW7JXESPdBNKV4P6M2CVzKh6rtmp0zwWuOBAJ4p85HTmES82+xvoVIKc6it/7+XXhDC+vii8uMDgc1WRtOxBFWJaldK5XZWqQO8hdMXoawC3TeSgJ1NFFxtPTG/WUb3HpVH5/8Co2XuE5pH2geF0Z6aw1azMe7n/XOqG/57qC1vUBNcj8On6JTLzP0vh4BK/9++pmLRjShplAShWEWa0ZjTc96iIewzmqQOX4aQHFJ8f8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gu6eYOa3khxPcVYL956PzomvkQ877K0g6poQ1WpNxyA=;
- b=LtOJgCU+CkKVBzT4Z0oPUH7/SimrxmWwiUZTWR+Fd4UfH0riINYkIyGGKMW4pRwkJyqivSmfsbB1Q2ZUTRN+0HMF8xvlyfLAPxkdCD9ZwkU8rLUQYECdVnpA7QXF3n/JCM2EIEfSwk2a8cX5nZRWQC3Gku2hgabKWQr00ws/o8A=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <e6c46bd9-0525-4b53-b4a8-21814d207626@amd.com>
-Date: Tue, 10 Dec 2024 12:10:52 -0500
+X-Inumbo-ID: 77b2fc8f-b742-11ef-99a3-01e77a169b0f
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5C8092047227
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1733868156;
+	bh=3tkOAM1zqG9JeFOtral7Lfs9u46U15/2RBF6sWmMcg4=;
+	h=From:Subject:Date:To:Cc:From;
+	b=Q4SOEP0Y7h5zO78UBiHUhYnGicCTwnpmdGyeJ2NXra3aSgp4pliiNVajI48sltiC5
+	 krxOdne8IbeYxRwBBWcjRMbkm4dRwXWKZALmzr8Eqfc6Ado8XqXrVleqMCFQbV/jTu
+	 DEly4DyEWnbV/UU33Q7NVotbdGyJFxTE5SxdsOl8=
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
+Subject: [PATCH v3 00/19] Converge on using secs_to_jiffies()
+Date: Tue, 10 Dec 2024 22:02:31 +0000
+Message-Id: <20241210-converge-secs-to-jiffies-v3-0-ddfefd7e9f2a@linux.microsoft.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/vpci: fix memory type in guest_mem_bar_read()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>
-References: <20241210162546.403882-1-stewart.hildebrand@amd.com>
- <Z1huUDOTgJIB8qTE@macbook.local>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <Z1huUDOTgJIB8qTE@macbook.local>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|SN7PR12MB8601:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90bd10cc-9e4e-47a2-0d84-08dd193d9aaa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UVIxcnpkdjBsSzdJV0FYNzdCc1R2R2pHWGV1WjgzbmFKZS93Q1lJdTVVQkdV?=
- =?utf-8?B?b05NRzBLY1BKWTd6QStHcDNtVHppaEJ0b1Y4cG9xMlB1K1NGUmdyOUdBSXJY?=
- =?utf-8?B?ZUlwSDRNS3dHTExRbzRmckl2ZkxnMHh3Y1ZTeHREMnBPZDVpbnNhVEt6NmVT?=
- =?utf-8?B?a0xWWmZoRjNRMG1RSzNqZkJsSkhTdlpiWUhEdWNBb1liZEZKUGpFN2UySVNV?=
- =?utf-8?B?S0xQSklHYS9ONlUxMGlpZm4zTEFuQ1RnT3VzL3h1dWZmeXRUVXI0R2tHbmcr?=
- =?utf-8?B?SVpKaEhmaHpQQ254MlBEa0oxUEd3MEtEcDNuUERvbXlPR040T3UwbWNueGVD?=
- =?utf-8?B?ODV1NDJTMk9OazhwUERXK3FHOWhUWkUxTURwR3UxSnArZUM5QVBzeVFsbyt3?=
- =?utf-8?B?cTQyK0dXaGhMVnpHb0doOHNqRlpXOWhpY0psYnE0R2t5a2QzYmpDSW5aWEJm?=
- =?utf-8?B?V2hVY2hJeDl1N1hKaHhVZWNMZHpPbURTRllaanVUdTBsck1ZY05KMDNjenE1?=
- =?utf-8?B?VFJNVUc0TDVXQkYrcXQ5dzdIZEU3YUJqZjRPUFpPaUIzQytieXJHeXBsNjJI?=
- =?utf-8?B?OERPVUxmVTdpZWdRS3dLZVk1ZlhrcDIycTZudmpXVG1TTFVGbk5KM3I1dEto?=
- =?utf-8?B?czA0MHdLNy9KVXMrbTJKR3R6MkJCby9WLzFxemNBUjcvSGRrakZqNjlQRHJz?=
- =?utf-8?B?UHZXalJsa2xWazJWNGJIaTROMGlrSTVucXk3dlBqeW9iOGdxbkhRWVdQZHEx?=
- =?utf-8?B?NHhJVkpnMUp1cUwrbGdmbTNQRFhjWWxtQVRsYnNVZzRwbWpjYmhzazQ4YUgx?=
- =?utf-8?B?N05reDNPVUNybGxKN2NSZHJEY2t1T2tLL1A0aWlmdEMvdFJwNTlad1Bqdndu?=
- =?utf-8?B?dE5MZlNnbjM1THpyamREdnFCQng3Y1N4dXJXRDNyZkxkKzExUXRPa25ITUIw?=
- =?utf-8?B?ZldZS05HL3lrRXpQYStqdUh1RVdqNFo2cDRsUFYwdE5TL2QwOVpldEhzRlBT?=
- =?utf-8?B?TjduTFNBZ0o4RWRpazZzL21PWFFFYi9tT3NieEJnaUl4SXFsSXg3dkJDdGYr?=
- =?utf-8?B?WkNuUS9QUm5vMC96NFk4bnliNzFIOHM5UFNzMHVCVk1MVXAvV1VrcG5ZREx3?=
- =?utf-8?B?Mm1PWWw1blU4dFRLalJrb1VCZC8yeHAyVmZSZzhhUTVzS0ZMUy95UU9TdytT?=
- =?utf-8?B?UzhnanVndGlYWGNLT1BwamU2V1RZNkQ1MGhQcDFKdVdVWlBzaUNKbnZybUpS?=
- =?utf-8?B?UkpYNUg4K2E5UzN6cnJLZDRJaEtuY3BjRm5ycW5NOEs1M3BkdTdnNXhvQ09H?=
- =?utf-8?B?YmsvcmpTaVRHckM2SE5ncmlRQWJCS3NWUFVvSGFFVllLTWxZMHZoQlZESldH?=
- =?utf-8?B?ZVFTMnBiTFFxZVZwekN3azZrRkhFeVh5R1hkN0wxVlE4VVIxbUt4a2NtQ1N5?=
- =?utf-8?B?ejZJVkJJcERYZ0tLZUlWTlNTbVVaeFNGN3BJME9kVE54NkErcTlWOERWeE9N?=
- =?utf-8?B?Z2c1eWw0bE8wOStaNkR4VWtHMHlsTFhxdmpBekExTUNrUFo1MFVtOHZEOGlu?=
- =?utf-8?B?NUJEbEJYNHpxMFFHTzU1aW9zQ2FxUk5CcGh4UWN1SFpTRUQ0TzdkTXBUSjUv?=
- =?utf-8?B?aWJNRDRGREdJZEZ5dm9YMFhVTVNWbTZGWndPOGd4MkY3TnFYYTMwUUwvME55?=
- =?utf-8?B?VnFtWU8yMU9CUjQ5Tkp4NFFSZWRDc0poVm1jUlJPVWdjNkl3LzZueml4ODVn?=
- =?utf-8?B?TXlhQ2ZwVFF4a0JkQzBJQThiSzM1cjZrTUg0L3U0NC8rakthdlgvTG0wYUJV?=
- =?utf-8?B?VmZIdTkxUEZWWXppdFZucjBWblg0c3JuMjlIU3dhS2xEazFIdHduejdSOTE3?=
- =?utf-8?B?UmlQdGZ0cStndzZuUFEwbDVUMVh4dFdDUGRjVHNoRUxFYlE9PQ==?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2024 17:10:53.4388
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90bd10cc-9e4e-47a2-0d84-08dd193d9aaa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B06C.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8601
+X-B4-Tracking: v=1; b=H4sIAHe6WGcC/42NwQ6CMBAFf4X0bAlbQFJP/ofxAO1W1ijVFhoM4
+ d8tGONFE49vkjczMY+O0LNdMjGHgTzZLo58kzDV1t0JOem4mchEAQCCK9sFdJF7VJ73lp/JmGj
+ gWkoNGWwbDcDi/ebQ0LiqD8fXdngfYqH/wJZ8b91jzQdY6LtU/i4F4BkHWdda5YUsoNlfqBvG9
+ ErKWW9Nnyp7ZYs+iH+VIiolgGmqUpZYye/KeZ6fTjplmTIBAAA=
+X-Change-ID: 20241112-converge-secs-to-jiffies-d99d1016bd11
+To: Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Julia Lawall <Julia.Lawall@inria.fr>, 
+ Nicolas Palix <nicolas.palix@imag.fr>, Daniel Mack <daniel@zonque.org>, 
+ Haojian Zhuang <haojian.zhuang@gmail.com>, 
+ Robert Jarzmik <robert.jarzmik@free.fr>, 
+ Russell King <linux@armlinux.org.uk>, Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Ofir Bitton <obitton@habana.ai>, 
+ Oded Gabbay <ogabbay@kernel.org>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jeroen de Borst <jeroendb@google.com>, 
+ Praveen Kaligineedi <pkaligineedi@google.com>, 
+ Shailend Chand <shailend@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ James Smart <james.smart@broadcom.com>, 
+ Dick Kennedy <dick.kennedy@broadcom.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+ Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>, 
+ Jeff Johnson <jjohnson@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Jack Wang <jinpu.wang@cloud.ionos.com>, 
+ Marcel Holtmann <marcel@holtmann.org>, 
+ Johan Hedberg <johan.hedberg@gmail.com>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+ Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>, 
+ Joe Lawrence <joe.lawrence@redhat.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Louis Peens <louis.peens@corigine.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <christophe.leroy@csgroup.eu>, 
+ Naveen N Rao <naveen@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, cocci@inria.fr, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ linux-block@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ ath11k@lists.infradead.org, linux-mm@kvack.org, 
+ linux-bluetooth@vger.kernel.org, linux-staging@lists.linux.dev, 
+ linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org, 
+ live-patching@vger.kernel.org, linux-sound@vger.kernel.org, 
+ oss-drivers@corigine.com, linuxppc-dev@lists.ozlabs.org, 
+ Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+ Easwar Hariharan <eahariha@linux.microsoft.com>, 
+ Jeff Johnson <quic_jjohnson@quicinc.com>
+X-Mailer: b4 0.14.2
 
-On 12/10/24 11:37, Roger Pau Monné wrote:
-> On Tue, Dec 10, 2024 at 11:25:44AM -0500, Stewart Hildebrand wrote:
->> Currently, if bar->type is anything other than VPCI_BAR_MEM32, the
->> memory type bits get set to PCI_BASE_ADDRESS_MEM_TYPE_64 in the returned
->> value. This leads to the wrong memory type for, e.g. VPCI_BAR_EMPTY.
->> Only set PCI_BASE_ADDRESS_MEM_TYPE_64 when the bar type is
->> VPCI_BAR_MEM64_LO.
-> 
-> I'm confused, VPCI_BAR_EMPTY shouldn't use guest_mem_bar_read() in the
-> first place, as its read handler should be vpci_read_val() instead.
-> 
-> Is there something I'm missing from init_header()?
-> 
->         if ( size == 0 )
->         {
->             bars[i].type = VPCI_BAR_EMPTY;
-> 
->             if ( !is_hwdom )
->             {
->                 rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
->                                        reg, 4, (void *)0);
->                 if ( rc )
->                     goto fail;
->             }
-> 
->             continue;
->         }
-> 
-> AFAICT guest_mem_bar_read() should only handle BAR types that are
-> either VPCI_BAR_MEM32, VPCI_BAR_MEM64_HI or VPCI_BAR_MEM64_LO, and
-> that seems to be correctly handled?
+This is a series that follows up on my previous series to introduce
+secs_to_jiffies() and convert a few initial users.[1] In the review for
+that series, Anna-Maria requested converting other users with
+Coccinelle. [2] This is part 1 that converts users of msecs_to_jiffies()
+that use the multiply pattern of either of:
+- msecs_to_jiffies(N*1000), or
+- msecs_to_jiffies(N*MSEC_PER_SEC)
 
-Ah, you're right, sorry. I pulled this patch out of another series that
-I'm working on, but failed to realize that guest_mem_bar_read shouldn't
-be used for VPCI_BAR_EMPTY. Please disregard.
+where N is a constant, to avoid the multiplication.
+
+The entire conversion is made with Coccinelle in the script added in
+patch 2. Some changes suggested by Coccinelle have been deferred to
+later parts that will address other possible variant patterns.
+
+CC: Anna-Maria Behnsen <anna-maria@linutronix.de>
+Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+
+[1] https://lore.kernel.org/all/20241030-open-coded-timeouts-v3-0-9ba123facf88@linux.microsoft.com/
+[2] https://lore.kernel.org/all/8734kngfni.fsf@somnus/
+
+---
+Changes in v3:
+- Rebase on next-20241210
+- Fix typo'ed timeout in net/netfilter/nf_conntrack_proto_sctp.c (Stephen Rothwell)
+- Use Coccinelle operation modes for Coccinelle script (Markus Elfring)
+- Remove redundant comments in arch/arm/mach-pxa/sharpsl_pm.c
+  (Christophe Leroy)
+- Remove excess line breaks (Heiko Carstens, Christophe Leroy)
+- Add more detail into the commit messages throughout (Christophe Leroy)
+- Pick up Reviewed-by Thomas Hellström for drm/xe
+- Drop drm/etnaviv patch already queued into etnaviv/next
+- Replace call to [m]secs_to_jiffies(0) with just 0 for livepatch (Dan
+  Carpenter, Christophe Leroy)
+- Split out nfp patch to send to net-next (Christophe Leroy)
+- Pick up Acked-by from Jeff Johnson for ath11k
+- Link to v2: https://lore.kernel.org/r/20241115-converge-secs-to-jiffies-v2-0-911fb7595e79@linux.microsoft.com
+Changes in v2:
+- Exclude already accepted patch adding secs_to_jiffies() https://git.kernel.org/tip/b35108a51cf7bab58d7eace1267d7965978bcdb8
+- Link to v1: https://lore.kernel.org/r/20241115-converge-secs-to-jiffies-v1-0-19aadc34941b@linux.microsoft.com
+
+---
+Easwar Hariharan (19):
+      netfilter: conntrack: Cleanup timeout definitions
+      coccinelle: misc: Add secs_to_jiffies script
+      arm: pxa: Convert timeouts to use secs_to_jiffies()
+      s390: kernel: Convert timeouts to use secs_to_jiffies()
+      powerpc/papr_scm: Convert timeouts to secs_to_jiffies()
+      mm: kmemleak: Convert timeouts to secs_to_jiffies()
+      accel/habanalabs: Convert timeouts to secs_to_jiffies()
+      drm/xe: Convert timeout to secs_to_jiffies()
+      scsi: lpfc: Convert timeouts to secs_to_jiffies()
+      scsi: arcmsr: Convert timeouts to secs_to_jiffies()
+      scsi: pm8001: Convert timeouts to secs_to_jiffies()
+      xen/blkback: Convert timeouts to secs_to_jiffies()
+      gve: Convert timeouts to secs_to_jiffies()
+      wifi: ath11k: Convert timeouts to secs_to_jiffies()
+      Bluetooth: MGMT: Convert timeouts to secs_to_jiffies()
+      staging: vc04_services: Convert timeouts to secs_to_jiffies()
+      ceph: Convert timeouts to secs_to_jiffies()
+      livepatch: Convert timeouts to secs_to_jiffies()
+      ALSA: line6: Convert timeouts to secs_to_jiffies()
+
+ arch/arm/mach-pxa/sharpsl_pm.c                     |  8 ++++----
+ arch/powerpc/platforms/pseries/papr_scm.c          |  2 +-
+ arch/s390/kernel/lgr.c                             |  2 +-
+ arch/s390/kernel/time.c                            |  4 ++--
+ arch/s390/kernel/topology.c                        |  2 +-
+ drivers/accel/habanalabs/common/device.c           |  2 +-
+ drivers/accel/habanalabs/common/habanalabs_drv.c   |  3 +--
+ drivers/block/xen-blkback/blkback.c                |  2 +-
+ drivers/gpu/drm/xe/xe_device.c                     |  2 +-
+ drivers/net/ethernet/google/gve/gve_tx_dqo.c       |  6 ++----
+ drivers/net/wireless/ath/ath11k/debugfs.c          |  2 +-
+ drivers/scsi/arcmsr/arcmsr_hba.c                   |  2 +-
+ drivers/scsi/lpfc/lpfc_init.c                      | 18 +++++++++---------
+ drivers/scsi/lpfc/lpfc_nportdisc.c                 |  8 ++++----
+ drivers/scsi/lpfc/lpfc_nvme.c                      |  2 +-
+ drivers/scsi/lpfc/lpfc_sli.c                       |  4 ++--
+ drivers/scsi/lpfc/lpfc_vmid.c                      |  2 +-
+ drivers/scsi/pm8001/pm8001_init.c                  |  2 +-
+ .../vc04_services/bcm2835-audio/bcm2835-vchiq.c    |  2 +-
+ fs/ceph/quota.c                                    |  2 +-
+ mm/kmemleak.c                                      |  4 ++--
+ net/bluetooth/mgmt.c                               |  2 +-
+ net/netfilter/nf_conntrack_proto_sctp.c            | 21 ++++++++-------------
+ samples/livepatch/livepatch-callbacks-busymod.c    |  3 +--
+ samples/livepatch/livepatch-shadow-fix1.c          |  3 +--
+ samples/livepatch/livepatch-shadow-mod.c           | 15 +++++----------
+ scripts/coccinelle/misc/secs_to_jiffies.cocci      | 22 ++++++++++++++++++++++
+ sound/usb/line6/toneport.c                         |  2 +-
+ 28 files changed, 78 insertions(+), 71 deletions(-)
+---
+base-commit: 1b2ab8149928c1cea2d7eca30cd35bb7fe014053
+change-id: 20241112-converge-secs-to-jiffies-d99d1016bd11
+
+Best regards,
+-- 
+Easwar Hariharan <eahariha@linux.microsoft.com>
+
 
