@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86FFF9EB397
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:39:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852584.1266341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 868819EB3B9
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:44:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852604.1266351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1OP-0005Qy-G0; Tue, 10 Dec 2024 14:39:17 +0000
+	id 1tL1TI-0007Y3-2Q; Tue, 10 Dec 2024 14:44:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852584.1266341; Tue, 10 Dec 2024 14:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 852604.1266351; Tue, 10 Dec 2024 14:44:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL1OP-0005PP-CJ; Tue, 10 Dec 2024 14:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 852584;
- Tue, 10 Dec 2024 14:39:16 +0000
+	id 1tL1TH-0007Ve-Vf; Tue, 10 Dec 2024 14:44:19 +0000
+Received: by outflank-mailman (input) for mailman id 852604;
+ Tue, 10 Dec 2024 14:44:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tL1OO-0005PJ-EW
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:39:16 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1tL1TG-0007VW-W5
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:44:18 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86a26286-b704-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 15:39:14 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-434fa6bf744so13724535e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:39:13 -0800 (PST)
+ id 3a1273b2-b705-11ef-99a3-01e77a169b0f;
+ Tue, 10 Dec 2024 15:44:15 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-385ef8b64b3so4614002f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:44:15 -0800 (PST)
 Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
  (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
  [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434f2b08972sm98608735e9.27.2024.12.10.06.39.12
+ ffacd0b85a97d-38621fbbc14sm16394589f8f.87.2024.12.10.06.44.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 06:39:13 -0800 (PST)
+ Tue, 10 Dec 2024 06:44:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,58 +47,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86a26286-b704-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 3a1273b2-b705-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733841553; x=1734446353; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733841854; x=1734446654; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0P87S9AqnrrzFSb7FApiqbW/7L/KL0GWFbBmHRsto34=;
-        b=JcWM5K2k4POZnwG+B/aAwODhyB4wCswuYWS4ZEaPdrfY9RX4/zdFa2qh0VlBqIZjUC
-         1QFRc737g3oqliyhDfbnkKz68ZjZQhGU2Io1+JpCYPmdxmdq+7lsdfqdoPjKG9clVool
-         0CXbXiYTDE8kbFtAAxzpoB2/sPKUDb+0Jb16en/5e0GA0LoVZ4JQfbnER/WLQjA1n3Vg
-         9w4GfPpH9tuMD7855lkakq23K64mxkCSA5iDmqZAkz4MyE9YrP4CpAkEGogHqdTRXv/b
-         w93HBxSOZIreLq+4g9o7aQioqDLpq23RuMBAFhufw2x7WG9VFlvU76NUscWrTOIp9MBv
-         LnRg==
+        bh=XfeWjf0t/1mknC8RdFDvvPEXQ/H4yqP4bWUHMvESMBA=;
+        b=JaEtW5n8vqGOqENiT1p3/B15rDsnehBevr3l7mzouxjkpdLtO7t4hDWnRufSKR3Luc
+         SVsYglyRUOP81PU5H+CZoeEwe98FTYQmzmv4avFD6COzZV4RgwD73M4xwiPEGiHOuPku
+         HYP3WQOY64AZ1ZARSiQ86lYENkEmEQIOTJdYs3wt56v5Dx1oRZUaiOeSjU2NWNdAdOKD
+         FZmMcYr40UJZNSb8+fn+74LcO2W3DGvErnNYbv6NI1ZKp1Bbc3ffM6/cHC38M8IvMXzX
+         kGU4IfQ2SInIvWfzFVp2s9QZ+t9uRSXDkjr/WPnQIeQgw+i4l56GnJ7l2n2Ta2ctagVR
+         bLCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733841553; x=1734446353;
+        d=1e100.net; s=20230601; t=1733841854; x=1734446654;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0P87S9AqnrrzFSb7FApiqbW/7L/KL0GWFbBmHRsto34=;
-        b=Su2/w8OWLfow113EhXDAfPIMXY0huzxwy91MPLtRoUzy8L4EYdSUdt3ZIO5jsCRSS/
-         +1Gtrc2Rd62ZO4E3GreQDNFQ7f5sGk0PAuI7l/0fcvw1Ok4sO8p8rHOnoWTYP3mE4oML
-         UVtzWUKLLAoMGWaU+bB+SWZE7opw/3gI/0J7XvpF1u1FeP+1OLjG8m4QMxnIbqOikCTU
-         6i4kNz/1nNanF9M1HcyFzA6KW1V9ganH37PfAThLPk9G36DkMH0X0cbC3XCI33kscRlX
-         iaiC/VuCSure21Ll/o+SHImiw5ms+pSdvncM5q5T0ao6W7jE5tKcf286Zl0S62wpqQdr
-         65Mw==
-X-Forwarded-Encrypted: i=1; AJvYcCWC1MjyYZKrYCRLAdFc5xkWE1EzUR8FVKLoqgwxVx12dTSL6+or6F8txxBjZgphQYy/CYssqKaXdoM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywo+iSApSLEEWXgvc/j/8SL5p4xSjxbt91mosJ7HXhEFuQ6bNvv
-	x4VxQaYwZBxVGoTWwePhxqktBmcUlSy4hYxxhbevMRyb4VXmTprrBwMd9c7G1g==
-X-Gm-Gg: ASbGncs9CdvSFhXm4vdERaNiolQFINiKqOgBHGL/IucMIosmJ51e59wxmFM04pbKPzy
-	m/X/PyB84IhI6c2YMt7g/sotYcHu53jskJ5akXribomAAZ7JV08Cc3GjBNBLB6RQii11bJpmxyc
-	t0vsENVe0v+4LG7Ptx0baxi4ZSXVp2PoiD6OuqJggTRvibhOWje8fBJQxamR4YPBGEGQ8sbFXxr
-	iNzloeNp4YxWLsLQevOxLxQwk384qmdz7wJnPSJzHCRuCmIxS4nBPysy+WKXy319k+qhgX7DEbl
-	aLTiyzqGKJwRGjkTE1/+bADDmvEEiuHazRTV+IOo/D7dfLeS1RanMGmlSzShzQMwcyFqWsfc3BD
-	j//tISliokA==
-X-Google-Smtp-Source: AGHT+IGeCh8DWj4ljOdgiQly71nMWQkQiPeQf1qMDrkM8OjKMwFO2AH+mgF1DzZT0TfeGeXEA4QloQ==
-X-Received: by 2002:a05:600c:3547:b0:434:a525:7257 with SMTP id 5b1f17b1804b1-434fffd0490mr36276975e9.21.1733841553361;
-        Tue, 10 Dec 2024 06:39:13 -0800 (PST)
-Message-ID: <d300182e-0997-4150-8d9e-3fa20c100e98@suse.com>
-Date: Tue, 10 Dec 2024 15:39:11 +0100
+        bh=XfeWjf0t/1mknC8RdFDvvPEXQ/H4yqP4bWUHMvESMBA=;
+        b=d16Io77OzPUKzPbWa/wsQEBrRvoytQh+VBDOlFDYirLtLI5RgP+XflydQpR8uMZCJg
+         C+zFCzJvMpzP4WmdDs3nVqtSqVrYj1bvB4TarrsmLBeZj9Wmg857r7BAoUawjVHDafee
+         sQtnUcc6wVf56M87DoknILOVCq2nv+A0FRSmiDMrUmIg4tBN9WA0dFy8V/ZpHDhE4SDY
+         O/mgQ8zlIkqaiEAndePgBR5RR+GNZTqtHLXqHCfBTEgTdfMjTsHnGlWvFCwjkC1sBSP/
+         +z4pDvxgXI4uNqflqx2xSiCn04GVXSqxGSgICg+wUX9tXoU6llXbqgtr71othpqZNhbu
+         xgcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWvQre86pHoXzqS1wh5o6H8JvrCZoLmxkZoOUALJECkXUpzIUgRm1wKYx0UftMvwDVkTdWPNAT9TDM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBJq4Zc5QSfGfjbTKzJ/08GRHR664GCU8sh8dYsusON7C0wLU2
+	XuEQOSP9uB0XlzbfGs9p5wRIe2YS6s6Rbg2sn1ypKFGlejNuijHQD7Lk1wPVmg==
+X-Gm-Gg: ASbGncu2szP75a6RqT+8leKar+2a0DbgQ+g7Wekf8X5aX+hnBk6NJ7n6Q97A8WGJxLi
+	f8ApYNrpawrb/QRdtPWCK1rdgibCt9TpFAiI1CmU0H1uaaUU20MwOH3uHJ35GUKvj3u4J9K4Ttk
+	sTLpmbwmW6XCx857lBj0iHkGMHS6XYLmcnpd6o+y2Ze36qDvLIuvaP63k193DxtjPdzP7bTsRGx
+	uawNMuCMlWdcT0MHH3e8fRFWtOJfyPugmXQtTV2IhbvE/qiTgweBwqSeMtO/8DfYYtSYhJ02tw1
+	8ybXBTD4K4aIp+5x30tFsWx5SSVTmMrTa1kMuJYPDlcFfcNo+laL9W10Ehzb+q9eSzTagP+pnee
+	ufoQcf/U/TQ==
+X-Google-Smtp-Source: AGHT+IG/VQGTvrTw23EQ2Hd2U27ZhxdlPVzMM0CGbP867h1vG3IX5LVMTsdHPDkYy4WQZMZt6P7IZg==
+X-Received: by 2002:a05:6000:18a5:b0:386:3e87:2cd6 with SMTP id ffacd0b85a97d-3863e8737fcmr6516907f8f.38.1733841854367;
+        Tue, 10 Dec 2024 06:44:14 -0800 (PST)
+Message-ID: <d245dcc2-49f8-4ada-9eb0-a922c1171b9d@suse.com>
+Date: Tue, 10 Dec 2024 15:44:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] Use an include/boot directory to override headers
- for boot code
+Subject: Re: [PATCH v2 2/4] x86/boot: Use header to allows inclusion of public
+ xen.h header
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241122093358.478774-1-frediano.ziglio@cloud.com>
- <20241122093358.478774-2-frediano.ziglio@cloud.com>
- <f1586637-9d09-405b-8da3-c98d4e38f839@suse.com>
- <CACHz=ZgyxwCVq1Zvwz9oVQO=-e85Sy8CnvyspK_-FFB4FTGyrA@mail.gmail.com>
+ <20241122093358.478774-3-frediano.ziglio@cloud.com>
+ <7f74b7a9-1869-4efa-a213-04d56ba48fb1@suse.com>
+ <CACHz=Zhpk7HOULDjoK1==mLz-G8qcFLjo4ihWTuQxGqJ1u+zQQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,63 +124,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZgyxwCVq1Zvwz9oVQO=-e85Sy8CnvyspK_-FFB4FTGyrA@mail.gmail.com>
+In-Reply-To: <CACHz=Zhpk7HOULDjoK1==mLz-G8qcFLjo4ihWTuQxGqJ1u+zQQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.12.2024 15:29, Frediano Ziglio wrote:
-> On Tue, Dec 10, 2024 at 10:14 AM Jan Beulich <jbeulich@suse.com> wrote:
+On 10.12.2024 15:35, Frediano Ziglio wrote:
+> On Tue, Dec 10, 2024 at 10:32 AM Jan Beulich <jbeulich@suse.com> wrote:
 >>
 >> On 22.11.2024 10:33, Frediano Ziglio wrote:
->>> Not all headers can be used by 32 bit boot code.
->>> Allows to override some headers, we don't want to mess up with
->>> main headers as most of the code is only 64 bit so the easy stuff should
->>> be done for 64 bit declarations.
->>> Boot headers should be 64 bit compatibles to avoid having multiple
->>> declarations.
+>>> This allows to include other headers and avoid duplicated declarations.
+>>>
+>>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 >>
->> I'm afraid that in isolation it's not clear what is intended. Boot code is
->> all located in a single directory. Can't we use local headers there, using
->> #include "...", instead of ...
+>> Again it's left unclear what the purpose / goal is.
 >>
 > 
-> That approach was refused.
+> Reduce duplication avoiding duplicate declarations. The alternative
+> would be to duplicate them, which was proposed already and refused as
+> duplication was not good.
 
-Can you provide a reference please?
+Which declarations specifically?
 
-> Some definitions are in the headers (like
-> CPU features for instance) but duplicating the definitions was
-> rejected as a solution.
-> So the idea is to reuse such definitions. But, as stated in the
-> comment, the "x86" includes are not for x86, but most of them are just
-> for x64.This for historic reasons. But most of the code is x64 only so
-> changing headers to be x86 compatible would complicate them for a
-> minimal gain.
-
-Yet the amount of what wants sharing ought to be low. It might even help
-to clarify what it is that is meant to become shared.
-
->>> --- a/xen/arch/x86/boot/Makefile
->>> +++ b/xen/arch/x86/boot/Makefile
->>> @@ -18,7 +18,7 @@ CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
->>>  $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
->>>  CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float -mregparm=3
->>>  CFLAGS_x86_32 += -nostdinc -include $(filter %/include/xen/config.h,$(XEN_CFLAGS))
->>> -CFLAGS_x86_32 += $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__
->>> +CFLAGS_x86_32 += -I$(srctree)/arch/x86/include/boot $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__
+>>> --- /dev/null
+>>> +++ b/xen/arch/x86/include/boot/public/xen.h
+>>> @@ -0,0 +1,28 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +
+>>> +/* This header allows the inclusion of public xen.h */
+>>> +
+>>> +#ifndef BOOT__PUBLIC__XEN_H
+>>> +#define BOOT__PUBLIC__XEN_H
+>>> +
+>>> +#if !defined(__XEN__) || defined(__XEN_TOOLS__) || __XEN__ != 1
+>>> +#error Unexpected defines
+>>> +#endif
 >>
->> ... introducing a arch-wide subdir, which non-boot code could easily (ab)use?
+>> What is this to guard against? We're in the Xen tree, building Xen.
+>>
 > 
-> You would have to explicitly add the "boot" into the path,
+> In include/public/arch-x86/xen.h file there are these declarations:
+> 
+> #if defined(__i386__)
+> # ifdef __XEN__
+> __DeFiNe__ __DECL_REG_LO8(which) uint32_t e ## which ## x
+> __DeFiNe__ __DECL_REG_LO16(name) union { uint32_t e ## name; }
+> # endif
+> #include "xen-x86_32.h"
+> # ifdef __XEN__
+> __UnDeF__ __DECL_REG_LO8
+> __UnDeF__ __DECL_REG_LO16
+> __DeFiNe__ __DECL_REG_LO8(which) e ## which ## x
+> __DeFiNe__ __DECL_REG_LO16(name) e ## name
+> # endif
+> #elif defined(__x86_64__)
+> #include "xen-x86_64.h"
+> #endif
+> 
+> This header allows us to include that part without compiler errors due
+> to __DeFiNe__ and __UnDeF__ not being C code.
 
-No different from "hvm" or "guest", just to give two examples.
-
-> it does not
-> seem "easy" to me, but if you really want to do it you can do with
-> these or any other headers, like simply "#include "../arch/arm/..." in
-> x64 code. Same easiness.
-
-Well, no, the ".." in #include directives certainly stands out.
+And why exactly can't 32-bit code simply include the compat variant of
+the public header, which is being generated by processing those non-C
+constructs?
 
 Jan
 
