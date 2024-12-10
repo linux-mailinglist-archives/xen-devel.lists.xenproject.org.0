@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685BD9EAFC9
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 12:23:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852147.1266039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE8C9EAFCC
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 12:25:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852156.1266049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKyKG-0004Um-5G; Tue, 10 Dec 2024 11:22:48 +0000
+	id 1tKyMd-00053Q-Iw; Tue, 10 Dec 2024 11:25:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852147.1266039; Tue, 10 Dec 2024 11:22:48 +0000
+Received: by outflank-mailman (output) from mailman id 852156.1266049; Tue, 10 Dec 2024 11:25:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKyKG-0004Rw-1x; Tue, 10 Dec 2024 11:22:48 +0000
-Received: by outflank-mailman (input) for mailman id 852147;
- Tue, 10 Dec 2024 11:22:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tKyMd-00050q-F5; Tue, 10 Dec 2024 11:25:15 +0000
+Received: by outflank-mailman (input) for mailman id 852156;
+ Tue, 10 Dec 2024 11:25:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ybAe=TD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tKyKE-0004Rq-OB
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 11:22:46 +0000
+ <SRS0=+Xbj=TD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tKyMc-00050k-35
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 11:25:14 +0000
 Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
  [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13a8e3e9-b6e9-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 12:22:44 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6c17b7f9-b6e9-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 12:25:13 +0100 (CET)
 Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5d3e8f64d5dso4532868a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 03:22:44 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3dd4f641bsm4848120a12.51.2024.12.10.03.22.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 03:22:43 -0800 (PST)
+ 4fb4d7f45d1cf-5cfa1ec3b94so7110830a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 03:25:13 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa653a95e90sm518661366b.173.2024.12.10.03.25.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Dec 2024 03:25:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,195 +44,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13a8e3e9-b6e9-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 6c17b7f9-b6e9-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1733829764; x=1734434564; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Qup0cVCyJDRhtn49zetXW1dYP3Q8KNLLw66dhKfZx4g=;
-        b=EQU6K672ohkKGL5UONFwVH3oA6YwRF4BtrO9+mvJL2h3dIfxRj59JEZN/vnarCBikX
-         iv6bkiAV7JrzgzUMZfDUpANFxcv9mL1hvil5uBmoQ9tJp/YFj881XMxoQ6c4BK83oV1b
-         XNIf9ZexoqX3AQoJsWaVWHI3FzP5QjpfA1OY5x/jtkv5l98S7ftKeRiiannHgiNgW2Gy
-         ruZZ3GKYUadHoYHRn0MrmqN+xSWxHPa7/78CF+/wVGvBlUnAcODwLEt/9y8vZwxxV6Y8
-         WB0J64PhKWo8Cpg6fSnVS77ErPVkqDWSKFX9eU7WvHcW097XSWXcmAgK2cTuILq99zG/
-         DTIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733829764; x=1734434564;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+        d=citrix.com; s=google; t=1733829912; x=1734434712; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Qup0cVCyJDRhtn49zetXW1dYP3Q8KNLLw66dhKfZx4g=;
-        b=Yg9p7DWUJJvMGWmu99W/1+2IMxgSkNtlJ8ZfBGS0FKQ4y/nh5gT67+6WjWXH2M99X8
-         kygvabnmJVfCtSX02wSVsm/v/tJpSqXbyaxFuVSlx5k1WLs6yLgE7AgntPqU6qKQfaBL
-         SZCJ7V+IshfLPVczmy0PQ1KREbY4G2SJqCHtHreWFI7j6LM7fXbwJzTID+Tf1o7CEhYl
-         ugh0c1LS830NkC0S9Tsjr/wAfLL5qNgMGVh/WSHS/N5Q216HfOUo0ogHcyHyjbE3yPcD
-         FpV6SbhQkw9f+vIWJrAs026CHR/qlJZL4Gkziuari5ZWc6ldto9y9SVZyPaFXtxtYoEB
-         q7GQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXF+qRY1ccgT4yFRZQIU5uuggRfFAyDPgZYcsqBY5K2GxBac9MC2dN6l8S0yhAzg7cHfYy/ahyoWi4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyO9h2SXmbl1TJ+yGTx977giwMD7ptIcpTJOspHfsgEdj26paOE
-	7H4wlC7Th+qRTL2huOQVBb7kCbxq0CtqetT8fuymvlPiBU6TyVdG
-X-Gm-Gg: ASbGnctTlbSsTzrzDnjBrF9bXjMYgbHdbVJoaNnaUidv1+TAcRVXJX+Ia8/EIErPOO5
-	uAVYX89eGX12Qvt7iNb730K6cG+mNpqXJRlDj4IfywFYaNpReOuBre8qb8bE5cY/gXj6zUqe01U
-	Iq/YBL65qZ9gjzHWQdLkklIWAkvEqAIMZHmp6wOGopjtXLSrlnJmV4hLzV3xOMeUPnOri3b9P4b
-	Rf4iymHqAw8QWj1WDif02mQv3RYY/q7yCCny0fNU4IDrewmHhAp6zM/resKep5gYa8=
-X-Google-Smtp-Source: AGHT+IHy7HLHJb/Z4w9KFW7LMCJnE9kNeh1ylA+9qdjdxp72cmUkT9s5CVTz8AHmCDdhsFkVAZXgfQ==
-X-Received: by 2002:a05:6402:3582:b0:5d0:b7c5:c409 with SMTP id 4fb4d7f45d1cf-5d3be694a4emr17057445a12.14.1733829763939;
-        Tue, 10 Dec 2024 03:22:43 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------j9VG0DoQf7FRS7fgqusUDU50"
-Message-ID: <8ca7a15a-bdc4-44fb-8702-33ba03a38207@gmail.com>
-Date: Tue, 10 Dec 2024 12:22:42 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/6] xen/riscv: add {set,clear}_fixmap() functions for
- managing fixmap entries
+        bh=E60N0SEVUwo/nJDsVvbVs3YkHOZ5b7Qy4u9k+Vr0HpM=;
+        b=D5WB0WdsBFhZF+kLXm2GIsTHf95nuCWDCr4VDerDrNCnAjNy99NVSqJ/8qJhsLnasm
+         zL9QeI5AukaD47fTU410dssOblUO+gY/+YD1gVVPktbXphw8FB2rbStd60h29DgkPLzn
+         8WGIAZdvuds7djdIbJDW58BGOMzQCotq9MXUc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733829912; x=1734434712;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=E60N0SEVUwo/nJDsVvbVs3YkHOZ5b7Qy4u9k+Vr0HpM=;
+        b=ntINwlfJG0oB7cBdO9CO7FPnhAXSeLMfhcRap5IPz1Ji6Di22ssQG2ErePOHiBbShU
+         zuvp6O+iBwiQjxxcC/XaZTQ6qWnYztLPerLu5BPe1sZMPKOq+bPiiNXlZJcPW41OFwUi
+         T73swxXJ9evQ5TsZM1EnBLShoYnZEAqhUpPTyrgunzNiYXgGYIyRJ0kPs4zVjXnVV8mE
+         nmVyb44S9gL2A2EaH2fsaKhUxXgHV4q+ilMZkvkMtQCCLAKBuWTUzJYFz0aCmzngtvX8
+         qSY7pawVyGyJcIWoGBJCnFz294Xlf6YH6/meZUDm9l9zeKoPEbOdoP325dP2ORo0L1YY
+         zcfQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX53roQvvZ2WW+2mcnRZiP2RII3yBV6DeZksaTm1Vp/Uz9Lvb5iQD+B4YDczEWQot1JtY28SoM3Fp0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8aa9sFJ9QOb9d6zVz4C5FAjr40UcEMAW5fDF/HBM1kdCR6jlB
+	UBzN6ZKEJGW3RWG0pieVjPUeY2X79WUTu7R0GZzY9JhIaeJI6/Oad6TevK8D79o=
+X-Gm-Gg: ASbGncv8dV9VlSWAmnYLyPBrufqimyPQLqxh+AVKLU/bBjjQFAnrjiv9al86ko3eAIj
+	X8Cv6l8NanX0T+a7TjfI54vJHcFElUqQ7mg7EhrZC1xJU8hbl7FNvyBkdqmp1TR4C7X6kHvXzhV
+	oY8+VduiJgBdkyjgFW5YdoieiW1gORrNDtg+sTZqJzqRdY/RSLl1rQtux8WNHjjZFL8A0YfpXvH
+	8GHe5K80gTjPZGO5pE9wz9cPanTS9utkp1xnSKv3MVFKBwF5NyRgSSLQDKkaJc=
+X-Google-Smtp-Source: AGHT+IGpZ+5h+V/OaKu4rLAugAtiBQKs062BZz7VmOi8ggU8c101z4hNIazRY5yuslTKV40QBj+UGQ==
+X-Received: by 2002:a17:906:4d1:b0:aa6:aa8a:9088 with SMTP id a640c23a62f3a-aa6aa8a90a2mr48494966b.41.1733829912445;
+        Tue, 10 Dec 2024 03:25:12 -0800 (PST)
+Date: Tue, 10 Dec 2024 12:25:11 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1732709650.git.oleksii.kurochko@gmail.com>
- <2badea2de39b7614d38a620d1b718478de1fc82c.1732709650.git.oleksii.kurochko@gmail.com>
- <ba0280ef-c0a1-4521-b08c-a10098c8aaa0@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <ba0280ef-c0a1-4521-b08c-a10098c8aaa0@suse.com>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
+Message-ID: <Z1glF5FJjnSzRqsB@macbook.local>
+References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
+ <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+ <BL1PR12MB58499BEB287C4F9711324F71E73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <1e0576d9-400e-4483-8dd1-061e215a00cd@suse.com>
+ <BL1PR12MB584945F11C271CE137231F7BE73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <a07bca59-90d2-4a84-bb47-59157bf5207d@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a07bca59-90d2-4a84-bb47-59157bf5207d@suse.com>
 
-This is a multi-part message in MIME format.
---------------j9VG0DoQf7FRS7fgqusUDU50
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Tue, Dec 10, 2024 at 10:54:43AM +0100, Jan Beulich wrote:
+> On 10.12.2024 08:57, Chen, Jiqian wrote:
+> > On 2024/12/10 15:17, Jan Beulich wrote:
+> >> On 10.12.2024 08:07, Chen, Jiqian wrote:
+> >>> On 2024/12/9 21:59, Jan Beulich wrote:
+> >>>> On 02.12.2024 07:09, Jiqian Chen wrote:
+> >>>>> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> >>>>> +                                      unsigned int reg,
+> >>>>> +                                      uint32_t val,
+> >>>>> +                                      void *data)
+> >>>>> +{
+> >>>>> +    uint64_t size;
+> >>>>> +    unsigned int index;
+> >>>>> +    struct vpci_bar *bars = data;
+> >>>>> +
+> >>>>> +    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+> >>>>> +        return;
+> >>>>
+> >>>> I don't think something like this can go uncommented. I don't think the
+> >>>> spec mandates to drop writes in this situation?
+> >>> Spec says: Software must clear the Memory Space Enable bit in the Command register before writing the BAR Size field.
+> >>> This check is suggested by Roger and it really helps to prevent erroneous writes in this case,
+> >>> such as the result of debugging with Roger in the previous version.
+> >>> I will add the spec's sentences as comments here in next version.
+> >>
+> >> What you quote from the spec may not be enough as a comment here. There's
+> >> no direct implication that the write would simply be dropped on the floor
+> >> if the bit is still set. So I think you want to go a little beyond just
+> >> quoting from the spec.
+> > How about quoting Roger's previous words: " The memory decoding must be disabled before writing the BAR size field.
+> > Otherwise changing the BAR size will lead to the active p2m mappings getting out of sync w.r.t. the new BAR size." ?
+> 
+> That'll be better, but imo still not enough to explain the outright ignoring
+> of the write.
 
+I think we might want to do something along the lines of:
 
-On 12/9/24 3:29 PM, Jan Beulich wrote:
-> On 27.11.2024 13:50, Oleksii Kurochko wrote:
->> Introduce set_fixmap() and clear_fixmap() functions to manage mappings
->> in the fixmap region. The set_fixmap() function maps a 4k page ( as only L0
->> is expected to be updated; look at setup_fixmap_mappings() ) at a specified
->> fixmap entry using map_pages_to_xen(), while clear_fixmap() removes the
->> mapping from a fixmap entry by calling destroy_xen_mappings().
->>
->> Both functions ensure that the operations succeed by asserting that their
->> respective calls (map_pages_to_xen() and destroy_xen_mappings()) return 0.
->> A `BUG_ON` check is used to trigger a failure if any issues occur during
->> the mapping or unmapping process.
->>
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> Acked-by: Jan Beulich<jbeulich@suse.com>
->
-> However, ...
->
->> @@ -433,3 +434,21 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
->>   {
->>       return pt_update(virt, INVALID_MFN, nr_mfns, PTE_POPULATE);
->>   }
->> +
->> +/* Map a 4k page in a fixmap entry */
->> +void set_fixmap(unsigned int map, mfn_t mfn, unsigned int flags)
->> +{
->> +    int res;
->> +
->> +    res = map_pages_to_xen(FIXMAP_ADDR(map), mfn, 1, flags | PTE_SMALL);
->> +    BUG_ON(res != 0);
->> +}
-> ... imo in such cases it is preferable to go without a local variable:
->
->      if ( map_pages_to_xen(FIXMAP_ADDR(map), mfn, 1, flags | PTE_SMALL) != 0 )
->          BUG();
+uint64_t size = PCI_REBAR_CTRL_SIZE(val);
+struct vpci_bar *bar = data;
 
-I will update that in the next patch version.
+if ( bar->enabled )
+{
+    if ( size == bar->size )
+        return;
 
->
-> Just to double check: Iirc this BUG would in particular trigger when trying
-> to set a fixmap slot that was already set, and not intermediately cleared?
+    /*
+     * Refuse to resize a BAR while memory decoding is enabled, as
+     * otherwise the size of the mapped region in the p2m would become
+     * stale with the newly set BAR size, and the position of the BAR
+     * would be reset to undefined.  Note the PCIe specification also
+     * forbids resizing a BAR with memory decoding enabled.
+     */
+    gprintk(XENLOG_ERR,
+            "%pp: refuse to resize BAR with memory decoding enabled\n",
+	    &pci->sbdf);
+    return;
+}
 
-Yes, correct.
+Note this requires that the data parameter points to the BAR that
+matches the ReBAR control register, this needs adjusting in
+init_rebar().
 
-Thanks.
+> >>>>> +        if ( rc )
+> >>>>> +        {
+> >>>>> +            printk("%pp: add register for PCI_REBAR_CAP failed (rc=%d)\n",
+> >>>>> +                   &pdev->sbdf, rc);
+> >>>>> +            break;
+> >>>>> +        }
+> >>>>> +
+> >>>>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
+> >>>>> +                               rebar_offset + PCI_REBAR_CTRL, 4,
+> >>>>> +                               pdev->vpci->header.bars);
+> >>>>> +        if ( rc )
+> >>>>> +        {
+> >>>>> +            printk("%pp: add register for PCI_REBAR_CTRL failed %d\n",
+> >>>>> +                   &pdev->sbdf, rc);
+> >>>>> +            break;
+> >>>>
+> >>>> Is it correct to keep the other handler installed? After all ...
+> >>> Will change to "return rc;" here and above in next version.
+> >>
+> >> I'm not convinced this is what we want, as per ...
+> >>
+> >>>>> +        }
+> >>>>> +    }
+> >>>>> +
+> >>>>> +    return 0;
+> >>>>
+> >>>> ... you - imo sensibly - aren't communicating the error back up (to allow
+> >>>> the device to be used without BAR resizing.
+> >>
+> >> ... what I said here.
+> > Sorry, I didn’t understand.
+> > Do you mean it is not enough to return error code once a handler failed to be installed, I need to remove the already installed handlers?
+> 
+> No, if you return an error here, nothing else needs doing. However, I
+> question that returning an error here is good or even necessary. In
+> the event of an error, the device ought to still be usable, just
+> without the BAR-resizing capability.
 
-~ Oleksii
+So you suggest that the capability should be hidden in that case?  We
+have logic to hide capabilities, just not used for the hardware
+domain.  It would need some extra wiring to be capable of hiding
+failed capabilities.
 
---------------j9VG0DoQf7FRS7fgqusUDU50
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 12/9/24 3:29 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:ba0280ef-c0a1-4521-b08c-a10098c8aaa0@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 27.11.2024 13:50, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Introduce set_fixmap() and clear_fixmap() functions to manage mappings
-in the fixmap region. The set_fixmap() function maps a 4k page ( as only L0
-is expected to be updated; look at setup_fixmap_mappings() ) at a specified
-fixmap entry using map_pages_to_xen(), while clear_fixmap() removes the
-mapping from a fixmap entry by calling destroy_xen_mappings().
-
-Both functions ensure that the operations succeed by asserting that their
-respective calls (map_pages_to_xen() and destroy_xen_mappings()) return 0.
-A `BUG_ON` check is used to trigger a failure if any issues occur during
-the mapping or unmapping process.
-
-Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Acked-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-
-However, ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -433,3 +434,21 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
- {
-     return pt_update(virt, INVALID_MFN, nr_mfns, PTE_POPULATE);
- }
-+
-+/* Map a 4k page in a fixmap entry */
-+void set_fixmap(unsigned int map, mfn_t mfn, unsigned int flags)
-+{
-+    int res;
-+
-+    res = map_pages_to_xen(FIXMAP_ADDR(map), mfn, 1, flags | PTE_SMALL);
-+    BUG_ON(res != 0);
-+}
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... imo in such cases it is preferable to go without a local variable:
-
-    if ( map_pages_to_xen(FIXMAP_ADDR(map), mfn, 1, flags | PTE_SMALL) != 0 )
-        BUG();</pre>
-    </blockquote>
-    <pre>I will update that in the next patch version.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:ba0280ef-c0a1-4521-b08c-a10098c8aaa0@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Just to double check: Iirc this BUG would in particular trigger when trying
-to set a fixmap slot that was already set, and not intermediately cleared?</pre>
-    </blockquote>
-    <pre>Yes, correct.
-
-Thanks.
-
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------j9VG0DoQf7FRS7fgqusUDU50--
+Regards, Roger.
 
