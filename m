@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4267F9EAEED
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 12:01:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852092.1265998 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D6FF9EAEF6
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 12:04:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852105.1266008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxz3-0007ty-PQ; Tue, 10 Dec 2024 11:00:53 +0000
+	id 1tKy1v-0008Vd-6P; Tue, 10 Dec 2024 11:03:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852092.1265998; Tue, 10 Dec 2024 11:00:53 +0000
+Received: by outflank-mailman (output) from mailman id 852105.1266008; Tue, 10 Dec 2024 11:03:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxz3-0007rk-Mn; Tue, 10 Dec 2024 11:00:53 +0000
-Received: by outflank-mailman (input) for mailman id 852092;
- Tue, 10 Dec 2024 11:00:53 +0000
+	id 1tKy1v-0008U6-3W; Tue, 10 Dec 2024 11:03:51 +0000
+Received: by outflank-mailman (input) for mailman id 852105;
+ Tue, 10 Dec 2024 11:03:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Xbj=TD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tKxz3-0007re-2J
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 11:00:53 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tKy1u-0008U0-Bz
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 11:03:50 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 052a6c1c-b6e6-11ef-a0d5-8be0dac302b0;
- Tue, 10 Dec 2024 12:00:51 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-aa6a3c42400so95649366b.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 03:00:51 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3ecef4c07sm3922013a12.1.2024.12.10.03.00.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Dec 2024 03:00:50 -0800 (PST)
+ id 6f091f28-b6e6-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 12:03:49 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-385e87b25f0so3760822f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 03:03:49 -0800 (PST)
+Received: from ?IPV6:2003:ca:b746:63c:3d8c:c505:78ea:f982?
+ (p200300cab746063c3d8cc50578eaf982.dip0.t-ipconnect.de.
+ [2003:ca:b746:63c:3d8c:c505:78ea:f982])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3863afc16b0sm7247176f8f.37.2024.12.10.03.03.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Dec 2024 03:03:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +47,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 052a6c1c-b6e6-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 6f091f28-b6e6-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1733828451; x=1734433251; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=XEBeKYCCu64IPF0XgaOrtuu0z+8g7mPMzXrZeOCpmn4=;
-        b=kzB/hzx6xS8IEgyLl3xHXZoEA/CMo0dYdPtZIoh7G0BM/yBr9kFJS5jvCcrRbU2EV3
-         EKRKqJQ8S3t9iO86YmlT/n92tar5WCXDVmWbGqNO7tugZOe8Ew4iqPphfJlOYgkXCjTP
-         /P0vgp0nFL6FwK0gNkUu0fRRuvwTuiR8POVyg=
+        d=suse.com; s=google; t=1733828629; x=1734433429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=OXIX+4qELLkm2iATGIFnUkN8RiljZvitomEBLL4mB8s=;
+        b=Ci2xKpldBkbxdY34uOZ9VhMuvelRWc/C1/xYecGAyjqkHgP8O0T8KNDIULmPSaKWMe
+         QyHjwqBddjjrVIoglOzdbW4qTayBqNDCfS5Pk3nTJ+UJ7qvysaC8EqwEYJA/dP5aN4i3
+         BPOwdLqhFHNmFgo8aY940tKFU5fmXIGrd/KhXuaVT53vaC4cZxSG15AozHVY79Vcj5Lf
+         3Z8o68HNLW9umSz/7tLNzf2PSf4PnnBTcdlrmuBgHsyB/v0TxrLnRU/aIltYVnPKPyES
+         dZMvTpBSmF4cX6tGTzJvM5hKgfDc+0cxk6xar6IpukbLJ3eRKltl+eZNBvDZBi5OkYbR
+         jREw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733828451; x=1734433251;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1733828629; x=1734433429;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XEBeKYCCu64IPF0XgaOrtuu0z+8g7mPMzXrZeOCpmn4=;
-        b=mmdL3zMv8xJzVzahyrXZzfhm5JsGmQxGjYBNslpT9atioTwrnEpPpgmrgSdPcC7W1Q
-         u0lh//j8PWUuxjGdkSjl5aXD7FLAVLSgWrlOODddbMcDayQNejBtIn/q3Bbws8DDLZDf
-         X49XIvs/QrYB7CKIB3SS0VQxsptre3/NQ6ZQ1idp1qLMlQJ2qPm7C95DRUihoOhwL+ci
-         rPyq3Cf8x4FzmhHcTEzS8Hg00oe3kRxHUCcBUTOg+eYzJkhYTbumAhALlX0lT2Mpcud8
-         3VcvwUJvBcSpedv+EznOcuwwCQmpyWWm5nKW2b/6S/hlYoDkORAcrByKEuNKVXZop8xA
-         OAbA==
-X-Forwarded-Encrypted: i=1; AJvYcCWX/gf4X/cJcGpjKY7B20+OMutbRhMGH+efkgzawTJ6Ja+5gVle8Fnm6tcjsKUEiQ4ei9+f3jbeJlQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwwSCHmN8M5rvIuBiJghqqbRIZkgsROeTMpkQYijMbv5UwpOj+E
-	FeRdZyU+vlQ2qK0hbAFgzqt122gCV+AWKdlmWbI9QmyVtehKQgbtAYN9sa1w1qI=
-X-Gm-Gg: ASbGnct0G1pYsbePTXfmfjLzQtRqhKLVpQFtm2t/Do/h/oVX04od496q2Olf99L5esk
-	lM9sYK4tfRSWWggrkcJYZIEUU2/RCUboLQqdiLbSXy1SbPBAgjZ2sL6+xvtXTSTZ6wYplXntIZa
-	pbIDTvc0ibDvBvQ7Xntd9cGzlmbj+tmuEg4Yrw4X2Z1VN7tSeKTMGbCJQciiHOzQyeF91NoTF5T
-	1NSWrxN9haBuhkl5dsEfan5z+JzTAVAM65ABzLW/4cCPF2AFvh4KqwQTPJrQm0=
-X-Google-Smtp-Source: AGHT+IHSL9AamaKsgshnWGUpG5RDf6Peh0p8cvpBi3P9+5fw2YJx1zPvcrUsVqmzgsUtTQi3XDlSug==
-X-Received: by 2002:a17:907:7213:b0:aa6:4a87:3c4 with SMTP id a640c23a62f3a-aa69ffdbbbfmr261572766b.3.1733828451260;
-        Tue, 10 Dec 2024 03:00:51 -0800 (PST)
-Date: Tue, 10 Dec 2024 12:00:49 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
-Message-ID: <Z1gfYeJL-mgTn5Gj@macbook.local>
-References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
- <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+        bh=OXIX+4qELLkm2iATGIFnUkN8RiljZvitomEBLL4mB8s=;
+        b=vRRtXpgHp+rYE8eODDl4wb1wk0mvZdC6YJeuIfXN/Is5xmkrlfWqAQ47XV2NCFIO/l
+         52lUTXAfM2/UEk5/O6OO11C/Wg851RyMoqLOAef2652gYZU8qIOD4p7JSR9Nouw+QpBt
+         EVOjfIhbQnY6IDuewR496bHcZkfmVFcdKLXEqU8RICwgR2c+5OCntZrd91dR6TMTs4E1
+         6laWjxkzDNE2IZybFdoOZ+9bssTx2YXpxP8OGudwVFq/PMnGKGOgt9dNvGuhsksbnwVJ
+         w9J/KokC8h9k/uibVdI8sPXgqjwRt5+ExNJMmVjwzNtDzLQmvjdE6dVh06Q8NEpU1y2i
+         OTGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUR4c6v1DpCfW0QpjHtG2VsEicrGah7jgK+G1mlO7wU4ZwzFCJ3C2urFiAu3XaK55qi0Ff8vmQ8YxM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy/ELGnZElSQfozmfxtSyluJVlF8Mb3q43WEMmq/0yGeP6HI2c4
+	vxoA+ykO5E4Pl0G0SBIeo+ACCNWMYxrwKGzU7/YSrAfPz57/LHxnc1OH/a5ubA==
+X-Gm-Gg: ASbGncu/52RAxsSg+GFjd5eSbTiY+fCFM3a2p4sAjaYyOZJFOCe1aK7KbyWg9hNSueV
+	A61pcLCx2xXzMYrIjvtm0DnVsPAPRcgQ0oFAypRmsPcjkSV8rCBkueaaVp3FJlDQkb8Hgw/90Ym
+	zjUpV2BCK8ta5572RFPnqdt0IIYDa+2qDbSEMpy8FHIRJ/Gw75UkVGbiLUncvHlXlGujrIqhrXn
+	yI5XYcDw1KXAAENkmh4Dd5EM+WeHV23Ve+Adp2AroWBOdeg9sHY9VEQuAnwIJNUe9jcGmFh3YHb
+	j48Rg2BtjdG2JLWmFwi6KEpRwXyEMrGpCuD0c7n8nqOVH75IbTNd0v5pkWn/mvWVvYHU+8ExL1P
+	vXKparN/53Q==
+X-Google-Smtp-Source: AGHT+IGd+8b1Bwje2BKjl1Vo5u3xODS04RUVwUwUha0bPnqtDWtMoxjhtaDwEaFDVqAMmkk1ChciRg==
+X-Received: by 2002:a05:6000:2ad:b0:382:45db:6a1e with SMTP id ffacd0b85a97d-386469ad719mr1955396f8f.14.1733828628937;
+        Tue, 10 Dec 2024 03:03:48 -0800 (PST)
+Message-ID: <361bcfe8-6c76-4508-bbd9-961f75baa10f@suse.com>
+Date: Tue, 10 Dec 2024 12:03:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Xen 4.20 Development Update [November]
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: committers@xenproject.org, kelly.choi@cloud.com,
+ xen-devel@lists.xenproject.org
+References: <20241204102035.22505-1-oleksii.kurochko@gmail.com>
+ <3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com>
+ <412fabb2-04e2-49cd-a204-340fea3ad940@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <412fabb2-04e2-49cd-a204-340fea3ad940@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Dec 09, 2024 at 02:59:31PM +0100, Jan Beulich wrote:
-> On 02.12.2024 07:09, Jiqian Chen wrote:
-> > +static int cf_check init_rebar(struct pci_dev *pdev)
-> > +{
-> > +    uint32_t ctrl;
-> > +    unsigned int rebar_offset, nbars;
-> > +
-> > +    rebar_offset = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_REBAR);
-> > +
-> > +    if ( !rebar_offset )
-> > +        return 0;
-> > +
-> > +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL);
-> > +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
-> > +
-> > +    for ( unsigned int i = 0; i < nbars; i++, rebar_offset += PCI_REBAR_CTRL )
-> > +    {
-> > +        int rc;
-> > +
-> > +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
-> > +                               rebar_offset + PCI_REBAR_CAP, 4, NULL);
+On 10.12.2024 11:29, Oleksii Kurochko wrote:
+> On 12/4/24 12:01 PM, Jan Beulich wrote:
+>> On 04.12.2024 11:20, Oleksii Kurochko wrote:
+>>> *  Support device passthrough when dom0 is PVH on Xen (v16)
+>>>    -  Jiqian Chen
+>>>    -https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m5d557d76f290ff5b5550c1443cab5774d397e526
+>> Some of this went in too, I think?
 > 
-> The capability register is r/o aiui. While permitting hwdom to write it is
-> fine, DomU-s shouldn't be permitted doing so, just in case. (An alternative
-> to making handler selection conditional here would be to bail early for the
-> !hwdom case, accompanied by a TODO comment. This would then also address
-> the lack of virtualization of the extended capability chain, as we may not
-> blindly expose all capabilities to DomU-s.)
+> "Support device passthrough when dom0 is PVH on Xen" should be moved to Completed. ( Accidentally did a grep for the cover letter subject not
+> for the subject of the 1st patch so though that 1st patch isn't merged.
+> 
+> And it seems to me that it should be mentioned in CHANGELOG.md, shouldn't it?
 
-I don't think we can safely expose this capability to domUs by
-default, so my preference would be a returning an error in that case
-(and printing a log message indicating ReBAR is not supported for
-domUs).
+If that work is deemed to be complete, perhaps.
 
-Note it's already not exposed to domUs by not being part of
-supported_caps in init_header().
-
-Regards, Roger
+Jan
 
