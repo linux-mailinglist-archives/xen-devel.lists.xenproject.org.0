@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F599EB116
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 13:43:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852281.1266119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD439EB152
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 13:55:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852295.1266129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKzaF-00032d-Jb; Tue, 10 Dec 2024 12:43:23 +0000
+	id 1tKzlS-0004vd-Ip; Tue, 10 Dec 2024 12:54:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852281.1266119; Tue, 10 Dec 2024 12:43:23 +0000
+Received: by outflank-mailman (output) from mailman id 852295.1266129; Tue, 10 Dec 2024 12:54:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKzaF-00030P-G7; Tue, 10 Dec 2024 12:43:23 +0000
-Received: by outflank-mailman (input) for mailman id 852281;
- Tue, 10 Dec 2024 12:43:21 +0000
+	id 1tKzlS-0004tG-Fa; Tue, 10 Dec 2024 12:54:58 +0000
+Received: by outflank-mailman (input) for mailman id 852295;
+ Tue, 10 Dec 2024 12:54:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKzaD-00030J-Ll
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 12:43:21 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+Xbj=TD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tKzlR-0004tA-RO
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 12:54:57 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56398323-b6f4-11ef-a0d5-8be0dac302b0;
- Tue, 10 Dec 2024 13:43:20 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-385dece873cso2633151f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 04:43:20 -0800 (PST)
-Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
- (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
- [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-386396af76esm8294233f8f.0.2024.12.10.04.43.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 04:43:20 -0800 (PST)
+ id f4fa2376-b6f5-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 13:54:56 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3ea065b79so4069141a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 04:54:56 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d3d0f93d54sm5993599a12.68.2024.12.10.04.54.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Dec 2024 04:54:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,119 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56398323-b6f4-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: f4fa2376-b6f5-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733834600; x=1734439400; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6dmuzEL6vNF13tBP+ZS3JeVgP6/ZgrvBAjRDYPlOpMM=;
-        b=cUK3Qmu+hFOkliIL4YC/AV1mPxna9VUbR65UABv8ykFKUs7sh/iIqnzk5iUho9eVla
-         VlyZ6JSdj9biqdzx3cxVphjNceLgYG90EEfwsIffebHuzsUpupbeWPwmc46MvsAbpZXv
-         EEYrvMrr8PbzEIDgcVkA8nDr8a1rf92BkJTSWJ3AFCUWCChaN+YE6nHZhYMs4/Zsj8JV
-         n5TdYrUb+JGuEO319edo6rw2VE0GMoBQdj4qTUpv5wMJik/TQpIKGsqfDYDK0Nrkl/ga
-         ooar8DivJ18Lw+xPU/3AK8d9pszY7AoQjwNMifQAAmclSF33jtUtc5pigW/xr8hV7Wpv
-         ceJw==
+        d=citrix.com; s=google; t=1733835296; x=1734440096; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=t4FHQghY5NHT28aQifRvJszhRcycJD9eQp9/X19JOAo=;
+        b=ODp+KRSY1S7NfLqeihpZg/jYAGDLjly7GyfMT5Y8SNqHulY6AXRt2fwSyPjuPGtVKl
+         6FPvVwJhculTEPA47MD1/6M0oF4wh/VAd2ay+2IzhbUeYb6uV+X9OMl348Tr9yidh4gS
+         v/eYpRdJiUTsWUOqNGiHy+nOcXUfvgzU6NeGY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733834600; x=1734439400;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6dmuzEL6vNF13tBP+ZS3JeVgP6/ZgrvBAjRDYPlOpMM=;
-        b=geEDrTA1slLWu6cjA4dzDC8pALjVrx0PjWlpBC8R6ZigWBv9KU1mMkBP90Yj9j23kG
-         qPeVWufU6r+AAKIhfAfe/1cbgBHLFG08fYiOiW4TJGvSSrLRF6QZfdX4j29A8+lbTrLc
-         0H2HqLqBL0lul13Vi3W07hvHHIAbn2cwnYLUZPUymWO4pKd+zrlxZP3RaZCUNiSm/OCr
-         hVcMN8s2kCYX80bL8058sN4FFQQmuk6Uia9/O7WDuDDt1E81okhIyEEFM2HHsYNLjCeN
-         /IMKchnK75p6LZTNPvPt0pyQN9mC+FHtnWnnVUU1rO1sLGc+maQ4RirACtFFMmfb4DmS
-         frmA==
-X-Forwarded-Encrypted: i=1; AJvYcCUmRQNKLsghoN0nsn6e/tc0ge6kjQG6WfMG7Z+E4ycNG9VzCYUDhC7nEu/J/jBV8Sen0RMwlQhEMIM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzKitziGOF63PUX/EHnJX06MfHGHy9JjhkQga+X5Jx5q0aAU6bG
-	ns2Hzq1Eg2rQwrM8zv/mMX5erthnu6gl3AkNkWTh/bzXwIagdeOQPVuFv3wyN95ELJrAIi6qkvw
-	=
-X-Gm-Gg: ASbGnctaGMl30AWYNk0BvlumL9rifN+iY+7jCxxHmFotEH7nAXOn6I9xYknj7lcI5zv
-	m3PZp7BeqRF7nIg1GPcceDrVGFNpgTu+uTeBh4VIpD6sb6NYYZnE5TLmLFDNiU++F1X8/HwwyFv
-	S3wDO/M7QRX2AEH5dNIR0uHCT1pJcuCldVIGRjVyVVSeNQgyye82XSaaBgIZ/Qfkvovy3QQMmd8
-	yVOqLlMrPFWR0OwDOAPouJd1j9prZnpSD8mM0JsfXZTAJVmoMUNSuy4Zi2+ftxmsnHMd8BYrbw5
-	zVtCPmXyu2wnispDIIZ4+rKGJmDhfPpc4M4nMjxF8x8hNE3HC0m/tkkneSyibEkWvKeACVvfnyB
-	T9DQLWw7xAQ==
-X-Google-Smtp-Source: AGHT+IF1zxvBhYF/o/bm6NSeh2b9BA0tIfr4em13GJ6uUgZ21I1gBnhfeJXBkXK33c75KJc+v1EbUw==
-X-Received: by 2002:a05:6000:156f:b0:385:fd24:3303 with SMTP id ffacd0b85a97d-3862abdcca4mr10437270f8f.0.1733834600293;
-        Tue, 10 Dec 2024 04:43:20 -0800 (PST)
-Message-ID: <b8680a05-1605-40ae-a3e6-e013525097cc@suse.com>
-Date: Tue, 10 Dec 2024 13:43:18 +0100
+        d=1e100.net; s=20230601; t=1733835296; x=1734440096;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=t4FHQghY5NHT28aQifRvJszhRcycJD9eQp9/X19JOAo=;
+        b=hXaXvhGwhS24QAGGkfbAHvkfyXKZwCNfXDDE8IiHMrZ75e04QM2ppgZPTlnf3qWEEo
+         QYsvx0oJqTcsn52ozssk+IX/vyi6BzgF+laP/yunHmd61v3O/ijjuBmzr1TPnmVMSyAu
+         hJ8rbRMDlMBllCFHgS3j3UFmpo8lm4BnjcczlVlY5J95Z8ildDXMHRa/XC/kGIIa4Vn6
+         L5YYhPhLPTt0Lj+SZASKPH7iBSDCMJxvriqDd1DfA1Gl2xXdIm8krcI+Vq8WHV0B8kUb
+         5XGCWMYPiHVx5ytn47W9oBa3QtohlLiKnHX0uZrGj85Hx+Uc1+oitZnq7+TYojld28t9
+         Ebuw==
+X-Forwarded-Encrypted: i=1; AJvYcCWZ9XTIOtnzI+FUShwrZFcDxxIbJeio/BHY4kOuGDNvm/lgwRavuPLZlrAOzYtQhmgPwxrFaWViBck=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9wtpUmi9aE6X7VKiQE3wECPlPFWytIfk9e99rtbi7SgLvWoIm
+	VK/JIpfMQszpfIaSTfH1phIgVeV3UqsJ3RyUwlUvqwxzu3+S54MinWYhxxKMmcE=
+X-Gm-Gg: ASbGncsZzg+A/1u2QIfGxtFiDezvyhyQCXXjkCqrXpm40JXQFWz9vzaEjyu2pERGBn1
+	qUeesL5m2L3X1dDLLmZTv4w6PGXCdKTYVZzvkAQJGbrCmOQ5ZwYbBpdC7/0Bsgb1tUVsm/5Oagn
+	RfXPluxL5ctBGsxIHo6nEA4bMvpiFenZi6PWHxcplMp+JefNl9ZhSysDUlxqaaMH6umbxlt0jOe
+	CnspH2knDgjypebqYe8SzvxleAnfp2jf2hlfpXuLWthemmRwzzzdgrO12lMARw=
+X-Google-Smtp-Source: AGHT+IHxZXYum4p28zMZQkx84l+YU6NFwuzHrQpuV+qKlnbgSpLdI9epxpsIqaoi4IiQBq5LnXrT5g==
+X-Received: by 2002:a05:6402:3490:b0:5d2:7396:b0ce with SMTP id 4fb4d7f45d1cf-5d4185029c2mr5927451a12.3.1733835296092;
+        Tue, 10 Dec 2024 04:54:56 -0800 (PST)
+Date: Tue, 10 Dec 2024 13:54:54 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
+Message-ID: <Z1g6HrWc7CF7K1cR@macbook.local>
+References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
+ <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+ <BL1PR12MB58499BEB287C4F9711324F71E73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <1e0576d9-400e-4483-8dd1-061e215a00cd@suse.com>
+ <BL1PR12MB584945F11C271CE137231F7BE73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <a07bca59-90d2-4a84-bb47-59157bf5207d@suse.com>
+ <Z1glF5FJjnSzRqsB@macbook.local>
+ <e3231310-0041-44f8-b92b-989992c64d0a@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3] x86: p2m-pod: address violation of MISRA C Rule
- 2.1
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <05b5fd3a85d033adacd5aa08ca81ce579cb1a120.1733827766.git.nicola.vetrini@bugseng.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <05b5fd3a85d033adacd5aa08ca81ce579cb1a120.1733827766.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e3231310-0041-44f8-b92b-989992c64d0a@suse.com>
 
-On 10.12.2024 11:54, Nicola Vetrini wrote:
-> Rule 2.1 states: "A project shall not contain unreachable code".
+On Tue, Dec 10, 2024 at 01:15:00PM +0100, Jan Beulich wrote:
+> On 10.12.2024 12:25, Roger Pau Monné wrote:
+> > On Tue, Dec 10, 2024 at 10:54:43AM +0100, Jan Beulich wrote:
+> >> On 10.12.2024 08:57, Chen, Jiqian wrote:
+> >>> On 2024/12/10 15:17, Jan Beulich wrote:
+> >>>> On 10.12.2024 08:07, Chen, Jiqian wrote:
+> >>>>> On 2024/12/9 21:59, Jan Beulich wrote:
+> >>>>>> On 02.12.2024 07:09, Jiqian Chen wrote:
+> >>>>>>> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> >>>>>>> +                                      unsigned int reg,
+> >>>>>>> +                                      uint32_t val,
+> >>>>>>> +                                      void *data)
+> >>>>>>> +{
+> >>>>>>> +    uint64_t size;
+> >>>>>>> +    unsigned int index;
+> >>>>>>> +    struct vpci_bar *bars = data;
+> >>>>>>> +
+> >>>>>>> +    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+> >>>>>>> +        return;
+> >>>>>>
+> >>>>>> I don't think something like this can go uncommented. I don't think the
+> >>>>>> spec mandates to drop writes in this situation?
+> >>>>> Spec says: Software must clear the Memory Space Enable bit in the Command register before writing the BAR Size field.
+> >>>>> This check is suggested by Roger and it really helps to prevent erroneous writes in this case,
+> >>>>> such as the result of debugging with Roger in the previous version.
+> >>>>> I will add the spec's sentences as comments here in next version.
+> >>>>
+> >>>> What you quote from the spec may not be enough as a comment here. There's
+> >>>> no direct implication that the write would simply be dropped on the floor
+> >>>> if the bit is still set. So I think you want to go a little beyond just
+> >>>> quoting from the spec.
+> >>> How about quoting Roger's previous words: " The memory decoding must be disabled before writing the BAR size field.
+> >>> Otherwise changing the BAR size will lead to the active p2m mappings getting out of sync w.r.t. the new BAR size." ?
+> >>
+> >> That'll be better, but imo still not enough to explain the outright ignoring
+> >> of the write.
+> > 
+> > I think we might want to do something along the lines of:
+> > 
+> > uint64_t size = PCI_REBAR_CTRL_SIZE(val);
+> > struct vpci_bar *bar = data;
+> > 
+> > if ( bar->enabled )
+> > {
+> >     if ( size == bar->size )
+> >         return;
+> > 
+> >     /*
+> >      * Refuse to resize a BAR while memory decoding is enabled, as
+> >      * otherwise the size of the mapped region in the p2m would become
+> >      * stale with the newly set BAR size, and the position of the BAR
+> >      * would be reset to undefined.  Note the PCIe specification also
+> >      * forbids resizing a BAR with memory decoding enabled.
+> >      */
+> >     gprintk(XENLOG_ERR,
+> >             "%pp: refuse to resize BAR with memory decoding enabled\n",
+> > 	    &pci->sbdf);
+> >     return;
+> > }
+> > 
+> > Note this requires that the data parameter points to the BAR that
+> > matches the ReBAR control register, this needs adjusting in
+> > init_rebar().
 > 
-> The placement of the loop after "out_unmap" can be moved earlier
-> in order to avoid the unconditional return to be marked as a cause of
-> unreachability for the loop, as this is a consequence of
-> "__builtin_unreachable" being configured in ECLAIR as being deliberately
-> unreachable, and therefore not reported as causing the code after the
-> "out_unmap" label to be unreachable.
-> 
-> Replacing one instance of "goto out_unmap" with the loop avoids
-> considering the unconditional return at the end of the function as a cause
-> of unreachability, while preserving the semantics of the function.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> SGTM.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with ...
+One nit that I'm kind of unsure, is whether writing the ReBAR with the
+same BAR size as it's currently set also causes the matching BAR
+register to be reset.  I'm unsure whether dropping the write when size
+== bar->size without logging a message is appropriate, as it could be
+a change in behavior if the software expects the BAR position to be
+reset.
 
-> --- a/xen/arch/x86/mm/p2m-pod.c
-> +++ b/xen/arch/x86/mm/p2m-pod.c
-> @@ -1005,7 +1005,14 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
->              {
->                  ASSERT_UNREACHABLE();
->                  domain_crash(d);
-> -                goto out_unmap;
-> +out_unmap:
-
-... the label indented by one or more blanks, as per ./CODING_STYLE.
-Happy to adjust while committing.
-
-Jan
+Thanks, Roger.
 
