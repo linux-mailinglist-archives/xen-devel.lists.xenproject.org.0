@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23E759EADB8
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 11:14:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.851979.1265929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC569EADFD
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 11:30:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852007.1265938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxG9-000628-Ow; Tue, 10 Dec 2024 10:14:29 +0000
+	id 1tKxV6-0007x6-9b; Tue, 10 Dec 2024 10:29:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 851979.1265929; Tue, 10 Dec 2024 10:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 852007.1265938; Tue, 10 Dec 2024 10:29:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tKxG9-0005zE-MA; Tue, 10 Dec 2024 10:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 851979;
- Tue, 10 Dec 2024 10:14:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tKxG8-0005z8-3x
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 10:14:28 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 88a5126c-b6df-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 11:14:26 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-385ed7f6605so2384744f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 02:14:26 -0800 (PST)
-Received: from ?IPV6:2003:ca:b746:63c:3d8c:c505:78ea:f982?
- (p200300cab746063c3d8cc50578eaf982.dip0.t-ipconnect.de.
- [2003:ca:b746:63c:3d8c:c505:78ea:f982])
+	id 1tKxV6-0007uO-6l; Tue, 10 Dec 2024 10:29:56 +0000
+Received: by outflank-mailman (input) for mailman id 852007;
+ Tue, 10 Dec 2024 10:29:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ybAe=TD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tKxV4-0007tz-1L
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 10:29:54 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b0ddb979-b6e1-11ef-a0d5-8be0dac302b0;
+ Tue, 10 Dec 2024 11:29:52 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-54021daa6cbso1582879e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 02:29:52 -0800 (PST)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3862c611242sm12502355f8f.36.2024.12.10.02.14.24
+ 2adb3069b0e04-5401b7d350asm812878e87.238.2024.12.10.02.29.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 02:14:25 -0800 (PST)
+ Tue, 10 Dec 2024 02:29:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,107 +45,354 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88a5126c-b6df-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: b0ddb979-b6e1-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733825665; x=1734430465; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DsI5p3w9uIOUaInC22Ag0qJ2SDd5cFjUuOkhV0irGuM=;
-        b=Gh9hT90FT515fZhjTLrLSV6OUlWsI1xKW3Z2wPw6K0yasbsfFb0O5+82w1XFIOf9P8
-         6s+OTef/IB2/VS1e56E5lOwYT57vjabNBloiBcHeY601xN3zVv1zVycm8oWIuOAAXt9r
-         +YurdQl2+hsVO9L0P12IoT2iN+NokTx1j7P5MvSYjTKqbC26ZHaApmIcg9iMN4oK6BZF
-         X8i7aPwCOP02Xf4XM/Nrmng/WYTcWHbFn4lrwWh4JFskdRytIPAfyTs6bTeaBzJH/TfE
-         T5134UTfb368+7WbmhVw+Pm9LEy+n8kxaF3Mgk1F9uJ/Gm6G450l4DV3/j5ySr4CuPPD
-         3Upw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733825665; x=1734430465;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1733826592; x=1734431392; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DsI5p3w9uIOUaInC22Ag0qJ2SDd5cFjUuOkhV0irGuM=;
-        b=K5zaznMdnpiZCCgOy6yfAS5D1I6DPA6/peEJBMfrD/yXkUgQrBFlrKS8SHTKbR7MpQ
-         hPCkKSg+rc6FyMkbwtANfIl9WO8G6ksREqH8xZPT6kE2mcoltaTkGtziET0ZOa1+AuBe
-         Hmj0UlFWms2ini5v+XWiWCEkfAp8xui3rfDTbMOn2LaVPE60GvWcN7MTofXwrtE2AgRW
-         J/iRl0N3+1EHYSYFol6K2lEZ2GEjfoCAk/M1MGu5ALlBeGQdwFQF1qEiHrS8dXQRnhA7
-         0skc71It5nMo2nedkqdkAOSrGHY4c/YiQcijPO18bMo361ZcMBK5SXGEKWTZdxy8/Xga
-         A15A==
-X-Forwarded-Encrypted: i=1; AJvYcCVzjzmx1z1j2n9E1SJ3ymQXuKtH4jZRAhyekqBNhi2HTST8oVFGhB0R08477V9aSnAqD/SkEzkZ4vg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+Kgzb0yq927nFAIrdvbuNaRxaExczcw0j53X4E78oj1c6wSkw
-	ksXkoHKEyi3PbMEaWYqYb0l9UzyhS5IpupEAxZ+GZOQz6PELqP0lDpe+6brXXA==
-X-Gm-Gg: ASbGncsec1uXh8yRnW0WHq4bn1bC51RjuoywBj0tfIlPTMe9RM5sT4ZlW/Fk83wVGVC
-	+ELs+duuV7cxDk5eHx/JuxUX+7vJtA27Xr0eFamDqpaB7Gg6hdYcuA/I1ulGy+ggKoMWdfskCsj
-	VzCGS869hW8IcY0OsPtVhAMpEFgkbuIcjc/3SrEqmMa5uNmwtCOdc6VEVK9m0tmGsNkBZSA1bdI
-	XTlGl0DZo0E0sk0/pcVkto792Hd+AE+3Da3WDmPmyinjXYcb79lBJIddNdyGVtGznzMLdqoZL2N
-	ZigOClq78cDWwW/TAczuhpsWCmaDOzsZVILpAv4PB0DxPlcqmKmQW50mGKtRYKU9YlhQuXvy4p6
-	EsVWVeHfSYw==
-X-Google-Smtp-Source: AGHT+IH4pgzcrpDhGrT0rX+Vc3XOdrrsrao9+nRtXM1BqRqOsH4OU1IeH8nyDCUOhEM31RCoVlw0Gg==
-X-Received: by 2002:a05:6000:2707:b0:386:39fd:5ec with SMTP id ffacd0b85a97d-38645401ec3mr2146932f8f.57.1733825665448;
-        Tue, 10 Dec 2024 02:14:25 -0800 (PST)
-Message-ID: <f1586637-9d09-405b-8da3-c98d4e38f839@suse.com>
-Date: Tue, 10 Dec 2024 11:14:23 +0100
+        bh=e56HJFEuP8xSKu7tpdVZwz0YulVxvs3x9gEPcdQhG60=;
+        b=nej2/mAy9fEPaBhkkwOeGV5GMaH0Q8MgEJ89dMthKHaDrwoyWS1EoHl9N86ebKVv8D
+         rk9qnO50aBOChH56Dn8BfcjdTaNBpz+r4c0NUSaSRANdkQEQHbd3hw9GblW8FrG+iJaa
+         nqxahTAOjDmHOxtLe0AHXlbGMIs+Mpv8fOPJq2Q2cK42XYdvegZCLI8KrI354HmgQrKp
+         a4agnn/Z7exe8tBRFw0wKrBjeSbcXRmD2Mm64ubPyPlcIx58JQWrCsWXxE/SrRK1n2rz
+         W27TGJL5QeU3ib17pvVfFOHbh4fJmiN66nuGLVT32+mwwT9GYQu4y6QcsM3MhUQaJeCn
+         X3aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733826592; x=1734431392;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=e56HJFEuP8xSKu7tpdVZwz0YulVxvs3x9gEPcdQhG60=;
+        b=ifvro0BzKnkfSgXGIkizFMSVw2E1ORztJ9hTR1/0lLbSrIPqRnOKRF5Tmu2aPQ4kOA
+         KWz+cAioD9rkc1b6xsj4hS4etAoz0c4ZQzrAku5jTO/McTM54ATdct/EnrD+oSJ1x4OZ
+         l5RGz9hlrbWNxLxV+C8ac+WlXvlMjkPnsvZqOlAKERaxlBKxdlhGtdV6FDI3bOhYg55m
+         +7eAjIPZPt5kmcC+XvzS5mtKhGDkjcZtOgQGa4D2LApWjlWGFmC/+P2M/5S6a1nfhJuK
+         9e2AQvsRueGX84ZlXjX2kMRJo3TRGm1nzW9vwUWBd+jRTpl4rRkYzvBbcT4RIlJIZLCr
+         eSjw==
+X-Forwarded-Encrypted: i=1; AJvYcCX/frzblRhyFS9JY49lpUpfxpVTWuVSiGV64DeW6mEtJjg8W+mAMbgkwdFL9Mr0tGD9iaDDhZmSa0c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypPKTPkmYyfeWfVQyQeFi3ccFMLoGvSyQWWiLigjDbTwoQsZms
+	vm3advoiR/S+1akhO29UzHX/rVIKgqxaALgpurdawU0NwPRG7OR9
+X-Gm-Gg: ASbGncvkdLlVjy7K1Nx00ckmOYSSJ1aGekZ+AuMtvaYvL8UFTpxzNhlQNpnoSctm4zq
+	QYtwIgbV1JnAM78VJwNWD1oHWLbFTlPwwkm7fkQDjkmvCyx8tO7+5dIvfet1jDF5j2KnJ1h5Qhh
+	uVGF043I0/vR2uu9sSEoYtOPCp6An2lxzvUCJwQZReUtI5nvFD1HE2zebuQlNirxGaMFK0FIF9b
+	EmiV9hFLUJ5zW1BwxrZ+ft6k87hUqeGBIHIWbfQNBDMWpvNx9wLVRvmknZQPvJttUY=
+X-Google-Smtp-Source: AGHT+IFEhK3Pb7KyI7IehUsjMIScysqERkg6gQLVRPFbMGMyzXi8FSCSr9nH00fU5bscgVYl+GYiUQ==
+X-Received: by 2002:a05:6512:e88:b0:540:20a9:9abd with SMTP id 2adb3069b0e04-540240ac5ecmr1407854e87.6.1733826591289;
+        Tue, 10 Dec 2024 02:29:51 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------Nj5vBLRcso470spXc9TpPFbO"
+Message-ID: <412fabb2-04e2-49cd-a204-340fea3ad940@gmail.com>
+Date: Tue, 10 Dec 2024 11:29:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] Use an include/boot directory to override headers
- for boot code
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: Xen 4.20 Development Update [November]
+To: Jan Beulich <jbeulich@suse.com>
+Cc: committers@xenproject.org, kelly.choi@cloud.com,
  xen-devel@lists.xenproject.org
-References: <20241122093358.478774-1-frediano.ziglio@cloud.com>
- <20241122093358.478774-2-frediano.ziglio@cloud.com>
+References: <20241204102035.22505-1-oleksii.kurochko@gmail.com>
+ <3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241122093358.478774-2-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com>
+
+This is a multi-part message in MIME format.
+--------------Nj5vBLRcso470spXc9TpPFbO
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 22.11.2024 10:33, Frediano Ziglio wrote:
-> Not all headers can be used by 32 bit boot code.
-> Allows to override some headers, we don't want to mess up with
-> main headers as most of the code is only 64 bit so the easy stuff should
-> be done for 64 bit declarations.
-> Boot headers should be 64 bit compatibles to avoid having multiple
-> declarations.
+On 12/4/24 12:01 PM, Jan Beulich wrote:
+> On 04.12.2024 11:20, Oleksii Kurochko wrote:
+>> === x86 ===
+>>
+>> *  Expose consistent topology to guests (v7)
+>>    -  Alejandro Vallejo
+>>    -https://lore.kernel.org/xen-devel/20241021154600.11745-1-alejandro.vallejo@cloud.com/T/#m6033f95c660675039d7789d3af1ba2f292a3a69b
+>>
+>> *  Boot modules for Hyperlaunch (v8 -> v9)
+>>    -  Daniel P. Smith
+>>    -https://patchew.org/Xen/20241115131204.32135-1-dpsmith@apertussolutions.com/
+>>
+>> *  x86/mm: miscellaneous fixes (v2 -> v3)
+>>    -  Roger Pau Monne
+>>    -https://patchew.org/Xen/20241114145715.59777-1-roger.pau@citrix.com/
+> This went in, didn't it?
 
-I'm afraid that in isolation it's not clear what is intended. Boot code is
-all located in a single directory. Can't we use local headers there, using
-#include "...", instead of ...
+Yes, you are right. It is fully in staging now.
 
-> --- a/xen/arch/x86/boot/Makefile
-> +++ b/xen/arch/x86/boot/Makefile
-> @@ -18,7 +18,7 @@ CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
->  $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
->  CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float -mregparm=3
->  CFLAGS_x86_32 += -nostdinc -include $(filter %/include/xen/config.h,$(XEN_CFLAGS))
-> -CFLAGS_x86_32 += $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__
-> +CFLAGS_x86_32 += -I$(srctree)/arch/x86/include/boot $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__
 
-... introducing a arch-wide subdir, which non-boot code could easily (ab)use?
+>
+>> *  Address Space Isolation FPU preparations (v2)
+>>    -  Alejandro Vallejo
+>>    -https://lore.kernel.org/xen-devel/20241105143310.28301-1-alejandro.vallejo@cloud.com/T/#mbca5192d7e5636ef5ea005a083e5ff28ebe6317d
+>>
+>> *  x86/alternatives: Adjust all insn-relative fields (v2)
+>>    -  Andrew Cooper
+>>    -https://lore.kernel.org/xen-devel/20241002152725.1841575-1-andrew.cooper3@citrix.com/T/#mac2deaea7e02a343210d61887486433d946ad129
+>>
+>> *  Support device passthrough when dom0 is PVH on Xen (v16)
+>>    -  Jiqian Chen
+>>    -https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m5d557d76f290ff5b5550c1443cab5774d397e526
+> Some of this went in too, I think?
 
-Jan
+"Support device passthrough when dom0 is PVH on Xen" should be moved to Completed. ( Accidentally did a grep for the cover letter subject not
+for the subject of the 1st patch so though that 1st patch isn't merged.
+
+And it seems to me that it should be mentioned in CHANGELOG.md, shouldn't it?
+
+>
+>> *  x86emul: misc additions (v5 -> v7)
+>>    -  Jan Beulich
+>>    -https://patchew.org/Xen/3a25cd59-e1cb-4bfc-b868-fb11599d22f5@suse.com/
+>>
+>> *  x86/HVM: emulation (MMIO) improvements (v2)
+>>    -  Jan Beulich
+>>    -https://lore.kernel.org/xen-devel/3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com/
+>>
+>> *  x86: support AVX10.1 (v2)
+>>    -  Jan Beulich
+>>    -https://lore.kernel.org/xen-devel/bcfea345-57c1-43d9-82b3-240b685486cc@suse.com/
+> In v2 the title had changed to "x86: support AVX10", dealing with a first
+> aspect of AVX10.2 as well. I have long completed AVX10.2 work, yet there
+> was little reason to re-post without having got any feedback.
+
+Thanks, I will update the subject.
+
+
+>
+>> *  APX support (v?)
+>>    -  Jan Beulich
+>>    -  ?
+> I think you want to remove this from the list. While I have completed work
+> there, I'm not fancying re-basing ahead of the AVX10 work, and hence that
+> needs to go in first anyway. Which seems unlikely enough at this point, for
+> 4.20.
+>
+>> *  VT-d: SATC handling; ATS: tidying (v2)
+>>    -  Jan Beulich
+>>    -https://patchew.org/Xen/64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com/
+>>
+>> *  x86: parallelize AP bring-up during boot (v1)
+>>    -  Krystian Hebel
+>>    -https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/
+>>
+>> *  x86: memcpy() / memset() (non-)ERMS flavors plus (v3)
+>>    -  Jan Beulich
+>>    -https://lore.kernel.org/xen-devel/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/
+> Isn't this the same as ...
+>
+>> *  x86/spec-ctrl: IBPB improvements (v4)
+>>    -  Jan Beulich
+>>    -https://patchew.org/Xen/06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com/
+>>
+>> *  Move some boot code from assembly to C (v2)
+>>    -  Frediano Ziglio
+>>    -https://patchew.org/Xen/20241122093358.478774-1-frediano.ziglio@cloud.com/
+>>
+>> *  Hyperlaunch device tree for dom0 (v1)
+>>    -  Daniel P. Smith
+>>    -https://patchew.org/Xen/20241123182044.30687-1-dpsmith@apertussolutions.com/
+>>
+>> *  x86: memcpy() / memset() (non-)ERMS flavors plus fallout (v3)
+>>    -  Jan Beulich
+>>    -https://patchew.org/Xen/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/
+> ... this?
+
+This is the same and one of them I will drop for the next report.
+
+
+>
+>> *  amd-pstate CPU Performance Scaling Driver (v1)
+>>    -  Penny Zheng
+>>    -https://patchew.org/Xen/20241203081111.463400-1-Penny.Zheng@amd.com/
+> This series was posted only this week, and upon asking it was clarified that
+> it's indeed not aiming at 4.20.
+
+Yes, it is definitely not for the current one release. Probably it would 
+make sense to add the extra line information
+
+that it is for the next one release.
+
+~ Oleksii
+
+--------------Nj5vBLRcso470spXc9TpPFbO
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 12/4/24 12:01 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 04.12.2024 11:20, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">=== x86 === 
+
+*  Expose consistent topology to guests (v7)
+  -  Alejandro Vallejo
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20241021154600.11745-1-alejandro.vallejo@cloud.com/T/#m6033f95c660675039d7789d3af1ba2f292a3a69b">https://lore.kernel.org/xen-devel/20241021154600.11745-1-alejandro.vallejo@cloud.com/T/#m6033f95c660675039d7789d3af1ba2f292a3a69b</a>
+
+*  Boot modules for Hyperlaunch (v8 -&gt; v9)
+  -  Daniel P. Smith
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/20241115131204.32135-1-dpsmith@apertussolutions.com/">https://patchew.org/Xen/20241115131204.32135-1-dpsmith@apertussolutions.com/</a>
+
+*  x86/mm: miscellaneous fixes (v2 -&gt; v3)
+  -  Roger Pau Monne
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/20241114145715.59777-1-roger.pau@citrix.com/">https://patchew.org/Xen/20241114145715.59777-1-roger.pau@citrix.com/</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This went in, didn't it?</pre>
+    </blockquote>
+    <pre><font face="monospace">Yes, you are right. It is fully in staging now.</font></pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">*  Address Space Isolation FPU preparations (v2)
+  -  Alejandro Vallejo
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20241105143310.28301-1-alejandro.vallejo@cloud.com/T/#mbca5192d7e5636ef5ea005a083e5ff28ebe6317d">https://lore.kernel.org/xen-devel/20241105143310.28301-1-alejandro.vallejo@cloud.com/T/#mbca5192d7e5636ef5ea005a083e5ff28ebe6317d</a>
+
+*  x86/alternatives: Adjust all insn-relative fields (v2)
+  -  Andrew Cooper
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20241002152725.1841575-1-andrew.cooper3@citrix.com/T/#mac2deaea7e02a343210d61887486433d946ad129">https://lore.kernel.org/xen-devel/20241002152725.1841575-1-andrew.cooper3@citrix.com/T/#mac2deaea7e02a343210d61887486433d946ad129</a>
+
+*  Support device passthrough when dom0 is PVH on Xen (v16)
+  -  Jiqian Chen
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m5d557d76f290ff5b5550c1443cab5774d397e526">https://lore.kernel.org/xen-devel/20240930034250.2682265-1-Jiqian.Chen@amd.com/T/#m5d557d76f290ff5b5550c1443cab5774d397e526</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Some of this went in too, I think?</pre>
+    </blockquote>
+    <pre wrap="" class="moz-quote-pre">"Support device passthrough when dom0 is PVH on Xen" should be moved to Completed. ( Accidentally did a grep for the cover letter subject not
+for the subject of the 1st patch so though that 1st patch isn't merged.
+
+And it seems to me that it should be mentioned in CHANGELOG.md, shouldn't it?
+
+</pre>
+    <p></p>
+    <blockquote type="cite"
+      cite="mid:3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">*  x86emul: misc additions (v5 -&gt; v7)
+  -  Jan Beulich
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/3a25cd59-e1cb-4bfc-b868-fb11599d22f5@suse.com/">https://patchew.org/Xen/3a25cd59-e1cb-4bfc-b868-fb11599d22f5@suse.com/</a>
+
+*  x86/HVM: emulation (MMIO) improvements (v2)
+  -  Jan Beulich
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com/">https://lore.kernel.org/xen-devel/3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com/</a>
+
+*  x86: support AVX10.1 (v2)
+  -  Jan Beulich
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/bcfea345-57c1-43d9-82b3-240b685486cc@suse.com/">https://lore.kernel.org/xen-devel/bcfea345-57c1-43d9-82b3-240b685486cc@suse.com/</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+In v2 the title had changed to "x86: support AVX10", dealing with a first
+aspect of AVX10.2 as well. I have long completed AVX10.2 work, yet there
+was little reason to re-post without having got any feedback.</pre>
+    </blockquote>
+    <p><font face="monospace">Thanks, I will update the subject.</font></p>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">*  APX support (v?)
+  -  Jan Beulich
+  -  ?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I think you want to remove this from the list. While I have completed work
+there, I'm not fancying re-basing ahead of the AVX10 work, and hence that
+needs to go in first anyway. Which seems unlikely enough at this point, for
+4.20.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">*  VT-d: SATC handling; ATS: tidying (v2)
+  -  Jan Beulich
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com/">https://patchew.org/Xen/64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com/</a>
+
+*  x86: parallelize AP bring-up during boot (v1)
+  -  Krystian Hebel
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/">https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/</a>
+
+*  x86: memcpy() / memset() (non-)ERMS flavors plus (v3)
+  -  Jan Beulich
+  -  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/">https://lore.kernel.org/xen-devel/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Isn't this the same as ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">*  x86/spec-ctrl: IBPB improvements (v4)
+  -  Jan Beulich
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com/">https://patchew.org/Xen/06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com/</a>
+
+*  Move some boot code from assembly to C (v2)
+  -  Frediano Ziglio
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/20241122093358.478774-1-frediano.ziglio@cloud.com/">https://patchew.org/Xen/20241122093358.478774-1-frediano.ziglio@cloud.com/</a>
+
+*  Hyperlaunch device tree for dom0 (v1)
+  -  Daniel P. Smith
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/20241123182044.30687-1-dpsmith@apertussolutions.com/">https://patchew.org/Xen/20241123182044.30687-1-dpsmith@apertussolutions.com/</a>
+
+*  x86: memcpy() / memset() (non-)ERMS flavors plus fallout (v3)
+  -  Jan Beulich
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/">https://patchew.org/Xen/e7314ac8-ed09-4da8-b915-09409b01fe77@suse.com/</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... this?</pre>
+    </blockquote>
+    <p><font face="monospace">This is the same and one of them I will
+        drop for the next report.</font></p>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:3e4e504e-f4d4-4ac2-be66-3f32a9f31c9a@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">*  amd-pstate CPU Performance Scaling Driver (v1)
+  -  Penny Zheng
+  -  <a class="moz-txt-link-freetext" href="https://patchew.org/Xen/20241203081111.463400-1-Penny.Zheng@amd.com/">https://patchew.org/Xen/20241203081111.463400-1-Penny.Zheng@amd.com/</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This series was posted only this week, and upon asking it was clarified that
+it's indeed not aiming at 4.20.</pre>
+    </blockquote>
+    <pre><font face="monospace">Yes, it is definitely not for the current one release. Probably it would make sense to add the extra line information</font></pre>
+    <pre><font face="monospace">that it is for the next one release.</font></pre>
+    <pre><font face="monospace">
+</font></pre>
+    <pre><font face="monospace">~ Oleksii</font>
+</pre>
+  </body>
+</html>
+
+--------------Nj5vBLRcso470spXc9TpPFbO--
 
