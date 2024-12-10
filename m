@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4869EB1F0
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 14:30:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852407.1266211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CED29EB1F8
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 14:33:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852422.1266221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL0Jq-0005tj-V2; Tue, 10 Dec 2024 13:30:30 +0000
+	id 1tL0Mk-0006va-C3; Tue, 10 Dec 2024 13:33:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852407.1266211; Tue, 10 Dec 2024 13:30:30 +0000
+Received: by outflank-mailman (output) from mailman id 852422.1266221; Tue, 10 Dec 2024 13:33:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL0Jq-0005rU-S1; Tue, 10 Dec 2024 13:30:30 +0000
-Received: by outflank-mailman (input) for mailman id 852407;
- Tue, 10 Dec 2024 13:30:29 +0000
+	id 1tL0Mk-0006tM-9R; Tue, 10 Dec 2024 13:33:30 +0000
+Received: by outflank-mailman (input) for mailman id 852422;
+ Tue, 10 Dec 2024 13:33:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tL0Jp-0005rO-Fn
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 13:30:29 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1tL0Mi-0006t0-45
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 13:33:28 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb1ba314-b6fa-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 14:30:27 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3863c36a731so1720034f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 05:30:27 -0800 (PST)
+ id 55a10427-b6fb-11ef-99a3-01e77a169b0f;
+ Tue, 10 Dec 2024 14:33:26 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-435005192d1so12343215e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 05:33:26 -0800 (PST)
 Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
  (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
  [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434d52cbd72sm230709945e9.44.2024.12.10.05.30.26
+ 5b1f17b1804b1-434fbec5ee6sm56777465e9.35.2024.12.10.05.33.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 05:30:26 -0800 (PST)
+ Tue, 10 Dec 2024 05:33:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,54 +47,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb1ba314-b6fa-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 55a10427-b6fb-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733837427; x=1734442227; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733837606; x=1734442406; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XyJBdey3p6iuG1n18uVDr94Cn3NvsWWrH930guGT5y4=;
-        b=TTG5B18DgY5c4y8ISPKkg+yi1eCN3v6Xp01M5XvwsgrFRLOPL6+1EVDbgNDcwYKwxR
-         d2hT1S8GTQ8dRZaShPA6U3IqOZxIiOkIG18mJKE0BeV9+Q+cMM81aSyA4w30EBFxNixy
-         6jIzTl+CxwJ/ztUJ0w2Kh5euwt2kWLW7R3/kyj2yOCxnA4ezJu+tKQ5d9uN28xnfjMUa
-         rqr0i8TwKpTjwR0qaGm8qNuSmSPlNMNlLtT9smpbFRKtXHcOwJL9/jmH4qsTZVaSmaJP
-         qjvka/gpTzSjGNQY/VTqJqe8KqsWZFr1uVi9PcTnLhVplzPcBlGjBvqNEdZ8mbFluDP5
-         SZ5Q==
+        bh=OuWYudG9spRJE1PJmgun6GbyDsZzVlaB16S+5fdWykU=;
+        b=Q0lDtLRRnUCCbCvw0qx9W2aYrobba1/uLIkd0xYV/sjiOW5yA1BX6UvYIO+WF90DAj
+         XUwsejZTskZqhLsKJcB1yWOMnDp6PBz30PsL7svfVllaknmU3N33NEcg/0Z6CpsmswF+
+         518adDMFebqaoRjkJcPAAnmgsFBBOrF4Fo20rByknZ6Kz+6WadWan9PHj5qL4QLkXzmg
+         BmAjZVqGi/kRrEuuUARGFTXRMETYqvH4c04j85j1rENuu0BGQcDu5nWrP6FOeh35zWQC
+         Dxf5XZ39Y8s6aUcbvjfYb4jtAOfR1K8Pokky1DYTZD5uJxaovTGl8m4sGEVA0wmOZSkO
+         cLPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733837427; x=1734442227;
+        d=1e100.net; s=20230601; t=1733837606; x=1734442406;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XyJBdey3p6iuG1n18uVDr94Cn3NvsWWrH930guGT5y4=;
-        b=VoWfoFulfmCV3l0H88WS+u7qhM6qc97kFB7/KVKrXyrqO0+2AaQ74JIZunopPQh9Zh
-         E9UgKh3bRfisd5G0FKsiWq4gHVnmiMUV2qyZ7hCXAY3MsTSxfgvwzssp3VyQ1erSHEoZ
-         KFlnxxzAPWaQAGJ/P1vqKlCldteIcDcVgCfq7XcAX+gapq6Oieicurw38ABf9IZQ380t
-         VyeH3YXv6nfnomv8V9B7VIDq5z4GkXCBThAXVkTPVQtaNNbof4evduqBSGJmJp1jxYxT
-         z4a0UfHCRl+qN6vH7y7nzdYplK2ZUFCzdjWQpP2WrmY34MOVVXnIiONfjCYKpVOEPQr9
-         RfyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWYhLGKBIBntGWoWCkDAlDROnhtr6VgKLenQBl0HQdJJC/LNNPTIIy01dno8SwlqQn3SPnnsRhsF8o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwmLQPXyd54d0pvt1sv+xXv7XuQQOCrapAyG98kVPji0ibmoAwt
-	b6Wp3hUrv8H2GSXMCdfZggimBZ5yhyhgdCFK8eaFaJhdU/5jMkvmrUkfd1Wn3Q==
-X-Gm-Gg: ASbGncvAja6D252vE8eL0502W6TQRKkHyrkBOBV7dDiR6LqAskywrWfIY6iZABT2inj
-	rtc/OIO0ykU2BrFe78BuhvRBs2RMhLRyzRuuiESoon84cHswG0gtxKW4HR4ut2EHVZSupy2wL0D
-	YJa1SMkJBAciPyCKMU9ZNZgYCuzU390oJ1raid2k7dre8GStzw1gmzsFuHZMGH//C/OrjqJUzEu
-	D9Mavy6SN8TcndtB8e4ANsRfTi8RsI07CIEuAB6JSrWKpcDlUFRba8vzFStwjivoeLEU85ieyIo
-	MJiPICoPTyE62uChc9eXdRGFBw+kPMOG9Dkp1911ta4hShKaIUJEfwAYGUnKMLNWf0UvUcrma6C
-	levNtmlqVfw==
-X-Google-Smtp-Source: AGHT+IFVRfAlkqJnjo2m8OY8QXIAgnvdEmrVrQESMpo6C4LWjkxN2vihnMeWp/rx3gDjRil0s/z/lw==
-X-Received: by 2002:a5d:6daa:0:b0:385:e176:4420 with SMTP id ffacd0b85a97d-386453c5e67mr3616947f8f.10.1733837426841;
-        Tue, 10 Dec 2024 05:30:26 -0800 (PST)
-Message-ID: <d64d0e24-6e88-44d5-a5c8-36f4296489bf@suse.com>
-Date: Tue, 10 Dec 2024 14:30:25 +0100
+        bh=OuWYudG9spRJE1PJmgun6GbyDsZzVlaB16S+5fdWykU=;
+        b=OFkp2Or+T0kbELB4QMCrw8dytRaXxcwJls48pGMzuKHTlxWuKpFbLfbEHYq/m2M2YZ
+         EydWFWnzPNk2oK+70y3SyiMQRoOV498Xt/uGWe6heflUoUIeMaMDesYdJSktcNIVQwe6
+         UPFwnWRJk81cM+tnbuf0CtVtjbFzthXmP515z3zuIiI4rPCfLUpvsrcgecd8nezMUIhy
+         kdqzxtAaVvjVKCHcQaaaiHMV3HLIIBFNX+p7r/6phruZegIDXVv6SrB5dL3ZPoloAYsE
+         D5Ok/44agpxU3IoQZdU8rQarCw7/p1d19Lht0S19qEqMmfxULO8ngpgsXyD7dsZ44BAZ
+         IS9A==
+X-Forwarded-Encrypted: i=1; AJvYcCUwLwaE/GRiXtCatMJWC/GYv9FcHxl9MNYZJhYF/Ha6dS0ZxtsQ4+oACyJEQM4myfAcZtJC/OunWuU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBdp8FKwJ7v/vmEX1VNBGH9UfakCJjSl3GLepvBjHtSEtaV5GH
+	nHbMHKH3L1J5Fcxfs0dFu32KZdpLIF6/3085YS319ab8+lnA6oiILQCtw2rCPQ==
+X-Gm-Gg: ASbGncuMiF77c74/tzGJRFgmfEvbxSSUQwGZthOJCTTNarBEjze/5RyBrcS6WXc9gvs
+	4tuoQGmFmXMB8bvy1xOnbYfjHO39Un6YwmMs1Dysaz0QNX5BjQ8p2C03wO5IQ1sVrrpvCeMx0cf
+	KngmrLN34pldLKFMr7w05EPNh7OtXF0tGOzK2IYfOjlTgcJuyjXvqw2popPDkrJuj4by2UtEJck
+	e5O4UGgw3OQWtW1KQ+4f/rbZex4GJfmUeGJhLGvD/b6waWWYXUsf+v1b+qHUY48ZGdcJ5DH4Ppc
+	13SScGIJq0ukL0BkMwagpoAd0f7OSrvGht1rL4gWNYylsoAbfzJsof6zNahyWNHFgS9/SxfxDwn
+	AsXj6iQD4gA==
+X-Google-Smtp-Source: AGHT+IENzRvwwzRbPyaZKA3r1zjrC6iztnsDJifXbpt78lzCcRJ2BCDl9fV0LZ3/kZSUFybBaZHnaw==
+X-Received: by 2002:a05:600c:1e27:b0:434:f804:a992 with SMTP id 5b1f17b1804b1-434f804ac4emr57309265e9.32.1733837605644;
+        Tue, 10 Dec 2024 05:33:25 -0800 (PST)
+Message-ID: <ad47f490-c2a2-4a61-b9ed-a5830d93c3a4@suse.com>
+Date: Tue, 10 Dec 2024 14:33:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/35] x86/domain: print emulation_flags
+Subject: Re: [PATCH v2 12/35] xen/console: move vpl011-related code to vpl011
+ emulator
 To: dmukhin@ford.com
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-9-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-12-e9aa923127eb@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,40 +121,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241205-vuart-ns8250-v1-9-e9aa923127eb@ford.com>
+In-Reply-To: <20241205-vuart-ns8250-v1-12-e9aa923127eb@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
-> Print d->arch.emulation_flags on the console for better traceability while
-> debugging in-hypervisor hardware emulators.
+> --- a/xen/arch/arm/include/asm/vpl011.h
+> +++ b/xen/arch/arm/include/asm/vpl011.h
+> @@ -69,7 +69,7 @@ struct vpl011_init_info {
+>  int domain_vpl011_init(struct domain *d,
+>                         struct vpl011_init_info *info);
+>  void domain_vpl011_deinit(struct domain *d);
+> -void vpl011_rx_char_xen(struct domain *d, char c);
+> +int vpl011_rx_char_xen(struct domain *d, char c);
 
-Personally I disagree with such extra printing. And that would in this case
-even apply if you used dprintk() or gdprintk(). However, if others support
-the idea, I don't mean to stand in the way. Just that ...
+If you make the function return an error indicator, ...
 
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -818,11 +818,15 @@ int arch_domain_create(struct domain *d,
->  
->      if ( !emulation_flags_ok(d, emflags) )
->      {
-> -        printk(XENLOG_G_ERR "d%d: Xen does not allow %s domain creation "
-> +        printk(XENLOG_G_ERR "d%d: Xen does not allow %s %sdomain creation "
->                 "with the current selection of emulators: %#x\n",
-> -               d->domain_id, is_hvm_domain(d) ? "HVM" : "PV", emflags);
-> +               d->domain_id,
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -559,9 +559,7 @@ static void __serial_rx(char c)
+>           * domain, without a full PV ring to Dom0 (in that case input
+>           * comes from the PV ring), then send the character to it.
+>           */
+> -        if ( d != NULL &&
+> -             !d->arch.vpl011.backend_in_domain &&
+> -             d->arch.vpl011.backend.xen != NULL )
+> +        if ( d != NULL )
+>              vpl011_rx_char_xen(d, c);
+>          else
+>              printk("Cannot send chars to Dom%d: no UART available\n",
+> 
 
-... if already you touch this, please switch to %pd and also ...
-
-> +               is_hvm_domain(d) ? "HVM" : "PV",
-> +               is_hardware_domain(d) ? "(hardware) " : "",
-> +               emflags);
->          return -EOPNOTSUPP;
->      }
-> +    printk(XENLOG_G_INFO "d%d: emulation_flags %#x\n", d->domain_id, emflags);
-
-.. use that here.
+... how come that return value then isn't used anywhere?
 
 Jan
 
