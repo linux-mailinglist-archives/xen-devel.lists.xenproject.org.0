@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9DB59EB2DE
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:13:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.852483.1266261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F0C9EB312
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2024 15:23:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.852498.1266272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL0zO-0006gV-Tj; Tue, 10 Dec 2024 14:13:26 +0000
+	id 1tL18z-000076-Rx; Tue, 10 Dec 2024 14:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 852483.1266261; Tue, 10 Dec 2024 14:13:26 +0000
+Received: by outflank-mailman (output) from mailman id 852498.1266272; Tue, 10 Dec 2024 14:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tL0zO-0006eH-QC; Tue, 10 Dec 2024 14:13:26 +0000
-Received: by outflank-mailman (input) for mailman id 852483;
- Tue, 10 Dec 2024 14:13:25 +0000
+	id 1tL18z-0008Vh-ON; Tue, 10 Dec 2024 14:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 852498;
+ Tue, 10 Dec 2024 14:23:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=So9x=TD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tL0zN-0006eB-BK
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:13:25 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1tL18x-0008Vb-JO
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2024 14:23:19 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea4e553c-b700-11ef-99a3-01e77a169b0f;
- Tue, 10 Dec 2024 15:13:23 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-435005192d1so12775175e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:13:23 -0800 (PST)
+ id 4cb58324-b702-11ef-99a3-01e77a169b0f;
+ Tue, 10 Dec 2024 15:23:17 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-434e9716feaso19434335e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 06:23:17 -0800 (PST)
 Received: from ?IPV6:2003:ca:b746:63c:8df1:d232:d9a2:1ff9?
  (p200300cab746063c8df1d232d9a21ff9.dip0.t-ipconnect.de.
  [2003:ca:b746:63c:8df1:d232:d9a2:1ff9])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-386220b047dsm15975045f8f.100.2024.12.10.06.13.21
+ 5b1f17b1804b1-434f7676d45sm78958245e9.33.2024.12.10.06.23.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 06:13:22 -0800 (PST)
+ Tue, 10 Dec 2024 06:23:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,55 +47,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea4e553c-b700-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 4cb58324-b702-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733840002; x=1734444802; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733840597; x=1734445397; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LEi4sYW9tslY79x0s7lrA3FZuLBUhpRBvUZs1d+7ffM=;
-        b=RRggAGu+Xfb/jRSrSYuYMVODMNLappNPySwxMwsdOkNy6GsYEH9n6sua8hdG0HSQY2
-         M+TJ1oshqY5Fsthm8JJnEeLZ/y7yT6I9Fsh7CI47kfuXfT6ZaAWI41LZVAjAMRNwBinT
-         0m/pTwG0mqSasENewJcn64U8r+WcEWbv6ACf9O1cvr0TBTfvOWXcaZ9DxHc8X0p9fJWV
-         stm24iRgeN6niwgoq2wKIM33AT4wpLOJiBZ5ybE3iIoJJKb8/snPIjV7BDaJHmhOnYCr
-         JZfsQcp2x8+Y8ynjLKV05689A77VbHrQgKyGn3Rjt4Cr8/OlY/oO6MRoR5fP9Gd0+U6V
-         E6Gw==
+        bh=TK3qUKMI9El/3oT5DKlkszXI6r0GfSJAYOm6NcZVniw=;
+        b=btoCCQve0Z1ervu975a8m0DGyyg6YetQpagKDpMxCi7I8sUPZO1WLjMbjrOBiDbQYy
+         Xd7i7ZMBVIX0eSz6FLT1IZPA3jYj/jeH64Br3+wkm/yqReAicHUxYW7t/gEuuwpzAq5L
+         unOzhPZlFWjH4QvSwPL0boL9KV3PQGQP7ch1FIu110JygMmTLOooU3+49MQm2HdZnF0N
+         0/d/gGhAinYlo3ysiEmn2bmNws/+9kCzfQUdReRmz+iDMbYoY6aEmvuzIVNfLg9lSEX4
+         gOrVssLkRNwyoq3WUeP7uNOdPOb0rQHlI3exVCtYiTu91x/WO4YcGMLWLfEhGFycwTxs
+         DalA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733840002; x=1734444802;
+        d=1e100.net; s=20230601; t=1733840597; x=1734445397;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LEi4sYW9tslY79x0s7lrA3FZuLBUhpRBvUZs1d+7ffM=;
-        b=XsQygHcu0vp7hWunnhaiLxgDUs0VN3d1341r5X4RzQvLGmTMWAKukaTLMmg94177fM
-         oVfJPFS+WfjnxT80WI+vRRbrg/ZekTSEdxvPY35wcpg+R+/Itt/KRTXk3hG5YGj0Z1OU
-         CJYJ+cw7o7qwzgqkeesL1RQ8IMjLaaXHrAkq/imifKNQICahDf8ca1N50Kz+vkE0QAAf
-         ggmBM0FY/NkI7hzsgFeoramJsuBpmn9SJD5tLRMgvw3shDvDKY4KxXwFH4Vg+DTAD/Vy
-         71jHSCSL4vUkmeU4G1zbWdORv0tKjojYm+CWtCizHxPzEOliEMdo5Vhtn7fcKIzLpoaS
-         sztw==
-X-Forwarded-Encrypted: i=1; AJvYcCXGkhIckOhXsHac0IdBLuBpkrm/lmo27K0vmNz54r09blYSvq7ef3g39qgff4vm/aG699mnKocyLsk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyt7G0duOOEvOEdIbDUhHaj3Tt5e0xwr0TgIZy3zo3wuBqDXhJa
-	y9AivO2aMHN3VE9a78iGtooq0T7s76LQWeJbrNKRiRv4entfh1wqHogqYGucLw==
-X-Gm-Gg: ASbGnctKlhgfblU54MjPdvf6ArFrs0val9WATkYch41+FI6t+TxpdOTejwP2lYuUq8d
-	2KlbfGfcvvD8T26Mw6YKSgHuu3R7BDY7uxWJmY5b0pIzn8R/1SlRuaePgsBnn2pJb78lD/NUbWZ
-	/HlUwSaqUiq9PG3vadv7hxubv0gGqDltXxjYO3pPvkODLKjp9V2iv9vV34Ax9C7h1RxNS2l4lVs
-	MHW2JgFecQV1tja2j+fzFmSbaF1vTzoRaNaNUaBdLxlovwRy2dfpmtsKfUR+04go3tECd1v1CpO
-	V50+3zmkdbdqEn7hvnYddlpKDMM9mL/IZim00e4pW1xwulr3DMFQ51CwTCOavhaDXzD+YUzzoJ/
-	KdlIToMi1Yg==
-X-Google-Smtp-Source: AGHT+IGZhYb2KtlxKgJzXm8nhnYihwQ2Vni/SzK1O4MOiNxsfFZT/PBQGG4t4U7N7DG66PVKnjCRHQ==
-X-Received: by 2002:a05:6000:4704:b0:385:f44a:a68 with SMTP id ffacd0b85a97d-3862b39d760mr11555402f8f.35.1733840002548;
-        Tue, 10 Dec 2024 06:13:22 -0800 (PST)
-Message-ID: <eb9246cc-059d-4dca-aca8-e75976537206@suse.com>
-Date: Tue, 10 Dec 2024 15:13:20 +0100
+        bh=TK3qUKMI9El/3oT5DKlkszXI6r0GfSJAYOm6NcZVniw=;
+        b=vZCAPc7ZuZ4AsX8XBxQdjOIFZFMcSFMbvnJafFpiN052NrcHvZEBPiNZibyTWusVNL
+         tZ89tOIVC3g5a5/Q8z6qQKwoW3TN71hPkm3yb1orz/NSLK0/mvMDJPscSCIIfqGaB6+u
+         Bpf0qIeS3Jh7sU21u+0OAyQ0jHVVWYgU44nrCONQWz7shaoykTI1E6CcwUqXMVXJZl8m
+         cSFUX2BFVf7h+2tw5Dxkwe8RPMj5srMrlH7eGCpI/yr/QxAaTa+tbAwP710tR5FagPDN
+         dUpjJyZ0TXFoWQBzClHkvcYDmTEcItPsy/MNc15musUVBTC2mv/qQhGxZpATDRz9+GgY
+         BE6w==
+X-Forwarded-Encrypted: i=1; AJvYcCXNDKJWcO88eIgUZWTQvg54OOiM47Tctsg5yTdrdzTCZ+T2O+FzFSamvzldSCq5V39PUpYra4VITPY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyX4Rog5q23UG5B5oeZnJ6gyhj5rAxO9LwOseTOVKp2UCvbLQhv
+	netOkBSX86zrPaOcSUpuEE85tO2hn3974pHKHuGL3I0uKD95YUWcX278sc/DSw==
+X-Gm-Gg: ASbGncs/KEbmLk6YoinRe1zP6BZrq4fgpZAiz+n8etIJRE2ebM8E++tM1PcqA7GmIA6
+	bcX0S8zHDDpOkwkcqGe7kYqqVkZ4CHciH5gQiLPOt/KlyhcVHvjPUJuicsQFbn2cPYJMcVP16kX
+	glwOBGd8X8wkBL/dbfVb+BxeLrKs2L8SpPldI8XedIZreEiahDZU4i+C2gKc7lYsoDIAp/mhZGZ
+	hBBFoPdk3GuUKNOuAnEOUwJkV2rAsb0N6l+gJe/U17s6rHBef6WzvuPicmiFb1Rr31ZMQ91BxtI
+	YVMCtBfj6JeBbSwrQbvvlr7Ako43LueREIQEL/W+4sG+I1I6A2JKnkC575geIP8F/hm5QP2eaFF
+	WEt07Vom/HA==
+X-Google-Smtp-Source: AGHT+IEHsyuhq+DGhOeH8Zdb6gHwYoyo7v7x5zc6xIzjI5Q8Y3e4O/1NrZt2cCqJVDq1OgCctx5Vnw==
+X-Received: by 2002:a05:600c:4710:b0:431:55c1:f440 with SMTP id 5b1f17b1804b1-434ddeddac4mr148869445e9.30.1733840597153;
+        Tue, 10 Dec 2024 06:23:17 -0800 (PST)
+Message-ID: <5ced20ec-44d2-40ec-870c-e7f5f256186f@suse.com>
+Date: Tue, 10 Dec 2024 15:23:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/35] xen/console: rename switch_serial_input() to
- console_find_owner()
+Subject: Re: [PATCH v2 15/35] xen/console: rename console_rx to console_owner
 To: dmukhin@ford.com
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-14-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-15-e9aa923127eb@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,21 +120,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241205-vuart-ns8250-v1-14-e9aa923127eb@ford.com>
+In-Reply-To: <20241205-vuart-ns8250-v1-15-e9aa923127eb@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Updated the name to highlight the logic of selection the physical console
-> owner: existing code does not switch only serial console, it also switches
-> video console and debugging console (debug I/O port and console hypercall).
+> Preparation for the follow on change to switch console_owner to
+> domid_t address space.
 
-I'm especially surprised you mention "video console" here. Afaics all of
-this is only about console _input_, and no input comes from a video device.
-Arguably "serial" in the original name is too narrow now. Yet "input"
-continues to be quite appropriate.
+As with the earlier change - it's one thing to (plan to) change the
+number space, and another to go from input only to general console.
 
 Jan
 
