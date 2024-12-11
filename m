@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22C5B9ECA62
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 11:33:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854497.1267690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BBF79ECA5D
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 11:32:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854478.1267679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLK1x-0001Ak-25; Wed, 11 Dec 2024 10:33:21 +0000
+	id 1tLK0n-000071-NL; Wed, 11 Dec 2024 10:32:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854497.1267690; Wed, 11 Dec 2024 10:33:21 +0000
+Received: by outflank-mailman (output) from mailman id 854478.1267679; Wed, 11 Dec 2024 10:32:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLK1w-00017q-Th; Wed, 11 Dec 2024 10:33:20 +0000
-Received: by outflank-mailman (input) for mailman id 854497;
- Wed, 11 Dec 2024 10:33:19 +0000
+	id 1tLK0n-0008Vn-JZ; Wed, 11 Dec 2024 10:32:09 +0000
+Received: by outflank-mailman (input) for mailman id 854478;
+ Wed, 11 Dec 2024 10:32:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2HaM=TE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLJpV-00076S-TC
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 10:20:30 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1tLJpt-00076S-2v
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 10:20:53 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 881658d2-b7a9-11ef-99a3-01e77a169b0f;
- Wed, 11 Dec 2024 11:20:23 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-385deda28b3so4861984f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 02:20:28 -0800 (PST)
+ id 95e169e3-b7a9-11ef-99a3-01e77a169b0f;
+ Wed, 11 Dec 2024 11:20:46 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-385dece873cso3145205f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 02:20:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21654207719sm46391835ad.48.2024.12.11.02.20.24
+ d9443c01a7336-2162a479fc7sm72313335ad.47.2024.12.11.02.20.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2024 02:20:27 -0800 (PST)
+ Wed, 11 Dec 2024 02:20:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 881658d2-b7a9-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 95e169e3-b7a9-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733912427; x=1734517227; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733912451; x=1734517251; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qs9XBOYAp6IPbLweUtrtvMK28FTozTB4amhvJ+Ev7XE=;
-        b=EFy3BIdPkxdw2hPS9QoXek5Gke1/idor5PwcfdtIpmtbpwAmcHlmwxbkKNTH3XJNrH
-         q3wkLOJe4fWL4daEyFAaeQUTz+T4xQcMjtMm/etm/0T2xCSDLiuzg2CLJnoCrojeQmOr
-         kBqMdvF6uNGwJAL5R/4ysnPkKgg1NnhnK0hF6SVpznM0sRVcUGnvDUtWiESZkz8B2ANn
-         BivG7mEmb/vyUNLXOZrST84BpW8HaF2can0herkk4JLwrrs+tC6DY38VLYM2R3fg+rbZ
-         JOZUckDyaI5DTDB1c+8nYccS3yD5u+iswYiGOpW3C24aDIbRT/BNdni8dTJd1MsCuSSz
-         ODSw==
+        bh=EYrG6X8uwp+bs8ww0EgrMry1siCkDx4rXslRN+kZ534=;
+        b=I9tDmfXpNDdMnWdAx45uwAji31lrAQty28jPDs38DEhMhsLai5N4X+IluaX17W45nf
+         EEQ5AZj37KXEYOlVeVIKblB+GGs9Pacd7jZbAFxzaCqcztr98F6GFrwOscVvLdAPtXd0
+         1IH+AMV6e0xHcOhBc5SvTCckm9phkPoAbR1Sc1cWDctTZC24kehKW0unkxLxcUE8PXa0
+         1hJq1YOL1iaV13OWT0/Ytk9jffzxiB1nfOOkT01+NnKSazBt3/k1t3dO5YVAI8nx3FDV
+         QcplgEllvycZNXIEXenFUArfbtsxGKPCOxmMzPDk2s1GV5UGu+CYohvRani0htFEup7V
+         Q0dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733912427; x=1734517227;
+        d=1e100.net; s=20230601; t=1733912451; x=1734517251;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Qs9XBOYAp6IPbLweUtrtvMK28FTozTB4amhvJ+Ev7XE=;
-        b=p5hef0F3Aoe1TXczAnn0XohVkLVVSpUpNioWpfc3oJsFXcUGPVYpjAwkupcMspQ9B4
-         5U/rNSVUXwBLQQoXpO3iPWY/ojSoCJ3DWHQGMXijREbSJ5aWCYjowCRCb0Kqx9g2AoXR
-         mtspx+xOiMQrLvPz8vpLyP3BYi+PIfxs1fYXIzbdGnwJ6TkDelZueu0Ib1SofVUz6ljw
-         3eZvRPJlfx6H+xFHsPPy3jPe1NcetgLldGnJuSd7JxRKjgpNL9QgyuRJyZcRYoRMGiC/
-         yreA3mXLvxzAuv6CJhpHQ+XIvZ/h/dwB2+ChjM0yLKpIgql826WHKN5i1kCyYCMqfUnY
-         hpGQ==
-X-Gm-Message-State: AOJu0YwFipWu+uEYs3JAJ76zmkG0ueIJZROZWsWH0YcxmxvhxOI4reqj
-	0/JQTOi0pomkbwH0mCxTsmUuecuyXHBULHa7sv4dXenYkgTibpoa4OOWXipE859ub2++y1QUipM
+        bh=EYrG6X8uwp+bs8ww0EgrMry1siCkDx4rXslRN+kZ534=;
+        b=uVs8xEqp0kr2ogsYOrcZPtzCu7XeRdDfXm3hTslbEy1sKLYVbECeIt19dj4KMK6dWi
+         E/FwVVXFb23LYaGwW3sxdXLX+yXdORba1YqKen2SVeHhFYFB1CE0sZ3LF4ozy+L5reeH
+         FNi4ztrBwj8jcpHL+sjAdM66CB16X2iQL35iLphD3fZutCOwZrtW7NZhFuDex4apxfWl
+         vlLel8NMozctrfN6d1Twmq/xAp0nruqj1SfLvGLpIQCYRTgRMn5lZ6G4fFYz8lsR1cV4
+         grvUBOnNM6zN+Qv4QOrKW9aJ+UZheY6ydKVLaQy2Imgjf2ipySvUOEES5xloRGS4uZmK
+         zjng==
+X-Gm-Message-State: AOJu0YyQRk3mnhhxl3t3oQPuCGJH3xT/St5pibKqdWTqixA4elG9bhT7
+	YaNLtiyN151yk0fehsbp/M+Wppz25oZJxhRUKLw3Nd3VKWDz0Sey+Bf5zGCCE4nf7tUGbbEgzx8
 	=
-X-Gm-Gg: ASbGncu5lD8caThvxmdV7uQjhFQ3GntpqI9LFXUhKuHisS3efZB4qXSSOi0y/AX0wdu
-	JCAxMgewNUVZJwAIgEBtTzgnCvqhgcvMSwuiNifs3EQdhx0lo5+NUWaUNHTzVE84C3yEUrM+ro7
-	i9D4SUypvTL5FPbOVy28jM7SiT975++a/XOwEG7yeoJJCCa+C5hGp025MBokhqP5fpQv6eFj0PU
-	J4CJr2isKkmN7E08vVMaV/N6NA0iiVvPHOiUnlWD3ehB/MAc2/O111+F/W1rDpxHIJfkkP4BGba
-	GxnhhIF4Gj53M0yFT7roj2mDK21U2fs2GkCXNvw=
-X-Google-Smtp-Source: AGHT+IHAgKRVLhZdPu84qjCA+WUGRppKHkhPCiergvw2aQApDglRU+3P8PqJnD8kte/0JD8RAwKvCg==
-X-Received: by 2002:a05:6000:144f:b0:385:f60b:f5c4 with SMTP id ffacd0b85a97d-3864cea3ca5mr1737545f8f.29.1733912427525;
-        Wed, 11 Dec 2024 02:20:27 -0800 (PST)
-Message-ID: <9ea8d2d5-632a-465c-852f-47b0feeda69b@suse.com>
-Date: Wed, 11 Dec 2024 11:20:22 +0100
+X-Gm-Gg: ASbGncsK66NpLmo4B1YzLIqgAzqpu9juXTGvF7nhYPQ5APpOoVOkea/+j71M+q/ZSu2
+	fW57O3VUycBIYIpCE68437kET1yQvLx+D4lsSb8GNwXFZiAx5eLpOlIg9kltynUmHPq+t4NrAXF
+	hKsc+xIDkw5Ec2v/HeqntflGXQqL8SL429RoUDLhwee2n1lvnpjfdlEq7eGsfJsjELbcBKPv27D
+	xhWdJruQWSdnuFzhs2Lxov9UbUgBt17ATSHYG68448+V+a+GSOx8G9yYdVH/98B7T7dF2HIyVGF
+	YQfIGp9LmmsgBxHDUbmlDTQGtcp8l1aIoOqX2hI=
+X-Google-Smtp-Source: AGHT+IHkPNXTc+Yha08gY4NqV2a4G7lJgQZ5Wt4aKB4fhNh+fd/5wUpTc08FUCVRmN9GgaLUv4O4pw==
+X-Received: by 2002:a05:6000:18a3:b0:385:f5b6:9c9d with SMTP id ffacd0b85a97d-3864cea5696mr1748859f8f.33.1733912450680;
+        Wed, 11 Dec 2024 02:20:50 -0800 (PST)
+Message-ID: <f3176cb1-c61d-45b0-bab8-78dd22e4dbf8@suse.com>
+Date: Wed, 11 Dec 2024 11:20:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 13/16] x86emul: support AVX10.2 saturating convert insns
+Subject: [PATCH v3 14/16] x86emul: support other AVX10.2 convert insns
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -120,14 +120,10 @@ In-Reply-To: <516b7f9a-048e-409d-8a4e-89aeb8ffacc4@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While the to-byte ones are somewhat different from what has been there
-(yet then nicely regular from an operands perspective), the others are
-pretty similar to various existing insns.
+Despite most of them being about conversion to BF8/HF8, they are still
+somewhat similar to various existing convert insns.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Spec rev 002 says VCVTTNEBF162I{,U}BS, yet that's going to change to
-VCVTTBF162I{,U}BS.
 ---
 SDE: ???
 ---
@@ -135,160 +131,174 @@ v3: New.
 
 --- a/tools/tests/x86_emulator/evex-disp8.c
 +++ b/tools/tests/x86_emulator/evex-disp8.c
-@@ -719,6 +719,30 @@ static const struct test avx10_2_all[] =
+@@ -719,8 +719,22 @@ static const struct test avx10_2_all[] =
      INSN(comxsd,           f3,   0f, 2f,    el,    q, el),
      INSN(comxsh,           f2, map5, 2f,    el, fp16, el),
      INSN(comxss,           f2,   0f, 2f,    el,    d, el),
-+    INSN(cvtnebf162ibs,    f2, map5, 69,    vl, bf16, vl),
-+    INSN(cvtnebf162iubs,   f2, map5, 6b,    vl, bf16, vl),
-+    INSN(cvtph2ibs,          , map5, 69,    vl, fp16, vl),
-+    INSN(cvtph2iubs,         , map5, 6b,    vl, fp16, vl),
-+    INSN(cvtps2ibs,        66, map5, 69,    vl,    d, vl),
-+    INSN(cvtps2iubs,       66, map5, 6b,    vl,    d, vl),
-+    INSN(cvttbf162ibs,     f2, map5, 68,    vl, bf16, vl),
-+    INSN(cvttbf162iubs,    f2, map5, 6a,    vl, bf16, vl),
-+    INSN(cvttpd2dqs,         , map5, 6d,    vl,    q, vl),
-+    INSN(cvttpd2qqs,       66, map5, 6d,    vl,    q, vl),
-+    INSN(cvttpd2udqs,        , map5, 6c,    vl,    q, vl),
-+    INSN(cvttpd2uqqs,      66, map5, 6c,    vl,    q, vl),
-+    INSN(cvttph2ibs,         , map5, 68,    vl, fp16, vl),
-+    INSN(cvttph2iubs,        , map5, 6a,    vl, fp16, vl),
-+    INSN(cvttps2dqs,         , map5, 6d,    vl,    d, vl),
-+    INSN(cvttps2ibs,       66, map5, 68,    vl,    d, vl),
-+    INSN(cvttps2iubs,      66, map5, 6a,    vl,    d, vl),
-+    INSN(cvttps2qqs,       66, map5, 6d,  vl_2,    d, vl),
-+    INSN(cvttps2udqs,        , map5, 6c,    vl,    d, vl),
-+    INSN(cvttps2uqqs,      66, map5, 6c,  vl_2,    d, vl),
-+    INSN(cvttsd2sis,       f2, map5, 6d,    el,    q, el),
-+    INSN(cvttsd2usis,      f2, map5, 6c,    el,    q, el),
-+    INSN(cvttss2sis,       f3, map5, 6d,    el,    d, el),
-+    INSN(cvttss2usis,      f3, map5, 6c,    el,    d, el),
-     INSN(divnepbf16,       66, map5, 5e,    vl, bf16, vl),
-     INSN(dpphps,             , 0f38, 52,    vl,    d, vl),
-     INSN(fmadd132nepbf16,    , map6, 98,    vl, bf16, vl),
++    INSN(cvt2ps2phx,       66, 0f38, 67,    vl,    d, vl),
++    INSN(cvtbiasph2bf8,      , 0f38, 74,    vl, fp16, vl),
++    INSN(cvtbiasph2bf8s,     , map5, 74,    vl, fp16, vl),
++    INSN(cvtbiasph2hf8,      , map5, 18,    vl, fp16, vl),
++    INSN(cvtbiasph2hf8s,     , map5, 1b,    vl, fp16, vl),
++    INSN(cvthf82ph,        f2, map5, 1e,  vl_2,    b, vl),
++    INSN(cvtne2ph2bf8,     f2, 0f38, 74,    vl, fp16, vl),
++    INSN(cvtne2ph2bf8s,    f2, map5, 74,    vl, fp16, vl),
++    INSN(cvtne2ph2hf8,     f2, map5, 18,    vl, fp16, vl),
++    INSN(cvtne2ph2hf8s,    f2, map5, 1b,    vl, fp16, vl),
+     INSN(cvtnebf162ibs,    f2, map5, 69,    vl, bf16, vl),
+     INSN(cvtnebf162iubs,   f2, map5, 6b,    vl, bf16, vl),
++    INSN(cvtneph2bf8,      f3, 0f38, 74,    vl, fp16, vl),
++    INSN(cvtneph2bf8s,     f3, map5, 74,    vl, fp16, vl),
++    INSN(cvtneph2hf8,      f3, map5, 18,    vl, fp16, vl),
++    INSN(cvtneph2hf8s,     f3, map5, 1b,    vl, fp16, vl),
+     INSN(cvtph2ibs,          , map5, 69,    vl, fp16, vl),
+     INSN(cvtph2iubs,         , map5, 6b,    vl, fp16, vl),
+     INSN(cvtps2ibs,        66, map5, 69,    vl,    d, vl),
 --- a/tools/tests/x86_emulator/predicates.c
 +++ b/tools/tests/x86_emulator/predicates.c
-@@ -2162,6 +2162,26 @@ static const struct evex {
-     { { 0x5f }, 2, T, R, pfx_no, W0, Ln }, /* vmaxph */
-     { { 0x5f }, 2, T, R, pfx_66, W0, Ln }, /* vmaxpbf16 */
-     { { 0x5f }, 2, T, R, pfx_f3, W0, LIG }, /* vmaxsh */
-+    { { 0x68 }, 2, T, R, pfx_no, W0, Ln }, /* vcvttph2ibs */
-+    { { 0x68 }, 2, T, R, pfx_66, W0, Ln }, /* vcvttps2ibs */
-+    { { 0x68 }, 2, T, R, pfx_f2, W0, Ln }, /* vcvttbf162ibs */
-+    { { 0x69 }, 2, T, R, pfx_no, W0, Ln }, /* vcvtph2ibs */
-+    { { 0x69 }, 2, T, R, pfx_66, W0, Ln }, /* vcvtps2ibs */
-+    { { 0x69 }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtnebf162ibs */
-+    { { 0x6a }, 2, T, R, pfx_no, W0, Ln }, /* vcvttph2iubs */
-+    { { 0x6a }, 2, T, R, pfx_66, W0, Ln }, /* vcvttps2iubs */
-+    { { 0x6a }, 2, T, R, pfx_f2, W0, Ln }, /* vcvttbf162iubs */
-+    { { 0x6b }, 2, T, R, pfx_no, W0, Ln }, /* vcvtph2iubs */
-+    { { 0x6b }, 2, T, R, pfx_66, W0, Ln }, /* vcvtps2iubs */
-+    { { 0x6b }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtnebf162iubs */
-+    { { 0x6c }, 2, T, R, pfx_no, Wn, Ln }, /* vcvttp{s,d}2udqs */
-+    { { 0x6c }, 2, T, R, pfx_66, Wn, Ln }, /* vcvttp{s,d}2uqqs */
-+    { { 0x6c }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvttss2usis */
-+    { { 0x6c }, 2, T, R, pfx_f2, Wn, LIG }, /* vcvttsd2usis */
-+    { { 0x6d }, 2, T, R, pfx_no, Wn, Ln }, /* vcvttp{s,d}2dqs */
-+    { { 0x6d }, 2, T, R, pfx_66, Wn, Ln }, /* vcvttp{s,d}2qqs */
-+    { { 0x6d }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvttss2sis */
-+    { { 0x6d }, 2, T, R, pfx_f2, Wn, LIG }, /* vcvttsd2sis */
+@@ -1952,6 +1952,7 @@ static const struct evex {
+     { { 0x64 }, 2, T, R, pfx_66, Wn, Ln }, /* vpblendm{d,q} */
+     { { 0x65 }, 2, T, R, pfx_66, Wn, Ln }, /* vblendmp{s,d} */
+     { { 0x66 }, 2, T, R, pfx_66, Wn, Ln }, /* vpblendm{b,w} */
++    { { 0x67 }, 2, T, R, pfx_66, W0, Ln }, /* vcvt2ps2phx */
+     { { 0x68 }, 2, T, R, pfx_f2, Wn, Ln }, /* vp2intersect{d,q} */
+     { { 0x70 }, 2, T, R, pfx_66, W1, Ln }, /* vpshldvw */
+     { { 0x71 }, 2, T, R, pfx_66, Wn, Ln }, /* vpshldv{d,q} */
+@@ -1959,6 +1960,9 @@ static const struct evex {
+     { { 0x72 }, 2, T, R, pfx_f3, W1, Ln }, /* vcvtneps2bf16 */
+     { { 0x72 }, 2, T, R, pfx_f2, W1, Ln }, /* vcvtne2ps2bf16 */
+     { { 0x73 }, 2, T, R, pfx_66, Wn, Ln }, /* vpshrdv{d,q} */
++    { { 0x74 }, 2, T, R, pfx_no, W0, Ln }, /* vcvtbiasph2bf8 */
++    { { 0x74 }, 2, T, R, pfx_f3, W0, Ln }, /* vcvtneph2bf8 */
++    { { 0x74 }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtne2ph2bf8 */
+     { { 0x75 }, 2, T, R, pfx_66, Wn, Ln }, /* vpermi2{b,w} */
+     { { 0x76 }, 2, T, R, pfx_66, Wn, Ln }, /* vpermi2{d,q} */
+     { { 0x77 }, 2, T, R, pfx_66, Wn, Ln }, /* vpermi2p{s,d} */
+@@ -2122,8 +2126,15 @@ static const struct evex {
+ }, evex_map5[] = {
+     { { 0x10 }, 2, T, R, pfx_f3, W0, LIG }, /* vmovsh */
+     { { 0x11 }, 2, T, W, pfx_f3, W0, LIG }, /* vmovsh */
++    { { 0x18 }, 2, T, R, pfx_no, W0, Ln }, /* vcvtbiasph2hf8 */
++    { { 0x18 }, 2, T, R, pfx_f3, W0, Ln }, /* vcvtneph2hf8 */
++    { { 0x18 }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtne2ph2hf8 */
++    { { 0x1b }, 2, T, R, pfx_no, W0, Ln }, /* vcvtbiasph2hf8s */
++    { { 0x1b }, 2, T, R, pfx_f3, W0, Ln }, /* vcvtneph2hf8s */
++    { { 0x1b }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtne2ph2hf8s */
+     { { 0x1d }, 2, T, R, pfx_66, W0, Ln }, /* vcvtps2phx */
+     { { 0x1d }, 2, T, R, pfx_no, W0, LIG }, /* vcvtss2sh */
++    { { 0x1e }, 2, T, R, pfx_f2, W0, Ln }, /* cvthf82ph */
+     { { 0x2a }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvtsi2sh */
+     { { 0x2c }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvttsh2si */
+     { { 0x2d }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvtsh2si */
+@@ -2184,6 +2195,9 @@ static const struct evex {
+     { { 0x6d }, 2, T, R, pfx_f2, Wn, LIG }, /* vcvttsd2sis */
      { { 0x6e }, 2, T, R, pfx_66, WIG, L0 }, /* vmovw */
      { { 0x6e }, 2, T, R, pfx_f3, W0, L0 }, /* vmovw */
++    { { 0x74 }, 2, T, R, pfx_no, W0, Ln }, /* vcvtbiasph2bf8s */
++    { { 0x74 }, 2, T, R, pfx_f3, W0, Ln }, /* vcvtneph2bf8s */
++    { { 0x74 }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtne2ph2bf8s */
      { { 0x78 }, 2, T, R, pfx_no, W0, Ln }, /* vcvttph2udq */
+     { { 0x78 }, 2, T, R, pfx_66, W0, Ln }, /* vcvttph2uqq */
+     { { 0x78 }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvttsh2usi */
 --- a/xen/arch/x86/x86_emulate/decode.c
 +++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -1547,6 +1547,19 @@ int x86emul_decode(struct x86_emulate_st
-                     s->fp16 = true;
-                 break;
- 
-+            case 0x68: /* vcvtt{ph,ps,bf16}2ibs */
-+            case 0x69: /* vcvt{ph,ps,nebf16}2ibs */
-+            case 0x6a: /* vcvtt{ph,ps,bf16}2iubs */
-+            case 0x6b: /* vcvt{ph,ps,nebf16}2iubs */
-+                if ( !s->evex.pfx || s->evex.pfx == vex_f2 )
+@@ -378,8 +378,10 @@ static const struct ext0f38_table {
+     [0x62] = { .simd_size = simd_packed_int, .two_op = 1, .d8s = d8s_bw },
+     [0x63] = { .simd_size = simd_packed_int, .to_mem = 1, .two_op = 1, .d8s = d8s_bw },
+     [0x64 ... 0x66] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
++    [0x67] = { .simd_size = simd_other, .d8s = d8s_vl },
+     [0x68] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
+     [0x70 ... 0x73] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
++    [0x74] = { .simd_size = simd_other, .d8s = d8s_vl },
+     [0x75 ... 0x76] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
+     [0x77] = { .simd_size = simd_packed_fp, .d8s = d8s_vl },
+     [0x78] = { .simd_size = simd_other, .two_op = 1 },
+@@ -1445,6 +1447,15 @@ int x86emul_decode(struct x86_emulate_st
+             s->simd_size = ext0f38_table[b].simd_size;
+             if ( evex_encoded() )
+             {
++                switch ( b )
++                {
++                case 0x74: /* cvt{bias,ne,ne2}ph2bf8 */
 +                    s->fp16 = true;
-+                /* fall through */
-+            case 0x6c: /* vcvttp{s,d}2u{d,q}qs, vcvtts{s,d}2usis */
-+            case 0x6d: /* vcvttp{s,d}2{d,q}qs, vcvtts{s,d}2sis */
-+                d |= TwoOp;
-+                s->simd_size = simd_other;
-+                break;
++                    if ( s->evex.pfx != vex_f2 )
++                        d |= TwoOp;
++                    break;
++                }
 +
-             case 0x6e: /* vmovw r/x/m16, xmm */
-                 d = (d & ~SrcMask) | SrcMem16;
-                 /* fall through */
-@@ -1612,6 +1625,14 @@ int x86emul_decode(struct x86_emulate_st
-                     --disp8scale;
-                 break;
+                 /*
+                  * VPMOVUS* are identical to VPMOVS* Disp8-scaling-wise, but
+                  * their attributes don't match those of the vex_66 encoded
+@@ -1592,6 +1603,23 @@ int x86emul_decode(struct x86_emulate_st
  
-+            case 0x6c: /* vcvttps2uqqs and vcvts{s,d}2usi need special casing */
-+            case 0x6d: /* vcvttps2qqs and vcvts{s,d}2si need special casing */
-+                if ( s->evex.pfx == vex_66 && !s->evex.w && !s->evex.brs )
-+                    --disp8scale;
-+                else if ( s->evex.pfx & VEX_PREFIX_SCALAR_MASK )
-+                    disp8scale = s->evex.pfx & VEX_PREFIX_DOUBLE_MASK ? 3 : 2;
+             switch ( b )
+             {
++            case 0x18: /* vcvt{bias,ne,ne2}ph2hf8 */
++            case 0x1b: /* vcvt{bias,ne,ne2}ph2hf8s */
++            case 0x74: /* vcvt{bias,ne,ne2}ph2bf8s */
++                s->fp16 = true;
++                d = DstReg | SrcMem;
++                if ( s->evex.pfx != vex_f2 )
++                    d |= TwoOp;
++                s->simd_size = simd_other;
++                disp8scale = s->evex.brs ? 1 : 4 + s->evex.lr;
 +                break;
 +
-             case 0x7a: case 0x7b: /* vcvt{,t}ph2qq need special casing */
-                 if ( s->evex.pfx == vex_66 && !s->evex.brs )
-                     disp8scale = s->evex.brs ? 1 : 2 + s->evex.lr;
++            case 0x1e: /* vcvthf82ph */
++                d = DstReg | SrcMem | TwoOp;
++                s->simd_size = simd_other;
++                disp8scale = 3 + s->evex.lr;
++                break;
++
+             case 0x78:
+             case 0x79:
+                 /* vcvt{,t}ph2u{d,q}q need special casing */
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -8025,6 +8025,55 @@ x86_emulate(
-         op_bytes = 8 << evex.lr;
+@@ -6269,6 +6269,29 @@ x86_emulate(
+         }
          goto simd_zmm;
  
-+    case X86EMUL_OPC_EVEX_F2(5, 0x68): /* vcvttbf162ibs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_F2(5, 0x69): /* vcvtnebf162ibs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_F2(5, 0x6a): /* vcvttbf162iubs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_F2(5, 0x6b): /* vcvtnebf162iubs [xyz]mm/mem,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX   (0x0f38, 0x74): /* vcvtbiasph2bf8 [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F3(0x0f38, 0x74): /* vcvtneph2bf8 [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F2(0x0f38, 0x74): /* vcvtne2ph2bf8 [xyz]mm,[xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX   (     5, 0x18): /* vcvtbiasph2hf8 [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F3(     5, 0x18): /* vcvtneph2hf8 [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F2(     5, 0x18): /* vcvtne2ph2hf8 [xyz]mm,[xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX   (     5, 0x1b): /* vcvtbiasph2hf8s [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F3(     5, 0x1b): /* vcvtneph2hf8s [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F2(     5, 0x1b): /* vcvtne2ph2hf8s [xyz]mm,[xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX   (     5, 0x74): /* vcvtbiasph2bf8s [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F3(     5, 0x74): /* vcvtneph2bf8s [xyz]mm,[xyz]mm/mem{k} */
++    case X86EMUL_OPC_EVEX_F2(     5, 0x74): /* vcvtne2ph2bf8s [xyz]mm,[xyz]mm,[xyz]mm/mem{k} */
 +        generate_exception_if(ea.type != OP_MEM && evex.brs, X86_EXC_UD);
 +        /* fall through */
-+    case X86EMUL_OPC_EVEX   (5, 0x68): /* vcvttph2ibs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x68): /* vcvttps2ibs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX   (5, 0x69): /* vcvtph2ibs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x69): /* vcvtps2ibs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX   (5, 0x6a): /* vcvttph2iubs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x6a): /* vcvttps2iubs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX   (5, 0x6b): /* vcvtph2iubs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x6b): /* vcvtps2iubs [xyz]mm/mem,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_66(0x0f38, 0x67): /* vcvt2ps2phx [xyz]mm,[xyz]mm,[xyz]mm/mem{k} */
 +        generate_exception_if(evex.w, X86_EXC_UD);
 +        vcpu_must_have(avx10, 2);
 +        if ( ea.type != OP_REG || !evex.brs )
 +            avx512_vlen_check(false);
 +        op_bytes = 16 << evex.lr;
++        fault_suppression = false;
 +        goto simd_zmm;
 +
-+    case X86EMUL_OPC_EVEX   (5, 0x6c): /* vcvttps2udqs [xyz]mm/mem,[xyz]mm{k} */
-+                                       /* vcvttpd2udqs [xyz]mm/mem,{x,y}mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x6c): /* vcvttps2uqqs {x,y}mm/mem,[xyz]mm{k} */
-+                                       /* vcvttpd2uqqs [xyz]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX   (5, 0x6d): /* vcvttps2dqs [xyz]mm/mem,[xyz]mm{k} */
-+                                       /* vcvttpd2dqs [xyz]mm/mem,{x,y}mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x6d): /* vcvttps2qqs {x,y}mm/mem,[xyz]mm{k} */
-+                                       /* vcvttpd2qqs [xyz]mm/mem,[xyz]mm{k} */
+     case X86EMUL_OPC_EVEX_F2(0x0f38, 0x68): /* vp2intersect{d,q} [xyz]mm/mem,[xyz]mm,k+1 */
+         host_and_vcpu_must_have(avx512_vp2intersect);
+         generate_exception_if(evex.opmsk || !evex.r || !evex.R, X86_EXC_UD);
+@@ -7965,6 +7988,14 @@ x86_emulate(
+         generate_exception_if(evex.w, X86_EXC_UD);
+         goto avx512f_all_fp;
+ 
++    case X86EMUL_OPC_EVEX_F2(5, 0x1e): /* vcvthf82ph [xyz]mm,[xyz]mm/mem{k} */
++        generate_exception_if(evex.w || evex.brs, X86_EXC_UD);
 +        vcpu_must_have(avx10, 2);
 +        if ( ea.type != OP_REG || !evex.brs )
 +            avx512_vlen_check(false);
-+        op_bytes = 8 << ((evex.w || !evex.pfx) + evex.lr);
++        op_bytes = 8 << evex.lr;
 +        goto simd_zmm;
 +
-+    CASE_SIMD_SCALAR_FP(_EVEX, 5, 0x6c): /* vcvtts{s,d}2usis xmm/mem,reg */
-+    CASE_SIMD_SCALAR_FP(_EVEX, 5, 0x6d): /* vcvtts{s,d}2sis xmm/mem,reg */
-+        generate_exception_if((evex.reg != 0xf || !evex.RX || !evex.R ||
-+                               evex.opmsk),
-+                              X86_EXC_UD);
-+        vcpu_must_have(avx10, 2);
-+        if ( !evex.brs )
-+            avx512_vlen_check(true);
-+        else
-+            generate_exception_if(ea.type != OP_REG || !evex.u, X86_EXC_UD);
-+        get_fpu(X86EMUL_FPU_zmm);
-+        opc = init_evex(stub);
-+        goto cvts_2si;
-+
-     case X86EMUL_OPC_EVEX_66(5, 0x78): /* vcvttph2uqq xmm/mem,[xyz]mm{k} */
-     case X86EMUL_OPC_EVEX_66(5, 0x79): /* vcvtph2uqq xmm/mem,[xyz]mm{k} */
-     case X86EMUL_OPC_EVEX_66(5, 0x7a): /* vcvttph2qq xmm/mem,[xyz]mm{k} */
+     case X86EMUL_OPC_EVEX_66(5, 0x42): /* vgetexppbf16 [xyz]mm/mem,[xyz]mm{k} */
+     case X86EMUL_OPC_EVEX_66(5, 0x51): /* vsqrtnepbf16 [xyz]mm/mem,[xyz]mm{k} */
+     case X86EMUL_OPC_EVEX_66(5, 0x58): /* vaddnepbf16 [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
 
 
