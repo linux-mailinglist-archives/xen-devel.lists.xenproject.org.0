@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FF149ECC14
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 13:30:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854735.1267865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 087199ECC26
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 13:37:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854751.1267875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLLr8-0004w3-8S; Wed, 11 Dec 2024 12:30:18 +0000
+	id 1tLLxU-0005wv-U6; Wed, 11 Dec 2024 12:36:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854735.1267865; Wed, 11 Dec 2024 12:30:18 +0000
+Received: by outflank-mailman (output) from mailman id 854751.1267875; Wed, 11 Dec 2024 12:36:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLLr8-0004tl-5h; Wed, 11 Dec 2024 12:30:18 +0000
-Received: by outflank-mailman (input) for mailman id 854735;
- Wed, 11 Dec 2024 12:30:16 +0000
+	id 1tLLxU-0005uj-QM; Wed, 11 Dec 2024 12:36:52 +0000
+Received: by outflank-mailman (input) for mailman id 854751;
+ Wed, 11 Dec 2024 12:36:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dco5=TE=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tLLr6-0004tf-0E
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 12:30:16 +0000
-Received: from fhigh-b2-smtp.messagingengine.com
- (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aaf003f6-b7bb-11ef-99a3-01e77a169b0f;
- Wed, 11 Dec 2024 13:30:13 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 0272C2540260;
- Wed, 11 Dec 2024 07:30:11 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Wed, 11 Dec 2024 07:30:12 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Dec 2024 07:30:10 -0500 (EST)
+ <SRS0=lbUB=TE=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tLLxT-0005ud-HK
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 12:36:51 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9639f611-b7bc-11ef-99a3-01e77a169b0f;
+ Wed, 11 Dec 2024 13:36:48 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1733920596953812.0479903054511;
+ Wed, 11 Dec 2024 04:36:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +38,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aaf003f6-b7bb-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1733920211;
-	 x=1734006611; bh=4bUVCNxlLLsfq6OFY06A5OLQ0L1wV01UZdhndtveAMU=; b=
-	I8Eya5twAQM5obhHH7eChwe9cAz2crqW7dupEat7/fDVBRBhKgA2ris/oAlhAwTg
-	hA0oDcr5C/zp2YE+xNbNiPS8k8uMnJ8A7gZpiOgFNwMm9VdNRB+LrpYCZv8PQkbQ
-	OEUetmNBlLwQ5NGKd5s77RYtKaGAH4w3vppfrq5HjiWJA/rTMz8I/Vm6te2YZtbf
-	EPq490v8RUskIQPmm1NLRZ7fTIjKkC+iHLLxYleMGTFrLwa+jYKQZkHHd05sh5MS
-	BhMe/a4uDhzg93xqWjQPjxAIKNPguTXtMGzeCqDS9NUlezdo0XYFBy/SuTC5K/dh
-	5ll482V9Zt3KgLULvp+lLg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1733920211; x=1734006611; bh=4bUVCNxlLLsfq6OFY06A5OLQ0L1wV01UZdh
-	ndtveAMU=; b=wLju/yEA8UQY2xaIngAa2kBrRyRCyr7U+FBTlWZ21s3lb20kn/4
-	QTliJTUrnYtSj0oNjXXgLq8LDCR8JajtMKPVvuZpX2TUrB3vCGlGDyFawQvaDBvw
-	ZbnMgsbbW2dGT6ZiZtJa2jZ/vNoQO1kruOgQh+A8xOtJhWprVjAx8TZ8pdSaRROo
-	SqonOm+eMHyhMCSiKbVKWVesGMeUmWw3Cj6PNUCxZhzeKxzOSvwSuJG0KSLrjv3n
-	Xds4k9k/kO7j6mUxV0sM9FwPyayrDPvvKzJRfb9Otjq5DuAGYuKMozlrIqyd85B0
-	QhDWbH1ZZOK3k+oE6IjYbmlksppmIrYbbwg==
-X-ME-Sender: <xms:04VZZ56Qh2Il86Mf7fIw3LAUvfe4pO4kKYzpiAKf9VM56FYpmB_azw>
-    <xme:04VZZ26jRF2JUkjyVJmeBRzIemcNBNjHx2af0LJn0jWlhD35dSTiUxIF0srbUjc1T
-    Tqh2aaLvuKUIw>
-X-ME-Received: <xmr:04VZZwfC1mWvkH_KdxwA9smUju1PlBGyLHFFheTBMcau4f7XGnNNAtSjyBfwOKTLN00VPIWR1ylBlJUkpMDkPFLd5hI4_CD3rg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrkedtgdegtdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
-    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
-    hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecu
-    hfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrg
-    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffr
-    rghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegue
-    etfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
-    pehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsg
-    gprhgtphhtthhopeejpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrrhgusges
-    khgvrhhnvghlrdhorhhgpdhrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdprh
-    gtphhtthhopehjrghnughrhihukhesghhmrghilhdrtghomhdprhgtphhtthhopehsshht
-    rggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopeholhgvkhhsrghnug
-    hrpghthihshhgthhgvnhhkohesvghprghmrdgtohhmpdhrtghpthhtoheprhgvghhrvghs
-    shhiohhnsheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopeigvghnqdguvg
-    hvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
-X-ME-Proxy: <xmx:04VZZyJTGoT5ciliFfMXt5VdeGMxCEIRijCjQU95mzfiwb6TL5KbUw>
-    <xmx:04VZZ9K1gUFFcCbci094lwAYqt8ri6GiFBRaduhlwl8_IvvyOHotDg>
-    <xmx:04VZZ7yyE6jX0hO1uQ0pF_M8oA2TV_EOZ1REyql2GwmNmHGot9CyzA>
-    <xmx:04VZZ5KT5YLe5yM5TPhgVATq5efxxsIfz14YGdleoPAiWmww--buZA>
-    <xmx:04VZZyrl9XcRtDs9kI_WjQvz_O0crRiMBxJPJe9r2Jf8ZGY9ozI8jsiB>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 11 Dec 2024 13:30:08 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Jason Andryuk <jandryuk@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	regressions@lists.linux.dev,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [REGRESSION] Linux 6.6.64 crashes when booting as PVH domU
-Message-ID: <Z1mF0UZPNLjYAJI7@mail-itl>
-References: <Z1l6XbHP6BTTZSwr@mail-itl>
- <fe8db5b2-7524-49ea-ab8e-21f831dc009f@suse.com>
- <CAMj1kXHSiCo7FH0Mo-_R9HjxhthddPUZfgm5c8yj7vjGvgfTPg@mail.gmail.com>
+X-Inumbo-ID: 9639f611-b7bc-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1733920600; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Ge4yvzxj5bzSiib1TlJtpzhNOwhaFDZbPWOX7x1IrurJKqlZY8leypeUA0aA6YlxRqvA17SggoETAFzfWhcIVQLwYO4lvpYLaRw3bOauumIltPbS1skSGM1n5hyXuBeEiWqTw92oLpuNIqNd3YKQne23GpGgTgvVtMjLAjeTjFU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1733920600; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=taiWLPkkd1RGLNZZfH7WpU7OdhKq56EX7eDXFXwXVlI=; 
+	b=d3yIAPXRYnKCvpdWkA+IbcldfLdzCrVXSUMWVqH1Lyu65scAxKG6tTFg783+zOyNk2+2kTc1Wity9Yf5/eRYq06mtdE5s8IhMX63l1KurqLhO0eeyn3Xt/hIk7ilXNQ0z8jOFqGz5H1GnE5mM8ep6Pgqs51dAhqjn+3nS6wX52E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733920600;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=taiWLPkkd1RGLNZZfH7WpU7OdhKq56EX7eDXFXwXVlI=;
+	b=jtdfx+MxVYfpkJKLnH8ZQP7sfXZSdBSHrjzQN86fYba6ATgJP9VvNjsPStmrRApx
+	iK6yOsW5wEjrBVbIIpASajRudAYwohhnItqSVXtGHRlQKObtcJYepdyHY0/Bq74Ljd+
+	cPi0Kyg4D0NBbnrPmSkRzgwYccVPXBSFneAayhRc=
+Message-ID: <71d62f74-91d9-498f-80a7-d0dc01fb51da@apertussolutions.com>
+Date: Wed, 11 Dec 2024 07:36:35 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/VG+ezqUWUhYwfd+"
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXHSiCo7FH0Mo-_R9HjxhthddPUZfgm5c8yj7vjGvgfTPg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/15] x86/hyperlaunch: introduce the domain builder
+To: Jan Beulich <jbeulich@suse.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
+ <20241123182044.30687-7-dpsmith@apertussolutions.com>
+ <f12f30f2-c1ea-4118-bbd0-c37a948f0ac2@suse.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <f12f30f2-c1ea-4118-bbd0-c37a948f0ac2@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
+On 12/2/24 05:10, Jan Beulich wrote:
+> On 23.11.2024 19:20, Daniel P. Smith wrote:
+>> Introduce the domain builder which is capable of consuming a device tree as the
+>> first boot module. If it finds a device tree as the first boot module, it will
+>> set its type to BOOTMOD_FDT. This change only detects the boot module and
+>> continues to boot with slight change to the boot convention that the dom0
+>> kernel is no longer first boot module but is the second.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   xen/arch/x86/Makefile                    |  2 +
+>>   xen/arch/x86/domain_builder/Makefile     |  3 ++
+>>   xen/arch/x86/domain_builder/core.c       | 55 ++++++++++++++++++++++++
+>>   xen/arch/x86/domain_builder/fdt.c        | 38 ++++++++++++++++
+>>   xen/arch/x86/domain_builder/fdt.h        | 21 +++++++++
+>>   xen/arch/x86/include/asm/bootinfo.h      |  3 ++
+>>   xen/arch/x86/include/asm/domainbuilder.h |  8 ++++
+>>   xen/arch/x86/setup.c                     | 18 +++++---
+>>   8 files changed, 142 insertions(+), 6 deletions(-)
+>>   create mode 100644 xen/arch/x86/domain_builder/Makefile
+>>   create mode 100644 xen/arch/x86/domain_builder/core.c
+>>   create mode 100644 xen/arch/x86/domain_builder/fdt.c
+>>   create mode 100644 xen/arch/x86/domain_builder/fdt.h
+> 
+> As I'm sure I indicated before: Dashes instead of underscores please in new
+> files' names.
+> 
+>>   create mode 100644 xen/arch/x86/include/asm/domainbuilder.h
+> 
+> Why is there no separator in this file's name?
 
---/VG+ezqUWUhYwfd+
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 11 Dec 2024 13:30:08 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Jason Andryuk <jandryuk@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	regressions@lists.linux.dev,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [REGRESSION] Linux 6.6.64 crashes when booting as PVH domU
+Name was getting a bit long, but can add separator if desired.
 
-On Wed, Dec 11, 2024 at 01:24:08PM +0100, Ard Biesheuvel wrote:
-> On Wed, 11 Dec 2024 at 12:53, J=C3=BCrgen Gro=C3=9F <jgross@suse.com> wro=
-te:
-> >
-> > Jason, Ard,
-> >
-> > I guess there are some prereq patches missing in stable 6.6.y branch?
-> >
-> >
-> > Juergen
-> >
-> > On 11.12.24 12:41, Marek Marczykowski-G=C3=B3recki wrote:
-> > > Hi,
-> > >
-> > > With Linux 6.6.64 I get the following crash on domU boot:
-> > >
-> > > (XEN) d5v0 Triple fault - invoking HVM shutdown action 1
-> > > (XEN) *** Dumping Dom5 vcpu#0 state: ***
-> > > (XEN) ----[ Xen-4.19.0  x86_64  debug=3Dn  Tainted:  M     ]----
-> > > (XEN) CPU:    4
-> > > (XEN) RIP:    0008:[<ffffffff82b64050>]
-> > > (XEN) RFLAGS: 0000000000010086   CONTEXT: hvm guest (d5v0)
-> > > (XEN) rax: ffffffff82b64050   rbx: ffffffffffe00000   rcx: 00000000c0=
-000101
-> > > (XEN) rdx: 0000000000000000   rsi: 0000000003a00038   rdi: 0000000002=
-a9bc98
-> > > (XEN) rbp: 0000000000000000   rsp: 0000000002aa0ce8   r8:  0000000000=
-000000
-> > > (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000=
-000000
-> > > (XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000=
-000000
-> > > (XEN) r15: 0000000000000000   cr0: 0000000080000011   cr4: 0000000000=
-000020
-> > > (XEN) cr3: 0000000002022000   cr2: 0000000000000000
-> > > (XEN) fsb: 0000000000000000   gsb: 0000000002a9ccc0   gss: 0000000000=
-000000
-> > > (XEN) ds: 0010   es: 0010   fs: 0000   gs: 0000   ss: 0010   cs: 0008
-> > >
-> > > Linux 6.6.63 works fine.
-> > >
-> > > Looking at the changes, I suspect one of those:
-> > >
-> > >      83d123e27623 x86/pvh: Call C code via the kernel virtual mapping
-> > >      f662b4a69e1d x86/pvh: Set phys_base when calling xen_prepare_pvh=
-()
-> > >
->=20
-> The second patch shouldn't have been backported. It is unnecessary,
-> given that in the old situation, the kernel image needs to be loaded
-> at a fixed address. And it assumes  that %rbp is set to the physical
-> load offset, but those patches were not backported.
+> Similar question as on an earlier patch: Why is all of this x86-specific, when
+> a goal was generalization?
+> 
+>> --- /dev/null
+>> +++ b/xen/arch/x86/domain_builder/core.c
+>> @@ -0,0 +1,55 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (C) 2024, Apertus Solutions, LLC
+>> + */
+>> +#include <xen/err.h>
+>> +#include <xen/init.h>
+>> +#include <xen/kconfig.h>
+>> +#include <xen/lib.h>
+>> +
+>> +#include <asm/bootinfo.h>
+>> +
+>> +#include "fdt.h"
+>> +
+>> +void __init builder_init(struct boot_info *bi)
+>> +{
+>> +    if ( IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
+>> +    {
+>> +        int ret;
+>> +
+>> +        switch ( ret = has_hyperlaunch_fdt(bi) )
+>> +        {
+>> +        case 0:
+>> +            printk("Hyperlaunch device tree detected\n");
+>> +            bi->hyperlaunch_enabled = true;
+>> +            bi->mods[0].type = BOOTMOD_FDT;
+>> +            break;
+>> +        case -EINVAL:
+>> +            printk("Hyperlaunch device tree was not detected\n");
+>> +            bi->hyperlaunch_enabled = false;
+>> +            break;
+>> +        case -ENOENT:
+>> +            fallthrough;
+> 
+> No need for this.
 
-It has this tag:
+I thought MISRA called for explicit fallthrough?
 
-    Stable-dep-of: e8fbc0d9cab6 ("x86/pvh: Call C code via the kernel virtu=
-al mapping")
+>> +        case -ENODATA:
+>> +            printk("Device tree found, but not hyperlaunch (%d)\n", ret);
+>> +            bi->hyperlaunch_enabled = false;
+>> +            bi->mods[0].type = BOOTMOD_FDT;
+>> +            break;
+>> +        default:
+>> +            printk("Unknown error (%d) occured checking for hyperlaunch device tree\n",
+>> +                   ret);
+>> +            bi->hyperlaunch_enabled = false;
+>> +        }
+> 
+> Nit: Misra demands "break" at the end of default as well.
 
-Does it mean neither of them should be backported?
+ack.
 
-But then, the e8fbc0d9cab6 has "Fixes:" tag (pointing at very old
-commit).
+> Blank lines between non-fallthrough blocks would also be nice.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+sure.
 
---/VG+ezqUWUhYwfd+
-Content-Type: application/pgp-signature; name="signature.asc"
+>> +
+> 
+> Nit: Excess blank line.
 
------BEGIN PGP SIGNATURE-----
+ack.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmdZhdEACgkQ24/THMrX
-1yyjMQf9FzYK4Yw9Mm1IB6080FxLcOdQKmLoy8zrgu/4DPqQr+eN8jte4FbvsL18
-ilp4g8VystkEOyUOA7M6TI54ottRMRdM3KPQ2Cny9LV6SPsq5PKL3DFl5pYaAbgM
-BgxJye/H36pS3A7D++w88A37dd7Orc6S9r4xo/VTskL9zAx3eqTeBclA5wazsSJ+
-wjOOwGxeDrfrHL+gWXL7P4lEXDSRYZsEa7W90DNqnBuKM0TFSinUeuyP8urI2yDZ
-3a81wUDPuLaj3UijeFkp8lGlpBciUzvslgJWNSbp/pbZWoZdwQeZzV3yQIfZAxbw
-5CAEDyZinCheMVPTB/jTfKdBb+l7RQ==
-=OW2f
------END PGP SIGNATURE-----
+>> --- /dev/null
+>> +++ b/xen/arch/x86/domain_builder/fdt.c
+>> @@ -0,0 +1,38 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (C) 2024, Apertus Solutions, LLC
+>> + */
+>> +#include <xen/err.h>
+>> +#include <xen/init.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/libfdt/libfdt.h>
+>> +#include <xen/rangeset.h> /* required for asm/setup.h */
+>> +
+>> +#include <asm/bootinfo.h>
+>> +#include <asm/page.h>
+>> +#include <asm/setup.h>
+>> +
+>> +#include "fdt.h"
+>> +
+>> +int __init has_hyperlaunch_fdt(struct boot_info *bi)
+>> +{
+>> +    int ret = 0;
+>> +    void *fdt = bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_IDX]);
+> 
+> const void *?
 
---/VG+ezqUWUhYwfd+--
+Hmm. it should be.
+
+>> @@ -1277,9 +1278,12 @@ void asmlinkage __init noreturn __start_xen(void)
+>>                  bi->nr_modules);
+>>       }
+>>   
+>> -    /* Dom0 kernel is always first */
+>> -    bi->mods[0].type = BOOTMOD_KERNEL;
+>> -    bi->domains[0].kernel = &bi->mods[0];
+>> +    builder_init(bi);
+>> +
+>> +    /* Find first unknown boot module to use as Dom0 kernel */
+>> +    i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+>> +    bi->mods[i].type = BOOTMOD_KERNEL;
+>> +    bi->domains[0].kernel = &bi->mods[i];
+> 
+> Better latch the result here into a separate local variable, for use ...
+> 
+>> @@ -1466,8 +1470,9 @@ void asmlinkage __init noreturn __start_xen(void)
+>>           xen->size  = __2M_rwdata_end - _stext;
+>>       }
+>>   
+>> -    bi->mods[0].headroom =
+>> -        bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].size);
+>> +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
+>> +    bi->mods[i].headroom =
+>> +        bzimage_headroom(bootstrap_map_bm(&bi->mods[i]), bi->mods[i].size);
+>>       bootstrap_unmap();
+>>   
+>>   #ifndef highmem_start
+>> @@ -1591,7 +1596,8 @@ void asmlinkage __init noreturn __start_xen(void)
+>>   #endif
+>>       }
+>>   
+>> -    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
+>> +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
+>> +    if ( bi->mods[i].headroom && !bi->mods[0].relocated )
+>>           panic("Not enough memory to relocate the dom0 kernel image\n");
+>>       for ( i = 0; i < bi->nr_modules; ++i )
+>>       {
+> 
+> ... in these two places?
+
+I don't know if a local variable is need. I assume your suggestion is to 
+drop the first_boot_module_index() call, but thinking about it, not sure 
+why I kept the walk. A direct use of bi->domains[0].kernel could be used 
+without the intermediate variable while removing the call.
+
+v/r,
+dps
 
