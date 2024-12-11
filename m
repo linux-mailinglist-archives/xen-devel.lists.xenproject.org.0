@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 941719EC6DB
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 09:17:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854060.1267356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06DDB9EC714
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 09:26:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854074.1267365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLHtw-0005mu-JC; Wed, 11 Dec 2024 08:16:56 +0000
+	id 1tLI2D-0008Ui-AM; Wed, 11 Dec 2024 08:25:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854060.1267356; Wed, 11 Dec 2024 08:16:56 +0000
+Received: by outflank-mailman (output) from mailman id 854074.1267365; Wed, 11 Dec 2024 08:25:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLHtw-0005kN-F8; Wed, 11 Dec 2024 08:16:56 +0000
-Received: by outflank-mailman (input) for mailman id 854060;
- Wed, 11 Dec 2024 08:16:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tLI2D-0008SO-7k; Wed, 11 Dec 2024 08:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 854074;
+ Wed, 11 Dec 2024 08:25:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2HaM=TE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLHtu-0005Ut-V5
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 08:16:54 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47dc4dbb-b798-11ef-a0d5-8be0dac302b0;
- Wed, 11 Dec 2024 09:16:54 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-38632b8ae71so3040037f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 00:16:54 -0800 (PST)
+ id 1tLI2C-0008SI-3K
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 08:25:28 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7830c9ad-b799-11ef-99a3-01e77a169b0f;
+ Wed, 11 Dec 2024 09:25:24 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3862f32a33eso2132199f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 00:25:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-728eb09fbbcsm1289485b3a.44.2024.12.11.00.16.50
+ d2e1a72fcca58-725eed5233esm4814734b3a.4.2024.12.11.00.25.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2024 00:16:53 -0800 (PST)
+ Wed, 11 Dec 2024 00:25:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47dc4dbb-b798-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 7830c9ad-b799-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733905013; x=1734509813; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733905524; x=1734510324; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xt/vhDq6tvtRtAp65Oap9JwGCMVSXroswoLz9opvCjU=;
-        b=ex1i9Htj9a0Xqixx/70MYouJFWt9w7Lll/uVR2fcrT3ouMIM2cNwOVmADPwXH59dJX
-         AaSODCEVHPtoEWXLIAzLWKMzJzUhZ61QlghG+VdfjUl1KUiHFBotrvQjhH17ZOI6u3al
-         g435p+6cC3+caJj2yZ0DlGRG8mziOyfzEugUzQz6ntMoov9+Yv+yPGddpeH7pL8ST5nE
-         piL5X9e36l153LYRuWggwQpVWDZSS5eb0Zhq2fS3jlKrJ3J460FKZ1VrTdy2LW+9dNSe
-         m1FuJVYBuHt1I26z3Idyr11gFY/qh4EjowCxOFNgjZ+9pK4qOfOm1SRduiD+ChjLonu7
-         jbCw==
+        bh=armvY1GmuT03/EcYCs/Jw28Tj6XbxfWCtucb8n9l/rU=;
+        b=RVvPZ/R0BbRulXjt9CV5a3xtCd1IgpB67srM0kAnPlMaTi7j7TE/EylKLHu3vDkscn
+         NUcmTbjF5laWxmGIghPaNOcJpjGziT5/1c2jr93+qPtnh63uDALzzeguYa3RcwntYYge
+         oDR5VmaKAkVtRJEOGvjSg87xyyg9P/a9iawcmYLMFRfWcipKWWb3qpqeGrXo/TQmwyfi
+         7V0FkskNaq4TwLaIUt/N024LJY2bqOebS7KAd/zSxighgu6zoN03zG9MibDdeHHPjUSX
+         0dd+tNbwfG9E/YUA6QX9ZV7l/jt2JtApUbXY5d7SNrzn5eXlEzld/GGC8yDEKG+638BZ
+         X8ZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733905013; x=1734509813;
+        d=1e100.net; s=20230601; t=1733905524; x=1734510324;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xt/vhDq6tvtRtAp65Oap9JwGCMVSXroswoLz9opvCjU=;
-        b=vn3JN4ipVIEY0e9LnpZE6KCMJecHrbZihqkbVZw11Wq076cdh+ReZMTyB9foUn5+iu
-         gqXCC1rF0T7yNTYTEfpLDpG7YseBksHTjfeJsLq+7mxE9HoQRoDHc9qvQcNMAjXEFkiY
-         bA+lAUdGqa9iIVZwBbQlo8HYhBegLoaoGKebNvdi86YRghIahrAq+GoGtJSsPq26z5qf
-         FckDAeKtmyfG/qSY2Kr2PODpgmVm1ovw5VEUNbyrP8HmM8Vy9YbdYkyO3A21Lakg9BXh
-         ibQ9rksxNSfdw6U8xOZnE+Bt3SPhHYnBHaU+u7F1Loixm2+Z5bUs9ARRR7Mts4sjvGHE
-         BQGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVlqO8SL4ARRKVbQFWnP7u4fjh8dha4NMKb4UtEEZdwPgI5Apqn70LQxuUD4SqHpHLuO5UvAKZdnmA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz9IxfV1WglqHcr/TE82GVtOPD3D/4R3LBVvu/EQzYziAtZRS3c
-	sk4hjIet6roa/lYpnfkLkyvlyqu7pFdTeVoWLxXB5eKmqN4zRbebe9ZxwTzfag==
-X-Gm-Gg: ASbGnctDr8I52oMtmMHg2L+g+nS8uHaB8KaL/0KWMgWhyVnQMljbgBgZ3B8tTXIuy1P
-	jqb+tqnGe1X5AfzHcmlao/AidFiZCEvBFpqKurKdw1rg/PKknXaT+2JyOUk2oIp5KNJQ+Behfrc
-	z/xcn0ZOpJIJ8mtnAnFXBPOqDrSUpJBZCSsxhjY3uMRE4yRsqUMI1VVEpsgaa1FX8mqu3X12+S0
-	YpfqSXeBshPTyNXORLuFZpn7SZfyzgKanyFwReDfo77aHcoo509ZK4wP96y0WoDA039ZZJwv1HY
-	omGnzpH4cwWI6TZxd2tXBy/7auoKZkBbJWhomtI=
-X-Google-Smtp-Source: AGHT+IGg7YdYyWOgyoU4IzGC41llIXBd4pWw8wCA3r7WqaRRxAR7HcSpRm32WreOv64slQQR5FfXSQ==
-X-Received: by 2002:a5d:6d03:0:b0:385:f9ed:1632 with SMTP id ffacd0b85a97d-3864ce9d5b4mr1415511f8f.28.1733905013586;
-        Wed, 11 Dec 2024 00:16:53 -0800 (PST)
-Message-ID: <0d04abb1-dae1-47d1-93e3-23d88399fa64@suse.com>
-Date: Wed, 11 Dec 2024 09:16:47 +0100
+        bh=armvY1GmuT03/EcYCs/Jw28Tj6XbxfWCtucb8n9l/rU=;
+        b=musp0q66w1scwkndkDAljkJpR5VZRdkJVyd5rffY853yVZ2YNrdrVAIg91HYtf1J6Y
+         +zbowtVQBb/VT6hCcvKWpf1qVOKqUBRaW9HGPpJsIxeEcR45DJdcuWrLQ2ne9yPKWCYG
+         gbkIHXdad5+H5M/CmPrQItYcPW2xHeJx+HX9lirz2sTfLGRXW8qkE82Lv7UahjwG0NXr
+         qEXZEeVwMNi1VM3/3+Lq66gVbgM9+4PFFARrJEEs3ZQ9lZ2Lid/Tm4Me86lAPVLxwBh0
+         sTdDMaACcRcvu2s9YONFUvAOmMkoPzAfw7CyJ0Wsv+YjkiSyrBsiummAlg0v55j8L8iI
+         S3mQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU/5TUC3Oh1H1y/zGvycxZMOLfUe7dcxL+ApPA7le/+IJvybMwhVjT/eYsz4o6AFIg6J5Cb1sTAPmk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwjqtZluhVUV6J0yNQCGQcfpBz7abdWYGS7kjna80wJsQio78rs
+	LzhPS//swwHxV8/gcaD3t/mHgLDInZqT77Z7FHq87aM2mrCqdhftK923ezqd3w==
+X-Gm-Gg: ASbGncsy6PeMj4Hi/IIZA3GvavzRcZDlSZ/hMYn0eogEtVKCCC2xIeYFtLr3/ZuNNUo
+	eMNmp90jOXdmJvToyHy/CBdQ4E/jDgDxJSf1s66cb1AnqyieE01skYpy2ymGxlMpZpzTMrVGuBR
+	toYcd/4YJULdp1FRn8NBpl0MMRfRhgqRDMt9X8Sd1M4vhStYqpI1dd5GX+4dqrN0ziWOhE4rqjc
+	gJs3IQZaxwMjlZQjPyqxPn5HB8c0nvQNLFy3BrwgjYWp4StTenPD0ciPup4fkoYM86Z46mRYwgZ
+	+FoT+WO5+VFopSy8Ac9We3MRghB6nR7xvzBmEAc=
+X-Google-Smtp-Source: AGHT+IG3rmi4UCsJMboa/LGF1Mgeehvedn9Jp0g4R8lWp9f5oc1VslPX0YrzC9W6/ODC3uisJzoJHA==
+X-Received: by 2002:a05:6000:154a:b0:385:ef2f:92ad with SMTP id ffacd0b85a97d-3864ce86a7fmr1585356f8f.10.1733905524188;
+        Wed, 11 Dec 2024 00:25:24 -0800 (PST)
+Message-ID: <328c3bb6-1adf-4c64-81d4-40704ea1f19e@suse.com>
+Date: Wed, 11 Dec 2024 09:25:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] xen: common: add ability to enable stack protector
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20241211020424.401614-1-volodymyr_babchuk@epam.com>
- <20241211020424.401614-3-volodymyr_babchuk@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
+ <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
+ <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+ <BL1PR12MB58499BEB287C4F9711324F71E73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <1e0576d9-400e-4483-8dd1-061e215a00cd@suse.com>
+ <BL1PR12MB584945F11C271CE137231F7BE73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <a07bca59-90d2-4a84-bb47-59157bf5207d@suse.com>
+ <Z1glF5FJjnSzRqsB@macbook.local>
+ <BL1PR12MB58492072C5D445052FD056D5E73E2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,251 +126,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241211020424.401614-3-volodymyr_babchuk@epam.com>
+In-Reply-To: <BL1PR12MB58492072C5D445052FD056D5E73E2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.12.2024 03:04, Volodymyr Babchuk wrote:
-> Both GCC and Clang support -fstack-protector feature, which add stack
-> canaries to functions where stack corruption is possible. This patch
-> makes general preparations to enable this feature on different
-> supported architectures:
-> 
->  - Added CONFIG_HAS_STACK_PROTECTOR option so each architecture
->    can enable this feature individually
->  - Added user-selectable CONFIG_STACK_PROTECTOR option
->  - Implemented code that sets up random stack canary and a basic
->    handler for stack protector failures
-> 
-> Stack guard value is initialized in three phases:
-> 
-> 1. Pre-defined randomly-selected value.
-> 
-> 2. Early use of linear congruent random number generator. It relies on
-> get_cycles() being available very early. If get_cycles() returns zero,
-> it would leave pre-defined value from the previous step. Even when
-> get_cycles() is available, it's return value may be easily predicted,
-> especially on embedded systems, where boot time is quite consistent.
-> 
-> 3. After hypervisor is sufficiently initialized, stack guard can be
-> set-up with get_random() function, which is expected to provide better
-> randomness.
-> 
-> Also this patch adds comment to asm-generic/random.h about stack
-> protector dependency on it.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> 
-> ---
-> 
-> Changes in v3:
->  - Fixed coding style in stack-protector.h
->  - Extended panic() message
->  - Included missed random.h
->  - Renamed Kconfig option
->  - Used Andrew's suggestion for the Kconfig help text
->  - Added "asmlinkage" attribute to __stack_chk_fail() to make Eclair
->  happy
->  - Initial stack guard value is random
->  - Added LCG to generate stack guard value at early boot stages
->  - Added comment to asm-generic/random.h about dependencies
->  - Extended the commit message
-> 
-> Changes in v2:
->  - Moved changes to EMBEDDED_EXTRA_CFLAGS into separate patch
->  - Renamed stack_protector.c to stack-protector.c
->  - Renamed stack_protector.h to stack-protector.h
->  - Removed #ifdef CONFIG_X86 in stack-protector.h
->  - Updated comment in stack-protector.h
->    (also, we can't call boot_stack_chk_guard_setup() from asm code in
->    general case, because it calls get_random() and get_random() may
->    depend in per_cpu infrastructure, which is initialized later)
->  - Fixed coding style
->  - Moved CONFIG_STACK_PROTECTOR into newly added "Compiler options"
->  submenu
->  - Marked __stack_chk_guard as __ro_after_init
-> ---
->  xen/Makefile                      |  4 +++
->  xen/common/Kconfig                | 15 ++++++++++
->  xen/common/Makefile               |  1 +
->  xen/common/stack-protector.c      | 47 +++++++++++++++++++++++++++++++
->  xen/include/asm-generic/random.h  |  5 ++++
->  xen/include/xen/stack-protector.h | 30 ++++++++++++++++++++
->  6 files changed, 102 insertions(+)
->  create mode 100644 xen/common/stack-protector.c
->  create mode 100644 xen/include/xen/stack-protector.h
-> 
-> diff --git a/xen/Makefile b/xen/Makefile
-> index 34ed8c0fc7..0de0101fd0 100644
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -432,7 +432,11 @@ else
->  CFLAGS_UBSAN :=
->  endif
->  
-> +ifeq ($(CONFIG_STACK_PROTECTOR),y)
-> +CFLAGS += -fstack-protector
-> +else
->  CFLAGS += -fno-stack-protector
-> +endif
+On 11.12.2024 08:57, Chen, Jiqian wrote:
+> On 2024/12/10 19:25, Roger Pau Monné wrote:
+>> So you suggest that the capability should be hidden in that case?  We
+>> have logic to hide capabilities, just not used for the hardware
+>> domain.  It would need some extra wiring to be capable of hiding
+>> failed capabilities.
+> Can you give me a guidance on how to hide a failed capability?
+> What codes are current logic to hide capabilities?
+> Then maybe I can add a patch to implement it.
 
-Personally I'd prefer if we consistently used the list approach we use
-in various places, whenever possible:
+It's really the other way around right now for "normal" capabilities:
+We whitelist what we expose. See init_header()'s logic after checking
+the PCI_STATUS_CAP_LIST bit. Actually past that block there's
 
-CFLAGS-stack-protector-y := -fno-stack-protector
-CFLAGS-stack-protector-$(CONFIG_STACK_PROTECTOR) := -fstack-protector
-CFLAGS += $(CFLAGS-stack-protector-y)
+        /* Extended capabilities read as zero, write ignore */
+        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL, 0x100, 4,
+                               (void *)0);
 
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -86,6 +86,9 @@ config HAS_UBSAN
->  config HAS_VMAP
->  	bool
->  
-> +config HAS_STACK_PROTECTOR
-> +	bool
-
-Please obey to alphabetic sorting in this region of the file.
-
-> @@ -213,6 +216,18 @@ config SPECULATIVE_HARDEN_LOCK
->  
->  endmenu
->  
-> +menu "Compiler options"
-> +
-> +config STACK_PROTECTOR
-> +	bool "Stack protector"
-> +	depends on HAS_STACK_PROTECTOR
-> +	help
-> +	  Enable the Stack Protector compiler hardening option. This inserts a
-> +	  canary value in the stack frame of functions, and performs an integrity
-> +	  check on exit.
-> +
-> +endmenu
-
-"Compiler options" reads a little odd to me as a menu title. The preceding one
-is "Speculative hardening"; how about making this one "Other hardening" or some
-such?
-
-> --- /dev/null
-> +++ b/xen/common/stack-protector.c
-> @@ -0,0 +1,47 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-
-Nit: I don't think we permit C++ comments as per our style.
-
-> +#include <xen/init.h>
-> +#include <xen/lib.h>
-> +#include <xen/random.h>
-> +#include <xen/time.h>
-> +
-> +/*
-> + * Initial value is chosen by a fair dice roll.
-> + * It will be updated during boot process.
-> + */
-> +#if BITS_PER_LONG == 32
-> +unsigned long __ro_after_init __stack_chk_guard = 0xdd2cc927UL;
-> +#else
-> +unsigned long __ro_after_init __stack_chk_guard = 0x2d853605a4d9a09cUL;
-> +#endif
-> +
-> +/* This function should be called from ASM only */
-
-And with no (stack-protector enabled) C functions up the call stack. This
-may be as easy to express in the comment as by simply adding "early".
-However, considering the so far hypothetical case of offering the feature
-also on x86: What about xen.efi, which from the very start uses C code?
-
-> +void __init asmlinkage boot_stack_chk_guard_setup_early(void)
-> +{
-> +    /*
-> +     * Linear congruent generator (X_n+1 = X_n * a + c).
-> +     *
-> +     * Constant is taken from "Tables Of Linear Congruential
-> +     * Generators Of Different Sizes And Good Lattice Structure" by
-> +     * Pierre L’Ecuyer.
-> +     */
-> +#if BITS_PER_LONG == 32
-> +    const unsigned long a = 2891336453UL;
-> +#else
-> +    const unsigned long a = 2862933555777941757UL;
-> +#endif
-> +    const unsigned long c = 1;
-> +
-> +    unsigned long cycles = get_cycles();
-> +
-> +    /* Use the initial value if we can't generate random one */
-> +    if ( !cycles )
-> +	    return;
-
-Nit: Indentation (no hard tabs please).
-
-> +    __stack_chk_guard = cycles * a + c;
-> +}
-> +
-> +void asmlinkage __stack_chk_fail(void)
-> +{
-> +    panic("Stack Protector integrity violation identified in %ps\n",
-> +	  __builtin_return_address(0));
-
-Again.
-
-Is panic() really the right construct to use here, though?
-__builtin_return_address() will merely identify the immediate caller. A
-full stack trace (from BUG()) would likely be more useful in identifying
-the offender.
-
-> --- a/xen/include/asm-generic/random.h
-> +++ b/xen/include/asm-generic/random.h
-> @@ -2,6 +2,11 @@
->  #ifndef __ASM_GENERIC_RANDOM_H__
->  #define __ASM_GENERIC_RANDOM_H__
->  
-> +/*
-> + * When implementing arch_get_random(), please make sure that
-> + * it can provide random data before stack protector is initialized
-> + * (i.e. before boot_stack_chk_guard_setup() is called).
-> + */
->  static inline unsigned int arch_get_random(void)
->  {
->      return 0;
-
-What exactly will go (entirely) wrong if the comment isn't followed?
-(I'm afraid anyway that the comment living here is easy to miss.)
-
-> --- /dev/null
-> +++ b/xen/include/xen/stack-protector.h
-> @@ -0,0 +1,30 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef XEN__STACK_PROTECTOR_H
-> +#define XEN__STACK_PROTECTOR_H
-> +
-> +#ifdef CONFIG_STACK_PROTECTOR
-> +
-> +#include <xen/random.h>
-> +
-> +extern unsigned long __stack_chk_guard;
-> +
-> +/*
-> + * This function should be always inlined. Also it should be called
-> + * from a function that never returns or a function that has
-> + * stack-protector disabled.
-> + */
-
-As to the latter - that's not just "a function" but an entire call
-stack that would need to have stack protector disabled.
-
-> +static always_inline void boot_stack_chk_guard_setup(void)
-> +{
-> +    __stack_chk_guard = get_random();
-> +    if (BITS_PER_LONG == 64)
-
-Nit: Style (missing blanks).
-
-> +        __stack_chk_guard |= ((unsigned long)get_random()) << 32;
-
-Nit: No real need for the outer pair of parentheses.
+I.e. no extended capabilities are exposed at all right now to DomU-s.
+For Dom0 I guess we shouldn't use whitelisting, but the (extended)
+capability list(s) would need similarly virtualizing to be able to
+hide some.
 
 Jan
 
