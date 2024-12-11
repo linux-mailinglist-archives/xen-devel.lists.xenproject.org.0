@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C4CC9ECCA4
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 13:56:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854787.1267905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB169ECD6D
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 14:40:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854806.1267915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLMG6-0002Uc-Qq; Wed, 11 Dec 2024 12:56:06 +0000
+	id 1tLMwI-0000zx-DH; Wed, 11 Dec 2024 13:39:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854787.1267905; Wed, 11 Dec 2024 12:56:06 +0000
+Received: by outflank-mailman (output) from mailman id 854806.1267915; Wed, 11 Dec 2024 13:39:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLMG6-0002SY-N2; Wed, 11 Dec 2024 12:56:06 +0000
-Received: by outflank-mailman (input) for mailman id 854787;
- Wed, 11 Dec 2024 12:56:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tLMwI-0000xq-AR; Wed, 11 Dec 2024 13:39:42 +0000
+Received: by outflank-mailman (input) for mailman id 854806;
+ Wed, 11 Dec 2024 13:39:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lbUB=TE=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tLMG4-0002S9-Ni
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 12:56:04 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45555380-b7bf-11ef-99a3-01e77a169b0f;
- Wed, 11 Dec 2024 13:56:01 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1733921754815984.1324331564064;
- Wed, 11 Dec 2024 04:55:54 -0800 (PST)
+ <SRS0=Dco5=TE=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tLMwG-0000xk-KU
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 13:39:40 +0000
+Received: from fhigh-b3-smtp.messagingengine.com
+ (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d39a259-b7c5-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 14:39:38 +0100 (CET)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 7F42A2540206;
+ Wed, 11 Dec 2024 08:39:36 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-11.internal (MEProxy); Wed, 11 Dec 2024 08:39:36 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Dec 2024 08:39:34 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,94 +45,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45555380-b7bf-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1733921756; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Lsl2ylJLN41Tku0prPda7vepjA4owF1bl6PyPeFIFS4+UK17HBb/W0zKhBRqi7djk+DK9/sUy8pX80expII4tfop5QZ4iMK9PbAgL/2ltWjSQHLKB7mN+jfYbVePNSqCkNYmYPuRPBIJyzms9nwqcBAtUdVYICs7FLghXR90hw0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1733921756; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=WqCnRw5mQECy6J4x3YUdWuo+CzPSZcc+qQtrCAgcYAs=; 
-	b=f5bzd4Se7mPy/M/1tVaw3YbZvjaxeyal0DVmJFIzrHyIgDC+xXPjAqsIunOixkpXK52hfYwQBAs/pHeXAPlyvfwgMAeQxEbYGcdLPHLEtTax3jQSJmzUq3+W3uUjGtkum6TBE1tSjMpw4HkhinC8Kd1Osi7ANxyTcINU2yXwBds=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733921756;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=WqCnRw5mQECy6J4x3YUdWuo+CzPSZcc+qQtrCAgcYAs=;
-	b=NJ9V+UN2HIkGOhoz7hPUpENcBCWYfLCxSWUphhk9EPHZoaVdSKrIbZeldlKIAOEb
-	KVdEqdTardywBv3Eur3R1M6S3pdE3IlMrbtodjl3CLhLaBnZ1xrhscJB+zbIggREO2x
-	DPNm/7yQb4qDI1BFMhaShsbjXMpgerQBGwmlRQAE=
-Message-ID: <aa8c6dd3-620a-4caa-a301-f5319ca1a63c@apertussolutions.com>
-Date: Wed, 11 Dec 2024 07:55:52 -0500
+X-Inumbo-ID: 5d39a259-b7c5-11ef-a0d5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1733924376;
+	 x=1734010776; bh=G59R63w7pp1XzMR3o2VnXf8tL/viZNZpLW1rWOzSo18=; b=
+	GSTLnue2+Wl7lKboa0ziFMuIxJ6J4FWaAqXpX2a5BrOtcDrAMv/DMXGEhdElNhcJ
+	8yuhdG5CeTGhkw5skMSe1Rnriwveg1cB3W82Gm6tU+eac4Vz60xJEXaXwQm1MuMd
+	VW1JKoB3x2pjYbqhguD+KOH51J5FtwlzLa/suYwuWO4Q8aMNPO0CwdV+SFU5FOCq
+	QlQhgsxqN4jTbGRumoLuhmtYlUm8k4qDwnVh5AE0sv7rx6AhaVLRCZpmgXg0u3TF
+	DtoD1Gtbex5pJjI/mLP1i+YfbMeFO2AB8xVI4fGs6C8NnnrQzXKqVBhYEKprYucs
+	eezBbv1jGS9syw7w8UL3BQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1733924376; x=1734010776; bh=G59R63w7pp1XzMR3o2VnXf8tL/viZNZpLW1
+	rWOzSo18=; b=Mt3v68gh2wcMs3WFmNoSVvNN+T76pQqmJrYq1XMVrvARs0vZSCH
+	7lkt+6Gb/PsyW5A9lxgRtFfF4AzyALIRMPD3LUd13DMo212Efp4YGHOYwva5Zp7f
+	wx3qLZNsiHKT9nCyeYv2sQzIcTkaML+L6W+m8JiLkIZ0y+t6Kdk3aSH3t5apHOr0
+	vrRkFwlMk4OzpKU612yH7ezvWRwr8L39OEsJ2TF08kYACpst27z9iPfo2V1J3Hqc
+	axr0iWSuIiDhWOtX3uFkEKxUCX4eUfUKSbW8v0F4tY5bza0bxrTBClWu4sdevQNp
+	0MgU42F5w+7cGewTUO57XFra1kw02HuzxgA==
+X-ME-Sender: <xms:GJZZZ3lHw9dr4NPWq4FuM6NkDfMvakizUoqYxGEtYcEZr4v6Dw8d7g>
+    <xme:GJZZZ61A3ml19Gi2fmGSBKVFwmU9M5QXXsuG_V9_xcS6unyEqNzSIDNJ8Smnc0LXS
+    r00NisZZZjOqw>
+X-ME-Received: <xmr:GJZZZ9pPmV5OVvHNG1LqfqHaIXZiJ-k2MKXX7gZiPG7Wpe435sc7r06AgeecIjlEy0ImskhFO4AwQdRP23e_U2L6QUGkpfrFdg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrkedtgdehgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
+    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
+    hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecu
+    hfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrg
+    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffr
+    rghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegue
+    etfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
+    pehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsg
+    gprhgtphhtthhopeekpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrrhgusges
+    khgvrhhnvghlrdhorhhgpdhrtghpthhtohepghhrvghgkhhhsehlihhnuhigfhhouhhnug
+    grthhiohhnrdhorhhgpdhrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdprhgt
+    phhtthhopehjrghnughrhihukhesghhmrghilhdrtghomhdprhgtphhtthhopehsshhtrg
+    gsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopeholhgvkhhsrghnughr
+    pghthihshhgthhgvnhhkohesvghprghmrdgtohhmpdhrtghpthhtoheprhgvghhrvghssh
+    hiohhnsheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopeigvghnqdguvghv
+    vghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
+X-ME-Proxy: <xmx:GJZZZ_lH4PLWUpYf-D9YnMQT8grGXjdAXelPdLy62LFfInSjJUW0wA>
+    <xmx:GJZZZ10f-G1B7P8puSHBT4DBYGFIj5rcfD7_tXgzCpOWlAPrTR60cg>
+    <xmx:GJZZZ-uEdc8r8w_Qxjob-t-1cog9gqPUqA9EyRXhqdvoGYAueo4Hgg>
+    <xmx:GJZZZ5VLtq8FF8pwtjixGolGXrGUkSJMcFNMq6XTX3K3m4GJ0_OMkQ>
+    <xmx:GJZZZ-LiA15Vy-6DRaE-aZ13ccpmKC1kUKkFEhB0ciWuy17MvJ7XrwAW>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 11 Dec 2024 14:39:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Jason Andryuk <jandryuk@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	regressions@lists.linux.dev,
+	xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [REGRESSION] Linux 6.6.64 crashes when booting as PVH domU
+Message-ID: <Z1mWFcm_036BrvEq@mail-itl>
+References: <Z1l6XbHP6BTTZSwr@mail-itl>
+ <fe8db5b2-7524-49ea-ab8e-21f831dc009f@suse.com>
+ <CAMj1kXHSiCo7FH0Mo-_R9HjxhthddPUZfgm5c8yj7vjGvgfTPg@mail.gmail.com>
+ <Z1mF0UZPNLjYAJI7@mail-itl>
+ <CAMj1kXFVd+2n1fRoOriwmAPH8yX22gSy7_m_1SVjtoG3r_=-Tw@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/15] x86/hyperlaunch: initial support for hyperlaunch
- device tree
-To: Jan Beulich <jbeulich@suse.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
- <20241123182044.30687-8-dpsmith@apertussolutions.com>
- <bf3edc2e-1bef-45c3-9853-a8a208d8888f@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <bf3edc2e-1bef-45c3-9853-a8a208d8888f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ixZe9eDMs4Thjeq6"
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXFVd+2n1fRoOriwmAPH8yX22gSy7_m_1SVjtoG3r_=-Tw@mail.gmail.com>
 
-On 12/2/24 06:37, Jan Beulich wrote:
-> On 23.11.2024 19:20, Daniel P. Smith wrote:
->> Add the ability to detect both a formal hyperlaunch device tree or a dom0less
->> device tree. If the hyperlaunch device tree is found, then count the number of
->> domain entries, reporting if more than one is found.
-> 
-> "reporting" reads like informational logging, when comment and printk() in
-> walk_hyperlaunch_fdt() indicate this is actually an error (for now).
 
-That is not a shared assumptive reading. It is equally correct to say I 
-will report info and I will report an error. With that said, I can make 
-it explicit.
+--ixZe9eDMs4Thjeq6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Dec 2024 14:39:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Jason Andryuk <jandryuk@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	regressions@lists.linux.dev,
+	xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [REGRESSION] Linux 6.6.64 crashes when booting as PVH domU
 
->> --- a/xen/arch/x86/domain_builder/fdt.c
->> +++ b/xen/arch/x86/domain_builder/fdt.c
->> @@ -14,14 +14,76 @@
->>   
->>   #include "fdt.h"
->>   
->> +static int __init find_hyperlaunch_node(void *fdt)
->> +{
->> +    int hv_node = fdt_path_offset(fdt, "/chosen/hypervisor");
->> +    if ( hv_node >= 0 )
-> 
-> Nit: Blank line between declaration(s) and statement(s) please (also
-> elsewhere).
+On Wed, Dec 11, 2024 at 01:37:52PM +0100, Ard Biesheuvel wrote:
+> (cc Greg)
+>=20
+> On Wed, 11 Dec 2024 at 13:30, Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> >
+> > On Wed, Dec 11, 2024 at 01:24:08PM +0100, Ard Biesheuvel wrote:
+> > > On Wed, 11 Dec 2024 at 12:53, J=C3=BCrgen Gro=C3=9F <jgross@suse.com>=
+ wrote:
+> > > >
+> > > > Jason, Ard,
+> > > >
+> > > > I guess there are some prereq patches missing in stable 6.6.y branc=
+h?
+> > > >
+> > > >
+> > > > Juergen
+> > > >
+> > > > On 11.12.24 12:41, Marek Marczykowski-G=C3=B3recki wrote:
+> > > > > Hi,
+> > > > >
+> > > > > With Linux 6.6.64 I get the following crash on domU boot:
+> > > > >
+> > > > > (XEN) d5v0 Triple fault - invoking HVM shutdown action 1
+> > > > > (XEN) *** Dumping Dom5 vcpu#0 state: ***
+> > > > > (XEN) ----[ Xen-4.19.0  x86_64  debug=3Dn  Tainted:  M     ]----
+> ...
+> > > > >
+> > > > > Linux 6.6.63 works fine.
+> > > > >
+> > > > > Looking at the changes, I suspect one of those:
+> > > > >
+> > > > >      83d123e27623 x86/pvh: Call C code via the kernel virtual map=
+ping
+> > > > >      f662b4a69e1d x86/pvh: Set phys_base when calling xen_prepare=
+_pvh()
+> > > > >
+> > >
+> > > The second patch shouldn't have been backported. It is unnecessary,
+> > > given that in the old situation, the kernel image needs to be loaded
+> > > at a fixed address. And it assumes  that %rbp is set to the physical
+> > > load offset, but those patches were not backported.
+> >
+> > It has this tag:
+> >
+> >     Stable-dep-of: e8fbc0d9cab6 ("x86/pvh: Call C code via the kernel v=
+irtual mapping")
+> >
+>=20
+> That was added by the stable maintainers - someone grabbed a patch
+> from the middle of an unrelated series to make e8fbc0d9cab6 apply
+> without lexical conflicts.
+>=20
+> > Does it mean neither of them should be backported?
+> >
+> > But then, the e8fbc0d9cab6 has "Fixes:" tag (pointing at very old
+> > commit).
+> >
+>=20
+> If someone thinks e8fbc0d9cab6 should be backported, they should
+> rebase it onto v6.6.y, not backport random other patches until
+> git-apply stops complaining. And ideally, someone would build and boot
+> the result to check whether it works.
+>=20
+> For now, it would be better to revert both.
 
-ack.
+I can confirm that reverting both commits fixes the issue.
 
->> --- a/xen/arch/x86/domain_builder/fdt.h
->> +++ b/xen/arch/x86/domain_builder/fdt.h
->> @@ -11,11 +11,16 @@
->>   
->>   #ifdef CONFIG_DOMAIN_BUILDER
->>   int has_hyperlaunch_fdt(struct boot_info *bi);
->> +int walk_hyperlaunch_fdt(struct boot_info *bi);
->>   #else
->>   static inline int __init has_hyperlaunch_fdt(struct boot_info *bi)
->>   {
->>       return -EINVAL;
->>   }
->> +static int __init walk_hyperlaunch_fdt(struct boot_info *bi)
-> 
-> inline?
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Should have been.
+--ixZe9eDMs4Thjeq6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-v/r,
-dps
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmdZlhUACgkQ24/THMrX
+1yw7uQgAjf99iAKxgm+xGSQu3KZ7qFwugk8wI83J91QhOVb49AgP8xARFwT/OAqR
+DTg9gsbJqBlYrlYel3vcsTSLzOnSyifIKO5wlDid6Yf8MkIRbaPoIR+RAm7cN2sc
+R4qkljZT4dpt3Pd9mb91LjaGVo2LdNeHXNZs/ZDlkrZezYATfnJhhVc5LxWL8fo1
+O6+Jmrtb9d5DccpBU58E6dCD4H6lh5iOTWOQdWLy4AlQsC8Ea9GU/S0w5VZXrSkW
+6WMhsG9y9yN/S7nkfk4EBqIIsbGqsxBxyUTA+Pb4fpmBMtlwG4K9xBpOnNxgaI6S
+mpNisy29Un4rTXLJjkgJU5xUkKWeMQ==
+=+wW6
+-----END PGP SIGNATURE-----
+
+--ixZe9eDMs4Thjeq6--
 
