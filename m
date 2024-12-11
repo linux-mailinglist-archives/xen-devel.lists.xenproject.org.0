@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4ED19EC588
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 08:29:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.853890.1267226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 476FA9EC59E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 08:32:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.853898.1267236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLH9V-0004hW-VE; Wed, 11 Dec 2024 07:28:57 +0000
+	id 1tLHCY-0006pj-CC; Wed, 11 Dec 2024 07:32:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 853890.1267226; Wed, 11 Dec 2024 07:28:57 +0000
+Received: by outflank-mailman (output) from mailman id 853898.1267236; Wed, 11 Dec 2024 07:32:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLH9V-0004fn-S4; Wed, 11 Dec 2024 07:28:57 +0000
-Received: by outflank-mailman (input) for mailman id 853890;
- Wed, 11 Dec 2024 07:28:56 +0000
+	id 1tLHCY-0006nR-9E; Wed, 11 Dec 2024 07:32:06 +0000
+Received: by outflank-mailman (input) for mailman id 853898;
+ Wed, 11 Dec 2024 07:32:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2HaM=TE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLH9U-0004fg-Ei
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 07:28:56 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1tLHCX-0006nL-1t
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 07:32:05 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93ff1425-b791-11ef-a0d5-8be0dac302b0;
- Wed, 11 Dec 2024 08:28:55 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4361f65ca01so1502955e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 23:28:55 -0800 (PST)
+ id 04704712-b792-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 08:32:04 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-434ab938e37so41322035e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Dec 2024 23:32:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-216796e213bsm20618955ad.126.2024.12.10.23.28.51
+ d2e1a72fcca58-725ea154427sm5513039b3a.23.2024.12.10.23.32.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Dec 2024 23:28:54 -0800 (PST)
+ Tue, 10 Dec 2024 23:32:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93ff1425-b791-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 04704712-b792-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733902135; x=1734506935; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733902323; x=1734507123; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=01PaaWgxANIyZIvIY2UKbBezgzZGv6uv67val1nTgtE=;
-        b=Xgo1dOhCicpyQbHnnuCeK+PpWfqDwLbGv4QF8QDo0FxzuSX+E+pBan45zhrpJsIGhr
-         dD9ia2lCI/bvc0YSEoSLTBeD8X7xQF+bHGvDKMM0DgFwn3VGck+Fc9std7H/vLZpedq0
-         NTV2rTcqOBWceKcrgqGmXkKKmUU2cqqgJBP4yFPnNc55ttE1Nhi8gi5l1hKTGSm2vbO0
-         +pje7e7u+gzXkaM15V5Y6l6ShUBewuQWDLPIJUEh5Z4C5UTkvIO3UB5lwIheT39RenaE
-         lozirXHYqCuybyNy4cxwmT5xa67W3sjWxulWnrqTZQ0aQx50SkvfVd47wd8G7rBjmg0C
-         MBKw==
+        bh=TQj1Q/Dg1IBa6lfDQC9U5T3P7xWYQIqiU48W0LtOGq8=;
+        b=Svv197jIIC0GEdFmhpdGPSCWeHF4cjPTfuAQDo6OLHcbeH/1f1lulUYxHyKfgew2qK
+         XF/auASBOVHpf/KS6CJjiY78yfUZQ8WiUX8vEfTADTNGvLOLxHN7tKwDjq0+pbdAomfZ
+         552TXBhFRYVMYKLSJmvkmN50+qsphHKsEsas6P4phvlW8LNoKLPoJhdgQGI8XAukFuQF
+         vwAuq0mRLxv/+lVlc/vRG+YJcALQRWGb9ZEsF3UrBVkN37TFEwM4fRhz1FRTShkuGBtW
+         WGL/PtbZl0sqRII620q4QWczBNuXmc/NCFOarXC6iwhxslG2khoGM0dlcK+pS6G6PJ5B
+         RHZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733902135; x=1734506935;
+        d=1e100.net; s=20230601; t=1733902323; x=1734507123;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=01PaaWgxANIyZIvIY2UKbBezgzZGv6uv67val1nTgtE=;
-        b=HXon+I1ysJNyM3RPZDSr6CLg2yepdM5b60A06pB7Q9c0RZH/pCs1ipq8fEFWb2HTCP
-         J4LHE4veMhYBmREtAWkv0kivO0+2gfez+3Ir5ngSe4XYi7X+/miBqUTHespHp/9irIGe
-         EDZQT1KIJP5agBz2zxFMeq6eNzuMwQcopK95JTFVqTqKG7J6o46jVTwQTnD6V3peubJL
-         BASDXW5vPqNBZVTrpnN8eJgpF9EjlU00MycXr9BFipfXiQWjd+FYWBfGL7Yuv2qy2U7o
-         MQ9yKt4FGod57gLOjC7pSo79cgA08I4kQWQ2urYtqdUp03JbMZ7kAcL+fPPuya63DdKI
-         bZXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXuqbeLgapyOx9sq2XuPq9i9lrBJYDpxXFNBZ114N4acOORxDQbSQqJi2QalCM22ilXSokq+pMfhIA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx1JbFSUQkxJFJe80lbenXqoUEzVg9vO5qoSkNOTawRi0Vtq4QL
-	6S70AHbKwOLNKzXXylYsp/wyI+fpTIQu/FZAspVtn9hIg1JcMnjp/2tYQb/RCg==
-X-Gm-Gg: ASbGnctFNHm9nlero0DVKnZasqGwuz+I/OeQiqnCmGjU4nqKngn1YqSJYTFoyoK/lIk
-	sPLwYpnsyWyfk2BF1O+94feCnEWaN6N44hFJ4OpaFnk0mra2iePWkr+4AR8aQkEu8usWPOXtcYV
-	hh8ZohVqY6ldEL+5a8jALkJ2Z9PExq3GhRpAfx2NX/n8dlc2GxTzYNqqiu1je9dsBiZkFJu98kC
-	2iYG/9VOEvUrjFprkJaId5VwBXIPRtap5K+cCSS0piwNsoX11wn9urP7dyBqau7xyGjtCmMyIYz
-	ClFKOW9GkWg3Ro7COn0FrZzVIYgWO+Fq+wDRCN0=
-X-Google-Smtp-Source: AGHT+IHFOuHPWmuprje6fIwUTemXq+3Jp5ArCtETqJawgQh6kGYzFfSlitgtcwAnb6J6+nYvZ3f8oA==
-X-Received: by 2002:a5d:5989:0:b0:386:3e0f:944b with SMTP id ffacd0b85a97d-3864cec582bmr1021468f8f.37.1733902134885;
-        Tue, 10 Dec 2024 23:28:54 -0800 (PST)
-Message-ID: <d55bf6a6-5861-4b72-88b5-2aaa28ae0290@suse.com>
-Date: Wed, 11 Dec 2024 08:28:48 +0100
+        bh=TQj1Q/Dg1IBa6lfDQC9U5T3P7xWYQIqiU48W0LtOGq8=;
+        b=nSgkl7O/myw4sV3q/CCmUmqEalJyyqo4tZid6lLHnJRJHLNFDJWDXknOy90EmDkGIF
+         goo80WhcwMGChOab1BHXTAcfEiTLQocWvS1QZTLVFcKyUL0pOHAld5E3Y4Xi0xoGuVQ5
+         Og/0Lr3aqI8JY6WO1kk1R4KdQ85k7UuYSWVaQYKgwV4x414IuisnczO8WO01ikfcBf+B
+         EZ7vhXMFyh4NLLG09r7V+XATU4BFC4voUhB84AZMm9x/XPMDd5DN32ml6mUOdwofLjDI
+         p7Qd/9FfePt3WNOpljhh5IjnMmBWz9tsDktgtEckZJbN5a1W1Z0ptx10qnSFVoL2ubEj
+         GYKw==
+X-Forwarded-Encrypted: i=1; AJvYcCVxhZf9FHA/nfnFnZ5DhpX/Ilp15kjB9oNbw72MnovegyjVEWSPkgiFbEzOVsh5yHrJbRn6KJN9LyM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyIIgOI/w/9AVLqixD6M92FFmV01P1R9gr705saC8GkTylMrJ8M
+	x1aVZ4WtNJxoLyuIa1YQ6y19dRUo5VnLn8QoAq5z2lUB7RvGu+J580ww3Bn2YQ==
+X-Gm-Gg: ASbGncum50gsTczvk7lPJYEYhxXne4wEjRk5K/P/ck57PsAMUeZXvgz/Por9BqsWgiQ
+	HRq1pyNIK43XsZVc2EGSeOectraaC9Z2WyNEOauXz074ri5Xx0fEgXTVG+cixzYQXzGrVLQ7q9M
+	KI9fBM453c6zWKFQsgYLuhehWs8BPbk62GX7gPmpCy9xidMhVgosjr4JgwRRwxDQG5v1OvFTV4J
+	o0Qi//pyWNW1myre8hX9o8ax2aOMA+L7Kogk1lJkqmmipZ/YCiixqVt/iGw3Wzhz2p0vlEwCP8+
+	bkEQCqfZg7GGzEjo2TrWTStxFvAgHDm+gbfZYlc=
+X-Google-Smtp-Source: AGHT+IFmYBh8Cq49+S6xL3YoRdA5+LNnvf/gnBwTyzN40NUvOv0ippOHJ3mgvl/VoRF0lg+EbdCnWw==
+X-Received: by 2002:a5d:64aa:0:b0:385:e0d6:fb48 with SMTP id ffacd0b85a97d-3864ce894b6mr1313976f8f.7.1733902323515;
+        Tue, 10 Dec 2024 23:32:03 -0800 (PST)
+Message-ID: <be92d586-0185-4753-8f30-2c7fd92f01dd@suse.com>
+Date: Wed, 11 Dec 2024 08:31:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 20/35] xen/console: introduce console_owner_domid()
-To: dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 21/35] xen/console: introduce console_init_owner()
+To: dmukhin@ford.com
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-20-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-21-e9aa923127eb@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,23 +117,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241205-vuart-ns8250-v1-20-e9aa923127eb@ford.com>
+In-Reply-To: <20241205-vuart-ns8250-v1-21-e9aa923127eb@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> console_owner_domid() is introduced to obtain the "console owner" domain ID.
-> 
-> The call is used in NS8250 emulator to identify the case when physical xen
-> console focus is owned by the domain w/ NS8250 emulator, in which case,
-> messages from guest OS are formatted w/o '(XEN)' prefix.
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -554,6 +554,22 @@ static void console_find_owner(void)
+>          console_set_owner(DOMID_XEN);
+>  }
+>  
+> +static void console_init_owner(void)
+> +{
+> +    domid_t domid;
+> +
+> +    /*
+> +     * If user specifies so, we fool the switch routine to redirect input
+> +     * straight back to Xen.
+> +     */
+> +    if ( opt_conswitch[1] == 'x' )
+> +        domid = DOMID_XEN;
+> +    else
+> +        domid = get_initial_domain_id();
+> +
+> +    console_set_owner(domid);
+> +}
 
-Such messages ought to be processed through guest_printk(), which wants a
-domain pointer, not a domid_t anyway. Plus isn't that going to be
-current->domain anyway at the callsite, eliminating the need for such a
-helper altogether?
+Is this function meant to gain a 2nd user? If not, what exactly is the goal
+of introducing this new function?
+
+If the function's addition is warranted, it wants to be __init, matching ...
+
+> @@ -1160,8 +1168,7 @@ void __init console_endboot(void)
+>      register_irq_keyhandler('G', &do_toggle_guest,
+>                              "toggle host/guest log level adjustment", 0);
+>  
+> -    /* Serial input is directed to DOM0 by default. */
+> -    console_find_owner();
+> +    console_init_owner();
+>  }
+
+... sole caller.
 
 Jan
 
