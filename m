@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E1F9EC308
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 04:14:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.853738.1267116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC299EC30E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 04:15:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.853748.1267126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLDAk-0000rb-3b; Wed, 11 Dec 2024 03:13:58 +0000
+	id 1tLDC1-0001sF-Co; Wed, 11 Dec 2024 03:15:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 853738.1267116; Wed, 11 Dec 2024 03:13:58 +0000
+Received: by outflank-mailman (output) from mailman id 853748.1267126; Wed, 11 Dec 2024 03:15:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLDAk-0000pg-0w; Wed, 11 Dec 2024 03:13:58 +0000
-Received: by outflank-mailman (input) for mailman id 853738;
- Wed, 11 Dec 2024 03:13:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tLDC1-0001pf-9P; Wed, 11 Dec 2024 03:15:17 +0000
+Received: by outflank-mailman (input) for mailman id 853748;
+ Wed, 11 Dec 2024 03:15:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lbUB=TE=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tLDAi-0000mA-OJ
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 03:13:56 +0000
+ id 1tLDC0-0001Nc-KR
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 03:15:16 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f29b0b79-b76d-11ef-99a3-01e77a169b0f;
- Wed, 11 Dec 2024 04:13:53 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1733886827398706.3806840203956;
- Tue, 10 Dec 2024 19:13:47 -0800 (PST)
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 236945cb-b76e-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 04:15:15 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1733886904287260.9778254562499;
+ Tue, 10 Dec 2024 19:15:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,104 +38,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f29b0b79-b76d-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1733886829; cv=none; 
+X-Inumbo-ID: 236945cb-b76e-11ef-a0d5-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1733886907; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=N7hBbLL3inN7mqF1mJV69T0pAk6Rp9rYqZTXxZkefpUGLCSdss6lf7pUUzwcJDq3Nb7IzXWu3h2bjMjuKH66dJlWkOHDxHqphfRDUIuRxXhOIkV8NOTIKCRX5+VVcLJC9I8YPcf/+wYP8iWbkrZex0LUPHtIl/YuMiAG42URBNk=
+	b=W2ORHf/mKbQQAfTZA9Onw3fPGJ+6144y9v5XhV3f6bIIrjUjmWSYjp5ZT3jG4Gm/RSlrjXX1WnnkjLAWfqFW3Rbl8ddPs4Kyb/E3duQHIGm/N78BREQFt9/ANVRGcut+7Aroayncl3ogg2VkGmADWYjuJZl4Ho5UQJH47Etd/UE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1733886829; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=+ZV6I/NgstiBhyVEqKTX60i171W5W3XGpeYJhsvctzE=; 
-	b=IbDTAWa5ERfxu5KLgwF5yMZi4XqfXJwQUsN1cKhDRwT0DDIhzImQWw2lg15o37I0XOQwHR3YZ4Mlfos5e99QAhF9mjsVjP8oYkPu7tM2aJKU4vENuiItgy3Nl1voNGGwfmP0pjFIZKXw03fxzHPrkfYlaUSGepNuL24/1gBY5Q8=
+	t=1733886907; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fFufXiXPkg6kDgH9fpNCf7zCQc40rCir74TbHskC/Mc=; 
+	b=YOCA8nA2FTIBnoGEWOHwiEFiu8lW7n/eQJftEtXxUxgaKK51WiGNesSm5dUrJkWdLyVz48Wylovw3HKitMIbDt1mGEWAb/fxOOh7u13YiFqzwGWjxudGzS+t8oIYCnNJoCqxmbIrSVoifgbz8t/MbWdxjMG+ijqitwrH5W9n+1o=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733886828;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733886907;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=+ZV6I/NgstiBhyVEqKTX60i171W5W3XGpeYJhsvctzE=;
-	b=PJLeMl8z9bd1ZnIUGFDUSwJEMELVzGN7nBJ+EX58awzVrl61Fcg3EdvUaY0D12Mn
-	//pz4J8+Clrf0ttoYtbyLwizfBQRFzfkddFe/8mvyFLP7RcF25Vr67lBdKg01IfdNxg
-	3NwXoKYsUTMDiTeVw6cC8OVnhgvcUb3QKevMSANo=
-Message-ID: <cd195c2f-2f4c-4a5f-8cb3-a68ffd50df09@apertussolutions.com>
-Date: Tue, 10 Dec 2024 22:13:44 -0500
+	bh=fFufXiXPkg6kDgH9fpNCf7zCQc40rCir74TbHskC/Mc=;
+	b=AWUY3GQ9bH5pf9vA8Q9CsMkSheiyzfAe9pWPa3x0k+8wiK/A9IzTgnD6QTQwtOTG
+	uyAVWmf3SNyJSCyWIoh1zI4hOnhWAzZfrw2udhz3oC8SPWVbok3IwJ/mYs17epbEzHl
+	yU+snm1Z27PvrbX57p4QLllhm6Htjmo4xDC78ozs=
+Message-ID: <f3240ec7-879a-4476-bceb-e43cb2be4daa@apertussolutions.com>
+Date: Tue, 10 Dec 2024 22:15:02 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 05/15] kconfig: introduce domain builder config option
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
  <20241123182044.30687-6-dpsmith@apertussolutions.com>
- <45787e79-87e3-4583-aecb-4155195ab230@amd.com>
+ <aa722ea4-304b-47ec-9d93-ee88a03b7b53@suse.com>
 Content-Language: en-US
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <45787e79-87e3-4583-aecb-4155195ab230@amd.com>
+In-Reply-To: <aa722ea4-304b-47ec-9d93-ee88a03b7b53@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 11/25/24 12:55, Jason Andryuk wrote:
-> On 2024-11-23 13:20, Daniel P. Smith wrote:
->> Hyperlaunch domain builder will be the consolidated boot time domain 
->> building
->> logic framework. Introduces the config option to enable this domain 
->> builder to
->> and turn on the ability to load the domain configuration via a 
->> flattened device
-> 
-> "to and"?
-> 
+On 11/26/24 05:09, Jan Beulich wrote:
+> On 23.11.2024 19:20, Daniel P. Smith wrote:
+>> Hyperlaunch domain builder will be the consolidated boot time domain building
+>> logic framework. Introduces the config option to enable this domain builder to
+>> and turn on the ability to load the domain configuration via a flattened device
 >> tree.
-> 
-> Maybe:
-> "Hyperlaunch is the boot time domain building framework where domain 
-> configuration is loaded via a flattened device tree.  Introduce a 
-> kconfig variable to control the feature."
-
-Sure.
-
+>>
 >> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   xen/arch/x86/Kconfig                |  2 ++
+>>   xen/arch/x86/domain_builder/Kconfig | 15 +++++++++++++++
+>>   2 files changed, 17 insertions(+)
+>>   create mode 100644 xen/arch/x86/domain_builder/Kconfig
 > 
->> diff --git a/xen/arch/x86/domain_builder/Kconfig b/xen/arch/x86/ 
->> domain_builder/Kconfig
->> new file mode 100644
->> index 000000000000..7be2ec3ed00f
->> --- /dev/null
->> +++ b/xen/arch/x86/domain_builder/Kconfig
->> @@ -0,0 +1,15 @@
->> +
->> +menu "Domain Builder Features"
->> +
->> +config DOMAIN_BUILDER
->> +    bool "Domain builder (UNSUPPORTED)" if UNSUPPORTED
->> +    select LIB_DEVICE_TREE
->> +    help
->> +      Enables the domain builder capability to configure boot domain
-> 
-> Indent is off.
+> I think I mentioned this already back when the much bigger series was first
+> posted: Please no underscores in new file (or directory) names; dashes are
+> to be preferred.
 
-ack
-
->> +      construction using a flattened device tree.
->> +
->> +      This feature is currently experimental.
-> 
-> Does this need to be unsupported and experimental?  What makes this more 
-> experimental and/or unsupported than any other new feature?
-
-I don't believe it is a unilateral decision I get to make. In fact, with 
-the directory introduction, a new HYPERLAUNCH section in MAINTAINERS 
-might be warranted with this commit. If so, I would think myself, 
-Christopher, and the x86 maintainers would all be set as maintainers for 
-the feature.
-
-> At least with the commit message and indent fixes:
-> 
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-thanks!
+You are correct, my apologies for dropping that and I will fix it.
 
 v/r,
 dps
