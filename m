@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF0A9ED3CA
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 18:40:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855181.1268191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D95A59ED406
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 18:48:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855195.1268201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLQgs-0006mc-3j; Wed, 11 Dec 2024 17:40:02 +0000
+	id 1tLQoz-00020s-UE; Wed, 11 Dec 2024 17:48:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855181.1268191; Wed, 11 Dec 2024 17:40:02 +0000
+Received: by outflank-mailman (output) from mailman id 855195.1268201; Wed, 11 Dec 2024 17:48:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLQgs-0006k4-0H; Wed, 11 Dec 2024 17:40:02 +0000
-Received: by outflank-mailman (input) for mailman id 855181;
- Wed, 11 Dec 2024 17:40:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tLQgq-0006cD-W6
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 17:40:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tLQgq-00FZd6-1P;
- Wed, 11 Dec 2024 17:40:00 +0000
-Received: from [15.248.2.30] (helo=[10.24.66.86])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tLQgq-00F3JH-1W;
- Wed, 11 Dec 2024 17:40:00 +0000
+	id 1tLQoz-0001zF-RH; Wed, 11 Dec 2024 17:48:25 +0000
+Received: by outflank-mailman (input) for mailman id 855195;
+ Wed, 11 Dec 2024 17:48:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lbUB=TE=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tLQoz-0001z9-28
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 17:48:25 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1cbbfb9e-b7e8-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 18:48:22 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1733939293889905.8481153499937;
+ Wed, 11 Dec 2024 09:48:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,118 +38,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nhFuV5+IEdDAr0T0ihXpY3oY+VU2mzJUxzfxzT/CMiI=; b=qoIpejGKW2JPH5Ik2vjiA0ulOS
-	vVqXdmblh4WV3BqM2xzHx+aEvpFXx8Q/qlxE6mXdbTRPTZv70MSQddJaF5YLAYg7KdsEOa2bm7s1V
-	4jMoi6MwFlu3Y4rXqqkB0H6+jsX9xte/IM4COa/XAUhLxPTPDva3uHD+4BfFUmP1g15c=;
-Message-ID: <f91699f4-1c40-44df-abd1-baa7cef7554e@xen.org>
-Date: Wed, 11 Dec 2024 17:39:58 +0000
+X-Inumbo-ID: 1cbbfb9e-b7e8-11ef-a0d5-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1733939297; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EbaxsIhDZ0T8EveJeM9QHEFjURLIVN23qWPyYnklrTdW5hZX1KuwerHri4GRfr60U+KQmOezIikIPrLObgxG61wDmsswOewBq1C5nLOXdjEraJr3NZtYTMZYsSN0yKoN9tICvD6Z/EphN5ZI71eyBQoYYG3Irg4kXiwBYjuHUu8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1733939297; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=YGNri/AxMCHpfyBgHH9l/zMoenKe3yZTJZzLs9MsvJA=; 
+	b=ds58Qr/u4bgXuCQxJrFpWMdHzjsEw52GWCjuwSDTd8hqnRV0fAulGofN7aGinAWhN2dV7TwQSYedSvsltBbCdv7DSdj+2mOZWpIHWhRPfv6Ndh1ZYtmrVBn4+eTlwydQ8mSd0q8+CBS9a8YdCJKI8Bt9pMnVtnorOqbD/iKpyyY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733939297;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=YGNri/AxMCHpfyBgHH9l/zMoenKe3yZTJZzLs9MsvJA=;
+	b=PoQKqKRju/GsyPkOqwVUX9ducm2HEzG9VYSe1RJXcaI6Q5ZydvmaHouOJJgRoVsa
+	LuaIuS+Fa4oX7zj/6Q+ZY3ewWXQRiCpNn1q4zmHRMCH+blv5UloS5fia5oA9xH7KF7N
+	ADUkAI3lRSuFWZ6GTPFyUXV/BAyMHnL5oUHAN/Cc=
+Message-ID: <029011a0-0b7c-48e2-a98a-845588bbc7bf@apertussolutions.com>
+Date: Wed, 11 Dec 2024 12:48:12 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm/domain_build: Make find_unallocated_memory() more
- generic
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20241210101001.91578-1-michal.orzel@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20241210101001.91578-1-michal.orzel@amd.com>
+Subject: Re: [PATCH 12/15] x86/hyperlaunch: specify dom0 mode with device tree
+To: Jan Beulich <jbeulich@suse.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
+ <20241123182044.30687-13-dpsmith@apertussolutions.com>
+ <294035fd-45c9-4c59-a5b7-bc1ebed90e47@suse.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <294035fd-45c9-4c59-a5b7-bc1ebed90e47@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Hi Michal,
-
-On 10/12/2024 10:10, Michal Orzel wrote:
-> At the moment, find_unallocated_memory() is only used to retrieve free
-> memory ranges for direct mapped domains in order to find extended
-> regions. It is not generic as it makes assumptions as for the place at
-> which it's being called (domain memory already allocated, gnttab region
-> already found) and hardcodes the memory banks to be excluded.
+On 12/2/24 07:06, Jan Beulich wrote:
+> On 23.11.2024 19:20, Daniel P. Smith wrote:
+>> --- a/xen/arch/x86/domain_builder/fdt.c
+>> +++ b/xen/arch/x86/domain_builder/fdt.c
+>> @@ -141,6 +141,25 @@ static int __init process_domain_node(
+>>               bd->domid = (domid_t)val;
+>>               printk("  domid: %d\n", bd->domid);
+>>           }
+>> +        if ( match_fdt_property(fdt, prop, "mode" ) )
+>> +        {
+>> +            if ( fdt_prop_as_u32(prop, &bd->mode) != 0 )
+>> +            {
+>> +                printk("  failed processing mode for domain %s\n",
+>> +                       name == NULL ? "unknown" : name);
+>> +                return -EINVAL;
+>> +            }
+>> +
+>> +            printk("  mode: ");
+>> +            if ( !(bd->mode & BUILD_MODE_PARAVIRT) ) {
+>> +                if ( bd->mode & BUILD_MODE_ENABLE_DM )
+>> +                    printk("HVM\n");
+>> +                else
+>> +                    printk("PVH\n");
+>> +            }
+>> +            else
+>> +                printk("PV\n");
 > 
-> Make the function more generic, so that it can be used for other
-> purposes whenever there is a need to find free host memory regions (e.g.
-> upcoming LLC coloring series). Allow passing array with memory banks as a
-> parameter together with a callback to populate free regions structure,
-> as the logic may differ depending on the needs.
-> 
-> Add find_host_extended_regions() to be called from make_hypervisor_node()
-> to contain the logic to find extended regions for domains using host
-> memory layout that are not permitted to use IOMMU.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Oh, and: What about BUILD_MODE_ENABLE_DM also being set here?
 
-With one remark below:
+Are you asking in the sense that the PV domain is being flag as a device 
+model domain? Maybe I am missing something, but I am not aware of 
+anything specific that must be set for a PV domain to operate as device 
+model domain. If flask is in play, then there is a secure label 
+requirement but that is separate of a mode that the domain must be 
+running in. Please enlighten me if I am over looking something.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-> ---
-> This is a prerequisite patch for LLC coloring series patch 3.
-> For dom0 LLC coloring, we just need to pass resmem and gnttab in mem_banks.
-> ---
->   xen/arch/arm/domain_build.c | 97 +++++++++++++++++++++----------------
->   1 file changed, 55 insertions(+), 42 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 2c30792de88b..500005079b88 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -901,31 +901,26 @@ int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
->   }
->   
->   /*
-> - * Find unused regions of Host address space which can be exposed to Dom0
-> - * as extended regions for the special memory mappings. In order to calculate
-> - * regions we exclude every region assigned to Dom0 from the Host RAM:
-> - * - domain RAM
-> - * - reserved-memory
-> - * - static shared memory
-> - * - grant table space
-> + * Find unused regions of Host address space which can be exposed to domain
-> + * using the host memory layout (i.e. direct mapped or hardware domain). In
-
-NIT: I would use "e.g." rather than "i.e." because in the future we may 
-want to expose the host layout to a guest without necessarily having IPA 
-== PA. You could also drop the part in () because one could find the 
-definition on top of domain_use_host_layout().
-
-> + * order to calculate regions we exclude every region passed in mem_banks from
-> + * the Host RAM.
->    */
->   static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-> -                                          struct membanks *ext_regions)
-> +                                          const struct membanks *mem_banks[],
-> +                                          unsigned int nr_mem_banks,
-> +                                          struct membanks *free_regions,
-> +                                          int (*cb)(unsigned long s_gfn,
-> +                                                    unsigned long e_gfn,
-> +                                                    void *data))
->   {
->       const struct membanks *mem = bootinfo_get_mem();
-> -    const struct membanks *mem_banks[] = {
-> -        kernel_info_get_mem_const(kinfo),
-> -        bootinfo_get_reserved_mem(),
-> -#ifdef CONFIG_STATIC_SHM
-> -        bootinfo_get_shmem(),
-> -#endif
-> -    };
->       struct rangeset *unalloc_mem;
->       paddr_t start, end;
->       unsigned int i, j;
->       int res;
->   
-> -    dt_dprintk("Find unallocated memory for extended regions\n");
-> +    ASSERT(domain_use_host_layout(kinfo->d));
->   
->       unalloc_mem = rangeset_new(NULL, NULL, 0);
->       if ( !unalloc_mem )
-
-Cheers,
-
--- 
-Julien Grall
-
+v/r,
+dps
 
