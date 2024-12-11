@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC6AC9EC124
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 01:58:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.853525.1266956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2963F9EC133
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 02:00:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.853535.1266965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLB32-0005Qu-Ur; Wed, 11 Dec 2024 00:57:52 +0000
+	id 1tLB5b-00012c-Ah; Wed, 11 Dec 2024 01:00:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 853525.1266956; Wed, 11 Dec 2024 00:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 853535.1266965; Wed, 11 Dec 2024 01:00:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLB32-0005Ox-RY; Wed, 11 Dec 2024 00:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 853525;
- Wed, 11 Dec 2024 00:57:51 +0000
+	id 1tLB5b-0000z2-7y; Wed, 11 Dec 2024 01:00:31 +0000
+Received: by outflank-mailman (input) for mailman id 853535;
+ Wed, 11 Dec 2024 01:00:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lbUB=TE=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tLB30-0005Or-Vr
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 00:57:51 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef33b6f1-b75a-11ef-99a3-01e77a169b0f;
- Wed, 11 Dec 2024 01:57:48 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1733878658727540.469110684163;
- Tue, 10 Dec 2024 16:57:38 -0800 (PST)
+ <SRS0=vVr/=TE=linux.microsoft.com=eahariha@srs-se1.protection.inumbo.net>)
+ id 1tLB5Z-00008o-Dl
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 01:00:29 +0000
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 4f05589b-b75b-11ef-99a3-01e77a169b0f;
+ Wed, 11 Dec 2024 02:00:27 +0100 (CET)
+Received: from [100.65.224.195] (unknown [20.236.10.66])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 3DB3C204722A;
+ Tue, 10 Dec 2024 17:00:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,75 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef33b6f1-b75a-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1733878661; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jpeaWtvOOhwLlouOtQU/Pw/h2E3SdTOU/Rgb6MiyQ+5oBp1hbDUc8aef4WmwnIVEzNrA9TCXIgmsGH0fh8DJYypR9yZnBGG3hjYS1K0YuKVXfyUxLenQMI9P/zXH99T2wsaXcYy65Fnsh/0HBbMIDaqner4eRMFdpuUx0du8vEg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1733878661; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=+OPkbT16o3bYHk6acl1lNzdU3SOOeeF6WOeEkuYsQWY=; 
-	b=IR+c9gb9FWmkQGJIFlx7somppyqT7gLGEsQMxiW5qEoWL3SQqCOuBHc7d+o3KaEtV7q8O+kNBL1eprDbrzeqzkuszKsSqO6zqDCsxqkxauJWwUWwBBaZiloD7oY7UOqH7LbkH38V/V+oc9k/C5+ypHfuRC423ojfDkSQsCD8af0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733878661;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=+OPkbT16o3bYHk6acl1lNzdU3SOOeeF6WOeEkuYsQWY=;
-	b=DdolmXwLioHlczhdUol04lWwwiqmpbbyMzGl/2RQApNdfZd+Oec6BEm/CVkkI2FW
-	ov0ii6YfJP95XFL/pums4QKNo5kMksMu4CankHRvGY/pm0aE+3E448ykGIi5Bko4Knu
-	JXAmIPt0ASplUg6nTOQb9psLQqVhyvf7rhYbX22Q=
-Message-ID: <cd9cde6a-16bc-4ec9-94af-b499fbdde3d6@apertussolutions.com>
-Date: Tue, 10 Dec 2024 19:57:37 -0500
+X-Inumbo-ID: 4f05589b-b75b-11ef-99a3-01e77a169b0f
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3DB3C204722A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1733878825;
+	bh=QUGnAohdjtquVH/2okVPvYsuli7DzTd7KNzArXZ6FX8=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=oU8Wxq8f38kSwtMyloVNW6CTihWbqiihpmp0Kmbf9489s89C/Z1o5JZmtxg0WiGWP
+	 5xvVb1XhicfPH1o/xdUSq84/qeX5nOMyN7dJOgbbvoyqRelv8RbAXLy4i6uQ7bi++o
+	 Gm59sZekWoiwe5TvchRr+7Gxo8CyNIMiE5EA50Kw=
+Message-ID: <422470cd-84f0-469e-93c2-493c5091391d@linux.microsoft.com>
+Date: Tue, 10 Dec 2024 17:00:21 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 5/6] x86/boot: introduce domid field to struct
- boot_domain
-To: Jan Beulich <jbeulich@suse.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: eahariha@linux.microsoft.com, Pablo Neira Ayuso <pablo@netfilter.org>,
+ Jozsef Kadlecsik <kadlec@netfilter.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Nicolas Palix <nicolas.palix@imag.fr>, Daniel Mack <daniel@zonque.org>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Russell King
+ <linux@armlinux.org.uk>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev
+ <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ofir Bitton <obitton@habana.ai>,
+ Oded Gabbay <ogabbay@kernel.org>, Lucas De Marchi
+ <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jeroen de Borst <jeroendb@google.com>,
+ Praveen Kaligineedi <pkaligineedi@google.com>,
+ Shailend Chand <shailend@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ James Smart <james.smart@broadcom.com>,
+ Dick Kennedy <dick.kennedy@broadcom.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241115131204.32135-1-dpsmith@apertussolutions.com>
- <20241115131204.32135-6-dpsmith@apertussolutions.com>
- <bfbd15eb-9888-4988-b9a1-8191a696a4c2@suse.com>
- <83e3b0a9-e0e6-4d36-a3ce-4687b1886733@apertussolutions.com>
- <7f40d7ba-26ec-4301-abbc-aef5d1ade44c@suse.com>
+ Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>,
+ Jeff Johnson <jjohnson@kernel.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Johan Hedberg <johan.hedberg@gmail.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Xiubo Li <xiubli@redhat.com>,
+ Ilya Dryomov <idryomov@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Jiri Kosina <jikos@kernel.org>, Miroslav Benes <mbenes@suse.cz>,
+ Petr Mladek <pmladek@suse.com>, Joe Lawrence <joe.lawrence@redhat.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Louis Peens <louis.peens@corigine.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Naveen N Rao <naveen@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, cocci@inria.fr,
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, linux-mm@kvack.org,
+ linux-bluetooth@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org,
+ live-patching@vger.kernel.org, linux-sound@vger.kernel.org,
+ oss-drivers@corigine.com, linuxppc-dev@lists.ozlabs.org,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Jeff Johnson <quic_jjohnson@quicinc.com>
+Subject: Re: [PATCH v3 00/19] Converge on using secs_to_jiffies()
+To: Andrew Morton <akpm@linux-foundation.org>
+References: <20241210-converge-secs-to-jiffies-v3-0-ddfefd7e9f2a@linux.microsoft.com>
+ <20241210163520.95fa1c8aa83e1915004ed884@linux-foundation.org>
+From: Easwar Hariharan <eahariha@linux.microsoft.com>
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <7f40d7ba-26ec-4301-abbc-aef5d1ade44c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20241210163520.95fa1c8aa83e1915004ed884@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 12/9/24 03:55, Jan Beulich wrote:
-> On 04.12.2024 17:45, Daniel P. Smith wrote:
->> On 11/27/24 05:32, Jan Beulich wrote:
->>> On 15.11.2024 14:12, Daniel P. Smith wrote:
->>>>        init_dom0_cpuid_policy(d);
->>>>    
->>>>        if ( alloc_dom0_vcpu0(d) == NULL )
->>>> -        panic("Error creating d%uv0\n", domid);
->>>> +        panic("Error creating d%uv0\n", bd->domid);
->>>
->>> Imo this would better use d->domain_id. And while touching it, %u would also
->>> want swapping for %d.
->>
->> hmm, I was actually considering s/d%u/%pd/ and just pass in d, but was
->> certain if there was an explicit reason it wasn't used before. If I am
->> going to change it, would %pd not be more desired here?
+On 12/10/2024 4:35 PM, Andrew Morton wrote:
+> On Tue, 10 Dec 2024 22:02:31 +0000 Easwar Hariharan <eahariha@linux.microsoft.com> wrote:
 > 
-> When writing my original reply, I certainly considered this. The anomaly
-> here is that you really mean to log a vCPU ID, which would require a
-> struct vcpu * and use of %pv. Yet you don't have that here, precisely
-> because the creation of the vCPU failed. That said, since
-> vsprintf.c:print_vcpu() calls print_domain(), using %pd is certainly an
-> option here (inconsistencies would arise if %pv and %pd presented domain
-> IDs in [perhaps just slightly] different ways).
+>> This is a series that follows up on my previous series to introduce
+>> secs_to_jiffies() and convert a few initial users.
+> 
+> Thanks, I added this to mm.git.  I suppressed the usual added-to-mm
+> emails because soooo many cc's!
+> 
+> I'd ask relevant maintainers to send in any acks and I'll paste them
+> into the relevant changelogs.
 
-Will do, thanks!
+Thank you, Andrew!
 
-v/r,
-dps
+- Easwar
 
