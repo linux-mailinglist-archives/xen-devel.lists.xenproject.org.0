@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4054C9ED2AD
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 17:50:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855015.1268072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B07EE9ED2FE
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 18:01:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855036.1268081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLPuo-0003vz-Ae; Wed, 11 Dec 2024 16:50:22 +0000
+	id 1tLQ4x-0007IW-9K; Wed, 11 Dec 2024 17:00:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855015.1268072; Wed, 11 Dec 2024 16:50:22 +0000
+Received: by outflank-mailman (output) from mailman id 855036.1268081; Wed, 11 Dec 2024 17:00:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLPuo-0003sq-7A; Wed, 11 Dec 2024 16:50:22 +0000
-Received: by outflank-mailman (input) for mailman id 855015;
- Wed, 11 Dec 2024 16:50:21 +0000
+	id 1tLQ4x-0007FN-5a; Wed, 11 Dec 2024 17:00:51 +0000
+Received: by outflank-mailman (input) for mailman id 855036;
+ Wed, 11 Dec 2024 17:00:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YTIw=TE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tLPun-0003sk-99
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 16:50:21 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ id 1tLQ4w-00075X-4s
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 17:00:50 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 017032c5-b7e0-11ef-a0d5-8be0dac302b0;
- Wed, 11 Dec 2024 17:50:19 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5ceb03aadb1so9282905a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 08:50:19 -0800 (PST)
+ id 78cc85aa-b7e1-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 18:00:49 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-aa543c4db92so622967966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 09:00:49 -0800 (PST)
 Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa68dd43cefsm446467566b.50.2024.12.11.08.50.18
+ a640c23a62f3a-aa65d870db9sm697689966b.203.2024.12.11.09.00.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2024 08:50:18 -0800 (PST)
+ Wed, 11 Dec 2024 09:00:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +44,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 017032c5-b7e0-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 78cc85aa-b7e1-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1733935819; x=1734540619; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1733936449; x=1734541249; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=pLMiFfwhC8a0yqC/bDgoQoZXUS/bRDEPn5cFlllzpKA=;
-        b=D2mFh1lPiVg8YlTDK/itWfe4VOVuw+UMHXWMRNu7HEbbL+JSwv5cyIcyY7YVap+BtX
-         Ibjlgh8pXLvdRISn52GJlZMS/0FsYgtouIuGpFUGexIITNMl731vhxFdab01sl0IpEqi
-         DJgtf5g02kGvm1q2yD4E+4Hr8Su/wrjI5R21s=
+        bh=T3rrIoUY8eGTHYPZYuz6VI2qo5rwAkwDMw4Whb6+iVA=;
+        b=sEFbgp4WAtm0v/J+z2wYRmPio33NpQEfO0ZSV82P/kXQzer85w/f2asL9OWN75BAGI
+         aaBJnVE3hv4Qb2n3NSHrtIdZ/6Z8BdW98V0x7nfvvlFhLdkDeaNGVBYPf2LELOf5voPB
+         H2q6fjLE4TkBnFMyMVHBem29ML0FCf69W2fcc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733935819; x=1734540619;
+        d=1e100.net; s=20230601; t=1733936449; x=1734541249;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pLMiFfwhC8a0yqC/bDgoQoZXUS/bRDEPn5cFlllzpKA=;
-        b=icmAhnBZYbOc3eTPCgk1cQvMvulinPwFAvw424o77pPq9S/nGUYHWTYF/Ql0L/D/H2
-         rZ7NbZHDVpMtph195bAc+ajb5LD8T6hPM79crrb/MnFhqiSX3kDcLUAE5VLB63ctrEwA
-         IsFi+v0/wYie1KGtdTcGGGBMLSAtqsyy6WPVRim3H+MUTzzfOvFdQBsx0uVkBOeL1Dl7
-         TyzBgi1fxxy0UbgyrvzGRANQzC6cPQG/FYqwSCBs7YF47O95Mq7LCaNy/57cAfuRl37g
-         9JkhA9YrOIieykCA8C9qsw65BqTdrkpf3xWakOg8hRhkqlRSBXDhMXDPsOh33ZBFEYF9
-         PcOw==
-X-Gm-Message-State: AOJu0Yzn1M4Ts97Lekxui3D86jCdzBgu9EzdKLANdIGOVBM0LGNfGOnp
-	pHToUNMsISCBy05pR9vjlM63LEx1nVmhqi3IY2e6DsqigZ+iSkW/PKuOXvmZK0w=
-X-Gm-Gg: ASbGncsn7tVVKT8hQJIO3cveEk6ChiC1IJTD7sptDT3TkzebKbySlWHkfNRI6ExRdK0
-	zH44RlzxRvW1pOXvGXI5l0Gvk1uS9i1ByNZ++4iUAwKyGbosY2w1/nDXW7ieB2Jj4AZQ79L1LDm
-	rf3+ngln4TTlbfMPa1F0Ks5DcYUFDmJ2aGGNuzXbvVOIQEsy8hVGQAHs1HjtCsvYYN7tVKNIgPy
-	jnClTMLFJ31ezkHDcDGE/C4W35GmljsRuWhSNFzpnRX+AiyU2Ss0ppowlzMHUs=
-X-Google-Smtp-Source: AGHT+IFypkB8NucOPuGWCLdC7YWk1nBW+hgxfxNpOufkx5PB3hr0aSkHS8jTvDwIYT+toSTZ31p0Dg==
-X-Received: by 2002:a17:906:31cc:b0:aa6:93c4:c68c with SMTP id a640c23a62f3a-aa6b13964d1mr380231366b.41.1733935819147;
-        Wed, 11 Dec 2024 08:50:19 -0800 (PST)
-Date: Wed, 11 Dec 2024 17:50:17 +0100
+        bh=T3rrIoUY8eGTHYPZYuz6VI2qo5rwAkwDMw4Whb6+iVA=;
+        b=V0ugFJiEpIIsUeOp3czE595dgljSJtDfPK7LKFlCO5HbiGoklzG712e153uQsKyq0x
+         tGhYoFobOnVWLaI2+vg+gC8gInNPfmVL3l0Pla1Fkxbz6X/kI9OtLj5ipS4G0RvcJfuQ
+         54nS1L66N9cbD4erka1PnBwhPG5GeYmleiHQ97YRIqiSiAobvjVlM0mo14wxJfIi57Qr
+         C4GQG0DFfENhtGHnPcEpiPrQYeHHv712sGMuozOKwI+j2VRFRNvIU1duGdlPmbRrO7ZF
+         dIGGamB6UqFnpcHqUDOzy5+trOmOuha5jD3szLkojCTYNc2kQctwaMJln8E3NYWo14Jy
+         gIgA==
+X-Gm-Message-State: AOJu0YyPBtqg0NG/Qxc/XrUwyl/LGV9/aB2GDEBd+ly2j1cPyyfAsxpr
+	Sc1aWDSKo8O/1DsJoFo9KII/Mx4wF2B1h4G/stOM0YE8iZ0UsKHSb1Oq5eZBK4k=
+X-Gm-Gg: ASbGnctc1oywe5NZgp0bmmIGatksZ1Jj/lix367+KLgd7rviS+MSx8uIS6z4k0RR8Cl
+	a1ukeCUWk1ddv1sfkJDzpZg7ibKv/B7nP6EwCWnyKL/+FyVTA25OKqYVW+0WhZ8CIUvCjn9S1ow
+	X9DgbSYeMd/DQwDaxEwqkniClNeKDx+Djy1gNK+TUI8VSp+TY7fCYObzYFR8YETo7Q0tbb/lvb8
+	ipGEu+ShimAUVInDki7ssgreQQErH+G+BoAPPf8ZcOKu+d5rl5egMTSIVLk+Fc=
+X-Google-Smtp-Source: AGHT+IGaoYWTscHaKVMY4S7R1uZqi/YDwO64By5BA35vIjHDle1ciR93g35FnT7RnOnhZ053U8yJpA==
+X-Received: by 2002:a17:907:9554:b0:aa6:ac4c:8dc with SMTP id a640c23a62f3a-aa6b117feb1mr309278966b.18.1733936448887;
+        Wed, 11 Dec 2024 09:00:48 -0800 (PST)
+Date: Wed, 11 Dec 2024 18:00:47 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: dmukhin@ford.com
 Cc: xen-devel@lists.xenproject.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 10/35] xen/domain: add get_initial_domain_id()
-Message-ID: <Z1nCyXhCErGBCozN@macbook.local>
+Subject: Re: [PATCH v2 11/35] xen/domain: enable max_init_domid for all
+ architectures
+Message-ID: <Z1nFPw5889vC_MLX@macbook.local>
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-10-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-11-e9aa923127eb@ford.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20241205-vuart-ns8250-v1-10-e9aa923127eb@ford.com>
+In-Reply-To: <20241205-vuart-ns8250-v1-11-e9aa923127eb@ford.com>
 
-On Thu, Dec 05, 2024 at 08:41:40PM -0800, Denis Mukhin via B4 Relay wrote:
+On Thu, Dec 05, 2024 at 08:41:41PM -0800, Denis Mukhin via B4 Relay wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Move get_initial_domain_id() to a public API and enable for all architectures.
+> Move max_init_domid to a public API and enable for all architectures.
 > That is pre-requisite change for console focus switch logic cleanup.
+> 
+> max_init_domid is updated in domain_create().
 > 
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
->  xen/arch/x86/include/asm/pv/shim.h |  4 ++--
->  xen/arch/x86/pv/shim.c             |  4 ++--
->  xen/common/domain.c                | 10 ++++++++++
->  xen/include/xen/domain.h           |  2 ++
->  4 files changed, 16 insertions(+), 4 deletions(-)
+>  xen/arch/arm/include/asm/setup.h   | 2 --
+>  xen/arch/arm/setup.c               | 2 --
+>  xen/arch/ppc/include/asm/setup.h   | 2 --
+>  xen/arch/riscv/include/asm/setup.h | 2 --
+>  xen/arch/x86/include/asm/setup.h   | 2 --
+>  xen/common/domain.c                | 9 +++++++++
+>  xen/include/xen/domain.h           | 2 ++
+>  7 files changed, 11 insertions(+), 10 deletions(-)
 > 
-> diff --git a/xen/arch/x86/include/asm/pv/shim.h b/xen/arch/x86/include/asm/pv/shim.h
-> index 6153e27005986881ad87e9db0b555b30edc59fc0..1515ad1b0680aa11ab91a152a1944fc1bb477a79 100644
-> --- a/xen/arch/x86/include/asm/pv/shim.h
-> +++ b/xen/arch/x86/include/asm/pv/shim.h
-> @@ -31,7 +31,7 @@ long cf_check pv_shim_cpu_up(void *data);
->  long cf_check pv_shim_cpu_down(void *data);
->  void pv_shim_online_memory(unsigned int nr, unsigned int order);
->  void pv_shim_offline_memory(unsigned int nr, unsigned int order);
-> -domid_t get_initial_domain_id(void);
-> +domid_t pv_shim_initial_domain_id(void);
->  uint64_t pv_shim_mem(uint64_t avail);
->  void pv_shim_fixup_e820(void);
->  const struct platform_bad_page *pv_shim_reserved_pages(unsigned int *size);
-> @@ -76,7 +76,7 @@ static inline void pv_shim_offline_memory(unsigned int nr, unsigned int order)
->  {
->      ASSERT_UNREACHABLE();
->  }
-> -static inline domid_t get_initial_domain_id(void)
-> +static inline domid_t pv_shim_initial_domain_id(void)
->  {
->      return 0;
->  }
-> diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-> index 81e4a0516d18b359561f471f1d96e38977661ca7..17cb30620290c76cf42251f70cfa4199c0e165d1 100644
-> --- a/xen/arch/x86/pv/shim.c
-> +++ b/xen/arch/x86/pv/shim.c
-> @@ -328,7 +328,7 @@ int pv_shim_shutdown(uint8_t reason)
->      }
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index 64c227d171fc7b92e5b62d9fd42e5662871bd12b..d4e1670cd69cdd4475b2a5eb316d2c0601090ed7 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -19,8 +19,6 @@ struct map_range_data
+>      struct rangeset *irq_ranges;
+>  };
 >  
->      /* Update domain id. */
-> -    d->domain_id = get_initial_domain_id();
-> +    d->domain_id = pv_shim_initial_domain_id();
-
-Can't you leave this instance using get_initial_domain_id(), it should
-DTRT when running in pv-shim mode.
-
+> -extern domid_t max_init_domid;
+> -
+>  void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
 >  
->      /* Clean the iomem range. */
->      BUG_ON(iomem_deny_access(d, 0, ~0UL));
-> @@ -1016,7 +1016,7 @@ void pv_shim_offline_memory(unsigned int nr, unsigned int order)
->      }
->  }
->  
-> -domid_t get_initial_domain_id(void)
-> +domid_t pv_shim_initial_domain_id(void)
->  {
->      uint32_t eax, ebx, ecx, edx;
->  
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 92263a4fbdc57159b4a32d9d4ee038f9f37804ed..2f67aa06ed50e69c27cedc8d7f6eb0b469fe81cd 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -45,6 +45,7 @@
->  
->  #ifdef CONFIG_X86
->  #include <asm/guest.h>
-> +#include <asm/pv/shim.h>
+>  size_t estimate_efi_size(unsigned int mem_nr_banks);
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 2e27af4560a504bf57daef572d4a768bd886145b..cb218fe3eb36f2cdda47cfa092fa99ee1ca4a14c 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -58,8 +58,6 @@ struct cpuinfo_arm __read_mostly system_cpuinfo;
+>  bool __read_mostly acpi_disabled;
 >  #endif
 >  
->  /* Linux config option: propageted to domain0 */
-> @@ -2229,6 +2230,15 @@ int continue_hypercall_on_cpu(
->      return 0;
->  }
+> -domid_t __read_mostly max_init_domid;
+> -
+>  static __used void init_done(void)
+>  {
+>      int rc;
+> diff --git a/xen/arch/ppc/include/asm/setup.h b/xen/arch/ppc/include/asm/setup.h
+> index e4f64879b68ca5aac24bd9544255143e6ef693f3..956fa6985adb23375bd41d3e5d34d9d5f0712bd5 100644
+> --- a/xen/arch/ppc/include/asm/setup.h
+> +++ b/xen/arch/ppc/include/asm/setup.h
+> @@ -1,6 +1,4 @@
+>  #ifndef __ASM_PPC_SETUP_H__
+>  #define __ASM_PPC_SETUP_H__
 >  
-> +domid_t get_initial_domain_id(void)
-> +{
-> +#ifdef CONFIG_X86
-> +    return pv_shim_initial_domain_id();
-> +#else
-> +    return 0;
-> +#endif
-> +}
+> -#define max_init_domid (0)
+> -
+>  #endif /* __ASM_PPC_SETUP_H__ */
+> diff --git a/xen/arch/riscv/include/asm/setup.h b/xen/arch/riscv/include/asm/setup.h
+> index 844a2f0ef1d762b3a9bc90b61a336a23f1693cc9..978cad71d3df484e80ba19acc0e37b9278e941f0 100644
+> --- a/xen/arch/riscv/include/asm/setup.h
+> +++ b/xen/arch/riscv/include/asm/setup.h
+> @@ -3,8 +3,6 @@
+>  #ifndef ASM__RISCV__SETUP_H
+>  #define ASM__RISCV__SETUP_H
+>  
+> -#define max_init_domid (0)
+> -
+>  void setup_mm(void);
+>  
+>  #endif /* ASM__RISCV__SETUP_H */
+> diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+> index 5c2391a8684b66efdf4b092409ed33935db6b40c..296348655b9d146c73acc305cc9edd5fd46f7d47 100644
+> --- a/xen/arch/x86/include/asm/setup.h
+> +++ b/xen/arch/x86/include/asm/setup.h
+> @@ -69,6 +69,4 @@ extern bool opt_dom0_verbose;
+>  extern bool opt_dom0_cpuid_faulting;
+>  extern bool opt_dom0_msr_relaxed;
+>  
+> -#define max_init_domid (0)
+> -
+>  #endif
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 2f67aa06ed50e69c27cedc8d7f6eb0b469fe81cd..9e57dd4122a726e2fb42efe9c029e775202be0e6 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -65,6 +65,9 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+>  static struct domain *domain_hash[DOMAIN_HASH_SIZE];
+>  struct domain *domain_list;
+>  
+> +/* Last known non-system domain ID. */
+> +domid_t __read_mostly max_init_domid;
 
-Maybe there are further changes that make this a not suitable option,
-but won't it be better to maybe do something like:
+The comment (and implementation below) seems to differ from what Arm
+dom0less code currently uses the variable for.
 
-#ifndef HAS_ARCH_INITIAL_DOMID
-static inline domid_t get_initial_domain_id(void) { return 0; }
-#else
-domid_t get_initial_domain_id(void);
-#endif
+> +
+>  /*
+>   * Insert a domain into the domlist/hash.  This allows the domain to be looked
+>   * up by domid, and therefore to be the subject of hypercalls/etc.
+> @@ -815,6 +818,12 @@ struct domain *domain_create(domid_t domid,
+>  
+>      memcpy(d->handle, config->handle, sizeof(d->handle));
+>  
+> +    /*
+> +     * Housekeeping for physical console forwarding to the domain.
+> +     */
+> +    if ( !is_system_domain(d) && max_init_domid < domid )
+> +        max_init_domid = domid;
 
-In a generic header, and then in an x86 header you just
+Don't you need to adjust the ARM dom0-less logic that deal with
+increasing max_init_domid in create_domUs().
 
-#define HAS_ARCH_INITIAL_DOMID
-
-The ifdefary in get_initial_domain_id() if other arches need different
-implementations seems undesirable.
+Also max_init_domid likely only wants to be updated for domains
+created before the control domain is started, and hence could be
+__ro_after_init instead of __read_mostly?
 
 Thanks, Roger.
 
