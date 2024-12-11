@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B77119ECA66
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 11:34:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854514.1267709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1399ECAD0
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 12:02:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854547.1267726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLK2c-0002Li-LV; Wed, 11 Dec 2024 10:34:02 +0000
+	id 1tLKTe-0000UU-NE; Wed, 11 Dec 2024 11:01:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854514.1267709; Wed, 11 Dec 2024 10:34:02 +0000
+Received: by outflank-mailman (output) from mailman id 854547.1267726; Wed, 11 Dec 2024 11:01:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLK2c-0002HY-Hb; Wed, 11 Dec 2024 10:34:02 +0000
-Received: by outflank-mailman (input) for mailman id 854514;
- Wed, 11 Dec 2024 10:34:01 +0000
+	id 1tLKTe-0000SK-K4; Wed, 11 Dec 2024 11:01:58 +0000
+Received: by outflank-mailman (input) for mailman id 854547;
+ Wed, 11 Dec 2024 11:01:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2HaM=TE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLK2b-0001aQ-0C
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 10:34:01 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YTIw=TE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tLKTd-0000SE-5m
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 11:01:57 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f01c5fd-b7ab-11ef-a0d5-8be0dac302b0;
- Wed, 11 Dec 2024 11:34:00 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-434ab114753so43533335e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 02:34:00 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-7fd560985e0sm3804655a12.79.2024.12.11.02.33.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2024 02:33:59 -0800 (PST)
+ id 55b592e0-b7af-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 12:01:55 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-aa68b513abcso566422166b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 03:01:55 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa684773405sm471516466b.46.2024.12.11.03.01.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2024 03:01:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +44,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f01c5fd-b7ab-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 55b592e0-b7af-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733913240; x=1734518040; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zTT2fI8Lh1KYGwkqJ4HYUDlHCdYmKmMDp5k482eZu/k=;
-        b=Q8qxDWBcchuUbFo9zuJ6sZmq6LcXKzsPEeRDcd/J8Aohts7u+xeNrq7VYU3ZCVvNon
-         jfNEqsYuKbSOxWBdeJdrywLuSsd5v7t0VWHu/TIH9TICz/Vnq5dzxtFrKI1WdSjRyHRh
-         JD5TA/d+sfXUy5CL7Ic3qd3OQAZ0Rm51rU62uAibbRzB8tXNzs1lbCYW5i1UonyljEGp
-         Mi+cpfYcOUD/Aiz6HVLaamypkSHf+0KiLfmHUfP2rHoQUTkxOgpaCLqpC/uvVtT4arrv
-         Wn404rtqyIyiYyPFA6NrC5N7FeSscmmLycPMmozFpQNV7lEgptq12tvdnNRGJGH/DxUK
-         Zceg==
+        d=citrix.com; s=google; t=1733914915; x=1734519715; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qkoaac2Af3nuHnWQBsYSkjmez2OYYRG9z9cf1RbQfYU=;
+        b=FCAWK6qv9YyLmKgi3e6rSiYGCsUWSJXaBTItCLPcfrexMP13ETk4hkscwTWQjCUg2e
+         frfL5Xd9zrTpu7m4WVcqZ7mJ0VGgYrZDfHHMI++QPXI7owIe781DlVHjX3yWjexJ2GbS
+         gdVAQStfYLaJ0wJxYUVpXZnjZD1Y8TdQDLhUw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733913240; x=1734518040;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1733914915; x=1734519715;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zTT2fI8Lh1KYGwkqJ4HYUDlHCdYmKmMDp5k482eZu/k=;
-        b=m+mHPFpLWQHdsul+Rd0NQ+yPptM1IatqdJUf+sNTCfCJdZ4FaqhuG1gwIi8KUrDWel
-         ut2lQ3UGuad887OOQ6YyBXExZdlNG5TIX6D5UI4dDpuPPzZuPgRR4dSPj1C4tEOYZH87
-         Zcl2iA752g0AvwIw2HLDh6DZOoH1F2QcszAx+HVlAz1UUOCAiSvkCp2cixK3wUCAe8X5
-         4amtD3/09+vxyG1UsBax5Ufe1uAevWKv0BJli4/xO3wjrn2Pk9xil5YQbxZprYNdsc0o
-         VUbOlW9dadaC948RoLt80YdIlEMWbypnmlaZ32KCENAlrjYB+EvUsICjZ7YHhdo7zrFE
-         bRnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWyuRRl9zm1EGHc2p2/myAn6GmzW63dWl2AA40+k+bdVIUoj7bvssEYVf3Y928pTZouPauqj6aWMKk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxA6iHM7Bhl3ZFUlPnlntvZJCY67HzxtwcWUXtqoeQ2Pwaw4iI5
-	5VuO/4lINq9JcZ1CML3wwoKwbA0baWUHPWwFB1E86l6wcVZMWLQ8ceL7jD02TA==
-X-Gm-Gg: ASbGncvTR0eI3NLXl+OqRfpG41vI9iSdXXKPZK/nVC8szk4jF3lkcIIVPs0Qg7oZdoJ
-	lSb0a2AQu5v57ZYgSzqtH8ei4URZYKXJYFNylNs+OsntjsABT2qHk1jNrrfDIIPc72yt4ByRZ97
-	fmE5ttEViMSHP9FRnCrA1luZFZ82BzAy4OmiuwKQnryY4+juMQViz8K9vr4rsku8+VPGx6OzaUq
-	lsMxPmIIT0u9F3XTFhjsdT7ANHM3x9pKgdCx7qZn35w4wUbYZSafY0wKSfTEFj7XsJhsnzfTfc6
-	8u+yvOiML/tu26lD52/+48jktsSY3DtaGy6XnUw=
-X-Google-Smtp-Source: AGHT+IG3A3P+FFDPJp7dUdCzkWzaG63tsDLnhw5PjtLpyZVCAzHMyEiQJDqoxigCtW6HvY9ezR4IgA==
-X-Received: by 2002:a05:6000:188f:b0:386:62f:cf18 with SMTP id ffacd0b85a97d-3864ce9faa0mr1331702f8f.49.1733913239569;
-        Wed, 11 Dec 2024 02:33:59 -0800 (PST)
-Message-ID: <9e05dcb0-ae71-4efe-9f1b-effa7a60cf9f@suse.com>
-Date: Wed, 11 Dec 2024 11:33:51 +0100
+        bh=Qkoaac2Af3nuHnWQBsYSkjmez2OYYRG9z9cf1RbQfYU=;
+        b=mC3SI+q7qINlWatKDtHYtcu14tRxso96WkTMO6noTRmi0N9PqeyqQkTg8WTr2VZy8q
+         d6IqvnMkfgpoYLHLZDb85txHO6gi+yYR+emnU+DvRBKrjGFP6NsotUpwSIMLu/JSNk5e
+         vQjTa5XTGbaC5ZHu88/nQK5sv5jePH9R6ovDTqOCbVm2b7bxeQGXfrWhg9tkWXRNbSdw
+         gyXKDk73VKDP0qIMeXDCJn5AqBdqw9M576T3G32j6TZZNBdVkkT1BeUm6H6SlTR0WocN
+         uzvMRHveUhz9yCU2HdHxdqGullI+5uHaMStPYIp8X31Bro5v1XugQjqLhOFCAf64IdDk
+         ni7w==
+X-Gm-Message-State: AOJu0YzSMUorXU+d6BRe+FE9WhHIq3c4Mrz7nQSd0glq8jVCg6NLYwjB
+	ZPjUlXMTQFpGlki3raMNaK8h+rUgtzChAsUErj40NnlCwNoarFTzz9P7INcBAMI=
+X-Gm-Gg: ASbGncukwBiY1bmAuKpi8kIeZodTAaeb+HORothPq2oyEYgNDWpdBeFE80UMkAjt8X3
+	nttJXezz51xWorRi6XhlbG1UmzbSczRVX4MQV6W11XJ2/iC5drfKep2pMrJ/3N4QvGabtR5VcYa
+	MQ2/CjsO4wJS1wMDSAT2gVaLY/W46wxKFANoUZ3jJInAV2AReiXnqPjhJ9AALsrKeMcDtx8MPbk
+	KLk6LuaQ7A7Y3NVGL4yih9/xgvvPihJNVhsFMtniBKZsF4KHTaqMQd3ckvWrB0=
+X-Google-Smtp-Source: AGHT+IHSfY9vvcBNZmgjC6Nnb02wOpLHre4CMeomt91OB9ohhRrMa1s5mm9Seo80LzOwfB+EScccGQ==
+X-Received: by 2002:a17:906:23f2:b0:a9a:161:8da4 with SMTP id a640c23a62f3a-aa6b13e0eecmr227033166b.55.1733914915248;
+        Wed, 11 Dec 2024 03:01:55 -0800 (PST)
+Date: Wed, 11 Dec 2024 12:01:54 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmukhin@ford.com
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 01/35] xen: introduce resource.h
+Message-ID: <Z1lxIlvZs449Pq5-@macbook.local>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-1-e9aa923127eb@ford.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/6] xen/riscv: implement relocate_fdt()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1732709650.git.oleksii.kurochko@gmail.com>
- <c157b03a8cb6d9c4910136b5d73260b47c55554e.1732709650.git.oleksii.kurochko@gmail.com>
- <d9fddba7-8364-45a6-addd-004dbde366a5@suse.com>
- <4dd6a2e9-d2b9-4402-907b-b9314d2346f7@gmail.com>
- <929d657d-ffe8-4243-ba01-fffa20b26205@suse.com>
- <b9bcd015-330b-44a0-8660-c157369b4c96@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b9bcd015-330b-44a0-8660-c157369b4c96@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20241205-vuart-ns8250-v1-1-e9aa923127eb@ford.com>
 
-On 11.12.2024 11:26, Oleksii Kurochko wrote:
-> On 12/10/24 5:20 PM, Jan Beulich wrote:
->>>> Also recall my comment on one of your earlier series, regarding inclusive
->>>> vs exclusive ranges. Can that please be sorted properly as a prereq, to
->>>> avoid extending the inconsistency?
->>> Yes, I remember that and at the moment everything ( DIRECTMAP_VIRT_END, FRAMETABLE_VIRT_END )
->>> is following "inclusive" way. Considering that you remind me that could you please tell me more time
->>> what I am missing?
->> First the table azt the top of config.h uses all exclusive upper bounds.
->> And then DIRECTMAP_SIZE's definition assumes DIRECTMAP_SLOT_END would be
->> exclusive, when it's inclusive.
+On Thu, Dec 05, 2024 at 08:41:31PM -0800, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Really missed to update the tale on the top of config.h.
+> Move resource definitions to a new architecture-agnostic shared header file.
 > 
-> But it seems to me like any *_SIZE will be defined in exclusive way by its nature, doesn't it?
-
-Of course. I'm not even sure "size" can be reasonably qualified as "exclusive" or
-"inclusive".
-
-> For example, size of directmap is (509-200+1)<<30 = 0x7F80000000 and it is not really (
-> 0x7F80000000 - 1 ) = 7F7FFFFFFF.
+> It will be used in follow on NS8250 emulator code to describe legacy
+> PC COM resources.
 > 
-> I prefer to have DIRECTMAP_{SIZE,VIRT_END} defined as now:
->    #define DIRECTMAP_SIZE          (SLOTN(DIRECTMAP_SLOT_END + 1) - SLOTN(DIRECTMAP_SLOT_START))
->    #define DIRECTMAP_VIRT_END      (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
-> ( of course with making upper bounds inclusive in the table on the top of config.h )
-
-Right.
-
->>>>> +        set_fixmap(FIX_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_RW);
->>>>> +        memcpy(dst, src + s, l);
->>>>> +        clean_dcache_va_range(dst, l);
->>>> Why is this necessary here? You're copying to plain RAM that Xen alone
->>>> is using.
->>> It is Arm specific:
->>> ```
->>> commit c60209d77e2c02de110ca0fdaa2582ef4e53d8fd
->>> Author: Stefano Stabellini<stefano.stabellini@eu.citrix.com>
->>> Date:   Mon Jan 21 12:40:31 2013 +0000
->>>
->>>       xen/arm: flush dcache after memcpy'ing the kernel image
->>>       
->>>       After memcpy'ing the kernel in guest memory we need to flush the dcache
->>>       to make sure that the data actually reaches the memory before we start
->>>       executing guest code with caches disabled.
->>>       
->>>       copy_from_paddr is the function that does the copy, so add a
->>>       flush_xen_dcache_va_range there.
->>> ```
->>> I wanted to put copy_from_paddr() to some common place at the end but in RISC-V cache is always enabled
->>> ( I don't see an instruction in the spec for disable/enable cache ) so this issue isn't present for RISC-V
->>> and clean_dcache_va_range() should/could be dropped.
->> That plus there's no kernel in sight just yet.
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/common/device-tree/device-tree.c | 21 +------------------
+>  xen/drivers/passthrough/arm/smmu.c   | 15 +-------------
+>  xen/include/xen/resource.h           | 40 ++++++++++++++++++++++++++++++++++++
+>  3 files changed, 42 insertions(+), 34 deletions(-)
 > 
-> ( clarification ) will it change something if kernel will be loaded now? It seems even if we are copying kernel in guest
-> memory we still don't need to flush the dcache as cache is enabled and cache coherence protocol will do a work automatically.
+> diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
+> index d0528c5825651f7cc9ebca0c949229c9083063c6..e8f810b2fe10890c033ed3a9d4ca627010ad019b 100644
+> --- a/xen/common/device-tree/device-tree.c
+> +++ b/xen/common/device-tree/device-tree.c
+> @@ -24,6 +24,7 @@
+>  #include <xen/ctype.h>
+>  #include <asm/setup.h>
+>  #include <xen/err.h>
+> +#include <xen/resource.h>
+>  
+>  const void *device_tree_flattened;
+>  dt_irq_xlate_func dt_irq_xlate;
+> @@ -535,26 +536,6 @@ int dt_child_n_size_cells(const struct dt_device_node *parent)
+>      return __dt_n_size_cells(parent, true);
+>  }
+>  
+> -/*
+> - * These are defined in Linux where much of this code comes from, but
+> - * are currently unused outside this file in the context of Xen.
+> - */
+> -#define IORESOURCE_BITS         0x000000ff      /* Bus-specific bits */
+> -
+> -#define IORESOURCE_TYPE_BITS    0x00001f00      /* Resource type */
+> -#define IORESOURCE_IO           0x00000100      /* PCI/ISA I/O ports */
+> -#define IORESOURCE_MEM          0x00000200
+> -#define IORESOURCE_REG          0x00000300      /* Register offsets */
+> -#define IORESOURCE_IRQ          0x00000400
+> -#define IORESOURCE_DMA          0x00000800
+> -#define IORESOURCE_BUS          0x00001000
+> -
+> -#define IORESOURCE_PREFETCH     0x00002000      /* No side effects */
+> -#define IORESOURCE_READONLY     0x00004000
+> -#define IORESOURCE_CACHEABLE    0x00008000
+> -#define IORESOURCE_RANGELENGTH  0x00010000
+> -#define IORESOURCE_SHADOWABLE   0x00020000
+> -
+>  /*
+>   * Default translator (generic bus)
+>   */
+> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+> index 03d22bce1e497e41834c273f9048b98dcbd48a54..aa6a968b574dce7cc753e8070fad3a6e585cd9e7 100644
+> --- a/xen/drivers/passthrough/arm/smmu.c
+> +++ b/xen/drivers/passthrough/arm/smmu.c
+> @@ -50,6 +50,7 @@
+>  #include <xen/rbtree.h>
+>  #include <xen/sched.h>
+>  #include <xen/sizes.h>
+> +#include <xen/resource.h>
+>  #include <asm/atomic.h>
+>  #include <asm/device.h>
+>  #include <asm/io.h>
+> @@ -70,22 +71,8 @@
+>  #define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np, pname, out))
+>  #define of_property_read_bool dt_property_read_bool
+>  #define of_parse_phandle_with_args dt_parse_phandle_with_args
+> -
+> -/* Xen: Helpers to get device MMIO and IRQs */
+> -struct resource
+> -{
+> -	paddr_t addr;
+> -	paddr_t size;
+> -	unsigned int type;
+> -};
+> -
+> -#define resource_size(res) (res)->size;
+> -
+>  #define platform_device dt_device_node
+>  
+> -#define IORESOURCE_MEM 0
+> -#define IORESOURCE_IRQ 1
+> -
+>  static struct resource *platform_get_resource(struct platform_device *pdev,
+>  					      unsigned int type,
+>  					      unsigned int num)
+> diff --git a/xen/include/xen/resource.h b/xen/include/xen/resource.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..4962e17da8387b7f324317482b19cc9fe71433fc
+> --- /dev/null
+> +++ b/xen/include/xen/resource.h
+> @@ -0,0 +1,40 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * System resource description.
+> + *
+> + * Reference:
+> + *   include/linux/ioport.h
+> + */
+> +#if !defined(XEN__RESOURCE_H)
+> +#define XEN__RESOURCE_H
+> +
+> +#define IORESOURCE_BITS         0x000000FFU      /* Bus-specific bits */
+> +
+> +#define IORESOURCE_TYPE_BITS    0x00001F00U      /* Resource type */
+> +#define IORESOURCE_IO           0x00000100U      /* PCI/ISA I/O ports */
+> +#define IORESOURCE_MEM          0x00000200U
+> +#define IORESOURCE_REG          0x00000300U      /* Register offsets */
+> +#define IORESOURCE_IRQ          0x00000400U
+> +#define IORESOURCE_DMA          0x00000800U
+> +#define IORESOURCE_BUS          0x00001000U
+> +
+> +#define IORESOURCE_PREFETCH     0x00002000U      /* No side effects */
+> +#define IORESOURCE_READONLY     0x00004000U
+> +#define IORESOURCE_CACHEABLE    0x00008000U
+> +#define IORESOURCE_RANGELENGTH  0x00010000U
+> +#define IORESOURCE_SHADOWABLE   0x00020000U
+> +
+> +#define IORESOURCE_UNKNOWN      (~0U)
+> +
+> +struct resource {
+> +    paddr_t addr;
+> +    paddr_t size;
+> +    unsigned int type;
+> +};
+> +
+> +#define resource_size(res) (res)->size;
+> +
+> +#define foreach_resource(res) \
 
-Correct. My point merely was that there are two reasons this isn't needed, each
-of which is by itself sufficient to justify omitting that call.
+Nit: we usually name those for_each_foo instead of foreach_foo.
 
-Jan
+> +    for (; res && res->type != IORESOURCE_UNKNOWN; res++)
+
+Missing spaces between parentheses:
+
+for ( ; res && res->type != IORESOURCE_UNKNOWN; res++ )
+
+Note that this macro will modify (advance) the res pointer, which is
+maybe unexpected by the caller?
+
+Also, the current logic forces the array of resources to always have a
+trailing IORESOURCE_UNKNOWN element in order to break the loop, it
+might be better to pass an explicit number of elements to iterate
+against if possible?
+
+As Jan said, it would be helpful to have an example usage of the
+macro.
+
+Thanks, Roger.
 
