@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 426059ECAE1
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 12:12:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854598.1267767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C81F9ECAE9
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 12:14:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854608.1267776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLKdN-0004Nd-BF; Wed, 11 Dec 2024 11:12:01 +0000
+	id 1tLKfp-0005DX-MN; Wed, 11 Dec 2024 11:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854598.1267767; Wed, 11 Dec 2024 11:12:01 +0000
+Received: by outflank-mailman (output) from mailman id 854608.1267776; Wed, 11 Dec 2024 11:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLKdN-0004Lu-7L; Wed, 11 Dec 2024 11:12:01 +0000
-Received: by outflank-mailman (input) for mailman id 854598;
- Wed, 11 Dec 2024 11:12:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tLKfp-0005Bx-Jk; Wed, 11 Dec 2024 11:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 854608;
+ Wed, 11 Dec 2024 11:14:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7jQm=TE=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tLKdM-0004KX-2E
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 11:12:00 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id bc972ee6-b7b0-11ef-a0d5-8be0dac302b0;
- Wed, 11 Dec 2024 12:11:58 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 813071063;
- Wed, 11 Dec 2024 03:12:25 -0800 (PST)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D0B813F5A1;
- Wed, 11 Dec 2024 03:11:55 -0800 (PST)
+ <SRS0=lbUB=TE=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tLKfn-0005Br-NI
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 11:14:31 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 15db968a-b7b1-11ef-99a3-01e77a169b0f;
+ Wed, 11 Dec 2024 12:14:29 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1733915660137679.3236455454473;
+ Wed, 11 Dec 2024 03:14:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,218 +38,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc972ee6-b7b0-11ef-a0d5-8be0dac302b0
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Penny Zheng <penny.zheng@arm.com>,
-	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH v5] xen/arm: Check for Static Heap feature when freeing resources
-Date: Wed, 11 Dec 2024 11:11:46 +0000
-Message-Id: <20241211111146.2827727-1-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 15db968a-b7b1-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1733915663; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=V/OB6RMlhL4pXjbn9JWIe+DC/Vdbi3x9JySlvENYDEKO1XBbk2iXbbRyj7cD+UiyggVlSNTkdd5nJK+dLyYPx9fDDMJstD+1F7yZc6ylU4apq36daZoDhLGFFpaUJTqXogw51hu7wvVkOH1gqiamqrfyOJIsyo9bk7r1ZtNxXw8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1733915663; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=3TgrnbL4CAatymIXhWuE2IW+ubJfSKB9fy+QUWuG6bs=; 
+	b=XuC0icdz3qqVM6Zoevk+q4RjiCQgLRY/pUZNjtDceWrnYxjzheMBj9CYQMzfiCiXts5w+UZcnYScrsil9vXbc5PRu3yjyQKR4pl6GEm4JywY+Hl0l3uJyOfRGyn5ckw2f6eYUx4+MizKnqvCDaTpXWpthrV53GWbp/Z3B9VPKew=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1733915663;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=3TgrnbL4CAatymIXhWuE2IW+ubJfSKB9fy+QUWuG6bs=;
+	b=KaejwQyxWxNTCj00AEaIhmng0zIecdmhx0Dk2THCjDeYXlg2jIrwYl5ybtER3/96
+	EPYuh2dhFPD2EsHwRWxdq/a2jLzKlclOdzXfVpgq9WfG6nBwf8x8StOClnV5+gbciBe
+	+oTgPONEVNIiLgtMLvu2IDlUYHDdXFWG2b4aVHWA=
+Message-ID: <f9e767ef-4742-4685-82c6-4d3abfc610b6@apertussolutions.com>
+Date: Wed, 11 Dec 2024 06:14:18 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/15] x86/hyperlaunch: introduce the domain builder
+To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
+ <20241123182044.30687-7-dpsmith@apertussolutions.com>
+ <f8f375d6-2b77-4d76-ac69-89d850ac4733@amd.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <f8f375d6-2b77-4d76-ac69-89d850ac4733@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Penny Zheng <Penny.Zheng@arm.com>
+On 11/25/24 12:52, Jason Andryuk wrote:
+> On 2024-11-23 13:20, Daniel P. Smith wrote:
+>> Introduce the domain builder which is capable of consuming a device 
+>> tree as the
+>> first boot module. If it finds a device tree as the first boot module, 
+>> it will
+>> set its type to BOOTMOD_FDT. This change only detects the boot module and
+>> continues to boot with slight change to the boot convention that the dom0
+>> kernel is no longer first boot module but is the second.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-If the Xen heap is statically configured in Device Tree, its size is
-definite, so only the defined memory shall be given to the boot
-allocator. Have a check where init_domheap_pages() is called
-which takes into account if static heap feature is used.
+<snip/>
 
-Extract static_heap flag from init data bootinfo, as it will be needed
-after destroying the init data section, rename it to using_static_heap
-and use it to tell whether the Xen static heap feature is enabled.
+>> +            bi->hyperlaunch_enabled = false;
+>> +            bi->mods[0].type = BOOTMOD_FDT;
+>> +            break;
+>> +        default:
+>> +            printk("Unknown error (%d) occured checking for 
+>> hyperlaunch device tree\n",
+>> +                   ret);
+>> +            bi->hyperlaunch_enabled = false;
+>> +        }
+>> +
+> 
+> Stray blank line
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Signed-off-by: Wei Chen <wei.chen@arm.com>
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com> # common
----
-Changes from v4:
- - Add R-by Jan
- - Changed code to reduce nesting in discard_initial_modules (Julien)
-Changes from v3:
- - Removed helper using_static_heap(), renamed static_heap variable
-   to using_static_heap and simplified #ifdef-ary (Jan suggestion)
-Changes from v2:
- - Change xen_is_using_staticheap() to using_static_heap()
- - Move declaration of static_heap to xen/mm.h and import that in
-   bootfdt.h
- - Reprased first part of the commit message
-Changes from v1:
- - moved static_heap to common/page_alloc.c
- - protect static_heap access with CONFIG_STATIC_MEMORY
- - update comment in arm/kernel.c kernel_decompress()
----
----
- xen/arch/arm/arm32/mmu/mm.c       | 4 ++--
- xen/arch/arm/kernel.c             | 7 ++++---
- xen/arch/arm/mmu/setup.c          | 8 ++++++--
- xen/arch/arm/setup.c              | 3 +++
- xen/common/device-tree/bootfdt.c  | 4 +++-
- xen/common/device-tree/bootinfo.c | 2 +-
- xen/common/page_alloc.c           | 5 +++++
- xen/include/xen/bootfdt.h         | 1 -
- xen/include/xen/mm.h              | 6 ++++++
- 9 files changed, 30 insertions(+), 10 deletions(-)
+ack.
 
-diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
-index 063611412be0..0824d61323b5 100644
---- a/xen/arch/arm/arm32/mmu/mm.c
-+++ b/xen/arch/arm/arm32/mmu/mm.c
-@@ -199,7 +199,7 @@ void __init setup_mm(void)
- 
-     total_pages = ram_size >> PAGE_SHIFT;
- 
--    if ( bootinfo.static_heap )
-+    if ( using_static_heap )
-     {
-         const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
- 
-@@ -246,7 +246,7 @@ void __init setup_mm(void)
- 
-     do
-     {
--        e = bootinfo.static_heap ?
-+        e = using_static_heap ?
-             fit_xenheap_in_static_heap(pfn_to_paddr(xenheap_pages), MB(32)) :
-             consider_modules(ram_start, ram_end,
-                              pfn_to_paddr(xenheap_pages),
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index 293d7efaed9c..8270684246ea 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -244,10 +244,11 @@ static __init int kernel_decompress(struct bootmodule *mod, uint32_t offset)
-     size += offset;
- 
-     /*
--     * Free the original kernel, update the pointers to the
--     * decompressed kernel
-+     * In case Xen is not using the static heap feature, free the original
-+     * kernel, update the pointers to the decompressed kernel
-      */
--    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
-+    if ( !using_static_heap )
-+        fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
- 
-     return 0;
- }
-diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
-index 9664e85ee6c0..8c87649bc88e 100644
---- a/xen/arch/arm/mmu/setup.c
-+++ b/xen/arch/arm/mmu/setup.c
-@@ -341,8 +341,12 @@ void free_init_memory(void)
-     if ( rc )
-         panic("Unable to remove the init section (rc = %d)\n", rc);
- 
--    init_domheap_pages(pa, pa + len);
--    printk("Freed %ldkB init memory.\n", (long)(__init_end-__init_begin)>>10);
-+    if ( !using_static_heap )
-+    {
-+        init_domheap_pages(pa, pa + len);
-+        printk("Freed %ldkB init memory.\n",
-+               (long)(__init_end-__init_begin) >> 10);
-+    }
- }
- 
- /**
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 2e27af4560a5..85f743a2c6ad 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -206,6 +206,9 @@ void __init discard_initial_modules(void)
-     struct bootmodules *mi = &bootinfo.modules;
-     int i;
- 
-+    if ( using_static_heap )
-+        return;
-+
-     for ( i = 0; i < mi->nr_mods; i++ )
-     {
-         paddr_t s = mi->module[i].start;
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index fc93d86e8232..61ad24c3ddc8 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -410,7 +410,9 @@ static int __init process_chosen_node(const void *fdt, int node,
-         if ( rc )
-             return rc;
- 
--        bootinfo.static_heap = true;
-+#ifdef CONFIG_STATIC_MEMORY
-+        using_static_heap = true;
-+#endif
-     }
- 
-     printk("Checking for initrd in /chosen\n");
-diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
-index 0daf5e941a51..76d652c0de0b 100644
---- a/xen/common/device-tree/bootinfo.c
-+++ b/xen/common/device-tree/bootinfo.c
-@@ -407,7 +407,7 @@ void __init populate_boot_allocator(void)
-     const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
-     paddr_t s, e;
- 
--    if ( bootinfo.static_heap )
-+    if ( using_static_heap )
-     {
-         for ( i = 0 ; i < reserved_mem->nr_banks; i++ )
-         {
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 92abed6514b4..013a1057cc7c 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -165,6 +165,11 @@
- #define PGT_TYPE_INFO_INITIALIZER 0
- #endif
- 
-+#ifdef CONFIG_STATIC_MEMORY
-+/* Flag saved when Xen is using the static heap feature */
-+bool __ro_after_init using_static_heap;
-+#endif
-+
- unsigned long __read_mostly max_page;
- unsigned long __read_mostly total_pages;
- paddr_t __ro_after_init mem_hotplug;
-diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index 343c48b73d2c..c8bbfd8979b2 100644
---- a/xen/include/xen/bootfdt.h
-+++ b/xen/include/xen/bootfdt.h
-@@ -139,7 +139,6 @@ struct bootinfo {
- #ifdef CONFIG_STATIC_SHM
-     struct shared_meminfo shmem;
- #endif
--    bool static_heap;
- };
- 
- #ifdef CONFIG_ACPI
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index d7dcf0f06330..88536e8132f5 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -72,6 +72,12 @@
- 
- struct page_info;
- 
-+#ifdef CONFIG_STATIC_MEMORY
-+extern bool using_static_heap;
-+#else
-+#define using_static_heap false
-+#endif
-+
- void put_page(struct page_info *page);
- bool __must_check get_page(struct page_info *page,
-                            const struct domain *domain);
--- 
-2.34.1
+>> +    }
+>> +}
+>> +
+>> +/*
+>> + * Local variables:
+>> + * mode: C
+>> + * c-file-style: "BSD"
+>> + * c-basic-offset: 4
+>> + * tab-width: 4
+>> + * indent-tabs-mode: nil
+>> + * End:
+>> + */
+>> diff --git a/xen/arch/x86/domain_builder/fdt.c b/xen/arch/x86/ 
+>> domain_builder/fdt.c
+>> new file mode 100644
+>> index 000000000000..3f9dda8c34c3
+>> --- /dev/null
+>> +++ b/xen/arch/x86/domain_builder/fdt.c
+>> @@ -0,0 +1,38 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (C) 2024, Apertus Solutions, LLC
+>> + */
+>> +#include <xen/err.h>
+>> +#include <xen/init.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/libfdt/libfdt.h>
+>> +#include <xen/rangeset.h> /* required for asm/setup.h */
+> 
+> Should asm/setup.h just be changed?
 
+Will drop per the follow-
+
+>> +
+>> +#include <asm/bootinfo.h>
+>> +#include <asm/page.h>
+>> +#include <asm/setup.h>
+>> +
+>> +#include "fdt.h"
+>> +
+> 
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index e6580382d247..8041aeb3dcfd 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+> 
+>> @@ -1591,7 +1596,8 @@ void asmlinkage __init noreturn __start_xen(void)
+>>   #endif
+>>       }
+>> -    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
+>> +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
+>> +    if ( bi->mods[i].headroom && !bi->mods[0].relocated )
+> 
+> Switch .relocated index to i?
+
+ack.
+
+v//r,
+dps
 
