@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 910349ECA65
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 11:34:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854508.1267698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A3289ECA48
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 11:26:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854426.1267649 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLK2K-0001nN-D9; Wed, 11 Dec 2024 10:33:44 +0000
+	id 1tLJuU-0005O9-F0; Wed, 11 Dec 2024 10:25:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854508.1267698; Wed, 11 Dec 2024 10:33:44 +0000
+Received: by outflank-mailman (output) from mailman id 854426.1267649; Wed, 11 Dec 2024 10:25:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLK2K-0001k1-92; Wed, 11 Dec 2024 10:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 854508;
- Wed, 11 Dec 2024 10:33:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tLJuU-0005Lb-BT; Wed, 11 Dec 2024 10:25:38 +0000
+Received: by outflank-mailman (input) for mailman id 854426;
+ Wed, 11 Dec 2024 10:25:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2HaM=TE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLJr6-00024A-3C
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 10:22:08 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5c4e683-b7a9-11ef-a0d5-8be0dac302b0;
- Wed, 11 Dec 2024 11:22:07 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-385e27c75f4so4774851f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 02:22:07 -0800 (PST)
+ id 1tLJuT-0005LV-6S
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 10:25:37 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f1e8cec-b7aa-11ef-99a3-01e77a169b0f;
+ Wed, 11 Dec 2024 11:25:30 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-385d7b4da2bso5359185f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 02:25:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-7fd35331cf8sm7308250a12.44.2024.12.11.02.22.03
+ d9443c01a7336-215f8f29bcbsm103307385ad.262.2024.12.11.02.25.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2024 02:22:05 -0800 (PST)
+ Wed, 11 Dec 2024 02:25:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5c4e683-b7a9-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 3f1e8cec-b7aa-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733912526; x=1734517326; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hO8Qikz+f0D+oVjxqRCd7QOvjmKJ9NgkZPKMop33tuo=;
-        b=fKt9Oy2QezJGe/jtR8oZ32NVgN1yGkuUvcraO7rDdbDWNuVuFG0pE/PfArof6BMyAy
-         WtADKRkc9Oa3+PUBPbpw4ZUx+jn3zRkodU2WJKrWkImc+OJnWssXgkkG7NmllXsJ4gq6
-         bC0QrkKj78NSxxLX2QGTQLuSIAyt/pmUNn/6Uts3RR/R4KCkpFBmnAGZqDNIDYytwC8E
-         PdpZUb6SIsfYigDiDVY65kwbWaB9w6Sqek5eK9TuNLWg3kvVUH54UGfTCEo+ji1DDjzB
-         vB2mJ71ti/F/gTRdXMGOik8Nr3TRizsBvrPo5A8bXVv5/p6MuGwhGYi8mdDVw84dprim
-         UIYg==
+        d=suse.com; s=google; t=1733912735; x=1734517535; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q3MJb1KfqWFsFw4tyXv9SWQKoj9MO+pwCgMweM5Me9w=;
+        b=dBnu8PczrMw0XR65IVtF+9gXlrWvL8dl185+MNxcvX49ufWqg4kWlEBjRjUV72hjau
+         lYWqTnnrjXYbXMRgAJLIqwuBoiSyaFWnrlK/AnqN2ufcKlSeDtwI/LmVbHgvU9BLjBlq
+         UoojkA4iuDwEZsHqoNUXKGLzWzbVJ8qEPU2ZiInHKdqSrgU3WNywCNlDxeZmlg8rUqPS
+         P1OHHU+zaBmTpPbPD1KvB6XQGghXZCJI1c2ntW2r+cLQ24rBO913e2aFkoaGDp987n12
+         O7DnBsjPrrXMcnebiUWWLRAtUpmzICJTQ2PNa2tNC35KWBwvJyuVpe6IkuRe9rnabK6u
+         cfNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733912526; x=1734517326;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hO8Qikz+f0D+oVjxqRCd7QOvjmKJ9NgkZPKMop33tuo=;
-        b=Fr63OCGfCQovIra6UOOwAvtc4WLJv0AWPMmUyWODqVIfQR/lmcf7aB0sigkC8VQbCN
-         59W2Pb1iXtoCxrqtgLK6ed00nqLJXLEypQcyAz2UOQaPXLmykHh1ZczRoJwA2TA4yMhZ
-         fAVV2pqheQUzbWhXVxhm4+MUyKRy+Jpjmkk0p8FNMFeCRYp3+MDnNmSuQ/9v8cHa1dcD
-         h4uqTi7QdbwmKGtVCfV/DryZaXiNn3Y7AjFivFwwGjWkAeisiTPI61d7UnwiiVJRhdLP
-         e9LXxucc76PgNkAmYnRlKOBagx8qWDTiPkTHUFakLv/4YAp4ji855zRNRCxlmU3ECn4T
-         mqJg==
-X-Gm-Message-State: AOJu0YyLqi3NHR4gHuFqE6JcL1PGqO1/ITfFUPqLWa1ZdC6aTc9c1UNF
-	1NloJQ4p67zEpNFSKMxOHgPM9qzMSfG79033w8oX4EyopfUq9PtxHZk5HuMuAvLtP3ccTptxRu8
-	=
-X-Gm-Gg: ASbGncvxXLF3xkPoxwPpyFRVYluUNXhEM+U4cbtkaSX8FPY6gsbnyctIs0UwLi8Qgos
-	krZ/dpus3+IGCUXBAmlEVzLnIUsUrcU32X0WPQ+JyHO2VUYuciJY5W6ZtQkdxVQyn9bSTKwuoiy
-	TeMqCofsxCs7c0nvcNe2jLL2waT737ypRTdFV6X13GzW92ll4e5511gWX90TTB2VAswjJCogJwH
-	nz5rNFld+2tddd7SgaRh+odty8h20ntHtTqB8B8BSyo1I774H3sFTSqnfr/04dNPkkEURbWquGk
-	xkGGXXDko2m+YRMCJarEZCCR9SzXJCw++MoGcys=
-X-Google-Smtp-Source: AGHT+IEJfMcOa7CTrg2kHbvf5IWOAllNdNS6uSJAV6DeZb0RyD3Ak294+pH58jQrJQ1zlKlOi47rUw==
-X-Received: by 2002:a5d:47a1:0:b0:386:3a8e:64c1 with SMTP id ffacd0b85a97d-3864ce90f89mr1695738f8f.19.1733912526329;
-        Wed, 11 Dec 2024 02:22:06 -0800 (PST)
-Message-ID: <9da1258a-86dd-46fb-9d38-95a2c2f3d902@suse.com>
-Date: Wed, 11 Dec 2024 11:22:01 +0100
+        d=1e100.net; s=20230601; t=1733912735; x=1734517535;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Q3MJb1KfqWFsFw4tyXv9SWQKoj9MO+pwCgMweM5Me9w=;
+        b=jjA34PvvV2SSxLh/xWfQm5vbyafvt+9vw9k2MpS3fweZZ5GLNycmolsXTwZJBJpVOA
+         ofqs7RMBqH3ChWDjNYBLX1Fl6XHXOwf+/Dsu+vSOeQFG4oTZkXt7ZcHf8kpr2fvpCbQW
+         hR1aWFSXA8l6Y1zRju1fMqy+d9stLPGjNpkBfUHBN960BNaAqRuZVp8XqK/dx2VuYTPK
+         XQPrUTejeq9fvkUW7VwoNJQX2oTGguiCDJFUnHSq+RCC+tIk4rwsPGsX1DIJ7zMHLdVM
+         QH1pjWIrol0u/vkCMqPHkgy8Fwca4Nlwx0ETWMoLtC+a3uBcPfQO8L6RyTdtmwJQcnt6
+         /2jA==
+X-Forwarded-Encrypted: i=1; AJvYcCVONpQDEXxzQ/JqCqT4xIx+bHCHeIorVK6CjHEPGqc7A+uAUVt331FSg/VdtXObHDElqnD0ao+DcjU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxPxtxc5tYzur8I+NgB5hI2nT777kJ6Z8Lm5XAk0yHJWVKr300M
+	5B04+DLieJ8uBjRESHYVLCyujcGvJA649njM3qvsYHWCVQ/shSHjD5lsNSr7SA==
+X-Gm-Gg: ASbGncsorjKS0I7JVEqLlt7haQhgEDLjDlZH/9YGI+/jo2AHF4NfntUYG82xhbfkY/K
+	fz2J51jPuRKjeTAoN7/BJHxI4ZZd06o5bIwmkQRojCk5wJD7zY7N+kn6exHEQw9o2IPauDy0d/U
+	boxClSdBMlDkX8jIafU6nWxxT3uXFnU1CW+fIpHjgWvxgXOgurXOArNEkdg9O7ndRVnwV6nZf49
+	8Hu2cHN08JYXd/JHNrv8iIKZkT8zFfOjkRu9yqw4ZQGCx+LAQ5jHnrcw6AI0DhRXonM9G1DGT6E
+	NQiwynQ+qpUlH4Fc+wwj5HG4bTZa6aULsgZD7us=
+X-Google-Smtp-Source: AGHT+IEQNV5/xVxKUOUmU+DRXTtDlMzAs3saKN83rxXFG0hE9JGr9oNSa5u+OWdVKxPThLHN3TWAow==
+X-Received: by 2002:a05:6000:4026:b0:385:e9de:d521 with SMTP id ffacd0b85a97d-3864ce867a0mr1815684f8f.8.1733912734611;
+        Wed, 11 Dec 2024 02:25:34 -0800 (PST)
+Message-ID: <0ac6dc04-f90f-4540-b1cb-dc825cc1a0db@suse.com>
+Date: Wed, 11 Dec 2024 11:25:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 16/16] x86emul: support AVX10.2 forms of SM4 insns
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 1/1] vpci: Add resizable bar support
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
+ <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <516b7f9a-048e-409d-8a4e-89aeb8ffacc4@suse.com>
+References: <20241202060956.1124162-1-Jiqian.Chen@amd.com>
+ <4e4df0ee-67f6-41e3-bfc7-e78011680015@suse.com>
+ <BL1PR12MB58499BEB287C4F9711324F71E73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <1e0576d9-400e-4483-8dd1-061e215a00cd@suse.com>
+ <BL1PR12MB584945F11C271CE137231F7BE73D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <a07bca59-90d2-4a84-bb47-59157bf5207d@suse.com>
+ <Z1glF5FJjnSzRqsB@macbook.local>
+ <BL1PR12MB58492072C5D445052FD056D5E73E2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <328c3bb6-1adf-4c64-81d4-40704ea1f19e@suse.com>
+ <Z1lQlVx_p_nvdLHG@macbook.local>
+ <d16e0c56-759f-4184-88c7-1b147de625f7@suse.com>
+ <BL1PR12MB584926B40E0D4A93449C7C7BE73E2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,82 +130,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <516b7f9a-048e-409d-8a4e-89aeb8ffacc4@suse.com>
+In-Reply-To: <BL1PR12MB584926B40E0D4A93449C7C7BE73E2@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Simply clone the VEX-encoded handling to cover the EVEX forms.
+On 11.12.2024 11:19, Chen, Jiqian wrote:
+> On 2024/12/11 16:53, Jan Beulich wrote:
+>> On 11.12.2024 09:43, Roger Pau Monné wrote:
+>>> On Wed, Dec 11, 2024 at 09:25:16AM +0100, Jan Beulich wrote:
+>>>> On 11.12.2024 08:57, Chen, Jiqian wrote:
+>>>>> On 2024/12/10 19:25, Roger Pau Monné wrote:
+>>>>>> So you suggest that the capability should be hidden in that case?  We
+>>>>>> have logic to hide capabilities, just not used for the hardware
+>>>>>> domain.  It would need some extra wiring to be capable of hiding
+>>>>>> failed capabilities.
+>>>>> Can you give me a guidance on how to hide a failed capability?
+>>>>> What codes are current logic to hide capabilities?
+>>>>> Then maybe I can add a patch to implement it.
+>>>>
+>>>> It's really the other way around right now for "normal" capabilities:
+>>>> We whitelist what we expose. See init_header()'s logic after checking
+>>>> the PCI_STATUS_CAP_LIST bit. Actually past that block there's
+>>>>
+>>>>         /* Extended capabilities read as zero, write ignore */
+>>>>         rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL, 0x100, 4,
+>>>>                                (void *)0);
+>>>>
+>>>> I.e. no extended capabilities are exposed at all right now to DomU-s.
+>>>> For Dom0 I guess we shouldn't use whitelisting, but the (extended)
+>>>> capability list(s) would need similarly virtualizing to be able to
+>>>> hide some.
+>>>
+>>> Given this capability is only to be exposed to the hw domain (at least
+>>> for now), I'm not sure it's fair to ask to add all this
+>>> infrastructure as part of adding the new capability.  It would be great
+>>> to have it, but doesn't seem fair when there's already MSI and MSI-X
+>>> implemented without such support.
+>>
+>> Well, of course this can also be modeled after MSI/MSI-X, failing
+>> assignment when initialization for a capability fails. Yet while for
+>> MSI / MSI-X this feels okay-ish (considering that many devices now
+>> can't even operate very well without either of the two), I'd expect
+>> BAR resizing to not be something that drivers (typically) rely on.
+>> "Typically" because iirc Jiqian said the AMD display driver actually
+>> does.
+> You mean what I said in last version?
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-There's a TODO left due to lack of SDE support. Invoking the test would
-fail at present, for SDE 9.44.0 advertising both AVX10.2 and SM4, while
-not supporting the new EVEX encodings just yet.
----
-SDE: -???
----
-v3: New.
+Yes.
 
---- a/tools/tests/x86_emulator/evex-disp8.c
-+++ b/tools/tests/x86_emulator/evex-disp8.c
-@@ -821,6 +821,11 @@ static const struct test movrs_all[] = {
-     INSN(movrsw, f2, map5, 6f, vl,    w, vl),
- };
- 
-+static const struct test sm4_all[] = {
-+    INSN(sm4key4,  f3, 0f38, da, vl, d_nb, vl),
-+    INSN(sm4rnds4, f2, 0f38, da, vl, d_nb, vl),
-+};
-+
- static const unsigned char vl_all[] = { VL_512, VL_128, VL_256 };
- static const unsigned char vl_128[] = { VL_128 };
- static const unsigned char vl_no128[] = { VL_512, VL_256 };
-@@ -1246,6 +1251,7 @@ void evex_disp8_test(void *instr, struct
-     if ( cpu_has_avx10_2 )
-     {
-         run(ctxt->addr_size == 64 && cpu_has_movrs, movrs, all);
-+        (void)sm4_all;//todo run(cpu_has_sm4, sm4, all);
-     }
- 
- #undef run
---- a/tools/tests/x86_emulator/predicates.c
-+++ b/tools/tests/x86_emulator/predicates.c
-@@ -2046,6 +2046,8 @@ static const struct evex {
-     { { 0xd3 }, 2, T, R, pfx_no, W0, Ln }, /* vpdpwuuds */
-     { { 0xd3 }, 2, T, R, pfx_66, W0, Ln }, /* vpdpwusds */
-     { { 0xd3 }, 2, T, R, pfx_f3, W0, Ln }, /* vpdpwsuds */
-+    { { 0xda }, 2, T, R, pfx_f3, W0, Ln }, /* vsm4key4 */
-+    { { 0xda }, 2, T, R, pfx_f2, W0, Ln }, /* vsm4rnds4 */
-     { { 0xdc }, 2, T, R, pfx_66, WIG, Ln }, /* vaesenc */
-     { { 0xdd }, 2, T, R, pfx_66, WIG, Ln }, /* vaesenclast */
-     { { 0xde }, 2, T, R, pfx_66, WIG, Ln }, /* vaesdec */
---- a/xen/arch/x86/x86_emulate/decode.c
-+++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -439,7 +439,7 @@ static const struct ext0f38_table {
-     [0xd3] = { .simd_size = simd_other, .d8s = d8s_vl },
-     [0xd6] = { .simd_size = simd_other, .d8s = d8s_vl },
-     [0xd7] = { .simd_size = simd_scalar_vexw, .d8s = d8s_dq },
--    [0xda] = { .simd_size = simd_other },
-+    [0xda] = { .simd_size = simd_other, .d8s = d8s_vl },
-     [0xdb] = { .simd_size = simd_packed_int, .two_op = 1 },
-     [0xdc ... 0xdf] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
-     [0xe0 ... 0xef] = { .to_mem = 1 },
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -6928,6 +6928,14 @@ x86_emulate(
-         op_bytes = 16 << vex.l;
-         goto simd_0f_ymm;
- 
-+    case X86EMUL_OPC_EVEX_F3(0x0f38, 0xda): /* vsm4key4 [xyz]mm/mem,[xyz]mm,[xyz]mm */
-+    case X86EMUL_OPC_EVEX_F2(0x0f38, 0xda): /* vsm4rnds4 [xyz]mm/mem,[xyz]mm,[xyz]mm */
-+        vcpu_must_have(avx10, 2);
-+        host_and_vcpu_must_have(sm4);
-+        generate_exception_if(evex.w || evex.brs || evex.opmsk, X86_EXC_UD);
-+        op_bytes = 16 << evex.lr;
-+        goto simd_zmm;
-+
-     case X86EMUL_OPC_VEX_66(0x0f38, 0xdc):  /* vaesenc {x,y}mm/mem,{x,y}mm,{x,y}mm */
-     case X86EMUL_OPC_VEX_66(0x0f38, 0xdd):  /* vaesenclast {x,y}mm/mem,{x,y}mm,{x,y}mm */
-     case X86EMUL_OPC_VEX_66(0x0f38, 0xde):  /* vaesdec {x,y}mm/mem,{x,y}mm,{x,y}mm */
+Jan
+
+> It is "amdgpu driver saves and restores the same pci state during initiazation without disabling memory decoding, that caused Roger's method not work".
+> And currently running amdgpu on Xen hypervisor has two scenarios, 
+> 1. APU does not rely on ReBar capability, because APU's vram are all CPU accessible.
+> 2. But for discrete GPU, they can't work based on current Xen codes, it needs resize Bar to make all vram CPU accessible. That is why I sent this patch to add Rebar support in Xen.
+> 
+>>
+>> Jan
+> 
 
 
