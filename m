@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A3D49ECF6F
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 16:11:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854855.1267945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A3979ECF74
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 16:13:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854865.1267955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLOM9-0001w4-Rb; Wed, 11 Dec 2024 15:10:29 +0000
+	id 1tLOP7-0002yn-7b; Wed, 11 Dec 2024 15:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854855.1267945; Wed, 11 Dec 2024 15:10:29 +0000
+Received: by outflank-mailman (output) from mailman id 854865.1267955; Wed, 11 Dec 2024 15:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLOM9-0001u0-O3; Wed, 11 Dec 2024 15:10:29 +0000
-Received: by outflank-mailman (input) for mailman id 854855;
- Wed, 11 Dec 2024 15:10:28 +0000
+	id 1tLOP7-0002x6-4l; Wed, 11 Dec 2024 15:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 854865;
+ Wed, 11 Dec 2024 15:13:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YxMG=TE=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1tLOM8-0001tl-0a
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 15:10:28 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YTIw=TE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tLOP5-0002wt-GH
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 15:13:31 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cabf43c-b7d2-11ef-a0d5-8be0dac302b0;
- Wed, 11 Dec 2024 16:10:26 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id B4916A424F8
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 15:08:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6165C4CEDE
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 15:10:24 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-30167f4c1e3so37266521fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 07:10:24 -0800 (PST)
+ id 7acaa78d-b7d2-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 16:13:30 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-aa689a37dd4so672012066b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 07:13:30 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa665119a06sm676932866b.121.2024.12.11.07.13.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2024 07:13:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,127 +44,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cabf43c-b7d2-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1733929824;
-	bh=vwMne/K0j8rrpH/mQjtZ5MhGf+oQP7w7hqp0euRGM1A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=RQ4HLuF6JC1GgROlngq5G+okeXtK0tEW3apDaBThJ0QNyKpSbvmg7ub2QP3HqD7wn
-	 LlM7G257UsutNwKOFhQykFg5iBD/lrON/1NsXELZ1W+pph51V93njc9iN9WDE+RPq9
-	 OMALZbBMLbB3M13ejgVoR02QfY427EQCoJB2ewZW33S+nAgom30xR/YE3FSgIgmyHv
-	 t2qM99EvZF05QtiVhTkMu0d51lSozNW6KjahLY9Ok/lr/N6h+zmQ4K7/KzezxShm6x
-	 08FOnQXin2lYT72wDaPHbIXkfP8jamHnTNKfAgXg7yYf9KPEbqEw2ETTskgFyG5tqO
-	 yImVDjRRS/rEw==
-X-Forwarded-Encrypted: i=1; AJvYcCUqaQCgpCEqErJMClAwRnu6MhKwuhoP9H3v5y7cxJEO6I08iKfuX7moiJtK6rYUC4jtD9zJCka1vkg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6f51on5AAjeWqJaIgTRVzC5Ry8reNcW/wGyGWfP5deZz+sH7N
-	bDGVeRt4yrPyq0aiT2D4PUIVpqgFBVBaMQIboatQT+V1LYyInVgFRh8rJIiNe65LpyqUKcZ/VVG
-	ENHERALtdsehnhT43jXtdpYY0AIQ=
-X-Google-Smtp-Source: AGHT+IEH2haSPiKkqpS7Re3sKBMuXnJYr1qHANTQL7CO42YZMOsFAblQcWfjwoKqa/dgt/iFcSPfS+HSQCIAEOV6h6Q=
-X-Received: by 2002:a2e:bcc4:0:b0:300:7f87:a6a with SMTP id
- 38308e7fff4ca-30240ca0ad1mr13544001fa.7.1733929823030; Wed, 11 Dec 2024
- 07:10:23 -0800 (PST)
+X-Inumbo-ID: 7acaa78d-b7d2-11ef-a0d5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1733930010; x=1734534810; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=EtsoRGoluwCrd6QQv0luq5gTndqCcJ0mFLAtuWD2QBA=;
+        b=Ghj5cVxMiBHiDllLmthYM+4ILXMfs20ThjSbcbzWjlU6OOOUz9RTl5AjeBl9NFul0U
+         0WIHXi/2Fn4Pi/cnZWhp0kn9u6xjRHHb0zAOESrSMN7m+Sk4gD8SnJ7jCW8tDGx6tNBq
+         6B3hZ5FsUFXGfCEq02zlWXEQ3Zup6eDPJcW5U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733930010; x=1734534810;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EtsoRGoluwCrd6QQv0luq5gTndqCcJ0mFLAtuWD2QBA=;
+        b=gQrb1UxQK0EU7y5ood1RnmPfionjcd7G+wa9jkOCJS4NivrkTQsoN1MQh1cynWugiZ
+         4sJbP/OYO8THNJz6jXEqC+mKOghGuCG33oylpedHy9l8CYisbk5JpCz3HzcyTkOfvbvp
+         8tgEpwp5QNKCtPVANsV/G5XTGSk8O/VQDDAYtRQdxFpNiIzd/bcRIt/eLfECgfn2dl74
+         /Z6c21D9+x4bTNNSLO0gxbOygLeLXqS+zn/oBIhwzy8TZX10NOq+jjlAo4KY6/0bENPC
+         qUTRezjfklboeGArVd7JGDbz8DWd9Y5EluH3NNAidFmlFzMngVncHdoYrhYhc4si8Qrx
+         8T+w==
+X-Gm-Message-State: AOJu0YxqdPFmg0srdAZ4ERUZI3bN08WaJ8OerTK+yxqiFKkFYtFB9MOY
+	IphBmaBB709ymQi9X3xesPSXWJEURd2TkhXqZTKkTD3PoQjxZLhY0OFOX21DT5Y=
+X-Gm-Gg: ASbGncvJzXf2Cep/z0NkyCIp3x9zhTUeVXUrJohkn1aXY16kZkU05F4yojBswYYJneO
+	Ztc60f6Ql5LlSIHs64O9Ppt6wCOZF1jSJy3H0mlvz/2xGLM37C8pne71rxR+M1eEryh56Cuz8r7
+	AiUTA5x8goNTRSywqxAjvtwTI9IJBTCHSqXnKDHgc9hcvXphItLE9yOjB4HclnfqXK2xQn8PX20
+	vK4kiVvTn5ec1oq45U5yuImBjWkZVNWyHJT5v9eDXPS+hNQ6L1vO5uDW3H8ewc=
+X-Google-Smtp-Source: AGHT+IHw3qgKcLGUuGabAwNcjvuX0WaiNQo5BUfZysGB9zKeK87cUOeVj4XZs7tMtjkySAPtZfDSEw==
+X-Received: by 2002:a17:906:3287:b0:aa6:4494:e354 with SMTP id a640c23a62f3a-aa6b1373e90mr276536766b.42.1733930009832;
+        Wed, 11 Dec 2024 07:13:29 -0800 (PST)
+Date: Wed, 11 Dec 2024 16:13:28 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmukhin@ford.com
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 08/35] x86/domain: introduce domain_has_vuart()
+Message-ID: <Z1msGHspF2_bi3fF@macbook.local>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-8-e9aa923127eb@ford.com>
 MIME-Version: 1.0
-References: <Z1l6XbHP6BTTZSwr@mail-itl> <fe8db5b2-7524-49ea-ab8e-21f831dc009f@suse.com>
- <CAMj1kXHSiCo7FH0Mo-_R9HjxhthddPUZfgm5c8yj7vjGvgfTPg@mail.gmail.com>
- <Z1mF0UZPNLjYAJI7@mail-itl> <CAMj1kXFVd+2n1fRoOriwmAPH8yX22gSy7_m_1SVjtoG3r_=-Tw@mail.gmail.com>
- <Z1mWFcm_036BrvEq@mail-itl> <2024121144-false-playtime-968e@gregkh>
-In-Reply-To: <2024121144-false-playtime-968e@gregkh>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Wed, 11 Dec 2024 16:10:11 +0100
-X-Gmail-Original-Message-ID: <CAMj1kXEH4jaFyFMMN41UqdkjfSrN19cwJsiAYnX6jETvDagF-g@mail.gmail.com>
-Message-ID: <CAMj1kXEH4jaFyFMMN41UqdkjfSrN19cwJsiAYnX6jETvDagF-g@mail.gmail.com>
-Subject: Re: [REGRESSION] Linux 6.6.64 crashes when booting as PVH domU
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	=?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, 
-	Jason Andryuk <jandryuk@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, regressions@lists.linux.dev, 
-	xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20241205-vuart-ns8250-v1-8-e9aa923127eb@ford.com>
 
-On Wed, 11 Dec 2024 at 14:46, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Wed, Dec 11, 2024 at 02:39:33PM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Wed, Dec 11, 2024 at 01:37:52PM +0100, Ard Biesheuvel wrote:
-> > > (cc Greg)
-> > >
-> > > On Wed, 11 Dec 2024 at 13:30, Marek Marczykowski-G=C3=B3recki
-> > > <marmarek@invisiblethingslab.com> wrote:
-> > > >
-> > > > On Wed, Dec 11, 2024 at 01:24:08PM +0100, Ard Biesheuvel wrote:
-> > > > > On Wed, 11 Dec 2024 at 12:53, J=C3=BCrgen Gro=C3=9F <jgross@suse.=
-com> wrote:
-> > > > > >
-> > > > > > Jason, Ard,
-> > > > > >
-> > > > > > I guess there are some prereq patches missing in stable 6.6.y b=
-ranch?
-> > > > > >
-> > > > > >
-> > > > > > Juergen
-> > > > > >
-> > > > > > On 11.12.24 12:41, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > Hi,
-> > > > > > >
-> > > > > > > With Linux 6.6.64 I get the following crash on domU boot:
-> > > > > > >
-> > > > > > > (XEN) d5v0 Triple fault - invoking HVM shutdown action 1
-> > > > > > > (XEN) *** Dumping Dom5 vcpu#0 state: ***
-> > > > > > > (XEN) ----[ Xen-4.19.0  x86_64  debug=3Dn  Tainted:  M     ]-=
----
-> > > ...
-> > > > > > >
-> > > > > > > Linux 6.6.63 works fine.
-> > > > > > >
-> > > > > > > Looking at the changes, I suspect one of those:
-> > > > > > >
-> > > > > > >      83d123e27623 x86/pvh: Call C code via the kernel virtual=
- mapping
-> > > > > > >      f662b4a69e1d x86/pvh: Set phys_base when calling xen_pre=
-pare_pvh()
-> > > > > > >
-> > > > >
-> > > > > The second patch shouldn't have been backported. It is unnecessar=
-y,
-> > > > > given that in the old situation, the kernel image needs to be loa=
-ded
-> > > > > at a fixed address. And it assumes  that %rbp is set to the physi=
-cal
-> > > > > load offset, but those patches were not backported.
-> > > >
-> > > > It has this tag:
-> > > >
-> > > >     Stable-dep-of: e8fbc0d9cab6 ("x86/pvh: Call C code via the kern=
-el virtual mapping")
-> > > >
-> > >
-> > > That was added by the stable maintainers - someone grabbed a patch
-> > > from the middle of an unrelated series to make e8fbc0d9cab6 apply
-> > > without lexical conflicts.
-> > >
-> > > > Does it mean neither of them should be backported?
-> > > >
-> > > > But then, the e8fbc0d9cab6 has "Fixes:" tag (pointing at very old
-> > > > commit).
-> > > >
-> > >
-> > > If someone thinks e8fbc0d9cab6 should be backported, they should
-> > > rebase it onto v6.6.y, not backport random other patches until
-> > > git-apply stops complaining. And ideally, someone would build and boo=
-t
-> > > the result to check whether it works.
-> > >
-> > > For now, it would be better to revert both.
-> >
-> > I can confirm that reverting both commits fixes the issue.
->
-> Ok, thanks, let me go rip all of these out and do a new release now to
-> fix the issue.  Sorry about that, and thanks so much for the testing and
-> letting us know!
->
+On Thu, Dec 05, 2024 at 08:41:38PM -0800, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
+> 
+> Introduce domain_has_vuart() for x86 port to be used in the console driver.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/arch/x86/include/asm/domain.h | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index b79d6badd71c4d96279555df62fad75fe817a2b6..c1d0d1f47324e8cc678a4c76c43f86820a89e7b3 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -506,6 +506,9 @@ struct arch_domain
+>  #define has_pirq(d)        (!!((d)->arch.emulation_flags & X86_EMU_USE_PIRQ))
+>  #define has_vpci(d)        (!!((d)->arch.emulation_flags & X86_EMU_VPCI))
+>  
+> +/* NB: same symbol as in Arm port */
+> +#define domain_has_vuart(d) false
 
-I guess 6.11 is beyond repair?
+Don't you need to consume d in the macro, ie:
+
+#define domain_has_vuart(d) ((void)(d), false)
+
+Thanks, Roger.
 
