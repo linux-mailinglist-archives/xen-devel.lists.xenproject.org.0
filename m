@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3CEC9ECA4E
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 11:29:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.854455.1267668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B77119ECA66
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Dec 2024 11:34:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.854514.1267709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLJyK-0006ZO-99; Wed, 11 Dec 2024 10:29:36 +0000
+	id 1tLK2c-0002Li-LV; Wed, 11 Dec 2024 10:34:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 854455.1267668; Wed, 11 Dec 2024 10:29:36 +0000
+Received: by outflank-mailman (output) from mailman id 854514.1267709; Wed, 11 Dec 2024 10:34:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLJyK-0006X9-6W; Wed, 11 Dec 2024 10:29:36 +0000
-Received: by outflank-mailman (input) for mailman id 854455;
- Wed, 11 Dec 2024 10:29:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tLK2c-0002HY-Hb; Wed, 11 Dec 2024 10:34:02 +0000
+Received: by outflank-mailman (input) for mailman id 854514;
+ Wed, 11 Dec 2024 10:34:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2HaM=TE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLJyI-0006X3-RM
- for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 10:29:34 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cba5fd8c-b7aa-11ef-99a3-01e77a169b0f;
- Wed, 11 Dec 2024 11:29:26 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3862a921123so3854826f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 02:29:31 -0800 (PST)
+ id 1tLK2b-0001aQ-0C
+ for xen-devel@lists.xenproject.org; Wed, 11 Dec 2024 10:34:01 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f01c5fd-b7ab-11ef-a0d5-8be0dac302b0;
+ Wed, 11 Dec 2024 11:34:00 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-434ab114753so43533335e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 02:34:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ef68b5272bsm9668798a91.37.2024.12.11.02.29.26
+ 41be03b00d2f7-7fd560985e0sm3804655a12.79.2024.12.11.02.33.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2024 02:29:28 -0800 (PST)
+ Wed, 11 Dec 2024 02:33:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cba5fd8c-b7aa-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 6f01c5fd-b7ab-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733912970; x=1734517770; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ujBTJkvmO2v8Y+beaFy0sSs/m/XktSxubv6Dq+sEiHU=;
-        b=WpepBenUEtHcd9eP9p44o1TQhaimP5b+uJgdYqsmkRilxx0g9Mc8CIJNH+s4Ydort7
-         X/v+/95BSgPGhcSDIvzWwPpkKGZHEBiD9jxK2dOCJ7yYnKuzwIX6+twYFR0FYKtpyWu7
-         AYmXurHLzuko3lL+W5aqkVmxwfISWD7wRFNtlSv2B/Rz3/PJ8zlamh4uvjufIbglDfJe
-         Hw+mPcZLr/eFahRKE0m48ZVbBd7vIlRxoeL7159KhWBcG7EW/+urO2sVGwayaqH/ADn6
-         dB1k13JgyBXxjaLKf3lE587BkPlWGp1F6Q3W0FFUtlhUCkZYRrUnIM/arNzN9+jkTkFT
-         Pxtg==
+        d=suse.com; s=google; t=1733913240; x=1734518040; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=zTT2fI8Lh1KYGwkqJ4HYUDlHCdYmKmMDp5k482eZu/k=;
+        b=Q8qxDWBcchuUbFo9zuJ6sZmq6LcXKzsPEeRDcd/J8Aohts7u+xeNrq7VYU3ZCVvNon
+         jfNEqsYuKbSOxWBdeJdrywLuSsd5v7t0VWHu/TIH9TICz/Vnq5dzxtFrKI1WdSjRyHRh
+         JD5TA/d+sfXUy5CL7Ic3qd3OQAZ0Rm51rU62uAibbRzB8tXNzs1lbCYW5i1UonyljEGp
+         Mi+cpfYcOUD/Aiz6HVLaamypkSHf+0KiLfmHUfP2rHoQUTkxOgpaCLqpC/uvVtT4arrv
+         Wn404rtqyIyiYyPFA6NrC5N7FeSscmmLycPMmozFpQNV7lEgptq12tvdnNRGJGH/DxUK
+         Zceg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733912970; x=1734517770;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ujBTJkvmO2v8Y+beaFy0sSs/m/XktSxubv6Dq+sEiHU=;
-        b=C33MYCOkEE4LFDBmHbAggKIKsoxuNZ8m0jCEJ4noKbQkYEJklxYjMHc74zhKlQcTf6
-         cXsgKuIppHspJybtEgEiSFIOgYBU0BzrwRZHux8DvEkaH53ZmAFhkIZtsZ/bvC5hfZhR
-         Ql37+Dk1BXWormueD2uGQF6nxru8X0noAkQeFgYTzMB3sd8492TrBMCuvA9qucbv/4xi
-         zywFo/AMyyK60wXR0fAEAxrv5mQ3BnyyyZ/dARq4qgr/8K+bhQAdDE+RS4LjW6L/qE0t
-         3R56RN7MKYWwRe1y18qAbm0qDi8uuQb/rn0kVcGCxi5Fek2OO00FDxX1vkhWnjTczpUC
-         RADA==
-X-Gm-Message-State: AOJu0Yw5J6nyGsiWlYgmC6rwp1g13aKebGiZqQlk5nKdNT/2l3cI5k7d
-	9SIGC652cRyLYUMbCVgAXV2yjhlH6TwUMrbJfXBLOv5hvaGw92DbT7NXdUF/lY9/UTY88JPqDkI
-	=
-X-Gm-Gg: ASbGncvcH+ji23/IqHDeBbkJIkzPDdl/dDhyrNcYEHj0nfZyCTOmDnCUAvhwMO3+Tcl
-	EQIfhKedWNp/BXFPOHB8fhMPuMthVtkTWMfBI42GBeI3mZwGRgI8u8f5a6BwfcTyqghSNLwqxzJ
-	e82tmAnKWSauOZN9wDMto4ZmjDqqk3EQRKhWfjLSoKhktR6tgifCkJXiU+6UMg+EIBcyiuX1gWK
-	h4uUiV+a5eJDYsbjqZzMqGqVsest0GTSoiGAaQjxluF5caxyXhR3gCo/WZua+rcmhv/0rucmjPu
-	ZkYfYCU0k87IcgyNqQ4a9rG19sk4LnrXtM1QEE0=
-X-Google-Smtp-Source: AGHT+IFsmYFIMF3UuxSbdCOdljfJU7H1TPXBRv4T6CKWO7LHMapK36wjCrqk58u7z9THYP5g6P/L+Q==
-X-Received: by 2002:a5d:47a4:0:b0:385:e5d8:3ec2 with SMTP id ffacd0b85a97d-3864cea39aemr1896480f8f.28.1733912968951;
-        Wed, 11 Dec 2024 02:29:28 -0800 (PST)
-Message-ID: <f798c7d3-4f2f-4a71-b40e-aebcd3e6a510@suse.com>
-Date: Wed, 11 Dec 2024 11:29:22 +0100
+        d=1e100.net; s=20230601; t=1733913240; x=1734518040;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zTT2fI8Lh1KYGwkqJ4HYUDlHCdYmKmMDp5k482eZu/k=;
+        b=m+mHPFpLWQHdsul+Rd0NQ+yPptM1IatqdJUf+sNTCfCJdZ4FaqhuG1gwIi8KUrDWel
+         ut2lQ3UGuad887OOQ6YyBXExZdlNG5TIX6D5UI4dDpuPPzZuPgRR4dSPj1C4tEOYZH87
+         Zcl2iA752g0AvwIw2HLDh6DZOoH1F2QcszAx+HVlAz1UUOCAiSvkCp2cixK3wUCAe8X5
+         4amtD3/09+vxyG1UsBax5Ufe1uAevWKv0BJli4/xO3wjrn2Pk9xil5YQbxZprYNdsc0o
+         VUbOlW9dadaC948RoLt80YdIlEMWbypnmlaZ32KCENAlrjYB+EvUsICjZ7YHhdo7zrFE
+         bRnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWyuRRl9zm1EGHc2p2/myAn6GmzW63dWl2AA40+k+bdVIUoj7bvssEYVf3Y928pTZouPauqj6aWMKk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxA6iHM7Bhl3ZFUlPnlntvZJCY67HzxtwcWUXtqoeQ2Pwaw4iI5
+	5VuO/4lINq9JcZ1CML3wwoKwbA0baWUHPWwFB1E86l6wcVZMWLQ8ceL7jD02TA==
+X-Gm-Gg: ASbGncvTR0eI3NLXl+OqRfpG41vI9iSdXXKPZK/nVC8szk4jF3lkcIIVPs0Qg7oZdoJ
+	lSb0a2AQu5v57ZYgSzqtH8ei4URZYKXJYFNylNs+OsntjsABT2qHk1jNrrfDIIPc72yt4ByRZ97
+	fmE5ttEViMSHP9FRnCrA1luZFZ82BzAy4OmiuwKQnryY4+juMQViz8K9vr4rsku8+VPGx6OzaUq
+	lsMxPmIIT0u9F3XTFhjsdT7ANHM3x9pKgdCx7qZn35w4wUbYZSafY0wKSfTEFj7XsJhsnzfTfc6
+	8u+yvOiML/tu26lD52/+48jktsSY3DtaGy6XnUw=
+X-Google-Smtp-Source: AGHT+IG3A3P+FFDPJp7dUdCzkWzaG63tsDLnhw5PjtLpyZVCAzHMyEiQJDqoxigCtW6HvY9ezR4IgA==
+X-Received: by 2002:a05:6000:188f:b0:386:62f:cf18 with SMTP id ffacd0b85a97d-3864ce9faa0mr1331702f8f.49.1733913239569;
+        Wed, 11 Dec 2024 02:33:59 -0800 (PST)
+Message-ID: <9e05dcb0-ae71-4efe-9f1b-effa7a60cf9f@suse.com>
+Date: Wed, 11 Dec 2024 11:33:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/16] x86: support AVX10
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <516b7f9a-048e-409d-8a4e-89aeb8ffacc4@suse.com>
+Subject: Re: [PATCH v1 5/6] xen/riscv: implement relocate_fdt()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1732709650.git.oleksii.kurochko@gmail.com>
+ <c157b03a8cb6d9c4910136b5d73260b47c55554e.1732709650.git.oleksii.kurochko@gmail.com>
+ <d9fddba7-8364-45a6-addd-004dbde366a5@suse.com>
+ <4dd6a2e9-d2b9-4402-907b-b9314d2346f7@gmail.com>
+ <929d657d-ffe8-4243-ba01-fffa20b26205@suse.com>
+ <b9bcd015-330b-44a0-8660-c157369b4c96@gmail.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,55 +124,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <516b7f9a-048e-409d-8a4e-89aeb8ffacc4@suse.com>
+In-Reply-To: <b9bcd015-330b-44a0-8660-c157369b4c96@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.12.2024 11:09, Jan Beulich wrote:
-> AVX10.1 is just a re-branding of certain AVX512 (sub)features, i.e.
-> adds no new instructions. Therefore it's mostly relaxation that needs
-> doing, plus dealing with the 256-bit-only case that AVX512 itself
-> does not allow for. Luckily an unnecessary restriction on the mask
-> register insns was taken out again, simplifying the actual emulator
-> adjustments quite a bit.
+On 11.12.2024 11:26, Oleksii Kurochko wrote:
+> On 12/10/24 5:20 PM, Jan Beulich wrote:
+>>>> Also recall my comment on one of your earlier series, regarding inclusive
+>>>> vs exclusive ranges. Can that please be sorted properly as a prereq, to
+>>>> avoid extending the inconsistency?
+>>> Yes, I remember that and at the moment everything ( DIRECTMAP_VIRT_END, FRAMETABLE_VIRT_END )
+>>> is following "inclusive" way. Considering that you remind me that could you please tell me more time
+>>> what I am missing?
+>> First the table azt the top of config.h uses all exclusive upper bounds.
+>> And then DIRECTMAP_SIZE's definition assumes DIRECTMAP_SLOT_END would be
+>> exclusive, when it's inclusive.
 > 
-> AVX10.2 is adding quite a few new insns, support for which (new in v3)
-> is roughly added chapter-wise as the spec has them (perhaps not in the
-> order of the chapters there).
+> Really missed to update the tale on the top of config.h.
 > 
-> While it probably can be rebased ahead, the series in this form
-> depends on the previously submitted "[PATCH v5 0/3] x86/CPUID: leaf
-> pruning". It also is assumed to go on top of "[PATCH v7 0/7] x86emul:
-> misc additions", albeit at most contextual dependencies ought to exit
-> there.
-> 
-> I've tried to be very careful in rebasing ahead of other emulator
-> patches I've been carrying, but almost all testing I've done is with
-> all of those collectively in place.
-> 
-> 01: x86/CPUID: enable AVX10 leaf
-> 02: x86emul: support AVX10.1
-> 03: x86emul/test: use simd_check_avx512*() in main()
-> 04: x86emul/test: drop cpu_has_avx512vl
-> 05: x86emul: AVX10.1 testing
-> 06: x86emul/test: engage AVX512VL via command line option
-> 07: x86emul: support AVX10.2 256-bit embedded rounding / SAE
-> 08: x86emul: support AVX10.2 scalar compare insns
-> 09: x86emul: support AVX10.2 partial copy insns
-> 10: x86emul: support AVX10.2 media insns
-> 11: x86emul: support AVX10.2 minmax insns
-> 12: x86emul: support AVX10.2 media insns
-> 13: x86emul: support AVX10.2 saturating convert insns
-> 14: x86emul: support other AVX10.2 convert insns
-> 15: x86emul: support SIMD MOVRS
-> 16: x86emul: support AVX10.2 forms of SM4 insns
+> But it seems to me like any *_SIZE will be defined in exclusive way by its nature, doesn't it?
 
-I should probably have mentioned here two further opens:
-1) Testing. So far I haven't been able to think of a good approach to test
-   some (most?) of the new insns, beyond the EVEX Disp8 and predicates
-   testing that's being taken care of in individual patches.
-2) Supposedly there is a way to constrain guests to 256-bit vector size via
-   a VMCS setting. The spec has no details beyond mentioning this fact.
+Of course. I'm not even sure "size" can be reasonably qualified as "exclusive" or
+"inclusive".
+
+> For example, size of directmap is (509-200+1)<<30 = 0x7F80000000 and it is not really (
+> 0x7F80000000 - 1 ) = 7F7FFFFFFF.
+> 
+> I prefer to have DIRECTMAP_{SIZE,VIRT_END} defined as now:
+>    #define DIRECTMAP_SIZE          (SLOTN(DIRECTMAP_SLOT_END + 1) - SLOTN(DIRECTMAP_SLOT_START))
+>    #define DIRECTMAP_VIRT_END      (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
+> ( of course with making upper bounds inclusive in the table on the top of config.h )
+
+Right.
+
+>>>>> +        set_fixmap(FIX_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_RW);
+>>>>> +        memcpy(dst, src + s, l);
+>>>>> +        clean_dcache_va_range(dst, l);
+>>>> Why is this necessary here? You're copying to plain RAM that Xen alone
+>>>> is using.
+>>> It is Arm specific:
+>>> ```
+>>> commit c60209d77e2c02de110ca0fdaa2582ef4e53d8fd
+>>> Author: Stefano Stabellini<stefano.stabellini@eu.citrix.com>
+>>> Date:   Mon Jan 21 12:40:31 2013 +0000
+>>>
+>>>       xen/arm: flush dcache after memcpy'ing the kernel image
+>>>       
+>>>       After memcpy'ing the kernel in guest memory we need to flush the dcache
+>>>       to make sure that the data actually reaches the memory before we start
+>>>       executing guest code with caches disabled.
+>>>       
+>>>       copy_from_paddr is the function that does the copy, so add a
+>>>       flush_xen_dcache_va_range there.
+>>> ```
+>>> I wanted to put copy_from_paddr() to some common place at the end but in RISC-V cache is always enabled
+>>> ( I don't see an instruction in the spec for disable/enable cache ) so this issue isn't present for RISC-V
+>>> and clean_dcache_va_range() should/could be dropped.
+>> That plus there's no kernel in sight just yet.
+> 
+> ( clarification ) will it change something if kernel will be loaded now? It seems even if we are copying kernel in guest
+> memory we still don't need to flush the dcache as cache is enabled and cache coherence protocol will do a work automatically.
+
+Correct. My point merely was that there are two reasons this isn't needed, each
+of which is by itself sufficient to justify omitting that call.
 
 Jan
 
