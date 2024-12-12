@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49F639EE51F
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 12:34:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855825.1268629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 398919EE538
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 12:38:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855836.1268639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhSQ-0000EG-PO; Thu, 12 Dec 2024 11:34:14 +0000
+	id 1tLhVw-0000sk-7y; Thu, 12 Dec 2024 11:37:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855825.1268629; Thu, 12 Dec 2024 11:34:14 +0000
+Received: by outflank-mailman (output) from mailman id 855836.1268639; Thu, 12 Dec 2024 11:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhSQ-0000BW-M9; Thu, 12 Dec 2024 11:34:14 +0000
-Received: by outflank-mailman (input) for mailman id 855825;
- Thu, 12 Dec 2024 11:34:13 +0000
+	id 1tLhVw-0000q5-4U; Thu, 12 Dec 2024 11:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 855836;
+ Thu, 12 Dec 2024 11:37:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLhSP-0000BQ-Al
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:34:13 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1tLhVu-0000px-Is
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:37:50 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fdd17a70-b87c-11ef-99a3-01e77a169b0f;
- Thu, 12 Dec 2024 12:34:04 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-aa1e6ecd353so67015566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:34:09 -0800 (PST)
+ id 804fb4f8-b87d-11ef-99a3-01e77a169b0f;
+ Thu, 12 Dec 2024 12:37:43 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-aa6a92f863cso90611166b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:37:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa674a112c7sm691758866b.147.2024.12.12.03.34.08
+ a640c23a62f3a-aa699487854sm470679466b.13.2024.12.12.03.37.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 03:34:08 -0800 (PST)
+ Thu, 12 Dec 2024 03:37:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdd17a70-b87c-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 804fb4f8-b87d-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734003249; x=1734608049; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734003468; x=1734608268; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tgZ+WFUVZlvnULNLaYqU6aMaHAUoT5n16fVxjwQ2LIM=;
-        b=KUoiLWUWS4aNQ44ZlHJ5+7Wb9r3bul77Pseo50lR9pfAxwSgOUb4r+bBD0UUYWocaR
-         h91AbgyBT0HTrXmdOhty3lkw0GNILY5orxGVDCQclXGdaxkIN5R9UGgy7hAztJVoFaOK
-         YoBHk+71yzwLDvzoYukZrq4SDV6xTCO6ioKgfjG2bMECNKWJNlscGIEU/cUWETgH6/yd
-         zhvzoPpWR7s1zjY0CZPadQU5TSHXeZxSpQRl1o0jfIoG9opvdUfcHEb7nr+A8SesqcjN
-         ZFymEUDyUNpW4xGkkRlasqvuAxxj3RMzZJc7tvb/jB9g9Kfsp+Vy13hu/htoyyHed7Y4
-         u+mw==
+        bh=5wlTV87l7FP4yewa1JCyk6duJgpPz6St59BNw6WbqCg=;
+        b=UB4fFUCfSAGlU10GhlhXlGOihBbVZvyCx58uXSJaj2iZHleGk+z0Wb13j19ToNSGeV
+         PG6X/4qu7AA0W9LG5Ms5+i+/1DF8qypPafxgBK3lQs8e28wJg8iHmzhU0MAo6casbx9N
+         UQ4doK4E9RQfRBb57fFCMHkW4pDTtdRED6ygCufEjGezFlVhWgz6NN98Ok/OryvbhEIR
+         gkoZ5u2SMLagKCSiiwRMQjpSNIB2Gikm9mhQGgCA/dzcTFfKUo8sTon2n1JJe1OFLQf3
+         gFEvBmVTVTYdGIQERR/VEBDsrtGUD1EF1fz0Qnw8B/EuOBNK27VauFJQZ2iQ38aAtRnx
+         UztA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734003249; x=1734608049;
+        d=1e100.net; s=20230601; t=1734003468; x=1734608268;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tgZ+WFUVZlvnULNLaYqU6aMaHAUoT5n16fVxjwQ2LIM=;
-        b=XBRQsIDN+6+DYu/27fJC90NtGMIFMj/MBMIaL3s5uGHHfCdJD+gRgAq8rvrqDRxJ7Y
-         FCARP2+wCDxTAj346lrsqfODrBWj3iGjg9QacBn2JHCjL/D9gzELbGMkozvmedptCtpr
-         Lyr19/sk0DbAI9KQlgCLJZDk160GE4UMf7AvJSWRhH/R7B1eBWeh8uYkMeDPtQmo0bPy
-         9MWygnDMjXFD9Z6QYysU3DZv7fewm3wXi3c6szwG3nyj9Yhugan8iuZnnLXYmuWp7w9S
-         V5evAeIrnucDqp+ec9lnOSC9q0oBJN02VhCa4NL1ayfQakmxYpiGOz7I9VDKfkx+zQEq
-         E2Dg==
-X-Forwarded-Encrypted: i=1; AJvYcCULx68CMxur+KcMilBkU7i4ZB33k5eRM1JfFp0fyulewLZuDbO2kQCtsCQ1HwfNDlxbuYEHrqIfzNs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YypWyn8aHEtJE3C06iMaiRQSl6AzvToVAy+GOO8QtMZSP/8JqP5
-	WkwWbBUt8qbgoxIbxUEWYi9tZzUrCl81KO66ajeOKoWMbdhNiU2Z0IPYil6JMg==
-X-Gm-Gg: ASbGnct3HLs1notWss97WwfHshmdfbKrDzNfjlctLQcxdmKmHVk0Qh57QRt5b8iHiba
-	fGQugtcWT7TMYZbkFWot4oIuRK7a395AH+GF7fTU7zzhq7RJGyYY9753peuhwgMlw0A3+9f66eE
-	bzpeTlo4wtM5DskEPxSeYi3ad0mat9HSWFD9FCKkUts9YNlHK5zRlrdbmtJJF7nawRGgrnx1M5N
-	r0RAxFvDThKA4MWgkHDaL+StuBplp+H+gg/T30h4WBBLy3YglbUGJZjqfykDWDKf4lhG18y6i9x
-	54XjW0k9AGSMUE9Fzhsph3ZU4dSf4JbuhpOxMWduXw==
-X-Google-Smtp-Source: AGHT+IEDHJFE18dKzfxJ9I1X5eFqw1+YMqGW5/slpwSAE/Pm44xDDJRaiONeVdYUmP/9Vd2wWNfFWQ==
-X-Received: by 2002:a05:6402:2809:b0:5d3:da65:ff26 with SMTP id 4fb4d7f45d1cf-5d4fa1b29a2mr1585631a12.31.1734003249080;
-        Thu, 12 Dec 2024 03:34:09 -0800 (PST)
-Message-ID: <70463137-e91d-4a81-a946-e44425275922@suse.com>
-Date: Thu, 12 Dec 2024 12:34:07 +0100
+        bh=5wlTV87l7FP4yewa1JCyk6duJgpPz6St59BNw6WbqCg=;
+        b=GGh59z4CF6JyLoJ8Hj0cu3efLutrynEKJp5hy9+15Kf+Iwpcx6cejn8g2fPTKkGcds
+         ajLlibKKbzKbWG4L1fXqbVrhSM/GHswem0kvXLhjBPBMTnBEylM9fCxYSNGt9Hyn5Mg0
+         MTV/wcNeFSa6Ce0RBeXe1pO/vMyelvLbmDf9+nsfMsLU4RXEN5MxsuA0/Z2sS1dBpHzg
+         /Ccs2t/Fdoz/u2gR9UnoUNwYXyDMqNcOcsJzOXhKJPyPHZtTs7sLGj049sYbiDZJ1ofQ
+         +0+xsXtKd96t5/zdEbDEgVpsJSiW6+H2vERW+EKGToa6e7XNd3RT0WlDETWAB1NIOhib
+         566A==
+X-Forwarded-Encrypted: i=1; AJvYcCU4o6uKffseD4Vjsila1/1TtBSlrMt14h2tflxqmY/6kg6NIlq2fHZaJTAEkFvvELSKT91lmO89f/Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzbFH0ox1JYh95jxaLD5v1oogH+RWLj0SUqbhvas4ohTC2O67Kd
+	BoUvT2/yGuxzKJsHB/lc4o7m9n+2AsWBAxf4WcZC05OkyGGwcKO0SrfmGM5wUw==
+X-Gm-Gg: ASbGnctQHPPSUNEmp7mmgDWGy5bSrKwlMk0GoMFxdoQXNNC5jZcFzYdtrfmJgmAUI9n
+	QVHTaHLPiMpvfp4kBO9MqjXbhe5P0mPZ5tq3NYX8pgFNDlgnRfQ1XUoKqFWeffeVlQwI5VN7N6D
+	tE2nKUpkXiX8R7elBxmpjKMiYffEL1JhvYSk3M7+pCyrjksF9Us8A2PBv9OBRLb5sizmvGivib5
+	8KH7+wfxTOis1Fdu4RgdT04rQenMeqR2LZnhXwiITf1sHC71tBZF1mdkNfaxjkdsYC+k95kPkf0
+	AjwA3iHWHc/YTQUDWhPtGGMaKTZiysEadO2kVIrrqw==
+X-Google-Smtp-Source: AGHT+IHd5YVgP2ONYGOFgmLHsKXVFTMeYgFuA4WKs4J4yQ/0Fu6OwKJZudKOOGn3H2DSSWo38Ns1Zw==
+X-Received: by 2002:a17:907:1ca7:b0:aa6:77e6:ea3d with SMTP id a640c23a62f3a-aa6b1378bfamr742891966b.45.1734003467939;
+        Thu, 12 Dec 2024 03:37:47 -0800 (PST)
+Message-ID: <18fd3e13-2e36-4d64-b56f-1227049bfb30@suse.com>
+Date: Thu, 12 Dec 2024 12:37:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/15] x86/hyperlaunch: add memory parsing to domain
- config
+Subject: Re: [PATCH 14/15] x86/hyperlaunch: add max vcpu parsing of
+ hyperlaunch device tree
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
- <20241123182044.30687-14-dpsmith@apertussolutions.com>
- <e01af196-9f6d-4fde-a118-2875744d5865@suse.com>
- <0e68ddfe-6736-4abe-b139-acd80a4bdedc@apertussolutions.com>
+ <20241123182044.30687-15-dpsmith@apertussolutions.com>
+ <88126e8c-96f8-4cb2-a899-eec2b800cf66@suse.com>
+ <18da1057-9874-44b0-a25c-f1ce733611f8@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,65 +122,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0e68ddfe-6736-4abe-b139-acd80a4bdedc@apertussolutions.com>
+In-Reply-To: <18da1057-9874-44b0-a25c-f1ce733611f8@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.12.2024 19:02, Daniel P. Smith wrote:
-> On 12/2/24 07:14, Jan Beulich wrote:
+On 11.12.2024 20:49, Daniel P. Smith wrote:
+> On 12/2/24 07:19, Jan Beulich wrote:
 >> On 23.11.2024 19:20, Daniel P. Smith wrote:
->>> @@ -160,6 +161,42 @@ static int __init process_domain_node(
->>>               else
->>>                   printk("PV\n");
->>>           }
->>> +        if ( match_fdt_property(fdt, prop, "memory" ) )
->>> +        {
->>> +            uint64_t kb;
->>> +            if ( fdt_prop_as_u64(prop, &kb) != 0 )
->>> +            {
->>> +                printk("  failed processing memory for domain %s\n",
->>> +                       name == NULL ? "unknown" : name);
->>> +                return -EINVAL;
->>> +            }
->>> +            bd->mem_pages = PFN_DOWN(kb * SZ_1K);
->>> +            printk("  memory: %ld\n", bd->mem_pages << PAGE_SHIFT);
->>> +        }
->>> +        if ( match_fdt_property(fdt, prop, "mem-min" ) )
->>> +        {
->>> +            uint64_t kb;
->>> +            if ( fdt_prop_as_u64(prop, &kb) != 0 )
->>> +            {
->>> +                printk("  failed processing memory for domain %s\n",
->>> +                       name == NULL ? "unknown" : name);
->>> +                return -EINVAL;
->>> +            }
->>> +            bd->min_pages = PFN_DOWN(kb * SZ_1K);
->>> +            printk("  min memory: %ld\n", bd->min_pages << PAGE_SHIFT);
->>> +        }
->>> +        if ( match_fdt_property(fdt, prop, "mem-max" ) )
->>> +        {
->>> +            uint64_t kb;
->>> +            if ( fdt_prop_as_u64(prop, &kb) != 0 )
->>> +            {
->>> +                printk("  failed processing memory for domain %s\n",
->>> +                       name == NULL ? "unknown" : name);
->>> +                return -EINVAL;
->>> +            }
->>> +            bd->max_pages = PFN_DOWN(kb * SZ_1K);
->>> +            printk("  max memory: %ld\n", bd->max_pages << PAGE_SHIFT);
->>> +        }
+>>> --- a/xen/arch/x86/dom0_build.c
+>>> +++ b/xen/arch/x86/dom0_build.c
+>>> @@ -617,6 +617,9 @@ int __init construct_dom0(struct boot_domain *bd)
+>>>       if ( !get_memsize(&dom0_max_size, LONG_MAX) && bd->max_pages )
+>>>           dom0_size.nr_pages = bd->max_pages;
+>>>   
+>>> +    if ( opt_dom0_max_vcpus_max == UINT_MAX && bd->max_vcpus )
+>>> +        opt_dom0_max_vcpus_max = bd->max_vcpus;
 >>
->> Since the values logged are all multiples of 1k, why make reading the logs
->> more complicated by logging byte-granular values? I instead wonder whether
->> converting to more coarse grained values (leaving, say, between 4 and 6
->> significant digits while using kb, Mb, Gb, etc) wouldn't be yet better.
+>> Isn't this kind of backwards? I.e. aren't you meaning to move us towards
+>> boot-domains?
 > 
-> Sure we can make it report in a friendlier format. To support dynamic 
-> sizing, is there already an existing formatter, I would hate to 
-> re-invent the wheel on this, or I could just statically report in kb.
+> Prior to domain builder, available construction parameters for dom0 were 
+> exposed as command line parameters. This allowed for boot-time 
+> adjustments to the parameters. With domain builder, there are now two 
+> sources for dom0 construction parameters. Those coming from the device 
+> tree and those coming from the command line. For most x86 platforms, the 
+> device tree parameters can only be constructed prior to booting Xen. 
+> Whereas the command line parameters allow boot-time adjustments, at 
+> least for dom0. That is the thinking at least. Now if there is interest 
+> in being able to retire the command line options, that would definitely 
+> simplify things.
 
-I don't recall use having any formatter for this, so for now I'd just report
-kb values.
+No, retiring command line options is out of question imo. Yet that also
+wasn't my point. Instead I was wondering why we wouldn't make bd->* the
+ultimate source of truth. However, ...
+
+>> Also, what about the counterpart opt_dom0_max_vcpus_min? That wants to be
+>> controllable from DT too, I would think?
+> 
+> Yes, in theory we will eventually be able to do requested/min/max as 
+> well as cpu pinning/affinity. For now it was requested we focus on 
+> implementing only requested vcpus.
+
+... that's pretty much only a reasonable option if these were converted
+at the same time, to avoid becoming inconsistent for perhaps an extended
+period of time.
 
 Jan
 
