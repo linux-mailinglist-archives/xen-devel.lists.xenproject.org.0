@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E52389EF2DC
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 17:53:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.856220.1268915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 660599EF93E
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 18:49:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.856240.1268925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLmQV-0001Wu-VN; Thu, 12 Dec 2024 16:52:35 +0000
+	id 1tLnIV-0003Hr-3f; Thu, 12 Dec 2024 17:48:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 856220.1268915; Thu, 12 Dec 2024 16:52:35 +0000
+Received: by outflank-mailman (output) from mailman id 856240.1268925; Thu, 12 Dec 2024 17:48:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLmQV-0001VR-Sk; Thu, 12 Dec 2024 16:52:35 +0000
-Received: by outflank-mailman (input) for mailman id 856220;
- Thu, 12 Dec 2024 16:52:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLmQU-0001VL-Tb
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 16:52:34 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ae6fcd4-b8a9-11ef-99a3-01e77a169b0f;
- Thu, 12 Dec 2024 17:52:32 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-385e2880606so848988f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 08:52:32 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38782521dfesm4390674f8f.107.2024.12.12.08.52.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 08:52:31 -0800 (PST)
+	id 1tLnIU-0003Fy-Ut; Thu, 12 Dec 2024 17:48:22 +0000
+Received: by outflank-mailman (input) for mailman id 856240;
+ Thu, 12 Dec 2024 17:48:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0BjQ=TF=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1tLnIT-0003Fs-8s
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 17:48:21 +0000
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [2607:f8b0:4864:20::d2f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4527a4ca-b8b1-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 18:48:19 +0100 (CET)
+Received: by mail-io1-xd2f.google.com with SMTP id
+ ca18e2360f4ac-844ce213af6so27319739f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 09:48:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,179 +40,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ae6fcd4-b8a9-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 4527a4ca-b8b1-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734022352; x=1734627152; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ABRjboFcPXzmp8ZEB8fDUTBnLeQ+jIzjHW5crLMy4/Q=;
-        b=Qf0c53rO33Ku5XEdUcnE4ZmEqJoyeNHDMYrEIELhZa6MmN9/syWC+MDqKGkGSvW8MB
-         gA75qv5lZXUu+avWnrv6+herVuOaKO8mGJsXhycbdyZQfjwDDTkLufJQRS/5kSMebBTw
-         KXiTEDxL+BI932ywcMnClNWpxJIts9GvP2+yqlQE51+hZuvbqUazK7OjgfwbTuzacXPc
-         dAcFIjQPt6qU0Xb42vnq7AtuH0BW3XnYNQ/KfTmKXiaeCgh0VzGnd4XoNyAzuN6JGt6p
-         Gg8ODnEPli5FCWO/uCuvD5s/AdefxnXnHeLlxmfa0bE7mDZcu1JqousQ6J/tbHMSw/AF
-         vLcQ==
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1734025697; x=1734630497; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lJmOoCTfegMJa1Yr0/R8zMtSjGdO8E/PmSuCtIKtiKM=;
+        b=l7Y1tjCduv8gTsuZvWKwzFqJM7du5ivCqlrZTf0aNtoIynTGcZ0WFPtlbYinZmSRAk
+         bPLifCXI+M8lfnbSF8/43mprV9hk8Y/mXvmWQB+44j9+1+JXGTR02beP/0qI15GwrN3p
+         IjZ3dYmjdeTwAqb78cIAiw/6h0FsbAA1AvW0KZ8wXayaLpgYiBi6K+pHjGC/zgNRzu2g
+         ITW2SkpcxadaempSsQJCpFD+lrXr7RF5seqK5oxO7DCsq3Y2ao1lL3K49fYC+7ygcTnB
+         89jM54xG3AsmzFfPvsrRIrPpB2CmQh793PUbpQmwQm3K4QnOM1QOvBmI+8lN8/tw9Sdk
+         FEgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734022352; x=1734627152;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ABRjboFcPXzmp8ZEB8fDUTBnLeQ+jIzjHW5crLMy4/Q=;
-        b=ezlhJwSJnGWHPDu0MCtABupvgf53qOgDzo1wIlREumLKFv6SRIpSTNsHH7v1Tab7aU
-         lEupCU6hw+VSs3Mg3GkM9dCyMft/XJEGoyzAq3/dfmWzBfEeXFxeKL4zwlk6bxZT0AsM
-         7L3yNPxEXIqaLgqqYl5DTl9EjBD84YeX4UR0iFF2k7geVZbcLR9B7Tiq6d3JSbNS9m7t
-         hPZSpLQpa+kzuPjfEKKzuNjwCPlvwKOkuWF1xU70rtYd9LwdeEMut2Wr1i9lONHP4lrV
-         cECURTdVDZxIHz/EY6AYqJxZNVqVUNkVAUlqAWt7w6FtADZC8ydPLVnml9H8Xc9Ko5C/
-         EYyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVxkyg/zMBZyXfIAlr1fQ/F1MHi5B9ySggnfMS0pP8ySJcqqit33kuUuDNfjQNibYaA1qcu21aqw0c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4PD5buIAPo8u2fMphpbTAaOT39EgEkYPIoc2TEPT/w1AkfwJA
-	+AneU6PLQGCdYk2IAWK1AeNfDMniuGAdEUW38qUsZHfCjkx2IdI/tmWG2TQnbw==
-X-Gm-Gg: ASbGncuoL7yMxk7DkxnIQQSLYd5dhtioIppYFkcOeo/bmq7Dd+TkVPQyY2xlUNLm0oJ
-	RDhse7bePY6+3zax0jYUOzeXmGsMLW2+MlFKwtsoJPNGKtDu/AUs8MVZw/Vf0thoEg8HFxZIvab
-	QG9ivbx5Uvoda2+25oa5dAAAhd7MsqBkhWs0d+HQrQ1f2VWBrw6yokLtRpHgIS/6txJbyl51ulw
-	btcGEnwMDBWG0ZpnQ3V7jN9xeh0MMQutkZpXwP1t8w4Pnz2Kibl/abVNrkoc7KFerECycq0uI+t
-	laEIYfhCe0oLuya0K6x825Qu9qRMRZQU26ynxsx9UQ==
-X-Google-Smtp-Source: AGHT+IE8tZAZf6JMun47dVUijQMchEn0AO/AC7YNyhCuCMOFMzbNmogvF5FY0knQFnWEvgM82/tiDw==
-X-Received: by 2002:a5d:6da6:0:b0:386:33e3:853c with SMTP id ffacd0b85a97d-3864ce8645amr6765397f8f.12.1734022351880;
-        Thu, 12 Dec 2024 08:52:31 -0800 (PST)
-Message-ID: <7aea0e1d-f60c-4e82-8b63-c4e18cbcce85@suse.com>
-Date: Thu, 12 Dec 2024 17:52:30 +0100
+        d=1e100.net; s=20230601; t=1734025697; x=1734630497;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lJmOoCTfegMJa1Yr0/R8zMtSjGdO8E/PmSuCtIKtiKM=;
+        b=d7vJXGl917Mukh3BUDvly9U2Hu1BcTVOZUODTgFDhuNoryk/jZUQHCCRFOaGdqe8ld
+         n+4L/l1fmdHq4m4mY9kdeiYWQx2S2Ohwk+6PnnyW3+Oka4e8avdw7YHRdihhL3QmeISB
+         Hwg8TytD03XRjZbzC+7m0HmUVB2oRPEY0VrdODBb6wRdtNQ6ReWrqty+RcTt+MDPZJOk
+         CeJJmyCj05zKSYK53JcRqzeV8FIXnGh/6f7SmyCpoNao7BizIDuo8+BVvb8YbQMUKPGV
+         qihUfrommYtLu0jl5GZvvX912JjGItJE6ikpY6/Tqx4MR54K2ibS8sxQtjNKlFpuOUPl
+         ykUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV3vATy2QXbUwAhERO3jAXxX5ycn+HdGCcI807wpulB+ocrHqIOObL/UiaLmT7Dm6mI9q3C1pCQ+Lc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YycZuph0fZfxb8uX3i0pdhSy+LuWighYzT0gwwnz6F67djgzpJM
+	CaiPX8mdP6SMy/TuFmeavm6SUKLgXjwhhaIH72V7YxU+6G4MXuEdB/jnsFPcfyLSwV56M3LTUbS
+	R2ZN3/Mr8Mds7kMAL8s9JJZ0Y6myIaDtsOMp45Q==
+X-Gm-Gg: ASbGncuDsa/MPAnsuRoWs2Rn4Apa78oe/4w3JXulymXJ6HkIirRwu9+jVC/3uYnviAt
+	sVotEzdkZehYxFDWR4gkzgWfEkLLaD4noT2UFo8w=
+X-Google-Smtp-Source: AGHT+IGhRw4OjLOc+qBlOfuTB11qT8uwOJMXjtWxCy6RHajtcNdB/SHDcFD+aBS5toPWNZjWhJxOSlTw2djqsmla7rU=
+X-Received: by 2002:a92:ca49:0:b0:3a7:e539:c272 with SMTP id
+ e9e14a558f8ab-3ae5934c765mr14068265ab.23.1734025697419; Thu, 12 Dec 2024
+ 09:48:17 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] Add stack protector
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20241211020424.401614-1-volodymyr_babchuk@epam.com>
- <f1e86e0e-985a-41ae-a94c-979288275257@suse.com> <87pllx3gib.fsf@epam.com>
- <fd9ea545-0eb1-4803-9d1e-df15c5805fa3@citrix.com>
- <9056a92d-8e91-4f2d-a8f3-5cde378f6c6f@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9056a92d-8e91-4f2d-a8f3-5cde378f6c6f@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20241202165921.249585-1-carlo.nonato@minervasys.tech>
+ <20241202165921.249585-4-carlo.nonato@minervasys.tech> <bc40c381-0998-4dd2-b5c9-5b70b45805ce@amd.com>
+ <7ecc99c5-0cb5-4351-bede-cb03c9a4ac7e@xen.org> <293004fa-c87e-4a45-aa4c-b02456aaecea@amd.com>
+ <0bacfdb6-d4ad-4dea-85d4-2851873dca4e@xen.org>
+In-Reply-To: <0bacfdb6-d4ad-4dea-85d4-2851873dca4e@xen.org>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Thu, 12 Dec 2024 18:48:06 +0100
+Message-ID: <CAG+AhRUtMy=WckZaeWGBDSQEh_09p4cTVFWSSCxaEXv6vnLk4Q@mail.gmail.com>
+Subject: Re: [PATCH v11 03/12] xen/arm: permit non direct-mapped Dom0 construction
+To: Julien Grall <julien@xen.org>
+Cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
+	andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 12.12.2024 15:30, Jan Beulich wrote:
-> On 12.12.2024 02:17, Andrew Cooper wrote:
->> (With the knowledge that this is a disputed Kconfig pattern, and will
->> need rebasing), the way I want this to work is simply:
->>
->> diff --git a/xen/Makefile b/xen/Makefile
->> index 0de0101fd0bf..5d0a88fb3c3f 100644
->> --- a/xen/Makefile
->> +++ b/xen/Makefile
->> @@ -434,6 +434,9 @@ endif
->>  
->>  ifeq ($(CONFIG_STACK_PROTECTOR),y)
->>  CFLAGS += -fstack-protector
->> +ifeq ($(CONFIG_X86),y)
->> +CFLAGS += -mstack-protector-guard=global
->> +endif
->>  else
->>  CFLAGS += -fno-stack-protector
->>  endif
->> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
->> index 9cdd04721afa..7951ca908b36 100644
->> --- a/xen/arch/x86/Kconfig
->> +++ b/xen/arch/x86/Kconfig
->> @@ -28,6 +28,7 @@ config X86
->>         select HAS_PCI_MSI
->>         select HAS_PIRQ
->>         select HAS_SCHED_GRANULARITY
->> +       select HAS_STACK_PROTECTOR if
->> $(cc-option,-mstack-protector-guard=global)
->>         select HAS_UBSAN
->>         select HAS_VMAP
->>         select HAS_VPCI if HVM
->>
->>
->>
->> Sadly, it doesn't build.  I get a handful of:
->>
->> prelink.o: in function `cmdline_parse':
->> /home/andrew/xen.git/xen/common/kernel.c:216:(.init.text+0x20f2): failed
->> to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
->> --no-relax
->> /home/andrew/xen.git/xen/common/kernel.c:230:(.init.text+0x246f): failed
->> to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
->> --no-relax
->>
->> which is more toolchain-whispering than I feel like doing tonight.
-> 
-> Imo the root of the problem is that the compiler doesn't itself mark
-> __stack_chk_guard hidden (it does so for __stack_chk_fail, albeit only for
-> 32-bit code), and hence finds it necessary to use @gotpcrel to access the
-> variable. Even if the linker managed to relax all of these, it would then
-> still be less efficient compared to direct RIP-relative accesses.
-> 
-> I also can't see how we might be able to override the compiler's internal
-> declaration to mark it hidden (the same appears to be true for other items
-> the declares internally, like the retpoline thunks or even strcmp() et al).
-> Passing -fvisibility=hidden doesn't make a difference (just as another
-> data point).
-> 
-> Playing with -fstack-protector* flavors, I observe:
-> - -fstack-protector causing several failures, like you observed, oddly
->   enough exclusively from __init functions,
-> - -fstack-protector-all and -fstack-protector-strong each causing a single
->   (but respectively different) failure, for apparently random non-__init
->   functions.
-> Taking this together it very much smells like a linker issue. I'll see
-> about checking there further.
+Hi,
 
-The oddity with how many diags show up is down to internals of the linker.
-It processes a single input section in full (continuing over this specific
-type of error), but will stop processing afterwards if any such error was
-encountered.
+On Mon, Dec 9, 2024 at 8:17=E2=80=AFPM Julien Grall <julien@xen.org> wrote:
+>
+> Hi Michal,
+>
+> On 07/12/2024 15:04, Michal Orzel wrote:
+> >
+> >
+> > On 06/12/2024 19:37, Julien Grall wrote:
+> >>
+> >>
+> >> Hi,
+> >>
+> >> Sorry for the late answer.
+> >>
+> >> On 05/12/2024 09:40, Michal Orzel wrote:
+> >>>
+> >>>
+> >>> On 02/12/2024 17:59, Carlo Nonato wrote:
+> >>>>
+> >>>>
+> >>>> Cache coloring requires Dom0 not to be direct-mapped because of its =
+non
+> >>>> contiguous mapping nature, so allocate_memory() is needed in this ca=
+se.
+> >>>> 8d2c3ab18cc1 ("arm/dom0less: put dom0less feature code in a separate=
+ module")
+> >>>> moved allocate_memory() in dom0less_build.c. In order to use it
+> >>>> in Dom0 construction bring it back to domain_build.c and declare it =
+in
+> >>>> domain_build.h.
+> >>>>
+> >>>> Take the opportunity to adapt the implementation of allocate_memory(=
+) so
+> >>>> that it uses the host layout when called on the hwdom, via
+> >>>> find_unallocated_memory().
+> >>>>
+> >>>> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> >>>> ---
+> >>>> v11:
+> >>>> - GUEST_RAM_BANKS instead of hardcoding the number of banks in alloc=
+ate_memory()
+> >>>> - hwdom_ext_regions -> hwdom_free_mem in allocate_memory()
+> >>>> - added a comment in allocate_memory() when skipping small banks
+> >>>> v10:
+> >>>> - fixed a compilation bug that happened when dom0less support was di=
+sabled
+> >>>> v9:
+> >>>> - no changes
+> >>>> v8:
+> >>>> - patch adapted to new changes to allocate_memory()
+> >>>> v7:
+> >>>> - allocate_memory() now uses the host layout when called on the hwdo=
+m
+> >>>> v6:
+> >>>> - new patch
+> >>>> ---
+> >>>>    xen/arch/arm/dom0less-build.c           | 44 -----------
+> >>>>    xen/arch/arm/domain_build.c             | 97 ++++++++++++++++++++=
+++++-
+> >>>>    xen/arch/arm/include/asm/domain_build.h |  1 +
+> >>>>    3 files changed, 94 insertions(+), 48 deletions(-)
+> >>>>
+> >>>> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-b=
+uild.c
+> >>>> index d93a85434e..67b1503647 100644
+> >>>> --- a/xen/arch/arm/dom0less-build.c
+> >>>> +++ b/xen/arch/arm/dom0less-build.c
+> >>>> @@ -49,50 +49,6 @@ bool __init is_dom0less_mode(void)
+> >>>>        return ( !dom0found && domUfound );
+> >>>>    }
+> >>>>
+> >>>> -static void __init allocate_memory(struct domain *d, struct kernel_=
+info *kinfo)
+> >>>> -{
+> >>>> -    struct membanks *mem =3D kernel_info_get_mem(kinfo);
+> >>>> -    unsigned int i;
+> >>>> -    paddr_t bank_size;
+> >>>> -
+> >>>> -    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd=
+:\n",
+> >>>> -           /* Don't want format this as PRIpaddr (16 digit hex) */
+> >>>> -           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+> >>>> -
+> >>>> -    mem->nr_banks =3D 0;
+> >>>> -    bank_size =3D MIN(GUEST_RAM0_SIZE, kinfo->unassigned_mem);
+> >>>> -    if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(GUEST_RAM0_BASE)=
+,
+> >>>> -                               bank_size) )
+> >>>> -        goto fail;
+> >>>> -
+> >>>> -    bank_size =3D MIN(GUEST_RAM1_SIZE, kinfo->unassigned_mem);
+> >>>> -    if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(GUEST_RAM1_BASE)=
+,
+> >>>> -                               bank_size) )
+> >>>> -        goto fail;
+> >>>> -
+> >>>> -    if ( kinfo->unassigned_mem )
+> >>>> -        goto fail;
+> >>>> -
+> >>>> -    for( i =3D 0; i < mem->nr_banks; i++ )
+> >>>> -    {
+> >>>> -        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" =
+(%ldMB)\n",
+> >>>> -               d,
+> >>>> -               i,
+> >>>> -               mem->bank[i].start,
+> >>>> -               mem->bank[i].start + mem->bank[i].size,
+> >>>> -               /* Don't want format this as PRIpaddr (16 digit hex)=
+ */
+> >>>> -               (unsigned long)(mem->bank[i].size >> 20));
+> >>>> -    }
+> >>>> -
+> >>>> -    return;
+> >>>> -
+> >>>> -fail:
+> >>>> -    panic("Failed to allocate requested domain memory."
+> >>>> -          /* Don't want format this as PRIpaddr (16 digit hex) */
+> >>>> -          " %ldKB unallocated. Fix the VMs configurations.\n",
+> >>>> -          (unsigned long)kinfo->unassigned_mem >> 10);
+> >>>> -}
+> >>>> -
+> >>>>    #ifdef CONFIG_VGICV2
+> >>>>    static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+> >>>>    {
+> >>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build=
+.c
+> >>>> index 2c30792de8..2b8cba9b2f 100644
+> >>>> --- a/xen/arch/arm/domain_build.c
+> >>>> +++ b/xen/arch/arm/domain_build.c
+> >>>> @@ -416,7 +416,6 @@ static void __init allocate_memory_11(struct dom=
+ain *d,
+> >>>>        }
+> >>>>    }
+> >>>>
+> >>>> -#ifdef CONFIG_DOM0LESS_BOOT
+> >>>>    bool __init allocate_domheap_memory(struct domain *d, paddr_t tot=
+_size,
+> >>>>                                        alloc_domheap_mem_cb cb, void=
+ *extra)
+> >>>>    {
+> >>>> @@ -508,7 +507,6 @@ bool __init allocate_bank_memory(struct kernel_i=
+nfo *kinfo, gfn_t sgfn,
+> >>>>
+> >>>>        return true;
+> >>>>    }
+> >>>> -#endif
+> >>>>
+> >>>>    /*
+> >>>>     * When PCI passthrough is available we want to keep the
+> >>>> @@ -1003,6 +1001,94 @@ out:
+> >>>>        return res;
+> >>>>    }
+> >>>>
+> >>>> +void __init allocate_memory(struct domain *d, struct kernel_info *k=
+info)
+> >>>> +{
+> >>>> +    struct membanks *mem =3D kernel_info_get_mem(kinfo);
+> >>>> +    unsigned int i, nr_banks =3D GUEST_RAM_BANKS;
+> >>>> +    paddr_t bank_start, bank_size;
+> >>> Limit the scope
+> >>>
+> >>>> +    struct membanks *hwdom_free_mem =3D NULL;
+> >>>> +    const uint64_t bankbase[] =3D GUEST_RAM_BANK_BASES;
+> >>>> +    const uint64_t banksize[] =3D GUEST_RAM_BANK_SIZES;
+> >>> Limit the scope
+> >>>
+> >>>> +
+> >>>> +    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd=
+:\n",
+> >>>> +           /* Don't want format this as PRIpaddr (16 digit hex) */
+> >>>> +           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+> >>>> +
+> >>>> +    mem->nr_banks =3D 0;
+> >>>> +    /*
+> >>>> +     * Use host memory layout for hwdom. Only case for this is when=
+ LLC coloring
+> >>>> +     * is enabled.
+> >>>> +     */
+> >>>> +    if ( is_hardware_domain(d) )
+> >>>> +    {
+> >>>> +        ASSERT(llc_coloring_enabled);
+> >>> This patch does not build because of declaration not being visible. Y=
+ou must include <xen/llc-coloring.h>.
+> >>
+> >> Piggying back on this comment. AFAICT, the code below would work also =
+in
+> >> the non cache coloring case. So what's the assert is for?
+> >>
+> >>>
+> >>>> +
+> >>>> +        hwdom_free_mem =3D xzalloc_flex_struct(struct membanks, ban=
+k,
+> >>>> +                                             NR_MEM_BANKS);
+> >>>> +        if ( !hwdom_free_mem )
+> >>>> +            goto fail;
+> >>>> +
+> >>>> +        hwdom_free_mem->max_banks =3D NR_MEM_BANKS;
+> >>>> +
+> >>>> +        if ( find_unallocated_memory(kinfo, hwdom_free_mem) )
+> >>> My remarks for the use of find_unallocated_memory() 1:1 have not been=
+ addressed. You did not even
+> >>> change the comments inside the function. The problem is that the func=
+tion is specifically designed
+> >>> for finding extended regions and assumes being called at certain poin=
+t i.e. dom0 RAM allocated, gnttab
+> >>> region allocated, etc.
+> >>
+> >> So I agree that the function should be updated if we plan to use it fo=
+r
+> >> other purpose.
+> >>
+> >> My opinion is that we should attempt to make the function generic so
+> >> that in your
+> >>> case you can choose which regions to exclude, define even your own fu=
+nction to grab free regions (at the moment
+> >>> add_ext_regions grabs banks >=3D 64M but you still discards banks >=
+=3D 128M, so it's a bit wasteful.
+> >>>
+> >>> My very short attempt to make the function as generic as possible in =
+the first iteration:
+> >>> https://paste.debian.net/1338334/
+> >>
+> >> This looks better, but I wonder why we need still need to exclude the
+> >> static regions? Wouldn't it be sufficient to exclude just reserved reg=
+ions?
+> > Static shared memory banks are not part of reserved memory (i.e. bootin=
+fo.reserved_mem) if that's what you're asking.
+> > They are stored in bootinfo.shmem, hence we need to take them into acco=
+unt when searching for unused address space.
+>
+> Oh I missed the fact you now pass "mem_banks" as a parameter. I thought
+> they would still get excluded for cache coloring case.
+>
+> >
+> > If you and Carlo are ok with my proposed solution for making the functi=
+on generic, I can send a patch as a prerequisite
+> > patch for Carlo series.
+>
+> I am fine with the approach.
+>
+> Cheers,
+>
+> --
+> Julien Grall
+>
 
-The issue itself is a wrong assumption in the linker: It believes that it
-would only ever build small-model code when encountering this kind of
-relocation, and when not linking a shared library or PIE. With this
-assumption it converts the relocation resulting from @gotpcrel to
-R_X86_64_32S (converting the MOV from GOT to MOV $imm), which of course
-overflows when later trying to actually resolve it. What I'm yet to
-understand is why it doesn't use R_X86_64_PC32 (also) in such a situation
-(it does e.g. when building a shared library).
+> @@ -2152,7 +2238,10 @@ static int __init construct_dom0(struct domain *d)
+>      /* type must be set before allocate_memory */
+>      d->arch.type =3D kinfo.type;
+>  #endif
+> -    allocate_memory_11(d, &kinfo);
+> +    if ( is_domain_direct_mapped(d) )
+> +        allocate_memory_11(d, &kinfo);
+> +    else
+> +        allocate_memory(d, &kinfo);
+>      find_gnttab_region(d, &kinfo);
 
-While so far I didn't try it, using --no-relax is presumably not an option,
-as I expect that it'll leave us with a non-empty .got. Plus I didn't even
-start looking into how the xen.efi linking would deal with the ELF-specific
-gotpcrel relocs; the concept of GOT doesn't exist in PE/COFF, after all.
+Since find_gnttab_region() is called after allocate_memory(), kinfo->gnttab=
+_*
+fields aren't initialized and the call to find_unallocated_memory() with
+gnttab as the region to exclude, fails ending in a crash since memory for
+dom0 can't be allocated.
 
-While the linker certainly wants fixing, I continue to think that getting
-the compiler side right would yield the better overall result.
+Can the solution be to call find_gnttab_region() before the above if?
+Or should I just call it before allocate_memory() in one case, but still af=
+ter
+allocate_memory_11() in the other?
 
-Jan
+Thanks.
 
