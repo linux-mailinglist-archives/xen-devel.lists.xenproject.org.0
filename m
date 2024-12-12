@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF889EEA03
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 16:08:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.856138.1268864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 057419EEB88
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 16:26:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.856156.1268875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLkn0-0000uL-Mx; Thu, 12 Dec 2024 15:07:42 +0000
+	id 1tLl3r-0005rw-4h; Thu, 12 Dec 2024 15:25:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 856138.1268864; Thu, 12 Dec 2024 15:07:42 +0000
+Received: by outflank-mailman (output) from mailman id 856156.1268875; Thu, 12 Dec 2024 15:25:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLkn0-0000sA-Jc; Thu, 12 Dec 2024 15:07:42 +0000
-Received: by outflank-mailman (input) for mailman id 856138;
- Thu, 12 Dec 2024 15:07:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLkmz-0000rw-9X
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 15:07:41 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d46e0c81-b89a-11ef-a0d5-8be0dac302b0;
- Thu, 12 Dec 2024 16:07:40 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-436281c8a38so2386435e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 07:07:40 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4362559ef5bsm19028805e9.24.2024.12.12.07.07.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 07:07:37 -0800 (PST)
+	id 1tLl3q-0005qO-W5; Thu, 12 Dec 2024 15:25:06 +0000
+Received: by outflank-mailman (input) for mailman id 856156;
+ Thu, 12 Dec 2024 15:25:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y8ka=TF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tLl3p-0005qI-O8
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 15:25:05 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 413e4baa-b89d-11ef-99a3-01e77a169b0f;
+ Thu, 12 Dec 2024 16:25:03 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1734017092551658.7603516810639;
+ Thu, 12 Dec 2024 07:24:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,202 +38,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d46e0c81-b89a-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734016060; x=1734620860; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ym8/EVixyFMihplOZa+TuRa9VkEPjJ16liKFp/tRpDo=;
-        b=BD7d5O7dcRkRg77FYab30TsKSjtDRszJZ8xOLGShKN2O5c2YZ2NEq0Erk4aXvRqwal
-         z5Zs0JzxKWmLGK91AOuWUsCbHQkNiICeyHRZo35JBU2B23m1VC/ElnnX6PMWeCuNWYTr
-         MP39dj+LFE0cyrXq05D66nHZW/NrxrE93AxarEcHlBgANU3q7chuUYEv0b9lWzpEjFAK
-         ES0H+A+wcmA0QYC+St1Z0f7sEP6m+78VErnniatOtiaBLHCW3+RoKFRg80JWNn0VKu2D
-         A1eQO8BaSgyv9+eeHARYmH3GBBPiE7YjwGeWvQuK9IIyNRODlha/Z72UhAuff0VN+Hu0
-         9bOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734016060; x=1734620860;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ym8/EVixyFMihplOZa+TuRa9VkEPjJ16liKFp/tRpDo=;
-        b=UVtAOqLUeiwhenglujqi0mOMBUWT+RLlN1gzYGK9Lsb6HHSuaJKHCkwSUHlLlJztkU
-         xaIgqhhwrO+YM/yAWdDdkgU9+uDEj3Qv1zpD1SDs8D3sELhOibDYN/RJ5eiMOxYzxLq4
-         lEdNJv778VbbnJWxnU3yY8gHMItmUHc4L7affGkiXtokEtL04MCCVdmafBlIrxuZTXdP
-         AcZ+N3kOwxawvUM+NPKHAkRI4gEJt1NTl/d1Ruyh58FBM5ly1NIrlf2CSU1MaGRGkRIx
-         BAjST3xf2Y2Um7kFPefgAqWi0B94m/S5oDUaebY0N0evbSTPfMOAeoqzRh4yLdq/xkEw
-         fqCg==
-X-Forwarded-Encrypted: i=1; AJvYcCVOp8OTip+SPnH0oTNTHXQnEDYmv8kUE49p7BM5N5OnBYRX+GUFviy6CvAncBSmOrxWDFBk/2ItQ3I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9ju8aL+/douhbtpjBmZA6rckhy2uhHQALO3cueik5EACKsvHx
-	8V7cM5z3nqCrTg7/Y47gJHz84AYwXXUosfWxq8Yb49SdHjsXHpuapkEizA7azVGZwIy3E3zDpy4
-	=
-X-Gm-Gg: ASbGncv3Yj5DiToMb6j50LbXMu+ICme3LAbAi7PnLCwz9IzZY9CDVHh6e2Kw/kO/EzB
-	iavf5HzcxqtbbTrOFtt9SHbM5i6RV9oSVZhyWcXTQoSCFJcL825g5KIFmhN/VWYKqzylBnRJIQm
-	CT7f5qWpwGZaAupaef82fq89ExrLKqVqTQDLkIWVmfColTAzpvI2ErKmEtD+3z3scXtaMVdEtAw
-	4EZ2/8qgd//TI9hHJuQ9ZT4zKoNGHizFu20ls6/Ed7iBVxqLbdN005RF7yKT3n1KnjXsgb3RMkY
-	GRY8Mk6e2qtaHcu0LKLMgc5q37TvHMuuecLizP0ZnQ==
-X-Google-Smtp-Source: AGHT+IEvrLNnvMAGkxcEuXSO77UYxwNXfTUXhG84+AXug8LYRee3sinsr7vZ2FQwTZVC+r+3CP9y0g==
-X-Received: by 2002:a05:600c:1c10:b0:434:a91e:c709 with SMTP id 5b1f17b1804b1-43622864830mr26897575e9.28.1734016058070;
-        Thu, 12 Dec 2024 07:07:38 -0800 (PST)
-Message-ID: <e10255e4-c5e5-4cc7-9665-6852252e93cc@suse.com>
-Date: Thu, 12 Dec 2024 16:07:36 +0100
+X-Inumbo-ID: 413e4baa-b89d-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1734017095; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aVtsHmmoEPRBVqafU+X+SyutgeOiZednb86pOZ2qen/R+1G8bsHyl0NAPMq7HgbgA8AJOVvoeRIIG6ivKse0aXsSmcE8BajtmDWMHr2H3uSb19cGf9XnW/VFyGmBUoU8wzb/OJohnfbbER2H/AZhZpt4nq2FJD7dSOqrO3KQ0fU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1734017095; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=F1Ma1hJwRLZUMkZ2303OZR8O0S2s2eu3hXgcPBG/cjs=; 
+	b=HPma9QzpItga95COO84F5RNI9eLWRF4KPTfqQ3IRxteIuL//z9Ctpw5SvLi0h1wA9csto9MR23Orahvrnppon7dV67I6hGoC5+ObzaKiDBMJwY3iecuGWdvQvUaGzJ/ZtWCEuD1zA/00Q8AXjfdhWTbUvEAxI/0Hu5VSWRtg+ms=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1734017095;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=F1Ma1hJwRLZUMkZ2303OZR8O0S2s2eu3hXgcPBG/cjs=;
+	b=jT9FWvBHJcgaF4Xhp/MHkDU6c0KhVvGzWitZQAZ2dqoVxt80YavPuENU68Rxlcg/
+	stwILGU9nVXBzp8jDetEP6OkzLB2F6fqeFZ362KyJBQHOFDIqj5pvrufdcJpGatOQsY
+	gdUwHaiU31WVegeT1l2eJubYjzQB1JrFjdMqvdUg=
+Message-ID: <6ea84558-4042-468b-9607-1a2e5a281a89@apertussolutions.com>
+Date: Thu, 12 Dec 2024 10:24:49 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 28/35] xen/8250-uart: add missing definitions
-To: dmukhin@ford.com
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-28-e9aa923127eb@ford.com>
+Subject: Re: [PATCH 06/15] x86/hyperlaunch: introduce the domain builder
+To: Jan Beulich <jbeulich@suse.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
+ <20241123182044.30687-7-dpsmith@apertussolutions.com>
+ <f12f30f2-c1ea-4118-bbd0-c37a948f0ac2@suse.com>
+ <71d62f74-91d9-498f-80a7-d0dc01fb51da@apertussolutions.com>
+ <3b0d3128-2501-4866-a2c5-36a1277956b1@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241205-vuart-ns8250-v1-28-e9aa923127eb@ford.com>
-Content-Type: text/plain; charset=UTF-8
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <3b0d3128-2501-4866-a2c5-36a1277956b1@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
-> --- a/xen/include/xen/8250-uart.h
-> +++ b/xen/include/xen/8250-uart.h
-> @@ -32,16 +32,22 @@
->  #define UART_MCR          0x04    /* Modem control        */
->  #define UART_LSR          0x05    /* line status          */
->  #define UART_MSR          0x06    /* Modem status         */
-> +#define UART_SCR          0x07    /* Scratch pad          */
->  #define UART_USR          0x1f    /* Status register (DW) */
->  #define UART_DLL          0x00    /* divisor latch (ls) (DLAB=1) */
->  #define UART_DLM          0x01    /* divisor latch (ms) (DLAB=1) */
->  #define UART_XR_EFR       0x09    /* Enhanced function register (Exar) */
->  
-> +/* ns8250 emulator: range of emulated registers [0..UART_MAX-1] */
-> +#define UART_MAX          (UART_SCR + 1)
+On 12/12/24 06:06, Jan Beulich wrote:
+> On 11.12.2024 13:36, Daniel P. Smith wrote:
+>> On 12/2/24 05:10, Jan Beulich wrote:
+>>> On 23.11.2024 19:20, Daniel P. Smith wrote:
+>>>> Introduce the domain builder which is capable of consuming a device tree as the
+>>>> first boot module. If it finds a device tree as the first boot module, it will
+>>>> set its type to BOOTMOD_FDT. This change only detects the boot module and
+>>>> continues to boot with slight change to the boot convention that the dom0
+>>>> kernel is no longer first boot module but is the second.
+>>>>
+>>>> No functional change intended.
+>>>>
+>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>> ---
+>>>>    xen/arch/x86/Makefile                    |  2 +
+>>>>    xen/arch/x86/domain_builder/Makefile     |  3 ++
+>>>>    xen/arch/x86/domain_builder/core.c       | 55 ++++++++++++++++++++++++
+>>>>    xen/arch/x86/domain_builder/fdt.c        | 38 ++++++++++++++++
+>>>>    xen/arch/x86/domain_builder/fdt.h        | 21 +++++++++
+>>>>    xen/arch/x86/include/asm/bootinfo.h      |  3 ++
+>>>>    xen/arch/x86/include/asm/domainbuilder.h |  8 ++++
+>>>>    xen/arch/x86/setup.c                     | 18 +++++---
+>>>>    8 files changed, 142 insertions(+), 6 deletions(-)
+>>>>    create mode 100644 xen/arch/x86/domain_builder/Makefile
+>>>>    create mode 100644 xen/arch/x86/domain_builder/core.c
+>>>>    create mode 100644 xen/arch/x86/domain_builder/fdt.c
+>>>>    create mode 100644 xen/arch/x86/domain_builder/fdt.h
+>>>
+>>> As I'm sure I indicated before: Dashes instead of underscores please in new
+>>> files' names.
+>>>
+>>>>    create mode 100644 xen/arch/x86/include/asm/domainbuilder.h
+>>>
+>>> Why is there no separator in this file's name?
+>>
+>> Name was getting a bit long, but can add separator if desired.
+> 
+> Well, my desire is for the subdir and the header names to match up.
+> Personally I think that neater to achieve when both have a dash in the
+> middle.
 
-There are two issues here: "max" means "highest within range", yet
-you define it as "first invalid", i.e. something we'd normally call
-"_NR" or "_NUM". And then, as the comment says, this is a limit the
-emulation is going to expose, not something generally applicable to
-UARTs of this kind. Hence the UART_ prefix alone isn't quite correct
-either.
+Sure.
 
-> @@ -51,12 +57,21 @@
->  #define UART_IIR_THR      0x02    /*  - tx reg. empty     */
->  #define UART_IIR_MSI      0x00    /*  - MODEM status      */
->  #define UART_IIR_BSY      0x07    /*  - busy detect (DW) */
-> +#define UART_IIR_FE0      BIT(6, U) /* FIFO enable #0 */
-> +#define UART_IIR_FE1      BIT(7, U) /* FIFO enable #1 */
-> +#define UART_IIR_FE_MASK  (UART_IIR_FE0 | UART_IIR_FE1)
+>>>> --- /dev/null
+>>>> +++ b/xen/arch/x86/domain_builder/core.c
+>>>> @@ -0,0 +1,55 @@
+>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>>> +/*
+>>>> + * Copyright (C) 2024, Apertus Solutions, LLC
+>>>> + */
+>>>> +#include <xen/err.h>
+>>>> +#include <xen/init.h>
+>>>> +#include <xen/kconfig.h>
+>>>> +#include <xen/lib.h>
+>>>> +
+>>>> +#include <asm/bootinfo.h>
+>>>> +
+>>>> +#include "fdt.h"
+>>>> +
+>>>> +void __init builder_init(struct boot_info *bi)
+>>>> +{
+>>>> +    if ( IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
+>>>> +    {
+>>>> +        int ret;
+>>>> +
+>>>> +        switch ( ret = has_hyperlaunch_fdt(bi) )
+>>>> +        {
+>>>> +        case 0:
+>>>> +            printk("Hyperlaunch device tree detected\n");
+>>>> +            bi->hyperlaunch_enabled = true;
+>>>> +            bi->mods[0].type = BOOTMOD_FDT;
+>>>> +            break;
+>>>> +        case -EINVAL:
+>>>> +            printk("Hyperlaunch device tree was not detected\n");
+>>>> +            bi->hyperlaunch_enabled = false;
+>>>> +            break;
+>>>> +        case -ENOENT:
+>>>> +            fallthrough;
+>>>
+>>> No need for this.
+>>
+>> I thought MISRA called for explicit fallthrough?
+> 
+> Only when there are statements between two case labels. Which ...
+> 
+>>>> +        case -ENODATA:
+> 
+> ... isn't the case here.
 
-Much like BSY is a 3-bit field, aiui this is a 2-bit one.
+Rgr, have already dropped it.
 
->  /* FIFO Control Register */
-> -#define UART_FCR_ENABLE   0x01    /* enable FIFO          */
-> -#define UART_FCR_CLRX     0x02    /* clear Rx FIFO        */
-> -#define UART_FCR_CLTX     0x04    /* clear Tx FIFO        */
-> -#define UART_FCR_DMA      0x10    /* enter DMA mode       */
-> +#define UART_FCR_ENABLE     BIT(0, U)   /* enable FIFO          */
-> +#define UART_FCR_CLRX       BIT(1, U)   /* clear Rx FIFO        */
-> +#define UART_FCR_CLTX       BIT(2, U)   /* clear Tx FIFO        */
-> +#define UART_FCR_DMA        BIT(3, U)   /* enter DMA mode       */
-> +#define UART_FCR_RESERVED0  BIT(4, U)   /* reserved; always 0   */
-> +#define UART_FCR_RESERVED1  BIT(5, U)   /* reserved; always 0   */
-> +#define UART_FCR_RTB0       BIT(6, U)   /* receiver trigger bit #0 */
-> +#define UART_FCR_RTB1       BIT(7, U)   /* receiver trigger bit #1 */
-> +#define UART_FCR_TRG_MASK   (UART_FCR_RTB0 | UART_FCR_RTB1)
+>>>> @@ -1277,9 +1278,12 @@ void asmlinkage __init noreturn __start_xen(void)
+>>>>                   bi->nr_modules);
+>>>>        }
+>>>>    
+>>>> -    /* Dom0 kernel is always first */
+>>>> -    bi->mods[0].type = BOOTMOD_KERNEL;
+>>>> -    bi->domains[0].kernel = &bi->mods[0];
+>>>> +    builder_init(bi);
+>>>> +
+>>>> +    /* Find first unknown boot module to use as Dom0 kernel */
+>>>> +    i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+>>>> +    bi->mods[i].type = BOOTMOD_KERNEL;
+>>>> +    bi->domains[0].kernel = &bi->mods[i];
+>>>
+>>> Better latch the result here into a separate local variable, for use ...
+>>>
+>>>> @@ -1466,8 +1470,9 @@ void asmlinkage __init noreturn __start_xen(void)
+>>>>            xen->size  = __2M_rwdata_end - _stext;
+>>>>        }
+>>>>    
+>>>> -    bi->mods[0].headroom =
+>>>> -        bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].size);
+>>>> +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
+>>>> +    bi->mods[i].headroom =
+>>>> +        bzimage_headroom(bootstrap_map_bm(&bi->mods[i]), bi->mods[i].size);
+>>>>        bootstrap_unmap();
+>>>>    
+>>>>    #ifndef highmem_start
+>>>> @@ -1591,7 +1596,8 @@ void asmlinkage __init noreturn __start_xen(void)
+>>>>    #endif
+>>>>        }
+>>>>    
+>>>> -    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
+>>>> +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
+>>>> +    if ( bi->mods[i].headroom && !bi->mods[0].relocated )
+>>>>            panic("Not enough memory to relocate the dom0 kernel image\n");
+>>>>        for ( i = 0; i < bi->nr_modules; ++i )
+>>>>        {
+>>>
+>>> ... in these two places?
+>>
+>> I don't know if a local variable is need. I assume your suggestion is to
+>> drop the first_boot_module_index() call,
+> 
+> The latter two of the three, yes.
+> 
+>> but thinking about it, not sure
+>> why I kept the walk. A direct use of bi->domains[0].kernel could be used
+>> without the intermediate variable while removing the call.
+> 
+> If that's possible, the even better.
 
-Much like the top two bits here are, and - as Roger has said - the
-reserved bits probably also should be.
+Yep, while it did make the lines a little longer, I was able to use the 
+boot_domain reference.
 
-> @@ -64,17 +79,17 @@
->  
->  /*
->   * Note: The FIFO trigger levels are chip specific:
-> - *	RX:76 = 00  01  10  11	TX:54 = 00  01  10  11
-> - * PC16550D:	 1   4   8  14		xx  xx  xx  xx
-> - * TI16C550A:	 1   4   8  14          xx  xx  xx  xx
-> - * TI16C550C:	 1   4   8  14          xx  xx  xx  xx
-> - * ST16C550:	 1   4   8  14		xx  xx  xx  xx
-> - * ST16C650:	 8  16  24  28		16   8  24  30	PORT_16650V2
-> - * NS16C552:	 1   4   8  14		xx  xx  xx  xx
-> - * ST16C654:	 8  16  56  60		 8  16  32  56	PORT_16654
-> - * TI16C750:	 1  16  32  56		xx  xx  xx  xx	PORT_16750
-> - * TI16C752:	 8  16  56  60		 8  16  32  56
-> - * Tegra:	 1   4   8  14		16   8   4   1	PORT_TEGRA
-> + *  RX:76 = 00  01  10  11  TX:54 = 00  01  10  11
-> + * PC16550D:     1   4   8  14      xx  xx  xx  xx
-> + * TI16C550A:    1   4   8  14      xx  xx  xx  xx
-> + * TI16C550C:    1   4   8  14      xx  xx  xx  xx
-> + * ST16C550:     1   4   8  14      xx  xx  xx  xx
-> + * ST16C650:     8  16  24  28      16   8  24  30  PORT_16650V2
-> + * NS16C552:     1   4   8  14      xx  xx  xx  xx
-> + * ST16C654:     8  16  56  60       8  16  32  56  PORT_16654
-> + * TI16C750:     1  16  32  56      xx  xx  xx  xx  PORT_16750
-> + * TI16C752:     8  16  56  60       8  16  32  56
-> + * Tegra:        1   4   8  14      16   8   4   1  PORT_TEGRA
->   */
-
-While perhaps okay, the adjustment of this table still looks unrelated.
-It wants at least mentioning in the description, to clarify it's an
-intentional change (as opposed to e.g. being an effect of how your
-editor is configured).
-
-> @@ -96,11 +111,31 @@
->  #define UART_LCR_CONF_MODE_B	0xBF		/* Configuration mode B */
->  
->  /* Modem Control Register */
-> -#define UART_MCR_DTR      0x01    /* Data Terminal Ready  */
-> -#define UART_MCR_RTS      0x02    /* Request to Send      */
-> -#define UART_MCR_OUT2     0x08    /* OUT2: interrupt mask */
-> -#define UART_MCR_LOOP     0x10    /* Enable loopback test mode */
-> -#define UART_MCR_TCRTLR   0x40    /* Access TCR/TLR (TI16C752, EFR[4]=1) */
-> +#define UART_MCR_DTR            BIT(0, U)   /* Data Terminal Ready  */
-> +#define UART_MCR_RTS            BIT(1, U)   /* Request to Send      */
-> +#define UART_MCR_OUT1           BIT(2, U)   /* OUT1: interrupt mask */
-> +#define UART_MCR_OUT2           BIT(3, U)   /* OUT2: interrupt mask */
-> +#define UART_MCR_LOOP           BIT(4, U)   /* Enable loopback test mode */
-> +#define UART_MCR_RESERVED0      BIT(5, U)   /* Reserved #0 */
-> +#define UART_MCR_RESERVED1      BIT(6, U)   /* Reserved #1 */
-> +#define UART_MCR_TCRTLR         BIT(6, U)   /* Access TCR/TLR (TI16C752, EFR[4]=1) */
-> +#define UART_MCR_RESERVED2      BIT(7, U)   /* Reserved #2 */
-> +#define UART_MCR_MASK \
-> +    (UART_MCR_DTR | UART_MCR_RTS | \
-> +     UART_MCR_OUT1 | UART_MCR_OUT2 | \
-> +     UART_MCR_LOOP)
-> +
-> +/* Modem Status Register */
-> +#define UART_MSR_DCTS           BIT(0, U)   /* Change in CTS */
-> +#define UART_MSR_DDSR           BIT(1, U)   /* Change in DSR */
-> +#define UART_MSR_TERI           BIT(2, U)   /* Change in RI */
-> +#define UART_MSR_DDCD           BIT(3, U)   /* Change in CTS */
-> +#define UART_MSR_CTS            BIT(4, U)
-> +#define UART_MSR_DSR            BIT(5, U)
-> +#define UART_MSR_RI             BIT(6, U)
-> +#define UART_MSR_DCD            BIT(7, U)
-
-As you introduce these constants, I think you also want to switch the sole
-MSR read we have to actually use them.
-
-Jan
+v/r,
+dps
 
