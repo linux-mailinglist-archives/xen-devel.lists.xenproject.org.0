@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 893C69EE5D3
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 12:58:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855899.1268688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEC4C9EE5EF
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 13:00:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855912.1268700 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhov-00006T-LO; Thu, 12 Dec 2024 11:57:29 +0000
+	id 1tLhqx-0000pS-5A; Thu, 12 Dec 2024 11:59:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855899.1268688; Thu, 12 Dec 2024 11:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 855912.1268700; Thu, 12 Dec 2024 11:59:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhov-00004r-Hl; Thu, 12 Dec 2024 11:57:29 +0000
-Received: by outflank-mailman (input) for mailman id 855899;
- Thu, 12 Dec 2024 11:57:28 +0000
+	id 1tLhqx-0000ls-24; Thu, 12 Dec 2024 11:59:35 +0000
+Received: by outflank-mailman (input) for mailman id 855912;
+ Thu, 12 Dec 2024 11:59:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLhou-0008WP-Oo
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:57:28 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1tLhqv-0000lY-38
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:59:33 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42208f59-b880-11ef-a0d5-8be0dac302b0;
- Thu, 12 Dec 2024 12:57:27 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5d122cf8e52so841276a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:57:27 -0800 (PST)
+ id 8c4b5f91-b880-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 12:59:32 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-aa66ead88b3so92482466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:59:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d14c7aaeefsm10521397a12.87.2024.12.12.03.57.26
+ a640c23a62f3a-aa672d377fbsm695464166b.75.2024.12.12.03.59.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 03:57:26 -0800 (PST)
+ Thu, 12 Dec 2024 03:59:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42208f59-b880-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 8c4b5f91-b880-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734004647; x=1734609447; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734004772; x=1734609572; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=usKq8skEY+IpS3zo9O1EK2cETBYBqBsvKJLc30SBBAY=;
-        b=NtlK0trjTujQYR9Sv7l1zLyjuiaMJCck3MsowEM4tdXQPQEX2Z6ibz+XpCUOFjEWrd
-         zBIGq6EHCRuyDph/R6qPR8bCNYL5n6xLnf+2hk1vR3gZ/cqfc6n+Ol11agCVQA5bs9PU
-         xgkEtasVZFqV9V5zoZZ8BZXTFaTjYI974LhhCJMo4+s5YkPvJGT2EviZfDhTGtxWplq9
-         7Vza2OqNnHGrNWW5xcQI8p1zIIza0ZrmROvk0u1Zun9w8qbiw7MW7vbJYIovZxa7QB+e
-         qfEuBtGCdTGIdO/92IiFnjKC2gpilBbte2VslTiMtoCP7vJXzGV6Zo8TkFH4gXoxruoe
-         40Mg==
+        bh=Ph6gCKBjK4UKK8Qia0/dHHZfNDmnP26M8zJMoR0ZQfw=;
+        b=BI1R1C/OU77E0oxyl7p+qPnOEeoScovvLkAgdlnYFsbNb7IOweUo462dc+uLaNQPvM
+         BZX1dUurS/ndKKNn0jJqsXpKCN7hiqkFQj6UYoweNRvi6Pl+KrpkSVsmDtmSDgptKjax
+         PqR9JmeNZcYIxOXZgMyS62oUEeDB1IbllU3Jz96rQ0RGmpqdoZWLBAZEzUW7Nzva2AU4
+         IchMlZZzkPQKd/K436UPqBlSkHLZSiEstoOGzYOLRZjSFsAgLQaz7XLLv+f/MsbtNOaq
+         bvxuxN0aX46vNAN783YCsXjYi60UeQH1DjW7+mE8sceyabN/taXgfahS09+Dg1pW/Bnr
+         /Icw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734004647; x=1734609447;
+        d=1e100.net; s=20230601; t=1734004772; x=1734609572;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=usKq8skEY+IpS3zo9O1EK2cETBYBqBsvKJLc30SBBAY=;
-        b=W1koE5nrbz+MAPZsyqu6xki6JhXfKlKHfKw/vM9wlhWYl3jMEsSNMm/0TokwrCQGTb
-         NeI6s3KO8hXAUUWgZwX0XAk0AmfK31NFLG2T5hCrvRNutKMwnqGmkTnkY0ElvEVSGxWC
-         WhLzIE3iQSldWnHBay5pzjozonbjXObpni6UOahQVF7NFvWerKexVzWhUbVh7lEdFNxA
-         I55hjrVYU76kW5WISvnr0nqSsQx74k17eBAoblFhaDtQb4JwSOm7e96lzqh730UR6Xbl
-         h4tghsanQk/isDVhJZZCM1Aj0J1jZCsNbsESYdt7lkBndIUPU72LpsFDSF7s5jDtGqPg
-         vSUw==
-X-Gm-Message-State: AOJu0YxGWDT11DeQTqIpoDkCUFQ45uTDvqZpctanhe0LrrJG1I2uj1Za
-	3mcj37wRyLZKLtZVxENjjF1i1TI47DrrDyhlFNHC95Rkpt7a1DgX1ur1T7fNZQ==
-X-Gm-Gg: ASbGncspaINLyzKL3uQaW4AK2ZhuxCYHDqrpzTxPzNJstxQyVd8kfqwYlz7pbSAnuGc
-	skBY8ZUOxR0rFZUmJCYF7PCHZT/ZEgo8xO1QjbjIPS3FGE7ORtxQr1xBKjz6k2P9kvdLfzztz2L
-	UKvuALsfTICqlwZz4KKPBdPZDXVqG4tQhzsmxVeejv6CFtMVSqNJiuMiOw9eZXUjvr6G/oGI8Ct
-	sMtBtlvayC29T8ht7cdExJhLx3tivhPDTfXh+87Obo7qiVPOsAlXcn92fIDA2OiY7XjhZ4MwZGi
-	LspsElxlzlQAATEUSwkILBJdUTeeaC4MC99y7w8esQ==
-X-Google-Smtp-Source: AGHT+IGO+RPQ/h17MLOv7YZxSPfHIgyKH7prsAsiPvLcfX/WLyvBnGBiWEEdrHtDnW+KPPnjLs3n/g==
-X-Received: by 2002:a05:6402:2106:b0:5d2:723c:a577 with SMTP id 4fb4d7f45d1cf-5d4edce03d7mr893975a12.14.1734004647289;
-        Thu, 12 Dec 2024 03:57:27 -0800 (PST)
-Message-ID: <8e5ce2dd-f888-42a3-937f-98ed1269c66c@suse.com>
-Date: Thu, 12 Dec 2024 12:57:25 +0100
+        bh=Ph6gCKBjK4UKK8Qia0/dHHZfNDmnP26M8zJMoR0ZQfw=;
+        b=CwgI1lpnQmz6J6vpGE4KWmJuhNzVcXnLB7GrwAmbYAGBxQo1cESWclF6iIgjTJ1NCG
+         GRTgb6vHqWwpCCcWdHkh7spzQOmrpmk2NozUxfc8iBw+DJiqenMJVSFNqaYZo+9Z2sFA
+         llfgFLlp0ur79Tl7X4y4CPj2gFG5FdiGzi5i4pl5ojwxLtOyWqvjNcy6Qph0NohYjEh1
+         G9TsrC9C67nDW5eUxa2xaQxC97x3oKa99VQ19cmkSKAYdtlzmykxq2b5iSQlpR3iQu4N
+         r269ctwNdtIxfvujvzg+9eEle9fh+ellsqgsAefKckRYT1B6jOhmWcurx+3Cl4iIn6Gu
+         b+MA==
+X-Gm-Message-State: AOJu0YyBL286gDepfW2HJFDZf8Od8oqKSo65vax/SGLv4GaAq/hKfDBj
+	2/92N2FV+bmRhZl0hhC6EkMPu6Z0Yt9cOgnyyhjrnBg8Oe1oQs5Dachxz3LjUQ==
+X-Gm-Gg: ASbGnctrwKKovSxckwF/DkmAQV/PORFrQNiQWZhkfFPyjnGAQ53zjO/W7ZhUQ/RlQHS
+	zEgnRWk5BY2NV+HU2VrAgS6RuzbUPS9q8yifCbO6s8FwDqKxi1885HbfAnpjxMTQsqaqwbhRq7t
+	qXfMyG0VWjc0lE84D8VlPvxRUKATuKAGfFtUNiKtFCqXNb9TWM2oZ53okbacN0vAKnVGQWV6s80
+	oAi8lzIPOuLSjmXOzgOiKLu7Ltmm+t1jvaPyP/4qITMZg8SpV0Oq0LEjD2hJK3B3VFNc+s6Xvgn
+	3ucbPJk7Q5ctM4ohMQTOVbQiTAExp37oQmdIYxQWqA==
+X-Google-Smtp-Source: AGHT+IGLKc3Ge4L/SsSvQXjBOTeuj6au4SxUtjAei07cNMuEv0QjXH864LYXjE84M6Gn0U8ISnapSA==
+X-Received: by 2002:a17:906:3292:b0:aa6:b1b4:520b with SMTP id a640c23a62f3a-aa6b1b4536dmr575358266b.58.1734004771717;
+        Thu, 12 Dec 2024 03:59:31 -0800 (PST)
+Message-ID: <1e36f66b-a423-428c-9b22-8fd58450f119@suse.com>
+Date: Thu, 12 Dec 2024 12:59:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 16/35] xen/console: introduce printk_common()
+Subject: Re: [PATCH v2 19/35] xen/console: introduce console_set_owner()
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, dmukhin@ford.com
 Cc: xen-devel@lists.xenproject.org, Andrew Cooper
  <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-16-e9aa923127eb@ford.com>
- <Z1qpk55qKBywx26R@macbook.local>
+ <20241205-vuart-ns8250-v1-19-e9aa923127eb@ford.com>
+ <Z1q3COsFN3J9G60E@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,31 +118,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z1qpk55qKBywx26R@macbook.local>
+In-Reply-To: <Z1q3COsFN3J9G60E@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.12.2024 10:14, Roger Pau Monné wrote:
-> On Thu, Dec 05, 2024 at 08:41:46PM -0800, Denis Mukhin via B4 Relay wrote:
->> From: Denis Mukhin <dmukhin@ford.com>
->>
->> Introduce new printk() variant for convenient printouts which skip '(XEN)'
->> prefix on xen console. This is needed for the case when physical console is
->> owned by a domain w/ in-hypervisor UART emulation enabled.
+On 12.12.2024 11:12, Roger Pau Monné wrote:
+> On Thu, Dec 05, 2024 at 08:41:49PM -0800, Denis Mukhin via B4 Relay wrote:
+>> +static struct domain *rcu_lock_domain_console_by_id(domid_t domid)
+>> +{
+>> +    struct domain *d;
+>> +
+>> +    d = rcu_lock_domain_by_id(domid);
+>> +
 > 
-> IIRC the ns8250 can only send or receive one byte (character) at a
-> time, so you should likely put that on the console as soon as it's
-> received?
-> 
-> For the hardware domain we explicitly don't buffer writes to the
-> console (see guest_console_write() hardware domain special handling).
-> 
-> I wonder however how you deal with domains that don't have the console
-> focus (ie: != console_rx), as for those I think you still want to use
-> the (d<domid>) prefix?
+> Nit: I would remove this newline.
 
-Imo no matter what domain has the focus, the (d<domid>) prefix should
-always be logged. Just to avoid possible confusion.
+Or even better make the function call the variable's initializer.
 
 Jan
 
