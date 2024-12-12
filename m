@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A28F9EE481
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 11:51:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855732.1268558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8D69EE497
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 11:58:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855743.1268569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLgmy-0003sH-47; Thu, 12 Dec 2024 10:51:24 +0000
+	id 1tLgtQ-0004Zg-PL; Thu, 12 Dec 2024 10:58:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855732.1268558; Thu, 12 Dec 2024 10:51:24 +0000
+Received: by outflank-mailman (output) from mailman id 855743.1268569; Thu, 12 Dec 2024 10:58:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLgmy-0003pQ-1V; Thu, 12 Dec 2024 10:51:24 +0000
-Received: by outflank-mailman (input) for mailman id 855732;
- Thu, 12 Dec 2024 10:51:22 +0000
+	id 1tLgtQ-0004YD-M6; Thu, 12 Dec 2024 10:58:04 +0000
+Received: by outflank-mailman (input) for mailman id 855743;
+ Thu, 12 Dec 2024 10:58:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kKfJ=TF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tLgmw-0003ig-0n
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 10:51:22 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tLgtO-0004Y7-Nl
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 10:58:02 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05c1d663-b877-11ef-a0d5-8be0dac302b0;
- Thu, 12 Dec 2024 11:51:21 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5d3d479b1e6so577722a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 02:51:21 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3e7936581sm7176044a12.56.2024.12.12.02.51.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 02:51:20 -0800 (PST)
+ id f49c2aea-b877-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 11:58:01 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aa6b4cc7270so60481166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 02:58:01 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa6996487aesm467619066b.12.2024.12.12.02.58.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Dec 2024 02:58:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,192 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05c1d663-b877-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: f49c2aea-b877-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734000680; x=1734605480; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ia5fGrLJCCZZbPn6F1drPOFD+LT9NslQOlZL2Wxfma0=;
-        b=KEAtdNvtWfmQWzkiz51vJI560ySzBdCzGXztHnWePUaDlrWCGhrMTA39JpOJjMxDlU
-         of1oI/TeImJBOYIoebpOdh9AiJMB77m8nraiOh8DzSTEd+u4cH/8T9wbctid9eLMbzxn
-         sINf8hs7bEAbeKzXmY2bcZrUdLkYqSBr/0q90=
+        d=suse.com; s=google; t=1734001081; x=1734605881; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=by+E7a3ewMGaFfF7TK+NdMjs7TBxHf743/QgL6QMkp8=;
+        b=KS5NVZoN9a1m9Fhfa4WQKd8jXSzHsrSjgSrgPVumxzdIh+nh9CAKfJ/T/LSxM5kRax
+         gyxb98rlvRZgzW6m9XXothYUzyQwHQbHhIcjA0+qkMOdWe0M5Q1VbbGzBUDguNNtUJSE
+         CjyeSS6V0CyujtuFC80kMcjm/+WTsx1C6tBsljIsO0gndhZJsJJu89R0x7RkSsJuhrrc
+         nFh747iscbwywEZ3IwxEsJ3P9FM0lgoBbosCdTbul5qZxDtxyDTHyFZnsHjKSNnZPzlm
+         jeMIPrFvM7eAen66Z2g2NEvP2p89/cX4Cb1s6SbM5KujPNweITPdftT4ZBy6LdQXdXd/
+         niHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734000680; x=1734605480;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1734001081; x=1734605881;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ia5fGrLJCCZZbPn6F1drPOFD+LT9NslQOlZL2Wxfma0=;
-        b=Nrd2KyvRfmYEygkA+2FIlnSaQ0kz/3HaoE0WSw3pdtZwKPkGXk77FBtvVcQx8ldPj/
-         CM4BTkyVnfiumEyAms+V0WBIypAK2bmdEF2YmSxwq8WhOj860d9B1Wzq0EmCnlj6e8M6
-         4vYsvcVy7a/jzxqv1j+e9Ns96HxThfPdG0YrH1W/hiCQ2KXvCHsS7Ekan2dsYLkyUOna
-         2EtVLF+kzL4YDdHtvfWQUC7es9CJoigOJsK6Setd/hrmbJTyGwBFJiptfWrqiCWsx36e
-         yfNNk83UoeSWnAZKMdwqKyqqlK+8LdL9zXQkg4uQm1zMQxH6/T79Z4ImXCrOBkPdJLsG
-         nh7g==
-X-Gm-Message-State: AOJu0YyiO3oEkLjw1ZuYlTEns0NsG+XNujMcj0I/rMeSEKdSGRnjxrS1
-	ui7r2DXh3mZ995IVoIgUY9jTqxJQLO1ZVub5+dz4/13fZ0GA2fCDL+GHYe0bYdY=
-X-Gm-Gg: ASbGncse4yKDT22O+dpTwNy3XaV80gLy56gMXzXA0Y3r1nqLTVkYHzqma5AsHK4mKSF
-	HWZqRhTKGFXyFukdTuU5qyqxFvwB9nkq5oNRfYhN25ZLhsESZcerpqW7r7gpUIje9ujdabvJykJ
-	qKfNnpsmk1S7DgfPtts48Oqh9H4y5mX81M537zPIbuWEgCHIulcd1v7RuRY6/gtGC5BahbZXMB+
-	JVYYyDifywA1+Ok4e9lS0AAEz/APDbU6IXSlaQu/fwonKuFN8DjCpTMGV+AVmGmlQ==
-X-Google-Smtp-Source: AGHT+IFTRb2T6vw9Etj/GW7CZb6IcuT9AkFzoHjZ3J25ZUfnbKAA1rVsN1viT6swWWivdxgcUfH9Vg==
-X-Received: by 2002:a05:6402:40c2:b0:5d0:cfad:f71 with SMTP id 4fb4d7f45d1cf-5d4fa1b2a38mr1309519a12.32.1734000680425;
-        Thu, 12 Dec 2024 02:51:20 -0800 (PST)
-Date: Thu, 12 Dec 2024 11:51:19 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 22/35] xen/console: introduce
- handle_keypress_in_domain()
-Message-ID: <Z1rAJwSJvD-6rtM7@macbook.local>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-22-e9aa923127eb@ford.com>
+        bh=by+E7a3ewMGaFfF7TK+NdMjs7TBxHf743/QgL6QMkp8=;
+        b=VrEkL1FyeFEcWt5b8QnUjYi3pi1uMqEqpIDTw+TJBQB/91xLLLlfMgHzWiBr73ojYp
+         flUqmjfOoTK84Z7zMYDDragDtaWPIZ6+fnM2YFvh//swWv8tlUaFHXlFcEglpPI0lqAh
+         BQZb90M0c3rCKEbI1RReqPJUaRYgSZ7vhhEFh5pgzHJhjsA+kgXOQadYAQh83JvPVhwV
+         dD6nktSS4Gr2W8oS8FHTIgO70onWekZXjapDoBm6rlPc4CAcAWa/iWNqkn2hUhaCYKOy
+         qVPPq5+aBDW27vzrQii/oWrqUDzWPPC7Wd/yVsCJ2JPAaAOMhN+RUiiafqiif7i5mfTC
+         XegA==
+X-Forwarded-Encrypted: i=1; AJvYcCUZ3vLfon9Cuee8NEed/J9DYJYEb8f5hz5GlUywUiI8J+mg6gvh5FTY6C73QzAbCbVg+S1q2WUu20s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPzGHvlpx+cXYeBEUNZT5+l9Qh5TQLnV2RuxNTedOQ1EIojujX
+	SStL0RSbQg0BGNF8rP1FqZihvtKCIIOIP/TnnPy0FQhCWhllbWBXlgZIjXCgTA==
+X-Gm-Gg: ASbGnctSWilSI3Ef1+TDFJ1q35MC/0/cbOTxr+Pxmy3cIQnRKmTXc8zBGV4kQb+eO2L
+	QvtDCuFpopYf4zyscXjU4SVxCASiNdkPQuoSX0rDmYZmtkWuri7Gwp0A+8D/kAAlRc3u8byGqKs
+	qmPCXWvL9NHzC2OK0HdNX//LDxmKNuAfaA8r/tdTfHs7pp/7s6eGW1t27Xe6wL6WpZzMQRHfH8e
+	X7KijywzJ1Uu4kZmX7SPuyr/+lPPZG1gh9sPrh91nzrZ2/cqh03DsmKNLt88DtTwlnbyg6YPpw2
+	dGdN8rAsKgqKARAkMMPFJlc3OiiGupVedkwFhimJnA==
+X-Google-Smtp-Source: AGHT+IGo+F7owOExUnkR0TgOEMLggooc9djHXbgdgKekbJsugQouE+Y1KBgBpJsRSOY4iZuTp4x+Dw==
+X-Received: by 2002:a05:6402:34d6:b0:5d3:cf89:bd3e with SMTP id 4fb4d7f45d1cf-5d4fa1b2936mr1380060a12.30.1734001081186;
+        Thu, 12 Dec 2024 02:58:01 -0800 (PST)
+Message-ID: <55078aa2-7baf-40a4-80a2-1b083adff2f6@suse.com>
+Date: Thu, 12 Dec 2024 11:58:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241205-vuart-ns8250-v1-22-e9aa923127eb@ford.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] xen: common: add ability to enable stack protector
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20241211020424.401614-1-volodymyr_babchuk@epam.com>
+ <20241211020424.401614-3-volodymyr_babchuk@epam.com>
+ <0d04abb1-dae1-47d1-93e3-23d88399fa64@suse.com> <87bjxh3exi.fsf@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <87bjxh3exi.fsf@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Dec 05, 2024 at 08:41:52PM -0800, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On 12.12.2024 01:47, Volodymyr Babchuk wrote:
+> Jan Beulich <jbeulich@suse.com> writes:
+>> On 11.12.2024 03:04, Volodymyr Babchuk wrote:
+>>> --- a/xen/include/asm-generic/random.h
+>>> +++ b/xen/include/asm-generic/random.h
+>>> @@ -2,6 +2,11 @@
+>>>  #ifndef __ASM_GENERIC_RANDOM_H__
+>>>  #define __ASM_GENERIC_RANDOM_H__
+>>>  
+>>> +/*
+>>> + * When implementing arch_get_random(), please make sure that
+>>> + * it can provide random data before stack protector is initialized
+>>> + * (i.e. before boot_stack_chk_guard_setup() is called).
+>>> + */
+>>>  static inline unsigned int arch_get_random(void)
+>>>  {
+>>>      return 0;
+>>
+>> What exactly will go (entirely) wrong if the comment isn't followed?
 > 
-> With introduction of NS8250 emulator for x86, the logic of switching console
-> focus gets more convoluted: HVM domain w/ NS8205 must be able to receive the
-> physical console input for guest VM debugging.
+> This will not cause immediate harm, but it will give false confidence to
+> anyone who enables stack protector.
 > 
-> Also, existing code does not honor `hardware_dom=` xen command line parameter
-> (hardware domain ID does _not_ necessarily starts from 0).
+> I'd prefer more substantial protection, but we can't even check if
+> random generator is available in runtime. Taking into account that we
+> potential can get 0 as result of RNG, we can't even put
+> WARN_ON(!arch_get_random()) check.
+
+Right, and hence 0 isn't strictly something that can be called "bad".
+With at least some randomness one will of course observe a possible
+problem at least across two or more runs. However, you don't call
+arch_get_random() directly anyway, and get_random() has fallback code,
+which is no more likely to return 0 than arch_get_random() is.
+
+In fact this fallback code means get_random() will also use it when
+arch_get_random() returns 0 as coming from an actual RNG. Which can
+be considered bogus, as for a good random number source _every_
+possible value ought to have equal probability of being returned.
+Plus if we special-case 0, why not also special-case ~0? Or any other
+number with only very few bits set/clear?
+
+For the purpose of stack protector we may want to consider using a
+mix of static pattern (not used elsewhere in the codebase) and random
+number. The static pattern part would then want arranging such that
+at least any value representing a valid address (within Xen alone)
+won't match possible canary values.
+
+>> (I'm afraid anyway that the comment living here is easy to miss.)
 > 
-> Introduce handle_keypress_in_domain() to account for all scenarios of console
-> input forwarding.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
->  xen/drivers/char/console.c | 72 +++++++++++++++++++++++++++-------------------
->  1 file changed, 42 insertions(+), 30 deletions(-)
-> 
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index 6261bdb5a2ac1075bc89fa408c0fd6cfef380ae6..ce3639a4cdcda00ea63e3bf119bc3b242cbfdf6a 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -570,14 +570,16 @@ static void console_init_owner(void)
->      console_set_owner(domid);
->  }
->  
-> -static void __serial_rx(char c)
-> +static void handle_keypress_in_domain(struct domain *d, char c)
->  {
-> -    switch ( console_owner )
-> -    {
-> -    case DOMID_XEN:
-> -        return handle_keypress(c, false);
-> +    int rc = 0;
->  
-> -    case 0:
-> +    /*
-> +     * Deliver input to the hardware domain buffer.
-> +     * NB: must be the first check: hardware domain may have emulated UART.
-> +     */
-> +    if ( d == hardware_domain )
+> I didn't found a better place for it. Maybe you can suggest one?
 
-is_hardware_domain(d)
+I'm of two minds here really. Part of me wants this simply dropped. Yet
+then some may deem this worthwhile information, except that then it
+needs to live is a suitably exposed place. Just that I can't think of
+any that would really fit.
 
-> +    {
->          /*
->           * Deliver input to the hardware domain buffer, unless it is
->           * already full.
-> @@ -590,34 +592,44 @@ static void __serial_rx(char c)
->           * getting stuck.
->           */
->          send_global_virq(VIRQ_CONSOLE);
-> -        break;
-> -
-> -#ifdef CONFIG_SBSA_VUART_CONSOLE
-> -    default:
-> -    {
-> -        struct domain *d = rcu_lock_domain_by_id(console_owner);
-> -
-> -        /*
-> -         * If we have a properly initialized vpl011 console for the
-> -         * domain, without a full PV ring to Dom0 (in that case input
-> -         * comes from the PV ring), then send the character to it.
-> -         */
-> -        if ( d != NULL )
-> -            vpl011_rx_char_xen(d, c);
-> -        else
-> -            printk("Cannot send chars to Dom%d: no UART available\n",
-> -                   console_owner);
-> -
-> -        if ( d != NULL )
-> -            rcu_unlock_domain(d);
-> -
-> -        break;
->      }
-> +    /*
-> +     * Deliver input to the emulated UART.
-> +     */
-
-For one-line comments you can use:
-/* Deliver input to the emulated UART. */
-
-I would however place the comment inside the `if` body.
-
-> +    else if ( domain_has_vuart(d) )
-> +    {
-> +#if defined(CONFIG_SBSA_VUART_CONSOLE)
-> +        rc = vpl011_rx_char_xen(d, c);
->  #endif
-
-You can possibly make the preprocessor conditional also contain the
-if condition itself?  As otherwise the if condition is dead code.
-
->      }
-> -
-> +    /*
-> +     * Deliver input to the PV shim console.
-> +     */
->      if ( consoled_is_enabled() )
-> -        consoled_guest_tx(c);
-> +        rc = consoled_guest_tx(c);
-> +
-> +    if ( rc && rc != -ENODEV )
-> +        printk(KERN_WARNING "console input domain %d: not ready: %d\n",
-> +               d->domain_id, rc);
-
-XENLOG_ERR instead of KERN_WARNING, and use %pd to print domains, ie:
-
-printk(XENLOG_ERR "%pd: delivery of console input failed: %d\n",
-       d, rc);
-
-And I wonder whether this should be printed just once per domain,
-or whether the domain should be marked as not having a console
-(is_console = false) after delivery of input keys failed.
-
-Otherwise you could spam the console with such error messages on every
-serial key press.
-
-> +}
-> +
-> +static void __serial_rx(char c)
-> +{
-> +    struct domain *d;
-> +
-> +    if ( console_owner == DOMID_XEN )
-> +    {
-> +        handle_keypress(c, false);
-> +        return;
-> +    }
-> +
-> +    d = rcu_lock_domain_console_owner();
-> +    if ( d == NULL )
-> +        return;
-> +
-> +    handle_keypress_in_domain(d, c);
-
-Is __serial_rx() the only caller of handle_keypress_in_domain() after
-the series?  If so, I'm not sure it's worth placing this logic in a
-separate function.
-
-Thanks, Roger.
+Jan
 
