@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D48A49EE544
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 12:41:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855847.1268648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83BD89EE547
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 12:44:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855864.1268658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhYw-0002xM-Ls; Thu, 12 Dec 2024 11:40:58 +0000
+	id 1tLhba-0004OV-3W; Thu, 12 Dec 2024 11:43:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855847.1268648; Thu, 12 Dec 2024 11:40:58 +0000
+Received: by outflank-mailman (output) from mailman id 855864.1268658; Thu, 12 Dec 2024 11:43:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhYw-0002um-II; Thu, 12 Dec 2024 11:40:58 +0000
-Received: by outflank-mailman (input) for mailman id 855847;
- Thu, 12 Dec 2024 11:40:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tLhba-0004MP-0X; Thu, 12 Dec 2024 11:43:42 +0000
+Received: by outflank-mailman (input) for mailman id 855864;
+ Thu, 12 Dec 2024 11:43:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLhYv-0002tM-9Y
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:40:57 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id efa1cf38-b87d-11ef-99a3-01e77a169b0f;
- Thu, 12 Dec 2024 12:40:50 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-aa66ead88b3so89245866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:40:55 -0800 (PST)
+ id 1tLhbY-0004MJ-69
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:43:40 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5445cf4e-b87e-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 12:43:39 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3f65844deso791731a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:43:39 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa69964872asm473170166b.103.2024.12.12.03.40.53
+ a640c23a62f3a-aa671f1482asm709572466b.107.2024.12.12.03.43.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 03:40:54 -0800 (PST)
+ Thu, 12 Dec 2024 03:43:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efa1cf38-b87d-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 5445cf4e-b87e-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734003655; x=1734608455; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734003819; x=1734608619; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UyND7wvYxn+7wf2otM9OxBX7OxZgEQuOpc+HEbYcvPs=;
-        b=beDnIb1r0H0HNGV3m4cPislSmhVM3hZJlNz1LuhyOm3vA+sLDFIMUvWKK6tarBAEZl
-         AfQ5cs8xhq67jwqqQ5wSjjVEpD3M3+iw7jbaWZFcfItdHbdfe41KDcVpHRGIkye9XJa2
-         VmQ+GRw+EMrjW6vUJtI3SG4IEPQzh3sSzxCvyXbGEd4oxQaiaA2jFp5AUo50pyNwmwiH
-         S3ZnNas71sQVj1x3XZsJKO/7POVM1c9Xy28eBtCk/5qnbyE+gtqGZkoOzMZgYj5HfN0z
-         CwVS4m0HvTVbvEh1bGqkXGg0JfjboZNpzIfUvAIedGvYQNcaN6CR+dDVNa6jV+W+C4Ou
-         L3eA==
+        bh=ZLxheR2Ho1Fpke9iVPI8LqPgTq9RQohZDcOeJ7ONy6M=;
+        b=JZvrUrqwabE6KzNa4CwK6v6UEZFT55xBMhUoOpDQS8sOZm8suom0pweqndrWH60Tuo
+         1nV7xpE0PCHAH7nFcy6r0NW21RMKuQcPqCjMJ9g298yWdjtT7G+eMwHhriLY2wFaPhTX
+         UG3PUm+sOjXqYLZ/mrpbPgstWGbFeA8XTY+H3+yU7466sAwe2bXQM7dZQVx7v6LO+QZa
+         qbIHs8TuNAagwlBNbN/h1m32qemG6CEgGcsHP4ZLaIsVeMPhfnpagIe4csVoDzUno97u
+         hw5o5vkYP3WYdQZYnqVu8qL5Kb5r5/GOW6MJHG26TYSYYJr9D5DXrCCvyVy4doNMSG/4
+         QPsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734003655; x=1734608455;
+        d=1e100.net; s=20230601; t=1734003819; x=1734608619;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UyND7wvYxn+7wf2otM9OxBX7OxZgEQuOpc+HEbYcvPs=;
-        b=t0RgRoXLxt5don69qYn8zVUChuBN5KH7MWePr5u4aljrcM97T+/zzezp/m/eEmITj4
-         yGAyXPwb65jVBRGYfDEW43RNati5GXqfOQYHS8SWeA+1TOGYNu2WURscnQO2i4bIz2Un
-         uE4uzbUU5fSOg+9B1SdvJY7h4gF3/ANl83WObM5MLyQaOVTTIxjw3CSjptPb7W+AJNyN
-         Hw0LNmTp2HJ9MA8LaeflGdJDngZZKhwIPfTCbXCnxJ2lTGiLjpIVYeDjM7D5V1iihFrK
-         k4CpnjCqVMKZZSOR7cNnn4TlodjUaTMuM8aVGU8n6WXt3GtuQ/VY0qABiXju4SdrDhqK
-         bTsg==
-X-Forwarded-Encrypted: i=1; AJvYcCV9tl6/8JmXM7KMesHa7kue0m9genfOGE8xKKvC0ZzvXLrTRzsUu67Mp0S3siArVG73LHzhV1AZt+0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrZOOyO5hkLAFRjVcczfi6+SOWXxA63D6z+G19dDupDnh98e2E
-	GHPZNiUeupg+j8tu9YVg7cJdvipT56/WQeqZgqxfIcfvI8cg3M8cwAjAkkIFYg==
-X-Gm-Gg: ASbGncuNKuSE5MkzEi2arjBpCS3J6NldDq6KAS3O//yzc4ANn+FpSb6XCBmWKvIssIe
-	9Dpb1t1ywL9D0PGIo1q/7goup+CEp0X+AhbVRuNw+WQh8ylJ/BOrLMGXFQ1NIxWKaU1bIsRcA+p
-	6N53idsCpUWB8BquZvS7Hu729s0LY7FzoFMffJHzEg8/OdHXTJ4ngs8z6SCttlUD1fWzU6PmePb
-	mLwM47axEaDPsoaopF4tPzv3EmrW3eegEQYEfAnTqd3xiRvSuF2VQcP0Ckb1v6OHV9Sc5bFwUxo
-	IDX03eWG9eT1uMPdmUSJimoViPK8a+N6X4gz2BJF0Q==
-X-Google-Smtp-Source: AGHT+IELcESixDvtRT2iNcd4G5oTHZX4KSLaSAfq45ihdOSRfEJqq/4kayEdvirDe6JSJExuzfHPOA==
-X-Received: by 2002:a17:906:3109:b0:aa6:9eac:4b86 with SMTP id a640c23a62f3a-aa6b1182374mr640790566b.16.1734003654786;
-        Thu, 12 Dec 2024 03:40:54 -0800 (PST)
-Message-ID: <6605c052-da20-49e4-8d7f-f9e870ca6b92@suse.com>
-Date: Thu, 12 Dec 2024 12:40:53 +0100
+        bh=ZLxheR2Ho1Fpke9iVPI8LqPgTq9RQohZDcOeJ7ONy6M=;
+        b=enJYltP0a9Fa+0WPuMIl1cS2mUakvlWJ8DmV/LavDgmxrFTv6Hk9CaCc4JRv06r/m2
+         LrphhWX1AyA3QTgy+RLlJOn5XqKRULGuW7LuOlUZdinVo2+ipvd2KO1Nw1TsRSPb+PRY
+         EXypeQVST3ZuklPBbRCwR7J+X07m5JsSh3AIfz+BH+/J4BGWHYnOHkofe6YAUjJNEPNd
+         ZFKOCLUo+azSiRuLiaAelTh38Lfiw6nO8QST7XPLIJ6kk0U2BzxolOBIUf08GzySO8xU
+         zCme0STpD4cI6sJ89cLiN8DmALJLkyaDLlAzd4Q8If1+tLhLNXv9rbMGAgS6M58m+tF2
+         wuow==
+X-Forwarded-Encrypted: i=1; AJvYcCWSJZB3YVJrMd0WDSVx5ieMnwaO3JUgA6Z71lVwbLSOhY7zgrLbplWJwYc2SBAxD+lGaDh4BYcRAEQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8BSYNdOo7Pjzpwlqi6WaL0SNw7VBJXDX/KLfmcVk8h2c9KL86
+	Lj2CGmMoLijzEhHyzqyuguZu9KJJFafs/lxvxivoEo2d7RRwAMDgkGiS9o8giA==
+X-Gm-Gg: ASbGncs3syXP2fylEgqeFaf/qqogm89IcYKwcUgeiqPqK2u6sLGvrZYaK0NuWEO6sUS
+	4YyUgX00Q4a5ueol0Q5SNnj7o/aVozYwKoMBhgN+9v03R/a6QdtvbCnyfx2LjxAaTVInWNXwrWs
+	/ZsqVm2HaHD/3x0qyRI237ZX69877wUF+1wDnCTOuHrJEI/ONZu05QJ/TO1UzUB1AoVLxl749QU
+	J/kdgn3s05DFYqYRmDMKRYqQeWO3pl6Qmkcz7YELlKwn09f3n127OCGokriJqnXuh3gHx0gUBFi
+	SJD/UXJM2RjQUjQVp9b1Z4AilvmjjrlofblzMRD+AA==
+X-Google-Smtp-Source: AGHT+IH0yL6bpgM1iYl7AsYlLzKLbffRJhYltBpymT7VWOBE9JbXxaHM1PxPh0GmudxtLMShuOehQA==
+X-Received: by 2002:a17:906:9c9:b0:aa6:7f3d:4f9c with SMTP id a640c23a62f3a-aa6c1cefd42mr348810866b.38.1734003818642;
+        Thu, 12 Dec 2024 03:43:38 -0800 (PST)
+Message-ID: <d7a286d3-ba85-4903-91c7-920ad35f9580@suse.com>
+Date: Thu, 12 Dec 2024 12:43:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/15] x86/hyperlaunch: add capabilities to boot domain
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 2/7] xen/riscv: add destroy_xen_mappings() to remove
+ mappings in Xen page tables
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
- <20241123182044.30687-16-dpsmith@apertussolutions.com>
- <84bc7854-7935-4f36-b574-d19dde775673@suse.com>
- <16a6944d-4ac5-4016-bafe-1bd8b6a4fa4d@apertussolutions.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1733937787.git.oleksii.kurochko@gmail.com>
+ <d52c84417ae4aedb8ce9f73dfa2340fceea137a4.1733937787.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,43 +123,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <16a6944d-4ac5-4016-bafe-1bd8b6a4fa4d@apertussolutions.com>
+In-Reply-To: <d52c84417ae4aedb8ce9f73dfa2340fceea137a4.1733937787.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.12.2024 20:56, Daniel P. Smith wrote:
-> On 12/2/24 07:23, Jan Beulich wrote:
->> On 23.11.2024 19:20, Daniel P. Smith wrote:
->>> --- a/xen/arch/x86/domain_builder/fdt.c
->>> +++ b/xen/arch/x86/domain_builder/fdt.c
->>> @@ -209,6 +209,19 @@ static int __init process_domain_node(
->>>               bd->max_vcpus = val;
->>>               printk("  max vcpus: %d\n", bd->max_vcpus);
->>>           }
->>> +        if ( match_fdt_property(fdt, prop, "capabilities" ) )
->>> +        {
->>> +            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
->>> +            {
->>> +                printk("  failed processing domain id for domain %s\n",
->>> +                       name == NULL ? "unknown" : name);
->>> +                return -EINVAL;
->>> +            }
->>> +            printk("  caps: ");
->>> +            if ( bd->capabilities & BUILD_CAPS_CONTROL )
->>> +                printk("c");
->>> +            printk("\n");
->>> +        }
->>
->> What if any of the other bits is set?
+On 11.12.2024 18:27, Oleksii Kurochko wrote:
+> Introduce the destroy_xen_mappings() function, which removes page
+> mappings in Xen's page tables between a start address s and an end
+> address e.
+> The function ensures that both s and e are page-aligned
+> and verifies that the start address is less than or equal to the end
+> address before calling pt_update() to invalidate the mappings.
+> The pt_update() function is called with INVALID_MFN and PTE_VALID=0
+> in the flags, which tell pt_update() to remove mapping. No additional
+> ASSERT() is required to check these arguments, as they are hardcoded in
+> the call to pt_update() within destroy_xen_mappings().
 > 
-> I'm not sure what you are getting at, but there is another cap added 
-> later for HARDWARE and it will print an 'h' next to the 'c' if set.
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-And that bit, when set, will likely have meaning beyond this mere printing?
-If so, what's the effect on the domain when the bit is set, but the code
-consuming the bit isn't there yet? Will the domain function correctly? IOW
-shouldn't you reject any set bits that the code doesn't know how to handle?
-And then perhaps report all unknown bits in a numeric value here?
+Apparently I just shouldn't provide advance acks, when ...
+
+> --- a/xen/arch/riscv/pt.c
+> +++ b/xen/arch/riscv/pt.c
+> @@ -421,6 +421,14 @@ int map_pages_to_xen(unsigned long virt,
+>      return pt_update(virt, mfn, nr_mfns, flags);
+>  }
+>  
+> +int destroy_xen_mappings(unsigned long s, unsigned long e)
+> +{
+> +    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
+> +    ASSERT(IS_ALIGNED(e, PAGE_SIZE));
+> +
+> +    return ( s < e ) ? pt_update(s, INVALID_MFN, PFN_DOWN(e - s), 0) : -EINVAL;
+
+... then you introduce basic style violations like the excess blanks here.
 
 Jan
 
