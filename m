@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D56059EDCEF
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 02:09:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855437.1268352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 460039EDCFF
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 02:17:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855450.1268361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLXh6-0007ZG-FU; Thu, 12 Dec 2024 01:08:44 +0000
+	id 1tLXpc-0003Bv-6a; Thu, 12 Dec 2024 01:17:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855437.1268352; Thu, 12 Dec 2024 01:08:44 +0000
+Received: by outflank-mailman (output) from mailman id 855450.1268361; Thu, 12 Dec 2024 01:17:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLXh6-0007WY-Aw; Thu, 12 Dec 2024 01:08:44 +0000
-Received: by outflank-mailman (input) for mailman id 855437;
- Thu, 12 Dec 2024 01:08:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tLXpc-0003AB-3e; Thu, 12 Dec 2024 01:17:32 +0000
+Received: by outflank-mailman (input) for mailman id 855450;
+ Thu, 12 Dec 2024 01:17:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IXdK=TF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tLXh5-0007WS-6z
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 01:08:43 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9fcf93dc-b825-11ef-99a3-01e77a169b0f;
- Thu, 12 Dec 2024 02:08:40 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43618283d48so319065e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 17:08:40 -0800 (PST)
+ id 1tLXpa-0003A5-8E
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 01:17:30 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id da9acf96-b826-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 02:17:29 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-385e3621518so13998f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Dec 2024 17:17:29 -0800 (PST)
 Received: from [192.168.189.19] ([81.6.40.111])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4362571776asm497505e9.40.2024.12.11.17.08.39
+ ffacd0b85a97d-3878251c4e1sm2564022f8f.89.2024.12.11.17.17.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2024 17:08:39 -0800 (PST)
+ Wed, 11 Dec 2024 17:17:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fcf93dc-b825-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: da9acf96-b826-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1733965720; x=1734570520; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1733966248; x=1734571048; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TP9LdhWnkwuR4BVtDr1TfyZDD6u3r+pSiUAXCQnKV+Y=;
-        b=LBpokgrqHePVgGVLnSc97af83XTLYPmDfhd9Jt1IbwZ7D9w+0QePY+KMma9oW2rl48
-         CsMKPlFeaGDzvDX8L2m7L37G1+k37lmcuOVoEBcodCiG18Gxud+a7NATZYNH+Pm8b8eM
-         dDu0mrKnYlRToaOzcYw/HBXLUfcXkMR/0xjVI=
+        bh=18uw1qSoAWfFGPpqjRt2lgQFGAo3CbWDaWK05fK9KmM=;
+        b=SO0Y2L67D7hD0hby9Jqlfz9qYhbFGOTNkj2pEluat3+9z80sThKmQcW7e2Corh+iLQ
+         iclBbc2t0YgyQX4Sx1HrLYJ8z4WhSl/pw5p3JIaDDjE3rVe7cJs58mAfD5TKv9C+8RhK
+         zNd6OqbRkSIoiN8mtcjFQ5hOsfBRd6GkBlbTE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733965720; x=1734570520;
+        d=1e100.net; s=20230601; t=1733966248; x=1734571048;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TP9LdhWnkwuR4BVtDr1TfyZDD6u3r+pSiUAXCQnKV+Y=;
-        b=pMlSnE+oEpI462ZZKWLhvwqI30t9W+Xh5/csUajROJFGn35atG+YduV+iCpBboyi+j
-         vlsrkaS950UTDxXaD7cI8REY0ST/KkW5qX8ZJYAU/1tyg8yCAOMTKsuNgkFy1lo1Wxj+
-         PYhIBFCY/C4G92N+LEcW0S3/iGzORTCoIs0au8xr85pdjP4d6NAy5p5fchjCreFyTLzD
-         12UoRErbtRtbJ0K5jOivbcA4bXBZC4OJm/TV0PJHwfSyhcD+8yDzzREiHwLijcmKPd1T
-         TP839M/7MGGkWQprUmtOhJwKkMXhgNQr76tNwIV5KKug7QnBVdnGO/PJKKejFJav1nSR
-         RzAw==
-X-Forwarded-Encrypted: i=1; AJvYcCUoargfCY+pmi5aq33ZLiAwGyeKUDDLGf/ocutEetAib7IKKE8GOSVsjvoGXZR6bodyvWpcMiwn9s4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzG54zBVuX8Ade/AZgqHdHTTAL+kpf7d3Zu11c0xj6eid8Fmcjl
-	90VT3xpvCN/VGSUbbVzAtXSI1bcyMdNy/qzPeopBa4WJgm3HMeRKFTBCXtFZ4Q8xelZFVV1cFdH
-	AJ97U5A==
-X-Gm-Gg: ASbGncs7Urp5q/ojG+NJZYbt3Ctl5LC8esaXrv3YezyShZTaUlFFZk2C417IKfRTtSi
-	STG61EXw7VpChZtidHVNR6GiKa+E/Ul2KYAHafNPFaInLs8PBEAtJ0X9BntWxYb8YpAFLUjFElR
-	tY+AxVD4Nutnm56F8bmQKKOsX+3ZBDIBCPcUHjPwh5rDhhAZqxNzkIrrha56UKsjp8zfLbyOiRp
-	+DDqtpXxkH3uVskb61KeR6jV7+bXAyL9INPkMF5f5SkvtUECY5mTN2He9B/P3lF
-X-Google-Smtp-Source: AGHT+IFF6035NWPK1cRIr2atBUFPRX+LPderE7e4YKEWbhwrT4aDgMM15J/jXOxAEjRvvPs6mq6UCw==
-X-Received: by 2002:a05:600c:5101:b0:435:136:75f6 with SMTP id 5b1f17b1804b1-4361c2bbc4amr41066375e9.0.1733965720192;
-        Wed, 11 Dec 2024 17:08:40 -0800 (PST)
-Message-ID: <c22384b9-f246-4d79-9ad1-ff9dce89cff6@citrix.com>
-Date: Thu, 12 Dec 2024 01:08:38 +0000
+        bh=18uw1qSoAWfFGPpqjRt2lgQFGAo3CbWDaWK05fK9KmM=;
+        b=C+zT3bnpCR2gM8LLidCBZ9MkDWDvMVKiXfZUDt5zih6eyKkJJy3c3DgW6npvnD0Mh5
+         V1oDZ0RQl0OPmfowRX6nUF35fx3jVH9HB1HrltzBRhjZGfXXgW5XjEOroVkmb84wVjIr
+         1atqWYx5HPtMuPaeeLl4KV/5gEsnDVU/g/ri4r1kLjndGwhGlvGwuMSvbz7LnwR/iqk+
+         sqW/tFUHTyWAUoXz/gjP/ztOfc6NNkKyO+9aFwyfd2zxXdrQ7g+80zTaeycVLNB1fo6h
+         0rH8cD9ZIVk+xH1EVjwz2oaK5BQNhZ4EMFmbhYolrLAvKhlmpRhSl/QyZ/eS9CtgMTT1
+         f4Qg==
+X-Forwarded-Encrypted: i=1; AJvYcCWzpK8Y+grDz89N5tF7+1Goyyf4Gnls6rTnTfdchlP618i8x9kROydXaY69Kgx2Z8JAHvHM2pOzGFY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx5urovES4UqIa50BAPBMGfOCta7J9ETG41w/ljrK671JCgQISa
+	mi7kOUeQiQ8q6ah9SzO8X8GubT2SzhTEso6Jg7Tp4DJtd2HFnqwJGb12UppJDkI=
+X-Gm-Gg: ASbGncueQALRPxscHlvdDuPKiVoHO2rjcX9iwhtESB5wRI9+nRMoFv26/YHX6Dg6l06
+	sgisQ2LlwcrhCzS7lgthNVpyxz58HfUunVAGpm7B6KWAcAVjW9g1QZG/grIJDaW8Mr0r9ex9IBS
+	bgBLDDYIZ+pkj+jLvL1YWFEGeHBk1Qr6IhcTxdGD6WqezpRvxJmaqREhb6FNh9A61GmfVsnVFo2
+	3glG0M7p0fVv9nLUo9PzHWjETmLCpKzDVgZSymnK8MnDQLKmfBpNO/rIpa8bqmI09Q=
+X-Google-Smtp-Source: AGHT+IHrVSqxm+RQc72lUrg49gTNgalA7n18Z1JXGeInPdIpjqSF++ynetQrTMpQL65yRS+bedk2mg==
+X-Received: by 2002:a5d:6487:0:b0:385:fc32:1ec6 with SMTP id ffacd0b85a97d-387876c37abmr1153850f8f.50.1733966248214;
+        Wed, 11 Dec 2024 17:17:28 -0800 (PST)
+Message-ID: <fd9ea545-0eb1-4803-9d1e-df15c5805fa3@citrix.com>
+Date: Thu, 12 Dec 2024 01:17:26 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] common: remove -fno-stack-protector from
- EMBEDDED_EXTRA_CFLAGS
+Subject: Re: [PATCH v3 0/3] Add stack protector
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
  Samuel Thibault <samuel.thibault@ens-lyon.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20241211020424.401614-1-volodymyr_babchuk@epam.com>
- <20241211020424.401614-2-volodymyr_babchuk@epam.com>
+ <f1e86e0e-985a-41ae-a94c-979288275257@suse.com> <87pllx3gib.fsf@epam.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,37 +139,76 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241211020424.401614-2-volodymyr_babchuk@epam.com>
+In-Reply-To: <87pllx3gib.fsf@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/12/2024 2:04 am, Volodymyr Babchuk wrote:
-> This patch is preparation for making stack protector
-> configurable. First step is to remove -fno-stack-protector flag from
-> EMBEDDED_EXTRA_CFLAGS so separate components (Hypervisor in this case)
-> can enable/disable this feature by themselves.
+On 12/12/2024 12:13 am, Volodymyr Babchuk wrote:
+> Hello Jan,
 >
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Jan Beulich <jbeulich@suse.com> writes:
+>
+>> On 11.12.2024 03:04, Volodymyr Babchuk wrote:
+>>> Both GCC and Clang support -fstack-protector feature, which add stack
+>>> canaries to functions where stack corruption is possible. This series
+>>> makes possible to use this feature in Xen. I tested this on ARM64 and
+>>> it is working as intended. Tested both with GCC and Clang.
+>>>
+>>> It is hard to enable this feature on x86, as GCC stores stack canary
+>>> in %fs:40 by default, but Xen can't use %fs for various reasons. It is
+>>> possibly to change stack canary location new newer GCC versions, but
+>>> this will change minimal GCC requirement, which is also hard due to
+>>> various reasons. So, this series focus mostly on ARM and RISCV.
+>> Why exactly would it not be possible to offer the feature when new enough
+>> gcc is in use?
+> It is possible to use this feature with a modern enough GCC, yes. Are
+> you suggesting to make HAS_STACK_PROTECTOR dependent on GCC_VERSION for
+> x86 platform?
 
-This doesn't build on x86.
+(With the knowledge that this is a disputed Kconfig pattern, and will
+need rebasing), the way I want this to work is simply:
 
-You need this hunk too,
-
-diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-index d45787665907..ff0d61d7ac39 100644
---- a/xen/arch/x86/boot/Makefile
-+++ b/xen/arch/x86/boot/Makefile
-@@ -17,6 +17,7 @@ obj32 := $(addprefix $(obj)/,$(obj32))
- CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
- $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
- CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float -mregparm=3
-+CFLAGS_x86_32 += -fno-stack-protector
- CFLAGS_x86_32 += -nostdinc -include $(filter
-%/include/xen/config.h,$(XEN_CFLAGS))
- CFLAGS_x86_32 += $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__
+diff --git a/xen/Makefile b/xen/Makefile
+index 0de0101fd0bf..5d0a88fb3c3f 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -434,6 +434,9 @@ endif
  
-because CFLAGS_x86_32 really was using -fno-stack-protector to override
-the compilers inbuilt choice.
+ ifeq ($(CONFIG_STACK_PROTECTOR),y)
+ CFLAGS += -fstack-protector
++ifeq ($(CONFIG_X86),y)
++CFLAGS += -mstack-protector-guard=global
++endif
+ else
+ CFLAGS += -fno-stack-protector
+ endif
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 9cdd04721afa..7951ca908b36 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -28,6 +28,7 @@ config X86
+        select HAS_PCI_MSI
+        select HAS_PIRQ
+        select HAS_SCHED_GRANULARITY
++       select HAS_STACK_PROTECTOR if
+$(cc-option,-mstack-protector-guard=global)
+        select HAS_UBSAN
+        select HAS_VMAP
+        select HAS_VPCI if HVM
+
+
+
+Sadly, it doesn't build.  I get a handful of:
+
+prelink.o: in function `cmdline_parse':
+/home/andrew/xen.git/xen/common/kernel.c:216:(.init.text+0x20f2): failed
+to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
+--no-relax
+/home/andrew/xen.git/xen/common/kernel.c:230:(.init.text+0x246f): failed
+to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
+--no-relax
+
+which is more toolchain-whispering than I feel like doing tonight.
 
 ~Andrew
 
