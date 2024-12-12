@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9159EE707
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 13:47:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.856006.1268769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1B029EE717
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 13:51:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.856019.1268779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLib9-0000wO-04; Thu, 12 Dec 2024 12:47:19 +0000
+	id 1tLieP-0002ob-EF; Thu, 12 Dec 2024 12:50:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 856006.1268769; Thu, 12 Dec 2024 12:47:18 +0000
+Received: by outflank-mailman (output) from mailman id 856019.1268779; Thu, 12 Dec 2024 12:50:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLib8-0000tV-TB; Thu, 12 Dec 2024 12:47:18 +0000
-Received: by outflank-mailman (input) for mailman id 856006;
- Thu, 12 Dec 2024 12:47:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kKfJ=TF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tLib7-0000tP-V8
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 12:47:17 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36cf82ba-b887-11ef-99a3-01e77a169b0f;
- Thu, 12 Dec 2024 13:47:15 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5d3e6274015so978455a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 04:47:15 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3d00a0370sm8613889a12.6.2024.12.12.04.47.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 04:47:14 -0800 (PST)
+	id 1tLieP-0002n7-B1; Thu, 12 Dec 2024 12:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 856019;
+ Thu, 12 Dec 2024 12:50:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tLieN-0002OP-No
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 12:50:39 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b005e851-b887-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 13:50:38 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4361c705434so4001935e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 04:50:39 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436255a0d5dsm15851425e9.27.2024.12.12.04.50.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Dec 2024 04:50:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,132 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36cf82ba-b887-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: b005e851-b887-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734007634; x=1734612434; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=E+lwibPUPUtKfa/BiyW51T+1sphSyp6BBlkuj86kxWk=;
-        b=p+CxU2qgLqufKXZD7o4KKI3pZx+UA942x+LWXJox0Kpz2UpQxBI06Ui2yrSGlPNq78
-         IDb+1a4tTRJWv7cj9ENeBkBQlFxFL9t/rfN3fcBp6p5NxfwjoL0g6nWuLqeNFb0U1lf8
-         8BXjbYDNSk2xfjxgn6nWp1fF/Lt7h/TeP0NM8=
+        d=suse.com; s=google; t=1734007838; x=1734612638; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1IZaOfCpSXmNRz9T25v+4RtngXkGHxE0MxkPcywNabk=;
+        b=NvR19gDk9tudhZ91bS6znXiydjQ7TkJdjX5PjL1m1Uu7tTvtcgtuhk96H74bCNGTy7
+         w9q2VO0Ko3PzPmCBGkMjXYqQ7bxO+GZQIAMj6WFhqsLEpNfKA5wkfWqi3bO9Si6TtEPH
+         BJXVk69Id2UYj6VNlg4jw07EUSu1vdDoM/rmCiZnGxhNU6+NmyRkgS/Eg8ukh4IrUUgj
+         w+SIRgKzBxVyuF7HDGvxZmnbKpawmSnIUkPvlrFCkwxi+xWYrYaepYI/HO1QGTJcsWT7
+         OKjzHrShSjptroaZOgzcUWzoGHmkjOtKYMP6F6Qr1DfqTgl6uN3o70ZMvcBOV2zfvSTq
+         SQgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734007634; x=1734612434;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1734007838; x=1734612638;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E+lwibPUPUtKfa/BiyW51T+1sphSyp6BBlkuj86kxWk=;
-        b=Hit3bx1dUr0rvcQ1CmLEGyFnRkc2xY4ozZw3VbLRm9T4dGgbT7zd/jR2fJY3Go2o2h
-         MonU0QQti7ZnGJTnfgtYcn9BdzM4zrxkPmBZLCHCeAUhupqfrxYiKGikcpLfMLTj+Qt/
-         lzIS9ogjNHD21uj99FPKxI5SlCxEEz3zsNz9aEftV5FoEQes5YBvLU/0gPTNhWt22ApN
-         P8PLOc8jLPmlOH3M6Dfmgx4QZmVxhEurK57XvaJ9Vz3PPBj0EW1tr1DicJX4aE40C1vW
-         eX7v3jh/EbZFQCJDwLyAmJZnBVl3gMLjMbhnkW886vblfBB5UbWJ1K/hsCjvO4OZ8Wdj
-         lDdg==
-X-Gm-Message-State: AOJu0YxbsaZfaZ9sbHskShk7H0x8RvbyUZS4ohk2etsQ3MJ6o+R9FJZ7
-	S+0a2O10yFW+GWSdHSYCT4+wroeffVqEPTOoC60gKZmchw2IChh/kpqZy1VdXmU=
-X-Gm-Gg: ASbGncssEwI4U9sfDbWZM9IMmfJHQoBQPDI3fmPyZMfCJ2d4bo4Ry70zXFolwTYDGBS
-	QdPVA79fpcd8RswLvWVxLrZe2QCWMrMzAE9jdM+OpBIGTH+bqvIL82YAyq1fMLLt3YHLUmbmMnZ
-	AMc4wKYfX7HIM0NRphFnbXDNHAoIBUSx0iqr7/KogcZM+NHTX+jVcJBh1myYMBTPTykx294C4us
-	Kyj9oAaCVraN9P2CGXrCpAf881uMxHrMx16nVfN1DZLR5GW47AnxI0mzULlvN1uMQ==
-X-Google-Smtp-Source: AGHT+IFwaZQTVzw8SudTv1zJfT8BNoBN+MMOuMT6DdIyv6TMMmIRiTHdVHkkaJZ0Ec9YRhGvGsxlCA==
-X-Received: by 2002:a05:6402:4304:b0:5d0:e73c:b7f6 with SMTP id 4fb4d7f45d1cf-5d633ea9bb0mr110675a12.31.1734007634503;
-        Thu, 12 Dec 2024 04:47:14 -0800 (PST)
-Date: Thu, 12 Dec 2024 13:47:13 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 26/35] xen/console: make console buffer size
- configurable
-Message-ID: <Z1rbUfLQolFdMoi6@macbook.local>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-26-e9aa923127eb@ford.com>
+        bh=1IZaOfCpSXmNRz9T25v+4RtngXkGHxE0MxkPcywNabk=;
+        b=eEZ9TJLc171tDLrTfDPBVTyV8bkA1pbQlHCfoH+StDmUrr8NLqxOgK1Tf3K0f5GVuK
+         XtJvBvHHEGd09zslaba2E9LXJqQ3SleoHIb8cKpmIy1W40JwYYV2FPU5hkflJM2TOouj
+         Rk1xChsLVJjZpt04+nFPQ96m/Zdep3Y8/shubUAhAC5UQwoNFTs5uvDVCyJwQ5FzHm5Y
+         CtlsRvthin/lNDRvml51DN/UM+GZvcqJMfsfLhfsB/sThdWmawVNC4T0e7+Et1FCB+tz
+         owz90DGclBAypbwxoA8jcc6+Iy6RLmz1aSxPhz/MK0NwQxb/FWx5p3NgIXsAdZYcyKaa
+         foDQ==
+X-Gm-Message-State: AOJu0YzvbXA5TmMwPrxkeb7Ga3SUrgLCblNpw7JjeUvvG/xWMvy02Q8T
+	lncssM+A8FHu9GRAKms/LDXpaTCF5amjWJUwOjkHDnyjNcHFXZT/OR+S6fGa0Q==
+X-Gm-Gg: ASbGncvtfmOX8/67ytqpuMIN70hPEcMrxX4PpUE4OJ40PE/13aIMeEqPgM+GANMV912
+	cawoAPv1A8YQnR9KjihTcml9YlnUei5LPUzXgaG/zTrsqkNWQ8Lt+aQM3DBtMVXpH6yI/as+pxA
+	G7cHFUxiJr1B35a0hgN7fmqAItYFpaILdqG8NT3wiBP+hxWGK4yOd/v9/YoAWZdxf7aCZGWEZRw
+	EvF+flmcai4JOUMIMk8+yZifurKVHX4GJuWkSYM3cM1fWbg2/vXT4VKnHOPn5+DCibAQtxVeE3b
+	puuqYJ0Rpao9JsbPipbkwZ6Q41TgubSo81HAB+I+iA==
+X-Google-Smtp-Source: AGHT+IE5mgvC3wcWPfXRAByN8Ui8HW4lS3g0GfshOv21HDxwQ+AzMR+KkWeSy6hMwpicNkRuQcslzA==
+X-Received: by 2002:a05:600c:4e4b:b0:434:f3a1:b214 with SMTP id 5b1f17b1804b1-4361c429603mr43454745e9.28.1734007838414;
+        Thu, 12 Dec 2024 04:50:38 -0800 (PST)
+Message-ID: <89735894-2f3f-4723-921c-2e1b4b455469@suse.com>
+Date: Thu, 12 Dec 2024 13:50:37 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241205-vuart-ns8250-v1-26-e9aa923127eb@ford.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/35] x86/domain: print emulation_flags
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, dmukhin@ford.com
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-9-e9aa923127eb@ford.com>
+ <Z1mtigiI-5wkgzhK@macbook.local>
+ <8fa61060-3c00-453e-be47-3a60671dc7df@suse.com>
+ <Z1rS5CdF9NpXDmFu@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z1rS5CdF9NpXDmFu@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Dec 05, 2024 at 08:41:56PM -0800, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On 12.12.2024 13:11, Roger Pau Monné wrote:
+> On Thu, Dec 12, 2024 at 12:53:45PM +0100, Jan Beulich wrote:
+>> On 11.12.2024 16:19, Roger Pau Monné wrote:
+>>> On Thu, Dec 05, 2024 at 08:41:39PM -0800, Denis Mukhin via B4 Relay wrote:
+>>>> --- a/xen/arch/x86/domain.c
+>>>> +++ b/xen/arch/x86/domain.c
+>>>> @@ -818,11 +818,15 @@ int arch_domain_create(struct domain *d,
+>>>>  
+>>>>      if ( !emulation_flags_ok(d, emflags) )
+>>>>      {
+>>>> -        printk(XENLOG_G_ERR "d%d: Xen does not allow %s domain creation "
+>>>> +        printk(XENLOG_G_ERR "d%d: Xen does not allow %s %sdomain creation "
+>>>
+>>> gprintk(XENLOG_ERR, "...
+>>>
+>>> Might be more natural now that we have the macro (together with Jan's
+>>> suggestion to use %pd (same below).
+>>
+>> Yet why would we want to log current here, as gprintk() does?
 > 
-> Add new CONRING_LOG_SHIFT Kconfig parameter to specify the boot console buffer
-> size as a power of 2.
-> 
-> Bump default size to 32 KiB.
-> 
-> Link: https://gitlab.com/xen-project/xen/-/issues/185
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Right - I've forgotten that gprintk already prepends %pd.
 
-Thanks for taking care of this.
+FTAOD: It's %pv and logging current, which isn't what is being logged here
+(an incoming struct domain *).
 
-> ---
->  xen/drivers/char/Kconfig   | 23 +++++++++++++++++++++++
->  xen/drivers/char/console.c |  4 ++--
->  2 files changed, 25 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-> index e6e12bb4139717f9319031f51f5d20155d2caee2..3bc892fc38d8cdeb3c76ea44d747f712a8d0d372 100644
-> --- a/xen/drivers/char/Kconfig
-> +++ b/xen/drivers/char/Kconfig
-> @@ -96,6 +96,29 @@ config SERIAL_TX_BUFSIZE
->  
->  	  Default value is 32768 (32KiB).
->  
-> +config CONRING_LOG_SHIFT
-> +	int "Console buffer size"
-> +	range 14 25
-> +	default 15
-> +	help
-> +	  Select the boot console buffer size as a power of 2.
-> +	  Run-time console buffer size is the same as the boot console size,
-> +	  unless enforced via 'conring_size=' boot parameter.
-> +
-> +	  Examples:
-> +	    25 =>  32 MiB
-> +	    24 =>  16 MiB
-> +	    23 =>   8 MiB
-> +	    22 =>   4 MiB
-> +	    21 =>   2 MiB
-> +	    20 =>   1 MiB
-> +	    19 => 512 KiB
-> +	    18 => 256 KiB
-> +	    17 => 128 KiB
-> +	    16 =>  64 KiB
-> +	    15 =>  32 KiB
-> +	    14 =>  16 KiB
-
-It might be better to do something similar to what we do in
-SERIAL_TX_BUFSIZE, that the user provides a value in KiB which is
-rounded down to the nearest power of 2?
-
-> +
->  config XHCI
->  	bool "XHCI DbC UART driver"
->  	depends on X86
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index d22fb4a253af26f9b51d91bd408e1dbf4bb5a7c1..581ee22b85302a54db5b9d5d28e8b2d689d31403 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -104,11 +104,11 @@ static int cf_check parse_console_timestamps(const char *s);
->  custom_runtime_param("console_timestamps", parse_console_timestamps,
->                       con_timestamp_mode_upd);
->  
-> -/* conring_size: allows a large console ring than default (16kB). */
-> +/* conring_size: allows a large console ring than default (32 KiB). */
->  static uint32_t __initdata opt_conring_size;
->  size_param("conring_size", opt_conring_size);
-
-You also need to update xen-command-line.pandoc to mention the default
-size is now set in Kconfig.  And here I would mention
-CONFIG_CONRING_SIZE rather than explicit 32 KiB, because that's just
-the default in Kconfig, but might not be the default in the build
-itself.
-
-FWIW, you could define:
-
-#define _CONRING_SIZE        (CONFIG_CONRING_SIZE & (CONFIG_CONRING_SIZE - 1))
-
-Thanks, Roger.
+Jan
 
