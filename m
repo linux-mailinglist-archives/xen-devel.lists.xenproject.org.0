@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 759329EE471
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 11:46:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855720.1268549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A28F9EE481
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 11:51:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855732.1268558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLghW-0001K8-HO; Thu, 12 Dec 2024 10:45:46 +0000
+	id 1tLgmy-0003sH-47; Thu, 12 Dec 2024 10:51:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855720.1268549; Thu, 12 Dec 2024 10:45:46 +0000
+Received: by outflank-mailman (output) from mailman id 855732.1268558; Thu, 12 Dec 2024 10:51:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLghW-0001H8-E6; Thu, 12 Dec 2024 10:45:46 +0000
-Received: by outflank-mailman (input) for mailman id 855720;
- Thu, 12 Dec 2024 10:45:44 +0000
+	id 1tLgmy-0003pQ-1V; Thu, 12 Dec 2024 10:51:24 +0000
+Received: by outflank-mailman (input) for mailman id 855732;
+ Thu, 12 Dec 2024 10:51:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLghU-0001H2-UR
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 10:45:44 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kKfJ=TF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tLgmw-0003ig-0n
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 10:51:22 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cd56347-b876-11ef-a0d5-8be0dac302b0;
- Thu, 12 Dec 2024 11:45:43 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-aa69251292dso83613266b.2
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 02:45:43 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa6975b1f27sm480935566b.113.2024.12.12.02.45.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 02:45:43 -0800 (PST)
+ id 05c1d663-b877-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 11:51:21 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3d479b1e6so577722a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 02:51:21 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d3e7936581sm7176044a12.56.2024.12.12.02.51.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Dec 2024 02:51:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +44,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cd56347-b876-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 05c1d663-b877-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734000343; x=1734605143; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aIQzt1yulu5i1a3ynxfDWvmaKZkJve7gh764YAZyV7s=;
-        b=cphOBBfQIQ6Mq8JjBEsa4lAKcJvLp5LVbuQ+o7LwwbcdMFuN3AD5eGoA5ipVDObBdu
-         vKzEA+q0C0Kaj1J6ishmHSXDJ++JZTLhBuDLJHbnDqiWgfMaHOGiv1i6HsbYO1Eq59uh
-         sMj0c6a66doHktLQzAuXLifAUuIB1MIMru0a9sQabPvu/eDHCcN5qveFod9PYX/qqV3T
-         3K5adM4ngIax1tc+trgDl6UrkhRn7UUUQ3BPKYTD0OXcOE2ICVIPAOCk/ikiMjALYsI1
-         Y26+xepuuySfOz5Wm6CoaPaN7Fv0NoOBQYmsM5Dsop3mAvHUOHVTvZgUhBEuHTn5gRTB
-         qqxQ==
+        d=citrix.com; s=google; t=1734000680; x=1734605480; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ia5fGrLJCCZZbPn6F1drPOFD+LT9NslQOlZL2Wxfma0=;
+        b=KEAtdNvtWfmQWzkiz51vJI560ySzBdCzGXztHnWePUaDlrWCGhrMTA39JpOJjMxDlU
+         of1oI/TeImJBOYIoebpOdh9AiJMB77m8nraiOh8DzSTEd+u4cH/8T9wbctid9eLMbzxn
+         sINf8hs7bEAbeKzXmY2bcZrUdLkYqSBr/0q90=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734000343; x=1734605143;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1734000680; x=1734605480;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aIQzt1yulu5i1a3ynxfDWvmaKZkJve7gh764YAZyV7s=;
-        b=kT1Q4yRltsGccYAqyqxXzXANjanriZfs5SEr+UAQwVQaLHXikrIwYEdsbVJl8U6bV/
-         nEwRACBkKGA2rIDGE9jl0X3ZM47SUOcrJ0doeM3GvKChjmuo2laXslREl6qzwgM+IDj9
-         HbAixV9f33q5aVJInlK6gmUXgObKHVb3nWpSJXNYeztX9LANuaTu8YmzLXnkl0Z1k9In
-         dIjfeDDEr1VObuCJQZEq4UwhEWQ3KPfvbFRp5dqnAGmdAYAhPbuTShe5hMHf/0mfd6Fb
-         nLRzUzT/988+9LrPp/01a61xz/45tFuPmq2sYeWjDJa+uAmHvCsB5DBwEwZl9amd2ZDK
-         pOjA==
-X-Forwarded-Encrypted: i=1; AJvYcCU/jYMbNB2ItjbpO3RWE03FuOcH6+e41Y0g6n2i/UoVxk9V26vK4yvWky8EQYioTy8RtIGRE/3y3pw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxXtov1f/h0aYlrMm6Pyxb4Gt876WoOzpEsJygrA0JRDpAdnuBb
-	+O1ZRvZRzKI+mILh8D7SC+QVOWDUstzWdlztaSFlZjV5nWx/RGazb/4U4X8jzNtDbKOEm045XdQ
-	=
-X-Gm-Gg: ASbGncsvowsrGdZcUPj2pTpbpz7fiYiTR7N/5sSRWoFHeazTVw0AiJn2Ooq9BPz3hfG
-	71BwzijWAUiPn4KkqUyLDG8LT2h3+trTeWxyig5dMTWdBEwZwmmvOg1XLGmNOwGKxId4MATGmU9
-	lwRFDkyHTtPUPnaeD+P4VkyH81a9C8VDhKxsIbLOFhIcrtxaLoz4R4t6N4vf9DGGzyBDAMrhxM/
-	yM/zKMmL1th3Gk+WN1oJyxj1EZCga9diW6PSCkKsKZ6J1praJ79ue0gg8XxHQXEthjyhSnsMIOP
-	xLlxCQUEjwsRGXC2lIg+/dOYnj+rvJ4Zl/4W894dzQ==
-X-Google-Smtp-Source: AGHT+IH6qPGJrqZAXTDeBJOLiWxOQlMXaK11rD0YMqHBkMwQMjfAcbFIRHDNY2v3JI0QsXlJVRQHtg==
-X-Received: by 2002:a17:907:7707:b0:aa6:5eae:7ed4 with SMTP id a640c23a62f3a-aa6b11912fbmr454748266b.13.1734000343404;
-        Thu, 12 Dec 2024 02:45:43 -0800 (PST)
-Message-ID: <e369fbb7-9a6e-492e-a85f-a83a86bc2c1d@suse.com>
-Date: Thu, 12 Dec 2024 11:45:42 +0100
+        bh=ia5fGrLJCCZZbPn6F1drPOFD+LT9NslQOlZL2Wxfma0=;
+        b=Nrd2KyvRfmYEygkA+2FIlnSaQ0kz/3HaoE0WSw3pdtZwKPkGXk77FBtvVcQx8ldPj/
+         CM4BTkyVnfiumEyAms+V0WBIypAK2bmdEF2YmSxwq8WhOj860d9B1Wzq0EmCnlj6e8M6
+         4vYsvcVy7a/jzxqv1j+e9Ns96HxThfPdG0YrH1W/hiCQ2KXvCHsS7Ekan2dsYLkyUOna
+         2EtVLF+kzL4YDdHtvfWQUC7es9CJoigOJsK6Setd/hrmbJTyGwBFJiptfWrqiCWsx36e
+         yfNNk83UoeSWnAZKMdwqKyqqlK+8LdL9zXQkg4uQm1zMQxH6/T79Z4ImXCrOBkPdJLsG
+         nh7g==
+X-Gm-Message-State: AOJu0YyiO3oEkLjw1ZuYlTEns0NsG+XNujMcj0I/rMeSEKdSGRnjxrS1
+	ui7r2DXh3mZ995IVoIgUY9jTqxJQLO1ZVub5+dz4/13fZ0GA2fCDL+GHYe0bYdY=
+X-Gm-Gg: ASbGncse4yKDT22O+dpTwNy3XaV80gLy56gMXzXA0Y3r1nqLTVkYHzqma5AsHK4mKSF
+	HWZqRhTKGFXyFukdTuU5qyqxFvwB9nkq5oNRfYhN25ZLhsESZcerpqW7r7gpUIje9ujdabvJykJ
+	qKfNnpsmk1S7DgfPtts48Oqh9H4y5mX81M537zPIbuWEgCHIulcd1v7RuRY6/gtGC5BahbZXMB+
+	JVYYyDifywA1+Ok4e9lS0AAEz/APDbU6IXSlaQu/fwonKuFN8DjCpTMGV+AVmGmlQ==
+X-Google-Smtp-Source: AGHT+IFTRb2T6vw9Etj/GW7CZb6IcuT9AkFzoHjZ3J25ZUfnbKAA1rVsN1viT6swWWivdxgcUfH9Vg==
+X-Received: by 2002:a05:6402:40c2:b0:5d0:cfad:f71 with SMTP id 4fb4d7f45d1cf-5d4fa1b2a38mr1309519a12.32.1734000680425;
+        Thu, 12 Dec 2024 02:51:20 -0800 (PST)
+Date: Thu, 12 Dec 2024 11:51:19 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmukhin@ford.com
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 22/35] xen/console: introduce
+ handle_keypress_in_domain()
+Message-ID: <Z1rAJwSJvD-6rtM7@macbook.local>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-22-e9aa923127eb@ford.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] xen: common: add ability to enable stack protector
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20241211020424.401614-1-volodymyr_babchuk@epam.com>
- <20241211020424.401614-3-volodymyr_babchuk@epam.com>
- <0d04abb1-dae1-47d1-93e3-23d88399fa64@suse.com>
- <6b5326de-1ffb-4bac-b698-0e17435e89bc@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6b5326de-1ffb-4bac-b698-0e17435e89bc@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20241205-vuart-ns8250-v1-22-e9aa923127eb@ford.com>
 
-On 12.12.2024 01:52, Andrew Cooper wrote:
-> On 11/12/2024 8:16 am, Jan Beulich wrote:
->> On 11.12.2024 03:04, Volodymyr Babchuk wrote:
->>> --- a/xen/Makefile
->>> +++ b/xen/Makefile
->>> @@ -432,7 +432,11 @@ else
->>>  CFLAGS_UBSAN :=
->>>  endif
->>>  
->>> +ifeq ($(CONFIG_STACK_PROTECTOR),y)
->>> +CFLAGS += -fstack-protector
->>> +else
->>>  CFLAGS += -fno-stack-protector
->>> +endif
->> Personally I'd prefer if we consistently used the list approach we use
->> in various places, whenever possible:
->>
->> CFLAGS-stack-protector-y := -fno-stack-protector
->> CFLAGS-stack-protector-$(CONFIG_STACK_PROTECTOR) := -fstack-protector
->> CFLAGS += $(CFLAGS-stack-protector-y)
+On Thu, Dec 05, 2024 at 08:41:52PM -0800, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> No - please stop this antipattern.
+> With introduction of NS8250 emulator for x86, the logic of switching console
+> focus gets more convoluted: HVM domain w/ NS8205 must be able to receive the
+> physical console input for guest VM debugging.
 > 
-> It saves 2 lines of code and makes the logic complete unintelligible.
+> Also, existing code does not honor `hardware_dom=` xen command line parameter
+> (hardware domain ID does _not_ necessarily starts from 0).
 > 
-> I have a very strong preference for this patch to happen as Volodymyr
-> presented, and without the double := replacing the more-legible ifeq.
-
-Why "antipattern"? Surely there are cases where the list approach is
-preferable. Surely there are cases where it ends up less legible, and
-this may indeed be one such case. Yet then - where do you suggest to
-draw the boundary?
-
->>> +void asmlinkage __stack_chk_fail(void)
->>> +{
->>> +    panic("Stack Protector integrity violation identified in %ps\n",
->>> +	  __builtin_return_address(0));
->> Again.
->>
->> Is panic() really the right construct to use here, though?
->> __builtin_return_address() will merely identify the immediate caller. A
->> full stack trace (from BUG()) would likely be more useful in identifying
->> the offender.
+> Introduce handle_keypress_in_domain() to account for all scenarios of console
+> input forwarding.
 > 
-> Well - we have to be careful, because the backtrace from here is
-> specifically misleading in this case.
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/drivers/char/console.c | 72 +++++++++++++++++++++++++++-------------------
+>  1 file changed, 42 insertions(+), 30 deletions(-)
 > 
-> When this trips, it's either the caller itself that broke, or some
-> sibling call tree which is rubble under the active stack now.
-> 
-> BUG() also comes with 0 information.
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index 6261bdb5a2ac1075bc89fa408c0fd6cfef380ae6..ce3639a4cdcda00ea63e3bf119bc3b242cbfdf6a 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -570,14 +570,16 @@ static void console_init_owner(void)
+>      console_set_owner(domid);
+>  }
+>  
+> -static void __serial_rx(char c)
+> +static void handle_keypress_in_domain(struct domain *d, char c)
+>  {
+> -    switch ( console_owner )
+> -    {
+> -    case DOMID_XEN:
+> -        return handle_keypress(c, false);
+> +    int rc = 0;
+>  
+> -    case 0:
+> +    /*
+> +     * Deliver input to the hardware domain buffer.
+> +     * NB: must be the first check: hardware domain may have emulated UART.
+> +     */
+> +    if ( d == hardware_domain )
 
-Not quite, the more that you suggest an alternative way to ...
+is_hardware_domain(d)
 
-> So, maybe we want a dump_execution_state() (to get the backtrace), and
-> then this panic() which states it was a Stack Protection violation,
-> which hopefully is enough of a hint to people to look in the sibling
-> call tree.
+> +    {
+>          /*
+>           * Deliver input to the hardware domain buffer, unless it is
+>           * already full.
+> @@ -590,34 +592,44 @@ static void __serial_rx(char c)
+>           * getting stuck.
+>           */
+>          send_global_virq(VIRQ_CONSOLE);
+> -        break;
+> -
+> -#ifdef CONFIG_SBSA_VUART_CONSOLE
+> -    default:
+> -    {
+> -        struct domain *d = rcu_lock_domain_by_id(console_owner);
+> -
+> -        /*
+> -         * If we have a properly initialized vpl011 console for the
+> -         * domain, without a full PV ring to Dom0 (in that case input
+> -         * comes from the PV ring), then send the character to it.
+> -         */
+> -        if ( d != NULL )
+> -            vpl011_rx_char_xen(d, c);
+> -        else
+> -            printk("Cannot send chars to Dom%d: no UART available\n",
+> -                   console_owner);
+> -
+> -        if ( d != NULL )
+> -            rcu_unlock_domain(d);
+> -
+> -        break;
+>      }
+> +    /*
+> +     * Deliver input to the emulated UART.
+> +     */
 
-... get register state and stack trace out. Which I'd be entirely fine
-with.
+For one-line comments you can use:
+/* Deliver input to the emulated UART. */
 
-Jan
+I would however place the comment inside the `if` body.
+
+> +    else if ( domain_has_vuart(d) )
+> +    {
+> +#if defined(CONFIG_SBSA_VUART_CONSOLE)
+> +        rc = vpl011_rx_char_xen(d, c);
+>  #endif
+
+You can possibly make the preprocessor conditional also contain the
+if condition itself?  As otherwise the if condition is dead code.
+
+>      }
+> -
+> +    /*
+> +     * Deliver input to the PV shim console.
+> +     */
+>      if ( consoled_is_enabled() )
+> -        consoled_guest_tx(c);
+> +        rc = consoled_guest_tx(c);
+> +
+> +    if ( rc && rc != -ENODEV )
+> +        printk(KERN_WARNING "console input domain %d: not ready: %d\n",
+> +               d->domain_id, rc);
+
+XENLOG_ERR instead of KERN_WARNING, and use %pd to print domains, ie:
+
+printk(XENLOG_ERR "%pd: delivery of console input failed: %d\n",
+       d, rc);
+
+And I wonder whether this should be printed just once per domain,
+or whether the domain should be marked as not having a console
+(is_console = false) after delivery of input keys failed.
+
+Otherwise you could spam the console with such error messages on every
+serial key press.
+
+> +}
+> +
+> +static void __serial_rx(char c)
+> +{
+> +    struct domain *d;
+> +
+> +    if ( console_owner == DOMID_XEN )
+> +    {
+> +        handle_keypress(c, false);
+> +        return;
+> +    }
+> +
+> +    d = rcu_lock_domain_console_owner();
+> +    if ( d == NULL )
+> +        return;
+> +
+> +    handle_keypress_in_domain(d, c);
+
+Is __serial_rx() the only caller of handle_keypress_in_domain() after
+the series?  If so, I'm not sure it's worth placing this logic in a
+separate function.
+
+Thanks, Roger.
 
