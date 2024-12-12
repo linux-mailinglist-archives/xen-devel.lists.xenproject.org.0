@@ -2,31 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 057419EEB88
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 16:26:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.856156.1268875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D569EEB8A
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 16:26:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.856164.1268885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLl3r-0005rw-4h; Thu, 12 Dec 2024 15:25:07 +0000
+	id 1tLl4L-0006LR-Eg; Thu, 12 Dec 2024 15:25:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 856156.1268875; Thu, 12 Dec 2024 15:25:07 +0000
+Received: by outflank-mailman (output) from mailman id 856164.1268885; Thu, 12 Dec 2024 15:25:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLl3q-0005qO-W5; Thu, 12 Dec 2024 15:25:06 +0000
-Received: by outflank-mailman (input) for mailman id 856156;
- Thu, 12 Dec 2024 15:25:05 +0000
+	id 1tLl4L-0006JF-BN; Thu, 12 Dec 2024 15:25:37 +0000
+Received: by outflank-mailman (input) for mailman id 856164;
+ Thu, 12 Dec 2024 15:25:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y8ka=TF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tLl3p-0005qI-O8
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 15:25:05 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 413e4baa-b89d-11ef-99a3-01e77a169b0f;
- Thu, 12 Dec 2024 16:25:03 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1734017092551658.7603516810639;
- Thu, 12 Dec 2024 07:24:52 -0800 (PST)
+ <SRS0=kKfJ=TF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tLl4K-0005qI-16
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 15:25:36 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 54dab4c8-b89d-11ef-99a3-01e77a169b0f;
+ Thu, 12 Dec 2024 16:25:34 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-aa6a618981eso113043466b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 07:25:34 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa6801060e4sm648619266b.158.2024.12.12.07.25.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Dec 2024 07:25:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,193 +44,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 413e4baa-b89d-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1734017095; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=aVtsHmmoEPRBVqafU+X+SyutgeOiZednb86pOZ2qen/R+1G8bsHyl0NAPMq7HgbgA8AJOVvoeRIIG6ivKse0aXsSmcE8BajtmDWMHr2H3uSb19cGf9XnW/VFyGmBUoU8wzb/OJohnfbbER2H/AZhZpt4nq2FJD7dSOqrO3KQ0fU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1734017095; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=F1Ma1hJwRLZUMkZ2303OZR8O0S2s2eu3hXgcPBG/cjs=; 
-	b=HPma9QzpItga95COO84F5RNI9eLWRF4KPTfqQ3IRxteIuL//z9Ctpw5SvLi0h1wA9csto9MR23Orahvrnppon7dV67I6hGoC5+ObzaKiDBMJwY3iecuGWdvQvUaGzJ/ZtWCEuD1zA/00Q8AXjfdhWTbUvEAxI/0Hu5VSWRtg+ms=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1734017095;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=F1Ma1hJwRLZUMkZ2303OZR8O0S2s2eu3hXgcPBG/cjs=;
-	b=jT9FWvBHJcgaF4Xhp/MHkDU6c0KhVvGzWitZQAZ2dqoVxt80YavPuENU68Rxlcg/
-	stwILGU9nVXBzp8jDetEP6OkzLB2F6fqeFZ362KyJBQHOFDIqj5pvrufdcJpGatOQsY
-	gdUwHaiU31WVegeT1l2eJubYjzQB1JrFjdMqvdUg=
-Message-ID: <6ea84558-4042-468b-9607-1a2e5a281a89@apertussolutions.com>
-Date: Thu, 12 Dec 2024 10:24:49 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/15] x86/hyperlaunch: introduce the domain builder
+X-Inumbo-ID: 54dab4c8-b89d-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1734017134; x=1734621934; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=yI7P/J1NvDahaqdb81p62ViU/ufpXHsb/RMe1IM+oSw=;
+        b=ePO9Kyjv2ayZ2TdVBns75G5JQCqL5Mg2UOaq4gU2TUcpyca8L/wRRJamOyUEmsd6E4
+         4MCzOp/ZHwl62lv8hvVQwDCV3OtMvBvE0662BOXDHjEXnhbaqnB4wFuhmU6unbXaHWgF
+         EuyQvFmjyr/NVfYKYu8+6rReOoia3Q1xT266A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734017134; x=1734621934;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=yI7P/J1NvDahaqdb81p62ViU/ufpXHsb/RMe1IM+oSw=;
+        b=hJCwXgwyOkB4BXowxuONaEvJRAbItSmWWTgZ+D3srLeeiwSmXUYmeG3GRVAHOQAlRo
+         VhXlc0LpD2GbOoUw3X/rT5LKNCxop3NGRlVwfnrCWw789Ecjx6A0HWtCIFt7Bc26Cwkv
+         fA2AbKNXZr4NsEXLARrH48wp+hQd8sQ877qEmwp9VUUXZBKHCq/na3zOKXHV1arOA105
+         lVzE8c3GWkAzNjnvdLvFQNRo9NzUfDEZFJC1ZRJGr7qiWr5KzLwPS6r/SN4J14NSXD5d
+         51gt/LCIkLTrDb0/GD5gmll1QuA8YBGPerfKJ8XtRTefZVMHlEVs4WuOSYB6sEbH4pqc
+         ganQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVrKKESVEioAuWobkbReSmOXSH0rLL9tc4YqWYP2q2mTdSYtTckJl7Wl1hqHgKmU3rz212IuM4lr2I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGsxK6250s6M6O4LWfM7B5wQRLS+3+cHwJM9FABQJMQJly4Ufb
+	4StsYTg7E+vIihjhQWV0j11k+EanmWJfC9NdwdBhEIMZWDqkeanvNhoy3kvGTrs=
+X-Gm-Gg: ASbGncs4/Qf2WkGTaeCaODcxR3S4fLeZrJu8/WrfnkDsKbxaRBEkKiVwzO7h7NnnMNt
+	oi8MwA7gjMQCQdrCH8kurMBVkty05LSnj3cuL3fhYPerf5LP9ZBbCpjekrAFVvlIpOYjphqxsfs
+	RnpQz89LDfKfBlam6AWYZEzk+PuLmSwnaXrAkeYE2upRahDgglpQa19mVJCMjgxLkyKB9i+Urcf
+	TFsMAtKnNdSJ9/SupjDH553msJRo1U2/4niAUeSmhxfW1j9u/upl6qWZIiC/jtbQw==
+X-Google-Smtp-Source: AGHT+IEBWaF8RzjhT02eBsfbqPPWHnzrjPfhQ85d+0PxTJga/5CkNMBEf+TCZBdVTS2USMJ3/KYfWg==
+X-Received: by 2002:a17:907:7747:b0:aa6:8935:ae71 with SMTP id a640c23a62f3a-aa6b10f5d3amr778536466b.12.1734017133916;
+        Thu, 12 Dec 2024 07:25:33 -0800 (PST)
+Date: Thu, 12 Dec 2024 16:25:32 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
- <20241123182044.30687-7-dpsmith@apertussolutions.com>
- <f12f30f2-c1ea-4118-bbd0-c37a948f0ac2@suse.com>
- <71d62f74-91d9-498f-80a7-d0dc01fb51da@apertussolutions.com>
- <3b0d3128-2501-4866-a2c5-36a1277956b1@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <3b0d3128-2501-4866-a2c5-36a1277956b1@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 16/35] xen/console: introduce printk_common()
+Message-ID: <Z1sAbJPWv9v3jfdS@macbook.local>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-16-e9aa923127eb@ford.com>
+ <Z1qpk55qKBywx26R@macbook.local>
+ <8e5ce2dd-f888-42a3-937f-98ed1269c66c@suse.com>
+ <Z1rT3lsr9B0dy-Jr@macbook.local>
+ <9dad24ea-178f-48c8-a93b-5823c44b56ee@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9dad24ea-178f-48c8-a93b-5823c44b56ee@suse.com>
 
-On 12/12/24 06:06, Jan Beulich wrote:
-> On 11.12.2024 13:36, Daniel P. Smith wrote:
->> On 12/2/24 05:10, Jan Beulich wrote:
->>> On 23.11.2024 19:20, Daniel P. Smith wrote:
->>>> Introduce the domain builder which is capable of consuming a device tree as the
->>>> first boot module. If it finds a device tree as the first boot module, it will
->>>> set its type to BOOTMOD_FDT. This change only detects the boot module and
->>>> continues to boot with slight change to the boot convention that the dom0
->>>> kernel is no longer first boot module but is the second.
->>>>
->>>> No functional change intended.
->>>>
->>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>> ---
->>>>    xen/arch/x86/Makefile                    |  2 +
->>>>    xen/arch/x86/domain_builder/Makefile     |  3 ++
->>>>    xen/arch/x86/domain_builder/core.c       | 55 ++++++++++++++++++++++++
->>>>    xen/arch/x86/domain_builder/fdt.c        | 38 ++++++++++++++++
->>>>    xen/arch/x86/domain_builder/fdt.h        | 21 +++++++++
->>>>    xen/arch/x86/include/asm/bootinfo.h      |  3 ++
->>>>    xen/arch/x86/include/asm/domainbuilder.h |  8 ++++
->>>>    xen/arch/x86/setup.c                     | 18 +++++---
->>>>    8 files changed, 142 insertions(+), 6 deletions(-)
->>>>    create mode 100644 xen/arch/x86/domain_builder/Makefile
->>>>    create mode 100644 xen/arch/x86/domain_builder/core.c
->>>>    create mode 100644 xen/arch/x86/domain_builder/fdt.c
->>>>    create mode 100644 xen/arch/x86/domain_builder/fdt.h
->>>
->>> As I'm sure I indicated before: Dashes instead of underscores please in new
->>> files' names.
->>>
->>>>    create mode 100644 xen/arch/x86/include/asm/domainbuilder.h
->>>
->>> Why is there no separator in this file's name?
->>
->> Name was getting a bit long, but can add separator if desired.
+On Thu, Dec 12, 2024 at 01:52:49PM +0100, Jan Beulich wrote:
+> On 12.12.2024 13:15, Roger Pau Monné wrote:
+> > On Thu, Dec 12, 2024 at 12:57:25PM +0100, Jan Beulich wrote:
+> >> On 12.12.2024 10:14, Roger Pau Monné wrote:
+> >>> On Thu, Dec 05, 2024 at 08:41:46PM -0800, Denis Mukhin via B4 Relay wrote:
+> >>>> From: Denis Mukhin <dmukhin@ford.com>
+> >>>>
+> >>>> Introduce new printk() variant for convenient printouts which skip '(XEN)'
+> >>>> prefix on xen console. This is needed for the case when physical console is
+> >>>> owned by a domain w/ in-hypervisor UART emulation enabled.
+> >>>
+> >>> IIRC the ns8250 can only send or receive one byte (character) at a
+> >>> time, so you should likely put that on the console as soon as it's
+> >>> received?
+> >>>
+> >>> For the hardware domain we explicitly don't buffer writes to the
+> >>> console (see guest_console_write() hardware domain special handling).
+> >>>
+> >>> I wonder however how you deal with domains that don't have the console
+> >>> focus (ie: != console_rx), as for those I think you still want to use
+> >>> the (d<domid>) prefix?
+> >>
+> >> Imo no matter what domain has the focus, the (d<domid>) prefix should
+> >> always be logged. Just to avoid possible confusion.
+> > 
+> > WE don't do that currently for the hardware domain, because we avoid
+> > doing any kind of line processing, as characters from the hardware
+> > domain are send straight to the console without waiting for the
+> > newline terminator (like we do for other domains).
 > 
-> Well, my desire is for the subdir and the header names to match up.
-> Personally I think that neater to achieve when both have a dash in the
-> middle.
+> Right, and that's kind of special, and aiui intentionally so. These are
+> the only un-prefixed lines logged.
+> 
+> > Are you suggesting that in case of the console input being shared
+> > between multiple domains they should all be treated as plain domUs and
+> > thus lines should be buffered?
+> 
+> No, I'm actually not suggesting anything here beyond perhaps reducing
+> the scope of this series to just what the equivalent of vpl011 would be
+> for the 8250 / 16550 case.
 
-Sure.
+Indeed, reducing the scope would make it easier to get the actual
+feature reviewed.  There's a huge amount of pre-patching that will
+possibly take some time to get agreement on (if suitable).
 
->>>> --- /dev/null
->>>> +++ b/xen/arch/x86/domain_builder/core.c
->>>> @@ -0,0 +1,55 @@
->>>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>>> +/*
->>>> + * Copyright (C) 2024, Apertus Solutions, LLC
->>>> + */
->>>> +#include <xen/err.h>
->>>> +#include <xen/init.h>
->>>> +#include <xen/kconfig.h>
->>>> +#include <xen/lib.h>
->>>> +
->>>> +#include <asm/bootinfo.h>
->>>> +
->>>> +#include "fdt.h"
->>>> +
->>>> +void __init builder_init(struct boot_info *bi)
->>>> +{
->>>> +    if ( IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
->>>> +    {
->>>> +        int ret;
->>>> +
->>>> +        switch ( ret = has_hyperlaunch_fdt(bi) )
->>>> +        {
->>>> +        case 0:
->>>> +            printk("Hyperlaunch device tree detected\n");
->>>> +            bi->hyperlaunch_enabled = true;
->>>> +            bi->mods[0].type = BOOTMOD_FDT;
->>>> +            break;
->>>> +        case -EINVAL:
->>>> +            printk("Hyperlaunch device tree was not detected\n");
->>>> +            bi->hyperlaunch_enabled = false;
->>>> +            break;
->>>> +        case -ENOENT:
->>>> +            fallthrough;
->>>
->>> No need for this.
->>
->> I thought MISRA called for explicit fallthrough?
-> 
-> Only when there are statements between two case labels. Which ...
-> 
->>>> +        case -ENODATA:
-> 
-> ... isn't the case here.
-
-Rgr, have already dropped it.
-
->>>> @@ -1277,9 +1278,12 @@ void asmlinkage __init noreturn __start_xen(void)
->>>>                   bi->nr_modules);
->>>>        }
->>>>    
->>>> -    /* Dom0 kernel is always first */
->>>> -    bi->mods[0].type = BOOTMOD_KERNEL;
->>>> -    bi->domains[0].kernel = &bi->mods[0];
->>>> +    builder_init(bi);
->>>> +
->>>> +    /* Find first unknown boot module to use as Dom0 kernel */
->>>> +    i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
->>>> +    bi->mods[i].type = BOOTMOD_KERNEL;
->>>> +    bi->domains[0].kernel = &bi->mods[i];
->>>
->>> Better latch the result here into a separate local variable, for use ...
->>>
->>>> @@ -1466,8 +1470,9 @@ void asmlinkage __init noreturn __start_xen(void)
->>>>            xen->size  = __2M_rwdata_end - _stext;
->>>>        }
->>>>    
->>>> -    bi->mods[0].headroom =
->>>> -        bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].size);
->>>> +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
->>>> +    bi->mods[i].headroom =
->>>> +        bzimage_headroom(bootstrap_map_bm(&bi->mods[i]), bi->mods[i].size);
->>>>        bootstrap_unmap();
->>>>    
->>>>    #ifndef highmem_start
->>>> @@ -1591,7 +1596,8 @@ void asmlinkage __init noreturn __start_xen(void)
->>>>    #endif
->>>>        }
->>>>    
->>>> -    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
->>>> +    i = first_boot_module_index(bi, BOOTMOD_KERNEL);
->>>> +    if ( bi->mods[i].headroom && !bi->mods[0].relocated )
->>>>            panic("Not enough memory to relocate the dom0 kernel image\n");
->>>>        for ( i = 0; i < bi->nr_modules; ++i )
->>>>        {
->>>
->>> ... in these two places?
->>
->> I don't know if a local variable is need. I assume your suggestion is to
->> drop the first_boot_module_index() call,
-> 
-> The latter two of the three, yes.
-> 
->> but thinking about it, not sure
->> why I kept the walk. A direct use of bi->domains[0].kernel could be used
->> without the intermediate variable while removing the call.
-> 
-> If that's possible, the even better.
-
-Yep, while it did make the lines a little longer, I was able to use the 
-boot_domain reference.
-
-v/r,
-dps
+Thanks, Roger.
 
