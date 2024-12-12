@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9729C9EE26E
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 10:15:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855584.1268444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B16B9EE313
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 10:31:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855595.1268455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLfHk-0002i2-1Y; Thu, 12 Dec 2024 09:15:04 +0000
+	id 1tLfX2-0006O0-BP; Thu, 12 Dec 2024 09:30:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855584.1268444; Thu, 12 Dec 2024 09:15:04 +0000
+Received: by outflank-mailman (output) from mailman id 855595.1268455; Thu, 12 Dec 2024 09:30:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLfHj-0002fR-VD; Thu, 12 Dec 2024 09:15:03 +0000
-Received: by outflank-mailman (input) for mailman id 855584;
- Thu, 12 Dec 2024 09:15:02 +0000
+	id 1tLfX2-0006MJ-6J; Thu, 12 Dec 2024 09:30:52 +0000
+Received: by outflank-mailman (input) for mailman id 855595;
+ Thu, 12 Dec 2024 09:30:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kKfJ=TF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tLfHi-0002fJ-HT
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 09:15:02 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90b4dd63-b869-11ef-a0d5-8be0dac302b0;
- Thu, 12 Dec 2024 10:15:01 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5d3ecae02beso440609a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 01:15:01 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3c1f99b84sm8840402a12.11.2024.12.12.01.15.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 01:15:00 -0800 (PST)
+ <SRS0=xR60=TF=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1tLfX0-0006Kx-PM
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 09:30:50 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id c5331821-b86b-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 10:30:48 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D7A0F169E;
+ Thu, 12 Dec 2024 01:31:15 -0800 (PST)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9CB7C3F5A1;
+ Thu, 12 Dec 2024 01:30:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,70 +42,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90b4dd63-b869-11ef-a0d5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1733994900; x=1734599700; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=H7igillvt6e+KKJzLmDEmwnXw1c3sNqc3sgGDnKwaTM=;
-        b=UHWfGOSQ4aTe78RG7qBWAsTvFCUAKUeoG9aa5JfSKgrlHMumyujP3xVqy6l9ntcEQj
-         jBNKD0WJt8cl+cBk9y74XsQVUcfm1Hblbr0j7KkAM2UxFNkDtWrdWkKsG23MePV7Ymu4
-         Y+chU4/x9IRD3tFcvDFEHL8lKLoAmsADpWLDs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733994900; x=1734599700;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H7igillvt6e+KKJzLmDEmwnXw1c3sNqc3sgGDnKwaTM=;
-        b=Jwzqg96IeCmfilhg1tn7UvJGTrcU/YAfmX8v0NfKmzlwZpsBA5vy46zQ88c8H7Al9r
-         kMk60Elu/iEPDyr6K7lvnYjLHSO93YW1jZVV/EDdNCkE7hD1hNVNL2Smks7RhQoVbNqs
-         P8Zt+6Iuwv2zG11yyvL1M/HgzHp8HmhXeMpkzXAj0QlD9iOAyyqJTTbWdHaRBjtYmIqm
-         neqmpDHxmlKOda51n4/pdNZF6dNCKYfUYfh1kXljuA0WD3lOJB4ZKAL3Lq9y5yGNELTV
-         aPsK/dLKPHpbqQxhsVsAiG8jVoARj35OnCLQnR0SIZefaig9TpZ6sWa2+AS3bZU6DGxl
-         A+7w==
-X-Gm-Message-State: AOJu0YyVrb7jDSKgibxORLqhPKnnbGVKmuxPlgBuVu7Bj92ntqVB1eOT
-	zfsL9jWOvlx3wE73F83cIgT1HVeWYqNP4AmVTwMoRHUVbertZkDXE99DmX8IuLUBxVgw61BT0NH
-	Z
-X-Gm-Gg: ASbGnctEuvgWbeXlKINwK3RK0MTpc73aIY5k0VSYKp+56PrdGsCe1ijZijXGzgPlj9H
-	n6ZTLmFBWS1Kd2cSIuYIka9/KQvZEeZgeE8CfXiJBKZRLbESHx3ADs+4PTOVQvyH2/D1NEmAbN5
-	3vszcC8UROq0RgxL9Yl677nDFarw/M4SWERcbF4N2NCyRHSYCccuAPwgqPfvNfLfszMGR4h22dX
-	mOZYQJIOXCi7eNGGmRyd1w769MoQKMc1fBSnU62VlzmdyVAn/+aPvkjmB/xwHuBCQ==
-X-Google-Smtp-Source: AGHT+IHpxfmtLt3O2pXYipKFquDT2QjuDKum3ecVVWyZFkR7oDl4PitWBC+DHqWN2iaBQMUtul5F1g==
-X-Received: by 2002:a05:6402:3227:b0:5d0:d492:970b with SMTP id 4fb4d7f45d1cf-5d4e6a6e7demr422195a12.0.1733994900562;
-        Thu, 12 Dec 2024 01:15:00 -0800 (PST)
-Date: Thu, 12 Dec 2024 10:14:59 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org,
+X-Inumbo-ID: c5331821-b86b-11ef-a0d5-8be0dac302b0
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 16/35] xen/console: introduce printk_common()
-Message-ID: <Z1qpk55qKBywx26R@macbook.local>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-16-e9aa923127eb@ford.com>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Penny Zheng <penny.zheng@arm.com>,
+	Wei Chen <wei.chen@arm.com>
+Subject: [PATCH v6] xen/arm: Check for Static Heap feature when freeing resources
+Date: Thu, 12 Dec 2024 09:30:37 +0000
+Message-Id: <20241212093037.2916713-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241205-vuart-ns8250-v1-16-e9aa923127eb@ford.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Dec 05, 2024 at 08:41:46PM -0800, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Introduce new printk() variant for convenient printouts which skip '(XEN)'
-> prefix on xen console. This is needed for the case when physical console is
-> owned by a domain w/ in-hypervisor UART emulation enabled.
+From: Penny Zheng <Penny.Zheng@arm.com>
 
-IIRC the ns8250 can only send or receive one byte (character) at a
-time, so you should likely put that on the console as soon as it's
-received?
+If the Xen heap is statically configured in Device Tree, its size is
+definite, so only the defined memory shall be given to the boot
+allocator. Have a check where init_domheap_pages() is called
+which takes into account if static heap feature is used.
 
-For the hardware domain we explicitly don't buffer writes to the
-console (see guest_console_write() hardware domain special handling).
+Extract static_heap flag from init data bootinfo, as it will be needed
+after destroying the init data section, rename it to using_static_heap
+and use it to tell whether the Xen static heap feature is enabled.
 
-I wonder however how you deal with domains that don't have the console
-focus (ie: != console_rx), as for those I think you still want to use
-the (d<domid>) prefix?
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+Signed-off-by: Wei Chen <wei.chen@arm.com>
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+Changes from v5:
+ - Drop Jan R-by due to the code changes
+ - Static heap is not dependent on static memory, so delete #ifdefs
+   for CONFIG_STATIC_MEMORY
+Changes from v4:
+ - Add R-by Jan
+ - Changed code to reduce nesting in discard_initial_modules (Julien)
+Changes from v3:
+ - Removed helper using_static_heap(), renamed static_heap variable
+   to using_static_heap and simplified #ifdef-ary (Jan suggestion)
+Changes from v2:
+ - Change xen_is_using_staticheap() to using_static_heap()
+ - Move declaration of static_heap to xen/mm.h and import that in
+   bootfdt.h
+ - Reprased first part of the commit message
+Changes from v1:
+ - moved static_heap to common/page_alloc.c
+ - protect static_heap access with CONFIG_STATIC_MEMORY
+ - update comment in arm/kernel.c kernel_decompress()
+---
+---
+ xen/arch/arm/arm32/mmu/mm.c       | 4 ++--
+ xen/arch/arm/kernel.c             | 7 ++++---
+ xen/arch/arm/mmu/setup.c          | 8 ++++++--
+ xen/arch/arm/setup.c              | 3 +++
+ xen/common/device-tree/bootfdt.c  | 2 +-
+ xen/common/device-tree/bootinfo.c | 2 +-
+ xen/common/page_alloc.c           | 3 +++
+ xen/include/xen/bootfdt.h         | 1 -
+ xen/include/xen/mm.h              | 2 ++
+ 9 files changed, 22 insertions(+), 10 deletions(-)
 
-Thanks, Roger.
+diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
+index 063611412be0..0824d61323b5 100644
+--- a/xen/arch/arm/arm32/mmu/mm.c
++++ b/xen/arch/arm/arm32/mmu/mm.c
+@@ -199,7 +199,7 @@ void __init setup_mm(void)
+ 
+     total_pages = ram_size >> PAGE_SHIFT;
+ 
+-    if ( bootinfo.static_heap )
++    if ( using_static_heap )
+     {
+         const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
+ 
+@@ -246,7 +246,7 @@ void __init setup_mm(void)
+ 
+     do
+     {
+-        e = bootinfo.static_heap ?
++        e = using_static_heap ?
+             fit_xenheap_in_static_heap(pfn_to_paddr(xenheap_pages), MB(32)) :
+             consider_modules(ram_start, ram_end,
+                              pfn_to_paddr(xenheap_pages),
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index 293d7efaed9c..8270684246ea 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -244,10 +244,11 @@ static __init int kernel_decompress(struct bootmodule *mod, uint32_t offset)
+     size += offset;
+ 
+     /*
+-     * Free the original kernel, update the pointers to the
+-     * decompressed kernel
++     * In case Xen is not using the static heap feature, free the original
++     * kernel, update the pointers to the decompressed kernel
+      */
+-    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
++    if ( !using_static_heap )
++        fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
+ 
+     return 0;
+ }
+diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+index 9664e85ee6c0..8c87649bc88e 100644
+--- a/xen/arch/arm/mmu/setup.c
++++ b/xen/arch/arm/mmu/setup.c
+@@ -341,8 +341,12 @@ void free_init_memory(void)
+     if ( rc )
+         panic("Unable to remove the init section (rc = %d)\n", rc);
+ 
+-    init_domheap_pages(pa, pa + len);
+-    printk("Freed %ldkB init memory.\n", (long)(__init_end-__init_begin)>>10);
++    if ( !using_static_heap )
++    {
++        init_domheap_pages(pa, pa + len);
++        printk("Freed %ldkB init memory.\n",
++               (long)(__init_end-__init_begin) >> 10);
++    }
+ }
+ 
+ /**
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 2e27af4560a5..85f743a2c6ad 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -206,6 +206,9 @@ void __init discard_initial_modules(void)
+     struct bootmodules *mi = &bootinfo.modules;
+     int i;
+ 
++    if ( using_static_heap )
++        return;
++
+     for ( i = 0; i < mi->nr_mods; i++ )
+     {
+         paddr_t s = mi->module[i].start;
+diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
+index fc93d86e8232..47386d4fffea 100644
+--- a/xen/common/device-tree/bootfdt.c
++++ b/xen/common/device-tree/bootfdt.c
+@@ -410,7 +410,7 @@ static int __init process_chosen_node(const void *fdt, int node,
+         if ( rc )
+             return rc;
+ 
+-        bootinfo.static_heap = true;
++        using_static_heap = true;
+     }
+ 
+     printk("Checking for initrd in /chosen\n");
+diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
+index 0daf5e941a51..76d652c0de0b 100644
+--- a/xen/common/device-tree/bootinfo.c
++++ b/xen/common/device-tree/bootinfo.c
+@@ -407,7 +407,7 @@ void __init populate_boot_allocator(void)
+     const struct membanks *reserved_mem = bootinfo_get_reserved_mem();
+     paddr_t s, e;
+ 
+-    if ( bootinfo.static_heap )
++    if ( using_static_heap )
+     {
+         for ( i = 0 ; i < reserved_mem->nr_banks; i++ )
+         {
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 92abed6514b4..1f424333db27 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -165,6 +165,9 @@
+ #define PGT_TYPE_INFO_INITIALIZER 0
+ #endif
+ 
++/* Flag saved when Xen is using the static heap feature */
++bool __ro_after_init using_static_heap;
++
+ unsigned long __read_mostly max_page;
+ unsigned long __read_mostly total_pages;
+ paddr_t __ro_after_init mem_hotplug;
+diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+index 343c48b73d2c..c8bbfd8979b2 100644
+--- a/xen/include/xen/bootfdt.h
++++ b/xen/include/xen/bootfdt.h
+@@ -139,7 +139,6 @@ struct bootinfo {
+ #ifdef CONFIG_STATIC_SHM
+     struct shared_meminfo shmem;
+ #endif
+-    bool static_heap;
+ };
+ 
+ #ifdef CONFIG_ACPI
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index d7dcf0f06330..16f733281af3 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -72,6 +72,8 @@
+ 
+ struct page_info;
+ 
++extern bool using_static_heap;
++
+ void put_page(struct page_info *page);
+ bool __must_check get_page(struct page_info *page,
+                            const struct domain *domain);
+-- 
+2.34.1
+
 
