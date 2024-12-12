@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83BD89EE547
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 12:44:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855864.1268658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43E289EE56A
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 12:49:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855875.1268669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhba-0004OV-3W; Thu, 12 Dec 2024 11:43:42 +0000
+	id 1tLhgQ-0004yr-LE; Thu, 12 Dec 2024 11:48:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855864.1268658; Thu, 12 Dec 2024 11:43:42 +0000
+Received: by outflank-mailman (output) from mailman id 855875.1268669; Thu, 12 Dec 2024 11:48:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLhba-0004MP-0X; Thu, 12 Dec 2024 11:43:42 +0000
-Received: by outflank-mailman (input) for mailman id 855864;
- Thu, 12 Dec 2024 11:43:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tLhgQ-0004xO-I6; Thu, 12 Dec 2024 11:48:42 +0000
+Received: by outflank-mailman (input) for mailman id 855875;
+ Thu, 12 Dec 2024 11:48:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLhbY-0004MJ-69
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:43:40 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5445cf4e-b87e-11ef-a0d5-8be0dac302b0;
- Thu, 12 Dec 2024 12:43:39 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5d3f65844deso791731a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:43:39 -0800 (PST)
+ id 1tLhgQ-0004xI-17
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 11:48:42 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 04a1ab5a-b87f-11ef-99a3-01e77a169b0f;
+ Thu, 12 Dec 2024 12:48:35 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-aa68b513abcso87730766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 03:48:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa671f1482asm709572466b.107.2024.12.12.03.43.37
+ a640c23a62f3a-aa6761d0ab3sm688876866b.201.2024.12.12.03.48.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 03:43:38 -0800 (PST)
+ Thu, 12 Dec 2024 03:48:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5445cf4e-b87e-11ef-a0d5-8be0dac302b0
+X-Inumbo-ID: 04a1ab5a-b87f-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734003819; x=1734608619; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734004119; x=1734608919; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZLxheR2Ho1Fpke9iVPI8LqPgTq9RQohZDcOeJ7ONy6M=;
-        b=JZvrUrqwabE6KzNa4CwK6v6UEZFT55xBMhUoOpDQS8sOZm8suom0pweqndrWH60Tuo
-         1nV7xpE0PCHAH7nFcy6r0NW21RMKuQcPqCjMJ9g298yWdjtT7G+eMwHhriLY2wFaPhTX
-         UG3PUm+sOjXqYLZ/mrpbPgstWGbFeA8XTY+H3+yU7466sAwe2bXQM7dZQVx7v6LO+QZa
-         qbIHs8TuNAagwlBNbN/h1m32qemG6CEgGcsHP4ZLaIsVeMPhfnpagIe4csVoDzUno97u
-         hw5o5vkYP3WYdQZYnqVu8qL5Kb5r5/GOW6MJHG26TYSYYJr9D5DXrCCvyVy4doNMSG/4
-         QPsQ==
+        bh=oF01OQTATxw5803525epeWR+MSrmPgptyH0ip19zs0I=;
+        b=f6WkYEsPbMj52HTAFhRe7unAP8m2IRL7u/9EK/vNniB7AxaE1FlNF57EH2y8a5cHKg
+         Zh93Uyu7N4YcT9vCW0cQLqfSc5p73oy9v2nZJX9CVSY5YxM1ZII02ClxkhoZ6Pan/AjR
+         ilHzM0ZozgJK9rmyks9EjkIW4O+Cd/Fg3M7neoC/50BG9rh2YaCT1Y7LYYt+CvAv1bRl
+         20bpPyAM45X13RFJomhHQ0bXjbtKB8WQqgusaZewpV0C9sDMbHTMQ8W6hTtTOscrE+OQ
+         6ZE8XUF32Ky6DJ2TwxOhm6+O+yWQCJ4fwXPhixs8C2kl3lPQaiAB+IAy5fi75syahf2O
+         6g0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734003819; x=1734608619;
+        d=1e100.net; s=20230601; t=1734004119; x=1734608919;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZLxheR2Ho1Fpke9iVPI8LqPgTq9RQohZDcOeJ7ONy6M=;
-        b=enJYltP0a9Fa+0WPuMIl1cS2mUakvlWJ8DmV/LavDgmxrFTv6Hk9CaCc4JRv06r/m2
-         LrphhWX1AyA3QTgy+RLlJOn5XqKRULGuW7LuOlUZdinVo2+ipvd2KO1Nw1TsRSPb+PRY
-         EXypeQVST3ZuklPBbRCwR7J+X07m5JsSh3AIfz+BH+/J4BGWHYnOHkofe6YAUjJNEPNd
-         ZFKOCLUo+azSiRuLiaAelTh38Lfiw6nO8QST7XPLIJ6kk0U2BzxolOBIUf08GzySO8xU
-         zCme0STpD4cI6sJ89cLiN8DmALJLkyaDLlAzd4Q8If1+tLhLNXv9rbMGAgS6M58m+tF2
-         wuow==
-X-Forwarded-Encrypted: i=1; AJvYcCWSJZB3YVJrMd0WDSVx5ieMnwaO3JUgA6Z71lVwbLSOhY7zgrLbplWJwYc2SBAxD+lGaDh4BYcRAEQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8BSYNdOo7Pjzpwlqi6WaL0SNw7VBJXDX/KLfmcVk8h2c9KL86
-	Lj2CGmMoLijzEhHyzqyuguZu9KJJFafs/lxvxivoEo2d7RRwAMDgkGiS9o8giA==
-X-Gm-Gg: ASbGncs3syXP2fylEgqeFaf/qqogm89IcYKwcUgeiqPqK2u6sLGvrZYaK0NuWEO6sUS
-	4YyUgX00Q4a5ueol0Q5SNnj7o/aVozYwKoMBhgN+9v03R/a6QdtvbCnyfx2LjxAaTVInWNXwrWs
-	/ZsqVm2HaHD/3x0qyRI237ZX69877wUF+1wDnCTOuHrJEI/ONZu05QJ/TO1UzUB1AoVLxl749QU
-	J/kdgn3s05DFYqYRmDMKRYqQeWO3pl6Qmkcz7YELlKwn09f3n127OCGokriJqnXuh3gHx0gUBFi
-	SJD/UXJM2RjQUjQVp9b1Z4AilvmjjrlofblzMRD+AA==
-X-Google-Smtp-Source: AGHT+IH0yL6bpgM1iYl7AsYlLzKLbffRJhYltBpymT7VWOBE9JbXxaHM1PxPh0GmudxtLMShuOehQA==
-X-Received: by 2002:a17:906:9c9:b0:aa6:7f3d:4f9c with SMTP id a640c23a62f3a-aa6c1cefd42mr348810866b.38.1734003818642;
-        Thu, 12 Dec 2024 03:43:38 -0800 (PST)
-Message-ID: <d7a286d3-ba85-4903-91c7-920ad35f9580@suse.com>
-Date: Thu, 12 Dec 2024 12:43:37 +0100
+        bh=oF01OQTATxw5803525epeWR+MSrmPgptyH0ip19zs0I=;
+        b=BIe34qjIo3z1C2C+hvjYrt3SVqGPjUZsZzTYUebTPBdjBPdRJRahi9yzUlhkAHGM6c
+         Jt6a9UnPF9Q2m5R27QsNl67QqxMuqURvSeLGYYTpU7qhILYMVbklSyycgCdKaKHeha4g
+         pmunY1IhXuuje0S68ybVkqzvtxyKjSGBJorFuJ/i8PFCOOeP2eau5FD0EtkByASnQWKc
+         5XOufRWQWRG8QtVzRLqcSQco4FTRcV3fCZE/UxMrpEOLszwfZQHd2LkUs/LdaGlaLBda
+         JkrIGrtcDPbLuNnauc7bxjTslQjKB9cJZcF0qL0zL7Dgrplw0pZq/eFG0duQTqOZXWKy
+         DAuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUr0i6sjuR6C0AUTdg+wP6TaC9QdEq/VzhzMX5GFY9z1/ljpBSp76uyvuW5KVQbgsdR8V1r/drxcGQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YweULevVseqQ33QPkSiZ7G8zfJPqMMSY0H4Oug5ZUc9vRqZN/dJ
+	f9IIra8fx08rE4YM26Kfm1/XwMNxdbKUbQ8tQQgc+IMqp7eNo5wJs04qE3SCYw==
+X-Gm-Gg: ASbGncvRPOdS8kIfS4dAe7MBS34bYRl08tPNTNyBCwgqGD/LkeFsiwg8qKoLYM+eazF
+	Q3KpFBqXdieQdto7S3vA1Q7LkVHkS4TyvI/fHn+80e4K33TpwYfsaWsNowvwKXog8DQWOZCb3XV
+	fpFWcYwM7YY2qnd80ltJgYQ4M3Bc/kjbB3ue55J5tLhHfJKnmDFZw0d5IykpYnpgQqpLkdxtaxF
+	83VZjxydmoiY8zDKzQh2vZNy3P095fdWMC5oikWaZ/lI0pH9roijbOP9FAjL0GuI0TZ7oRU03/d
+	FDbKhS99o3p8xKFTX8ER0CpfRlGTdCzUj46Tl+TkkQ==
+X-Google-Smtp-Source: AGHT+IH8tH6n9pHHb1dIOmw71r7e46uqifKDgIAl6EIfnSXjMH3j4kS1z/wqkPViBTWgfzIWFKA9FQ==
+X-Received: by 2002:a17:907:7746:b0:a9a:9df:5580 with SMTP id a640c23a62f3a-aa6c1b09ceamr355678766b.19.1734004119425;
+        Thu, 12 Dec 2024 03:48:39 -0800 (PST)
+Message-ID: <424be620-ae2e-4681-8c5a-42572194b256@suse.com>
+Date: Thu, 12 Dec 2024 12:48:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] xen/riscv: add destroy_xen_mappings() to remove
- mappings in Xen page tables
+Subject: Re: [PATCH v2 4/7] xen/riscv: add {set,clear}_fixmap() functions for
+ managing fixmap entries
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -97,7 +97,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1733937787.git.oleksii.kurochko@gmail.com>
- <d52c84417ae4aedb8ce9f73dfa2340fceea137a4.1733937787.git.oleksii.kurochko@gmail.com>
+ <3d34dbc7a8af373b799d1e0c1c99acfa3798f37d.1733937787.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,41 +123,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d52c84417ae4aedb8ce9f73dfa2340fceea137a4.1733937787.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <3d34dbc7a8af373b799d1e0c1c99acfa3798f37d.1733937787.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.12.2024 18:27, Oleksii Kurochko wrote:
-> Introduce the destroy_xen_mappings() function, which removes page
-> mappings in Xen's page tables between a start address s and an end
-> address e.
-> The function ensures that both s and e are page-aligned
-> and verifies that the start address is less than or equal to the end
-> address before calling pt_update() to invalidate the mappings.
-> The pt_update() function is called with INVALID_MFN and PTE_VALID=0
-> in the flags, which tell pt_update() to remove mapping. No additional
-> ASSERT() is required to check these arguments, as they are hardcoded in
-> the call to pt_update() within destroy_xen_mappings().
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Apparently I just shouldn't provide advance acks, when ...
-
-> --- a/xen/arch/riscv/pt.c
-> +++ b/xen/arch/riscv/pt.c
-> @@ -421,6 +421,14 @@ int map_pages_to_xen(unsigned long virt,
->      return pt_update(virt, mfn, nr_mfns, flags);
+> @@ -433,3 +434,19 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
+>  {
+>      return pt_update(virt, INVALID_MFN, nr_mfns, PTE_POPULATE);
 >  }
->  
-> +int destroy_xen_mappings(unsigned long s, unsigned long e)
-> +{
-> +    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
-> +    ASSERT(IS_ALIGNED(e, PAGE_SIZE));
 > +
-> +    return ( s < e ) ? pt_update(s, INVALID_MFN, PFN_DOWN(e - s), 0) : -EINVAL;
+> +/* Map a 4k page in a fixmap entry */
+> +void set_fixmap(unsigned int map, mfn_t mfn, unsigned int flags)
+> +{
+> +    if ( map_pages_to_xen(FIXMAP_ADDR(map), mfn, 1, flags | PTE_SMALL) != 0 )
+> +        BUG();
+> +}
+> +
+> +/* Remove a mapping from a fixmap entry */
+> +void clear_fixmap(unsigned int map)
+> +{
+> +    if ( destroy_xen_mappings(
+> +            FIXMAP_ADDR(map),
+> +            FIXMAP_ADDR(map) + PAGE_SIZE) != 0 )
 
-... then you introduce basic style violations like the excess blanks here.
+There are multiple options of how to indent such wrapped lines in function
+invocations, but this isn't one of them.
+
+    if ( destroy_xen_mappings(
+             FIXMAP_ADDR(map),
+             FIXMAP_ADDR(map) + PAGE_SIZE) != 0 )
+
+(arguments offset by 4 from the function name, which may not be a multiple
+of 4 from the start of the line) or
+
+    if ( destroy_xen_mappings(FIXMAP_ADDR(map),
+                              FIXMAP_ADDR(map) + PAGE_SIZE) != 0 )
 
 Jan
 
