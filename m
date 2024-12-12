@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AA619EE425
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 11:32:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.855689.1268530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39F639EE43E
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2024 11:35:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.855703.1268539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLgUW-0006Jb-4f; Thu, 12 Dec 2024 10:32:20 +0000
+	id 1tLgXB-0006tO-GX; Thu, 12 Dec 2024 10:35:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 855689.1268530; Thu, 12 Dec 2024 10:32:20 +0000
+Received: by outflank-mailman (output) from mailman id 855703.1268539; Thu, 12 Dec 2024 10:35:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tLgUW-0006GS-1T; Thu, 12 Dec 2024 10:32:20 +0000
-Received: by outflank-mailman (input) for mailman id 855689;
- Thu, 12 Dec 2024 10:32:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tLgXB-0006qr-DC; Thu, 12 Dec 2024 10:35:05 +0000
+Received: by outflank-mailman (input) for mailman id 855703;
+ Thu, 12 Dec 2024 10:35:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QzH2=TF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tLgUU-0006GK-IV
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 10:32:18 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57a91ca0-b874-11ef-99a3-01e77a169b0f;
- Thu, 12 Dec 2024 11:32:09 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5d3e9f60bf4so637803a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 02:32:14 -0800 (PST)
+ id 1tLgXA-0006ql-4A
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2024 10:35:04 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bee8d263-b874-11ef-a0d5-8be0dac302b0;
+ Thu, 12 Dec 2024 11:35:03 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-aa67333f7d2so61728166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Dec 2024 02:35:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa6883f65c3sm570270766b.157.2024.12.12.02.32.13
+ a640c23a62f3a-aa68ef79bcdsm528053566b.205.2024.12.12.02.35.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Dec 2024 02:32:14 -0800 (PST)
+ Thu, 12 Dec 2024 02:35:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57a91ca0-b874-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: bee8d263-b874-11ef-a0d5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1733999534; x=1734604334; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1733999703; x=1734604503; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iT4yOZy9bBBTLa23VcD8bCT6eHB0VIw2gFb58wLvNaY=;
-        b=LP4Iqo0Yu7Kh7hEDhu5PLfuyuBgAU35cjnrYt4r72iATZuqSaGfHTaOqmylZ0vytXy
-         +4PvEVVgZ3Sa1nMWVm7iH1SVGkUa01iqirSWftcRoUOd0/E2ft/1TGMJ0ojGHxGDWnEe
-         qn9Zt9MolSU+2hOIzdz3CxOIOZnZGbiitK2pTIshdW3Ia8SNKATqfyusPQckqqcZKh5K
-         cYs/MmnwAXQvmPKxP8zbGfjESsYNJiUDZnbu4ahocETlMsSk0anbNmTo9FVLfnAtSO3j
-         yWR8GbObofOyFvr4e4TVQ6d7wxNv5Me8uctIYGEQl++RiRk51gx67tHgARner1ON85Ca
-         ZvtA==
+        bh=DJumWVxw0xvXsyApHorOyLcvrgYJJTcjbrkIuT/FZyc=;
+        b=d8Ae7zcJFc1FNhOR//axp8GUEhYOUUppLtdy21HVsX2xYiHTWsv83c+bE8VaaolppP
+         lzDOI8QQ2gvpDXpyP9Nfmurcl+9+DxvOCN3ZxzAp3ybX+xTqwwKJZw6a/7W5i0X7/hki
+         CNKEu7t9KR8RKIi2kx/X61VyH6b7jtUNEN9+D/z6kHhNxCYdP6TUCFQ1Ge4zgm8jLdcd
+         cKlFr6IT42vkHFCd5FZHyrnOO8CDqck0G0ryMDInlWVidMRQs+DURikkCMGfFgfGA3i4
+         zFTPYcH3ugYdOivMUHisUgZ63zeM3E1JrpRrtOuXLQcEzcR84ca8c8SC7NhyAwqWpNF+
+         kuPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733999534; x=1734604334;
+        d=1e100.net; s=20230601; t=1733999703; x=1734604503;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iT4yOZy9bBBTLa23VcD8bCT6eHB0VIw2gFb58wLvNaY=;
-        b=xH2cAWmtSHSetllW4T8GhRuljhM1M5Fe91DEql+KOF+dNdo7LUygKwCKmJ0hr8/Z2G
-         FgOgTUzdBsxxZihMQUq/xeEMpQL74xgJlMgmNjz7tDzoJ0c7AQzyHdn1iK05IHAXC/vJ
-         pcjMCYCqI+pAlrP2YnLYd3CkVSogBgP6iIu0qEv4TCvtEuKQHaF2D/Hb0OwVsZVf9uo3
-         qUczq9AiprtBljNyClxLAWb+cxuQ3J/L+VBLow4SWqWkakoiHR+F+mWc0XUpZB/KOJ/4
-         EGw9HheMgqBUkW9flRiAy86PKcv+4Eff8gu5H5HYCpAyXX/UY+UQCIzjxcZBy07IH4Q3
-         Cf9g==
-X-Forwarded-Encrypted: i=1; AJvYcCVyTpJY9ERgyF1mn9FUuRyJxO1aqgSTEHpvhCXap16poebvzn6apKLxY6RJcGAhH95S7AXyJiwxxJA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhpMDkMJeudARu7kzZPlBpc6WpPMYK21ut1xXeWPOC9X2f/jXm
-	+vbWhc8gnv8UKFRlB299//imv+if2+s3IAUuDoE4h13bJMPA5Ko3IqSsM9w4Xw==
-X-Gm-Gg: ASbGncv2kOHTFtGzSLyXc3JWe/sIzgmp3XpS7W7Uhb6pFZwhOByCQndjeYnk4qMwsKv
-	FNFtKp8m9dDRKHrmATU9/AOF3yAAm+8MCIVLTGv6EDSBTEMY5D2A+CYxCdhDvW6rlWERzytwFF4
-	necRziIop4ceAqgucrCmgpGuRyVNyO0uAqbuLdv3BTQEUymCMtpZyCC23CfAxRt/LeOGZnJfEMx
-	a8hgS0QEo4G3/W6DK0E4dLoMr1je8C/dTWq9dXaqh3jDDsPXPmXLhqm0XDoaKeIb5VsOiS6jFtE
-	MhfpxWmNqs5iqeHatyDAMhgyMR/417bCGf2s5c7SXw==
-X-Google-Smtp-Source: AGHT+IFUuk9sKqx0ukJ9vqsJVOugBcZnW02Jk+t/2I1mC1xX9cbjYFZlUUjKwgcvKyRiShlBQVJLSQ==
-X-Received: by 2002:a17:906:31d2:b0:aa6:9461:a17e with SMTP id a640c23a62f3a-aa6c1cef49emr333485966b.40.1733999534454;
-        Thu, 12 Dec 2024 02:32:14 -0800 (PST)
-Message-ID: <26600bb0-93af-45b5-a341-5771bad844a1@suse.com>
-Date: Thu, 12 Dec 2024 11:32:13 +0100
+        bh=DJumWVxw0xvXsyApHorOyLcvrgYJJTcjbrkIuT/FZyc=;
+        b=QM6ir/Gc8a7oWQnUqJdyB3C8qchlSu+nqEZpHnpdmnFSq0P80WrRGolWnx6F+gJmck
+         a6+J1jcx6ZqDi5iUG/cDDXSmGDh5shlaJpIivUaAFyfEaXv3ZbuXstb+Np/prMkG25Ft
+         Y74m1DKIn81Bf3oZdESiPsKNhGo7kQAQdLDGr1FpZ8elQO1bTTPwJGqxUJ8IZj1XyfWr
+         J5/DJsWwunu2yE3jlB2iY2kfVzG1CGNbNr4ZIIytUtQ0RgFYX7iHhwxJzCZOm97MJwhQ
+         AIzegFXrLA1w3ewo1eQv25afWb2CBedcW0v1OTYTEWFSAhR4OounQ0fpKti3jbi8RLnb
+         p/RA==
+X-Forwarded-Encrypted: i=1; AJvYcCXfhs/Q+jHRB3+jeI5Vkgf3gyKeeZGX0opacD8n4b4lwx4Kt1EIaWUjanS9H5hjst+nC/YGh83t4lk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyu22Zb2xUXdEU4TxtwGgwQFEK/zFVxjKWVHg6c6tQpdo6rapcL
+	gIGAdzC69lYz5PUjASq9MfIwlxVQ/ICjNfuBd9ngY3+diwdM5bBnatf/OYn03w==
+X-Gm-Gg: ASbGncvcEFontafP7yV8VqxmTp10R+ucBTDyxjsPERtkDYBOjoSxm5rJm1m9pY1ahM1
+	G/4pfWMZOhaGmSluPyANCnHo1EjPW5d32QMPdqbKU0bkJ+e/rdZBZwjumI1KyGPCirvA5JuZMOb
+	4tbSdHq0Xs7+rUyucPM4/nwU2G7AOL66GktSyqlZrQF9ZOg0h3L9JQAgfNvXUEK3OV5ecTxKbuB
+	NIfe7aGlQvzzCKsJnzAZndv7RVARZ2n2wADwCc/dG6YQqW4tG18sYUvhZ+oDrq8ZlZp3xZIzDoy
+	lN8C+uOOKetOIXazuqy16pplL3nRB5KCaMQ8nIjsPw==
+X-Google-Smtp-Source: AGHT+IHKB23+dBx0gLcsp6nP+GxrAFs42YNvfmKY0xoqrBaaSV4aizIXIpxCXUvB/m0j7LhPtCpc+g==
+X-Received: by 2002:a17:906:318d:b0:aa6:8bb4:5035 with SMTP id a640c23a62f3a-aa6b11ed581mr596948766b.31.1733999702675;
+        Thu, 12 Dec 2024 02:35:02 -0800 (PST)
+Message-ID: <032d2e7b-7828-4a7f-a2d2-c2df46831507@suse.com>
+Date: Thu, 12 Dec 2024 11:35:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: address violation of MISRA C Rule 11.1
+Subject: Re: [PATCH] misra: add deviation for MISRA C Rule R11.1.
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
- consulting@bugseng.com, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <7debd63f3900bad62bcbcc03081e4c04e6099135.1733914487.git.alessandro.zucchelli@bugseng.com>
- <bded3d90-0644-46c2-a43e-d6b06faa5650@suse.com>
- <alpine.DEB.2.22.394.2412111826440.463523@ubuntu-linux-20-04-desktop>
+ consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+References: <8db58416ce215a3c5fdba8074dc21f32116e8a41.1733915076.git.alessandro.zucchelli@bugseng.com>
+ <e413574c-f7ab-428c-a95c-30a73c0f30c8@suse.com>
+ <alpine.DEB.2.22.394.2412111827540.463523@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,41 +119,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2412111826440.463523@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2412111827540.463523@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.12.2024 03:27, Stefano Stabellini wrote:
+On 12.12.2024 03:29, Stefano Stabellini wrote:
 > On Wed, 11 Dec 2024, Jan Beulich wrote:
->> On 11.12.2024 12:02, Alessandro Zucchelli wrote:
+>> On 11.12.2024 12:05, Alessandro Zucchelli wrote:
 >>> Rule 11.1 states as following: "Conversions shall not be performed
 >>> between a pointer to a function and any other type".
 >>>
->>> Functions "__machine_restart" and "__machine_halt" in "x86/shutdown.c"
->>> and "halt_this_cpu" in "arm/shutdown.c" are defined as noreturn
->>> functions and subsequently passed as parameters to function calls.
->>> This violates the rule in Clang, where the "noreturn" attribute is
->>> considered part of the function"s type.
+>>> In "xen/common/bug.c", in order to get additional debug information,
+>>> pointer "bug_fn_t *fn" in the data section is converted to a function
+>>> pointer, which is then used to get such information.
 >>
->> I'm unaware of build issues with Clang, hence can you clarify how Clang's
->> view comes into play here? In principle various attributes ought to be
->> part of a function's type; iirc that's also the case for gcc. Yet how
->> that matters to Eclair is still entirely unclear to me.
+>> If the pointer converted pointed into the data section, it would fault
+>> upon being used to call what it points to, for the lack of execute
+>> permissions there.
 >>
->>> By removing the "noreturn"
->>> attribbute and replacing it with uses of the ASSERT_UNREACHABLE macro,
->>> these violations are addressed.
->>
->> Papered over, I'd say. What about release builds, for example?
->>
->> Deleting the attribute also has a clear downside documentation-wise. If
->> we really mean to remove them from what the compiler gets to see, I think
->> we ought to still retain them in commented-out shape.
+>> The change itself looks okay to me, but the description imo needs
+>> updating, to be as precise as possible.
 > 
-> Another option would be to #define noreturn to nothing for ECLAIR builds ?
+> 
+> What about:
+> 
+> In "xen/common/bug.c", in order to get additional debug information,
+> pointer "bug_fn_t *fn" is converted to a function pointer, which is then
+> used to get such information.
+> 
+> ?
 
-That again would feel like papering over things. Plus I don't know if that's
-an option at all.
+This may do; I, however, was rather hoping for the description to be
+extended rather than shrunk. E.g. '..., pointer "bug_fn_t *fn", obtained
+by arithmetic on a pointer originating in the data section, is converted
+to a function pointer, ...'
 
 Jan
 
