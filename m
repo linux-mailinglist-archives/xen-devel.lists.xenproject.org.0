@@ -2,46 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 512E59F11FF
+	by mail.lfdr.de (Postfix) with ESMTPS id 35F8C9F11FC
 	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 17:25:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.856788.1269298 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.856789.1269308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM8Sp-00008J-KZ; Fri, 13 Dec 2024 16:24:27 +0000
+	id 1tM8Su-0000OG-Rw; Fri, 13 Dec 2024 16:24:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 856788.1269298; Fri, 13 Dec 2024 16:24:27 +0000
+Received: by outflank-mailman (output) from mailman id 856789.1269308; Fri, 13 Dec 2024 16:24:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM8Sp-000067-HG; Fri, 13 Dec 2024 16:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 856788;
- Fri, 13 Dec 2024 16:24:26 +0000
+	id 1tM8Su-0000Lx-P2; Fri, 13 Dec 2024 16:24:32 +0000
+Received: by outflank-mailman (input) for mailman id 856789;
+ Fri, 13 Dec 2024 16:24:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XZcu=TG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tM8So-000061-1e
- for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 16:24:26 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ id 1tM8St-000061-0l
+ for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 16:24:31 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b76eacb1-b96e-11ef-a0d6-8be0dac302b0;
- Fri, 13 Dec 2024 17:24:24 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id bac62228-b96e-11ef-a0d6-8be0dac302b0;
+ Fri, 13 Dec 2024 17:24:30 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4CF631F442;
- Fri, 13 Dec 2024 16:24:24 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0E33B1F394;
+ Fri, 13 Dec 2024 16:24:30 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDECA137CF;
- Fri, 13 Dec 2024 16:24:23 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B0EF2137CF;
+ Fri, 13 Dec 2024 16:24:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0ZCqOLdfXGe+SgAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 13 Dec 2024 16:24:23 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ZJy9Kb1fXGfFSgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 13 Dec 2024 16:24:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,23 +51,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b76eacb1-b96e-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: bac62228-b96e-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1734107064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=f/mtRsCqwfRHhr0LElon5TNA7kJIIspcSuOoJQxSx/Y=;
-	b=vFnnvd8Fh6DOgUMj5m1ceTkeKQz4SdpTyql7jVYN+wP/m4XUNPkR8B3PbDZVrbIFvUSTxJ
-	D0N0heSVLyo/0XN6B1e2Te2rT07RhFQagov92TyiBn0rRNpEWJCylr1tuGmMtNKKBEnVG3
-	+x8y9RFlCBpJZyakT1Vwxhoyok5h1Yo=
+	t=1734107070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L2xTCNjOjUSFogDUtL9Ml6AtqorKdQYe/34xDCxxxEg=;
+	b=N0WIH8RnI/1mOHjyKiQTlZnM47OIhDo/MKwqVLwsLqpr4sZ8G9Hou564PpjpqRtfxE0z5q
+	4tmuGh5OE3F7KKvgetQZoiV8QJWRO8sWyMmgZUj/DJJ3hZ4ps+eMbr/tS59jvaKocRiL52
+	6wAMs0KUo7kKAgA3D9bsjw8AQ6H5Vik=
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=vFnnvd8F
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1734107064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=f/mtRsCqwfRHhr0LElon5TNA7kJIIspcSuOoJQxSx/Y=;
-	b=vFnnvd8Fh6DOgUMj5m1ceTkeKQz4SdpTyql7jVYN+wP/m4XUNPkR8B3PbDZVrbIFvUSTxJ
-	D0N0heSVLyo/0XN6B1e2Te2rT07RhFQagov92TyiBn0rRNpEWJCylr1tuGmMtNKKBEnVG3
-	+x8y9RFlCBpJZyakT1Vwxhoyok5h1Yo=
+	t=1734107070; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L2xTCNjOjUSFogDUtL9Ml6AtqorKdQYe/34xDCxxxEg=;
+	b=N0WIH8RnI/1mOHjyKiQTlZnM47OIhDo/MKwqVLwsLqpr4sZ8G9Hou564PpjpqRtfxE0z5q
+	4tmuGh5OE3F7KKvgetQZoiV8QJWRO8sWyMmgZUj/DJJ3hZ4ps+eMbr/tS59jvaKocRiL52
+	6wAMs0KUo7kKAgA3D9bsjw8AQ6H5Vik=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -80,137 +82,99 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v3 0/7] remove libxenctrl usage from xenstored
-Date: Fri, 13 Dec 2024 17:24:14 +0100
-Message-ID: <20241213162421.16782-1-jgross@suse.com>
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v3 1/7] xen/xsm: make getdomaininfo xsm dummy checks more stringent
+Date: Fri, 13 Dec 2024 17:24:15 +0100
+Message-ID: <20241213162421.16782-2-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241213162421.16782-1-jgross@suse.com>
+References: <20241213162421.16782-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4CF631F442
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
 	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email]
 X-Spam-Flag: NO
+X-Spam-Level: 
 
-Xenstored is using libxenctrl for only one purpose: to get information
-about state of domains.
+Today the dummy XSM privilege checks for getdomaininfo are less
+stringent than possible: they basically rely on the general
+sysctl/domctl entry check to do all tests and then do the test with
+the XSM_HOOK privilege, which is an "allow all" default.
 
-This patch series is removing that dependency by introducing a new
-stable interface which can be used by xenstored instead.
+Instead of XSM_HOOK use XSM_XS_PRIV, which is the privilege really
+wanted. Note that this test is still wider than the sysctl entry test,
+but there is no easy way to make both domctl and sysctl happy at the
+same time.
 
-There was a RFC series sent out 3 years ago, which I have taken as a
-base and by addressing all comments from back then.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+V2:
+- new patch
+---
+ xen/common/domctl.c     | 2 +-
+ xen/common/sysctl.c     | 2 +-
+ xen/include/xsm/dummy.h | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-The main differences since that RFC series are:
-
-- Instead of introducing an new main hypercall for a stable management
-  interface I have just added a new domctl sub-op, as requested in 2021.
-
-- I have added a new library libxenmanage for easy use of the new
-  stable hypervisor interface. Main motivation for adding the library
-  was the recent attempt to decouple oxenstored from the Xen git tree.
-  By using the new library, oxenstored could benefit in the same way as
-  xenstored from the new interface: it would be possible to rely on
-  stable libraries only.
-
-- Mini-OS has gained some more config options recently, so it was rather
-  easy to make xenstore[pvh]-stubdom independent from libxenctrl, too.
-
-- By moving the CPU barrier definitions out of xenctrl.h into a new
-  dedicated header xenstored code no longer needs to #include xenctrl.h,
-  thus removing any xenctrl reference from xenstored code.
-
-Please note that the last patch can be committed only after the related
-Mini-OS patch "config: add support for libxenmanage" has gone in AND
-the Mini-OS commit-id has been updated in Config.mk accordingly! The
-Mini-OS patch has been Acked already, so it can go in as soon as patch
-6 of this series (the one introducing libxenmanage) has been committed.
-
-Changes in V2:
-- new patch 1
-- former patch 5 mover earlier, now patch 2 (can go in without the rest
-  of the series)
-- addressed comments
-
-Changes in V3:
-- addressed comments
-
-Juergen Gross (7):
-  xen/xsm: make getdomaininfo xsm dummy checks more stringent
-  tools: add a dedicated header file for barrier definitions
-  xen: add a domain unique id to each domain
-  xen: add bitmap to indicate per-domain state changes
-  xen: add new domctl get_changed_domain
-  tools/libs: add a new libxenmanage library
-  tools/xenstored: use new stable interface instead of libxenctrl
-
- stubdom/Makefile                       |   8 +-
- stubdom/mini-os.mk                     |   1 +
- tools/9pfsd/io.c                       |   5 +-
- tools/flask/policy/modules/dom0.te     |   2 +-
- tools/flask/policy/modules/xen.if      |   4 +-
- tools/flask/policy/modules/xenstore.te |   1 +
- tools/include/xen-barrier.h            |  39 ++++++
- tools/include/xenctrl.h                |  28 +----
- tools/include/xenmanage.h              |  92 ++++++++++++++
- tools/libs/Makefile                    |   1 +
- tools/libs/ctrl/Makefile               |   2 +-
- tools/libs/manage/Makefile             |  10 ++
- tools/libs/manage/Makefile.common      |   3 +
- tools/libs/manage/core.c               | 168 +++++++++++++++++++++++++
- tools/libs/manage/libxenmanage.map     |   8 ++
- tools/libs/uselibs.mk                  |   2 +
- tools/xenstored/Makefile               |   2 +-
- tools/xenstored/Makefile.common        |   2 +-
- tools/xenstored/core.h                 |   1 -
- tools/xenstored/domain.c               |  52 +++-----
- tools/xenstored/lu.c                   |   1 +
- tools/xenstored/lu_daemon.c            |   1 +
- xen/common/domain.c                    | 138 ++++++++++++++++++++
- xen/common/domctl.c                    |  20 ++-
- xen/common/event_channel.c             |  14 +++
- xen/common/sysctl.c                    |   2 +-
- xen/include/public/domctl.h            |  26 ++++
- xen/include/xen/sched.h                |   8 ++
- xen/include/xsm/dummy.h                |  10 +-
- xen/include/xsm/xsm.h                  |   6 +
- xen/xsm/dummy.c                        |   1 +
- xen/xsm/flask/hooks.c                  |   7 ++
- xen/xsm/flask/policy/access_vectors    |   2 +
- 33 files changed, 591 insertions(+), 76 deletions(-)
- create mode 100644 tools/include/xen-barrier.h
- create mode 100644 tools/include/xenmanage.h
- create mode 100644 tools/libs/manage/Makefile
- create mode 100644 tools/libs/manage/Makefile.common
- create mode 100644 tools/libs/manage/core.c
- create mode 100644 tools/libs/manage/libxenmanage.map
-
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index ea16b75910..444e072fdc 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -539,7 +539,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+         break;
+ 
+     case XEN_DOMCTL_getdomaininfo:
+-        ret = xsm_getdomaininfo(XSM_HOOK, d);
++        ret = xsm_getdomaininfo(XSM_XS_PRIV, d);
+         if ( ret )
+             break;
+ 
+diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
+index d02f44fe3a..c2d99ae12e 100644
+--- a/xen/common/sysctl.c
++++ b/xen/common/sysctl.c
+@@ -89,7 +89,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+             if ( num_domains == op->u.getdomaininfolist.max_domains )
+                 break;
+ 
+-            if ( xsm_getdomaininfo(XSM_HOOK, d) )
++            if ( xsm_getdomaininfo(XSM_XS_PRIV, d) )
+                 continue;
+ 
+             getdomaininfo(d, &info);
+diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+index 7956f27a29..f8a3c4b81e 100644
+--- a/xen/include/xsm/dummy.h
++++ b/xen/include/xsm/dummy.h
+@@ -137,7 +137,7 @@ static XSM_INLINE int cf_check xsm_domain_create(
+ static XSM_INLINE int cf_check xsm_getdomaininfo(
+     XSM_DEFAULT_ARG struct domain *d)
+ {
+-    XSM_ASSERT_ACTION(XSM_HOOK);
++    XSM_ASSERT_ACTION(XSM_XS_PRIV);
+     return xsm_default_action(action, current->domain, d);
+ }
+ 
 -- 
 2.43.0
 
