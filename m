@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A53D9F178B
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 21:46:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857182.1269591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2859F1819
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 22:35:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857193.1269600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tMCXe-0005IS-DH; Fri, 13 Dec 2024 20:45:42 +0000
+	id 1tMDJI-0003h2-OA; Fri, 13 Dec 2024 21:34:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857182.1269591; Fri, 13 Dec 2024 20:45:42 +0000
+Received: by outflank-mailman (output) from mailman id 857193.1269600; Fri, 13 Dec 2024 21:34:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tMCXe-0005GR-AR; Fri, 13 Dec 2024 20:45:42 +0000
-Received: by outflank-mailman (input) for mailman id 857182;
- Fri, 13 Dec 2024 20:45:40 +0000
+	id 1tMDJI-0003eg-L5; Fri, 13 Dec 2024 21:34:56 +0000
+Received: by outflank-mailman (input) for mailman id 857193;
+ Fri, 13 Dec 2024 21:34:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dQ2+=TG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tMCXc-0005GL-Ro
- for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 20:45:40 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1tMDJG-0003ea-VT
+ for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 21:34:54 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34e6012a-b993-11ef-a0d6-8be0dac302b0;
- Fri, 13 Dec 2024 21:45:38 +0100 (CET)
+ id 169ccd71-b99a-11ef-a0d6-8be0dac302b0;
+ Fri, 13 Dec 2024 22:34:53 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0382C5C5FE0;
- Fri, 13 Dec 2024 20:44:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDA2C4CED6;
- Fri, 13 Dec 2024 20:45:34 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 1E3CDA42BC4;
+ Fri, 13 Dec 2024 21:33:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AE70C4CED0;
+ Fri, 13 Dec 2024 21:34:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +41,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34e6012a-b993-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: 169ccd71-b99a-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1734122735;
-	bh=dByUPsNZ25l6EpZmsuACLXZwiypAYy/TalLHbnBsEN4=;
+	s=k20201202; t=1734125691;
+	bh=bzH9Xlq+uoBZJSvZGQeh0yCm/oAUi02hbLgUI/NrzBA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=s15HAtgSJE2fkZtO+bXT6grgvWDG8an93nICmDwIj6Qanl2FD8tUmXnYimHYQM9J5
-	 JRszlxpCeJXFyDPKYaXHdaD5e4JdO/8AHD6WoMabrUFpEWs2Lke5vtR7r49cCQuE4m
-	 xTGoTw8BixTf7XxuqimXiipvW5bcRs+EOWGcGB9gDUUDWCSRlSwvZkZ9J7zVqXEt6Y
-	 yNqSAb98ZetGAnZ6pSOwrvuiFkcmBBMPJ4wtbr7rEigcUvZbqZM8iE9KA0ZudR/KJn
-	 Ss0nN6p1F3tcbY8P9RQexEkbpWZ6cN5q+bAyWbBwpwj3KpPJZtGtpxuZwhILuVH/lx
-	 YkSoNgm2sFRMw==
-Date: Fri, 13 Dec 2024 12:45:34 -0800 (PST)
+	b=olYnqEKURYkgoPE2XKK3YzR9CC2/fOcCXnW2ZwFh6B5bmXhXCgMArWsqNG/sSnKUE
+	 ldOEj6++asxdCtYZctdecmjtvZT/W/MQUFkFhHag0SNq05Ik3UnXbC//OVOKWhtQTa
+	 0PlCyTMmkvbJ5C/QBkstzA/XxR6FLiehU1Xgp2vToQ786V47HkB3lzq9z/xFPMQBRv
+	 bwJQKoL/ec11KaHQRbf2CJid1mHQen11OIIWdgo6dUQkWHhqIxW1TdvymaYTWqpmzV
+	 wNo16DOBumjU2akHOieWl51K+1i258Gwsi0oMW2Fqn6cU8sqHmpit/T1rWs99f1zmT
+	 KTB/DRY9Dp26w==
+Date: Fri, 13 Dec 2024 13:34:49 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-cc: dmukhin@ford.com, xen-devel@lists.xenproject.org, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 33/35] x86/domain: implement domain_has_vuart()
-In-Reply-To: <Z1wnUzDCPDzHKr6o@macbook.local>
-Message-ID: <alpine.DEB.2.22.394.2412131245300.463523@ubuntu-linux-20-04-desktop>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-33-e9aa923127eb@ford.com> <Z1wnUzDCPDzHKr6o@macbook.local>
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, consulting@bugseng.com, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen: address violation of MISRA C Rule 11.1
+In-Reply-To: <1ddb5bd7e8889da0e978bb1391072925@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2412131333590.463523@ubuntu-linux-20-04-desktop>
+References: <7debd63f3900bad62bcbcc03081e4c04e6099135.1733914487.git.alessandro.zucchelli@bugseng.com> <bded3d90-0644-46c2-a43e-d6b06faa5650@suse.com> <alpine.DEB.2.22.394.2412111826440.463523@ubuntu-linux-20-04-desktop> <26600bb0-93af-45b5-a341-5771bad844a1@suse.com>
+ <alpine.DEB.2.22.394.2412121647450.463523@ubuntu-linux-20-04-desktop> <d4b988aa-48f8-4e35-bb7d-49c2a9d532e6@suse.com> <1ddb5bd7e8889da0e978bb1391072925@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-108919309-1734122502=:463523"
-Content-ID: <alpine.DEB.2.22.394.2412131241530.463523@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-108919309-1734122502=:463523
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2412131241531.463523@ubuntu-linux-20-04-desktop>
-
-On Fri, 13 Dec 2024, Roger Pau Monné wrote:
-> On Thu, Dec 05, 2024 at 08:42:03PM -0800, Denis Mukhin via B4 Relay wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
+On Fri, 13 Dec 2024, Alessandro Zucchelli wrote:
+> On 2024-12-13 11:08, Jan Beulich wrote:
+> > On 13.12.2024 01:53, Stefano Stabellini wrote:
+> > > On Thu, 12 Dec 2024, Jan Beulich wrote:
+> > > > On 12.12.2024 03:27, Stefano Stabellini wrote:
+> > > > > On Wed, 11 Dec 2024, Jan Beulich wrote:
+> > > > > > On 11.12.2024 12:02, Alessandro Zucchelli wrote:
+> > > > > > > Rule 11.1 states as following: "Conversions shall not be performed
+> > > > > > > between a pointer to a function and any other type".
+> > > > > > > 
+> > > > > > > Functions "__machine_restart" and "__machine_halt" in
+> > > > > > > "x86/shutdown.c"
+> > > > > > > and "halt_this_cpu" in "arm/shutdown.c" are defined as noreturn
+> > > > > > > functions and subsequently passed as parameters to function calls.
+> > > > > > > This violates the rule in Clang, where the "noreturn" attribute is
+> > > > > > > considered part of the function"s type.
+> > > > > > 
+> > > > > > I'm unaware of build issues with Clang, hence can you clarify how
+> > > > > > Clang's
+> > > > > > view comes into play here? In principle various attributes ought to
+> > > > > > be
+> > > > > > part of a function's type; iirc that's also the case for gcc. Yet
+> > > > > > how
+> > > > > > that matters to Eclair is still entirely unclear to me.
+> > > > > > 
+> > > > > > > By removing the "noreturn"
+> > > > > > > attribbute and replacing it with uses of the ASSERT_UNREACHABLE
+> > > > > > > macro,
+> > > > > > > these violations are addressed.
+> > > > > > 
+> > > > > > Papered over, I'd say. What about release builds, for example?
+> > > > > > 
+> > > > > > Deleting the attribute also has a clear downside documentation-wise.
+> > > > > > If
+> > > > > > we really mean to remove them from what the compiler gets to see, I
+> > > > > > think
+> > > > > > we ought to still retain them in commented-out shape.
+> > > > > 
+> > > > > Another option would be to #define noreturn to nothing for ECLAIR
+> > > > > builds ?
+> > > > 
+> > > > That again would feel like papering over things. Plus I don't know if
+> > > > that's
+> > > > an option at all.
+> > > 
+> > > What is "papering over" and what is a "nice solution" is often up to the
+> > > personal opinions.
+> > > 
+> > > From my point of view, Alessandro's patch doesn't make the code worse.
+> > > The ASSERT_UNREACHABLE solution is OK. I do agree with you that it
+> > > should not be required for us to remove "noreturn", but I don't think we
+> > > have used it consistently anyway across the Xen codebase.
+> > > ASSERT_UNREACHABLE is also a form of documentation that the function
+> > > does not return.
+> > > 
+> > > In conclusion, I think all three options are acceptable:
+> > > 1) this patch as is
+> > > 2) this patch plus /* noreturn */ as a comment
+> > > 3) #define noreturn to nothing just for ECLAIR builds
+> > > 
+> > > I don't mind either way, maybe option 2) is the best compromise.
 > > 
-> > Add new emulation flag for virtual UART on x86 and plumb it through the stack.
-> > 
-> > This change enables NS8250 emulator initialization.
-> > 
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> >  tools/libs/light/libxl_x86.c      |  6 +++++-
-> >  tools/ocaml/libs/xc/xenctrl.ml    |  1 +
-> >  tools/ocaml/libs/xc/xenctrl.mli   |  1 +
-> >  tools/python/xen/lowlevel/xc/xc.c |  4 +---
-> >  xen/arch/x86/domain.c             |  8 +++++---
-> >  xen/arch/x86/include/asm/domain.h |  7 ++++---
-> >  xen/include/public/arch-x86/xen.h | 14 +++++++++++++-
-> >  7 files changed, 30 insertions(+), 11 deletions(-)
-> > 
-> > diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-> > index a3164a3077fec7e1b81a34074894dc646954a49a..de5f05e18cb0671bb031b101b9a7159eb0fe0178 100644
-> > --- a/tools/libs/light/libxl_x86.c
-> > +++ b/tools/libs/light/libxl_x86.c
-> > @@ -8,7 +8,11 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-> >  {
-> >      switch(d_config->c_info.type) {
-> >      case LIBXL_DOMAIN_TYPE_HVM:
-> > -        config->arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
-> > +        config->arch.emulation_flags = XEN_X86_EMU_ALL;
-> > +        config->arch.emulation_flags &= ~XEN_X86_EMU_VPCI;
-> > +        /* Virtual UART is selected at Xen build time */
-> > +        config->arch.emulation_flags &= ~XEN_X86_EMU_VUART;
-> > +
-> >          if (!libxl_defbool_val(d_config->b_info.u.hvm.pirq))
-> >              config->arch.emulation_flags &= ~XEN_X86_EMU_USE_PIRQ;
-> >          break;
-> > diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-> > index 2690f9a92316b812ad3d3ff0e1c36823070adb4a..647239b3e55e88b00eb8e9773a5267894cbbae54 100644
-> > --- a/tools/ocaml/libs/xc/xenctrl.ml
-> > +++ b/tools/ocaml/libs/xc/xenctrl.ml
-> > @@ -47,6 +47,7 @@ type x86_arch_emulation_flags =
-> >    | X86_EMU_PIT
-> >    | X86_EMU_USE_PIRQ
-> >    | X86_EMU_VPCI
-> > +  | X86_EMU_VUART
-> >  
-> >  type x86_arch_misc_flags =
-> >    | X86_MSR_RELAXED
-> > diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-> > index febbe1f6ae3f10c5abe45eaa3c06a8a67d9ba268..4f5f64c786e83e8a0c3dd3cdb0460f7095de4a62 100644
-> > --- a/tools/ocaml/libs/xc/xenctrl.mli
-> > +++ b/tools/ocaml/libs/xc/xenctrl.mli
-> > @@ -41,6 +41,7 @@ type x86_arch_emulation_flags =
-> >    | X86_EMU_PIT
-> >    | X86_EMU_USE_PIRQ
-> >    | X86_EMU_VPCI
-> > +  | X86_EMU_VUART
-> >  
-> >  type x86_arch_misc_flags =
-> >    | X86_MSR_RELAXED
-> > diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
-> > index 9feb12ae2b16e48cb5d0c3c45044ae226f152f2d..e54308956efc7061d58d2166ec9a95bc1dcd1781 100644
-> > --- a/tools/python/xen/lowlevel/xc/xc.c
-> > +++ b/tools/python/xen/lowlevel/xc/xc.c
-> > @@ -159,9 +159,7 @@ static PyObject *pyxc_domain_create(XcObject *self,
-> >  
-> >  #if defined (__i386) || defined(__x86_64__)
-> >      if ( config.flags & XEN_DOMCTL_CDF_hvm )
-> > -        config.arch.emulation_flags = XEN_X86_EMU_ALL &
-> > -                                      ~(XEN_X86_EMU_VPCI |
-> > -                                        XEN_X86_EMU_USE_PIRQ);
-> > +        config.arch.emulation_flags = XEN_X86_EMU_HVM_ALLOWABLE;
-> >  #elif defined (__arm__) || defined(__aarch64__)
-> >      config.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
-> >  #else
-> > diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> > index c88d422a64544531c1e1058fa484364bb4277d1e..439da7adc92a3a8eb481075bf834da5f9670dd54 100644
-> > --- a/xen/arch/x86/domain.c
-> > +++ b/xen/arch/x86/domain.c
-> > @@ -752,10 +752,10 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
-> >          if ( is_hardware_domain(d) &&
-> >               emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
-> >              return false;
-> > +
-> > +        emflags &= ~X86_EMU_VUART;
+> > The variant with least impact on what we currently have (generated code
+> > wise) is 3), though, which hence would be my preference (well, not exactly
+> > a preference, but the least bad one).
 > 
-> I think you want to allow X86_EMU_VUART only for domains created by
-> Xen itself, so X86_EMU_VUART can only be valid if system_state <
-> SYS_STATE_active.
-> 
-> >          if ( !is_hardware_domain(d) &&
-> > -             /* HVM PIRQ feature is user-selectable. */
-> > -             (emflags & ~X86_EMU_USE_PIRQ) !=
-> > -             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
-> > +             xen_emflags_allowable(emflags) != XEN_X86_EMU_HVM_ALLOWABLE &&
-> >               emflags != X86_EMU_LAPIC )
-> >              return false;
-> >      }
-> > @@ -806,6 +806,8 @@ int arch_domain_create(struct domain *d,
-> >  
-> >      emflags = config->arch.emulation_flags;
-> >  
-> > +    if ( IS_ENABLED(CONFIG_HAS_VUART_NS8250) && is_hvm_domain(d) )
-> > +        emflags |= XEN_X86_EMU_VUART;
-> 
-> Doesn't this need to be limited to domains created by Xen itself, as
-> otherwise it's the toolstack that should specify the XEN_X86_EMU_VUART
-> flag, and even then the recommendation would be to use the vUART from
-> QEMU?
+> Another option could be to encapsulate these function pointer casts as
+> follows:
+> #define REMOVE_NORETURN(x) (void(*)(void*))(x)
+> This approach allows us to retain the noreturn attribute and the associated
+> optimizations;
+> note that the encapsulating macro will need to be deviated then.
 
-While I agree with you that this feature is really useful mostly for the
-domains created by Xen, as for those there is no other way to get early
-output, I think Denis has been also testing successfully this feature
-with PVH or HVM domains created by the toolstack.
-
-I'll let you decide whether you want to expose the feature to xl created
-domains, but yes my understanding is that they already work with this
-series. One benefit would be that for PVH domains you could get early
-output without having to start QEMU, but I'll leave this to you.
---8323329-108919309-1734122502=:463523--
+I think that's OK.
 
