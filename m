@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDF3E9F0B87
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 12:43:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.856610.1269178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6969F0B9A
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 12:47:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.856625.1269187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM453-0001Xn-1O; Fri, 13 Dec 2024 11:43:37 +0000
+	id 1tM48s-0002Al-Ki; Fri, 13 Dec 2024 11:47:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 856610.1269178; Fri, 13 Dec 2024 11:43:36 +0000
+Received: by outflank-mailman (output) from mailman id 856625.1269187; Fri, 13 Dec 2024 11:47:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM452-0001Vp-TQ; Fri, 13 Dec 2024 11:43:36 +0000
-Received: by outflank-mailman (input) for mailman id 856610;
- Fri, 13 Dec 2024 11:43:35 +0000
+	id 1tM48s-00028o-Ho; Fri, 13 Dec 2024 11:47:34 +0000
+Received: by outflank-mailman (input) for mailman id 856625;
+ Fri, 13 Dec 2024 11:47:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8nQu=TG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tM451-0001Vh-40
- for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 11:43:35 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ <SRS0=qzCF=TG=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tM48r-00028i-Hq
+ for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 11:47:33 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20624.outbound.protection.outlook.com
+ [2a01:111:f403:2412::624])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ab5a55a-b947-11ef-99a3-01e77a169b0f;
- Fri, 13 Dec 2024 12:43:32 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a9a977d6cc7so209981566b.3
- for <xen-devel@lists.xenproject.org>; Fri, 13 Dec 2024 03:43:32 -0800 (PST)
-Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aa657abb2fbsm923694366b.128.2024.12.13.03.43.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Dec 2024 03:43:31 -0800 (PST)
+ id 085d713f-b948-11ef-99a3-01e77a169b0f;
+ Fri, 13 Dec 2024 12:47:31 +0100 (CET)
+Received: from DS7P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::15) by
+ DM6PR12MB4268.namprd12.prod.outlook.com (2603:10b6:5:223::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8251.16; Fri, 13 Dec 2024 11:47:24 +0000
+Received: from DS1PEPF00017093.namprd03.prod.outlook.com
+ (2603:10b6:8:1ca:cafe::d9) by DS7P220CA0008.outlook.office365.com
+ (2603:10b6:8:1ca::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.18 via Frontend Transport; Fri,
+ 13 Dec 2024 11:47:24 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF00017093.mail.protection.outlook.com (10.167.17.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8251.15 via Frontend Transport; Fri, 13 Dec 2024 11:47:24 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
+ 2024 05:47:24 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 13 Dec 2024 05:47:21 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,1443 +59,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ab5a55a-b947-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734090212; x=1734695012; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=FOWIjBrUSmtWfAUEiXqLdAYPmIjAV9uIRyweQXpirq4=;
-        b=TlIK5k5Yk8Ds/ZPalHgxIU1VPptQUUDJy+qs36/difPHlq1gq8jSbdxPPBLfAPQ1dY
-         FFjo5g0XjiCJskTD+5JZOhMAbzqthfjA/VvIEWEyz8sfKjYNWEivqapdNu2a+XAyrTLG
-         uTUpyy++vE7qmGa+D8rwSgfg+KsqB82Tf9h2k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734090212; x=1734695012;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FOWIjBrUSmtWfAUEiXqLdAYPmIjAV9uIRyweQXpirq4=;
-        b=F61METOA8l4w4cSercCakCi2L943WfSjs2BWpbTgCVwYIskvUDRs5pLcDM7bw54UI8
-         Ezwqbl5JS5UU+7Nzt/05lW3Vucu4FjRfXZH3Zh5Tp8bfcqK52M05/1C5Gp2louG1th7c
-         yDm3Vi2LTUi67BjSl0evBKG2BQgYEr/SQEj1g3o3yN0uZgzfs3zBtt1nAUAMQCobodQw
-         Xzc2arKAZUVsuju6A+G+Q69+ZV2sHQ7Tv6DQBiyr4VSL0APHPFlOE1ZTAgjm+ts0J+fo
-         vDKBrqwLbaq8bc4XcSf3HBnSTPhItVtfTqeNPWWG3pnZl2ptumLXXanbYlYKEM9T2hmJ
-         TxqQ==
-X-Gm-Message-State: AOJu0Ywjg03i2s6zVeB6zkFO8sDXXnKV5CmxlKmNE49lyOv/X5UukGPF
-	pnl74yD0aBP2IGyYgm2ui/u85BYzyEXmhPVsEXWKxs3hvuQJKxR8mkt6L+larA4=
-X-Gm-Gg: ASbGncvTVDQKhi7AfEVuo/cC0k2MZaOdJ88HoTX8SnPgS4fQuKZTSh/TZ5OydeVarAX
-	PxmpkL22UOmZy+sxnGLrJ9+HHSxzT9GUq7hU7LECfFOoIJ/JUoJQJ+38tEiRKL4nzYwC8VeNKfX
-	Es278X8dXRX9juH2uSujczJUy7vtrqBnrlB4ZZkPptBMRQSqKzs0JPXqbDUcVc1w1s78vPxoVSi
-	cew6JG2i/0ieihFSeVbYnrw1SMjjg6ny638ct/JT0VP68vw/HIqYsetciDz0aKlpA==
-X-Google-Smtp-Source: AGHT+IH59v9d25D+Hpdx44vY5oqphbmne2u/4bMGWMaFkloX3VYJk2aFTeDnVg+/HyeMGCdWOjmtsA==
-X-Received: by 2002:a05:6402:40cf:b0:5d3:ba42:e9fa with SMTP id 4fb4d7f45d1cf-5d63c3405a8mr4777134a12.16.1734090211500;
-        Fri, 13 Dec 2024 03:43:31 -0800 (PST)
-Date: Fri, 13 Dec 2024 12:43:30 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 31/35] x86/hvm: introduce NS8250 UART emulator
-Message-ID: <Z1wd4iAmVzv1ISPZ@macbook.local>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-31-e9aa923127eb@ford.com>
+X-Inumbo-ID: 085d713f-b948-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aiGocDun8H1dOntdG6WgeUR2/XzSGUPHiEF4Jw//R7rp1Y9xvzuPRdHK/7dULqPuIUmISpsVI84xEQR0Z45scjI/5PBgHqy9fwiDfOW0YAsxcK7LDPFBoUgrD0NNxGtXqZySNrwCPtLzRvw0v8irfPwUsoO1Rr/sF/+kfjrp8+mdRpFwHEtpwSuOeSET1dR4jtTZ2C0Q1MfpH8FBJD610jcGxVVGwXz5MRIwddIzpj3CagR8KmrFgRHzvXTFgw7f2RfVpZnGXdjI+oRJzTbKDAYgp9d9ZL4bvcDx1LjZzwsJ6DyBGiwnXSPclnjsj7Sl1ySD77tT3eY+QjB9M7yObw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E4gkhHjeOW+EXymXd/7PefBvELrnzXP5XWlm4IfBqo0=;
+ b=m3ZeAZkDI22ncWeXm51ADJ612UhWIDWLt5W/RMzMnKg3mkf1r2Uym5o+rfZZeW+mfs7XlSQOrykYEg4Je7lRLrkaUT2gYGMv5h+YFATz4K5yVlovrnHnDGUNQqxZphoz/JEADG7whPhb0cZjm50zsBzj0lvIS18VkazXjOxiE55iW42BYeOiIhL4eMeX+uM5F5LpUbITi7a2cSde5epNO+hvs6idBfaF5MNNKZSQZhUbxRrpv8gLPYVH7JeklziegIsKS8e29i2AXgY69hTLyIinaww2CRAsw2yJ/JIbn2kPXi5lX+/6qlRpJErfI0g93r6SBmFedyLHG/cv/fiK3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=minervasys.tech smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E4gkhHjeOW+EXymXd/7PefBvELrnzXP5XWlm4IfBqo0=;
+ b=kJe2UYuveE+G2R5YMpRnJ+Or1/9NOPbchMBglFHWaA17uGfF3N+H7iraPx7/Pj47oOV6WQAsHCVfvvlQU6Stvx6Hgd6gvZ/Ir2xPpHIILRDAeyN7LfUDl9wwobiTe1NO8fAx5GZlQGXVDlV5OyItkHu7FPL+L7ENH2eH3eFwr/g=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <daeb7503-2427-4cd8-be65-152f308ec7d2@amd.com>
+Date: Fri, 13 Dec 2024 12:47:13 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20241205-vuart-ns8250-v1-31-e9aa923127eb@ford.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 03/12] xen/arm: permit non direct-mapped Dom0
+ construction
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+CC: Andrea Bastoni <andrea.bastoni@minervasys.tech>, Julien Grall
+	<julien@xen.org>, <xen-devel@lists.xenproject.org>,
+	<marco.solieri@minervasys.tech>, Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+References: <20241202165921.249585-1-carlo.nonato@minervasys.tech>
+ <20241202165921.249585-4-carlo.nonato@minervasys.tech>
+ <bc40c381-0998-4dd2-b5c9-5b70b45805ce@amd.com>
+ <7ecc99c5-0cb5-4351-bede-cb03c9a4ac7e@xen.org>
+ <293004fa-c87e-4a45-aa4c-b02456aaecea@amd.com>
+ <0bacfdb6-d4ad-4dea-85d4-2851873dca4e@xen.org>
+ <CAG+AhRUtMy=WckZaeWGBDSQEh_09p4cTVFWSSCxaEXv6vnLk4Q@mail.gmail.com>
+ <dbab9581-2059-4662-b684-163343b61d0d@minervasys.tech>
+ <2f834c6b-c9fa-4b95-abff-b9bcb8c70246@amd.com>
+ <CAG+AhRW0H7VSD3tzSydue1LPaT056metxQwUXPvQ+WO17KO67A@mail.gmail.com>
+ <6cb8c273-8e1d-4f34-adcc-620d4a71340c@amd.com>
+ <CAG+AhRUFHH10daDvaqyhomCO6Yzyk4AUE_6E-53NmZU5auC9PQ@mail.gmail.com>
+ <CAG+AhRVPiyG+mTQSF80ZEN5CsVW+0W0Y97d-Atrit9g2nO9-HQ@mail.gmail.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <CAG+AhRVPiyG+mTQSF80ZEN5CsVW+0W0Y97d-Atrit9g2nO9-HQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017093:EE_|DM6PR12MB4268:EE_
+X-MS-Office365-Filtering-Correlation-Id: db396f19-5947-46ed-77e9-08dd1b6be95d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cnlUT3d5UXFHWnB4VVRmTllKNXoxZXBWK0FNZ3NVTUxyMmdMTkNYODRjY2N1?=
+ =?utf-8?B?U2ZwSDh1NHE3NjVkdXZhU05xSkxTM2Urem5NVEZxOUJNaFZBVk9tbW0zS1Nr?=
+ =?utf-8?B?L1NTZmY0d24zaTA3eWk2MlVCczd4NEZVTGlMLzNaUUVpbk1kMzlHN0Z4Qnds?=
+ =?utf-8?B?SS9Kbks3UDB0RjJaRzA2ekszbWd2MFJMa2NxNUVaRCtaZTlVMTVTMzNna1NX?=
+ =?utf-8?B?RzVyUTNwNVZDQnIyUmZZVkRhdVlzVi9UTENhMWE3SEVmZkR6Sy9zT3U3ZENs?=
+ =?utf-8?B?SUdHY2RYSXNINUo2dDJ0cktpL0FJbVZQQmdDOHB2ZThBWVE3S1ZpQ2JnV2xX?=
+ =?utf-8?B?UnlRS0FSeXR6OU82a2s2R0szSDNrempxcUJ0d1VZUTVwaTZUTmFQOWQrNTYy?=
+ =?utf-8?B?d0REaUhYYW9LZHVQV1hnUmZIY2VZTk9ZMGdyWnZiYmlMVXF4emtPWGhrUnJs?=
+ =?utf-8?B?bWtKRWRJMEI4WjlkTDY4SDBRcm9xYmRrdW9obExrMkcyTmNTN0Y4K1FUcFlW?=
+ =?utf-8?B?Q0NrZHNaWEx4RDljM1VmNkF4WW9EWVZZTzAxSDdPby9hVWpscW9ZTGNkenhF?=
+ =?utf-8?B?MW1UUERqa0JGUkJVZGkxSGFMdFRrZStqYUhrb01BTDRIQ096VXFwcnFiVWlP?=
+ =?utf-8?B?bHBNSUtON2tGbWZkanc0S0s1SlEzcXM0d2VtVGRtb1gzaUVNV2pWVEJFdlpN?=
+ =?utf-8?B?cmFEa0VtTXVJV1NJSlMzQWxSQjNobE1TcjlNbURmdllQeFdGazBVWHZRT1p4?=
+ =?utf-8?B?bDRBUXlNaXo3RnJqenAzcm1QdDhuVGc4b0xxdFAvOXhMQ0tDVlF0dVN2L0pn?=
+ =?utf-8?B?V3pHNms2aGZOV3NxRmZsQkI0K055bUhYUUlpNUk4SHVPSERIbS9GeDNoRTl3?=
+ =?utf-8?B?dXBwc2l3SXN3WTNBRlRHTS9MYkY0L09lMmlWT2U3bW14OHVWbFc3OXgrRjFm?=
+ =?utf-8?B?aUVRaHYzNUxtS0hXbVdYTjFhejhHOFFxRUNJZjYvdXdBOWd0RHRMcmVOajk5?=
+ =?utf-8?B?WXZwWUkrVC90T3Y3eVFsdXVvcDhhcVBXV0hzTGRVWjdIT2lCTHUvYlZrNXF1?=
+ =?utf-8?B?MFpvdENiQjBqVTNncGFkQjhLQkhVUXd0UXE0ZXZBU1NVVHppUkU3K2VzMEVX?=
+ =?utf-8?B?UUdxVjZRaVpEVTJHbEY3K0QrRVZiaGNtdWNBUjVhNGRVZlB0WVdMOEg5cms0?=
+ =?utf-8?B?QlVEVUFobUUrMFZXaHdTV3JTTTZ4MURJeEpzbUplUjdkZjMzOHJKSkdOWG05?=
+ =?utf-8?B?MjJGZVZLUW1jd1M2di9vT0RDNDQ3SmxSWGs3a281UExxcUkxVkh4ZGVmamQx?=
+ =?utf-8?B?aE9FRmhDYnNvOU02QlNOTzFSY25ZV0QwQUhOZ0FUSW0rTmlzVCsxY2dpYll1?=
+ =?utf-8?B?c2NkMUxyNTdXZFNBcjkrZ2RUMXhldDZDY2RMcEFtcFk2dm9kZjZTWmoxZEo2?=
+ =?utf-8?B?YVUycEJOSklrZVZXTUpIbjFqalNvTVpxMjZFVDVlSWVPL2QxNmFmelVNc0Nv?=
+ =?utf-8?B?ZlFISFdyUkxWME9rdzNYTDJaYnVycHliTDZzWWVJRTI1NTVhNWRMZEI0VFNC?=
+ =?utf-8?B?S3BTR2ZvZmZRT1Ezc21ka1NZYU9iVmR1Qmk3cVp2WnE3VStPRnIvdjFZQzJN?=
+ =?utf-8?B?NDlSd0YzUzhHS1NDU21IRytyYlRYWmZpMG1QTUhhNW1TMm85c3pxUXNDQnMz?=
+ =?utf-8?B?MTBaUzRpa1U0RWttMlV2MGpQNlNCY0Y1ekNhdE4wTCtHWGhFOWxMVGRTZnBk?=
+ =?utf-8?B?MlViT2NjTXN0d0FJQUE2ZTczcGIxall4dHpqTTRsZzFnSWxCSmdxK1dDSzk5?=
+ =?utf-8?B?Umx2dk44b09WOVJjVnNvdy9KaTFFWllaRko2Nm9HVllTdWhQZk9XZzNBOENY?=
+ =?utf-8?Q?t/7iHVQAJ1IxX?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 11:47:24.6052
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db396f19-5947-46ed-77e9-08dd1b6be95d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017093.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4268
 
-On Thu, Dec 05, 2024 at 08:42:01PM -0800, Denis Mukhin via B4 Relay wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+
+
+On 13/12/2024 12:33, Carlo Nonato wrote:
 > 
-> Add initial in-hypervisor emulator for NS8250/NS16x50-compatible UARTs under
-> CONFIG_HAS_VUART_NS8250.
 > 
-> In parallel domain creation scenario (hyperlaunch), NS8520 emulator helps
-> early guest OS bringup debugging, because it eliminates dependency on the
-> external emulator being operational by the time domains are created. Also,
-> there's no early console facility similar to vpl011 to support x86 guest OS
-> bring up.
+> Using paste.debian:
 > 
-> By default, CONFIG_HAS_VUART_NS8250 enables emulatio of NS8250 at I/O port
+> https://paste.debian.net/1339647/
 
-emulatio -> emulation
+1. Issue I mentioned with prefixing with double underscore
+2. Generic helper should not be named ext_regions
+3. s/skip_size/min_bank_size/
 
-> 0x3f8, IRQ#4 in guest OS.
-> 
-> Limitations:
-> - Only x86;
-> - Only Linux guest tested so far;
-> - Only legacy COM{1,2,3,4} resources, no customization;
-> - Only Xen console as a backend, no inter-domain communication (similar to
->   vpl011 on Arm);
-> - Only 8-bit characters;
-> - Baud rate is not emulated;
-> - FIFO-less mode is not emulated properly;
-> - RX FIFO interrupt moderation (FCR) is not emulated properly, TL16C750
->   has special FCR handling;
-> - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
->   friends);
-> - Assumes no ISA-device IRQ sharing;
-> - MMIO-based UART is not supported.
+And still you need to convince others about 128MB limit because I'm not sure.
 
-Do you have a reference to the specification you have used to
-implement the driver?
+Imagine, that our kernel+dtb+ramdisk is > 128MB and your first bank is 128MB. With your
+solution this would fail. Now, imagine that you sort your banks and start with the biggest
+one. You don't care about its size. It's the biggest one so if it does not fit, then that's not
+your problem.
 
-Most of the comments below are quite generic, I haven't really looked
-into the implementation details of the ns8520 emulated registers.
+~Michal
 
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
->  xen/arch/x86/hvm/Kconfig                    |  14 +
->  xen/arch/x86/hvm/Makefile                   |   1 +
->  xen/arch/x86/hvm/hvm.c                      |  13 +
->  xen/arch/x86/hvm/vuart_ns8250.c             | 886 ++++++++++++++++++++++++++++
->  xen/arch/x86/include/asm/hvm/domain.h       |   5 +
->  xen/arch/x86/include/asm/hvm/vuart_ns8250.h |  75 +++
->  6 files changed, 994 insertions(+)
-> 
-> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-> index 361bb6572e633f3cf0fc972a3b391e8341c33361..af6e698b8be0d82af94b00c0cfdaf9a2bc24b154 100644
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -61,3 +61,17 @@ config HVM_FEP
->  	  for use in production.
->  
->  	  If unsure, say N.
-> +
-> +config HAS_VUART_NS8250
-> +	bool "NS8250-compatible UART Emulation"
-> +	depends on HVM && HAS_IOPORTS
-> +	default n
-> +	help
-> +	  In-hypervisor NS8250/NS16x50 UART emulation.
-> +
-> +	  Only legacy PC I/O ports are emulated.
-> +
-> +	  This is strictly for testing purposes (early HVM guest console), and not
-> +	  appropriate for use in production.
-
-If it's strictly speaking for debug purposes, then it might be helpful
-to tie it to CONFIG_DEBUG, or if maybe that's too broad, make it tied
-to CONFIG_EXPERT, so that it's clear builds wit the option enabled
-won't be security supported.
-
-> +
-> +	  If unsure, say N.
-> diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
-> index 4c1fa5c6c2bf75d336b39f343241bfced5b91b09..14761435e0694109f815da63289666c0f1cbf0ce 100644
-> --- a/xen/arch/x86/hvm/Makefile
-> +++ b/xen/arch/x86/hvm/Makefile
-> @@ -29,3 +29,4 @@ obj-y += vm_event.o
->  obj-y += vmsi.o
->  obj-y += vpic.o
->  obj-y += vpt.o
-> +obj-$(CONFIG_HAS_VUART_NS8250) += vuart_ns8250.o
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 493b699c708949b2109c26573a107565543f5d45..db61af7defc5f5da795b7a613fe4d32fbff7d93e 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -55,6 +55,7 @@
->  #include <asm/hvm/monitor.h>
->  #include <asm/hvm/viridian.h>
->  #include <asm/hvm/vm_event.h>
-> +#include <asm/hvm/vuart_ns8250.h>
->  #include <asm/altp2m.h>
->  #include <asm/mtrr.h>
->  #include <asm/apic.h>
-> @@ -679,6 +680,15 @@ int hvm_domain_initialise(struct domain *d,
->      if ( rc != 0 )
->          goto fail1;
->  
-> +    if ( domain_has_vuart(d) )
-> +    {
-> +        rc = domain_vuart_init(d);
-> +        if ( rc == 0 )
-> +            d->is_console = true;
-> +        else if ( rc != -ENODEV )
-> +            goto out_vioapic_deinit;
-
-Why do you shallow the ENODEV error?  If a user has asked for a vUART,
-and there's no support in Xen it should error hard IMO, rather than
-ignoring it and continue building the domain.
-
-IMO emulation_flags_ok() should prevent hvm_domain_initialise() from
-being called with vUART when there's no support built-in.
-
-> +    }
-> +
->      stdvga_init(d);
->  
->      rtc_init(d);
-> @@ -699,6 +709,9 @@ int hvm_domain_initialise(struct domain *d,
->      return 0;
->  
->   fail2:
-> +    if ( domain_has_vuart(d) )
-> +        domain_vuart_free(d);
-> + out_vioapic_deinit:
->      vioapic_deinit(d);
->   fail1:
->      if ( is_hardware_domain(d) )
-> diff --git a/xen/arch/x86/hvm/vuart_ns8250.c b/xen/arch/x86/hvm/vuart_ns8250.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..779dbd80d7be4e070ea9df3ae736ecdc662a527a
-> --- /dev/null
-> +++ b/xen/arch/x86/hvm/vuart_ns8250.c
-> @@ -0,0 +1,886 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * NS8250-compatible UART Emulator.
-> + *
-> + * Limitations:
-> + * - Only x86;
-> + * - Only Linux guest tested so far;
-> + * - Only legacy COM{1,2,3,4} resources, no customization;
-> + * - Only Xen console as a backend, no inter-domain communication (similar to
-> + *   vpl011 on Arm);
-> + * - Only 8-bit characters;
-> + * - Baud rate is not emulated;
-> + * - FIFO-less mode is not emulated properly;
-> + * - RX FIFO interrupt moderation (FCR) is not emulated properly, TL16C750
-> + *   has special FCR handling;
-> + * - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
-> + *   friends);
-> + * - Assumes no ISA-device IRQ sharing;
-> + * - MMIO-based UART is not supported;
-> + * - PCI UART is not supported.
-
-IMO putting the limitations here is likely to make them go out of
-sync, noting in the commit message should be enough.
-
-> + */
-> +
-> +#define pr_fmt(fmt)         "ns8250: " fmt
-> +#define pr_log_level        hvm_ns8250_log_level
-> +
-> +/* Development debugging */
-> +#define NS8250_LOG_LEVEL    0
-> +
-> +#include <xen/types.h>
-> +#include <xen/event.h>
-> +#include <xen/lib.h>
-> +#include <xen/errno.h>
-> +#include <xen/sched.h>
-> +#include <xen/trace.h>
-> +#include <xen/resource.h>
-> +#include <xen/ctype.h>
-> +#include <xen/param.h>
-> +#include <xen/console.h> /* console_input_domid() */
-
-Includes would be better sorted alphabetically if possible.
-
-> +#include <asm/setup.h>   /* max_init_domid */
-> +#include <asm/iocap.h>
-> +#include <asm/hvm/hvm.h>
-> +#include <asm/hvm/io.h>
-> +#include <asm/hvm/vuart_ns8250.h>
-> +
-> +#if !defined(pr_fmt)
-> +#define pr_fmt(fmt) fmt
-> +#endif
-> +
-> +#if !defined(pr_log_level)
-> +#define pr_log_level 0
-> +#endif
-> +
-> +#define pr_err(fmt, args...) \
-> +    gprintk(KERN_ERR, pr_fmt(fmt), ## args)
-> +#define pr_warn(fmt, args...) \
-> +    if (pr_log_level) gprintk(KERN_WARNING, pr_fmt(fmt), ## args)
-> +#define pr_info(fmt, args...) \
-> +    if (pr_log_level) gprintk(KERN_INFO, pr_fmt(fmt), ## args)
-> +#define pr_debug(fmt, args...) \
-> +    if (pr_log_level) gprintk(KERN_DEBUG, pr_fmt(fmt), ## args)
-
-Is there any reason you cannot directly use gprintk() and need those
-wrappers?
-
-If the code has been imported from another project it would be good to
-have a reference, so that we can pickup updates in the future.
-
-> +
-> +/*
-> + * NS8250 emulator state machine logging (development only)
-> + * FIXME: use similar to parse_guest_loglvl()
-> + */
-> +static unsigned int __read_mostly hvm_ns8250_log_level = NS8250_LOG_LEVEL;
-> +integer_param("hvm.ns8250.log_level", hvm_ns8250_log_level);
-
-WE don't have any existing instances of command line options with
-dots, and also the documentation addition to xen-command-line.pandoc
-seems to be missing from this patch.
-
-My recommendation would be that the code here just uses normal logs
-levels, users can adjust the minimum log level of pritned messages.
-Adding ad-hoc log level settings for each subsystem just causes
-confusion.
-
-> +
-> +/*
-> + * Default emulated NS8250 resources.
-> + * If not specified, COM1 (I/O port 0x3f8, IRQ#4) is emulated.
-> + * FIXME: follow Linux'es console= syntax or re-use
-> + * ns16550_parse_port_config().
-> + */
-> +static char __read_mostly hvm_ns8250_console[64];
-> +string_param("hvm.ns8250.console", hvm_ns8250_console);
-
-Same here, there seems to be no documentation about this option.  And
-you likely want this to be a custom_param so you can do the parsing
-directly instead of storing into a buffer for later parsing.
-
-> +
-> +/* I/O access mask */
-> +static const uint32_t io_access_mask[] = {
-> +    [0] = 0X00000000U,
-> +    [1] = 0X000000FFU,
-> +    [2] = 0X0000FFFFU,
-> +    [4] = 0XFFFFFFFFU,
-
-lowercase x please.
-
-> +};
-> +
-> +/*
-> + * Legacy IBM PC NS8250 resources.
-> + * There are only 4 I/O port ranges, hardcoding all of them here.
-> + */
-> +static const struct {
-> +    const char *name;
-> +    const struct resource *res;
-> +} ns8250_x86_legacy_uarts[4] = {
-> +    [0] = {
-> +        .name = "com1",
-> +        .res = (const struct resource[]){
-> +            { .type = IORESOURCE_IO,  .addr = 0x3F8, .size = UART_MAX },
-> +            { .type = IORESOURCE_IRQ, .addr = 4,     .size = 1 },
-> +            { .type = IORESOURCE_UNKNOWN },
-> +        },
-> +    },
-> +    [1] = {
-> +        .name = "com2",
-> +        .res = (const struct resource[]){
-> +            { .type = IORESOURCE_IO,  .addr = 0x2F8, .size = UART_MAX },
-> +            { .type = IORESOURCE_IRQ, .addr = 3,     .size = 1 },
-> +            { .type = IORESOURCE_UNKNOWN },
-> +        },
-> +    },
-> +    [2] = {
-> +        .name = "com3",
-> +        .res = (const struct resource[]){
-> +            { .type = IORESOURCE_IO,  .addr = 0x3E8, .size = UART_MAX },
-> +            { .type = IORESOURCE_IRQ, .addr = 4,     .size = 1 },
-> +            { .type = IORESOURCE_UNKNOWN },
-> +        },
-> +    },
-> +    [3] = {
-> +        .name = "com4",
-> +        .res = (const struct resource[]){
-> +            { .type = IORESOURCE_IO,  .addr = 0x2E8, .size = UART_MAX },
-> +            { .type = IORESOURCE_IRQ, .addr = 3,     .size = 1 },
-> +            { .type = IORESOURCE_UNKNOWN },
-> +        },
-> +    },
-> +};
-> +
-> +static bool ns8250_fifo_rx_empty(struct vuart_ns8250 *vdev)
-> +{
-> +    struct xencons_interface *cons = vdev->cons;
-
-const here and in the function parameter.
-
-> +
-> +    return cons->in_prod == cons->in_cons;
-> +}
-> +
-> +static bool ns8250_fifo_rx_full(struct vuart_ns8250 *vdev)
-> +{
-> +    struct xencons_interface *cons = vdev->cons;
-
-const here and in the function parameter.
-
-> +
-> +    return cons->in_prod - cons->in_cons == sizeof(cons->in);
-> +}
-> +
-> +static void ns8250_fifo_rx_reset(struct vuart_ns8250 *vdev)
-> +{
-> +    struct xencons_interface *cons = vdev->cons;
-> +
-> +    cons->in_cons = cons->in_prod;
-> +}
-> +
-> +static int ns8250_fifo_rx_getchar(struct vuart_ns8250 *vdev)
-> +{
-> +    struct xencons_interface *cons = vdev->cons;
-> +    int rc = -1;
-
--ENOENT maybe instead of -1?
-
-> +
-> +    if ( !ns8250_fifo_rx_empty(vdev) )
-> +    {
-> +        rc = cons->in[MASK_XENCONS_IDX(cons->in_cons, cons->in)];
-> +        cons->in_cons++;
-> +    }
-> +
-> +    return rc;
-> +}
-> +
-> +static int ns8250_fifo_rx_putchar(struct vuart_ns8250 *vdev, char c)
-> +{
-> +    struct xencons_interface *cons = vdev->cons;
-> +    int rc = 0;
-> +
-> +    /*
-> +     * FIFO-less 8250/16450 UARTs: newly arrived word overwrites the contents
-> +     * of the THR.
-> +     */
-> +    if ( ns8250_fifo_rx_full(vdev) )
-> +    {
-> +        ns8250_fifo_rx_reset(vdev);
-> +        rc = -ENOSPC;
-> +    }
-> +
-> +    cons->in[MASK_XENCONS_IDX(cons->in_prod, cons->in)] = c;
-> +    cons->in_prod++;
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Flush cached output to Xen console.
-> + * Can be called from ns8250_exit().
-> + */
-> +static void ns8250_fifo_tx_reset(struct vuart_ns8250 *vdev)
-> +{
-> +    struct xencons_interface *cons = vdev->cons;
-> +
-> +    if ( cons->out_prod == 0 )
-
-Don't you need to check that cons->out_prod == cons->out_cons instead?
-
-> +        return;
-> +
-> +    cons->out[cons->out_prod++] = '\0';
-
-You need to use MASK_XENCONS_IDX() otherwise this could result in a
-buffer overflow?
-
-If you expect (because of checks in other places) out_prod to always
-be < ring size - 1, please add an assert to that extent here.  But see
-below about the usage of the ring indexes.
-
-Also, no need for the trailing increment, you will unconditionally
-reset out_prod to 0 just below.
-
-> +
-> +    /*
-> +     * NB: do not show domain ID if the domain owning the virtual UART also
-> +     * owns Xen input console.
-> +     */
-> +    if ( vdev->owner->domain_id == console_owner_domid() )
-> +        printk_common("%s", cons->out);
-> +    else
-> +        guest_printk(vdev->owner, "%s", cons->out);
-> +
-> +    cons->out_prod = 0;
-
-You should rather do cons->out_cons = cons->out_prod?
-
-Wait, you seem to use the out buffer differently than the input one,
-and only advance out_prod but not out_cons?
-
-It seems weird to drive the 'in' ring using both indexes, while the
-'out' ring is just using one index.
-
-> +}
-> +
-> +/*
-> + * Send a character to Xen console.
-> + */
-> +static void ns8250_fifo_tx_putchar(struct vuart_ns8250 *vdev, char ch)
-> +{
-> +    struct xencons_interface *cons = vdev->cons;
-> +
-> +    if ( !isconsole(ch) )
-> +        return;
-> +
-> +    cons->out[cons->out_prod] = ch;
-> +    cons->out_prod++;
-> +
-> +    if ( cons->out_prod == ARRAY_SIZE(cons->out) - 1
-> +            || ch == '\n' || ch == '\0' )
-
-Bad indentation, should be:
-
-    if ( cons->out_prod == ARRAY_SIZE(cons->out) - 1 ||
-         ch == '\n' || ch == '\0' )
-
-Albeit I'm not sure you need the '\0' check, as isconsole('\0') will
-already return false?
-
-> +        ns8250_fifo_tx_reset(vdev);
-> +}
-> +
-> +static bool cf_check ns8250_iir_check_lsi(struct vuart_ns8250 *vdev)
-
-vdev should be const.
-
-> +{
-> +    return  !!( vdev->regs[UART_LSR] & UART_LSR_MASK );
-
-Extra spaces around the parentheses.
-
-> +}
-> +
-> +static bool cf_check ns8250_iir_check_rda(struct vuart_ns8250 *vdev)
-> +{
-> +    return !ns8250_fifo_rx_empty(vdev);
-> +}
-> +
-> +static bool cf_check ns8250_iir_check_thr(struct vuart_ns8250 *vdev)
-> +{
-> +    return !!( vdev->flags & NS8250_IRQ_THRE_PENDING );
-> +}
-> +
-> +static bool cf_check ns8250_iir_check_msi(struct vuart_ns8250 *vdev)
-
-const for all the 3 vdev parameters above.
-
-> +{
-> +    return !!( vdev->regs[UART_MSR] & UART_MSR_DELTA );
-
-Extra spaces around the parentheses.
-
-> +}
-> +
-> +/*
-> + * Interrupt identity reasons by priority.
-> + * NB: highest priority are at lower indexes.
-> + */
-> +static const struct {
-> +    uint8_t ier_mask;
-> +    uint8_t iir_mask;
-> +    bool (*iir_check)(struct vuart_ns8250 *vdev);
-> +} iir_by_prio[] = {
-> +    [0] = { UART_IER_ELSI,   UART_IIR_LSI, ns8250_iir_check_lsi },
-> +    [1] = { UART_IER_ERDAI,  UART_IIR_RDA, ns8250_iir_check_rda },
-> +    [2] = { UART_IER_ETHREI, UART_IIR_THR, ns8250_iir_check_thr },
-> +    [3] = { UART_IER_EMSI,   UART_IIR_MSI, ns8250_iir_check_msi },
-
-You don't need the explicit array indexes (at least with the ones you
-are specifying here).
-
-I think those interrupt reasons are not likely to change, and the
-checker for each reason is a one line function.  It would be better to
-open-code the checking in ns8250_irq_reason(), as that will avoid the
-indirect function call.
-
-Otherwise iir_by_prio array should be declared in the scope of
-ns8250_irq_reason(), as that's the only function where it's used.
-
-> +};
-> +
-> +/*
-> + * Define the interrupt identity reason.
-> + * NB: NS8250 always reports high priority events first.
-> + */
-> +static uint8_t ns8250_irq_reason(struct vuart_ns8250 *vdev)
-> +{
-> +    int i;
-
-unsigned int.
-
-> +
-> +    ASSERT( spin_is_locked(&vdev->lock) );
-
-Extra spaces around the parentheses.
-
-> +    for ( i = 0; i < ARRAY_SIZE(iir_by_prio); i++ )
-> +    {
-> +        if ( (vdev->regs[UART_IER] & iir_by_prio[i].ier_mask)
-> +                && iir_by_prio[i].iir_check(vdev) )
-
-Wrong placement of the &&, plus indentation.
-
-> +            return iir_by_prio[i].iir_mask;
-> +    }
-> +
-> +    return UART_IIR_NOINT;
-> +}
-> +
-> +/*
-> + * Assert virtual NS8250 interrupt line.
-> + */
-> +static void ns8250_irq_assert(struct vuart_ns8250 *vdev)
-> +{
-> +    uint8_t iir;
-> +
-> +    iir = ns8250_irq_reason(vdev);
-> +    if (iir & UART_IIR_NOINT)
-
-Missing spaces around the parentheses.
-
-> +        hvm_irq_lower(vdev->owner, vdev->irq);
-> +    else
-> +        hvm_irq_raise(vdev->owner, vdev->irq);
-
-I think you should use hvm_isa_irq_{,de}assert(), as the interrupt
-will unconditionally be < 16?
-
-> +
-> +    pr_debug("IRQ#%d %x %s\n", vdev->irq, iir,
-> +            !!(iir & UART_IIR_NOINT) ? "lower" : "raise");
-
-hm, this will get very verbose.  While it might have been helpful
-during development, I don't think it would be appropriate to print at
-any debug level.
-
-> +}
-> +
-> +/*
-> + * Emulate 8-bit write access to NS8250 register.
-> + */
-> +static int ns8250_io_write8(
-> +    struct vuart_ns8250 *vdev, uint32_t reg, uint8_t *data)
-> +{
-> +    uint8_t val;
-> +    int rc = 0;
-> +
-> +    val = *data;
-
-You can init val at declaration.
-
-> +
-> +    switch ( reg )
-> +    {
-> +    /* DLAB=0 */
-> +    case UART_THR:
-> +        if ( vdev->regs[UART_MCR] & UART_MCR_LOOP )
-> +        {
-> +            ns8250_fifo_rx_putchar(vdev, val);
-> +            vdev->regs[UART_LSR] |= UART_LSR_OE;
-> +        }
-> +        else
-> +            ns8250_fifo_tx_putchar(vdev, val);
-> +
-> +        vdev->flags |= NS8250_IRQ_THRE_PENDING;
-> +
-> +        break;
-> +
-> +    case UART_IER:
-> +        if ( val & vdev->regs[UART_IER] & UART_IER_ETHREI )
-> +            vdev->flags |= NS8250_IRQ_THRE_PENDING;
-> +
-> +        vdev->regs[UART_IER] = val & UART_IER_MASK;
-> +
-> +        break;
-> +
-> +    case UART_FCR: /* WO */
-> +        if ( val & UART_FCR_CLRX )
-> +            ns8250_fifo_rx_reset(vdev);
-> +
-> +        if ( val & UART_FCR_CLTX )
-> +            ns8250_fifo_tx_reset(vdev);
-> +
-> +        if ( !(val & UART_FCR_ENABLE) )
-> +            val = 0;
-> +
-> +        vdev->regs[UART_FCR] = val & (UART_FCR_ENABLE |
-> +                                      UART_FCR_DMA |
-> +                                      UART_FCR_TRG_MASK);
-> +
-> +        break;
-> +
-> +    case UART_LCR:
-> +        vdev->regs[UART_LCR] = val;
-> +        break;
-> +
-> +    case UART_MCR: {
-> +        uint8_t msr_curr, msr_next, msr_delta;
-> +
-> +        msr_curr = vdev->regs[UART_MSR];
-> +        msr_next = 0;
-> +        msr_delta = 0;
-> +
-> +        /* Set modem status */
-> +        if ( val & UART_MCR_LOOP )
-> +        {
-> +            if ( val & UART_MCR_DTR )
-> +                msr_next |= UART_MSR_DSR;
-> +            if ( val & UART_MCR_RTS )
-> +                msr_next |= UART_MSR_CTS;
-> +            if ( val & UART_MCR_OUT1 )
-> +                msr_next |= UART_MSR_RI;
-> +            if ( val & UART_MCR_OUT2 )
-> +                msr_next |= UART_MSR_DCD;
-> +        }
-> +        else
-> +            msr_next |= UART_MSR_DCD | UART_MSR_DSR | UART_MSR_CTS;
-> +
-> +        /* Calculate changes in modem status */
-> +        if ( (msr_curr & UART_MSR_CTS) ^ (msr_next & UART_MSR_CTS) )
-> +            msr_delta |= UART_MSR_DCTS;
-> +        if ( (msr_curr & UART_MCR_RTS) ^ (msr_next & UART_MCR_RTS) )
-> +            msr_delta |= UART_MSR_DDSR;
-> +        if ( (msr_curr & UART_MSR_RI)  & (msr_next & UART_MSR_RI) )
-> +            msr_delta |= UART_MSR_TERI;
-> +        if ( (msr_curr & UART_MSR_DCD) ^ (msr_next & UART_MSR_DCD) )
-> +            msr_delta |= UART_MSR_DDCD;
-> +
-> +        vdev->regs[UART_MCR] = val & UART_MCR_MASK;
-> +        vdev->regs[UART_MSR] = msr_next | msr_delta;
-> +
-> +        break;
-> +    }
-> +
-> +    case UART_LSR: /* RO */
-> +    case UART_MSR: /* RO */
-> +        rc = -EINVAL;
-> +        break;
-
-Why are those not handled by the default case below?  Is there any
-reason to explicitly mention those cases?
-
-> +
-> +    /*
-> +     * NB: Firmware like OVMF rely on SCR presence to initialize the ns8250
-> +     * driver.
-> +     */
-> +    case UART_SCR:
-> +        vdev->regs[UART_SCR] = val;
-> +        break;
-> +
-> +    /* DLAB=1 */
-> +    case UART_MAX + UART_DLL:
-> +        vdev->dl = (vdev->dl & 0xFF00U) | val;
-> +        break;
-> +
-> +    case UART_MAX + UART_DLM:
-> +        vdev->dl = (val << 8) | (vdev->dl & 0x00FFU);
-> +        break;
-> +
-> +    default:
-> +        rc = -EINVAL;
-> +        break;
-
-Returning -EINVAL here is not correct I think, as the error gets
-propagated into the return of the IO handler.  Those handlers expect
-to return a code in the range of X86EMUL_OKAY (see x86_emulate.h).
-
-But most importantly, what do you expect the caller to do with such
-error code?  The access must be handled by the console driver, as it
-belongs to it's range of IO ports.  What would hardware do in this
-case, ignore the write and continue operation?
-
-If so, there's no point in returning any error from
-ns8250_io_write8(), the best would be to log a debug message in case
-of ignored accesses.  This likely applies to all the handlers
-implemented below.
-
-> +    }
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Emulate 16-bit write access to NS8250 register.
-> + * NB: some guest OSes use outw() to access UART_DLL.
-> + */
-> +static int ns8250_io_write16(
-> +    struct vuart_ns8250 *vdev, uint32_t reg, uint16_t *data)
-> +{
-> +    int rc;
-> +
-> +    switch ( reg )
-> +    {
-> +    case UART_MAX + UART_DLL:
-> +        vdev->dl = *data;
-> +        rc = 0;
-> +        break;
-> +
-> +    default:
-> +        rc = -EINVAL;
-> +        break;
-> +    }
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Emulate write access to NS8250 register.
-> + */
-> +static int ns8250_io_write(
-> +    struct vuart_ns8250 *vdev, uint8_t reg, uint32_t size, uint32_t *data)
-> +{
-> +    int rc = -EINVAL;
-> +
-> +    switch ( size )
-> +    {
-> +    case 1:
-> +        rc = ns8250_io_write8(vdev, reg, (uint8_t *)data);
-> +        break;
-> +
-> +    case 2:
-> +        rc = ns8250_io_write16(vdev, reg, (uint16_t *)data);
-> +        break;
-> +
-> +    default:
-> +        break;
-> +    }
-> +
-> +    ns8250_irq_assert(vdev);
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Emulate 8-bit read access to NS8250 register.
-> + */
-> +static int ns8250_io_read8(
-> +    struct vuart_ns8250 *vdev, uint32_t reg, uint8_t *data)
-> +{
-> +    int rc = 0;
-> +    uint8_t val;
-
-In order to avoid unintentionally leaking stack contents, it would be
-best to initialize val at declaration:
-
-uint8_t val = ~0;
-
-> +
-> +    switch ( reg )
-> +    {
-> +    /* DLAB=0 */
-> +    case UART_RBR:
-> +        val = (uint8_t)ns8250_fifo_rx_getchar(vdev);
-
-You seem to ignore that ns8250_fifo_rx_getchar() can return an error,
-is it intended to just propagate the error to the caller then?
-
-> +        /* NB: do not forget to clear overrun condition */
-> +        vdev->regs[UART_LSR] &= ~UART_LSR_OE;
-> +        break;
-> +
-> +    case UART_IER: /* RO */
-> +        val = vdev->regs[UART_IER];
-> +        break;
-> +
-> +    case UART_IIR:
-> +        val = ns8250_irq_reason(vdev);
-> +        if ( val & UART_IIR_THR )
-> +            vdev->flags &= ~NS8250_IRQ_THRE_PENDING;
-> +
-> +        if ( vdev->regs[UART_FCR] & UART_FCR_ENABLE )
-> +            val |= UART_IIR_FE_MASK;
-> +
-> +        break;
-> +
-> +    case UART_LCR:
-> +        val = vdev->regs[UART_LCR];
-> +        break;
-> +
-> +    case UART_MCR:
-> +        val = vdev->regs[UART_MCR];
-> +        break;
-> +
-> +    case UART_LSR:
-> +        val = vdev->regs[UART_LSR] | UART_LSR_THRE | UART_LSR_TEMT;
-> +        if ( ns8250_fifo_rx_empty(vdev) )
-> +            val &= ~UART_LSR_DR;
-> +        else
-> +            val |= UART_LSR_DR;
-> +
-> +        vdev->regs[UART_LSR] = val & ~UART_LSR_MASK;
-> +
-> +        break;
-> +
-> +    case UART_MSR:
-> +        val = vdev->regs[UART_MSR];
-> +        vdev->regs[UART_MSR] &= ~UART_MSR_DELTA;
-> +        break;
-> +
-> +    case UART_SCR:
-> +        val = vdev->regs[UART_SCR];
-> +        break;
-> +
-> +    /* DLAB=1 */
-> +    case UART_MAX + UART_DLL:
-> +        val = vdev->dl & 0xFFU;
-> +        break;
-> +
-> +    case UART_MAX + UART_DLM:
-> +        val = vdev->dl >> 8;
-> +        break;
-> +
-> +    default:
-> +        val = (uint8_t)io_access_mask[1];
-
-Hm, not sure why you need this mask, isn't it OK to just do val = ~0;?
-
-However see comment above about initializing at definition.
-
-> +        rc = -EINVAL;
-> +        break;
-> +    }
-> +
-> +    *data = val;
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Emulate 16-bit read access to NS8250 register.
-> + */
-> +static int ns8250_io_read16(
-> +    struct vuart_ns8250 *vdev, uint32_t reg, uint16_t *data)
-> +{
-> +    uint16_t val;
-
-Same comment as ns8250_io_read8() about initializing val at definition
-and not using io_access_mask.
-
-> +    int rc;
-> +
-> +    switch ( reg )
-> +    {
-> +    case UART_MAX + UART_DLL:
-> +        val = vdev->dl;
-> +        rc = 0;
-> +        break;
-> +
-> +    default:
-> +        val = (uint16_t)io_access_mask[2];
-> +        rc = -EINVAL;
-> +        break;
-> +    }
-> +
-> +    *data = val;
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Emulate read access to NS8250 register.
-> + */
-> +static int ns8250_io_read(
-> +    struct vuart_ns8250 *vdev, uint8_t reg, uint32_t size, uint32_t *data)
-> +{
-> +    int rc;
-> +
-> +    switch ( size )
-> +    {
-> +    case 1:
-> +        rc = ns8250_io_read8(vdev, reg, (uint8_t *)data);
-> +        break;
-> +
-> +    case 2:
-> +        rc = ns8250_io_read16(vdev, reg, (uint16_t *)data);
-
-I get the feeling you could handle both 1 and 2 byte accesses in the
-same function, as there's just a single register that allows 2 byte
-accesses.
-
-Is the split done because further (to be implemented) features will
-require addition 2 byte accesses?
-
-> +        break;
-> +
-> +    default:
-> +        *data = io_access_mask[size];
-> +        rc = -EINVAL;
-> +        break;
-> +    }
-> +
-> +    ns8250_irq_assert(vdev);
-> +
-> +    return rc;
-> +}
-> +
-> +static const char *ns8250_regname(
-> +    const struct vuart_ns8250 *vdev, uint32_t reg, int dir)
-> +{
-> +    static const char *reg_names[UART_MAX + 2][2] = {
-> +        /* register                 W      R   */
-> +        [UART_RBR] =            { "THR", "RBR" },
-> +        [UART_IER] =            { "IER", "IER" },
-> +        [UART_IIR] =            { "FCR", "IIR" },
-> +        [UART_LCR] =            { "LCR", "LCR" },
-> +        [UART_MCR] =            { "MCR", "MCR" },
-> +        [UART_LSR] =            { "LSR", "LSR" },
-> +        [UART_MSR] =            { "MSR", "MSR" },
-> +        [UART_SCR] =            { "SCR", "SCR" },
-> +        [UART_MAX + UART_DLL] = { "DLL", "DLL" },
-> +        [UART_MAX + UART_DLM] = { "DLM", "DLM" },
-> +    };
-> +
-
-To be in the safe saide I would assert that 'reg' and 'dir' are
-between the array bounds.
-
-> +    return reg_names[reg][dir];
-> +}
-> +
-> +/*
-> + * Emulate I/O access to NS8250 register.
-> + */
-> +static int cf_check ns8250_io_handle(
-> +    int dir, unsigned int addr, unsigned int size, uint32_t *data)
-> +{
-> +#define op(dir)     (((dir) == IOREQ_WRITE) ? 'W' : 'R')
-> +    struct domain *d = rcu_lock_current_domain();
-> +    struct vuart_ns8250 *vdev = &d->arch.hvm.vuart;
-> +    uint32_t offset, reg;
-> +    int rc;
-> +
-> +    spin_lock(&vdev->lock);
-> +
-> +    BUG_ON( vdev->owner != d );
-
-Extra spaces around the parentheses.
-
-However I would rather use:
-
-if ( vdev->owner != d )
-{
-    gprintk(XENLOG_ERR, "vUART owner %pd doesn't match current domain\n",
-            vdev->owner);
-    ASSERT_UNREACHABLE();
-    rcu_unlock_domain(d);
-    return X86EMU_OKAY;
-}
-
-And place it before the spin_lock() call.
-
-> +
-> +    if ( !(vdev->flags & NS8250_READY) )
-> +    {
-> +        pr_err("%c io 0x%04x %d 0x%08"PRIx32": propagate to external I/O emulator\n",
-> +                op(dir), addr, size, *data);
-> +        rc = X86EMUL_UNHANDLEABLE;
-
-I think you need to unconditionally return X86EMU_OKAY and just ignore
-the access.  I assume there's no point in attempting to forward this
-access to any other handler, as it must be handled by the vuart
-driver.
-
-> +        goto out;
-> +    }
-> +
-> +    reg = addr - vdev->io_addr;
-> +    BUG_ON( reg >= UART_MAX );
-
-If possible, might be best to use a construct similar to the one
-proposed above with ASSERT_UNREACHABLE().
-
-> +    if ( reg % size != 0 )
-
-IS_ALIGNED(reg, size)  might be clearer.
-
-> +    {
-> +        pr_err("%c 0x%04x %d 0x%08"PRIx32": unaligned access\n",
-> +                op(dir), addr, size, *data & io_access_mask[size]);
-> +        rc = X86EMUL_OKAY;
-> +        goto out;
-> +    }
-> +
-> +    /* Redirect access to divisor latch registers */
-> +    if ( !!(vdev->regs[UART_LCR] & UART_LCR_DLAB)
-> +            && (reg == UART_DLL || reg == UART_DLM) )
-
-Indentation plus placement of the &&.
-
-> +        offset = UART_MAX + reg;
-> +    else
-> +        offset = reg;
-> +
-> +    if ( dir == IOREQ_WRITE )
-> +    {
-> +        pr_debug("%c 0x%04x %d 0x%08"PRIx32" %s[0x%02"PRIx32"]\n",
-> +                op(dir), addr, size,
-> +                *data & io_access_mask[size],
-> +                ns8250_regname(vdev, offset, dir), reg);
-> +        rc = ns8250_io_write(vdev, offset, size, data);
-> +    }
-> +    else
-> +    {
-> +        rc = ns8250_io_read(vdev, offset, size, data);
-> +        pr_debug("%c 0x%04x %d 0x%08"PRIx32" %s[0x%02"PRIx32"]\n",
-> +                op(dir), addr, size,
-> +                *data & io_access_mask[size],
-> +                ns8250_regname(vdev, offset, dir), reg);
-
-The pr_debug() are likely too verbose.
-
-> +    }
-> +    if ( rc )
-> +        pr_err("%c 0x%04x %d 0x%08"PRIx32": unsupported access\n",
-> +                op(dir), addr, size, *data & io_access_mask[size]);
-> +    rc = X86EMUL_OKAY;
-> +
-> +out:
-> +    spin_unlock(&vdev->lock);
-
-You seem to have forgotten a rcu_unlock_domain() call here?  (even if
-it's a no-op).
-
-> +
-> +    return rc;
-> +#undef op
-> +}
-> +
-> +/*
-> + * Parse virtual NS8250 configuration.
-> + *   hvm.ns8250.console=[com1|com2|com3|com4]
-> + */
-> +static const struct resource *ns8250_parse(void)
-> +{
-> +    int i;
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(ns8250_x86_legacy_uarts); i++ )
-> +        if ( !strcasecmp(hvm_ns8250_console, ns8250_x86_legacy_uarts[i].name) )
-> +            return ns8250_x86_legacy_uarts[i].res;
-> +
-> +    return ns8250_x86_legacy_uarts[0].res;
-> +}
-> +
-> +/*
-> + * Claim virtual NS8250 resources to domain.
-> + */
-> +static int ns8250_claim(
-> +    struct vuart_ns8250 *vdev, const struct resource *r, struct domain *d)
-> +{
-> +    unsigned long size;
-> +    unsigned long start;
-> +    unsigned long end;
-> +
-> +    vdev->irq = NO_IRQ;
-> +    vdev->io_addr = IORESOURCE_UNKNOWN;
-> +    vdev->io_size = IORESOURCE_UNKNOWN;
-> +
-> +    foreach_resource(r)
-> +    {
-> +        if ( r->type & IORESOURCE_IO )
-> +        {
-> +            size = r->size;
-> +            start = r->addr;
-> +            end = r->addr + r->size - 1;
-> +
-> +            if ( !ioports_access_permitted(d, start, end) )
-> +                ioports_permit_access(d, start, end);
-
-Are you sure this is intended?  By using ioports_permit_access() you
-are giving the domain access to the hardware (host) IO ports, and thus
-possibly avoiding the trapping into the IO handlers.
-
-However this is not very well-wired in HVM, because there's still an
-extra guest IO port -> host IO port translation that you are not
-adding.
-
-You shouldn't need the ioports_permit_access() for using the emulated
-vUART.
-
-> +
-> +            register_portio_handler(d, start, size, ns8250_io_handle);
-> +
-> +            /* Used to assert I/O port handler */
-> +            vdev->io_addr = start;
-> +            vdev->io_size = size;
-> +        }
-> +        else if ( r->type & IORESOURCE_IRQ )
-> +            /* "Claim" virtual IRQ; assumes no ISA-device IRQ sharing */
-> +            vdev->irq = r->addr;
-> +        else
-> +            return -EINVAL;
-> +    }
-> +
-> +    if ( vdev->irq == NO_IRQ
-> +            || vdev->io_addr == IORESOURCE_UNKNOWN
-> +            || vdev->io_size == IORESOURCE_UNKNOWN )
-> +        return -ENODEV;
-> +
-> +    return 0;
-> +}
-> +
-> +/*
-> + * Unclaim virtual NS8250 resources.
-> + */
-> +static void ns8250_unclaim(struct vuart_ns8250 *vdev, struct domain *d)
-> +{
-> +    unsigned long size = vdev->io_size;
-> +    unsigned long start = vdev->io_addr;
-> +    unsigned long end = start + size - 1;
-> +
-> +    if ( ioports_access_permitted(d, start, end) )
-> +        ioports_deny_access(d, start, size);
-> +}
-> +
-> +static int ns8250_init(struct domain *d, const struct resource *r)
-> +{
-> +    struct vuart_ns8250 *vdev = &d->arch.hvm.vuart;
-> +    struct xencons_interface *cons;
-> +    int rc;
-> +
-> +    cons = _xzalloc(sizeof(*vdev->cons), sizeof(void *));
-
-xvzalloc(typeof(*vdev->cons));
-
-> +    if ( cons == NULL )
-> +        return -ENOMEM;
-> +
-> +    rc = ns8250_claim(vdev, r, d);
-> +    if ( rc )
-> +    {
-> +        xfree(cons);
-> +        return rc;
-> +    }
-> +
-> +    spin_lock_init(&vdev->lock);
-> +    hvm_irq_lower(d, vdev->irq);
-> +
-> +    vdev->dl = (UART_CLOCK_HZ / 115200) >> 4; /* Report 115200 baud rate */
-> +    vdev->cons = cons;
-> +    vdev->owner = d;
-> +    vdev->flags = NS8250_READY | NS8250_IRQ_THRE_PENDING;
-> +
-> +    return 0;
-> +}
-> +
-> +static void ns8250_exit(struct domain *d)
-> +{
-> +    struct vuart_ns8250 *vdev = &d->arch.hvm.vuart;
-> +
-> +    spin_lock(&vdev->lock);
-> +
-> +    if ( !(vdev->flags & NS8250_READY) )
-> +        goto out;
-> +
-> +    ns8250_unclaim(vdev, d);
-> +    ns8250_fifo_tx_reset(vdev);
-> +    xfree(vdev->cons);
-> +
-> +    vdev->cons = NULL;
-> +    vdev->owner = NULL;
-> +    vdev->flags = 0;
-> +
-> +out:
-> +    spin_unlock(&vdev->lock);
-> +}
-> +
-> +int vuart_putchar(struct vuart_ns8250 *vdev, char ch)
-> +{
-> +    int rc;
-> +
-> +    spin_lock(&vdev->lock);
-> +
-> +    if ( !(vdev->flags & NS8250_READY) )
-> +    {
-> +        rc = -ENODEV;
-> +        goto out;
-> +    }
-> +
-> +    /* Echo the user input on the console */
-> +    printk("%c", ch);
-
-FWIW, I would move the printk() after the error checks, so that the
-character is only echoed if handled.
-
-> +
-> +    /*
-> +     * Device is in loopback mode; do nothing.
-> +     */
-> +    if ( vdev->regs[UART_MCR] & UART_MCR_LOOP )
-> +    {
-> +        rc = -EBUSY;
-> +        goto out;
-> +    }
-> +
-> +    rc = ns8250_fifo_rx_putchar(vdev, ch);
-> +    if ( rc == -ENOSPC )
-> +        vdev->regs[UART_LSR] |= UART_LSR_OE | UART_LSR_DR;
-> +    else
-> +        /* NB: UART_LSR_DR is also set when UART_LSR is accessed. */
-> +        vdev->regs[UART_LSR] |= UART_LSR_DR;
-> +
-> +    /* FIXME: check FCR when to fire an interrupt */
-> +    ns8250_irq_assert(vdev);
-> +
-> +out:
-> +    spin_unlock(&vdev->lock);
-> +
-> +    return rc;
-> +}
-> +
-> +int domain_vuart_init(struct domain *d)
-> +{
-> +    struct vuart_ns8250 *vdev = &d->arch.hvm.vuart;
-> +    const struct resource *r;
-> +
-> +    memset(vdev, 0, sizeof(*vdev));
-> +
-> +    r = ns8250_parse();
-> +    if ( r != NULL )
-> +        return ns8250_init(d, r);
-> +
-> +    return -ENODEV;
-> +}
-> +
-> +void domain_vuart_free(struct domain *d)
-> +{
-> +    ns8250_exit(d);
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-> index 333501d5f2ac01676646b9b277b551f06d43c3a5..d4ce25896259fc9763477e88d56bacbe4f78af5b 100644
-> --- a/xen/arch/x86/include/asm/hvm/domain.h
-> +++ b/xen/arch/x86/include/asm/hvm/domain.h
-> @@ -16,6 +16,7 @@
->  #include <asm/hvm/io.h>
->  #include <asm/hvm/vmx/vmcs.h>
->  #include <asm/hvm/svm/vmcb.h>
-> +#include <asm/hvm/vuart_ns8250.h>
->  
->  #ifdef CONFIG_MEM_SHARING
->  struct mem_sharing_domain
-> @@ -73,6 +74,10 @@ struct hvm_domain {
->      struct hvm_vioapic    **vioapic;
->      unsigned int           nr_vioapics;
->  
-> +#if defined(CONFIG_HAS_VUART_NS8250)
-> +    struct vuart_ns8250    vuart;
-
-Since this is supposed to possibly be used by just a small amount of
-domain on the system, I would rather make this a pointer:
-
-struct vuart_ns8250    *vuart;
-
-And embed the xencons_ring inside of it directly, so that you just
-have to allocate vuart_ns8250.
-
-> +#endif
-> +
->      /*
->       * hvm_hw_pmtimer is a publicly-visible name. We will defer renaming
->       * it to the more appropriate hvm_hw_acpi until the expected
-> diff --git a/xen/arch/x86/include/asm/hvm/vuart_ns8250.h b/xen/arch/x86/include/asm/hvm/vuart_ns8250.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..e1013751f955441a9089ea38c96c4605a7f4cb75
-> --- /dev/null
-> +++ b/xen/arch/x86/include/asm/hvm/vuart_ns8250.h
-> @@ -0,0 +1,75 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * NS8250-compatible UART Emulator.
-> + */
-> +#if !defined(HVM__VUART_NS8250_H)
-
-As commented by Jan, better use #ifndef.
-
-> +#define HVM__VUART_NS8250_H
-> +
-> +#include <xen/spinlock.h>
-> +#include <xen/8250-uart.h>
-> +#include <public/io/console.h> /* xencons_interface */
-> +
-> +/*
-> + * NS8250 emulator operational flags.
-> + */
-> +enum {
-> +    /* Emulator is ready */
-> +    NS8250_READY                = BIT(0, U),
-> +    /* Trigger re-delivery of THRE interrupt */
-> +    NS8250_IRQ_THRE_PENDING     = BIT(1, U),
-
-I'm unsure the unnamed enum buys you much here if you end up assigning
-values anyway.  You might as well do:
-
-#define NS8250_READY            BIT(0, U)
-#define NS8250_IRQ_THRE_PENDING BIT(1, U)
-
-It would be good if you could integrate this with the flags field
-being declared using DECLARE_BITMAP().  Otherwise you might need some
-build-time check to ensure max defined flag fits in the struct flags
-field.
-
-> +};
-> +
-> +/*
-> + * Virtual NS8250 device state.
-> + */
-> +struct vuart_ns8250 {
-> +    uint16_t dl;                    /* Divisor Latch */
-> +    uint8_t regs[UART_MAX];         /* Registers */
-
-Doesn't regs already account for the divisor latch register?
-
-> +    uint32_t flags;                 /* Virtual device flags */
-
-See comment above about using DECLARE_BITMAP().
-
-> +    uint64_t io_addr;               /* Guest I/O region base address */
-
-IO space is limited to 16bits, hence there's no need to use a uint64_t
-to store the address. Either uint16_t, or just a plain unsigned int
-will suffice.  Same for size below.
-
-> +    uint64_t io_size;               /* Guest I/O region size */
-> +    int irq;                        /* Guest IRQ# */
-> +    struct xencons_interface *cons; /* Emulated RX/TX FIFOs */
-
-Any reason you re-use the xencons interface?  And any reason it's a
-pointer instead of being part of vuart_ns8250 itself?
-
-> +    struct domain *owner;           /* Owner domain */
-> +    spinlock_t lock;                /* Protection */
-> +};
-> +
-> +#if defined(CONFIG_HAS_VUART_NS8250)
-> +
-> +int vuart_putchar(struct vuart_ns8250 *vdev, char ch);
-> +
-> +/*
-> + * Match the names w/ arch/arm/vuart.h
-> + * FIXME: move to common vuart.h
-> + */
-> +int domain_vuart_init(struct domain *d);
-> +void domain_vuart_free(struct domain *d);
-> +
-> +#else
-> +
-> +static inline int vuart_putchar(struct vuart_ns8250 *vdev, char ch)
-> +{
-
-Hard to tell as there are no users of vuart_putchar() in this patch,
-but it seems you might want an ASSERT_UNREACHABLE() here.
-
-> +    return -1;
-> +}
-> +
-> +static inline int domain_vuart_init(struct domain *d)
-> +{
-> +    return -ENODEV;
-> +}
-> +
-> +static inline void domain_vuart_free(struct domain *d)
-> +{
-
-Both init and free calls are gated with domain_has_vuart(), so you
-might want to also add ASSERT_UNREACHABLE() here.
-
-Thanks, Roger.
 
