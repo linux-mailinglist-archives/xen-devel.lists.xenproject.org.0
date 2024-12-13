@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25E299F15D3
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 20:31:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857148.1269568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CDE79F15D4
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 20:31:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857149.1269577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tMBN9-0002gZ-Tq; Fri, 13 Dec 2024 19:30:47 +0000
+	id 1tMBNE-0002wq-7m; Fri, 13 Dec 2024 19:30:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857148.1269568; Fri, 13 Dec 2024 19:30:47 +0000
+Received: by outflank-mailman (output) from mailman id 857149.1269577; Fri, 13 Dec 2024 19:30:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tMBN9-0002eE-QW; Fri, 13 Dec 2024 19:30:47 +0000
-Received: by outflank-mailman (input) for mailman id 857148;
- Fri, 13 Dec 2024 19:30:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tMBNE-0002uz-4g; Fri, 13 Dec 2024 19:30:52 +0000
+Received: by outflank-mailman (input) for mailman id 857149;
+ Fri, 13 Dec 2024 19:30:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=I5eD=TG=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
- id 1tMBN8-0002e8-Gr
- for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 19:30:46 +0000
+ id 1tMBNC-0002uA-HY
+ for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 19:30:50 +0000
 Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
  [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bee7d81c-b988-11ef-99a3-01e77a169b0f;
- Fri, 13 Dec 2024 20:30:44 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c1e559a7-b988-11ef-a0d6-8be0dac302b0;
+ Fri, 13 Dec 2024 20:30:49 +0100 (CET)
 Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-53df6322ea7so2982485e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 13 Dec 2024 11:30:44 -0800 (PST)
+ 2adb3069b0e04-5401be44b58so2133033e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Dec 2024 11:30:49 -0800 (PST)
 Received: from stoup.. ([91.209.212.67]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54120c01051sm6972e87.156.2024.12.13.11.30.40
+ 2adb3069b0e04-54120c01051sm6972e87.156.2024.12.13.11.30.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Dec 2024 11:30:43 -0800 (PST)
+ Fri, 13 Dec 2024 11:30:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bee7d81c-b988-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: c1e559a7-b988-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1734118244; x=1734723044; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1734118249; x=1734723049; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ks6G+A84FfZ3IMwYe7rtmCGNogRG46Y1v4JaJo0a9Is=;
-        b=S+PZ3DHfsJ0S9wjWF0R8cacakxTf31oZVROvgLOyb2MHSO5N0+OHgBalb/5/Hfq+SS
-         VIRFd8lwme4lMOX1E6SDa639d0aFK6jGCgMtvxKnoFlDAXAMz4l7KiYV23SQr+eDh7BG
-         BAX90NAiVsltKhOP47SQ10OHIeIyhGnqYS1/5R7T36RPERwkOCIhZ6/TrcyEVVsgBiaD
-         AvRPy51pzOocKVhMRGgg0hkX4XbDmIXt704Se+LWYWMhrhSgyuG8PDHnWhiMxTvVd/E+
-         85VN4zmQatP8A3Pcz1msQluaalA7WxMq5EfVHPTwA8YuhzdldmSc1rG5EuGfHx2t4cqG
-         LoEQ==
+        bh=G5t5Kfg88Idn9A8sdeK/3C+aA4Q4/f69T01+9FYpo+k=;
+        b=dV0MQvqM07waF9qRZdtPAk2OkKBlQl6sfLWkrLfmYsMtdUHriL5r+bPTWDAnEqESAc
+         vvPPMyEmJ8I2imbb6bFkovdiEhq2uc9GGjo/TW7HdCpmFWo7FdaXyrNbiX661c9BgF0Z
+         P0MnMrhQu3z6I+WaIgpbPvB/9g3mNmB5VyzOCmA+pSLCGcVgzz63oRvhtxYrBFugYF/0
+         uEyv/owZvMmze8UC1b4Uj68uI4X0CrIivLp9oaBoBOOmv/IP/blBUl7ZUtHl/gixA7ss
+         y/ekH5+jef74IJu4GVt5DJumeXpfq0v0F9BufnvTrMqbvY/0QyJoSYGTbMW47rPDeiw+
+         cmiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734118244; x=1734723044;
+        d=1e100.net; s=20230601; t=1734118249; x=1734723049;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Ks6G+A84FfZ3IMwYe7rtmCGNogRG46Y1v4JaJo0a9Is=;
-        b=FdCUFeiCki8FIAW6XiDsXKDI4g5b3mvaMUaBDmPZQ5R6Rki41tEhWbrU8un5u1hmj/
-         7Ht0sJe1CzLWJJ9fS/nNNXvAbLqXT86S5GWRD8c33Sgh2EfTpFFVrXE8blu/LWB18BX2
-         wwk05GOlrO7VTeQghkSZSDKlSFNx6F+0cdyhjP+f+LAKQ4W7u0PAmivi8ozmHHIj7SFk
-         zWgJgvpoc8nxFqqqW3JDNGgjrAqjHYJx4FJymIL+/aWaIIpLepPYwyhwC5uBiczSukH1
-         3/Zok734e6p0ZJDMTpKG6XwEJxfxKpqvGz1h50ui+uPmhHgo1f4yLGscC6Ra3u2OL+LJ
-         OyQA==
-X-Forwarded-Encrypted: i=1; AJvYcCXlKqZF0K4zRvDyw6rf+d0XBnmd0KnV19cfI1KmM1lvIpiweg6XzhsZqcNT7CYFU62kwRcVlvzYm3Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdYwSUKgSwS8ncVeenWICLm0PiEIQyMhWerRZ8z3LzghJp3arv
-	DhOv5LKtDso86UcKvAxIhEP65Dq8L3TbfffJFWvtCUTkCtBJOTU9GC+zWsw5/sw=
-X-Gm-Gg: ASbGncuRYIZ/gSdPmnZYPOMR2YS0zYDoTjisBgCesjispW05yrwjiKhkpu9CJbL+IVA
-	9pokZbsP8jIGIWx8j115iNOiyA4x/NwK33VemfQbtqBzcQUsIHuScAS46FBqkjRzMPSJPstFg6X
-	0C1/DiBnBaQAvlfGwN29CAx9u7hQpD0SO1k0P9/G3i5BV1iPvQEH/c7E/yVwWvowoLSMfSePb84
-	tK7LYM0KxK44CpIwtMzX0k7lUbDOOFmGe9Ig1aVGSOb5RTRnQu8cor6Zbwd6A==
-X-Google-Smtp-Source: AGHT+IFGZJIZIUb5LjrLjVc0WvQwaJBK5eY0K7njVad3ONjLROwm4SnNIJX99T953BtT5rEvxmgCfA==
-X-Received: by 2002:a05:6512:3e07:b0:53e:2fdb:4de3 with SMTP id 2adb3069b0e04-540905955ccmr1343488e87.44.1734118243635;
-        Fri, 13 Dec 2024 11:30:43 -0800 (PST)
+        bh=G5t5Kfg88Idn9A8sdeK/3C+aA4Q4/f69T01+9FYpo+k=;
+        b=OD+o1ahs1Boucl6jUsV+lFPhBtbDlpL6oD9OkoVBtZ7HVp+rOWqxKTyZDRLrQmWy30
+         0wCYlnvXggP/toFCWuuwQ9OFr77WEoIyzHf0a0W3OKIg4m6fGbDQOSqep0dKzpYVf+mU
+         oEpJRaxsOlex+koc+B23Ny9YAOIzX5xS2E3n93VqNtQa2HUMe7oAo9XKF/qMgT9ACMEY
+         BJEqSpMa4BD3GzfHqvjvzy/MC9u3RWC/KF5+4rqpjr9g/7vzRWtZWYQfd4rhOFBAbc50
+         OdkLdevASleDLY0KViJka9dsm8O4b/YeUphfdYpebLhkt4DQYGiwXysXc9TAkGgWoYBy
+         OT4A==
+X-Forwarded-Encrypted: i=1; AJvYcCWGh7ni0Z3MMevRZ+h/BiU2/0MNRBRa+fFOQu42sMAezL0EYhJ8p2W1RTokyuuYhq3vthRKqLLcGdE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzCUNEuNoeolrYFZrkQj54VXkWkNtoWG8SLBOwuz9JuJINHb3IM
+	2hgUbWI969tKXnX+Usvk435WHtR8D7FLEoDUV5Fu37zyOHXKAXmf1kSDKeETj+K74j7khnRsBIt
+	Wk0A/iIpT
+X-Gm-Gg: ASbGncvBNxCqaXCVbGG6is/mVjMr2Hedf1ikBCefgWbAV+fn/8kNCjiqWqILMuzttgU
+	OpI63Y3Ir77QeEwuBvEIkeRzYPSUhSxePWCd6YTkIUb3Sfc06UNJlwjNRevtTtYFANpJ2WnQuS2
+	szyHxuJWqqDG22LwamjxrPQkVCtY5yjiofotfKY4VMaeMd0eNfVe5k23RT/f2nY2Y+QVHv6AygB
+	rINv5GvK8EonMs1GYSCDxbJUHElLZXi7KrCGUCFFjHs+xfNRo9ess2a1JgUJg==
+X-Google-Smtp-Source: AGHT+IEVWn8s5zP1MGFumvUQTEQ3ffwofWS3mvrYSU47wD3xL4Ll8IZLZ5/xOoizBV+DtpEb6Tf3yA==
+X-Received: by 2002:a05:6512:104d:b0:540:206b:c358 with SMTP id 2adb3069b0e04-5409055826bmr965522e87.20.1734118248733;
+        Fri, 13 Dec 2024 11:30:48 -0800 (PST)
 From: Richard Henderson <richard.henderson@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -86,9 +87,9 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Paul Durrant <paul@xen.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH 68/71] hw/xen: Constify all Property
-Date: Fri, 13 Dec 2024 13:30:02 -0600
-Message-ID: <20241213193004.2515684-6-richard.henderson@linaro.org>
+Subject: [PATCH 69/71] hw/xen: Use DEFINE_PROP_END_OF_LIST in xen_sysdev_properties
+Date: Fri, 13 Dec 2024 13:30:03 -0600
+Message-ID: <20241213193004.2515684-7-richard.henderson@linaro.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241213193004.2515684-1-richard.henderson@linaro.org>
 References: <20241213190750.2513964-1-richard.henderson@linaro.org>
@@ -98,59 +99,22 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- hw/xen/xen-bus.c            | 2 +-
- hw/xen/xen-legacy-backend.c | 4 ++--
- hw/xen/xen_pt.c             | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ hw/xen/xen-legacy-backend.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-index 95b207ac8b..0d7defb8cd 100644
---- a/hw/xen/xen-bus.c
-+++ b/hw/xen/xen-bus.c
-@@ -1092,7 +1092,7 @@ unrealize:
-     xen_device_unrealize(dev);
- }
- 
--static Property xen_device_props[] = {
-+static const Property xen_device_props[] = {
-     DEFINE_PROP_UINT16("frontend-id", XenDevice, frontend_id,
-                        DOMID_INVALID),
-     DEFINE_PROP_END_OF_LIST()
 diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-index e8e1ee4f7d..b15393e934 100644
+index b15393e934..f6ad58fe13 100644
 --- a/hw/xen/xen-legacy-backend.c
 +++ b/hw/xen/xen-legacy-backend.c
-@@ -635,7 +635,7 @@ int xen_be_bind_evtchn(struct XenLegacyDevice *xendev)
- }
- 
- 
--static Property xendev_properties[] = {
-+static const Property xendev_properties[] = {
-     DEFINE_PROP_END_OF_LIST(),
+@@ -675,7 +675,7 @@ static const TypeInfo xensysbus_info = {
  };
  
-@@ -674,7 +674,7 @@ static const TypeInfo xensysbus_info = {
-     }
+ static const Property xen_sysdev_properties[] = {
+-    {/* end of property list */},
++    DEFINE_PROP_END_OF_LIST(),
  };
  
--static Property xen_sysdev_properties[] = {
-+static const Property xen_sysdev_properties[] = {
-     {/* end of property list */},
- };
- 
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 3635d1b39f..557aa98be4 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -931,7 +931,7 @@ static void xen_pt_unregister_device(PCIDevice *d)
-     xen_pt_destroy(d);
- }
- 
--static Property xen_pci_passthrough_properties[] = {
-+static const Property xen_pci_passthrough_properties[] = {
-     DEFINE_PROP_PCI_HOST_DEVADDR("hostaddr", XenPCIPassthroughState, hostaddr),
-     DEFINE_PROP_BOOL("permissive", XenPCIPassthroughState, permissive, false),
-     DEFINE_PROP_END_OF_LIST(),
+ static void xen_sysdev_class_init(ObjectClass *klass, void *data)
 -- 
 2.43.0
 
