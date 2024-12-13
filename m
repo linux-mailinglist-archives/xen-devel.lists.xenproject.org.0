@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6969F0B9A
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 12:47:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.856625.1269187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 893A19F0BE8
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 13:09:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.856643.1269197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM48s-0002Al-Ki; Fri, 13 Dec 2024 11:47:34 +0000
+	id 1tM4T6-0005Ud-CO; Fri, 13 Dec 2024 12:08:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 856625.1269187; Fri, 13 Dec 2024 11:47:34 +0000
+Received: by outflank-mailman (output) from mailman id 856643.1269197; Fri, 13 Dec 2024 12:08:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM48s-00028o-Ho; Fri, 13 Dec 2024 11:47:34 +0000
-Received: by outflank-mailman (input) for mailman id 856625;
- Fri, 13 Dec 2024 11:47:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tM4T6-0005SI-9Y; Fri, 13 Dec 2024 12:08:28 +0000
+Received: by outflank-mailman (input) for mailman id 856643;
+ Fri, 13 Dec 2024 12:08:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qzCF=TG=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1tM48r-00028i-Hq
- for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 11:47:33 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20624.outbound.protection.outlook.com
- [2a01:111:f403:2412::624])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 085d713f-b948-11ef-99a3-01e77a169b0f;
- Fri, 13 Dec 2024 12:47:31 +0100 (CET)
-Received: from DS7P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::15) by
- DM6PR12MB4268.namprd12.prod.outlook.com (2603:10b6:5:223::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8251.16; Fri, 13 Dec 2024 11:47:24 +0000
-Received: from DS1PEPF00017093.namprd03.prod.outlook.com
- (2603:10b6:8:1ca:cafe::d9) by DS7P220CA0008.outlook.office365.com
- (2603:10b6:8:1ca::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.18 via Frontend Transport; Fri,
- 13 Dec 2024 11:47:24 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF00017093.mail.protection.outlook.com (10.167.17.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8251.15 via Frontend Transport; Fri, 13 Dec 2024 11:47:24 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
- 2024 05:47:24 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 13 Dec 2024 05:47:21 -0600
+ <SRS0=8nQu=TG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tM4T4-0005Qf-Rp
+ for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 12:08:26 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f4cd3256-b94a-11ef-a0d6-8be0dac302b0;
+ Fri, 13 Dec 2024 13:08:26 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5d0d32cd31aso2015931a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Dec 2024 04:08:25 -0800 (PST)
+Received: from localhost ([213.195.123.63]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa68770c481sm692330766b.110.2024.12.13.04.08.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Dec 2024 04:08:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,135 +44,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 085d713f-b948-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aiGocDun8H1dOntdG6WgeUR2/XzSGUPHiEF4Jw//R7rp1Y9xvzuPRdHK/7dULqPuIUmISpsVI84xEQR0Z45scjI/5PBgHqy9fwiDfOW0YAsxcK7LDPFBoUgrD0NNxGtXqZySNrwCPtLzRvw0v8irfPwUsoO1Rr/sF/+kfjrp8+mdRpFwHEtpwSuOeSET1dR4jtTZ2C0Q1MfpH8FBJD610jcGxVVGwXz5MRIwddIzpj3CagR8KmrFgRHzvXTFgw7f2RfVpZnGXdjI+oRJzTbKDAYgp9d9ZL4bvcDx1LjZzwsJ6DyBGiwnXSPclnjsj7Sl1ySD77tT3eY+QjB9M7yObw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E4gkhHjeOW+EXymXd/7PefBvELrnzXP5XWlm4IfBqo0=;
- b=m3ZeAZkDI22ncWeXm51ADJ612UhWIDWLt5W/RMzMnKg3mkf1r2Uym5o+rfZZeW+mfs7XlSQOrykYEg4Je7lRLrkaUT2gYGMv5h+YFATz4K5yVlovrnHnDGUNQqxZphoz/JEADG7whPhb0cZjm50zsBzj0lvIS18VkazXjOxiE55iW42BYeOiIhL4eMeX+uM5F5LpUbITi7a2cSde5epNO+hvs6idBfaF5MNNKZSQZhUbxRrpv8gLPYVH7JeklziegIsKS8e29i2AXgY69hTLyIinaww2CRAsw2yJ/JIbn2kPXi5lX+/6qlRpJErfI0g93r6SBmFedyLHG/cv/fiK3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=minervasys.tech smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E4gkhHjeOW+EXymXd/7PefBvELrnzXP5XWlm4IfBqo0=;
- b=kJe2UYuveE+G2R5YMpRnJ+Or1/9NOPbchMBglFHWaA17uGfF3N+H7iraPx7/Pj47oOV6WQAsHCVfvvlQU6Stvx6Hgd6gvZ/Ir2xPpHIILRDAeyN7LfUDl9wwobiTe1NO8fAx5GZlQGXVDlV5OyItkHu7FPL+L7ENH2eH3eFwr/g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <daeb7503-2427-4cd8-be65-152f308ec7d2@amd.com>
-Date: Fri, 13 Dec 2024 12:47:13 +0100
+X-Inumbo-ID: f4cd3256-b94a-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1734091705; x=1734696505; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=3uiSySdXOdAjSyfpFkZEBuFnMElPBj8h17XrCKrLRdo=;
+        b=WyPzwd4FD77GO/mVHs7HAz6pDw6txrilU4eDRLyESyVygeMchIAMjM8kQhweCiipsE
+         2uF5pB/ENTylIEMI5gli4cUK2bBhgRBTZ3xKHIPtOe9OKL8nr10W07cFHIYi3+nv8UG1
+         BI6drpDiwjoxa8paoA1ZvLR86PIAU34rKK9o0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734091705; x=1734696505;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3uiSySdXOdAjSyfpFkZEBuFnMElPBj8h17XrCKrLRdo=;
+        b=edos7G7rPE08NnA4DXfQ0YOvyYXmktUqpu3EfKtq2XFvb01Xs0wLJrJAGVs3l19XH2
+         HD4bgL3aE9mBbBRnlfalfQJOII2tN2WFobNewVn9wemeukXOhqSXqilde7mxokJfTeuI
+         kIE3tgDKm/QVTbTD/eUj2+HArwEbyJCJKVBm0ZdfTZZcu/9LXv9AVEjajXE9IpavEd3P
+         OSszisE2scc/CtKeXm9VvbWX8wQdwW3PCmAuMjC4S6uHarBnI6ZqlQO+mSiBrGJtDiG5
+         5d49O0ntA3x9ElupdbtQcY3o+4Q7ksmhy/TXAXzAD4uT2Z4bALj8DnhB9DISdq0MqrQ0
+         /Rtg==
+X-Gm-Message-State: AOJu0YwggQ7zmu8IuHlciB/FhgWkUf58YQifzCXJWhqGd9/f3YOi6m5L
+	r5WVktA0VS9rMjojs/N7LTvzt+mR1Mk4/SYemU5QJ2o18zQcycaAn2qZhNON5wY8vKMNFZNUoyP
+	L
+X-Gm-Gg: ASbGnctRIEJykUn0+Q7xu+vToIEfEsbEviKx2JwgFNcH6opYD4/qHTbs1oDnoBUVdPp
+	TaKAZZx8aekUkaSrIo5T4tTlc2wjgwRnB+dM/zsITT92hzZiIINcviV+AKeGuFBwEBeFloFH89k
+	aTUmxSJFTkB7TJVLJEcHNUoc3KRSxn0e0kRk4UtCJtUd2AOo2VMTsvEvAMMdG/z/K06PAmLT6on
+	C2Fkb+m0ISLW8q349E4g3ItHjXrzV3m9yWtv9Ib3sGmSovI2LrVi5e+fTsCM+GAhA==
+X-Google-Smtp-Source: AGHT+IEN3k0DWZjpDNTuZ/Fs8fa1Vs6JmtyOmIeE3RZv5q9XAyOogPj/+3iuh9cYMAweQSCi4oYogg==
+X-Received: by 2002:a05:6402:5109:b0:5d0:abb8:7a3 with SMTP id 4fb4d7f45d1cf-5d63c30097cmr4772116a12.6.1734091705164;
+        Fri, 13 Dec 2024 04:08:25 -0800 (PST)
+Date: Fri, 13 Dec 2024 13:08:24 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmukhin@ford.com
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 32/35] x86/hvm: add debugging facility to NS8250 UART
+ emulator
+Message-ID: <Z1wjt-JR95YoJBMs@macbook.local>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-32-e9aa923127eb@ford.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 03/12] xen/arm: permit non direct-mapped Dom0
- construction
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-CC: Andrea Bastoni <andrea.bastoni@minervasys.tech>, Julien Grall
-	<julien@xen.org>, <xen-devel@lists.xenproject.org>,
-	<marco.solieri@minervasys.tech>, Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-References: <20241202165921.249585-1-carlo.nonato@minervasys.tech>
- <20241202165921.249585-4-carlo.nonato@minervasys.tech>
- <bc40c381-0998-4dd2-b5c9-5b70b45805ce@amd.com>
- <7ecc99c5-0cb5-4351-bede-cb03c9a4ac7e@xen.org>
- <293004fa-c87e-4a45-aa4c-b02456aaecea@amd.com>
- <0bacfdb6-d4ad-4dea-85d4-2851873dca4e@xen.org>
- <CAG+AhRUtMy=WckZaeWGBDSQEh_09p4cTVFWSSCxaEXv6vnLk4Q@mail.gmail.com>
- <dbab9581-2059-4662-b684-163343b61d0d@minervasys.tech>
- <2f834c6b-c9fa-4b95-abff-b9bcb8c70246@amd.com>
- <CAG+AhRW0H7VSD3tzSydue1LPaT056metxQwUXPvQ+WO17KO67A@mail.gmail.com>
- <6cb8c273-8e1d-4f34-adcc-620d4a71340c@amd.com>
- <CAG+AhRUFHH10daDvaqyhomCO6Yzyk4AUE_6E-53NmZU5auC9PQ@mail.gmail.com>
- <CAG+AhRVPiyG+mTQSF80ZEN5CsVW+0W0Y97d-Atrit9g2nO9-HQ@mail.gmail.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <CAG+AhRVPiyG+mTQSF80ZEN5CsVW+0W0Y97d-Atrit9g2nO9-HQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017093:EE_|DM6PR12MB4268:EE_
-X-MS-Office365-Filtering-Correlation-Id: db396f19-5947-46ed-77e9-08dd1b6be95d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cnlUT3d5UXFHWnB4VVRmTllKNXoxZXBWK0FNZ3NVTUxyMmdMTkNYODRjY2N1?=
- =?utf-8?B?U2ZwSDh1NHE3NjVkdXZhU05xSkxTM2Urem5NVEZxOUJNaFZBVk9tbW0zS1Nr?=
- =?utf-8?B?L1NTZmY0d24zaTA3eWk2MlVCczd4NEZVTGlMLzNaUUVpbk1kMzlHN0Z4Qnds?=
- =?utf-8?B?SS9Kbks3UDB0RjJaRzA2ekszbWd2MFJMa2NxNUVaRCtaZTlVMTVTMzNna1NX?=
- =?utf-8?B?RzVyUTNwNVZDQnIyUmZZVkRhdVlzVi9UTENhMWE3SEVmZkR6Sy9zT3U3ZENs?=
- =?utf-8?B?SUdHY2RYSXNINUo2dDJ0cktpL0FJbVZQQmdDOHB2ZThBWVE3S1ZpQ2JnV2xX?=
- =?utf-8?B?UnlRS0FSeXR6OU82a2s2R0szSDNrempxcUJ0d1VZUTVwaTZUTmFQOWQrNTYy?=
- =?utf-8?B?d0REaUhYYW9LZHVQV1hnUmZIY2VZTk9ZMGdyWnZiYmlMVXF4emtPWGhrUnJs?=
- =?utf-8?B?bWtKRWRJMEI4WjlkTDY4SDBRcm9xYmRrdW9obExrMkcyTmNTN0Y4K1FUcFlW?=
- =?utf-8?B?Q0NrZHNaWEx4RDljM1VmNkF4WW9EWVZZTzAxSDdPby9hVWpscW9ZTGNkenhF?=
- =?utf-8?B?MW1UUERqa0JGUkJVZGkxSGFMdFRrZStqYUhrb01BTDRIQ096VXFwcnFiVWlP?=
- =?utf-8?B?bHBNSUtON2tGbWZkanc0S0s1SlEzcXM0d2VtVGRtb1gzaUVNV2pWVEJFdlpN?=
- =?utf-8?B?cmFEa0VtTXVJV1NJSlMzQWxSQjNobE1TcjlNbURmdllQeFdGazBVWHZRT1p4?=
- =?utf-8?B?bDRBUXlNaXo3RnJqenAzcm1QdDhuVGc4b0xxdFAvOXhMQ0tDVlF0dVN2L0pn?=
- =?utf-8?B?V3pHNms2aGZOV3NxRmZsQkI0K055bUhYUUlpNUk4SHVPSERIbS9GeDNoRTl3?=
- =?utf-8?B?dXBwc2l3SXN3WTNBRlRHTS9MYkY0L09lMmlWT2U3bW14OHVWbFc3OXgrRjFm?=
- =?utf-8?B?aUVRaHYzNUxtS0hXbVdYTjFhejhHOFFxRUNJZjYvdXdBOWd0RHRMcmVOajk5?=
- =?utf-8?B?WXZwWUkrVC90T3Y3eVFsdXVvcDhhcVBXV0hzTGRVWjdIT2lCTHUvYlZrNXF1?=
- =?utf-8?B?MFpvdENiQjBqVTNncGFkQjhLQkhVUXd0UXE0ZXZBU1NVVHppUkU3K2VzMEVX?=
- =?utf-8?B?UUdxVjZRaVpEVTJHbEY3K0QrRVZiaGNtdWNBUjVhNGRVZlB0WVdMOEg5cms0?=
- =?utf-8?B?QlVEVUFobUUrMFZXaHdTV3JTTTZ4MURJeEpzbUplUjdkZjMzOHJKSkdOWG05?=
- =?utf-8?B?MjJGZVZLUW1jd1M2di9vT0RDNDQ3SmxSWGs3a281UExxcUkxVkh4ZGVmamQx?=
- =?utf-8?B?aE9FRmhDYnNvOU02QlNOTzFSY25ZV0QwQUhOZ0FUSW0rTmlzVCsxY2dpYll1?=
- =?utf-8?B?c2NkMUxyNTdXZFNBcjkrZ2RUMXhldDZDY2RMcEFtcFk2dm9kZjZTWmoxZEo2?=
- =?utf-8?B?YVUycEJOSklrZVZXTUpIbjFqalNvTVpxMjZFVDVlSWVPL2QxNmFmelVNc0Nv?=
- =?utf-8?B?ZlFISFdyUkxWME9rdzNYTDJaYnVycHliTDZzWWVJRTI1NTVhNWRMZEI0VFNC?=
- =?utf-8?B?S3BTR2ZvZmZRT1Ezc21ka1NZYU9iVmR1Qmk3cVp2WnE3VStPRnIvdjFZQzJN?=
- =?utf-8?B?NDlSd0YzUzhHS1NDU21IRytyYlRYWmZpMG1QTUhhNW1TMm85c3pxUXNDQnMz?=
- =?utf-8?B?MTBaUzRpa1U0RWttMlV2MGpQNlNCY0Y1ekNhdE4wTCtHWGhFOWxMVGRTZnBk?=
- =?utf-8?B?MlViT2NjTXN0d0FJQUE2ZTczcGIxall4dHpqTTRsZzFnSWxCSmdxK1dDSzk5?=
- =?utf-8?B?Umx2dk44b09WOVJjVnNvdy9KaTFFWllaRko2Nm9HVllTdWhQZk9XZzNBOENY?=
- =?utf-8?Q?t/7iHVQAJ1IxX?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 11:47:24.6052
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: db396f19-5947-46ed-77e9-08dd1b6be95d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017093.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4268
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20241205-vuart-ns8250-v1-32-e9aa923127eb@ford.com>
 
-
-
-On 13/12/2024 12:33, Carlo Nonato wrote:
+On Thu, Dec 05, 2024 at 08:42:02PM -0800, Denis Mukhin via B4 Relay wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
+> Enable keyhandler mechanism for dumping state of emulated NS8250 on the
+> console.
 > 
-> Using paste.debian:
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/arch/x86/hvm/vuart_ns8250.c | 122 ++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 122 insertions(+)
 > 
-> https://paste.debian.net/1339647/
+> diff --git a/xen/arch/x86/hvm/vuart_ns8250.c b/xen/arch/x86/hvm/vuart_ns8250.c
+> index 779dbd80d7be4e070ea9df3ae736ecdc662a527a..c8c75afaf2b2419d1dae999da1d1e400fd367791 100644
+> --- a/xen/arch/x86/hvm/vuart_ns8250.c
+> +++ b/xen/arch/x86/hvm/vuart_ns8250.c
+> @@ -25,6 +25,7 @@
+>  
+>  /* Development debugging */
+>  #define NS8250_LOG_LEVEL    0
+> +#undef NS8250_DEBUG
+>  
+>  #include <xen/types.h>
+>  #include <xen/event.h>
+> @@ -35,6 +36,9 @@
+>  #include <xen/resource.h>
+>  #include <xen/ctype.h>
+>  #include <xen/param.h>
+> +#if defined(NS8250_DEBUG)
+> +#include <xen/keyhandler.h>
+> +#endif
+>  #include <xen/console.h> /* console_input_domid() */
+>  #include <asm/setup.h>   /* max_init_domid */
+>  #include <asm/iocap.h>
+> @@ -625,6 +629,121 @@ static const char *ns8250_regname(
+>      return reg_names[reg][dir];
+>  }
+>  
+> +#if defined(NS8250_DEBUG)
 
-1. Issue I mentioned with prefixing with double underscore
-2. Generic helper should not be named ext_regions
-3. s/skip_size/min_bank_size/
+I don't think the keyhandler should be gated on NS8250_DEBUG, it
+should always be present if Xen is built with vUART support.
 
-And still you need to convince others about 128MB limit because I'm not sure.
+> +static void ns8250_dump(struct vuart_ns8250 *vdev)
+> +{
+> +    struct xencons_interface *cons = vdev->cons;
 
-Imagine, that our kernel+dtb+ramdisk is > 128MB and your first bank is 128MB. With your
-solution this would fail. Now, imagine that you sort your banks and start with the biggest
-one. You don't care about its size. It's the biggest one so if it does not fit, then that's not
-your problem.
+const for both.
 
-~Michal
+> +    uint8_t val;
+> +
+> +    printk("I/O port %02"PRIx64" IRQ %d flags %"PRIx32" owner %d\n",
 
+I think you want 04 for the io_addr field width?  So that the width is
+always fixed, and %pd for owner.
+
+> +            vdev->io_addr, vdev->irq,
+> +            vdev->flags, vdev->owner->domain_id);
+> +
+> +    printk("RX size %ld in_prod %d in_cons %d used %d\n",
+> +            sizeof(cons->in),
+> +            cons->in_prod, cons->in_cons,
+> +            cons->in_prod - cons->in_cons);
+> +
+> +    printk("TX size %ld out_prod %d out_cons %d used %d\n",
+> +            sizeof(cons->out),
+> +            cons->out_prod, cons->out_cons,
+> +            cons->out_prod - cons->out_cons);
+> +
+> +    printk("%02x RBR [ %c ] THR [ %c ] DLL %02x DLM %02x\n",
+> +            UART_RBR,
+> +            cons->in[MASK_XENCONS_IDX(cons->in_prod, cons)],
+> +            cons->out[MASK_XENCONS_IDX(cons->out_prod, cons)],
+> +            vdev->dl & 0xFFU, vdev->dl >> 8);
+> +
+> +    printk("%02"PRIx8" IER %02"PRIx8"\n", UART_IER, vdev->regs[UART_IER]);
+> +
+> +    val = (vdev->regs[UART_FCR] & UART_FCR_ENABLE) ? UART_IIR_FE_MASK : 0;
+> +    val |= ns8250_irq_reason(vdev);
+> +    printk("%02"PRIx8" FCR %02"PRIx8" IIR %02"PRIx8"\n",
+> +            UART_FCR, vdev->regs[UART_FCR], val);
+> +
+> +    printk("%02"PRIx8" LCR %02"PRIx8"\n", UART_LCR, vdev->regs[UART_LCR]);
+> +    printk("%02"PRIx8" MCR %02"PRIx8"\n", UART_MCR, vdev->regs[UART_MCR]);
+> +    printk("%02"PRIx8" LSR %02"PRIx8"\n", UART_LSR, vdev->regs[UART_LSR]);
+> +    printk("%02"PRIx8" MSR %02"PRIx8"\n", UART_MSR, vdev->regs[UART_MSR]);
+> +}
+> +
+> +static struct domain *rcu_find_first_domain_with_vuart(void)
+> +{
+> +    struct domain *d = NULL;
+> +    domid_t i;
+> +
+> +    for ( i = 0; i < max_init_domid + 1; i++ )
+> +    {
+> +        d = rcu_lock_domain_by_id(i);
+> +        if ( d == NULL )
+> +            continue;
+> +
+> +        if ( domain_has_vuart(d) )
+> +            break;
+> +
+> +        rcu_unlock_domain(d);
+> +    }
+> +
+> +    return d;
+> +}
+> +
+> +static void cf_check ns8250_keyhandler_show(unsigned char key)
+> +{
+> +    struct vuart_ns8250 *vdev;
+> +    struct domain *d;
+> +
+> +    d = rcu_find_first_domain_with_vuart();
+> +    if ( d == NULL )
+> +        return;
+
+I wonder whether you should dump the state of all domains with a
+vUART, rather than just a single domain?
+
+> +
+> +    printk("'%c' pressed -> dumping virtual NS8250 state (d%d)\n",
+> +            key, d->domain_id);
+> +
+> +    vdev = &d->arch.hvm.vuart;
+> +    spin_lock(&vdev->lock);
+
+This should likely be a trylock, so that you can still print the
+console state in case of a deadlock.
+
+> +    ns8250_dump(vdev);
+> +    spin_unlock(&vdev->lock);
+> +
+> +    rcu_unlock_domain(d);
+> +}
+> +
+> +static void cf_check ns8250_keyhandler_irq(unsigned char key)
+> +{
+> +    struct vuart_ns8250 *vdev;
+> +    struct domain *d;
+> +
+> +    d = rcu_find_first_domain_with_vuart();
+> +    if ( d == NULL )
+> +        return;
+> +
+> +    printk("'%c' pressed -> triggering IRQ on virtual NS8250 (d%d)\n",
+> +            key, d->domain_id);
+> +
+> +    vdev = &d->arch.hvm.vuart;
+> +    spin_lock(&vdev->lock);
+> +    ns8250_irq_assert(vdev);
+> +    spin_unlock(&vdev->lock);
+> +
+> +    rcu_unlock_domain(d);
+> +}
+> +
+> +static void ns8250_keyhandler_init(void)
+> +{
+> +    register_keyhandler('1', ns8250_keyhandler_show,
+> +                        "dump virtual NS8250 state", 0);
+> +    register_keyhandler('2', ns8250_keyhandler_irq,
+> +                        "trigger IRQ from virtual NS8250", 0);
+> +}
+> +#else
+> +static inline void ns8250_keyhandler_init(void)
+> +{
+> +}
+> +static inline void ns8250_dump(struct vuart_ns8250 *vdev)
+> +{
+> +}
+> +#endif /* #if defined(NS8250_DEBUG) */
+> +
+>  /*
+>   * Emulate I/O access to NS8250 register.
+>   */
+> @@ -688,6 +807,7 @@ static int cf_check ns8250_io_handle(
+>      rc = X86EMUL_OKAY;
+>  
+>  out:
+> +    ns8250_dump(vdev);
+
+Likely a remaining of some debugging?  Printing the state for every
+access is too verbose.
+
+>      spin_unlock(&vdev->lock);
+>  
+>      return rc;
+> @@ -786,6 +906,7 @@ static int ns8250_init(struct domain *d, const struct resource *r)
+>      }
+>  
+>      spin_lock_init(&vdev->lock);
+> +    ns8250_keyhandler_init();
+
+The keyhandler init should be in a __initcall(), otherwise you are
+calling it for each domain creation that has a vUART.
+
+Thanks, Roger.
 
