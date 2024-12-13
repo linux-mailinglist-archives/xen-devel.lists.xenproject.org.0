@@ -2,34 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4AE89F146C
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 18:54:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857072.1269509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D9799F1579
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2024 20:09:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857087.1269518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM9rP-0003ie-Or; Fri, 13 Dec 2024 17:53:55 +0000
+	id 1tMB29-0004Vz-5W; Fri, 13 Dec 2024 19:09:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857072.1269509; Fri, 13 Dec 2024 17:53:55 +0000
+Received: by outflank-mailman (output) from mailman id 857087.1269518; Fri, 13 Dec 2024 19:09:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tM9rP-0003fV-MB; Fri, 13 Dec 2024 17:53:55 +0000
-Received: by outflank-mailman (input) for mailman id 857072;
- Fri, 13 Dec 2024 17:53:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tMB29-0004Tc-2N; Fri, 13 Dec 2024 19:09:05 +0000
+Received: by outflank-mailman (input) for mailman id 857087;
+ Fri, 13 Dec 2024 19:09:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=59wY=TG=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1tM9rN-0003fP-Nd
- for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 17:53:53 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 367abd8c-b97b-11ef-a0d6-8be0dac302b0;
- Fri, 13 Dec 2024 18:53:52 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id BFDE8A41425;
- Fri, 13 Dec 2024 17:51:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6830CC4CED0;
- Fri, 13 Dec 2024 17:53:50 +0000 (UTC)
+ <SRS0=I5eD=TG=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
+ id 1tMB27-0004TW-IU
+ for xen-devel@lists.xenproject.org; Fri, 13 Dec 2024 19:09:03 +0000
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [2607:f8b0:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b5eb0664-b985-11ef-99a3-01e77a169b0f;
+ Fri, 13 Dec 2024 20:09:01 +0100 (CET)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ 46e09a7af769-71e1158fe3eso974845a34.1
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Dec 2024 11:09:01 -0800 (PST)
+Received: from stoup.. ([187.217.227.247]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-71e4834da91sm29697a34.18.2024.12.13.11.08.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Dec 2024 11:08:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,99 +44,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 367abd8c-b97b-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1734112430;
-	bh=giLsrBe+eXIr2Z5RCc4V156ArPFV4LhVw7wYhIzIoXE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=dsGwzCpsHyKSEp5dYNZqIU7VIPCf1+1BvfLnsNExHvF+KgHEKWxdDya2OH4Yb1KdO
-	 xjyNZsn9LGsL+5ubm9YwLy6PfO1o9HHK4GH9HnfKOzJfFxn/wgTn1u4o1aUgnAXEWn
-	 GkW8WT5ub+1C8izqxGJm68p92qbUmH0Zz6j12LSWYDuKvCO0PKAmAIFG8J70k4DM58
-	 BkmbpSUnFf6MODuN2bFpAw11s14p/2yDMhpzWn6yJuuKNDwnCnEugjbstu3jKrQ4hZ
-	 YZx0beo5hpke+CycdWaTs127pteqlLsHIM7BixvuD11GKP+6nU5Tvb5YUerVZXNZPP
-	 DkNTiHRBWPZvw==
-Date: Fri, 13 Dec 2024 11:53:49 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Kalle Valo <kvalo@kernel.org>
-Cc: Philipp Stanner <pstanner@redhat.com>,
-	Igor Mitsyanko <imitsyanko@quantenna.com>,
-	amien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Basavaraj Natikar <basavaraj.natikar@amd.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Sergey Matyukevich <geomatsi@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alex Dubov <oakad@yahoo.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Manish Chopra <manishc@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rasesh Mody <rmody@marvell.com>, GR-Linux-NIC-Dev@marvell.com,
-	Sanjay R Mehta <sanju.mehta@amd.com>,
-	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Chen Ni <nichen@iscas.ac.cn>, Ricky Wu <ricky_wu@realtek.com>,
-	Al Viro <viro@zeniv.linux.org.uk>, Breno Leitao <leitao@debian.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Mostafa Saleh <smostafa@google.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Yi Liu <yi.l.liu@intel.com>, Kunwu Chan <chentao@kylinos.cn>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	"Dr. David Alan Gilbert" <linux@treblig.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Eric Auger <eric.auger@redhat.com>, Ye Bin <yebin10@huawei.com>,
-	linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ntb@lists.linux.dev,
-	linux-pci@vger.kernel.org, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	Igor Mitsyanko <i.mitsyanko@gmail.com>
-Subject: Re: [PATCH v3 09/11] wifi: qtnfmac: use always-managed version of
- pcim_intx()
-Message-ID: <20241213175349.GA3421319@bhelgaas>
+X-Inumbo-ID: b5eb0664-b985-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1734116940; x=1734721740; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VBuAnCPgZLHdX0sVpQB+fbM15dWtrtdAGUwOdHBBqsc=;
+        b=lmkMzcGiWAmwSkFj8FYR/5sT4TP38QIHngNyyOJNNh1dIE2fvUngs/bSTaYy1HLqxk
+         ikVnyMS9TNdpoyyFqLKTOmLLuvMGDrNJm1GHpQ9EWTXNnkC3ui/dAOmq/DzekD+yh4qo
+         ZN+MLOPWZhaHNcxcQ9KRsLbpVmr42WyB+uKyxx+EbJ93XdJc3hH/aZ9IIMExbg2WIqKn
+         aFuFRdvGbbwIblilmmvmPQqBwGGebbvngD8K7thQibbhcXY/8p1ecpXbakQS8UKmvtag
+         SenTcdQSIka0994kw+/RFy4ZXyrnmvHkE4Ao76jby9uKQGhjFO7owWa6rIXE5fdhMJpO
+         DF9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734116940; x=1734721740;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VBuAnCPgZLHdX0sVpQB+fbM15dWtrtdAGUwOdHBBqsc=;
+        b=WmZG44ELWgTmrXISVE2gVVODlQm+efzVJl0+6lGg6y5toRRfUkGGrrp7MvTKW1c+QO
+         qOPQw8WTJJyNXSJ+amXjSdczyjcE5wPsfmOVe4GROTUhivupu7aluxCWaxuIsYgFcWtN
+         rxi6/OfozNZzPTipSd86WyOHs8LAde3Zeo3XNe9GlEg532+YSrr0NsdJpIJ+81IpJvqm
+         XG37zJARq1aG7Q/wvtH+yUbQTEHJqa78w83lJ2mQKxG+M2Z3fNO4PbygSGInTLAFhhRN
+         4L0qwjXEinf2cCjv3m5TN6vD3wLxCrwxiqSWOcfNA+dPSc6oV55u3Rme9CmF4MjofG7L
+         Zvtw==
+X-Forwarded-Encrypted: i=1; AJvYcCX+rP10ikkcLbXuws3g9TTAO0D+RamE1tcMUTp/amgQbr8E0vr1tCaLYaLtvF+09Tb6pMZ2pbir3eo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzrb0CK78TJsU+TMaCBBSrlMYNer5b1VVDWk9U56aG26ZIamwcj
+	TyxbKcOV1ykTijSZgT/LhuyfWjLVaygmEz4rYKpR1dbUbgGqM+rDwJVGacnTGZo=
+X-Gm-Gg: ASbGncvBUzXirFMVEa3jl7rdy2SVYlKnPDATwtz7FXGnr538tFjorMp5DMWZHZrih/0
+	cFlTZ/IvgvgHvOXeawHqInTItdvMz+oWIt7H4YVjdrOSPgitlJWKKkqb3OCzUlZJqquMPtH/s6N
+	PfhFCya4CAwjojwqi0Dsh3MnlsIrYJ++SDkm0B963ZzJvZunx3OBxp2xoS7IUdxC+lqs3nZ9X3P
+	oWpRsXVgSsx3shqyalgIatHkNc1v/se1dJgtdVL1s7FPbYacjOWwEUNCpne9U9o
+X-Google-Smtp-Source: AGHT+IG4Oaa1CFMaif+EnKB8kf2kg/gBi+Er63DHsr2guVeeoIb4v5eKEHl55hIr030QigRhTnJLHA==
+X-Received: by 2002:a05:6830:2a92:b0:71d:f6d3:9fd2 with SMTP id 46e09a7af769-71e3ba3f147mr1411664a34.24.1734116940056;
+        Fri, 13 Dec 2024 11:09:00 -0800 (PST)
+From: Richard Henderson <richard.henderson@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Kevin Wolf <kwolf@redhat.com>,
+	Hanna Reitz <hreitz@redhat.com>,
+	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs),
+	qemu-block@nongnu.org (open list:Block layer core)
+Subject: [PATCH 18/71] hw/block/xen-block: Unexport PropertyInfo
+Date: Fri, 13 Dec 2024 13:06:52 -0600
+Message-ID: <20241213190750.2513964-23-richard.henderson@linaro.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241213190750.2513964-1-richard.henderson@linaro.org>
+References: <20241213190750.2513964-1-richard.henderson@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87cyhvoox9.fsf@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-[+cc personal address for Igor]
+xen_block_prop_vdev is not used outside the file.
 
-On Fri, Dec 13, 2024 at 12:30:42PM +0200, Kalle Valo wrote:
-> Bjorn Helgaas <helgaas@kernel.org> writes:
-> 
-> > [cc->to: Igor]
-> >
-> > On Mon, Dec 09, 2024 at 02:06:31PM +0100, Philipp Stanner wrote:
-> >> pci_intx() is a hybrid function which can sometimes be managed through
-> >> devres. To remove this hybrid nature from pci_intx(), it is necessary to
-> >> port users to either an always-managed or a never-managed version.
-> >> 
-> >> qtnfmac enables its PCI-Device with pcim_enable_device(). Thus, it needs
-> >> the always-managed version.
-> >> 
-> >> Replace pci_intx() with pcim_intx().
-> >> 
-> >> Signed-off-by: Philipp Stanner <pstanner@redhat.com>
-> >> Acked-by: Kalle Valo <kvalo@kernel.org>
-> >
-> > Hoping for an ack from Igor, too.
-> 
-> Igor hasn't been around for a while so I'm not expecting see an ack from
-> him, I think the whole qtnfmac driver should be removed in the future.
-> Feel free to take the patch as is.
+Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
+---
+ hw/block/xen-block.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks, Kalle, will do.
+diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
+index aed1d5c330..72cfd6893a 100644
+--- a/hw/block/xen-block.c
++++ b/hw/block/xen-block.c
+@@ -659,7 +659,7 @@ invalid:
+  *
+  * https://xenbits.xen.org/docs/unstable/man/xen-vbd-interface.7.html
+  */
+-const PropertyInfo xen_block_prop_vdev = {
++static const PropertyInfo xen_block_prop_vdev = {
+     .name  = "str",
+     .description = "Virtual Disk specifier: d*p*/xvd*/hd*/sd*",
+     .get = xen_block_get_vdev,
+-- 
+2.43.0
+
 
