@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E90E19F2E41
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 11:38:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857691.1269911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E0CE9F2E4F
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 11:41:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857703.1269919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN8UM-0007JL-4S; Mon, 16 Dec 2024 10:38:10 +0000
+	id 1tN8XV-0000iC-Hg; Mon, 16 Dec 2024 10:41:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857691.1269911; Mon, 16 Dec 2024 10:38:10 +0000
+Received: by outflank-mailman (output) from mailman id 857703.1269919; Mon, 16 Dec 2024 10:41:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN8UM-0007GE-1E; Mon, 16 Dec 2024 10:38:10 +0000
-Received: by outflank-mailman (input) for mailman id 857691;
- Mon, 16 Dec 2024 10:38:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3c03=TJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tN8UL-0007G8-Dk
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 10:38:09 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6787e12-bb99-11ef-99a3-01e77a169b0f;
- Mon, 16 Dec 2024 11:38:07 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5d647d5df90so3833533a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 02:38:07 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d652ab5695sm3021655a12.13.2024.12.16.02.38.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2024 02:38:06 -0800 (PST)
+	id 1tN8XV-0000gj-En; Mon, 16 Dec 2024 10:41:25 +0000
+Received: by outflank-mailman (input) for mailman id 857703;
+ Mon, 16 Dec 2024 10:41:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tN8XU-0000gN-PO
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 10:41:24 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4b8969a1-bb9a-11ef-a0d6-8be0dac302b0;
+ Mon, 16 Dec 2024 11:41:24 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-435f8f29f8aso27679565e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 02:41:24 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436360154c7sm80505735e9.1.2024.12.16.02.41.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Dec 2024 02:41:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,96 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6787e12-bb99-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 4b8969a1-bb9a-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734345487; x=1734950287; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xDjQ3yeJk6FyymKuNTEpWNfKrXU4gPmReKx7i7Ge4nY=;
-        b=GMDIT01Q34GwO4C13LP9Dm8P5uPZWjC97SmkBYcpJvedPHFhRSBHhIYhD8O/qYcKBt
-         ni/fAvCNWhbdsXnEq0MsWwRLY2zK3l2mq4rxbHmBjxVMZdgOt0gFMie3vsTiRBJyurQo
-         vZL2ZfPX+z7bmlwJAK0QjlFEHY/x67gkP/aV8=
+        d=suse.com; s=google; t=1734345683; x=1734950483; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=U472/Npzn+Rc8KBcwENfcdFf4Nfo53RnxwaAKI9LbU8=;
+        b=WCWj9amvLdMA47cjPR95ozmLg16WcUDCtnmPuZGPhGwUUtew6zGBOwfDh17CmrC2s9
+         AYnI1LFUko6DhfUzL5EbGLlEYz9gk1AdumF9CyDMlJ3eCnuNlq2EFNsRYN7KgxYWz9NM
+         KkXOyA7UrTftaxGJ7b81ifx2bvidsjGQBsOIKpdcOCB4aRkpOXceo0M/D/7+Plyqs7a7
+         rBx2wzW/Hbsp7ac7JJhY6ZgBLJIDgKldw78K9vX+R4Ibs3KdwZnOHXFHGEQGJLCWiQMH
+         pWhGbGcmVTYmpiIyEqhMCbfnGPP8sZSCvI/o/rS9htJxEbApj1/BYZ1DPRgD6rli9cCS
+         M6dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734345487; x=1734950287;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xDjQ3yeJk6FyymKuNTEpWNfKrXU4gPmReKx7i7Ge4nY=;
-        b=gn18ZsbHP8LqLL8M0fceBsEql09LhkcbdQ8z+CkUSkIGnlOCqYhV5+hiET70jfc93U
-         kE2gSGqDiFyqebclpl0t7yv8O1rPmRGrYhTaLJ5TrKJdtSXJeMIOafiPmoPtvzk4Rn93
-         q4iWp9pzj7MYKGn1DwyOq88OY2J0fHn4bA4tqMcEu8Lyw4xqztKQw2wjfW2EE+tMO6G+
-         JTKVLRnWgPjRlg0zK4E705j8pGzAy940oaupFSJ4aS38kxNamPNJ2f0WkXVpVxkPFBgZ
-         +q47JOJv4mu8gNpzawifKCKJ+JDb+CvfkP2wGkYCOdY7oslA1TagRxiP/lHJgFM9vgTd
-         WKzw==
-X-Gm-Message-State: AOJu0YwyKX8QlXdfEICDc5GwkaRscxNRbjiBFu+v90TN4DsqEa0eaU8S
-	+hfA4zEwf6rfc49QuS9tVT+y2Al5dGxyb9USjDH4QyfptoXoSxEjal5riSCp4UE=
-X-Gm-Gg: ASbGncu98x/6V7T6q4JFrm9MEZsU5tH/7t4bQC13YU9EcYBpV19kM7mOeMsprbbuXyL
-	IKApjESs+e5TCqnqlM8QqEcL8aE2qNQBkCr+pXqf51I1hgDBHScyqG8F6hT7WA2LgN2wS1CKky+
-	8300kpX+gnDqjMT+dFz0PGMhUl2fiC9VwIKBN4NiVDpX2IDlaMHYZiGYni/kTSkj6R6tjiiJXZ4
-	E8iYNyIm+NM10KTDJ9mnR8YjYIcbXUl6LsVaIeKCubvMsrJwIed4HLrNqj4Jg==
-X-Google-Smtp-Source: AGHT+IEcS/DTGGk0yWNg6DrZEvSrxXyYCbvVUts0r1Uex6pabuyYvdUq2Jfpa2jlRJm889lg6pcMBg==
-X-Received: by 2002:a05:6402:2394:b0:5d0:e877:764e with SMTP id 4fb4d7f45d1cf-5d63c3b1c46mr7913752a12.24.1734345486998;
-        Mon, 16 Dec 2024 02:38:06 -0800 (PST)
-Date: Mon, 16 Dec 2024 11:38:05 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-Subject: Re: [PATCH v3] vpci: Add resizable bar support
-Message-ID: <Z2ADDeTBVyv-W3vd@macbook.local>
-References: <20241213054232.2638640-1-Jiqian.Chen@amd.com>
- <Z1__--RWN68hsOCX@macbook.local>
- <0773afe1-e892-4df5-a19e-25c55458e5cc@suse.com>
+        d=1e100.net; s=20230601; t=1734345683; x=1734950483;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U472/Npzn+Rc8KBcwENfcdFf4Nfo53RnxwaAKI9LbU8=;
+        b=kfMda5pA7B5w3hBjPU3WZE+EJ3ocTk5+ni5nw7whMQRFyipzTKUqf+Q5IsdkQ8HCBv
+         qQoKpbEHdY5hIk4IaVhi4RhB0oG2+HEZTAY5XjUWL0Y+fP86y4HAvC7VwBcs2XsiWuWi
+         DA4C6ZgTAZ70RoLazNOtuY9mWhlqRMeCXM5Nm1iZdNk9xB9ObceJPjQssoMOYOBQpgnj
+         FQJPgYon6B/eynvWEdeoctwDTlRSALexAi/7AcUR1jKmEgUrYjkEaIM8/atUGG4pPXdB
+         ojs3CXOJ3csNN8RNFBKmJfOv2dzezv9WTfx355IojwFjvpzmBc0USCSZpQ2ydKvBFINr
+         lQ3A==
+X-Forwarded-Encrypted: i=1; AJvYcCVgVfPz7lN+0xpei4bVuOwfP8tFfDjW8AnfjpG3daKgktCOkhHxIzjk5OvheVnz77KYqrqL8AetRn4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmARIVHv0prmlqpz4sY6Cn/ZxInNaivRnPgp8nJEy+RF++w/YE
+	0hzxWSwOFAg5qsrrP+2W1o2IOqVe9XaeBrZ4rR3kuiEkvxBhewtjrF0v0DJjBg==
+X-Gm-Gg: ASbGncsFKgL6M2V4YfLvmtzSXdYrBj2eSOI79UoVltvtcXKTH7LogsScdLTHBsp/7We
+	9jc2phjL1sMHTCB+eVZ2OF7Uepdxnta53/KiyPlHiPmE7jvMi/91ZUZYcH3LNBjLUY6x/i+hegY
+	qNUByOLWA5WXyFuGmcDkhVQv4taPbci9fZy4vM2mSP9Ql4zlYZkfjrSmZ4JuNjdntE2c77N1Sbd
+	UaEDC851hEwLj51rpZwzal7KLIa6/UtYswxaV12FBXqjWM+mp/tCwQEtUL/xI/i4eEdLhgw4zeZ
+	QylpOsyr8hGCA8AD/005I2FcL9ejiJKDlXsNF2gqLQ==
+X-Google-Smtp-Source: AGHT+IH8GlOnrPLZYbXM5JU1fntsaCPcyTL3jUF4/R+hjyeUPoWTONv/YYBXb9eX95sks1ySRhfN9g==
+X-Received: by 2002:a05:600c:468b:b0:434:f871:1b96 with SMTP id 5b1f17b1804b1-4362aab4cb4mr101242055e9.29.1734345683429;
+        Mon, 16 Dec 2024 02:41:23 -0800 (PST)
+Message-ID: <f5371446-98e5-42ff-aa8d-0a7252e89f1f@suse.com>
+Date: Mon, 16 Dec 2024 11:41:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0773afe1-e892-4df5-a19e-25c55458e5cc@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] xen: add new domctl get_changed_domain
+To: Juergen Gross <jgross@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241213162421.16782-1-jgross@suse.com>
+ <20241213162421.16782-6-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241213162421.16782-6-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Dec 16, 2024 at 11:30:22AM +0100, Jan Beulich wrote:
-> On 16.12.2024 11:24, Roger Pau Monné wrote:
-> > On Fri, Dec 13, 2024 at 01:42:32PM +0800, Jiqian Chen wrote:
-> >> +static int cf_check init_rebar(struct pci_dev *pdev)
-> >> +{
-> >> +    uint32_t ctrl;
-> >> +    unsigned int rebar_offset, nbars;
-> >> +
-> >> +    rebar_offset = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_REBAR);
-> > 
-> > You can do the init at definition:
-> > 
-> >     uint32_t ctrl;
-> >     unsigned int nbars;
-> >     unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
-> >                                                         PCI_EXT_CAP_ID_REBAR);
-> > 
-> > 
-> >> +
-> >> +    if ( !rebar_offset )
-> >> +        return 0;
-> >> +
-> >> +    if ( !is_hardware_domain(pdev->domain) )
-> >> +    {
-> >> +        printk("ReBar is not supported for domUs\n");
-> > 
-> > This needs a bit more information IMO:
-> > 
-> > printk(XENLOG_ERR
-> >        "%pd %pp: resizable BAR capability not supported for unprivileged domains\n",
-> >        pdev->domain, &pdev->sbdf);
-> > 
-> > I wonder if this should instead be an XSM check, but that would
-> > require a new XSM hook to process permissions for PCI capabilities.
-> 
-> Ultimately perhaps, but right now we need to bail here irrespective of
-> XSM policy, as the DomU side simply is unimplemented.
+On 13.12.2024 17:24, Juergen Gross wrote:
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -193,6 +193,57 @@ static void domain_changed_state(const struct domain *d)
+>      spin_unlock(&dom_state_changed_lock);
+>  }
+>  
+> +static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+> +                                  const struct domain *d)
+> +{
+> +    info->state = XEN_DOMCTL_GETDOMSTATE_STATE_EXIST;
+> +    if ( d->is_shut_down )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN;
+> +    if ( d->is_dying == DOMDYING_dying )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DYING;
+> +    if ( d->is_dying == DOMDYING_dead )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DEAD;
+> +    info->unique_id = d->unique_id;
+> +}
+> +
+> +int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+> +                     domid_t *domid)
+> +{
+> +    unsigned int dom;
+> +
+> +    if ( info->pad0 || info->pad1 )
+> +        return -EINVAL;
+> +
+> +    if ( d )
+> +    {
+> +        set_domain_state_info(info, d);
+> +
+> +        return 0;
+> +    }
+> +
+> +    while ( (dom = find_first_bit(dom_state_changed, DOMID_MASK + 1)) <
+> +            DOMID_FIRST_RESERVED )
+> +    {
+> +        if ( test_and_clear_bit(dom, dom_state_changed) )
 
-Yes, I should have said additionally rather than instead of the
-is_hardware_domain() check.
+For these two accesses to dom_state_changed don't you need to hold the
+lock patch 4 introduces? Also didn't you say you'd constrain the new
+sub-op to the sole domain having VIRQ_DOM_EXEC bound (which, ftaod,
+isn't enough to eliminate the race)?
 
-Thanks, Roger.
+> +        {
+> +            *domid = dom;
+> +
+> +            d = rcu_lock_domain_by_id(dom);
+> +
+> +            if ( d )
+> +            {
+> +                set_domain_state_info(info, d);
+> +
+> +                rcu_unlock_domain(d);
+> +            }
+
+Oh, on the implicit "else" is where the original memset() would come into
+play: You want to make sure at least ->state, but perhaps also ->unique_id
+are cleared (rather than demanding the caller to clear them ahead of making
+the call).
+
+Jan
 
