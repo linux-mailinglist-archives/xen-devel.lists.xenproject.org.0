@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5A19F3A6F
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 21:06:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858463.1270676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F16B9F3E0C
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 00:12:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858486.1270725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNHLg-0003Ut-L9; Mon, 16 Dec 2024 20:05:48 +0000
+	id 1tNKFg-0007lo-Tr; Mon, 16 Dec 2024 23:11:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858463.1270676; Mon, 16 Dec 2024 20:05:48 +0000
+Received: by outflank-mailman (output) from mailman id 858486.1270725; Mon, 16 Dec 2024 23:11:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNHLg-0003Sp-Hw; Mon, 16 Dec 2024 20:05:48 +0000
-Received: by outflank-mailman (input) for mailman id 858463;
- Mon, 16 Dec 2024 20:05:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tNHLf-0003Sj-HA
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 20:05:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tNHLe-006UKT-2U;
- Mon, 16 Dec 2024 20:05:47 +0000
-Received: from [82.144.38.251] (helo=[172.20.15.232])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tNHLe-00Beu4-2e;
- Mon, 16 Dec 2024 20:05:46 +0000
+	id 1tNKFg-0007jP-R9; Mon, 16 Dec 2024 23:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 858486;
+ Mon, 16 Dec 2024 23:11:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nBMF=TJ=eurecom.fr=Ariel.Otilibili-Anieli@srs-se1.protection.inumbo.net>)
+ id 1tNKFf-0007ir-PE
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 23:11:48 +0000
+Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ec92c59-bc03-11ef-a0d6-8be0dac302b0;
+ Tue, 17 Dec 2024 00:11:46 +0100 (CET)
+Received: from waha.eurecom.fr (HELO smtps.eurecom.fr) ([10.3.2.236])
+ by drago1i.eurecom.fr with ESMTP; 17 Dec 2024 00:11:45 +0100
+Received: from localhost.localdomain (88-183-119-157.subs.proxad.net
+ [88.183.119.157])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtps.eurecom.fr (Postfix) with ESMTPSA id 6034A2EAC;
+ Tue, 17 Dec 2024 00:11:45 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,61 +44,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=J6I8O2KdoJORnaTNtLWh3Ofd6xfbZLrD6Vu54ZZ1BnQ=; b=ryzy3l+7WPM7n7PP5QWdCZrBqS
-	TrKokkrEwWmOLntE8QVYILKX5bQSiJ0KYHGXg1WWkgzgveZGFcqOGSiG5FGDl/ElijXBiYeWPWpwG
-	21dDkYTfUw6UmIciW4RjlN1TZj4yns3+GHm4Ytt8baxxeRQj4MqbKOjAfeeOXEVFiWT8=;
-Message-ID: <38870638-6d87-4a0d-843d-37cc55bb54a9@xen.org>
-Date: Mon, 16 Dec 2024 21:05:44 +0100
+X-Inumbo-ID: 1ec92c59-bc03-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
+  t=1734390706; x=1765926706;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=V5URqsWiKz9IlhLRYMp2ttrU4Ct57oJxcjdineMJgC0=;
+  b=yGuygpw6vTINiwOHuEFElbtQrOIYrLRo7+wHTO0aG1z1crWEfkBlzJbK
+   4dkprCirfh9u6phjtUAbJ2IKwTKz9Y7UcT4lsXmHxOiNqJXvkMCAkO8Rw
+   V+VYpkad//fln+yaHM38tuNoXH9eq7t9Ew0vefrfmxLtPnNvWek6yVgu8
+   o=;
+X-CSE-ConnectionGUID: QJNWtmNsTWO5grxRlsaEHg==
+X-CSE-MsgGUID: RvAxfPP2RGuiFAJfolEKlw==
+X-IronPort-AV: E=Sophos;i="6.12,240,1728943200"; 
+   d="scan'208";a="28208510"
+From: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
+Subject: [PATCH v2 0/1] tools, xen/scripts: clear out Python syntax warnings
+Date: Tue, 17 Dec 2024 00:07:19 +0100
+Message-ID: <20241216231128.211648-1-Ariel.Otilibili-Anieli@eurecom.fr>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20241214161350.70515-1-Ariel.Otilibili-Anieli@eurecom.fr>
+References: <20241214161350.70515-1-Ariel.Otilibili-Anieli@eurecom.fr>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/10] xen/arm: ffa: Fine granular call support
-Content-Language: en-GB
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "jens.wiklander@linaro.org" <jens.wiklander@linaro.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1732702210.git.bertrand.marquis@arm.com>
- <1b02c9c1df9ff2230e076f25398a5de876f98a51.1732702210.git.bertrand.marquis@arm.com>
- <8d8ef7f9-d73f-4ff8-8af9-4e73cda97624@xen.org>
- <03D53BB9-1751-42DF-9AAD-41B25E915027@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <03D53BB9-1751-42DF-9AAD-41B25E915027@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hello,
 
+The series clears out Python syntax warnings. In all occurrences of the re methods,
 
-On 16/12/2024 08:06, Bertrand Marquis wrote:
-> Hi Julien,
+```
+$ git grep -Pn '[^\w_]re\.[a-z]+' | wc -l 
+69
+```
 
-Hi Bertrand,
+Where it was needed, the strings have been quoted as raw.
 
->> On 13 Dec 2024, at 23:57, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Bertrand,
->>
->> On 27/11/2024 16:07, Bertrand Marquis wrote:
->>> Create a bitmap to store which feature is supported or not by the
->>> firmware and use it to filter which calls are done to the firmware.
->>> While there reoder ABI definition by numbers to easily find the min and
->>
->> Typo (I can fix it while committing): s/reoder/reorder
-> 
-> Thanks for the finding.
-> Please fix on commit if that is ok for you.
-> 
-> There are also 2 minor findings on the patch 7 that could be fixed on commit.
+Thank you,
+--
+v2:
+* tools/misc/xensymoops got removed (2e955d2554, "tools/misc: Drop xensymoops")
+* refined regexes (https://lore.kernel.org/all/49497f8c-a2e4-49a1-aac0-96d704834f0f@citrix.com/)
 
-I think I fixed all the minor findings and it is now committed.
+Ariel Otilibili (1):
+  tools, xen/scripts: clear out Python syntax warnings
 
-Cheers,
+ tools/pygrub/src/GrubConf.py                  | 4 ++--
+ tools/pygrub/src/pygrub                       | 6 +++---
+ xen/scripts/xen_analysis/cppcheck_analysis.py | 4 ++--
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
 -- 
-Julien Grall
+2.47.1
 
 
