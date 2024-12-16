@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB8B79F301E
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 13:09:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857916.1270115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 599759F3031
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 13:12:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857935.1270145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9uy-0006an-5p; Mon, 16 Dec 2024 12:09:44 +0000
+	id 1tN9x9-0000Hw-MY; Mon, 16 Dec 2024 12:11:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857916.1270115; Mon, 16 Dec 2024 12:09:44 +0000
+Received: by outflank-mailman (output) from mailman id 857935.1270145; Mon, 16 Dec 2024 12:11:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9uy-0006YB-23; Mon, 16 Dec 2024 12:09:44 +0000
-Received: by outflank-mailman (input) for mailman id 857916;
- Mon, 16 Dec 2024 12:09:42 +0000
+	id 1tN9x9-0000FD-Ip; Mon, 16 Dec 2024 12:11:59 +0000
+Received: by outflank-mailman (input) for mailman id 857935;
+ Mon, 16 Dec 2024 12:11:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tN9uw-0006Xz-FG
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 12:09:42 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tN9x8-0000Dw-Ik
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 12:11:58 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a07c8d90-bba6-11ef-99a3-01e77a169b0f;
- Mon, 16 Dec 2024 13:09:40 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3862d16b4f5so2587576f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 04:09:40 -0800 (PST)
+ id f162d51f-bba6-11ef-99a3-01e77a169b0f;
+ Mon, 16 Dec 2024 13:11:56 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-385e27c75f4so3150169f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 04:11:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c8046c66sm7901431f8f.69.2024.12.16.04.09.39
+ ffacd0b85a97d-388c8012029sm7942524f8f.12.2024.12.16.04.11.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 04:09:39 -0800 (PST)
+ Mon, 16 Dec 2024 04:11:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a07c8d90-bba6-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: f162d51f-bba6-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734350980; x=1734955780; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734351115; x=1734955915; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NQnigSnboxqD5iDFE6IApJJq+eundlOUjIfEVV3vn5Y=;
-        b=KVZ3MVLqnssDr/iSRR871noFE4fxwCc60KehVqXJDanIaN5YI1ztviNWdBri2z/tlS
-         2tyoLReOTGJfkSKCx5AA8zBH/9FMioFwZJyod8rKrLfsqY7gAIssbMu6anOa29R4od1b
-         xfaPd+XuodA4/sJU6qafoN6SXuCAh9BJGW+Wip3BsESGYSloM9ZUBAhrMaIGBeraNzrk
-         avEixJDaFig+LCeAkZFviyERZGPa2X95GcS2w9RtKw5lD8phQFS6oBTy2cgJH1qb9M27
-         tEL8TIpb9G8UdgDTmURw2BFIzJWCmnwOU/tFPVe/41iILVePD1LFBEPwIaOP/YSDDTS8
-         CKbQ==
+        bh=Xk1JxjITef4yyd7NZvmgldkO/CBQtbZWwymd3Qndhlc=;
+        b=X2QNHOoL4bT9rXfaXtSXCFDu0FR5VU+jwKkb1kNTeEbc86sJ1JuteAup96umFf9zxh
+         wjGQk+EfdbezGjexhxWiFutYA1fc5d8pYhwE1nbfSVU8ogkCwzIJEztdd++ivALgcmVe
+         zsVtnLKok8XT0T4xvM2e01GvOh6MGWz+57qGHYN8uxWQ94LAJ/vpbYNnT5IF1o64BflW
+         pvFj2t/ipqlsnnApcq/YH20JTR0OkQy+Lxb5aSvHjYafQAAvYSrTGxM0rHkUZ/c3FCE8
+         Mz2XxJYfwK/St3yV/q5dDClCLQXwNZg1Mv3zgZLNeZ5nSDAjVewTprJQ11YMN1nab3Cg
+         2mvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734350980; x=1734955780;
+        d=1e100.net; s=20230601; t=1734351116; x=1734955916;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NQnigSnboxqD5iDFE6IApJJq+eundlOUjIfEVV3vn5Y=;
-        b=mfCnV0tPpOkavv34uv5SneWzGad16mYUc4fmaa1UqyAAXy2WwA059Pw5KOzq0nwcyJ
-         27fcFbWMYcydDA2g5xv0Y73Oa4zwLxM5Ir3t2bOZ3/hpoY6vTWapm+jp/aHKy9CCeuFM
-         SRWqjYmAEuBQXSzXeVScvTvnveUzf16L70HweotEFtLPgfxvoqqdW6UDaiACZBAWNE9D
-         yKPa44q8sUmemB3zjUKng4psvMMix9J93h1nnaQwyO3mThU3M5zVfNi08ua+EQNpFuhx
-         0DDGl9DrSk5ixm5ywhY6pLkfkBDsqszh1RZ6uBOrosiCrUcFbCrrWKHto0bejPLTHqLU
-         hw2g==
-X-Forwarded-Encrypted: i=1; AJvYcCWxcvcp/BLgRKPiASZwYIPjPjaMPEL/RjlUjkzy5kPX2gsPRKgBZoXMQ1X9rhiP5vcqxuPDkoLQhU4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwRQi6qyrUJ03DroRL+GMXx8jagXzV8Mvsn+vs+Ot73Dk5svxza
-	3XdWxb8qs/c23FqYqj5l+lh3UcbKPwDUvR/iIKkVVKcO1WING9pQHJSxQYHRxg==
-X-Gm-Gg: ASbGnctecfSAA92h2UaOsfJPdtWczvZm1NN2q+I8r2WqiYeN9MpQApBRxG5dsUn0drD
-	HapSodfJ8jUVQ4fCqpqGzw5f9tGBOrHUlvwdnZtKPDu6KYCGpEfemM1gWO0Mq1jJVbb2u1qVgGo
-	BvezlChnsXeyjnCvoHPgdjfHxYs1zU2zTTH2xELx/X85mKwKviKUf9lGiGktyLJV+aodr/ACRmH
-	si9vGrCO8Kh3pDC4KLu8VGEa1VlUjDuKcbEqbSJs/1MaDxvZzIgV1K/KawC8hyIqACC5inWUPV/
-	fFgYw+6Ez0EdGc+nUnJhsdCtRHRpwbW3L0ebdXQScw==
-X-Google-Smtp-Source: AGHT+IGDfP0Muq9PSPjw8m3623M/pAP5vBF5akTRg4GLlPJ06gWKbMgsXbsFD9SxOSN77KGktMwIbg==
-X-Received: by 2002:a5d:5f50:0:b0:385:e95b:bb46 with SMTP id ffacd0b85a97d-388c3a7dd8bmr8604839f8f.22.1734350979971;
-        Mon, 16 Dec 2024 04:09:39 -0800 (PST)
-Message-ID: <92fdf726-504b-4d3b-8043-d736b275d8d0@suse.com>
-Date: Mon, 16 Dec 2024 13:09:38 +0100
+        bh=Xk1JxjITef4yyd7NZvmgldkO/CBQtbZWwymd3Qndhlc=;
+        b=fxQvHcncThCUR3ELfSbXvnlrWwu3QoU4Mk1QzrQxjGdXy5QBzcFio23lHVmAhSyGjY
+         1eLFoi8l7KHkopmNVYKtsXbXSLlphR5L3p3dfpJ8DkHuL0wFVjd7E2YhtcSve+F0NPi5
+         eRGtAJnsGv7GQFx68rExd7zXm2ABw4NFWnqt/1tuwDokB2oKYa3+3a1ZxyX8o2EHD5cg
+         lzJmtcLnYpBWFhb5rY+SWkExpRjb7mzqVDogp+WNHA52y8wh+5y1e9q6+Kjsp9gBxV7F
+         7q+Pxf1vfsI03Bx+On7bHamSqKkMJHMVsO0kmt28PnP/WgVvSijfVUM1coSxmNaMYxPB
+         qKJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUKviMn+3cAKbeCKbpNAhAYoodtCYZf204rjB+nJoxmsEdN4mA+8z3ypKhjIrFDlJxyiSGNabqO8Kk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwIuIDx3wYJwXqbZKkzq3Z3VXG+PBpZxayG57k+BC4KsTNhv2JX
+	mTAtyFdWk0scXpzleRpny3kLT+hl/frxsm3eYYJvSGVpvgQTKM1fJeEVU5lnJvxYH4GuxKsLCv0
+	=
+X-Gm-Gg: ASbGnctuhZHhVRhl9WhT65BNrmbqbGl9HSEnKXfeOgJUpHOo1RysuL51rGAQoBrjWAJ
+	hrUs9ObjNWoONCKJTpTxLseznG0M9t1lb9FDD/fJjyLiCkBkOB8HCI0mwSFLh4FIfbe/eZGaw4n
+	Aub0JHRkQpNfV80kQT650ytXQxslw6OwhqMMdPGuRU0esXY4s91zxPukKbNnKOXgB9aP7bdnOtP
+	+vqqZahlt8OR4NSSAxGHmNBuE5Nnq31VD5cQKTrvv20EA0EowmFRQW+CU7JY9sQ0qdz0kHmoWcA
+	gklADJfJVhBE8wVzlxUjOsF8loDhC6l/LYfy3E6bYw==
+X-Google-Smtp-Source: AGHT+IHdmYiEr5wNj/uhmm2ZeWD3ydlCKITwq2Na+NlaXalUh61C04XRUhyguZP/3TUy/BYGIu9NQQ==
+X-Received: by 2002:a05:6000:2a5:b0:385:f840:e630 with SMTP id ffacd0b85a97d-3888e0b9bc0mr7748078f8f.37.1734351115653;
+        Mon, 16 Dec 2024 04:11:55 -0800 (PST)
+Message-ID: <4360dd9d-049d-462f-9c15-16a73a4027a1@suse.com>
+Date: Mon, 16 Dec 2024 13:11:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/misc: Drop xensymoops
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241216120359.10469-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v12 03/12] xen/arm: permit non direct-mapped Dom0
+ construction
+To: Michal Orzel <michal.orzel@amd.com>,
+ Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
+ <20241213162815.9196-4-carlo.nonato@minervasys.tech>
+ <adfdc378-e1cd-4500-a21c-6c5660ebfd1b@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,20 +124,123 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241216120359.10469-1-andrew.cooper3@citrix.com>
+In-Reply-To: <adfdc378-e1cd-4500-a21c-6c5660ebfd1b@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.12.2024 13:03, Andrew Cooper wrote:
-> This script is not referenced by the build system, and has escaped all Python
-> compatibility work; it's still using print statements.
+On 16.12.2024 13:08, Michal Orzel wrote:
+> On 13/12/2024 17:28, Carlo Nonato wrote:
+>> @@ -977,6 +1022,108 @@ out:
+>>      return res;
+>>  }
+>>
+>> +void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+>> +{
+>> +    struct membanks *mem = kernel_info_get_mem(kinfo);
+>> +    unsigned int i, nr_banks = GUEST_RAM_BANKS;
+>> +    struct membanks *hwdom_free_mem = NULL;
+>> +
+>> +    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
+>> +           /* Don't want format this as PRIpaddr (16 digit hex) */
+>> +           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+>> +
+>> +    mem->nr_banks = 0;
+>> +    /*
+>> +     * Use host memory layout for hwdom. Only case for this is when LLC coloring
+>> +     * is enabled.
+>> +     */
+>> +    if ( is_hardware_domain(d) )
+>> +    {
+>> +        struct membanks *gnttab = xzalloc_flex_struct(struct membanks, bank, 1);
+>> +        /*
+>> +         * Exclude the following regions:
+>> +         * 1) Remove reserved memory
+>> +         * 2) Grant table assigned to Dom0
+> Can we not mention 'Dom0'? In the future hwdom may not necessarily be dom0. Especially that
+> in other places you mention hwdom.
 > 
-> Also, the regex it uses ties it to a 32bit build of Xen, which was dropped in
-> Xen 4.3, 11 years ago.
+>> +         */
+>> +        const struct membanks *mem_banks[] = {
+>> +            bootinfo_get_reserved_mem(),
+>> +            gnttab,
+>> +        };
+>> +
+>> +        ASSERT(llc_coloring_enabled);
+> Remove this assert. There's nothing LLC special here and this could be re-used in the future
+> to provide non 1:1 hwdom.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> +
+>> +        if ( !gnttab )
+>> +            goto fail;
+>> +
+>> +        gnttab->nr_banks = 1;
+>> +        gnttab->bank[0].start = kinfo->gnttab_start;
+>> +        gnttab->bank[0].size = kinfo->gnttab_start + kinfo->gnttab_size;
+> Incorrect. You assign to 'end' to'size'. It should simply be:
+> gnttab->bank[0].size = kinfo->gnttab_size.
+> 
+>> +
+>> +        hwdom_free_mem = xzalloc_flex_struct(struct membanks, bank,
+>> +                                             NR_MEM_BANKS);
+>> +        if ( !hwdom_free_mem )
+>> +            goto fail;
+>> +
+>> +        hwdom_free_mem->max_banks = NR_MEM_BANKS;
+>> +
+>> +        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
+>> +                                     add_hwdom_free_regions, hwdom_free_mem) )
+>> +            goto fail;
+>> +
+>> +        nr_banks = hwdom_free_mem->nr_banks;
+>> +        xfree(gnttab);
+>> +    }
+>> +
+>> +    for ( i = 0; kinfo->unassigned_mem > 0 && nr_banks > 0; i++, nr_banks-- )
+>> +    {
+>> +        paddr_t bank_start, bank_size;
+>> +
+>> +        if ( is_hardware_domain(d) )
+>> +        {
+>> +            bank_start = hwdom_free_mem->bank[i].start;
+>> +            bank_size = hwdom_free_mem->bank[i].size;
+>> +        }
+>> +        else
+>> +        {
+>> +            const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+>> +            const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+>> +
+>> +            if ( i >= GUEST_RAM_BANKS )
+>> +                goto fail;
+>> +
+>> +            bank_start = bankbase[i];
+>> +            bank_size = banksize[i];
+>> +        }
+>> +
+>> +        bank_size = MIN(bank_size, kinfo->unassigned_mem);
+>> +        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
+>> +            goto fail;
+>> +    }
+>> +
+>> +    if ( kinfo->unassigned_mem )
+>> +        goto fail;
+>> +
+>> +    for( i = 0; i < mem->nr_banks; i++ )
+>> +    {
+>> +        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
+>> +               d,
+>> +               i,
+>> +               mem->bank[i].start,
+>> +               mem->bank[i].start + mem->bank[i].size,
+>> +               /* Don't want format this as PRIpaddr (16 digit hex) */
+>> +               (unsigned long)(mem->bank[i].size >> 20));
+>> +    }
+>> +
+>> +    xfree(hwdom_free_mem);
+>> +    return;
+>> +
+>> +fail:
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Nit: Style (missing indentation).
 
-
+Jan
 
