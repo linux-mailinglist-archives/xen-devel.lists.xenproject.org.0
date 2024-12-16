@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D7A9F2EDE
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 12:10:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857761.1269975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 483CE9F2F14
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 12:24:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857773.1269985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN8z0-0006gw-Nw; Mon, 16 Dec 2024 11:09:50 +0000
+	id 1tN9Cl-0001a3-UX; Mon, 16 Dec 2024 11:24:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857761.1269975; Mon, 16 Dec 2024 11:09:50 +0000
+Received: by outflank-mailman (output) from mailman id 857773.1269985; Mon, 16 Dec 2024 11:24:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN8z0-0006eK-Kf; Mon, 16 Dec 2024 11:09:50 +0000
-Received: by outflank-mailman (input) for mailman id 857761;
- Mon, 16 Dec 2024 11:09:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tN9Cl-0001Ya-Q4; Mon, 16 Dec 2024 11:24:03 +0000
+Received: by outflank-mailman (input) for mailman id 857773;
+ Mon, 16 Dec 2024 11:24:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tN8yz-0006eE-9V
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 11:09:49 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 42def42a-bb9e-11ef-99a3-01e77a169b0f;
- Mon, 16 Dec 2024 12:09:47 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4362bae4d7dso19520095e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 03:09:47 -0800 (PST)
+ id 1tN9Cj-0001YU-U1
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 11:24:01 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f523e6b-bba0-11ef-a0d6-8be0dac302b0;
+ Mon, 16 Dec 2024 12:24:00 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4361fe642ddso42223575e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 03:24:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4363602cd11sm81395475e9.14.2024.12.16.03.09.45
+ 5b1f17b1804b1-4362557c57dsm136387485e9.12.2024.12.16.03.23.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 03:09:46 -0800 (PST)
+ Mon, 16 Dec 2024 03:23:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42def42a-bb9e-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 3f523e6b-bba0-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734347387; x=1734952187; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734348240; x=1734953040; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iu+Yz6AeBKGdmKyzFjaCAIEYrTKlB4phgetCKsAvp/U=;
-        b=N93RRYgZpk8SAZh/3e1q8ue0ehSqQFqvz1GrChc+5EIoaoCWRiH658m1NFWpYUs0Ji
-         z2B3waE9ZeASJtkKk6mVeEQCgzopwWEFc7EtGH8cUrnuyiJq2jBUg/lEkjSwyOzJ8mrf
-         hwDOnrRh/5fOUEM6476+TlgWGKFVtLvnrrYFQn+9tHBZ3dpmiEteaBjRZ1JQ/0ydJW33
-         i+FdrrQpje3N1WZS0kmBTyv2x29zmwKkVlNY6UEFX9w/yAxxaA7VrPLMMwyFBwon86Tz
-         evzxS0xjPlO4gvSdwVSnncAA2ItFpWj5rPq1CkRqVCBZdQrYfv4owPhjeLqyhgIMQDKb
-         DrnQ==
+        bh=yxfdzce9dBvZit3hIoPW5hX1l7Tj1gSZWKooZXG8eMM=;
+        b=bl3lBhZMSQGhAyCnSNWF2SJM8icE0tpEudeumI19O4GLQvtiEasDg5bZOolsBNxBtm
+         kIgamhqRBqe2+ExKLYHa/xAMq46KjewNNUvE9PvNamTDIENavVuyUtWDw8DbJRrVF8Sw
+         5LAge/FzDiimCS4MHiKpkEG3j3T6Nn0HB7L2FS1JUd94kzyYzViVPehYzzzxwA1EXP7v
+         wsEY50eDCfvN+qPCmPvtHIWCx9f/brVqUqOdA2l+5ArV2gYJ8skJJ7Go812uqYFS8kG/
+         yq83kj4DgpKiue0lGJ28HS901yMKpbNPn1W/wI36PHTDSxSrpTnzDNuwTjY4OP1QsLsH
+         4UXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734347387; x=1734952187;
+        d=1e100.net; s=20230601; t=1734348240; x=1734953040;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iu+Yz6AeBKGdmKyzFjaCAIEYrTKlB4phgetCKsAvp/U=;
-        b=JQzeq3rhmUGDNkf6sxkuurelJP7yvbnjOpUq380X9BPgGlp3DxSgtfpk1cy4JIsxz2
-         hqFe3ZoiA0vD9EbJX34YD9yZdvDVTIXZVYoIjlLApMnZKBtL43VbIgSG+EBtqk4qGNLd
-         25ZJxEuLA4jQg8dJXGA+sTjsuF6mIrxowRdXTqSh0HLMK4u1xanNhL1WhXaXffqJugqn
-         Oi0RaluD/pDj2KuliRF903QFwi1oJvxHITIz6/QZPdi0IzHVdR4925trWD9FuCi2gCuk
-         lo/CdBUWXFcBgapC0srWqZ0VPN5NdpmrBcQIQsWaz/a0nY06CpxBRbN3IXxWSIs/IPGS
-         4iEg==
-X-Forwarded-Encrypted: i=1; AJvYcCXs7DkTpAfsDoY9uRaxPK7KBQOPwphpL2GvhCI3ZLB3EChtWckQzrVqE0+6729y0sf/NaS+7eHI4OA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGyy0ZzuTIgesdkiN9q8np09J9wFKNiizatoJbIj1DN8ozFssH
-	4+da/Tj7v68llXIzGZ95eYlHVM2tM90zvHTAioXyEuLgE5J2GmJirILNAR1zhQ==
-X-Gm-Gg: ASbGncskvxAGlB+SfXhjBAz1uULc9ZbznkcthylPJn3veb3buzI2O9bmVqlRjDseAa/
-	vU+MPvb4NwVs5AEtITOFxENmcI0BtsvbU3hggR+kP5/JTVU4jL7bRba6P1Z3+b3IhVqWCnCuCoY
-	18mp45kHSrYp4Ibv4FCjb77h0ipXh0zaX25TjGYEuciowxlbZYddWMS5jcJ8q8f7oud6mgWe+QP
-	MF9uhj76jUzS6G806jJy1n+Hg0CpUbYDmsTtP/zYtcha6Ltgm/Zor9lT7MDKMm4G7fNHbxCqhQ1
-	rfkfcWHGef3bCDXfCPKvMRRQwqSWQKN47nUJAjZlKw==
-X-Google-Smtp-Source: AGHT+IG2HE+WPCzsN35+35T7xKqfqTosReJP49eIYdEhlTjBMlUabIlrkv5sKcbfoaU+Osi+LcBQGQ==
-X-Received: by 2002:a05:600c:5025:b0:436:1c0c:bfb6 with SMTP id 5b1f17b1804b1-4362aab0763mr107185205e9.27.1734347386823;
-        Mon, 16 Dec 2024 03:09:46 -0800 (PST)
-Message-ID: <943d356f-e1cc-4e42-94c5-fa6d7fc157a3@suse.com>
-Date: Mon, 16 Dec 2024 12:09:48 +0100
+        bh=yxfdzce9dBvZit3hIoPW5hX1l7Tj1gSZWKooZXG8eMM=;
+        b=l2+FbX3W0r8J7Aqg/4nJEA+5p7JRMnM15SPlqHJqzxM1vS1t0G8xlz36D9/0qowGKT
+         rYkPncm02ELQwdo4OyMWaJuHnZtDRJQK9HS+tF/k/ec41O0S6gHqhdSQAdlSDLPc6G6L
+         r1O+Wh/QL0o7G6eev3u1BOTl4eEB8P1oejK06vrrO1/Qgjipz+5Z64YlOOH02FJnJZTW
+         OGBdfTXacUVgDfYbpXGsbCLzMKwJccD7oE862Xu265aoEbDc2STmKhVaeZqsoFHu0wVi
+         azxE9uZi6+EaYq+nbRtDhbluI2rN/Ma500I3AaA8hrbnk6eApmRWDS2sSY6n+8OZU3Z9
+         RBJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXyJgTcJhkmh5Ro8qu9L+sQnDerzSwX2pKlqDOxoMcn7x0KIHV/Dbhhq9BPpXkF0589B16PlSFaxaY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywc0lmsHUy2WDBnGky7Vb7I1ZyGGk8aDISwR+l+JwPi9dYUbwBb
+	U6BaW4I0AV5eEahGnqu4CClOEKkrrTfv5IuA31lg46h6NHAYSk2ciiXpd/ntOQ==
+X-Gm-Gg: ASbGncv7tAWcFZBoo00AOwhVgqWMxYF8nVzRK86F8K2gwemHw8vHZVN28LpfToyb5XL
+	xNCePp0dTICQk2iutmA+rI5XBQAdjrp4pvv24uRbT8kaNEwFIsddVMfo90iVMfJc6Dsl5Sp9Fj2
+	qN/4Jv4EKKw5brCCXGsnYUHc22wOfLNbjAJ/sRwggfHHoF3BTe4UvZNq1Qs6zln0Q+fiepi81kz
+	ogKQdiMc1NMh5/k9GOzyPq96D0yuDz0fLzxOl/F0ge0xrxUJZkS/fAyhlT5K/Mdz1D9xniIbf2A
+	6iY8iYrUy20+DdDQCgu5TwRnzRnGUzDDSv5WcoW+cw==
+X-Google-Smtp-Source: AGHT+IEaadTZpVH/9bJh6C7XOcdqNoUr0UWYFKJGSz+NdL8CiRtWmTOStyyaJtqc1kmAkVd/v7kl+A==
+X-Received: by 2002:a05:600c:1f0b:b0:434:a94f:f8a9 with SMTP id 5b1f17b1804b1-4362aaa495emr90710175e9.28.1734348239901;
+        Mon, 16 Dec 2024 03:23:59 -0800 (PST)
+Message-ID: <0f75fcd2-6c5d-4be6-9fc9-3c7b6c10ae51@suse.com>
+Date: Mon, 16 Dec 2024 12:24:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] xen/riscv: update layout table in config.h
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1733937787.git.oleksii.kurochko@gmail.com>
- <c305ae5003da25d7ea4d4aa5602c4b22f83df4a8.1733937787.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3] vpci: Add resizable bar support
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Huang Rui <ray.huang@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20241213054232.2638640-1-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,39 +118,84 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c305ae5003da25d7ea4d4aa5602c4b22f83df4a8.1733937787.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20241213054232.2638640-1-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.12.2024 18:27, Oleksii Kurochko wrote:
-> Make all upper bounds (end addresses) for areas inclusive to align
-> with the corresponding definitions.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 13.12.2024 06:42, Jiqian Chen wrote:
+> --- /dev/null
+> +++ b/xen/drivers/vpci/rebar.c
+> @@ -0,0 +1,130 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+> + *
+> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
+> + */
+> +
+> +#include <xen/hypercall.h>
+> +#include <xen/vpci.h>
+> +
+> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> +                                      unsigned int reg,
+> +                                      uint32_t val,
+> +                                      void *data)
+> +{
+> +    uint64_t size;
+> +    struct vpci_bar *bar = data;
+> +
+> +    size = PCI_REBAR_CTRL_SIZE(val);
+> +    if ( bar->enabled )
+> +    {
+> +        if ( size == bar->size )
+> +            return;
+> +
+> +        /*
+> +        * Refuse to resize a BAR while memory decoding is enabled, as
+> +        * otherwise the size of the mapped region in the p2m would become
+> +        * stale with the newly set BAR size, and the position of the BAR
+> +        * would be reset to undefined.  Note the PCIe specification also
+> +        * forbids resizing a BAR with memory decoding enabled.
+> +        */
+> +        gprintk(XENLOG_ERR,
+> +                "%pp: refuse to resize BAR with memory decoding enabled\n",
+> +                &pdev->sbdf);
+> +        return;
+> +    }
+> +
+> +    if ( !((size >> PCI_REBAR_SIZE_BIAS) &
+> +           MASK_EXTR(pci_conf_read32(pdev->sbdf,
+> +                                     reg - PCI_REBAR_CTRL + PCI_REBAR_CAP),
+> +                                     PCI_REBAR_CAP_SIZES)) )
+> +        gprintk(XENLOG_WARNING,
+> +                "%pp: new size %#lx is not supported by hardware\n",
+> +                &pdev->sbdf, size);
 
-I expected this would be straightforward to ack, but ...
+This only covers the 1Mb ... 128Tb range. What about the 256Tb ... 8Eb one?
 
-> --- a/xen/arch/riscv/include/asm/config.h
-> +++ b/xen/arch/riscv/include/asm/config.h
-> @@ -41,17 +41,17 @@
->   * Start addr          | End addr         | Slot       | area description
->   * ============================================================================
->   *                   .....                 L2 511          Unused
-> - *  0xffffffffc0a00000  0xffffffffc0c00000 L2 511          Fixmap
-> + *  0xffffffffc0a00000  0xffffffffc0bfffff L2 511          Fixmap
->   *                   ..... ( 2 MB gap )
-> - *  0xffffffffc0400000  0xffffffffc0800000 L2 511          FDT
-> + *  0xffffffffc0400000  0xffffffffc07fffff L2 511          FDT
->   *                   ..... ( 2 MB gap )
-> - *  0xffffffffc0000000  0xffffffffc0200000 L2 511          Xen
-> + *  0xffffffffc0000000  0xffffffffc01fffff L2 511          Xen
->   *                   .....                 L2 510          Unused
-> - *  0x3200000000        0x7f40000000       L2 200-509      Direct map
-> + *  0x3200000000        0x7f7fffffff       L2 200-509      Direct map
+> +static int cf_check init_rebar(struct pci_dev *pdev)
+> +{
+> +    uint32_t ctrl;
+> +    unsigned int rebar_offset, nbars;
+> +
+> +    rebar_offset = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_REBAR);
+> +
+> +    if ( !rebar_offset )
+> +        return 0;
+> +
+> +    if ( !is_hardware_domain(pdev->domain) )
+> +    {
+> +        printk("ReBar is not supported for domUs\n");
+> +        return -EOPNOTSUPP;
+> +    }
+> +
+> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL);
+> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
+> +
+> +    for ( unsigned int i = 0; i < nbars; i++, rebar_offset += PCI_REBAR_CTRL )
 
-... this isn't just an adjustment by -1. If the old table entry was wrong,
-the description wants to say so. Else an adjustment to the number is needed
-here.
+PCI_REBAR_CTRL is an offset; it can't be used to bump rebar_offset here.
+That'll need a separate constant, even if both evaluate to 8.
 
 Jan
 
