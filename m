@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FF259F3342
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 15:32:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858172.1270430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 650DC9F3352
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 15:36:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858181.1270440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNC8Z-00068F-Ir; Mon, 16 Dec 2024 14:31:55 +0000
+	id 1tNCCs-0006pD-1O; Mon, 16 Dec 2024 14:36:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858172.1270430; Mon, 16 Dec 2024 14:31:55 +0000
+Received: by outflank-mailman (output) from mailman id 858181.1270440; Mon, 16 Dec 2024 14:36:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNC8Z-00066m-FO; Mon, 16 Dec 2024 14:31:55 +0000
-Received: by outflank-mailman (input) for mailman id 858172;
- Mon, 16 Dec 2024 14:31:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tNCCr-0006nX-Uq; Mon, 16 Dec 2024 14:36:21 +0000
+Received: by outflank-mailman (input) for mailman id 858181;
+ Mon, 16 Dec 2024 14:36:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tNC8Y-00066g-4w
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 14:31:54 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e65c5c1-bbba-11ef-a0d6-8be0dac302b0;
- Mon, 16 Dec 2024 15:31:53 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43622267b2eso44557595e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 06:31:53 -0800 (PST)
+ id 1tNCCq-0006nR-FW
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 14:36:20 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1c817799-bbbb-11ef-99a3-01e77a169b0f;
+ Mon, 16 Dec 2024 15:36:18 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-385de59c1a0so2760710f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 06:36:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4363606ece8sm86481905e9.25.2024.12.16.06.31.50
+ ffacd0b85a97d-388c8046c66sm8241418f8f.69.2024.12.16.06.36.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 06:31:51 -0800 (PST)
+ Mon, 16 Dec 2024 06:36:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e65c5c1-bbba-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: 1c817799-bbbb-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734359513; x=1734964313; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734359778; x=1734964578; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0i4WgwIpdOCqNVhvmx9kuKMmSbzAESTfDxPATpP+aW0=;
-        b=WZSawMcfKEw9Uye6iJLijuZoBduS4wLtKmw6B6XapbZS7H7+WxULCnTpAsvSIro9q4
-         7xkgX0CtRkAoEtctUt1ixrmY453TwaOeFuoII9njUGHui/IACislONQTY1+AMViEuKZe
-         ts4MCiy7AYmfoS6K4/YL6vfWNw33mLpYEhkpIhRqkGC0+zObSSb7JDdODqg8X9vgKuk1
-         /ABu+x+3zRtST0+WKeT7UgMwdgvb2EAaszuLpG2wnKVDZ6fMjTWu5m5tFi/ZQOnbQVKb
-         a+ESpqllUukko3qz7LPlIgRiyOIO/4KdYIDwmRfD9tf7HW5Ge8Yp2QMqKL1557M7P8Er
-         IkpQ==
+        bh=aQWmUEXPSsL0/T9L3Z0agw2awoqDGq7jOqPA1hXYkiU=;
+        b=X3ufXmF85u4aeCzoVgvy4NMYpX0KkeOge7pNfHIfWEYbtNtueu+CKeeiqHjp1e7ufo
+         VRKzOsppWNN3esWI2y8h/JuPWGYHuE2b+V2lGnzh41Z3GMNSXZlOAxjBX51N5uCxh9WD
+         fBLf15JoNP/LjR+BdiysM1JMCViWpwk35s7MQ9x/QDOvrDuxTMlYLVa/XqgfK46VaUW6
+         U5OSUVhGr+fKAeIpyEzwsRjOx17ZwheZ53Y4SBxz+C0wXhLKRvd9aS7H9BXTMHs9HqcK
+         pdCxUErvHGu4tO4cIVyGgcQm0FWNVTuH/kcmJ1PejKdm0mfrdl2J2hZPbWru+evZukhV
+         1ENg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734359513; x=1734964313;
+        d=1e100.net; s=20230601; t=1734359778; x=1734964578;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0i4WgwIpdOCqNVhvmx9kuKMmSbzAESTfDxPATpP+aW0=;
-        b=T5kL4UpbSiFzPzDQvPnnj4QIGfISlNynm6Cm0IiVqGzrcrsfFA5x0QfBTfPIYK1sF9
-         FysYCIFW0828kpBrAkwniRzGf7Uo4B7uH5LDcAdrOd2MF4K1lmO/sUXPHgN8k6d3fVRV
-         EEAnN1KLQSw4YMKdr/dt+FcBlK1YILdUTL81PxLxKh9AlsDYVzk9wCAHvykjT86mq9OG
-         GnlgvYYN1GA1Q1N7VOYLSJBGHjrRQGqJEWndWpLh6bR+C6JOM2XccOND+fuYzQIoiqDZ
-         zFOLa5gFmictAHwsrjLFxEqSK59lmVBLj4HmhrB6lndjv8L86AyWIqtfWkkArXDNlX+b
-         hoAg==
-X-Forwarded-Encrypted: i=1; AJvYcCWDegf5N7frGa9eM9QIgFV6Lj6dqBLEzdFzY9jrsfj3C8CADKJZeygIrqdF1MNZqSdvzM26zwvwVOs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxO1kY3pzu3U6a9En8oF3Ow/DSLVv3SQRIA6vklfpYCNb3plDUc
-	BGaT5Dr+7d5Se2v55FJJR/GRm3z+sl/qcDPRxY+DVBYF7h4Yh66XprlgHmXupQ==
-X-Gm-Gg: ASbGncsmLZ0D8/G4uLauwlelmCVgk8tRcRSijHQLJiYy/xKL2uiZO55AFOxrPv7K9Np
-	3CMFKjdSRKGwpzj47mKuWVeM0fszclk36OkMcno0/0h9TiZyKBu4NfmNQAxMQIqOOVqB1n3Io4l
-	7MsHl4bIhytar3cniilqTUmNacvmDpSzkLssjYxnvgG0eeshqOcjjc1o8HKmeithLYS+FeAlsV8
-	l9wzHLSgd4XYT2Hl68OLE2pc6eRljmYA62labQ19NqjELBC1vB4jOvJKmH1miHguejxJWg5CcJw
-	Oc5OyRaHoUGCLp/NHmT6Cr4PFcvXsQLhlRS+MOe9Ew==
-X-Google-Smtp-Source: AGHT+IGeLUKSC0f8xOSf58rSUzPrDanl6uGH22LWlQxBJ6wcIcVupu2VwLT1e0ndI5FRVw73hqqBpw==
-X-Received: by 2002:a05:600c:510c:b0:434:a19a:5965 with SMTP id 5b1f17b1804b1-4362aa157afmr113929655e9.6.1734359511596;
-        Mon, 16 Dec 2024 06:31:51 -0800 (PST)
-Message-ID: <2d5c234a-2a2a-4739-9ff5-828788286dcc@suse.com>
-Date: Mon, 16 Dec 2024 15:31:49 +0100
+        bh=aQWmUEXPSsL0/T9L3Z0agw2awoqDGq7jOqPA1hXYkiU=;
+        b=LtxuSViwgKe57kJ/3qT+BU8MHCMa3sn+EuSRh7hkR21ACS7jKUIAaniN9h/4ShzCyO
+         6SrgrKvmYTxN43ZLPGNLobhuQh9GI85QClev7YioY+fOTIxfOTP6GH8IludnRqpsEKG1
+         Nw710kX+lGfGf602zA5n40QbF+JUhwpb3UijuAy0n2YGHrv1ef7zjUiIXkVKk/FMKFgB
+         KXx/SWkZkUWCN2sxP8vYYrMAKEiVcMwVr1IuVoJ1KNMf3iGlfoENDWiiFX5Nwi0DaJup
+         kKSosiU7G7y0xEtgJxhzdEal5E83g0F2sp1PeXEcW5xhw/IGUGGT6jfReRJL2f5KW9pE
+         4dWw==
+X-Gm-Message-State: AOJu0Ywe5FpV7uqO7RfSo+yMDzWK44iGRfNy/xMdnFMxXXiDbzRtqHoC
+	lu2fKWDeJX42Z28jExQMyjj1NXo0JVWoyHEPQ8/UAH6o2idamIDjmK1qM60Qqg==
+X-Gm-Gg: ASbGncvLj2yDYQMXmhi2BOtfcRADIbdXk5SwD67X+SCUY8Lhy5r5ToflL8nIns9H3Df
+	7/GLO25Qx1NMq99xYw6ZuLerZtWqBCk5PIlES0j2UWpo4YozoR7O6KDtQ56+nhO8oZC6jtnzn7p
+	m+OkkARujj6hxFjcpCRTgFnoJWzWq/htJp1LArAOUWetS/BxOm+JgPxO7j5AyfQJ6cRPW/4F4Qb
+	endFeK0C0nA2Y8/J1Q2Xc6I44L6Kw5nbK15ZT0fPg8CsEgxKKEdQi26xOEUxVbM2LFYSAYKh7wQ
+	7FBFk73Un8SbWv6D2K6NTK8VDaxNAB4oMJWte5bxxQ==
+X-Google-Smtp-Source: AGHT+IEY0VpDZvXduAjOfQtooLMYPcjzaMEzYuCqznyLAEYH8w1sOuwe9NkKzGHg3oP/gjmB8H8YlA==
+X-Received: by 2002:a5d:6c68:0:b0:386:1cd3:8a00 with SMTP id ffacd0b85a97d-3888e0ac341mr11028617f8f.40.1734359777850;
+        Mon, 16 Dec 2024 06:36:17 -0800 (PST)
+Message-ID: <df0f831f-378f-4fa3-ae4f-b065f2ea566d@suse.com>
+Date: Mon, 16 Dec 2024 15:36:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] xen/riscv: relocating and unflattening host device
- tree
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v12 12/12] xen/arm: add cache coloring support for Xen
+ image
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: xen-devel@lists.xenproject.org, andrea.bastoni@minervasys.tech,
+ marco.solieri@minervasys.tech, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1733937787.git.oleksii.kurochko@gmail.com>
- <8906108d2e29637a42d5e127e393337d6b259b30.1733937787.git.oleksii.kurochko@gmail.com>
+ Michal Orzel <michal.orzel@amd.com>
+References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
+ <20241213162815.9196-13-carlo.nonato@minervasys.tech>
+ <dbbc649f-b705-46b5-a071-760d688aa2cd@amd.com>
+ <CAG+AhRWrXAYfKXXKfp6949vNMdGDy9qWOY11SKAigJuC8oUvDw@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,26 +125,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8906108d2e29637a42d5e127e393337d6b259b30.1733937787.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <CAG+AhRWrXAYfKXXKfp6949vNMdGDy9qWOY11SKAigJuC8oUvDw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.12.2024 18:27, Oleksii Kurochko wrote:
-> Introduce relocate_fdt() and call it to relocate FDT to Xen heap
-> instead of using early mapping as it is expected that discard_initial_modules()
-> ( is supposed to call in the future ) discards the FDT boot module and
-> remove_early_mappings() destroys the early mapping.
+On 16.12.2024 15:28, Carlo Nonato wrote:
+> On Mon, Dec 16, 2024 at 2:56 PM Michal Orzel <michal.orzel@amd.com> wrote:
+>> On 13/12/2024 17:28, Carlo Nonato wrote:
+>>> --- a/xen/arch/arm/arm64/mmu/mm.c
+>>> +++ b/xen/arch/arm/arm64/mmu/mm.c
+>>> @@ -1,6 +1,7 @@
+>>>  /* SPDX-License-Identifier: GPL-2.0-only */
+>>>
+>>>  #include <xen/init.h>
+>>> +#include <xen/llc-coloring.h>
+>>>  #include <xen/mm.h>
+>>>  #include <xen/pfn.h>
+>>>
+>>> @@ -138,8 +139,36 @@ void update_boot_mapping(bool enable)
+>>>  }
+>>>
+>>>  extern void switch_ttbr_id(uint64_t ttbr);
+>>> +extern void relocate_xen(uint64_t ttbr, void *src, void *dst, size_t len);
+>>>
+>>>  typedef void (switch_ttbr_fn)(uint64_t ttbr);
+>>> +typedef void (relocate_xen_fn)(uint64_t ttbr, void *src, void *dst, size_t len);
+>>> +
+>>> +void __init relocate_and_switch_ttbr(uint64_t ttbr) {
+>> CODING_STYLE: { needs to be on its own line
+>>
+>> Also, this function is only executed in case of LLC coloring, so shouldn't it
+>> be #ifdef protected.
 > 
-> Unflatten a device tree, creating the tree of struct device_node.
-> It also fills the "name" and "type" pointers of the nodes so the normal
-> device-tree walking functions can be used.
-> 
-> Set device_tree_flattened to NULL in the case when acpi_disabled is
-> equal to false.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Here and in other places (patch #8) I'm relying on DCE to remove functions
+> that are not called. This was a suggestion from Jan in that patch. Can we
+> adopt the same here?
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Yet how would the compiler spot that the function is unused? That would only
+work with LTO / WPO. DCE (as I did suggest elsewhere) requires the functions
+in question to be static (allowing the compiler to see enough of the whole
+picture).
 
-
+Jan
 
