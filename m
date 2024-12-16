@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE0B9F3454
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 16:21:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858314.1270560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 394159F34F9
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 16:52:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858337.1270575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNCts-0004W8-2C; Mon, 16 Dec 2024 15:20:48 +0000
+	id 1tNDNg-00023f-IP; Mon, 16 Dec 2024 15:51:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858314.1270560; Mon, 16 Dec 2024 15:20:48 +0000
+Received: by outflank-mailman (output) from mailman id 858337.1270575; Mon, 16 Dec 2024 15:51:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNCtr-0004UG-VX; Mon, 16 Dec 2024 15:20:47 +0000
-Received: by outflank-mailman (input) for mailman id 858314;
- Mon, 16 Dec 2024 15:20:47 +0000
+	id 1tNDNg-00020w-En; Mon, 16 Dec 2024 15:51:36 +0000
+Received: by outflank-mailman (input) for mailman id 858337;
+ Mon, 16 Dec 2024 15:51:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8hXi=TJ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tNCtr-0004UA-7G
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 15:20:47 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EuNa=TJ=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1tNDNf-0001zq-5D
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 15:51:35 +0000
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [2607:f8b0:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52a6fb27-bbc1-11ef-a0d6-8be0dac302b0;
- Mon, 16 Dec 2024 16:20:46 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5d3ecae02beso5523900a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 07:20:46 -0800 (PST)
-Received: from ?IPV6:2003:e5:8725:5e00:fa69:c5cb:46d:3e5b?
- (p200300e587255e00fa69c5cb046d3e5b.dip0.t-ipconnect.de.
- [2003:e5:8725:5e00:fa69:c5cb:46d:3e5b])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aab96359b94sm345492666b.106.2024.12.16.07.20.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 07:20:45 -0800 (PST)
+ id 9ec085fc-bbc5-11ef-a0d6-8be0dac302b0;
+ Mon, 16 Dec 2024 16:51:32 +0100 (CET)
+Received: by mail-il1-x12e.google.com with SMTP id
+ e9e14a558f8ab-3a761a622dcso33692585ab.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 07:51:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,280 +40,493 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52a6fb27-bbc1-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: 9ec085fc-bbc5-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734362446; x=1734967246; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=CvD0uv/RptUvQVZMuSMRfyuoTAQPIMuShTyPw62aLT0=;
-        b=R8/QsLBJOEZlus3Eji9j0ENmQ88hI6PDSx9kdzBLqXfxRoTfTsT77HYH9sVpTiCncx
-         s3Xc2lKvymAki+QK5uqyIaTGjEeVuhMEzjYRYDoSmXOv7iqh3n4t6KRnnAi5CFnmznJy
-         9v18CmER9+N82xESoEGoz5+mVGmmJuyr7DZKQIdWtwQkcEwRWhSFHXhESQabjHlraX5/
-         cJRj0dxGbGu+1+PzBoLXpn8VRItMLmp4pag8jRKEeHpwnA+xig9WDzYjcHc6PDjBvyGS
-         8GZu47uxLX7HK/f+D6d67ZXZT43wiwuuy4Orh+xX+DZ1o5BBi7py9JYfQFeQqQBzx5oa
-         xxXA==
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1734364291; x=1734969091; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=J2W90Vrf3TRBuSnhmRzMXdqApGTAPFHO/d7jXo8Fzms=;
+        b=ZWLkv9V4/VDI8cqFg749oC+YKkSgbzAf1yx3ludWlZPfkSlB18f+ezbFGnWnlxedOi
+         XM1c26bBK+H3jfBNbE6xhYxcZkrltkl4s6ZCQ1ZHDhCYHQxQZysa8+8Jf+TG4Mj7HZhF
+         e/++a0DUHWREXewkGjIgIkPH8sBPmFDxUxW2+e5X24RKYSIi/iIXM8d59sBsvLh7oz0Y
+         B6Q6tBUE5haBexrWHOTb897aIGIJV/f7Xzj1fh1lXZKKUMRwGT20us3wspnV1Rh9aFST
+         RFXPl7T88vIQTWL1vxY2Lv/gQB689Q65onNmIebvlKpEHvMfejsd4Znwz9TZCFHtXTnZ
+         Hywg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734362446; x=1734967246;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=CvD0uv/RptUvQVZMuSMRfyuoTAQPIMuShTyPw62aLT0=;
-        b=Vr88/RaaOOl9gCIpeueosuNHVrbSq4Ve97yAKcPpo3Kz1O+POgCiZDCt4USRFWge5n
-         Kl+EFy72plm7IhmBs58d9y9mgt25rGqsxNv6jSKKYmiNy0T9hgLRm3hyq7+tg2aa+cWW
-         xzodZ9RdpMrySJJs2XRf0nztA6DTlM+/lpBgLB1lBURRANyvQG23u982j20vXt/eFF/2
-         dAfOkb8oGsb//utZp+HaJ2+BlRpSQ4yvJ8DxnQ+WvyazerXf5qVbCooAJLdGuJE+PpfF
-         yfMn8A1ynllbxIbJe/B7gKuGareOrQAgO/08PBuCLQBrVvTr2OaluLBbRjokKhINKa0Y
-         Vw+A==
-X-Forwarded-Encrypted: i=1; AJvYcCW3E6UtzaZWYB+dzUdITYFVfIZX9YKsxVwmbAxW99DZ5QQpcvFkapPqSO7yET9IgikxwMTLs5KD77o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTzA0YcB/GJqsVbWD5BV2rsp/xQ+WK51kJH9puoV9oqWMKo4C4
-	k79fhI1+yCqVRlJ8dJBsgf8pLtedbnSOBm4OMZgx8SmZN1BSJhpsnBGEVbxHvjA=
-X-Gm-Gg: ASbGncs27/6VBzY0IaFNbsfOeRYmUeK/JGz+E03XzHUtI0BkNhyFLGzHFcxSiJANW14
-	lfbWW63ftKDVh9QuCHlnXAwJ7zVl9OuUyl/tYkyTzfm2oVCxXCiYtRWkWcErejfqz8vQs6avjBn
-	D5cQuUK/fUvT4SpiUY0ITV7MSoYcq/VFsyuvWv9WcG1B7MkbXMY6jooMi1YYm/Z9y9fBNdKz/3e
-	wY8bYMlJfMfvN8QhYt/TR2ijS2+rXy4S7do+xAiUzedvY+a0pAQNF0EVX34TTeLtd/mt2/wzdXS
-	xqbBRAIk4wpNFj9rGFu7CoBSFDWl0OCD1duWVnuMJnu7aPUYa1vs0gOsr74vhGgLvDMrvxtM66p
-	9ajM=
-X-Google-Smtp-Source: AGHT+IHrbiM7WTW5EWpbfrrNgj5d+SHO/jLZdxcJGBENWqc9LOaqVGdha5Wym+/UBDGBDfZMdj96Yg==
-X-Received: by 2002:a17:906:f585:b0:aa6:5201:7ae3 with SMTP id a640c23a62f3a-aab77ea5c47mr1441072366b.40.1734362445642;
-        Mon, 16 Dec 2024 07:20:45 -0800 (PST)
-Message-ID: <3974c88f-ba87-4b09-bdc4-5bb77b06139b@suse.com>
-Date: Mon, 16 Dec 2024 16:20:44 +0100
+        d=1e100.net; s=20230601; t=1734364291; x=1734969091;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=J2W90Vrf3TRBuSnhmRzMXdqApGTAPFHO/d7jXo8Fzms=;
+        b=SBhdf5jPEhsrMJvk/CPLVKUADpJTFB3EYfUFoszatVIomHhGnKe4x/GE8K/NpyvKrH
+         V74i1YSyGj88XphvEHpi1obdY91usD5Qd7b0XDndbHt0ulazHu/CAs4nwvmLNleKLYh0
+         aQtJXsDxXhot6Z7tl+zPFBdn/IPql/P3RimwaNi7utj61PP9WOxgWdPdX1wFOLB8Fwo6
+         yQs8TW3kKSVO6HsOqRO88bBK39uV7ZIGKP0L3tuRrdsJmZ9T+k/TSp4UsnNtW+ftojHO
+         +7R+PqCWGGgBjvUf4qXsyaH09BTpVBy6mHIEco/5k2qooUA3WVCeEecaLEwaEvSqyGbm
+         G5Ig==
+X-Gm-Message-State: AOJu0YzjdLVSnHngKzZcN0F+gYvG7wUpdXfzJE+RSpTcphHJQtebZmNN
+	agXWbry+bCANFEPEOM/vs2dau7VCPRH5mSUewi/Gjrt+Zt4wBdTQ8DB4rpt8Ony3nCMSmQzwAP9
+	rqaqUTz9/nBQDbgDXWAwpRWqNtijX5JI/ncreXw==
+X-Gm-Gg: ASbGncuJsY7bBAW8FX4+AXfGY9EITwTL55qj6LfwcACUCt7rkRkliNix+SVBygKFXVz
+	+0Ir+Z9rxjaQW6W34RIirvXvvOPXFKrPd/LNKo4I=
+X-Google-Smtp-Source: AGHT+IF/4SaBnpvxVIMuSpfjYbb3OksmYIHm2L9KrwNcYnJsn/2iUx/n7K6vwmpnHTYTLiWw4Y0BQ7rydcytziip/Fw=
+X-Received: by 2002:a05:6e02:12c4:b0:3a7:e528:6f1e with SMTP id
+ e9e14a558f8ab-3aff6218adamr118489435ab.11.1734364291284; Mon, 16 Dec 2024
+ 07:51:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] xen: add new domctl get_changed_domain
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241213162421.16782-1-jgross@suse.com>
- <20241213162421.16782-6-jgross@suse.com>
- <f5371446-98e5-42ff-aa8d-0a7252e89f1f@suse.com>
- <7061e31b-2d61-40fd-b2e9-528c4faf41f9@suse.com>
- <d516d05b-a69d-46d8-b90c-c868dd68eab1@suse.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <d516d05b-a69d-46d8-b90c-c868dd68eab1@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------HxXmnoYRQDEK5Lg1aMq0WJvZ"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------HxXmnoYRQDEK5Lg1aMq0WJvZ
-Content-Type: multipart/mixed; boundary="------------AYlcXS5r7fAZ1iMeVxifbgh2";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <3974c88f-ba87-4b09-bdc4-5bb77b06139b@suse.com>
-Subject: Re: [PATCH v3 5/7] xen: add new domctl get_changed_domain
-References: <20241213162421.16782-1-jgross@suse.com>
- <20241213162421.16782-6-jgross@suse.com>
- <f5371446-98e5-42ff-aa8d-0a7252e89f1f@suse.com>
- <7061e31b-2d61-40fd-b2e9-528c4faf41f9@suse.com>
- <d516d05b-a69d-46d8-b90c-c868dd68eab1@suse.com>
-In-Reply-To: <d516d05b-a69d-46d8-b90c-c868dd68eab1@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------AYlcXS5r7fAZ1iMeVxifbgh2
-Content-Type: multipart/mixed; boundary="------------0sjivpxVRBWyl62DlMCvLb0V"
-
---------------0sjivpxVRBWyl62DlMCvLb0V
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTYuMTIuMjQgMTY6MTgsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxNi4xMi4yMDI0
-IDE2OjAzLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMTYuMTIuMjQgMTE6NDEsIEph
-biBCZXVsaWNoIHdyb3RlOg0KPj4+IE9uIDEzLjEyLjIwMjQgMTc6MjQsIEp1ZXJnZW4gR3Jv
-c3Mgd3JvdGU6DQo+Pj4+IC0tLSBhL3hlbi9jb21tb24vZG9tYWluLmMNCj4+Pj4gKysrIGIv
-eGVuL2NvbW1vbi9kb21haW4uYw0KPj4+PiBAQCAtMTkzLDYgKzE5Myw1NyBAQCBzdGF0aWMg
-dm9pZCBkb21haW5fY2hhbmdlZF9zdGF0ZShjb25zdCBzdHJ1Y3QgZG9tYWluICpkKQ0KPj4+
-PiAgICAgICAgc3Bpbl91bmxvY2soJmRvbV9zdGF0ZV9jaGFuZ2VkX2xvY2spOw0KPj4+PiAg
-ICB9DQo+Pj4+ICAgIA0KPj4+PiArc3RhdGljIHZvaWQgc2V0X2RvbWFpbl9zdGF0ZV9pbmZv
-KHN0cnVjdCB4ZW5fZG9tY3RsX2dldF9kb21haW5fc3RhdGUgKmluZm8sDQo+Pj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IGRvbWFpbiAqZCkN
-Cj4+Pj4gK3sNCj4+Pj4gKyAgICBpbmZvLT5zdGF0ZSA9IFhFTl9ET01DVExfR0VURE9NU1RB
-VEVfU1RBVEVfRVhJU1Q7DQo+Pj4+ICsgICAgaWYgKCBkLT5pc19zaHV0X2Rvd24gKQ0KPj4+
-PiArICAgICAgICBpbmZvLT5zdGF0ZSB8PSBYRU5fRE9NQ1RMX0dFVERPTVNUQVRFX1NUQVRF
-X1NIVVRET1dOOw0KPj4+PiArICAgIGlmICggZC0+aXNfZHlpbmcgPT0gRE9NRFlJTkdfZHlp
-bmcgKQ0KPj4+PiArICAgICAgICBpbmZvLT5zdGF0ZSB8PSBYRU5fRE9NQ1RMX0dFVERPTVNU
-QVRFX1NUQVRFX0RZSU5HOw0KPj4+PiArICAgIGlmICggZC0+aXNfZHlpbmcgPT0gRE9NRFlJ
-TkdfZGVhZCApDQo+Pj4+ICsgICAgICAgIGluZm8tPnN0YXRlIHw9IFhFTl9ET01DVExfR0VU
-RE9NU1RBVEVfU1RBVEVfREVBRDsNCj4+Pj4gKyAgICBpbmZvLT51bmlxdWVfaWQgPSBkLT51
-bmlxdWVfaWQ7DQo+Pj4+ICt9DQo+Pj4+ICsNCj4+Pj4gK2ludCBnZXRfZG9tYWluX3N0YXRl
-KHN0cnVjdCB4ZW5fZG9tY3RsX2dldF9kb21haW5fc3RhdGUgKmluZm8sIHN0cnVjdCBkb21h
-aW4gKmQsDQo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICBkb21pZF90ICpkb21pZCkNCj4+
-Pj4gK3sNCj4+Pj4gKyAgICB1bnNpZ25lZCBpbnQgZG9tOw0KPj4+PiArDQo+Pj4+ICsgICAg
-aWYgKCBpbmZvLT5wYWQwIHx8IGluZm8tPnBhZDEgKQ0KPj4+PiArICAgICAgICByZXR1cm4g
-LUVJTlZBTDsNCj4+Pj4gKw0KPj4+PiArICAgIGlmICggZCApDQo+Pj4+ICsgICAgew0KPj4+
-PiArICAgICAgICBzZXRfZG9tYWluX3N0YXRlX2luZm8oaW5mbywgZCk7DQo+Pj4+ICsNCj4+
-Pj4gKyAgICAgICAgcmV0dXJuIDA7DQo+Pj4+ICsgICAgfQ0KPj4+PiArDQo+Pj4+ICsgICAg
-d2hpbGUgKCAoZG9tID0gZmluZF9maXJzdF9iaXQoZG9tX3N0YXRlX2NoYW5nZWQsIERPTUlE
-X01BU0sgKyAxKSkgPA0KPj4+PiArICAgICAgICAgICAgRE9NSURfRklSU1RfUkVTRVJWRUQg
-KQ0KPj4+PiArICAgIHsNCj4+Pj4gKyAgICAgICAgaWYgKCB0ZXN0X2FuZF9jbGVhcl9iaXQo
-ZG9tLCBkb21fc3RhdGVfY2hhbmdlZCkgKQ0KPj4+DQo+Pj4gRm9yIHRoZXNlIHR3byBhY2Nl
-c3NlcyB0byBkb21fc3RhdGVfY2hhbmdlZCBkb24ndCB5b3UgbmVlZCB0byBob2xkIHRoZQ0K
-Pj4+IGxvY2sgcGF0Y2ggNCBpbnRyb2R1Y2VzPyBBbHNvIGRpZG4ndCB5b3Ugc2F5IHlvdSdk
-IGNvbnN0cmFpbiB0aGUgbmV3DQo+Pj4gc3ViLW9wIHRvIHRoZSBzb2xlIGRvbWFpbiBoYXZp
-bmcgVklSUV9ET01fRVhFQyBib3VuZCAod2hpY2gsIGZ0YW9kLA0KPj4+IGlzbid0IGVub3Vn
-aCB0byBlbGltaW5hdGUgdGhlIHJhY2UpPw0KPj4NCj4+IEp1c3QgdG8gYmUgbW9yZSBzcGVj
-aWZpYyByZWdhcmRpbmcgdGhlIHJhY2U6IEkgZ3Vlc3MgeW91IG1lYW4gdGhhdCBhIGRvbWFp
-bg0KPj4gaGF2aW5nIHJlZ2lzdGVyZWQgZm9yIHRoZSBWSVJRIGRvZXNuJ3QgbWVhbiB0aGUg
-Y2FsbGluZyBjb21wb25lbnQgYmVpbmcgaW4NCj4+IHRoYXQgZG9tYWluIHJlYWxseSBpcyB0
-aGUgb25lIGFzc29jaWF0ZWQgd2l0aCB0aGUgVklSUS4NCj4+DQo+PiBXaGlsZSBiZWluZyB0
-cnVlLCBldmVuIHRvZGF5IGl0IGlzIHBvc3NpYmxlIGZvciBvbmUgZG9tMCB1c2VyIHByb2Nl
-c3MgdG8NCj4+ICJzdGVhbCIgYSBWSVJRIGZyb20gYW5vdGhlciBwcm9jZXNzIGJ5IHVzaW5n
-IGRpcnR5IHRyaWNrcyB2aWEgdGhlIHByaXZjbWQNCj4+IGRyaXZlci4NCj4+DQo+PiBJbiB0
-aGUgZW5kIGEgcHJvY2VzcyBoYXZpbmcgdGhlIGFjY2VzcyByaWdodHMgdG8gdXNlIHRoZSBw
-cml2Y21kIGRyaXZlciBtdXN0DQo+PiBiZSB0cnVzdGVkIHRvIG5vdCBkaXN0dXJiIG90aGVy
-IHByb2Nlc3NlcyB3aXRoIHRoZSBzYW1lIHJpZ2h0cy4NCj4gDQo+IE9mIGNvdXJzZSwgYnV0
-IHRoYXQncyBub3QgZXhhY3RseSB3aGF0IEkgd2FzIGdldHRpbmcgYXQuIEkgd2FzIHRyeWlu
-ZyB0bw0KPiBwb2ludCBvdXQgdGhhdCB0aGUgdklSUSBjaGVjayBhbG9uZSBpcyBzdGlsbCBp
-bnN1ZmZpY2llbnQgdG8gYXZvaWQgcG90ZW50aWFsDQo+IGNyYXNoZXMgaGVyZSwgYnkgb25l
-IHZDUFUgY2FsbGluZyBoZXJlIHdoaWxlIGFub3RoZXIgdW5iaW5kcyB0aGUgdklSUS4gVGFr
-aW5nDQo+IHRoZSBsb2NrIGlzIHJlcXVpcmVkIGZvciBYZW4ncyBzYWZldHk7IGNoZWNraW5n
-IHRoZSB2SVJRIGlzIGJvdW5kIGlzIGFuIGV4dHJhDQo+IHBvbGljeSBlbmZvcmNlbWVudC4N
-Cg0KQWgsIG9rYXkuIEkgdGhpbmsgVjQgd2lsbCBjb3ZlciB5b3VyIHNjZW5hcmlvLg0KDQoN
-Ckp1ZXJnZW4NCg==
---------------0sjivpxVRBWyl62DlMCvLb0V
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
+ <20241213162815.9196-4-carlo.nonato@minervasys.tech> <adfdc378-e1cd-4500-a21c-6c5660ebfd1b@amd.com>
+In-Reply-To: <adfdc378-e1cd-4500-a21c-6c5660ebfd1b@amd.com>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Mon, 16 Dec 2024 16:51:20 +0100
+Message-ID: <CAG+AhRX77RjKKQsvdhU-uBG0jFGBB6SxiG-q6t4vT+q2URa7wA@mail.gmail.com>
+Subject: Re: [PATCH v12 03/12] xen/arm: permit non direct-mapped Dom0 construction
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, andrea.bastoni@minervasys.tech, 
+	marco.solieri@minervasys.tech, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi Michal,
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R3/CwO0EGAEIACAWIQSFEmdy6PYElKXQl/ew3p3W
-KL8TLwUCWt3w0AIbAgCBCRCw3p3WKL8TL3YgBBkWCAAdFiEEUy2wekH2OPMeOLge
-gFxhu0/YY74FAlrd8NAACgkQgFxhu0/YY75NiwD/fQf/RXpyv9ZX4n8UJrKDq422
-bcwkujisT6jix2mOOwYBAKiip9+mAD6W5NPXdhk1XraECcIspcf2ff5kCAlG0DIN
-aTUH/RIwNWzXDG58yQoLdD/UPcFgi8GWtNUp0Fhc/GeBxGipXYnvuWxwS+Qs1Qay
-7/Nbal/v4/eZZaWs8wl2VtrHTS96/IF6q2o0qMey0dq2AxnZbQIULiEndgR625EF
-RFg+IbO4ldSkB3trsF2ypYLij4ZObm2casLIP7iB8NKmQ5PndL8Y07TtiQ+Sb/wn
-g4GgV+BJoKdDWLPCAlCMilwbZ88Ijb+HF/aipc9hsqvW/hnXC2GajJSAY3Qs9Mib
-4Hm91jzbAjmp7243pQ4bJMfYHemFFBRaoLC7ayqQjcsttN2ufINlqLFPZPR/i3IX
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+On Mon, Dec 16, 2024 at 1:08=E2=80=AFPM Michal Orzel <michal.orzel@amd.com>=
+ wrote:
+>
+> On 13/12/2024 17:28, Carlo Nonato wrote:
+> >
+> > Cache coloring requires Dom0 not to be direct-mapped because of its non
+> > contiguous mapping nature, so allocate_memory() is needed in this case.
+> > 8d2c3ab18cc1 ("arm/dom0less: put dom0less feature code in a separate mo=
+dule")
+> > moved allocate_memory() in dom0less_build.c. In order to use it
+> > in Dom0 construction bring it back to domain_build.c and declare it in
+> > domain_build.h.
+> >
+> > Adapt the implementation of allocate_memory() so that it uses the host
+> > layout when called on the hwdom, via find_unallocated_memory(). Take th=
+e
+> > opportunity to keep the parameter order consistent with
+> > rangeset_report_ranges() and move the membanks struct after the callbac=
+k
+> > function in find_unallocated_memory().
+> Why? What benefit does this change (that is irrelevant to the goal of thi=
+s patch) provide?
 
---------------0sjivpxVRBWyl62DlMCvLb0V--
+You're right, it's irrelevant to this patch. Do you think it can be done in=
+ a
+separate patch? If nothing else, find_unallocated_memory() appears to be
+called 2 times while rangeset_report_ranges() 11 times.
 
---------------AYlcXS5r7fAZ1iMeVxifbgh2--
+> > Introduce add_hwdom_free_regions() callback to add hwdom banks in desce=
+nding
+> > order.
+> >
+> > Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> > ---
+> > v12:
+> > - used the new generic find_unallocated_memory()
+> > - added add_hwdom_free_regions() callback
+> > v11:
+> > - GUEST_RAM_BANKS instead of hardcoding the number of banks in allocate=
+_memory()
+> > - hwdom_ext_regions -> hwdom_free_mem in allocate_memory()
+> > - added a comment in allocate_memory() when skipping small banks
+> > v10:
+> > - fixed a compilation bug that happened when dom0less support was disab=
+led
+> > v9:
+> > - no changes
+> > v8:
+> > - patch adapted to new changes to allocate_memory()
+> > v7:
+> > - allocate_memory() now uses the host layout when called on the hwdom
+> > v6:
+> > - new patch
+> > ---
+> >  xen/arch/arm/dom0less-build.c           |  44 -------
+> >  xen/arch/arm/domain_build.c             | 164 +++++++++++++++++++++++-
+> >  xen/arch/arm/include/asm/domain_build.h |   4 +
+> >  3 files changed, 161 insertions(+), 51 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-buil=
+d.c
+> > index d93a85434e..67b1503647 100644
+> > --- a/xen/arch/arm/dom0less-build.c
+> > +++ b/xen/arch/arm/dom0less-build.c
+> > @@ -49,50 +49,6 @@ bool __init is_dom0less_mode(void)
+> >      return ( !dom0found && domUfound );
+> >  }
+> >
+> > -static void __init allocate_memory(struct domain *d, struct kernel_inf=
+o *kinfo)
+> > -{
+> > -    struct membanks *mem =3D kernel_info_get_mem(kinfo);
+> > -    unsigned int i;
+> > -    paddr_t bank_size;
+> > -
+> > -    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n=
+",
+> > -           /* Don't want format this as PRIpaddr (16 digit hex) */
+> > -           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+> > -
+> > -    mem->nr_banks =3D 0;
+> > -    bank_size =3D MIN(GUEST_RAM0_SIZE, kinfo->unassigned_mem);
+> > -    if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(GUEST_RAM0_BASE),
+> > -                               bank_size) )
+> > -        goto fail;
+> > -
+> > -    bank_size =3D MIN(GUEST_RAM1_SIZE, kinfo->unassigned_mem);
+> > -    if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(GUEST_RAM1_BASE),
+> > -                               bank_size) )
+> > -        goto fail;
+> > -
+> > -    if ( kinfo->unassigned_mem )
+> > -        goto fail;
+> > -
+> > -    for( i =3D 0; i < mem->nr_banks; i++ )
+> > -    {
+> > -        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%l=
+dMB)\n",
+> > -               d,
+> > -               i,
+> > -               mem->bank[i].start,
+> > -               mem->bank[i].start + mem->bank[i].size,
+> > -               /* Don't want format this as PRIpaddr (16 digit hex) */
+> > -               (unsigned long)(mem->bank[i].size >> 20));
+> > -    }
+> > -
+> > -    return;
+> > -
+> > -fail:
+> > -    panic("Failed to allocate requested domain memory."
+> > -          /* Don't want format this as PRIpaddr (16 digit hex) */
+> > -          " %ldKB unallocated. Fix the VMs configurations.\n",
+> > -          (unsigned long)kinfo->unassigned_mem >> 10);
+> > -}
+> > -
+> >  #ifdef CONFIG_VGICV2
+> >  static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+> >  {
+> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> > index adf26f2778..bfcff99194 100644
+> > --- a/xen/arch/arm/domain_build.c
+> > +++ b/xen/arch/arm/domain_build.c
+> > @@ -2,6 +2,7 @@
+> >  #include <xen/init.h>
+> >  #include <xen/compile.h>
+> >  #include <xen/lib.h>
+> > +#include <xen/llc-coloring.h>
+> >  #include <xen/mm.h>
+> >  #include <xen/param.h>
+> >  #include <xen/domain_page.h>
+> > @@ -416,7 +417,6 @@ static void __init allocate_memory_11(struct domain=
+ *d,
+> >      }
+> >  }
+> >
+> > -#ifdef CONFIG_DOM0LESS_BOOT
+> >  bool __init allocate_domheap_memory(struct domain *d, paddr_t tot_size=
+,
+> >                                      alloc_domheap_mem_cb cb, void *ext=
+ra)
+> >  {
+> > @@ -508,7 +508,6 @@ bool __init allocate_bank_memory(struct kernel_info=
+ *kinfo, gfn_t sgfn,
+> >
+> >      return true;
+> >  }
+> > -#endif
+> >
+> >  /*
+> >   * When PCI passthrough is available we want to keep the
+> > @@ -900,6 +899,52 @@ int __init add_ext_regions(unsigned long s_gfn, un=
+signed long e_gfn,
+> >      return 0;
+> >  }
+> >
+> > +static int __init add_hwdom_free_regions(unsigned long s_gfn,
+> > +                                         unsigned long e_gfn, void *da=
+ta)
+> > +{
+> > +    struct membanks *free_regions =3D data;
+> > +    paddr_t start, size;
+> > +    paddr_t s =3D pfn_to_paddr(s_gfn);
+> > +    paddr_t e =3D pfn_to_paddr(e_gfn);
+> > +    unsigned int i, j;
+> > +
+> > +    if ( free_regions->nr_banks >=3D free_regions->max_banks )
+> > +        return 0;
+> > +
+> > +    /*
+> > +     * Both start and size of the free region should be 2MB aligned to
+> > +     * potentially allow superpage mapping.
+> > +     */
+> > +    start =3D (s + SZ_2M - 1) & ~(SZ_2M - 1);
+> > +    if ( start > e )
+> > +        return 0;
+> > +
+> > +    /*
+> > +     * e is actually "end-1" because it is called by rangeset function=
+s
+> > +     * which are inclusive of the last address.
+> > +     */
+> > +    e +=3D 1;
+> > +    size =3D (e - start) & ~(SZ_2M - 1);
+> > +
+> > +    /* Find the insert position (descending order). */
+> > +    for ( i =3D 0; i < free_regions->nr_banks ; i++)
+> CODING_STYLE:
+> for ( i =3D 0; i < free_regions->nr_banks; i++ )
+>
+> > +        if ( size > free_regions->bank[i].size )
+> > +            break;
+> > +
+> > +    /* Move the other banks to make space. */
+> > +    for ( j =3D free_regions->nr_banks; j > i ; j-- )
+> > +    {
+> > +        free_regions->bank[j].start =3D free_regions->bank[j - 1].star=
+t;
+> > +        free_regions->bank[j].size =3D free_regions->bank[j - 1].size;
+> > +    }
+> > +
+> > +    free_regions->bank[i].start =3D start;
+> > +    free_regions->bank[i].size =3D size;
+> > +    free_regions->nr_banks++;
+> The algorithm looks good. In my head I thought you will use sort() after =
+adding all the banks, but
+> I'm not sure which solution is more efficient. Probably yours and it avoi=
+ds implementing cmp and swap functions.
+>
+> > +
+> > +    return 0;
+> > +}
+> > +
+> >  /*
+> >   * Find unused regions of Host address space which can be exposed to d=
+omain
+> >   * using the host memory layout. In order to calculate regions we excl=
+ude every
+> > @@ -908,10 +953,10 @@ int __init add_ext_regions(unsigned long s_gfn, u=
+nsigned long e_gfn,
+> >  static int __init find_unallocated_memory(const struct kernel_info *ki=
+nfo,
+> >                                            const struct membanks *mem_b=
+anks[],
+> >                                            unsigned int nr_mem_banks,
+> > -                                          struct membanks *free_region=
+s,
+> >                                            int (*cb)(unsigned long s_gf=
+n,
+> >                                                      unsigned long e_gf=
+n,
+> > -                                                    void *data))
+> > +                                                    void *data),
+> > +                                          struct membanks *free_region=
+s)
+> >  {
+> >      const struct membanks *mem =3D bootinfo_get_mem();
+> >      struct rangeset *unalloc_mem;
+> > @@ -977,6 +1022,108 @@ out:
+> >      return res;
+> >  }
+> >
+> > +void __init allocate_memory(struct domain *d, struct kernel_info *kinf=
+o)
+> > +{
+> > +    struct membanks *mem =3D kernel_info_get_mem(kinfo);
+> > +    unsigned int i, nr_banks =3D GUEST_RAM_BANKS;
+> > +    struct membanks *hwdom_free_mem =3D NULL;
+> > +
+> > +    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n=
+",
+> > +           /* Don't want format this as PRIpaddr (16 digit hex) */
+> > +           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+> > +
+> > +    mem->nr_banks =3D 0;
+> > +    /*
+> > +     * Use host memory layout for hwdom. Only case for this is when LL=
+C coloring
+> > +     * is enabled.
+> > +     */
+> > +    if ( is_hardware_domain(d) )
+> > +    {
+> > +        struct membanks *gnttab =3D xzalloc_flex_struct(struct membank=
+s, bank, 1);
+> > +        /*
+> > +         * Exclude the following regions:
+> > +         * 1) Remove reserved memory
+> > +         * 2) Grant table assigned to Dom0
+> Can we not mention 'Dom0'? In the future hwdom may not necessarily be dom=
+0. Especially that
+> in other places you mention hwdom.
+>
+> > +         */
+> > +        const struct membanks *mem_banks[] =3D {
+> > +            bootinfo_get_reserved_mem(),
+> > +            gnttab,
+> > +        };
+> > +
+> > +        ASSERT(llc_coloring_enabled);
+> Remove this assert. There's nothing LLC special here and this could be re=
+-used in the future
+> to provide non 1:1 hwdom.
+>
+> > +
+> > +        if ( !gnttab )
+> > +            goto fail;
+> > +
+> > +        gnttab->nr_banks =3D 1;
+> > +        gnttab->bank[0].start =3D kinfo->gnttab_start;
+> > +        gnttab->bank[0].size =3D kinfo->gnttab_start + kinfo->gnttab_s=
+ize;
+> Incorrect. You assign to 'end' to'size'. It should simply be:
+> gnttab->bank[0].size =3D kinfo->gnttab_size.
+>
+> > +
+> > +        hwdom_free_mem =3D xzalloc_flex_struct(struct membanks, bank,
+> > +                                             NR_MEM_BANKS);
+> > +        if ( !hwdom_free_mem )
+> > +            goto fail;
+> > +
+> > +        hwdom_free_mem->max_banks =3D NR_MEM_BANKS;
+> > +
+> > +        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_=
+banks),
+> > +                                     add_hwdom_free_regions, hwdom_fre=
+e_mem) )
+> > +            goto fail;
+> > +
+> > +        nr_banks =3D hwdom_free_mem->nr_banks;
+> > +        xfree(gnttab);
+> > +    }
+> > +
+> > +    for ( i =3D 0; kinfo->unassigned_mem > 0 && nr_banks > 0; i++, nr_=
+banks-- )
+> > +    {
+> > +        paddr_t bank_start, bank_size;
+> > +
+> > +        if ( is_hardware_domain(d) )
+> > +        {
+> > +            bank_start =3D hwdom_free_mem->bank[i].start;
+> > +            bank_size =3D hwdom_free_mem->bank[i].size;
+> > +        }
+> > +        else
+> > +        {
+> > +            const uint64_t bankbase[] =3D GUEST_RAM_BANK_BASES;
+> > +            const uint64_t banksize[] =3D GUEST_RAM_BANK_SIZES;
+> > +
+> > +            if ( i >=3D GUEST_RAM_BANKS )
+> > +                goto fail;
+> > +
+> > +            bank_start =3D bankbase[i];
+> > +            bank_size =3D banksize[i];
+> > +        }
+> > +
+> > +        bank_size =3D MIN(bank_size, kinfo->unassigned_mem);
+> > +        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), ba=
+nk_size) )
+> > +            goto fail;
+> > +    }
+> > +
+> > +    if ( kinfo->unassigned_mem )
+> > +        goto fail;
+> > +
+> > +    for( i =3D 0; i < mem->nr_banks; i++ )
+> > +    {
+> > +        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%l=
+dMB)\n",
+> > +               d,
+> > +               i,
+> > +               mem->bank[i].start,
+> > +               mem->bank[i].start + mem->bank[i].size,
+> > +               /* Don't want format this as PRIpaddr (16 digit hex) */
+> > +               (unsigned long)(mem->bank[i].size >> 20));
+> > +    }
+> > +
+> > +    xfree(hwdom_free_mem);
+> > +    return;
+> > +
+> > +fail:
+> > +    panic("Failed to allocate requested domain memory."
+> > +          /* Don't want format this as PRIpaddr (16 digit hex) */
+> > +          " %ldKB unallocated. Fix the VMs configurations.\n",
+> > +          (unsigned long)kinfo->unassigned_mem >> 10);
+> > +}
+> > +
+> >  static int __init handle_pci_range(const struct dt_device_node *dev,
+> >                                     uint64_t addr, uint64_t len, void *=
+data)
+> >  {
+> > @@ -1176,7 +1323,7 @@ static int __init find_host_extended_regions(cons=
+t struct kernel_info *kinfo,
+> >      gnttab->bank[0].size =3D kinfo->gnttab_size;
+> >
+> >      res =3D find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_b=
+anks),
+> > -                                  ext_regions, add_ext_regions);
+> > +                                  add_ext_regions, ext_regions);
+> >      xfree(gnttab);
+> >
+> >      return res;
+> > @@ -1235,7 +1382,7 @@ int __init make_hypervisor_node(struct domain *d,
+> >
+> >          ext_regions->max_banks =3D NR_MEM_BANKS;
+> >
+> > -        if ( is_domain_direct_mapped(d) )
+> > +        if ( domain_use_host_layout(d) )
+> >          {
+> >              if ( !is_iommu_enabled(d) )
+> >                  res =3D find_host_extended_regions(kinfo, ext_regions)=
+;
+> > @@ -2164,8 +2311,11 @@ static int __init construct_dom0(struct domain *=
+d)
+> >      /* type must be set before allocate_memory */
+> >      d->arch.type =3D kinfo.type;
+> >  #endif
+> > -    allocate_memory_11(d, &kinfo);
+> >      find_gnttab_region(d, &kinfo);
+> This re-ordering should be mentioned in commit msg.
+>
+> > +    if ( is_domain_direct_mapped(d) )
+> > +        allocate_memory_11(d, &kinfo);
+> > +    else
+> > +        allocate_memory(d, &kinfo);
+> >
+> >      rc =3D process_shm_chosen(d, &kinfo);
+> >      if ( rc < 0 )
+> > diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/inc=
+lude/asm/domain_build.h
+> > index e712afbc7f..b0d646e173 100644
+> > --- a/xen/arch/arm/include/asm/domain_build.h
+> > +++ b/xen/arch/arm/include/asm/domain_build.h
+> > @@ -11,6 +11,7 @@ bool allocate_domheap_memory(struct domain *d, paddr_=
+t tot_size,
+> >                               alloc_domheap_mem_cb cb, void *extra);
+> >  bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
+> >                            paddr_t tot_size);
+> > +void allocate_memory(struct domain *d, struct kernel_info *kinfo);
+> >  int construct_domain(struct domain *d, struct kernel_info *kinfo);
+> >  int domain_fdt_begin_node(void *fdt, const char *name, uint64_t unit);
+> >  int make_chosen_node(const struct kernel_info *kinfo);
+> > @@ -54,6 +55,9 @@ static inline int prepare_acpi(struct domain *d, stru=
+ct kernel_info *kinfo)
+> >  int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
+> >  #endif
+> >
+> > +typedef int (*add_free_regions_fn)(unsigned long s_gfn, unsigned long =
+e_gfn,
+> > +                                   void *data);
+> Random code? Remove.
+>
+> With the remarks addressed:
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>
+> ~Michal
 
---------------HxXmnoYRQDEK5Lg1aMq0WJvZ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Thanks.
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmdgRUwFAwAAAAAACgkQsN6d1ii/Ey/t
-Rgf/Zp1xT0MnwiLLEbBBCHtTX5wIRhFwU9k8T5G0u4lp0EZ99btuSPmP8+5t42nKwmp1nyuBzH5g
-Yv55D8NC2wrfkshYv7suxig4IIEOA2Sj+5vDidqZ1xoFYPytopV8RKoHuqxYpFPFLlITGApYeGk4
-DyeSAPIKFOp1TGDzVEsPx/tn6k6kpFYCY2WF4zj+1gc36tV1txkqGEy83X6lBnjEgQxpWS4IHeon
-9HX5W8Xp0IG0AMzuJbaiPC9Ro0V/r9vVmqHIKsKUugLenZy82eRPkixcujqa6P4W2fjKM6Dw608d
-2+V5tNpMIggoh5bRdM9Clov3E9dmhOqPsRWWbKvH5w==
-=AKJw
------END PGP SIGNATURE-----
-
---------------HxXmnoYRQDEK5Lg1aMq0WJvZ--
+- Carlo
 
