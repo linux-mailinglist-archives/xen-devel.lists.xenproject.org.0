@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E41D9F2F80
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 12:35:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857805.1270015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B6D49F2F8D
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 12:36:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857813.1270025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9NW-0004e2-Cz; Mon, 16 Dec 2024 11:35:10 +0000
+	id 1tN9Ow-0005EO-MN; Mon, 16 Dec 2024 11:36:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857805.1270015; Mon, 16 Dec 2024 11:35:10 +0000
+Received: by outflank-mailman (output) from mailman id 857813.1270025; Mon, 16 Dec 2024 11:36:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9NW-0004cH-9G; Mon, 16 Dec 2024 11:35:10 +0000
-Received: by outflank-mailman (input) for mailman id 857805;
- Mon, 16 Dec 2024 11:35:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tN9Ow-0005Bw-JQ; Mon, 16 Dec 2024 11:36:38 +0000
+Received: by outflank-mailman (input) for mailman id 857813;
+ Mon, 16 Dec 2024 11:36:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q/9x=TJ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tN9NV-0004Oq-Cn
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 11:35:09 +0000
-Received: from fout-a7-smtp.messagingengine.com
- (fout-a7-smtp.messagingengine.com [103.168.172.150])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc614700-bba1-11ef-a0d6-8be0dac302b0;
- Mon, 16 Dec 2024 12:35:07 +0100 (CET)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfout.phl.internal (Postfix) with ESMTP id D19A61383E9E;
- Mon, 16 Dec 2024 06:35:05 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Mon, 16 Dec 2024 06:35:05 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Dec 2024 06:35:04 -0500 (EST)
+ <SRS0=XQSc=TJ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tN9Ov-0005Bo-5j
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 11:36:37 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 013e9df9-bba2-11ef-99a3-01e77a169b0f;
+ Mon, 16 Dec 2024 12:36:35 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-aa6a92f863cso801722666b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 03:36:35 -0800 (PST)
+Received: from localhost ([85.152.134.39]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aab9635996asm325356666b.102.2024.12.16.03.36.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Dec 2024 03:36:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,223 +44,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc614700-bba1-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1734348905;
-	 x=1734435305; bh=DKeD6oR0WFoQA/n3ucu51GQJu3RG4ED6fJOAjXzrlKY=; b=
-	MAy3QnFrdOopvIKLpL1jtBC0hMBHPd3wToHcBT9v92VcQB/di8kAg0v8d+XsR3TO
-	1FEHaaCJYSeMf2rLPxlI6dhAU5ylxYMVvf/+h/4LoSdMuo9FfzlJUIVgvSfVJeiR
-	e+k9iEcLYBMlCMAdClz1IRiM43dp0rA/VPg3pm9yTV5vAUgN8ZzklNvUW5KUTXpD
-	/Q+7D8/md6MC4weDSrxOid/+0alFzuaGTAMtdV/1ubLeNmVsCBKizjTZZbqa7PLQ
-	OPfxsoP78dTjvCEthCWYbUQKiBSksEwvEHpKqRNSlStUpbojMv8bLRens1rTfYbH
-	wAInis2NfBM5SicbyakYFw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1734348905; x=1734435305; bh=DKeD6oR0WFoQA/n3ucu51GQJu3RG4ED6fJO
-	AjXzrlKY=; b=PmxH1gtsXGCovOlrK9WA0jRBb+JMK6vzAIuOYUaIp9opXJ4k1lZ
-	OQHDh71sClW75PnwXnpwO+OXvUGvBqewhhuU3mf4NlnC4UYu0hM7bbGqmvhLLbgn
-	FS7V2fSrO/RKe0dn0KL8DX0yvqLSWlHm4Oky8LAWIibJl/ogbBJLZy3J2zasMbXg
-	qU2huHmsv1CSVZBmc7XZfaxRrdfVqiRGwS0qufQSDExc4Ld3A0QlR5zr4k16uSX1
-	oPHTSbEznHmif7PTZjrKKKZTNBYreAD2Wx97uCITzLnhyJfPpgCdQT7Nxvi5ikiN
-	o3JMVxfTOjUAIMY9e6Sq8l9j0IReaZAleLg==
-X-ME-Sender: <xms:aRBgZzGy7TC2JAIBGDqTWQPxmd4lQkoQgB6ITnC6lpVL-zkKOfFsew>
-    <xme:aRBgZwUBb25H4avVbixhx2QEOaKCUso7jG--h-eicbm6Gn6r3YCq5TSO1cmbehYp4
-    y8pXaswPrOEyg>
-X-ME-Received: <xmr:aRBgZ1JFKv6Z3CPBAygBv2mM9AsvLrIxLRpB1YXT80NSFdY4V6s_JSc0a0jBNq54tMdtiEcNGK_BCvivrVyDXPCjACHnWedVdQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrleefgddvlecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
-    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
-    hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecu
-    hfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrg
-    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffr
-    rghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegue
-    etfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
-    pehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsg
-    gprhgtphhtthhopeejpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehrohhgvghr
-    rdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopeholhgvkhhsihhirdhkuhhroh
-    gthhhkohesghhmrghilhdrtghomhdprhgtphhtthhopehjghhrohhsshesshhushgvrdgt
-    ohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhope
-    grnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtoheprghn
-    thhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopeigvghnqd
-    guvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
-X-ME-Proxy: <xmx:aRBgZxGcwnrHyDnX2GEm63hpVtFgaCflzhAi4FCaSEQHmIPHqt33YQ>
-    <xmx:aRBgZ5V9A_eQkM-exuoH0Cx7VoXE_g0pMZtc8SSzzG76CE5MpS6W2w>
-    <xmx:aRBgZ8PykstO1FRrlBYNZAzDBRxL-VWMglvlvJ8vB1-xb1M3VhrCTQ>
-    <xmx:aRBgZ40gDgxAN8pXBo9B_S6y2MdIMx0qrreIRDWkf2rjs3u23eG__A>
-    <xmx:aRBgZ4HW3jDgXfodoYI1tRkHxTBo98ywrqk0eFJa2lv_EHQlZ60OBYsm>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 16 Dec 2024 12:35:01 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
- kernel
-Message-ID: <Z2AQZnRw6CwxQ4mo@mail-itl>
-References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
- <226bc9b3-6741-4cb6-917b-1164e340a19d@suse.com>
- <ZwZScGr75xEolDnS@mail-itl>
- <00ac0665-e4ff-4a56-8537-e81573710c3c@suse.com>
- <e3917457-08d4-4f0c-9e0c-1519952ceed9@suse.com>
- <dde4b510-5674-44d0-9493-a0717387b8d6@citrix.com>
- <99089b03-e9f0-4fe8-94b2-11e75f9e5243@suse.com>
- <e7ebec95-e6f0-491f-8fb4-afe7ee505b07@suse.com>
- <ZwZ_IoNFwDjTaFi1@mail-itl>
- <Z1_mWbWnwNOG64ji@macbook.local>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FyyhMwKxTCf/oLKa"
-Content-Disposition: inline
-In-Reply-To: <Z1_mWbWnwNOG64ji@macbook.local>
-
-
---FyyhMwKxTCf/oLKa
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 013e9df9-bba2-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1734348995; x=1734953795; darn=lists.xenproject.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1pSNdM0wXEGoI3xI6ufGMlDOE27JrPVoHDz11IhOcnI=;
+        b=EFFhoqMPff7Qb3zHmJxpdVqYeGzwO1kn7WIwoTi0mEp05eUItdUgB4LDTpibf9woSk
+         VUSaM4/eVnbb/AVCUFgIjoaWb+wVphnqPvsF97sJddvwpWK42F0JUokYyW/H3Qq7jMho
+         kui4Ad49G2m6zwDrB0KxACwjOZvGdo1TsmrWw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734348995; x=1734953795;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=1pSNdM0wXEGoI3xI6ufGMlDOE27JrPVoHDz11IhOcnI=;
+        b=S7jfFifQLT4wmu1U8ti3qtpnoaHqgXg0F0iWRNktC5o8FwPQSu6oK3mLFxu+YvQm3v
+         hIjTlxNbbTB78eu2EpCYQcefTXDPn++wCiGF7+1kEer/0GnrZrd91963a+PJgpL7VtT8
+         3xX7IxfIi/mbIJ7oY0ILdNasve7dpGarjshfI9xsJSjNJUkMU+iT0vAaGPHgXYFnI62x
+         PejzbSNi6Cq94kYKevvx0V9JzoOckEYRRxl9YipEfPvPTvD7n8aN+OxdmpwrEb9bCafr
+         rBx411ud4i0IXBDd2h/BGfO0pH4MlXSA5KQFu0iRlIRaBYKTaJsj9v/LnXGtOJGOoiAj
+         4lGg==
+X-Forwarded-Encrypted: i=1; AJvYcCXRuAd0Hpw7O/vo/qGl7Wrcn/5Gebk2yD+yoIpV0imrhyO8wmD7/LL0MuzdAk1ZmkvE67FxgAvuAE8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzdSG6ds7o4UK5KoPRvlSzZ7FLuGkgIIf57HTehgvAOr9QZ4/wd
+	XhhkP2Mukn9J/l1PfPZ/ohWNBaMsJojLEU0bS62+KGkb9Oatj8SUlAQj0h2UQ98=
+X-Gm-Gg: ASbGncs7PPn6RkMFsMQJ8XrFcNeQPBmstNkJJLBSeyHcgwWi93SblYCoT2K5CN0jsZ2
+	CBkrtV+gIhPaRTztgay+5CdkKbOtlSGVMOPtWyGkkagfv29ZijTE72Kskd5Q19bJhGf67wg+4th
+	MxHB5ZCNV2H6+EDqYfQ2/Mtab5oTQPFhlFyfU4u0fb+JypXuXTZ+EiQ2DQfkYDcQV5kscyL2qTF
+	bL1ErXPMT4GzmjdUAPxm28koYmuv8rzvSF9AfKjbCqBpHyXw+TPF2Si2q0wfP4=
+X-Google-Smtp-Source: AGHT+IG6CQwRSN0Eon/cIgo9Xa+ZZlHMcccWAy+S0UbzMr4qR7TkvsfPiepU2JAHFrUUc/dfKRMGDA==
+X-Received: by 2002:a17:906:3289:b0:aa6:6f92:74b1 with SMTP id a640c23a62f3a-aab778f6f48mr940605266b.13.1734348994774;
+        Mon, 16 Dec 2024 03:36:34 -0800 (PST)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Dec 2024 12:35:01 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
- kernel
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Dec 2024 11:36:31 +0000
+Message-Id: <D6D3ENF4CKYE.1XYBKJV0WFD3A@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 08/13] x86/xstate: Map/unmap xsave area in
+ {compress,expand}_xsave_states()
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+X-Mailer: aerc 0.18.2
+References: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
+ <20241105143310.28301-9-alejandro.vallejo@cloud.com>
+ <0edad037-f6df-4a9a-ba3f-73ea2405604d@suse.com>
+In-Reply-To: <0edad037-f6df-4a9a-ba3f-73ea2405604d@suse.com>
 
-On Mon, Dec 16, 2024 at 09:35:37AM +0100, Roger Pau Monn=C3=A9 wrote:
-> Adding Oleksii, as this IMO wants to be a blocker for 4.20.
->=20
-> On Wed, Oct 09, 2024 at 03:03:28PM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Wed, Oct 09, 2024 at 01:38:32PM +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> > > On 09.10.24 13:15, Jan Beulich wrote:
-> > > > On 09.10.2024 13:08, Andrew Cooper wrote:
-> > > > > On 09/10/2024 11:26 am, Juergen Gross wrote:
-> > > > > > On 09.10.24 12:19, Jan Beulich wrote:
-> > > > > > > On 09.10.2024 11:52, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > On Wed, Oct 09, 2024 at 09:19:57AM +0200, Jan Beulich wrote:
-> > > > > > > > > On 08.10.2024 23:32, Marek Marczykowski-G=C3=B3recki wrot=
-e:
-> > > > > > > > > > --- a/tools/libs/guest/xg_dom_bzimageloader.c
-> > > > > > > > > > +++ b/tools/libs/guest/xg_dom_bzimageloader.c
-> > > > > > > > > > @@ -272,8 +272,7 @@ static int _xc_try_lzma_decode(
-> > > > > > > > > >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return retval;
-> > > > > > > > > >  =C2=A0 }
-> > > > > > > > > >  =C2=A0 -/* 128 Mb is the minimum size (half-way) docum=
-ented to work for
-> > > > > > > > > > all inputs. */
-> > > > > > > > > > -#define LZMA_BLOCK_SIZE (128*1024*1024)
-> > > > > > > > > > +#define LZMA_BLOCK_SIZE (256*1024*1024)
-> > > > > > > > >=20
-> > > > > > > > > That's as arbitrary as before, now just not even with a c=
-omment at
-> > > > > > > > > least
-> > > > > > > > > hinting at it being arbitrary. Quoting from one of the LZ=
-MA API
-> > > > > > > > > headers:
-> > > > > > > > >=20
-> > > > > > > > >  =C2=A0=C2=A0=C2=A0=C2=A0 * Decoder already supports dict=
-ionaries up to 4 GiB - 1 B (i.e.
-> > > > > > > > >  =C2=A0=C2=A0=C2=A0=C2=A0 * UINT32_MAX), so increasing th=
-e maximum dictionary size of the
-> > > > > > > > >  =C2=A0=C2=A0=C2=A0=C2=A0 * encoder won't cause problems =
-for old decoders.
-> > > > > > > > >=20
-> > > > > > > > > IOW - what if the Linux folks decided to increase the dic=
-tionary size
-> > > > > > > > > further? I therefore wonder whether we don't need to make=
- this more
-> > > > > > > > > dynamic, perhaps by peeking into the header to obtain the=
- dictionary
-> > > > > > > > > size used. The one thing I'm not sure about is whether th=
-ere can't be
-> > > > > > > > > multiple such headers throughout the file, and hence (in =
-principle)
-> > > > > > > > > differing dictionary sizes.
-> > > > > > > >=20
-> > > > > > > > What is the purpose of this block size limit? From the error
-> > > > > > > > message, it
-> > > > > > > > seems to be avoiding excessive memory usage during decompre=
-ssion (which
-> > > > > > > > could be DoS via OOM). If that's the case, then taking the =
-limit from
-> > > > > > > > the kernel binary itself will miss this point (especially i=
-n case of
-> > > > > > > > pygrub or similar, but there may be other cases of not-full=
-y-trusted
-> > > > > > > > kernel binaries).
-> > > > > > >=20
-> > > > > > > Indeed. The question then simply is: Where do we want to draw=
- the line
-> > > > > > > between what we permit and what we reject?
-> > > > > >=20
-> > > > > > IMHO the most natural solution would be to use guest memory for=
- this
-> > > > > > purpose.
-> > > > > > OTOH this probably would require a significant rework of libxen=
-guest.
-> > > > >=20
-> > > > > That was XSA-25.=C2=A0 There are toolstack-provided limits on ker=
-nel&initrd
-> > > > > sizes.
-> > > >=20
-> > > > Which probably can't be directly applied to dictionary size used du=
-ring
-> > > > (de)compression.
-> > >=20
-> > > My point still stands: using GUEST memory for all the decompression w=
-ork
-> > > would avoid all these problems. If the guest memory isn't sufficient,=
- a
-> > > decompression by e.g. grub wouldn't work either.
+On Mon Dec 9, 2024 at 4:20 PM GMT, Jan Beulich wrote:
+> On 05.11.2024 15:33, Alejandro Vallejo wrote:
+> > No functional change.
 > >=20
-> > Doing that would probably require mapping guest memory to dom0 for this
-> > purpose. And probably quite severe changes to the decompressing code
-> > (liblzma?) to actually use that memory instead of standard heap. I don't
-> > think it's a feasible short term fix.
-> > Theoretically this could be made configurable (if nothing else, then via
-> > an env variable or even build-time setting...), but honestly it feels
-> > like an overkill.
->=20
-> As a compromise that could likely be done in time for the release,
-> would it be feasible to fetch the dictionary size from the header and
-> cap it at certain boundary using max(<header val>, <boundary>)?
+> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> > ---
+> > v2:
+> >   * No change
+> > ---
+> >  xen/arch/x86/xstate.c | 8 ++++++--
+> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
+> > index 401bdad2eb0d..6db7ec2ea6a9 100644
+> > --- a/xen/arch/x86/xstate.c
+> > +++ b/xen/arch/x86/xstate.c
+> > @@ -177,7 +177,7 @@ static void setup_xstate_comp(uint16_t *comp_offset=
+s,
+> >   */
+> >  void expand_xsave_states(const struct vcpu *v, void *dest, unsigned in=
+t size)
+> >  {
+> > -    const struct xsave_struct *xstate =3D v->arch.xsave_area;
+> > +    const struct xsave_struct *xstate =3D VCPU_MAP_XSAVE_AREA(v);
+> >      const void *src;
+> >      uint16_t comp_offsets[sizeof(xfeature_mask)*8];
+> >      u64 xstate_bv =3D xstate->xsave_hdr.xstate_bv;
+> > @@ -228,6 +228,8 @@ void expand_xsave_states(const struct vcpu *v, void=
+ *dest, unsigned int size)
+> > =20
+> >          valid &=3D ~feature;
+> >      }
+> > +
+> > +    VCPU_UNMAP_XSAVE_AREA(v, xstate);
+> >  }
+>
+> In the middle of these two hunks there's an early return.
+>
+> > @@ -242,7 +244,7 @@ void expand_xsave_states(const struct vcpu *v, void=
+ *dest, unsigned int size)
+> >   */
+> >  void compress_xsave_states(struct vcpu *v, const void *src, unsigned i=
+nt size)
+> >  {
+> > -    struct xsave_struct *xstate =3D v->arch.xsave_area;
+> > +    struct xsave_struct *xstate =3D VCPU_MAP_XSAVE_AREA(v);
+> >      void *dest;
+> >      uint16_t comp_offsets[sizeof(xfeature_mask)*8];
+> >      u64 xstate_bv, valid;
+> > @@ -294,6 +296,8 @@ void compress_xsave_states(struct vcpu *v, const vo=
+id *src, unsigned int size)
+> > =20
+> >          valid &=3D ~feature;
+> >      }
+> > +
+> > +    VCPU_UNMAP_XSAVE_AREA(v, xstate);
+> >  }
+>
+> Same here.
+>
+> Jan
 
-Isn't the current constant more or less that already? It's named
-LZMA_BLOCK_SIZE, but the lzma_stream_decoder() argument it's used for is
-"memlimit", described as "Memory usage limit as bytes".
+Doh! Yes, good catch. I'll "goto out" on both rather than the early exit to
+ensure the unmap is invoked in the "already (de)compressed" cases.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---FyyhMwKxTCf/oLKa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmdgEGYACgkQ24/THMrX
-1ywUEAf8DnKhBMfk3WH01oo2e1rftTx1GdeB0Wo47vrVDpebEai9c1ZgND+qX5Kp
-LEuM7wfZpYldv5ERezhprsP4mkHOJ/PLv5u5TuZl62j3mhEbJFXHIld9rIRckLrA
-WED4YqwuSLygEE3jvMxNMyb+nra/FNEoudY3FCbi1wl4vOQpBei+Rmf15rbwC48N
-tzufxFEC1idIdabUnSroBHuVDfTTpnLAzBqj4if2cD5Zu0HdHvh3PXqz9Bma2elw
-efJZ9daR1zZuxulRAP8OSRaNVeo+H1Kpskgw59UUFnVDx6rdYr8XIhY0E03Ytd6u
-WEMKWVlLfw+wVa3RPUNoi2mDpgevOg==
-=xzL6
------END PGP SIGNATURE-----
-
---FyyhMwKxTCf/oLKa--
+Cheers,
+Alejandro
 
