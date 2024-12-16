@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B0C9F2D92
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 10:59:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857639.1269860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 805039F2E15
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 11:22:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857650.1269870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN7sK-00089l-C4; Mon, 16 Dec 2024 09:58:52 +0000
+	id 1tN8Dv-0003f6-2h; Mon, 16 Dec 2024 10:21:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857639.1269860; Mon, 16 Dec 2024 09:58:52 +0000
+Received: by outflank-mailman (output) from mailman id 857650.1269870; Mon, 16 Dec 2024 10:21:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN7sK-000889-8b; Mon, 16 Dec 2024 09:58:52 +0000
-Received: by outflank-mailman (input) for mailman id 857639;
- Mon, 16 Dec 2024 09:58:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tN8Du-0003cl-WE; Mon, 16 Dec 2024 10:21:11 +0000
+Received: by outflank-mailman (input) for mailman id 857650;
+ Mon, 16 Dec 2024 10:21:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tN7sI-000880-Um
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 09:58:50 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58a5d0f3-bb94-11ef-99a3-01e77a169b0f;
- Mon, 16 Dec 2024 10:58:49 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-385ddcfc97bso3288808f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 01:58:49 -0800 (PST)
+ id 1tN8Dt-0003cc-IQ
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 10:21:09 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7565b830-bb97-11ef-a0d6-8be0dac302b0;
+ Mon, 16 Dec 2024 11:21:05 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-436202dd730so27462795e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 02:21:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c801643fsm7693112f8f.41.2024.12.16.01.58.47
+ 5b1f17b1804b1-4362559ec08sm136229865e9.22.2024.12.16.02.21.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 01:58:48 -0800 (PST)
+ Mon, 16 Dec 2024 02:21:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58a5d0f3-bb94-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 7565b830-bb97-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734343128; x=1734947928; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734344465; x=1734949265; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XOLxbcZZTjzhG5nt8yc/Ddg/CYtaUwO8sT4eRfCtkUk=;
-        b=FrP1L/DOxJA16G56y0Suj8dDpL+LX1TvsE4GAijRWjeNyA6vS4snx7aDuf7aElkjHK
-         7dtFlO3HNDVtelGtRdnsGPuXr2ugsQYlVsyUaxhtuQxbK1SNeYBCtes4bmiDNfOWz2+l
-         Tp0XWaHU0tih4s8fuVrDQ7WEL03WlwgKjYW65vp7Wja0kDaWZ8LQK40jWUm/A17rhkZi
-         Ruqdw3s/5Dc2s3yeetzazCemsRRtdWvyNoR1r6dWZXvx/30onkxvh/vL/JiXruhpHZek
-         4C3dsEcKTV5JtUKItRGU7JaxWOnXLADrXaS+6et1jKOI+8rpjcuIOIYO/Sefd3kMh5e0
-         wGLg==
+        bh=SPUpQ3AANBoIUV/uT+3rcfFFLjpUmp27Gb7Kq7AbkTU=;
+        b=Szln7NFyFC1Sa19+CWdPwDLVY0Y5DH2UKUI8sy6mm+UbFeIRtC4vjZ1Dks5dTHHrZM
+         qMtcATVoNRE+aunfq/3GBF/tM5eYSPu4NfKgc4CJLwaiUQBpHOEsREQqtc9+tniI4sX8
+         lC9CZw1YaDxEfAQwGX+2r+nOZPABPtdyLoFB7k0+2PUV2kcIw54+V+63r96NyL3ta9mj
+         o1fiInqtGoswJ7IosHzCcuiU0TXl6t6KtYxCxmthGsesBMldP6rrtTdrJdm4KOia8aOl
+         7PezaJIkooJ4X3aH+iBjYQma0OpBJzo0LDeoCEhxF6HkR4RYIQpin6imQts1d1q8logn
+         zkkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734343128; x=1734947928;
+        d=1e100.net; s=20230601; t=1734344465; x=1734949265;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XOLxbcZZTjzhG5nt8yc/Ddg/CYtaUwO8sT4eRfCtkUk=;
-        b=p4W5y0OyEiIRR1p5FzOyDfISmsBgQEBwiO1Wpu2/BVcHCyoQCY5f3pfGWs0cy9mVOn
-         HdwOLL/xEuxgWXCDcpcU9OYHzvsiSrKPy5IIXMU4AggcCiP6gNEe9yi17YfBZ0jLvMvm
-         T6/59U6OsKPiU/Hbid3c+7HAHgVd740Dm0/DHap0/W08AdZXpanNxLI8jaHR+RkTUZHz
-         uY+aUMtX35tVcJKZ3FtFcLPL0dA/Es3V2IlyAxtuUU6gC8R3ChgcYHYivUUE8f4DaFz5
-         Jt5QSH5mAhWT74+tBbr9XdWTXO6Hs1QJ8xwHGvCwAQOTNTy/eh5HYsS1PtjPAUYxh5a4
-         VGxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWfcQCBb9iw38/eQaTzolcxJ2mAX3pcdt4ZK+xGSwJTtYaYzRzPfHaG/ffUzkIc6TCaIFxol/X0peM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4KCCS6VEwB9uASSA+0xegeKEXCX0kCTLTUWtsnZIcXQd0NuE7
-	MSx7dPGcKC9I2gnlHN2h/lwblNY/koB8eXqhmiR+WNAblXgfJE9ov29Ueaa0Vg==
-X-Gm-Gg: ASbGnctq3NR3FsoWBmR6RfwUHiJRpHpDCZz41aCCUfO67ppZiWKX66nu5DkwMwOTcOf
-	Y5bU5keSisE1A8Xc2X5F0/KYK9LEcsKBAXcUnger00KZYZgaAWw0RK0qnhrkQW1fDcR+7YNTk+r
-	+qtAR2Uhfx3bQ64IW/rNNfaqP59qdBHWdVi2bnjGNLX0R17HphWp7TDH7vhl8aGQWygkuD2CIPq
-	4t/crGnqBP+4eJ++uDnrrEOlm3jS0G0t2h0aGhIvnpXDFwqMDTAvEPG2mGsGs9lTqnjz233ZhIp
-	x+tAWR1PVq9LmZwGTmutuaeiTMeljqXNFDrfyBqbhA==
-X-Google-Smtp-Source: AGHT+IH1H9EW0O/v3WAoUuqp6lsDCb04nNT/Xp7A6OtsjAi0UgjUdh8dkCD8xo3mdP2GdrHHivShYQ==
-X-Received: by 2002:a5d:64ef:0:b0:385:f4db:e336 with SMTP id ffacd0b85a97d-38880af1626mr8180467f8f.2.1734343128363;
-        Mon, 16 Dec 2024 01:58:48 -0800 (PST)
-Message-ID: <153381d0-3da1-47b2-b9b1-ac6783bdc9b1@suse.com>
-Date: Mon, 16 Dec 2024 10:58:50 +0100
+        bh=SPUpQ3AANBoIUV/uT+3rcfFFLjpUmp27Gb7Kq7AbkTU=;
+        b=fdW8bqZr1yIcZroesB4F7yOIlL/iqWj9t84iitpYu021WN5pbgCfz80d/gB4V5ykmd
+         yhgcc/mFby6TfMW305ngc7KYVTPrEBqTT97hHWgfKODUIM29/XpIdTC+twvgqCMU2EuY
+         0qqFgAs792JY1hvsAPXmafcOhZuQ1BLoIoFEUNcJUfvYtpgxloQYkC2Ksw54K2TClrko
+         oAOSmx5lE6US/oaBvDepOcaqgp65r6VbEZPrIQCnvFtEw6rOZnq4R38Gbi0FFx8qVJ2/
+         LH+d2nIcRa0aVpiH+lyVlNTtQTuohlinjDnrduGzcLEURCuhbLqBCgFKZBceYStcopnu
+         l+zw==
+X-Forwarded-Encrypted: i=1; AJvYcCVp4a1LoWeXoETu52+UaqzVpcYyYaL6Z7OFO9HAjAeD7x78NR4Wh2nzchVh1bdxYIv95Aa9E6h6MJM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxW9q+Y/N9FARsLKFwxEBc1aR5vaT/xDWaK9gpcGMY3KfJeb5av
+	6ejQFaJacdSqG0KOygrJjOtuE98knNSrtqFLMAzaNOh4SIKYingO7LYCs6av1A==
+X-Gm-Gg: ASbGncueY6aV6t2j32uWkeGRUKcWTUxmq1HzlSHHP3awzu0K16+0CI+2S8yNvcND9Vc
+	vfONFfrMkrB/s6+OFOcZa7ydXc8RQRuhQxkGS+pZiqhV03kQ1PV7LEjj3vmdBhdWH3a8j9DMO2o
+	k9ioTGMmW/sQVyvGulLCMCYsraZEtMpSGALoPtSLR2OAQyISqt6i4VZvx7THpjmqZWcR+6gVZin
+	YVUuiK5+3zH5PHQaxOSD5q1lv509TIzMm5AoqtCFYd7xLD5bhazCxHzG95dGw+BMLXsbHBZz/Fq
+	hZ4bHIssRO68lBFLIPWsQJdPGPZP9HfB49R8lrgA5w==
+X-Google-Smtp-Source: AGHT+IHw87OegXSV2JNn4ULvXYDfEO2vjSDEdpDk2ZGL6Sqbw5zBbzA1JBTVjdtxClv5Q4GS2lh04w==
+X-Received: by 2002:a05:600c:5248:b0:434:f3d8:62d0 with SMTP id 5b1f17b1804b1-4362aa34e58mr120872315e9.3.1734344465029;
+        Mon, 16 Dec 2024 02:21:05 -0800 (PST)
+Message-ID: <50258f9a-89e6-4a62-8ed5-63a3bfa668c8@suse.com>
+Date: Mon, 16 Dec 2024 11:21:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ARM: ITS: implement quirks and add support for
- Renesas Gen4 ITS
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 4/7] xen: add bitmap to indicate per-domain state
+ changes
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1734096752.git.mykyta_poturai@epam.com>
- <2ea26be2689585ea254a9c0177816722bcb2db8d.1734096752.git.mykyta_poturai@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241213162421.16782-1-jgross@suse.com>
+ <20241213162421.16782-5-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,36 +121,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2ea26be2689585ea254a9c0177816722bcb2db8d.1734096752.git.mykyta_poturai@epam.com>
+In-Reply-To: <20241213162421.16782-5-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.12.2024 14:43, Mykyta Poturai wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> There are number of ITS implementations exist which are different from
-> the base one which have number of functionalities defined as is
-> "IMPLEMENTATION DEFINED", e.g. there may exist differences in cacheability,
-> shareability and memory requirements and others. This requires
-> appropriate handling of such HW requirements which are implemented as
-> ITS quirks: GITS_IIDR (ITS Implementer Identification Register) is used to
-> differentiate the ITS implementations and select appropriate set of
-> quirks if any.
-> 
-> As an example of such ITSes add quirk implementation for Renesas Gen4 ITS:
-> - add possibility to override default cacheability and shareability
-> settings used for ITS memory allocations;
-> - add possibility to allocate memory used by ITS with specific memory
-> requirements: introduce _x{z|m}alloc_whole_pages functions and free the
-> memory with xfree as usual.
+On 13.12.2024 17:24, Juergen Gross wrote:
+> @@ -138,6 +139,60 @@ bool __read_mostly vmtrace_available;
+>  
+>  bool __read_mostly vpmu_is_available;
+>  
+> +static DEFINE_SPINLOCK(dom_state_changed_lock);
+> +static unsigned long *dom_state_changed;
 
-I disagree with this part. If you need whole pages, you want to use
-alloc_{dom,xen}heap_pages(). They also provide control over "specific
-requirements", which xmalloc() et al (deliberately don't offer, while
-you end up making that inconsistent by adding memflags to two of the
-interfaces there). And btw, if anything you'd need to alter the
-xvmalloc() set of interfaces, as new code is supposed to use them in
-favor of the xmalloc() family.
+__read_mostly?
+
+> +int domain_init_states(void)
+> +{
+> +    const struct domain *d;
+> +    int rc = -ENOMEM;
+> +
+> +    spin_lock(&dom_state_changed_lock);
+> +
+> +    if ( dom_state_changed )
+> +        bitmap_zero(dom_state_changed, DOMID_FIRST_RESERVED);
+> +    else
+> +    {
+> +        dom_state_changed = xvzalloc_array(unsigned long,
+> +                                           BITS_TO_LONGS(DOMID_FIRST_RESERVED));
+> +        if ( !dom_state_changed )
+> +            goto unlock;
+> +    }
+> +
+> +    rcu_read_lock(&domlist_read_lock);
+> +
+> +    for_each_domain ( d )
+> +        set_bit(d->domain_id, dom_state_changed);
+
+Use the cheaper __set_bit() here?
+
+> +static void domain_changed_state(const struct domain *d)
+> +{
+> +    spin_lock(&dom_state_changed_lock);
+> +
+> +    if ( dom_state_changed )
+> +        set_bit(d->domain_id, dom_state_changed);
+
+And perhaps even here, considering everything's under lock now?
+
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -485,6 +485,13 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>      if ( (v = domain_vcpu(d, vcpu)) == NULL )
+>          return -ENOENT;
+>  
+> +    if ( virq == VIRQ_DOM_EXC )
+> +    {
+> +        rc = domain_init_states();
+> +        if ( rc )
+> +            goto deinit;
+> +    }
+
+This is tied to VIRQ_DOM_EXC. How come ...
+
+> @@ -527,6 +534,10 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>   out:
+>      write_unlock(&d->event_lock);
+>  
+> + deinit:
+> +    if ( rc )
+> +        domain_deinit_states();
+> +
+>      return rc;
+>  }
+
+... de-init happens upon any error, regardless of vIRQ? Even checking
+the virq isn't sufficient, as we also need to gracefully deal with the
+-EEXIST path.
 
 Jan
 
