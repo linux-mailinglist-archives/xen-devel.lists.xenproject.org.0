@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA9FC9F2FEB
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 13:00:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857864.1270064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3B759F2FFE
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 13:01:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857876.1270075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9m0-0003BF-Bo; Mon, 16 Dec 2024 12:00:28 +0000
+	id 1tN9n6-00048d-KM; Mon, 16 Dec 2024 12:01:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857864.1270064; Mon, 16 Dec 2024 12:00:28 +0000
+Received: by outflank-mailman (output) from mailman id 857876.1270075; Mon, 16 Dec 2024 12:01:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9m0-00039h-9C; Mon, 16 Dec 2024 12:00:28 +0000
-Received: by outflank-mailman (input) for mailman id 857864;
- Mon, 16 Dec 2024 12:00:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XQSc=TJ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tN9lz-000398-2g
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 12:00:27 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5640c488-bba5-11ef-a0d6-8be0dac302b0;
- Mon, 16 Dec 2024 13:00:26 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aa69107179cso754092866b.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 04:00:26 -0800 (PST)
-Received: from localhost ([85.152.134.39]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aab963b282csm322813866b.180.2024.12.16.04.00.24
+	id 1tN9n6-00046p-HQ; Mon, 16 Dec 2024 12:01:36 +0000
+Received: by outflank-mailman (input) for mailman id 857876;
+ Mon, 16 Dec 2024 12:01:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tN9n5-00046j-73
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 12:01:35 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7e06b1a4-bba5-11ef-99a3-01e77a169b0f;
+ Mon, 16 Dec 2024 13:01:33 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-436281c8a38so25472535e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 04:01:33 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4363602d76fsm82147465e9.18.2024.12.16.04.01.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 04:00:25 -0800 (PST)
+ Mon, 16 Dec 2024 04:01:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5640c488-bba5-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: 7e06b1a4-bba5-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1734350426; x=1734955226; darn=lists.xenproject.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5hjPTMon1EDWQtLsBgRz5nZlvtMWdXZkey3ExrywPas=;
-        b=X9H+RpeXMrrZPvKRjN7/JKTQskwWh29IFTRLbvvsavIIYHi4PxJ3xr2fQd/VQO5zji
-         msQ0uxeWUo9WJyHnDryj/KmV2Dr+blyIxIKIwFiVq4h6J7le9A5sDokyE3QbrcXEVGxW
-         PHojKDu87xEZCg9xuiGLC9fnJO3ty5qBsNfqU=
+        d=suse.com; s=google; t=1734350492; x=1734955292; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Eru0yi5UTg7G8gcdUMXhgut/0ygz8qe/9NCcR7BjtcE=;
+        b=Ben+ya9snnLNwnkAuC3O+iGgtd38xqYFp5FvlugxgJHtgizxV0UWkma5B4IpF2x5dX
+         0JnCjpB4bmwUVASjApKNODVFMyjKW3ESzOm0M+8P78gGs6r8TCW1k+DaxSRRcyKzcVZJ
+         fvkbQIyWUH2A40aD9LnbjSQjlYmApd9rFXMZ8PBt9EWgnzpW5ut5YbMGjEkLnx1GY/iV
+         ocZ63eWHkjeGQOzyyTJLbiyZ7+KgVI+/aNeSXBvzS2F0bA5ADUQgbWL21Klb5KhyCjBi
+         RubRaAnj20+txm5k6PzhdIL/fKwfli283MPMZEe95u6DaAAFcgNXnCf86Sl+jE9SgeA8
+         LE2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734350426; x=1734955226;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5hjPTMon1EDWQtLsBgRz5nZlvtMWdXZkey3ExrywPas=;
-        b=WpsnVI4a6Xc+j5juOKuc+8yGdzBRYitZevIiOYcO/VU4kQEVnfmaPGBoaspsC2vOtk
-         Z2C4tDyV6eF0eihqkBDxRSBCZa28UxgOEtubqO1YZPAJCMcicZmRBaV7T2eMaLIwaySF
-         chh7jvjB4KDsllj/ZGopS7KV8Mqmdvxn1RJcOC26xO71HesGKjgE9aRao3DJ/NosPVL0
-         s5qHKCD63wi1UDsL8lfM9tfWQu0aefL9iBbelNZRAI0IZLEV+H599CzPeg+qF1sbi4Dl
-         K8gVHXt+LHRqdpIczHfgUM0IBgr6dkHH3pk2TFNPaT91Y9cnYE2kHxxy9XhIS4Pj/KQx
-         uppA==
-X-Forwarded-Encrypted: i=1; AJvYcCVjAHekpQAQPKmoAFH+oKW3m2f9XoGAfpff/aQ+u6hFfgV4hnoP8Sksj6viS2FDuzLGw9zrYCvsYcQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzsTriOYXSc1wRiVc2VDCEVirZzsg7CYOPpkV0YnI2Lg+ubuYTq
-	+mAjNTqOEyT/8iDWICj3kqFkIEPkByHFEBh11cCZXQIVrOurGOMoJHHK/d25qB4=
-X-Gm-Gg: ASbGnctldFtuFlUMT9jhVyboPywr92ho3xJhDV1zQkuQuqCalljMnrxflFh/1XoP5s/
-	+gYiJN9EIcyJdZuyCQPvR0iBTFKCbychiVShfKoDInYjF+803nvAnqxelmDcMEc7Wu4Pc0i5qWr
-	xBoRGq0nOwIZVeakBMogCHkdQc9IDSk8EPyp+RlwugPaBZrfP7Lpg9WNQ8fboDJtRSX/3Svy2uk
-	7lcc+ctY0U9zOWPps+v+sfm7QE9CwWfhqEV0ubNITgbRc3APinO/lxWqFg3geY=
-X-Google-Smtp-Source: AGHT+IGnU5VysDyUFo6bLcfUIY9VhTZro3gr/Q1V4xRALoMV2UEDcD16XCKNUlCX1KPXfmUD8vFN6w==
-X-Received: by 2002:a17:906:32c3:b0:aa6:7feb:193f with SMTP id a640c23a62f3a-aab7795851bmr1194025466b.20.1734350425898;
-        Mon, 16 Dec 2024 04:00:25 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Dec 2024 12:00:22 +0000
-Message-Id: <D6D3WWUR75T2.1C5DL8WJGQVNP@cloud.com>
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 10/13] x86/mpx: Map/unmap xsave area in in
- read_bndcfgu()
-X-Mailer: aerc 0.18.2
+        d=1e100.net; s=20230601; t=1734350492; x=1734955292;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Eru0yi5UTg7G8gcdUMXhgut/0ygz8qe/9NCcR7BjtcE=;
+        b=Jkq2LbRKnY2e28L20ZlMBnb+dJyI6ZFzJYBvNNZ1pTDBiWSseMZWXK0W1yOolMSM5d
+         3iIWOSNAK/ElRDXKxcqpJG0o345ozibchq2z6+NED36swQDU3PRyQi3x1hmYMswgt8Lr
+         Sm290WXiTlZDKKhiVLEyyZ+LqLUqTeDIvIb/eLtqIg5vM3mvh7DzssL2krUquV2+ZbQm
+         br8AmykfWRDASaeqK/19yRnc0g8gSkZZM4t3vXW8L9tIGWkjHz0MTjOa7zdrGNQ28ZFC
+         +IDig8SGbVx8Rue4vqET1GvdfIVVyO9eeZu88MM3SEOlYTbdBaPmf2LxgBk9PnJNaIuw
+         KSxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWGAJUIzfwp2Ig06LwBJTfZWF2LIMD/J38jerE7nIArli0YxZ7b0PaP0Gkm7BmqAw3dtE1VjI1WWFQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yymd4CKEchEmtPRSL1yddzHEnt1bcJtiy8Xl/Tcckb6nIDoQpbA
+	o7B4FP+u5qqGIWfKueyv/vndzpTpwbHiUmN90G5pTAQAcX9wRAWBhFQVJFuSDA==
+X-Gm-Gg: ASbGnctpazCwd20sY8FaL8uxFR1mhjPfw6P6Y2UkxxsY8dkU3/Z/Ha/Jjml2s/Gd90V
+	V2vqA5augivIK8jl2dE755srqxkE/K6eSq3Xd/yLzPnHpF+brfL6EvxUAFmz1dVdtWhr7w4vlPm
+	6qc+i4770n7c33k/AWLY3NHOrVK/QXHtZh4yVZD6PJ3etd0YQjMpVe3RX2Bg3pwvlCRiPssuwpP
+	J5l8nEH5ruFvomWOkISqC9VUNm8t4TELuFDGY1MpapSlm4fEXHbl9bfIus7RhG6x/W+gjzKRu+0
+	Sh6oqE649bx9RRJgXCX5wtGq7nsGMq82wLimIzPI0g==
+X-Google-Smtp-Source: AGHT+IEa62phwZgzIwE3N2wcURHjJ+2Vm5Hfgs0EXv4ZqwyxSBP21VnklcyYazM1uPegKOhSZfiYvg==
+X-Received: by 2002:a05:600c:5397:b0:433:c76d:d57e with SMTP id 5b1f17b1804b1-4362aa34e4cmr89337155e9.5.1734350492552;
+        Mon, 16 Dec 2024 04:01:32 -0800 (PST)
+Message-ID: <96c6dbc9-05f3-4e55-acee-5e9f9e2c93e5@suse.com>
+Date: Mon, 16 Dec 2024 13:01:30 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/13] x86/emulator: Refactor FXSAVE_AREA to use
+ wrappers
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
- <20241105143310.28301-11-alejandro.vallejo@cloud.com>
- <7e36137b-ce1f-4e78-9a41-fbfdbe9c0d87@suse.com>
-In-Reply-To: <7e36137b-ce1f-4e78-9a41-fbfdbe9c0d87@suse.com>
+ <20241105143310.28301-10-alejandro.vallejo@cloud.com>
+ <bc308e63-5791-4e29-a218-0c83728c116a@suse.com>
+ <D6D3VA6T02AX.3PVLA7M6C30H@cloud.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <D6D3VA6T02AX.3PVLA7M6C30H@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon Dec 9, 2024 at 4:30 PM GMT, Jan Beulich wrote:
-> On 05.11.2024 15:33, Alejandro Vallejo wrote:
-> > --- a/xen/arch/x86/xstate.c
-> > +++ b/xen/arch/x86/xstate.c
-> > @@ -1022,9 +1022,10 @@ int handle_xsetbv(u32 index, u64 new_bv)
-> > =20
-> >  uint64_t read_bndcfgu(void)
-> >  {
-> > +    uint64_t bndcfgu =3D 0;
-> >      unsigned long cr0 =3D read_cr0();
-> > -    struct xsave_struct *xstate
-> > -        =3D idle_vcpu[smp_processor_id()]->arch.xsave_area;
-> > +    struct vcpu *v =3D idle_vcpu[smp_processor_id()];
->
-> Can this be pointer-to-const? Certainly right now, so the question is rat=
-her
-> meant to be forward looking.
->
-> > +    struct xsave_struct *xstate =3D VCPU_MAP_XSAVE_AREA(v);
->
-> This certainly can be pointer-to-const, just like ...
->
-> >      const struct xstate_bndcsr *bndcsr;
->
-> ... this is.
->
-> Jan
+On 16.12.2024 12:58, Alejandro Vallejo wrote:
+> On Mon Dec 9, 2024 at 4:26 PM GMT, Jan Beulich wrote:
+>> On 05.11.2024 15:33, Alejandro Vallejo wrote:
+>>> --- a/xen/arch/x86/x86_emulate/blk.c
+>>> +++ b/xen/arch/x86/x86_emulate/blk.c
+>>> @@ -11,9 +11,12 @@
+>>>      !defined(X86EMUL_NO_SIMD)
+>>>  # ifdef __XEN__
+>>>  #  include <asm/xstate.h>
+>>> -#  define FXSAVE_AREA ((void *)&current->arch.xsave_area->fpu_sse)
+>>> +/* has a fastpath for `current`, so there's no actual map */
+>>> +#  define FXSAVE_AREA ((void *)VCPU_MAP_XSAVE_AREA(current))
+>>> +#  define UNMAP_FXSAVE_AREA(x) VCPU_UNMAP_XSAVE_AREA(currt ent, x)
+>>
+>> The typo of the first argument strongly suggests that the macro should
+>> already now evaluate its parameters, also pleasing Misra.
+> 
+> Not an unreasonable takeaway. I can expand as follows instead:
+> 
+> #define VCPU_UNMAP_XSAVE_AREA(v, x) ({ (void)(v); x; })
+> 
+> Thoughts?
 
-Yes, those retained non-const because of the now missing patch to zero-out
-bndcfgu.
+Why would x not also be cast to void?
 
-Cheers,
-Alejandro
+Jan
 
