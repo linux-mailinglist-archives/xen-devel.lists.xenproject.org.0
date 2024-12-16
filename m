@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E400C9F2C90
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 10:05:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857607.1269830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3771A9F2CC8
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 10:20:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857616.1269840 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN729-0000P6-WD; Mon, 16 Dec 2024 09:04:58 +0000
+	id 1tN7GH-0002CC-62; Mon, 16 Dec 2024 09:19:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857607.1269830; Mon, 16 Dec 2024 09:04:57 +0000
+Received: by outflank-mailman (output) from mailman id 857616.1269840; Mon, 16 Dec 2024 09:19:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN729-0000MA-SI; Mon, 16 Dec 2024 09:04:57 +0000
-Received: by outflank-mailman (input) for mailman id 857607;
- Mon, 16 Dec 2024 09:04:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3c03=TJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tN728-0000M4-6G
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 09:04:56 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0838499-bb8c-11ef-99a3-01e77a169b0f;
- Mon, 16 Dec 2024 10:04:54 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-382610c7116so1847153f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 01:04:54 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c8015f77sm7491465f8f.26.2024.12.16.01.04.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2024 01:04:53 -0800 (PST)
+	id 1tN7GH-0002AY-2R; Mon, 16 Dec 2024 09:19:33 +0000
+Received: by outflank-mailman (input) for mailman id 857616;
+ Mon, 16 Dec 2024 09:19:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tN7GF-0002AS-FF
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 09:19:31 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dab83dbb-bb8e-11ef-a0d6-8be0dac302b0;
+ Mon, 16 Dec 2024 10:19:30 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43628e97467so34172555e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 01:19:30 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-388c8046da0sm7770523f8f.74.2024.12.16.01.19.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Dec 2024 01:19:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,79 +45,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0838499-bb8c-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: dab83dbb-bb8e-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734339893; x=1734944693; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1U0GFgEt/Un031CzGR3NNK8KlCEMGfo2Slq73A6rzmo=;
-        b=qhprj//OXAFGphxrbzhEzwyc2o724cO/Y9QnDniYWd5ZcMHAhOdVjyG//+Bms5rLfi
-         +U6jjVyMgQk1y96w8XFHdYjnhi1zlv570O5L3azLRHDqIyWckz9uE5RorbsYZNJU/qrD
-         3Zpg50ellvZ4EI5sf9IwCYuy4f1Po5tVZ00j4=
+        d=suse.com; s=google; t=1734340770; x=1734945570; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=OxHl9dtxX5fxuawa353QgOBshFc+eKtA/Hav1Jgel+c=;
+        b=dKt8V9oDr/dNv/AEWMhY8B85e2BXx6IACrxrePgOsJeFX1Gz0ff5eXoQBAbk4UHCje
+         N7AFxcONRkfNovunwbLDPhtJR7qE+jwZaD5lidXvkgOqr7nQ8c/vh/mglaHpnd1kikJ6
+         ALjUM0TYwrqYFaTHzSGLxOOHva6jX21ci+KpTN02iiTUlV8DLZFJZ5t2JmqQh0YInelj
+         Tqz79XDOq5tMkEVi3ejh679S5wvbdPOv8+hJVtLbzKPlnACSWkPmjQf2hA0DQugFMM/j
+         zVhUYtkCKgqbe4BbMrfKVFNxzCAXrvRIDBYfrmZL4gqtlaE8ihwX9gTHmW8P7eIV4ITX
+         9eIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734339893; x=1734944693;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1U0GFgEt/Un031CzGR3NNK8KlCEMGfo2Slq73A6rzmo=;
-        b=i7jrli4wK2/nPdLkEUud1tBRdola78vEsP8Emqhx6sQw+sI192x+OCFEkM+QfwRrNV
-         CJDLam7yHi+BONDvOFEFTRKI7Pv3cnBoiL+YfbuvV84VNf3VDNbF5kiv1u4LiroTukAs
-         OQG4MyM+z1lE7TZ7TqXLYj+La9U4jBFZxbf49TcHYtsmo6h0NX4l7I2n+XC6xxaj3T3+
-         P3r5XQcZa77Uppf1+Artp9EqVINEyMt9ZrLbzTLojoG/cqwbqBVaxC2HmfqCQ7+IjN8o
-         eT9KZTF4hek41wovy8WEIDElsVoaVuI9QrSkb6FieAn6mFAAjXHvtWEgojyRinxxYOqZ
-         jeGw==
-X-Forwarded-Encrypted: i=1; AJvYcCVPl9nI4r4o7NDXE/WN0cOLKxXJLrayUop2jeSCXBM4gfU5w1vSVBQ2P8jBvSJV/KnSKbrq9lA4Bo8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxtrhIw9911UNP816x70np8PSFacKGs1U+dZa8e1TAutvfuFvjq
-	IaLKTxS8Vi9vG1nyYKfA1RHOexVRd4J4+feJHQVSyEYCrODDQYOKZm6o2dle0Qk=
-X-Gm-Gg: ASbGncv1PfjQCMz6ku+HsaNqEiATfqns866GNWQf1Xowycj0x/xztUz0U8zMMnFi/ka
-	sbM8yMuyvIo5embW+x7nCHEcpS8AVIR/cnSdGbmXNw5cLs1rVtnexwQ9thfpMeggn2zm6P3P1/w
-	lgLas6BhdDIM8Eq78F0DTfacFd0iYEwil8zTWEOwqAVv/6JG1QNlz4waL7cUg/mOTAMLrNSpbF5
-	ZtisRU+O3VmD15aXgYnp2Da8CAXHI3bso6fO+J87WE0q9ZtGOwH5x1ZmI1zQA==
-X-Google-Smtp-Source: AGHT+IG9ekZHp9Ot7ZpiIoFYsY1mxbEc8sCPIk6PIkvMnwcQFjmoEaXT5NwNQmpGkMq0mTT6gYrMoA==
-X-Received: by 2002:a5d:6d8f:0:b0:385:e3d3:be1b with SMTP id ffacd0b85a97d-38880ae1392mr10247668f8f.28.1734339893517;
-        Mon, 16 Dec 2024 01:04:53 -0800 (PST)
-Date: Mon, 16 Dec 2024 10:04:52 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v2 00/35] Introduce NS8250 UART emulator
-Message-ID: <Z1_tNLSg2vla6kY6@macbook.local>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <Z13I2xEJpkMouslw@mail-itl>
+        d=1e100.net; s=20230601; t=1734340770; x=1734945570;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OxHl9dtxX5fxuawa353QgOBshFc+eKtA/Hav1Jgel+c=;
+        b=ncdE4NWy4W6XoIJnO708ren2fjrwIxeyzwL9onX/Vaqxnan07TM50RN1nT9jr0E7JA
+         xYYj7V5XISttQFeMjN1/XAX9I4E7B0Ge+4UiaSrwOGwWvPOCjgXZm1VWeySBMWPua0Bz
+         JF1Z5heOJp28I7GOR8tFNYxA/gLsCsOX5VsmlkaE6FcZchczoeCIYO+wszV/XVRKBamU
+         MWnjNzW8GqlBkpPjw2kA5Z1p8Q5AOKgXxP/wIETw5pAzJ1Enkz4gmNETi8+H8sjXUSpa
+         a3NeFIrZVOLBw4wp4bnKwHLlC5ljoKgrLq+EZixlYMWxrswf5JXgdnOMX7+CvmNIfZaZ
+         S0bw==
+X-Forwarded-Encrypted: i=1; AJvYcCXzkGjLI87rX/72d4xqTmC+ne7fPuD2UisgPYG7B8JlqxPJmDLzw3O9FvHOUnWqqzFrnigI0jTaUNE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwiQ4nJPs2dKzntSMgWVADS+usJ2phvKAHzzB5LC2DCgGN8s9Xj
+	pVp1Cb29YoWfgGSnYs3gR7RD42gGThs18H2aGhLwXHVWpf5Ou9DoeHE+xbJ5vg==
+X-Gm-Gg: ASbGncv5QQcCUP6CWHwZdQtFDIV/OrSg1Ym442S0bt+iUpE7nsMGNmaswSP0pyLv5ak
+	Kg0Z/nhvp7wLOyRnpcUp+YrQi1GR6YsN5ZdOkasT3a51Kez6NEzkvVXU7Z7JjR32oE/f5K2bd0B
+	k87KsgCgEoCvNeBTGWLfA+afoKde/Bz3JuayuQpMlC+3Bw95a+dsIpWmH+GT++bf5ZR/KeruHrJ
+	/vbJY/G+T5Why8eqp96yNYzfAGsqv7FnXIeEGIu+GaMenIXYul3VjjuUQMn80Q2rlV37WqC0Fre
+	e/nD/+dw8azrmZHDVlUnxZYwGwlINh+WNEvVYCOJtA==
+X-Google-Smtp-Source: AGHT+IGUzulWCwIOeLEykd2kHecnhZmkQfhwjBHryCgvLvYGC5trB2ocAktXRMtBUqznyIGq0VBuwQ==
+X-Received: by 2002:a05:600c:4e4e:b0:434:a30b:5455 with SMTP id 5b1f17b1804b1-4362aaa4372mr100847785e9.27.1734340769649;
+        Mon, 16 Dec 2024 01:19:29 -0800 (PST)
+Message-ID: <0284d807-ae85-4d43-93b5-91fb29528d62@suse.com>
+Date: Mon, 16 Dec 2024 10:19:30 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z13I2xEJpkMouslw@mail-itl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: add privcmd ioctl to get p2pdma_distance
+To: "Zhang, Julia" <Julia.Zhang@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>, "Chen, Jiqian"
+ <Jiqian.Chen@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
+ "Penny, Zheng" <penny.zheng@amd.com>, "Zhu, Lingshan"
+ <Lingshan.Zhu@amd.com>, Paul Durrant <paul@xen.org>,
+ "Edgar E . Iglesias" <edgar.iglesias@gmail.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Juergen Gross <jgross@suse.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20241207105946.542491-1-julia.zhang@amd.com>
+ <03504a1e-c801-47fc-ac66-ab7e10ab6695@suse.com>
+ <IA1PR12MB6532F32D012A63000F34823AF23B2@IA1PR12MB6532.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <IA1PR12MB6532F32D012A63000F34823AF23B2@IA1PR12MB6532.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Dec 14, 2024 at 07:05:15PM +0100, Marek Marczykowski-Górecki wrote:
-> On Thu, Dec 05, 2024 at 08:41:30PM -0800, Denis Mukhin via B4 Relay wrote:
-> > The patch series introduces initial in-hypervisor emulator for
-> > NS8250/NS16x50-compatible UARTs under CONFIG_HAS_VUART_NS8250.
-> > 
-> > In parallel domain creation scenario (hyperlaunch), NS8520 emulator helps
-> > early guest OS bringup debugging, because it eliminates dependency on the
-> > external emulator being operational by the time domains are created. Also,
-> > there's no early console facility similar to vpl011 to support x86 guest OS
-> > bring up.
-> > 
-> > The NS8250 emulator is disabled by default.
+On 16.12.2024 09:18, Zhang, Julia wrote:
+> On 2024/12/9 15:47, Jan Beulich wrote:
+> On 07.12.2024 11:59, Julia Zhang wrote:
+
+Yet another formality, sorry: Please send plain text emails. You'll note that what
+I said and why you said is indistinguishably intermixed below.
+
+> --- a/tools/include/xen-sys/Linux/privcmd.h
 > 
-> On a high level, why the mechanism used by earlyprintk=xen (IIUC i/o
-> port 0xe9) isn't enough?
-> Hyperlaunch can't start full (Xen-unaware) HVM domains anyway, so
-> a requirement to use a Xen-specific interface for the console shouldn't be
-> an issue, no?
+> +++ b/tools/include/xen-sys/Linux/privcmd.h
+> 
+> @@ -110,6 +110,16 @@ typedef struct privcmd_map_hva_to_gpfns {
+> 
+>    int add_mapping;
+> 
+>  } privcmd_map_hva_to_gpfns_t;
+> 
+> 
+> 
+> +typedef struct privcmd_p2pdma_distance {
+> 
+> +  __u32 provider_bus;
+> 
+> +  __u32 provider_slot;
+> 
+> +  __u32 provider_func;
+> 
+> +  __u32 client_bus;
+> 
+> +  __u32 client_slot;
+> 
+> +  __u32 client_func;
+> 
+> +  __u32 distance;
+> 
+> +} privcmd_p2pdma_distance_t;
+> 
+> 
+> 
+> "Distance" typically is a symmetric thing. Why the asymmetry here? And
+> 
+> why __u32 when __u8 will be fine for most fields? And where's the segment
+> 
+> part of the device coordinates? Finally, with it being merely stub
+> 
+> implementations that you add here, all details on where the needed info
+> 
+> is to come from are missing.
+> 
+> "Distance" is p2pdma-distance between two PCI devices, it's calculated in kernel driver.I don't get why it's symmetric?
 
-I assume the point is to provide a minimal set of non-Xen specific
-interfaces so that a guest *could* work if made to use only those
-interfaces.  The 0xE9 hack is quite common for emergency printing, but
-it doesn't allow for input, which the ns8250 does.
+Distance from A to B is usually the same as that from B to A. But yes,
+not necessarily always (thinking of e.g. rings). Yet still I'm unclear
+about the distinction between provide and client.
 
-Thanks, Roger.
+> I will use change __u32 to __u8.
+> 
+> By the segment part of the device coordinates, do you mean the domain number of the device?
+
+Some call it domain, yes. Since domain has an important-ish different
+meaning in Xen, we prefer segment though.
+
+> All the needed info(virtual bus/slot/function numbers) are from guest VM, QEMU convert them to real physical info of two devices.
+> 
+> Do you mean that I should add more details in commit message or comment?
+
+Perhaps. Or have the patch be more complete, in the sense of not only
+putting in place stubs, thus actually making visible how the data is
+produced / used.
+
+Jan
 
