@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 780339F2D6A
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 10:53:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857631.1269850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77B0C9F2D92
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 10:59:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857639.1269860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN7n3-0007YM-Q2; Mon, 16 Dec 2024 09:53:25 +0000
+	id 1tN7sK-00089l-C4; Mon, 16 Dec 2024 09:58:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857631.1269850; Mon, 16 Dec 2024 09:53:25 +0000
+Received: by outflank-mailman (output) from mailman id 857639.1269860; Mon, 16 Dec 2024 09:58:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN7n3-0007Ve-Mt; Mon, 16 Dec 2024 09:53:25 +0000
-Received: by outflank-mailman (input) for mailman id 857631;
- Mon, 16 Dec 2024 09:53:23 +0000
+	id 1tN7sK-000889-8b; Mon, 16 Dec 2024 09:58:52 +0000
+Received: by outflank-mailman (input) for mailman id 857639;
+ Mon, 16 Dec 2024 09:58:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tN7n1-0007VY-F6
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 09:53:23 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1tN7sI-000880-Um
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 09:58:50 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9559663f-bb93-11ef-99a3-01e77a169b0f;
- Mon, 16 Dec 2024 10:53:21 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43622354a3eso26220865e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 01:53:21 -0800 (PST)
+ id 58a5d0f3-bb94-11ef-99a3-01e77a169b0f;
+ Mon, 16 Dec 2024 10:58:49 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-385ddcfc97bso3288808f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 01:58:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c80163b8sm7546568f8f.35.2024.12.16.01.53.19
+ ffacd0b85a97d-388c801643fsm7693112f8f.41.2024.12.16.01.58.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2024 01:53:20 -0800 (PST)
+ Mon, 16 Dec 2024 01:58:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9559663f-bb93-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 58a5d0f3-bb94-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734342801; x=1734947601; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734343128; x=1734947928; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CpKEyRqWsCjQ57UZGAkTg3oqG67L2eugsefWzGZeJlg=;
-        b=frgIN9gxwYyKrdLn8EgDOSji7X1U+UmuIP/6555iR6PxVOCr0tgMzVnSHLwYf9d8nM
-         ITJLbqjzLexbW1ahVX+jjrj/JaU0tYVPDMimSenDo1iE8eGZWP4GcT6oa1jiNGfnPvno
-         fEvPELiL+bUAr2T3CwBoeCk7pvFEv2bNPh7FkmdPSu8rL2M7xSNP29rCxanWn7OyJ0f1
-         yieJRi3A6baOMGh31f7LTIdQrChENeSHTeS2gjtkl9c37cxU2X3y+kjR61YjQGntv+69
-         fj0QU/8x8S9jTTGDpiCHlUC44Rx06d4+dTjsLbOxoHIH16ekvH4j2arYKpbNR5R3gGTJ
-         Rf2A==
+        bh=XOLxbcZZTjzhG5nt8yc/Ddg/CYtaUwO8sT4eRfCtkUk=;
+        b=FrP1L/DOxJA16G56y0Suj8dDpL+LX1TvsE4GAijRWjeNyA6vS4snx7aDuf7aElkjHK
+         7dtFlO3HNDVtelGtRdnsGPuXr2ugsQYlVsyUaxhtuQxbK1SNeYBCtes4bmiDNfOWz2+l
+         Tp0XWaHU0tih4s8fuVrDQ7WEL03WlwgKjYW65vp7Wja0kDaWZ8LQK40jWUm/A17rhkZi
+         Ruqdw3s/5Dc2s3yeetzazCemsRRtdWvyNoR1r6dWZXvx/30onkxvh/vL/JiXruhpHZek
+         4C3dsEcKTV5JtUKItRGU7JaxWOnXLADrXaS+6et1jKOI+8rpjcuIOIYO/Sefd3kMh5e0
+         wGLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734342801; x=1734947601;
+        d=1e100.net; s=20230601; t=1734343128; x=1734947928;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CpKEyRqWsCjQ57UZGAkTg3oqG67L2eugsefWzGZeJlg=;
-        b=WOI86PMfHhmJ6fAWE6psXZULyg8W4CqVxR4OTeYT9CGvs4QvsOI9lUu1h9IAsoNhXa
-         yStl7LZHcAjDI38OTjmNaGW9QQJqRNEehk3iVgURZsUVzgRY4cS3YhX20nxARHpINrsu
-         zKpTcl6plu3gr+UCIJOz1hivFYRh37TZPdPnF6RDoeVHF2AjbC9dJQiHOATbWSNVZkqm
-         gCFlP5x+eoR3q4IW4Wa57SFOrxUJOtSWLNJSI/RrnWX76mwGIniJyN5pJPJln+KPaNQR
-         c6KHLze4EeFbSMnz2tVLHiyv36VEfnQLhfrBo1oFjXF5RRukW/3AVLHOB8nVSEaUE9Mm
-         a3og==
-X-Forwarded-Encrypted: i=1; AJvYcCXatVP62GHqZWSxCo6EaRFvJZPIhXk83sj3mggGji6fQlQQzYrpXobOJb9jDbdFiskoxvXq6sFIhH0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybociOOroC/PPIMCnTDqw1AXp9w4CdHx9ckTS4eqRr5YGTn9vw
-	cZVKUrzhWBlJ+3N3EdSxceLDBIvAP1/JbS9GZ/z8IoHjsIq/5JjUwa/GKPfdtw==
-X-Gm-Gg: ASbGncsuAGO35zBLe4vwTb+xOkaaIAnuWpxmtT5sLUAORUDDSxmdb0i+Gr9eeciQ79+
-	DUA+jeNkEoAg7Dg1OPxxyrfZNhnJinfth2Bw53BizouArpxGvlsRjds+8KCa/owfrBwt8dbB/4x
-	FVbnuw8K6U2HB8gDEIUP/2taFYL9ET3HZe+lGfqKYiV8dogBwY+JR4oYYJw2bTjzPHcpueosWsS
-	6CibvcAu1zBwozaEQxzZXNI9pgcvP1CMkgL07aaAadDesbwqEJ+1khTOV2gziJIpOgFFohDi7ei
-	jQ7F6xfQ4WTHiqpWwVMqCk+Qu7E4mcaSD6+RBRGMUw==
-X-Google-Smtp-Source: AGHT+IH7wEymKwew7c4nnDnYCEm+AtoiDO/pPOfTL690bU2YLb0My3m/S9un2HzL+SYSg1tiBYbgVg==
-X-Received: by 2002:a5d:5849:0:b0:385:f69a:7e5f with SMTP id ffacd0b85a97d-3888e0b8e63mr10021175f8f.38.1734342800702;
-        Mon, 16 Dec 2024 01:53:20 -0800 (PST)
-Message-ID: <5599dc89-0fa4-4255-b4a1-5b81e151d8c7@suse.com>
-Date: Mon, 16 Dec 2024 10:53:22 +0100
+        bh=XOLxbcZZTjzhG5nt8yc/Ddg/CYtaUwO8sT4eRfCtkUk=;
+        b=p4W5y0OyEiIRR1p5FzOyDfISmsBgQEBwiO1Wpu2/BVcHCyoQCY5f3pfGWs0cy9mVOn
+         HdwOLL/xEuxgWXCDcpcU9OYHzvsiSrKPy5IIXMU4AggcCiP6gNEe9yi17YfBZ0jLvMvm
+         T6/59U6OsKPiU/Hbid3c+7HAHgVd740Dm0/DHap0/W08AdZXpanNxLI8jaHR+RkTUZHz
+         uY+aUMtX35tVcJKZ3FtFcLPL0dA/Es3V2IlyAxtuUU6gC8R3ChgcYHYivUUE8f4DaFz5
+         Jt5QSH5mAhWT74+tBbr9XdWTXO6Hs1QJ8xwHGvCwAQOTNTy/eh5HYsS1PtjPAUYxh5a4
+         VGxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWfcQCBb9iw38/eQaTzolcxJ2mAX3pcdt4ZK+xGSwJTtYaYzRzPfHaG/ffUzkIc6TCaIFxol/X0peM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz4KCCS6VEwB9uASSA+0xegeKEXCX0kCTLTUWtsnZIcXQd0NuE7
+	MSx7dPGcKC9I2gnlHN2h/lwblNY/koB8eXqhmiR+WNAblXgfJE9ov29Ueaa0Vg==
+X-Gm-Gg: ASbGnctq3NR3FsoWBmR6RfwUHiJRpHpDCZz41aCCUfO67ppZiWKX66nu5DkwMwOTcOf
+	Y5bU5keSisE1A8Xc2X5F0/KYK9LEcsKBAXcUnger00KZYZgaAWw0RK0qnhrkQW1fDcR+7YNTk+r
+	+qtAR2Uhfx3bQ64IW/rNNfaqP59qdBHWdVi2bnjGNLX0R17HphWp7TDH7vhl8aGQWygkuD2CIPq
+	4t/crGnqBP+4eJ++uDnrrEOlm3jS0G0t2h0aGhIvnpXDFwqMDTAvEPG2mGsGs9lTqnjz233ZhIp
+	x+tAWR1PVq9LmZwGTmutuaeiTMeljqXNFDrfyBqbhA==
+X-Google-Smtp-Source: AGHT+IH1H9EW0O/v3WAoUuqp6lsDCb04nNT/Xp7A6OtsjAi0UgjUdh8dkCD8xo3mdP2GdrHHivShYQ==
+X-Received: by 2002:a5d:64ef:0:b0:385:f4db:e336 with SMTP id ffacd0b85a97d-38880af1626mr8180467f8f.2.1734343128363;
+        Mon, 16 Dec 2024 01:58:48 -0800 (PST)
+Message-ID: <153381d0-3da1-47b2-b9b1-ac6783bdc9b1@suse.com>
+Date: Mon, 16 Dec 2024 10:58:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] tools/libacpi: clear ASL warning about PCI0
-To: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
-Cc: nthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20241215154659.151158-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241215154659.151158-2-Ariel.Otilibili-Anieli@eurecom.fr>
+Subject: Re: [PATCH 1/2] ARM: ITS: implement quirks and add support for
+ Renesas Gen4 ITS
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1734096752.git.mykyta_poturai@epam.com>
+ <2ea26be2689585ea254a9c0177816722bcb2db8d.1734096752.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,26 +125,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241215154659.151158-2-Ariel.Otilibili-Anieli@eurecom.fr>
+In-Reply-To: <2ea26be2689585ea254a9c0177816722bcb2db8d.1734096752.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.12.2024 16:40, Ariel Otilibili wrote:
-> * iasl complains _HID and _ADR cannot be used at the same time
+On 13.12.2024 14:43, Mykyta Poturai wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> ```
-> /usr/bin/iasl -vs -p tools/firmware/hvmloader/dsdt_anycpu.tmp -tc tools/firmware/hvmloader/dsdt_anycpu.asl 2>&1 | grep -B10 HID
-> tools/firmware/hvmloader/dsdt_anycpu.asl     40:        Device (PCI0)
-> Warning  3073 -                                    Multiple types ^  (Device object requires either a _HID or _ADR, but not both)
-> ```
+> There are number of ITS implementations exist which are different from
+> the base one which have number of functionalities defined as is
+> "IMPLEMENTATION DEFINED", e.g. there may exist differences in cacheability,
+> shareability and memory requirements and others. This requires
+> appropriate handling of such HW requirements which are implemented as
+> ITS quirks: GITS_IIDR (ITS Implementer Identification Register) is used to
+> differentiate the ITS implementations and select appropriate set of
+> quirks if any.
 > 
-> * generally _HID devices are enumerated and have their drivers loaded by ACPI
-> * this is from "ASL 2.0 Introduction and Overview" (page 4).
-> * removing _ADR, the warning is cleared out.
+> As an example of such ITSes add quirk implementation for Renesas Gen4 ITS:
+> - add possibility to override default cacheability and shareability
+> settings used for ITS memory allocations;
+> - add possibility to allocate memory used by ITS with specific memory
+> requirements: introduce _x{z|m}alloc_whole_pages functions and free the
+> memory with xfree as usual.
 
-Okay, that's the positive aspect. Yet what about the potential fallout thereof?
-Can you confirm that there's no risk of regressions with older guest OSes, for
-example?
+I disagree with this part. If you need whole pages, you want to use
+alloc_{dom,xen}heap_pages(). They also provide control over "specific
+requirements", which xmalloc() et al (deliberately don't offer, while
+you end up making that inconsistent by adding memflags to two of the
+interfaces there). And btw, if anything you'd need to alter the
+xvmalloc() set of interfaces, as new code is supposed to use them in
+favor of the xmalloc() family.
 
 Jan
 
