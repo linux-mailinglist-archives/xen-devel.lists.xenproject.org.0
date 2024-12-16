@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41A19F2FB1
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 12:44:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.857843.1270046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B15989F2FE6
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 12:58:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.857852.1270055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9WB-0007vL-Oj; Mon, 16 Dec 2024 11:44:07 +0000
+	id 1tN9k1-0001eU-TP; Mon, 16 Dec 2024 11:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 857843.1270046; Mon, 16 Dec 2024 11:44:07 +0000
+Received: by outflank-mailman (output) from mailman id 857852.1270055; Mon, 16 Dec 2024 11:58:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tN9WB-0007sT-LS; Mon, 16 Dec 2024 11:44:07 +0000
-Received: by outflank-mailman (input) for mailman id 857843;
- Mon, 16 Dec 2024 11:44:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tN9k1-0001c9-QA; Mon, 16 Dec 2024 11:58:25 +0000
+Received: by outflank-mailman (input) for mailman id 857852;
+ Mon, 16 Dec 2024 11:58:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P+a7=TJ=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1tN9WA-0007sN-9I
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 11:44:06 +0000
-Received: from fforwardh-a4-smtp.messagingengine.com
- (fforwardh-a4-smtp.messagingengine.com [103.168.172.199])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cabd406-bba3-11ef-a0d6-8be0dac302b0;
- Mon, 16 Dec 2024 12:44:04 +0100 (CET)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfforwardh.phl.internal (Postfix) with ESMTP id 5A4E92920AF9;
- Mon, 16 Dec 2024 06:44:03 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
- by phl-compute-11.internal (MEProxy); Mon, 16 Dec 2024 06:44:03 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Dec 2024 06:44:01 -0500 (EST)
+ <SRS0=XQSc=TJ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tN9k0-0001c3-G5
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 11:58:24 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b4c57a4-bba5-11ef-99a3-01e77a169b0f;
+ Mon, 16 Dec 2024 12:58:20 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5cecbddb574so6831576a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 03:58:20 -0800 (PST)
+Received: from localhost ([85.152.134.39]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d652f352b9sm3194597a12.81.2024.12.16.03.58.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Dec 2024 03:58:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,292 +44,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cabd406-bba3-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1734349443; x=1734435843; bh=WLk/bUl8QTjpdm5SL23a7o3i/Q+j5mOh+lA
-	vvvlQblE=; b=4SxQpDs6t686cCmXjLEHnhrTs0FCp9wdrUqNRLnCXKYiQVODBL4
-	YnXxHAv15enSN41iLNxRqW1fQa/TmSWyj5X2C0QPOFyImD6tjim+XVI9Ri3rz3lL
-	tYrGR7+fOuKCnGEosfMjZfu3EbeUbMe2666u1JejAySseGSrLquD+jjsAAKH5q2w
-	lE6njDD7AZWy4lrHk3tESfUjOZsyV4vGPHOkVIJxzDHAQ/NmcrdpDDKh3cQpLogB
-	gOYdVJWZauoYZirZ2d11ezNVoEr3qupDJrqRQvDa3kVFNEghVg0UbZEkmuGtw21Y
-	fDlTM7tdJx06cT0+TuaLBItmK3mPtgmIxbA==
-X-ME-Sender: <xms:ghJgZ1d3HlTobsanbTzd6Ibu3zT9RNr6fixM5otePHKDYI0-HWnzRg>
-    <xme:ghJgZzMWW-4NMMvDLgOgvhQFb0kjkKRoouXtgsZo1FGzKAcqF8Vj8YdB_E0Ie-KEB
-    n9y4al-LG7HR5464Ug>
-X-ME-Received: <xmr:ghJgZ-idHvuiR8yQwM2Sq_Ntw63mhtItGSVUCgsqnN-DWnQU3XqqqKu8g_h_sAa5leQxzhnEZFYkQcL9XxVfAcKkwk4xpgl2FL4JcnXdnOrSR1uA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrleefgdefudcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
-    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
-    hsucdlqddutddtmdenucfjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhr
-    ohhmpefuvghrghhihicumfhisghrihhkuceoufgvrhhgihihpgfmihgsrhhikhesvghprg
-    hmrdgtohhmqeenucggtffrrghtthgvrhhnpeegvdeffefhuddvteekgeelgefgleehkeev
-    ieduudefhedtheellefhkeeivdevvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgne
-    cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshgrkhhi
-    sgesuggrrhhkshhtrghrrdhsihhtvgdpnhgspghrtghpthhtohepuddvpdhmohguvgepsh
-    hmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhr
-    ohhjvggtthdrohhrghdprhgtphhtthhopehsthgvfhgrnhhordhsthgrsggvlhhlihhnih
-    esrghmugdrtghomhdprhgtphhtthhopehjuhhlihgvnhesgigvnhdrohhrghdprhgtphht
-    thhopegsvghrthhrrghnugdrmhgrrhhquhhishesrghrmhdrtghomhdprhgtphhtthhope
-    hmihgthhgrlhdrohhriigvlhesrghmugdrtghomhdprhgtphhtthhopehvohhlohguhihm
-    hihrpggsrggstghhuhhksegvphgrmhdrtghomhdprhgtphhtthhopegrnhgurhgvfidrtg
-    hoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtoheprghnthhhohhnhidrphgv
-    rhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopehjsggvuhhlihgthhesshhush
-    gvrdgtohhm
-X-ME-Proxy: <xmx:ghJgZ-8Xq3Qw_6omyBBU3oVAEyFPbLRwJTm22MmxriXGYLRy67wQgw>
-    <xmx:ghJgZxuv8fIDhJ5qjZFrRO8xDuF2IEDKicp4GhB6zTQUQw2hyyNI5g>
-    <xmx:ghJgZ9FsBOye0p0XPH7Vkm1n85jnP7P4IgQ6AmNWZ4KhDMGgofF0wg>
-    <xmx:ghJgZ4Os73giIG3V6hmq7gg5M_Fa0N-eYpEWsu-4nc4BkQYK-vo5uA>
-    <xmx:gxJgZyk-Xpt_h6xWNGJS_Jn-m4N-RGcNyaCmd37Q9VXL19OeOUDEmAOSb4TN>
-Feedback-ID: i5753c467:Fastmail
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Subject: [XEN PATCH v1] arm: introduce kconfig options to disable hypercalls
-Date: Mon, 16 Dec 2024 13:43:58 +0200
-Message-Id: <20241216114358.2845447-1-Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0b4c57a4-bba5-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1734350300; x=1734955100; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+OnOxTjScTaeAqk9bWH4KWMLUkfMOrD1DbxYHYwpUYY=;
+        b=JKGE29KAg0vXpfScf+lyngp5+uQthje+Qm+puifE0ufPmUc1cOVjEphksO+wknqQr0
+         57CpEvrFQWVKSREDH/xJLAEZp0LSSkkxVEWjCrkf+rbjBvvDsNHI/ZAEr0atTlxUHIoc
+         bM40SA3g/HLv8D+iMQMewgNKnd1JkeHqQPhtc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734350300; x=1734955100;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=+OnOxTjScTaeAqk9bWH4KWMLUkfMOrD1DbxYHYwpUYY=;
+        b=OwmapWdxcYJHR8RSYjxVuJvU84vTHNviiUMYviD7mL3vOazNR+dXZnBPxNquTcNp5c
+         70sn9uTAu398dss9++hyXjhlsjhNz+ct8yT6WFi/MkqyA2RMJWjKbBhRXcmjrC3DhEAB
+         eu2VPvA3rIqralzNyK6UTIbSW6rD+RY9kqoxun4kdM5Jjq6Bax2BBD1/a4kyQY3SeR3n
+         jIt//1zL5Tr6342YOTA7InWIR7q9p4dQ9T9ZJ/GHyHaaYrSfC5rujvvtjvzmd7LLtNsd
+         BYaD87Ray9XqM4pFJf/3RyFgDttSYvScAo7eK/pbCqMf/Krs5M9ifoYKdMcwQYO8XVeP
+         tyBg==
+X-Forwarded-Encrypted: i=1; AJvYcCWgzWI3fkKPOHemeGMtbicqz4So42zjgFrdhk1IBxdwhiGd2tIBV/nXjgCjdfAbL2IDwQ6mcGWMFlQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyoBQxyN+OUf9tz7NxWDjf5OzdGLxHX/IsdaJrVQGSOE53eZQ8f
+	jJAuf3xbOfAc0nDbAg11AEUYMiBdKEfitoAwfERYUqwiXaiUjrB+TMz9EdZy7+Q=
+X-Gm-Gg: ASbGncuKoyQjdkLjzDgBakdww0Wo25fa1ubFXgYyIscAgW6nfMlF4DWMH3pIaPQdFV7
+	MxTeeaiIRbaXITz9Yily9L05uxBsRnxs+6IAWVD3ybhtsz8Sn2QaymdZ2FXrMC34Z42Bi4xSEUz
+	6jdQpGbizuuyycAvM4JBEcFWetS1Cy6btduXJ7fgXJvAdKusT5UgO5mQ/IgyraY5cBe1pJIPY4X
+	c0ehKXzfOVW7+tdbnnycZny6sVpm21wItuDG0wcIwSCxNKQmHOj+93RnxyWCVc=
+X-Google-Smtp-Source: AGHT+IH0YCezW2KEWLwpCMSIKQXnAWe611CAkvX5KczC12Vrp3XHOZp64i873gRWb5etHMVudi8pwA==
+X-Received: by 2002:a05:6402:3593:b0:5d3:ba42:e9f4 with SMTP id 4fb4d7f45d1cf-5d63c3ed1e1mr10134748a12.23.1734350298634;
+        Mon, 16 Dec 2024 03:58:18 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Dec 2024 11:58:14 +0000
+Message-Id: <D6D3VA6T02AX.3PVLA7M6C30H@cloud.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 09/13] x86/emulator: Refactor FXSAVE_AREA to use
+ wrappers
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+X-Mailer: aerc 0.18.2
+References: <20241105143310.28301-1-alejandro.vallejo@cloud.com>
+ <20241105143310.28301-10-alejandro.vallejo@cloud.com>
+ <bc308e63-5791-4e29-a218-0c83728c116a@suse.com>
+In-Reply-To: <bc308e63-5791-4e29-a218-0c83728c116a@suse.com>
 
-From: Stefano Stabellini <stefano.stabellini@amd.com>
+On Mon Dec 9, 2024 at 4:26 PM GMT, Jan Beulich wrote:
+> On 05.11.2024 15:33, Alejandro Vallejo wrote:
+> > --- a/xen/arch/x86/x86_emulate/blk.c
+> > +++ b/xen/arch/x86/x86_emulate/blk.c
+> > @@ -11,9 +11,12 @@
+> >      !defined(X86EMUL_NO_SIMD)
+> >  # ifdef __XEN__
+> >  #  include <asm/xstate.h>
+> > -#  define FXSAVE_AREA ((void *)&current->arch.xsave_area->fpu_sse)
+> > +/* has a fastpath for `current`, so there's no actual map */
+> > +#  define FXSAVE_AREA ((void *)VCPU_MAP_XSAVE_AREA(current))
+> > +#  define UNMAP_FXSAVE_AREA(x) VCPU_UNMAP_XSAVE_AREA(currt ent, x)
+>
+> The typo of the first argument strongly suggests that the macro should
+> already now evaluate its parameters, also pleasing Misra.
 
-It can be beneficial for some dom0less systems to further reduce Xen footprint
-and disable some hypercalls handling code, which may not to be used & required
-in such systems. Each hypercall has a separate option to keep configuration
-flexible.
+Not an unreasonable takeaway. I can expand as follows instead:
 
-Options to disable hypercalls:
-- domctl, sysctl
-- hvm
-- physdev
-- platform
+#define VCPU_UNMAP_XSAVE_AREA(v, x) ({ (void)(v); x; })
 
-Some of these options are forced to be configurable only when DOM0LESS is
-enabled, so that system won't become accidentally un-bootable when any hypercall
-is disabled.
+Thoughts?
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
----
-changes in v1:
- - incorporated PV_SHIM_EXCLUSIVE check in Kconfig
- - drop excessive ifeq from Makefile & #ifdef from code
- - drop checks for CONFIG_HVM_OP & CONFIG_PLATFORM_HYP being off when !DOM0LESS
- - description updated
+>
+> >  # else
+> >  #  define FXSAVE_AREA get_fpu_save_area()
+> > +#  define UNMAP_FXSAVE_AREA(x) ((void)x)
+>
+> If only for consistency and to avoid setting bad precedents - parentheses
+> please around x.
 
-RFC patch here: https://lore.kernel.org/xen-devel/20240926095806.67149-1-Sergiy_Kibrik@epam.com/
----
- xen/arch/arm/Makefile        | 10 +++++-----
- xen/common/Kconfig           | 27 +++++++++++++++++++++++++++
- xen/common/Makefile          |  4 ++--
- xen/common/domain.c          |  2 ++
- xen/include/hypercall-defs.c | 14 ++++++++++++--
- xen/include/xen/hypercall.h  | 12 ++++++++++++
- 6 files changed, 60 insertions(+), 9 deletions(-)
+Ack.
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index e4ad1ce851..b910ce3726 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -18,7 +18,7 @@ obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
- obj-y += domain.o
- obj-y += domain_build.init.o
--obj-y += domctl.o
-+obj-$(CONFIG_DOMCTL) += domctl.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += efi/
- obj-y += gic.o
-@@ -29,7 +29,7 @@ obj-$(CONFIG_HAS_ITS) += gic-v3-lpi.o
- obj-y += guestcopy.o
- obj-y += guest_atomics.o
- obj-y += guest_walk.o
--obj-y += hvm.o
-+obj-$(CONFIG_HVM_OP) += hvm.o
- obj-y += io.o
- obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
- obj-y += irq.o
-@@ -40,8 +40,8 @@ obj-y += mm.o
- obj-y += monitor.o
- obj-y += p2m.o
- obj-y += platform.o
--obj-y += platform_hypercall.o
--obj-y += physdev.o
-+obj-$(CONFIG_PLATFORM_HYP) += platform_hypercall.o
-+obj-$(CONFIG_PHYSDEVOP) += physdev.o
- obj-y += processor.o
- obj-y += psci.o
- obj-y += setup.o
-@@ -51,7 +51,7 @@ obj-y += smpboot.o
- obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
- obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
- obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
--obj-y += sysctl.o
-+obj-$(CONFIG_SYSCTL) += sysctl.o
- obj-y += time.o
- obj-y += traps.o
- obj-y += vcpreg.o
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 90268d9249..22b1b10700 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -516,4 +516,31 @@ config TRACEBUFFER
- 	  to be collected at run time for debugging or performance analysis.
- 	  Memory and execution overhead when not active is minimal.
- 
-+menu "Supported hypercall interfaces"
-+	visible if DOM0LESS_BOOT && EXPERT
-+
-+config SYSCTL
-+	bool "Enable sysctl hypercall"
-+	default y
-+
-+config DOMCTL
-+	bool "Enable domctl hypercalls"
-+	default y
-+
-+config HVM_OP
-+	bool "Enable HVM hypercalls"
-+	depends on HVM
-+	default y
-+
-+config PLATFORM_HYP
-+	bool "Enable platform hypercalls"
-+	depends on !PV_SHIM_EXCLUSIVE
-+	default y
-+
-+config PHYSDEVOP
-+	bool "Enable physdev hypercall"
-+	default y
-+
-+endmenu
-+
- endmenu
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index b279b09bfb..26de84d122 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -66,9 +66,9 @@ obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo un
- obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o)
- 
- ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
--obj-y += domctl.o
-+obj-$(CONFIG_DOMCTL) += domctl.o
- obj-y += monitor.o
--obj-y += sysctl.o
-+obj-$(CONFIG_SYSCTL) += sysctl.o
- endif
- 
- extra-y := symbols-dummy.o
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 92263a4fbd..77d15a317f 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1053,7 +1053,9 @@ int domain_kill(struct domain *d)
-         d->is_dying = DOMDYING_dying;
-         rspin_barrier(&d->domain_lock);
-         argo_destroy(d);
-+#ifdef CONFIG_DOMCTL
-         vnuma_destroy(d->vnuma);
-+#endif
-         domain_set_outstanding_pages(d, 0);
-         /* fallthrough */
-     case DOMDYING_dying:
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-index 7720a29ade..16b4c795e4 100644
---- a/xen/include/hypercall-defs.c
-+++ b/xen/include/hypercall-defs.c
-@@ -234,7 +234,7 @@ stack_switch                       do:2     do:2     -        -        -
- set_callbacks                      compat   do       -        -        -
- fpu_taskswitch                     do       do       -        -        -
- sched_op_compat                    do       do       -        -        dep
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+#if defined(CONFIG_PLATFORM_HYP)
- platform_op                        compat   do       compat   do       do
- #endif
- set_debugreg                       do       do       -        -        -
-@@ -247,7 +247,9 @@ set_timer_op                       compat   do       compat   do       -
- event_channel_op_compat            do       do       -        -        dep
- xen_version                        do       do       do       do       do
- console_io                         do       do       do       do       do
-+#ifdef CONFIG_PHYSDEV
- physdev_op_compat                  compat   do       -        -        dep
-+#endif
- #if defined(CONFIG_GRANT_TABLE)
- grant_table_op                     compat   do       hvm      hvm      do
- #elif defined(CONFIG_PV_SHIM)
-@@ -269,14 +271,20 @@ callback_op                        compat   do       -        -        -
- xenoprof_op                        compat   do       -        -        -
- #endif
- event_channel_op                   do       do       do:1     do:1     do:1
-+#ifdef CONFIG_PHYSDEVOP
- physdev_op                         compat   do       hvm      hvm      do_arm
--#ifdef CONFIG_HVM
-+#endif
-+#ifdef CONFIG_HVM_OP
- hvm_op                             do       do       do       do       do
- #endif
- #ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+#ifdef CONFIG_SYSCTL
- sysctl                             do       do       do       do       do
-+#endif
-+#ifdef CONFIG_DOMCTL
- domctl                             do       do       do       do       do
- #endif
-+#endif
- #ifdef CONFIG_KEXEC
- kexec_op                           compat   do       -        -        -
- #endif
-@@ -293,7 +301,9 @@ hypfs_op                           do       do       do       do       do
- #endif
- mca                                do       do       -        -        -
- #ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+#ifdef CONFIG_DOMCTL
- paging_domctl_cont                 do       do       do       do       -
- #endif
-+#endif
- 
- #endif /* !CPPCHECK */
-diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
-index f307dfb597..e47c6ddfd2 100644
---- a/xen/include/xen/hypercall.h
-+++ b/xen/include/xen/hypercall.h
-@@ -24,6 +24,18 @@
- /* Needs to be after asm/hypercall.h. */
- #include <xen/hypercall-defs.h>
- 
-+#if !defined(CONFIG_DOMCTL) && !defined(CONFIG_DOM0LESS_BOOT)
-+#error "domctl and dom0less can't be disabled simultaneously"
-+#endif
-+
-+#if !defined(CONFIG_PHYSDEVOP) && !defined(CONFIG_DOM0LESS_BOOT)
-+#error "physdevop and dom0less can't be disabled simultaneously"
-+#endif
-+
-+#if !defined(CONFIG_SYSCTL) && !defined(CONFIG_DOM0LESS_BOOT)
-+#error "sysctl and dom0less can't be disabled simultaneously"
-+#endif
-+
- extern long
- arch_do_domctl(
-     struct xen_domctl *domctl, struct domain *d,
--- 
-2.25.1
+>
+> > @@ -292,6 +295,9 @@ int x86_emul_blk(
+> >          }
+> >          else
+> >              asm volatile ( "fxrstor %0" :: "m" (*fxsr) );
+> > +
+> > +        UNMAP_FXSAVE_AREA(fxsr);
+> > +
+> >          break;
+> >      }
+> > =20
+> > @@ -320,6 +326,9 @@ int x86_emul_blk(
+> > =20
+> >          if ( fxsr !=3D ptr ) /* i.e. s->op_bytes < sizeof(*fxsr) */
+> >              memcpy(ptr, fxsr, s->op_bytes);
+> > +
+> > +        UNMAP_FXSAVE_AREA(fxsr);
+> > +
+> >          break;
+> >      }
+>
+> So for now the emulator only supports FXSAVE / FXRSTOR. That'll need to c=
+hange
+> sooner or later. Is it really appropriate in that light to name the new m=
+acro
+> after FXSAVE, when the underlying machinery uses all XSAVE?
+>
+> Jan
 
+I have no strong feeling one way or the other, except that it should mirror=
+ the
+other macro's name. I'd say it makes more sense to rename _both_ after the
+emulator is XSAVE-aware. That the internal machinery is actually XSAVE-base=
+d is
+an implementation detail largely irrelevant at the call sites.
+
+Cheers,
+Alejandro
 
