@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA40E9F343C
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 16:17:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858291.1270540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 240009F3441
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2024 16:18:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858299.1270549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNCqV-0002L4-BU; Mon, 16 Dec 2024 15:17:19 +0000
+	id 1tNCrN-0002pO-Jr; Mon, 16 Dec 2024 15:18:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858291.1270540; Mon, 16 Dec 2024 15:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 858299.1270549; Mon, 16 Dec 2024 15:18:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNCqV-0002IL-7n; Mon, 16 Dec 2024 15:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 858291;
- Mon, 16 Dec 2024 15:17:17 +0000
+	id 1tNCrN-0002nv-GA; Mon, 16 Dec 2024 15:18:13 +0000
+Received: by outflank-mailman (input) for mailman id 858299;
+ Mon, 16 Dec 2024 15:18:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nBMF=TJ=eurecom.fr=Ariel.Otilibili-Anieli@srs-se1.protection.inumbo.net>)
- id 1tNCqT-0002IF-7b
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 15:17:17 +0000
-Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tNCrL-0002IF-TN
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2024 15:18:11 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4eb097c-bbc0-11ef-a0d6-8be0dac302b0;
- Mon, 16 Dec 2024 16:17:15 +0100 (CET)
-Received: from quovadis.eurecom.fr ([10.3.2.233])
- by drago1i.eurecom.fr with ESMTP; 16 Dec 2024 16:17:15 +0100
+ id f64428fe-bbc0-11ef-a0d6-8be0dac302b0;
+ Mon, 16 Dec 2024 16:18:11 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4361f664af5so46583195e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Dec 2024 07:18:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43625706c77sm141985545e9.34.2024.12.16.07.18.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Dec 2024 07:18:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,179 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4eb097c-bbc0-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
-  t=1734362236; x=1765898236;
-  h=from:in-reply-to:references:date:cc:to:mime-version:
-   message-id:subject:content-transfer-encoding;
-  bh=vjwrwN1TSV0GR+T4z0725EGrHDxuHqB8DXkEpEdQfLU=;
-  b=QNAh8UDhcg7w2X24E2fGMFIzPSW+JRoCiPJ6ahCryKBDdJ7wTKjRsKyA
-   o/dq+caZu1X8phR5zwllMg7XSekr/1bfvBZu07sLTH//pbb/C8WEGxCyF
-   uaev/U7TeQ8PgvkN2Bds/YVNDVQxkKNYGMqpOpVNL+48ZZD1dcs9fTWwF
-   U=;
-X-CSE-ConnectionGUID: LmttF90qTg+ntKxtF+lw+g==
-X-CSE-MsgGUID: Pym3MY4DSkemchtvzdOiyw==
-X-IronPort-AV: E=Sophos;i="6.12,238,1728943200"; 
-   d="scan'208";a="28199345"
-From: "Ariel Otilibili-Anieli" <Ariel.Otilibili-Anieli@eurecom.fr>
-In-Reply-To: <7f30f105-e13e-4e41-b432-82f9c12760d9@suse.com>
-Content-Type: text/plain; charset="utf-8"
-X-Forward: 149.5.228.1
-References: <20241215154659.151158-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241215154659.151158-2-Ariel.Otilibili-Anieli@eurecom.fr>
- <5599dc89-0fa4-4255-b4a1-5b81e151d8c7@suse.com>
- <2f7a85-67600280-e411-38ee5c40@258420856>
- <c484d9e6-62a4-4575-8cf1-93603533fd49@suse.com>
- <2f7a86-67600f80-8b81-26131fc0@216081513>
- <3f3e9a77-5695-4c91-9fc2-11a3c21605c5@suse.com>
- <2f7a86-67601b00-8b99-26131fc0@216117285> <7f30f105-e13e-4e41-b432-82f9c12760d9@suse.com>
-Date: Mon, 16 Dec 2024 16:17:15 +0100
-Cc: xen-devel@lists.xenproject.org, "Anthony PERARD" <anthony.perard@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
+X-Inumbo-ID: f64428fe-bbc0-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1734362291; x=1734967091; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=B4eBm+afKNIm9Ap0aIPPLtGyRI0QxsKpBcatLyVpIsI=;
+        b=PR2Gv/fzpXl7KN58ihUjcfn3GE/PJziT8MfriCPRP/hTRIS66OMJYQHz1hAmBn6Kh9
+         1H82sqZty90RsjPfEfPDvawdLd6RkaLpFRCyXezoxDnmp2OHgHQk+dhftPBYjdOxIs90
+         MFxUDudvwYILIL5o9hJINoBf6FILkbSNRB8OQfD6hnx5vUOlIFaK2LIV+XHWzdCq0KJE
+         5CpV85RYXOcS6ivRFvGasmfUsK7CucSjM1dRoDucfUXZfWclrnH3E12r4YZMtZUqRVBV
+         NJ0C1GB8zbw9wrD3BdaSg6B9EazE/hLbR9QAVFIn/GjZQO1SAkTDBYp1yLt8OJARrZJ2
+         5SaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734362291; x=1734967091;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B4eBm+afKNIm9Ap0aIPPLtGyRI0QxsKpBcatLyVpIsI=;
+        b=fTJlUWYga63W70y0yl1gJEhfYqVg3mKUct12FXlais94TktgTEQiy5DkbNKRRBpbZI
+         KSapojQdZipC3zJq8f62y0XbLyH/rJLLCTPcLwyb8dQZLFLnF6o4hxeTrJdRNI41CswS
+         alKlx9DsQ/laIAdopXDjBaucu5m0dL5cCof2wJfdsjRzKJ637TzT30eQcH/M/UYmvKw+
+         wSlyIcNTxAbNPSgjSIkEjp+tFRsLBF9wkMUzwh2oDnxx/h/aInund72sakpOw7nZqzsm
+         EwWg+PayVVbBZoqAMC8jmr4u/FYNuHk4MPnDY4Ym+zhCHyYLHD0Akp9C0XgUsf19zAxL
+         Ld1Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWgXY41ElUyasdWNZRV6l7LZ460ec+7IPNUuRM5wtosxpR7bJFomLd2ZkfJc/d9QrsJiK8iRJlxhiU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5Mhh7T3vhAoM8DsAQr+PcOZmsdngonBaPWA40gwPVT/IR6qkC
+	WF6s+nR04ym7GEro45Wf3O+gQQ+odooC1xepb/Ex52Fkv1AMOgEGi2Bqsg8IiA==
+X-Gm-Gg: ASbGncu8FpvRUKXEZVXsihSUzhgl0+W8QVkk569oRPOuwkqJF8POO6UA6yw2uH33je2
+	I9jeCPE1SnbNZsbmXMvJyM0y7t4yGuzvXAIpqq5Mm2ygNlUmRBcqSXQwgFxVXuM2EbqjNzv3Vxp
+	8+7f9mviQ8wkqE9CWJUARNUdwiPtc1++OYfXFzlacXg2OcneF5Q3PRJ9GHDzZeOpwGwPzBBdvUg
+	n7K4SfCoe12i/5QO7Xfnd/cZ8GWX1vAfJbW70QsAAYLZ3mw7i3nPQWluRAdRKT3SKKq1T1rHZeR
+	OHi6tPhcFaH+91qZHJrMM0B3gX2njXpZ9YQQhaOtww==
+X-Google-Smtp-Source: AGHT+IHFhOpf/POdPv6LZefHmstcbfninow334Gt3B8+Cre8SEpxkverSxld0YeA/75tz3ptFQ3eMA==
+X-Received: by 2002:a05:600c:a014:b0:436:1971:2a4 with SMTP id 5b1f17b1804b1-4362aa3d7e5mr117152375e9.17.1734362290738;
+        Mon, 16 Dec 2024 07:18:10 -0800 (PST)
+Message-ID: <d516d05b-a69d-46d8-b90c-c868dd68eab1@suse.com>
+Date: Mon, 16 Dec 2024 16:18:08 +0100
 MIME-Version: 1.0
-Message-ID: <2f7a84-67604480-4bc5-4ac1e700@168713693>
-Subject: =?utf-8?q?Re=3A?= [PATCH 1/1] =?utf-8?q?tools/libacpi=3A?= clear ASL 
- warning about PCI0
-User-Agent: SOGoMail 5.11.1
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] xen: add new domctl get_changed_domain
+To: Juergen Gross <jgross@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241213162421.16782-1-jgross@suse.com>
+ <20241213162421.16782-6-jgross@suse.com>
+ <f5371446-98e5-42ff-aa8d-0a7252e89f1f@suse.com>
+ <7061e31b-2d61-40fd-b2e9-528c4faf41f9@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7061e31b-2d61-40fd-b2e9-528c4faf41f9@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Monday, December 16, 2024 13:39 CET, Jan Beulich <jbeulich@suse.com>=
- wrote:
+On 16.12.2024 16:03, Juergen Gross wrote:
+> On 16.12.24 11:41, Jan Beulich wrote:
+>> On 13.12.2024 17:24, Juergen Gross wrote:
+>>> --- a/xen/common/domain.c
+>>> +++ b/xen/common/domain.c
+>>> @@ -193,6 +193,57 @@ static void domain_changed_state(const struct domain *d)
+>>>       spin_unlock(&dom_state_changed_lock);
+>>>   }
+>>>   
+>>> +static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+>>> +                                  const struct domain *d)
+>>> +{
+>>> +    info->state = XEN_DOMCTL_GETDOMSTATE_STATE_EXIST;
+>>> +    if ( d->is_shut_down )
+>>> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN;
+>>> +    if ( d->is_dying == DOMDYING_dying )
+>>> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DYING;
+>>> +    if ( d->is_dying == DOMDYING_dead )
+>>> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DEAD;
+>>> +    info->unique_id = d->unique_id;
+>>> +}
+>>> +
+>>> +int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+>>> +                     domid_t *domid)
+>>> +{
+>>> +    unsigned int dom;
+>>> +
+>>> +    if ( info->pad0 || info->pad1 )
+>>> +        return -EINVAL;
+>>> +
+>>> +    if ( d )
+>>> +    {
+>>> +        set_domain_state_info(info, d);
+>>> +
+>>> +        return 0;
+>>> +    }
+>>> +
+>>> +    while ( (dom = find_first_bit(dom_state_changed, DOMID_MASK + 1)) <
+>>> +            DOMID_FIRST_RESERVED )
+>>> +    {
+>>> +        if ( test_and_clear_bit(dom, dom_state_changed) )
+>>
+>> For these two accesses to dom_state_changed don't you need to hold the
+>> lock patch 4 introduces? Also didn't you say you'd constrain the new
+>> sub-op to the sole domain having VIRQ_DOM_EXEC bound (which, ftaod,
+>> isn't enough to eliminate the race)?
+> 
+> Just to be more specific regarding the race: I guess you mean that a domain
+> having registered for the VIRQ doesn't mean the calling component being in
+> that domain really is the one associated with the VIRQ.
+> 
+> While being true, even today it is possible for one dom0 user process to
+> "steal" a VIRQ from another process by using dirty tricks via the privcmd
+> driver.
+> 
+> In the end a process having the access rights to use the privcmd driver must
+> be trusted to not disturb other processes with the same rights.
 
-> On 16.12.2024 13:19, Ariel Otilibili-Anieli wrote:
-> > On Monday, December 16, 2024 12:38 CET, Jan Beulich <jbeulich@suse.=
-com> wrote:
-> >=20
-> >> On 16.12.2024 12:31, Ariel Otilibili-Anieli wrote:
-> >>> On Monday, December 16, 2024 12:01 CET, Jan Beulich <jbeulich@sus=
-e.com> wrote:
-> >>>
-> >>>> On 16.12.2024 11:36, Ariel Otilibili-Anieli wrote:
-> >>>>> On Monday, December 16, 2024 10:53 CET, Jan Beulich <jbeulich@s=
-use.com> wrote:
-> >>>>>
-> >>>>>> On 15.12.2024 16:40, Ariel Otilibili wrote:
-> >>>>>>> * iasl complains =5FHID and =5FADR cannot be used at the same=
- time
-> >>>>>>>
-> >>>>>>> ```
-> >>>>>>> /usr/bin/iasl -vs -p tools/firmware/hvmloader/dsdt=5Fanycpu.t=
-mp -tc tools/firmware/hvmloader/dsdt=5Fanycpu.asl 2>&1 | grep -B10 HID
-> >>>>>>> tools/firmware/hvmloader/dsdt=5Fanycpu.asl     40:        Dev=
-ice (PCI0)
-> >>>>>>> Warning  3073 -                                    Multiple t=
-ypes ^  (Device object requires either a =5FHID or =5FADR, but not both=
-)
-> >>>>>>> ```
-> >>>>>>>
-> >>>>>>> * generally =5FHID devices are enumerated and have their driv=
-ers loaded by ACPI
-> >>>>>>> * this is from "ASL 2.0 Introduction and Overview" (page 4).
-> >>>>>>> * removing =5FADR, the warning is cleared out.
-> >>>>>>
-> >>>>>> Okay, that's the positive aspect. Yet what about the potential=
- fallout thereof?
-> >>>>>> Can you confirm that there's no risk of regressions with older=
- guest OSes, for
-> >>>>>> example?
-> >>>>>
-> >>>>> OSes that were released after ACPI 2.0 should work [1]; includi=
-ng WinXP:=20
-> >>>>> The 2.0 specs says either =5FHID or =5FADR should be included [=
-2], not both (Section 6.1, page 146).
-> >>>>
-> >>>> We must be looking at two different variants of the spec then. M=
-y copy says
-> >>>> "device object must contain either an =5FHID object or an =5FADR=
- object, but can
-> >>>> contain both." Also still in 2.0c. I agree that in e.g. 6.5 the =
-wording has
-> >>>> changed. I also agree that the use of "either" doesn't help clar=
-ity.
-> >>>
-> >>> I looked up 2.0 (July 2000); indeed, it said "can contain both". =
-My bad.
-> >>>>
-> >>>>> I chose WinXP because, on another patch, it came up in the disc=
-ussion [3].
-> >>>
-> >>> The change should work down to WinXP: the name =5FHID is kept.
-> >>>
-> >>> ```
-> >>> $ git grep -B2 -A2 -n PNP0A03
-> >>> tools/libacpi/dsdt.asl-40-       Device (PCI0)
-> >>> tools/libacpi/dsdt.asl-41-       {
-> >>> tools/libacpi/dsdt.asl:42:           Name (=5FHID, EisaId ("PNP0A=
-03"))
-> >>> tools/libacpi/dsdt.asl-43-           Name (=5FUID, 0x00)
-> >>> tools/libacpi/dsdt.asl-44-           Name (=5FADR, 0x00)
-> >>> ```
-> >>>
-> >>> Its EISA ID is "PNP0A03"; the namespace is reserved for Microsoft=
-. Microsoft identifies "PNP0A03" as PCI devices [1].
-> >>
-> >> You again say "should" without explaining what you derive this fro=
-m. Is it
-> >> written down somewhere that no OS we (remotely) care about ever ev=
-aluated
-> >> =5FADR when =5FHID was there? As before, along side mentioning the=
- benefits of
-> >> the change, I'd like to also see a discussion of risks.
-> >>
-> >=20
-> > I derive this knowledge only from the APCI specs. Indeed, I've not =
-researched how every OS interprets =5FHID and =5FADR.
-> >=20
-> > From your answer, I see you would like to be sure the change will i=
-ntroduce no regression. I do understand you point of view; keeping the =
-backward compatibility.=20
-> >=20
-> > The benefit is that the warning will be cleared. We agree on that.
-> >=20
-> > The risk is that, if ever any OS relies on =5FADR, and cannot read =
-=5FHID; it would break.
-> >=20
-> > After thinking about it, the other way is less risky: this =5FHID n=
-ame is only recognized by Windows. Every OS should (I did say it again,=
- should) understand =5FADR.
-> >=20
-> > If you think the change makes sense, I can remove =5FHID instead of=
- =5FADR.
->=20
-> But that would remove relevant information, the the PNP ID serves a p=
-urpose.
+Of course, but that's not exactly what I was getting at. I was trying to
+point out that the vIRQ check alone is still insufficient to avoid potential
+crashes here, by one vCPU calling here while another unbinds the vIRQ. Taking
+the lock is required for Xen's safety; checking the vIRQ is bound is an extra
+policy enforcement.
 
-You are right, I dumped the DSDT tables of my Linux, and the PCI object=
- does use it:
-
-```
-# cat /sys/firmware/acpi/tables/DSDT > dsdt.dat=20
-# iasl -e dsdt.dat -d dsdt.dsl
-# grep PNP0A03 -B3 dsdt.dsl=20
-        Device (PC00)
-        {
-            Name (=5FHID, EisaId ("PNP0A08") /* PCI Express Bus */)  //=
- =5FHID: Hardware ID
-            Name (=5FCID, EisaId ("PNP0A03") /* PCI Bus */)  // =5FCID:=
- Compatible ID
-```
->=20
-> > Otherwise, I think we should end the discussion.
->=20
-> Well, you may decide to withdraw / abandon the patch, or you may deci=
-de to
-> re-submit with an extended description, clarifying why the removal is
-> expected to be safe. Even if - obviously - you can't inspect e.g. Win=
-dows
-> sources.
-
-Thanks for the feedback, Jan; I am pushing another patch series. Docume=
-nting all the findings.
-
-I'll keep you posted,
-Ariel
->=20
-> Jan
-
+Jan
 
