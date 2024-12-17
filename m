@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEDD89F4C28
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 14:28:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.859153.1271300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A5C89F4CFA
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 14:59:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.859173.1271314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNXcR-0002nE-I1; Tue, 17 Dec 2024 13:28:11 +0000
+	id 1tNY5o-0007Wy-R5; Tue, 17 Dec 2024 13:58:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 859153.1271300; Tue, 17 Dec 2024 13:28:11 +0000
+Received: by outflank-mailman (output) from mailman id 859173.1271314; Tue, 17 Dec 2024 13:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNXcR-0002kz-FS; Tue, 17 Dec 2024 13:28:11 +0000
-Received: by outflank-mailman (input) for mailman id 859153;
- Tue, 17 Dec 2024 13:28:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=92kI=TK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tNXcQ-0002kt-N4
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 13:28:10 +0000
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [2a00:1450:4864:20::443])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1c91b73-bc7a-11ef-a0d6-8be0dac302b0;
- Tue, 17 Dec 2024 14:28:09 +0100 (CET)
-Received: by mail-wr1-x443.google.com with SMTP id
- ffacd0b85a97d-385ef8b64b3so4685141f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 05:28:09 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436255800f6sm171026905e9.18.2024.12.17.05.28.08
+	id 1tNY5o-0007Ut-Nn; Tue, 17 Dec 2024 13:58:32 +0000
+Received: by outflank-mailman (input) for mailman id 859173;
+ Tue, 17 Dec 2024 13:58:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tNY5n-0007Un-3Q
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 13:58:31 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd7768a9-bc7e-11ef-99a3-01e77a169b0f;
+ Tue, 17 Dec 2024 14:58:27 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-385f06d0c8eso2624743f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 05:58:27 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-388e2780bcesm245530f8f.82.2024.12.17.05.58.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 05:28:08 -0800 (PST)
+ Tue, 17 Dec 2024 05:58:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1c91b73-bc7a-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: fd7768a9-bc7e-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734442089; x=1735046889; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734443907; x=1735048707; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=By+xU+4yaylIQcLr96UYPAPlnIkFPxS7w0WVWkZnN6o=;
-        b=NBGWJdHM8UbxniT+f0+Fo0FNoErfNbEmCpriHp2ERIGuOnkDGJ+awJQu5tPUWQ6wBa
-         unYopjGHY40z1eVxPXmy2B3fZ+yyzG2br2MoYejHIMBBXUniP0Gb0eTBRrNaA4Fw7xAN
-         xoo6KINI8PgY1thvEPEtQqnDFfZmt/Bt0xqbA=
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1FR/WHpi2MiU1+58BZ3C0sdX2xQgkgGBaIv3V2Ft7b8=;
+        b=MJTKJCj7iEE27C2PsazBGswwjNVpPE/SvLd4f4fyw8Y2OjrerbzLJL4ixn40SZpPFp
+         AfqAMEb733t0uy5ANVCKCcXkQwWdONTvotZtYbFjDItNrEzyHOI2gUArMKiQt9qRYMUd
+         WLz6h7yAAm2JGMccJ4FOWSw7SqwWHQZMIlVruCdYl2ODD/5Cszm3EAcYEA56H/p+NREE
+         aZkieIOC4KqTKXvPNNOMx09uSIWtPQm4mG4S8+5GOVc7gA3lSH+wFbF9yVirq5RuNjp1
+         PRw44vc54LDIQB8jYqD6Qe6as5+MAw3KDr0LxdxR2QYTTUp8PV3emnAM9i3K42EvY1MU
+         6ZhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734442089; x=1735046889;
+        d=1e100.net; s=20230601; t=1734443907; x=1735048707;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=By+xU+4yaylIQcLr96UYPAPlnIkFPxS7w0WVWkZnN6o=;
-        b=M9klhRoqZhgUoF+x/Wq1BeoZLJ2o3gkn9vXuzgM/wftuRZfysF1KpCi6WMzPzVljHS
-         S69T2WVNjPxtw8v+RqOFuAxc3krI/vu2Kl8Xeu/jislvt5UnoZVIdvDyQu6covBSiRBT
-         mLeKj5KpSUX3FCweRbnrR/lZEin1ene0spcttUT8ablhnJ7HimMmhOmGtlKx3Cas+3Sr
-         QEnJiPQnWvljk0xjZlOBnebo/p34VtNwH6J8H44zxMLo7UWXUVi3blfnpGHwV88eLq03
-         QfsRSUy182R51C4l7bQwApyD/cYHTdvfoaol0IlLUFVZjj2p4niGNpcPShdK91dOsA0w
-         4aew==
-X-Forwarded-Encrypted: i=1; AJvYcCUOaAZBmgt4LrggXtxMwzAYQ/WpkbJAXV8e7m+hBUjUeb4Fl6Mq439jx70KjkFJkVA237D8hYUClxw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6FVqhcnkrytjBZokG65fSDuTBdyFJQaF1CY4nKiMYYHEYlkIK
-	8grZwxQsVKEFw8Or/sHRKzAkpR/bTN6oaq40L08RQwvNVxdTnV21DA84M8C9x+NqnKarbhTFi7i
-	GOnAq9g==
-X-Gm-Gg: ASbGncukeBrTz6uJxUtuegOSIrPIwdQf3fL3oTu7Q/lpi5ZD6/ng0cWdr973dTt5k4P
-	PlWVrl+QBp/8LInko+2dXJXsdMvqPraCR8zMSXWJ+Qf5LsphjyHOoy7lOFDvQAYApF9cfiOeDHC
-	UWSamI8jqh3B4iuTxrEf/abn//S6R33UqnBRh858EcMBgGRzZJ5zqaT105Bl7X6j52FuVxwPXVM
-	Pt/wh7wBprL/WcpUWLrq/lHnQFf+lVQzz8VcVstXbHjdy2lmgAWoBGOKn0DQrFDNrXqvmg9jCLS
-	Q8mMokf4fiHsbxoZ3EnO
-X-Google-Smtp-Source: AGHT+IHMAQWMtU+j+z1XP4jFAFdAmRnb8+tXD0bYZ6RLRB6CDTknczo1COThemPew/XiPwCBnNR/wg==
-X-Received: by 2002:a5d:588e:0:b0:385:df63:4c49 with SMTP id ffacd0b85a97d-3888e0ae5c3mr13574150f8f.25.1734442088963;
-        Tue, 17 Dec 2024 05:28:08 -0800 (PST)
-Message-ID: <bf575c2c-97d1-477a-9bec-21e8fc4340d3@citrix.com>
-Date: Tue, 17 Dec 2024 13:28:08 +0000
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1FR/WHpi2MiU1+58BZ3C0sdX2xQgkgGBaIv3V2Ft7b8=;
+        b=Keqt50wMtkZwInjhp0MH38bHg2dnUQ0dRneq453ZABwbvqlapR007vht0JKWsxyu0m
+         Q0x8LjgG2sN4lNJ8DoZ2JEHAeegrFpEx+2nbeHlt8y1Q8aZ/Dsfa+Vk9hn+xStYi+JH+
+         9kAJZKH1z3rKER16B3IRHXvvFjDk7xIasecVLikRgO2Dh24/exQiygqNllLEpuEzRC2E
+         Y9gLP+jA67+1T5cHMlkPtTffJD1ZvvIhF/ZGWI45hUoUFMKPL3euEszPtgl6NyEt97uv
+         ta1THGKw9KTw3ivhQteDaFBapUAMCUtVr0kDkFUMESiqybA8ogxqupEo36mcdP7Bas7E
+         tIqw==
+X-Forwarded-Encrypted: i=1; AJvYcCV9k5o9JbP4TDRzR8Xeo7ttpmRofdzwVeVsloivgXZSgCBYJqlVu/7iWsBHp/67DT9RhklR5RYR6oY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxi4bY+1ekclmh0Y7J+/OS4Wg8YoPeFNAb1TBI95cvBBWWUvzKK
+	87c3XzziuwxkQnUYxtzt+h9o5zHYjIWFmaN4BfZPZiVCvFLi2epMI2h29h5gIA==
+X-Gm-Gg: ASbGncvjJSBJG6T3vmxc6TqNF0fNgd73+D9aCvT6FT09luZpCmVOa39HQJIfc0T7f35
+	1T5aEjYsUJxbILjmgdg8IGQZ/6cxDUyFGdMZ8U9YOshGVkYVUQ7jEYTgC/y525iDAGtFFOAognb
+	1tcyY6913mCVe++hSweNTo8d8mFyyo6y7PBTUSSwr43veO5MRioUY0QaiUzJcOGOsmH8LLRc4AR
+	9EPPWKJZ+7+3QcTbO6lTBvurXR5xAP4XmFwKAeYPglGoTPZWPSquXE7ne3j4X3KKqNjGLnTqaGi
+	2wn9xlvhe3VJZf0YxXmEfGPiFE3hp0ZQy36cBD8kBQ==
+X-Google-Smtp-Source: AGHT+IEKS6f5Y1Mgn3yb8LM04A5/dX7nqt9qxyDl1Wm649CUPrIbqtB9P+AwZxpgpFP71gEZXBp76g==
+X-Received: by 2002:a05:6000:470a:b0:385:e22e:288b with SMTP id ffacd0b85a97d-3888e0c08dfmr13774990f8f.59.1734443907064;
+        Tue, 17 Dec 2024 05:58:27 -0800 (PST)
+Message-ID: <29640ca8-60eb-492e-9350-4fbc607bca63@suse.com>
+Date: Tue, 17 Dec 2024 14:58:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen Security Advisory 466 v3 (CVE-2024-53241) - Xen hypercall
- page unsafe against speculative attacks
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <E1tNWXG-00E268-2p@xenbits.xenproject.org>
- <96775ba9-19c6-4467-848a-5b4625c70583@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <96775ba9-19c6-4467-848a-5b4625c70583@vates.tech>
+Subject: Re: [PATCH v2 1/1] tools/libacpi: clear ASL warning about PCI0
+To: Ariel Otilibili-Anieli <Ariel.Otilibili-Anieli@eurecom.fr>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20241215154659.151158-1-Ariel.Otilibili-Anieli@eurecom.fr>
+ <20241216235241.217642-1-Ariel.Otilibili-Anieli@eurecom.fr>
+ <20241216235241.217642-2-Ariel.Otilibili-Anieli@eurecom.fr>
+ <cf8d3ff6-b72d-468e-a14f-1dfbc741f376@suse.com>
+ <2f7a89-67617b80-bf75-70827e80@196856502>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2f7a89-67617b80-bf75-70827e80@196856502>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 17/12/2024 1:21 pm, Teddy Astie wrote:
-> Hello,
->
-> Le 17/12/2024 à 13:18, Xen.org security team a écrit :
->> Xen guests need to use different processor instructions to make explicit
->> calls into the Xen hypervisor depending on guest type and/or CPU
->> vendor. In order to hide those differences, the hypervisor can fill a
->> hypercall page with the needed instruction sequences, allowing the guest
->> operating system to call into the hypercall page instead of having to
->> choose the correct instructions.
+On 17.12.2024 14:24, Ariel Otilibili-Anieli wrote:
+> On Tuesday, December 17, 2024 10:29 CET, Jan Beulich <jbeulich@suse.com> wrote:
+> 
+>> On 17.12.2024 00:50, Ariel Otilibili wrote:
+>>> iasl complains _HID and _ADR cannot be used at the same time:
+>>>
+>>> ```
+>>> /usr/bin/iasl -vs -p tools/firmware/hvmloader/dsdt_anycpu.tmp -tc tools/firmware/hvmloader/dsdt_anycpu.asl 2>&1 | grep -B10 HID
+>>>
+>>> tools/firmware/hvmloader/dsdt_anycpu.asl     40:        Device (PCI0)
+>>> Warning  3073 -                                    Multiple types ^  (Device object requires either a _HID or _ADR, but not both)
+>>> ```
+>>>
+>>> Per ACPI 2.0 (Jul. 27, 2000; Section 6.1, page 146), the configuration was legit:
+>>>
+>>> "A device object must contain either an _HID object or an _ADR object,
+>>> but can contain both." [1]
+>>>
+>>> But, per ACPI 6.5 (Aug. 2022), this is no more legit:
+>>>
+>>> "A device object must contain either an _HID object or an _ADR object,
+>>> but must not contain both." [2]
+>>>
+>>> Generally _HID devices are enumerated and have their drivers loaded
+>>> by ACPI ("ASL 2.0 Introduction and Overview", page 4).
+>>>
+>>> Removing _ADR, the warning is cleared out.
+>>>
+>>> The change should be compatible down to OSes released after ACPI 2.0,
+>>> including Windows XP:
 >>
->> The hypercall page contains whole functions, which are written by the
->> hypervisor and executed by the guest. With the lack of an interface
->> between the guest OS and the hypervisor specifying how a potential
->> modification of those functions should look like, the Xen hypervisor has
->> no knowledge how any potential mitigation should look like or which
->> hardening features should be put into place.
+>> So my earlier hint apparently wasn't clear enough. I really would have
+>> expected you to determine in what version the wording changed. Even 5.1
+>> still has the old wording, and that's more than 10 years newer than 2.0.
+>> And then in 6.0 the wording first changed to "but should not contain
+>> both."
+> 
+> I can do that, Jan; I'll research from where did the wording changed.
+
+Well, if you want to double check what I've done, feel free. As per above
+I did already identify when the wording changed.
+
+>> I'm further afraid that ...
 >>
-> Should we consider adding a interface to know how to the guest is 
-> supposed to make hypercalls (what hypercall instruction/flavor) ? Such 
-> as the guest can have its own hypercall implementations but knows which 
-> one to use.
+>>> 1. The _HID kept in the DSDT files is the EISA ID "PNP0A03",
+>>> Microsoft recognizes it as PCI bus:
+>>>
+>>> ```
+>>> $ curl -k -s https://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/devids.txt | grep PNP0A
+>>>
+>>> PNP0A00         ISA Bus
+>>> PNP0A01         EISA Bus
+>>> PNP0A02         MCA Bus
+>>> PNP0A03         PCI Bus
+>>> PNP0A04         VESA/VL Bus
+>>> PNP0A05         Generic ACPI Bus
+>>> PNP0A06         Generic ACPI Extended-IO Bus (EIO bus)
+>>> ```
+>>>
+>>> 2. Linux 6.12 uses also _HID for identifying PCI devices [3]:
+>>
+>> ... this fact alone means very little here. The more important question is
+>> whether there are / were OSes which use(d) _ADR for any purpose even when
+>> _HID is there. With just looking at the surface of just Linux, I find e.g.
+>> a library-like function acpi_get_local_u64_address(), all users of which
+>> would need auditing. Plus, once done, we'd then still only know the state
+>> of things in one specific Linux version.
+>>
+>> Bottom line: I wonder whether iasl has an option to suppress that warning.
+>> Sadly I can't find a new enough iasl anywhere on the systems I have easy
+>> access to, so I can't check myself. If there was no way to suppress this
+>> warning, I'd wonder whether this wasn't a shortcoming of the tool, as the
+>> warning is clearly inappropriate when dealing with tables for pre-v6
+>> configurations.
+> 
+> There are flags to remove warnings:
+> 
+> ```
+> $ iasl -h | grep -i warn
+> Errors, Warnings, and Remarks:
+>   -va                 Disable all errors/warnings/remarks
+>   -ve                 Report only errors (ignore warnings and remarks)
+>   -vi                 Less verbose errors and warnings for use with IDEs
+>   -vw <messageid>     Ignore specific error, warning or remark
+>   -vx <messageid>     Expect a specific warning, remark, or error
+>   -w <1|2|3>          Set warning reporting level
+>   -we                 Report warnings as errors
+>   -ww <messageid>     Report specific warning or remark as error
+> 
+> $ iasl -v 
+> 
+> Intel ACPI Component Architecture
+> ASL+ Optimizing Compiler/Disassembler version 20240927
+> Copyright (c) 2000 - 2023 Intel Corporation
+> ```
+> 
+> I am keeping you posted; I am compiling with warnings disabled.
 
-Better enumeration is coming with the hypercall API/ABI changes, but a
-guest already has enough information to correctly issue hypercalls to
-the current ABI.  Hence why we didn't make this fix in Linux depend on
-matching change in Xen.
+Disabling warnings altogether is unlikely to be what we want. And the help
+output above also doesn't suggest there's a control to suppress specifically
+what we may want to suppress. Even suppressing warnings by <messageid> is
+likely going to be too broad.
 
-~Andrew
+Jan
 
