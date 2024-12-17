@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D8859F46D3
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 10:05:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858657.1270906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9759B9F46C5
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 10:03:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858649.1270896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNTVY-0005mO-Rf; Tue, 17 Dec 2024 09:04:48 +0000
+	id 1tNTTY-0005DE-Fb; Tue, 17 Dec 2024 09:02:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858657.1270906; Tue, 17 Dec 2024 09:04:48 +0000
+Received: by outflank-mailman (output) from mailman id 858649.1270896; Tue, 17 Dec 2024 09:02:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNTVY-0005jH-Of; Tue, 17 Dec 2024 09:04:48 +0000
-Received: by outflank-mailman (input) for mailman id 858657;
- Tue, 17 Dec 2024 09:04:47 +0000
+	id 1tNTTY-0005BL-Ct; Tue, 17 Dec 2024 09:02:44 +0000
+Received: by outflank-mailman (input) for mailman id 858649;
+ Tue, 17 Dec 2024 09:02:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DIsX=TK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tNTVX-0005jA-SA
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 09:04:47 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tNTTW-0005BD-Tf
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 09:02:42 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f67a58a1-bc55-11ef-a0d6-8be0dac302b0;
- Tue, 17 Dec 2024 10:04:46 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-434a766b475so53314325e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 01:04:46 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43625553234sm168873715e9.3.2024.12.17.01.04.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Dec 2024 01:04:45 -0800 (PST)
+ id ac28406f-bc55-11ef-a0d6-8be0dac302b0;
+ Tue, 17 Dec 2024 10:02:42 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-385e27c75f4so3866652f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 01:02:42 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-388c801ace1sm10557669f8f.60.2024.12.17.01.02.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Dec 2024 01:02:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,122 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f67a58a1-bc55-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: ac28406f-bc55-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734426286; x=1735031086; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=QhUhfSD222VxNlcXsjSJ/iPbolQEMip+ixbS76EcuCM=;
-        b=OYee+/cuz/OIqMgqgQAg8nzzDrs4Q7meE5yYHeRgXilXdGcPm9mYyjuXAMioCbjik4
-         weFsYp/hyK/lp5pkEgCwAMeMkT+2wWDZSbMYjj57VUcA/pVaEL9Cc4GbPKmRNXK9X7cs
-         4WKwXqceH3Rb19J3SVIlRppgm4CqXb0G2MIQQ=
+        d=suse.com; s=google; t=1734426161; x=1735030961; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xjAZZXIZu4thRZG/EQtx9Gvia9nq9b5bV4ABjR28CUQ=;
+        b=VEYZUDj5Di5jlyUDia67INEuPStoi9M8r+o7cEbtejIBcUjS3RK/iPhOVXAOlz2Mbz
+         aKwtjAJPwozQUrW2uWmJzpkhSP71wjBlTGXoA1dTkNTBTzbcbbNUib4EHsWbD9Siugcc
+         NJ8r7KEtibw2iKPbrbBso534wSBjjSxTlIyToFImdLZ6dxsDKN1LG0EpB/WMDtr2cjoN
+         9OOyweT+sUveP1e+58JVjnSjGjOMYxMroF8B1KHC5xW1aWL7jvA3qsxwNQGKwAuFHfyT
+         HTb+rIXXnv8TNmBeiy3DpnCkdXzAfOHxXN0qi63X9UVm6Bvvg0qr4OeURZEGQ2vTuU6B
+         B9Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734426286; x=1735031086;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QhUhfSD222VxNlcXsjSJ/iPbolQEMip+ixbS76EcuCM=;
-        b=JBfISDrwUsEe07A2Gn4toBSahLsojNxJgCKvjnfTs1MTJM9JoL7/Ru24XwwLOFACpB
-         OVD6M6aolq4HiIKl0g5+YaO3NlLvhAbOyqHr2kegEA6Bf2h29yKDlwJ3nz8N3QrLEspy
-         IdrxMTLix5pFs7BfHS66HbZaMI+nnMQitPv+guUzgX+gdD//cKWXRlj9yJK3l3W+yMuD
-         7MG1YqO3vZo/63wSQTDcKxB+P/w8Rhz2YoAb93z1r8YIEFLVzejnyAXPSrvCa4x1DtiF
-         Obh9H+nBkq7ijkBIyaeMT85HlqLMC+CPcYkVtBMqMluVrnNfR+jD7weZFX8M+fP2Caeh
-         gZwg==
-X-Gm-Message-State: AOJu0YzLpS1xoUJ5h9WAtpenQlgXrfsDWYeqjwzxPoNdfy5+H/cMRlJ0
-	DKv+a4eK8Mwm/8qUVsSyNBnxUOlPiNwH+9+D9v95BHPf+duBdSxEzfj+Ao/Hgwce8CsRJWg7Ora
-	/
-X-Gm-Gg: ASbGncthtCudtjAIWJj87eK/z0SGVWVRhzxhAkOnKr8f71pjEi4bWlT3na11p0Au2YH
-	BCIE56uOa3aitI3XPGsyZXPjQO45eEODz9apnAdaAMTgAoNHN3uDBZVu4m1UDoBUr2mu8K1vEqS
-	nABv59HPC+dLw9JqmGTq5nz5AIw6L750uL+8BTYk5Fhvu/jue3PTuY5K4cy6eiY1a/38A525M1d
-	XCVXCwv0O3i3NhTHOzK3GmOs9JVFddrjRI2bK2Eq2y4dHAjt1VIKTfoKS92nzuGzlc=
-X-Google-Smtp-Source: AGHT+IEBO710LCTFWwUAihOCugEA3hGN50uCDGeneSo28meI4yCjdM/bnv32SmYDN5YJfiPuKXeYeA==
-X-Received: by 2002:a05:600c:b99:b0:435:9ed3:5698 with SMTP id 5b1f17b1804b1-4362aa9784cmr126683715e9.24.1734426285738;
-        Tue, 17 Dec 2024 01:04:45 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Subject: [PATCH] x86/io-apic: prevent early exit from i8259 loop detection
-Date: Tue, 17 Dec 2024 10:00:45 +0100
-Message-ID: <20241217090045.6251-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
+        d=1e100.net; s=20230601; t=1734426161; x=1735030961;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xjAZZXIZu4thRZG/EQtx9Gvia9nq9b5bV4ABjR28CUQ=;
+        b=PTr3rzS+93CmuB3xNPcIlcYmAy5asLmtHGhm2AvsLCn4kmtdSog4rINh6p3ydpa6bv
+         TPTelqxOGWvurwywM8dTHfDWaonkAMLoFEtbTvKyesYXzLy4R2GbSz5aLw5gL+e3Dn/w
+         G7QwI+EfSbshAcUWIt7gdu79x0DZ+8uNAgxl8exh688UNCjRku3dZaa9FCfS2SXsFxJ9
+         GfqaC5n3yRq5IJvl7q35iy4ldLrAiH3tOM1Ankqc2Ah7QYfxeePqGsFzqp2c8COUSk4c
+         qmPbs/M1EGk5OZznS18yvlBD2ZvBKKMgBKd1NhwUyzbsrELGaeutTq+XfomKm6lRaXEe
+         CE2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWXg/69eMN/nQTPFW36rW+Sr1QdTHhGaF5cB8UiIJ8LAZtJ16+E3ak8Ug1pd3t+ReejrOZkFNtsqTw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+SrQpgRosiRg+oORa9GrtXuXQbSXXlQ1M3he4WE7rhYlU/0ME
+	ZRCxfg/nV86BSyXq7eKOjq5J5k1RfZpuf/wMYiqmDoqVt0K0FiC/9Sf6TWbC2Q==
+X-Gm-Gg: ASbGnctfG5Fuo/AK7PA2ZNPYHNOeGh3V1viROGGPuAeOghCxFbY85+VEXFQmb5Jjj6d
+	T/7JRtizyZrNgYS7hmG8ZVHGRHi2U+EU/zV3GxXBTNoKB47+Y0WVKoNHIr8r5s5nmoMGZ0zE6EI
+	VRlSItDB9evx/56w24MSa4iY0WCfkiWsEiL3CTW6KsWM6GNS1T+efXIuN5YFluPhb4QJQF27FSD
+	Q8WradBuQRuhyzAdnYMsWPIql0kpEZr4Rj35jEy5D+NCQKN4BnERZferRLnj39qZM2yYqtDAOzU
+	p+AGsTvi/cQ2nqRpEoX8bcAN7glj3WMQ9VjZx1qmnA==
+X-Google-Smtp-Source: AGHT+IHAwkomFfJdPR4XAeJVfEWLG80Mq1QrbUImadenqFOabRzZ0S4ZI/Y6UKUPOe4dLs8sQgDA9w==
+X-Received: by 2002:a05:6000:2a8:b0:386:3262:28c6 with SMTP id ffacd0b85a97d-38880ac2d54mr12501831f8f.5.1734426160740;
+        Tue, 17 Dec 2024 01:02:40 -0800 (PST)
+Message-ID: <61a277f3-5650-4976-9ea2-4cb7137653da@suse.com>
+Date: Tue, 17 Dec 2024 10:02:39 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] misra: add deviation for MISRA C Rule R11.8.
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <202c8efa4f846018e463f6242d25eb10c015d835.1734367711.git.alessandro.zucchelli@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <202c8efa4f846018e463f6242d25eb10c015d835.1734367711.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Avoid exiting early from the loop when a pin that could be connected to the
-i8259 is found, as such early exit would leave the EOI handler translation
-array only partially allocated and/or initialized.
+On 16.12.2024 17:57, Alessandro Zucchelli wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -393,6 +393,12 @@ Fixing this violation would require to increase code complexity and lower readab
+>  -config=MC3R1.R11.8,reports+={safe,"any_area(any_loc(any_exp(macro(^container_of$))))"}
+>  -doc_end
+>  
+> +-doc_begin="Function __hvm_copy in xen/arch/x86/hvm/hvm.c is a double-use
+> +function, where the parameter needs to not be const because it can be set for
+> +writeor not"
+> +-config=MC3A2.R11.8,reports+={safe,"any_area(any_loc(text(^.*__hvm_copy.*$)))"}
+> +-doc_end
 
-Otherwise on systems with multiple IO-APICs and an unmasked ExtINT pin on
-any IO-APIC that's no the last one the following NULL pointer dereference
-triggers:
+Documentation text is quite a bit more specific than the config line.
+Any function anywhere in the code (even non-x86) with a __hvm_copy infix
+would be deviated this way, aiui.
 
-(XEN) Enabling APIC mode.  Using 2 I/O APICs
-(XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Not tainted ]----
-(XEN) CPU:    0
-(XEN) RIP:    e008:[<ffff82d040328046>] __ioapic_write_entry+0x83/0x95
-[...]
-(XEN) Xen call trace:
-(XEN)    [<ffff82d040328046>] R __ioapic_write_entry+0x83/0x95
-(XEN)    [<ffff82d04027464b>] F amd_iommu_ioapic_update_ire+0x1ea/0x273
-(XEN)    [<ffff82d0402755a1>] F iommu_update_ire_from_apic+0xa/0xc
-(XEN)    [<ffff82d040328056>] F __ioapic_write_entry+0x93/0x95
-(XEN)    [<ffff82d0403283c1>] F arch/x86/io_apic.c#clear_IO_APIC_pin+0x7c/0x10e
-(XEN)    [<ffff82d040328480>] F arch/x86/io_apic.c#clear_IO_APIC+0x2d/0x61
-(XEN)    [<ffff82d0404448b7>] F enable_IO_APIC+0x2e3/0x34f
-(XEN)    [<ffff82d04044c9b0>] F smp_prepare_cpus+0x254/0x27a
-(XEN)    [<ffff82d04044bec2>] F __start_xen+0x1ce1/0x23ae
-(XEN)    [<ffff82d0402033ae>] F __high_start+0x8e/0x90
-(XEN)
-(XEN) Pagetable walk from 0000000000000000:
-(XEN)  L4[0x000] = 000000007dbfd063 ffffffffffffffff
-(XEN)  L3[0x000] = 000000007dbfa063 ffffffffffffffff
-(XEN)  L2[0x000] = 000000007dbcc063 ffffffffffffffff
-(XEN)  L1[0x000] = 0000000000000000 ffffffffffffffff
-(XEN)
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) FATAL PAGE FAULT
-(XEN) [error_code=0002]
-(XEN) Faulting linear address: 0000000000000000
-(XEN) ****************************************
-(XEN)
-(XEN) Reboot in five seconds...
-
-Reported-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Fixes: 86001b3970fe ('x86/io-apic: fix directed EOI when using AMD-Vi interrupt remapping')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/io_apic.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index d9db2efc4f58..e4a88a2527d7 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -1389,14 +1389,15 @@ void __init enable_IO_APIC(void)
-             /* If the interrupt line is enabled and in ExtInt mode
-              * I have found the pin where the i8259 is connected.
-              */
--            if ((entry.mask == 0) && (entry.delivery_mode == dest_ExtINT)) {
-+            if ( ioapic_i8259.apic == -1 && entry.mask == 0 &&
-+                 entry.delivery_mode == dest_ExtINT )
-+            {
-+                ASSERT(ioapic_i8259.pin == -1);
-                 ioapic_i8259.apic = apic;
-                 ioapic_i8259.pin  = pin;
--                goto found_i8259;
-             }
-         }
-     }
-- found_i8259:
-     /* Look to see what if the MP table has reported the ExtINT */
-     /* If we could not find the appropriate pin by looking at the ioapic
-      * the i8259 probably is not connected the ioapic but give the
--- 
-2.46.0
-
+Jan
 
