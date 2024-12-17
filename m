@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C9749F468A
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 09:54:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858625.1270876 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF2E19F46A1
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 09:57:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858638.1270885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNTKp-0002ev-D7; Tue, 17 Dec 2024 08:53:43 +0000
+	id 1tNTOC-0003HM-T6; Tue, 17 Dec 2024 08:57:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858625.1270876; Tue, 17 Dec 2024 08:53:43 +0000
+Received: by outflank-mailman (output) from mailman id 858638.1270885; Tue, 17 Dec 2024 08:57:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNTKp-0002dR-8k; Tue, 17 Dec 2024 08:53:43 +0000
-Received: by outflank-mailman (input) for mailman id 858625;
- Tue, 17 Dec 2024 08:53:41 +0000
+	id 1tNTOC-0003FI-QV; Tue, 17 Dec 2024 08:57:12 +0000
+Received: by outflank-mailman (input) for mailman id 858638;
+ Tue, 17 Dec 2024 08:57:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tNTKn-0002dL-On
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 08:53:41 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1tNTOA-0003FA-Mn
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 08:57:10 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 699370ae-bc54-11ef-a0d6-8be0dac302b0;
- Tue, 17 Dec 2024 09:53:40 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-434a766b475so53186125e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 00:53:40 -0800 (PST)
+ id e6232415-bc54-11ef-a0d6-8be0dac302b0;
+ Tue, 17 Dec 2024 09:57:09 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43621d27adeso34844585e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 00:57:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436255531b1sm169178895e9.2.2024.12.17.00.53.38
+ ffacd0b85a97d-388c801ad9asm10404591f8f.58.2024.12.17.00.57.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 00:53:39 -0800 (PST)
+ Tue, 17 Dec 2024 00:57:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 699370ae-bc54-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: e6232415-bc54-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734425620; x=1735030420; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734425829; x=1735030629; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7n2XuaKfUiUjrn3rk1+CMisvlSQprVNO8APALE7RQnY=;
-        b=BUNDF8Agh52ZnuzUoE/mp8pp4G4tC4DSrQuHIzWhntgzP5jv8VzT4vvSxZHBER9IlU
-         n4Q+rncftMf7kuDTUs+zIjEQYFj2OXifc7SXxxJhuu7SUCYWYQVc8h5THRSGc9OGRYui
-         MIvyJcQhGIC3Tf2bc3JqHrmteo2dXaznok1+IQRLpSt+d5VU/YvKZSjIVCL/swyfbgtb
-         rVMgcwqolYI8qUw+vSNF+lmHPaf/R/pNJG9fP33/0CZGOuHbbaho1QN6NTwcTu5Z1IOB
-         uVxEG52eAZ+zUCR9BeFMy+N+RMFj8hhNMIf9dEskscfWJLTAKbF5ELEgKJuTqVnEcM4f
-         uXnw==
+        bh=9ZqANH81DfpWvQHFgH/lhQ8OEBOOTblLuZ2Pzfhl1zc=;
+        b=CJovTNjJh4WcYiML8J4XEUcv0Br1/j+MFLogOvz9aM/0XbV7IC9vXHrHiQslouseJD
+         C6d8rwEOIc+DAxhv/3FlmFPECyrG8dRjws0hga3WecDMSOsV5nH76hsYvyU5onKg+7L9
+         qVJefFapnQEMikocSgwbEvkSje9vmTPgOL6GGZZLWX6Asn35iXogM6bbo19T4OhyfW8M
+         IZaGcczQzg1dX66vyBaA5MfcmJXQlEzTdOMoMfMNdVejEb6qnoiTHsXoH/UPcYi3ubJ+
+         XAUWeSbIz/8QJTFOfqARo6LYmlVd/wGpG4xA+YOvvTsvikhancxjsn8Pn5uoYnDAYG55
+         6TTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734425620; x=1735030420;
+        d=1e100.net; s=20230601; t=1734425829; x=1735030629;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7n2XuaKfUiUjrn3rk1+CMisvlSQprVNO8APALE7RQnY=;
-        b=Ipvqs2Ol3BoDzQ9Kz/PyzbYVXtdkcF0VZGtwmBdXj0gFNLW4RwPjJjEIvIJN3rC4Pq
-         schMbP+oqGk/wnbfNGjlv2LNHtF5GbKZH3JBMNYws3m68JVweRLgOEl4WvCx+cT0Ne/8
-         jm0lApx9+YHri4DDpSfd/FxShNiIaEMdZpmDlnQTWGVjlKhJ9LZzQh2U+mqfKo2oWHab
-         +zcsfTV430C/FziXeA0Ifp5BJzPlDtypAVu/VGyHvDj7CAyqVstMYM5/lCQg9wEFebQU
-         bv2r5+Wdk1a2aoJ7wUv2+l5b3KzlbwtgoHUZD8SmoFG4ZaVCVPZJBPbZj0M4yfY2ae0F
-         5xXA==
-X-Forwarded-Encrypted: i=1; AJvYcCX54RBhddO98fo3iNQGfvWkYhtYSJecR94IVorbXNp/eVtign2NYJaCSJj8pNMsGW3/eMeJC/SbUws=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx2WTCrGjO+fwvq/urzTq42Gd9S29cZStDOlYQWVjiboMnP5PLQ
-	BRxYh2GFS1PoxxbDBxlW8HWqmBSY6MDW4trhwM03pMnNJ+EK1UpDjaDbrBv0Ww==
-X-Gm-Gg: ASbGncvMVNHmtuKmqd3TvQWzEfSwjONeYzSnAb+MT95SlAfCXP3lgGfFGyIdBEFJdeu
-	P8k5I6SIyLtw6IlWvlulsZqb5uX7NjjtytA4RdqTL9fiGjSloo8JOppVfXrNj/TcJSit347TFjz
-	mFm5QM2i7K6kgP0oFdHmluh2F0SSLO2ZssrTEDPtma9HzEHB74h3LTX3q2yef43vkr/TO09/aWx
-	669ci1WXqFzXtUPLkO6mQtzDCneW3wzmCwMDhmnJ0sjgmYsFYlL5Sc2v6A1Mp8AP0XjJ1znJP6R
-	+zhOKd/OIZNXRGKOpDccJ/MI9yXFbUrEvzT02sxQqg==
-X-Google-Smtp-Source: AGHT+IG71G/tuI/8acYpYstoc0lqpsSUf3Pvj723OT4bt9re9zKGw4Q41BHmOYbqdxwL9JzSeEUsDQ==
-X-Received: by 2002:a05:600c:1c07:b0:434:f739:7ce2 with SMTP id 5b1f17b1804b1-4362aa2e65emr124651755e9.8.1734425620176;
-        Tue, 17 Dec 2024 00:53:40 -0800 (PST)
-Message-ID: <837391e6-5ffd-4f4a-9bc4-c4431b5b25a2@suse.com>
-Date: Tue, 17 Dec 2024 09:53:38 +0100
+        bh=9ZqANH81DfpWvQHFgH/lhQ8OEBOOTblLuZ2Pzfhl1zc=;
+        b=h20K9zuGkm8ntT/9u6eQY/I5fxREpfgU7Olfr/zFQvkstOxkrEiSWsUnl3ZuSqjwbp
+         8KnhPO4fR53N4xEAyeSnCriDghSKoTNKfEF9KD2T0jWr1xJBDdWl7s6qGuF2mM/amMYu
+         NgJs6QuvDa19fw2+eCAQr09lkrUeFm/Yk2n8XULHgONwXv6MoR5+FK0chhkLFgJRLZJs
+         ELy4H9VjFepmDoLHOcxaqJxRgxRV5dHVtR05MaTaFAQ3yZsYmbgTQo5F9bqilLj3h2n6
+         FMhHfqZMyTZ7nFQaC1HiwCmPBtqHc5BwVRu4bLdUJNqo4rWbuWWi/Fk4H7LsIIylp840
+         SOVg==
+X-Forwarded-Encrypted: i=1; AJvYcCX4vi58mFx7XCDEtJ7WqMJi5Xll5QfXqXRPxQDFqBXKG0gTE5l00b3my7ITJjj4Wiu8XPNOuGtgnuE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/YzaUUl9ZzUv0X3lRruiP4zHxQwxlB6Hf2Jpdl80pOfFl3SsD
+	kPuE1oVTDz4WomugNaSGoKGj4Ip5vaBi/n+F7Vsmd57DzD4psxzlkGOF7gK26w==
+X-Gm-Gg: ASbGncv+b0V4+Vqf24SjbUZVeVZdi+Q1KxkUDDhBi+cEVaxkxPJXjEwBa8D+G62Z2dT
+	5BuRmMTE98sh737wiK+t8S/o9XoQHzBpHJXId5mFoNUlnz984pD4/Sdqz7dustM7gjJiicx2QNZ
+	gUgynrdwlEs2bsku2ijRQrCyJORscuKL8Ky5Sc4tGlRmSXm75rmiX71KFU5lb2d4awN9+YOSC07
+	5b9zAru3RWgHpHRGKPw+6qwfBhYHedByPkn+sKG7S1jxumfaRyIF605tt6C2RG09t1wdqgJz7Al
+	YBFM6tXDxWXxLPXREc7G7BFsX8k42EexgGA+8gPZ1Q==
+X-Google-Smtp-Source: AGHT+IHYMig3P9rX/ddawG9T5zluX386lW4Dq7D29209MQD8Fw/uHo1iCWQ38cFxNVevAZ8jCBpPqw==
+X-Received: by 2002:a05:6000:18a5:b0:386:2fc8:ef86 with SMTP id ffacd0b85a97d-38880ad775amr12023236f8f.14.1734425827676;
+        Tue, 17 Dec 2024 00:57:07 -0800 (PST)
+Message-ID: <00e38f79-6185-4dcb-be69-4b08fb4a81f4@suse.com>
+Date: Tue, 17 Dec 2024 09:57:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: add privcmd ioctl to get p2pdma_distance
-To: "Zhang, Julia" <Julia.Zhang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>, "Chen, Jiqian"
- <Jiqian.Chen@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
- "Penny, Zheng" <penny.zheng@amd.com>, "Zhu, Lingshan"
- <Lingshan.Zhu@amd.com>, Paul Durrant <paul@xen.org>,
- "Edgar E . Iglesias" <edgar.iglesias@gmail.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Juergen Gross <jgross@suse.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+Subject: Re: [PATCH v12 01/12] xen/common: add cache coloring common code
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241207105946.542491-1-julia.zhang@amd.com>
- <03504a1e-c801-47fc-ac66-ab7e10ab6695@suse.com>
- <IA1PR12MB6532F32D012A63000F34823AF23B2@IA1PR12MB6532.namprd12.prod.outlook.com>
- <0284d807-ae85-4d43-93b5-91fb29528d62@suse.com>
- <IA1PR12MB65325D9E7C0FA79B1928A646F2042@IA1PR12MB6532.namprd12.prod.outlook.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
+ <20241213162815.9196-2-carlo.nonato@minervasys.tech>
+ <eaf99fc7-30f4-4820-ab36-8f5926a4e9b8@suse.com>
+ <CAG+AhRUNrj9a2P1TL7MNbkPw5scZjcTamQGxKsDS5sBWqpZrYg@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,82 +123,115 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <IA1PR12MB65325D9E7C0FA79B1928A646F2042@IA1PR12MB6532.namprd12.prod.outlook.com>
+In-Reply-To: <CAG+AhRUNrj9a2P1TL7MNbkPw5scZjcTamQGxKsDS5sBWqpZrYg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.12.2024 06:53, Zhang, Julia wrote:
-> 
-> 
-> On 2024/12/16 17:19, Jan Beulich wrote:
->> On 16.12.2024 09:18, Zhang, Julia wrote:
->>> On 2024/12/9 15:47, Jan Beulich wrote:
->>> On 07.12.2024 11:59, Julia Zhang wrote:
+On 16.12.2024 17:33, Carlo Nonato wrote:
+> On Mon, Dec 16, 2024 at 11:51 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 13.12.2024 17:28, Carlo Nonato wrote:
+>>> --- /dev/null
+>>> +++ b/xen/common/llc-coloring.c
+>>> @@ -0,0 +1,124 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +/*
+>>> + * Last Level Cache (LLC) coloring common code
+>>> + *
+>>> + * Copyright (C) 2024, Advanced Micro Devices, Inc.
+>>> + * Copyright (C) 2024, Minerva Systems SRL
+>>> + */
+>>> +#include <xen/keyhandler.h>
+>>> +#include <xen/llc-coloring.h>
+>>> +#include <xen/param.h>
+>>> +
+>>> +#define NR_LLC_COLORS          (1U << CONFIG_LLC_COLORS_ORDER)
+>>> +
+>>> +/*
+>>> + * -1: not specified (disabled unless llc-size and llc-nr-ways present)
+>>> + *  0: explicitly disabled through cmdline
+>>> + *  1: explicitly enabled through cmdline
+>>> + */
+>>> +static int8_t __initdata opt_llc_coloring = -1;
+>>> +boolean_param("llc-coloring", opt_llc_coloring);
+>>> +
+>>> +static bool __ro_after_init llc_coloring_enabled;
+>>> +
+>>> +static unsigned int __initdata llc_size;
+>>> +size_param("llc-size", llc_size);
+>>> +static unsigned int __initdata llc_nr_ways;
+>>> +integer_param("llc-nr-ways", llc_nr_ways);
+>>> +/* Number of colors available in the LLC */
+>>> +static unsigned int __ro_after_init max_nr_colors;
+>>> +
+>>> +static void print_colors(const unsigned int colors[], unsigned int num_colors)
+>>> +{
+>>> +    unsigned int i;
+>>> +
+>>> +    printk("{ ");
+>>> +    for ( i = 0; i < num_colors; i++ )
+>>> +    {
+>>> +        unsigned int start = colors[i], end = start;
+>>> +
+>>> +        printk("%u", start);
+>>> +
+>>> +        for ( ; i < num_colors - 1 && end + 1 == colors[i + 1]; i++, end++ )
+>>> +            ;
+>>> +
+>>> +        if ( start != end )
+>>> +            printk("-%u", end);
+>>> +
+>>> +        if ( i < num_colors - 1 )
+>>> +            printk(", ");
+>>> +    }
+>>> +    printk(" }\n");
+>>> +}
+>>> +
+>>> +void __init llc_coloring_init(void)
+>>> +{
+>>> +    unsigned int way_size;
+>>> +
+>>> +    llc_coloring_enabled = (opt_llc_coloring == 1);
 >>
->> Yet another formality, sorry: Please send plain text emails. You'll note that what
->> I said and why you said is indistinguishably intermixed below.
-> 
-> Thanks for reminding.
-> 
+>> Generally I'd suggest to only use > 0, >= 0, < 0, and <= 0 on such
+>> variables.
 >>
->>> --- a/tools/include/xen-sys/Linux/privcmd.h
->>>
->>> +++ b/tools/include/xen-sys/Linux/privcmd.h
->>>
->>> @@ -110,6 +110,16 @@ typedef struct privcmd_map_hva_to_gpfns {
->>>
->>>     int add_mapping;
->>>
->>>   } privcmd_map_hva_to_gpfns_t;
->>>
->>>
->>>
->>> +typedef struct privcmd_p2pdma_distance {
->>>
->>> +  __u32 provider_bus;
->>>
->>> +  __u32 provider_slot;
->>>
->>> +  __u32 provider_func;
->>>
->>> +  __u32 client_bus;
->>>
->>> +  __u32 client_slot;
->>>
->>> +  __u32 client_func;
->>>
->>> +  __u32 distance;
->>>
->>> +} privcmd_p2pdma_distance_t;
->>>
->>>
->>>
->>> "Distance" typically is a symmetric thing. Why the asymmetry here? And
->>>
->>> why __u32 when __u8 will be fine for most fields? And where's the segment
->>>
->>> part of the device coordinates? Finally, with it being merely stub
->>>
->>> implementations that you add here, all details on where the needed info
->>>
->>> is to come from are missing.
->>>
->>> "Distance" is p2pdma-distance between two PCI devices, it's calculated in kernel driver.I don't get why it's symmetric?
+>>> +    if ( (opt_llc_coloring != 0) && llc_size && llc_nr_ways )
+>>> +    {
+>>> +        llc_coloring_enabled = true;
+>>> +        way_size = llc_size / llc_nr_ways;
+>>> +    }
 >>
->> Distance from A to B is usually the same as that from B to A. But yes,
->> not necessarily always (thinking of e.g. rings). Yet still I'm unclear
->> about the distinction between provide and client.
+>> Hmm, I actually see a difference in someone saying
+>>
+>> "llc-coloring=0 llc-size=... llc-nr-ways=..."
+>>
+>> vs
+>>
+>> "llc-size=... llc-nr-ways=... llc-coloring=0"
+>>
+>> I'm not sure about Arm, but on x86 this can be relevant as there may be
+>> pre-set parts of a command line with appended (human) overrides. Therefore
+>> it always wants to be "last wins". Yet yes, you may weant to take the
+>> position that in such a case the former example would require "llc-coloring=1"
+>> to also be added.
 > 
-> Provider - A driver which provides or publishes P2P resources.
-> Client - A driver which makes use of a resource.
+> Yes, I think this should be the way to go.
 > 
-> In our case, we want to use passthrough dGPU render data, and virtio 
-> iGPU display data. So dGPU need to import display buffer of iGPU. iGPU 
-> is provider and dGPU is client.
+>> Kind of against the shorthand llc-size+llc-nr-ways only,
+>> though.
+> 
+> The shorthand was proposed by you here:
+> https://patchew.org/Xen/20240315105902.160047-1-carlo.nonato@minervasys.tech/20240315105902.160047-2-carlo.nonato@minervasys.tech/#05e4d3da-4130-4c57-9855-43b685ce5005@suse.com
+> 
+>> Wouldn't it make sense to infer "llc-coloring" when both of the latter options
+>> were supplied?
+> 
+> We both agreed that it was something good to have.
 
-Right, but: Is this arrangement relevant for the new ioctl? Aren't
-you simply after the distance between two devices, of which your
-provider/client model is merely a special case?
+Right, and I'm not putting that under question. With that, however, I find
+your reply ambiguous. If the shorthand is useful to have, is the requirement
+to put a 2nd "llc-coloring=1" on a command line (as per above) really a good
+idea?
 
 Jan
 
