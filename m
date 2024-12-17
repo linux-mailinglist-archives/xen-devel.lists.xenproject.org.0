@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4802E9F4E17
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 15:42:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.859276.1271396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C9F99F4F03
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 16:13:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.859298.1271421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNYla-0001cd-Tf; Tue, 17 Dec 2024 14:41:42 +0000
+	id 1tNZG4-0006et-LA; Tue, 17 Dec 2024 15:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 859276.1271396; Tue, 17 Dec 2024 14:41:42 +0000
+Received: by outflank-mailman (output) from mailman id 859298.1271421; Tue, 17 Dec 2024 15:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNYla-0001aL-Qp; Tue, 17 Dec 2024 14:41:42 +0000
-Received: by outflank-mailman (input) for mailman id 859276;
- Tue, 17 Dec 2024 14:41:41 +0000
+	id 1tNZG4-0006c8-Hy; Tue, 17 Dec 2024 15:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 859298;
+ Tue, 17 Dec 2024 15:13:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tNYlY-0001aE-VY
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 14:41:41 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ (envelope-from <SRS0=HQ1q=TK=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1tNZG3-0006c0-Lz
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 15:13:11 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06038481-bc85-11ef-99a3-01e77a169b0f;
- Tue, 17 Dec 2024 15:41:39 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4361b0ec57aso52854935e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 06:41:39 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c80601desm11318680f8f.90.2024.12.17.06.41.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 06:41:38 -0800 (PST)
+ id 6c1ff820-bc89-11ef-99a3-01e77a169b0f;
+ Tue, 17 Dec 2024 16:13:08 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-385e87b25f0so4266115f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 07:13:08 -0800 (PST)
+Received: from localhost.localdomain ([78.196.4.158])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-388c8060582sm11225037f8f.93.2024.12.17.07.13.06
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 17 Dec 2024 07:13:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06038481-bc85-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 6c1ff820-bc89-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734446498; x=1735051298; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IGIiE5nXPSdxpWn1Ea/upPyLjrOSFuw1lO2GkhdBkEk=;
-        b=HekXA5+FAAc18h5EObAS9Oxyx5bGekq4lnkSkYrqnyPiwufaPbYUt2Df/6CXV979l8
-         dqmFTsvs8aS0FjovPOWI0W/aD6LnXMUEPk1CN29uOBkk9Fb1kzFOQr62+ITFltwjGmkt
-         xHWhf374XLh/xMb1DweqamEqojPTYpW+XngcB53dzMTGnYYxjIWLfsd7HP4bqpCs9tJr
-         BS9rfxe5NO6OZIW/OjyJOCsj4NnNHqS5FPht785T2yLLfxdlh2QUF7fOz06SVV3JTkCX
-         mmuo8Hclz3xOyHX8CLIk0CsWKWI/Mwh0uWW5BPNLXkQshQHqsgMxd/clvnBOHyvMmxoF
-         Vd0w==
+        d=linaro.org; s=google; t=1734448388; x=1735053188; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nhjwbb2cLaV8+g7K6eWDoGH3jLVsHMMck+CiKHhGFfc=;
+        b=M9ctBrWjCHNsfOMZGep3NeEhxYv8ZsgHGr3SCmg0ou+pcBpyZUV5I4OGz5L+pcbvah
+         I+ppmYJk3SrgOWylhNGkONOdPXDoGk8zsHEeLmhmsHT8evWHVHmd0Su42uu7wZNoXSDh
+         J0KrTQGeOXf2LHoU1O6GLJpKdqx9bbeqCooc3yOyDPYQp7LolPKcOnynsEtlCtePFQfE
+         8OULWa3EbEcOyRe+mcU+wm2T2DiQ5CQqJYqfDnp8Arh0gSP496hLMZf6w/CnHL/y5zn1
+         gB6pKj/9kcb4XZPUamDfHCmVOL2+WgjRJA6OqCvESfrATLivrN5zkTSUmZxxV+71IPT5
+         o+5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734446498; x=1735051298;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IGIiE5nXPSdxpWn1Ea/upPyLjrOSFuw1lO2GkhdBkEk=;
-        b=PU/ubGBGIcuQ4+FySKFRFP5VkbNSnwA802KQDaCjgURbvSTD+LxHs8k6F3sk9AHQuU
-         vEC+qkZSugDIHAD+f3J1HsGPVQBUIw5/EGItUxNaJ0PJk3tpJLWPYf0fkKL4T+m8YXAY
-         L2aC6UdUUxRRUtfcp86N/vsTPLw7Pvr3WzThOsGvB5AbDOTHpk6pIumcVjALEwvfpG7R
-         3Q9hckaS5vCmRfgkGLOZEDEB6OknwgQMThcntD5w3dVcB4iTyqHYYYYxNBNCrjOIzMX0
-         s3Iitp7mmce4XXRTXoUerMBoZFrpqCmFGITuMqdVD5vVXv2ieYTqA2B9uwE8OHEAvr87
-         EoFA==
-X-Forwarded-Encrypted: i=1; AJvYcCXeQwoCGmQsBl+vIhzg8hgL2wyBqZVdV+H+hMpgIDMuRkgOBULWlXVRGbRBQ2iRuay0hVeLUOGRWvM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzsVy95juAoeEVlWC+anhhppECVCasJ+glt1of+gRlrM1InaYZf
-	6jJKrwm7lOAw7B1k7C12AvGlYdD0BPUlFuSfNz7Wt5WlgV9/NdhSq07O2JjlEQ==
-X-Gm-Gg: ASbGncu6b+rvTmRZuLz+dwVOh1nHH852gqV+YbagN8DXGSizc/IQE7jL0i/3OeroeBk
-	B4QXdTIV1Uyhp93nuyeyTjMd8wCVRCOFD1D4PlTyJYjqpgx0XvgKiMVqgXrSl1IaXViPMhdB0mU
-	Z755gXaGIU11+/TKMqwt5bOMsEu0cLngrRtTZqYTh8Xao35YKHr52fR0xkKbCuPPgFoN4VvK32t
-	W6v49NmYP/A01uSHSfEeg6wv2/tnnEkrV0U304SBnzYRcKZFXi8iAM5Q2g3TRoooLSzSHeWwaUL
-	FYi/eU9q2GCMpX9iKdQ2GmZzcr7GUv8rhu6XrXeLIg==
-X-Google-Smtp-Source: AGHT+IFcmM7MFVmVdHBt5xSpXewNEV6y+O/CCUwYClWubnSAvJsT44J1wEL+QADxh74btqDbY/BU9A==
-X-Received: by 2002:a05:600c:1da6:b0:434:a746:9c82 with SMTP id 5b1f17b1804b1-4362aa26e46mr123041945e9.5.1734446498520;
-        Tue, 17 Dec 2024 06:41:38 -0800 (PST)
-Message-ID: <6ee25017-db0f-4928-a07a-89558035a3f9@suse.com>
-Date: Tue, 17 Dec 2024 15:41:37 +0100
+        d=1e100.net; s=20230601; t=1734448388; x=1735053188;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nhjwbb2cLaV8+g7K6eWDoGH3jLVsHMMck+CiKHhGFfc=;
+        b=n5kzvF3qP7tq9Aua+Dr8o96vQkC4G7/b8GZu3mgdnnjGhwE0KUA2rJXzxDfDKzOKv+
+         90qiCsHSkIEVkojlmc1Ty1tA02HMyy8RTifYjefZmVJcjL+yZNua5z0+wvRnp9p4yIjL
+         +OKJdUK8qZPO3NLKSOyO9EM7ZXuQyIyegBDcFYiQqn8GPPxGDcD1KgxpTYfqCE12/euK
+         oLuG0L/6qV/W5W0PvG2b8CzoeNWSzcPJAKIDvKzTcssS0OmvMmmgCuCCKOm7K7P+wQF9
+         o1H7WZUXIEuoFISRAMkD4sMLT/U/3Hals/S5iywrQLAW4atSThW9Gpo6m60wYh2Ic1gn
+         k/Ug==
+X-Forwarded-Encrypted: i=1; AJvYcCUCPJ7X04JyKWZZL+FhX01ayJBnInqHu05Kten13vWWqUB3LrwAqX25nr97DLhemf/W7qfSYyZdwz8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw08kvCue4VCf7abTA1pX+W7dQWCIRRVUd5Z5nR2yr96f57Z6RB
+	ypdxVJE8rY0y2Mc6IRtxLjG2i2eIhyAeR3WdQOzV5KEdDgOKe4/s7OHdacUW2yU=
+X-Gm-Gg: ASbGnctwnlEO6rUlK4kDHpaMIVO1wY3VcLElqDzC0CSyb+YebyMlDqXDeog7djyT69o
+	M/mKRJ/G9CvxD1LMtbEYmwEAWe99rcBwvQhNC2QzPMZHVIICuTXYrxxcndwq0k7aHWDUYLOoUVp
+	7yMTr6FeAxOfOPpk6DhxLkP5vllAYql5KPOnN0VG1d2LFBbqxODqJWkq4bOFU9gtyqq83HWWYWP
+	gpnTelv8wZt/tywd7GLIjSRHc5RynLZsV6joaNUmutr9cjMqkswZS457gZCiyaMs4hS0MUvd5ne
+	U6ii
+X-Google-Smtp-Source: AGHT+IGhZvwcrecH/l3tzZxp/9lmRQKKnuH2G+g15sJ2oF8K5YoB0LcEYki3ScgNkajyj1I0/t17Gw==
+X-Received: by 2002:adf:e0c6:0:b0:385:fa30:4f87 with SMTP id ffacd0b85a97d-388daf909b5mr3090065f8f.0.1734448387783;
+        Tue, 17 Dec 2024 07:13:07 -0800 (PST)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Zhao Liu <zhao1.liu@intel.com>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Paul Durrant <paul@xen.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Yanan Wang <wangyanan55@huawei.com>,
+	Anton Johansson <anjo@rev.ng>,
+	Anthony PERARD <anthony@xenproject.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH 0/3] include: Cleanups around 'exec/cpu-common.h' header
+Date: Tue, 17 Dec 2024 16:13:02 +0100
+Message-ID: <20241217151305.29196-1-philmd@linaro.org>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] xen: add new domctl get_changed_domain
-To: Juergen Gross <jgross@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241217142218.24129-1-jgross@suse.com>
- <20241217142218.24129-4-jgross@suse.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241217142218.24129-4-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 17.12.2024 15:22, Juergen Gross wrote:
-> Add a new domctl sub-function to get data of a domain having changed
-> state (this is needed by Xenstore).
-> 
-> The returned state just contains the domid, the domain unique id,
-> and some flags (existing, shutdown, dying).
-> 
-> In order to enable Xenstore stubdom being built for multiple Xen
-> versions, make this domctl stable.  For stable domctls the
-> interface_version is always 0.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Do not include "exec/cpu-common.h" when we don't need it.
 
-As before:
-Reviewed-by: Jan Beulich <jbeulich@suse.com> # non-XSM/Flask
+(I plan to merge this series myself).
 
+Philippe Mathieu-Daudé (3):
+  hw/xen: Remove unnecessary 'exec/cpu-common.h' header
+  system/numa: Remove unnecessary 'exec/cpu-common.h' header
+  system/accel-ops: Remove unnecessary 'exec/cpu-common.h' header
+
+ include/hw/xen/xen.h       | 2 --
+ include/sysemu/accel-ops.h | 2 +-
+ include/sysemu/numa.h      | 1 -
+ 3 files changed, 1 insertion(+), 4 deletions(-)
+
+-- 
+2.45.2
 
 
