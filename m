@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6C49F4909
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 11:38:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858741.1270981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6D49F4996
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 12:08:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858760.1270997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNUxT-0005MP-KS; Tue, 17 Dec 2024 10:37:43 +0000
+	id 1tNVQr-0001La-Va; Tue, 17 Dec 2024 11:08:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858741.1270981; Tue, 17 Dec 2024 10:37:43 +0000
+Received: by outflank-mailman (output) from mailman id 858760.1270997; Tue, 17 Dec 2024 11:08:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNUxT-0005JG-HY; Tue, 17 Dec 2024 10:37:43 +0000
-Received: by outflank-mailman (input) for mailman id 858741;
- Tue, 17 Dec 2024 10:37:42 +0000
+	id 1tNVQr-0001Jg-Sf; Tue, 17 Dec 2024 11:08:05 +0000
+Received: by outflank-mailman (input) for mailman id 858760;
+ Tue, 17 Dec 2024 11:08:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BizT=TK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tNUxR-0005JA-PY
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 10:37:41 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tNVQq-0001Ja-Qq
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 11:08:04 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f066ed85-bc62-11ef-a0d6-8be0dac302b0;
- Tue, 17 Dec 2024 11:37:39 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-30229d5b21cso45666921fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 02:37:39 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30344043eb3sm12286361fa.27.2024.12.17.02.37.38
+ id 2f911a67-bc67-11ef-a0d6-8be0dac302b0;
+ Tue, 17 Dec 2024 12:08:03 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43635796b48so19994085e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 03:08:03 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4364a3766dcsm13976725e9.0.2024.12.17.03.08.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 02:37:38 -0800 (PST)
+ Tue, 17 Dec 2024 03:08:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f066ed85-bc62-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: 2f911a67-bc67-11ef-a0d6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1734431859; x=1735036659; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nBYYuypc/ElymR8HjBxJKWEs4+PQ6vYMe7CYNB06BIM=;
-        b=b9LP73rzsb93qD5OfTDSdAckww7Hh3hT3VxeSwSTtHmgvOs27PoUBxHMwlyQrUeKDy
-         c31Mms/NAPvpii9pATBIEFH6UWBpAME8eFlkMu0hQwiwkhHp4ZvRz8L/hIogDgHwATMw
-         yIfdOFYIGHbZO6a3Utlcc8UfeF8nJYUDSHvrft7JGyniLnpb/EZkjdBC5rsZ0vONEQE7
-         /TLHPMVmD517s6pmn9mjuJdbM4fUIpwhibKrB/Nfb/i5BjDeAfLEpbo4GeKDiUo9BCNG
-         RjQv3ow6dITvAmSoZKVDZNzTj/ValomID+DQ03yoyag++3xFBFeEWxjcD5YvxUsOS4e8
-         L8ow==
+        d=suse.com; s=google; t=1734433683; x=1735038483; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=aT837i9CTDsu4vXWGQ+YP+stEq6MU1gGGCS+6o36ZJY=;
+        b=IXFqC3/ZG6fqAPqwgu86WB34KvhgQQhKSyHQIkKLzSsqGtofEY6yCAhTkxhGXCqVin
+         jhvosEISD/N7YprUGk14Xwjw1oLdBTsquddQmIpXaAiKjssKZ6XairsBVIYC6jH5qX7/
+         hf9YJd7NITY18TXpzY5SYgZlufi1nuxkFfqMd2uRMFTwCIXD0qMEWZ6IRy9RAoUbe98T
+         DrUQs4C7QeAwlqD6mqa5yCRzZhhUZVY3GF87y6ciPSiZQPZ6T7Iyvz+ydVCmOvOONVnh
+         CjG+F7or9aelZRz4+DSQhanIdESoVrAk3G8ehv2doWlUbWmw1hjZ3nObEmz9x48BOjsx
+         B9xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734431859; x=1735036659;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=nBYYuypc/ElymR8HjBxJKWEs4+PQ6vYMe7CYNB06BIM=;
-        b=fgCNoXZGJdbK2/4HymftY0dCURYnxNvjcVjZtnm+3gaFZz28ZLPJLagaS5qyXyjuNx
-         kLj7cYSfzu6MiFEgJwAKjXQsbXRrb4Ly/vMnCmK8mC/y/SrG8/Quelf5JePd+odrijoW
-         B3qUjQTaTUVWOoAhbduyjo1dQA9Oku8IOR0NHvZ/PLkKuNAVF4jYCCiiwBvuBLUt9S2i
-         enb+y/Xj8/XihwK2TdCfABQ1cPiuCntfBQg3nyzWaDKG1WbqESHuegMQ/CRBhkOBUho4
-         jkvYPJh4LtMUCZGg+xSG9cBDfDH+j7Lmdyjlcn44+qsyh4u51ZlrE/IoLxZ9pEOCnHQ2
-         kd8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWPLOFk4s8leNUODzYeE+XXalgQ3NF//Bh8F5p53pE+poPdAnJlBcL5dVzxcRbsXwpl33M2CE2BV/c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzOzCJKJFktEp+MoCobVCh30Rf5kjvm68342FoiTPxnpAnL7mSp
-	nHEQlftZqa2ShJycPIjtrRG0rOB0JyB6qYZciv7eWSiJt5JJfO4K
-X-Gm-Gg: ASbGncuCeA4qY2rp2pCY8PQi7JRjoYe6yFORT9ZY0N8L31825Nlm4qlioU+nGIatWhH
-	UAtm+ca3QQMeBZTQGTDvo7L7rhPNYEvH5D+6oc5lqKbHkqRIXci0NqbCYTsOCJQeOmA0IgZaiPU
-	QJ+9WMBM2+pKDYdy2kFFcITbBeuitG38V/DXrxQeXS6SehvYl69VmLWlt9PPXPd8RWDjHK+hQtO
-	lhxHs/gkZ+Gv/QvtGb40rFw0tCf8HJRE3/jxo0QmC2U9d+nU63ThmWDqvIkfyZZY3t+EQ==
-X-Google-Smtp-Source: AGHT+IE0Ea4sSWF+lBfmwsxiXyQysgNk4NDBma26OK8fD0k9si483BXdkSlGV4m9xekyJ7aPvLgnMw==
-X-Received: by 2002:a05:651c:1023:b0:300:f5bc:95b3 with SMTP id 38308e7fff4ca-302544e2ebamr33263091fa.41.1734431858840;
-        Tue, 17 Dec 2024 02:37:38 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------00kLxmFgqjVCpE4HujugYm15"
-Message-ID: <a3046737-2414-4862-a75b-ed0e2080df22@gmail.com>
-Date: Tue, 17 Dec 2024 11:37:37 +0100
+        d=1e100.net; s=20230601; t=1734433683; x=1735038483;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aT837i9CTDsu4vXWGQ+YP+stEq6MU1gGGCS+6o36ZJY=;
+        b=BNhiU57BmF7+eeTPEGsNC7VnewrVwZPsCboo46sYTuPlPDtBzQJnD6o63dbcoVz6cG
+         n9Y/YPLVcGe7HbOYj3uR6J7Tz6h9XIs/M+1jbgZRh7fk32tljf10mXm40xB1CXjgW5Sz
+         2TFuc7YKsprYW/+Haflp3Dt2pGJU0hIwwnQb26z7PCQy0enNp5z0a5cnomYGN7+qu6pp
+         xeqtT2Md7Iy7t6k+FoCRdZb4gL3Q5zHFjiFECMWSv1rodkyDUbkK64gW1gjWuGcbtJ34
+         34eoTxFyEyP8Ovy3t7SuPqp6cQTnBf9LNH+T6WsPByU9i9m/9VXcE3WvT6Zz5x0VqyGf
+         ifKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVRHRDwB2lQYDr+ljcGqXeejOyJYENUSza4mfeyxUHClD0wFoDgBSoL7dCNRgo6vYCN5Jw4C/TIr6Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmjpUgDOXfSPhQ5shaoOXZzCp9mv7rD39B+9ZVv2OBKV+zLS1x
+	ILSZ182Tv9JRMPUtR6DZ1d886x9JS8zp3YxUB2bmkWZ3Z6E7Nf3NjfBBBuN/Pg==
+X-Gm-Gg: ASbGncuKKSSOETY/bFviT+XLXGsdoi68KTpQxVDaWqxsrYBej3POegtoAz/mXisqA6b
+	v97jmUE8x4x/XUt53q2BhgnQF61EhCQ11OD0IcVY2fowESGvpTgY5p5/CUvSKqLTJC8mPe7sEeU
+	vFDOxW19p5BlU/FDVykBBFxcce3NTomHF69cotDDXcQQuvtqm9sAh4fXvaREEQmtVvmiDikzlbD
+	8Ojpabf5cTNhSan2wEaxlimKHlRI67f4OlJZSBWNoDV2g979GPLfW1/l4vFOkY6iQc+Og+dNu6f
+	ASId5gKGgO6hVsmVgX8pxmsAhEqzpHXoBLms8eKI1g==
+X-Google-Smtp-Source: AGHT+IE7jmbJSsP9W2pZUzn8o5fWJjEBViOWYKn1w2CJfy9QBTBLEdfuB8jWrAMfncHwF5Px/0NaBQ==
+X-Received: by 2002:a05:600c:4709:b0:435:1a2:262a with SMTP id 5b1f17b1804b1-43648131464mr25587625e9.3.1734433683199;
+        Tue, 17 Dec 2024 03:08:03 -0800 (PST)
+Message-ID: <542d963e-3fb6-45de-904c-4c1e17cc0f3d@suse.com>
+Date: Tue, 17 Dec 2024 12:08:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 5/7] xen/riscv: implement data and instruction cache
  operations
-To: Jan Beulich <jbeulich@suse.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -101,323 +101,88 @@ References: <cover.1733937787.git.oleksii.kurochko@gmail.com>
  <19c9ef65-a5bd-4d81-89dc-c780d3ead8b8@suse.com>
  <1c8c888e-bf59-4b4d-a3a5-cd2c0c7b6565@gmail.com>
  <3579b3ca-3634-4537-8981-fd68c60d5c6a@suse.com>
+ <a3046737-2414-4862-a75b-ed0e2080df22@gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <3579b3ca-3634-4537-8981-fd68c60d5c6a@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a3046737-2414-4862-a75b-ed0e2080df22@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------00kLxmFgqjVCpE4HujugYm15
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 17.12.2024 11:37, Oleksii Kurochko wrote:
+> 
+> On 12/17/24 9:32 AM, Jan Beulich wrote:
+>> On 16.12.2024 18:40, Oleksii Kurochko wrote:
+>>> On 12/16/24 3:23 PM, Jan Beulich wrote:
+>>>> On 11.12.2024 18:27, Oleksii Kurochko wrote:
+>>>>> --- a/xen/arch/riscv/include/asm/page.h
+>>>>> +++ b/xen/arch/riscv/include/asm/page.h
+>>>>> @@ -7,6 +7,7 @@
+>>>>>    
+>>>>>    #include <xen/bug.h>
+>>>>>    #include <xen/const.h>
+>>>>> +#include <xen/errno.h>
+>>>>>    #include <xen/types.h>
+>>>>>    
+>>>>>    #include <asm/atomic.h>
+>>>>> @@ -148,9 +149,27 @@ static inline bool pte_is_mapping(pte_t p)
+>>>>>        return (p.pte & PTE_VALID) && (p.pte & PTE_ACCESS_MASK);
+>>>>>    }
+>>>>>    
+>>>>> +static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
+>>>>> +{
+>>>>> +#ifdef CONFIG_QEMU
+>>>>> +    return 0;
+>>>>> +#else
+>>>>> +    return -EOPNOTSUPP;
+>>>>> +#endif
+>>>>> +}
+>>>>> +
+>>>>> +static inline int clean_dcache_va_range(const void *p, unsigned long size)
+>>>>> +{
+>>>>> +#ifdef CONFIG_QEMU
+>>>>> +    return 0;
+>>>>> +#else
+>>>>> +    return -EOPNOTSUPP;
+>>>>> +#endif
+>>>>> +}
+>>>> So testing on real hardware will then effectively become impossible, until
+>>>> someone goes and implements these?
+>>> Yes...
+>>>
+>>> I am not sure what better we can do. It seems like it will be the best one to check if CMO
+>>> extensions is supported and use instructions for this extensions to implement these functions as they
+>>> are in the specification and not expected to be changed.
+>> Yes, using CMO when available is certainly the route to go. The main
+>> question there is what the behavior ought to be when CMO is unavailable.
+> 
+> If CMO ( or SoC specific extension for cache operation ) isn't available then IMO it means that memory is
+> coherent and nothing specific should be done in the mentioned above functions what means returning 0 should
+> be fine.
 
-
-On 12/17/24 9:32 AM, Jan Beulich wrote:
-> On 16.12.2024 18:40, Oleksii Kurochko wrote:
->> On 12/16/24 3:23 PM, Jan Beulich wrote:
->>> On 11.12.2024 18:27, Oleksii Kurochko wrote:
->>>> --- a/xen/arch/riscv/include/asm/page.h
->>>> +++ b/xen/arch/riscv/include/asm/page.h
->>>> @@ -7,6 +7,7 @@
->>>>    
->>>>    #include <xen/bug.h>
->>>>    #include <xen/const.h>
->>>> +#include <xen/errno.h>
->>>>    #include <xen/types.h>
->>>>    
->>>>    #include <asm/atomic.h>
->>>> @@ -148,9 +149,27 @@ static inline bool pte_is_mapping(pte_t p)
->>>>        return (p.pte & PTE_VALID) && (p.pte & PTE_ACCESS_MASK);
->>>>    }
->>>>    
->>>> +static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
->>>> +{
->>>> +#ifdef CONFIG_QEMU
->>>> +    return 0;
->>>> +#else
->>>> +    return -EOPNOTSUPP;
->>>> +#endif
->>>> +}
->>>> +
->>>> +static inline int clean_dcache_va_range(const void *p, unsigned long size)
->>>> +{
->>>> +#ifdef CONFIG_QEMU
->>>> +    return 0;
->>>> +#else
->>>> +    return -EOPNOTSUPP;
->>>> +#endif
->>>> +}
->>> So testing on real hardware will then effectively become impossible, until
->>> someone goes and implements these?
->> Yes...
->>
->> I am not sure what better we can do. It seems like it will be the best one to check if CMO
->> extensions is supported and use instructions for this extensions to implement these functions as they
->> are in the specification and not expected to be changed.
-> Yes, using CMO when available is certainly the route to go. The main
-> question there is what the behavior ought to be when CMO is unavailable.
-
-If CMO ( or SoC specific extension for cache operation ) isn't available then IMO it means that memory is
-coherent and nothing specific should be done in the mentioned above functions what means returning 0 should
-be fine. Then implementation of these functions could look like:
-```
-
-static inline int <.....>(....)
-{
-#if !defined(CONFIG_QEMU)
-
-    #warning should implementation of <....>  be updated? 
-
-#endif
-
-    return 0; 
-
-}
-```
-
-Or just to be sure that user see the message change #warning -> #error.
-
-~ Oleksii
-
->
->> But I want to back a little bit later to this implemntation as this not issue for QEMU as it doesn't model cache and
->> h/w on which I can ask to run Xen has IO cache coherency so for it will be needed just to add a new config
->> and implementation will still be 'return 0'. ( I thought to introduce instead of CONFIG_QEMU something like
->> CONFIG_HAS_CACHE_COHERENCY )
->>
->> And also in the spec it is mentioned:
->> ```
->> This suggests that RISC-V platforms prefer to support full
->> cache-coherent I/O, but it isn't actually mandatory.
->> As a result, the PMBT and CMO extensions aren't mandatory either,
->> meaning that some platforms might not
->> have instructions to properly flush, clean, or invalidate the cache.
->> ``` Based on that I also think to implement that in the following way:
->> ```
->>       #ifdef CONFIG_QEMU
->>       static inline int plat_clean_and_invalidate_dcache_va_range() { return 0; }
->>     static inline int plat_clean_dcache_va_range() { return 0; }
->>     #else /* !CONFIG_QEMU */
->>       static inline void plat_clean_and_invalidate_dcache_va_range()
->>     {
->>       printk_once("%s: should it be implemented for your platform?\n", __func__);
->>       return 0;
->>     }
->>
->>     static inline void plat_clean_dcache_va_range()
->>     {
->>       printk_once("%s: should it be implemented for your platform?\n", __func__);
->>       return 0;
->>     }
->>     #endif
->>
->>     static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
->>     {
->>         return plat_clean_and_invalidate_dcache_va_range();
->>     }
->> ....
->> ```
->> So we will have a notification for others none-QEMU platforms notification that probably some
->> changes are required.
-> Yet failing to get cache management right can easily result in data corruption.
-> I don't think a on-time printk() is appropriate to handle the lack of respective
-> implementation. At least not anymore once RISC-V leaves "experimental" status.
->
->>>> --- /dev/null
->>>> +++ b/xen/arch/riscv/platforms/Kconfig
->>>> @@ -0,0 +1,5 @@
->>>> +config QEMU
->>>> +	bool "QEMU aarch virt machine support"
->>>> +	depends on RISCV_64
->>> I understand Arm has it like this, but: Is QEMU really a sufficiently non-
->>> ambiguous name to use?
->> Yes, it sounds good to me to have such naming for the platform which are running on top of QEMU.
->>
->> The other option I thought about it is to use CONFIG_VIRT_PLATFORM.
-> I don't think QEMU should be fully omitted from the name. Nor do I think that
-> you can generally infer from "virtual platform" that caches aren't modeled.
-> What I was rather getting at is to perhaps add some qualifier to QEMU, e.g.
-> QEMU_PLATFORM.
->
-> Jan
---------------00kLxmFgqjVCpE4HujugYm15
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 12/17/24 9:32 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:3579b3ca-3634-4537-8981-fd68c60d5c6a@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 16.12.2024 18:40, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 12/16/24 3:23 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 11.12.2024 18:27, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/page.h
-+++ b/xen/arch/riscv/include/asm/page.h
-@@ -7,6 +7,7 @@
-  
-  #include &lt;xen/bug.h&gt;
-  #include &lt;xen/const.h&gt;
-+#include &lt;xen/errno.h&gt;
-  #include &lt;xen/types.h&gt;
-  
-  #include &lt;asm/atomic.h&gt;
-@@ -148,9 +149,27 @@ static inline bool pte_is_mapping(pte_t p)
-      return (p.pte &amp; PTE_VALID) &amp;&amp; (p.pte &amp; PTE_ACCESS_MASK);
-  }
-  
-+static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
-+{
-+#ifdef CONFIG_QEMU
-+    return 0;
-+#else
-+    return -EOPNOTSUPP;
-+#endif
-+}
-+
-+static inline int clean_dcache_va_range(const void *p, unsigned long size)
-+{
-+#ifdef CONFIG_QEMU
-+    return 0;
-+#else
-+    return -EOPNOTSUPP;
-+#endif
-+}
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">So testing on real hardware will then effectively become impossible, until
-someone goes and implements these?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Yes...
-
-I am not sure what better we can do. It seems like it will be the best one to check if CMO
-extensions is supported and use instructions for this extensions to implement these functions as they
-are in the specification and not expected to be changed.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Yes, using CMO when available is certainly the route to go. The main
-question there is what the behavior ought to be when CMO is unavailable.</pre>
-    </blockquote>
-    <pre>If CMO ( or SoC specific extension for cache operation ) isn't available then IMO it means that memory is
-coherent and nothing specific should be done in the mentioned above functions what means returning 0 should
-be fine. Then implementation of these functions could look like:
-```
-</pre>
-    <pre>static inline int &lt;.....&gt;(....)
-{
-#if !defined(CONFIG_QEMU)<blockquote>#warning should implementation of &lt;....&gt;  be updated?
-</blockquote>#endif
-
-<blockquote>return 0;
-</blockquote>}
-```
-</pre>
-    <pre>
-Or just to be sure that user see the message change #warning -&gt; #error.
-
-</pre>
-    <pre>~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:3579b3ca-3634-4537-8981-fd68c60d5c6a@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">But I want to back a little bit later to this implemntation as this not issue for QEMU as it doesn't model cache and
-h/w on which I can ask to run Xen has IO cache coherency so for it will be needed just to add a new config
-and implementation will still be 'return 0'. ( I thought to introduce instead of CONFIG_QEMU something like
-CONFIG_HAS_CACHE_COHERENCY )
-
-And also in the spec it is mentioned:
-```
-This suggests that RISC-V platforms prefer to support full 
-cache-coherent I/O, but it isn't actually mandatory.
-As a result, the PMBT and CMO extensions aren't mandatory either, 
-meaning that some platforms might not
-have instructions to properly flush, clean, or invalidate the cache.
-``` Based on that I also think to implement that in the following way:
-```
-     #ifdef CONFIG_QEMU
-     static inline int plat_clean_and_invalidate_dcache_va_range() { return 0; }
-   static inline int plat_clean_dcache_va_range() { return 0; }
-   #else /* !CONFIG_QEMU */
-     static inline void plat_clean_and_invalidate_dcache_va_range()
-   {
-     printk_once("%s: should it be implemented for your platform?\n", __func__);
-     return 0;
-   }
-
-   static inline void plat_clean_dcache_va_range()
-   {
-     printk_once("%s: should it be implemented for your platform?\n", __func__);
-     return 0;
-   }
-   #endif
-
-   static inline int clean_and_invalidate_dcache_va_range(const void *p, unsigned long size)
-   {
-       return plat_clean_and_invalidate_dcache_va_range();
-   }
-....
-```
-So we will have a notification for others none-QEMU platforms notification that probably some
-changes are required.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Yet failing to get cache management right can easily result in data corruption.
-I don't think a on-time printk() is appropriate to handle the lack of respective
-implementation. At least not anymore once RISC-V leaves "experimental" status.
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">--- /dev/null
-+++ b/xen/arch/riscv/platforms/Kconfig
-@@ -0,0 +1,5 @@
-+config QEMU
-+	bool "QEMU aarch virt machine support"
-+	depends on RISCV_64
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">I understand Arm has it like this, but: Is QEMU really a sufficiently non-
-ambiguous name to use?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Yes, it sounds good to me to have such naming for the platform which are running on top of QEMU.
-
-The other option I thought about it is to use CONFIG_VIRT_PLATFORM.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I don't think QEMU should be fully omitted from the name. Nor do I think that
-you can generally infer from "virtual platform" that caches aren't modeled.
-What I was rather getting at is to perhaps add some qualifier to QEMU, e.g.
-QEMU_PLATFORM.
+Hmm, imo that would be a pretty bold assumption.
 
 Jan
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------00kLxmFgqjVCpE4HujugYm15--
 
