@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2CB9F49A2
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 12:12:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858769.1271007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47A69F49A4
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 12:13:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858773.1271018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNVV5-0002yn-Ec; Tue, 17 Dec 2024 11:12:27 +0000
+	id 1tNVVV-0003QD-Nr; Tue, 17 Dec 2024 11:12:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858769.1271007; Tue, 17 Dec 2024 11:12:27 +0000
+Received: by outflank-mailman (output) from mailman id 858773.1271018; Tue, 17 Dec 2024 11:12:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNVV5-0002wt-Bp; Tue, 17 Dec 2024 11:12:27 +0000
-Received: by outflank-mailman (input) for mailman id 858769;
- Tue, 17 Dec 2024 11:12:26 +0000
+	id 1tNVVV-0003Nr-K7; Tue, 17 Dec 2024 11:12:53 +0000
+Received: by outflank-mailman (input) for mailman id 858773;
+ Tue, 17 Dec 2024 11:12:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tNVV4-0002wn-Oa
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 11:12:26 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ (envelope-from <SRS0=Iy1x=TK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1tNVVU-0002wn-4y
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 11:12:52 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cafbb95a-bc67-11ef-99a3-01e77a169b0f;
- Tue, 17 Dec 2024 12:12:24 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-385f06d0c8eso2513107f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 03:12:24 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c801a7c8sm11070220f8f.49.2024.12.17.03.12.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 03:12:23 -0800 (PST)
+ id da6e2e16-bc67-11ef-99a3-01e77a169b0f;
+ Tue, 17 Dec 2024 12:12:50 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DB61C1F385;
+ Tue, 17 Dec 2024 11:12:49 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 84476132EA;
+ Tue, 17 Dec 2024 11:12:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id +XbCHrFcYWfxUAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 17 Dec 2024 11:12:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,206 +52,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cafbb95a-bc67-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734433944; x=1735038744; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ht0RZ4NK1kl3bi/eY/EWuXlbYq/ZtzNOq443JJbuVhY=;
-        b=BShBVIOSIJNKHbvjAOOUGdox9SP5Os/MEWz8O2JJJd1a8O90YOLE3dFzV9UNeAx+fg
-         vyW8t80FIBkEOb6+m8Kk7nf9YTrO4ZcFmKhxaY+j5f8CEyUuv0zqdErWxem4Ayyaapen
-         cYuqOCUNCrtnK1wnFidvult2oNhnKMM1qQWKblklaF/OrClnFKitHyblqUKC50LZSiNr
-         hKlJgNs1ZJz9rpGjtmNIdxGCIDIlWvSP+4hXtkaZvPtxF7SahExVeRLOBcTSLwbf4DuO
-         GOyZmijl3M0bMN+HnLc2TprnJsf3e1pltoH5NGjUuJ/N9ZKp0wMIVwUiflIOMeIGZ3Sc
-         XCJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734433944; x=1735038744;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ht0RZ4NK1kl3bi/eY/EWuXlbYq/ZtzNOq443JJbuVhY=;
-        b=iabeO8YWjsR80O/l/drsZ9uzKomsiSti/sA2sOoeUrdpyiiW3zR4+k89+RPtzxDhur
-         /Wpl9fLRD1XKlXiBzgKqMP/HrGVwE/cWaoniLQ/PM1wpg7hPLQcTWd5KytD36bVO+O9J
-         UnsLwH9Zj87uMDLeSG+N0I73gccIhqDRjnvx9tYE8lRXtLH0cqQ9L5Dx3bj83BzPBtEw
-         TWC9IeVoqQQk4L7uco3SfW5UG0yn9kBuqUQ+PFVzQ7JAKhM1B45FA+IVMY+plDmfzuh6
-         LmdYz/kGk/RmvnMdv1x7ciVQKikQNRPM9y87IreOabxkjF52WtPMCXBsjam46CvS0D4G
-         c3/w==
-X-Forwarded-Encrypted: i=1; AJvYcCWU4XZc4XqRy6fvKq/7Nn9Sja3GRzySEOfxAmgWqCQD9ZFxfQAHw2meIva7xNcIb75BfemBq7J0qvA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJ16h2uupWUDDR1MiRjwEMJW7obeRAT1IQvgi/htWTLj3tKvGE
-	DE140K4wn5Y2Gczmp7ZxWkLwLm3r5ng6d6DOF+reGY89EJZjAzXAsChs2RWo/g==
-X-Gm-Gg: ASbGnctlFvAgMo+/n/R1SyB6d4DGU9x1nG6lRWBPcZcMCLoYUP3RV2ghtACal1qVYfj
-	Ys9OL81Mwn4hWQiVeWDqJ1sdB3G0CSkgXc6zpd4QHVaafytlFfNU33H+4t3+PFg6E1o5L5MMn+w
-	S3dvTBynb+D4Of4ZLN5j8zvS5XtIGsKNYxhKzqPKr+65QfFZICKmVGiJlh6z5mCni/+Pf5/C3Lv
-	91N6pW1RUaWr5HojXZN/XTYj6GiDRDcL9ULSzOvv/LnR+aqkag8BznZy/BMDNz/u0rdEMinfKhh
-	5Mr6pSwRIp799X3Sd6M+JEqZVUKcVky0cF16b8Y3GA==
-X-Google-Smtp-Source: AGHT+IHhLJ6a9kqTDYwQ1sKAUX7qSsk+gfhMpq3XMs73EhSPLlgOBcMfBSOl+3vxP5QHDGNT7tkOcw==
-X-Received: by 2002:adf:a1c1:0:b0:388:da2a:e48 with SMTP id ffacd0b85a97d-388da2a0e58mr1867676f8f.23.1734433944047;
-        Tue, 17 Dec 2024 03:12:24 -0800 (PST)
-Message-ID: <49a1b364-595e-4971-9819-f7e4beb35b05@suse.com>
-Date: Tue, 17 Dec 2024 12:12:22 +0100
+X-Inumbo-ID: da6e2e16-bc67-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1734433970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Y2BwafB5l2UJcF5zJtaItYQyp8yHOBEocvm//FyVYBs=;
+	b=J+ynfYUZ6yNs8pTdWUPCPEvBTdY73iTSA7H7kozkJg6WGowjjPfFQw4CMZtLk9cE+COgmi
+	HTRm7fKeI1O3sBI2zTygwb5TBncN5hx0P5eDapd75XYy7aI1oV27FGyGFApbGdhG1RqVIJ
+	4NnB6YXMEBTVRnv5pToqmO02bbzTLu4=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=AGT30IwU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1734433969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Y2BwafB5l2UJcF5zJtaItYQyp8yHOBEocvm//FyVYBs=;
+	b=AGT30IwUj+XpdkiBk5iNm1Fcl+cGsl+ETnlZh9qDWj9fGAHIYMBXfzQcRubd951PeWX+Rt
+	KPPhTkVPrkgQ7oY7fkSkjgCHPGxZhkgT267K1mLrEejVWLTiwGj2RPs1Y3DfPTCxLXG6cd
+	zB3CWvhARs3cRbpB3vcRZtwFzlm6sT0=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>
+Subject: [PATCH v4 0/5] remove libxenctrl usage from xenstored
+Date: Tue, 17 Dec 2024 12:12:42 +0100
+Message-ID: <20241217111247.2204-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 01/12] xen/common: add cache coloring common code
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
- <20241213162815.9196-2-carlo.nonato@minervasys.tech>
- <eaf99fc7-30f4-4820-ab36-8f5926a4e9b8@suse.com>
- <CAG+AhRUNrj9a2P1TL7MNbkPw5scZjcTamQGxKsDS5sBWqpZrYg@mail.gmail.com>
- <00e38f79-6185-4dcb-be69-4b08fb4a81f4@suse.com>
- <CAG+AhRUxBDkw+Vhjg+dKcEX-56rM95NOuxSF2-a8DWangp-2uA@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRUxBDkw+Vhjg+dKcEX-56rM95NOuxSF2-a8DWangp-2uA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: DB61C1F385
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:dkim];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-On 17.12.2024 11:25, Carlo Nonato wrote:
-> On Tue, Dec 17, 2024 at 9:57 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 16.12.2024 17:33, Carlo Nonato wrote:
->>> On Mon, Dec 16, 2024 at 11:51 AM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 13.12.2024 17:28, Carlo Nonato wrote:
->>>>> --- /dev/null
->>>>> +++ b/xen/common/llc-coloring.c
->>>>> @@ -0,0 +1,124 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>>>> +/*
->>>>> + * Last Level Cache (LLC) coloring common code
->>>>> + *
->>>>> + * Copyright (C) 2024, Advanced Micro Devices, Inc.
->>>>> + * Copyright (C) 2024, Minerva Systems SRL
->>>>> + */
->>>>> +#include <xen/keyhandler.h>
->>>>> +#include <xen/llc-coloring.h>
->>>>> +#include <xen/param.h>
->>>>> +
->>>>> +#define NR_LLC_COLORS          (1U << CONFIG_LLC_COLORS_ORDER)
->>>>> +
->>>>> +/*
->>>>> + * -1: not specified (disabled unless llc-size and llc-nr-ways present)
->>>>> + *  0: explicitly disabled through cmdline
->>>>> + *  1: explicitly enabled through cmdline
->>>>> + */
->>>>> +static int8_t __initdata opt_llc_coloring = -1;
->>>>> +boolean_param("llc-coloring", opt_llc_coloring);
->>>>> +
->>>>> +static bool __ro_after_init llc_coloring_enabled;
->>>>> +
->>>>> +static unsigned int __initdata llc_size;
->>>>> +size_param("llc-size", llc_size);
->>>>> +static unsigned int __initdata llc_nr_ways;
->>>>> +integer_param("llc-nr-ways", llc_nr_ways);
->>>>> +/* Number of colors available in the LLC */
->>>>> +static unsigned int __ro_after_init max_nr_colors;
->>>>> +
->>>>> +static void print_colors(const unsigned int colors[], unsigned int num_colors)
->>>>> +{
->>>>> +    unsigned int i;
->>>>> +
->>>>> +    printk("{ ");
->>>>> +    for ( i = 0; i < num_colors; i++ )
->>>>> +    {
->>>>> +        unsigned int start = colors[i], end = start;
->>>>> +
->>>>> +        printk("%u", start);
->>>>> +
->>>>> +        for ( ; i < num_colors - 1 && end + 1 == colors[i + 1]; i++, end++ )
->>>>> +            ;
->>>>> +
->>>>> +        if ( start != end )
->>>>> +            printk("-%u", end);
->>>>> +
->>>>> +        if ( i < num_colors - 1 )
->>>>> +            printk(", ");
->>>>> +    }
->>>>> +    printk(" }\n");
->>>>> +}
->>>>> +
->>>>> +void __init llc_coloring_init(void)
->>>>> +{
->>>>> +    unsigned int way_size;
->>>>> +
->>>>> +    llc_coloring_enabled = (opt_llc_coloring == 1);
->>>>
->>>> Generally I'd suggest to only use > 0, >= 0, < 0, and <= 0 on such
->>>> variables.
->>>>
->>>>> +    if ( (opt_llc_coloring != 0) && llc_size && llc_nr_ways )
->>>>> +    {
->>>>> +        llc_coloring_enabled = true;
->>>>> +        way_size = llc_size / llc_nr_ways;
->>>>> +    }
->>>>
->>>> Hmm, I actually see a difference in someone saying
->>>>
->>>> "llc-coloring=0 llc-size=... llc-nr-ways=..."
->>>>
->>>> vs
->>>>
->>>> "llc-size=... llc-nr-ways=... llc-coloring=0"
->>>>
->>>> I'm not sure about Arm, but on x86 this can be relevant as there may be
->>>> pre-set parts of a command line with appended (human) overrides. Therefore
->>>> it always wants to be "last wins". Yet yes, you may weant to take the
->>>> position that in such a case the former example would require "llc-coloring=1"
->>>> to also be added.
->>>
->>> Yes, I think this should be the way to go.
->>>
->>>> Kind of against the shorthand llc-size+llc-nr-ways only,
->>>> though.
->>>
->>> The shorthand was proposed by you here:
->>> https://patchew.org/Xen/20240315105902.160047-1-carlo.nonato@minervasys.tech/20240315105902.160047-2-carlo.nonato@minervasys.tech/#05e4d3da-4130-4c57-9855-43b685ce5005@suse.com
->>>
->>>> Wouldn't it make sense to infer "llc-coloring" when both of the latter options
->>>> were supplied?
->>>
->>> We both agreed that it was something good to have.
->>
->> Right, and I'm not putting that under question. With that, however, I find
->> your reply ambiguous. If the shorthand is useful to have, is the requirement
->> to put a 2nd "llc-coloring=1" on a command line (as per above) really a good
->> idea?
-> 
-> I don't know an easy way to check for parameters order. We're close to feature
-> freeze. Isn't this solution good enough for now?
+Xenstored is using libxenctrl for only one purpose: to get information
+about state of domains.
 
-Maybe it is, but then imo only when also calling out the apparent anomaly in
-the command line doc. I.e. amend 'Note that using both options implies
-"llc-coloring=on"' by e.g. 'unless an earlier "llc-coloring=off" is there' (in
-both places).
+This patch series is removing that dependency by introducing a new
+stable interface which can be used by xenstored instead.
 
-Jan
+There was a RFC series sent out 3 years ago, which I have taken as a
+base and by addressing all comments from back then.
+
+The main differences since that RFC series are:
+
+- Instead of introducing an new main hypercall for a stable management
+  interface I have just added a new domctl sub-op, as requested in 2021.
+
+- I have added a new library libxenmanage for easy use of the new
+  stable hypervisor interface. Main motivation for adding the library
+  was the recent attempt to decouple oxenstored from the Xen git tree.
+  By using the new library, oxenstored could benefit in the same way as
+  xenstored from the new interface: it would be possible to rely on
+  stable libraries only.
+
+- Mini-OS has gained some more config options recently, so it was rather
+  easy to make xenstore[pvh]-stubdom independent from libxenctrl, too.
+
+- By moving the CPU barrier definitions out of xenctrl.h into a new
+  dedicated header xenstored code no longer needs to #include xenctrl.h,
+  thus removing any xenctrl reference from xenstored code.
+
+Please note that the last patch can be committed only after the related
+Mini-OS patch "config: add support for libxenmanage" has gone in AND
+the Mini-OS commit-id has been updated in Config.mk accordingly! The
+Mini-OS patch has been Acked already, so it can go in as soon as patch
+4 of this series (the one introducing libxenmanage) has been committed.
+
+Changes in V2:
+- new patch 1
+- former patch 5 mover earlier, now patch 2 (can go in without the rest
+  of the series)
+- addressed comments
+
+Changes in V3:
+- addressed comments
+
+Changes in V4:
+- patches 1 and 3 of V3 dropped, as already committed
+- addressed comments
+
+Juergen Gross (5):
+  tools: add a dedicated header file for barrier definitions
+  xen: add bitmap to indicate per-domain state changes
+  xen: add new domctl get_changed_domain
+  tools/libs: add a new libxenmanage library
+  tools/xenstored: use new stable interface instead of libxenctrl
+
+ stubdom/Makefile                       |   8 +-
+ stubdom/mini-os.mk                     |   1 +
+ tools/9pfsd/io.c                       |   5 +-
+ tools/flask/policy/modules/dom0.te     |   2 +-
+ tools/flask/policy/modules/xen.if      |   4 +-
+ tools/flask/policy/modules/xenstore.te |   1 +
+ tools/include/xen-barrier.h            |  39 ++++++
+ tools/include/xenctrl.h                |  28 +----
+ tools/include/xenmanage.h              |  92 ++++++++++++++
+ tools/libs/Makefile                    |   1 +
+ tools/libs/ctrl/Makefile               |   2 +-
+ tools/libs/manage/Makefile             |  10 ++
+ tools/libs/manage/Makefile.common      |   3 +
+ tools/libs/manage/core.c               | 168 +++++++++++++++++++++++++
+ tools/libs/manage/libxenmanage.map     |   8 ++
+ tools/libs/uselibs.mk                  |   2 +
+ tools/xenstored/Makefile               |   2 +-
+ tools/xenstored/Makefile.common        |   2 +-
+ tools/xenstored/core.h                 |   1 -
+ tools/xenstored/domain.c               |  52 +++-----
+ tools/xenstored/lu.c                   |   1 +
+ tools/xenstored/lu_daemon.c            |   1 +
+ xen/common/domain.c                    | 130 +++++++++++++++++++
+ xen/common/domctl.c                    |  18 ++-
+ xen/common/event_channel.c             |  26 +++-
+ xen/include/public/domctl.h            |  26 ++++
+ xen/include/xen/event.h                |   7 ++
+ xen/include/xen/sched.h                |   5 +
+ xen/include/xsm/dummy.h                |   8 ++
+ xen/include/xsm/xsm.h                  |   6 +
+ xen/xsm/dummy.c                        |   1 +
+ xen/xsm/flask/hooks.c                  |   7 ++
+ xen/xsm/flask/policy/access_vectors    |   2 +
+ 33 files changed, 595 insertions(+), 74 deletions(-)
+ create mode 100644 tools/include/xen-barrier.h
+ create mode 100644 tools/include/xenmanage.h
+ create mode 100644 tools/libs/manage/Makefile
+ create mode 100644 tools/libs/manage/Makefile.common
+ create mode 100644 tools/libs/manage/core.c
+ create mode 100644 tools/libs/manage/libxenmanage.map
+
+-- 
+2.43.0
+
 
