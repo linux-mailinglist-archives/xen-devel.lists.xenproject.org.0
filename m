@@ -2,46 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D959F49A9
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 12:13:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858795.1271068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D139F49E2
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 12:31:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858849.1271078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNVVz-0005QE-6G; Tue, 17 Dec 2024 11:13:23 +0000
+	id 1tNVmx-00016c-IJ; Tue, 17 Dec 2024 11:30:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858795.1271068; Tue, 17 Dec 2024 11:13:23 +0000
+Received: by outflank-mailman (output) from mailman id 858849.1271078; Tue, 17 Dec 2024 11:30:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNVVz-0005MP-2o; Tue, 17 Dec 2024 11:13:23 +0000
-Received: by outflank-mailman (input) for mailman id 858795;
- Tue, 17 Dec 2024 11:13:21 +0000
+	id 1tNVmx-000140-Et; Tue, 17 Dec 2024 11:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 858849;
+ Tue, 17 Dec 2024 11:30:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Iy1x=TK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tNVVx-0003La-6d
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 11:13:21 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tNVmv-00013u-Lr
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 11:30:53 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb1a8487-bc67-11ef-a0d6-8be0dac302b0;
- Tue, 17 Dec 2024 12:13:18 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0F7A81F385;
- Tue, 17 Dec 2024 11:13:18 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3628132EA;
- Tue, 17 Dec 2024 11:13:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bzkTMs1cYWcWUQAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 17 Dec 2024 11:13:17 +0000
+ id 5f53d63b-bc6a-11ef-a0d6-8be0dac302b0;
+ Tue, 17 Dec 2024 12:30:52 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4361a50e337so36154895e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 03:30:52 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4362557c462sm170346595e9.14.2024.12.17.03.30.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Dec 2024 03:30:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,353 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb1a8487-bc67-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1734433998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U4Ln9oY8teJqj0oQ6om9doDIAfM1X4V+dyEL2CQtrKA=;
-	b=tc7P+7aBdeQaxGbcvnmQT7Fi2HVl4Lqv+R3Di5l2eob4q1pZNF3Z1R31Arthoa3+yMLqKO
-	0EOpeGlNRF9SeOcaO54sqSccJ46F2Rdc33lZS6z6fkWxn6dIS6rCVliTgQeMHE4fhv2NpE
-	OdCFTKwnn5wvqtIU7jzYgWArU2dwab8=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=tc7P+7aB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1734433998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U4Ln9oY8teJqj0oQ6om9doDIAfM1X4V+dyEL2CQtrKA=;
-	b=tc7P+7aBdeQaxGbcvnmQT7Fi2HVl4Lqv+R3Di5l2eob4q1pZNF3Z1R31Arthoa3+yMLqKO
-	0EOpeGlNRF9SeOcaO54sqSccJ46F2Rdc33lZS6z6fkWxn6dIS6rCVliTgQeMHE4fhv2NpE
-	OdCFTKwnn5wvqtIU7jzYgWArU2dwab8=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH v4 5/5] tools/xenstored: use new stable interface instead of libxenctrl
-Date: Tue, 17 Dec 2024 12:12:47 +0100
-Message-ID: <20241217111247.2204-6-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241217111247.2204-1-jgross@suse.com>
-References: <20241217111247.2204-1-jgross@suse.com>
+X-Inumbo-ID: 5f53d63b-bc6a-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1734435052; x=1735039852; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=d/mfsXunNSQNnIFYCopWatrMCH0ZKlN89edcoZT2Zvk=;
+        b=Ng7CXuuB2rzn7/Zvv9rSEAKTftsH1vmwTMmmnFxmGPk0nCkUTmyolc20Cbew/Gh4yZ
+         sBAStHigotFwGCZpDUqqAMpvutZBHu+ZF0dNbrFBewa0qoKLHtbvtdTKRTCaVh4l+89z
+         cyEnmy+bkmcoQCvOlsg6ohIJd6g8Jfy3aH0l4IK4smTXTYcCI0DTZEpLDJV3P49B5cWh
+         U/rs22Jy+RBsCdJBOLj1MPrKMWYwnewDYIFa6Ov+YZx8fRRr/9PwqRGQ9DTANVJ5hes7
+         0JxfgYyf8wp4vpY6gNQ0wNBi48pJszGawfFDsnrzwGQPLWQ4ASPqmF/dB9kC1cFTIHGd
+         ecvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734435052; x=1735039852;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d/mfsXunNSQNnIFYCopWatrMCH0ZKlN89edcoZT2Zvk=;
+        b=kyiGYKr8pm/x43ATK53g2WI41XaMLy1e6AO63/LhtjKCSDnZSPcWN8ONBkEbjHsnek
+         nlfiCdeS62v1yeRvlgab/vG6gUiXygxylwEa/NzOZmJee4AG+/pfQeIpDJ7tdDT9cmqS
+         QU7K3Ov2UAAOPWmoq92C/lGEy6VtEYcJUTXaXW2BXCcLunKXoylV+3Oi3q99wiiADIXR
+         wzaebUhgj8ip1z6av6cdtZcjckfmm+fjMZQI6Ebtf05kxsIwWVgORDgvvcsnz7CRYPcn
+         +RdHRzSRpkMxJ2XVGfdtVmUkAbk8tLRGgUCJzbPa95ihGTAGAI4vWHSJdNSXDRFJKnxX
+         wEJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU3kfqNktkoOiOvAE3VjsQHTIrldm5VYXNmAtiCuj5e2cmU7zYOzT/skHjl6mvzoHV58IswQCkS4u4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvGnCkyjc++1tFZWVSLQpzwumjJnQQE/Ng913cLy+ZbicmjWS/
+	/1bWvz9imRvwtnXSOke6OP/JE5dqCUvxdw7AepnGlcktRQYwB9sFPfPcULMzYQ==
+X-Gm-Gg: ASbGncudXpzX0K2pXgnd/a0Do00G5hM/+hTRrqvBceQJM/uqIOR7YuM/JCWHVgOn+AR
+	aOgaRots0W5xom9D31Gvb5NxQc8LpO/qbVqixy6EhGAtW0gWu2RcQDmFlYkFJL8k9Kor+zVnr6c
+	vQp5WNX+zipLmR7LtMRUA+bf8JaCGuBjG+QaJ5LlUWkPXpHa+AmsB9WlcWE9fGMgjLBTLdPO9+/
+	DgtZaN8/vZcIEvjLjuaK9qYaR6U9OPa59nx+a6HgGgwkj0nhIqk2D23l5DJcA84NPOPB4GEpDrQ
+	8NTIgWMg7TNY/4Vd3mBSbtazxFdF+7N0W9A5Aqlg9Q==
+X-Google-Smtp-Source: AGHT+IGFDi+qd2TrOWa1FyvulV6K+W6cOkNysDTgD+eF3tJ9xGun1j1fdddt4SddzCRowGGjsgaYqg==
+X-Received: by 2002:a05:6000:1acf:b0:386:33e8:20f4 with SMTP id ffacd0b85a97d-3888e0c189dmr14466882f8f.59.1734435051819;
+        Tue, 17 Dec 2024 03:30:51 -0800 (PST)
+Message-ID: <c2b9fb7a-cb45-4914-9d74-5933317737d3@suse.com>
+Date: Tue, 17 Dec 2024 12:30:51 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 0F7A81F385
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/5] xen: add bitmap to indicate per-domain state
+ changes
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241217111247.2204-1-jgross@suse.com>
+ <20241217111247.2204-3-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241217111247.2204-3-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Replace the current use of the unstable xc_domain_getinfo_single()
-interface with the stable domctl XEN_DOMCTL_get_domain_state call
-via the new libxenmanage library.
+On 17.12.2024 12:12, Juergen Gross wrote:
+> V4:
+> - add __read_mostly (Jan Beulich)
+> - use __set_biz() (Jan Beulich)
+> - fix error handling in evtchn_bind_virq() (Jan Beulich)
 
-This will remove the last usage of libxenctrl by Xenstore, so update
-the library dependencies accordingly.
+I'm sorry, I should have spotted a 2nd issue already when reviewing v3 (or
+even an earlier version).
 
-For now only do a direct replacement without using the functionality
-of obtaining information about domains having changed the state.
+> @@ -138,6 +139,60 @@ bool __read_mostly vmtrace_available;
+>  
+>  bool __read_mostly vpmu_is_available;
+>  
+> +static DEFINE_SPINLOCK(dom_state_changed_lock);
+> +static unsigned long *__read_mostly dom_state_changed;
+> +
+> +int domain_init_states(void)
+> +{
+> +    const struct domain *d;
+> +    int rc = -ENOMEM;
+> +
+> +    spin_lock(&dom_state_changed_lock);
+> +
+> +    if ( dom_state_changed )
+> +        bitmap_zero(dom_state_changed, DOMID_FIRST_RESERVED);
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
----
-V1:
-- use library instead of direct hypercall, only replace current
-  libxenctrl use case
+This needs to not happen when ...
 
-Please note that this patch can be committed only after the related
-Mini-OS patch "config: add support for libxenmanage" has gone in AND
-the Mini-OS commit-id has been updated in Config.mk accordingly!
+> @@ -485,11 +486,21 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>      if ( (v = domain_vcpu(d, vcpu)) == NULL )
+>          return -ENOENT;
+>  
+> +    if ( virq == VIRQ_DOM_EXC )
+> +    {
+> +        rc = domain_init_states();
+> +        if ( rc )
+> +            return rc;
+> +
+> +        deinit_if_err = true;
+> +    }
+> +
+>      write_lock(&d->event_lock);
+>  
+>      if ( read_atomic(&v->virq_to_evtchn[virq]) )
+>      {
+>          rc = -EEXIST;
+> +        deinit_if_err = false;
+>          gdprintk(XENLOG_WARNING, "EVTCHNOP failure: error %d\n", rc);
+>          goto out;
+>      }
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- stubdom/Makefile                |  8 ++---
- stubdom/mini-os.mk              |  1 +
- tools/xenstored/Makefile        |  2 +-
- tools/xenstored/Makefile.common |  2 +-
- tools/xenstored/core.h          |  1 -
- tools/xenstored/domain.c        | 52 ++++++++++++---------------------
- tools/xenstored/lu.c            |  1 +
- tools/xenstored/lu_daemon.c     |  1 +
- 8 files changed, 28 insertions(+), 40 deletions(-)
+... we take this error path. Which I think calls for moving the
+domain_init_states() invocation ...
 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 2a81af28a1..ca800b243c 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -307,7 +307,7 @@ endif
- # libraries under tools/libs
- #######
- 
--STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest
-+STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest manage
- 
- LIBDEP_guest := cross-zlib
- 
-@@ -465,7 +465,7 @@ grub: cross-polarssl grub-upstream $(CROSS_ROOT) grub-$(XEN_TARGET_ARCH)-minios-
- # xenstore
- ##########
- 
--xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
-+xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
- xenstore-minios.gen.cfg: xenstore-minios.cfg Makefile
- 	$(GEN_config) >$@
- 
-@@ -480,7 +480,7 @@ xenstore: $(CROSS_ROOT) xenstore-minios-config.mk
- # xenstorepvh
- #############
- 
--xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
-+xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
- xenstorepvh-minios.gen.cfg: xenstorepvh-minios.cfg Makefile
- 	$(GEN_config) >$@
- 
-@@ -523,7 +523,7 @@ else
- pv-grub-if-enabled:
- endif
- 
--XENSTORE_DEPS := libxenevtchn libxengnttab libxenctrl
-+XENSTORE_DEPS := libxenevtchn libxengnttab libxenmanage
- 
- .PHONY: xenstore-stubdom
- xenstore-stubdom: mini-os-$(XEN_TARGET_ARCH)-xenstore $(XENSTORE_DEPS) xenstore
-diff --git a/stubdom/mini-os.mk b/stubdom/mini-os.mk
-index 7e4968e026..be32302f9e 100644
---- a/stubdom/mini-os.mk
-+++ b/stubdom/mini-os.mk
-@@ -13,5 +13,6 @@ GNTTAB_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
- CALL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
- FOREIGNMEMORY_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
- DEVICEMODEL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
-+MANAGE_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/manage
- CTRL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/ctrl
- GUEST_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/guest
-diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
-index 09adfe1d50..81c42838e0 100644
---- a/tools/xenstored/Makefile
-+++ b/tools/xenstored/Makefile
-@@ -5,7 +5,7 @@ include Makefile.common
- 
- xenstored: LDLIBS += $(LDLIBS_libxenevtchn)
- xenstored: LDLIBS += $(LDLIBS_libxengnttab)
--xenstored: LDLIBS += $(LDLIBS_libxenctrl)
-+xenstored: LDLIBS += $(LDLIBS_libxenmanage)
- xenstored: LDLIBS += -lrt
- xenstored: LDLIBS += $(SOCKET_LIBS)
- 
-diff --git a/tools/xenstored/Makefile.common b/tools/xenstored/Makefile.common
-index 27fdb3b49e..271134fcc1 100644
---- a/tools/xenstored/Makefile.common
-+++ b/tools/xenstored/Makefile.common
-@@ -12,7 +12,7 @@ XENSTORED_OBJS-$(CONFIG_MiniOS) += minios.o lu_minios.o
- # Include configure output (config.h)
- CFLAGS += -include $(XEN_ROOT)/tools/config.h
- CFLAGS += $(CFLAGS_libxenevtchn)
--CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenmanage)
- CFLAGS += $(CFLAGS_libxentoolcore)
- 
- $(XENSTORED_OBJS-y): CFLAGS += $(CFLAGS_libxengnttab)
-diff --git a/tools/xenstored/core.h b/tools/xenstored/core.h
-index e58779e88c..632886cecf 100644
---- a/tools/xenstored/core.h
-+++ b/tools/xenstored/core.h
-@@ -19,7 +19,6 @@
- #ifndef _XENSTORED_CORE_H
- #define _XENSTORED_CORE_H
- 
--#include <xenctrl.h>
- #include <xengnttab.h>
- 
- #include <sys/types.h>
-diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-index 64c8fd0cc3..a6506a5bb2 100644
---- a/tools/xenstored/domain.c
-+++ b/tools/xenstored/domain.c
-@@ -34,14 +34,15 @@
- #include "control.h"
- 
- #include <xenevtchn.h>
--#include <xenctrl.h>
-+#include <xenmanage.h>
-+#include <xen-barrier.h>
- #include <xen/grant_table.h>
- 
- #ifdef __MINIOS__
- #include <mini-os/xenbus.h>
- #endif
- 
--static xc_interface **xc_handle;
-+static xenmanage_handle *xm_handle;
- xengnttab_handle **xgt_handle;
- static evtchn_port_t virq_port;
- 
-@@ -619,32 +620,28 @@ static int destroy_domain(void *_domain)
- 	return 0;
- }
- 
--static bool get_domain_info(unsigned int domid, xc_domaininfo_t *dominfo)
--{
--	return xc_domain_getinfo_single(*xc_handle, domid, dominfo) == 0;
--}
--
- static int check_domain(const void *k, void *v, void *arg)
- {
--	xc_domaininfo_t dominfo;
-+	unsigned int state;
- 	struct connection *conn;
--	bool dom_valid;
-+	int dom_invalid;
- 	struct domain *domain = v;
- 	bool *notify = arg;
- 
--	dom_valid = get_domain_info(domain->domid, &dominfo);
-+	dom_invalid = xenmanage_get_domain_info(xm_handle, domain->domid,
-+						&state, NULL);
- 	if (!domain->introduced) {
--		if (!dom_valid)
-+		if (dom_invalid)
- 			talloc_free(domain);
- 		return 0;
- 	}
--	if (dom_valid) {
--		if ((dominfo.flags & XEN_DOMINF_shutdown)
-+	if (!dom_invalid) {
-+		if ((state & XENMANAGE_GETDOMSTATE_STATE_SHUTDOWN)
- 		    && !domain->shutdown) {
- 			domain->shutdown = true;
- 			*notify = true;
- 		}
--		if (!(dominfo.flags & XEN_DOMINF_dying))
-+		if (!(state & XENMANAGE_GETDOMSTATE_STATE_DEAD))
- 			return 0;
- 	}
- 	if (domain->conn) {
-@@ -786,10 +783,9 @@ static struct domain *find_or_alloc_domain(const void *ctx, unsigned int domid)
- static struct domain *find_or_alloc_existing_domain(unsigned int domid)
- {
- 	struct domain *domain;
--	xc_domaininfo_t dominfo;
- 
- 	domain = find_domain_struct(domid);
--	if (!domain && get_domain_info(domid, &dominfo))
-+	if (!domain && !xenmanage_get_domain_info(xm_handle, domid, NULL, NULL))
- 		domain = alloc_domain(NULL, domid);
- 
- 	return domain;
-@@ -1187,12 +1183,6 @@ int do_reset_watches(const void *ctx, struct connection *conn,
- 	return 0;
- }
- 
--static int close_xc_handle(void *_handle)
--{
--	xc_interface_close(*(xc_interface**)_handle);
--	return 0;
--}
--
- static int close_xgt_handle(void *_handle)
- {
- 	xengnttab_close(*(xengnttab_handle **)_handle);
-@@ -1258,15 +1248,9 @@ void domain_early_init(void)
- 	if (!domhash)
- 		barf_perror("Failed to allocate domain hashtable");
- 
--	xc_handle = talloc(talloc_autofree_context(), xc_interface*);
--	if (!xc_handle)
--		barf_perror("Failed to allocate domain handle");
--
--	*xc_handle = xc_interface_open(0,0,0);
--	if (!*xc_handle)
--		barf_perror("Failed to open connection to hypervisor");
--
--	talloc_set_destructor(xc_handle, close_xc_handle);
-+	xm_handle = xenmanage_open(NULL, 0);
-+	if (!xm_handle)
-+		barf_perror("Failed to open connection to libxenmanage");
- 
- 	xgt_handle = talloc(talloc_autofree_context(), xengnttab_handle*);
- 	if (!xgt_handle)
-@@ -1306,6 +1290,8 @@ void domain_deinit(void)
- {
- 	if (virq_port)
- 		xenevtchn_unbind(xce_handle, virq_port);
-+
-+	xenmanage_close(xm_handle);
- }
- 
- /*
-@@ -1335,13 +1321,13 @@ int domain_alloc_permrefs(struct node_perms *perms)
- {
- 	unsigned int i, domid;
- 	struct domain *d;
--	xc_domaininfo_t dominfo;
- 
- 	for (i = 0; i < perms->num; i++) {
- 		domid = perms->p[i].id;
- 		d = find_domain_struct(domid);
- 		if (!d) {
--			if (!get_domain_info(domid, &dominfo))
-+			if (xenmanage_get_domain_info(xm_handle, domid,
-+						      NULL, NULL))
- 				perms->p[i].perms |= XS_PERM_IGNORE;
- 			else if (!alloc_domain(NULL, domid))
- 				return ENOMEM;
-diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
-index bec2a84e10..4fccbbc195 100644
---- a/tools/xenstored/lu.c
-+++ b/tools/xenstored/lu.c
-@@ -11,6 +11,7 @@
- #include <stdlib.h>
- #include <syslog.h>
- #include <time.h>
-+#include <unistd.h>
- #include <sys/mman.h>
- #include <sys/stat.h>
- 
-diff --git a/tools/xenstored/lu_daemon.c b/tools/xenstored/lu_daemon.c
-index 6df6c80a2a..88d8d9e1b3 100644
---- a/tools/xenstored/lu_daemon.c
-+++ b/tools/xenstored/lu_daemon.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <syslog.h>
-+#include <unistd.h>
- #include <sys/stat.h>
- 
- #include "talloc.h"
--- 
-2.43.0
+> @@ -527,6 +538,9 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>   out:
+>      write_unlock(&d->event_lock);
+>  
+> +    if ( rc && deinit_if_err )
+> +        domain_deinit_states();
+> +
+>      return rc;
+>  }
 
+... somewhere here. It really doesn't need doing early, as the caller
+may assume the bitmap was set up only when this hypercall returns
+successfully.
+
+Jan
 
