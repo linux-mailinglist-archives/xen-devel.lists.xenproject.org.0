@@ -2,31 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E65E9F520A
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 18:14:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.859684.1271811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAC989F548E
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 18:43:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.859735.1271862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNb8g-00062p-4L; Tue, 17 Dec 2024 17:13:42 +0000
+	id 1tNbal-0007gg-Al; Tue, 17 Dec 2024 17:42:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 859684.1271811; Tue, 17 Dec 2024 17:13:42 +0000
+Received: by outflank-mailman (output) from mailman id 859735.1271862; Tue, 17 Dec 2024 17:42:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNb8g-00060B-0v; Tue, 17 Dec 2024 17:13:42 +0000
-Received: by outflank-mailman (input) for mailman id 859684;
- Tue, 17 Dec 2024 17:13:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tNbal-0007fB-69; Tue, 17 Dec 2024 17:42:43 +0000
+Received: by outflank-mailman (input) for mailman id 859735;
+ Tue, 17 Dec 2024 17:30:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y98y=TK=eurecom.fr=Ariel.Otilibili-Anieli@srs-se1.protection.inumbo.net>)
- id 1tNb8d-0005xd-ND
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 17:13:40 +0000
-Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40e298da-bc9a-11ef-99a3-01e77a169b0f;
- Tue, 17 Dec 2024 18:13:37 +0100 (CET)
-Received: from quovadis.eurecom.fr ([10.3.2.233])
- by drago1i.eurecom.fr with ESMTP; 17 Dec 2024 18:13:36 +0100
+ <SRS0=dE3I=TK=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1tNbP9-0001qT-Na
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 17:30:43 +0000
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a399a174-bc9c-11ef-a0d6-8be0dac302b0;
+ Tue, 17 Dec 2024 18:30:42 +0100 (CET)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHHJOLq032407;
+ Tue, 17 Dec 2024 17:29:15 GMT
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 43k5g2jmnp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Dec 2024 17:29:14 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHDmDdx014412;
+ Tue, 17 Dec 2024 17:29:03 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 43hq21kfhm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Dec 2024 17:29:03 +0000
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
+ [10.20.54.105])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 4BHHT0u259441574
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 17 Dec 2024 17:29:00 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0EEE820040;
+ Tue, 17 Dec 2024 17:29:00 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E39DD2004B;
+ Tue, 17 Dec 2024 17:28:58 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.155.204.135])
+ by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Tue, 17 Dec 2024 17:28:58 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,105 +67,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40e298da-bc9a-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
-  t=1734455617; x=1765991617;
-  h=from:in-reply-to:references:date:cc:to:mime-version:
-   message-id:subject:content-transfer-encoding;
-  bh=FHWLiL11Zy6rSHgq+17T9boY/iUnomWJT6OT7/T4izs=;
-  b=spiXS77tc6lRQmU21He6KOUSX1BVryTzfJcOi1FZDAE+1JSSOsmElYUJ
-   iiOn09CtbwqqdxBR6ZsHuau7eMlj6J/j5d+EbG24aH4XIMXSFE22ErL3L
-   zDNBLl2O8eUTz5Bbxvzq4h/aeQ1uDXwjITq5hyUe/h9FR69Cb7Hm/k4E4
-   Y=;
-X-CSE-ConnectionGUID: drW2AnqKROCPqSL3KZcewg==
-X-CSE-MsgGUID: Eo+ffri8TIutMV2To6zqbg==
-X-IronPort-AV: E=Sophos;i="6.12,242,1728943200"; 
-   d="scan'208";a="28222177"
-From: "Ariel Otilibili-Anieli" <Ariel.Otilibili-Anieli@eurecom.fr>
-In-Reply-To: <fe201e59-beb0-4134-abbb-13a55a4ec987@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-X-Forward: 149.5.228.1
-References: <20241214161350.70515-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241216231128.211648-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241216231128.211648-2-Ariel.Otilibili-Anieli@eurecom.fr> <fe201e59-beb0-4134-abbb-13a55a4ec987@citrix.com>
-Date: Tue, 17 Dec 2024 18:13:36 +0100
-Cc: xen-devel@lists.xenproject.org, "Jan Beulich" <jbeulich@suse.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Luca Fancellu" <luca.fancellu@arm.com>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>
+X-Inumbo-ID: a399a174-bc9c-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=g1hrCVwsLDHFXBw9S8SSEtW44ND3hI
+	e5hEs7mvzMcv0=; b=cl9r35o36KsL7jJKYCoj5LWAqgbCAwKQJ20PeY0lNPC00K
+	Wb2kXbck5OilzEheJEhO1UdwI+su1vwZEx+ymJ0mFVZPhk383HWoO7VUfjl4QPyC
+	NRZU5GuH7HUeI7pIrbgheTo3G3YyL9iJUTzTdJ2rQy11ZZUXxk/oz1ZsT4ro/HXW
+	RF1p1weL++6yCLkAsXqi4doi+5uKWL9CuTqE9RqoY9qtQhM5eVDQSPo42O2F/pZf
+	1E2hEAM56w/Zk8qrE4sU++MACbkaEvxnTnuSkGX19AfN+yNNhecbQM6ZfMsHhRv0
+	9OFeYY0UtsvX1JEiQmcTgZp6vrtBDv/o0B5nndaw==
+Date: Tue, 17 Dec 2024 18:28:57 +0100
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Easwar Hariharan <eahariha@linux.microsoft.com>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+        Jozsef Kadlecsik <kadlec@netfilter.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Julia Lawall <Julia.Lawall@inria.fr>,
+        Nicolas Palix <nicolas.palix@imag.fr>, Daniel Mack <daniel@zonque.org>,
+        Haojian Zhuang <haojian.zhuang@gmail.com>,
+        Robert Jarzmik <robert.jarzmik@free.fr>,
+        Russell King <linux@armlinux.org.uk>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Ofir Bitton <obitton@habana.ai>,
+        Oded Gabbay <ogabbay@kernel.org>,
+        Lucas De Marchi <lucas.demarchi@intel.com>,
+        Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+        Rodrigo Vivi <rodrigo.vivi@intel.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jeroen de Borst <jeroendb@google.com>,
+        Praveen Kaligineedi <pkaligineedi@google.com>,
+        Shailend Chand <shailend@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        James Smart <james.smart@broadcom.com>,
+        Dick Kennedy <dick.kennedy@broadcom.com>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Jack Wang <jinpu.wang@cloud.ionos.com>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Johan Hedberg <johan.hedberg@gmail.com>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+        Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+        Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+        Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>,
+        Joe Lawrence <joe.lawrence@redhat.com>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Louis Peens <louis.peens@corigine.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Naveen N Rao <naveen@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org, cocci@inria.fr,
+        linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+        linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath11k@lists.infradead.org, linux-mm@kvack.org,
+        linux-bluetooth@vger.kernel.org, linux-staging@lists.linux.dev,
+        linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org,
+        live-patching@vger.kernel.org, linux-sound@vger.kernel.org,
+        oss-drivers@corigine.com, linuxppc-dev@lists.ozlabs.org,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>
+Subject: Re: [PATCH v3 02/19] coccinelle: misc: Add secs_to_jiffies script
+Message-ID: <Z2G02RN7VelcrjNT@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
+References: <20241210-converge-secs-to-jiffies-v3-0-ddfefd7e9f2a@linux.microsoft.com>
+ <20241210-converge-secs-to-jiffies-v3-2-ddfefd7e9f2a@linux.microsoft.com>
 MIME-Version: 1.0
-Message-ID: <2f7a8a-6761b180-9a89-1d1363a0@43143421>
-Subject: =?utf-8?q?Re=3A?= [PATCH v2 1/1] =?utf-8?q?tools=2C?=
- =?utf-8?q?_xen/scripts=3A?= clear out Python syntax warnings
-User-Agent: SOGoMail 5.11.1
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241210-converge-secs-to-jiffies-v3-2-ddfefd7e9f2a@linux.microsoft.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: fnzByXeLFO0AZ_AJF8SbPJqhCHN_hCrL
+X-Proofpoint-GUID: fnzByXeLFO0AZ_AJF8SbPJqhCHN_hCrL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
+ definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 bulkscore=0
+ phishscore=0 clxscore=1011 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 mlxlogscore=985 malwarescore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2412170134
 
-On Tuesday, December 17, 2024 17:26 CET, Andrew Cooper <andrew.cooper3@=
-citrix.com> wrote:
+On Tue, Dec 10, 2024 at 10:02:33PM +0000, Easwar Hariharan wrote:
 
-> On 16/12/2024 11:07 pm, Ariel Otilibili wrote:
-> > * since 3.12 invalid escape sequences generate SyntaxWarning
-> > * in the future, these invalid sequences will generate SyntaxError
-> > * therefore changed syntax to raw string notation.
-> >
-> > Link: https://docs.python.org/3/whatsnew/3.12.html#other-language-c=
-hanges
-> > Fixes: d8f3a67bf98 ("pygrub: further improve grub2 support")
-> > Fixes: dd03048708a ("xen/pygrub: grub2/grub.cfg from RHEL 7 has new=
- commands in menuentry")
-> > Fixes: d1b93ea2615 ("tools/pygrub: Make pygrub understand default e=
-ntry in string format")
-> > Fixes: 622e368758b ("Add ZFS libfsimage support patch")
-> > Fixes: 02b26c02c7c ("xen/scripts: add cppcheck tool to the xen-anal=
-ysis.py script")
-> > Fixes: 56c0063f4e7 ("xen/misra: xen-analysis.py: Improve the cppche=
-ck version check")
-> >
-> > Cc: Anthony PERARD <anthony.perard@vates.tech>
-> > Cc: Luca Fancellu <luca.fancellu@arm.com>
-> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Signed-off-by: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
->=20
-> Having poked about a bit more, this is all a big mess, but these do n=
-ow
-> work with Py3.12.
->=20
-> leading \ for non-special characters are ignored in [], which is why =
-...
->=20
-> > ---
-> >  tools/pygrub/src/GrubConf.py                  | 4 ++--
-> >  tools/pygrub/src/pygrub                       | 6 +++---
-> >  xen/scripts/xen=5Fanalysis/cppcheck=5Fanalysis.py | 4 ++--
-> >  3 files changed, 7 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/tools/pygrub/src/GrubConf.py b/tools/pygrub/src/GrubCo=
-nf.py
-> > index 580c9628ca..904e7d5567 100644
-> > --- a/tools/pygrub/src/GrubConf.py
-> > +++ b/tools/pygrub/src/GrubConf.py
-> > @@ -320,7 +320,7 @@ class GrubConfigFile(=5FGrubConfigFile):
-> >  def grub2=5Fhandle=5Fset(arg):
-> >      (com,arg) =3D grub=5Fsplit(arg,2)
-> >      com=3D"set:" + com
-> > -    m =3D re.match("([\"\'])(.*)\\1", arg)
-> > +    m =3D re.match(r"([\"\'])(.*)\1", arg)
->=20
-> ... the \' works here.
->=20
-> Anyway, I've checked the others and they seem to work, so I suggest
-> taking this roughly this form.
->=20
-> Some notes about the commit message.=C2=A0 The subject ought to be:
->=20
-> tools: Fix syntax warnings with Python 3.12
->=20
-> The text should be a regular paragraph, rather than bullet points lik=
-e this.
->=20
-> I can fix this all on commit if you're happy.
+Hi Easwar,
 
-Thanks for the feedback, Andrew; I'm happy with your changes.
->=20
-> ~Andrew
+> This script finds and suggests conversions of timeout patterns that
+> result in seconds-denominated timeouts to use the new secs_to_jiffies()
+> API in include/linux/jiffies.h for better readability.
+> 
+> Suggested-by: Anna-Maria Behnsen <anna-maria@linutronix.de>
+> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
+> ---
+>  scripts/coccinelle/misc/secs_to_jiffies.cocci | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+> 
+> diff --git a/scripts/coccinelle/misc/secs_to_jiffies.cocci b/scripts/coccinelle/misc/secs_to_jiffies.cocci
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..8bbb2884ea5db939c63fd4513cf5ca8c977aa8cb
+> --- /dev/null
+> +++ b/scripts/coccinelle/misc/secs_to_jiffies.cocci
+> @@ -0,0 +1,22 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +///
+> +/// Find usages of:
+> +/// - msecs_to_jiffies(value*1000)
+> +/// - msecs_to_jiffies(value*MSEC_PER_SEC)
+> +///
+> +// Confidence: High
+> +// Copyright: (C) 2024 Easwar Hariharan, Microsoft
+> +// Keywords: secs, seconds, jiffies
+> +//
+> +
+> +virtual patch
+> +
+> +@depends on patch@ constant C; @@
+> +
+> +- msecs_to_jiffies(C * 1000)
+> ++ secs_to_jiffies(C)
+> +
+> +@depends on patch@ constant C; @@
+> +
+> +- msecs_to_jiffies(C * MSEC_PER_SEC)
+> ++ secs_to_jiffies(C)
 
+If you used this script only, then it did not seem to recognize line arch/s390/mm/cmm.c:207
+
+	mod_timer(&cmm_timer, jiffies + msecs_to_jiffies(cmm_timeout_seconds * MSEC_PER_SEC));
+
+Thanks!
 
