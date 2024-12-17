@@ -2,60 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAC989F548E
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 18:43:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.859735.1271862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2924E9F5397
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 18:30:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.859728.1271830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNbal-0007gg-Al; Tue, 17 Dec 2024 17:42:43 +0000
+	id 1tNbOO-0001sC-LW; Tue, 17 Dec 2024 17:29:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 859735.1271862; Tue, 17 Dec 2024 17:42:43 +0000
+Received: by outflank-mailman (output) from mailman id 859728.1271830; Tue, 17 Dec 2024 17:29:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNbal-0007fB-69; Tue, 17 Dec 2024 17:42:43 +0000
-Received: by outflank-mailman (input) for mailman id 859735;
- Tue, 17 Dec 2024 17:30:43 +0000
+	id 1tNbOO-0001qa-Is; Tue, 17 Dec 2024 17:29:56 +0000
+Received: by outflank-mailman (input) for mailman id 859728;
+ Tue, 17 Dec 2024 17:29:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dE3I=TK=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1tNbP9-0001qT-Na
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 17:30:43 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a399a174-bc9c-11ef-a0d6-8be0dac302b0;
- Tue, 17 Dec 2024 18:30:42 +0100 (CET)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHHJOLq032407;
- Tue, 17 Dec 2024 17:29:15 GMT
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 43k5g2jmnp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Dec 2024 17:29:14 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 4BHDmDdx014412;
- Tue, 17 Dec 2024 17:29:03 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 43hq21kfhm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Dec 2024 17:29:03 +0000
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com
- [10.20.54.105])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 4BHHT0u259441574
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 17 Dec 2024 17:29:00 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0EEE820040;
- Tue, 17 Dec 2024 17:29:00 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E39DD2004B;
- Tue, 17 Dec 2024 17:28:58 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.155.204.135])
- by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Tue, 17 Dec 2024 17:28:58 +0000 (GMT)
+ <SRS0=92kI=TK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tNbOM-0001qT-TF
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 17:29:54 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86d18c29-bc9c-11ef-a0d6-8be0dac302b0;
+ Tue, 17 Dec 2024 18:29:53 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-436202dd7f6so60804835e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 09:29:53 -0800 (PST)
+Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-388c8015f77sm11600774f8f.26.2024.12.17.09.29.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Dec 2024 09:29:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -67,150 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a399a174-bc9c-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=g1hrCVwsLDHFXBw9S8SSEtW44ND3hI
-	e5hEs7mvzMcv0=; b=cl9r35o36KsL7jJKYCoj5LWAqgbCAwKQJ20PeY0lNPC00K
-	Wb2kXbck5OilzEheJEhO1UdwI+su1vwZEx+ymJ0mFVZPhk383HWoO7VUfjl4QPyC
-	NRZU5GuH7HUeI7pIrbgheTo3G3YyL9iJUTzTdJ2rQy11ZZUXxk/oz1ZsT4ro/HXW
-	RF1p1weL++6yCLkAsXqi4doi+5uKWL9CuTqE9RqoY9qtQhM5eVDQSPo42O2F/pZf
-	1E2hEAM56w/Zk8qrE4sU++MACbkaEvxnTnuSkGX19AfN+yNNhecbQM6ZfMsHhRv0
-	9OFeYY0UtsvX1JEiQmcTgZp6vrtBDv/o0B5nndaw==
-Date: Tue, 17 Dec 2024 18:28:57 +0100
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Easwar Hariharan <eahariha@linux.microsoft.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-        Jozsef Kadlecsik <kadlec@netfilter.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Julia Lawall <Julia.Lawall@inria.fr>,
-        Nicolas Palix <nicolas.palix@imag.fr>, Daniel Mack <daniel@zonque.org>,
-        Haojian Zhuang <haojian.zhuang@gmail.com>,
-        Robert Jarzmik <robert.jarzmik@free.fr>,
-        Russell King <linux@armlinux.org.uk>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Ofir Bitton <obitton@habana.ai>,
-        Oded Gabbay <ogabbay@kernel.org>,
-        Lucas De Marchi <lucas.demarchi@intel.com>,
-        Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-        Rodrigo Vivi <rodrigo.vivi@intel.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jeroen de Borst <jeroendb@google.com>,
-        Praveen Kaligineedi <pkaligineedi@google.com>,
-        Shailend Chand <shailend@google.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        James Smart <james.smart@broadcom.com>,
-        Dick Kennedy <dick.kennedy@broadcom.com>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        Jens Axboe <axboe@kernel.dk>, Kalle Valo <kvalo@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Jack Wang <jinpu.wang@cloud.ionos.com>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Johan Hedberg <johan.hedberg@gmail.com>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
-        Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>,
-        Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>,
-        Joe Lawrence <joe.lawrence@redhat.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Louis Peens <louis.peens@corigine.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Naveen N Rao <naveen@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org, cocci@inria.fr,
-        linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-        linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath11k@lists.infradead.org, linux-mm@kvack.org,
-        linux-bluetooth@vger.kernel.org, linux-staging@lists.linux.dev,
-        linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org,
-        live-patching@vger.kernel.org, linux-sound@vger.kernel.org,
-        oss-drivers@corigine.com, linuxppc-dev@lists.ozlabs.org,
-        Anna-Maria Behnsen <anna-maria@linutronix.de>
-Subject: Re: [PATCH v3 02/19] coccinelle: misc: Add secs_to_jiffies script
-Message-ID: <Z2G02RN7VelcrjNT@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-References: <20241210-converge-secs-to-jiffies-v3-0-ddfefd7e9f2a@linux.microsoft.com>
- <20241210-converge-secs-to-jiffies-v3-2-ddfefd7e9f2a@linux.microsoft.com>
+X-Inumbo-ID: 86d18c29-bc9c-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1734456592; x=1735061392; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wB8oEjq9ZSqRoE9MS1vzGSMKSvz1WjieQBNGzyPq31E=;
+        b=Zs9ywTdIGKGdklIOFYqIvLxiyQpQDFKc5NAVzx3jotzBkzrS/iY+mFzK5Vz1RMFQnl
+         1F4be//5iCmzaMki2mOvhCY0slksC6/oM7etlZOS+jyVil7tGWY6W2bk7SYmaaofT9XC
+         zFtcCFFXtTidH/QENYkPgbwICOheFKwd39R8E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734456592; x=1735061392;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wB8oEjq9ZSqRoE9MS1vzGSMKSvz1WjieQBNGzyPq31E=;
+        b=D5dCIqam9MNtFzzHTFlulQZMZ0H2/kxc1iDVweJfqz3YCuywJnTHMxgn14wFa+w88D
+         ZS0KQLBKfd0blecBqY5wlu8V8GhPZ2bXr0g2qDQMRoplaKT/wQD5jsCvdAC232vVTA6W
+         VJeGIqLEizFo+LFqG79uKgA1o6+vT92QBGTSHhKOjLBfMGVwcFvF5NHDA9KApwM+jtdn
+         +IlYwhZ7JHEHFcFd864fHJ5EdoDlJNuzqSnCLw7WabxrIv60EtGtaH7+f254q2IqR+WX
+         +UrIFBsfpUzTg2jGtizsAN/k+44vJTusVpV0J4I3C0eB0Ht+xGHbleAAYr9+2URP2R7I
+         4QNA==
+X-Gm-Message-State: AOJu0YyKmbFsc3Q+el7nqUwblJSDtTXwKUhM52kPo6VRQwM2C9F2N/wU
+	ZSXBfV7PUMEISGOOcePw+WgOO9JLK9G63bFu3Zxz/I3LcDT4wy5KSV4XVyV3vghlKtgPY5d9oiL
+	nkZo=
+X-Gm-Gg: ASbGncsqE44IxT9lglGyTYQE7OXQuftzPIkxvw85u8CHis8EkmEdKpg41JckquwJS/G
+	qZowcteC8k4WDw219qb0Q8IFo4NHaDjAvH7oPcct2tf3guwC26D6X3drZ3fPk43WLuZFlXP6gtN
+	TuqlIRBya6QJHUGU8Ke6Iw9eNgKUonF/1mY3E6AV0rCmm2rACAIt0xiUJZ8mZrGcTW0rMyEB38f
+	0FhjM6qsW0pGVUJsLYviGQKwDqPJh7UIciymbOsKEreOGD1Y6nHftgNVjIl6fI1UD1wjF/DJJn8
+	bWmNu5ORYI+azPLlQRVY2LmFYyGfeTLnOyJA
+X-Google-Smtp-Source: AGHT+IHUwydTs1PlYSTsVg1gLukHNq/4TvvejAgO9E/Szg76zWBzac9UdKJJULIz/pGn9zlC3tolow==
+X-Received: by 2002:a05:600c:871b:b0:434:e9ee:c3d with SMTP id 5b1f17b1804b1-4362aa93cb0mr135506755e9.20.1734456592591;
+        Tue, 17 Dec 2024 09:29:52 -0800 (PST)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"consulting @ bugseng . com" <consulting@bugseng.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Subject: [PATCH] MISRA: Unmark Rules 1.1 and 2.1 as clean following Eclair upgrade
+Date: Tue, 17 Dec 2024 17:29:50 +0000
+Message-Id: <20241217172950.43626-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241210-converge-secs-to-jiffies-v3-2-ddfefd7e9f2a@linux.microsoft.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: fnzByXeLFO0AZ_AJF8SbPJqhCHN_hCrL
-X-Proofpoint-GUID: fnzByXeLFO0AZ_AJF8SbPJqhCHN_hCrL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
- definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 bulkscore=0
- phishscore=0 clxscore=1011 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 suspectscore=0 spamscore=0 mlxlogscore=985 malwarescore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2412170134
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Dec 10, 2024 at 10:02:33PM +0000, Easwar Hariharan wrote:
+Updating the Eclair runner has had knock-on effects with previously-clean
+rules now flagging violations:
 
-Hi Easwar,
+ - x86:   Rule 1.1, 1940 violations
+ - ARM64: Rule 1.1, 725 violations, Rule 2.1, 255 violations
 
-> This script finds and suggests conversions of timeout patterns that
-> result in seconds-denominated timeouts to use the new secs_to_jiffies()
-> API in include/linux/jiffies.h for better readability.
-> 
-> Suggested-by: Anna-Maria Behnsen <anna-maria@linutronix.de>
-> Signed-off-by: Easwar Hariharan <eahariha@linux.microsoft.com>
-> ---
->  scripts/coccinelle/misc/secs_to_jiffies.cocci | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/scripts/coccinelle/misc/secs_to_jiffies.cocci b/scripts/coccinelle/misc/secs_to_jiffies.cocci
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..8bbb2884ea5db939c63fd4513cf5ca8c977aa8cb
-> --- /dev/null
-> +++ b/scripts/coccinelle/misc/secs_to_jiffies.cocci
-> @@ -0,0 +1,22 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +///
-> +/// Find usages of:
-> +/// - msecs_to_jiffies(value*1000)
-> +/// - msecs_to_jiffies(value*MSEC_PER_SEC)
-> +///
-> +// Confidence: High
-> +// Copyright: (C) 2024 Easwar Hariharan, Microsoft
-> +// Keywords: secs, seconds, jiffies
-> +//
-> +
-> +virtual patch
-> +
-> +@depends on patch@ constant C; @@
-> +
-> +- msecs_to_jiffies(C * 1000)
-> ++ secs_to_jiffies(C)
-> +
-> +@depends on patch@ constant C; @@
-> +
-> +- msecs_to_jiffies(C * MSEC_PER_SEC)
-> ++ secs_to_jiffies(C)
+Fixes: 631f535a3d4f ("xen: update ECLAIR service identifiers from MC3R1 to MC3A2.")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: consulting@bugseng.com <consulting@bugseng.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+CC: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 
-If you used this script only, then it did not seem to recognize line arch/s390/mm/cmm.c:207
+This is a speculative fix, but is the most simple fallback.
 
-	mod_timer(&cmm_timer, jiffies + msecs_to_jiffies(cmm_timeout_seconds * MSEC_PER_SEC));
+Nicola has posted a patch to fix the R1.1 failure (I can drop that hunk if the
+fix is ok), but I see nothing so easy for ARM's R2.1 failure.
 
-Thanks!
+Also Xen 4.18 needs extra backports in order to build.
+---
+ automation/eclair_analysis/ECLAIR/tagging.ecl | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
+index b5243185915f..982f506cc7b6 100644
+--- a/automation/eclair_analysis/ECLAIR/tagging.ecl
++++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+@@ -25,7 +25,6 @@ MC3A2.D2.1||
+ MC3A2.D4.1||
+ MC3A2.D4.11||
+ MC3A2.D4.14||
+-MC3A2.R1.1||
+ MC3A2.R1.3||
+ MC3A2.R1.4||
+ MC3A2.R2.6||
+@@ -116,7 +115,7 @@ if(string_equal(target,"x86_64"),
+ )
+ 
+ if(string_equal(target,"arm64"),
+-    service_selector({"additional_clean_guidelines","MC3A2.R2.1||MC3A2.R5.3||MC3.R11.2||MC3A2.R16.6||MC3A2.R20.7"})
++    service_selector({"additional_clean_guidelines","MC3A2.R5.3||MC3.R11.2||MC3A2.R16.6||MC3A2.R20.7"})
+ )
+ 
+ -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
+
+base-commit: 631f535a3d4ffd66a270672f0f787d79f3bf38f8
+-- 
+2.39.5
+
 
