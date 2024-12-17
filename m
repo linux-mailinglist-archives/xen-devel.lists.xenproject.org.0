@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B6889F48A9
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 11:14:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858720.1270960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3459F48D1
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 11:26:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858730.1270970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNUaX-0001h6-MC; Tue, 17 Dec 2024 10:14:01 +0000
+	id 1tNUlw-0003UG-Lg; Tue, 17 Dec 2024 10:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858720.1270960; Tue, 17 Dec 2024 10:14:01 +0000
+Received: by outflank-mailman (output) from mailman id 858730.1270970; Tue, 17 Dec 2024 10:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNUaX-0001ep-IZ; Tue, 17 Dec 2024 10:14:01 +0000
-Received: by outflank-mailman (input) for mailman id 858720;
- Tue, 17 Dec 2024 10:14:00 +0000
+	id 1tNUlw-0003Sm-It; Tue, 17 Dec 2024 10:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 858730;
+ Tue, 17 Dec 2024 10:25:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DIsX=TK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tNUaW-0001ej-SK
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 10:14:00 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ <SRS0=T+zK=TK=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1tNUlv-0003Se-1K
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 10:25:47 +0000
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [2607:f8b0:4864:20::d34])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1484a17-bc5f-11ef-99a3-01e77a169b0f;
- Tue, 17 Dec 2024 11:13:58 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-385d7f19f20so2554426f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 02:13:58 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c7fac5bbsm11066562f8f.0.2024.12.17.02.13.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Dec 2024 02:13:57 -0800 (PST)
+ id 45d96c17-bc61-11ef-99a3-01e77a169b0f;
+ Tue, 17 Dec 2024 11:25:44 +0100 (CET)
+Received: by mail-io1-xd34.google.com with SMTP id
+ ca18e2360f4ac-844d67eb693so364365939f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 02:25:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,136 +40,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1484a17-bc5f-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 45d96c17-bc61-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734430438; x=1735035238; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=u8arajGDs6ktkoavY4rzlsf1c1cP5MJcU3EzxUXBa+U=;
-        b=PUSuRzTq6G3vsPEVBOfsYLRKgH74gG90TUVYm/t7TI9TUt/UUW7MPlsTFuRh1oRLxQ
-         x4d8eHBVNRhkuyK4wvg1Ss7dFTXJ4a9Q3bttErsfJc4OpQGH+uLEy4Xa15WEgzZN7Bsx
-         3gc/jCbfrvZsG8gloTZNK3SavIZCSv/uFpnl8=
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1734431143; x=1735035943; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zdq547quTPr4F+j8gB5Fv7DWvFlx+ayEZm+4Oa/Abao=;
+        b=BiMuOU4psl2UhpLSBd4lkVrvRY3Sq5HxRRL0vtrJEKBStxuA4k2SzEvdSuYkQKpArl
+         yd0NPme0QTltbRRre4HGOWKJGegZJWHFl7wD9aEgBa08d82WjtkyBwHfC7FMFU/OCcsj
+         3on8wF6WPAAwptH/jDcz9tzyfUTBls96r8PFmMS1ILVag1djy+LNK8AxyGYu+jLbVAkd
+         24fK+DSU2H/hrFhC/c+JFhG7MvlLqyviA+nnR5NaW3HDFe/LnfhOLf9r83LX0W7YU01U
+         zjycabfhYz3Pjo1qihJ+33rSh7HaNUqjfkU8lIfcA51iAdvWRIPpFrXRA0E0IZNHPB/Q
+         c6Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734430438; x=1735035238;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=u8arajGDs6ktkoavY4rzlsf1c1cP5MJcU3EzxUXBa+U=;
-        b=miiswObtsaA8/U8vx7MYVQEALWPfFGysbla0WcojrjY+XZLgVu12gsbyISKtJMKI+9
-         xOKTFOVOA6cIynp/TDwKT78XS1jREI7KvXxMGZk81PDd7pbldt1YVGF0JhuKb38n12bP
-         4UNK5v4C3nq5q/OFg7rLnoUB2Wl8wjeQsVL21dxVlUomU6exLe1EOVDA8bk9y2Yzwu3O
-         JHsvb40RoqE1zpuwhdewxmaVhCHDKckibEHtSO8u2jenvrlKhbO58JFQO2sfE2DGyhl+
-         MBBTLWHF69zk+LIAcPB9RgmHs887Vsj2+8byMya8Jl/O3WoJiK0k7rfs6uFSXMcpDsLd
-         IV2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUHpYdJ13qgsjjDiZxEZX6EfxkzCgSJcFysP88kBAwIt4qohUYjlR8o00nl3wV4Y8Rbg+2+acYYldY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyY6dlIQN8aCY7Ap0vjLmDpxEfU6blG17rLMipcF3R77NHwdZnR
-	Bcv8EkfvB7vWRB6mTjpYzVp7z2lF1B8Bi+gTrB+rUBrX5H5QDtNRNd3JSXZOUSo=
-X-Gm-Gg: ASbGnctVBhduiykTkXPvq5OIXLgAPufzvflfx3dhZEj0dU18v39PODvt8Z8f/icLtRh
-	5s0C8tt+Iy7H5gTlVVbvvMIP5PzVDPn0HnuNN99Z+fsiqQkdU7eDHvjn4434yzyj3uoMwz4Ja8i
-	9v3Ux73lqsPM55M11e2XW0j2dHQIzlC7JfVwDAtEaaj+/22LRhhBisq/EfucFv5gaoFUxAHRPTw
-	SIElMT+bFgV59fzOodZB/QayYryBSA8t76iVnLBmv5E4mDeIhsZFes28994Aw==
-X-Google-Smtp-Source: AGHT+IFZOYiH3Lp+d7c3IwqfVvrJzv9LfhQkadnYh+yiXsg63+Fi3WdnIKMzN5v9yy0Mix+L9bzXEw==
-X-Received: by 2002:a05:6000:4026:b0:385:e879:45cc with SMTP id ffacd0b85a97d-388da3941d2mr2416167f8f.19.1734430438094;
-        Tue, 17 Dec 2024 02:13:58 -0800 (PST)
-Date: Tue, 17 Dec 2024 11:13:56 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Sergii Dmytruk <sergii.dmytruk@3mdeb.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/io-apic: prevent early exit from i8259 loop detection
-Message-ID: <Z2FO5LOAEl3vYUZ2@macbook.local>
-References: <20241217090045.6251-1-roger.pau@citrix.com>
- <a44e6726-4c4b-434d-bace-585859c5d66d@suse.com>
+        d=1e100.net; s=20230601; t=1734431143; x=1735035943;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Zdq547quTPr4F+j8gB5Fv7DWvFlx+ayEZm+4Oa/Abao=;
+        b=MNqydjZW0Ll5tlGwyolg8R3qfUnhEIwQ9O8/DS4//6v19lxTaVWlAb9+q5+d9oacP7
+         /DDOiaa07Sx+WcollkgjmCkHdOR+uspj+z5veD/N7jcckFKQYwGvZHHjbTWvceIMhJRv
+         ViJSC28a+pb3lQ50PcLaYzLbUDf34fKec3FrfYl890IiU0pPc7NB0l9K17+CUJ7pxg3i
+         KUCQpTaf1D1Ri/uR305ZeIzr7Dlz61p2Id1OOvS1j+p23fv7IWd0/66WU9m0LJcTUCt5
+         KiCXN8R7tM6aN50CCAaeZieffVD4qHPJCZ1Zbfbu2E+W/PE0o06m4Y1bngSFOuIO7THM
+         PZcw==
+X-Forwarded-Encrypted: i=1; AJvYcCXdl/Bi0rmOsUzGXpEWjIYdS4O662phMylBJR0Op7v9iBtMZj5KUW/VHt1SaODCv3YSnpNXz7mxPmM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvitJbC9pXTzwvs00nlEtY2d7hR2fU+Bb7cat7H9jKQL9yaMB6
+	COtKMU4pGDyxBFkOzrSFshAeZLS+mvWMHQpddjik0xCqjMV5QeQzj9V9YDr0Na+AWL31AUdWj5s
+	3J0Z3/WA9xGN87wz675yU8RSKnNLjrG4+UYkPMA==
+X-Gm-Gg: ASbGncu0aLAi5n892dYyZ44z46uZbwKcxppB3IlhHQ8Q+Jr4UD0KgrknPsFPyFRbqZU
+	3e/2rsPvAPX2s8fppTHAidg/g//BaaAdtJXCY/ec=
+X-Google-Smtp-Source: AGHT+IECGM/3Xs5L+2OH6MPD4XKNk3kUJjnydo5Y/uMMMTZLidRKnYuDqyfqbSFVzuLMMYRWNiZ1VWR0i7Fa9cfsqqI=
+X-Received: by 2002:a05:6e02:3288:b0:3a7:159d:2dd8 with SMTP id
+ e9e14a558f8ab-3afedc1a255mr162643755ab.7.1734431143638; Tue, 17 Dec 2024
+ 02:25:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a44e6726-4c4b-434d-bace-585859c5d66d@suse.com>
+References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
+ <20241213162815.9196-2-carlo.nonato@minervasys.tech> <eaf99fc7-30f4-4820-ab36-8f5926a4e9b8@suse.com>
+ <CAG+AhRUNrj9a2P1TL7MNbkPw5scZjcTamQGxKsDS5sBWqpZrYg@mail.gmail.com> <00e38f79-6185-4dcb-be69-4b08fb4a81f4@suse.com>
+In-Reply-To: <00e38f79-6185-4dcb-be69-4b08fb4a81f4@suse.com>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Tue, 17 Dec 2024 11:25:33 +0100
+Message-ID: <CAG+AhRUxBDkw+Vhjg+dKcEX-56rM95NOuxSF2-a8DWangp-2uA@mail.gmail.com>
+Subject: Re: [PATCH v12 01/12] xen/common: add cache coloring common code
+To: Jan Beulich <jbeulich@suse.com>
+Cc: andrea.bastoni@minervasys.tech, marco.solieri@minervasys.tech, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 17, 2024 at 10:40:31AM +0100, Jan Beulich wrote:
-> On 17.12.2024 10:00, Roger Pau Monne wrote:
-> > Avoid exiting early from the loop when a pin that could be connected to the
-> > i8259 is found, as such early exit would leave the EOI handler translation
-> > array only partially allocated and/or initialized.
-> > 
-> > Otherwise on systems with multiple IO-APICs and an unmasked ExtINT pin on
-> > any IO-APIC that's no the last one the following NULL pointer dereference
-> > triggers:
-> > 
-> > (XEN) Enabling APIC mode.  Using 2 I/O APICs
-> > (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Not tainted ]----
-> > (XEN) CPU:    0
-> > (XEN) RIP:    e008:[<ffff82d040328046>] __ioapic_write_entry+0x83/0x95
-> > [...]
-> > (XEN) Xen call trace:
-> > (XEN)    [<ffff82d040328046>] R __ioapic_write_entry+0x83/0x95
-> > (XEN)    [<ffff82d04027464b>] F amd_iommu_ioapic_update_ire+0x1ea/0x273
-> > (XEN)    [<ffff82d0402755a1>] F iommu_update_ire_from_apic+0xa/0xc
-> > (XEN)    [<ffff82d040328056>] F __ioapic_write_entry+0x93/0x95
-> > (XEN)    [<ffff82d0403283c1>] F arch/x86/io_apic.c#clear_IO_APIC_pin+0x7c/0x10e
-> > (XEN)    [<ffff82d040328480>] F arch/x86/io_apic.c#clear_IO_APIC+0x2d/0x61
-> > (XEN)    [<ffff82d0404448b7>] F enable_IO_APIC+0x2e3/0x34f
-> > (XEN)    [<ffff82d04044c9b0>] F smp_prepare_cpus+0x254/0x27a
-> > (XEN)    [<ffff82d04044bec2>] F __start_xen+0x1ce1/0x23ae
-> > (XEN)    [<ffff82d0402033ae>] F __high_start+0x8e/0x90
-> > (XEN)
-> > (XEN) Pagetable walk from 0000000000000000:
-> > (XEN)  L4[0x000] = 000000007dbfd063 ffffffffffffffff
-> > (XEN)  L3[0x000] = 000000007dbfa063 ffffffffffffffff
-> > (XEN)  L2[0x000] = 000000007dbcc063 ffffffffffffffff
-> > (XEN)  L1[0x000] = 0000000000000000 ffffffffffffffff
-> > (XEN)
-> > (XEN) ****************************************
-> > (XEN) Panic on CPU 0:
-> > (XEN) FATAL PAGE FAULT
-> > (XEN) [error_code=0002]
-> > (XEN) Faulting linear address: 0000000000000000
-> > (XEN) ****************************************
-> > (XEN)
-> > (XEN) Reboot in five seconds...
-> > 
-> > Reported-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-> > Fixes: 86001b3970fe ('x86/io-apic: fix directed EOI when using AMD-Vi interrupt remapping')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Hmm, considering the earlier change was backported, I'm even inclined to
-> delay 4.18.4 a little, for taking this one there as well.
-> 
-> > --- a/xen/arch/x86/io_apic.c
-> > +++ b/xen/arch/x86/io_apic.c
-> > @@ -1389,14 +1389,15 @@ void __init enable_IO_APIC(void)
-> >              /* If the interrupt line is enabled and in ExtInt mode
-> >               * I have found the pin where the i8259 is connected.
-> >               */
-> > -            if ((entry.mask == 0) && (entry.delivery_mode == dest_ExtINT)) {
-> > +            if ( ioapic_i8259.apic == -1 && entry.mask == 0 &&
-> > +                 entry.delivery_mode == dest_ExtINT )
-> > +            {
-> > +                ASSERT(ioapic_i8259.pin == -1);
-> 
-> I'm not sure of the value of this assertion. It is provable that ...
-> 
-> >                  ioapic_i8259.apic = apic;
-> >                  ioapic_i8259.pin  = pin;
-> 
-> ... both fields are updated together (and not earlier on), and hence once
-> we've been here neither field will still be -1.
+On Tue, Dec 17, 2024 at 9:57=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 16.12.2024 17:33, Carlo Nonato wrote:
+> > On Mon, Dec 16, 2024 at 11:51=E2=80=AFAM Jan Beulich <jbeulich@suse.com=
+> wrote:
+> >> On 13.12.2024 17:28, Carlo Nonato wrote:
+> >>> --- /dev/null
+> >>> +++ b/xen/common/llc-coloring.c
+> >>> @@ -0,0 +1,124 @@
+> >>> +/* SPDX-License-Identifier: GPL-2.0-only */
+> >>> +/*
+> >>> + * Last Level Cache (LLC) coloring common code
+> >>> + *
+> >>> + * Copyright (C) 2024, Advanced Micro Devices, Inc.
+> >>> + * Copyright (C) 2024, Minerva Systems SRL
+> >>> + */
+> >>> +#include <xen/keyhandler.h>
+> >>> +#include <xen/llc-coloring.h>
+> >>> +#include <xen/param.h>
+> >>> +
+> >>> +#define NR_LLC_COLORS          (1U << CONFIG_LLC_COLORS_ORDER)
+> >>> +
+> >>> +/*
+> >>> + * -1: not specified (disabled unless llc-size and llc-nr-ways prese=
+nt)
+> >>> + *  0: explicitly disabled through cmdline
+> >>> + *  1: explicitly enabled through cmdline
+> >>> + */
+> >>> +static int8_t __initdata opt_llc_coloring =3D -1;
+> >>> +boolean_param("llc-coloring", opt_llc_coloring);
+> >>> +
+> >>> +static bool __ro_after_init llc_coloring_enabled;
+> >>> +
+> >>> +static unsigned int __initdata llc_size;
+> >>> +size_param("llc-size", llc_size);
+> >>> +static unsigned int __initdata llc_nr_ways;
+> >>> +integer_param("llc-nr-ways", llc_nr_ways);
+> >>> +/* Number of colors available in the LLC */
+> >>> +static unsigned int __ro_after_init max_nr_colors;
+> >>> +
+> >>> +static void print_colors(const unsigned int colors[], unsigned int n=
+um_colors)
+> >>> +{
+> >>> +    unsigned int i;
+> >>> +
+> >>> +    printk("{ ");
+> >>> +    for ( i =3D 0; i < num_colors; i++ )
+> >>> +    {
+> >>> +        unsigned int start =3D colors[i], end =3D start;
+> >>> +
+> >>> +        printk("%u", start);
+> >>> +
+> >>> +        for ( ; i < num_colors - 1 && end + 1 =3D=3D colors[i + 1]; =
+i++, end++ )
+> >>> +            ;
+> >>> +
+> >>> +        if ( start !=3D end )
+> >>> +            printk("-%u", end);
+> >>> +
+> >>> +        if ( i < num_colors - 1 )
+> >>> +            printk(", ");
+> >>> +    }
+> >>> +    printk(" }\n");
+> >>> +}
+> >>> +
+> >>> +void __init llc_coloring_init(void)
+> >>> +{
+> >>> +    unsigned int way_size;
+> >>> +
+> >>> +    llc_coloring_enabled =3D (opt_llc_coloring =3D=3D 1);
+> >>
+> >> Generally I'd suggest to only use > 0, >=3D 0, < 0, and <=3D 0 on such
+> >> variables.
+> >>
+> >>> +    if ( (opt_llc_coloring !=3D 0) && llc_size && llc_nr_ways )
+> >>> +    {
+> >>> +        llc_coloring_enabled =3D true;
+> >>> +        way_size =3D llc_size / llc_nr_ways;
+> >>> +    }
+> >>
+> >> Hmm, I actually see a difference in someone saying
+> >>
+> >> "llc-coloring=3D0 llc-size=3D... llc-nr-ways=3D..."
+> >>
+> >> vs
+> >>
+> >> "llc-size=3D... llc-nr-ways=3D... llc-coloring=3D0"
+> >>
+> >> I'm not sure about Arm, but on x86 this can be relevant as there may b=
+e
+> >> pre-set parts of a command line with appended (human) overrides. There=
+fore
+> >> it always wants to be "last wins". Yet yes, you may weant to take the
+> >> position that in such a case the former example would require "llc-col=
+oring=3D1"
+> >> to also be added.
+> >
+> > Yes, I think this should be the way to go.
+> >
+> >> Kind of against the shorthand llc-size+llc-nr-ways only,
+> >> though.
+> >
+> > The shorthand was proposed by you here:
+> > https://patchew.org/Xen/20240315105902.160047-1-carlo.nonato@minervasys=
+.tech/20240315105902.160047-2-carlo.nonato@minervasys.tech/#05e4d3da-4130-4=
+c57-9855-43b685ce5005@suse.com
+> >
+> >> Wouldn't it make sense to infer "llc-coloring" when both of the latter=
+ options
+> >> were supplied?
+> >
+> > We both agreed that it was something good to have.
+>
+> Right, and I'm not putting that under question. With that, however, I fin=
+d
+> your reply ambiguous. If the shorthand is useful to have, is the requirem=
+ent
+> to put a 2nd "llc-coloring=3D1" on a command line (as per above) really a=
+ good
+> idea?
 
-No strong opinion, as all asserts I've placed it here in case the
-logic to set apic or pin would change.
+I don't know an easy way to check for parameters order. We're close to feat=
+ure
+freeze. Isn't this solution good enough for now?
 
-> Looking around I further notice that it's generally ioapic_i8259.pin that
-> we check against -1, so I wonder whether - just for consistency - the if()
-> condition wouldn't better too use that one.
-
-As with the above, no strong opinion really, it's true that most
-checks tend to use ioapic_i8259.pin != -1 instead of the apic field,
-so I can adjust to that.
-
-> Preferably with these adjustments:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks, Roger.
+> Jan
 
