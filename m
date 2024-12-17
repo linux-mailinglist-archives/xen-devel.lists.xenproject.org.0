@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9759B9F46C5
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 10:03:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.858649.1270896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 107D89F4791
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 10:30:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.858670.1270916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNTTY-0005DE-Fb; Tue, 17 Dec 2024 09:02:44 +0000
+	id 1tNTtv-0000t0-L3; Tue, 17 Dec 2024 09:29:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 858649.1270896; Tue, 17 Dec 2024 09:02:44 +0000
+Received: by outflank-mailman (output) from mailman id 858670.1270916; Tue, 17 Dec 2024 09:29:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNTTY-0005BL-Ct; Tue, 17 Dec 2024 09:02:44 +0000
-Received: by outflank-mailman (input) for mailman id 858649;
- Tue, 17 Dec 2024 09:02:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tNTtv-0000qb-Hx; Tue, 17 Dec 2024 09:29:59 +0000
+Received: by outflank-mailman (input) for mailman id 858670;
+ Tue, 17 Dec 2024 09:29:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tNTTW-0005BD-Tf
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 09:02:42 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac28406f-bc55-11ef-a0d6-8be0dac302b0;
- Tue, 17 Dec 2024 10:02:42 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-385e27c75f4so3866652f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 01:02:42 -0800 (PST)
+ id 1tNTtu-0000qV-4X
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 09:29:58 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 792d1282-bc59-11ef-99a3-01e77a169b0f;
+ Tue, 17 Dec 2024 10:29:54 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43622354a3eso35146505e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 01:29:54 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c801ace1sm10557669f8f.60.2024.12.17.01.02.40
+ 5b1f17b1804b1-4363602c9d7sm111021545e9.16.2024.12.17.01.29.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 01:02:40 -0800 (PST)
+ Tue, 17 Dec 2024 01:29:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac28406f-bc55-11ef-a0d6-8be0dac302b0
+X-Inumbo-ID: 792d1282-bc59-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734426161; x=1735030961; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734427794; x=1735032594; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xjAZZXIZu4thRZG/EQtx9Gvia9nq9b5bV4ABjR28CUQ=;
-        b=VEYZUDj5Di5jlyUDia67INEuPStoi9M8r+o7cEbtejIBcUjS3RK/iPhOVXAOlz2Mbz
-         aKwtjAJPwozQUrW2uWmJzpkhSP71wjBlTGXoA1dTkNTBTzbcbbNUib4EHsWbD9Siugcc
-         NJ8r7KEtibw2iKPbrbBso534wSBjjSxTlIyToFImdLZ6dxsDKN1LG0EpB/WMDtr2cjoN
-         9OOyweT+sUveP1e+58JVjnSjGjOMYxMroF8B1KHC5xW1aWL7jvA3qsxwNQGKwAuFHfyT
-         HTb+rIXXnv8TNmBeiy3DpnCkdXzAfOHxXN0qi63X9UVm6Bvvg0qr4OeURZEGQ2vTuU6B
-         B9Xw==
+        bh=3A9RlaLr39wUofKB4B3KHUPUw1GkTQLzaTY0Xa0Iy4A=;
+        b=I08UMmPctIHnFaYefJfZwgtZX73tyS8Ka27fyjGnKymknQFI0Y9Ee9bSrSENkZvQqj
+         N97bnhLw8pNWl88egrBoRGp8WqYL4VPVz+JkZMwHA/tUKKblsVIvfuQcDzsX6Vi0jkCp
+         LoWlY6udJoSrvP6jN5H9EGDeAC3kvBNz8N9/G/wOl5bTWLCftrwIwP/eivM7M8sN/Oqs
+         qOw5ZMZ7OQyYuoTwEzkCJ6jNgwsIhACFudhIJ9ka5nak88XGY9x/flnDdXXHFkQi1yNo
+         gL+lR1KnfKk7s/GS44A6QSIzEhZzlP7h2eb8LbCPy/w7Gp+fPdIRX9vn+D8sGhI3bYbJ
+         HSoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734426161; x=1735030961;
+        d=1e100.net; s=20230601; t=1734427794; x=1735032594;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xjAZZXIZu4thRZG/EQtx9Gvia9nq9b5bV4ABjR28CUQ=;
-        b=PTr3rzS+93CmuB3xNPcIlcYmAy5asLmtHGhm2AvsLCn4kmtdSog4rINh6p3ydpa6bv
-         TPTelqxOGWvurwywM8dTHfDWaonkAMLoFEtbTvKyesYXzLy4R2GbSz5aLw5gL+e3Dn/w
-         G7QwI+EfSbshAcUWIt7gdu79x0DZ+8uNAgxl8exh688UNCjRku3dZaa9FCfS2SXsFxJ9
-         GfqaC5n3yRq5IJvl7q35iy4ldLrAiH3tOM1Ankqc2Ah7QYfxeePqGsFzqp2c8COUSk4c
-         qmPbs/M1EGk5OZznS18yvlBD2ZvBKKMgBKd1NhwUyzbsrELGaeutTq+XfomKm6lRaXEe
-         CE2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWXg/69eMN/nQTPFW36rW+Sr1QdTHhGaF5cB8UiIJ8LAZtJ16+E3ak8Ug1pd3t+ReejrOZkFNtsqTw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+SrQpgRosiRg+oORa9GrtXuXQbSXXlQ1M3he4WE7rhYlU/0ME
-	ZRCxfg/nV86BSyXq7eKOjq5J5k1RfZpuf/wMYiqmDoqVt0K0FiC/9Sf6TWbC2Q==
-X-Gm-Gg: ASbGnctfG5Fuo/AK7PA2ZNPYHNOeGh3V1viROGGPuAeOghCxFbY85+VEXFQmb5Jjj6d
-	T/7JRtizyZrNgYS7hmG8ZVHGRHi2U+EU/zV3GxXBTNoKB47+Y0WVKoNHIr8r5s5nmoMGZ0zE6EI
-	VRlSItDB9evx/56w24MSa4iY0WCfkiWsEiL3CTW6KsWM6GNS1T+efXIuN5YFluPhb4QJQF27FSD
-	Q8WradBuQRuhyzAdnYMsWPIql0kpEZr4Rj35jEy5D+NCQKN4BnERZferRLnj39qZM2yYqtDAOzU
-	p+AGsTvi/cQ2nqRpEoX8bcAN7glj3WMQ9VjZx1qmnA==
-X-Google-Smtp-Source: AGHT+IHAwkomFfJdPR4XAeJVfEWLG80Mq1QrbUImadenqFOabRzZ0S4ZI/Y6UKUPOe4dLs8sQgDA9w==
-X-Received: by 2002:a05:6000:2a8:b0:386:3262:28c6 with SMTP id ffacd0b85a97d-38880ac2d54mr12501831f8f.5.1734426160740;
-        Tue, 17 Dec 2024 01:02:40 -0800 (PST)
-Message-ID: <61a277f3-5650-4976-9ea2-4cb7137653da@suse.com>
-Date: Tue, 17 Dec 2024 10:02:39 +0100
+        bh=3A9RlaLr39wUofKB4B3KHUPUw1GkTQLzaTY0Xa0Iy4A=;
+        b=GzAckfzC7gEFTdCzykroU08LFOTIqUhnLYF+FVFqnGm17ooTf5Ht2JdPQnXQOuCkeY
+         LKvXFkTNCc6Vh5wWFNgVm+mGy+kcYCSbSS3BK3UPW6Cz9VafuDnp2XIw7oPL/KPVof0T
+         chhXMb9jhWsqWYQ0xfx6l4WPqCxL9aPNso3e261EbkcvIKQdJ1hqPwmPkR1SbkS80k7t
+         Z98IwILO06pHFBvic2uhgIQsNsH+CHGsTgj+0/n5w3t2p5c78IA2UW3SIo17lOSZkgML
+         PbuY9qiopLSiJ9+wJIM3VAK59mzhwpUTuM/g97Wm+WHAVxnRdOVTG9qwmBDly5f2mFEN
+         X93A==
+X-Forwarded-Encrypted: i=1; AJvYcCVNVuc2Z8oGpnsO9vSBzqwuX0YQ1ow1hgnSqzQoVBxpRrrtC9IH3nUgpfUf1oGi/j/t1EcUq/HvhgY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxq+2lvUukG3slDcf1Zzo3aNpmUH8dpZxqW+DGeNZ9dOz3kDSHm
+	M8KnsgICwFO6THxV0yvJ7zhRSmki80NpZJ0Vga7TJnCEmhNZlh6fnCB6RCczbg==
+X-Gm-Gg: ASbGncsplHTUtbht2/UJ7LPoZYmxBBpRm1jAg7QDjhGTxjxqDbY7a7iBQuuwGZPn5SR
+	6VSnWShjJehwl6HHv18zNiYlRQtSpniw29FLautK25hZDZUcfK7Ko2BtiC0ls6TqSlr7Sz8TDA6
+	WoAZwcpr/6jHoo1SB4lMgU19P1GpPeprmnEy+w+SSNYhuLydNpkavZq7yjW2dsgglnLRgY+e9ow
+	cIUZWVjvjMHgwivT/e3mbY3Lqy9BpeF+e0Qf73O/tGUMJo5Euhy26N0kYRHVj2NHbRgBEGOPWgc
+	Jouk6jBJkCwWlYAeEgpnxI/qGQjpy2MT60NA/BY8Cg==
+X-Google-Smtp-Source: AGHT+IFfXowhNC600y8aw0doIJF2sVTY+PN+VHV2XtfOM1eL1l9f8xPrTlLYGBrHh/YGIhEfL6Fpow==
+X-Received: by 2002:a05:600c:524a:b0:436:488f:4f3 with SMTP id 5b1f17b1804b1-436488f0687mr20986365e9.17.1734427793816;
+        Tue, 17 Dec 2024 01:29:53 -0800 (PST)
+Message-ID: <cf8d3ff6-b72d-468e-a14f-1dfbc741f376@suse.com>
+Date: Tue, 17 Dec 2024 10:29:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: add deviation for MISRA C Rule R11.8.
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <202c8efa4f846018e463f6242d25eb10c015d835.1734367711.git.alessandro.zucchelli@bugseng.com>
+Subject: Re: [PATCH v2 1/1] tools/libacpi: clear ASL warning about PCI0
+To: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20241215154659.151158-1-Ariel.Otilibili-Anieli@eurecom.fr>
+ <20241216235241.217642-1-Ariel.Otilibili-Anieli@eurecom.fr>
+ <20241216235241.217642-2-Ariel.Otilibili-Anieli@eurecom.fr>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,26 +117,88 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <202c8efa4f846018e463f6242d25eb10c015d835.1734367711.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <20241216235241.217642-2-Ariel.Otilibili-Anieli@eurecom.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.12.2024 17:57, Alessandro Zucchelli wrote:
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -393,6 +393,12 @@ Fixing this violation would require to increase code complexity and lower readab
->  -config=MC3R1.R11.8,reports+={safe,"any_area(any_loc(any_exp(macro(^container_of$))))"}
->  -doc_end
->  
-> +-doc_begin="Function __hvm_copy in xen/arch/x86/hvm/hvm.c is a double-use
-> +function, where the parameter needs to not be const because it can be set for
-> +writeor not"
-> +-config=MC3A2.R11.8,reports+={safe,"any_area(any_loc(text(^.*__hvm_copy.*$)))"}
-> +-doc_end
+On 17.12.2024 00:50, Ariel Otilibili wrote:
+> iasl complains _HID and _ADR cannot be used at the same time:
+> 
+> ```
+> /usr/bin/iasl -vs -p tools/firmware/hvmloader/dsdt_anycpu.tmp -tc tools/firmware/hvmloader/dsdt_anycpu.asl 2>&1 | grep -B10 HID
+> 
+> tools/firmware/hvmloader/dsdt_anycpu.asl     40:        Device (PCI0)
+> Warning  3073 -                                    Multiple types ^  (Device object requires either a _HID or _ADR, but not both)
+> ```
+> 
+> Per ACPI 2.0 (Jul. 27, 2000; Section 6.1, page 146), the configuration was legit:
+> 
+> "A device object must contain either an _HID object or an _ADR object,
+> but can contain both." [1]
+> 
+> But, per ACPI 6.5 (Aug. 2022), this is no more legit:
+> 
+> "A device object must contain either an _HID object or an _ADR object,
+> but must not contain both." [2]
+> 
+> Generally _HID devices are enumerated and have their drivers loaded
+> by ACPI ("ASL 2.0 Introduction and Overview", page 4).
+> 
+> Removing _ADR, the warning is cleared out.
+> 
+> The change should be compatible down to OSes released after ACPI 2.0,
+> including Windows XP:
 
-Documentation text is quite a bit more specific than the config line.
-Any function anywhere in the code (even non-x86) with a __hvm_copy infix
-would be deviated this way, aiui.
+So my earlier hint apparently wasn't clear enough. I really would have
+expected you to determine in what version the wording changed. Even 5.1
+still has the old wording, and that's more than 10 years newer than 2.0.
+And then in 6.0 the wording first changed to "but should not contain
+both."
+
+With this I'm afraid considering just WinXP is insufficient. May I also
+point you at a Win2K related comment in acpi_build_tables(), seemingly
+suggesting that that still was a "ACPI 1.0 operating system"? Further
+in that function you'll find that apparently, besides the 1.0 special
+case, we only support ACPI revisions 4 and 5. Therefore the spec change
+in v6 would become relevant only once we actually supported (and
+surfaced to guests) v6. At that point I'd further be of the opinion that
+unless it can be proven that _ADR is unused by any OS we (ever) care(d)
+about, we'd need to further split the set of DSDTs we may make use of.
+One (pair) for up to 5.x with _ADR present, and another (pair) for 6.0
+and newer with _ADR absent.
+
+I'm further afraid that ...
+
+> 1. The _HID kept in the DSDT files is the EISA ID "PNP0A03",
+> Microsoft recognizes it as PCI bus:
+> 
+> ```
+> $ curl -k -s https://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/devids.txt | grep PNP0A
+> 
+> PNP0A00         ISA Bus
+> PNP0A01         EISA Bus
+> PNP0A02         MCA Bus
+> PNP0A03         PCI Bus
+> PNP0A04         VESA/VL Bus
+> PNP0A05         Generic ACPI Bus
+> PNP0A06         Generic ACPI Extended-IO Bus (EIO bus)
+> ```
+> 
+> 2. Linux 6.12 uses also _HID for identifying PCI devices [3]:
+
+... this fact alone means very little here. The more important question is
+whether there are / were OSes which use(d) _ADR for any purpose even when
+_HID is there. With just looking at the surface of just Linux, I find e.g.
+a library-like function acpi_get_local_u64_address(), all users of which
+would need auditing. Plus, once done, we'd then still only know the state
+of things in one specific Linux version.
+
+Bottom line: I wonder whether iasl has an option to suppress that warning.
+Sadly I can't find a new enough iasl anywhere on the systems I have easy
+access to, so I can't check myself. If there was no way to suppress this
+warning, I'd wonder whether this wasn't a shortcoming of the tool, as the
+warning is clearly inappropriate when dealing with tables for pre-v6
+configurations.
 
 Jan
 
