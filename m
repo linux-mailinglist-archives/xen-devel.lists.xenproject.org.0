@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8EDF9F4B74
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 14:03:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.859099.1271246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3883E9F4B7E
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2024 14:04:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.859105.1271255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNXDv-0005mU-0e; Tue, 17 Dec 2024 13:02:51 +0000
+	id 1tNXEz-0006Pa-9q; Tue, 17 Dec 2024 13:03:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 859099.1271246; Tue, 17 Dec 2024 13:02:50 +0000
+Received: by outflank-mailman (output) from mailman id 859105.1271255; Tue, 17 Dec 2024 13:03:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNXDu-0005l0-U0; Tue, 17 Dec 2024 13:02:50 +0000
-Received: by outflank-mailman (input) for mailman id 859099;
- Tue, 17 Dec 2024 13:02:50 +0000
+	id 1tNXEz-0006Md-7H; Tue, 17 Dec 2024 13:03:57 +0000
+Received: by outflank-mailman (input) for mailman id 859105;
+ Tue, 17 Dec 2024 13:03:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5pb9=TK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tNXDu-0005ks-41
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 13:02:50 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1tNXEx-0006MV-NX
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 13:03:55 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36fbe1ca-bc77-11ef-99a3-01e77a169b0f;
- Tue, 17 Dec 2024 14:02:48 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-385d7f19f20so2652166f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 05:02:48 -0800 (PST)
+ id 5e159de7-bc77-11ef-99a3-01e77a169b0f;
+ Tue, 17 Dec 2024 14:03:53 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-38789e5b6a7so2764944f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 05:03:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c804d573sm10991914f8f.64.2024.12.17.05.02.46
+ 5b1f17b1804b1-4362571765dsm172671005e9.39.2024.12.17.05.03.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 05:02:47 -0800 (PST)
+ Tue, 17 Dec 2024 05:03:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36fbe1ca-bc77-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 5e159de7-bc77-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734440568; x=1735045368; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734440633; x=1735045433; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7FBOKs1vwKmgkMl368FToP1FVr+qWeiLCajGPVa87uY=;
-        b=e9fZ20SiGZBfYVQU5/6AbS/652GEHvuSHnGqPJW8fzNxqBkHbGZCZMxumbcOdNMj6k
-         BVeA4FOEqaYr+39Ay+TzvYqBnNcFb4YlcEf2t8oAm8F0SEmpBlVTKS10sQwF8/Qfrjju
-         JjF4ziogW4x7QthECyJXbdil2Y8W7bihE6heKTWHm+kGJlHiY41xr4fqfG76tM+61oKD
-         Y8muyNlLsxkYfntdv259dnInVCakTAvP2BCRvKTvNug4tcyYTRdpRO5ghF2in6TW/xil
-         yJlIR7pmbZuFP+Z+nFYizqyi3Uu3Oi0fV8L/FBK2dMgcnRi6BIkVsEyupdH+MIsndmbo
-         XlJg==
+        bh=0Tx//nhSsC/rjBSOwoSPe589fRi2I/odBiAKV3gjhWE=;
+        b=VpKuZIb3Bdhw5xRw1ljCqSPoTLOAPg+20B7AKn1HAiAN6Gt8gJSTreY2MZcyjiuVqo
+         KOGfrOkTaTVhaZQwEIUf87Q5XU5U3+ElDKV3oLhl5B3isM3up5zGhrUP1hGE8UZ59u20
+         5IWsLbTUPECehPuVP0wDWOtjDfY/LLlXvOL5Zi75DC2sd/vPdliBYEgZvrS8Gdk3cg1K
+         blXzkT3fYw1N9FBOzsSQXKgqhNp6QoC12qjwh5Z5g42FtSAGjRbTPgfuaSlmViwhjSjz
+         pUz+YjaSWAuMPzF9dw7G0MdF1xwx0spOac7zMAHkMWL4AZc9609knKP2/z7pbhOGUx6a
+         n7tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734440568; x=1735045368;
+        d=1e100.net; s=20230601; t=1734440633; x=1735045433;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7FBOKs1vwKmgkMl368FToP1FVr+qWeiLCajGPVa87uY=;
-        b=Z1bN4n7wNhtQTFAG0LzmRTWINxe42IkPayJ5wsno69UQ3sO/zYjApS/c5Rzu2ktNGo
-         9S/o4lzFYK4zeyaGBZtE+oRMSst199GwPE8ykD4ItWMZhbQkmc/9HPEjiNEBfpfPHnqC
-         uIImPb4JUBzhpcwYG6ljmZRu0o008oLluEkkDkTR1NE/egJkbIGy0NfeCmLxLwDGmT6O
-         De54UchQ7/h4NuQC6Lwj4TOoRqKXUjbPHAv7ETg0u7OgMZa1TRnhoEDY6RWCIwdIw5xG
-         w3Bzjm+2br5blRUYj8R1XdRuoTRiA54+Hxb5S+bvnsDlPhw3V+r478DfhqOr7c/4ECtp
-         4JIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWjA4C74lRAZnio9GKywkzQO3FQWGxrRfplxy/8AUR2BhtAGtnvUFtw0vHngdPgZMvpGwaZxDxpD44=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwjftrLCE6LA6TEQBKjcqrd08fejhxcNaTzEVXMTdrX3YN1PNNG
-	xCqBV56InuWP6Bu6bBXk5lLw/nImjQJI7J6PuorhlEBb6SIw4FVeH7PFvwf2Qg==
-X-Gm-Gg: ASbGncvxbMbCyaZXVcJ5aobqQs6UUbkBjwczZm0QBzslYh0MuzePIb/9tinY2e8Tqob
-	0ICOkXvQ6v0LobCi9QAS812343klkcE0/sbiQ94g7AqV8tDI6grQ/85ikZGMqmQ0uMlJDocvoeV
-	3tE6WQve4roCLONmVSbJA83agiciAuggmy24Rbw34g2rHzh9vAU8jnc83xRELyLtGbq/xjIdDLF
-	2QNIfn6hGTEp+zIozf8cVuZv5Z5F00N1/WzO9ziWAMLlTPB3m2j4pItXwWOvt2YtIddWRQ56kdu
-	pEAJVYnx9lAjc1+8FMTq8WeShZ195NSAF++CywQM3A==
-X-Google-Smtp-Source: AGHT+IE7kKCjE+juJl70Fi2bSM4TW/DaJzGvutodi9e/4GxjmOLrdeftoOLuGr0Jx5sbZmuPyDYHnQ==
-X-Received: by 2002:a05:6000:400b:b0:385:e30a:e0f7 with SMTP id ffacd0b85a97d-388da3940c6mr2973669f8f.22.1734440567346;
-        Tue, 17 Dec 2024 05:02:47 -0800 (PST)
-Message-ID: <9003a677-e78b-4cf8-b890-c6cf432d5837@suse.com>
-Date: Tue, 17 Dec 2024 14:02:45 +0100
+        bh=0Tx//nhSsC/rjBSOwoSPe589fRi2I/odBiAKV3gjhWE=;
+        b=RphqrRND5uKWpkZlcFt5kcBm85BxLF+dUmeOthIhT7s0LDHGIEJIur89IAOU4m3NKm
+         LAEtnt6h8UR4MLdwlzK/CrQoy7i0qaatvst7lGNIDh55rxMDt7dAx1VEd7h6TGDtoZ9m
+         IRyMDzZyHnZQjloZI3u4LnvQZbKVcE4F225X+UBbBNqw0XP8FVDTc1eI3sdV4DCyuNl0
+         UeAZiNXCgZaGr3dhNfdt/MjMxIsq6IAo3sPq6meSpdkYXf3WJfptyiVKL/oO9/QKrH6f
+         +ZK9YiJxuvh+EFRHD39xlUObC4+YSue2zkBORPO5uApsRaqNwMW238Ii7gAYjaZbHthG
+         e6Yw==
+X-Forwarded-Encrypted: i=1; AJvYcCU0Yw8z8GkFC8lQJhGXP/F1n/GB7pkLrgJUG4v5gmj3SPl3dNd2viskRuOcVwxOyUzyiYbQzYqVTro=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwlWNLgxn/2BeLeTBtxGLEzrjMsddXxkRQZcjJqj2DJGrMJo+9J
+	j6Dlzwyln2tVe6Q3I6xnawWPwVexgX9PypPYh8HMgAU0Iz4R4lKlmmDHfCOHjQ==
+X-Gm-Gg: ASbGncvanKJEeTdrI2Jvh7yeuuS4Apou0nG6+Uus9sDszsF+t9XjyOCOkAaJqQS03Lp
+	Z1Ctdsg8fR6SgknpGN581BcOcbZ/skaYcwyA+fYUaJFUHKb6afO/b5ZUar7s+tM/zXa/VlkXMTN
+	7LLX3/ai/elgShgprkA6bz5k9GYdsMZfs7+A/jjJWj2drLhGUMIyti/4CZ0JN3VGF86Bk5ff2a8
+	tcHkw3FWb4RArivPjQt8TtB5KehrKt36TS1ogOPhvaI7S8BLLS68b/SBTV2Zf9fkIdWg+c1UHYV
+	zGkjfpbVVFRXgWgiqjFiMXGZgUOFZXsddN44W2TvwA==
+X-Google-Smtp-Source: AGHT+IHPatGOwWRL7lQpVHYNQnI8RaSAJ71c693f+a3fXtP3DQJn/Wkbu823noYe0epWqTTa/RxnPA==
+X-Received: by 2002:a05:6000:4710:b0:386:1cd3:8a0b with SMTP id ffacd0b85a97d-3888dcd467fmr12717208f8f.17.1734440633267;
+        Tue, 17 Dec 2024 05:03:53 -0800 (PST)
+Message-ID: <452794f6-e02c-4dcc-bca4-2147a0cfb512@suse.com>
+Date: Tue, 17 Dec 2024 14:03:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/kconfig: allow LATE_HWDOM config for ARM
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH v4 2/5] xen: add bitmap to indicate per-domain state
+ changes
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20241217114719.2870676-1-Sergiy_Kibrik@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20241217111247.2204-1-jgross@suse.com>
+ <20241217111247.2204-3-jgross@suse.com>
+ <c2b9fb7a-cb45-4914-9d74-5933317737d3@suse.com>
+ <f681d00f-6ef6-41c6-bf3c-ad2dfd6da183@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,17 +123,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241217114719.2870676-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <f681d00f-6ef6-41c6-bf3c-ad2dfd6da183@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.12.2024 12:47, Sergiy Kibrik wrote:
-> Allow to build ARM configuration with support for initializing hardware domain.
-> On ARM it is only possible to start hardware domain in multiboot mode, so
-> dom0less support is required.
+On 17.12.2024 12:59, Jürgen Groß wrote:
+> On 17.12.24 12:30, Jan Beulich wrote:
+>> On 17.12.2024 12:12, Juergen Gross wrote:
+>>> V4:
+>>> - add __read_mostly (Jan Beulich)
+>>> - use __set_biz() (Jan Beulich)
+>>> - fix error handling in evtchn_bind_virq() (Jan Beulich)
+>>
+>> I'm sorry, I should have spotted a 2nd issue already when reviewing v3 (or
+>> even an earlier version).
+>>
+>>> @@ -138,6 +139,60 @@ bool __read_mostly vmtrace_available;
+>>>   
+>>>   bool __read_mostly vpmu_is_available;
+>>>   
+>>> +static DEFINE_SPINLOCK(dom_state_changed_lock);
+>>> +static unsigned long *__read_mostly dom_state_changed;
+>>> +
+>>> +int domain_init_states(void)
+>>> +{
+>>> +    const struct domain *d;
+>>> +    int rc = -ENOMEM;
+>>> +
+>>> +    spin_lock(&dom_state_changed_lock);
+>>> +
+>>> +    if ( dom_state_changed )
+>>> +        bitmap_zero(dom_state_changed, DOMID_FIRST_RESERVED);
+>>
+>> This needs to not happen when ...
+>>
+>>> @@ -485,11 +486,21 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>>>       if ( (v = domain_vcpu(d, vcpu)) == NULL )
+>>>           return -ENOENT;
+>>>   
+>>> +    if ( virq == VIRQ_DOM_EXC )
+>>> +    {
+>>> +        rc = domain_init_states();
+>>> +        if ( rc )
+>>> +            return rc;
+>>> +
+>>> +        deinit_if_err = true;
+>>> +    }
+>>> +
+>>>       write_lock(&d->event_lock);
+>>>   
+>>>       if ( read_atomic(&v->virq_to_evtchn[virq]) )
+>>>       {
+>>>           rc = -EEXIST;
+>>> +        deinit_if_err = false;
+>>>           gdprintk(XENLOG_WARNING, "EVTCHNOP failure: error %d\n", rc);
+>>>           goto out;
+>>>       }
+>>
+>> ... we take this error path. Which I think calls for moving the
+>> domain_init_states() invocation ...
+>>
+>>> @@ -527,6 +538,9 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+>>>    out:
+>>>       write_unlock(&d->event_lock);
+>>>   
+>>> +    if ( rc && deinit_if_err )
+>>> +        domain_deinit_states();
+>>> +
+>>>       return rc;
+>>>   }
+>>
+>> ... somewhere here. It really doesn't need doing early, as the caller
+>> may assume the bitmap was set up only when this hypercall returns
+>> successfully.
+> 
+> OTOH this will require undoing the binding of the virq in case of an
+> error returned by domain_init_states().
+> 
+> It would probably be best to place the call of domain_init_states()
+> after the -EEXIST case.
 
-I don't follow this. Late hwdom is supposed to be started by a (minimal)
-toolstack iirc.
+Hmm, right.
 
 Jan
 
