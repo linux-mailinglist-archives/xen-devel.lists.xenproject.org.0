@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC08D9F6465
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 12:12:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.860278.1272327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30FDD9F6496
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 12:16:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.860287.1272336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNry3-0001TJ-TQ; Wed, 18 Dec 2024 11:11:51 +0000
+	id 1tNs2K-0002gC-AV; Wed, 18 Dec 2024 11:16:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860278.1272327; Wed, 18 Dec 2024 11:11:51 +0000
+Received: by outflank-mailman (output) from mailman id 860287.1272336; Wed, 18 Dec 2024 11:16:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNry3-0001R4-QH; Wed, 18 Dec 2024 11:11:51 +0000
-Received: by outflank-mailman (input) for mailman id 860278;
- Wed, 18 Dec 2024 11:11:50 +0000
+	id 1tNs2K-0002dw-7d; Wed, 18 Dec 2024 11:16:16 +0000
+Received: by outflank-mailman (input) for mailman id 860287;
+ Wed, 18 Dec 2024 11:16:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/pVV=TL=bounce.vates.tech=bounce-md_30504962.6762adf1.v1-f8a5024ce2f84d3684c581581389ef74@srs-se1.protection.inumbo.net>)
- id 1tNry1-0001Pg-TJ
- for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 11:11:50 +0000
-Received: from mail179-16.suw41.mandrillapp.com
- (mail179-16.suw41.mandrillapp.com [198.2.179.16])
+ <SRS0=6UUS=TL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tNs2I-0002dq-T0
+ for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 11:16:14 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de7bb590-bd30-11ef-a0d6-8be0dac302b0;
- Wed, 18 Dec 2024 12:11:46 +0100 (CET)
-Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail179-16.suw41.mandrillapp.com (Mailchimp) with ESMTP id
- 4YCrbj1cchzB5qq16
- for <xen-devel@lists.xenproject.org>; Wed, 18 Dec 2024 11:11:45 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- f8a5024ce2f84d3684c581581389ef74; Wed, 18 Dec 2024 11:11:45 +0000
+ id 7cec8837-bd31-11ef-a0d6-8be0dac302b0;
+ Wed, 18 Dec 2024 12:16:12 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 759C3A425DE;
+ Wed, 18 Dec 2024 11:14:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E306C4CECE;
+ Wed, 18 Dec 2024 11:16:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,127 +41,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de7bb590-bd30-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1734520305; x=1734780805;
-	bh=/8fqitR2/EHOxodVcrJrpGxwijByXtGNn4eBet1vubU=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=zGzCu7jd0jfactDQvjou7tKYs6MsQwvWvkRtiJJT8RMs+I40UVjPJ5p2nZVbEfT3P
-	 12+B//UbIA8bc5WXCgCZrDxJLQBkuAW53OgaPXTsUFcNT1TG6W3sBIYVN0/wPz3+dK
-	 Ea9zKjDbE5jVfmwt8HJgAJlLgPcYXQbhhL53m5sx0wQQij6DfjQOnBS3H1ZxHFrxSG
-	 0SoDwzI1sQJ4c4sZiFf7LTPQvvQA+GhQNddRGAUBfEAbbyXiHEfJfOCZ8FTPUVWP9g
-	 Epk01JhaSQ6Wagmz4ijunfIpjj+snAglQbeTCGTg9lxQVYxovEUEnfBbz7VaouQffU
-	 XcPmheIeLovLA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1734520305; x=1734780805; i=thierry.escande@vates.tech;
-	bh=/8fqitR2/EHOxodVcrJrpGxwijByXtGNn4eBet1vubU=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=KAbiHN8vXnITtQslRLkX20Yb4/c17Wy/85a8Lydy3btihXpIVTtg0rfeXbhYBfMOF
-	 xqg7+1nCDIoiwVndgvKXbIoajmdEze6r0wcRoZ4hC5unK4iv0bb1u+0UPzoeNfGB38
-	 7j5Cl5PVCcyYmEQEVb6PIlag+ipOEi77I5h36e/8UIyEfiapgIe97mkdBarWxYU4en
-	 LJpa2Oimk1ozYZEqMSX34rDKixDYqEIx2ZKoEr8UQ4hR/otyvlmn4dRV5Zigc6UsUH
-	 OttG8HHIpFb/AL5U78dguR907KW61njd22EZx2UuE5AJEPBGifhufQVV2sEnX26ptZ
-	 weXksq2m0WMeQ==
-From: "Thierry Escande" <thierry.escande@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20x86/xen/mmu:=20Increase=20MAX=5FCONTIG=5FORDER?=
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1734520304135
-Message-Id: <ed764807-a58b-473c-911d-b52f013f89b2@vates.tech>
-To: "Juergen Gross" <jgross@suse.com>, "Jan Beulich" <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20241204171346.458105-1-thierry.escande@vates.tech> <ccb28ccc-531c-4ead-9a27-76cc430f8c35@suse.com> <cc61bdce-47af-45ea-8ace-173adef9ae41@vates.tech> <cbc389e4-3b69-4681-ad66-6102b0ed0cae@suse.com> <8fb77778-b821-4e38-a835-54883ba14e4b@suse.com>
-In-Reply-To: <8fb77778-b821-4e38-a835-54883ba14e4b@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f8a5024ce2f84d3684c581581389ef74?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241218:md
-Date: Wed, 18 Dec 2024 11:11:45 +0000
+X-Inumbo-ID: 7cec8837-bd31-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1734520570;
+	bh=8LQdKHgIMt8+nTxW3buqBoq7RuwtnSvkJpu58iCjHh4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=gSto4y30XFvFOiV6PC1rJG5gjDRdLoPIuQjKvMQ5EvBG+478Fo3HIdAc4NfRWq56Y
+	 lr4t3KlpTF6r18Xabr0ATnfJQKQ7M9N3knKss0qOsBaLQkfHvOzSYe2+91lcDaX5ry
+	 PTjKvAHqfl8eIvYrtIVCUgsSNA59gWNXjU6ctMSHh0A+1pT9ECuiV19TASNofU55rU
+	 9wtYsikvbxKPHIaGOCLZZ3tjQm9g8p7Pnu3DzThNtdCOlRDR+e7y/JqtainSZfABTc
+	 kr/jd5nQ9xewPPJ8ZPO5lKPuhQzZj+FCdJkxDg4rKpANUo2P1LKpw2VwHurXNgTpwS
+	 5I1LpMIgOPdQQ==
+Date: Wed, 18 Dec 2024 12:16:02 +0100 (CET)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: alessandro.zucchelli@bugseng.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, consulting@bugseng.com, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen: address violation of MISRA C Rule 11.1
+In-Reply-To: <3beb2c10-0cde-48e4-841c-5addd324626d@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2412181214060.38763@ubuntu-linux-20-04-desktop>
+References: <7debd63f3900bad62bcbcc03081e4c04e6099135.1733914487.git.alessandro.zucchelli@bugseng.com> <bded3d90-0644-46c2-a43e-d6b06faa5650@suse.com> <alpine.DEB.2.22.394.2412111826440.463523@ubuntu-linux-20-04-desktop> <26600bb0-93af-45b5-a341-5771bad844a1@suse.com>
+ <alpine.DEB.2.22.394.2412121647450.463523@ubuntu-linux-20-04-desktop> <d4b988aa-48f8-4e35-bb7d-49c2a9d532e6@suse.com> <1ddb5bd7e8889da0e978bb1391072925@bugseng.com> <3beb2c10-0cde-48e4-841c-5addd324626d@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-
-
-On 12/12/2024 12:09, Juergen Gross wrote:
-> On 12.12.24 11:22, Jan Beulich wrote:
->> On 11.12.2024 19:20, Thierry Escande wrote:
->>> Hi Jan,
->>>
->>> On 09/12/2024 11:04, Jan Beulich wrote:
->>>> On 04.12.2024 18:14, Thierry Escande wrote:
->>>>> With change 9f40ec84a797 (xen/swiotlb: add alignment check for dma
->>>>> buffers), the driver mpt3sas fails to load because it cannot allocate
->>>>> its DMA pool for an allocation size of ~2,3 MBytes. This is because
->>>>> the
->>>>> alignement check added by 9f40ec84a797 fails and
->>>>> xen_swiotlb_alloc_coherent() ends up calling
->>>>> xen_create_contiguous_region() with a size order of 10 which is too
->>>>> high
->>>>> for the current max value.
->>>>>
->>>>> This patch increases the MAX_CONTIG_ORDER from 9 to 10 (4MB) to allow
->>>>> such allocations.
->>>>>
->>>>> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
->>>>> ---
->>>>> =C2=A0 arch/x86/xen/mmu_pv.c | 2 +-
->>>>> =C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
->>>>> index 55a4996d0c04..7f110740e1a2 100644
->>>>> --- a/arch/x86/xen/mmu_pv.c
->>>>> +++ b/arch/x86/xen/mmu_pv.c
->>>>> @@ -2200,7 +2200,7 @@ void __init xen_init_mmu_ops(void)
->>>>> =C2=A0 }
->>>>> =C2=A0 =C2=A0 /* Protected by xen_reservation_lock. */
->>>>> -#define MAX_CONTIG_ORDER 9 /* 2MB */
->>>>> +#define MAX_CONTIG_ORDER 10 /* 4MB */
->>>>> =C2=A0 static unsigned long discontig_frames[1<<MAX_CONTIG_ORDER];
->>>>
->>>> While lacking respective commentary, bumping this value imo also
->>>> needs to
->>>> take into account Xen itself, at least commit-message-wise. The
->>>> bumping is
->>>> fine for Dom0 in any event. It is also fine for DomU-s with the
->>>> defaults
->>>> built into the hypervisor (orders 12 and 10 respectively for x86 and
->>>> Arm),
->>>> yet especially for Arm (and in the future PPC and RISC-V) any further
->>>> bumping would be less straightforward.
->>>
->>> Thanks for pointing this out. On the Xen side, CONFIG_CTLDOM_MAX_ORDER
->>> and CONFIG_HWDOM_MAX_ORDER seem big enough on all architectures. But I
->>> see CONFIG_DOMU_MAX_ORDER set to 9 (also all archs). Won't that be a
->>> problem for drivers trying to allocate more than that from a domU ?
->>
->> A driver assumes a (physical) device to be in the DomU, at which point i=
-t
->> is CONFIG_PTDOM_MAX_ORDER which applies (PT standing for pass-through).
->>
->>>> However - does the driver really need this big a contiguous chunk? It
->>>> would seem far more desirable to me to break that up some, if possible=
-.
->>>
->>> Since this works on bare metal I'm afraid the driver maintainer (mpt
->>> fusion driver) will just tell me to fix Xen.
->>
->> Well. The bigger such allocations, the larger the risk that on systems
->> that have been up for a while such allocations can't be fulfilled anymor=
-e
->> even in the bare metal case.
+On Mon, 16 Dec 2024, Jan Beulich wrote:
+> On 13.12.2024 15:02, Alessandro Zucchelli wrote:
+> > On 2024-12-13 11:08, Jan Beulich wrote:
+> >> On 13.12.2024 01:53, Stefano Stabellini wrote:
+> >>> On Thu, 12 Dec 2024, Jan Beulich wrote:
+> >>>> On 12.12.2024 03:27, Stefano Stabellini wrote:
+> >>>>> On Wed, 11 Dec 2024, Jan Beulich wrote:
+> >>>>>> On 11.12.2024 12:02, Alessandro Zucchelli wrote:
+> >>>>>>> Rule 11.1 states as following: "Conversions shall not be performed
+> >>>>>>> between a pointer to a function and any other type".
+> >>>>>>>
+> >>>>>>> Functions "__machine_restart" and "__machine_halt" in 
+> >>>>>>> "x86/shutdown.c"
+> >>>>>>> and "halt_this_cpu" in "arm/shutdown.c" are defined as noreturn
+> >>>>>>> functions and subsequently passed as parameters to function calls.
+> >>>>>>> This violates the rule in Clang, where the "noreturn" attribute is
+> >>>>>>> considered part of the function"s type.
+> >>>>>>
+> >>>>>> I'm unaware of build issues with Clang, hence can you clarify how 
+> >>>>>> Clang's
+> >>>>>> view comes into play here? In principle various attributes ought to 
+> >>>>>> be
+> >>>>>> part of a function's type; iirc that's also the case for gcc. Yet 
+> >>>>>> how
+> >>>>>> that matters to Eclair is still entirely unclear to me.
+> >>>>>>
+> >>>>>>> By removing the "noreturn"
+> >>>>>>> attribbute and replacing it with uses of the ASSERT_UNREACHABLE 
+> >>>>>>> macro,
+> >>>>>>> these violations are addressed.
+> >>>>>>
+> >>>>>> Papered over, I'd say. What about release builds, for example?
+> >>>>>>
+> >>>>>> Deleting the attribute also has a clear downside 
+> >>>>>> documentation-wise. If
+> >>>>>> we really mean to remove them from what the compiler gets to see, I 
+> >>>>>> think
+> >>>>>> we ought to still retain them in commented-out shape.
+> >>>>>
+> >>>>> Another option would be to #define noreturn to nothing for ECLAIR 
+> >>>>> builds ?
+> >>>>
+> >>>> That again would feel like papering over things. Plus I don't know if 
+> >>>> that's
+> >>>> an option at all.
+> >>>
+> >>> What is "papering over" and what is a "nice solution" is often up to 
+> >>> the
+> >>> personal opinions.
+> >>>
+> >>> From my point of view, Alessandro's patch doesn't make the code worse.
+> >>> The ASSERT_UNREACHABLE solution is OK. I do agree with you that it
+> >>> should not be required for us to remove "noreturn", but I don't think 
+> >>> we
+> >>> have used it consistently anyway across the Xen codebase.
+> >>> ASSERT_UNREACHABLE is also a form of documentation that the function
+> >>> does not return.
+> >>>
+> >>> In conclusion, I think all three options are acceptable:
+> >>> 1) this patch as is
+> >>> 2) this patch plus /* noreturn */ as a comment
+> >>> 3) #define noreturn to nothing just for ECLAIR builds
+> >>>
+> >>> I don't mind either way, maybe option 2) is the best compromise.
+> >>
+> >> The variant with least impact on what we currently have (generated code
+> >> wise) is 3), though, which hence would be my preference (well, not 
+> >> exactly
+> >> a preference, but the least bad one).
+> > 
+> > Another option could be to encapsulate these function pointer casts as 
+> > follows:
+> > #define REMOVE_NORETURN(x) (void(*)(void*))(x)
+> > This approach allows us to retain the noreturn attribute and the 
+> > associated optimizations;
+> > note that the encapsulating macro will need to be deviated then.
 > 
-> Yes. I don't think we should just work around this issue without having
-> even tried to get the driver fixed. In case they refuse to change it, we
-> can still increase MAX_CONTIG_ORDER.
+> And then have one such macro for every attribute that may need zapping?
+> What if there are multiple? Any macro may do, yet which one to use would
+> be unclear. What if only some attributes need zapping, and some need
+> retaining?
 
-Thanks for the feedback. I'll try to have a look at the driver if I have
-time to do so.
-
-Regards,
-Thierry
-
+It is always a judgment call between addressing issues ad hoc and
+developing generic solutions. In this case, since we are discussing only
+one attribute, I do not think we should attempt to generalize it
+further. 
 
