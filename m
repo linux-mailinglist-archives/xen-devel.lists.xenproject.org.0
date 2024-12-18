@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADEC79F5A12
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 00:05:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.859928.1272012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2445A9F5C0A
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 02:03:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.859945.1272038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNgcE-0006m8-PT; Tue, 17 Dec 2024 23:04:34 +0000
+	id 1tNiSO-0004S8-Rp; Wed, 18 Dec 2024 01:02:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 859928.1272012; Tue, 17 Dec 2024 23:04:34 +0000
+Received: by outflank-mailman (output) from mailman id 859945.1272038; Wed, 18 Dec 2024 01:02:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNgcE-0006jO-Mt; Tue, 17 Dec 2024 23:04:34 +0000
-Received: by outflank-mailman (input) for mailman id 859928;
- Tue, 17 Dec 2024 23:04:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tNiSO-0004P2-ME; Wed, 18 Dec 2024 01:02:32 +0000
+Received: by outflank-mailman (input) for mailman id 859945;
+ Wed, 18 Dec 2024 01:02:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=92kI=TK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tNgcD-0006jI-Pr
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2024 23:04:33 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 468530db-bccb-11ef-a0d6-8be0dac302b0;
- Wed, 18 Dec 2024 00:04:32 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-385e0e224cbso3038486f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2024 15:04:32 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c8012170sm12355407f8f.14.2024.12.17.15.04.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Dec 2024 15:04:31 -0800 (PST)
+ <SRS0=uLCT=TL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tNiSN-0004Ow-AL
+ for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 01:02:31 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bf436489-bcdb-11ef-99a3-01e77a169b0f;
+ Wed, 18 Dec 2024 02:02:27 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1734483735898336.2131501847442;
+ Tue, 17 Dec 2024 17:02:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +38,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 468530db-bccb-11ef-a0d6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734476671; x=1735081471; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B9fleBbi7AT+mll+INXas1kteOqEJlUTlJ+YFTUzAZM=;
-        b=RO+heLuhw60k1c/UBWV15/qBka4zMrAuJ1Vbae+3rGTwwcjemOgNjxI1Ti0JvWkEmU
-         PhUNQKCSpyPXYAFr1Bf4ZWEsjAAUFMndKlGRmoEs+Z4X8KH+jn520meD16O0aa/QCE/p
-         iO1YaAkV9dGoQNY9Ak1SV2cdpGHry9KoiU6a0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734476671; x=1735081471;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B9fleBbi7AT+mll+INXas1kteOqEJlUTlJ+YFTUzAZM=;
-        b=jrN8FxQDY5OehZLMjDMQb1x/kT4ZiZ9AH1Aiij2B1OnO1ITfqV0jiQXhCIFx1peAf0
-         nI6+lEO6Rn61fpF7DdDnNx9CjkZn0c77UwlzCZ0JZXa2TJeLQ8YaTcAdw/4il1kX5A5C
-         aCrP5MeKDn2HneqmwjvBvIg7yjePC6ALOve/U6HU9o312oVOuZZEkYxj06sgvONvZvHn
-         XZXKHWdsKFOvvD/JamCs5E3TfPNlEaNwQD/DaHK9cqS9u12odNfZmBHsWlHLh5O98Hx7
-         NOkAp6Mn8Kzad/8z8wa66gtvDiO429IeAvAqzH8+B0EoNEVk/us8vlW/fWJWT44fMVkK
-         tM5A==
-X-Forwarded-Encrypted: i=1; AJvYcCUO9RBbuAUbMSXJGlVURFmcfn9pNcd0iixSBVJ6ljbepjBMSkscYBlP+GVPOO9biiwj5Cg4WGCr++E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/wRQP0bYTCmCpwhYbO5Sk2ILp10STgplERDzDuLZmuYjH3WcO
-	6DVUErsl35MHtmq/xPCiJkp5xYRTk8n9s8frcwXJcbEUA8Mvl8wEj1LC9Zx5X6Q=
-X-Gm-Gg: ASbGncswfS65HHWdq1R/rCQBa3TUK6gCN+tG21wEMymcLEHITKnkz9pbj/Gha9IiN5r
-	6keTrr0N6ZavVDVWx45OnqH5c8IBLhNRWr9c8/XkaHRBSO5I37Oe9R4SVKYrUwXCWUw5VEtQ/Lp
-	toiKd39ja6uVahCkBPZynk1N42J2iPcFGOTF6C4DyY9p6StKIZ2kL+xkMWJ1Svqru76WhPveD/y
-	Rm/tOAyFpjCI0i45DpK0Yy/nYqSKNYTStxktRb+LPGxiNAWHZoVBHvfVLKHj33T7Sdiz8KVoUb7
-	j35U9H8rVoZTXfI+Az6B
-X-Google-Smtp-Source: AGHT+IEKor1aYNm+uEgdu4KK/wowrIEfMRi85/Gmn2pCdQ01gV2E5gW1Ds+Ije2ACK9HFMMgZTgYew==
-X-Received: by 2002:a05:6000:4b1c:b0:385:f4db:e33b with SMTP id ffacd0b85a97d-388e4d42923mr541812f8f.21.1734476671541;
-        Tue, 17 Dec 2024 15:04:31 -0800 (PST)
-Message-ID: <8e397404-9398-479b-8685-d2a680aced11@citrix.com>
-Date: Tue, 17 Dec 2024 23:04:30 +0000
+X-Inumbo-ID: bf436489-bcdb-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1734483738; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nzGZhSJyEtgi4a+pP6eCgEUjHIktoI7SS2rmdXhAKCn7RF8q0uNiVuA5nhkz/NKIuwLwt/YVHuLL2I8ui8hXWsM+RP/6tIMnSunfaF7kjsB6+s7Txax1hiZ5R3u0z9J1hxPfl5XLKii37h7MG7g30mJzEfn/VWwrSEGQmgClIjg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1734483738; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=al7Hvc5cQoUK6Q2+VqHu7nu8J1ScuhO7i/93I3DedLA=; 
+	b=fPERXOofQkhuTqmraGjQq40Yi9ou5gF1XJiNfYnYDvygQ1nWutQ4bKSUzhHFopxhu1EY2QippdSM/q4j6Tv4h6MK6b59M3rN3kJnDpvHiF9OYdtcA5kjToK5SoYA5rMGwuqxqo254ZV6qovlJjQPwnf6GQD6zie/MojxfuJCSJs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1734483738;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=al7Hvc5cQoUK6Q2+VqHu7nu8J1ScuhO7i/93I3DedLA=;
+	b=bvqQJdTkqBItGVueS/ZIR5As1Rp4c+Bf+ZyXnJAv8/JN4wkNNV+Jh67eptYWN3TH
+	TN/jQbHuD+oiYzSK3JzX84HcuRz4hLyvyob8JQX8+T+PeFYF/Mqci6nUlk+0HaPq+Wg
+	E8qb72x/AiQo3ojrhLYMlf3FmOlEyiVweA465duI=
+Message-ID: <94c494a2-863b-4597-a4df-c401fe7d5edf@apertussolutions.com>
+Date: Tue, 17 Dec 2024 20:02:14 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH Hyperlaunch] xenconsole: Add connected flag
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 3/5] xen: add new domctl get_changed_domain
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>
-References: <20241217222424.7632-1-jason.andryuk@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241217222424.7632-1-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20241217111247.2204-1-jgross@suse.com>
+ <20241217111247.2204-4-jgross@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
+ JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
+ G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
+ foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
+ X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
+ 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
+ x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
+ MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
+ DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
+ rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
+ MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
+ sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
+ 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
+ ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
+ b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
+ NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
+ PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
+ KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
+ 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
+ T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
+ kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
+ OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
+ OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
+ twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
+ rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
+ 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
+ NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
+ ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
+ p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
+ NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
+In-Reply-To: <20241217111247.2204-4-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 17/12/2024 10:24 pm, Jason Andryuk wrote:
-> This patch is similar to the xenstore late init (though the flag is
-> reversed).
+On 12/17/24 06:12, Juergen Gross wrote:
+> Add a new domctl sub-function to get data of a domain having changed
+> state (this is needed by Xenstore).
+> 
+> The returned state just contains the domid, the domain unique id,
+> and some flags (existing, shutdown, dying).
+> 
+> In order to enable Xenstore stubdom being built for multiple Xen
+> versions, make this domctl stable.  For stable domctls the
+> interface_version is always 0.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V1:
+> - use a domctl subop for the new interface (Jan Beulich)
+> V2:
+> - fix XSM hooks (Daniel P. Smith)
+> - remove versioning of stable sub-ops (Jan Beulich)
+> - use domctl.domain for retuning domid of a changed domain (Jan Beulich)
+> - simplify locking in get_domain_state() (Jan Beulich)
+> - undo stray change in event_channel.c (Jan Beulich)
+> V3:
+> - have disjunct states "dying" and "dead" (Jan Beulich)
+> - check padding fields to be 0 (Jan Beulich)
+> - drop memset() (Jan Beulich)
+> V4:
+> - add locking in get_domain_state() (Jan Beulich)
+> - only allow querying domain having changed state by domain receiving
+>    VIRQ_DOM_EXC events (Jan Beulich)
+> ---
+>   tools/flask/policy/modules/dom0.te     |  2 +-
+>   tools/flask/policy/modules/xen.if      |  4 +-
+>   tools/flask/policy/modules/xenstore.te |  1 +
+>   xen/common/domain.c                    | 70 ++++++++++++++++++++++++++
+>   xen/common/domctl.c                    | 18 ++++++-
+>   xen/common/event_channel.c             |  9 +++-
+>   xen/include/public/domctl.h            | 26 ++++++++++
+>   xen/include/xen/event.h                |  7 +++
+>   xen/include/xen/sched.h                |  2 +
+>   xen/include/xsm/dummy.h                |  8 +++
+>   xen/include/xsm/xsm.h                  |  6 +++
+>   xen/xsm/dummy.c                        |  1 +
+>   xen/xsm/flask/hooks.c                  |  7 +++
+>   xen/xsm/flask/policy/access_vectors    |  2 +
+>   14 files changed, 158 insertions(+), 5 deletions(-)
+> 
 
-xenstore late init is fundamentally broken.  Do not copy it.
 
-c/s fc2b57c9af462d67df871b080c0897156a616b7d broke the the ABI of that
-bit by trying to repurpose it for an incompatible use.  Despite the
-claims, it is not possible for a 3rd to be involved in any way in the
-xenstore page.  This lead to some nasty state corruption issues in the
-ring, which were simply papered over by repositioning the middle hunk,
-and not fixed.
+> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+> index f8a3c4b81e..a1a5bb60e9 100644
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -173,6 +173,7 @@ static XSM_INLINE int cf_check xsm_domctl(
+>       case XEN_DOMCTL_unbind_pt_irq:
+>           return xsm_default_action(XSM_DM_PRIV, current->domain, d);
+>       case XEN_DOMCTL_getdomaininfo:
+> +    case XEN_DOMCTL_get_domain_state:
+>           return xsm_default_action(XSM_XS_PRIV, current->domain, d);
+>       default:
+>           return xsm_default_action(XSM_PRIV, current->domain, d);
+> @@ -815,6 +816,13 @@ static XSM_INLINE int cf_check xsm_argo_send(
+>   
+>   #endif /* CONFIG_ARGO */
+>   
+> +static XSM_INLINE int cf_check xsm_get_domain_state(
+> +    XSM_DEFAULT_ARG struct domain *d)
+> +{
+> +    XSM_ASSERT_ACTION(XSM_XS_PRIV);
+> +    return xsm_default_action(action, current->domain, d);
+> +}
+> +
+>   #include <public/version.h>
+>   static XSM_INLINE int cf_check xsm_xen_version(XSM_DEFAULT_ARG uint32_t op)
+>   {
+> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+> index 4dbff9d866..0689bf5c9f 100644
+> --- a/xen/include/xsm/xsm.h
+> +++ b/xen/include/xsm/xsm.h
+> @@ -200,6 +200,7 @@ struct xsm_ops {
+>       int (*argo_register_any_source)(const struct domain *d);
+>       int (*argo_send)(const struct domain *d, const struct domain *t);
+>   #endif
+> +    int (*get_domain_state)(struct domain *d);
+>   };
+>   
+>   #ifdef CONFIG_XSM
+> @@ -774,6 +775,11 @@ static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
+>   
+>   #endif /* CONFIG_ARGO */
+>   
+> +static inline int xsm_get_domain_state(struct domain *d)
+> +{
+> +    return alternative_call(xsm_ops.get_domain_state, d);
+> +}
+> +
+>   #endif /* XSM_NO_WRAPPERS */
+>   
+>   #ifdef CONFIG_MULTIBOOT
+> diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+> index e6ffa948f7..ce6fbdc6c5 100644
+> --- a/xen/xsm/dummy.c
+> +++ b/xen/xsm/dummy.c
+> @@ -148,6 +148,7 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
+>       .argo_register_any_source      = xsm_argo_register_any_source,
+>       .argo_send                     = xsm_argo_send,
+>   #endif
+> +    .get_domain_state              = xsm_get_domain_state,
+>   };
+>   
+>   void __init xsm_fixup_ops(struct xsm_ops *ops)
+> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+> index a79474ffe4..e110846ad9 100644
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -688,6 +688,7 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
+>       case XEN_DOMCTL_memory_mapping:
+>       case XEN_DOMCTL_set_target:
+>       case XEN_DOMCTL_vm_event_op:
+> +    case XEN_DOMCTL_get_domain_state:
+>   
+>       /* These have individual XSM hooks (arch/../domctl.c) */
+>       case XEN_DOMCTL_bind_pt_irq:
+> @@ -1856,6 +1857,11 @@ static int cf_check flask_argo_send(
+>   
+>   #endif
+>   
+> +static int cf_check flask_get_domain_state(struct domain *d)
+> +{
+> +    return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__GET_DOMAIN_STATE);
+> +}
+> +
+>   static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+>       .set_system_active = flask_set_system_active,
+>       .security_domaininfo = flask_security_domaininfo,
+> @@ -1992,6 +1998,7 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+>       .argo_register_any_source = flask_argo_register_any_source,
+>       .argo_send = flask_argo_send,
+>   #endif
+> +    .get_domain_state = flask_get_domain_state,
+>   };
+>   
+>   const struct xsm_ops *__init flask_init(
+> diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
+> index a35e3d4c51..c9a8eeda4e 100644
+> --- a/xen/xsm/flask/policy/access_vectors
+> +++ b/xen/xsm/flask/policy/access_vectors
+> @@ -251,6 +251,8 @@ class domain2
+>       resource_map
+>   # XEN_DOMCTL_get_cpu_policy
+>       get_cpu_policy
+> +# XEN_DOMCTL_get_domain_state
+> +    get_domain_state
+>   }
+>   
+>   # Similar to class domain, but primarily contains domctls related to HVM domains
 
-It causes cxenstored to have an incompatible ABI divergence of an
-oxenstored feature.
-
-The only reason I haven't reverted it is because it is my understanding
-that Hyperlauch is going to need to revert it anyway.
-
-
-The very first thing you need is a precise description of the semantics
-of this bit, including how it is used by the client and the server.
-
-I'll be dammed if I let a second spectacular breakage of a public
-interface occur due to inadequate planning; one is bad enough.
-
-~Andrew
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
