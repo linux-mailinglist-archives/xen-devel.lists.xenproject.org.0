@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC589F62BF
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 11:24:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.860165.1272223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62A899F62C0
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 11:24:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.860173.1272233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNrDK-0003I0-2k; Wed, 18 Dec 2024 10:23:34 +0000
+	id 1tNrDs-0003oE-Eo; Wed, 18 Dec 2024 10:24:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860165.1272223; Wed, 18 Dec 2024 10:23:34 +0000
+Received: by outflank-mailman (output) from mailman id 860173.1272233; Wed, 18 Dec 2024 10:24:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNrDJ-0003Fk-VT; Wed, 18 Dec 2024 10:23:33 +0000
-Received: by outflank-mailman (input) for mailman id 860165;
- Wed, 18 Dec 2024 10:23:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tNrDs-0003ml-Aa; Wed, 18 Dec 2024 10:24:08 +0000
+Received: by outflank-mailman (input) for mailman id 860173;
+ Wed, 18 Dec 2024 10:24:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bs8F=TL=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1tNrDI-0003Fe-CQ
- for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 10:23:32 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20631.outbound.protection.outlook.com
- [2a01:111:f403:2408::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1fc2d9a9-bd2a-11ef-99a3-01e77a169b0f;
- Wed, 18 Dec 2024 11:23:30 +0100 (CET)
-Received: from BYAPR06CA0057.namprd06.prod.outlook.com (2603:10b6:a03:14b::34)
- by CY8PR12MB7756.namprd12.prod.outlook.com (2603:10b6:930:85::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.21; Wed, 18 Dec
- 2024 10:23:26 +0000
-Received: from SN1PEPF00036F3E.namprd05.prod.outlook.com
- (2603:10b6:a03:14b:cafe::91) by BYAPR06CA0057.outlook.office365.com
- (2603:10b6:a03:14b::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.20 via Frontend Transport; Wed,
- 18 Dec 2024 10:23:26 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF00036F3E.mail.protection.outlook.com (10.167.248.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8251.15 via Frontend Transport; Wed, 18 Dec 2024 10:23:25 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 18 Dec
- 2024 04:23:24 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 18 Dec 2024 04:23:22 -0600
+ <SRS0=Xglw=TL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tNrDq-0003bh-QW
+ for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 10:24:06 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 35b2e2b9-bd2a-11ef-a0d6-8be0dac302b0;
+ Wed, 18 Dec 2024 11:24:06 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-434e3953b65so44229605e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Dec 2024 02:24:05 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43656b01b15sm15680355e9.11.2024.12.18.02.24.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Dec 2024 02:24:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,134 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fc2d9a9-bd2a-11ef-99a3-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M8W7i7pGLAEav1Vz4AtQX01Km4qDmEwk2wLyKOIeGsMrJieJMbMS+IYoU8aQfKGIrlmMYyootOpm7WA/jTTePq9rA2a8upniHdEM7uSOceZlC1hwUWVK4+cm5JrlEQyDYol7hZhSLiMo9Zj3nnxMK7uysFAqRxeNuwPOoRPBWBsZZ7xAtZYJ0J1N57R0kJCyoJCbzwxJz9e1ZZGQxGiY6UoXG7wQUGozfV8nCQrIb0MPZj3CfDfS2nsByUt0opbn28dvWvZvUhG5v/4hEJyCwnKwfV9tl3mBk0MgEV6ynhG6juyLJ4BQWTdplbby5i4UsbrNxNClj5hpsJuDk3Wkyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GIwXgD8LDZivLejsJkktFq+0L34VyBvvrz06ovUazmg=;
- b=jrtIyliumdEc+Jk6NOBFta0AUQJHQQp3mJ+zU7WIUZCfwvEVQBDXUTeRz5cIvmUsEXyBpDnAdiIeF038equrTiEj7Gl3ym1q/Jlchx/s+EgK1zJut3InTrZcZgFK3l1Oazo595LlUv+l4Tukia5hFYA8oZfs40YFPXEF5wwrLQcwwjuiKcWoWVvY8hBvSAg+cMCIE5IO+nlU1E8VPLAVgG5jFfqYLiwM5KYrigGWQ+2rizJKKXdsEIhKbb3f0PhDWbW4nhOWAK1cPvfUv7HUd19ypTV6S8/dYN/OmJtdUMTe1+kWIwLMlREvwlUbJVs6g82BCd1VO+pufT5BnjYnUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=minervasys.tech smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GIwXgD8LDZivLejsJkktFq+0L34VyBvvrz06ovUazmg=;
- b=mzRwkmfI3dfMLltopEYRFDQ+cs3B3m0EKMRlMsy6ThnK/OsZsl5hvo1KvZoem9ZG7UnLbE65O1z9Sbl99pTwjPBw8Fe2uCkLrXuEqmXZmLkaOLvHS3x5vwZL6QyW4MfA1FURJPFOblOqtswZK04oQzNBVhSzYaEjfnZ+BByCxFk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <a91597fa-2e6e-4b18-b818-ad56a296b322@amd.com>
-Date: Wed, 18 Dec 2024 11:23:21 +0100
+X-Inumbo-ID: 35b2e2b9-bd2a-11ef-a0d6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1734517445; x=1735122245; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YS+5P/aX1yh02DWMDsvkBVuu4fo/DhWyk7tGFN9ATjw=;
+        b=pVMBRpWcG/dmonXFxy2d86oAQjGIA5++boX09qj1etwMrZXJ2pMZBX54ry0iB7Q6Ji
+         gQw85DnTacuPYoywn9jUG8KstyeeCrTg4T0nzFcP8xor0HRjN/NCKTKxl8mHWKKB1aqi
+         uRbeOiwI/iWVNTFE5g5DTRhMU6rtI/r3UVUXI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734517445; x=1735122245;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YS+5P/aX1yh02DWMDsvkBVuu4fo/DhWyk7tGFN9ATjw=;
+        b=tSRs9Gy11+B0bpvzvkeEZcqfLeMGJKDndtEur67didiaJoCqfnFRWuiRF5CB0lJ5eE
+         ExOd9r1KpBSQ/n3qprYJQ9EZcVIDU4s8UtPpcrux0RP9VDGCdBHtMZdP/nYcJFxi/+hZ
+         uudvxUmMS/uQl/wS1dYNnfA1kl210w14b9GzXzs9uECtBrw+lIzQoBaNnBlBAbMJ6nZx
+         hEF+JJNAS8Zido42QGnPDIDGQIMtvMB8vorNMJ9YJ+qS/jC9ELHuagJK58zm2zIPHOd+
+         5ocGzUUiAB+2MONoGrxx/nztGKPGwfv2hkJu93DQZ6GewyOfrzF4H84I1es4Z9k0r2er
+         +hAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXBZOiCGX6mOGDkH/12AHj8L8pg9H5DkOHTF7XnMGfs725+rH6k2QKx4DrOULHpS9b3NtB4FoN2C0M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzweF+GfBW0cdLtLTTCYqke04MISwSuedph5TztXPMQ8QGBi5AV
+	L7FkJgIqVmQ6Zk431FkP7OnPRErssaR0SmV9N6CLDjt/RdgllaElolnpSJpF8CI=
+X-Gm-Gg: ASbGncslYvM6/hRso/M4yu1EUL3xhHy8UoG1/FTcIwwMkMQesH/aWXafRLY7EfFXEb0
+	/VQiPU3+a6tC52nycDw8qNWaKeJwzJA8lqWnoFoiwjMyIL+AhjNdD+qsTDCgBhpmDk4veHrwN/j
+	tVNxRnOzeIYHeDgEgO2+FOqS1QosmIe93sM1CKnn3EJinFLAk7BEIVHFkjsBHx6T7gcSAlzwFrW
+	7TKX8ASwaaOb9XixtLuunrxMWyrMy/Jnpf1GGNI8/v00pM4zfJBs4jE6VUqwGvcj3v8bZiRcb/N
+	nY+c+Cgp9z4v1nax2IUm
+X-Google-Smtp-Source: AGHT+IEjQXTDL20kKa43MEPyxK1Ekvd44FjJiLFz/QhS95Es/TgF4g+Hv25GrNTLsSY7dmT2KRwAPg==
+X-Received: by 2002:a05:6000:2a4:b0:385:f13c:570a with SMTP id ffacd0b85a97d-388e4d6bb66mr1877408f8f.7.1734517445313;
+        Wed, 18 Dec 2024 02:24:05 -0800 (PST)
+Message-ID: <44db9406-f835-425f-b7b2-c86d14eb53d9@citrix.com>
+Date: Wed, 18 Dec 2024 10:24:04 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 12/12] xen/arm: add cache coloring support for Xen
- image
-To: Carlo Nonato <carlo.nonato@minervasys.tech>,
-	<xen-devel@lists.xenproject.org>
-CC: <andrea.bastoni@minervasys.tech>, <marco.solieri@minervasys.tech>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241217170637.233097-1-carlo.nonato@minervasys.tech>
- <20241217170637.233097-13-carlo.nonato@minervasys.tech>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20241217170637.233097-13-carlo.nonato@minervasys.tech>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [RFC PATCH] xen/kconfig: allow LATE_HWDOM config for ARM
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20241217114719.2870676-1-Sergiy_Kibrik@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241217114719.2870676-1-Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3E:EE_|CY8PR12MB7756:EE_
-X-MS-Office365-Filtering-Correlation-Id: 119ed289-420e-4842-55ad-08dd1f4e01e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|7416014|1800799024|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TEtxMkEwZVI2ZlJlWUJQS0t1d3dkS0JNM3k2RDBYT21TMm9vbkxxTnpyeWNU?=
- =?utf-8?B?VjFyQ3J6Q1V6VEFVaFFwdkJXQXZZR3BqeldsZExMdTM1QTVPZmtVRkZYNzlt?=
- =?utf-8?B?TnlQVG9tRWRPU2ZxSjNXSXBmSXg3Qmh3OWVlWi82NkNsNzlKajF6VlMyM3k3?=
- =?utf-8?B?N2RwMEsyeDhhcGVhQ2JuNzM4Snl1SVR6NVZkR3RIMnMyVjN6b3BDUU5EWG01?=
- =?utf-8?B?ZGZBVTN5OVh0a3NPUTVhU243bGd5S3lyUUdudHRlZWdiSmliWEJydExHYUx3?=
- =?utf-8?B?SS85SlFDTkRzcEJDNFhFTzRYblk4NEM3ekJXNkdiZ25aaTBjSVV1a0tyMzNi?=
- =?utf-8?B?MkFKYm5qUGFZYklCb0hMcC84SWZUMzkzc3IvbUJndkt3WU1tRmxHSExHZjBB?=
- =?utf-8?B?Q3loN09EU0tPVTQ4ZXk2KzlCK2ZSTzZ0a2tzY01JNWtYVlM3SHF4WGgwVUo2?=
- =?utf-8?B?R1VWRVAwa1QvRFEyWGE1NVF3Yk10SEllSnE4SHdQUXhzTWI4bEUrbU1yQnY3?=
- =?utf-8?B?YXZSekttY0dKWXp4UDFLMWR2MnZhVkRHZWhBS0xVS1dYVkxtN0h2QWJDSVNL?=
- =?utf-8?B?SnVIdGhUNDF2MHlyVmNWQzVpWnlHYTM3S2FNeDllZUxiNW9KeUs3MlBDMmh1?=
- =?utf-8?B?MFJRSHFzZGVqeXVFVXFaaWhBTzFBTUwzUXEwYU9uYzYzTm95TXVLeExXUURZ?=
- =?utf-8?B?V2dYSUY1Q2lSV1hGVUJhSXpjd0RjNW1ZUGZVblVETUtvaVdWSERORnBZRU1I?=
- =?utf-8?B?dm5wYWprRk8zSmRvMEtJVGNBYVlmVWVsRHdJOFEwMm11b3dlMHJuRmtTOFhn?=
- =?utf-8?B?ejJSaVp4RG91ZDk0aGkzNUorRFUvT3MyZm1yMHEzVmYzVzdabUFSNTNxV3Fo?=
- =?utf-8?B?SUV4djNSVGZseGZ3Q1ZPM1FXbWR1WmRXSWVpSGR0UVRCRXdDbURjbVdRYWQw?=
- =?utf-8?B?M29NbU5ERGNyVUVDZkdPU0orV0FoVS9ZRWtkbGpNR3lpSlVWcTBTWUpzWHE0?=
- =?utf-8?B?NU15KzNTcUczVFZwditWNW5qNVpYekxSUzd3d0JTZmlvZng1SUdKWkwwVytm?=
- =?utf-8?B?YTM2a1I1eW8xN1NIdzBkSlJoSkEwRGxFeUh4UG1xZ2pRYWJoL0FJQ3MzYUVi?=
- =?utf-8?B?TndmNjBjMGJhNFdRdE5jYWZZQ0dnbnBDV3JuNU5qNjBxdmhhNkhKM2xXWDZs?=
- =?utf-8?B?bEZueU92QStUMldtWmZIbnRaVDJLM0IzcENCcklYNWZXbmZpWGc4ODNmUUF6?=
- =?utf-8?B?ZVVidlhtZ2kybXFCZ1lWNTVVWXh1d21VMWR6NnNWSzZBTzE1emlPTFVyTmd4?=
- =?utf-8?B?YjQ1Z29oOG4wL3dXR0pCZG1Mb2k4aE51MkRqemVIQm82em5pTElwZGVyRTkw?=
- =?utf-8?B?OXRqWnZ0RDRKbDZTMmFCR1dSeFpHZUFpYmZaVjB6QUs3SmFiRWRBZXBQL1lq?=
- =?utf-8?B?N1NveGZ6K1BkK2F1R0VVZnpscE1ybWhHMUM2dTZNY0UvS21lQVg0eU5HN1ZC?=
- =?utf-8?B?UlYzQjZURDB6NHpVT3VuSy9lOTlMQm1kU3YycnJ2ZlM0UUg5UlR1SkhvYlFr?=
- =?utf-8?B?cHl1VFR2ZXFtRFIxYkQ3bUczbmYyR3oyamc5NTViTTdCT2lPZDV3TWVPNktt?=
- =?utf-8?B?L0V1M2x2RGEwb3lhdlVSMy9tWGlFWTMyS3diT2Zkc2NlT0xMenVCU0JXNUI0?=
- =?utf-8?B?a21GdjJDNktBMEZDY0p0bEg1SjFDQjV5WW9zTmRHaFVVMXNGWU5oK0c3aTJw?=
- =?utf-8?B?WTZMN0l5MU9XNXdTSmRVSHg2RWNPSjZ6VTNEQ083U09lanQycW1xTDFvbHBz?=
- =?utf-8?B?QU50THFZbWpkY1hoNzZ6U1paOVNQZUpmWEFCYzRzSDdxd0lKNFJtNXhMVEVl?=
- =?utf-8?B?ZmY0bXliRXhBc1ROMlpyS1VBQmNraGJVSWozWWRUR2FlS1d4eXR3Q01NZ1hx?=
- =?utf-8?B?akdaZTUrYnd5RWR0UjNmQXREdVRVWkpoNWlWZStpYkNSdENkUW1QNkxhSXJD?=
- =?utf-8?Q?/ZWp16YFuP8E7cWEOGF5z1cvjeuoiM=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(7416014)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2024 10:23:25.5348
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 119ed289-420e-4842-55ad-08dd1f4e01e4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F3E.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7756
 
+On 17/12/2024 11:47 am, Sergiy Kibrik wrote:
+> Allow to build ARM configuration with support for initializing hardware domain.
+> On ARM it is only possible to start hardware domain in multiboot mode, so
+> dom0less support is required. This is reflected by dependency on DOM0LESS_BOOT
+> instead of directly depending on ARM config option.
+>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> ---
+>  xen/common/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index 90268d9249..7368ca8208 100644
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -374,7 +374,7 @@ endchoice
+>  config LATE_HWDOM
+>  	bool "Dedicated hardware domain"
+>  	default n
+> -	depends on XSM && X86
+> +	depends on XSM && (X86 || DOM0LESS_BOOT)
+>  	help
+>  	  Allows the creation of a dedicated hardware domain distinct from
+>  	  domain 0 that manages devices without needing access to other
 
+To ask a questions not asked elsewhere on this thread.
 
-On 17/12/2024 18:06, Carlo Nonato wrote:
-> 
-> 
-> Xen image is relocated to a new colored physical space. Some relocation
-> functionalities must be brought back:
-> - the virtual address of the new space is taken from 0c18fb76323b
->   ("xen/arm: Remove unused BOOT_RELOC_VIRT_START").
-> - relocate_xen() and get_xen_paddr() are taken from f60658c6ae47
->   ("xen/arm: Stop relocating Xen").
-> 
-> setup_pagetables() must be adapted for coloring and for relocation. Runtime
-> page tables are used to map the colored space, but they are also linked in
-> boot tables so that the new space is temporarily available for relocation.
-> This implies that Xen protection must happen after the copy.
-> 
-> Finally, since the alternative framework needs to remap the Xen text and
-> inittext sections, this operation must be done in a coloring-aware way.
-> The function xen_remap_colored() is introduced for that.
-> 
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com> # common
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+We are expecting Hyperlaunch to supersede and entirely replace what is
+currently x86's idea of split control/hwdom, to this point where this
+symbol is even removed.
 
-~Michal
+Has this plan changed?
 
+~Andrew
 
