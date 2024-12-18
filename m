@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 697D09F6BFC
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 18:08:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.860689.1272687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 101C79F6CCA
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 18:59:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.860706.1272706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNxX9-0004OG-01; Wed, 18 Dec 2024 17:08:27 +0000
+	id 1tNyJb-0002qy-Mj; Wed, 18 Dec 2024 17:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860689.1272687; Wed, 18 Dec 2024 17:08:26 +0000
+Received: by outflank-mailman (output) from mailman id 860706.1272706; Wed, 18 Dec 2024 17:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNxX8-0004Ll-Ta; Wed, 18 Dec 2024 17:08:26 +0000
-Received: by outflank-mailman (input) for mailman id 860689;
- Wed, 18 Dec 2024 17:08:25 +0000
+	id 1tNyJb-0002oj-K1; Wed, 18 Dec 2024 17:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 860706;
+ Wed, 18 Dec 2024 17:58:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xglw=TL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tNxX7-0004Lf-RF
- for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 17:08:25 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ <SRS0=CMRJ=TL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tNyJZ-0002oc-M0
+ for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 17:58:29 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b02cdd37-bd62-11ef-99a3-01e77a169b0f;
- Wed, 18 Dec 2024 18:08:23 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3862d16b4f5so754187f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 18 Dec 2024 09:08:23 -0800 (PST)
-Received: from andrewcoop.eng.citrite.net (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-388c801acfdsm14382447f8f.57.2024.12.18.09.08.21
+ id aea523cb-bd69-11ef-99a3-01e77a169b0f;
+ Wed, 18 Dec 2024 18:58:27 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-aa69077b93fso1018220466b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Dec 2024 09:58:27 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aab96005f73sm581353066b.4.2024.12.18.09.58.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Dec 2024 09:08:21 -0800 (PST)
+ Wed, 18 Dec 2024 09:58:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,344 +44,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b02cdd37-bd62-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: aea523cb-bd69-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734541702; x=1735146502; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YgYydg0CiacPidmMRJwjDtf5BUWwdAGRWZBI6A2JkQY=;
-        b=POncgYuUZDm43T2zDKSNuBEwJKpObthj6vqmduSZwsF6ZWjczoJK32BOl7uq4NiUzY
-         8BiItpN1eQHerP32LLni+0lRFS1G4xVxnoSXv8ScR80MBFpfhnvc/jI2n6ScQJmo1kIu
-         gES6erbhZbT7DaidiP8T5MFrvfG9lu7i7I+Kc=
+        d=citrix.com; s=google; t=1734544706; x=1735149506; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0Vta22zvzKVvQJh7L1iAoOLDMNpOa2sF2ZKHPn3LP54=;
+        b=NeLJq7EC3JPVVzWVB5+pIjax4EF9B70DmOVqDL9Jr9Wed/cDHrFh9wajxA5cm48+PL
+         spKl1/FZFBF1qI9sGuCJDdyhWQsTzH9yHXMj4h2ysTcxy7/1EVnLnRi/nswn0OcwQPPa
+         b5ISDEUUAldJBsKVPk4U9WuKsb6BIOV8MHIYM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734541702; x=1735146502;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YgYydg0CiacPidmMRJwjDtf5BUWwdAGRWZBI6A2JkQY=;
-        b=JzeA3YAGX8kZsBUfepL1o9OdEWH5dXq49MIZOkQvXctyoPxoO8yqTvyV6ODBl170ES
-         P8OQzkVko3yMygjz07kYChKJbXdatxdapVpyN/KlCj3uWsgenP+1I1YV+oSLycx0g92Y
-         1SVokUVhQ1CxdZGMOTbB2AUaFGWBah+TisYX8cyBhdE+uG089ZSJr1DdQpuUiOLsRyo0
-         V2QOsxK+Ro1wQjJv31g1JuDm2ysfc7U1oEj5H+HF1ZdhWB7tv/+FgvMAIOa4NdFDsjQI
-         WLZx+cYobHaUwubW1PIrt3vHfhJEQB491XCS3ewE5HNd3VtlLCaA4iDcMHY8JXRs6jeU
-         HFvQ==
-X-Gm-Message-State: AOJu0YwN9LSbIWxkCv/CalwRBx2/hGabHLg7+dWaVhEmUchfrUMQfbnQ
-	Yc3nXJMZNub9dWOzorn9h1d0O/j3K7yvCjBq3/Kqd4IYQsoHUhM9qH/UW1fxIWz+SzmlDGx/R8I
-	wokc=
-X-Gm-Gg: ASbGnct2iDynoI2vOZM1cmL83qHJv1l1yqhIUNYY2R+w/zCPZ/547ctB++SfWK9VQ8j
-	NvGu9Nfc1ARkDJPhJrAfHYua8A1eLzeatGItWFR9Au6MNuOtn8DVV8TMY8goSKzfzI2gwWwArUR
-	GxYt6EBn3N3bPZ6da35/yvPLZwZK81+Nt32ieb+B0OI74KT5M3WA/4UQg568Ca9sLaX/oeWvft3
-	ByXrS+ETomhyg2PR20Vveck0C6eCyUjp5VDhcIDiWpS5rVJPniDqK8ZGRm46m/xEj7MtElW/FsB
-	F4V0rKiWwsapSkRaGMX0IjwQa4IyU5ZvYV+n
-X-Google-Smtp-Source: AGHT+IEOsO6sV4MCY1Ac0WcFKaK+QhC44j8GWAIx8Y6sctbW9PkbKp23aIB6KVS5mQOgDmqcT3rPfQ==
-X-Received: by 2002:a05:6000:2cc:b0:386:32ca:7b5e with SMTP id ffacd0b85a97d-38a1a2152c6mr78407f8f.16.1734541702198;
-        Wed, 18 Dec 2024 09:08:22 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Teddy Astie <teddy.astie@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3] x86/hvm: Use constants for x86 modes
-Date: Wed, 18 Dec 2024 17:08:20 +0000
-Message-Id: <20241218170820.364253-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech>
-References: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech>
+        d=1e100.net; s=20230601; t=1734544706; x=1735149506;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0Vta22zvzKVvQJh7L1iAoOLDMNpOa2sF2ZKHPn3LP54=;
+        b=h6DfhoZ5PM1kal5P7xI7anTzCN/Gh1gXoOpwE2mWPRoAboLSbrU9praLt6HKDcl8mz
+         fUSqqlk9MExH9cbo73m+qFuUqk5exz53c7bsoWwsccDBkMH2eAj1wMTkFRgkymVy13GN
+         +Ef/u+Q+zkTv2aXJxwrG8fCpeOpL1qYJ+8Q2+QcdfHF3tSRbi6ghiUxipB00yzZkRMhz
+         ao/ikhz+7rIrxa1xegT3tEF9spxHoVjsqkOB6p7cSGMTxejfAy9dkvtTbkNOWd2Ds//p
+         KIkSs7R1tnlVndfu2KMFUc2w+Cy2YCBgaNENR0NGMcB0dBgL1uXp2XzpqhSLCIxFSiJS
+         rBhg==
+X-Gm-Message-State: AOJu0YzanMz7hkEwLPjnu32MwPSxTm9gVXFCX3n+caEtCnHe7rXEyfkX
+	ye5Xp2DmJXeVxG1d0FNb5PNIWasne018ubvpRPTBUq52fCLEEnSWRTMmxdWFrtsKS7rP6OpOGVe
+	X
+X-Gm-Gg: ASbGncvRks3hYFAyn6xNAlemIxTX6+j25rHRt0+DNeuAjnngHgeP5CNE7gLRPMWpJBZ
+	Z/ohjwNlRGAT/xD06S06et+h82R7Sdxw1o7IuKfJ2EdG8m0ztEXh8MIG2YYRyVF+LKItq0nOGYm
+	iVF0N9PwcQ5XNXrj/JAepQWUkHwAhkxntpw/0XZv1Ipl04sBPhBYxM0adbjV2wzUENGMAQs0ag+
+	h1MFCj/rFUB7/sZnbtUr4Qe6JdAZBQ1ZNu7gWTUjasnjjxxmN8yP30qgAx6Ig==
+X-Google-Smtp-Source: AGHT+IE36nF8Vv+G+Ax4cVHLopoSTV7V+o2MBiWGkwPzCvyFLheY7n76XyvgbEVyRB4BPQBJmPQA3g==
+X-Received: by 2002:a17:907:7709:b0:aac:83f:e10a with SMTP id a640c23a62f3a-aac083fe1b6mr12356366b.19.1734544706513;
+        Wed, 18 Dec 2024 09:58:26 -0800 (PST)
+Date: Wed, 18 Dec 2024 18:58:25 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] tools/xg: increase LZMA_BLOCK_SIZE for uncompressing the
+ kernel
+Message-ID: <Z2MNQTDM3N22ceWy@macbook.local>
+References: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241008213225.728922-1-marmarek@invisiblethingslab.com>
 
-From: Teddy Astie <teddy.astie@vates.tech>
+On Tue, Oct 08, 2024 at 11:32:23PM +0200, Marek Marczykowski-Górecki wrote:
+> Linux 6.12-rc2 fails to decompress with the current 128MiB, contrary to
+> the code comment. It results in a failure like this:
+> 
+>     domainbuilder: detail: xc_dom_kernel_file: filename="/var/lib/qubes/vm-kernels/6.12-rc2-1.1.fc37/vmlinuz"
+>     domainbuilder: detail: xc_dom_malloc_filemap    : 12104 kB
+>     domainbuilder: detail: xc_dom_module_file: filename="/var/lib/qubes/vm-kernels/6.12-rc2-1.1.fc37/initramfs"
+>     domainbuilder: detail: xc_dom_malloc_filemap    : 7711 kB
+>     domainbuilder: detail: xc_dom_boot_xen_init: ver 4.19, caps xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64
+>     domainbuilder: detail: xc_dom_parse_image: called
+>     domainbuilder: detail: xc_dom_find_loader: trying multiboot-binary loader ...
+>     domainbuilder: detail: loader probe failed
+>     domainbuilder: detail: xc_dom_find_loader: trying HVM-generic loader ...
+>     domainbuilder: detail: loader probe failed
+>     domainbuilder: detail: xc_dom_find_loader: trying Linux bzImage loader ...
+>     domainbuilder: detail: _xc_try_lzma_decode: XZ decompression error: Memory usage limit reached
+>     xc: error: panic: xg_dom_bzimageloader.c:761: xc_dom_probe_bzimage_kernel unable to XZ decompress kernel: Invalid kernel
+>     domainbuilder: detail: loader probe failed
+>     domainbuilder: detail: xc_dom_find_loader: trying ELF-generic loader ...
+>     domainbuilder: detail: loader probe failed
+>     xc: error: panic: xg_dom_core.c:689: xc_dom_find_loader: no loader found: Invalid kernel
+>     libxl: error: libxl_dom.c:566:libxl__build_dom: xc_dom_parse_image failed
+> 
+> The important part: XZ decompression error: Memory usage limit reached
+> 
+> This looks to be related to the following change in Linux:
+> 8653c909922743bceb4800e5cc26087208c9e0e6 ("xz: use 128 MiB dictionary and force single-threaded mode")
+> 
+> Fix this by increasing the block size to 256MiB. And remove the
+> misleading comment (from lack of better ideas).
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-In many places of x86 HVM code, constants integer are used to indicate in what mode is
-running the CPU (real, vm86, 16-bits, 32-bits, 64-bits). However, these constants are
-are written directly as integer which hides the actual meaning of these modes.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-This patch introduces X86_MODE_* macros and replace those occurences with it.
+I assumed I already RB this, but it seems not.
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Teddy Astie <teddy.astie@vates.tech>
+Could we get an Ack from the tools or libs maintainer for this to go
+in?  It's not the best solution, but we need to get this sorted in
+time for 4.20, and backport to stable branches.
 
-v3:
- * Leave a comment behind explaining why these aren't all modes
- * Fix long lines
- * Convert more instances (svm_guest_x86_mode, hvm_latch_shinfo_size, xenoprof)
----
- xen/arch/x86/hvm/emulate.c           | 18 ++++++++++--------
- xen/arch/x86/hvm/hvm.c               |  4 +++-
- xen/arch/x86/hvm/hypercall.c         | 17 +++++++++--------
- xen/arch/x86/hvm/svm/svm.c           |  8 ++++----
- xen/arch/x86/hvm/viridian/viridian.c |  8 ++++----
- xen/arch/x86/hvm/vmx/vmx.c           |  9 +++++----
- xen/arch/x86/hvm/vmx/vvmx.c          |  5 +++--
- xen/arch/x86/include/asm/hvm/hvm.h   | 14 ++++++++++++++
- xen/arch/x86/oprofile/xenoprof.c     |  6 +++---
- 9 files changed, 55 insertions(+), 34 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index d3006f094a69..76467b76c047 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -2433,14 +2433,15 @@ static void cf_check hvmemul_put_fpu(
- 
-         switch ( mode )
-         {
--        case 8:
-+        case X86_MODE_64BIT:
-             fpu_ctxt->fip.addr = aux->ip;
-             if ( dval )
-                 fpu_ctxt->fdp.addr = aux->dp;
-             fpu_ctxt->x[FPU_WORD_SIZE_OFFSET] = 8;
-             break;
- 
--        case 4: case 2:
-+        case X86_MODE_32BIT:
-+        case X86_MODE_16BIT:
-             fpu_ctxt->fip.offs = aux->ip;
-             fpu_ctxt->fip.sel  = aux->cs;
-             if ( dval )
-@@ -2451,7 +2452,8 @@ static void cf_check hvmemul_put_fpu(
-             fpu_ctxt->x[FPU_WORD_SIZE_OFFSET] = mode;
-             break;
- 
--        case 0: case 1:
-+        case X86_MODE_REAL:
-+        case X86_MODE_VM86:
-             fpu_ctxt->fip.addr = aux->ip | (aux->cs << 4);
-             if ( dval )
-                 fpu_ctxt->fdp.addr = aux->dp | (aux->ds << 4);
-@@ -2952,11 +2954,11 @@ static const char *guest_x86_mode_to_str(int mode)
- {
-     switch ( mode )
-     {
--    case 0:  return "Real";
--    case 1:  return "v86";
--    case 2:  return "16bit";
--    case 4:  return "32bit";
--    case 8:  return "64bit";
-+    case X86_MODE_REAL:   return "Real";
-+    case X86_MODE_VM86:   return "v86";
-+    case X86_MODE_16BIT:  return "16bit";
-+    case X86_MODE_32BIT:  return "32bit";
-+    case X86_MODE_64BIT:  return "64bit";
-     default: return "Unknown";
-     }
- }
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 74e58c653e6f..922c9b3af64d 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -3974,7 +3974,9 @@ static void hvm_latch_shinfo_size(struct domain *d)
-      */
-     if ( current->domain == d )
-     {
--        d->arch.has_32bit_shinfo = (hvm_guest_x86_mode(current) != 8);
-+        d->arch.has_32bit_shinfo =
-+            hvm_guest_x86_mode(current) != X86_MODE_64BIT;
-+
-         /*
-          * Make sure that the timebase in the shared info structure is correct.
-          *
-diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-index 81883c8d4f60..6f8dfdff4ac6 100644
---- a/xen/arch/x86/hvm/hypercall.c
-+++ b/xen/arch/x86/hvm/hypercall.c
-@@ -112,23 +112,24 @@ int hvm_hypercall(struct cpu_user_regs *regs)
- 
-     switch ( mode )
-     {
--    case 8:
-+    case X86_MODE_64BIT:
-         eax = regs->rax;
-         fallthrough;
--    case 4:
--    case 2:
-+    case X86_MODE_32BIT:
-+    case X86_MODE_16BIT:
-         if ( currd->arch.monitor.guest_request_userspace_enabled &&
--            eax == __HYPERVISOR_hvm_op &&
--            (mode == 8 ? regs->rdi : regs->ebx) == HVMOP_guest_request_vm_event )
-+             eax == __HYPERVISOR_hvm_op &&
-+             (mode == X86_MODE_64BIT ? regs->rdi : regs->ebx) ==
-+             HVMOP_guest_request_vm_event )
-             break;
- 
-         if ( likely(!hvm_get_cpl(curr)) )
-             break;
-         fallthrough;
--    default:
-+    case X86_MODE_VM86:
-         regs->rax = -EPERM;
-         return HVM_HCALL_completed;
--    case 0:
-+    case X86_MODE_REAL:
-         break;
-     }
- 
-@@ -198,7 +199,7 @@ enum mc_disposition hvm_do_multicall_call(struct mc_state *state)
- {
-     struct vcpu *curr = current;
- 
--    if ( hvm_guest_x86_mode(curr) == 8 )
-+    if ( hvm_guest_x86_mode(curr) == X86_MODE_64BIT )
-     {
-         struct multicall_entry *call = &state->call;
- 
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index b8f87aa1ed08..62905c2c7acd 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -571,12 +571,12 @@ static int cf_check svm_guest_x86_mode(struct vcpu *v)
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
- 
-     if ( unlikely(!(v->arch.hvm.guest_cr[0] & X86_CR0_PE)) )
--        return 0;
-+        return X86_MODE_REAL;
-     if ( unlikely(guest_cpu_user_regs()->eflags & X86_EFLAGS_VM) )
--        return 1;
-+        return X86_MODE_VM86;
-     if ( hvm_long_mode_active(v) && likely(vmcb->cs.l) )
--        return 8;
--    return likely(vmcb->cs.db) ? 4 : 2;
-+        return X86_MODE_64BIT;
-+    return vmcb->cs.db ? X86_MODE_32BIT : X86_MODE_16BIT;
- }
- 
- static void cf_check svm_cpuid_policy_changed(struct vcpu *v)
-diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridian/viridian.c
-index 21480d9ee700..33d54e587edf 100644
---- a/xen/arch/x86/hvm/viridian/viridian.c
-+++ b/xen/arch/x86/hvm/viridian/viridian.c
-@@ -933,13 +933,13 @@ int viridian_hypercall(struct cpu_user_regs *regs)
- 
-     switch ( mode )
-     {
--    case 8:
-+    case X86_MODE_64BIT:
-         input.raw = regs->rcx;
-         input_params_gpa = regs->rdx;
-         output_params_gpa = regs->r8;
-         break;
- 
--    case 4:
-+    case X86_MODE_32BIT:
-         input.raw = (regs->rdx << 32) | regs->eax;
-         input_params_gpa = (regs->rbx << 32) | regs->ecx;
-         output_params_gpa = (regs->rdi << 32) | regs->esi;
-@@ -1038,11 +1038,11 @@ int viridian_hypercall(struct cpu_user_regs *regs)
- 
-     switch ( mode )
-     {
--    case 8:
-+    case X86_MODE_64BIT:
-         regs->rax = output.raw;
-         break;
- 
--    case 4:
-+    case X86_MODE_32BIT:
-         regs->rdx = output.raw >> 32;
-         regs->rax = (uint32_t)output.raw;
-         break;
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index b6885d0e2764..eee1d4b47a13 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -886,14 +886,15 @@ int cf_check vmx_guest_x86_mode(struct vcpu *v)
-     unsigned long cs_ar_bytes;
- 
-     if ( unlikely(!(v->arch.hvm.guest_cr[0] & X86_CR0_PE)) )
--        return 0;
-+        return X86_MODE_REAL;
-     if ( unlikely(guest_cpu_user_regs()->eflags & X86_EFLAGS_VM) )
--        return 1;
-+        return X86_MODE_VM86;
-     __vmread(GUEST_CS_AR_BYTES, &cs_ar_bytes);
-     if ( hvm_long_mode_active(v) &&
-          likely(cs_ar_bytes & X86_SEG_AR_CS_LM_ACTIVE) )
--        return 8;
--    return (likely(cs_ar_bytes & X86_SEG_AR_DEF_OP_SIZE) ? 4 : 2);
-+        return X86_MODE_64BIT;
-+    return (likely(cs_ar_bytes & X86_SEG_AR_DEF_OP_SIZE)
-+            ? X86_MODE_32BIT : X86_MODE_16BIT);
- }
- 
- static void vmx_save_dr(struct vcpu *v)
-diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-index 78135ca23be8..cf47d61b1473 100644
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -411,7 +411,7 @@ static int decode_vmx_inst(struct cpu_user_regs *regs,
-     }
-     else
-     {
--        bool mode_64bit = (vmx_guest_x86_mode(v) == 8);
-+        bool mode_64bit = vmx_guest_x86_mode(v) == X86_MODE_64BIT;
- 
-         decode->type = VMX_INST_MEMREG_TYPE_MEMORY;
- 
-@@ -2073,7 +2073,8 @@ int nvmx_handle_vmx_insn(struct cpu_user_regs *regs, unsigned int exit_reason)
- 
-     if ( !(curr->arch.hvm.guest_cr[4] & X86_CR4_VMXE) ||
-          !nestedhvm_enabled(curr->domain) ||
--         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? 8 : 2)) ||
-+         (vmx_guest_x86_mode(curr) <
-+          (hvm_long_mode_active(curr) ? X86_MODE_64BIT : X86_MODE_16BIT)) ||
-          (exit_reason != EXIT_REASON_VMXON && !nvmx_vcpu_in_vmx(curr)) )
-     {
-         hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 02de18c7d4a8..124906a548da 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -26,6 +26,20 @@ extern bool opt_hvm_fep;
- #define opt_hvm_fep 0
- #endif
- 
-+/*
-+ * Results for hvm_guest_x86_mode().
-+ *
-+ * Note, some callers depend on the order of these constants.
-+ *
-+ * TODO: Rework this helper to avoid implying mixing the architectural
-+ * concepts of mode and operand size.
-+ */
-+#define X86_MODE_REAL  0
-+#define X86_MODE_VM86  1
-+#define X86_MODE_16BIT 2
-+#define X86_MODE_32BIT 4
-+#define X86_MODE_64BIT 8
-+
- /* Interrupt acknowledgement sources. */
- enum hvm_intsrc {
-     hvm_intsrc_none,
-diff --git a/xen/arch/x86/oprofile/xenoprof.c b/xen/arch/x86/oprofile/xenoprof.c
-index 247a0deca822..7f2525bfb4d6 100644
---- a/xen/arch/x86/oprofile/xenoprof.c
-+++ b/xen/arch/x86/oprofile/xenoprof.c
-@@ -86,11 +86,11 @@ int xenoprofile_get_mode(struct vcpu *curr, const struct cpu_user_regs *regs)
- 
-     switch ( hvm_guest_x86_mode(curr) )
-     {
--    case 0: /* real mode */
-+    case X86_MODE_REAL:
-         return 1;
--    case 1: /* vm86 mode */
-+    case X86_MODE_VM86:
-         return 0;
--    default:
-+    default: /* 16BIT | 32BIT | 64BIT */
-         return hvm_get_cpl(curr) != 3;
-     }
- }
-
-base-commit: 826a9eb072d449cb777d71f52923e6f5f20cefbe
--- 
-2.39.5
-
+Thanks, Roger.
 
