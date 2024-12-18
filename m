@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22DA39F5C2D
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 02:18:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.859956.1272049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 133EE9F5C32
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 02:22:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.859964.1272059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNihc-0006EA-0q; Wed, 18 Dec 2024 01:18:16 +0000
+	id 1tNilY-0007sK-HR; Wed, 18 Dec 2024 01:22:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 859956.1272049; Wed, 18 Dec 2024 01:18:15 +0000
+Received: by outflank-mailman (output) from mailman id 859964.1272059; Wed, 18 Dec 2024 01:22:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNihb-0006Bu-Tx; Wed, 18 Dec 2024 01:18:15 +0000
-Received: by outflank-mailman (input) for mailman id 859956;
- Wed, 18 Dec 2024 01:18:14 +0000
+	id 1tNilY-0007pu-Ci; Wed, 18 Dec 2024 01:22:20 +0000
+Received: by outflank-mailman (input) for mailman id 859964;
+ Wed, 18 Dec 2024 01:22:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uLCT=TL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tNiha-0006Bo-KR
- for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 01:18:14 +0000
+ id 1tNilX-0007pn-06
+ for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 01:22:19 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2750665-bcdd-11ef-a0d6-8be0dac302b0;
- Wed, 18 Dec 2024 02:18:12 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1734484680941126.09502680922674;
- Tue, 17 Dec 2024 17:18:00 -0800 (PST)
+ id 4e4b8d83-bcde-11ef-a0d6-8be0dac302b0;
+ Wed, 18 Dec 2024 02:20:46 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1734484837587283.6589668641702;
+ Tue, 17 Dec 2024 17:20:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,40 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2750665-bcdd-11ef-a0d6-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1734484683; cv=none; 
+X-Inumbo-ID: 4e4b8d83-bcde-11ef-a0d6-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1734484839; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=OlwyZYGa1mq/3VDfajyS++Yp+5w7Ipjalo4si8Inbh7jkt3zWj4i3AmVwEiF5WpyFAAKC9djCKnI3t+PbyksxLeYrcIou2yu4G1cg3wK2xi7aGEy5l6nQYt8FGHr618uNBMqIPFxoWztTSbzkrmAT49hR1wsfRHrx0oTgVG4TlQ=
+	b=gQUpWBrVc49H7PA0k6QxNjyNgzvy8+/x7lW5fliScBqWdkM/O3cGrj0RX5ezYWvJQ/SedKHQb/hIE6xEIMhWxZy6FjT21P5W4+tK0HYWzetlQlXXzqAwohNCb61boK3d27cwljP3hEZYZOUL8+9PvRWIEdkW6hXbteYinOEIHjM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1734484683; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=RiIhbnhaflaM56sIlGro2lAxR4LzA574RtOKBMSOsyA=; 
-	b=ESuNwwFYhvhE+dhNqgG0tji+ZIjQ9LmMeTIJU/mTlcDNI/Gax1hh1MYs00DU+2QoExVDSGseDsGjr+bYdbGf0hLYfaow8CMJfHxQhCtqEiHDciobOdv5wu9zEIJhVJc5LSb85v0al49h6HQLZZGlvr/xbIep/IQbNajeCwXfd7s=
+	t=1734484839; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=EM028ERgfmkIBJDimHiTLJSPlsk9iruciOdPPAzPn+4=; 
+	b=HoyhFyNXSpQbfOX3kIsdc4csNvrLFxZlW5nZ0rgqWm0ItdFKgrtGw90tMLWyjx+pdD6BV//RNiZHkIfsWV3+HT8D1lmwK05kZewynWS5JWowzEWMWvQ5oxIe58OKuHPvi3XV4aVUEDyw+zEH4Rd6J9HR0njwv+Cx631qex1gIhY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1734484683;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1734484839;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=RiIhbnhaflaM56sIlGro2lAxR4LzA574RtOKBMSOsyA=;
-	b=PIqqZrRf+rarrf8hZcRMQoEu0WJC9/tuoxtpNHPuux71sfuta+efZHJynHgjLl8b
-	XQ6JQlTWpxWES+rW50pL/ov9FATBjg3MgwZaXaDJSfsoFc6JWIz8qc0i+NdeH+R9evM
-	fQgCms1Pw1O5SVr1UKzxmJBo3EWrp5YG9HAETYIc=
-Message-ID: <63b21760-7dea-423b-a9d8-64d213c40b2c@apertussolutions.com>
-Date: Tue, 17 Dec 2024 20:17:59 -0500
+	bh=EM028ERgfmkIBJDimHiTLJSPlsk9iruciOdPPAzPn+4=;
+	b=rENnieHPNk4CBmEVoc5KMo6nwfNTKEYFoT9BL633ViV8C13nhIpkeaBV00Mmiw2Z
+	QzRuxxLN5GmJvnsia7Cbe9pKq1Dsg7/oAQNL/YrWHttA+ytgN+JzVzg5aq0wiuwBHVQ
+	1GtHrVykbYReGHrScW9ZEJN1oYbrLrdad/yy8Oeo=
+Message-ID: <de1a5ffa-9993-4de7-a701-a3e77bc4c1ce@apertussolutions.com>
+Date: Tue, 17 Dec 2024 20:20:35 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/kconfig: allow LATE_HWDOM config for ARM
+Subject: Re: [PATCH v5 3/5] xen: add new domctl get_changed_domain
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241217114719.2870676-1-Sergiy_Kibrik@epam.com>
- <4e437c60-4fee-40ed-9d2a-789bac0b36d9@xen.org>
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20241217142218.24129-1-jgross@suse.com>
+ <20241217142218.24129-4-jgross@suse.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -104,32 +103,170 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <4e437c60-4fee-40ed-9d2a-789bac0b36d9@xen.org>
+In-Reply-To: <20241217142218.24129-4-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-> On 17/12/2024 11:47, Sergiy Kibrik wrote:
->> Allow to build ARM configuration with support for initializing 
->> hardware domain.
->> On ARM it is only possible to start hardware domain in multiboot mode, so
->> dom0less support is required. This is reflected by dependency on 
->> DOM0LESS_BOOT
->> instead of directly depending on ARM config option.
+On 12/17/24 09:22, Juergen Gross wrote:
+> Add a new domctl sub-function to get data of a domain having changed
+> state (this is needed by Xenstore).
+> 
+> The returned state just contains the domid, the domain unique id,
+> and some flags (existing, shutdown, dying).
+> 
+> In order to enable Xenstore stubdom being built for multiple Xen
+> versions, make this domctl stable.  For stable domctls the
+> interface_version is always 0.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V1:
+> - use a domctl subop for the new interface (Jan Beulich)
+> V2:
+> - fix XSM hooks (Daniel P. Smith)
+> - remove versioning of stable sub-ops (Jan Beulich)
+> - use domctl.domain for retuning domid of a changed domain (Jan Beulich)
+> - simplify locking in get_domain_state() (Jan Beulich)
+> - undo stray change in event_channel.c (Jan Beulich)
+> V3:
+> - have disjunct states "dying" and "dead" (Jan Beulich)
+> - check padding fields to be 0 (Jan Beulich)
+> - drop memset() (Jan Beulich)
+> V4:
+> - add locking in get_domain_state() (Jan Beulich)
+> - only allow querying domain having changed state by domain receiving
+>    VIRQ_DOM_EXC events (Jan Beulich)
+> V5:
+> - use memset() (Jan Beulich)
+> ---
+>   tools/flask/policy/modules/dom0.te     |  2 +-
+>   tools/flask/policy/modules/xen.if      |  4 +-
+>   tools/flask/policy/modules/xenstore.te |  1 +
+>   xen/common/domain.c                    | 67 ++++++++++++++++++++++++++
+>   xen/common/domctl.c                    | 18 ++++++-
+>   xen/common/event_channel.c             |  9 +++-
+>   xen/include/public/domctl.h            | 26 ++++++++++
+>   xen/include/xen/event.h                |  7 +++
+>   xen/include/xen/sched.h                |  2 +
+>   xen/include/xsm/dummy.h                |  8 +++
+>   xen/include/xsm/xsm.h                  |  6 +++
+>   xen/xsm/dummy.c                        |  1 +
+>   xen/xsm/flask/hooks.c                  |  7 +++
+>   xen/xsm/flask/policy/access_vectors    |  2 +
+>   14 files changed, 155 insertions(+), 5 deletions(-)
+> 
 
 
-Just to make sure my assumption is correct, you are looking to do a 
-multi-domain construction at boot time, with at least two domains. One 
-of those two domains is the "control domain" and one is the "hardware 
-domain", aka late hwdom except it's not constructed "late".
+> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+> index f8a3c4b81e..a1a5bb60e9 100644
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -173,6 +173,7 @@ static XSM_INLINE int cf_check xsm_domctl(
+>       case XEN_DOMCTL_unbind_pt_irq:
+>           return xsm_default_action(XSM_DM_PRIV, current->domain, d);
+>       case XEN_DOMCTL_getdomaininfo:
+> +    case XEN_DOMCTL_get_domain_state:
+>           return xsm_default_action(XSM_XS_PRIV, current->domain, d);
+>       default:
+>           return xsm_default_action(XSM_PRIV, current->domain, d);
+> @@ -815,6 +816,13 @@ static XSM_INLINE int cf_check xsm_argo_send(
+>   
+>   #endif /* CONFIG_ARGO */
+>   
+> +static XSM_INLINE int cf_check xsm_get_domain_state(
+> +    XSM_DEFAULT_ARG struct domain *d)
+> +{
+> +    XSM_ASSERT_ACTION(XSM_XS_PRIV);
+> +    return xsm_default_action(action, current->domain, d);
+> +}
+> +
+>   #include <public/version.h>
+>   static XSM_INLINE int cf_check xsm_xen_version(XSM_DEFAULT_ARG uint32_t op)
+>   {
+> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+> index 4dbff9d866..0689bf5c9f 100644
+> --- a/xen/include/xsm/xsm.h
+> +++ b/xen/include/xsm/xsm.h
+> @@ -200,6 +200,7 @@ struct xsm_ops {
+>       int (*argo_register_any_source)(const struct domain *d);
+>       int (*argo_send)(const struct domain *d, const struct domain *t);
+>   #endif
+> +    int (*get_domain_state)(struct domain *d);
+>   };
+>   
+>   #ifdef CONFIG_XSM
+> @@ -774,6 +775,11 @@ static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
+>   
+>   #endif /* CONFIG_ARGO */
+>   
+> +static inline int xsm_get_domain_state(struct domain *d)
+> +{
+> +    return alternative_call(xsm_ops.get_domain_state, d);
+> +}
+> +
+>   #endif /* XSM_NO_WRAPPERS */
+>   
+>   #ifdef CONFIG_MULTIBOOT
+> diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+> index e6ffa948f7..ce6fbdc6c5 100644
+> --- a/xen/xsm/dummy.c
+> +++ b/xen/xsm/dummy.c
+> @@ -148,6 +148,7 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
+>       .argo_register_any_source      = xsm_argo_register_any_source,
+>       .argo_send                     = xsm_argo_send,
+>   #endif
+> +    .get_domain_state              = xsm_get_domain_state,
+>   };
+>   
+>   void __init xsm_fixup_ops(struct xsm_ops *ops)
+> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+> index a79474ffe4..e110846ad9 100644
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -688,6 +688,7 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
+>       case XEN_DOMCTL_memory_mapping:
+>       case XEN_DOMCTL_set_target:
+>       case XEN_DOMCTL_vm_event_op:
+> +    case XEN_DOMCTL_get_domain_state:
+>   
+>       /* These have individual XSM hooks (arch/../domctl.c) */
+>       case XEN_DOMCTL_bind_pt_irq:
+> @@ -1856,6 +1857,11 @@ static int cf_check flask_argo_send(
+>   
+>   #endif
+>   
+> +static int cf_check flask_get_domain_state(struct domain *d)
+> +{
+> +    return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__GET_DOMAIN_STATE);
+> +}
+> +
+>   static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+>       .set_system_active = flask_set_system_active,
+>       .security_domaininfo = flask_security_domaininfo,
+> @@ -1992,6 +1998,7 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+>       .argo_register_any_source = flask_argo_register_any_source,
+>       .argo_send = flask_argo_send,
+>   #endif
+> +    .get_domain_state = flask_get_domain_state,
+>   };
+>   
+>   const struct xsm_ops *__init flask_init(
+> diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
+> index a35e3d4c51..c9a8eeda4e 100644
+> --- a/xen/xsm/flask/policy/access_vectors
+> +++ b/xen/xsm/flask/policy/access_vectors
+> @@ -251,6 +251,8 @@ class domain2
+>       resource_map
+>   # XEN_DOMCTL_get_cpu_policy
+>       get_cpu_policy
+> +# XEN_DOMCTL_get_domain_state
+> +    get_domain_state
+>   }
+>   
+>   # Similar to class domain, but primarily contains domctls related to HVM domains
 
-If you want such a configuration, I would highly recommend you first 
-enable setting flask labels via dom0less (assuming it is not there) 
-before lighting this feature up. This is because the dummy/base policy 
-has no support for differentiating between a "control domain" and a 
-"hardware domain". What you really would end up with is two control 
-domains, with one also having control over hardware.
+Apologies, I missed v5 when responding to v4 a moment ago. For good measure,
 
-v/r
-dps
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
