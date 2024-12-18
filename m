@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D05929F69E4
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 16:20:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.860558.1272578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 760229F69F4
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2024 16:25:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.860577.1272588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNvqV-0008KC-3U; Wed, 18 Dec 2024 15:20:19 +0000
+	id 1tNvuh-000177-Jw; Wed, 18 Dec 2024 15:24:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860558.1272578; Wed, 18 Dec 2024 15:20:19 +0000
+Received: by outflank-mailman (output) from mailman id 860577.1272588; Wed, 18 Dec 2024 15:24:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tNvqV-0008Gv-0O; Wed, 18 Dec 2024 15:20:19 +0000
-Received: by outflank-mailman (input) for mailman id 860558;
- Wed, 18 Dec 2024 15:20:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tNvuh-00014j-H0; Wed, 18 Dec 2024 15:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 860577;
+ Wed, 18 Dec 2024 15:24:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v9KU=TL=eurecom.fr=Ariel.Otilibili-Anieli@srs-se1.protection.inumbo.net>)
- id 1tNvqS-0006zz-Ak
- for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 15:20:16 +0000
-Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94463b92-bd53-11ef-a0d7-8be0dac302b0;
- Wed, 18 Dec 2024 16:20:14 +0100 (CET)
-Received: from quovadis.eurecom.fr ([10.3.2.233])
- by drago1i.eurecom.fr with ESMTP; 18 Dec 2024 16:20:13 +0100
+ <SRS0=uLCT=TL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tNvug-00014d-50
+ for xen-devel@lists.xenproject.org; Wed, 18 Dec 2024 15:24:38 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2f41b763-bd54-11ef-99a3-01e77a169b0f;
+ Wed, 18 Dec 2024 16:24:35 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1734535465032784.0309698241986;
+ Wed, 18 Dec 2024 07:24:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,121 +38,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94463b92-bd53-11ef-a0d7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
-  t=1734535214; x=1766071214;
-  h=from:in-reply-to:references:date:cc:to:mime-version:
-   message-id:subject:content-transfer-encoding;
-  bh=5ZU7nivsx9rGmY87ls5w7v67pilxaQJXCsAGiyJzFhg=;
-  b=m8r3ZjXYLJBj9mnk7WsINJWBR0uVeIwVBgiPffFgWafbFDcrXdt22ehS
-   H5Gw92LCXO2Zy5UmmzqBmx8nN6mLlf7R09LFp+tkIQAQ8anLEve3dUoxz
-   DvwshZkMKMsoUvzuJaowt9YX7cdP75/xow1mfXiagTZpWQT/PRByWX3lb
-   w=;
-X-CSE-ConnectionGUID: 9uTemquwRyWonSnk91icPQ==
-X-CSE-MsgGUID: XwhabISzQgOr5jHEwoJx7Q==
-X-IronPort-AV: E=Sophos;i="6.12,244,1728943200"; 
-   d="scan'208";a="28234079"
-From: "Ariel Otilibili-Anieli" <Ariel.Otilibili-Anieli@eurecom.fr>
-In-Reply-To: <e4f30083-67f0-4eab-92a8-bab717a4ba16@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-X-Forward: 149.5.228.1
-References: <20241214161350.70515-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241216231128.211648-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241216231128.211648-2-Ariel.Otilibili-Anieli@eurecom.fr>
- <fe201e59-beb0-4134-abbb-13a55a4ec987@citrix.com>
- <2f7a8a-6761b180-9a89-1d1363a0@43143421> <e4f30083-67f0-4eab-92a8-bab717a4ba16@citrix.com>
-Date: Wed, 18 Dec 2024 16:20:13 +0100
-Cc: xen-devel@lists.xenproject.org, "Jan Beulich" <jbeulich@suse.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Luca Fancellu" <luca.fancellu@arm.com>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>
+X-Inumbo-ID: 2f41b763-bd54-11ef-99a3-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1734535467; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=eHs31qdRs+en4moz92y5KoYh63NAklrVpF04eyNd8ZJSxV4WiM6r4rWbII6yDdGVKU5tLuXd5GEPuhlGtwTErgp7TIpRN+HSpazmR1eEhO5rybbCmsvZfSPfrsr5+QoOX9DketNzCwLL+GMQzZpzw4zc88f85WPwgAXfJ+8OaOU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1734535467; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nzekv+dagWiXVVPf1hyvvkKH7M5iejRXQcHziW3FD00=; 
+	b=RfgKrBNQACeJolQNk5xmU/qwk9KE6uFeNERlUMe5Gf/6uI3mZTkToHJvXb3mANqVGpO+D9bT2Q8SB2hl999eCYk/GNIUeOIHk/2QmxMPNDrOMjSsCBmfJmKFusORTzyRU5XrDR10gSFr5JBU40nQfO4VXlLAaWjY+Hgz/ShdXZA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1734535467;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=nzekv+dagWiXVVPf1hyvvkKH7M5iejRXQcHziW3FD00=;
+	b=vO13785I6IYEIMtsK+vOxIYt4o7CTc5OBrXFMCvSyMS851ApOjSt1CHF9LXTk4zQ
+	WfLOKFOj2L7NeeuQEJxWsveS4BjffF93VEkHWRhn1Q2mxl9S688IDv5bXf35sbIk8Ll
+	sGLffp2L2fdNLh1UMZext0uL+FnHhDACGDTeVrw4=
+Message-ID: <ca0eddcb-274c-4244-a424-9726a5d61c43@apertussolutions.com>
+Date: Wed, 18 Dec 2024 10:24:22 -0500
 MIME-Version: 1.0
-Message-ID: <2f7a8a-6762e800-9b0f-1d1363a0@43215295>
-Subject: =?utf-8?q?Re=3A?= [PATCH v2 1/1] =?utf-8?q?tools=2C?=
- =?utf-8?q?_xen/scripts=3A?= clear out Python syntax warnings
-User-Agent: SOGoMail 5.11.1
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen/kconfig: allow LATE_HWDOM config for ARM
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20241217114719.2870676-1-Sergiy_Kibrik@epam.com>
+ <4e437c60-4fee-40ed-9d2a-789bac0b36d9@xen.org>
+ <63b21760-7dea-423b-a9d8-64d213c40b2c@apertussolutions.com>
+ <89e09a64-dafb-4665-adb5-be90fcc12646@epam.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <89e09a64-dafb-4665-adb5-be90fcc12646@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Wednesday, December 18, 2024 15:21 CET, Andrew Cooper <andrew.cooper=
-3@citrix.com> wrote:
+On 12/18/24 05:04, Sergiy Kibrik wrote:
+> 18.12.24 03:17, Daniel P. Smith:
+>>> On 17/12/2024 11:47, Sergiy Kibrik wrote:
+>>>> Allow to build ARM configuration with support for initializing 
+>>>> hardware domain.
+>>>> On ARM it is only possible to start hardware domain in multiboot 
+>>>> mode, so
+>>>> dom0less support is required. This is reflected by dependency on 
+>>>> DOM0LESS_BOOT
+>>>> instead of directly depending on ARM config option.
+>>
+>>
+>> Just to make sure my assumption is correct, you are looking to do a 
+>> multi-domain construction at boot time, with at least two domains. One 
+>> of those two domains is the "control domain" and one is the "hardware 
+>> domain", aka late hwdom except it's not constructed "late".
+> 
+> yes, you're correct
+> 
+>>
+>> If you want such a configuration, I would highly recommend you first 
+>> enable setting flask labels via dom0less (assuming it is not there) 
+>> before lighting this feature up. This is because the dummy/base policy 
+>> has no support for differentiating between a "control domain" and a 
+>> "hardware domain". What you really would end up with is two control 
+>> domains, with one also having control over hardware.
+>>
+> 
+> will check this out, thank you for suggestion!
 
-> On 17/12/2024 5:13 pm, Ariel Otilibili-Anieli wrote:
-> > On Tuesday, December 17, 2024 17:26 CET, Andrew Cooper <andrew.coop=
-er3@citrix.com> wrote:
-> >
-> >> On 16/12/2024 11:07 pm, Ariel Otilibili wrote:
-> >>> * since 3.12 invalid escape sequences generate SyntaxWarning
-> >>> * in the future, these invalid sequences will generate SyntaxErro=
-r
-> >>> * therefore changed syntax to raw string notation.
-> >>>
-> >>> Link: https://docs.python.org/3/whatsnew/3.12.html#other-language=
--changes
-> >>> Fixes: d8f3a67bf98 ("pygrub: further improve grub2 support")
-> >>> Fixes: dd03048708a ("xen/pygrub: grub2/grub.cfg from RHEL 7 has n=
-ew commands in menuentry")
-> >>> Fixes: d1b93ea2615 ("tools/pygrub: Make pygrub understand default=
- entry in string format")
-> >>> Fixes: 622e368758b ("Add ZFS libfsimage support patch")
-> >>> Fixes: 02b26c02c7c ("xen/scripts: add cppcheck tool to the xen-an=
-alysis.py script")
-> >>> Fixes: 56c0063f4e7 ("xen/misra: xen-analysis.py: Improve the cppc=
-heck version check")
-> >>>
-> >>> Cc: Anthony PERARD <anthony.perard@vates.tech>
-> >>> Cc: Luca Fancellu <luca.fancellu@arm.com>
-> >>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>> Signed-off-by: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr=
->
-> >> Having poked about a bit more, this is all a big mess, but these d=
-o now
-> >> work with Py3.12.
-> >>
-> >> leading \ for non-special characters are ignored in [], which is w=
-hy ...
-> >>
-> >>> ---
-> >>>  tools/pygrub/src/GrubConf.py                  | 4 ++--
-> >>>  tools/pygrub/src/pygrub                       | 6 +++---
-> >>>  xen/scripts/xen=5Fanalysis/cppcheck=5Fanalysis.py | 4 ++--
-> >>>  3 files changed, 7 insertions(+), 7 deletions(-)
-> >>>
-> >>> diff --git a/tools/pygrub/src/GrubConf.py b/tools/pygrub/src/Grub=
-Conf.py
-> >>> index 580c9628ca..904e7d5567 100644
-> >>> --- a/tools/pygrub/src/GrubConf.py
-> >>> +++ b/tools/pygrub/src/GrubConf.py
-> >>> @@ -320,7 +320,7 @@ class GrubConfigFile(=5FGrubConfigFile):
-> >>>  def grub2=5Fhandle=5Fset(arg):
-> >>>      (com,arg) =3D grub=5Fsplit(arg,2)
-> >>>      com=3D"set:" + com
-> >>> -    m =3D re.match("([\"\'])(.*)\\1", arg)
-> >>> +    m =3D re.match(r"([\"\'])(.*)\1", arg)
-> >> ... the \' works here.
-> >>
-> >> Anyway, I've checked the others and they seem to work, so I sugges=
-t
-> >> taking this roughly this form.
-> >>
-> >> Some notes about the commit message.=C2=A0 The subject ought to be=
-:
-> >>
-> >> tools: Fix syntax warnings with Python 3.12
-> >>
-> >> The text should be a regular paragraph, rather than bullet points =
-like this.
-> >>
-> >> I can fix this all on commit if you're happy.
-> > Thanks for the feedback, Andrew; I'm happy with your changes.
->=20
-> And committed.
+Apologies, one minor correction. You would get a control domain and a 
+domU with the hardware mapped into its address space, not two control 
+domains. I was not thinking about the fact that dom0less builds a single 
+dom0, if defined, and all the domain definitions are built as domU.
 
-Awesome, Andrew! Thanks to you!=20
->=20
-> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dcommitdiff;h=3D826a9e=
-b072d449cb777d71f52923e6f5f20cefbe
->=20
-> Thankyou for your patch.
->=20
-> ~Andrew
-
+v/r,
+dps
 
