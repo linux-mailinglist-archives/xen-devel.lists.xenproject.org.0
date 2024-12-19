@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685629F7530
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 08:13:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.860794.1272776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB9E9F75DC
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 08:40:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.860808.1272786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOAhs-0001Mz-Bp; Thu, 19 Dec 2024 07:12:24 +0000
+	id 1tOB8L-0004Fo-FV; Thu, 19 Dec 2024 07:39:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860794.1272776; Thu, 19 Dec 2024 07:12:24 +0000
+Received: by outflank-mailman (output) from mailman id 860808.1272786; Thu, 19 Dec 2024 07:39:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOAhs-0001KL-8d; Thu, 19 Dec 2024 07:12:24 +0000
-Received: by outflank-mailman (input) for mailman id 860794;
- Thu, 19 Dec 2024 07:12:22 +0000
+	id 1tOB8L-0004Cy-CN; Thu, 19 Dec 2024 07:39:45 +0000
+Received: by outflank-mailman (input) for mailman id 860808;
+ Thu, 19 Dec 2024 07:39:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nfYH=TM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tOAhq-0001KF-IP
- for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 07:12:22 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1tOB8K-0004Cs-1H
+ for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 07:39:44 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9662d34b-bdd8-11ef-a0d7-8be0dac302b0;
- Thu, 19 Dec 2024 08:12:20 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43618283d48so2931235e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 18 Dec 2024 23:12:20 -0800 (PST)
+ id 690cbcf2-bddc-11ef-a0d7-8be0dac302b0;
+ Thu, 19 Dec 2024 08:39:42 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-432d86a3085so2833125e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Dec 2024 23:39:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4366127c493sm8841105e9.28.2024.12.18.23.12.18
+ 5b1f17b1804b1-4364b14f241sm65262655e9.1.2024.12.18.23.39.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Dec 2024 23:12:19 -0800 (PST)
+ Wed, 18 Dec 2024 23:39:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9662d34b-bdd8-11ef-a0d7-8be0dac302b0
+X-Inumbo-ID: 690cbcf2-bddc-11ef-a0d7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734592340; x=1735197140; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734593982; x=1735198782; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gkuMAuZSIqyAgN1zpPUPQDsr+zfCXjOFW09VW94ZwaY=;
-        b=EHkrD+3m0bRRK/PeKbesJiPY6sDWtbuNMbXvdRDmazx1wvcJOyTNfMgt+z/lXwT2Bo
-         ee+pzUaR6pl58rWlj5wnKPVnwfApvjXPlxqqrXlA0oyRQZMA6SEb0m3g0GIR9b5kmlvX
-         BACIIRZod4v/Rr+IcN1B3OByW8ZNZwBbah9P85K8w4wCCayanb7icPFVxnLaMFchJlmT
-         rRSVFZJ796ZIjra1yGk8BmUGdZRFkJNz6tgP+FO0EWQ+N1PZ25Vvg9fB7kP/j6pZCAzK
-         QE8flJs9naYAtO/xslsXQA4WJjvaBbOSqy7QGoIyTi3R3425yevnCfwX2MQfthDDA6bG
-         0wGQ==
+        bh=NL/Dn4eeXHpUC+uka+GCUZoSmWhpqIRRTK/SA78XebA=;
+        b=ggOgBC2/3bvO7Qx4tKW5dV6gu3fyX5gPvOBQ6IedzD1J1oFybfD9nmorkQrHYg2InM
+         5QaocrhyIiBXxq+4x5+pVk+J6t26brqH7AC7m4H5e6GvZHNIzu81HIYpXLp7ALBNcsGj
+         5WHjOSN11bcrHQ3Zz4qvHcuA5WOtoWd0dEwUmSE+xsikAL8M8SefGAAd5s+AOWjIahWW
+         EWiuM4L/rohTtgrfPhKgKP3jhTm27jIP7ssKpunxD9jx6FlQ0rDkJrLMcvgVqgxbTyOI
+         JErTA90N4kbYbBaGYS9BBLZNg0BXkg+006a3p6ylZrwr0iehlnPxzT8k1a4V+ydtIAVf
+         w+gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734592340; x=1735197140;
+        d=1e100.net; s=20230601; t=1734593982; x=1735198782;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gkuMAuZSIqyAgN1zpPUPQDsr+zfCXjOFW09VW94ZwaY=;
-        b=vpwvL27zhK6XOx6MXHMDUacBtxMbo5OVuhlPySS9JomfVOrmvOfQxaM625B5O0TTLT
-         WHz2r6Ll7fQ2RNJIq5yp4g2QllRd7dHTBrMYTgfT4+2G6fzcIaDHvHxqrOVVCMWRu6Tz
-         pUmKw8zAkLEiaaWVIgbIfHHgtbGhmGOr3PH8wIYeNWgmVO/wNknXepfL7gZpniAUK2PJ
-         wErMd7iFJPhJdxmY1xWSEQ2bEycddQIaFg0/fmvVlv6vK0lYL/MrlkgoYPu8oduaGiQt
-         OYMEpf+z3kBUGnRgZGSbwDIeDiUI5H57t/fv+xc/T30g6KlbCcJWh2wGPj+IIb6LRqwT
-         k5gw==
-X-Forwarded-Encrypted: i=1; AJvYcCV7ZZqQ5aImbFqP/bEY1YfrwgPwkItitI/ZnC9ZQqy7IB1tx6aLCNTWLRZIreuk2g3nLSUXhm8qJsY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YweR6pejg9EiPaf0O2KKA5MyvYtuDubelB+9FR3TFpdJxG3zqh2
-	oqnrfr8i2iGZ8rP40e+g0N3MRntCSIUzEUyVwgnxHNJlHqXeJOjTeoBltYsRAA==
-X-Gm-Gg: ASbGncsAKF+zoja14onHuQOcr0k17ACU6OUOZoGL1E0rC9ggxA7G43sQm7D5PCRJ4kV
-	H3Op9IDnL10EmOpt6HeBY3fyLg2ueIFOeYys/HwGtQCAqUKt7x1KfYiUpbyypghFs0rZ+8jZxb0
-	roS0Uz0vwMHnr91lu1cTUq1AUn63f2p3DIDGFBq3wsk8BGbvjntwaHxsM6CZOK3DuyJXtHs5L4+
-	A6zBm5YYRhBRtdCFNlJWo3xlVWALzh0QCLxqkWJ0PfE2ChSSAxdvnWNQ560iX1XRCohMIdqWbO4
-	ZH6FtScqrTDWklHHa+Xyv3PZfAt33tcswtopWhX5iQ==
-X-Google-Smtp-Source: AGHT+IHtdHP3fwX5dSHFKl5Y6uCqmktGD5aMPmW5CruHMJqq40cB6k+kqq+bS+B53C1bIDa17ivwbQ==
-X-Received: by 2002:a05:600c:3b9d:b0:434:a1e7:27b0 with SMTP id 5b1f17b1804b1-4365535ddedmr42076975e9.11.1734592340030;
-        Wed, 18 Dec 2024 23:12:20 -0800 (PST)
-Message-ID: <781a2f80-9ca6-4875-9b4a-ecef7694ae2e@suse.com>
-Date: Thu, 19 Dec 2024 08:12:18 +0100
+        bh=NL/Dn4eeXHpUC+uka+GCUZoSmWhpqIRRTK/SA78XebA=;
+        b=GXDwfEplm4NS/Dv2BTl5e9CsVvzM7ol1yhZbkydOXZPz4wBFLMmnTjgdsqadX0xSmX
+         H4ZuEXtTIPM4pwzyzLkwQ6F4rhCKq6xkfY1dAIBT7u3rXuBs9lue1pdp315rtAN5cGNj
+         pZqdPnDhVTpGUIgnzuunvjhFAM083ctJci7eGFqv8n2wFf83FFKnsj2fEixUdYOizFqY
+         y385GnNtuV2Hi3bSid/iQcB3SjTB3DWOnhW+EhLVvpUO91R56LYy43UTOfX7oKcGtKRg
+         ydKDqYHCF4gbc2S5vHXggFxusftkziYEJK0sYXrEhZWUL3HiPLJTPJXmZ/r4iqulf2JI
+         IXcA==
+X-Forwarded-Encrypted: i=1; AJvYcCXueX/eJVLMuq4yZNfeEIPIxkOt2Jp1HPyyQbJRz2VCFmfOr++bZOpc6/FilpyyGvDywd5eMLBtJpo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymiHxhPUcMG+7Ihd0uC/OFSKhHrqQO/ujGGxRfqXlFZIxG6ULO
+	Qbf5k4ROak8tAA7k5BbkEKFf6BC/LiP1+GnjVgWF6VfPYKsTglBrhbGjdqJVYA==
+X-Gm-Gg: ASbGncv0vbghIAOIvRBAiojoqvSnTXE1Kkz0umGWW61IlanfiW9V4llvqUx/hM+8gRX
+	4qj60xSv/6ZFAdEk/HCkyBE+QamNehSyk/6cq9xOkBvfh8+LGkrMI+0xZ/QtM6dwuSPC+budf0D
+	JNsAi7KyV0DdfcHSk+/jvIZK5eArqr6Y/r8d8z36sxll99abArxNiDkp4qe88GbTUoCV/WbZt4K
+	Q08/oD881ixTiPF3qZkw5XoGcI7BMy7b+38GS0Za5GzTg4H1RCXdQMAIaC8po5FFRRF4SkQzsWi
+	lvINOeheEeKXaDID2KlxStHTUEfIplaY9UvqX3B6EQ==
+X-Google-Smtp-Source: AGHT+IFaeye4akgm2Hh7STO9FWOYku9hI1tCYk0/UdlNWml1bCNoFs5TmLb8ChU1IoeqZ0MdbjzH7A==
+X-Received: by 2002:a05:600c:3b88:b0:434:a315:19c with SMTP id 5b1f17b1804b1-4365c77e436mr18878925e9.3.1734593981959;
+        Wed, 18 Dec 2024 23:39:41 -0800 (PST)
+Message-ID: <f3119165-2518-4192-a2c4-c53d0fd5864b@suse.com>
+Date: Thu, 19 Dec 2024 08:39:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen/mmu: Increase MAX_CONTIG_ORDER
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Thierry Escande <thierry.escande@vates.tech>
-References: <20241204171346.458105-1-thierry.escande@vates.tech>
- <ccb28ccc-531c-4ead-9a27-76cc430f8c35@suse.com>
- <cc61bdce-47af-45ea-8ace-173adef9ae41@vates.tech>
- <cbc389e4-3b69-4681-ad66-6102b0ed0cae@suse.com>
- <8fb77778-b821-4e38-a835-54883ba14e4b@suse.com>
- <ed764807-a58b-473c-911d-b52f013f89b2@vates.tech>
- <733e95a6-dd33-422a-a25b-9f08cef5860e@suse.com>
+Subject: Re: [PATCH v3 0/3] Add stack protector
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20241211020424.401614-1-volodymyr_babchuk@epam.com>
+ <f1e86e0e-985a-41ae-a94c-979288275257@suse.com> <87pllx3gib.fsf@epam.com>
+ <fd9ea545-0eb1-4803-9d1e-df15c5805fa3@citrix.com>
+ <9056a92d-8e91-4f2d-a8f3-5cde378f6c6f@suse.com>
+ <7aea0e1d-f60c-4e82-8b63-c4e18cbcce85@suse.com>
+ <a49b3be1-4bf4-434b-8260-1d37685d9054@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,95 +127,123 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <733e95a6-dd33-422a-a25b-9f08cef5860e@suse.com>
+In-Reply-To: <a49b3be1-4bf4-434b-8260-1d37685d9054@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18.12.2024 12:24, Jürgen Groß wrote:
-> On 18.12.24 12:11, Thierry Escande wrote:
->>
->>
->> On 12/12/2024 12:09, Juergen Gross wrote:
->>> On 12.12.24 11:22, Jan Beulich wrote:
->>>> On 11.12.2024 19:20, Thierry Escande wrote:
->>>>> Hi Jan,
->>>>>
->>>>> On 09/12/2024 11:04, Jan Beulich wrote:
->>>>>> On 04.12.2024 18:14, Thierry Escande wrote:
->>>>>>> With change 9f40ec84a797 (xen/swiotlb: add alignment check for dma
->>>>>>> buffers), the driver mpt3sas fails to load because it cannot allocate
->>>>>>> its DMA pool for an allocation size of ~2,3 MBytes. This is because
->>>>>>> the
->>>>>>> alignement check added by 9f40ec84a797 fails and
->>>>>>> xen_swiotlb_alloc_coherent() ends up calling
->>>>>>> xen_create_contiguous_region() with a size order of 10 which is too
->>>>>>> high
->>>>>>> for the current max value.
->>>>>>>
->>>>>>> This patch increases the MAX_CONTIG_ORDER from 9 to 10 (4MB) to allow
->>>>>>> such allocations.
->>>>>>>
->>>>>>> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
->>>>>>> ---
->>>>>>>    arch/x86/xen/mmu_pv.c | 2 +-
->>>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
->>>>>>> index 55a4996d0c04..7f110740e1a2 100644
->>>>>>> --- a/arch/x86/xen/mmu_pv.c
->>>>>>> +++ b/arch/x86/xen/mmu_pv.c
->>>>>>> @@ -2200,7 +2200,7 @@ void __init xen_init_mmu_ops(void)
->>>>>>>    }
->>>>>>>      /* Protected by xen_reservation_lock. */
->>>>>>> -#define MAX_CONTIG_ORDER 9 /* 2MB */
->>>>>>> +#define MAX_CONTIG_ORDER 10 /* 4MB */
->>>>>>>    static unsigned long discontig_frames[1<<MAX_CONTIG_ORDER];
->>>>>>
->>>>>> While lacking respective commentary, bumping this value imo also
->>>>>> needs to
->>>>>> take into account Xen itself, at least commit-message-wise. The
->>>>>> bumping is
->>>>>> fine for Dom0 in any event. It is also fine for DomU-s with the
->>>>>> defaults
->>>>>> built into the hypervisor (orders 12 and 10 respectively for x86 and
->>>>>> Arm),
->>>>>> yet especially for Arm (and in the future PPC and RISC-V) any further
->>>>>> bumping would be less straightforward.
->>>>>
->>>>> Thanks for pointing this out. On the Xen side, CONFIG_CTLDOM_MAX_ORDER
->>>>> and CONFIG_HWDOM_MAX_ORDER seem big enough on all architectures. But I
->>>>> see CONFIG_DOMU_MAX_ORDER set to 9 (also all archs). Won't that be a
->>>>> problem for drivers trying to allocate more than that from a domU ?
+On 19.12.2024 01:20, Andrew Cooper wrote:
+> On 12/12/2024 4:52 pm, Jan Beulich wrote:
+>> On 12.12.2024 15:30, Jan Beulich wrote:
+>>> On 12.12.2024 02:17, Andrew Cooper wrote:
+>>>> (With the knowledge that this is a disputed Kconfig pattern, and will
+>>>> need rebasing), the way I want this to work is simply:
 >>>>
->>>> A driver assumes a (physical) device to be in the DomU, at which point it
->>>> is CONFIG_PTDOM_MAX_ORDER which applies (PT standing for pass-through).
+>>>> diff --git a/xen/Makefile b/xen/Makefile
+>>>> index 0de0101fd0bf..5d0a88fb3c3f 100644
+>>>> --- a/xen/Makefile
+>>>> +++ b/xen/Makefile
+>>>> @@ -434,6 +434,9 @@ endif
+>>>>  
+>>>>  ifeq ($(CONFIG_STACK_PROTECTOR),y)
+>>>>  CFLAGS += -fstack-protector
+>>>> +ifeq ($(CONFIG_X86),y)
+>>>> +CFLAGS += -mstack-protector-guard=global
+>>>> +endif
+>>>>  else
+>>>>  CFLAGS += -fno-stack-protector
+>>>>  endif
+>>>> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+>>>> index 9cdd04721afa..7951ca908b36 100644
+>>>> --- a/xen/arch/x86/Kconfig
+>>>> +++ b/xen/arch/x86/Kconfig
+>>>> @@ -28,6 +28,7 @@ config X86
+>>>>         select HAS_PCI_MSI
+>>>>         select HAS_PIRQ
+>>>>         select HAS_SCHED_GRANULARITY
+>>>> +       select HAS_STACK_PROTECTOR if
+>>>> $(cc-option,-mstack-protector-guard=global)
+>>>>         select HAS_UBSAN
+>>>>         select HAS_VMAP
+>>>>         select HAS_VPCI if HVM
 >>>>
->>>>>> However - does the driver really need this big a contiguous chunk? It
->>>>>> would seem far more desirable to me to break that up some, if possible.
->>>>>
->>>>> Since this works on bare metal I'm afraid the driver maintainer (mpt
->>>>> fusion driver) will just tell me to fix Xen.
 >>>>
->>>> Well. The bigger such allocations, the larger the risk that on systems
->>>> that have been up for a while such allocations can't be fulfilled anymore
->>>> even in the bare metal case.
+>>>>
+>>>> Sadly, it doesn't build.  I get a handful of:
+>>>>
+>>>> prelink.o: in function `cmdline_parse':
+>>>> /home/andrew/xen.git/xen/common/kernel.c:216:(.init.text+0x20f2): failed
+>>>> to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
+>>>> --no-relax
+>>>> /home/andrew/xen.git/xen/common/kernel.c:230:(.init.text+0x246f): failed
+>>>> to convert GOTPCREL relocation against '__stack_chk_guard'; relink with
+>>>> --no-relax
+>>>>
+>>>> which is more toolchain-whispering than I feel like doing tonight.
+>>> Imo the root of the problem is that the compiler doesn't itself mark
+>>> __stack_chk_guard hidden (it does so for __stack_chk_fail, albeit only for
+>>> 32-bit code), and hence finds it necessary to use @gotpcrel to access the
+>>> variable. Even if the linker managed to relax all of these, it would then
+>>> still be less efficient compared to direct RIP-relative accesses.
 >>>
->>> Yes. I don't think we should just work around this issue without having
->>> even tried to get the driver fixed. In case they refuse to change it, we
->>> can still increase MAX_CONTIG_ORDER.
+>>> I also can't see how we might be able to override the compiler's internal
+>>> declaration to mark it hidden (the same appears to be true for other items
+>>> the declares internally, like the retpoline thunks or even strcmp() et al).
+>>> Passing -fvisibility=hidden doesn't make a difference (just as another
+>>> data point).
+>>>
+>>> Playing with -fstack-protector* flavors, I observe:
+>>> - -fstack-protector causing several failures, like you observed, oddly
+>>>   enough exclusively from __init functions,
+>>> - -fstack-protector-all and -fstack-protector-strong each causing a single
+>>>   (but respectively different) failure, for apparently random non-__init
+>>>   functions.
+>>> Taking this together it very much smells like a linker issue. I'll see
+>>> about checking there further.
+>> The oddity with how many diags show up is down to internals of the linker.
+>> It processes a single input section in full (continuing over this specific
+>> type of error), but will stop processing afterwards if any such error was
+>> encountered.
 >>
->> Thanks for the feedback. I'll try to have a look at the driver if I have
->> time to do so.
+>> The issue itself is a wrong assumption in the linker: It believes that it
+>> would only ever build small-model code when encountering this kind of
+>> relocation, and when not linking a shared library or PIE. With this
+>> assumption it converts the relocation resulting from @gotpcrel to
+>> R_X86_64_32S (converting the MOV from GOT to MOV $imm), which of course
+>> overflows when later trying to actually resolve it. What I'm yet to
+>> understand is why it doesn't use R_X86_64_PC32 (also) in such a situation
+>> (it does e.g. when building a shared library).
+>>
+>> While so far I didn't try it, using --no-relax is presumably not an option,
+>> as I expect that it'll leave us with a non-empty .got. Plus I didn't even
+>> start looking into how the xen.efi linking would deal with the ELF-specific
+>> gotpcrel relocs; the concept of GOT doesn't exist in PE/COFF, after all.
+>>
+>> While the linker certainly wants fixing, I continue to think that getting
+>> the compiler side right would yield the better overall result.
 > 
-> Another thought would be to change the generic DMA allocation to not require
-> alignment based on the rounded up size, but on the largest power-of-2 chunk
-> fitting into the requested size.
+> Ok, so what precisely needs doing here?
 > 
-> I don't see why a 2.3 MB memory allocation would need to be 4 MB aligned. It
-> should be perfectly fine to align it to 2 MB only.
+> For starters, I guess __stack_chk_guard wants to respect
+> -fvisibilty=hidden and/or #pragma.  I can see why it wouldn't want to in
+> regular userspace, but we're not that.
 
-Yet that wouldn't make a difference here, would it? We'd still need a 4M
-chunk of contiguous space, just with less alignment.
+Yes, this is one of the things that may want reporting as a deficiency. Imo
+it wants generalizing though, as it's not __stack_chk_guard alone which is
+affected.
+
+I'm not, btw, convinced the #pragma ought to have any effect. One might
+consider it legitimate to have an effect if there's a subsequent re-
+declaration. Yet one might also consider such an (incompatible) re-
+declaration be an error.
+
+> There's clearly also an LD error (bad assumptions about model).
+
+I'm still in the process of collecting data for an eventual email or bug
+report to be put together. For the purposes here I meanwhile think it is
+largely irrelevant. That's because, as said, even if the linker was fixed
+in this regard, there would still be the fact that we'd end up with a non-
+empty .got (I did hack the linker enough to verify this). Whereas once the
+compiler side was sorted, the linker issue wouldn't come into play anymore.
 
 Jan
 
