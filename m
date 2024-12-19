@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFF479F7BF3
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 14:05:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.861241.1273206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 131449F7D75
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 15:59:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.861274.1273215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOGCO-00044B-MG; Thu, 19 Dec 2024 13:04:16 +0000
+	id 1tOHyy-00083M-Ak; Thu, 19 Dec 2024 14:58:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 861241.1273206; Thu, 19 Dec 2024 13:04:16 +0000
+Received: by outflank-mailman (output) from mailman id 861274.1273215; Thu, 19 Dec 2024 14:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOGCO-000411-JI; Thu, 19 Dec 2024 13:04:16 +0000
-Received: by outflank-mailman (input) for mailman id 861241;
- Thu, 19 Dec 2024 13:04:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tOHyy-00081w-82; Thu, 19 Dec 2024 14:58:32 +0000
+Received: by outflank-mailman (input) for mailman id 861274;
+ Thu, 19 Dec 2024 14:58:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=muAN=TM=bounce.vates.tech=bounce-md_30504962.676419ca.v1-fb5187bdd4024b7cb86f6582bd936f4a@srs-se1.protection.inumbo.net>)
- id 1tOGCM-00040v-P1
- for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 13:04:14 +0000
-Received: from mail132-21.atl131.mandrillapp.com
- (mail132-21.atl131.mandrillapp.com [198.2.132.21])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd8d9f71-be09-11ef-99a3-01e77a169b0f;
- Thu, 19 Dec 2024 14:04:12 +0100 (CET)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-21.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4YDW2y4fstz1XLFNg
- for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 13:04:10 +0000 (GMT)
+ <SRS0=C+Gw=TM=bounce.vates.tech=bounce-md_30504962.67643493.v1-e1d13329625f43c4b6e01dc0f7a977a2@srs-se1.protection.inumbo.net>)
+ id 1tOHyx-00081o-BW
+ for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 14:58:31 +0000
+Received: from mail133-1.atl131.mandrillapp.com
+ (mail133-1.atl131.mandrillapp.com [198.2.133.1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b478ca21-be19-11ef-a0d8-8be0dac302b0;
+ Thu, 19 Dec 2024 15:58:29 +0100 (CET)
+Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail133-1.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4YDYZq3vvczBsTyWJ
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 14:58:27 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- fb5187bdd4024b7cb86f6582bd936f4a; Thu, 19 Dec 2024 13:04:10 +0000
+ e1d13329625f43c4b6e01dc0f7a977a2; Thu, 19 Dec 2024 14:58:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,87 +43,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd8d9f71-be09-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: b478ca21-be19-11ef-a0d8-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1734613450; x=1734873950;
-	bh=nVJ8VvNsU8HHIJgIwu49gG2Hx+R/KL9Zo6XJNXdqpS0=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	s=mte1; t=1734620307; x=1734880807;
+	bh=LIcZ4kS6QwSkVcmgp4WEGadBISGt1CCixH2sTLJXo7c=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=PSj5NwCmHCeIMlml+QT4FesIB84RdbJodbT4RgPjlT87Y8KX1yTNOODz0E9b0H9l0
-	 /RJFv/8z03xEuQB4G4B7tcoQK8uv2L7uM2EDwSVhgzzir4IKbIo88o1YuBEHh6A6+N
-	 jW+ABVLZaKzZxSqRM1PwGp3hR7xvlRKBUwovM8USJBqpNg0Pw8zUhqyAhAQkLdWh10
-	 YL94+4OT26mYGk4L76YDNeCKlwdFH0e0Bp751OR1gRIjMKJPvCdYnPKmdrc4hGZYN7
-	 U9iiJNvaMsSsSzefLmib8z0aA8SZGzlXL5CQ8W+24VUypbw1NB2ZA5U0y4mGIjMR3D
-	 xV/05OWMj1YcA==
+	b=XyYfI2fHjYxxdBprm8ihIH9UoGEb+iog4OfFrJRMUZg/dVvTsZPe0L2iCu0BSV7FA
+	 YUbGALNgG3JH3j+HxDfWVL/ipffTZAhtsHFuGBBVzw3X/3iwCWGqmEA+e2CvGGXJA9
+	 u6Y4U9Hn/uZcT04DtsAzx22g9IQ3HsZMIBM4+7iwWgSG6A6g2SWXs3NBcMrZGdx+ah
+	 hKTdo8PsecKjzbdasOjBL4I1t2kxOuO53rpSf5A1uvtz06qVUcPsdFYJgh4IGGF60T
+	 cvdjqVzb1I/FXYLJo1jDdZY5kwOQUzty2SW568PpLQkfTn9viNPl0ScE/igahL17ZL
+	 Z1PhtApSPGiMA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1734613450; x=1734873950; i=teddy.astie@vates.tech;
-	bh=nVJ8VvNsU8HHIJgIwu49gG2Hx+R/KL9Zo6XJNXdqpS0=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	t=1734620307; x=1734880807; i=anthony.perard@vates.tech;
+	bh=LIcZ4kS6QwSkVcmgp4WEGadBISGt1CCixH2sTLJXo7c=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=d8VAzqIgJqykjWpKq+u1FC4XfNiz1IBkF6sUWRF/Mcg5ZpZw+EV6898Bo6C2oYMap
-	 WUM1nAVPI0WzKNb2EJT8Us9831msR3ljYbECAeN8JJqgXgaBzx+hkC2/BNKTZBlvwp
-	 TfxE8GECHzW5jTI9ax2Ns+kecgRDPogrwtQgclqt6FCvxDVin3/cXLWBaJQY7rcVWW
-	 VEiyj/Y+JU4+EAJK9n0S6F3D7M1/WQmTq+ZXg5oOw8j2m8p2V5SdLIk4p0sEAcgdvG
-	 dBqadk9rljiIR65BJrmYBsKRylz0Cy/0RajwM6LYRrQp5vKZBnLbuNtI33E2XphthC
-	 FTN3UG+BTk5cw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3]=20x86/hvm:=20Use=20constants=20for=20x86=20modes?=
+	b=bZplh9ECLJGE2Sg0aULtohZBIcCpSffTQhrgE4JoSK70w4FLGdYaQE6z2cjdq7ftH
+	 PEectnuN3IXfF9OsbiCERiyUZ184GViGYqy/qhSGgiKTRux8NGF9UfU6UVt3DxFywI
+	 dcqEn2/oI2ZBcf/cOXdpYxZYwyAaVnrwaF65yoy6UvTEcQAfsZ3E3JL5pleE+GQIJ2
+	 OtOWYRE8kkuqkSLHhDeaIaWkGhaX8qLPoI1E0lsAU6+4uNRS1tdGEJIUylcwAzmsbR
+	 lViI2fWMSL3jRcC7RqBGDbsKBS+r9UNDO9PZtdDxhHC911p8wfusz3DK56/gAk9CrE
+	 c2MFaGGndJPOQ==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20tools/xg:=20increase=20LZMA=5FBLOCK=5FSIZE=20for=20uncompressing=20the=20kernel?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1734613447781
-Message-Id: <2b9c9b05-a582-4e70-8246-fde4b37bc669@vates.tech>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: "Jan Beulich" <JBeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-References: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech> <20241218170820.364253-1-andrew.cooper3@citrix.com> <2d6ce1c9-dac4-4b00-9157-07ab6987232f@vates.tech> <c0d6b3ad-b8b6-4346-b7ee-aef520a7ea27@citrix.com>
-In-Reply-To: <c0d6b3ad-b8b6-4346-b7ee-aef520a7ea27@citrix.com>
+X-Bm-Transport-Timestamp: 1734620306094
+To: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Cc: "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org, "Juergen Gross" <jgross@suse.com>
+Message-Id: <Z2Q0jDWWNnPrVnaf@l14>
+References: <20241008213225.728922-1-marmarek@invisiblethingslab.com> <Z2MNQTDM3N22ceWy@macbook.local>
+In-Reply-To: <Z2MNQTDM3N22ceWy@macbook.local>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.fb5187bdd4024b7cb86f6582bd936f4a?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e1d13329625f43c4b6e01dc0f7a977a2?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20241219:md
-Date: Thu, 19 Dec 2024 13:04:10 +0000
+Date: Thu, 19 Dec 2024 14:58:27 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Le 19/12/2024 =C3=A0 12:35, Andrew Cooper a =C3=A9crit=C2=A0:
-> On 19/12/2024 10:46 am, Teddy Astie wrote:
->> Hello,
->>
->> Le 18/12/2024 =C3=A0 18:08, Andrew Cooper a =C3=A9crit=C2=A0:
->>> From: Teddy Astie <teddy.astie@vates.tech>
->>>
->>> In many places of x86 HVM code, constants integer are used to indicate =
-in what mode is
->>> running the CPU (real, vm86, 16-bits, 32-bits, 64-bits). However, these=
- constants are
->>> are written directly as integer which hides the actual meaning of these=
- modes.
->>>
->>> This patch introduces X86_MODE_* macros and replace those occurences wi=
-th it.
->>>
->>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Acked-by: Teddy Astie <teddy.astie@vates.tech>
+On Wed, Dec 18, 2024 at 06:58:25PM +0100, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Oct 08, 2024 at 11:32:23PM +0200, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > Linux 6.12-rc2 fails to decompress with the current 128MiB, contrary to
+> > the code comment. It results in a failure like this:
+> > 
+> >     domainbuilder: detail: xc_dom_kernel_file: filename=3D"/var/lib/qub=
+es/vm-kernels/6.12-rc2-1.1.fc37/vmlinuz"
+> >     domainbuilder: detail: xc_dom_malloc_filemap    : 12104 kB
+> >     domainbuilder: detail: xc_dom_module_file: filename=3D"/var/lib/qub=
+es/vm-kernels/6.12-rc2-1.1.fc37/initramfs"
+> >     domainbuilder: detail: xc_dom_malloc_filemap    : 7711 kB
+> >     domainbuilder: detail: xc_dom_boot_xen_init: ver 4.19, caps xen-3.0=
+-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64
+> >     domainbuilder: detail: xc_dom_parse_image: called
+> >     domainbuilder: detail: xc_dom_find_loader: trying multiboot-binary =
+loader ...
+> >     domainbuilder: detail: loader probe failed
+> >     domainbuilder: detail: xc_dom_find_loader: trying HVM-generic loade=
+r ...
+> >     domainbuilder: detail: loader probe failed
+> >     domainbuilder: detail: xc_dom_find_loader: trying Linux bzImage loa=
+der ...
+> >     domainbuilder: detail: _xc_try_lzma_decode: XZ decompression error:=
+ Memory usage limit reached
+> >     xc: error: panic: xg_dom_bzimageloader.c:761: xc_dom_probe_bzimage_=
+kernel unable to XZ decompress kernel: Invalid kernel
+> >     domainbuilder: detail: loader probe failed
+> >     domainbuilder: detail: xc_dom_find_loader: trying ELF-generic loade=
+r ...
+> >     domainbuilder: detail: loader probe failed
+> >     xc: error: panic: xg_dom_core.c:689: xc_dom_find_loader: no loader =
+found: Invalid kernel
+> >     libxl: error: libxl_dom.c:566:libxl__build_dom: xc_dom_parse_image =
+failed
+> > 
+> > The important part: XZ decompression error: Memory usage limit reached
+> > 
+> > This looks to be related to the following change in Linux:
+> > 8653c909922743bceb4800e5cc26087208c9e0e6 ("xz: use 128 MiB dictionary a=
+nd force single-threaded mode")
+> > 
+> > Fix this by increasing the block size to 256MiB. And remove the
+> > misleading comment (from lack of better ideas).
+> > 
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
 > 
-> Thanks, but as you're not a maintainer of this code, Ack doesn't carry
-> any weight.=C2=A0 Reviewed-by OTOH would, if you're happy with that adjus=
-tment?
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 > 
-> ~Andrew
+> I assumed I already RB this, but it seems not.
+> 
+> Could we get an Ack from the tools or libs maintainer for this to go
+> in?  It's not the best solution, but we need to get this sorted in
+> time for 4.20, and backport to stable branches.
 
-Yes, I meant Reviewed-by in my Acked-by.
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 
-So,
+Thanks,
 
-Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
+-- 
 
-Teddy
-
-
-Teddy Astie | Vates XCP-ng Developer
+ | Vates 
 
 XCP-ng & Xen Orchestra - Vates solutions
 
