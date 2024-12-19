@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 383269F7798
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 09:41:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.860890.1272869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6284F9F77B2
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 09:49:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.860899.1272880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOC61-0000ld-NS; Thu, 19 Dec 2024 08:41:25 +0000
+	id 1tOCDu-0001P7-Fy; Thu, 19 Dec 2024 08:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860890.1272869; Thu, 19 Dec 2024 08:41:25 +0000
+Received: by outflank-mailman (output) from mailman id 860899.1272880; Thu, 19 Dec 2024 08:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOC61-0000jl-Kx; Thu, 19 Dec 2024 08:41:25 +0000
-Received: by outflank-mailman (input) for mailman id 860890;
- Thu, 19 Dec 2024 08:41:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tOCDu-0001Mg-D8; Thu, 19 Dec 2024 08:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 860899;
+ Thu, 19 Dec 2024 08:49:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nfYH=TM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tOC60-0000jf-5j
- for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 08:41:24 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0588d904-bde5-11ef-99a3-01e77a169b0f;
- Thu, 19 Dec 2024 09:41:21 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3862d16b4f5so345715f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 00:41:21 -0800 (PST)
+ id 1tOCDs-0001Ma-V3
+ for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 08:49:32 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 29f6b1b0-bde6-11ef-a0d7-8be0dac302b0;
+ Thu, 19 Dec 2024 09:49:31 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-385e3621518so240599f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 00:49:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c833899sm1010308f8f.42.2024.12.19.00.41.20
+ ffacd0b85a97d-38a1c832e74sm1016182f8f.30.2024.12.19.00.49.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Dec 2024 00:41:20 -0800 (PST)
+ Thu, 19 Dec 2024 00:49:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0588d904-bde5-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 29f6b1b0-bde6-11ef-a0d7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734597681; x=1735202481; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1734598171; x=1735202971; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6k/WBCkl7iCln5WNVAn5Y+/eeL+jo8CzgxPWBCK+wx0=;
-        b=WoxSgaPJj8ZrH9nork8dE5/OtZsY085gks2m+v+ffM7MakZRQp8vF8UeMrYa0R/+8H
-         ZWJE12wuPd9LbZ7FxWW7QcWTk33xspWZtU6XsOoXHUMUIW6V+9xMayyynZvAWxRY41/u
-         VK/o5FCzev33k8Hs/XG9U3Eu7fUkXT+Mu1tOB6MTrO011vbHC/REG3ziBY7QoRyziqlO
-         waukmJ7g1XB/Lgx+K5nGHuFA2LxlX62UJEYjfia0NoPf68PXgGVMWm2OrjkQOvLYN2tv
-         qunDH8oMKA3TDjcZl7RItWusGZxUjYICxOZ1VzhaufC2wbGJ+oMuy5uLl4nU9n9h+kyD
-         Ck4g==
+        bh=pZha6CRepn+kvo6dN/6fOPku6KxKZxMF2UiC4SlhuBE=;
+        b=QRbpdXBZ034XpDShQ8qD6wRUfPo3eCO26Ig4pwW5GzVR39dFr6DQWa0qIP1TGgYf+S
+         oe3EZuPfC0NVDOe0PJmQGDTUenUBezNYwTceGcFsxEc+u1+i9i1sGjtFY75j6MckTb6R
+         mxAOY8jc9ies7Gb4+LsYGhgVM7V6OLIqXkmKPmbzROjRjrsPA5ali+hVTPzuCerBz5wc
+         g5Vd4wzf6yLu4aC0IWyrD8Lb8kkbdLZ8uGjykHeWe6b1M/8bnQJsct54rabbW8Ycp8IP
+         ahs9tSGIxNuD2/3F4Dy47u5YCfrXv3IFHqQl3KgmMPxO0vrCeWxq7NBdYFNYoSk6+wCQ
+         Eqyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734597681; x=1735202481;
+        d=1e100.net; s=20230601; t=1734598171; x=1735202971;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6k/WBCkl7iCln5WNVAn5Y+/eeL+jo8CzgxPWBCK+wx0=;
-        b=p+G+3g5H9VBBIJW7ZIopUL9YQ2khsM7qh7rI6axXQzWyUNgrvqvu+pvAtUAAcpt2sL
-         sWKAwaMnpdBELYx8feQNEhqOLyyeRODxo3iMnWCZPb5oWBGZFRMwv3vn7kfm8FSPaZG2
-         zoOYh2sSigpp2TMzNfGbtxNAmItTKEb6Kyo8MM9lhoOZ1mwJsw7IZ9GSWz62EX9zGfSM
-         fZuHj2fd8I2PMIcSz5d4dx2mPmW2b91bt0orkcChWB0STOa2gV3yC5b1M4T8ulasQDAM
-         eRPJja/yLkvlj2r5q8DduZGok/FEnQM0nURVubbwhv8/cGtDfwqCR+x2dz8BCRB2MAS+
-         /Ozg==
-X-Forwarded-Encrypted: i=1; AJvYcCX8YrtJQdrvsa9mBNMEF0n/BbWG16ucfqPKlE77rq6qrc9sZhBz/PJixpICmSGi2nceGfWZ6PF8Rbg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyQs+XhcQUAnHrNiJIQCcX9PrAkLuU3sjFA0EsIGbFxqkzfBSTR
-	NLCgpJE8G0UA/XLxOD2204vL38AI+6if9EQlhvb5mwbRxXaEiH08stpZikZW/A==
-X-Gm-Gg: ASbGncsY8APQYA76+cAT367tovuxlxN7JouPLWUipd899Jxk2YkY8AMbj8CBFpN2XMK
-	fSsID8pJbb9NkS27oa7u+M3usQVRU/Fge8VLj9JPiW8CkGmCaRyAl6t0pUFLqgs2JgzL0B3Hx6F
-	uZ4tKtLNBroVFE1N3VrMXyq69YKdyYsrakbin3s/2EeVnMLMae8wNaOORN1rL4P57gJyWhr2hXG
-	v+SJkjELDRp05Omnu38dLDLs1TJR6H4qBpVcLcVVvnIeHOR2fnE5JJmfz2yiV9axUYhAStacEEA
-	jdshm4Q0RZbMFWaBvwA/mb1cBatGkBeITwfE+G7eCQ==
-X-Google-Smtp-Source: AGHT+IHCiHf1/bPsT/BhRkoJk8oRl8joVnBCEud3zqc9X1KHn+PXDdDlgrJN1Gne4wds4QzlSt6qpg==
-X-Received: by 2002:a5d:64e6:0:b0:385:e3e7:547b with SMTP id ffacd0b85a97d-38a1a237d53mr2230865f8f.25.1734597681081;
-        Thu, 19 Dec 2024 00:41:21 -0800 (PST)
-Message-ID: <224c0fde-a8c2-4d44-b1bb-48e7ed6daee5@suse.com>
-Date: Thu, 19 Dec 2024 09:41:19 +0100
+        bh=pZha6CRepn+kvo6dN/6fOPku6KxKZxMF2UiC4SlhuBE=;
+        b=cHQWZTWDijQ8/+oPsBTAL28hmEy+CZYaO9jfnoxF9ecnxwXp1k98/GrrAjmPeXh/Ko
+         fhyNNns8OE5ie/qmUk2LoXLcJ7fSNhkVnZIWtKvXUBQKn/juOyY84EqcYKylclEqrFv0
+         p4lEgKOPu2iCr08mqoanxiAWQmFdxKzPruRNW3XBwWgQHKP9gyanAPaww3s1llKIBoxX
+         qh97rYyGF4CrxZxp3bYT17Io+/1T7QxB+DQkyQjJbbyZdIkSwYCkt1z9qUdHNOQpOkBb
+         sVevzfsG2zjqkHhKlKNljtH7X+cZzgCDid2neIVPyLd5RQ95+PXGNX9i8lvAua8dEyQI
+         OxzA==
+X-Forwarded-Encrypted: i=1; AJvYcCU/n1HYbv5n6BtFmazRfGqrWEGSs8L9ModPB7z5Om5vshYvXtixYlmX5fz8xod39NjV0ZergWpr3NA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxa8NJzUbSOITA2y8tsxuSrJGXYo6sORAygMc6F6Ljs34VSbWxp
+	5IA1b8k143nM88VHwJk4mYvEfR7i7BuU3DmqZiLopcsPdZmBajHIvSDJP0Teow==
+X-Gm-Gg: ASbGnctsW3B5qBsoRhkmpQrVOXS3rwFQs7St5tgy/Tj2McsNlI7I4x+eSEeUodoKup+
+	zyInZ/3sSct2L1HQJUioLZ1AD/z9MDf59df7svmEJcSi0tKmdeUd9DN+Irw6pwgpLor5qG3QnCb
+	ffX+nRRHooKFEFejIzrjOAe3gNaRdL5iEOJmq1XwUHs4ojpHCEx+B99220ISYW7lFJYM6LkM3Dc
+	Cd65VoeJBAQbF5x1c+NBy1t71hSscBcN2V1iJWLpNDrz+VKf6w/wWLU64SvhwGcP2H6yRnvIRrH
+	g0SF/Tzas2eFkfuGbqfdiTzR4NGxolwnnq+9NEqeug==
+X-Google-Smtp-Source: AGHT+IE9VvPbXowUlGMR0NuKfIyu5U90knTcEPj1g1FEgcr7KAnezv9SNTJDeYwSZ42tdjNExquWRQ==
+X-Received: by 2002:a05:6000:389:b0:382:5aae:87c7 with SMTP id ffacd0b85a97d-388e4d7a897mr6913011f8f.31.1734598171005;
+        Thu, 19 Dec 2024 00:49:31 -0800 (PST)
+Message-ID: <d312a46a-238a-4fa3-84d7-4836c610c8ea@suse.com>
+Date: Thu, 19 Dec 2024 09:49:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tools/libxg: Don't gunzip the guests initrd
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Michal Orzel <michal.orzel@amd.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240904123121.3837140-1-andrew.cooper3@citrix.com>
- <20241218185453.367465-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] misra: add deviation for MISRA C Rule R11.8.
+To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <7e4f836606d72769a80299c5451f6f7241471d8a.1734530952.git.alessandro.zucchelli@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,34 +121,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241218185453.367465-1-andrew.cooper3@citrix.com>
+In-Reply-To: <7e4f836606d72769a80299c5451f6f7241471d8a.1734530952.git.alessandro.zucchelli@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.12.2024 19:54, Andrew Cooper wrote:
-> Decompressing the kernel is necessary to inspect the ELF notes, but the
-> dombuilder will gunzip() secondary modules too.  Specifically gunzip(), no
-> other decompression algorithms.
+On 18.12.2024 15:25, Alessandro Zucchelli wrote:
+> Rule 11.8 states as following: "A cast shall not remove any `const' or
+> `volatile' qualification from the type pointed to by a pointer".
 > 
-> This may have been necessary in the dim and distant past, but it is broken
-> today.  Linux specifically supports concatenating CPIO fragments of differing
-> compressions, and any attempt to interpret it with a single algorithm may
-> corrupt later parts.
+> Function `__hvm_copy' in `xen/arch/x86/hvm/hvm.c' is a double-use
+> function, where the parameter needs to not be const because it can be
+> set for write or not. As it was decided a new const-only function will
+> lead to more developer confusion than it's worth, this violation is
+> addressed by deviating the function.
+> All cases of casting away const-ness are accompanied with a comment
+> explaining why it is safe given the other flags passed in; such comment is used
+> by the deviation in order to match the appropriate function call.
 > 
-> This was an unexpected discovery while trying to test Xen's gunzip()
-> logic (Xen as a PVH guest, with a gzipped XTF kernel as dom0).
+> No functional change.
 > 
-> Intepreting secondary modules *should* be left as an exersize to the guest.
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> ---
+> As this patch introduces a deviation for service MC3A2.R11.8, it
+> depends on the following patch and shall not be applied prior to its
+> application.
+> https://lore.kernel.org/xen-devel/cf13be4779f15620e94b99b3b91f9cb040319989.1733826952.git.alessandro.zucchelli@bugseng.com/T/#u
 
-Nit: "Interpreting" and "exercise" and ...
+This wasn't applicable anymore at the time you posted the patch, I suppose?
 
-> This reduces work done in dom0.
-> 
-> This is not expected to cause a practical different to guests these days.
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -393,6 +393,12 @@ Fixing this violation would require to increase code complexity and lower readab
+>  -config=MC3R1.R11.8,reports+={safe,"any_area(any_loc(any_exp(macro(^container_of$))))"}
+>  -doc_end
+>  
+> +-doc_begin="Function __hvm_copy in xen/arch/x86/hvm/hvm.c is a double-use
+> +function, where the parameter needs to not be const because it can be set for
+> +write or not"
+> +-config=MC3A2.R11.8,reports+={safe,"any_area(any_loc(text(^.*__hvm_copy.*HVMCOPY_to_guest doesn't modify.*$)))"}
 
-... "difference"?
+This is probably good enough for now, yet still: It constrains re-formatting
+that we may want to do on such function calls. Personally I'd consider it
+entirely unexpected if I ended up (re)introducing a violation just by re-
+formatting one of those function calls to
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+    return __hvm_copy(
+               (void *)buf /* HVMCOPY_to_guest doesn't modify */,
+               addr, size, current, HVMCOPY_to_guest | HVMCOPY_linear,
+               PFEC_page_present | PFEC_write_access | pfec, pfinfo);
+
+yet aiui the pattern above would have this effect (I don't think .* matches
+newlines; instead I expect such regex-es to be applied to individual lines
+only). Thoughts anyone?
 
 Jan
 
