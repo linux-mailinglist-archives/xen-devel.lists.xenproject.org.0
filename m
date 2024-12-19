@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 482919F7F76
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 17:23:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.861363.1273290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D18E19F801C
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 17:41:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.861375.1273300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOJIu-0006qX-NV; Thu, 19 Dec 2024 16:23:12 +0000
+	id 1tOJaC-0001SZ-72; Thu, 19 Dec 2024 16:41:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 861363.1273290; Thu, 19 Dec 2024 16:23:12 +0000
+Received: by outflank-mailman (output) from mailman id 861375.1273300; Thu, 19 Dec 2024 16:41:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOJIu-0006oj-Jh; Thu, 19 Dec 2024 16:23:12 +0000
-Received: by outflank-mailman (input) for mailman id 861363;
- Thu, 19 Dec 2024 16:23:10 +0000
+	id 1tOJaC-0001Pw-3l; Thu, 19 Dec 2024 16:41:04 +0000
+Received: by outflank-mailman (input) for mailman id 861375;
+ Thu, 19 Dec 2024 16:41:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i+GM=TM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tOJIs-0006od-Br
- for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 16:23:10 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88d7b751-be25-11ef-a0d8-8be0dac302b0;
- Thu, 19 Dec 2024 17:23:09 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-385e0e224cbso578848f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 08:23:09 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c832ec4sm1876678f8f.26.2024.12.19.08.23.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Dec 2024 08:23:08 -0800 (PST)
+ <SRS0=qB0g=TM=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tOJaB-0001Pq-2G
+ for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 16:41:03 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 070a9ea8-be28-11ef-a0d8-8be0dac302b0;
+ Thu, 19 Dec 2024 17:41:01 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1734626451692938.1409941269775;
+ Thu, 19 Dec 2024 08:40:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +38,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88d7b751-be25-11ef-a0d8-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734625388; x=1735230188; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2IR0BSZUAuTEhCbr7Bx0oDiQpGrG11L/9HjPZJOLtuQ=;
-        b=BOojNmIPwfYWWPuWJpPZkFxVwtUqVuSrxxj2SqLJjHL4pxLcr9ev0kV+1DtSMOcTR6
-         cDqSXeFF8lGbLXuy1J+seDSopVa0n2gBVjzrxwu0uZ/gM8lj/qdqvrnttIf7lBnqIMEe
-         z/1AMjtBgMQXuxDGOqsxJmeSKikAqfbCw8UVk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734625388; x=1735230188;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2IR0BSZUAuTEhCbr7Bx0oDiQpGrG11L/9HjPZJOLtuQ=;
-        b=LXgH4QOo6CgvFQorPDt4fLaVsKvisA9Bwi19eg9bkXNW5KSLq/49HiUElgOc34gRiW
-         y8qmJXwbNokWbNjtlkC6vE+Jpbtot+9+lVO0ZB7R3pq/xrAuJWLn8oTxCFLim0wcHtt3
-         9KiRpv8o+vGOz8LidnKDOYcqFqMukZBk2wQx774pTMcVHiFskuu4YiW7uXbS0OXh7lOh
-         QO/ix8qzZLlCVVbFcL2VGfRi9xz/Pk37d7Ceo9lr9fVj/y+R+Ajn4w/OaFR7YIgunLX3
-         nwmhstE72I8Jsn7AQxTI8PjDjUQ1vI4gKScbQrXJPGHb78vq0GekpenpjD628EwEyq5+
-         NxrA==
-X-Forwarded-Encrypted: i=1; AJvYcCWVPVm4+EtzWpmMgKtej99zMMrk3anwlTW6g5kBAoWHRkZeVQLMjbojdbxFHJHX6MkCG0eDGKlQqZs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyWsZcMxElcKK1T2Ye62poGjxBc7SY8JTxw/L1zGsdfKpD8NsIF
-	RG6aHrg8p9V/gJsVLGCKs7dwlS6mlPoLEYYTS//ldl0dOBjalDqp8cu+a8k7EYg=
-X-Gm-Gg: ASbGncuFCZN+ziKO3B4dw1QhOtByznpG2LLSglildntgUEs18cftQrREJ35oY9AI79c
-	dbDHUnXD8kbiNq8qh8YPPfJM46rQArg+q1P7jbZCvfPdQ4V+acNyXJmncl5MrRxKQBdsZw9ZeJI
-	qt7ASBbxxtXWexdDrsiRo42KeLLqmBnG0HnBVU50N3zf+wblAcYlq+FtnCtlwPlfea5AZpx6qjN
-	x5j2HWp9sbXZOo9CZzmoBgnZqGkuWKtkZCANq5eH0wfj86EBXvFL7vGm+tfdJUWdifi3E9QH65X
-	PkWWLcpBLHczeva2YSke
-X-Google-Smtp-Source: AGHT+IHU0VfoQ168XKixlo/NYDusxhd/+X6lg7FlEV1AY6H0fkNGzs194RCbVik1g4IqmlF+EqlrAA==
-X-Received: by 2002:a5d:6d81:0:b0:388:caf4:e909 with SMTP id ffacd0b85a97d-38a19b15e97mr4242643f8f.25.1734625388606;
-        Thu, 19 Dec 2024 08:23:08 -0800 (PST)
-Message-ID: <40950813-58d1-4237-b3ae-96111b1b51ac@citrix.com>
-Date: Thu, 19 Dec 2024 16:23:07 +0000
+X-Inumbo-ID: 070a9ea8-be28-11ef-a0d8-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1734626454; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=U5wZMZ0g/SdwI6yvxHda0QHqJbSglH/zuv6+Q1qmiNz5rtp8uQXotyvg5NB67cr/v8ZcHPMfJUtMlSH1Qm7juM1REvwDoI3nShCgwuGvzjqcIwrsvZYYbV+GBCw8fVURnBuDkMog1kgnEpfGU7l/VScm/7KF74lwtwmNdqt2Xdw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1734626454; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Lxg3CIzptPf8GHQ8oRlHduu2/DUaDOMWS4If8u1uJHA=; 
+	b=cYcyucBv9vDG+FJNimq0cBpV87jt7UvhG7PY6601J1pjerTfMj2HZ9Bpdk7MzugYrFwkIYWApm63wvaVryH1UIMwKmA8PY2li+Z//OsEEZj0YB86Mwu7ztOAct2YAsbi+seugUP9K0oj6SzWYPOngh2Ka2EurgQFtFEC52+rFlc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1734626454;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Lxg3CIzptPf8GHQ8oRlHduu2/DUaDOMWS4If8u1uJHA=;
+	b=Pjcpd4aU5GLtJeRZBIaAGrVfMORh2VFHgInOku9nLJY8biFvSl5zjzfD1Tha4FfJ
+	Q0/K07NBWixkI3YYFDglE1TbW/LO+r7pBMk8bq4g0YVJQHfw02MoF2zJmsTFmqjkxyl
+	jobeOPBp9eHX5wip/W7Q64vppB+cHKjqfnvP3axE=
+Message-ID: <1dbb232f-2a8d-4152-a9ba-215841307fb6@apertussolutions.com>
+Date: Thu, 19 Dec 2024 11:40:49 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] ioreq: fix check for
- CONFIG_ARCH_VCPU_IOREQ_COMPLETION
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241219111326.3031000-1-Sergiy_Kibrik@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241219111326.3031000-1-Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 11/15] x86/hyperlaunch: add domain id parsing to domain
+ config
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
+ <20241123182044.30687-12-dpsmith@apertussolutions.com>
+ <8a492a4d-cc9c-4756-8fb9-721626c295a6@suse.com>
+ <f6646a6e-58b5-474f-ba6f-fb9e0243f5b2@apertussolutions.com>
+Content-Language: en-US
+In-Reply-To: <f6646a6e-58b5-474f-ba6f-fb9e0243f5b2@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 19/12/2024 11:13 am, Sergiy Kibrik wrote:
-> It should be CONFIG_ARCH_VCPU_IOREQ_COMPLETION (as in Kconfig) and not
-> misspelled CONFIG_VCPU_ARCH_IOREQ_COMPLETION.
-> Bug introduced by:
->
-> 979cfdd3e5 ioreq: do not build arch_vcpu_ioreq_completion() for non-VMX configurations
->
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+On 12/11/24 11:21, Daniel P. Smith wrote:
+> On 12/2/24 07:02, Jan Beulich wrote:
+>> On 23.11.2024 19:20, Daniel P. Smith wrote:
+>>> --- a/xen/arch/x86/domain_builder/fdt.h
+>>> +++ b/xen/arch/x86/domain_builder/fdt.h
+>>> @@ -27,6 +27,24 @@ static inline int __init fdt_cell_as_u64(const 
+>>> fdt32_t *cell, uint64_t *val)
+>>>       return 0;
+>>>   }
+>>> +static inline int __init fdt_prop_as_u32(
+>>> +    const struct fdt_property *prop, uint32_t *val)
+>>> +{
+>>> +    if ( !prop || fdt32_to_cpu(prop->len) < sizeof(u32) )
+>>> +        return -EINVAL;
+>>> +
+>>> +    return fdt_cell_as_u32((fdt32_t *)prop->data, val);
+>>> +}
+>>> +
+>>> +static inline bool __init match_fdt_property(
+>>> +    const void *fdt, const struct fdt_property *prop, const char *s)
+>>> +{
+>>> +    int slen, len = strlen(s);
+>>
+>> Plain int isn't quite appropriate for strlen()'s return. It doesn't 
+>> strictly
+>> need to be size_t, but it should be at least unsigned int.
+> 
+> Ack.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I wanted to reply back on this one before posting the next version. By 
+implementing Jason's recommendation to unroll this function, the 
+strlen() call goes away and slen becomes name_len. But name_len remains 
+plain int to align with the fdt_get_string() parameter type.
+
+v/r,
+dps
 
