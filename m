@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 112659F774D
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 09:32:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.860871.1272849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 418079F776A
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 09:35:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.860881.1272860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOBxD-0006jE-Jb; Thu, 19 Dec 2024 08:32:19 +0000
+	id 1tOC0C-0007MU-4z; Thu, 19 Dec 2024 08:35:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 860871.1272849; Thu, 19 Dec 2024 08:32:19 +0000
+Received: by outflank-mailman (output) from mailman id 860881.1272860; Thu, 19 Dec 2024 08:35:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOBxD-0006hG-Gf; Thu, 19 Dec 2024 08:32:19 +0000
-Received: by outflank-mailman (input) for mailman id 860871;
- Thu, 19 Dec 2024 08:32:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nfYH=TM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tOBxC-0006hA-RN
- for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 08:32:18 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0fb8d79-bde3-11ef-99a3-01e77a169b0f;
- Thu, 19 Dec 2024 09:32:16 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-436326dcb1cso3310505e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 00:32:16 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c84840asm985818f8f.61.2024.12.19.00.32.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Dec 2024 00:32:15 -0800 (PST)
+	id 1tOC0C-0007K0-1S; Thu, 19 Dec 2024 08:35:24 +0000
+Received: by outflank-mailman (input) for mailman id 860881;
+ Thu, 19 Dec 2024 08:35:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QrUY=TM=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tOC0A-0007Ju-H8
+ for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 08:35:22 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20629.outbound.protection.outlook.com
+ [2a01:111:f403:2416::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e1dceda-bde4-11ef-a0d7-8be0dac302b0;
+ Thu, 19 Dec 2024 09:35:21 +0100 (CET)
+Received: from BN0PR02CA0027.namprd02.prod.outlook.com (2603:10b6:408:e4::32)
+ by CY8PR12MB8216.namprd12.prod.outlook.com (2603:10b6:930:78::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.21; Thu, 19 Dec
+ 2024 08:35:15 +0000
+Received: from BN2PEPF000055E0.namprd21.prod.outlook.com
+ (2603:10b6:408:e4:cafe::e3) by BN0PR02CA0027.outlook.office365.com
+ (2603:10b6:408:e4::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.23 via Frontend Transport; Thu,
+ 19 Dec 2024 08:35:15 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN2PEPF000055E0.mail.protection.outlook.com (10.167.245.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8293.6 via Frontend Transport; Thu, 19 Dec 2024 08:35:15 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Dec
+ 2024 02:35:14 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 19 Dec 2024 02:35:13 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +59,351 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0fb8d79-bde3-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1734597136; x=1735201936; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VCDnzvCnk8Cw0+AvSfr/bEeJ0BUJl6r1LDMdgz9q02A=;
-        b=R6nNfkG+zwd7qTlpFv1cWkGDiBTM0zeVN4ELr9VKjgHRHMLitVzUK2D4KvWOgOAD0v
-         SRiXR7e6Ws9Uyuy1/ZrzWJJrMbNMpTDTcZDRnA2A05OGVifk3O6uOx6ptJEzgxckNNpi
-         PmE0ETZuWFzzmCQpBDcRUeGJpbWgrRhd+StSFzyvJBGutP9DjBmJSsVQ1hExtm51XZhK
-         yAV/HfqIc7Xw67PXJNHXaQU5sYHZFgwWqfMgyd6t1TVsOyFRcxzzwNXX3qC5fzpIlP/c
-         mlELSIH8GhCJI7Pt2HUMhriG0ccE+nQ4jIcaBKMkRE2sKpKP3qtRUoxegHPvMYwS1NAE
-         MZkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734597136; x=1735201936;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VCDnzvCnk8Cw0+AvSfr/bEeJ0BUJl6r1LDMdgz9q02A=;
-        b=eJRx4oD+ePqca7LcP8Nv1IPOmRO1ZeK0z/SNviZptsi1nfd+EOkGsWxHHtDxPL5lgr
-         8HdPKnerN488KPl0ZmBHowVSje90r3Vv7BrKcYKV/caRjKnm2vDs/xU7Nx9OVNTpCUML
-         07FKCUaWlwulsa5V1pk+LdKWiwhMRuIW8BlbRVKP3Y0xoKAIyHAkSAIrQb9E9WQENWT4
-         9qIbYdGIJQgH28/pcc4UO0RABSelAi/A2kGMUF7EEHiueNMMFwTeTnILVsbeVVCIGHZX
-         6SFn0JcrcX4bNp5N5fv/c+fVIrwxIPHmK308jpgTnRsV735nIQzSKd14a4FDEEHYrm3M
-         zFtA==
-X-Forwarded-Encrypted: i=1; AJvYcCUOT9buoTeF7+Y7/6lEDLwOSUmctVVWXer87noUx78Lpd91jcUcyw0bMqhXJLkfUkwjuTjHl6PDsxc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzrsj2+fuwoVIl50WjbSBeO8v4xdSmpt6JOooaKAkKjmHK/ATcW
-	MI18CsuPiwEWc1pirjQPOGMQBlGs8B3K23gjLRCl6fpXxtDM5fJ43lWVc0lZAQ==
-X-Gm-Gg: ASbGnctrrPAS1SEVEpj4cVzntUaBbrR6CigHJ+7NoaJYu7JBhgtjxf3d5FiIsjM5dXI
-	4ItwPnHWoaltGVK5sev0fZw/zxe0s4Qz4PYP0MhaxyDcZkXNsXxNnrA/acCOCdA4zfdBMm8lVd2
-	sEpVKm4E1xJN/Pxjw29tj1KKNu2edS29z5jNQw+KsdR8EakGhUmvmjAqgmzNKDdckuz+J3Rt+2p
-	2IfatshNLBns8JcwKigA+BvTmr6cbBZbX2ed/FTI+XdAwj8wuvbLJ0C1/ZkaKOtKzZ5uiK+q7rI
-	tD80C5b8KqKNLH+RYcBZE6VPBDvbdqc9xKkxNSAVpQ==
-X-Google-Smtp-Source: AGHT+IF8Y7DizhDr559L8TfXVQpLUmGFnq4E+QGHys2eH6hMkW5tFzczCO4XUM44YYPEqlB6QJsVLg==
-X-Received: by 2002:a5d:588b:0:b0:385:f195:27f with SMTP id ffacd0b85a97d-38a19adee81mr2395669f8f.5.1734597136268;
-        Thu, 19 Dec 2024 00:32:16 -0800 (PST)
-Message-ID: <7587b503-b2ca-4476-8dc9-e9683d4ca5f0@suse.com>
-Date: Thu, 19 Dec 2024 09:32:14 +0100
+X-Inumbo-ID: 2e1dceda-bde4-11ef-a0d7-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SEzPW8oj0xkJAK6mCQemGJeyECyXX20k8zPcvDOsC4mqRVk3u7mSsjFmPMbrrkuu++XEBtJOMuO+X7LPh7hAbYFuGRmqb+OiuxOmW6QQS6qBCAynogbJdNAs94nNic5DtDoIow4UqsQSSLAlf5xFbVdTqsqCYQEpfWg7TzEy0YT7+HccC9336ymUkRvJ57XXFMZtFjd5ftsJ8OEDiR9CDoMa2GmBxJEJjuLNTG2fZ5m2IHy6n4PFPJ11ahKvfYIdr/sDBFRRCyOLGT3i9fPYTfCD51DMZj7inlXrVuQ4XW2ZmqAUy+rJYcZl9OXeJpPHfV8QiZgoXmH7xDul7AUFxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hAHrhjbA8ZxstVIvrjFVnAQVN2BasfbOEDxo27On6Lg=;
+ b=idnMo1f8u/tskpTyLQRiMZh9C0dCfRXvBYjP2je9dBgtv47kR5n+pVb66RkwbI9cG1qfMLrJgEoY/khpNPbogbESwyOk8qZEJXHO6rFBeH7wnYUZbWjwyZkCVQwa0MLhQAyd000gZSHMMK6QO1XHu4e/1fnxSQ+RudatNkdKn4HfIWRT4J2GGkLxLu+xF9or82Ifee1rhwRr8LgqCsYAABz8odUXXc9emMFJyKDVoXeJIm4uwmclX6VevgadRIP0dTaSXbvpK6RxYn6sWK9RkU+LlveHQtJtATCd3FE8bi0TMoQzw0xV6c1N0WdneESWSoklOeDGOaun100IpgmtUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hAHrhjbA8ZxstVIvrjFVnAQVN2BasfbOEDxo27On6Lg=;
+ b=zkW7P4WmvTCEgzw3i9LqXYTgR3zaoQMpr0HV/CGwcE2O9FO+KDsvaEX52Nu3vbZtLefWGqhaRWjEFPJP6kVUJZKEAt8V6PWvPWNDqvqwupWRPrslyMv+xndMin3Niau+3fpUyliiOtgMocniRUXKW4ynnUOUVOPntx8m0UKllKY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <87aad119-a55e-4683-824c-606f681af60c@amd.com>
+Date: Thu, 19 Dec 2024 09:35:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] xen/common: Remove dead code
-To: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20241218233659.573195-2-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241218233659.573195-3-Ariel.Otilibili-Anieli@eurecom.fr>
+Subject: Re: [PATCH v3 1/6] xen/arm: firmware: Add SCMI over SMC calls
+ handling layer
+To: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <S32@nxp.com>, Andrei Cherechesu <andrei.cherechesu@nxp.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+References: <20241218101142.1552618-1-andrei.cherechesu@oss.nxp.com>
+ <20241218101142.1552618-2-andrei.cherechesu@oss.nxp.com>
+ <60d4ac08-c5e8-4a38-bfc9-2b73e6cf5ec7@amd.com>
+ <b8ae100a-4ee9-4351-9f60-0cd961810af2@oss.nxp.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241218233659.573195-3-Ariel.Otilibili-Anieli@eurecom.fr>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <b8ae100a-4ee9-4351-9f60-0cd961810af2@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|CY8PR12MB8216:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa6c8940-fbe7-4954-23bd-08dd20080fdd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WUgrWVNUclREcSthd0dlWFBXWjNIb3B1WndTaEh4Smk3a29QbGpweUwxNkxG?=
+ =?utf-8?B?NWhVUG9ZMGErNm1SVXc4d3RkREFycys2UGdrRWxTM1hjU21pVlA2TUJHdVRE?=
+ =?utf-8?B?cTBCMU1FYXhvc0w0bWpiTjQyOGxzc3FqNHQ3REpGU1Q3cng0cllqanFUZHA5?=
+ =?utf-8?B?MWxhWG1Pdko3TnRTR0QvM1lkOFlHZmZpUnZhc1l5c0UvUytHYzlPSTF6NXNa?=
+ =?utf-8?B?b1dZbHVSUit0ZDl4TGxjdkVQeWUxaHRmOEhBZnZiRkI5b09NU0JwTGhyeUNj?=
+ =?utf-8?B?c245ZkYyUUJnVmhoNzg5TkVzMWtEb0xNTUNjaTloN3duNEVkenJYenJLeVkr?=
+ =?utf-8?B?dVU5aHlqL1VXL1kvandUS25PYTkrS2VlRS91ZEdaSnF4N1NWQ3Y1QkFiZGhj?=
+ =?utf-8?B?aWpnWWU3QUZLZjk2SE5MZkVvY052T2g1WU05cjFBbHNwR0kvT2FvM1RzZjZt?=
+ =?utf-8?B?ZWxjdDRKcW81dXFoZXlWeGJ6RjNuVXRFcWJxL2ZMbGlnRFBjRGJZSFQwdmNl?=
+ =?utf-8?B?cW5TUGpsVVUvTVZoYXZDMkhVS3gyK2pvbVZnemkvcllGRmhBelNxU01pUVA0?=
+ =?utf-8?B?NmpXaGtZWENCRCtZNllWelVzVWNydXI4cDFnK1Via2NCa24weWNNR1FHNFR5?=
+ =?utf-8?B?Q3EwMGR5NE8yQTFoYkxwYkI4V0pqUXlwMVl4dFM5anlnNFZFQXk1eUdhbUpn?=
+ =?utf-8?B?TTZ6SS8vWXV5WCtSUnh2SEdNeU9PeUJIT2tUZVpaajMzS3E2TTNoRGFPeDhm?=
+ =?utf-8?B?c3lpZWs2eGE3MTFPZDZManNTMkp5TUFNak10NUFiU1V3MUxnSlFtUkl6cDZS?=
+ =?utf-8?B?eTNDS1NneUxseU9mRHc3RjkwV3pxN2VhbnBNcERqeElEZHpEZjJVdmkrMkpo?=
+ =?utf-8?B?VjFTeVFMU0F5b2FMZDdLOGw2emtsSEdaUldyRUowWDJ3Lzk5VjQ2aGZOL0pI?=
+ =?utf-8?B?dVBCN1dFbGtsdFlkWElTenlYSEZQWmVsQ2xRaWdUNlh0UlYyRTduQ0dlTmRB?=
+ =?utf-8?B?QTRJKzVNaTQrVWIvOXdIbmwrZUVha0t4ME5ZSTNON0JtTTFUU3RRSDVDSmhm?=
+ =?utf-8?B?QStXbkEwVEg0QVlZR3A2dGhuV0Foaml3MnlMYUtlbE5NaEN1LzVOSmtZWHd3?=
+ =?utf-8?B?OFhOamthbzYrL2JXZXNJYjQ2MnhMOERPdlNhWnVaZDNQSzcyZmxuS1BEa3FF?=
+ =?utf-8?B?eEFnaHg5VWVDR2VIRzh3bks1bDZYQmp5bTRRRS9Manl4TkZEdGZOcHZVUUN5?=
+ =?utf-8?B?ckVkaEdVSlBmMTVyc25HWEZMa2xLaFhPMWFQMHJGQXRqRVdibm5yU21GNURo?=
+ =?utf-8?B?R3RYbGxQblZteGlHSTRCOUE3UVJpOFUwYjBTN3lDci9JdzFSM01XQVJobUpU?=
+ =?utf-8?B?UThHL01EajZXOTdDQStEOWNHS0JrKzRhNlNEL21qTE1vYkZwRXhwYk93dTBR?=
+ =?utf-8?B?T0tkNWRXUEw1bzd3eWlWNTdQSjd3QkFFY1BtUjJJalQ0QlJnZlJ5MmZ6UlF4?=
+ =?utf-8?B?ZE02VjFrK0lCM1diK29QRGFtRkVtV2FtSHVXNzBjZGt2ZThuN3dVenF2MXFJ?=
+ =?utf-8?B?S2k5RWhYeEhaY1dKNGFROVBsaFRkSWE1dmVTK1Q1NzJrN05sRkh1Ty9EOGFp?=
+ =?utf-8?B?VlBSS2owcHlYbksxNkN1MlZKOTJYYnoxSnYvNjhJeGdUQlVZazY0dm5JemVi?=
+ =?utf-8?B?NjBXbHA0NkpZYXRWZGkvcUMwam9wU2RVU2huYWNOaWpzcTVTbmRqbE9Pai9O?=
+ =?utf-8?B?Y0tQMm1MbDNCTk53d211dUdOQ0ZXL3NkOEVnem5MRmZEZUxxUWFpMWlQUkcv?=
+ =?utf-8?B?QmJzWDR0NDY5UXJPK1lFZ2E2ZkF2ZG9aVWNOWDUxM3hra1BQaVptcWhZQnQw?=
+ =?utf-8?B?ZEZHYno2bkQ5NnlJVDZjME1QdDNUbVlYNThZelBTODB4clF6VENIbmZhV3hJ?=
+ =?utf-8?B?eTBuaXdlOFhRTzVtcmlETk4zY2dDRzU3QnNYQ2JJb1BYVktvZFNGNDhVbEx0?=
+ =?utf-8?Q?sw1H5CdOqgz7tFZlU8mRJLAcm4HNl8=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2024 08:35:15.3831
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa6c8940-fbe7-4954-23bd-08dd20080fdd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055E0.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8216
 
-On 19.12.2024 00:34, Ariel Otilibili wrote:
-> The if-statement tests `res` is non-zero; meaning the case zero is never reached.
+
+
+On 18/12/2024 15:58, Andrei Cherechesu wrote:
 > 
-> Coverity-ID: 1055253
-> Fixes: e2b1ebf4de ("x86: Support booting a bzImage format domain 0 kernel.")
-> Signed-off-by: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
+> 
+> Hi Michal,
+> 
+> Thank you for the review.
+> 
+> On 18/12/2024 16:26, Michal Orzel wrote:
+>>
+>> On 18/12/2024 11:11, Andrei Cherechesu (OSS) wrote:
+>>>
+>>> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+>>>
+>>> Introduce the SCMI-SMC layer to have some basic degree of
+>>> awareness about SCMI calls that are based on the ARM System
+>>> Control and Management Interface (SCMI) specification (DEN0056E).
+>>>
+>>> The SCMI specification includes various protocols for managing
+>>> system-level resources, such as: clocks, pins, reset, system power,
+>>> power domains, performance domains, etc. The clients are named
+>>> "SCMI agents" and the server is named "SCMI platform".
+>>>
+>>> Only support the shared-memory based transport with SMCs as
+>>> the doorbell mechanism for notifying the platform. Also, this
+>>> implementation only handles the "arm,scmi-smc" compatible,
+>>> requiring the following properties:
+>>>         - "arm,smc-id" (unique SMC ID)
+>>>         - "shmem" (one or more phandles pointing to shmem zones
+>>>         for each channel)
+>>>
+>>> The initialization is done as initcall, since we need
+>>> SMCs, and PSCI should already probe EL3 FW for SMCCC support.
+>>> If no "arm,scmi-smc" compatible node is found in the host
+>>> DT, the initialization fails silently, as it's not mandatory.
+>>> Otherwise, we get the 'arm,smc-id' DT property from the node,
+>>> to know the SCMI SMC ID we handle. The 'shmem' memory ranges
+>>> are not validated, as the SMC calls are only passed through
+>>> to EL3 FW if coming from the hardware domain.
+>>>
+>>> Create a new 'firmware' folder to keep the SCMI code separate
+>>> from the generic ARM code.
+>>>
+>>> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>> ---
+>>>  xen/arch/arm/Kconfig                         |   2 +
+>>>  xen/arch/arm/Makefile                        |   1 +
+>>>  xen/arch/arm/firmware/Kconfig                |  13 ++
+>>>  xen/arch/arm/firmware/Makefile               |   1 +
+>>>  xen/arch/arm/firmware/scmi-smc.c             | 166 +++++++++++++++++++
+>>>  xen/arch/arm/include/asm/firmware/scmi-smc.h |  46 +++++
+>>>  6 files changed, 229 insertions(+)
+>>>  create mode 100644 xen/arch/arm/firmware/Kconfig
+>>>  create mode 100644 xen/arch/arm/firmware/Makefile
+>>>  create mode 100644 xen/arch/arm/firmware/scmi-smc.c
+>>>  create mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
+>>>
+>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>> index 604aba4996..23dc7162a7 100644
+>>> --- a/xen/arch/arm/Kconfig
+>>> +++ b/xen/arch/arm/Kconfig
+>>> @@ -271,6 +271,8 @@ config PARTIAL_EMULATION
+>>>           not been emulated to their complete functionality. Enabling this might
+>>>           result in unwanted/non-spec compliant behavior.
+>>>
+>>> +source "arch/arm/firmware/Kconfig"
+>>> +
+>>>  endmenu
+>>>
+>>>  menu "ARM errata workaround via the alternative framework"
+>>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+>>> index e4ad1ce851..8c696c2011 100644
+>>> --- a/xen/arch/arm/Makefile
+>>> +++ b/xen/arch/arm/Makefile
+>>> @@ -6,6 +6,7 @@ obj-$(CONFIG_HAS_PCI) += pci/
+>>>  ifneq ($(CONFIG_NO_PLAT),y)
+>>>  obj-y += platforms/
+>>>  endif
+>>> +obj-y += firmware/
+>>>  obj-$(CONFIG_TEE) += tee/
+>>>  obj-$(CONFIG_HAS_VPCI) += vpci.o
+>>>
+>>> diff --git a/xen/arch/arm/firmware/Kconfig b/xen/arch/arm/firmware/Kconfig
+>>> new file mode 100644
+>>> index 0000000000..817da745fd
+>>> --- /dev/null
+>>> +++ b/xen/arch/arm/firmware/Kconfig
+>>> @@ -0,0 +1,13 @@
+>>> +menu "Firmware Drivers"
+>>> +
+>>> +config SCMI_SMC
+>>> +       bool "Forward SCMI over SMC calls from hwdom to EL3 firmware"
+>>> +       default y
+>>> +       help
+>>> +         This option enables basic awareness for SCMI calls using SMC as
+>>> +         doorbell mechanism and Shared Memory for transport ("arm,scmi-smc"
+>>> +         compatible only). The value of "arm,smc-id" DT property from SCMI
+>>> +         firmware node is used to trap and forward corresponding SCMI SMCs
+>>> +         to firmware running at EL3, for calls coming from the hardware domain.
+>>> +
+>>> +endmenu
+>>> diff --git a/xen/arch/arm/firmware/Makefile b/xen/arch/arm/firmware/Makefile
+>>> new file mode 100644
+>>> index 0000000000..a5e4542666
+>>> --- /dev/null
+>>> +++ b/xen/arch/arm/firmware/Makefile
+>>> @@ -0,0 +1 @@
+>>> +obj-$(CONFIG_SCMI_SMC) += scmi-smc.o
+>>> diff --git a/xen/arch/arm/firmware/scmi-smc.c b/xen/arch/arm/firmware/scmi-smc.c
+>>> new file mode 100644
+>>> index 0000000000..62657308d6
+>>> --- /dev/null
+>>> +++ b/xen/arch/arm/firmware/scmi-smc.c
+>>> @@ -0,0 +1,166 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>>> +/*
+>>> + * xen/arch/arm/firmware/scmi-smc.c
+>>> + *
+>>> + * ARM System Control and Management Interface (SCMI) over SMC
+>>> + * Generic handling layer
+>>> + *
+>>> + * Andrei Cherechesu <andrei.cherechesu@nxp.com>
+>>> + * Copyright 2024 NXP
+>>> + */
+>>> +
+>>> +#include <xen/acpi.h>
+>>> +#include <xen/device_tree.h>
+>>> +#include <xen/errno.h>
+>>> +#include <xen/init.h>
+>>> +#include <xen/sched.h>
+>>> +#include <xen/types.h>
+>>> +
+>>> +#include <asm/smccc.h>
+>>> +#include <asm/firmware/scmi-smc.h>
+>>> +
+>>> +#define SCMI_SMC_ID_PROP   "arm,smc-id"
+>>> +
+>>> +static bool __ro_after_init scmi_support;
+>> I don't understand the need for this variable. IMO it's useless, given that in next patch you do:
+>>
+>> ...
+>> if ( scmi_is_enabled() )
+>>     return scmi_handle_smc(regs);
+>>
+>> return false;
+>>
+>> which could simply be changed to:
+>> ...
+>> return scmi_handle_smc(regs);
+>>
+>> and the variable, functions for it, etc. could be removed which would simplify the code.
+>>
+>> [...]
+> 
+> Well, I agree that the code would maybe be simpler, but
+> that means we would call `scmi_handle_smc()` both when
+> SCMI-SMC layer is initialized and when it is not.
+> 
+> That then means that if `scmi_handle_smc()` returns false,
+> we won't know in the caller if the SCMI-SMC layer is not
+> initialized at all or if it is initialized, but the SMC
+> request is invalid (it does not have the SMC ID we expect).
+> Do we need to, though?
+Let me explain more:
+scmi_handle_smc() is called from within handle_sip() that can result true/false.
+If SCMI is disabled, we need to return false. If SCMI is enabled but request is
+invalid we need to return false as well. If SCMI is enabled but not initialized
+we also need to return false. I suggest to drop scmi_is_enabled() as exported
+function and only use scmi_handle_smc() as global like I did in my example.
+Now, this solves the part where SCMI is disabled since you have a stub returning
+false and also the part where SCMI request is invalid. However, this does not
+solve the part where SCMI is enabled but layer not initialized. To fix it, you
+simply need to check inside scmi_handle_smc() if it's initialized. That's much
+simpler than requiring to use another global function which is not nice.
 
-I certainly agree with the change, especially if Coverity complains about it.
-In fact I'd expect Eclair to complain too, for this being unreachable or dead
-code (I'm never sure which one's which in their nomenclature). The Misra
-violation addressed may therefore want mentioning, too.
+Diff below:
+diff --git a/xen/arch/arm/firmware/scmi-smc.c b/xen/arch/arm/firmware/scmi-smc.c
+index 62657308d61d..b3f34bdbb89b 100644
+--- a/xen/arch/arm/firmware/scmi-smc.c
++++ b/xen/arch/arm/firmware/scmi-smc.c
+@@ -24,12 +24,6 @@
+ static bool __ro_after_init scmi_support;
+ static uint32_t __ro_after_init scmi_smc_id;
 
-However, the commit referenced says "xen/common/inflate.c is taken unmodified
-from Linux v2.6.28." Therefore the preferred approach would be to correct the
-original first, then pull in that patch to our tree. (And yes, the code is
-still as was even in 6.13-rc3.)
+-/* Check if SCMI layer correctly initialized and can be used. */
+-bool scmi_is_enabled(void)
+-{
+-    return scmi_support;
+-}
+-
+ /*
+  * Check if provided SMC Function Identifier matches the one known by the SCMI
+  * layer, as read from DT prop 'arm,smc-id' during initialiation.
+@@ -52,6 +46,9 @@ bool scmi_handle_smc(struct cpu_user_regs *regs)
+     uint32_t fid = (uint32_t)get_user_reg(regs, 0);
+     struct arm_smccc_res res;
 
-Jan
++    if ( !scmi_support )
++        return false;
++
+     if ( !scmi_is_valid_smc_id(fid) )
+         return false;
+
+diff --git a/xen/arch/arm/include/asm/firmware/scmi-smc.h b/xen/arch/arm/include/asm/firmware/scmi-smc.h
+index 57cc9eef8676..58730a8037c5 100644
+--- a/xen/arch/arm/include/asm/firmware/scmi-smc.h
++++ b/xen/arch/arm/include/asm/firmware/scmi-smc.h
+@@ -17,16 +17,10 @@
+
+ #ifdef CONFIG_SCMI_SMC
+
+-bool scmi_is_enabled(void);
+ bool scmi_handle_smc(struct cpu_user_regs *regs);
+
+ #else
+
+-static inline bool scmi_is_enabled(void)
+-{
+-    return false;
+-}
+-
+ static inline bool scmi_handle_smc(struct cpu_user_regs *regs)
+ {
+     return false;
+diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
+index c4d225c45cd3..62d8117a120c 100644
+--- a/xen/arch/arm/vsmc.c
++++ b/xen/arch/arm/vsmc.c
+@@ -232,10 +232,7 @@ static bool handle_sip(struct cpu_user_regs *regs)
+     if ( platform_smc(regs) )
+         return true;
+
+-    if ( scmi_is_enabled() )
+-        return scmi_handle_smc(regs);
+-
+-    return false;
++    return scmi_handle_smc(regs);
+ }
+
+ /*
+
+~Michal
+
 
