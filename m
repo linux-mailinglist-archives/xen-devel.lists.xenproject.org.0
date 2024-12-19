@@ -2,36 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 172269F79CC
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 11:47:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.861062.1273056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4799F79EC
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2024 11:57:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.861072.1273066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOE2m-00013z-Uu; Thu, 19 Dec 2024 10:46:12 +0000
+	id 1tOEDB-0002mv-Tf; Thu, 19 Dec 2024 10:56:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 861062.1273056; Thu, 19 Dec 2024 10:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 861072.1273066; Thu, 19 Dec 2024 10:56:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOE2m-00011P-Ri; Thu, 19 Dec 2024 10:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 861062;
- Thu, 19 Dec 2024 10:46:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tOEDB-0002l3-Py; Thu, 19 Dec 2024 10:56:57 +0000
+Received: by outflank-mailman (input) for mailman id 861072;
+ Thu, 19 Dec 2024 10:56:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cp+K=TM=bounce.vates.tech=bounce-md_30504962.6763f969.v1-e156fa47f682462a99a7ede69434c242@srs-se1.protection.inumbo.net>)
- id 1tOE2l-00011F-Mu
- for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 10:46:11 +0000
-Received: from mail179-16.suw41.mandrillapp.com
- (mail179-16.suw41.mandrillapp.com [198.2.179.16])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 708206bb-bdf6-11ef-99a3-01e77a169b0f;
- Thu, 19 Dec 2024 11:46:02 +0100 (CET)
-Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail179-16.suw41.mandrillapp.com (Mailchimp) with ESMTP id
- 4YDRzY10nhzB5prnf
- for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 10:46:01 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- e156fa47f682462a99a7ede69434c242; Thu, 19 Dec 2024 10:46:01 +0000
+ <SRS0=uI9H=TM=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1tOEDA-0002kx-Fs
+ for xen-devel@lists.xenproject.org; Thu, 19 Dec 2024 10:56:56 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2417::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f55cb79f-bdf7-11ef-a0d7-8be0dac302b0;
+ Thu, 19 Dec 2024 11:56:54 +0100 (CET)
+Received: from MW4PR04CA0238.namprd04.prod.outlook.com (2603:10b6:303:87::33)
+ by BY5PR12MB4276.namprd12.prod.outlook.com (2603:10b6:a03:20f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.19; Thu, 19 Dec
+ 2024 10:56:48 +0000
+Received: from SJ5PEPF000001F4.namprd05.prod.outlook.com
+ (2603:10b6:303:87:cafe::15) by MW4PR04CA0238.outlook.office365.com
+ (2603:10b6:303:87::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.25 via Frontend Transport; Thu,
+ 19 Dec 2024 10:56:48 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001F4.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8251.15 via Frontend Transport; Thu, 19 Dec 2024 10:56:47 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Dec
+ 2024 04:56:46 -0600
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Thu, 19 Dec 2024 04:56:45 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,375 +59,502 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 708206bb-bdf6-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1734605161; x=1734865661;
-	bh=02prROR4Wfm0ZSL770XYX4j/qzAOV4DcYYIBPMP7+T8=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=SwZbz1ejMMCvTNVDABLDt2RK56733EY5J/oTGZ+TbJzmaClZ29nAOm5Q65Q/u3dPX
-	 yg64Vob3DoHgoFbGxinis1yvPczE3lintkFS/Tg+YrWxK8gAZE39Kx6F1zrr1LF7Rl
-	 PZ+xoU0H/i/8wiOjazfjhHAbEtxGd6RPOZXa/tZR89mL/49fd1DSSuUKlrRTIksvdw
-	 8UtnKcN4zw7LOsdWD9N8wa+ZY1LupYc5SVPDyjfQoHn+sF+pA5qfoX9ehAUKf1ah7D
-	 Th1GGp7ZDeSAauS9toeIM5qFhfU13m4JHu4m9HlJgWLkLX6flcmGqDHHHJ5klzNu0g
-	 VFuK7X3renLqg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1734605161; x=1734865661; i=teddy.astie@vates.tech;
-	bh=02prROR4Wfm0ZSL770XYX4j/qzAOV4DcYYIBPMP7+T8=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=zQYO2XFe9J71bkKdXq5UmnTL7FeGUhq77qZEqFZa0QdjRVEak1ndDOhcqLlc3rqgD
-	 7AC+hHCFB63U6EWAUaKFLxJMnehf5JpryWYbUnkQSG++w/704ret2VlHFSuiKyVyqe
-	 U/3lJtxNtufdDNl/EV46VhE4CDfCXOvCzl2XSShWCjV6X7zUKExFSGsuPFaxDdimG0
-	 VAtdO6MOE8l3iUr+9UHBCj+AJFM0DhHBVUQRRRl2bP4C5YDAbxW0I2Ar4gi+29VHkO
-	 Fvg1v5DhafmlbgsvLT1tx00+3RCClHoTIuQfU5c2/DsFxW041nQauZAhb5zIX23of7
-	 TnpWPGDZUt8RA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3]=20x86/hvm:=20Use=20constants=20for=20x86=20modes?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1734605160027
-Message-Id: <2d6ce1c9-dac4-4b00-9157-07ab6987232f@vates.tech>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: "Jan Beulich" <JBeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-References: <bf7146a8ccbf05ddc74d4f451a5fa586309b9a50.1733132729.git.teddy.astie@vates.tech> <20241218170820.364253-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20241218170820.364253-1-andrew.cooper3@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e156fa47f682462a99a7ede69434c242?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20241219:md
-Date: Thu, 19 Dec 2024 10:46:01 +0000
+X-Inumbo-ID: f55cb79f-bdf7-11ef-a0d7-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xupPMTkmreP5rxAsVhb4AeTlY6s1gNhaMFDa0ClPwM3caUI1S6z9vnC5MjecVEtstPJvmM6SJQHYmiyVw8sFiS2F8AEd1KCadDv6SCLi0NK30q2sEpYEY9tp0VJJfy1e60Kgi8GDT81kiUVwaFqlCB9p9esFdMXMcJrXKz7CR4jkZIPj6XdVRkkAkqZxOUHW2qRy04YLTnegXv/zo8M9HZgBubqYdYItkuj74XXkmW0QUR7Bs/hO64NCzIv2Vi7s8L+m5Blo1toM31nXSLaI53+YQKFML+9z5nAgSZzaCB2szy0p6jQ9eHiRPv8WtrhwZSlXmA1D88xJlp3tPZ4QSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UHxm5uHc+E/fYv0O9Kf7RJsADfa13CFCzAn9OV8Y1NI=;
+ b=xFBduoTa3NTclCZZnVw3iJ9WMX/+fMDDP+X6W0pRGyfm7c8RHv1IJAcNticaebSXSH4VSm1Cby4dbw+UNL66gESKHRgZirMFq7b8AJcKxIHyrGpgruzn2jlJdXSAun50Yx2raZXfZLykhkHu4W2e8G9DkU0gR0vnoI7OorKSxX+QJBLO+k1r2PPFXD9zZDt5qEW2Vdb2o9tc/upWmo6qynDNlExre3/oQ/PRBEMDC25xeWcz0KIjXqrWE8d8UOMB8HGzGDbUzQ5tjhrVpm4QXKQxNmjtJYPY/nkGI5h5fEP3SfL3+O0wVWL8eHijzCOwO2jc7Vb+6kC2wqzEE5afUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UHxm5uHc+E/fYv0O9Kf7RJsADfa13CFCzAn9OV8Y1NI=;
+ b=uW7URXeVgpdYQoFg/llVtkPiCK+PUO9sat22HcIkxChsPWvuDO8Z4r4TzgjvskAdBwqkz/j+jVlJH51OQE41+XE0OesEDCOFawGQ1bOvMaUk5rpuWX5BcPqrfcXoT6JhukOsNGBNNgr/KHhaGcjnwDy/99Kb113Yrz/g979mldA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Ayan
+ Kumar Halder" <ayan.kumar.halder@amd.com>, Artem Mygaiev
+	<artem_mygaiev@epam.com>, Jason Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH v3] docs: fusa: Add dom0less domain configuration requirements
+Date: Thu, 19 Dec 2024 10:56:40 +0000
+Message-ID: <20241219105640.3294591-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F4:EE_|BY5PR12MB4276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7721285f-fbee-4560-3393-08dd201bd5cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?RfzB07/iBCULhiqzhghkJIohKTZyGU/Nbxu7qXOnpYFFGkKARCSzjKNbuUua?=
+ =?us-ascii?Q?KR+KiTYzWzU/qrKAAGyW/PN/3s//+wiVINpDBKUI7EgNom+EpAt3D+kPhvBe?=
+ =?us-ascii?Q?m+yMA8E+BFkmpmoiJsKoKZrdoZM1pR3cD8dH5jpswyLGVQxjI6a0+boLO/y+?=
+ =?us-ascii?Q?5osT2mB6WhJhog/S7MJaIa0clO6Csq5Fw7fdP27vvrZey+bIPrQzVuN5rg8I?=
+ =?us-ascii?Q?agUlwL1bq6XZ1LdaDnqtei/zOd7dz+W262zz2R3H6vPq5aRKR9Vymg16Flqp?=
+ =?us-ascii?Q?TBBClyic5GRRnmfqy4PeI7LrEVWvCz0LUdLrpH1IYRACKZr7YHmtj8qTXDQ+?=
+ =?us-ascii?Q?gw3SKkmZevX49yPk0IJyQfvErmhDMuSmj+I0MTOYw72OjI7qmt2WdobEAU4q?=
+ =?us-ascii?Q?DvGrbiiB1zo3pWRbJcBJngER4UgI0FOqZHL5Xoh2LHB6JSFC+LlvELeerp7W?=
+ =?us-ascii?Q?MmObhDcfZ9I26spbdBvPtJ5Omx/owM/ALSXR9Kt4M25NVp4kc+1Jv+hlC6cc?=
+ =?us-ascii?Q?iZNSE+i/Hout1BclIiDx3MsJjXYbrf93ytVJv4HT2hWYHm264FCRRDr7WGL+?=
+ =?us-ascii?Q?VnXJjCKiebvZtfbg9N36TRUWErp5OU1vwkqYXS3NDSXvtaW+TSSdDhHddgT3?=
+ =?us-ascii?Q?wYV1R1NPyc4akwB2/1aKNK7O5xDnCAAEdQxfvK0Ay7klrFLujJoD/OPDkvhF?=
+ =?us-ascii?Q?fAGWiD6lWw0d3yIzFJeNHgg+txIamIRN2gOa9C+YkJO6ML/OTeQ1jCARRJeS?=
+ =?us-ascii?Q?vtF4GNjVCclj3xeqyR1FbJzmajXsFeOlEVHJomfPj+JGJwTAJzYe6lmOYrT5?=
+ =?us-ascii?Q?iFqwMhKsZq7rb5jax9IsBJNBISR1CbftK2f4rpFf8LpGdenh/Q40VXQ+As++?=
+ =?us-ascii?Q?R4JYXyfaxTDm6nYaKsDkOmwjUpoFt80vG/x1GY/GU1qqSgAPrtHp54yU4Kdb?=
+ =?us-ascii?Q?iugKrKVYMWE5VM3Atx32y3nCADjdC2FuiMjmW1sC6W/p8+or7/w4dTJCj0WP?=
+ =?us-ascii?Q?5QtlLBS9xbwR2ahFE0URWVduIjAmiNGO4QzJ2VaBG2JKIqHdoF6zegA0BKkM?=
+ =?us-ascii?Q?B+lBpUzj86NFBIbHU8Rr7TQoiGqxJzUM3KKs7OnNdMicsXUCMtCcaYd/TIDG?=
+ =?us-ascii?Q?cM9Us28y7eY73JvxqWGs8Ft+IJc6DWZS6Y82D7ToM5K9mhqM2NblSCbhDzFQ?=
+ =?us-ascii?Q?GddPUIKY8SmZfY/o8QdPWvs2Fs2DN/+ODPZL/zWlT97q6TfIIO9k/549YGqb?=
+ =?us-ascii?Q?ctqNw4dilj4W8TS/nu6C01DteCsDFOROCEbrKD3c/5GuBdsiLI3ycIAN8Hm8?=
+ =?us-ascii?Q?wBhN/6E8O5Ckct18Etm97niYVVKbe8XvyRbVLFGFbRNKeZtTU/6/7MKnvApx?=
+ =?us-ascii?Q?y637j1ebgbI+BvKFYDpeHxEEw+HDucXwDwz09U75dICt9TeG4Jt4alBDBPcH?=
+ =?us-ascii?Q?wiYL2hiDZeI/VFLOWLCTtnYAGq95mUu+?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2024 10:56:47.8116
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7721285f-fbee-4560-3393-08dd201bd5cd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4276
 
-Hello,
+From: Michal Orzel <michal.orzel@amd.com>
 
-Le 18/12/2024 =C3=A0 18:08, Andrew Cooper a =C3=A9crit=C2=A0:
-> From: Teddy Astie <teddy.astie@vates.tech>
-> 
-> In many places of x86 HVM code, constants integer are used to indicate in=
- what mode is
-> running the CPU (real, vm86, 16-bits, 32-bits, 64-bits). However, these c=
-onstants are
-> are written directly as integer which hides the actual meaning of these m=
-odes.
-> 
-> This patch introduces X86_MODE_* macros and replace those occurences with=
- it.
-> 
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Add requirements for dom0less domain creation.
 
-Acked-by: Teddy Astie <teddy.astie@vates.tech>
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+Changes from -
 
-Thanks
+v1 - 1. As the dom0less domain creation requirements specifies the dt properties
+for creating domains, it has been moved to product requirements. Product
+requirements define the interface Xen exposes to other domains.
 
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Teddy Astie <teddy.astie@vates.tech>
-> 
-> v3:
->   * Leave a comment behind explaining why these aren't all modes
->   * Fix long lines
->   * Convert more instances (svm_guest_x86_mode, hvm_latch_shinfo_size, xe=
-noprof)
-> ---
->   xen/arch/x86/hvm/emulate.c           | 18 ++++++++++--------
->   xen/arch/x86/hvm/hvm.c               |  4 +++-
->   xen/arch/x86/hvm/hypercall.c         | 17 +++++++++--------
->   xen/arch/x86/hvm/svm/svm.c           |  8 ++++----
->   xen/arch/x86/hvm/viridian/viridian.c |  8 ++++----
->   xen/arch/x86/hvm/vmx/vmx.c           |  9 +++++----
->   xen/arch/x86/hvm/vmx/vvmx.c          |  5 +++--
->   xen/arch/x86/include/asm/hvm/hvm.h   | 14 ++++++++++++++
->   xen/arch/x86/oprofile/xenoprof.c     |  6 +++---
->   9 files changed, 55 insertions(+), 34 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-> index d3006f094a69..76467b76c047 100644
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -2433,14 +2433,15 @@ static void cf_check hvmemul_put_fpu(
->   
->           switch ( mode )
->           {
-> -        case 8:
-> +        case X86_MODE_64BIT:
->               fpu_ctxt->fip.addr =3D aux->ip;
->               if ( dval )
->                   fpu_ctxt->fdp.addr =3D aux->dp;
->               fpu_ctxt->x[FPU_WORD_SIZE_OFFSET] =3D 8;
->               break;
->   
-> -        case 4: case 2:
-> +        case X86_MODE_32BIT:
-> +        case X86_MODE_16BIT:
->               fpu_ctxt->fip.offs =3D aux->ip;
->               fpu_ctxt->fip.sel  =3D aux->cs;
->               if ( dval )
-> @@ -2451,7 +2452,8 @@ static void cf_check hvmemul_put_fpu(
->               fpu_ctxt->x[FPU_WORD_SIZE_OFFSET] =3D mode;
->               break;
->   
-> -        case 0: case 1:
-> +        case X86_MODE_REAL:
-> +        case X86_MODE_VM86:
->               fpu_ctxt->fip.addr =3D aux->ip | (aux->cs << 4);
->               if ( dval )
->                   fpu_ctxt->fdp.addr =3D aux->dp | (aux->ds << 4);
-> @@ -2952,11 +2954,11 @@ static const char *guest_x86_mode_to_str(int mode=
-)
->   {
->       switch ( mode )
->       {
-> -    case 0:  return "Real";
-> -    case 1:  return "v86";
-> -    case 2:  return "16bit";
-> -    case 4:  return "32bit";
-> -    case 8:  return "64bit";
-> +    case X86_MODE_REAL:   return "Real";
-> +    case X86_MODE_VM86:   return "v86";
-> +    case X86_MODE_16BIT:  return "16bit";
-> +    case X86_MODE_32BIT:  return "32bit";
-> +    case X86_MODE_64BIT:  return "64bit";
->       default: return "Unknown";
->       }
->   }
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 74e58c653e6f..922c9b3af64d 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -3974,7 +3974,9 @@ static void hvm_latch_shinfo_size(struct domain *d)
->        */
->       if ( current->domain =3D=3D d )
->       {
-> -        d->arch.has_32bit_shinfo =3D (hvm_guest_x86_mode(current) !=3D 8=
-);
-> +        d->arch.has_32bit_shinfo =3D
-> +            hvm_guest_x86_mode(current) !=3D X86_MODE_64BIT;
-> +
->           /*
->            * Make sure that the timebase in the shared info structure is =
-correct.
->            *
-> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-> index 81883c8d4f60..6f8dfdff4ac6 100644
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -112,23 +112,24 @@ int hvm_hypercall(struct cpu_user_regs *regs)
->   
->       switch ( mode )
->       {
-> -    case 8:
-> +    case X86_MODE_64BIT:
->           eax =3D regs->rax;
->           fallthrough;
-> -    case 4:
-> -    case 2:
-> +    case X86_MODE_32BIT:
-> +    case X86_MODE_16BIT:
->           if ( currd->arch.monitor.guest_request_userspace_enabled &&
-> -            eax =3D=3D __HYPERVISOR_hvm_op &&
-> -            (mode =3D=3D 8 ? regs->rdi : regs->ebx) =3D=3D HVMOP_guest_r=
-equest_vm_event )
-> +             eax =3D=3D __HYPERVISOR_hvm_op &&
-> +             (mode =3D=3D X86_MODE_64BIT ? regs->rdi : regs->ebx) =3D=3D
-> +             HVMOP_guest_request_vm_event )
->               break;
->   
->           if ( likely(!hvm_get_cpl(curr)) )
->               break;
->           fallthrough;
-> -    default:
-> +    case X86_MODE_VM86:
->           regs->rax =3D -EPERM;
->           return HVM_HCALL_completed;
-> -    case 0:
-> +    case X86_MODE_REAL:
->           break;
->       }
->   
-> @@ -198,7 +199,7 @@ enum mc_disposition hvm_do_multicall_call(struct mc_s=
-tate *state)
->   {
->       struct vcpu *curr =3D current;
->   
-> -    if ( hvm_guest_x86_mode(curr) =3D=3D 8 )
-> +    if ( hvm_guest_x86_mode(curr) =3D=3D X86_MODE_64BIT )
->       {
->           struct multicall_entry *call =3D &state->call;
->   
-> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-> index b8f87aa1ed08..62905c2c7acd 100644
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -571,12 +571,12 @@ static int cf_check svm_guest_x86_mode(struct vcpu =
-*v)
->       struct vmcb_struct *vmcb =3D v->arch.hvm.svm.vmcb;
->   
->       if ( unlikely(!(v->arch.hvm.guest_cr[0] & X86_CR0_PE)) )
-> -        return 0;
-> +        return X86_MODE_REAL;
->       if ( unlikely(guest_cpu_user_regs()->eflags & X86_EFLAGS_VM) )
-> -        return 1;
-> +        return X86_MODE_VM86;
->       if ( hvm_long_mode_active(v) && likely(vmcb->cs.l) )
-> -        return 8;
-> -    return likely(vmcb->cs.db) ? 4 : 2;
-> +        return X86_MODE_64BIT;
-> +    return vmcb->cs.db ? X86_MODE_32BIT : X86_MODE_16BIT;
->   }
->   
->   static void cf_check svm_cpuid_policy_changed(struct vcpu *v)
-> diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viri=
-dian/viridian.c
-> index 21480d9ee700..33d54e587edf 100644
-> --- a/xen/arch/x86/hvm/viridian/viridian.c
-> +++ b/xen/arch/x86/hvm/viridian/viridian.c
-> @@ -933,13 +933,13 @@ int viridian_hypercall(struct cpu_user_regs *regs)
->   
->       switch ( mode )
->       {
-> -    case 8:
-> +    case X86_MODE_64BIT:
->           input.raw =3D regs->rcx;
->           input_params_gpa =3D regs->rdx;
->           output_params_gpa =3D regs->r8;
->           break;
->   
-> -    case 4:
-> +    case X86_MODE_32BIT:
->           input.raw =3D (regs->rdx << 32) | regs->eax;
->           input_params_gpa =3D (regs->rbx << 32) | regs->ecx;
->           output_params_gpa =3D (regs->rdi << 32) | regs->esi;
-> @@ -1038,11 +1038,11 @@ int viridian_hypercall(struct cpu_user_regs *regs=
-)
->   
->       switch ( mode )
->       {
-> -    case 8:
-> +    case X86_MODE_64BIT:
->           regs->rax =3D output.raw;
->           break;
->   
-> -    case 4:
-> +    case X86_MODE_32BIT:
->           regs->rdx =3D output.raw >> 32;
->           regs->rax =3D (uint32_t)output.raw;
->           break;
-> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-> index b6885d0e2764..eee1d4b47a13 100644
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -886,14 +886,15 @@ int cf_check vmx_guest_x86_mode(struct vcpu *v)
->       unsigned long cs_ar_bytes;
->   
->       if ( unlikely(!(v->arch.hvm.guest_cr[0] & X86_CR0_PE)) )
-> -        return 0;
-> +        return X86_MODE_REAL;
->       if ( unlikely(guest_cpu_user_regs()->eflags & X86_EFLAGS_VM) )
-> -        return 1;
-> +        return X86_MODE_VM86;
->       __vmread(GUEST_CS_AR_BYTES, &cs_ar_bytes);
->       if ( hvm_long_mode_active(v) &&
->            likely(cs_ar_bytes & X86_SEG_AR_CS_LM_ACTIVE) )
-> -        return 8;
-> -    return (likely(cs_ar_bytes & X86_SEG_AR_DEF_OP_SIZE) ? 4 : 2);
-> +        return X86_MODE_64BIT;
-> +    return (likely(cs_ar_bytes & X86_SEG_AR_DEF_OP_SIZE)
-> +            ? X86_MODE_32BIT : X86_MODE_16BIT);
->   }
->   
->   static void vmx_save_dr(struct vcpu *v)
-> diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-> index 78135ca23be8..cf47d61b1473 100644
-> --- a/xen/arch/x86/hvm/vmx/vvmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-> @@ -411,7 +411,7 @@ static int decode_vmx_inst(struct cpu_user_regs *regs=
-,
->       }
->       else
->       {
-> -        bool mode_64bit =3D (vmx_guest_x86_mode(v) =3D=3D 8);
-> +        bool mode_64bit =3D vmx_guest_x86_mode(v) =3D=3D X86_MODE_64BIT;
->   
->           decode->type =3D VMX_INST_MEMREG_TYPE_MEMORY;
->   
-> @@ -2073,7 +2073,8 @@ int nvmx_handle_vmx_insn(struct cpu_user_regs *regs=
-, unsigned int exit_reason)
->   
->       if ( !(curr->arch.hvm.guest_cr[4] & X86_CR4_VMXE) ||
->            !nestedhvm_enabled(curr->domain) ||
-> -         (vmx_guest_x86_mode(curr) < (hvm_long_mode_active(curr) ? 8 : 2=
-)) ||
-> +         (vmx_guest_x86_mode(curr) <
-> +          (hvm_long_mode_active(curr) ? X86_MODE_64BIT : X86_MODE_16BIT)=
-) ||
->            (exit_reason !=3D EXIT_REASON_VMXON && !nvmx_vcpu_in_vmx(curr)=
-) )
->       {
->           hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
-> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/as=
-m/hvm/hvm.h
-> index 02de18c7d4a8..124906a548da 100644
-> --- a/xen/arch/x86/include/asm/hvm/hvm.h
-> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-> @@ -26,6 +26,20 @@ extern bool opt_hvm_fep;
->   #define opt_hvm_fep 0
->   #endif
->   
-> +/*
-> + * Results for hvm_guest_x86_mode().
-> + *
-> + * Note, some callers depend on the order of these constants.
-> + *
-> + * TODO: Rework this helper to avoid implying mixing the architectural
-> + * concepts of mode and operand size.
-> + */
-> +#define X86_MODE_REAL  0
-> +#define X86_MODE_VM86  1
-> +#define X86_MODE_16BIT 2
-> +#define X86_MODE_32BIT 4
-> +#define X86_MODE_64BIT 8
-> +
->   /* Interrupt acknowledgement sources. */
->   enum hvm_intsrc {
->       hvm_intsrc_none,
-> diff --git a/xen/arch/x86/oprofile/xenoprof.c b/xen/arch/x86/oprofile/xen=
-oprof.c
-> index 247a0deca822..7f2525bfb4d6 100644
-> --- a/xen/arch/x86/oprofile/xenoprof.c
-> +++ b/xen/arch/x86/oprofile/xenoprof.c
-> @@ -86,11 +86,11 @@ int xenoprofile_get_mode(struct vcpu *curr, const str=
-uct cpu_user_regs *regs)
->   
->       switch ( hvm_guest_x86_mode(curr) )
->       {
-> -    case 0: /* real mode */
-> +    case X86_MODE_REAL:
->           return 1;
-> -    case 1: /* vm86 mode */
-> +    case X86_MODE_VM86:
->           return 0;
-> -    default:
-> +    default: /* 16BIT | 32BIT | 64BIT */
->           return hvm_get_cpl(curr) !=3D 3;
->       }
->   }
-> 
-> base-commit: 826a9eb072d449cb777d71f52923e6f5f20cefbe
+2. For the requirements which introduces new terms (like grant table, etc), I
+have provided the definition as part of the comments.
 
-Teddy
+3. Introduced new market requirements to specify that Xen can assign iomem and
+irqs to domains.
 
+4. The design requirements will be added later.
 
- | Vates 
+v2 - 1. Rephrased the requirements as suggested.
 
-XCP-ng & Xen Orchestra - Vates solutions
+2. Split the product requirements into arm64 specific and common.
 
-web: https://vates.tech
+3. The arm64 specific requirements have arm64_ prefixed to their tag names.
+
+4. Grant table requirements have been dropped for now.
+
+5. Added a market requirement to denote that Xen can support multiple schedulers.
+
+6. Updated index.rst as we have a new file ie product-reqs/reqs.rst.
+
+ docs/fusa/reqs/index.rst                   |   1 +
+ docs/fusa/reqs/market-reqs/reqs.rst        |  31 ++++
+ docs/fusa/reqs/product-reqs/arm64/reqs.rst | 128 +++++++++++++++-
+ docs/fusa/reqs/product-reqs/reqs.rst       | 163 +++++++++++++++++++++
+ 4 files changed, 321 insertions(+), 2 deletions(-)
+ create mode 100644 docs/fusa/reqs/product-reqs/reqs.rst
+
+diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
+index 8a4dae6fb2..1088a51d52 100644
+--- a/docs/fusa/reqs/index.rst
++++ b/docs/fusa/reqs/index.rst
+@@ -8,6 +8,7 @@ Requirements documentation
+ 
+    intro
+    market-reqs/reqs
++   product-reqs/reqs
+    product-reqs/arm64/reqs
+    design-reqs/arm64/generic-timer
+    design-reqs/arm64/sbsa-uart
+diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
+index f456788d96..39b2714237 100644
+--- a/docs/fusa/reqs/market-reqs/reqs.rst
++++ b/docs/fusa/reqs/market-reqs/reqs.rst
+@@ -47,3 +47,34 @@ Comments:
+ 
+ Needs:
+  - XenProd
++
++Static VM definition
++--------------------
++
++`XenMkt~static_vm_definition~1`
++
++Description:
++Xen shall support assigning peripherals to various domains.
++
++Rationale:
++
++Comments:
++Peripheral implies an iomem (input output memory) and/or interrupts.
++
++Needs:
++ - XenProd
++
++Multiple schedulers
++-------------------
++
++`XenMkt~multiple_schedulers~1`
++
++Description:
++Xen shall provide different ways of scheduling virtual cpus onto physical cpus.
++
++Rationale:
++
++Comments:
++
++Needs:
++ - XenProd
+diff --git a/docs/fusa/reqs/product-reqs/arm64/reqs.rst b/docs/fusa/reqs/product-reqs/arm64/reqs.rst
+index db91c47a02..c8fee0e49f 100644
+--- a/docs/fusa/reqs/product-reqs/arm64/reqs.rst
++++ b/docs/fusa/reqs/product-reqs/arm64/reqs.rst
+@@ -6,7 +6,7 @@ Domain Creation And Runtime
+ Emulated Timer
+ --------------
+ 
+-`XenProd~emulated_timer~1`
++`XenProd~arm64_emulated_timer~1`
+ 
+ Description:
+ Xen shall grant access to "Arm Generic Timer" for the domains.
+@@ -25,7 +25,7 @@ Needs:
+ Emulated UART
+ -------------
+ 
+-`XenProd~emulated_uart~1`
++`XenProd~arm64_emulated_uart~1`
+ 
+ Description:
+ Xen shall provide an "Arm SBSA UART" compliant device to the domains.
+@@ -40,3 +40,127 @@ Covers:
+ 
+ Needs:
+  - XenSwdgn
++
++Linux kernel image
++------------------
++
++`XenProd~arm64_linux_kernel_image~1`
++
++Description:
++Xen shall create a domain with a binary containing header compliant with Arm64
++Linux kernel image [1].
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++Gzip Linux kernel image
++-----------------------
++
++`XenProd~arm64_linux_kernel_gzip_image~1`
++
++Description:
++Xen shall create a domain with a Gzip compressed binary containing header
++compliant with Arm64 Linux kernel image [1].
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++Kernel with uImage header
++-------------------------
++
++`XenProd~arm64_kernel_uimage~1`
++
++Description:
++Xen shall create a domain with a binary containing uImage header [2].
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++Gzip kernel with uImage header
++------------------------------
++
++`XenProd~arm64_gzip_kernel_uimage~1`
++
++Description:
++Xen shall create a domain with a Gzip compressed binary containing uImage
++header [2].
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++SPIs
++----
++
++`XenProd~arm64_spis~1`
++
++Description:
++Xen shall create a domain with a number of shared peripheral interrupts as
++specified in the device tree.
++
++Rationale:
++
++Comments:
++Device tree is a data structure and language for describing hardware which is
++readable by an operating system [3].
++A shared peripheral interrupt is a peripheral interrupt that the Arm Generic
++Interrupt Controller's Distributor interface can route to any combination of
++processors [4].
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++ - `XenMkt~static_vm_definition~1`
++
++Needs:
++ - XenSwdgn
++
++Virtual PL011
++-------------
++
++`XenProd~arm64_virtual_pl011~1`
++
++Description:
++Xen shall provide an "Arm PL011 UART" compliant device to the domains.
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++ - `XenMkt~provide_console_domains~1`
++
++Needs:
++ - XenSwdgn
++
++| [1] https://github.com/torvalds/linux/blob/master/Documentation/arch/arm64/booting.rst
++| [2] https://source.denx.de/u-boot/u-boot/-/blob/master/include/image.h#L315
++| [3] https://docs.kernel.org/devicetree/usage-model.html
++| [4] https://developer.arm.com/documentation/ihi0048/a/Introduction/Terminology/Interrupt-types?lang=en
+diff --git a/docs/fusa/reqs/product-reqs/reqs.rst b/docs/fusa/reqs/product-reqs/reqs.rst
+new file mode 100644
+index 0000000000..9257fec713
+--- /dev/null
++++ b/docs/fusa/reqs/product-reqs/reqs.rst
+@@ -0,0 +1,163 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Domain Creation And Runtime
++===========================
++
++Kernel command line arguments
++-----------------------------
++
++`XenProd~kernel_cmd_line_args~1`
++
++Description:
++Xen shall pass kernel command line arguments to a domain via a device tree.
++
++Rationale:
++
++Comments:
++Device tree is a data structure and language for describing hardware which is
++readable by an operating system [1].
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++Ramdisk
++-------
++
++`XenProd~ramdisk~1`
++
++Description:
++Xen shall provide the address of an initial ramdisk to a domain via a device
++tree.
++
++Rationale:
++
++Comments:
++The initial ramdisk is contained in memory.
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++Memory
++------
++
++`XenProd~memory~1`
++
++Description:
++Xen shall create a domain with an amount of memory specified in a device tree.
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++vCPUs
++-----
++
++`XenProd~vcpus~1`
++
++Description:
++A domain shall have a configurable number of virtual CPUs (1 to XX).
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++
++Needs:
++ - XenSwdgn
++
++Credit2 CPU pool scheduler
++--------------------------
++
++`XenProd~credit2_cpu_pool_scheduler~1`
++
++Description:
++Xen shall have a scheduler where a physical cpu can be shared between more than
++one virtual cpu.
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++ - `XenMkt~multiple_schedulers~1`
++
++Needs:
++ - XenSwdgn
++
++NUL CPU pool scheduler
++----------------------
++
++`XenProd~nul_cpu_pool_scheduler~1`
++
++Description:
++Xen shall have a scheduler where the virtual cpu will be always running on its
++dedicated physical cpu.
++
++Rationale:
++
++Comments:
++A NUL CPU pool scheduler maps a virtual cpu to a unique physical cpu.
++
++Covers:
++ - `XenMkt~run_arm64_domains~1`
++ - `XenMkt~multiple_schedulers~1`
++
++Needs:
++ - XenSwdgn
++
++Assign iomem
++------------
++
++`XenProd~assign_iomem~1`
++
++Description:
++Xen shall support assigning iomem to a domain.
++
++Rationale:
++
++Comments:
++
++Rationale:
++
++Covers:
++ - `XenMkt~static_vm_definition~1`
++
++Needs:
++ - XenSwdgn
++
++Forward interrupts
++------------------
++
++`XenProd~forward_irqs~1`
++
++Description:
++Xen shall support forwarding interrupts to a domain.
++
++Rationale:
++
++Comments:
++
++Rationale:
++
++Covers:
++ - `XenMkt~static_vm_definition~1`
++
++Needs:
++ - XenSwdgn
++
++| [1] https://docs.kernel.org/devicetree/usage-model.html
+-- 
+2.25.1
 
 
