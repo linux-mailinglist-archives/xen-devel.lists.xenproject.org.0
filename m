@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 077D99F8F1C
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2024 10:37:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.861773.1273846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 488D79F92BC
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2024 14:01:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.861815.1273855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOZRI-0004iV-P2; Fri, 20 Dec 2024 09:36:56 +0000
+	id 1tOccE-0003wC-VF; Fri, 20 Dec 2024 13:00:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 861773.1273846; Fri, 20 Dec 2024 09:36:56 +0000
+Received: by outflank-mailman (output) from mailman id 861815.1273855; Fri, 20 Dec 2024 13:00:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOZRI-0004fO-M6; Fri, 20 Dec 2024 09:36:56 +0000
-Received: by outflank-mailman (input) for mailman id 861773;
- Fri, 20 Dec 2024 09:36:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MWOG=TN=eurecom.fr=Ariel.Otilibili-Anieli@srs-se1.protection.inumbo.net>)
- id 1tOZRH-0004fI-Ct
- for xen-devel@lists.xenproject.org; Fri, 20 Dec 2024 09:36:55 +0000
-Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f28238db-beb5-11ef-a0d8-8be0dac302b0;
- Fri, 20 Dec 2024 10:36:54 +0100 (CET)
-Received: from quovadis.eurecom.fr ([10.3.2.233])
- by drago1i.eurecom.fr with ESMTP; 20 Dec 2024 10:36:53 +0100
+	id 1tOccE-0003vg-RN; Fri, 20 Dec 2024 13:00:26 +0000
+Received: by outflank-mailman (input) for mailman id 861815;
+ Fri, 20 Dec 2024 13:00:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cGAx=TN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tOccD-0003va-7J
+ for xen-devel@lists.xenproject.org; Fri, 20 Dec 2024 13:00:25 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5e007789-bed2-11ef-99a3-01e77a169b0f;
+ Fri, 20 Dec 2024 14:00:20 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3862df95f92so995705f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Dec 2024 05:00:20 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c828897sm3968143f8f.20.2024.12.20.05.00.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Dec 2024 05:00:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,117 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f28238db-beb5-11ef-a0d8-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
-  t=1734687414; x=1766223414;
-  h=from:in-reply-to:references:date:cc:to:mime-version:
-   message-id:subject:content-transfer-encoding;
-  bh=VH4YGcgb9p64u5EEltPGqnwSQiOBvYjcKhF+XUbUJ8M=;
-  b=s+JqHj3agyGpgeFFAxpvVj66Dgr+tUVsOC6fWawj2NZpeLN6nkS1lfkl
-   X+jK4EySBAz3VpGK1EFz6gokCkCx8ZsppD3Ox0a97yXfnhE48P2+ZfbW9
-   SsvdvGzUcu97dMjFBuJyxwMAuok6qq+xVZO0h5Gtz6/LseD2LiKFGIfom
-   c=;
-X-CSE-ConnectionGUID: PdNeQV8xRfqy8xfPiJnWAg==
-X-CSE-MsgGUID: fpJ+SUzHQVaLbXaCME9h6Q==
-X-IronPort-AV: E=Sophos;i="6.12,250,1728943200"; 
-   d="scan'208";a="28267110"
-From: "Ariel Otilibili-Anieli" <Ariel.Otilibili-Anieli@eurecom.fr>
-In-Reply-To: <2f7a83-67653280-a2f5-5cf12280@54008765>
-Content-Type: text/plain; charset="utf-8"
-X-Forward: 88.183.119.157
-References: <20241219092615.644642-1-ariel.otilibili-anieli@eurecom.fr>
- <20241219224645.749233-1-ariel.otilibili-anieli@eurecom.fr>
- <20241219224645.749233-2-ariel.otilibili-anieli@eurecom.fr>
- <2024122042-guidable-overhand-b8a9@gregkh>
- <2f7a82-67652e80-9181-6eae3780@215109797> <2024122052-laurel-showbiz-4d7b@gregkh> <2f7a83-67653280-a2f5-5cf12280@54008765>
-Date: Fri, 20 Dec 2024 10:36:53 +0100
-Cc: linux-kernel@vger.kernel.org, "Jan Beulich" <jbeulich@suse.com>, "Andrew Morton" <akpm@linux-foundation.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-To: "Greg KH" <gregkh@linuxfoundation.org>
+X-Inumbo-ID: 5e007789-bed2-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1734699620; x=1735304420; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=G8bTt3a6xJSUtBaN/B9wHGoJndpCmEEqHD4Q3cCZBzY=;
+        b=GRWF2NiMtAhO1HVPAz00mociY5FSsyDNBXQ0yb6dsO0cCjrJCqca/SYLLK6WdLqWw8
+         2usKsDU9CLSHrnfYRjmKRrsK49oAIO1ouH3Fl0eIu72fnutUM3lsdMG9IamYwZvnjcXX
+         Ftyzdt4grw6JXCSwhOxpk8yxwDA/e/XpytdXE2sVom0JOjBDdSvXwawJMfimffONtPlw
+         1dKdQ4jfEbL2y4fwFYSkPzcMKrq9Z/v+7vzVmsUNoQeove5T5SuN+fZGqdL+LQ22ppHt
+         7Gz9c+LbH1NhvvWvf/wmq8DhBmm/XxCm0UXZzyfp5lpcjOB+Ox/QJ6t6LAU4k1fcD/lM
+         nbDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734699620; x=1735304420;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=G8bTt3a6xJSUtBaN/B9wHGoJndpCmEEqHD4Q3cCZBzY=;
+        b=g+RYQwUI5Yoeby2pH2GQpJWzQl7iE7iwdS+rNpWmQ7e7BoreuhtcQlrM7F57yv3vPQ
+         +nn3HfF/wGWf2zLoKUJytMMl8chjCvJ+sl7xoUeXPxonoYyP5HT4ajeC8uuIem/bjjMh
+         Ks2bWGwXhcFtq7MAWHhmVFtaMgAKRGCYYvX4jkruCAVKEIUGERdfR5WNo9AmjUjjXDB5
+         ovBR4dUC8RPbCCcC+YXik5nviYybZgRH3bXN42WzRNQXMvghGIbMRenaA/ZWMdpZj+Eq
+         6ZDFrkJfIqQN5JzRezY5HbVUnTmquPdVzW/tyCLErm1HwGvpRCotAWhm1r6aaF9WsQ9V
+         BawA==
+X-Forwarded-Encrypted: i=1; AJvYcCVb1lcGgxA68ann8eXTfscke9z8J0307PAkXdZ0liqthoJgIIotNxtFw2NsWvQKpH/mvpXc7WCV0r0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxcFcXMXCUXHA/k9vy4HYFxNeu+EpCFZ6ZMJnRYFxhvLb01l+KZ
+	kJlNh8NRAMhYowHGUrPsdRFP8mQgnUpXriIKowTBGCio7AF9MA34Nzo+FCwhgQ==
+X-Gm-Gg: ASbGncvDR7XQ+4Qt6nvgmkJ5zw3x/9PzBU5Viqe2dEERbdvZJ9SpLhh29oW4QQiSE5A
+	zTUG8qy6bwDOqcUwYlPfhpPUykF0hIJms/bgHuC6vQEnXMJRK9zveqxwq0wYnLob05bwUBhFifE
+	7sDQHlzl11VDnEW6P6UKxlKIA1odq//2gfon44JPcnegPvur1IDpDOjMh3VOuvM1veLdCD4TRQo
+	sPqIC1zd9o3aj7ue+bqatbuzsrtAQsT3wtznmJE1DSh2hdl63kFc5pffN9GwhyGV4B0yI8b2XVe
+	DHhJfztebHfD1x8RWBkzAdTDZN0HXYnlBumnWzgJew==
+X-Google-Smtp-Source: AGHT+IFBNILU62rwTeZDAXaLSx+iich6k4MPhoAWwkIrkns5TX+LzOGaugxTE7GiTu14DvNxonh2Gw==
+X-Received: by 2002:a05:6000:4021:b0:385:fa26:f0d8 with SMTP id ffacd0b85a97d-38a221e2f95mr3039150f8f.8.1734699619651;
+        Fri, 20 Dec 2024 05:00:19 -0800 (PST)
+Message-ID: <eac9a69e-3f54-4c4a-adf4-2ab4a810abf1@suse.com>
+Date: Fri, 20 Dec 2024 14:00:18 +0100
 MIME-Version: 1.0
-Message-ID: <2f7a89-67653a80-c09b-70827e80@197000382>
-Subject: =?utf-8?q?Re=3A?= [PATCH v2 1/1] =?utf-8?q?lib=3A?= Remove dead code
-User-Agent: SOGoMail 5.11.1
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH Hyperlaunch v2] xenconsole: Add connected flag
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20241219223222.2211-1-jason.andryuk@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241219223222.2211-1-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Friday, December 20, 2024 10:01 CET, "Ariel Otilibili-Anieli" <Ariel=
-.Otilibili-Anieli@eurecom.fr> wrote:
+On 19.12.2024 23:32, Jason Andryuk wrote:
+> --- a/xen/include/public/io/console.h
+> +++ b/xen/include/public/io/console.h
+> @@ -19,6 +19,19 @@ struct xencons_interface {
+>      char out[2048];
+>      XENCONS_RING_IDX in_cons, in_prod;
+>      XENCONS_RING_IDX out_cons, out_prod;
+> +/*
+> + * Flag values signaling from backend to frontend whether the console is
+> + * connected.  i.e. Whether it will be serviced and emptied.
+> + *
+> + * The flag starts as disconnected.
+> + */
+> +#define XENCONSOLE_DISCONNECTED 0
+> +/*
+> + * The flag is set to connected when the backend connects and the console
+> + * will be serviced.
+> + */
+> +#define XENCONSOLE_CONNECTED    1
+> +    uint32_t flag;
+>  };
 
-> On Friday, December 20, 2024 09:53 CET, Greg KH <gregkh@linuxfoundati=
-on.org> wrote:
->=20
-> > On Fri, Dec 20, 2024 at 09:44:31AM +0100, Ariel Otilibili-Anieli wr=
-ote:
-> > > On Friday, December 20, 2024 08:09 CET, Greg KH <gregkh@linuxfoun=
-dation.org> wrote:
-> > >=20
-> > > > On Thu, Dec 19, 2024 at 11:45:01PM +0100, Ariel Otilibili wrote=
-:
-> > > > > This is a follow up from a discussion in Xen:
-> > > > >=20
-> > > > > The if-statement tests `res` is non-zero; meaning the case ze=
-ro is never reached.
-> > > > >=20
-> > > > > Link: https://lore.kernel.org/all/7587b503-b2ca-4476-8dc9-e96=
-83d4ca5f0@suse.com/
-> > > > > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > > > > Suggested-by: Jan Beulich <jbeulich@suse.com>
-> > > > > Signed-off-by: Ariel Otilibili <ariel.otilibili-anieli@eureco=
-m.fr>
-> > > > > --
-> > > > > Cc: stable@vger.kernel.org
-> > > >=20
-> > > > Why is "removing dead code" a stable kernel thing?
-> > >=20
-> > > Hello Greg,
-> > >=20
-> > > It is what I understood from the process:
-> > >=20
-> > > "Attaching a Fixes: tag does not subvert the stable kernel rules =
-process nor the requirement to Cc: stable@vger.kernel.org on all stable=
- patch candidates." [1]
-> > >=20
-> > > Does my understanding make sense?
-> >=20
-> > I'm confused, what are you expecting to happen here?  Why is this e=
-ven
-> > marked as a "fix"?
+Given no other information, how would a guest know that it can actually
+expect the flag to (eventually) become set?
 
-My understanding was that, for one-liners, the reference commit should =
-be included; and CC stable.
-> >=20
-> > > [1] https://docs.kernel.org/process/submitting-patches.html
-> >=20
-> > Please read:
-> >     https://www.kernel.org/doc/html/latest/process/stable-kernel-ru=
-les.html
->=20
-> I am, Greg; thanks for the heads up.
-
-Now I got the procedure; thank you.
-> >=20
-> > for the stable kernel rules.
-> >=20
-> > Again, you have a "cc: stable@..." in your patch, why?
->=20
-> Removed stable from the thread.
-
-Hello again, Greg;
-
-I should have said it upfront, for us to understand one another.
-I have just checked, this thread is about v2 of the patch (with stable =
-in CC); and v1 (without) was already accepted by  Andrew Morton [1].
-
-If anything else I need to do, let me know.
-
-Have a good day,
-Ariel
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tre=
-e/patches/lib-remove-dead-code.patch
-> >=20
-> > thanks,
-> >=20
-> > greg k-h
+Jan
 
 
