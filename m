@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D6499F8999
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2024 02:39:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.861595.1273560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E291B9F89B7
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2024 02:49:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.861606.1273569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tORyz-0006ZC-6q; Fri, 20 Dec 2024 01:39:13 +0000
+	id 1tOS8q-0008Hb-5v; Fri, 20 Dec 2024 01:49:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 861595.1273560; Fri, 20 Dec 2024 01:39:13 +0000
+Received: by outflank-mailman (output) from mailman id 861606.1273569; Fri, 20 Dec 2024 01:49:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tORyz-0006WP-3u; Fri, 20 Dec 2024 01:39:13 +0000
-Received: by outflank-mailman (input) for mailman id 861595;
- Fri, 20 Dec 2024 01:39:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tOS8q-0008Fo-3P; Fri, 20 Dec 2024 01:49:24 +0000
+Received: by outflank-mailman (input) for mailman id 861606;
+ Fri, 20 Dec 2024 01:49:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tu4b=TN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tORyx-0006WJ-Vc
- for xen-devel@lists.xenproject.org; Fri, 20 Dec 2024 01:39:12 +0000
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [2a00:1450:4864:20::343])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35510a9a-be73-11ef-a0d8-8be0dac302b0;
- Fri, 20 Dec 2024 02:39:09 +0100 (CET)
-Received: by mail-wm1-x343.google.com with SMTP id
- 5b1f17b1804b1-4361f796586so15085325e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 17:39:09 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4366120088esm31993515e9.13.2024.12.19.17.39.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Dec 2024 17:39:08 -0800 (PST)
+ <SRS0=lf2i=TN=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tOS8o-0008Fg-9R
+ for xen-devel@lists.xenproject.org; Fri, 20 Dec 2024 01:49:22 +0000
+Received: from fout-a4-smtp.messagingengine.com
+ (fout-a4-smtp.messagingengine.com [103.168.172.147])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9fe39b15-be74-11ef-99a3-01e77a169b0f;
+ Fri, 20 Dec 2024 02:49:18 +0100 (CET)
+Received: from phl-compute-02.internal (phl-compute-02.phl.internal
+ [10.202.2.42])
+ by mailfout.phl.internal (Postfix) with ESMTP id 5F19C1380193
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 20:49:17 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Thu, 19 Dec 2024 20:49:17 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 20:49:16 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,206 +45,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35510a9a-be73-11ef-a0d8-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1734658749; x=1735263549; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4ebt9RfFNlU+kCB4CV1j8AEPPTxXG9SHQgcbE7oz8Lc=;
-        b=gPbIC4lkHDk/xKvpdkRgvRJ4N0Y0mh9SFELSOJDTS94nOcuZ1/dRC92qP4IiW3ztU+
-         jZAk7DUrLDSnCOqfjMokSYHYRUAqQ7x+YbmxMOvb34C4HoJaN6mNKE0JRvOX4yNCVQaD
-         JYIxqApGA8ORPHOOasfd3/Bc5d7/fs+rOQuEs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734658749; x=1735263549;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4ebt9RfFNlU+kCB4CV1j8AEPPTxXG9SHQgcbE7oz8Lc=;
-        b=xBH1J5Z1i5UNTNcoDJJFEqWdXly0SFphYTAKkYXD7oS8RZ6iuaiX2ciQmo+/637hq+
-         WOdtMpAhiZ0s1zbPVY+5a0IItRrjoyRMSYbfUszNRL03emtgBII42j2GSx5QTfgG53QU
-         YMuzYd+a5ncLCoFyl53x368uvRn8pnTNrN0mULrPT+phshR+VWyREeRAGwGeMdZYDNAO
-         /89yogtzhhpfC0DWiv5qoS4EAmSWTHnGlNbG99W95u/fnsBn7EqDEXGXN4Fo/b8V9DIm
-         J/g5ZPyHuHBLSKJbq7uk4WXWfsRUvITxGqplgMrgPJzF+/E5OPS5qX/YaNbQ6eHgdfYI
-         m1Ag==
-X-Forwarded-Encrypted: i=1; AJvYcCXI4RZWGL8SPoHgL78pYfii/w68P8RnqP6PgP/2LY9EaEHO9UxpeohM3/Y1ZIECZwhFT0o8lpuYYUM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyHhgtEL/AYRyv0ojkZ+AI0tuetnG2acjJhPePr+oevG9ux6vve
-	gJGBeP3/PiEEsPyO9JLUbpBCeoeInIJYy/c39uvI35VK9xpiJ5T7/s07vhG1Eps=
-X-Gm-Gg: ASbGncsj36ThWI9C6GiqEwoS56hZ2QJ8qG2LCmlA6S2a/C8DHGxGxTlVIqegRCynWrP
-	qSTRkVp3VMM6nnwMVBltAQGjaP/rtiAX7tv2b2RJJEKv4gniSeM63kCJMhyl1aMjlEkBGl2gvgm
-	sYUP6T40DJA6eHXv3mCWtsBvsn1kpeB10KI88R2o1vEGtyMUX5T1qU2oql2op0J0hizTPPrai1x
-	cbW7VX5S/nueRdA2Zm0WjxQMIlr1bkKUHevjsFyBmsy+WNSeXzpCn+H4fXqPxPj0QbHm2l0GnKI
-	oh1cWIwJ7d+GoXBt71Vk
-X-Google-Smtp-Source: AGHT+IEaM6MkZFZl3KmiAg6nD02zKSlYWnEyf/5dVUkNhm+rsElC7GOnheMem/9YEpGNrUbt2mLwbQ==
-X-Received: by 2002:a05:600c:4fd3:b0:431:54f3:11ab with SMTP id 5b1f17b1804b1-43668b600c9mr5900845e9.33.1734658749151;
-        Thu, 19 Dec 2024 17:39:09 -0800 (PST)
-Message-ID: <43166e29-ff2d-4a9d-8c1b-41b5e247974b@citrix.com>
-Date: Fri, 20 Dec 2024 01:39:07 +0000
+X-Inumbo-ID: 9fe39b15-be74-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1734659357;
+	 x=1734745757; bh=g14WTCMBoTbKiC3sBIPswkQshMBVMEBAMyalDlYrpzM=; b=
+	hEK6Ijd+52TWbJIa+aEoikpmsfTPXENR+PkaBbIsu+szccQq/5/zY6ErXh0XvEeh
+	b1GjFRiv9ghdiMW1R7LCN4HJUxvyM/F+JWRBo+8vOF3gyPnF9/3H4GrAd936PvI/
+	QhlsL9Oj8kctUs+HLubHUO+pyqPD/XZREyBVIodL6VOQf7tynSKVhaT0ss02reGK
+	U/Pm1BVOwwsqJNGrbiVMWEsk0r1RONCnujj9nAv6aMac0lqUCax9QqwqpVPM6ieo
+	rYcR91z5p7C1WeJaBPZBI2QYgJ4wikFcTdFEkwvKlJg6xM4Qy+H0NLI2tTXGR1WX
+	vRpLSFgl+nwETlRZt1GtDw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1734659357; x=1734745757; bh=g14WTCMBoTbKiC3sBIPswkQshMBVMEBAMya
+	lDlYrpzM=; b=DJaVvbNwUM7ns9+EaXl5MkX1XlVTpIgX3mzUPI2Nh/fnB/qRUO7
+	LwaMfl7br7x2sjNkpxrwf1Ni5AT5+4MIH7ByDTwptnBynY36dZBre4G4SzvymUR/
+	WPxUruacOUOBAhNXi7kFienOW5P5OoECJV0S1qroE2+qIhBDue6c/s5Lz2UHzxvB
+	p6eR8YbtTLmyx6aGogibQxbPHt5Dafw+MpZrkvp3GFYdkPUIrpo0H22xL9Xtu8LO
+	ISXdrdfNvO6WUmFQUs0b6WJo72q+xxI8gOiKnUuJZOS5wzIHG3mGRaV5T3eP5G4U
+	wxefC+idDOAZQ2ZVCPSAOz70xIpFoxr/+gg==
+X-ME-Sender: <xms:Hc1kZ4Tk3e8bLl1nOh09_zGPHsCsf9ObALFk6yK5aloTegqk5mKjBg>
+    <xme:Hc1kZ1wAb-awRAmEh1G5s7ELE20_z_cA7Z8JfxnVmAUW_pjGQNe46qjVAvxkidW_H
+    yHYQlKTnRwEvA>
+X-ME-Received: <xmr:Hc1kZ10nxuvA3TwnEYtgI7euQfT0-IiESfWfkLKDiq88cSo0bQTp-oI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddruddtuddgfeekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuf
+    fkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhho
+    fihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhih
+    hnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffeigffhkefhgfegfeff
+    hfegveeikeettdfhheevieehieeitddugeefteffnecuvehluhhsthgvrhfuihiivgeptd
+    enucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgv
+    thhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepuddpmhhouggvpehsmhhtph
+    houhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgv
+    tghtrdhorhhg
+X-ME-Proxy: <xmx:Hc1kZ8C8W58Gmcj1iZrrX-1wIJfkYKg91UJ-33x0G3hO7o0nQU1SWw>
+    <xmx:Hc1kZxii5wJ4oh7uVltnXak_A7mxhh9-PF5QyDkFcLLGFrOaiW8Img>
+    <xmx:Hc1kZ4owSBfYlPqqcYxoHxPwWYNk8Q4ZhPyAYs87rvt0AebNKzT8Mw>
+    <xmx:Hc1kZ0g4LqOVt9gTm_bVyUUX5WTe62o65ESyjTxiD-dVmVvUoxnQ4Q>
+    <xmx:Hc1kZxagJSjYr2XI3i5BF5XCKy9LjVa2ZWjwfrhZKdhyyxp2HFlKgoMk>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 20 Dec 2024 02:48:52 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
+Message-ID: <Z2TNBPXj6DXDaonD@mail-itl>
+References: <Z2RGfpJkO0z_nKV6@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Linux-6.12.y] XEN: CVE-2024-53241 / XSA-466 and Clang-kCFI
-To: sedat.dilek@gmail.com
-Cc: Juergen Gross <jgross@suse.com>, Peter Zijlstra <peterz@infradead.org>,
- Sami Tolvanen <samitolvanen@google.com>, Jan Beulich <jbeulich@suse.com>,
- Josh Poimboeuf <jpoimboe@redhat.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Kees Cook <kees@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <CA+icZUWHU=oXOEj5wHTzxrw_wj1w5hTvqq8Ry400s0ZCJjTEZw@mail.gmail.com>
- <099d3a80-4fdb-49a7-9fd0-207d7386551f@citrix.com>
- <CA+icZUX98gQ54hePEWNauiU41XQV7qdKJx5PiiXzxy+6yW7hTw@mail.gmail.com>
- <CA+icZUW-i53boHBPt+8zh-D921XFbPb_Kc=dzdgCK1QvkOgCsw@mail.gmail.com>
- <90640a5d-ff17-4555-adc6-ae9e21e24ebd@citrix.com>
- <CA+icZUVo69swc9QfwJr+mDuHqJKcFUexc08voP2O41g31HGx5w@mail.gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CA+icZUVo69swc9QfwJr+mDuHqJKcFUexc08voP2O41g31HGx5w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="zbwhSu/fNdCZgdzp"
+Content-Disposition: inline
+In-Reply-To: <Z2RGfpJkO0z_nKV6@mail-itl>
 
-On 20/12/2024 12:27 am, Sedat Dilek wrote:
-> On Fri, Dec 20, 2024 at 12:26 AM Andrew Cooper
-> <andrew.cooper3@citrix.com> wrote:
->> On 19/12/2024 11:10 pm, Sedat Dilek wrote:
->>> On Thu, Dec 19, 2024 at 6:07 PM Sedat Dilek <sedat.dilek@gmail.com> wrote:
->>>> On Thu, Dec 19, 2024 at 5:44 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->>>>> On 19/12/2024 4:14 pm, Sedat Dilek wrote:
->>>>>> Hi,
->>>>>>
->>>>>> Linux v6.12.6 will include XEN CVE fixes from mainline.
->>>>>>
->>>>>> Here, I use Debian/unstable AMD64 and the SLIM LLVM toolchain 19.1.x
->>>>>> from kernel.org.
->>>>>>
->>>>>> What does it mean in ISSUE DESCRIPTION...
->>>>>>
->>>>>> Furthermore, the hypercall page has no provision for Control-flow
->>>>>> Integrity schemes (e.g. kCFI/CET-IBT/FineIBT), and will simply
->>>>>> malfunction in such configurations.
->>>>>>
->>>>>> ...when someone uses Clang-kCFI?
->>>>> The hypercall page has functions of the form:
->>>>>
->>>>>     MOV $x, %eax
->>>>>     VMCALL / VMMCALL / SYSCALL
->>>>>     RET
->>>>>
->>>>> There are no ENDBR instructions, and no prologue/epilogue for hash-based
->>>>> CFI schemes.
->>>>>
->>>>> This is because it's code provided by Xen, not code provided by Linux.
->>>>>
->>>>> The absence of ENDBR instructions will yield #CP when CET-IBT is active,
->>>>> and the absence of hash prologue/epilogue lets the function be used in a
->>>>> type-confused manor that CFI should have caught.
->>>>>
->>>>> ~Andrew
->>>> Thanks for the technical explanation, Andrew.
->>>>
->>>> Hope that helps the folks of "CLANG CONTROL FLOW INTEGRITY SUPPORT".
->>>>
->>>> I am not an active user of XEN in the Linux-kernel but I am willing to
->>>> test when Linux v6.12.6 is officially released and give feedback.
->>>>
->>> https://wiki.xenproject.org/wiki/Testing_Xen#Presence_test
->>> https://wiki.xenproject.org/wiki/Testing_Xen#Commands_for_presence_testing
->>>
->>> # apt install -t unstable xen-utils-4.17 -y
->>>
->>> # xl list
->>> Name                                        ID   Mem VCPUs      State   Time(s)
->>> Domain-0                                     0  7872     4     r-----     398.2
->>>
->>> Some basic tests LGTM - see also attached stuff.
->>>
->>> If you have any tests to recommend, let me know.
->> That itself is good enough as a smoke test.  Thankyou for trying it out.
->>
->> If you want something a bit more thorough, try
->> https://xenbits.xen.org/docs/xtf/  (Xen's self-tests)
->>
->> Grab and build it, and `./xtf-runner -aqq --host` will run a variety of
->> extra codepaths in dom0, without the effort of making/running full guests.
->>
->> ~Andrew
-> Run on Debian 6.12.5 and my selfmade 6.12.5 and 6.12.6.
-> All tests lead to a reboot in case of Debian or in my kernels to a shutdown.
->
-> Can you recommend a specific test?
 
-Oh, that's distinctly less good.
+--zbwhSu/fNdCZgdzp
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Dec 2024 02:48:52 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
 
-Start with just "example".  It's literally a hello world microkernel,
-but the symptoms you're seeing is a dom0 crash, so it will likely
-provoke it.
+On Thu, Dec 19, 2024 at 05:14:52PM +0100, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> Hi,
+>=20
+> It crashes on boot like below, most of the times. But sometimes (rarely)
+> it manages to stay alive. Below I'm pasting few of the crashes that look
+> distinctly different, if you follow the links, you can find more of
+> them. IMHO it looks like some memory corruption bug somewhere. I tested
+> also Linux 6.13-rc2 before, and it had very similar issue.
+>=20
+> The traces below are all from nested virt (Xen inside KVM), tests with
+> Xen directly on the hardware are still in progress. But -rc2 failed all
+> of them too, so if it's the same issue, I guess they will looks similar.
 
-Do you have serial to the machine?  If so, boot Xen with `console=com1
-com1=115200,8n1` (or com2, as appropriate).
+Yes, on real hardware it crashes too.
 
-If not and you've only got a regular screen, boot Xen with `vga=,keep
-noreboot` (comma is important) which might leave enough information on
-screen to get an idea of what's going on.
+I tried to enable KASAN, but that didn't worked out:
 
-Full command line docs at
-https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html
+(XEN) d0 has maximum 416 PIRQs
+(XEN) *** Building a PV Dom0 ***
+(XEN)  Xen  kernel: 64-bit, lsb
+(XEN)  Dom0 kernel: 64-bit, lsb, paddr 0x200000 -> 0x7600000
+(XEN) PHYSICAL MEMORY ARRANGEMENT:
+(XEN)  Dom0 alloc.:   0000000260000000->0000000268000000 (1005377 pages to =
+be allocated)
+(XEN)  Init. ramdisk: 000000027d741000->000000027ffff207
+(XEN) VIRTUAL MEMORY ARRANGEMENT:
+(XEN)  Loaded kernel: ffffffff80200000->ffffffff87600000
+(XEN)  Phys-Mach map: 0000008000000000->0000008000800000
+(XEN)  Start info:    ffffffff87600000->ffffffff876004b8
+(XEN)  Page tables:   ffffffff87601000->ffffffff87640000
+(XEN)  Boot stack:    ffffffff87640000->ffffffff87641000
+(XEN)  TOTAL:         ffffffff80000000->ffffffff87800000
+(XEN)  ENTRY ADDRESS: ffffffff8615da50
+(XEN) Dom0 has maximum 2 VCPUs
+(XEN) Initial low memory virq threshold set at 0x4000 pages.
+(XEN) Scrubbing Free RAM in background
+(XEN) Std. Loglevel: All
+(XEN) Guest Loglevel: All
+(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+(XEN) Freed 684kB init memory
+(XEN) d0v0 Unhandled: vec 14, #PF[0002]
+(XEN) Pagetable walk from fffffbfff0900fc6:
+(XEN)  L4[0x1f7] =3D 0000000000000000 ffffffffffffffff
+(XEN) domain_crash_sync called from entry.S: fault at ffff82d0402ebdec x86_=
+64/entry.S#create_bounce_frame+0x14c/0x170
+(XEN) Domain 0 (vcpu#0) crashed on cpu#0:
+(XEN) ----[ Xen-4.19.0  x86_64  debug=3Dn  Not tainted ]----
+(XEN) CPU:    0
+(XEN) RIP:    e033:[<ffffffff8614ff32>]
+(XEN) RFLAGS: 0000000000000286   EM: 1   CONTEXT: pv guest (d0v0)
+(XEN) rax: ffffffff860d8000   rbx: ffffffff87600000   rcx: 00000000c0000101
+(XEN) rdx: 3be9e05ee5ed7ef7   rsi: ffffffff87600000   rdi: fffffbfff0900fc6
+(XEN) rbp: ffffffff84807f48   rsp: ffffffff84807df0   r8:  0000000000000000
+(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
+(XEN) r12: dffffc0000000000   r13: 0000000000000000   r14: 0000000000000000
+(XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 0000000000340660
+(XEN) cr3: 0000000267601000   cr2: fffffbfff0900fc6
+(XEN) fsb: 0000000000000000   gsb: ffffffff860d8000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
+(XEN) Guest stack trace from rsp=3Dffffffff84807df0:
+(XEN)    00000000c0000101 0000000000000000 0000000000000002 ffffffff8614ff32
+(XEN)    000000010000e030 0000000000010086 ffffffff84807e30 000000000000e02b
+(XEN)    0000000041b58ab3 ffffffff845f8030 ffffffff8614fed0 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    ffffffff8615da6f 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000
+(XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
+(XEN) Resetting with ACPI MEMORY or I/O RESET_REG.
 
-> dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner --list functional xsa | grep xsa-4
-> test-pv64-xsa-444
-> test-hvm64-xsa-451
-> test-hvm64-xsa-454
->
-> Is there no xsa-466 test?
+> Who should I CC here? The failures are all over the place... linux-mm?
 
-No.  XSA-466 is really "well don't do that then if it matters".
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-More generally, not all XSAs are amenable to testing in this way.
+--zbwhSu/fNdCZgdzp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-~Andrew
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmdkzQQACgkQ24/THMrX
+1ywbwAf+KGtSOL+7T1Z1s20XvozsBxcfgNEB2B/vBMva72uhAKPZV397RerlQcvK
+SndSj4PmUrraltBC6qSPLU1juUnY9kgFLtzu12LfXn1Zss4IeiOsVxXYgKTOPbBv
+rp2j5BmOaxvq33FoSgUUKMgzTNfH0W1bhg5Ihhd0/DbNiwxCOsc1VzVWVZqaIDgN
+5gZTHqxXQ/VNaF1lvV7CN79CR9UX6FvO0a7+SulMpb2a580TE04j8t9cpUfbIU0k
+MxOn6hziAlOmM8CJB+aNy8828XB85Dobl8Qpi1IYYXjYGXloAy0fddPEjo7RTSJZ
+0/6sX1V2DU6z1vdqEI9NhSPdVHRLYw==
+=Rl2t
+-----END PGP SIGNATURE-----
+
+--zbwhSu/fNdCZgdzp--
 
