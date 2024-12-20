@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E291B9F89B7
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2024 02:49:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.861606.1273569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27BDE9F8C5B
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2024 07:07:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.861615.1273579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOS8q-0008Hb-5v; Fri, 20 Dec 2024 01:49:24 +0000
+	id 1tOW9Y-0003xo-RU; Fri, 20 Dec 2024 06:06:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 861606.1273569; Fri, 20 Dec 2024 01:49:24 +0000
+Received: by outflank-mailman (output) from mailman id 861615.1273579; Fri, 20 Dec 2024 06:06:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tOS8q-0008Fo-3P; Fri, 20 Dec 2024 01:49:24 +0000
-Received: by outflank-mailman (input) for mailman id 861606;
- Fri, 20 Dec 2024 01:49:22 +0000
+	id 1tOW9Y-0003vs-Oc; Fri, 20 Dec 2024 06:06:24 +0000
+Received: by outflank-mailman (input) for mailman id 861615;
+ Fri, 20 Dec 2024 06:06:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lf2i=TN=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tOS8o-0008Fg-9R
- for xen-devel@lists.xenproject.org; Fri, 20 Dec 2024 01:49:22 +0000
-Received: from fout-a4-smtp.messagingengine.com
- (fout-a4-smtp.messagingengine.com [103.168.172.147])
+ <SRS0=MWOG=TN=eurecom.fr=Ariel.Otilibili-Anieli@srs-se1.protection.inumbo.net>)
+ id 1tOW9W-0003vm-IX
+ for xen-devel@lists.xenproject.org; Fri, 20 Dec 2024 06:06:23 +0000
+Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9fe39b15-be74-11ef-99a3-01e77a169b0f;
- Fri, 20 Dec 2024 02:49:18 +0100 (CET)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id 5F19C1380193
- for <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 20:49:17 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Thu, 19 Dec 2024 20:49:17 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Thu, 19 Dec 2024 20:49:16 -0500 (EST)
+ id 8768f5d4-be98-11ef-99a3-01e77a169b0f;
+ Fri, 20 Dec 2024 07:06:19 +0100 (CET)
+Received: from quovadis.eurecom.fr ([10.3.2.233])
+ by drago1i.eurecom.fr with ESMTP; 20 Dec 2024 07:06:19 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +38,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fe39b15-be74-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:content-type:date:date
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1734659357;
-	 x=1734745757; bh=g14WTCMBoTbKiC3sBIPswkQshMBVMEBAMyalDlYrpzM=; b=
-	hEK6Ijd+52TWbJIa+aEoikpmsfTPXENR+PkaBbIsu+szccQq/5/zY6ErXh0XvEeh
-	b1GjFRiv9ghdiMW1R7LCN4HJUxvyM/F+JWRBo+8vOF3gyPnF9/3H4GrAd936PvI/
-	QhlsL9Oj8kctUs+HLubHUO+pyqPD/XZREyBVIodL6VOQf7tynSKVhaT0ss02reGK
-	U/Pm1BVOwwsqJNGrbiVMWEsk0r1RONCnujj9nAv6aMac0lqUCax9QqwqpVPM6ieo
-	rYcR91z5p7C1WeJaBPZBI2QYgJ4wikFcTdFEkwvKlJg6xM4Qy+H0NLI2tTXGR1WX
-	vRpLSFgl+nwETlRZt1GtDw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1734659357; x=1734745757; bh=g14WTCMBoTbKiC3sBIPswkQshMBVMEBAMya
-	lDlYrpzM=; b=DJaVvbNwUM7ns9+EaXl5MkX1XlVTpIgX3mzUPI2Nh/fnB/qRUO7
-	LwaMfl7br7x2sjNkpxrwf1Ni5AT5+4MIH7ByDTwptnBynY36dZBre4G4SzvymUR/
-	WPxUruacOUOBAhNXi7kFienOW5P5OoECJV0S1qroE2+qIhBDue6c/s5Lz2UHzxvB
-	p6eR8YbtTLmyx6aGogibQxbPHt5Dafw+MpZrkvp3GFYdkPUIrpo0H22xL9Xtu8LO
-	ISXdrdfNvO6WUmFQUs0b6WJo72q+xxI8gOiKnUuJZOS5wzIHG3mGRaV5T3eP5G4U
-	wxefC+idDOAZQ2ZVCPSAOz70xIpFoxr/+gg==
-X-ME-Sender: <xms:Hc1kZ4Tk3e8bLl1nOh09_zGPHsCsf9ObALFk6yK5aloTegqk5mKjBg>
-    <xme:Hc1kZ1wAb-awRAmEh1G5s7ELE20_z_cA7Z8JfxnVmAUW_pjGQNe46qjVAvxkidW_H
-    yHYQlKTnRwEvA>
-X-ME-Received: <xmr:Hc1kZ10nxuvA3TwnEYtgI7euQfT0-IiESfWfkLKDiq88cSo0bQTp-oI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddruddtuddgfeekucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuf
-    fkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhho
-    fihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhih
-    hnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffeigffhkefhgfegfeff
-    hfegveeikeettdfhheevieehieeitddugeefteffnecuvehluhhsthgvrhfuihiivgeptd
-    enucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgv
-    thhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepuddpmhhouggvpehsmhhtph
-    houhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgv
-    tghtrdhorhhg
-X-ME-Proxy: <xmx:Hc1kZ8C8W58Gmcj1iZrrX-1wIJfkYKg91UJ-33x0G3hO7o0nQU1SWw>
-    <xmx:Hc1kZxii5wJ4oh7uVltnXak_A7mxhh9-PF5QyDkFcLLGFrOaiW8Img>
-    <xmx:Hc1kZ4owSBfYlPqqcYxoHxPwWYNk8Q4ZhPyAYs87rvt0AebNKzT8Mw>
-    <xmx:Hc1kZ0g4LqOVt9gTm_bVyUUX5WTe62o65ESyjTxiD-dVmVvUoxnQ4Q>
-    <xmx:Hc1kZxagJSjYr2XI3i5BF5XCKy9LjVa2ZWjwfrhZKdhyyxp2HFlKgoMk>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 20 Dec 2024 02:48:52 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
-Message-ID: <Z2TNBPXj6DXDaonD@mail-itl>
-References: <Z2RGfpJkO0z_nKV6@mail-itl>
+X-Inumbo-ID: 8768f5d4-be98-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
+  t=1734674780; x=1766210780;
+  h=from:in-reply-to:references:date:cc:to:mime-version:
+   message-id:subject:content-transfer-encoding;
+  bh=2RbFRUgw/qI9zihNzLR2Q2ojXC2qlL4c3ZQfciTB1hI=;
+  b=caV6+td2pxVRTRTLgnUsLywWWvIxmv6NIFGQ0OkwcuZGM5oHIkPl/yM0
+   H4bATC4cBSp+oPEdDU5X5s/PPUP7TRbXX/LwuNEN4+L5d9bpp/MLWCTSM
+   8M9Tuw5oo44VjjWI2HYACt/u8y5wjmKs312Kwwneo6ppt2stdVB2OgehK
+   0=;
+X-CSE-ConnectionGUID: x7KDBgJ+RDmCofNbz/mOcQ==
+X-CSE-MsgGUID: cat6bxRdT9+Hz3AwkC8aKA==
+X-IronPort-AV: E=Sophos;i="6.12,249,1728943200"; 
+   d="scan'208";a="28265590"
+From: "Ariel Otilibili-Anieli" <Ariel.Otilibili-Anieli@eurecom.fr>
+In-Reply-To: <20241219231352.579D5C4CECE@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+X-Forward: 88.183.119.157
+References: <20241219231352.579D5C4CECE@smtp.kernel.org>
+Date: Fri, 20 Dec 2024 07:06:18 +0100
+Cc: mm-commits@vger.kernel.org, sstabellini@kernel.org, roger.pau@citrix.com, michal.orzel@amd.com, julien@xen.org, jbeulich@suse.com, anthony.perard@vates.tech, andrew.cooper3@citrix.com, stable@vger.kernel.org, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+To: "Andrew Morton" <akpm@linux-foundation.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zbwhSu/fNdCZgdzp"
-Content-Disposition: inline
-In-Reply-To: <Z2RGfpJkO0z_nKV6@mail-itl>
-
-
---zbwhSu/fNdCZgdzp
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Message-ID: <2f7a83-67650980-a2c7-5cf12280@54007280>
+Subject: =?utf-8?q?Re=3A?= + =?utf-8?q?lib-remove-dead-code=2Epatch?= added to 
+ mm-nonmm-unstable branch
+User-Agent: SOGoMail 5.11.1
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Dec 2024 02:48:52 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
 
-On Thu, Dec 19, 2024 at 05:14:52PM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> Hi,
+On Friday, December 20, 2024 00:13 CET, Andrew Morton <akpm@linux-found=
+ation.org> wrote:
+
 >=20
-> It crashes on boot like below, most of the times. But sometimes (rarely)
-> it manages to stay alive. Below I'm pasting few of the crashes that look
-> distinctly different, if you follow the links, you can find more of
-> them. IMHO it looks like some memory corruption bug somewhere. I tested
-> also Linux 6.13-rc2 before, and it had very similar issue.
+> The patch titled
+>      Subject: lib/inflate.c: remove dead code
+> has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+>      lib-remove-dead-code.patch
 >=20
-> The traces below are all from nested virt (Xen inside KVM), tests with
-> Xen directly on the hardware are still in progress. But -rc2 failed all
-> of them too, so if it's the same issue, I guess they will looks similar.
+> This patch will shortly appear at
+>      https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/=
+tree/patches/lib-remove-dead-code.patch
+>=20
+> This patch will later appear in the mm-nonmm-unstable branch at
+>     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+>=20
+> Before you just go and hit "reply", please:
+>    a) Consider who else should be cc'ed
 
-Yes, on real hardware it crashes too.
+Hello Andrew,
 
-I tried to enable KASAN, but that didn't worked out:
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org
 
-(XEN) d0 has maximum 416 PIRQs
-(XEN) *** Building a PV Dom0 ***
-(XEN)  Xen  kernel: 64-bit, lsb
-(XEN)  Dom0 kernel: 64-bit, lsb, paddr 0x200000 -> 0x7600000
-(XEN) PHYSICAL MEMORY ARRANGEMENT:
-(XEN)  Dom0 alloc.:   0000000260000000->0000000268000000 (1005377 pages to =
-be allocated)
-(XEN)  Init. ramdisk: 000000027d741000->000000027ffff207
-(XEN) VIRTUAL MEMORY ARRANGEMENT:
-(XEN)  Loaded kernel: ffffffff80200000->ffffffff87600000
-(XEN)  Phys-Mach map: 0000008000000000->0000008000800000
-(XEN)  Start info:    ffffffff87600000->ffffffff876004b8
-(XEN)  Page tables:   ffffffff87601000->ffffffff87640000
-(XEN)  Boot stack:    ffffffff87640000->ffffffff87641000
-(XEN)  TOTAL:         ffffffff80000000->ffffffff87800000
-(XEN)  ENTRY ADDRESS: ffffffff8615da50
-(XEN) Dom0 has maximum 2 VCPUs
-(XEN) Initial low memory virq threshold set at 0x4000 pages.
-(XEN) Scrubbing Free RAM in background
-(XEN) Std. Loglevel: All
-(XEN) Guest Loglevel: All
-(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
-(XEN) Freed 684kB init memory
-(XEN) d0v0 Unhandled: vec 14, #PF[0002]
-(XEN) Pagetable walk from fffffbfff0900fc6:
-(XEN)  L4[0x1f7] =3D 0000000000000000 ffffffffffffffff
-(XEN) domain_crash_sync called from entry.S: fault at ffff82d0402ebdec x86_=
-64/entry.S#create_bounce_frame+0x14c/0x170
-(XEN) Domain 0 (vcpu#0) crashed on cpu#0:
-(XEN) ----[ Xen-4.19.0  x86_64  debug=3Dn  Not tainted ]----
-(XEN) CPU:    0
-(XEN) RIP:    e033:[<ffffffff8614ff32>]
-(XEN) RFLAGS: 0000000000000286   EM: 1   CONTEXT: pv guest (d0v0)
-(XEN) rax: ffffffff860d8000   rbx: ffffffff87600000   rcx: 00000000c0000101
-(XEN) rdx: 3be9e05ee5ed7ef7   rsi: ffffffff87600000   rdi: fffffbfff0900fc6
-(XEN) rbp: ffffffff84807f48   rsp: ffffffff84807df0   r8:  0000000000000000
-(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
-(XEN) r12: dffffc0000000000   r13: 0000000000000000   r14: 0000000000000000
-(XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 0000000000340660
-(XEN) cr3: 0000000267601000   cr2: fffffbfff0900fc6
-(XEN) fsb: 0000000000000000   gsb: ffffffff860d8000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
-(XEN) Guest stack trace from rsp=3Dffffffff84807df0:
-(XEN)    00000000c0000101 0000000000000000 0000000000000002 ffffffff8614ff32
-(XEN)    000000010000e030 0000000000010086 ffffffff84807e30 000000000000e02b
-(XEN)    0000000041b58ab3 ffffffff845f8030 ffffffff8614fed0 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    ffffffff8615da6f 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000
-(XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
-(XEN) Resetting with ACPI MEMORY or I/O RESET_REG.
+https://lore.kernel.org/lkml/20241219224645.749233-1-ariel.otilibili-an=
+ieli@eurecom.fr/
 
-> Who should I CC here? The failures are all over the place... linux-mm?
+Thank you,
+Ariel
+>    b) Prefer to cc a suitable mailing list as well
+>    c) Ideally: find the original patch on the mailing list and do a
+>       reply-to-all to that, adding suitable additional cc's
+>=20
+> *** Remember to use Documentation/process/submit-checklist.rst when t=
+esting your code ***
+>=20
+> The -mm tree is included into linux-next via the mm-everything
+> branch at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> and is updated there every 2-3 working days
+>=20
+> ------------------------------------------------------
+> From: Ariel Otilibili <ariel.otilibili-anieli@eurecom.fr>
+> Subject: lib/inflate.c: remove dead code
+> Date: Thu, 19 Dec 2024 10:21:12 +0100
+>=20
+> This is a follow up from a discussion in Xen:
+>=20
+> The if-statement tests that `res` is non-zero; meaning the case zero =
+is
+> never reached.
+>=20
+> Link: https://lore.kernel.org/all/7587b503-b2ca-4476-8dc9-e9683d4ca5f=
+0@suse.com/
+> Link: https://lkml.kernel.org/r/20241219092615.644642-2-ariel.otilibi=
+li-anieli@eurecom.fr
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Signed-off-by: Ariel Otilibili <ariel.otilibili-anieli@eurecom.fr>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Anthony PERARD <anthony.perard@vates.tech>
+> Cc: Michal Orzel <michal.orzel@amd.com>
+> Cc: Julien Grall <julien@xen.org>
+> Cc: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> ---
+>=20
+>  lib/inflate.c |    2 --
+>  1 file changed, 2 deletions(-)
+>=20
+> --- a/lib/inflate.c~lib-remove-dead-code
+> +++ a/lib/inflate.c
+> @@ -1257,8 +1257,6 @@ static int INIT gunzip(void)
+>      /* Decompress */
+>      if ((res =3D inflate())) {
+>  	    switch (res) {
+> -	    case 0:
+> -		    break;
+>  	    case 1:
+>  		    error("invalid compressed format (err=3D1)");
+>  		    break;
+> =5F
+>=20
+> Patches currently in -mm which might be from ariel.otilibili-anieli@e=
+urecom.fr are
+>=20
+> lib-remove-dead-code.patch
+>
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---zbwhSu/fNdCZgdzp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmdkzQQACgkQ24/THMrX
-1ywbwAf+KGtSOL+7T1Z1s20XvozsBxcfgNEB2B/vBMva72uhAKPZV397RerlQcvK
-SndSj4PmUrraltBC6qSPLU1juUnY9kgFLtzu12LfXn1Zss4IeiOsVxXYgKTOPbBv
-rp2j5BmOaxvq33FoSgUUKMgzTNfH0W1bhg5Ihhd0/DbNiwxCOsc1VzVWVZqaIDgN
-5gZTHqxXQ/VNaF1lvV7CN79CR9UX6FvO0a7+SulMpb2a580TE04j8t9cpUfbIU0k
-MxOn6hziAlOmM8CJB+aNy8828XB85Dobl8Qpi1IYYXjYGXloAy0fddPEjo7RTSJZ
-0/6sX1V2DU6z1vdqEI9NhSPdVHRLYw==
-=Rl2t
------END PGP SIGNATURE-----
-
---zbwhSu/fNdCZgdzp--
 
