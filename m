@@ -2,41 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 106579FA0EA
-	for <lists+xen-devel@lfdr.de>; Sat, 21 Dec 2024 15:11:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.862456.1274126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18B909FA246
+	for <lists+xen-devel@lfdr.de>; Sat, 21 Dec 2024 20:46:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.862496.1274135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tP0BO-0003Kr-0a; Sat, 21 Dec 2024 14:10:18 +0000
+	id 1tP5Pu-0005yt-Nv; Sat, 21 Dec 2024 19:45:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 862456.1274126; Sat, 21 Dec 2024 14:10:17 +0000
+Received: by outflank-mailman (output) from mailman id 862496.1274135; Sat, 21 Dec 2024 19:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tP0BN-0003Iu-Sx; Sat, 21 Dec 2024 14:10:17 +0000
-Received: by outflank-mailman (input) for mailman id 862456;
- Sat, 21 Dec 2024 14:10:16 +0000
+	id 1tP5Pu-0005yA-JU; Sat, 21 Dec 2024 19:45:38 +0000
+Received: by outflank-mailman (input) for mailman id 862496;
+ Sat, 21 Dec 2024 17:06:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J9xk=TO=gmail.com=geert.uytterhoeven@srs-se1.protection.inumbo.net>)
- id 1tP0BM-0003Io-PG
- for xen-devel@lists.xenproject.org; Sat, 21 Dec 2024 14:10:16 +0000
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c283ad1-bfa5-11ef-99a3-01e77a169b0f;
- Sat, 21 Dec 2024 15:10:14 +0100 (CET)
-Received: by mail-oo1-f50.google.com with SMTP id
- 006d021491bc7-5f31b3db5ecso1257156eaf.0
- for <xen-devel@lists.xenproject.org>; Sat, 21 Dec 2024 06:10:14 -0800 (PST)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com.
- [209.85.210.41]) by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-2a7d77f6475sm1523437fac.53.2024.12.21.06.10.12
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Dec 2024 06:10:12 -0800 (PST)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-71ded02b779so1443596a34.2
- for <xen-devel@lists.xenproject.org>; Sat, 21 Dec 2024 06:10:12 -0800 (PST)
+ <SRS0=t6MP=TO=gmail.com=sedat.dilek@srs-se1.protection.inumbo.net>)
+ id 1tP2wB-0005v4-Iq
+ for xen-devel@lists.xenproject.org; Sat, 21 Dec 2024 17:06:47 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f4c4ccf0-bfbd-11ef-99a3-01e77a169b0f;
+ Sat, 21 Dec 2024 18:06:45 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5401b7f7141so2510770e87.1
+ for <xen-devel@lists.xenproject.org>; Sat, 21 Dec 2024 09:06:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,143 +40,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c283ad1-bfa5-11ef-99a3-01e77a169b0f
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734790213; x=1735395013;
+X-Inumbo-ID: f4c4ccf0-bfbd-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1734800804; x=1735405604; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=GpBog1LJdntPo57cyHdGkHydPz04prdcJbkki5MzpWU=;
-        b=Y9Rw8fFw073Hc5OGAxYS0wK+ioDb6VVHjZ1i9xADLnVF8kBksUbU46qwQClYVR3GQV
-         Kw8oskTpHLfvD1EaCltt1StfTnpcVBAnCin2Lecqfjc70R5KuWpGcOZd5BOoQzvJoVBE
-         eD8uB8UP6oxmXAyNbxwP0tBL9OyPd+1iB787KKwGAb3iNn1wvs5I3xE11gQGRL3kxKa7
-         DBb1YYujUfHFkrHvBbj7FLKOQ5g0h1YuDS3cpQp/kCHALHgzMuorz8LNQCdTD8Uqf73Q
-         BCAuZTrQjPsZ9qcLWWtf4Sq1M5PBrhpjN2OQX42Ay+yK6Bf7oShUBmDJgxtAPXw8TZ2B
-         l7WQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUatEZOGGVlJv3VblDuaE1fv5TM9FvWZ6kk7oLq04kNn5tW50cJ7PFzJb6gL2KYIJfQTg4BzEV1I2E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy5wfnb3w9u+xWv4o5Z1FEWOGsFfuMFwiLnqQXOyR7+8fbBQ3P2
-	IKVWkmc+4iLWSeKPSs5nKlLDcj/2P9CCpxyTCq/IeekuQQIIfajZCXPbXgnK
-X-Gm-Gg: ASbGncv8Q9J/IEhkETHrs5UPiu1Ry3kGc5uBH9Gva4S0emAGH1tfD39cpc0ML4V8Fia
-	mpeCDb5eVeulQRlFjaVYPxdBRzwqUwMSwIOVn562Qb10E4AeGmC71f7hdY2L8TnnUM+O+ge6oN+
-	QjcgX+67/ZwY978WPY+771M4EIZ+O6JHe1VAx5pldlJzWDl5mRDYttsxBS2ggGCFH1+alv48Kqs
-	TuEqsBt4tz5RjhFA9ZVsGepTTyRD9WSRc+6I1sZD7MZaJqQgt+Dx945b/6JayadnaHBkyqg4r8p
-	/xXajvMRoTkpm8Cj7hY=
-X-Google-Smtp-Source: AGHT+IHGfbHj2RRCV9qNWtvJ6wAEwPp6E9L3SjVN8cnDX99rqmzS6pslwpBDDY0Tqgn6FWmVqiQjRQ==
-X-Received: by 2002:a05:6870:8928:b0:29e:6814:19d with SMTP id 586e51a60fabf-2a7fb18a63emr3991618fac.9.1734790213108;
-        Sat, 21 Dec 2024 06:10:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWl/5A7PtbT9OTF7aoJAenR9qKg1wmZAunJGzKu/SUje8jVr4OpCTg9+x2kHns/lc32XrfC6oIIjLY=@lists.xenproject.org
-X-Received: by 2002:a05:6102:cc8:b0:4af:ef85:dae4 with SMTP id
- ada2fe7eead31-4b2cc313a2cmr7064126137.5.1734789822327; Sat, 21 Dec 2024
- 06:03:42 -0800 (PST)
+         :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=agKbG4Ad2aFh5DQ9Ty8+oto7J07OzvutBur24QnJNbs=;
+        b=UclJrBDpxLXUs9rBR8/MQN8dVn5FR2VzRjh98xes0WkBosmjSoe0Ci2ruT8tHeMCgc
+         WJJevP9YUBx0wEcjXtPhFijHQm9yZlexGeKaxanm+LEnnsa0uOnIbIec+fQU+pvRUZCA
+         XYnGq5S/T51fELtWTluFB06CzmtIWTnToc615yTrkO810IOlqvsOXE6CaLPBgryD4YMY
+         uhJUJC5kCStUM+zA6s4PRbSV3kMzVAZSUXVcoUCd/X8FBinzRfIWP5E+fRG960taiZ8o
+         0KA6bBq0WBWt69BtL99RR94sjtG3CzfnwGR3eg//EzRxwzF/FEHqM4AeKTOLBiYS3N/h
+         biZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734800804; x=1735405604;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=agKbG4Ad2aFh5DQ9Ty8+oto7J07OzvutBur24QnJNbs=;
+        b=OSUZH9CFnaNyKN1Id6JYTvyAu30C4cwLgRjTc/V5iKdgeX05R/bc4NTd9w2KnlaV8A
+         V3Sy6qXvgGWfB/l75LQpB2YIRqpRLkHdYtoDvP2nrxd45Vwv+KR+CA5T6CkZjMjJRrmL
+         zitLMLTJmrbHNhxf7nPDFqFrgmpMcqprS2chzASMDdeH8RjWqYhgnT1FhFNO5aScVjLH
+         PzokdgGsXK0PeT7tngG10n9UVP8t6lo0mWAnCrl1S2JlswPxSrqrrjhZVpEFf9i+UVNj
+         MfKc23fQ4xlOLgHDSoke4mVFzi5zBgbWmHL9d4y87hzSoeLVePeHR5qczdepSTVDXaNl
+         IOSA==
+X-Forwarded-Encrypted: i=1; AJvYcCVkqOR94rENKE4kBVBgGXBC48k03Be6pLR/8yxQQQe76kDSBNUsny/8QBjrRFycdoAcIuEiqccPICE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8gF0fq+thwNk5QyAtF4S8rOK+IuTD4hn6ImRPKrsnJNoTFFTu
+	Ujw5Vgif7+7CW8KJCg4EPCE9ykL5c9mfoPthJ+ctlgUYfVPWPHYhHT2pbVu5ptaOcWbrT7gLb+A
+	TV6Y+fz9Ni+8+3g6j+0D19c67sas=
+X-Gm-Gg: ASbGncujW12ynu1RNA8ALruuSCVui5MDd7nkCHuG5i0XWAGiaDQ/wAVSr5iIg9VdJtP
+	yqDTlG89a2ISWBTxyXHHuplddtxaqDarZBHk2+EJM12hWJRWGXW+yx4+jj8vYoqDlv+Qu
+X-Google-Smtp-Source: AGHT+IFlbPcGmfsM9lCdXkpNmrdsNPjnuj/3oeIGySw+8+ouW9qKDdkS6zFmZVV0L0qLBb8weZW1jPVbzwqmFTzG3VQ=
+X-Received: by 2002:a05:6512:2214:b0:53e:38df:672a with SMTP id
+ 2adb3069b0e04-5422956289amr2032769e87.36.1734800803975; Sat, 21 Dec 2024
+ 09:06:43 -0800 (PST)
 MIME-Version: 1.0
-References: <20241221104304.2655909-1-guoweikang.kernel@gmail.com>
-In-Reply-To: <20241221104304.2655909-1-guoweikang.kernel@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sat, 21 Dec 2024 15:03:30 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXbB-ksxZ9+YRz86wazPGSM09ZFX7JZoyH--=UDndS=TQ@mail.gmail.com>
-Message-ID: <CAMuHMdXbB-ksxZ9+YRz86wazPGSM09ZFX7JZoyH--=UDndS=TQ@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/memblock: Add memblock_alloc_or_panic interface
-To: Guo Weikang <guoweikang.kernel@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Sam Creasey <sammy@sammy.net>, 
-	Huacai Chen <chenhuacai@kernel.org>, Will Deacon <will@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Oreoluwa Babatunde <quic_obabatun@quicinc.com>, 
-	rafael.j.wysocki@intel.com, Palmer Dabbelt <palmer@rivosinc.com>, 
-	Hanjun Guo <guohanjun@huawei.com>, Easwar Hariharan <eahariha@linux.microsoft.com>, 
-	Johannes Berg <johannes.berg@intel.com>, Ingo Molnar <mingo@kernel.org>, 
-	Dave Hansen <dave.hansen@intel.com>, Christian Brauner <brauner@kernel.org>, 
-	KP Singh <kpsingh@kernel.org>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	WANG Xuerui <kernel@xen0n.name>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, Stafford Horne <shorne@gmail.com>, 
-	Helge Deller <deller@gmx.de>, Nicholas Piggin <npiggin@gmail.com>, 
-	Christophe Leroy <christophe.leroy@csgroup.eu>, Naveen N Rao <naveen@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Geoff Levand <geoff@infradead.org>, 
-	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
-	Alexander Potapenko <glider@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	Dmitry Vyukov <dvyukov@google.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-riscv@lists.infradead.org, kasan-dev@googlegroups.com, 
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
-	linux-acpi@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org
+References: <CA+icZUWHU=oXOEj5wHTzxrw_wj1w5hTvqq8Ry400s0ZCJjTEZw@mail.gmail.com>
+ <099d3a80-4fdb-49a7-9fd0-207d7386551f@citrix.com> <CA+icZUX98gQ54hePEWNauiU41XQV7qdKJx5PiiXzxy+6yW7hTw@mail.gmail.com>
+ <CA+icZUW-i53boHBPt+8zh-D921XFbPb_Kc=dzdgCK1QvkOgCsw@mail.gmail.com>
+ <90640a5d-ff17-4555-adc6-ae9e21e24ebd@citrix.com> <CA+icZUVo69swc9QfwJr+mDuHqJKcFUexc08voP2O41g31HGx5w@mail.gmail.com>
+ <43166e29-ff2d-4a9d-8c1b-41b5e247974b@citrix.com>
+In-Reply-To: <43166e29-ff2d-4a9d-8c1b-41b5e247974b@citrix.com>
+Reply-To: sedat.dilek@gmail.com
+From: Sedat Dilek <sedat.dilek@gmail.com>
+Date: Sat, 21 Dec 2024 18:06:06 +0100
+Message-ID: <CA+icZUVhzsc+_PJr0RSwaVQTbz5TKa8wmyzgBNQEcody4YGesg@mail.gmail.com>
+Subject: Re: [Linux-6.12.y] XEN: CVE-2024-53241 / XSA-466 and Clang-kCFI
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Jan Beulich <jbeulich@suse.com>, 
+	Josh Poimboeuf <jpoimboe@redhat.com>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Kees Cook <kees@kernel.org>, Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev, 
+	xen-devel <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Guo,
-
-On Sat, Dec 21, 2024 at 11:43=E2=80=AFAM Guo Weikang
-<guoweikang.kernel@gmail.com> wrote:
-> Before SLUB initialization, various subsystems used memblock_alloc to
-> allocate memory. In most cases, when memory allocation fails, an immediat=
-e
-> panic is required. To simplify this behavior and reduce repetitive checks=
-,
-> introduce `memblock_alloc_or_panic`. This function ensures that memory
-> allocation failures result in a panic automatically, improving code
-> readability and consistency across subsystems that require this behavior.
+On Fri, Dec 20, 2024 at 2:39=E2=80=AFAM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
 >
-> Signed-off-by: Guo Weikang <guoweikang.kernel@gmail.com>
-
-Thanks for your patch!
-
-> --- a/include/linux/memblock.h
-> +++ b/include/linux/memblock.h
-> @@ -417,6 +417,20 @@ static __always_inline void *memblock_alloc(phys_add=
-r_t size, phys_addr_t align)
->                                       MEMBLOCK_ALLOC_ACCESSIBLE, NUMA_NO_=
-NODE);
->  }
+> On 20/12/2024 12:27 am, Sedat Dilek wrote:
+> > On Fri, Dec 20, 2024 at 12:26=E2=80=AFAM Andrew Cooper
+> > <andrew.cooper3@citrix.com> wrote:
+> >> On 19/12/2024 11:10 pm, Sedat Dilek wrote:
+> >>> On Thu, Dec 19, 2024 at 6:07=E2=80=AFPM Sedat Dilek <sedat.dilek@gmai=
+l.com> wrote:
+> >>>> On Thu, Dec 19, 2024 at 5:44=E2=80=AFPM Andrew Cooper <andrew.cooper=
+3@citrix.com> wrote:
+> >>>>> On 19/12/2024 4:14 pm, Sedat Dilek wrote:
+> >>>>>> Hi,
+> >>>>>>
+> >>>>>> Linux v6.12.6 will include XEN CVE fixes from mainline.
+> >>>>>>
+> >>>>>> Here, I use Debian/unstable AMD64 and the SLIM LLVM toolchain 19.1=
+.x
+> >>>>>> from kernel.org.
+> >>>>>>
+> >>>>>> What does it mean in ISSUE DESCRIPTION...
+> >>>>>>
+> >>>>>> Furthermore, the hypercall page has no provision for Control-flow
+> >>>>>> Integrity schemes (e.g. kCFI/CET-IBT/FineIBT), and will simply
+> >>>>>> malfunction in such configurations.
+> >>>>>>
+> >>>>>> ...when someone uses Clang-kCFI?
+> >>>>> The hypercall page has functions of the form:
+> >>>>>
+> >>>>>     MOV $x, %eax
+> >>>>>     VMCALL / VMMCALL / SYSCALL
+> >>>>>     RET
+> >>>>>
+> >>>>> There are no ENDBR instructions, and no prologue/epilogue for hash-=
+based
+> >>>>> CFI schemes.
+> >>>>>
+> >>>>> This is because it's code provided by Xen, not code provided by Lin=
+ux.
+> >>>>>
+> >>>>> The absence of ENDBR instructions will yield #CP when CET-IBT is ac=
+tive,
+> >>>>> and the absence of hash prologue/epilogue lets the function be used=
+ in a
+> >>>>> type-confused manor that CFI should have caught.
+> >>>>>
+> >>>>> ~Andrew
+> >>>> Thanks for the technical explanation, Andrew.
+> >>>>
+> >>>> Hope that helps the folks of "CLANG CONTROL FLOW INTEGRITY SUPPORT".
+> >>>>
+> >>>> I am not an active user of XEN in the Linux-kernel but I am willing =
+to
+> >>>> test when Linux v6.12.6 is officially released and give feedback.
+> >>>>
+> >>> https://wiki.xenproject.org/wiki/Testing_Xen#Presence_test
+> >>> https://wiki.xenproject.org/wiki/Testing_Xen#Commands_for_presence_te=
+sting
+> >>>
+> >>> # apt install -t unstable xen-utils-4.17 -y
+> >>>
+> >>> # xl list
+> >>> Name                                        ID   Mem VCPUs      State=
+   Time(s)
+> >>> Domain-0                                     0  7872     4     r-----=
+     398.2
+> >>>
+> >>> Some basic tests LGTM - see also attached stuff.
+> >>>
+> >>> If you have any tests to recommend, let me know.
+> >> That itself is good enough as a smoke test.  Thankyou for trying it ou=
+t.
+> >>
+> >> If you want something a bit more thorough, try
+> >> https://xenbits.xen.org/docs/xtf/  (Xen's self-tests)
+> >>
+> >> Grab and build it, and `./xtf-runner -aqq --host` will run a variety o=
+f
+> >> extra codepaths in dom0, without the effort of making/running full gue=
+sts.
+> >>
+> >> ~Andrew
+> > Run on Debian 6.12.5 and my selfmade 6.12.5 and 6.12.6.
+> > All tests lead to a reboot in case of Debian or in my kernels to a shut=
+down.
+> >
+> > Can you recommend a specific test?
 >
-> +static __always_inline void *__memblock_alloc_or_panic(phys_addr_t size,
-> +                                                      phys_addr_t align,
-> +                                                      const char *func)
-> +{
-> +       void *addr =3D memblock_alloc(size, align);
-> +
-> +       if (unlikely(!addr))
-> +               panic("%s: Failed to allocate %llu bytes\n", func, size);
-> +       return addr;
-> +}
+> Oh, that's distinctly less good.
+>
+> Start with just "example".  It's literally a hello world microkernel,
+> but the symptoms you're seeing is a dom0 crash, so it will likely
+> provoke it.
+>
+> Do you have serial to the machine?  If so, boot Xen with `console=3Dcom1
+> com1=3D115200,8n1` (or com2, as appropriate).
+>
+> If not and you've only got a regular screen, boot Xen with `vga=3D,keep
+> noreboot` (comma is important) which might leave enough information on
+> screen to get an idea of what's going on.
+>
+> Full command line docs at
+> https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html
+>
+> > dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner --list functional xsa | g=
+rep xsa-4
+> > test-pv64-xsa-444
+> > test-hvm64-xsa-451
+> > test-hvm64-xsa-454
+> >
+> > Is there no xsa-466 test?
+>
+> No.  XSA-466 is really "well don't do that then if it matters".
+>
+> More generally, not all XSAs are amenable to testing in this way.
+>
+> ~Andrew
 
-Please make this out-of-line, and move it to mm/memblock.c, so we have
-just a single copy in the final binary.
+RUN example tests on Debian's 6.12.6 kernel.
 
-> +
-> +#define memblock_alloc_or_panic(size, align)    \
-> +        __memblock_alloc_or_panic(size, align, __func__)
-> +
->  static inline void *memblock_alloc_raw(phys_addr_t size,
->                                                phys_addr_t align)
->  {
-> diff --git a/init/main.c b/init/main.c
+$ cat /proc/version
+Linux version 6.12.6-amd64 (debian-kernel@lists.debian.org)
+(x86_64-linux-gnu-gcc-14 (Debian 14.2.0-11) 14.2.0, GNU ld (GNU
+Binutils for Debian) 2.43.50.20241215) #1 SMP PREEMPT_DYNAMIC Debian
+6.12.6-1 (2024-12-21)
 
-Gr{oetje,eeting}s,
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner --list example
+test-hvm32-example
+test-hvm32pae-example
+test-hvm32pse-example
+test-hvm64-example
+test-pv32pae-example
+test-pv64-example
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm32-example
+Executing 'xl create -p tests/example/test-hvm32-example.cfg'
+Executing 'xl console test-hvm32-example'
+Executing 'xl unpause test-hvm32-example'
+--- Xen Test Framework ---
+Environment: HVM 32bit (No paging)
+Hello World
+Test result: SUCCESS
 
-                        Geert
+Combined test results:
+test-hvm32-example                       SUCCESS
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm32pae-example
+Executing 'xl create -p tests/example/test-hvm32pae-example.cfg'
+Executing 'xl console test-hvm32pae-example'
+Executing 'xl unpause test-hvm32pae-example'
+--- Xen Test Framework ---
+Environment: HVM 32bit (PAE 3 levels)
+Hello World
+Test result: SUCCESS
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+Combined test results:
+test-hvm32pae-example                    SUCCESS
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm32pse-example
+Executing 'xl create -p tests/example/test-hvm32pse-example.cfg'
+Executing 'xl console test-hvm32pse-example'
+Executing 'xl unpause test-hvm32pse-example'
+--- Xen Test Framework ---
+Environment: HVM 32bit (PSE 2 levels)
+Hello World
+Test result: SUCCESS
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Combined test results:
+test-hvm32pse-example                    SUCCESS
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm64-example
+Executing 'xl create -p tests/example/test-hvm64-example.cfg'
+Executing 'xl console test-hvm64-example'
+Executing 'xl unpause test-hvm64-example'
+--- Xen Test Framework ---
+Environment: HVM 64bit (Long mode 4 levels)
+Hello World
+Test result: SUCCESS
+
+Combined test results:
+test-hvm64-example                       SUCCESS
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-pv32pae-example
+Combined test results:
+test-pv32pae-example                     SKIP
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-pv64-example
+Executing 'xl create -p tests/example/test-pv64-example.cfg'
+Executing 'xl console test-pv64-example'
+Executing 'xl unpause test-pv64-example'
+--- Xen Test Framework ---
+Environment: PV 64bit (Long mode 4 levels)
+Hello World
+Test result: SUCCESS
+
+Combined test results:
+test-pv64-example                        SUCCESS
+
+Thanks.
+
+Best regards,
+-Sedat-
 
