@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18B909FA246
+	by mail.lfdr.de (Postfix) with ESMTPS id 624679FA249
 	for <lists+xen-devel@lfdr.de>; Sat, 21 Dec 2024 20:46:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.862496.1274135 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.862506.1274141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tP5Pu-0005yt-Nv; Sat, 21 Dec 2024 19:45:38 +0000
+	id 1tP5Pv-00064B-08; Sat, 21 Dec 2024 19:45:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 862496.1274135; Sat, 21 Dec 2024 19:45:38 +0000
+Received: by outflank-mailman (output) from mailman id 862506.1274141; Sat, 21 Dec 2024 19:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tP5Pu-0005yA-JU; Sat, 21 Dec 2024 19:45:38 +0000
-Received: by outflank-mailman (input) for mailman id 862496;
- Sat, 21 Dec 2024 17:06:47 +0000
+	id 1tP5Pu-0005yf-SG; Sat, 21 Dec 2024 19:45:38 +0000
+Received: by outflank-mailman (input) for mailman id 862506;
+ Sat, 21 Dec 2024 18:17:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=t6MP=TO=gmail.com=sedat.dilek@srs-se1.protection.inumbo.net>)
- id 1tP2wB-0005v4-Iq
- for xen-devel@lists.xenproject.org; Sat, 21 Dec 2024 17:06:47 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ id 1tP42s-0004si-5H
+ for xen-devel@lists.xenproject.org; Sat, 21 Dec 2024 18:17:46 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4c4ccf0-bfbd-11ef-99a3-01e77a169b0f;
- Sat, 21 Dec 2024 18:06:45 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5401b7f7141so2510770e87.1
- for <xen-devel@lists.xenproject.org>; Sat, 21 Dec 2024 09:06:44 -0800 (PST)
+ id df5154be-bfc7-11ef-99a3-01e77a169b0f;
+ Sat, 21 Dec 2024 19:17:43 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-54025432becso3109505e87.1
+ for <xen-devel@lists.xenproject.org>; Sat, 21 Dec 2024 10:17:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,41 +40,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4c4ccf0-bfbd-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: df5154be-bfc7-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1734800804; x=1735405604; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1734805063; x=1735409863; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=agKbG4Ad2aFh5DQ9Ty8+oto7J07OzvutBur24QnJNbs=;
-        b=UclJrBDpxLXUs9rBR8/MQN8dVn5FR2VzRjh98xes0WkBosmjSoe0Ci2ruT8tHeMCgc
-         WJJevP9YUBx0wEcjXtPhFijHQm9yZlexGeKaxanm+LEnnsa0uOnIbIec+fQU+pvRUZCA
-         XYnGq5S/T51fELtWTluFB06CzmtIWTnToc615yTrkO810IOlqvsOXE6CaLPBgryD4YMY
-         uhJUJC5kCStUM+zA6s4PRbSV3kMzVAZSUXVcoUCd/X8FBinzRfIWP5E+fRG960taiZ8o
-         0KA6bBq0WBWt69BtL99RR94sjtG3CzfnwGR3eg//EzRxwzF/FEHqM4AeKTOLBiYS3N/h
-         biZQ==
+        bh=Gww25uCrGB4X+QcRFH3IhcXrxha4JrH7h8gAWHNHg+E=;
+        b=JCiPyjcyChvHvNfITu7HOyQns1ULZItXrXwUP6hx5A2GsCeVsddFExUoxpiWWxpEJt
+         0MtKVX7marE0TOkC3oDBbR7BPM/Y9IByUhCyu6qpfPOwNnrn16f3BX/+viy4Kv1kRZfB
+         3sj/VhkpO1U7Tp7EvlUkczHxG+XO4wgGOqX5WNLvG//ldWkGuIEEtz6C4A+iMNCAoCjM
+         kvmhnRm5NMtFpruLzmB+zUY2PuYQT0AiM/8NyPWZ1e0/uvm3GE6sAAxHmnWwKhaIi2oY
+         Kn3KWag5ZuSMiOPgL3d8Q+5ukHxScsBwryKJkm05eLBTtDjrmPUDvfAclY+m63rfMSH+
+         LvLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734800804; x=1735405604;
+        d=1e100.net; s=20230601; t=1734805063; x=1735409863;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :reply-to:in-reply-to:references:mime-version:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=agKbG4Ad2aFh5DQ9Ty8+oto7J07OzvutBur24QnJNbs=;
-        b=OSUZH9CFnaNyKN1Id6JYTvyAu30C4cwLgRjTc/V5iKdgeX05R/bc4NTd9w2KnlaV8A
-         V3Sy6qXvgGWfB/l75LQpB2YIRqpRLkHdYtoDvP2nrxd45Vwv+KR+CA5T6CkZjMjJRrmL
-         zitLMLTJmrbHNhxf7nPDFqFrgmpMcqprS2chzASMDdeH8RjWqYhgnT1FhFNO5aScVjLH
-         PzokdgGsXK0PeT7tngG10n9UVP8t6lo0mWAnCrl1S2JlswPxSrqrrjhZVpEFf9i+UVNj
-         MfKc23fQ4xlOLgHDSoke4mVFzi5zBgbWmHL9d4y87hzSoeLVePeHR5qczdepSTVDXaNl
-         IOSA==
-X-Forwarded-Encrypted: i=1; AJvYcCVkqOR94rENKE4kBVBgGXBC48k03Be6pLR/8yxQQQe76kDSBNUsny/8QBjrRFycdoAcIuEiqccPICE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8gF0fq+thwNk5QyAtF4S8rOK+IuTD4hn6ImRPKrsnJNoTFFTu
-	Ujw5Vgif7+7CW8KJCg4EPCE9ykL5c9mfoPthJ+ctlgUYfVPWPHYhHT2pbVu5ptaOcWbrT7gLb+A
-	TV6Y+fz9Ni+8+3g6j+0D19c67sas=
-X-Gm-Gg: ASbGncujW12ynu1RNA8ALruuSCVui5MDd7nkCHuG5i0XWAGiaDQ/wAVSr5iIg9VdJtP
-	yqDTlG89a2ISWBTxyXHHuplddtxaqDarZBHk2+EJM12hWJRWGXW+yx4+jj8vYoqDlv+Qu
-X-Google-Smtp-Source: AGHT+IFlbPcGmfsM9lCdXkpNmrdsNPjnuj/3oeIGySw+8+ouW9qKDdkS6zFmZVV0L0qLBb8weZW1jPVbzwqmFTzG3VQ=
-X-Received: by 2002:a05:6512:2214:b0:53e:38df:672a with SMTP id
- 2adb3069b0e04-5422956289amr2032769e87.36.1734800803975; Sat, 21 Dec 2024
- 09:06:43 -0800 (PST)
+        bh=Gww25uCrGB4X+QcRFH3IhcXrxha4JrH7h8gAWHNHg+E=;
+        b=mXQbf4UThKQ0S2ZcUp3zmnWh6CqkP2+8xhr76eeyx/MTLjI/W3QVI5ns2xI1UnC8Bj
+         BYo21NXZnt2B7O/PbNS48ryTjDv39e5PKRvvlUYCvMKlupZX31PdvVOu2fEnLo/j9rI4
+         rPuF5NsuNIR8HBveadDskxq5KfF/TIZyvZlZoYAbDesTcby9b9PhyeaTPv/JLQgNnU9m
+         p4PupgLOvF3WhDTcuszHOqMmxYf8i8+zLN88fi1ScaRF/X4u78MuPt+yidZthEMG8D3G
+         tk00lPsXaoucZf+QZWL5IfbEnP3uEBLzwIb7CUmd7xPuAYXmobG1A2WZE5h2oPGaL7Yq
+         QXiw==
+X-Forwarded-Encrypted: i=1; AJvYcCXrM+wVIIwYchCgUiW/hKZ9RySngqr++7ntPpr0hLmUi/QBfFeRu5Io3WJMNWME0YKTFFRQfWyxuM4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZS0JOV5jbw3wPmvA1e1zqYJLhv+sJV07Ng5dJdPHngWfiCtSq
+	gNazF8NQX8dcxDOpgwrDNCXnko1x3w8BEBrgfr754JalueZOz+hApcANbTPwjImsPSsBH9Vs/TB
+	8i3jZ6MqnNl6wWjs7NS+z6ivdTW8=
+X-Gm-Gg: ASbGncvws2tJJ//sFSEd5KaxVfh2zFmZkcHG8cjmEGD4qLmrx59S00UVbtJqrbqEQhD
+	5L+e3SzTrahHlCjz+cgXk4q3jHa4FO3TT4F6v0DCupu3EO2XNy4iSKx7M1MxOjbp2rRN7
+X-Google-Smtp-Source: AGHT+IFbWOqrEDILJB7D/dZAXmHjad5/5gydpfde4ub7xLCzRPKhGigQWT8r2WIqnERkBGgVj5RjNd5ekYb5iXu0I/M=
+X-Received: by 2002:a05:6512:683:b0:542:2f0f:66d9 with SMTP id
+ 2adb3069b0e04-5422f0f69d8mr919287e87.16.1734805062927; Sat, 21 Dec 2024
+ 10:17:42 -0800 (PST)
 MIME-Version: 1.0
 References: <CA+icZUWHU=oXOEj5wHTzxrw_wj1w5hTvqq8Ry400s0ZCJjTEZw@mail.gmail.com>
  <099d3a80-4fdb-49a7-9fd0-207d7386551f@citrix.com> <CA+icZUX98gQ54hePEWNauiU41XQV7qdKJx5PiiXzxy+6yW7hTw@mail.gmail.com>
@@ -84,8 +84,8 @@ References: <CA+icZUWHU=oXOEj5wHTzxrw_wj1w5hTvqq8Ry400s0ZCJjTEZw@mail.gmail.com>
 In-Reply-To: <43166e29-ff2d-4a9d-8c1b-41b5e247974b@citrix.com>
 Reply-To: sedat.dilek@gmail.com
 From: Sedat Dilek <sedat.dilek@gmail.com>
-Date: Sat, 21 Dec 2024 18:06:06 +0100
-Message-ID: <CA+icZUVhzsc+_PJr0RSwaVQTbz5TKa8wmyzgBNQEcody4YGesg@mail.gmail.com>
+Date: Sat, 21 Dec 2024 19:17:05 +0100
+Message-ID: <CA+icZUUp9rgx2Dvsww6QbTGRZz5=mf75D0_KncwdgCEZe01-EA@mail.gmail.com>
 Subject: Re: [Linux-6.12.y] XEN: CVE-2024-53241 / XSA-466 and Clang-kCFI
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Juergen Gross <jgross@suse.com>, Peter Zijlstra <peterz@infradead.org>, 
@@ -199,6 +199,12 @@ down.
 > noreboot` (comma is important) which might leave enough information on
 > screen to get an idea of what's going on.
 >
+
+YES
+
+# xl info | grep xen_commandline
+xen_commandline        : placeholder vga=3D,keep noreboot
+
 > Full command line docs at
 > https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html
 >
@@ -216,82 +222,43 @@ rep xsa-4
 >
 > ~Andrew
 
-RUN example tests on Debian's 6.12.6 kernel.
+On Debian 6.12.6 kernel the TESTS stop with test-hvm64-xsa-454 -
+machine freezes - hard reboot.
 
-$ cat /proc/version
-Linux version 6.12.6-amd64 (debian-kernel@lists.debian.org)
-(x86_64-linux-gnu-gcc-14 (Debian 14.2.0-11) 14.2.0, GNU ld (GNU
-Binutils for Debian) 2.43.50.20241215) #1 SMP PREEMPT_DYNAMIC Debian
-6.12.6-1 (2024-12-21)
+dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner -a --host
 
-dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner --list example
-test-hvm32-example
-test-hvm32pae-example
-test-hvm32pse-example
-test-hvm64-example
-test-pv32pae-example
-test-pv64-example
-dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm32-example
-Executing 'xl create -p tests/example/test-hvm32-example.cfg'
-Executing 'xl console test-hvm32-example'
-Executing 'xl unpause test-hvm32-example'
---- Xen Test Framework ---
-Environment: HVM 32bit (No paging)
-Hello World
-Test result: SUCCESS
+root@iniza:/var/log/xen# LC_ALL=3DC ls -alth | head -20
+total 1.7M
+-rw-r--r--  1 root adm  1008K Dec 21 19:10 xenstored-access.log
+drwxr-xr-x 16 root root  4.0K Dec 21 18:59 ..
+-rw-r--r--  1 root adm     32 Dec 21 18:58 xenstored.log
+drwxr-s---  2 root adm    36K Dec 21 18:58 .
+-rw-r--r--  1 root adm    229 Dec 21 18:53 xl-test-hvm64-xsa-317.log
+-rw-r--r--  1 root adm     67 Dec 21 18:53 xl-test-hvm64-xsa-454.log
+-rw-r--r--  1 root adm    145 Dec 21 18:53 qemu-dm-test-hvm64-xsa-454.log
+-rw-r--r--  1 root adm    232 Dec 21 18:53 qemu-dm-test-hvm64-xsa-451.log
+-rw-r--r--  1 root adm    211 Dec 21 18:53 xl-test-hvm64-xsa-451.log
+-rw-r--r--  1 root adm    232 Dec 21 18:53 xl-test-hvm32pse-xsa-317.log
+-rw-r--r--  1 root adm    228 Dec 21 18:53 xl-test-pv64-xsa-444.log
+-rw-r--r--  1 root adm    228 Dec 21 18:53 xl-test-pv64-xsa-339.log
+-rw-r--r--  1 root adm    228 Dec 21 18:53 xl-test-pv64-xsa-333.log
+-rw-r--r--  1 root adm    228 Dec 21 18:53 xl-test-pv64-xsa-317.log
+-rw-r--r--  1 root adm    232 Dec 21 18:53 qemu-dm-test-hvm64-xsa-317.log
+-rw-r--r--  1 root adm    232 Dec 21 18:53 xl-test-hvm32pae-xsa-317.log
+-rw-r--r--  1 root adm    232 Dec 21 18:53 qemu-dm-test-hvm32pse-xsa-317.lo=
+g
+-rw-r--r--  1 root adm    229 Dec 21 18:53 xl-test-hvm32-xsa-317.log
+-rw-r--r--  1 root adm    232 Dec 21 18:53 qemu-dm-test-hvm32pae-xsa-317.lo=
+g
 
-Combined test results:
-test-hvm32-example                       SUCCESS
-dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm32pae-example
-Executing 'xl create -p tests/example/test-hvm32pae-example.cfg'
-Executing 'xl console test-hvm32pae-example'
-Executing 'xl unpause test-hvm32pae-example'
---- Xen Test Framework ---
-Environment: HVM 32bit (PAE 3 levels)
-Hello World
-Test result: SUCCESS
+root@iniza:/var/log/xen# cat qemu-dm-test-hvm64-xsa-454.log
+VNC server running on 127.0.0.1:5900
+xen-qemu-system-i386: failed to create 'console' device '0': declining to h=
+andle
+console type 'xenconsoled'
 
-Combined test results:
-test-hvm32pae-example                    SUCCESS
-dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm32pse-example
-Executing 'xl create -p tests/example/test-hvm32pse-example.cfg'
-Executing 'xl console test-hvm32pse-example'
-Executing 'xl unpause test-hvm32pse-example'
---- Xen Test Framework ---
-Environment: HVM 32bit (PSE 2 levels)
-Hello World
-Test result: SUCCESS
+root@iniza:/var/log/xen# cat xl-test-hvm64-xsa-454.log
+Waiting for domain test-hvm64-xsa-454 (domid 94) to die [pid 4686]
 
-Combined test results:
-test-hvm32pse-example                    SUCCESS
-dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-hvm64-example
-Executing 'xl create -p tests/example/test-hvm64-example.cfg'
-Executing 'xl console test-hvm64-example'
-Executing 'xl unpause test-hvm64-example'
---- Xen Test Framework ---
-Environment: HVM 64bit (Long mode 4 levels)
-Hello World
-Test result: SUCCESS
-
-Combined test results:
-test-hvm64-example                       SUCCESS
-dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-pv32pae-example
-Combined test results:
-test-pv32pae-example                     SKIP
-dileks@iniza:~/src/xtf/git$ sudo ./xtf-runner test-pv64-example
-Executing 'xl create -p tests/example/test-pv64-example.cfg'
-Executing 'xl console test-pv64-example'
-Executing 'xl unpause test-pv64-example'
---- Xen Test Framework ---
-Environment: PV 64bit (Long mode 4 levels)
-Hello World
-Test result: SUCCESS
-
-Combined test results:
-test-pv64-example                        SUCCESS
-
-Thanks.
-
-Best regards,
 -Sedat-
 
