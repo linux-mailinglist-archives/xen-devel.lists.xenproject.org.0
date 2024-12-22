@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5687A9FA34B
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Dec 2024 02:27:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.862582.1274195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA8FC9FA39A
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Dec 2024 04:05:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.862594.1274205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tPAkL-0004Z0-F7; Sun, 22 Dec 2024 01:27:05 +0000
+	id 1tPCGM-0001Ci-A1; Sun, 22 Dec 2024 03:04:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 862582.1274195; Sun, 22 Dec 2024 01:27:05 +0000
+Received: by outflank-mailman (output) from mailman id 862594.1274205; Sun, 22 Dec 2024 03:04:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tPAkL-0004Wk-Bf; Sun, 22 Dec 2024 01:27:05 +0000
-Received: by outflank-mailman (input) for mailman id 862582;
- Sun, 22 Dec 2024 01:27:04 +0000
+	id 1tPCGM-0001AK-5G; Sun, 22 Dec 2024 03:04:14 +0000
+Received: by outflank-mailman (input) for mailman id 862594;
+ Sun, 22 Dec 2024 03:04:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=z45A=TP=gmail.com=guoweikang.kernel@srs-se1.protection.inumbo.net>)
- id 1tPAkJ-0004We-Mf
- for xen-devel@lists.xenproject.org; Sun, 22 Dec 2024 01:27:04 +0000
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [2607:f8b0:4864:20::434])
+ id 1tPCGK-0001AE-Nf
+ for xen-devel@lists.xenproject.org; Sun, 22 Dec 2024 03:04:13 +0000
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [2607:f8b0:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6e4c0aa-c003-11ef-99a3-01e77a169b0f;
- Sun, 22 Dec 2024 02:27:00 +0100 (CET)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-728eedfca37so3395625b3a.2
- for <xen-devel@lists.xenproject.org>; Sat, 21 Dec 2024 17:27:00 -0800 (PST)
+ id 68614cd9-c011-11ef-99a3-01e77a169b0f;
+ Sun, 22 Dec 2024 04:04:07 +0100 (CET)
+Received: by mail-pf1-x436.google.com with SMTP id
+ d2e1a72fcca58-728ea1e0bdbso2926749b3a.0
+ for <xen-devel@lists.xenproject.org>; Sat, 21 Dec 2024 19:04:07 -0800 (PST)
 Received: from localhost.localdomain ([36.110.106.149])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72aad816215sm5350653b3a.19.2024.12.21.17.26.33
+ d2e1a72fcca58-72aad90c112sm5415064b3a.198.2024.12.21.19.03.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 Dec 2024 17:26:57 -0800 (PST)
+ Sat, 21 Dec 2024 19:04:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6e4c0aa-c003-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: 68614cd9-c011-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1734830819; x=1735435619; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1734836646; x=1735441446; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=R2ZWvShbKRHRjon0641iHEOPeMHgSL8jk5gB795H+V0=;
-        b=b897wYXlJjaMzd9vKImIS/1bfW1Lkm3itXkc/bpeBon2bszBzNvTDZEAF1fa+Zaf+5
-         bdDlIPaYEumLRa6MGpxun4vWrIpuI5vO2w9fFTkaniwAHv+nvlNfFvXepEEO19dIQJF+
-         eo5kCSiugQ2G/vaCej8FlJ6Yn39iZUn7O+Ppv1oajsckXe9gaDxfqA9WI92iHTMhfRb2
-         EpxDKZKVhWuwAk2pCN4U+Xk3uAW7+38kp8ytSe5QKuax/kR/BdWapqLjPVF/e5PdFI05
-         3mqiiTkuTOOVL9ui2q7+VOeh7Lq+n/w/qAs4addJch/5eRfcXn+JuqpmoLffyFaT9eTB
-         OtnA==
+        bh=bLwIVhlTf1b/URUp5p09XK9G7aK+ploAUOErazD1ENw=;
+        b=IbDpKGVZtkP0VRzFa37GpzMFHSF4i57r+xmlaXOiXsh3t8CtMM90kAxmJFl1Hs2kQY
+         7HJ7M8GSedYI5eFXAouB69HyxOwxd5Gobtr0vBltOE9P9W3DLIXeP+V34o/5knHmNx5n
+         Mjjk0XTJpMGCpx0B58/H5mgJsFoAk0kYZ4Nks2krIAeEcOCPYD5bysttRXYoAtExPgqX
+         Baw/94wgWNVQdU7PBA4dXUldKmup0NzHD0WNvCTMOuLTZ0MYQwPJ4Xv+sY16lw+u3C1x
+         lwVml0Si0DqCzVHQHB8DTk7b+b6CwZe8VSKd0EVclmbgkeglMZmfW+65bEfN4E0cnSDM
+         IuYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734830819; x=1735435619;
+        d=1e100.net; s=20230601; t=1734836646; x=1735441446;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=R2ZWvShbKRHRjon0641iHEOPeMHgSL8jk5gB795H+V0=;
-        b=wpgsxofBFKaDR2t9mh8EDfuzIQ8TmwuR/ePanR7eGVJ4+PJs4G5YwsllsULWL967iD
-         36FR7OATyl3fVOH8foWesc/USKfovURVRNH4nM8APq61lx/FQ7cmnl541TA9NpNfKlpF
-         zfvmIl4U1LMulRBuYbyAdHnmdiVsToJ/ieBzY/Xb7ZtJgQ85eTI4UndhMzs44sIf+gNQ
-         9A+VsHwHwEdcQo5MxO/aAcSWLYwPUP88zWVwXH6uEwbHHUTmEQQ4X/LUYk0/dpO7Npri
-         wKA/8CMYDIfKDr7zwpoVytomfPOFd6+7rdGsfmy9hoXLgkRnHAfEA6e81P7YAR4k8PsD
-         7nEg==
-X-Forwarded-Encrypted: i=1; AJvYcCWQrolEIaMrr8efFTG4xgEFE70X4ASUZJkFwnz989vHu3Hd+YRXky5f6wLoRrxT2oHwJ1+EsCF2A8s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyiCqYfojS3mBAh0UQWrYhOUxEa/vEzcn/dzgMAiy6wh9xZOXtX
-	iVH4m7pVs/zTY8H2ShvGshzCpMAhLD0kfGRjcwrUcfnZiIkgl3cx
-X-Gm-Gg: ASbGncvbGFsArl9Q+TCrphzMFZBRzGGyEnmT+xloFvwmWXtsOk0GIw7JnoOWhDEoKhL
-	Rq+JfxlObKN4X3nFopuh/TrFtbk8F1rJDC2bfMVyMBKkevqJs5RlTIGpvSbXs7AQHupY0uMK925
-	4v/K3mLnn6cam9DX/6XIXcc/Kx7MjnWyGLoYwh8pKywfnCMSzXVdfijyhcbYFYY0Dvk4yMcLG/n
-	V/+nZSskAy/x3gfl7cfg7+HwPRaEE+/xMA657SoKaggRIDM6xKbcRsBa5U6jiw3fg/2O8sJ6bYk
-	U4l9
-X-Google-Smtp-Source: AGHT+IFFssbriKBb3rjCkCTIhwfTSmHkJlrpVkm/iBeD6RNXWuBfOSDpm3O/LJJpp/yrt2Zcph743g==
-X-Received: by 2002:a05:6a00:430d:b0:725:df1a:27c with SMTP id d2e1a72fcca58-72abde0d185mr11323615b3a.14.1734830818348;
-        Sat, 21 Dec 2024 17:26:58 -0800 (PST)
+        bh=bLwIVhlTf1b/URUp5p09XK9G7aK+ploAUOErazD1ENw=;
+        b=AFlTsiidF7ENkgx/Lvv5krvnY5jYEBrgDr6UmjLGFbdwE7okMKiy7nzDh+cDVL7eXQ
+         tK1eelx5l/NNBdt6KnTeaGANHT1leAHZVbCRIAG2+sSWu6Eh93p14A8WmN7zCDyN07F+
+         RisySsK/0MiP1JAQwzwM5mDit4SskzerGdEzwmOrdvL75DEzloV4v29/RqP5U4eH98Se
+         yzQ9db3ijVAZ8brns0IAewgjxbb2qNQNoi0w2bJ0VO75MTogqAFpmha5YhOeXymWWwK+
+         1ENR9CTkys1flsae7mKBise+YSgfYOrTOTmG9CHYP/GeevoMLR2PswyirBqbBT7V+EWL
+         FO/w==
+X-Forwarded-Encrypted: i=1; AJvYcCXSBthVHq3PjR7JZsCFi4WXV3rAg50Z2/gNauZQMo5EOaTIDgFqbAbzIFj190rHPJaZANRxz0JNHJA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxBR2Sr53LpvsiGaE5DzP8B4D26rRoOm0KXQqCQTFO4EpB9f1Kz
+	xcDcNfUD34hvrTKuZm3mvJoh/FZFBpzHguI/uvRbvNYDP+W4peTR
+X-Gm-Gg: ASbGnctRm7Mz8nuuNoqVlxdE/aM86n65C4tDBcNqRObVHyb3pGaMCk7JGATL8x4V8LJ
+	vNvZHWsLpwpQYGN1Ya3+HwVbi0FQ0p7TZkPNENXdFPcACiiwnjG0emZcSATuKXuKQ4jR0CA0ePA
+	ZgHEafCR6EfsvaXiBCqz7uyJa0eUYwqH4i9RyzAtRcDv8TTgYAEdSPYTOBecxfWXbmCWkejQRU9
+	jUmOPzx+HGgDJ9LvYQHRwgcCsFRd2wqHfIby6zgVYQk2TnfQg6eQ3R8UGSv3aFBzssqM3RV2jKi
+	6T1n
+X-Google-Smtp-Source: AGHT+IGEIrG1JtXc5z5cMox7Uha9/g1RZbcpsJzVDo5QUHRN78eE18poKknQIYmVHIO9ksCE0JNJKQ==
+X-Received: by 2002:a05:6a20:2443:b0:1e1:ace6:c98 with SMTP id adf61e73a8af0-1e5e081cb7dmr14215452637.43.1734836645740;
+        Sat, 21 Dec 2024 19:04:05 -0800 (PST)
 From: Guo Weikang <guoweikang.kernel@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Mike Rapoport <rppt@kernel.org>,
@@ -163,9 +163,9 @@ Cc: Dennis Zhou <dennis@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v4] mm/memblock: Add memblock_alloc_or_panic interface
-Date: Sun, 22 Dec 2024 09:26:28 +0800
-Message-Id: <20241222012628.2703802-1-guoweikang.kernel@gmail.com>
+Subject: [PATCH v5] mm/memblock: Add memblock_alloc_or_panic interface
+Date: Sun, 22 Dec 2024 11:03:31 +0800
+Message-Id: <20241222030331.2704579-1-guoweikang.kernel@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -1494,7 +1494,7 @@ index e50570629dc0..837eafa81636 100644
  
  /*
 diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-index 673d5cae7c81..c73727c5c2e1 100644
+index 673d5cae7c81..73af7ca3fa1c 100644
 --- a/include/linux/memblock.h
 +++ b/include/linux/memblock.h
 @@ -417,6 +417,12 @@ static __always_inline void *memblock_alloc(phys_addr_t size, phys_addr_t align)
@@ -1502,7 +1502,7 @@ index 673d5cae7c81..c73727c5c2e1 100644
  }
  
 +void *__memblock_alloc_or_panic(phys_addr_t size, phys_addr_t align,
-+				       const char *func)
++				       const char *func);
 +
 +#define memblock_alloc_or_panic(size, align)    \
 +	 __memblock_alloc_or_panic(size, align, __func__)
