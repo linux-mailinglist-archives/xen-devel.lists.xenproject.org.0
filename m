@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367089FA699
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Dec 2024 17:16:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.862711.1274295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA159FAAF5
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Dec 2024 08:14:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.862746.1274306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tPObj-0000D2-1Z; Sun, 22 Dec 2024 16:15:07 +0000
+	id 1tPccZ-0004X7-Lt; Mon, 23 Dec 2024 07:12:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 862711.1274295; Sun, 22 Dec 2024 16:15:07 +0000
+Received: by outflank-mailman (output) from mailman id 862746.1274306; Mon, 23 Dec 2024 07:12:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tPObi-0000BX-V9; Sun, 22 Dec 2024 16:15:06 +0000
-Received: by outflank-mailman (input) for mailman id 862711;
- Sun, 22 Dec 2024 16:15:05 +0000
+	id 1tPccZ-0004VE-IB; Mon, 23 Dec 2024 07:12:55 +0000
+Received: by outflank-mailman (input) for mailman id 862746;
+ Mon, 23 Dec 2024 07:12:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UoCC=TP=eurecom.fr=Ariel.Otilibili-Anieli@srs-se1.protection.inumbo.net>)
- id 1tPObh-0008OR-MN
- for xen-devel@lists.xenproject.org; Sun, 22 Dec 2024 16:15:05 +0000
-Received: from smtp.eurecom.fr (smtp.eurecom.fr [193.55.113.210])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SIKS=TQ=kernel.org=rppt@srs-se1.protection.inumbo.net>)
+ id 1tPccX-0004V8-RP
+ for xen-devel@lists.xenproject.org; Mon, 23 Dec 2024 07:12:53 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e77c0fe5-c07f-11ef-a0da-8be0dac302b0;
- Sun, 22 Dec 2024 17:15:04 +0100 (CET)
-Received: from waha.eurecom.fr (HELO smtps.eurecom.fr) ([10.3.2.236])
- by drago1i.eurecom.fr with ESMTP; 22 Dec 2024 17:15:04 +0100
-Received: from localhost.localdomain (88-183-119-157.subs.proxad.net
- [88.183.119.157])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by smtps.eurecom.fr (Postfix) with ESMTPSA id 877A225A7;
- Sun, 22 Dec 2024 17:15:04 +0100 (CET)
+ id 51c7866e-c0fd-11ef-a0da-8be0dac302b0;
+ Mon, 23 Dec 2024 08:12:51 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C64ED5C4A8D;
+ Mon, 23 Dec 2024 07:12:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2221C4CED4;
+ Mon, 23 Dec 2024 07:12:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,172 +42,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e77c0fe5-c07f-11ef-a0da-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=eurecom.fr; i=@eurecom.fr; q=dns/txt; s=default;
-  t=1734884105; x=1766420105;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=eey0XVeri/nsLtW4COooiuqzSdIo6CGj8cotECliMN0=;
-  b=d4qX6i5CkGAm633vmvfll/tXYJLLT23CJwhgMbJRuH+y6udOzrGJhZlu
-   4leH88OSWBwzg4Y/UuzheG3bm+E5rbKXB7y8D+2sp5lXGsk0E2T2QHTCj
-   hygP1UA3PJ6gppqzUeUE/ft0y3h3WP0N1DG0jLiawz0wlOHaN/LAwix8Y
-   8=;
-X-CSE-ConnectionGUID: rRauINs7Q4OPKd5ErFeOGw==
-X-CSE-MsgGUID: EPAyPJxcQG+vCtQ8L3/hQQ==
-X-IronPort-AV: E=Sophos;i="6.12,255,1728943200"; 
-   d="scan'208";a="28291258"
-From: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
-To: xen-devel@lists.xenproject.org
-Cc: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>,
-	Jan Beulich <jbeulich@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v3 1/1] libacpi/Makefile: clear ASL warning about PCI0
-Date: Sun, 22 Dec 2024 17:10:35 +0100
-Message-ID: <20241222161444.1558599-2-Ariel.Otilibili-Anieli@eurecom.fr>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241222161444.1558599-1-Ariel.Otilibili-Anieli@eurecom.fr>
-References: <20241222161444.1558599-1-Ariel.Otilibili-Anieli@eurecom.fr>
+X-Inumbo-ID: 51c7866e-c0fd-11ef-a0da-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1734937968;
+	bh=KiW6z79yHKtUcMEX/b8/Sp0F2L3XtvvNObnoy9wnwCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PadoaIur+Bq/ska4dZ3htQaJQz4uazLSVowJVHucSNC53reVkWxd5YVJWY/8jYQei
+	 G/2ikWxztSp4IduffOwXB0a3mVJH23t9Ex7EGVUz/CnbNl3iJwZRxMrSqxsyp7jx0f
+	 g/t903ItkhiEVo2DrupFM7faoTX7/DPcXhBh/bkr20Ay+uNKYZumDkMyBSpawM5raK
+	 Ut+5vnDGc2C1sPQD75jm/n63pJiamwi58eI2wR3M3lVdk6xTR5vMn3Ur4QTOlkun8B
+	 BK41Buv9qow1NTThvM4tSiBT0cMpdhUu2SLkRibN1ROgpuegs2ZYg313l0II/8FbH3
+	 cxXTeCHYfJOYg==
+Date: Mon, 23 Dec 2024 09:12:14 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Guo Weikang <guoweikang.kernel@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@linux.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Sam Creasey <sammy@sammy.net>, Huacai Chen <chenhuacai@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Oreoluwa Babatunde <quic_obabatun@quicinc.com>,
+	rafael.j.wysocki@intel.com, Palmer Dabbelt <palmer@rivosinc.com>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Easwar Hariharan <eahariha@linux.microsoft.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Ingo Molnar <mingo@kernel.org>, Dave Hansen <dave.hansen@intel.com>,
+	Christian Brauner <brauner@kernel.org>,
+	KP Singh <kpsingh@kernel.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Matt Turner <mattst88@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>, Helge Deller <deller@gmx.de>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Naveen N Rao <naveen@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Geoff Levand <geoff@infradead.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org,
+	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	kasan-dev@googlegroups.com, linux-s390@vger.kernel.org,
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-omap@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mm@kvack.org, linux-pm@vger.kernel.org,
+	Xi Ruoyao <xry111@xry111.site>
+Subject: Re: [PATCH v7] mm/memblock: Add memblock_alloc_or_panic interface
+Message-ID: <Z2kNTjO8hXzN66bX@kernel.org>
+References: <20241222111537.2720303-1-guoweikang.kernel@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241222111537.2720303-1-guoweikang.kernel@gmail.com>
 
-iasl complains _HID and _ADR cannot be used at the same time:
+On Sun, Dec 22, 2024 at 07:15:37PM +0800, Guo Weikang wrote:
+> Before SLUB initialization, various subsystems used memblock_alloc to
+> allocate memory. In most cases, when memory allocation fails, an immediate
+> panic is required. To simplify this behavior and reduce repetitive checks,
+> introduce `memblock_alloc_or_panic`. This function ensures that memory
+> allocation failures result in a panic automatically, improving code
+> readability and consistency across subsystems that require this behavior.
+> 
+> Changelog:
+> ----------
+> v1: initial version
+> v2: add __memblock_alloc_or_panic support panic output caller
+> v3: panic output phys_addr_t use printk's %pap
+> v4: make __memblock_alloc_or_panic out-of-line, move to memblock.c
+> v6: Fix CI compile error
+> Links to CI: https://lore.kernel.org/oe-kbuild-all/202412221000.r1NzXJUO-lkp@intel.com/
+> v6: Fix CI compile warinigs
+> Links to CI: https://lore.kernel.org/oe-kbuild-all/202412221259.JuGNAUCq-lkp@intel.com/
+> v7: add chagelog and adjust function declaration alignment format
+> ----------
+> 
+> Signed-off-by: Guo Weikang <guoweikang.kernel@gmail.com>
+> Reviewed-by: Andrew Morton <akpm@linux-foundation.org>
+> Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Acked-by: Xi Ruoyao <xry111@xry111.site>
 
-```
-iasl -vs -p tools/firmware/hvmloader/dsdt_anycpu.tmp -tc tools/firmware/hvmloader/dsdt_anycpu.asl 2>&1 | grep -B1 HID
+If people commented on your patch it does not mean you should add
+Reviewed-by or Acked-by tags for them. Wait for explicit tags from the
+reviewers.
 
-tools/firmware/hvmloader/dsdt_anycpu.asl     40:        Device (PCI0)
-Warning  3073 -                                    Multiple types ^  (Device object requires either a _HID or _ADR, but not both)
-```
+And don't respin that often, "Reviewers are busy people and may not get to
+your patch right away" [1].
 
-The usage of both _HID and _ADR has changed [1,2]:
+[1] https://docs.kernel.org/process/submitting-patches.html
 
-From ACPI 2.0 (Jul. 27, 2000; Section 6.1, page 146):
 
-"A device object must contain either an _HID object or an _ADR object,
-but can contain both." [3]
-
-To ACPI 6.0 (April 2015; Section 6.1, page 278),
-
-"A device object must contain either an _HID object or an _ADR object,
-but should not contain both." [4]
-
-And from ACPI 6.0 to ACPI 6.5 (Aug. 2022):
-
-"A device object must contain either an _HID object or an _ADR object,
-but must not contain both." [5]
-
-Using its ID, the warning is now filtered.
-
-```
-$ iasl -vw3073 -vs -p ../firmware/hvmloader/dsdt_anycpu.tmp -tc ../firmware/hvmloader/dsdt_anycpu.asl 2>&1 | grep HID; echo $?
-1
-```
-
-iasl has one ID per warning [6]; subsequent commits will address other ASL warnings.
-
-```
-$ awk 'NR>533 && NR<556 {print NR ":" $0}' source/compiler/aslmethod.c
-534:    case PARSEOP_DEVICE:
-535:
-536:        /* Check usage of _HID and _ADR objects */
-537:
-538:        HidExists = ApFindNameInDeviceTree (METHOD_NAME__HID, Op);
-539:        AdrExists = ApFindNameInDeviceTree (METHOD_NAME__ADR, Op);
-540:
-541:        if (!HidExists && !AdrExists)
-542:        {
-543:            AslError (ASL_ERROR, ASL_MSG_MISSING_DEPENDENCY, Op,
-544:                "Device object requires a _HID or _ADR");
-545:        }
-546:        else if (HidExists && AdrExists)
-547:        {
-548:            /*
-549:             * According to the ACPI spec, "A device object must contain
-550:             * either an _HID object or an _ADR object, but should not contain
-551:             * both".
-552:             */
-553:            AslError (ASL_WARNING, ASL_MSG_MULTIPLE_TYPES, Op,
-554:                "Device object requires either a _HID or _ADR, but not both");
-555:        }
-
-$ awk 'NR>188 && NR<206 || NR==432 || /ASL_MSG_MULTIPLE_TYPES/ {print NR ":" $0}' source/compiler/aslmessages.h
-189:/*
-190: * Values (message IDs) for all compiler messages. There are currently
-191: * three distinct blocks of error messages (so that they can be expanded
-192: * individually):
-193: *      Main ASL compiler
-194: *      Data Table compiler
-195: *      Preprocessor
-196: *
-197: * NOTE1: This list must match the tables of message strings in the file
-198: * aslmessages.c exactly.
-199: *
-200: * NOTE2: With the introduction of the -vw option to disable specific
-201: * messages, new messages should only be added to the end of these
-202: * lists, so that values for existing messages are not disturbed.
-203: */
-204:typedef enum
-205:{
-280:    ASL_MSG_MULTIPLE_TYPES,
-432:} ASL_MESSAGE_IDS;
-
-$ git remote -v
-origin  git@github.com:acpica/acpica.git (fetch)
-origin  git@github.com:acpica/acpica.git (push)
-
-$ git log --pretty='%h ("%s")' -n1
-7dae72155 ("Logfile: Changes for version 20241212")
-```
-
-[1] https://uefi.org/acpi/specs
-[2] https://uefi.org/specifications
-[3] https://uefi.org/sites/default/files/resources/ACPI_2.pdf
-[4] https://uefi.org/sites/default/files/resources/ACPI_6.0.pdf
-[5] https://uefi.org/specs/ACPI/6.5/06_Device_Configuration.html?highlight=_hid#device-identification-objects
-[6] https://github.com/acpica/acpica
-
-Fixes: 5a8b28bfd4 ("tools/libacpi: cleanup Makefile, don't check for iasl binary")
-Signed-off-by: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
----
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>
----
- tools/libacpi/Makefile | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/tools/libacpi/Makefile b/tools/libacpi/Makefile
-index b21a64c6b4..4668ecb365 100644
---- a/tools/libacpi/Makefile
-+++ b/tools/libacpi/Makefile
-@@ -21,6 +21,8 @@ H_SRC += $(addprefix $(ACPI_BUILD_DIR)/, ssdt_tpm.h ssdt_tpm2.h ssdt_laptop_slat
- MKDSDT_CFLAGS-$(CONFIG_ARM_64) = -DCONFIG_ARM_64
- MKDSDT_CFLAGS-$(CONFIG_X86) = -DCONFIG_X86
- 
-+IASL_WARNS=3073
-+
- # Suffix for temporary files.
- #
- # We will also use this suffix to workaround a bug in older iasl
-@@ -32,7 +34,7 @@ TMP_SUFFIX	= tmp
- all: $(C_SRC) $(H_SRC)
- 
- $(H_SRC): $(ACPI_BUILD_DIR)/%.h: %.asl
--	$(IASL) -vs -p $(ACPI_BUILD_DIR)/$*.$(TMP_SUFFIX) -tc $<
-+	$(IASL) $(IASL_WARNS:%=-vw%) -vs -p $(ACPI_BUILD_DIR)/$*.$(TMP_SUFFIX) -tc $<
- 	sed -e 's/AmlCode/$*/g' -e 's/_aml_code//g' $(ACPI_BUILD_DIR)/$*.hex >$@
- 	rm -f $(addprefix $(ACPI_BUILD_DIR)/, $*.aml $*.hex)
-  
-@@ -65,7 +67,7 @@ $(ACPI_BUILD_DIR)/dsdt_anycpu_arm.asl: $(MK_DSDT)
- 	mv -f $@.$(TMP_SUFFIX) $@
- 
- $(C_SRC): $(ACPI_BUILD_DIR)/%.c: $(ACPI_BUILD_DIR)/%.asl
--	$(IASL) -vs -p $(ACPI_BUILD_DIR)/$*.$(TMP_SUFFIX) -tc $<
-+	$(IASL) $(IASL_WARNS:%=-vw%) -vs -p $(ACPI_BUILD_DIR)/$*.$(TMP_SUFFIX) -tc $<
- 	sed -e 's/AmlCode/$*/g' -e 's/_aml_code//g' $(ACPI_BUILD_DIR)/$*.hex > $@.$(TMP_SUFFIX)
- 	echo "int $*_len=sizeof($*);" >> $@.$(TMP_SUFFIX)
- 	mv -f $@.$(TMP_SUFFIX) $@
 -- 
-2.47.1
-
+Sincerely yours,
+Mike.
 
