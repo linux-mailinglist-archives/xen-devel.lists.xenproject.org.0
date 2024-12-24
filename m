@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABAB39FBA94
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Dec 2024 09:40:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863028.1274524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1AB09FBA99
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Dec 2024 09:43:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863035.1274534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQ0SK-00030Q-La; Tue, 24 Dec 2024 08:39:56 +0000
+	id 1tQ0VP-0004ZK-1W; Tue, 24 Dec 2024 08:43:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863028.1274524; Tue, 24 Dec 2024 08:39:56 +0000
+Received: by outflank-mailman (output) from mailman id 863035.1274534; Tue, 24 Dec 2024 08:43:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQ0SK-0002y0-IF; Tue, 24 Dec 2024 08:39:56 +0000
-Received: by outflank-mailman (input) for mailman id 863028;
- Tue, 24 Dec 2024 08:39:55 +0000
+	id 1tQ0VO-0004Xr-VA; Tue, 24 Dec 2024 08:43:06 +0000
+Received: by outflank-mailman (input) for mailman id 863035;
+ Tue, 24 Dec 2024 08:43:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mYL4=TR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tQ0SJ-0002xu-4v
- for xen-devel@lists.xenproject.org; Tue, 24 Dec 2024 08:39:55 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1tQ0VN-0004Xf-7t
+ for xen-devel@lists.xenproject.org; Tue, 24 Dec 2024 08:43:05 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a54972ac-c1d2-11ef-a0da-8be0dac302b0;
- Tue, 24 Dec 2024 09:39:53 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5d437235769so2114729a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 24 Dec 2024 00:39:53 -0800 (PST)
+ id 1718ee2c-c1d3-11ef-a0da-8be0dac302b0;
+ Tue, 24 Dec 2024 09:43:04 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-aa6a92f863cso647554666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Dec 2024 00:43:04 -0800 (PST)
 Received: from ?IPV6:2003:ca:b711:5c39:9cff:9fff:3d81:6f3c?
  (p200300cab7115c399cff9fff3d816f3c.dip0.t-ipconnect.de.
  [2003:ca:b711:5c39:9cff:9fff:3d81:6f3c])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d80679f19fsm5846593a12.45.2024.12.24.00.39.51
+ a640c23a62f3a-aac0e89595fsm631741366b.66.2024.12.24.00.43.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Dec 2024 00:39:52 -0800 (PST)
+ Tue, 24 Dec 2024 00:43:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,65 +47,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a54972ac-c1d2-11ef-a0da-8be0dac302b0
+X-Inumbo-ID: 1718ee2c-c1d3-11ef-a0da-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1735029593; x=1735634393; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1735029784; x=1735634584; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K/NoVEctWS4l3fPRjtycCBEAjYeRehZDCpHqeWxScuI=;
-        b=LbAx8BNlBls9Q651OQdhr6mIZYRkDzMSx+bjtR15lrHuhd75gfJpoU8cy1CftZwBgA
-         z6WetU8bqUeLZaF4Lus9PiUn/PV4fEU1p9+DdhH4baAtFHu628E/omxxaWceiNSjj/SU
-         s5SQgpQa+rlOtG/beqomQJQqYjnX8fAx7mvCMkOyDSBhxToU6+NYv9NKfSgDrUkbf2ml
-         jo8CV8gH1GLIPuLV9IWMssok6RvMiVSteX1YhOdmFH4nBzg+dwSWdkl09Hv27MZ8kmYw
-         KWrTr4d/8HpJJ86Vzqino/nTXir9pywrVxR4oJkepT14ER43gJ2CPmosRWi2CeLxjONT
-         HOMg==
+        bh=NRsv3Pew46/5knXCm23QGnN+W3B7FIWICmjnciREfFs=;
+        b=bs90Ke1kRZ+hpAXWI8Kzg7B5mUY63i/QCppRaq3sv/gExv0lw0YGcFmkWzgn2ZTkPE
+         gwSHgmyJHMxXzasOaQQTB6SBagZfxPFAaZFK0jyqfB+MnFDn+EvKFv50wOyWOwrk9us/
+         9UuvnLV4s2+QzK6Q6Hbyjd/+9D8zF5GpvonowKaClZqaKsLuKxTgOg+/or60e56280s1
+         fMlvXiZk2ZqFJQi0WdqzH1AOZfUliSYQ42/XHY0FFYmLELxMK6KfFah3uNuJRDSg5K7p
+         MoOWhXXQH01eqPoJ0UKbS9jJIBIVL6mvj0PRzC0Mm+3QoSIVpJxa5QUe7Xw3zd2QDskJ
+         sewQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1735029593; x=1735634393;
+        d=1e100.net; s=20230601; t=1735029784; x=1735634584;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K/NoVEctWS4l3fPRjtycCBEAjYeRehZDCpHqeWxScuI=;
-        b=p2pUPfChSkQ5kIdw3PE2aOwADUNgEe4KWcUR512jQjIh9esrEtmaDlFJKSwycB8Eqa
-         Xy0jb1mZccsbiAs4AANmtG0ZHosZhw/XOteNyIH5BweavEdfuE4VYoOPXewH9/WDJAD5
-         UEvfg/tCgQ7cq3XLxUWeSQmvBC3k0w60EfsCm31gS0MghAkpofMvUa0LyZNDCspPQwKk
-         vkeLVSDKsWwjV8ESfnOrRKQDunap94L3FYJbpp80dHiHvtrj5WVV8Wo3X5sAe+oRQF/J
-         xsLX2PpB2bxSTlVCMu2vR8fNUWb8Irnfv051g1EkVZVVj1NGqHL4O8danoOlwdybKYGd
-         z5/w==
-X-Forwarded-Encrypted: i=1; AJvYcCXqTFgrLVUf+bjXs/MzBpFm3zLpu7MYx7fKfhP1ficQKbaosa98MpPY9EkqRWf4Xinzxih6F7yPjNE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydL/CJMjkDbcatQobrfI3U8cNpVhH9jOptyAtnxB2xP/eOTBu1
-	qnkvhMt5JFSGOm6R4GaKPcKW6h2bmafUdWx+GnN3rNwpCtL4sWJg4Pk/RvHd2w==
-X-Gm-Gg: ASbGncvmW5YIYPcGV8/7s/yNOQrb32rp9V0ZpVCufOdIN61sHW6xTNXCzEajSnk4Nmb
-	kXY+84VAE3Ezo4vPCvxcfUmAk05mJ61Jk5VdDMjcnYTemnnDh/8kTNhOhrZkRWLItfU/L+alA7P
-	NStWAVf4pJuK2sbiBo702u2Qyohkf0Dd0/J2CMUaBFkFK/Wims5actp8/3PVTGBx2hNaevdatHp
-	IWkLcriTsvrjxHXuO+87aaveW+WY4+U6VznEYkbMpGktq0lWf2Ksz4g9ArCINz7oozlSyFa4hSq
-	CMzTgc80i1j/m2DkFQqYlQKc/7YouJVmU1mdf7F84ErdQwPSMWZ2WH94+fMn4lxnjZpiiRDShpj
-	ehwo1lI70QrjHDk4=
-X-Google-Smtp-Source: AGHT+IGwrvrSruFMWNSjdfkDS/bSYVPSM+sf1sqvz6Uj+qiFnpD6jANyFiuK0ykrHmUr0EcbJvc+Kg==
-X-Received: by 2002:a05:6402:270d:b0:5d2:73b0:81e8 with SMTP id 4fb4d7f45d1cf-5d81dd820admr12901857a12.9.1735029592803;
-        Tue, 24 Dec 2024 00:39:52 -0800 (PST)
-Message-ID: <69b4de29-9de7-4ee3-a44b-bf4961bb19c2@suse.com>
-Date: Tue, 24 Dec 2024 09:39:50 +0100
+        bh=NRsv3Pew46/5knXCm23QGnN+W3B7FIWICmjnciREfFs=;
+        b=sZ3px/0FG4+AQfGL2/VS1icMr7hojldgp++lxLZF0dNX4bB9tnLYfuOWw3PwSx3ZSD
+         YZLJoxdd3ZiDoJjBoxfJDRI+QxdOrvJC+vCFI/p737TtXCTqbSt+Vc99g4oHV4B6pi4n
+         tDzum7eXIyYOgS17ATCs2D7cg/qQkCm9hsq6EizFsSG8nN+AEZk6ytzWw5PSg7sniqsS
+         nvYPUH2dUjhLYnbVElYL2s4pwStNxTHx3dVtHnD9ohCVvmh2nhqf+fej1zhyXz0htiYn
+         0ZBCUtalMYzsD6Jev1/8mdD+shhdmx5dL6POkB8mwr1FfdcD54OR0y4bgrMBowb98Dpi
+         9a9w==
+X-Forwarded-Encrypted: i=1; AJvYcCUAP4xN/W2wqn93Xcy6efuTVsUM67K1fgVMH+V+QDyabOZd8tp4t+rsysFUSAFBUzBysEgkT6HJFJY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxHPihwrl0KMZYBuoMS5OkAb9zH1fmAGjUWVwU8ebt/oNQtiyMs
+	ciMTNXfjTgFqTgrY99b79tT+o41G1AD8TF8ICWChs2A3lTa6AuB298Jhvav9taFOvlSoV+yYzmo
+	=
+X-Gm-Gg: ASbGncuMqjewip2y1kWOZ4TEOUfe7a0w9QeYVSZOkA3yK2+OVjBnqVckzor/gDnaFov
+	q/mGxPdKhqQ8B/YNb6qNvD7o+uQQwroqlYLDeD1GxewIxxsEGHEwNfPup7l83QPXQyr1t+HyMv5
+	633B7GHLnqToLpKR73aQc0RRFA8KKNbIhK7g7yUgBT6/ubI8/z0gQx8dxwU1y+pDI7kYGGnQSsW
+	EBgTNbU7LorsTdd3abnyQxIHezXe829OtKlMtVJgqmaqAqnq5ocrOeJ6hRz8WOX7P1kxOZk0Liz
+	AuZ5bGZ35uo6qTXvq59RlDyxQXdVPZVL2ZsuMdOifJBPhDnVJvRxG1z8LUDtHOlOrMvzGh/VjnM
+	DIXUIuL8jd9inoNw=
+X-Google-Smtp-Source: AGHT+IGwV0VC/S8HtPY9g2kQXo/82KbmUQYoUrfGukndvNMNu3wTLeP0rEqGXCT8aXP2SePm3v07jg==
+X-Received: by 2002:a17:907:3e90:b0:aa6:abb2:be12 with SMTP id a640c23a62f3a-aac3354ff4dmr1153566266b.37.1735029783718;
+        Tue, 24 Dec 2024 00:43:03 -0800 (PST)
+Message-ID: <c25666d7-f485-4cb3-9f30-d5f6ea58857a@suse.com>
+Date: Tue, 24 Dec 2024 09:43:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86: Add Support for Paging-Write Feature
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1734652343.git.w1benny@gmail.com>
- <f381634bd45c647d145a81c0076211ea044febc8.1734652343.git.w1benny@gmail.com>
- <258c4e83-4379-4212-b80a-4fe909849e66@suse.com>
- <CAKBKdXhru499ZcF50TroCn39kxHdPVBGtBQaECoryBMd29JGxg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] xen/tools: remove dead code
+To: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
+Cc: Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+References: <20241220165837.937976-1-Ariel.Otilibili-Anieli@eurecom.fr>
+ <20241220165837.937976-3-Ariel.Otilibili-Anieli@eurecom.fr>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,22 +120,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXhru499ZcF50TroCn39kxHdPVBGtBQaECoryBMd29JGxg@mail.gmail.com>
+In-Reply-To: <20241220165837.937976-3-Ariel.Otilibili-Anieli@eurecom.fr>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.12.2024 17:34, Petr Beneš wrote:
-> On Fri, Dec 20, 2024 at 2:09 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> To avoid the flag becoming "sticky", I think you need to clear it ahead of
->> this switch() (or right at the start of the function).
+On 20.12.2024 17:55, Ariel Otilibili wrote:
+> Default switch case exits directly; these instructions are never reached.
 > 
-> When thinking about it now, wouldn't it make sense to only reset it in
-> the p2m_ram_rw case above? I mean, where else would be guest
-> page-tables located.
+> The file was taken from Linux; the copies have diverged a lot since:
+> 
+> ```
+> $ diff -u xen/xen/tools/kconfig/expr.c linux/scripts/kconfig/expr.c | wc -l
+> 984
+> ```
+> 
+> Therefore the change is only applied locally.
+> 
+> Coverity-ID: 1458052
+> Fixes: 8c271b7584 ("build: import Kbuild/Kconfig from Linux 4.3")
+> Signed-off-by: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
 
-I'm afraid that unless you can prove otherwise, my general take on such is
-"you never know".
+As the title of the commit referenced already clarifies - this is once
+again code we took from elsewhere, so imo wants updating at the origin
+first. Then import that commit into Xen.
 
 Jan
 
