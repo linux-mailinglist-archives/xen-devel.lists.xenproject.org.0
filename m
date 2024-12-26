@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB7A9FCC4D
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Dec 2024 18:11:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863362.1274800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0409FCD2B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Dec 2024 19:49:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863383.1274810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQrOM-0004l9-Lj; Thu, 26 Dec 2024 17:11:22 +0000
+	id 1tQsuJ-0005WM-F8; Thu, 26 Dec 2024 18:48:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863362.1274800; Thu, 26 Dec 2024 17:11:22 +0000
+Received: by outflank-mailman (output) from mailman id 863383.1274810; Thu, 26 Dec 2024 18:48:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQrOM-0004if-Ip; Thu, 26 Dec 2024 17:11:22 +0000
-Received: by outflank-mailman (input) for mailman id 863362;
- Thu, 26 Dec 2024 17:11:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tQsuJ-0005UP-C2; Thu, 26 Dec 2024 18:48:27 +0000
+Received: by outflank-mailman (input) for mailman id 863383;
+ Thu, 26 Dec 2024 18:48:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vkhu=TT=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tQrEM-0005x0-35
- for xen-devel@lists.xenproject.org; Thu, 26 Dec 2024 17:01:02 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb622775-c3aa-11ef-a0da-8be0dac302b0;
- Thu, 26 Dec 2024 18:01:01 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1735232290582938.4677206553228;
- Thu, 26 Dec 2024 08:58:10 -0800 (PST)
+ <SRS0=HQxm=TT=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tQsuH-0005TY-Ev
+ for xen-devel@lists.xenproject.org; Thu, 26 Dec 2024 18:48:25 +0000
+Received: from fhigh-a3-smtp.messagingengine.com
+ (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f5672c49-c3b9-11ef-99a3-01e77a169b0f;
+ Thu, 26 Dec 2024 19:48:13 +0100 (CET)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 1D78F114016C
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Dec 2024 13:48:12 -0500 (EST)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Thu, 26 Dec 2024 13:48:12 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Thu, 26 Dec 2024 13:48:11 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,139 +45,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb622775-c3aa-11ef-a0da-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1735232296; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=fTx+RrBVql5Nk7YuBcEIige9Ew7ilaJgqad89L322VysMEZauUppeYqLmTSRtZ4zCd3j1CzQ62u82EFLQBWkXN6it0o86+d4lxZ+uzh8pjqkBO0+aVuMquMCcr9XMFUqM1kFjXc73r8A2mXHtQ62SIkn8moXvlTmQ7p0rTG3Wrs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1735232296; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZIGHKNiDcj/HqTL/IBZMznrIHbY4YhPeFEesoRFQtNI=; 
-	b=M0qUxiC1ouoi2PAeVimJd5aTTMRAX8BA2WkWIG5VtZSTyMjQxUDHl8a40gGap/KCRMKdPKckGd3cO5DnXSToslconFCgv/i8CWF1etC0KBFeiPRLFpoF9ERH4Oc/2f2LFg8T6Ol9rQ7CxLEPNggxCzOyjkRQhb7eXuESMcs1yMo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1735232296;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=ZIGHKNiDcj/HqTL/IBZMznrIHbY4YhPeFEesoRFQtNI=;
-	b=dtZ2aAsqfLKFMwAS3FmW2ldAcmpPEHxEeOXqJ3RoFfT7Wg9E0AOzBidWuDvScR/h
-	k4Jblh2ksmWmvaTJA2f1ho+tL/QuFtgFcADDU1JT9+e7Bu3n7hurTGxw3UK6I4Cxw/w
-	wCttHrveFvzbUqybql8BX9WbCtrmEA5B1CoGsN3g=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	jason.andryuk@amd.com,
-	christopher.w.clark@gmail.com,
-	stefano.stabellini@amd.com,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 15/15] x86/hyperlaunch: add capabilities to boot domain
-Date: Thu, 26 Dec 2024 11:57:40 -0500
-Message-Id: <20241226165740.29812-16-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20241226165740.29812-1-dpsmith@apertussolutions.com>
-References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
+X-Inumbo-ID: f5672c49-c3b9-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1735238892;
+	 x=1735325292; bh=z6ILCZyKYEYu/+df/UDnQYY4VydKA+78DiVS/BSI4U8=; b=
+	pqVNCawzbtaV2PCSU0fvKXkgFUPI9leZcixVVzZe9+gl31OVnY9kApjS7/bDgQuv
+	FtaBcwhnJheupnRDiq1oW9WsPMOKgHbxWaLfBQiZL3FSARtfzsOWKUk6jqQJYVNW
+	I6qf6nowqgpTL5D9gHU5thFvxHgMvyM7v8bMK0jleZ1Lp/ZaoNexbe+FN2OZXiKo
+	mlvWDNOMoJz3cc/kUAFfniIIBlq1ns9XgTjB+TlnImrIDjp7H5IN9bVnG6Z49Ji6
+	+vywJ1rCyaJEcFZQZI1PXVcYWIsX/cYnfSNSs8Bo4nt5Yt5z9/qMzVwXD+JiQDvE
+	aukFjvcOSHwfUPHYsnUABw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1735238892; x=1735325292; bh=z6ILCZyKYEYu/+df/UDnQYY4VydKA+78DiV
+	S/BSI4U8=; b=i6vkS5R506QNXYDO4YaT+2cK/qjY8qznTfIguIZ9LGbf3eB0UVp
+	bq84dBxV4BZODNQYZh4CZRv9oZV023g1mavlRgADHYrsc1Ur0/XWLFLk1QyTlXgZ
+	pUV5DwB+ffva2tmt6c+yZ00vYzxQRcUDiQihe6SNXbr8c9zjvFWIbq9QvJ1ymH09
+	hpIMQJlOYSCJ9ZzyVCNA0U36rsFQf1o6znez4imnCL8bobfTfuyJrGbH/G4tSynI
+	xbieTweshlWT3v5jDBAISY3jfU2MnZPEEViSMAb+V7GmRjYaaWJ1bXykloB74vLN
+	nRnViRmqhUtJmKJmLGhtZdHj7B7Mgyhhn7A==
+X-ME-Sender: <xms:66RtZyYzZ7zx5CLmhrVqzOPPDZkxNrI9yY2d5K93bkBxzfpfww5FQw>
+    <xme:66RtZ1YH41LItpeVJnvkLarlu9HDki9nn9-oAh6FS_oQZXpAty0cOQijGJKYMuIDo
+    PkFfOkEJzwWBg>
+X-ME-Received: <xmr:66RtZ8-76ZFCGKueK6z4IGCvKoXJwJmfwnHpXnvdG1R5rzWfsZDT9JghzJA6LMw4a3bbGIyCPafi7VrThxkVVdqi5HRa6F9bbg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddruddukedguddujecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvf
+    fukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihk
+    ohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
+    hinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveffiefghfekhffggeef
+    fffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhushhtvghrufhiiigvpe
+    dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghl
+    vghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedupdhmohguvgepshhmth
+    hpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhj
+    vggtthdrohhrgh
+X-ME-Proxy: <xmx:66RtZ0pd-AiKwZMKgpcDaASv-Y0E1x7VBgllg_K1SQjLMHepkx0SjA>
+    <xmx:66RtZ9r4C15xc8h34GZedWpcqw4K_eVtPAOT0K1S5Qwkiu2JN8xOyA>
+    <xmx:66RtZyRti8KzsXylVd9P6SdmaSOkFxr3jRsRTKNLDGp7M5nrDQUnmg>
+    <xmx:66RtZ9phOWEtfQ-afi86xR_s71ONR-IONXbTstE--NneUdnBzj1mJQ>
+    <xmx:7KRtZ-AH_vbpHuP4TG61wRLK4yNe1NvjMa8h5nZ8jSngVts7qVyL9EJQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 26 Dec 2024 19:48:08 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
+Message-ID: <Z22k6fH7SxbvQB7X@mail-itl>
+References: <Z2RGfpJkO0z_nKV6@mail-itl>
+ <Z2TNBPXj6DXDaonD@mail-itl>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="q8zuvRHPgZ9sUEen"
+Content-Disposition: inline
+In-Reply-To: <Z2TNBPXj6DXDaonD@mail-itl>
 
-Introduce the ability to assign capabilities to a domain via its definition in
-device tree. The first capability enabled to select is the control domain
-capability. The capability property is a bitfield in both the device tree and
-`struct boot_domain`.
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
----
-Changes since v1:
-- switch to nested else if
-- switch from match_fdt to strncmp
-- drop ternary for name selection
-- coding style changes
----
- xen/arch/x86/domain-builder/core.c    |  1 +
- xen/arch/x86/domain-builder/fdt.c     | 12 ++++++++++++
- xen/arch/x86/include/asm/bootdomain.h |  4 ++++
- xen/arch/x86/setup.c                  |  6 +++++-
- 4 files changed, 22 insertions(+), 1 deletion(-)
+--q8zuvRHPgZ9sUEen
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Dec 2024 19:48:08 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
 
-diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-builder/core.c
-index 91d1b7367e76..589496b6a3e1 100644
---- a/xen/arch/x86/domain-builder/core.c
-+++ b/xen/arch/x86/domain-builder/core.c
-@@ -96,6 +96,7 @@ void __init builder_init(struct boot_info *bi)
-         i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
-         bi->mods[i].type = BOOTMOD_KERNEL;
-         bi->domains[0].kernel = &bi->mods[i];
-+        bi->domains[0].capabilities |= BUILD_CAPS_CONTROL;
-         bi->nr_domains = 1;
-     }
- }
-diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-builder/fdt.c
-index 70a793db199b..e90b230eeffe 100644
---- a/xen/arch/x86/domain-builder/fdt.c
-+++ b/xen/arch/x86/domain-builder/fdt.c
-@@ -158,6 +158,18 @@ static int __init process_domain_node(
-             bd->max_vcpus = val;
-             printk("  max vcpus: %d\n", bd->max_vcpus);
-         }
-+        else if ( strncmp(prop_name, "capabilities", name_len) == 0 )
-+        {
-+            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
-+            {
-+                printk("  failed processing domain id for domain %s\n", name);
-+                return -EINVAL;
-+            }
-+            printk("  caps: ");
-+            if ( bd->capabilities & BUILD_CAPS_CONTROL )
-+                printk("c");
-+            printk("\n");
-+        }
-     }
- 
-     fdt_for_each_subnode(node, fdt, dom_node)
-diff --git a/xen/arch/x86/include/asm/bootdomain.h b/xen/arch/x86/include/asm/bootdomain.h
-index 1a15273043f5..67f43c13e905 100644
---- a/xen/arch/x86/include/asm/bootdomain.h
-+++ b/xen/arch/x86/include/asm/bootdomain.h
-@@ -15,6 +15,10 @@ struct boot_domain {
- 
-     domid_t domid;
- 
-+#define BUILD_CAPS_NONE          (0)
-+#define BUILD_CAPS_CONTROL       (1 << 0)
-+    uint32_t capabilities;
-+
-                                           /* On     | Off    */
- #define BUILD_MODE_PARAVIRT      (1 << 0) /* PV     | PVH/HVM */
- #define BUILD_MODE_ENABLE_DM     (1 << 1) /* HVM    | PVH     */
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index a87e122b5a61..0fb8572b7145 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1002,6 +1002,7 @@ static size_t __init domain_cmdline_size(
- static struct domain *__init create_dom0(struct boot_info *bi)
- {
-     char *cmdline = NULL;
-+    unsigned int create_flags = 0;
-     struct xen_domctl_createdomain dom0_cfg = {
-         .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
-         .max_evtchn_port = -1,
-@@ -1033,7 +1034,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
-     if ( bd->domid == DOMID_INVALID )
-         /* Create initial domain.  Not d0 for pvshim. */
-         bd->domid = get_initial_domain_id();
--    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-+    if ( bd->capabilities & BUILD_CAPS_CONTROL )
-+        create_flags |= CDF_privileged;
-+    d = domain_create(bd->domid, &dom0_cfg,
-+                      pv_shim ? 0 : create_flags);
-     if ( IS_ERR(d) )
-         panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
- 
--- 
-2.30.2
+On Fri, Dec 20, 2024 at 02:48:52AM +0100, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> On Thu, Dec 19, 2024 at 05:14:52PM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > Hi,
+> >=20
+> > It crashes on boot like below, most of the times. But sometimes (rarely)
+> > it manages to stay alive. Below I'm pasting few of the crashes that look
+> > distinctly different, if you follow the links, you can find more of
+> > them. IMHO it looks like some memory corruption bug somewhere. I tested
+> > also Linux 6.13-rc2 before, and it had very similar issue.
+> >=20
+> > The traces below are all from nested virt (Xen inside KVM), tests with
+> > Xen directly on the hardware are still in progress. But -rc2 failed all
+> > of them too, so if it's the same issue, I guess they will looks similar.
+>=20
+> Yes, on real hardware it crashes too.
 
+6.13-rc4 fails the same way.
+
+> I tried to enable KASAN, but that didn't worked out:
+>=20
+> (XEN) d0 has maximum 416 PIRQs
+> (XEN) *** Building a PV Dom0 ***
+> (XEN)  Xen  kernel: 64-bit, lsb
+> (XEN)  Dom0 kernel: 64-bit, lsb, paddr 0x200000 -> 0x7600000
+> (XEN) PHYSICAL MEMORY ARRANGEMENT:
+> (XEN)  Dom0 alloc.:   0000000260000000->0000000268000000 (1005377 pages t=
+o be allocated)
+> (XEN)  Init. ramdisk: 000000027d741000->000000027ffff207
+> (XEN) VIRTUAL MEMORY ARRANGEMENT:
+> (XEN)  Loaded kernel: ffffffff80200000->ffffffff87600000
+> (XEN)  Phys-Mach map: 0000008000000000->0000008000800000
+> (XEN)  Start info:    ffffffff87600000->ffffffff876004b8
+> (XEN)  Page tables:   ffffffff87601000->ffffffff87640000
+> (XEN)  Boot stack:    ffffffff87640000->ffffffff87641000
+> (XEN)  TOTAL:         ffffffff80000000->ffffffff87800000
+> (XEN)  ENTRY ADDRESS: ffffffff8615da50
+> (XEN) Dom0 has maximum 2 VCPUs
+> (XEN) Initial low memory virq threshold set at 0x4000 pages.
+> (XEN) Scrubbing Free RAM in background
+> (XEN) Std. Loglevel: All
+> (XEN) Guest Loglevel: All
+> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+> (XEN) Freed 684kB init memory
+> (XEN) d0v0 Unhandled: vec 14, #PF[0002]
+> (XEN) Pagetable walk from fffffbfff0900fc6:
+> (XEN)  L4[0x1f7] =3D 0000000000000000 ffffffffffffffff
+> (XEN) domain_crash_sync called from entry.S: fault at ffff82d0402ebdec x8=
+6_64/entry.S#create_bounce_frame+0x14c/0x170
+> (XEN) Domain 0 (vcpu#0) crashed on cpu#0:
+> (XEN) ----[ Xen-4.19.0  x86_64  debug=3Dn  Not tainted ]----
+> (XEN) CPU:    0
+> (XEN) RIP:    e033:[<ffffffff8614ff32>]
+> (XEN) RFLAGS: 0000000000000286   EM: 1   CONTEXT: pv guest (d0v0)
+> (XEN) rax: ffffffff860d8000   rbx: ffffffff87600000   rcx: 00000000c00001=
+01
+> (XEN) rdx: 3be9e05ee5ed7ef7   rsi: ffffffff87600000   rdi: fffffbfff0900f=
+c6
+> (XEN) rbp: ffffffff84807f48   rsp: ffffffff84807df0   r8:  00000000000000=
+00
+> (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 00000000000000=
+00
+> (XEN) r12: dffffc0000000000   r13: 0000000000000000   r14: 00000000000000=
+00
+> (XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 00000000003406=
+60
+> (XEN) cr3: 0000000267601000   cr2: fffffbfff0900fc6
+> (XEN) fsb: 0000000000000000   gsb: ffffffff860d8000   gss: 00000000000000=
+00
+> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
+> (XEN) Guest stack trace from rsp=3Dffffffff84807df0:
+> (XEN)    00000000c0000101 0000000000000000 0000000000000002 ffffffff8614f=
+f32
+> (XEN)    000000010000e030 0000000000010086 ffffffff84807e30 000000000000e=
+02b
+> (XEN)    0000000041b58ab3 ffffffff845f8030 ffffffff8614fed0 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    ffffffff8615da6f 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000
+> (XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
+> (XEN) Resetting with ACPI MEMORY or I/O RESET_REG.
+>=20
+> > Who should I CC here? The failures are all over the place... linux-mm?
+>=20
+> --=20
+> Best Regards,
+> Marek Marczykowski-G=C3=B3recki
+> Invisible Things Lab
+
+
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--q8zuvRHPgZ9sUEen
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmdtpOkACgkQ24/THMrX
+1ywhsAgAluf3fe1wc+P+ETc/JmgZkJ94iuT2WlK3mqFd7ncRbd67LVSiiF2BHu7o
+oz+km7wyBF8sUwcThh8UUqyipPudHii0hy0/lRIkVHiwIfcAfG5wdH4oo1yaEQhK
+mPkbBnFBtaguA0MaSJwYxggKT715oxLQHDCFIo3YwWbxnfoGeXTLRSd4naqmF5fR
+AIZGClv9xr8JpZL36LJKF41ku/8wqJt/wNNv2qGw70GkMeyVOF208PCsbMiPTySt
+4spMh7Yj+rhITB3+5UU+buXmgEpBq3uXv4LUmZ6pChdBpjy3mRltIfmO7i9Je0ZR
+bNmDQimmNApwUcljjnVrq/ZNwR8c5g==
+=kA3n
+-----END PGP SIGNATURE-----
+
+--q8zuvRHPgZ9sUEen--
 
