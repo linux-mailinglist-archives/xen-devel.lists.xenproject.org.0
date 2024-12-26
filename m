@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F4599FCBCC
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Dec 2024 17:17:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863226.1274639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8659FCC05
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Dec 2024 17:58:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863235.1274650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQqX3-0005d7-N9; Thu, 26 Dec 2024 16:16:17 +0000
+	id 1tQrBQ-000298-GX; Thu, 26 Dec 2024 16:58:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863226.1274639; Thu, 26 Dec 2024 16:16:17 +0000
+Received: by outflank-mailman (output) from mailman id 863235.1274650; Thu, 26 Dec 2024 16:58:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQqX3-0005bh-H8; Thu, 26 Dec 2024 16:16:17 +0000
-Received: by outflank-mailman (input) for mailman id 863226;
- Thu, 26 Dec 2024 16:16:16 +0000
+	id 1tQrBQ-00026Z-D2; Thu, 26 Dec 2024 16:58:00 +0000
+Received: by outflank-mailman (input) for mailman id 863235;
+ Thu, 26 Dec 2024 16:57:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vkhu=TT=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1tQqX2-0005bb-4p
- for xen-devel@lists.xenproject.org; Thu, 26 Dec 2024 16:16:16 +0000
+ id 1tQrBP-00026T-0h
+ for xen-devel@lists.xenproject.org; Thu, 26 Dec 2024 16:57:59 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b95ac171-c3a4-11ef-a0da-8be0dac302b0;
- Thu, 26 Dec 2024 17:16:14 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1735229765773367.7759362648453;
- Thu, 26 Dec 2024 08:16:05 -0800 (PST)
+ id 8d344f70-c3aa-11ef-a0da-8be0dac302b0;
+ Thu, 26 Dec 2024 17:57:56 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1735232269626530.7045485100999;
+ Thu, 26 Dec 2024 08:57:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,88 +38,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b95ac171-c3a4-11ef-a0da-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1735229767; cv=none; 
+X-Inumbo-ID: 8d344f70-c3aa-11ef-a0da-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1735232270; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=a7B9U03m7oglKjoxJdzbsAqRmCNMdY715+dstrtLbYuIAmfWGHI38TjGikOtVcArZH5CuuJhNSsoUzTJZYG8MSbaoL5z8TmiF/xXSgdnnzMmK65FNcwO+T3pc8G8D+uJej/Ef4oPvXF8GHyud6wCPuw3YFE4ZaoqZnnErRwlqfc=
+	b=ENbSCjkzn2rYdwuAHr5dGskezSy5g8U2mMmRYV9bHZxIyoVRefBww2Q7kMAXX1LNqIZ037Nsm+NWeDoF3/9k0ErwxCTCJKa8WjpeVZG8Psmx5ZuPP1wasZ94CM1Q9Mg8Fno3DRAD5/YEEZBkub7Ld369yoLA7Jj+buPZEwSlMbs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1735229767; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YqqKeyet+2uUgrlg44C8mno8IzfJtoe6MzUCfi5C2wo=; 
-	b=gz8QZ3Gi3q72ZeSylQ3A62sfOi79i26LQgOcbvx4OE5eIooaeQz824NyA02ACLdB3pSluVar9BY3gjSdfR2zI7oov1faMxFsS13kQYTQeAktykVOO3hIAskb3VhGbzP+mN0al7nrPNDeZ2ar+sHZzWXCItCNlTbQ0D5Sl6K6CL0=
+	t=1735232270; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nIHuSYK2rqiQJcqL0lovxzV4K0yQcvSsSbKym5BNNWY=; 
+	b=j+IEelVi8Y5HoH98I/3di4emV+ocTXH5baFYM8KfWGhd+7BjSa4jhgqzCJBH1UouApb7WrcA1V06T5Lu2qYNaslW/dpTSimjBnx3pA0k7rz4SUuLu1XUK23I7U9u15o8P1DKxcH3bymhGnQ8rdTz7c6+dz4V5APPvYTqHOk+bfo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1735229767;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1735232270;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=YqqKeyet+2uUgrlg44C8mno8IzfJtoe6MzUCfi5C2wo=;
-	b=rNLlcdT4kXEBUbaFleHQSF3Ev6FJ2GbnLXFDaEHOGWsItNNqh5saxRc/ZTS+l1iW
-	N/hjbg7VDFIxUvPuur0jdKHq1m3cjY7Xu88cVU9OXHSNgu+1ZBIiqTJEoR4e1/q4AnE
-	kfkVlUpiOnmUHVREVb8OBTL7WOQslKiNC28ZjXuc=
-Message-ID: <420a0920-cb18-4294-9dc6-3b564843ba89@apertussolutions.com>
-Date: Thu, 26 Dec 2024 11:16:03 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/15] x86/hyperlaunch: add memory parsing to domain
- config
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=nIHuSYK2rqiQJcqL0lovxzV4K0yQcvSsSbKym5BNNWY=;
+	b=G2Q86o5v/JMX+S/qTXSEkD1vEgyQLge6hrWy4VXPdUB2O8E2SmyDDg0ssgmn+gPt
+	2AM/x8+pJIozcjVEPe3kbgPR2/qHZeEsJTjek9w68Bhegq+CULI0a4FYqFENq6r2m0z
+	SZfpgM5PptdMgPoUrp+4OqmS439BhaxJAq6ORgHs=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: christopher.w.clark@gmail.com, stefano.stabellini@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241123182044.30687-1-dpsmith@apertussolutions.com>
- <20241123182044.30687-14-dpsmith@apertussolutions.com>
- <4c4d8cf0-cc31-4042-8efb-892f56047d11@amd.com>
- <8072fa09-1e3c-43a7-a36c-4c965314ac22@apertussolutions.com>
-Content-Language: en-US
-In-Reply-To: <8072fa09-1e3c-43a7-a36c-4c965314ac22@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	jason.andryuk@amd.com,
+	christopher.w.clark@gmail.com,
+	stefano.stabellini@amd.com
+Subject: [PATCH v2 00/15] Hyperlaunch device tree for dom0
+Date: Thu, 26 Dec 2024 11:57:25 -0500
+Message-Id: <20241226165740.29812-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 12/11/24 12:59, Daniel P. Smith wrote:
-> On 11/25/24 19:03, Jason Andryuk wrote:
->> On 2024-11-23 13:20, Daniel P. Smith wrote:
->>> Add three properties, memory, mem-min, and mem-max, to the domain 
->>> node device
->>> tree parsing to define the memory allocation for a domain. All three 
->>> fields are
->>> expressed in kb and written as a u64 in the device tree entries.
->>>
->>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>> ---
->>
->>> diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
->>> index c231191faec7..1c3b7ff0e658 100644
->>> --- a/xen/arch/x86/dom0_build.c
->>> +++ b/xen/arch/x86/dom0_build.c
->>> @@ -609,6 +609,14 @@ int __init construct_dom0(struct boot_domain *bd)
->>>       process_pending_softirqs();
->>> +    /* If param dom0_size was not set and HL config provided memory 
->>> size */
->>> +    if ( !get_memsize(&dom0_size, LONG_MAX) && bd->mem_pages )
->>> +        dom0_size.nr_pages = bd->mem_pages;
->>> +    if ( !get_memsize(&dom0_min_size, LONG_MAX) && bd->min_pages )
->>> +        dom0_size.nr_pages = bd->min_pages;
->>> +    if ( !get_memsize(&dom0_max_size, LONG_MAX) && bd->max_pages )
->>> +        dom0_size.nr_pages = bd->max_pages;
->>> +
->>
->> This placement seems a little random.  Can this move into 
->> dom0_compute_nr_pages()?
-> 
-> As I started to rebase the multi-domain code around all the changes that 
-> happened under the boot module review, dom0_compute_nr_pages() became a 
-> mess to work with again. The result does see this drop in favor of 
-> handling during dom_compute_nr_pages(). I will look to back port that 
-> refactoring to here.
+The Hyperlaunch device tree for dom0 series is the second split out for the
+introduction of the Hyperlaunch domain builder logic. These changes focus on
+introducing the ability to express a domain configuration that is then used to
+populate the struct boot_domain structure for dom0. This ability to express a
+domain configuration provides the next step towards a general domain builder.
 
-Before sending out v2, wanted to respond back that I did not see an 
-immediate way to move this up to dom0_compute_nr_pages() without bring 
-in a series of unrelated changes.
+The splitting of Hyperlaunch into a set of series are twofold, to reduce the
+effort in reviewing a much larger series, and to reduce the effort in handling
+the knock-on effects to the construction logic from requested review changes.
 
-v/r,
-dps
+Much thanks to AMD for supporting this work.
+
+Documentation on Hyperlaunch:
+https://wiki.xenproject.org/wiki/Hyperlaunch
+
+Original Hyperlaunch v1 patch series:
+https://lists.xenproject.org/archives/html/xen-devel/2022-07/msg00345.html
+
+V/r,
+Daniel P. Smith
+
+Daniel P. Smith (15):
+  x86/boot: introduce boot domain
+  x86/boot: introduce domid field to struct boot_domain
+  x86/boot: add cmdline to struct boot_domain
+  kconfig: introduce option to independently enable libfdt
+  kconfig: introduce domain builder config option
+  x86/hyperlaunch: introduce the domain builder
+  x86/hyperlaunch: initial support for hyperlaunch device tree
+  x86/hyperlaunch: locate dom0 kernel with hyperlaunch
+  x86/hyperlaunch: obtain cmdline from device tree
+  x86/hyperlaunch: locate dom0 initrd with hyperlaunch
+  x86/hyperlaunch: add domain id parsing to domain config
+  x86/hyperlaunch: specify dom0 mode with device tree
+  x86/hyperlaunch: add memory parsing to domain config
+  x86/hyperlaunch: add max vcpu parsing of hyperlaunch device tree
+  x86/hyperlaunch: add capabilities to boot domain
+
+ xen/arch/x86/Kconfig                     |   2 +
+ xen/arch/x86/Makefile                    |   2 +
+ xen/arch/x86/dom0_build.c                |  19 +-
+ xen/arch/x86/domain-builder/Kconfig      |  15 +
+ xen/arch/x86/domain-builder/Makefile     |   3 +
+ xen/arch/x86/domain-builder/core.c       | 112 +++++++
+ xen/arch/x86/domain-builder/fdt.c        | 389 +++++++++++++++++++++++
+ xen/arch/x86/domain-builder/fdt.h        |  53 +++
+ xen/arch/x86/hvm/dom0_build.c            |  37 +--
+ xen/arch/x86/include/asm/bootdomain.h    |  49 +++
+ xen/arch/x86/include/asm/bootinfo.h      |  15 +-
+ xen/arch/x86/include/asm/dom0_build.h    |   6 +-
+ xen/arch/x86/include/asm/domainbuilder.h |  12 +
+ xen/arch/x86/include/asm/setup.h         |   4 +-
+ xen/arch/x86/pv/dom0_build.c             |  28 +-
+ xen/arch/x86/setup.c                     | 162 ++++++----
+ xen/common/Kconfig                       |   4 +
+ xen/common/Makefile                      |   2 +-
+ xen/include/xen/libfdt/libfdt-xen.h      | 118 +++++++
+ 19 files changed, 922 insertions(+), 110 deletions(-)
+ create mode 100644 xen/arch/x86/domain-builder/Kconfig
+ create mode 100644 xen/arch/x86/domain-builder/Makefile
+ create mode 100644 xen/arch/x86/domain-builder/core.c
+ create mode 100644 xen/arch/x86/domain-builder/fdt.c
+ create mode 100644 xen/arch/x86/domain-builder/fdt.h
+ create mode 100644 xen/arch/x86/include/asm/bootdomain.h
+ create mode 100644 xen/arch/x86/include/asm/domainbuilder.h
+
+-- 
+2.30.2
 
 
