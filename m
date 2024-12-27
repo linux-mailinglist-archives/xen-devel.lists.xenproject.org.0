@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA0409FCD2B
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Dec 2024 19:49:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863383.1274810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30ECA9FD292
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Dec 2024 10:31:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863402.1274819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQsuJ-0005WM-F8; Thu, 26 Dec 2024 18:48:27 +0000
+	id 1tR6fX-0002ms-CN; Fri, 27 Dec 2024 09:30:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863383.1274810; Thu, 26 Dec 2024 18:48:27 +0000
+Received: by outflank-mailman (output) from mailman id 863402.1274819; Fri, 27 Dec 2024 09:30:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tQsuJ-0005UP-C2; Thu, 26 Dec 2024 18:48:27 +0000
-Received: by outflank-mailman (input) for mailman id 863383;
- Thu, 26 Dec 2024 18:48:25 +0000
+	id 1tR6fX-0002jw-9N; Fri, 27 Dec 2024 09:30:07 +0000
+Received: by outflank-mailman (input) for mailman id 863402;
+ Fri, 27 Dec 2024 09:30:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HQxm=TT=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tQsuH-0005TY-Ev
- for xen-devel@lists.xenproject.org; Thu, 26 Dec 2024 18:48:25 +0000
-Received: from fhigh-a3-smtp.messagingengine.com
- (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gSYI=TU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tR6fW-0002ez-AW
+ for xen-devel@lists.xenproject.org; Fri, 27 Dec 2024 09:30:06 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5672c49-c3b9-11ef-99a3-01e77a169b0f;
- Thu, 26 Dec 2024 19:48:13 +0100 (CET)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 1D78F114016C
- for <xen-devel@lists.xenproject.org>; Thu, 26 Dec 2024 13:48:12 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Thu, 26 Dec 2024 13:48:12 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Thu, 26 Dec 2024 13:48:11 -0500 (EST)
+ id 270dd5e8-c435-11ef-99a3-01e77a169b0f;
+ Fri, 27 Dec 2024 10:30:04 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4362f61757fso70667305e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Dec 2024 01:30:04 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43661219a71sm257987925e9.26.2024.12.27.01.30.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Dec 2024 01:30:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +45,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5672c49-c3b9-11ef-99a3-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:content-type:date:date
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1735238892;
-	 x=1735325292; bh=z6ILCZyKYEYu/+df/UDnQYY4VydKA+78DiVS/BSI4U8=; b=
-	pqVNCawzbtaV2PCSU0fvKXkgFUPI9leZcixVVzZe9+gl31OVnY9kApjS7/bDgQuv
-	FtaBcwhnJheupnRDiq1oW9WsPMOKgHbxWaLfBQiZL3FSARtfzsOWKUk6jqQJYVNW
-	I6qf6nowqgpTL5D9gHU5thFvxHgMvyM7v8bMK0jleZ1Lp/ZaoNexbe+FN2OZXiKo
-	mlvWDNOMoJz3cc/kUAFfniIIBlq1ns9XgTjB+TlnImrIDjp7H5IN9bVnG6Z49Ji6
-	+vywJ1rCyaJEcFZQZI1PXVcYWIsX/cYnfSNSs8Bo4nt5Yt5z9/qMzVwXD+JiQDvE
-	aukFjvcOSHwfUPHYsnUABw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1735238892; x=1735325292; bh=z6ILCZyKYEYu/+df/UDnQYY4VydKA+78DiV
-	S/BSI4U8=; b=i6vkS5R506QNXYDO4YaT+2cK/qjY8qznTfIguIZ9LGbf3eB0UVp
-	bq84dBxV4BZODNQYZh4CZRv9oZV023g1mavlRgADHYrsc1Ur0/XWLFLk1QyTlXgZ
-	pUV5DwB+ffva2tmt6c+yZ00vYzxQRcUDiQihe6SNXbr8c9zjvFWIbq9QvJ1ymH09
-	hpIMQJlOYSCJ9ZzyVCNA0U36rsFQf1o6znez4imnCL8bobfTfuyJrGbH/G4tSynI
-	xbieTweshlWT3v5jDBAISY3jfU2MnZPEEViSMAb+V7GmRjYaaWJ1bXykloB74vLN
-	nRnViRmqhUtJmKJmLGhtZdHj7B7Mgyhhn7A==
-X-ME-Sender: <xms:66RtZyYzZ7zx5CLmhrVqzOPPDZkxNrI9yY2d5K93bkBxzfpfww5FQw>
-    <xme:66RtZ1YH41LItpeVJnvkLarlu9HDki9nn9-oAh6FS_oQZXpAty0cOQijGJKYMuIDo
-    PkFfOkEJzwWBg>
-X-ME-Received: <xmr:66RtZ8-76ZFCGKueK6z4IGCvKoXJwJmfwnHpXnvdG1R5rzWfsZDT9JghzJA6LMw4a3bbGIyCPafi7VrThxkVVdqi5HRa6F9bbg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddruddukedguddujecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvf
-    fukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihk
-    ohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveffiefghfekhffggeef
-    fffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhushhtvghrufhiiigvpe
-    dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghl
-    vghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedupdhmohguvgepshhmth
-    hpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhj
-    vggtthdrohhrgh
-X-ME-Proxy: <xmx:66RtZ0pd-AiKwZMKgpcDaASv-Y0E1x7VBgllg_K1SQjLMHepkx0SjA>
-    <xmx:66RtZ9r4C15xc8h34GZedWpcqw4K_eVtPAOT0K1S5Qwkiu2JN8xOyA>
-    <xmx:66RtZyRti8KzsXylVd9P6SdmaSOkFxr3jRsRTKNLDGp7M5nrDQUnmg>
-    <xmx:66RtZ9phOWEtfQ-afi86xR_s71ONR-IONXbTstE--NneUdnBzj1mJQ>
-    <xmx:7KRtZ-AH_vbpHuP4TG61wRLK4yNe1NvjMa8h5nZ8jSngVts7qVyL9EJQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 26 Dec 2024 19:48:08 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
-Message-ID: <Z22k6fH7SxbvQB7X@mail-itl>
-References: <Z2RGfpJkO0z_nKV6@mail-itl>
- <Z2TNBPXj6DXDaonD@mail-itl>
+X-Inumbo-ID: 270dd5e8-c435-11ef-99a3-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1735291803; x=1735896603; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=00WtuGiAjqszGQrq1V2bI3imru/l+J6htk/nOF9E2aw=;
+        b=VHGqtXGYdiftfv01Kb6BNvGdLnRdt1kFOe7DDR5P0tOT4GcO5zYMWcGK4+sCqd6uvc
+         3CCyAqmYy6tOK9TExOpIY5n80vMASWd7ZgCOFavnu3JeTM8liko/0xcODgha8obI6npN
+         147z2oeYYsuPVo1T2En01k9L+QT6QGH0WnbZvwaoV/H4F0K6Qt+AJCLcK85/AWV5wsMY
+         buQtUsZiJV9PjburYLpkvmY/XuCqKUMZZ1zoK3NPnkzF1W69r5wfJV9usozsJ4dxkRVL
+         neTnq9o+Nwgv6oQSkDklWOu1FERzGK4ZWVx5B8QfjQAkEIlGgCghyhvsZ6uBY81ngqG3
+         mvwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1735291803; x=1735896603;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=00WtuGiAjqszGQrq1V2bI3imru/l+J6htk/nOF9E2aw=;
+        b=YpH1EH+Fr260ZBQJNkbZ1rMmvLNYC2Hk1gfML66ZkNFjnDWPc/j7JPf/btY3dOdUTC
+         nwnqLHkvT4/UAwhu49Mx0OqSZNWih+AJQKD2N41oy7+3u8i3xLa7dsMVv5SWWR5xx34Q
+         SbARvWOa+NMc2ASusbrsHL5tiTvJCjfZs71SOcleZOboQW5sQDRW40hoq08eBuDeKYkj
+         qM0RnWHZMWUevO4EozqmVP6IYxfxz6fyAO+FyX7L5WYB8fAp2QuYuGxjBRkpSlRHMDxI
+         FQx83kuDC9unRYX23qX3pH8KChBqjcsTNo2PfWx58jChKkd1lVDCir947sifiKchyCM2
+         hU0g==
+X-Forwarded-Encrypted: i=1; AJvYcCVK7ZhEdwzr9mZsX457jiPd5Q4Hsj3iYzSF9v1cRD2EcrFUg137SWo+EQIREVj8bLgI41NwNfRLrZ4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzF0W1We1cKd/k0Kg/QKbLCDT4huGqFPINqn4FhReAenuAEMP6/
+	Uj8Zlkg/+VVa2RxrR6cjQjNBsIWXMRrIJbkf/LrQ8PhxoY+SDbG1RaN8v/Rnbg==
+X-Gm-Gg: ASbGncvWigRb1bFwQ8pgSnBhQJ43YmzMPOVDstd7VNAoF5eG6z196dMJyXCswWxEYbm
+	JJDsQpbmNe0A24alvLtydIATGbCSTQoL/BNwfJ9k+e4zFfhrG3BQdhgOQcnwPkwHM+cxNDlLzkd
+	ue83ZfVa++BmQCYLBbj+ezuzKP8gGNp0zP1apHg/+xUmnqQgoXD0sl+j1EI4RP2lmowfDbsfjR/
+	e2dneq49Ou7s5cpC3f2UR1MPrnx7IGhU6mdrSqrgUF40EyT2v67t3GfCDBI4q+ytJqhMl8e4QYm
+	Sq3KI9Ifv4MQluVzXTK70Vh5f/LOzj2jJ4Kobs0Ffg==
+X-Google-Smtp-Source: AGHT+IEtZH4RUW59/GVQHHwhJhDiaBLwj1Elb048br2TV/p/6h1HTuWrtOhim9LxAVAs16vjMS20kQ==
+X-Received: by 2002:a05:6000:186d:b0:386:1cd3:8a08 with SMTP id ffacd0b85a97d-38a221ed256mr24990055f8f.5.1735291803347;
+        Fri, 27 Dec 2024 01:30:03 -0800 (PST)
+Message-ID: <fd4ab455-9bbb-418e-8f55-2c0256ebca5c@suse.com>
+Date: Fri, 27 Dec 2024 10:30:01 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="q8zuvRHPgZ9sUEen"
-Content-Disposition: inline
-In-Reply-To: <Z2TNBPXj6DXDaonD@mail-itl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] xen/tools: remove dead code
+To: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+References: <20241220165837.937976-1-Ariel.Otilibili-Anieli@eurecom.fr>
+ <20241224191529.138119-1-Ariel.Otilibili-Anieli@eurecom.fr>
+ <20241224191529.138119-3-Ariel.Otilibili-Anieli@eurecom.fr>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241224191529.138119-3-Ariel.Otilibili-Anieli@eurecom.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 24.12.2024 20:13, Ariel Otilibili wrote:
+> The original file was imported from Linux; patched the entire
+> expr_compare_type() with the diff from Linux.
 
---q8zuvRHPgZ9sUEen
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Dec 2024 19:48:08 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
+I'm afraid that it's quite likely that taking changes to just an isolated
+function will not work very well. What's worse, ...
 
-On Fri, Dec 20, 2024 at 02:48:52AM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Thu, Dec 19, 2024 at 05:14:52PM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > Hi,
-> >=20
-> > It crashes on boot like below, most of the times. But sometimes (rarely)
-> > it manages to stay alive. Below I'm pasting few of the crashes that look
-> > distinctly different, if you follow the links, you can find more of
-> > them. IMHO it looks like some memory corruption bug somewhere. I tested
-> > also Linux 6.13-rc2 before, and it had very similar issue.
-> >=20
-> > The traces below are all from nested virt (Xen inside KVM), tests with
-> > Xen directly on the hardware are still in progress. But -rc2 failed all
-> > of them too, so if it's the same issue, I guess they will looks similar.
->=20
-> Yes, on real hardware it crashes too.
+> Commits wherein it might have been fixed in Linux:
+> - dfe8e56fc604 ("kconfig: add fallthrough comments to expr_compare_type()")
+> - 9ad86d747c46 ("kconfig: remove unreachable printf()").
 
-6.13-rc4 fails the same way.
+... these references to Linux commits then don't really help, as the isolated
+changes may have different effects, and hence ...
 
-> I tried to enable KASAN, but that didn't worked out:
->=20
-> (XEN) d0 has maximum 416 PIRQs
-> (XEN) *** Building a PV Dom0 ***
-> (XEN)  Xen  kernel: 64-bit, lsb
-> (XEN)  Dom0 kernel: 64-bit, lsb, paddr 0x200000 -> 0x7600000
-> (XEN) PHYSICAL MEMORY ARRANGEMENT:
-> (XEN)  Dom0 alloc.:   0000000260000000->0000000268000000 (1005377 pages t=
-o be allocated)
-> (XEN)  Init. ramdisk: 000000027d741000->000000027ffff207
-> (XEN) VIRTUAL MEMORY ARRANGEMENT:
-> (XEN)  Loaded kernel: ffffffff80200000->ffffffff87600000
-> (XEN)  Phys-Mach map: 0000008000000000->0000008000800000
-> (XEN)  Start info:    ffffffff87600000->ffffffff876004b8
-> (XEN)  Page tables:   ffffffff87601000->ffffffff87640000
-> (XEN)  Boot stack:    ffffffff87640000->ffffffff87641000
-> (XEN)  TOTAL:         ffffffff80000000->ffffffff87800000
-> (XEN)  ENTRY ADDRESS: ffffffff8615da50
-> (XEN) Dom0 has maximum 2 VCPUs
-> (XEN) Initial low memory virq threshold set at 0x4000 pages.
-> (XEN) Scrubbing Free RAM in background
-> (XEN) Std. Loglevel: All
-> (XEN) Guest Loglevel: All
-> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
-> (XEN) Freed 684kB init memory
-> (XEN) d0v0 Unhandled: vec 14, #PF[0002]
-> (XEN) Pagetable walk from fffffbfff0900fc6:
-> (XEN)  L4[0x1f7] =3D 0000000000000000 ffffffffffffffff
-> (XEN) domain_crash_sync called from entry.S: fault at ffff82d0402ebdec x8=
-6_64/entry.S#create_bounce_frame+0x14c/0x170
-> (XEN) Domain 0 (vcpu#0) crashed on cpu#0:
-> (XEN) ----[ Xen-4.19.0  x86_64  debug=3Dn  Not tainted ]----
-> (XEN) CPU:    0
-> (XEN) RIP:    e033:[<ffffffff8614ff32>]
-> (XEN) RFLAGS: 0000000000000286   EM: 1   CONTEXT: pv guest (d0v0)
-> (XEN) rax: ffffffff860d8000   rbx: ffffffff87600000   rcx: 00000000c00001=
-01
-> (XEN) rdx: 3be9e05ee5ed7ef7   rsi: ffffffff87600000   rdi: fffffbfff0900f=
-c6
-> (XEN) rbp: ffffffff84807f48   rsp: ffffffff84807df0   r8:  00000000000000=
-00
-> (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 00000000000000=
-00
-> (XEN) r12: dffffc0000000000   r13: 0000000000000000   r14: 00000000000000=
-00
-> (XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 00000000003406=
-60
-> (XEN) cr3: 0000000267601000   cr2: fffffbfff0900fc6
-> (XEN) fsb: 0000000000000000   gsb: ffffffff860d8000   gss: 00000000000000=
-00
-> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
-> (XEN) Guest stack trace from rsp=3Dffffffff84807df0:
-> (XEN)    00000000c0000101 0000000000000000 0000000000000002 ffffffff8614f=
-f32
-> (XEN)    000000010000e030 0000000000010086 ffffffff84807e30 000000000000e=
-02b
-> (XEN)    0000000041b58ab3 ffffffff845f8030 ffffffff8614fed0 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    ffffffff8615da6f 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
-000
-> (XEN)    0000000000000000 0000000000000000
-> (XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
-> (XEN) Resetting with ACPI MEMORY or I/O RESET_REG.
->=20
-> > Who should I CC here? The failures are all over the place... linux-mm?
->=20
-> --=20
-> Best Regards,
-> Marek Marczykowski-G=C3=B3recki
-> Invisible Things Lab
+> ```
+> $ diff -u xen/xen/tools/kconfig/expr.c linux/scripts/kconfig/expr.c | \
+>     sed -ne '/expr_compare_type/,/return 0/{N;p}'
+> 
+>  static int expr_compare_type(enum expr_type t1, enum expr_type t2)
+>  {
+>         if (t1 == t2)
+> @@ -1106,30 +999,27 @@
+>         case E_GTH:
+>                 if (t2 == E_EQUAL || t2 == E_UNEQUAL)
+>                         return 1;
+> +               /* fallthrough */
+>         case E_EQUAL:
+>         case E_UNEQUAL:
+>                 if (t2 == E_NOT)
+>                         return 1;
+> +               /* fallthrough */
+>         case E_NOT:
+>                 if (t2 == E_AND)
+>                         return 1;
+> +               /* fallthrough */
+>         case E_AND:
+>                 if (t2 == E_OR)
+>                         return 1;
+> -       case E_OR:
+> -               if (t2 == E_LIST)
+> -                       return 1;
+> -       case E_LIST:
+> -               if (t2 == 0)
+> -                       return 1;
+> +               /* fallthrough */
+>         default:
+> -               return -1;
+> +               break;
+>         }
+> -       printf("[%dgt%d?]", t1, t2);
+>         return 0;
+>  }
+> 
+> $ cd linux/;
+> $ git log --oneline -1 --pretty='%h ("%s")'
+> 8155b4ef3466 ("Add linux-next specific files for 20241220")
+> 
+> $ git remote -v
+> next    git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git (fetch)
+> next    git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git (push)
+> 
+> $ cd ../xen/
+> $ git log --oneline -1 --pretty='%h ("%s")'
+> 6419020270 ("CHANGELOG: Mention LLC coloring feature on Arm")
+> 
+> $ git remote -v
+> up      git://xenbits.xen.org/xen.git (fetch)
+> up      git://xenbits.xen.org/xen.git (push)
+> ```
+> 
+> Coverity-ID: 1458052
+> Fixes: 8c271b7584 ("build: import Kbuild/Kconfig from Linux 4.3")
+> Cc: Doug Goldstein <cardoe@cardoe.com>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
 
+... an actual description of the (effect of the) changes done _here_ is missing.
+For example, ....
 
+> --- a/xen/tools/kconfig/expr.c
+> +++ b/xen/tools/kconfig/expr.c
+> @@ -1106,26 +1106,23 @@ static int expr_compare_type(enum expr_type t1, enum expr_type t2)
+>  	case E_GTH:
+>  		if (t2 == E_EQUAL || t2 == E_UNEQUAL)
+>  			return 1;
+> +		/* fallthrough */
+>  	case E_EQUAL:
+>  	case E_UNEQUAL:
+>  		if (t2 == E_NOT)
+>  			return 1;
+> +		/* fallthrough */
+>  	case E_NOT:
+>  		if (t2 == E_AND)
+>  			return 1;
+> +		/* fallthrough */
+>  	case E_AND:
+>  		if (t2 == E_OR)
+>  			return 1;
+> -	case E_OR:
+> -		if (t2 == E_LIST)
+> -			return 1;
+> -	case E_LIST:
+> -		if (t2 == 0)
+> -			return 1;
+> +		/* fallthrough */
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+... it's unclear to me why removing handling of E_OR and E_LIST is actually correct.
 
---q8zuvRHPgZ9sUEen
-Content-Type: application/pgp-signature; name="signature.asc"
+All of this said - this looks like a wording issue: You did actually take two full
+commits (adding in - see below - at least one change of your own). May I suggest
+that you take those commits individually, retaining their titles and descriptions,
+merely adding necessary further tags (Origin: and your own S-o-b)?
 
------BEGIN PGP SIGNATURE-----
+>  	default:
+> -		return -1;
+> +		break;
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmdtpOkACgkQ24/THMrX
-1ywhsAgAluf3fe1wc+P+ETc/JmgZkJ94iuT2WlK3mqFd7ncRbd67LVSiiF2BHu7o
-oz+km7wyBF8sUwcThh8UUqyipPudHii0hy0/lRIkVHiwIfcAfG5wdH4oo1yaEQhK
-mPkbBnFBtaguA0MaSJwYxggKT715oxLQHDCFIo3YwWbxnfoGeXTLRSd4naqmF5fR
-AIZGClv9xr8JpZL36LJKF41ku/8wqJt/wNNv2qGw70GkMeyVOF208PCsbMiPTySt
-4spMh7Yj+rhITB3+5UU+buXmgEpBq3uXv4LUmZ6pChdBpjy3mRltIfmO7i9Je0ZR
-bNmDQimmNApwUcljjnVrq/ZNwR8c5g==
-=kA3n
------END PGP SIGNATURE-----
+This change isn't part of either of the mentioned commits.
 
---q8zuvRHPgZ9sUEen--
+>  	}
+> -	printf("[%dgt%d?]", t1, t2);
+>  	return 0;
+>  }
+
+The "Suggested-by:" also isn't quite right imo. If anything what I suggested was
+to take commits from Linux. But that's whole commits, not fragments thereof, nor
+multiple of them folded (unless there's a good reason to do so). And for such
+straight importing I don't think "Suggested-by:" would be quite applicable.
+
+Jan
 
