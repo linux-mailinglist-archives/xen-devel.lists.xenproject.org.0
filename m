@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30ECA9FD292
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Dec 2024 10:31:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863402.1274819 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 898E39FD293
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Dec 2024 10:34:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863410.1274829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tR6fX-0002ms-CN; Fri, 27 Dec 2024 09:30:07 +0000
+	id 1tR6js-0003rZ-SJ; Fri, 27 Dec 2024 09:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863402.1274819; Fri, 27 Dec 2024 09:30:07 +0000
+Received: by outflank-mailman (output) from mailman id 863410.1274829; Fri, 27 Dec 2024 09:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tR6fX-0002jw-9N; Fri, 27 Dec 2024 09:30:07 +0000
-Received: by outflank-mailman (input) for mailman id 863402;
- Fri, 27 Dec 2024 09:30:06 +0000
+	id 1tR6js-0003pP-PV; Fri, 27 Dec 2024 09:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 863410;
+ Fri, 27 Dec 2024 09:34:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gSYI=TU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tR6fW-0002ez-AW
- for xen-devel@lists.xenproject.org; Fri, 27 Dec 2024 09:30:06 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1tR6jr-0003pC-81
+ for xen-devel@lists.xenproject.org; Fri, 27 Dec 2024 09:34:35 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 270dd5e8-c435-11ef-99a3-01e77a169b0f;
- Fri, 27 Dec 2024 10:30:04 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4362f61757fso70667305e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 27 Dec 2024 01:30:04 -0800 (PST)
+ id c7a34e96-c435-11ef-99a3-01e77a169b0f;
+ Fri, 27 Dec 2024 10:34:33 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43625c4a50dso47534195e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Dec 2024 01:34:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43661219a71sm257987925e9.26.2024.12.27.01.30.02
+ 5b1f17b1804b1-4366e210cecsm223981735e9.2.2024.12.27.01.34.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Dec 2024 01:30:02 -0800 (PST)
+ Fri, 27 Dec 2024 01:34:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 270dd5e8-c435-11ef-99a3-01e77a169b0f
+X-Inumbo-ID: c7a34e96-c435-11ef-99a3-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1735291803; x=1735896603; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1735292073; x=1735896873; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=00WtuGiAjqszGQrq1V2bI3imru/l+J6htk/nOF9E2aw=;
-        b=VHGqtXGYdiftfv01Kb6BNvGdLnRdt1kFOe7DDR5P0tOT4GcO5zYMWcGK4+sCqd6uvc
-         3CCyAqmYy6tOK9TExOpIY5n80vMASWd7ZgCOFavnu3JeTM8liko/0xcODgha8obI6npN
-         147z2oeYYsuPVo1T2En01k9L+QT6QGH0WnbZvwaoV/H4F0K6Qt+AJCLcK85/AWV5wsMY
-         buQtUsZiJV9PjburYLpkvmY/XuCqKUMZZ1zoK3NPnkzF1W69r5wfJV9usozsJ4dxkRVL
-         neTnq9o+Nwgv6oQSkDklWOu1FERzGK4ZWVx5B8QfjQAkEIlGgCghyhvsZ6uBY81ngqG3
-         mvwQ==
+        bh=ykhvyOHewNbrDgJmTnfvEQHtptra29c6/y+MVTkzqV8=;
+        b=M4prf9TtvZ9xjuFdSEE5gTiE9FOa7qFCSUoU7ziM3KrESXwcZEvUHKPpOtyh1Jsyge
+         5LTSl2Q+uJucRi5x0vs1c9bGYk7w20/yZ9BEH5DdxaumWqZRsdOI2OYFRNI4shPcFbXi
+         A73J+3oae/Fyxv+aAbkmlJzYS3ndfY/U4w6RWtmYHl/NHlstWQ3TCfKhTHc2lRJbnWO+
+         Sd39OZ4sMCPflI5cj9g5Svtdl8ITxeWpYM9QzaXUEqqlkAPLLCsfZl4PZz5NeuzsEGda
+         V1RU8AQ6KQuH1pXNZBqYXs9F/+iHEX8RGbbNP2QscsDL+uCIVW1B7ZMoYAJLNRzBxllC
+         DVsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1735291803; x=1735896603;
+        d=1e100.net; s=20230601; t=1735292073; x=1735896873;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=00WtuGiAjqszGQrq1V2bI3imru/l+J6htk/nOF9E2aw=;
-        b=YpH1EH+Fr260ZBQJNkbZ1rMmvLNYC2Hk1gfML66ZkNFjnDWPc/j7JPf/btY3dOdUTC
-         nwnqLHkvT4/UAwhu49Mx0OqSZNWih+AJQKD2N41oy7+3u8i3xLa7dsMVv5SWWR5xx34Q
-         SbARvWOa+NMc2ASusbrsHL5tiTvJCjfZs71SOcleZOboQW5sQDRW40hoq08eBuDeKYkj
-         qM0RnWHZMWUevO4EozqmVP6IYxfxz6fyAO+FyX7L5WYB8fAp2QuYuGxjBRkpSlRHMDxI
-         FQx83kuDC9unRYX23qX3pH8KChBqjcsTNo2PfWx58jChKkd1lVDCir947sifiKchyCM2
-         hU0g==
-X-Forwarded-Encrypted: i=1; AJvYcCVK7ZhEdwzr9mZsX457jiPd5Q4Hsj3iYzSF9v1cRD2EcrFUg137SWo+EQIREVj8bLgI41NwNfRLrZ4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzF0W1We1cKd/k0Kg/QKbLCDT4huGqFPINqn4FhReAenuAEMP6/
-	Uj8Zlkg/+VVa2RxrR6cjQjNBsIWXMRrIJbkf/LrQ8PhxoY+SDbG1RaN8v/Rnbg==
-X-Gm-Gg: ASbGncvWigRb1bFwQ8pgSnBhQJ43YmzMPOVDstd7VNAoF5eG6z196dMJyXCswWxEYbm
-	JJDsQpbmNe0A24alvLtydIATGbCSTQoL/BNwfJ9k+e4zFfhrG3BQdhgOQcnwPkwHM+cxNDlLzkd
-	ue83ZfVa++BmQCYLBbj+ezuzKP8gGNp0zP1apHg/+xUmnqQgoXD0sl+j1EI4RP2lmowfDbsfjR/
-	e2dneq49Ou7s5cpC3f2UR1MPrnx7IGhU6mdrSqrgUF40EyT2v67t3GfCDBI4q+ytJqhMl8e4QYm
-	Sq3KI9Ifv4MQluVzXTK70Vh5f/LOzj2jJ4Kobs0Ffg==
-X-Google-Smtp-Source: AGHT+IEtZH4RUW59/GVQHHwhJhDiaBLwj1Elb048br2TV/p/6h1HTuWrtOhim9LxAVAs16vjMS20kQ==
-X-Received: by 2002:a05:6000:186d:b0:386:1cd3:8a08 with SMTP id ffacd0b85a97d-38a221ed256mr24990055f8f.5.1735291803347;
-        Fri, 27 Dec 2024 01:30:03 -0800 (PST)
-Message-ID: <fd4ab455-9bbb-418e-8f55-2c0256ebca5c@suse.com>
-Date: Fri, 27 Dec 2024 10:30:01 +0100
+        bh=ykhvyOHewNbrDgJmTnfvEQHtptra29c6/y+MVTkzqV8=;
+        b=AznWWLpA/utGuP3GLhiT6eePKmvjEf6qC7wJ/7gw4/qpKnSeGsvpObk0OA+WI7rbPq
+         QRaUk/5Wo3dhSq4lxFr0ZXo9ATJ+5C/OvkDURaCwEIyc6msC80Ytr4mQ2y5CvEn+VQao
+         g3vifwRa51/zW0yt2DIhnhhoXFZL4D51foTadoVWga/nkgwrxTWdZg11UxT2qFG0v3v/
+         9FdBSLyf+M4kPOPd7QKMrgB0piiFp1zI4Sb/i8/Wd5L2H+Dmm0QqirXekKbOaD9jsY5w
+         AAU3PKdnviysci+m54P1Jcrg1Nf7D0ERQoPcWKruZnqtaTsi5z8lhms4X8JgsLDZUkiZ
+         I7Hg==
+X-Forwarded-Encrypted: i=1; AJvYcCWDERLLIR+SBD2ObNcEinMKrhM6x+eCDnuBWQSuBnEQP/sDxI+Naf3LTi+VANBN96spB79dgIxDXVk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEjqSbhG0SGbPr/YMkcZWO/kjv4m40x4HfgLIZBdDYvoO3Autz
+	7ylY9zsrPO0u5aaWRbD9UwCeXRFBrylDUrdiHKONZ6RJeAlTl7TIoJPvlFHOs03ZSIXnKLADjWE
+	=
+X-Gm-Gg: ASbGncsyIxeovHaZfWlM/FGB4LNrEV7w34TOiyK/dxkN6U8DYMQTwE5rDTn3rYXwcRL
+	igGSeDav3+vryROCedn51EKmeDT2l1o8WFlNEoCjT1w15DNex3pYLfwecRo6xcgUTxoH6hF/h7T
+	rmhFqO+KX3GPIzIsPPZqKilsmTCCLsEtnTz6bLE0MhGGozeKo4Rw7jbU58k+oU+Y/e20hwcGGsI
+	XiewIvMtaDdHiasOsklu//T858mpkOCLoKn4+Oy7BSKO6OxtRrV5/f0Jb4mV/h1DnwDM84p+x9H
+	xgHX2jApz9YBncqEcB59EulNCv/nvVhpBlmINFwCYg==
+X-Google-Smtp-Source: AGHT+IFMTvahqmi+mfJ6vdv8zj4sbZQpZdyy13XgxuG5nDmt9NhyncaOOtDL6yyC0PrdTbpAGjldhQ==
+X-Received: by 2002:a05:600c:3b23:b0:431:60ec:7a96 with SMTP id 5b1f17b1804b1-43668b49950mr188242485e9.25.1735292072835;
+        Fri, 27 Dec 2024 01:34:32 -0800 (PST)
+Message-ID: <7503184b-58b7-4a07-86a6-b3d3eed0c587@suse.com>
+Date: Fri, 27 Dec 2024 10:34:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] xen/tools: remove dead code
-To: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
-References: <20241220165837.937976-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241224191529.138119-1-Ariel.Otilibili-Anieli@eurecom.fr>
- <20241224191529.138119-3-Ariel.Otilibili-Anieli@eurecom.fr>
+Subject: Re: [PATCH v3] x86/spec-ctrl: Support for SRSO_U/S_NO and
+ SRSO_MSR_FIX
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241220193424.470994-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,138 +119,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241224191529.138119-3-Ariel.Otilibili-Anieli@eurecom.fr>
+In-Reply-To: <20241220193424.470994-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.12.2024 20:13, Ariel Otilibili wrote:
-> The original file was imported from Linux; patched the entire
-> expr_compare_type() with the diff from Linux.
-
-I'm afraid that it's quite likely that taking changes to just an isolated
-function will not work very well. What's worse, ...
-
-> Commits wherein it might have been fixed in Linux:
-> - dfe8e56fc604 ("kconfig: add fallthrough comments to expr_compare_type()")
-> - 9ad86d747c46 ("kconfig: remove unreachable printf()").
-
-... these references to Linux commits then don't really help, as the isolated
-changes may have different effects, and hence ...
-
-> ```
-> $ diff -u xen/xen/tools/kconfig/expr.c linux/scripts/kconfig/expr.c | \
->     sed -ne '/expr_compare_type/,/return 0/{N;p}'
+On 20.12.2024 20:34, Andrew Cooper wrote:
+> AMD have updated the SRSO whitepaper[1] with further information.  These
+> features exist on AMD Zen5 CPUs and are necessary for Xen to use.
 > 
->  static int expr_compare_type(enum expr_type t1, enum expr_type t2)
->  {
->         if (t1 == t2)
-> @@ -1106,30 +999,27 @@
->         case E_GTH:
->                 if (t2 == E_EQUAL || t2 == E_UNEQUAL)
->                         return 1;
-> +               /* fallthrough */
->         case E_EQUAL:
->         case E_UNEQUAL:
->                 if (t2 == E_NOT)
->                         return 1;
-> +               /* fallthrough */
->         case E_NOT:
->                 if (t2 == E_AND)
->                         return 1;
-> +               /* fallthrough */
->         case E_AND:
->                 if (t2 == E_OR)
->                         return 1;
-> -       case E_OR:
-> -               if (t2 == E_LIST)
-> -                       return 1;
-> -       case E_LIST:
-> -               if (t2 == 0)
-> -                       return 1;
-> +               /* fallthrough */
->         default:
-> -               return -1;
-> +               break;
->         }
-> -       printf("[%dgt%d?]", t1, t2);
->         return 0;
->  }
+> The two features are in principle unrelated:
 > 
-> $ cd linux/;
-> $ git log --oneline -1 --pretty='%h ("%s")'
-> 8155b4ef3466 ("Add linux-next specific files for 20241220")
+>  * SRSO_U/S_NO is an enumeration saying that SRSO attacks can't cross the
+>    User(CPL3) / Supervisor(CPL<3) boundary.  i.e. Xen don't need to use
+>    IBPB-on-entry for PV64.  PV32 guests are explicitly unsupported for
+>    speculative issues, and excluded from consideration for simplicity.
 > 
-> $ git remote -v
-> next    git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git (fetch)
-> next    git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git (push)
+>  * SRSO_MSR_FIX is an enumeration identifying that the BP_SPEC_REDUCE bit is
+>    available in MSR_BP_CFG.  When set, SRSO attacks can't cross the host/guest
+>    boundary.  i.e. Xen don't need to use IBPB-on-entry for HVM.
 > 
-> $ cd ../xen/
-> $ git log --oneline -1 --pretty='%h ("%s")'
-> 6419020270 ("CHANGELOG: Mention LLC coloring feature on Arm")
+> Extend ibpb_calculations() to account for these when calculating
+> opt_ibpb_entry_{pv,hvm} defaults.  Add a `bp-spec-reduce=<bool>` option to
+> control the use of BP_SPEC_REDUCE, with it active by default.
 > 
-> $ git remote -v
-> up      git://xenbits.xen.org/xen.git (fetch)
-> up      git://xenbits.xen.org/xen.git (push)
-> ```
+> Because MSR_BP_CFG is core-scoped with a race condition updating it, repurpose
+> amd_check_erratum_1485() into amd_check_bp_cfg() and calculate all updates at
+> once.
 > 
-> Coverity-ID: 1458052
-> Fixes: 8c271b7584 ("build: import Kbuild/Kconfig from Linux 4.3")
-> Cc: Doug Goldstein <cardoe@cardoe.com>
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Ariel Otilibili <Ariel.Otilibili-Anieli@eurecom.fr>
+> Xen also needs to to advertise SRSO_U/S_NO to guests to allow the guest kernel
+> to skip SRSO mitigations too:
+> 
+>  * This is trivial for HVM guests.  It is also is accurate for PV32 guests
+>    too, but we have already excluded them from consideration, and do so again
+>    here to simplify the policy logic.
+> 
+>  * As written, SRSO_U/S_NO does not help for the PV64 user->kernel boundary.
+>    However, after discussing with AMD, an implementation detail of having
+>    BP_SPEC_REDUCE active causes the PV64 user->kernel boundary to have the
+>    property described by SRSO_U/S_NO, so we can advertise SRSO_U/S_NO to
+>    guests when the BP_SPEC_REDUCE precondition is met.
+> 
+> Finally, fix a typo in the SRSO_NO's comment.
+> 
+> [1] https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> 
+> I cannot say anything more about the SRSO_U/S_NO vs SRSO_MSR_FIX interactions
+> in public.  The safety for PV guests depends on details not covered in the
+> whitepaper.
+> 
+> v3:
+>  * Rewrite commit message and comments quite a lot.
+> 
+> This patch was originally for-4.19.  Zen5 CPUs are now in the world and Xen is
+> unsafe on them without this patch.
+> 
+> I technically have enough tags to commit it, and it's long overdue, but I
+> think it would be wise to see if the new wording is clearer to others.
 
-... an actual description of the (effect of the) changes done _here_ is missing.
-For example, ....
+It is to me; thanks for making these adjustments.
 
-> --- a/xen/tools/kconfig/expr.c
-> +++ b/xen/tools/kconfig/expr.c
-> @@ -1106,26 +1106,23 @@ static int expr_compare_type(enum expr_type t1, enum expr_type t2)
->  	case E_GTH:
->  		if (t2 == E_EQUAL || t2 == E_UNEQUAL)
->  			return 1;
-> +		/* fallthrough */
->  	case E_EQUAL:
->  	case E_UNEQUAL:
->  		if (t2 == E_NOT)
->  			return 1;
-> +		/* fallthrough */
->  	case E_NOT:
->  		if (t2 == E_AND)
->  			return 1;
-> +		/* fallthrough */
->  	case E_AND:
->  		if (t2 == E_OR)
->  			return 1;
-> -	case E_OR:
-> -		if (t2 == E_LIST)
-> -			return 1;
-> -	case E_LIST:
-> -		if (t2 == 0)
-> -			return 1;
-> +		/* fallthrough */
-
-... it's unclear to me why removing handling of E_OR and E_LIST is actually correct.
-
-All of this said - this looks like a wording issue: You did actually take two full
-commits (adding in - see below - at least one change of your own). May I suggest
-that you take those commits individually, retaining their titles and descriptions,
-merely adding necessary further tags (Origin: and your own S-o-b)?
-
->  	default:
-> -		return -1;
-> +		break;
-
-This change isn't part of either of the mentioned commits.
-
->  	}
-> -	printf("[%dgt%d?]", t1, t2);
->  	return 0;
->  }
-
-The "Suggested-by:" also isn't quite right imo. If anything what I suggested was
-to take commits from Linux. But that's whole commits, not fragments thereof, nor
-multiple of them folded (unless there's a good reason to do so). And for such
-straight importing I don't think "Suggested-by:" would be quite applicable.
+As to said implementation detail: I suppose we can only hope that yet newer
+implementations won't break this.
 
 Jan
 
