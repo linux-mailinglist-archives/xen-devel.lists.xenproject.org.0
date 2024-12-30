@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B8C9FE591
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Dec 2024 12:12:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863516.1274890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CA099FE91B
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Dec 2024 17:43:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863530.1274899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tSDfe-0000gR-2Y; Mon, 30 Dec 2024 11:10:50 +0000
+	id 1tSIqP-0003Et-4W; Mon, 30 Dec 2024 16:42:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863516.1274890; Mon, 30 Dec 2024 11:10:50 +0000
+Received: by outflank-mailman (output) from mailman id 863530.1274899; Mon, 30 Dec 2024 16:42:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tSDfd-0000eB-Rs; Mon, 30 Dec 2024 11:10:49 +0000
-Received: by outflank-mailman (input) for mailman id 863516;
- Mon, 30 Dec 2024 11:10:48 +0000
+	id 1tSIqP-0003D6-1G; Mon, 30 Dec 2024 16:42:17 +0000
+Received: by outflank-mailman (input) for mailman id 863530;
+ Mon, 30 Dec 2024 16:42:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sMIJ=TX=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1tSDfc-0000e5-8Y
- for xen-devel@lists.xenproject.org; Mon, 30 Dec 2024 11:10:48 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061f.outbound.protection.outlook.com
- [2a01:111:f403:2418::61f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kngX=TX=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1tSIqM-0003Ck-OW
+ for xen-devel@lists.xenproject.org; Mon, 30 Dec 2024 16:42:14 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b64ba6c9-c69e-11ef-99a4-01e77a169b0f;
- Mon, 30 Dec 2024 12:10:44 +0100 (CET)
-Received: from MW4PR12MB7334.namprd12.prod.outlook.com (2603:10b6:303:219::21)
- by PH7PR12MB5926.namprd12.prod.outlook.com (2603:10b6:510:1d9::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8293.18; Mon, 30 Dec
- 2024 11:10:37 +0000
-Received: from MW4PR12MB7334.namprd12.prod.outlook.com
- ([fe80::2e77:557:17d5:86f8]) by MW4PR12MB7334.namprd12.prod.outlook.com
- ([fe80::2e77:557:17d5:86f8%7]) with mapi id 15.20.8293.000; Mon, 30 Dec 2024
- 11:10:37 +0000
+ id 033b5395-c6cd-11ef-99a4-01e77a169b0f;
+ Mon, 30 Dec 2024 17:42:09 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4361e89b6daso63219465e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Dec 2024 08:42:09 -0800 (PST)
+Received: from [192.168.69.132] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a457584bcsm12989464f8f.89.2024.12.30.08.42.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Dec 2024 08:42:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,190 +45,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b64ba6c9-c69e-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rsq1FaqOgxoTzT0fDM/T3HCzu3uPtz2v5jRVVQTtSTV7K4oAt7dQKbGTwatugO2xJRqGYp+Ow+kZZIyiml+ujMXcanjjiayqDCWP6kYYaqP9Rd14VU8uMfiMUxTimLiwyIhdnn393XEbdZ8/jzr6t5zLoP0UEzcv1/+GCXHNBrd1wU6Ma0pTOMTDIYnnlHyrD6rHtvqwkq1t1C546sVhMlTCrqlC6GBcqUmdjUD7cGk9pwiPGbT1BEoPAEefsimVHHRKB+lmXsxIHlsjNb1qkc67f+hjFfZe/h8J7nkfRxrTnTT9t1mGloRDEZ+LDVL5CvMK611W9ZZA23llygq7UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5UVhejHqxEzhbFwNr0JP6tJ8LiLWKLfLpzm4C5uK/3k=;
- b=VVsuzcSOn93E+t/O1YphtkZJJMs9h0k9JJoEoBy1qjyHwzcPXfcK48mI05ap0CkyuyBKeUl4vinjEoayy/Jqt/VIccVrgEzfbY7e4swSnao570/CKymZm0/+K7B6Pgr0uVfsWPZiLFDfWm9UCFHz2WbxiD2P7buyMkKFrsjVBOXTfM6f0bPdkfpoztB5oxhYi6cYSmNgBESBSYg1LgTXPD4khH+O8x4KQc4MM9wGbWwKtp/kBtr1J213J1BF9JWtPZNp13VG7GleSrTMqfchIDoyNQPwPH02Lh+fLbXwuYQPz5fxkAp46L6gxC/MJP6/eeLTWC7c0CE+Z4+waHf46w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5UVhejHqxEzhbFwNr0JP6tJ8LiLWKLfLpzm4C5uK/3k=;
- b=wa7nXXzWm8dqSAyyo+wbY5o//swrX2NL6+zclMrSwVcTcJZVtlSwp0b4MtvnltyoVz4RDA7LiyjvA0zEDXau/hui6+EURcl8yEeWu15QZwM++a6+9kwNm7b4raZ/iev7FM2f1ChzAht37Ljl1ZmTYwl1X0Djnf5HegQ0Yo+kW8A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <662dff5a-f494-4aaf-a2cd-5e95bf0e310b@amd.com>
-Date: Mon, 30 Dec 2024 11:10:15 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [ImageBuilder] Add zstd compression support
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <20241217211903.5945-1-jason.andryuk@amd.com>
-Content-Language: en-GB
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20241217211903.5945-1-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR04CA0050.eurprd04.prod.outlook.com
- (2603:10a6:20b:f0::27) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: 033b5395-c6cd-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1735576929; x=1736181729; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xeKnEKsR0+uOT+NFBKBAtZvitld2Kqz+mQfzQ7jeZOk=;
+        b=GQCSsH441/oBh0IRtmrs5SmqrYnJVbRHvpHHU5KfrDrC78dktgaqSubd+CeEbqUz1Y
+         8v0Q80XN1eBfXs/xFnzF8sDA2+WAmdWuJIWzToebywrQqSd7Ne+HGkyUga3tVhjoxo42
+         ri2bnNKTNESoGGvRnI6+6Q4gM2GvqaoU6hzrsHDM4oYfit18J5W4a5lthg/D8hwQk6RW
+         33bawgpLRvCI+l9oFpitNe5+ZTeue7YUqc4ASPW/XuMO4mNuJ2GFifol1Q6+588UPOnD
+         I4XWUuroNZ4zmSne1X+1XkFmDcl5qEBKBf/hHy0kBmEY1DkdEB4JKXK5/kWGqiRoCrHR
+         L0Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1735576929; x=1736181729;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xeKnEKsR0+uOT+NFBKBAtZvitld2Kqz+mQfzQ7jeZOk=;
+        b=Gz0znwLSoOhhRNfjB6pdWj9FRozxweeNg2KhLdsDCOn0R972i0XioBHwIPYlJvUtuM
+         n4yRBWA4lg81Mxd+rHqdNzL+SwKz3gDEimLpxXfX58iLCAuWbjgMQliChzAsTNX9dVJh
+         Kxx097HE4wPEgTkXtj8kJCQVycsol2lgumHQ5JmD9THn9jHceVa9C3PQfWBbqO5Xzs6z
+         vNRAscbLVnnNr1LGJO9y0Zt+eVRdhdrL5T1fwAVYNsJKOjQP2TIcWgVIvssJ9tjb87Bs
+         afhbKajBH+sm1WY7UwASnokgVizvVtoT2ZOa3Oe1s+uiyzZgoAunAAQsy317Vo9BVfPT
+         aCag==
+X-Forwarded-Encrypted: i=1; AJvYcCUZ9R31LkCz/llF5syKqh7k3g42vHM6nObHcET5q42+Wefx8bTD8Ehe2NSFTxQVliGchOtHBWhG0w4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzhKVlLqs+t5GSsTQ/hYo5XxXVU1wpk7Sz6MmX2Zb2dJbrl+/b6
+	dP9F/grdZrwCLOwsoibT4cXdXrDu+GUVFmE3BjylgiI1/cPiyYYghaGkKX8qIKM=
+X-Gm-Gg: ASbGncvCoQdNRE5kPOIY9xPCed5l0Ifs6OgikxLyfvOB+cm0Ld2m/HdtT1Eh9rLpkfW
+	wmOnStai8qvaujbcuXmM0RK5wL1GYA2tcGGtwqrT4dYGi2OQwwEKiWlr1qWDzJvacT1oN2SON2S
+	/h6lyWRkpeLpF6wAyd7PWI2b2qoRuRu5kuGZ5Q2IFzUT3ZOlKviWlNMliwocjcj7mEB5Ju0hooh
+	Ie8wzy1lQYXhNSlggmWvM/QVsouVCA7M1mmm6/dS+CGiv1xqueCRNlLpZT8OEBjxniRjQeCJ540
+	3qJTSEMNoePyxRfODIXUwv6L
+X-Google-Smtp-Source: AGHT+IFSOfue9OZ0StQtjpEHd7pGzqC744lEPd6nwbKJP91hf+X3OX90JKPSuYktgpgVYlnNiexKGg==
+X-Received: by 2002:a5d:47cf:0:b0:385:ee59:44eb with SMTP id ffacd0b85a97d-38a221fa9ffmr30615491f8f.33.1735576929176;
+        Mon, 30 Dec 2024 08:42:09 -0800 (PST)
+Message-ID: <20fbbcc8-bf6d-44c2-b904-be52debc1f8a@linaro.org>
+Date: Mon, 30 Dec 2024 17:42:07 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB7334:EE_|PH7PR12MB5926:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb2ef07d-beac-4577-c731-08dd28c28de2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ajI3OVQvM3VING9oeGY4NGVxYlczcFFXcElWUEFZK1BncVZGR1hjcHFqV0ZW?=
- =?utf-8?B?ZlZ2ejNwcjR4Z3E0Uk5lUXAwcml6eUFSU05neVpHNVY1TFBRRDZJR2I4RDlh?=
- =?utf-8?B?ZDVhRFZwRGRVbUlRbDk3RC9HUHBCUUV5WU5hbTdST2VSdTJwb2tJWEtKNXY1?=
- =?utf-8?B?OG9MSzlidFphdFJKQUt1RmtYMEZYc0Yzd1RZM0hOdnhBRmw2Q0k2SFZwRjEr?=
- =?utf-8?B?S2c3aDhZeHNmcVBiSWtLM2ZzcmY3TXQ4NjZjQkdzaWtmNURRZXBVckJGNzN0?=
- =?utf-8?B?RW53cGVaV0JTVXpiK0hsWjVpaWxmdGlGVHpDSG1YdkthTkE0OHlPQlRvRXpv?=
- =?utf-8?B?WkJFVm9zT0JNQ29ZaGRHWlRGVDFHZWVNL0x3TXZWRUtpbFNYTVIxSmdaTGFQ?=
- =?utf-8?B?bkdXR3FQQkR6TkRPUFBjaDV5TG1WU2YxSXlsYXphaGZtRjRFUXVXR0Vvc0dG?=
- =?utf-8?B?cDlUeWtQa3VHajB4eVF4K3hteENHQlk5amExY3FhdTJLTldGckFhZGprclZa?=
- =?utf-8?B?M1Bmb3NacXZEdHJEaDQzOThhMnFGbGpXQkkwRlJtd3dCS1gyWUVoN3RRWW9B?=
- =?utf-8?B?TFV6UVNLYkZoK2dreGMyWkxZUTU1TUNOdGxyVFNYZzFxZlNNWXQvZGJydi9C?=
- =?utf-8?B?TU4yV2NHWk1lVDY5SWxiVHVmVG9ib3lIWGlzbGZUVTV1MUJQZk53RDZPT1Fv?=
- =?utf-8?B?VVhZVENNbDRrVllwQnJUd09vci8wUklNc3pkUXdxclIyV0VrYkt4Z0xsbkpM?=
- =?utf-8?B?OWpicnZlZlRYeHg4K0I2eG96WlhWS0dXczkrdVNucjJONE5lclV1cDlud2dG?=
- =?utf-8?B?UUtod2l2ZHBQTHBEK1ZxMWkzbTAxYkwwQW54ZG9mSHVDN1FqM1JYcHZwRExw?=
- =?utf-8?B?ZGdFZHA5UmVlMVdrUzBTYllBL3plV3BaeGIranREeGxqZkRwSHdsb1FYT3BK?=
- =?utf-8?B?c01kRzBnVjlyNTl1aGxaVEYxTzY1SFZadjlqV0ljdk5nbTJDMFZIREVKMHBH?=
- =?utf-8?B?TFJQVldOL0ZJaHhHdHVtb1FmajhNbXB5c3F1dE1TSUZQbUlkNTRKV1JNOWpC?=
- =?utf-8?B?NElKUjFYZXBtQjl0U094VEVNNjFidysvbDkyanFvSHBDSnZpNGVXNjZVdll2?=
- =?utf-8?B?K0FaSE9lN1dRejBLK0pMU0pDb1hQMzM0amdUVTRsWXBEQXR4TGUvMENURlli?=
- =?utf-8?B?TUJFOEFndmxnRW5MVndTYXo5QU9ScUp4K09qNUdaODRpYkJKRVpaMG1EdWJw?=
- =?utf-8?B?MmwrZHNVdlh4ajVGUENBTXQ5ZFkvQjVMMkM1L3RPR2d5aWtqNHE4ZlVJaU96?=
- =?utf-8?B?VkVVc3JSQTdwWEplNzloWmhMZE9OczF3V0lyaEFaTmlZRWc0S2IycGlkbkxC?=
- =?utf-8?B?cE5LM01lbCtoY1lGVG0ycjNFS1ZRYVg4NEVMRTNLSTNhd05vT3lLSWhod1Yy?=
- =?utf-8?B?Y0dQUWJQK2Y3OUxDVFVlM3U4dXFiOC9sM0xUaldBY2VKcStFMFdwakNaVFlB?=
- =?utf-8?B?RjJEaUozbUNUbGd1T1B4R0xZMFVrcXJpc0kvekpiTVpYUFpqcDFJUFZ5ZTdy?=
- =?utf-8?B?QkhKNWVPQjhKSWVQQTdZcndVQW5lczRzS2FrWHlUMEJzSlJRdTBDcnpnbmor?=
- =?utf-8?B?YXBPa1FKd3hSVFRZZUZCSm82YWtKNkhhMWlsOEtVbDNxVFMvSXZGMXdWa283?=
- =?utf-8?B?Yy9DQStjWU9TV0ltbUFFYVpuZjF2MStUenZPandQMjY1N1JCalpUN1l6SzRi?=
- =?utf-8?B?RWxwb0EvMWlCTkxwZHo1YS9VVFFEWEVIajVEVldQWGRjRWlBeXlxaUg2SmNM?=
- =?utf-8?B?bStqRVk3dWgrR3BFM0VvZz09?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB7334.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bHBwbHdnZ2dIeGNZQVlxMnFuSGhtQ3M5M0oyeW01R2QycEc5QXRocW1sazVj?=
- =?utf-8?B?YjJRc2R5WTlDdjBxenhwekNPR21ualRNQlltZUZlSjJUR0lQYUdOZlpiSFJi?=
- =?utf-8?B?LzhLaWxKR2djeHJEQVRCdE9hNlFZajMvZHNRdzdYbU9FdDJSV1lWbWVRQ3o1?=
- =?utf-8?B?amo2UHBvVENJdzM0U2dUOUVSOXR6WWxZS2J0U3Z4OEJCVVBOSkcxRTBBcGk0?=
- =?utf-8?B?N2srcjJpa0ZTOUJqcXJ3NzRHamZuL3hOT29nL28xaFZ2bTNvNEsySzE4YTln?=
- =?utf-8?B?TzR3d3FUMkcxUGVHKzBJTkNCeUpNV3JKVENLZ2FGR2NIZGlrZ0xLMmR6Y2dX?=
- =?utf-8?B?K0FRY0hYUFVmYU9MeW9aK0txdE5GSmNqd2FWaDNmNWYzZkVPbHRkMi9iaExZ?=
- =?utf-8?B?SEVqOE5kblZZeDNxTXVmSUxUNUV5VWRzL3FaSHZRRGQxaEV1TEtTRHVlRFlW?=
- =?utf-8?B?QUwyUnFrR2dFUjhWejZ0WkFZMW5vaFV4WWJMRUdYeHg1ZHNJVTI0N0ZwbnJm?=
- =?utf-8?B?ZThVbHh1aktkc0FkQ0w3UWVmMEE2WkpCQmRISWxRc2N3NGhQM1cwcE5McGht?=
- =?utf-8?B?ZUNndVA5Q3lxV1VjQjU2ZGU0bngzcnQ3VHZVNytGUjVRMjhrd2FYeUtsbWR2?=
- =?utf-8?B?cGFDZ1NlT2pkaTltTFM3M1JvOGpDZEczelE5bm9vU3VhcTBhdDYydjdzMENK?=
- =?utf-8?B?ZVJwdGJsRGhPeEVFZXBTSWFaeFE5QllSTHlvVzJ6bGxJZ01nNFB3VGxhN1hK?=
- =?utf-8?B?U0xRcjdwVFVadG5GeXY2bHN1OVRwNVV5OWIwTEhHeDVaY2NveGwvRTh5WEly?=
- =?utf-8?B?UStoSDBrc09qOU9pL0lLZTVNWlFLZndBUXpxdWlwWnkxQlNlOHl4OWJjd2k1?=
- =?utf-8?B?UkVSeHJDS2pPK2RKZDh0S2E0ZU0zV080b3g5WXpqdS9pbnUyQ1MwY0RPSmlr?=
- =?utf-8?B?cjdTdlZIUlJSMU5YTis5NlE1ZTl1SkgxWEcyaFlFM0ZXWUoxamVjd1FZb3VU?=
- =?utf-8?B?SnpWbTVHSU44Lzl6QVB5WlBzZVAraXYrTVIzc29TVlAyMHBHaEVtcEZDTDBh?=
- =?utf-8?B?eWNZQW1IVVJMaVA2eHpmYUx3eUlBYW5lTDFoNTQwRHAyZW9PcW9ET1loeHNu?=
- =?utf-8?B?Ri9qMjRHR3dqeXAwZWtJU2lsTGhmeE9KOWx2b3hOZFRNa1hLbmRjTHRYQ3Bt?=
- =?utf-8?B?bDBIK3BIUEV2Y20yTi9DbytmVkJrMlNIeUdrT1hiN05JTlM5SUJmR015aThJ?=
- =?utf-8?B?YTd3MSs5d0ZLNGFBOXlGRlVqdG9OOFAvWGhKWFMvU3F3QzF2dDBaZERERjhL?=
- =?utf-8?B?VnE5YUdkSFV3SlAyOFpaWDY2RGVhVVlzbW1PeHlkWkFPNUh5K28zblo4Wk10?=
- =?utf-8?B?dHN0OWRpZTBJYk1aTEFNY3lybGVjRWJ6NS84RkkzTCtRVk52RVZ4YVVWbm9q?=
- =?utf-8?B?QTBDbnRnaFVuUWVzUkRyRGpDelNiWXR0K2xiYXAyTVF0aGttaWxKZ1V1c1hT?=
- =?utf-8?B?N1hsZlAzNVMvYWJQNFRoSjh6QjlFeHNDWXhvYVlxOUxXOHhKbnA1K0JlTmRt?=
- =?utf-8?B?ZnQrMzlLR2ltTmtjNzhxc1cyLzN3WFVNbGhQVThxaXNrS3NKZGZuWTk1YmFO?=
- =?utf-8?B?cWNkbzFpUkJJcDI1VTVxaDBUT1hWRWpmV1pURWttK3JGVFlEQmVuN2xyL1U4?=
- =?utf-8?B?OTFWQjJSZlhlVDJCWGFsMlU3bTNmR1p0MGV0ZzBNRHEyZW9pbkhJU1p2VnpQ?=
- =?utf-8?B?Yy9FN0NNcUd2WHlnVHdpT2t5QmRsZ3F3ZCswS0lPVEZCYmh4OFlkSmIwemw2?=
- =?utf-8?B?T2RZVEJ6NFFBc0F0VGRFR2p0Rm1WN2svNDZWL3VlNSs4TDg3M0VEbXRWTTJq?=
- =?utf-8?B?R0Ywa0hDMkNOem9OdVJYSXZqNU44Rzl3aHY2djVzV052WnBqbzU3NUdoNmgv?=
- =?utf-8?B?MktkVzZLVWF5UFZlVi9sd2R6cEMxallaQzU0NWk2dE50UDNiczFyQmd0SzJP?=
- =?utf-8?B?ZVdXNUpwQUZBaUQ3UlEzd1EzbXd4eGh2NTNsdnVJdkV5TU55YWxNWjNFZnk2?=
- =?utf-8?B?Y2QxbWpHRjdnT0xrZVlBSjF3V0tHai9VR2JQeS9hLzI1ZmFDcWtFb1dUeTZm?=
- =?utf-8?Q?GXd65jorKOu6ks3R2yoOEwyuT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb2ef07d-beac-4577-c731-08dd28c28de2
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Dec 2024 11:10:37.0429
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I5cd5QXQV+qRN0rdlJZ3cW+RIygAucctWcIIJ2ctpbCi9QC9ef10VW/Gn5T+yH4Tihsj98JxkofOZnU6QvgfIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5926
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] hw: Mark architecture specific devices with specific
+ endianness
+To: qemu-devel@nongnu.org
+Cc: Artyom Tarasenko <atar4qemu@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ xen-devel@lists.xenproject.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+ Anthony PERARD <anthony@xenproject.org>,
+ Eduardo Habkost <eduardo@habkost.net>, Thomas Huth <huth@tuxfamily.org>,
+ Jia Liu <proljc@gmail.com>, Stafford Horne <shorne@gmail.com>,
+ Paul Durrant <paul@xen.org>, Mark Cave-Ayland
+ <mark.cave-ayland@ilande.co.uk>, "Michael S. Tsirkin" <mst@redhat.com>
+References: <20241106184612.71897-1-philmd@linaro.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20241106184612.71897-1-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Jason
+On 6/11/24 19:46, Philippe Mathieu-Daudé wrote:
+> When a device is only built for an architecture built for
+> a particular endianness, we can simplify the device to not
+> use the "target native endianness" definition and directly
+> use the proper target endianness.
+> 
+> Philippe Mathieu-Daudé (5):
+>    hw/i386: Mark devices as little-endian
+>    hw/tricore: Mark devices as little-endian
+>    hw/m68k: Mark devices as big-endian
+>    hw/openrisc: Mark devices as big-endian
+>    hw/sparc: Mark devices as big-endian
 
-On 17/12/2024 21:19, Jason Andryuk wrote:
-> uboot-script-gen fails to process a zstd-compressed initramdisk, exiting
-> with:
-> Wrong file type initrd.img. It should be cpio archive, exiting.
->
-> Extend the existing approach to also check zstd.
->
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
->   scripts/uboot-script-gen | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
->
-> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-> index fc63702..db2c011 100755
-> --- a/scripts/uboot-script-gen
-> +++ b/scripts/uboot-script-gen
-> @@ -567,6 +567,7 @@ function check_compressed_file_type()
->   {
->       local filename=$1
->       local type="$2"
-> +    local file_type
->   
->       if [ ! -f $filename ]
->       then
-> @@ -574,13 +575,17 @@ function check_compressed_file_type()
->           cleanup_and_return_err
->       fi
->   
-> -    file -L $filename | grep "gzip compressed data" &> /dev/null
-> -    if test $? == 0
-> -    then
-> +    file_type=$( file -L $filename )
-> +    if echo "$file_type" | grep -q "gzip compressed data" ; then
->           local tmp=`mktemp`
->           tmp_files+=($tmp)
->           cat $filename | gunzip > $tmp
->           filename=$tmp
-> +    elif echo "$file_type" | grep -q "Zstandard compressed data" ; then
-> +        local tmp=`mktemp`
-> +        tmp_files+=($tmp)
-> +        zstdcat $filename > $tmp
-
-I think you need to list zstd in |prog_req
-|
-
-|See 
-https://gitlab.com/xen-project/imagebuilder/-/blob/master/scripts/uboot-script-gen?ref_type=heads#L5|
-
-|Also you need to include this as a part of the dockerfiles like|
-
-|https://gitlab.com/xen-project/xen/-/blob/staging/automation/tests-artifacts/qemu-system-aarch64/6.0.0-arm64v8.dockerfile?ref_type=heads|
-
-|https://gitlab.com/xen-project/xen/-/blob/staging/automation/tests-artifacts/alpine/3.18-arm64v8.dockerfile?ref_type=heads
-|
-
-> +        filename=$tmp
->       fi
->       check_file_type $filename "$type"
->   }
-- Ayan
+I'm queuing this series, better to test it early in the dev cycle.
 
