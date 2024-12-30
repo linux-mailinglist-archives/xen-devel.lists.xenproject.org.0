@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C089FEABE
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Dec 2024 21:58:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863539.1274911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127999FEAC9
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Dec 2024 22:02:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863548.1274919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tSMp0-0005Ki-Iy; Mon, 30 Dec 2024 20:57:06 +0000
+	id 1tSMsy-0006ph-10; Mon, 30 Dec 2024 21:01:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863539.1274911; Mon, 30 Dec 2024 20:57:06 +0000
+Received: by outflank-mailman (output) from mailman id 863548.1274919; Mon, 30 Dec 2024 21:01:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tSMp0-0005HZ-Fm; Mon, 30 Dec 2024 20:57:06 +0000
-Received: by outflank-mailman (input) for mailman id 863539;
- Mon, 30 Dec 2024 20:57:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tSMsx-0006nq-Uk; Mon, 30 Dec 2024 21:01:11 +0000
+Received: by outflank-mailman (input) for mailman id 863548;
+ Mon, 30 Dec 2024 21:01:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rjPe=TX=daemonizer.de=maxi@srs-se1.protection.inumbo.net>)
- id 1tSMoy-0005HT-34
- for xen-devel@lists.xenproject.org; Mon, 30 Dec 2024 20:57:05 +0000
-Received: from mx1.somlen.de (typhoon.somlen.de [89.238.64.140])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d47714d-c6f0-11ef-a0db-8be0dac302b0;
- Mon, 30 Dec 2024 21:57:00 +0100 (CET)
-Received: by mx1.somlen.de with ESMTPSA id C8D8E5030C1
- for <xen-devel@lists.xenproject.org>; Mon, 30 Dec 2024 21:56:58 +0100 (CET)
+ id 1tSMsx-0006nk-Ci
+ for xen-devel@lists.xenproject.org; Mon, 30 Dec 2024 21:01:11 +0000
+Received: from mx1.somlen.de (breeze.somlen.de [2a00:1828:a019::100:0])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 317b91b3-c6f1-11ef-99a4-01e77a169b0f;
+ Mon, 30 Dec 2024 22:01:09 +0100 (CET)
+Received: by mx1.somlen.de with ESMTPSA id C999A5030C1;
+ Mon, 30 Dec 2024 22:01:08 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,126 +38,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d47714d-c6f0-11ef-a0db-8be0dac302b0
+X-Inumbo-ID: 317b91b3-c6f1-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daemonizer.de;
-	s=202303; t=1735592219;
+	s=202303; t=1735592469;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=sQmZIXfDs1rHvUaJNY5rFgMAdUz5F5EPTE6F/gXdKIA=;
-	b=EhgIeV3JmrHAtbb/Ulf4ztjAsh118UHA9s0qfv16e7BFqPgKNieVHqmNn8g7IY1WhTeGdf
-	8c6Wnog7lXoE0KeLESp+5REp06F3cCZhz6MmV2Vu6hciP+55n3LUWiqVvDvuw4TtfvvsEy
-	x8K6mump6rnwnVlbZiF8Noj/crS9qkb/xAzKIGY1JZqSbO/6kweJXrX0DauDLqHqOjwCyt
-	izCfBTd1jV3H8zYIMJ7AEXNRF3SVBETlra/u7xy9Tlcg8/h05XJLTceOIbrcbpm7HjzBZh
-	z3+Y0r+Z5eQtw1dqeFRRuXWf7ZklhaHk/Dm391OzdzJSgMHeGM5OoIc7PXvU5w==
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=kaZsUcyrxauv/BG4fpslcUCmMWSxyvETJhxN2crai+U=;
+	b=Lng6gtH+CyHJo0IshZP3FjQQQellK9fvXDMYwV6w3/Gs7o1u5c7UJZU2KTtOPLGUESISYr
+	ad+ZMsWY6tQk1lFJanLg3lgCQEXJbQGQR9tGyJmr9yvlS5Sze45gX7xmhZolJ4CEAEWpbM
+	0OCTHfiy6wmWqnyYsvNAmIq+187f1eCiXSBTBhexxSJernfg0SUHh1+fibtFqZBPyEiAx/
+	UYvOKbDFBqyJJOK3yJHZsk+MYGp1BzP8VRE5JW1vlKGtTVZ+5YtqA5FT9/k1d382sasvTw
+	rqGnAG8CdMGp3mqUl4rPBQjcAxDIW6of6ajioHcg6aazPsrSi1HkrcUm6Z2bUg==
 From: Maximilian Engelhardt <maxi@daemonizer.de>
 To: xen-devel@lists.xenproject.org
-Subject:
- Bug: Hyperlinks in generated documentation may point to the wrong
- architecture
-Date: Mon, 30 Dec 2024 21:56:53 +0100
-Message-ID: <2293976.iZASKD2KPV@localhost>
+Cc: Maximilian Engelhardt <maxi@daemonizer.de>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [XEN PATCH 0/5] Fixes for reproducible builds and other small fixes
+Date: Mon, 30 Dec 2024 22:00:28 +0100
+Message-Id: <cover.1735585600.git.maxi@daemonizer.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart1990080.PYKUYFuaPT";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
 
---nextPart1990080.PYKUYFuaPT
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
-From: Maximilian Engelhardt <maxi@daemonizer.de>
-To: xen-devel@lists.xenproject.org
-Date: Mon, 30 Dec 2024 21:56:53 +0100
-Message-ID: <2293976.iZASKD2KPV@localhost>
-MIME-Version: 1.0
+This series is a bunch of fixes we found while packaging Xen in Debian
+and we believe they should be best addressed upstream.
 
-Hello,
+We have been carrying the first patch for a long time in Debian, but it
+seems it never was applied upstream. It's an addition to
+"docs/man: Provide properly-formatted NAME sections"
+(commit 423c4def1f7a01eeff56fa70564180640ef3af43).
 
-during working on packaging Xen in Debian I noticed the documentation becomes 
-non-reproducible as hyperlinks may point to the wrong architecture.
+Patch two and three are fixes for reproducibility issues that I found
+using our testing gear in Debian.
 
-Here an example as diff showing the problem:
+The last two patches are trivial fixes correcting two common typos found
+by Debian tools.
 
-/usr/share/doc/xen/html/hypercall/arm/include,public,arch-arm.h.html
-@@ -313,15 +313,15 @@
-     uint64_t sctlr;
-     uint64_t ttbcr, ttbr0, ttbr1;
- };
- typedef <a href="include,public,arch-arm.h.html#Struct_vcpu_guest_context">struct vcpu_guest_context</a> <a  name="Typedef_vcpu_guest_context_t"><strong>vcpu_guest_context_t</strong></a>;
- DEFINE_XEN_GUEST_HANDLE(<a href="include,public,arch-arm.h.html#Struct_vcpu_guest_context">vcpu_guest_context_t</a>);
- 
- /*
-- * <a href="include,public,arch-arm.h.html#Struct_xen_arch_domainconfig">struct xen_arch_domainconfig</a>'s ABI is covered by
-+ * <a href="include,public,arch-ppc.h.html#Struct_xen_arch_domainconfig">struct xen_arch_domainconfig</a>'s ABI is covered by
-  * XEN_DOMCTL_INTERFACE_VERSION.
-  */
- #define XEN_DOMCTL_CONFIG_GIC_NATIVE    0
- #define XEN_DOMCTL_CONFIG_GIC_V2        1
- #define XEN_DOMCTL_CONFIG_GIC_V3        2
- 
- #define XEN_DOMCTL_CONFIG_TEE_NONE      0
+Thanks
 
 
-As can be seen, the hyperlink in include,public,arch-arm.h.html points to 
-include,public,arch-ppc.h.html while it should point to include,public,arch-
-arm.h.html.
-A similar problem can be found in many more places and files.
+Ian Jackson (1):
+  docs/man/xen-vbd-interface.7: Provide properly-formatted NAME section
 
-Corresponding to the problem described above, while building the documentation 
-many messages similar to the last lines below can be seen in the build log:
+Maximilian Engelhardt (4):
+  docs: set DATE to SOURCE_DATE_EPOCH if available
+  xen/arch/x86: make objdump output user locale agnostic
+  docs/man: fix typo: hexidecimal -> hexadecimal
+  tools: fix typo: subsytem -> subsystem
 
-/usr/bin/perl -w /build/reproducible-path/xen-4.19.1/docs/xen-headers -O html/hypercall/arm \
-        -T 'arch-arm - Xen public headers' \
-        -X arch-x86_32 -X arch-x86_64 \
-        -X xen-x86_32 -X xen-x86_64 \
-        -X arch-x86 \
-        /build/reproducible-path/xen-4.19.1/docs/../xen include/public include/xen/errno.h
-include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-arm.h:300
-include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-ppc.h:85
-include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-arm.h:300
-include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-ppc.h:85
-include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-ppc.h:90
-include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-arm.h:305
-include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-ppc.h:90
-include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-arm.h:305
-[...]
+ docs/Makefile                       | 8 +++++++-
+ docs/man/xen-vbd-interface.7.pandoc | 5 +++++
+ docs/man/xl-pci-configuration.5.pod | 2 +-
+ tools/include/xenctrl.h             | 2 +-
+ tools/misc/xen-memshare.c           | 2 +-
+ xen/arch/x86/arch.mk                | 2 +-
+ 6 files changed, 16 insertions(+), 5 deletions(-)
 
-
-In Debian we worked around the problem for now by adding ppc and riscv to 
-DOC_ARCHES in docs/Makefile as can be seen in [1]. This solves all the 
-described problems and makes the build reproducible again. I assume another 
-possible fix would be adding suitable ignore switches for ppc and riscv.
-
-I did not send this as a patch as I'm not sure what the preferred upstream 
-solution to this problem is, but can formally submit our fix as a patch if 
-that's desired.
-
-Thanks,
-Maxi
-
-[1] https://salsa.debian.org/xen-team/debian-xen/-/commit/d852c48d0df5c6ceba42d20652d1f9a05ad8989e 
---nextPart1990080.PYKUYFuaPT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEQ8gZ7vwsPje0uPkIgepkfSQr0hUFAmdzCRUACgkQgepkfSQr
-0hVXYA/9GsPUQGILV6vqzCbx+1SiVv1rnmARjCnnWREslj8UTwOBtkbaPuequFI9
-t7+Xt+uKBqo5P+Bh9QU0Vc5RPjnWHTST69G3rxfxH4kvh5OAOxcyhhL3vmIt1LWi
-mj7nqq87l/LeXzzphYdQOCLXxvMnUSnnkWBS1t2xEJ6p9bX7eUv7IDqskGniMKkY
-2pcL/ifZw5RfBzCyw/uF2G8M0chSp5bS2JK3dDH+lflPfLOokX6ubEcOrezcBlmW
-RAUvCZ5o3HGrEz7it/Rxk1gyUmLAacYQrIV/kXOMsJGk2AFSRbOlln39rzkrdKz3
-439FhF8ow5PaYlUmaiC8cb/dpkQYhP0vW5mzYmaxVlUoxGWKMUDCv9iA3FkbvF0j
-+IXoMbts4NzvvuNT04GvuhoiwGal55BkzniFfM8xuM9Hz4hfwbNIpexH/w8D1lWO
-irdIci6KOzy4aduiB4yki8IhIbpBer3N4TxTIx6GuL7FvTsBdjTYcbdjqtR0pvFT
-U7r+p/BpB4ZkSyvJyuPwiPDVC/0mzSqtBALRI9rZXST2WK28vkgF2UmvqJmsXRCz
-75duE4pUBl7Apk9oJ3NxythSIH6saaYT+yHDYxTrp8ffIBOPkdSAgjPzb88jT3pL
-u+r3r+jR0U7pPW5Qhoa/ED5ZisDo7gC+jdRkNWO7Lq2St5Jz+Nw=
-=/gKh
------END PGP SIGNATURE-----
-
---nextPart1990080.PYKUYFuaPT--
-
-
+-- 
+2.39.5
 
 
