@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDE039FEB30
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Dec 2024 22:53:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863616.1274990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 730A89FEB4E
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Dec 2024 23:30:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863625.1275000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tSNhT-0001T5-3n; Mon, 30 Dec 2024 21:53:23 +0000
+	id 1tSOFn-00068S-LC; Mon, 30 Dec 2024 22:28:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863616.1274990; Mon, 30 Dec 2024 21:53:23 +0000
+Received: by outflank-mailman (output) from mailman id 863625.1275000; Mon, 30 Dec 2024 22:28:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tSNhT-0001R8-15; Mon, 30 Dec 2024 21:53:23 +0000
-Received: by outflank-mailman (input) for mailman id 863616;
- Mon, 30 Dec 2024 21:53:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tSOFn-000666-H5; Mon, 30 Dec 2024 22:28:51 +0000
+Received: by outflank-mailman (input) for mailman id 863625;
+ Mon, 30 Dec 2024 22:28:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X1cU=TX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tSNhR-0001R2-B7
- for xen-devel@lists.xenproject.org; Mon, 30 Dec 2024 21:53:21 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b1ae4fc-c6f8-11ef-99a4-01e77a169b0f;
- Mon, 30 Dec 2024 22:53:19 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-436341f575fso100115095e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 30 Dec 2024 13:53:19 -0800 (PST)
-Received: from [192.168.86.29] ([83.105.36.37])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c848a47sm30712508f8f.62.2024.12.30.13.53.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Dec 2024 13:53:18 -0800 (PST)
+ <SRS0=rjPe=TX=daemonizer.de=maxi@srs-se1.protection.inumbo.net>)
+ id 1tSOFm-000660-00
+ for xen-devel@lists.xenproject.org; Mon, 30 Dec 2024 22:28:50 +0000
+Received: from mx1.somlen.de (typhoon.somlen.de [89.238.64.140])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 70074a8e-c6fd-11ef-a0db-8be0dac302b0;
+ Mon, 30 Dec 2024 23:28:48 +0100 (CET)
+Received: by mx1.somlen.de with ESMTPSA id BB47C5030C1;
+ Mon, 30 Dec 2024 23:28:45 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +38,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b1ae4fc-c6f8-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1735595599; x=1736200399; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gZUi7UGwaKBR6JJvqimj61FdN9dv/1BvOOvYzpiO8mw=;
-        b=GYtGnlT2BIJ1LaHBw6NBSTJa8aD8WVcMDsqwUnQ601cdw4T5HEzkJFiAfEu1dx1qs0
-         gG4el5GWgia1Df0+F+2xBzW1slKfjKgcSAxt10c+1XFPJ5R4rApVxO/TZGINnaiotoJb
-         kp9gpptLhwJA0SrLoaEwRRgrc+L2y4KEr7QQQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1735595599; x=1736200399;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gZUi7UGwaKBR6JJvqimj61FdN9dv/1BvOOvYzpiO8mw=;
-        b=XFMGTklkWORfH+6f3d8x1oz/7Rmnrqv9FV2lPJL1YdwM0wmN0ROs0As/zb2oqlbBkG
-         cF9FVJv6cHTGvFDClhXlit51EyPPSw9XF/3H6iglmeG/vtA56PLMLlvjNDpb3cxChXMe
-         160XSnGKAUjyc9CwZHz4QOEWCiXT722H/E80gcy1CGs8b3ZqPf3Rp7M3+lfb5n5jdGK4
-         uExkH+YMNs7AO83b3aopmU6erSSY1IjdsvBr0a3qdx542Toa71e8emcn2Rje9UbROV4x
-         SazglqYYPkk2yhGOhOguddnlnt081ggk18c/2ehWM6uKrWSzSAX/tRfx96SvmOFMF792
-         buJg==
-X-Forwarded-Encrypted: i=1; AJvYcCU3FJc0sQfwOyHYthPpOUAJkiE9PhavtfcSEkpcvLwCYxMh7JRtyt8Iv80h+X1VaVUjDtRGZ+qxMS4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwcPV59w4UJPSrqozwzlC33GasyHOk7w8fCe19xXboQLiW4g6DI
-	ZOdlaziwXi9hRF07HcomoyLGhmjlOH2HUDG0VslNY3fTPacESWPIxLyGHnPzCtU=
-X-Gm-Gg: ASbGncvmo/mYkSH40AG3q7dwFdKIZEsbYRZS5TafQKmlF8fkmwuF/cpooK+zBHJolrr
-	5TZC+ChghV9ecPay4y3T6yD1oUkae6+92+L6M6+WnpLJxXgSGZsnuROGYSZ49qPfyjm6b/zQl6x
-	lOWHFRjpN169fxrTclFC0FzB5R/vzgGiaUsGUaibQnZWIg2I3W5gRcaa1jlXbRQQEcyAnx/KdBB
-	ys/qnvrs8H6KdElf1PHoK3MPcvRRbswI1Zp30IBa0ITQy80hqjLTsfJDVOuUgEde08=
-X-Google-Smtp-Source: AGHT+IENve12XVoRefxMJ8ewLR1XlxsqmyqFV6gzFw1auS5A1JNTDhQ4BY9Ojmmyz2NUUBTH3aiSBg==
-X-Received: by 2002:adf:a445:0:b0:38a:2b39:9205 with SMTP id ffacd0b85a97d-38a2b3993dfmr23487729f8f.33.1735595598673;
-        Mon, 30 Dec 2024 13:53:18 -0800 (PST)
-Message-ID: <5e4c9b33-7250-48b6-9a35-6ca4ee9342b8@citrix.com>
-Date: Mon, 30 Dec 2024 21:53:17 +0000
+X-Inumbo-ID: 70074a8e-c6fd-11ef-a0db-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daemonizer.de;
+	s=202303; t=1735597727;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Ita93vdWUbvoarX6Q3Ge6UGZ9iYdaMP4K/oLl5RKmw=;
+	b=jSupqSZyQnHrIPGAS/o6lQ9KS9pHIYJuWLuPM7lKzVDecwmIE5Mp4BQb0sYROkJcn6HEVn
+	YR4HJKvfEysI9e0/pNqgu5rBgGbG2atv+fNND8W1Ei5AAY5Ndk/rS/ijsXkUioRwP4yDC3
+	xPcieNSJaWNfn43E6V+pu2ZrPjaPeHh4obuYuUYRMUXYHJVxdVCHA4SEDE1dhZQ4xq20D4
+	RBNWx6fWW8VgG0sGjPMko/exdowLTjACLXscwqsh6M5lBSnGbdpfPo36jhNQR1zS84j9ai
+	Bmya8af4wjLVunpNrWeDR3VuO+4AB0X110Ozd90JNkC+K27mGKsEzhJmpoEEzw==
+From: Maximilian Engelhardt <maxi@daemonizer.de>
+To: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [XEN PATCH 2/5] docs: set DATE to SOURCE_DATE_EPOCH if available
+Date: Mon, 30 Dec 2024 23:28:42 +0100
+Message-ID: <2637960.Lt9SDvczpP@localhost>
+In-Reply-To: <25f9fabf-1239-4465-92c9-484fc24fc4f7@citrix.com>
+References:
+ <cover.1735585600.git.maxi@daemonizer.de>
+ <1ad1283052a580cbe7dbd7581b64f3cfd87cbf88.1735585600.git.maxi@daemonizer.de>
+ <25f9fabf-1239-4465-92c9-484fc24fc4f7@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 0/5] Fixes for reproducible builds and other small
- fixes
-To: Maximilian Engelhardt <maxi@daemonizer.de>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>
-References: <cover.1735585600.git.maxi@daemonizer.de>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <cover.1735585600.git.maxi@daemonizer.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="nextPart4398195.ejJDZkT8p0";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-On 30/12/2024 9:00 pm, Maximilian Engelhardt wrote:
-> This series is a bunch of fixes we found while packaging Xen in Debian
-> and we believe they should be best addressed upstream.
->
-> We have been carrying the first patch for a long time in Debian, but it
-> seems it never was applied upstream. It's an addition to
-> "docs/man: Provide properly-formatted NAME sections"
-> (commit 423c4def1f7a01eeff56fa70564180640ef3af43).
->
-> Patch two and three are fixes for reproducibility issues that I found
-> using our testing gear in Debian.
->
-> The last two patches are trivial fixes correcting two common typos found
-> by Debian tools.
+--nextPart4398195.ejJDZkT8p0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
+From: Maximilian Engelhardt <maxi@daemonizer.de>
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+Date: Mon, 30 Dec 2024 23:28:42 +0100
+Message-ID: <2637960.Lt9SDvczpP@localhost>
+In-Reply-To: <25f9fabf-1239-4465-92c9-484fc24fc4f7@citrix.com>
+MIME-Version: 1.0
 
-These are all very simple and obvious. I've summarily acked and taken
-all patches other than 2, where I've got a question/suggestion.
+On Montag, 30. Dezember 2024 22:38:24 CET Andrew Cooper wrote:
+> On 30/12/2024 9:00 pm, Maximilian Engelhardt wrote:
+> > Use the solution described in [1] to replace the call to the 'date'
+> > command with a version that uses SOURCE_DATE_EPOCH if available. This
+> > is needed for reproducible builds.
+> > 
+> > The -d "@..." syntax was introduced in GNU date about 2005 (but only
+> > added to the docuemntation in 2011), so I assume a version supporting
+> > this syntax is available, if SOURCE_DATE_EPOCH is defined. If
+> > SOURCE_DATE_EPOCH is not defined, nothing changes with respect to the
+> > current behavior.
+> > 
+> > [1] https://reproducible-builds.org/docs/source-date-epoch/
+> > 
+> > Signed-off-by: Maximilian Engelhardt <maxi@daemonizer.de>
+> > ---
+> > 
+> >  docs/Makefile | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/docs/Makefile b/docs/Makefile
+> > index b30cc619f8..beba02a94f 100644
+> > --- a/docs/Makefile
+> > +++ b/docs/Makefile
+> > @@ -3,7 +3,13 @@ include $(XEN_ROOT)/Config.mk
+> > 
+> >  -include $(XEN_ROOT)/config/Docs.mk
+> >  
+> >  VERSION		:= $(shell $(MAKE) -C $(XEN_ROOT)/xen --no-print-directory
+> >  xenversion)> 
+> > -DATE		:= $(shell date +%Y-%m-%d)
+> > +
+> > +DATE_FMT	:= +%Y-%m-%d
+> > +ifdef SOURCE_DATE_EPOCH
+> > +DATE		:= $(shell date -u -d "@$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
+> > 2>/dev/null || date -u -r "$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
+> > 2>/dev/null || date -u "$(DATE_FMT)") +else
+> > +DATE		:= $(shell date "$(DATE_FMT)")
+> > +endif
+> > 
+> >  DOC_ARCHES      := arm x86_32 x86_64
+> >  MAN_SECTIONS    := 1 5 7 8
+> 
+> While this looks fine for docs, there's another (identical) use of date
+> in tools/firmware/hvmloader/Makefile, as well as some differing uses to
+> construct XEN_BUILD_{DATE,TIME}.  INSTALL talks about VGABIOS_REL_DATE too.
+> 
+> Does something like this work for you?  It seems to DTRT for SMBIOS.  It
+> needs adapting a bit more for vgabios and Xen, but I think having one
+> common $(date) is going to be better than ad-hoc ones over the tree.
+> 
+> ~Andrew
 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1606875387
+Hi Andrew,
 
-~Andrew
+Thanks for your quick reply. Your patch looks fine to me. You can add my 
+Tested-by.
+
+We currently use "export XEN_BUILD_{DATE,TIME}=...", "export 
+SMBIOS_REL_DATE=..." and "export VGABIOS_REL_DATE=..." for building xen in 
+Debian, so we did not run into reproducibility problems with these. But having 
+them combined to all use SOURCE_DATE_EPOCH if available sounds like a good 
+idea and would also benefit other downstream users.
+
+Maxi
+--nextPart4398195.ejJDZkT8p0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEQ8gZ7vwsPje0uPkIgepkfSQr0hUFAmdzHpoACgkQgepkfSQr
+0hVIMQ/+KKq0VeyjhWQZJA1tY4t8aYU+DJavX6G9jTzJfYHUx3ZTx7sLoI4Ji9kb
+YlAADW6VFvn4CDCJBaX/CbXHSlv4aX9xOBlwx1VlG05fmZ62WnsPy9xAcxBIXyEe
+3DcSPVt5GOBmL+cwkXpdQqfE2Ffeftudq4gAfiwn5NiTZA/Mqf4n0Uij1eJgd316
+MQAFvPPHqgDYFJQiBf2HbKwlvdhLuDUl0hGM7NUflyu9hzhChQRKTZZ/k32OcFMm
+Q7y8Gvldv29RPPEKLxp4N/49ekBXkQ1BULM4I4dIh4cfF3rPPDWNaL1uLPhcDPZb
+KCmLKfPJhcwT/R/HN3rTIUAJIRzhZzuxIh7QJsl/vpnjB8LsD3DQ0WqPfPPXNJxr
+fjjP5nlQr6KsMjIhOcuphujYLGHkWLZtDlw5Fth1fkhfI5tVndJ40gVt8b4Hl3Cw
+cFS0CKZMvijPPhlrWQFTQkOny7eUM8dQgaxXq5S9nMajdI4Dh6s3FbAEl5eVBBt2
+yiXCuJK6Ez1loXH49lb97oW+YAOmVQdgt2+1NfnE5o02RyuQfeLGF59H6Q6eQW8x
+IsnMxMurA4EroZ9+58eleJyaddGEVjpnGxlJTbLMveK9HBl/HipGaGFEg0AmtvsS
+YzJc+aOjmDP0LzNmL+JvVtZxcFOMzoiaOKFt/GPScJKzQsvwDZI=
+=xmWe
+-----END PGP SIGNATURE-----
+
+--nextPart4398195.ejJDZkT8p0--
+
+
+
 
