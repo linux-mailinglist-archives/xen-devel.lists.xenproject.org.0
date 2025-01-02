@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B50269FF70E
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 09:46:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.863737.1275169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A1F9FF711
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 09:46:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.863735.1275143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTGpz-0006c1-Gs; Thu, 02 Jan 2025 08:45:51 +0000
+	id 1tTGpx-0005wi-P4; Thu, 02 Jan 2025 08:45:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 863737.1275169; Thu, 02 Jan 2025 08:45:51 +0000
+Received: by outflank-mailman (output) from mailman id 863735.1275143; Thu, 02 Jan 2025 08:45:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTGpz-0006W9-89; Thu, 02 Jan 2025 08:45:51 +0000
-Received: by outflank-mailman (input) for mailman id 863737;
- Thu, 02 Jan 2025 08:45:50 +0000
+	id 1tTGpx-0005pv-EH; Thu, 02 Jan 2025 08:45:49 +0000
+Received: by outflank-mailman (input) for mailman id 863735;
+ Thu, 02 Jan 2025 08:45:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LCcj=T2=bounce.vates.tech=bounce-md_30504962.67765234.v1-18bc4adf6c0c4943a835c5bc80ce84cb@srs-se1.protection.inumbo.net>)
- id 1tTGpx-0004rS-UK
- for xen-devel@lists.xenproject.org; Thu, 02 Jan 2025 08:45:49 +0000
+ <SRS0=oHwR=T2=bounce.vates.tech=bounce-md_30504962.67765234.v1-82f3a02c5edd4500b772e324054fe213@srs-se1.protection.inumbo.net>)
+ id 1tTGpv-0004rS-Th
+ for xen-devel@lists.xenproject.org; Thu, 02 Jan 2025 08:45:47 +0000
 Received: from mail180-50.suw31.mandrillapp.com
  (mail180-50.suw31.mandrillapp.com [198.2.180.50])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5908fed-c8e5-11ef-99a4-01e77a169b0f;
- Thu, 02 Jan 2025 09:45:46 +0100 (CET)
+ id f48e5d1a-c8e5-11ef-99a4-01e77a169b0f;
+ Thu, 02 Jan 2025 09:45:44 +0100 (CET)
 Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
  by mail180-50.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4YP0fD5n5HzCf9M37
+ 4YP0fD3qg1zCfD7NJ
  for <xen-devel@lists.xenproject.org>; Thu,  2 Jan 2025 08:45:40 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 18bc4adf6c0c4943a835c5bc80ce84cb; Thu, 02 Jan 2025 08:45:40 +0000
+ 82f3a02c5edd4500b772e324054fe213; Thu, 02 Jan 2025 08:45:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,44 +43,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5908fed-c8e5-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: f48e5d1a-c8e5-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
 	s=mte1; t=1735807540; x=1736068040;
-	bh=mzhXuh0ndyjVjpzrrKA3CLzzrom7CZG1ilSX478/eBg=;
+	bh=lteVOQO/826dQJiMQ3UsqhNPnk1VKMnXNeukA1WaOSo=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=oDCE65nLyW+4kZGft2uh059FpwIwEueCaNkKPOqR4qKgZ9asIUVyLSu9WliVX/lFt
-	 HjW7vUdQvjKPQ+Z5vsIT+NDkW3B5f4NuFGyaZn7ebPHat+5nJY9k3j4OcCDBeT8Hf5
-	 SuzhFE6e0ZBcTcjCt6nvUoSIRhlKXHU/gBLgd69GiYaQTg7DdMk0rjrtn9mhNww5J/
-	 i8T6DkNcuzuie6/zz8hj0LRvcf+SurMdLTj7slyVyXsZeGFyRJnYDJi4Svu0qy8ekQ
-	 HCztn4N6idpPsqlKxpb34fOVZAZN9aWPKRf1nbBNNt4IPi8joto40BELFQ3eNQjxw+
-	 HrWVGMELfkFzQ==
+	b=A6bso6XOHwrewVbQ+GskSObYNPGIX1Z4vhv/ffgdUazMyxQSZsEEaPk0tuSGHrq/F
+	 KYgQCzfwX0m5g/4AVJehlT1kJzGpXcUgETl0kHVv8aK1NpKDtShWDszEtWijRe+zhV
+	 cxKDotiNCCNYhL3hCpGErxUnTkGhBQs05o0SmRlNIQpHr2AsrjP984+UZyIJoGBUpH
+	 OMlT1szBwBRh4qM/VTzbHtG0B/ZEMCNUHKfo5dwdDFMSrxvtDDlQKIE/JNI386Y/E1
+	 KJj/SXclW1/ha0rF9iIiQ+2V4tHqTxkU2c2XAoFEVl+/bucBAnFeacesc+Bai+6asa
+	 W8WNAuglkrvOQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
 	t=1735807540; x=1736068040; i=ngoc-tu.dinh@vates.tech;
-	bh=mzhXuh0ndyjVjpzrrKA3CLzzrom7CZG1ilSX478/eBg=;
+	bh=lteVOQO/826dQJiMQ3UsqhNPnk1VKMnXNeukA1WaOSo=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=O+r6NcYohpfHx1h+H0YjkdzcWSY9atwvPggh+iuatsHlmcnivPBokfNhI88D02J7C
-	 avhzxVYyQM7mFbxrG1Tax4w2HEdM63sEWtui4MOwGev9O2POXZFC0gzfG1vevkNgI4
-	 D5odIRyCKRLqNb8ZHiCkzr6UFykXnhdo7mlog4CJgBXGBB1GbaCWuHCGEGw/Z9FlwC
-	 o8+gAo9DIHkq1QDWKRwJH1tbkKTwRY9Ef0IRs8fbg8RPuA78jTIRH83e6dlm9W4Sz4
-	 ZVgScCgL+8YNyam/yi7Bslp9G4jjgjym9OWSpUWh/8Cdr0pq9Wsf+hgnMzt5Jcr947
-	 91P/BmnQ1CICA==
+	b=UfzJS6fJ8E+WavFGOSGkBzZTURV4Gl+aOiYx+VuffqxzhyZWj3xr5tQAgiogajDYK
+	 LuY4Us1eph/9dB0X8QxdP7KYNI+SqK5sXjzGPsH2XGjnN5j7cPb+fKjdFZhd9n0C8f
+	 ZW0MyY0IP82iB+Z6lgdGg5J73x1Q5+SYD0PhNpnFBNeR4nj0KI089j6o8nSidVLkqN
+	 WBJ+gyyL6n8i+mBxN1CRErFBE0wkFa/cpshmwfcEH7m8Ee0H/rFbKBeHcm8VrGk+WV
+	 4TIzgUQcVJIEZiPNa6p19D9v2hNmiC4KzrFPa0xNfp+BCTO65QjEITQbBXmYsK4+JJ
+	 onHUjurDqe5Kw==
 From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=20v2=2005/10]=20x86:=20Keep=20a=20copy=20of=20XSAVE=20area=20size?=
+Subject: =?utf-8?Q?[RFC=20PATCH=20v2=2004/10]=20x86:=20Calculate=20arch=20LBR=20CPUID=20policies?=
 X-Mailer: git-send-email 2.43.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1735807539875
+X-Bm-Transport-Timestamp: 1735807539667
 To: xen-devel@lists.xenproject.org
 Cc: "Tu Dinh" <ngoc-tu.dinh@vates.tech>, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <20250102084413.102-6-ngoc-tu.dinh@vates.tech>
+Message-Id: <20250102084413.102-5-ngoc-tu.dinh@vates.tech>
 In-Reply-To: <20250102084413.102-1-ngoc-tu.dinh@vates.tech>
 References: <20250102084413.102-1-ngoc-tu.dinh@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.18bc4adf6c0c4943a835c5bc80ce84cb?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.82f3a02c5edd4500b772e324054fe213?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250102:md
 Date: Thu, 02 Jan 2025 08:45:40 +0000
@@ -88,36 +88,128 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
+Ensure that the arch LBR feature and its dependents are disabled if any
+prerequisites are not available.
+
 Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
 ---
- xen/arch/x86/include/asm/domain.h | 1 +
- xen/arch/x86/xstate.c             | 1 +
- 2 files changed, 2 insertions(+)
+ xen/arch/x86/cpu-policy.c | 28 ++++++++++++++++++++++++++++
+ xen/arch/x86/cpu/common.c |  7 +++++++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index b79d6badd7..d3f2695c20 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -638,6 +638,7 @@ struct arch_vcpu
-      * #NM handler, we XRSTOR the states we XSAVE-ed;
-      */
-     struct xsave_struct *xsave_area;
-+    unsigned int xsave_area_size;
-     uint64_t xcr0;
-     /* Accumulated eXtended features mask for using XSAVE/XRESTORE by Xen
-      * itself, as we can never know whether guest OS depends on content
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index af9e345a7a..baae8e1a13 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -550,6 +550,7 @@ int xstate_alloc_save_area(struct vcpu *v)
-     save_area->fpu_sse.mxcsr = MXCSR_DEFAULT;
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index 78bc9872b0..b1398b2e3c 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -190,6 +190,16 @@ static void sanitise_featureset(uint32_t *fs)
+     }
+ }
  
-     v->arch.xsave_area = save_area;
-+    v->arch.xsave_area_size = size;
-     v->arch.xcr0 = 0;
-     v->arch.xcr0_accum = 0;
++static void recalculate_arch_lbr(struct cpu_policy *p)
++{
++    if ( p->basic.max_leaf < 0x1c ||
++         !(cpu_policy_xstates(&host_cpu_policy) & X86_XSS_LBR) ||
++         p->basic.lbr_1Ca.supported_depths == 0)
++        p->feat.arch_lbr = 0;
++    if ( !p->feat.arch_lbr )
++        p->basic.raw[0x1c] = EMPTY_LEAF;
++}
++
+ static void recalculate_xstate(struct cpu_policy *p)
+ {
+     uint64_t xstates = XSTATE_FP_SSE;
+@@ -219,6 +229,9 @@ static void recalculate_xstate(struct cpu_policy *p)
+     if ( p->feat.amx_tile )
+         xstates |= X86_XCR0_TILE_CFG | X86_XCR0_TILE_DATA;
  
++    if ( p->feat.arch_lbr )
++        xstates |= X86_XSS_LBR;
++
+     /* Subleaf 0 */
+     p->xstate.max_size =
+         xstate_uncompressed_size(xstates & ~XSTATE_XSAVES_ONLY);
+@@ -271,6 +284,8 @@ static void recalculate_misc(struct cpu_policy *p)
+ 
+     p->basic.raw[0xc] = EMPTY_LEAF;
+ 
++    zero_leaves(p->basic.raw, 0xe, 0x1b);
++
+     p->extd.e1d &= ~CPUID_COMMON_1D_FEATURES;
+ 
+     /* Most of Power/RAS hidden from guests. */
+@@ -630,6 +645,7 @@ static void __init calculate_pv_max_policy(void)
+ 
+     sanitise_featureset(fs);
+     x86_cpu_featureset_to_policy(fs, p);
++    recalculate_arch_lbr(p);
+     recalculate_xstate(p);
+ 
+     p->extd.raw[0xa] = EMPTY_LEAF; /* No SVM for PV guests. */
+@@ -670,6 +686,7 @@ static void __init calculate_pv_def_policy(void)
+     }
+ 
+     x86_cpu_featureset_to_policy(fs, p);
++    recalculate_arch_lbr(p);
+     recalculate_xstate(p);
+ }
+ 
+@@ -755,6 +772,14 @@ static void __init calculate_hvm_max_policy(void)
+ 
+         if ( !cpu_has_vmx_xsaves )
+             __clear_bit(X86_FEATURE_XSAVES, fs);
++
++        /*
++         * VMX bitmap is needed for passing through LBR info MSRs.
++         * Require it for virtual arch LBR.
++         */
++        if ( !cpu_has_vmx_guest_lbr_ctl || !cpu_has_vmx_msr_bitmap ||
++             !cpu_has_vmx_xsaves )
++            __clear_bit(X86_FEATURE_ARCH_LBR, fs);
+     }
+ 
+     /*
+@@ -787,6 +812,7 @@ static void __init calculate_hvm_max_policy(void)
+ 
+     sanitise_featureset(fs);
+     x86_cpu_featureset_to_policy(fs, p);
++    recalculate_arch_lbr(p);
+     recalculate_xstate(p);
+ 
+     /* It's always possible to emulate CPUID faulting for HVM guests */
+@@ -839,6 +865,7 @@ static void __init calculate_hvm_def_policy(void)
+     }
+ 
+     x86_cpu_featureset_to_policy(fs, p);
++    recalculate_arch_lbr(p);
+     recalculate_xstate(p);
+ }
+ 
+@@ -971,6 +998,7 @@ void recalculate_cpuid_policy(struct domain *d)
+ 
+     p->extd.maxlinaddr = p->extd.lm ? 48 : 32;
+ 
++    recalculate_arch_lbr(p);
+     recalculate_xstate(p);
+     recalculate_misc(p);
+ 
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index 067d855bad..0056b55457 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -505,6 +505,13 @@ static void generic_identify(struct cpuinfo_x86 *c)
+ 			    &c->x86_capability[FEATURESET_Da1],
+ 			    &tmp, &tmp, &tmp);
+ 
++	if (c->cpuid_level >= 0x1c)
++		cpuid(0x1c,
++		      &c->x86_capability[FEATURESET_1Ca],
++		      &c->x86_capability[FEATURESET_1Cb],
++		      &c->x86_capability[FEATURESET_1Cc],
++		      &tmp);
++
+ 	if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability))
+ 		rdmsr(MSR_ARCH_CAPABILITIES,
+ 		      c->x86_capability[FEATURESET_m10Al],
 -- 
 2.43.0
 
