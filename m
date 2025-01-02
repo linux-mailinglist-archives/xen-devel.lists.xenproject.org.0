@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73F919FFEEC
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 19:55:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864401.1275608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3002B9FFF38
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 20:04:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.864409.1275618 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTQLS-0005tD-Uc; Thu, 02 Jan 2025 18:54:58 +0000
+	id 1tTQUa-0007di-PW; Thu, 02 Jan 2025 19:04:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864401.1275608; Thu, 02 Jan 2025 18:54:58 +0000
+Received: by outflank-mailman (output) from mailman id 864409.1275618; Thu, 02 Jan 2025 19:04:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTQLS-0005rY-RX; Thu, 02 Jan 2025 18:54:58 +0000
-Received: by outflank-mailman (input) for mailman id 864401;
- Thu, 02 Jan 2025 18:54:57 +0000
+	id 1tTQUa-0007bM-Ma; Thu, 02 Jan 2025 19:04:24 +0000
+Received: by outflank-mailman (input) for mailman id 864409;
+ Thu, 02 Jan 2025 19:04:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4GO/=T2=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tTQLR-0005rS-O5
- for xen-devel@lists.xenproject.org; Thu, 02 Jan 2025 18:54:57 +0000
-Received: from fout-a7-smtp.messagingengine.com
- (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ <SRS0=xoa/=T2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tTQUZ-0007bG-JG
+ for xen-devel@lists.xenproject.org; Thu, 02 Jan 2025 19:04:23 +0000
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [2a00:1450:4864:20::443])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0da0035f-c93b-11ef-99a4-01e77a169b0f;
- Thu, 02 Jan 2025 19:54:54 +0100 (CET)
-Received: from phl-compute-03.internal (phl-compute-03.phl.internal
- [10.202.2.43])
- by mailfout.phl.internal (Postfix) with ESMTP id 8691613801E6;
- Thu,  2 Jan 2025 13:54:53 -0500 (EST)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Thu, 02 Jan 2025 13:54:53 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Jan 2025 13:54:52 -0500 (EST)
+ id 5fcc4ff4-c93c-11ef-99a4-01e77a169b0f;
+ Thu, 02 Jan 2025 20:04:21 +0100 (CET)
+Received: by mail-wr1-x443.google.com with SMTP id
+ ffacd0b85a97d-385e2880606so8566968f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jan 2025 11:04:21 -0800 (PST)
+Received: from [192.168.86.29] ([83.105.36.37])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c828e7asm38426846f8f.21.2025.01.02.11.04.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jan 2025 11:04:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,256 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0da0035f-c93b-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1735844093;
-	 x=1735930493; bh=py7bMEXCkmOwoyNrLMBn3B5MiAvMSOofM6suwigFQBg=; b=
-	2bvWa9uS+3AJCZLJQNfVXLvvrFsqllZ7JVLfBePWN9DXmnnB7e+zR5vFh28JD9L5
-	tBov6ZIVUQZ08VRdfPrpWvUq5dXbeZ2tYpsekklN5jW8wJP4CfJ7sG00+U3VFETr
-	KZq6Widgrir2tBSG0JzfiADCg8Q9gVlUldlJaFITBwQ8oVKA1tfUpzR1u65Omn74
-	7zgGuKiLX549VxKXGyxjauYZeey8OICLaom1T+jHsW5l+Ycs5kR5svfmZVJhCszX
-	E+r4nBGQ6zVnx9nbW2+5vtXa/3eKyUmkNk4ov/+Schjzqplz6DuCtTDYqgOT8EF2
-	CtSBte/TKkZ30wTBzoc/6A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1735844093; x=1735930493; bh=py7bMEXCkmOwoyNrLMBn3B5MiAvMSOofM6s
-	uwigFQBg=; b=bcJrh/yC13PAMJeaW2pTGQS/iiYsRjKCb78EqucA/QDZE8Mfrn8
-	i4gQK5tcsm38ovib3xtU2p4A7dL7uMltT5BVwKHxLmNA5xyDec6OlauWBk/KYUDz
-	BiiWN0J9CilOPMg8FGSUrDvO4wc97F5Fq41+oGkrMb2fafZDOL8NVGPQ3IovUGUD
-	ZhQTSWlnBmG7s04sbi24i9v85KzcYtQHpBqbgGsZdOs/g08xNm+1Rohr3PlPTEVn
-	o8VlsPyvzzAYpX1twMWrzhJYdaefxvzYn99nNzALihe2EEgrRI9ZQzgKUmHoAqu7
-	SBVqdA4Qt0SZheo56mKDZRvKEvtpWJzUvrw==
-X-ME-Sender: <xms:_eB2Z97DLM8MgxjhcQWMBaJoHAK5bMeopH-iICtoelv6XgL9OgDR8g>
-    <xme:_eB2Z671psqlXZi_Ow-dHNL93VtfFn0DLrugDbTOKc__FYm66c_B8QnTg2c06cjHK
-    5nv9Wcz-EGJIQ>
-X-ME-Received: <xmr:_eB2Z0dHmaGH-W7wyxyWr4DZGb9oYySBGup9AAKdRu5-nHzHIkuaamswn97jZDQOUrXq91yeLTksjUnXKxnsguOLGdbDH2tHUw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrudefvddguddulecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
-    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
-    tffrrghtthgvrhhnpeejjefgkedugeehiedvieffvdffgeetkedthfduleejieekhfetfe
-    ekfefggfeigeenucffohhmrghinhepqhhusggvshdqohhsrdhorhhgpdhgihhthhhusgdr
-    tghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggp
-    rhgtphhtthhopedvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehjghhrohhssh
-    esshhushgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigv
-    nhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:_eB2Z2KPpBDpEeHpOS_2nWOaKu85X1x6dmSqhEoo2AuO8uCz7nhpIQ>
-    <xmx:_eB2ZxLdflU3k2HSopZEg7G3x-zI7hYnh_DTCCnXp2JY1b7doRVnAg>
-    <xmx:_eB2Z_zoIEsx0CHhrJM1TAG_Fz5YPu6HE9eRkdRBdxwit7seUfuG8A>
-    <xmx:_eB2Z9IsQ1FPffIBTtYkFNOZkayzJvyPfKI6aIGsW8ifJqINwpirWA>
-    <xmx:_eB2Z4W6Da_e-zETSAcRPv7KXchLROHbhsuKBbyovUNjfHibDLHYORLL>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 2 Jan 2025 19:54:50 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: 5fcc4ff4-c93c-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1735844661; x=1736449461; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rb7FfLHcicmvieSspHR+ItqMa2mcY65KCqVAS5Vopqg=;
+        b=st1ijp+zhAW31MJOkJXKoEaKNUiKiDCyJcg6J0ykC8qm93EMvgDtykFtAev1tJgp39
+         152SVyv5qjIJ2fNX1EDYJK7SRO9xh9JflddD0x5KXfpV4nkzuntZTcOjaah5m5e+8JTm
+         46vHDeWXrVf+MgruRNdGEx8gmR224CRpRjD90=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1735844661; x=1736449461;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rb7FfLHcicmvieSspHR+ItqMa2mcY65KCqVAS5Vopqg=;
+        b=QMkW/SDbfNiDKqDz5e38V5RQF2YWx5pm6P4y9mWK5dgkuggqGDpri9KnW6HZbBWGnT
+         QObbeHq4O8inNuthgBox4cDd1/eGY0mu85Yn6DP8f91tlmq3LTPEN/+mhFPPI8TqTptb
+         Z531Jn0yIF0kolmtHdcrSrhLZCb6Fov2wp3hrRI7L8odRxVI3+2JDCysFDMfZqQULShH
+         f+ABZqjh1dgxyghy85QRA771nbwDu5J6SmlzAQyHGLgUI0tGKoH4zdvdwcJB59uJ2qfV
+         SQE1AamMoRVnL00YH7kCVw1Qk7JfhCJx69IYWpNaWcifWYv1nTSEtRxcc02XjZxQ13ts
+         4fgA==
+X-Gm-Message-State: AOJu0YwB3wnALUCbpG6g9eh+86GLxbb6D6vwr8ijxtlT7OtAzQUUQ4dx
+	WjvTkB9151BJxNt3i9RIU05N1Rq7oCMRYyAngrwcDOMtLIqhRBmOeG+2O0EUjPo=
+X-Gm-Gg: ASbGncsXTsy8ZHvGpYwNDBZ4HLnqLxQ8Lzdj594I+MIJcPg5jECERMKNaLxNam/lIgu
+	R5Fu0IJXHDufYnkSxXkr/yHFhk2Xo/eFPFThNu6kr3EQsN/4XASXirAjK2M37dU+u+I2rItF2nz
+	aQMEaowiiD4eguq94BAmqBSGHnqAa72fRN/DZI/2F7lB/pz6X+oiAt0P8RxEv3foWzcckJ8ILQ3
+	jm2fmijjgo3AobHgZaNSNmH/djWBLB4fdQWqar8MCUtjS2x8jPyN8jVIRHcoD/GxYI=
+X-Google-Smtp-Source: AGHT+IH019NJVRQMl8Gfpoo7RZvFdOINb0JTiHAUWV4JYtNxuTFwlzsz3joV82Pu42P06ZPwslMC+w==
+X-Received: by 2002:a5d:6d84:0:b0:385:f66a:4271 with SMTP id ffacd0b85a97d-38a221e24f4mr39188851f8f.4.1735844660806;
+        Thu, 02 Jan 2025 11:04:20 -0800 (PST)
+Message-ID: <0be813be-b964-4ee7-b1c4-0d7da06d690a@citrix.com>
+Date: Thu, 2 Jan 2025 19:04:19 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
-Message-ID: <Z3bg-gvaBEdSIuRW@mail-itl>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
 References: <Z2RGfpJkO0z_nKV6@mail-itl>
  <ab9c27d5-f3f2-4b8a-960d-f880ec136199@suse.com>
- <6bb03333-74ca-4c2c-85a8-72549b85a5b4@suse.com>
- <Z3aFdrygLF9yK2EK@mail-itl>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="fRL8aTYga7dpRTxH"
-Content-Disposition: inline
-In-Reply-To: <Z3aFdrygLF9yK2EK@mail-itl>
+ <6bb03333-74ca-4c2c-85a8-72549b85a5b4@suse.com> <Z3aFdrygLF9yK2EK@mail-itl>
+ <Z3bg-gvaBEdSIuRW@mail-itl>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <Z3bg-gvaBEdSIuRW@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 02/01/2025 6:54 pm, Marek Marczykowski-Górecki wrote:
+> On Thu, Jan 02, 2025 at 01:24:21PM +0100, Marek Marczykowski-Górecki wrote:
+>> On Thu, Jan 02, 2025 at 12:30:10PM +0100, Juergen Gross wrote:
+>>> On 02.01.25 11:20, Jürgen Groß wrote:
+>>>> On 19.12.24 17:14, Marek Marczykowski-Górecki wrote:
+>>>>> Hi,
+>>>>>
+>>>>> It crashes on boot like below, most of the times. But sometimes (rarely)
+>>>>> it manages to stay alive. Below I'm pasting few of the crashes that look
+>>>>> distinctly different, if you follow the links, you can find more of
+>>>>> them. IMHO it looks like some memory corruption bug somewhere. I tested
+>>>>> also Linux 6.13-rc2 before, and it had very similar issue.
+>>>> ...
+>>>>
+>>>>> Full log:
+>>>>> https://openqa.qubes-os.org/tests/122879/logfile?filename=serial0.txt
+>>>> I can reproduce a crash with 6.13-rc5 PV dom0.
+>>>>
+>>>> What is really interesting in the logs: most crashes seem to happen right
+>>>> after a module being loaded (in my reproducer it was right after loading
+>>>> the first module).
+>>>>
+>>>> I need to go through the 6.13 commits, but I think I remember having seen
+>>>> a patch optimizing module loading by using large pages for addressing the
+>>>> loaded modules. Maybe the case of no large pages being available isn't
+>>>> handled properly.
+>>> Seems I was right.
+>>>
+>>> For me the following diff fixes the issue. Marek, can you please confirm
+>>> it fixes your crashes, too?
+>> Thanks for looking into it!
+>> Will do, I've pushed it to
+>> https://github.com/QubesOS/qubes-linux-kernel/pull/662, CI will build it
+>> and then I'll post it to openQA.
+> It is much better!
+>
+> Tests are still running, but I already see that many are green. There is
+> one issue (likely unrelated to this change) - sys-usb (HVM domU with USB
+> controllers passed through) crashes on a system with Raptor Lake CPU
+> (only, others, including ADL and MTL look fine):
+>
+> [   75.770849] Bluetooth: Core ver 2.22
+> [   75.770866] Oops: general protection fault, probably for non-canonical address 0xc9d2315bc82c3bbd: 0000 [#1] PREEMPT SMP NOPTI
+> [   75.770880] CPU: 0 UID: 0 PID: 923 Comm: (udev-worker) Not tainted 6.13.0-0.rc5.2.qubes.1.fc41.x86_64 #1
+> [   75.770890] Hardware name: Xen HVM domU, BIOS 4.19.0 01/02/2025
+> [   75.770897] RIP: 0010:msft_monitor_device_del+0x93/0x170 [bluetooth]
+> [   75.770924] Code: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 d0 65 21 <26> 2b 8b ad 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
---fRL8aTYga7dpRTxH
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 2 Jan 2025 19:54:50 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux 6.13-rc3 many different panics in Xen PV dom0
+es sub 0x3ad(%rbx),%ecx
 
-On Thu, Jan 02, 2025 at 01:24:21PM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Thu, Jan 02, 2025 at 12:30:10PM +0100, Juergen Gross wrote:
-> > On 02.01.25 11:20, J=C3=BCrgen Gro=C3=9F wrote:
-> > > On 19.12.24 17:14, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > Hi,
-> > > >=20
-> > > > It crashes on boot like below, most of the times. But sometimes (ra=
-rely)
-> > > > it manages to stay alive. Below I'm pasting few of the crashes that=
- look
-> > > > distinctly different, if you follow the links, you can find more of
-> > > > them. IMHO it looks like some memory corruption bug somewhere. I te=
-sted
-> > > > also Linux 6.13-rc2 before, and it had very similar issue.
-> > >=20
-> > > ...
-> > >=20
-> > > >=20
-> > > > Full log:
-> > > > https://openqa.qubes-os.org/tests/122879/logfile?filename=3Dserial0=
-=2Etxt
-> > >=20
-> > > I can reproduce a crash with 6.13-rc5 PV dom0.
-> > >=20
-> > > What is really interesting in the logs: most crashes seem to happen r=
-ight
-> > > after a module being loaded (in my reproducer it was right after load=
-ing
-> > > the first module).
-> > >=20
-> > > I need to go through the 6.13 commits, but I think I remember having =
-seen
-> > > a patch optimizing module loading by using large pages for addressing=
- the
-> > > loaded modules. Maybe the case of no large pages being available isn't
-> > > handled properly.
-> >=20
-> > Seems I was right.
-> >=20
-> > For me the following diff fixes the issue. Marek, can you please confirm
-> > it fixes your crashes, too?
->=20
-> Thanks for looking into it!
-> Will do, I've pushed it to
-> https://github.com/QubesOS/qubes-linux-kernel/pull/662, CI will build it
-> and then I'll post it to openQA.
+I highly doubt that's an instruction that the compiler really put out
+for this function.
 
-It is much better!
+The preceding bytes are "shlb 0x21(%rbp)" which isn't completely
+implausible, but the surrounding 0's very much are.
 
-Tests are still running, but I already see that many are green. There is
-one issue (likely unrelated to this change) - sys-usb (HVM domU with USB
-controllers passed through) crashes on a system with Raptor Lake CPU
-(only, others, including ADL and MTL look fine):
+This looks very fishy, and either looks like DMA hitting .text, or
+module handling getting it's regions wrong.
 
-[   75.770849] Bluetooth: Core ver 2.22
-[   75.770866] Oops: general protection fault, probably for non-canonical a=
-ddress 0xc9d2315bc82c3bbd: 0000 [#1] PREEMPT SMP NOPTI
-[   75.770880] CPU: 0 UID: 0 PID: 923 Comm: (udev-worker) Not tainted 6.13.=
-0-0.rc5.2.qubes.1.fc41.x86_64 #1
-[   75.770890] Hardware name: Xen HVM domU, BIOS 4.19.0 01/02/2025
-[   75.770897] RIP: 0010:msft_monitor_device_del+0x93/0x170 [bluetooth]
-[   75.770924] Code: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 =
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 d0 65 21 <26=
-> 2b 8b ad 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   75.770943] RSP: 0000:ffffad644108fa40 EFLAGS: 00010246
-[   75.770950] RAX: ffff93da8a149600 RBX: c9d2315bc82c3810 RCX: 00000001000=
-00000
-[   75.770958] RDX: 0000000000000001 RSI: ffff93da905e9180 RDI: ffff93da814=
-04598
-[   75.770967] RBP: ffffad644108fa58 R08: 0000000000000064 R09: 00000000000=
-012ab
-[   75.770975] R10: ffff93da81207000 R11: 0000000000000286 R12: ffffad64410=
-8fb00
-[   75.770983] R13: ffffad644108fa68 R14: ffff93da9089b840 R15: ffff93da8c2=
-65100
-[   75.770991] FS:  000078fa4cec4bc0(0000) GS:ffff93da97000000(0000) knlGS:=
-0000000000000000
-[   75.771000] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   75.771007] CR2: 000074fa64aadc08 CR3: 00000000105d2006 CR4: 00000000007=
-70ef0
-[   75.771016] PKRU: 55555554
-[   75.771019] Call Trace:
-[   75.771024]  <TASK>
-[   75.771028]  ? show_trace_log_lvl+0x1b0/0x2f0
-[   75.771036]  ? show_trace_log_lvl+0x1b0/0x2f0
-[   75.771042]  ? do_one_initcall+0x58/0x310
-[   75.771048]  ? __die_body.cold+0x8/0x12
-[   75.771053]  ? die_addr+0x3c/0x60
-[   75.771059]  ? exc_general_protection+0x17d/0x400
-[   75.771066]  ? asm_exc_general_protection+0x26/0x30
-[   75.771074]  ? msft_monitor_device_del+0x93/0x170 [bluetooth]
-[   75.771095]  ? bt_init+0x54/0x1d0 [bluetooth]
-[   75.771114]  ? __pfx_bt_init+0x10/0x10 [bluetooth]
-[   75.771131]  ? do_one_initcall+0x58/0x310
-[   75.771137]  ? do_init_module+0x90/0x250
-[   75.771142]  ? init_module_from_file+0x86/0xc0
-[   75.771149]  ? idempotent_init_module+0x115/0x310
-[   75.771156]  ? __x64_sys_finit_module+0x65/0xc0
-[   75.771163]  ? do_syscall_64+0x82/0x160
-[   75.771168]  ? backing_file_read_iter+0x156/0x1f0
-[   75.771176]  ? ovl_read_iter+0x94/0xa0 [overlay]
-[   75.771189]  ? __pfx_ovl_file_accessed+0x10/0x10 [overlay]
-[   75.771199]  ? rseq_get_rseq_cs+0x1d/0x220
-[   75.771205]  ? rseq_ip_fixup+0x8d/0x1d0
-[   75.771210]  ? __seccomp_filter+0x303/0x520
-[   75.771216]  ? syscall_exit_to_user_mode_prepare+0x15e/0x1a0
-[   75.771224]  ? syscall_exit_to_user_mode+0x10/0x210
-[   75.771231]  ? do_syscall_64+0x8e/0x160
-[   75.771236]  ? do_sys_openat2+0x9c/0xe0
-[   75.771241]  ? syscall_exit_to_user_mode_prepare+0x15e/0x1a0
-[   75.771249]  ? syscall_exit_to_user_mode+0x10/0x210
-[   75.771255]  ? do_syscall_64+0x8e/0x160
-[   75.771260]  ? do_user_addr_fault+0x1ec/0x7b0
-[   75.771267]  ? entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[   75.771274]  </TASK>
-[   75.771277] Modules linked in: bluetooth(+) rfkill snd_seq_dummy snd_hrt=
-imer snd_seq snd_seq_device snd_timer snd soundcore nft_reject_ipv6 nf_reje=
-ct_ipv6 nft_reject_ipv4 nf_reject_ipv4 nft_reject intel_rapl_msr intel_rapl=
-_common nft_ct intel_uncore_frequency_common intel_pmc_core intel_vsec joyd=
-ev nft_masq pmt_telemetry pmt_class nft_chain_nat nf_nat nf_conntrack nf_de=
-frag_ipv6 nf_defrag_ipv4 crct10dif_pclmul crc32_pclmul crc32c_intel polyval=
-_clmulni xhci_pci polyval_generic ghash_clmulni_intel xhci_hcd sha512_ssse3=
- sha256_ssse3 nf_tables sha1_ssse3 ehci_pci mei_me ehci_hcd pcspkr mei ata_=
-generic pata_acpi i2c_piix4 i2c_smbus serio_raw xen_scsiback target_core_mo=
-d xen_netback xen_privcmd xen_gntdev xen_gntalloc xen_blkback xen_evtchn lo=
-op fuse nfnetlink overlay xen_blkfront
-[   75.771370] ---[ end trace 0000000000000000 ]---
-[   75.771376] RIP: 0010:msft_monitor_device_del+0x93/0x170 [bluetooth]
-[   75.771397] Code: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 =
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 d0 65 21 <26=
-> 2b 8b ad 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   75.771416] RSP: 0000:ffffad644108fa40 EFLAGS: 00010246
-[   75.771422] RAX: ffff93da8a149600 RBX: c9d2315bc82c3810 RCX: 00000001000=
-00000
-[   75.771431] RDX: 0000000000000001 RSI: ffff93da905e9180 RDI: ffff93da814=
-04598
-[   75.771439] RBP: ffffad644108fa58 R08: 0000000000000064 R09: 00000000000=
-012ab
-[   75.771446] R10: ffff93da81207000 R11: 0000000000000286 R12: ffffad64410=
-8fb00
-[   75.771454] R13: ffffad644108fa68 R14: ffff93da9089b840 R15: ffff93da8c2=
-65100
-[   75.771463] FS:  000078fa4cec4bc0(0000) GS:ffff93da97000000(0000) knlGS:=
-0000000000000000
-[   75.771471] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   75.771477] CR2: 000074fa64aadc08 CR3: 00000000105d2006 CR4: 00000000007=
-70ef0
-[   75.771485] PKRU: 55555554
-[   75.771488] Kernel panic - not syncing: Fatal exception
-[   75.771519] Kernel Offset: 0x3b800000 from 0xffffffff80200000 (relocatio=
-n range: 0xffffffff80000000-0xffffffffbfffffff)
-
-Full log inside
-https://openqa.qubes-os.org/tests/124736/file/usbvm-var_log.tar.gz
-(log/xen/console/guest-sys-usb.log)
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---fRL8aTYga7dpRTxH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmd24PoACgkQ24/THMrX
-1ywTjAf/aSTmAu0wt8aelLNPGqdFCFbUTw1bM8CNyuob4Ui1b4ntin9ClHjj+mXX
-EPa+J2ub7hqw8l5QjPDEIgsW2TDNR0bGahlzr+FBqEngx1/Nopudj2tCvzPu1tkU
-4w/wL4EOFTbTRSzOy0Gi1Jx54xRk4JM6/xAtDmjPDHGs1SRozQJfwIAfO8KO5lCi
-KT1eRfYvUNiPoiKhR7ARKWglfSr/o4518VimKumbpIvGDZl9eSb059gMKoTTqfZd
-0+jZXsgMUsbcj4lqejQpL/c4k8vEy1cUXh8dFkQwk07CN7kpE7magJj9iwrUsixZ
-Jh0w2Pc7EBaN/LFEme5BarkhqQBuxw==
-=3yxV
------END PGP SIGNATURE-----
-
---fRL8aTYga7dpRTxH--
+~Andrew
 
