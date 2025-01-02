@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DD4D9FFA81
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 15:36:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864135.1275413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAB2C9FFB04
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 16:32:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.864150.1275423 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTMIp-00039K-0g; Thu, 02 Jan 2025 14:35:59 +0000
+	id 1tTNB2-0006eF-1R; Thu, 02 Jan 2025 15:32:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864135.1275413; Thu, 02 Jan 2025 14:35:58 +0000
+Received: by outflank-mailman (output) from mailman id 864150.1275423; Thu, 02 Jan 2025 15:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTMIo-00037w-U9; Thu, 02 Jan 2025 14:35:58 +0000
-Received: by outflank-mailman (input) for mailman id 864135;
- Thu, 02 Jan 2025 14:35:58 +0000
+	id 1tTNB1-0006aj-Ue; Thu, 02 Jan 2025 15:31:59 +0000
+Received: by outflank-mailman (input) for mailman id 864150;
+ Thu, 02 Jan 2025 15:31:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bpvf=T2=casper.srs.infradead.org=BATV+b36269e03d8020e3a9b7+7802+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1tTMIn-00037i-9U
- for xen-devel@lists.xen.org; Thu, 02 Jan 2025 14:35:58 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=11hu=T2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tTNB0-0006aK-LW
+ for xen-devel@lists.xenproject.org; Thu, 02 Jan 2025 15:31:58 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfeac556-c916-11ef-a0db-8be0dac302b0;
- Thu, 02 Jan 2025 15:35:55 +0100 (CET)
-Received: from [172.31.31.240] (helo=u09cd745991455d.lumleys.internal)
- by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1tTMIk-0000000GuOY-3Qf6; Thu, 02 Jan 2025 14:35:55 +0000
+ id b35feaee-c91e-11ef-a0db-8be0dac302b0;
+ Thu, 02 Jan 2025 16:31:56 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3f28881d6so16512634a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jan 2025 07:31:56 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aac0e82f56csm1808981966b.24.2025.01.02.07.31.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jan 2025 07:31:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,195 +44,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfeac556-c916-11ef-a0db-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KG5IkzKeosI7+4oEJDlmtguBz0CAnrqYVIWD81ZrtUk=; b=sl/WCXzsbWLCVkgvYXp5vSbt4B
-	TXD1MkId/G/5F7jmWRCLOpwtlWBJ8VWFJzfpuBV6gbOiqx1LMX35sqlrhT00l4yFNqAQ+OxmBb8Rv
-	4iyFYBI5MGS46yivzU2dPsk6tAjEpclAaR2azPubi8BKBtPreXXmjSqKLHfhxLzH+AbAQ8CXB+suH
-	EL+UOZy8+wayiowpNhRsf4DRdHMcvefTr7z8KINDUhQQMvIC7KSTH16QNuRDufgDhWeTxH9TW9azd
-	jChERMbHuygbWLz508DQPRBrqmogVDwCeUrd0iNLVGFFSRkquFkFZ75/+w9FjTyV5+cIq9okFtnT9
-	msaJrDFQ==;
-Message-ID: <f1c251654b483475044ca4be35d4c19047034540.camel@infradead.org>
-Subject: Re: Xen Security Advisory 466 v3 (CVE-2024-53241) - Xen hypercall
- page unsafe against speculative attacks
-From: David Woodhouse <dwmw2@infradead.org>
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, "Xen.org security
- team" <security@xen.org>, xen-announce@lists.xen.org,
- xen-devel@lists.xen.org,  xen-users@lists.xen.org,
- oss-security@lists.openwall.com
-Cc: "Xen.org security team" <security-team-members@xen.org>
-Date: Thu, 02 Jan 2025 14:35:54 +0000
-In-Reply-To: <fc4170ed-d238-4e1c-817e-3695a7112d9d@suse.com>
-References: <E1tNWXG-00E268-2p@xenbits.xenproject.org>
-	 <54c892eded2b4ebdda8ee1085c383178f44414ad.camel@infradead.org>
-	 <a3031e7d-fe9d-4db8-8ccd-923165c9af72@suse.com>
-	 <fc4c45ea86567ef0c46d7e5a20e8abffa75cc4ec.camel@infradead.org>
-	 <fd993f8d-280f-439a-a6a0-506e2815f281@suse.com>
-	 <b7323a9fa5239443b9b6f3daa423196de1051748.camel@infradead.org>
-	 <40734e79-fb55-4712-aae1-3ef350af4f3c@suse.com>
-	 <f9b4ae8af70b8b5136b59237c7925f57220b3d5b.camel@infradead.org>
-	 <fc4170ed-d238-4e1c-817e-3695a7112d9d@suse.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-jQbH6hBcOV8IEXh9/WzY"
-User-Agent: Evolution 3.52.3-0ubuntu1 
+X-Inumbo-ID: b35feaee-c91e-11ef-a0db-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1735831916; x=1736436716; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Mi4l6mQiox6EMT1JrUAeL7uMkXcXkD+Z0FQnXiNFgRY=;
+        b=Q/BHfE63qJ/OHs7nwCZiqHxsw3B2tKyCAsq0OODpHoof4/5i3vRXJX5iYtgCLR3lp9
+         K212SYfqvTZM2dsrjtXSxRj3B4fyedU1ja0mPEZZvpymC4dVcNfBVQhdqKxmpgGT/xQy
+         CGbrUVaY6nAh0eEHKWsH3+XrPpKQij4cc3gzc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1735831916; x=1736436716;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Mi4l6mQiox6EMT1JrUAeL7uMkXcXkD+Z0FQnXiNFgRY=;
+        b=a47EzMO1X0LtgFoXi1kCJEaLE50vUGHtsgAH8K9xdKHAyhnMJFr87YWHlvknR6vzS8
+         V/sKaWOJHZ3hJOI+rg+XTSqZFwTukAP3aI4j6CvCCRnB/rqa9pygQgTuavNOOwvosmIp
+         Z3JENxXBFVjQAl+Jv2AS2iO7iuryQCc/n/IYKZ14YD28qsCYPXyrQ/YXXaWH+EFMJoBl
+         wgR2H5yR6gh86N8K+fM+HZ87IKKT9lfGsyJU4zqPPQLe/emtZaWLACbK6asYSDBPr2l9
+         /zRgknPEJY4f5fP2+OqElTfhXvnHgTCCN4LC+O2JTARSECPqw3Bp5pQKqQqq/Lk9eUMk
+         6F+A==
+X-Gm-Message-State: AOJu0YxWlFqg+8tUVW4vedtmQeQpa6ShjiIygfwKGAH+CbmBHJxlfqEJ
+	o6NmNbhPtBGx0elliaB33l4FiNdDoYaj8g+5uZeXdyC3593FC8moSeBziqysqi4=
+X-Gm-Gg: ASbGnctUYKUawNaiQerL46Ef3LozoOmM/hbKTA+h8kB3qLfku/Jjh1xlVsK/h4YHlFK
+	uj1pHh9HM8zjJaA+SXis7Q0B+oFsuXS2wQe9KfCbVZpIuHWluCokR0E3DhIRfQCFHoNOlKYejDO
+	d2URiURT2mmPnq/NViKZrG92soDHIqKkPDpxDmFymocFJW0eTYiqaMMN/g03iLbGM1qeZ0HYa/P
+	5JZxMv2zphHP5/GLZ6m86yPM2uesJeIfQ9kKH5ed0RvbbXjFALnstLfrlBlIg==
+X-Google-Smtp-Source: AGHT+IGuR1kQgNPc4pmoSDtxhw/xf1G+uSKr5Flpnta6qR7wyICGxjfydGQRvve1uqApDTnsGJZ9Bw==
+X-Received: by 2002:a05:6402:3604:b0:5d9:d58:bcfa with SMTP id 4fb4d7f45d1cf-5d90d58c161mr2173921a12.27.1735831914831;
+        Thu, 02 Jan 2025 07:31:54 -0800 (PST)
+Date: Thu, 2 Jan 2025 16:31:53 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3] x86/spec-ctrl: Support for SRSO_U/S_NO and
+ SRSO_MSR_FIX
+Message-ID: <Z3axaRUXroc9SyzC@macbook.local>
+References: <20241220193424.470994-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241220193424.470994-1-andrew.cooper3@citrix.com>
 
+On Fri, Dec 20, 2024 at 07:34:24PM +0000, Andrew Cooper wrote:
+> AMD have updated the SRSO whitepaper[1] with further information.  These
+> features exist on AMD Zen5 CPUs and are necessary for Xen to use.
+> 
+> The two features are in principle unrelated:
+> 
+>  * SRSO_U/S_NO is an enumeration saying that SRSO attacks can't cross the
+>    User(CPL3) / Supervisor(CPL<3) boundary.  i.e. Xen don't need to use
+>    IBPB-on-entry for PV64.  PV32 guests are explicitly unsupported for
+>    speculative issues, and excluded from consideration for simplicity.
+> 
+>  * SRSO_MSR_FIX is an enumeration identifying that the BP_SPEC_REDUCE bit is
+>    available in MSR_BP_CFG.  When set, SRSO attacks can't cross the host/guest
+>    boundary.  i.e. Xen don't need to use IBPB-on-entry for HVM.
+> 
+> Extend ibpb_calculations() to account for these when calculating
+> opt_ibpb_entry_{pv,hvm} defaults.  Add a `bp-spec-reduce=<bool>` option to
+> control the use of BP_SPEC_REDUCE, with it active by default.
+> 
+> Because MSR_BP_CFG is core-scoped with a race condition updating it, repurpose
+> amd_check_erratum_1485() into amd_check_bp_cfg() and calculate all updates at
+> once.
+> 
+> Xen also needs to to advertise SRSO_U/S_NO to guests to allow the guest kernel
+> to skip SRSO mitigations too:
+> 
+>  * This is trivial for HVM guests.  It is also is accurate for PV32 guests
+>    too, but we have already excluded them from consideration, and do so again
+>    here to simplify the policy logic.
+> 
+>  * As written, SRSO_U/S_NO does not help for the PV64 user->kernel boundary.
+>    However, after discussing with AMD, an implementation detail of having
+>    BP_SPEC_REDUCE active causes the PV64 user->kernel boundary to have the
+>    property described by SRSO_U/S_NO, so we can advertise SRSO_U/S_NO to
+>    guests when the BP_SPEC_REDUCE precondition is met.
+> 
+> Finally, fix a typo in the SRSO_NO's comment.
+> 
+> [1] https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
---=-jQbH6hBcOV8IEXh9/WzY
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+FTAOD, my RB tag stands given the changes in v3.
 
-On Thu, 2025-01-02 at 15:16 +0100, J=C3=BCrgen Gro=C3=9F wrote:
-> On 02.01.25 15:06, David Woodhouse wrote:
-> > On Thu, 2025-01-02 at 15:02 +0100, J=C3=BCrgen Gro=C3=9F wrote:
-> > > > Are you suggesting that you're able to enable the CPU-specific CFI
-> > > > protections before you even know whether it's an Intel or AMD CPU?
-> > >=20
-> > > Not before that, but maybe rather soon afterwards. And the hypercall =
-page
-> > > needs to be decommissioned before the next hypercall is happening. Th=
-e question
-> > > is whether we have a hook in place to do that switch between cpu iden=
-tification
-> > > and CFI enabling.
-> >=20
-> > Not sure that's how I'd phrase it. Even if we have to add a hook at the
-> > right time to switch from the Xen-populated hypercall page to the one
-> > filled in by Linux, the question is whether adding that hook is simpler
-> > than all this early static_call stuff that's been thrown together, and
-> > the open questions about the 64-bit latching.
->=20
-> This is a valid question, yes. My first version of these patches didn't
-> work with static_call, but used the paravirt call patching mechanism
-> replacing an indirect call with a direct one via ALTERNATIVEs. That
-> version was disliked by some involved x86 maintainers, resulting in the
-> addition of the early static_call update mechanism.
->=20
-> One thing to mention regarding the 64-bit latching: what would you do
-> with HVM domains? Those are setting up the hypercall page rather late.
-
-In the HVM case it's from init_hypervisor_platform which is called from
-slightly later in setup_arch(), so it's after static_call_init(). But
-still long before HVM_PARAM_CALLBACK_IRQ is set in some cases, I think.
-
-> In case the kernel would use CFI, enabling would happen way before the
-> guest would issue any hypercall, so I guess the latching needs to happen
-> by other means anyway. Or would you want to register the hypercall page
-> without ever intending to use it?
-
-I'd be tempted to do so without using it, yes. You only need to
-allocate a 4KiB page, ask Xen to populate it, then free it immediately.
-Or maybe just set HVM_PARAM_CALLBACK_IRQ instead, to make sure it's
-done? When xen_set_upcall_vector() is called for CPU0 it does that:
-
-        /* Trick toolstack to think we are enlightened. */
-        if (!cpu)
-                rc =3D xen_set_callback_via(1);
-
-Maybe we just lift that out and do it somewhere unconditional, earlier?
-
-But for PVH I'd still be inclined to set up a hypercall page early and
-use it until we are able to switch.
-
---=-jQbH6hBcOV8IEXh9/WzY
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDEwMjE0MzU1
-NFowLwYJKoZIhvcNAQkEMSIEIHr0ATZiMVbFtLlW6OK0osB/u4X2Qk5hSCUYyszQ9ABoMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAk1YKq9J7TaTp
-xGq1X6MU1fu38hfFs1xX2rIN09VDXHJR8ZSu4RB3NlCcdQZGtbsRrNs36xz5SlBrVgzLgmtGRB0+
-8CMVAEjSyUr5nQizEq9Hne+uMo5yRE2iTvq83LEM9NJDljVqzrhi5DqjzbBSWXRBAEHOkqv/2tLa
-aZR5rdGPWiOtJ0RiXSGL7xC9tBOj0NNidocaTJJ/2crQ0IdgAFTs0b3AmCrJYhmw3tce3uiTMchM
-wZ9bsFL8BERaJo4IWfDM19CF97ALRRusfayZQc1kEhW6aY7WpCDiARSV8ABdwu8eBUaWhgaUIQtq
-Lg/eS+oTechxAZ0a5QRNwBbAPTmM+ta1efjISqpnTXj9eQus7dbwECduMBRRqG+rE0R/fHt2VgGn
-heH4f5M3Uecj+8mCFYdSnHYdSJTSvEpiuMJF77ZmEx781TUMI2EoGxKbgOMsMLCIyYeBScXRysRY
-kA95KqmlpdUKOUQ3rE7Lsab5xW2cdVtqgO3KAI6eVq/9uU1f9jnqTQi0PnNGRwQoBVbNwgwqCs56
-RwTh1ilr3HtH4nNZfc4gvlJ5aSnbTciVrCEVQbwig16Jdk+6rf0qfMODatRAgTrZ4EV6F4pH96jA
-qXg4oK6Ws8SkwuiclBB4asZFaYezRpE1LtFPLp2aihlArV1Djjc4+jhxLPdzM5kAAAAAAAA=
-
-
---=-jQbH6hBcOV8IEXh9/WzY--
+Thanks, Roger.
 
