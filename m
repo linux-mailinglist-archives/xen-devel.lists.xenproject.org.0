@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174109FFC0C
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 17:42:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864321.1275518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3271E9FFC4D
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jan 2025 17:50:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.864333.1275527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTOGV-0007UY-68; Thu, 02 Jan 2025 16:41:43 +0000
+	id 1tTOOS-0008CD-VF; Thu, 02 Jan 2025 16:49:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864321.1275518; Thu, 02 Jan 2025 16:41:43 +0000
+Received: by outflank-mailman (output) from mailman id 864333.1275527; Thu, 02 Jan 2025 16:49:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTOGV-0007T3-1E; Thu, 02 Jan 2025 16:41:43 +0000
-Received: by outflank-mailman (input) for mailman id 864321;
- Thu, 02 Jan 2025 16:41:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tTOOS-0008AO-Se; Thu, 02 Jan 2025 16:49:56 +0000
+Received: by outflank-mailman (input) for mailman id 864333;
+ Thu, 02 Jan 2025 16:49:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xoa/=T2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tTOGT-0007RV-7Y
- for xen-devel@lists.xenproject.org; Thu, 02 Jan 2025 16:41:41 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6fa4ecf5-c928-11ef-99a4-01e77a169b0f;
- Thu, 02 Jan 2025 17:41:38 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-435f8f29f8aso83899345e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jan 2025 08:41:38 -0800 (PST)
-Received: from [192.168.86.29] ([83.105.36.37])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43656b3b271sm489515685e9.34.2025.01.02.08.41.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jan 2025 08:41:37 -0800 (PST)
+ <SRS0=MJ+e=T2=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tTOOS-0008AI-4U
+ for xen-devel@lists.xenproject.org; Thu, 02 Jan 2025 16:49:56 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20602.outbound.protection.outlook.com
+ [2a01:111:f403:2417::602])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 96d3291c-c929-11ef-a0db-8be0dac302b0;
+ Thu, 02 Jan 2025 17:49:54 +0100 (CET)
+Received: from MW4PR03CA0185.namprd03.prod.outlook.com (2603:10b6:303:b8::10)
+ by CYXPR12MB9426.namprd12.prod.outlook.com (2603:10b6:930:e3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.12; Thu, 2 Jan
+ 2025 16:49:46 +0000
+Received: from CO1PEPF000066E6.namprd05.prod.outlook.com
+ (2603:10b6:303:b8:cafe::5d) by MW4PR03CA0185.outlook.office365.com
+ (2603:10b6:303:b8::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.12 via Frontend Transport; Thu,
+ 2 Jan 2025 16:49:46 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000066E6.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8314.11 via Frontend Transport; Thu, 2 Jan 2025 16:49:45 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 2 Jan
+ 2025 10:49:45 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 2 Jan
+ 2025 10:49:44 -0600
+Received: from [172.30.159.138] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 2 Jan 2025 10:49:44 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +63,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fa4ecf5-c928-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1735836097; x=1736440897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5HmnMZn0M/FKUnDLXHc9luI7h2dmGrU5jF9kHBTZesw=;
-        b=PBnSEeTjkRdUCR0S4NjXFsjmKl255CXk2GVzw/mQ30gYNPw5/6AevcRL61sd9/9JGk
-         JVC/7b4N/eB/G84p6EDS5QvWABSlDX+Rws8Xje+Bdk61XJ/ES7UftWCl7P87M6srqSi3
-         /J7ETMaCEqzHkOuTjq5Brh6Egkq3S94zP6P7k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1735836097; x=1736440897;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5HmnMZn0M/FKUnDLXHc9luI7h2dmGrU5jF9kHBTZesw=;
-        b=anvw0ntWtaneB/eDF2/iq3y21r6cSm6+4hI5NdxJqCXaHJVDBHK706O78SynqaXAFl
-         YtoYHwC4aC6xX0AQRZKKHOKFDoNHzflvky6bP5htTnWF9dFzL68K33A+p4IFuMBc52zw
-         YkxJdFhvSfnXzc3CGWR88BR/2ywXGFaK7/QSCrRDll3vjW45b251sc+UzmvpfaE8ND/e
-         vi6uaMGGNlP9ri06cgr8G1oyw1ZRqPvf1SF0mkW3DQE0d4DQuF5zo+EHx6hAePnpeyfr
-         hlU60kfw1KFW0ugfa/ClxC5PS0EHlZeFNlC2RGArBlsLx79DWMjX99waTpAUYM708nPD
-         klgA==
-X-Gm-Message-State: AOJu0YxJix7iUNw0WWmVHxyNorsrJHWtR6lRuJkZZ94qHOkR3rCGtnMt
-	UC5MfZ3XJsM1UM1elVteBuETYKpQK+w/4tYjD5WQ6Mj6kriFLUPFy9lZPdpxsIs=
-X-Gm-Gg: ASbGncuCtJ0z840UZ/NXERUJvybSdlpidW0pGUnIv1Di9MFQwJPJZyPGdpA9ElqLDa1
-	AGbhSxWN/MwpSPcU+B0OUQPnAjD+qd7aeAbOcsAtlMm2ThRQF7AzHSXn+6rRpP7ykruGrBbryOO
-	yf7YqZK/qkUJnIrDw6rtnxa2t72DyGLIXNWhmA8o6KRaIcjZSsp6GzQ9Meno7YF9yT7GRr2s1Sz
-	mo1MBLSBBng54Wa7ZZQ8q8YIrivnUiv3F4ftx0ZS3MnnLEXFSk7to9cUWaakJ32i8s=
-X-Google-Smtp-Source: AGHT+IGi7bcb7hkyb+/EEwVJzkCJYKAKvkBrH7iqz17+HOgYEOp7acm7PCC5Py7fwXbO1hkZeP0b2A==
-X-Received: by 2002:a05:600c:4588:b0:42c:b16e:7a22 with SMTP id 5b1f17b1804b1-43668643348mr414630515e9.12.1735836097581;
-        Thu, 02 Jan 2025 08:41:37 -0800 (PST)
-Message-ID: <d0a4ac1b-3afd-400e-8ad7-3b0e2c6f19f2@citrix.com>
-Date: Thu, 2 Jan 2025 16:41:36 +0000
+X-Inumbo-ID: 96d3291c-c929-11ef-a0db-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PKMSFT9ayQ8iRmwM9IiWe5J1rgcMOOfKPMB5/zLICI1JK/2135p/NC+ZPNfW5LVtWYdqWHwAlgbr3iWUwHaf5tP996kl1vTXmy0qug6GQc60GvKU2EKGuIa6Tj7KP9/bBoKRNB7hJiu9ZfJFJ1mnlBUFZJO7Ee0q0+FxHD8IdR58Cs1Qhl+Ewt4pV5McJvEDGHd5Sx8l8/p6t/C0/K1271Krs6JM6EOgkzHvPzXEgQgzGUVobh72Ha0d6wRPTf86fbfVz4efa8WHSHg+VsSzRQYRe8ZRSBGWTqswcgLjOTsiRJt1VxVu6xifZbxpwyto/EN+k+c/7V1/4PWRbwTQtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lfGjee9kPrFZtrE6ncOKqMxGcUHSneHAi3J0TWa9F4A=;
+ b=w96Nu1Aqxd6iF4GX/qtOBeqAxhQQyB1yEhGkxKsp5tSL3VH7mfX3kM25qixvSIB1ias868iCzGg7iRGeL0ZG2z9vNuhHYUFcKDp4NNKmfVWuP3i29MPnQhXCZzfp436rbOPx/CGdZ5cBNz/YkCdgQjjOgSSULq305rhipp9KZAfc2NBY5SevTPt1k21eXblxK/ddopipNmwyivkz0R0HS6+4i/v2VaCBlmH0Xu1OzHIUqUR/JEGZ4WnLVyH4EBURUv6xTMkjrlCvBIN54vxKUhklL//NZzSV6AMoA3Q9WCDbACYwE/y0Q2fYzIxZsQw4YhkzQUX6UMNqevaQzLFpzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lfGjee9kPrFZtrE6ncOKqMxGcUHSneHAi3J0TWa9F4A=;
+ b=aA6BANxinb/+KW63Ae4tPROw6FK0teHPqcscwUDA324tEupj4DjD274dkQSTXVcnOhG/kGyCKrAj2mLdWZV7PN0MBWu+pMWmX8ou4bxBt4qM7rEfE9+kIL/hah9h7UkG9lkgqPbvsHf3omVJEIYkZkijCcTTubXLnuedh5DH9YE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <1a3abd82-d3dc-4c0a-8328-a746e0b789f7@amd.com>
+Date: Thu, 2 Jan 2025 11:49:38 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen.efi "must be loaded below 4Gb"
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Daniel Smith <dpsmith@apertussolutions.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <0b4d4fa4-7d8e-444e-a4a0-f2dc677178a5@citrix.com>
- <Z3a_Civ7ZZHO0uxH@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Z3a_Civ7ZZHO0uxH@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [RFC PATCH] xen/kconfig: allow LATE_HWDOM config for ARM
+To: Julien Grall <julien@xen.org>, Sergiy Kibrik <sergiy_kibrik@epam.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>
+References: <20241217114719.2870676-1-Sergiy_Kibrik@epam.com>
+ <4e437c60-4fee-40ed-9d2a-789bac0b36d9@xen.org>
+ <5246aa98-d23c-41d5-ba14-c12b0a2ee9af@epam.com>
+ <baac9d61-f4bf-4de9-a58c-b354111e3c0c@xen.org>
+ <16694707-ce8b-4c4e-a6ec-2190b8124735@epam.com>
+ <12f210d1-e117-4b72-a168-1acf47c99a6d@xen.org>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <12f210d1-e117-4b72-a168-1acf47c99a6d@xen.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E6:EE_|CYXPR12MB9426:EE_
+X-MS-Office365-Filtering-Correlation-Id: c77a0ae4-6a78-4f5e-771b-08dd2b4d76ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bVdBQkpub3hjN1Fta1lNcEI5b1dNWXQxcmZnMnZvWWZwK3V0MEc1ZEp0MzYw?=
+ =?utf-8?B?KzN1MkN1b29RaUpsZjN5cFNXcDAwZ0RZazlONW05c2doa0pFb2hwRC9ZKzYw?=
+ =?utf-8?B?M21MeHl2dlZ5NDdtNDBsVUUzRFVNc3BmRk1jekEwMFhCMzRrRTJ2K1lndUVv?=
+ =?utf-8?B?L3BXSXE1WWNBQ3ZTUVpCMXliMkFrODNQdWNKUUEvL0lObWc0VWs0cVRXNVlo?=
+ =?utf-8?B?UWhGSUNOanV2WGdjeUJWd051NUZvOExIdXBERmlkdFRoWmJtOEdMS0pEdlpZ?=
+ =?utf-8?B?Y21RNHVwTElkWFFLZnZSYll0MENuRXdiTGxBYjFCbmdSd3FnR3VweDcvYVRa?=
+ =?utf-8?B?dHIyK2MvUE4yK0VlWUxGbUdPU1ptOExhUmxLdFVBZmN2eElVaENsT2RraEJQ?=
+ =?utf-8?B?SmZWRW5sTUtRd20xaWIveHNCR0VKM1ZyZnZhZnkrbVk4SHh4WmZ2d082aHYx?=
+ =?utf-8?B?VXBuUTQzbGJnU3NTZW9iZFVnY2hENHlaSWVhWHlXZGlhblpyN3J1WFhNZ0hC?=
+ =?utf-8?B?MkxLS2NqdXpYaUR2b0Z3NVpQTTd3TGtjbE82QS9kZUNkQ25jNUtCdWZRNm5s?=
+ =?utf-8?B?M2FpNXBaQlF4Ui8zZEhXVTZsa0tnT0FBY2NlMUVZVjFITHdLbE5oU1FSTGk3?=
+ =?utf-8?B?RmhSN1RseUVqRWJZc0REQjNCQmRpSUlNUG9JV3lCT1V3TnUxNDNlQU9QRmJY?=
+ =?utf-8?B?REEwUDIvYUQxZ1BuMkJnWXFLWm50RiszK05hcmxDMUJNRVNRMjRiQmRwRytC?=
+ =?utf-8?B?dHZvM3FKZk1nRTdqbFBzSzdzemxKZWZJUTlscnpMcGRmeDNHd0VabXRrd0JO?=
+ =?utf-8?B?cnFoWUdlSFJ1U2hBSVRqTzlXQno5Zk4xQkowdDM0cElWWnZXczQrZW4rbTRJ?=
+ =?utf-8?B?dzVZYjhlVGJJRjl1MGtGZHNobEZjcHh2enZOeDhXbmFSTWVvb09pNjRESlZV?=
+ =?utf-8?B?NHNJbEdxU2h2V0taczRqMVRZa2Q3Wmx1MjY0OVBLL0lLTWhuWXp4Nzk5TnZF?=
+ =?utf-8?B?WkV1Z0NvWnhJQndFbStpMEJhU3hUZFdkckUrdzE0VnNHMG5DbVo3Z3FEQVla?=
+ =?utf-8?B?K0lBRUduYSs0cC92RHZVOVZ0UDd4cTE1TkcwSDFjOUVlTHhHUEE5RVF6S0RH?=
+ =?utf-8?B?TE9adjVZU2FmV0pJOHZ2UkR1Zyt1elFGUnFsbVJRSDhQN1lIcUFjcjR6am1o?=
+ =?utf-8?B?KzZyNzd6V1FCRW84VkQvQkhkNHlkam5qeWJYeXlpSWFsTVlzY1Z2TEV5UmZz?=
+ =?utf-8?B?TkVLQ0FvVnJsdTRkVjBFOUdQMFdLWXNCZ3B5ZHZkdWw5OGFJSmY1TjZaOXF4?=
+ =?utf-8?B?akNpOHB4ZnpEdzFlM2pDMlVOS3QrSFUvdEpoWkxqYTVZNmxTYll2cEUrM2Zh?=
+ =?utf-8?B?c2hveWRlUXBmVGZNUmIwdHhSbmMweDJEc21zNW9rWWI3S1ZvdkY2VDQ3RURU?=
+ =?utf-8?B?enRsakdiTUhMNWlKWGpZdSsxK0tJbzhyU0x2aUZFTnpIRFlGZ2pFemFmY0xZ?=
+ =?utf-8?B?MWltYkNVcm1qTnZXNUE0Zk83MHdoZTAwaVE1UEFCMCt0USttYUp6QUsxVlls?=
+ =?utf-8?B?dHJHZDNteitNT2o5Z0J2SHVMR0g0dEdXTUQ4cVB3bHIvZDlURE9VVXNnWHkv?=
+ =?utf-8?B?QmVKWEdpM0VwUXh3Y0l1UjVqR01McW5qN0hhZXFsS2kvZUR1a2ZyWlgzZVNC?=
+ =?utf-8?B?MzV1RUlKUmFSNS9Ibzl1U1BiYkZRSHcvWUFKYnlIaUVlZFJWTUsyR3I1ekZM?=
+ =?utf-8?B?NnQvZ3diVWl4YjdwMk1PRWM3cFFteS9WSXNlRVk4UlJpbXVQU25LaFYrZ2hv?=
+ =?utf-8?B?bmZYelZCMnpLVXhHOWlhUDFvZWJhRzJFOE5jby94dyt1RWk1TFlnVVVpYWpl?=
+ =?utf-8?B?S1YrLzFrUzFFc293cnlnSEI4aG9KQWM2eE9oTUFkN2hrR3JVMXM2TlIyZGlK?=
+ =?utf-8?B?SDJidEROdjYvSElxWWttTHlqNFcxMlFiNCtMaW9qWlBSTm5lTVpQY1Rpc01h?=
+ =?utf-8?Q?q64yDa1pkv4rQ0eRzEYqUjns8LpTw4=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2025 16:49:45.8250
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c77a0ae4-6a78-4f5e-771b-08dd2b4d76ac
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000066E6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9426
 
-On 02/01/2025 4:30 pm, Marek Marczykowski-Górecki wrote:
-> On Thu, Jan 02, 2025 at 04:26:28PM +0000, Andrew Cooper wrote:
->> Hello,
+On 2024-12-24 08:54, Julien Grall wrote:
+> Hi,
+> 
+> Replying your last two replies in the same thread.
+> 
+> 
+> On 24/12/2024 03:41, Sergiy Kibrik wrote:
+>> 18.12.24 12:05, Julien Grall:
+> 
+>  > yes, I had to assign devices to hardware domain manually.
+> 
+> I think it would be easier for the user to say "This is my hardware 
+> domain" and let Xen assign all the devices, generate the device-tree & co.
+> 
+>>>>> On 17/12/2024 11:47, Sergiy Kibrik wrote:
+>>>>>> Allow to build ARM configuration with support for initializing 
+>>>>>> hardware domain.
+>>>>>> On ARM it is only possible to start hardware domain in multiboot 
+>>>>>> mode, so
+>>>>>> dom0less support is required. This is reflected by dependency on 
+>>>>>> DOM0LESS_BOOT
+>>>>>> instead of directly depending on ARM config option.
+>>>>>
+>>>>> I am a bit confused with the explanation. We already have an 
+>>>>> hardware domain on Arm. It is dom0. So what are you trying to 
+>>>>> achieve? Is this remove some permissions from the hardware domain?
+>>>>
+>>>> I agree, it should have better description.
+>>>> This is to split dom0 permissions into control-only and hardware- 
+>>>> only domains, much like it can be done in x86.
+>>>
+>>> I don't believe you need the late_hwdom feature to do that on Arm. In 
+>>> the case of dom0less, you are creating the domains at boot, so at the 
+>>> point you can decide who does what.
 >>
->> Forwarding a bug report from IRC from before Christmas:
->>
->> ---
->> bit of a random question, but: has anyone had any luck booting efi
->> builds of Xen? over the last year or so I've tried 4.18 and 4.19, Alpine
->> and Fedora builds, and on a Dell PowerEdge R430 and an Optiplex 7010
->> Plus, and in every case received an error that "Xen must be loaded below
->> 4Gb"
->> ---
->>
->> The Xen.efi path does expect to be loaded below 4G, and does give up
->> rather than relocating itself.
->>
->> Right now, I'm aware of at least one blocker to xen.efi being able to
->> relocate itself, and that is because it populates the MB1 metadata with
->> physical pointers into the ebmalloc[] region, which is in .bss.  
-> What about not touching anything MB1-related in the EFI boot path? MB1
-> can't possibly work on EFI, right?
+>> I'm not sure which mechanism to use for this. Can it be done by XSM 
+>> policy management?
+> 
+> For hyperlaunch, Christopher and Daniel proposed to specify the domain 
+> permissions (e.g. control domain, hardware domain) in the device-tree. I 
+> think we could re-use a similar approach. See docs/designs/launch/ 
+> hyperlaunch-devicetree.rst for more details.
 
-All paths in Xen currently convert bootloader data in MB1 format to
-__start_xen().
+This document is not in sync with Dan's latest work ...
 
-Then (as of the start of the Hyperlaunch series), __start_xen()
-transforms it into struct boot_info.
+>> Indeed, in my case it works only because there's single domain 
+>> description in DT.
+>> If there're many domains in DT, we can't be sure which domain ID each 
+>> of them would receive at boot, right?
+> 
+> Correct. We don't (and should not) make any guarantee on the ordering. 
+> If the domid matters, then we would need to introduce a new property 
+> specifying the domain.
 
-While it might not sound like it, this was the right course of action
-(IMO) for the Hyperlaunch series; there was simply too many things
-needing untangling in the boot path to do it all in one go.
+... a more up to date one is here (though it could still change):
+https://gitlab.com/xen-project/people/dpsmith/xen/-/commit/4387d0cdc9e0c667a764043fd1474687ee626fca
 
->> Fallout
->> related to this was the subject of c/s 0fe607b2a1 "x86/boot: Fix PVH
->> boot during boot_info transition period" and a protective ASSERT() included.
->>
->> The ProperFix(tm) is to remove ebmalloc(), and the scratch space in the
->> trampoline, and instead have a range in initdata to stash the bootloader
->> metadata, and use virtual pointers rather than physical.  This also
->> avoids us double/triple handling the bootloader metadata, simplifying
->> all aspects of the startup logic.
-> This obviously would be better
->
+It includes:
 
-The end goal IMO is to have each boot path fill in struct boot_info
-directly, but they need somewhere to stash the metadata, and preferably
-not in the trampoline.
+"""
+domid
+::
 
-A 64k region in initdata ought to be sufficient, and anyone needing to
-be more fancy can see about stea^W borrowing the BRK infrastructure from
-Linux.
+   Identifies the domid requested to assign to the domain, Optional.
 
-~Andrew
+   Value is an integer.
+
+capabilities
+::
+
+   This identifies what system capabilities a domain will fulfill. 
+Optional, with the default being none.
+
+   Value is a bit field, currently defined bits are:
+     1 - Control domain
+     2 - Hardware domain
+     3 - Xenstore domain
+
+.. note::  All three bits must be set to have a domain function as a 
+traditional dom0. If no domain has the Xenstore domain bit set, then 
+none of the domains constructed will have a Xenstore event channel and 
+ring buffer allocated. The domain with the Hardware domain bit set will 
+be the domain that all domains constructed will have their console event 
+channel as the destination domain.
+"""
+
+These are not parsed by Xen's dom0less code, but they seem 
+straightforward to implement and would provide the needed configuration.
+
+Hmmm, looking at the text, the bits are wrong.  The code uses:
+#define BUILD_CAPS_NONE          (0)
+#define BUILD_CAPS_CONTROL       (1 << 0)
+#define BUILD_CAPS_HARDWARE      (1 << 1)
+#define BUILD_CAPS_XENSTORE      (1 << 2)
+
+Regards,
+Jason
 
