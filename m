@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38FDA01108
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 00:29:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864667.1275887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D622A01115
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 00:36:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.864678.1275902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTr6V-0001Lc-Og; Fri, 03 Jan 2025 23:29:19 +0000
+	id 1tTrCi-0003GF-JN; Fri, 03 Jan 2025 23:35:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864667.1275887; Fri, 03 Jan 2025 23:29:19 +0000
+Received: by outflank-mailman (output) from mailman id 864678.1275902; Fri, 03 Jan 2025 23:35:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTr6V-0001Ji-M4; Fri, 03 Jan 2025 23:29:19 +0000
-Received: by outflank-mailman (input) for mailman id 864667;
- Fri, 03 Jan 2025 23:29:18 +0000
+	id 1tTrCi-0003DU-GC; Fri, 03 Jan 2025 23:35:44 +0000
+Received: by outflank-mailman (input) for mailman id 864678;
+ Fri, 03 Jan 2025 23:35:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=79/6=T3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tTr6U-0001Jc-Is
- for xen-devel@lists.xenproject.org; Fri, 03 Jan 2025 23:29:18 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1tTrCh-0003DO-33
+ for xen-devel@lists.xenproject.org; Fri, 03 Jan 2025 23:35:43 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8bf14b1b-ca2a-11ef-99a4-01e77a169b0f;
- Sat, 04 Jan 2025 00:29:16 +0100 (CET)
+ id 70e3ea78-ca2b-11ef-99a4-01e77a169b0f;
+ Sat, 04 Jan 2025 00:35:40 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1F8BEA41189;
- Fri,  3 Jan 2025 23:27:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F820C4CEDD;
- Fri,  3 Jan 2025 23:29:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id ECBE55C60E1;
+ Fri,  3 Jan 2025 23:34:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F0EC4CEDD;
+ Fri,  3 Jan 2025 23:35:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bf14b1b-ca2a-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 70e3ea78-ca2b-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1735946954;
-	bh=hc7q+WryTt942r3uQCeUK51Kjvlaohg5KXYEpHUpdoo=;
+	s=k20201202; t=1735947338;
+	bh=FNLs91gebbCJP/YijGqKRSCbaSDrxjRRVLBXS/RllCY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HZTnvg2hqv1NGd6JmwmtQidZCbvSbQD1KpB6lcAaEpinV9DkgnL5xbIKvBCAyYY3x
-	 DBYmkmbUexiSaDii4xuxkI52m36bKjyKtb6pAPLQUK468oL4w07cTOSAanNxSlgOyv
-	 kmzDskTwfeqOv1rCMt/1OZzOLDx10ryVepG3gVW+7/HoflHe/dxxjkbkmdw2nvO2PJ
-	 8aSamR71Wu9z5BEd23aQWyxMbZSK6a6kYOQAvUe4P/HuH34qIDDf838RpTjjf6i9YS
-	 N3nEW6lba729QMtHi+5ECuB1jEb/0+t3npFUbFMvd3g/XNJZMFE3ODOa46T3Ox4Esr
-	 FV0E+nXkoQx0g==
-Date: Fri, 3 Jan 2025 15:29:10 -0800 (PST)
+	b=o1id1a0zy0Gsg6Ep96QetJXw1ngDZF3rYyvoKdQDEvB4uPlncjtQ5Cy+cwm4ygNic
+	 ah198OJUWGjAWWoP7W+N7R/j/vFxljBG3w4qfGLrQzNOUT7p8kw+TOdptLCFpEWpwU
+	 +ybL7X1ppivg0MtkNGcyvc1sP3LJcWlmpKOwJDcz17/FIdjmNZQVjJj40yK9nIVFel
+	 CxFv45bRmjla0MaK261WvctpeQfZetx9iqQ/kP9NZ1U+iIkcsiIlURi+el82EHBY/v
+	 UoHX4DvPaw453JWL/6TU/nzb76HjI5oHBzMJZjvttvQe4gwFkNZ8MhkELL77ECF5T3
+	 pjuceuZnkT9Kg==
+Date: Fri, 3 Jan 2025 15:35:34 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Andrew Cooper <andrew.cooper3@citrix.com>
@@ -65,32 +65,33 @@ cc: Xen-devel <xen-devel@lists.xenproject.org>,
     Michal Orzel <michal.orzel@amd.com>, 
     Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
     Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: Re: [PATCH 2/5] xen/perfc: Add perfc_defn.h to asm-generic
-In-Reply-To: <20250102192508.2405687-3-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2501031525580.16425@ubuntu-linux-20-04-desktop>
-References: <20250102192508.2405687-1-andrew.cooper3@citrix.com> <20250102192508.2405687-3-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 3/5] xen/perfc: Trim includes
+In-Reply-To: <20250102192508.2405687-4-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2501031535290.16425@ubuntu-linux-20-04-desktop>
+References: <20250102192508.2405687-1-andrew.cooper3@citrix.com> <20250102192508.2405687-4-andrew.cooper3@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-813812359-1735946954=:16425"
+Content-Type: multipart/mixed; boundary="8323329-1489689879-1735947338=:16425"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-813812359-1735946954=:16425
+--8323329-1489689879-1735947338=:16425
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Thu, 2 Jan 2025, Andrew Cooper wrote:
-> ... and hook it up for RISC-V and PPC.
+> This is mostly for the removal of xen/lib.h and xen/smp.h from perfc.h.  All
+> that is needed is xen/macros.h.
 > 
-> On RISC-V at least, no combination of headers pulls in errno.h, so include it
-> explicitly.
-> 
-> Guard the hypercalls array declaration based on NR_hypercalls existing.  This
-> is sufficient to get PERF_COUNTERS fully working on RISC-V and PPC, so drop
-> the randconfig override.
+> Trim and sort the includes for perfc.c too.  There's no need for smp.h,
+> keyhandler.h or mm.h, but cpumask.h is needed.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
 > CC: Jan Beulich <JBeulich@suse.com>
 > CC: Roger Pau Monné <roger.pau@citrix.com>
@@ -102,98 +103,48 @@ On Thu, 2 Jan 2025, Andrew Cooper wrote:
 > CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > CC: Shawn Anastasio <sanastasio@raptorengineering.com>
 > ---
->  automation/gitlab-ci/build.yaml      | 1 -
->  xen/arch/ppc/include/asm/Makefile    | 1 +
->  xen/arch/riscv/include/asm/Makefile  | 1 +
->  xen/common/perfc.c                   | 1 +
->  xen/include/asm-generic/perfc_defn.h | 5 +++++
->  xen/include/xen/perfc_defn.h         | 2 ++
->  6 files changed, 10 insertions(+), 1 deletion(-)
->  create mode 100644 xen/include/asm-generic/perfc_defn.h
+>  xen/common/perfc.c      | 9 ++++-----
+>  xen/include/xen/perfc.h | 3 +--
+>  2 files changed, 5 insertions(+), 7 deletions(-)
 > 
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 1b884cc81cdb..41f17ed45641 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -734,7 +734,6 @@ debian-12-riscv64-gcc:
->        CONFIG_GRANT_TABLE=n
->        CONFIG_LIVEPATCH=n
->        CONFIG_MEM_ACCESS=n
-> -      CONFIG_PERF_COUNTERS=n
->        CONFIG_QEMU_PLATFORM=y
->        CONFIG_XSM=n
->  
-> diff --git a/xen/arch/ppc/include/asm/Makefile b/xen/arch/ppc/include/asm/Makefile
-> index ced02e26ed13..c989a7f89b34 100644
-> --- a/xen/arch/ppc/include/asm/Makefile
-> +++ b/xen/arch/ppc/include/asm/Makefile
-> @@ -7,6 +7,7 @@ generic-y += hypercall.h
->  generic-y += iocap.h
->  generic-y += paging.h
->  generic-y += percpu.h
-> +generic-y += perfc_defn.h
->  generic-y += random.h
->  generic-y += softirq.h
->  generic-y += vm_event.h
-> diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
-> index ced02e26ed13..c989a7f89b34 100644
-> --- a/xen/arch/riscv/include/asm/Makefile
-> +++ b/xen/arch/riscv/include/asm/Makefile
-> @@ -7,6 +7,7 @@ generic-y += hypercall.h
->  generic-y += iocap.h
->  generic-y += paging.h
->  generic-y += percpu.h
-> +generic-y += perfc_defn.h
->  generic-y += random.h
->  generic-y += softirq.h
->  generic-y += vm_event.h
 > diff --git a/xen/common/perfc.c b/xen/common/perfc.c
-> index ed4dba36f1bc..8c967ab900f9 100644
+> index 8c967ab900f9..b748c8af855b 100644
 > --- a/xen/common/perfc.c
 > +++ b/xen/common/perfc.c
-> @@ -1,4 +1,5 @@
+> @@ -1,13 +1,12 @@
 >  
-> +#include <xen/errno.h>
+> +#include <xen/cpumask.h>
+>  #include <xen/errno.h>
+> +#include <xen/guest_access.h>
 >  #include <xen/lib.h>
->  #include <xen/smp.h>
->  #include <xen/time.h>
-> diff --git a/xen/include/asm-generic/perfc_defn.h b/xen/include/asm-generic/perfc_defn.h
-> new file mode 100644
-> index 000000000000..8237636d83fb
-> --- /dev/null
-> +++ b/xen/include/asm-generic/perfc_defn.h
-> @@ -0,0 +1,5 @@
-> +/* This file is legitimately included multiple times. */
-
-It is a good idea to add comment here to explain. This is effectively
-the same as a deviation of MISRA D4.10. SAF-8-safe is defined as
-"Headers that deliberatively leave the responsability of their correct
-inclusion to the caller are allowed". I think it applies, please add
-SAF-8-safe to this comment and also the other perfc_defn.h, e.g.:
-
-/* SAF-8-safe This file is legitimately included multiple times. */
-
-
-> +/* #ifndef ASM_GENERIC_PERFC_DEFN_H */
-> +/* #define ASM_GENERIC_PERFC_DEFN_H */
+> -#include <xen/smp.h>
+> -#include <xen/time.h>
+>  #include <xen/perfc.h>
+> -#include <xen/keyhandler.h> 
+>  #include <xen/spinlock.h>
+> -#include <xen/mm.h>
+> -#include <xen/guest_access.h>
+> +#include <xen/time.h>
 > +
-> +/* #endif ASM_GENERIC_PERFC_DEFN_H */
-> diff --git a/xen/include/xen/perfc_defn.h b/xen/include/xen/perfc_defn.h
-> index 0027d95a60bc..a987d80dd6f1 100644
-> --- a/xen/include/xen/perfc_defn.h
-> +++ b/xen/include/xen/perfc_defn.h
-> @@ -4,7 +4,9 @@
+>  #include <public/sysctl.h>
 >  
->  #include <asm/perfc_defn.h>
+>  #define PERFCOUNTER( var, name )              { name, TYPE_SINGLE, 0 },
+> diff --git a/xen/include/xen/perfc.h b/xen/include/xen/perfc.h
+> index f9009dc388de..324b47665573 100644
+> --- a/xen/include/xen/perfc.h
+> +++ b/xen/include/xen/perfc.h
+> @@ -3,8 +3,7 @@
 >  
-> +#ifdef NR_hypercalls
->  PERFCOUNTER_ARRAY(hypercalls,           "hypercalls", NR_hypercalls)
-> +#endif
+>  #ifdef CONFIG_PERF_COUNTERS
 >  
->  PERFCOUNTER(calls_from_multicall,       "calls from multicall")
+> -#include <xen/lib.h>
+> -#include <xen/smp.h>
+> +#include <xen/macros.h>
+>  #include <xen/percpu.h>
 >  
+>  /*
 > -- 
 > 2.39.5
 > 
---8323329-813812359-1735946954=:16425--
+--8323329-1489689879-1735947338=:16425--
 
