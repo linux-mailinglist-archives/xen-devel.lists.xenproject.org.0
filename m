@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C27A01035
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jan 2025 23:21:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864643.1275855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E4FA01096
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 00:03:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.864651.1275868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTq25-0000nl-FN; Fri, 03 Jan 2025 22:20:41 +0000
+	id 1tTqh9-00068t-Ij; Fri, 03 Jan 2025 23:03:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864643.1275855; Fri, 03 Jan 2025 22:20:41 +0000
+Received: by outflank-mailman (output) from mailman id 864651.1275868; Fri, 03 Jan 2025 23:03:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTq25-0000kc-CF; Fri, 03 Jan 2025 22:20:41 +0000
-Received: by outflank-mailman (input) for mailman id 864643;
- Fri, 03 Jan 2025 22:20:39 +0000
+	id 1tTqh9-00066V-Fs; Fri, 03 Jan 2025 23:03:07 +0000
+Received: by outflank-mailman (input) for mailman id 864651;
+ Fri, 03 Jan 2025 23:03:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=79/6=T3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tTq23-0000kW-M7
- for xen-devel@lists.xenproject.org; Fri, 03 Jan 2025 22:20:39 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ id 1tTqh8-00066P-72
+ for xen-devel@lists.xenproject.org; Fri, 03 Jan 2025 23:03:06 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4669f01-ca20-11ef-99a4-01e77a169b0f;
- Fri, 03 Jan 2025 23:20:36 +0100 (CET)
+ id e25f51bd-ca26-11ef-99a4-01e77a169b0f;
+ Sat, 04 Jan 2025 00:03:03 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 3F1B4A41156;
- Fri,  3 Jan 2025 22:18:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73681C4CEDD;
- Fri,  3 Jan 2025 22:20:33 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id ABDAD5C60E1;
+ Fri,  3 Jan 2025 23:02:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03A26C4CEDD;
+ Fri,  3 Jan 2025 23:03:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,220 +41,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4669f01-ca20-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: e25f51bd-ca26-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1735942835;
-	bh=p/eLISc/V9aJBvfaAAX1bFiNJGOl/ufjTpecSDi4AbA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VQrBzx0g4HGqCiC5ws///thw5yneJdK5Sl9Q1XVXam1BFYhzv5WUw5SAyMg4iqSSL
-	 v2STf+UGuhUVbL3SG75M7N58n8lIA5ep44V7NYUy7YXdzvNl7RBn7nTnWCp0jDAAIJ
-	 s6VDsjVpYVlrVmGAnxKMOBTMwN2Fe/4ewBH4/3qNeNXRFq020aO2XE/ihyqzAWegFS
-	 /8sFzRHHmsBUPTgnVdnzoVHsAl0HiButeIJIxAzZxPa06FWzFOgdqUDbdyEyYdUGLQ
-	 F8A+ndVt5PK5YUBUF4FngtwXm8F14AwNnnbY47V93GueVBTNFwr6K8hwY8y+aI9miv
-	 YADkYRrfMm+Zw==
-Date: Fri, 3 Jan 2025 14:20:31 -0800 (PST)
+	s=k20201202; t=1735945381;
+	bh=oGgHVA7oDmbhDnB8E00B6FTmhfAf4WxQop48Lc/8JVw=;
+	h=Date:From:To:cc:Subject:From;
+	b=S8Ut1KYc76gfDpje+0swVU3gDGagTOzFSGlqWBLzU/eoI8RVZ1qlQ9XIe1dnM8B9p
+	 XDPSzcqKhJ6kxd6N/9EWdHX8zh/UK9jGurd9vwcxZqbmig4EfCWqI8hBUdY1rlEFsp
+	 N++EwxDn11QiAjZE3bk4k9FNvyazZL9Xb27Wb0npJx3eKA5a+ppEXFQhPs+1Qp/QMT
+	 G575vQGy0+beSRZpuWhTz8+7DiECQYAsA913yE8EbclslVXotrnOQtmwc/wwFw9QdN
+	 rjBSaZlRDVPgPAFgJOYMtlVnzhn4HAGu1k3cdZhrkqGhhzx5Y9ipyBRRkWeWXBgoaQ
+	 WLE+umt3QQfMw==
+Date: Fri, 3 Jan 2025 15:02:59 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Andrew Cooper3 <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH v2] eclair-analysis: tidy toolchain.ecl configuration
- and mark Rule 1.1 clean
-In-Reply-To: <01be894f3c24aa1d7aba528bd5d6f0a1d5a97504.1734876081.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2501031318250.16425@ubuntu-linux-20-04-desktop>
-References: <01be894f3c24aa1d7aba528bd5d6f0a1d5a97504.1734876081.git.nicola.vetrini@bugseng.com>
+To: linux-kernel@vger.kernel.org
+cc: sstabellini@kernel.org, jgross@suse.com, xen-devel@lists.xenproject.org
+Subject: [PATCH] xen: update pvcalls_front_accept prototype
+Message-ID: <alpine.DEB.2.22.394.2501031501420.16425@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Sun, 22 Dec 2024, Nicola Vetrini wrote:
-> Reformat the list of GNU extensions and non-standard tokens used by Xen
-> in the ECLAIR configuration to make it easier to review any changes to it.
-> 
-> The extension "ext_missing_varargs_arg", which captures the GNU extension that
-> allows variadic functions and macros not to require at least one named parameter
-> before C23 has been renamed to "ext_c_missing_varargs_arg" in the current version
-> of ECLAIR used in CI, therefore this resolves regressions on MISRA C Rule 1.1:
-> 
-> "The program shall contain no violations of the standard C syntax and constraints,
-> and shall not exceed the implementation's translation limits."
-> 
-> As a result, Rule 1.1 now has no violations and is tagged as such.
-> 
-> Remove two unused configurations, that were already commented out.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Fixes: 631f535a3d4f ("xen: update ECLAIR service identifiers from MC3R1 to MC3A2.")
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+ drivers/xen/pvcalls-front.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+diff --git a/drivers/xen/pvcalls-front.h b/drivers/xen/pvcalls-front.h
+index f694ad77379f..881ef14660bc 100644
+--- a/drivers/xen/pvcalls-front.h
++++ b/drivers/xen/pvcalls-front.h
+@@ -12,7 +12,7 @@ int pvcalls_front_bind(struct socket *sock,
+ int pvcalls_front_listen(struct socket *sock, int backlog);
+ int pvcalls_front_accept(struct socket *sock,
+ 			 struct socket *newsock,
+-			 int flags);
++			 struct proto_accept_arg *arg);
+ int pvcalls_front_sendmsg(struct socket *sock,
+ 			  struct msghdr *msg,
+ 			  size_t len);
+-- 
+2.25.1
 
-
-> ---
-> The __inline token is added to the list of accepted non-standard keywords
-> on arm64 to reduce verbosity (in this way, a single macher can be defined since
-> the sets of non-standard tokens were identical except for this one).
-> 
-> This change is a candidate for backporting into the 4.18 and 4.19 trees.
-> 
-> Changes in v2:
-> - drop the old name for the extension
-> - format the list of extensions and non-standard tokens to be on multiple
->   lines, and sort the list
-> - remove unused, commmented-out, configurations
-> - tag R1.1 clean
-> ---
->  automation/eclair_analysis/ECLAIR/tagging.ecl |  1 +
->  .../eclair_analysis/ECLAIR/toolchain.ecl      | 93 +++++++++++++++----
->  2 files changed, 74 insertions(+), 20 deletions(-)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> index 982f506cc7b6..4a1d3b3a9898 100644
-> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> @@ -25,6 +25,7 @@ MC3A2.D2.1||
->  MC3A2.D4.1||
->  MC3A2.D4.11||
->  MC3A2.D4.14||
-> +MC3A2.R1.1||
->  MC3A2.R1.3||
->  MC3A2.R1.4||
->  MC3A2.R2.6||
-> diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
-> index 86e9a79b5231..8ebf9f132cf2 100644
-> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
-> @@ -12,25 +12,47 @@
->  -setq=C99_STD,"ISO/IEC 9899:1999"
->  
->  -doc_begin="
-> -    _Static_assert: see Section \"2.1 C Language\" of "GCC_MANUAL".
-> -    asm, __asm__: see Sections \"6.48 Alternate Keywords\" and \"6.47 How to Use Inline Assembly Language in C Code\" of "GCC_MANUAL".
-> -    __volatile__: see Sections \"6.48 Alternate Keywords\" and \"6.47.2.1 Volatile\" of "GCC_MANUAL".
-> -    __const__ : see Section \"6.48 Alternate Keywords\" of "GCC_MANUAL".
-> -    typeof, __typeof__: see Section \"6.7 Referring to a Type with typeof\" of "GCC_MANUAL".
->      __alignof__, __alignof: see Sections \"6.48 Alternate Keywords\" and \"6.44 Determining the Alignment of Functions, Types or Variables\" of "GCC_MANUAL".
-> +    asm, __asm__: see Sections \"6.48 Alternate Keywords\" and \"6.47 How to Use Inline Assembly Language in C Code\" of "GCC_MANUAL".
->      __attribute__: see Section \"6.39 Attribute Syntax\" of "GCC_MANUAL".
-> +    __builtin_offsetof: see Section \"6.53 Support for offsetof\" of "GCC_MANUAL".
->      __builtin_types_compatible_p: see Section \"6.59 Other Built-in Functions Provided by GCC\" of "GCC_MANUAL".
->      __builtin_va_arg: non-documented GCC extension.
-> -    __builtin_offsetof: see Section \"6.53 Support for offsetof\" of "GCC_MANUAL".
-> +    __const__, __inline__, __inline: see Section \"6.48 Alternate Keywords\" of "GCC_MANUAL".
-> +    _Static_assert: see Section \"2.1 C Language\" of "GCC_MANUAL".
-> +    typeof, __typeof__: see Section \"6.7 Referring to a Type with typeof\" of "GCC_MANUAL".
-> +    __volatile__: see Sections \"6.48 Alternate Keywords\" and \"6.47.2.1 Volatile\" of "GCC_MANUAL".
->  "
-> --config=STD.tokenext,behavior+={c99, GCC_ARM64, "^(_Static_assert|asm|__asm__|__volatile__|__const__|typeof|__typeof__|__alignof__|__attribute__|__builtin_types_compatible_p|__builtin_va_arg|__builtin_offsetof)$"}
-> --config=STD.tokenext,behavior+={c99, GCC_X86_64, "^(_Static_assert|asm|__asm__|__volatile__|__const__|typeof|__typeof__|__alignof__|__alignof|__attribute__|__builtin_types_compatible_p|__builtin_va_arg|__builtin_offsetof)$"}
-> +-name_selector+={alignof, "^(__alignof__|__alignof)$"}
-> +-name_selector+={asm, "^(__asm__|asm)$"}
-> +-name_selector+={attribute, "^__attribute__$"}
-> +-name_selector+={builtin_offsetof, "^__builtin_offsetof$"}
-> +-name_selector+={builtin_types_p, "^__builtin_types_compatible_p$"}
-> +-name_selector+={builtin_va_arg, "^__builtin_va_arg$"}
-> +-name_selector+={const, "^__const__$"}
-> +-name_selector+={inline, "^(__inline__|__inline)$"}
-> +-name_selector+={static_assert, "^_Static_assert$"}
-> +-name_selector+={typeof, "^(__typeof__|typeof)$"}
-> +-name_selector+={volatile, "^__volatile__$"}
-> +
-> +-config=STD.tokenext,behavior+={c99, GCC_ARM64||GCC_X86_64,
-> +"alignof||
-> +asm||
-> +attribute||
-> +builtin_offsetof||
-> +builtin_types_p||
-> +builtin_va_arg||
-> +const||
-> +inline||
-> +static_assert||
-> +typeof||
-> +volatile"
-> +}
->  -doc_end
->  
->  -doc_begin="Non-documented GCC extension."
->  -config=STD.emptinit,behavior+={c99,GCC_ARM64,specified}
->  -config=STD.emptinit,behavior+={c99,GCC_X86_64,specified}
-> -#-config=STD.emptinit,behavior+={c18,GCC_X86_64,specified}
->  -doc_end
->  
->  -doc_begin="See Section \"6.24 Arithmetic on void- and Function-Pointers\" of "GCC_MANUAL"."
-> @@ -80,7 +102,6 @@
->  -doc_begin="Non-documented GCC extension."
->  -config=STD.pteincmp,behavior+={c99,GCC_ARM64,specified}
->  -config=STD.pteincmp,behavior+={c99,GCC_X86_64,specified}
-> -#-config=STD.pteincmp,behavior+={c18,GCC_X86_64,specified}
->  -doc_end
->  
->  -doc_begin="Non-documented GCC extension."
-> @@ -88,20 +109,52 @@
->  -doc_end
->  
->  -doc_begin="
-> -    ext_paste_comma: see Section \"6.21 Macros with a Variable Number of Arguments\" of "GCC_MANUAL".
-> -    ext_missing_varargs_arg: see Section \"6.21 Macros with a Variable Number of Arguments\" of "GCC_MANUAL".
-> +    ext_c_missing_varargs_arg: see Section \"6.21 Macros with a Variable Number of Arguments\" of "GCC_MANUAL".
-> +    ext_enum_value_not_int: non-documented GCC extension.
-> +    ext_flexible_array_in_array: see Section \"6.18 Arrays of Length Zero\" of "GCC_MANUAL".
-> +    ext_flexible_array_in_struct: see Section \"6.18 Arrays of Length Zero\" of "GCC_MANUAL".
-> +    ext_forward_ref_enum_def: see Section \"6.49 Incomplete enum Types\" of "GCC_MANUAL".
-> +    ext_gnu_array_range: see Section \"6.29 Designated Initializers\" of "GCC_MANUAL".
-> +    ext_gnu_statement_expr_macro: see Section \"6.1 Statements and Declarations in Expressions\" of "GCC_MANUAL".
->      ext_named_variadic_macro: see Section \"6.21 Macros with a Variable Number of Arguments\" of "GCC_MANUAL".
-> +    ext_paste_comma: see Section \"6.21 Macros with a Variable Number of Arguments\" of "GCC_MANUAL".
->      ext_return_has_void_expr: see the documentation for -Wreturn-type in Section \"3.8 Options to Request or Suppress Warnings\" of "GCC_MANUAL".
-> -    ext_gnu_statement_expr_macro: see Section \"6.1 Statements and Declarations in Expressions\" of "GCC_MANUAL".
->      ext_sizeof_alignof_void_type: see Section \"6.24 Arithmetic on void- and Function-Pointers\" of "GCC_MANUAL".
-> -    ext_forward_ref_enum_def: see Section \"6.49 Incomplete enum Types\" of "GCC_MANUAL".
-> -    ext_flexible_array_in_struct: see Section \"6.18 Arrays of Length Zero\" of "GCC_MANUAL".
-> -    ext_flexible_array_in_array: see Section \"6.18 Arrays of Length Zero\" of "GCC_MANUAL".
-> -    ext_enum_value_not_int: non-documented GCC extension.
-> -    ext_gnu_array_range: see Section \"6.29 Designated Initializers\" of "GCC_MANUAL".
->  "
-> --config=STD.diag,behavior+={c99,GCC_ARM64,"^(ext_paste_comma|ext_missing_varargs_arg|ext_named_variadic_macro|ext_return_has_void_expr|ext_gnu_statement_expr_macro|ext_sizeof_alignof_void_type|ext_forward_ref_enum_def|ext_gnu_array_range)$"}
-> --config=STD.diag,behavior+={c99,GCC_X86_64,"^(ext_paste_comma|ext_missing_varargs_arg|ext_named_variadic_macro|ext_return_has_void_expr|ext_gnu_statement_expr_macro|ext_sizeof_alignof_void_type|ext_flexible_array_in_struct|ext_flexible_array_in_array|ext_enum_value_not_int|ext_gnu_array_range)$"}
-> +-name_selector+={ext_c_missing_varargs_arg, "^ext_c_missing_varargs_arg$"}
-> +-name_selector+={ext_enum_value_not_int, "^ext_enum_value_not_int$"}
-> +-name_selector+={ext_flexible_array_in_array, "^ext_flexible_array_in_array$"}
-> +-name_selector+={ext_flexible_array_in_struct, "^ext_flexible_array_in_struct$"}
-> +-name_selector+={ext_forward_ref_enum_def, "^ext_forward_ref_enum_def$"}
-> +-name_selector+={ext_gnu_array_range, "^ext_gnu_array_range$"}
-> +-name_selector+={ext_gnu_statement_expr_macro, "^ext_gnu_statement_expr_macro$"}
-> +-name_selector+={ext_named_variadic_macro, "^ext_named_variadic_macro$"}
-> +-name_selector+={ext_paste_comma, "^ext_paste_comma$"}
-> +-name_selector+={ext_return_has_void_expr, "^ext_return_has_void_expr$"}
-> +-name_selector+={ext_sizeof_alignof_void_type, "^ext_sizeof_alignof_void_type$"}
-> +
-> +-config=STD.diag,behavior+={c99,GCC_ARM64,
-> +"ext_c_missing_varargs_arg||
-> +ext_forward_ref_enum_def||
-> +ext_gnu_array_range||
-> +ext_gnu_statement_expr_macro||
-> +ext_named_variadic_macro||
-> +ext_paste_comma||
-> +ext_return_has_void_expr||
-> +ext_sizeof_alignof_void_type"
-> +}
-> +-config=STD.diag,behavior+={c99,GCC_X86_64,
-> +"ext_c_missing_varargs_arg||
-> +ext_enum_value_not_int||
-> +ext_flexible_array_in_array||
-> +ext_flexible_array_in_struct||
-> +ext_gnu_array_range||
-> +ext_gnu_statement_expr_macro||
-> +ext_named_variadic_macro||
-> +ext_paste_comma||
-> +ext_return_has_void_expr||
-> +ext_sizeof_alignof_void_type"
-> +}
->  -doc_end
->  
->  -doc_begin="The maximum size of an object is defined in the MAX_SIZE macro, and for a 32 bit architecture is 8MB.
-> -- 
-> 2.43.0
-> 
 
