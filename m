@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15F58A011F4
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 03:47:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864957.1276222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02C1DA011F5
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 03:49:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.864965.1276232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTuC5-0001dX-IS; Sat, 04 Jan 2025 02:47:17 +0000
+	id 1tTuED-0002Br-Sq; Sat, 04 Jan 2025 02:49:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864957.1276222; Sat, 04 Jan 2025 02:47:17 +0000
+Received: by outflank-mailman (output) from mailman id 864965.1276232; Sat, 04 Jan 2025 02:49:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTuC5-0001bE-FZ; Sat, 04 Jan 2025 02:47:17 +0000
-Received: by outflank-mailman (input) for mailman id 864957;
- Sat, 04 Jan 2025 02:47:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EL/b=T4=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tTuC3-0001b8-0x
- for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 02:47:16 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33816763-ca46-11ef-a0de-8be0dac302b0;
- Sat, 04 Jan 2025 03:47:13 +0100 (CET)
+	id 1tTuED-00029w-Q6; Sat, 04 Jan 2025 02:49:29 +0000
+Received: by outflank-mailman (input) for mailman id 864965;
+ Sat, 04 Jan 2025 02:49:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aU+0=T4=protonmail.com=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tTuEB-00029m-RP
+ for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 02:49:28 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 825323c3-ca46-11ef-99a4-01e77a169b0f;
+ Sat, 04 Jan 2025 03:49:25 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,97 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33816763-ca46-11ef-a0de-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1735958832; x=1736218032;
-	bh=v0dZXYl3I8TdMVIKNgDz74hwFkHaf02jvjOPF4zphk0=;
+X-Inumbo-ID: 825323c3-ca46-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1735958964; x=1736218164;
+	bh=6ngrASUQxIp4Qsgrox320tZHgYlM3fZX3kGH+4ZHzvs=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=EKwYgyBc3Cum37TJevh+FBjldyBUu4OrXeWmdkMD9F59vzU2HIcS7FUmzuQzghVNh
-	 Kzq8L8VpTo4Aghbgb0Y3MqfKBlH2FgV5cCF8mop2kB5WrB4KGRFmD4SusZpS4FJl7X
-	 9BEALHEXHvuu66yPOOXu+0pHCvO94KUFiuwV3BhPWGRMxotfHvzj+teiCg3tHE8QZ5
-	 wZDouBxs6HtyybQlINROUPiBiR/jraJbEENg9RO4uAj2zPAhrsslIy4PLLnyHhiQx0
-	 SDfe5OvaxFbKnyMGMShRHDr/l0w/PQD8EX1TmrUwohRvdNJNcaheDx3XELYgzbHlfF
-	 BLwEhcUVPd7lg==
-Date: Sat, 04 Jan 2025 02:47:08 +0000
-To: oleksii.kurochko@gmail.com
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 09/36] riscv/domain: introduce domain_has_vuart()
-Message-ID: <eI9HkQxhCvgWZi_5mg7CqB3OZuwbBaPRvpzmgYemCVuUrNoIIlzMyg3hHGF3XDDPiQvOxw2_M2fsDgIO_wd6KNQFRe3grJYTUjc6LJ3m8gE=@proton.me>
-In-Reply-To: <YlPh-dsRQR3lCD7Xxdhp1kfF24QMKuu8nCzvXkDQAClIhEHlmLvwSxIMLjX6pPpQ_Nup0UJsD4TmPPSUzJUk3wSmsXx2IsZMzxNiqEJJT70=@proton.me>
-References: <20241126-vuart-ns8250-v1-v1-0-87b9a8375b7a@ford.com> <20241126-vuart-ns8250-v1-v1-9-87b9a8375b7a@ford.com> <bc3136303d0e88017a5e3da21f97f9da28213acf.camel@gmail.com> <YlPh-dsRQR3lCD7Xxdhp1kfF24QMKuu8nCzvXkDQAClIhEHlmLvwSxIMLjX6pPpQ_Nup0UJsD4TmPPSUzJUk3wSmsXx2IsZMzxNiqEJJT70=@proton.me>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 70c6f9aff06a10cde2bb7c4739230a63222d2878
+	b=YVHymixHQG9nIxI/rQHnDWP3UyvaRl2eznAfa4LqnHZidW0HDMdVtogy/CQqHu5et
+	 Ze/t5DANTBRur77BnO+D5xP/tGGZpmbvnJKqbPKDXHgBNctlLhBXaUzw6qevWAdd5M
+	 /skAgrq4ne3sBGozx4rfyyaBAQ+ePhGLrORPhJrF26G+mRMSKj5CO+1g2XnTnEJUUe
+	 CUH45p74nyecIKHg0DQOu+l+RlzZMZxuqSEB98I3mSnOlNT5M96R/aHmjfECqAnHUO
+	 RczfXLtuTKr5zRHyulM6SaaI+6C03VmkcXG8vuCzDaHeE55dzY2A7mNSeqzK7jnNGo
+	 ClqzhbauFBdgg==
+Date: Sat, 04 Jan 2025 02:49:17 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: Denis Mukhin <dmkhn@protonmail.com>
+Cc: dmukhin@ford.com, Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 12/35] xen/console: move vpl011-related code to vpl011 emulator
+Message-ID: <nYIZUZ8P8_11UqKc4051P3o20npdWRNgy90-oNXkEj1y6AVPkUWM2-ARVJ7XLcdeah8qhATCd9U6-hdT0OxBKFTwpHh0hyxgA-nTGXNFRsk=@protonmail.com>
+In-Reply-To: <ad47f490-c2a2-4a61-b9ed-a5830d93c3a4@suse.com>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-12-e9aa923127eb@ford.com> <ad47f490-c2a2-4a61-b9ed-a5830d93c3a4@suse.com>
+Feedback-ID: 33633869:user:proton
+X-Pm-Message-ID: daf682176c56f00bc9ebcb148926af85f6848ba0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
+On Tuesday, December 10th, 2024 at 5:33 AM, Jan Beulich <jbeulich@suse.com>=
+ wrote:
 
-On Friday, December 6th, 2024 at 1:32 PM, Denis Mukhin <dmkhn@proton.me> wr=
-ote:
+>
+>
+> On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
+>
+> > --- a/xen/arch/arm/include/asm/vpl011.h
+> > +++ b/xen/arch/arm/include/asm/vpl011.h
+> > @@ -69,7 +69,7 @@ struct vpl011_init_info {
+> > int domain_vpl011_init(struct domain *d,
+> > struct vpl011_init_info *info);
+> > void domain_vpl011_deinit(struct domain *d);
+> > -void vpl011_rx_char_xen(struct domain *d, char c);
+> > +int vpl011_rx_char_xen(struct domain *d, char c);
+>
+>
+> If you make the function return an error indicator, ...
+>
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -559,9 +559,7 @@ static void __serial_rx(char c)
+> > * domain, without a full PV ring to Dom0 (in that case input
+> > * comes from the PV ring), then send the character to it.
+> > */
+> > - if ( d !=3D NULL &&
+> > - !d->arch.vpl011.backend_in_domain &&
+> > - d->arch.vpl011.backend.xen !=3D NULL )
+> > + if ( d !=3D NULL )
+> > vpl011_rx_char_xen(d, c);
+> > else
+> > printk("Cannot send chars to Dom%d: no UART available\n",
+>
+>
+> ... how come that return value then isn't used anywhere?
 
->=20
->=20
->=20
-> On Wednesday, November 27th, 2024 at 5:02 AM, oleksii.kurochko@gmail.com =
-oleksii.kurochko@gmail.com wrote:
->=20
-> > On Tue, 2024-11-26 at 15:21 -0800, Denis Mukhin via B4 Relay wrote:
-> >=20
-> > > From: Denis Mukhin dmukhin@ford.com
-> > >=20
-> > > Introduce domain_has_vuart() for RISC-V port to be used in the
-> > > console driver.
-> > >=20
-> > > Signed-off-by: Denis Mukhin dmukhin@ford.com
-> > > ---
-> > > xen/arch/riscv/include/asm/domain.h | 2 ++
-> > > 1 file changed, 2 insertions(+)
-> > >=20
-> > > diff --git a/xen/arch/riscv/include/asm/domain.h
-> > > b/xen/arch/riscv/include/asm/domain.h
-> > > index
-> > > c3d965a559b6ce3661bf17166d0c51853ff295a2..efbc4f1ea2619a187fe30ede17d
-> > > 96de01e599220 100644
-> > > --- a/xen/arch/riscv/include/asm/domain.h
-> > > +++ b/xen/arch/riscv/include/asm/domain.h
-> > > @@ -10,6 +10,8 @@ struct hvm_domain
-> > > uint64_t params[HVM_NR_PARAMS];
-> > > };
-> > >=20
-> > > +#define domain_has_vuart(d) false
-> > > +
-> > > struct arch_vcpu_io {
-> > > };
-> >=20
-> > LGTM: Reviewed-by: Oleksii Kurochko oleksii.kurochko@gmail.com
->=20
->=20
-> Thanks!
->=20
-> > Probably it would be nice instead of having stub ( #define
-> > domain_has_vuart(d) false ) in arch specific code, just ifdef-ing it
-> > and put somewhere in
-> > <xen/domain.h> to not introduce this definition for each architecture
-> >=20
-> > which doesn't support vuart now.
->=20
->=20
-> Actually, my thought was adding arch-independent vuart layer which can
-> call into vpl011, duart or ns8250.
-> This way, domain_has_vuart() will move there, along w/ APIs which
-> hooked into Xen console driver (e.g. ns8250's vuart_putchar()) will be
-> all there as well.
-> I kept this stub as is for now (in the follow on v2).
+That I overlooked; fixed.
 
-I ended up w/ domain_has_vuart() defined in xen/domain.h in v3:
-   https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-6-c5d36b31=
-d66c@ford.com/
-
->=20
-> > Thanks.
-> >=20
-> > ~ Oleksii
+>
+> Jan
 
