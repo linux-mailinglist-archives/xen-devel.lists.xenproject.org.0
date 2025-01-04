@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B04C5A01251
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 05:48:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865349.1276652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC31A0127E
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 06:20:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865358.1276662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTw5Y-0003og-Dw; Sat, 04 Jan 2025 04:48:40 +0000
+	id 1tTwZB-0000Ar-MU; Sat, 04 Jan 2025 05:19:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865349.1276652; Sat, 04 Jan 2025 04:48:40 +0000
+Received: by outflank-mailman (output) from mailman id 865358.1276662; Sat, 04 Jan 2025 05:19:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTw5Y-0003me-Ae; Sat, 04 Jan 2025 04:48:40 +0000
-Received: by outflank-mailman (input) for mailman id 865349;
- Sat, 04 Jan 2025 04:48:39 +0000
+	id 1tTwZB-00007k-In; Sat, 04 Jan 2025 05:19:17 +0000
+Received: by outflank-mailman (input) for mailman id 865358;
+ Sat, 04 Jan 2025 05:19:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EL/b=T4=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tTw5X-0003mY-B2
- for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 04:48:39 +0000
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 290bbc07-ca57-11ef-99a4-01e77a169b0f;
- Sat, 04 Jan 2025 05:48:37 +0100 (CET)
+ id 1tTwZ8-00006g-Tm
+ for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 05:19:15 +0000
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6ed65d01-ca5b-11ef-99a4-01e77a169b0f;
+ Sat, 04 Jan 2025 06:19:12 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,201 +36,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 290bbc07-ca57-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 6ed65d01-ca5b-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1735966116; x=1736225316;
-	bh=P6uwmuIvQV7K8UAC+yyJsz5cBd/6YK3hUCy+0rjhRdo=;
+	s=protonmail; t=1735967950; x=1736227150;
+	bh=/UYjyA+oK7mFTIA5K+v6KxEop26cmT9VoQMQK6vunsM=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=cqfwOpMuZorFJMrhOrA35XJES0Y5uFJiE3xXnotT2oe43Fe9E6Ozh7yGXX1hCve96
-	 sxSNAduqb6Yav8RMUKJSvEgT6cF2QoRVnRArOY6YA248mYgcsYjWvtqu2j0TqY9Ay7
-	 UqaxU3mQrPJYfCvDtGTHI5OdwZh3f5WkI+dWfwOe02nHSdzhLg3Eo+KvGUJ3IA5uJx
-	 zoaqjh+zV5wLNRfoDfHpfLEIGdlwROTiqlhlJU0eBCBWnHzurS9mif/fZOtStZtoUq
-	 j/9iwaEXfJ02YejKeyg7Yyph2uTgdt/UeXss+DB9eM7nFpihkkPyTx8Uwn8gVg2Rbw
-	 hB+55XnuDaFyQ==
-Date: Sat, 04 Jan 2025 04:48:31 +0000
+	b=QrHgtOhAiKvT1iLwrgpsfo+XMRV/Gl3wAyo8aeAu7hxReg4AuhxyG29KHRZHwwZQm
+	 SLHbM48ZbR1tspPc30z2ejjBd6M9y+8luMVHKoRj1De6Z6aU25ipQprxlMx2/+pcQe
+	 frmdrwU70Lyyfd8FXqfRZ8VIMUAv+X9V+CIMhypLWVYyjtmm1u8Tq+iJirTIV0DXDy
+	 LryCYjvrcORbB1iYLXTigZriL0OKhgOCgjGS2DuSp7gQYH6+FLOvZAq9lHhqgFjJ3a
+	 kU29ge9KWDKjo+sYXQHsHyqDRBaxEvur3NgNuzyXFH1AJURUllbB+jV26Mk6dIocA8
+	 RUmVBQRJzpiFg==
+Date: Sat, 04 Jan 2025 05:19:07 +0000
 To: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Denis Mukhin <dmkhn@proton.me>
 Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 24/35] xen/console: introduce hwdom_crashconsole=
-Message-ID: <f1ydmZYqXWIwEzxitfa-ISv4hUrzb_m_9QLywWnzjbqsIlLdIaGdiev8lh5_UPZ8MsmOm_DebjAZ8EoYmyzpptaPj3uUtZHWjDfcjZB8ih8=@proton.me>
-In-Reply-To: <Z1rXEtHPjjjEPKw3@macbook.local>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-24-e9aa923127eb@ford.com> <Z1rXEtHPjjjEPKw3@macbook.local>
+Subject: Re: [PATCH v2 33/35] x86/domain: implement domain_has_vuart()
+Message-ID: <Tz4Idf7hUa85arksVC6UYYRNbhinY-0wHXqxIInbLCWGNiGZSEIvGNGLmICNLmHK5o7m6MUMhnUlrJX10WO1XHhyRSgCX7Gknz0xBGZJiD8=@proton.me>
+In-Reply-To: <Z1wnUzDCPDzHKr6o@macbook.local>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-33-e9aa923127eb@ford.com> <Z1wnUzDCPDzHKr6o@macbook.local>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 467dc90b3fcb019879975b1c07f1e30b5f29c3c2
+X-Pm-Message-ID: 6517eb9cb37cd4c7de575d4ebbdb7dfb4f0b593e
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thursday, December 12th, 2024 at 4:29 AM, Roger Pau Monn=C3=A9 <roger.pa=
-u@citrix.com> wrote:
+On Friday, December 13th, 2024 at 4:23 AM, Roger Pau Monn=C3=A9 <roger.pau@=
+citrix.com> wrote:
 
 >
 >
-> On Thu, Dec 05, 2024 at 08:41:54PM -0800, Denis Mukhin via B4 Relay wrote=
+> On Thu, Dec 05, 2024 at 08:42:03PM -0800, Denis Mukhin via B4 Relay wrote=
 :
 >
 > > From: Denis Mukhin dmukhin@ford.com
 > >
-> > The new command line switch `hwdom_crashconsole=3DBOOL` allows to switc=
-h serial
-> > console input focus to xen for machine state inspection using keyhandle=
-r
-> > mechanism after the hardware domain crashes.
+> > Add new emulation flag for virtual UART on x86 and plumb it through the=
+ stack.
 > >
-> > The new command line switch is aliased via `dom0=3D...,crashconsole` kn=
-ob.
-> >
-> > Such functionality can be useful while debugging dom0 bringup.
+> > This change enables NS8250 emulator initialization.
 > >
 > > Signed-off-by: Denis Mukhin dmukhin@ford.com
 > > ---
-> > docs/misc/xen-command-line.pandoc | 5 +++++
-> > xen/arch/x86/dom0_build.c | 2 ++
-> > xen/common/domain.c | 14 +++++++++++++-
-> > xen/include/xen/domain.h | 1 +
-> > 4 files changed, 21 insertions(+), 1 deletion(-)
+> > tools/libs/light/libxl_x86.c | 6 +++++-
+> > tools/ocaml/libs/xc/xenctrl.ml | 1 +
+> > tools/ocaml/libs/xc/xenctrl.mli | 1 +
+> > tools/python/xen/lowlevel/xc/xc.c | 4 +---
+> > xen/arch/x86/domain.c | 8 +++++---
+> > xen/arch/x86/include/asm/domain.h | 7 ++++---
+> > xen/include/public/arch-x86/xen.h | 14 +++++++++++++-
+> > 7 files changed, 30 insertions(+), 11 deletions(-)
 > >
-> > diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-=
-line.pandoc
-> > index 293dbc1a957ba6e668fd4d55d58e84f643822126..fb77d7dca1ea517f79d6713=
-aa6909422f31e7724 100644
-> > --- a/docs/misc/xen-command-line.pandoc
-> > +++ b/docs/misc/xen-command-line.pandoc
-> > @@ -806,6 +806,7 @@ Specify the bit width of the DMA heap.
+> > diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.=
+c
+> > index a3164a3077fec7e1b81a34074894dc646954a49a..de5f05e18cb0671bb031b10=
+1b9a7159eb0fe0178 100644
+> > --- a/tools/libs/light/libxl_x86.c
+> > +++ b/tools/libs/light/libxl_x86.c
+> > @@ -8,7 +8,11 @@ int libxl__arch_domain_prepare_config(libxl__gc gc,
+> > {
+> > switch(d_config->c_info.type) {
+> > case LIBXL_DOMAIN_TYPE_HVM:
+> > - config->arch.emulation_flags =3D (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI=
+);
+> > + config->arch.emulation_flags =3D XEN_X86_EMU_ALL;
+> > + config->arch.emulation_flags &=3D ~XEN_X86_EMU_VPCI;
+> > + / Virtual UART is selected at Xen build time */
+> > + config->arch.emulation_flags &=3D ~XEN_X86_EMU_VUART;
+> > +
+> > if (!libxl_defbool_val(d_config->b_info.u.hvm.pirq))
+> > config->arch.emulation_flags &=3D ~XEN_X86_EMU_USE_PIRQ;
+> > break;
+> > diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenct=
+rl.ml
+> > index 2690f9a92316b812ad3d3ff0e1c36823070adb4a..647239b3e55e88b00eb8e97=
+73a5267894cbbae54 100644
+> > --- a/tools/ocaml/libs/xc/xenctrl.ml
+> > +++ b/tools/ocaml/libs/xc/xenctrl.ml
+> > @@ -47,6 +47,7 @@ type x86_arch_emulation_flags =3D
+> > | X86_EMU_PIT
+> > | X86_EMU_USE_PIRQ
+> > | X86_EMU_VPCI
+> > + | X86_EMU_VUART
 > >
-> > ### dom0
-> > =3D List of [ pv | pvh, shadow=3D<bool>, verbose=3D<bool>,
-> > + crashconsole=3D<bool>,
-> > cpuid-faulting=3D<bool>, msr-relaxed=3D<bool> ] (x86)
+> > type x86_arch_misc_flags =3D
+> > | X86_MSR_RELAXED
+> > diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenc=
+trl.mli
+> > index febbe1f6ae3f10c5abe45eaa3c06a8a67d9ba268..4f5f64c786e83e8a0c3dd3c=
+db0460f7095de4a62 100644
+> > --- a/tools/ocaml/libs/xc/xenctrl.mli
+> > +++ b/tools/ocaml/libs/xc/xenctrl.mli
+> > @@ -41,6 +41,7 @@ type x86_arch_emulation_flags =3D
+> > | X86_EMU_PIT
+> > | X86_EMU_USE_PIRQ
+> > | X86_EMU_VPCI
+> > + | X86_EMU_VUART
 > >
-> > =3D List of [ sve=3D<integer> ] (Arm64)
-> > @@ -839,6 +840,10 @@ Controls for how dom0 is constructed on x86 system=
-s.
-> > information during the dom0 build. It defaults to the compile time choi=
-ce
-> > of `CONFIG_VERBOSE_DEBUG`.
+> > type x86_arch_misc_flags =3D
+> > | X86_MSR_RELAXED
+> > diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowle=
+vel/xc/xc.c
+> > index 9feb12ae2b16e48cb5d0c3c45044ae226f152f2d..e54308956efc7061d58d216=
+6ec9a95bc1dcd1781 100644
+> > --- a/tools/python/xen/lowlevel/xc/xc.c
+> > +++ b/tools/python/xen/lowlevel/xc/xc.c
+> > @@ -159,9 +159,7 @@ static PyObject *pyxc_domain_create(XcObject *self,
 > >
-> > +* The `crashconsole` boolean instructs Xen to drop into emergency cons=
-ole
-> > + in case of dom0 crash. May be useful for dom0 bringup on a custom
+> > #if defined (__i386) || defined(x86_64)
+> > if ( config.flags & XEN_DOMCTL_CDF_hvm )
+> > - config.arch.emulation_flags =3D XEN_X86_EMU_ALL &
+> > - ~(XEN_X86_EMU_VPCI |
+> > - XEN_X86_EMU_USE_PIRQ);
+> > + config.arch.emulation_flags =3D XEN_X86_EMU_HVM_ALLOWABLE;
+> > #elif defined (arm) || defined(aarch64)
+> > config.arch.gic_version =3D XEN_DOMCTL_CONFIG_GIC_NATIVE;
+> > #else
+> > diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> > index c88d422a64544531c1e1058fa484364bb4277d1e..439da7adc92a3a8eb481075=
+bf834da5f9670dd54 100644
+> > --- a/xen/arch/x86/domain.c
+> > +++ b/xen/arch/x86/domain.c
+> > @@ -752,10 +752,10 @@ static bool emulation_flags_ok(const struct domai=
+n *d, uint32_t emflags)
+> > if ( is_hardware_domain(d) &&
+> > emflags !=3D (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
+> > return false;
+> > +
+> > + emflags &=3D ~X86_EMU_VUART;
 >
 >
-> I think the 'a' is unneeded -> "on custom hardware."
+> I think you want to allow X86_EMU_VUART only for domains created by
+> Xen itself, so X86_EMU_VUART can only be valid if system_state <
+> SYS_STATE_active.
 
-Yep. Thank you.
+I think vUART should be configurable for domains created via toolstack
+as well as for domains created by Xen.
+
+But, TBH, I did not plan for toolstack integration in this series.
+
+For Xen-created domains enabling emulator for HVM domains only and enabling
+it globally (since that's debugging/bringup only) seemed enough for the
+initial change.
 
 >
+> > if ( !is_hardware_domain(d) &&
+> > - /* HVM PIRQ feature is user-selectable. */
+> > - (emflags & ~X86_EMU_USE_PIRQ) !=3D
+> > - (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
+> > + xen_emflags_allowable(emflags) !=3D XEN_X86_EMU_HVM_ALLOWABLE &&
+> > emflags !=3D X86_EMU_LAPIC )
+> > return false;
+> > }
+> > @@ -806,6 +806,8 @@ int arch_domain_create(struct domain *d,
+> >
+> > emflags =3D config->arch.emulation_flags;
+> >
+> > + if ( IS_ENABLED(CONFIG_HAS_VUART_NS8250) && is_hvm_domain(d) )
+> > + emflags |=3D XEN_X86_EMU_VUART;
 >
-> I think however this would be clearer as:
 >
-> "The `crashconsole` boolean instructs Xen to switch input console
-> focus to the hypervisor when dom0 shuts down and avoid performing
-> dom0 domain destruction. Should only be used for debugging
-> purposes."
+> Doesn't this need to be limited to domains created by Xen itself, as
+> otherwise it's the toolstack that should specify the XEN_X86_EMU_VUART
+> flag, and even then the recommendation would be to use the vUART from
+> QEMU?
 
+re: toolstack: I agree, toolstack should support vUART configuration.
+I plan to address it in the follow on series.
+
+>
+> > if ( is_hardware_domain(d) && is_pv_domain(d) )
+> > emflags |=3D XEN_X86_EMU_PIT;
+> >
+> > diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/a=
+sm/domain.h
+> > index c1d0d1f47324e8cc678a4c76c43f86820a89e7b3..dacea6e1aad46e9f8710b22=
+02bb81203c5e92807 100644
+> > --- a/xen/arch/x86/include/asm/domain.h
+> > +++ b/xen/arch/x86/include/asm/domain.h
+> > @@ -484,7 +484,8 @@ struct arch_domain
+> > #define X86_EMU_VPCI 0
+> > #endif
+> >
+> > -#define X86_EMU_PIT XEN_X86_EMU_PIT
+> > +#define X86_EMU_PIT XEN_X86_EMU_PIT
+>
+>
+> Unintended indentation change?
+
+Actually, this change was intentional: it fixes the alignment against
+previous #ifdefs.
+
+>
+> > +#define X86_EMU_VUART XEN_X86_EMU_VUART
+> >
+> > /* This must match XEN_X86_EMU_ALL in xen.h */
+> > #define X86_EMU_ALL (X86_EMU_LAPIC | X86_EMU_HPET | \
+> > @@ -492,7 +493,7 @@ struct arch_domain
+> > X86_EMU_IOAPIC | X86_EMU_PIC | \
+> > X86_EMU_VGA | X86_EMU_IOMMU | \
+> > X86_EMU_PIT | X86_EMU_USE_PIRQ | \
+> > - X86_EMU_VPCI)
+> > + X86_EMU_VPCI | X86_EMU_VUART)
+> >
+> > #define has_vlapic(d) (!!((d)->arch.emulation_flags & X86_EMU_LAPIC))
+> > #define has_vhpet(d) (!!((d)->arch.emulation_flags & X86_EMU_HPET))
+> > @@ -507,7 +508,7 @@ struct arch_domain
+> > #define has_vpci(d) (!!((d)->arch.emulation_flags & X86_EMU_VPCI))
+> >
+> > /* NB: same symbol as in Arm port */
+> > -#define domain_has_vuart(d) false
+> > +#define domain_has_vuart(d) (!!((d)->arch.emulation_flags & X86_EMU_VU=
+ART))
+> >
+> > #define gdt_ldt_pt_idx(v) \
+> > ((v)->vcpu_id >> (PAGETABLE_ORDER - GDT_LDT_VCPU_SHIFT))
+> > diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arc=
+h-x86/xen.h
+> > index fc2487986642a7694578ab9d2f5f16d09761bff8..e7922e3f9ddc1742a464d22=
+8807279839df31e52 100644
+> > --- a/xen/include/public/arch-x86/xen.h
+> > +++ b/xen/include/public/arch-x86/xen.h
+> > @@ -283,13 +283,25 @@ struct xen_arch_domainconfig {
+> > #define XEN_X86_EMU_USE_PIRQ (1U<<_XEN_X86_EMU_USE_PIRQ)
+> > #define _XEN_X86_EMU_VPCI 10
+> > #define XEN_X86_EMU_VPCI (1U<<_XEN_X86_EMU_VPCI)
+> > +#define _XEN_X86_EMU_VUART 11
+> > +#define XEN_X86_EMU_VUART (1U<<_XEN_X86_EMU_VUART)
+> >
+> > #define XEN_X86_EMU_ALL (XEN_X86_EMU_LAPIC | XEN_X86_EMU_HPET | \
+> > XEN_X86_EMU_PM | XEN_X86_EMU_RTC | \
+> > XEN_X86_EMU_IOAPIC | XEN_X86_EMU_PIC | \
+> > XEN_X86_EMU_VGA | XEN_X86_EMU_IOMMU | \
+> > XEN_X86_EMU_PIT | XEN_X86_EMU_USE_PIRQ |\
+> > - XEN_X86_EMU_VPCI)
+> > + XEN_X86_EMU_VPCI | XEN_X86_EMU_VUART)
+> > +
+> > +/* HVM PIRQ feature is user-selectable (libxl). */
+> > +#define XEN_X86_EMU_HVM_SELECTABLE (XEN_X86_EMU_VPCI | \
+> > + XEN_X86_EMU_USE_PIRQ | \
+> > + XEN_X86_EMU_VUART)
+>
+>
+> XEN_X86_EMU_HVM_OPTIONAL is maybe clearer?
+
+Looks like it, thanks for suggestion!
 Fixed.
 
 >
-> It's IMO not clear what "instructs Xen to drop into emergency console"
-> implies for Xen.
->
-> > + hardware.
-> > +
-> > * The `cpuid-faulting` boolean is an interim option, is only applicable=
- to
-> > PV dom0, and defaults to true.
-> >
-> > diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-> > index e8f5bf5447bc47a6daa3d95787106a4c11e80d31..706aeec0ecbb565a415edbf=
-b33ca2fd72967c560 100644
-> > --- a/xen/arch/x86/dom0_build.c
-> > +++ b/xen/arch/x86/dom0_build.c
-> > @@ -286,6 +286,8 @@ int __init parse_arch_dom0_param(const char *s, con=
-st char *e)
-> > opt_dom0_cpuid_faulting =3D val;
-> > else if ( (val =3D parse_boolean("msr-relaxed", s, e)) >=3D 0 )
-> > opt_dom0_msr_relaxed =3D val;
-> > + else if ( (val =3D parse_boolean("crashconsole", s, e)) >=3D 0 )
-> > + opt_hwdom_crashconsole =3D !!val;
-> > else
-> > return -EINVAL;
-> >
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index aab546c0a8535e4f007cbbc9c5c552bcf66b5807..4fe69f294158dda7b2e0b9d=
-98d49c34e04131cb8 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -56,6 +56,13 @@ unsigned int xen_processor_pmbits =3D XEN_PROCESSOR_=
-PM_PX;
-> > bool opt_dom0_vcpus_pin;
-> > boolean_param("dom0_vcpus_pin", opt_dom0_vcpus_pin);
-> >
-> > +/*
-> > + * Hardware domain crash handler: if true, do not halt machine, but sw=
-itch to
-> > + * Xen console for debugging.
-> > + */
-> > +bool opt_hwdom_crashconsole;
->
->
-> __ro_after_init.
+> Albeit PVH is kind of HVM.
 
-Done.
-
->
-> > +boolean_param("hwdom_crashconsole", opt_hwdom_crashconsole);
->
->
-> This option doesn't seem to be documented at all in
-> xen-command-line.pandoc?
-
-Thanks; fixed.
+PVH does not have vPIC so there's some more work to enable vUART
+for PVH on x86: emulator currently supports only ISA IRQs.
 
 >
 > > +
-> > /* Protect updates/reads (resp.) of domain_list and domain_hash. */
-> > DEFINE_SPINLOCK(domlist_update_lock);
-> > DEFINE_RCU_READ_LOCK(domlist_read_lock);
-> > @@ -1138,7 +1145,12 @@ int domain_shutdown(struct domain *d, u8 reason)
-> > reason =3D d->shutdown_code;
-> >
-> > if ( is_hardware_domain(d) )
-> > - hwdom_shutdown(reason);
-> > + {
-> > + if ( opt_hwdom_crashconsole )
-> > + console_set_owner(DOMID_XEN);
+> > +#define xen_emflags_allowable(x) ((x) & ~XEN_X86_EMU_HVM_SELECTABLE)
+> > +
+> > +#define XEN_X86_EMU_HVM_ALLOWABLE xen_emflags_allowable(XEN_X86_EMU_AL=
+L)
 >
 >
-> Don't you need to pause all domain vCPUs and return early here to
-> avoid executing the rest of the function, that will likely destroy the
-> domain?
->
-> Maybe there's something I'm missing that prevents the hardware domain
-> destruction.
+> XEN_X86_EMU_HVM_BASELINE I think would also be better?
 
-The point of this change is to drop the user to Xen console on crash instea=
-d
-of unconditional system restart. TBH, I did not plan for "freezing" the dom=
-ain
-state. I also tested w/ non-hyperlaunch PV dom0 only (I used kexec to
-start PV dom0 which was crashing).
-
-My understanding, if I followed the code correctly, all is fine.
-domain_destroy() is not called because asm_domain_crash_synchronous(), whic=
-h
-handles the crash, just spins around do_softirq():
-
-void asm_domain_crash_synchronous(unsigned long addr)
-{
-...
-
-    __domain_crash(current->domain); // that will call domain_crash()
-
-    for ( ; ; )
-        do_softirq();
-}
+Fixed.
 
 >
 > Thanks, Roger.
