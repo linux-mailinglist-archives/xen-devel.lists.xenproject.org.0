@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8A4DA01212
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 04:21:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865118.1276402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ADF4A01213
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 04:22:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865126.1276411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTujB-0002bP-Mq; Sat, 04 Jan 2025 03:21:29 +0000
+	id 1tTuju-0003XN-1d; Sat, 04 Jan 2025 03:22:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865118.1276402; Sat, 04 Jan 2025 03:21:29 +0000
+Received: by outflank-mailman (output) from mailman id 865126.1276411; Sat, 04 Jan 2025 03:22:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTujB-0002Z5-Ie; Sat, 04 Jan 2025 03:21:29 +0000
-Received: by outflank-mailman (input) for mailman id 865118;
- Sat, 04 Jan 2025 03:21:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tTujt-0003VQ-VF; Sat, 04 Jan 2025 03:22:13 +0000
+Received: by outflank-mailman (input) for mailman id 865126;
+ Sat, 04 Jan 2025 03:22:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EL/b=T4=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tTujA-0002Xk-5B
- for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 03:21:28 +0000
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fafda4a3-ca4a-11ef-99a4-01e77a169b0f;
- Sat, 04 Jan 2025 04:21:26 +0100 (CET)
+ id 1tTujr-0003TY-SN
+ for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 03:22:11 +0000
+Received: from mail-40134.protonmail.ch (mail-40134.protonmail.ch
+ [185.70.40.134]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 15bfe244-ca4b-11ef-a0de-8be0dac302b0;
+ Sat, 04 Jan 2025 04:22:10 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,222 +36,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fafda4a3-ca4a-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 15bfe244-ca4b-11ef-a0de-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=i5ncakhrgjdddmshelq34qb43q.protonmail; t=1735960884; x=1736220084;
-	bh=853xcxLbwv8zMwLmBBcwy0rSep7ENCS0+2oSbM3itU4=;
+	s=protonmail; t=1735960930; x=1736220130;
+	bh=60b7b8pCQscBiiojU0VCIPvXex4KqmvkFey65uK8Zws=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=X6j0fcQJNhiqmYHKL9VZMMNZDPSRNA+kafjAIHnrbB2NRQudy9AlvXMNBIEFwUP7b
-	 Vgutt58T9awgfdpbuE9nWW+Ru1PAhFYTrh6Eia8JDBHIVm0tvt1aRYcBLNi3dD6adb
-	 ahCVJAra8+PJ3rMsxuY5iE9UnTAxX3tMV3cWz5M7YXm4dlzBNJS2csQKkk7qFgQQPr
-	 BQGNP2gv9UBJb5la8v9iUSd6C8tWi9Acwno3tscqPObNN1bhf+1ma3yU1eOs01pIvj
-	 VWUU8DyfBOHxIQPeLYw/4W4ViUit0a56wO299SCFXshe94QD4KH+bBvVnQkws9eHkm
-	 VPDmB+uOvlxrw==
-Date: Sat, 04 Jan 2025 03:21:21 +0000
-To: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+	b=hKAkmtpGxYStlExWAS36v9F/wxb/zPlW2XRH5cWPRFS22Ys4t00X6FrgeBlSwJN32
+	 6jMuHzhZVfDVWFaECWNL5eVVF/QOrNESQKUlaRFyPMxhl4PfQG4/WmNnqFR9QXm/ho
+	 RhRuMLBZzsupAb15Fs2mQwS8ejphijbtEvLMDC9VrjJ7KJxNjgoLB9g8EjB4DXX6mO
+	 JyReBU857RvpmO4QeKHUIQs6wpM4hv/cz/IyEhyc7sYdW3RVKvOIIoJSEYjGFi0daI
+	 eaZJqv83+SZlxeZEgLll0P8tCXuuFc2Piay8Ka7MiSblc8PWAnpldVtd/oPsIRckVv
+	 LOU7ixSpM3w9g==
+Date: Sat, 04 Jan 2025 03:22:05 +0000
+To: Jan Beulich <jbeulich@suse.com>
 From: Denis Mukhin <dmkhn@proton.me>
-Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 17/35] xen/console: introduce consoled_is_enabled()
-Message-ID: <SMjSlxoJE3GxrhEztgVjKv27aQPczVxoIdqROw1ZHGd_pI6XGFC7aSGiBIAT73u5AnGNgDYHRBVZAivetgmknoKYz1KP8KHyf0K_qMwzxag=@proton.me>
-In-Reply-To: <Z1qtYO9Kr-9bzwEh@macbook.local>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-17-e9aa923127eb@ford.com> <Z1qtYO9Kr-9bzwEh@macbook.local>
+Cc: dmukhin@ford.com, Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 21/35] xen/console: introduce console_init_owner()
+Message-ID: <Ak6C4enLcSkraItT-41clT-s3Z5GNRGNF7B55ZrJiaS6pND0bt1PLihHZ1ENb2hgJCVJWDOgrlxhlXcJ6ErP7EfhcOeUzbczPwfUBLC6_lM=@proton.me>
+In-Reply-To: <be92d586-0185-4753-8f30-2c7fd92f01dd@suse.com>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-21-e9aa923127eb@ford.com> <be92d586-0185-4753-8f30-2c7fd92f01dd@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 008483f02403bf4544509fa4674efc9c8d12f6f0
+X-Pm-Message-ID: 347feed7118373b4e9c4b6134901ee8573de8c19
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thursday, December 12th, 2024 at 1:31 AM, Roger Pau Monn=C3=A9 <roger.pa=
-u@citrix.com> wrote:
+
+On Tuesday, December 10th, 2024 at 11:31 PM, Jan Beulich <jbeulich@suse.com=
+> wrote:
 
 >
 >
-> On Thu, Dec 05, 2024 at 08:41:47PM -0800, Denis Mukhin via B4 Relay wrote=
-:
+> On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
 >
-> > From: Denis Mukhin dmukhin@ford.com
-> >
-> > There are few places which check pv_shim console under CONFIG_PV_SHIM i=
-n xen
-> > console driver. Instead of #ifdef-ing, use new consoled_is_enabled() to
-> > customize the logic.
-> >
-> > Header file now can be included w/o CONFIG_X86.
-> >
-> > Signature of consoled_guest_{rx,tx} has changed to account for follow-o=
-n
-> > console switch logic cleanup.
-> >
-> > Signed-off-by: Denis Mukhin dmukhin@ford.com
-> > ---
-> > xen/drivers/char/console.c | 10 +++-------
-> > xen/drivers/char/consoled.c | 18 ++++++++++++++----
-> > xen/include/xen/consoled.h | 35 +++++++++++++++++++++++++++++++++--
-> > 3 files changed, 50 insertions(+), 13 deletions(-)
-> >
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index f034ce5aab3f3bf59b0df9fa583ee9ce32dbf665..60c055396b697869b04b913=
-2b0dcfa832fabe932 100644
 > > --- a/xen/drivers/char/console.c
 > > +++ b/xen/drivers/char/console.c
-> > @@ -33,9 +33,9 @@
-> > #include <xen/pv_console.h>
-> > #include <asm/setup.h>
-> > #include <xen/sections.h>
-> > +#include <xen/consoled.h>
-> >
-> > #ifdef CONFIG_X86
-> > -#include <xen/consoled.h>
-> > #include <asm/guest.h>
-> > #endif
-> > #ifdef CONFIG_SBSA_VUART_CONSOLE
-> > @@ -505,11 +505,9 @@ static void console_find_owner(void)
-> > break;
+> > @@ -554,6 +554,22 @@ static void console_find_owner(void)
+> > console_set_owner(DOMID_XEN);
 > > }
 > >
-> > -#ifdef CONFIG_PV_SHIM
-> > - if ( next_rx =3D=3D 1 )
-> > + if ( consoled_is_enabled() && next_rx =3D=3D 1 )
-> > domid =3D get_initial_domain_id();
-> > else
-> > -#endif
-> > domid =3D next_rx - 1;
-> > d =3D rcu_lock_domain_by_id(domid);
-> > if ( d )
-> > @@ -573,10 +571,8 @@ static void __serial_rx(char c)
-> > #endif
-> > }
-> >
-> > -#ifdef CONFIG_X86
-> > - if ( pv_shim && pv_console )
-> > + if ( consoled_is_enabled() )
-> > consoled_guest_tx(c);
-> > -#endif
-> > }
-> >
-> > static void cf_check serial_rx(char c)
-> > diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
-> > index b415b632cecc0a80e161b701d7b70ba4f3cc5fb8..d6624e7697f56e1a1959b0e=
-fa5dca104f34af002 100644
-> > --- a/xen/drivers/char/consoled.c
-> > +++ b/xen/drivers/char/consoled.c
-> > @@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(vo=
-id)
-> > static char buf[BUF_SZ + 1];
-> >
-> > /* Receives characters from a domain's PV console */
-> > -void consoled_guest_rx(void)
-> > +int consoled_guest_rx(void)
-> > {
-> > size_t idx =3D 0;
-> > XENCONS_RING_IDX cons, prod;
-> >
-> > if ( !cons_ring )
-> > - return;
-> > + return 0;
-> >
-> > spin_lock(&rx_lock);
-> >
-> > @@ -91,15 +91,17 @@ void consoled_guest_rx(void)
-> >
-> > out:
-> > spin_unlock(&rx_lock);
-> > +
-> > + return 0;
-> > }
-> >
-> > /* Sends a character into a domain's PV console */
-> > -void consoled_guest_tx(char c)
-> > +int consoled_guest_tx(char c)
-> > {
-> > XENCONS_RING_IDX cons, prod;
-> >
-> > if ( !cons_ring )
-> > - return;
-> > + return 0;
-> >
-> > cons =3D ACCESS_ONCE(cons_ring->in_cons);
-> > prod =3D cons_ring->in_prod;
-> > @@ -118,6 +120,7 @@ void consoled_guest_tx(char c)
-> >
-> > cons_ring->in[MASK_XENCONS_IDX(prod++, cons_ring->in)] =3D c;
-> >
-> > +
-> > /* Write to the ring before updating the pointer /
-> > smp_wmb();
-> > ACCESS_ONCE(cons_ring->in_prod) =3D prod;
-> > @@ -125,6 +128,13 @@ void consoled_guest_tx(char c)
-> > notify:
-> > / Always notify the guest: prevents receive path from getting stuck. */
-> > pv_shim_inject_evtchn(pv_console_evtchn());
-> > +
-> > + return 0;
-> > +}
-> > +
-> > +bool consoled_is_enabled(void)
+> > +static void console_init_owner(void)
 > > +{
-> > + return pv_shim && pv_console;
-> > }
-> >
-> > /*
-> > diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
-> > index bd7ab6329ee8a7c466484021247241ded8ed03c7..696677fa5a3be458a0ec933=
-60e08376c3471f95b 100644
-> > --- a/xen/include/xen/consoled.h
-> > +++ b/xen/include/xen/consoled.h
-> > @@ -3,10 +3,41 @@
-> >
-> > #include <public/io/console.h>
-> >
-> > +#if defined(CONFIG_PV_SHIM)
+> > + domid_t domid;
 > > +
-> > void consoled_set_ring_addr(struct xencons_interface *ring);
-> > struct xencons_interface *consoled_get_ring_addr(void);
-> > -void consoled_guest_rx(void);
-> > -void consoled_guest_tx(char c);
-> > +int consoled_guest_rx(void);
-> > +int consoled_guest_tx(char c);
-> > +bool consoled_is_enabled(void);
+> > + /*
+> > + * If user specifies so, we fool the switch routine to redirect input
+> > + * straight back to Xen.
+> > + */
+> > + if ( opt_conswitch[1] =3D=3D 'x' )
+> > + domid =3D DOMID_XEN;
+> > + else
+> > + domid =3D get_initial_domain_id();
 > > +
-> > +#else
-> > +
-> > +static inline void consoled_set_ring_addr(struct xencons_interface *ri=
-ng)
-> > +{
-> > +}
-> > +
-> > +static inline struct xencons_interface *consoled_get_ring_addr(void)
-> > +{
-> > + return NULL;
-> > +}
-> > +
-> > +static inline int consoled_guest_rx(void)
-> > +{
-> > + return 0;
+> > + console_set_owner(domid);
 > > +}
 >
 >
-> You don't need to provide dummy implementations of
-> consoled_{set,get}_ring_addr() and consoled_guest_rx(), they are only
-> called from code that's build when CONFIG_PV_SHIM is selected.
+> Is this function meant to gain a 2nd user? If not, what exactly is the go=
+al
+> of introducing this new function?
 
-Thanks; fixed.
-
->
-> > +static inline int consoled_guest_tx(char c)
-> > +{
-> > + return 0;
->
->
-> For consoled_guest_tx() you want to add an ASSERT_UNREACHABLE(), as
-> it should never be called if !CONFIG_PV_SHIM?
-
-Fixed.
+I cannot foresee the second user.
+My rationale was moving all console ownership initialization into one place
+so the code is better localized.
 
 >
-> Thanks, Roger.
+> If the function's addition is warranted, it wants to be __init, matching =
+...
+
+I ended up dropping the patch in v3.
+
+>
+> > @@ -1160,8 +1168,7 @@ void __init console_endboot(void)
+> > register_irq_keyhandler('G', &do_toggle_guest,
+> > "toggle host/guest log level adjustment", 0);
+> >
+> > - /* Serial input is directed to DOM0 by default. */
+> > - console_find_owner();
+> > + console_init_owner();
+> > }
+>
+>
+> ... sole caller.
+>
+> Jan
 
 
 
