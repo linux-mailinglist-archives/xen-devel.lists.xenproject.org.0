@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EA16A01636
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 19:13:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865433.1276732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFA85A0165B
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 19:33:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865441.1276742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tU8dI-00009q-Sa; Sat, 04 Jan 2025 18:12:20 +0000
+	id 1tU8xb-0003Km-CG; Sat, 04 Jan 2025 18:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865433.1276732; Sat, 04 Jan 2025 18:12:20 +0000
+Received: by outflank-mailman (output) from mailman id 865441.1276742; Sat, 04 Jan 2025 18:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tU8dI-00006v-PZ; Sat, 04 Jan 2025 18:12:20 +0000
-Received: by outflank-mailman (input) for mailman id 865433;
- Sat, 04 Jan 2025 18:12:20 +0000
+	id 1tU8xb-0003I6-8x; Sat, 04 Jan 2025 18:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 865441;
+ Sat, 04 Jan 2025 18:33:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DJS+=T4=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1tU8dH-00006n-KX
- for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 18:12:19 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ id 1tU8xa-0003I0-3k
+ for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 18:33:18 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b4c2b29-cac7-11ef-99a4-01e77a169b0f;
- Sat, 04 Jan 2025 19:12:13 +0100 (CET)
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2025 10:12:11 -0800
+ id 5b32bba9-caca-11ef-99a4-01e77a169b0f;
+ Sat, 04 Jan 2025 19:33:15 +0100 (CET)
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2025 10:33:12 -0800
 Received: from lkp-server01.sh.intel.com (HELO d63d4d77d921) ([10.239.97.150])
- by fmviesa004.fm.intel.com with ESMTP; 04 Jan 2025 10:12:09 -0800
+ by orviesa005.jf.intel.com with ESMTP; 04 Jan 2025 10:33:10 -0800
 Received: from kbuild by d63d4d77d921 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tU8d4-000B7X-2c;
- Sat, 04 Jan 2025 18:12:06 +0000
+ (envelope-from <lkp@intel.com>) id 1tU8xQ-000B8N-1h;
+ Sat, 04 Jan 2025 18:33:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,39 +44,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b4c2b29-cac7-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 5b32bba9-caca-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1736014334; x=1767550334;
+  t=1736015595; x=1767551595;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=bEdEZDsKvjKvYISSsqUWqDonU9gW1hZc1LD8ZT7VxKw=;
-  b=Jfm5G2YhzjACzQ41ANim96C7FvRh6ostiuKZE1T/FEPnTOF7LZvBhW9C
-   qYNkegiFcf1QcvNxdx2P/I3R8TJQMRoqU13NFDAMDO/EYcRTNAFdY0PC8
-   CA4AIH/sbQ34Jpz//Hh5u6l/o3EgBuH2vgNtvqABVGO4cFWLaGjfG6kDi
-   QFhbDup7ZzSvNXvtBjvx/y5/P/7sEmzI4GhAG1DDgy0grE/OAEAE0EsJ+
-   +Epv6aqXzTyZNFtwC401hxl24rSYIzGqMj+3HZaDqTNHkFMhBvFgjRd3A
-   7rpEcpw0AEsuI3G70XQyDWiYzgnrnzNhi/fO/AVUfe4OjXsJ5bVrDy5eC
+  bh=5Zxqc5izWZcqv++Qn3LTRHW/mpIz46TucxWfDkg9PUs=;
+  b=FwDI/HSB0GHzoQeXGlPVShMntkgyhvUoeuEdJk77RDhFLGgcki9FcLdy
+   BQyEE6Z5LOldLbMzURyk0zN+dmwQGgD4x75WXo0RPoJt8gjRbiOEm3Pds
+   VQlJXwSjzBWgc2BJAbvaMcytB+lImO0LMNzGO50p/RVBbttnzQeh6/IMf
+   /Oa/MraJNxEk6bROTvdLzIcyrgJxWfnayNKosoOWRMZqIpfkoxekasNvn
+   SUOskSTTCp9W6AR30aL+w8otTSPibRufPKGQ6eQow0gfTbSseLQbukvNb
+   yaxYRPoElWu70OJTAd5OW0uNvw+FwWHBIyLOxyLmnF0z7J5fnvcP9VqQy
    A==;
-X-CSE-ConnectionGUID: iIUC2n0gTYmkpQQtomP5Fg==
-X-CSE-MsgGUID: nKIVMJ7vS1GLAQ72vGN1qA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11305"; a="53765791"
+X-CSE-ConnectionGUID: mpjkV3QJQyCBgSXaSTRH5Q==
+X-CSE-MsgGUID: +5RjqubrQWWG6TbwrqqPLQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11305"; a="36381334"
 X-IronPort-AV: E=Sophos;i="6.12,288,1728975600"; 
-   d="scan'208";a="53765791"
-X-CSE-ConnectionGUID: PWYoHdEfS5yRDNe49Nrr8Q==
-X-CSE-MsgGUID: dbnoRSxiQbWPWUzn2BL7tw==
+   d="scan'208";a="36381334"
+X-CSE-ConnectionGUID: /3uRxK37RgasfXozjtkmKg==
+X-CSE-MsgGUID: kwfhmatiSymtaMqT+/+OnQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,288,1728975600"; 
-   d="scan'208";a="106907870"
-Date: Sun, 5 Jan 2025 02:11:26 +0800
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; 
+   d="scan'208";a="107106643"
+Date: Sun, 5 Jan 2025 02:32:10 +0800
 From: kernel test robot <lkp@intel.com>
 To: Stefano Stabellini <sstabellini@kernel.org>,
 	linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	sstabellini@kernel.org, jgross@suse.com,
+Cc: oe-kbuild-all@lists.linux.dev, sstabellini@kernel.org, jgross@suse.com,
 	xen-devel@lists.xenproject.org
 Subject: Re: [PATCH] xen: update pvcalls_front_accept prototype
-Message-ID: <202501050103.LVGxLcNl-lkp@intel.com>
+Message-ID: <202501050224.Z3WcNxIQ-lkp@intel.com>
 References: <alpine.DEB.2.22.394.2501031501420.16425@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -97,33 +96,27 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Stefano-Stabellini/xen-up
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git linux-next
 patch link:    https://lore.kernel.org/r/alpine.DEB.2.22.394.2501031501420.16425%40ubuntu-linux-20-04-desktop
 patch subject: [PATCH] xen: update pvcalls_front_accept prototype
-config: x86_64-buildonly-randconfig-005-20250104 (https://download.01.org/0day-ci/archive/20250105/202501050103.LVGxLcNl-lkp@intel.com/config)
-compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250105/202501050103.LVGxLcNl-lkp@intel.com/reproduce)
+config: i386-allmodconfig (https://download.01.org/0day-ci/archive/20250105/202501050224.Z3WcNxIQ-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250105/202501050224.Z3WcNxIQ-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202501050103.LVGxLcNl-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202501050224.Z3WcNxIQ-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   In file included from drivers/xen/pvcalls-front.c:7:
-   In file included from include/linux/net.h:24:
-   In file included from include/linux/mm.h:2223:
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/xen/pvcalls-front.c:772:5: error: conflicting types for 'pvcalls_front_accept'
+>> drivers/xen/pvcalls-front.c:772:5: error: conflicting types for 'pvcalls_front_accept'; have 'int(struct socket *, struct socket *, int)'
      772 | int pvcalls_front_accept(struct socket *sock, struct socket *newsock, int flags)
-         |     ^
-   drivers/xen/pvcalls-front.h:13:5: note: previous declaration is here
+         |     ^~~~~~~~~~~~~~~~~~~~
+   In file included from drivers/xen/pvcalls-front.c:18:
+   drivers/xen/pvcalls-front.h:13:5: note: previous declaration of 'pvcalls_front_accept' with type 'int(struct socket *, struct socket *, struct proto_accept_arg *)'
       13 | int pvcalls_front_accept(struct socket *sock,
-         |     ^
-   1 warning and 1 error generated.
+         |     ^~~~~~~~~~~~~~~~~~~~
 
 
-vim +/pvcalls_front_accept +772 drivers/xen/pvcalls-front.c
+vim +772 drivers/xen/pvcalls-front.c
 
 1853f11d72ed46 Stefano Stabellini 2017-10-30  771  
 9774c6cca26610 Stefano Stabellini 2017-10-30 @772  int pvcalls_front_accept(struct socket *sock, struct socket *newsock, int flags)
