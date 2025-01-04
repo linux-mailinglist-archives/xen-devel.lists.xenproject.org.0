@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40382A011A4
+	by mail.lfdr.de (Postfix) with ESMTPS id 32117A011A3
 	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 02:59:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864714.1276029 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.864713.1276020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTtQq-0007GV-Rx; Sat, 04 Jan 2025 01:58:28 +0000
+	id 1tTtQp-00073v-VS; Sat, 04 Jan 2025 01:58:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864714.1276029; Sat, 04 Jan 2025 01:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 864713.1276020; Sat, 04 Jan 2025 01:58:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTtQq-000740-2d; Sat, 04 Jan 2025 01:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 864714;
- Sat, 04 Jan 2025 01:58:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tTtQp-0006ra-6X; Sat, 04 Jan 2025 01:58:27 +0000
+Received: by outflank-mailman (input) for mailman id 864713;
+ Sat, 04 Jan 2025 01:58:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AhC6=T4=kernel.org=devnull+dmukhin.ford.com@srs-se1.protection.inumbo.net>)
- id 1tTtQl-0005Ax-Qi
+ id 1tTtQl-0005Ay-Gz
  for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 01:58:23 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5dd063cb-ca3f-11ef-a0de-8be0dac302b0;
- Sat, 04 Jan 2025 02:58:18 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5cc6243e-ca3f-11ef-99a4-01e77a169b0f;
+ Sat, 04 Jan 2025 02:58:16 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 08B4B5C613E;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 01CB25C612B;
  Sat,  4 Jan 2025 01:57:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EB6A4C4CED6;
- Sat,  4 Jan 2025 01:58:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0EABBC4CEDD;
+ Sat,  4 Jan 2025 01:58:15 +0000 (UTC)
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E2F05E77198;
- Sat,  4 Jan 2025 01:58:14 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 030C4E77199;
+ Sat,  4 Jan 2025 01:58:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,24 +45,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dd063cb-ca3f-11ef-a0de-8be0dac302b0
+X-Inumbo-ID: 5cc6243e-ca3f-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1735955895;
-	bh=AA7+mFgdv/CLreA2xkAbjLNCRVAgqmaEv1ja2uxK2AE=;
+	bh=/WKmnea3yLIQ6a+oMKt9n2ogwwKjvRERH5nesO0D+A4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kIWEW/eRK6fqXTa7M+eKyUBgFAU6g0f4xk5l5oE99ZnF0P1X0cWwRnuDgYGKYj6hc
-	 MIncbo7zBD1qIRsMYWCiYlmw7UAxjoHbCe08EEqxpQzX8uuCGAgySBCGBPuKb6WLIS
-	 OjUd4CKhK1BFxt/OpBtsmUKre/E+9ezEn6cbx5JwlxPeTWlNxOmxMjUkWLKHvItOEE
-	 tDuEwpinIHXawJOr104bGNSab64JRwi3g8jQjty0IlyrOvivNYa5ygUjA7zigC/E8Z
-	 k1RCWGsxcFTx3I8cSs3FgPAJygzY3zuCUvLP2VzTE9d6nICd+1zMTgOqxazXKaVtAP
-	 0aA++obj1Ul3A==
+	b=OD1jaknYEc0PCdD3OGrHIkODdou0AzX4vUcJI3flns1hwehOL4P9JPmQ+aIBQ3rjO
+	 TlXCBDsEUh607FqwLg9hFiPQ1arJIvoapsVLxOOOJhK7UelCoK9g5Ekh7KUW6XlxmR
+	 tZmk/OttAQ+CyW9kjMH+dI5+Nr1BpekQcf867RiFQMYMRI858D/o1aR/U6SZFZvwD+
+	 nPdDRd0Xv3glrDZHpSk6XGfx13nk28lmho4FtZud1tlqgL8JVEPQ17R30KZK5a4nfO
+	 lwi0tE5syOpK2BS8cQTH1JNEqljMIMkZUPZUAKTiOYgR8PdEyVBpki+0nC9xbqN1eH
+	 q5cW6TtWwSGJg==
 From: Denis Mukhin via B4 Relay <devnull+dmukhin.ford.com@kernel.org>
-Date: Fri, 03 Jan 2025 17:58:11 -0800
-Subject: [PATCH v3 05/24] xen/console: introduce consoled_is_enabled()
+Date: Fri, 03 Jan 2025 17:58:12 -0800
+Subject: [PATCH v3 06/24] xen/domain: introduce hardware emulation flags
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250103-vuart-ns8250-v3-v1-5-c5d36b31d66c@ford.com>
+Message-Id: <20250103-vuart-ns8250-v3-v1-6-c5d36b31d66c@ford.com>
 References: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
 In-Reply-To: <20250103-vuart-ns8250-v3-v1-0-c5d36b31d66c@ford.com>
 To: xen-devel@lists.xenproject.org
@@ -73,11 +73,11 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
  Denis Mukhin <dmukhin@ford.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1735955892; l=4404;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1735955892; l=15422;
  i=dmukhin@ford.com; s=20241125; h=from:subject:message-id;
- bh=n4Aqa3ybnKIx5xmfT+5F0wUDK/FeirbGr0o6DW85ymA=;
- b=C4K8KLpFn1MjYhJMBZQMxhbcwkSQbMQPkN60/GkOpUDva4wrnJU3OI1jMwq1OYrhFKd3FJAbL
- pLO5JKF6+JdBYum8mrIHzPA5dZ7qRLqRtkU0jOY0jQiRbsCifK3SU4j
+ bh=yo4lK/WoRy/gFaXrqWR73G8aid7G29/FsP8hJ1ebvNs=;
+ b=x65w53tEdhJNfnDQwDvwDCI6NghHC/63VP4zaLKnVqk0fUWNCWc/gcP61ZPVZC8xu1iwsvXGW
+ mUlDZIBx7S4CbRDiYShFkvq1zTtTTSOVcQNRv5cCqQCg228IdGqqj2/
 X-Developer-Key: i=dmukhin@ford.com; a=ed25519;
  pk=SsDZ9p39s0fqcpUKQuqKqrbn0rq6EtEAClvpOpzx6+U=
 X-Endpoint-Received: by B4 Relay for dmukhin@ford.com/20241125 with
@@ -87,163 +87,376 @@ Reply-To: dmukhin@ford.com
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-There are few places which check pv_shim console under CONFIG_PV_SHIM in xen
-console driver. Instead of #ifdef-ing, use new consoled_is_enabled() to
-customize the logic.
+Define an architecture-independent location for describing hardware emulation
+flags for configuring in-hypervisor emulators.
 
-Header file now can be included w/o CONFIG_X86.
+Print d->arch.emulation_flags from 'q' keyhandler for better traceability while
+debugging in-hypervisor hardware emulators.
 
-Signature of consoled_guest_{rx,tx} has changed so the error can be logged.
+Also, expanded the error message in arch_domain_create() in x86 case when
+user-defined domain emulation_flags are incompatible w/ platform supported
+emulation_flags.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/drivers/char/console.c  | 13 +++++--------
- xen/drivers/char/consoled.c | 17 +++++++++++++----
- xen/include/xen/consoled.h  | 32 +++++++++++++++++++++++++++-----
- 3 files changed, 45 insertions(+), 17 deletions(-)
+ tools/helpers/init-xenstore-domain.c             |  1 +
+ tools/libs/light/libxl_x86.c                     |  5 +-
+ tools/ocaml/libs/xc/xenctrl_stubs.c              |  1 +
+ tools/python/xen/lowlevel/xc/xc.c                |  5 +-
+ tools/tests/paging-mempool/test-paging-mempool.c |  1 +
+ tools/tests/resource/test-resource.c             |  1 +
+ tools/tests/tsx/test-tsx.c                       |  1 +
+ xen/arch/arm/include/asm/domain.h                |  2 +
+ xen/arch/ppc/include/asm/domain.h                |  2 +
+ xen/arch/riscv/include/asm/domain.h              |  2 +
+ xen/arch/x86/domain.c                            | 11 +++--
+ xen/arch/x86/include/asm/domain.h                |  3 +-
+ xen/common/keyhandler.c                          |  1 +
+ xen/include/Makefile                             |  1 +
+ xen/include/public/arch-x86/xen.h                | 30 +-----------
+ xen/include/public/virtdev.h                     | 61 ++++++++++++++++++++++++
+ xen/include/xen/domain.h                         |  1 +
+ 17 files changed, 90 insertions(+), 39 deletions(-)
 
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 4785f0e93a17e3ecba79a7813d2928f946abab8f..2d20a9d7531e069803eaf30ce79354b998c4a52f 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -33,9 +33,9 @@
- #include <xen/pv_console.h>
- #include <asm/setup.h>
- #include <xen/sections.h>
-+#include <xen/consoled.h>
+diff --git a/tools/helpers/init-xenstore-domain.c b/tools/helpers/init-xenstore-domain.c
+index 01ca667d25d15032e9acaff025e83b80aefd2ecb..4b64a417def59c92b8bfb828468591d00d16c105 100644
+--- a/tools/helpers/init-xenstore-domain.c
++++ b/tools/helpers/init-xenstore-domain.c
+@@ -16,6 +16,7 @@
+ #include <xen-tools/common-macros.h>
+ #include <xen-xsm/flask/flask.h>
+ #include <xen/io/xenbus.h>
++#include <xen/virtdev.h>
  
- #ifdef CONFIG_X86
--#include <xen/consoled.h>
- #include <asm/guest.h>
- #endif
- #ifdef CONFIG_SBSA_VUART_CONSOLE
-@@ -508,11 +508,9 @@ static void switch_serial_input(void)
-             break;
-         }
+ #include "init-dom-json.h"
  
--#ifdef CONFIG_PV_SHIM
--        if ( next_rx == 1 )
-+        if ( consoled_is_enabled() && next_rx == 1 )
-             domid = get_initial_domain_id();
-         else
--#endif
-             domid = next_rx - 1;
-         d = rcu_lock_domain_by_id(domid);
-         if ( d )
-@@ -563,10 +561,9 @@ static void __serial_rx(char c)
-         rc = vpl011_rx_char_xen(d, c);
- #endif
+diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+index a3164a3077fec7e1b81a34074894dc646954a49a..80a8a4f17a9a2d7f84f94382e110d511b76604a2 100644
+--- a/tools/libs/light/libxl_x86.c
++++ b/tools/libs/light/libxl_x86.c
+@@ -1,5 +1,6 @@
+ #include "libxl_internal.h"
+ #include "libxl_arch.h"
++#include <xen/virtdev.h>
+ #include <xen/arch-x86/cpuid.h>
  
--#ifdef CONFIG_X86
--    if ( pv_shim && pv_console )
--        consoled_guest_tx(c);
--#endif
-+    if ( consoled_is_enabled() )
-+        /* Deliver input to the PV shim console. */
-+        rc = consoled_guest_tx(c);
- 
-     if ( rc )
-         printk(KERN_ERR "d%pd: failed to process console input: %d\n", d, rc);
-diff --git a/xen/drivers/char/consoled.c b/xen/drivers/char/consoled.c
-index b415b632cecc0a80e161b701d7b70ba4f3cc5fb8..8704ec251eb19e9c1cdc5927f896aeb20cc5af1e 100644
---- a/xen/drivers/char/consoled.c
-+++ b/xen/drivers/char/consoled.c
-@@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(void)
- static char buf[BUF_SZ + 1];
- 
- /* Receives characters from a domain's PV console */
--void consoled_guest_rx(void)
-+int consoled_guest_rx(void)
+ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+@@ -8,7 +9,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
  {
-     size_t idx = 0;
-     XENCONS_RING_IDX cons, prod;
- 
-     if ( !cons_ring )
--        return;
-+        return -ENODEV;
- 
-     spin_lock(&rx_lock);
- 
-@@ -91,15 +91,17 @@ void consoled_guest_rx(void)
- 
-  out:
-     spin_unlock(&rx_lock);
+     switch(d_config->c_info.type) {
+     case LIBXL_DOMAIN_TYPE_HVM:
+-        config->arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
++        config->arch.emulation_flags = XEN_X86_EMU_ALL;
++        config->arch.emulation_flags &= ~XEN_X86_EMU_VPCI;
 +
-+    return 0;
- }
+         if (!libxl_defbool_val(d_config->b_info.u.hvm.pirq))
+             config->arch.emulation_flags &= ~XEN_X86_EMU_USE_PIRQ;
+         break;
+diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
+index 863ab3c778cd19637d8c52ec67dac7623be848b5..b693f3458629fb956d543d7491348cf953c67d6f 100644
+--- a/tools/ocaml/libs/xc/xenctrl_stubs.c
++++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
+@@ -35,6 +35,7 @@
+ #define XC_WANT_COMPAT_MAP_FOREIGN_API
+ #include <xenctrl.h>
+ #include <xenguest.h>
++#include <xen/virtdev.h>
+ #include <xen-tools/common-macros.h>
  
- /* Sends a character into a domain's PV console */
--void consoled_guest_tx(char c)
-+int consoled_guest_tx(char c)
- {
-     XENCONS_RING_IDX cons, prod;
+ #include "mmap_stubs.h"
+diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
+index 9feb12ae2b16e48cb5d0c3c45044ae226f152f2d..d064e9e7af2fcc09dbd6485e8b9ef648b8068d00 100644
+--- a/tools/python/xen/lowlevel/xc/xc.c
++++ b/tools/python/xen/lowlevel/xc/xc.c
+@@ -18,6 +18,7 @@
+ #include <netdb.h>
+ #include <arpa/inet.h>
  
-     if ( !cons_ring )
--        return;
-+        return -ENODEV;
++#include <xen/virtdev.h>
+ #include <xen/elfnote.h>
+ #include <xen/hvm/hvm_info_table.h>
+ #include <xen/hvm/params.h>
+@@ -159,9 +160,7 @@ static PyObject *pyxc_domain_create(XcObject *self,
  
-     cons = ACCESS_ONCE(cons_ring->in_cons);
-     prod = cons_ring->in_prod;
-@@ -125,6 +127,13 @@ void consoled_guest_tx(char c)
-  notify:
-     /* Always notify the guest: prevents receive path from getting stuck. */
-     pv_shim_inject_evtchn(pv_console_evtchn());
-+
-+    return 0;
-+}
-+
-+bool consoled_is_enabled(void)
-+{
-+    return pv_shim && pv_console;
- }
+ #if defined (__i386) || defined(__x86_64__)
+     if ( config.flags & XEN_DOMCTL_CDF_hvm )
+-        config.arch.emulation_flags = XEN_X86_EMU_ALL &
+-                                      ~(XEN_X86_EMU_VPCI |
+-                                        XEN_X86_EMU_USE_PIRQ);
++        config.arch.emulation_flags = XEN_X86_EMU_BASELINE;
+ #elif defined (__arm__) || defined(__aarch64__)
+     config.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
+ #else
+diff --git a/tools/tests/paging-mempool/test-paging-mempool.c b/tools/tests/paging-mempool/test-paging-mempool.c
+index 1ebc13455ac263b8d2067f3676ba324da61abb83..121ffdcd376ddb324130a441352bf2a53d69b1e9 100644
+--- a/tools/tests/paging-mempool/test-paging-mempool.c
++++ b/tools/tests/paging-mempool/test-paging-mempool.c
+@@ -9,6 +9,7 @@
+ #include <xenforeignmemory.h>
+ #include <xengnttab.h>
+ #include <xen-tools/common-macros.h>
++#include <xen/virtdev.h>
+ 
+ static unsigned int nr_failures;
+ #define fail(fmt, ...)                          \
+diff --git a/tools/tests/resource/test-resource.c b/tools/tests/resource/test-resource.c
+index 1b10be16a6b43f8448a6f4ccf8fd093b6556b915..e388bfeec57b1f16a6ccd9ede8ff1c02c0448393 100644
+--- a/tools/tests/resource/test-resource.c
++++ b/tools/tests/resource/test-resource.c
+@@ -8,6 +8,7 @@
+ #include <xenforeignmemory.h>
+ #include <xengnttab.h>
+ #include <xen-tools/common-macros.h>
++#include <xen/virtdev.h>
+ 
+ static unsigned int nr_failures;
+ #define fail(fmt, ...)                          \
+diff --git a/tools/tests/tsx/test-tsx.c b/tools/tests/tsx/test-tsx.c
+index 5af04953f340febcf56da9b041338237b71617cb..5681b3c846715e913169277ee4a11ca087013fb6 100644
+--- a/tools/tests/tsx/test-tsx.c
++++ b/tools/tests/tsx/test-tsx.c
+@@ -29,6 +29,7 @@
+ #include <xenctrl.h>
+ #include <xenguest.h>
+ #include <xen-tools/common-macros.h>
++#include <xen/virtdev.h>
+ 
+ #include "xg_private.h"
+ 
+diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+index f1d72c6e48dfeba347b4cd091ca33603c368b7c0..3dedf758bbd1f142debbc7c2460398e1bea822d7 100644
+--- a/xen/arch/arm/include/asm/domain.h
++++ b/xen/arch/arm/include/asm/domain.h
+@@ -119,6 +119,8 @@ struct arch_domain
+     void *tee;
+ #endif
+ 
++    /* Hardware emulation flags. */
++    uint32_t emulation_flags;
+ }  __cacheline_aligned;
+ 
+ struct arch_vcpu
+diff --git a/xen/arch/ppc/include/asm/domain.h b/xen/arch/ppc/include/asm/domain.h
+index 3a447272c6f28586bf0d610929adbf228579e13f..8aa7b4a6ac0d0850542e94cb28e58c62c3a4b156 100644
+--- a/xen/arch/ppc/include/asm/domain.h
++++ b/xen/arch/ppc/include/asm/domain.h
+@@ -21,6 +21,8 @@ struct arch_vcpu {
+ 
+ struct arch_domain {
+     struct hvm_domain hvm;
++    /* Hardware emulation flags. */
++    uint32_t emulation_flags;
+ };
+ 
+ #include <xen/sched.h>
+diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+index c3d965a559b6ce3661bf17166d0c51853ff295a2..b561e6f4f868e1f4a6670b11111eb8cfe84ca385 100644
+--- a/xen/arch/riscv/include/asm/domain.h
++++ b/xen/arch/riscv/include/asm/domain.h
+@@ -18,6 +18,8 @@ struct arch_vcpu {
+ 
+ struct arch_domain {
+     struct hvm_domain hvm;
++    /* Hardware emulation flags. */
++    uint32_t emulation_flags;
+ };
+ 
+ #include <xen/sched.h>
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 78a13e6812c9120901d0a70fb3bc1bd6a8b6917d..9669886ac95cbee27c9eb72b16386705b470e7b1 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -753,9 +753,7 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+              emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
+             return false;
+         if ( !is_hardware_domain(d) &&
+-             /* HVM PIRQ feature is user-selectable. */
+-             (emflags & ~X86_EMU_USE_PIRQ) !=
+-             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
++             xen_emflags_allowable(emflags) != XEN_X86_EMU_BASELINE &&
+              emflags != X86_EMU_LAPIC )
+             return false;
+     }
+@@ -818,9 +816,12 @@ int arch_domain_create(struct domain *d,
+ 
+     if ( !emulation_flags_ok(d, emflags) )
+     {
+-        printk(XENLOG_G_ERR "d%d: Xen does not allow %s domain creation "
++        printk(XENLOG_G_ERR "%pd: Xen does not allow %s %sdomain creation "
+                "with the current selection of emulators: %#x\n",
+-               d->domain_id, is_hvm_domain(d) ? "HVM" : "PV", emflags);
++               d,
++               is_hvm_domain(d) ? "HVM" : "PV",
++               is_hardware_domain(d) ? "(hardware) " : "",
++               emflags);
+         return -EOPNOTSUPP;
+     }
+     d->arch.emulation_flags = emflags;
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index b79d6badd71c4d96279555df62fad75fe817a2b6..2532616bca015d0aad9abc35e14948937ab39b8f 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -9,6 +9,7 @@
+ #include <asm/mce.h>
+ #include <asm/vpmu.h>
+ #include <asm/x86_emulate.h>
++#include <public/virtdev.h>
+ #include <public/vcpu.h>
+ #include <public/hvm/hvm_info_table.h>
+ 
+@@ -456,7 +457,7 @@ struct arch_domain
+     /* Don't unconditionally inject #GP for unhandled MSRs. */
+     bool msr_relaxed;
+ 
+-    /* Emulated devices enabled bitmap. */
++    /* Hardware emulation flags. */
+     uint32_t emulation_flags;
+ } __cacheline_aligned;
+ 
+diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
+index 6ea54838d434f9788e309c79119f1dab92fba6e3..7c331bc17bf279d4dd95ec5bbb540a70657cc1d1 100644
+--- a/xen/common/keyhandler.c
++++ b/xen/common/keyhandler.c
+@@ -302,6 +302,7 @@ static void cf_check dump_domains(unsigned char key)
+             if ( test_bit(i, &d->watchdog_inuse_map) )
+                 printk("    watchdog %d expires in %d seconds\n",
+                        i, (u32)((d->watchdog_timer[i].expires - NOW()) >> 30));
++        printk("    emulation_flags %#x\n", d->arch.emulation_flags);
+ 
+         arch_dump_domain_info(d);
+ 
+diff --git a/xen/include/Makefile b/xen/include/Makefile
+index 058b0a566b8b97305554add529ede6ba9ac53a7e..a7820e0e99763fbad36c52ba4f95290798e34893 100644
+--- a/xen/include/Makefile
++++ b/xen/include/Makefile
+@@ -15,6 +15,7 @@ headers-y := \
+     compat/sched.h \
+     compat/vcpu.h \
+     compat/version.h \
++    compat/virtdev.h \
+     compat/xen.h \
+     compat/xlat.h
+ headers-$(CONFIG_X86)     += compat/arch-x86/pmu.h
+diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
+index fc2487986642a7694578ab9d2f5f16d09761bff8..fdf05875f26e63d7bcce34a1ad4e931ce22dbdc5 100644
+--- a/xen/include/public/arch-x86/xen.h
++++ b/xen/include/public/arch-x86/xen.h
+@@ -261,35 +261,7 @@ typedef struct arch_shared_info arch_shared_info_t;
+  * XEN_DOMCTL_INTERFACE_VERSION.
+  */
+ struct xen_arch_domainconfig {
+-#define _XEN_X86_EMU_LAPIC          0
+-#define XEN_X86_EMU_LAPIC           (1U<<_XEN_X86_EMU_LAPIC)
+-#define _XEN_X86_EMU_HPET           1
+-#define XEN_X86_EMU_HPET            (1U<<_XEN_X86_EMU_HPET)
+-#define _XEN_X86_EMU_PM             2
+-#define XEN_X86_EMU_PM              (1U<<_XEN_X86_EMU_PM)
+-#define _XEN_X86_EMU_RTC            3
+-#define XEN_X86_EMU_RTC             (1U<<_XEN_X86_EMU_RTC)
+-#define _XEN_X86_EMU_IOAPIC         4
+-#define XEN_X86_EMU_IOAPIC          (1U<<_XEN_X86_EMU_IOAPIC)
+-#define _XEN_X86_EMU_PIC            5
+-#define XEN_X86_EMU_PIC             (1U<<_XEN_X86_EMU_PIC)
+-#define _XEN_X86_EMU_VGA            6
+-#define XEN_X86_EMU_VGA             (1U<<_XEN_X86_EMU_VGA)
+-#define _XEN_X86_EMU_IOMMU          7
+-#define XEN_X86_EMU_IOMMU           (1U<<_XEN_X86_EMU_IOMMU)
+-#define _XEN_X86_EMU_PIT            8
+-#define XEN_X86_EMU_PIT             (1U<<_XEN_X86_EMU_PIT)
+-#define _XEN_X86_EMU_USE_PIRQ       9
+-#define XEN_X86_EMU_USE_PIRQ        (1U<<_XEN_X86_EMU_USE_PIRQ)
+-#define _XEN_X86_EMU_VPCI           10
+-#define XEN_X86_EMU_VPCI            (1U<<_XEN_X86_EMU_VPCI)
+-
+-#define XEN_X86_EMU_ALL             (XEN_X86_EMU_LAPIC | XEN_X86_EMU_HPET |  \
+-                                     XEN_X86_EMU_PM | XEN_X86_EMU_RTC |      \
+-                                     XEN_X86_EMU_IOAPIC | XEN_X86_EMU_PIC |  \
+-                                     XEN_X86_EMU_VGA | XEN_X86_EMU_IOMMU |   \
+-                                     XEN_X86_EMU_PIT | XEN_X86_EMU_USE_PIRQ |\
+-                                     XEN_X86_EMU_VPCI)
++    /* Hardware emulation flags. */
+     uint32_t emulation_flags;
  
  /*
-diff --git a/xen/include/xen/consoled.h b/xen/include/xen/consoled.h
-index bd7ab6329ee8a7c466484021247241ded8ed03c7..14e5e3284a86201919f0f70a8c2785609f35b15f 100644
---- a/xen/include/xen/consoled.h
-+++ b/xen/include/xen/consoled.h
-@@ -1,14 +1,36 @@
--#ifndef __XEN_CONSOLED_H__
--#define __XEN_CONSOLED_H__
+diff --git a/xen/include/public/virtdev.h b/xen/include/public/virtdev.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..27434377ecacfe069a91dea3768d14b0c14e08b4
+--- /dev/null
++++ b/xen/include/public/virtdev.h
+@@ -0,0 +1,61 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef XEN__CONSOLED_H
-+#define XEN__CONSOLED_H
++#ifndef XEN__PUBLIC_VIRTDEV_H
++#define XEN__PUBLIC_VIRTDEV_H
++
++/*
++ * Domain hardware emulation flags.
++ */
++enum {
++    VIRTDEV_LAPIC      = 1U << 0,
++    VIRTDEV_HPET       = 1U << 1,
++    VIRTDEV_PM         = 1U << 2,
++    VIRTDEV_RTC        = 1U << 3,
++    VIRTDEV_IOAPIC     = 1U << 4,
++    VIRTDEV_PIC        = 1U << 5,
++    VIRTDEV_VGA        = 1U << 6,
++    VIRTDEV_IOMMU      = 1U << 7,
++    VIRTDEV_PIT        = 1U << 8,
++    VIRTDEV_PIRQ       = 1U << 9,
++    VIRTDEV_PCI        = 1U << 10,
++};
++
++#if defined(__i386__) || defined(__x86_64__)
++#define XEN_X86_EMU_LAPIC           VIRTDEV_LAPIC
++#define XEN_X86_EMU_HPET            VIRTDEV_HPET
++#define XEN_X86_EMU_PM              VIRTDEV_PM
++#define XEN_X86_EMU_RTC             VIRTDEV_RTC
++#define XEN_X86_EMU_IOAPIC          VIRTDEV_IOAPIC
++#define XEN_X86_EMU_PIC             VIRTDEV_PIC
++#define XEN_X86_EMU_VGA             VIRTDEV_VGA
++#define XEN_X86_EMU_IOMMU           VIRTDEV_IOMMU
++#define XEN_X86_EMU_PIT             VIRTDEV_PIT
++#define XEN_X86_EMU_USE_PIRQ        VIRTDEV_PIRQ
++#define XEN_X86_EMU_VPCI            VIRTDEV_PCI
++
++#define XEN_X86_EMU_ALL             (XEN_X86_EMU_LAPIC | XEN_X86_EMU_HPET |  \
++                                     XEN_X86_EMU_PM | XEN_X86_EMU_RTC |      \
++                                     XEN_X86_EMU_IOAPIC | XEN_X86_EMU_PIC |  \
++                                     XEN_X86_EMU_VGA | XEN_X86_EMU_IOMMU |   \
++                                     XEN_X86_EMU_PIT | XEN_X86_EMU_USE_PIRQ |\
++                                     XEN_X86_EMU_VPCI)
++
++/* PIRQ (HVM) feature is user-selectable (libxl). */
++#define XEN_X86_EMU_OPTIONAL        (XEN_X86_EMU_VPCI | \
++                                     XEN_X86_EMU_USE_PIRQ)
++
++#define XEN_X86_EMU_BASELINE        xen_emflags_allowable(XEN_X86_EMU_ALL)
++
++#define xen_emflags_allowable(x)    ( (x) & ~XEN_X86_EMU_OPTIONAL )
++#endif /* #if defined(__i386__) || defined(__x86_64__) */
++
++#endif /* XEN__PUBLIC_VIRTDEV_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+index 3de56352911347a54cce310f0211bcc213d8a08d..eec093e9e167c14a536383422d280ed5ee56f698 100644
+--- a/xen/include/xen/domain.h
++++ b/xen/include/xen/domain.h
+@@ -5,6 +5,7 @@
+ #include <xen/numa.h>
+ #include <xen/types.h>
  
- #include <public/io/console.h>
++#include <public/virtdev.h>
+ #include <public/xen.h>
  
-+#ifdef CONFIG_PV_SHIM
-+
- void consoled_set_ring_addr(struct xencons_interface *ring);
- struct xencons_interface *consoled_get_ring_addr(void);
--void consoled_guest_rx(void);
--void consoled_guest_tx(char c);
-+int consoled_guest_rx(void);
-+int consoled_guest_tx(char c);
-+bool consoled_is_enabled(void);
- 
--#endif /* __XEN_CONSOLED_H__ */
-+#else
-+
-+static inline int consoled_guest_rx(void)
-+{
-+    ASSERT_UNREACHABLE();
-+    return 0;
-+}
-+
-+static inline int consoled_guest_tx(char c)
-+{
-+    ASSERT_UNREACHABLE();
-+    return 0;
-+}
-+
-+#define consoled_is_enabled() ( false )
-+
-+#endif /* CONFIG_PV_SHIM */
-+
-+#endif /* XEN__CONSOLED_H */
- /*
-  * Local variables:
-  * mode: C
+ struct guest_area {
 
 -- 
 2.34.1
