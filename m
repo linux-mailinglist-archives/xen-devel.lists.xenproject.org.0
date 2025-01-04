@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5A50A011F6
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 03:50:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.864973.1276242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 912DEA011F7
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 03:51:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.864981.1276252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTuEt-0003aJ-4Q; Sat, 04 Jan 2025 02:50:11 +0000
+	id 1tTuFv-0004d1-DB; Sat, 04 Jan 2025 02:51:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 864973.1276242; Sat, 04 Jan 2025 02:50:11 +0000
+Received: by outflank-mailman (output) from mailman id 864981.1276252; Sat, 04 Jan 2025 02:51:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTuEt-0003YG-10; Sat, 04 Jan 2025 02:50:11 +0000
-Received: by outflank-mailman (input) for mailman id 864973;
- Sat, 04 Jan 2025 02:50:10 +0000
+	id 1tTuFv-0004a7-9I; Sat, 04 Jan 2025 02:51:15 +0000
+Received: by outflank-mailman (input) for mailman id 864981;
+ Sat, 04 Jan 2025 02:51:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EL/b=T4=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tTuEs-0003Y4-28
- for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 02:50:10 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9be0c8d5-ca46-11ef-a0de-8be0dac302b0;
- Sat, 04 Jan 2025 03:50:08 +0100 (CET)
+ id 1tTuFu-0004Zz-3T
+ for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 02:51:14 +0000
+Received: from mail-40131.protonmail.ch (mail-40131.protonmail.ch
+ [185.70.40.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c24c0521-ca46-11ef-a0de-8be0dac302b0;
+ Sat, 04 Jan 2025 03:51:13 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,77 +36,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9be0c8d5-ca46-11ef-a0de-8be0dac302b0
+X-Inumbo-ID: c24c0521-ca46-11ef-a0de-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1735959008; x=1736218208;
-	bh=W7J6i5x/8Ek+dqAE7fl5KSCrApZ7gxyKuVWCeMHtz6Q=;
+	s=protonmail; t=1735959071; x=1736218271;
+	bh=bFgZsvN8ug6qv0E64JqLve9OtjkDvHUNjUVERtYWc3g=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=QFtnOOkQsj8uAFCHDj5cW+sy7z6ujk5JpY5fvdo2uqwDsJH8lLWdMAClVwQxbtc2E
-	 OBmXUBJLFgIywjIiga6wx4W4b/BQ4S0fiNMZcZsdEPKryFuCTv1omJaeH2Cfyl1DD7
-	 2Aia51NBFBO8aUUKxVQQeRRkPq2FKZZtAKHPr2hY2M0LUK1Ye03ulZeuDawjK2K6pf
-	 zLrozT5YeSp8OIhKNurdj71zZ32ixfo/shKypsbBgW8DSRxJRKVpBbw52bWj4HP+nj
-	 0UDSD5Sw6GX8+Q2dkmYmBA6XO4sr007N2ZWqVKNtixCkOKehn6WNmCSmGxKgpYO4K0
-	 OCL4Ct2uIYY4A==
-Date: Sat, 04 Jan 2025 02:50:04 +0000
+	b=j1qJ9rhCfFS0KSHqhjv460f1Yx601WxqF7xqaV70k8IJ370hpuDvab+2mJnnH/gkO
+	 SJOBVfoprCKmwyuZqmV/G4BjdPyp+0bhFgbngneRhoGiLrRQcvLNK9M4bh6MlAz7XR
+	 EIJNH1sxHMis1FQuxwziDGegxGNG0h4tpZy3ClP9+5/Hl6J9B8mVPZhsWyEn4X9iU7
+	 kU6hazyL5TAYIO5Rh+BCDUppPa1fFQbmBQkzNckFRq1/u18Lg4DGoaRKZ2f70NKPTO
+	 MQH/PEE+HUzm0Pg/NAZzUb+Wkq4PEYl3ePVf6rJTQ9rfDTq9YvXIs2nOXQCt3L3/QY
+	 t8GZOMuqRnNoA==
+Date: Sat, 04 Jan 2025 02:51:06 +0000
 To: Jan Beulich <jbeulich@suse.com>
 From: Denis Mukhin <dmkhn@proton.me>
 Cc: dmukhin@ford.com, Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 10/35] xen/domain: add get_initial_domain_id()
-Message-ID: <xFirAmBGiUy3kGF6yY5yOXOiymKw0LP81JxwOFPYwKTDOSrF8vRWwg8nQ2X11tyDlLwt9bVrWHp0_MDmBi7Ujaq9v5f-dloBxeXlRjqoxVQ=@proton.me>
-In-Reply-To: <d3280b62-1bd5-4684-bf8c-be0d6d4ee842@suse.com>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-10-e9aa923127eb@ford.com> <d3280b62-1bd5-4684-bf8c-be0d6d4ee842@suse.com>
+Subject: Re: [PATCH v2 11/35] xen/domain: enable max_init_domid for all architectures
+Message-ID: <7Hq9DTz8CArNygIvQfu-X4WS2kGp0GovCOriynZ8hXfYkwZdCO8isiX1UG_6y7XkxZAWDa84hO27pYRwLogcRTG1wk7p9mQFGzMdFruZk5Y=@proton.me>
+In-Reply-To: <32065c58-ca83-4a18-8831-6044da2377e9@suse.com>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-11-e9aa923127eb@ford.com> <32065c58-ca83-4a18-8831-6044da2377e9@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 6f5540a4639ab86268e368440f78a22bcbe25081
+X-Pm-Message-ID: 73aefb83cb254b9fa0adbac377501f3cd1ef1f8a
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tuesday, December 10th, 2024 at 5:50 AM, Jan Beulich <jbeulich@suse.com>=
+On Tuesday, December 10th, 2024 at 5:57 AM, Jan Beulich <jbeulich@suse.com>=
  wrote:
 
 >
 >
 > On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
 >
-> > Move get_initial_domain_id() to a public API and enable for all archite=
-ctures.
-> > That is pre-requisite change for console focus switch logic cleanup.
->
->
-> Yet then how does this fit with dom0less, let alone hyperlaunch,
-> where multiple domains may be created right when Xen starts?
-
-I see it now, thanks; fixed in v3.
-
->
-> Plus, if you make this generic, shouldn't Arm also be adjusted to
-> use this function (if nothing else then to avoid things going out
-> of sync later on)?
-
-Yes, Arm port should have been adjusted; thanks a lot!
-Addressed.
-
->
-> > @@ -2229,6 +2230,15 @@ int continue_hypercall_on_cpu(
-> > return 0;
-> > }
+> > --- a/xen/common/domain.c
+> > +++ b/xen/common/domain.c
+> > @@ -65,6 +65,9 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+> > static struct domain *domain_hash[DOMAIN_HASH_SIZE];
+> > struct domain *domain_list;
 > >
-> > +domid_t get_initial_domain_id(void)
-> > +{
-> > +#ifdef CONFIG_X86
-> > + return pv_shim_initial_domain_id();
-> > +#else
-> > + return 0;
-> > +#endif
-> > +}
+> > +/* Last known non-system domain ID. /
+> > +domid_t __read_mostly max_init_domid;
+> > +
+> > /
+> > * Insert a domain into the domlist/hash. This allows the domain to be l=
+ooked
+> > * up by domid, and therefore to be the subject of hypercalls/etc.
+> > @@ -815,6 +818,12 @@ struct domain *domain_create(domid_t domid,
+> >
+> > memcpy(d->handle, config->handle, sizeof(d->handle));
+> >
+> > + /*
+> > + * Housekeeping for physical console forwarding to the domain.
+> > + */
+> > + if ( !is_system_domain(d) && max_init_domid < domid )
+> > + max_init_domid =3D domid;
 >
 >
-> Imo this either wants to use CONFIG_PV_SHIM instead, eliminating the
-> need for the pv_shim_initial_domain_id() stub.
+> Yet this affects all domains, not just init ones. Either the variable
+> name is wrong then, or the updating logic needs adjustment. The comment
+> in the earlier hunk suggests the former, yet then this is a behavioral
+> change for Arm, correctness of which needs explaining.
 
-Fixed.
+Thanks, I have reworked that part.
 
 >
 > Jan
