@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89AE9A01201
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 04:07:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865037.1276311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5983A01203
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2025 04:09:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865045.1276322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTuVj-0002m8-Ow; Sat, 04 Jan 2025 03:07:35 +0000
+	id 1tTuX4-0003Ln-2j; Sat, 04 Jan 2025 03:08:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865037.1276311; Sat, 04 Jan 2025 03:07:35 +0000
+Received: by outflank-mailman (output) from mailman id 865045.1276322; Sat, 04 Jan 2025 03:08:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tTuVj-0002kf-M7; Sat, 04 Jan 2025 03:07:35 +0000
-Received: by outflank-mailman (input) for mailman id 865037;
- Sat, 04 Jan 2025 03:07:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tTuX3-0003JR-Vj; Sat, 04 Jan 2025 03:08:57 +0000
+Received: by outflank-mailman (input) for mailman id 865045;
+ Sat, 04 Jan 2025 03:08:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EL/b=T4=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tTuVh-0002kY-8i
- for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 03:07:34 +0000
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0968b806-ca49-11ef-99a4-01e77a169b0f;
- Sat, 04 Jan 2025 04:07:31 +0100 (CET)
+ id 1tTuX2-0003JC-0R
+ for xen-devel@lists.xenproject.org; Sat, 04 Jan 2025 03:08:56 +0000
+Received: from mail-40134.protonmail.ch (mail-40134.protonmail.ch
+ [185.70.40.134]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3afbe7e0-ca49-11ef-a0de-8be0dac302b0;
+ Sat, 04 Jan 2025 04:08:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,108 +36,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0968b806-ca49-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 3afbe7e0-ca49-11ef-a0de-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1735960050; x=1736219250;
-	bh=NZmhaIpPiqVY6052EGTTGgHuFFSYbWuqrzKj7qwJpLQ=;
+	s=protonmail; t=1735960133; x=1736219333;
+	bh=IA9U2t+VkT9DYeTlIFJe3qSW2L52y3P/FN4ATfk6UWI=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=VwY+8A+1b2zCvRbxYSBz66RSoObZyl5aXdNvrtpJ+Pf3nIkvj1dZEuMfLHIql/a/F
-	 jX8qULkFFFYsf2wGumeKcYl2yLxOVu25DhKGFOp7tF1FKM4KKg/GF6GM7ENJm8CaVK
-	 TytBTNSsWD2tDbZf+WId5YDJVgxb6laxXp/R++PZAA1K2e5JmioVmiA3o+AOB/pF9X
-	 eB3ahIj5OSOJHidmHfiGTGIJ8hZuxvi7ZzNxWWn74Rq2idjrVwhtlRUrnmMfkbUZd1
-	 81i+Nqvr0e2mMq5LciQ9daYhPiWrreTRLoVDKd5StJF3vZthXgfGocegQ3Pubd5xAh
-	 CQey3nVLlFKcQ==
-Date: Sat, 04 Jan 2025 03:07:23 +0000
-To: Jan Beulich <jbeulich@suse.com>
+	b=JGxh6sn/gZiwHqa5ABTHT5KnpH6R+jjsYncMTkpBVcDhmkJUm+JOykW6H5zOIaLb1
+	 RHlAwGX12QgHd1g5l+iyLix+CYOCrvwC9LTGSskCgyWPoLTncXHuSicEGUJnDh8O1S
+	 l7JoH0lkXVHQUlLkUcAe3i57z8OdX7+47A42kRtOes6fjSYpPb9c/fm0JgtxCHrozr
+	 qKNIUJpq9os/3pxDn3R2xVgvIHfVXiFPNP3uAcK6Z+p7o0wsq/nz3b0U23xKufQmp5
+	 o047vdv1CxjRewACJH15MTzeZ9yG+La001+Ob8lCGEONjKVKwnHCj9gQZEJj67ZVv+
+	 /MYSdrIW07eXw==
+Date: Sat, 04 Jan 2025 03:08:47 +0000
+To: Jason Andryuk <jason.andryuk@amd.com>
 From: Denis Mukhin <dmkhn@proton.me>
-Cc: dmukhin@ford.com, Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 19/35] xen/console: introduce console_set_owner()
-Message-ID: <CA3mSmUEpURgjpQUifNWDKDNS2HBsE68ad-RudxX4F45CCn2JL1wLo63_ZYcA7qx4nkD23GvE3BVlMjV0oz75Mssd0A5wQQ6zKlcWRLfhyM=@proton.me>
-In-Reply-To: <d9c8e9bf-7eac-48f7-a347-b78e97a16f8f@suse.com>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-19-e9aa923127eb@ford.com> <d9c8e9bf-7eac-48f7-a347-b78e97a16f8f@suse.com>
+Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 34/35] xen/console: enable console owners w/ emulated NS8250
+Message-ID: <2uZS3QjicwLbB66ako72z5LY6tjKh61sLtGHXFt5t9kx9oSH82sCl5Xzv1MrvqXu7sHefhodIM-MAh-ue_mfwe7YQZcleh8qCN3M4_rVHE0=@proton.me>
+In-Reply-To: <1b55c7eb-3e39-43d1-80d2-2d4caf6a0c76@amd.com>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com> <20241205-vuart-ns8250-v1-34-e9aa923127eb@ford.com> <1b55c7eb-3e39-43d1-80d2-2d4caf6a0c76@amd.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 7c489c6c56dde900b90bd11d92bcaa3203dd2700
+X-Pm-Message-ID: ee7f8bd31dcf0ddde8d44a71ae8230d6c3262657
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tuesday, December 10th, 2024 at 7:02 AM, Jan Beulich <jbeulich@suse.com>=
- wrote:
+
+On Tuesday, December 10th, 2024 at 2:46 PM, Jason Andryuk <jason.andryuk@am=
+d.com> wrote:
 
 >
 >
-> On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
+> On 2024-12-05 23:42, Denis Mukhin via B4 Relay wrote:
 >
+> > From: Denis Mukhin dmukhin@ford.com
+> >
+> > Enable console focus for domains w/ virtual NS8250.
+> >
+> > Code change allows to capture the output from the guest OS now and send=
+ it to
+> > the physical console device.
+> >
+> > Signed-off-by: Denis Mukhin dmukhin@ford.com
+> > ---
+> > xen/drivers/char/console.c | 5 +++++
+> > 1 file changed, 5 insertions(+)
+> >
+> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> > index a26daee9c4c4b1134d0ae3d105ffdb656340b6df..798dfdf3412a2feef35e729=
+46d6c59bee59a9251 100644
 > > --- a/xen/drivers/char/console.c
 > > +++ b/xen/drivers/char/console.c
-> > @@ -463,82 +463,100 @@ static void cf_check dump_console_ring_key(unsig=
-ned char key)
+> > @@ -41,6 +41,9 @@
+> > #ifdef CONFIG_SBSA_VUART_CONSOLE
+> > #include <asm/vpl011.h>
+> > #endif
+> > +#if defined(CONFIG_HAS_VUART_NS8250)
+> > +#include <asm/hvm/vuart_ns8250.h>
+> > +#endif
 > >
-> > /*
-> > * CTRL-<switch_char> changes input direction, rotating among Xen, Dom0,
-> > - * and the DomUs started from Xen at boot.
-> > + * and the DomUs.
-> > /
-> > #define switch_code (opt_conswitch[0]-'a'+1)
-> > +
-> > /
-> > - * console_owner=3D0 =3D> input to xen
-> > - * console_owner=3D1 =3D> input to dom0 (or the sole shim domain)
-> > - * console_owner=3DN =3D> input to dom(N-1)
-> > + * Current console owner domain ID: either Xen or domain w/ d->is_cons=
-ole =3D=3D
-> > + * true.
+> > /* console: comma-separated list of console outputs. */
+> > static char __initdata opt_console[30] =3D OPT_CONSOLE_STR;
+> > @@ -627,6 +630,8 @@ static void handle_keypress_in_domain(struct domain=
+ *d, char c)
+> > {
+> > #if defined(CONFIG_SBSA_VUART_CONSOLE)
+> > rc =3D vpl011_rx_char_xen(d, c);
+> > +#elif defined(CONFIG_HAS_VUART_NS8250)
+> > + rc =3D vuart_putchar(&d->arch.hvm.vuart, c);
+> > #endif
 >
 >
-> The switching of number space may better have been a separate patch.
-> Albeit maybe I'm just not seeing why it wants combining with the
-> introduction of console_set_owner().
+> I think it would be nicer to just use a single name and avoid ifdef-ery.
+> vuart_putchar() is generic and matches domain_has_vuart(), so that
+> seems good.
+>
+> You can then have a default stub that returns -ENODEV for when an
+> implementation is not built. (This goes along with Jan's suggestion of
+> a common, default domain_has_vuart().) Something like:
+>
+> #ifndef vuart_putchar
+> static inline int vuart_putchar(struct domain *d, char c) {
+> return -ENODEV;
+> }
+> #define vuart_putchar vuart_putchar
+> #endif
+>
+> and ARM can do:
+> #define vuart_putchar vpl011_rx_char_xen
+>
+> x86 would need to change its arguments, but that should be straight forwa=
+rd.
+>
+> What do you think?
 
-This is the part I tried in different variations and finally
-ended up w/ plumbing new console owner IDs "address space"
-here: console_set_owner() takes domid_t and I decided against intermediate
-patch, since it is not a big (in term of lines of code) change.
+I think this is a good suggestion, I had same plans for this code, TBH.
+I only planned to do that later, but now addressed in v3.
+I solved it by adding arch-independent virtdev-uart.c shim, each vUART
+implementation should register itself in this shim.
 
->
-> Actually, is this switching actually complete? What about late hwdom,
-> which has a non-zero domain ID?
-
-I did reworks for max_init_domid in v3, I believe it should address late
-hwdom scenario.
-
->
-> > + * Initialized in console_endboot().
-> > */
-> > -static unsigned int __read_mostly console_owner =3D 0;
-> > +static domid_t __read_mostly console_owner;
-> >
-> > -#define max_console_rx (max_init_domid + 1)
-> > +static struct domain *rcu_lock_domain_console_by_id(domid_t domid)
->
->
-> I think "domain" and "console" want switching in the name, as it's a
-> domain you're locking, not a console.
-
-Renamed to "console_get_domain_by_id".
+Fixed.
 
 >
-> > +int console_set_owner(domid_t domid)
->
->
-> static? Iirc Misra doesn't like non-static functions which aren't called
-> from any other CU.
-
-Yes, but there's a follow on patch which will undo static - hwdom_crashcons=
-ole=3D
-patch - to drop the user to xen console once dom0 has crashed.
-So since there's a need in globally visible symbol, I decided to get rid of=
- static
-right away.
-
->
-> Jan
+> Regards,
+> Jason
 
 
 
