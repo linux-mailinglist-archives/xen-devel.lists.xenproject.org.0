@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5D4FA02082
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 09:17:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865534.1276767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3414A0210F
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 09:48:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865543.1276776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUiGw-0003lL-Dq; Mon, 06 Jan 2025 08:15:38 +0000
+	id 1tUim8-0007Yv-Qx; Mon, 06 Jan 2025 08:47:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865534.1276767; Mon, 06 Jan 2025 08:15:38 +0000
+Received: by outflank-mailman (output) from mailman id 865543.1276776; Mon, 06 Jan 2025 08:47:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUiGw-0003iv-B1; Mon, 06 Jan 2025 08:15:38 +0000
-Received: by outflank-mailman (input) for mailman id 865534;
- Mon, 06 Jan 2025 08:15:36 +0000
+	id 1tUim8-0007Wg-OM; Mon, 06 Jan 2025 08:47:52 +0000
+Received: by outflank-mailman (input) for mailman id 865543;
+ Mon, 06 Jan 2025 08:47:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9khw=T6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tUiGu-0003io-FQ
- for xen-devel@lists.xen.org; Mon, 06 Jan 2025 08:15:36 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1tUim6-0007Wa-KZ
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 08:47:50 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 65e5c8b5-cc06-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 09:15:32 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-38a34e8410bso4563653f8f.2
- for <xen-devel@lists.xen.org>; Mon, 06 Jan 2025 00:15:32 -0800 (PST)
+ id e7d85adf-cc0a-11ef-99a4-01e77a169b0f;
+ Mon, 06 Jan 2025 09:47:48 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-385dece873cso5170280f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 00:47:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c89e1acsm47369895f8f.68.2025.01.06.00.15.31
+ ffacd0b85a97d-38a1c89e126sm46590530f8f.65.2025.01.06.00.47.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 00:15:31 -0800 (PST)
+ Mon, 06 Jan 2025 00:47:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65e5c8b5-cc06-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: e7d85adf-cc0a-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736151332; x=1736756132; darn=lists.xen.org;
+        d=suse.com; s=google; t=1736153268; x=1736758068; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rSYdRm/a7jNFsYtQqLFAh2uV/OUwD/apSXYr7PyQd3I=;
-        b=CMru65QhHVdJLd5X7aPeHsde+vUo2Eg8Akom8HqIU/6r7RorDqN+/nfw0DQYl5z1kE
-         KG1WxgrjswK2FFnfUrLPANJeCq3UC7zzrI4I60ctrV3CTPlOpL3zNYvIVCyRIMtiZiaz
-         yK8POYDUB9qAue+0e/4foztkEtg7zuDipX8iza6ZHPZOagEvBqK77+zslBltm9kxJGa7
-         qwAymx8veQFhfvLug3WAZkVIWShYZFNe/Z/Tvu22oQH13Acw751xAH/czhukIfSTOm1A
-         z1f+F/ZrJyv9ljMctXJz8VqZaWeAwzZlSqwP3uOgeYyeAIZ42LfWIiAIqlSU1Jzq+AeC
-         cJhw==
+        bh=LUGroKBaUx3fvIycUYkuYkxWRhR2kZInh1iJCXyuhpI=;
+        b=cku2H+yZZ/uCsVO6iyyGGu2K8GC9cvfMRtweD777Mv3bQWC/PMgqnAYC8HVdYZblwE
+         hvDSSrbZyJOOyUMGITRLdTzMKtqqlfJSLh7sd7AQOiBB7+HXDulmUf6Dy49jYxvAXi7C
+         JB9bD+WFmjTMvF5HRaPga24Zs7BAHCj05KpWO/kHAfB4PqXNnXP8KZ8UxoSFfgf2CfLK
+         ZXpWpEQzP4D4HtGjlf5bkXH4kSi1r/coFII6SbRiL5PIWOjP1JyHU3w7JQp+7yxHZlwF
+         wOIOABVGhpOScNeqNuIlxL5A/I0Ma6As1Qx5gzkXQLtcAhm+w5m37VjEoW1A3QVjZwWt
+         mAog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736151332; x=1736756132;
+        d=1e100.net; s=20230601; t=1736153268; x=1736758068;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rSYdRm/a7jNFsYtQqLFAh2uV/OUwD/apSXYr7PyQd3I=;
-        b=XstVln+knxOpDesmEwisZpyBNUyWflKK8hG7A0aQH1xjhEtrWzAt+p9zbaasdlcn3n
-         ViKTIwF7Rh0sEhfv+pwOxyQDUYpRVuLYsyjCUyX6evt/bVgvYiOqy3aYsrXPieXaJV2w
-         ExFXzOrN1Lk2RWMaEXaNYqiAhfJjXyW43e/eLlsskMAiwjjK0Lmn118z3V8A8E957Qxh
-         RX7nY4twxdBkAtb50VADqFGj1dRPPBlQsnXvWu9mKPvQXPMm26dBle7SfS3EEl8fucy1
-         tvGbsPgvnKgSV+2zeryzfyCAEBEpCSdx/iOTN6sy3sIbllaPOt7U/EAbeHq41OIixBuZ
-         6a3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVon6OrJS+CNjFKWecDszyA/bBSjB7s4nqcEVlZDrUjQaJuWJqivyBY/kL9d7h2NEazFF5pTrMy2m0=@lists.xen.org
-X-Gm-Message-State: AOJu0YyorVJxDrpC1KO+nudZ7oRmSVy0V5HsQ7mL2GahUkOcryj23hxR
-	NWvGICtMc4Atc6seuyBdOiPDlYWu2IUva681uw5F3eY3o6h3pA3mfYTjdd913Q==
-X-Gm-Gg: ASbGncsvhjnuXXlFqH11Tjw2i02eh2IP9OBuaHyENCqT2UrwngWdH370V5AsDPdQNWC
-	0xWmUq/YdjMnZElq97rlvcFjwxSkOep7to+C/K48OHrXcuesScMf8gzpcAL+oya57yffw+ANdlB
-	xWAxRQFY+feEakFy52Ciim5g4EjjquCCzaCTIum2uaDhsat6U/+GYhJ8tk/OriRfmrkSq5/t5vt
-	u4ch4pEs2c/lz3ewOkyvjSGXE3qGQ1cwPZLYOHd8I051tDBQBH+wEGeqC6KlA9iPziObwcIiOar
-	1rK2KyX6bXvXkWV7V2PQbYk08UlLBqq56hOuLWHMRA==
-X-Google-Smtp-Source: AGHT+IH2becdfDFGpDsUA06tng4ArRB6Mr9/OA4UN3771rx3JmTQbijQYW8zStIhyyUy9cj9odCb1w==
-X-Received: by 2002:a05:6000:3cd:b0:386:1cd3:8a03 with SMTP id ffacd0b85a97d-38a222009camr41124699f8f.32.1736151331769;
-        Mon, 06 Jan 2025 00:15:31 -0800 (PST)
-Message-ID: <2f33b1fc-e527-4e42-b197-058b1a9f7870@suse.com>
-Date: Mon, 6 Jan 2025 09:15:38 +0100
+        bh=LUGroKBaUx3fvIycUYkuYkxWRhR2kZInh1iJCXyuhpI=;
+        b=ASaHkjZcRzSi2w3xn/lV1WpfjRWy5M7iPbh02Gv5HuhVCGiEIxOGQbrX/KPYwJJqlf
+         2WkxxTTM5kUtiCIkFkTrEHkIkx9AdJGekODkfmwA4xTRf138wffurEx9qU2PmihJme9C
+         f/yq5247zgB3fRQtMMzaG1Q0dxsRf4xNqz50SQX+ZHYjgQ4KGaLNDCOoKlIcD7wZ3CvN
+         VJYetEORKxLPbSENhxCG/Wasb4Q8O5TA27pQllQTBCKvo0NlowWYOKv4ooE0orJdeOOL
+         KjsOXWVxjED0YR7yMeLWqTIb1MWp3e3s/4WOZRhrWqSTGZlWQJ8QdC1IEvQmwMt0wQDN
+         OK0A==
+X-Forwarded-Encrypted: i=1; AJvYcCXL+T7272D7xs+dmxeMm8UGsOZP0mVY+tmN0+NvyMQes4aBVyjhprndiv//nC6eNzzMrB/bj76ev0A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxd+Q8jaBvK9Xb8OXOiUJr2RYONvvjKCHGn3+pbgaWCS3YSPSii
+	qWLfeheFQKCwS1w8a8T/4TD378zc4e3EEv+rUQmn4rWwdKzPQys/uags7YVuqg==
+X-Gm-Gg: ASbGncuXBKkAxJrAU1fxgwU3NCo6XP1gXfYAE+SDJ6LyUKF55/GUw5qplMik/ugO7H8
+	qdqs6e156qnmzyihiZQ/eSXb17gqgyiF3TgOeD25x8oNNrfS8wVZE1c8GuJFz7Swwkt9jD+Yt+x
+	VNX0zwTjMexZKjzWN/In0WTZ3uXvHGdm4GFRZmYripo+sBWPUUOUezv0CH32pWmukOP8CxoItvg
+	0CFz7MAyoUvU17bTOuzBaiII5zGsQX6pCO+jMTqfVDNuJLI+1SXbbH5l007qllfRPAlzjSJp6CP
+	1PCwKcb0BY++yUgxi//f+10nHoQPMTt/LX57jZoeMQ==
+X-Google-Smtp-Source: AGHT+IGKGRBfsPyXyVmDmchBix5jmtQnAiG4xE0y+lEW61nfYMWevzWLr0j4N8YtsOkP1ZSL29a95Q==
+X-Received: by 2002:a05:6000:70a:b0:385:e0d6:fb48 with SMTP id ffacd0b85a97d-38a221f109amr48478778f8f.7.1736153267885;
+        Mon, 06 Jan 2025 00:47:47 -0800 (PST)
+Message-ID: <324509b4-a38e-4c83-9774-d7f560192c6d@suse.com>
+Date: Mon, 6 Jan 2025 09:47:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Xen Security Advisory 466 v3 (CVE-2024-53241) - Xen hypercall
- page unsafe against speculative attacks
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, xen-devel@lists.xen.org
-References: <E1tNWXG-00E268-2p@xenbits.xenproject.org>
- <54c892eded2b4ebdda8ee1085c383178f44414ad.camel@infradead.org>
- <a3031e7d-fe9d-4db8-8ccd-923165c9af72@suse.com>
- <fc4c45ea86567ef0c46d7e5a20e8abffa75cc4ec.camel@infradead.org>
- <fd993f8d-280f-439a-a6a0-506e2815f281@suse.com>
+Subject: Re: [XEN PATCH v2] xen: introduce kconfig options to disable
+ hypercalls
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20241219092917.3006174-1-Sergiy_Kibrik@epam.com>
+ <735f8d30-5f42-4fa6-acb0-f82b5b759183@suse.com>
+ <alpine.DEB.2.22.394.2501021033440.16425@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,62 +125,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fd993f8d-280f-439a-a6a0-506e2815f281@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2501021033440.16425@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02.01.2025 14:38, Jürgen Groß wrote:
-> On 02.01.25 13:53, David Woodhouse wrote:
->> On Thu, 2025-01-02 at 13:07 +0100, Jürgen Groß wrote:
->>> On 23.12.24 15:24, David Woodhouse wrote:
->>>> On Tue, 2024-12-17 at 12:18 +0000, Xen.org security team wrote:
->>>>>                Xen Security Advisory CVE-2024-53241 / XSA-466
->>>>>                                   version 3
->>>>>
->>>>>            Xen hypercall page unsafe against speculative attacks
->>>>>
->>>>> UPDATES IN VERSION 3
->>>>> ====================
->>>>>
->>>>> Update of patch 5, public release.
->>>>
->>>> Can't we even use the hypercall page early in boot? Surely we have to
->>>> know whether we're running on an Intel or AMD CPU before we get to the
->>>> point where we can enable any of the new control-flow integrity
->>>> support? Do we need to jump through those hoops do do that early
->>>> detection and setup?
->>>
->>> The downside of this approach would be to have another variant to do
->>> hypercalls. So you'd have to replace the variant being able to use AMD
->>> or INTEL specific instructions with a function doing the hypercall via
->>> the hypercall page.
+On 02.01.2025 19:33, Stefano Stabellini wrote:
+> On Fri, 27 Dec 2024, Jan Beulich wrote:
+>> On 19.12.2024 10:29, Sergiy Kibrik wrote:
+>>> --- a/xen/common/Kconfig
+>>> +++ b/xen/common/Kconfig
+>>> @@ -516,4 +516,33 @@ config TRACEBUFFER
+>>>  	  to be collected at run time for debugging or performance analysis.
+>>>  	  Memory and execution overhead when not active is minimal.
+>>>  
+>>> +menu "Supported hypercall interfaces"
+>>> +	visible if DOM0LESS_BOOT && EXPERT
+>>> +
+>>> +config SYSCTL
+>>> +	bool "Enable sysctl hypercall"
+>>> +	depends on !PV_SHIM_EXCLUSIVE
+>>> +	default y
+>>> +
+>>> +config DOMCTL
+>>> +	bool "Enable domctl hypercalls"
+>>> +	depends on !PV_SHIM_EXCLUSIVE
+>>> +	default y
+>>> +
+>>> +config HVM_OP
+>>> +	bool "Enable HVM hypercalls"
+>>> +	depends on HVM
+>>> +	default y
+>>> +
+>>> +config PLATFORM_OP
+>>> +	bool "Enable platform hypercalls"
+>>> +	depends on !PV_SHIM_EXCLUSIVE
+>>> +	default y
 >>
->> You'd probably start with the hypercall function just jumping directly
->> into the temporary hypercall page during early boot, and then you'd
->> update them to use the natively prepared vmcall/vmmcall version later.
->>
->> All the complexity of patching and CPU detection in early boot seems to
->> be somewhat gratuitous and even counter-productive given the change it
->> introduces to 64-bit latching.
->>
->> And even if the 64-bit latch does happen when HVM_PARAM_CALLBACK_IRQ is
->> set, isn't that potentially a lot later in boot? Xen will be treating
->> this guest as 32-bit until then, so won't all the vcpu_info and
->> runstate structures be wrong even as the secondary CPUs are already up
->> and running?
+>> Just to re-iterate an earlier comment: Andrew (imo validly) raised concern of
+>> such negative dependencies. As said before, imo we'd better resolve that before
+>> extending the issue (whether by the patch I once sent or something else is then
+>> secondary).
 > 
-> What I don't get is why this latching isn't done when the shared info
-> page is mapped into the guest via the XENMAPSPACE_shared_info hypercall
-> or maybe additionally when VCPUOP_register_runstate_memory_area is being
-> used by the guest.
+> How would you express the !PV_SHIM_EXCLUSIVE dependency without using
+> negative dependencies?
 
-The respective commit (6c13b7b80f02) lacking details, my guess is that
-because at that point both operations you mention didn't have HVM-specific
-logic (yet), the first HVM-specific operation used by the PV ("unmodified")
-drivers was selected. pv-ops (having a different init sequence) appeared
-only later, and was then (seemingly) sufficiently covered by the latching
-done when the hypercall page was initialized (which was added a few months
-after said commit).
+By inverting the sense of the option (and renaming it), as (to a 1st approximation)
+requested by Andrew long ago, and as proposed in [1], which I think I pointed
+Sergiy at, and which continues to be lacking feedback.
 
 Jan
+
+[1] https://lists.xen.org/archives/html/xen-devel/2023-03/msg00040.html
 
