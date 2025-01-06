@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D27BEA0310B
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 21:03:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865902.1277206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D92FA0310E
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 21:03:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865905.1277216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUtJn-0003EA-RD; Mon, 06 Jan 2025 20:03:19 +0000
+	id 1tUtJv-0003dX-2Q; Mon, 06 Jan 2025 20:03:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865902.1277206; Mon, 06 Jan 2025 20:03:19 +0000
+Received: by outflank-mailman (output) from mailman id 865905.1277216; Mon, 06 Jan 2025 20:03:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUtJn-0003Bd-Ny; Mon, 06 Jan 2025 20:03:19 +0000
-Received: by outflank-mailman (input) for mailman id 865902;
- Mon, 06 Jan 2025 20:03:17 +0000
+	id 1tUtJu-0003bS-UU; Mon, 06 Jan 2025 20:03:26 +0000
+Received: by outflank-mailman (input) for mailman id 865905;
+ Mon, 06 Jan 2025 20:03:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iH3c=T6=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tUtJl-0002e6-QF
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 20:03:17 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1tUtJs-0002e6-Rz
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 20:03:24 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 443e5027-cc69-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 21:03:16 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43635796b48so89318005e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 12:03:16 -0800 (PST)
+ id 48821c5b-cc69-11ef-99a4-01e77a169b0f;
+ Mon, 06 Jan 2025 21:03:23 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-436281c8a38so105991955e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 12:03:23 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4366128a353sm577748615e9.42.2025.01.06.12.03.12
+ 5b1f17b1804b1-4365c08afcbsm586765365e9.21.2025.01.06.12.03.19
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 06 Jan 2025 12:03:15 -0800 (PST)
+ Mon, 06 Jan 2025 12:03:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 443e5027-cc69-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 48821c5b-cc69-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1736193795; x=1736798595; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1736193803; x=1736798603; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xubr80DdDK1TQnuEw657hT2ILmCSL1Bi/K/I0ME5hpI=;
-        b=Z4/zdLcV/crESVhVabhQYBni+lmsiCCndmM88y5yJ7hPu4aaG2wSoyGhbEMxbpk7bv
-         zEE2kpVpJ86cOf+1uUEaKotVnwcu2M7+GlgzUbj9JU1D9h9me+Waw+rMona96fEcvFL/
-         EtSyKviN0YTJ+CIwKQqEmaIC8xQFCEVFEZxVQ2FgRBTXFYwzhKRtG1VMh5ySR0ThV8J2
-         6Ap2ZJEDXsx3LetuLd5o5PfmQow3lusntyt3ku55vRWFI47XibE1Mt4ukwp8lSGpKXH8
-         c8MaK875hig5itxqrhB3Av4tZC8D0QRAVk6BPYdEmkXuMu+tU4dbaJr3P0y4Bbc6QjUr
-         hHOg==
+        bh=FEstRp4e2Qb00qEl2/J4TP29Zm1C+ONgiSLe4ofc5Fw=;
+        b=FFy6RLjh7TTri8MMMVzmUwJljPN7BpxZ8zdqOvSf5LoMWpP/tH8oL1Z5lJQHBIgwhM
+         XTGAZFf6CyM8Tnd53E4pxXZsGpy+nN6ZTB1SLsi3Z/4fyF+oJvG+3RevFuCHgaO09CMX
+         C3JR6qOYy5aueOMC1xywlNWDdtsrBGD8Lqp9xwfSuOftmQHYbXJKzGoZSkFF3yS/7Y2Y
+         fGGdM/ddjrrh8h+422wnOrC2ZyX++35SUn644FyKUY+cYYmpZOeonm4uzCQwsUjBAyAh
+         2RErF9PpcsQZcv70kpXarc3Ab588DYOEurLbm6P9tS6sATkOX1xXdYFv6xny2h9h0i9G
+         DCFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736193795; x=1736798595;
+        d=1e100.net; s=20230601; t=1736193803; x=1736798603;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xubr80DdDK1TQnuEw657hT2ILmCSL1Bi/K/I0ME5hpI=;
-        b=n0jfWCwazboGTCtrEOQkNjZGVPu1bKEYy9ISmsiIFZxS6DIsmRWjN/PPW7FuZU8uTh
-         LTGqdWyDu+/ykwrr1k9wiJIAsDfb0FVCI+bzxNV+BuLhY7VnkbjqViJl/OAe+9KhUBNF
-         WeuKsi+EN2eybn7mmQEVOgDpEuqUZLY44h5n+WirB2fm3GLUpjb76bock1+emLL+RZoO
-         2B4vche5B/IgRB1UEBT1ywGoDLWA4RvXzjPYZouBZ1sCroIR8XtPZOfie7MXzOku/ntK
-         mjg2ppRuuKPUnZ6jJge522e0i5L5EarrGRP/Azn84Fp4pAUx0raEvETIZ2PmI+I68bdp
-         LPtg==
-X-Forwarded-Encrypted: i=1; AJvYcCX/UModMtUrRF/D/9YkghwB/k2PaaE9aP0GAqrHaT5BcHh482B85TI4DKs4W1m4Fhq5MfgSz3Edp+U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yze56e0eCoxQNwGXUKVDXSRqcEWj0CvDUCSlqCaY9v9zzk5THq7
-	GCyLG4u5T85aeJl8r0RoDR9NdjJhJK5+UKBzWR5Ab1Xy8SSQBmAfybluUNjq/MA=
-X-Gm-Gg: ASbGncvvXgWxcVVDcPuPAjGDsWx3z2hGM/G2NLBbqhDKAPcwUR3FrJBTpljIuY4cHkk
-	pmfNqR52f4Jp765SFXmEqznHUFQXq6iHoxpV1M716BYY8lTWbOAOBKH1kL77SdN/p2a6Rv87fgc
-	J9fKEo6utw+XnqtDAa8TY4TZaRqBcP7KnVWRB6afWXONMUSsZTabVVX3Wo/lgLZ0c1Fd0qrimWw
-	efYH1lnt3NrJvQzFTs8MvrRLOsN1B8ixlwursEHjJ84ccjpjAR8E+bcKoyPLlY7xxG8k0bJ/Blh
-	sUyNbPlogzB07G7NYXAHNAv924CCAfs=
-X-Google-Smtp-Source: AGHT+IG6hn6gQ1rEDpo0RUo5rK6HsOddWfOpcS85mXtVNMxlfkCCUdnnKaA6rQB2Q6OTZ5JLDkEevw==
-X-Received: by 2002:a05:600c:1d12:b0:436:1b86:f05 with SMTP id 5b1f17b1804b1-436dc20b0c1mr4405765e9.11.1736193795597;
-        Mon, 06 Jan 2025 12:03:15 -0800 (PST)
+        bh=FEstRp4e2Qb00qEl2/J4TP29Zm1C+ONgiSLe4ofc5Fw=;
+        b=jGW+IFInjnUL40cFpLrI20PRPbD9D2DYlZnKVkogu5CVWJzjTKjfENl3VXiNGK0MeM
+         VBrfd7Fwvh3iPlCTLJsdNCvT6z19Jeq4evnybwbMn8r6flAmXtk+p6SmZFDmkK8PZmPN
+         hUnYl2fIDqHiJ9QpOBFIMkET02MijIUI47SyjuoksC/CrbHeavKcTKaBYB4V9Z6Zwt+Y
+         dvef4q7ArC11ODfSoZ42HK63i3sPwvIglJIBM+jc+zIPJGevFOCO4AINhlPWusyz0Ulm
+         C2X3eaxSnKqsYQem3io9jBa3/KBUrCVl+xIjNzpItQtlgwsmNRkEe/kduoaqGS/zvUSE
+         LjMA==
+X-Forwarded-Encrypted: i=1; AJvYcCWw1gHom9BynyB4uZBkt1Np8iOWdrifhlbMfaise8EY5GZkaQnrkuOTVE46D6qYqctpAOVufRidGnk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVv9sRkqK7PoxdGCp9qP4N3fcTqoNRtJRKSdZ06THGxXRL4K2V
+	h7zQNbA+FHU0c5/dd9E+f+yoU0zQjygIi5UZjxKsDkKHYjdB7CbdZahtNEGU9NM=
+X-Gm-Gg: ASbGncv/u+iS0y5up9jjzLP8+lFZrO2VrJz8AXqdlfAbauxxFlRWD78KKD8xQOrwC3o
+	+2EawwYwBHv75nIJr6BB/GrjyWYR+tD1jxyQw6UE/7xN/PBGnXdx3ET+JuVneZNvE0nU//pvhi+
+	dRFYq3q0saYB3sXP8JTHwNSRX2TiTlA9x+QSskxF8HwFywRK/TIUMwdtYV4T8100UZOLKgS+Vhc
+	q7lLIEyp8Qw/4Eq+ibso4RWJC8Fr3G+7n8HtzYPcvqXXBj/mF7nJ5mX1ZcSY8E58dBtVeAXlKKJ
+	xhYW1OuVsp5lwrtPR9i1TyZNBI0MiLg=
+X-Google-Smtp-Source: AGHT+IHMet/slV/sVRHbkbSGWWghuJnC++0pCmETj2WxsmX+/fk8W7s4g7KNnMtjYH7DDkOzwohlVQ==
+X-Received: by 2002:a05:600c:4f84:b0:434:fec5:4ef5 with SMTP id 5b1f17b1804b1-43668643743mr497181795e9.14.1736193801273;
+        Mon, 06 Jan 2025 12:03:21 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
@@ -125,9 +125,9 @@ Cc: Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
 	Daniel Henrique Barboza <danielhb413@gmail.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Anton Johansson <anjo@rev.ng>
-Subject: [RFC PATCH 2/7] cpus: Introduce AccelOpsClass::get_cpus_queue()
-Date: Mon,  6 Jan 2025 21:02:53 +0100
-Message-ID: <20250106200258.37008-3-philmd@linaro.org>
+Subject: [RFC PATCH 3/7] accel/tcg: Implement tcg_get_cpus_queue()
+Date: Mon,  6 Jan 2025 21:02:54 +0100
+Message-ID: <20250106200258.37008-4-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250106200258.37008-1-philmd@linaro.org>
 References: <20250106200258.37008-1-philmd@linaro.org>
@@ -135,135 +135,66 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-We want the ability to iterate over vCPUs of a specific
-accelerator.  Introduce cpus_get_accel_cpus_queue() to
-be used by accelerator common code, and expose the
-get_cpus_queue() in AccelOpsClass, so each accelerator
-can register its own queue of vCPUs.
+Use a specific vCPUs queue for our unique software accelerator.
+Register the AccelOpsClass::get_cpus_queue() handler.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- include/hw/core/cpu.h      |  8 ++++++++
- include/system/accel-ops.h |  6 ++++++
- accel/tcg/user-exec-stub.c |  5 +++++
- cpu-common.c               | 10 ++++++++++
- system/cpus.c              |  5 +++++
- 5 files changed, 34 insertions(+)
+ accel/tcg/tcg-accel-ops.h | 10 ++++++++++
+ accel/tcg/tcg-accel-ops.c |  8 ++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/include/hw/core/cpu.h b/include/hw/core/cpu.h
-index 48d90f50a71..5ae9bb64d6e 100644
---- a/include/hw/core/cpu.h
-+++ b/include/hw/core/cpu.h
-@@ -591,6 +591,14 @@ static inline CPUArchState *cpu_env(CPUState *cpu)
- typedef QTAILQ_HEAD(CPUTailQ, CPUState) CPUTailQ;
- extern CPUTailQ cpus_queue;
+diff --git a/accel/tcg/tcg-accel-ops.h b/accel/tcg/tcg-accel-ops.h
+index 6feeb3f3e9b..7b1d6288742 100644
+--- a/accel/tcg/tcg-accel-ops.h
++++ b/accel/tcg/tcg-accel-ops.h
+@@ -13,10 +13,20 @@
+ #define TCG_ACCEL_OPS_H
  
-+/**
-+ * cpus_get_accel_cpus_queue:
-+ * @cpu: The vCPU to get the accelerator #CPUTailQ.
-+ *
-+ * Returns the #CPUTailQ associated with the accelerator of the vCPU.
-+ */
-+CPUTailQ *cpus_get_accel_cpus_queue(CPUState *cpu);
-+
- #define first_cpu        QTAILQ_FIRST_RCU(&cpus_queue)
- #define CPU_NEXT(cpu)    QTAILQ_NEXT_RCU(cpu, node)
- #define CPU_FOREACH(cpu) QTAILQ_FOREACH_RCU(cpu, &cpus_queue, node)
-diff --git a/include/system/accel-ops.h b/include/system/accel-ops.h
-index 137fb96d444..fe59f728bfc 100644
---- a/include/system/accel-ops.h
-+++ b/include/system/accel-ops.h
-@@ -12,6 +12,7 @@
- 
- #include "exec/vaddr.h"
- #include "qom/object.h"
+ #include "system/cpus.h"
 +#include "hw/core/cpu.h"
  
- #define ACCEL_OPS_SUFFIX "-ops"
- #define TYPE_ACCEL_OPS "accel" ACCEL_OPS_SUFFIX
-@@ -37,6 +38,11 @@ struct AccelOpsClass {
-     bool (*cpus_are_resettable)(void);
-     void (*cpu_reset_hold)(CPUState *cpu);
+ void tcg_cpu_destroy(CPUState *cpu);
+ int tcg_cpu_exec(CPUState *cpu);
+ void tcg_handle_interrupt(CPUState *cpu, int mask);
+ void tcg_cpu_init_cflags(CPUState *cpu, bool parallel);
  
-+    /**
-+     * get_cpus_queue:
-+     * Returns the #CPUTailQ maintained by this accelerator.
-+     */
-+    CPUTailQ *(*get_cpus_queue)(void);
-     void (*create_vcpu_thread)(CPUState *cpu); /* MANDATORY NON-NULL */
-     void (*kick_vcpu_thread)(CPUState *cpu);
-     bool (*cpu_thread_is_idle)(CPUState *cpu);
-diff --git a/accel/tcg/user-exec-stub.c b/accel/tcg/user-exec-stub.c
-index 4fbe2dbdc88..cb76cec76be 100644
---- a/accel/tcg/user-exec-stub.c
-+++ b/accel/tcg/user-exec-stub.c
-@@ -18,6 +18,11 @@ void cpu_exec_reset_hold(CPUState *cpu)
- {
- }
++#ifdef CONFIG_USER_ONLY
++#define tcg_cpus_queue cpus_queue
++#else
++/* Guard with qemu_cpu_list_lock */
++extern CPUTailQ tcg_cpus_queue;
++#endif
++
++#define CPU_FOREACH_TCG(cpu) QTAILQ_FOREACH_RCU(cpu, &tcg_cpus_queue, node)
++
+ #endif /* TCG_ACCEL_OPS_H */
+diff --git a/accel/tcg/tcg-accel-ops.c b/accel/tcg/tcg-accel-ops.c
+index 6e3f1fa92b2..1fb077f7b38 100644
+--- a/accel/tcg/tcg-accel-ops.c
++++ b/accel/tcg/tcg-accel-ops.c
+@@ -47,6 +47,13 @@
  
-+CPUTailQ *cpus_get_accel_cpus_queue(CPUState *cpu)
+ /* common functionality among all TCG variants */
+ 
++CPUTailQ tcg_cpus_queue = QTAILQ_HEAD_INITIALIZER(tcg_cpus_queue);
++
++static CPUTailQ *tcg_get_cpus_queue(void)
 +{
-+    return NULL;
++    return &tcg_cpus_queue;
 +}
 +
- /* User mode emulation does not support record/replay yet.  */
- 
- bool replay_exception(void)
-diff --git a/cpu-common.c b/cpu-common.c
-index 4248b2d727e..ff8db9c7f9d 100644
---- a/cpu-common.c
-+++ b/cpu-common.c
-@@ -82,6 +82,7 @@ unsigned int cpu_list_generation_id_get(void)
- void cpu_list_add(CPUState *cpu)
+ void tcg_cpu_init_cflags(CPUState *cpu, bool parallel)
  {
-     static bool cpu_index_auto_assigned;
-+    CPUTailQ *accel_cpus_queue = cpus_get_accel_cpus_queue(cpu);
+     uint32_t cflags;
+@@ -199,6 +206,7 @@ static inline void tcg_remove_all_breakpoints(CPUState *cpu)
  
-     QEMU_LOCK_GUARD(&qemu_cpu_list_lock);
-     if (cpu->cpu_index == UNASSIGNED_CPU_INDEX) {
-@@ -92,17 +93,26 @@ void cpu_list_add(CPUState *cpu)
-         assert(!cpu_index_auto_assigned);
-     }
-     QTAILQ_INSERT_TAIL_RCU(&cpus_queue, cpu, node);
-+    if (accel_cpus_queue) {
-+        QTAILQ_INSERT_TAIL_RCU(accel_cpus_queue, cpu, node);
-+    }
-+
-     cpu_list_generation_id++;
- }
- 
- void cpu_list_remove(CPUState *cpu)
+ static void tcg_accel_ops_init(AccelOpsClass *ops)
  {
-+    CPUTailQ *accel_cpus_queue = cpus_get_accel_cpus_queue(cpu);
-+
-     QEMU_LOCK_GUARD(&qemu_cpu_list_lock);
-     if (!QTAILQ_IN_USE(cpu, node)) {
-         /* there is nothing to undo since cpu_exec_init() hasn't been called */
-         return;
-     }
- 
-+    if (accel_cpus_queue) {
-+        QTAILQ_REMOVE_RCU(accel_cpus_queue, cpu, node);
-+    }
-     QTAILQ_REMOVE_RCU(&cpus_queue, cpu, node);
-     cpu->cpu_index = UNASSIGNED_CPU_INDEX;
-     cpu_list_generation_id++;
-diff --git a/system/cpus.c b/system/cpus.c
-index 99f83806c16..972df6ab061 100644
---- a/system/cpus.c
-+++ b/system/cpus.c
-@@ -209,6 +209,11 @@ void cpu_exec_reset_hold(CPUState *cpu)
-     }
- }
- 
-+CPUTailQ *cpus_get_accel_cpus_queue(CPUState *cpu)
-+{
-+    return cpus_accel ? cpus_accel->get_cpus_queue() : NULL;
-+}
-+
- int64_t cpus_get_virtual_clock(void)
- {
-     /*
++    ops->get_cpus_queue = tcg_get_cpus_queue;
+     if (qemu_tcg_mttcg_enabled()) {
+         ops->create_vcpu_thread = mttcg_start_vcpu_thread;
+         ops->kick_vcpu_thread = mttcg_kick_vcpu_thread;
 -- 
 2.47.1
 
