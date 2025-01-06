@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 111E9A03145
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 21:19:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865989.1277285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B17A03177
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 21:33:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865997.1277297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUtZI-0001I7-Qc; Mon, 06 Jan 2025 20:19:20 +0000
+	id 1tUtmz-0005Gz-2T; Mon, 06 Jan 2025 20:33:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865989.1277285; Mon, 06 Jan 2025 20:19:20 +0000
+Received: by outflank-mailman (output) from mailman id 865997.1277297; Mon, 06 Jan 2025 20:33:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUtZI-0001G7-O6; Mon, 06 Jan 2025 20:19:20 +0000
-Received: by outflank-mailman (input) for mailman id 865989;
- Mon, 06 Jan 2025 20:19:19 +0000
+	id 1tUtmy-0005Dp-UG; Mon, 06 Jan 2025 20:33:28 +0000
+Received: by outflank-mailman (input) for mailman id 865997;
+ Mon, 06 Jan 2025 20:33:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=U/ZK=T6=ventanamicro.com=dbarboza@srs-se1.protection.inumbo.net>)
- id 1tUtZH-0001Fu-Fx
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 20:19:19 +0000
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [2607:f8b0:4864:20::1029])
+ id 1tUtmx-0005D2-Sm
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 20:33:27 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80d6d0ee-cc6b-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 21:19:17 +0100 (CET)
-Received: by mail-pj1-x1029.google.com with SMTP id
- 98e67ed59e1d1-2ef28f07dbaso16892894a91.2
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 12:19:17 -0800 (PST)
+ id 7a653d06-cc6d-11ef-99a4-01e77a169b0f;
+ Mon, 06 Jan 2025 21:33:25 +0100 (CET)
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-219f8263ae0so167477945ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 12:33:25 -0800 (PST)
 Received: from ?IPV6:2804:7f0:bdcd:fb00:6501:2693:db52:c621?
  ([2804:7f0:bdcd:fb00:6501:2693:db52:c621])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f2ee26b125sm39870772a91.43.2025.01.06.12.19.06
+ d9443c01a7336-219dc9cde66sm296704655ad.145.2025.01.06.12.33.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 12:19:15 -0800 (PST)
+ Mon, 06 Jan 2025 12:33:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,48 +46,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80d6d0ee-cc6b-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 7a653d06-cc6d-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ventanamicro.com; s=google; t=1736194756; x=1736799556; darn=lists.xenproject.org;
+        d=ventanamicro.com; s=google; t=1736195604; x=1736800404; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=a9p8hjeIMnEMUpmW04h0W7NoiD5E5c5Q5zI/Al9/E30=;
-        b=TidC6U8azPrXag5jvCCrebMkb6ZZwL3dMz9bOXSdpjgTglVqdoRP4iD+D68U8n83fU
-         bw3A/qKpU6m8040Qnuia/hJ9ZFpKgPAKQrQ9TrrI75q2etbx6JaSLmMBecHMOf9WnfWX
-         KXb05tP4ErvlYATbCcBsl0PO95mTU5w2yX9SmHljdas7fOLSF2igMRRDkYJPyMKFHheK
-         MPe1NzSsvQ1Z5AOVPM0rLwZ+7a5LNQkFZaAuCxAEp50r11W0A0aFq4D4ecQtUbZMUreS
-         TM4a1+Qzw/I2jje5uGfeEcUjznmdAmKMSqsh3HuOpZ5GTfEDinVFKjWxZyc6GEG6u72t
-         bTSw==
+        bh=tRChKa/6ydnGwRW0eNjgRJAJvFNapuIamBmUVRUNy3A=;
+        b=ee7djeOEkdNPwbwf3CcHXY7f7EqFFqFtrKBu9v6Rtq4HrqPrLI/hbSWbR4FsllwLR3
+         POUku3QTqfcRmmSLfdkHjCvwui0Sn1DCkcB8GAiLZz4gLG3y/qFrRyzRs8Fnz7HbA4Pg
+         Q0goFVS+IjZwPxvLdWlT/creXk3GpN32whNuc/zDH8wYCNqg3wWOVLCUogwg/rE0gPrZ
+         TuekyeLcQjC4hUrPQI03IIqija77Y/qfMjUAOWWyYM1dV/U/goSJc9MCoLYeBDe6+Per
+         13eUMTkK2+9NpzHLPMYvI7phyMfzLlidEn+rGSf6SbuHalWm7FMq+RTILitWRf9+505m
+         O0/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736194756; x=1736799556;
+        d=1e100.net; s=20230601; t=1736195604; x=1736800404;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=a9p8hjeIMnEMUpmW04h0W7NoiD5E5c5Q5zI/Al9/E30=;
-        b=ALKkxfeK+kj++sGrSc/rHhlxS+YwT18T4oeThq7NWu0+YhvDxyWoUtO//xEhq9p8AR
-         IUGfK6PiEGXbVq948gPMUSOl3maybEV6FGyX/fPJ6mBq0PUnk3MKKID40m328Qh5WGvH
-         fpdknEojq08HEaW/I/4ODTgVppmR0MpCRHwEKD+euC85pp4p4xkVQjjg9CrDGC7A8cxm
-         AkfINdEERdyWIUnDNbPpWmuWpxsy+VqgK04eItX5xuF/FG2gcKViLb6Bl3lAYoO+LMuq
-         v+WMmBx6GVVCf8+4pF5UM8H6ZrwoBgDEhKv7VQpn1Qmmkxdnli5jkIAwO8kZexSp8pPa
-         VqAg==
-X-Forwarded-Encrypted: i=1; AJvYcCWjC3QozigIyZ0X9x0uiSHq0WJB5nTwNtd6PFPxSvR2Vobzhni1v4hrVrw23h1mypJ52SsB36blTOk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdrZpwX0QVUVt8lc6ld5WnJ0UCbTeJ5W/pzFGeSWwDyjopS19b
-	K3NuBr8BicjeHroK4iL7h7QEMs42TBq8ddrHxmiIIGohvL781D+mLqvc2qS2NOU=
-X-Gm-Gg: ASbGnctSJVBvM3eJJZBHQihRnBrTiEKtpf5P0X9gzGnY7Cfj3fBw/YcuQryWT7HcGsf
-	MA4VJG98CpRK1gry3DAseBo/kUJBz/+l64GduD8+gBSzX7qt8UF3UrU3rorSRY2oLHBzWy3CSWU
-	43CNhG+NNlJVV7estD5ciwl5k+q1X+/EfXWL8LdBx4/rkF2w0rmPKtQIJl15Qrbo9pu/wb+A+GJ
-	fUNHtFnRG31+3tHhndRIv3rHjesU+58isUwZQyAEwBtE2Nd/SJbU8YhKje3MxjJWtbfe3oNqW2W
-	N/y+u+ozBMCXnkbT0+G0GxKkPs+XZAr+GIU=
-X-Google-Smtp-Source: AGHT+IEdi1WeRPTrXeJrhazkx/sBhP2RZVeyTSKqrV/o+q5vpCxn6bBHpDXsADAKiAGaa0ShcqYeAQ==
-X-Received: by 2002:a17:90b:51c2:b0:2ee:ab29:1a57 with SMTP id 98e67ed59e1d1-2f452def211mr85711065a91.2.1736194756055;
-        Mon, 06 Jan 2025 12:19:16 -0800 (PST)
-Message-ID: <69e79cef-214d-4795-b3ce-032529c9f7d6@ventanamicro.com>
-Date: Mon, 6 Jan 2025 17:19:04 -0300
+        bh=tRChKa/6ydnGwRW0eNjgRJAJvFNapuIamBmUVRUNy3A=;
+        b=WcD7Mp+9dFRVnvvb6h97El65wVfpKpBDRemVB5/1/kxGLT4B6RZQjbe6fnSJCFZvNR
+         g/UG52TXA1gcU+S8CZ3PveQt7A8X9lb9UMco78q9VEwC5k/pfzrZUFLwQPv8ne/MvETJ
+         3GWkIRrGevbXY1i5/XQcV7fJYrX17CTrkDFT8d/5SLSWOnUWYFrbA3UrmR2Ts3mJRq8C
+         /fyI3enCr4/AcFnM6AKEw7v/BsFpTwHc0JF+ZbzgWwh6xgf7pbe7jYibtZOZkH6+AnLz
+         MW2eTY5cLBsZP3Vk3P1jv3/D0ssAXej0pIbEZt3w8Igh6z4V1UpBuZ/rtYblsqnHOYtI
+         eGhA==
+X-Forwarded-Encrypted: i=1; AJvYcCX4KrP3cWW2Y481CNjSFFBTY428B4SmkLr9BUrIznbJb3x703yE+QGF2KYSvLcY/OIdK8UdOBpjrSg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/4PPJpNASj4KyQ5dx9eIt6+KYVBz3BEAdoIVuNARE8sz4mCvE
+	o9LxSou6Oy/DIO5homxKkt0/mLNBY6OwsKshckI1ac6W9THaEVZHG7D232paNno=
+X-Gm-Gg: ASbGncv5XmwW4YUn4gvqxHDXD9pEQyEcooGthnQ4G68dSf+2AJOnd2fs5bR2uHEuA/W
+	pKFJpUqLfXTF4uXv2JwZZCPHaiM8A0kXFiHQhLkfThvAl3SIcqnXUIyGJGopnghMsBj7Y2TXqFC
+	c5HzZ4AggQ+PdSuAUr2ql4bQOMd/yhkZb+BqRtjOMZO5Bq5/I3BzbeJmWtTh9AFxhPE2g8qbaZk
+	2ME0/L+//zmQtJAYM/jBrHCWDiCJtSmeUgqBVzpSeIPdS8nxIRDJNFD0rb9AZXE/s7QHBoswkMI
+	92TJ3ywooZpSHYHjVPXup71fzSdo9IN8C3M=
+X-Google-Smtp-Source: AGHT+IGIo280ucsBcngxguAyG9JQ9T3VFgxxJUPO1hVz/7EWXjloduoiThjDr/f0vbWxM4+ikOS8ZQ==
+X-Received: by 2002:a17:903:2384:b0:216:5cbd:5449 with SMTP id d9443c01a7336-219e6e9e8c5mr891272455ad.13.1736195604239;
+        Mon, 06 Jan 2025 12:33:24 -0800 (PST)
+Message-ID: <bd8168fe-c774-4f75-8a94-1a67ec31e38d@ventanamicro.com>
+Date: Mon, 6 Jan 2025 17:33:12 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/7] cpus: Restrict CPU_FOREACH_SAFE() to user
- emulation
+Subject: Re: [RFC PATCH 6/7] accel/hvf: Use CPU_FOREACH_HVF()
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  qemu-devel@nongnu.org
 Cc: =?UTF-8?B?RnLDqWTDqXJpYyBCYXJyYXQ=?= <fbarrat@linux.ibm.com>,
@@ -119,40 +118,122 @@ Cc: =?UTF-8?B?RnLDqWTDqXJpYyBCYXJyYXQ=?= <fbarrat@linux.ibm.com>,
  Daniel Henrique Barboza <danielhb413@gmail.com>,
  "Michael S. Tsirkin" <mst@redhat.com>, Anton Johansson <anjo@rev.ng>
 References: <20250106200258.37008-1-philmd@linaro.org>
- <20250106200258.37008-2-philmd@linaro.org>
+ <20250106200258.37008-7-philmd@linaro.org>
 Content-Language: en-US
 From: Daniel Henrique Barboza <dbarboza@ventanamicro.com>
-In-Reply-To: <20250106200258.37008-2-philmd@linaro.org>
+In-Reply-To: <20250106200258.37008-7-philmd@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Perhaps add in the commit msg something like "it's only being used in
-bsd-user and linux-user code"
+
 
 On 1/6/25 5:02 PM, Philippe Mathieu-Daudé wrote:
+> Only iterate over HVF vCPUs when running HVF specific code.
+> 
 > Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > ---
-
-Reviewed-by: Daniel Henrique Barboza <dbarboza@ventanamicro.com>
-
->   include/hw/core/cpu.h | 3 +++
->   1 file changed, 3 insertions(+)
+>   include/system/hvf_int.h  | 4 ++++
+>   accel/hvf/hvf-accel-ops.c | 9 +++++----
+>   target/arm/hvf/hvf.c      | 4 ++--
+>   3 files changed, 11 insertions(+), 6 deletions(-)
 > 
-> diff --git a/include/hw/core/cpu.h b/include/hw/core/cpu.h
-> index c3ca0babcb3..48d90f50a71 100644
-> --- a/include/hw/core/cpu.h
-> +++ b/include/hw/core/cpu.h
-> @@ -594,8 +594,11 @@ extern CPUTailQ cpus_queue;
->   #define first_cpu        QTAILQ_FIRST_RCU(&cpus_queue)
->   #define CPU_NEXT(cpu)    QTAILQ_NEXT_RCU(cpu, node)
->   #define CPU_FOREACH(cpu) QTAILQ_FOREACH_RCU(cpu, &cpus_queue, node)
+> diff --git a/include/system/hvf_int.h b/include/system/hvf_int.h
+> index 42ae18433f0..3cf64faabd1 100644
+> --- a/include/system/hvf_int.h
+> +++ b/include/system/hvf_int.h
+> @@ -11,6 +11,8 @@
+>   #ifndef HVF_INT_H
+>   #define HVF_INT_H
+>   
+> +#include "system/hw_accel.h"
 > +
-> +#if defined(CONFIG_USER_ONLY)
->   #define CPU_FOREACH_SAFE(cpu, next_cpu) \
->       QTAILQ_FOREACH_SAFE_RCU(cpu, &cpus_queue, node, next_cpu)
-> +#endif
+>   #ifdef __aarch64__
+>   #include <Hypervisor/Hypervisor.h>
+>   typedef hv_vcpu_t hvf_vcpuid;
+> @@ -74,4 +76,6 @@ int hvf_put_registers(CPUState *);
+>   int hvf_get_registers(CPUState *);
+>   void hvf_kick_vcpu_thread(CPUState *cpu);
 >   
->   extern __thread CPUState *current_cpu;
+> +#define CPU_FOREACH_HVF(cpu) CPU_FOREACH_HWACCEL(cpu)
+
+
+Cosmetic comment: given that this is HVF specific code and we only support one hw
+accelerator at a time, I'd skip this alias and use CPU_FOREACH_HWACCEL(cpu) directly.
+It would make it easier when grepping to see where and how the macro is being used.
+Same thing in the next patch with CPU_FOREACH_KVM().
+
+
+LGTM otherwise. Thanks,
+
+Daniel
+
+
+> +
+>   #endif
+> diff --git a/accel/hvf/hvf-accel-ops.c b/accel/hvf/hvf-accel-ops.c
+> index 945ba720513..bbbe2f8d45b 100644
+> --- a/accel/hvf/hvf-accel-ops.c
+> +++ b/accel/hvf/hvf-accel-ops.c
+> @@ -504,7 +504,7 @@ static int hvf_insert_breakpoint(CPUState *cpu, int type, vaddr addr, vaddr len)
+>           }
+>       }
 >   
+> -    CPU_FOREACH(cpu) {
+> +    CPU_FOREACH_HVF(cpu) {
+>           err = hvf_update_guest_debug(cpu);
+>           if (err) {
+>               return err;
+> @@ -543,7 +543,7 @@ static int hvf_remove_breakpoint(CPUState *cpu, int type, vaddr addr, vaddr len)
+>           }
+>       }
+>   
+> -    CPU_FOREACH(cpu) {
+> +    CPU_FOREACH_HVF(cpu) {
+>           err = hvf_update_guest_debug(cpu);
+>           if (err) {
+>               return err;
+> @@ -560,7 +560,7 @@ static void hvf_remove_all_breakpoints(CPUState *cpu)
+>       QTAILQ_FOREACH_SAFE(bp, &hvf_state->hvf_sw_breakpoints, entry, next) {
+>           if (hvf_arch_remove_sw_breakpoint(cpu, bp) != 0) {
+>               /* Try harder to find a CPU that currently sees the breakpoint. */
+> -            CPU_FOREACH(tmpcpu)
+> +            CPU_FOREACH_HVF(tmpcpu)
+>               {
+>                   if (hvf_arch_remove_sw_breakpoint(tmpcpu, bp) == 0) {
+>                       break;
+> @@ -572,7 +572,7 @@ static void hvf_remove_all_breakpoints(CPUState *cpu)
+>       }
+>       hvf_arch_remove_all_hw_breakpoints();
+>   
+> -    CPU_FOREACH(cpu) {
+> +    CPU_FOREACH_HVF(cpu) {
+>           hvf_update_guest_debug(cpu);
+>       }
+>   }
+> @@ -581,6 +581,7 @@ static void hvf_accel_ops_class_init(ObjectClass *oc, void *data)
+>   {
+>       AccelOpsClass *ops = ACCEL_OPS_CLASS(oc);
+>   
+> +    ops->get_cpus_queue = hw_accel_get_cpus_queue;
+>       ops->create_vcpu_thread = hvf_start_vcpu_thread;
+>       ops->kick_vcpu_thread = hvf_kick_vcpu_thread;
+>   
+> diff --git a/target/arm/hvf/hvf.c b/target/arm/hvf/hvf.c
+> index 0afd96018e0..13400ff0d5f 100644
+> --- a/target/arm/hvf/hvf.c
+> +++ b/target/arm/hvf/hvf.c
+> @@ -2269,10 +2269,10 @@ static void hvf_arch_set_traps(void)
+>   
+>       /* Check whether guest debugging is enabled for at least one vCPU; if it
+>        * is, enable exiting the guest on all vCPUs */
+> -    CPU_FOREACH(cpu) {
+> +    CPU_FOREACH_HVF(cpu) {
+>           should_enable_traps |= cpu->accel->guest_debug_enabled;
+>       }
+> -    CPU_FOREACH(cpu) {
+> +    CPU_FOREACH_HVF(cpu) {
+>           /* Set whether debug exceptions exit the guest */
+>           r = hv_vcpu_set_trap_debug_exceptions(cpu->accel->fd,
+>                                                 should_enable_traps);
 
 
