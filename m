@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF07A02256
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 10:58:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865624.1276872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FE7AA022C0
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 11:17:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865632.1276882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUjsK-00053M-MP; Mon, 06 Jan 2025 09:58:20 +0000
+	id 1tUk9w-0008QE-4U; Mon, 06 Jan 2025 10:16:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865624.1276872; Mon, 06 Jan 2025 09:58:20 +0000
+Received: by outflank-mailman (output) from mailman id 865632.1276882; Mon, 06 Jan 2025 10:16:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUjsK-00051D-Jb; Mon, 06 Jan 2025 09:58:20 +0000
-Received: by outflank-mailman (input) for mailman id 865624;
- Mon, 06 Jan 2025 09:58:19 +0000
+	id 1tUk9w-0008NK-1b; Mon, 06 Jan 2025 10:16:32 +0000
+Received: by outflank-mailman (input) for mailman id 865632;
+ Mon, 06 Jan 2025 10:16:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9khw=T6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tUjsJ-000515-Dy
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 09:58:19 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1tUk9u-0008NE-L9
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 10:16:30 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0964890-cc14-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 10:58:17 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43635796b48so85292025e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 01:58:17 -0800 (PST)
+ id 4ad7ead3-cc17-11ef-99a4-01e77a169b0f;
+ Mon, 06 Jan 2025 11:16:28 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4361e89b6daso97168775e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 02:16:28 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c832e53sm47233216f8f.27.2025.01.06.01.58.16
+ 5b1f17b1804b1-436604e9c2csm564212475e9.43.2025.01.06.02.16.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 01:58:16 -0800 (PST)
+ Mon, 06 Jan 2025 02:16:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0964890-cc14-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 4ad7ead3-cc17-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736157497; x=1736762297; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736158588; x=1736763388; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YFR5XrTJw5dYAKEH2bpp5Y5GfW32/ArmHpb8Y9iaWBw=;
-        b=LBvXykIObFrWv0wqcQKndVy2xAyFcw4VA3s+kIWD5LLpRFltRw3BT07sK7T4bq89XL
-         307rUpbtb59rO5+v6dTRTuP6/oYO5DOu6bSbyAUhHMByoLEV3aAeRcJvvxiCIH0M+OLY
-         Cn5X8+e6efdNXAwnqvRZTpfYBFFjchMLj4FqYKE6Vc2UgWWss37g4X1buSpIKMQjpJh4
-         t5cQiCqKQ61Hu6OgVsk2KNLbSxb5jIi9Xwl1wTFUpVDu5hZ3+WJJXrW9zV93S501dXvJ
-         IUEqGApdwEDuHz1b8RHPMMaC0zYxw+BkF01IjwYH4lbbo91IiDFmQdp+9YsxRerM2Tas
-         O6fA==
+        bh=4EhysA5vxf8/t+mhDzBIb4/H2MJ8QdQgnYT2PRiwSS0=;
+        b=D+CbkFnA65xDvd0ecvra0Q7oTxq+IbxiRCSyTZwYkFkyO9zYmLIvLr0noTbk7w9nVE
+         q8BKBqi5aqC1jfx3ZXbpllkcfIovgq1N9B0dwUXwr3i3wtBNNP9Ip8KMKanREN0GVb/g
+         3LhgzuT7U7FZSuBienxV9jgwoMi8XmuTYU/5YRbkWPrV+n28gzlIGa+ZdzMeMdFVSpdW
+         Bzs5gOv/2dBfr/Eg6REnrleuJRbRIXRJ/XNHHfQaJFqO3eKavIi4KomTLl4IMA5cAHKc
+         PI8DQOmuINq0XS3zWdkbekfjyHkO03vxmMmS/EnHD6i1Ng/7BRK7bYNwpWdyrsiw2XTC
+         SNSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736157497; x=1736762297;
+        d=1e100.net; s=20230601; t=1736158588; x=1736763388;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YFR5XrTJw5dYAKEH2bpp5Y5GfW32/ArmHpb8Y9iaWBw=;
-        b=hUjeYUi9RDL/9ECWVqxME8uWx/NuzDz1xmOVUzqRJAxPwBcfEFDGkZQbsrtYEJrtCu
-         WKq4rFVLPrhl/3OSOAUEZLmsIXQ7G6fiumwgfxE7CMEz3aMf8R9GH/HM6q9p6uIINaXW
-         l7rSckUweGJ2pxt4gTgmWkUvT64edoi2odsO9SDpLVwMtFUKUs8VTpVsvi6uT8iT5q0Q
-         MRwgocT66qNwnhBGLIPt3P7OwdOfCsWs23phYNSmnINp+WfNGfsFUH1d2u1YiY7BCnje
-         jvx+C7sc+dPFOtjfmeuWDh3XZbc6dt1lpiJYFaLxOkA8Uc4FhNsOqgvg64gvg+Mn73xx
-         7lQw==
-X-Forwarded-Encrypted: i=1; AJvYcCU8ChNHM2sF88f9RWLEuyD6meJyR9RjsV0Uaxh5UuFYQ/4afivUrSzK/mQtmC2PPMG04lmdvamGQH8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtyXHiKLAsYhTrj0rUY7MKpBkj7K+QO6X84d1igm30ic5pYV1k
-	ZfwhU7X9CJZUq9GsT4Bto5VtLGkVKsP+ecratUrXteCUUug/IajjX+qiRCC5Aw==
-X-Gm-Gg: ASbGncti9TARRJVXMaZMqQ64bfIWPpOo8MCB8qZfRXFsvtNGNeez+aAfy8+sr6RKv9i
-	QyErw2TlSjJ9eLOyy4xk9MmSqq/QkcNUV/2W9RrJGrcnFXv1TY4yOmtJwB0QcLnJlkwZd6MHuaB
-	FQyw4fYkF7pxHQs+Kybxt+2p1OVKCoN2ThpmNWJnFHx4C7rycSvQny8rTBX9V433q2WfYtJZs7l
-	IROp/bEy9ajmKdZTXwohx/YXSyJ50geyWRJRoce60IiUUBWoc2vA/W2wZzk8uEA62qtwk9BRNXT
-	pcCKeOq/vUojsJcCw8ycx4CjprWltIFyHJWncXEd2w==
-X-Google-Smtp-Source: AGHT+IFET3J/uyDf+rD2KZLDszy8WWR+VFqyCRSQLrhgqzJ892PYZQCd3pVqHgQkkjFGH+rI+Edu/w==
-X-Received: by 2002:a05:600c:474f:b0:434:ff08:202e with SMTP id 5b1f17b1804b1-43682a402ecmr357824765e9.8.1736157496897;
-        Mon, 06 Jan 2025 01:58:16 -0800 (PST)
-Message-ID: <3b9635bc-e196-4a7e-95ea-277172ae052a@suse.com>
-Date: Mon, 6 Jan 2025 10:58:23 +0100
+        bh=4EhysA5vxf8/t+mhDzBIb4/H2MJ8QdQgnYT2PRiwSS0=;
+        b=nfyDGZBvmO+DfoCtULNmOtSqQqDz98B/zJVWxV8t1RijEG41U8G2SenH/M3iTKg/pz
+         pk4nDaOGWOH3dDsn4JUFGeL6GhxIQkGhifXVtyz/U6kkgion76BI3IzjmFK0CFFi7Weh
+         Bv9Aql3QRn/rlZn6f0qBaVUF35H8kI5gbMZowbkQZl7tdFkwaVtSW14X9olQGOi/fbt2
+         nL1vN4tMqJkaXSxfhb+GMNq214jfJWWe1ZzcDSbWRbpMV36f0FfSHt8Esh0NGR9eQiQj
+         RT/t1GV3WlfY7V6QkBQXdH6yZ5yaMvWddDc+fcuh1SR1ew6zOBU/50sHBlRgU9LEOMLr
+         Ynnw==
+X-Forwarded-Encrypted: i=1; AJvYcCXikb8st4FBRNmUiwr9YG4Rmw0nonCyKkKgkp1LKGyxtysBqzG2TNggTe4wBE2xFAoQGNZ832iDso4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBbcoYRMZljsg6EActh49mZqvtnSS33HUeiqJGa7bBYhcW6QCE
+	WwVZVdU63vGJXkdYn2jB/5PJgn7z3Ny1Pse6l9g1efKpV+ewSBdS8pMfoKWI0A==
+X-Gm-Gg: ASbGnctsTc8E5WKfHkPr+mQPOlP5Nbu8PX0aQAkTY3MjPzHEdFYPtOR/uGmmVv1KpbN
+	feiQ5Iy6WloPybzmUeawFtlo2aydM0z/pCB78E/+2UTkBTBeSkF7B5bkeNDsZ+k2IqQoDgyxMuT
+	03jufAMRFV40dc8TKkdrb6koDGoPiDE/u6pBk0efj4wfmxWF/f6OsiZSzAoB4IAaDA/asFCi0Sr
+	YEdvU7PgFFDXW/tP64I6xJvG1v5GlLWZBD1stXlXaNSy/0N+P82EtonnY4ueSv3Y54BXduUwVFs
+	NW4nWP/51Opx/EhSXrGJLq7QWjTX0bbcHISLfc5OaQ==
+X-Google-Smtp-Source: AGHT+IFegCytHadH/Bsuu9OAOKvDO/4OPXNOv27Rj0veS0i7+S9KRm4NriSbJAoYV5LdQNlcVtPDRA==
+X-Received: by 2002:a05:600c:5246:b0:42c:bb96:340e with SMTP id 5b1f17b1804b1-43668b7857amr529670425e9.31.1736158587859;
+        Mon, 06 Jan 2025 02:16:27 -0800 (PST)
+Message-ID: <c8684340-33f9-41d3-94e4-77ee3bc18306@suse.com>
+Date: Mon, 6 Jan 2025 11:16:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/35] xen/console: introduce console_set_owner()
-To: Denis Mukhin <dmkhn@proton.me>
-Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-19-e9aa923127eb@ford.com>
- <Z1q3COsFN3J9G60E@macbook.local>
- <Nzs8m4tgOs8mh44axM9sAfsp2GGMk34p5Oi0dtXh8rLbKzHXmMtMXK_d_AJy-gSQuGRygaZbsvhy9QFvsCc0yyMiqzXslUNID1os1CCzNrA=@proton.me>
+Subject: Re: [XEN PATCH v1] xen: mem_access: conditionally compile vm_event.c
+ & monitor.c
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
+References: <20241230063051.3332332-1-Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,186 +126,148 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Nzs8m4tgOs8mh44axM9sAfsp2GGMk34p5Oi0dtXh8rLbKzHXmMtMXK_d_AJy-gSQuGRygaZbsvhy9QFvsCc0yyMiqzXslUNID1os1CCzNrA=@proton.me>
+In-Reply-To: <20241230063051.3332332-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.01.2025 04:30, Denis Mukhin wrote:
-> On Thursday, December 12th, 2024 at 2:12 AM, Roger Pau Monné <roger.pau@citrix.com> wrote:
->> On Thu, Dec 05, 2024 at 08:41:49PM -0800, Denis Mukhin via B4 Relay wrote:
->>> --- a/xen/drivers/char/console.c
->>> +++ b/xen/drivers/char/console.c
->>> @@ -463,82 +463,100 @@ static void cf_check dump_console_ring_key(unsigned char key)
->>>
->>> /*
->>> * CTRL-<switch_char> changes input direction, rotating among Xen, Dom0,
->>> - * and the DomUs started from Xen at boot.
->>> + * and the DomUs.
->>> /
->>> #define switch_code (opt_conswitch[0]-'a'+1)
->>> +
->>> /
->>> - * console_owner=0 => input to xen
->>> - * console_owner=1 => input to dom0 (or the sole shim domain)
->>> - * console_owner=N => input to dom(N-1)
->>> + * Current console owner domain ID: either Xen or domain w/ d->is_console ==
->>> + * true.
->>> + *
->>> + * Initialized in console_endboot().
->>> */
->>> -static unsigned int __read_mostly console_owner = 0;
->>> +static domid_t __read_mostly console_owner;
->>
->>
->> Should this be initialized to DOMID_XEN? I assume it doesn't make
->> much difference because the variable is not checked before
->> console_endboot() anyway, but it might be safer to initialize to a
->> value that assigns the console to Xen.
+On 30.12.2024 07:30, Sergiy Kibrik wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
 > 
-> Fixed.
-> 
->>
->>> -#define max_console_rx (max_init_domid + 1)
->>> +static struct domain *rcu_lock_domain_console_by_id(domid_t domid)
->>> +{
->>> + struct domain *d;
->>> +
->>> + d = rcu_lock_domain_by_id(domid);
->>> +
->>
->>
->> Nit: I would remove this newline.
-> 
-> Fixed.
-> 
->>
->>> + if ( d == NULL )
->>> + return NULL;
->>> +
->>> + if ( d->is_console )
->>> + return d;
->>> +
->>> + rcu_unlock_domain(d);
->>> +
->>> + return NULL;
->>> +}
->>>
->>> -#ifdef CONFIG_SBSA_VUART_CONSOLE
->>> /* Make sure to rcu_unlock_domain after use */
->>> struct domain *rcu_lock_domain_console_owner(void)
->>> {
->>> - if ( console_owner == 0 )
->>> - return NULL;
->>> - return rcu_lock_domain_by_id(console_owner - 1);
->>> + return rcu_lock_domain_console_by_id(console_owner);
->>> }
->>> -#endif
->>>
->>> -static void console_find_owner(void)
->>> +static bool console_owner_possible(domid_t domid)
->>> {
->>> - unsigned int next_rx = console_owner;
->>> -
->>> - /*
->>> - * Rotate among Xen, dom0 and boot-time created domUs while skipping
->>> - * switching serial input to non existing domains.
->>> - /
->>> - for ( ; ; )
->>> - {
->>> - domid_t domid;
->>> - struct domain d;
->>> -
->>> - if ( next_rx++ >= max_console_rx )
->>> - {
->>> - console_owner = 0;
->>> - printk("* Serial input to Xen");
->>> - break;
->>> - }
->>> -
->>> - if ( consoled_is_enabled() && next_rx == 1 )
->>> - domid = get_initial_domain_id();
->>> - else
->>> - domid = next_rx - 1;
->>> -
->>> - d = rcu_lock_domain_by_id(domid);
->>> - if ( d == NULL )
->>> - continue;
->>> -
->>> - if ( d->is_console )
->>> - {
->>> - rcu_unlock_domain(d);
->>> - console_owner = next_rx;
->>> - printk("*** Serial input to DOM%u", domid);
->>> - break;
->>> - }
->>> + struct domain *d;
->>>
->>> + d = rcu_lock_domain_console_by_id(domid);
->>> + if ( d != NULL )
->>> rcu_unlock_domain(d);
->>> - }
->>> +
->>> + return d != NULL;
->>> +}
->>> +
->>> +int console_set_owner(domid_t domid)
->>> +{
->>> + if ( domid == DOMID_XEN )
->>> + printk("*** Serial input to Xen");
->>> + else if ( console_owner_possible(domid) )
->>> + printk("*** Serial input to DOM%u", domid);
->>> + else
->>> + return -ENOENT;
->>> +
->>> + console_owner = domid;
->>>
->>> if ( switch_code )
->>> printk(" (type 'CTRL-%c' three times to switch input)",
->>> opt_conswitch[0]);
->>> printk("\n");
->>> +
->>> + return 0;
->>> +}
->>> +
->>> +/*
->>> + * Switch console input focus.
->>> + * Rotates input focus among Xen, dom0 and boot-time created domUs while
->>> + * skipping switching serial input to non existing domains.
->>> + */
->>> +static void console_find_owner(void)
->>> +{
->>> + domid_t i, n = max_init_domid + 1;
->>
->>
->> n can be made const, I would even rename to nr for clarity, but that's
->> personal taste.
-> 
-> `max_init_domid` can change at run-time actually (e.g. after `xl create`).
-> I kept `n` as is.
+> Extend coverage of CONFIG_MEM_ACCESS option and make the build of VM events
+> and monitoring support optional.
 
-How does max_init_domid potentially changing affect (possible) const-ness of n?
-
-However it changing, ...
-
->>> +
->>> + if ( console_owner == DOMID_XEN )
->>> + i = get_initial_domain_id();
->>> + else
->>> + i = console_owner + 1;
->>> +
->>> + for ( ; i < n; i++ )
->>> + if ( !console_set_owner(i) )
->>> + break;
->>
->>
->> Hm, that could be a non-trivial amount of iteration if max_init_domid
->> is bumped for every domain created as you have it in patch 11/35
->> (albeit I'm not sure that was intended?)
-> 
-> Yes, `max_init_domid` is advanced on each domain creation (v3).
-
-... as you confirm here, undermines what it's used for right now (if I'm
-not mistaken), and would render the variable misnamed.
+Yet doesn't this end up in things becoming misleading? Don't we rather need a
+2nd Kconfig option, with a dependency between the two? Or alternatively a
+rename of the existing option (to describe the higher-level feature rather
+than the lower level one)? Tamas, I'm particularly interested in knowing your
+view here as well.
 
 Jan
+
+> This is to reduce code size on Arm when this option isn't enabled.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> ---
+>  xen/arch/arm/Makefile      |  4 ++--
+>  xen/arch/arm/vsmc.c        |  3 ++-
+>  xen/common/Makefile        |  4 ++--
+>  xen/include/xen/monitor.h  |  9 +++++++++
+>  xen/include/xen/vm_event.h | 14 +++++++++++---
+>  5 files changed, 26 insertions(+), 8 deletions(-)
+> 
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 43ab5e8f25..8903eb0bf2 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -39,7 +39,7 @@ obj-$(CONFIG_LIVEPATCH) += livepatch.o
+>  obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
+>  obj-$(CONFIG_MEM_ACCESS) += mem_access.o
+>  obj-y += mm.o
+> -obj-y += monitor.o
+> +obj-$(CONFIG_MEM_ACCESS) += monitor.o
+>  obj-y += p2m.o
+>  obj-y += platform.o
+>  obj-y += platform_hypercall.o
+> @@ -65,7 +65,7 @@ obj-$(CONFIG_VGICV2) += vgic-v2.o
+>  obj-$(CONFIG_GICV3) += vgic-v3.o
+>  obj-$(CONFIG_HAS_ITS) += vgic-v3-its.o
+>  endif
+> -obj-y += vm_event.o
+> +obj-$(CONFIG_MEM_ACCESS) += vm_event.o
+>  obj-y += vtimer.o
+>  obj-$(CONFIG_SBSA_VUART_CONSOLE) += vpl011.o
+>  obj-y += vsmc.o
+> diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
+> index 62d8117a12..1c13326bdf 100644
+> --- a/xen/arch/arm/vsmc.c
+> +++ b/xen/arch/arm/vsmc.c
+> @@ -330,7 +330,8 @@ void do_trap_smc(struct cpu_user_regs *regs, const union hsr hsr)
+>      }
+>  
+>      /* If monitor is enabled, let it handle the call. */
+> -    if ( current->domain->arch.monitor.privileged_call_enabled )
+> +    if ( IS_ENABLED(CONFIG_MEM_ACCESS) &&
+> +         current->domain->arch.monitor.privileged_call_enabled )
+>          rc = monitor_smc();
+>  
+>      if ( rc == 1 )
+> diff --git a/xen/common/Makefile b/xen/common/Makefile
+> index cba3b32733..e3c6a857ab 100644
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -54,7 +54,7 @@ obj-y += timer.o
+>  obj-$(CONFIG_TRACEBUFFER) += trace.o
+>  obj-y += version.o
+>  obj-y += virtual_region.o
+> -obj-y += vm_event.o
+> +obj-$(CONFIG_MEM_ACCESS) += vm_event.o
+>  obj-$(CONFIG_HAS_VMAP) += vmap.o
+>  obj-y += vsprintf.o
+>  obj-y += wait.o
+> @@ -68,7 +68,7 @@ obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o
+>  
+>  ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+>  obj-y += domctl.o
+> -obj-y += monitor.o
+> +obj-$(CONFIG_MEM_ACCESS) += monitor.o
+>  obj-y += sysctl.o
+>  endif
+>  
+> diff --git a/xen/include/xen/monitor.h b/xen/include/xen/monitor.h
+> index 713d54f7c1..f1359abb94 100644
+> --- a/xen/include/xen/monitor.h
+> +++ b/xen/include/xen/monitor.h
+> @@ -27,8 +27,17 @@
+>  struct domain;
+>  struct xen_domctl_monitor_op;
+>  
+> +#ifdef CONFIG_MEM_ACCESS
+>  int monitor_domctl(struct domain *d, struct xen_domctl_monitor_op *mop);
+>  void monitor_guest_request(void);
+> +#else
+> +static inline int monitor_domctl(struct domain *d,
+> +                                 struct xen_domctl_monitor_op *mop)
+> +{
+> +    return -EINVAL;
+> +}
+> +static inline void monitor_guest_request(void) {}
+> +#endif
+>  
+>  int monitor_traps(struct vcpu *v, bool sync, vm_event_request_t *req);
+>  
+> diff --git a/xen/include/xen/vm_event.h b/xen/include/xen/vm_event.h
+> index 9a86358b42..72e720e378 100644
+> --- a/xen/include/xen/vm_event.h
+> +++ b/xen/include/xen/vm_event.h
+> @@ -50,9 +50,6 @@ struct vm_event_domain
+>      unsigned int last_vcpu_wake_up;
+>  };
+>  
+> -/* Clean up on domain destruction */
+> -void vm_event_cleanup(struct domain *d);
+> -
+>  /* Returns whether a ring has been set up */
+>  bool vm_event_check_ring(struct vm_event_domain *ved);
+>  
+> @@ -88,7 +85,18 @@ void vm_event_cancel_slot(struct domain *d, struct vm_event_domain *ved);
+>  void vm_event_put_request(struct domain *d, struct vm_event_domain *ved,
+>                            vm_event_request_t *req);
+>  
+> +#ifdef CONFIG_MEM_ACCESS
+> +/* Clean up on domain destruction */
+> +void vm_event_cleanup(struct domain *d);
+>  int vm_event_domctl(struct domain *d, struct xen_domctl_vm_event_op *vec);
+> +#else
+> +static inline void vm_event_cleanup(struct domain *d) {}
+> +static inline int vm_event_domctl(struct domain *d,
+> +                                  struct xen_domctl_vm_event_op *vec)
+> +{
+> +    return -EINVAL;
+> +}
+> +#endif
+>  
+>  void vm_event_vcpu_pause(struct vcpu *v);
+>  void vm_event_vcpu_unpause(struct vcpu *v);
+
 
