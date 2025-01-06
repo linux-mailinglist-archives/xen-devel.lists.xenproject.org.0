@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C51A0322F
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 22:37:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866023.1277316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B848A0326C
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 23:02:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866031.1277326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUumO-0000Dc-Sb; Mon, 06 Jan 2025 21:36:56 +0000
+	id 1tUvAB-0005Ir-Op; Mon, 06 Jan 2025 22:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866023.1277316; Mon, 06 Jan 2025 21:36:56 +0000
+Received: by outflank-mailman (output) from mailman id 866031.1277326; Mon, 06 Jan 2025 22:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUumO-0000Am-Pm; Mon, 06 Jan 2025 21:36:56 +0000
-Received: by outflank-mailman (input) for mailman id 866023;
- Mon, 06 Jan 2025 21:36:55 +0000
+	id 1tUvAB-0005GS-Lb; Mon, 06 Jan 2025 22:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 866031;
+ Mon, 06 Jan 2025 22:01:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T/Ld=T6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tUumN-0000Ag-7L
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 21:36:55 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1tUvAA-0005GM-Cl
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 22:01:30 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57e8ca60-cc76-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 22:36:53 +0100 (CET)
+ id c6e92887-cc79-11ef-99a4-01e77a169b0f;
+ Mon, 06 Jan 2025 23:01:28 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 14027A41EEE;
- Mon,  6 Jan 2025 21:35:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0582BC4CED2;
- Mon,  6 Jan 2025 21:36:50 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 73D2B5C60E5;
+ Mon,  6 Jan 2025 22:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C231C4CED2;
+ Mon,  6 Jan 2025 22:01:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,70 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57e8ca60-cc76-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: c6e92887-cc79-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736199411;
-	bh=9ssZsreN+2+2OYrS7HKzWEcvutpMzydOWq/SoLGM3TQ=;
-	h=Date:From:To:cc:Subject:From;
-	b=gREIQjFTHAfIPMvHL+Cl6KJpuMdwfnazPGskJv4ThQguibpX+2RJ4Z6RMMPYObjvp
-	 +rUv5crmVx19dhNBask9ky9d1Gnq3grHAYuH/kJXcU2HSF6DSRTHBKBfZE9nWCpnvD
-	 xOuQ5o8G4zmPgjI82/dTxDyF6FuHLXG1vY8ASnhXZ5vwOPMVFIhm82IOoS5mv8MhxN
-	 j6QIZhO9aHrdURVFkx8/nBwDDWyq2rTw9capb56vj6xH7NoJ17ep7umV4/owZdjTim
-	 qTBLKEnnf3RWc5KgaHnOuPHSoZXxmwFGAaOs6ZD5HtH/1g+iIu4uPALD6kFwN6t9Ev
-	 IETTDROXCiKSw==
-Date: Mon, 6 Jan 2025 13:36:49 -0800 (PST)
+	s=k20201202; t=1736200886;
+	bh=+SgfoRqkrmN/LiTQaBhlqzmt92UAGuRngzCafowYl1k=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=V0j0fqfwl4w1yeLE8v9dKNz7Gl75P7ufdXEsrqPbTCJA2C/3vHvv1iFfG2og0s7Nl
+	 AvvtZ6aoLhp7qDJ1idOOhukJ86BbE+8Dt1C6aOUZZIjhVr6i630cDlxuQEaxXYQWlA
+	 ZEAW5DD0LNk84sYpEAwTD1itLcW7zkXx5WzqZ3t+6mlEUIukEJtrGgtcXXAj9qO6gK
+	 wmnr06Gm7JLWV+hxctRySskldopmOXqHW3zx4bqXH/Qjyuc59Xu5UgxZrR5vOCsYiw
+	 W8/ZUuvNIE90hOfr9QY4htltsGYOj0IxAqnDQc9klWQjlEDh4tMSk0O4EcGeTRKyAC
+	 /1FiGD1wVtTug==
+Date: Mon, 6 Jan 2025 14:01:23 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: linux-kernel@vger.kernel.org
-cc: sstabellini@kernel.org, jgross@suse.com, xen-devel@lists.xenproject.org
-Subject: [PATCH v2] xen: update pvcalls_front_accept prototype
-Message-ID: <alpine.DEB.2.22.394.2501061335161.133435@ubuntu-linux-20-04-desktop>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.20] public/version: soften wording for deprecated
+ sub-ops
+In-Reply-To: <8ca8ac20-a19f-49ef-9631-08cdcef854d2@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2501061229300.133435@ubuntu-linux-20-04-desktop>
+References: <bf8cc342-52aa-44ee-8bce-ce2be6406904@suse.com> <0c8a13d0-04d7-4ed6-a8d8-a4423867fa3f@citrix.com> <8ca8ac20-a19f-49ef-9631-08cdcef854d2@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-xen: update pvcalls_front_accept prototype
+On Mon, 6 Jan 2025, Jan Beulich wrote:
+> On 06.01.2025 12:08, Andrew Cooper wrote:
+> > On 06/01/2025 11:04 am, Jan Beulich wrote:
+> >> These interfaces were - afaict - originally introduced this way on the
+> >> firm assumption that the used array sizes would be good virtually
+> >> forever.  While this assumption turned out to not be true for at least
+> >> some of them, this still doesn't really render them "broken": They still
+> >> fit their original purpose, and they are still usable for a fair subset
+> >> of environments.  Re-word the comments accordingly.
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > No.
+> > 
+> > The community voted and rejected this opinion.
+> 
+> That's not my recollection of what was voted on, and with the vote results
+> not being available referring to them is unhelpful anyway.
+> 
+> My (admittedly vague) recollection is that it was decided to leave enough
+> room for wording choice by submitters. That would cover your original
+> patch, and it would equally cover mine.
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
+The community-wide survey indicated that it is acceptable to use the
+term "broken" in our documentation [1]. While the survey was not tied to
+a specific instance, it was undoubtedly influenced by the ongoing
+discussion at the time.
 
-Changes in v2:
-- also update pvcalls-front.c
+If the purpose of this patch is to replace the term "broken", as it
+would seem from the commit message, I would recommend dropping the patch
+and leaving the wording as it is, given that the community has expressed
+approval of its use. Let us respect that decision.
 
-diff --git a/drivers/xen/pvcalls-front.c b/drivers/xen/pvcalls-front.c
-index b72ee9379d77..cab480059731 100644
---- a/drivers/xen/pvcalls-front.c
-+++ b/drivers/xen/pvcalls-front.c
-@@ -769,7 +769,8 @@ int pvcalls_front_listen(struct socket *sock, int backlog)
- 	return ret;
- }
- 
--int pvcalls_front_accept(struct socket *sock, struct socket *newsock, int flags)
-+int pvcalls_front_accept(struct socket *sock, struct socket *newsock,
-+			 struct proto_accept_arg *arg)
- {
- 	struct pvcalls_bedata *bedata;
- 	struct sock_mapping *map;
-@@ -788,7 +789,7 @@ int pvcalls_front_accept(struct socket *sock, struct socket *newsock, int flags)
- 		return -EINVAL;
- 	}
- 
--	nonblock = flags & SOCK_NONBLOCK;
-+	nonblock = arg->flags & SOCK_NONBLOCK;
- 	/*
- 	 * Backend only supports 1 inflight accept request, will return
- 	 * errors for the others
-diff --git a/drivers/xen/pvcalls-front.h b/drivers/xen/pvcalls-front.h
-index f694ad77379f..881ef14660bc 100644
---- a/drivers/xen/pvcalls-front.h
-+++ b/drivers/xen/pvcalls-front.h
-@@ -12,7 +12,7 @@ int pvcalls_front_bind(struct socket *sock,
- int pvcalls_front_listen(struct socket *sock, int backlog);
- int pvcalls_front_accept(struct socket *sock,
- 			 struct socket *newsock,
--			 int flags);
-+			 struct proto_accept_arg *arg);
- int pvcalls_front_sendmsg(struct socket *sock,
- 			  struct msghdr *msg,
- 			  size_t len);
+However, if the goal is to improve clarity by specifying "due to its
+size limitations" and noting that the truncation occurs "silently", then
+I believe the patch could be reviewed with that objective in mind.
+
+In other words, we should not replace "broken" simply for the sake of
+doing so. That discussion has already been settled. When reviewing this
+patch, our focus should be on its other merits, if any.
+
+Based on the above, I would not take the patch in its current form. But
+if Jan is up for rewording the commit message, and focusing purely on
+the clarity of the in-code comments maybe a future version could be
+acceptable.
+
+[1] https://cryptpad.fr/form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7cYpZdluWo/
 
