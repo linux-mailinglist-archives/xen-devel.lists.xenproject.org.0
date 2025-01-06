@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E52A02E38
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 17:49:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865848.1277118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACDB4A02E3D
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 17:51:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865855.1277128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUqID-0001Mt-1Y; Mon, 06 Jan 2025 16:49:29 +0000
+	id 1tUqJO-0002p4-B3; Mon, 06 Jan 2025 16:50:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865848.1277118; Mon, 06 Jan 2025 16:49:29 +0000
+Received: by outflank-mailman (output) from mailman id 865855.1277128; Mon, 06 Jan 2025 16:50:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUqIC-0001KA-UL; Mon, 06 Jan 2025 16:49:28 +0000
-Received: by outflank-mailman (input) for mailman id 865848;
- Mon, 06 Jan 2025 16:49:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tUqJO-0002nb-6S; Mon, 06 Jan 2025 16:50:42 +0000
+Received: by outflank-mailman (input) for mailman id 865855;
+ Mon, 06 Jan 2025 16:50:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9khw=T6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tUqIB-0001K4-AL
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 16:49:27 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f997d3e-cc4e-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 17:49:25 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4361c705434so105667685e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 08:49:25 -0800 (PST)
+ id 1tUqJN-0002mM-4k
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 16:50:41 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c389d48-cc4e-11ef-a0df-8be0dac302b0;
+ Mon, 06 Jan 2025 17:50:40 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-436a03197b2so52461365e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 08:50:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c828bd3sm47601120f8f.10.2025.01.06.08.49.23
+ 5b1f17b1804b1-43656b42757sm614166555e9.39.2025.01.06.08.50.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 08:49:24 -0800 (PST)
+ Mon, 06 Jan 2025 08:50:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f997d3e-cc4e-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 5c389d48-cc4e-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736182164; x=1736786964; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736182239; x=1736787039; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oo3N0ACOin0EaGOAKGJtbFhWYpUk8Cnbo9KMVud7ZtY=;
-        b=DPlBS9rrcqgv3xA09TWtabMgXp6QjvWosztXGelQkoBmXJoKrAWDZticx9mzyiUpeU
-         VjTX1NF3jbSppHQyGY0T4GS13+HqtV3jw1bkfv5/0oFv0QsoL+0yphOxp5g7HwhFZOWi
-         rEsoeYA9vEdZG+l5WiBqlV6TfmnIm4LtrIGA4jnKCbtoTRUXWV7Omi+tZ85DMIhhbrwc
-         v1r6Ta4KEO/a7L1fMSQs76JTKl4vQNeCSS9M5XJBYk1aJmE0n3VfTJywVwNHV1Lzresr
-         AGsj96VWrb6o/QMysXR/5GVpVaxu4O7oCI8aNaJBtyCBpRGjxOLbmq+8tzxPuU3GJazr
-         d9YA==
+        bh=P+7X1XXH/xaXHFEjaZPe9altewNzGcSF4ccQVfsvT6Q=;
+        b=BzbmhZooqI+s9HxLsSH8Gya2Cc6Q9XN+XudX3uLt4dq7RZbIPVCQXd68AlldS4qWcT
+         H9IT4c2CJcZYHNkcN0YTkNYe6iojtP9+7HzPHBtmN18/wKix7GBBNW3rPPVBoCH/X0d0
+         itZzFMizi0Snh1vMgQJ/ksBafUU62jPH8zPecX7dOWvYXSFt7CKeBzEBXT65wA++oLrT
+         ZnhVd33einUx5SHerpR/TTObYTdIuk3lVnuETAdDFgedP+AF3LMM5WlEOJ5eCrRQILmV
+         h6pBrj7FB1Itk2GeI4uCJVhVyC53lNN9eUiou/w09Gduhsf62gFB8VOh5PmmYnd9fZAN
+         NwIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736182164; x=1736786964;
+        d=1e100.net; s=20230601; t=1736182239; x=1736787039;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oo3N0ACOin0EaGOAKGJtbFhWYpUk8Cnbo9KMVud7ZtY=;
-        b=Lz2JAuLJe7nqbU6cSeTfAEwyt8LRh7rRRzs9gcAwlVGnNkC3EBqruVvvVwUrjpCnUE
-         O/djLMs/qrvWApdJSWj4vthexVh2ynAIQ3U7pV08K++FP7zSNYvNu2fYNUB32Ba/1FHA
-         cX47Oln5fEZYFPz99zbcNlaj8LZs6GQ6xcw4i2zCBvo/csinqa3jdJFswZdmxg+Y8hkh
-         Em1VG/yNdTvFSbn3EaDy1yTst2JQHWOJYmPvgRTnBynmfp7tOTGV+HsjlWN2VmCVlGri
-         Iqb0w/hVfo+uOvlZONtVWs/ZfGsLngW9j1HtmYUymKHFU50O9tQsWh/z0DyYw+Zb2vxn
-         rbOw==
-X-Forwarded-Encrypted: i=1; AJvYcCXyNcByZpkd761NbDai/wuRallhgvjJXuXB7L1w8GB0g/vAsX6v17p9sV/x/Tm39hvLTZUxUQ2BmBo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwAdcTGzv40DR+Tj65EaePKKhhtr8UikrstR4wGMiFY0eW5Yn7j
-	hOXEz2y590V6a9f2r5NheqpcKKJOQUPu7eIwaTvDwl06X6NMS0hgSn499xQm6Q==
-X-Gm-Gg: ASbGnctlSAcvsqoESaA5vzKlIFMzhvGLz3hlfmiKPQR6ZHVT5MRzIiGwxU6KkUN5VSt
-	U151/yDIeqnwNsUFN43vbHAm1ZFJm0iSsmpdZSMGiLfSnkLmbpHDk8CvrERi13CfuoVQkK62/3i
-	zu2nz2d5FwYr/IvhVv+7flWVIXigggx9Op+RsWkyAmyJ9CciEn4FpheuyR/rAJAGFEaUi1Onm7M
-	pqXfn5Z3TfejIzlAxkmRHNlhiII0lZSxgkP7BQ3aK+7Nl0rireIm1MGKBRZWj6/YHcb1OjxSR0H
-	VM+aIPyQVFbwCyWKaqdVEucdUvgcUP3gOTnhWFDs6w==
-X-Google-Smtp-Source: AGHT+IFS8Z6aK1ppVG5fMNbCPIE8ir8rD/4kNJPr4/Mp4eKOHo+b7C6sKLrOQC+ySBjExKn7DoX4VQ==
-X-Received: by 2002:a05:600c:35d2:b0:434:a929:42bb with SMTP id 5b1f17b1804b1-436686464cemr537404185e9.18.1736182164582;
-        Mon, 06 Jan 2025 08:49:24 -0800 (PST)
-Message-ID: <eab6cc64-bbc9-4b7e-8f80-3bba69cfd1fd@suse.com>
-Date: Mon, 6 Jan 2025 17:49:23 +0100
+        bh=P+7X1XXH/xaXHFEjaZPe9altewNzGcSF4ccQVfsvT6Q=;
+        b=a829L3u3ouVujnKEQAQL2FtsqLFNk6VDuldt0V72+BgtLBp4ohg3Ah7qJiw88wLsoK
+         bIwNOlsQQRXCeXNuZRoL982EoFy5jDivOYxpRQdjRm3qr6H2C0b87R623k0Pp3Le2ytg
+         d/6xZV185BGOSVX9yJimit5jgJA4YVKp/ZrMjLDILcxPvfU8Um528PakT3dq9uusI2oH
+         Sk5QGhIObzkdC8Co2NLNPjyApUZAyKVgSbWH+eBmSEfiemC4hbMZN6lttmaSVXFvNg21
+         iu25lwzfCWsa/Ilh0Xw+w6WCE1UyKRzx+3Q47BwPUT5/bj7hUprC7C0h09azAGHgog7e
+         pwYw==
+X-Forwarded-Encrypted: i=1; AJvYcCVc0XIr0f+43vSHyugqG17x1H4MoVxkttfdcSZ02LNc2frMGSU9i7pwlFric5CFaWbDiKTx0pQBnIg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQRz5SCR5/9f0kX4u022fV00B7u7O4EXzZ02FXk1UFIEj/y+zG
+	4bX3NN3JT3jc4nL/LUDVunXAXxGVAgjgpmlZGD7i9tZ9g+WVLLrCcMAHDrbiaE7NB9HQzuM8mCc
+	=
+X-Gm-Gg: ASbGncvEw8NijH5QWNvybmWkRF6IntfqwRPWXWEjhV8rUHQ90BBjoFhuuac2nhkazh6
+	mPfFXRTavWqJzdgaL/P2ZnCNebqZgVKbou+0u3eKpfjNzo5On6VyAvS6PxY525OgJblbJdJilT8
+	Adi0pC9FAwr8p+SHy1r/FpSwDyRB56mV8+rit/4XMFxvIBxQGTiG3RmkNL0mofUQwvQQifQezPK
+	e28c1eyB7o/WyfJdXusawBZ2P8JCcVAzQUbWtDNAvcWHGVrvUGKlEd/yurXSKRQD43lB487jxer
+	csF7c9MUowEkhaTlwObJZe23k7cmaHUCN+gnset2Bg==
+X-Google-Smtp-Source: AGHT+IHh99JI5qGA8vI7lsPXvquv6H1lSmJ+tHE/WjaLbBtC5NxjfwH15Gl5+JrGdcvLjGoMtDtMSA==
+X-Received: by 2002:a05:600c:350b:b0:434:ffd7:6fca with SMTP id 5b1f17b1804b1-436685488b2mr457006855e9.2.1736182239425;
+        Mon, 06 Jan 2025 08:50:39 -0800 (PST)
+Message-ID: <0968cf4a-b641-471e-ae28-dc2da4752110@suse.com>
+Date: Mon, 6 Jan 2025 17:50:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] x86/amd: Misc setup for Fam1Ah processors
+Subject: Re: [PATCH for-4.20 v2] x86/amd: Misc setup for Fam1Ah processors
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250106141929.615831-1-andrew.cooper3@citrix.com>
- <614a8615-7448-4601-92ff-04217f77a38f@suse.com>
- <03d356de-d3ba-4cb9-acd6-408bde58e77b@citrix.com>
+References: <20250106164124.620662-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,35 +117,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <03d356de-d3ba-4cb9-acd6-408bde58e77b@citrix.com>
+In-Reply-To: <20250106164124.620662-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.01.2025 17:37, Andrew Cooper wrote:
-> On 06/01/2025 2:41 pm, Jan Beulich wrote:
->> On 06.01.2025 15:19, Andrew Cooper wrote:
->>> Fam1Ah is similar to Fam19h in these regards.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>
->>> With this patch, I think we're in an ok position to declare support on Zen5
->>> CPUs.
->> What about amd_log_freq(), where the 0x19 upper bound may need bumping?
+On 06.01.2025 17:41, Andrew Cooper wrote:
+> Fam1Ah is similar to Fam19h in these regards.
 > 
-> The Pstate MSRs are still there, but their layout is quite different. 
-> FID is 12 bits, and Vid is 9 bits in two split fields.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Oh, okay.
-
-> As this is only informational for now, I think I'll leave it.  This
-> needs a bigger rework to make the code tractable.
-
-Fair enough then. And with the adjusted ucode size:
+Oh, noticed too late that you sent a v2. So here as well:
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
-
 
