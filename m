@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D610A0310C
+	by mail.lfdr.de (Postfix) with ESMTPS id 86591A0310D
 	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 21:03:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865899.1277185 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.865900.1277196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUtJc-0002gm-8l; Mon, 06 Jan 2025 20:03:08 +0000
+	id 1tUtJg-0002um-G1; Mon, 06 Jan 2025 20:03:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865899.1277185; Mon, 06 Jan 2025 20:03:08 +0000
+Received: by outflank-mailman (output) from mailman id 865900.1277196; Mon, 06 Jan 2025 20:03:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUtJc-0002eC-5y; Mon, 06 Jan 2025 20:03:08 +0000
-Received: by outflank-mailman (input) for mailman id 865899;
- Mon, 06 Jan 2025 20:03:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tUtJg-0002sg-CU; Mon, 06 Jan 2025 20:03:12 +0000
+Received: by outflank-mailman (input) for mailman id 865900;
+ Mon, 06 Jan 2025 20:03:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iH3c=T6=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1tUtJb-0002e6-ES
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 20:03:07 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3d0314b3-cc69-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 21:03:04 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-436202dd730so105999775e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 12:03:04 -0800 (PST)
+ id 1tUtJe-0002s4-VR
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 20:03:10 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 40584bf3-cc69-11ef-a0df-8be0dac302b0;
+ Mon, 06 Jan 2025 21:03:09 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3862d16b4f5so9136527f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 12:03:09 -0800 (PST)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43656b3b2a4sm611962245e9.27.2025.01.06.12.02.59
+ 5b1f17b1804b1-43665cd9c29sm559552815e9.14.2025.01.06.12.03.07
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 06 Jan 2025 12:03:01 -0800 (PST)
+ Mon, 06 Jan 2025 12:03:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d0314b3-cc69-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 40584bf3-cc69-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1736193783; x=1736798583; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IVQDyU0aZGqnbGo58WYklNw0MeL8aFrKkG5Vri/XHzI=;
-        b=K4ceTbOG2KX/ZFEBwDxgjCIH0T+7OzmE+FLxEy7KrSV4eusCt6SaJDhluG7/oj2TUD
-         CeQkQ8VVXIQa32VR0Cc2g/35ZeDljR6EnqtALffXfDaj/jRqq3fHghtVWjrQTdHqsCr3
-         pdy7DeCcQeRfKYZItU7TtuixJkaSvXyP6xVud1pY4Yi6Sbgtpf1icP2Ulr0XEiBq16nd
-         9zQxYrpbJusIEetuJhHj0gdmvEnPiiDA7FWfHAjxs9wKiUH1qSkbooDaVfuhrhSlaD9b
-         GLYq3bImjWBlybjECnqvSxDcrtsVq9/PN6Ul+78Z0oxLGgQFlLtzFK1YDIVeOpCCVV53
-         eqqA==
+        d=linaro.org; s=google; t=1736193789; x=1736798589; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Gw/8miEe/PnaBFePSWTnOg3qI2ZvVUjrjdrVrAxgzBI=;
+        b=GpJJjrGhEDpawdBPjjACmpCUFkHH8FrwXHA1FDOcG1DfCYoQvJ7sd7OsxDyLC/NOCK
+         3i0AtcqPDWHQffFFaTDxmmcMhaTVQfarHruEW5tZAtVGovP6qy9tHMnFWTvgmgiJlSND
+         F82UOzjdOC3Ugdj+m13ayr5SG2HkwEmkXyk8e24A8umZBLfFWIQ0ZDermyxMet+HuAhV
+         cqc7sWecdDJ5SSkt5njszm8OMzvRR+fbajtxA1Ehi54RCG27B9IZ2EeRR5vq7K9ndoeR
+         F+yQaD2DEpSFLbv+fa8Mb5RVhZeWEmrW+LeIVbRwceig6c8CzdxsJMScDsW+plcNcHuZ
+         /lWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736193783; x=1736798583;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IVQDyU0aZGqnbGo58WYklNw0MeL8aFrKkG5Vri/XHzI=;
-        b=fi3nidnxVBJCET1rsWAKB1NqA8Jc8V+0cMaZ87udw3ql1PzEGYivjEajRA8nlevR94
-         f3I7wFyFE103t3lPeWcOeTKq/ihYKHaUZ+s3hrib5OLfO5MaeXvIg0+je1cNRc5QP060
-         PuFJiyTyhZVZCZthZIK3xVi82bfNguIHArEdOto/AxtUdHqhkOq49SHTH1/zrxlxRQQW
-         XsRjwDH8h7xYvIvX4q2jQaSIh1NVUsTIjK2rjnnoJp1iH5DMT7bWmMu2nOb4+CAi5may
-         GJyD+Q0xWhzurZ4niGh4k0wB4U/nH8PkB+LMu6/E78gYJ0rjc5CEAiSDbrueBX46UwOo
-         beGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVXCbA6APnFwncDYzspKK023VPBLN8xe3elEga/tfsop+R42zc1IXPyPD52RAmbKR3rL2hzdgnr+7k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz22jsmjExWKqcgGr7LcHntZrBL9dk92yxwmGRDNEWOUqX1bFqO
-	LhQr4FBtbqJKtUFwcmDD5RIOPHMfTMn0ipDln6A7cbHWLvnxJ0Ikz4WgVeEo6xk=
-X-Gm-Gg: ASbGncunNMXsIeGd0MHSYTHa/rFSvft8xn7Q7S/EbvJPW3PGhFN8k5KvtXyxHVd0nVy
-	XBCyegzSYn2nbTQsn4MBE7HzQu6VnpA8AbUlZZmGTBNYV8sgAhxpwDXBGmbFWD6mwHW9IYMBGy0
-	7y08in0BCAlBISvvXQ48+2O7Di8q71eHHQkP0wj7oCTctJcAacEWEUvtxE3qQVulUMCbhIIRoP2
-	Mc+HfKuEoqGpJoPU1I071ZxGxSy95TLfbYFKAdGw/W3CM5qNJXAsUUkfBo/emVdRTWoIJ7BaJH6
-	FbQjXg8rNmrjkNg+PiEQJQgdFm8o4To=
-X-Google-Smtp-Source: AGHT+IEvY1dOIYQWFga9MrJsSFG0JoKzIh1x57mMzgTfD/hBdAZ0c+WqLtNl81G5solsww92cOjYAA==
-X-Received: by 2002:a05:600c:450f:b0:434:fb65:ebbb with SMTP id 5b1f17b1804b1-436686461cbmr539399575e9.17.1736193783280;
-        Mon, 06 Jan 2025 12:03:03 -0800 (PST)
+        d=1e100.net; s=20230601; t=1736193789; x=1736798589;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Gw/8miEe/PnaBFePSWTnOg3qI2ZvVUjrjdrVrAxgzBI=;
+        b=rmE8ZhVvPQgif4MkjHcddxr5N26o/JNL6PP0fiGKtyMjQujAUM8n2asEI00EmOwU4m
+         d6V/8JG/2BYagCp2Ze99ix0FOOmZKAOjJp2sOkb+evhMTrCpyVZvwK9Z2doC33Q+1Esm
+         Dqc4yoYSlpU4j6W950SbDRf7lGUhQv2FdazkgkDXuC2TFM2TRavcFMa+/9ID2mO6p3WH
+         zgQaMdNuDL7nLOH9pOwICpb+GrzLBqT56BOSx5PJTFMdT+Q2LKxmKbO3Jur7cKd3QAor
+         6OaNo2pCQ9EujXWn7AWPnoVmq03IonUFNXuwV0bWUort1my9wTaEMFJSdfMI1d93K9PH
+         m4Jw==
+X-Forwarded-Encrypted: i=1; AJvYcCVdD9R58Aaq0lgng7AFlXgOKVr6U6nQgqmx9OUd4nHzo49RrrqzAqgdl2wjCwufutH6bwlJ9sYQ+Ow=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvaU9FywNO88ub3tWHClZIxecD9wKJYoZIRizxOINaOz1BiDko
+	0wkOFaW76dqtiK6unDEwfA4gvsVVfsTjj96nqsQKLvt8zv2mU3wNs2Stct7CCkc=
+X-Gm-Gg: ASbGncvUgxOsbFNz4qUnfRVLXqMiH2ja6u7aEFSnYpAMk797Au2U2Xo7gBCQIeXOsLy
+	D9iorM633cnwXMqGO9Q7QgOGmPLBOlf2AzPGGlpqxJ2xuLLzTDUagwYTa0OgxEclf0EUfyDxvkv
+	LXm+sRwoNK8OkCRw7DH5qi6iytixU19htgn08D6I61xwuluo0UpYzUtEgKuEIwsX0Z899fQJv36
+	n2nHXH8TaFxaXx6niqSbkvdcogNNK7SMR72MJ4HCnYsby11oI36YDbL6hAA9weX+9/NEHU4Nx4V
+	LUVz3w4Onj5B/hsxRoPmRgptkbNbUoU=
+X-Google-Smtp-Source: AGHT+IE81N1RplBD8FCsdoj95sqyVSqitqWpe38bLlQuumoNL1lLDdZMOpwBwgd43Npz//MFxfo/tw==
+X-Received: by 2002:a5d:64ac:0:b0:38a:4df5:a08 with SMTP id ffacd0b85a97d-38a7923b959mr440924f8f.22.1736193788891;
+        Mon, 06 Jan 2025 12:03:08 -0800 (PST)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
@@ -124,76 +125,37 @@ Cc: Daniel Henrique Barboza <dbarboza@ventanamicro.com>,
 	Daniel Henrique Barboza <danielhb413@gmail.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Anton Johansson <anjo@rev.ng>
-Subject: [RFC PATCH 0/7] accel: Add per-accelerator vCPUs queue
-Date: Mon,  6 Jan 2025 21:02:51 +0100
-Message-ID: <20250106200258.37008-1-philmd@linaro.org>
+Subject: [RFC PATCH 1/7] cpus: Restrict CPU_FOREACH_SAFE() to user emulation
+Date: Mon,  6 Jan 2025 21:02:52 +0100
+Message-ID: <20250106200258.37008-2-philmd@linaro.org>
 X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20250106200258.37008-1-philmd@linaro.org>
+References: <20250106200258.37008-1-philmd@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+---
+ include/hw/core/cpu.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Currently we register all vCPUs to the global 'cpus_queue' queue,
-however we can not discriminate per accelerator or per target
-architecture (which might happen in a soon future).
-
-This series tries to add an accelerator discriminator, so
-accelerator specific code can iterate on its own vCPUs. This
-is required to run a pair of HW + SW accelerators like the
-(HVF, TCG) or (KVM, TCG) combinations. Otherwise, i.e. the
-HVF core code could iterate on TCG vCPUs...
-To keep it simple and not refactor heavily the code base,
-we introduce the CPU_FOREACH_TCG/HVF/KVM() macros, only
-defined for each accelerator.
-
-This is just a RFC to get some thoughts whether this is
-heading in the correct direction or not ;)
-
-Regards,
-
-Phil.
-
-Philippe Mathieu-Daudé (7):
-  cpus: Restrict CPU_FOREACH_SAFE() to user emulation
-  cpus: Introduce AccelOpsClass::get_cpus_queue()
-  accel/tcg: Implement tcg_get_cpus_queue()
-  accel/tcg: Use CPU_FOREACH_TCG()
-  accel/hw: Implement hw_accel_get_cpus_queue()
-  accel/hvf: Use CPU_FOREACH_HVF()
-  accel/kvm: Use CPU_FOREACH_KVM()
-
- accel/tcg/tcg-accel-ops.h         | 10 ++++++++++
- include/hw/core/cpu.h             | 11 +++++++++++
- include/system/accel-ops.h        |  6 ++++++
- include/system/hvf_int.h          |  4 ++++
- include/system/hw_accel.h         |  9 +++++++++
- include/system/kvm_int.h          |  3 +++
- accel/accel-system.c              |  8 ++++++++
- accel/hvf/hvf-accel-ops.c         |  9 +++++----
- accel/kvm/kvm-accel-ops.c         |  1 +
- accel/kvm/kvm-all.c               | 14 +++++++-------
- accel/tcg/cputlb.c                |  7 ++++---
- accel/tcg/monitor.c               |  3 ++-
- accel/tcg/tb-maint.c              |  7 ++++---
- accel/tcg/tcg-accel-ops-rr.c      | 10 +++++-----
- accel/tcg/tcg-accel-ops.c         | 16 ++++++++++++----
- accel/tcg/user-exec-stub.c        |  5 +++++
- accel/xen/xen-all.c               |  1 +
- cpu-common.c                      | 10 ++++++++++
- hw/i386/kvm/clock.c               |  3 ++-
- hw/intc/spapr_xive_kvm.c          |  5 +++--
- hw/intc/xics_kvm.c                |  5 +++--
- system/cpus.c                     |  5 +++++
- target/arm/hvf/hvf.c              |  4 ++--
- target/i386/kvm/kvm.c             |  4 ++--
- target/i386/kvm/xen-emu.c         |  2 +-
- target/i386/nvmm/nvmm-accel-ops.c |  1 +
- target/i386/whpx/whpx-accel-ops.c |  1 +
- target/s390x/kvm/kvm.c            |  2 +-
- target/s390x/kvm/stsi-topology.c  |  3 ++-
- 29 files changed, 130 insertions(+), 39 deletions(-)
-
+diff --git a/include/hw/core/cpu.h b/include/hw/core/cpu.h
+index c3ca0babcb3..48d90f50a71 100644
+--- a/include/hw/core/cpu.h
++++ b/include/hw/core/cpu.h
+@@ -594,8 +594,11 @@ extern CPUTailQ cpus_queue;
+ #define first_cpu        QTAILQ_FIRST_RCU(&cpus_queue)
+ #define CPU_NEXT(cpu)    QTAILQ_NEXT_RCU(cpu, node)
+ #define CPU_FOREACH(cpu) QTAILQ_FOREACH_RCU(cpu, &cpus_queue, node)
++
++#if defined(CONFIG_USER_ONLY)
+ #define CPU_FOREACH_SAFE(cpu, next_cpu) \
+     QTAILQ_FOREACH_SAFE_RCU(cpu, &cpus_queue, node, next_cpu)
++#endif
+ 
+ extern __thread CPUState *current_cpu;
+ 
 -- 
 2.47.1
 
