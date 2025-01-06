@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3414A0210F
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 09:48:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865543.1276776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8600A02131
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 09:55:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865551.1276786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUim8-0007Yv-Qx; Mon, 06 Jan 2025 08:47:52 +0000
+	id 1tUitO-0000lD-Hn; Mon, 06 Jan 2025 08:55:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865543.1276776; Mon, 06 Jan 2025 08:47:52 +0000
+Received: by outflank-mailman (output) from mailman id 865551.1276786; Mon, 06 Jan 2025 08:55:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUim8-0007Wg-OM; Mon, 06 Jan 2025 08:47:52 +0000
-Received: by outflank-mailman (input) for mailman id 865543;
- Mon, 06 Jan 2025 08:47:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tUitO-0000ie-F9; Mon, 06 Jan 2025 08:55:22 +0000
+Received: by outflank-mailman (input) for mailman id 865551;
+ Mon, 06 Jan 2025 08:55:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9khw=T6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tUim6-0007Wa-KZ
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 08:47:50 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7d85adf-cc0a-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 09:47:48 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-385dece873cso5170280f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 00:47:48 -0800 (PST)
+ id 1tUitM-0000iY-6I
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 08:55:20 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f46f6352-cc0b-11ef-a0df-8be0dac302b0;
+ Mon, 06 Jan 2025 09:55:19 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-436326dcb1cso93515915e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 00:55:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c89e126sm46590530f8f.65.2025.01.06.00.47.46
+ 5b1f17b1804b1-43656af6cbbsm595118285e9.3.2025.01.06.00.55.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 00:47:47 -0800 (PST)
+ Mon, 06 Jan 2025 00:55:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7d85adf-cc0a-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: f46f6352-cc0b-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736153268; x=1736758068; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736153718; x=1736758518; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LUGroKBaUx3fvIycUYkuYkxWRhR2kZInh1iJCXyuhpI=;
-        b=cku2H+yZZ/uCsVO6iyyGGu2K8GC9cvfMRtweD777Mv3bQWC/PMgqnAYC8HVdYZblwE
-         hvDSSrbZyJOOyUMGITRLdTzMKtqqlfJSLh7sd7AQOiBB7+HXDulmUf6Dy49jYxvAXi7C
-         JB9bD+WFmjTMvF5HRaPga24Zs7BAHCj05KpWO/kHAfB4PqXNnXP8KZ8UxoSFfgf2CfLK
-         ZXpWpEQzP4D4HtGjlf5bkXH4kSi1r/coFII6SbRiL5PIWOjP1JyHU3w7JQp+7yxHZlwF
-         wOIOABVGhpOScNeqNuIlxL5A/I0Ma6As1Qx5gzkXQLtcAhm+w5m37VjEoW1A3QVjZwWt
-         mAog==
+        bh=HNHP5KHMf27LdU0KeBedMufdxZs5vEsqAMcYSe5Zu0E=;
+        b=fBCbKvnOYnm310kNskQOte0M5oAeHTl5DGXkNRnG3bAaAAHOtZfDzShoUjC65FmLBg
+         1HwoVGCt+KaVZkXaBhwKhFbzD2rT+4BWDDbOWnGAt4XL2VTHedGc+cbYhKR3XIvPKcPE
+         Opj1lNd4ZGfBnnry2HdP5Rz5dQTkrw1ooWmJf58NJ+4UZDkE5bGTY12nxPmT2eoD9CXK
+         cHkK7P14J4t4c91TfMf7WQbM2HcLId67LxlJ7s76aWq3sU5J0TH/to3LQWQOMNjFP7Rn
+         p9Mml58fiyq0TwQ2O+hZcKZiBVJIy3rWavvs0EtLFfFN2yUAJ1SxYgxb93bF9cG3AZ8M
+         TV9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736153268; x=1736758068;
+        d=1e100.net; s=20230601; t=1736153718; x=1736758518;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LUGroKBaUx3fvIycUYkuYkxWRhR2kZInh1iJCXyuhpI=;
-        b=ASaHkjZcRzSi2w3xn/lV1WpfjRWy5M7iPbh02Gv5HuhVCGiEIxOGQbrX/KPYwJJqlf
-         2WkxxTTM5kUtiCIkFkTrEHkIkx9AdJGekODkfmwA4xTRf138wffurEx9qU2PmihJme9C
-         f/yq5247zgB3fRQtMMzaG1Q0dxsRf4xNqz50SQX+ZHYjgQ4KGaLNDCOoKlIcD7wZ3CvN
-         VJYetEORKxLPbSENhxCG/Wasb4Q8O5TA27pQllQTBCKvo0NlowWYOKv4ooE0orJdeOOL
-         KjsOXWVxjED0YR7yMeLWqTIb1MWp3e3s/4WOZRhrWqSTGZlWQJ8QdC1IEvQmwMt0wQDN
-         OK0A==
-X-Forwarded-Encrypted: i=1; AJvYcCXL+T7272D7xs+dmxeMm8UGsOZP0mVY+tmN0+NvyMQes4aBVyjhprndiv//nC6eNzzMrB/bj76ev0A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxd+Q8jaBvK9Xb8OXOiUJr2RYONvvjKCHGn3+pbgaWCS3YSPSii
-	qWLfeheFQKCwS1w8a8T/4TD378zc4e3EEv+rUQmn4rWwdKzPQys/uags7YVuqg==
-X-Gm-Gg: ASbGncuXBKkAxJrAU1fxgwU3NCo6XP1gXfYAE+SDJ6LyUKF55/GUw5qplMik/ugO7H8
-	qdqs6e156qnmzyihiZQ/eSXb17gqgyiF3TgOeD25x8oNNrfS8wVZE1c8GuJFz7Swwkt9jD+Yt+x
-	VNX0zwTjMexZKjzWN/In0WTZ3uXvHGdm4GFRZmYripo+sBWPUUOUezv0CH32pWmukOP8CxoItvg
-	0CFz7MAyoUvU17bTOuzBaiII5zGsQX6pCO+jMTqfVDNuJLI+1SXbbH5l007qllfRPAlzjSJp6CP
-	1PCwKcb0BY++yUgxi//f+10nHoQPMTt/LX57jZoeMQ==
-X-Google-Smtp-Source: AGHT+IGKGRBfsPyXyVmDmchBix5jmtQnAiG4xE0y+lEW61nfYMWevzWLr0j4N8YtsOkP1ZSL29a95Q==
-X-Received: by 2002:a05:6000:70a:b0:385:e0d6:fb48 with SMTP id ffacd0b85a97d-38a221f109amr48478778f8f.7.1736153267885;
-        Mon, 06 Jan 2025 00:47:47 -0800 (PST)
-Message-ID: <324509b4-a38e-4c83-9774-d7f560192c6d@suse.com>
-Date: Mon, 6 Jan 2025 09:47:54 +0100
+        bh=HNHP5KHMf27LdU0KeBedMufdxZs5vEsqAMcYSe5Zu0E=;
+        b=ssCswrRPkjr5D0uKqb1hlUNWwVEwrGXLvJmVVr96JbPjI3dNJZirodfULPzW1bHJB5
+         RVqFAZnpWjk5UJVfKjRnCRXmegkTEQqmkEJme6ahIP2XUWFi2BrwfhRNeE/ddE1Z14sS
+         xG/uOZWWBBQm3xdR9tZb1+S2DtyS8ssXW0VbBFzcUn/InJ8MUQWD4JEES6A3mi51wfsr
+         1l+lCmjbj3Ik7ptJPXTR/899mKmkY4Ma+nXzQF+gKcX2FYoaHAAfBOU2Wse0qVuN8vJl
+         ZluIT3IWPIDVrlPVUg8bkx6ICnP0LQ/3TV2O2qZGWG57TE1XFsbu8vHFTpakVtwcyGne
+         2pTw==
+X-Forwarded-Encrypted: i=1; AJvYcCUGghtBs6j4bKPWAntJ616gI7UKGZPlFohbtH2OzwuPjlQHYeOZoHGcRHQwNcVDBnQfMA5SH1ob7Os=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwW4ereGMCWB/KifNvcW993HJbaBQBqAWktV6nRcfCL7GUnIFEW
+	JR1ZBDuYIVtUuihDi7hdvqywh1UgcFmWaU7kpB78TfkfVktNwdWwp7nKd81+6Q==
+X-Gm-Gg: ASbGnct5jvfLXeSdudtxlw9Sh6HoOdN6TB3LZlmCW9aFLOm9AdXdX2WCxrsbg4yO6FK
+	Yv5Jt0U/lT4CzvVIEsI3dVEs24hqbVYAX+qOOKMz25obg/hg8QjFM70oQkKgI2mpT9bhSRBz3QU
+	9Gb7y9PFn1cSf6oal2YvByx4MUevudpoooYywQjfoJ7HZjGeyuPTcFkQX/jkycxixU08vD8LMxg
+	aJMveswYbs5iM2Mgha1/ryOZhAcJqMEdf1P6uBi11QXP4fnFJjvenWURkR76QFhGAY4s34NYTVv
+	QJITtlPKPDrnjP37l6380ldU5OJc9eff+iqHUIvbyQ==
+X-Google-Smtp-Source: AGHT+IFoeHyuk4EieHn3bvrcLDmDb2PF2X7gBEvCSrQ3jQjUQUhC1e952KbdU8pVSUUwIFpHsFwp0w==
+X-Received: by 2002:a05:600c:3ca4:b0:434:fe4b:be18 with SMTP id 5b1f17b1804b1-436686468fcmr521538215e9.18.1736153718543;
+        Mon, 06 Jan 2025 00:55:18 -0800 (PST)
+Message-ID: <180fb50d-37c8-439e-9fc2-883e75895a8f@suse.com>
+Date: Mon, 6 Jan 2025 09:55:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] xen: introduce kconfig options to disable
- hypercalls
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20241219092917.3006174-1-Sergiy_Kibrik@epam.com>
- <735f8d30-5f42-4fa6-acb0-f82b5b759183@suse.com>
- <alpine.DEB.2.22.394.2501021033440.16425@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2 03/35] xen/ctype: introduce isconsole()
+To: Denis Mukhin <dmkhn@proton.me>
+Cc: dmukhin@ford.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-3-e9aa923127eb@ford.com>
+ <b3afb61f-0a82-4a66-ae9c-42c1106a5399@suse.com>
+ <UxuSYzSmEVywRqZ_UFKaoIq1qJIu3HJsDIFnih7hfMmjZ7m935H9ODPtxpe4NxWRFKBsiQL_j42X6U_1LdeSoI2Eflge05xsI5YUClj0HFc=@proton.me>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,55 +120,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2501021033440.16425@ubuntu-linux-20-04-desktop>
+In-Reply-To: <UxuSYzSmEVywRqZ_UFKaoIq1qJIu3HJsDIFnih7hfMmjZ7m935H9ODPtxpe4NxWRFKBsiQL_j42X6U_1LdeSoI2Eflge05xsI5YUClj0HFc=@proton.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.01.2025 19:33, Stefano Stabellini wrote:
-> On Fri, 27 Dec 2024, Jan Beulich wrote:
->> On 19.12.2024 10:29, Sergiy Kibrik wrote:
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -516,4 +516,33 @@ config TRACEBUFFER
->>>  	  to be collected at run time for debugging or performance analysis.
->>>  	  Memory and execution overhead when not active is minimal.
->>>  
->>> +menu "Supported hypercall interfaces"
->>> +	visible if DOM0LESS_BOOT && EXPERT
->>> +
->>> +config SYSCTL
->>> +	bool "Enable sysctl hypercall"
->>> +	depends on !PV_SHIM_EXCLUSIVE
->>> +	default y
->>> +
->>> +config DOMCTL
->>> +	bool "Enable domctl hypercalls"
->>> +	depends on !PV_SHIM_EXCLUSIVE
->>> +	default y
->>> +
->>> +config HVM_OP
->>> +	bool "Enable HVM hypercalls"
->>> +	depends on HVM
->>> +	default y
->>> +
->>> +config PLATFORM_OP
->>> +	bool "Enable platform hypercalls"
->>> +	depends on !PV_SHIM_EXCLUSIVE
->>> +	default y
+On 04.01.2025 03:31, Denis Mukhin wrote:
+> On Tuesday, December 10th, 2024 at 5:22 AM, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
+>>> --- a/xen/include/xen/ctype.h
+>>> +++ b/xen/include/xen/ctype.h
+>>> @@ -4,6 +4,8 @@
+>>> /*
+>>> * NOTE! This ctype does not handle EOF like the standard C
+>>> * library is required to.
+>>> + *
+>>> + * See Rule 21.13 in docs/misra/rules.rst.
+>>> */
 >>
->> Just to re-iterate an earlier comment: Andrew (imo validly) raised concern of
->> such negative dependencies. As said before, imo we'd better resolve that before
->> extending the issue (whether by the patch I once sent or something else is then
->> secondary).
+>>
+>> How's this change related to the purpose of the patch?
 > 
-> How would you express the !PV_SHIM_EXCLUSIVE dependency without using
-> negative dependencies?
+> Only because the very first version of the macro was failing
+> an ECLAIR job for me because of Rule 21.13 violation.
+> 
+> Updated the commit message (v3).
 
-By inverting the sense of the option (and renaming it), as (to a 1st approximation)
-requested by Andrew long ago, and as proposed in [1], which I think I pointed
-Sergiy at, and which continues to be lacking feedback.
+Well, no, in such an event please drop this comment change. Or else we end
+up with Misra related comments about everywhere. After all _all_ Misra
+rules need to be follow everywhere anyway.
 
 Jan
-
-[1] https://lists.xen.org/archives/html/xen-devel/2023-03/msg00040.html
 
