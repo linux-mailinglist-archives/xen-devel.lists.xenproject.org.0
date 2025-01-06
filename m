@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4CFDA02169
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 10:04:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865558.1276796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3708DA0216E
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 10:05:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865567.1276807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUj1h-0002Uy-BU; Mon, 06 Jan 2025 09:03:57 +0000
+	id 1tUj2i-00035G-OA; Mon, 06 Jan 2025 09:05:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865558.1276796; Mon, 06 Jan 2025 09:03:57 +0000
+Received: by outflank-mailman (output) from mailman id 865567.1276807; Mon, 06 Jan 2025 09:05:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUj1h-0002T8-8x; Mon, 06 Jan 2025 09:03:57 +0000
-Received: by outflank-mailman (input) for mailman id 865558;
- Mon, 06 Jan 2025 09:03:56 +0000
+	id 1tUj2i-00032w-L4; Mon, 06 Jan 2025 09:05:00 +0000
+Received: by outflank-mailman (input) for mailman id 865567;
+ Mon, 06 Jan 2025 09:04:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9khw=T6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tUj1g-0002T1-5R
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 09:03:56 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1tUj2g-00031p-UA
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 09:04:58 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27ffda73-cc0d-11ef-a0df-8be0dac302b0;
- Mon, 06 Jan 2025 10:03:55 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-385df53e559so11115446f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 01:03:55 -0800 (PST)
+ id 4dbc2e1e-cc0d-11ef-a0df-8be0dac302b0;
+ Mon, 06 Jan 2025 10:04:58 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43624b2d453so146013385e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 01:04:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8330d4sm46833903f8f.29.2025.01.06.01.03.53
+ 5b1f17b1804b1-43656b3b214sm602532695e9.28.2025.01.06.01.04.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 01:03:54 -0800 (PST)
+ Mon, 06 Jan 2025 01:04:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27ffda73-cc0d-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 4dbc2e1e-cc0d-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736154234; x=1736759034; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736154298; x=1736759098; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0l7vRPBfuuguFIUIDZW5bUWbIXANs8SJ8zLqvL4irD8=;
-        b=ZVnIHANhyYNTqHQIGKRS9lDwEmm05Eer8yV3RoV6BW5fPCroOWzl6EsgrHlmQSe7fr
-         IqYVQO+AQpH4dE5wdZ5aHMf4hX3oz/Ok4NCmJuzMb0oiNeVTBLTyE/KcyCAdDxt4KBRg
-         ig8iv9JUnHRmOF+w0sgcnteJxS8ZngzWBccON6rI3tF9rI1f5NVEWUclfoTVD5J5klYn
-         ib6HqAVDURQcUNSNj1MqMpssb0Sun1SyNijp5H6xXLT0UfGHNm1H84WCQdCJrUsULz+x
-         lcAnOvao1jcBIf0zyr2NJORygZX10/OPPztEMby42mXfBpLQwx5+UwwStcn5JnN65bYu
-         +wwA==
+        bh=xKdz5ZfmiRbMkL0bHona89NxxSVkAQIEzmDNyelosa8=;
+        b=W7dB3BBZQUgZD35FenAZFQqMrb0QGe39zN4SlpYvcw5tLbW4tiPz2DOhLlCQNjRlfu
+         Vti7zaWGPWb1MxnzOUzMXxK9iHgfFyZ5htmvrL5sflYKntwc0M3gBTSQx0CBDzghDuzo
+         bntK+afZLGT99QNrzyAcife77zJ8DQCLi6TuwWs1LjNQm6ZP1ir90NRjD21WpYpIuK89
+         PyY/L7sBLThNmmpb1yFF91xyr59MOA9D8xbgn6WBnyHcIVgirXHBn+HMsRCLDAj9mCEs
+         pI6ZogimMNZ9eZqwpnZ1CmB6nFIhhWw37WlCgrkGheknG6/RoJwC/acya0p1dafEj5xr
+         w1FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736154234; x=1736759034;
+        d=1e100.net; s=20230601; t=1736154298; x=1736759098;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0l7vRPBfuuguFIUIDZW5bUWbIXANs8SJ8zLqvL4irD8=;
-        b=onADGGWqogElNMch68XFjOMAImhY13Gw2kLvtmSoZd+c/RDA9dtTP6+u2JfVHliJbI
-         jfCLYAoP/2zSulsmz8hI5CXBgCG8xQADmwgu5VtWJmr5MRAwPrr9IsVzUYjD6/YX376C
-         22AsMQvVLleFTAQs+4KeGcvD7BNtCHLNZHUIIAQaDid4+knzWGgFajjVogy52qJZo36J
-         tGEdWXzX4QM6z39Zb1ugWnP04W5JoxGqQgPHSSjC82IhgoFQYkJYsJ5U0Rvh6tiqvFLt
-         yNuqwusCytT3KTvVfJ1oKS2Lgcc3xRInNgl0uZnjwqLm3pTmcNCNZYu6a+TDodqhwFuv
-         3EfA==
-X-Forwarded-Encrypted: i=1; AJvYcCVtUOSMbS08nZuwkZlhI1Zz8j0ILTc3ixqZP3vaR0oTS5GqnwudluIFcRMw6VzJYNxM5pfQn7/Mhc8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw8s85VPa8lOnZhhIGvzC+xMdFA1yyIUfEt8YGFvamqLoNcja45
-	ziqR67tP9OQbL5zfp5lVr7zuS0KiHktFERGRZcEN33sjC9vVTPDnApq3Yza2Gw==
-X-Gm-Gg: ASbGncukIMTRDmuowWiWKjwNoui6WcXYtWeHKPtQa3pPeHGui5SCbBPMI7/u5G2JNPl
-	UT1wuYn5dOlqT7mVGd9kyPqAiFGvmwIMhae/L0ALxQ6BrfslpwvyFBAZbfG7AWNRiLn3xr5wD2g
-	u/TVfboE09PUhsE37uJRjkE7oVnGWroJmiyjnaAhpQjG+8b7YLwDWngS+okHwqqZFlPUJwuJ5qn
-	YfGaLIQY4ew5QTzYPVtWQk5BnlyyNOO7A+1DOK6cW+QgNKRYqtF3K0+EaBqA+njQvzRs7ZTVAyN
-	4/4M1mqgB1wkqg/xEg0/jxidemIX3Et20WOXqHJLpA==
-X-Google-Smtp-Source: AGHT+IFBBRYXv6HlVP8XxQEH/siKXNMJDfILmPd20jLAFltvKjg3gcMSdTIKeJARbKpRJHNa+c45Gw==
-X-Received: by 2002:a5d:5f83:0:b0:385:ec6e:e87a with SMTP id ffacd0b85a97d-38a223ffaf7mr42931000f8f.43.1736154234559;
-        Mon, 06 Jan 2025 01:03:54 -0800 (PST)
-Message-ID: <5335a9be-4fdd-4b9a-a941-5ab8d3c0829e@suse.com>
-Date: Mon, 6 Jan 2025 10:04:01 +0100
+        bh=xKdz5ZfmiRbMkL0bHona89NxxSVkAQIEzmDNyelosa8=;
+        b=elfdsc2WGadqO9MZr9gEvbu0gdWCeJUsrHppoeqvt0pXLLn0UoRcaX374tQTcb/+vk
+         cNywFF3Zec2MPDiVTIRjXi2Z+R1uWWG67cZqvb42R0bfHPIIsd74JXNGWsjOAinrE8sp
+         XWF65SaWIOvMAMlYjhP1McylyHKLaYrRNuQovuYUnDuirSfm9qxs54JgGlwD0ZUa5HVo
+         U7lSmvRY6uHrWWotGT8I05zWWJxqvEzQHNtWjPWjKvGluazgaugq0BWZpCD4ZUqJNppq
+         uaAV48x+SLNwYUsJTgAw2wkXC8A8tAHZ7wvkTBfFR1y20NqcAVwj13WVAmKg1xeCFRcp
+         B2KQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVdbE4+kmlKASCvOn3AhEp4n0OfUPOchh/wRT0q/0njnNPIgtEwef/pqufG+PaJkILLzTeCm3YBKl4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxwf4YLEBgbSNM7SNjPnMFJMb4z0SX4FDXJBc5Wx0cpv35kaw3F
+	uS2MTd9g3W0roUC4s89N1lNasZ3bJxyhaOiPDK2zZbanw6Hg1EYqTUtv04xZaQ==
+X-Gm-Gg: ASbGncvEaLsnQzNOiiCTPP3Rko1JojxXhS/9Qbc4Ws82OQPJqZpfS8tAjZHwxote0nU
+	WySvd6U9bZPDU37Wi3On37Sq8d7iJB1IaS9iVW/8EnrcvIyHX5ZHVCaJraPbOH09YQd7U0j3xJf
+	sUf0Ts3N7BnYtrbw9dSw2IegS7a0l8cnD7MpMEuPDLsJKbUShgOvVuhqS32Rf+XKZa2FvgiW4qY
+	oPPLHlXhWoOmlKBfh9oVc0O0YpzOmhoQ65hXUslUa6quwKUUZZl3jvHff0xqxHpNEe5xeHSIKEK
+	d8tHN3bHoPHauHpa16gtTUyezxAfLAH2yjFj1hJm0g==
+X-Google-Smtp-Source: AGHT+IGzOlRD+xy41OVyHw/+lix+/OkWZVTntIKcBq44C2zyFJD52W57hsDVmvgTwVspEVp9lLV8pg==
+X-Received: by 2002:a05:600c:3b86:b0:434:f0df:9fd with SMTP id 5b1f17b1804b1-4366835c187mr451917285e9.2.1736154297780;
+        Mon, 06 Jan 2025 01:04:57 -0800 (PST)
+Message-ID: <be09172b-5351-4ac0-af6a-1c78318c1bb3@suse.com>
+Date: Mon, 6 Jan 2025 10:05:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 16/35] xen/console: introduce printk_common()
+Subject: Re: [PATCH v2 17/35] xen/console: introduce consoled_is_enabled()
 To: Denis Mukhin <dmkhn@proton.me>
 Cc: dmukhin@ford.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-16-e9aa923127eb@ford.com>
- <9c9120f6-6291-43d1-93ac-deebdc222f3e@suse.com>
- <hYzpsKcLLQl-hDLJQHJZSrZtcT5PVx6qx3aKoTyDtH-EYxMtYA9XKavqTvfukRQshSpt9ffdH0MyiqSdglLWtNTSPGduWBOnUbb4DLfityc=@proton.me>
+ <20241205-vuart-ns8250-v1-17-e9aa923127eb@ford.com>
+ <1968c658-595d-4d36-8558-8f178f8ed531@suse.com>
+ <dbgW8XOq7JPdwZfOVtTFNzR4sEKb8gtxLEa1gygWzrm3gtGw28Rh4rxtwROJZ63-oMBOdfrzck3uET7uXNAjd3DW_NNRcgU_WbsCaFTmC0g=@proton.me>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,27 +120,96 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <hYzpsKcLLQl-hDLJQHJZSrZtcT5PVx6qx3aKoTyDtH-EYxMtYA9XKavqTvfukRQshSpt9ffdH0MyiqSdglLWtNTSPGduWBOnUbb4DLfityc=@proton.me>
+In-Reply-To: <dbgW8XOq7JPdwZfOVtTFNzR4sEKb8gtxLEa1gygWzrm3gtGw28Rh4rxtwROJZ63-oMBOdfrzck3uET7uXNAjd3DW_NNRcgU_WbsCaFTmC0g=@proton.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.01.2025 03:57, Denis Mukhin wrote:
-> On Tuesday, December 10th, 2024 at 6:27 AM, Jan Beulich <jbeulich@suse.com> wrote:
+On 04.01.2025 04:00, Denis Mukhin wrote:
+> On Tuesday, December 10th, 2024 at 6:31 AM, Jan Beulich <jbeulich@suse.com> wrote:
+> 
+>>
+>>
 >> On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
 >>
->>> Introduce new printk() variant for convenient printouts which skip '(XEN)'
->>> prefix on xen console. This is needed for the case when physical console is
->>> owned by a domain w/ in-hypervisor UART emulation enabled.
+>>> --- a/xen/drivers/char/consoled.c
+>>> +++ b/xen/drivers/char/consoled.c
+>>> @@ -43,13 +43,13 @@ struct xencons_interface *consoled_get_ring_addr(void)
+>>> static char buf[BUF_SZ + 1];
+>>>
+>>> /* Receives characters from a domain's PV console */
+>>> -void consoled_guest_rx(void)
+>>> +int consoled_guest_rx(void)
+>>> {
+>>> size_t idx = 0;
+>>> XENCONS_RING_IDX cons, prod;
+>>>
+>>> if ( !cons_ring )
+>>> - return;
+>>> + return 0;
+>>>
+>>> spin_lock(&rx_lock);
+>>>
+>>> @@ -91,15 +91,17 @@ void consoled_guest_rx(void)
+>>>
+>>> out:
+>>> spin_unlock(&rx_lock);
+>>> +
+>>> + return 0;
+>>> }
+>>>
+>>> /* Sends a character into a domain's PV console */
+>>> -void consoled_guest_tx(char c)
+>>> +int consoled_guest_tx(char c)
+>>> {
+>>> XENCONS_RING_IDX cons, prod;
+>>>
+>>> if ( !cons_ring )
+>>> - return;
+>>> + return 0;
+>>>
+>>> cons = ACCESS_ONCE(cons_ring->in_cons);
+>>> prod = cons_ring->in_prod;
+>>> @@ -118,6 +120,7 @@ void consoled_guest_tx(char c)
+>>>
+>>> cons_ring->in[MASK_XENCONS_IDX(prod++, cons_ring->in)] = c;
+>>>
+>>> +
+>>> /* Write to the ring before updating the pointer */
 >>
 >>
->> Imo it should still be guest_printk() which is then used from there.
+>> No excess blank lines please.
 > 
-> I ended up w/ printk_noprefix(): vprintk_common() expects user-defined prefix,
-> while original printk_common() does not expect prefix. Such inconsistency
-> may be confusing because both functions are named xxx_common().
+> Fixed.
+> 
+>>
+>>> @@ -125,6 +128,13 @@ void consoled_guest_tx(char c)
+>>> notify:
+>>> /* Always notify the guest: prevents receive path from getting stuck. */
+>>> pv_shim_inject_evtchn(pv_console_evtchn());
+>>> +
+>>> + return 0;
+>>> +}
+>>
+>>
+>> For both of the functions - what use is it to make the functions return
+>> a value, when all they'd ever return is zero (and callers don't care)?
+> 
+> Fixed.
+> 
+>> I'm also having a hard time seeing how this adjustment is related to ...
+>>
+>>> +bool consoled_is_enabled(void)
+>>> +{
+>>> + return pv_shim && pv_console;
+>>> }
+>>
+>>
+>> ... the introduction of this function (which by itself is probably fine).
+> 
+> That will be a cleanup in console driver on the code path I touched wrt console
+> focus switch.
 
-Your reply at best partly addresses my comment: I didn't suggest a new name for
-the new function, but I rather suggested that you use an existing one instead.
+Yet then please don't mix entirely independent things in a single patch.
 
 Jan
 
