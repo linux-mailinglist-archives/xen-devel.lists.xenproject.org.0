@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C32A022F0
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 11:29:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.865651.1276902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77934A02304
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 11:33:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.865658.1276912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUkMJ-0002Vl-FT; Mon, 06 Jan 2025 10:29:19 +0000
+	id 1tUkPe-0004KH-Tp; Mon, 06 Jan 2025 10:32:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 865651.1276902; Mon, 06 Jan 2025 10:29:19 +0000
+Received: by outflank-mailman (output) from mailman id 865658.1276912; Mon, 06 Jan 2025 10:32:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUkMJ-0002TK-CI; Mon, 06 Jan 2025 10:29:19 +0000
-Received: by outflank-mailman (input) for mailman id 865651;
- Mon, 06 Jan 2025 10:29:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tUkPe-0004HT-QW; Mon, 06 Jan 2025 10:32:46 +0000
+Received: by outflank-mailman (input) for mailman id 865658;
+ Mon, 06 Jan 2025 10:32:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9khw=T6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tUkMI-0002TE-G8
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 10:29:18 +0000
+ id 1tUkPd-0004HN-7j
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 10:32:45 +0000
 Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
  [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 14fa6a07-cc19-11ef-a0df-8be0dac302b0;
- Mon, 06 Jan 2025 11:29:17 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8fb8fdba-cc19-11ef-99a4-01e77a169b0f;
+ Mon, 06 Jan 2025 11:32:43 +0100 (CET)
 Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-385f07cd1a4so9338368f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 02:29:17 -0800 (PST)
+ ffacd0b85a97d-385eed29d17so6689328f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 02:32:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a457584bcsm30289443f8f.89.2025.01.06.02.29.15
+ ffacd0b85a97d-38a1c89e43dsm48316262f8f.70.2025.01.06.02.32.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 02:29:16 -0800 (PST)
+ Mon, 06 Jan 2025 02:32:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14fa6a07-cc19-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 8fb8fdba-cc19-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736159356; x=1736764156; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736159562; x=1736764362; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fxfnN7CdCR0nQJIFy5YImJRGZNHu/ZD0fBmXIdkSJRg=;
-        b=WpIBLpbSjqTO046eu3xNeBH4R+pi9TEGEI/g/2YOgK81fO9t0dDarfYm63dwy5OVPS
-         CbjlDis+2O4/0G4LJldQ+sYIWqbZV2nQohdlR3kRohbH/Tn03DcNED2q6nflvKo0xgFg
-         dzoiiLmWXnbj2HgvZsAkpypTocsmN3Grckwxg1LBY/G+ScVrOc22Kgu3hvry05oyjCmr
-         nhm7MBwAGxo2z5vMbuIJy/6DXIzhD/28bmegcUF/Msyei+xV69qAXRV/1l8ahd1igTgu
-         O/h8M6UBeEHSlZLgtIEAPui/N7kRfuR5oNtUcz4Gk0V5pUmBAy81xohL3YisGHMzROJb
-         tCIw==
+        bh=b000T26MrIM2i9K9ongnpnfhmN/t2W9V0DgkR7Eu9A8=;
+        b=KBaXG+q9hK+akFMK4EZ4C7n74FclIY7ACIJr0AG8wDtApvTRYNVdzGuCPj+Sgev4z5
+         YsmhCqsCTcK+q00rWj5S7K5IN9Q3wtdMxFzgK0gm6bIALPuxFX0LpHkKe+EFoUy2EE0o
+         KMRtKCWpHvj7LZ0UifRuEXjRUr/l52h459iM8lWOo9w6wl/rv0IS+lNE0Vd29szP0rRo
+         TyBUUxLUckNcJyuuFMUFy9EtWaEmK4x+HU9DMkmSovCkvSAjphr7O2jXnfhVAM7rZ8ac
+         OP1Ps7kwziG1QdBpw1WxBffIHYJNxy7ZND8/KVrHCuGmTvIaw7/YeszTndJCd72SZ59s
+         RR2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736159356; x=1736764156;
+        d=1e100.net; s=20230601; t=1736159562; x=1736764362;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fxfnN7CdCR0nQJIFy5YImJRGZNHu/ZD0fBmXIdkSJRg=;
-        b=eQpXi4SzHDLsCzwLggK8ILHLc1xboGStDqD5jPoevnNN2IE4u0pROSojPxIesWHFtq
-         DVGoiOkqTTCRAYTFqHKPnoaje5tkEQV+QsMmfiqFE4J2y++nBKW82hpVO6KFOgJB9Uu+
-         KHtGYJ2vs1A0crzyBeWVmSXzf25GYsH0YIEuUc4KaUd4zHGB0DTnfZ/OqdJnl8INAZwZ
-         Fog/W0dc7FOpZPvanpgU3u8zdMmvbPlI1PQRfkXN7eQwOBabZB3PRWZzOz93PegcEfsH
-         IenqFtM73j+T6H7LDs5q/rMmjXMnuro9OprwkzmnTnoIehefyflNEKDBXUxfqZIwBJ7A
-         TDZA==
-X-Forwarded-Encrypted: i=1; AJvYcCVjnlQX2fahQvV3A86+wTM1wVdbB8aa2HCn7HwyjG8ovreOEwCPkvA2I04WjYEBncBrEQAW+awRpLc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4pCWVFYXVye721vrvb95stNU9QADNnXn2lCMuhSu9TJ1ns72o
-	cbXr965JdZOxeQOs0SoazDP8B9HfZ6dNR/3E0sKACAOR9gYAiDyz97svY08opQ==
-X-Gm-Gg: ASbGncthUVS8HqMkyAU3u6+NV5ILuGP/1UoOTUNBMVYIxsRfI5HcliIwmZVSESkhCHr
-	WPCbrGMkR+4LAgIEa9vwDqLjadPcj6kyD12lYjhBv5OjNedfdSfGTsKjM5T3KGGYSYUVR+iuEvA
-	S5760+XxivEzVmapUO5fq+JwbDMUQPCPCYRi0kzWmToNff78IeNeGvSt2o8MwTLD0bZUMl0Ii95
-	7PyG6Nekf2ePo/a91447gCH8Qbc+6hfvkktsgHSYTZ2eq9kwewHlIo5kzw5XexEeF2aObPjPNFR
-	H+jjM3rpRIrF8jnQIJC6o4xGJSkWK43rEqEh7YbeAQ==
-X-Google-Smtp-Source: AGHT+IEqBEnJpM87IDIi90dtOMIshDN8Z9UhS/RLNcWG3gebi+GG1S0LQIgj5pBmuYDGqz9jjep6dA==
-X-Received: by 2002:a05:6000:18a8:b0:385:f7d2:7e29 with SMTP id ffacd0b85a97d-38a221ea539mr47606151f8f.15.1736159356595;
-        Mon, 06 Jan 2025 02:29:16 -0800 (PST)
-Message-ID: <fc0b1bfd-9673-4ceb-9689-b7d4b7838d79@suse.com>
-Date: Mon, 6 Jan 2025 11:29:23 +0100
+        bh=b000T26MrIM2i9K9ongnpnfhmN/t2W9V0DgkR7Eu9A8=;
+        b=hTTXQodhOCo6YYO8FJnKspF+VAQWfeOXGCGr3+Q2Mvv/eAXxRV7Kbv/ysfWG8jnwql
+         7cFruJxETUNZfPXgFgjp9+3CauJO8KX+gK2Sb7FiCXdqNKwwn5TU11gMzCAb69rjVmLb
+         nMk0jyiwV9sy7yD56TJLXOQMwD6umsvCoYJITH8EQoJS+3Ji8Q45+QE1n2hyXdMR1XjF
+         40uPjgwbVaA65v00dR8POfV76VwpC5eedZA/MDsxHQYpKsRQNJ5JLR4cgsP3KWPh36HH
+         xGo+XGRPgVgq4KcJFukr0DaNhGQRv1eE24hu6/JcAJskRHQFbFu3dhVwG6ZO9g7wBNYA
+         QMVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU7aTZE6gtWVU4drM0PljUy00PDg9EJYZ8euGo6wjo/XIUmy1Qg+GkahmCynR6nZOfHjzh7i/apW7c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyRshEzepnnL0EjrgqVW5o1P6XUxe7g/QEq876jBtkSXP7Sxfgo
+	/mpV27U24YTijeaQBQjklEtABpBhahb/iJXKbTl3Oj/bCCx+2wrV6HfC3e80Dg==
+X-Gm-Gg: ASbGncvRUYWMryrH8bav0EpkttpANoo0HYEew1M28eZok51ZfHAFoi3HrPKzLTCpunG
+	cGkQ13PuHDV9e2yErXTd38I664AY8+ydSagWhIsMj5Qe7uOSOqGHvzmwr71OhaijjyNeWcwqFro
+	3gqOd6TPzK7fsRDJ3nq4si4AE/3FBF9VUjs6dSL1+gZFU/sWlJZpRLJrLEDO+vTEzlDba9Fxsxu
+	2n5CkDv2HSONGLpg/5ALpJ6y0xNtXmi+oel80vmnI1Jkv3I0FMvF0iyJmH2rJx9Qu7up2wl89eL
+	84TGJaM72h4DO28I41Fhty02/grdliEQvEHRz3lD4g==
+X-Google-Smtp-Source: AGHT+IFG+TcUIS8tmhSFsHZqKub2NXNyRBahLa5Wx8ykMpugXutDTzbpKBsk5buWF15Tv6BF2mv16w==
+X-Received: by 2002:a5d:6c6e:0:b0:385:f9db:3c4c with SMTP id ffacd0b85a97d-38a221e2e0amr44465852f8f.9.1736159562355;
+        Mon, 06 Jan 2025 02:32:42 -0800 (PST)
+Message-ID: <398b7216-1564-424e-ad5c-8952795317ea@suse.com>
+Date: Mon, 6 Jan 2025 11:32:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] xen/perfc: Add perfc_defn.h to asm-generic
+Subject: Re: [PATCH 6/4] x86/pv: Fix build with Clang and CONFIG_PERF_COUNTERS
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250102192508.2405687-1-andrew.cooper3@citrix.com>
- <20250102192508.2405687-3-andrew.cooper3@citrix.com>
+ <20250102195512.2406928-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,26 +117,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250102192508.2405687-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20250102195512.2406928-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.01.2025 20:25, Andrew Cooper wrote:
-> ... and hook it up for RISC-V and PPC.
+On 02.01.2025 20:55, Andrew Cooper wrote:
+> Clang, of at least verion 17 complains:
 > 
-> On RISC-V at least, no combination of headers pulls in errno.h, so include it
-> explicitly.
+>   arch/x86/pv/hypercall.c:30:10: error: variable 'eax' is used uninitialized
+>   whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
+>      30 |     if ( !compat )
+>         |          ^~~~~~~
+>   arch/x86/pv/hypercall.c:87:29: note: uninitialized use occurs here
+>      87 |     perfc_incra(hypercalls, eax);
+>         |                             ^~~
 > 
-> Guard the hypercalls array declaration based on NR_hypercalls existing.  This
-> is sufficient to get PERF_COUNTERS fully working on RISC-V and PPC, so drop
-> the randconfig override.
-
-And then perhaps also that from riscv64_defconfig?
-
+> This function is forced always_inline to cause compat to be
+> constant-propagated through, but that is only a heuristic to try and get the
+> compiler to do what we want, not a gurantee that it does.
+> 
+> Clang doesn't appear to be able to see that the only case where compat is
+> true (and therefore the if() is false) is when there's an else clause on the
+> end which sets eax too.
+> 
+> Initialise eax to -1, which ought to be optimised out, but if for whatever
+> reason it happens not to be, then perfc_incra() will fail it's bounds check
+> and do nothing.
+> 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Preferably with the added change:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
