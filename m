@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 894C0A039A9
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 09:20:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866091.1277355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CEE1A039B6
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 09:24:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866099.1277366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV4or-0000E3-Eo; Tue, 07 Jan 2025 08:20:09 +0000
+	id 1tV4sS-0000tU-Ub; Tue, 07 Jan 2025 08:23:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866091.1277355; Tue, 07 Jan 2025 08:20:09 +0000
+Received: by outflank-mailman (output) from mailman id 866099.1277366; Tue, 07 Jan 2025 08:23:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV4or-0000Bb-C8; Tue, 07 Jan 2025 08:20:09 +0000
-Received: by outflank-mailman (input) for mailman id 866091;
- Tue, 07 Jan 2025 08:20:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tV4oq-0000BV-0I
- for xen-devel@lists.xen.org; Tue, 07 Jan 2025 08:20:08 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 337a5ff4-ccd0-11ef-a0df-8be0dac302b0;
- Tue, 07 Jan 2025 09:20:06 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-385df53e559so11921505f8f.3
- for <xen-devel@lists.xen.org>; Tue, 07 Jan 2025 00:20:06 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436612008b1sm585836795e9.15.2025.01.07.00.20.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 00:20:04 -0800 (PST)
+	id 1tV4sS-0000rR-Rd; Tue, 07 Jan 2025 08:23:52 +0000
+Received: by outflank-mailman (input) for mailman id 866099;
+ Tue, 07 Jan 2025 08:23:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V2Xg=T7=casper.srs.infradead.org=BATV+f031519a9170f34b3d42+7807+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1tV4sR-0000rI-64
+ for xen-devel@lists.xen.org; Tue, 07 Jan 2025 08:23:52 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b85ee397-ccd0-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 09:23:49 +0100 (CET)
+Received: from [54.240.197.232] (helo=u09cd745991455d.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
+ id 1tV4sO-00000004uIf-19aa; Tue, 07 Jan 2025 08:23:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +40,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 337a5ff4-ccd0-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736238005; x=1736842805; darn=lists.xen.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3SAzjJU45zokvdIvr/YBIOeVDaVE6dnyKjwDMBCfDmQ=;
-        b=SvDKiZsFfFUcdc8SqcKL7TC0d7Ll8pBUfGdnnuBpHYqfzqaU4lrrqW/omtnFla9UmW
-         MJYJAxDI7antlh0OAbh7CyF1ZmZOnFmuS+aibQx+63BAJ0mGm/K8emZR1/OI8DpOsY9+
-         0H4zbU6l1WKsw18tfRNDHELoRmhYCwvCMbGk5fmV9pUS8+XW2Qfi8esLR1/i7sJZYGjR
-         J2haXkmLRmuayfQo51Ml8jrTsvQFcu+CHHr/SCW0KVq0t7kUcVrOILOWFu2JMXODchtv
-         F25zXrYQyLic2O+eM0t181sATYI2Q2rAqCg4q8Z1HqPXnmXm8t9K14CYTxNCgQP3BJD2
-         ApZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736238005; x=1736842805;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3SAzjJU45zokvdIvr/YBIOeVDaVE6dnyKjwDMBCfDmQ=;
-        b=KwOZiqwDVver38okwR0UIHKTQ694Zu6SlTYAEU8PDy0MVmNNoXTqGICSJyLt1IrzsS
-         zwWtOD1iG5oNBdHFXX/gwLUZTvqHNzz1m0Y1HHYX4HPPjIMOknJF35QzUk1/jeYN1bVK
-         4kyPo0XEAUTBsrZsvrEbA4lLB/gZ/jhs/iUYuHg0PDPu2OQQi0U/4RxLfjxaPd0xo/z3
-         LbZNzPU0ozM+vW/trGFXOJ81Q8Os+TvxzJtVumXhMTel93Wwbmgsi7NZoacWrWUDLTuB
-         qxigKf3uY/wpzm31ul/+R0/H1nD3JAPsznhh+MpSAPYmcKuR8Vmhk3AyXswIDuwCXdiT
-         M3PA==
-X-Forwarded-Encrypted: i=1; AJvYcCUTlxMJkXDP1BBb8Dp9RSDLv0Ih8L7iT5zmJdYYx6ihaLpBKN8sXr8UKnXa8LN9+8Snnd40cQiU6kk=@lists.xen.org
-X-Gm-Message-State: AOJu0YwhTFNwsr2492G2RuMcppjo+zclKwLJBHbzYL5n/p9iHmHMfn8x
-	b4WqXj/DdZMfZi09ef0HYBi5xN+AW7A3GzXp1N8JzERo07WdEZ+dqYrfQJny7A==
-X-Gm-Gg: ASbGncvVWH/amJjo/ByKTRb2kVyM7LDd+ZAwAUHI/DnLO32uBGbbxVRwszsMGyHNhIw
-	AcqgL5guCHDkDo2iSEBRglbCI0JP579q2BrFy5BPJx92vgWTRjxIuNAk8s8B+sLvrVF3XWMbO+F
-	oPDHU3I8aAlJ0+bVahpEdXQ3PjNU5vOVIhDTgboWgy1YLE+xw9EJ7ZWjoohvLdv1XHWrvIpYZnj
-	SyUWg7n9h/qjw1S/eRId/IWamPyfqM/crvTYx5nHFPfSZosmDH0FwfaQNQQsQzJxQyMs3+HFf9W
-	pSJge1qXdTTi1jryhl/qjSxjs7bpJSIGKzSwf852tA==
-X-Google-Smtp-Source: AGHT+IFBJ/sppT+eSbPG87lzQnG5tumQBfCAp04l9XFxNwALIh7UxBMqrWwRlPcvCARCrH2pdcfNqA==
-X-Received: by 2002:a5d:64a3:0:b0:385:f527:be6d with SMTP id ffacd0b85a97d-38a2240074fmr50270317f8f.36.1736238005589;
-        Tue, 07 Jan 2025 00:20:05 -0800 (PST)
-Message-ID: <a9ee291f-469b-418c-8936-789849714ff3@suse.com>
-Date: Tue, 7 Jan 2025 09:20:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: b85ee397-ccd0-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=9tb0LnxCSlS+al3RCiFGC34RDZdyBbfsqUfZPQDvbUQ=; b=HmGnQrL3uGjgtV/kcFRi6PFvuv
+	tWggxPM6bKU5llWBljK0yBLBUG3DBoX+io9d1ZZx9tgZ7kw1LUoiAN/vzbyMMejfVNJKzdoUjeEJM
+	p9Dg9U7s5lLzx3breRXdY1gs0JG/u7lPDGlo/AgkURddttifrGhun+5NxbZy1uqyex9rMU/ERRVmV
+	a9IrWPFg/9IVcdCJWgv7rQ1Q9MeNUccFFX4psLMNv6hAnWogfGv4KZPVvRsYQkkJhQjTsXsJPad4k
+	ZqHtHX+YQNoJWtuQa6oAhmnn7XhDKbjSY1fzy30ovLiQPLc4hDmWzGtTefu/paXb1jwnWL7H0eDri
+	ea6G+ACA==;
+Message-ID: <b8ab443fc7cfc2043088a8c390546fc8d181ab18.camel@infradead.org>
 Subject: Re: Xen Security Advisory 466 v3 (CVE-2024-53241) - Xen hypercall
  page unsafe against speculative attacks
-To: David Woodhouse <dwmw2@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, 
+	xen-devel@lists.xen.org
+Date: Tue, 07 Jan 2025 08:23:47 +0000
+In-Reply-To: <a9ee291f-469b-418c-8936-789849714ff3@suse.com>
 References: <E1tNWXG-00E268-2p@xenbits.xenproject.org>
- <54c892eded2b4ebdda8ee1085c383178f44414ad.camel@infradead.org>
- <a3031e7d-fe9d-4db8-8ccd-923165c9af72@suse.com>
- <fc4c45ea86567ef0c46d7e5a20e8abffa75cc4ec.camel@infradead.org>
- <fd993f8d-280f-439a-a6a0-506e2815f281@suse.com>
- <b7323a9fa5239443b9b6f3daa423196de1051748.camel@infradead.org>
- <40734e79-fb55-4712-aae1-3ef350af4f3c@suse.com>
- <f9b4ae8af70b8b5136b59237c7925f57220b3d5b.camel@infradead.org>
- <fc4170ed-d238-4e1c-817e-3695a7112d9d@suse.com>
- <ffea2b8edd4455b8d04a3c25afaaffc98ed40540.camel@infradead.org>
-Content-Language: en-US
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xen.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ffea2b8edd4455b8d04a3c25afaaffc98ed40540.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	 <54c892eded2b4ebdda8ee1085c383178f44414ad.camel@infradead.org>
+	 <a3031e7d-fe9d-4db8-8ccd-923165c9af72@suse.com>
+	 <fc4c45ea86567ef0c46d7e5a20e8abffa75cc4ec.camel@infradead.org>
+	 <fd993f8d-280f-439a-a6a0-506e2815f281@suse.com>
+	 <b7323a9fa5239443b9b6f3daa423196de1051748.camel@infradead.org>
+	 <40734e79-fb55-4712-aae1-3ef350af4f3c@suse.com>
+	 <f9b4ae8af70b8b5136b59237c7925f57220b3d5b.camel@infradead.org>
+	 <fc4170ed-d238-4e1c-817e-3695a7112d9d@suse.com>
+	 <ffea2b8edd4455b8d04a3c25afaaffc98ed40540.camel@infradead.org>
+	 <a9ee291f-469b-418c-8936-789849714ff3@suse.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-AVQwoBwLw2zF4971DSs+"
+User-Agent: Evolution 3.52.3-0ubuntu1 
+MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 06.01.2025 18:19, David Woodhouse wrote:
-> On Thu, 2025-01-02 at 15:16 +0100, Jürgen Groß wrote:
->> On 02.01.25 15:06, David Woodhouse wrote:
->>> On Thu, 2025-01-02 at 15:02 +0100, Jürgen Groß wrote:
->>>>> Are you suggesting that you're able to enable the CPU-specific CFI
->>>>> protections before you even know whether it's an Intel or AMD CPU?
->>>>
->>>> Not before that, but maybe rather soon afterwards. And the hypercall page
->>>> needs to be decommissioned before the next hypercall is happening. The question
->>>> is whether we have a hook in place to do that switch between cpu identification
->>>> and CFI enabling.
->>>
->>> Not sure that's how I'd phrase it. Even if we have to add a hook at the
->>> right time to switch from the Xen-populated hypercall page to the one
->>> filled in by Linux, the question is whether adding that hook is simpler
->>> than all this early static_call stuff that's been thrown together, and
->>> the open questions about the 64-bit latching.
->>
->> This is a valid question, yes. My first version of these patches didn't
->> work with static_call, but used the paravirt call patching mechanism
->> replacing an indirect call with a direct one via ALTERNATIVEs. That
->> version was disliked by some involved x86 maintainers, resulting in the
->> addition of the early static_call update mechanism.
->>
->> One thing to mention regarding the 64-bit latching: what would you do
->> with HVM domains? Those are setting up the hypercall page rather late.
->> In case the kernel would use CFI, enabling would happen way before the
->> guest would issue any hypercall, so I guess the latching needs to happen
->> by other means anyway. Or would you want to register the hypercall page
->> without ever intending to use it?
-> 
-> With xen_no_vector_callback on the command line, the hypervisor doesn't
-> realise that the guest is 64-bit until long after all the CPUs are
-> brought up.
-> 
-> It does boot (and hey, QEMU does get this right!) but I'm still
-> concerned that all those shared structures are 32-bit for that long. I
-> do think the guest kernel should either set the hypercall page, or
-> HVM_PARAM_CALLBACK_IRQ, as early as possible.
 
-How about we adjust the behavior in Xen instead: We could latch the size
-on every hypercall, making sure to invoke update_domain_wallclock_time()
-only when the size actually changed (to not incur the extra overhead),
-unless originating from the two places the latching is currently done at
-(to avoid altering existing behavior)?
+--=-AVQwoBwLw2zF4971DSs+
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Then again latching more frequently (as suggested above or by any other
-model) also comes with the risk of causing issues, at the very least for
-"exotic" guests. E.g. with two vCPU-s in different modes, we'd ping-pong
-the guest between both formats then.
+On Tue, 2025-01-07 at 09:20 +0100, Jan Beulich wrote:
+>=20
+> How about we adjust the behavior in Xen instead: We could latch the size
+> on every hypercall, making sure to invoke update_domain_wallclock_time()
+> only when the size actually changed (to not incur the extra overhead),
+> unless originating from the two places the latching is currently done at
+> (to avoid altering existing behavior)?
+>
+> Then again latching more frequently (as suggested above or by any other
+> model) also comes with the risk of causing issues, at the very least for
+> "exotic" guests. E.g. with two vCPU-s in different modes, we'd ping-pong
+> the guest between both formats then.
 
-Jan
+Indeed. I think it's much better for the guest to just write to the
+hypercall page MSR early, like it always did. It doesn't even *need* to
+be an executable page; just a data page which is then
+freed/overwritten.
+
+But if we *want* to use it during early boot so that we don't need all
+that early CPU detection and static_call complexity, that's fine too.
+
+--=-AVQwoBwLw2zF4971DSs+
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDEwNzA4MjM0
+N1owLwYJKoZIhvcNAQkEMSIEIOdxGVogBPrQrvSE1eor0NaFfvd6gTTH7oqTfRD1QYIiMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAI9NMGw2rVbU7
+9H2McZVi5yc9fgg36mETpEeeCFj5hxbzOUr8J2DIC4a5E2n+HnUoH2qglQCMKw6la/vj3WIG7BZm
+xV4EDtg4n7l+Lk41bXNA4Awc5/3aQhSu9oPZzGykNpOq99xThbI8Bpy5A0sW1SyJWjBNuOM1gSUm
+2s9jcvWDRugS+QbBahbCtcg6ALZGrQfhTsu69vRqZzHGNgenGpnAhK+qwt0MytEE8ENTKaQqnOHu
+s7YS6xKfKmutUEK7kZcQugTev7Z9Hvm64P0uzGBNkuGyLcOS3U0JWawhNg5vyRexX9jQ8MBECPLJ
+BwSBf8T7zTXCpyiJJS20c5N7VIVvqMZ2D37Ao0Qr1QzCcHV6K74WUhSei/AUlCEXf89sU5JAmyPP
+/tRY4t1Qus+bnVI67BnvsTRFvPlGOQS0Ea0Jinb9mQkfBZBsvz0Cw6f3y8966M29+tA0DJ5NYJMY
+oYLnEX8ZAAD/Ef1a54p4xo2OQhcxHsG/iSya+h7Ip+4W7gn1gVjUBPgpxzlk82/zmrOQXh9v/pP8
+7GpXmVUXp4K0O8x+rVmcNTtz/DF7fRj/2rkWeM6ywCl+bT1ejy5NDtYOjR9JWSMhCSpoSFBhq8Fr
+R4RDMxHQNGNoJWfISpdv53s5DYzC78DLauhENZcUc7jVo0VGTtVm5BQp93HGuOwAAAAAAAA=
+
+
+--=-AVQwoBwLw2zF4971DSs+--
 
