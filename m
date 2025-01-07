@@ -2,38 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5107A042D4
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 15:41:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866409.1277739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74E18A043AD
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 16:04:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866417.1277748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVAlc-0001Xc-3t; Tue, 07 Jan 2025 14:41:12 +0000
+	id 1tVB7D-0004i0-Qc; Tue, 07 Jan 2025 15:03:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866409.1277739; Tue, 07 Jan 2025 14:41:12 +0000
+Received: by outflank-mailman (output) from mailman id 866417.1277748; Tue, 07 Jan 2025 15:03:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVAlc-0001Up-0d; Tue, 07 Jan 2025 14:41:12 +0000
-Received: by outflank-mailman (input) for mailman id 866409;
- Tue, 07 Jan 2025 14:41:11 +0000
+	id 1tVB7D-0004fw-Nb; Tue, 07 Jan 2025 15:03:31 +0000
+Received: by outflank-mailman (input) for mailman id 866417;
+ Tue, 07 Jan 2025 15:03:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aJXC=T7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tVAlb-0001Uj-BO
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 14:41:11 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6f17c7ee-cd05-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 15:41:09 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-385dece873cso5849133f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 06:41:09 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4366127c4d7sm598932225e9.34.2025.01.07.06.41.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 06:41:08 -0800 (PST)
+ <SRS0=OtGL=T7=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1tVB7D-0004fm-1A
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 15:03:31 +0000
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8cc03427-cd08-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 16:03:28 +0100 (CET)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50785q0m018311;
+ Tue, 7 Jan 2025 15:02:55 GMT
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4410f39tfg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 Jan 2025 15:02:55 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 507E2w4n027938;
+ Tue, 7 Jan 2025 15:02:54 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 43yhhk2t7y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 Jan 2025 15:02:54 +0000
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+ by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 507F2nAY55837076
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 7 Jan 2025 15:02:50 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C602420043;
+ Tue,  7 Jan 2025 15:02:49 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 683182004D;
+ Tue,  7 Jan 2025 15:02:48 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.155.204.135])
+ by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Tue,  7 Jan 2025 15:02:48 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +67,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f17c7ee-cd05-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736260869; x=1736865669; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3ZxbVhDdkRSxrvbRhEhdp/w6Gmm99GNwUld0zkWBH74=;
-        b=Wyi1ROoBtH+7PxDQgrHUQ0QtJ6UykjFBWYpwubZsobNt+dyhDB8ZZO53tBde+nQbV7
-         An5Wkk/G/o6SOp1syBbUbPgFTczsPoCnFasGV1UPr/qXJitfdRxa0npXK2pSqhQHZJQ5
-         0iuHfk7lAMtk6BM5JZfpETWaDg4ejcooZr8QE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736260869; x=1736865669;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3ZxbVhDdkRSxrvbRhEhdp/w6Gmm99GNwUld0zkWBH74=;
-        b=H9yuZUHOAtEsgOzgwW+vZOVQwmD8H4AHu6BaZfHzq6fl1SWx2T50E31MnYbHVGemSs
-         IduA/McqM0PnPLHikNIAyWaEzpeVAQm5XOD8Kpu1FwQehyD/pwjsF6sM1YOoy7IVDpIp
-         Prb2mycTY3ZCriquiKG63xkY9kOxHv8Z02cBNimkWRqvJJ3D7GXBybFlH3I2l/bqQSXi
-         W+PM5fXgflA5Je4ZTEEOfp2X55sYN9ljPwDHEa3z4EL7nEkuAC55i7m5Em2kultgyzth
-         fVNjw+PVaFT36Xdi7Eh/LnqWOFVBYf3omOzPIP35yHJ8GHhi+UH4AtCHRsOdAV/+gDlY
-         C6Zg==
-X-Forwarded-Encrypted: i=1; AJvYcCULACiH6/L/yM3fOp7BgAcvr8wnIrrMDFi9GEdFIgNzeo4xZnkjyI8sRql3igdJWjGI917GgZZgZWc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwE2RboIO3chqj0WnTm//rCVLwwrImSfaHJ6s0XpYKPh9H5Tl9t
-	goH/Cvxb3ZCzTaVIotI6ZBYn4ykoLnL/ebFPmxKc7OpmzkzoBNP38rAPaT0Udco=
-X-Gm-Gg: ASbGncvN/4623uAWYUOJA4e2UlDMvLF8sMc1E1gF4U2prF64GI8wBWDpnqNkIHLrJw7
-	AwNdjQuEHsNLvdafJ/Mb09zCxb3GONPNF0ffp9X3cbpYluQ8NFsSYMCSrkUHdrNcNljP+cqsDCv
-	2l6sdC9+0LxZuPMUdOj2TUEA4RxD7jzWBdFEsxZf2k0XoiByAtWkkSbI8uVD8oM+cNBkKYCts7E
-	kqLBYxtoIPrjkPrn+ARQzUey0JMUWH+UTyxZ1R+rDdehi1rPL1QCvYrFlJve0uWx4UORGCLUYHF
-	Aj+7EkqErt5a9nW4I9cI
-X-Google-Smtp-Source: AGHT+IEvAbHNsN288w4MrIHxN7go0dzUJnHRsRd43qKA01D9UuWwNLnGxNgF5k2YuzXhhnpxE/DfcA==
-X-Received: by 2002:a5d:64ad:0:b0:385:e67d:9e0 with SMTP id ffacd0b85a97d-38a221ffe1bmr49349107f8f.29.1736260868999;
-        Tue, 07 Jan 2025 06:41:08 -0800 (PST)
-Message-ID: <7ea74155-8b86-43de-9e98-cfea071c1d99@citrix.com>
-Date: Tue, 7 Jan 2025 14:41:08 +0000
+X-Inumbo-ID: 8cc03427-cd08-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=nGMTr1inoVWG3ARe8QoGoEOSwdCntu
+	qZy8bhdK6O/ME=; b=rdj4BTKquX38fA+V7vs9vGrg6z7HxUyoh1JCIFg2qPrBrc
+	ovRrqMTxob92ukiN9TlpZCs7CVUaqv6rh4Mi5tAIkhlcCaduaExoYeYLzmHkaH1C
+	S0jV8pQzj2Q2N++he2cxLihvsXN9Ws2JTtsztsnqZdNHB0F+gy5J9PuEu1tgZtJk
+	XpYyXE/McfMm5JLsDDKSEa0f3gOdZvqdAytY6OUzDZe71qUCT9y2i1ZigqqwPHmx
+	1mK+SyY6FXGKya5ump+AzYcnbek4K8yEjS0n+sKJkfNM1URBoiNo/3Sb4PjRN+s0
+	zgkOb4fRUrznizbOxQ8cOjfYiVbiPNEGSmJygikg==
+Date: Tue, 7 Jan 2025 16:02:47 +0100
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Guo Weikang <guoweikang.kernel@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+        Christoph Lameter <cl@linux.com>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Sam Creasey <sammy@sammy.net>, Huacai Chen <chenhuacai@kernel.org>,
+        Will Deacon <will@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Oreoluwa Babatunde <quic_obabatun@quicinc.com>,
+        rafael.j.wysocki@intel.com, Palmer Dabbelt <palmer@rivosinc.com>,
+        Hanjun Guo <guohanjun@huawei.com>,
+        Easwar Hariharan <eahariha@linux.microsoft.com>,
+        Johannes Berg <johannes.berg@intel.com>,
+        Ingo Molnar <mingo@kernel.org>, Dave Hansen <dave.hansen@intel.com>,
+        Christian Brauner <brauner@kernel.org>, KP Singh <kpsingh@kernel.org>,
+        Richard Henderson <richard.henderson@linaro.org>,
+        Matt Turner <mattst88@gmail.com>, Russell King <linux@armlinux.org.uk>,
+        WANG Xuerui <kernel@xen0n.name>, Michael Ellerman <mpe@ellerman.id.au>,
+        Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+        Stafford Horne <shorne@gmail.com>, Helge Deller <deller@gmx.de>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Naveen N Rao <naveen@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Geoff Levand <geoff@infradead.org>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+        Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+        Alexander Potapenko <glider@google.com>,
+        Andrey Konovalov <andreyknvl@gmail.com>,
+        Dmitry Vyukov <dvyukov@google.com>,
+        Vincenzo Frascino <vincenzo.frascino@arm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Yoshinori Sato <ysato@users.sourceforge.jp>,
+        Rich Felker <dalias@libc.org>,
+        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+        Andreas Larsson <andreas@gaisler.com>,
+        Richard Weinberger <richard@nod.at>,
+        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+        linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org,
+        linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+        kasan-dev@googlegroups.com, linux-s390@vger.kernel.org,
+        linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
+        linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-omap@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-mm@kvack.org, linux-pm@vger.kernel.org,
+        Xi Ruoyao <xry111@xry111.site>
+Subject: Re: [PATCH v7] mm/memblock: Add memblock_alloc_or_panic interface
+Message-ID: <Z31CF9f//ZD+VH59@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
+References: <20241222111537.2720303-1-guoweikang.kernel@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul: VCVT{,U}DQ2PD ignores embedded rounding
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <238beefd-126a-4a2d-99de-dc5675c88ef6@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <238beefd-126a-4a2d-99de-dc5675c88ef6@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241222111537.2720303-1-guoweikang.kernel@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: by_phAXyWBB4rrGUxAvoGmZnyCdgAMa_
+X-Proofpoint-ORIG-GUID: by_phAXyWBB4rrGUxAvoGmZnyCdgAMa_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
+ definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 mlxlogscore=985
+ spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2501070126
 
-On 07/01/2025 2:32 pm, Jan Beulich wrote:
-> IOW we shouldn't raise #UD in that case. Be on the safe side though and
-> only encode fully legitimate forms into the stub to be executed.
->
-> Things weren't quite right for VCVT{,U}SI2SD either, in the attempt to
-> be on the safe side: Clearing EVEX.L'L isn't useful; it's EVEX.b which
-> primarily needs clearing. Also reflect the somewhat improved doc
-> situation in the comment there.
->
-> Fixes: ed806f373730 ("x86emul: support AVX512F legacy-equivalent packed int/FP conversion insns")
-> Fixes: baf4a376f550 ("x86emul: support AVX512F legacy-equivalent scalar int/FP conversion insns")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Sun, Dec 22, 2024 at 07:15:37PM +0800, Guo Weikang wrote:
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi Guo,
+
+> Before SLUB initialization, various subsystems used memblock_alloc to
+> allocate memory. In most cases, when memory allocation fails, an immediate
+> panic is required. To simplify this behavior and reduce repetitive checks,
+> introduce `memblock_alloc_or_panic`. This function ensures that memory
+> allocation failures result in a panic automatically, improving code
+> readability and consistency across subsystems that require this behavior.
+
+I believe, you also want to make similar function against memblock_alloc_low().
+
+Please, find s390 comments below.
+
+...
+
+> diff --git a/arch/s390/kernel/numa.c b/arch/s390/kernel/numa.c
+> index ddc1448ea2e1..a33e20f73330 100644
+> --- a/arch/s390/kernel/numa.c
+> +++ b/arch/s390/kernel/numa.c
+> @@ -22,10 +22,7 @@ void __init numa_setup(void)
+>  	node_set(0, node_possible_map);
+>  	node_set_online(0);
+>  	for (nid = 0; nid < MAX_NUMNODES; nid++) {
+> -		NODE_DATA(nid) = memblock_alloc(sizeof(pg_data_t), 8);
+> -		if (!NODE_DATA(nid))
+> -			panic("%s: Failed to allocate %zu bytes align=0x%x\n",
+> -			      __func__, sizeof(pg_data_t), 8);
+> +		NODE_DATA(nid) = memblock_alloc_or_panic(sizeof(pg_data_t), 8);
+>  	}
+
+Please, also remove the cycle body brackets.
+
+>  	NODE_DATA(0)->node_spanned_pages = memblock_end_of_DRAM() >> PAGE_SHIFT;
+>  	NODE_DATA(0)->node_id = 0;
+> diff --git a/arch/s390/kernel/setup.c b/arch/s390/kernel/setup.c
+> index 0ce550faf073..1298f0860733 100644
+> --- a/arch/s390/kernel/setup.c
+> +++ b/arch/s390/kernel/setup.c
+> @@ -376,11 +376,7 @@ static unsigned long __init stack_alloc_early(void)
+>  {
+>  	unsigned long stack;
+>  
+> -	stack = (unsigned long)memblock_alloc(THREAD_SIZE, THREAD_SIZE);
+> -	if (!stack) {
+> -		panic("%s: Failed to allocate %lu bytes align=0x%lx\n",
+> -		      __func__, THREAD_SIZE, THREAD_SIZE);
+> -	}
+> +	stack = (unsigned long)memblock_alloc_or_panic(THREAD_SIZE, THREAD_SIZE);
+>  	return stack;
+>  }
+>  
+> @@ -504,10 +500,7 @@ static void __init setup_resources(void)
+>  	bss_resource.end = __pa_symbol(__bss_stop) - 1;
+>  
+>  	for_each_mem_range(i, &start, &end) {
+> -		res = memblock_alloc(sizeof(*res), 8);
+> -		if (!res)
+> -			panic("%s: Failed to allocate %zu bytes align=0x%x\n",
+> -			      __func__, sizeof(*res), 8);
+> +		res = memblock_alloc_or_panic(sizeof(*res), 8);
+>  		res->flags = IORESOURCE_BUSY | IORESOURCE_SYSTEM_RAM;
+>  
+>  		res->name = "System RAM";
+> @@ -526,10 +519,7 @@ static void __init setup_resources(void)
+>  			    std_res->start > res->end)
+>  				continue;
+>  			if (std_res->end > res->end) {
+> -				sub_res = memblock_alloc(sizeof(*sub_res), 8);
+> -				if (!sub_res)
+> -					panic("%s: Failed to allocate %zu bytes align=0x%x\n",
+> -					      __func__, sizeof(*sub_res), 8);
+> +				sub_res = memblock_alloc_or_panic(sizeof(*sub_res), 8);
+>  				*sub_res = *std_res;
+>  				sub_res->end = res->end;
+>  				std_res->start = res->end + 1;
+> @@ -816,9 +806,7 @@ static void __init setup_randomness(void)
+>  {
+>  	struct sysinfo_3_2_2 *vmms;
+>  
+> -	vmms = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
+> -	if (!vmms)
+> -		panic("Failed to allocate memory for sysinfo structure\n");
+> +	vmms = memblock_alloc_or_panic(PAGE_SIZE, PAGE_SIZE);
+>  	if (stsi(vmms, 3, 2, 2) == 0 && vmms->count)
+>  		add_device_randomness(&vmms->vm, sizeof(vmms->vm[0]) * vmms->count);
+>  	memblock_free(vmms, PAGE_SIZE);
+> diff --git a/arch/s390/kernel/smp.c b/arch/s390/kernel/smp.c
+> index 822d8e6f8717..d77aaefb59bd 100644
+> --- a/arch/s390/kernel/smp.c
+> +++ b/arch/s390/kernel/smp.c
+> @@ -611,9 +611,9 @@ void __init smp_save_dump_ipl_cpu(void)
+>  	if (!dump_available())
+>  		return;
+>  	sa = save_area_alloc(true);
+> -	regs = memblock_alloc(512, 8);
+> -	if (!sa || !regs)
+> +	if (!sa)
+>  		panic("could not allocate memory for boot CPU save area\n");
+
+Please, replace memblock_alloc() with memblock_alloc_or_panic() in
+save_area_alloc() and remove the error handling here and also in
+smp_save_dump_secondary_cpus().
+
+> +	regs = memblock_alloc_or_panic(512, 8);
+>  	copy_oldmem_kernel(regs, __LC_FPREGS_SAVE_AREA, 512);
+>  	save_area_add_regs(sa, regs);
+>  	memblock_free(regs, 512);
+> @@ -792,10 +792,7 @@ void __init smp_detect_cpus(void)
+>  	u16 address;
+>  
+>  	/* Get CPU information */
+> -	info = memblock_alloc(sizeof(*info), 8);
+> -	if (!info)
+> -		panic("%s: Failed to allocate %zu bytes align=0x%x\n",
+> -		      __func__, sizeof(*info), 8);
+> +	info = memblock_alloc_or_panic(sizeof(*info), 8);
+>  	smp_get_core_info(info, 1);
+>  	/* Find boot CPU type */
+>  	if (sclp.has_core_type) {
+> diff --git a/arch/s390/kernel/topology.c b/arch/s390/kernel/topology.c
+> index 0fd56a1cadbd..cf5ee6032c0b 100644
+> --- a/arch/s390/kernel/topology.c
+> +++ b/arch/s390/kernel/topology.c
+> @@ -548,10 +548,7 @@ static void __init alloc_masks(struct sysinfo_15_1_x *info,
+>  		nr_masks *= info->mag[TOPOLOGY_NR_MAG - offset - 1 - i];
+>  	nr_masks = max(nr_masks, 1);
+>  	for (i = 0; i < nr_masks; i++) {
+> -		mask->next = memblock_alloc(sizeof(*mask->next), 8);
+> -		if (!mask->next)
+> -			panic("%s: Failed to allocate %zu bytes align=0x%x\n",
+> -			      __func__, sizeof(*mask->next), 8);
+> +		mask->next = memblock_alloc_or_panic(sizeof(*mask->next), 8);
+>  		mask = mask->next;
+>  	}
+>  }
+> @@ -569,10 +566,7 @@ void __init topology_init_early(void)
+>  	}
+>  	if (!MACHINE_HAS_TOPOLOGY)
+>  		goto out;
+> -	tl_info = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
+> -	if (!tl_info)
+> -		panic("%s: Failed to allocate %lu bytes align=0x%lx\n",
+> -		      __func__, PAGE_SIZE, PAGE_SIZE);
+> +	tl_info = memblock_alloc_or_panic(PAGE_SIZE, PAGE_SIZE);
+>  	info = tl_info;
+>  	store_topology(info);
+>  	pr_info("The CPU configuration topology of the machine is: %d %d %d %d %d %d / %d\n",
+
+Thanks!
 
