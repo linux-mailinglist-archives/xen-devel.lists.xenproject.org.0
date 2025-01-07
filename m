@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D234A03914
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 08:54:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866066.1277336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 405FFA03921
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 08:56:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866073.1277346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV4OS-0003jb-2S; Tue, 07 Jan 2025 07:52:52 +0000
+	id 1tV4Rn-0004Gj-Gq; Tue, 07 Jan 2025 07:56:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866066.1277336; Tue, 07 Jan 2025 07:52:52 +0000
+Received: by outflank-mailman (output) from mailman id 866073.1277346; Tue, 07 Jan 2025 07:56:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV4OR-0003hF-Uw; Tue, 07 Jan 2025 07:52:51 +0000
-Received: by outflank-mailman (input) for mailman id 866066;
- Tue, 07 Jan 2025 07:52:50 +0000
+	id 1tV4Rn-0004FE-D1; Tue, 07 Jan 2025 07:56:19 +0000
+Received: by outflank-mailman (input) for mailman id 866073;
+ Tue, 07 Jan 2025 07:56:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tV4OQ-0003h9-Je
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 07:52:50 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tV4Rm-0004F5-1n
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 07:56:18 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 619c2d96-cccc-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 08:52:45 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-385df53e559so11903004f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 23:52:45 -0800 (PST)
+ id df1bd8d4-cccc-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 08:56:16 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-385d7b4da2bso12879120f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 23:56:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a5524f064sm23649654f8f.101.2025.01.06.23.52.44
+ ffacd0b85a97d-38a1c846ca4sm50600894f8f.43.2025.01.06.23.56.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2025 23:52:44 -0800 (PST)
+ Mon, 06 Jan 2025 23:56:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 619c2d96-cccc-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: df1bd8d4-cccc-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736236365; x=1736841165; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736236575; x=1736841375; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=d+k56CqkhlJP2/NgmgbZAI44vP6DNfOn+8VCtcYzVrM=;
-        b=IXfdPj6DHQ0tbK0J8bFmDqDxxYmRL6owt3hItzmEFGJ34cjb3+8cKL1jQs0d0kH+OT
-         /CKr40ZwZSfhY0stBFumjys6FaaDt6K5LQmlCIivF/u6qHucFVqZg/AId1QI2KJrfJDa
-         dn3oy6ASCy5FA7L17XrCTBcFwHnlrvjlyUmBPz+YSOZ81vARCd+ladbEZ7eyFHTiL8h/
-         z3488ZFpQqw234JxTRV7+yFd5prkpqsUcx3yYB3l/Q4nvd3EIDTkgsgr9PDGQLvSeSoy
-         HwCnffm3DwXz4edv/LSCmDesjT8JXHgNt2YFevSLRK6dPRDj9nJvRezri0blsGo4NXy/
-         0pIw==
+        bh=sZ8pJhAisSeXRzr/sec6vfVpCK3RZROX0EmSm6DYgRI=;
+        b=Bu4tlyH9HMw1xYxkocpDqOG6855rtzOhtqNytonaM0b62IjLUMt+K4xPplS4HycTy6
+         Q4HPFzeWMO0nLDMOcGpYY5hNxOBxqj7QnOJhwKoaznCrxTBncmGkjaywf+6ewjCt6sfy
+         REi9DUw/1vCDTlJD0oAGWm1o6S4YXda6su0kLdUJCYg1HBv9WC+peajZxUvZGalf1jKU
+         wUHt2nvNvCmibVEmUIHuok1e3K63Le3sh0gb1AVl+oeIq8rCwqkuc1ZHHI92W8y10UqD
+         Fj0Gy7FcJE+FXtQA9gW3w8oBNDA6665VBAaF/ek9xciNf8x/RDb/90zpGX/aimpk84tb
+         6WSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736236365; x=1736841165;
+        d=1e100.net; s=20230601; t=1736236575; x=1736841375;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=d+k56CqkhlJP2/NgmgbZAI44vP6DNfOn+8VCtcYzVrM=;
-        b=w9Myyz5GwWkE/0BZetbXS2F41SPb02GnvlSegdbwZ6/gzVLV+QOvJekMt0XlY25e4/
-         qQXkv7SMIEmZxVcbbatOtKslW1SxZT6q1r8eZ0umNbwjh/Q1bbfUjMdC51+dhgRW+Oyc
-         eQmQzV06eT5fPyKxurOQCdak65Us/gZXu+bPez6UFIiJ7HTuKWkJvU4K3D1L+0JkAEm2
-         +dUc39msZ+YwqgpSt0XQp1j300wi+o+Rjq768nkGdQzJjmakkdoJ+Qp2kxIPWfmhmXdc
-         Lw2THveNe0IDFl0mvpLPWNQaZVOme3DGYyxyxYIFIFY5CZFf3JrRa4YmxEMn+EK/nllx
-         E44A==
-X-Forwarded-Encrypted: i=1; AJvYcCU8HHf9iwiCfV+wo6Q2nbiPth0dD/HDhVtSERZhWr/Jgso0gkZF7wNf+1zYY/7XYWZmox5PJdz+5VE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxnxgTk6+KuA4S2MbvFPcqneToUnYSAAYT4qtkyKF6Pronrr97L
-	V3DF25q3wT98pQDbmVCNDo29Qtsw7o3J4g42houKkYV9dBPginqZEsul0tYHUA==
-X-Gm-Gg: ASbGnctvhKaAH+mp8vdjTYjJqoTNMYtnzDPm8nvceAzKpJekK8/WDreh9GAkwaCaLVI
-	TMdBzwjm/hjTYF1YdYeD4jmaRDAKJC92h5yN0oHqR7/8+qeiuqk+1VEHyV+M1/0f10V5yatq+VA
-	scFdHtB+vcqvY8InNiC3JTUIWpiGllInsI/5cQh8/oE7VbfDfUrLs04SAyR1MlBuxXyQ5XybwYa
-	EJSrlHsov7nbOfLRKOh7Rr8sVfz3SNSgbrfCSu6/0UwVbTfyt5M6ExSOcyLbVc2PUUxqTz69a69
-	5kOERpYEpwmCPXZFTPJXG9vDg9Ar1Z5MlR0imSEpFQ==
-X-Google-Smtp-Source: AGHT+IGeun3J91zLuwjBBxEg/5joTExiUZ6dj9OnIJQ43O4u+Brej1LZEbYFUCvADqaliVDaALVj4w==
-X-Received: by 2002:a5d:5847:0:b0:385:f6de:6266 with SMTP id ffacd0b85a97d-38a221fd10cmr47932448f8f.24.1736236365021;
-        Mon, 06 Jan 2025 23:52:45 -0800 (PST)
-Message-ID: <d8873cf8-dd17-4f9e-bded-7a47e04bd1be@suse.com>
-Date: Tue, 7 Jan 2025 08:52:43 +0100
+        bh=sZ8pJhAisSeXRzr/sec6vfVpCK3RZROX0EmSm6DYgRI=;
+        b=OUj2FavcdHxMYSD3z/SaE4JqX6aIpJmfpJWrNMrAFPfn7zR+iKnaKg8n4roaQMxPMc
+         9WCDW0v7BNiIRkWBV2XF6wViAfVZ+SWlNRy9rcQleUAO/aAZwjJgTWVH5iX1ohOAl0gN
+         GI/3tvadR96Udb06e/DKd/pAwaQUfsHtAEv+wZpnlxA/CuZAByxhnvl3vVt6oSWYadrZ
+         3Hy+tHGzxEfRFsxesuRVl0MI4EtCe7FCkvyUvS9efZx7bwsFaCbNshJtRSwldV+CpL2w
+         7mUybmcHj0O27M9O/hnEmxc8qRUNAriDt86PSx1SNgvmHVPAjsSXSmqrw0+lhTvtHNb8
+         7RZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXYjHRQcGWycpdZfPS7FFw0r2nfbiGCQXY44b4ZM5J4V3jIB5ECGhsuyExcAXSMYtdwsQwK/qg4164=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzE5/5XRxvvgOe9GnfiYnAAuTQKOudBjwFlEynoQMuHfbJtwlw8
+	BiqCqPzchzLNr8h8RYSU/XwfHF1jhZ+w5vbpzYv7+l90BQnR/brMkxqp5zgrZw+A3YFUqG6RUI4
+	=
+X-Gm-Gg: ASbGncuGBNB0NNAcWGSqLlN36JM8E99oQHbIUQpeGudo82CZ/1fDnjbagxnnYbZwkAo
+	ieBQn5NS8SKWUusLkiA0XskUqjd0u1W37jiQU/LqlCtGyD55ZEiInOP5RcBe43dEuMm2IUrB4YN
+	144ttu5uMPAcphmrX0QUmISUfAdJvyQDmPXhYfbbjm3cufx1cOeHIiQEjSYpjRa4khEln7VP5RX
+	ueY1K/aV7VK1Sd3s0H7rFr1tSDH00No3duyCDrbD48BhUcFdd1v8wjYa86Ua2qTDuvWt88y3e68
+	h5K+3Dkc9W4+nQQ4JEXDWs6PqYCxW0GgHm/2WpfGYA==
+X-Google-Smtp-Source: AGHT+IF1hMDTVebgHUuVEgYhuFlwpTzXeNj4hxEa4Dp2c5Rt3BOJt0BHLOo7k9j4Nh48CB2sDG/wXw==
+X-Received: by 2002:a5d:47ab:0:b0:386:1ab5:f0e1 with SMTP id ffacd0b85a97d-38a221ea67fmr57490789f8f.14.1736236575686;
+        Mon, 06 Jan 2025 23:56:15 -0800 (PST)
+Message-ID: <0f8fc348-14f5-40ac-912a-1785caedb675@suse.com>
+Date: Tue, 7 Jan 2025 08:56:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] docs: FRED support in Xen
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250103204704.84067-1-andrew.cooper3@citrix.com>
- <3ff59df0-69f8-426a-ab44-d2cd9b5bf8ea@suse.com>
- <0a780f2d-1e49-47bd-8c66-babbc2dd8f63@citrix.com>
+Subject: Re: [PATCH v2] xen: update pvcalls_front_accept prototype
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: jgross@suse.com, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+References: <alpine.DEB.2.22.394.2501061335161.133435@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,61 +117,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0a780f2d-1e49-47bd-8c66-babbc2dd8f63@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2501061335161.133435@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.01.2025 17:06, Andrew Cooper wrote:
-> On 06/01/2025 2:28 pm, Jan Beulich wrote:
->> On 03.01.2025 21:47, Andrew Cooper wrote:
->>> + #. In x86_emulate.c's ``put_fpu()``.  As far as I can tell, this is
->>> +    completely buggy; the values will be poisoned for HVM guests, and stale
->>> +    from the prior context switch for PV guests.
->> For HVM guests the ->read_segment() hook will be populated, so the path isn't
->> taken (leaving aside the odd case of the hook failing). For PV guests I don't
->> see any staleness concern: When the vCPU was switched in, the fields were set
->> (restored), weren't they?
+On 06.01.2025 22:36, Stefano Stabellini wrote:
+> xen: update pvcalls_front_accept prototype
 > 
-> There is up to 30ms of guest runtime between the last schedule in and
-> this emulation, and segment loads don't generally trap for PV guests.
-
-Oh, yes, I see now what you mean. Luckily even pv/emul-priv-op.c sets the hook.
-Hence what's affected here are the two uses of the emulator from
-pv/ro-page-fault.c. Sadly HVM isn't entirely unaffected, as the shadow mode use
-of the emulator doesn't set the hook. Neither of the three cases are likely to
-involve FPU insns, yet it's not excluded.
-
-Question is what to do: Simply failing the entire emulation feels too heavy
-handed. We could choose to simply store nul selectors instead. That would be
-kind of wrong though for (in the hypervisor: hypothetical) cases where the
-incoming regs are fully populated.
-
-Regardless of what we're going to do, the underlying issue of callers passing
-in partially inapplicable (to avoid calling it uninitialized) state remains,
-...
-
->> For the purpose of FRED this doesn't matter much - wherever the values are to
->> be held, they'll be taken from by put_fpu().
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
 > 
-> I maybe wasn't clear.  To support FRED, I need to delete the vm86 fields.
-> 
-> @@ -54,10 +54,6 @@ struct cpu_user_regs
->      DECL_REG_LO16(flags); /* rflags.IF == !saved_upcall_mask */
->      DECL_REG_LO8(sp);
->      uint16_t ss, _pad2[3];
-> -    uint16_t es, _pad3[3];
-> -    uint16_t ds, _pad4[3];
-> -    uint16_t fs, _pad5[3];
-> -    uint16_t gs, _pad6[3];
-> +    uint64_t edata, _rsvd;
->  };
->  
->  #undef DECL_REG_HI
+> Changes in v2:
+> - also update pvcalls-front.c
 
-... at least until your rework is in place. I did understand that you mean
-to remove the struct fields. You made clear though that you'd re-introduce
-them elsewhere (struct pv_vcpu) instead. And without (yet) recognizing the
-staleness aspect I was implying we could read the values from there.
+The patch still gives the impression of being incomplete: There's no
+caller of the function that you update. However, there's no such caller
+in the first place. Why don't you just delete the function then?
 
 Jan
+
+> diff --git a/drivers/xen/pvcalls-front.c b/drivers/xen/pvcalls-front.c
+> index b72ee9379d77..cab480059731 100644
+> --- a/drivers/xen/pvcalls-front.c
+> +++ b/drivers/xen/pvcalls-front.c
+> @@ -769,7 +769,8 @@ int pvcalls_front_listen(struct socket *sock, int backlog)
+>  	return ret;
+>  }
+>  
+> -int pvcalls_front_accept(struct socket *sock, struct socket *newsock, int flags)
+> +int pvcalls_front_accept(struct socket *sock, struct socket *newsock,
+> +			 struct proto_accept_arg *arg)
+>  {
+>  	struct pvcalls_bedata *bedata;
+>  	struct sock_mapping *map;
+> @@ -788,7 +789,7 @@ int pvcalls_front_accept(struct socket *sock, struct socket *newsock, int flags)
+>  		return -EINVAL;
+>  	}
+>  
+> -	nonblock = flags & SOCK_NONBLOCK;
+> +	nonblock = arg->flags & SOCK_NONBLOCK;
+>  	/*
+>  	 * Backend only supports 1 inflight accept request, will return
+>  	 * errors for the others
+> diff --git a/drivers/xen/pvcalls-front.h b/drivers/xen/pvcalls-front.h
+> index f694ad77379f..881ef14660bc 100644
+> --- a/drivers/xen/pvcalls-front.h
+> +++ b/drivers/xen/pvcalls-front.h
+> @@ -12,7 +12,7 @@ int pvcalls_front_bind(struct socket *sock,
+>  int pvcalls_front_listen(struct socket *sock, int backlog);
+>  int pvcalls_front_accept(struct socket *sock,
+>  			 struct socket *newsock,
+> -			 int flags);
+> +			 struct proto_accept_arg *arg);
+>  int pvcalls_front_sendmsg(struct socket *sock,
+>  			  struct msghdr *msg,
+>  			  size_t len);
+> 
+
 
