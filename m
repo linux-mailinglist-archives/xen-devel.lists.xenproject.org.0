@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A75ABA0477B
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 18:02:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866705.1278046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A312A0478B
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 18:06:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866712.1278057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVCxk-0000j4-Gn; Tue, 07 Jan 2025 17:01:52 +0000
+	id 1tVD24-0001Uo-1j; Tue, 07 Jan 2025 17:06:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866705.1278046; Tue, 07 Jan 2025 17:01:52 +0000
+Received: by outflank-mailman (output) from mailman id 866712.1278057; Tue, 07 Jan 2025 17:06:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVCxk-0000gR-E4; Tue, 07 Jan 2025 17:01:52 +0000
-Received: by outflank-mailman (input) for mailman id 866705;
- Tue, 07 Jan 2025 17:01:50 +0000
+	id 1tVD23-0001SR-V0; Tue, 07 Jan 2025 17:06:19 +0000
+Received: by outflank-mailman (input) for mailman id 866712;
+ Tue, 07 Jan 2025 17:06:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVCxi-0000gG-U8
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 17:01:50 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1tVD23-0001S5-Cs
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 17:06:19 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 153f0ecb-cd19-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 18:01:48 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4361c705434so114366105e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 09:01:48 -0800 (PST)
+ id b57a56f6-cd19-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 18:06:17 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-436a03197b2so60757075e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 09:06:17 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c828cc8sm50784301f8f.17.2025.01.07.09.01.46
+ 5b1f17b1804b1-43661289d3dsm609984495e9.41.2025.01.07.09.06.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 09:01:47 -0800 (PST)
+ Tue, 07 Jan 2025 09:06:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 153f0ecb-cd19-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: b57a56f6-cd19-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736269308; x=1736874108; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736269577; x=1736874377; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9Raw7Do+gupPmbHumzSkDywp+redY4zIMpdNkF5IBKE=;
-        b=LPQdMa/yzciacziwjZEAzdKQtdF7UawazJ8icQeFJsKo8H7nUCr8CaAwt5sqsWAKs6
-         1UsWR2R/EvdUveLk7nMLfJgElolVMxmHi+zw4uvtCTiU5IIicguk4u6ZggDvtC4Saqb2
-         ENjJwhAHv8bweaSq3yFT+bP81XoMzfEWjgV40YiS/elnvYfyUvq04zBudFOsxTvyXNUI
-         F3Mpy/H+Yx4lebGHkNBLcaP3Fa9Mxv2XC4Vn60PHtdhiZIh1UfP6ZV3S/m0/akuHUy/W
-         m0bYWlrO343hpSbPYEIfAkoA/YgKUOixPt50mCaCRlfBtBV96u6EFSO/mdUVwd0CtfK4
-         hwIw==
+        bh=ghp1tnPKNVu7zUuOehlMLLhbDPQRrAhgyG7OKOH4ba8=;
+        b=OlLMq0gMtMwyBLIFOl5RxEI838BPWW3grSdYnDiV+DPrNwyp1D+6oR7xAlRKIy66Qs
+         QPu2cm1cpN93p7oKsE0CPJT5iGP8kWz3HLF6GIRyFn4/BDQBNECPTFIzMp6PYyOnVqqq
+         aCQGRdw1YTSRoDV92kS46ZG/QI101wT7nFi6cKCXtyhTaj2MU/AcQXGndwu4Ole3Cw67
+         dy50QUrFp5gt9Aw/R23DyDvMhjCZOaij1CY9b2g5/HbDpNDKG5tbnL+RSbmrrR1YFM/8
+         c3hvQMrgmYKsH+jGUfhugLWus1kuOGsYC13PmlMgphTjj9SSXUmWoH6L7YoYqsU6zBS9
+         m2Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736269308; x=1736874108;
+        d=1e100.net; s=20230601; t=1736269577; x=1736874377;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9Raw7Do+gupPmbHumzSkDywp+redY4zIMpdNkF5IBKE=;
-        b=wKrvC+iTgwbwIWoWB9/3GjkR8WYgnNNawgbB2UU9lVQia88hm0Rxx0QhGogiqf94rw
-         p4l28wuYLOG7qmC6RiYXj0PLKpaIFLBjgj4BNzxSaL6tjGvDkBDSPS2U4n/67JfNTYTC
-         u0nbpB//JTq1si9s1IdLQVe9Li0DDptu5+8lkiyJndww33dSL4B8KDbkCyg+wgYSU1NB
-         XLyAtiYIDIBd2LYPHvln+VaCEuqtd12GFHTMwlH249afGoLFYwNxNXfPgHwonO5xIIpo
-         VELOK0E58+uwzWou6gARyQahiaba+w5b5y3A/RHE4NKsTK1nJdVClcnufe6FWBzxKOpY
-         D2bA==
-X-Gm-Message-State: AOJu0YzLxoO9MSuU52tFZCyY/APYsuJLhREJvtuwE+22Iw8B/vXOYung
-	Uny5R5OjotknKOtDE+CRJQH/kONaCwXHonSObx5GQtoekp8ZsbhvABjSGVweAg==
-X-Gm-Gg: ASbGncvrvEwqjOy/TAGhMpj2z4IY/K8lYFhokthf1YPstUze/z/bMtk46yUjPnFh9oC
-	hilt3RxT9mah/RcaV2nPglvhvrUd3o+wYYbUSubPFH2uz0+qJb4gduvMYjwVNffHCTiQmwUVgeg
-	p3dC6MGUBdjcTj0CQ7Ni0fuElSlQjrEW5Kf5iDJhkoMeBV3BxLZX5nmkaoXZQumrvsLM/xyxy3D
-	4MOTbQGt1nNTp/6T8Elyv++QFkn+pWJbjbh3piJQYv3Bww1F9FFmOEkw9t1zZBz8OBJoOJgAJCu
-	bGuq7dgAYWzpvnfOxLQKLR/spy0YAW2J8WmmNU1B7Q==
-X-Google-Smtp-Source: AGHT+IHDvZudkWN3cUncN9bg4uCSEHekI96ClsEMZ8HJBeEaCNSWYlpzYEAGMdzLkaIjxhmkzFvV4Q==
-X-Received: by 2002:a5d:584b:0:b0:386:373f:47c4 with SMTP id ffacd0b85a97d-38a224053d8mr54994968f8f.49.1736269307839;
-        Tue, 07 Jan 2025 09:01:47 -0800 (PST)
-Message-ID: <6a0a096b-47c2-4568-be9f-9f230bc6df23@suse.com>
-Date: Tue, 7 Jan 2025 18:01:45 +0100
+        bh=ghp1tnPKNVu7zUuOehlMLLhbDPQRrAhgyG7OKOH4ba8=;
+        b=q61F0XhV6CtDz7mkwVX2np0Yb2EyiljHRsEDdQCSGKlVLToK8wQxwhu05jPIFjvwwU
+         bUZD0vFy13N3VXr3I/qyRKq7ROOTeXdUXCe5eaDjGN1CWAXqd7PzkpyR98E5cOb7HISX
+         yBbbpEVocaUcRf6v1qIfTMMMCV9vN00FbTSUeWA24OmikPJ4zV94TVDOgErb2h31jGMn
+         aKNL2yE4MEy0LdEexV7dAeYR3Gd94PfIqSqZCF+BqpGjcdJlu54C4/b4KqJ3nW7Etjeq
+         s7ESigmt4MVY4j5+OZmQ++HMlfxyPKmyoVnD+IKtocLgRcELkKyfSiS6nRYW9ksMFCkq
+         REzA==
+X-Forwarded-Encrypted: i=1; AJvYcCXTGSIYtOog8eIzSQ42moaI/RSqFOz8RhSVoOZMYh0ApbyC4zWo9IwZ1ys6HIDc1G3pi4Ifh08l2cY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwgT7kbE9BUuqhMIclVRx/olEX8U8DYIL0hfNW2DiGFJ0iEv2Jk
+	ImbiqEqENADgay7DyggcKGRr1sxLJBEDxhS63MMZ+OHZRwWBq2dL59Vv7hmvRg==
+X-Gm-Gg: ASbGncuD5rqhoiH3DkC23HZXLSNu7DV9XuqpfjJ+RCtaBa+aLI2/rqyzfwiPAPC9JKg
+	d5CTKQ4YhRlkADvX9CGafOWBLZ5v069dP5aLYR+hw26w/vKrYp4/Ge++uWQ4P51chvEke198cTF
+	o1V3imB48pqVj1sloBTKSIbnTzaMmOt73qlRt8suyvRLP/ubpR309e5BtgeinR2uFNv/8BRzW91
+	jbeQgqdmUIvsNoBcRAAkI0bObkDPEE/S4i7YEa8b7NAEUdyg2uG+wmOrNES9E3zgMpoFYSXPSz/
+	zz58Uk9F9ScNp0/+soDgEssH/Z1PCd6teAzbjJqs9A==
+X-Google-Smtp-Source: AGHT+IHssG3ly+sL0zY5U0k3layizvl3ZrapHncu3hA/2DfK2lnYVTIb7YRLvcrax12rPnLrq4XHyw==
+X-Received: by 2002:a05:600c:470a:b0:434:e9ee:c1e with SMTP id 5b1f17b1804b1-43668b7a33dmr580595705e9.31.1736269576923;
+        Tue, 07 Jan 2025 09:06:16 -0800 (PST)
+Message-ID: <099376ce-0cd7-423a-b3fe-d9e0a8505c85@suse.com>
+Date: Tue, 7 Jan 2025 18:06:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [for-4.20] Re: [PATCH v12 12/12] xen/arm: add cache coloring
- support for Xen image
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, andrea.bastoni@minervasys.tech,
- marco.solieri@minervasys.tech, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v6 5/7] xen: add new domctl get_changed_domain
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii <oleksii.kurochko@gmail.com>, Julien Grall <julien@xen.org>,
- Carlo Nonato <carlo.nonato@minervasys.tech>
-References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
- <20241213162815.9196-13-carlo.nonato@minervasys.tech>
- <dbbc649f-b705-46b5-a071-760d688aa2cd@amd.com>
- <CAG+AhRWrXAYfKXXKfp6949vNMdGDy9qWOY11SKAigJuC8oUvDw@mail.gmail.com>
- <df0f831f-378f-4fa3-ae4f-b065f2ea566d@suse.com>
- <0062e0cf-0830-4d16-942d-348e6d33a2c4@xen.org>
- <5c153764-4a1d-4233-a9d2-fa5ec0aff6ac@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250107101711.5980-1-jgross@suse.com>
+ <20250107101711.5980-6-jgross@suse.com>
+ <781daba7-5d6f-4d86-bce4-c5aa9d135513@suse.com>
+ <81221a18-d6f8-418d-841a-8aa43420df09@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,88 +123,81 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5c153764-4a1d-4233-a9d2-fa5ec0aff6ac@amd.com>
+In-Reply-To: <81221a18-d6f8-418d-841a-8aa43420df09@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.01.2025 17:51, Michal Orzel wrote:
+On 07.01.2025 17:48, Jürgen Groß wrote:
+> On 07.01.25 17:28, Jan Beulich wrote:
+>> On 07.01.2025 11:17, Juergen Gross wrote:
+>>> --- a/xen/common/domain.c
+>>> +++ b/xen/common/domain.c
+>>> @@ -185,6 +185,76 @@ static void domain_changed_state(const struct domain *d)
+>>>       unlock_dom_exc_handler(hdl);
+>>>   }
+>>>   
+>>> +static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+>>> +                                  const struct domain *d)
+>>> +{
+>>> +    info->state = XEN_DOMCTL_GETDOMSTATE_STATE_EXIST;
+>>> +    if ( d->is_shut_down )
+>>> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN;
+>>> +    if ( d->is_dying == DOMDYING_dying )
+>>> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DYING;
+>>> +    if ( d->is_dying == DOMDYING_dead )
+>>> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DEAD;
+>>> +    info->unique_id = d->unique_id;
+>>> +}
+>>> +
+>>> +int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+>>> +                     domid_t *domid)
+>>> +{
+>>> +    unsigned int dom;
+>>> +    int rc = -ENOENT;
+>>> +    struct domain *hdl;
+>>> +
+>>> +    if ( info->pad0 || info->pad1 )
+>>> +        return -EINVAL;
+>>> +
+>>> +    if ( d )
+>>> +    {
+>>> +        set_domain_state_info(info, d);
+>>> +
+>>> +        return 0;
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * Only domain registered for VIRQ_DOM_EXC event is allowed to query
+>>> +     * domains having changed state.
+>>> +     */
+>>> +    if ( !domain_handles_global_virq(current->domain, VIRQ_DOM_EXC) )
+>>> +        return -EACCES;
+>>> +
+>>> +    hdl = lock_dom_exc_handler();
+>>
+>> Instead of leaving a small window for races between the if() and this
+>> function call, can't you simply compare hdl against current->domain?
 > 
+> Good idea.
 > 
-> On 07/01/2025 17:42, Julien Grall wrote:
 >>
+>>> +    while ( dom_state_changed )
+>>> +    {
+>>> +        dom = find_first_bit(dom_state_changed, DOMID_MASK + 1);
+>>> +        if ( dom >= DOMID_FIRST_RESERVED )
+>>> +            break;
+>>> +        if ( test_and_clear_bit(dom, dom_state_changed) )
 >>
->> Hi,
->>
->> On 16/12/2024 14:36, Jan Beulich wrote:
->>> On 16.12.2024 15:28, Carlo Nonato wrote:
->>>> On Mon, Dec 16, 2024 at 2:56 PM Michal Orzel <michal.orzel@amd.com> wrote:
->>>>> On 13/12/2024 17:28, Carlo Nonato wrote:
->>>>>> --- a/xen/arch/arm/arm64/mmu/mm.c
->>>>>> +++ b/xen/arch/arm/arm64/mmu/mm.c
->>>>>> @@ -1,6 +1,7 @@
->>>>>>   /* SPDX-License-Identifier: GPL-2.0-only */
->>>>>>
->>>>>>   #include <xen/init.h>
->>>>>> +#include <xen/llc-coloring.h>
->>>>>>   #include <xen/mm.h>
->>>>>>   #include <xen/pfn.h>
->>>>>>
->>>>>> @@ -138,8 +139,36 @@ void update_boot_mapping(bool enable)
->>>>>>   }
->>>>>>
->>>>>>   extern void switch_ttbr_id(uint64_t ttbr);
->>>>>> +extern void relocate_xen(uint64_t ttbr, void *src, void *dst, size_t len);
->>>>>>
->>>>>>   typedef void (switch_ttbr_fn)(uint64_t ttbr);
->>>>>> +typedef void (relocate_xen_fn)(uint64_t ttbr, void *src, void *dst, size_t len);
->>>>>> +
->>>>>> +void __init relocate_and_switch_ttbr(uint64_t ttbr) {
->>>>> CODING_STYLE: { needs to be on its own line
->>>>>
->>>>> Also, this function is only executed in case of LLC coloring, so shouldn't it
->>>>> be #ifdef protected.
->>>>
->>>> Here and in other places (patch #8) I'm relying on DCE to remove functions
->>>> that are not called. This was a suggestion from Jan in that patch. Can we
->>>> adopt the same here?
->>>
->>> Yet how would the compiler spot that the function is unused? That would only
->>> work with LTO / WPO. DCE (as I did suggest elsewhere) requires the functions
->>> in question to be static (allowing the compiler to see enough of the whole
->>> picture).
->>
->> Sorry for the late answer. I was away with limited e-mail access. While
->> looking what was committing recently, I noticed that a dummy function
->> was introduced:
->>
->> void __init relocate_and_switch_ttbr(uint64_t ttbr) {}
->>
->> If a function is not supposed to be called, then it should contain a
->> BUG_ON() to catch any misusage. Otherwise, this is a recipe for
->> disaster. In this case, it would not be trivial to notice the TTBR was
->> not switched...
->>
->> That said I would have actually considered to remove the empty stub. I
->> am a bit surprised that DCE wouldn't work in this case because the call
->> is protected with "if ( llc_coloring_enabled )". When cache coloring is
->> not enabled, this would turn to an "if ( false )" and therefore all the
->> code should be removed. What did I miss?
->>
->> Note that this is what we already rely on for arm32 because there is no
->> stub... So if this is problem then we definitely need to fix it on arm32
->> as well...
->>
->> IOW, we either introduce a stub (including the BUG_ON) for both arm32
->> and arm64 in the header or we remove the stub completely.
->>
->> Marco, Michal, can you have a look? Ideally, this should be fixed for 4.20.
-> I did a test with GCC 13.2 and I can compile it fine with stub removed. That said,
-> I'm not a compiler expert and I'm not sure if this behavior stays the same with different
-> compiler options/optimizations. So it's more like a question to Jan. I'm happy either way.
+>> As this is now running under lock, does it really need to be test-and-clear?
+>> What mechanism would allow the flag to be cleared between the find-1st and
+>> here? Plus, like for patch 4, I think it could be __clear_bit() here.
+> 
+> It is only under read_lock(), so there are concurrent calls possible.
+> I don't think we want to use write_lock() here, do we?
 
-We use the same (if(...) func();) in various places, relying on said DCEing
-of the call when the condition is compile-time-false. I see no reason why
-it couldn't be used here as well.
+Probably not; I have to admit I didn't even pay attention to this aspect.
+Then the set_bit() in domain_changed_state() also need to remain as is (in
+patch 4 I think it was).
 
 Jan
 
