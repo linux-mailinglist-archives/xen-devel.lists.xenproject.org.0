@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3449FA04550
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:00:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866602.1277917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12089A04557
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:00:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866608.1277926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVBzh-00064o-0W; Tue, 07 Jan 2025 15:59:49 +0000
+	id 1tVC0J-0007xn-8i; Tue, 07 Jan 2025 16:00:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866602.1277917; Tue, 07 Jan 2025 15:59:48 +0000
+Received: by outflank-mailman (output) from mailman id 866608.1277926; Tue, 07 Jan 2025 16:00:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVBzg-00062s-TF; Tue, 07 Jan 2025 15:59:48 +0000
-Received: by outflank-mailman (input) for mailman id 866602;
- Tue, 07 Jan 2025 15:59:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVBzg-00062m-9t
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 15:59:48 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a8f8bb9-cd10-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 16:59:46 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-435f8f29f8aso113810915e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 07:59:46 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43661289995sm599318425e9.36.2025.01.07.07.59.45
+	id 1tVC0J-0007vy-5Q; Tue, 07 Jan 2025 16:00:27 +0000
+Received: by outflank-mailman (input) for mailman id 866608;
+ Tue, 07 Jan 2025 16:00:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aJXC=T7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tVC0I-0006Jb-6c
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 16:00:26 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 81c0e416-cd10-11ef-a0df-8be0dac302b0;
+ Tue, 07 Jan 2025 17:00:25 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-385ddcfc97bso13235370f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 08:00:25 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c847dabsm50113190f8f.59.2025.01.07.08.00.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 07:59:45 -0800 (PST)
+ Tue, 07 Jan 2025 08:00:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a8f8bb9-cd10-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 81c0e416-cd10-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736265586; x=1736870386; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736265625; x=1736870425; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jWyMuhFbKW6KhagEj1mLFXaD19omX2Qj5fafAf4eHd0=;
-        b=QMVQs4z3k1owzVAXPODhtnVg3V3TJ+M6LjmVjPdkJTJfxukBZt7AZ+4U12OWdDwJeO
-         TdRv4Q55Vrv/+rIpNUBNtxESLxJzc64drKOeHKSU+nyH17HD5Um78bdKcXZvenknPNQ1
-         qaKjrnGLHLKvyhWrnNJ39ZjMEi6IMW1ghWrR0QoxtXVwGNzpVCx2jZgSQwNlO4odzO8i
-         EFZiM+CUJWMb6EEcl03MF0YVxdSIIZNcGcv3P1qBXsXSYT2mGOpCPjCUjDRUspJ2CGTz
-         SqNoK/tT4abWqWlz6G42nSb+ClZN7Uy6H7tdKDKuJg4FHkR9O6ZDzbFpwLssyiY1krA6
-         z8yg==
+        bh=gEgQIJ7TVFn9cHGSs2Q+5ac3V5udTqHVni+jQdaG1Io=;
+        b=VHqP/3mV5Od4uzprFUfo1LDyq4ilVp8yFNrDbZw4sWUcyIl6mC+aeoj0sCTGaN2TBk
+         3dOtXk9GRXW3XZH7yLvDsyXqZAnJ0Bm7QH93ePtUJIVoych3dUOR3PtaRdpEoPxiY/r4
+         XDnep6EL54Q/xFy2flvX/SWhXh88U7mpLksqQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736265586; x=1736870386;
+        d=1e100.net; s=20230601; t=1736265625; x=1736870425;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jWyMuhFbKW6KhagEj1mLFXaD19omX2Qj5fafAf4eHd0=;
-        b=Wf4U8KRDiNTnUOwOW2GHcku0afvEmIhPVdxfDi8BuDzZzm7xzPZW/KgQvrTWlULkRr
-         EML9fBqF9uZ7bwQMOeJ8ynye7mPueK2zFf9TwO+KWI+Im9QOByg8LIRUVUsC7Ks97TB4
-         w7xuGjqcO/FOqBf1KoBlHxfpRJ98j1lbFooIIQBSZISoN1eUinf85r95ikcSFguLIdWD
-         ch6g1/ca8O6zlsEzCiUNVMS4HKuxjRh3wcaLDbpFv/RL81hKVqCUxjV5m5udBKWBXzL2
-         DWQ4IfTgGgaZrBwjui2jcvMCPJxFRsboxl/UlLFFDa4ga1OMhzldfg8cnJ7CvEwzTHxS
-         nIWg==
-X-Forwarded-Encrypted: i=1; AJvYcCVS+cfkSnBSsxtlymPdUWV/p0t4Y/RgTwHN+QU3zEOn1Mr/o85bDN9UuV3Y4fBwcwgbWuwrqM4oqXA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyKG5wnMWFg8d8gZ3JqhpjgCtbsQIW+o6gHppvy1Cglm8XpfZk0
-	qk/O2ZnGbDpfax4f+Dp3JviFEXSaNKw2IszkO14SlPkeubAu4t1CanaUapPl0A==
-X-Gm-Gg: ASbGncthE05XK+V1KRDzXWZXMEAexBaBCrm/g7r9ZF9UrKRm6/bP+va51MgWEMwKews
-	/+EkYcq1tEdWB/kA1+jdHZkhaFiOyCgBmzmk5G/dhYDD5a5Qs2XvKCbiAIqfWtNcb22TnoyC5Mh
-	BzK4tgoJNw89XBEBa0UA8OSQE+Qpc0gsHQNjRjzPMbaTCAuwiKdJSKfEtWNlGttt5BHLEuUS6Uv
-	Vl93wtBbN67pf/HLTBwRj81c/ZjaeB3uY5Ecxk2xwtIA1rdvCmC0kuAhRsyFSB6H3MksG45WwXO
-	cuGesifuCnH4UbgYrdZtdsUssTV1p4SLKNLMBO3DDA==
-X-Google-Smtp-Source: AGHT+IGY2plrmHVDziKy/i3CwkZhUjkzhTpHz45s7M7ztuUIibwY3zD1pdy1xEjm9FisG5ZEc8UnLg==
-X-Received: by 2002:a7b:c459:0:b0:434:ff30:a165 with SMTP id 5b1f17b1804b1-436712441e2mr476774675e9.8.1736265585851;
-        Tue, 07 Jan 2025 07:59:45 -0800 (PST)
-Message-ID: <e6def4e3-30d8-446e-9961-475602cdc46a@suse.com>
-Date: Tue, 7 Jan 2025 16:59:44 +0100
+        bh=gEgQIJ7TVFn9cHGSs2Q+5ac3V5udTqHVni+jQdaG1Io=;
+        b=BsRw6nLXpPKOrXNrNOH5Z6zZ1hGm0KFSivPyxlxqhVqYSH0QUtuFoU/Arf0d4WfkLb
+         U0QL1pgHHtzVaYkDZlFdX02KSR2CPJTapYhM5pFVY4qZAmlpL+eNTWAwEbYU1SDa1R2u
+         8tZkHduiCEt+DLv/UTEGn94xuM+TBQ9B3VkhCbg28M0sabDFXtRu1Kyjjts3B9N3QS8E
+         QqchUw0DexwFRCPyjZBMQwqDVEvd73wLMLeb7iKMb0cSkkUiDeKo/d3sIPuMBNDYFusN
+         Gy3nmg/HQIHIl92Zg9gK9ByWeaEZ5kvtU5Me/N88JcGI5vydORZaKWn6yne2dS1U2Gsn
+         sDsQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVY0NuabVfgevY4KPMF1hZfdOvYi0hjAO49qKl/j7inxep7Zm/fJHMaSAvfTm3Ir1TKrRxuxTRzgTE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyB7Fjf3HEVZcRIQ9ggKVcLbBJ9EnRf2Zals+bMIg63lgM/59J4
+	T1TnX+IDIKZkiYnxJoLC5oukatWJCSzGK0XE/algUM4li4fOwzyNEhIczCfN83XyOQn/7scdVOx
+	VVcX8KQ==
+X-Gm-Gg: ASbGnctw/NGTiF094OT6tqgVFA85nmxe6GGHsTqEMtwHu8YdIEUK6xbr7C4EIlmf21D
+	CFg/9Zis3PhslODPzAmRP6BPdGtI/A9SwHkdUxewvigxXSvAizvzOn957qzFIRO+p3FFylGO+/d
+	8Zr/axqi3bRPy+s9HUpp7Yvmz+AD4KC0Z52EVDnTm8FR7XHo5GDq3NY034u5fDeXbHoxAevCyHk
+	7KprL1mXZpNfKed57/5tAd2Emlg4/Em0hxsQKh62IcrSX9mfh+fIqw0iXgE1sXXjM73CKcu++A4
+	CrkFJS6+gZJph24eZ5hz
+X-Google-Smtp-Source: AGHT+IGq7CuXdeGSayZvelDeWu27PXSD8YGvIVVrzRovIGhl3Dpnv7h22S5fdbWWISDlwYRUACxhSw==
+X-Received: by 2002:a5d:6daf:0:b0:385:fa33:29ed with SMTP id ffacd0b85a97d-38a223ffb65mr49414075f8f.47.1736265624579;
+        Tue, 07 Jan 2025 08:00:24 -0800 (PST)
+Message-ID: <21e306c0-2edc-44b0-88c0-0d4ee85e9b14@citrix.com>
+Date: Tue, 7 Jan 2025 16:00:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/7] xen/events: fix race with
- set_global_virq_handler()
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250107101711.5980-1-jgross@suse.com>
- <20250107101711.5980-2-jgross@suse.com>
- <c7ed9380-a4a1-4576-af56-2949d80cfd92@suse.com>
- <c00886ec-184c-4a82-8093-4fc9b470ea1b@suse.com>
- <270984e8-2296-48b9-b45c-92ab28b4e6dd@suse.com>
- <b508c054-5706-4fcc-b8f8-738775530022@suse.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b508c054-5706-4fcc-b8f8-738775530022@suse.com>
+Subject: Re: [PATCH] x86emul: correct put_fpu()'s segment selector handling
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <81428267-e963-4403-989d-d96fb0b59ffc@suse.com>
+ <8db5b675-385f-4ea7-a2e9-7a8a54d96f72@citrix.com>
+ <526672ec-4140-4c51-b67a-3b4b803314c2@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <526672ec-4140-4c51-b67a-3b4b803314c2@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.01.2025 16:56, Juergen Gross wrote:
-> On 07.01.25 16:49, Jan Beulich wrote:
->> On 07.01.2025 16:37, Juergen Gross wrote:
->>> On 07.01.25 16:23, Jan Beulich wrote:
->>>> On 07.01.2025 11:17, Juergen Gross wrote:
->>>>> --- a/xen/common/event_channel.c
->>>>> +++ b/xen/common/event_channel.c
->>>>> @@ -979,6 +979,7 @@ void send_global_virq(uint32_t virq)
->>>>>    int set_global_virq_handler(struct domain *d, uint32_t virq)
->>>>>    {
->>>>>        struct domain *old;
->>>>> +    int rc = 0;
->>>>>    
->>>>>        if (virq >= NR_VIRQS)
->>>>>            return -EINVAL;
->>>>> @@ -992,14 +993,23 @@ int set_global_virq_handler(struct domain *d, uint32_t virq)
->>>>>            return -EINVAL;
->>>>>    
->>>>>        spin_lock(&global_virq_handlers_lock);
->>>>> -    old = global_virq_handlers[virq];
->>>>> -    global_virq_handlers[virq] = d;
->>>>> +
->>>>> +    if ( d->is_dying != DOMDYING_alive )
->>>>> +    {
->>>>> +        old = d;
->>>>> +        rc = -EINVAL;
->>>>> +    }
->>>>
->>>> While I can see how this eliminates the zombie domain aspect, this doesn't
->>>> fully eliminate the race. Doing so would require (also) using the domain's
->>>> event lock. Assuming we're okay with the remaining race, imo a code comment
->>>> would be needed to state this (including the fact that it's then
->>>> unpredictable whether this operation might still succeed for a domain
->>>> already having d->is_dying != DOMDYING_alive).
+On 07/01/2025 3:41 pm, Jan Beulich wrote:
+> On 07.01.2025 16:37, Andrew Cooper wrote:
+>> On 07/01/2025 2:33 pm, Jan Beulich wrote:
+>>> All selector fields under ctxt->regs are (normally) poisoned in the HVM
+>>> case, and the four ones besides CS and SS are potentially stale for PV.
+>>> Avoid using them in the hypervisor incarnation of the emulator, when
+>>> trying to cover for a missing ->read_segment() hook.
 >>>
->>> AFAIU you mean that it is still possible to set a domain to handle a virq
->>> when it is in the process of going down, especially if is_dying is set just
->>> after it has been tested to be DOMDYING_alive?
+>>> To make sure there's always a valid ->read_segment() handler for all HVM
+>>> cases, add a respective function to shadow code, even if it is not
+>>> expected for FPU insns to be used to update page tables.
 >>>
->>> I don't see this being a problem, as the same would happen if the domain
->>> would go down just a millisecond later. This is something we will never be
->>> able to handle.
+>>> Fixes: 0711b59b858a ("x86emul: correct FPU code/data pointers and opcode handling")
+>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> The code comment may want adjusting in the course of FRED work.
+>> It compiles when displacing my temporary patch in the FRED branch.  I've
+>> not got the ABI compatibility in userspace working yet, but
+>> regs->{ds,es,fs,gs} will be staying, so the #else case should be fine
+>> (assuming they're populated properly).
 >>
->> Right, but the sequence of events in the case you mention is different: The
->> insertion into the array would still happen while the domain isn't marked
->> dying.
->>
->>> And after all the call of clear_global_virq_handlers() will now reset the
->>> handling domain to the hardware domain in all cases.
->>
->> Of course, but in the meantime an event may be sent to such a domain already
->> marked dying. That likely isn't going to cause problems, but is unexpected
->> with what description here says is being addressed.
->>
->>>> Plus the way you do it the early success path remains; ideally that case
->>>> would also fail for an already dying domain.
->>>
->>> Same again: clear_global_virq_handlers() will reset the handling domain.
->>
->> Right.
->>
->> In summary: As indicated, we may be okay with the remaining race, but then
->> we also should be making clear that we've decided to leave it at that.
->> Hence my earlier request: If we accept this, say (and briefly justify) this
->> in a code comment.
-> 
-> Okay, would you be fine with:
-> 
->    Note that this check won't guarantee that a domain just going down can't be
->    set as the handling domain of a virq, as the is_dying indicator might change
->    just after testing it.
->    This isn't going to be a major problem, as clear_global_virq_handlers() is
->    guaranteed to run afterwards and it will reset the handling domain for the
->    virq to the hardware domain.
+>> So, tentatively, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Thanks.
+>
+>> That said, I think it would be nicer to see about excluding the FPU in
+>> these cases.  Both cases lacking read_segment() hooks are pagetable
+>> emulation, and I'd say it's more likely to be code corruption than there
+>> actually being x87 instructions in the middle of a dual 32bit PAE update.
+> I considered this case, but decided against going this route. We shouldn't
+> be stricter than necessary towards what we permit guests to do, however odd
+> it might look to us.
 
-Reads okay, thanks.
+I suppose so, but then I wonder if we ought to be setting up more
+infrastructure by default for emulations.
 
-Jan
+We've got an awful lot of the emulator which has fallback paths upon
+fallback paths, and probably is not as well tested as it ought to be.
+
+~Andrew
 
