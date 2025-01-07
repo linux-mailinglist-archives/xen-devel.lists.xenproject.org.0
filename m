@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C07CA039E5
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 09:38:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866115.1277385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 183D9A039E9
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 09:40:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866122.1277396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV569-0003CR-EQ; Tue, 07 Jan 2025 08:38:01 +0000
+	id 1tV58c-0004hW-Q5; Tue, 07 Jan 2025 08:40:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866115.1277385; Tue, 07 Jan 2025 08:38:01 +0000
+Received: by outflank-mailman (output) from mailman id 866122.1277396; Tue, 07 Jan 2025 08:40:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV569-0003Aj-Bf; Tue, 07 Jan 2025 08:38:01 +0000
-Received: by outflank-mailman (input) for mailman id 866115;
- Tue, 07 Jan 2025 08:37:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tV58c-0004fq-Mu; Tue, 07 Jan 2025 08:40:34 +0000
+Received: by outflank-mailman (input) for mailman id 866122;
+ Tue, 07 Jan 2025 08:40:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tV567-0003Ad-F7
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 08:37:59 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b262c1aa-ccd2-11ef-a0df-8be0dac302b0;
- Tue, 07 Jan 2025 09:37:58 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-385e27c75f4so10942026f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 00:37:58 -0800 (PST)
+ id 1tV58b-0004fk-V6
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 08:40:33 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e2b0cea-ccd3-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 09:40:32 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-436a39e4891so53300075e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 00:40:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436611ea387sm596268605e9.6.2025.01.07.00.37.56
+ ffacd0b85a97d-38a1c847214sm49722762f8f.46.2025.01.07.00.40.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 00:37:57 -0800 (PST)
+ Tue, 07 Jan 2025 00:40:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b262c1aa-ccd2-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 0e2b0cea-ccd3-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736239077; x=1736843877; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736239231; x=1736844031; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KbKs+W0RntRsoWrSaFzkuGq0iYhfflCE8MYl6byIj9Y=;
-        b=Y/4l+IPZitgQH2Fz+IhiiVjbvABbm8QGFDkWFTTry99of8sFdktpvKkGfgwG5aZeWP
-         VruwlkB7UOQWJFgp2tWqgVbgGt8qmOsS6ynPkeUwBVpFuzDZe9CKPh2CVZrnud94EGAJ
-         5ekykll/D6wXtAjlz6X3I+fze29n+MPIq987LkHcUEYIchGw5X5Xh7WjX5nt2TnIHdyf
-         1DXji/1rDSoWDi5YxHUw5cU8BJ4Dd9hQSsdJzEUvZWUSlbmYzHIw16evRaLJ5ASvjJby
-         xiCKsd/KXVfk9J0Sfoh849WGZG23b5uRDCh4ZIVuP9X/FE3tAvC/lWT58JLuUtAMmN+Z
-         IxRQ==
+        bh=PyeZNr7dYL1BRBhi7oa3C4MvptWLYqA9NZuV0E10Iv8=;
+        b=SCX1RvIsqI186RBmB6nhKCr5rlR58fLCQSNSk9soEcIZcETNsEj+Mz4v7N3Dngenrl
+         xW9IoMLUStgmsiPNHPJvAG9RSDE53WBEHQq+wKEX9UcIi04uK1u69zpG5SYiwxVKFZH3
+         SVmvCQGD7FU7xkOCXxfPIyiZPyQH3d3xRxCtiA7ANUlsVn6vaadYmAQV6cyLhOiMxZbf
+         47zfg7ZQY8D4eKTiK/B45vKLyKgetG051gS0QLhSeK3aoTTqoDIKgLp7OmY3WZcU7tVa
+         FQOz2hzlvtfyUx+j1u5DhrrJucr7kHOolEKpzxPmqcuwdlVT+Tsb+CdukvXhgwNzy/4n
+         lkuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736239077; x=1736843877;
+        d=1e100.net; s=20230601; t=1736239231; x=1736844031;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KbKs+W0RntRsoWrSaFzkuGq0iYhfflCE8MYl6byIj9Y=;
-        b=vCHu+a1A4bzvsnSNSknyUrPFe9Gy0V7luBiClUA/eZA0v5TAS2ODF69r0kitW+iK5j
-         g9Xj4xbNSz0pszUYyDpT3DJR4aXAS2/1r0eN9iEdOekmc+B8jIiQRKRJx0ikYpu/viRQ
-         PQeFCJe4SC34G5a1iiq82YhGYD7LH9oLVNSGc0fgDeJ5PNHzLPGL2E43hFp0kMx+as5j
-         eDoFh4gKyZwo8Fe7GEGud97c86QhNLIWE4tH0bYk0hOTUCUmC1puKxuzyGG2mt5wztLI
-         CuegshTEsfpVLKr4c2fjiUtYaEzS/8hliFuN3WbKPOYvUdrkXony/pbqadmnktQBk4F3
-         ggSw==
-X-Forwarded-Encrypted: i=1; AJvYcCVJrXoexd/dcVaImyJ3fH5pGomkO2mmHQOJTK93dbdJtsicfd6+XKIt4ex2jCBZlZNpo68yBa6geQQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOoo4AC2U2PS4X3zHnMkyE2orZuIuTYiNVwiAIWhMlta8u98N/
-	hktG5OWr9mYWIy88ChXy1qE6rd/x/QiPaheRPUJd1SjvhPIVvYAGGqnm6lrGbg==
-X-Gm-Gg: ASbGncstq5gvVxExrknImQd/mw3codX1fs7Xy15RU+BtDMKJ+kFPUgAWxiUeRzIOgsD
-	LBDdl7MHbK0rMq2p/bDnRKJ0q04V/88lxkcMkLcs61wZrg3cACT11pZ+EMW4w0rc3nz3DDnk1hs
-	uozF9yIFZ9bCG2yUIfyz7C58/NcQ/RNaoFrTj6TdHhCYzTt3PuSpnHrj0X12rLl01bx58zFE4va
-	+CyIkFVl3zOhxKjXGmZ9277iNNnPg9As76F6Z9tRgKqGzXeSTRG4BXobymjG+c8ZsaTdKAs4nZA
-	ZQFeNmRH0XjQ7tn2vu3QaBkFdTJ13xPjNkfeTfygSQ==
-X-Google-Smtp-Source: AGHT+IG0vmTppxEsgz8G6IZFXT62bNiYG3xAYtHaYa2j/jlqWbImpSvB9JdCH3lLi1E1r6hnpbtR6g==
-X-Received: by 2002:a5d:5f51:0:b0:385:dedb:a12f with SMTP id ffacd0b85a97d-38a221e27a4mr49780160f8f.6.1736239077531;
-        Tue, 07 Jan 2025 00:37:57 -0800 (PST)
-Message-ID: <a8b4601c-8c91-4b18-8b4a-2aa3f4655994@suse.com>
-Date: Tue, 7 Jan 2025 09:37:55 +0100
+        bh=PyeZNr7dYL1BRBhi7oa3C4MvptWLYqA9NZuV0E10Iv8=;
+        b=LOXb54WqnnRKlOXEECyh6szlQyRngQiTWTOyQBanJFP3nTRXXLY8O78QPMdmBQPgWt
+         94o+VZTHQCzIKbQ0r8huczrK6MkqFwTg8K1H9xfqW0AeBAlbiLg2Xhe+aoCkTBn3wmiv
+         OJ6HGbYY0AOjHJSAQpSEOIvtoTYiz2T3iLhjgYBVi6klwfC95hRrPfbMrHGmUVe6ltvR
+         fiK+yfQb2q6uQxAu9oE3bf3iuvbKjJMZOylFWU2oFDi9u3ESRbn8KpT5oEk4anFbIwo3
+         qameyfE4lPZLeYJWExYTacJVdt15AGNGNiKx+7Z2ICReEDbVIctkxbl8kguohHNTgglk
+         Yc5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXzD/TrWcEOsDrLJYmUxNP0245uerQGbfUTOglPeVQEG7UXeOr8nmGBSe25MBIf/cM6rugluRNWHU0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxmtPK3zZWf5Iznv0DSASQagqqs5I55KYUNOpfASplP4MWB5lV
+	+/zy0/SbsVv5fw2l9wigvufeDEvjADj9m0Llx4ViKQs/XC+I0BKMvnJIs80mUPKVhboCOi13dWQ
+	=
+X-Gm-Gg: ASbGnctfngYIz0hD5C+YUDsBT7olmeun1fjfTPaWT5E/we0Iln25HyoaQigzRKV4Jki
+	axDAc6XRqyt8Fql4PDglXs+JootJ83lhT6FDodSLfNKYoFnwI8uciv+FLWlx47zAiKO5ijM+3P+
+	5o11LA4ol0UG0PX/2HjURh+9kuxy5sOfF9ORYyW/sK1v+auF3MFutKZw/9vfJ2BV4MGRcvueImK
+	TgejqsBv9+/eN+2FQI+chLgqQGuvQkcLP3+ncY0APS2YWbu7qaeyxcK/csMQ1ZzBg63gMUifcoV
+	KhXJNbio734d0wLxovkPzCJyyUEXvQZDKH9M6Bg/3w==
+X-Google-Smtp-Source: AGHT+IET6/PlMP+lQyTZqv4ik1fWRxXXaT8GgFa3aoqvjvtSjWdlgKuoQQOM8xiloatfh/O6U6LWSQ==
+X-Received: by 2002:a05:6000:481e:b0:382:49f9:74bb with SMTP id ffacd0b85a97d-38a2220120dmr54735887f8f.35.1736239231441;
+        Tue, 07 Jan 2025 00:40:31 -0800 (PST)
+Message-ID: <c39c0c6f-2fab-46e8-9563-c91fe890e87f@suse.com>
+Date: Tue, 7 Jan 2025 09:40:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/35] xen/console: introduce console_set_owner()
-To: Denis Mukhin <dmkhn@proton.me>
-Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 20/35] xen/console: introduce console_owner_domid()
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Denis Mukhin <dmkhn@proton.me>, dmukhin@ford.com,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>
 References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
- <20241205-vuart-ns8250-v1-19-e9aa923127eb@ford.com>
- <Z1q3COsFN3J9G60E@macbook.local>
- <Nzs8m4tgOs8mh44axM9sAfsp2GGMk34p5Oi0dtXh8rLbKzHXmMtMXK_d_AJy-gSQuGRygaZbsvhy9QFvsCc0yyMiqzXslUNID1os1CCzNrA=@proton.me>
- <3b9635bc-e196-4a7e-95ea-277172ae052a@suse.com>
- <WdwwQV5SUUes7R0BWeDutEQWGvnv_YSB8yc-jMeij_uOqMPVYTpAkpmojwppDdKmact1UU3eXZ61TMZZf7s3JKMlG8EnNEaCGbPbd_7Qo30=@proton.me>
+ <20241205-vuart-ns8250-v1-20-e9aa923127eb@ford.com>
+ <d55bf6a6-5861-4b72-88b5-2aaa28ae0290@suse.com>
+ <VJ9ivpkbNlqfKhBlb5dL6OuoPAXK9wqD4mhgO9Qt4f0qgmuow22qFv1C7L8DlbKYo7ytdKWeV1bLaYJvTAc2Yt7sEd06XREerWER5RPx4No=@proton.me>
+ <8a5a5a0f-72b0-4336-b0d2-142254319242@suse.com>
+ <alpine.DEB.2.22.394.2501061046060.133435@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,203 +123,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <WdwwQV5SUUes7R0BWeDutEQWGvnv_YSB8yc-jMeij_uOqMPVYTpAkpmojwppDdKmact1UU3eXZ61TMZZf7s3JKMlG8EnNEaCGbPbd_7Qo30=@proton.me>
+In-Reply-To: <alpine.DEB.2.22.394.2501061046060.133435@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.01.2025 21:03, Denis Mukhin wrote:
-> 
-> On Monday, January 6th, 2025 at 1:58 AM, Jan Beulich <jbeulich@suse.com> wrote:
-> 
->>
->>
->> On 04.01.2025 04:30, Denis Mukhin wrote:
->>
->>> On Thursday, December 12th, 2024 at 2:12 AM, Roger Pau Monné roger.pau@citrix.com wrote:
+On 06.01.2025 19:48, Stefano Stabellini wrote:
+> On Mon, 6 Jan 2025, Jan Beulich wrote:
+>> On 04.01.2025 05:15, Denis Mukhin wrote:
 >>>
->>>> On Thu, Dec 05, 2024 at 08:41:49PM -0800, Denis Mukhin via B4 Relay wrote:
+>>> On Tuesday, December 10th, 2024 at 11:28 PM, Jan Beulich <jbeulich@suse.com> wrote:
+>>>
 >>>>
->>>>> --- a/xen/drivers/char/console.c
->>>>> +++ b/xen/drivers/char/console.c
->>>>> @@ -463,82 +463,100 @@ static void cf_check dump_console_ring_key(unsigned char key)
->>>>>
->>>>> /*
->>>>> * CTRL-<switch_char> changes input direction, rotating among Xen, Dom0,
->>>>> - * and the DomUs started from Xen at boot.
->>>>> + * and the DomUs.
->>>>> /
->>>>> #define switch_code (opt_conswitch[0]-'a'+1)
->>>>> +
->>>>> /
->>>>> - * console_owner=0 => input to xen
->>>>> - * console_owner=1 => input to dom0 (or the sole shim domain)
->>>>> - * console_owner=N => input to dom(N-1)
->>>>> + * Current console owner domain ID: either Xen or domain w/ d->is_console ==
->>>>> + * true.
->>>>> + *
->>>>> + * Initialized in console_endboot().
->>>>> */
->>>>> -static unsigned int __read_mostly console_owner = 0;
->>>>> +static domid_t __read_mostly console_owner;
 >>>>
->>>> Should this be initialized to DOMID_XEN? I assume it doesn't make
->>>> much difference because the variable is not checked before
->>>> console_endboot() anyway, but it might be safer to initialize to a
->>>> value that assigns the console to Xen.
->>>
->>> Fixed.
->>>
->>>>> -#define max_console_rx (max_init_domid + 1)
->>>>> +static struct domain *rcu_lock_domain_console_by_id(domid_t domid)
->>>>> +{
->>>>> + struct domain *d;
->>>>> +
->>>>> + d = rcu_lock_domain_by_id(domid);
->>>>> +
+>>>> On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
 >>>>
->>>> Nit: I would remove this newline.
->>>
->>> Fixed.
->>>
->>>>> + if ( d == NULL )
->>>>> + return NULL;
->>>>> +
->>>>> + if ( d->is_console )
->>>>> + return d;
->>>>> +
->>>>> + rcu_unlock_domain(d);
->>>>> +
->>>>> + return NULL;
->>>>> +}
+>>>>> From: Denis Mukhin dmukhin@ford.com
 >>>>>
->>>>> -#ifdef CONFIG_SBSA_VUART_CONSOLE
->>>>> /* Make sure to rcu_unlock_domain after use */
->>>>> struct domain *rcu_lock_domain_console_owner(void)
->>>>> {
->>>>> - if ( console_owner == 0 )
->>>>> - return NULL;
->>>>> - return rcu_lock_domain_by_id(console_owner - 1);
->>>>> + return rcu_lock_domain_console_by_id(console_owner);
->>>>> }
->>>>> -#endif
+>>>>> console_owner_domid() is introduced to obtain the "console owner" domain ID.
 >>>>>
->>>>> -static void console_find_owner(void)
->>>>> +static bool console_owner_possible(domid_t domid)
->>>>> {
->>>>> - unsigned int next_rx = console_owner;
->>>>> -
->>>>> - /*
->>>>> - * Rotate among Xen, dom0 and boot-time created domUs while skipping
->>>>> - * switching serial input to non existing domains.
->>>>> - /
->>>>> - for ( ; ; )
->>>>> - {
->>>>> - domid_t domid;
->>>>> - struct domain d;
->>>>> -
->>>>> - if ( next_rx++ >= max_console_rx )
->>>>> - {
->>>>> - console_owner = 0;
->>>>> - printk("* Serial input to Xen");
->>>>> - break;
->>>>> - }
->>>>> -
->>>>> - if ( consoled_is_enabled() && next_rx == 1 )
->>>>> - domid = get_initial_domain_id();
->>>>> - else
->>>>> - domid = next_rx - 1;
->>>>> -
->>>>> - d = rcu_lock_domain_by_id(domid);
->>>>> - if ( d == NULL )
->>>>> - continue;
->>>>> -
->>>>> - if ( d->is_console )
->>>>> - {
->>>>> - rcu_unlock_domain(d);
->>>>> - console_owner = next_rx;
->>>>> - printk("*** Serial input to DOM%u", domid);
->>>>> - break;
->>>>> - }
->>>>> + struct domain *d;
->>>>>
->>>>> + d = rcu_lock_domain_console_by_id(domid);
->>>>> + if ( d != NULL )
->>>>> rcu_unlock_domain(d);
->>>>> - }
->>>>> +
->>>>> + return d != NULL;
->>>>> +}
->>>>> +
->>>>> +int console_set_owner(domid_t domid)
->>>>> +{
->>>>> + if ( domid == DOMID_XEN )
->>>>> + printk("*** Serial input to Xen");
->>>>> + else if ( console_owner_possible(domid) )
->>>>> + printk("*** Serial input to DOM%u", domid);
->>>>> + else
->>>>> + return -ENOENT;
->>>>> +
->>>>> + console_owner = domid;
->>>>>
->>>>> if ( switch_code )
->>>>> printk(" (type 'CTRL-%c' three times to switch input)",
->>>>> opt_conswitch[0]);
->>>>> printk("\n");
->>>>> +
->>>>> + return 0;
->>>>> +}
->>>>> +
->>>>> +/*
->>>>> + * Switch console input focus.
->>>>> + * Rotates input focus among Xen, dom0 and boot-time created domUs while
->>>>> + * skipping switching serial input to non existing domains.
->>>>> + */
->>>>> +static void console_find_owner(void)
->>>>> +{
->>>>> + domid_t i, n = max_init_domid + 1;
+>>>>> The call is used in NS8250 emulator to identify the case when physical xen
+>>>>> console focus is owned by the domain w/ NS8250 emulator, in which case,
+>>>>> messages from guest OS are formatted w/o '(XEN)' prefix.
 >>>>
->>>> n can be made const, I would even rename to nr for clarity, but that's
->>>> personal taste.
+>>>>
+>>>> Such messages ought to be processed through guest_printk(), which wants a
+>>>> domain pointer, not a domid_t anyway. Plus isn't that going to be
+>>>> current->domain anyway at the callsite, eliminating the need for such a
+>>>>
+>>>> helper altogether?
 >>>
->>> `max_init_domid` can change at run-time actually (e.g. after `xl create`).
->>> I kept `n` as is.
+>>> If the current domain is owning the physical console and printing, say, Linux
+>>> login prompt, there's no need to add "(XEN)" for every printout; adding timestamps
+>>> can be disabled from Xen command line.
 >>
->>
->> How does max_init_domid potentially changing affect (possible) const-ness of n?
+>> Surely there shouldn't be (XEN), but without (d<N>) it'll be ambiguous in a log
+>> which domain a message came from. As long as only Dom0 messages are left un-
+>> prefixed, that's likely fine. Yet as soon as multiple domains can issue such
+>> messages (and have console "focus") I think the prefix needs to be there.
 > 
-> Sorry, what I meant is I kept the original name as is in v3.
-> Forgot to address `const`.
-> 
->>
->> However it changing, ...
->>
->>>>> +
->>>>> + if ( console_owner == DOMID_XEN )
->>>>> + i = get_initial_domain_id();
->>>>> + else
->>>>> + i = console_owner + 1;
->>>>> +
->>>>> + for ( ; i < n; i++ )
->>>>> + if ( !console_set_owner(i) )
->>>>> + break;
->>>>
->>>> Hm, that could be a non-trivial amount of iteration if max_init_domid
->>>> is bumped for every domain created as you have it in patch 11/35
->>>> (albeit I'm not sure that was intended?)
->>>
->>> Yes, `max_init_domid` is advanced on each domain creation (v3).
->>
->>
->> ... as you confirm here, undermines what it's used for right now (if I'm
->> not mistaken), and would render the variable misnamed.
-> 
-> Yes, the name will be a bit confusing.
-> Will something like `last_domid` work?
+> It looks like we are aligned on the desired behavior,
 
-Well. First and foremost you need to make sure that existing uses of the
-variable will continue to function as-is. Aiui that contradicts your
-re-purposing of it. Which in turn would eliminate the question of how to
-best rename it.
+Hmm, no, I don't think we are. I don't ...
+
+> but for clarity,
+> see https://marc.info/?l=xen-devel&m=173405161613716, also copy/pasted
+> here:
+> 
+> I think we should provide a consistent behavior across architectures.
+> The current behavior with vpl011 and dom0less on ARM is the following:
+> 
+> - no prefix for Dom0 output
+> - DOM$NUM for DomUs when not in focus, otherwise no prefix
+
+... view this model as a desirable one. It leaves room for ambiguity.
 
 Jan
 
