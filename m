@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2D89A045B8
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:15:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866632.1277958 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F485A04630
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:29:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866640.1277966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVCEA-0004Ff-5v; Tue, 07 Jan 2025 16:14:46 +0000
+	id 1tVCRL-0006dQ-8Z; Tue, 07 Jan 2025 16:28:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866632.1277958; Tue, 07 Jan 2025 16:14:46 +0000
+Received: by outflank-mailman (output) from mailman id 866640.1277966; Tue, 07 Jan 2025 16:28:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVCEA-0004Cs-1R; Tue, 07 Jan 2025 16:14:46 +0000
-Received: by outflank-mailman (input) for mailman id 866632;
- Tue, 07 Jan 2025 16:14:44 +0000
+	id 1tVCRL-0006bA-5i; Tue, 07 Jan 2025 16:28:23 +0000
+Received: by outflank-mailman (input) for mailman id 866640;
+ Tue, 07 Jan 2025 16:28:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVCE8-0004Cm-MJ
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 16:14:44 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1tVCRJ-0006b4-Vp
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 16:28:21 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 816cf858-cd12-11ef-a0df-8be0dac302b0;
- Tue, 07 Jan 2025 17:14:43 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3862a921123so10611129f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 08:14:43 -0800 (PST)
+ id 6866e085-cd14-11ef-a0df-8be0dac302b0;
+ Tue, 07 Jan 2025 17:28:20 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4361815b96cso105337915e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 08:28:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c89e528sm51375696f8f.83.2025.01.07.08.14.42
+ ffacd0b85a97d-38a1c89e261sm51561401f8f.76.2025.01.07.08.28.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 08:14:42 -0800 (PST)
+ Tue, 07 Jan 2025 08:28:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 816cf858-cd12-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 6866e085-cd14-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736266483; x=1736871283; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736267300; x=1736872100; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ccNMf9aGsRxc3mwx8N5SPs7WkprCMCSuBkc4OZMaO4U=;
-        b=byqYaYiE799ABJv+dyMI5Ns4wc0R2/08XMpazScAiGNOkygYet+OQWLgoclWp2AcSa
-         7Hj7FTF8v5NpuawnSRFamcYOwYUsK8XN7Q4bxVK+unC+RrX10jyzh64dZAu2f3c3pr6k
-         URrSSgWo2FhKsqa2SWCCSuPfo7eFslHM8OpZkB7SUSTfje8zONVm4eKvxf049dw2WJu/
-         IkHR4eGPbcpcI6VraYfY+pDpRj+U36sTpcDEPunFfN5rOXtYLXWYMwm51eSdAi+PdT9d
-         P1I9WBR1LxUhEYnw49J2Fr5RG5tmVcfI/IgoDKE7N3p2p1L1vwi0D5J9WVxRfgMN2uc1
-         xAdg==
+        bh=x66COL8cMorOqV5+S+Ao/p5Y+jjzvxutFukjG5PvADk=;
+        b=V8kykDaV97UeWca5U/8YLrBeg8Sv4xTc1IQ5BE5Sg4jSRVn2cgG097UUldb5oflpEb
+         fpLbGT6FpEGoouHDXWwnU5q2Mb2Lhesso99ojI4gkIHsRTkzsmAcERuWEvtfErWL3H4u
+         Aw+QTX66FDqt7WjA2ZyRytigelueTIOXZPtI7BNYAszmYCo4GXMeGPrMN2G0TqN7c/LY
+         B9a+Zlp8Dff5vj7q9mwY4xj+s3Qs39vRb772Vq00dmywZKSI43xKySl1Q2jgtECJvdgo
+         sfeu0wiU4jsNuLMxtEWPmihLB6EwQq7iNYTRU35XazfvUyY3WNO18iMIMKluxfELIU+p
+         82QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736266483; x=1736871283;
+        d=1e100.net; s=20230601; t=1736267300; x=1736872100;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ccNMf9aGsRxc3mwx8N5SPs7WkprCMCSuBkc4OZMaO4U=;
-        b=mZQXnp/IeHy4BoRq08KFHjp/VqFFrUst05ir46Bz88n8edsrASb0q0K+uEA9/2oAiv
-         ABCwL+V+Ozf9CLuJZp+jMwOWbINY+oivzLUk//7KhoUilnZQt6jwmxYhcIGX31yu84MH
-         zzSbx9bNZ62DH9rlufUqgpJc4SRPuyuKUG2ZC49Wdr8nT5DeRi8HNd95RVDWB94N77KM
-         ODeNgXdrya8CMNTyl9vNvS8zaQ8NuxZLK/L5qSIUbUdxB1uEWfhSbsZA2xtB2jfZf6bg
-         XQgrhu6ncJ855jwQa3kenCRHulA7H87bNhcWGzyVxOaP3Kh0qOg+bMALn44d49hVW9nV
-         0USA==
-X-Forwarded-Encrypted: i=1; AJvYcCUBYYb8ZDpDYOXNfOhVspmeqhASz2W7NMIWR9uU8/IIVCqtEErurOu2cjRo6OJyKSJL6wkfv1JlHdw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyg72Gz/B9hKf07nVq5Jk+fyKcBncQayTm31ZJE4I3yYQhTEldt
-	mwhU0opogIlWil0Y09uZn07dfUvZcwx7rO+A69UslS8XMGXa9u+E167p1BsJ2Q==
-X-Gm-Gg: ASbGncut6jwzxa41ABwKuSEB8GKhOMYiJb/WeX9Tv509/JXFL6i8gy0kOgWvKBxFUg9
-	65gSsvrRV41TZKLazdNxX//g05r2Ssv1LhxMJnTxHE5lX7qa8BUPXLoooBT5Ov4Ry+ZjINi2ODo
-	tlZrmfsKSwuLizMkU75/FcITd9kuvdVMjA2UA36F5eBo+3i+STXQIm55NcwXm7JR+aRk8pM0l+Z
-	wyAazexnQ35OXf02j1O4UaL/aY+xh5oaFVxKn2ntg4TCzh7SUw1S9L1BljrLFioAugabGK8zeWq
-	0H27jMnLRkCbvJ7uguFcaxK9epHL6ug1cIabs5aLrA==
-X-Google-Smtp-Source: AGHT+IEh5S9o++FY10HMcDxqByzXqKj2xXDQiqOc21TtQOBAQtNDznakvr41N6oR7HeINGtdfrPcrQ==
-X-Received: by 2002:a5d:5f4f:0:b0:386:3329:6a04 with SMTP id ffacd0b85a97d-38a223f5b4cmr58182990f8f.39.1736266483150;
-        Tue, 07 Jan 2025 08:14:43 -0800 (PST)
-Message-ID: <b77141df-fa14-426a-937f-42693d1caeb9@suse.com>
-Date: Tue, 7 Jan 2025 17:14:41 +0100
+        bh=x66COL8cMorOqV5+S+Ao/p5Y+jjzvxutFukjG5PvADk=;
+        b=KgEQoS+tY1L5oFhVRRHL+X10GbWnq8VVD0sMG//d9xG8RF2d/rwunfT8OiTKjJgh70
+         cG2r4fRM4fp8eERReKa6GaCy56aGWubTbE3kKOe8MvFA28YZYABgrHj3emeCvfeFlHnF
+         Cje8h7KoQiv8ihWHa+8tzYpGb9+ynt7wh4rbfZLGsgbeqhH2kkRuo8Rc1ZjMKT2LBOsY
+         ldqd0fuWqlfVAnIpGa6q/3p1bGKcZf0/uPs5cCoNylXCpZ5st25NMbCvC4S1VpwkGNuG
+         BF5XtfIIT/FY1Fx7HM8yacTIrie247XC5ZbKG4fjj0wpJ6b6BKAANoFaRuIxhIzvnWXs
+         bSIg==
+X-Forwarded-Encrypted: i=1; AJvYcCVGQDSChOol5EL68R0KjQSPwIemYMiq6AjfDzTgrF0wxtZ8ykF7TSoNAV1ej0M9CeTZ6daCu2xcIAA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyz0k0hrBcbWlW+Dg4UhW3fAIMJyjcJ3W9MWxOgjlb8QP0dGWIf
+	UhQU1yfgi3qJ2Gl0o3/R8sngkjqJWUci+fH6RY0j6Gm0OP9a4cseArEddnMEaw==
+X-Gm-Gg: ASbGncuutctzAAa7+9fi9sh9SkiWHoPPNmJ6f1BU8XGiM3YSP68pZNd6OtsYno84RAn
+	FTKnPWjUc+F38mpb766TX9jHAgzqJ+f3QW7D9/zn/oPr4QscpapphXodfgcTzjIIpxU6Ba66wyp
+	thGk7EcX9oxxb4+le7eFSxwUb+QUcbSmxRSfrBPtondRH+7BhrIQfAAzs2zQKDwoiveU2vCVzym
+	mm+7J5y5FToTHNHynwdyaGEmTiZJudXcOXUlYikLJkB5jncakHs4e+qoT+dOETkRMb+6DNWxjEB
+	hMVBDlD5wJ+YQ3CTqbkLKZK7dMMfBb9lWi9onf8V6A==
+X-Google-Smtp-Source: AGHT+IGt2HAiZjF6JfMzpHacHKNE1MwoQk/whAchyXUSoz2s6FDypgVBAJ8WrZ53+GATzH9tExjYpQ==
+X-Received: by 2002:a05:6000:2c5:b0:385:f195:27f with SMTP id ffacd0b85a97d-38a221f339emr56512836f8f.5.1736267300221;
+        Tue, 07 Jan 2025 08:28:20 -0800 (PST)
+Message-ID: <781daba7-5d6f-4d86-bce4-c5aa9d135513@suse.com>
+Date: Tue, 7 Jan 2025 17:28:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/7] xen: add bitmap to indicate per-domain state
- changes
+Subject: Re: [PATCH v6 5/7] xen: add new domctl get_changed_domain
 To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250107101711.5980-1-jgross@suse.com>
- <20250107101711.5980-5-jgross@suse.com>
+ <20250107101711.5980-6-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,97 +121,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250107101711.5980-5-jgross@suse.com>
+In-Reply-To: <20250107101711.5980-6-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07.01.2025 11:17, Juergen Gross wrote:
-> Add a bitmap with one bit per possible domid indicating the respective
-> domain has changed its state (created, deleted, dying, crashed,
-> shutdown).
-> 
-> Registering the VIRQ_DOM_EXC event will result in setting the bits for
-> all existing domains and resetting all other bits.
-> 
-> As the usage of this bitmap is tightly coupled with the VIRQ_DOM_EXC
-> event, it is meant to be used only by a single consumer in the system,
-> just like the VIRQ_DOM_EXC event.
-> 
-> Resetting a bit will be done in a future patch.
-> 
-> This information is needed for Xenstore to keep track of all domains.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V2:
-> - use DOMID_FIRST_RESERVED instead of DOMID_MASK + 1 (Jan Beulich)
-> - use const (Jan Beulich)
-> - move call of domain_reset_states() into evtchn_bind_virq() (Jan Beulich)
-> - dynamically allocate dom_state_changed bitmap (Jan Beulich)
-> V3:
-> - use xvzalloc_array() (Jan Beulich)
-> - don't rename existing label (Jan Beulich)
-> V4:
-> - add __read_mostly (Jan Beulich)
-> - use __set_bit() (Jan Beulich)
-
-This change looks to have been lost, ...
-
-> - fix error handling in evtchn_bind_virq() (Jan Beulich)
-> V5:
-> - domain_init_states() may be called only if evtchn_bind_virq() has been
->   called validly (Jan Beulich)
-> V6:
-> - guard dom_state_changed bitmap with d->event_lock (Jan Beulich)
-
-... without it being mentioned anywhere, and without it becoming clear why
-it would have needed undoing.
-
 > --- a/xen/common/domain.c
 > +++ b/xen/common/domain.c
-> @@ -35,6 +35,7 @@
->  #include <xen/irq.h>
->  #include <xen/argo.h>
->  #include <xen/llc-coloring.h>
-> +#include <xen/xvmalloc.h>
->  #include <asm/p2m.h>
->  #include <asm/processor.h>
->  #include <public/sched.h>
-> @@ -139,6 +140,51 @@ bool __read_mostly vmtrace_available;
+> @@ -185,6 +185,76 @@ static void domain_changed_state(const struct domain *d)
+>      unlock_dom_exc_handler(hdl);
+>  }
 >  
->  bool __read_mostly vpmu_is_available;
->  
-> +static unsigned long *__read_mostly dom_state_changed;
-> +
-> +int domain_init_states(void)
+> +static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+> +                                  const struct domain *d)
 > +{
-> +    const struct domain *d;
-> +
-> +    ASSERT(!dom_state_changed);
-> +    ASSERT(rw_is_write_locked(&current->domain->event_lock));
-
-rw_is_write_locked_by_me()?
-
-> +    dom_state_changed = xvzalloc_array(unsigned long,
-> +                                       BITS_TO_LONGS(DOMID_FIRST_RESERVED));
-> +    if ( !dom_state_changed )
-> +        return -ENOMEM;
-> +
-> +    rcu_read_lock(&domlist_read_lock);
-> +
-> +    for_each_domain ( d )
-> +        set_bit(d->domain_id, dom_state_changed);
-> +
-> +    rcu_read_unlock(&domlist_read_lock);
-> +
-> +    return 0;
+> +    info->state = XEN_DOMCTL_GETDOMSTATE_STATE_EXIST;
+> +    if ( d->is_shut_down )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN;
+> +    if ( d->is_dying == DOMDYING_dying )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DYING;
+> +    if ( d->is_dying == DOMDYING_dead )
+> +        info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DEAD;
+> +    info->unique_id = d->unique_id;
 > +}
 > +
-> +void domain_deinit_states(const struct domain *d)
+> +int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
+> +                     domid_t *domid)
 > +{
-> +    ASSERT(rw_is_write_locked(&d->event_lock));
+> +    unsigned int dom;
+> +    int rc = -ENOENT;
+> +    struct domain *hdl;
+> +
+> +    if ( info->pad0 || info->pad1 )
+> +        return -EINVAL;
+> +
+> +    if ( d )
+> +    {
+> +        set_domain_state_info(info, d);
+> +
+> +        return 0;
+> +    }
+> +
+> +    /*
+> +     * Only domain registered for VIRQ_DOM_EXC event is allowed to query
+> +     * domains having changed state.
+> +     */
+> +    if ( !domain_handles_global_virq(current->domain, VIRQ_DOM_EXC) )
+> +        return -EACCES;
+> +
+> +    hdl = lock_dom_exc_handler();
 
-Again.
+Instead of leaving a small window for races between the if() and this
+function call, can't you simply compare hdl against current->domain?
+
+> +    while ( dom_state_changed )
+> +    {
+> +        dom = find_first_bit(dom_state_changed, DOMID_MASK + 1);
+> +        if ( dom >= DOMID_FIRST_RESERVED )
+> +            break;
+> +        if ( test_and_clear_bit(dom, dom_state_changed) )
+
+As this is now running under lock, does it really need to be test-and-clear?
+What mechanism would allow the flag to be cleared between the find-1st and
+here? Plus, like for patch 4, I think it could be __clear_bit() here.
 
 Jan
 
