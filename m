@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EFB6A042A0
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 15:33:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866385.1277709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28CCCA042A1
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 15:34:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866390.1277718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVAdZ-00074R-NO; Tue, 07 Jan 2025 14:32:53 +0000
+	id 1tVAeR-0007Wv-VU; Tue, 07 Jan 2025 14:33:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866385.1277709; Tue, 07 Jan 2025 14:32:53 +0000
+Received: by outflank-mailman (output) from mailman id 866390.1277718; Tue, 07 Jan 2025 14:33:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVAdZ-00072e-Ki; Tue, 07 Jan 2025 14:32:53 +0000
-Received: by outflank-mailman (input) for mailman id 866385;
- Tue, 07 Jan 2025 14:32:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tVAeR-0007Ub-Sp; Tue, 07 Jan 2025 14:33:47 +0000
+Received: by outflank-mailman (input) for mailman id 866390;
+ Tue, 07 Jan 2025 14:33:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVAdY-00072Y-Ie
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 14:32:52 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4591ee87-cd04-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 15:32:50 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-436202dd730so111866715e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 06:32:50 -0800 (PST)
+ id 1tVAeQ-0007Ry-Ta
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 14:33:46 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 66c4d068-cd04-11ef-a0df-8be0dac302b0;
+ Tue, 07 Jan 2025 15:33:46 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-436202dd730so111878555e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 06:33:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4366120086bsm602497295e9.12.2025.01.07.06.32.49
+ 5b1f17b1804b1-4366127c639sm593718505e9.31.2025.01.07.06.33.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 06:32:49 -0800 (PST)
+ Tue, 07 Jan 2025 06:33:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4591ee87-cd04-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 66c4d068-cd04-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736260370; x=1736865170; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736260425; x=1736865225; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GT+lzfOAjENvEXRJX8o+xq6/VUxk96oSIK5ugLpkuXM=;
-        b=GXz9W17niVHy6fcXPewWU/K3x76oaqf9rHxO8pwzE74cIr9Dd5yJUu9VLUHIz6/JrG
-         WwZGMcDczOz3x/dlmwHwSEDcIS5v0M1KXilCIV6F5L+ZI0h+qsDYs4RYFPFsi48b5VkU
-         0hm5NxvLv0EDx/b0z+T6DXleg7KSBVxGlaJGP4yrmcTNUTyADTpeICm99P9sMPg1vNqZ
-         UMJ4AfGxRga/sciUhwoCKtg9GWneVqXehSrSfFITU60fIxZQrbk2PkA765tXgB439sPL
-         PrLySt0gTK1INX3ftG5+p0Z/OR7niabUd9sRgJyGHUNmdOLTM3avmfk25D5QJRUZ5rmz
-         nVIQ==
+        bh=Ut97ADWYFWCwK59oH2ymgDLqpDldkiEh2jNuUZ/O1nc=;
+        b=cn+nBphlgQ3yf0JN2yLYaRcdXUcL3UsdYNz2YHpucJOUGRwDNMmSYLh0NvYg2xDHxV
+         F6SRRzo3t/2ZNJMrRwxT2ASZJqodaC3B5HofN/nrgbRQTIWMbNKT1fO4gcvVFU9xxDWe
+         buAiC9GSQxTgs5UpCKlpI+s9F3/6O3o+8VqKsjpPnTmYOUCkRsoYdRyHqzQjGFyGdcnI
+         qOzh7Do44qfHbR2fvDK+kJTuiB3ViMpUxpKhdS71ZnY/sykkQ7jo1egjzar+PyHCZGU7
+         0NKiqh/S2j8hlNF18bSU0gacOh2MnSJ+RdQ6QMF1qmW5nU4gkCCLoDyymOM64TAtgl/N
+         2BDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736260370; x=1736865170;
+        d=1e100.net; s=20230601; t=1736260425; x=1736865225;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GT+lzfOAjENvEXRJX8o+xq6/VUxk96oSIK5ugLpkuXM=;
-        b=LameFwfWrrjwvGCcTn8/xa92B+y4kRSvWzRMyGXQU2KRgoOu8pqX6CmE72Lqsej7FE
-         4afoE07+8dNUmC5qDCuHPY6YB4awIOx51b9cfBJXsivFa8T8lTDUZFHAAP8nmCyfRxra
-         Ap+cHyEVqvllO3p61iaOzLL6hIqym+nfy3EUevBHjCfvSbczvblPpV9x2tn8NaaSyTos
-         T4LTuuBFWyYNm4V7e9LAe82iRQ51d6x48H2UWR2E0m05YfTqEOxgzhe1/CNijY77kU6S
-         jMFNAq+2CgbVsJOydPv5xqG6l5lAvYT0W8wDcinvxbzgt6M+Ks88qBIeV0QMPGeOkKVL
-         Tqjw==
-X-Gm-Message-State: AOJu0Yy/dN4XfVDZ+A4mkU6COHQMiV2+LCKds7gqCk3fABk9eOkEAn/L
-	zluLbeEDMkSe5MoVMUyIEXhfXVT4qZBQipnCWaa0wGrsrx9a5vtwMSZ1iQXvs8gy59mi6ZZvW94
+        bh=Ut97ADWYFWCwK59oH2ymgDLqpDldkiEh2jNuUZ/O1nc=;
+        b=SpFHWzavtP5FjBhuRE9/bX0JWRazVzt5MMAqkxZVD3KwTpsaAusHVvC+steFaFno2T
+         lsgMswXzhEc/aXd70QXRXB4KKdwYJ6gNUdaA0QqKBZH/bD3zbMeRQi/Vc7/bskzoaJ3n
+         IP8+AXgS9iipL4gDoRHjhvcYURlkawjCBLkNXETzVlFBn2ynESE1SpaOtSAhs1mOhfZy
+         lT9zr/0JL2vSjzNhaHK7gABTMU33E3L/mXmuIyHTDDmmQlu3ECPADx2KRnyirWO5baFC
+         Rdufky1MctlDWP8vJMpWumCRyQcajjM3QmMrOyaVeFAHUlBcCqn/43WP1T081umxi0hd
+         HFLg==
+X-Gm-Message-State: AOJu0YwvyKPmjwLEyz8YpU7r7sLSecoDGLdc+1+MXLD4ufj+gEFEI/qj
+	uR6lD1/LGtGsSnw9PPV3BRJoktTdYoXtEeQ+tXv8/qf2JorK5tLvD3xAtNL+NVHlf43IG6K/2k0
 	=
-X-Gm-Gg: ASbGncuYAryaif77j7tc1Bd3zXz5R1qMqFLWvTSqKQ3rtbNCkPQDJMrDhJTD+rvweuc
-	2iYGayfL6dtm5or7eBo8sMG9qL3pxuN3sWq2JlVxlVOVHOJ15q1P3hWYgmE/BkZ1QIXzD9gmj1Y
-	Y8iVX3rz3Y8rGAQkZv6CylQPsiY6YilEZU0zAN5Xfs8wC1JyEhaoQ1xiefLsiDszrzOLi/Flw0r
-	5yBAE3n6xkSmptGpIEZcQPl9wH7Sanhq25zVyS3fUNOhuq4JPTcRESi3PtANwxy9E3WxCAsXmik
-	ZIigoyHsZwbF5/zz80dpeVCr9jY68fJksH3Yqc1Jog==
-X-Google-Smtp-Source: AGHT+IEnFbK96+DBJ+avk9/L+HEcS6XEfPhIeOVcy7z/ev/0RKrv2mE3jMnHQoxj/awnF+LCnSiKbQ==
-X-Received: by 2002:a05:600c:4710:b0:434:9e1d:7626 with SMTP id 5b1f17b1804b1-43668b5dff4mr463949495e9.25.1736260369748;
-        Tue, 07 Jan 2025 06:32:49 -0800 (PST)
-Message-ID: <238beefd-126a-4a2d-99de-dc5675c88ef6@suse.com>
-Date: Tue, 7 Jan 2025 15:32:48 +0100
+X-Gm-Gg: ASbGnctBcO5PZxGCsVr5BGRDr9X+tSNwdcZqqWAr/DmyhbhvP9C9Q7O0lgvsMT1S+FP
+	UKSYH4gCpzTOjZ3QQSFpAtg1L5tHLAL8GTlie7iNsnho/kggS43XTVwyfR/gZ03Tnl69RuXTW9w
+	4+8fVXybANA+WOe6Gd1jeNtPcA/znY47wLnDZChKRWMZjbUL9Gs0pqAJaoSX9JPUHA+UuoikviB
+	U8YwTXgZlB3skw2dqmJNZ3dKXWt7V5WrTtz/o03Up8CkNgGACKzDcpZqfOn+u3jLQ5iJrlD044t
+	npaFmIUstKKfSi1Eq84HkkRnBbNj+S5d2DAccs5nNA==
+X-Google-Smtp-Source: AGHT+IHUGgVWH2JAP0p+TPewdO8msvVuiF2XBJbv51PW3qMIwCDyUd4zvIgVbo5xqFs2uXA/8TuMPA==
+X-Received: by 2002:a05:600c:1c21:b0:436:aaf:7eb9 with SMTP id 5b1f17b1804b1-43668b5dfcbmr456590825e9.20.1736260425520;
+        Tue, 07 Jan 2025 06:33:45 -0800 (PST)
+Message-ID: <81428267-e963-4403-989d-d96fb0b59ffc@suse.com>
+Date: Tue, 7 Jan 2025 15:33:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -90,7 +90,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul: VCVT{,U}DQ2PD ignores embedded rounding
+Subject: [PATCH] x86emul: correct put_fpu()'s segment selector handling
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,55 +117,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-IOW we shouldn't raise #UD in that case. Be on the safe side though and
-only encode fully legitimate forms into the stub to be executed.
+All selector fields under ctxt->regs are (normally) poisoned in the HVM
+case, and the four ones besides CS and SS are potentially stale for PV.
+Avoid using them in the hypervisor incarnation of the emulator, when
+trying to cover for a missing ->read_segment() hook.
 
-Things weren't quite right for VCVT{,U}SI2SD either, in the attempt to
-be on the safe side: Clearing EVEX.L'L isn't useful; it's EVEX.b which
-primarily needs clearing. Also reflect the somewhat improved doc
-situation in the comment there.
+To make sure there's always a valid ->read_segment() handler for all HVM
+cases, add a respective function to shadow code, even if it is not
+expected for FPU insns to be used to update page tables.
 
-Fixes: ed806f373730 ("x86emul: support AVX512F legacy-equivalent packed int/FP conversion insns")
-Fixes: baf4a376f550 ("x86emul: support AVX512F legacy-equivalent scalar int/FP conversion insns")
+Fixes: 0711b59b858a ("x86emul: correct FPU code/data pointers and opcode handling")
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+The code comment may want adjusting in the course of FRED work.
 
+--- a/xen/arch/x86/mm/shadow/hvm.c
++++ b/xen/arch/x86/mm/shadow/hvm.c
+@@ -287,11 +287,29 @@ hvm_emulate_cmpxchg(enum x86_segment seg
+     return rc;
+ }
+ 
++static int cf_check
++hvm_emulate_read_segment(enum x86_segment seg,
++                         struct segment_register *reg,
++                         struct x86_emulate_ctxt *ctxt)
++{
++    struct sh_emulate_ctxt *sh_ctxt =
++        container_of(ctxt, struct sh_emulate_ctxt, ctxt);
++    const struct segment_register *sreg = hvm_get_seg_reg(seg, sh_ctxt);
++
++    if ( IS_ERR(sreg) )
++        return -PTR_ERR(sreg);
++
++    *reg = *sreg;
++
++    return X86EMUL_OKAY;
++}
++
+ static const struct x86_emulate_ops hvm_shadow_emulator_ops = {
+     .read       = hvm_emulate_read,
+     .insn_fetch = hvm_emulate_insn_fetch,
+     .write      = hvm_emulate_write,
+     .cmpxchg    = hvm_emulate_cmpxchg,
++    .read_segment = hvm_emulate_read_segment,
+ };
+ 
+ const struct x86_emulate_ops *shadow_init_emulation(
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -3596,12 +3596,15 @@ x86_emulate(
-         if ( !mode_64bit() )
-             evex.w = 0;
-         /*
--         * SDM version 067 claims that exception type E10NF implies #UD when
--         * EVEX.L'L is non-zero for 32-bit VCVT{,U}SI2SD. Experimentally this
--         * cannot be confirmed, but be on the safe side for the stub.
-+         * While SDM version 085 has explicit wording towards embedded rounding
-+         * being ignored, it's still not entirely unambiguous with the exception
-+         * type referred to. Be on the safe side for the stub.
-          */
-         if ( !evex.w && evex.pfx == vex_f2 )
-+        {
-+            evex.brs = 0;
-             evex.lr = 0;
-+        }
-         opc[1] = (modrm & 0x38) | 0xc0;
-         insn_bytes = EVEX_PFX_BYTES + 2;
-         opc[2] = 0xc3;
-@@ -4819,7 +4822,16 @@ x86_emulate(
-         else
+@@ -447,14 +447,37 @@ static void put_fpu(
+         if ( state->ea.type == OP_MEM )
          {
-             host_and_vcpu_must_have(avx512f);
--            generate_exception_if(ea.type != OP_MEM && evex.brs, X86_EXC_UD);
+             aux.dp = state->ea.mem.off;
+-            if ( ops->read_segment &&
+-                 ops->read_segment(state->ea.mem.seg, &sreg,
+-                                   ctxt) == X86EMUL_OKAY )
++            if ( state->ea.mem.seg == x86_seg_cs )
++                aux.ds = aux.cs;
++            else if ( ops->read_segment &&
++                      ops->read_segment(state->ea.mem.seg, &sreg,
++                                        ctxt) == X86EMUL_OKAY )
+                 aux.ds = sreg.sel;
++#ifdef __XEN__
 +            /*
-+             * While SDM version 085 has explicit wording towards embedded
-+             * rounding being ignored, it's still not entirely unambiguous with
-+             * the exception type referred to. Be on the safe side for the stub.
++             * While generally the expectation is that input structures are
++             * fully populated, the selector fields under ctxt->regs normally
++             * aren't set, with the exception of CS and SS for PV domains.
++             * Read the real selector registers for PV, and assert that HVM
++             * invocations always set a properly functioning ->read_segment()
++             * hook.
 +             */
-+            if ( ea.type != OP_MEM && evex.brs )
-+            {
-+                evex.brs = 0;
-+                evex.lr = 2;
-+            }
++            else if ( is_pv_vcpu(current) )
++                switch ( state->ea.mem.seg )
++                {
++                case x86_seg_ds: aux.ds = read_sreg(ds);  break;
++                case x86_seg_es: aux.ds = read_sreg(es);  break;
++                case x86_seg_fs: aux.ds = read_sreg(fs);  break;
++                case x86_seg_gs: aux.ds = read_sreg(gs);  break;
++                case x86_seg_ss: aux.ds = ctxt->regs->ss; break;
++                default:         ASSERT_UNREACHABLE();    break;
++                }
++            else
++                ASSERT_UNREACHABLE();
++#else
+             else
+                 switch ( state->ea.mem.seg )
+                 {
+-                case x86_seg_cs: aux.ds = ctxt->regs->cs; break;
+                 case x86_seg_ds: aux.ds = ctxt->regs->ds; break;
+                 case x86_seg_es: aux.ds = ctxt->regs->es; break;
+                 case x86_seg_fs: aux.ds = ctxt->regs->fs; break;
+@@ -462,6 +485,7 @@ static void put_fpu(
+                 case x86_seg_ss: aux.ds = ctxt->regs->ss; break;
+                 default:         ASSERT_UNREACHABLE();    break;
+                 }
++#endif
+             aux.dval = true;
          }
-         if ( ea.type != OP_REG || !evex.brs )
-             avx512_vlen_check(false);
+         ops->put_fpu(ctxt, X86EMUL_FPU_none, &aux);
 
