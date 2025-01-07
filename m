@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F809A04548
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 16:58:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866594.1277906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3449FA04550
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:00:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866602.1277917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVBy9-0005VC-Ly; Tue, 07 Jan 2025 15:58:13 +0000
+	id 1tVBzh-00064o-0W; Tue, 07 Jan 2025 15:59:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866594.1277906; Tue, 07 Jan 2025 15:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 866602.1277917; Tue, 07 Jan 2025 15:59:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVBy9-0005Tk-J9; Tue, 07 Jan 2025 15:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 866594;
- Tue, 07 Jan 2025 15:58:11 +0000
+	id 1tVBzg-00062s-TF; Tue, 07 Jan 2025 15:59:48 +0000
+Received: by outflank-mailman (input) for mailman id 866602;
+ Tue, 07 Jan 2025 15:59:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVBy7-0005TP-Kb
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 15:58:11 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1tVBzg-00062m-9t
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 15:59:48 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30e27445-cd10-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 16:58:09 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-436202dd7f6so178120455e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 07:58:09 -0800 (PST)
+ id 6a8f8bb9-cd10-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 16:59:46 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-435f8f29f8aso113810915e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 07:59:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8acb85sm50358768f8f.103.2025.01.07.07.58.08
+ 5b1f17b1804b1-43661289995sm599318425e9.36.2025.01.07.07.59.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 07:58:08 -0800 (PST)
+ Tue, 07 Jan 2025 07:59:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30e27445-cd10-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 6a8f8bb9-cd10-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736265489; x=1736870289; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736265586; x=1736870386; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c0o9daT+a94PO+d5RoEpoktH06ZlvJMExcQYADSfY+I=;
-        b=Y9uNAP59ViqOtC5cvxig3wwHpzKsABtu6sDupf6QVnkAtsZm3mZC2OdFStNEx22yN5
-         M7BvSdNX6QtUDFwudCnq1SQ9vn0FHfNJisPnfKWfXjmluXD0YzMQ3Hu3TBlof5nXkEl8
-         yrS7I4pi9Q1ywz0sJqzRc5NQ3f5RAhEq5/uW7WtFU+nAQl+cmTfZvn+1mztOaLAqlOHe
-         88TRSUC2ocqd5HAPmM9sCoAa45Zb9qTursFJG3H7e2YpqquoPZM3ulkKxZDLgjHlB4D5
-         pPDjF4JmPSgxEUkEAnpVC6OUOdjjFbFnTJmQQuvehP0UwiMrL2k630mvHv2lWV1txrF/
-         ZFBQ==
+        bh=jWyMuhFbKW6KhagEj1mLFXaD19omX2Qj5fafAf4eHd0=;
+        b=QMVQs4z3k1owzVAXPODhtnVg3V3TJ+M6LjmVjPdkJTJfxukBZt7AZ+4U12OWdDwJeO
+         TdRv4Q55Vrv/+rIpNUBNtxESLxJzc64drKOeHKSU+nyH17HD5Um78bdKcXZvenknPNQ1
+         qaKjrnGLHLKvyhWrnNJ39ZjMEi6IMW1ghWrR0QoxtXVwGNzpVCx2jZgSQwNlO4odzO8i
+         EFZiM+CUJWMb6EEcl03MF0YVxdSIIZNcGcv3P1qBXsXSYT2mGOpCPjCUjDRUspJ2CGTz
+         SqNoK/tT4abWqWlz6G42nSb+ClZN7Uy6H7tdKDKuJg4FHkR9O6ZDzbFpwLssyiY1krA6
+         z8yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736265489; x=1736870289;
+        d=1e100.net; s=20230601; t=1736265586; x=1736870386;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c0o9daT+a94PO+d5RoEpoktH06ZlvJMExcQYADSfY+I=;
-        b=CsKZ3MlIB3ap2P64ck99G01PGK8uGBW/dwGHBoCu3btQJIIEcEa/IK0wq4rdIN1Aqb
-         NiWd2H1eOduNsxwslOsopB7e5pcY4S2sFboUwjj2tHJgVi0sE+uJqG1hpZCLI+DHN3Be
-         YrhW+HxC+TGnORBYX0X3dFofI/qXYKyHW2GJSjeDld7toQF8yoS1WCM/w3wfHSLxBLdc
-         RnZjVwANJmoeD0CCYqYIxplTmmn0RPhK21dhLlfsz3gR60C+Fe8Qmz4pPm3oItN8NBVn
-         cfF+arphwS3t/XDTHmzgVIdd8bXC0idF4S5H97W9Od8wZpjfY7KZ/kLGPXgUjEniRFbT
-         6KJQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWsIyMdiRXQCRrcjNKduYW0W7Uklaezqttt63NpnSy/CiMhcSv8aADhKmwEzdxVFL2kY9X/gwQYnPE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzU9CX2zjfXX5k6u9pabbBz7L5g4EnyDFyxqqyaVaPQ1dnvsStU
-	GJhd5F2RdjJL1NtT3Xa62xwHwrg1tw5NO1f0EFECXq97B4rhDYePkpJoi4Ww7g==
-X-Gm-Gg: ASbGncuYY8CZxGvyzRabVL/6mLO8+wKLfaSyn2FU8ctcAa1ih7AQSjkEN8Vb8/25SBT
-	fqmp6xnSIcJbcGkAVOjhAw9igc5r0/mC/L5hEsvi12Olh1DPhuOtaSPofIObjH8W+AKWrOHoci8
-	suaZZQ9SRkUEUbkRQArhFicdHvkmoKufsZEhI2fdp3U75fw2iDxxZ+OD4/TCzjhjzNJ7rWJTHBo
-	Q3K9Er2Hh6PqNNWgWwh7WKjitqRZMA3wR7WeJnhZnCYQlnIbqFBamjnkLOu+OENK4894eYnLv9G
-	WF8/ZHO1EWwGMveYCSR+F0ittqG/hEzYlApEeuyiYg==
-X-Google-Smtp-Source: AGHT+IHl2hEu23r0pAHgLIp5OcEqmPIPzKt7ndAJAulEaSb/TN0l1PhVPyoq4NLoW4ZtylZMC1NFQg==
-X-Received: by 2002:a5d:5f56:0:b0:386:1cd3:8a00 with SMTP id ffacd0b85a97d-38a223f5b41mr60793957f8f.40.1736265488988;
-        Tue, 07 Jan 2025 07:58:08 -0800 (PST)
-Message-ID: <fb1b00fe-5740-4c0e-81d9-ec9fd9a4a1c3@suse.com>
-Date: Tue, 7 Jan 2025 16:58:07 +0100
+        bh=jWyMuhFbKW6KhagEj1mLFXaD19omX2Qj5fafAf4eHd0=;
+        b=Wf4U8KRDiNTnUOwOW2GHcku0afvEmIhPVdxfDi8BuDzZzm7xzPZW/KgQvrTWlULkRr
+         EML9fBqF9uZ7bwQMOeJ8ynye7mPueK2zFf9TwO+KWI+Im9QOByg8LIRUVUsC7Ks97TB4
+         w7xuGjqcO/FOqBf1KoBlHxfpRJ98j1lbFooIIQBSZISoN1eUinf85r95ikcSFguLIdWD
+         ch6g1/ca8O6zlsEzCiUNVMS4HKuxjRh3wcaLDbpFv/RL81hKVqCUxjV5m5udBKWBXzL2
+         DWQ4IfTgGgaZrBwjui2jcvMCPJxFRsboxl/UlLFFDa4ga1OMhzldfg8cnJ7CvEwzTHxS
+         nIWg==
+X-Forwarded-Encrypted: i=1; AJvYcCVS+cfkSnBSsxtlymPdUWV/p0t4Y/RgTwHN+QU3zEOn1Mr/o85bDN9UuV3Y4fBwcwgbWuwrqM4oqXA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyKG5wnMWFg8d8gZ3JqhpjgCtbsQIW+o6gHppvy1Cglm8XpfZk0
+	qk/O2ZnGbDpfax4f+Dp3JviFEXSaNKw2IszkO14SlPkeubAu4t1CanaUapPl0A==
+X-Gm-Gg: ASbGncthE05XK+V1KRDzXWZXMEAexBaBCrm/g7r9ZF9UrKRm6/bP+va51MgWEMwKews
+	/+EkYcq1tEdWB/kA1+jdHZkhaFiOyCgBmzmk5G/dhYDD5a5Qs2XvKCbiAIqfWtNcb22TnoyC5Mh
+	BzK4tgoJNw89XBEBa0UA8OSQE+Qpc0gsHQNjRjzPMbaTCAuwiKdJSKfEtWNlGttt5BHLEuUS6Uv
+	Vl93wtBbN67pf/HLTBwRj81c/ZjaeB3uY5Ecxk2xwtIA1rdvCmC0kuAhRsyFSB6H3MksG45WwXO
+	cuGesifuCnH4UbgYrdZtdsUssTV1p4SLKNLMBO3DDA==
+X-Google-Smtp-Source: AGHT+IGY2plrmHVDziKy/i3CwkZhUjkzhTpHz45s7M7ztuUIibwY3zD1pdy1xEjm9FisG5ZEc8UnLg==
+X-Received: by 2002:a7b:c459:0:b0:434:ff30:a165 with SMTP id 5b1f17b1804b1-436712441e2mr476774675e9.8.1736265585851;
+        Tue, 07 Jan 2025 07:59:45 -0800 (PST)
+Message-ID: <e6def4e3-30d8-446e-9961-475602cdc46a@suse.com>
+Date: Tue, 7 Jan 2025 16:59:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] vpci: Add resizable bar support
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Huang Rui <ray.huang@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20241219052143.3161332-1-Jiqian.Chen@amd.com>
- <d904c816-da83-418a-9bff-9988660af546@suse.com>
- <Z308fGa1daaM62Rf@macbook.local>
+Subject: Re: [PATCH v6 1/7] xen/events: fix race with
+ set_global_virq_handler()
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250107101711.5980-1-jgross@suse.com>
+ <20250107101711.5980-2-jgross@suse.com>
+ <c7ed9380-a4a1-4576-af56-2949d80cfd92@suse.com>
+ <c00886ec-184c-4a82-8093-4fc9b470ea1b@suse.com>
+ <270984e8-2296-48b9-b45c-92ab28b4e6dd@suse.com>
+ <b508c054-5706-4fcc-b8f8-738775530022@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,198 +125,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z308fGa1daaM62Rf@macbook.local>
+In-Reply-To: <b508c054-5706-4fcc-b8f8-738775530022@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07.01.2025 15:38, Roger Pau Monné wrote:
-> On Tue, Jan 07, 2025 at 11:06:33AM +0100, Jan Beulich wrote:
->> On 19.12.2024 06:21, Jiqian Chen wrote:
->>> --- /dev/null
->>> +++ b/xen/drivers/vpci/rebar.c
->>> @@ -0,0 +1,131 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +/*
->>> + * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
->>> + *
->>> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
->>> + */
->>> +
->>> +#include <xen/sched.h>
->>> +#include <xen/vpci.h>
->>> +
->>> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->>> +                                      unsigned int reg,
->>> +                                      uint32_t val,
->>> +                                      void *data)
->>> +{
->>> +    struct vpci_bar *bar = data;
->>> +    uint64_t size = PCI_REBAR_CTRL_SIZE(val);
->>> +
->>> +    if ( bar->enabled )
->>> +    {
->>> +        /*
->>> +         * Refuse to resize a BAR while memory decoding is enabled, as
->>> +         * otherwise the size of the mapped region in the p2m would become
->>> +         * stale with the newly set BAR size, and the position of the BAR
->>> +         * would be reset to undefined.  Note the PCIe specification also
->>> +         * forbids resizing a BAR with memory decoding enabled.
->>> +         */
->>> +        if ( size != bar->size )
->>> +            gprintk(XENLOG_ERR,
->>> +                    "%pp: refuse to resize BAR with memory decoding enabled\n",
->>> +                    &pdev->sbdf);
->>> +        return;
->>> +    }
->>> +
->>> +    if ( !((size >> PCI_REBAR_SIZE_BIAS) & bar->resizable_sizes) )
->>> +        gprintk(XENLOG_WARNING,
->>> +                "%pp: new size %#lx is not supported by hardware\n",
->>> +                &pdev->sbdf, size);
->>> +
->>> +    bar->size = size;
+On 07.01.2025 16:56, Juergen Gross wrote:
+> On 07.01.25 16:49, Jan Beulich wrote:
+>> On 07.01.2025 16:37, Juergen Gross wrote:
+>>> On 07.01.25 16:23, Jan Beulich wrote:
+>>>> On 07.01.2025 11:17, Juergen Gross wrote:
+>>>>> --- a/xen/common/event_channel.c
+>>>>> +++ b/xen/common/event_channel.c
+>>>>> @@ -979,6 +979,7 @@ void send_global_virq(uint32_t virq)
+>>>>>    int set_global_virq_handler(struct domain *d, uint32_t virq)
+>>>>>    {
+>>>>>        struct domain *old;
+>>>>> +    int rc = 0;
+>>>>>    
+>>>>>        if (virq >= NR_VIRQS)
+>>>>>            return -EINVAL;
+>>>>> @@ -992,14 +993,23 @@ int set_global_virq_handler(struct domain *d, uint32_t virq)
+>>>>>            return -EINVAL;
+>>>>>    
+>>>>>        spin_lock(&global_virq_handlers_lock);
+>>>>> -    old = global_virq_handlers[virq];
+>>>>> -    global_virq_handlers[virq] = d;
+>>>>> +
+>>>>> +    if ( d->is_dying != DOMDYING_alive )
+>>>>> +    {
+>>>>> +        old = d;
+>>>>> +        rc = -EINVAL;
+>>>>> +    }
+>>>>
+>>>> While I can see how this eliminates the zombie domain aspect, this doesn't
+>>>> fully eliminate the race. Doing so would require (also) using the domain's
+>>>> event lock. Assuming we're okay with the remaining race, imo a code comment
+>>>> would be needed to state this (including the fact that it's then
+>>>> unpredictable whether this operation might still succeed for a domain
+>>>> already having d->is_dying != DOMDYING_alive).
+>>>
+>>> AFAIU you mean that it is still possible to set a domain to handle a virq
+>>> when it is in the process of going down, especially if is_dying is set just
+>>> after it has been tested to be DOMDYING_alive?
+>>>
+>>> I don't see this being a problem, as the same would happen if the domain
+>>> would go down just a millisecond later. This is something we will never be
+>>> able to handle.
 >>
->> Shouldn't at least this be in an "else" to the if() above?
+>> Right, but the sequence of events in the case you mention is different: The
+>> insertion into the array would still happen while the domain isn't marked
+>> dying.
+>>
+>>> And after all the call of clear_global_virq_handlers() will now reset the
+>>> handling domain to the hardware domain in all cases.
+>>
+>> Of course, but in the meantime an event may be sent to such a domain already
+>> marked dying. That likely isn't going to cause problems, but is unexpected
+>> with what description here says is being addressed.
+>>
+>>>> Plus the way you do it the early success path remains; ideally that case
+>>>> would also fail for an already dying domain.
+>>>
+>>> Same again: clear_global_virq_handlers() will reset the handling domain.
+>>
+>> Right.
+>>
+>> In summary: As indicated, we may be okay with the remaining race, but then
+>> we also should be making clear that we've decided to leave it at that.
+>> Hence my earlier request: If we accept this, say (and briefly justify) this
+>> in a code comment.
 > 
-> I think this was already raised in a previous version - would be good
-> to know how real hardware behaves when an invalid size is set.  Is the
-> BAR register still reset?
-
-I'm pretty sure what happens is undefined. I'd expect though that the
-BAR size then doesn't change. Which would require the above assignment
-to not be unconditional.
-
->>> +static int cf_check init_rebar(struct pci_dev *pdev)
->>> +{
->>> +    uint32_t ctrl;
->>> +    unsigned int nbars;
->>> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
->>> +                                                        PCI_EXT_CAP_ID_REBAR);
->>> +
->>> +    if ( !rebar_offset )
->>> +        return 0;
->>> +
->>> +    if ( !is_hardware_domain(pdev->domain) )
->>> +    {
->>> +        printk(XENLOG_ERR "%pp: resizable BARs unsupported for unpriv %pd\n",
->>> +               &pdev->sbdf, pdev->domain);
->>> +        return -EOPNOTSUPP;
->>> +    }
->>> +
->>> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
->>> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
->>> +
->>> +    for ( unsigned int i = 0; i < nbars; i++ )
->>> +    {
->>> +        int rc;
->>> +        struct vpci_bar *bar;
->>> +        unsigned int index;
->>> +
->>> +        ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(i));
->>> +        index = ctrl & PCI_REBAR_CTRL_BAR_IDX;;
->>
->> Nit: No double semicolons please.
->>
->>> +        if ( index >= PCI_HEADER_NORMAL_NR_BARS )
->>> +        {
->>> +            /*
->>> +             * TODO: for failed pathes, need to hide ReBar capability
->>> +             * from hardware domain instead of returning an error.
->>> +             */
->>> +            printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
->>> +                   pdev->domain, &pdev->sbdf, index);
->>> +            return -EINVAL;
->>
->> With the TODO unaddressed, is it actually appropriate to return an error
->> here? Shouldn't we continue in a best effort manner? (Question also to
->> Roger as the maintainer.)
+> Okay, would you be fine with:
 > 
-> It would indeed be better to shallow the error and return 0, however
-> the handlers added in this loop would need removing if no error is
-> returned.
+>    Note that this check won't guarantee that a domain just going down can't be
+>    set as the handling domain of a virq, as the is_dying indicator might change
+>    just after testing it.
+>    This isn't going to be a major problem, as clear_global_virq_handlers() is
+>    guaranteed to run afterwards and it will reset the handling domain for the
+>    virq to the hardware domain.
 
-Would they? For those BARs where things worked fine I would think they
-could be left in place.
-
->>> +        }
->>> +
->>> +        bar = &pdev->vpci->header.bars[index];
->>> +        if ( bar->type != VPCI_BAR_MEM64_LO && bar->type != VPCI_BAR_MEM32 )
->>> +        {
->>> +            printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
->>> +                   pdev->domain, &pdev->sbdf, index);
->>> +            return -EINVAL;
->>
->> Same question here then.
->>
->>> +        }
->>> +
->>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, vpci_hw_write32,
->>> +                               rebar_offset + PCI_REBAR_CAP(i), 4, NULL);
->>> +        if ( rc )
->>> +        {
->>> +            printk(XENLOG_ERR "%pd %pp: fail to add reg of REBAR_CAP rc=%d\n",
->>> +                   pdev->domain, &pdev->sbdf, rc);
->>> +            return rc;
->>> +        }
->>> +
->>> +        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
->>> +                               rebar_offset + PCI_REBAR_CTRL(i), 4, bar);
->>> +        if ( rc )
->>> +        {
->>> +            printk(XENLOG_ERR "%pd %pp: fail to add reg of REBAR_CTRL rc=%d\n",
->>> +                   pdev->domain, &pdev->sbdf, rc);
->>> +            return rc;
->>> +        }
->>> +
->>> +        bar->resizable_sizes |=
->>> +            (pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CAP(i)) >>
->>> +             PCI_REBAR_CAP_SHIFT);
->>
->> Imo this would better use = in place of |= and (see also below) would also
->> better use MASK_EXTR() just like ...
->>
->>> +        bar->resizable_sizes |=
->>> +            ((uint64_t)MASK_EXTR(ctrl, PCI_REBAR_CTRL_SIZES) <<
->>> +             (32 - PCI_REBAR_CAP_SHIFT));
->>
->> ... this one does.
->>
->> Further I think you want to truncate the value for 32-bit BARs, such that
->> rebar_ctrl_write() would properly reject attempts to set sizes of 4G and
->> above for them.
-> 
-> For the hardware domain at least we shouldn't add such restriction -
-> Xen in general allows dom0 to do things it would otherwise consider
-> invalid, in case it has to deal with hardware quirks.
-> 
-> Rather than reject Xen should just print a warning that the sizes
-> supported by the device are likely invalid.
-
-And do what when memory decode is re-enabled on the device? What size a
-P2M update should it do then?
-
->>> --- a/xen/drivers/vpci/vpci.c
->>> +++ b/xen/drivers/vpci/vpci.c
->>> @@ -232,6 +232,12 @@ void cf_check vpci_hw_write16(
->>>      pci_conf_write16(pdev->sbdf, reg, val);
->>>  }
->>>  
->>> +void cf_check vpci_hw_write32(
->>> +    const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
->>> +{
->>> +    pci_conf_write32(pdev->sbdf, reg, val);
->>> +}
->>
->> This function is being added just to handle writing of a r/o register.
->> Can't you better re-use vpci_ignored_write()?
-> 
-> But vpci_ignored_write() ignores the write, OTOH here the write is
-> propagated to the hardware.
-
-Right, just for the hardware to drop it. I wouldn't have commented if
-the function needed to do things like this already existed. Adding yet
-another cf_check function just for this is what made me give the remark.
+Reads okay, thanks.
 
 Jan
 
