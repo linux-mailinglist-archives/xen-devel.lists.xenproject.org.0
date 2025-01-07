@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13377A04569
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:08:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866618.1277937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF0E8A04598
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:10:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866624.1277947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVC7Q-0001HX-5G; Tue, 07 Jan 2025 16:07:48 +0000
+	id 1tVC9i-0002i8-HC; Tue, 07 Jan 2025 16:10:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866618.1277937; Tue, 07 Jan 2025 16:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 866624.1277947; Tue, 07 Jan 2025 16:10:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVC7Q-0001En-2Z; Tue, 07 Jan 2025 16:07:48 +0000
-Received: by outflank-mailman (input) for mailman id 866618;
- Tue, 07 Jan 2025 16:07:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVC9i-0002gd-Dn; Tue, 07 Jan 2025 16:10:10 +0000
+Received: by outflank-mailman (input) for mailman id 866624;
+ Tue, 07 Jan 2025 16:10:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qdqe=T7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tVC7O-0001Eh-7Y
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 16:07:46 +0000
+ id 1tVC9g-0002gX-SY
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 16:10:08 +0000
 Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
  [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8740dbe5-cd11-11ef-a0df-8be0dac302b0;
- Tue, 07 Jan 2025 17:07:45 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc6e2a12-cd11-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 17:10:06 +0100 (CET)
 Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aa696d3901bso2116110666b.1
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 08:07:44 -0800 (PST)
+ a640c23a62f3a-aa66ead88b3so583083966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 08:10:06 -0800 (PST)
 Received: from ?IPV6:2003:e5:8731:2800:842d:42a0:5992:3595?
  (p200300e587312800842d42a059923595.dip0.t-ipconnect.de.
  [2003:e5:8731:2800:842d:42a0:5992:3595])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0eae4338sm2370432666b.86.2025.01.07.08.07.42
+ a640c23a62f3a-aac0efe46d5sm2411987266b.103.2025.01.07.08.10.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 08:07:42 -0800 (PST)
+ Tue, 07 Jan 2025 08:10:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,49 +47,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8740dbe5-cd11-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: dc6e2a12-cd11-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736266063; x=1736870863; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736266206; x=1736871006; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=faoAWuGZisMdWRHtzZIvW/ueHzLPZWYcN2m9rB3uDbY=;
-        b=TkRQYC5Y94sL4J2hyt6NHGR3WoBt7suH87HnKuH5ucpa5+ryZltl4vLpysPdskbSn8
-         Kus/GnTG1F/zzNy61Jotc39mBZNTFp/5PGsEu79P3arIWr3zfPKBc6zU0yaF3XsCLYNz
-         3HFyipz43kQBKRAY0kfCD0z0IKTTZv/yi0NEw4DbU+JHArRiskRMXAnRiNtaLPY12spD
-         lvisKFht7Qrbfzs4Ge9OOo7I/UCsB4DkY7XMt3SgktBiEDMxJmP2BXGrMUe2ThWjrzCC
-         yO7ds3nH+bf5F8Ny3G2Aro/PB35+N9EadqUK0M+8J68bRcyMqnzSgdQrIL6mWAxlxB16
-         3Buw==
+        bh=ng2syJtU2x7becFhRtds5M5yUZ1y0CaKDyoZdEKVVfc=;
+        b=UtuQQV99gVmJT57C2rnlZvgqiT6xNN+1IMMoMrovkTKJfZeeindKlPiRETo8arVbMd
+         u74VisQUtEmQckxFw0Np5y9a8oWFvtHUqxg66U9BuF0JjkTfMdAAmD5p6EaeThVJuAjK
+         3n4Kcsyiwrr8BcygfE6XsabSFJKGg5Tr3Ax+zpXLUq2LAzjLDlj/Em5G/cJaiEjfkFBe
+         yDVMY24rCAG4MPy7tKZjpt1W2eCZCmhFzwz3PLQWJ1ymC8pkd8Dwfbiq0erDpAjeH9SI
+         BrqsMSTi4y3Gn2LNDHE4OPZfHeSe/OtCvDyHFWwVNTbKO9qj2OFY8iOFsbKDXp0aVrMZ
+         g7xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736266063; x=1736870863;
+        d=1e100.net; s=20230601; t=1736266206; x=1736871006;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=faoAWuGZisMdWRHtzZIvW/ueHzLPZWYcN2m9rB3uDbY=;
-        b=J9XRbqOmAMHG5YlW18+e42QPdQFz7Ou7fcpjMAEVUlq3BlnXoNLCyM6XPCZgSNRYf5
-         NMHIvIeF5n+Fh4ffm5iHKmB+vuSnLLcU0pHv2Lsxrc18LlU5EbnMRlMmR6ufGTxR0JYH
-         vwwkGWNE7zPIUY8Dk1zTsBrecd6AzrKx7G8VaEcEALavCrOsI+kZ8McMK9TlIuN5u+5P
-         RoruCQwJ46p8FZ1Rrfm740TbTvkdjGKVbe3c08LZcphttg4Cf+XaOOIiS1KG5i0caLf/
-         PlKGt91obm//oH+rYMx16lSAozyIsNZudKScQy/yFZ+Hv+bWZF275oTaFPfDr35H6TGZ
-         AVCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVzxDSpEiiSD64zaEBN0aZoQuC9H8soz/WI43Mm+uQfE85oQRL9MJ9k8pJIVO4drbzwxgzcxDN8FqE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yydf/y0M/1AIuE0xHGycloQBEc3Fl6eDWHVtOLh5d2JaX3r7e/s
-	JnuSX8yv91JovIbJShwRSROodNxm6aosHAJmMHKDR+N7Zj4i0NDzprEID8tP3oU=
-X-Gm-Gg: ASbGnctYPMpAliOPysI+abl6TaB5dV0XMi1R1UAgMaNQwkvGE9cIQ0moy3o05LY7Wwj
-	MIfTfcDWvqu77Esc1/CWK0ORF5IqY1BjvyIdqEAQClAm6xjppS9oAlDwApRZTOYM5BaRqNihPqB
-	2WDbPO7sr2JOMh1wtPbAscvZNfJ9iO690aHF3xxVhrfQaqfAL3DxuBCCcyY5yW+fuHn6u3U1jZm
-	QfL8lll126wkZm+dQGH6bSPmmP3HNUCHkjLlAn/56D5XMAaUTgGBr29Er8ZPkgyFcLicBw2N2S/
-	9obZYoYhEHp7p7gZeLLIwoeD+X8NIaqK0JxFKhUW+UY/BihVngvLql6vB0S+oUpXfyXqNOnWoA+
-	/zMdtfQ==
-X-Google-Smtp-Source: AGHT+IHaI+XL1aa6Z36PHVwPaX8gEUK4eYYmQ59xnpHKmUhXDGTsr1aQROmxYVjri4VcQcUrYfgUgg==
-X-Received: by 2002:a17:907:2d1f:b0:aa6:966d:3f93 with SMTP id a640c23a62f3a-aac2b0a5b51mr5115401066b.23.1736266063241;
-        Tue, 07 Jan 2025 08:07:43 -0800 (PST)
-Message-ID: <5261716e-a2f4-4423-bb8d-17e36bf34538@suse.com>
-Date: Tue, 7 Jan 2025 17:07:41 +0100
+        bh=ng2syJtU2x7becFhRtds5M5yUZ1y0CaKDyoZdEKVVfc=;
+        b=HRrJCQ/QEUO8WgsWWZ/JVmh3w3QxXkNqDn4phcYXPMPgRPZ6S+z9FhpCMfjgpVUT61
+         xLDFsM9JctT2DrTLCVDOKD2aQ5xyYtfbNSNd+xlOPrP8bZKgADsvCNnfUcfr8g/eSrqR
+         16aBO45YOazRNwQ1So11taAyRzTcQKDnJlvBJ1O8isbcwJL0jhFUQGPr3DLbs5AaW8lQ
+         vBlVtle6EmsxcsFr0vnm/LY8kH9YM945hnabBvhu8rAIXDQStfc7TLEw3He1Tr3qUvpw
+         Ug+dBB2/1MYsuxtWlB8sfw5guqV2Nk1T+LLuplNKDErJCQ/gtnClXJfVFg/zPOzvttpQ
+         3qvg==
+X-Forwarded-Encrypted: i=1; AJvYcCUwoT1ZVEA6FBG34pOXs+PWs7WWRjc09yE9Wy3h5PemUEwdJZ8b/XHTTAbKRUAfanf0TkVZKzmjOvI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywwd26foBSv/dl9OgoQ35zVSWwcmHRAs1hihxGR+9rWYpVxU5Cy
+	+V3Ey+8cUZpKQMOqPPFlUzVUEw/CNdG66Upm96hUV9OweSEd4WbXJR6clPBYSvM=
+X-Gm-Gg: ASbGncu9Ao40m/XGhGK7GQaCGdfOhbgcLBI1HnHl1FSZv0PeFwWQZ7ac/UY39jLYGsq
+	hh15aEn+3SXhSONoxh8GcZY9+FCLk23ofa2S5H4faGwVAaqUY3nHerGQ+4ZG6FyHMXYOvCY1ahS
+	BpjX3WghgrDe5iKYIPSxSD8m4F4ZBF28WJY7bzGgQG1gT2Z8rgf0jHIddFbCIa546qe7Tt4ukm7
+	TMHQNNz9ONc6W7Z++LnH+BATirnY6ofEkRm9VWA1GB3WpREfExUROVb1u1F4ukMdbfEOJdJYm38
+	n7Ytomr/IslKuSUfeWvIP+WCZ+a4BsmcTlliLog5E8+UNtld5Qpnu/jUFakQbCjRSMHjL6phkUn
+	ApQViIA==
+X-Google-Smtp-Source: AGHT+IGcWWegeo6OFbOZRzpsZDzqNhXWJfRA+u6+wPpcp13sc0p6o7411objQxkXvhYQkmqyA7u8FQ==
+X-Received: by 2002:a17:906:c14d:b0:aa6:800a:1291 with SMTP id a640c23a62f3a-aac2702af66mr5213171466b.7.1736266206370;
+        Tue, 07 Jan 2025 08:10:06 -0800 (PST)
+Message-ID: <9b1e6a93-7325-4bc6-83b5-7a80445c39c8@suse.com>
+Date: Tue, 7 Jan 2025 17:10:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/7] xen/events: don't allow binding a global virq from
- any domain
+Subject: Re: [PATCH v6 3/7] xen/events: allow setting of global virq handler
+ only for unbound virqs
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -97,8 +97,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250107101711.5980-1-jgross@suse.com>
- <20250107101711.5980-3-jgross@suse.com>
- <577427ff-61e2-4fc9-8853-a7eec3f69bb6@suse.com>
+ <20250107101711.5980-4-jgross@suse.com>
+ <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
 Content-Language: en-US
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
@@ -124,14 +124,14 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <577427ff-61e2-4fc9-8853-a7eec3f69bb6@suse.com>
+In-Reply-To: <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------nFyGG4zqLmpyQ60y39at8RT9"
+ boundary="------------wMdRpw23gw9FMvVc5BaHYAMR"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------nFyGG4zqLmpyQ60y39at8RT9
-Content-Type: multipart/mixed; boundary="------------uNQq90XzzdXj68dOCyYUnEEB";
+--------------wMdRpw23gw9FMvVc5BaHYAMR
+Content-Type: multipart/mixed; boundary="------------mzHVtEx2xVDqn3fHjVdfxQlA";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>
@@ -140,13 +140,13 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <5261716e-a2f4-4423-bb8d-17e36bf34538@suse.com>
-Subject: Re: [PATCH v6 2/7] xen/events: don't allow binding a global virq from
- any domain
+Message-ID: <9b1e6a93-7325-4bc6-83b5-7a80445c39c8@suse.com>
+Subject: Re: [PATCH v6 3/7] xen/events: allow setting of global virq handler
+ only for unbound virqs
 References: <20250107101711.5980-1-jgross@suse.com>
- <20250107101711.5980-3-jgross@suse.com>
- <577427ff-61e2-4fc9-8853-a7eec3f69bb6@suse.com>
-In-Reply-To: <577427ff-61e2-4fc9-8853-a7eec3f69bb6@suse.com>
+ <20250107101711.5980-4-jgross@suse.com>
+ <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
+In-Reply-To: <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
 Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -171,66 +171,31 @@ Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
  dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
  AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
 
---------------uNQq90XzzdXj68dOCyYUnEEB
-Content-Type: multipart/mixed; boundary="------------65jcAYjlhy4M0090fYmFXt9I"
+--------------mzHVtEx2xVDqn3fHjVdfxQlA
+Content-Type: multipart/mixed; boundary="------------E3Ru5K2L0Jl2xEAXkgsg4jbD"
 
---------------65jcAYjlhy4M0090fYmFXt9I
+--------------E3Ru5K2L0Jl2xEAXkgsg4jbD
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDcuMDEuMjUgMTY6MzQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAwNy4wMS4yMDI1
-IDExOjE3LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEveGVuL2NvbW1vbi9ldmVu
-dF9jaGFubmVsLmMNCj4+ICsrKyBiL3hlbi9jb21tb24vZXZlbnRfY2hhbm5lbC5jDQo+PiBA
-QCAtMTIwLDYgKzEyMCwxMyBAQCBzdGF0aWMgdWludDhfdCBnZXRfeGVuX2NvbnN1bWVyKHhl
-bl9ldmVudF9jaGFubmVsX25vdGlmaWNhdGlvbl90IGZuKQ0KPj4gICAvKiBHZXQgdGhlIG5v
-dGlmaWNhdGlvbiBmdW5jdGlvbiBmb3IgYSBnaXZlbiBYZW4tYm91bmQgZXZlbnQgY2hhbm5l
-bC4gKi8NCj4+ICAgI2RlZmluZSB4ZW5fbm90aWZpY2F0aW9uX2ZuKGUpICh4ZW5fY29uc3Vt
-ZXJzWyhlKS0+eGVuX2NvbnN1bWVyLTFdKQ0KPj4gICANCj4+ICtzdGF0aWMgc3RydWN0IGRv
-bWFpbiAqZ2xvYmFsX3ZpcnFfaGFuZGxlcnNbTlJfVklSUVNdIF9fcmVhZF9tb3N0bHk7DQo+
-IA0KPiBOaXQ6IFdoaWxlIHlvdSBtb3ZlIHRoaXMgbGluZSBhcm91bmQsIGl0IHdvdWxkIGJl
-IG5pY2UgaWYgdGhlIGF0dHJpYnV0ZQ0KPiBjb3VsZCB0aGVuIGFsc28gbW92ZSB0byBpdHMg
-Y2Fub25pY2FsIHBsYWNlIChiZXR3ZWVuIHR5cGUgYW5kIGlkZW50aWZpZXIpLg0KPiANCj4+
-ICtzdGF0aWMgc3RydWN0IGRvbWFpbiAqZ2V0X2dsb2JhbF92aXJxX2hhbmRsZXIodW5zaWdu
-ZWQgaW50IHZpcnEpDQo+PiArew0KPj4gKyAgICByZXR1cm4gZ2xvYmFsX3ZpcnFfaGFuZGxl
-cnNbdmlycV0gPzogaGFyZHdhcmVfZG9tYWluOw0KPj4gK30NCj4+ICsNCj4+ICAgc3RhdGlj
-IGJvb2wgdmlycV9pc19nbG9iYWwodW5zaWduZWQgaW50IHZpcnEpDQo+PiAgIHsNCj4+ICAg
-ICAgIHN3aXRjaCAoIHZpcnEgKQ0KPj4gQEAgLTQ3OSw4ICs0ODYsMTMgQEAgaW50IGV2dGNo
-bl9iaW5kX3ZpcnEoZXZ0Y2huX2JpbmRfdmlycV90ICpiaW5kLCBldnRjaG5fcG9ydF90IHBv
-cnQpDQo+PiAgICAgICAqLw0KPj4gICAgICAgdmlycSA9IGFycmF5X2luZGV4X25vc3BlYyh2
-aXJxLCBBUlJBWV9TSVpFKHYtPnZpcnFfdG9fZXZ0Y2huKSk7DQo+PiAgIA0KPj4gLSAgICBp
-ZiAoIHZpcnFfaXNfZ2xvYmFsKHZpcnEpICYmICh2Y3B1ICE9IDApICkNCj4+IC0gICAgICAg
-IHJldHVybiAtRUlOVkFMOw0KPj4gKyAgICBpZiAoIHZpcnFfaXNfZ2xvYmFsKHZpcnEpICkN
-Cj4+ICsgICAgew0KPj4gKyAgICAgICAgaWYgKCBnZXRfZ2xvYmFsX3ZpcnFfaGFuZGxlcih2
-aXJxKSAhPSBkICkNCj4+ICsgICAgICAgICAgICByZXR1cm4gLUVCVVNZOw0KPiANCj4gSG1t
-LiBXaGlsZSB0aGlzIGVsaW1pbmF0ZXMgdGhlIHByb2JsZW0gZm9yIHRoZSBjb21tb24sIHJh
-Y2UgZnJlZSBjYXNlLA0KPiB0aGUgaGFuZGxlciBjaGFuZ2luZyByaWdodCBhZnRlciB0aGUg
-Y2hlY2sgd291bGQgc3RpbGwgbWVhbiB0aGUgYmluZA0KPiB3b3VsZCBzdWNjZWVkLg0KDQpB
-cmUgeW91IGZpbmUgd2l0aCBtZSBhZGRpbmcgYSBwYXJhZ3JhcGggdG8gdGhlIGNvbW1pdCBt
-ZXNzYWdlIHNheWluZw0KdGhhdCBhIGZ1dHVyZSBwYXRjaCB3aWxsIGhhbmRsZSB0aGlzIGNh
-c2U/DQoNClRoaXMgZnV0dXJlIHBhdGNoIGlzIHBhdGNoIDQgb2YgdGhlIHNlcmllcywgd2hp
-Y2ggd2lsbCBuZWVkIHRvIGJlDQptb2RpZmllZCB0byBjaGVjayB0aGUgaGFuZGxpbmcgZG9t
-YWluIGluc2lkZSB0aGUgZXZlbnRfbG9jay4NCg0KPiBQbHVzIHRoaXMgd2F5IHlvdSdyZSBi
-cmVha2luZyBhIGNhc2UgdGhhdCBhZmFpY3QgaGFzIGJlZW4gd29ya2luZyBzbw0KPiBmYXI6
-IFRoZSBiaW5kIGhhcHBlbmluZyBiZWZvcmUgdGhlIHNldHRpbmcgb2YgdGhlIGhhbmRsZXIu
-IFdpdGggYSBsb3QNCj4gb2YgdW5yZWxhdGVkIGlmLXMgYW5kIHdoZW4tcyB0aGlzIGNvdWxk
-IGUuZy4gYmUgb2YgaW50ZXJlc3Qgd2hlbg0KPiBjb25zaWRlcmluZyBhIHJlLXN0YXJ0YWJs
-ZSBYZW5zdG9yZSBkb21haW4uIFRoZSBvbmUgdG8gdGFrZSBvdmVyIGNvdWxkDQo+IHN0YXJ0
-IGZpcnN0LCBvYnRhaW4gc3RhdGUgZnJvbSB0aGUgb3JpZ2luYWwgb25lIHdoaWxlIHRoYXQn
-cyBzdGlsbA0KPiBhY3RpdmUsIGFuZCBiZSBub21pbmF0ZWQgdGhlIGhhbmRsZXIgb2YgdGhl
-IGdsb2JhbCB2SVJRIG9ubHkgaW4gdGhlDQo+IGxhc3QgbW9tZW50Lg0KDQpUaGlzIGlzIGEg
-cmFjeSBzaXR1YXRpb24sIHRvby4gSWYgdGhlIG9sZCBkb21haW4gcmVjZWl2ZXMgdGhlIHZp
-cnEgYWZ0ZXINCnNlbmRpbmcgdGhlIHN0YXRlLCB0aGlzIHdvdWxkIG5lZWQgdG8gYmUgaGFu
-ZGxlZCBieSB0cmFuc2ZlcnJpbmcgdGhlIHZpcnENCmluZm9ybWF0aW9uIHRvIHRoZSBuZXcg
-ZG9tYWluLCB3aGljaCBjYW4gcmVzdWx0IGluIGEgbmV2ZXIgZW5kaW5nIHN0b3J5Lg0KDQpU
-aGlzIGlzIHRoZSByZWFzb24gd2h5IHRoZSBkb21haW4gc3RhdGUgYml0bWFwIGlzIHJlc2V0
-IHRvIGNvbnRhaW4gYWxsDQpleGlzdGluZyBkb21haW5zIHRvIGJlIGZsYWdnZWQgYXMgImNo
-YW5nZWQiLCBhcyBvdGhlcndpc2UgYSBjaGFuZ2UgbWlnaHQNCmdldCBsb3N0Lg0KDQpJJ2Qg
-cmF0aGVyIGJlIGFibGUgdG8gaGFuZGxlIHRvZGF5J3MgdXNlIGNhc2VzIGluIGEgc2FuZSB3
-YXkgdGhhbiB0byB0cnkNCmhhbmRsaW5nIGFueSB3ZWlyZCBmdXR1cmUgdXNlIGNhc2VzIHdo
-aWNoIHdlIGRvbid0IGtub3cgeWV0Lg0KDQpJIHRoaW5rIHRvZGF5J3MgYmVoYXZpb3IgaXMg
-bW9yZSBvciBsZXNzIGluc2FuZSBhbmQgdGhlIG5ldyBiZWhhdmlvciBpcw0KbXVjaCBlYXNp
-ZXIgdG8gdW5kZXJzdGFuZCBhbmQgbW9yZSBpbnR1aXRpdmUuDQoNCg0KSnVlcmdlbg0K
---------------65jcAYjlhy4M0090fYmFXt9I
+T24gMDcuMDEuMjUgMTY6MzgsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAwNy4wMS4yMDI1
+IDExOjE3LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gWEVOX0RPTUNUTF9zZXRfdmlycV9o
+YW5kbGVyIHdpbGwgaGFwcGlseSBzdGVhbCBhIGdsb2JhbCB2aXJxIGZyb20gdGhlDQo+PiBj
+dXJyZW50IGRvbWFpbiBoYXZpbmcgYm91bmQgaXQgYW5kIGFzc2lnbiBpdCB0byBhbm90aGVy
+IGRvbWFpbi4gVGhlDQo+PiBmb3JtZXIgZG9tYWluIHdpbGwganVzdCBuZXZlciByZWNlaXZl
+IGFueSBmdXJ0aGVyIGV2ZW50cyBmb3IgdGhhdA0KPj4gdmlycSB3aXRob3V0IGtub3dpbmcg
+d2hhdCBoYXBwZW5lZC4NCj4gDQo+IFlldCAtIHNlZSBteSByZXBseSBvbiBwYXRjaCAyIC0g
+aXQgbWF5IGFjdHVhbGx5IGhhdmUgYmVlbiBpbnRlbnRpb25hbCB0bw0KPiBiZSB0aGlzIHdh
+eSwgaW4gY2FzZSB0aGUgbmV3IGRvbWFpbiBpcyBpbmRlZWQgdGhlIGRlc2lnbmF0ZWQgbmV3
+IGhhbmRsZXIuDQo+IE90aGVyd2lzZSBzdWNoIGEgdHJhbnNmZXIgd291bGQgcmVxdWlyZSBt
+b3JlIGNvb3JkaW5hdGlvbiAtIHRoZSBvcmlnaW5hbA0KPiBvd25lciB3b3VsZCBmaXJzdCBu
+ZWVkIHRvIHVuYmluZCwgdGhlbiBzaWduYWwgdGhlIGNvbXBsZXRpb24gdGhlcmVvZiB0bw0K
+PiB0aGUgbmV3IG93bmVyLg0KDQpZZXMsIGxpa2UgdG9kYXkncyBoYW5kbGluZyBvZiB4ZW5z
+dG9yZWQgbGl2ZSB1cGRhdGUuDQoNCkl0IGlzIHRoZSBuYXR1cmFsIHdheSB0byBkbyB0aGF0
+LCBhcyB0aGF0IGNvb3JkaW5hdGlvbiBuZWVkcyB0byBiZSBoYXBwZW5pbmcNCmFueXdheSwg
+YXMgSSd2ZSBvdXRsaW5lZCBpbiBteSByZXNwb25zZSB0byB5b3VyIHJlbWFyayBvbiBwYXRj
+aCAyLg0KDQoNCkp1ZXJnZW4NCg==
+--------------E3Ru5K2L0Jl2xEAXkgsg4jbD
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -297,25 +262,25 @@ kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
 =3DeeAB
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------65jcAYjlhy4M0090fYmFXt9I--
+--------------E3Ru5K2L0Jl2xEAXkgsg4jbD--
 
---------------uNQq90XzzdXj68dOCyYUnEEB--
+--------------mzHVtEx2xVDqn3fHjVdfxQlA--
 
---------------nFyGG4zqLmpyQ60y39at8RT9
+--------------wMdRpw23gw9FMvVc5BaHYAMR
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmd9UU4FAwAAAAAACgkQsN6d1ii/Ey/H
-wwf/d5sr5jBP/VVGWtaEyUa0S+srxVVjBR/QLG5IGDrtxWV17aBxuWDDtr6G/99OCgyZCpjOMoxk
-mhteNxF0ywhpr03FW6VQioExOAnquYornLyY1vb1S8BzT3sCysvD0e1JtjlZxEB3MDCoyr9z2gFD
-cWbImbYnb8eE4e5O6RrhOmQP/jLUbRYevzvpwRltONy2hLuh2fDXUKiV2Je/eM0CJuDdJB6PKOhY
-l8wjq227M/LXECtgVWtgBULiDx0KpbrVG9BtLjbMxSlpDr298RvH7vyrVzFXOs5amJ5x/EnyCOVZ
-3/4dZ6NGBpHXSRz+g2cSRucxKV7Q75OJi7Y+wxOY2Q==
-=fuky
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmd9Ud0FAwAAAAAACgkQsN6d1ii/Ey9+
+Uwf/WyZXOhyzIhxBbFd54swFJ85STfQ/UYbbP2dwAdS53nkSxbWi+SK7nRVeH2JWk9sGTnDr1bBW
+arCq6g7/O1DWn10WsGu3muKrsBEbvABnzVAwHRPvoYeRDMn8a/efm7gflOJvQNaT+6fZH9khZpSi
+HQpRqE+IjT+vyCP+u7mEC3IXLjS6LL0zhG6HPF8XtZeZc7ltb6p7J9YU1bVJ9EegMvanyB+gUgx2
+QlGie8Yus1jd82AnF+Du5yx5flegrKE8l7igY5Xw1ROcVoTcO6ofDD4FclJk2cPO2VCRXZSEB/38
+ZgYITlx2YigsjZrdVswpOyGrNQSQ9ZOgJxiwmoCvfQ==
+=YyJ7
 -----END PGP SIGNATURE-----
 
---------------nFyGG4zqLmpyQ60y39at8RT9--
+--------------wMdRpw23gw9FMvVc5BaHYAMR--
 
