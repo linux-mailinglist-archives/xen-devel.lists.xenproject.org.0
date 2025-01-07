@@ -2,60 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74E18A043AD
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 16:04:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866417.1277748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73BCDA04401
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 16:16:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866424.1277759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVB7D-0004i0-Qc; Tue, 07 Jan 2025 15:03:31 +0000
+	id 1tVBJW-0006gf-TR; Tue, 07 Jan 2025 15:16:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866417.1277748; Tue, 07 Jan 2025 15:03:31 +0000
+Received: by outflank-mailman (output) from mailman id 866424.1277759; Tue, 07 Jan 2025 15:16:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVB7D-0004fw-Nb; Tue, 07 Jan 2025 15:03:31 +0000
-Received: by outflank-mailman (input) for mailman id 866417;
- Tue, 07 Jan 2025 15:03:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tVBJW-0006dm-Qf; Tue, 07 Jan 2025 15:16:14 +0000
+Received: by outflank-mailman (input) for mailman id 866424;
+ Tue, 07 Jan 2025 15:16:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OtGL=T7=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1tVB7D-0004fm-1A
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 15:03:31 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8cc03427-cd08-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 16:03:28 +0100 (CET)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50785q0m018311;
- Tue, 7 Jan 2025 15:02:55 GMT
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4410f39tfg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jan 2025 15:02:55 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 507E2w4n027938;
- Tue, 7 Jan 2025 15:02:54 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 43yhhk2t7y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jan 2025 15:02:54 +0000
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
- [10.20.54.103])
- by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 507F2nAY55837076
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 7 Jan 2025 15:02:50 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C602420043;
- Tue,  7 Jan 2025 15:02:49 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 683182004D;
- Tue,  7 Jan 2025 15:02:48 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.155.204.135])
- by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Tue,  7 Jan 2025 15:02:48 +0000 (GMT)
+ <SRS0=X79W=T7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tVBJV-0006de-Jl
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 15:16:13 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5354713e-cd0a-11ef-a0df-8be0dac302b0;
+ Tue, 07 Jan 2025 16:16:10 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-aaedd529ba1so1759170866b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 07:16:10 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aae8b7de1cesm2226676966b.23.2025.01.07.07.16.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jan 2025 07:16:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -67,244 +44,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8cc03427-cd08-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=nGMTr1inoVWG3ARe8QoGoEOSwdCntu
-	qZy8bhdK6O/ME=; b=rdj4BTKquX38fA+V7vs9vGrg6z7HxUyoh1JCIFg2qPrBrc
-	ovRrqMTxob92ukiN9TlpZCs7CVUaqv6rh4Mi5tAIkhlcCaduaExoYeYLzmHkaH1C
-	S0jV8pQzj2Q2N++he2cxLihvsXN9Ws2JTtsztsnqZdNHB0F+gy5J9PuEu1tgZtJk
-	XpYyXE/McfMm5JLsDDKSEa0f3gOdZvqdAytY6OUzDZe71qUCT9y2i1ZigqqwPHmx
-	1mK+SyY6FXGKya5ump+AzYcnbek4K8yEjS0n+sKJkfNM1URBoiNo/3Sb4PjRN+s0
-	zgkOb4fRUrznizbOxQ8cOjfYiVbiPNEGSmJygikg==
-Date: Tue, 7 Jan 2025 16:02:47 +0100
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Guo Weikang <guoweikang.kernel@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
-        Geert Uytterhoeven <geert@linux-m68k.org>,
-        Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-        Christoph Lameter <cl@linux.com>,
-        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-        Sam Creasey <sammy@sammy.net>, Huacai Chen <chenhuacai@kernel.org>,
-        Will Deacon <will@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Oreoluwa Babatunde <quic_obabatun@quicinc.com>,
-        rafael.j.wysocki@intel.com, Palmer Dabbelt <palmer@rivosinc.com>,
-        Hanjun Guo <guohanjun@huawei.com>,
-        Easwar Hariharan <eahariha@linux.microsoft.com>,
-        Johannes Berg <johannes.berg@intel.com>,
-        Ingo Molnar <mingo@kernel.org>, Dave Hansen <dave.hansen@intel.com>,
-        Christian Brauner <brauner@kernel.org>, KP Singh <kpsingh@kernel.org>,
-        Richard Henderson <richard.henderson@linaro.org>,
-        Matt Turner <mattst88@gmail.com>, Russell King <linux@armlinux.org.uk>,
-        WANG Xuerui <kernel@xen0n.name>, Michael Ellerman <mpe@ellerman.id.au>,
-        Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-        Stafford Horne <shorne@gmail.com>, Helge Deller <deller@gmx.de>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>,
-        Naveen N Rao <naveen@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Geoff Levand <geoff@infradead.org>,
-        Paul Walmsley <paul.walmsley@sifive.com>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-        Alexander Potapenko <glider@google.com>,
-        Andrey Konovalov <andreyknvl@gmail.com>,
-        Dmitry Vyukov <dvyukov@google.com>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Yoshinori Sato <ysato@users.sourceforge.jp>,
-        Rich Felker <dalias@libc.org>,
-        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-        Andreas Larsson <andreas@gaisler.com>,
-        Richard Weinberger <richard@nod.at>,
-        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-        linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org,
-        linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-        kasan-dev@googlegroups.com, linux-s390@vger.kernel.org,
-        linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
-        linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
-        xen-devel@lists.xenproject.org, linux-omap@vger.kernel.org,
-        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-mm@kvack.org, linux-pm@vger.kernel.org,
-        Xi Ruoyao <xry111@xry111.site>
-Subject: Re: [PATCH v7] mm/memblock: Add memblock_alloc_or_panic interface
-Message-ID: <Z31CF9f//ZD+VH59@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-References: <20241222111537.2720303-1-guoweikang.kernel@gmail.com>
+X-Inumbo-ID: 5354713e-cd0a-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1736262970; x=1736867770; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=19MYg6VBapyTtJhDJKd1kEjrCdtMUutELvteACPDNAQ=;
+        b=jVlxGVNb68dN5o7MTGCm4jxh6nLK/l7phxnv2RoUhnESghgG+R4dTpNcNo7UoUMbVx
+         BYA+QSGbRgaB+/tUA2RV7Jr1hVjxnIx15rXoavDsXA9U5pZvNjwoLxD4O4HJuUoRDDW4
+         iSrnjFxY/rB4pMBH59eSbYpMeME3ytUDcsKv8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736262970; x=1736867770;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=19MYg6VBapyTtJhDJKd1kEjrCdtMUutELvteACPDNAQ=;
+        b=vbAcoRznKDW2UyLvHUW5ahCb9fsJLUuOYlUQJkeIsw5uu+RelItOLDIq0aSz2kIa5r
+         9CMsBq1BPmyKCLZcxjspgnSrSR6coCXJbqw7UwnhTXWP03QCgVi7uk18lowOeavwFxXQ
+         f//O6uQiTw3LmtrVDGofscoh/4JPvjp2lhEb9pd1pbNFw8duA6s5+meqvFv2j3sUiaP7
+         Q91FBxGj9DC8cpmkn3W8RTiERsht+4re8xSPAhiVQCBY4ntIEh794fDSRKsSQvOeaLhU
+         6A60xInTdK3bMPXnYm1ykgV3xAYqDRs4aDwVJAvU+fX3JX6tNTxswZsRkwf10rtfr9R5
+         wTFg==
+X-Forwarded-Encrypted: i=1; AJvYcCXO88xe7Yo7KA1LA9Sl8iWTQPxR+niFdzq/BY3kAIVvyFfZ9VSJkHJ5SFO9LLM6H48qnlPWazeCJL4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymjRuzt2rXN4iHPLoJXtT157dJxhHhQMFGZHpOcBuFVH/D08FJ
+	/9eBUyEE8S0j6LKsy5aEONh6b2/qJxGp1/DNiLHWrYCQkYzn0QrbK/244JnNQl4=
+X-Gm-Gg: ASbGncssT8oA3BkFfjcuK1IX+YUVMyQhKv+pEJu9AvCKp1K6Cfj95hx4nXjazZs6YUM
+	OG5voh1KoiVE7IN/fsFyHvGl+RyXscej5cla8/fOKJe9IIyjp6c58OdiI22+xt5oayebrjU0OtB
+	F/BXQrWY/vzDC0DxebeG42H+ZXYW+B2PHDkE+OyfBhTwfNxfcTjz/1/y0kJ1HXkEFfZbN+0DyAf
+	ds8i1P9avJD9sy0wqU9a91DF2slCbyNZLKDi2KFCKGIopNbR7tJL4TtqNgABw==
+X-Google-Smtp-Source: AGHT+IGrEKuSubA8nkux3Dm2/lK5HTqmw/lLF8zOXEElWvtG6rCCfQsYxLHcUqLvPxJjO9TYFRVjVA==
+X-Received: by 2002:a05:6402:1590:b0:5d0:d818:559d with SMTP id 4fb4d7f45d1cf-5d81dda6576mr156160493a12.11.1736262969910;
+        Tue, 07 Jan 2025 07:16:09 -0800 (PST)
+Date: Tue, 7 Jan 2025 16:16:08 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Denis Mukhin <dmkhn@proton.me>
+Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 33/35] x86/domain: implement domain_has_vuart()
+Message-ID: <Z31FONoeaHVRHVxY@macbook.local>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-33-e9aa923127eb@ford.com>
+ <Z1wnUzDCPDzHKr6o@macbook.local>
+ <Tz4Idf7hUa85arksVC6UYYRNbhinY-0wHXqxIInbLCWGNiGZSEIvGNGLmICNLmHK5o7m6MUMhnUlrJX10WO1XHhyRSgCX7Gknz0xBGZJiD8=@proton.me>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20241222111537.2720303-1-guoweikang.kernel@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: by_phAXyWBB4rrGUxAvoGmZnyCdgAMa_
-X-Proofpoint-ORIG-GUID: by_phAXyWBB4rrGUxAvoGmZnyCdgAMa_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
- definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 mlxlogscore=985
- spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0
- bulkscore=0 phishscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
- definitions=main-2501070126
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Tz4Idf7hUa85arksVC6UYYRNbhinY-0wHXqxIInbLCWGNiGZSEIvGNGLmICNLmHK5o7m6MUMhnUlrJX10WO1XHhyRSgCX7Gknz0xBGZJiD8=@proton.me>
 
-On Sun, Dec 22, 2024 at 07:15:37PM +0800, Guo Weikang wrote:
+On Sat, Jan 04, 2025 at 05:19:07AM +0000, Denis Mukhin wrote:
+> On Friday, December 13th, 2024 at 4:23 AM, Roger Pau Monné <roger.pau@citrix.com> wrote:
+> > Albeit PVH is kind of HVM.
+> 
+> PVH does not have vPIC so there's some more work to enable vUART
+> for PVH on x86: emulator currently supports only ISA IRQs.
 
-Hi Guo,
+But it does support vIO-APIC (as it's used for hardware PVH domain),
+so serial interrupts could still be delivered using the vIO-APIC if
+the guest has correctly configured the pin?
 
-> Before SLUB initialization, various subsystems used memblock_alloc to
-> allocate memory. In most cases, when memory allocation fails, an immediate
-> panic is required. To simplify this behavior and reduce repetitive checks,
-> introduce `memblock_alloc_or_panic`. This function ensures that memory
-> allocation failures result in a panic automatically, improving code
-> readability and consistency across subsystems that require this behavior.
-
-I believe, you also want to make similar function against memblock_alloc_low().
-
-Please, find s390 comments below.
-
-...
-
-> diff --git a/arch/s390/kernel/numa.c b/arch/s390/kernel/numa.c
-> index ddc1448ea2e1..a33e20f73330 100644
-> --- a/arch/s390/kernel/numa.c
-> +++ b/arch/s390/kernel/numa.c
-> @@ -22,10 +22,7 @@ void __init numa_setup(void)
->  	node_set(0, node_possible_map);
->  	node_set_online(0);
->  	for (nid = 0; nid < MAX_NUMNODES; nid++) {
-> -		NODE_DATA(nid) = memblock_alloc(sizeof(pg_data_t), 8);
-> -		if (!NODE_DATA(nid))
-> -			panic("%s: Failed to allocate %zu bytes align=0x%x\n",
-> -			      __func__, sizeof(pg_data_t), 8);
-> +		NODE_DATA(nid) = memblock_alloc_or_panic(sizeof(pg_data_t), 8);
->  	}
-
-Please, also remove the cycle body brackets.
-
->  	NODE_DATA(0)->node_spanned_pages = memblock_end_of_DRAM() >> PAGE_SHIFT;
->  	NODE_DATA(0)->node_id = 0;
-> diff --git a/arch/s390/kernel/setup.c b/arch/s390/kernel/setup.c
-> index 0ce550faf073..1298f0860733 100644
-> --- a/arch/s390/kernel/setup.c
-> +++ b/arch/s390/kernel/setup.c
-> @@ -376,11 +376,7 @@ static unsigned long __init stack_alloc_early(void)
->  {
->  	unsigned long stack;
->  
-> -	stack = (unsigned long)memblock_alloc(THREAD_SIZE, THREAD_SIZE);
-> -	if (!stack) {
-> -		panic("%s: Failed to allocate %lu bytes align=0x%lx\n",
-> -		      __func__, THREAD_SIZE, THREAD_SIZE);
-> -	}
-> +	stack = (unsigned long)memblock_alloc_or_panic(THREAD_SIZE, THREAD_SIZE);
->  	return stack;
->  }
->  
-> @@ -504,10 +500,7 @@ static void __init setup_resources(void)
->  	bss_resource.end = __pa_symbol(__bss_stop) - 1;
->  
->  	for_each_mem_range(i, &start, &end) {
-> -		res = memblock_alloc(sizeof(*res), 8);
-> -		if (!res)
-> -			panic("%s: Failed to allocate %zu bytes align=0x%x\n",
-> -			      __func__, sizeof(*res), 8);
-> +		res = memblock_alloc_or_panic(sizeof(*res), 8);
->  		res->flags = IORESOURCE_BUSY | IORESOURCE_SYSTEM_RAM;
->  
->  		res->name = "System RAM";
-> @@ -526,10 +519,7 @@ static void __init setup_resources(void)
->  			    std_res->start > res->end)
->  				continue;
->  			if (std_res->end > res->end) {
-> -				sub_res = memblock_alloc(sizeof(*sub_res), 8);
-> -				if (!sub_res)
-> -					panic("%s: Failed to allocate %zu bytes align=0x%x\n",
-> -					      __func__, sizeof(*sub_res), 8);
-> +				sub_res = memblock_alloc_or_panic(sizeof(*sub_res), 8);
->  				*sub_res = *std_res;
->  				sub_res->end = res->end;
->  				std_res->start = res->end + 1;
-> @@ -816,9 +806,7 @@ static void __init setup_randomness(void)
->  {
->  	struct sysinfo_3_2_2 *vmms;
->  
-> -	vmms = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
-> -	if (!vmms)
-> -		panic("Failed to allocate memory for sysinfo structure\n");
-> +	vmms = memblock_alloc_or_panic(PAGE_SIZE, PAGE_SIZE);
->  	if (stsi(vmms, 3, 2, 2) == 0 && vmms->count)
->  		add_device_randomness(&vmms->vm, sizeof(vmms->vm[0]) * vmms->count);
->  	memblock_free(vmms, PAGE_SIZE);
-> diff --git a/arch/s390/kernel/smp.c b/arch/s390/kernel/smp.c
-> index 822d8e6f8717..d77aaefb59bd 100644
-> --- a/arch/s390/kernel/smp.c
-> +++ b/arch/s390/kernel/smp.c
-> @@ -611,9 +611,9 @@ void __init smp_save_dump_ipl_cpu(void)
->  	if (!dump_available())
->  		return;
->  	sa = save_area_alloc(true);
-> -	regs = memblock_alloc(512, 8);
-> -	if (!sa || !regs)
-> +	if (!sa)
->  		panic("could not allocate memory for boot CPU save area\n");
-
-Please, replace memblock_alloc() with memblock_alloc_or_panic() in
-save_area_alloc() and remove the error handling here and also in
-smp_save_dump_secondary_cpus().
-
-> +	regs = memblock_alloc_or_panic(512, 8);
->  	copy_oldmem_kernel(regs, __LC_FPREGS_SAVE_AREA, 512);
->  	save_area_add_regs(sa, regs);
->  	memblock_free(regs, 512);
-> @@ -792,10 +792,7 @@ void __init smp_detect_cpus(void)
->  	u16 address;
->  
->  	/* Get CPU information */
-> -	info = memblock_alloc(sizeof(*info), 8);
-> -	if (!info)
-> -		panic("%s: Failed to allocate %zu bytes align=0x%x\n",
-> -		      __func__, sizeof(*info), 8);
-> +	info = memblock_alloc_or_panic(sizeof(*info), 8);
->  	smp_get_core_info(info, 1);
->  	/* Find boot CPU type */
->  	if (sclp.has_core_type) {
-> diff --git a/arch/s390/kernel/topology.c b/arch/s390/kernel/topology.c
-> index 0fd56a1cadbd..cf5ee6032c0b 100644
-> --- a/arch/s390/kernel/topology.c
-> +++ b/arch/s390/kernel/topology.c
-> @@ -548,10 +548,7 @@ static void __init alloc_masks(struct sysinfo_15_1_x *info,
->  		nr_masks *= info->mag[TOPOLOGY_NR_MAG - offset - 1 - i];
->  	nr_masks = max(nr_masks, 1);
->  	for (i = 0; i < nr_masks; i++) {
-> -		mask->next = memblock_alloc(sizeof(*mask->next), 8);
-> -		if (!mask->next)
-> -			panic("%s: Failed to allocate %zu bytes align=0x%x\n",
-> -			      __func__, sizeof(*mask->next), 8);
-> +		mask->next = memblock_alloc_or_panic(sizeof(*mask->next), 8);
->  		mask = mask->next;
->  	}
->  }
-> @@ -569,10 +566,7 @@ void __init topology_init_early(void)
->  	}
->  	if (!MACHINE_HAS_TOPOLOGY)
->  		goto out;
-> -	tl_info = memblock_alloc(PAGE_SIZE, PAGE_SIZE);
-> -	if (!tl_info)
-> -		panic("%s: Failed to allocate %lu bytes align=0x%lx\n",
-> -		      __func__, PAGE_SIZE, PAGE_SIZE);
-> +	tl_info = memblock_alloc_or_panic(PAGE_SIZE, PAGE_SIZE);
->  	info = tl_info;
->  	store_topology(info);
->  	pr_info("The CPU configuration topology of the machine is: %d %d %d %d %d %d / %d\n",
-
-Thanks!
+Thanks, Roger.
 
