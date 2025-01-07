@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CEE1A039B6
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 09:24:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866099.1277366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AFE1A039D4
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 09:32:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866105.1277376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV4sS-0000tU-Ub; Tue, 07 Jan 2025 08:23:52 +0000
+	id 1tV50U-0002YQ-O3; Tue, 07 Jan 2025 08:32:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866099.1277366; Tue, 07 Jan 2025 08:23:52 +0000
+Received: by outflank-mailman (output) from mailman id 866105.1277376; Tue, 07 Jan 2025 08:32:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV4sS-0000rR-Rd; Tue, 07 Jan 2025 08:23:52 +0000
-Received: by outflank-mailman (input) for mailman id 866099;
- Tue, 07 Jan 2025 08:23:52 +0000
+	id 1tV50U-0002VU-Kf; Tue, 07 Jan 2025 08:32:10 +0000
+Received: by outflank-mailman (input) for mailman id 866105;
+ Tue, 07 Jan 2025 08:32:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V2Xg=T7=casper.srs.infradead.org=BATV+f031519a9170f34b3d42+7807+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1tV4sR-0000rI-64
- for xen-devel@lists.xen.org; Tue, 07 Jan 2025 08:23:52 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tV50T-0002VO-LF
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 08:32:09 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b85ee397-ccd0-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 09:23:49 +0100 (CET)
-Received: from [54.240.197.232] (helo=u09cd745991455d.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1tV4sO-00000004uIf-19aa; Tue, 07 Jan 2025 08:23:48 +0000
+ id e188ff24-ccd1-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 09:32:07 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4361f796586so156835175e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 00:32:07 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43656b41904sm623362425e9.37.2025.01.07.00.32.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Jan 2025 00:32:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,164 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b85ee397-ccd0-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=9tb0LnxCSlS+al3RCiFGC34RDZdyBbfsqUfZPQDvbUQ=; b=HmGnQrL3uGjgtV/kcFRi6PFvuv
-	tWggxPM6bKU5llWBljK0yBLBUG3DBoX+io9d1ZZx9tgZ7kw1LUoiAN/vzbyMMejfVNJKzdoUjeEJM
-	p9Dg9U7s5lLzx3breRXdY1gs0JG/u7lPDGlo/AgkURddttifrGhun+5NxbZy1uqyex9rMU/ERRVmV
-	a9IrWPFg/9IVcdCJWgv7rQ1Q9MeNUccFFX4psLMNv6hAnWogfGv4KZPVvRsYQkkJhQjTsXsJPad4k
-	ZqHtHX+YQNoJWtuQa6oAhmnn7XhDKbjSY1fzy30ovLiQPLc4hDmWzGtTefu/paXb1jwnWL7H0eDri
-	ea6G+ACA==;
-Message-ID: <b8ab443fc7cfc2043088a8c390546fc8d181ab18.camel@infradead.org>
-Subject: Re: Xen Security Advisory 466 v3 (CVE-2024-53241) - Xen hypercall
- page unsafe against speculative attacks
-From: David Woodhouse <dwmw2@infradead.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, 
-	xen-devel@lists.xen.org
-Date: Tue, 07 Jan 2025 08:23:47 +0000
-In-Reply-To: <a9ee291f-469b-418c-8936-789849714ff3@suse.com>
-References: <E1tNWXG-00E268-2p@xenbits.xenproject.org>
-	 <54c892eded2b4ebdda8ee1085c383178f44414ad.camel@infradead.org>
-	 <a3031e7d-fe9d-4db8-8ccd-923165c9af72@suse.com>
-	 <fc4c45ea86567ef0c46d7e5a20e8abffa75cc4ec.camel@infradead.org>
-	 <fd993f8d-280f-439a-a6a0-506e2815f281@suse.com>
-	 <b7323a9fa5239443b9b6f3daa423196de1051748.camel@infradead.org>
-	 <40734e79-fb55-4712-aae1-3ef350af4f3c@suse.com>
-	 <f9b4ae8af70b8b5136b59237c7925f57220b3d5b.camel@infradead.org>
-	 <fc4170ed-d238-4e1c-817e-3695a7112d9d@suse.com>
-	 <ffea2b8edd4455b8d04a3c25afaaffc98ed40540.camel@infradead.org>
-	 <a9ee291f-469b-418c-8936-789849714ff3@suse.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-AVQwoBwLw2zF4971DSs+"
-User-Agent: Evolution 3.52.3-0ubuntu1 
+X-Inumbo-ID: e188ff24-ccd1-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1736238727; x=1736843527; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Eo9whzbYs+xwvu152KCtyJBkghoKuUrucsSey4z13t8=;
+        b=GYVZVZaRvgoqr2S4eyubG6CiJ1PLzGPAVzGlp21lKATpu7xrxP+mA+hLdzo0c3NQp2
+         sjk8Fq0eNY/XnpfulPuA2jS+cReOdrhVN6ZS6J7jU4OqCo41DkTm2vKMI9PAPtWkzDPg
+         8ozmSbrYe4M3uzhsjJGEUG7yRcvGIT9FToV8Djv1l7/4/SXitOE31uzhjZ0PoPFWxuUs
+         los2Y+u4+soxL6u8kR6Af4KU88/6znBW0H/Ep376PB75Jc/gq3a0mmKUjwrrh2UIBfz1
+         aI8xhm3Bb4DIqEu3u6bTtTkxBZKgRgh7jCEcZS2+m/qL05Scrf+p2snItLO8b8Fahl4D
+         OutA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736238727; x=1736843527;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Eo9whzbYs+xwvu152KCtyJBkghoKuUrucsSey4z13t8=;
+        b=rlaeojFsMH3JaTnq2LZenehQjEzu1HcsX0uJhkFYburiBwWYLZFMGBQwDRWxEkZbX5
+         10Ma4nfKrkcEDaCFNbbmvX8xlXcAlUF40hsI+htCQWn2XE9jCv3ZE/TZrSD5KK/ISupE
+         lF9alDAUBNuhpdoJFQ7akYGW8seBoUVCuDIl4moFAoQQOyxx8yMP6fU+wckxu72SG64U
+         3YpwiB5eCc+P9m/tHK42KmYQQ+JL6cUA7z8RzXkZqBqYX7p8F8WApowlKWBh3VjuFBHj
+         MSRCX6qRCgaZAtNNqKpJpch0gNlV/GWkuB4VUANZBxPRqqvPgW4Q1xbhDwllnHeFQW4t
+         BODA==
+X-Forwarded-Encrypted: i=1; AJvYcCU2bGyIQon3y7JqIlV1Ah7t9lOSy5xicpnFvoKzVLoSJfsnwie6jgPLmoj3tt7HiPvLIREExnANUfM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzWnMZg06idKTn2UFsPuwEFugIq4b/5Dw/YEfy/lxoIRepUSCm6
+	6SdSHfiNcFY63fHIExHymotdHJaWupKcyhjArZWAEXTi344W+mj+mEQW1ck+9w==
+X-Gm-Gg: ASbGnctywe9H6sKCb2RYfgT6c+HjwWbKSz6A1KFt3KMNzJlZcZMwL6aF+zGllyHzZC9
+	seHZ/hmgxC6iClxfiP0kuHdBEdvrx/9PoT82kwv1fMxsnPRbZ+d9B5o37/bDozCVtcQGSzwKFOq
+	AsRxKyOvZ/w2zTnwKF7qI5/xGfXtm71rC6Uu03jJ4iWaDeUdpNr4wLPbHU0aQV4OgSp+vQh5uZE
+	MlnP8+ansDf90OoEpN4JQZNqln6obIH2PwFcIrnImN1vPzQNsOuUw4qzkFd2riTXxR8NKcFLFYY
+	fjqe8e1rgu6UzRP6Q4iTCnFokHMUWslOobc1oI4L7A==
+X-Google-Smtp-Source: AGHT+IGBJV+YNezSebK3u/pX0110Bvm734YnFG53U4mxY9m+GYT3OJuqi48IE1yYLLOi0d7BRp+ulQ==
+X-Received: by 2002:a05:600c:1c25:b0:434:f4fa:83c4 with SMTP id 5b1f17b1804b1-43668b5f691mr498863395e9.29.1736238727124;
+        Tue, 07 Jan 2025 00:32:07 -0800 (PST)
+Message-ID: <9f1d070b-c135-454d-8022-12104e048458@suse.com>
+Date: Tue, 7 Jan 2025 09:32:05 +0100
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20] public/version: soften wording for deprecated
+ sub-ops
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <bf8cc342-52aa-44ee-8bce-ce2be6406904@suse.com>
+ <0c8a13d0-04d7-4ed6-a8d8-a4423867fa3f@citrix.com>
+ <8ca8ac20-a19f-49ef-9631-08cdcef854d2@suse.com>
+ <alpine.DEB.2.22.394.2501061229300.133435@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2501061229300.133435@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 06.01.2025 23:01, Stefano Stabellini wrote:
+> On Mon, 6 Jan 2025, Jan Beulich wrote:
+>> On 06.01.2025 12:08, Andrew Cooper wrote:
+>>> On 06/01/2025 11:04 am, Jan Beulich wrote:
+>>>> These interfaces were - afaict - originally introduced this way on the
+>>>> firm assumption that the used array sizes would be good virtually
+>>>> forever.  While this assumption turned out to not be true for at least
+>>>> some of them, this still doesn't really render them "broken": They still
+>>>> fit their original purpose, and they are still usable for a fair subset
+>>>> of environments.  Re-word the comments accordingly.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> No.
+>>>
+>>> The community voted and rejected this opinion.
+>>
+>> That's not my recollection of what was voted on, and with the vote results
+>> not being available referring to them is unhelpful anyway.
+>>
+>> My (admittedly vague) recollection is that it was decided to leave enough
+>> room for wording choice by submitters. That would cover your original
+>> patch, and it would equally cover mine.
+> 
+> The community-wide survey indicated that it is acceptable to use the
+> term "broken" in our documentation [1]. While the survey was not tied to
+> a specific instance, it was undoubtedly influenced by the ongoing
+> discussion at the time.
 
---=-AVQwoBwLw2zF4971DSs+
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+IOW this re-confirms (to me at least) that the vote in itself was ambiguous.
+I have no issue at all with the use of the word "broken" in documentation or
+code comments, provided this accurately describes the situation. Which it
+doesn't here.
 
-On Tue, 2025-01-07 at 09:20 +0100, Jan Beulich wrote:
->=20
-> How about we adjust the behavior in Xen instead: We could latch the size
-> on every hypercall, making sure to invoke update_domain_wallclock_time()
-> only when the size actually changed (to not incur the extra overhead),
-> unless originating from the two places the latching is currently done at
-> (to avoid altering existing behavior)?
->
-> Then again latching more frequently (as suggested above or by any other
-> model) also comes with the risk of causing issues, at the very least for
-> "exotic" guests. E.g. with two vCPU-s in different modes, we'd ping-pong
-> the guest between both formats then.
+> If the purpose of this patch is to replace the term "broken", as it
+> would seem from the commit message, I would recommend dropping the patch
+> and leaving the wording as it is, given that the community has expressed
+> approval of its use. Let us respect that decision.
+> 
+> However, if the goal is to improve clarity by specifying "due to its
+> size limitations" and noting that the truncation occurs "silently", then
+> I believe the patch could be reviewed with that objective in mind.
+> 
+> In other words, we should not replace "broken" simply for the sake of
+> doing so. That discussion has already been settled. When reviewing this
+> patch, our focus should be on its other merits, if any.
+> 
+> Based on the above, I would not take the patch in its current form. But
+> if Jan is up for rewording the commit message, and focusing purely on
+> the clarity of the in-code comments maybe a future version could be
+> acceptable.
 
-Indeed. I think it's much better for the guest to just write to the
-hypercall page MSR early, like it always did. It doesn't even *need* to
-be an executable page; just a data page which is then
-freed/overwritten.
+Assuming the above doesn't change your view, and assuming no-one else is
+going to express views in favor of the wording change, I'll consider the
+patch rejected. And I'll be once again left with the impression that
+things are treated neither equally nor objectively in situations like this
+one: To get one's perspective through unaltered one only needs to resist
+hard enough to any attempt to find a middle ground. That's not a good
+environment to work in, and not something I'd call a "community".
 
-But if we *want* to use it during early boot so that we don't need all
-that early CPU detection and static_call complexity, that's fine too.
+Jan
 
---=-AVQwoBwLw2zF4971DSs+
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+> [1] https://cryptpad.fr/form/#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
 
-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
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDEwNzA4MjM0
-N1owLwYJKoZIhvcNAQkEMSIEIOdxGVogBPrQrvSE1eor0NaFfvd6gTTH7oqTfRD1QYIiMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAI9NMGw2rVbU7
-9H2McZVi5yc9fgg36mETpEeeCFj5hxbzOUr8J2DIC4a5E2n+HnUoH2qglQCMKw6la/vj3WIG7BZm
-xV4EDtg4n7l+Lk41bXNA4Awc5/3aQhSu9oPZzGykNpOq99xThbI8Bpy5A0sW1SyJWjBNuOM1gSUm
-2s9jcvWDRugS+QbBahbCtcg6ALZGrQfhTsu69vRqZzHGNgenGpnAhK+qwt0MytEE8ENTKaQqnOHu
-s7YS6xKfKmutUEK7kZcQugTev7Z9Hvm64P0uzGBNkuGyLcOS3U0JWawhNg5vyRexX9jQ8MBECPLJ
-BwSBf8T7zTXCpyiJJS20c5N7VIVvqMZ2D37Ao0Qr1QzCcHV6K74WUhSei/AUlCEXf89sU5JAmyPP
-/tRY4t1Qus+bnVI67BnvsTRFvPlGOQS0Ea0Jinb9mQkfBZBsvz0Cw6f3y8966M29+tA0DJ5NYJMY
-oYLnEX8ZAAD/Ef1a54p4xo2OQhcxHsG/iSya+h7Ip+4W7gn1gVjUBPgpxzlk82/zmrOQXh9v/pP8
-7GpXmVUXp4K0O8x+rVmcNTtz/DF7fRj/2rkWeM6ywCl+bT1ejy5NDtYOjR9JWSMhCSpoSFBhq8Fr
-R4RDMxHQNGNoJWfISpdv53s5DYzC78DLauhENZcUc7jVo0VGTtVm5BQp93HGuOwAAAAAAAA=
-
-
---=-AVQwoBwLw2zF4971DSs+--
 
