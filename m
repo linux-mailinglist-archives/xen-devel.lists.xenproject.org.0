@@ -2,46 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20E3CA03C36
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 11:22:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866304.1277626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9872DA03D5D
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 12:13:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866318.1277641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV6iw-0007ah-Jk; Tue, 07 Jan 2025 10:22:10 +0000
+	id 1tV7V6-0007cp-2t; Tue, 07 Jan 2025 11:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866304.1277626; Tue, 07 Jan 2025 10:22:10 +0000
+Received: by outflank-mailman (output) from mailman id 866318.1277641; Tue, 07 Jan 2025 11:11:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV6iw-0007YC-Gq; Tue, 07 Jan 2025 10:22:10 +0000
-Received: by outflank-mailman (input) for mailman id 866304;
- Tue, 07 Jan 2025 10:22:10 +0000
+	id 1tV7V5-0007bB-W3; Tue, 07 Jan 2025 11:11:55 +0000
+Received: by outflank-mailman (input) for mailman id 866318;
+ Tue, 07 Jan 2025 11:11:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Qdqe=T7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tV6et-00022t-3v
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 10:17:59 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
+ (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tV7V5-0007b5-8S
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 11:11:55 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8c49296-cce0-11ef-a0df-8be0dac302b0;
- Tue, 07 Jan 2025 11:17:55 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7A0C521106;
- Tue,  7 Jan 2025 10:17:54 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3565413763;
- Tue,  7 Jan 2025 10:17:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id klfACVL/fGctYgAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 07 Jan 2025 10:17:54 +0000
+ id 32f582bf-cce8-11ef-a0df-8be0dac302b0;
+ Tue, 07 Jan 2025 12:11:53 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4361b6f9faeso92797225e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 03:11:53 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43656b3b287sm625950055e9.29.2025.01.07.03.11.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Jan 2025 03:11:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,351 +45,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8c49296-cce0-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1736245074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U4Ln9oY8teJqj0oQ6om9doDIAfM1X4V+dyEL2CQtrKA=;
-	b=svnUvUvDHyLgtE4r87eEJtO/S+wJDJy5pHks0ApNBpbcXzw2UNMh5nVl8+luTPOSWNBV0k
-	7IxLnhoA6CnE9ockug+pEVKsX5fXVO42rFY9khW4GHJ2iUuWalNeDTUdtr9X6ueC1g3mtY
-	9hC1o0QoOp7EqlyALX1heKJbKOaNf5k=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=svnUvUvD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1736245074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U4Ln9oY8teJqj0oQ6om9doDIAfM1X4V+dyEL2CQtrKA=;
-	b=svnUvUvDHyLgtE4r87eEJtO/S+wJDJy5pHks0ApNBpbcXzw2UNMh5nVl8+luTPOSWNBV0k
-	7IxLnhoA6CnE9ockug+pEVKsX5fXVO42rFY9khW4GHJ2iUuWalNeDTUdtr9X6ueC1g3mtY
-	9hC1o0QoOp7EqlyALX1heKJbKOaNf5k=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH v6 7/7] tools/xenstored: use new stable interface instead of libxenctrl
-Date: Tue,  7 Jan 2025 11:17:11 +0100
-Message-ID: <20250107101711.5980-8-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250107101711.5980-1-jgross@suse.com>
-References: <20250107101711.5980-1-jgross@suse.com>
+X-Inumbo-ID: 32f582bf-cce8-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1736248313; x=1736853113; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WKfkt7K3GVNB3ZmKMhiDK9vedKrL8wcC7HJN6PLmNRM=;
+        b=L+vvYGrmrx/eaopAZD3THjonJK1dgzFd+BxSZruo0+l3PbnXr6s6x7iHjen95GBdln
+         Dm7bvXcY27uveZclWetwx2c7Pr/nDqHiLeuo+0wyNGH/tHPW8IQV8wOJMORzEscGsl7R
+         tzLhaAgRFER6kY35pYlgUbklnZLHDnOb0loiYoubnz4IxYC+0sWIM78iRIEIHk7eWz9g
+         DHBQE6saFcj9KCsAHv3jC9Am+hRgAzulG1YPwpftbWJiYqqfg4+jRwx7dAuJ8FOaPgfQ
+         QqXFObJ1kEI4DKkKzqo0D7spnPCAnFO137FCHyvvTHyNP67EbFf40l271zIFnUUjrAoa
+         sAzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736248313; x=1736853113;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WKfkt7K3GVNB3ZmKMhiDK9vedKrL8wcC7HJN6PLmNRM=;
+        b=vCUVyvX+lCgqXRwGsdSQJ7DSlP9yvDgjd4EYot6Or0xoksLBABQqrFdX1rCQMg7xBy
+         AgX74CS4NeTqYXJY9mXhlUZhrgI0Q8E/j+gv9fGKBQXDPXUzY1oLUvpPpRD8k0Lbs7yP
+         eLfA/di/5/DbeIhDKVP2HSMjJE+rTbTBFOIrlvYmDtjCjKoDMnhUreBMDLNyMgk1dFXg
+         E5ELNBRJf0Yb8X5Cte3YrE4d7AUi22yczZa7BWZLXihhDEgpcUcMM7hHjwdJkrGsPERX
+         vgd5whhn/ZjM8eZmhAiKqngr06pgMGj+RHxXqbSmDkwI1ldHLrqRUS8GCCYNn5YzNW4E
+         j94A==
+X-Forwarded-Encrypted: i=1; AJvYcCXLrsFUZiDMfjTRlKZJY1hWRIvYvQp0Sb8BYAhCVjzkz9rIUvyqGQP5a63gXRvyqk4PIoaXhHgqPIE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyat5RnwQoh49yLKKh/F8xjkDR7/FBS4FQNFahWZ17yBTk+/IIN
+	HQEYHDIRFc0tbcoXkR6EJVvVXV3CyXHu96rf9VE1L/RKMRhIrVvpJPulHFz9Tw==
+X-Gm-Gg: ASbGncsm+JkgCaWI/Chm/9DCg4NIImdd3PkTuwCVqpwh1S1PBWBOkF6s6VR1JmDKDAg
+	eVL7dtGasQoEuKmlcq1CqR/tlmObp3quiWfRYDMw6oETKH26YSjrN+oBY6vtWbxy0tjRYXk0lhC
+	nsbu0CVC457DdF6mig5ABiYDCU6SYPCxbNxsalD7vWZRLVEUyvp7606/zoB5gkApAOKnKCUlA59
+	sCei7E3VGFwyZs3tLy6uqhQrDr7sGOBb9VA4fBuGv4Kdr/jHZEScvu/GYcrnM19ddtsnVyaJQ3F
+	vWwT9PQpUB/Z3qjCTaaMWFyFOM982PVlU5eWJiTh9g==
+X-Google-Smtp-Source: AGHT+IEET/S86xflurpVcA0lu0b0b6pL3Blgty53NzbKALsZabhhXpBkYHtvD4ndQCzBNqiws8X+xA==
+X-Received: by 2002:a05:600c:492f:b0:434:ffb2:f9cf with SMTP id 5b1f17b1804b1-436dc23f2d2mr20785605e9.14.1736248312585;
+        Tue, 07 Jan 2025 03:11:52 -0800 (PST)
+Message-ID: <48d0ab30-2a7f-44b6-bcf9-3a5c0583692e@suse.com>
+Date: Tue, 7 Jan 2025 12:11:51 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] docs: FRED support in Xen
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250103204704.84067-1-andrew.cooper3@citrix.com>
+ <3ff59df0-69f8-426a-ab44-d2cd9b5bf8ea@suse.com>
+ <0a780f2d-1e49-47bd-8c66-babbc2dd8f63@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0a780f2d-1e49-47bd-8c66-babbc2dd8f63@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 7A0C521106
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
 
-Replace the current use of the unstable xc_domain_getinfo_single()
-interface with the stable domctl XEN_DOMCTL_get_domain_state call
-via the new libxenmanage library.
+On 06.01.2025 17:06, Andrew Cooper wrote:
+> On 06/01/2025 2:28 pm, Jan Beulich wrote:
+>> On 03.01.2025 21:47, Andrew Cooper wrote:
+>>> +There are several uses of the vm86 fields in Xen:
+>>> +
+>>> + #. ``struct vcpu`` embeds a ``struct cpu_user_regs`` to hold GPRs/etc when
+>>> +    the vCPU is scheduled out.  The vm86 fields are used by the PV logic only
+>>> +    (``{save,load}_segments()``) and can be moved into separate fields in
+>>> +    ``struct pv_vcpu``.  PV's ``dom0_construct()`` sets these fields directly,
+>>> +    and needs a matching adjustment.
+>>> +
+>>> + #. As part of ``arch_{get,set}_info_guest()`` during hypercalls.  The
+>>> +    guest side needs to remain as-is, but the Xen side can rearranged to use
+>>> +    the new fields from above.
+>>> +
+>>> + #. As part of vCPU diagnostics (``show_registers()`` etc).  The ``#DF`` path
+>>> +    uses the fields as scratch storage for the current register values, while
+>>> +    the other diagnostics are simply accessing the state of a scheduled-out
+>>> +    vCPU.
+>> Unlike for the former 2 points and for the one immediately below, but like for
+>> the final one below you don't mention what you intend to do. Here I assume it'll
+>> be reasonably straightforward to use scratch space elsewhere.
+> 
+> https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/xen-fred
+> is my working branch if you want to peek at things.
+> 
+> The diagnostics are handled by:
+> 
+> 1) "x86/traps: Rework register state printing to use an extra_state struct"
+> 2) "x86/traps: Avoid OoB accesses to print the data selectors"
 
-This will remove the last usage of libxenctrl by Xenstore, so update
-the library dependencies accordingly.
+Doesn't this one remove the sole caller of read_sregs(), hence wanting to also
+purge the function itself? Apart from this ...
 
-For now only do a direct replacement without using the functionality
-of obtaining information about domains having changed the state.
+> 3) "Revert "x86/traps: 'Fix' safety of read_registers() in #DF path""
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
----
-V1:
-- use library instead of direct hypercall, only replace current
-  libxenctrl use case
+... these all look fine to me; I'll wait with a formal R-b though until the
+actual submission.
 
-Please note that this patch can be committed only after the related
-Mini-OS patch "config: add support for libxenmanage" has gone in AND
-the Mini-OS commit-id has been updated in Config.mk accordingly!
+> Something else you might want to proactively look at.  "x86/idt:
+> Generate bsp_idt[] at build time".  I figured out how to construct the
+> IDT at build time, without using an external tool to format the table,
+> and only some slightly disgusting linker script hackery.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- stubdom/Makefile                |  8 ++---
- stubdom/mini-os.mk              |  1 +
- tools/xenstored/Makefile        |  2 +-
- tools/xenstored/Makefile.common |  2 +-
- tools/xenstored/core.h          |  1 -
- tools/xenstored/domain.c        | 52 ++++++++++++---------------------
- tools/xenstored/lu.c            |  1 +
- tools/xenstored/lu_daemon.c     |  1 +
- 8 files changed, 28 insertions(+), 40 deletions(-)
+Clever.
 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 2a81af28a1..ca800b243c 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -307,7 +307,7 @@ endif
- # libraries under tools/libs
- #######
- 
--STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest
-+STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest manage
- 
- LIBDEP_guest := cross-zlib
- 
-@@ -465,7 +465,7 @@ grub: cross-polarssl grub-upstream $(CROSS_ROOT) grub-$(XEN_TARGET_ARCH)-minios-
- # xenstore
- ##########
- 
--xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
-+xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
- xenstore-minios.gen.cfg: xenstore-minios.cfg Makefile
- 	$(GEN_config) >$@
- 
-@@ -480,7 +480,7 @@ xenstore: $(CROSS_ROOT) xenstore-minios-config.mk
- # xenstorepvh
- #############
- 
--xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
-+xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
- xenstorepvh-minios.gen.cfg: xenstorepvh-minios.cfg Makefile
- 	$(GEN_config) >$@
- 
-@@ -523,7 +523,7 @@ else
- pv-grub-if-enabled:
- endif
- 
--XENSTORE_DEPS := libxenevtchn libxengnttab libxenctrl
-+XENSTORE_DEPS := libxenevtchn libxengnttab libxenmanage
- 
- .PHONY: xenstore-stubdom
- xenstore-stubdom: mini-os-$(XEN_TARGET_ARCH)-xenstore $(XENSTORE_DEPS) xenstore
-diff --git a/stubdom/mini-os.mk b/stubdom/mini-os.mk
-index 7e4968e026..be32302f9e 100644
---- a/stubdom/mini-os.mk
-+++ b/stubdom/mini-os.mk
-@@ -13,5 +13,6 @@ GNTTAB_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
- CALL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
- FOREIGNMEMORY_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
- DEVICEMODEL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
-+MANAGE_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/manage
- CTRL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/ctrl
- GUEST_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/guest
-diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
-index 09adfe1d50..81c42838e0 100644
---- a/tools/xenstored/Makefile
-+++ b/tools/xenstored/Makefile
-@@ -5,7 +5,7 @@ include Makefile.common
- 
- xenstored: LDLIBS += $(LDLIBS_libxenevtchn)
- xenstored: LDLIBS += $(LDLIBS_libxengnttab)
--xenstored: LDLIBS += $(LDLIBS_libxenctrl)
-+xenstored: LDLIBS += $(LDLIBS_libxenmanage)
- xenstored: LDLIBS += -lrt
- xenstored: LDLIBS += $(SOCKET_LIBS)
- 
-diff --git a/tools/xenstored/Makefile.common b/tools/xenstored/Makefile.common
-index 27fdb3b49e..271134fcc1 100644
---- a/tools/xenstored/Makefile.common
-+++ b/tools/xenstored/Makefile.common
-@@ -12,7 +12,7 @@ XENSTORED_OBJS-$(CONFIG_MiniOS) += minios.o lu_minios.o
- # Include configure output (config.h)
- CFLAGS += -include $(XEN_ROOT)/tools/config.h
- CFLAGS += $(CFLAGS_libxenevtchn)
--CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenmanage)
- CFLAGS += $(CFLAGS_libxentoolcore)
- 
- $(XENSTORED_OBJS-y): CFLAGS += $(CFLAGS_libxengnttab)
-diff --git a/tools/xenstored/core.h b/tools/xenstored/core.h
-index e58779e88c..632886cecf 100644
---- a/tools/xenstored/core.h
-+++ b/tools/xenstored/core.h
-@@ -19,7 +19,6 @@
- #ifndef _XENSTORED_CORE_H
- #define _XENSTORED_CORE_H
- 
--#include <xenctrl.h>
- #include <xengnttab.h>
- 
- #include <sys/types.h>
-diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-index 64c8fd0cc3..a6506a5bb2 100644
---- a/tools/xenstored/domain.c
-+++ b/tools/xenstored/domain.c
-@@ -34,14 +34,15 @@
- #include "control.h"
- 
- #include <xenevtchn.h>
--#include <xenctrl.h>
-+#include <xenmanage.h>
-+#include <xen-barrier.h>
- #include <xen/grant_table.h>
- 
- #ifdef __MINIOS__
- #include <mini-os/xenbus.h>
- #endif
- 
--static xc_interface **xc_handle;
-+static xenmanage_handle *xm_handle;
- xengnttab_handle **xgt_handle;
- static evtchn_port_t virq_port;
- 
-@@ -619,32 +620,28 @@ static int destroy_domain(void *_domain)
- 	return 0;
- }
- 
--static bool get_domain_info(unsigned int domid, xc_domaininfo_t *dominfo)
--{
--	return xc_domain_getinfo_single(*xc_handle, domid, dominfo) == 0;
--}
--
- static int check_domain(const void *k, void *v, void *arg)
- {
--	xc_domaininfo_t dominfo;
-+	unsigned int state;
- 	struct connection *conn;
--	bool dom_valid;
-+	int dom_invalid;
- 	struct domain *domain = v;
- 	bool *notify = arg;
- 
--	dom_valid = get_domain_info(domain->domid, &dominfo);
-+	dom_invalid = xenmanage_get_domain_info(xm_handle, domain->domid,
-+						&state, NULL);
- 	if (!domain->introduced) {
--		if (!dom_valid)
-+		if (dom_invalid)
- 			talloc_free(domain);
- 		return 0;
- 	}
--	if (dom_valid) {
--		if ((dominfo.flags & XEN_DOMINF_shutdown)
-+	if (!dom_invalid) {
-+		if ((state & XENMANAGE_GETDOMSTATE_STATE_SHUTDOWN)
- 		    && !domain->shutdown) {
- 			domain->shutdown = true;
- 			*notify = true;
- 		}
--		if (!(dominfo.flags & XEN_DOMINF_dying))
-+		if (!(state & XENMANAGE_GETDOMSTATE_STATE_DEAD))
- 			return 0;
- 	}
- 	if (domain->conn) {
-@@ -786,10 +783,9 @@ static struct domain *find_or_alloc_domain(const void *ctx, unsigned int domid)
- static struct domain *find_or_alloc_existing_domain(unsigned int domid)
- {
- 	struct domain *domain;
--	xc_domaininfo_t dominfo;
- 
- 	domain = find_domain_struct(domid);
--	if (!domain && get_domain_info(domid, &dominfo))
-+	if (!domain && !xenmanage_get_domain_info(xm_handle, domid, NULL, NULL))
- 		domain = alloc_domain(NULL, domid);
- 
- 	return domain;
-@@ -1187,12 +1183,6 @@ int do_reset_watches(const void *ctx, struct connection *conn,
- 	return 0;
- }
- 
--static int close_xc_handle(void *_handle)
--{
--	xc_interface_close(*(xc_interface**)_handle);
--	return 0;
--}
--
- static int close_xgt_handle(void *_handle)
- {
- 	xengnttab_close(*(xengnttab_handle **)_handle);
-@@ -1258,15 +1248,9 @@ void domain_early_init(void)
- 	if (!domhash)
- 		barf_perror("Failed to allocate domain hashtable");
- 
--	xc_handle = talloc(talloc_autofree_context(), xc_interface*);
--	if (!xc_handle)
--		barf_perror("Failed to allocate domain handle");
--
--	*xc_handle = xc_interface_open(0,0,0);
--	if (!*xc_handle)
--		barf_perror("Failed to open connection to hypervisor");
--
--	talloc_set_destructor(xc_handle, close_xc_handle);
-+	xm_handle = xenmanage_open(NULL, 0);
-+	if (!xm_handle)
-+		barf_perror("Failed to open connection to libxenmanage");
- 
- 	xgt_handle = talloc(talloc_autofree_context(), xengnttab_handle*);
- 	if (!xgt_handle)
-@@ -1306,6 +1290,8 @@ void domain_deinit(void)
- {
- 	if (virq_port)
- 		xenevtchn_unbind(xce_handle, virq_port);
-+
-+	xenmanage_close(xm_handle);
- }
- 
- /*
-@@ -1335,13 +1321,13 @@ int domain_alloc_permrefs(struct node_perms *perms)
- {
- 	unsigned int i, domid;
- 	struct domain *d;
--	xc_domaininfo_t dominfo;
- 
- 	for (i = 0; i < perms->num; i++) {
- 		domid = perms->p[i].id;
- 		d = find_domain_struct(domid);
- 		if (!d) {
--			if (!get_domain_info(domid, &dominfo))
-+			if (xenmanage_get_domain_info(xm_handle, domid,
-+						      NULL, NULL))
- 				perms->p[i].perms |= XS_PERM_IGNORE;
- 			else if (!alloc_domain(NULL, domid))
- 				return ENOMEM;
-diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
-index bec2a84e10..4fccbbc195 100644
---- a/tools/xenstored/lu.c
-+++ b/tools/xenstored/lu.c
-@@ -11,6 +11,7 @@
- #include <stdlib.h>
- #include <syslog.h>
- #include <time.h>
-+#include <unistd.h>
- #include <sys/mman.h>
- #include <sys/stat.h>
- 
-diff --git a/tools/xenstored/lu_daemon.c b/tools/xenstored/lu_daemon.c
-index 6df6c80a2a..88d8d9e1b3 100644
---- a/tools/xenstored/lu_daemon.c
-+++ b/tools/xenstored/lu_daemon.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <syslog.h>
-+#include <unistd.h>
- #include <sys/stat.h>
- 
- #include "talloc.h"
--- 
-2.43.0
+>>> +Stack layout
+>>> +""""""""""""
+>>> +
+>>> +Xen's CPU stacks are 8-page (8-page aligned), arranged as::
+>>> +
+>>> +  7 - Primary stack (with a struct cpu_info at the top)
+>>> +  6 - Primary stack
+>>> +  5 - Primary Shadow Stack (read-only)
+>>> +  4 - #DF IST stack
+>>> +  3 - #DB IST stack
+>>> +  2 - NMI IST stack
+>>> +  1 - #MC IST stack
+>>> +  0 - IST Shadow Stacks (4x 1k, read-only)
+>>> +
+>>> +which needs mapping into FREDs Stack Levels.
+>>> +
+>>> +FRED Stack Levels replace IST.  Most events from Ring3 enter Ring0 at SL0,
+>>> +including interrupts, and even exceptions with a non-zero Stack Level
+>>> +configured.  Nested exceptions originate from Ring0 even if they were trying
+>>> +to push a Ring3 event frame onto the stack, so do follow the Ring0 CSL rules.
+>>> +
+>>> +Within Ring0, a stack switch occurs on event delivery if the event has a
+>>> +higher configured Stack Level (exceptions in ``MSR_FRED_STK_LVLS``, interrupts
+>>> +in ``MSR_FRED_CONFIG``).  Otherwise, the new event is delivered on the current
+>>> +stack.
+>>> +
+>>> +Under FRED, most sources of ``#DF`` are gone; failure to push a new event
+>>> +frame onto a stack is the main remaining one, so ``#DF`` needs to be the
+>>> +highest stack level (SL3) to catch errors at all other stack levels.
+>>> +
+>>> +Also, FRED removes the "syscall gap", removing the primary need for ``NMI``,
+>>> +``#DB`` and ``#MC`` to need separate stacks.
+>>> +
+>>> +Therefore, Xen has no need for SL1 or SL2.  Under IDT delivery, we poison the
+>>> +unused stack pointers with a non-canonical address, but we cannot do that
+>>> +under FRED; they're held in MSRs and checked at WRMSR time.  Instead, we can
+>>> +point the SL pairs (RSP + SSP) at each others (regular and shadow stack) guard
+>>> +pages such that any use of an unused SL will escalate to ``#DF``.
+>> I may have a language issue here: "each others" reads wrong to me; do you perhaps
+>> mean "each ones"?
+> 
+> It's poor grammar, but not wrong per say.  I'll try to find a different
+> way to phrase it.
+> 
+>>
+>> Further, mainly to double check my own understanding: Almost half of the stack
+>> area then isn't used anymore when FRED is active: 2 pages for the primary stack,
+>> 1 page for the primary shadow stack, 1 page for the SL3 stack, and (somewhat
+>> wastefully) 1 more for the SL3 shadow stack.
+> 
+> This matches my understanding (on the proviso that I've still not wired
+> up the stack handling yet.  Still cleaning up the initialisation paths.)
+> 
+>>  There'll be 3 unused pages, and
+>> hence space again to have true guard pages, e.g.
+>>
+>>   7 - Primary stack (with a struct cpu_info at the top)
+>>   6 - Primary stack
+>>   5 - Guard page
+>>   4 - Primary Shadow Stack (read-only)
+>>   3 - Guard page
+>>   2 - #DF stack
+>>   1 - #DF Shadow Stack (read-only)
+>>   0 - Guard page
+> 
+> Shadow stack frames are perfectly good guard pages for regular stacks,
+> and vice versa.  That's why I set them up as shadow stack pages even
+> when CET isn't active.
 
+"Perfectly valid" isn't quite true: These pages being readable means
+writes below the stack bottom (likely the prevailing kind of problem)
+are detected, but reads wouldn't be.
+
+> And yes, we could rearrange the stack.  But, there's also a good reason
+> not to.  Our code has to cope with both IDT and FRED layouts, which is
+> much easier if they're the same.
+
+I certainly can see the value of keeping stack layout uniform.
+
+>> Having reached the bottom of the section, there's one special IST aspect that
+>> I'm missing, special enough imo to warrant mentioning even if only to state that
+>> it's (hopefully) going to be irrelevant (i.e. not require replacing by another
+>> similar hack): {dis,en}able_each_ist() as used by SVM (on the assumption that
+>> sooner or later AMD is likely to also implement FRED, and that you may already
+>> know of details of their respective VMCB integration).
+> 
+> AMD haven't said anything about FRED yet, despite a very large number of
+> software partners asking about it.
+> 
+> However, If AMD were to do FRED, I'd expect it to work just like CET
+> does today, seeing as there's a proper host/guest split of CR4, and
+> everything else is in MSRs the guest can't touch.
+
+As in "can be prevented to touch directly", aiui.
+
+Jan
 
