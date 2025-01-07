@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B11A03C0F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 11:18:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866269.1277616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20E3CA03C36
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 11:22:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866304.1277626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV6en-0004XE-6B; Tue, 07 Jan 2025 10:17:53 +0000
+	id 1tV6iw-0007ah-Jk; Tue, 07 Jan 2025 10:22:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866269.1277616; Tue, 07 Jan 2025 10:17:53 +0000
+Received: by outflank-mailman (output) from mailman id 866304.1277626; Tue, 07 Jan 2025 10:22:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tV6en-0004U2-0r; Tue, 07 Jan 2025 10:17:53 +0000
-Received: by outflank-mailman (input) for mailman id 866269;
- Tue, 07 Jan 2025 10:17:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tV6iw-0007YC-Gq; Tue, 07 Jan 2025 10:22:10 +0000
+Received: by outflank-mailman (input) for mailman id 866304;
+ Tue, 07 Jan 2025 10:22:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qdqe=T7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tV6el-0002Gw-2q
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 10:17:51 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a54d9a82-cce0-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 11:17:49 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ id 1tV6et-00022t-3v
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 10:17:59 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8c49296-cce0-11ef-a0df-8be0dac302b0;
+ Tue, 07 Jan 2025 11:17:55 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B5AEF1F385;
- Tue,  7 Jan 2025 10:17:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7A0C521106;
+ Tue,  7 Jan 2025 10:17:54 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9168813763;
- Tue,  7 Jan 2025 10:17:48 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3565413763;
+ Tue,  7 Jan 2025 10:17:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xxPuIUz/fGchYgAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 07 Jan 2025 10:17:48 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id klfACVL/fGctYgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 07 Jan 2025 10:17:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,431 +53,350 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a54d9a82-cce0-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: a8c49296-cce0-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1736245068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1736245074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J6JSRc8YlyUyRyNjaDAT1q6d2ZzULe0kJJ0JZTfWW/U=;
-	b=gyOmSpK3Ie1H0q/EP1hKb0b+N8S9ueQDcFR5LPEtAWk4SKW4Vl1wCgk6ZRauKkM7maSe+g
-	ryY/vDNMO3W+oKTNengcW3Fat54t+v/+Kj61OQA33rCCzxkvaek7p8l5tDioB6+3m0Cklm
-	uHA1TIAX64o1sC4Hk39o49NHJbHbZ4I=
-Authentication-Results: smtp-out2.suse.de;
-	none
+	bh=U4Ln9oY8teJqj0oQ6om9doDIAfM1X4V+dyEL2CQtrKA=;
+	b=svnUvUvDHyLgtE4r87eEJtO/S+wJDJy5pHks0ApNBpbcXzw2UNMh5nVl8+luTPOSWNBV0k
+	7IxLnhoA6CnE9ockug+pEVKsX5fXVO42rFY9khW4GHJ2iUuWalNeDTUdtr9X6ueC1g3mtY
+	9hC1o0QoOp7EqlyALX1heKJbKOaNf5k=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=svnUvUvD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1736245068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1736245074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J6JSRc8YlyUyRyNjaDAT1q6d2ZzULe0kJJ0JZTfWW/U=;
-	b=gyOmSpK3Ie1H0q/EP1hKb0b+N8S9ueQDcFR5LPEtAWk4SKW4Vl1wCgk6ZRauKkM7maSe+g
-	ryY/vDNMO3W+oKTNengcW3Fat54t+v/+Kj61OQA33rCCzxkvaek7p8l5tDioB6+3m0Cklm
-	uHA1TIAX64o1sC4Hk39o49NHJbHbZ4I=
+	bh=U4Ln9oY8teJqj0oQ6om9doDIAfM1X4V+dyEL2CQtrKA=;
+	b=svnUvUvDHyLgtE4r87eEJtO/S+wJDJy5pHks0ApNBpbcXzw2UNMh5nVl8+luTPOSWNBV0k
+	7IxLnhoA6CnE9ockug+pEVKsX5fXVO42rFY9khW4GHJ2iUuWalNeDTUdtr9X6ueC1g3mtY
+	9hC1o0QoOp7EqlyALX1heKJbKOaNf5k=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v6 6/7] tools/libs: add a new libxenmanage library
-Date: Tue,  7 Jan 2025 11:17:10 +0100
-Message-ID: <20250107101711.5980-7-jgross@suse.com>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Julien Grall <julien@xen.org>
+Subject: [PATCH v6 7/7] tools/xenstored: use new stable interface instead of libxenctrl
+Date: Tue,  7 Jan 2025 11:17:11 +0100
+Message-ID: <20250107101711.5980-8-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250107101711.5980-1-jgross@suse.com>
 References: <20250107101711.5980-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
+X-Rspamd-Queue-Id: 7A0C521106
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
+	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
 	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
 	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email];
-	RCVD_TLS_ALL(0.00)[]
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
 X-Spam-Flag: NO
-X-Spam-Level: 
 
-In order to have a stable interface in user land for using stable
-domctl and possibly later sysctl interfaces, add a new library
-libxenmanage.
+Replace the current use of the unstable xc_domain_getinfo_single()
+interface with the stable domctl XEN_DOMCTL_get_domain_state call
+via the new libxenmanage library.
+
+This will remove the last usage of libxenctrl by Xenstore, so update
+the library dependencies accordingly.
+
+For now only do a direct replacement without using the functionality
+of obtaining information about domains having changed the state.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 ---
 V1:
-- new patch
-V2:
-- define __XEN_TOOLS__ via Makefile (Anthony PERARD)
-- use SPDX in header file (Anthony PERARD)
-- change function name to xenmanage_poll_changed_domain() (Anthony PERARD)
-- add short library description (Anthony PERARD)
-- narrow scope of xen_domctl_get_domain_state pointer (Anthony PERARD)
-V4:
-- use LGPL-2.1-only SPDX identifier (Anthony PERARD)
----
- tools/include/xenmanage.h          |  92 ++++++++++++++++
- tools/libs/Makefile                |   1 +
- tools/libs/manage/Makefile         |  10 ++
- tools/libs/manage/Makefile.common  |   3 +
- tools/libs/manage/core.c           | 168 +++++++++++++++++++++++++++++
- tools/libs/manage/libxenmanage.map |   8 ++
- tools/libs/uselibs.mk              |   2 +
- 7 files changed, 284 insertions(+)
- create mode 100644 tools/include/xenmanage.h
- create mode 100644 tools/libs/manage/Makefile
- create mode 100644 tools/libs/manage/Makefile.common
- create mode 100644 tools/libs/manage/core.c
- create mode 100644 tools/libs/manage/libxenmanage.map
+- use library instead of direct hypercall, only replace current
+  libxenctrl use case
 
-diff --git a/tools/include/xenmanage.h b/tools/include/xenmanage.h
-new file mode 100644
-index 0000000000..956b7a0a44
---- /dev/null
-+++ b/tools/include/xenmanage.h
-@@ -0,0 +1,92 @@
-+/* SPDX-License-Identifier: LGPL-2.1-only */
-+/*
-+ * Copyright (c) 2024 SUSE Software Solutions Germany GmbH
-+ *
-+ * Interfaces of libxenmanage.
-+ *
-+ * libxenmanage provides management functions for the host using stable
-+ * hypercall interfaces.
-+ */
-+#ifndef XENMANAGE_H
-+#define XENMANAGE_H
-+
-+#include <stdint.h>
-+
-+/* Avoid the need to #include <xentoollog.h> */
-+struct xentoollog_logger;
-+
-+typedef struct xenmanage_handle xenmanage_handle;
-+
-+/*
-+ * Open libxenmanage.
-+ *
-+ * Get a handle of the xenmanage library. The handle is required for all
-+ * further operations of the library.
-+ * Parameters:
-+ *   logger:     Logging function to use. If NULL logging is done to stderr.
-+ *   open_flags: Only 0 supported.
-+ * Return value: Handle or NULL if error.
-+ */
-+xenmanage_handle *xenmanage_open(struct xentoollog_logger *logger,
-+                                 unsigned int open_flags);
-+
-+/*
-+ * Close libxenmanage.
-+ *
-+ * Return a handle of the xenmanage library.
-+ * Parameters:
-+ *    hdl: Handle obtained by xenmanage_open().
-+ * Return value: always 0.
-+ */
-+int xenmanage_close(xenmanage_handle *hdl);
-+
-+#define XENMANAGE_GETDOMSTATE_STATE_EXIST     0x0001  /* Domain is existing. */
-+#define XENMANAGE_GETDOMSTATE_STATE_SHUTDOWN  0x0002  /* Shutdown finished. */
-+#define XENMANAGE_GETDOMSTATE_STATE_DYING     0x0004  /* Domain dying. */
-+#define XENMANAGE_GETDOMSTATE_STATE_DEAD      0x0008  /* Domain dead. */
-+
-+/*
-+ * Return state information of an existing domain.
-+ *
-+ * Returns the domain state and unique id of the given domain.
-+ * Parameters:
-+ *   hdl:       handle returned by xenmanage_open()
-+ *   domid:     domain id of the domain to get the information for
-+ *   state:     where to store the state (XENMANAGE_GETDOMSTATE_STATE_ flags,
-+ *              nothing stored if NULL)
-+ *   unique_id: where to store the unique id of the domain (nothing stored if
-+ *              NULL)
-+ * Return value: 0 if information was stored, -1 else (errno is set)
-+ */
-+int xenmanage_get_domain_info(xenmanage_handle *hdl, unsigned int domid,
-+                              unsigned int *state, uint64_t *unique_id);
-+
-+/*
-+ * Return information of a domain having changed state recently.
-+ *
-+ * Returns the domain id, state and unique id of a domain having changed
-+ * state (any of the state bits was modified) since the last time information
-+ * for that domain was returned by this function. Only usable by callers who
-+ * have registered the VIRQ_DOM_EXC event (normally Xenstore).
-+ * Parameters:
-+ *   hdl:       handle returned by xenmanage_open()
-+ *   domid:     where to store the domid of the domain (not NULL)
-+ *   state:     where to store the state (XENMANAGE_GETDOMSTATE_STATE_ flags,
-+ *              nothing stored if NULL)
-+ *   unique_id: where to store the unique id of the domain (nothing stored if
-+ *              NULL)
-+ * Return value: 0 if information was stored, -1 else (errno is set)
-+ */
-+int xenmanage_poll_changed_domain(xenmanage_handle *hdl, unsigned int *domid,
-+                                  unsigned int *state, uint64_t *unique_id);
-+#endif /* XENMANAGE_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/tools/libs/Makefile b/tools/libs/Makefile
-index 1afcd12e2b..d39516c1b3 100644
---- a/tools/libs/Makefile
-+++ b/tools/libs/Makefile
-@@ -12,6 +12,7 @@ SUBDIRS-y += devicemodel
- SUBDIRS-y += ctrl
- SUBDIRS-y += guest
- SUBDIRS-y += hypfs
-+SUBDIRS-y += manage
- SUBDIRS-y += store
- SUBDIRS-y += stat
- SUBDIRS-$(CONFIG_Linux) += vchan
-diff --git a/tools/libs/manage/Makefile b/tools/libs/manage/Makefile
-new file mode 100644
-index 0000000000..dbfe70d259
---- /dev/null
-+++ b/tools/libs/manage/Makefile
-@@ -0,0 +1,10 @@
-+XEN_ROOT = $(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
-+
-+MAJOR    = 1
-+MINOR    = 0
-+version-script := libxenmanage.map
-+
-+include Makefile.common
-+
-+include $(XEN_ROOT)/tools/libs/libs.mk
-diff --git a/tools/libs/manage/Makefile.common b/tools/libs/manage/Makefile.common
-new file mode 100644
-index 0000000000..533ba30fba
---- /dev/null
-+++ b/tools/libs/manage/Makefile.common
-@@ -0,0 +1,3 @@
-+CFLAGS += -D__XEN_TOOLS__
-+
-+OBJS-y  += core.o
-diff --git a/tools/libs/manage/core.c b/tools/libs/manage/core.c
-new file mode 100644
-index 0000000000..8fb421df41
---- /dev/null
-+++ b/tools/libs/manage/core.c
-@@ -0,0 +1,168 @@
-+/*
-+ * Copyright (c) 2024 SUSE Software Solutions Germany GmbH
-+ *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Lesser General Public
-+ * License as published by the Free Software Foundation;
-+ * version 2.1 of the License.
-+ *
-+ * This library is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Lesser General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <stdlib.h>
-+#include <string.h>
-+
-+#include <xentoollog.h>
+Please note that this patch can be committed only after the related
+Mini-OS patch "config: add support for libxenmanage" has gone in AND
+the Mini-OS commit-id has been updated in Config.mk accordingly!
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ stubdom/Makefile                |  8 ++---
+ stubdom/mini-os.mk              |  1 +
+ tools/xenstored/Makefile        |  2 +-
+ tools/xenstored/Makefile.common |  2 +-
+ tools/xenstored/core.h          |  1 -
+ tools/xenstored/domain.c        | 52 ++++++++++++---------------------
+ tools/xenstored/lu.c            |  1 +
+ tools/xenstored/lu_daemon.c     |  1 +
+ 8 files changed, 28 insertions(+), 40 deletions(-)
+
+diff --git a/stubdom/Makefile b/stubdom/Makefile
+index 2a81af28a1..ca800b243c 100644
+--- a/stubdom/Makefile
++++ b/stubdom/Makefile
+@@ -307,7 +307,7 @@ endif
+ # libraries under tools/libs
+ #######
+ 
+-STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest
++STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest manage
+ 
+ LIBDEP_guest := cross-zlib
+ 
+@@ -465,7 +465,7 @@ grub: cross-polarssl grub-upstream $(CROSS_ROOT) grub-$(XEN_TARGET_ARCH)-minios-
+ # xenstore
+ ##########
+ 
+-xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
++xenstore-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
+ xenstore-minios.gen.cfg: xenstore-minios.cfg Makefile
+ 	$(GEN_config) >$@
+ 
+@@ -480,7 +480,7 @@ xenstore: $(CROSS_ROOT) xenstore-minios-config.mk
+ # xenstorepvh
+ #############
+ 
+-xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog ctrl
++xenstorepvh-minios.gen.cfg: APP_LIBS = gnttab evtchn toollog manage
+ xenstorepvh-minios.gen.cfg: xenstorepvh-minios.cfg Makefile
+ 	$(GEN_config) >$@
+ 
+@@ -523,7 +523,7 @@ else
+ pv-grub-if-enabled:
+ endif
+ 
+-XENSTORE_DEPS := libxenevtchn libxengnttab libxenctrl
++XENSTORE_DEPS := libxenevtchn libxengnttab libxenmanage
+ 
+ .PHONY: xenstore-stubdom
+ xenstore-stubdom: mini-os-$(XEN_TARGET_ARCH)-xenstore $(XENSTORE_DEPS) xenstore
+diff --git a/stubdom/mini-os.mk b/stubdom/mini-os.mk
+index 7e4968e026..be32302f9e 100644
+--- a/stubdom/mini-os.mk
++++ b/stubdom/mini-os.mk
+@@ -13,5 +13,6 @@ GNTTAB_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/gnttab
+ CALL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/call
+ FOREIGNMEMORY_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/foreignmemory
+ DEVICEMODEL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/devicemodel
++MANAGE_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/manage
+ CTRL_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/ctrl
+ GUEST_PATH = $(XEN_ROOT)/stubdom/libs-$(MINIOS_TARGET_ARCH)/guest
+diff --git a/tools/xenstored/Makefile b/tools/xenstored/Makefile
+index 09adfe1d50..81c42838e0 100644
+--- a/tools/xenstored/Makefile
++++ b/tools/xenstored/Makefile
+@@ -5,7 +5,7 @@ include Makefile.common
+ 
+ xenstored: LDLIBS += $(LDLIBS_libxenevtchn)
+ xenstored: LDLIBS += $(LDLIBS_libxengnttab)
+-xenstored: LDLIBS += $(LDLIBS_libxenctrl)
++xenstored: LDLIBS += $(LDLIBS_libxenmanage)
+ xenstored: LDLIBS += -lrt
+ xenstored: LDLIBS += $(SOCKET_LIBS)
+ 
+diff --git a/tools/xenstored/Makefile.common b/tools/xenstored/Makefile.common
+index 27fdb3b49e..271134fcc1 100644
+--- a/tools/xenstored/Makefile.common
++++ b/tools/xenstored/Makefile.common
+@@ -12,7 +12,7 @@ XENSTORED_OBJS-$(CONFIG_MiniOS) += minios.o lu_minios.o
+ # Include configure output (config.h)
+ CFLAGS += -include $(XEN_ROOT)/tools/config.h
+ CFLAGS += $(CFLAGS_libxenevtchn)
+-CFLAGS += $(CFLAGS_libxenctrl)
++CFLAGS += $(CFLAGS_libxenmanage)
+ CFLAGS += $(CFLAGS_libxentoolcore)
+ 
+ $(XENSTORED_OBJS-y): CFLAGS += $(CFLAGS_libxengnttab)
+diff --git a/tools/xenstored/core.h b/tools/xenstored/core.h
+index e58779e88c..632886cecf 100644
+--- a/tools/xenstored/core.h
++++ b/tools/xenstored/core.h
+@@ -19,7 +19,6 @@
+ #ifndef _XENSTORED_CORE_H
+ #define _XENSTORED_CORE_H
+ 
+-#include <xenctrl.h>
+ #include <xengnttab.h>
+ 
+ #include <sys/types.h>
+diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
+index 64c8fd0cc3..a6506a5bb2 100644
+--- a/tools/xenstored/domain.c
++++ b/tools/xenstored/domain.c
+@@ -34,14 +34,15 @@
+ #include "control.h"
+ 
+ #include <xenevtchn.h>
+-#include <xenctrl.h>
 +#include <xenmanage.h>
-+#include <xencall.h>
-+#include <xentoolcore_internal.h>
++#include <xen-barrier.h>
+ #include <xen/grant_table.h>
+ 
+ #ifdef __MINIOS__
+ #include <mini-os/xenbus.h>
+ #endif
+ 
+-static xc_interface **xc_handle;
++static xenmanage_handle *xm_handle;
+ xengnttab_handle **xgt_handle;
+ static evtchn_port_t virq_port;
+ 
+@@ -619,32 +620,28 @@ static int destroy_domain(void *_domain)
+ 	return 0;
+ }
+ 
+-static bool get_domain_info(unsigned int domid, xc_domaininfo_t *dominfo)
+-{
+-	return xc_domain_getinfo_single(*xc_handle, domid, dominfo) == 0;
+-}
+-
+ static int check_domain(const void *k, void *v, void *arg)
+ {
+-	xc_domaininfo_t dominfo;
++	unsigned int state;
+ 	struct connection *conn;
+-	bool dom_valid;
++	int dom_invalid;
+ 	struct domain *domain = v;
+ 	bool *notify = arg;
+ 
+-	dom_valid = get_domain_info(domain->domid, &dominfo);
++	dom_invalid = xenmanage_get_domain_info(xm_handle, domain->domid,
++						&state, NULL);
+ 	if (!domain->introduced) {
+-		if (!dom_valid)
++		if (dom_invalid)
+ 			talloc_free(domain);
+ 		return 0;
+ 	}
+-	if (dom_valid) {
+-		if ((dominfo.flags & XEN_DOMINF_shutdown)
++	if (!dom_invalid) {
++		if ((state & XENMANAGE_GETDOMSTATE_STATE_SHUTDOWN)
+ 		    && !domain->shutdown) {
+ 			domain->shutdown = true;
+ 			*notify = true;
+ 		}
+-		if (!(dominfo.flags & XEN_DOMINF_dying))
++		if (!(state & XENMANAGE_GETDOMSTATE_STATE_DEAD))
+ 			return 0;
+ 	}
+ 	if (domain->conn) {
+@@ -786,10 +783,9 @@ static struct domain *find_or_alloc_domain(const void *ctx, unsigned int domid)
+ static struct domain *find_or_alloc_existing_domain(unsigned int domid)
+ {
+ 	struct domain *domain;
+-	xc_domaininfo_t dominfo;
+ 
+ 	domain = find_domain_struct(domid);
+-	if (!domain && get_domain_info(domid, &dominfo))
++	if (!domain && !xenmanage_get_domain_info(xm_handle, domid, NULL, NULL))
+ 		domain = alloc_domain(NULL, domid);
+ 
+ 	return domain;
+@@ -1187,12 +1183,6 @@ int do_reset_watches(const void *ctx, struct connection *conn,
+ 	return 0;
+ }
+ 
+-static int close_xc_handle(void *_handle)
+-{
+-	xc_interface_close(*(xc_interface**)_handle);
+-	return 0;
+-}
+-
+ static int close_xgt_handle(void *_handle)
+ {
+ 	xengnttab_close(*(xengnttab_handle **)_handle);
+@@ -1258,15 +1248,9 @@ void domain_early_init(void)
+ 	if (!domhash)
+ 		barf_perror("Failed to allocate domain hashtable");
+ 
+-	xc_handle = talloc(talloc_autofree_context(), xc_interface*);
+-	if (!xc_handle)
+-		barf_perror("Failed to allocate domain handle");
+-
+-	*xc_handle = xc_interface_open(0,0,0);
+-	if (!*xc_handle)
+-		barf_perror("Failed to open connection to hypervisor");
+-
+-	talloc_set_destructor(xc_handle, close_xc_handle);
++	xm_handle = xenmanage_open(NULL, 0);
++	if (!xm_handle)
++		barf_perror("Failed to open connection to libxenmanage");
+ 
+ 	xgt_handle = talloc(talloc_autofree_context(), xengnttab_handle*);
+ 	if (!xgt_handle)
+@@ -1306,6 +1290,8 @@ void domain_deinit(void)
+ {
+ 	if (virq_port)
+ 		xenevtchn_unbind(xce_handle, virq_port);
 +
-+#include <xen/xen.h>
-+#include <xen/domctl.h>
-+
-+struct xenmanage_handle {
-+    xentoollog_logger *logger, *logger_tofree;
-+    unsigned int flags;
-+    xencall_handle *xcall;
-+};
-+
-+xenmanage_handle *xenmanage_open(xentoollog_logger *logger,
-+                                 unsigned int open_flags)
-+{
-+    xenmanage_handle *hdl = calloc(1, sizeof(*hdl));
-+    int saved_errno;
-+
-+    if ( !hdl )
-+        return NULL;
-+
-+    if ( open_flags )
-+    {
-+        errno = EINVAL;
-+        goto err;
-+    }
-+
-+    hdl->flags = open_flags;
-+    hdl->logger = logger;
-+    hdl->logger_tofree = NULL;
-+
-+    if ( !hdl->logger )
-+    {
-+        hdl->logger = hdl->logger_tofree =
-+            (xentoollog_logger *)
-+            xtl_createlogger_stdiostream(stderr, XTL_PROGRESS, 0);
-+        if ( !hdl->logger )
-+            goto err;
-+    }
-+
-+    hdl->xcall = xencall_open(hdl->logger, 0);
-+    if ( !hdl->xcall )
-+        goto err;
-+
-+    return hdl;
-+
-+err:
-+    saved_errno = errno;
-+    xenmanage_close(hdl);
-+    errno = saved_errno;
-+
-+    return NULL;
-+}
-+
-+int xenmanage_close(xenmanage_handle *hdl)
-+{
-+    if ( !hdl )
-+        return 0;
-+
-+    xencall_close(hdl->xcall);
-+    xtl_logger_destroy(hdl->logger_tofree);
-+    free(hdl);
-+    return 0;
-+}
-+
-+static int xenmanage_do_domctl_get_domain_state(xenmanage_handle *hdl,
-+                                                unsigned int domid_in,
-+                                                unsigned int *domid_out,
-+                                                unsigned int *state,
-+                                                uint64_t *unique_id)
-+{
-+    struct xen_domctl *buf;
-+    int saved_errno;
-+    int ret;
-+
-+    buf = xencall_alloc_buffer(hdl->xcall, sizeof(*buf));
-+    if ( !buf )
-+    {
-+        errno = ENOMEM;
-+        return -1;
-+    }
-+
-+    memset(buf, 0, sizeof(*buf));
-+
-+    buf->cmd = XEN_DOMCTL_get_domain_state;
-+    buf->domain = domid_in;
-+
-+    ret = xencall1(hdl->xcall, __HYPERVISOR_domctl, (unsigned long)buf);
-+    saved_errno = errno;
-+    if ( !ret )
-+    {
-+        struct xen_domctl_get_domain_state *st = &buf->u.get_domain_state;
-+
-+        if ( domid_out )
-+            *domid_out = buf->domain;
-+        if ( state )
-+        {
-+            *state = 0;
-+            if ( st->state & XEN_DOMCTL_GETDOMSTATE_STATE_EXIST )
-+                *state |= XENMANAGE_GETDOMSTATE_STATE_EXIST;
-+            if ( st->state & XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN )
-+                *state |= XENMANAGE_GETDOMSTATE_STATE_SHUTDOWN;
-+            if ( st->state & XEN_DOMCTL_GETDOMSTATE_STATE_DYING )
-+                *state |= XENMANAGE_GETDOMSTATE_STATE_DYING;
-+            if ( st->state & XEN_DOMCTL_GETDOMSTATE_STATE_DEAD )
-+                *state |= XENMANAGE_GETDOMSTATE_STATE_DEAD;
-+        }
-+        if ( unique_id )
-+            *unique_id = st->unique_id;
-+    }
-+
-+    xencall_free_buffer(hdl->xcall, buf);
-+
-+    errno = saved_errno;
-+
-+    return ret;
-+}
-+
-+int xenmanage_get_domain_info(xenmanage_handle *hdl, unsigned int domid,
-+                              unsigned int *state, uint64_t *unique_id)
-+{
-+    if ( !hdl || domid >= DOMID_FIRST_RESERVED )
-+    {
-+        errno = EINVAL;
-+        return -1;
-+    }
-+
-+    return xenmanage_do_domctl_get_domain_state(hdl, domid, NULL, state,
-+                                                unique_id);
-+}
-+
-+int xenmanage_poll_changed_domain(xenmanage_handle *hdl, unsigned int *domid,
-+                                  unsigned int *state, uint64_t *unique_id)
-+{
-+    if ( !hdl || !domid )
-+    {
-+        errno = EINVAL;
-+        return -1;
-+    }
-+
-+    return xenmanage_do_domctl_get_domain_state(hdl, DOMID_INVALID, domid,
-+                                                state, unique_id);
-+}
-diff --git a/tools/libs/manage/libxenmanage.map b/tools/libs/manage/libxenmanage.map
-new file mode 100644
-index 0000000000..64c793e603
---- /dev/null
-+++ b/tools/libs/manage/libxenmanage.map
-@@ -0,0 +1,8 @@
-+VERS_1.0 {
-+	global:
-+		xenmanage_open;
-+		xenmanage_close;
-+		xenmanage_get_domain_info;
-+		xenmanage_poll_changed_domain;
-+	local: *; /* Do not expose anything by default */
-+};
-diff --git a/tools/libs/uselibs.mk b/tools/libs/uselibs.mk
-index 7aa8d83e06..c0a234cfec 100644
---- a/tools/libs/uselibs.mk
-+++ b/tools/libs/uselibs.mk
-@@ -16,6 +16,8 @@ LIBS_LIBS += devicemodel
- USELIBS_devicemodel := toollog toolcore call
- LIBS_LIBS += hypfs
- USELIBS_hypfs := toollog toolcore call
-+LIBS_LIBS += manage
-+USELIBS_manage := toollog toolcore call
- LIBS_LIBS += ctrl
- USELIBS_ctrl := toollog call evtchn gnttab foreignmemory devicemodel
- LIBS_LIBS += guest
++	xenmanage_close(xm_handle);
+ }
+ 
+ /*
+@@ -1335,13 +1321,13 @@ int domain_alloc_permrefs(struct node_perms *perms)
+ {
+ 	unsigned int i, domid;
+ 	struct domain *d;
+-	xc_domaininfo_t dominfo;
+ 
+ 	for (i = 0; i < perms->num; i++) {
+ 		domid = perms->p[i].id;
+ 		d = find_domain_struct(domid);
+ 		if (!d) {
+-			if (!get_domain_info(domid, &dominfo))
++			if (xenmanage_get_domain_info(xm_handle, domid,
++						      NULL, NULL))
+ 				perms->p[i].perms |= XS_PERM_IGNORE;
+ 			else if (!alloc_domain(NULL, domid))
+ 				return ENOMEM;
+diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
+index bec2a84e10..4fccbbc195 100644
+--- a/tools/xenstored/lu.c
++++ b/tools/xenstored/lu.c
+@@ -11,6 +11,7 @@
+ #include <stdlib.h>
+ #include <syslog.h>
+ #include <time.h>
++#include <unistd.h>
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+ 
+diff --git a/tools/xenstored/lu_daemon.c b/tools/xenstored/lu_daemon.c
+index 6df6c80a2a..88d8d9e1b3 100644
+--- a/tools/xenstored/lu_daemon.c
++++ b/tools/xenstored/lu_daemon.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <syslog.h>
++#include <unistd.h>
+ #include <sys/stat.h>
+ 
+ #include "talloc.h"
 -- 
 2.43.0
 
