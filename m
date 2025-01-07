@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B848A0326C
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2025 23:02:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866031.1277326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D234A03914
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 08:54:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866066.1277336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUvAB-0005Ir-Op; Mon, 06 Jan 2025 22:01:31 +0000
+	id 1tV4OS-0003jb-2S; Tue, 07 Jan 2025 07:52:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866031.1277326; Mon, 06 Jan 2025 22:01:31 +0000
+Received: by outflank-mailman (output) from mailman id 866066.1277336; Tue, 07 Jan 2025 07:52:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tUvAB-0005GS-Lb; Mon, 06 Jan 2025 22:01:31 +0000
-Received: by outflank-mailman (input) for mailman id 866031;
- Mon, 06 Jan 2025 22:01:30 +0000
+	id 1tV4OR-0003hF-Uw; Tue, 07 Jan 2025 07:52:51 +0000
+Received: by outflank-mailman (input) for mailman id 866066;
+ Tue, 07 Jan 2025 07:52:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T/Ld=T6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tUvAA-0005GM-Cl
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2025 22:01:30 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tV4OQ-0003h9-Je
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 07:52:50 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6e92887-cc79-11ef-99a4-01e77a169b0f;
- Mon, 06 Jan 2025 23:01:28 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 73D2B5C60E5;
- Mon,  6 Jan 2025 22:00:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C231C4CED2;
- Mon,  6 Jan 2025 22:01:25 +0000 (UTC)
+ id 619c2d96-cccc-11ef-99a4-01e77a169b0f;
+ Tue, 07 Jan 2025 08:52:45 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-385df53e559so11903004f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jan 2025 23:52:45 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a5524f064sm23649654f8f.101.2025.01.06.23.52.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jan 2025 23:52:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,82 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6e92887-cc79-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736200886;
-	bh=+SgfoRqkrmN/LiTQaBhlqzmt92UAGuRngzCafowYl1k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=V0j0fqfwl4w1yeLE8v9dKNz7Gl75P7ufdXEsrqPbTCJA2C/3vHvv1iFfG2og0s7Nl
-	 AvvtZ6aoLhp7qDJ1idOOhukJ86BbE+8Dt1C6aOUZZIjhVr6i630cDlxuQEaxXYQWlA
-	 ZEAW5DD0LNk84sYpEAwTD1itLcW7zkXx5WzqZ3t+6mlEUIukEJtrGgtcXXAj9qO6gK
-	 wmnr06Gm7JLWV+hxctRySskldopmOXqHW3zx4bqXH/Qjyuc59Xu5UgxZrR5vOCsYiw
-	 W8/ZUuvNIE90hOfr9QY4htltsGYOj0IxAqnDQc9klWQjlEDh4tMSk0O4EcGeTRKyAC
-	 /1FiGD1wVtTug==
-Date: Mon, 6 Jan 2025 14:01:23 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH for-4.20] public/version: soften wording for deprecated
- sub-ops
-In-Reply-To: <8ca8ac20-a19f-49ef-9631-08cdcef854d2@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2501061229300.133435@ubuntu-linux-20-04-desktop>
-References: <bf8cc342-52aa-44ee-8bce-ce2be6406904@suse.com> <0c8a13d0-04d7-4ed6-a8d8-a4423867fa3f@citrix.com> <8ca8ac20-a19f-49ef-9631-08cdcef854d2@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 619c2d96-cccc-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1736236365; x=1736841165; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=d+k56CqkhlJP2/NgmgbZAI44vP6DNfOn+8VCtcYzVrM=;
+        b=IXfdPj6DHQ0tbK0J8bFmDqDxxYmRL6owt3hItzmEFGJ34cjb3+8cKL1jQs0d0kH+OT
+         /CKr40ZwZSfhY0stBFumjys6FaaDt6K5LQmlCIivF/u6qHucFVqZg/AId1QI2KJrfJDa
+         dn3oy6ASCy5FA7L17XrCTBcFwHnlrvjlyUmBPz+YSOZ81vARCd+ladbEZ7eyFHTiL8h/
+         z3488ZFpQqw234JxTRV7+yFd5prkpqsUcx3yYB3l/Q4nvd3EIDTkgsgr9PDGQLvSeSoy
+         HwCnffm3DwXz4edv/LSCmDesjT8JXHgNt2YFevSLRK6dPRDj9nJvRezri0blsGo4NXy/
+         0pIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736236365; x=1736841165;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d+k56CqkhlJP2/NgmgbZAI44vP6DNfOn+8VCtcYzVrM=;
+        b=w9Myyz5GwWkE/0BZetbXS2F41SPb02GnvlSegdbwZ6/gzVLV+QOvJekMt0XlY25e4/
+         qQXkv7SMIEmZxVcbbatOtKslW1SxZT6q1r8eZ0umNbwjh/Q1bbfUjMdC51+dhgRW+Oyc
+         eQmQzV06eT5fPyKxurOQCdak65Us/gZXu+bPez6UFIiJ7HTuKWkJvU4K3D1L+0JkAEm2
+         +dUc39msZ+YwqgpSt0XQp1j300wi+o+Rjq768nkGdQzJjmakkdoJ+Qp2kxIPWfmhmXdc
+         Lw2THveNe0IDFl0mvpLPWNQaZVOme3DGYyxyxYIFIFY5CZFf3JrRa4YmxEMn+EK/nllx
+         E44A==
+X-Forwarded-Encrypted: i=1; AJvYcCU8HHf9iwiCfV+wo6Q2nbiPth0dD/HDhVtSERZhWr/Jgso0gkZF7wNf+1zYY/7XYWZmox5PJdz+5VE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxnxgTk6+KuA4S2MbvFPcqneToUnYSAAYT4qtkyKF6Pronrr97L
+	V3DF25q3wT98pQDbmVCNDo29Qtsw7o3J4g42houKkYV9dBPginqZEsul0tYHUA==
+X-Gm-Gg: ASbGnctvhKaAH+mp8vdjTYjJqoTNMYtnzDPm8nvceAzKpJekK8/WDreh9GAkwaCaLVI
+	TMdBzwjm/hjTYF1YdYeD4jmaRDAKJC92h5yN0oHqR7/8+qeiuqk+1VEHyV+M1/0f10V5yatq+VA
+	scFdHtB+vcqvY8InNiC3JTUIWpiGllInsI/5cQh8/oE7VbfDfUrLs04SAyR1MlBuxXyQ5XybwYa
+	EJSrlHsov7nbOfLRKOh7Rr8sVfz3SNSgbrfCSu6/0UwVbTfyt5M6ExSOcyLbVc2PUUxqTz69a69
+	5kOERpYEpwmCPXZFTPJXG9vDg9Ar1Z5MlR0imSEpFQ==
+X-Google-Smtp-Source: AGHT+IGeun3J91zLuwjBBxEg/5joTExiUZ6dj9OnIJQ43O4u+Brej1LZEbYFUCvADqaliVDaALVj4w==
+X-Received: by 2002:a5d:5847:0:b0:385:f6de:6266 with SMTP id ffacd0b85a97d-38a221fd10cmr47932448f8f.24.1736236365021;
+        Mon, 06 Jan 2025 23:52:45 -0800 (PST)
+Message-ID: <d8873cf8-dd17-4f9e-bded-7a47e04bd1be@suse.com>
+Date: Tue, 7 Jan 2025 08:52:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] docs: FRED support in Xen
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250103204704.84067-1-andrew.cooper3@citrix.com>
+ <3ff59df0-69f8-426a-ab44-d2cd9b5bf8ea@suse.com>
+ <0a780f2d-1e49-47bd-8c66-babbc2dd8f63@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0a780f2d-1e49-47bd-8c66-babbc2dd8f63@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 6 Jan 2025, Jan Beulich wrote:
-> On 06.01.2025 12:08, Andrew Cooper wrote:
-> > On 06/01/2025 11:04 am, Jan Beulich wrote:
-> >> These interfaces were - afaict - originally introduced this way on the
-> >> firm assumption that the used array sizes would be good virtually
-> >> forever.  While this assumption turned out to not be true for at least
-> >> some of them, this still doesn't really render them "broken": They still
-> >> fit their original purpose, and they are still usable for a fair subset
-> >> of environments.  Re-word the comments accordingly.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > No.
-> > 
-> > The community voted and rejected this opinion.
+On 06.01.2025 17:06, Andrew Cooper wrote:
+> On 06/01/2025 2:28 pm, Jan Beulich wrote:
+>> On 03.01.2025 21:47, Andrew Cooper wrote:
+>>> + #. In x86_emulate.c's ``put_fpu()``.  As far as I can tell, this is
+>>> +    completely buggy; the values will be poisoned for HVM guests, and stale
+>>> +    from the prior context switch for PV guests.
+>> For HVM guests the ->read_segment() hook will be populated, so the path isn't
+>> taken (leaving aside the odd case of the hook failing). For PV guests I don't
+>> see any staleness concern: When the vCPU was switched in, the fields were set
+>> (restored), weren't they?
 > 
-> That's not my recollection of what was voted on, and with the vote results
-> not being available referring to them is unhelpful anyway.
+> There is up to 30ms of guest runtime between the last schedule in and
+> this emulation, and segment loads don't generally trap for PV guests.
+
+Oh, yes, I see now what you mean. Luckily even pv/emul-priv-op.c sets the hook.
+Hence what's affected here are the two uses of the emulator from
+pv/ro-page-fault.c. Sadly HVM isn't entirely unaffected, as the shadow mode use
+of the emulator doesn't set the hook. Neither of the three cases are likely to
+involve FPU insns, yet it's not excluded.
+
+Question is what to do: Simply failing the entire emulation feels too heavy
+handed. We could choose to simply store nul selectors instead. That would be
+kind of wrong though for (in the hypervisor: hypothetical) cases where the
+incoming regs are fully populated.
+
+Regardless of what we're going to do, the underlying issue of callers passing
+in partially inapplicable (to avoid calling it uninitialized) state remains,
+...
+
+>> For the purpose of FRED this doesn't matter much - wherever the values are to
+>> be held, they'll be taken from by put_fpu().
 > 
-> My (admittedly vague) recollection is that it was decided to leave enough
-> room for wording choice by submitters. That would cover your original
-> patch, and it would equally cover mine.
+> I maybe wasn't clear.  To support FRED, I need to delete the vm86 fields.
+> 
+> @@ -54,10 +54,6 @@ struct cpu_user_regs
+>      DECL_REG_LO16(flags); /* rflags.IF == !saved_upcall_mask */
+>      DECL_REG_LO8(sp);
+>      uint16_t ss, _pad2[3];
+> -    uint16_t es, _pad3[3];
+> -    uint16_t ds, _pad4[3];
+> -    uint16_t fs, _pad5[3];
+> -    uint16_t gs, _pad6[3];
+> +    uint64_t edata, _rsvd;
+>  };
+>  
+>  #undef DECL_REG_HI
 
-The community-wide survey indicated that it is acceptable to use the
-term "broken" in our documentation [1]. While the survey was not tied to
-a specific instance, it was undoubtedly influenced by the ongoing
-discussion at the time.
+... at least until your rework is in place. I did understand that you mean
+to remove the struct fields. You made clear though that you'd re-introduce
+them elsewhere (struct pv_vcpu) instead. And without (yet) recognizing the
+staleness aspect I was implying we could read the values from there.
 
-If the purpose of this patch is to replace the term "broken", as it
-would seem from the commit message, I would recommend dropping the patch
-and leaving the wording as it is, given that the community has expressed
-approval of its use. Let us respect that decision.
-
-However, if the goal is to improve clarity by specifying "due to its
-size limitations" and noting that the truncation occurs "silently", then
-I believe the patch could be reviewed with that objective in mind.
-
-In other words, we should not replace "broken" simply for the sake of
-doing so. That discussion has already been settled. When reviewing this
-patch, our focus should be on its other merits, if any.
-
-Based on the above, I would not take the patch in its current form. But
-if Jan is up for rewording the commit message, and focusing purely on
-the clarity of the in-code comments maybe a future version could be
-acceptable.
-
-[1] https://cryptpad.fr/form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7cYpZdluWo/
+Jan
 
