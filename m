@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF0E8A04598
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:10:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866624.1277947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D89A045B8
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2025 17:15:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866632.1277958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVC9i-0002i8-HC; Tue, 07 Jan 2025 16:10:10 +0000
+	id 1tVCEA-0004Ff-5v; Tue, 07 Jan 2025 16:14:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866624.1277947; Tue, 07 Jan 2025 16:10:10 +0000
+Received: by outflank-mailman (output) from mailman id 866632.1277958; Tue, 07 Jan 2025 16:14:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVC9i-0002gd-Dn; Tue, 07 Jan 2025 16:10:10 +0000
-Received: by outflank-mailman (input) for mailman id 866624;
- Tue, 07 Jan 2025 16:10:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tVCEA-0004Cs-1R; Tue, 07 Jan 2025 16:14:46 +0000
+Received: by outflank-mailman (input) for mailman id 866632;
+ Tue, 07 Jan 2025 16:14:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Qdqe=T7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tVC9g-0002gX-SY
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 16:10:08 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc6e2a12-cd11-11ef-99a4-01e77a169b0f;
- Tue, 07 Jan 2025 17:10:06 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aa66ead88b3so583083966b.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 08:10:06 -0800 (PST)
-Received: from ?IPV6:2003:e5:8731:2800:842d:42a0:5992:3595?
- (p200300e587312800842d42a059923595.dip0.t-ipconnect.de.
- [2003:e5:8731:2800:842d:42a0:5992:3595])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0efe46d5sm2411987266b.103.2025.01.07.08.10.05
+ (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tVCE8-0004Cm-MJ
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2025 16:14:44 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 816cf858-cd12-11ef-a0df-8be0dac302b0;
+ Tue, 07 Jan 2025 17:14:43 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3862a921123so10611129f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 08:14:43 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c89e528sm51375696f8f.83.2025.01.07.08.14.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 08:10:06 -0800 (PST)
+ Tue, 07 Jan 2025 08:14:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,107 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc6e2a12-cd11-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 816cf858-cd12-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736266206; x=1736871006; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ng2syJtU2x7becFhRtds5M5yUZ1y0CaKDyoZdEKVVfc=;
-        b=UtuQQV99gVmJT57C2rnlZvgqiT6xNN+1IMMoMrovkTKJfZeeindKlPiRETo8arVbMd
-         u74VisQUtEmQckxFw0Np5y9a8oWFvtHUqxg66U9BuF0JjkTfMdAAmD5p6EaeThVJuAjK
-         3n4Kcsyiwrr8BcygfE6XsabSFJKGg5Tr3Ax+zpXLUq2LAzjLDlj/Em5G/cJaiEjfkFBe
-         yDVMY24rCAG4MPy7tKZjpt1W2eCZCmhFzwz3PLQWJ1ymC8pkd8Dwfbiq0erDpAjeH9SI
-         BrqsMSTi4y3Gn2LNDHE4OPZfHeSe/OtCvDyHFWwVNTbKO9qj2OFY8iOFsbKDXp0aVrMZ
-         g7xQ==
+        d=suse.com; s=google; t=1736266483; x=1736871283; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ccNMf9aGsRxc3mwx8N5SPs7WkprCMCSuBkc4OZMaO4U=;
+        b=byqYaYiE799ABJv+dyMI5Ns4wc0R2/08XMpazScAiGNOkygYet+OQWLgoclWp2AcSa
+         7Hj7FTF8v5NpuawnSRFamcYOwYUsK8XN7Q4bxVK+unC+RrX10jyzh64dZAu2f3c3pr6k
+         URrSSgWo2FhKsqa2SWCCSuPfo7eFslHM8OpZkB7SUSTfje8zONVm4eKvxf049dw2WJu/
+         IkHR4eGPbcpcI6VraYfY+pDpRj+U36sTpcDEPunFfN5rOXtYLXWYMwm51eSdAi+PdT9d
+         P1I9WBR1LxUhEYnw49J2Fr5RG5tmVcfI/IgoDKE7N3p2p1L1vwi0D5J9WVxRfgMN2uc1
+         xAdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736266206; x=1736871006;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ng2syJtU2x7becFhRtds5M5yUZ1y0CaKDyoZdEKVVfc=;
-        b=HRrJCQ/QEUO8WgsWWZ/JVmh3w3QxXkNqDn4phcYXPMPgRPZ6S+z9FhpCMfjgpVUT61
-         xLDFsM9JctT2DrTLCVDOKD2aQ5xyYtfbNSNd+xlOPrP8bZKgADsvCNnfUcfr8g/eSrqR
-         16aBO45YOazRNwQ1So11taAyRzTcQKDnJlvBJ1O8isbcwJL0jhFUQGPr3DLbs5AaW8lQ
-         vBlVtle6EmsxcsFr0vnm/LY8kH9YM945hnabBvhu8rAIXDQStfc7TLEw3He1Tr3qUvpw
-         Ug+dBB2/1MYsuxtWlB8sfw5guqV2Nk1T+LLuplNKDErJCQ/gtnClXJfVFg/zPOzvttpQ
-         3qvg==
-X-Forwarded-Encrypted: i=1; AJvYcCUwoT1ZVEA6FBG34pOXs+PWs7WWRjc09yE9Wy3h5PemUEwdJZ8b/XHTTAbKRUAfanf0TkVZKzmjOvI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywwd26foBSv/dl9OgoQ35zVSWwcmHRAs1hihxGR+9rWYpVxU5Cy
-	+V3Ey+8cUZpKQMOqPPFlUzVUEw/CNdG66Upm96hUV9OweSEd4WbXJR6clPBYSvM=
-X-Gm-Gg: ASbGncu9Ao40m/XGhGK7GQaCGdfOhbgcLBI1HnHl1FSZv0PeFwWQZ7ac/UY39jLYGsq
-	hh15aEn+3SXhSONoxh8GcZY9+FCLk23ofa2S5H4faGwVAaqUY3nHerGQ+4ZG6FyHMXYOvCY1ahS
-	BpjX3WghgrDe5iKYIPSxSD8m4F4ZBF28WJY7bzGgQG1gT2Z8rgf0jHIddFbCIa546qe7Tt4ukm7
-	TMHQNNz9ONc6W7Z++LnH+BATirnY6ofEkRm9VWA1GB3WpREfExUROVb1u1F4ukMdbfEOJdJYm38
-	n7Ytomr/IslKuSUfeWvIP+WCZ+a4BsmcTlliLog5E8+UNtld5Qpnu/jUFakQbCjRSMHjL6phkUn
-	ApQViIA==
-X-Google-Smtp-Source: AGHT+IGcWWegeo6OFbOZRzpsZDzqNhXWJfRA+u6+wPpcp13sc0p6o7411objQxkXvhYQkmqyA7u8FQ==
-X-Received: by 2002:a17:906:c14d:b0:aa6:800a:1291 with SMTP id a640c23a62f3a-aac2702af66mr5213171466b.7.1736266206370;
-        Tue, 07 Jan 2025 08:10:06 -0800 (PST)
-Message-ID: <9b1e6a93-7325-4bc6-83b5-7a80445c39c8@suse.com>
-Date: Tue, 7 Jan 2025 17:10:05 +0100
+        d=1e100.net; s=20230601; t=1736266483; x=1736871283;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ccNMf9aGsRxc3mwx8N5SPs7WkprCMCSuBkc4OZMaO4U=;
+        b=mZQXnp/IeHy4BoRq08KFHjp/VqFFrUst05ir46Bz88n8edsrASb0q0K+uEA9/2oAiv
+         ABCwL+V+Ozf9CLuJZp+jMwOWbINY+oivzLUk//7KhoUilnZQt6jwmxYhcIGX31yu84MH
+         zzSbx9bNZ62DH9rlufUqgpJc4SRPuyuKUG2ZC49Wdr8nT5DeRi8HNd95RVDWB94N77KM
+         ODeNgXdrya8CMNTyl9vNvS8zaQ8NuxZLK/L5qSIUbUdxB1uEWfhSbsZA2xtB2jfZf6bg
+         XQgrhu6ncJ855jwQa3kenCRHulA7H87bNhcWGzyVxOaP3Kh0qOg+bMALn44d49hVW9nV
+         0USA==
+X-Forwarded-Encrypted: i=1; AJvYcCUBYYb8ZDpDYOXNfOhVspmeqhASz2W7NMIWR9uU8/IIVCqtEErurOu2cjRo6OJyKSJL6wkfv1JlHdw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyg72Gz/B9hKf07nVq5Jk+fyKcBncQayTm31ZJE4I3yYQhTEldt
+	mwhU0opogIlWil0Y09uZn07dfUvZcwx7rO+A69UslS8XMGXa9u+E167p1BsJ2Q==
+X-Gm-Gg: ASbGncut6jwzxa41ABwKuSEB8GKhOMYiJb/WeX9Tv509/JXFL6i8gy0kOgWvKBxFUg9
+	65gSsvrRV41TZKLazdNxX//g05r2Ssv1LhxMJnTxHE5lX7qa8BUPXLoooBT5Ov4Ry+ZjINi2ODo
+	tlZrmfsKSwuLizMkU75/FcITd9kuvdVMjA2UA36F5eBo+3i+STXQIm55NcwXm7JR+aRk8pM0l+Z
+	wyAazexnQ35OXf02j1O4UaL/aY+xh5oaFVxKn2ntg4TCzh7SUw1S9L1BljrLFioAugabGK8zeWq
+	0H27jMnLRkCbvJ7uguFcaxK9epHL6ug1cIabs5aLrA==
+X-Google-Smtp-Source: AGHT+IEh5S9o++FY10HMcDxqByzXqKj2xXDQiqOc21TtQOBAQtNDznakvr41N6oR7HeINGtdfrPcrQ==
+X-Received: by 2002:a5d:5f4f:0:b0:386:3329:6a04 with SMTP id ffacd0b85a97d-38a223f5b4cmr58182990f8f.39.1736266483150;
+        Tue, 07 Jan 2025 08:14:43 -0800 (PST)
+Message-ID: <b77141df-fa14-426a-937f-42693d1caeb9@suse.com>
+Date: Tue, 7 Jan 2025 17:14:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/7] xen/events: allow setting of global virq handler
- only for unbound virqs
-To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v6 4/7] xen: add bitmap to indicate per-domain state
+ changes
+To: Juergen Gross <jgross@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250107101711.5980-1-jgross@suse.com>
- <20250107101711.5980-4-jgross@suse.com>
- <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
+ <20250107101711.5980-5-jgross@suse.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------wMdRpw23gw9FMvVc5BaHYAMR"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wMdRpw23gw9FMvVc5BaHYAMR
-Content-Type: multipart/mixed; boundary="------------mzHVtEx2xVDqn3fHjVdfxQlA";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <9b1e6a93-7325-4bc6-83b5-7a80445c39c8@suse.com>
-Subject: Re: [PATCH v6 3/7] xen/events: allow setting of global virq handler
- only for unbound virqs
-References: <20250107101711.5980-1-jgross@suse.com>
- <20250107101711.5980-4-jgross@suse.com>
- <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
-In-Reply-To: <053a7a26-2dc9-417a-9b91-cce151543050@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
  7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
@@ -156,131 +107,111 @@ Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
  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
- 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
+ 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
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250107101711.5980-5-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------mzHVtEx2xVDqn3fHjVdfxQlA
-Content-Type: multipart/mixed; boundary="------------E3Ru5K2L0Jl2xEAXkgsg4jbD"
+On 07.01.2025 11:17, Juergen Gross wrote:
+> Add a bitmap with one bit per possible domid indicating the respective
+> domain has changed its state (created, deleted, dying, crashed,
+> shutdown).
+> 
+> Registering the VIRQ_DOM_EXC event will result in setting the bits for
+> all existing domains and resetting all other bits.
+> 
+> As the usage of this bitmap is tightly coupled with the VIRQ_DOM_EXC
+> event, it is meant to be used only by a single consumer in the system,
+> just like the VIRQ_DOM_EXC event.
+> 
+> Resetting a bit will be done in a future patch.
+> 
+> This information is needed for Xenstore to keep track of all domains.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - use DOMID_FIRST_RESERVED instead of DOMID_MASK + 1 (Jan Beulich)
+> - use const (Jan Beulich)
+> - move call of domain_reset_states() into evtchn_bind_virq() (Jan Beulich)
+> - dynamically allocate dom_state_changed bitmap (Jan Beulich)
+> V3:
+> - use xvzalloc_array() (Jan Beulich)
+> - don't rename existing label (Jan Beulich)
+> V4:
+> - add __read_mostly (Jan Beulich)
+> - use __set_bit() (Jan Beulich)
 
---------------E3Ru5K2L0Jl2xEAXkgsg4jbD
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+This change looks to have been lost, ...
 
-T24gMDcuMDEuMjUgMTY6MzgsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAwNy4wMS4yMDI1
-IDExOjE3LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gWEVOX0RPTUNUTF9zZXRfdmlycV9o
-YW5kbGVyIHdpbGwgaGFwcGlseSBzdGVhbCBhIGdsb2JhbCB2aXJxIGZyb20gdGhlDQo+PiBj
-dXJyZW50IGRvbWFpbiBoYXZpbmcgYm91bmQgaXQgYW5kIGFzc2lnbiBpdCB0byBhbm90aGVy
-IGRvbWFpbi4gVGhlDQo+PiBmb3JtZXIgZG9tYWluIHdpbGwganVzdCBuZXZlciByZWNlaXZl
-IGFueSBmdXJ0aGVyIGV2ZW50cyBmb3IgdGhhdA0KPj4gdmlycSB3aXRob3V0IGtub3dpbmcg
-d2hhdCBoYXBwZW5lZC4NCj4gDQo+IFlldCAtIHNlZSBteSByZXBseSBvbiBwYXRjaCAyIC0g
-aXQgbWF5IGFjdHVhbGx5IGhhdmUgYmVlbiBpbnRlbnRpb25hbCB0bw0KPiBiZSB0aGlzIHdh
-eSwgaW4gY2FzZSB0aGUgbmV3IGRvbWFpbiBpcyBpbmRlZWQgdGhlIGRlc2lnbmF0ZWQgbmV3
-IGhhbmRsZXIuDQo+IE90aGVyd2lzZSBzdWNoIGEgdHJhbnNmZXIgd291bGQgcmVxdWlyZSBt
-b3JlIGNvb3JkaW5hdGlvbiAtIHRoZSBvcmlnaW5hbA0KPiBvd25lciB3b3VsZCBmaXJzdCBu
-ZWVkIHRvIHVuYmluZCwgdGhlbiBzaWduYWwgdGhlIGNvbXBsZXRpb24gdGhlcmVvZiB0bw0K
-PiB0aGUgbmV3IG93bmVyLg0KDQpZZXMsIGxpa2UgdG9kYXkncyBoYW5kbGluZyBvZiB4ZW5z
-dG9yZWQgbGl2ZSB1cGRhdGUuDQoNCkl0IGlzIHRoZSBuYXR1cmFsIHdheSB0byBkbyB0aGF0
-LCBhcyB0aGF0IGNvb3JkaW5hdGlvbiBuZWVkcyB0byBiZSBoYXBwZW5pbmcNCmFueXdheSwg
-YXMgSSd2ZSBvdXRsaW5lZCBpbiBteSByZXNwb25zZSB0byB5b3VyIHJlbWFyayBvbiBwYXRj
-aCAyLg0KDQoNCkp1ZXJnZW4NCg==
---------------E3Ru5K2L0Jl2xEAXkgsg4jbD
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> - fix error handling in evtchn_bind_virq() (Jan Beulich)
+> V5:
+> - domain_init_states() may be called only if evtchn_bind_virq() has been
+>   called validly (Jan Beulich)
+> V6:
+> - guard dom_state_changed bitmap with d->event_lock (Jan Beulich)
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+... without it being mentioned anywhere, and without it becoming clear why
+it would have needed undoing.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -35,6 +35,7 @@
+>  #include <xen/irq.h>
+>  #include <xen/argo.h>
+>  #include <xen/llc-coloring.h>
+> +#include <xen/xvmalloc.h>
+>  #include <asm/p2m.h>
+>  #include <asm/processor.h>
+>  #include <public/sched.h>
+> @@ -139,6 +140,51 @@ bool __read_mostly vmtrace_available;
+>  
+>  bool __read_mostly vpmu_is_available;
+>  
+> +static unsigned long *__read_mostly dom_state_changed;
+> +
+> +int domain_init_states(void)
+> +{
+> +    const struct domain *d;
+> +
+> +    ASSERT(!dom_state_changed);
+> +    ASSERT(rw_is_write_locked(&current->domain->event_lock));
 
---------------E3Ru5K2L0Jl2xEAXkgsg4jbD--
+rw_is_write_locked_by_me()?
 
---------------mzHVtEx2xVDqn3fHjVdfxQlA--
+> +    dom_state_changed = xvzalloc_array(unsigned long,
+> +                                       BITS_TO_LONGS(DOMID_FIRST_RESERVED));
+> +    if ( !dom_state_changed )
+> +        return -ENOMEM;
+> +
+> +    rcu_read_lock(&domlist_read_lock);
+> +
+> +    for_each_domain ( d )
+> +        set_bit(d->domain_id, dom_state_changed);
+> +
+> +    rcu_read_unlock(&domlist_read_lock);
+> +
+> +    return 0;
+> +}
+> +
+> +void domain_deinit_states(const struct domain *d)
+> +{
+> +    ASSERT(rw_is_write_locked(&d->event_lock));
 
---------------wMdRpw23gw9FMvVc5BaHYAMR
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Again.
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmd9Ud0FAwAAAAAACgkQsN6d1ii/Ey9+
-Uwf/WyZXOhyzIhxBbFd54swFJ85STfQ/UYbbP2dwAdS53nkSxbWi+SK7nRVeH2JWk9sGTnDr1bBW
-arCq6g7/O1DWn10WsGu3muKrsBEbvABnzVAwHRPvoYeRDMn8a/efm7gflOJvQNaT+6fZH9khZpSi
-HQpRqE+IjT+vyCP+u7mEC3IXLjS6LL0zhG6HPF8XtZeZc7ltb6p7J9YU1bVJ9EegMvanyB+gUgx2
-QlGie8Yus1jd82AnF+Du5yx5flegrKE8l7igY5Xw1ROcVoTcO6ofDD4FclJk2cPO2VCRXZSEB/38
-ZgYITlx2YigsjZrdVswpOyGrNQSQ9ZOgJxiwmoCvfQ==
-=YyJ7
------END PGP SIGNATURE-----
-
---------------wMdRpw23gw9FMvVc5BaHYAMR--
+Jan
 
