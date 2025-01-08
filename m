@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A50FA05477
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:25:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866886.1278257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED4F5A05487
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:29:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866895.1278267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQR8-0002My-2C; Wed, 08 Jan 2025 07:25:06 +0000
+	id 1tVQUY-0002ys-JK; Wed, 08 Jan 2025 07:28:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866886.1278257; Wed, 08 Jan 2025 07:25:06 +0000
+Received: by outflank-mailman (output) from mailman id 866895.1278267; Wed, 08 Jan 2025 07:28:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQR7-0002KQ-VV; Wed, 08 Jan 2025 07:25:05 +0000
-Received: by outflank-mailman (input) for mailman id 866886;
- Wed, 08 Jan 2025 07:25:05 +0000
+	id 1tVQUY-0002xP-Gc; Wed, 08 Jan 2025 07:28:38 +0000
+Received: by outflank-mailman (input) for mailman id 866895;
+ Wed, 08 Jan 2025 07:28:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=svEr=UA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVQR7-0002KK-1q
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:25:05 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1tVQUX-0002xJ-Eq
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:28:37 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ad246169-cd91-11ef-99a4-01e77a169b0f;
- Wed, 08 Jan 2025 08:25:03 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-38a34e8410bso5585652f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 23:25:03 -0800 (PST)
+ id 2bafbd34-cd92-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 08:28:35 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-38a34e8410bso5587167f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 23:28:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8474b6sm52246534f8f.51.2025.01.07.23.25.01
+ ffacd0b85a97d-38a1c833899sm52167875f8f.42.2025.01.07.23.28.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 23:25:02 -0800 (PST)
+ Tue, 07 Jan 2025 23:28:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad246169-cd91-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 2bafbd34-cd92-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736321102; x=1736925902; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736321315; x=1736926115; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e6c9Re305ngnHuLR+MfR+VGkPfepefdC520IxoryX0w=;
-        b=NNq5J+w4Jx4RhrARy2Vw0RBvW8tIihddJw2tS0X/LNk5XyPJbuFTbZxQR3LmnpDHhX
-         iT9/zLjL+g7Jb6DtrT4zYRU1YYWo5JqbpMhpEgNM+wmcqreTKQ0Vu0NSIuilrHfg93xp
-         KNVfsOnVpRVRtlAlc+tV4HofWJfsXFlVu+6zKwgH51VcYN+KJ3Q0YSFZDGaUQfO8/V9G
-         EzboK+GxKNMRr4kuJXIR+fWiRL2eGpbJMER+wTHFgcQBboiqCV8PSbwEiyilbjcPCTFR
-         mbyR8E+EJOhH/GqaFBFm6KZHrGvaM2bImZj7zc49Mobhw4BaLOyyxikNBq9P+fdaosLU
-         llWg==
+        bh=43jjLX5Vg3QOL3r2QQgGfUrWU2sYwHjmuLJnWEgKluE=;
+        b=Ygpm/jrsztbFEkIrLosBMYdi+hb6WChFycpO88EKxWjhTNisxVavO5W1vzTeEzy+ED
+         V7CmmAJvYSbuzlRNkZg2iZCROZKOpN9ahJREDySh1uEktR1VOBUwQGWYMMWRMIQ4k4Kw
+         qQneyaS7dSEH2ZWJ6RTNeQrCm2yMUKuUEt6KiC4xvNx8IB+saHsxR0wwtfCNpUdwu1h3
+         111eKvOo1t9MUYVCfcnpUhVLjT3/ESs2Q9njirSCitjoS268L2OSqbBVMsyVrA5Uflvt
+         VfEnMAeRTZSbDFbnxnQsQlc0LvWFKbCgRRKed5oLn546Hf93s4IZ8eMl84QhEub+VWGb
+         u+Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736321102; x=1736925902;
+        d=1e100.net; s=20230601; t=1736321315; x=1736926115;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=e6c9Re305ngnHuLR+MfR+VGkPfepefdC520IxoryX0w=;
-        b=Zr15ur0HYKKWnEPcxhtii9F40ZA1n6RgIkqmWGgAwuJM0XM7LyuYU1sQ0QK1xmyaQ0
-         98QwXWA9k7cXi3ucpSCF21ir/y8qmtvg4XuKKgQKZStf+E3nNnn6quhxrfRCbF+zJX6P
-         fhhDDWq+SW7tJXOvi51tBa0/bSefuUBoAWILfxRju/NpUqjRo/w7WdDAJDlV0uMrdlwP
-         1HoZxDXtTrmjoON8wv5PTv7iF8viCBcd55fjPFPpQk1MQFqeVcQ1YpCtllHLShxb5fz2
-         BKfWcSopHw3UtPZmcZynZ9KZTpzTJuQ3uOnif7jCKCRFgu+PIFQl4ANlVijCQ0piqzWT
-         QvHg==
-X-Forwarded-Encrypted: i=1; AJvYcCWTinKVlborDMrgQ2WxvnKLQ7XnnBjwsibM0snf0K9qIZAD2Baoroe/Y9EkMN+ZMb+86K+wkrP+SUI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzydVUKNCckd3s4Lx0627nAjFybNLRXHhuNYurou8IBgvaSn4N9
-	MVdn48ASMac/BFSZi5rjq8KIPtlBGe3jYgQ0+pFZQ6qbYZP0OXB6zTpjapruGA==
-X-Gm-Gg: ASbGncv82yB9wcjFIii16O4o3KIiYkal5/HVOx4EKL/wJjj3UuEy4yyg8iRa9sY3F1s
-	bShae4cuE0gY0tyM55SxITC5eXXUNde1urWsTUCVl52yNqch5+D64O6kBfd0M6G+1X6FT3VZIY2
-	uAgytDnm9dV7jwZ+JQkdpLZ53FrKGm4nbSe0g6/E8otOgo74bxTjzC4/EgE3jJ1Qw2DZHGgI1lX
-	WTe5mNwTIHyWvhioaJlz0bbniIozAwtQOBgLLJAHSiH1W3KbdjLoNz1j2La00SswRn0uBQr8Jki
-	wDIwKTwAp3XMInP4I5/AVuhAOV9YSYn9gf9mr4ih6Q==
-X-Google-Smtp-Source: AGHT+IHI+zJaSYnUtnx3ffXj628DiGINoSX38eIgjlxJ1xAZap+LyjkhOZOyUcgglPp5R2J5fAYQsw==
-X-Received: by 2002:a05:6000:1883:b0:385:e5d6:130c with SMTP id ffacd0b85a97d-38a87315989mr1143501f8f.51.1736321102519;
-        Tue, 07 Jan 2025 23:25:02 -0800 (PST)
-Message-ID: <ec92e932-e3b7-40ad-9ed3-2b3391cc63a7@suse.com>
-Date: Wed, 8 Jan 2025 08:25:00 +0100
+        bh=43jjLX5Vg3QOL3r2QQgGfUrWU2sYwHjmuLJnWEgKluE=;
+        b=OvQmakauvdcoT+S6fUGsvtyZ4pDSvmulX0PTxl7dqWQ08kVvqQRQxFZY68TwyJ81m/
+         aSch+Ci8Itdiy/F0m8plMUhPS30er6U3xnvQwFTpcZ3jb6zooAUvj/c1UnFziblxHbI3
+         q30mKHNNjsrpM2uZpDS6i0RVtGxlsMCPcFsxmxzpnVYUQrgZHi3vqrI6s3Cqb1np12qj
+         t35O9B1a8QTHfEa0LOKjuvwrhvdT7W1haCI9eLwDK3hhYqH/AlUkaSiaI+MLn+yFm6cX
+         8L9bxEA06LnVZzcCnr+DlJGLkoV5uWT3eykyNhRVgTBqw23wUFlDsSQQCiXLYraKAvKj
+         KE3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCX97TNOlIVmJOlbzpOarYkimZboJJdO2Ic1u2LjOSXDPQ3rQsG/MkoOyM10LtXKSbuLtas+KY2pLnI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywd8Ok346kctjhjw4NO7Td/T1gnbphIPvC6NTtDrOtwftujwrH7
+	02oCc1Y0ebHncgyzIvCharl8kGZxgXfZ49MI6pd7MKGoMHgOn0p54ltAATB2MQ==
+X-Gm-Gg: ASbGncuAf7NHrhTE9kxUfY/FrLPr2FywpdOKhZukZ0Ef6PR9KUpk7IMLd8kzFnZd5pr
+	SqXR3XQA1re9oLCqMl/NfRUHJTgK5Tdb6VsgHQpRz4u32MeIIhDGOWmMK5x6y5QZ5aIB/ixRhNd
+	bYor+rmMjlRv+Am/4NBSYz9KfdZicefDARQNvi/e351DbIqT4nzMkviw9ZxienUfxTmsOD77dbo
+	UF0jXpgIckgjUDPSh2Dgmo8uez7h6d+/HTwIXDFNOmWf2kegYYjdy3u2qhShWcDQM1AmgaC5Zta
+	lfr5cS959h3A8YBlShEz2Kn0FWtWAJ4T5YWULwMnHA==
+X-Google-Smtp-Source: AGHT+IGs6jvboxHQ/slSvQWO3lZBVrWGLU+dRwyWUPKtMh7/2Nwqfv6wFEAqwCFTYzsAGtbNnwWjEw==
+X-Received: by 2002:a5d:6da4:0:b0:385:de67:2269 with SMTP id ffacd0b85a97d-38a8730e04amr1188281f8f.36.1736321314886;
+        Tue, 07 Jan 2025 23:28:34 -0800 (PST)
+Message-ID: <a2fa92ff-a5fb-4adc-86aa-1481ebec92fe@suse.com>
+Date: Wed, 8 Jan 2025 08:28:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: update pvcalls_front_accept prototype
+Subject: Re: [PATCH v2 20/35] xen/console: introduce console_owner_domid()
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: jgross@suse.com, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <alpine.DEB.2.22.394.2501061335161.133435@ubuntu-linux-20-04-desktop>
- <0f8fc348-14f5-40ac-912a-1785caedb675@suse.com>
- <alpine.DEB.2.22.394.2501071530180.133435@ubuntu-linux-20-04-desktop>
+Cc: Denis Mukhin <dmkhn@proton.me>, dmukhin@ford.com,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com>
+ <20241205-vuart-ns8250-v1-20-e9aa923127eb@ford.com>
+ <d55bf6a6-5861-4b72-88b5-2aaa28ae0290@suse.com>
+ <VJ9ivpkbNlqfKhBlb5dL6OuoPAXK9wqD4mhgO9Qt4f0qgmuow22qFv1C7L8DlbKYo7ytdKWeV1bLaYJvTAc2Yt7sEd06XREerWER5RPx4No=@proton.me>
+ <8a5a5a0f-72b0-4336-b0d2-142254319242@suse.com>
+ <alpine.DEB.2.22.394.2501061046060.133435@ubuntu-linux-20-04-desktop>
+ <c39c0c6f-2fab-46e8-9563-c91fe890e87f@suse.com>
+ <alpine.DEB.2.22.394.2501071533060.133435@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,35 +126,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2501071530180.133435@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2501071533060.133435@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.01.2025 00:30, Stefano Stabellini wrote:
+On 08.01.2025 00:40, Stefano Stabellini wrote:
 > On Tue, 7 Jan 2025, Jan Beulich wrote:
->> On 06.01.2025 22:36, Stefano Stabellini wrote:
->>> xen: update pvcalls_front_accept prototype
+>> On 06.01.2025 19:48, Stefano Stabellini wrote:
+>>> On Mon, 6 Jan 2025, Jan Beulich wrote:
+>>>> On 04.01.2025 05:15, Denis Mukhin wrote:
+>>>>>
+>>>>> On Tuesday, December 10th, 2024 at 11:28 PM, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>
+>>>>>>
+>>>>>>
+>>>>>> On 06.12.2024 05:41, Denis Mukhin via B4 Relay wrote:
+>>>>>>
+>>>>>>> From: Denis Mukhin dmukhin@ford.com
+>>>>>>>
+>>>>>>> console_owner_domid() is introduced to obtain the "console owner" domain ID.
+>>>>>>>
+>>>>>>> The call is used in NS8250 emulator to identify the case when physical xen
+>>>>>>> console focus is owned by the domain w/ NS8250 emulator, in which case,
+>>>>>>> messages from guest OS are formatted w/o '(XEN)' prefix.
+>>>>>>
+>>>>>>
+>>>>>> Such messages ought to be processed through guest_printk(), which wants a
+>>>>>> domain pointer, not a domid_t anyway. Plus isn't that going to be
+>>>>>> current->domain anyway at the callsite, eliminating the need for such a
+>>>>>>
+>>>>>> helper altogether?
+>>>>>
+>>>>> If the current domain is owning the physical console and printing, say, Linux
+>>>>> login prompt, there's no need to add "(XEN)" for every printout; adding timestamps
+>>>>> can be disabled from Xen command line.
+>>>>
+>>>> Surely there shouldn't be (XEN), but without (d<N>) it'll be ambiguous in a log
+>>>> which domain a message came from. As long as only Dom0 messages are left un-
+>>>> prefixed, that's likely fine. Yet as soon as multiple domains can issue such
+>>>> messages (and have console "focus") I think the prefix needs to be there.
 >>>
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>> ---
->>>
->>> Changes in v2:
->>> - also update pvcalls-front.c
+>>> It looks like we are aligned on the desired behavior,
 >>
->> The patch still gives the impression of being incomplete: There's no
->> caller of the function that you update. However, there's no such caller
->> in the first place. Why don't you just delete the function then?
+>> Hmm, no, I don't think we are. I don't ...
+>>
+>>> but for clarity,
+>>> see https://marc.info/?l=xen-devel&m=173405161613716, also copy/pasted
+>>> here:
+>>>
+>>> I think we should provide a consistent behavior across architectures.
+>>> The current behavior with vpl011 and dom0less on ARM is the following:
+>>>
+>>> - no prefix for Dom0 output
+>>> - DOM$NUM for DomUs when not in focus, otherwise no prefix
+>>
+>> ... view this model as a desirable one. It leaves room for ambiguity.
 > 
-> It is meant to be called from an out-of-tree module, which has not been
-> upstreamed yet
+> Adding a few more people in CC for feedback.
+> 
+> My priority is to keep the architectures aligned. It might be OK to
+> change output format, but then let's do it uniformly on ARM as well.
+> 
+> Jan, please clarify what you think would be better than the above. Is it
+> the following? I don't think I understood your preference.
+> 
+> - DOM$NUM for Dom0 and DomUs when not in focus, otherwise no prefix
 
-And which then would require an EXPORT_SYMBOL() anyway. In Xen, as you're
-well aware, such unreachable code would actually constitute a Misra
-violation.
-
-Without any in-tree caller, imo the change needs a non-empty description,
-clarifying why the adjustment is wanted / needed.
+No, I mean like we have it with guest_printk() today. (XEN) for Xen's
+own messages, (d<N>) for ordinary domains' ones, and no prefix
+exclusively for the hardware/control domain. What is best to do when
+hardware and control domains are distinct I'm uncertain - I'd be
+inclined to suggest that the hardware domain then stay the one without
+any prefix.
 
 Jan
-
 
