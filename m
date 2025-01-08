@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07DD3A05E99
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 15:30:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867320.1278831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74215A05EA5
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 15:30:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867323.1278859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVX4p-0006uo-73; Wed, 08 Jan 2025 14:30:31 +0000
+	id 1tVX4r-0007am-Is; Wed, 08 Jan 2025 14:30:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867320.1278831; Wed, 08 Jan 2025 14:30:31 +0000
+Received: by outflank-mailman (output) from mailman id 867323.1278859; Wed, 08 Jan 2025 14:30:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVX4o-0006qf-Vi; Wed, 08 Jan 2025 14:30:30 +0000
-Received: by outflank-mailman (input) for mailman id 867320;
- Wed, 08 Jan 2025 14:30:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVX4r-0007VK-D7; Wed, 08 Jan 2025 14:30:33 +0000
+Received: by outflank-mailman (input) for mailman id 867323;
+ Wed, 08 Jan 2025 14:30:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2h7L=UA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tVX4n-0006o2-I1
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 14:30:29 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b838d56-cdcd-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 15:30:28 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aa679ad4265so176150466b.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 06:30:28 -0800 (PST)
+ id 1tVX4p-0005q4-S4
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 14:30:31 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1c7f0dc5-cdcd-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 15:30:30 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-aa6c0d1833eso3513387966b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 06:30:30 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aaf49604224sm1297411366b.134.2025.01.08.06.30.27
+ a640c23a62f3a-aac0e5029f8sm2482634666b.0.2025.01.08.06.30.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 06:30:27 -0800 (PST)
+ Wed, 08 Jan 2025 06:30:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,46 +44,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b838d56-cdcd-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 1c7f0dc5-cdcd-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736346628; x=1736951428; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736346629; x=1736951429; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=atcw5DH/r9KNNaekhki+fCZDVGoHuGfx0DZg9mMghBA=;
-        b=IzalejZAaPhsimSMOp2DDazRQziWep2vLQs4zI84lVhFZAnXknZEZrhRWOoTF4AXeE
-         JULJq5o3LDM21S1PIwhnIdj7n+ry9tVR1BZIeCD+FnaEh0It0m2uh0HG1ZDJYfxl2ksT
-         mBIjLuyP8VJ+DQoUYY07gSPDCMaxCg2sTfjps=
+        bh=a/WczJNf+EXdjpOAIA1z4tpLjcOOHU7wqiQHBrWlxLM=;
+        b=b8otjL9TKGUYeRmsnAQd5u3W+9BRpyFEUqLa9m1hc/9nH51zmmEUhoGoQ37KDePh1u
+         ssplNPUJToEgOwtnOXLA/U7CIrnkMUniYXeldA5bjUOpX57Blr7SyMr1ZbEmzqDgh9dF
+         QzJDLuJG04WR+/Ug1sxZ3kKvwt3LNg+yPkpyo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736346628; x=1736951428;
+        d=1e100.net; s=20230601; t=1736346629; x=1736951429;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=atcw5DH/r9KNNaekhki+fCZDVGoHuGfx0DZg9mMghBA=;
-        b=Cm0orTCt1wdW7Gi3rLrS+BlkkFWebNiwJjWqnb8KR8Z7fM+8mrxHE/EnCJFklmF2Z9
-         BO/w6DLmQjYFxTkIpJQXZE8yOuBLJL2egxHDy9eBuA47P6BIkS0TZhN9gC5kd8wH/2nZ
-         nn6vQiHzR6S0oETCiWtymA2W3gpaUUyFpBor48n8dlrvStXIjB0IpF9JRHJqGjU6haFT
-         yKMTzNK7NukV3L8+6cdr4S4Q5SunuhAFcz8glNLdJva3vBxtxvhbmgACrkgdud/s2ZaW
-         n1u9h3isq9BlyGunUEorEGXjIL3B3duA3C2IXGuogBpe7NbiVmwAmRzNVSdTvmDh5MZb
-         ri6Q==
-X-Gm-Message-State: AOJu0YypBa6Y3p3/Vx3PyeLQ+sYTtrVggUmggUmFQoFpCkW/6yNffdsc
-	8aECmW+0gczQ8BGRVCnFqnO9xamCz1R7uOiipXbonBxNsauL+qFojL8uXtYj/NsveKrEZUjSAU8
-	D
-X-Gm-Gg: ASbGncunB0xmCFW5bpdT5+y94sLQkmcIqa6x49kvwtUWMPSp4FUd0USLqgSnaeVn0yo
-	CsbVUVWTXbOCgonefl2oAHhgBmItvFmCZUm+xUVdkWMidISNPhROd4QVcObW34w89T1wYqZWDrW
-	juk280TFN+0sJ+coyn5hGLfGJHT7v7DqGt+88OKKaXvpbBk7AQt1vN9LVPtGNRiITDwem43dvYi
-	q/lSRR6dDUPmSVKFojpeu7EKSWUX+LG4q82gsMI0mcHZpo9WiuuE2omZo5Dk8hJlS4=
-X-Google-Smtp-Source: AGHT+IFglshV4EJ4T7uTVluXsmbrkqOUMzkPSprRPmGKZ9SFO4vUkYx5xkPgo7GBLYV4MBEdRo6rkA==
-X-Received: by 2002:a17:906:6a26:b0:aa6:743e:d621 with SMTP id a640c23a62f3a-ab29192c380mr591833866b.30.1736346627757;
-        Wed, 08 Jan 2025 06:30:27 -0800 (PST)
+        bh=a/WczJNf+EXdjpOAIA1z4tpLjcOOHU7wqiQHBrWlxLM=;
+        b=mo6M14iTz/4QmGxGKcha6t7d60s51QV18Un1A23vA0pV4Me+cqvnEVlVEPhZoO9Npk
+         MlVxxvt2TE5YgA+BqLT7WtCTpyK3q9LhkrPIerety55qxA3Cd83gIllsSO6XuP4eN8za
+         TWTgUOtv2ADAzvdCIHhR9jEFi82a+2LwaqwIvSMYZF6JuSNSvOnlaDpLFAhU0rcV1EMt
+         8FrfMkxytoB+FTatnCvwy4PG4ptWpVxQeuqKdHzBcPPWNTHWZPomqogoxdReGEuxiEGo
+         Sg57AuSHZgkr3WFJys4Ye9R0Il91gfVWAhOqwGDPSHkWzCcvrt5hkrDJLQEkW9caAkUx
+         yjTQ==
+X-Gm-Message-State: AOJu0Ywd2+CRs5GGxJd8KO0AM+msGvvOiWYU+4jaMYSY/lTr45WDdS8d
+	FgMJBsutpZ0MocJ3uvfAJXyWaOUH084dE2VIfXO1TyunoHnQ81gEXhIhmROqNicuJ6t09NgOTHP
+	d
+X-Gm-Gg: ASbGncuD1xyLM6VS6wXzQgXhKsYx0n8otpxn5Ne1xZeDN/t1GSHnV/ZWXmwqLXyteUI
+	26OwVJ9913ss7Gf4aohC1NjYtBLR7Gt/c+EZ+3kHg1NZW2IWH3r6UamkWCLqLlHnpXoqXSGT7vf
+	OpIlLDxySJ3Kt4+ji3eP/+NsPsWViBJSxsyAGsOTahPkzyqNG1z5/+/LQqOV57Lip4tiMfRGLQp
+	McX5hw5injCGRXMHtqPNAMnRAyu7sqkVdU0HNwI74/q5jGzvbNFNboBO17bdTd8UQc=
+X-Google-Smtp-Source: AGHT+IGIvn0q5at3p77p8XfXsyt0e4XfVPi2p4jLiXnmckHaXVyXuT6UUXjW15nwisukNHSfjVnvrA==
+X-Received: by 2002:a17:906:478f:b0:aab:dc3e:1c84 with SMTP id a640c23a62f3a-ab2ab703f93mr311889766b.17.1736346629032;
+        Wed, 08 Jan 2025 06:30:29 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 06/18] x86/pv: set/clear guest GDT mappings using {populate,destroy}_perdomain_mapping()
-Date: Wed,  8 Jan 2025 15:26:46 +0100
-Message-ID: <20250108142659.99490-7-roger.pau@citrix.com>
+Subject: [PATCH v2 07/18] x86/pv: update guest LDT mappings using the linear entries
+Date: Wed,  8 Jan 2025 15:26:47 +0100
+Message-ID: <20250108142659.99490-8-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20250108142659.99490-1-roger.pau@citrix.com>
 References: <20250108142659.99490-1-roger.pau@citrix.com>
@@ -91,150 +91,120 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The pv_{set,destroy}_gdt() functions rely on the L1 table(s) that contain such
-mappings being stashed in the domain structure, and thus such mappings being
-modified by merely updating the L1 entries.
+The pv_map_ldt_shadow_page() and pv_destroy_ldt() functions rely on the L1
+table(s) that contain such mappings being stashed in the domain structure, and
+thus such mappings being modified by merely updating the require L1 entries.
 
-Switch both pv_{set,destroy}_gdt() to instead use
-{populate,destory}_perdomain_mapping().
+Switch pv_map_ldt_shadow_page() to unconditionally use the linear recursive, as
+that logic is always called while the vCPU is running on the current pCPU.
 
-Note that this requires moving the pv_set_gdt() call in arch_set_info_guest()
-strictly after update_cr3(), so v->arch.cr3 is valid when
-populate_perdomain_mapping() is called.
+For pv_destroy_ldt() use the linear mappings if the vCPU is the one currently
+running on the pCPU, otherwise use destroy_mappings().
+
+Note this requires keeping an array with the pages currently mapped at the LDT
+area, as that allows dropping the extra taken page reference when removing the
+mappings.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/domain.c               | 33 ++++++++++++++---------------
- xen/arch/x86/pv/descriptor-tables.c | 28 +++++++++++-------------
- 2 files changed, 28 insertions(+), 33 deletions(-)
+ xen/arch/x86/include/asm/domain.h   |  2 ++
+ xen/arch/x86/pv/descriptor-tables.c | 19 ++++++++++---------
+ xen/arch/x86/pv/domain.c            |  4 ++++
+ xen/arch/x86/pv/mm.c                |  3 ++-
+ 4 files changed, 18 insertions(+), 10 deletions(-)
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 0bd0ef7e40f4..0481164f3727 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1376,22 +1376,6 @@ int arch_set_info_guest(
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index b79d6badd71c..b659cffc7f81 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -523,6 +523,8 @@ struct pv_vcpu
+     struct trap_info *trap_ctxt;
+ 
+     unsigned long gdt_frames[FIRST_RESERVED_GDT_PAGE];
++    /* Max LDT entries is 8192, so 8192 * 8 = 64KiB (16 pages). */
++    mfn_t ldt_frames[16];
+     unsigned long ldt_base;
+     unsigned int gdt_ents, ldt_ents;
+ 
+diff --git a/xen/arch/x86/pv/descriptor-tables.c b/xen/arch/x86/pv/descriptor-tables.c
+index 5a79f022ce13..95b598a4c0cf 100644
+--- a/xen/arch/x86/pv/descriptor-tables.c
++++ b/xen/arch/x86/pv/descriptor-tables.c
+@@ -20,28 +20,29 @@
+  */
+ bool pv_destroy_ldt(struct vcpu *v)
+ {
+-    l1_pgentry_t *pl1e;
++    const unsigned int nr_frames = ARRAY_SIZE(v->arch.pv.ldt_frames);
+     unsigned int i, mappings_dropped = 0;
+-    struct page_info *page;
+ 
+     ASSERT(!in_irq());
+ 
+     ASSERT(v == current || !vcpu_cpu_dirty(v));
+ 
+-    pl1e = pv_ldt_ptes(v);
++    destroy_perdomain_mapping(v, LDT_VIRT_START(v), nr_frames);
+ 
+-    for ( i = 0; i < 16; i++ )
++    for ( i = 0; i < nr_frames; i++ )
+     {
+-        if ( !(l1e_get_flags(pl1e[i]) & _PAGE_PRESENT) )
+-            continue;
++        mfn_t mfn = v->arch.pv.ldt_frames[i];
++        struct page_info *page;
+ 
+-        page = l1e_get_page(pl1e[i]);
+-        l1e_write(&pl1e[i], l1e_empty());
+-        mappings_dropped++;
++        if ( mfn_eq(mfn, INVALID_MFN) )
++            continue;
+ 
++        v->arch.pv.ldt_frames[i] = INVALID_MFN;
++        page = mfn_to_page(mfn);
+         ASSERT_PAGE_IS_TYPE(page, PGT_seg_desc_page);
+         ASSERT_PAGE_IS_DOMAIN(page, v->domain);
+         put_page_and_type(page);
++        mappings_dropped++;
+     }
+ 
+     return mappings_dropped;
+diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+index 7e8bffaae9a0..32d7488cc186 100644
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -303,6 +303,7 @@ void pv_vcpu_destroy(struct vcpu *v)
+ int pv_vcpu_initialise(struct vcpu *v)
+ {
+     struct domain *d = v->domain;
++    unsigned int i;
+     int rc;
+ 
+     ASSERT(!is_idle_domain(d));
+@@ -311,6 +312,9 @@ int pv_vcpu_initialise(struct vcpu *v)
      if ( rc )
          return rc;
  
--    if ( !compat )
--        rc = pv_set_gdt(v, c.nat->gdt_frames, c.nat->gdt_ents);
--#ifdef CONFIG_COMPAT
--    else
--    {
--        unsigned long gdt_frames[ARRAY_SIZE(v->arch.pv.gdt_frames)];
--
--        for ( i = 0; i < nr_gdt_frames; ++i )
--            gdt_frames[i] = c.cmp->gdt_frames[i];
--
--        rc = pv_set_gdt(v, gdt_frames, c.cmp->gdt_ents);
--    }
--#endif
--    if ( rc != 0 )
--        return rc;
--
-     set_bit(_VPF_in_reset, &v->pause_flags);
- 
- #ifdef CONFIG_COMPAT
-@@ -1492,7 +1476,6 @@ int arch_set_info_guest(
-     {
-         if ( cr3_page )
-             put_page(cr3_page);
--        pv_destroy_gdt(v);
-         return rc;
++    for ( i = 0; i < ARRAY_SIZE(v->arch.pv.ldt_frames); i++ )
++        v->arch.pv.ldt_frames[i] = INVALID_MFN;
++
+     BUILD_BUG_ON(X86_NR_VECTORS * sizeof(*v->arch.pv.trap_ctxt) >
+                  PAGE_SIZE);
+     v->arch.pv.trap_ctxt = xzalloc_array(struct trap_info, X86_NR_VECTORS);
+diff --git a/xen/arch/x86/pv/mm.c b/xen/arch/x86/pv/mm.c
+index 187f5f6a3e8c..4853e619f2a7 100644
+--- a/xen/arch/x86/pv/mm.c
++++ b/xen/arch/x86/pv/mm.c
+@@ -86,7 +86,8 @@ bool pv_map_ldt_shadow_page(unsigned int offset)
+         return false;
      }
  
-@@ -1508,6 +1491,22 @@ int arch_set_info_guest(
-         paging_update_paging_modes(v);
-     else
-         update_cr3(v);
-+
-+    if ( !compat )
-+        rc = pv_set_gdt(v, c.nat->gdt_frames, c.nat->gdt_ents);
-+#ifdef CONFIG_COMPAT
-+    else
-+    {
-+        unsigned long gdt_frames[ARRAY_SIZE(v->arch.pv.gdt_frames)];
-+
-+        for ( i = 0; i < nr_gdt_frames; ++i )
-+            gdt_frames[i] = c.cmp->gdt_frames[i];
-+
-+        rc = pv_set_gdt(v, gdt_frames, c.cmp->gdt_ents);
-+    }
-+#endif
-+    if ( rc != 0 )
-+        return rc;
- #endif /* CONFIG_PV */
+-    pl1e = &pv_ldt_ptes(curr)[offset >> PAGE_SHIFT];
++    curr->arch.pv.ldt_frames[offset >> PAGE_SHIFT] = page_to_mfn(page);
++    pl1e = &__linear_l1_table[l1_linear_offset(LDT_VIRT_START(curr) + offset)];
+     l1e_add_flags(gl1e, _PAGE_RW);
  
-  out:
-diff --git a/xen/arch/x86/pv/descriptor-tables.c b/xen/arch/x86/pv/descriptor-tables.c
-index 02647a2c5047..5a79f022ce13 100644
---- a/xen/arch/x86/pv/descriptor-tables.c
-+++ b/xen/arch/x86/pv/descriptor-tables.c
-@@ -49,23 +49,20 @@ bool pv_destroy_ldt(struct vcpu *v)
- 
- void pv_destroy_gdt(struct vcpu *v)
- {
--    l1_pgentry_t *pl1e = pv_gdt_ptes(v);
--    mfn_t zero_mfn = _mfn(virt_to_mfn(zero_page));
--    l1_pgentry_t zero_l1e = l1e_from_mfn(zero_mfn, __PAGE_HYPERVISOR_RO);
-     unsigned int i;
- 
-     ASSERT(v == current || !vcpu_cpu_dirty(v));
- 
--    v->arch.pv.gdt_ents = 0;
--    for ( i = 0; i < FIRST_RESERVED_GDT_PAGE; i++ )
--    {
--        mfn_t mfn = l1e_get_mfn(pl1e[i]);
-+    if ( v->arch.cr3 )
-+        destroy_perdomain_mapping(v, GDT_VIRT_START(v),
-+                                  ARRAY_SIZE(v->arch.pv.gdt_frames));
- 
--        if ( (l1e_get_flags(pl1e[i]) & _PAGE_PRESENT) &&
--             !mfn_eq(mfn, zero_mfn) )
--            put_page_and_type(mfn_to_page(mfn));
-+    for ( i = 0; i < ARRAY_SIZE(v->arch.pv.gdt_frames); i++)
-+    {
-+        if ( !v->arch.pv.gdt_frames[i] )
-+            break;
- 
--        l1e_write(&pl1e[i], zero_l1e);
-+        put_page_and_type(mfn_to_page(_mfn(v->arch.pv.gdt_frames[i])));
-         v->arch.pv.gdt_frames[i] = 0;
-     }
- }
-@@ -74,8 +71,8 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
-                unsigned int entries)
- {
-     struct domain *d = v->domain;
--    l1_pgentry_t *pl1e;
-     unsigned int i, nr_frames = DIV_ROUND_UP(entries, 512);
-+    mfn_t mfns[ARRAY_SIZE(v->arch.pv.gdt_frames)];
- 
-     ASSERT(v == current || !vcpu_cpu_dirty(v));
- 
-@@ -90,6 +87,8 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
-         if ( !mfn_valid(mfn) ||
-              !get_page_and_type(mfn_to_page(mfn), d, PGT_seg_desc_page) )
-             goto fail;
-+
-+        mfns[i] = mfn;
-     }
- 
-     /* Tear down the old GDT. */
-@@ -97,12 +96,9 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
- 
-     /* Install the new GDT. */
-     v->arch.pv.gdt_ents = entries;
--    pl1e = pv_gdt_ptes(v);
-     for ( i = 0; i < nr_frames; i++ )
--    {
-         v->arch.pv.gdt_frames[i] = frames[i];
--        l1e_write(&pl1e[i], l1e_from_pfn(frames[i], __PAGE_HYPERVISOR_RW));
--    }
-+    populate_perdomain_mapping(v, GDT_VIRT_START(v), mfns, nr_frames);
- 
-     return 0;
- 
+     l1e_write(pl1e, gl1e);
 -- 
 2.46.0
 
