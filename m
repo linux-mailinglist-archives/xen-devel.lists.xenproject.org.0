@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C152A05E9A
+	by mail.lfdr.de (Postfix) with ESMTPS id 38880A05E9D
 	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 15:30:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867316.1278791 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.867318.1278812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVX4h-0005sT-Tp; Wed, 08 Jan 2025 14:30:23 +0000
+	id 1tVX4l-0006Lf-Ha; Wed, 08 Jan 2025 14:30:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867316.1278791; Wed, 08 Jan 2025 14:30:23 +0000
+Received: by outflank-mailman (output) from mailman id 867318.1278812; Wed, 08 Jan 2025 14:30:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVX4h-0005qA-Qz; Wed, 08 Jan 2025 14:30:23 +0000
-Received: by outflank-mailman (input) for mailman id 867316;
- Wed, 08 Jan 2025 14:30:22 +0000
+	id 1tVX4l-0006JN-Bi; Wed, 08 Jan 2025 14:30:27 +0000
+Received: by outflank-mailman (input) for mailman id 867318;
+ Wed, 08 Jan 2025 14:30:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2h7L=UA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tVX4g-0005q4-D8
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 14:30:22 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ id 1tVX4j-0005q4-4f
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 14:30:25 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1699e336-cdcd-11ef-99a4-01e77a169b0f;
- Wed, 08 Jan 2025 15:30:20 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5d7e3f1fc01so6046536a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 06:30:20 -0800 (PST)
+ id 188548c9-cdcd-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 15:30:23 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-aab6fa3e20eso2802169566b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 06:30:23 -0800 (PST)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d80676f218sm26160592a12.26.2025.01.08.06.30.18
+ a640c23a62f3a-aac0e82f616sm2491596166b.41.2025.01.08.06.30.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 06:30:19 -0800 (PST)
+ Wed, 08 Jan 2025 06:30:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,175 +44,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1699e336-cdcd-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: 188548c9-cdcd-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736346619; x=1736951419; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=k9MQ0c7AAWp4dnuzrpxoUQPOajqVONYO8vVuEmo1UPo=;
-        b=qvonbIBVgw83Tyy5yE2o+frHw9rMVFUOpf2RQGBmajq7hA0IiL/Lplz9uzSRa5LmsG
-         dI9Q5cCNL5JmFGHIwvq+HR9FSaf9hSqPMQft36ZsiSlnRHDLPMeHz4XnmlZlrO3FCIO0
-         dzNvvMKZMUo5CaOumtb5bNxYheFkxwrqRKKKU=
+        d=citrix.com; s=google; t=1736346622; x=1736951422; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rIPMScFRi+9eS7pQY1QinUJZuVfM6Y6c4f6yI4NQszg=;
+        b=cwUmBYMMH2KdOgmADw6l1twje8VUwkxrJekztKuVk74M0XBrUhq0kuaXIU3IG6mGGF
+         g/oaS+4SC6E+de2i+sONEyJiHqI8QPLcsTIgcLMsCPa3xpg4bzX5nLi+1tr/luwTYLxA
+         GKStlzPD/1SaB+OZlNasKIGkhEvQvQTM0o3E0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736346619; x=1736951419;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=k9MQ0c7AAWp4dnuzrpxoUQPOajqVONYO8vVuEmo1UPo=;
-        b=nUHBkm5u9mk/usaGqj9PUalqx3WLkjaUuyZoChx1wCrZqrhwvZ71Bq/gJrQuRZQkh/
-         7HN6frVbEVlNl7UZp+vtKpY2ywZIt5nRYknfqrbXfecNKM3wCpuC/nwhyHFHkOetLYTu
-         A2xhdAHZlfagRoLR2sNpw0ZMsIWBeiEor2Mo7KRoFyVnGYREcoEMPyVV5QPq2WK4EOzO
-         ZVYkzXul2pWAaDHBG6Q4UpfgcqQsEmnPSuzl2YWv4fXnOfu5u4ZUBopJNItVklP/ulUQ
-         WA5n0josB/GTRyn4a1RLjbn8TkJ3emgp7KqLFdddCQUjcUghyjzdrXOOZ4/o0RIRLO1F
-         JaIQ==
-X-Gm-Message-State: AOJu0Yz/+EGlsHeHmmlJ0Wf1gW3qt0gmx15bFP8kiAzVUxRZXjFDBVKW
-	tZtlHMqmCE1IrL2RLdzoo0hcL1JGGM60J/T3c5/1nf/cz/U1QH0EaZLGcZtn4qhId52IvZzvchW
-	J
-X-Gm-Gg: ASbGncv4/P+ugsBL89OI5+Ikw4vw68uuuzi+oQwcuwwVXAWcN7f3stq+Sj0Xibi3lNl
-	4nlyyuy5trOphH6oNWxTzPI2l3Um2q5u7MwFPRkOZ7l9Bjaj213ukGyebh8qa4AoI5wA5W9tkC+
-	mQ/K5l2vg9ZsmrC4wrAGXu2BGUb3sbYXPmvQ73Bz1/8mh/lB00xskKyI6mzQ4++BPE8Q3h9LeT1
-	ahbIDeqtrvqDYnEHewvoQIVyKTwSv/KS1gdLH0Tm1b0gQJedPU0bt9WzUeDXFmnQpw=
-X-Google-Smtp-Source: AGHT+IG+pJsIlGG+aftHU0ZDrCXF+ci65TLyVF/33jBtrK1smwH4TMXg5kvElL53NT0pX4ZKfnI3+w==
-X-Received: by 2002:a05:6402:50d0:b0:5d3:d917:dd90 with SMTP id 4fb4d7f45d1cf-5d972dfb3d9mr2611862a12.6.1736346619468;
-        Wed, 08 Jan 2025 06:30:19 -0800 (PST)
+        d=1e100.net; s=20230601; t=1736346622; x=1736951422;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rIPMScFRi+9eS7pQY1QinUJZuVfM6Y6c4f6yI4NQszg=;
+        b=aoSjabnSWEND0SUMYQbrguGol1xlyPTjsXnQQ9ro7PpXxmRZy81PJJDO+gelnrvjPC
+         b9FnLV3ZoR8OBVkvwgT+q1PTPZmvaquRLTBf/cTZxiaqV2+Ke57/YwzSkUYJN4IgdVL8
+         V5rErUYzmns1iRLds16gRTGXgJMeDGoOkcZcxQXTz98Ul55R+weqP4iykorxsFA1Ox3G
+         ydeTqrBvBq86aO45u5K+Hei1axocg3qu6yRXyazWpadzkwAigomfALDeujAJX8BAOsIB
+         fk00XtpqHLGKdFASmiLbG718INpIY2XWzndcPdApEyZVKnzYTUZHGKlYRUiAF8L44wuF
+         J4fA==
+X-Gm-Message-State: AOJu0Yx8vDtbr8eqVvcUVLgfLivKmd9QcG4sg6Grq9Grh6ZnTe00F1Tg
+	WPQC6Y0Zk34ebyDDe7c2rMkiYR4wgeBWHlO9HggoOkQOo8fsLz46vElWUdSybbA8VhXWspPve9r
+	G
+X-Gm-Gg: ASbGncudtOzLIGnv2FGaJOLiZuAvrG5RXpxrovIWoYA5GReJPg9xpJ1LMs/KASEfTrC
+	fORvJbusFxTqscv8Uu9u3oKYtdTGggKCyZL0R1Lu30k/hmYvVfhrJKtMIsM2pkcRJWJ0/dArMdH
+	AI48lI2AQMIzW54EJE+OgYxJ6fflohQg+HAjTo+3ToH7qoe1p5mgVOz4slHf/UmBEsjYcKS7Ro6
+	1n15fR65PZfGEU9NEkXILDcIqOwJIklPJmacnglrMBPiGi7hCYigTf4YT7InG6g3w4=
+X-Google-Smtp-Source: AGHT+IFHptL442A0fMrP5bxV31r2PKY0Z2nBrnnSNstGJc8woCK9m2xHZd644PLKPTI8mqyRHn3vWA==
+X-Received: by 2002:a17:907:368c:b0:aa6:9624:78fd with SMTP id a640c23a62f3a-ab2abc78a71mr296403766b.48.1736346620715;
+        Wed, 08 Jan 2025 06:30:20 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Tim Deegan <tim@xen.org>
-Subject: [PATCH v2 00/18] x86: adventures in Address Space Isolation
-Date: Wed,  8 Jan 2025 15:26:40 +0100
-Message-ID: <20250108142659.99490-1-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v2 01/18] x86/mm: purge unneeded destroy_perdomain_mapping()
+Date: Wed,  8 Jan 2025 15:26:41 +0100
+Message-ID: <20250108142659.99490-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20250108142659.99490-1-roger.pau@citrix.com>
+References: <20250108142659.99490-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,
+The destroy_perdomain_mapping() call in the hvm_domain_initialise() fail path
+is useless.  destroy_perdomain_mapping() called with nr == 0 is effectively a
+no op, as there are not entries torn down.  Remove the call, as
+arch_domain_create() already calls free_perdomain_mappings() on failure.
 
-The aim of this series is to introduce the functionality required to
-create linear mappings visible to a single pCPU.
+There's also a call to destroy_perdomain_mapping() in pv_domain_destroy() which
+is also not needed.  arch_domain_destroy() will already unconditionally call
+free_perdomain_mappings(), which does the same as destroy_perdomain_mapping(),
+plus additionally frees the page table structures.
 
-Doing so requires having a per-vCPU root page-table (L4), and hence
-requires shadowing the guest selected L4 on PV guests.  As follow ups
-(and partially to ensure the per-CPU mappings work fine) the CPU stacks
-are switched to use per-CPU mappings, so that remote stack contents are
-not by default mapped on all page-tables (note: for this to be true the
-directmap entries for the stack pages would need to be removed also).
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/hvm/hvm.c   | 1 -
+ xen/arch/x86/pv/domain.c | 3 ---
+ 2 files changed, 4 deletions(-)
 
-There's one known shortcoming with the presented code: migration of PV
-guests using per-vCPU root page-tables is not working.  I need to
-introduce extra logic to deal with PV shadow mode when using unique root
-page-tables.  I don't think this should block the series however, such
-missing functionality can always be added as follow up work.
-paging_domctl() is adjusted to reflect this restriction.
-
-The main differences compared to v1 are the usage of per-vCPU root page
-tables (as opposed to per-pCPU), and the usage of the existing perdomain
-family of functions to manage the mappings in the per-domain slot, that
-now becomes per-vCPU.
-
-All patches until 17 are mostly preparatory, I think there's a nice
-cleanup and generalization of the creation and managing of per-domain
-mappings, by no longer storing references to L1 page-tables in the vCPU
-or domain struct.
-
-Patch 13 introduces the command line option, and would need discussion
-and integration with the sparse direct map series.  IMO we should get
-consensus on how we want the command line to look ASAP, so that we can
-basic parsing logic in place to be used by both the work here and the
-direct map removal series.
-
-As part of this series the map_domain_page() helpers are also switched
-to create per-vCPU mappings (see patch 15), which converts an existing
-interface into creating per-vCPU mappings.  Such interface can be used
-to hide (map per-vCPU) further data that we don't want to be part of the
-direct map, or even shared between vCPUs of the same domain.  Also all
-existing users of the interface will already create per-vCPU mappings
-without needing additional changes.
-
-Note that none of the logic introduced in the series removes entries for
-the directmap, so even when creating the per-CPU mappings the underlying
-physical addresses are fully accessible when using it's direct map
-entries.
-
-I also haven't done any benchmarking.  Doesn't seem to cripple
-performance up to the point that XenRT jobs would timeout before
-finishing, that the only objective reference I can provide at the
-moment.
-
-The series has been extensively tested on XenRT, but that doesn't cover
-all possible use-cases, so it's likely to still have some rough edges,
-handle with care.
-
-Thanks, Roger.
-
-Roger Pau Monne (18):
-  x86/mm: purge unneeded destroy_perdomain_mapping()
-  x86/domain: limit window where curr_vcpu != current on context switch
-  x86/mm: introduce helper to detect per-domain L1 entries that need
-    freeing
-  x86/pv: introduce function to populate perdomain area and use it to
-    map Xen GDT
-  x86/mm: switch destroy_perdomain_mapping() parameter from domain to
-    vCPU
-  x86/pv: set/clear guest GDT mappings using
-    {populate,destroy}_perdomain_mapping()
-  x86/pv: update guest LDT mappings using the linear entries
-  x86/pv: remove stashing of GDT/LDT L1 page-tables
-  x86/mm: simplify create_perdomain_mapping() interface
-  x86/mm: switch {create,destroy}_perdomain_mapping() domain parameter
-    to vCPU
-  x86/pv: untie issuing FLUSH_ROOT_PGTBL from XPTI
-  x86/mm: move FLUSH_ROOT_PGTBL handling before TLB flush
-  x86/spec-ctrl: introduce Address Space Isolation command line option
-  x86/mm: introduce per-vCPU L3 page-table
-  x86/mm: introduce a per-vCPU mapcache when using ASI
-  x86/pv: allow using a unique per-pCPU root page table (L4)
-  x86/mm: switch to a per-CPU mapped stack when using ASI
-  x86/mm: zero stack on context switch
-
- docs/misc/xen-command-line.pandoc    |  24 +++
- xen/arch/x86/cpu/mcheck/mce.c        |   4 +
- xen/arch/x86/domain.c                | 157 +++++++++++----
- xen/arch/x86/domain_page.c           | 105 ++++++----
- xen/arch/x86/flushtlb.c              |  28 ++-
- xen/arch/x86/hvm/hvm.c               |   6 -
- xen/arch/x86/include/asm/config.h    |  16 +-
- xen/arch/x86/include/asm/current.h   |  58 +++++-
- xen/arch/x86/include/asm/desc.h      |   6 +-
- xen/arch/x86/include/asm/domain.h    |  50 +++--
- xen/arch/x86/include/asm/flushtlb.h  |   2 +-
- xen/arch/x86/include/asm/mm.h        |  15 +-
- xen/arch/x86/include/asm/processor.h |   5 +
- xen/arch/x86/include/asm/pv/mm.h     |   5 +
- xen/arch/x86/include/asm/smp.h       |  12 ++
- xen/arch/x86/include/asm/spec_ctrl.h |   4 +
- xen/arch/x86/mm.c                    | 291 +++++++++++++++++++++------
- xen/arch/x86/mm/hap/hap.c            |   2 +-
- xen/arch/x86/mm/paging.c             |   6 +
- xen/arch/x86/mm/shadow/hvm.c         |   2 +-
- xen/arch/x86/mm/shadow/multi.c       |   2 +-
- xen/arch/x86/pv/descriptor-tables.c  |  47 ++---
- xen/arch/x86/pv/dom0_build.c         |  12 +-
- xen/arch/x86/pv/domain.c             |  57 ++++--
- xen/arch/x86/pv/mm.c                 |  43 +++-
- xen/arch/x86/setup.c                 |  32 ++-
- xen/arch/x86/smp.c                   |  39 ++++
- xen/arch/x86/smpboot.c               |  26 ++-
- xen/arch/x86/spec_ctrl.c             | 205 ++++++++++++++++++-
- xen/arch/x86/traps.c                 |  25 ++-
- xen/arch/x86/x86_64/mm.c             |   7 +-
- xen/common/smp.c                     |  10 +
- xen/common/stop_machine.c            |  10 +
- xen/include/xen/smp.h                |   8 +
- 34 files changed, 1052 insertions(+), 269 deletions(-)
-
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 922c9b3af64d..70fdddae583d 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -708,7 +708,6 @@ int hvm_domain_initialise(struct domain *d,
+     XFREE(d->arch.hvm.irq);
+  fail0:
+     hvm_destroy_cacheattr_region_list(d);
+-    destroy_perdomain_mapping(d, PERDOMAIN_VIRT_START, 0);
+  fail:
+     hvm_domain_relinquish_resources(d);
+     XFREE(d->arch.hvm.io_handler);
+diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+index 7aef628f55be..bc7cd0c62f0e 100644
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -345,9 +345,6 @@ void pv_domain_destroy(struct domain *d)
+ {
+     pv_l1tf_domain_destroy(d);
+ 
+-    destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
+-                              GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
+-
+     XFREE(d->arch.pv.cpuidmasks);
+ 
+     FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
 -- 
 2.46.0
 
