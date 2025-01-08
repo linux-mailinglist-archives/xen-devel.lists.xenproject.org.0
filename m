@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F18CA0549A
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:33:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866909.1278287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32441A054A4
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:35:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866918.1278296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQYb-0005Be-9t; Wed, 08 Jan 2025 07:32:49 +0000
+	id 1tVQaq-0005nw-Mz; Wed, 08 Jan 2025 07:35:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866909.1278287; Wed, 08 Jan 2025 07:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 866918.1278296; Wed, 08 Jan 2025 07:35:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQYb-00059p-5v; Wed, 08 Jan 2025 07:32:49 +0000
-Received: by outflank-mailman (input) for mailman id 866909;
- Wed, 08 Jan 2025 07:32:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVQaq-0005lk-KL; Wed, 08 Jan 2025 07:35:08 +0000
+Received: by outflank-mailman (input) for mailman id 866918;
+ Wed, 08 Jan 2025 07:35:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=svEr=UA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVQYa-00059I-G6
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:32:48 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1c8c68f-cd92-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 08:32:47 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3862d16b4f5so337991f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 23:32:47 -0800 (PST)
+ id 1tVQap-0005le-89
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:35:07 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1410f2f4-cd93-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 08:35:05 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-385e87b25f0so308189f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 23:35:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1fa2bdfbsm51448705f8f.102.2025.01.07.23.32.45
+ 5b1f17b1804b1-436e2da7768sm11253425e9.5.2025.01.07.23.35.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jan 2025 23:32:46 -0800 (PST)
+ Tue, 07 Jan 2025 23:35:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1c8c68f-cd92-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 1410f2f4-cd93-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736321567; x=1736926367; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736321705; x=1736926505; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pkcb3+a5dJ29hweFXCoRH2W/v3k+pj4cykKr3EYZ95k=;
-        b=R3WRGpNjGIfch7Xzqo4ekdGDJlR3eQk7vgn5DNbAsa9W2+p9lyWjKKh3bLwXZrXh+4
-         2LHFevgOFRhyKZI/Olp8LZwwhCNL8dGQDoCuSAcptwJYeDfVz0goB68U5t69LVHsSj10
-         tMHNyvttq/NDjn+9TgEYFv8ygbLOvDxoQo3ePmbXzU6J4m0aIMm2WvP/rxg4zR8snlbP
-         bhWl3trD3uBI1kk3kRatP5oPjsOThOLdQCoIoJ3U5Mql/xklZ5/N1DfJWXuVDtLHag/z
-         rSZozeeSoOKTqI3Q9TEh3nA032xeRC+ghlCyvzz4gvxzP1RM1N7Oz/JZ1H8ELSyFePLf
-         UzVQ==
+        bh=78KiMuat33LFSrcDZWhTDDvY0TKnVkuVcR8OsF00lXU=;
+        b=AHZ03rcOXVjVfhdNMNiEgCTpOqS2Pt4pmZh2gc5jboVd8pnT0e6mmBW79R+BqjWVv3
+         TKhQ4SjoHHKjSxSjYp+jJp8yOlo6weuPBgoA03K3U9+8XEXUcbmSUozSLsrW87+DtjLr
+         3W+261k2V/UNXy8mrxoRQxF5ozb3mXPAjJRT/DyRSAzbze6WM2/+Ehk+8j/j62rNq8R0
+         qgns3XNFQfdz20gshpqwC17orL91/NEHP0rH/69m8reZ4OcQe9hQ2m8fqfqqMslSkam9
+         90QUcYNmWVR45esPhFnlG9OIUFnBhzCg9CosMTqTbWu/0NxjxSzN2AIjB0bQKocWRwcJ
+         n0Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736321567; x=1736926367;
+        d=1e100.net; s=20230601; t=1736321705; x=1736926505;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pkcb3+a5dJ29hweFXCoRH2W/v3k+pj4cykKr3EYZ95k=;
-        b=thIQAIweWqPgqufQaAbd8WtRohzif9shrvH1apHjFA9oTDwxZ5LlDp2fR/8815GJre
-         XrecORHpSOsFK6ipqCJ7SKu9+WkqPs9Xi6bOty+6ZdqbfBwwinjy0iDE+rEetYBwYKje
-         UWviaf9tuLwpioJ5oX0u0BnXG3sOCvXtvJfgIX6xi50TMJEPWndVfZZSEYL4STixr5C6
-         YtAMFdo0T/I6aEC5eIvXeay5ySPkoZb7F+3TSkfhLUKkrR1HyOD7sunRm0twpmkJs6ap
-         T30NZW0oPHcshc0ZKJIB00m/0DsWPOeS7MM9dnD56E7Q61LmFIveKfZweYzLp/g/yV9S
-         HBiQ==
-X-Gm-Message-State: AOJu0YwnWd/foXzPxm9/r3ltvo4OLvpJCiS5/PWKMG8OnEWKQj6cuPaH
-	8S8PrRnDjVLCMNPaupmEtIntfHc6sMVOoYsVNK7UjXFWa8iXADodc16B2PFKxw==
-X-Gm-Gg: ASbGnculIOdauBBlDaZXpORLHW1NKrym9pQvmqfflCBbbylRMk6ND+2/WOFEZUcxuqP
-	cJGBbC3suvkCrHRhgF6YBoRjBr5IaaFJTPJLxb4ohX1WUmsx/hcbUbGTiwTqBsPPZeUfIJVdsfB
-	76T9jh9uFhClmEgXbmAgTZLAw+S1YEtFEGn1aUphv4xYp+GNLkWiaNHZ5nwXimacbm0r16eS+n0
-	arz9RlSKN/pE8h8YOnkQ+MiUHZVsqwY+WlwchyRLLDBQ4R+2E5fvm6+F+NqNTFEl1O1QkvYaaV8
-	R1Kyd7/sb4Qw2P/qiSttRpnDAaZXCCY0ePOSZNYMMA==
-X-Google-Smtp-Source: AGHT+IExbjFXqZYAf4qQCiviOiPO6MJjjSeFA8OHrLDAA3gHukLDPKYu4JdTxgj1iUvjaU+nw+9cwg==
-X-Received: by 2002:a5d:64ac:0:b0:385:ef14:3b55 with SMTP id ffacd0b85a97d-38a85f4eecdmr1385607f8f.19.1736321566661;
-        Tue, 07 Jan 2025 23:32:46 -0800 (PST)
-Message-ID: <736dbd5d-62f7-41aa-a24a-2f08cc2f21fe@suse.com>
-Date: Wed, 8 Jan 2025 08:32:44 +0100
+        bh=78KiMuat33LFSrcDZWhTDDvY0TKnVkuVcR8OsF00lXU=;
+        b=tQnGCdiyDN7hJB7a56A9d3X8VHU5vPlfi9QjU2C71lcZwV5wCn91KOsliVsZXDAbvs
+         GqMdkqO7qLyWG3ubY4puBGBuNCENby7YfitrvHr5fZraiDPH1MTmsi+sGwtUhSd0ehmE
+         1SVqZKT8DtF0IYKYLLxj35d6RsT6HIV2SPwK3Vu6jbvor6KoLCAqYAec85lFycnXtaDN
+         NPHCr1ZNHuiy2yDG8wLWDNV+olWwHPJWCkc784IhENCzQ5KVuStyLmblU0nC7FFkBhGE
+         npijc63klTNUW0qYvAx6OMW7uoBmNtgqr4/3OXI+Yo3wy3PAANOn5iq5OCOBmyJQL+dj
+         kk6g==
+X-Gm-Message-State: AOJu0Yz18eUAvdK/f3cVBkIc7nfU9TkvQeB2XoZf1zumv23tx1LAJcJJ
+	i9NaNUPKo+6pTI2G2ru5ZyUSr2kRnosohN3ldRMLqgn8OMhg0ngLtYinRbDlmA==
+X-Gm-Gg: ASbGncvPic+z6mDrQXUpZqrMt3cmh8GRiPmM8bzSvCnK3kUvnztEWLiVzq2yYjwe2cg
+	sK7Tj5uUSk5m+LGE8k5Nnh04TrWpEoGmEo2JFdQVDxD4QE/IekohkCQPhw5VR74YmHTDPFA8mMI
+	uLRlT6z6SLb0nwTc8FGKA0p+q34P0YNms+jUvQrRZ6f55fHC6wriiJQvPi6kh5/ySLzAfi7v3ij
+	jv3Y+wnng+2aS3dHw7mLtz/gz298W18VpCWvat9SmJm630rD/+gU10fqMqTU+/WYtizN0vEdd41
+	bZMS3aSscBlSQipgeQLs8k++NKXX2BzJQq3wLPUSXA==
+X-Google-Smtp-Source: AGHT+IGH1kXFgHcRYK0Uq4o4IDYFmQShv2jNRrIvtCQ/op7D2PHvxMwnnfMscBuq0iYl858X9VbQjw==
+X-Received: by 2002:a05:6000:1787:b0:386:4a16:dadb with SMTP id ffacd0b85a97d-38a7912b5f7mr4859982f8f.11.1736321704741;
+        Tue, 07 Jan 2025 23:35:04 -0800 (PST)
+Message-ID: <d8b46f8d-b440-4d9f-a5f6-bf94b4a998b1@suse.com>
+Date: Wed, 8 Jan 2025 08:35:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [for-4.20] Re: [PATCH v12 12/12] xen/arm: add cache coloring
  support for Xen image
-To: Andrea Bastoni <andrea.bastoni@minervasys.tech>
-Cc: xen-devel@lists.xenproject.org, marco.solieri@minervasys.tech,
- Stefano Stabellini <sstabellini@kernel.org>,
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, andrea.bastoni@minervasys.tech,
+ marco.solieri@minervasys.tech, Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii <oleksii.kurochko@gmail.com>, Julien Grall <julien@xen.org>,
- Carlo Nonato <carlo.nonato@minervasys.tech>,
- Michal Orzel <michal.orzel@amd.com>
+ Carlo Nonato <carlo.nonato@minervasys.tech>
 References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
  <20241213162815.9196-13-carlo.nonato@minervasys.tech>
  <dbbc649f-b705-46b5-a071-760d688aa2cd@amd.com>
@@ -106,7 +105,7 @@ References: <20241213162815.9196-1-carlo.nonato@minervasys.tech>
  <0062e0cf-0830-4d16-942d-348e6d33a2c4@xen.org>
  <5c153764-4a1d-4233-a9d2-fa5ec0aff6ac@amd.com>
  <6a0a096b-47c2-4568-be9f-9f230bc6df23@suse.com>
- <0231325c-13f2-4b0b-a928-4ba249e4c560@minervasys.tech>
+ <068a9ab0-c7b8-490f-85fa-6beee8c07917@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,14 +131,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0231325c-13f2-4b0b-a928-4ba249e4c560@minervasys.tech>
+In-Reply-To: <068a9ab0-c7b8-490f-85fa-6beee8c07917@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.01.2025 18:13, Andrea Bastoni wrote:
+On 08.01.2025 08:30, Michal Orzel wrote:
+> 
+> 
 > On 07/01/2025 18:01, Jan Beulich wrote:
+>>
+>>
 >> On 07.01.2025 17:51, Michal Orzel wrote:
+>>>
+>>>
 >>> On 07/01/2025 17:42, Julien Grall wrote:
+>>>>
+>>>>
+>>>> Hi,
+>>>>
 >>>> On 16/12/2024 14:36, Jan Beulich wrote:
 >>>>> On 16.12.2024 15:28, Carlo Nonato wrote:
 >>>>>> On Mon, Dec 16, 2024 at 2:56 PM Michal Orzel <michal.orzel@amd.com> wrote:
@@ -210,15 +219,27 @@ On 07.01.2025 18:13, Andrea Bastoni wrote:
 >> We use the same (if(...) func();) in various places, relying on said DCEing
 >> of the call when the condition is compile-time-false. I see no reason why
 >> it couldn't be used here as well.
-> 
-> IIRC the point was that his function is extern and DCE as used in other places doesn't necessarily work.
+> Well, in original patch you wrote:
+> "Yet how would the compiler spot that the function is unused? That would only work
+> with LTO / WPO. DCE (as I did suggest elsewhere) requires the functions in question
+> to be static (allowing the compiler to see enough of the whole picture)."
 
-But the called function being extern _is_ the common pattern where merely a
-declaration needs to be visible, but no definition (and we specifically have
-a Misra deviation to cover this case). If the function was static, no further
-provisions would be necessary at all, as then the compiler can DCE not only
-the function call, but also the function itself, without any further help by
-us.
+That must have been a comment on the function itself, not on any of the calls
+to it.
+
+> That's why I wanted to confirm with you before sending a patch to remove the stub.
+> At first place I thought we rely on DCE only for:
+> a) static functions
+> b) in construct like if ( false && foo() ), not if ( false ) { foo () }
+
+We leverage both patterns.
 
 Jan
+
+> That said, relocate_and_switch_ttbr() is exactly the same as domain_set_llc_colors() for which
+> we don't have a stub and rely on DCE.
+> 
+> ~Michal
+> 
+
 
