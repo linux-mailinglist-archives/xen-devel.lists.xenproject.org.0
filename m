@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED18AA05964
+	by mail.lfdr.de (Postfix) with ESMTPS id 02661A05965
 	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 12:14:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867133.1278565 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.867134.1278573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVTzy-0001MJ-Tn; Wed, 08 Jan 2025 11:13:18 +0000
+	id 1tVTzz-0001TF-At; Wed, 08 Jan 2025 11:13:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867133.1278565; Wed, 08 Jan 2025 11:13:18 +0000
+Received: by outflank-mailman (output) from mailman id 867134.1278573; Wed, 08 Jan 2025 11:13:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVTzy-0001Hz-QP; Wed, 08 Jan 2025 11:13:18 +0000
-Received: by outflank-mailman (input) for mailman id 867133;
- Wed, 08 Jan 2025 11:13:17 +0000
+	id 1tVTzz-0001Mv-46; Wed, 08 Jan 2025 11:13:19 +0000
+Received: by outflank-mailman (input) for mailman id 867134;
+ Wed, 08 Jan 2025 11:13:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WoWX=UA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tVTzx-0001BZ-4A
+ id 1tVTzx-0001BZ-SM
  for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 11:13:17 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8e912d6c-cdb1-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 12:13:15 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-3003943288bso187518711fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 03:13:15 -0800 (PST)
+ id 8ee60536-cdb1-11ef-a0df-8be0dac302b0;
+ Wed, 08 Jan 2025 12:13:16 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-304d760f0dfso50250541fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 03:13:16 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3045ad99d11sm67292171fa.33.2025.01.08.03.13.13
+ 38308e7fff4ca-3045ad99d11sm67292171fa.33.2025.01.08.03.13.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 08 Jan 2025 03:13:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -44,40 +44,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e912d6c-cdb1-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 8ee60536-cdb1-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736334795; x=1736939595; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1736334796; x=1736939596; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=khyzmr/9Ez+tN2hOqgwIY9MJyCMCvynyh0dRKtdVRpU=;
-        b=Z9nNzqbwMjGUgeOL+QeXeCGtITB3765me9+wzkX26MB3Ac+dYed9cpocbAPyjSI2rK
-         qX+SHFnoVqKsqtVF/jdgQxhSj/CXZAOe6QYFde5oZz2V2+8KJIqpsz+Zw5nfzvBkoXC1
-         lfIoQ7ifIWHe1ZWdYymlnIoD0NZeJSHYn+vHTyB0x7UcqPjxbMf1gHO8DmqG38r4t6L/
-         MNsz+JrTkZ2IH3rAFIbOP8Oy+dd+ekzXBjPuQZaJck8U7QDyiV+DUawuc5Ybf3IGFEKG
-         XpDP5uukPq7Sll4JCj/cI1TLiLVVgzEdtX1Qtvwqps65+2U237rrGrI71WSI6vs8Eykm
-         LyBQ==
+        bh=GR2a/0jnuvbrYQt6CCllwzwGe4JakRFRLxGKEovkNEQ=;
+        b=a9OS8uP9V30NUmR7MKpmh3whzHv36zAtbxa5q/6yCD2Ow+3XrfHvchNBkjHRjobKI9
+         f8GJmwGs9cvZurgFFnDggsprXpW/9mdONBGLI8NZCHdBpmyNZBuS5EUvP/EjdyQZaI00
+         sFMKyezmcdkZtxqsWI+to3N43EJTPB95MqnHuYFpPimtK2sY4zxmDWWrNUsZItJcudNY
+         BeKFSYZegI/yrcKG+7LKqslejlzdqjSCG9SPX3uftvFB0fifCBKgUZHN85lAIxt9gtyJ
+         gHjKYBxVx/OOvX8GS5QjzhRDE3GygVw4KdKZeD1083mO8Yk1h8h5BFhWNzE5LJs81foG
+         hmmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736334795; x=1736939595;
+        d=1e100.net; s=20230601; t=1736334796; x=1736939596;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=khyzmr/9Ez+tN2hOqgwIY9MJyCMCvynyh0dRKtdVRpU=;
-        b=kTzYO/cPDBYlmziP/8oLWbjHA1YS4d/ZwufTYSfY7iCQiBKgznB10Ss456dCebpWMe
-         1Sf1O5tizCWsdARxrekfCrhIcy+wz34UknGItZQ0SkMwPWsmHoTTKfCTp/isZNq/SNSe
-         /iu8bN7xOIreF24HTHT3VgTV7t7aQp1xWNLyW/k5oIo6Bjuoa+sQuo1FjZqs1mPaHByu
-         Vtm45SZUML4vUP5wZXDcyuoERLQjp3aLZSdy+3avn26QUwzuVJsjdh332gfhaIWgzbOd
-         8bEwXsQzJxJAWmN5ImIcuUiTi6us8JlWEQmZc0bdopi5LhP3xot1jFK1B6elEuhtJ8K/
-         CJKQ==
-X-Gm-Message-State: AOJu0YxTiNonHxkc4fWDfAtMCfE8WJI/KhAaG/aQWZSTc8Yy5C6lqWED
-	0aRu5pd1PTLAC+hfKajwbBhbPOzj78O4NscKYWF35Y03T+DFZCuKn+WmgxYw
-X-Gm-Gg: ASbGncsSi0Edu3UhxUWpG5gfhwkgVOCkJSKE5IbSNQcqqRSoNq8aOMBqqoN2pYEIswC
-	VLLb6p/IzYAHT9zEs9xaDryOdHNuhUjoK2DXX+YEYH/vBkcQ177HOu+IC8xtrZA6PFa7UJ+nTjV
-	lEfLGwCtnuWdKI9tAjbM3FFfXdg6ZDWg/ruj05/iHxvY5ZcwQeB+Y210XJfmZSpZFdXtqucX5hd
-	yf9JKVzKmJOm7EQrEYB4A6ltUetDmPLRMdeOfuPhhogIpN72iVfiTLyng==
-X-Google-Smtp-Source: AGHT+IHzQbhrAIsD8/khEWYTRZbSzjvroSOvz6vYlYUIeTqvwxtRVs75BZuJepoG10lmND9Gkqk+uw==
-X-Received: by 2002:a2e:bb8e:0:b0:300:1f2d:97a with SMTP id 38308e7fff4ca-305f4547ea2mr4884401fa.16.1736334794385;
-        Wed, 08 Jan 2025 03:13:14 -0800 (PST)
+        bh=GR2a/0jnuvbrYQt6CCllwzwGe4JakRFRLxGKEovkNEQ=;
+        b=Uv00/BseS/srHlaVLT5v72Uut+MLmFWBteFks0Agn9k823OEILjsRM78OuNZOLiwoj
+         6m+HGiBeSHHLYanwb1PD7yhjoKgieE2PzYvj2hU5Ihri42LGtwtDqEkxYECtOX+by3OE
+         UOx7SNv/m1U4RZguPQx5kAUDAFc9xfHb/6R7vX3GU3pG2ypvxXg7+WEfDkOU+CL5PgUi
+         UDR3dsH1JxMicRg5EqsrwfkWohM+01nebA3+SC4sO1vkSv7yAkUyRhNncpNC1O1z+2XU
+         i9AGE1Ipj5XCnpAz39yLtaTLE8Okp+8UJ41sK1fTYnHbrzwg6sh+8hf4dV/ypYvh9Wiw
+         tNlw==
+X-Gm-Message-State: AOJu0Yxx+nTTKTPLmPQ9Q4z1aWf+JEHAZied5jkq1YmhW6fiA65LPXa0
+	fu8N+sV4odw0F31iZR85vCNLRqxrz2gZ7vlDtgssJb34oqX3eTnqxwx0jh/x
+X-Gm-Gg: ASbGncsvxliWtIMOPCMtQUKFhCt/ZcEaEQw8+/eMM2v7TV7vy5qdQc0ilxoUAZg8OWq
+	b0Nl+f6+BEOCiGOyK6kg3QscNWG7bTe38vYdDRnH9oqfHhxpdQHJEMXxOeSFdLomGwM1onW4Rej
+	SDCkHOFlOsYAFwMgyrOM/Nx8Dk73ccIDYZ1MRf4ChQIqKRxzNrWSIAIAyMcRq8l2yaKytUCC/Sb
+	rEQ4GhWUaiq/Ox5UHoX2rtBsXiR5Vr9WeR3FxNOfjsd/L6zcVJSQB2WJQ==
+X-Google-Smtp-Source: AGHT+IFsh3iV6x24r1z6bgjQYA4fIvXoEcEueWsf8uvmzjQHvcik8vtonyJEo3Zs4ajaJbZhPgKwEA==
+X-Received: by 2002:a2e:b887:0:b0:302:1c90:58d9 with SMTP id 38308e7fff4ca-305f458a829mr6956111fa.16.1736334795263;
+        Wed, 08 Jan 2025 03:13:15 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -90,673 +90,549 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Jan Beulich <jbeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v1 1/9] xen/common: dom0less: make some parts of Arm's CONFIG_DOM0LESS common
-Date: Wed,  8 Jan 2025 12:13:03 +0100
-Message-ID: <396a60496844c8a86667f4ee57c5bedc9899f5ad.1736334615.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 2/9] asm-generic: move parts of Arm's asm/kernel.h to asm-generic
+Date: Wed,  8 Jan 2025 12:13:04 +0100
+Message-ID: <6404cb5ae077909cbfdf3860d38c701c65547b56.1736334615.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1736334615.git.oleksii.kurochko@gmail.com>
 References: <cover.1736334615.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unify the API for creating DomUs and checking for Dom0less mode across
-architectures, including Arm and RISC-V, with potential applicability
-for PPC.
+Move the following parts to asm-generic with the following changes:
+- struct kernel_info:
+  - Create arch_kernel_info for arch specific kernel information.
+    At the moment, it contains domain_type for Arm.
+  - Rename vpl011 to vuart to have more generic name suitable for other archs.
+  - s/phandle_gic/phandle_intc to have more generic name suitable for other
+    archs.
+  - Make text_offset of zimage structure available for RISCV_64.
+- Wrap by `#ifdef KERNEL_INFO_SHM_MEM_INIT` definition of KERNEL_SHM_MEM_INIT
+  and wrap by `#ifndef KERNEL_INFO_INIT` definition of KERNEL_INFO_INIT to have
+  ability to override KERNEL_INFO_SHM_MEM_INIT for arch in case it doesn't
+  want to use generic one.
+- All other parts are left as is from Arm's asm/kernel.h
 
-Move dom0less-build.h from the Arm-specific directory to asm-generic
-as these header is expected to be the same across acrhictectures with
-some updates: add the following declaration of construct_domU(),
-arch_xen_domctl_createdomain() and arch_create_domus() as there are
-some parts which are still architecture-specific.
+Because of the changes in struct kernel_info the correspondent parts of Arm's
+code are updated.
 
-Relocate the CONFIG_DOM0LESS configuration to the common with adding
-"depends on Arm" to not break builds for architectures which at the
-moment don't support CONFIG_DOM0LESS config, especically it would be
-useful to not provide stubs for  construct_domU(),
-arch_xen_domctl_createdomain() and arch_create_domus() in case of
-*-randconfig which may set CONFIG_DOM0LESS=y.
-
-Move is_dom0less_mode() function to the common code, as it depends on
-boot modules that are already part of the common code.
-
-Move create_domUs() function to the common code with some updates:
-- Add function arch_xen_domctl_createdomain() as structure
-  xen_domctl_createdomain may have some arch-spicific information and
-  initialization.
-- Add arch_create_domus() to cover parsing of arch-specific features,
-  for example, SVE (Scalar Vector Extension ) exists only in Arm.
+As part of this patch the following clean up happens:
+- Drop asm/setup.h from asm/kernel.h as nothing depends from it.
+  Add inclusion of asm/setup.h for a code which uses device_tree_get_reg() to
+  avoid compilation issues for CONFIG_STATIC_MEMORY and CONFIG_STATIC_SHM.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/arm/Kconfig                      |   8 -
- xen/arch/arm/dom0less-build.c             | 270 ++++++----------------
- xen/arch/arm/include/asm/Makefile         |   1 +
- xen/arch/arm/include/asm/dom0less-build.h |  32 ---
- xen/common/Kconfig                        |   9 +
- xen/common/device-tree/Makefile           |   1 +
- xen/common/device-tree/dom0less-build.c   | 161 +++++++++++++
- xen/include/asm-generic/dom0less-build.h  |  40 ++++
- 8 files changed, 283 insertions(+), 239 deletions(-)
- delete mode 100644 xen/arch/arm/include/asm/dom0less-build.h
- create mode 100644 xen/common/device-tree/dom0less-build.c
- create mode 100644 xen/include/asm-generic/dom0less-build.h
+ xen/arch/arm/dom0less-build.c     |  28 +++---
+ xen/arch/arm/domain_build.c       |  10 +-
+ xen/arch/arm/include/asm/kernel.h | 115 +----------------------
+ xen/arch/arm/kernel.c             |  10 +-
+ xen/arch/arm/static-memory.c      |   1 +
+ xen/arch/arm/static-shmem.c       |   1 +
+ xen/include/asm-generic/kernel.h  | 146 ++++++++++++++++++++++++++++++
+ 7 files changed, 175 insertions(+), 136 deletions(-)
+ create mode 100644 xen/include/asm-generic/kernel.h
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index a26d3e1182..eff6ea6b6d 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -117,14 +117,6 @@ config GICV2
- 	  Driver for the ARM Generic Interrupt Controller v2.
- 	  If unsure, say Y
- 
--config DOM0LESS_BOOT
--	bool "Dom0less boot support" if EXPERT
--	default y
--	help
--	  Dom0less boot support enables Xen to create and start domU guests during
--	  Xen boot without the need of a control domain (Dom0), which could be
--	  present anyway.
--
- config GICV3
- 	bool "GICv3 driver"
- 	depends on !NEW_VGIC
 diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 49d1f14d65..b27747c05c 100644
+index b27747c05c..c4badb4ade 100644
 --- a/xen/arch/arm/dom0less-build.c
 +++ b/xen/arch/arm/dom0less-build.c
-@@ -17,38 +17,6 @@
+@@ -57,11 +57,11 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+     if (res)
+         return res;
+ 
+-    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_gic);
++    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_intc);
+     if (res)
+         return res;
+ 
+-    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_gic);
++    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_intc);
+     if (res)
+         return res;
+ 
+@@ -128,11 +128,11 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+     if (res)
+         return res;
+ 
+-    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_gic);
++    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_intc);
+     if (res)
+         return res;
+ 
+-    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_gic);
++    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_intc);
+     if (res)
+         return res;
+ 
+@@ -193,7 +193,7 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+         return res;
+ 
+     res = fdt_property_cell(fdt, "interrupt-parent",
+-                            kinfo->phandle_gic);
++                            kinfo->phandle_intc);
+     if ( res )
+         return res;
+ 
+@@ -479,10 +479,10 @@ static int __init domain_handle_dtb_bootmodule(struct domain *d,
+          */
+         if ( dt_node_cmp(name, "gic") == 0 )
+         {
+-            uint32_t phandle_gic = fdt_get_phandle(pfdt, node_next);
++            uint32_t phandle_intc = fdt_get_phandle(pfdt, node_next);
+ 
+-            if ( phandle_gic != 0 )
+-                kinfo->phandle_gic = phandle_gic;
++            if ( phandle_intc != 0 )
++                kinfo->phandle_intc = phandle_intc;
+             continue;
+         }
+ 
+@@ -525,7 +525,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+     int addrcells, sizecells;
+     int ret, fdt_size = DOMU_DTB_SIZE;
+ 
+-    kinfo->phandle_gic = GUEST_PHANDLE_GIC;
++    kinfo->phandle_intc = GUEST_PHANDLE_GIC;
+     kinfo->gnttab_start = GUEST_GNTTAB_BASE;
+     kinfo->gnttab_size = GUEST_GNTTAB_SIZE;
+ 
+@@ -587,7 +587,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+     /*
+      * domain_handle_dtb_bootmodule has to be called before the rest of
+      * the device tree is generated because it depends on the value of
+-     * the field phandle_gic.
++     * the field phandle_intc.
+      */
+     if ( kinfo->dtb_bootmodule )
+     {
+@@ -604,7 +604,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+     if ( ret )
+         goto err;
+ 
+-    if ( kinfo->vpl011 )
++    if ( kinfo->vuart )
+     {
+         ret = -EINVAL;
+ #ifdef CONFIG_SBSA_VUART_CONSOLE
+@@ -705,7 +705,7 @@ int __init construct_domU(struct domain *d,
+     printk("*** LOADING DOMU cpus=%u memory=%#"PRIx64"KB ***\n",
+            d->max_vcpus, mem);
+ 
+-    kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
++    kinfo.vuart = dt_property_read_bool(node, "vpl011");
+ 
+     rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+     if ( rc == -EILSEQ ||
+@@ -733,7 +733,7 @@ int __init construct_domU(struct domain *d,
+ 
+ #ifdef CONFIG_ARM_64
+     /* type must be set before allocate memory */
+-    d->arch.type = kinfo.type;
++    d->arch.type = kinfo.arch.type;
+ #endif
+     if ( !dt_find_property(node, "xen,static-mem", NULL) )
+         allocate_memory(d, &kinfo);
+@@ -751,7 +751,7 @@ int __init construct_domU(struct domain *d,
+      * tree node in prepare_dtb_domU, so initialization on related variables
+      * shall be done first.
+      */
+-    if ( kinfo.vpl011 )
++    if ( kinfo.vuart )
+     {
+         rc = domain_vpl011_init(d, NULL);
+         if ( rc < 0 )
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index b072a16249..976b03a5df 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -747,7 +747,7 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
+         return res;
+ 
+     res = fdt_property_cell(kinfo->fdt, "interrupt-parent",
+-                            kinfo->phandle_gic);
++                            kinfo->phandle_intc);
+ 
+     return res;
+ }
+@@ -2026,7 +2026,7 @@ static int __init prepare_dtb_hwdom(struct domain *d, struct kernel_info *kinfo)
+ 
+     ASSERT(dt_host && (dt_host->sibling == NULL));
+ 
+-    kinfo->phandle_gic = dt_interrupt_controller->phandle;
++    kinfo->phandle_intc = dt_interrupt_controller->phandle;
+     fdt = device_tree_flattened;
+ 
+     new_size = fdt_totalsize(fdt) + DOM0_FDT_EXTRA_SIZE;
+@@ -2194,13 +2194,13 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+ 
+ #ifdef CONFIG_ARM_64
+     /* if aarch32 mode is not supported at EL1 do not allow 32-bit domain */
+-    if ( !(cpu_has_el1_32) && kinfo->type == DOMAIN_32BIT )
++    if ( !(cpu_has_el1_32) && kinfo->arch.type == DOMAIN_32BIT )
+     {
+         printk("Platform does not support 32-bit domain\n");
+         return -EINVAL;
+     }
+ 
+-    if ( is_sve_domain(d) && (kinfo->type == DOMAIN_32BIT) )
++    if ( is_sve_domain(d) && (kinfo->arch.type == DOMAIN_32BIT) )
+     {
+         printk("SVE is not available for 32-bit domain\n");
+         return -EINVAL;
+@@ -2307,7 +2307,7 @@ static int __init construct_dom0(struct domain *d)
+ 
+ #ifdef CONFIG_ARM_64
+     /* type must be set before allocate_memory */
+-    d->arch.type = kinfo.type;
++    d->arch.type = kinfo.arch.type;
+ #endif
+     find_gnttab_region(d, &kinfo);
+     if ( is_domain_direct_mapped(d) )
+diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+index 7e6e3c82a4..4d74f0bcb2 100644
+--- a/xen/arch/arm/include/asm/kernel.h
++++ b/xen/arch/arm/include/asm/kernel.h
+@@ -6,125 +6,16 @@
+ #ifndef __ARCH_ARM_KERNEL_H__
+ #define __ARCH_ARM_KERNEL_H__
+ 
+-#include <xen/device_tree.h>
+ #include <asm/domain.h>
+-#include <asm/setup.h>
+ 
+-/*
+- * List of possible features for dom0less domUs
+- *
+- * DOM0LESS_ENHANCED_NO_XS: Notify the OS it is running on top of Xen. All the
+- *                          default features (excluding Xenstore) will be
+- *                          available. Note that an OS *must* not rely on the
+- *                          availability of Xen features if this is not set.
+- * DOM0LESS_XENSTORE:       Xenstore will be enabled for the VM. This feature
+- *                          can't be enabled without the
+- *                          DOM0LESS_ENHANCED_NO_XS.
+- * DOM0LESS_ENHANCED:       Notify the OS it is running on top of Xen. All the
+- *                          default features (including Xenstore) will be
+- *                          available. Note that an OS *must* not rely on the
+- *                          availability of Xen features if this is not set.
+- */
+-#define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
+-#define DOM0LESS_XENSTORE        BIT(1, U)
+-#define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
+-
+-struct kernel_info {
++struct arch_kernel_info
++{
+ #ifdef CONFIG_ARM_64
+     enum domain_type type;
+ #endif
+-
+-    struct domain *d;
+-
+-    void *fdt; /* flat device tree */
+-    paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
+-    struct meminfo mem;
+-#ifdef CONFIG_STATIC_SHM
+-    struct shared_meminfo shm_mem;
+-#endif
+-
+-    /* kernel entry point */
+-    paddr_t entry;
+-
+-    /* grant table region */
+-    paddr_t gnttab_start;
+-    paddr_t gnttab_size;
+-
+-    /* boot blob load addresses */
+-    const struct bootmodule *kernel_bootmodule, *initrd_bootmodule, *dtb_bootmodule;
+-    const char* cmdline;
+-    paddr_t dtb_paddr;
+-    paddr_t initrd_paddr;
+-
+-    /* Enable pl011 emulation */
+-    bool vpl011;
+-
+-    /* Enable/Disable PV drivers interfaces */
+-    uint16_t dom0less_feature;
+-
+-    /* GIC phandle */
+-    uint32_t phandle_gic;
+-
+-    /* loader to use for this kernel */
+-    void (*load)(struct kernel_info *info);
+-    /* loader specific state */
+-    union {
+-        struct {
+-            paddr_t kernel_addr;
+-            paddr_t len;
+-#ifdef CONFIG_ARM_64
+-            paddr_t text_offset; /* 64-bit Image only */
+-#endif
+-            paddr_t start; /* Must be 0 for 64-bit Image */
+-        } zimage;
+-    };
+ };
+ 
+-static inline struct membanks *kernel_info_get_mem(struct kernel_info *kinfo)
+-{
+-    return container_of(&kinfo->mem.common, struct membanks, common);
+-}
+-
+-static inline const struct membanks *
+-kernel_info_get_mem_const(const struct kernel_info *kinfo)
+-{
+-    return container_of(&kinfo->mem.common, const struct membanks, common);
+-}
+-
+-#ifdef CONFIG_STATIC_SHM
+-#define KERNEL_INFO_SHM_MEM_INIT .shm_mem.common.max_banks = NR_SHMEM_BANKS,
+-#else
+-#define KERNEL_INFO_SHM_MEM_INIT
+-#endif
+-
+-#define KERNEL_INFO_INIT                        \
+-{                                               \
+-    .mem.common.max_banks = NR_MEM_BANKS,       \
+-    KERNEL_INFO_SHM_MEM_INIT                    \
+-}
+-
+-/*
+- * Probe the kernel to detemine its type and select a loader.
+- *
+- * Sets in info:
+- *  ->type
+- *  ->load hook, and sets loader specific variables ->zimage
+- */
+-int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
+-
+-/*
+- * Loads the kernel into guest RAM.
+- *
+- * Expects to be set in info when called:
+- *  ->mem
+- *  ->fdt
+- *
+- * Sets in info:
+- *  ->entry
+- *  ->dtb_paddr
+- *  ->initrd_paddr
+- */
+-void kernel_load(struct kernel_info *info);
++#include <asm-generic/kernel.h>
+ 
+ #endif /* #ifdef __ARCH_ARM_KERNEL_H__ */
+ 
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index 80fad8b336..b75bd6a887 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -101,7 +101,7 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+     paddr_t load_addr;
+ 
+ #ifdef CONFIG_ARM_64
+-    if ( (info->type == DOMAIN_64BIT) && (info->zimage.start == 0) )
++    if ( (info->arch.type == DOMAIN_64BIT) && (info->zimage.start == 0) )
+         return mem->bank[0].start + info->zimage.text_offset;
+ #endif
+ 
+@@ -371,10 +371,10 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
+     switch ( uimage.arch )
+     {
+     case IH_ARCH_ARM:
+-        info->type = DOMAIN_32BIT;
++        info->arch.type = DOMAIN_32BIT;
+         break;
+     case IH_ARCH_ARM64:
+-        info->type = DOMAIN_64BIT;
++        info->arch.type = DOMAIN_64BIT;
+         break;
+     default:
+         printk(XENLOG_ERR "Unsupported uImage arch type %d\n", uimage.arch);
+@@ -444,7 +444,7 @@ static int __init kernel_zimage64_probe(struct kernel_info *info,
+ 
+     info->load = kernel_zimage_load;
+ 
+-    info->type = DOMAIN_64BIT;
++    info->arch.type = DOMAIN_64BIT;
+ 
+     return 0;
+ }
+@@ -496,7 +496,7 @@ static int __init kernel_zimage32_probe(struct kernel_info *info,
+     info->load = kernel_zimage_load;
+ 
+ #ifdef CONFIG_ARM_64
+-    info->type = DOMAIN_32BIT;
++    info->arch.type = DOMAIN_32BIT;
+ #endif
+ 
+     return 0;
+diff --git a/xen/arch/arm/static-memory.c b/xen/arch/arm/static-memory.c
+index d4585c5a06..e0f76afcd8 100644
+--- a/xen/arch/arm/static-memory.c
++++ b/xen/arch/arm/static-memory.c
+@@ -2,6 +2,7 @@
+ 
+ #include <xen/sched.h>
+ 
++#include <asm/setup.h>
+ #include <asm/static-memory.h>
+ 
+ static bool __init append_static_memory_to_bank(struct domain *d,
+diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+index 66088a4267..aff05d24d1 100644
+--- a/xen/arch/arm/static-shmem.c
++++ b/xen/arch/arm/static-shmem.c
+@@ -6,6 +6,7 @@
+ #include <xen/sched.h>
+ 
+ #include <asm/domain_build.h>
++#include <asm/setup.h>
  #include <asm/static-memory.h>
  #include <asm/static-shmem.h>
  
--bool __init is_dom0less_mode(void)
--{
--    struct bootmodules *mods = &bootinfo.modules;
--    struct bootmodule *mod;
--    unsigned int i;
--    bool dom0found = false;
--    bool domUfound = false;
--
--    /* Look into the bootmodules */
--    for ( i = 0 ; i < mods->nr_mods ; i++ )
--    {
--        mod = &mods->module[i];
--        /* Find if dom0 and domU kernels are present */
--        if ( mod->kind == BOOTMOD_KERNEL )
--        {
--            if ( mod->domU == false )
--            {
--                dom0found = true;
--                break;
--            }
--            else
--                domUfound = true;
--        }
--    }
--
--    /*
--     * If there is no dom0 kernel but at least one domU, then we are in
--     * dom0less mode
--     */
--    return ( !dom0found && domUfound );
--}
--
- #ifdef CONFIG_VGICV2
- static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
- {
-@@ -704,8 +672,8 @@ static int __init alloc_xenstore_evtchn(struct domain *d)
-     return 0;
- }
- 
--static int __init construct_domU(struct domain *d,
--                                 const struct dt_device_node *node)
-+int __init construct_domU(struct domain *d,
-+                          const struct dt_device_node *node)
- {
-     struct kernel_info kinfo = KERNEL_INFO_INIT;
-     const char *dom0less_enhanced;
-@@ -810,188 +778,92 @@ static int __init construct_domU(struct domain *d,
-     return rc;
- }
- 
--void __init create_domUs(void)
--{
--    struct dt_device_node *node;
--    const char *dom0less_iommu;
--    bool iommu = false;
--    const struct dt_device_node *cpupool_node,
--                                *chosen = dt_find_node_by_path("/chosen");
--    const char *llc_colors_str = NULL;
--
--    BUG_ON(chosen == NULL);
--    dt_for_each_child_node(chosen, node)
--    {
--        struct domain *d;
--        struct xen_domctl_createdomain d_cfg = {
--            .arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE,
--            .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
--            /*
--             * The default of 1023 should be sufficient for guests because
--             * on ARM we don't bind physical interrupts to event channels.
--             * The only use of the evtchn port is inter-domain communications.
--             * 1023 is also the default value used in libxl.
--             */
--            .max_evtchn_port = 1023,
--            .max_grant_frames = -1,
--            .max_maptrack_frames = -1,
--            .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
--        };
--        unsigned int flags = 0U;
--        uint32_t val;
--        int rc;
--
--        if ( !dt_device_is_compatible(node, "xen,domain") )
--            continue;
- 
--        if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
--            panic("No more domain IDs available\n");
--
--        if ( dt_find_property(node, "xen,static-mem", NULL) )
--        {
--            if ( llc_coloring_enabled )
--                panic("LLC coloring and static memory are incompatible\n");
--
--            flags |= CDF_staticmem;
--        }
--
--        if ( dt_property_read_bool(node, "direct-map") )
--        {
--            if ( !(flags & CDF_staticmem) )
--                panic("direct-map is not valid for domain %s without static allocation.\n",
--                      dt_node_name(node));
--
--            flags |= CDF_directmap;
--        }
--
--        if ( !dt_property_read_u32(node, "cpus", &d_cfg.max_vcpus) )
--            panic("Missing property 'cpus' for domain %s\n",
--                  dt_node_name(node));
--
--        if ( !dt_property_read_string(node, "passthrough", &dom0less_iommu) &&
--             !strcmp(dom0less_iommu, "enabled") )
--            iommu = true;
-+struct xen_domctl_createdomain __init arch_xen_domctl_createdomain(void)
-+{
-+    struct xen_domctl_createdomain d_cfg = {
-+        .arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE,
-+        .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
-+        /*
-+            * The default of 1023 should be sufficient for guests because
-+            * on ARM we don't bind physical interrupts to event channels.
-+            * The only use of the evtchn port is inter-domain communications.
-+            * 1023 is also the default value used in libxl.
-+            */
-+        .max_evtchn_port = 1023,
-+        .max_grant_frames = -1,
-+        .max_maptrack_frames = -1,
-+        .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
-+    };
-+
-+    return d_cfg;
-+}
- 
--        if ( iommu_enabled &&
--             (iommu || dt_find_compatible_node(node, NULL,
--                                               "multiboot,device-tree")) )
--            d_cfg.flags |= XEN_DOMCTL_CDF_iommu;
-+void __init arch_create_domus(struct dt_device_node *node,
-+                       struct xen_domctl_createdomain *d_cfg,
-+                       unsigned int flags)
-+{
-+    uint32_t val;
- 
--        if ( !dt_property_read_u32(node, "nr_spis", &d_cfg.arch.nr_spis) )
--        {
--            int vpl011_virq = GUEST_VPL011_SPI;
--
--            d_cfg.arch.nr_spis = gic_number_lines() - 32;
--
--            /*
--             * The VPL011 virq is GUEST_VPL011_SPI, unless direct-map is
--             * set, in which case it'll match the hardware.
--             *
--             * Since the domain is not yet created, we can't use
--             * d->arch.vpl011.irq. So the logic to find the vIRQ has to
--             * be hardcoded.
--             * The logic here shall be consistent with the one in
--             * domain_vpl011_init().
--             */
--            if ( flags & CDF_directmap )
--            {
--                vpl011_virq = serial_irq(SERHND_DTUART);
--                if ( vpl011_virq < 0 )
--                    panic("Error getting IRQ number for this serial port %d\n",
--                          SERHND_DTUART);
--            }
-+    if ( !dt_property_read_u32(node, "nr_spis", &d_cfg->arch.nr_spis) )
-+    {
-+        int vpl011_virq = GUEST_VPL011_SPI;
- 
--            /*
--             * vpl011 uses one emulated SPI. If vpl011 is requested, make
--             * sure that we allocate enough SPIs for it.
--             */
--            if ( dt_property_read_bool(node, "vpl011") )
--                d_cfg.arch.nr_spis = MAX(d_cfg.arch.nr_spis,
--                                         vpl011_virq - 32 + 1);
--        }
-+        d_cfg->arch.nr_spis = gic_number_lines() - 32;
- 
--        /* Get the optional property domain-cpupool */
--        cpupool_node = dt_parse_phandle(node, "domain-cpupool", 0);
--        if ( cpupool_node )
-+        /*
-+            * The VPL011 virq is GUEST_VPL011_SPI, unless direct-map is
-+            * set, in which case it'll match the hardware.
-+            *
-+            * Since the domain is not yet created, we can't use
-+            * d->arch.vpl011.irq. So the logic to find the vIRQ has to
-+            * be hardcoded.
-+            * The logic here shall be consistent with the one in
-+            * domain_vpl011_init().
-+            */
-+        if ( flags & CDF_directmap )
-         {
--            int pool_id = btcpupools_get_domain_pool_id(cpupool_node);
--            if ( pool_id < 0 )
--                panic("Error getting cpupool id from domain-cpupool (%d)\n",
--                      pool_id);
--            d_cfg.cpupool_id = pool_id;
-+            vpl011_virq = serial_irq(SERHND_DTUART);
-+            if ( vpl011_virq < 0 )
-+                panic("Error getting IRQ number for this serial port %d\n",
-+                        SERHND_DTUART);
-         }
- 
--        if ( dt_property_read_u32(node, "max_grant_version", &val) )
--            d_cfg.grant_opts = XEN_DOMCTL_GRANT_version(val);
-+        /*
-+         * vpl011 uses one emulated SPI. If vpl011 is requested, make
-+         * sure that we allocate enough SPIs for it.
-+         */
-+        if ( dt_property_read_bool(node, "vpl011") )
-+            d_cfg->arch.nr_spis = MAX(d_cfg->arch.nr_spis,
-+                                        vpl011_virq - 32 + 1);
-+    }
- 
--        if ( dt_property_read_u32(node, "max_grant_frames", &val) )
--        {
--            if ( val > INT32_MAX )
--                panic("max_grant_frames (%"PRIu32") overflow\n", val);
--            d_cfg.max_grant_frames = val;
--        }
-+    if ( dt_get_property(node, "sve", &val) )
-+    {
-+#ifdef CONFIG_ARM64_SVE
-+        unsigned int sve_vl_bits;
-+        bool ret = false;
- 
--        if ( dt_property_read_u32(node, "max_maptrack_frames", &val) )
-+        if ( !val )
-         {
--            if ( val > INT32_MAX )
--                panic("max_maptrack_frames (%"PRIu32") overflow\n", val);
--            d_cfg.max_maptrack_frames = val;
-+            /* Property found with no value, means max HW VL supported */
-+            ret = sve_domctl_vl_param(-1, &sve_vl_bits);
-         }
--
--        if ( dt_get_property(node, "sve", &val) )
-+        else
-         {
--#ifdef CONFIG_ARM64_SVE
--            unsigned int sve_vl_bits;
--            bool ret = false;
--
--            if ( !val )
--            {
--                /* Property found with no value, means max HW VL supported */
--                ret = sve_domctl_vl_param(-1, &sve_vl_bits);
--            }
-+            if ( dt_property_read_u32(node, "sve", &val) )
-+                ret = sve_domctl_vl_param(val, &sve_vl_bits);
-             else
--            {
--                if ( dt_property_read_u32(node, "sve", &val) )
--                    ret = sve_domctl_vl_param(val, &sve_vl_bits);
--                else
--                    panic("Error reading 'sve' property\n");
--            }
-+                panic("Error reading 'sve' property\n");
-+        }
- 
--            if ( ret )
--                d_cfg.arch.sve_vl = sve_encode_vl(sve_vl_bits);
--            else
--                panic("SVE vector length error\n");
-+        if ( ret )
-+            d_cfg->arch.sve_vl = sve_encode_vl(sve_vl_bits);
-+        else
-+            panic("SVE vector length error\n");
- #else
--            panic("'sve' property found, but CONFIG_ARM64_SVE not selected\n");
-+        panic("'sve' property found, but CONFIG_ARM64_SVE not selected\n");
- #endif
--        }
--
--        dt_property_read_string(node, "llc-colors", &llc_colors_str);
--        if ( !llc_coloring_enabled && llc_colors_str )
--            panic("'llc-colors' found, but LLC coloring is disabled\n");
--
--        /*
--         * The variable max_init_domid is initialized with zero, so here it's
--         * very important to use the pre-increment operator to call
--         * domain_create() with a domid > 0. (domid == 0 is reserved for Dom0)
--         */
--        d = domain_create(++max_init_domid, &d_cfg, flags);
--        if ( IS_ERR(d) )
--            panic("Error creating domain %s (rc = %ld)\n",
--                  dt_node_name(node), PTR_ERR(d));
--
--        if ( llc_coloring_enabled &&
--             (rc = domain_set_llc_colors_from_str(d, llc_colors_str)) )
--            panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
--                  dt_node_name(node), rc);
--
--        d->is_console = true;
--        dt_device_set_used_by(node, d->domain_id);
--
--        rc = construct_domU(d, node);
--        if ( rc )
--            panic("Could not set up domain %s (rc = %d)\n",
--                  dt_node_name(node), rc);
-     }
- }
- 
-diff --git a/xen/arch/arm/include/asm/Makefile b/xen/arch/arm/include/asm/Makefile
-index 4a4036c951..831c914cce 100644
---- a/xen/arch/arm/include/asm/Makefile
-+++ b/xen/arch/arm/include/asm/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- generic-y += altp2m.h
- generic-y += device.h
-+generic-y += dom0less-build.h
- generic-y += hardirq.h
- generic-y += iocap.h
- generic-y += paging.h
-diff --git a/xen/arch/arm/include/asm/dom0less-build.h b/xen/arch/arm/include/asm/dom0less-build.h
-deleted file mode 100644
-index 5864944bda..0000000000
---- a/xen/arch/arm/include/asm/dom0less-build.h
-+++ /dev/null
-@@ -1,32 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--
--#ifndef __ASM_DOM0LESS_BUILD_H_
--#define __ASM_DOM0LESS_BUILD_H_
--
--#include <xen/stdbool.h>
--
--#ifdef CONFIG_DOM0LESS_BOOT
--
--void create_domUs(void);
--bool is_dom0less_mode(void);
--
--#else /* !CONFIG_DOM0LESS_BOOT */
--
--static inline void create_domUs(void) {}
--static inline bool is_dom0less_mode(void)
--{
--    return false;
--}
--
--#endif /* CONFIG_DOM0LESS_BOOT */
--
--#endif /* __ASM_DOM0LESS_BUILD_H_ */
--
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 6166327f4d..099e6e72ad 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -12,6 +12,15 @@ config CORE_PARKING
- 	bool
- 	depends on NR_CPUS > 1
- 
-+config DOM0LESS_BOOT
-+	bool "Dom0less boot support" if EXPERT
-+	depends on ARM
-+	default ARM
-+	help
-+	  Dom0less boot support enables Xen to create and start domU guests during
-+	  Xen boot without the need of a control domain (Dom0), which could be
-+	  present anyway.
-+
- config GRANT_TABLE
- 	bool "Grant table support" if EXPERT
- 	default y
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index 7c549be38a..f3dafc9b81 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -1,5 +1,6 @@
- obj-y += bootfdt.init.o
- obj-y += bootinfo.init.o
- obj-y += device-tree.o
-+obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
- obj-y += intc.o
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+diff --git a/xen/include/asm-generic/kernel.h b/xen/include/asm-generic/kernel.h
 new file mode 100644
-index 0000000000..19bfa5e005
+index 0000000000..b2bd04a185
 --- /dev/null
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -0,0 +1,161 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
++++ b/xen/include/asm-generic/kernel.h
+@@ -0,0 +1,146 @@
++/*
++ * Kernel image loading.
++ *
++ * Copyright (C) 2011 Citrix Systems, Inc.
++ */
++#ifndef __ASM_GENERIC_KERNEL_H__
++#define __ASM_GENERIC_KERNEL_H__
++
 +#include <xen/bootfdt.h>
 +#include <xen/device_tree.h>
-+#include <xen/domain.h>
-+#include <xen/err.h>
-+#include <xen/init.h>
-+#include <xen/iommu.h>
-+#include <xen/llc-coloring.h>
 +#include <xen/sched.h>
-+#include <xen/stdbool.h>
 +#include <xen/types.h>
 +
-+#include <public/domctl.h>
++/*
++ * List of possible features for dom0less domUs
++ *
++ * DOM0LESS_ENHANCED_NO_XS: Notify the OS it is running on top of Xen. All the
++ *                          default features (excluding Xenstore) will be
++ *                          available. Note that an OS *must* not rely on the
++ *                          availability of Xen features if this is not set.
++ * DOM0LESS_XENSTORE:       Xenstore will be enabled for the VM. This feature
++ *                          can't be enabled without the
++ *                          DOM0LESS_ENHANCED_NO_XS.
++ * DOM0LESS_ENHANCED:       Notify the OS it is running on top of Xen. All the
++ *                          default features (including Xenstore) will be
++ *                          available. Note that an OS *must* not rely on the
++ *                          availability of Xen features if this is not set.
++ */
++#define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
++#define DOM0LESS_XENSTORE        BIT(1, U)
++#define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
 +
-+#include <asm/dom0less-build.h>
-+#include <asm/setup.h>
++struct kernel_info {
++    struct domain *d;
 +
-+bool __init is_dom0less_mode(void)
++    void *fdt; /* flat device tree */
++    paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
++    struct meminfo mem;
++#ifdef CONFIG_STATIC_SHM
++    struct shared_meminfo shm_mem;
++#endif
++
++    /* kernel entry point */
++    paddr_t entry;
++
++    /* grant table region */
++    paddr_t gnttab_start;
++    paddr_t gnttab_size;
++
++    /* boot blob load addresses */
++    const struct bootmodule *kernel_bootmodule, *initrd_bootmodule, *dtb_bootmodule;
++    const char* cmdline;
++    paddr_t dtb_paddr;
++    paddr_t initrd_paddr;
++
++    /* Enable uart emulation */
++    bool vuart;
++
++    /* Enable/Disable PV drivers interfaces */
++    uint16_t dom0less_feature;
++
++    /* Interrupt controller phandle */
++    uint32_t phandle_intc;
++
++    /* loader to use for this kernel */
++    void (*load)(struct kernel_info *info);
++
++    /* loader specific state */
++    union {
++        struct {
++            paddr_t kernel_addr;
++            paddr_t len;
++#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV_64)
++            paddr_t text_offset; /* 64-bit Image only */
++#endif
++            paddr_t start; /* Must be 0 for 64-bit Image */
++        } zimage;
++    };
++
++    struct arch_kernel_info arch;
++};
++
++static inline struct membanks *kernel_info_get_mem(struct kernel_info *kinfo)
 +{
-+    struct bootmodules *mods = &bootinfo.modules;
-+    struct bootmodule *mod;
-+    unsigned int i;
-+    bool dom0found = false;
-+    bool domUfound = false;
-+
-+    /* Look into the bootmodules */
-+    for ( i = 0 ; i < mods->nr_mods ; i++ )
-+    {
-+        mod = &mods->module[i];
-+        /* Find if dom0 and domU kernels are present */
-+        if ( mod->kind == BOOTMOD_KERNEL )
-+        {
-+            if ( mod->domU == false )
-+            {
-+                dom0found = true;
-+                break;
-+            }
-+            else
-+                domUfound = true;
-+        }
-+    }
-+
-+    /*
-+     * If there is no dom0 kernel but at least one domU, then we are in
-+     * dom0less mode
-+     */
-+    return ( !dom0found && domUfound );
++    return container_of(&kinfo->mem.common, struct membanks, common);
 +}
 +
-+void __init create_domUs(void)
++static inline const struct membanks *
++kernel_info_get_mem_const(const struct kernel_info *kinfo)
 +{
-+    struct dt_device_node *node;
-+    const char *dom0less_iommu;
-+    bool iommu = false;
-+    const struct dt_device_node *cpupool_node,
-+                                *chosen = dt_find_node_by_path("/chosen");
-+    const char *llc_colors_str = NULL;
-+
-+    BUG_ON(chosen == NULL);
-+    dt_for_each_child_node(chosen, node)
-+    {
-+        struct domain *d;
-+        struct xen_domctl_createdomain d_cfg = arch_xen_domctl_createdomain();
-+        unsigned int flags = 0U;
-+        uint32_t val;
-+        int rc;
-+
-+        if ( !dt_device_is_compatible(node, "xen,domain") )
-+            continue;
-+
-+        if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
-+            panic("No more domain IDs available\n");
-+
-+        if ( dt_find_property(node, "xen,static-mem", NULL) )
-+        {
-+            if ( llc_coloring_enabled )
-+                panic("LLC coloring and static memory are incompatible\n");
-+
-+            flags |= CDF_staticmem;
-+        }
-+
-+        if ( dt_property_read_bool(node, "direct-map") )
-+        {
-+            if ( !(flags & CDF_staticmem) )
-+                panic("direct-map is not valid for domain %s without static allocation.\n",
-+                      dt_node_name(node));
-+
-+            flags |= CDF_directmap;
-+        }
-+
-+        if ( !dt_property_read_u32(node, "cpus", &d_cfg.max_vcpus) )
-+            panic("Missing property 'cpus' for domain %s\n",
-+                  dt_node_name(node));
-+
-+        if ( !dt_property_read_string(node, "passthrough", &dom0less_iommu) &&
-+             !strcmp(dom0less_iommu, "enabled") )
-+            iommu = true;
-+
-+        if ( iommu_enabled &&
-+             (iommu || dt_find_compatible_node(node, NULL,
-+                                               "multiboot,device-tree")) )
-+            d_cfg.flags |= XEN_DOMCTL_CDF_iommu;
-+
-+        /* Get the optional property domain-cpupool */
-+        cpupool_node = dt_parse_phandle(node, "domain-cpupool", 0);
-+        if ( cpupool_node )
-+        {
-+            int pool_id = btcpupools_get_domain_pool_id(cpupool_node);
-+            if ( pool_id < 0 )
-+                panic("Error getting cpupool id from domain-cpupool (%d)\n",
-+                      pool_id);
-+            d_cfg.cpupool_id = pool_id;
-+        }
-+
-+        if ( dt_property_read_u32(node, "max_grant_version", &val) )
-+            d_cfg.grant_opts = XEN_DOMCTL_GRANT_version(val);
-+
-+        if ( dt_property_read_u32(node, "max_grant_frames", &val) )
-+        {
-+            if ( val > INT32_MAX )
-+                panic("max_grant_frames (%"PRIu32") overflow\n", val);
-+            d_cfg.max_grant_frames = val;
-+        }
-+
-+        if ( dt_property_read_u32(node, "max_maptrack_frames", &val) )
-+        {
-+            if ( val > INT32_MAX )
-+                panic("max_maptrack_frames (%"PRIu32") overflow\n", val);
-+            d_cfg.max_maptrack_frames = val;
-+        }
-+
-+        dt_property_read_string(node, "llc-colors", &llc_colors_str);
-+        if ( !llc_coloring_enabled && llc_colors_str )
-+            panic("'llc-colors' found, but LLC coloring is disabled\n");
-+
-+        arch_create_domus(node, &d_cfg, flags);
-+
-+        /*
-+         * The variable max_init_domid is initialized with zero, so here it's
-+         * very important to use the pre-increment operator to call
-+         * domain_create() with a domid > 0. (domid == 0 is reserved for Dom0)
-+         */
-+        d = domain_create(++max_init_domid, &d_cfg, flags);
-+        if ( IS_ERR(d) )
-+            panic("Error creating domain %s (rc = %ld)\n",
-+                  dt_node_name(node), PTR_ERR(d));
-+
-+        if ( llc_coloring_enabled &&
-+             (rc = domain_set_llc_colors_from_str(d, llc_colors_str)) )
-+            panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
-+                  dt_node_name(node), rc);
-+
-+        d->is_console = true;
-+        dt_device_set_used_by(node, d->domain_id);
-+
-+        rc = construct_domU(d, node);
-+        if ( rc )
-+            panic("Could not set up domain %s (rc = %d)\n",
-+                  dt_node_name(node), rc);
-+    }
-+}
-diff --git a/xen/include/asm-generic/dom0less-build.h b/xen/include/asm-generic/dom0less-build.h
-new file mode 100644
-index 0000000000..a6985bc20a
---- /dev/null
-+++ b/xen/include/asm-generic/dom0less-build.h
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DOM0LESS_BUILD_H__
-+#define __ASM_GENERIC_DOM0LESS_BUILD_H__
-+
-+#include <xen/stdbool.h>
-+
-+#ifdef CONFIG_DOM0LESS_BOOT
-+
-+#include <public/domctl.h>
-+
-+void create_domUs(void);
-+bool is_dom0less_mode(void);
-+
-+int construct_domU(struct domain *d, const struct dt_device_node *node);
-+
-+struct xen_domctl_createdomain arch_xen_domctl_createdomain(void);
-+void arch_create_domus(struct dt_device_node *node,
-+                       struct xen_domctl_createdomain *d_cfg,
-+                       unsigned int flags);
-+
-+#else /* !CONFIG_DOM0LESS_BOOT */
-+
-+static inline void create_domUs(void) {}
-+static inline bool is_dom0less_mode(void)
-+{
-+    return false;
++    return container_of(&kinfo->mem.common, const struct membanks, common);
 +}
 +
-+#endif /* CONFIG_DOM0LESS_BOOT */
++#ifndef KERNEL_INFO_SHM_MEM_INIT
 +
-+#endif /* __ASM_GENERIC_DOM0LESS_BUILD_H__ */
++#ifdef CONFIG_STATIC_SHM
++#define KERNEL_INFO_SHM_MEM_INIT .shm_mem.common.max_banks = NR_SHMEM_BANKS,
++#else
++#define KERNEL_INFO_SHM_MEM_INIT
++#endif
++
++#endif /* KERNEL_INFO_SHM_MEM_INIT */
++
++#ifndef KERNEL_INFO_INIT
++
++#define KERNEL_INFO_INIT                        \
++{                                               \
++    .mem.common.max_banks = NR_MEM_BANKS,       \
++    KERNEL_INFO_SHM_MEM_INIT                    \
++}
++
++#endif /* KERNEL_INFO_INIT */
++
++/*
++ * Probe the kernel to detemine its type and select a loader.
++ *
++ * Sets in info:
++ *  ->type
++ *  ->load hook, and sets loader specific variables ->zimage
++ */
++int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
++
++/*
++ * Loads the kernel into guest RAM.
++ *
++ * Expects to be set in info when called:
++ *  ->mem
++ *  ->fdt
++ *
++ * Sets in info:
++ *  ->entry
++ *  ->dtb_paddr
++ *  ->initrd_paddr
++ */
++void kernel_load(struct kernel_info *info);
++
++#endif /*__ASM_GENERIC_KERNEL_H__ */
 +
 +/*
 + * Local variables:
