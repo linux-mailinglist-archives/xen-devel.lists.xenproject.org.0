@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59527A06082
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 16:45:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867638.1279207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 364B7A060EF
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 17:00:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867650.1279217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVYFN-0001SV-Ad; Wed, 08 Jan 2025 15:45:29 +0000
+	id 1tVYT1-0004gH-J0; Wed, 08 Jan 2025 15:59:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867638.1279207; Wed, 08 Jan 2025 15:45:29 +0000
+Received: by outflank-mailman (output) from mailman id 867650.1279217; Wed, 08 Jan 2025 15:59:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVYFN-0001Q0-6y; Wed, 08 Jan 2025 15:45:29 +0000
-Received: by outflank-mailman (input) for mailman id 867638;
- Wed, 08 Jan 2025 15:45:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVYT1-0004e9-Fh; Wed, 08 Jan 2025 15:59:35 +0000
+Received: by outflank-mailman (input) for mailman id 867650;
+ Wed, 08 Jan 2025 15:59:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HyFE=UA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tVYFL-0001Ps-Ib
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 15:45:27 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94809e06-cdd7-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 16:45:26 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3862ca8e0bbso12862993f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 07:45:26 -0800 (PST)
+ id 1tVYT0-0004dj-1I
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 15:59:34 +0000
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [2a00:1450:4864:20::541])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8be97032-cdd9-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 16:59:31 +0100 (CET)
+Received: by mail-ed1-x541.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3f65844deso28680436a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 07:59:31 -0800 (PST)
 Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0e82f60asm2543024266b.28.2025.01.08.07.45.25
+ a640c23a62f3a-aac0efe46d5sm2519767566b.103.2025.01.08.07.59.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jan 2025 07:45:25 -0800 (PST)
+ Wed, 08 Jan 2025 07:59:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94809e06-cdd7-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 8be97032-cdd9-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736351126; x=1736955926; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1736351971; x=1736956771; darn=lists.xenproject.org;
         h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SAjEOfBmhiiE2DME1yP7kSdCmLUdBEtt2iyEXv5G4rY=;
-        b=gIw54+aKuA7PdmmY0h/PbE/PnqlXMMgd2GK+fgoRQHylwX6CPpQsyp1mFG+zrVN19O
-         eN2QN4z7rLv+d6idYH3iq5/mhX3GGpezkjT3BnnoctjoZab78PYODOF6gUB7TpjAUzG8
-         6GQLDQBkQN4UInFQe7JtQBOhK1Y1QXaROkh3k=
+        bh=JxTMDE2iuurkhnXzPe9WEOUJmCm8L9G7Q+PfJDEXAj0=;
+        b=YpqtcZ0/nBZSjgJFAAPTCLmwregh2z0rMuH4dTD6C0i6TkpRmHk0ccSNfeTe0bzTa7
+         /aSfGrkdkpXbmDs8fqGcYr1hgzLx7KvpMIVbjjUBZbfPZyhGa0eNiGbqAWuZditeSC7j
+         TcIDi+GaFgT6RYKr0lp+8lhvhC5OPfLSlCgME=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736351126; x=1736955926;
+        d=1e100.net; s=20230601; t=1736351971; x=1736956771;
         h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=SAjEOfBmhiiE2DME1yP7kSdCmLUdBEtt2iyEXv5G4rY=;
-        b=Guf4PNz+LF9/vlkDIkPEDRsVRa44t1x2W6lOuj3npr+w+MAEA92MNO11UjmjQE2+Bi
-         A3EajcwuqqTH3G2tOETSjQiIp1o3NHkTsbipjgH3HSOJiAcUgoWnDRCaNB6+RIF+WvUf
-         aS4ySAfnvjBqh4JdyQlzXAyEHyylz+D14fvF2isSjhGsnEIU/qnCwD5w6ILocBZuuplM
-         jJvqTrx+qscd49hxPiEhtVrz/gSxic9x3ZrAMRCeAZ8+5oJjcjPssrbSA7t2cIEN982N
-         7j574it46TCKqGGyOxTKpWhPIApEE2WDjOChOX6MVK99lHXXquld6oRwJM4w+4PMBLx3
-         qW/g==
-X-Forwarded-Encrypted: i=1; AJvYcCW29IlnnFE1cuYo1Yn8XfXVAYZr5jonx9XDxUYlEZUzByW64Asig7T8A2x2FeHg89b9FrHZnNa/Qww=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJ69vPFcus5wqk1P0yxs6u/Xxv17Nmc49FA7DV7vLQtjc/IUiv
-	iDJUBdtpR4+bRbUYgtmK5gWoZ7VA0dirNVWYs4OWLmOBjxi9SQMKvD2nNBQqIB0=
-X-Gm-Gg: ASbGncvpyu/9o8pHKIUoAQ+aul+2KztRgNud0booQMPcqo2AYiC4trIlW/tw/T256m8
-	ELHYRCkpUMvtURi2Vdp9tRmfDLoxBtpgdmM04dKM2EEEmUt3zO7JVhpV6DJm4dIVdV5Akkpiv6K
-	CteUm/T/e3HcDd/kTHS+MLK7Nmj8alRhJWwlhDfiu+6V/O30iZPQl8pV6PpdrPlIfAH9uzXCHHw
-	0cfykK+Mh9vS+B5w/8ltgrX5Oz6EOiMqx3OkosEG+YKmoStiFdm9/eRQNY8fmQ=
-X-Google-Smtp-Source: AGHT+IG+sQEDWfRAZQ0YkfEs6FPvhz9Lib6SrkoSA6TTOxncQgdbKzbr1Q9CTmuC4dguJPdeFirCbQ==
-X-Received: by 2002:a05:6000:1447:b0:385:fb34:d5a0 with SMTP id ffacd0b85a97d-38a8731f4fcmr2930660f8f.29.1736351126074;
-        Wed, 08 Jan 2025 07:45:26 -0800 (PST)
+        bh=JxTMDE2iuurkhnXzPe9WEOUJmCm8L9G7Q+PfJDEXAj0=;
+        b=vjXw6FwAws49k3FRMXvELlToyoasofkplUuLkmox6DeRvtFLEWgAnvldcDEXxyWT+8
+         wku0ySJ/FbVYJpPrF+Ai0NAsmLcP+nVAWXRyHgrikyQur72+Dg9RU/PJssGtnHzlsMDv
+         wTW9plSZ8d7OnMFKq7HAoHLvXRZzOITPt0QMJOMokRQAXq7Tujz1xBnYbt/6+LMYeMKY
+         IOVJmbBTP7Ivgfq6HhWKfn8mQFHiYOrNAM8ihNnNZSlXQeevVAz4gB7IARL/XZCVyDmq
+         5fOqe5X9YqggWfrsUXzfCFH/4BS0dh2Bojjbv0S87wQKfYMmLZLUyRa23/1KrIGvdsvm
+         dDOA==
+X-Forwarded-Encrypted: i=1; AJvYcCUUrwQom5RxvMaoNHL9navnaem5D2v4n4rB2TvvZLa/JAdRrUOq5nKO1JIVTgvrd6nLmS+jxqnY27Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyszDTCKa3Q0Yu8s2b+zpWIUArAtT/N/oaUk6dVAPAdYQTNggT6
+	b3rkCcVA49k1ZwV9P8VGHggHvxh69bmTyYoYUSxCtooqvDT0PCrJvByaepBzjqQ=
+X-Gm-Gg: ASbGnctxvUqwim53EUmkRo+PqDJdVH0+VMu1BAdjZKuLjDEByI+cxZ9xUtVWdQYoAZO
+	CaSKXymJ9kumthLUkYGa9+v0mzOVHlG9ttYlgRFMctNSmIo8vVgLnF2FjTaR7vPLeDGND7YKGQY
+	bXrfeIHRIdnhQ6j3qHsSaCEh22VPk3KoFZMi4FWFn3D48gU+4Ggm6TJIzsHs3TVtwzmIY5BWOUm
+	61Pig4BbC9SoFUr33lR0Xoi+TiX+7iaXedWcUpH7aUO8BUn7tCVWsXW42NpfRA=
+X-Google-Smtp-Source: AGHT+IGLkDcEPAuOqLHvkN97fiUuHAg0puRXEANIDnGvjvMGKaYaOoeoBZgWNPmXAs1eVgKVZrPd6w==
+X-Received: by 2002:a17:906:6a1e:b0:aae:bac6:6659 with SMTP id a640c23a62f3a-ab2ab675c7bmr269997466b.7.1736351971123;
+        Wed, 08 Jan 2025 07:59:31 -0800 (PST)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 08 Jan 2025 15:45:24 +0000
-Message-Id: <D6WT3QSKXNG4.162UPSGMQ1ZIS@cloud.com>
-Cc: "Volodymyr Babchuk" <volodymyr_babchuk@epam.com>, "Bertrand Marquis"
- <bertrand.marquis@arm.com>, "Stefano Stabellini" <sstabellini@kernel.org>,
- "Julien Grall" <julien@xen.org>, "Michal Orzel" <michal.orzel@amd.com>,
- "Oleksii Kurochko" <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH] xen/arm: ffa: fix build with clang
+Date: Wed, 08 Jan 2025 15:59:29 +0000
+Message-Id: <D6WTEJ1ZSB1F.3SRMZ5WCOIQUH@cloud.com>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 01/18] x86/mm: purge unneeded
+ destroy_perdomain_mapping()
 From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Stewart Hildebrand" <stewart.hildebrand@amd.com>,
+To: "Roger Pau Monne" <roger.pau@citrix.com>,
  <xen-devel@lists.xenproject.org>
 X-Mailer: aerc 0.18.2
-References: <20250108152317.335441-1-stewart.hildebrand@amd.com>
-In-Reply-To: <20250108152317.335441-1-stewart.hildebrand@amd.com>
+References: <20250108142659.99490-1-roger.pau@citrix.com>
+ <20250108142659.99490-2-roger.pau@citrix.com>
+In-Reply-To: <20250108142659.99490-2-roger.pau@citrix.com>
 
 Hi,
 
-On Wed Jan 8, 2025 at 3:23 PM GMT, Stewart Hildebrand wrote:
-> Clang 16 reports:
->
-> In file included from arch/arm/tee/ffa.c:72:
-> arch/arm/tee/ffa_private.h:329:17: error: 'used' attribute ignored on a n=
-on-definition declaration [-Werror,-Wignored-attributes]
-> extern uint32_t __ro_after_init ffa_fw_version;
->                 ^
->
-> Remove the attribute from the header to resolve this. The attribute in
-> ffa.c is the one the matters anyway.
->
-> Fixes: 2f9f240a5e87 ("xen/arm: ffa: Fine granular call support")
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> ---
-> It appears the variable ffa_fw_version is only used in ffa.c. Was there
-> any rationale for exporting the symbol in 2f9f240a5e87 ("xen/arm: ffa:
-> Fine granular call support")? If not, perhaps we ought to make it static
-> again and remove the declaration in the header.
+I noticed the same duplication while moving mapcache initialization code, b=
+ut
+didn't want to touch it while doing that. Good to see these two lines gone.
 
-The only reason I can think of is wanting to have it in the symbol table of=
- the
-ELF file for some reason (livepatching?). But that's far fetched at best.
-
-> ---
->  xen/arch/arm/tee/ffa_private.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On Wed Jan 8, 2025 at 2:26 PM GMT, Roger Pau Monne wrote:
+> The destroy_perdomain_mapping() call in the hvm_domain_initialise() fail =
+path
+> is useless.  destroy_perdomain_mapping() called with nr =3D=3D 0 is effec=
+tively a
+> no op, as there are not entries torn down.  Remove the call, as
+> arch_domain_create() already calls free_perdomain_mappings() on failure.
 >
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index d441c0ca5598..05368d5a88d3 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -326,7 +326,7 @@ extern void *ffa_rx;
->  extern void *ffa_tx;
->  extern spinlock_t ffa_rx_buffer_lock;
->  extern spinlock_t ffa_tx_buffer_lock;
-> -extern uint32_t __ro_after_init ffa_fw_version;
-> +extern uint32_t ffa_fw_version;
->  extern DECLARE_BITMAP(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+> There's also a call to destroy_perdomain_mapping() in pv_domain_destroy()=
+ which
+> is also not needed.  arch_domain_destroy() will already unconditionally c=
+all
+> free_perdomain_mappings(), which does the same as destroy_perdomain_mappi=
+ng(),
+> plus additionally frees the page table structures.
+>
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c   | 1 -
+>  xen/arch/x86/pv/domain.c | 3 ---
+>  2 files changed, 4 deletions(-)
+>
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 922c9b3af64d..70fdddae583d 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -708,7 +708,6 @@ int hvm_domain_initialise(struct domain *d,
+>      XFREE(d->arch.hvm.irq);
+>   fail0:
+>      hvm_destroy_cacheattr_region_list(d);
+> -    destroy_perdomain_mapping(d, PERDOMAIN_VIRT_START, 0);
+>   fail:
+>      hvm_domain_relinquish_resources(d);
+>      XFREE(d->arch.hvm.io_handler);
+> diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+> index 7aef628f55be..bc7cd0c62f0e 100644
+> --- a/xen/arch/x86/pv/domain.c
+> +++ b/xen/arch/x86/pv/domain.c
+> @@ -345,9 +345,6 @@ void pv_domain_destroy(struct domain *d)
+>  {
+>      pv_l1tf_domain_destroy(d);
 > =20
->  bool ffa_shm_domain_destroy(struct domain *d);
->
-> base-commit: 70f5a875becc9444a959830b10a361982c31a366
+> -    destroy_perdomain_mapping(d, GDT_LDT_VIRT_START,
+> -                              GDT_LDT_MBYTES << (20 - PAGE_SHIFT));
+> -
+>      XFREE(d->arch.pv.cpuidmasks);
+> =20
+>      FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
 
-IMO, it makes sense to make it static and remove this line altogether as yo=
-u
-suggest. If it needs to be exported later on it can be adjusted as needed.
+  Reviewed-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
 Cheers,
 Alejandro
