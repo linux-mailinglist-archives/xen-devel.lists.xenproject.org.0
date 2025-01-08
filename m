@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23076A05700
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 10:37:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867045.1278447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B6AA0579C
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 11:08:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867053.1278456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVSV3-0005lt-NJ; Wed, 08 Jan 2025 09:37:17 +0000
+	id 1tVSyK-0002UI-T4; Wed, 08 Jan 2025 10:07:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867045.1278447; Wed, 08 Jan 2025 09:37:17 +0000
+Received: by outflank-mailman (output) from mailman id 867053.1278456; Wed, 08 Jan 2025 10:07:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVSV3-0005k4-JU; Wed, 08 Jan 2025 09:37:17 +0000
-Received: by outflank-mailman (input) for mailman id 867045;
- Wed, 08 Jan 2025 09:37:15 +0000
+	id 1tVSyK-0002SE-QH; Wed, 08 Jan 2025 10:07:32 +0000
+Received: by outflank-mailman (input) for mailman id 867053;
+ Wed, 08 Jan 2025 10:07:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HByp=UA=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1tVSV1-0005jy-Kd
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 09:37:15 +0000
-Received: from EUR03-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur03on20608.outbound.protection.outlook.com
- [2a01:111:f403:260c::608])
+ <SRS0=UrZA=UA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tVSyJ-0002S8-5c
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 10:07:31 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2490eabb-cda4-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 10:37:14 +0100 (CET)
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- by AM8PR08MB5860.eurprd08.prod.outlook.com (2603:10a6:20b:1de::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.11; Wed, 8 Jan
- 2025 09:37:11 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a%4]) with mapi id 15.20.8335.011; Wed, 8 Jan 2025
- 09:37:11 +0000
+ id 5e7fdd70-cda8-11ef-a0df-8be0dac302b0;
+ Wed, 08 Jan 2025 11:07:29 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-436326dcb1cso110559455e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 02:07:29 -0800 (PST)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c828a8dsm52895732f8f.2.2025.01.08.02.07.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Jan 2025 02:07:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,168 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2490eabb-cda4-11ef-a0df-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KG/Etf0/KQZutg/lLkrzGj3a/17pwvu+JDdKr8XhlBREwyHsEyZOiu1jC2DLl98nsvEDPyrn0TdTzXbyafFUgFMnxUQRAPzm9gA/A7684lqTJPZHLvdzLkOnbbxesPRLpiKWXukt9Om7UHJbLNn/Il08HRsmUrJJGcWsSdNn95Hw1PqPHJUd5AMJvXmJu0qABnoKFdHx0LzTNSSR6bk+DynXggsR8SaeBB5MiHGLZ9+eIxEGgRMyBIveaPFnwDz3jG6RRgm1RFUTawmB5a728BbLF11daVR5dyciwIRWbtQ7nG64+OOf2uztusY8sUDwJLk1UskBjfB5zeaqDDPLyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rXv81ywe/bdshr4y01C9FshKxkgV76u/Rmo0oTUFoNk=;
- b=hdfrL5bS9t39ROn1mgBtLPplI82uODvSfugXSnnTxFHPQJb+PKFzIqC5dbMq8OqWzjoC6xH/+UwafK6MNQQe/s6j/xgEjUwZqc4Kj7sHXmw3AyJYhXBGFXEIZ8n70UC8uVaW4A2X5BU10wZi1VG6ILRqC9L8qn6TH12k4k1VltIF7FJAdt/hZGPMo6oNiSoJ3nfH2S5GjuRdyhZHQ+CXj12FLJvlWGD7T7g8puF0pYmtDQrPSSxnLkTQt6FNWDg3HTtYr+74T+LnxnDHas1zTMHsX6azdkLYI2XIaUylWOEIWvK+wNQf9nH/wNrxcAKZXUL0OChYLHktfc4+clf2VQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rXv81ywe/bdshr4y01C9FshKxkgV76u/Rmo0oTUFoNk=;
- b=Rx/u2Wkikq3UrR5b7PK0wTJkzldodHGZXij3X/5H7lF9JrSzo0GvyX9bBYVro0affKTYwD3gFRPVKAqtx58UuoKpKNaI4gYRXErTVJyaozfQ4azem6te6SsKpXMdNvzy1jkZHTP4nA+WhNt4Hkd9/PZr8nMDhwd4OoYbt+FHxZw=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Michal Orzel <michal.orzel@amd.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, "oleksii.kurochko@gmail.com"
-	<oleksii.kurochko@gmail.com>
-Subject: Re: [for-4.20][PATCH] xen/arm64: Drop relocate_and_switch_ttbr() stub
-Thread-Topic: [for-4.20][PATCH] xen/arm64: Drop relocate_and_switch_ttbr()
- stub
-Thread-Index: AQHbYaL71xynnWB460ejnOn44lZOwbMMnQ8A
-Date: Wed, 8 Jan 2025 09:37:11 +0000
-Message-ID: <2A19935A-D2A2-4780-A2E2-668EB25E2D15@arm.com>
-References: <20250108075719.84967-1-michal.orzel@amd.com>
-In-Reply-To: <20250108075719.84967-1-michal.orzel@amd.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.200.121)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR08MB6588:EE_|AM8PR08MB5860:EE_
-x-ms-office365-filtering-correlation-id: 2a5f99c6-4431-4e46-bbf2-08dd2fc80717
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?1jk53Fva1UL+FbGhn9pxIPFOJPuQ6hGvrz+q1eUfZlDhXBzsDRIoXXYEgqq6?=
- =?us-ascii?Q?hHA/3zqacmgRfXz7XuLcXOiY9WQFqK3Wybr1RgCkX/RCC4Aboh/4KbnWeohN?=
- =?us-ascii?Q?/PXIsTSV+lnbjBf5xxBIcbj7RKZW1nuBg+pulPU5APyJLno9bk3F1b7Do++7?=
- =?us-ascii?Q?Grd9Kltp7kLBcjXGk0A9D8QMgn5rWwk/L5ds+TU//+we4XKUs4hrlG34VfeT?=
- =?us-ascii?Q?4mvw7eWALF04bj/26xhe40oJK+d42dNeHJsYm+FRqJyxLWB8bKgSka1rRBJY?=
- =?us-ascii?Q?adDqcnaiq5hRILZP5c8OJLFwH8Y5r+bW8jh+awlWRhLA01d/Pb8QNQaXP3VK?=
- =?us-ascii?Q?mNZDO5LaImlm4BSJcxR4XiYlsbz8z4Xv7UCgBOCXJFtXGdNr0l11lXw19lTM?=
- =?us-ascii?Q?u7mWIPgfSJZ5udQfEDwH6Cd5nUdvn4tb2FDytbakRfzgfhGsh9maZyd/R9Dc?=
- =?us-ascii?Q?vwbPX7g8i7LWcp8donjWxjsrYw7YRz9gy+fng4tNhJo3YuyQ296i78/l6ULz?=
- =?us-ascii?Q?+bB703yNLpQCf04EvrRIGny4doDigCDNkoiQyqoh3WuAYMHuNAAkBPLsIFN9?=
- =?us-ascii?Q?ZZ94hpjtq8XcCcj92m0TZUUcUORoiRAQl0fJVT4pLnumKhuZsavFGZflTOmL?=
- =?us-ascii?Q?3mMTjaK6fVUfxoQwun2neYkfPm/FzOzTR+nkAnaHavt4JAcpr6D+XgRoMvoh?=
- =?us-ascii?Q?B+uNBF743av1fPNT6GzCBM8c14WSoXkbPGcBCEQddbPBwRaFF1+0S0AJVWAd?=
- =?us-ascii?Q?Mthwf9x8QawKdIQZuPkjVxcJ3zcLZRLjwBbdHIV9ph4bZkUHOX/pBcV6P0pi?=
- =?us-ascii?Q?ysSwHwKaILMvTAQNFsLfYaQd5gebMiJ3QqSYbrLvmC91zTq8+HM7JyQN1HAT?=
- =?us-ascii?Q?GgzrASyOmNdF3FASbPVnmn/xz/OM+K143tNOvEoWaBnXy2rYoHrkV6N6tWgI?=
- =?us-ascii?Q?ZJ5c8vbuAuGqzZbJo4loyccvFIt+RVpvfBtTiTIBUs2XQK6yUxXr+0rM7i0M?=
- =?us-ascii?Q?pBagtInG6dGuXDx1a9mKTKwuD8FQmCxa/PekkGM1UDSngMOy9+BNtkb/5FBJ?=
- =?us-ascii?Q?fiPF+bu/V7MYbney1XgK501VmNDi7E/ITgkLZVpgjB0JjYVAtHKcMblKwF8v?=
- =?us-ascii?Q?fdfJy26xjrNXhZJlzku11Rwc2gJLLS3QHZWd77ZXvJP3C+TLFOMkkH6rb4If?=
- =?us-ascii?Q?2IrHxgbhyQbye6/Okz2vVpwmU7/VjqwRqvpp4Hzpf3oYKcq58f0Z3vIHTECR?=
- =?us-ascii?Q?o6dtb2M9ldTKwBuYt+nIFBWH9uGAIwEax1Jxa85Pxgbfd7m/aPPjg4P2t6GI?=
- =?us-ascii?Q?Kyro2Qg4Yv8oOE3+kof/RAGHAoQr35dSp6XDrrhoS7rpaS2ulazEs+6o64Gk?=
- =?us-ascii?Q?JP4t7mlQYdTPxfNZVQ3jiRegzeDkeAKAb+xpAM5qruOmQm0QrUc0cjo4UzMn?=
- =?us-ascii?Q?TCNpYj1fFgyI3Z1HiovMaMwCDcBZsjKX?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?JPvngvbsH1IwGB9wNjyT67GQUu3tGlqgp61HaHvr3LaCzqMO8/1FHItWPfUX?=
- =?us-ascii?Q?bJ57vkFmL+uAvfsnivAd3mv+BugXyigfGg8zuAua9tFnLgB3ENKuBHLiga+r?=
- =?us-ascii?Q?6l6yk3B3/wrrukmxRQndhjW5w1j78IUdDHg5x646Pm/5TdjOyts0jh2FJEvp?=
- =?us-ascii?Q?Ly2JNiq4bPzsRzVCIaOPVcBhuTOHhlh958WBTeC5uJPYVD9OL25AKzAUiXJC?=
- =?us-ascii?Q?NgFdweZK4Io1qiJj+/38d2BQg+GSBbPAlF6mHnd7YppxLM/WNW8DmiOhwtP/?=
- =?us-ascii?Q?TjCQWGMXJMvV6hBhRcOLJtUHaKI888G7j9hCRZHLA3RwMB2iAiXlvKByo1OQ?=
- =?us-ascii?Q?e67bhHLVpg33ZG5JLdnVsd5uT6q4+SPAOv1e0t0wgNerG3A7QhQ3+Auax7zP?=
- =?us-ascii?Q?h6kQsUxc0+F/3MdQOpVEIH7EoyL7vsNIyJBIjOVclE6wNPRmwGbsdcApS3iy?=
- =?us-ascii?Q?CvmuXGuzlL3zIaUxyGJ9YSfmzXqHBZwIjwREX4cixXzy3uuFE+9H4rlCZ4pR?=
- =?us-ascii?Q?sj2DX5wzsTw7c/0z3NpRxIkhPBUIypnIkx7G+FcCRI6MUyAvUjhI6J/qUf3O?=
- =?us-ascii?Q?V3IRkeVp3NsFFUBbZLWJ1eSR+QWasTPlN09dlrF+f9hhMZOWt7RvnX1eyU0d?=
- =?us-ascii?Q?bC9UCR0fob7YlVFTZiLKzlkxmq0lqkLtDNDNBpRvvBLKVVBojWrhd9X4+CTl?=
- =?us-ascii?Q?j2qzXpso3bYi/u8/ZXCaxI6Z2zeo8usgeHm22b6iNFo+7kB9pwsPEsGG33+f?=
- =?us-ascii?Q?bEBNjN7aREe/X7AEVoIcXCO8Gdu/J6q3xGaD8rTmmkuvZFc8vQDtYNuDdNmJ?=
- =?us-ascii?Q?eNXiYvXc6AEhT9uOuC8mA5eGkGt1HXa4dF5+5oJLAZk6WLWCTOzLfpreuhQW?=
- =?us-ascii?Q?V82kfgv9Z6XYq5B9SdR4OC1y4CvL6LhYKTzL81A/IZ37mnWnp8KZluvtH5fl?=
- =?us-ascii?Q?Vrh3wMwbYqpoQVpDhBpobfgggbv+wnB6sQ9snxkzuHzbc8lhIhfetopjwBzE?=
- =?us-ascii?Q?CzRFWy5ELw5zHvSjWqEXKqc+s4NscbqL2NTFzbd+CyBgEGH7vk4Lpbf/Prnp?=
- =?us-ascii?Q?MLEs9tJTwXJ71YqtvNYXGSc80zd3Eqc0Yut/ZUyjCbFofBdjbmCLhuQ6KZbA?=
- =?us-ascii?Q?iqD4qGCmCBmFP8TGuoU7RAwYDNAc7lofYgmwMxlTq6qq27NqQHY39HU4D91+?=
- =?us-ascii?Q?mqh01Ql/wP8uBo6tLIX9GmhRwi34/A98454mOWsQ1raGEt7VNR+QBPfVb3ug?=
- =?us-ascii?Q?dxZ0/74fkb0+Lq3fNLz0/IzOp1EheIAMrwRPU+ONC8lrPFQe67zlXqLP2NIx?=
- =?us-ascii?Q?bSsxuivIscMYGlg6WdEiJ2ukVY1zGvfd2t+217in8bs5WfG7TF8dNFsbOy1y?=
- =?us-ascii?Q?kKwJPMvrMhimanc6JfblQzOTCEYeQIltUlYH5838mykqWCYypeRKWD8JS57G?=
- =?us-ascii?Q?Y7XDvq9L1yvQUM8/0j9Hc3QizvLMWofTCktm6kREVMjMDi23PPfqM3MxxClh?=
- =?us-ascii?Q?62JCE4Jh4kJR+884OK3LQmKp12Z68z926ucrRH9N9xMa3IB/yDv2T5GKV/HD?=
- =?us-ascii?Q?6qHxvO4Yc/t6opOOmcOyVD+war3mW59uXK9WsYUnmfWEsramArbCCH+EZUTb?=
- =?us-ascii?Q?uA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <89BDB8EB78C93C4F8498F6E28FA18E0D@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 5e7fdd70-cda8-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1736330849; x=1736935649; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=gHYfKvzO1b6IQBL792DS4HTlxjx0BDDUAhi22w3xB5M=;
+        b=vYovN5dpqQ6ym0D98s0J/xO6Q21l9eW7FSdnPmYQkQ7cfNJI1G/09ERbZj8ugyiaBl
+         xRyPY4Eoiz3c6HvRzXM9Bk27RO5LwK86StPZLxynC/W6xrhevjVDdX/mB51XKG4li4IM
+         Vq+0Rtt2XAAt41Md+53PqMLsMbzXWaWFqPhZA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736330849; x=1736935649;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gHYfKvzO1b6IQBL792DS4HTlxjx0BDDUAhi22w3xB5M=;
+        b=wpDoSsh622aEY1SOyuHqwHaS5nS88qA1ncnkBwN3sdBzg1EXgV7uG+wsjH0mZ6WyUc
+         dBIrYH0Qgtep8RVfJzFnHplQNfvHNK/5hgYk17tHWJ10JMkvi37Boj05B3WBdDZlaAI/
+         zSx/j0un5aPj3eKXnBXsew7HbjA0pLLPIHnbMgBtc/EBkcSvXd2cd3VreG2divqkVKG7
+         c3RYd1ZZ53uEMTBASTOyvMuIKerLgonZvT7TCZZBk5w8tsr7J9CKeCpCrr+njyS4+smB
+         BwzfKZaalW7cUm8HQcQyI5qliZ3LCZN07xYoQp9BNlehVq025AxYDb53PLMLK4sneq4h
+         bJOQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNxJ+jKIpjAfsa/1eW+6y4mPtPBNI27Qk1zy6AsdpDC9uewXrw08ZP8CiBp0KoStKZmIK3KwgWyfQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmpHZjQ3EOpPtoSK92c1nexOIbdNRXh7qkaM4gG/4JaRe1cSfD
+	V7MhilSapji1eegY+x8OaSzNMt11k4MzHvN4lQl/mc5JkBBZOZUNN/eVzTjzgS8=
+X-Gm-Gg: ASbGncvx13f7r+7zieHxKzZhTI7qMj2XxKLaGf6KuLODYOzfSPYyzslaBSsm8/QEWDs
+	AUAAnNzVmR57e4ym5Hq8G7P9VCr/kv/faoWVfCoT2gCdCPjIwFI22NN/0BCcbq8eYdHB5hSgCHW
+	eQwiMCH4jfGZy2jTQ2cRIegfP80p2nqajSupit1yAd0z1kmD/it6yXBctAMrp+apndDRWAKUKaO
+	ZONbxGK3yqb2PZWfyG9BArw8YrYrVlhWQKoM5K2V3mzbBDzJ0X8DQgtYzpI16yTcRS55ZO5PA0Z
+	7BQ2pK2ODgOF7qn8dEPa
+X-Google-Smtp-Source: AGHT+IGffmGX3Jm2bE4Yq7/r9cJiZzwg+Me2b/KUaMurZpRreOmtSqd5WVJIexZbPtB5aD6fnhp6yQ==
+X-Received: by 2002:a05:600c:314b:b0:434:f270:a513 with SMTP id 5b1f17b1804b1-436e26ff287mr15082405e9.29.1736330849049;
+        Wed, 08 Jan 2025 02:07:29 -0800 (PST)
+Message-ID: <a1a3c0b7-63ee-4764-b33a-48f84ac70a8e@citrix.com>
+Date: Wed, 8 Jan 2025 10:07:28 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6588.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a5f99c6-4431-4e46-bbf2-08dd2fc80717
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2025 09:37:11.5329
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bPuUd7wQ3espbe/tVWsyVL4eAtPxJMfRX8qg4usRkyy9kY7wl3bPZ2XZ6MLnVVs3zslSXDnfkPGHepCWr9auRsUHgOPcQRKZzY2ydHboUqE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5860
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.20] x86/traps: Rework LER initialisation and support
+ Zen5/Diamond Rapids
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20241231192002.1753737-1-andrew.cooper3@citrix.com>
+ <7482da8f-8bf1-4f0c-b15b-7a31b27b48f3@gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7482da8f-8bf1-4f0c-b15b-7a31b27b48f3@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Michal
+On 08/01/2025 9:15 am, Oleksii Kurochko wrote:
+>
+>
+> On 12/31/24 8:20 PM, Andrew Cooper wrote:
+>> AMD have always used the architectural MSRs for LER.  As the first processor
+>> to support LER was the K7 (which was 32bit), we can assume it's presence
+>> unconditionally in 64bit mode.
+>>
+>> Intel are about to run out of space in Family 6 and start using 19.  It is
+>> only the Pentium 4 which uses non-architectural LER MSRs.
+>>
+>> percpu_traps_init(), which runs on every CPU, contains a lot of code which
+>> should be init-only, and is the only reason why opt_ler can't be in initdata.
+>>
+>> Write a brand new init_ler() which expects all future Intel and AMD CPUs to
+>> continue using the architectural MSRs, and does all setup together.  Call it
+>> from trap_init(), and remove the setup logic percpu_traps_init() except for
+>> the single path configuring MSR_IA32_DEBUGCTLMSR.
+>>
+>> Leave behind a warning if the user asked for LER and Xen couldn't enable it.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> For 4.20.  This is needed for Zen5 CPUs (already available) as well as Intel
+>> CPUs coming shortly.  It also moves some non-init logic to being init-only.
+> As a user can enable/disable LER and support for Zen5/Diamond Rapids is added, and this patch
+> is already in staging, I think we could mention that in CHANGELOG. If it makes sense I can do
+> that during finalization of CHANGELOG before release. Does it make sense?
 
-> On 8 Jan 2025, at 08:57, Michal Orzel <michal.orzel@amd.com> wrote:
->=20
-> In the original patch e7a80636f16e ("xen/arm: add cache coloring support
-> for Xen image"), the stub was added under wrong assumption that DCE
-> won't remove the function call if it's not static. This assumption is
-> incorrect as we already rely on DCE for cases like this one. Therefore
-> drop the stub, that otherwise would be a place potentially prone to
-> errors in the future.
->=20
-> Suggested-by: Julien Grall <julien@xen.org>
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+LER is for advanced debugging.  I don't think it's user-interesting
+enough to justify calling out in Changelog.
 
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+I am intending to do a Changelog entry for Zen5 support generally,
+although I'm holding out hope that AMD will publish an updated APM so I
+can cross check a few extra details before we get too deep into the Xen
+4.20 release.
 
-Cheers
-Bertrand
-
-> ---
-> As suggested by Julien, we should have it for 4.20. Leaving a stub like t=
-hat
-> without something like BUG_ON inside can potentially lead to problems in
-> the future provided the function misuse slipped through the review proces=
-s.
-> ---
-> xen/arch/arm/arm64/mmu/mm.c | 2 --
-> 1 file changed, 2 deletions(-)
->=20
-> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-> index 26361c4fe4c0..c1efa1348aee 100644
-> --- a/xen/arch/arm/arm64/mmu/mm.c
-> +++ b/xen/arch/arm/arm64/mmu/mm.c
-> @@ -171,8 +171,6 @@ void __init relocate_and_switch_ttbr(uint64_t ttbr)
->      */
->     update_identity_mapping(false);
-> }
-> -#else
-> -void __init relocate_and_switch_ttbr(uint64_t ttbr) {}
-> #endif
->=20
-> void __init switch_ttbr(uint64_t ttbr)
-> --=20
-> 2.25.1
->=20
-
+~Andrew
 
