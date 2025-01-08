@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E00E8A05FDA
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 16:19:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867483.1279040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72148A05FE5
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 16:19:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867484.1279057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVXps-0000gb-Ik; Wed, 08 Jan 2025 15:19:08 +0000
+	id 1tVXpt-00018K-RJ; Wed, 08 Jan 2025 15:19:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867483.1279040; Wed, 08 Jan 2025 15:19:08 +0000
+Received: by outflank-mailman (output) from mailman id 867484.1279057; Wed, 08 Jan 2025 15:19:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVXps-0000YG-Ee; Wed, 08 Jan 2025 15:19:08 +0000
-Received: by outflank-mailman (input) for mailman id 867483;
- Wed, 08 Jan 2025 15:19:06 +0000
+	id 1tVXpt-00013u-Lb; Wed, 08 Jan 2025 15:19:09 +0000
+Received: by outflank-mailman (input) for mailman id 867484;
+ Wed, 08 Jan 2025 15:19:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HyFE=UA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tVXpq-0008Lg-H6
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 15:19:06 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1tVXpr-0008Lg-Lh
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 15:19:07 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e63db730-cdd3-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 16:19:05 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-aa69107179cso2812353366b.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 07:19:05 -0800 (PST)
+ id e6f60577-cdd3-11ef-a0df-8be0dac302b0;
+ Wed, 08 Jan 2025 16:19:07 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-aa6a92f863cso532874266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 07:19:06 -0800 (PST)
 Received: from localhost.localdomain ([66.81.170.107])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0eae71desm2488412166b.89.2025.01.08.07.19.04
+ a640c23a62f3a-aac0eae71desm2488412166b.89.2025.01.08.07.19.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 07:19:04 -0800 (PST)
+ Wed, 08 Jan 2025 07:19:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,261 +45,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e63db730-cdd3-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: e6f60577-cdd3-11ef-a0df-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736349545; x=1736954345; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1736349546; x=1736954346; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3YsfPYnnI6FWUYgHfjtYUL/QekhFikCxvRDQSMOAmr4=;
-        b=CP3lwKLnbK8m7BwkCP6XQHqCxwhpL2tmYCLq2a8Q+TVguTyR5aMDjO1Xs70puHmLWx
-         GRQ0T20vQ2vQsbByyrEvGojbEA8gljByCgOtIYNpjuMGMrMhlfWvmryIw7t4YS0yjA8K
-         ZU43p05ieyVX06KRjiKLvQBrf6K28UmvwU19Q=
+        bh=JwBhhGsIi6j0431N7dPj7kwiLad+N3xTknrKun361rM=;
+        b=M8n8xpYd9vewjvtm5b76xNCSnGbb1XXttXuIjHEpNx/D4qdLC7YaX2HvC/lGCPTtqh
+         h7F20sgMxTr1a863CknvsiC0FEpxogkLYVq5+iYwNvoftU1bXGPKP3Q5fUeg11tKDNM8
+         njDRjSelwbthUFejJjz6KnctQinwPDt5wtfVg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736349545; x=1736954345;
+        d=1e100.net; s=20230601; t=1736349546; x=1736954346;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=3YsfPYnnI6FWUYgHfjtYUL/QekhFikCxvRDQSMOAmr4=;
-        b=A8Eo6oF0eChv+iKtFS14M2zuTVF9XwX8tNBFhF6XrkWjbXo69/DlW3QURtF2I7KT5i
-         IzhyYZrltDx/b1+sAlruiGHzyf5Y7m+j5cmv7OQOwglmbY71eXzVdVcvBH0nP/RFS1XW
-         OABLtKlTxZ8L5bPmby4Drqkri/iwXNAptnhu0maNPeB3T+3SHv7fcjZi1p1Xs/RehNU7
-         +cxPbwODZbGIkVpmBx44Tl+EAzMmZpy74yhq6KTXUChgH1rV/cXGOJWSno80EPtFYg2j
-         4MR69NHPMLe8GndQllwdh+Ng9cwAb2/574isjEk8qLMapkU1W0iwoKn0EQh0cupa+ihl
-         oZtQ==
-X-Gm-Message-State: AOJu0Yye+YXNmEu7WpjbtyIVzwLMNRLw4iFwBbvsUF+XU0l9vVqHEBGs
-	UzcZzd1xvDp0RyxW1Iz0Sb7FvFmu+t0+UoJkNu59SISgvp7FCX7605AztIUugiSI8XGJkAn+Li4
-	QFiGnHw==
-X-Gm-Gg: ASbGncuhskvXfBFQIDYKTzncA50EMdEEIrZdbboeBYWvCUQNSegRsHddKGtvSYKPuJA
-	Xkcyqp/Z3IRIM7FRDnny/O133WHggRRl6OGE9cfIceeelHk8RoABlmvgYEQEZhi956gfDN/zMIw
-	kbNFPMxh0tyL+8sZDCLw0bQYQKNgaaNHN/AqNp1qLFzpveDht1agpbnMVclDn71fVPkcXh2o7zw
-	UkZD7gWe2w2lGjwDhbLDn+76Kc6C5J9k1/5ixDjALxckAioRBdlOGWhaTFHSZ+C9gquD/bNofmI
-	kNY=
-X-Google-Smtp-Source: AGHT+IEUj4gOUwHUn/rIAicijRfStFxoaCwoTk6QHyfvmCd+pbRo3s4LpEwHMg36vX8h3/K60AU/og==
-X-Received: by 2002:a17:907:3da1:b0:aaf:3f57:9d2e with SMTP id a640c23a62f3a-ab2aaaf6571mr264290166b.0.1736349544953;
-        Wed, 08 Jan 2025 07:19:04 -0800 (PST)
+        bh=JwBhhGsIi6j0431N7dPj7kwiLad+N3xTknrKun361rM=;
+        b=FD9mCh9T9ccYg26fyaY5RhNSDoJtBUgFZUeQf9b3d+8G3JLsyFOvEpLzSO8GuVQub/
+         M4taYRzQ2roo2LIJmqzi7qZ63NKZiExiq4av4/oVX6eh6nY/9vzKrgfkJkdrrtNZflFh
+         Xj6MHPgWh8Wakuk1btrpcvFfO2d752dk25TZXZedvGlypGoJMrTDCj8ApF99C5XXecqf
+         QpiKU5Wzs7ZDWfyPTfV4CW1xcZLd6/Qe0HBVyPzEW4UdGzFAOprOUh+4XHkKxFWQ5MNW
+         uBxBGBG4H7y51Heay2ubPdSmvFa3Q6lbvdCxp0ss3WtbFyrI59Jfc3KMCAvDTuVywxcv
+         no2A==
+X-Gm-Message-State: AOJu0Yx0EEbnRzRMjALD284nIHpu02mqrYo/pmpsCelGji5H2FthiyR3
+	AjbwQ4y7kS0UnCMNXiLFTaY/kz10dmHwosxyz2OrChlzvjcpoELnO1Z0YFiRoHl9brLfAFrJlHr
+	DKDAPBg==
+X-Gm-Gg: ASbGncsqeXJJInbWIdRG+UkAIuH125muNoyqyTxgITcsu6h5TRkI0uLTpnb1b4SwCB6
+	TCMVrBPJuYe3kH4wEK6RnjqvhTbEaO8JnZIvtAU7pe4tSV1YAKhCD7PL/0/oyxP9nUb4gJz5Z6a
+	wRN5DYUNxRMCiUpd+CcLflAEgmYzpMoFEuHD6xDNGgSnie/dO23er5TUKyouidUf2wzWzIa9fUM
+	yud2SI/Vt32XYmffgpkzVsVmH0RETZ0lET6N6U0Id3UK98i3yfXSiCSok+vbLOAClXwIyUNsRZU
+	YnU=
+X-Google-Smtp-Source: AGHT+IEmRfZTn8az4OYaE9fsLSrrsmECKXw/OTjUIfdtxZkfacPZRnaTOoT2mNfX9WgazQmGZBl7sA==
+X-Received: by 2002:a17:907:7fa5:b0:aa6:5d30:d976 with SMTP id a640c23a62f3a-ab2ab6a84f7mr275128066b.10.1736349546043;
+        Wed, 08 Jan 2025 07:19:06 -0800 (PST)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
-Cc: Wei Liu <wei.liu2@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
+Cc: Hongyan Xia <hongyxia@amazon.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Wang <wawei@amazon.de>,
-	Hongyan Xia <hongyxia@amazon.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <jgrall@amazon.com>,
 	Elias El Yandouzi <eliasely@amazon.com>,
 	Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Subject: [PATCH v5 04/15] x86: Initialize mapcache for PV, HVM, and idle domains
-Date: Wed,  8 Jan 2025 15:18:11 +0000
-Message-ID: <20250108151822.16030-5-alejandro.vallejo@cloud.com>
+Subject: [PATCH v5 05/15] x86: Add a boot option to enable and disable the direct map
+Date: Wed,  8 Jan 2025 15:18:12 +0000
+Message-ID: <20250108151822.16030-6-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250108151822.16030-1-alejandro.vallejo@cloud.com>
 References: <20250108151822.16030-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wei Liu <wei.liu2@citrix.com>
+From: Hongyan Xia <hongyxia@amazon.com>
 
-To support the transition away from the direct map, the mapcache will
-now be used by HVM and idle domains as well. This patch lifts the
-`mapcache` to the arch level and moves its initialization to
-`arch_domain_create()`.
+This is added as a Kconfig option as well as a boot command line option.
+While being generic, the Kconfig option is only usable for x86 at the
+moment.
 
-For the idle domain to utilize the mapcache, this patch also populates
-the mapcache page tables within the `PERDOMAIN` region and adjusts the
-initialization sequence in `arch_idle_init()`, as it's no longer covered
-by `arch_domain_create()`
+Note that there remains some users of the directmap at this point. The
+option is introduced now as it will be needed in follow-up patches.
 
-With this change, mapcache initialization is now unified across all
-domain types—PV, HVM, and idle.
-
-Signed-off-by: Wei Liu <wei.liu2@citrix.com>
-Signed-off-by: Wei Wang <wawei@amazon.de>
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 Signed-off-by: Julien Grall <jgrall@amazon.com>
 Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
-v4->v5:
-  * Move mapcache initialization and cleanup back to arch-specific
-    code and reword commit message to reflect it. Since v3, the idle
-    domain gained its own arch-init function, so initialise the mapcache
-    there instead. Panic on failure to initialise it for the idle
-    domain, as there's no possible recovery.
+There's a major change compared with v4. directmap= turned into asi= for
+compatibility with Roger's ASI series. In particular, after everything
+is done we expect the commandline to have somewhat different effects per
+arch depending on the extent of ASI implemented. e.g: x86 might implement
+distinct toggles for PV and HVM, which are nonsensical for anything but
+x86.
 
-v2->v4:
-  * Reword the commit message
-  * Rebase it on top of staging
-  * The logic for the creation of the domain has been reworked
-    so introduced #ifdef CONFIG_X86 in the common code to
-    initialise the mapcache
+With the intent of parsing the commandline differently I've modified
+this patch to parse it on arch-specific code from the get-go. I also
+adjusted the commandline text to make it a lot more similar to the final
+text expected on Roger's series.
+
+v4->v5:
+  * Moved cmdline parsing to arch-specific code and turned directmap= to
+    asi= (where asi == !directmap). This is for compatibility with
+    Roger's work, which appends extra suboptions to asi= on x86.
+  * Moved the printk() highlighting the sparse directmap to spec-ctrl
+    with the rest of speculative mitigations. Further additions to asi=
+    will interact with XPTI, so it makes sense to have it all there.
+  * Moved CONFIG_ONDEMAND_DIRECTMAP to the speculation hardening section
+    of Kconfig.
+  * Reworded the help message to align it with other rows in that
+    section and make it more ameanable for end users.
+  * Simplified #ifdef hunk defining has_directmap()
+  * Used #ifdef CONFIG_ONDEMAND_DIRECTMAP rather than
+    CONFIG_HAS_ONDEMAND_DIRECTMAP. The former selects the feature, while
+    the latter signals support for it on the arch.
+
+v3->v4:
+  * Rename the Kconfig options
+  * Set opt_directmap to true if CONFIG_HAS_ONDEMAND_DIRECTMAP is not
+enabled
+
+v2->v3:
+  * No changes.
 
 v1->v2:
-  * Free resources if mapcache initialisation fails
-  * Remove `is_idle_domain()` check from `create_perdomain_mappings()`
----
- xen/arch/x86/domain.c             | 13 ++++++++++---
- xen/arch/x86/domain_page.c        | 22 ++++++++++------------
- xen/arch/x86/include/asm/domain.h | 12 ++++++------
- 3 files changed, 26 insertions(+), 21 deletions(-)
+  * Introduce a Kconfig option
+  * Reword the commit message
+  * Make opt_directmap and helper generic
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 78a13e6812c9..307ec0f11fed 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -777,6 +777,12 @@ void __init arch_init_idle_domain(struct domain *d)
-     };
+Changes since Hongyan's version:
+  * Reword the commit message
+  * opt_directmap is only modified during boot so mark it as
+    __ro_after_init
+---
+ docs/misc/xen-command-line.pandoc | 11 +++++++++++
+ xen/arch/x86/Kconfig              |  1 +
+ xen/arch/x86/include/asm/mm.h     |  6 ++++++
+ xen/arch/x86/spec_ctrl.c          |  7 +++++++
+ xen/common/Kconfig                | 21 +++++++++++++++++++++
+ xen/include/xen/mm.h              | 11 +++++++++++
+ 6 files changed, 57 insertions(+)
+
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 08b0053f9ced..6a1351b6c09b 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -202,6 +202,17 @@ to appropriate auditing by Xen.  Argo is disabled by default.
+     This option is disabled by default, to protect domains from a DoS by a
+     buggy or malicious other domain spamming the ring.
  
-     d->arch.ctxt_switch = &idle_csw;
++### asi (x86)
++> `= <boolean>`
 +
-+    BUG_ON(mapcache_domain_init(d));
++> Default: `false`
 +
-+    /* Slot 260: Per-domain mappings. */
-+    idle_pg_table[l4_table_offset(PERDOMAIN_VIRT_START)] =
-+        l4e_from_page(d->arch.perdomain_l3_pg, __PAGE_HYPERVISOR_RW);
++Offers control over whether the hypervisor will engage in Address Space
++Isolation, by not having potentially sensitive information permanently mapped
++in the directmap. Enabling this option populates the directmap sparsely on
++demand, blocking exploits that leak secrets via speculative memory access in
++the directmap.
++
+ ### asid (x86)
+ > `= <boolean>`
+ 
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 9cdd04721afa..55f1e8702ab9 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -23,6 +23,7 @@ config X86
+ 	select HAS_IOPORTS
+ 	select HAS_KEXEC
+ 	select HAS_NS16550
++	select HAS_ONDEMAND_DIRECTMAP
+ 	select HAS_PASSTHROUGH
+ 	select HAS_PCI
+ 	select HAS_PCI_MSI
+diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
+index 6c7e66ee21ab..4c82428b8b3e 100644
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -643,11 +643,17 @@ void write_32bit_pse_identmap(uint32_t *l2);
+ /*
+  * x86 maps part of physical memory via the directmap region.
+  * Return whether the range of MFN falls in the directmap region.
++ *
++ * Enabling ASI on the commandline (i.e: using the `asi=` option) causes the
++ * directmap to be mostly empty, so this always returns false in that case.
+  */
+ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+ {
+     unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+ 
++    if ( !has_directmap() )
++        return false;
++
+     return (mfn + nr) <= (virt_to_mfn(eva - 1) + 1);
  }
  
- int arch_domain_create(struct domain *d,
-@@ -832,6 +838,10 @@ int arch_domain_create(struct domain *d,
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index ced84750015c..f67e0139b81e 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -85,6 +85,11 @@ static int8_t __initdata opt_gds_mit = -1;
+ static int8_t __initdata opt_div_scrub = -1;
+ bool __ro_after_init opt_bp_spec_reduce = true;
  
-     spec_ctrl_init_domain(d);
- 
-+    rc = mapcache_domain_init(d);
-+    if ( rc )
-+        goto fail;
++#ifdef CONFIG_ONDEMAND_DIRECTMAP
++bool __ro_after_init opt_ondemand_dmap;
++boolean_param("asi", opt_ondemand_dmap);
++#endif
 +
-     if ( (rc = paging_domain_init(d)) != 0 )
-         goto fail;
-     paging_initialised = true;
-@@ -870,9 +880,6 @@ int arch_domain_create(struct domain *d,
-     }
-     else if ( is_pv_domain(d) )
-     {
--        if ( (rc = mapcache_domain_init(d)) != 0 )
--            goto fail;
--
-         if ( (rc = pv_domain_initialise(d)) != 0 )
-             goto fail;
-     }
-diff --git a/xen/arch/x86/domain_page.c b/xen/arch/x86/domain_page.c
-index eac5e3304fb8..55e337aaf703 100644
---- a/xen/arch/x86/domain_page.c
-+++ b/xen/arch/x86/domain_page.c
-@@ -82,11 +82,11 @@ void *map_domain_page(mfn_t mfn)
- #endif
- 
-     v = mapcache_current_vcpu();
--    if ( !v || !is_pv_vcpu(v) )
-+    if ( !v )
-         return mfn_to_virt(mfn_x(mfn));
- 
--    dcache = &v->domain->arch.pv.mapcache;
--    vcache = &v->arch.pv.mapcache;
-+    dcache = &v->domain->arch.mapcache;
-+    vcache = &v->arch.mapcache;
-     if ( !dcache->inuse )
-         return mfn_to_virt(mfn_x(mfn));
- 
-@@ -187,14 +187,14 @@ void unmap_domain_page(const void *ptr)
-     ASSERT(va >= MAPCACHE_VIRT_START && va < MAPCACHE_VIRT_END);
- 
-     v = mapcache_current_vcpu();
--    ASSERT(v && is_pv_vcpu(v));
-+    ASSERT(v);
- 
--    dcache = &v->domain->arch.pv.mapcache;
-+    dcache = &v->domain->arch.mapcache;
-     ASSERT(dcache->inuse);
- 
-     idx = PFN_DOWN(va - MAPCACHE_VIRT_START);
-     mfn = l1e_get_pfn(MAPCACHE_L1ENT(idx));
--    hashent = &v->arch.pv.mapcache.hash[MAPHASH_HASHFN(mfn)];
-+    hashent = &v->arch.mapcache.hash[MAPHASH_HASHFN(mfn)];
- 
-     local_irq_save(flags);
- 
-@@ -233,11 +233,9 @@ void unmap_domain_page(const void *ptr)
- 
- int mapcache_domain_init(struct domain *d)
+ static int __init cf_check parse_spec_ctrl(const char *s)
  {
--    struct mapcache_domain *dcache = &d->arch.pv.mapcache;
-+    struct mapcache_domain *dcache = &d->arch.mapcache;
-     unsigned int bitmap_pages;
+     const char *ss;
+@@ -633,6 +638,8 @@ static void __init print_details(enum ind_thunk thunk)
+                cpu_has_bug_l1tf ? "" : " not",
+                l1d_maxphysaddr, paddr_bits, l1tf_safe_maddr);
  
--    ASSERT(is_pv_domain(d));
--
- #ifdef NDEBUG
-     if ( !mem_hotplug && max_page <= PFN_DOWN(__pa(HYPERVISOR_VIRT_END - 1)) )
-         return 0;
-@@ -261,12 +259,12 @@ int mapcache_domain_init(struct domain *d)
- int mapcache_vcpu_init(struct vcpu *v)
- {
-     struct domain *d = v->domain;
--    struct mapcache_domain *dcache = &d->arch.pv.mapcache;
-+    struct mapcache_domain *dcache = &d->arch.mapcache;
-     unsigned long i;
-     unsigned int ents = d->max_vcpus * MAPCACHE_VCPU_ENTRIES;
-     unsigned int nr = PFN_UP(BITS_TO_LONGS(ents) * sizeof(long));
- 
--    if ( !is_pv_vcpu(v) || !dcache->inuse )
-+    if ( !dcache->inuse )
-         return 0;
- 
-     if ( ents > dcache->entries )
-@@ -293,7 +291,7 @@ int mapcache_vcpu_init(struct vcpu *v)
-     BUILD_BUG_ON(MAPHASHENT_NOTINUSE < MAPCACHE_ENTRIES);
-     for ( i = 0; i < MAPHASH_ENTRIES; i++ )
-     {
--        struct vcpu_maphash_entry *hashent = &v->arch.pv.mapcache.hash[i];
-+        struct vcpu_maphash_entry *hashent = &v->arch.mapcache.hash[i];
- 
-         hashent->mfn = ~0UL; /* never valid to map */
-         hashent->idx = MAPHASHENT_NOTINUSE;
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index b5a14991ca0b..470192646b50 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -287,9 +287,6 @@ struct pv_domain
-     /* Mitigate L1TF with shadow/crashing? */
-     bool check_l1tf;
- 
--    /* map_domain_page() mapping cache. */
--    struct mapcache_domain mapcache;
--
-     struct cpuidmasks *cpuidmasks;
- };
- 
-@@ -328,6 +325,9 @@ struct arch_domain
- 
-     uint8_t scf; /* See SCF_DOM_MASK */
- 
-+    /* map_domain_page() mapping cache. */
-+    struct mapcache_domain mapcache;
++    printk("  ASI: %s", !has_directmap() ? "enabled" : "disabled");
 +
-     union {
-         struct pv_domain pv;
-         struct hvm_domain hvm;
-@@ -518,9 +518,6 @@ struct arch_domain
+     /*
+      * Alternatives blocks for protecting against and/or virtualising
+      * mitigation support for guests.
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 6166327f4d14..1ee498a3e9a7 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -74,6 +74,9 @@ config HAS_KEXEC
+ config HAS_LLC_COLORING
+ 	bool
  
- struct pv_vcpu
- {
--    /* map_domain_page() mapping cache. */
--    struct mapcache_vcpu mapcache;
--
-     unsigned int vgc_flags;
- 
-     struct trap_info *trap_ctxt;
-@@ -614,6 +611,9 @@ struct arch_vcpu
- #define async_exception_state(t) async_exception_state[(t)-1]
-     uint8_t async_exception_mask;
- 
-+    /* map_domain_page() mapping cache. */
-+    struct mapcache_vcpu mapcache;
++config HAS_ONDEMAND_DIRECTMAP
++	bool
 +
-     /* Virtual Machine Extensions */
-     union {
-         struct pv_vcpu pv;
+ config HAS_PIRQ
+ 	bool
+ 
+@@ -214,6 +217,24 @@ config SPECULATIVE_HARDEN_LOCK
+ 
+ 	  If unsure, say Y.
+ 
++config ONDEMAND_DIRECTMAP
++	bool "On-Demand Directmap"
++	depends on HAS_ONDEMAND_DIRECTMAP
++	help
++	  Contemporary processors may use speculative execution as a
++	  performance optimisation, but this can potentially be abused by an
++	  attacker to leak data via speculative sidechannels.
++
++	  When enabled, this option provides defense in depth by preventing
++	  most RAM from being constantly mapped on the hypervisor, thereby
++	  greatly reducing the scope of data leaks after a successful
++	  speculative attack.
++
++	  This option is disabled by default at run time, and needs to be
++	  enabled on the command line.
++
++	  If unsure, say N.
++
+ endmenu
+ 
+ config DIT_DEFAULT
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index 16f733281af3..fe73057e1781 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -169,6 +169,17 @@ extern unsigned long max_page;
+ extern unsigned long total_pages;
+ extern paddr_t mem_hotplug;
+ 
++#ifdef CONFIG_ONDEMAND_DIRECTMAP
++extern bool opt_ondemand_dmap;
++
++static inline bool has_directmap(void)
++{
++    return !opt_ondemand_dmap;
++}
++#else
++#define has_directmap() true
++#endif
++
+ /*
+  * Extra fault info types which are used to further describe
+  * the source of an access violation.
 -- 
 2.47.1
 
