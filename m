@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1497EA04E02
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 01:05:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866825.1278187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 388C5A04FE6
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 02:51:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866843.1278196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVJZ8-0000d1-B5; Wed, 08 Jan 2025 00:04:54 +0000
+	id 1tVLCz-0003gz-Ez; Wed, 08 Jan 2025 01:50:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866825.1278187; Wed, 08 Jan 2025 00:04:54 +0000
+Received: by outflank-mailman (output) from mailman id 866843.1278196; Wed, 08 Jan 2025 01:50:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVJZ8-0000bA-7h; Wed, 08 Jan 2025 00:04:54 +0000
-Received: by outflank-mailman (input) for mailman id 866825;
- Wed, 08 Jan 2025 00:04:52 +0000
+	id 1tVLCz-0003f5-9U; Wed, 08 Jan 2025 01:50:09 +0000
+Received: by outflank-mailman (input) for mailman id 866843;
+ Wed, 08 Jan 2025 01:50:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/V3S=UA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tVJZ5-0000b3-Vd
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 00:04:51 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d94d328-cd54-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 01:04:50 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id F37DD5C0085;
- Wed,  8 Jan 2025 00:04:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C206C4CED6;
- Wed,  8 Jan 2025 00:04:47 +0000 (UTC)
+ <SRS0=X11H=UA=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1tVLCx-0003ez-NX
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 01:50:07 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e110e1ad-cd62-11ef-a0df-8be0dac302b0;
+ Wed, 08 Jan 2025 02:50:05 +0100 (CET)
+Received: by mx.zohomail.com with SMTPS id 1736300994381761.1501356937698;
+ Tue, 7 Jan 2025 17:49:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,62 +38,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d94d328-cd54-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736294688;
-	bh=mtTnv6Dt7hKi8/zexx4oWhOSoNmr3c7SzpMKMflQt6o=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Mb8xgWeeIZhG8KexYoAE12zJNYrw5SBI7rufHe/GmIg9cPlq9XkEBaPmJBRMxObzq
-	 dlwuXqawfqC1jQqwnw6vkaphrCK9ndoMHToRHeGHXHbrg2icQ/32dcLu9OKiPJDgyi
-	 GUz1QTtnhj3bLdkQFVGAqSduMN7gb68nKCYUf+YId5PHsuG4r05+B2zXXAY3M++Rj+
-	 cAp9WGVj120NFqDekSgoP04zwY8RJpssKRioYv4aeHEqY11P2lGdnwGF6xMWUUYCVJ
-	 u674MdfcEtpTaaMY7w7JUenj7qWc3zein66jWrvs26LsQmwUoGVnjELvG3rw1XEni1
-	 sa9BDhVLlKFVA==
-Date: Tue, 7 Jan 2025 16:04:46 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
-    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3] misra: add deviation for MISRA C Rule R11.8.
-In-Reply-To: <921ef7b8-36d2-405d-ad7e-1a9418b7c4e6@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2501071603130.133435@ubuntu-linux-20-04-desktop>
-References: <4a2c68bdc11a815cb8531be305e2e7fc4bef7779.1736240655.git.alessandro.zucchelli@bugseng.com> <921ef7b8-36d2-405d-ad7e-1a9418b7c4e6@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: e110e1ad-cd62-11ef-a0df-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1736300996; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lOv9UsmBmv7zxEyv+vmPDxBwrrQzoy1A7jRz19NNR1CTve4QdbiQNTK7l0gCVV/354RTu7ONES9N596F0lnEjCwqgWTCTChVaJ2meG17AFDgPdvkZF7I/P03IbFhfkIRAnV5i8WuJhFrlytNAPOBhRVEsT3SwMyPZqer8HsfiuA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1736300996; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=hIgidbHmUnJODbaXHkDMjlG5IKIvy0h27UD0lVOMdgw=; 
+	b=dqxKywk3LUr4fgHjNHeNKiQ28jiOJvIvJywLBMnf0tW/gbJ2FyT5euNc1lQMEqbGR+HHzbml1skh5r3TAI1yGhAD4NyPSCRlKl4xDQtjQxqNceEPvXn/ixUuAPWy4rr2gKzsNhwEYUNfGDjRC81bVL6o3Ihs0BPei/KeHNP6is4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1736300996;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=hIgidbHmUnJODbaXHkDMjlG5IKIvy0h27UD0lVOMdgw=;
+	b=OtejgH7f/rR+BIMja+ankEmI2T8qnABmC2pcTWW1jteuNhEtTb/VyPZlrJbBvv0b
+	aGVe0/g36P0HW8RJoJuMvo08P8dBsUsbCpemAo0c53L//kp9uaUUwKhzhZlEq2idt1i
+	U1PBh5WKOsKPu/9JaBeO5QPfziyZEWBTHEzvsg+c=
+Message-ID: <0b451cc7-c6b7-4246-bc6e-16c409cba882@apertussolutions.com>
+Date: Tue, 7 Jan 2025 20:49:53 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [for-4.20][PATCH 1/3] xen/flask: Wire up XEN_DOMCTL_vuart_op
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>, oleksii.kurochko@gmail.com
+References: <20250107092719.26401-1-michal.orzel@amd.com>
+ <20250107092719.26401-2-michal.orzel@amd.com>
+Content-Language: en-US
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <20250107092719.26401-2-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Tue, 7 Jan 2025, Jan Beulich wrote:
-> On 07.01.2025 10:10, Alessandro Zucchelli wrote:
-> > --- a/docs/misra/deviations.rst
-> > +++ b/docs/misra/deviations.rst
-> > @@ -353,6 +353,13 @@ Deviations related to MISRA C:2012 Rules:
-> >         Fixing this violation would require to increase code complexity and lower readability.
-> >       - Tagged as `safe` for ECLAIR.
-> >  
-> > +   * - R11.8
-> > +     - Violations caused by function __hvm_copy occour when a const void attribute is passed,
-> > +       as the const qualifier is stripped. However, in such cases, the function ensures
-> > +       that it does not modify the attribute, therefore, this use is deemed safe.
-> > +       Fixing this violation would require to increase code complexity and lower readability.
-> > +     - Tagged as `safe` for ECLAIR.
+On 1/7/25 04:27, Michal Orzel wrote:
+> Addition of FLASK permission for this hypercall was overlooked in the
+> original patch. Fix it. The only VUART operation is initialization that
+> can occur only during domain creation.
 > 
-> Do you really mean "attribute" in both places the word is used? In the
-> first case talk appears to be of a function argument / parameter, while
-> in the second case it looks to be the buffer referenced be the
-> argument / parameter which is meant.
+> Fixes: 86039f2e8c20 ("xen/arm: vpl011: Add a new domctl API to initialize vpl011")
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Yes I can see what Jan is saying. What about:
-
-Violations caused by function __hvm_copy occur when a const void
-argument is passed, as the const qualifier is stripped. However, in such
-cases, the function ensures that it does not modify the buffer
-referenced by the argument, therefore, this use is deemed safe. Fixing
-this violation would require to increase code complexity and lower
-readability.
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
 
