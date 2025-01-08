@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E20ECA054D7
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:56:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866934.1278317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA38A054E1
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:58:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866941.1278326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQuk-00011t-Kl; Wed, 08 Jan 2025 07:55:42 +0000
+	id 1tVQwb-0001b7-Vo; Wed, 08 Jan 2025 07:57:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866934.1278317; Wed, 08 Jan 2025 07:55:42 +0000
+Received: by outflank-mailman (output) from mailman id 866941.1278326; Wed, 08 Jan 2025 07:57:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQuk-00010N-Hv; Wed, 08 Jan 2025 07:55:42 +0000
-Received: by outflank-mailman (input) for mailman id 866934;
- Wed, 08 Jan 2025 07:55:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tVQwb-0001Yg-TC; Wed, 08 Jan 2025 07:57:37 +0000
+Received: by outflank-mailman (input) for mailman id 866941;
+ Wed, 08 Jan 2025 07:57:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2h7L=UA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tVQui-00010H-Ov
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:55:40 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f34ff225-cd95-11ef-99a4-01e77a169b0f;
- Wed, 08 Jan 2025 08:55:38 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-aa69107179cso2735273566b.0
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 23:55:38 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0efe3958sm2448030666b.96.2025.01.07.23.55.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2025 23:55:37 -0800 (PST)
+ <SRS0=kklb=UA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tVQwa-0001Ya-Eo
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:57:36 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20614.outbound.protection.outlook.com
+ [2a01:111:f403:200a::614])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 37baebbf-cd96-11ef-a0df-8be0dac302b0;
+ Wed, 08 Jan 2025 08:57:35 +0100 (CET)
+Received: from SJ0PR05CA0122.namprd05.prod.outlook.com (2603:10b6:a03:33d::7)
+ by LV3PR12MB9412.namprd12.prod.outlook.com (2603:10b6:408:211::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.10; Wed, 8 Jan
+ 2025 07:57:30 +0000
+Received: from SJ1PEPF00002310.namprd03.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::b6) by SJ0PR05CA0122.outlook.office365.com
+ (2603:10b6:a03:33d::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.17 via Frontend Transport; Wed,
+ 8 Jan 2025 07:57:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002310.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8335.7 via Frontend Transport; Wed, 8 Jan 2025 07:57:29 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 8 Jan
+ 2025 01:57:28 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 8 Jan
+ 2025 01:57:28 -0600
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Wed, 8 Jan 2025 01:57:26 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,160 +63,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f34ff225-cd95-11ef-99a4-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736322938; x=1736927738; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=15/fxpnRPGsuKaRUiaA9l+EFhd190Bo2vicC3mODEfM=;
-        b=Tq39DrDtZuP/ppmjHPD5494LfxD0BK7okNH/qXy0L889hfEi6LpbtDr4TvYnakEeiW
-         lASHofQmU/DegbD7JKdTfMVwJa9jssW3UqWcMYBlCuvk8ENJyYSwhTzutgQ7Jsc+fQRc
-         8AIzx0f71uIJIEdxVSsjXwROm8z59wRQhu3CY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736322938; x=1736927738;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=15/fxpnRPGsuKaRUiaA9l+EFhd190Bo2vicC3mODEfM=;
-        b=B/z+y7xUKl78/Y8mnLCFSOr/Us+WKL5SrHBxGuYCM9Gz4bi72h2lOdf6p62HnmEpIW
-         VlxKXJYuRiTPfAqr6HHtum/4U4cwZGtnHEt4RgctE2ttftaZOGy1m1QcW3jCSPJ4zBzP
-         KWgObvZle1Ras0JGL7qiIZtaq9DLxchuZ0tRCYob/vDW2C6tPQHqP8UA4TquUJjSg2uG
-         cmhOLw3iW/xkQjYlSndSv5XW+lFxMAB24EI6bQGgyBlKTSylwwUxhvcRiS7hSZ4E9Xi+
-         6U35yF+DpejkNL7ihl8cfRh6PrBUHHWFldgPL7zvBbP5rSiGeKiTaLJTe93xMWiyslUK
-         sfOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWL+6qySEJj6oBJCT/YhSibIkXGBmp9O+MTfVit/jAC7oEWCkbNzQFMLe+giuo9y6C5/GFuliii2ko=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yztr2kq9Ag+IJBMuVMZtG322GPdYI+N4Ra9FCy/vdQHCwmRgWun
-	eiw81CxjbqRbmW1Mkrz9XUr1+FGeWCLmfiH4IjmE5gywdXtnoUSUBzJ1LRI1UOyxDewlY+SPR+B
-	G
-X-Gm-Gg: ASbGncunvyMNH6ge4QODfKl57AIWcUbKMxGOkT1MvnJZCSe35zszye8ixxlkj/0v/5W
-	0az21WyfXrChljVccBAM+vKEsD9FeYw6RKb5sjgo8eOgcKPc2u7GCwnzjJEERH/AVmkw5zDuQUw
-	pgbcqfWFMq2Nd5tISTFqilOG9l7DdG9R/CvCeyMy4WL1PCvP5FEBXiu2FkkPKh4ZGJm/tZxbuSo
-	LIqCUrXCCbSvfAhb7AuA4KdqXZLfDlTJouvP0PjhMOCydyPKTW6DwtCdFYvZ9dWx6c=
-X-Google-Smtp-Source: AGHT+IGx4YHCvLunMDLeCrMT+UUY+9lmsa77uLKyoQSx7UXn6wApZBuMpbpS2TnupdoI6VC19Rjl2A==
-X-Received: by 2002:a17:906:c106:b0:aa5:b1b9:5d6a with SMTP id a640c23a62f3a-ab2abc91217mr132216066b.54.1736322938301;
-        Tue, 07 Jan 2025 23:55:38 -0800 (PST)
-Date: Wed, 8 Jan 2025 08:55:36 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4] vpci: Add resizable bar support
-Message-ID: <Z34veAxGFCg25Zrb@macbook.local>
-References: <20241219052143.3161332-1-Jiqian.Chen@amd.com>
- <d904c816-da83-418a-9bff-9988660af546@suse.com>
- <Z308fGa1daaM62Rf@macbook.local>
- <fb1b00fe-5740-4c0e-81d9-ec9fd9a4a1c3@suse.com>
- <Z31wFjWadOkzTDK3@macbook.local>
- <d5e37e59-2a05-4184-9b1e-ca0bf77f201c@suse.com>
+X-Inumbo-ID: 37baebbf-cd96-11ef-a0df-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uKbHv1urItayJlibtDVWyRpC1PQ9xokreZEwIBPdO5WPkoXLlGJfwlYmnpntwUjfZhLbstI66QnVxoJIViD85A1/MlbwjT8fOj/E+6ZJyEB/++L+5gbYG0s1bkuQBqiLSem9vaBG/mHeDt2gd1aGgRZ2gxBFnxvL5KADxsoV2AOmTg7uqI9hSo/MOzbfhhsQ2DQ1b/QQNA/NEwqqGqhElxQljXqkA7m9pb4U+4JWOZwSGp0W9yjjkLqfz5bg/MiGbXv9zi/W7hse/zFS2WVIyp7tORrTzRj1/1Y3Yq6IkJnJfrUpRr8SVYhnO0yjruz6x6BvpN1VsR15nC9+5pP+aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AMBfchd/5Our57Z312dT0WCT9dM6EG4jVn22t+Qcvs4=;
+ b=PtgSX83qI0bx/gyGfXmC7+LucDQ75v/RRFjjYY7tq6gc3RNguyMYry1Wn3hm8JxMUft8L/XZ3JmSTeRnejezuulg//w0iWRpRXRtdCNXJ1lcjV2U3ypuQHyWHi0RFAVCP7qfyVAUNU2iaYOdNyPCcD5kxhMiTmqVZN/CIR3QTOQQ3hFIEYgCAbs+1GXEOIzHP7A3emjZCLNSKVNb8hm8bTIeaZ4zLIl19PyFPC8m2n1jseJEd0mmFvug+I0A+YQv7bC3kt6/aPVYbRj22owvWi61iDou9AWEYNSBXPMAY9yYRXIrYJz6kd+7LSHUiWjb8nDrRpKJHiMi7TZheCkd3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AMBfchd/5Our57Z312dT0WCT9dM6EG4jVn22t+Qcvs4=;
+ b=h+bT2lMQ3PP6VAuVGAcb42ugAH+x5RCpfvFyoeJ3tjb+ez2XAoBiVsWJoWw9vWVxLM4RxJNHE5QozDx3GDl/0W8FcwnFqOukCnXcajXN+YH0IDAYFjk7u0seNLR4Z2PRcqyeqqO934wNBFF8RhL/d5HeDDyGh5dElDfatKCJeQw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	<oleksii.kurochko@gmail.com>
+Subject: [for-4.20][PATCH] xen/arm64: Drop relocate_and_switch_ttbr() stub
+Date: Wed, 8 Jan 2025 08:57:19 +0100
+Message-ID: <20250108075719.84967-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d5e37e59-2a05-4184-9b1e-ca0bf77f201c@suse.com>
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002310:EE_|LV3PR12MB9412:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2377795a-3724-4356-2404-08dd2fba197d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?YBRyyQy7OMUJRld289fZgAfWVq5hY24gz9WUTtKNu3f2NDd5SuusYcG5LDTo?=
+ =?us-ascii?Q?kuiSYomzYCSiylLAMqSq3liTSo25/3SYDqM1pkOWOVAawCp9zcS0H4EGDb70?=
+ =?us-ascii?Q?s2O/IssyVtkpJ1fsaFzh0s74CUKbTU/od7t1AWKMrs23PPivxpiMilInUAIm?=
+ =?us-ascii?Q?cxM9jIdQzo2xf44QrurFh9b1ZyPopB0CGLDX6kQDbr4pnQS0XIdMdDgMO+1y?=
+ =?us-ascii?Q?ahf58paNtj35y+C3w4S/qo0Y2g6WndYznnWpDOcLFzJqiQlwGNImPxCqs6UK?=
+ =?us-ascii?Q?j3o6wL02sWx16r29bI3rWCbAIE57vE5PAv6LOLtVPkqaVOWDhWaQVWXO+fos?=
+ =?us-ascii?Q?d2LeTI2oaKDXmPuniKtmv46xf3/RGxrRkMTuhXm57vxbzCnTaxyLbDUdsE3k?=
+ =?us-ascii?Q?Dc1qZ2yCSALiSsv5G/BGNKql6IaW9iLXV04ujJQN+GmdhKDioDHXqiM6zGbh?=
+ =?us-ascii?Q?BFsvUCMi4pE2+rq3A+eEoYiUV36DdzyPYsEUNQBHtwhi4ByWsH0KQ9AAiPzj?=
+ =?us-ascii?Q?nkaEcPGc3v4Y83qNRLlxyCAhEBY1jN2ZohU01JwiTT4flQltpHE63JDFjDns?=
+ =?us-ascii?Q?fzurBfgvWwtsGvb6r80qk/tNZOM3njmgbVw2U2WEVX0qoclT7eCon/Q7Z6G8?=
+ =?us-ascii?Q?ImsbH9zeV4FZ2sOauFp8w/Vh/vwd30y21lrsQNdOgO700eoa51QOn37cb/lU?=
+ =?us-ascii?Q?ZqAVOr0HRLancL+ejLqpd1rOPtvRIIKLHjLQbr/fLlrt0roUj5kts2ZzjcMd?=
+ =?us-ascii?Q?laTwWK/nJZtBYqhWPufh8fQP7WDRg4zcWaj0FTQagRZbpZ3ALS0XJ7vksjgC?=
+ =?us-ascii?Q?x9DukFw9G2HfCOEUz2qWoXvnyJdkZhT4Df3O5n4mxBMoHf2MaW2mijFlFhKe?=
+ =?us-ascii?Q?NH8SD5RDPh1Z3eGKUWlQYV4NHeU0WBkiEBil0frbVixem8th5kfi55TZnZSl?=
+ =?us-ascii?Q?XUzcPW8d1rOnsrjCgah/i9FZfXXKfJk9dYDe0iKHXSm2t3oqyTCGG2cpQbTD?=
+ =?us-ascii?Q?2AEz7qsspMTO78bR/x+IMAMXPeDNt6HLRJDo32H9FnUxHxbzzFZV//2cEuzS?=
+ =?us-ascii?Q?hWfNOpMtamAucUrXXPym893vVKOlnm3q8vjY+vgBnh4nwuiMkQw0MrwRtn+b?=
+ =?us-ascii?Q?iWesSrt/qvpskavY3CzmnWSxEVeNNjX067U7tvmxu1xCoEifBBE1//QoBDrI?=
+ =?us-ascii?Q?FH3KDUJoab9vPzkqVaDJ7yEDg/SIQr0KwP9BumRKt8P9wp/7uFBR+QpYvAii?=
+ =?us-ascii?Q?lw78PZ+xvQ9bon2z0S/6HWdni5wFHOY5v9c/S1PSxZ8p7P/Z0GTeUyPJhfaC?=
+ =?us-ascii?Q?735tngrZ2/P+RZBW/qThA+NMFfYd1mx1WQlMYU794i3VxSPknXSia9DRyrB8?=
+ =?us-ascii?Q?czvXWZE8tHbX8QRq9Vn8WlCU6oZd97aPPrKWEuiYinwf8EGqDkoFbsIeJ4l0?=
+ =?us-ascii?Q?qTVS7p+u/BhZL/MExNvaEti+zfabIkPLZC8+aPCUFSRzGDFj6E2Gb5lek5fX?=
+ =?us-ascii?Q?vcRWihBwUA5hmB0=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2025 07:57:29.2970
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2377795a-3724-4356-2404-08dd2fba197d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002310.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9412
 
-On Wed, Jan 08, 2025 at 08:19:55AM +0100, Jan Beulich wrote:
-> On 07.01.2025 19:19, Roger Pau Monné wrote:
-> > On Tue, Jan 07, 2025 at 04:58:07PM +0100, Jan Beulich wrote:
-> >> On 07.01.2025 15:38, Roger Pau Monné wrote:
-> >>> On Tue, Jan 07, 2025 at 11:06:33AM +0100, Jan Beulich wrote:
-> >>>> On 19.12.2024 06:21, Jiqian Chen wrote:
-> >>>>> --- /dev/null
-> >>>>> +++ b/xen/drivers/vpci/rebar.c
-> >>>>> @@ -0,0 +1,131 @@
-> >>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
-> >>>>> +/*
-> >>>>> + * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
-> >>>>> + *
-> >>>>> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
-> >>>>> + */
-> >>>>> +
-> >>>>> +#include <xen/sched.h>
-> >>>>> +#include <xen/vpci.h>
-> >>>>> +
-> >>>>> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
-> >>>>> +                                      unsigned int reg,
-> >>>>> +                                      uint32_t val,
-> >>>>> +                                      void *data)
-> >>>>> +{
-> >>>>> +    struct vpci_bar *bar = data;
-> >>>>> +    uint64_t size = PCI_REBAR_CTRL_SIZE(val);
-> >>>>> +
-> >>>>> +    if ( bar->enabled )
-> >>>>> +    {
-> >>>>> +        /*
-> >>>>> +         * Refuse to resize a BAR while memory decoding is enabled, as
-> >>>>> +         * otherwise the size of the mapped region in the p2m would become
-> >>>>> +         * stale with the newly set BAR size, and the position of the BAR
-> >>>>> +         * would be reset to undefined.  Note the PCIe specification also
-> >>>>> +         * forbids resizing a BAR with memory decoding enabled.
-> >>>>> +         */
-> >>>>> +        if ( size != bar->size )
-> >>>>> +            gprintk(XENLOG_ERR,
-> >>>>> +                    "%pp: refuse to resize BAR with memory decoding enabled\n",
-> >>>>> +                    &pdev->sbdf);
-> >>>>> +        return;
-> >>>>> +    }
-> >>>>> +
-> >>>>> +    if ( !((size >> PCI_REBAR_SIZE_BIAS) & bar->resizable_sizes) )
-> >>>>> +        gprintk(XENLOG_WARNING,
-> >>>>> +                "%pp: new size %#lx is not supported by hardware\n",
-> >>>>> +                &pdev->sbdf, size);
-> >>>>> +
-> >>>>> +    bar->size = size;
-> >>>>
-> >>>> Shouldn't at least this be in an "else" to the if() above?
-> >>>
-> >>> I think this was already raised in a previous version - would be good
-> >>> to know how real hardware behaves when an invalid size is set.  Is the
-> >>> BAR register still reset?
-> >>
-> >> I'm pretty sure what happens is undefined. I'd expect though that the
-> >> BAR size then doesn't change. Which would require the above assignment
-> >> to not be unconditional.
-> > 
-> > Might be better to just re-size the BAR, like you suggested to fetch
-> > the BAR position from the register, instead of assuming 0.
-> 
-> FTAOD by "re-size" you mean re-obtain its size (seeing we're talking of
-> re-sizable BARs here)? As kind of confirmed ...
+In the original patch e7a80636f16e ("xen/arm: add cache coloring support
+for Xen image"), the stub was added under wrong assumption that DCE
+won't remove the function call if it's not static. This assumption is
+incorrect as we already rely on DCE for cases like this one. Therefore
+drop the stub, that otherwise would be a place potentially prone to
+errors in the future.
 
-Indeed, I meant to re-obtain the size (I can see that being
-confusing in this context, sorry).
+Suggested-by: Julien Grall <julien@xen.org>
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+As suggested by Julien, we should have it for 4.20. Leaving a stub like that
+without something like BUG_ON inside can potentially lead to problems in
+the future provided the function misuse slipped through the review process.
+---
+ xen/arch/arm/arm64/mmu/mm.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-> >>>>> --- a/xen/drivers/vpci/vpci.c
-> >>>>> +++ b/xen/drivers/vpci/vpci.c
-> >>>>> @@ -232,6 +232,12 @@ void cf_check vpci_hw_write16(
-> >>>>>      pci_conf_write16(pdev->sbdf, reg, val);
-> >>>>>  }
-> >>>>>  
-> >>>>> +void cf_check vpci_hw_write32(
-> >>>>> +    const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
-> >>>>> +{
-> >>>>> +    pci_conf_write32(pdev->sbdf, reg, val);
-> >>>>> +}
-> >>>>
-> >>>> This function is being added just to handle writing of a r/o register.
-> >>>> Can't you better re-use vpci_ignored_write()?
-> >>>
-> >>> But vpci_ignored_write() ignores the write, OTOH here the write is
-> >>> propagated to the hardware.
-> >>
-> >> Right, just for the hardware to drop it. I wouldn't have commented if
-> >> the function needed to do things like this already existed. Adding yet
-> >> another cf_check function just for this is what made me give the remark.
-> > 
-> > According to the spec yes, they will be ignored.  Yet for the hardware
-> > domain we try to avoid changing behavior from native as much as
-> > possible, hence propagating the write seems more appropriate.
-> 
-> Okay; you're the maintainer of this code anyway.
+diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
+index 26361c4fe4c0..c1efa1348aee 100644
+--- a/xen/arch/arm/arm64/mmu/mm.c
++++ b/xen/arch/arm/arm64/mmu/mm.c
+@@ -171,8 +171,6 @@ void __init relocate_and_switch_ttbr(uint64_t ttbr)
+      */
+     update_identity_mapping(false);
+ }
+-#else
+-void __init relocate_and_switch_ttbr(uint64_t ttbr) {}
+ #endif
+ 
+ void __init switch_ttbr(uint64_t ttbr)
+-- 
+2.25.1
 
-Thanks for all your input Jan, you might not be the maintainer but
-have certainly reviewed all vPCI code.
-
-Roger.
 
