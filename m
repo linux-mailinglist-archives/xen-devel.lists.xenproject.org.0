@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9FE5A05C3A
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 13:58:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867257.1278712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 337ABA05C57
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 14:09:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867265.1278720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVVdi-0006Re-2P; Wed, 08 Jan 2025 12:58:26 +0000
+	id 1tVVoM-0008NH-0G; Wed, 08 Jan 2025 13:09:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867257.1278712; Wed, 08 Jan 2025 12:58:26 +0000
+Received: by outflank-mailman (output) from mailman id 867265.1278720; Wed, 08 Jan 2025 13:09:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVVdh-0006OV-VH; Wed, 08 Jan 2025 12:58:25 +0000
-Received: by outflank-mailman (input) for mailman id 867257;
- Wed, 08 Jan 2025 12:58:23 +0000
+	id 1tVVoL-0008Lq-Tf; Wed, 08 Jan 2025 13:09:25 +0000
+Received: by outflank-mailman (input) for mailman id 867265;
+ Wed, 08 Jan 2025 13:09:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HByp=UA=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1tVVdf-0006OL-Gs
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 12:58:23 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20614.outbound.protection.outlook.com
- [2a01:111:f403:2613::614])
+ <SRS0=sbNq=UA=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
+ id 1tVVoK-0008Lh-Rc
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 13:09:24 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2062e.outbound.protection.outlook.com
+ [2a01:111:f403:2614::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d239e59-cdc0-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 13:58:21 +0100 (CET)
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- by PAWPR08MB9613.eurprd08.prod.outlook.com (2603:10a6:102:2e4::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.10; Wed, 8 Jan
- 2025 12:58:18 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a%4]) with mapi id 15.20.8335.011; Wed, 8 Jan 2025
- 12:58:16 +0000
+ id c7a782de-cdc1-11ef-a0df-8be0dac302b0;
+ Wed, 08 Jan 2025 14:09:23 +0100 (CET)
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ (2603:10a6:102:30d::12) by PA4PR03MB6895.eurprd03.prod.outlook.com
+ (2603:10a6:102:e7::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.11; Wed, 8 Jan
+ 2025 13:09:21 +0000
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971%5]) with mapi id 15.20.8314.015; Wed, 8 Jan 2025
+ 13:09:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,200 +47,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d239e59-cdc0-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: c7a782de-cdc1-11ef-a0df-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xhmUsOGrDisEeXyeSb375yDvnra2Ra9vezkXEk4kz85IPxUsU2sJ73yNxofflbWTIVf5QAqxRbFWz/uB30LgYwjn/WIBk3mp7Cfyxi1UazZKAK/5z+2XWkTWPG6vN7aUTiJhfAl7Q+gBEjvrzqxS3IIWFkHhEi4tWDgJpJA0R8E/UxmPtst5OK8lD1SRS0XhgHrDq3lfTxZ9K96eY39s05NpseRVCH1h//IkPsRIqulnB2ZIvAWhuAmHcV/8Fe/2+DdXL5JphPiOccMoYN6V2XA2AzZQ/YPxGkDVN3pp0cTDragzu8Ymtdrwv5JIguNo7yahbHESvLavdHbxj2e/nQ==
+ b=FKgdFlPBWHKBgce2TLf7XdWlFzGhcemWWXUzQw6JvGiCj0HBNZgTBtOofNA+r5QkazLB+YZ+xrT19ncAQ0sgV7A0x8f9nOd9O+T5IwsSxeROTYaPKAFebJreDhcg3ZtJoe9n6wQvcv8ovBD4SMu8TLTBAdzqYfiz5/fkq1l4PjXGH0i6F897lhEniltoGKdq+bFWXhS1TybZoQBKwi0PkzlGS0DVUdLWRthKYO6Wd7NsmwSEqeY0CCAtwpXcW8fWbOBhhZikTiJfVAC0DqOC64oFx6ZTvWfkbPV7nIuCE6jcApL6rM7fckUG6hewy7BWsaJNQQtbofNNkoKIhmFnqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Qj3dY96vrj9T/c4ZHoupqeofSh5WUv/P7+cweYoVtk=;
- b=JDL0QDC3iLkpgQBBwjKDWQL5tk5rdV5/tK8HpFPhsWujBULf9pCIVNX2uKOYBL0VJtpXHpD5DROY+VgZq7bkRbJ/LiPVzlw1a8L+ZdurCCu6D2N7sW4rAe43qwDh/VywblyqSC0k/KHXGrPouY7LWfQ5bEpiKeRu35cVIOVKJ5Pu0TCUgpo/ZMIMRgbjcwQm9XU8LVfJMZGbi5gAqz3LVAf/1E/7Ajcj/H0KNO5r/7g3xFzWDnc8AqR/gG/kj1xas1hLn1/k3mD5ce1mh7icX1myGnEh3COYTM7a+3hXQICoO/qIVHzQmYxKb62NM8mKVcRezkrCVLOUnAXJJKX24Q==
+ bh=hphcGeNQtQOWUxeiqUkslXz6ydJL35lNkX6oGygJz1E=;
+ b=QUR3vI25AWWUPU4no08fLnMXk9jc6/drLEC8GiKwZ4t2F5LUZ2HkIf5Z46lwudkej7tMqHFLGWwEmbuWNzWaj4jQVJxPUNclal/cCC4Oy8Dpi6lHRYaKeENtYnaLpEr8pB6kvesA0x9Y262fsc+OXLleeb+zsWTpHsQjw8qFXV2+0rt4D3q1xRMJfnF091oKDiALnpoHrh3bB5hAPJVu5phDfCRncpeNuGDF0desLNjsKNoXZEQBgWl7M0Ovifpbllp3PKdyJw5eJ1Z2+/M+T6vGYTepRQWpcJlcJ7bQn0BPiQoYCPv/qClIVQNrkwY8FTO2AIenhlnKxY40wOAS7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Qj3dY96vrj9T/c4ZHoupqeofSh5WUv/P7+cweYoVtk=;
- b=HlnpZJ/XKRPeQI4kzJ88P7oHHx/EAkClzmed8C+6jF/U6HmV+A1+2rJKi9FJ7Lx1GIp6CL7E8zVoy57yIksTPHrExNfKlT+k92yElQ4958KDbNd7X9sXevhp06xveX+yQ3WCa7eoWDlDuYIrv5ePJs07amee/xnazFeRT6COjNg=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Ayan Kumar Halder <ayankuma@amd.com>
-CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Michal
- Orzel <michal.orzel@amd.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Artem Mygaiev <artem_mygaiev@epam.com>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v3] docs: fusa: Add dom0less domain configuration
- requirements
-Thread-Topic: [PATCH v3] docs: fusa: Add dom0less domain configuration
- requirements
-Thread-Index: AQHbUgS4JJcMvJVd5kOG9/I5q9pAibMMoCqAgABUqACAAAEOgA==
-Date: Wed, 8 Jan 2025 12:58:16 +0000
-Message-ID: <FE2F5B8D-B4D6-4DD1-932F-2409C1D835BB@arm.com>
-References: <20241219105640.3294591-1-ayan.kumar.halder@amd.com>
- <7402DB1D-61F6-467C-89BD-6985A6817362@arm.com>
- <f377f3dd-c367-4ab9-bdd6-705aa5970cbb@amd.com>
-In-Reply-To: <f377f3dd-c367-4ab9-bdd6-705aa5970cbb@amd.com>
-Accept-Language: en-GB, en-US
+ bh=hphcGeNQtQOWUxeiqUkslXz6ydJL35lNkX6oGygJz1E=;
+ b=KuKoIQmA6+QeGA4dPLkOZqj/0hIjgHpuUOQl3EUPXYMhcXLkIxN/Tbipmj0E5GgyQv4dUp4iRL0RZG3kij7DYOS4tPz3yJkwWW5fDv7+J9B2yq3szOn+ao5eTs2GRoDCXQaWhMVLnt9FVXssA+DU0JxfVh93kUZxtVeo9Q0bQcS3uWtpQZFGT0RddpjIKJZUBu0vcLFL/q7UDWHHZnc1XrSJaTEkjDHFBWAZsXP5j6emkcikRwHYACsGCPUtes61BaL0ZiPn39UKeAYGD4xGgaHELscFO9QV2WmuoiPuUlN5IjiZX0k5SMD99ipIKlxEfkqPZJ+mEw/etIpU/AG9JA==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 0/2] Add support for Renesas R-Car Gen4
+Thread-Topic: [PATCH v2 0/2] Add support for Renesas R-Car Gen4
+Thread-Index: AQHbYc6IhXIawRtJ8UKmLGhtEwL49w==
+Date: Wed, 8 Jan 2025 13:09:21 +0000
+Message-ID: <cover.1736331828.git.mykyta_poturai@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.200.121)
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
+ header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR08MB6588:EE_|PAWPR08MB9613:EE_
-x-ms-office365-filtering-correlation-id: fccc32a2-ad8d-4995-a497-08dd2fe41e52
-x-checkrecipientrouted: true
-nodisclaimer: true
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|PA4PR03MB6895:EE_
+x-ms-office365-filtering-correlation-id: f9fd4a7b-920f-4b5a-401d-08dd2fe5aad2
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?NmMrZNL/+iJ7BoZiNInRZU679Qwcv1pvUXzhhl/n6pVMpveeh3TrmfozsGJE?=
- =?us-ascii?Q?PaVFanqHMBa0sMj90Wd6HqK1zJnQmdU2Ts81gBiZGVjGsK0vG5kT2DFgGG8t?=
- =?us-ascii?Q?dD+hWENNQU0aLn7CQ0KCdiOIHa4Do2QbmKiOrKogoA7uxrWXyvS09JZSBrQz?=
- =?us-ascii?Q?qK1bpTTGS82uW5Mq2MAloM+KIzT8yuP3d3cLx4X9eyzeCslyE0DBrUpvfYTS?=
- =?us-ascii?Q?k39VcY3A14ZkASlDxCIgDfca3u0olelrwVH98TzEw/uy8nOjDS7G66lZyj2m?=
- =?us-ascii?Q?fFUDBFIDaLSRHQfgVHHJ4LX6F658olyQsvseomfRdPGul0ves+w2aT+fxFT0?=
- =?us-ascii?Q?iKunn2zCrQRv0X9DEH+m9t5oLXJU+VMADTnO/Qhos/oNH9L5HiKnnE31aKzY?=
- =?us-ascii?Q?dx3eI8Jl54s3NELzIM+yxsBVEtb6sEWWsrAYvsWpZEiz720/XkOohebKmqhn?=
- =?us-ascii?Q?grvGjUW8tNKrKbg8dyLMCqS1Q/3CYyNKDhcFWLY6e3LcE5+uJv/QfN1gVP+4?=
- =?us-ascii?Q?i6VsEcq9fEzuGd4/3K5zzKWaRxsl9NSDwy31VzHEVOdqli0iV3+/AxpxBlwu?=
- =?us-ascii?Q?wH9DQEMruONJREgyDGrwiGsdcDOKSBuq+m8CjsPaYkmWlDI8W89m4TFmpK16?=
- =?us-ascii?Q?TRmG+HxWnpg8VHjlfKhDWhfHPfxQljuP2yZCoGIsr6EAIuC4thW4tCvtdbDe?=
- =?us-ascii?Q?bCDu5E3ytcqR1dIs3sMUukhIt/iWKmlICTyywrQRcRX7sXTPkIIRFzPcSMaG?=
- =?us-ascii?Q?4zNEwvYvyvqITxGGWfN5NzgmzoE230kJl12ZU0aMF2FZUc2ipHl1pHWlxZcn?=
- =?us-ascii?Q?VCa3q38VONCuABAXLsO7RfOP46N93rb26QR/FSrw4IvNNMcWJw7uwo1qG6r2?=
- =?us-ascii?Q?yAf3d5e+Ip/Uyd17+NpKSmsazSfsUHVNs1IoI65r3JY5pRTC4PwkoFgwLEJS?=
- =?us-ascii?Q?/qH3CVPuaiAixB/Q2/nH81sahCkKWbAg9X6H2itUfsZDgEQySEkJVA96ECFx?=
- =?us-ascii?Q?UpLxCsXHtbfXaOnCuLAQfoNkT0f4Scs+iwF2UPbMY52h5LaPtBjDSJ/IRPIM?=
- =?us-ascii?Q?4U+MZmtcr+yTd6dxk7bnD+7qUkzngm328gi/+o+yTlanWrci40TnCF60BmbD?=
- =?us-ascii?Q?lb7thSgsYETWpez9dxbIFRcwXmlS/8R1FVnqjHC7Mgpo7KNPGSAxIteLxcCh?=
- =?us-ascii?Q?TupROq5DOWGidZVy/2ZGXf74CNSHDaXzI9Jm0mwZLnk57q+p36jQYSb7vUil?=
- =?us-ascii?Q?bStcSZO5SV1JEaMFJNMfm/bj1FqNcy9F+hk7deVQfkhkjfxZ/FaJliopNsHg?=
- =?us-ascii?Q?3MZx8v98JL6HK6N7HTxxQWsFuRPVY1nFHzNi0iQUfZVAC6aWpBGDJHHtJPPe?=
- =?us-ascii?Q?rL3cJTCKFJ7l0KcBhGTP94qpr4mmhutKdejf81zaS8poaU/ux8rVdIfMxsBA?=
- =?us-ascii?Q?kFfsegkTx+YDfASJoJYswJa9BsgMn3j2?=
+ =?iso-8859-1?Q?ztZMi01JQcb47k/l86ZgTp+aAXiSJld4NYbablPojzivlDCKG6xrFC2zEC?=
+ =?iso-8859-1?Q?NbEilrMqCVOMjoJK+IFezbA2TFPp4z0AfFTvj1FceETpAC3EzEV1qI0Ipf?=
+ =?iso-8859-1?Q?h6jvl1vSL+jfEUykkCsgxXAqxEdpHSRDt2OW3MNo2VG1MwkRWdo61IZ0o5?=
+ =?iso-8859-1?Q?yVN0J7a5BPhQvrusuLPiJ/nGZg/Uwffv0K7dpPsKQJsOx2tLJZcf04JDiv?=
+ =?iso-8859-1?Q?SniW4axEWNZXX8kc9HC2YeDET1IcnI24OqV7y+LyRYBZNwTWxAFar3qwHt?=
+ =?iso-8859-1?Q?YWMe7IprUPa5VjVEisy/VdwTMlnYfQDW8QjRJFHfIX1+t9jYCt6qmT0/TC?=
+ =?iso-8859-1?Q?54NUQkYmHEZx6P35jlbrPwWhOmou0833wJOVXrm6qCBsZgIL2jlMJZK7x+?=
+ =?iso-8859-1?Q?rx2ivmiY35xZw30yu9B3AXR66vuQ49XtWa7oiZuqfIxJE5b2KjtVt+RLIn?=
+ =?iso-8859-1?Q?fMAX8xYtQwtIi8y8WhfX3/QnWsbx63y4eTNo/7JuIh+uxM/+sVBuhesAFv?=
+ =?iso-8859-1?Q?zHNBFlTPtVrVwE0QHkPY00X/byinH/VyS3jNEmifprLmJRMC7mn/pB5YxV?=
+ =?iso-8859-1?Q?Ps8JtVkrZRW3udUvN4lfCE6CHTLlyser2efvlXpylET/7NwfsEBfJNWBo5?=
+ =?iso-8859-1?Q?IBRsZkHAQxQuXMGfQ9K+aIVuGXxSSPGjBaZ23bdExgxfBCIxe6VLVRPCjT?=
+ =?iso-8859-1?Q?/6K6n2ALvuVP5P8qcsRN5WMZpZ/y1UdMkAVkLQOUX/mjDHjmHBFhilwSYU?=
+ =?iso-8859-1?Q?s6W1lamiB28BLRLcGU9VBHe3FP+BcgpwQ+Jom/g2ss17jE+4sSNyS0GfAu?=
+ =?iso-8859-1?Q?YpoEhMjOa/uC2ECQdclzQjWqFn1dRdXsrjMhuOeslGczDMqS3ij1FO7a3y?=
+ =?iso-8859-1?Q?EYmK42fWSKbFw6w4xQqAwj4XRJjzGdM0KwIxJM3AwbxfZoaRdFDFYPzBxb?=
+ =?iso-8859-1?Q?uB+SI/xYdOYaqwm7ymtkULypERSO1iVsBjRkZ+ayoycbGueZGVetEdgtE3?=
+ =?iso-8859-1?Q?8LHOLsuQOPYEHJjT5TW/qTIxuymHWbYDJJQEyYAugvl5tegFcwCib52Rbe?=
+ =?iso-8859-1?Q?sFrsLcYbztrLh9rpg1gr/HBOS12/rmDFeBEIFHSKrReW/p8QhmUvE6TjnN?=
+ =?iso-8859-1?Q?cadL6oE2Fv+h+pW62ttH4xs016hfJyoVHFxzSa9hb+UiNLH4SpX914/v2w?=
+ =?iso-8859-1?Q?wcWzLHAl3SRHvuQxXQSkbZzMN26hv+6DKtcl6DHltktQqBYoin3ZY+kSRz?=
+ =?iso-8859-1?Q?O19pOWjbQJDGDckHDX0DuJGx1qMnXYmKYHDfc25M7U5dF92g5hkVzqBz2/?=
+ =?iso-8859-1?Q?h5iY2ZR9dyKPFcrli62t8jWEeTRhV6jmOtLMeNn9oAZX2hGkf/Pd3ROlgo?=
+ =?iso-8859-1?Q?+Rfw/v+jk3n98f7ItMJts6Cwm5gw92DeUvchKvKJbqSQX4bHsfuuEeRPma?=
+ =?iso-8859-1?Q?Ku0/nnivoKeFvXTEuhdDvTym2jxlAEI384D29nosqmbLD/r+ePjh6USiIl?=
+ =?iso-8859-1?Q?cXTeShNi6y+rTIQCYmuj5d?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ms5kRY1WgiSa09XhMNqcvbCa7XHAy9rXGp7CGzbLSxyBPX/xCS9F/sGQZcR7?=
- =?us-ascii?Q?+kTBTXE0fuClBAjMPu39X3u4Df7BsKKJeQ2cMkOC2NUNy6cZGMP4U1H1Z4+w?=
- =?us-ascii?Q?DLEglCHJd4QEadfOiUhhzs1YiJobY9X6R+oO5iLxWvIrbpm98+CpT7sdFkXz?=
- =?us-ascii?Q?cxHMWi50nuEvtcEGE1z+Mlqn7KFnS2/BNv1VoI6X/bvejyVBXxlfAsjHuEIM?=
- =?us-ascii?Q?wDFUjig4vH1Zwc3vaxCV2s2CSBetbb4jzuuKV6dzmFrdt8AFmWLhMd854iWt?=
- =?us-ascii?Q?1iupnACG9lcK+kV4Tjpg7IoU8oxCU+CPlKOKqynbAiwO/P3bWtSYDZ/aRlUH?=
- =?us-ascii?Q?C8dt4XK9/bUJfSQih/J0V/Pla1kq1uM1b5Ap9Z3gyhMnjYv+yTRpbALmfmIU?=
- =?us-ascii?Q?XhY/AZA2ZN27LWJAs51gLtoa3b4GSjhd/wJyseLt2ulA3UlwJe2lueNcDfB1?=
- =?us-ascii?Q?4bSYMU7pUvDjOOSPw1g0D+dND2o4zyfAnTmH25px5jEzETfUH+b/xGCq1G+G?=
- =?us-ascii?Q?uhBCbnfMOX9XCtFm2KW5InW2nmSk/l9afSA6u6DjolPKK5eFl73GnoAHA7Er?=
- =?us-ascii?Q?n4UPlAU75G/i53bRpJQfwMOR8dR9r1I5ZxZrlYTM/GXjVVkV1iZLa5FvT33s?=
- =?us-ascii?Q?zlj4HB+kxDRe71RPJnEHJs0HuUWDqZ/0Z/6+RUzJ7wNvP1+UC6T1prNqEUzI?=
- =?us-ascii?Q?LxduBwji4vSmHEm9OMgOv5SEwPWQ4IognYGiTDDpEMIOhKBGkAuCnkjRjJ+B?=
- =?us-ascii?Q?WcIsCn98YJbi6c/4yx/dUBMc4wCs4cG+c8c61U7Y+WT4hyLHIp+flGFFPiZI?=
- =?us-ascii?Q?KBRVjKqBfdyUsqNWbDXP6fgAP3vdoT22j6PiN7fcrkiT4CW4esFSHPnaqubI?=
- =?us-ascii?Q?Ex/Ygfb1aLfkrHA4xKjBzAfgGytNU2HGjJNb7UO/W+Cv/lwZ1NWMNUfWk7oy?=
- =?us-ascii?Q?IGjDJi51KS4fzhVpoSHHC2w8i9IrS7g2wsy7ugr79TT9k3MhWjMMvpMy6Evy?=
- =?us-ascii?Q?ssjvLS06G+q5cTz5yhiwRLHQl15Lc9VKgkerEefD1QElvcP6kGxAeseTponM?=
- =?us-ascii?Q?cXRljrM238CUUqmdN4jyu0Y5+3fSGmaD8G081O2W/Qcb4lkT6ynogvdZnysV?=
- =?us-ascii?Q?BwggmhMx64NLKS6thAs8Yk8hhmA6SKXrriUQWFmZRGxRlMn8TVS7mv0cLddy?=
- =?us-ascii?Q?rFIjgH+/mToFjN2Dm5rhm2w2mPhpgIIhBxvQ+X6gNvBOu5W9U9Keyj9+tIrf?=
- =?us-ascii?Q?EL2xfNayEcIjzSMlvAS3YG3DSgo8UvUOT8SUgIlPiAMpPQr8tivaS2BmGyS3?=
- =?us-ascii?Q?yxPJoiugg/82pQFdAWyGAUke6kbkY3fZF+r07HsNodb4xSviJhaal6ybFdZ6?=
- =?us-ascii?Q?suzzexQO2mhIlrjmTDoHwMF9df5RwnQBi4cp+caAG6ftM61Ruv6xT05WJo7Q?=
- =?us-ascii?Q?uxM7rCxSL9eFAQ4HPcEJ7DZmL+mjQNIvtxgwgRd2DkmdLnMNzQpQniDgKwVR?=
- =?us-ascii?Q?LApTtA9NKT6nTs6BVjPYS1ffOGPKu04sGIYcCNWeHbwFRy6mGHn76UCMobnS?=
- =?us-ascii?Q?i0iIJtANV6Sx2UqTOp2wHCXXQ/a3Yc4sTcseOFV4/V85uz4NFP/SFRu7R77+?=
- =?us-ascii?Q?QA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <9C4BEDC85128354A8BF2489EDB2EBA72@eurprd08.prod.outlook.com>
+ =?iso-8859-1?Q?lsP4Ad/lAIDi0kyfwNUep7W6i3RaVnT2pUQm2lP2ZJOQGaMePNGcKmAERv?=
+ =?iso-8859-1?Q?00q2VTub97Im5k1J4wV3pd1PybPzhSv9CrMq+BkgzpU+265VF70aJyNnbg?=
+ =?iso-8859-1?Q?2WLujurJFhcQMOU1aXW/81m9myoim6MtxsJSD0C11OTDBSwtURNGR/nLyw?=
+ =?iso-8859-1?Q?5Zri5hit1/PuJWDdZlwQnM3DKSHLDmy8PATeqxxuN8uN5eiuIdcTZ5sAkq?=
+ =?iso-8859-1?Q?2NFvk2dTyfZjgkjB2DkHV2cdOx3ozTirx/0IKHGi7ufd7OdWrTDjkonZtK?=
+ =?iso-8859-1?Q?CM5OiLnGz6Y99zPwk3BEL5OxDwu9h9No6EHcThgeA1NRKVjiT9SURia7TF?=
+ =?iso-8859-1?Q?K7CkDeuCabOUf0keyDf3kHx2nQR7iGmZkD73gzZBFQWxHsH8MvBbJYIK/y?=
+ =?iso-8859-1?Q?a07XH2m0VdQ4QLDHXeU6N8SOE2icxpFJpWTXZeqWGH5g7LWzGi8K8ITr0t?=
+ =?iso-8859-1?Q?CAuPqySajT8uaLUciYtAavFP0s5i5LlHw+4r7UDlD57cOGm60DLi6mTvwp?=
+ =?iso-8859-1?Q?qUQzkx21+6JaZ9Meee07KQzsRtdQxkevb5baHa3/jDKJVI9rU443u6EKwm?=
+ =?iso-8859-1?Q?I+0/mUT1iM5aQKOlrrRz9bCssYa8ZbUNe1nmZEro2bc53rni6ru6+U3iZb?=
+ =?iso-8859-1?Q?EQXEAKFLKCpoCQjG3zAXCwX9xT3GK6EU2xmknMynadAMEYR8Q3+D5FymW4?=
+ =?iso-8859-1?Q?IUs2HJCt0urPI5XdvFsQzB28yeGtP+O/sN9xgEEBd9+JaXbRkX/1G7K7KJ?=
+ =?iso-8859-1?Q?F1cGHvbzywU4+8T/bqhU0YLOHaAwt/F23CLlV3Hc1N7rwMJgIkVHB8GuvL?=
+ =?iso-8859-1?Q?95qJ8hWY+mRQBbPa4ncxb6pfYFcTO/jBRc3noaR9omFMk5JQ2QrjIL0mAl?=
+ =?iso-8859-1?Q?gmb5yhsqt89kmlw7hl5VBteXcA/uy29Tngtb/ir5EEsd1/KUlK6d3ZAHn8?=
+ =?iso-8859-1?Q?/X3OFAeLcI3G7VHN9JE9qCzOVrT5eNXDj72OYfjp0JDYDUpBoHZ/K9xi3w?=
+ =?iso-8859-1?Q?xUu5KKtl7xblVrDZmGXNg5Dh+BHa/XfMoFWbjlJhTLGyAYG6+yTZuBa8gh?=
+ =?iso-8859-1?Q?xgFKVNKBx90CpLZbMLwoYzwTHQWQUZs06U18x01VKfdQq9pngNaPCiwjCO?=
+ =?iso-8859-1?Q?EbM+Na3FIAHgo/5Jyzz6UhoGvuDljv6coAKeJN5wTH+jwntjGzp82sVYie?=
+ =?iso-8859-1?Q?g7ZyDMr7X+QoRTFIn376UKFFYTT1oiLUyQwJqK0ZmzAjZ1pEMk4nkXNkBh?=
+ =?iso-8859-1?Q?rH/3ZH7rw5Rh6cCICB6nbp0KK8GJa3sXHKufRPagaP6Wh3duZcWHQadECs?=
+ =?iso-8859-1?Q?TR81B3TdFdJw1aavQkwwKvPO1AHTJEJ3iIIV4lf9ZBEBXBe6txPDPyAjmE?=
+ =?iso-8859-1?Q?udJXVjf5CD6+7A2tOEkJTD8y9Ym5V8whN1EJAXoppVu/BHbv7H65Y2g6Yu?=
+ =?iso-8859-1?Q?fgCUalK6WknwEdbTbmBC9FcsoE6PfVOqvoTBILnhEeJJ1cPUXYnz+3jjlO?=
+ =?iso-8859-1?Q?dUYWOJwYqP0ha0sAkVq32pTJzRIM1ciVCsr8qsbleWxgHyykLjZzbor1wb?=
+ =?iso-8859-1?Q?FcmP5Evt1a7Dwa1Q4dnCh09amnRRvH89peefGzB5AEjXllZIvKsE8D6Usc?=
+ =?iso-8859-1?Q?lTYNah+R+08g9E04uKD8cbVW7ugoINPRKLQW6ajFV8L3+IVklZn1rSfw?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6588.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fccc32a2-ad8d-4995-a497-08dd2fe41e52
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2025 12:58:16.3935
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9fd4a7b-920f-4b5a-401d-08dd2fe5aad2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2025 13:09:21.6092
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mqmQGDXGfxvREa3zGdfYnbaT3VHdL7u1HK54u922MeostsOfDesYK/0YCeWIEhcs3lDMsZA/y+bMbmePgHlIFdm87+E2FZ306gf4/GDS8GE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9613
+X-MS-Exchange-CrossTenant-userprincipalname: tFdInGf24KyTKCYWF7v6MGCShl2C6tldmrzFrHrove2dgeb+Vw/srh4aoPzgjuqMV/WiZOg6+SJytF9UHHrTkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB6895
 
-Hi Ayan,
+Add support for Renesas Gen4 boards such as S4[1] and V4H[2] by adding the
+appropriate confing option, and support for the Gen4 ITS.
+Tested on Renesas R-Car V4H board.
 
-> On 8 Jan 2025, at 13:54, Ayan Kumar Halder <ayankuma@amd.com> wrote:
->=20
->=20
-> On 08/01/2025 07:51, Bertrand Marquis wrote:
->> Hi Ayan,
->=20
-> Hi Bertrand,
->=20
-> I just need clarifications on the two points and then I can send v4.
->=20
-> < snip>
->=20
->>> +Domain Creation And Runtime
->>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
->>> +
->>> +Kernel command line arguments
->>> +-----------------------------
->>> +
->>> +`XenProd~kernel_cmd_line_args~1`
->>> +
->>> +Description:
->>> +Xen shall pass kernel command line arguments to a domain via a device =
-tree.
->> Would it make sense to say where the "command line" to pass is specified=
- ?
->=20
-> Yes, although I don't feel very strongly about it. Let me know if this so=
-unds ok :-
->=20
-> Xen shall pass kernel command line arguments to a domain via a device tre=
-e
-> using the property "/chosen/xen,xen-bootargs".
+[1]: https://www.renesas.com/en/products/automotive-products/automotive-sys=
+tem-chips-socs/r-car-s4-automotive-system-chip-soc-car-servercommunication-=
+gateway
+[2]: https://www.renesas.com/en/products/automotive-products/automotive-sys=
+tem-chips-socs/r-car-v4h-best-class-deep-learning-very-low-power-system-chi=
+p-automated-driving-level-2level-3
 
-In fact those can come from several places (xen command line in the case of
-dom0, device tree or guest config) so maybe not the simplest to specify it.
+Oleksandr Andrushchenko (2):
+  ARM: ITS: implement quirks and add support for Renesas Gen4 ITS
+  xen/arm: platform: Add support for R-Car Gen4
 
-Please ignore this comment.
+ xen/arch/arm/gic-v3-its.c             | 141 +++++++++++++++++++++++---
+ xen/arch/arm/gic-v3-lpi.c             |  20 ++--
+ xen/arch/arm/include/asm/gic_v3_its.h |   8 ++
+ xen/arch/arm/platforms/Kconfig        |  10 +-
+ 4 files changed, 159 insertions(+), 20 deletions(-)
 
->=20
-> < snip>
->=20
->>> +
->>> +vCPUs
->>> +-----
->>> +
->>> +`XenProd~vcpus~1`
->>> +
->>> +Description:
->>> +A domain shall have a configurable number of virtual CPUs (1 to XX).
->> XX should be replaced with "the maximum number specified at compilation
->>  in the configuration through CONFIG_MAX_CPUS" or something like that.
->=20
-> Actually we are talking about virtual CPUS whereas CONFIG_MAX_CPUS refer =
-to physical cpus.
->=20
-> So, it should be GUEST_MAX_VCPUS (which is hardcoded to 128 in xen/includ=
-e/public/arch-arm.h).
->=20
-> Thus, s/XX/128
-
-Right so you should say 128 here.
-
-Cheers
-Bertrand
-
->=20
-> I agree with your other comments.
->=20
-> - Ayan
->=20
->=20
-
+--=20
+2.34.1
 
