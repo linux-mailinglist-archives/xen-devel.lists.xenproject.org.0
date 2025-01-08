@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F03BA05B7C
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 13:24:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867225.1278671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8356BA05BA7
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 13:29:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867233.1278681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVV5w-0000Ls-Q8; Wed, 08 Jan 2025 12:23:32 +0000
+	id 1tVVBJ-00010V-CK; Wed, 08 Jan 2025 12:29:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867225.1278671; Wed, 08 Jan 2025 12:23:32 +0000
+Received: by outflank-mailman (output) from mailman id 867233.1278681; Wed, 08 Jan 2025 12:29:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVV5w-0000KU-MU; Wed, 08 Jan 2025 12:23:32 +0000
-Received: by outflank-mailman (input) for mailman id 867225;
- Wed, 08 Jan 2025 12:23:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVVBJ-0000y4-95; Wed, 08 Jan 2025 12:29:05 +0000
+Received: by outflank-mailman (input) for mailman id 867233;
+ Wed, 08 Jan 2025 12:29:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UrZA=UA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tVV5v-0000K3-N5
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 12:23:31 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e86ca36-cdbb-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 13:23:30 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-385e87b25f0so507047f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 04:23:30 -0800 (PST)
+ id 1tVVBH-0000xy-Un
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 12:29:03 +0000
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [2a00:1450:4864:20::342])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23c5f708-cdbc-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 13:29:02 +0100 (CET)
+Received: by mail-wm1-x342.google.com with SMTP id
+ 5b1f17b1804b1-4361b6f9faeso5073175e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 04:29:01 -0800 (PST)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c8a6e19sm52551601f8f.100.2025.01.08.04.23.28
+ 5b1f17b1804b1-436e2e89dfesm19241675e9.32.2025.01.08.04.28.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jan 2025 04:23:29 -0800 (PST)
+ Wed, 08 Jan 2025 04:28:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e86ca36-cdbb-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 23c5f708-cdbc-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736339009; x=1736943809; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1736339340; x=1736944140; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kK/jXtI+dJe56Qsa42MyiZmxNk7xm2jG5SaoTFrk4s0=;
-        b=g+YUD1yAb6hEVoW5Zfy6nYXWaLSNitRJGK+J9n+ViU3lG07hlf3RLB7S0BcaC3YvVL
-         xwQnb2eqJrg8OyDhJwaTt7eY8OtysZ4g0mvS8naqmYyg+bkSIFi3DvHR8/RR2PP9WaDY
-         0H4IUfhY/IomtP78cu2/ryumdumsZl9ckHI2g=
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5PxNIfQRmBZ6wb4IiRIM8vasBb8L45u3BgTYRBUPMNs=;
+        b=QEcG1WHBaRZQKfm3KJEzxVnHvKO3haauL1Q3eaOnSvjRa75f4mn6PvgiNl08qlVxi5
+         ma/6OL1ZGGmTQC282StHO9sAmGfdPmxL27uzg7IhyEp2xI2BeYHWOPma1UPQN8tWSf04
+         56FtTRYh9SkIa9lybHL2HNe9xSt+3HvG52GCw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736339009; x=1736943809;
+        d=1e100.net; s=20230601; t=1736339340; x=1736944140;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kK/jXtI+dJe56Qsa42MyiZmxNk7xm2jG5SaoTFrk4s0=;
-        b=amvoIquOM7T/0N19fQirB2GACN5XGPfjfkcxFWyg6WlBU3EFVSVDpUAUO5U9HQz7kv
-         A0PmQXJmM/JBggxzD238904LWf1ujppPXg6mILpeD7PcSjsi1abtX1755CR9kdpadv2q
-         0TI7bQOEMF83tublp/GMskcZY6k7VNxf0e3CBDFqGTzRLefsJB8DwDB2+ARbqC0nGg6X
-         D/Uj7cBxjMEPNTM6sKwZ2JOvNNNG+iE3br9/yYIg0CN/szdgpzuInBaUiQkDFRBIiut4
-         3AzAFNuwPKzYqm2hsFxkIhUUf7zFbY9Dp1voMJSzvihYUX8c+upOWtTDeOAhKBFKz709
-         e6aQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXIFm5jEIc53Tq49s04qCwpnTbj52z+k1iTCoWqTx0Ju3cavGcLuSR0kQ+ezzcfhUrSLEURDoJLrbk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPMTPocv4S9xlLtdAzdTGSzWw3OQkpj8nuKprAcZisI0NibNpx
-	bct/QqFO+oRhtWDI0A3R/dwmZEyRKs0RHz8sg9GQHtYz7SvrCORTOTYxXfUIjGc=
-X-Gm-Gg: ASbGnctfHMMNbIwXWnY7Yy8Fec/HaeozfClFMHJsyy6mrb7jBlEL7DqYDI06gwvVMvR
-	x9SPk467e90h787fkhevpT6IxjDXCIm4faJzzvz2P5EtMu9MXMKlvt2FlMzH/2gzOAVSMtJPzeE
-	3S6vdYO6KYVUuW0eumZg06NtzicSO6sNjqFZ/kxcBNg9PJ6dbgMOe5aOLF8R6qR/e+TVGMOIDE1
-	dCR40DA6IHOGCJQ9q0U0FbvNDneU3cS9/bzAOvZV5OnylHu5LBrEAKBU5VoSIG0rjyigrp8Ncg8
-	wRidY8man+mR5GDP960C
-X-Google-Smtp-Source: AGHT+IHsD7vWiO1k+NKZ9jB1PotOEbzLvSxqQh3NBC+XZRPwF3nhNpzQi7XrOH40DRKATuo8cE2kQQ==
-X-Received: by 2002:a05:6000:1446:b0:388:cacf:24b0 with SMTP id ffacd0b85a97d-38a791253dbmr5017895f8f.2.1736339009621;
-        Wed, 08 Jan 2025 04:23:29 -0800 (PST)
-Message-ID: <00662cf8-7bff-4963-8b52-5df2e6a75132@citrix.com>
-Date: Wed, 8 Jan 2025 12:23:28 +0000
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5PxNIfQRmBZ6wb4IiRIM8vasBb8L45u3BgTYRBUPMNs=;
+        b=aMbkde0TUS/B8KWLiHJpk3deWyYMRS6Df/Ce5UOIwIzQh2Gf92WzIcQbR7voZ6auQi
+         FybZye7zlCUz9OtqWsLAYfvnTzY/9inBHVaGYd6YT/e5qc+7Wxw6VUplwWntE/2L1NTK
+         HppZcEGpsvZ9OWbCUZaMxd5hM/72jNDDlWN7jIvIWpBYMj9Gegg+ZzjObcKDz8kJkA65
+         LLUE15sE2YqSOkIy8xl8hhTHUlznGmL5/swVt4aeEQSRW0wOz9/ENQ/0Kv7s5oHas/LT
+         GYEY6nMEIMolY8gGpLp2oBki8yKe3oZtBWSYWyvfLVQqMaGLNyyAby2fr1W+wlTsKDs/
+         CT+w==
+X-Forwarded-Encrypted: i=1; AJvYcCXN1eBNb25tioNoZ/6MAfT1zczQ7eV1thHhC8o/6rRMhuSdcZv11wVN0t1Ti66Mxlhfw2C031z8QBg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwjAzjgsMGqPK8MS+gEpMuFoP0IeF7CTqa747Kl5fflRk3ra6kM
+	pEpBysyeWEaUxbB6L5HXC31cHPFsuzYKzc5JEDKbNLgroNK0a2DDv6C/JEuBXGvhCduEA/BzxFB
+	cL2xvEMV/
+X-Gm-Gg: ASbGncvVD/xf38C5k5OFBaZkgoYZ4H/8s/QHRCfej2rxRE4HJ8kWQPXiLToM+I8jKMq
+	m38mzQ/SIwQA2gZERCwUXIdwL1UjS0/3dXttBz+MU8koTQGy7el/R2YygHOVBAW83qKIii4Oc2t
+	kDTmNRN0PL2jrR1TWdMdG4g9WYjZBtifw/Ir/cGnZ4Ujyfw75dZNvW4jSWbjZRCoCr3ofz6gpoa
+	PHMDEQkVFTcAYjhFm6lQ26yihncTKebkzuSiQgd7JykyuxgiNqKqbOiMUuVZxn/idfSm+gQ1qJt
+	Y6Ps1ctMBRSAIxDhG/4v
+X-Google-Smtp-Source: AGHT+IF6zkPCvXxzP7t94XGH8eF75liMG9LwnzDo96esU2GxiWQpyBBitNrQB5vdBWH2/lZCl8lsWg==
+X-Received: by 2002:a05:600c:3b85:b0:434:fddf:5c06 with SMTP id 5b1f17b1804b1-436e1dcac5fmr23360885e9.1.1736339340361;
+        Wed, 08 Jan 2025 04:29:00 -0800 (PST)
+Message-ID: <ec27ede3-b911-4495-aabb-fee8399055ce@citrix.com>
+Date: Wed, 8 Jan 2025 12:28:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] x86: Add Support for Paging-Write Feature
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Petr_Bene=C5=A1?=
- <w1benny@gmail.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1735837806.git.w1benny@gmail.com>
- <31a1ff2d5d1e17bb73231e008f1e47c501bb3ce8.1735837806.git.w1benny@gmail.com>
- <d6eb70a7-5895-4471-95b3-609f133fa457@suse.com>
- <CAKBKdXjJm5194Wa=gy=DikiUEsevrB2Xn-idr+vgfgJMBrfZ-w@mail.gmail.com>
- <b182555c-555e-4efc-94a0-5f383f7d8689@suse.com>
+Subject: Re: Bug: Hyperlinks in generated documentation may point to the wrong
+ architecture
+To: Maximilian Engelhardt <maxi@daemonizer.de>, xen-devel@lists.xenproject.org
+References: <2293976.iZASKD2KPV@localhost>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -146,30 +133,84 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b182555c-555e-4efc-94a0-5f383f7d8689@suse.com>
+In-Reply-To: <2293976.iZASKD2KPV@localhost>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 08/01/2025 7:16 am, Jan Beulich wrote:
-> On 07.01.2025 18:18, Petr Beneš wrote:
->> On Tue, Jan 7, 2025 at 5:46 PM Jan Beulich <jbeulich@suse.com> wrote:
->>> Hmm ... Instead of you touching the bit in every one of the case blocks,
->>> I was expecting you to clear the bit ahead of the switch(), accepting a
->>> double update in the p2m_access_r_pw case.
->> I did consider it, but ultimately didn't like the double-update.
->> Similarly, the switch-case above does also set each bit in the
->> "case-s" individually. But I understand it's more justified there.
-> Right - it's setting them to all different combinations each time.
+On 30/12/2024 8:56 pm, Maximilian Engelhardt wrote:
+> Hello,
 >
->> However, if you insist, I'll fix it.
-> Please do; it helps readability quite a bit in this case, imo.
+> during working on packaging Xen in Debian I noticed the documentation becomes 
+> non-reproducible as hyperlinks may point to the wrong architecture.
+>
+> Here an example as diff showing the problem:
+>
+> /usr/share/doc/xen/html/hypercall/arm/include,public,arch-arm.h.html
+> @@ -313,15 +313,15 @@
+>      uint64_t sctlr;
+>      uint64_t ttbcr, ttbr0, ttbr1;
+>  };
+>  typedef <a href="include,public,arch-arm.h.html#Struct_vcpu_guest_context">struct vcpu_guest_context</a> <a  name="Typedef_vcpu_guest_context_t"><strong>vcpu_guest_context_t</strong></a>;
+>  DEFINE_XEN_GUEST_HANDLE(<a href="include,public,arch-arm.h.html#Struct_vcpu_guest_context">vcpu_guest_context_t</a>);
+>  
+>  /*
+> - * <a href="include,public,arch-arm.h.html#Struct_xen_arch_domainconfig">struct xen_arch_domainconfig</a>'s ABI is covered by
+> + * <a href="include,public,arch-ppc.h.html#Struct_xen_arch_domainconfig">struct xen_arch_domainconfig</a>'s ABI is covered by
+>   * XEN_DOMCTL_INTERFACE_VERSION.
+>   */
+>  #define XEN_DOMCTL_CONFIG_GIC_NATIVE    0
+>  #define XEN_DOMCTL_CONFIG_GIC_V2        1
+>  #define XEN_DOMCTL_CONFIG_GIC_V3        2
+>  
+>  #define XEN_DOMCTL_CONFIG_TEE_NONE      0
+>
+>
+> As can be seen, the hyperlink in include,public,arch-arm.h.html points to 
+> include,public,arch-ppc.h.html while it should point to include,public,arch-
+> arm.h.html.
+> A similar problem can be found in many more places and files.
+>
+> Corresponding to the problem described above, while building the documentation 
+> many messages similar to the last lines below can be seen in the build log:
+>
+> /usr/bin/perl -w /build/reproducible-path/xen-4.19.1/docs/xen-headers -O html/hypercall/arm \
+>         -T 'arch-arm - Xen public headers' \
+>         -X arch-x86_32 -X arch-x86_64 \
+>         -X xen-x86_32 -X xen-x86_64 \
+>         -X arch-x86 \
+>         /build/reproducible-path/xen-4.19.1/docs/../xen include/public include/xen/errno.h
+> include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-arm.h:300
+> include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-ppc.h:85
+> include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-arm.h:300
+> include/public/arch-ppc.h:91: multiple definitions of Typedef vcpu_guest_core_regs_t: include/public/arch-ppc.h:85
+> include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-ppc.h:90
+> include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-arm.h:305
+> include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-ppc.h:90
+> include/public/arch-ppc.h:95: multiple definitions of Struct vcpu_guest_context: include/public/arch-arm.h:305
+> [...]
+>
+>
+> In Debian we worked around the problem for now by adding ppc and riscv to 
+> DOC_ARCHES in docs/Makefile as can be seen in [1]. This solves all the 
+> described problems and makes the build reproducible again. I assume another 
+> possible fix would be adding suitable ignore switches for ppc and riscv.
+>
+> I did not send this as a patch as I'm not sure what the preferred upstream 
+> solution to this problem is, but can formally submit our fix as a patch if 
+> that's desired.
+>
+> Thanks,
+> Maxi
+>
+> [1] https://salsa.debian.org/xen-team/debian-xen/-/commit/d852c48d0df5c6ceba42d20652d1f9a05ad8989e 
 
-I agree.
+This is a giant not-invented-here mess which needs filing in /dev/null.
 
-These "writes" are just bit operations on a single register.  The
-compiler is pretty good at rearranging such logic.
+The fact that you're the first to notice the incorrect linking (and only
+via reproducible-build tooling) shows how many people read these docs.
 
-Seeing as this is the only issue, I'm happy to fix on commit?
+I'm happy with that minimal fix, and it ought to be backported.  Please
+submit it formally.
 
 ~Andrew
 
