@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B29FA054D2
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:52:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.866924.1278307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E20ECA054D7
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 08:56:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.866934.1278317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQqn-0000Pm-1w; Wed, 08 Jan 2025 07:51:37 +0000
+	id 1tVQuk-00011t-Kl; Wed, 08 Jan 2025 07:55:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 866924.1278307; Wed, 08 Jan 2025 07:51:37 +0000
+Received: by outflank-mailman (output) from mailman id 866934.1278317; Wed, 08 Jan 2025 07:55:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVQqm-0000NR-V9; Wed, 08 Jan 2025 07:51:36 +0000
-Received: by outflank-mailman (input) for mailman id 866924;
- Wed, 08 Jan 2025 07:51:35 +0000
+	id 1tVQuk-00010N-Hv; Wed, 08 Jan 2025 07:55:42 +0000
+Received: by outflank-mailman (input) for mailman id 866934;
+ Wed, 08 Jan 2025 07:55:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HByp=UA=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1tVQql-0000NL-5F
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:51:35 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20627.outbound.protection.outlook.com
- [2a01:111:f403:2614::627])
+ <SRS0=2h7L=UA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tVQui-00010H-Ov
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 07:55:40 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 604855ab-cd95-11ef-99a4-01e77a169b0f;
- Wed, 08 Jan 2025 08:51:32 +0100 (CET)
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- by AS1PR08MB7452.eurprd08.prod.outlook.com (2603:10a6:20b:4dc::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.10; Wed, 8 Jan
- 2025 07:51:29 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
- ([fe80::a8fc:ea0d:baf1:23a%4]) with mapi id 15.20.8335.011; Wed, 8 Jan 2025
- 07:51:29 +0000
+ id f34ff225-cd95-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 08:55:38 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-aa69107179cso2735273566b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jan 2025 23:55:38 -0800 (PST)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aac0efe3958sm2448030666b.96.2025.01.07.23.55.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jan 2025 23:55:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,607 +44,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 604855ab-cd95-11ef-99a4-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SmRfwMrZI5ARI4BLkRwiXzKJExSFwGAG0Bv2L8Wa7+xfDPHayjPgWdNHj7OozELz2DeMqRmFqVajPWuZqAG2wx0QrfpEmG1lH6LXLOl48YN4TjRXOXIIqJwLYr5YesXSv77sU2HcWntT/qfd6k/vf/lN1Snn4PbGwHzSiGOBxL+4ShE8QR8trImI0K8HJwBgN//4Yzi92nKpAuoDUoRxhDvEBbAz82LEx1t/QV7vjwxxO1sRGQb8l9FOFFTgqVjH5abAJ7t47O6mC4MT7g+gKs4p0AV67/6BVnqkrMfayI1TFEwRMC1HChdDdonp4phg1BRTi2AQrJI4V+Ngz3QjrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MlXOjQrCby1QP/I8MWOWzF5fpShAa0rDjD9dQB5xkVs=;
- b=FsU88y19Hz52bGo++kjKjExgkGg30apbQAwjojSLllkf5jQK7t3Oa3oe+Tjf27hWWK0Pq/vy6vvBsO+1TBsQJJn7KOVAD/0cbIkMSjclGa80J6gxv7gUNQMXUo/Ul0ps5NHS74p8qJYmgSqpD55U6or95tSVGer+BQhyGPaW/e3zmRH0AlULHkhrzL8zV5O9zdYSQ9HDQacnE7euQmRJsj1Gl7+z+mV+08RM1qT3wPiZI+uu7cWjyoyS9X5hEqCCHlYF0Oi42ISA+Hqc9wWpVQ8DpBG75DlMIYPyXUzXMDjw/qubuK0hkm5fN/8PWhlxV1clQ70vYEWCZJOcQCuYyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MlXOjQrCby1QP/I8MWOWzF5fpShAa0rDjD9dQB5xkVs=;
- b=g1zdKaYdwda8IPcbD0LDgzi+M4oShyDpdceSdtWZWh7M6Wukp8exNbevNVxcBNNLPuzYdDdzZZuJ3+Ib6yQeoB8qAC+KkJONthvTPNpQspg+9cN9U9NFQc73YWbp8faLM4XFFVq5mJYKCzgFyCMTFe14XhXhFRW31B5rqFpHM5g=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Michal
- Orzel <michal.orzel@amd.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Artem Mygaiev <artem_mygaiev@epam.com>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v3] docs: fusa: Add dom0less domain configuration
- requirements
-Thread-Topic: [PATCH v3] docs: fusa: Add dom0less domain configuration
- requirements
-Thread-Index: AQHbUgS4JJcMvJVd5kOG9/I5q9pAibMMoCqA
-Date: Wed, 8 Jan 2025 07:51:29 +0000
-Message-ID: <7402DB1D-61F6-467C-89BD-6985A6817362@arm.com>
-References: <20241219105640.3294591-1-ayan.kumar.halder@amd.com>
-In-Reply-To: <20241219105640.3294591-1-ayan.kumar.halder@amd.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.200.121)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR08MB6588:EE_|AS1PR08MB7452:EE_
-x-ms-office365-filtering-correlation-id: 441c45d6-a3bc-4389-425c-08dd2fb94304
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?7ifo0ng1CuXyEnjLHB4kvAHgbyZG6eidIOezs5RRHbnVSSY8ezaZhcZ/UTYs?=
- =?us-ascii?Q?PFfpoPkdrVCoOeMKCkfbDgQMJeicuEFTwRSg3Cc6A3EAUunvogQfNgb0U822?=
- =?us-ascii?Q?5PqAwXAXXHgxfjKk67sCIJkfWJYJM4d6at5iOqBLeUChXyp4VZrE5pMUySr5?=
- =?us-ascii?Q?HFbk9rbJt8c/2+kV6bAsdwJwY3uPMVTfszFqkGSq93rjS0Rnih6M1uGuKdGQ?=
- =?us-ascii?Q?igbLHLNi3b+GWbHTWsUW4kjZcVJTA35lTblsWTKrPmgkhfWgahJd+0ruAdGY?=
- =?us-ascii?Q?wYH1+YMEobnMXBbC6yVEOYbBKCPbM9AHyxWu4P8k7zlVikLhKkMX/IMXPfPZ?=
- =?us-ascii?Q?d9l9OhuBCO72woT7X73u5oJTR41uEXMU4kh13G54avGTMVcHDclIEdb9VfWz?=
- =?us-ascii?Q?lgZmUA36OF0WHZrA2DCVsIHb1Gz/QD3E3F+nt4kerpiNSB2gq1ibIeTu2YMY?=
- =?us-ascii?Q?hvJxjHMTvkMof9tvdkG7mTZ4CgfUD4c+GHTjr1n7IihJKTGmVr+hqbyKKher?=
- =?us-ascii?Q?a9lKmf9m2V1yVmIBaohr/oDsfAOeB0S30PHlQca2J7ClH0AX2Rza3j2nXY91?=
- =?us-ascii?Q?H6ideUsL/iUPRUTwwxBtycA8QcwubPJzViGtW11jDP6HbKbQreBdE1lqnUEq?=
- =?us-ascii?Q?YD0phaoxi+HDTUfLBvIAfr7spjRAcXctuUDFotvDIh1OLERLi/XZJ7BbQOuL?=
- =?us-ascii?Q?LtMRtS9prO1MzGeh3rbny2OOdJlytkIyApctfecb+uraYd+rIUsOLkf86vV7?=
- =?us-ascii?Q?qmn4iykYEHMPXctr8DbPsXrZlVNdvLqGzL/Wu3bUXYOujQC/NrZRoG2hwu3+?=
- =?us-ascii?Q?wSHvnnG2MkeYnCsmy2GI47L5YybNDpwfMduu3hOXsTfd/TbFu0J5GUrCo6Tn?=
- =?us-ascii?Q?Nf24XiI2cmrZw01lBJLrgjKS0bhg7IStxFm93SGLXulfX2T/tvL9eM1h4NQg?=
- =?us-ascii?Q?jJU9NVWEtG2Lc5CyfLjQhTYSsM8b3ZlG4kpFn4LdExXIJo+Jq5aMBpk2+vBO?=
- =?us-ascii?Q?CuTVEgJkhjVkLFrNK063bu5MLqrhJB5CcxPx5b7lWuh9zQgdMgvAnmH+G8Zw?=
- =?us-ascii?Q?B7smVEmyqFLg/8eIWSbEwQ6XZcHMO7kSn0UXNtcA8KQdGQ3kolpSZsQTeXms?=
- =?us-ascii?Q?lOjTruW5kH8X8QCLhldTaOxZuZBaqfnwDX9GwaDPATIwifu2A9bGPoowpHWM?=
- =?us-ascii?Q?lN5FYsyYgDcJ/syeGmZnuPwrFKovOf6U3qeOBBX3YWbiyrXWSJ0I1EJORC6X?=
- =?us-ascii?Q?YnT5Ij7G8lbAppOnkMNBbx+nK77N1Lijh/63+P3PlqUGNDGJn17lvPmg431e?=
- =?us-ascii?Q?yEZKmWEIlfHgDQSDg3qQ6XH4WixZ4uD3yu7L0wpFAEM40+b3c9J1ytWwW+oB?=
- =?us-ascii?Q?IdXa7bvQRKiocnk2XtdfK5lyyFqKcL5yvZxDpBs6E4PB1giKYg=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?4XzJOj9YhF6o7wYh1wkzeaD7ScsUe2Gh5GMp5IwdngTaIMGk436BBBfTvDZw?=
- =?us-ascii?Q?BivTeyQtGgHCwZhUkzw3njrQVtuA1z73yAgFiiUHxTPxnoJrO+wgPF4pZ8yR?=
- =?us-ascii?Q?cfzVVq7WTCUIXtCW5wNzLbs7hm3x678T5+ugkvkPMYj8eUX586X/MWQnwaoZ?=
- =?us-ascii?Q?5Zp1OrEP06QIskHSW+/ZbPKl/FXVZ3gkYE6Cuzic7MwSdq92xWWXTTHRIPA/?=
- =?us-ascii?Q?w0dxwLa0dgPULFgzNNbFlOsuq3r/h2A40FktG3VN56Xc2sDbd0otmfvekN9j?=
- =?us-ascii?Q?wTUBtTxGX02fr5gzcI5D2bPt5rCg6N2f0D+7AzAKFvkFFCNlEr1HSx7MxLlz?=
- =?us-ascii?Q?VBab+lAemBMrRM1EDq3k3Bsf60UBZf7LoNUVs2zYALJYHwjakPjNyPOgVXdY?=
- =?us-ascii?Q?UuPV09tWSlxSaUdusr4EzL3n+V4MnKYXRngv2JEiORXpblDK7DVDgmZ/iVg1?=
- =?us-ascii?Q?K4ScTzznkksp1kiWkhHx55tIUPQ5qmwl2VFu0X8ieKcICj7TqqHKgRRcqTWn?=
- =?us-ascii?Q?irN2TFcDGazEMzI/p5P7euti8S4iY+hao6DzFYVLipti3BUL+mzP64F3JKhg?=
- =?us-ascii?Q?xXDCEEi3XRAuzx1D2Ujge2gSAreI4NjdkfgLsY4Unjbuci3K9GMNuydD0TZH?=
- =?us-ascii?Q?VQYATiGms5TW3Gf6pP4DrUD28ihsHDgbwbl3QVp7/z5Xd3wpIlyzAYSAqJXE?=
- =?us-ascii?Q?LL6bZFGbdFZYXI9pa9S8vvDupsP3Yd4umxSkb/Eg834Cugvd1tmbtJuYxHwa?=
- =?us-ascii?Q?eJe90b7Pbt2XXQ7A9KmoQbgfAUPROGiVpKkhIjLo2fPmLe0owVDeW7P9Csh7?=
- =?us-ascii?Q?NZ8Q86DztmhQv7f7vHzVsGs11/Qw5znNLY8BIsdQAx4kQ6cKHg06ZV5uM4xC?=
- =?us-ascii?Q?0GTc+xzzdGrbk5yq++3LCKxhWFa+IDmrfpiQ0JiP61uZ68n9n6iXcwmSXeGo?=
- =?us-ascii?Q?jl8cclw1h5fy6Py3lBSacS4JZpOngd4KJNkgBiYG6XrYuWhhjpy+9WJibCRh?=
- =?us-ascii?Q?Gx2VKu3DzUNjt+N8eustgBfbEO7G0wD5SF0gYgbLuZIBdSc2ckG1WONKFLoK?=
- =?us-ascii?Q?Bd9/jWMQjrshRPaQ4s9/Gz35lKf5AdB3jN32fiJBFC5iDVlUDJwHOj4jLHn1?=
- =?us-ascii?Q?NP4gn5xyeTPZ8Rn1CHp6rUx48pqubfi9k4CLpFOGGmHxER22+c7VATAy9KLA?=
- =?us-ascii?Q?WqwZAlfr4/xhTHG4W6+RaK4djyJCpjlxzuVoDIYlCLq24ESNutqoZsbsFyag?=
- =?us-ascii?Q?GnvvjvxvEqstCMJz/rgAYmzUy+AZBdEwtK65neaPwwcXvXQPPyzXxMWj/ySF?=
- =?us-ascii?Q?xHwPFnCRSQCM+qc/53ZR+L+oI3In0v+Ny0zBr4QrnFHXCnzOgOT8tf8Ml7rL?=
- =?us-ascii?Q?XXBm1XdCjK9tro9upcTQXBrQcQkcjuiTJdlnTfA9AUdWWpYjP0wyzLG226Sx?=
- =?us-ascii?Q?mb2tov4GGnKryjxT6D8XxqNzmmlNfCvDf3pKaniJjL/w4mz4idyarpwiMj1x?=
- =?us-ascii?Q?InHPiCi773oGYBt5LI3VfPbQHp+Tan6rtD1V5ebOwtP9LYSVjLbd9VKhnXUj?=
- =?us-ascii?Q?W/3nCWGxbpkaeKiq76KnNyouZx5L4RBLonLGUpVetb7+xsokAWelBUl89uB7?=
- =?us-ascii?Q?Dg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <6AEAB3958FEA704982AFDD8CF9F0A2B6@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: f34ff225-cd95-11ef-99a4-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1736322938; x=1736927738; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=15/fxpnRPGsuKaRUiaA9l+EFhd190Bo2vicC3mODEfM=;
+        b=Tq39DrDtZuP/ppmjHPD5494LfxD0BK7okNH/qXy0L889hfEi6LpbtDr4TvYnakEeiW
+         lASHofQmU/DegbD7JKdTfMVwJa9jssW3UqWcMYBlCuvk8ENJyYSwhTzutgQ7Jsc+fQRc
+         8AIzx0f71uIJIEdxVSsjXwROm8z59wRQhu3CY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736322938; x=1736927738;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=15/fxpnRPGsuKaRUiaA9l+EFhd190Bo2vicC3mODEfM=;
+        b=B/z+y7xUKl78/Y8mnLCFSOr/Us+WKL5SrHBxGuYCM9Gz4bi72h2lOdf6p62HnmEpIW
+         VlxKXJYuRiTPfAqr6HHtum/4U4cwZGtnHEt4RgctE2ttftaZOGy1m1QcW3jCSPJ4zBzP
+         KWgObvZle1Ras0JGL7qiIZtaq9DLxchuZ0tRCYob/vDW2C6tPQHqP8UA4TquUJjSg2uG
+         cmhOLw3iW/xkQjYlSndSv5XW+lFxMAB24EI6bQGgyBlKTSylwwUxhvcRiS7hSZ4E9Xi+
+         6U35yF+DpejkNL7ihl8cfRh6PrBUHHWFldgPL7zvBbP5rSiGeKiTaLJTe93xMWiyslUK
+         sfOQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWL+6qySEJj6oBJCT/YhSibIkXGBmp9O+MTfVit/jAC7oEWCkbNzQFMLe+giuo9y6C5/GFuliii2ko=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yztr2kq9Ag+IJBMuVMZtG322GPdYI+N4Ra9FCy/vdQHCwmRgWun
+	eiw81CxjbqRbmW1Mkrz9XUr1+FGeWCLmfiH4IjmE5gywdXtnoUSUBzJ1LRI1UOyxDewlY+SPR+B
+	G
+X-Gm-Gg: ASbGncunvyMNH6ge4QODfKl57AIWcUbKMxGOkT1MvnJZCSe35zszye8ixxlkj/0v/5W
+	0az21WyfXrChljVccBAM+vKEsD9FeYw6RKb5sjgo8eOgcKPc2u7GCwnzjJEERH/AVmkw5zDuQUw
+	pgbcqfWFMq2Nd5tISTFqilOG9l7DdG9R/CvCeyMy4WL1PCvP5FEBXiu2FkkPKh4ZGJm/tZxbuSo
+	LIqCUrXCCbSvfAhb7AuA4KdqXZLfDlTJouvP0PjhMOCydyPKTW6DwtCdFYvZ9dWx6c=
+X-Google-Smtp-Source: AGHT+IGx4YHCvLunMDLeCrMT+UUY+9lmsa77uLKyoQSx7UXn6wApZBuMpbpS2TnupdoI6VC19Rjl2A==
+X-Received: by 2002:a17:906:c106:b0:aa5:b1b9:5d6a with SMTP id a640c23a62f3a-ab2abc91217mr132216066b.54.1736322938301;
+        Tue, 07 Jan 2025 23:55:38 -0800 (PST)
+Date: Wed, 8 Jan 2025 08:55:36 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4] vpci: Add resizable bar support
+Message-ID: <Z34veAxGFCg25Zrb@macbook.local>
+References: <20241219052143.3161332-1-Jiqian.Chen@amd.com>
+ <d904c816-da83-418a-9bff-9988660af546@suse.com>
+ <Z308fGa1daaM62Rf@macbook.local>
+ <fb1b00fe-5740-4c0e-81d9-ec9fd9a4a1c3@suse.com>
+ <Z31wFjWadOkzTDK3@macbook.local>
+ <d5e37e59-2a05-4184-9b1e-ca0bf77f201c@suse.com>
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6588.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 441c45d6-a3bc-4389-425c-08dd2fb94304
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2025 07:51:29.5827
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uzXd/nGWuifh4oEmTE5+rNWbumB3cx/9XGOioIljwNSFF2YiIch2GdteZ9sPsrSlgkhf4c24EaJWN01h4j3ZmKdhzFgwoapaY1Li5SjO9h4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR08MB7452
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d5e37e59-2a05-4184-9b1e-ca0bf77f201c@suse.com>
 
-Hi Ayan,
+On Wed, Jan 08, 2025 at 08:19:55AM +0100, Jan Beulich wrote:
+> On 07.01.2025 19:19, Roger Pau Monné wrote:
+> > On Tue, Jan 07, 2025 at 04:58:07PM +0100, Jan Beulich wrote:
+> >> On 07.01.2025 15:38, Roger Pau Monné wrote:
+> >>> On Tue, Jan 07, 2025 at 11:06:33AM +0100, Jan Beulich wrote:
+> >>>> On 19.12.2024 06:21, Jiqian Chen wrote:
+> >>>>> --- /dev/null
+> >>>>> +++ b/xen/drivers/vpci/rebar.c
+> >>>>> @@ -0,0 +1,131 @@
+> >>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+> >>>>> +/*
+> >>>>> + * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+> >>>>> + *
+> >>>>> + * Author: Jiqian Chen <Jiqian.Chen@amd.com>
+> >>>>> + */
+> >>>>> +
+> >>>>> +#include <xen/sched.h>
+> >>>>> +#include <xen/vpci.h>
+> >>>>> +
+> >>>>> +static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+> >>>>> +                                      unsigned int reg,
+> >>>>> +                                      uint32_t val,
+> >>>>> +                                      void *data)
+> >>>>> +{
+> >>>>> +    struct vpci_bar *bar = data;
+> >>>>> +    uint64_t size = PCI_REBAR_CTRL_SIZE(val);
+> >>>>> +
+> >>>>> +    if ( bar->enabled )
+> >>>>> +    {
+> >>>>> +        /*
+> >>>>> +         * Refuse to resize a BAR while memory decoding is enabled, as
+> >>>>> +         * otherwise the size of the mapped region in the p2m would become
+> >>>>> +         * stale with the newly set BAR size, and the position of the BAR
+> >>>>> +         * would be reset to undefined.  Note the PCIe specification also
+> >>>>> +         * forbids resizing a BAR with memory decoding enabled.
+> >>>>> +         */
+> >>>>> +        if ( size != bar->size )
+> >>>>> +            gprintk(XENLOG_ERR,
+> >>>>> +                    "%pp: refuse to resize BAR with memory decoding enabled\n",
+> >>>>> +                    &pdev->sbdf);
+> >>>>> +        return;
+> >>>>> +    }
+> >>>>> +
+> >>>>> +    if ( !((size >> PCI_REBAR_SIZE_BIAS) & bar->resizable_sizes) )
+> >>>>> +        gprintk(XENLOG_WARNING,
+> >>>>> +                "%pp: new size %#lx is not supported by hardware\n",
+> >>>>> +                &pdev->sbdf, size);
+> >>>>> +
+> >>>>> +    bar->size = size;
+> >>>>
+> >>>> Shouldn't at least this be in an "else" to the if() above?
+> >>>
+> >>> I think this was already raised in a previous version - would be good
+> >>> to know how real hardware behaves when an invalid size is set.  Is the
+> >>> BAR register still reset?
+> >>
+> >> I'm pretty sure what happens is undefined. I'd expect though that the
+> >> BAR size then doesn't change. Which would require the above assignment
+> >> to not be unconditional.
+> > 
+> > Might be better to just re-size the BAR, like you suggested to fetch
+> > the BAR position from the register, instead of assuming 0.
+> 
+> FTAOD by "re-size" you mean re-obtain its size (seeing we're talking of
+> re-sizable BARs here)? As kind of confirmed ...
 
-> On 19 Dec 2024, at 11:56, Ayan Kumar Halder <ayan.kumar.halder@amd.com> w=
-rote:
->=20
-> From: Michal Orzel <michal.orzel@amd.com>
->=20
-> Add requirements for dom0less domain creation.
->=20
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> Changes from -
->=20
-> v1 - 1. As the dom0less domain creation requirements specifies the dt pro=
-perties
-> for creating domains, it has been moved to product requirements. Product
-> requirements define the interface Xen exposes to other domains.
->=20
-> 2. For the requirements which introduces new terms (like grant table, etc=
-), I
-> have provided the definition as part of the comments.
->=20
-> 3. Introduced new market requirements to specify that Xen can assign iome=
-m and
-> irqs to domains.
->=20
-> 4. The design requirements will be added later.
->=20
-> v2 - 1. Rephrased the requirements as suggested.
->=20
-> 2. Split the product requirements into arm64 specific and common.
->=20
-> 3. The arm64 specific requirements have arm64_ prefixed to their tag name=
-s.
->=20
-> 4. Grant table requirements have been dropped for now.
->=20
-> 5. Added a market requirement to denote that Xen can support multiple sch=
-edulers.
->=20
-> 6. Updated index.rst as we have a new file ie product-reqs/reqs.rst.
->=20
-> docs/fusa/reqs/index.rst                   |   1 +
-> docs/fusa/reqs/market-reqs/reqs.rst        |  31 ++++
-> docs/fusa/reqs/product-reqs/arm64/reqs.rst | 128 +++++++++++++++-
-> docs/fusa/reqs/product-reqs/reqs.rst       | 163 +++++++++++++++++++++
-> 4 files changed, 321 insertions(+), 2 deletions(-)
-> create mode 100644 docs/fusa/reqs/product-reqs/reqs.rst
->=20
-> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
-> index 8a4dae6fb2..1088a51d52 100644
-> --- a/docs/fusa/reqs/index.rst
-> +++ b/docs/fusa/reqs/index.rst
-> @@ -8,6 +8,7 @@ Requirements documentation
->=20
->    intro
->    market-reqs/reqs
-> +   product-reqs/reqs
->    product-reqs/arm64/reqs
->    design-reqs/arm64/generic-timer
->    design-reqs/arm64/sbsa-uart
-> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-=
-reqs/reqs.rst
-> index f456788d96..39b2714237 100644
-> --- a/docs/fusa/reqs/market-reqs/reqs.rst
-> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
-> @@ -47,3 +47,34 @@ Comments:
->=20
-> Needs:
->  - XenProd
-> +
-> +Static VM definition
-> +--------------------
-> +
-> +`XenMkt~static_vm_definition~1`
-> +
-> +Description:
-> +Xen shall support assigning peripherals to various domains.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +Peripheral implies an iomem (input output memory) and/or interrupts.
-> +
-> +Needs:
-> + - XenProd
-> +
-> +Multiple schedulers
-> +-------------------
-> +
-> +`XenMkt~multiple_schedulers~1`
-> +
-> +Description:
-> +Xen shall provide different ways of scheduling virtual cpus onto physica=
-l cpus.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Needs:
-> + - XenProd
-> diff --git a/docs/fusa/reqs/product-reqs/arm64/reqs.rst b/docs/fusa/reqs/=
-product-reqs/arm64/reqs.rst
-> index db91c47a02..c8fee0e49f 100644
-> --- a/docs/fusa/reqs/product-reqs/arm64/reqs.rst
-> +++ b/docs/fusa/reqs/product-reqs/arm64/reqs.rst
-> @@ -6,7 +6,7 @@ Domain Creation And Runtime
-> Emulated Timer
-> --------------
->=20
-> -`XenProd~emulated_timer~1`
-> +`XenProd~arm64_emulated_timer~1`
->=20
-> Description:
-> Xen shall grant access to "Arm Generic Timer" for the domains.
-> @@ -25,7 +25,7 @@ Needs:
-> Emulated UART
-> -------------
->=20
-> -`XenProd~emulated_uart~1`
-> +`XenProd~arm64_emulated_uart~1`
->=20
-> Description:
-> Xen shall provide an "Arm SBSA UART" compliant device to the domains.
-> @@ -40,3 +40,127 @@ Covers:
->=20
-> Needs:
->  - XenSwdgn
-> +
-> +Linux kernel image
-> +------------------
-> +
-> +`XenProd~arm64_linux_kernel_image~1`
-> +
-> +Description:
-> +Xen shall create a domain with a binary containing header compliant with=
- Arm64
-> +Linux kernel image [1].
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Gzip Linux kernel image
-> +-----------------------
-> +
-> +`XenProd~arm64_linux_kernel_gzip_image~1`
-> +
-> +Description:
-> +Xen shall create a domain with a Gzip compressed binary containing heade=
-r
-> +compliant with Arm64 Linux kernel image [1].
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Kernel with uImage header
-> +-------------------------
-> +
-> +`XenProd~arm64_kernel_uimage~1`
-> +
-> +Description:
-> +Xen shall create a domain with a binary containing uImage header [2].
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Gzip kernel with uImage header
-> +------------------------------
-> +
-> +`XenProd~arm64_gzip_kernel_uimage~1`
-> +
-> +Description:
-> +Xen shall create a domain with a Gzip compressed binary containing uImag=
-e
-> +header [2].
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +SPIs
-> +----
-> +
-> +`XenProd~arm64_spis~1`
-> +
-> +Description:
-> +Xen shall create a domain with a number of shared peripheral interrupts =
-as
-> +specified in the device tree.
+Indeed, I meant to re-obtain the size (I can see that being
+confusing in this context, sorry).
 
-"a number" is kind of undefined here. If we have a limit then we should spe=
-cify it
-here otherwise this becomes hard to test.
-I would suggest to rephrase to "assign hardware shared peripheral interrupt=
-s
-specified in the device tree to a domain"
+> >>>>> --- a/xen/drivers/vpci/vpci.c
+> >>>>> +++ b/xen/drivers/vpci/vpci.c
+> >>>>> @@ -232,6 +232,12 @@ void cf_check vpci_hw_write16(
+> >>>>>      pci_conf_write16(pdev->sbdf, reg, val);
+> >>>>>  }
+> >>>>>  
+> >>>>> +void cf_check vpci_hw_write32(
+> >>>>> +    const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
+> >>>>> +{
+> >>>>> +    pci_conf_write32(pdev->sbdf, reg, val);
+> >>>>> +}
+> >>>>
+> >>>> This function is being added just to handle writing of a r/o register.
+> >>>> Can't you better re-use vpci_ignored_write()?
+> >>>
+> >>> But vpci_ignored_write() ignores the write, OTOH here the write is
+> >>> propagated to the hardware.
+> >>
+> >> Right, just for the hardware to drop it. I wouldn't have commented if
+> >> the function needed to do things like this already existed. Adding yet
+> >> another cf_check function just for this is what made me give the remark.
+> > 
+> > According to the spec yes, they will be ignored.  Yet for the hardware
+> > domain we try to avoid changing behavior from native as much as
+> > possible, hence propagating the write seems more appropriate.
+> 
+> Okay; you're the maintainer of this code anyway.
 
-> +
-> +Rationale:
-> +
-> +Comments:
-> +Device tree is a data structure and language for describing hardware whi=
-ch is
-> +readable by an operating system [3].
-> +A shared peripheral interrupt is a peripheral interrupt that the Arm Gen=
-eric
-> +Interrupt Controller's Distributor interface can route to any combinatio=
-n of
-> +processors [4].
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> + - `XenMkt~static_vm_definition~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Virtual PL011
-> +-------------
-> +
-> +`XenProd~arm64_virtual_pl011~1`
-> +
-> +Description:
-> +Xen shall provide an "Arm PL011 UART" compliant device to the domains.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> + - `XenMkt~provide_console_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +| [1] https://github.com/torvalds/linux/blob/master/Documentation/arch/a=
-rm64/booting.rst
-> +| [2] https://source.denx.de/u-boot/u-boot/-/blob/master/include/image.h=
-#L315
-> +| [3] https://docs.kernel.org/devicetree/usage-model.html
-> +| [4] https://developer.arm.com/documentation/ihi0048/a/Introduction/Ter=
-minology/Interrupt-types?lang=3Den
-> diff --git a/docs/fusa/reqs/product-reqs/reqs.rst b/docs/fusa/reqs/produc=
-t-reqs/reqs.rst
-> new file mode 100644
-> index 0000000000..9257fec713
-> --- /dev/null
-> +++ b/docs/fusa/reqs/product-reqs/reqs.rst
-> @@ -0,0 +1,163 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +Domain Creation And Runtime
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> +
-> +Kernel command line arguments
-> +-----------------------------
-> +
-> +`XenProd~kernel_cmd_line_args~1`
-> +
-> +Description:
-> +Xen shall pass kernel command line arguments to a domain via a device tr=
-ee.
+Thanks for all your input Jan, you might not be the maintainer but
+have certainly reviewed all vPCI code.
 
-Would it make sense to say where the "command line" to pass is specified ?
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +Device tree is a data structure and language for describing hardware whi=
-ch is
-> +readable by an operating system [1].
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Ramdisk
-> +-------
-> +
-> +`XenProd~ramdisk~1`
-> +
-> +Description:
-> +Xen shall provide the address of an initial ramdisk to a domain via a de=
-vice
-> +tree.
-> +
-> +Rationale:
-> +
-> +Comments:
-> +The initial ramdisk is contained in memory.
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Memory
-> +------
-> +
-> +`XenProd~memory~1`
-> +
-> +Description:
-> +Xen shall create a domain with an amount of memory specified in a device=
- tree.
-
-s/an/the/
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +vCPUs
-> +-----
-> +
-> +`XenProd~vcpus~1`
-> +
-> +Description:
-> +A domain shall have a configurable number of virtual CPUs (1 to XX).
-
-XX should be replaced with "the maximum number specified at compilation
- in the configuration through CONFIG_MAX_CPUS" or something like that.
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Credit2 CPU pool scheduler
-> +--------------------------
-> +
-> +`XenProd~credit2_cpu_pool_scheduler~1`
-> +
-> +Description:
-> +Xen shall have a scheduler where a physical cpu can be shared between mo=
-re than
-> +one virtual cpu.
-
-i think you can name it in the req: "a credit2 scheduler"
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> + - `XenMkt~multiple_schedulers~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +NUL CPU pool scheduler
-> +----------------------
-> +
-> +`XenProd~nul_cpu_pool_scheduler~1`
-> +
-> +Description:
-> +Xen shall have a scheduler where the virtual cpu will be always running =
-on its
-> +dedicated physical cpu.
-
-name the scheduler and also "domain virtual cpu is always"
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +A NUL CPU pool scheduler maps a virtual cpu to a unique physical cpu.
-> +
-> +Covers:
-> + - `XenMkt~run_arm64_domains~1`
-> + - `XenMkt~multiple_schedulers~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Assign iomem
-> +------------
-> +
-> +`XenProd~assign_iomem~1`
-> +
-> +Description:
-> +Xen shall support assigning iomem to a domain.
-
-We cannot assign "any iomem" but pages of iomem (address and size aligned t=
-o a page).
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Rationale:
-
-2 times rationale
-
-> +
-> +Covers:
-> + - `XenMkt~static_vm_definition~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +Forward interrupts
-> +------------------
-> +
-> +`XenProd~forward_irqs~1`
-> +
-> +Description:
-> +Xen shall support forwarding interrupts to a domain.
-
-I think you need to add "hardware interrupts" here.
-
-> +
-> +Rationale:
-> +
-> +Comments:
-> +
-> +Rationale:
-
-rationale twice
-
-> +
-> +Covers:
-> + - `XenMkt~static_vm_definition~1`
-> +
-> +Needs:
-> + - XenSwdgn
-> +
-> +| [1] https://docs.kernel.org/devicetree/usage-model.html
-> --=20
-> 2.25.1
->=20
-
-Cheers
-Bertrand
-
-
+Roger.
 
