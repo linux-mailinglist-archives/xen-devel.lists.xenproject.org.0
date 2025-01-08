@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66E3AA05FE3
+	by mail.lfdr.de (Postfix) with ESMTPS id 43A92A05FE2
 	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2025 16:19:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867489.1279096 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.867490.1279105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVXpy-0002JU-RP; Wed, 08 Jan 2025 15:19:14 +0000
+	id 1tVXq0-0002bP-E4; Wed, 08 Jan 2025 15:19:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867489.1279096; Wed, 08 Jan 2025 15:19:14 +0000
+Received: by outflank-mailman (output) from mailman id 867490.1279105; Wed, 08 Jan 2025 15:19:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVXpy-0002DT-HZ; Wed, 08 Jan 2025 15:19:14 +0000
-Received: by outflank-mailman (input) for mailman id 867489;
- Wed, 08 Jan 2025 15:19:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVXpz-0002X1-VO; Wed, 08 Jan 2025 15:19:15 +0000
+Received: by outflank-mailman (input) for mailman id 867490;
+ Wed, 08 Jan 2025 15:19:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HyFE=UA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tVXpv-0008Lg-Ro
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 15:19:11 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e99c4ecb-cdd3-11ef-a0df-8be0dac302b0;
- Wed, 08 Jan 2025 16:19:11 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-aa68b513abcso3100450766b.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 07:19:11 -0800 (PST)
+ id 1tVXpy-0008Ue-05
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2025 15:19:14 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ea3f2af6-cdd3-11ef-99a4-01e77a169b0f;
+ Wed, 08 Jan 2025 16:19:12 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-aaee0b309adso2115822366b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jan 2025 07:19:12 -0800 (PST)
 Received: from localhost.localdomain ([66.81.170.107])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aac0eae71desm2488412166b.89.2025.01.08.07.19.09
+ a640c23a62f3a-aac0eae71desm2488412166b.89.2025.01.08.07.19.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2025 07:19:10 -0800 (PST)
+ Wed, 08 Jan 2025 07:19:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e99c4ecb-cdd3-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: ea3f2af6-cdd3-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736349550; x=1736954350; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1736349552; x=1736954352; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B1o5uv9Ja6v4/kcOJ8sZumXTXa5wvZv/gHrWxF6fu20=;
-        b=ImEbpo7Rpm9n0aWOQ9skx4qvVdzUoRCxEVh9CJM1cOhiTmZ3YGJG/jEKeXF2dB8evM
-         7vVqq5EZZz7UO/tm1NJL5Dr0+RldfOxPXv10MXFKHyTXWDEOr+zmxrAX5PKObJJJMUef
-         +7ylvgud9kTo/yml/lHomVdIwtIgSiG2/o6mI=
+        bh=4dAl5hiiumxZdSL6vCO/VaNqrRA8aywqXxbQG/mKtGY=;
+        b=Hmh+CMApb3O8FVO4bwKJSJMyHrpRmdeiirVhb4uxxifc3B0XpmYesVCsMIgr+xx4Lc
+         a2lz/ukJhHz6QcVV4fFABgoy8K3jHsbAHMd/5F9WszbzEOce1Um3G+yofi+qWZ49sZoc
+         3BxutmNm50Vw4ZsSC1NsWS55fO4n+NRkgdKuk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736349550; x=1736954350;
+        d=1e100.net; s=20230601; t=1736349552; x=1736954352;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=B1o5uv9Ja6v4/kcOJ8sZumXTXa5wvZv/gHrWxF6fu20=;
-        b=dP93HiOXpi0H6LLmRwfRKdolD2BBd3giREzMBgbhMx+52WFVM0yMVJ8r5kmmjPvXCY
-         hr/0BUfGeGuOKLBnxX8k+5WIuXUdc0X4sVwwbXJIGTWl4e9y6YmsUmIQGGHjnNK0fPvz
-         OUF6DunkzmTD9xSqCoqDIjAPUxPkzwIc3CPOTsrntp0IJ8brAHHzN+yts0pYQqMTXUNK
-         BYYKMNq9L/TrTe0SpkgxADW+0taEr0YxX+r4IEUEIkllt6VPMB1wUm+enZRNfp4SQy/D
-         XuFMzbu6vkdE+XHPQuFolt2nynLCEUcsoBTTRdovO2hdtYkM4D1hajeHbqFozTOc01L4
-         D91Q==
-X-Gm-Message-State: AOJu0YzPT4VQd+yZKP5l7V46F83y/+6bHCADx5UXAPjN47VMmv1cEKcj
-	KdYaZcmA63eZijJh4M0p1jYVyMiq7hC5iHll2iLViFPEMIqi+FZ6WS0ioMtAZWbQKemUnCO6tNq
-	vzIqtOA==
-X-Gm-Gg: ASbGnct0WZ5HM5U2i1ScDyyP222JB3RDyb1siH5NE9FBUJshrKsw4zkysKFjp4psLSc
-	0bosRp91DVG2wSTOimSpf1irCO3UNy1/5pJ57fOInR9+IQyWL6RUe/+UnYVpPMmaaO37egbRCM3
-	AKRQfkg7WpvVywWBrlrKEUg/hXUFji7CGr6v9424wVTOduJ2ak7M+OBElhSJXhRXspOxkP2joIg
-	GkOHG/YfXSjJZCx0dRcl7p1SxpS7lD4YibvyjYuO0/BpobfP59E3ScuHOYhL8plki+Vl+8VZclv
-	55s=
-X-Google-Smtp-Source: AGHT+IFmAfbrkaRmO1XEvxpuHTtJZiGpHLiJR0cpXNNmmNnQWLh9ejYwG1frtDsro+4RNSQ6b49m0g==
-X-Received: by 2002:a17:907:7286:b0:aa6:89b9:e9c0 with SMTP id a640c23a62f3a-ab2ab6a7624mr229884666b.8.1736349550502;
-        Wed, 08 Jan 2025 07:19:10 -0800 (PST)
+        bh=4dAl5hiiumxZdSL6vCO/VaNqrRA8aywqXxbQG/mKtGY=;
+        b=kZTkqYatzkthByTWjAhvCEMdYJNkpn2U8J930MseWSXE+sAAb8oF5m70rO8QIBEGt5
+         mwjTN4VRJO62ZUqelP0bop8f8GiL7GPQ96q/mQpRmhPyp3o7Abh/LIISNGwUryZM/nPs
+         OVV0JIQahfoBYe7gMx+F53xPZjQdBZYSBRMFJmIT1ZqW3GnzlfFi2+29+K8aRH3+bu9Q
+         QWOj1l3srNavi71gJjMsi0hn1UwhUFjOWaosAW3PZLCrvXA9CKhsPuXhTyYtemaLrE7+
+         ovTb6F4wxvWLlSdNdzW8wJo41ThupJJ8jOWdSH7IidAqRKnPTtAQozbmnRQnpr2gpPn6
+         O0QA==
+X-Gm-Message-State: AOJu0YwGupN/Nf04gQjGhAldnAov8KxdPp+aZPYlbugIROTqya5S+Ij2
+	EGBsonaUI+2cz/hZz/WVXRThEZbsREnnavcgcaOGRNK431QrFozjzHd8x9tsoM3J3al1/o6jWgR
+	Ffs6f9Q==
+X-Gm-Gg: ASbGncuktTLp95nko05sR9HAephjFcmBCzAGwo8N7IMbDaycp3IOv+jpW1zDdjI7chn
+	q1soFU6X4JduksKwN9Zv0HCnbeO5YEpEr9qJu58xRiBWqd+e/z4B67wP9r7ip9YQzzScv7wYLU8
+	3GYJFm2HE2bjTWr4pgUmOVtPV4FYUXkBUgQSgYz3SwXWNLrhorCDZd6MybdWz2VzK20kU5orMiv
+	lwY9B2wyzyNsZ4iyPQWlxBGv7cl3GWHRQNAEXgVXS5d3bHbH658jH83D/byqjilc3+wnVrFnVK1
+	oqY=
+X-Google-Smtp-Source: AGHT+IFxfaz1of1Dy+QRE/RL4Nf+b/dHh+YwZM7uFybv3bH9J3u0daWHFg1k3w3NgvYUSIrBHUHeaQ==
+X-Received: by 2002:a17:907:70c:b0:aa6:9176:61ed with SMTP id a640c23a62f3a-ab2abc6d42emr300126166b.48.1736349551627;
+        Wed, 08 Jan 2025 07:19:11 -0800 (PST)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Hongyan Xia <hongyxia@amazon.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <jgrall@amazon.com>,
 	Elias El Yandouzi <eliasely@amazon.com>,
 	Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Subject: [PATCH v5 09/15] x86/setup: Leave early boot slightly earlier
-Date: Wed,  8 Jan 2025 15:18:16 +0000
-Message-ID: <20250108151822.16030-10-alejandro.vallejo@cloud.com>
+Subject: [PATCH v5 10/15] xen/page_alloc: vmap heap nodes when they are outside the direct map
+Date: Wed,  8 Jan 2025 15:18:17 +0000
+Message-ID: <20250108151822.16030-11-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250108151822.16030-1-alejandro.vallejo@cloud.com>
 References: <20250108151822.16030-1-alejandro.vallejo@cloud.com>
@@ -98,17 +102,13 @@ Content-Transfer-Encoding: 8bit
 
 From: Hongyan Xia <hongyxia@amazon.com>
 
-When we do not have a direct map, memory for metadata of heap nodes in
-init_node_heap() is allocated from xenheap, which needs to be mapped and
-unmapped on demand. However, we cannot just take memory from the boot
-allocator to create the PTEs while we are passing memory to the heap
-allocator.
+When we do not have a direct map, archs_mfn_in_direct_map() will always
+return false, thus init_node_heap() will allocate xenheap pages from an
+existing node for the metadata of a new node. This means that the
+metadata of a new node is in a different node, slowing down heap
+allocation.
 
-To solve this race, we leave early boot slightly sooner so that Xen PTE
-pages are allocated from the heap instead of the boot allocator. We can
-do this because the metadata for the 1st node is statically allocated,
-and by the time we need memory to create mappings for the 2nd node, we
-already have enough memory in the heap allocator in the 1st node.
+Since we now have early vmap, vmap the metadata locally in the new node.
 
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 Signed-off-by: Julien Grall <jgrall@amazon.com>
@@ -116,51 +116,78 @@ Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
 v4->v5:
-  * No changes.
+  * Fix bug introduced in v4 by which node metadata would be
+    unconditionally mapped at the tail of the heap node.
+  * Remove extra space in conditional
 
 v3->v4:
-  * Fix indentation
-  * Refactor the code to reduce code duplication
----
- xen/arch/x86/setup.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+  * Change type of the parameters to paddr_t
+  * Use clear_domain_page() instead of open-coding it
 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 8ebe5a9443f3..609ec4cf07f2 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1831,6 +1831,22 @@ void asmlinkage __init noreturn __start_xen(void)
+v1->v2:
+  * vmap_contig_pages() was renamed to vmap_contig()
+  * Fix indentation and coding style
+
+Changes from Hongyan's version:
+  * arch_mfn_in_direct_map() was renamed to
+    arch_mfns_in_direct_map()
+  * Use vmap_contig_pages() rather than __vmap(...).
+  * Add missing include (xen/vmap.h) so it compiles on Arm
+---
+ xen/common/page_alloc.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 1c01332b6cb0..3af86a213c4e 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -139,6 +139,7 @@
+ #include <xen/softirq.h>
+ #include <xen/spinlock.h>
+ #include <xen/vm_event.h>
++#include <xen/vmap.h>
+ #include <xen/xvmalloc.h>
  
-     numa_initmem_init(0, raw_max_page);
- 
-+    /*
-+     * When we do not have a direct map, memory for metadata of heap nodes in
-+     * init_node_heap() is allocated from xenheap, which needs to be mapped and
-+     * unmapped on demand. However, we cannot just take memory from the boot
-+     * allocator to create the PTEs while we are passing memory to the heap
-+     * allocator during end_boot_allocator().
-+     *
-+     * To solve this race, we need to leave early boot before
-+     * end_boot_allocator() so that Xen PTE pages are allocated from the heap
-+     * instead of the boot allocator. We can do this because the metadata for
-+     * the 1st node is statically allocated, and by the time we need memory to
-+     * create mappings for the 2nd node, we already have enough memory in the
-+     * heap allocator in the 1st node.
-+     */
-+    system_state = SYS_STATE_boot;
-+
-     if ( max_page - 1 > virt_to_mfn(HYPERVISOR_VIRT_END - 1) )
+ #include <asm/flushtlb.h>
+@@ -615,22 +616,30 @@ static unsigned long init_node_heap(int node, unsigned long mfn,
+         needed = 0;
+     }
+     else if ( *use_tail && nr >= needed &&
+-              arch_mfns_in_directmap(mfn + nr - needed, needed) &&
+               (!xenheap_bits ||
+                !((mfn + nr - 1) >> (xenheap_bits - PAGE_SHIFT))) )
      {
-         unsigned long lo = virt_to_mfn(HYPERVISOR_VIRT_END - 1);
-@@ -1862,8 +1878,6 @@ void asmlinkage __init noreturn __start_xen(void)
-     else
-         end_boot_allocator();
- 
--    system_state = SYS_STATE_boot;
--
-     bsp_stack = cpu_alloc_stack(0);
-     if ( !bsp_stack )
-         panic("No memory for BSP stack\n");
+-        _heap[node] = mfn_to_virt(mfn + nr - needed);
+-        avail[node] = mfn_to_virt(mfn + nr - 1) +
+-                      PAGE_SIZE - sizeof(**avail) * NR_ZONES;
++        if ( arch_mfns_in_directmap(mfn + nr - needed, needed) )
++            _heap[node] = mfn_to_virt(mfn + nr - needed);
++        else
++            _heap[node] = vmap_contig(_mfn(mfn + nr - needed), needed);
++
++        BUG_ON(!_heap[node]);
++        avail[node] = (void *)(_heap[node]) + (needed << PAGE_SHIFT) -
++                        sizeof(**avail) * NR_ZONES;
+     }
+     else if ( nr >= needed &&
+-              arch_mfns_in_directmap(mfn, needed) &&
+               (!xenheap_bits ||
+                !((mfn + needed - 1) >> (xenheap_bits - PAGE_SHIFT))) )
+     {
+-        _heap[node] = mfn_to_virt(mfn);
+-        avail[node] = mfn_to_virt(mfn + needed - 1) +
+-                      PAGE_SIZE - sizeof(**avail) * NR_ZONES;
++        if ( arch_mfns_in_directmap(mfn, needed) )
++            _heap[node] = mfn_to_virt(mfn);
++        else
++            _heap[node] = vmap_contig(_mfn(mfn), needed);
++
++        BUG_ON(!_heap[node]);
++        avail[node] = (void *)(_heap[node]) + (needed << PAGE_SHIFT) -
++                        sizeof(**avail) * NR_ZONES;
+         *use_tail = false;
+     }
+     else if ( get_order_from_bytes(sizeof(**_heap)) ==
 -- 
 2.47.1
 
