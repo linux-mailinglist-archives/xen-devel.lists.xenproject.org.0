@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B507CA07C63
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:49:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868871.1280373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 883D6A07C6A
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:51:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868881.1280394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVumU-00011k-2X; Thu, 09 Jan 2025 15:49:10 +0000
+	id 1tVuoA-0003JP-LU; Thu, 09 Jan 2025 15:50:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868871.1280373; Thu, 09 Jan 2025 15:49:10 +0000
+Received: by outflank-mailman (output) from mailman id 868881.1280394; Thu, 09 Jan 2025 15:50:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVumT-0000yr-Vs; Thu, 09 Jan 2025 15:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 868871;
- Thu, 09 Jan 2025 15:49:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tVuoA-0003HU-IJ; Thu, 09 Jan 2025 15:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 868881;
+ Thu, 09 Jan 2025 15:50:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pS5t=UB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tVumS-0000yl-Sk
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:49:08 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 42eb4ed6-cea1-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 16:49:08 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4361e89b6daso8896805e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:49:08 -0800 (PST)
+ id 1tVuo9-0003BM-JB
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:50:53 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 80e0e818-cea1-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 16:50:52 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4368a293339so13308045e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:50:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e2dc05a1sm59878145e9.15.2025.01.09.07.49.06
+ 5b1f17b1804b1-436e9e6249csm24586165e9.38.2025.01.09.07.50.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 07:49:07 -0800 (PST)
+ Thu, 09 Jan 2025 07:50:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42eb4ed6-cea1-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 80e0e818-cea1-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1736437747; x=1737042547; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1736437851; x=1737042651; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yG/3DWoK9VEtxCl3OuIsNNW81fipAg43SNdIHPkcq54=;
-        b=DldDiyTvBoDBtD0KgwalFkmW8tUjcpr9WbhwBZkVHGHdNFipMqd/toft5g5jHyBKxP
-         uKmK995AGiva09umVhIEkvn6d8iyO3KG+h9Tc1drV5kbWSmJYuCx1+fz/gkm4nYcZvgU
-         c9PiXXHoPIRaRlwnGhY5kSBm80ZXN+y/ntphGUVf+U7TeQmS4D8pZqxqax75p+d8XP+L
-         IHp4TxgWgmByb+VQXwYb5BWYvglkzIXevHHtSsdQK7XMaA7vgem6o75Q46IocL0mhCbQ
-         5HGthco8x0R9wvAzo9JCqynlzBHsYC73C1lf525fCmo/CrlSvIo9I9F8bCB7uPOSbYhA
-         MPzA==
+        bh=/6AbTStBIBSM87HCQWxECtRStNhq5jWk924Q6zyzDWE=;
+        b=ZmIxXy39YTLRnpJlkhAqAYUR/w1Zq99aea6Q4rW9qR3l+b4CFqO4x47f+FtYO1cfIM
+         Du2aOiP7w2bIA9deVlsvb/VqFCf6uDJ6W9XHIWOUE3ZrgL5jcnYEYfArEmzvVpP7Jixz
+         A/BbV4NYT0EU+z6Tpxzm9rJugl/V3K2h6n5OLL1Nwjf2TogMceN9zGgHJPwX6loRA8ik
+         ZZtmGrVD8xLJVma1Qob4gfld5a+bVJUHgYQyenvzZGXxWq3wU+hE/ZtvCoVJU1qdYeFB
+         f6+Vq6y8GOEOYNuvPZgpMWG87rGULYjhygeEP7WZqYaPV4aR2bTFjQ3Z1Mykl8c53RKw
+         b25g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736437747; x=1737042547;
+        d=1e100.net; s=20230601; t=1736437851; x=1737042651;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yG/3DWoK9VEtxCl3OuIsNNW81fipAg43SNdIHPkcq54=;
-        b=oZ9xTHH4A0CfZJInU64J75Isc3lFJEu5zfoBRrvF8nsrbflK/yY1erATtzrUXPOpXT
-         MVpFJmBbwRM4gFLV39G7WDRHc7IV+T6+Z4q7hBe9PUUMk9zMxiNv1aAxnLamBbcpvr/g
-         dG1lTgjt3/OmHMHh7cstNOwMr325hyujSEUTZTdQHOEv1YVz9i2qc0b+X3zg+I4x4Td0
-         EVCKkbKrUuzcc6mdPjr2FxfJDXeOZTReNXvPkD+9EkpDv+ab6/UM9RRhMPgsqyz2TVBu
-         gZRtJzTJffr/IDwzZfubSPQBMZUhHu3qJOCgJkH/go1MG71olKLod3PQXAONBMUhhas1
-         Nlsg==
-X-Forwarded-Encrypted: i=1; AJvYcCUTnqMbcxULCHcHWzbTIjElQFy88yvXVEQmvoFC56V5xotimVVtvBipg5uj6luzX7iTYvL6fPyrHog=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz3KaVCpdEJo+CJRTuNziBOjbrw0pHE/CZjF0jsrkenWp2owhEi
-	0GQ9rRGjNUnTY5wZDCF4d8J2TIGrzC7QcuHLc5LV84FafiJJsW5ELIwTXGKX2g==
-X-Gm-Gg: ASbGncuWlA0UzqbddXIsXxjsWYWo5J6FDI5UaSbN0JCKFVNcrvQnMamG3XNy9it76Ae
-	nedjC5GAqRf02YZlSQiNvUFpt6SW66gLsYcqlnDjaePRm4pf+QEjOjLay1XV0B97aqHDVUakAR/
-	ICILpvaIJyataN2Hoz9N6dYYKNVfmEiF2+JDV00s+Eq4Z+UaMGR51YE1b37kmvUopWP7ErTS9PD
-	8nLg1r0kivFwUvJcN2cg4DqgGPYBQlAkIkX6GkdD5JzCQfycReH7g08G+8wp2t/TJPEbjvyjDQW
-	DXPB8o7xBVhYxPTHTvMsGU12U7OL1UHCiSZP47z8Sw==
-X-Google-Smtp-Source: AGHT+IEFarfKs0uFSicm2xnT7T6Y3k1iVbTo1cBnqhdcbT4Fv3ygHYyXB40NeXtXImbK364hlPpupA==
-X-Received: by 2002:a05:600c:35c1:b0:436:a3a3:a70c with SMTP id 5b1f17b1804b1-436e26ef06cmr50701365e9.28.1736437747524;
-        Thu, 09 Jan 2025 07:49:07 -0800 (PST)
-Message-ID: <96cd80fe-f4f1-430f-ab7c-2ce0befb20d7@suse.com>
-Date: Thu, 9 Jan 2025 16:49:05 +0100
+        bh=/6AbTStBIBSM87HCQWxECtRStNhq5jWk924Q6zyzDWE=;
+        b=oZWYpGkPWjufv3tu8lFhOjuc+fkcyjAtzDFWg6zK6uhnl8DvrOOYqjsxqGmxkmTgI8
+         jltIaoUIV92xRWiVm8cMoucP8JQerUOJoAthCWfPXcNFa5TbI19ztNS1RPqQ+K/J+S0n
+         Dck3SwkOwywfIEHYGudRpt9Z9IFyyuemnrhCKh+gM4lP4oKosJChs5CJeyKWmQ+UftVD
+         kcoCcDS6RYXBR16ou7zpJhaScwo9pvVv+jHAhHIujWC6YPF/UYYgmNBUcQUrSfWhb+7p
+         M1fTsV1x2OdDoliApJBW+YecCwAaMxWIdKq9SI7de/DzT5/a17spcCx2CR4RX+Gl6Ybf
+         Ovdg==
+X-Forwarded-Encrypted: i=1; AJvYcCUhBZWJFlRr5M/H9WFRt6qndKR7yaQwjVfV5pxgV1DmmnHSOJ4lnANRvw+Xd3RBFgkHDT1rcuAzUqg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPKoyh7HTSobgxiUsAQ9nL8FYiGKvp4nGbFIk6DWzXqqyPtvD3
+	InH4YcYxuy1A3mUi5CpEAS50i6VmF8kO5A/v+kql44wUQMTyCtoz93iur+eh+A==
+X-Gm-Gg: ASbGncs0kK4aAhbOgw5PpRI1vDRKhdzyhP5zeOKbVhHDzCRXlAF165aVktDSP7cbwdZ
+	gq2kaO/T0rqMqb+jeeNAlRLYbxiUeRR3BunObhXKLnfP3odoZyRc5in/pm9ErtIst/c78POdKGc
+	09vH5tsNh53W/THOu2IsmP5ofRs51jZeF4IYxwGkqzZjG17e0VlOrvZKqTATgexETu5V8UMVQq9
+	mhMkql039kHxcu90FalAHZ/4RTkHl3CDc0/CJm2UjJBAScriykvLWVFmMJmOTXkTxPcjMrRxDOp
+	my38Y/uj+8AKD7J5g2a2yANwO41yTLhdRVRPek9qVg==
+X-Google-Smtp-Source: AGHT+IEd2Qcp9nXKYZdraQrUkbzDZJhRjXmjipVtM7bKWkCp5E33NBhLqqnhFzt7UOu5e8mBLEwCCg==
+X-Received: by 2002:a05:600c:4ed4:b0:436:1b81:b65c with SMTP id 5b1f17b1804b1-436e26c0a33mr73657725e9.15.1736437851542;
+        Thu, 09 Jan 2025 07:50:51 -0800 (PST)
+Message-ID: <1d244fe8-96a6-4597-a741-2b4ec15a71fa@suse.com>
+Date: Thu, 9 Jan 2025 16:50:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/7] xen: add bitmap to indicate per-domain state
- changes
+Subject: Re: [PATCH v7 5/7] xen: add new domctl get_changed_domain
 To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250109105935.23585-1-jgross@suse.com>
- <20250109105935.23585-5-jgross@suse.com>
+ <20250109105935.23585-6-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,29 +121,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250109105935.23585-5-jgross@suse.com>
+In-Reply-To: <20250109105935.23585-6-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 09.01.2025 11:59, Juergen Gross wrote:
-> Add a bitmap with one bit per possible domid indicating the respective
-> domain has changed its state (created, deleted, dying, crashed,
-> shutdown).
+> Add a new domctl sub-function to get data of a domain having changed
+> state (this is needed by Xenstore).
 > 
-> Registering the VIRQ_DOM_EXC event will result in setting the bits for
-> all existing domains and resetting all other bits.
+> The returned state just contains the domid, the domain unique id,
+> and some flags (existing, shutdown, dying).
 > 
-> As the usage of this bitmap is tightly coupled with the VIRQ_DOM_EXC
-> event, it is meant to be used only by a single consumer in the system,
-> just like the VIRQ_DOM_EXC event.
-> 
-> Resetting a bit will be done in a future patch.
-> 
-> This information is needed for Xenstore to keep track of all domains.
+> In order to enable Xenstore stubdom being built for multiple Xen
+> versions, make this domctl stable.  For stable domctls the
+> interface_version is always 0.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
+> Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com> # non-XSM/Flask
 
 
 
