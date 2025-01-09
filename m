@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A647A07BDF
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:26:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868792.1280293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56A44A07C02
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 16:30:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868800.1280304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVuQI-0003D2-Nr; Thu, 09 Jan 2025 15:26:14 +0000
+	id 1tVuUU-0005jC-7j; Thu, 09 Jan 2025 15:30:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868792.1280293; Thu, 09 Jan 2025 15:26:14 +0000
+Received: by outflank-mailman (output) from mailman id 868800.1280304; Thu, 09 Jan 2025 15:30:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVuQI-0003An-LE; Thu, 09 Jan 2025 15:26:14 +0000
-Received: by outflank-mailman (input) for mailman id 868792;
- Thu, 09 Jan 2025 15:26:13 +0000
+	id 1tVuUU-0005gZ-4U; Thu, 09 Jan 2025 15:30:34 +0000
+Received: by outflank-mailman (input) for mailman id 868800;
+ Thu, 09 Jan 2025 15:30:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zyMf=UB=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1tVuQH-0003Ah-3Z
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:26:13 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c73b30a-ce9e-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 16:26:09 +0100 (CET)
-Received: by mx.zohomail.com with SMTPS id 1736436364776946.4546907594349;
- Thu, 9 Jan 2025 07:26:04 -0800 (PST)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-e39779a268bso1553909276.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:26:04 -0800 (PST)
+ <SRS0=OfsQ=UB=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tVuUS-0005gT-C8
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 15:30:32 +0000
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [2001:4860:4864:20::2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a85f4310-ce9e-11ef-a0df-8be0dac302b0;
+ Thu, 09 Jan 2025 16:30:31 +0100 (CET)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-2a3a40c69e3so581909fac.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 07:30:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,96 +40,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c73b30a-ce9e-11ef-a0df-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1736436365; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=E85Jrv86Y5aK+SD6b0tynCZisfGnGGI3bbdN4wTNDsTHdtopoqCnPBFoxM3/8a9h/FByDzySw26fqH3TZ1XY6RqIcHMVW2a3ctxUQ+9oi2g7KQCJidqW79wPMVhxpQmTDMHW0lgfh1/7x6fREm8F1C2g70nk2JZ+grxmlTKp4vQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1736436365; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=v9IpNl2iNQqt9WSyxFheSewMy8n03I5CieRpdGYFo6w=; 
-	b=eBQtf+7JaKoEzrMcoAwNhIAGdxLARvkNpDOkc6t2iDGpRxJs6ZffKh9qIydvVhM+OJT+M0VLtUa0RboF14pBVg+QuIL780GtiX2399lMVacxKd9wqo8XgWetn1hmoyIjdLzbm6bo4YOA06JDvptqpwXvu76s+IAUp2WkcAlHFBI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1736436365;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=v9IpNl2iNQqt9WSyxFheSewMy8n03I5CieRpdGYFo6w=;
-	b=BiaTyODOueHyV35V79fmPKBGFUq/2EcmbmvQknIpafvhLivZt/DIivttRcJ5CA6Y
-	IUM1qFmYHlKqwpjwVE25hgO0FSH1WBCfjTdMyNZNu4foNxz68yS2j9PkREkj7M4gVtx
-	JJ36BJmGMMk6x0JjCxx3fGQCKoSrbqzCrYR+j+vI=
-X-Forwarded-Encrypted: i=1; AJvYcCVFlxQri3y5TV8KM9FdA7sTX2pvXrepwotd6eHB1ueIjI1CIWap7uvhPipEFV6B6fFFSN+Xz0k7TyQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwAGOy5Cm41TtWx48HvoTsb0/LhSc6wLHueG70yNN7THVcZPWHk
-	lepk5QOe9/o7fGNIbo6stYWGMK59IonGbN22Dc5y16p6jiWfs6nwk9RWkkCjt3bgsnffJCmaXCN
-	S23q7Bg7NDrvYMmUQpg9PMIHlqPg=
-X-Google-Smtp-Source: AGHT+IGj1vTgkF+qZ3275XwZQgoP4KlB4h4vgcoHtaVtlPsaWc38lsYRzTcHjwRXn/tIqOnyxI5wo9Wf5Ha7lKGhZGI=
-X-Received: by 2002:a05:6902:2708:b0:e54:d63a:911c with SMTP id
- 3f1490d57ef6-e550141e9c2mr2733502276.10.1736436363826; Thu, 09 Jan 2025
- 07:26:03 -0800 (PST)
+X-Inumbo-ID: a85f4310-ce9e-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1736436629; x=1737041429; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YTqkaJeSjH6ii8cl868aBE/9efm05NFc8SMXqdeIGvs=;
+        b=Qqm/5MEBqLAKCpw42xyDKfiuGVdqqEBOw2bsq5GXGLQGn1LJL4N8yqa1SIEUiTJQIm
+         02otp+Lmm0Vuf740dkUmLwqbLbca/vy8J3d9C9xAI+OP8qCfkahUxMgmxq+CCKAosPLF
+         z6bEADEey0OhoGo17qXnRmqZ2qtV+ETuG2vII=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736436629; x=1737041429;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YTqkaJeSjH6ii8cl868aBE/9efm05NFc8SMXqdeIGvs=;
+        b=H5nl9pszT7XdPcvOKacr70WAJQh7sDs5lpfLHyMFnu3UpYg38N3279OhGje97aG4E1
+         6yWQf+FtZuiXfdsbUIVxOxcMipHDuZlsO2yN0hNLh0ohRM7yAyZZqB1J2QChxS0Pl4E0
+         tsRVcEyCgp4m6LJaqn2lnT9ghFN8Ompwg45bMbK/yDFhOaYTIqVreyRvYmCv5MIDDnOD
+         bufpkFMTH2v//NiTEHQbtu0gwpy1I5boo+mNApLQU+xiKKQVQbHduf7x2Z9/P+9/s86T
+         Aj72jQR0/qzpX+vRP0U2WTqU3Im4A59aL1czrsRIWmLkpLpWDfTF4vSYh9axRJvcdVZl
+         Vqpg==
+X-Forwarded-Encrypted: i=1; AJvYcCXHnIXc/VgXyDR/aVYQU1ygeg094VeRqQylQXDEnWmLUQyFhoX27JGSlCYPXqt5k/pMFlbpzivIB08=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJql5Mc4ymMNgnVw67btVSeigvQUTlvETwisfLcCw0TZ/OUEwQ
+	Ey9xc0MPYmS3eXGLawVDeNNWqtnplDI41gB3HCkWIglbhpOAP031gIzturoK3avQY8TaXX8IGbM
+	SXKCUCj06lbrs4e/7B+6qkLQKbbIT+OUuYcQlBw==
+X-Gm-Gg: ASbGnctsDjNUOH+m10ykuL3Qg0lN3bvHrxA+YL+TxtdlE2EwNS+FFZpgIUc/wkDY34k
+	Kzuqghki82Js2hW3uTXE+vC7nzCDYA/knQWBK
+X-Google-Smtp-Source: AGHT+IEDj4eRUf2qfd1XC67F1wiWGrszpuCEh/KahbAP7gBO4euqu6w/HNUuSDmbIckUjUy9MObojvgL5RjFCDkxKsc=
+X-Received: by 2002:a05:6870:6e87:b0:29e:4ba5:4ddc with SMTP id
+ 586e51a60fabf-2aa0673901dmr3618444fac.24.1736436629164; Thu, 09 Jan 2025
+ 07:30:29 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1735837806.git.w1benny@gmail.com> <4eea61a2-cf56-4ff5-8c43-58f5a20c9cb1@gmail.com>
-In-Reply-To: <4eea61a2-cf56-4ff5-8c43-58f5a20c9cb1@gmail.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 9 Jan 2025 10:25:27 -0500
-X-Gmail-Original-Message-ID: <CABfawhmHK_Lg8GuVr9yb1gw82YFs3e1gh76azzH8C98R552dSw@mail.gmail.com>
-X-Gm-Features: AbW1kvbgU3QB5zRBc0i5XyoixetpS80JU6YW75tixuOlVts_yNiubtZG6tTwjnc
-Message-ID: <CABfawhmHK_Lg8GuVr9yb1gw82YFs3e1gh76azzH8C98R552dSw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] x86: Add Support for Paging-Write Feature
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>, 
-	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@vates.tech>
+References: <20250109131515.1757764-1-marmarek@invisiblethingslab.com>
+ <d7421558-c2d6-485b-96bf-927992c5c066@suse.com> <47378338-ac05-4041-a055-56045e5ba131@citrix.com>
+In-Reply-To: <47378338-ac05-4041-a055-56045e5ba131@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 9 Jan 2025 15:30:18 +0000
+X-Gm-Features: AbW1kvaJNCGU_fqbt_IeEkewgFAx4IlA-fmf6cQyL5X62d7uRzwuiYTWJfwMo_k
+Message-ID: <CACHz=ZjR6dSy_NsrXkhf_VfZpGYE4et6VkQvU_cO9DdAnXBzxQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/boot: adjust text gap/diff to work with 64-bytes
+ alignment too
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 9, 2025 at 9:30=E2=80=AFAM Oleksii Kurochko
-<oleksii.kurochko@gmail.com> wrote:
+On Thu, Jan 9, 2025 at 1:44=E2=80=AFPM Andrew Cooper <andrew.cooper3@citrix=
+.com> wrote:
 >
+> On 09/01/2025 1:23 pm, Jan Beulich wrote:
+> > On 09.01.2025 14:15, Marek Marczykowski-G=C3=B3recki wrote:
+> >> Xen compiled with -mtune=3Dgeneric has .text alignment set to 64-bytes=
+.
+> >> Having text_diff non-64-bytes-aligned breaks stuff:
+> >>
+> >>     Traceback (most recent call last):
+> >>       File "/builddir/build/BUILD/xen-4.20.0-build/xen-4.20.0-rc0/xen/=
+./tools/combine_two_binaries.py", line 96, in <module>
+> >>         raise Exception('File sizes do not match')
+> >>     Exception: File sizes do not match: 70160 !=3D 4080 + 66048
+> >>
+> >> Adjust the numbers as suggested by Frediano to work with 64-bytes and
+> >> even 128-bytes alignment.
+> > And then breaking at 256? As indicated on Matrix, imo we should be able=
+ to
+> > cope with anything up to at least PAGE_SIZE. Or we should reduce .text
+> > alignment before linking.
 >
-> On 1/2/25 6:13 PM, Petr Bene=C5=A1 wrote:
+> Do you have a concrete proposal on how to do this?
 >
-> From: Petr Bene=C5=A1 <w1benny@gmail.com>
+> Because if not, we've had 2 downstreams hit by this build failure, and
+> we probably ought to take this patch as a stopgap fix, and see about
+> doing the better fix for 4.20.
 >
-> Changes since v2:
-> - Reset entry->pw in all cases in p2m_set_entry, except for p2m_access_r_=
-pw
->
-> Changes since v1:
-> - Added signed-off-by tags
->
-> This patch introduces a new XENMEM_access_r_pw permission. Functionally, =
-it is similar to XENMEM_access_r, but for processors with TERTIARY_EXEC_EPT=
-_PAGING_WRITE support (Intel 12th Gen/Alder Lake and later), it also permit=
-s the CPU to write to the page during guest page-table walks (e.g., updatin=
-g A/D bits) without triggering an EPT violation.
->
-> This behavior works by both enabling the EPT paging-write feature and set=
-ting the EPT paging-write flag in the EPT leaf entry.
->
-> This feature provides a significant performance boost for introspection t=
-ools that monitor guest page-table updates. Previously, every page-table mo=
-dification by the guest=E2=80=94including routine updates like setting A/D =
-bits=E2=80=94triggered an EPT violation, adding unnecessary overhead. The n=
-ew XENMEM_access_r_pw permission allows these "uninteresting" updates to oc=
-cur without EPT violations, improving efficiency.
->
-> Considering that this feature provides a significant performance boost fo=
-r introspection tools probably we could consider to take it to current rele=
-ase.
->
-> I see that the patch series was acked-by "Acked-by: Tamas K Lengyel <tama=
-s@tklengyel.com>" but based on the change log it is not clear when exactly
->
-> before Feature freeze date or not. ( and I don't see any reply from Tamas=
- ).
 
-I've acked the patch Thu, Dec 19, 2024.
+I agree with this, merge this and then leave the improvements for follow up=
+(s).
 
-Cheers,
-Tamas
+Yesterday I checked the output object file (built-in-32.o) to find
+that the output alignment is 1 byte, which is obviously wrong!
+
+There's no current requirement for page alignment. As page management
+is done in both 32 and 64 bit code, pages are allocated in other parts
+of the sources and handled correctly.
+
+Personally I prefer incremental development with sensible and
+self-contained improvements kept separate, instead of adding changes
+and changes because somebody touches a piece of code that can be
+improved. Usually any piece of code can be improved.
+
+Frediano
 
