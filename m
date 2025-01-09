@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4400A07D26
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 17:16:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868963.1280473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A481A07D75
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 17:27:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868985.1280493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVvC3-0002VI-8D; Thu, 09 Jan 2025 16:15:35 +0000
+	id 1tVvMa-0001Tn-C9; Thu, 09 Jan 2025 16:26:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868963.1280473; Thu, 09 Jan 2025 16:15:35 +0000
+Received: by outflank-mailman (output) from mailman id 868985.1280493; Thu, 09 Jan 2025 16:26:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVvC3-0002RY-54; Thu, 09 Jan 2025 16:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 868963;
- Thu, 09 Jan 2025 16:15:33 +0000
+	id 1tVvMa-0001S1-9M; Thu, 09 Jan 2025 16:26:28 +0000
+Received: by outflank-mailman (input) for mailman id 868985;
+ Thu, 09 Jan 2025 16:26:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wq9x=UB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tVvC1-0002PN-Og
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 16:15:33 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ <SRS0=BoWZ=UB=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
+ id 1tVvMZ-0001Rt-G9
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 16:26:27 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f310c09f-cea4-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 17:15:32 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-aaee2c5ee6eso190128566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 08:15:32 -0800 (PST)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab2c9645fddsm83988066b.169.2025.01.09.08.15.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jan 2025 08:15:31 -0800 (PST)
+ id 78fbe494-cea6-11ef-a0df-8be0dac302b0;
+ Thu, 09 Jan 2025 17:26:26 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8BEF71F394;
+ Thu,  9 Jan 2025 16:26:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 00C48139AB;
+ Thu,  9 Jan 2025 16:26:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 9qu0ObD4f2fqBgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Jan 2025 16:26:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,113 +51,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f310c09f-cea4-11ef-a0df-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1736439331; x=1737044131; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=k02q0uVqEedz6OethSIEqDgrfhFBHQS0vlrPrSFQJPw=;
-        b=OBWyG9N+Bq4yEhhTAGTHMD8D2o5BDGPScbiD+ACpg6kzupqZfGLdyYTbqNIjRL9yba
-         4f3O4Pv6V57XrMD/w/DIgVuvyOWSYqgIvLM4NlL3J36qoIM0G632QVet55+o0egJ+37h
-         /An5mIWn9TpMyNzfUdJmvMHWXyRAd5a6UC2n4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736439331; x=1737044131;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=k02q0uVqEedz6OethSIEqDgrfhFBHQS0vlrPrSFQJPw=;
-        b=X7NWm1Phke0xoBlWHfRtPNSUCn+aZSFBpneps3oFui8LGPsGWm8wjdGZ5NrPfprbcR
-         /uyRF+++jaH63SzMtmx+K+7Nj9I0q4XDMehW8lZcyKnSYhlVoa4HIR4kFr2x+lS4AxVe
-         WeVMlhas7mA3YF7usKWU6tE22DwmkhyE+xuLkffaRxI46NyS8+O4D/3atsyLO5jw667j
-         UnLC8dl3YcUeC6qIe8o7gj0E4YlrUfqyIjhidotuUwYHFFbJvUgj1Y7htkwZAS3uF03Z
-         K+JbruZOUO2qxP2/0qAE6AOk3WNog6meUBEbXzbrQXk9oukyy1/GLrRhJDKe+5cIp9o8
-         qD/w==
-X-Forwarded-Encrypted: i=1; AJvYcCXMlscLd1zE00tWBUPH7naMAUl9nb3nu+XzrPNkbQh8BnJxX0HLeWkSACdFOQ6pZkZ1j6G2tv2alio=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyKgNl+WeEdjLCJ9H8OjmYTz93oVXd3cGqFMCCUpzhgqzfxUQR/
-	KChEV4hS8iQwwNFPd86NTo2uAXmdvrxyRQ2mIlRzOlyZTTHsr+lKpEmpx0Pa3ac=
-X-Gm-Gg: ASbGncs4/E7uZ6sXyvlHVl1uYfFG847urKJGzGfzG08WQDEtYAc+HPplFardV/kttKa
-	4rJK3po9UYtGvxWRuMD+1owLYNpSqsur+DsFfbOAd5KWMJUsAwmHtt0egCOR7HoMyyVbQN3tUoi
-	YpmbJWzRh96m5xVic9F1G1y0Bd96WDI3OVyvNxXUBP4+fv8r/fp8WbPVxhOdQQFLDtcMNAnl3+e
-	NpgWrW7nMLRL7NOwGB6Y5DhteANIeFji5Y7JklUzjvn5csDCsfMy1VTnkJuoA==
-X-Google-Smtp-Source: AGHT+IHtOa0K6VX3BliPmhDS5BYi81wa3891u/ccPf61M2Pph9hCJc33gfh7s/tmPgj+pMUjlYaTKA==
-X-Received: by 2002:a17:907:d9f:b0:aac:180e:b1d4 with SMTP id a640c23a62f3a-ab2ab6fe016mr651317366b.27.1736439331372;
-        Thu, 09 Jan 2025 08:15:31 -0800 (PST)
-Date: Thu, 9 Jan 2025 17:15:30 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] xen: do not use '%ms' scanf specifier
-Message-ID: <Z3_2IhGZvpF-5IiX@macbook.local>
-References: <20250107093140.86180-1-roger.pau@citrix.com>
- <20250107093140.86180-3-roger.pau@citrix.com>
- <Z3-sJMXpiFUoATHz@l14>
+X-Inumbo-ID: 78fbe494-cea6-11ef-a0df-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1736439985; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NRmPm0ZNk/C3mZstvTuhKj0QjfwNtjAVVxCaUxWitUE=;
+	b=sbSREeiq9iYjhEjeQW4qdyaKgpxCCvgX4XR/fBFVbBO4pMWr9sS4BXsXIGQmQ85imThdW3
+	YEr9PS4vxUj00SkQvkhd+WdDG7ceEvYLGtYIwa15RLNL2aCvQCzad51udAuGukV2DSk9ep
+	xC+VFiwxwgPTMZtQGbOekt/679hQbN0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1736439985;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NRmPm0ZNk/C3mZstvTuhKj0QjfwNtjAVVxCaUxWitUE=;
+	b=Lfl2D7OwYEWe79nVY++MQKtG++F9vBKMfMM+7FkArBH4/ckhXi+TbuY3f0MHOm2XwF8VUk
+	tzwhYX4d2YyHyaDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1736439985; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NRmPm0ZNk/C3mZstvTuhKj0QjfwNtjAVVxCaUxWitUE=;
+	b=sbSREeiq9iYjhEjeQW4qdyaKgpxCCvgX4XR/fBFVbBO4pMWr9sS4BXsXIGQmQ85imThdW3
+	YEr9PS4vxUj00SkQvkhd+WdDG7ceEvYLGtYIwa15RLNL2aCvQCzad51udAuGukV2DSk9ep
+	xC+VFiwxwgPTMZtQGbOekt/679hQbN0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1736439985;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NRmPm0ZNk/C3mZstvTuhKj0QjfwNtjAVVxCaUxWitUE=;
+	b=Lfl2D7OwYEWe79nVY++MQKtG++F9vBKMfMM+7FkArBH4/ckhXi+TbuY3f0MHOm2XwF8VUk
+	tzwhYX4d2YyHyaDw==
+Message-ID: <6666af19-a98d-41d7-8329-7b50807c04a9@suse.de>
+Date: Thu, 9 Jan 2025 17:26:24 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 23/25] drm/xe: Compute dumb-buffer sizes with
+ drm_mode_size_dumb()
+To: Matthew Auld <matthew.auld@intel.com>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+References: <20250109150310.219442-1-tzimmermann@suse.de>
+ <20250109150310.219442-24-tzimmermann@suse.de>
+ <91c904f8-ba47-4595-be65-6fb57dcc9c64@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <91c904f8-ba47-4595-be65-6fb57dcc9c64@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z3-sJMXpiFUoATHz@l14>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[intel.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url,suse.de:email,suse.de:mid]
+X-Spam-Score: -2.80
+X-Spam-Flag: NO
 
-On Thu, Jan 09, 2025 at 11:59:48AM +0100, Anthony PERARD wrote:
-> On Tue, Jan 07, 2025 at 10:31:40AM +0100, Roger Pau Monne wrote:
-> > The 'm' parameter used to request auto-allocation of the destination variable
-> > is not supported on FreeBSD, and as such leads to failures to parse.
-> > 
-> > What's more, the current usage of '%ms' with xs_node_scanf() is pointless, as
-> > it just leads to a double allocation of the same string.  Instead use
-> > qemu_xen_xs_read() to read the whole xenstore node.
-> > 
-> > Fixes: a783f8ad4ec9 ('xen: add a mechanism to automatically create XenDevice-s...')
-> > Fixes: 9b7737469080 ('hw/xen: update Xen console to XenDevice model')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >  hw/char/xen_console.c | 11 +++++++++--
-> >  hw/xen/xen-bus.c      |  7 +++++--
-> >  2 files changed, 14 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-> > index af706c7ef440..18afd214c2f6 100644
-> > --- a/hw/char/xen_console.c
-> > +++ b/hw/char/xen_console.c
-> > @@ -531,6 +531,7 @@ static void xen_console_device_create(XenBackendInstance *backend,
-> >      const char *name = xen_backend_get_name(backend);
-> >      unsigned long number;
-> >      char *fe = NULL, *type = NULL, *output = NULL;
-> > +    const char *node_path;
-> 
-> Is "const" correct when we are changing to which string `node_path` is
-> pointing at? Also, why "const"? Also, compiler complains that we can't
-> free a "const something*".
+Hi
 
-It's my understanding that the proposed const signals that the pointer
-value can change, but the contents of the pointer cannot (iow: the
-string cannot be modified).
 
-My build seem to be fine, but I see that g_free() doesn't seem to take
-a const pointer.  Will adjust.
+Am 09.01.25 um 17:05 schrieb Matthew Auld:
+> On 09/01/2025 14:57, Thomas Zimmermann wrote:
+>> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch
+>> and buffer size. Align the pitch to a multiple of 8. Align the
+>> buffer size according to hardware requirements.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+>> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>> ---
+>>   drivers/gpu/drm/xe/xe_bo.c | 8 ++++----
+>>   1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+>> index e6c896ad5602..d75e3c39ab14 100644
+>> --- a/drivers/gpu/drm/xe/xe_bo.c
+>> +++ b/drivers/gpu/drm/xe/xe_bo.c
+>> @@ -8,6 +8,7 @@
+>>   #include <linux/dma-buf.h>
+>>     #include <drm/drm_drv.h>
+>> +#include <drm/drm_dumb_buffers.h>
+>>   #include <drm/drm_gem_ttm_helper.h>
+>>   #include <drm/drm_managed.h>
+>>   #include <drm/ttm/ttm_device.h>
+>> @@ -2535,14 +2536,13 @@ int xe_bo_dumb_create(struct drm_file 
+>> *file_priv,
+>>       struct xe_device *xe = to_xe_device(dev);
+>>       struct xe_bo *bo;
+>>       uint32_t handle;
+>> -    int cpp = DIV_ROUND_UP(args->bpp, 8);
+>>       int err;
+>>       u32 page_size = max_t(u32, PAGE_SIZE,
+>>           xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K);
+>>   -    args->pitch = ALIGN(args->width * cpp, 64);
+>> -    args->size = ALIGN(mul_u32_u32(args->pitch, args->height),
+>> -               page_size);
+>> +    err = drm_mode_size_dumb(dev, args, SZ_64, page_size);
+>
+> AFAICT this looks to change the behaviour, where u64 size was 
+> technically possible and was allowed given that args->size is u64, but 
+> this helper is limiting the size to u32. Is that intentional? If so, 
+> we should probably make that clear in the commit message.
 
-> >      char label[32];
-> >      XenDevice *xendev = NULL;
-> >      XenConsole *con;
-> > @@ -550,7 +551,10 @@ static void xen_console_device_create(XenBackendInstance *backend,
-> >          goto fail;
-> >      }
-> >  
-> > -    if (xs_node_scanf(xsh, XBT_NULL, fe, "type", errp, "%ms", &type) != 1) {
-> > +    node_path = g_strdup_printf("%s/type", fe);
-> > +    type = qemu_xen_xs_read(xsh, XBT_NULL, node_path, NULL);
-> > +    g_free(node_path);
-> 
-> I feel like we want "xs_node_read()" which would be similair to
-> xs_node_vscanf() but would simply return the result of
-> qemu_xen_xs_read(). This would avoid the need format of the node path in
-> several place in the code. But it's OK like that as well.
+That's an interesting observation; thanks. The ioctl's internal checks 
+have always limited the size to 32 bit. [1] I think it is not supposed 
+to be larger than that. We can change the helper to support 64-bit sizes 
+as well.
 
-I was about to introduce such, but didn't end up doing.  I can do.
+Having said that, is there any use case? Dumb buffers are for software 
+rendering only. Allocating more than a few dozen MiB seems like a 
+mistake. Maybe we should rather limit the allowed allocation size instead?
 
-Thanks, Roger.
+Best regards
+Thomas
+
+[1] 
+https://elixir.bootlin.com/linux/v6.12.6/source/drivers/gpu/drm/drm_dumb_buffers.c#L82
+
+>
+>> +    if (err)
+>> +        return err;
+>>         bo = xe_bo_create_user(xe, NULL, NULL, args->size,
+>>                      DRM_XE_GEM_CPU_CACHING_WC,
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
 
