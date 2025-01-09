@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77E55A0740A
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 12:00:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868104.1279649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8234A0740D
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 12:00:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868106.1279660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVqGU-0003XL-QV; Thu, 09 Jan 2025 10:59:50 +0000
+	id 1tVqGb-0003sC-3k; Thu, 09 Jan 2025 10:59:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868104.1279649; Thu, 09 Jan 2025 10:59:50 +0000
+Received: by outflank-mailman (output) from mailman id 868106.1279660; Thu, 09 Jan 2025 10:59:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVqGU-0003Vd-Nh; Thu, 09 Jan 2025 10:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 868104;
- Thu, 09 Jan 2025 10:59:49 +0000
+	id 1tVqGb-0003pf-0N; Thu, 09 Jan 2025 10:59:57 +0000
+Received: by outflank-mailman (input) for mailman id 868106;
+ Thu, 09 Jan 2025 10:59:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vJOs=UB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tVqGT-0003VB-77
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 10:59:49 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ id 1tVqGZ-0003VB-RH
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 10:59:55 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d7260af7-ce78-11ef-99a4-01e77a169b0f;
- Thu, 09 Jan 2025 11:59:47 +0100 (CET)
+ id db40f77d-ce78-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 11:59:54 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 089C51F385;
- Thu,  9 Jan 2025 10:59:47 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B25E421120;
+ Thu,  9 Jan 2025 10:59:52 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A9BC6139AB;
- Thu,  9 Jan 2025 10:59:46 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6CBC0139AB;
+ Thu,  9 Jan 2025 10:59:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Uoi3JyKsf2fpHAAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 09 Jan 2025 10:59:46 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id utUfGSisf2f1HAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 09 Jan 2025 10:59:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,27 +52,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7260af7-ce78-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: db40f77d-ce78-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1736420387; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1736420393; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6yHKHkyNV7SkbCgUGT5IGKtS0fWOirj5mabK6I1iS1M=;
-	b=tIkuLkoZ1RsqofILUwpYenfPKoxWVFiQ3sVLieZq5lLcrGTFUEi2fEPCnFHUHd0Z/UsUmx
-	HUUcJ2/fKa/59D/0it4SAUrpNI99Utq+8gL9tJNeorLMB2lMU5zL9CCTaTqltAyQteO69r
-	wCv8BsNBiQdc4udRCV+II17k/Wd2+T0=
-Authentication-Results: smtp-out2.suse.de;
+	bh=5p5IyWPyTuIHb0h9GGipzK1yvNuuVibrJGPX4pXZKbw=;
+	b=I9+XVLcxWKDKEVbFvuUQaC2jw5P1eMsLfWhOp0Vcqa3DQhDstH5hi46Ef74WaZb16DS+9O
+	qniAidnzA8fCrMxUlOXIBSUyHGiSudyJu80AklLxbmU8y+FJ3zUhqbK18Gygac8DiZduVF
+	Qk0f1A3D0YpzKXYtk0WQSuNjyHfqQfY=
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1736420387; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1736420392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6yHKHkyNV7SkbCgUGT5IGKtS0fWOirj5mabK6I1iS1M=;
-	b=tIkuLkoZ1RsqofILUwpYenfPKoxWVFiQ3sVLieZq5lLcrGTFUEi2fEPCnFHUHd0Z/UsUmx
-	HUUcJ2/fKa/59D/0it4SAUrpNI99Utq+8gL9tJNeorLMB2lMU5zL9CCTaTqltAyQteO69r
-	wCv8BsNBiQdc4udRCV+II17k/Wd2+T0=
+	bh=5p5IyWPyTuIHb0h9GGipzK1yvNuuVibrJGPX4pXZKbw=;
+	b=CdBaX8ShhnWukCa8y3lc1dRQ7gtFe+hCJH32O4dORNRnuTN6+SkOX9sCLqR9S+HUXiPEI8
+	Psl0LqkPcLvQfkTnIkuWRxkYw4gxgrfpvpn62NKwFo+u9sc6aMM8gwgHD4hm72w5sUKJG0
+	+x9a1kR5sJb1VjDwI0faBCiWIMX5PIY=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -82,15 +83,15 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v7 1/7] xen/events: fix race with set_global_virq_handler()
-Date: Thu,  9 Jan 2025 11:59:29 +0100
-Message-ID: <20250109105935.23585-2-jgross@suse.com>
+Subject: [PATCH v7 2/7] xen/events: don't allow binding a global virq from any domain
+Date: Thu,  9 Jan 2025 11:59:30 +0100
+Message-ID: <20250109105935.23585-3-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250109105935.23585-1-jgross@suse.com>
 References: <20250109105935.23585-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
+X-Spam-Level: 
 X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
 	MID_CONTAINS_FROM(1.00)[];
@@ -109,86 +110,99 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,imap1.dmz-prg2.suse.org:helo];
 	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.80
 X-Spam-Flag: NO
-X-Spam-Level: 
 
-There is a possible race scenario between set_global_virq_handler()
-and clear_global_virq_handlers() targeting the same domain, which
-might result in that domain ending as a zombie domain.
+Today Xen will happily allow binding a global virq by a domain which
+isn't configured to receive it. This won't result in any bad actions,
+but the bind will appear to have succeeded with no event ever being
+received by that event channel.
 
-In case set_global_virq_handler() is being called for a domain which
-is just dying, it might happen that clear_global_virq_handlers() is
-running first, resulting in set_global_virq_handler() taking a new
-reference for that domain and entering in the global_virq_handlers[]
-array afterwards. The reference will never be dropped, thus the domain
-will never be freed completely.
+Instead of allowing the bind, error out if the domain isn't set to
+handle that virq. Note that this check is inside the write_lock() on
+purpose, as a future patch will put a related check into
+set_global_virq_handler() with the addition of using the same lock.
 
-This can be fixed by checking the is_dying state of the domain inside
-the region guarded by global_virq_handlers_lock. In case the domain is
-dying, handle it as if the domain wouldn't exist, which will be the
-case in near future anyway.
-
-Fixes: 87521589aa6a ("xen: allow global VIRQ handlers to be delegated to other domains")
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V6:
 - new patch
 V7:
-- add comment (Jan Beulich)
+- move handling domain check inside locked region (Jan Beulich)
+- style fix (Jan Beulich)
 ---
- xen/common/event_channel.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ xen/common/event_channel.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
 diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index 8db2ca4ba2..46281b16ce 100644
+index 46281b16ce..cd6f5a1211 100644
 --- a/xen/common/event_channel.c
 +++ b/xen/common/event_channel.c
-@@ -979,6 +979,7 @@ void send_global_virq(uint32_t virq)
- int set_global_virq_handler(struct domain *d, uint32_t virq)
+@@ -120,6 +120,13 @@ static uint8_t get_xen_consumer(xen_event_channel_notification_t fn)
+ /* Get the notification function for a given Xen-bound event channel. */
+ #define xen_notification_fn(e) (xen_consumers[(e)->xen_consumer-1])
+ 
++static struct domain *__read_mostly global_virq_handlers[NR_VIRQS];
++
++static struct domain *get_global_virq_handler(unsigned int virq)
++{
++    return global_virq_handlers[virq] ?: hardware_domain;
++}
++
+ static bool virq_is_global(unsigned int virq)
  {
-     struct domain *old;
-+    int rc = 0;
+     switch ( virq )
+@@ -469,6 +476,7 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+     struct domain *d = current->domain;
+     int            virq = bind->virq, vcpu = bind->vcpu;
+     int            rc = 0;
++    bool           is_global;
  
-     if (virq >= NR_VIRQS)
+     if ( (virq < 0) || (virq >= ARRAY_SIZE(v->virq_to_evtchn)) )
          return -EINVAL;
-@@ -992,14 +993,32 @@ int set_global_virq_handler(struct domain *d, uint32_t virq)
+@@ -478,8 +486,9 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+     * speculative execution.
+     */
+     virq = array_index_nospec(virq, ARRAY_SIZE(v->virq_to_evtchn));
++    is_global = virq_is_global(virq);
+ 
+-    if ( virq_is_global(virq) && (vcpu != 0) )
++    if ( is_global && vcpu != 0 )
          return -EINVAL;
  
-     spin_lock(&global_virq_handlers_lock);
--    old = global_virq_handlers[virq];
--    global_virq_handlers[virq] = d;
-+
-+    /*
-+     * Note that this check won't guarantee that a domain just going down can't
-+     * be set as the handling domain of a virq, as the is_dying indicator might
-+     * change just after testing it.
-+     * This isn't going to be a major problem, as clear_global_virq_handlers()
-+     * is guaranteed to run afterwards and it will reset the handling domain
-+     * for the virq to the hardware domain.
-+     */
-+    if ( d->is_dying != DOMDYING_alive )
+     if ( (v = domain_vcpu(d, vcpu)) == NULL )
+@@ -487,6 +496,12 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+ 
+     write_lock(&d->event_lock);
+ 
++    if ( is_global && get_global_virq_handler(virq) != d )
 +    {
-+        old = d;
-+        rc = -EINVAL;
-+    }
-+    else
-+    {
-+        old = global_virq_handlers[virq];
-+        global_virq_handlers[virq] = d;
++        rc = -EBUSY;
++        goto out;
 +    }
 +
-     spin_unlock(&global_virq_handlers_lock);
- 
-     if (old != NULL)
-         put_domain(old);
- 
--    return 0;
-+    return rc;
+     if ( read_atomic(&v->virq_to_evtchn[virq]) )
+     {
+         rc = -EEXIST;
+@@ -965,15 +980,13 @@ void send_guest_pirq(struct domain *d, const struct pirq *pirq)
+     }
  }
  
- static void clear_global_virq_handlers(struct domain *d)
+-static struct domain *global_virq_handlers[NR_VIRQS] __read_mostly;
+-
+ static DEFINE_SPINLOCK(global_virq_handlers_lock);
+ 
+ void send_global_virq(uint32_t virq)
+ {
+     ASSERT(virq_is_global(virq));
+ 
+-    send_guest_global_virq(global_virq_handlers[virq] ?: hardware_domain, virq);
++    send_guest_global_virq(get_global_virq_handler(virq), virq);
+ }
+ 
+ int set_global_virq_handler(struct domain *d, uint32_t virq)
 -- 
 2.43.0
 
