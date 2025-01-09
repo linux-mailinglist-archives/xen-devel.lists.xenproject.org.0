@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D141A0723F
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 10:56:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867946.1279486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71F4BA07250
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 10:59:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867958.1279495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVpGa-0002t0-Nh; Thu, 09 Jan 2025 09:55:52 +0000
+	id 1tVpJT-0003Vv-8g; Thu, 09 Jan 2025 09:58:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867946.1279486; Thu, 09 Jan 2025 09:55:52 +0000
+Received: by outflank-mailman (output) from mailman id 867958.1279495; Thu, 09 Jan 2025 09:58:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVpGa-0002qP-KV; Thu, 09 Jan 2025 09:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 867946;
- Thu, 09 Jan 2025 09:55:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bl7y=UB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1tVpGZ-0002qH-QA
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 09:55:51 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e74e0026-ce6f-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 10:55:49 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-436a39e4891so5358695e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 01:55:49 -0800 (PST)
-Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e9e37c17sm15151555e9.27.2025.01.09.01.55.46
+	id 1tVpJT-0003TZ-63; Thu, 09 Jan 2025 09:58:51 +0000
+Received: by outflank-mailman (input) for mailman id 867958;
+ Thu, 09 Jan 2025 09:58:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=pS5t=UB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tVpJS-0003TT-7p
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 09:58:50 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5233914a-ce70-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 10:58:48 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-385de9f789cso512972f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 01:58:48 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a8e4c1ce5sm1359236f8f.94.2025.01.09.01.58.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 01:55:48 -0800 (PST)
+ Thu, 09 Jan 2025 01:58:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,346 +45,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e74e0026-ce6f-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: 5233914a-ce70-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1736416548; x=1737021348; darn=lists.xenproject.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e5ze1jAUAJrU/mqlh6re5lCEkd/F9jk6JppPFxVKCH8=;
-        b=BwqY3xFN1nMwMDqUpTztTMjnAn/Wa0Y+RGtn9owKYzIg0ACaSZH9r0VVN+WZuuxfA+
-         AWd9XXO7zFXlWBHrop90l8v8VOHqKRaw+Ncje5QEw/BOZzUumcmcNtbqKV+EzFrS053P
-         4fqQgcwNbqUjTt/HgEPGofs/miwJYtK9RlxuU=
+        d=suse.com; s=google; t=1736416728; x=1737021528; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/VXpPq3krtPPpdfZOOaixS4Qtjl5Z/mwSZquK/DB4c0=;
+        b=D8YxmWSHSTMPI7zhfK2FtwtcXIPzKJeIZkHSwsJlK/uNGpmyanD0z0WA+WSSSp9j5s
+         5Mra8WwpVhsxZ2n/K71WheScCXAQsD8Qer02mLWx18JILGgKe4PMZ8Y/Sw59VKEVgdLW
+         nCkUeplWtHcdOGn7ws13fL+I8+O3HVcs6jB/Rt2Dt9jS3kqL5lJvGef4T3aVzOZmdqn2
+         4cj6MBXG0wqUt+/nfvJcWqjbxaYRB6YnzAv644xvOFM4DrjtNt7NwOwkY2hwVh6e2uwf
+         8uDwfk0ppTWG/47CNH5zReaNVqYpQclN3g4JmzTU5s7f2XAKu5CGZoXRzNW8BQpAZncC
+         lzgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736416548; x=1737021348;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=e5ze1jAUAJrU/mqlh6re5lCEkd/F9jk6JppPFxVKCH8=;
-        b=MXb79YF2GsF1vE6KPW2ADL28iZ0IOn2hcSRth9bUP/MhIWFuzt03vQMtt8OJ6cixnX
-         ZoLzFlsRoTfam+k1rkZnnWlA6j5vBiObp69EAJl+m+43GFfqHcP9u3/5ZvfTYPdQoFDu
-         9xA0EAARXTZnOybbmGcnEJ+DfYSL8i2+VPG5uAKlvSUfKIQmZXQSdXC+RpWkNzl54jbM
-         gZexBAM9fFjiERFiVdE21CDAaHsFSOkAkFeUHbbQqxxG0imaPbTNh6gMQMXkUQxDZqXK
-         P2LTDXrIzju//22yqNIHo1i2oyGqsUo7RTDV3TTN1pBdil6lA70JxeaqnbHLEZk7PLlx
-         6l9g==
-X-Forwarded-Encrypted: i=1; AJvYcCX6uZgLFQRQqx9IDs3IpaiE6U1GCU2Ybx/HoUVW+TZumxUlkjuMjTrx/zuScycbnM1pswVkVZFSdFU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwBF89eG6zEOaleafuAXNPw734PTqCXY4oxwVPB8+llPLLp0NUS
-	zYgiBpoK3RadH35hD/EjeK6P/Kpa0IQdp/3lNe1iQD7xnvDoei5pL+bKGZisO4I=
-X-Gm-Gg: ASbGncu7wIVpP+BE+hjGOHqOA96Mdf/Ye4ma0ambfZFmznqfKJfRxZQhd4KcxXV97xT
-	i+nlwf+6DB+K4I1pbHUxysSZEzxpFWkdZKG2Gxwxz0Jn9EJrruBznYgrLNFfKLGAAZ+t7VtTPz6
-	5HvfaO+qQZPKh+u1ykkFBmElUaGcLS6F/paCZHG4bb17ACkpArd4iuumWjLawNtYFWa4zvIrB6/
-	k34BJWNg8ai7VQRacxkiZbgUJ+pOOn4t05HbZHrpf3E7dn3RPmoGuqEshzkVu0=
-X-Google-Smtp-Source: AGHT+IFpYt+jJjz7htu8g0ZTzUImdNVt5vgoYuHGBiXy5TRbHENoSI3FKQ5xyOhkk7+1iz7aPBvWaw==
-X-Received: by 2002:a05:600c:3b91:b0:436:46f9:4fc6 with SMTP id 5b1f17b1804b1-436e26928e6mr54604865e9.8.1736416548420;
-        Thu, 09 Jan 2025 01:55:48 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1736416728; x=1737021528;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/VXpPq3krtPPpdfZOOaixS4Qtjl5Z/mwSZquK/DB4c0=;
+        b=tTlaodfpbpBBAR8HMKt4+PITvrY+vFuhE3Em9UH0hch8l32LmMI/2awA98G8XNUYuR
+         MVR0QBIN1LY2CRyMPIPFza1Rb+2dO2y9YSEBHEtuDjKldgC46xh1EUK7Jc6lFiMmWnNN
+         q+1pNiWFl7ePgmdIsKOUqPJ4EGAQiRrekgITZcW2ywqxPQgT1uIrFysI1X9tR/unwKUe
+         GwVlrIGtf9BnZ5VccDIUYQfav4co6JWD3+9N2X3wbFrJ/JmQZipxvFJ4U2I98+fSJBPE
+         lYQmAARQ4kesRqyp2jFr+AGe7pm6BlCOnbCVPfIzaA87QKpYkeohCRaEawC9ZWfFObt5
+         Nc/w==
+X-Forwarded-Encrypted: i=1; AJvYcCUtbt22kCPKTmiK9hwiTYq4/ghAI5pM8ybW/wSPAqWDgzToX/YeCqyULuSoq8s48T7APXEAGuhJnoU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+iwYmFWMjj5dIPwbQTD/Vm3SlSHCYF9/8Ay30Nlfw5RBnEeBA
+	Xjg6BSpqaMsn8miO7xmQMb/5bcXxhxV3LKLXHn1CZbJwYldIiORDcgp53OqWQA==
+X-Gm-Gg: ASbGncu57qqOJOEY7VZa1eDnwgztobUrkrRyQsn42B2rbYKGnDzxw2ngARbc3dRYAjX
+	lNRrRbZvoPBnGTWRcIGAji786KdcpkkA52N8V1lcYkU8bFemx6grLgRsNqZ/xNccgoLngT3/nhy
+	CUM3mRbYNnyusHKyg8sR1pNKvsRShEUJvPwq0x8XpDBiRsc8hsKLRbUS3+sOqvVQzvxfPQKL4hi
+	cylOIuE9/vhmNRkHOt6Msn6y1TrE2TM5+Zkp7AdnL9zlzwqPJn/QdDVRTbwA1MfrAAtM/AQjLhR
+	nKApBsbUrvwvB2E/EVw8aFCb8Er7uqijl+Tc97Qlkw==
+X-Google-Smtp-Source: AGHT+IGPK+cWw7vQ8luY1gE9h5jdoX6r83TrmJpgCSoLbkiqEYsCNZx0f1whShgo+ZYGiJ60LUljmw==
+X-Received: by 2002:a05:6000:1acb:b0:385:edd1:2249 with SMTP id ffacd0b85a97d-38a87316a81mr4935048f8f.50.1736416727696;
+        Thu, 09 Jan 2025 01:58:47 -0800 (PST)
+Message-ID: <e7f1b3c3-dce4-4a0e-b1cf-c6ba8af95290@suse.com>
+Date: Thu, 9 Jan 2025 10:58:45 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 03/11] xen/x86: introduce "cpufreq=amd-pstate" xen
+ cmdline
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: stefano.stabellini@amd.com, Ray.Huang@amd.com, Xenia.Ragiadakou@amd.com,
+ Jason.Andryuk@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20241203081111.463400-1-Penny.Zheng@amd.com>
+ <20241203081111.463400-4-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20241203081111.463400-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 09 Jan 2025 09:55:44 +0000
-Message-Id: <D6XGAK96L261.324ZJ1U3UO8LF@cloud.com>
-To: "Roger Pau Monne" <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 04/18] x86/pv: introduce function to populate
- perdomain area and use it to map Xen GDT
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-X-Mailer: aerc 0.18.2
-References: <20250108142659.99490-1-roger.pau@citrix.com>
- <20250108142659.99490-5-roger.pau@citrix.com>
-In-Reply-To: <20250108142659.99490-5-roger.pau@citrix.com>
+Content-Transfer-Encoding: 7bit
 
-On Wed Jan 8, 2025 at 2:26 PM GMT, Roger Pau Monne wrote:
-> The current code to update the Xen part of the GDT when running a PV gues=
-t
-> relies on caching the direct map address of all the L1 tables used to map=
- the
-> GDT and LDT, so that entries can be modified.
->
-> Introduce a new function that populates the per-domain region, either usi=
-ng the
-> recursive linear mappings when the target vCPU is the current one, or by
-> directly modifying the L1 table of the per-domain region.
->
-> Using such function to populate per-domain addresses drops the need to ke=
-ep a
-> reference to per-domain L1 tables previously used to change the per-domai=
-n
-> mappings.
->
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/domain.c                | 11 +++-
->  xen/arch/x86/include/asm/desc.h      |  6 +-
->  xen/arch/x86/include/asm/mm.h        |  2 +
->  xen/arch/x86/include/asm/processor.h |  5 ++
->  xen/arch/x86/mm.c                    | 88 ++++++++++++++++++++++++++++
->  xen/arch/x86/smpboot.c               |  6 +-
->  xen/arch/x86/traps.c                 | 10 ++--
->  7 files changed, 113 insertions(+), 15 deletions(-)
->
-> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> index 1f680bf176ee..0bd0ef7e40f4 100644
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -1953,9 +1953,14 @@ static always_inline bool need_full_gdt(const stru=
-ct domain *d)
-> =20
->  static void update_xen_slot_in_full_gdt(const struct vcpu *v, unsigned i=
-nt cpu)
->  {
-> -    l1e_write(pv_gdt_ptes(v) + FIRST_RESERVED_GDT_PAGE,
-> -              !is_pv_32bit_vcpu(v) ? per_cpu(gdt_l1e, cpu)
-> -                                   : per_cpu(compat_gdt_l1e, cpu));
-> +    ASSERT(v !=3D current);
+On 03.12.2024 09:11, Penny Zheng wrote:
+> --- a/xen/arch/x86/acpi/cpufreq/Makefile
+> +++ b/xen/arch/x86/acpi/cpufreq/Makefile
+> @@ -1,4 +1,5 @@
+>  obj-$(CONFIG_INTEL) += acpi.o
+>  obj-y += cpufreq.o
+> +obj-y += amd-pstate.o
+>  obj-$(CONFIG_INTEL) += hwp.o
+>  obj-$(CONFIG_AMD) += powernow.o
 
-For this assert, and others below. IIUC, curr_vcpu =3D=3D current when we'r=
-e
-properly switched. When we're idling current =3D=3D idle and curr_vcpu =3D=
-=3D prev_ctx.
+Please obey to alphabetic sorting.
 
-Granted, calling this in the middle of a lazy idle loop would be weird, but
-would it make sense for PT consistency to use curr_vcpu here...
+> --- /dev/null
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-pstate.c
+> @@ -0,0 +1,66 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * amd-pstate.c - AMD Processor P-state Frequency Driver
+> + *
+> + * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+> + *
+> + * Author: Penny Zheng <penny.zheng@amd.com>
+> + *
+> + * AMD P-State introduces a new CPU performance scaling design for AMD
+> + * processors using the ACPI Collaborative Performance and Power Control (CPPC)
+> + * feature which provides a finer grained frequency control range.
+> + *
+> + */
 
+Nit: Unnecessary empty comment line at the end.
+
+> +#include <xen/init.h>
+> +#include <xen/param.h>
+> +#include <acpi/cpufreq/cpufreq.h>
 > +
-> +    populate_perdomain_mapping(v,
-> +                               GDT_VIRT_START(v) +
-> +                               (FIRST_RESERVED_GDT_PAGE << PAGE_SHIFT),
-> +                               !is_pv_32bit_vcpu(v) ? &per_cpu(gdt_mfn, =
-cpu)
-> +                                                    : &per_cpu(compat_gd=
-t_mfn,
-> +                                                               cpu), 1);
->  }
-> =20
->  static void load_full_gdt(const struct vcpu *v, unsigned int cpu)
-> diff --git a/xen/arch/x86/include/asm/desc.h b/xen/arch/x86/include/asm/d=
-esc.h
-> index a1e0807d97ed..33981bfca588 100644
-> --- a/xen/arch/x86/include/asm/desc.h
-> +++ b/xen/arch/x86/include/asm/desc.h
-> @@ -44,6 +44,8 @@
-> =20
->  #ifndef __ASSEMBLY__
-> =20
-> +#include <xen/mm-frame.h>
+> +uint16_t __read_mostly dmi_max_speed_mhz;
 > +
->  #define GUEST_KERNEL_RPL(d) (is_pv_32bit_domain(d) ? 1 : 3)
-> =20
->  /* Fix up the RPL of a guest segment selector. */
-> @@ -212,10 +214,10 @@ struct __packed desc_ptr {
-> =20
->  extern seg_desc_t boot_gdt[];
->  DECLARE_PER_CPU(seg_desc_t *, gdt);
-> -DECLARE_PER_CPU(l1_pgentry_t, gdt_l1e);
-> +DECLARE_PER_CPU(mfn_t, gdt_mfn);
->  extern seg_desc_t boot_compat_gdt[];
->  DECLARE_PER_CPU(seg_desc_t *, compat_gdt);
-> -DECLARE_PER_CPU(l1_pgentry_t, compat_gdt_l1e);
-> +DECLARE_PER_CPU(mfn_t, compat_gdt_mfn);
->  DECLARE_PER_CPU(bool, full_gdt_loaded);
-> =20
->  static inline void lgdt(const struct desc_ptr *gdtr)
-> diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.=
-h
-> index 6c7e66ee21ab..b50a51327b2b 100644
-> --- a/xen/arch/x86/include/asm/mm.h
-> +++ b/xen/arch/x86/include/asm/mm.h
-> @@ -603,6 +603,8 @@ int compat_arch_memory_op(unsigned long cmd, XEN_GUES=
-T_HANDLE_PARAM(void) arg);
->  int create_perdomain_mapping(struct domain *d, unsigned long va,
->                               unsigned int nr, l1_pgentry_t **pl1tab,
->                               struct page_info **ppg);
-> +void populate_perdomain_mapping(const struct vcpu *v, unsigned long va,
-> +                                mfn_t *mfn, unsigned long nr);
->  void destroy_perdomain_mapping(struct domain *d, unsigned long va,
->                                 unsigned int nr);
->  void free_perdomain_mappings(struct domain *d);
-> diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/=
-asm/processor.h
-> index d247ef8dd226..82ee89f736c2 100644
-> --- a/xen/arch/x86/include/asm/processor.h
-> +++ b/xen/arch/x86/include/asm/processor.h
-> @@ -243,6 +243,11 @@ static inline unsigned long cr3_pa(unsigned long cr3=
-)
->      return cr3 & X86_CR3_ADDR_MASK;
->  }
-> =20
-> +static inline mfn_t cr3_mfn(unsigned long cr3)
+> +static bool __init amd_pstate_handle_option(const char *s, const char *end)
 > +{
-> +    return maddr_to_mfn(cr3_pa(cr3));
+> +    int ret;
+> +
+> +    ret = parse_boolean("verbose", s, end);
+> +    if ( ret >= 0 )
+> +    {
+> +        cpufreq_verbose = ret;
+> +        return true;
+> +    }
+> +
+> +    return false;
 > +}
 > +
->  static inline unsigned int cr3_pcid(unsigned long cr3)
->  {
->      return IS_ENABLED(CONFIG_PV) ? cr3 & X86_CR3_PCID_MASK : 0;
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index 3d5dd22b6c36..0abea792486c 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -6423,6 +6423,94 @@ int create_perdomain_mapping(struct domain *d, uns=
-igned long va,
->      return rc;
->  }
-> =20
-> +void populate_perdomain_mapping(const struct vcpu *v, unsigned long va,
-> +                                mfn_t *mfn, unsigned long nr)
+> +int __init amd_pstate_cmdline_parse(const char *s, const char *e)
 > +{
-> +    l1_pgentry_t *l1tab =3D NULL, *pl1e;
-> +    const l3_pgentry_t *l3tab;
-> +    const l2_pgentry_t *l2tab;
-> +    struct domain *d =3D v->domain;
-> +
-> +    ASSERT(va >=3D PERDOMAIN_VIRT_START &&
-> +           va < PERDOMAIN_VIRT_SLOT(PERDOMAIN_SLOTS));
-> +    ASSERT(!nr || !l3_table_offset(va ^ (va + nr * PAGE_SIZE - 1)));
-> +
-> +    /* Use likely to force the optimization for the fast path. */
-> +    if ( likely(v =3D=3D current) )
-
-... and here? In particular I'd expect using curr_vcpu here means...
-
+> +    do
 > +    {
-> +        unsigned int i;
+> +        const char *end = strpbrk(s, ",;");
 > +
-> +        /* Ensure page-tables are from current (if current !=3D curr_vcp=
-u). */
-> +        sync_local_execstate();
-
-... this should not be needed.
-
-> +
-> +        /* Fast path: get L1 entries using the recursive linear mappings=
-. */
-> +        pl1e =3D &__linear_l1_table[l1_linear_offset(va)];
-> +
-> +        for ( i =3D 0; i < nr; i++, pl1e++ )
+> +        if ( !amd_pstate_handle_option(s, end) )
 > +        {
-> +            if ( unlikely(perdomain_l1e_needs_freeing(*pl1e)) )
-> +            {
-> +                ASSERT_UNREACHABLE();
-> +                free_domheap_page(l1e_get_page(*pl1e));
-> +            }
-> +            l1e_write(pl1e, l1e_from_mfn(mfn[i], __PAGE_HYPERVISOR_RW));
+> +            printk(XENLOG_WARNING "cpufreq/amd-pstate: option '%.*s' not recognized\n",
+> +                   (int)((end ?: e) - s), s);
+> +
+> +            return -EINVAL;
 > +        }
 > +
-> +        return;
-> +    }
+> +        s = end ? ++end : end;
+> +    } while ( s && s < e );
 > +
-> +    ASSERT(d->arch.perdomain_l3_pg);
-> +    l3tab =3D __map_domain_page(d->arch.perdomain_l3_pg);
-> +
-> +    if ( unlikely(!(l3e_get_flags(l3tab[l3_table_offset(va)]) &
-> +                    _PAGE_PRESENT)) )
-> +    {
-> +        unmap_domain_page(l3tab);
-> +        gprintk(XENLOG_ERR, "unable to map at VA %lx: L3e not present\n"=
-, va);
-> +        ASSERT_UNREACHABLE();
-> +        domain_crash(d);
-> +
-> +        return;
-> +    }
-> +
-> +    l2tab =3D map_l2t_from_l3e(l3tab[l3_table_offset(va)]);
-> +
-> +    for ( ; nr--; va +=3D PAGE_SIZE, mfn++ )
-> +    {
-> +        if ( !l1tab || !l1_table_offset(va) )
-> +        {
-> +            const l2_pgentry_t *pl2e =3D l2tab + l2_table_offset(va);
-> +
-> +            if ( unlikely(!(l2e_get_flags(*pl2e) & _PAGE_PRESENT)) )
-> +            {
-> +                gprintk(XENLOG_ERR, "unable to map at VA %lx: L2e not pr=
-esent\n",
-> +                        va);
-> +                ASSERT_UNREACHABLE();
-> +                domain_crash(d);
-> +
-> +                break;
-> +            }
-> +
-> +            unmap_domain_page(l1tab);
-> +            l1tab =3D map_l1t_from_l2e(*pl2e);
-> +        }
-> +
-> +        pl1e =3D &l1tab[l1_table_offset(va)];
-> +
-> +        if ( unlikely(perdomain_l1e_needs_freeing(*pl1e)) )
-> +        {
-> +            ASSERT_UNREACHABLE();
-> +            free_domheap_page(l1e_get_page(*pl1e));
-> +        }
-> +
-> +        l1e_write(pl1e, l1e_from_mfn(*mfn, __PAGE_HYPERVISOR_RW));
-> +    }
-> +
-> +    unmap_domain_page(l1tab);
-> +    unmap_domain_page(l2tab);
-> +    unmap_domain_page(l3tab);
+> +    return 0;
 > +}
 > +
->  void destroy_perdomain_mapping(struct domain *d, unsigned long va,
->                                 unsigned int nr)
->  {
-> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-> index 79a79c54c304..a740a6402272 100644
-> --- a/xen/arch/x86/smpboot.c
-> +++ b/xen/arch/x86/smpboot.c
-> @@ -1059,8 +1059,7 @@ static int cpu_smpboot_alloc(unsigned int cpu)
->      if ( gdt =3D=3D NULL )
->          goto out;
->      per_cpu(gdt, cpu) =3D gdt;
-> -    per_cpu(gdt_l1e, cpu) =3D
-> -        l1e_from_pfn(virt_to_mfn(gdt), __PAGE_HYPERVISOR_RW);
-> +    per_cpu(gdt_mfn, cpu) =3D _mfn(virt_to_mfn(gdt));
->      memcpy(gdt, boot_gdt, NR_RESERVED_GDT_PAGES * PAGE_SIZE);
->      BUILD_BUG_ON(NR_CPUS > 0x10000);
->      gdt[PER_CPU_GDT_ENTRY - FIRST_RESERVED_GDT_ENTRY].a =3D cpu;
-> @@ -1069,8 +1068,7 @@ static int cpu_smpboot_alloc(unsigned int cpu)
->      per_cpu(compat_gdt, cpu) =3D gdt =3D alloc_xenheap_pages(0, memflags=
-);
->      if ( gdt =3D=3D NULL )
->          goto out;
-> -    per_cpu(compat_gdt_l1e, cpu) =3D
-> -        l1e_from_pfn(virt_to_mfn(gdt), __PAGE_HYPERVISOR_RW);
-> +    per_cpu(compat_gdt_mfn, cpu) =3D _mfn(virt_to_mfn(gdt));
->      memcpy(gdt, boot_compat_gdt, NR_RESERVED_GDT_PAGES * PAGE_SIZE);
->      gdt[PER_CPU_GDT_ENTRY - FIRST_RESERVED_GDT_ENTRY].a =3D cpu;
->  #endif
-> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-> index 487b8c5a78c5..a7f6fb611c34 100644
-> --- a/xen/arch/x86/traps.c
-> +++ b/xen/arch/x86/traps.c
-> @@ -92,10 +92,10 @@ DEFINE_PER_CPU(uint64_t, efer);
->  static DEFINE_PER_CPU(unsigned long, last_extable_addr);
-> =20
->  DEFINE_PER_CPU_READ_MOSTLY(seg_desc_t *, gdt);
-> -DEFINE_PER_CPU_READ_MOSTLY(l1_pgentry_t, gdt_l1e);
-> +DEFINE_PER_CPU_READ_MOSTLY(mfn_t, gdt_mfn);
->  #ifdef CONFIG_PV32
->  DEFINE_PER_CPU_READ_MOSTLY(seg_desc_t *, compat_gdt);
-> -DEFINE_PER_CPU_READ_MOSTLY(l1_pgentry_t, compat_gdt_l1e);
-> +DEFINE_PER_CPU_READ_MOSTLY(mfn_t, compat_gdt_mfn);
->  #endif
-> =20
->  /* Master table, used by CPU0. */
-> @@ -2219,11 +2219,9 @@ void __init trap_init(void)
->      init_ler();
-> =20
->      /* Cache {,compat_}gdt_l1e now that physically relocation is done. *=
-/
-> -    this_cpu(gdt_l1e) =3D
-> -        l1e_from_pfn(virt_to_mfn(boot_gdt), __PAGE_HYPERVISOR_RW);
-> +    this_cpu(gdt_mfn) =3D _mfn(virt_to_mfn(boot_gdt));
->      if ( IS_ENABLED(CONFIG_PV32) )
-> -        this_cpu(compat_gdt_l1e) =3D
-> -            l1e_from_pfn(virt_to_mfn(boot_compat_gdt), __PAGE_HYPERVISOR=
-_RW);
-> +        this_cpu(compat_gdt_mfn) =3D _mfn(virt_to_mfn(boot_compat_gdt));
-> =20
->      percpu_traps_init();
-> =20
+> +static const struct cpufreq_driver __initconstrel amd_pstate_cpufreq_driver =
 
+__initconst_cf_clobber
+
+> --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
+> +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+> @@ -148,6 +148,9 @@ static int __init cf_check cpufreq_driver_init(void)
+>                  case CPUFREQ_none:
+>                      ret = 0;
+>                      break;
+> +                default:
+> +                    printk(XENLOG_WARNING "Unsupported cpufreq driver for vendor Intel\n");
+
+Too long line (the format string itself shall be kept all on one line, but
+the XENLOG_WARNING doesn't need to).
+
+> @@ -156,6 +159,31 @@ static int __init cf_check cpufreq_driver_init(void)
+>              break;
+>  
+>          case X86_VENDOR_AMD:
+> +            ret = -ENOENT;
+> +
+> +            for ( unsigned int i = 0; i < cpufreq_xen_cnt; i++ )
+> +            {
+> +                switch ( cpufreq_xen_opts[i] )
+> +                {
+> +                case CPUFREQ_xen:
+> +                    ret = powernow_register_driver();
+> +                    break;
+> +                case CPUFREQ_amd_pstate:
+> +                    ret = amd_pstate_register_driver();
+> +                    break;
+> +                case CPUFREQ_none:
+> +                    ret = 0;
+> +                    break;
+> +                default:
+> +                    printk(XENLOG_WARNING "Unsupported cpufreq driver for vendor AMD\n");
+> +                    break;
+> +                }
+> +
+> +                if ( ret != -ENODEV )
+> +                    break;
+> +            }
+> +            break;
+> +
+>          case X86_VENDOR_HYGON:
+>              ret = IS_ENABLED(CONFIG_AMD) ? powernow_register_driver() : -ENODEV;
+>              break;
+
+Is the code to handle CPPC not applicable to Hygon CPUs?
+
+What about the IS_ENABLED(CONFIG_AMD) that the original code had? Don't
+you need to mirror this in some way?
+
+> --- a/xen/arch/x86/platform_hypercall.c
+> +++ b/xen/arch/x86/platform_hypercall.c
+> @@ -574,6 +574,12 @@ ret_t do_platform_op(
+>  
+>          case XEN_PM_CPPC:
+>          {
+> +            if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_CPPC) )
+> +            {
+> +                ret = -ENOSYS;
+
+ENOSYS isn't appropriate for such a situation.
+
+> --- a/xen/drivers/cpufreq/cpufreq.c
+> +++ b/xen/drivers/cpufreq/cpufreq.c
+> @@ -84,7 +84,7 @@ static int __init cf_check setup_cpufreq_option(const char *str)
+>  
+>      if ( choice < 0 && !cmdline_strcmp(str, "dom0-kernel") )
+>      {
+> -        xen_processor_pmbits &= ~XEN_PROCESSOR_PM_PX;
+> +        xen_processor_pmbits &= ~(XEN_PROCESSOR_PM_PX|XEN_PROCESSOR_PM_CPPC);
+>          cpufreq_controller = FREQCTL_dom0_kernel;
+>          opt_dom0_vcpus_pin = 1;
+>          return 0;
+> @@ -92,7 +92,7 @@ static int __init cf_check setup_cpufreq_option(const char *str)
+>  
+>      if ( choice == 0 || !cmdline_strcmp(str, "none") )
+>      {
+> -        xen_processor_pmbits &= ~XEN_PROCESSOR_PM_PX;
+> +        xen_processor_pmbits &= ~(XEN_PROCESSOR_PM_PX|XEN_PROCESSOR_PM_CPPC);
+
+Nit (style): Blanks please around binary operators.
+
+> --- a/xen/include/acpi/cpufreq/cpufreq.h
+> +++ b/xen/include/acpi/cpufreq/cpufreq.h
+> @@ -28,6 +28,7 @@ enum cpufreq_xen_opt {
+>      CPUFREQ_none,
+>      CPUFREQ_xen,
+>      CPUFREQ_hwp,
+> +    CPUFREQ_amd_pstate,
+
+Might this better be CPUFREQ_amd_cppc? "pstate" may mean various methods.
+
+> --- a/xen/include/public/sysctl.h
+> +++ b/xen/include/public/sysctl.h
+> @@ -424,6 +424,7 @@ struct xen_set_cppc_para {
+>  };
+>  
+>  #define XEN_HWP_DRIVER_NAME "hwp"
+> +#define XEN_AMD_PSTATE_DRIVER_NAME "amd-pstate"
+
+Similarly here.
+
+Jan
 
