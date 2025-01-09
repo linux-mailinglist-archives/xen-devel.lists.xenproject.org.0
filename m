@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0960A07256
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 11:01:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.867966.1279505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8477BA07257
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 11:01:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.867973.1279515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVpLA-00051t-JN; Thu, 09 Jan 2025 10:00:36 +0000
+	id 1tVpLh-0005fW-Sg; Thu, 09 Jan 2025 10:01:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 867966.1279505; Thu, 09 Jan 2025 10:00:36 +0000
+Received: by outflank-mailman (output) from mailman id 867973.1279515; Thu, 09 Jan 2025 10:01:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVpLA-0004zX-Ge; Thu, 09 Jan 2025 10:00:36 +0000
-Received: by outflank-mailman (input) for mailman id 867966;
- Thu, 09 Jan 2025 10:00:34 +0000
+	id 1tVpLh-0005eU-Ob; Thu, 09 Jan 2025 10:01:09 +0000
+Received: by outflank-mailman (input) for mailman id 867973;
+ Thu, 09 Jan 2025 10:01:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=raTQ=UB=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1tVpL8-0004y9-GE
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 10:00:34 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20627.outbound.protection.outlook.com
- [2a01:111:f403:2417::627])
+ <SRS0=KjpQ=UB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tVpLg-0004y9-95
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 10:01:08 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062f.outbound.protection.outlook.com
+ [2a01:111:f403:2414::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8ff47270-ce70-11ef-a0df-8be0dac302b0;
- Thu, 09 Jan 2025 11:00:33 +0100 (CET)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by PH7PR12MB6883.namprd12.prod.outlook.com (2603:10b6:510:1b9::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.16; Thu, 9 Jan
- 2025 10:00:25 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8335.011; Thu, 9 Jan 2025
- 10:00:25 +0000
+ id a4935b80-ce70-11ef-a0df-8be0dac302b0;
+ Thu, 09 Jan 2025 11:01:07 +0100 (CET)
+Received: from SJ0PR13CA0186.namprd13.prod.outlook.com (2603:10b6:a03:2c3::11)
+ by DS7PR12MB5958.namprd12.prod.outlook.com (2603:10b6:8:7d::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.10; Thu, 9 Jan
+ 2025 10:01:01 +0000
+Received: from SJ1PEPF00001CE2.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::be) by SJ0PR13CA0186.outlook.office365.com
+ (2603:10b6:a03:2c3::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.7 via Frontend Transport; Thu, 9
+ Jan 2025 10:01:01 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE2.mail.protection.outlook.com (10.167.242.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8335.7 via Frontend Transport; Thu, 9 Jan 2025 10:01:00 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 9 Jan
+ 2025 04:01:00 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 9 Jan
+ 2025 04:00:59 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 9 Jan 2025 04:00:58 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,253 +63,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ff47270-ce70-11ef-a0df-8be0dac302b0
+X-Inumbo-ID: a4935b80-ce70-11ef-a0df-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rtpl/Ivp27mIzxQHQKGHi+vm06x7QG2t7odYnb/l75Kz0cW75kP9rlzkkPtbKPppwTy7pCio+BPGqKV+3lJlIkREKo8UvqdkYSMswMcMeh56k+/UXRISWBGly/qW+HwssY8Ek4p8NmHCytLoekFd0rBTKJ+TZ0pXG1awbyNZ8PHDTZv7W3XixFZn25KcP14Xde/0XADIWcOrJFrqKnpCfXSZgnWzBdZgtjGbLHn3UkW8w8GMSgJ/qhxekYY1CPpsq3KxbXOacn4PZ1RKiPRzEJAteR+i5hqDnbm4exgmEv7/os9TxVFjkNCRqamhe4cJwKGPYHd1DHJGOGnZ8Hgqrg==
+ b=TWAqqOv3zZI2rkQhG/PvaygEbYoS+uM3g4ZHg8IOEzegYgPaGiTC3S9tTNALgVMvnYaZmO1+P9BwgSUeltUZQwy+L2FcYTS5YgU4nbRIdbLn6TRF3+pjhb/4PI38t09/9mfHntxMEvQFeDwbMjL0OOive/oRwmRzxlD3Idezzwt2okiqDwAIIup89+yvUhvyHqFBaVc8AAfK6ivW3GubHVSwXTsbw5VRgSCRNYqp5S8CDF6mjBDS5KAgXOB5E8OqTAql2xTTcaUPIDQrS0Z1mhskCB5Tuuva8ynXrWs6+4ZpFVx2sDpteLpGAd3mbZKFwsdhNH80/y0bR9Uc6JdJ5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bSbqQ1bMAzEwYI+OjrqbC6kWfmyreb796wbnwwNLygA=;
- b=Ms/opKtk7BoEKyrAdm+yk5E9l1cWZuyGwyGXwUFLAFnV8JRCorP7YL+I+J/zLwjWyDToQ/1IfTBAEC3aqonJHy41D2z0x4ox+eDbMDpfUhFJgLjoguSeYJ8RsIVFuRUnEYzNbJf2rQQznLGLmje55fQ8KjB7TuVmjzllPtDda+HifsW32WVRVXHoHTGEk0G0+Vw6l272S5p7uVXe7NG33tqEv1CYMhOdt32QP1Fs9W+YUyOEG3b9T85wknFYJ2MUdkCWdzO4DoqEPlUFVebrE+WDrNqVzXQxcZ7kjhZVaIwJCl5kE74MUc+STMFE/2QOpYAPGiGMtj4G2xYIh+e0WQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=7ZpyhmLzNTo+oOcG9IB+u9cV3l+k4u2f3lkpiORxCAY=;
+ b=kQ6ew2VhESilEaHz6KnLoOy6eHzasp8zrF4IiYfPAZox0k1+lQ9QfYYHM4+7PktPaaYUlggbHH1QU3VYtBJpgx0SWcKmX8l2/h34yur7/Mkk+80xrK0PWGM4V6RQFFgHL5mDmkE6ADQXI/Fw5bB2e+9LzEeI4QdqjvZRZXJCpOY/GasipTbBVTEEqbRyyM9z+qL4HUpEEURtj7H/VX+JG061FVd+xCamfF/j/yS16tqj3rrM2XjFfPKvozeXRdYsjJTLddyCl5O7zzSY99R/cMbsZZwZ1Da62GyJt43HfP1X4jqAm7CMM3yRdyKWT7YEVnmrvnea4KMwN12e5zTANQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bSbqQ1bMAzEwYI+OjrqbC6kWfmyreb796wbnwwNLygA=;
- b=Yo+39DB9KUk9a/x+gU/Xt3VBFVSPHad4wne+sh+0Cnx0utQBgzelj+cn9tai0TUiVwFRdx66K4E6dJncV6o0ur3fEoWyGdrRUYDP4WT9Z+4i4ozDSjXWi9osnU4DPOS9eZerxMLIzXF/YHMBXZOZ13/GsGUdN+rEI3laVSYcygM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <dac15016-b55f-4066-a8e6-b2eb8346655c@amd.com>
-Date: Thu, 9 Jan 2025 10:00:20 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] docs: fusa: Add dom0less domain configuration
- requirements
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Artem Mygaiev <artem_mygaiev@epam.com>
-References: <20250108170304.2250917-1-ayan.kumar.halder@amd.com>
- <E21BDDA5-F268-4127-82FA-1BD58DD6028D@arm.com>
-Content-Language: en-GB
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <E21BDDA5-F268-4127-82FA-1BD58DD6028D@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0010.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ad::21) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+ bh=7ZpyhmLzNTo+oOcG9IB+u9cV3l+k4u2f3lkpiORxCAY=;
+ b=KZX9QVI+kPEFtQTKZc4rkhbqtxK6pqs2MNWP3h6lsHZwEMDjjZZc/Z/3IKUS9tQtyPgCV7VbUCgoE0qpbwEjc9odcj1C5nzbyT8kQGVrbKPyFJtJfDDkDWZwCFYCef4WeMcyRb4gkdtpuQtLH+smv4s4fumF9dZ+Rz8Db66t82g=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <e9477b85-1c9a-4aa6-b7fe-90286fcd461b@amd.com>
+Date: Thu, 9 Jan 2025 11:00:58 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/arm: Fully initialise struct membanks_hdr fields
+To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>
+References: <20250109092816.1619834-1-luca.fancellu@arm.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20250109092816.1619834-1-luca.fancellu@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|PH7PR12MB6883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 488d1eec-f5b9-48c6-e084-08dd3094700a
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE2:EE_|DS7PR12MB5958:EE_
+X-MS-Office365-Filtering-Correlation-Id: 321041d1-9b83-4a9d-e7cb-08dd309485a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Nkc0QXhLbkRlL2FzMlUzcVlxbWF5bzRyb1ZJZVREdGhFVWJFUGgxMVhHUDdP?=
- =?utf-8?B?VVlGdkV2UXJYcXAvQW1tSkN2OGs1R3NyUjI2Mm4wK3lRcUtTSWN3NWlqUmQ2?=
- =?utf-8?B?cUdkaGpGWDcxWldnZDlOMU9qaU84UUJlejl3a21NQkRTTFFnZk1BYWptbHpx?=
- =?utf-8?B?anFOekw1Uk5XUm9Lb0x6ejh3TkM4bHVORzVCV2J2K0ttYTF0emhMQ3RIemhi?=
- =?utf-8?B?Yk5RdWZ4S0wvOE04RVVOWWxyZldYd09XcFVBeVdVMU5JMSt0YnRzQ2NYbkkx?=
- =?utf-8?B?bGQxZC91Ny9rdEFJYzVmRTZHMlI4c0xkV0pCdVl0YWlaZ0xzVW9TV0h1b1ZN?=
- =?utf-8?B?UlpMcEQwNjdsVE5rNUZvcXVzVDV3UUtKQitlbExlZ0w1d2FIdkxKLzl1MWx2?=
- =?utf-8?B?K0YwNXlFZDExdlE3WlI1aHRRVDBEcStwMndxTnRZWDZXSXl6RythbkdqSDZi?=
- =?utf-8?B?UUFURmpmQzFYOW1jNXJXYXkrc2NFbjlQanREeVY2YmFvMkxYRnhLdW1xWHJw?=
- =?utf-8?B?b09VV3JwVkdibnU4QXJ4WDRtUXFlTzF5TUd3azJHWXh2MUUya294b1RQTlcr?=
- =?utf-8?B?QUVJbUFnSmY2M091Q3I0bVNuUDVKQjByQzNtbWJCRUlhL3M4YkhxQW1IczRT?=
- =?utf-8?B?RUZzeEwzdnZqRmluakhqZ0tSVVJTV1pDeW5LNlRwbXJiRjgyY09BSkE5MFBz?=
- =?utf-8?B?ZElMa0I4cDRRd05tcFRTUEpvNXRCdzI0U3g2Q1NmeUJxNVdoQ3dZL3k5QVhp?=
- =?utf-8?B?Y2F3a1pxNzdjbTY2NTk3bmhqRktHU3RYczFQNFoyN2JFaXczbUtPSzYrTVl4?=
- =?utf-8?B?NGdsaXpVUVRYcU5hVUx3WVJ3cjNZd3UzL0N1TE96eFZscDh5clFFYktXeUlJ?=
- =?utf-8?B?V0hIdWpQRTVwa1NpZUJUNXpZbzQvY3pqSTVYS3dIM2k2dGFOc0dndFNmejEz?=
- =?utf-8?B?OHZMWUN0aXRPWkdKdVN1MVBsQzBzL1ZRZkFXR0hoNGZoVjB0dlZrK2NOcm9q?=
- =?utf-8?B?YTg3SERpMkJublEvOXVwOFI3M0QxU09IQ0wwTzh5cUpRa1JpK2lnY213RGpV?=
- =?utf-8?B?aDhWaUtmVUlreGxseXNyaXlpTFhaZmZKVlJ6RjQzU0M3ZkFFUk5uSVpaRG1I?=
- =?utf-8?B?WHRNR0tBZU5sTzlScHZkb3F4NC9LN3ZxUjBURWRheHBZR2ZzaC96bk9kQ3lE?=
- =?utf-8?B?VUgzTy9NRjhtLzEzdlNPOS9lQWNEYW5KRldmOERFelBEd0lrUUpsVUFUOTFB?=
- =?utf-8?B?dXlTT3NxT1BwMUNEY1p5QXJBOTMvVmtUa1BrUTU5NEZkN1ZDQkZhYjJzNlI3?=
- =?utf-8?B?K0tlMk9INkZ5UDcvNjdzeTI1MnNWSU5IaXJPUTlBSW1oNCttanlpN0o3MU0w?=
- =?utf-8?B?U2tYR2swVzNQZlVsTXh6bTBpMmpYdCt2VGgybDZldVRyRndPemlCZGFNZWdS?=
- =?utf-8?B?N3lKejFETUhvTTV4TVVLOGhjMHBPUVpuYlRROHBXdGhMeVExRWQ5cDBYSGVC?=
- =?utf-8?B?ekE2YUpVK3F5VEJRa1FjbENOVnRTd1ZSZmJySWV1a3B6cEozK1VNVVNsZi9w?=
- =?utf-8?B?bFdZKzJ5a0p5SGkyWUY4Nnhhd3ZpdmwvUGxETGFYSGYyNTBJT05ERTdDeTNX?=
- =?utf-8?B?YjFZL0syMjQyaVVSWmhTQm5ReUt3QjV2SGpEOUUvNnM4T3BIRUtRZXZ5ek80?=
- =?utf-8?B?L0ZSSERBNEx2M00zQXN5S3RwYndCVSt3TzhwaVdEeHNMVHBtdGJDRGFLeG1X?=
- =?utf-8?B?MkJHenFhbzZYUkl6czJSMnFKUDNzNTV4NTd6RXNjZXA0ZVQ4VDcyR29wWWxE?=
- =?utf-8?B?cnBhay9OWjdiRFluVTVRenk5aDU0d1BhSUxZNTBvN3Rvck1sLzIvbkdOVjdo?=
- =?utf-8?Q?XwNzrF6eEWKwY?=
+	=?utf-8?B?dUhTQWNYbFhjS05xa2w0V2JLWVRJWlFmNTZjSTB2SHVtd2JrQXRyaUxTK0JQ?=
+ =?utf-8?B?WDIyc1BCM0RhZlhDOWlDajZVYjhHUWR1QytIcDJrbG8zR2tZOVpVd2oyWWFh?=
+ =?utf-8?B?c1RtVjdWMU5HcEg5WkNqSzltSFcxTHJPMy9HZU5LL3JsaTRFaEFhM2ZpM0pQ?=
+ =?utf-8?B?ZWVIb0l1c2JBTE9MMUdsN1dKVzlZV2NJdVQrSnNJL0dLM1d0MldCUklFT0NF?=
+ =?utf-8?B?OWQ0NDE3N1pUUXJxWWo2VldZR3lXUUpIS2lNb1lpOG5WMDRlMnR5NFJWY3RK?=
+ =?utf-8?B?Y2p1Qm05RjRRNlN4eFh4RW1CS08ybVFBVmVQR1ZHU21oLzd1UWJCYzJzSGcw?=
+ =?utf-8?B?c3B6bkN3Y0FaMnJPYzFVRUkyTU5TZnVRaUE5azBxRHc1S3ZqSSs4U2RjY3RR?=
+ =?utf-8?B?Y1pUeGtaMmQzUUtnVzV2U3N4cVVhcU9scG1oSUJUQjZ3SGp4dFRyaStETmZO?=
+ =?utf-8?B?dyt2SlNMMjBJWkVLUmFDa0dGMlloWHVwZEIyb210YU1OdjRvVllnalRqQkk0?=
+ =?utf-8?B?cC93NXJpbU5yOFNOc2FSTStMdmw1VUdDVVpXSmZONTlTYzBudTdxNHNoczhr?=
+ =?utf-8?B?QWpDNXBNWlNaSnk2OHN6Tjl5ZExNUUVsckFGVEpMSXhCRU1CR3FWZktxM0s3?=
+ =?utf-8?B?UnJYUE5yQVkxdmdyaXlpK1Y1YmY1MnhwcjBuMS9BbExUVkhidXEwenM2R01R?=
+ =?utf-8?B?dDh4QVhUWk1BNTZ3MDNTMDZwT0xQZXRaTWVEMlRHdW1XRmZrVjlDUkdmdnZO?=
+ =?utf-8?B?NERWVHNHeFY3aXhkelRHRlM2Q2xEUlFad293dllxTUs5TkZPN2xUS1RTRk5s?=
+ =?utf-8?B?NGFrRjFQNFdhTXNhM0ZXK0dkUzJhVUpJa3BUY2U2ZG5TS0dRa25Db2pIcS80?=
+ =?utf-8?B?RktnUm9WKy93a0ViaGxmc0NxZlVaVEsyMEVrbnBvUVdlbld3UytnRTMrUzcy?=
+ =?utf-8?B?NnpzcXZXYXFMQWhRZkJReU9MQXh1bFltT1FqbW1VdGQ4SUZWYW5MQUh3MC9U?=
+ =?utf-8?B?YTg0ZzVJaXlMSDhDSFhEbEZHY1FJcXk5c0lDMElkdG9INUJ5aExDUXpqd0xr?=
+ =?utf-8?B?UEVKSjMwRWZ3cnlOTys4dzc4SmdnVkw4R0NrQnRkb1JKN3A0WFNEUENHcHZv?=
+ =?utf-8?B?bHhXbzUyNUNuYnFZZVplNFBqb1FNYkJlUXo1NVFTOWsyYlZZd2EwMWlDSUJG?=
+ =?utf-8?B?eFhSU09tb1FQRWdDa3Z3MURTTnB5OW44WjduUytJdGRPcmNRamdwR1lWRzZZ?=
+ =?utf-8?B?K3ZBa0R6RHVab0wwVURqUG96N3NuNWlySHBDaTFlUXRVVitZaGVYanltRGZx?=
+ =?utf-8?B?bHlydFJSZ25obDlCMG9DNHAvTGwzcWhpaXpmNXZTWGpDUEZWNzViT2hCdGl2?=
+ =?utf-8?B?ZXJDYlpEMDl1T2pkdEJlbng2em5HSk1TVW90YjdxbzFEbGVFcW54bngwM1Ni?=
+ =?utf-8?B?K0ZuUWNBQnp2WEZBa0dWekZ2RiswQW83aEwxd2owVzJZVGJzNEFpeWhUYTgx?=
+ =?utf-8?B?YXlsVHhRSGVnQ2hVZDRoTEdkYkN0ZE02eStQQk9PMjRxdVcrUmNSc0lycW41?=
+ =?utf-8?B?bGNIYmFtQUlFR1lacTl3NE9SV3JqVzlqbmZwbXhSdkNPdHRIbE9NQ1lvY1B2?=
+ =?utf-8?B?MjM1QTc5WHo4OVcxL2ZDdXdlS2EvV2pneE1Yd0ppb1RYSUd3QVhLZ3VYSFdk?=
+ =?utf-8?B?VmZPNm1rcVdlcVRvS1NvVkNNTUVsNXFHNERBaGdqTEh2d2NTTDEwa0htVnpZ?=
+ =?utf-8?B?SmhrTmlFeno4T21XT3ZURlBpTUNNUFFQTVFYUWlYSW11c2ZZK3VIcVNIR1hK?=
+ =?utf-8?B?VFluR3BGbkhCUUdtK3lmOVllbzRWdDZIaDlsQTVVTThPbG5VWURSSW9WeWVS?=
+ =?utf-8?B?NWt3WjV5QW4zdjVBSWFRYmlDRmlZbVpqcG8rWUhQOUtucW1vQlVuekFQaTlY?=
+ =?utf-8?B?ZHl5ekNVNGxudS8xK01yaVphMVZlMjRIcGVsRldHTFNTMFl2WVBITlhEWFE2?=
+ =?utf-8?Q?Y2G6BM/0N1t+cb5kEVuJQ0G08O1Ygo=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Nkxld0hoQmdCN29ZckxrL1ZoYXV1MnBudTFMR3lOakdHVW85RktTU1ZpZWlt?=
- =?utf-8?B?MmdKZG5qMjdvRzRLUnp4RVpETUpMK2tqbWt6cVdQU0hLc3lvcEVBc0kxamc2?=
- =?utf-8?B?TjNmMmx1ZFduMjNaWE9uakxFU1U3T2dTcUFsWnZWWUUwazg4aSs0WE53TGlj?=
- =?utf-8?B?aGJKNStOakpzVUgxQmxwaGtIbFhpQ2NPdGRoemN1UTc2RHBzbnVBOVg5dFMw?=
- =?utf-8?B?RDNvRVRYUjhmNkh5NVZJZFhTQ1pMdlFNY1RzaElqMlkzVGxaSWZWYnd0ZlVy?=
- =?utf-8?B?TUZ4OG9ydlJxOFU0TTBheUxoMG9JYmlPUDN3ZFl6YVJVZCtPV1owVXdTMHZj?=
- =?utf-8?B?OXU3TXdCOWQ4YjBCdm41bzBJNlhyYlNjdnZjdlJlckxZd0VjM25sakQ2a2I4?=
- =?utf-8?B?aTlPTlNVRTNpTUZlUHNUT202ZE1zck9laXRlM2xyNGFidFBSSm1QSXozR1lm?=
- =?utf-8?B?U2Yzbkdma3lpVmFybjk3bU1MMktCSEhFZUErcUxlRWp4SEFmWXZndjY2VHdk?=
- =?utf-8?B?YVY5Y2pnVGtMVFdIQW9ETU1GcThuT1Z5RDVsMXM1NmJWQWowYTAraU5RTTFR?=
- =?utf-8?B?bGJtd3dJYTJpWkwzSkZKaDJKcTA2eHU3S1c3YU5USDNYdUdyNzhUS0xkNGJz?=
- =?utf-8?B?RW1WU2hjZlIrY1MrekNBWnZHSC9MZ2NPWlVHOUFRdFBsZ2wzWGtpRG9nT3JG?=
- =?utf-8?B?bFVhUmU3dm5ySHJFTWM4SWZmU1NLTmREUVNxaklFL1FqK2pqQmNMRUVRTnVp?=
- =?utf-8?B?ZEk1cnp4bnkrNHB1aE44N1JCYjR5MUp4SWUyczVjWmlySUZYZHZNRHg2WGo5?=
- =?utf-8?B?djBjVWRpcXphM2dPYWxoZVVUUjRNUkhvRUNDdUVRVjg1S09RSHl0NjNwN1Ex?=
- =?utf-8?B?ZUUwenVXclVCcDVjdU1yMEt2NFhZYjBrS1ZlTkhxVFBhMDNyNE9LYzUxYXVp?=
- =?utf-8?B?Z2hoK1Jma3JQeERwVFpnRXNVT1hiNzF2amQyVitpR3hzZVdRVHVmSGViZ3M1?=
- =?utf-8?B?emhYV3Z3RXFSb2hHVkVXV0FoOEhqVzVJYUVmQnJZSWNzWjlDS3Z0SlFSRTEz?=
- =?utf-8?B?b3FuT3BkUHBDVm9iVy9RUDQ3RFFtdEtSZzZJaVo3WkowdlZuMFFnZGJHYVMz?=
- =?utf-8?B?OGFxZGd2akNXcjJHSVBVemo4akF6dFJXcjNGZWhpWkxTd3dYbFdkSWFRVnpk?=
- =?utf-8?B?UUE4cjFZNkdRT1diTmNpOVhIUU9FYkdWUjc3K2F5ZklnbE43L1VBam85eWRs?=
- =?utf-8?B?c3pMMUhjZmVXd2JwOFpnTXozLzg2bGg5RlhxYm9IaStlWFRqY1JYR3JXUENT?=
- =?utf-8?B?eHBlckdlc3ZvaERpbkg0bWlrUWRxcFVrTi82MTRaRzZPOUZzWS8zNVVYMFpJ?=
- =?utf-8?B?OHBTcFk3ejJIeUJkWG1jdzdqOElnRWNGR0o4Ykk2ejNyRlV3T2tBS0xxSE1I?=
- =?utf-8?B?QWFJNWpsb0tGazB3RSt5V3VJNE5zZmQwTXdRbVpEaVZxTTArM2sySk5sWHB3?=
- =?utf-8?B?ZFpYc3dWWllEMDd0OElicHNVZFZRbm9SdU5melpkaFNRbmtEbXNkQWlJTzh1?=
- =?utf-8?B?Mi9KUXRUTGFaYnhSOCtiSU4xb3U3bm9lQi9ubHFrNjFnUFEvU2J4V01qaXdj?=
- =?utf-8?B?Q2gxY09mOG56WFRxRjI2MmxtRHdwN1NYV3EvNXRYWWZsYmpmRHRqcGNsWHVa?=
- =?utf-8?B?Rmh0eHMxNjBpRFlTVFQyUlhVZm9FbmhGZ0FXNXR3T2g4UXBhU2cyK3B1OHlQ?=
- =?utf-8?B?TEh5a3dFak9sS2FlZHoyOFFBVHo1dWJEeC9wVXovdmhIU2ZsOWFuU050RVpa?=
- =?utf-8?B?UGdPeXZvcGxOMWdiV1E5T0Izb1FqUHFGMmI3TWtMSGJBZmQrSVpQaVdrYUFN?=
- =?utf-8?B?NEN3N21FYXNKVTJCQmxSem1za2dCRWs2Q0NBWVlRVDZKOElGc09sNnNMaWZ1?=
- =?utf-8?B?WURNSlNucDhsdnd6ZExQZ0RsY0JIQmNpMEhFWDU2a1RlTWFsV1dXRXNvbkNJ?=
- =?utf-8?B?MTJLL05jWUVWRG0xdTM0bDZJYmo2WEc3d1ZQSDAzbVVCdXZSZExoRGg1Y1BO?=
- =?utf-8?B?TTFXZ1pVVEQrUzhLN3F1cjhJQk5qV3NIeldSemRBblpDQU1QdWZEQ1JTNFgr?=
- =?utf-8?Q?FuLxYnSOP63cFyc/BIMbthMn8?=
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 488d1eec-f5b9-48c6-e084-08dd3094700a
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2025 10:00:25.0735
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2025 10:01:00.9967
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: 321041d1-9b83-4a9d-e7cb-08dd309485a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: klVvATbgMMbpAtBH0IPUK42syXzPM/OMc95W5HMDivvBEMYeHQWE5lITYmsqDwaSNe3wKwM3TOZqtCGkGgwgGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6883
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CE2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5958
 
+Hi Luca,
 
-On 09/01/2025 07:53, Bertrand Marquis wrote:
-> Hi Ayan,
-Hi Bertrand,
->
-> This is a lot better.
-> I just have some minor phrasing comments after.
->
->> On 8 Jan 2025, at 18:03, Ayan Kumar Halder <ayan.kumar.halder@amd.com> wrote:
->>
->> From: Michal Orzel <michal.orzel@amd.com>
->>
->> Add requirements for dom0less domain creation.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->> Changes from -
->>
->> v1 - 1. As the dom0less domain creation requirements specifies the dt properties
->> for creating domains, it has been moved to product requirements. Product
->> requirements define the interface Xen exposes to other domains.
->>
->> 2. For the requirements which introduces new terms (like grant table, etc), I
->> have provided the definition as part of the comments.
->>
->> 3. Introduced new market requirements to specify that Xen can assign iomem and
->> irqs to domains.
->>
->> 4. The design requirements will be added later.
->>
->> v2 - 1. Rephrased the requirements as suggested.
->>
->> 2. Split the product requirements into arm64 specific and common.
->>
->> 3. The arm64 specific requirements have arm64_ prefixed to their tag names.
->>
->> 4. Grant table requirements have been dropped for now.
->>
->> 5. Added a market requirement to denote that Xen can support multiple schedulers.
->>
->> 6. Updated index.rst as we have a new file ie product-reqs/reqs.rst.
->>
->> V3 - 1. Removed duplicate mention for 'Rationale'.
->>
->> 2. Fixed some of the descriptions as per the review comments.
->>
->> docs/fusa/reqs/index.rst                   |   1 +
->> docs/fusa/reqs/market-reqs/reqs.rst        |  31 ++++
->> docs/fusa/reqs/product-reqs/arm64/reqs.rst | 128 ++++++++++++++++-
->> docs/fusa/reqs/product-reqs/reqs.rst       | 160 +++++++++++++++++++++
->> 4 files changed, 318 insertions(+), 2 deletions(-)
->> create mode 100644 docs/fusa/reqs/product-reqs/reqs.rst
->>
->> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
->> index 8a4dae6fb2..1088a51d52 100644
->> --- a/docs/fusa/reqs/index.rst
->> +++ b/docs/fusa/reqs/index.rst
->> @@ -8,6 +8,7 @@ Requirements documentation
->>
->>     intro
->>     market-reqs/reqs
->> +   product-reqs/reqs
->>     product-reqs/arm64/reqs
->>     design-reqs/arm64/generic-timer
->>     design-reqs/arm64/sbsa-uart
->> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
->> index f456788d96..39b2714237 100644
->> --- a/docs/fusa/reqs/market-reqs/reqs.rst
->> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
->> @@ -47,3 +47,34 @@ Comments:
->>
->> Needs:
->>   - XenProd
->> +
->> +Static VM definition
->> +--------------------
->> +
->> +`XenMkt~static_vm_definition~1`
->> +
->> +Description:
->> +Xen shall support assigning peripherals to various domains.
-> "various" here could be removed or replaced with "a domain" to be coherent with
-> the phrasing after.
-I agree
->
->> +
->> +Rationale:
->> +
->> +Comments:
->> +Peripheral implies an iomem (input output memory) and/or interrupts.
->> +
->> +Needs:
->> + - XenProd
->> +
->> +Multiple schedulers
->> +-------------------
->> +
->> +`XenMkt~multiple_schedulers~1`
->> +
->> +Description:
->> +Xen shall provide different ways of scheduling virtual cpus onto physical cpus.
-> different here is a bit imprecise.
-> how about:
-> Xen shall have configurable scheduling strategies of virtual cpus onto physical cpus.
+Is this patch for 4.20? I would say so, therefore it should have "for-4.20" tag and Oleksii as release manager
+should be CCed. Doing it now.
 
-looks fine to me.
+On 09/01/2025 10:28, Luca Fancellu wrote:
+> 
+> 
+> Commit a14593e3995a ("xen/device-tree: Allow region overlapping with
+> /memreserve/ ranges") introduced a type in the 'struct membanks_hdr'
+> but forgot to update the 'struct kernel_info' initialiser, while
+> it doesn't lead to failures because the field is not currently
+> used while managing kernel_info structures, it's good to have it
+> for completeness.
+> 
+> There are other instance of structures using 'struct membanks_hdr'
+> that are dynamically allocated and don't fully initialise these
+> fields, provide a static inline helper for that.
+> 
+> Fixes: a14593e3995a ("xen/device-tree: Allow region overlapping with /memreserve/ ranges")
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+> Changes from v1:
+>  - Changed commit title and body msg
+>  - initialised max_banks and type for all structures using 'struct membanks_hdr'
+> 
+> I didn't get why the fixes tag is wrong, but please feel free to
+> correct it on commit or suggest the good one
+It is ok.
 
-Are you ok to give your R-b ? Then I can request Michal to fix them on 
-commit.
+> ---
+> ---
+>  xen/arch/arm/domain_build.c       | 13 ++++---------
+>  xen/arch/arm/include/asm/kernel.h |  5 ++++-
+>  xen/arch/arm/static-shmem.c       |  3 ++-
+>  xen/include/xen/bootfdt.h         | 16 ++++++++++++++++
+>  4 files changed, 26 insertions(+), 11 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index b072a16249fe..9e3132fb21d8 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1039,7 +1039,7 @@ void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+>       */
+>      if ( is_hardware_domain(d) )
+>      {
+> -        struct membanks *gnttab = xzalloc_flex_struct(struct membanks, bank, 1);
+> +        struct membanks *gnttab = membanks_xzalloc(1, RESERVED_MEMORY);
+>          /*
+>           * Exclude the following regions:
+>           * 1) Remove reserved memory
+> @@ -1057,13 +1057,10 @@ void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+>          gnttab->bank[0].start = kinfo->gnttab_start;
+>          gnttab->bank[0].size = kinfo->gnttab_size;
+> 
+> -        hwdom_free_mem = xzalloc_flex_struct(struct membanks, bank,
+> -                                             NR_MEM_BANKS);
+> +        hwdom_free_mem = membanks_xzalloc(NR_MEM_BANKS, MEMORY);
+>          if ( !hwdom_free_mem )
+>              goto fail;
+> 
+> -        hwdom_free_mem->max_banks = NR_MEM_BANKS;
+> -
+>          if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
+>                                       hwdom_free_mem, add_hwdom_free_regions) )
+>              goto fail;
+> @@ -1293,7 +1290,7 @@ static int __init find_host_extended_regions(const struct kernel_info *kinfo,
+>                                               struct membanks *ext_regions)
+>  {
+>      int res;
+> -    struct membanks *gnttab = xzalloc_flex_struct(struct membanks, bank, 1);
+> +    struct membanks *gnttab = membanks_xzalloc(1, RESERVED_MEMORY);
+> 
+>      /*
+>       * Exclude the following regions:
+> @@ -1374,12 +1371,10 @@ int __init make_hypervisor_node(struct domain *d,
+>      }
+>      else
+>      {
+> -        ext_regions = xzalloc_flex_struct(struct membanks, bank, NR_MEM_BANKS);
+> +        ext_regions = membanks_xzalloc(NR_MEM_BANKS, RESERVED_MEMORY);
+I'm a bit confused what is the expectations behind using different types of enum region_type, mostly because it can point to
+different address spaces depending on the context. Above, you marked gnttab as RESERVED_MEMORY (I guess because this
+region has already been found - but in fact it is still unused) and hwdom_free_mem as MEMORY. So I would at least expect
+ext_regions to be of MEMORY type as well. After all both hwdom_free_mem and ext_regions contain
+banks of unused/free memory (although former lists host memory while latter can also contain guest physical
+memory). Could you please clarify the intended use?
 
-- Ayan
+~Michal
 
->
-> The rest looks good.
->
-> Cheers
-> Bertrand
->
 
