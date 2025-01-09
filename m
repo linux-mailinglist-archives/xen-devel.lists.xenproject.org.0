@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E38DA07940
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 15:31:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.868446.1279950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F033A0794F
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jan 2025 15:34:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.868460.1279960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVtYQ-000056-Pk; Thu, 09 Jan 2025 14:30:34 +0000
+	id 1tVtbw-0000qB-7k; Thu, 09 Jan 2025 14:34:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 868446.1279950; Thu, 09 Jan 2025 14:30:34 +0000
+Received: by outflank-mailman (output) from mailman id 868460.1279960; Thu, 09 Jan 2025 14:34:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tVtYQ-0008UZ-Mh; Thu, 09 Jan 2025 14:30:34 +0000
-Received: by outflank-mailman (input) for mailman id 868446;
- Thu, 09 Jan 2025 14:30:33 +0000
+	id 1tVtbw-0000oT-4t; Thu, 09 Jan 2025 14:34:12 +0000
+Received: by outflank-mailman (input) for mailman id 868460;
+ Thu, 09 Jan 2025 14:34:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=29Hz=UB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tVtYP-0008Sz-9T
- for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 14:30:33 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ <SRS0=bl7y=UB=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tVtbu-0000oN-Sv
+ for xen-devel@lists.xenproject.org; Thu, 09 Jan 2025 14:34:10 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47b1898e-ce96-11ef-99a4-01e77a169b0f;
- Thu, 09 Jan 2025 15:30:31 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-53f22fd6832so1054630e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 06:30:31 -0800 (PST)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5428be4a029sm213034e87.54.2025.01.09.06.30.29
+ id c939d6dd-ce96-11ef-99a4-01e77a169b0f;
+ Thu, 09 Jan 2025 15:34:09 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-38a34e8410bso577352f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jan 2025 06:34:09 -0800 (PST)
+Received: from localhost ([66.81.170.107]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a8e38c697sm2016678f8f.52.2025.01.09.06.34.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jan 2025 06:30:30 -0800 (PST)
+ Thu, 09 Jan 2025 06:34:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,226 +44,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47b1898e-ce96-11ef-99a4-01e77a169b0f
+X-Inumbo-ID: c939d6dd-ce96-11ef-99a4-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736433031; x=1737037831; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1736433248; x=1737038048; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8o3sLdrSQmSEZfwyq7x3Be1EQVU7A/CoBvMhpf1ArCI=;
-        b=eZgTTexm86URc36roisY6M5jn/DgtiSTXSFZEXpTeW0Gqg7USzXwaUG7yVbZb2bSaN
-         CXFGZ0lDNq2mbRPsgRJRu6a+Rk2kbpO0UAf/4oV7oxtvYlI1FfC1WFjz7LK+AikUjuyH
-         5f2zjo99/C9VGWARCiosAaBcZNk40p8TFWjZqKAhrcwDE9pz2z9jFM5h2yXL4IQchv30
-         a8Xrxp47Awj2vnYIamm7MrSfzmbZv6bzwczdrfrYYZloaNdXVSKD8vjWY99bPE00nqpb
-         7C9bqPN014Up88K6f2ojZ25b7kve+6pbrPWfTh0zVlHYmInJjC4Q5essvcT6Tokh3oHc
-         yc4w==
+        bh=5Nyd8o6ZDmZrvb09cL1RZmKteo2db8IAljcfguY7qSQ=;
+        b=jbCcx85AA4Lcokz+d1886Yx3nYm8Im8OQHiyZXfpO/99KZ4NivuJEIDk7BSlj/2+9m
+         Dgllw8JwZZ+1FGbG3ws7rPQy4xC+EvoJjtAuJuzVwFTjQa5wwkFf6T+zc0QbSwo2eVsQ
+         YxbbWPFZMpdkj8QEsSQafh0spsXCUBrr5GlI0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736433031; x=1737037831;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+        d=1e100.net; s=20230601; t=1736433248; x=1737038048;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=8o3sLdrSQmSEZfwyq7x3Be1EQVU7A/CoBvMhpf1ArCI=;
-        b=aE31p3jGjAudvSTJRQg3RwCH9v+s/S5dwU1Nyv7pN9n6ThxxrN9PSgvfFcyx3I3k/O
-         M65s+6I2s4ucEbDgLkaORpLAUKkMbJBo9YIVCpEHG/71Xgf271+9f7wu9Rv8jGpt+rbZ
-         BdAIbnDzbfsZTge6TgRy+N6Qe2XDte221Xq/f7FDkPzOWRZvZg58rXQWQ6VxvZ1YCEwE
-         0k1L3KGfzULxqSY4BUfzVxbkhehoLt44k6OjaOp1Nd1XLDA5nzZwaVleKEElSYoNBjNo
-         bc1daqabszbXhtq8EklPBV4Sp9oIJeHPuORbulXcrcLd3TuaTYmrCBQvBrLEmXXiYJ9u
-         Jquw==
-X-Forwarded-Encrypted: i=1; AJvYcCVmr68REJ3kk176GolFm5h6Kix+iMvyg7NQcaFyJ8nc1Y2QAv18ov/R5JMPGFElsr9zM+JG2YFSW+A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzRpFweKbOfwU6EUm2GmqPxPMQP+npnQ+vxJjlzy5Z2ZaadYEXE
-	ba884Ob3gpXU7VCJlvNbMFRXcmmL7RvdEJljlOxuKgpPQL6EfYPh
-X-Gm-Gg: ASbGncvM2yDRcHSkemBJ8Lymtk7laK9U9xpsuiid4CxbQtT0Mb2c6Q20q5E0xQjmx4P
-	SXbbmdW5fLqFxuIGaFxEszHM8+NN9lRKXH0te6BT8JSzheIzXfYKBVITIV5ITtD2anPnTjliSr1
-	oI12evSNgek3mxbEfeAQAuQQlJMqxOmgB7rQIk9ErH9/ij6cmnp8MhCsO/mY7NtvMjGPX5rtXKY
-	8lu9uNFsk2BIRCeatuCq1Z19N2RQGAejsh9THRKrgTGQphHi44M2GXCA8NtGMAdXXeWdg==
-X-Google-Smtp-Source: AGHT+IFHigQORXkLujkGRP2Ut+BSL155Fn5/j2ohvlUwLZAOkhNc7gwIK5Gr1lF3JxP32FeAwFyRDA==
-X-Received: by 2002:a05:6512:220b:b0:53e:389d:8ce6 with SMTP id 2adb3069b0e04-542845d1dbamr2181163e87.28.1736433030738;
-        Thu, 09 Jan 2025 06:30:30 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------XB0QNu0dROnMFJsesAT8yNW2"
-Message-ID: <4eea61a2-cf56-4ff5-8c43-58f5a20c9cb1@gmail.com>
-Date: Thu, 9 Jan 2025 15:30:28 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] x86: Add Support for Paging-Write Feature
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <cover.1735837806.git.w1benny@gmail.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <cover.1735837806.git.w1benny@gmail.com>
+        bh=5Nyd8o6ZDmZrvb09cL1RZmKteo2db8IAljcfguY7qSQ=;
+        b=NYMk+caq9iIAHBp4aDf9QOOFactwke5if3mxjDez2iLBDnKZmsbhFbao0kHrNNX8G3
+         BGJ/uGTag8hW9rGBaIBX5NEVBbyujTWu5+vYx1mKelwORZ6AQWbOJgoi2VB0T99XeKTH
+         skDg0RPyzUCag++wwXeT6x7B1jyxtpkZjskf2mHPU/W04XU+6K6hl4blqMEDCde0lArZ
+         Za0Sh0DNSnSYoVpPglfahfNLmcUFUXEiA8c1SHixAVUDfXxPLrf7617dfelWokfhAegS
+         49ZIPwlRJYnfzxOOCW6BPsO39nope3vrc7B74FAmMnrM3yjOhFLLiksENDJWflLpLEtv
+         n78g==
+X-Forwarded-Encrypted: i=1; AJvYcCXmGePZEwl6ptEMGJADcgRV3VZqGgn9Vv05lhJZtipJP9615R5r3YwC8+HCdwI3CSMyqwVmbV2wqaw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzStkxBnBn/IrbmdDwwEFZkRBQnp8KD14/BO1Wlud6HA6vFE0QH
+	bChanTTkp4tH/jx4zL5s6wLLqP5VYDID/ZdQ3ogEOC4JBYriXEuwkH8KuG78I5Y=
+X-Gm-Gg: ASbGncuee/RBlc3Es+zlmBURnmd/EOvY2dzbn2/4DT7e2ezlknCm2tZObMKnNi6cncR
+	gf87UiBpQRa9n/Yfe1Jrf5tz1Iboy2YmQTQE0yvMwXg/7bPwQ7I/0eP0CY4rZicjuRZcGtxLNxs
+	i9hYDC8SQ3viouGaOoD7rmf92XAieSxkQsmGIuXwO/2fQzR6GHme69/RrZj6NFtIf/LbhwQcHsv
+	yu9b3kNMj4ebe9bA3vFMFPU1xrJmmXda7IGFFigkp5bDXl6+YqJ7znYFNsi2UQ=
+X-Google-Smtp-Source: AGHT+IGrsj9gFvZbdFSfqAoftR5eWlus1YFDN0K1FzWTd0jQPThNxqDUpRWOm9wrPVllN86dIHmxlg==
+X-Received: by 2002:a05:6000:1f81:b0:386:1cd3:8a03 with SMTP id ffacd0b85a97d-38a872ec38fmr5884682f8f.32.1736433248261;
+        Thu, 09 Jan 2025 06:34:08 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 09 Jan 2025 14:34:05 +0000
+Message-Id: <D6XM7OP0SQPB.3U12X09JAPKU3@cloud.com>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 07/18] x86/pv: update guest LDT mappings using the
+ linear entries
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Roger Pau Monne" <roger.pau@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.18.2
+References: <20250108142659.99490-1-roger.pau@citrix.com>
+ <20250108142659.99490-8-roger.pau@citrix.com>
+In-Reply-To: <20250108142659.99490-8-roger.pau@citrix.com>
 
-This is a multi-part message in MIME format.
---------------XB0QNu0dROnMFJsesAT8yNW2
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 1/2/25 6:13 PM, Petr Beneš wrote:
-> From: Petr Beneš<w1benny@gmail.com>
+On Wed Jan 8, 2025 at 2:26 PM GMT, Roger Pau Monne wrote:
+> The pv_map_ldt_shadow_page() and pv_destroy_ldt() functions rely on the L=
+1
+> table(s) that contain such mappings being stashed in the domain structure=
+, and
+> thus such mappings being modified by merely updating the require L1 entri=
+es.
 >
-> Changes since v2:
-> - Reset entry->pw in all cases in p2m_set_entry, except for p2m_access_r_pw
+> Switch pv_map_ldt_shadow_page() to unconditionally use the linear recursi=
+ve, as
+> that logic is always called while the vCPU is running on the current pCPU=
+.
 >
-> Changes since v1:
-> - Added signed-off-by tags
+> For pv_destroy_ldt() use the linear mappings if the vCPU is the one curre=
+ntly
+> running on the pCPU, otherwise use destroy_mappings().
 >
-> This patch introduces a new XENMEM_access_r_pw permission. Functionally, it is similar to XENMEM_access_r, but for processors with TERTIARY_EXEC_EPT_PAGING_WRITE support (Intel 12th Gen/Alder Lake and later), it also permits the CPU to write to the page during guest page-table walks (e.g., updating A/D bits) without triggering an EPT violation.
+> Note this requires keeping an array with the pages currently mapped at th=
+e LDT
+> area, as that allows dropping the extra taken page reference when removin=
+g the
+> mappings.
 >
-> This behavior works by both enabling the EPT paging-write feature and setting the EPT paging-write flag in the EPT leaf entry.
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/include/asm/domain.h   |  2 ++
+>  xen/arch/x86/pv/descriptor-tables.c | 19 ++++++++++---------
+>  xen/arch/x86/pv/domain.c            |  4 ++++
+>  xen/arch/x86/pv/mm.c                |  3 ++-
+>  4 files changed, 18 insertions(+), 10 deletions(-)
 >
-> This feature provides a significant performance boost for introspection tools that monitor guest page-table updates. Previously, every page-table modification by the guest—including routine updates like setting A/D bits—triggered an EPT violation, adding unnecessary overhead. The new XENMEM_access_r_pw permission allows these "uninteresting" updates to occur without EPT violations, improving efficiency.
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm=
+/domain.h
+> index b79d6badd71c..b659cffc7f81 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -523,6 +523,8 @@ struct pv_vcpu
+>      struct trap_info *trap_ctxt;
+> =20
+>      unsigned long gdt_frames[FIRST_RESERVED_GDT_PAGE];
+> +    /* Max LDT entries is 8192, so 8192 * 8 =3D 64KiB (16 pages). */
+> +    mfn_t ldt_frames[16];
+>      unsigned long ldt_base;
+>      unsigned int gdt_ents, ldt_ents;
+> =20
+> diff --git a/xen/arch/x86/pv/descriptor-tables.c b/xen/arch/x86/pv/descri=
+ptor-tables.c
+> index 5a79f022ce13..95b598a4c0cf 100644
+> --- a/xen/arch/x86/pv/descriptor-tables.c
+> +++ b/xen/arch/x86/pv/descriptor-tables.c
+> @@ -20,28 +20,29 @@
+>   */
+>  bool pv_destroy_ldt(struct vcpu *v)
+>  {
+> -    l1_pgentry_t *pl1e;
+> +    const unsigned int nr_frames =3D ARRAY_SIZE(v->arch.pv.ldt_frames);
+>      unsigned int i, mappings_dropped =3D 0;
+> -    struct page_info *page;
+> =20
+>      ASSERT(!in_irq());
+> =20
+>      ASSERT(v =3D=3D current || !vcpu_cpu_dirty(v));
+> =20
+> -    pl1e =3D pv_ldt_ptes(v);
+> +    destroy_perdomain_mapping(v, LDT_VIRT_START(v), nr_frames);
+> =20
+> -    for ( i =3D 0; i < 16; i++ )
+> +    for ( i =3D 0; i < nr_frames; i++ )
 
-Considering that this feature provides a significant performance boost 
-for introspection tools probably we could consider to take it to current 
-release.
+nit: While at this, can the "unsigned int" be moved here too?
 
-I see that the patch series was acked-by "Acked-by: Tamas K Lengyel 
-<tamas@tklengyel.com>" but based on the change log it is not clear when 
-exactly
+>      {
+> -        if ( !(l1e_get_flags(pl1e[i]) & _PAGE_PRESENT) )
+> -            continue;
+> +        mfn_t mfn =3D v->arch.pv.ldt_frames[i];
+> +        struct page_info *page;
+> =20
+> -        page =3D l1e_get_page(pl1e[i]);
+> -        l1e_write(&pl1e[i], l1e_empty());
+> -        mappings_dropped++;
+> +        if ( mfn_eq(mfn, INVALID_MFN) )
+> +            continue;
 
-before Feature freeze date or not. ( and I don't see any reply from Tamas ).
+Can it really be disjoint? As in, why "continue" and not "break"?. Not that=
+ it
+matters in the slightest, and I prefer this form; but I'm curious.
 
-Thanks.
+> =20
+> +        v->arch.pv.ldt_frames[i] =3D INVALID_MFN;
+> +        page =3D mfn_to_page(mfn);
+>          ASSERT_PAGE_IS_TYPE(page, PGT_seg_desc_page);
+>          ASSERT_PAGE_IS_DOMAIN(page, v->domain);
+>          put_page_and_type(page);
+> +        mappings_dropped++;
+>      }
+> =20
+>      return mappings_dropped;
+> diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+> index 7e8bffaae9a0..32d7488cc186 100644
+> --- a/xen/arch/x86/pv/domain.c
+> +++ b/xen/arch/x86/pv/domain.c
+> @@ -303,6 +303,7 @@ void pv_vcpu_destroy(struct vcpu *v)
+>  int pv_vcpu_initialise(struct vcpu *v)
+>  {
+>      struct domain *d =3D v->domain;
+> +    unsigned int i;
+>      int rc;
+> =20
+>      ASSERT(!is_idle_domain(d));
+> @@ -311,6 +312,9 @@ int pv_vcpu_initialise(struct vcpu *v)
+>      if ( rc )
+>          return rc;
+> =20
+> +    for ( i =3D 0; i < ARRAY_SIZE(v->arch.pv.ldt_frames); i++ )
+> +        v->arch.pv.ldt_frames[i] =3D INVALID_MFN;
+> +
 
-~ Oleksii
+I think it makes more sense to move this earlier so ldt_frames[] is initial=
+ised
+even if pv_vcpu_initialise() fails. It may be benign, but it looks like an
+accident abount to happen.
 
->
-> Additionally, this feature simplifies the handling of race conditions in scenarios where an introspection tool:
->
-> - Sets an "invisible breakpoint" in the altp2m view for a function F
-> - Monitors guest page-table updates to track whether the page containing F is paged out
-> - Encounters a cleared Access (A) bit on the page containing F while the guest is about to execute the breakpoint
->
-> In the current implementation:
->
-> - If xc_monitor_inguest_pagefault() is enabled, the introspection tool must emulate both the breakpoint and the setting of the Access bit.
-> - If xc_monitor_inguest_pagefault() is disabled, Xen handles the EPT violation without notifying the introspection tool, setting the Access bit and emulating the instruction. However, Xen fetches the instruction from the default view instead of the altp2m view, potentially causing the breakpoint to be missed.
->
-> With this patch, setting XENMEM_access_r_pw for monitored guest page-tables prevents EPT violations in these cases. This change enhances performance and reduces complexity for introspection tools, ensuring seamless breakpoint handling while tracking guest page-table updates.
->
->
-> Petr Beneš (2):
->    x86: Rename _rsvd field to pw and move it to the bit 58
->    x86: Add Support for Paging-Write Feature
->
->   xen/arch/arm/mem_access.c               |  4 ++++
->   xen/arch/arm/mmu/p2m.c                  |  1 +
->   xen/arch/x86/hvm/hvm.c                  |  1 +
->   xen/arch/x86/hvm/monitor.c              |  1 +
->   xen/arch/x86/hvm/vmx/vmcs.c             |  4 +++-
->   xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  3 +++
->   xen/arch/x86/include/asm/hvm/vmx/vmx.h  |  4 ++--
->   xen/arch/x86/include/asm/p2m.h          |  1 +
->   xen/arch/x86/mm/hap/nested_hap.c        |  3 +++
->   xen/arch/x86/mm/mem_access.c            |  3 +++
->   xen/arch/x86/mm/p2m-ept.c               | 12 ++++++++++++
->   xen/include/public/memory.h             |  9 +++++++++
->   xen/include/xen/mem_access.h            |  6 ++++++
->   13 files changed, 49 insertions(+), 3 deletions(-)
->
---------------XB0QNu0dROnMFJsesAT8yNW2
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Also, nit: "unsigned int i"'s scope can be restricted to the loop itself.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/2/25 6:13 PM, Petr Beneš wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:cover.1735837806.git.w1benny@gmail.com">
-      <pre wrap="" class="moz-quote-pre">From: Petr Beneš <a class="moz-txt-link-rfc2396E" href="mailto:w1benny@gmail.com">&lt;w1benny@gmail.com&gt;</a></pre>
-    </blockquote>
-    <blockquote type="cite"
-      cite="mid:cover.1735837806.git.w1benny@gmail.com">
-      <pre wrap="" class="moz-quote-pre">
+  As in, "for ( unsigned int i =3D..."
 
-Changes since v2:
-- Reset entry-&gt;pw in all cases in p2m_set_entry, except for p2m_access_r_pw
+>      BUILD_BUG_ON(X86_NR_VECTORS * sizeof(*v->arch.pv.trap_ctxt) >
+>                   PAGE_SIZE);
+>      v->arch.pv.trap_ctxt =3D xzalloc_array(struct trap_info, X86_NR_VECT=
+ORS);
+> diff --git a/xen/arch/x86/pv/mm.c b/xen/arch/x86/pv/mm.c
+> index 187f5f6a3e8c..4853e619f2a7 100644
+> --- a/xen/arch/x86/pv/mm.c
+> +++ b/xen/arch/x86/pv/mm.c
+> @@ -86,7 +86,8 @@ bool pv_map_ldt_shadow_page(unsigned int offset)
+>          return false;
+>      }
+> =20
+> -    pl1e =3D &pv_ldt_ptes(curr)[offset >> PAGE_SHIFT];
+> +    curr->arch.pv.ldt_frames[offset >> PAGE_SHIFT] =3D page_to_mfn(page)=
+;
+> +    pl1e =3D &__linear_l1_table[l1_linear_offset(LDT_VIRT_START(curr) + =
+offset)];
+>      l1e_add_flags(gl1e, _PAGE_RW);
+> =20
+>      l1e_write(pl1e, gl1e);
 
-Changes since v1:
-- Added signed-off-by tags</pre>
-    </blockquote>
-    <blockquote type="cite"
-      cite="mid:cover.1735837806.git.w1benny@gmail.com">
-      <pre wrap="" class="moz-quote-pre">
-
-This patch introduces a new XENMEM_access_r_pw permission. Functionally, it is similar to XENMEM_access_r, but for processors with TERTIARY_EXEC_EPT_PAGING_WRITE support (Intel 12th Gen/Alder Lake and later), it also permits the CPU to write to the page during guest page-table walks (e.g., updating A/D bits) without triggering an EPT violation.
-
-This behavior works by both enabling the EPT paging-write feature and setting the EPT paging-write flag in the EPT leaf entry.
-
-This feature provides a significant performance boost for introspection tools that monitor guest page-table updates. Previously, every page-table modification by the guest—including routine updates like setting A/D bits—triggered an EPT violation, adding unnecessary overhead. The new XENMEM_access_r_pw permission allows these "uninteresting" updates to occur without EPT violations, improving efficiency.</pre>
-    </blockquote>
-    <pre><font face="monospace">Considering that this feature provides a significant performance boost for introspection tools probably we could consider to take it to current release.</font></pre>
-    <pre><font face="monospace">I see that the patch series was acked-by "<span
-    style="white-space: pre-wrap">Acked-by: Tamas K Lengyel <a
-    class="moz-txt-link-rfc2396E" href="mailto:tamas@tklengyel.com">&lt;tamas@tklengyel.com&gt;</a>" but based on the change log it is not clear when exactly</span></font></pre>
-    <pre><font face="monospace"><span style="white-space: pre-wrap">before Feature freeze date or not. ( and I don't see any reply from Tamas ).</span></font></pre>
-    <pre><font face="monospace"><span style="white-space: pre-wrap">
-
-
-Thanks.
-
-</span></font></pre>
-    <pre><font face="monospace">~ Oleksii</font>
-</pre>
-    <blockquote type="cite"
-      cite="mid:cover.1735837806.git.w1benny@gmail.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Additionally, this feature simplifies the handling of race conditions in scenarios where an introspection tool:
-
-- Sets an "invisible breakpoint" in the altp2m view for a function F
-- Monitors guest page-table updates to track whether the page containing F is paged out
-- Encounters a cleared Access (A) bit on the page containing F while the guest is about to execute the breakpoint
-
-In the current implementation:
-
-- If xc_monitor_inguest_pagefault() is enabled, the introspection tool must emulate both the breakpoint and the setting of the Access bit.
-- If xc_monitor_inguest_pagefault() is disabled, Xen handles the EPT violation without notifying the introspection tool, setting the Access bit and emulating the instruction. However, Xen fetches the instruction from the default view instead of the altp2m view, potentially causing the breakpoint to be missed.
-
-With this patch, setting XENMEM_access_r_pw for monitored guest page-tables prevents EPT violations in these cases. This change enhances performance and reduces complexity for introspection tools, ensuring seamless breakpoint handling while tracking guest page-table updates.
-
-
-Petr Beneš (2):
-  x86: Rename _rsvd field to pw and move it to the bit 58
-  x86: Add Support for Paging-Write Feature
-
- xen/arch/arm/mem_access.c               |  4 ++++
- xen/arch/arm/mmu/p2m.c                  |  1 +
- xen/arch/x86/hvm/hvm.c                  |  1 +
- xen/arch/x86/hvm/monitor.c              |  1 +
- xen/arch/x86/hvm/vmx/vmcs.c             |  4 +++-
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  3 +++
- xen/arch/x86/include/asm/hvm/vmx/vmx.h  |  4 ++--
- xen/arch/x86/include/asm/p2m.h          |  1 +
- xen/arch/x86/mm/hap/nested_hap.c        |  3 +++
- xen/arch/x86/mm/mem_access.c            |  3 +++
- xen/arch/x86/mm/p2m-ept.c               | 12 ++++++++++++
- xen/include/public/memory.h             |  9 +++++++++
- xen/include/xen/mem_access.h            |  6 ++++++
- 13 files changed, 49 insertions(+), 3 deletions(-)
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------XB0QNu0dROnMFJsesAT8yNW2--
+Cheers,
+Alejandro
 
